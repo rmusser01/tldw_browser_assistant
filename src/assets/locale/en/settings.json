@@ -40,7 +40,7 @@
         "label": "Generate Title using AI"
       },
       "ollamaStatus": {
-        "label": "Enable or disable Ollama connection status check"
+        "label": "Enable or disable server connection status check"
       },
       "wideMode": {
         "label": "Enable wide screen mode"
@@ -75,7 +75,25 @@
       },
       "removeReasoningTagFromCopy": {
         "label": "Remove Reasoning Tag from Copied Text" 
+      },
+      "promptSearchIncludeServer": {
+        "label": "Include server prompts in prompt search"
       }
+    },
+    "system": {
+      "heading": "System",
+      "uiMode": {
+        "label": "Default UI Mode",
+        "options": {
+          "webui": "Full Screen (Web UI)",
+          "sidePanel": "Sidebar"
+        }
+      },
+      "actionIcon": { "label": "Browser Action Button" },
+      "contextMenu": { "label": "Context Menu Action" },
+      "webuiBtnSidePanel": { "label": "Show Web UI button in Sidepanel" },
+      "chatBackgroundImage": { "label": "Chat Background Image" },
+      "firefoxPrivateModeSync": { "label": "Firefox Private Mode Sync", "button": "Sync Data" }
     },
     "sidepanelRag": {
       "heading": "Retrieval Settings",
@@ -345,19 +363,19 @@
     }
   },
   "ollamaSettings": {
-    "title": "Ollama Settings",
-    "heading": "Configure Ollama",
+    "title": "Server Integration",
+    "heading": "Configure Server Integration",
     "settings": {
       "ollamaUrl": {
-        "label": "Ollama URL",
-        "placeholder": "Enter Ollama URL"
+        "label": "Server URL",
+        "placeholder": "Enter Server URL"
       },
       "globalEnable": {
-        "label": "Enable or Disable Ollama Integration Globally",
-        "warning": "By disabling Ollama integration globally, Page Assist won't fetch models from Ollama. You can still add Ollama instance from the <anchor>OpenAI compatible API</anchor> section which will work fine."
+        "label": "Enable or Disable Server Integration Globally",
+        "warning": "By disabling the server integration globally, Page Assist won't fetch models from the server. You can still add providers from the <anchor>OpenAI compatible API</anchor> section if needed."
       },
       "advanced": {
-        "label": "Advance Ollama URL Configuration",
+        "label": "Advanced Server URL Configuration",
         "urlRewriteEnabled": {
           "label": "Enable or Disable Custom Origin URL"
         },
@@ -366,7 +384,7 @@
           "placeholder": "Enter Custom Origin URL"
         },
         "autoCORSFix": {
-          "label": "Enable or Disable Automatic Ollama CORS Fix"
+          "label": "Enable or Disable Automatic CORS Fix"
         },
         "headers": {
           "label": "Custom Headers",
@@ -380,7 +398,7 @@
             "placeholder": "Bearer token"
           }
         },
-        "help": "If you have connection issues with Ollama on Page Assist, you can configure a custom origin URL. To learn more about the configuration, <anchor>click here</anchor>."
+        "help": "If you have connection issues with the server, you can configure a custom origin URL. To learn more about the configuration, <anchor>click here</anchor>."
       }
     }
   },
@@ -392,7 +410,7 @@
     "title": "About",
     "heading": "About",
     "chromeVersion": "Page Assist Version",
-    "ollamaVersion": "Ollama Version",
+    "ollamaVersion": "Server Version",
     "support": "You can support the Page Assist project by donating or sponsoring through the following platforms:",
     "koFi": "Support on Ko-fi",
     "githubSponsor": "Sponsor on GitHub",
@@ -461,5 +479,55 @@
   "chromeAiSettings": {
     "title": "Chrome AI Settings"
   },
-  "mermaid": "Mermaid"
+  "mermaid": "Mermaid",
+  "onboarding": {
+    "title": "Welcome — Let’s get you connected",
+    "description": "Configure your server and authentication. We’ll verify the connection and RAG health inline.",
+    "serverUrl": {
+      "label": "Server URL",
+      "placeholder": "http://localhost:8000",
+      "help": "Example: http://127.0.0.1:8000"
+    },
+    "authMode": {
+      "label": "Authentication Mode",
+      "single": "Single User (API Key)",
+      "multi": "Multi User (Login)"
+    },
+    "apiKey": { "label": "API Key", "placeholder": "Enter your API key" },
+    "username": { "label": "Username", "placeholder": "Username" },
+    "password": { "label": "Password", "placeholder": "Password" },
+    "buttons": {
+      "next": "Next",
+      "back": "Back",
+      "continue": "Continue",
+      "recheck": "Recheck",
+      "finish": "Finish",
+      "skip": "Skip for now"
+    },
+    "connection": {
+      "label": "Connection:",
+      "unknown": "Unknown",
+      "connected": "Connected",
+      "failed": "Failed"
+    },
+    "rag": {
+      "label": "RAG:",
+      "healthy": "Healthy",
+      "unhealthy": "Unhealthy",
+      "unknown": "Unknown"
+    },
+    "connectionFailed": "Connection failed"
+  },
+  "tldw": {
+    "advancedTimeouts": "Advanced Timeouts",
+    "requestTimeout": "Request Timeout (seconds)",
+    "streamingIdle": "Streaming Idle Timeout (seconds)",
+    "chatRequest": "Chat Request Timeout",
+    "chatStreamIdle": "Chat Stream Idle",
+    "ragRequest": "RAG Request Timeout",
+    "mediaRequest": "Media Request Timeout",
+    "uploadRequest": "Upload Request Timeout",
+    "reset": "Reset to recommended",
+    "resetDone": "Reset to recommended defaults"
+  }
 }

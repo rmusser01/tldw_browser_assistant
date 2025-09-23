@@ -17,9 +17,11 @@ import { PageAssistDatabase } from "@/db/dexie/chat"
 import { useMigration } from "../../hooks/useMigration"
 
 export default function OptionLayout({
-  children
+  children,
+  hideHeader = false
 }: {
   children: React.ReactNode
+  hideHeader?: boolean
 }) {
   const [sidebarOpen, setSidebarOpen] = useState(false)
   const { t } = useTranslation(["option", "common", "settings"])
@@ -52,26 +54,39 @@ export default function OptionLayout({
   return (
     <div className="flex h-full w-full">
       <main className="relative h-dvh w-full">
-        <div className="relative z-20 w-full">
-          <Header
-            setSidebarOpen={setSidebarOpen}
-            setOpenModelSettings={setOpenModelSettings}
-          />
-        </div>
+        {!hideHeader && (
+          <div className="relative z-20 w-full">
+            <Header
+              setSidebarOpen={setSidebarOpen}
+              setOpenModelSettings={setOpenModelSettings}
+            />
+          </div>
+        )}
         {/* <div className="relative flex h-full flex-col items-center"> */}
         {children}
         {/* </div> */}
+        {!hideHeader && (
         <Drawer
           title={
             <div className="flex items-center justify-between">
-              {t("sidebarTitle")}
+              <div className="flex items-center gap-2">
+                <button
+                  onClick={() => setSidebarOpen(false)}
+                  aria-label="Close sidebar"
+                  title="Close sidebar"
+                  className="-ml-1"
+                >
+                  <XIcon className="h-5 w-5 text-gray-500 dark:text-gray-400" />
+                </button>
+                <span>{t("sidebarTitle")}</span>
+              </div>
 
               <div className="flex items-center space-x-3">
                 <Tooltip
                   title={t(
                     "settings:generalSettings.system.deleteChatHistory.label"
                   )}
-                  placement="right">
+                  placement="left">
                   <button
                     onClick={async () => {
                       const confirm = window.confirm(
@@ -93,11 +108,6 @@ export default function OptionLayout({
                     <EraserIcon className="size-5" />
                   </button>
                 </Tooltip>
-                <button
-                  onClick={() => setSidebarOpen(false)}
-                  className="md:hidden">
-                  <XIcon className="h-5 w-5 text-gray-500 dark:text-gray-400" />
-                </button>
               </div>
             </div>
           }
@@ -121,13 +131,16 @@ export default function OptionLayout({
             setContext={setContextFiles}
           />
         </Drawer>
+        )}
 
-        <CurrentChatModelSettings
-          open={openModelSettings}
-          setOpen={setOpenModelSettings}
-          useDrawer
-          isOCREnabled={useOCR} 
-        />
+        {!hideHeader && (
+          <CurrentChatModelSettings
+            open={openModelSettings}
+            setOpen={setOpenModelSettings}
+            useDrawer
+            isOCREnabled={useOCR}
+          />
+        )}
       </main>
     </div>
   )

@@ -1,8 +1,5 @@
 import { cleanUrl } from "~/libs/clean-url"
-import {
-  getOllamaURL,
-  systemPromptForNonRagOption
-} from "~/services/ollama"
+import { systemPromptForNonRagOption } from "~/services/ollama"
 import { type ChatHistory, type Message } from "~/store/option"
 import { generateID, getPromptById } from "@/db/dexie/helpers"
 import { generateHistory } from "@/utils/generate-history"
@@ -56,7 +53,6 @@ export const normalChatMode = async (
   }
 ) => {
   console.log("Using normalChatMode")
-  const url = await getOllamaURL()
   let promptId: string | undefined = selectedSystemPrompt
   let promptContent: string | undefined = undefined
 
@@ -64,10 +60,7 @@ export const normalChatMode = async (
     image = `data:image/jpeg;base64,${image.split(",")[1]}`
   }
 
-  const ollama = await pageAssistModel({
-    model: selectedModel!,
-    baseUrl: cleanUrl(url)
-  })
+  const ollama = await pageAssistModel({ model: selectedModel!, baseUrl: "" })
 
   let newMessage: Message[] = []
   let generateMessageId = generateID()
@@ -209,6 +202,7 @@ export const normalChatMode = async (
     let apiReasoning: boolean = false
 
     for await (const chunk of chunks) {
+      const token = typeof chunk === 'string' ? chunk : (chunk?.content ?? (chunk?.choices?.[0]?.delta?.content ?? ''))
       if (chunk?.additional_kwargs?.reasoning_content) {
         const reasoningContent = mergeReasoningContent(
           fullText,
@@ -225,8 +219,10 @@ export const normalChatMode = async (
         }
       }
 
-      contentToSave += chunk?.content
-      fullText += chunk?.content
+      if (token) {
+        contentToSave += token
+        fullText += token
+      }
 
       if (isReasoningStarted(fullText) && !reasoningStartTime) {
         reasoningStartTime = new Date()

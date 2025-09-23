@@ -8,7 +8,6 @@ const chromeMV3Permissions = [
   "activeTab",
   "scripting",
   "declarativeNetRequest",
-  "action",
   "unlimitedStorage",
   "contextMenus",
   "tts",
@@ -39,6 +38,10 @@ export default defineConfig({
         promiseImportName: (i) => `__tla_${i}`
       }) as any
     ],
+    // Disable Hot Module Replacement so streaming connections aren't killed by dev reloads
+    server: {
+      hmr: false
+    },
     build: {
       rollupOptions: {
         external: ["langchain", "@langchain/community"]
@@ -50,27 +53,36 @@ export default defineConfig({
   srcDir: "src",
   outDir: "build",
 
-  manifest: {
-    version: "1.5.30",
+  manifest: ({
+    version: "0.1.0",
     name:
       process.env.TARGET === "firefox"
-        ? "Page Assist - A Web UI for Local AI Models"
+        ? "tldw Assistant - Browser Extension for tldw_server"
         : "__MSG_extName__",
     description: "__MSG_extDescription__",
     default_locale: "en",
     action: {},
-    author: "n4ze3m",
+    author: "tldw-team",
     browser_specific_settings:
       process.env.TARGET === "firefox"
         ? {
           gecko: {
-            id: "page-assist@nazeem"
+            id: "tldw-assistant@tldw"
           }
         }
         : undefined,
+    // During development, grant localhost origins by default so background can fetch without prompts
     host_permissions:
+      process.env.TARGET !== "firefox" && process.env.NODE_ENV === 'development'
+        ? [
+            "http://127.0.0.1/*",
+            "http://localhost/*"
+          ]
+        : undefined,
+    // Use optional host permissions on Chromium so users can grant their own server origin at runtime
+    optional_host_permissions:
       process.env.TARGET !== "firefox"
-        ? ["http://*/*", "https://*/*", "file://*/*"]
+        ? ["http://*/*", "https://*/*"]
         : undefined,
     commands: {
       _execute_action: {
@@ -90,11 +102,13 @@ export default defineConfig({
       process.env.TARGET !== "firefox" ?
         {
           extension_pages:
-            "script-src 'self' 'wasm-unsafe-eval'; object-src 'self';"
+            process.env.NODE_ENV === 'development' 
+              ? "script-src 'self' 'wasm-unsafe-eval' http://localhost:3000 http://localhost:3001; object-src 'self';"
+              : "script-src 'self' 'wasm-unsafe-eval'; object-src 'self';"
         } :  "script-src 'self' 'wasm-unsafe-eval' blob:; object-src 'self'; worker-src 'self' blob:;",
     permissions:
       process.env.TARGET === "firefox"
         ? firefoxMV2Permissions
         : chromeMV3Permissions
-  }
+  } as any)
 }) as any

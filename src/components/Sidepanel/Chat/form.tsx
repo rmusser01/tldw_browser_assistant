@@ -4,7 +4,7 @@ import React from "react"
 import useDynamicTextareaSize from "~/hooks/useDynamicTextareaSize"
 import { useMessage } from "~/hooks/useMessage"
 import { toBase64 } from "~/libs/to-base64"
-import { Checkbox, Dropdown, Image, Switch, Tooltip } from "antd"
+import { Checkbox, Dropdown, Image, Switch, Tooltip, notification } from "antd"
 import { useWebUI } from "~/store/webui"
 import { defaultEmbeddingModelForRag } from "~/services/ollama"
 import {
@@ -13,16 +13,26 @@ import {
   StopCircleIcon,
   X,
   EyeIcon,
-  EyeOffIcon
+  EyeOffIcon,
+  Gauge,
+  UploadCloud
 } from "lucide-react"
 import { useTranslation } from "react-i18next"
+import { getVariable } from "@/utils/select-variable"
 import { ModelSelect } from "@/components/Common/ModelSelect"
 import { useSpeechRecognition } from "@/hooks/useSpeechRecognition"
+import { useTldwStt } from "@/hooks/useTldwStt"
+import { useMicStream } from "@/hooks/useMicStream"
 import { PiGlobeX, PiGlobe } from "react-icons/pi"
+import { BsIncognito } from "react-icons/bs"
 import { handleChatInputKeyDown } from "@/utils/key-down"
 import { getIsSimpleInternetSearch } from "@/services/search"
 import { useStorage } from "@plasmohq/storage/hook"
+import { isFireFoxPrivateMode } from "@/utils/is-private-mode"
 import { useFocusShortcuts } from "@/hooks/keyboard"
+import { RagSearchBar } from "@/components/Sidepanel/Chat/RagSearchBar"
+import { CurrentChatModelSettings } from "@/components/Common/Settings/CurrentChatModelSettings"
+import QuickIngestModal from "@/components/Common/QuickIngestModal"
 
 type Props = {
   dropedFile: File | undefined
@@ -33,7 +43,7 @@ export const SidepanelForm = ({ dropedFile }: Props) => {
   const inputRef = React.useRef<HTMLInputElement>(null)
   const { sendWhenEnter, setSendWhenEnter } = useWebUI()
   const [typing, setTyping] = React.useState<boolean>(false)
-  const { t } = useTranslation(["playground", "common"])
+  const { t } = useTranslation(["playground", "common", "option"])
   const [chatWithWebsiteEmbedding] = useStorage(
     "chatWithWebsiteEmbedding",
     false
@@ -58,6 +68,14 @@ export const SidepanelForm = ({ dropedFile }: Props) => {
       stopSpeechRecognition()
     }
   }
+
+  // tldw WS STT
+  const { connect: sttConnect, sendAudio, close: sttClose, connected: sttConnected } = useTldwStt()
+  const { start: micStart, stop: micStop, active: micActive } = useMicStream((chunk) => {
+    try { sendAudio(chunk) } catch {}
+  })
+  const [wsSttActive, setWsSttActive] = React.useState(false)
+  const [ingestOpen, setIngestOpen] = React.useState(false)
 
   const onInputChange = async (
     e: React.ChangeEvent<HTMLInputElement> | File
@@ -147,8 +165,13 @@ export const SidepanelForm = ({ dropedFile }: Props) => {
     setUseOCR,
     defaultInternetSearchOn,
     defaultChatWithWebsite,
-    temporaryChat
+    temporaryChat,
+    setTemporaryChat,
+    messages,
+    clearChat
   } = useMessage()
+
+  const [openModelSettings, setOpenModelSettings] = React.useState(false)
 
   React.useEffect(() => {
     if (dropedFile) {
@@ -236,7 +259,7 @@ export const SidepanelForm = ({ dropedFile }: Props) => {
         <div className="relative flex w-full flex-row justify-center gap-2 lg:w-4/5">
           <div
             data-istemporary-chat={temporaryChat}
-            className={` bg-neutral-50  dark:bg-[#262626] relative w-full max-w-[48rem] p-1 backdrop-blur-lg duration-100 border border-gray-300 rounded-t-xl  dark:border-gray-600 data-[istemporary-chat='true']:bg-gray-200 data-[istemporary-chat='true']:dark:bg-black`}>
+            className={` bg-neutral-50  dark:bg-[#262626] relative w-full max-w-[48rem] p-1 backdrop-blur-lg duration-100 border border-gray-300 rounded-t-xl  dark:border-gray-600 data-[istemporary-chat='true']:bg-purple-900 data-[istemporary-chat='true']:dark:bg-purple-900`}>
             <div
               className={`border-b border-gray-200 dark:border-gray-600 relative ${
                 form.values.image.length === 0 ? "hidden" : "block"
@@ -311,6 +334,46 @@ export const SidepanelForm = ({ dropedFile }: Props) => {
                     onChange={onInputChange}
                   />
                   <div className="w-full  flex flex-col px-1">
+                    {/* RAG Search Bar: search KB, insert snippets, ask directly */}
+                    <RagSearchBar
+                      onInsert={(text) => {
+                        const current = form.values.message || ""
+                        const next = current ? `${current}\n\n${text}` : text
+                        form.setFieldValue("message", next)
+                        // Focus textarea for quick edits
+                        textareaRef.current?.focus()
+                      }}
+                      onAsk={async (text) => {
+                        // Set message and submit immediately
+                        form.setFieldValue("message", text)
+                        // Mimic Enter submit flow
+                        const value = { ...form.values, message: text }
+                        // Reuse the same checks as handleKeyDown/form submit
+                        if (!selectedModel || selectedModel.length === 0) {
+                          form.setFieldError("message", t("formError.noModel"))
+                          return
+                        }
+                        if (chatMode === "rag") {
+                          const defaultEM = await defaultEmbeddingModelForRag()
+                          if (!defaultEM && chatWithWebsiteEmbedding) {
+                            form.setFieldError("message", t("formError.noEmbeddingModel"))
+                            return
+                          }
+                        }
+                        if (webSearch) {
+                          const defaultEM = await defaultEmbeddingModelForRag()
+                          const simpleSearch = await getIsSimpleInternetSearch()
+                          if (!defaultEM && !simpleSearch) {
+                            form.setFieldError("message", t("formError.noEmbeddingModel"))
+                            return
+                          }
+                        }
+                        await stopListening()
+                        form.reset()
+                        textAreaFocus()
+                        await sendMessage({ image: "", message: value.message.trim() })
+                      }}
+                    />
                     <textarea
                       onKeyDown={(e) => handleKeyDown(e)}
                       ref={textareaRef}
@@ -332,7 +395,53 @@ export const SidepanelForm = ({ dropedFile }: Props) => {
                       placeholder={t("form.textarea.placeholder")}
                       {...form.getInputProps("message")}
                     />
-                    <div className="flex mt-4 justify-end gap-3">
+                    <div className="flex mt-4 justify-end gap-3 items-center">
+                      {/* Private/Temporary chat toggle (left of web search) */}
+                      <div className="flex items-center gap-1">
+                        <Tooltip title={t("option:temporaryChat")}>
+                          <Switch
+                            size="small"
+                            checked={temporaryChat}
+                            onChange={() => {
+                              if (isFireFoxPrivateMode) {
+                                notification.error({
+                                  message: "Error",
+                                  description:
+                                    "Page Assist can't save chat in Firefox Private Mode. Temporary chat is enabled by default. More fixes coming soon."
+                                })
+                                return
+                              }
+                              setTemporaryChat(!temporaryChat)
+                              if (messages.length > 0) {
+                                clearChat()
+                              }
+                            }}
+                          />
+                        </Tooltip>
+                        <Tooltip title={t("option:temporaryChat")}>
+                          <button
+                            type="button"
+                            aria-pressed={temporaryChat}
+                            data-istemporary-chat={temporaryChat}
+                            onClick={() => {
+                              if (isFireFoxPrivateMode) {
+                                notification.error({
+                                  message: "Error",
+                                  description:
+                                    "Page Assist can't save chat in Firefox Private Mode. Temporary chat is enabled by default. More fixes coming soon."
+                                })
+                                return
+                              }
+                              setTemporaryChat(!temporaryChat)
+                              if (messages.length > 0) {
+                                clearChat()
+                              }
+                            }}
+                            className="inline-flex items-center rounded-md p-1 text-gray-600 dark:text-gray-300 data-[istemporary-chat='true']:bg-purple-900 data-[istemporary-chat='true']:text-white">
+                            <BsIncognito className="h-4 w-4" />
+                          </button>
+                        </Tooltip>
+                      </div>
                       {chatMode !== "vision" && (
                         <Tooltip title={t("tooltip.searchInternet")}>
                           <button
@@ -377,6 +486,25 @@ export const SidepanelForm = ({ dropedFile }: Props) => {
                           </button>
                         </Tooltip>
                       )}
+                      {/* tldw WS STT toggle */}
+                      <Tooltip title="Live transcription via tldw_server">
+                        <button
+                          type="button"
+                          onClick={async () => {
+                            if (wsSttActive) {
+                              try { micStop() } catch {}
+                              try { sttClose() } catch {}
+                              setWsSttActive(false)
+                            } else {
+                              sttConnect()
+                              await micStart()
+                              setWsSttActive(true)
+                            }
+                          }}
+                          className={`flex items-center justify-center ${wsSttActive ? 'text-red-500' : 'dark:text-gray-300'}`}>
+                          <MicIcon className="h-4 w-4" />
+                        </button>
+                      </Tooltip>
                       <Tooltip title={t("tooltip.vision")}>
                         <button
                           type="button"
@@ -411,7 +539,17 @@ export const SidepanelForm = ({ dropedFile }: Props) => {
                           <ImageIcon className="h-4 w-4" />
                         </button>
                       </Tooltip>
+                      {/* Quick ingest media (opens full ingest modal) */}
+                      <Tooltip title="Quick ingest media">
+                        <button
+                          type="button"
+                          onClick={() => setIngestOpen(true)}
+                          className="flex items-center justify-center dark:text-gray-300">
+                          <UploadCloud className="h-4 w-4" />
+                        </button>
+                      </Tooltip>
                       {!streaming ? (
+                        <>
                         <Dropdown.Button
                           htmlType="submit"
                           disabled={isSending}
@@ -491,6 +629,16 @@ export const SidepanelForm = ({ dropedFile }: Props) => {
                             {t("common:submit")}
                           </div>
                         </Dropdown.Button>
+                        {/* Current Conversation Settings button to the right of submit */}
+                        <Tooltip title={t("common:currentChatModelSettings") as string}>
+                          <button
+                            type="button"
+                            onClick={() => setOpenModelSettings(true)}
+                            className="text-gray-700 dark:text-gray-300 p-1 hover:text-gray-900 dark:hover:text-gray-100">
+                            <Gauge className="h-5 w-5" />
+                          </button>
+                        </Tooltip>
+                        </>
                       ) : (
                         <Tooltip title={t("tooltip.stopStreaming")}>
                           <button
@@ -498,6 +646,16 @@ export const SidepanelForm = ({ dropedFile }: Props) => {
                             onClick={stopStreamingRequest}
                             className="text-gray-800 dark:text-gray-300 border border-gray-300 dark:border-gray-600 rounded-md p-1">
                             <StopCircleIcon className="h-5 w-5" />
+                          </button>
+                        </Tooltip>
+                      )}
+                      {streaming && (
+                        <Tooltip title={t("common:currentChatModelSettings") as string}>
+                          <button
+                            type="button"
+                            onClick={() => setOpenModelSettings(true)}
+                            className="text-gray-800 dark:text-gray-300 border border-gray-300 dark:border-gray-600 rounded-md p-1">
+                            <Gauge className="h-5 w-5" />
                           </button>
                         </Tooltip>
                       )}
@@ -514,6 +672,14 @@ export const SidepanelForm = ({ dropedFile }: Props) => {
           </div>
         </div>
       </div>
+      {/* Modal/Drawer for current conversation settings */}
+      <CurrentChatModelSettings
+        open={openModelSettings}
+        setOpen={setOpenModelSettings}
+        isOCREnabled={useOCR}
+      />
+      {/* Quick ingest modal */}
+      <QuickIngestModal open={ingestOpen} onClose={() => setIngestOpen(false)} />
     </div>
   )
 }

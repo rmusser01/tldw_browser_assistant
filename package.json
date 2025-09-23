@@ -1,9 +1,9 @@
 {
-  "name": "pageassist",
-  "displayName": "Page Assist - A Web UI for Local AI Models",
-  "version": "1.0.9",
-  "description": "Use your locally running AI models to assist you in your web browsing.",
-  "author": "n4ze3m",
+  "name": "tldw-assistant",
+  "displayName": "tldw Assistant - Browser Extension for tldw_server",
+  "version": "0.1.0",
+  "description": "A browser extension frontend for tldw_server - your unified AI assistant with RAG, media processing, and more.",
+  "author": "tldw-team",
   "scripts": {
     "dev": "cross-env TARGET=chrome wxt",
     "dev:firefox": "cross-env TARGET=firefox wxt -b firefox",
@@ -15,10 +15,13 @@
     "zip": "cross-env TARGET=chrome wxt zip",
     "zip:firefox": "cross-env TARGET=firefox wxt zip -b firefox",
     "compile": "tsc --noEmit",
+    "verify:openapi": "tsc --noEmit",
     "docs:dev": "vitepress dev docs",
     "docs:build": "vitepress build docs",
     "docs:preview": "vitepress preview docs",
-    "postinstall": "wxt prepare"
+    "postinstall": "wxt prepare",
+    "test:e2e": "playwright test",
+    "test:e2e:ui": "playwright test --ui"
   },
   "dependencies": {
     "@ant-design/cssinjs": "^1.18.4",
@@ -78,6 +81,7 @@
   },
   "devDependencies": {
     "@plasmohq/prettier-plugin-sort-imports": "4.0.1",
+    "@playwright/test": "^1.55.0",
     "@types/chrome": "^0.0.280",
     "@types/d3-dsv": "^3.0.7",
     "@types/html-to-text": "^9.0.4",
