@@ -1,4 +1,15 @@
 {
+  "navigation": {
+    "serverAndAuth": "Server & Auth",
+    "knowledgeTools": "Knowledge Tools",
+    "workspace": "Workspace",
+    "about": "About"
+  },
+  "healthNav": "Health",
+  "worldBooksNav": "World Books",
+  "chatDictionariesNav": "Chat Dictionaries",
+  "charactersNav": "Characters",
+  "mediaNav": "Media",
   "generalSettings": {
     "title": "General Settings",
     "settings": {
@@ -270,6 +281,22 @@
     "option1": "Normal",
     "option2": "RAG",
     "questionPrompt": "Question Prompt",
+    "search": "Search prompts...",
+    "filter": {
+      "all": "All",
+      "system": "System",
+      "quick": "Quick"
+    },
+    "tags": {
+      "label": "Tags",
+      "placeholder": "Add tags"
+    },
+    "import": "Import",
+    "export": "Export",
+    "importMode": {
+      "merge": "Merge",
+      "replace": "Replace"
+    },
     "segmented": {
       "custom": "Custom Prompts",
       "copilot": "Copilot Prompts"
@@ -284,11 +311,14 @@
     "quickPrompt": "Quick Prompt",
     "tooltip": {
       "delete": "Delete Prompt",
-      "edit": "Edit Prompt"
+      "edit": "Edit Prompt",
+      "duplicate": "Duplicate Prompt"
     },
     "confirm": {
       "delete": "Are you sure you want to delete this prompt? This action cannot be undone."
     },
+    "favorite": "Favorite",
+    "unfavorite": "Unfavorite",
     "modal": {
       "addTitle": "Add New Prompt",
       "editTitle": "Edit Prompt"
@@ -486,7 +516,14 @@
     "serverUrl": {
       "label": "Server URL",
       "placeholder": "http://localhost:8000",
-      "help": "Example: http://127.0.0.1:8000"
+      "help": "Example: http://127.0.0.1:8000",
+      "emptyHint": "Enter your tldw server URL to enable Next.",
+      "invalid": "Enter a full URL such as http://127.0.0.1:8000.",
+      "invalidProtocol": "Use http or https URLs, for example http://127.0.0.1:8000.",
+      "ready": "We’ll enable Next once we can reach this address.",
+      "checking": "Checking reachability…",
+      "reachable": "Server responded successfully. You can continue.",
+      "unreachable": "We couldn’t reach this address yet. Double-check the URL or try again."
     },
     "authMode": {
       "label": "Authentication Mode",
@@ -502,13 +539,15 @@
       "continue": "Continue",
       "recheck": "Recheck",
       "finish": "Finish",
+      "finishAnyway": "Finish without connecting",
       "skip": "Skip for now"
     },
     "connection": {
       "label": "Connection:",
       "unknown": "Unknown",
       "connected": "Connected",
-      "failed": "Failed"
+      "failed": "Failed",
+      "continueAnyway": "You can continue and complete setup now. You’ll be able to verify the connection later from Settings."
     },
     "rag": {
       "label": "RAG:",
@@ -516,7 +555,8 @@
       "unhealthy": "Unhealthy",
       "unknown": "Unknown"
     },
-    "connectionFailed": "Connection failed"
+    "connectionFailed": "Connection failed",
+    "footerHelp": "Once connected, you can revisit these settings anytime from the extension menu."
   },
   "tldw": {
     "advancedTimeouts": "Advanced Timeouts",
@@ -527,7 +567,13 @@
     "ragRequest": "RAG Request Timeout",
     "mediaRequest": "Media Request Timeout",
     "uploadRequest": "Upload Request Timeout",
+    "timeoutPresetLabel": "Timeout profile",
+    "timeoutPresetBalanced": "Balanced",
+    "timeoutPresetExtended": "Extended",
+    "timeoutPresetCustom": "Custom",
+    "timeoutPresetHint": "Balanced works well for most setups. Extended adds extra headroom for slower networks or long-running jobs.",
     "reset": "Reset to recommended",
-    "resetDone": "Reset to recommended defaults"
+    "resetDone": "Reset to recommended defaults",
+    "serverNav": "tldw Server"
   }
 }

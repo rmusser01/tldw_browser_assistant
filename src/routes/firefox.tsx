@@ -17,7 +17,14 @@ const OptionAbout = lazy(() => import("./option-settings-about"))
 const OptionRagSettings = lazy(() => import("./option-rag"))
 const OptionOpenAI = lazy(() => import("./option-settings-openai"))
 const OptionReview = lazy(() => import("./option-review"))
+const OptionMedia = lazy(() => import("./option-media"))
+const OptionMediaMulti = lazy(() => import("./option-media-multi"))
+const OptionNotes = lazy(() => import("./option-notes"))
+const OptionCharacters = lazy(() => import("./option-settings-characters"))
+const OptionWorldBooks = lazy(() => import("./option-settings-world-books"))
+const OptionDictionaries = lazy(() => import("./option-settings-dictionaries"))
 const OptionTldwSettings = lazy(() => import("./option-settings-tldw").then(m => ({ default: m.OptionTldwSettings })))
+const OptionFlashcards = lazy(() => import("./option-flashcards"))
 
 export const OptionRoutingFirefox = () => {
   return (
@@ -33,9 +40,16 @@ export const OptionRoutingFirefox = () => {
       <Route path="/settings/processed" element={<OptionProcessed />} />
       <Route path="/settings/health" element={<OptionHealth />} />
       <Route path="/settings/knowledge" element={<OptionKnowledgeBase />} />
+      <Route path="/settings/characters" element={<OptionCharacters />} />
+      <Route path="/settings/world-books" element={<OptionWorldBooks />} />
+      <Route path="/settings/chat-dictionaries" element={<OptionDictionaries />} />
       <Route path="/settings/about" element={<OptionAbout />} />
       <Route path="/settings/rag" element={<OptionRagSettings />} />
       <Route path="/review" element={<OptionReview />} />
+      <Route path="/flashcards" element={<OptionFlashcards />} />
+      <Route path="/media" element={<OptionMedia />} />
+      <Route path="/media-multi" element={<OptionMediaMulti />} />
+      <Route path="/notes" element={<OptionNotes />} />
     </Routes>
   )
 }
