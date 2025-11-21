@@ -1,6 +1,7 @@
 import { useDarkMode } from "~/hooks/useDarkmode"
 import { Select, Switch } from "antd"
 import { MoonIcon, SunIcon } from "lucide-react"
+import { useNavigate } from "react-router-dom"
 import { SearchModeSettings } from "./search-mode"
 import { useTranslation } from "react-i18next"
 import { useI18n } from "@/hooks/useI18n"
@@ -10,6 +11,8 @@ import { SystemSettings } from "./system-settings"
 import { SSTSettings } from "./sst-settings"
 import { BetaTag } from "@/components/Common/Beta"
 import { getDefaultOcrLanguage, ocrLanguages } from "@/data/ocr-language"
+import { useServerOnline } from "@/hooks/useServerOnline"
+import FeatureEmptyState from "@/components/Common/FeatureEmptyState"
 
 export const GeneralSettings = () => {
   const [userChatBubble, setUserChatBubble] = useStorage("userChatBubble", true)
@@ -38,6 +41,12 @@ export const GeneralSettings = () => {
     false
   )
 
+  // Persisted preference: auto-finish onboarding when connection & RAG are healthy
+  const [onboardingAutoFinish, setOnboardingAutoFinish] = useStorage(
+    "onboardingAutoFinish",
+    true
+  )
+
   const [autoCopyResponseToClipboard, setAutoCopyResponseToClipboard] =
     useStorage("autoCopyResponseToClipboard", false)
 
@@ -57,6 +66,10 @@ export const GeneralSettings = () => {
   const [checkWideMode, setCheckWideMode] = useStorage("checkWideMode", false)
 
   const [openReasoning, setOpenReasoning] = useStorage("openReasoning", false)
+  const [menuDensity, setMenuDensity] = useStorage(
+    "menuDensity",
+    "comfortable"
+  )
 
   const [useMarkdownForUserMessage, setUseMarkdownForUserMessage] = useStorage(
     "useMarkdownForUserMessage",
@@ -88,12 +101,78 @@ export const GeneralSettings = () => {
   const [promptSearchIncludeServer, setPromptSearchIncludeServer] =
     useStorage("promptSearchIncludeServer", false)
 
+  const [settingsIntroDismissed, setSettingsIntroDismissed] = useStorage(
+    "settingsIntroDismissed",
+    false
+  )
+
   const { mode, toggleDarkMode } = useDarkMode()
   const { t } = useTranslation("settings")
   const { changeLocale, locale, supportLanguage } = useI18n()
+  const isOnline = useServerOnline()
+  const navigate = useNavigate()
 
   return (
     <dl className="flex flex-col space-y-6 text-sm">
+      {!isOnline && (
+        <div>
+          <FeatureEmptyState
+            title={t("generalSettings.empty.connectTitle", {
+              defaultValue: "Connect tldw Assistant to your server"
+            })}
+            description={t("generalSettings.empty.connectDescription", {
+              defaultValue:
+                "Some settings only take effect when your tldw server is reachable. Connect your server to get the full experience."
+            })}
+            examples={[
+              t("generalSettings.empty.connectExample1", {
+                defaultValue:
+                  "Open Settings → tldw server to add your server URL and API key."
+              }),
+              t("generalSettings.empty.connectExample2", {
+                defaultValue:
+                  "Use Diagnostics to confirm your server is healthy before trying advanced tools."
+              })
+            ]}
+            primaryActionLabel={t("common:connectToServer", {
+              defaultValue: "Connect to server"
+            })}
+            onPrimaryAction={() => navigate("/settings/tldw")}
+          />
+        </div>
+      )}
+
+      {isOnline && !settingsIntroDismissed && (
+        <div>
+          <FeatureEmptyState
+            title={t("generalSettings.empty.title", {
+              defaultValue: "Tune how tldw Assistant behaves"
+            })}
+            description={t("generalSettings.empty.description", {
+              defaultValue:
+                "Adjust defaults for the Web UI, sidepanel, speech, search, and data handling from one place."
+            })}
+            examples={[
+              t("generalSettings.empty.example1", {
+                defaultValue:
+                  "Choose your default language, theme, and chat resume behavior."
+              }),
+              t("generalSettings.empty.example2", {
+                defaultValue:
+                  "Control whether chats are temporary, how large pastes are handled, and how reasoning is displayed."
+              })
+            ]}
+            primaryActionLabel={t("generalSettings.empty.primaryCta", {
+              defaultValue: "Configure server & auth"
+            })}
+            onPrimaryAction={() => navigate("/settings/tldw")}
+            secondaryActionLabel={t("generalSettings.empty.secondaryCta", {
+              defaultValue: "Dismiss"
+            })}
+            onSecondaryAction={() => setSettingsIntroDismissed(true)}
+          />
+        </div>
+      )}
       <div>
         <h2 className="text-base font-semibold leading-7 text-gray-900 dark:text-white">
           {t("generalSettings.title")}
@@ -235,6 +314,23 @@ export const GeneralSettings = () => {
       <div className="flex flex-row justify-between">
         <div className="inline-flex items-center gap-2">
           <span className="text-gray-700   dark:text-neutral-50">
+            {t("generalSettings.settings.menuDensity.label", "Menu density")}
+          </span>
+        </div>
+        <Select
+          style={{ width: 200 }}
+          value={menuDensity}
+          onChange={(v) => setMenuDensity(v)}
+          options={[
+            { value: "comfortable", label: t("generalSettings.settings.menuDensity.comfortable", "Comfortable") },
+            { value: "compact", label: t("generalSettings.settings.menuDensity.compact", "Compact") }
+          ]}
+        />
+      </div>
+
+      <div className="flex flex-row justify-between">
+        <div className="inline-flex items-center gap-2">
+          <span className="text-gray-700   dark:text-neutral-50">
             {t("generalSettings.settings.openReasoning.label")}
           </span>
         </div>
@@ -294,6 +390,22 @@ export const GeneralSettings = () => {
         <Switch
           checked={copyAsFormattedText}
           onChange={(checked) => setCopyAsFormattedText(checked)}
+        />
+      </div>
+
+      <div className="flex flex-row justify-between">
+        <div className="inline-flex items-center gap-2">
+          <span className="text-gray-700   dark:text-neutral-50">
+            {t(
+              "generalSettings.settings.onboardingAutoFinish.label",
+              "Auto-finish onboarding after successful connection"
+            )}
+          </span>
+        </div>
+
+        <Switch
+          checked={onboardingAutoFinish}
+          onChange={(checked) => setOnboardingAutoFinish(checked)}
         />
       </div>
 

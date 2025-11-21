@@ -1,5 +1,5 @@
 <p align="center">
-  <h1 align="center">tldw Assistant</h1>
+  <h1 align="center">tldw Browser_Assistant</h1>
 </p>
 
 <p align="center">
@@ -8,7 +8,7 @@
 
 ## Overview
 
-tldw Assistant is an open‑source browser extension that provides a side panel and full‑page web UI for your own tldw_server instance. It connects to tldw_server (an API aggregator for multiple LLM providers) so you can:
+tldw Browser_Assistant is an open‑source browser extension that provides a side panel and full‑page web UI for your own tldw_server instance. It connects to tldw_server (an API aggregator for multiple LLM providers) so you can:
 
 - Chat with any model configured on your server
 - Search and cite with RAG (retrieval‑augmented generation)
@@ -143,6 +143,8 @@ Models are surfaced from your tldw_server configuration (OpenAI‑compatible pro
   - OpenAPI path enforcement: the web UI’s API calls are compile‑time checked against the bundled `openapi.json`. If you add or change an endpoint path/method, update `openapi.json` accordingly or your typecheck will fail.
   - CI: GitHub Actions runs the typecheck on each push/PR (`.github/workflows/typecheck.yml`).
   - Use the typed helpers `bgRequest`, `bgStream`, and `bgUpload` for all server calls. Direct `browser.runtime.sendMessage({ type: 'tldw:request' ... })` calls should pass a path typed as `AllowedPath` to participate in checks.
+
+See `Testing-Guide.md` for how to run the Playwright E2E suite and manual smoke tests.
 
 ## Contributing
 

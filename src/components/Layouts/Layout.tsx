@@ -2,6 +2,7 @@ import React, { useState } from "react"
 
 import { Drawer, Tooltip } from "antd"
 import { EraserIcon, XIcon } from "lucide-react"
+import { IconButton } from "../Common/IconButton"
 import { useTranslation } from "react-i18next"
 import { useQueryClient } from "@tanstack/react-query"
 
@@ -17,18 +18,23 @@ import { CurrentChatModelSettings } from "../Common/Settings/CurrentChatModelSet
 import { Sidebar } from "../Option/Sidebar"
 import { Header } from "./Header"
 import { useMigration } from "../../hooks/useMigration"
+import { confirmDanger } from "@/components/Common/confirm-danger"
+import { DemoModeProvider, useDemoMode } from "@/context/demo-mode"
 
-export default function OptionLayout({
-  children,
-  hideHeader = false
-}: {
+type OptionLayoutProps = {
   children: React.ReactNode
   hideHeader?: boolean
-}) {
+}
+
+const OptionLayoutInner: React.FC<OptionLayoutProps> = ({
+  children,
+  hideHeader = false
+}) => {
   const [sidebarOpen, setSidebarOpen] = useState(false)
   const { t } = useTranslation(["option", "common", "settings"])
   const [openModelSettings, setOpenModelSettings] = useState(false)
   useMigration()
+  const { demoEnabled } = useDemoMode()
   const {
     setMessages,
     setHistory,
@@ -59,7 +65,8 @@ export default function OptionLayout({
         className={classNames(
           "relative w-full",
           hideHeader ? "min-h-screen bg-slate-50 dark:bg-[#101010]" : "h-dvh"
-        )}>
+        )}
+        data-demo-mode={demoEnabled ? "on" : "off"}>
         {!hideHeader && (
           <div className="relative z-20 w-full">
             <Header
@@ -73,7 +80,7 @@ export default function OptionLayout({
             "relative flex h-full flex-col",
             hideHeader
               ? "min-h-screen items-center justify-center px-4 py-10 sm:px-8"
-              : ""
+              : "pt-2 sm:pt-3"
           )}>
           {children}
         </div>
@@ -82,43 +89,57 @@ export default function OptionLayout({
             title={
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
-                  <button
+                  <IconButton
                     onClick={() => setSidebarOpen(false)}
-                    aria-label="Close sidebar"
-                    title="Close sidebar"
-                    className="-ml-1"
-                  >
+                    ariaLabel={t('common:close', { defaultValue: 'Close' }) as string}
+                    title={t('common:close', { defaultValue: 'Close' }) as string}
+                    className="-ml-1">
                     <XIcon className="h-5 w-5 text-gray-500 dark:text-gray-400" />
-                  </button>
+                  </IconButton>
                   <span>{t("sidebarTitle")}</span>
                 </div>
 
                 <div className="flex items-center space-x-3">
                   <Tooltip
                     title={t(
-                      "settings:generalSettings.system.deleteChatHistory.label"
+                      "settings:generalSettings.systemData.deleteChatHistory.label",
+                      { defaultValue: t("settings:generalSettings.system.deleteChatHistory.label") as string }
                     )}
                     placement="left">
-                    <button
+                    <IconButton
+                      ariaLabel={t(
+                        "settings:generalSettings.systemData.deleteChatHistory.label",
+                        { defaultValue: t("settings:generalSettings.system.deleteChatHistory.label") as string }
+                      ) as string}
                       onClick={async () => {
-                        const confirm = window.confirm(
-                          t(
-                            "settings:generalSettings.system.deleteChatHistory.confirm"
-                          )
-                        )
+                        const ok = await confirmDanger({
+                          title: t("common:confirmTitle", {
+                            defaultValue: "Please confirm"
+                          }),
+                          content: t(
+                            "settings:generalSettings.systemData.deleteChatHistory.confirm",
+                            {
+                              defaultValue: t(
+                                "settings:generalSettings.system.deleteChatHistory.confirm"
+                              ) as string
+                            }
+                          ),
+                          okText: t("common:delete", { defaultValue: "Delete" }),
+                          cancelText: t("common:cancel", { defaultValue: "Cancel" })
+                        })
 
-                        if (confirm) {
-                          const db = new PageAssistDatabase()
-                          await db.deleteAllChatHistory()
-                          await queryClient.invalidateQueries({
-                            queryKey: ["fetchChatHistory"]
-                          })
-                          clearChat()
-                        }
+                        if (!ok) return
+
+                        const db = new PageAssistDatabase()
+                        await db.deleteAllChatHistory()
+                        await queryClient.invalidateQueries({
+                          queryKey: ["fetchChatHistory"]
+                        })
+                        clearChat()
                       }}
                       className="text-gray-600 hover:text-gray-800 dark:text-gray-300 dark:hover:text-gray-100">
                       <EraserIcon className="size-5" />
-                    </button>
+                    </IconButton>
                   </Tooltip>
                 </div>
               </div>
@@ -155,5 +176,13 @@ export default function OptionLayout({
         )}
       </main>
     </div>
+  )
+}
+
+export default function OptionLayout(props: OptionLayoutProps) {
+  return (
+    <DemoModeProvider>
+      <OptionLayoutInner {...props} />
+    </DemoModeProvider>
   )
 }

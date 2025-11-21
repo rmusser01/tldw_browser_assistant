@@ -13,7 +13,6 @@ import {
   removeMessageUsingHistoryId,
   updateMessageByIndex
 } from "@/db/dexie/helpers"
-import { notification } from "antd"
 import { useTranslation } from "react-i18next"
 import { usePageAssist } from "@/context"
 import { formatDocs } from "@/chain/chat-with-x"
@@ -40,6 +39,7 @@ import {
   createSaveMessageOnSuccess
 } from "./utils/messageHelpers"
 import { updatePageTitle } from "@/utils/update-page-title"
+import { useAntdNotification } from "./useAntdNotification"
 
 type ServerBackedMessage = Message & {
   serverMessageId?: string
@@ -64,7 +64,10 @@ export const useMessage = () => {
     setWebSearch,
     isSearchingInternet,
     temporaryChat,
-    setTemporaryChat
+    setTemporaryChat,
+    queuedMessages,
+    addQueuedMessage,
+    clearQueuedMessages
   } = useStoreMessageOption()
   const [defaultInternetSearchOn] = useStorage("defaultInternetSearchOn", false)
 
@@ -103,6 +106,7 @@ export const useMessage = () => {
     setUseOCR
   } = useStoreMessage()
   const { serverChatId, setServerChatId } = useStoreMessageOption()
+  const notification = useAntdNotification()
  const [sidepanelTemporaryChat, ] = useStorage(
     "sidepanelTemporaryChat",
     false
@@ -268,9 +272,9 @@ export const useMessage = () => {
       if (chatWithWebsiteEmbedding) {
         try {
           await tldwClient.initialize()
-          // Optionally ensure server has the page content
+          // Optionally ensure server has the page content in the media index
           if (embedURL) {
-            try { await tldwClient.ingestWebContent(embedURL) } catch {}
+            try { await tldwClient.addMedia(embedURL, {}) } catch {}
           }
           const ragRes = await tldwClient.ragSearch(query, { top_k: 4, filters: { url: embedURL } })
           const docs = ragRes?.results || ragRes?.documents || ragRes?.docs || []
@@ -1916,5 +1920,8 @@ export const useMessage = () => {
     temporaryChat,
     setTemporaryChat,
     sidepanelTemporaryChat,
+    queuedMessages,
+    addQueuedMessage,
+    clearQueuedMessages
   }
 }

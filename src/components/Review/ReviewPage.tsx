@@ -15,7 +15,6 @@ import {
   Select,
   Pagination,
   Radio,
-  notification,
   Modal,
   Dropdown
 } from "antd"
@@ -36,6 +35,10 @@ import { ChevronDown, CopyIcon, SendIcon } from "lucide-react"
 import { useNavigate } from "react-router-dom"
 import { Storage } from "@plasmohq/storage"
 import { getAllPrompts } from "@/db/dexie/helpers"
+import { confirmDanger } from "@/components/Common/confirm-danger"
+import FeatureEmptyState from "@/components/Common/FeatureEmptyState"
+import { useAntdNotification } from "@/hooks/useAntdNotification"
+import { useDemoMode } from "@/context/demo-mode"
 
 type MediaItem = any
 type NoteItem = any
@@ -52,12 +55,14 @@ type ResultItem = {
 type ReviewPageProps = { allowGeneration?: boolean }
 
 export const ReviewPage: React.FC<ReviewPageProps> = ({ allowGeneration = true }) => {
-  const { t } = useTranslation(["option"])
+  const { t } = useTranslation(["option", "review"])
+  const notification = useAntdNotification()
+  const isViewMediaMode = !allowGeneration
   const [query, setQuery] = React.useState<string>("")
-  const [kinds, setKinds] = React.useState<{ media: boolean; notes: boolean }>({
+  const [kinds, setKinds] = React.useState<{ media: boolean; notes: boolean }>(() => ({
     media: true,
-    notes: true
-  })
+    notes: allowGeneration
+  }))
   const [selected, setSelected] = React.useState<ResultItem | null>(null)
   const [analysis, setAnalysis] = React.useState<string>("")
   const [loadingAnalysis, setLoadingAnalysis] = React.useState<boolean>(false)
@@ -115,6 +120,8 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({ allowGeneration = true }
   const [filtersOpen, setFiltersOpen] = React.useState<boolean>(true)
   const [analysisMode, setAnalysisMode] = React.useState<"review" | "summary">("review")
   const [sidebarHidden, setSidebarHidden] = React.useState<boolean>(false)
+  const [advancedOpen, setAdvancedOpen] = React.useState<boolean>(false)
+  const modeToastPrev = React.useRef<"review" | "summary" | null>(null)
   const isOnline = useServerOnline()
 
   // Storage scoping: per server host and auth mode to avoid cross-user leakage
@@ -427,7 +434,7 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({ allowGeneration = true }
     })()
   }, [filtersOpen, scopedKey])
 
-  // Persist default analysis mode
+  // Persist default analysis mode (Review workspace only)
   React.useEffect(() => {
     ;(async () => {
       try {
@@ -435,8 +442,18 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({ allowGeneration = true }
         await storage.set(scopedKey("review:defaultMode"), analysisMode)
       } catch {}
     })()
-    message.info(analysisMode === 'review' ? 'Using Review prompts' : 'Using Summary prompts', 1)
-  }, [analysisMode, scopedKey])
+    if (!allowGeneration) return
+    const prev = modeToastPrev.current
+    if (prev && prev !== analysisMode) {
+      message.info(
+        analysisMode === 'review'
+          ? t('review:reviewPage.usingReviewPrompts', 'Using Review prompts')
+          : t('review:reviewPage.usingSummaryPrompts', 'Using Summary prompts'),
+        1
+      )
+    }
+    modeToastPrev.current = analysisMode
+  }, [analysisMode, scopedKey, allowGeneration])
 
   const loadKeywordSuggestions = React.useCallback(
     async (text: string) => {
@@ -728,14 +745,14 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({ allowGeneration = true }
 
   const runOneOff = async (mode: "review" | "summary") => {
     if (!selected) {
-      message.warning("Select an item to analyze")
+      message.warning(t('review:reviewPage.selectItemFirst', 'Select an item first'))
       return
     }
     setLoadingAnalysis(true)
     try {
       const text = await generateAnalysis(mode)
       if (!text) {
-        message.warning("No content available to analyze")
+        message.warning(t('review:reviewPage.analyze.none', 'No content available to analyze'))
         setLoadingAnalysis(false)
         return
       }
@@ -752,14 +769,14 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({ allowGeneration = true }
     mode: "review" | "summary" = "review"
   ) => {
     if (!selected || selected.kind !== "media") {
-      message.warning("Select a media item first")
+      message.warning(t('review:reviewPage.selectMediaFirst', 'Select a media item first'))
       return
     }
     setLoadingAnalysis(true)
     try {
       const text = await generateAnalysis(mode)
       if (!text) {
-        message.warning("No content available to analyze")
+        message.warning(t('review:reviewPage.analyze.none', 'No content available to analyze'))
         setLoadingAnalysis(false)
         return
       }
@@ -846,7 +863,7 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({ allowGeneration = true }
 
   const saveAnalysisToMedia = async () => {
     if (!selected || selected.kind !== "media") {
-      message.warning("Select a media item first")
+      message.warning(t('review:reviewPage.selectMediaFirst', 'Select a media item first'))
       return
     }
     if (!analysis.trim()) {
@@ -875,14 +892,14 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({ allowGeneration = true }
     mode: "review" | "summary" = "review"
   ) => {
     if (!selected) {
-      message.warning("Select an item first")
+      message.warning(t('review:reviewPage.selectItemFirst', 'Select an item first'))
       return
     }
     setLoadingAnalysis(true)
     try {
       const text = await generateAnalysis(mode)
       if (!text) {
-        message.warning("No content available to analyze")
+        message.warning(t('review:reviewPage.analyze.none', 'No content available to analyze'))
         setLoadingAnalysis(false)
         return
       }
@@ -901,10 +918,10 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({ allowGeneration = true }
         headers: { "Content-Type": "application/json" },
         body: payload
       })
-      message.success("Analysis saved as note")
+      message.success(t('review:reviewPage.analyze.saved', 'Analysis saved as note'))
       if (selected.kind === "media") await loadExistingAnalyses(selected)
     } catch (e: any) {
-      message.error(e?.message || "Failed to analyze & save note")
+      message.error(e?.message || t('review:reviewPage.analyze.failed', 'Failed to analyze & save note'))
     } finally {
       setLoadingAnalysis(false)
     }
@@ -931,6 +948,123 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({ allowGeneration = true }
     return arr
   }, [results, mediaTypes, keywordTokens])
 
+  const { demoEnabled } = useDemoMode()
+
+  if (!isOnline) {
+    const empty = demoEnabled ? (
+      <FeatureEmptyState
+        title={
+          isViewMediaMode
+            ? t('review:mediaEmpty.demoTitle', {
+              defaultValue: 'Explore Media in demo mode'
+            })
+            : t('review:empty.demoTitle', {
+              defaultValue: 'Explore Review in demo mode'
+            })
+        }
+        description={
+          isViewMediaMode
+            ? t('review:mediaEmpty.demoDescription', {
+              defaultValue:
+                'This demo shows how tldw Assistant can display and inspect processed media. Connect your own server later to browse your own recordings and documents.'
+            })
+            : t('review:empty.demoDescription', {
+              defaultValue:
+                'This demo shows how tldw Assistant can turn media and notes into structured reviews. Connect your own server later to analyze your own content.'
+            })
+        }
+        examples={
+          isViewMediaMode
+            ? [
+                t('review:mediaEmpty.demoExample1', {
+                  defaultValue:
+                    'See how processed media items appear in the Media viewer.'
+                }),
+                t('review:mediaEmpty.demoExample2', {
+                  defaultValue:
+                    'When you connect, you’ll be able to browse and inspect media ingested from your own recordings and files.'
+                })
+              ]
+            : [
+                t('review:empty.demoExample1', {
+                  defaultValue:
+                    'See how selected media and notes appear in the review workspace.'
+                }),
+                t('review:empty.demoExample2', {
+                  defaultValue:
+                    'When you connect, you’ll be able to generate summaries and action items from your own recordings and notes.'
+                })
+              ]
+        }
+        primaryActionLabel={t('common:connectToServer', {
+          defaultValue: 'Connect to server'
+        })}
+        onPrimaryAction={() => navigate('/settings/tldw')}
+      />
+    ) : (
+      <FeatureEmptyState
+        title={
+          isViewMediaMode
+            ? t('review:mediaEmpty.connectTitle', {
+              defaultValue: 'Connect to use Media'
+            })
+            : t('review:empty.connectTitle', {
+              defaultValue: 'Connect to use Review'
+            })
+        }
+        description={
+          isViewMediaMode
+            ? t('review:mediaEmpty.connectDescription', {
+              defaultValue:
+                'To view processed media, first connect to your tldw server so recordings and documents can be listed here.'
+            })
+            : t('review:empty.connectDescription', {
+              defaultValue:
+                'To review media and notes, first connect to your tldw server.'
+            })
+        }
+        examples={
+          isViewMediaMode
+            ? [
+                t('review:mediaEmpty.connectExample1', {
+                  defaultValue:
+                    'Open Settings → tldw server to add your server URL.'
+                }),
+                t('review:mediaEmpty.connectExample2', {
+                  defaultValue:
+                    'Once connected, use Quick ingest in the header to add media from your recordings and files.'
+                })
+              ]
+            : [
+                t('review:empty.connectExample1', {
+                  defaultValue:
+                    'Open Settings → tldw server to add your server URL.'
+                }),
+                t('review:empty.connectExample2', {
+                  defaultValue:
+                    'Once connected, browse media and notes, then generate structured reviews and summaries.'
+                })
+              ]
+        }
+        primaryActionLabel={t('common:connectToServer', {
+          defaultValue: 'Connect to server'
+        })}
+        onPrimaryAction={() => navigate('/settings/tldw')}
+      />
+    )
+
+    return (
+      <div className="mt-4">
+        {demoEnabled && (
+          <div className="mb-2 inline-flex items-center rounded-full border border-amber-300 bg-amber-50 px-2 py-0.5 text-[11px] font-medium text-amber-700 dark:border-amber-600 dark:bg-amber-900/30 dark:text-amber-200">
+            {t('review:reviewPage.demoMode', 'Demo mode')}
+          </div>
+        )}
+        {empty}
+      </div>
+    )
+  }
+
   return (
     <>
     <div className="w-full h-full flex gap-4 mt-16">
@@ -941,7 +1075,11 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({ allowGeneration = true }
           <div className="flex flex-wrap items-center gap-2">
             <Input
               allowClear
-              placeholder="Search media, notes..."
+              placeholder={
+                isViewMediaMode
+                  ? t('review:reviewPage.mediaOnlySearchPlaceholder', 'Search media (title/content)')
+                  : t('review:reviewPage.searchPlaceholder', 'Search media, notes...')
+              }
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               onPressEnter={() => refetch()}
@@ -956,7 +1094,7 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({ allowGeneration = true }
                 refetch()
               }}
               icon={(<SearchIcon className="w-4 h-4" />) as any}>
-              Search
+              {t('review:reviewPage.search', 'Search')}
             </Button>
           </div>
           <div className="mt-2 flex flex-wrap items-center gap-2 justify-between">
@@ -967,27 +1105,39 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({ allowGeneration = true }
               onClick={() => setFiltersOpen((v) => !v)}
             >
               <ChevronDown className={`w-4 h-4 transition-transform ${filtersOpen ? '' : '-rotate-90'}`} />
-              <span>Filters</span>
+              <span>{t('review:reviewPage.filters', 'Filters')}</span>
             </button>
-            <Checkbox
-              checked={kinds.media}
-              onChange={(e) =>
-                setKinds((k) => ({ ...k, media: e.target.checked }))
-              }>
-              Media
-            </Checkbox>
-            <Checkbox
-              checked={kinds.notes}
-              onChange={(e) =>
-                setKinds((k) => ({ ...k, notes: e.target.checked }))
-              }>
-              Notes
-            </Checkbox>
+            <div className="flex items-center gap-2">
+              <span className="text-[11px] text-gray-500">
+                {t('review:reviewPage.resultTypes', 'Result types')}
+              </span>
+              <Checkbox
+                checked={kinds.media}
+                onChange={(e) =>
+                  setKinds((k) => ({ ...k, media: e.target.checked }))
+                }>
+                {t('review:reviewPage.media', 'Media')}
+              </Checkbox>
+              <Checkbox
+                checked={kinds.notes}
+                onChange={(e) =>
+                  setKinds((k) => ({ ...k, notes: e.target.checked }))
+                }>
+                {t('review:reviewPage.notes', 'Notes')}
+              </Checkbox>
+            </div>
             <div className="ml-auto">
-              <Radio.Group size="small" value={analysisMode} onChange={(e) => setAnalysisMode(e.target.value)}>
-                <Radio.Button value="review">Use Review</Radio.Button>
-                <Radio.Button value="summary">Use Summary</Radio.Button>
-              </Radio.Group>
+              {allowGeneration && (
+                <div className="flex items-center gap-2">
+                  <span className="text-[11px] text-gray-500">
+                    {t('review:reviewPage.generationMode', 'Generation mode')}
+                  </span>
+                  <Radio.Group size="small" value={analysisMode} onChange={(e) => setAnalysisMode(e.target.value)}>
+                    <Radio.Button value="review">{t('review:reviewPage.useReview', 'Use Review')}</Radio.Button>
+                    <Radio.Button value="summary">{t('review:reviewPage.useSummary', 'Use Summary')}</Radio.Button>
+                  </Radio.Group>
+                </div>
+              )}
             </div>
           </div>
           <div id="review-filters" className={`mt-2 grid grid-cols-1 gap-2 overflow-hidden transition-all duration-200 ${filtersOpen ? 'max-h-[640px] opacity-100' : 'max-h-0 opacity-0'}`}>
@@ -995,7 +1145,7 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({ allowGeneration = true }
               <Select
                 mode="tags"
                 allowClear
-                placeholder="Media types"
+                placeholder={t('review:reviewPage.mediaTypes', 'Media types')}
                 className="min-w-[12rem] flex-1"
                 value={mediaTypes}
                 onChange={(vals) => {
@@ -1010,7 +1160,7 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({ allowGeneration = true }
               <Select
                 mode="tags"
                 allowClear
-                placeholder="Keywords"
+                placeholder={t('review:reviewPage.keywords', 'Keywords')}
                 className="min-w-[12rem] flex-1"
                 value={keywordTokens}
                 onSearch={(txt) => loadKeywordSuggestions(txt)}
@@ -1026,7 +1176,7 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({ allowGeneration = true }
                   setKeywordTokens([])
                   setPage(1)
                 }}>
-                Clear
+                {t('review:reviewPage.clear', 'Clear filters')}
               </Button>
             </div>
             {(mediaTypes.length > 0 || keywordTokens.length > 0) && (
@@ -1054,23 +1204,16 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({ allowGeneration = true }
                     {k}
                   </Tag>
                 ))}
-                <Button
-                  type="link"
-                  onClick={() => {
-                    setMediaTypes([])
-                    setKeywordTokens([])
-                    setPage(1)
-                  }}>
-                  Reset filters
-                </Button>
               </div>
             )}
           </div>
         </div>
         <div className="mt-3 p-3 rounded-lg border dark:border-gray-700 bg-white dark:bg-[#171717] max-h-[50vh] md:max-h-[60vh] lg:max-h-[calc(100dvh-18rem)] overflow-auto">
           <div className="sticky -m-3 mb-2 top-0 z-10 px-3 py-2 bg-white dark:bg-[#171717] border-b dark:border-gray-700 flex items-center justify-between">
-            <span className="text-xs uppercase tracking-wide text-gray-500">Results</span>
-            <span className="text-xs text-gray-400">{displayedResults.length}</span>
+            <span className="text-xs uppercase tracking-wide text-gray-500">{t('review:reviewPage.results', 'Results')}</span>
+            <span className="text-xs text-gray-400">
+              {`${displayedResults.length} item${displayedResults.length === 1 ? '' : 's'}`}
+            </span>
           </div>
           {isFetching ? (
             <div className="flex items-center justify-center py-10">
@@ -1080,42 +1223,71 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({ allowGeneration = true }
             <List
               size="small"
               dataSource={displayedResults}
-              locale={{ emptyText: <Empty description="No results" /> }}
-              renderItem={(item) => (
-                <List.Item
-                  key={`${item.kind}:${item.id}`}
-                  onClick={() => {
-                    setSelected(item)
-                    setAnalysis("")
-                    loadExistingAnalyses(item)
-                  }}
-                  className={`cursor-pointer hover:bg-gray-50 dark:hover:bg-[#262626] rounded px-2 result-fade-in ${selected && selected.id === item.id && selected.kind === item.kind ? '!bg-gray-100 dark:!bg-gray-800' : ''}`}>
-                  <div className="w-full">
-                    <div className="flex items-center gap-2">
-                      <Tag color={item.kind === "media" ? "blue" : "gold"}>
-                        {item.kind.toUpperCase()}
-                      </Tag>
-                      <Typography.Text
-                        strong
-                        ellipsis
-                        className="max-w-[18rem]">
-                        {item.title || String(item.id)}
-                      </Typography.Text>
-                    </div>
-                    {item.snippet && (
-                      <div className="text-xs text-gray-500 truncate mt-0.5">
-                        {item.snippet}
+              locale={{
+                emptyText: (
+                  <Empty
+                    description={
+                      isViewMediaMode
+                        ? t('review:mediaPage.noResults', 'No media found. Use Quick ingest in the header to add media from your recordings and files.')
+                        : t('review:reviewPage.noResults', 'No results')
+                    }
+                  />
+                )
+              }}
+              renderItem={(item) => {
+                const isSelected =
+                  !!selected &&
+                  selected.id === item.id &&
+                  selected.kind === item.kind
+                return (
+                  <List.Item
+                    key={`${item.kind}:${item.id}`}
+                    onClick={() => {
+                      setSelected(item)
+                      setAnalysis("")
+                      loadExistingAnalyses(item)
+                    }}
+                    role="button"
+                    tabIndex={0}
+                    aria-selected={isSelected}
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault()
+                        setSelected(item)
+                        setAnalysis("")
+                        loadExistingAnalyses(item)
+                      }
+                    }}
+                    className={`cursor-pointer hover:bg-gray-50 dark:hover:bg-[#262626] rounded px-2 result-fade-in ${
+                      isSelected ? '!bg-gray-100 dark:!bg-gray-800' : ''
+                    }`}>
+                    <div className="w-full">
+                      <div className="flex items-center gap-2">
+                        <Tag color={item.kind === "media" ? "blue" : "gold"}>
+                          {item.kind.toUpperCase()}
+                        </Tag>
+                        <Typography.Text
+                          strong
+                          ellipsis
+                          className="max-w-[18rem]">
+                          {item.title || String(item.id)}
+                        </Typography.Text>
                       </div>
-                    )}
-                    <div className="text-[10px] text-gray-400 mt-0.5">
-                      {item.meta?.type ? String(item.meta.type) : ""}{" "}
-                      {item.meta?.created_at
-                        ? `· ${new Date(item.meta.created_at).toLocaleString()}`
-                        : ""}
+                      {item.snippet && (
+                        <div className="text-xs text-gray-500 truncate mt-0.5">
+                          {item.snippet}
+                        </div>
+                      )}
+                      <div className="text-[10px] text-gray-400 mt-0.5">
+                        {item.meta?.type ? String(item.meta.type) : ""}{" "}
+                        {item.meta?.created_at
+                          ? `· ${new Date(item.meta.created_at).toLocaleString()}`
+                          : ""}
+                      </div>
                     </div>
-                  </div>
-                </List.Item>
-              )}
+                  </List.Item>
+                )
+              }}
             />
           )}
           {kinds.media && mediaTotal > 0 && (
@@ -1140,11 +1312,21 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({ allowGeneration = true }
       {/* Vertical toggle bar */}
       <div className="w-6 flex-shrink-0 h-full flex items-center">
         <button
-          title={sidebarHidden ? 'Show sidebar' : 'Hide sidebar'}
+          title={
+            sidebarHidden
+              ? t('review:reviewPage.showSidebar', 'Show results sidebar')
+              : t('review:reviewPage.hideSidebar', 'Hide results sidebar')
+          }
+          aria-label={t('review:reviewPage.toggleSidebar', 'Toggle results sidebar')}
           onClick={() => setSidebarHidden((v) => !v)}
           className="h-full w-6 rounded bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 flex items-center justify-center text-xs font-semibold text-gray-600 dark:text-gray-300"
         >
-          {sidebarHidden ? '>>' : '<<'}
+          <span className="sr-only">
+            {t('review:reviewPage.toggleSidebar', 'Toggle results sidebar')}
+          </span>
+          <span aria-hidden="true">
+            {sidebarHidden ? '>>' : '<<'}
+          </span>
         </button>
       </div>
 
@@ -1152,7 +1334,13 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({ allowGeneration = true }
       <div className="flex-1 p-3 rounded-lg border dark:border-gray-700 bg-white dark:bg-[#171717] min-h-[70vh] min-w-0 lg:h-[calc(100dvh-8rem)] overflow-auto">
         {!selected ? (
           <div className="h-full flex items-center justify-center">
-            <Empty description={allowGeneration ? "Select an item to review and analyze" : "Select a media item to view analyses"} />
+            <Empty
+              description={
+                allowGeneration
+                  ? t('review:reviewPage.selectItemEmpty', 'Select an item to review and analyze')
+                  : t('review:reviewPage.selectMediaEmpty', 'Select a media item to view analyses')
+              }
+            />
           </div>
         ) : (
           <div className="flex flex-col gap-3 h-full min-w-0">
@@ -1181,11 +1369,15 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({ allowGeneration = true }
                     </Tooltip>
                     {selected?.kind === "media" && (
                       <Tooltip title="Analyze & attach to media">
-                        <Button onClick={() => analyzeAndSaveToMedia(analysisMode)} loading={loadingAnalysis}>{analysisMode === 'review' ? 'Review + Save' : 'Summary + Save'}</Button>
+                        <Button onClick={() => analyzeAndSaveToMedia(analysisMode)} loading={loadingAnalysis}>
+                          {analysisMode === 'review' ? 'Generate review & attach' : 'Generate summary & attach'}
+                        </Button>
                       </Tooltip>
                     )}
                     <Tooltip title="Analyze & save as note">
-                      <Button onClick={() => analyzeAndSaveToNote(analysisMode)} loading={loadingAnalysis}>{analysisMode === 'review' ? 'Review + Save Note' : 'Summary + Save Note'}</Button>
+                      <Button onClick={() => analyzeAndSaveToNote(analysisMode)} loading={loadingAnalysis}>
+                        {analysisMode === 'review' ? 'Generate review & save note' : 'Generate summary & save note'}
+                      </Button>
                     </Tooltip>
                   </>
                 )}
@@ -1239,7 +1431,7 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({ allowGeneration = true }
                       const v = existingAnalyses[selectedExistingIndex]
                       const vv = getVersionNumber(v)
                       if (!vv) { message.warning('No version number'); return }
-                      const ok = window.confirm('Restore this version as current?')
+                      const ok = await confirmDanger({ title: 'Please confirm', content: 'Restore this version as current?', okText: 'Restore', cancelText: 'Cancel' })
                       if (!ok) return
                       try {
                         await bgRequest<any>({ path: `/api/v1/media/${selected.id}/versions/rollback` as any, method: 'POST' as any, headers: { 'Content-Type': 'application/json' }, body: { version_number: vv } })
@@ -1255,7 +1447,7 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({ allowGeneration = true }
                       const v = existingAnalyses[selectedExistingIndex]
                       const vv = getVersionNumber(v)
                       if (!vv) { message.warning('No version number'); return }
-                      const ok = window.confirm(`Restore v${vv} as current?`)
+                      const ok = await confirmDanger({ title: 'Please confirm', content: `Restore v${vv} as current?`, okText: 'Restore', cancelText: 'Cancel' })
                       if (!ok) return
                       try {
                         await bgRequest<any>({ path: `/api/v1/media/${selected?.id}/versions/rollback` as any, method: 'POST' as any, headers: { 'Content-Type': 'application/json' }, body: { version_number: vv } })
@@ -1282,7 +1474,7 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({ allowGeneration = true }
                   <Checkbox
                     checked={autoReviewOnSelect}
                     onChange={(e) => setAutoReviewOnSelect(e.target.checked)}>
-                    Auto-review on select
+                    {t('review:reviewPage.autoReviewLabel', 'Automatically generate a review when you select an item')}
                   </Checkbox>
                   <button
                     className="inline-flex items-center gap-1 text-xs border rounded px-2 py-1 text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-[#262626]"
@@ -1290,7 +1482,7 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({ allowGeneration = true }
                     aria-expanded={promptsOpen}
                     aria-controls="custom-prompts"
                   >
-                    Customize prompts
+                    {t('review:reviewPage.customizePrompts', 'Customize prompts')}
                   </button>
                 </>
               )}
@@ -1301,10 +1493,10 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({ allowGeneration = true }
                 dropdownRender={() => (
                   <div className="p-2 w-[420px] bg-white dark:bg-[#171717] border dark:border-gray-700 rounded shadow">
                     <div className="flex items-center justify-between mb-1">
-                      <div className="text-xs text-gray-500">Search prompts</div>
+                      <div className="text-xs text-gray-500">{t('review:reviewPage.searchPrompts', 'Search prompts')}</div>
                       <div className="flex items-center gap-2 text-xs">
-                        <label className="inline-flex items-center gap-1"><input type="checkbox" checked={revIncludeLocal} onChange={(e) => setRevIncludeLocal(e.target.checked)} /> Local</label>
-                        <label className="inline-flex items-center gap-1"><input type="checkbox" checked={revIncludeServer} onChange={(e) => setRevIncludeServer(e.target.checked)} /> Server</label>
+                        <label className="inline-flex items-center gap-1"><input type="checkbox" checked={revIncludeLocal} onChange={(e) => setRevIncludeLocal(e.target.checked)} /> {t('review:reviewPage.includeLocal', 'Local')}</label>
+                        <label className="inline-flex items-center gap-1"><input type="checkbox" checked={revIncludeServer} onChange={(e) => setRevIncludeServer(e.target.checked)} /> {t('review:reviewPage.includeServer', 'Server')}</label>
                       </div>
                     </div>
                     <Input.Search
@@ -1333,7 +1525,7 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({ allowGeneration = true }
                         } finally { setRevLoading(false) }
                       }}
                       loading={revLoading}
-                      placeholder="Search prompts"
+                      placeholder={t('review:reviewPage.searchPrompts', 'Search prompts') as string}
                       allowClear
                     />
                     {revResults.length > 0 && (
@@ -1350,21 +1542,21 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({ allowGeneration = true }
                       </div>
                     )}
                     <div className="mt-2">
-                      <div className="text-xs text-gray-500 mb-1">Presets</div>
+                      <div className="text-xs text-gray-500 mb-1">{t('review:reviewPage.presets', 'Presets')}</div>
                       <div className="flex flex-wrap gap-2">
-                        <Button size="small" onClick={() => setReviewSystemPrompt("You are an expert reviewer. Provide a concise, structured review with strengths, weaknesses, and actionable recommendations.")}>Critical</Button>
-                        <Button size="small" onClick={() => setReviewSystemPrompt("Act as a QA auditor. Identify issues, ambiguities, and missing information. Provide numbered findings and suggested fixes.")}>QA Audit</Button>
-                        <Button size="small" onClick={() => setReviewSystemPrompt("Provide a bullet-point review focusing on clarity, completeness, and relevance. Include a brief overall assessment at the end.")}>Bullet Review</Button>
+                        <Button size="small" onClick={() => setReviewSystemPrompt("You are an expert reviewer. Provide a concise, structured review with strengths, weaknesses, and actionable recommendations.")}>{t('review:reviewPage.presetsCritical', 'Critical')}</Button>
+                        <Button size="small" onClick={() => setReviewSystemPrompt("Act as a QA auditor. Identify issues, ambiguities, and missing information. Provide numbered findings and suggested fixes.")}>{t('review:reviewPage.presetsQaAudit', 'QA Audit')}</Button>
+                        <Button size="small" onClick={() => setReviewSystemPrompt("Provide a bullet-point review focusing on clarity, completeness, and relevance. Include a brief overall assessment at the end.")}>{t('review:reviewPage.presetsBulletReview', 'Bullet Review')}</Button>
                       </div>
                     </div>
-                    <div className="text-xs text-gray-500 mb-1">Review: System prompt</div>
+                    <div className="text-xs text-gray-500 mb-1">{t('review:reviewPage.reviewSystemPrompt', 'Review: System prompt')}</div>
                     <textarea
                       className="w-full text-sm p-2 rounded border dark:border-gray-700 dark:bg-[#171717] mt-1"
                       rows={4}
                       value={reviewSystemPrompt}
                       onChange={(e) => setReviewSystemPrompt(e.target.value)}
                     />
-                    <div className="text-xs text-gray-500 mt-2 mb-1">Review: User prompt prefix</div>
+                    <div className="text-xs text-gray-500 mt-2 mb-1">{t('review:reviewPage.reviewUserPrefix', 'Review: User prompt prefix')}</div>
                     <textarea
                       className="w-full text-sm p-2 rounded border dark:border-gray-700 dark:bg-[#171717]"
                       rows={3}
@@ -1372,13 +1564,13 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({ allowGeneration = true }
                       onChange={(e) => setReviewUserPrefix(e.target.value)}
                     />
                     <div className="mt-2 flex justify-end">
-                      <Button size="small" onClick={async () => { try { const storage = new Storage({ area: 'local' }); await storage.set(scopedKey('review:prompts'), { reviewSystemPrompt, reviewUserPrefix, summarySystemPrompt, summaryUserPrefix }); message.success('Saved as default'); } catch {} }}>Save as default</Button>
+                      <Button size="small" onClick={async () => { try { const storage = new Storage({ area: 'local' }); await storage.set(scopedKey('review:prompts'), { reviewSystemPrompt, reviewUserPrefix, summarySystemPrompt, summaryUserPrefix }); message.success(t('review:reviewPage.saveAsDefault', 'Saved as default')); } catch {} }}>{t('review:reviewPage.saveAsDefault', 'Save as default')}</Button>
                     </div>
                   </div>
                 )}
               >
                 <button className="inline-flex items-center gap-1 text-xs border rounded px-2 py-1 text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-[#262626]" aria-haspopup="true">
-                  Review prompt
+                  {t('review:reviewPage.reviewPrompt', 'Review prompt')}
                 </button>
               </Dropdown>
               <Dropdown
@@ -1387,10 +1579,10 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({ allowGeneration = true }
                 dropdownRender={() => (
                   <div className="p-2 w-[420px] bg-white dark:bg-[#171717] border dark:border-gray-700 rounded shadow">
                     <div className="flex items-center justify-between mb-1">
-                      <div className="text-xs text-gray-500">Search prompts</div>
+                      <div className="text-xs text-gray-500">{t('review:reviewPage.searchPrompts', 'Search prompts')}</div>
                       <div className="flex items-center gap-2 text-xs">
-                        <label className="inline-flex items-center gap-1"><input type="checkbox" checked={sumIncludeLocal} onChange={(e) => setSumIncludeLocal(e.target.checked)} /> Local</label>
-                        <label className="inline-flex items-center gap-1"><input type="checkbox" checked={sumIncludeServer} onChange={(e) => setSumIncludeServer(e.target.checked)} /> Server</label>
+                        <label className="inline-flex items-center gap-1"><input type="checkbox" checked={sumIncludeLocal} onChange={(e) => setSumIncludeLocal(e.target.checked)} /> {t('review:reviewPage.includeLocal', 'Local')}</label>
+                        <label className="inline-flex items-center gap-1"><input type="checkbox" checked={sumIncludeServer} onChange={(e) => setSumIncludeServer(e.target.checked)} /> {t('review:reviewPage.includeServer', 'Server')}</label>
                       </div>
                     </div>
                     <Input.Search
@@ -1418,7 +1610,7 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({ allowGeneration = true }
                         } finally { setSumLoading(false) }
                       }}
                       loading={sumLoading}
-                      placeholder="Search prompts"
+                      placeholder={t('review:reviewPage.searchPrompts', 'Search prompts') as string}
                       allowClear
                     />
                     {sumResults.length > 0 && (
@@ -1435,21 +1627,21 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({ allowGeneration = true }
                       </div>
                     )}
                     <div className="mt-2">
-                      <div className="text-xs text-gray-500 mb-1">Presets</div>
+                      <div className="text-xs text-gray-500 mb-1">{t('review:reviewPage.presets', 'Presets')}</div>
                       <div className="flex flex-wrap gap-2">
-                        <Button size="small" onClick={() => setSummarySystemPrompt("Summarize into key points and an executive abstract. Keep it concise and actionable.")}>Executive</Button>
-                        <Button size="small" onClick={() => setSummarySystemPrompt("Write a detailed summary with sections: Overview, Key Points, and Takeaways. Keep neutral tone.")}>Detailed</Button>
-                        <Button size="small" onClick={() => setSummarySystemPrompt("Create a short bullet-point summary capturing the core ideas and any decisions.")}>Bullets</Button>
+                        <Button size="small" onClick={() => setSummarySystemPrompt("Summarize into key points and an executive abstract. Keep it concise and actionable.")}>{t('review:reviewPage.presetsExecutive', 'Executive')}</Button>
+                        <Button size="small" onClick={() => setSummarySystemPrompt("Write a detailed summary with sections: Overview, Key Points, and Takeaways. Keep neutral tone.")}>{t('review:reviewPage.presetsDetailed', 'Detailed')}</Button>
+                        <Button size="small" onClick={() => setSummarySystemPrompt("Create a short bullet-point summary capturing the core ideas and any decisions.")}>{t('review:reviewPage.presetsBullets', 'Bullets')}</Button>
                       </div>
                     </div>
-                    <div className="text-xs text-gray-500 mb-1">Summary: System prompt</div>
+                    <div className="text-xs text-gray-500 mb-1">{t('review:reviewPage.summarySystemPrompt', 'Summary: System prompt')}</div>
                     <textarea
                       className="w-full text-sm p-2 rounded border dark:border-gray-700 dark:bg-[#171717] mt-1"
                       rows={4}
                       value={summarySystemPrompt}
                       onChange={(e) => setSummarySystemPrompt(e.target.value)}
                     />
-                    <div className="text-xs text-gray-500 mt-2 mb-1">Summary: User prompt prefix</div>
+                    <div className="text-xs text-gray-500 mt-2 mb-1">{t('review:reviewPage.summaryUserPrefix', 'Summary: User prompt prefix')}</div>
                     <textarea
                       className="w-full text-sm p-2 rounded border dark:border-gray-700 dark:bg-[#171717]"
                       rows={3}
@@ -1457,13 +1649,13 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({ allowGeneration = true }
                       onChange={(e) => setSummaryUserPrefix(e.target.value)}
                     />
                     <div className="mt-2 flex justify-end">
-                      <Button size="small" onClick={async () => { try { const storage = new Storage({ area: 'local' }); await storage.set(scopedKey('review:prompts'), { reviewSystemPrompt, reviewUserPrefix, summarySystemPrompt, summaryUserPrefix }); message.success('Saved as default'); } catch {} }}>Save as default</Button>
+                      <Button size="small" onClick={async () => { try { const storage = new Storage({ area: 'local' }); await storage.set(scopedKey('review:prompts'), { reviewSystemPrompt, reviewUserPrefix, summarySystemPrompt, summaryUserPrefix }); message.success(t('review:reviewPage.saveAsDefault', 'Saved as default')); } catch {} }}>{t('review:reviewPage.saveAsDefault', 'Save as default')}</Button>
                     </div>
                   </div>
                 )}
               >
                 <button className="inline-flex items-center gap-1 text-xs border rounded px-2 py-1 text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-[#262626]" aria-haspopup="true">
-                  Summary prompt
+                  {t('review:reviewPage.summaryPrompt', 'Summary prompt')}
                 </button>
               </Dropdown>
               <button
@@ -1472,13 +1664,23 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({ allowGeneration = true }
                 aria-expanded={debugOpen}
                 aria-controls="debug-json"
               >
-                Show raw JSON
+                {t('review:reviewPage.showRawJson', 'Developer tools: show raw JSON')}
+              </button>
+              <button
+                className="inline-flex items-center gap-1 text-xs border rounded px-2 py-1 text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-[#262626]"
+                onClick={() => setAdvancedOpen((v) => !v)}
+                aria-expanded={advancedOpen}
+                aria-controls="debug-json custom-prompts"
+              >
+                {t('review:reviewPage.advancedTools', 'Advanced tools')}
               </button>
             </div>
+            {advancedOpen && (
+            <>
             <Divider className="!my-2" />
             <div id="debug-json" className={`overflow-hidden transition-all duration-200 ${debugOpen ? 'max-h-[600px] opacity-100' : 'max-h-0 opacity-0'}`}>
               <div className="rounded border dark:border-gray-700 p-2 bg-gray-50 dark:bg-[#111] text-xs">
-                <pre className="whitespace-pre-wrap break-all">{selectedDetail ? JSON.stringify(selectedDetail, null, 2) : 'No detail loaded'}</pre>
+                <pre className="whitespace-pre-wrap break-all">{selectedDetail ? JSON.stringify(selectedDetail, null, 2) : t('review:reviewPage.noDetailLoaded', 'No detail loaded')}</pre>
               </div>
               <Divider className="!my-3" />
             </div>
@@ -1487,23 +1689,25 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({ allowGeneration = true }
             <div id="custom-prompts" className={`overflow-hidden transition-all duration-200 ${promptsOpen ? 'max-h-[700px] opacity-100' : 'max-h-0 opacity-0'}`}>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                 <div className="rounded border dark:border-gray-700 p-2">
-                  <Typography.Text type="secondary">Review: System prompt</Typography.Text>
+                  <Typography.Text type="secondary">{t('review:reviewPage.reviewSystemPrompt', 'Review: System prompt')}</Typography.Text>
                   <textarea className="w-full mt-2 min-h-[6rem] text-sm p-2 rounded border dark:border-gray-700 dark:bg-[#171717]" value={reviewSystemPrompt} onChange={(e) => setReviewSystemPrompt(e.target.value)} />
-                  <Typography.Text type="secondary" className="block mt-2">Review: User prompt prefix</Typography.Text>
+                  <Typography.Text type="secondary" className="block mt-2">{t('review:reviewPage.reviewUserPrefix', 'Review: User prompt prefix')}</Typography.Text>
                   <textarea className="w-full mt-2 min-h-[4rem] text-sm p-2 rounded border dark:border-gray-700 dark:bg-[#171717]" value={reviewUserPrefix} onChange={(e) => setReviewUserPrefix(e.target.value)} />
                 </div>
                 <div className="rounded border dark:border-gray-700 p-2">
-                  <Typography.Text type="secondary">Summary: System prompt</Typography.Text>
+                  <Typography.Text type="secondary">{t('review:reviewPage.summarySystemPrompt', 'Summary: System prompt')}</Typography.Text>
                   <textarea className="w-full mt-2 min-h-[6rem] text-sm p-2 rounded border dark:border-gray-700 dark:bg-[#171717]" value={summarySystemPrompt} onChange={(e) => setSummarySystemPrompt(e.target.value)} />
-                  <Typography.Text type="secondary" className="block mt-2">Summary: User prompt prefix</Typography.Text>
+                  <Typography.Text type="secondary" className="block mt-2">{t('review:reviewPage.summaryUserPrefix', 'Summary: User prompt prefix')}</Typography.Text>
                   <textarea className="w-full mt-2 min-h-[4rem] text-sm p-2 rounded border dark:border-gray-700 dark:bg-[#171717]" value={summaryUserPrefix} onChange={(e) => setSummaryUserPrefix(e.target.value)} />
                 </div>
               </div>
               <div className="mt-2">
-                <Button size="small" onClick={() => { setReviewSystemPrompt("You are an expert reviewer. Provide a concise, structured review of the following content."); setReviewUserPrefix(""); setSummarySystemPrompt("Summarize the following content into key points and a brief abstract."); setSummaryUserPrefix("") }}>Reset to defaults</Button>
+                <Button size="small" onClick={() => { setReviewSystemPrompt("You are an expert reviewer. Provide a concise, structured review of the following content."); setReviewUserPrefix(""); setSummarySystemPrompt("Summarize the following content into key points and a brief abstract."); setSummaryUserPrefix("") }}>{t('review:reviewPage.resetToDefaults', 'Reset to defaults')}</Button>
               </div>
               <Divider className="!my-3" />
             </div>
+            )}
+            </>
             )}
 
             {/* Stack: Media Content then Analysis then Existing Analyses */}
@@ -1539,7 +1743,7 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({ allowGeneration = true }
                 </div>
                 {mediaJsonOpen && (
                   <div className="mt-2 rounded border dark:border-gray-700 bg-gray-50 dark:bg-[#111] text-xs p-2 overflow-auto max-h-40">
-                    <pre className="whitespace-pre-wrap break-all">{selectedDetail ? JSON.stringify(selectedDetail, null, 2) : 'No detail loaded'}</pre>
+                <pre className="whitespace-pre-wrap break-all">{selectedDetail ? JSON.stringify(selectedDetail, null, 2) : t('review:reviewPage.noDetailLoaded', 'No detail loaded')}</pre>
                   </div>
                 )}
               </div>
@@ -1577,12 +1781,12 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({ allowGeneration = true }
                   <Checkbox checked={onlyWithAnalysis} onChange={(e) => setOnlyWithAnalysis(e.target.checked)} className="text-xs">Only with analysis</Checkbox>
                 </div>
                 <div className="flex items-center gap-2">
-                    <Tooltip title="Copy all as plain text">
-                      <Button size="small" onClick={async () => { const text = (existingAnalyses || []).map((n, idx) => `Note ${n?.id ?? idx+1}\n\n${String(n?.content || '')}`).join("\n\n---\n\n"); try { await navigator.clipboard.writeText(text); message.success('Copied all notes') } catch { message.error('Copy failed') } }}>Copy All</Button>
-                    </Tooltip>
-                    <Tooltip title="Copy all as Markdown">
-                      <Button size="small" onClick={async () => { const md = (existingAnalyses || []).map((n, idx) => `### Note ${n?.id ?? idx+1}\n\n${toMarkdown(String(n?.content || ''))}`).join("\n\n---\n\n"); try { await navigator.clipboard.writeText(md); message.success('Copied all notes as Markdown') } catch { message.error('Copy failed') } }}>Copy MD</Button>
-                    </Tooltip>
+                  <Tooltip title="Copy all as plain text">
+                    <Button size="small" onClick={async () => { const text = (existingAnalyses || []).map((n, idx) => `Note ${n?.id ?? idx+1}\n\n${String(n?.content || '')}`).join("\n\n---\n\n"); try { await navigator.clipboard.writeText(text); message.success('Copied all notes') } catch { message.error('Copy failed') } }}>Copy All</Button>
+                  </Tooltip>
+                  <Tooltip title="Copy all as Markdown">
+                    <Button size="small" onClick={async () => { const md = (existingAnalyses || []).map((n, idx) => `### Note ${n?.id ?? idx+1}\n\n${toMarkdown(String(n?.content || ''))}`).join("\n\n---\n\n"); try { await navigator.clipboard.writeText(md); message.success('Copied all notes as Markdown') } catch { message.error('Copy failed') } }}>Copy MD</Button>
+                  </Tooltip>
                 </div>
               </div>
               <div className="rounded border dark:border-gray-700 p-2 overflow-auto min-h-[10rem]">
@@ -1594,18 +1798,100 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({ allowGeneration = true }
                     <Tooltip title="Load selected analysis into editor">
                       <Button size="small" disabled={selectedExistingIndex < 0 || selectedExistingIndex >= existingAnalyses.length} onClick={() => { const v = existingAnalyses[selectedExistingIndex]; const text = getVersionAnalysis(v); if (text) setAnalysis(text) }}>Load</Button>
                     </Tooltip>
-                    <Tooltip title="Load version prompt into editor">
-                      <Button size="small" disabled={selectedExistingIndex < 0 || selectedExistingIndex >= existingAnalyses.length} onClick={() => { const v = existingAnalyses[selectedExistingIndex]; const p = getVersionPrompt(v); if (!p) { message.warning('No prompt found'); return } if (analysisMode === 'review') setReviewSystemPrompt(p); else setSummarySystemPrompt(p) }}>Load Prompt</Button>
-                    </Tooltip>
-                    <Tooltip title="Copy selected version prompt">
-                      <Button size="small" disabled={selectedExistingIndex < 0 || selectedExistingIndex >= existingAnalyses.length} onClick={async () => { const v = existingAnalyses[selectedExistingIndex]; const p = getVersionPrompt(v); if (!p) { message.warning('No prompt found'); return } try { await navigator.clipboard.writeText(p); message.success('Prompt copied') } catch { message.error('Copy failed') } }}>Copy Prompt</Button>
-                    </Tooltip>
-                    <Tooltip title="Diff selected vs current analysis">
-                      <Button size="small" onClick={() => { if (selectedExistingIndex < 0 || selectedExistingIndex >= existingAnalyses.length) { message.warning('Select a version first'); return } const v = existingAnalyses[selectedExistingIndex]; const base = getVersionAnalysis(v); const diff = computeDiff(base, analysis || ''); setDiffLines(diff); setDiffLeftText(base); setDiffRightText(analysis || ''); setDiffOpen(true); }}>Diff with current</Button>
-                    </Tooltip>
-                    <Tooltip title="Delete selected version">
-                      <Button danger size="small" disabled={selectedExistingIndex < 0 || selectedExistingIndex >= existingAnalyses.length} onClick={async () => { try { const v = existingAnalyses[selectedExistingIndex]; const vv = getVersionNumber(v); if (!vv) { message.warning('No version number'); return } await bgRequest<any>({ path: `/api/v1/media/${selected?.id}/versions/${vv}` as any, method: 'DELETE' as any }); notification.open({ message: 'Version deleted', description: `Deleted version v${vv}.`, btn: (<Button type="link" size="small" onClick={async () => { try { await bgRequest<any>({ path: `/api/v1/media/${selected?.id}/versions/rollback` as any, method: 'POST' as any, headers: { 'Content-Type': 'application/json' }, body: { version_number: vv } }); message.success('Undo: rolled back to deleted version'); if (selected) await loadExistingAnalyses(selected) } catch (e: any) { message.error(e?.message || 'Undo failed') } }}>Undo</Button>), duration: 4 }); if (selected) await loadExistingAnalyses(selected) } catch (e: any) { message.error(e?.message || 'Delete failed') } }}>Delete</Button>
-                    </Tooltip>
+                    <Dropdown
+                      trigger={["click"]}
+                      placement="bottomLeft"
+                      dropdownRender={() => (
+                        <div className="p-2 w-[260px] bg-white dark:bg-[#171717] border dark:border-gray-700 rounded shadow">
+                          <div className="text-xs text-gray-500 mb-2">More actions</div>
+                          <div className="flex flex-col gap-1">
+                            <Button
+                              size="small"
+                              onClick={() => {
+                                if (selectedExistingIndex < 0 || selectedExistingIndex >= existingAnalyses.length) { message.warning('Select a version first'); return }
+                                const v = existingAnalyses[selectedExistingIndex]
+                                const p = getVersionPrompt(v)
+                                if (!p) { message.warning('No prompt found'); return }
+                                if (analysisMode === 'review') setReviewSystemPrompt(p); else setSummarySystemPrompt(p)
+                              }}
+                            >
+                              Load version prompt into editor
+                            </Button>
+                            <Button
+                              size="small"
+                              onClick={async () => {
+                                if (selectedExistingIndex < 0 || selectedExistingIndex >= existingAnalyses.length) { message.warning('Select a version first'); return }
+                                const v = existingAnalyses[selectedExistingIndex]
+                                const p = getVersionPrompt(v)
+                                if (!p) { message.warning('No prompt found'); return }
+                                try { await navigator.clipboard.writeText(p); message.success('Prompt copied') } catch { message.error('Copy failed') }
+                              }}
+                            >
+                              Copy selected version prompt
+                            </Button>
+                            <Button
+                              size="small"
+                              onClick={() => {
+                                if (selectedExistingIndex < 0 || selectedExistingIndex >= existingAnalyses.length) { message.warning('Select a version first'); return }
+                                const v = existingAnalyses[selectedExistingIndex]
+                                const base = getVersionAnalysis(v)
+                                const diff = computeDiff(base, analysis || '')
+                                setDiffLines(diff)
+                                setDiffLeftText(base)
+                                setDiffRightText(analysis || '')
+                                setDiffOpen(true)
+                              }}
+                            >
+                              Diff selected vs current
+                            </Button>
+                            <Button
+                              danger
+                              size="small"
+                              onClick={async () => {
+                                try {
+                                  if (selectedExistingIndex < 0 || selectedExistingIndex >= existingAnalyses.length) { message.warning('Select a version first'); return }
+                                  const v = existingAnalyses[selectedExistingIndex]
+                                  const vv = getVersionNumber(v)
+                                  if (!vv) { message.warning('No version number'); return }
+                                  await bgRequest<any>({ path: `/api/v1/media/${selected?.id}/versions/${vv}` as any, method: 'DELETE' as any })
+                                  notification.open({
+                                    message: 'Version deleted',
+                                    description: `Deleted version v${vv}.`,
+                                    btn: (
+                                      <Button
+                                        type="link"
+                                        size="small"
+                                        onClick={async () => {
+                                          try {
+                                            await bgRequest<any>({ path: `/api/v1/media/${selected?.id}/versions/rollback` as any, method: 'POST' as any, headers: { 'Content-Type': 'application/json' }, body: { version_number: vv } })
+                                            message.success('Undo: rolled back to deleted version')
+                                            if (selected) await loadExistingAnalyses(selected)
+                                          } catch (e: any) {
+                                            message.error(e?.message || 'Undo failed')
+                                          }
+                                        }}
+                                      >
+                                        Undo
+                                      </Button>
+                                    ),
+                                    duration: 4
+                                  })
+                                  if (selected) await loadExistingAnalyses(selected)
+                                } catch (e: any) {
+                                  message.error(e?.message || 'Delete failed')
+                                }
+                              }}
+                            >
+                              Delete selected version
+                            </Button>
+                          </div>
+                        </div>
+                      )}
+                    >
+                      <Button size="small">
+                        {t('review:reviewPage.moreActions', 'More')}
+                      </Button>
+                    </Dropdown>
                   </div>
                 ) : null}
                 <Button size="small" onClick={() => setNotesJsonOpen(v => !v)}>{notesJsonOpen ? 'Hide raw' : 'Show raw'}</Button>

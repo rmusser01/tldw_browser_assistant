@@ -79,6 +79,78 @@ export default defineBackground({
           title: browser.i18n.getMessage("contextCustom"),
           contexts: ["selection"]
         })
+
+        browser.contextMenus.create({
+          id: "send-to-tldw",
+          title: browser.i18n.getMessage("contextSendToTldw"),
+          contexts: ["page", "link"]
+        })
+
+        browser.contextMenus.create({
+          id: "process-local-tldw",
+          title: browser.i18n.getMessage("contextProcessLocalTldw"),
+          contexts: ["page", "link"]
+        })
+
+        // One-time OpenAPI drift check (advisory): warn on missing critical paths
+        try {
+          const cfg = await storage.get<any>('tldwConfig')
+          const base = String(cfg?.serverUrl || '').replace(/\/$/, '')
+          if (base) {
+            const controller = new AbortController()
+            const timeout = setTimeout(() => controller.abort(), 10000)
+            const headers: Record<string, string> = {}
+            if (cfg?.authMode === 'single-user') {
+              const key = String(cfg?.apiKey || '').trim()
+              if (key) headers['X-API-KEY'] = key
+            } else if (cfg?.authMode === 'multi-user') {
+              const token = String(cfg?.accessToken || '').trim()
+              if (token) headers['Authorization'] = `Bearer ${token}`
+            }
+            const res = await fetch(`${base}/openapi.json`, { headers, signal: controller.signal })
+            clearTimeout(timeout)
+            if (res.ok) {
+              const spec = await res.json().catch(() => null)
+              const paths = (spec && spec.paths) ? spec.paths : {}
+              const required = [
+                '/api/v1/chat/completions',
+                '/api/v1/rag/search',
+                '/api/v1/rag/search/stream',
+                '/api/v1/media/add',
+                '/api/v1/media/process-videos',
+                '/api/v1/media/process-audios',
+                '/api/v1/media/process-pdfs',
+                '/api/v1/media/process-ebooks',
+                '/api/v1/media/process-documents',
+                '/api/v1/media/process-web-scraping',
+                '/api/v1/reading/save',
+                '/api/v1/reading/items',
+                '/api/v1/audio/transcriptions',
+                '/api/v1/audio/speech',
+                '/api/v1/llm/models',
+                '/api/v1/llm/models/metadata',
+                '/api/v1/llm/providers',
+                // Workspace features
+                '/api/v1/notes/',
+                '/api/v1/notes/search/',
+                '/api/v1/flashcards',
+                '/api/v1/flashcards/decks',
+                '/api/v1/characters/world-books',
+                '/api/v1/chat/dictionaries'
+              ]
+              const missing = required.filter((p) => !(p in paths))
+              if (missing.length > 0) {
+                console.warn('[tldw] OpenAPI drift detected — missing endpoints:', missing)
+                try {
+                  await browser.runtime.sendMessage({ type: 'tldw:openapi-warn', payload: { missing } })
+                } catch {}
+              }
+            }
+          }
+        } catch (e) {
+          // Best-effort warning; no-op on failure
+          console.debug('[tldw] OpenAPI check skipped:', (e as any)?.message || e)
+        }
       } catch (error) {
         console.error("Error in initLogic:", error)
       }
@@ -117,10 +189,26 @@ export default defineBackground({
     const deriveStreamIdleTimeout = (cfg: any, path: string, override?: number) => {
       if (override && override > 0) return override
       const p = String(path || '')
+      const defaultIdle = 45000 // bump default idle timeout to 45s to tolerate slow providers
       if (p.includes('/api/v1/chat/completions')) {
-        return Number(cfg?.chatStreamIdleTimeoutMs) > 0 ? Number(cfg.chatStreamIdleTimeoutMs) : (Number(cfg?.streamIdleTimeoutMs) > 0 ? Number(cfg.streamIdleTimeoutMs) : 15000)
+        return Number(cfg?.chatStreamIdleTimeoutMs) > 0
+          ? Number(cfg.chatStreamIdleTimeoutMs)
+          : (Number(cfg?.streamIdleTimeoutMs) > 0 ? Number(cfg.streamIdleTimeoutMs) : defaultIdle)
       }
-      return Number(cfg?.streamIdleTimeoutMs) > 0 ? Number(cfg.streamIdleTimeoutMs) : 15000
+      return Number(cfg?.streamIdleTimeoutMs) > 0 ? Number(cfg.streamIdleTimeoutMs) : defaultIdle
+    }
+
+    const parseRetryAfter = (headerValue?: string | null): number | null => {
+      if (!headerValue) return null
+      const asNumber = Number(headerValue)
+      if (!Number.isNaN(asNumber)) {
+        return Math.max(0, asNumber * 1000)
+      }
+      const asDate = Date.parse(headerValue)
+      if (!Number.isNaN(asDate)) {
+        return Math.max(0, asDate - Date.now())
+      }
+      return null
     }
 
     browser.runtime.onMessage.addListener(async (message) => {
@@ -234,6 +322,13 @@ export default defineBackground({
             })
             clearTimeout(retryTimeout)
           }
+          const headersOut: Record<string, string> = {}
+          try {
+            resp.headers.forEach((v, k) => {
+              headersOut[k] = v
+            })
+          } catch {}
+          const retryAfterMs = parseRetryAfter(resp.headers?.get?.('retry-after'))
           const contentType = resp.headers.get('content-type') || ''
           let data: any = null
           if (contentType.includes('application/json')) {
@@ -243,9 +338,9 @@ export default defineBackground({
           }
           if (!resp.ok) {
             const detail = typeof data === 'object' && data && (data.detail || data.error || data.message)
-            return { ok: false, status: resp.status, error: detail || resp.statusText || `HTTP ${resp.status}`, data }
+            return { ok: false, status: resp.status, error: detail || resp.statusText || `HTTP ${resp.status}`, data, headers: headersOut, retryAfterMs }
           }
-          return { ok: true, status: resp.status, data }
+          return { ok: true, status: resp.status, data, headers: headersOut, retryAfterMs }
         } catch (e: any) {
           return { ok: false, status: 0, error: e?.message || 'Network error' }
         }
@@ -274,6 +369,7 @@ export default defineBackground({
         const storage = new Storage({ area: 'local' })
         let ws: WebSocket | null = null
         let disconnected = false
+        let connectTimer: ReturnType<typeof setTimeout> | null = null
         const safePost = (msg: any) => {
           if (disconnected) return
           try { port.postMessage(msg) } catch {}
@@ -285,13 +381,33 @@ export default defineBackground({
               if (!cfg?.serverUrl) throw new Error('tldw server not configured')
               const base = cfg.serverUrl.replace(/^http/, 'ws').replace(/\/$/, '')
               const token = cfg.authMode === 'single-user' ? cfg.apiKey : cfg.accessToken
+              if (!token) throw new Error('Not authenticated. Configure tldw credentials in Settings > tldw.')
               const url = `${base}/api/v1/audio/stream/transcribe?token=${encodeURIComponent(token || '')}`
               ws = new WebSocket(url)
               ws.binaryType = 'arraybuffer'
-              ws.onopen = () => safePost({ event: 'open' })
+              connectTimer = setTimeout(() => {
+                if (!ws || ws.readyState !== WebSocket.OPEN) {
+                  safePost({ event: 'error', message: 'STT connection timeout. Check tldw server health.' })
+                  try { ws?.close() } catch {}
+                  ws = null
+                }
+              }, 10000)
+              ws.onopen = () => {
+                if (connectTimer) {
+                  clearTimeout(connectTimer)
+                  connectTimer = null
+                }
+                safePost({ event: 'open' })
+              }
               ws.onmessage = (ev) => safePost({ event: 'data', data: ev.data })
-              ws.onerror = () => safePost({ event: 'error', message: 'ws error' })
-              ws.onclose = () => safePost({ event: 'close' })
+              ws.onerror = () => safePost({ event: 'error', message: 'STT websocket error' })
+              ws.onclose = () => {
+                if (connectTimer) {
+                  clearTimeout(connectTimer)
+                  connectTimer = null
+                }
+                safePost({ event: 'close' })
+              }
             } else if (msg?.action === 'audio' && ws && ws.readyState === WebSocket.OPEN) {
               if (msg.data instanceof ArrayBuffer) {
                 ws.send(msg.data)
@@ -310,6 +426,10 @@ export default defineBackground({
         port.onDisconnect.addListener(() => {
           disconnected = true
           try { port.onMessage.removeListener(onMsg) } catch {}
+          if (connectTimer) {
+            clearTimeout(connectTimer)
+            connectTimer = null
+          }
           try { ws?.close() } catch {}
         })
       }
@@ -470,15 +590,6 @@ export default defineBackground({
       }
     })
 
-    // Add context menu for tldw ingest
-    try {
-      browser.contextMenus.create({
-        id: 'send-to-tldw',
-        title: 'Send to tldw_server',
-        contexts: ["page", "link"]
-      })
-    } catch {}
-
     // Stream handler via Port API
     browser.runtime.onConnect.addListener((port) => {
       if (port.name === 'tldw:stream') {
@@ -526,6 +637,11 @@ export default defineBackground({
                 }
               }, idleMs)
             }
+            // Ensure SSE-friendly headers
+            headers['Accept'] = headers['Accept'] || 'text/event-stream'
+            headers['Cache-Control'] = headers['Cache-Control'] || 'no-cache'
+            headers['Connection'] = headers['Connection'] || 'keep-alive'
+
             let resp = await fetch(url, {
               method: msg.method || 'POST',
               headers,

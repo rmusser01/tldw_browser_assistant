@@ -1,4 +1,15 @@
 {
+  "navigation": {
+    "serverAndAuth": "سرور و احراز هویت",
+    "knowledgeTools": "ابزارهای دانش",
+    "workspace": "محیط کار",
+    "about": "درباره"
+  },
+  "healthNav": "سلامت",
+  "worldBooksNav": "World Books",
+  "chatDictionariesNav": "واژه‌نامه‌های چت",
+  "charactersNav": "شخصیت‌ها",
+  "mediaNav": "رسانه",
   "generalSettings": {
     "title": "تنظیمات عمومی",
     "settings": {
@@ -313,7 +324,7 @@
       },
       "globalEnable": {
         "label": "فعال یا غیرفعال کردن یکپارچه‌سازی سرور به صورت سراسری",
-        "warning": "با غیرفعال کردن یکپارچه‌سازی سرور، Page Assist مدل‌ها را از سرور دریافت نخواهد کرد. همچنان می‌توانید ارائه‌دهندگان را از بخش <anchor>API سازگار با OpenAI</anchor> اضافه کنید."
+        "warning": "با غیرفعال کردن یکپارچه‌سازی سرور، tldw Browser_Assistant مدل‌ها را از سرور دریافت نخواهد کرد. همچنان می‌توانید ارائه‌دهندگان را از بخش <anchor>API سازگار با OpenAI</anchor> اضافه کنید."
       },
       "advanced": {
         "label": "پیکربندی پیشرفته URL سرور",
@@ -352,11 +363,17 @@
     "heading": "درباره",
     "chromeVersion": "نسخه دستیار صفحه",
     "ollamaVersion": "نسخه سرور",
-    "support": "شما می توانید با کمک مالی یا حمایت مالی از طریق پلتفرم های زیر از پروژه Page Assist حمایت کنید:",
+    "support": "شما می‌توانید با کمک مالی یا حمایت مالی از طریق پلتفرم‌های زیر از پروژه tldw Browser_Assistant حمایت کنید:",
     "koFi": "پشتیبانی در Ko-fi",
     "githubSponsor": "حمایت مالی در GitHub",
     "githubRepo": "مخزن GitHub"
   },
+  "switchToSidebar": "Switch to Sidebar",
+  "healthPage": { "title": "Health Status", "subtitle": "Quick overview of subsystem health endpoints exposed by the server.", "backToChat": "Back to chat", "openSettings": "Open tldw Settings", "recheckAll": "Recheck All", "copyDiagnostics": "Copy diagnostics", "serverNotConfigured": "Server is not configured.", "unableToReachCore": "Unable to reach server core health endpoint.", "triedGet": "Tried GET {{url}}", "configureHint": "Please configure a server URL under tldw settings.", "configureCta": "Configure", "connectedTo": "Connected to {{host}}", "autoRefresh": "Auto-refresh", "intervalLabel": "Interval (s):", "checking": "Checking…", "recheck": "Recheck", "healthy": "Healthy", "unhealthy": "Unhealthy", "unknown": "Unknown", "checks": { "core": "Core API", "rag": "RAG", "audio": "Audio", "embeddings": "Embeddings", "metrics": "Metrics Health", "chatMetrics": "Chat Metrics", "mcp": "MCP" } },
+  "savedSuccessfully": "Settings saved",
+  "saveFailed": "Failed to save settings",
+  "siteAccessGranted": "Host permission granted for {{origin}}",
+  "tldw": { "advancedTimeouts": "Advanced Timeouts", "requestTimeout": "Request Timeout (seconds)", "streamingIdle": "Streaming Idle Timeout (seconds)", "chatRequest": "Chat Request Timeout", "chatStreamIdle": "Chat Stream Idle", "ragRequest": "RAG Request Timeout", "mediaRequest": "Media Request Timeout", "uploadRequest": "Upload Request Timeout", "timeoutPresetLabel": "Timeout profile", "timeoutPresetBalanced": "Balanced", "timeoutPresetExtended": "Extended", "timeoutPresetCustom": "Custom", "timeoutPresetHint": "Balanced works well for most setups. Extended adds extra headroom for slower networks or long-running jobs.", "reset": "Reset to recommended", "resetDone": "Reset to recommended defaults", "serverNav": "tldw Server", "serverConfigTitle": "tldw Server Configuration", "serverLabel": "Server:", "notConfigured": "Not configured", "buttons": { "health": "Health", "recheck": "Recheck", "testConnection": "Test Connection", "grantSiteAccess": "Grant Site Access", "login": "Login", "logout": "Logout" }, "loginRequired": { "title": "Login Required", "description": "Please login with your tldw_server credentials" }, "loggedIn": { "title": "Logged In", "description": "You are currently logged in to tldw_server" }, "connection": { "success": "Connection successful!", "failed": "Connection failed. Please check your settings.", "failedDetailed": "Connection failed. Please check your server URL and API key." }, "authMode": { "label": "Authentication Mode", "single": "Single User (API Key)", "multi": "Multi User (Login)" }, "hints": { "requestTimeout": "Abort initial requests if no response within this time. Default: {{seconds}}s.", "streamingIdle": "Abort streaming if no updates received within this time. Default: {{seconds}}s." }, "login": { "success": "Login successful!", "failed": "Login failed" }, "logout": { "success": "Logged out successfully", "failed": "Logout failed" }, "setupLink": "Set up server", "loadError": "Unable to load tldw server settings. Check your connection and try again.", "fields": { "apiKey": { "label": "API Key", "placeholder": "Enter your API key", "required": "Please enter your API key", "extra": "Your tldw_server API key for authentication" }, "username": { "label": "Username", "placeholder": "Enter username", "required": "Please enter your username" }, "password": { "label": "Password", "placeholder": "Enter password", "required": "Please enter your password" }, "serverUrl": { "label": "Server URL", "placeholder": "http://localhost:8000", "required": "Please enter the server URL", "invalid": "Please enter a valid URL", "extra": "The URL of your tldw_server instance (e.g., http://localhost:8000)" } }, "errors": { "invalidApiKey": "Invalid API key", "forbidden": "Forbidden (check permissions)", "apiKeyValidationFailed": "API key validation failed", "serverUnreachable": "Server unreachable" }, "about": { "title": "About tldw_server Integration", "description": "This extension connects to your tldw_server instance, providing access to:", "points": { "providers": "Multiple LLM providers through a unified API", "rag": "RAG (Retrieval-Augmented Generation) search", "media": "Media ingestion and processing", "notes": "Notes and prompts management", "stt": "Speech-to-text transcription" } } },
   "manageKnowledge": {
     "title": "مدیریت دانش",
     "heading": "پیکربندی پایگاه دانش"

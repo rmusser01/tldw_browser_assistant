@@ -1,6 +1,12 @@
 import { SaveButton } from "@/components/Common/SaveButton"
 import { getModels, getVoices } from "@/services/elevenlabs"
 import { getTTSSettings, setTTSSettings } from "@/services/tts"
+import { useQuery as useRQ, useQueryClient } from "@tanstack/react-query"
+import { fetchTldwVoices, type TldwVoice } from "@/services/tldw/audio-voices"
+import {
+  fetchTldwTtsModels,
+  type TldwTtsModel
+} from "@/services/tldw/audio-models"
 import { useWebUI } from "@/store/webui"
 import { useForm } from "@mantine/form"
 import { useQuery } from "@tanstack/react-query"
@@ -10,6 +16,7 @@ import { useTranslation } from "react-i18next"
 export const TTSModeSettings = ({ hideBorder }: { hideBorder?: boolean }) => {
   const { t } = useTranslation("settings")
   const { setTTSEnabled } = useWebUI()
+  const queryClient = useQueryClient()
 
   const form = useForm({
     initialValues: {
@@ -27,7 +34,11 @@ export const TTSModeSettings = ({ hideBorder }: { hideBorder?: boolean }) => {
       openAITTSModel: "",
       openAITTSVoice: "",
       ttsAutoPlay: false,
-      playbackSpeed: 1
+      playbackSpeed: 1,
+      tldwTtsModel: "",
+      tldwTtsVoice: "",
+      tldwTtsResponseFormat: "mp3",
+      tldwTtsSpeed: 1
     }
   })
 
@@ -61,6 +72,19 @@ export const TTSModeSettings = ({ hideBorder }: { hideBorder?: boolean }) => {
     enabled:
       form.values.ttsProvider === "elevenlabs" && !!form.values.elevenLabsApiKey
   })
+
+  const { data: tldwVoices } = useRQ({
+    queryKey: ["fetchTldwVoices"],
+    queryFn: fetchTldwVoices,
+    enabled: form.values.ttsProvider === "tldw"
+  })
+
+  const { data: tldwModels } = useRQ<TldwTtsModel[]>({
+    queryKey: ["fetchTldwTtsModels"],
+    queryFn: fetchTldwTtsModels,
+    enabled: form.values.ttsProvider === "tldw"
+  })
+
   if (status === "pending" || status === "error") {
     return <Skeleton active />
   }
@@ -82,6 +106,7 @@ export const TTSModeSettings = ({ hideBorder }: { hideBorder?: boolean }) => {
         onSubmit={form.onSubmit(async (values) => {
           await setTTSSettings(values)
           setTTSEnabled(values.ttsEnabled)
+          queryClient.invalidateQueries({ queryKey: ["fetchTTSSettings"] })
         })}
         className="space-y-4">
         <div className="flex sm:flex-row flex-col space-y-4 sm:space-y-0 sm:justify-between">
@@ -127,6 +152,10 @@ export const TTSModeSettings = ({ hideBorder }: { hideBorder?: boolean }) => {
                 {
                   label: "OpenAI TTS",
                   value: "openai"
+                },
+                {
+                  label: "tldw server (audio/speech)",
+                  value: "tldw"
                 }
               ]}
               {...form.getInputProps("ttsProvider")}
@@ -248,10 +277,17 @@ export const TTSModeSettings = ({ hideBorder }: { hideBorder?: boolean }) => {
               <span className="text-gray-700 dark:text-neutral-50">
                 TTS Voice
               </span>
-              <Input
-                placeholder="alloy"
+              <Select
                 className=" mt-4 sm:mt-0 !w-[300px] sm:w-[200px]"
-                required
+                placeholder="Select a voice"
+                options={[
+                  { label: "alloy", value: "alloy" },
+                  { label: "echo", value: "echo" },
+                  { label: "fable", value: "fable" },
+                  { label: "onyx", value: "onyx" },
+                  { label: "nova", value: "nova" },
+                  { label: "shimmer", value: "shimmer" }
+                ]}
                 {...form.getInputProps("openAITTSVoice")}
               />
             </div>
@@ -260,11 +296,91 @@ export const TTSModeSettings = ({ hideBorder }: { hideBorder?: boolean }) => {
               <span className="text-gray-700 dark:text-neutral-50">
                 TTS Model
               </span>
-              <Input
-                placeholder="tts-1"
+              <Select
                 className=" mt-4 sm:mt-0 !w-[300px] sm:w-[200px]"
-                required
+                placeholder="Select a model"
+                options={[
+                  { label: "tts-1", value: "tts-1" },
+                  { label: "tts-1-hd", value: "tts-1-hd" }
+                ]}
                 {...form.getInputProps("openAITTSModel")}
+              />
+            </div>
+          </>
+        )}
+        {form.values.ttsProvider === "tldw" && (
+          <>
+            <div className="flex sm:flex-row flex-col space-y-4 sm:space-y-0 sm:justify-between">
+              <span className="text-gray-700 dark:text-neutral-50">
+                TTS Model
+              </span>
+              {tldwModels && tldwModels.length > 0 ? (
+                <Select
+                  className=" mt-4 sm:mt-0 !w-[300px] sm:w-[200px]"
+                  placeholder="Select a model"
+                  options={tldwModels.map((m: TldwTtsModel) => ({
+                    label: m.label,
+                    value: m.id
+                  }))}
+                  {...form.getInputProps("tldwTtsModel")}
+                />
+              ) : (
+                <Input
+                  placeholder="kokoro"
+                  className=" mt-4 sm:mt-0 !w-[300px] sm:w-[200px]"
+                  {...form.getInputProps("tldwTtsModel")}
+                />
+              )}
+            </div>
+            <div className="flex sm:flex-row flex-col space-y-4 sm:space-y-0 sm:justify-between">
+              <span className="text-gray-700 dark:text-neutral-50">
+                TTS Voice
+              </span>
+              {tldwVoices && tldwVoices.length > 0 ? (
+                <Select
+                  className="w-full mt-4 sm:mt-0 sm:w-[200px]"
+                  placeholder="Select a voice"
+                  options={tldwVoices.map((v: TldwVoice) => ({
+                    label: v.name || v.voice_id || v.id || "Voice",
+                    value: v.voice_id || v.id || v.name || ""
+                  }))}
+                  {...form.getInputProps("tldwTtsVoice")}
+                />
+              ) : (
+                <Input
+                  placeholder="af_heart"
+                  className=" mt-4 sm:mt-0 !w-[300px] sm:w-[200px]"
+                  {...form.getInputProps("tldwTtsVoice")}
+                />
+              )}
+          </div>
+            <div className="flex sm:flex-row flex-col space-y-4 sm:space-y-0 sm:justify-between">
+              <span className="text-gray-700 dark:text-neutral-50">
+                Response format
+              </span>
+              <Select
+                className="w-full mt-4 sm:mt-0 sm:w-[200px]"
+                options={[
+                  { label: "mp3", value: "mp3" },
+                  { label: "opus", value: "opus" },
+                  { label: "flac", value: "flac" },
+                  { label: "wav", value: "wav" },
+                  { label: "pcm", value: "pcm" }
+                ]}
+                {...form.getInputProps("tldwTtsResponseFormat")}
+              />
+            </div>
+            <div className="flex sm:flex-row flex-col space-y-4 sm:space-y-0 sm:justify-between">
+              <span className="text-gray-700 dark:text-neutral-50">
+                Synthesis speed
+              </span>
+              <InputNumber
+                placeholder="1"
+                min={0.25}
+                max={4}
+                step={0.05}
+                className=" mt-4 sm:mt-0 !w-[300px] sm:w-[200px]"
+                {...form.getInputProps("tldwTtsSpeed")}
               />
             </div>
           </>

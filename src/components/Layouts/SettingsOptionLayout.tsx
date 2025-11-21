@@ -10,8 +10,9 @@ function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(" ")
 }
 
-const shouldHideForFirefox = (item: SettingsNavItem) =>
-  import.meta.env.BROWSER === "firefox" && item.to === "/settings/chrome"
+const shouldHideForBrowser = (item: SettingsNavItem) =>
+  // Hide Chrome-specific settings on non-Chrome targets
+  import.meta.env.BROWSER !== "chrome" && item.to === "/settings/chrome"
 
 export const SettingsLayout = ({ children }: { children: React.ReactNode }) => {
   const location = useLocation()
@@ -48,13 +49,13 @@ export const SettingsLayout = ({ children }: { children: React.ReactNode }) => {
                         }
                       } catch {}
                     }}
-                    title="Switch to Sidebar">
-                    Switch to Sidebar
+                    title={t('settings:switchToSidebar', 'Switch to Sidebar')}>
+                    {t('settings:switchToSidebar', 'Switch to Sidebar')}
                   </button>
                 </div>
                 <div className="flex flex-col gap-6">
                   {SETTINGS_NAV_GROUPS.map((group) => {
-                    const items = group.items.filter((item) => !shouldHideForFirefox(item))
+                    const items = group.items.filter((item) => !shouldHideForBrowser(item))
                     if (items.length === 0) {
                       return null
                     }
@@ -75,7 +76,8 @@ export const SettingsLayout = ({ children }: { children: React.ReactNode }) => {
                                     ? "bg-gray-100 text-gray-700 dark:bg-[#262626] dark:text-white"
                                     : "text-gray-700 hover:text-gray-600 hover:bg-gray-100 dark:text-gray-200 dark:hover:text-white dark:hover:bg-[#262626]",
                                   "group flex gap-x-3 rounded-md py-2 pl-2 pr-3 text-sm font-semibold"
-                                )}>
+                                )}
+                                aria-current={location.pathname === item.to ? "page" : undefined}>
                                 <item.icon
                                   className={classNames(
                                     location.pathname === item.to
@@ -101,7 +103,7 @@ export const SettingsLayout = ({ children }: { children: React.ReactNode }) => {
               <div className="absolute right-4 top-4 lg:right-0 lg:top-6 lg:translate-x-[-1rem]">
                 <button
                   className="inline-flex items-center gap-1 text-xs border rounded px-2 py-1 text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-[#262626]"
-                  title="Close settings and go back"
+                  title={t('common:close', 'Close')}
                   onClick={(e) => {
                     e.preventDefault()
                     try {
@@ -112,7 +114,7 @@ export const SettingsLayout = ({ children }: { children: React.ReactNode }) => {
                   }}
                 >
                   <XIcon className="h-4 w-4" />
-                  <span>Close</span>
+                  <span>{t('common:close', 'Close')}</span>
                 </button>
               </div>
               <div className="mx-auto max-w-4xl space-y-8 sm:space-y-10">

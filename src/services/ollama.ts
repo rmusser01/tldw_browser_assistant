@@ -148,18 +148,69 @@ export const getEmbeddingModels = async ({
   returnEmpty?: boolean
 }) => {
   try {
-    const ollamaModels = await getAllModels({ returnEmpty })
-    const customModels = await ollamaFormatAllCustomModels("embedding")
+    // Prefer dedicated embeddings endpoints from tldw_server
+    await tldwClient.initialize()
 
-    return [
-      ...ollamaModels.map((model) => {
-        return {
-          ...model,
-          provider: "ollama"
+    const [embeddingList, modelNicknames, customModels] = await Promise.all([
+      tldwClient.getEmbeddingModelsList().catch(() => []),
+      getAllModelNicknames(),
+      ollamaFormatAllCustomModels("embedding")
+    ])
+
+    let models = embeddingList.filter(
+      (m) => m && (m.allowed === undefined || m.allowed)
+    )
+
+    // Fallback: derive embedding-capable models from the general models list
+    if (models.length === 0) {
+      const inferred = await tldwModels.getEmbeddingModels(true).catch(
+        () => []
+      )
+      models = inferred.map((m: any) => ({
+        provider: m.provider,
+        model: m.id,
+        allowed: true,
+        default: false
+      }))
+    }
+
+    const tldwModelsForUi = models.map((m: any) => {
+      const provider = String(m.provider || "unknown").toLowerCase()
+      const baseModel = String(m.model)
+      const id = `${provider}/${baseModel}`
+
+      const nickname =
+        modelNicknames[id]?.model_name ||
+        modelNicknames[baseModel]?.model_name ||
+        `${provider} - ${baseModel}`
+
+      const avatar =
+        modelNicknames[id]?.model_avatar ||
+        modelNicknames[baseModel]?.model_avatar ||
+        undefined
+
+      return {
+        name: baseModel,
+        model: id,
+        provider,
+        nickname,
+        avatar,
+        modified_at: "",
+        size: 0,
+        digest: "",
+        details: {
+          parent_model: "",
+          format: "",
+          family: provider,
+          families: [],
+          parameter_size: "",
+          quantization_level: ""
         }
-      }),
-      ...customModels
-    ]
+      }
+    })
+
+    // Merge any locally configured custom embedding models
+    return [...tldwModelsForUi, ...customModels]
   } catch (e) {
     console.error(e)
     return []
@@ -267,10 +318,31 @@ export const setSendWhenEnter = async (sendWhenEnter: boolean) => {
 
 export const defaultEmbeddingModelForRag = async () => {
   const embeddingMode = await storage.get("defaultEmbeddingModel")
-  if (!embeddingMode || embeddingMode.length === 0) {
-    return null
+  if (embeddingMode && typeof embeddingMode === "string" && embeddingMode.length > 0) {
+    return embeddingMode
   }
-  return embeddingMode
+
+  // Fallback: derive from tldw_server embeddings providers-config
+  try {
+    await tldwClient.initialize()
+    // @ts-ignore - method is defined on TldwApiClient instance
+    const cfg = await tldwClient.getEmbeddingProvidersConfig()
+
+    const provider = cfg?.default_provider
+    const model = cfg?.default_model
+
+    if (provider && model) {
+      const id = `${provider}/${model}`
+      await storage.set("defaultEmbeddingModel", id)
+      return id
+    }
+  } catch (e) {
+    if (import.meta.env?.DEV) {
+      console.warn("tldw_server: unable to resolve default embedding model from providers-config", e)
+    }
+  }
+
+  return null
 }
 
 export const defaultEmbeddingChunkSize = async () => {

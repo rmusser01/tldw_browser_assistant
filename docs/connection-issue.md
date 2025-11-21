@@ -6,8 +6,9 @@ If the extension can’t reach your tldw_server, try these steps.
 
 1. Open Options → tldw Server
 2. Confirm Server URL (no trailing slash needed)
-3. Select the correct auth mode (API key or login)
-4. Click “Save”, then “Test Connection”
+3. If you are running a local, single‑user demo of tldw_server, you can use the default API key `THIS-IS-A-SECURE-KEY-123-REPLACE-ME` (the extension fills this in for new installs) unless you have changed it on the server.
+4. Select the correct auth mode (API key or login)
+5. Click “Save”, then “Test Connection”
 
 ## 2) Grant host permission (Chromium)
 
@@ -17,7 +18,7 @@ You can also manage this under `chrome://extensions` → tldw Assistant → “S
 
 ## 3) Check server CORS and HTTPS
 
-- For local development, HTTP is fine (http://localhost:8000)
+- For local development, HTTP is fine (http://127.0.0.1:8000)
 - For remote servers, prefer HTTPS
 - Ensure your server’s CORS policy allows your extension to fetch if required by your setup
 

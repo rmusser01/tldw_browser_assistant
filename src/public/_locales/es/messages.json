@@ -1,12 +1,12 @@
 {
     "extName": {
-        "message": "Page Assist - Una Web UI para modelos de IA Locales"
+        "message": "tldw Assistant"
     },
     "extDescription": {
         "message": "Usa tu modelo de IA corriendo localmente para asistirte en la navegación."
     },
     "openSidePanelToChat": {
-        "message": "Abrir Panel Lateral para Chatear"
+        "message": "Open Sidebar to chat"
     },
     "openOptionToChat": {
         "message": "Abrir Web UI para Chatear"
@@ -25,5 +25,11 @@
     },
     "contextCustom": {
         "message": "Personalizado"
+    },
+    "contextSendToTldw": {
+        "message": "Send to tldw_server"
+    },
+    "contextProcessLocalTldw": {
+        "message": "Process with tldw_server (don’t store)"
     }
 }

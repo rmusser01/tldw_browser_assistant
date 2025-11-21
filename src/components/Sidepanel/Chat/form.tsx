@@ -4,7 +4,13 @@ import React from "react"
 import useDynamicTextareaSize from "~/hooks/useDynamicTextareaSize"
 import { useMessage } from "~/hooks/useMessage"
 import { toBase64 } from "~/libs/to-base64"
-import { Checkbox, Dropdown, Image, Tooltip, notification, Popover } from "antd"
+import {
+  Checkbox,
+  Dropdown,
+  Image,
+  Tooltip,
+  Popover
+} from "antd"
 import { useWebUI } from "~/store/webui"
 import { defaultEmbeddingModelForRag } from "~/services/ollama"
 import {
@@ -21,10 +27,12 @@ import {
 import { useTranslation } from "react-i18next"
 import { getVariable } from "@/utils/select-variable"
 import { ModelSelect } from "@/components/Common/ModelSelect"
+import { PromptSelect } from "@/components/Common/PromptSelect"
 import { useSpeechRecognition } from "@/hooks/useSpeechRecognition"
 import { useTldwStt } from "@/hooks/useTldwStt"
 import { useMicStream } from "@/hooks/useMicStream"
 import { PiGlobeX, PiGlobe } from "react-icons/pi"
+import { Search } from "lucide-react"
 import { BsIncognito } from "react-icons/bs"
 import { handleChatInputKeyDown } from "@/utils/key-down"
 import { getIsSimpleInternetSearch } from "@/services/search"
@@ -34,6 +42,11 @@ import { useFocusShortcuts } from "@/hooks/keyboard"
 import { RagSearchBar } from "@/components/Sidepanel/Chat/RagSearchBar"
 import { CurrentChatModelSettings } from "@/components/Common/Settings/CurrentChatModelSettings"
 import QuickIngestModal from "@/components/Common/QuickIngestModal"
+import { useConnectionState } from "@/hooks/useConnectionState"
+import { ConnectionPhase } from "@/types/connection"
+import { useServerCapabilities } from "@/hooks/useServerCapabilities"
+import { tldwClient } from "@/services/tldw/TldwApiClient"
+import { useAntdNotification } from "@/hooks/useAntdNotification"
 
 type Props = {
   dropedFile: File | undefined
@@ -45,6 +58,7 @@ export const SidepanelForm = ({ dropedFile }: Props) => {
   const { sendWhenEnter, setSendWhenEnter } = useWebUI()
   const [typing, setTyping] = React.useState<boolean>(false)
   const { t } = useTranslation(["playground", "common", "option"])
+  const notification = useAntdNotification()
   const [chatWithWebsiteEmbedding] = useStorage(
     "chatWithWebsiteEmbedding",
     false
@@ -70,13 +84,32 @@ export const SidepanelForm = ({ dropedFile }: Props) => {
     }
   }
 
+  const serverRecorderRef = React.useRef<MediaRecorder | null>(null)
+  const serverChunksRef = React.useRef<BlobPart[]>([])
+  const [isServerDictating, setIsServerDictating] = React.useState(false)
+
+  const stopServerDictation = React.useCallback(() => {
+    const rec = serverRecorderRef.current
+    if (rec && rec.state !== "inactive") {
+      try {
+        rec.stop()
+      } catch {}
+    }
+  }, [])
+
   // tldw WS STT
-  const { connect: sttConnect, sendAudio, close: sttClose, connected: sttConnected } = useTldwStt()
+  const { connect: sttConnect, sendAudio, close: sttClose, connected: sttConnected, lastError: sttError } = useTldwStt()
   const { start: micStart, stop: micStop, active: micActive } = useMicStream((chunk) => {
     try { sendAudio(chunk) } catch {}
   })
   const [wsSttActive, setWsSttActive] = React.useState(false)
   const [ingestOpen, setIngestOpen] = React.useState(false)
+  const { phase, isConnected } = useConnectionState()
+  const isConnectionReady = isConnected && phase === ConnectionPhase.CONNECTED
+  const { capabilities, loading: capsLoading } = useServerCapabilities()
+  const hasServerAudio = isConnectionReady && !capsLoading && capabilities?.hasAudio
+  const [hasShownConnectBanner, setHasShownConnectBanner] = React.useState(false)
+  const [showConnectBanner, setShowConnectBanner] = React.useState(false)
 
   const onInputChange = async (
     e: React.ChangeEvent<HTMLInputElement> | File
@@ -97,9 +130,50 @@ export const SidepanelForm = ({ dropedFile }: Props) => {
     }
   }
 
+  // When sidepanel connection transitions to CONNECTED, focus the composer
+  const previousPhaseRef = React.useRef<ConnectionPhase | null>(null)
+  React.useEffect(() => {
+    if (
+      previousPhaseRef.current !== ConnectionPhase.CONNECTED &&
+      phase === ConnectionPhase.CONNECTED
+    ) {
+      setTimeout(() => {
+        window.dispatchEvent(new CustomEvent("tldw:focus-composer"))
+      }, 0)
+    }
+    previousPhaseRef.current = phase
+  }, [phase])
+
+  // Allow other components (e.g., connection card) to request focus
+  React.useEffect(() => {
+    const handler = () => {
+      if (document.visibilityState === 'visible') {
+        textAreaFocus()
+      }
+    }
+    window.addEventListener('tldw:focus-composer', handler)
+    return () => window.removeEventListener('tldw:focus-composer', handler)
+  }, [])
+
   useFocusShortcuts(textareaRef, true)
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (!isConnectionReady) {
+      if (e.key === "Enter") {
+        e.preventDefault()
+        form.onSubmit(async (value) => {
+          if (value.message.trim().length === 0 && value.image.length === 0) {
+            return
+          }
+          addQueuedMessage({
+            message: value.message.trim(),
+            image: value.image
+          })
+          form.reset()
+        })()
+      }
+      return
+    }
     if (e.key === "Process" || e.key === "229") return
     if (
       handleChatInputKeyDown({
@@ -144,6 +218,13 @@ export const SidepanelForm = ({ dropedFile }: Props) => {
     }
   }
 
+  const handleDisconnectedFocus = () => {
+    if (!isConnectionReady && !hasShownConnectBanner) {
+      setShowConnectBanner(true)
+      setHasShownConnectBanner(true)
+    }
+  }
+
   const handlePaste = (e: React.ClipboardEvent) => {
     if (e.clipboardData.files.length > 0) {
       onInputChange(e.clipboardData.files[0])
@@ -162,6 +243,8 @@ export const SidepanelForm = ({ dropedFile }: Props) => {
     setWebSearch,
     selectedQuickPrompt,
     setSelectedQuickPrompt,
+    selectedSystemPrompt,
+    setSelectedSystemPrompt,
     speechToTextLanguage,
     useOCR,
     setUseOCR,
@@ -170,10 +253,28 @@ export const SidepanelForm = ({ dropedFile }: Props) => {
     temporaryChat,
     setTemporaryChat,
     messages,
-    clearChat
+    clearChat,
+    queuedMessages,
+    addQueuedMessage,
+    clearQueuedMessages
   } = useMessage()
 
   const [openModelSettings, setOpenModelSettings] = React.useState(false)
+  const openSettings = React.useCallback(() => {
+    try {
+      // @ts-ignore
+      if (chrome?.runtime?.openOptionsPage) {
+        // @ts-ignore
+        chrome.runtime.openOptionsPage()
+        return
+      }
+    } catch {}
+    window.open("/options.html#/settings/tldw", "_blank")
+  }, [])
+
+  const openDiagnostics = React.useCallback(() => {
+    window.open("/options.html#/settings/health", "_blank")
+  }, [])
 
   const handleToggleTemporaryChat = React.useCallback(() => {
     if (isFireFoxPrivateMode) {
@@ -206,6 +307,107 @@ export const SidepanelForm = ({ dropedFile }: Props) => {
     }
   }, [isListening, resetTranscript, speechToTextLanguage, startListening, stopListening])
 
+  const handleServerDictationToggle = React.useCallback(async () => {
+    if (isServerDictating) {
+      stopServerDictation()
+      return
+    }
+    if (!hasServerAudio) {
+      notification.error({
+        message: t("playground:actions.speechErrorTitle", "Dictation unavailable"),
+        description: t(
+          "playground:actions.speechErrorBody",
+          "Connect to a tldw server that exposes the audio transcriptions API to use dictation."
+        )
+      })
+      return
+    }
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ audio: true })
+      const recorder = new MediaRecorder(stream)
+      serverChunksRef.current = []
+      recorder.ondataavailable = (ev: BlobEvent) => {
+        if (ev.data && ev.data.size > 0) {
+          serverChunksRef.current.push(ev.data)
+        }
+      }
+      recorder.onerror = (event: Event) => {
+        console.error("MediaRecorder error", event)
+        notification.error({
+          message: t("playground:actions.speechErrorTitle", "Dictation failed"),
+          description: t(
+            "playground:actions.speechErrorBody",
+            "Microphone recording error. Check your permissions and try again."
+          )
+        })
+      }
+      recorder.onstop = async () => {
+        try {
+          const blob = new Blob(serverChunksRef.current, {
+            type: recorder.mimeType || "audio/webm"
+          })
+          if (blob.size === 0) {
+            return
+          }
+          const res = await tldwClient.transcribeAudio(blob, {
+            language: speechToTextLanguage
+          })
+          let text = ""
+          if (res) {
+            if (typeof res === "string") {
+              text = res
+            } else if (typeof (res as any).text === "string") {
+              text = (res as any).text
+            } else if (typeof (res as any).transcript === "string") {
+              text = (res as any).transcript
+            } else if (Array.isArray((res as any).segments)) {
+              text = (res as any).segments
+                .map((s: any) => s?.text || "")
+                .join(" ")
+                .trim()
+            }
+          }
+          if (text) {
+            form.setFieldValue("message", text)
+          } else {
+            notification.error({
+              message: t("playground:actions.speechErrorTitle", "Dictation failed"),
+              description: t(
+                "playground:actions.speechNoText",
+                "The transcription did not return any text."
+              )
+            })
+          }
+        } catch (e: any) {
+          notification.error({
+            message: t("playground:actions.speechErrorTitle", "Dictation failed"),
+            description: e?.message || t(
+              "playground:actions.speechErrorBody",
+              "Transcription request failed. Check tldw server health."
+            )
+          })
+        } finally {
+          try {
+            stream.getTracks().forEach((trk) => trk.stop())
+          } catch {}
+          serverRecorderRef.current = null
+          setIsServerDictating(false)
+        }
+      }
+      serverRecorderRef.current = recorder
+      recorder.start()
+      setIsServerDictating(true)
+    } catch (e: any) {
+      notification.error({
+        message: t("playground:actions.speechErrorTitle", "Dictation failed"),
+        description: t(
+          "playground:actions.speechMicError",
+          "Unable to access your microphone. Check browser permissions and try again."
+        )
+      })
+    }
+  }, [hasServerAudio, isServerDictating, speechToTextLanguage, stopServerDictation, t, form])
+
   const handleLiveCaptionsToggle = React.useCallback(async () => {
     if (wsSttActive) {
       try {
@@ -234,91 +436,144 @@ export const SidepanelForm = ({ dropedFile }: Props) => {
     setIngestOpen(true)
   }, [])
 
+  React.useEffect(() => {
+    if (sttError) {
+      notification.error({
+        message: t("playground:actions.streamErrorTitle", "Live captions unavailable"),
+        description: sttError
+      })
+    }
+  }, [sttError, t])
+
   const moreToolsContent = React.useMemo(() => (
-    <div className="flex w-72 flex-col gap-3">
-      <button
-        type="button"
-        onClick={handleToggleTemporaryChat}
-        className="flex w-full items-center justify-between rounded-md px-2 py-1 text-sm text-gray-700 transition hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-[#2a2a2a]"
-      >
-        <span>
-          {temporaryChat
-            ? t('playground:actions.temporaryOn', 'Temporary chat')
-            : t('playground:actions.temporaryOff', 'Save chat')}
-        </span>
-        <BsIncognito className="h-4 w-4" />
-      </button>
-      {chatMode !== 'vision' && (
+    <div className="flex w-72 flex-col gap-4">
+      <div className="space-y-2">
+        <p className="text-[11px] font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400">
+          {t("playground:more.history", "History & saving")}
+        </p>
         <button
           type="button"
-          onClick={handleWebSearchToggle}
-          disabled={chatMode === 'rag'}
-          className="flex w-full items-center justify-between rounded-md px-2 py-1 text-sm text-gray-700 transition hover:bg-gray-100 disabled:cursor-not-allowed disabled:opacity-40 dark:text-gray-200 dark:hover:bg-[#2a2a2a]"
-        >
-          <span>
-            {webSearch
-              ? t('playground:actions.webSearchOn', 'Web search on')
-              : t('playground:actions.webSearchOff', 'Web search off')}
-          </span>
-          {webSearch ? <PiGlobe className="h-4 w-4" /> : <PiGlobeX className="h-4 w-4" />}
-        </button>
-      )}
-      {browserSupportsSpeechRecognition && (
-        <button
-          type="button"
-          onClick={handleSpeechToggle}
+          onClick={handleToggleTemporaryChat}
           className="flex w-full items-center justify-between rounded-md px-2 py-1 text-sm text-gray-700 transition hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-[#2a2a2a]"
         >
           <span>
-            {isListening
-              ? t('playground:actions.speechStop', 'Stop dictation')
-              : t('playground:actions.speechStart', 'Start dictation')}
+            {temporaryChat
+              ? t("playground:actions.temporaryOn", "Temporary chat")
+              : t("playground:actions.temporaryOff", "Save chat")}
+          </span>
+          <BsIncognito className="h-4 w-4" />
+        </button>
+      </div>
+
+      <div className="space-y-2">
+        <p className="text-[11px] font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400">
+          {t("playground:more.searchRag", "Search & RAG")}
+        </p>
+        {chatMode !== "vision" && (
+          <button
+            type="button"
+            onClick={handleWebSearchToggle}
+            disabled={chatMode === "rag"}
+            className="flex w-full items-center justify-between rounded-md px-2 py-1 text-sm text-gray-700 transition hover:bg-gray-100 disabled:cursor-not-allowed disabled:opacity-40 dark:text-gray-200 dark:hover:bg-[#2a2a2a]"
+          >
+            <span>
+              {webSearch
+                ? t("playground:actions.webSearchOn", "Web search on")
+                : t("playground:actions.webSearchOff", "Web search off")}
+            </span>
+            {webSearch ? (
+              <PiGlobe className="h-4 w-4" />
+            ) : (
+              <PiGlobeX className="h-4 w-4" />
+            )}
+          </button>
+        )}
+        <button
+          type="button"
+          onClick={handleVisionToggle}
+          disabled={chatMode === "rag"}
+          className="flex w-full items-center justify-between rounded-md px-2 py-1 text-sm text-gray-700 transition hover:bg-gray-100 disabled:cursor-not-allowed disabled:opacity-40 dark:text-gray-200 dark:hover:bg-[#2a2a2a]"
+        >
+          <span>
+            {chatMode === "vision"
+              ? t("playground:actions.visionOn", "Vision on")
+              : t("playground:actions.visionOff", "Vision off")}
+          </span>
+          {chatMode === "vision" ? (
+            <EyeIcon className="h-4 w-4" />
+          ) : (
+            <EyeOffIcon className="h-4 w-4" />
+          )}
+        </button>
+      </div>
+
+      <div className="space-y-2">
+        <p className="text-[11px] font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400">
+          {t("playground:more.voice", "Voice & captions")}
+        </p>
+        {browserSupportsSpeechRecognition ? (
+          <button
+            type="button"
+            onClick={handleSpeechToggle}
+            className="flex w-full items-center justify-between rounded-md px-2 py-1 text-sm text-gray-700 transition hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-[#2a2a2a]"
+          >
+            <span>
+              {isListening
+                ? t("playground:actions.speechStop", "Stop dictation")
+                : t("playground:actions.speechStart", "Start dictation")}
+            </span>
+            <MicIcon className="h-4 w-4" />
+          </button>
+        ) : hasServerAudio && (
+          <button
+            type="button"
+            onClick={handleServerDictationToggle}
+            className="flex w-full items-center justify-between rounded-md px-2 py-1 text-sm text-gray-700 transition hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-[#2a2a2a]"
+          >
+            <span>
+              {isServerDictating
+                ? t("playground:actions.speechStop", "Stop dictation")
+                : t("playground:actions.speechStart", "Start dictation")}
+            </span>
+            <MicIcon className="h-4 w-4" />
+          </button>
+        )}
+        <button
+          type="button"
+          onClick={handleLiveCaptionsToggle}
+          className="flex w-full items-center justify-between rounded-md px-2 py-1 text-sm text-gray-700 transition hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-[#2a2a2a]"
+        >
+          <span>
+            {wsSttActive
+              ? t("playground:actions.streamStop", "Stop captions")
+              : t("playground:actions.streamStart", "Live captions")}
           </span>
           <MicIcon className="h-4 w-4" />
         </button>
-      )}
-      <button
-        type="button"
-        onClick={handleLiveCaptionsToggle}
-        className="flex w-full items-center justify-between rounded-md px-2 py-1 text-sm text-gray-700 transition hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-[#2a2a2a]"
-      >
-        <span>
-          {wsSttActive
-            ? t('playground:actions.streamStop', 'Stop captions')
-            : t('playground:actions.streamStart', 'Live captions')}
-        </span>
-        <MicIcon className="h-4 w-4" />
-      </button>
-      <button
-        type="button"
-        onClick={handleVisionToggle}
-        disabled={chatMode === 'rag'}
-        className="flex w-full items-center justify-between rounded-md px-2 py-1 text-sm text-gray-700 transition hover:bg-gray-100 disabled:cursor-not-allowed disabled:opacity-40 dark:text-gray-200 dark:hover:bg-[#2a2a2a]"
-      >
-        <span>
-          {chatMode === 'vision'
-            ? t('playground:actions.visionOn', 'Vision on')
-            : t('playground:actions.visionOff', 'Vision off')}
-        </span>
-        {chatMode === 'vision' ? <EyeIcon className="h-4 w-4" /> : <EyeOffIcon className="h-4 w-4" />}
-      </button>
-      <button
-        type="button"
-        onClick={handleImageUpload}
-        disabled={chatMode === 'vision' || chatMode === 'rag'}
-        className="flex w-full items-center justify-between rounded-md px-2 py-1 text-sm text-gray-700 transition hover:bg-gray-100 disabled:cursor-not-allowed disabled:opacity-40 dark:text-gray-200 dark:hover:bg-[#2a2a2a]"
-      >
-        <span>{t('playground:actions.upload', 'Attach image')}</span>
-        <ImageIcon className="h-4 w-4" />
-      </button>
-      <button
-        type="button"
-        onClick={handleQuickIngestOpen}
-        className="flex w-full items-center justify-between rounded-md px-2 py-1 text-sm text-gray-700 transition hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-[#2a2a2a]"
-      >
-        <span>{t('playground:actions.ingest', 'Quick ingest')}</span>
-        <UploadCloud className="h-4 w-4" />
-      </button>
+      </div>
+
+      <div className="space-y-2">
+        <p className="text-[11px] font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400">
+          {t("playground:more.uploads", "Uploads & ingest")}
+        </p>
+        <button
+          type="button"
+          onClick={handleQuickIngestOpen}
+          className="flex w-full items-center justify-between rounded-md px-2 py-1 text-sm text-gray-700 transition hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-[#2a2a2a]"
+        >
+          <span>{t("playground:actions.ingest", "Quick ingest")}</span>
+          <UploadCloud className="h-4 w-4" />
+        </button>
+        <button
+          type="button"
+          onClick={handleImageUpload}
+          disabled={chatMode === "vision" || chatMode === "rag"}
+          className="flex w-full items-center justify-between rounded-md px-2 py-1 text-sm text-gray-700 transition hover:bg-gray-100 disabled:cursor-not-allowed disabled:opacity-40 dark:text-gray-200 dark:hover:bg-[#2a2a2a]"
+        >
+          <span>{t("playground:actions.upload", "Attach image")}</span>
+          <ImageIcon className="h-4 w-4" />
+        </button>
+      </div>
     </div>
   ), [
     browserSupportsSpeechRecognition,
@@ -326,11 +581,14 @@ export const SidepanelForm = ({ dropedFile }: Props) => {
     handleImageUpload,
     handleLiveCaptionsToggle,
     handleQuickIngestOpen,
+    handleServerDictationToggle,
     handleSpeechToggle,
     handleToggleTemporaryChat,
     handleVisionToggle,
     handleWebSearchToggle,
+    hasServerAudio,
     isListening,
+    isServerDictating,
     temporaryChat,
     t,
     webSearch,
@@ -377,6 +635,35 @@ export const SidepanelForm = ({ dropedFile }: Props) => {
     }
   })
 
+  const submitQueuedInSidepanel = async (message: string, image: string) => {
+    if (!isConnectionReady) return
+    await stopListening()
+    stopServerDictation()
+    if (!selectedModel || selectedModel.length === 0) {
+      form.setFieldError("message", t("formError.noModel"))
+      return
+    }
+    if (chatMode === "rag") {
+      const defaultEM = await defaultEmbeddingModelForRag()
+      if (!defaultEM && chatWithWebsiteEmbedding) {
+        form.setFieldError("message", t("formError.noEmbeddingModel"))
+        return
+      }
+    }
+    if (webSearch) {
+      const defaultEM = await defaultEmbeddingModelForRag()
+      const simpleSearch = await getIsSimpleInternetSearch()
+      if (!defaultEM && !simpleSearch) {
+        form.setFieldError("message", t("formError.noEmbeddingModel"))
+        return
+      }
+    }
+    await sendMessage({
+      image,
+      message
+    })
+  }
+
   React.useEffect(() => {
     const handleDrop = (e: DragEvent) => {
       e.preventDefault()
@@ -416,6 +703,12 @@ export const SidepanelForm = ({ dropedFile }: Props) => {
     }
   }, [defaultInternetSearchOn])
 
+  React.useEffect(() => {
+    if (isConnectionReady) {
+      setShowConnectBanner(false)
+    }
+  }, [isConnectionReady])
+
  
   return (
     <div className="flex w-full flex-col items-center px-2">
@@ -423,7 +716,10 @@ export const SidepanelForm = ({ dropedFile }: Props) => {
         <div className="relative flex w-full flex-row justify-center gap-2 lg:w-4/5">
           <div
             data-istemporary-chat={temporaryChat}
-            className={` bg-neutral-50  dark:bg-[#262626] relative w-full max-w-[48rem] p-1 backdrop-blur-lg duration-100 border border-gray-300 rounded-t-xl  dark:border-gray-600 data-[istemporary-chat='true']:bg-purple-900 data-[istemporary-chat='true']:dark:bg-purple-900`}>
+            aria-disabled={!isConnectionReady}
+            className={` bg-neutral-50  dark:bg-[#262626] relative w-full max-w-[48rem] p-1 backdrop-blur-lg duration-100 border border-gray-300 rounded-t-xl  dark:border-gray-600 data-[istemporary-chat='true']:bg-purple-900 data-[istemporary-chat='true']:dark:bg-purple-900 ${
+              !isConnectionReady ? "opacity-60" : ""
+            }`}>
             <div
               className={`border-b border-gray-200 dark:border-gray-600 relative ${
                 form.values.image.length === 0 ? "hidden" : "block"
@@ -495,9 +791,17 @@ export const SidepanelForm = ({ dropedFile }: Props) => {
                     ref={inputRef}
                     accept="image/*"
                     multiple={false}
+                    tabIndex={-1}
+                    aria-hidden="true"
                     onChange={onInputChange}
                   />
-                  <div className="w-full  flex flex-col px-1">
+                  <div
+                    className={`w-full flex flex-col px-1 ${
+                      !isConnectionReady
+                        ? "rounded-md border border-dashed border-gray-300 bg-gray-50 dark:border-gray-700 dark:bg-[#1b1b1b]"
+                        : ""
+                    }`}
+                  >
                     {/* RAG Search Bar: search KB, insert snippets, ask directly */}
                     <RagSearchBar
                       onInsert={(text) => {
@@ -509,9 +813,16 @@ export const SidepanelForm = ({ dropedFile }: Props) => {
                       }}
                       onAsk={async (text) => {
                         // Set message and submit immediately
+                        const trimmed = text.trim()
+                        if (!trimmed) return
                         form.setFieldValue("message", text)
                         // Mimic Enter submit flow
-                        const value = { ...form.values, message: text }
+                        const value = { ...form.values, message: trimmed }
+                        if (!isConnectionReady) {
+                          addQueuedMessage({ message: value.message, image: value.image })
+                          form.reset()
+                          return
+                        }
                         // Reuse the same checks as handleKeyDown/form submit
                         if (!selectedModel || selectedModel.length === 0) {
                           form.setFieldError("message", t("formError.noModel"))
@@ -535,13 +846,50 @@ export const SidepanelForm = ({ dropedFile }: Props) => {
                         await stopListening()
                         form.reset()
                         textAreaFocus()
-                        await sendMessage({ image: "", message: value.message.trim() })
+                        await sendMessage({ image: "", message: value.message })
                       }}
                     />
+                    {/* Minimal connection indicator is always visible so users see status before focusing */}
+                    {!isConnectionReady && (
+                      <div className="mb-2 flex flex-wrap items-center justify-between gap-2 text-[11px] text-gray-600 dark:text-gray-300">
+                        <div className="inline-flex items-center gap-1 rounded-full border border-dashed border-gray-300 bg-gray-100 px-2 py-0.5 font-medium text-gray-700 dark:border-gray-600 dark:bg-[#262626] dark:text-gray-200">
+                          <span className="h-1.5 w-1.5 rounded-full bg-red-500" />
+                          <span>
+                            {t(
+                              "playground:composer.connectionChipDisconnected",
+                              "Server: Not connected"
+                            )}
+                          </span>
+                        </div>
+                        <div className="flex flex-wrap items-center gap-2">
+                          <button
+                            type="button"
+                            onClick={openSettings}
+                            className="text-[11px] font-medium text-pink-600 hover:underline dark:text-pink-300"
+                          >
+                            {t("settings:tldw.setupLink", "Set up server")}
+                          </button>
+                          <button
+                            type="button"
+                            onClick={openDiagnostics}
+                            className="text-[11px] font-medium text-gray-600 underline hover:text-gray-800 dark:text-gray-300 dark:hover:text-gray-100"
+                          >
+                            {t("settings:healthSummary.diagnostics", "Diagnostics")}
+                          </button>
+                        </div>
+                      </div>
+                    )}
                     <textarea
                       onKeyDown={(e) => handleKeyDown(e)}
+                      onFocus={handleDisconnectedFocus}
                       ref={textareaRef}
-                      className="px-2 py-2 w-full resize-none bg-transparent focus-within:outline-none focus:ring-0 focus-visible:ring-0 ring-0 dark:ring-0 border-0 dark:text-gray-100"
+                      className={`px-2 py-2 w-full resize-none bg-transparent focus-within:outline-none focus:ring-0 focus-visible:ring-0 ring-0 dark:ring-0 border-0 dark:text-gray-100 ${
+                        !isConnectionReady
+                          ? "cursor-not-allowed text-gray-500 placeholder:text-gray-400 dark:text-gray-400 dark:placeholder:text-gray-500"
+                          : ""
+                      }`}
+                      readOnly={!isConnectionReady}
+                      aria-disabled={!isConnectionReady}
                       onPaste={handlePaste}
                       rows={1}
                       style={{ minHeight: "60px" }}
@@ -556,14 +904,37 @@ export const SidepanelForm = ({ dropedFile }: Props) => {
                           setTyping(false)
                         }
                       }}
-                      placeholder={t("form.textarea.placeholder")}
+                      placeholder={
+                        isConnectionReady
+                          ? t("form.textarea.placeholder")
+                          : t(
+                              "playground:composer.connectionPlaceholder",
+                              "Connect to your tldw server to start chatting."
+                            )
+                      }
                       {...form.getInputProps("message")}
                     />
                     <div className="mt-4 flex w-full flex-col gap-3 md:flex-row md:items-center md:justify-between">
-                      <div className="flex flex-wrap items-center gap-2">
-                        <ModelSelect iconClassName="size-4" />
-                      </div>
+                      <div className="flex flex-wrap items-center gap-2" />
                       <div className="flex flex-wrap items-center justify-end gap-2">
+                        {/* RAG toggle for better discoverability */}
+                        <button
+                          type="button"
+                          onClick={() => window.dispatchEvent(new CustomEvent('tldw:toggle-rag'))}
+                          className="inline-flex items-center gap-2 rounded-md border border-gray-200 px-3 py-1.5 text-xs font-semibold text-gray-700 transition hover:bg-gray-100 dark:border-gray-600 dark:text-gray-200 dark:hover:bg-[#2a2a2a]"
+                          title={t('sidepanel:toolbar.ragSearch', 'RAG Search') as string}>
+                          <Search className="h-4 w-4" />
+                          <span className="hidden sm:inline">{t('sidepanel:toolbar.ragSearch', 'RAG Search')}</span>
+                        </button>
+                        {/* Move Prompt and Model selectors next to More Tools */}
+                        <PromptSelect
+                          selectedSystemPrompt={selectedSystemPrompt}
+                          setSelectedSystemPrompt={setSelectedSystemPrompt}
+                          setSelectedQuickPrompt={setSelectedQuickPrompt}
+                          iconClassName="size-4"
+                          className="text-gray-700 dark:text-gray-200 hover:text-gray-900 dark:hover:text-gray-100"
+                        />
+                        <ModelSelect iconClassName="size-4" />
                         <Popover
                           trigger="click"
                           placement="topRight"
@@ -572,10 +943,14 @@ export const SidepanelForm = ({ dropedFile }: Props) => {
                         >
                           <button
                             type="button"
+                            aria-label={t("playground:composer.moreTools", "More tools") as string}
+                            title={t("playground:composer.moreTools", "More tools") as string}
                             className="inline-flex items-center gap-2 rounded-md border border-gray-200 px-3 py-1.5 text-xs font-semibold text-gray-700 transition hover:bg-gray-100 dark:border-gray-600 dark:text-gray-200 dark:hover:bg-[#2a2a2a]"
                           >
                             <MoreHorizontal className="h-4 w-4" />
-                            <span>{t('playground:composer.moreTools')}</span>
+                            <span>
+                              {t("playground:composer.moreTools", "More tools")}
+                            </span>
                           </button>
                         </Popover>
                         <div
@@ -592,8 +967,20 @@ export const SidepanelForm = ({ dropedFile }: Props) => {
                                 'playground:composer.submitAria',
                                 'Send message'
                               )}
+                              title={
+                                !isConnectionReady
+                                  ? (t(
+                                      "playground:composer.connectToSend",
+                                      "Connect to your tldw server to start chatting."
+                                    ) as string)
+                                  : sendWhenEnter
+                                    ? (t(
+                                        "playground:sendWhenEnter"
+                                      ) as string)
+                                    : undefined
+                              }
                               htmlType="submit"
-                              disabled={isSending}
+                              disabled={isSending || !isConnectionReady}
                               className="!justify-end !w-auto"
                               icon={
                                 <svg
@@ -667,7 +1054,7 @@ export const SidepanelForm = ({ dropedFile }: Props) => {
                                     <path d="M20 4v7a4 4 0 01-4 4H4"></path>
                                   </svg>
                                 ) : null}
-                                {t("common:submit")}
+                                {t("common:send", "Send")}
                               </div>
                             </Dropdown.Button>
                             {/* Current Conversation Settings button to the right of submit */}
@@ -720,6 +1107,90 @@ export const SidepanelForm = ({ dropedFile }: Props) => {
                         )}
                       </div>
                     </div>
+                    {showConnectBanner && !isConnectionReady && (
+                      <div className="mt-2 flex flex-wrap items-center justify-between gap-2 rounded-md border border-amber-300 bg-amber-50 px-3 py-2 text-xs text-amber-900 dark:border-amber-500 dark:bg-[#2a2310] dark:text-amber-100">
+                        <p className="max-w-xs text-left">
+                          {t(
+                            "playground:composer.connectNotice",
+                            "Connect to your tldw server in Settings to send messages."
+                          )}
+                        </p>
+                        <div className="flex flex-wrap items-center gap-2">
+                          <button
+                            type="button"
+                            onClick={openSettings}
+                            className="rounded-md border border-amber-300 bg-white px-2 py-1 text-xs font-medium text-amber-900 hover:bg-amber-100 dark:bg-[#3a2b10] dark:text-amber-50 dark:hover:bg-[#4a3512]"
+                          >
+                            {t("settings:tldw.setupLink", "Set up server")}
+                          </button>
+                          <button
+                            type="button"
+                            onClick={openDiagnostics}
+                            className="text-xs font-medium text-amber-900 underline hover:text-amber-700 dark:text-amber-100 dark:hover:text-amber-300"
+                          >
+                            {t("settings:healthSummary.diagnostics", "Diagnostics")}
+                          </button>
+                          <button
+                            type="button"
+                            onClick={() => setShowConnectBanner(false)}
+                            className="inline-flex items-center rounded-full p-1 text-amber-700 hover:bg-amber-100 dark:text-amber-200 dark:hover:bg-[#3a2b10]"
+                            aria-label={t("common:close", "Dismiss")}
+                          >
+                            <X className="h-3 w-3" />
+                          </button>
+                        </div>
+                      </div>
+                    )}
+                    {isConnectionReady && queuedMessages.length > 0 && (
+                      <div className="mt-2 flex flex-wrap items-center justify-between gap-2 rounded-md border border-green-300 bg-green-50 px-3 py-2 text-xs text-green-900 dark:border-green-500 dark:bg-[#102a10] dark:text-green-100">
+                        <p className="max-w-xs text-left">
+                          <span className="block font-medium">
+                            {t(
+                              "playground:composer.queuedBanner.title",
+                              "Queued while offline"
+                            )}
+                          </span>
+                          {t(
+                            "playground:composer.queuedBanner.body",
+                            "We’ll hold these messages and send them once your tldw server is connected."
+                          )}
+                        </p>
+                        <div className="flex flex-wrap items-center gap-2">
+                          <button
+                            type="button"
+                            onClick={async () => {
+                              for (const item of queuedMessages) {
+                                await submitQueuedInSidepanel(item.message, item.image)
+                              }
+                              clearQueuedMessages()
+                            }}
+                            className="rounded-md border border-green-300 bg-white px-2 py-1 text-xs font-medium text-green-900 hover:bg-green-100 dark:bg-[#163816] dark:text-green-50 dark:hover:bg-[#194419]"
+                          >
+                            {t(
+                              "playground:composer.queuedBanner.sendNow",
+                              "Send queued messages"
+                            )}
+                          </button>
+                          <button
+                            type="button"
+                            onClick={() => clearQueuedMessages()}
+                            className="text-xs font-medium text-green-900 underline hover:text-green-700 dark:text-green-100 dark:hover:text-green-300"
+                          >
+                            {t(
+                              "playground:composer.queuedBanner.clear",
+                              "Clear queue"
+                            )}
+                          </button>
+                          <button
+                            type="button"
+                            onClick={openDiagnostics}
+                            className="text-xs font-medium text-green-900 underline hover:text-green-700 dark:text-green-100 dark:hover:text-green-300"
+                          >
+                            {t("settings:healthSummary.diagnostics", "Diagnostics")}
+                          </button>
+                        </div>
+                      </div>
+                    )}
                   </div>
                 </div>
                 </form>

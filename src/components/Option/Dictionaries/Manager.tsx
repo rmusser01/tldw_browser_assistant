@@ -1,11 +1,20 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
-import { Button, Form, Input, Modal, Skeleton, Switch, Table, Tooltip, Tag, InputNumber, Select, notification, Descriptions } from "antd"
+import { Button, Form, Input, Modal, Skeleton, Switch, Table, Tooltip, Tag, InputNumber, Select, Descriptions } from "antd"
+import { useTranslation } from "react-i18next"
 import React from "react"
 import { tldwClient } from "@/services/tldw/TldwApiClient"
 import { Pen, Trash2, Book } from "lucide-react"
+import { confirmDanger } from "@/components/Common/confirm-danger"
+import { useServerOnline } from "@/hooks/useServerOnline"
+import FeatureEmptyState from "@/components/Common/FeatureEmptyState"
+import { useServerCapabilities } from "@/hooks/useServerCapabilities"
+import { useAntdNotification } from "@/hooks/useAntdNotification"
 
 export const DictionariesManager: React.FC = () => {
+  const { t } = useTranslation(["common", "option"])
+  const isOnline = useServerOnline()
   const qc = useQueryClient()
+  const notification = useAntdNotification()
   const [open, setOpen] = React.useState(false)
   const [openEdit, setOpenEdit] = React.useState(false)
   const [openEntries, setOpenEntries] = React.useState<null | number>(null)
@@ -16,6 +25,7 @@ export const DictionariesManager: React.FC = () => {
   const [openImport, setOpenImport] = React.useState(false)
   const [activateOnImport, setActivateOnImport] = React.useState(false)
   const [statsFor, setStatsFor] = React.useState<any | null>(null)
+  const { capabilities, loading: capsLoading } = useServerCapabilities()
 
   const { data, status } = useQuery({
     queryKey: ['tldw:listDictionaries'],
@@ -23,7 +33,8 @@ export const DictionariesManager: React.FC = () => {
       await tldwClient.initialize()
       const res = await tldwClient.listDictionaries(false)
       return res?.dictionaries || []
-    }
+    },
+    enabled: isOnline
   })
 
   const { mutate: createDict, isPending: creating } = useMutation({
@@ -46,6 +57,9 @@ export const DictionariesManager: React.FC = () => {
     onError: (e: any) => notification.error({ message: 'Import failed', description: e?.message })
   })
 
+  const dictionariesUnsupported =
+    !capsLoading && capabilities && !capabilities.hasChatDictionaries
+
   const columns = [
     { title: '', key: 'icon', width: 40, render: () => <Book className="w-4 h-4" /> },
     { title: 'Name', dataIndex: 'name', key: 'name' },
@@ -59,7 +73,7 @@ export const DictionariesManager: React.FC = () => {
         <Tooltip title="Export JSON"><button className="text-gray-500" onClick={async () => { try { const exp = await tldwClient.exportDictionaryJSON(record.id); const blob = new Blob([JSON.stringify(exp, null, 2)], { type: 'application/json' }); const url = URL.createObjectURL(blob); const a = document.createElement('a'); a.href = url; a.download = `${record.name || 'dictionary'}.json`; a.click(); URL.revokeObjectURL(url) } catch (e: any) { notification.error({ message: 'Export failed', description: e?.message }) } }}>Export JSON</button></Tooltip>
         <Tooltip title="Export Markdown"><button className="text-gray-500" onClick={async () => { try { const exp = await tldwClient.exportDictionaryMarkdown(record.id); const blob = new Blob([exp?.content || '' ], { type: 'text/markdown' }); const url = URL.createObjectURL(blob); const a = document.createElement('a'); a.href = url; a.download = `${record.name || 'dictionary'}.md`; a.click(); URL.revokeObjectURL(url) } catch (e: any) { notification.error({ message: 'Export failed', description: e?.message }) } }}>Export MD</button></Tooltip>
         <Tooltip title="Statistics"><button className="text-gray-500" onClick={async () => { try { const s = await tldwClient.dictionaryStatistics(record.id); setStatsFor(s) } catch (e: any) { notification.error({ message: 'Stats failed', description: e?.message }) } }}>Stats</button></Tooltip>
-        <Tooltip title="Delete"><button className="text-red-500" onClick={() => { if (confirm('Delete dictionary?')) deleteDict(record.id) }}><Trash2 className="w-4 h-4" /></button></Tooltip>
+        <Tooltip title="Delete"><button className="text-red-500" onClick={async () => { const ok = await confirmDanger({ title: t('common:confirmTitle', { defaultValue: 'Please confirm' }), content: 'Delete dictionary?', okText: t('common:delete', { defaultValue: 'Delete' }), cancelText: t('common:cancel', { defaultValue: 'Cancel' }) }); if (ok) deleteDict(record.id) }}><Trash2 className="w-4 h-4" /></button></Tooltip>
       </div>
     )}
   ]
@@ -71,7 +85,28 @@ export const DictionariesManager: React.FC = () => {
         <Button type="primary" onClick={() => setOpen(true)}>New Dictionary</Button>
       </div>
       {status === 'pending' && <Skeleton active paragraph={{ rows: 6 }} />}
-      {status === 'success' && <Table rowKey={(r: any) => r.id} dataSource={data} columns={columns as any} />}
+      {status === 'success' && dictionariesUnsupported && (
+        <FeatureEmptyState
+          title={t("option:dictionaries.offlineTitle", {
+            defaultValue: "Chat dictionaries API not available on this server"
+          })}
+          description={t("option:dictionaries.offlineDescription", {
+            defaultValue:
+              "This tldw server does not advertise the /api/v1/chat/dictionaries endpoints. Upgrade your server to a version that includes chat dictionaries to use this workspace."
+          })}
+          primaryActionLabel={t("settings:healthSummary.diagnostics", {
+            defaultValue: "Open Diagnostics"
+          })}
+          onPrimaryAction={() => {
+            try {
+              window.location.hash = "#/settings/health"
+            } catch {}
+          }}
+        />
+      )}
+      {status === 'success' && !dictionariesUnsupported && (
+        <Table rowKey={(r: any) => r.id} dataSource={data} columns={columns as any} />
+      )}
 
       <Modal title="Create Dictionary" open={open} onCancel={() => setOpen(false)} footer={null}>
         <Form layout="vertical" form={createForm} onFinish={(v) => createDict(v)}>
@@ -130,6 +165,7 @@ export const DictionariesManager: React.FC = () => {
 }
 
 const DictionaryEntryManager: React.FC<{ dictionaryId: number; form: any }> = ({ dictionaryId, form }) => {
+  const { t } = useTranslation(["common"]) 
   const qc = useQueryClient()
   const { data, status } = useQuery({
     queryKey: ['tldw:listDictionaryEntries', dictionaryId],
@@ -147,6 +183,7 @@ const DictionaryEntryManager: React.FC<{ dictionaryId: number; form: any }> = ({
     mutationFn: (id: number) => tldwClient.deleteDictionaryEntry(id),
     onSuccess: () => qc.invalidateQueries({ queryKey: ['tldw:listDictionaryEntries', dictionaryId] })
   })
+
   return (
     <div className="space-y-3">
       {status === 'pending' && <Skeleton active paragraph={{ rows: 4 }} />}
@@ -164,7 +201,7 @@ const DictionaryEntryManager: React.FC<{ dictionaryId: number; form: any }> = ({
             { title: 'Enabled', dataIndex: 'enabled', key: 'enabled', render: (v: boolean) => v ? 'Yes' : 'No' },
             { title: 'Actions', key: 'actions', render: (_: any, r: any) => (
               <div className="flex gap-2">
-                <Tooltip title="Delete"><button className="text-red-500" onClick={() => { if (confirm('Delete entry?')) deleteEntry(r.id) }}><Trash2 className="w-4 h-4" /></button></Tooltip>
+                <Tooltip title="Delete"><button className="text-red-500" onClick={async () => { const ok = await confirmDanger({ title: t('common:confirmTitle', { defaultValue: 'Please confirm' }), content: 'Delete entry?', okText: t('common:delete', { defaultValue: 'Delete' }), cancelText: t('common:cancel', { defaultValue: 'Cancel' }) }); if (ok) deleteEntry(r.id) }}><Trash2 className="w-4 h-4" /></button></Tooltip>
               </div>
             ) }
           ] as any}

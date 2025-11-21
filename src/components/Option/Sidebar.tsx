@@ -45,6 +45,9 @@ import {
 import { UploadedFile } from "@/db/dexie/types"
 import { isDatabaseClosedError } from "@/utils/ff-error"
 import { updatePageTitle } from "@/utils/update-page-title"
+import { promptInput } from "@/components/Common/prompt-input"
+import { confirmDanger } from "@/components/Common/confirm-danger"
+import { IconButton } from "../Common/IconButton"
 
 type Props = {
   onClose: () => void
@@ -83,6 +86,7 @@ export const Sidebar = ({
   const debouncedSearchQuery = useDebounce(searchQuery, 300)
   const [deleteGroup, setDeleteGroup] = useState<string | null>(null)
   const [dexiePrivateWindowError, setDexiePrivateWindowError] = useState(false)
+  const [openMenuFor, setOpenMenuFor] = useState<string | null>(null)
 
   // Using infinite query for pagination
   const {
@@ -247,10 +251,14 @@ export const Sidebar = ({
       }
     })
 
-  const handleDeleteHistoriesByRange = (rangeLabel: string) => {
-    if (!confirm(t(`common:range:deleteConfirm:${rangeLabel}`))) {
-      return
-    }
+  const handleDeleteHistoriesByRange = async (rangeLabel: string) => {
+    const ok = await confirmDanger({
+      title: t("common:confirmTitle", { defaultValue: "Please confirm" }),
+      content: t(`common:range:deleteConfirm:${rangeLabel}`),
+      okText: t("common:delete", { defaultValue: "Delete" }),
+      cancelText: t("common:cancel", { defaultValue: "Cancel" })
+    })
+    if (!ok) return
     deleteHistoriesByRange(rangeLabel)
   }
 
@@ -294,7 +302,8 @@ export const Sidebar = ({
               searchQuery ? (
                 <button
                   onClick={clearSearch}
-                  className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-200">
+                  className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-200"
+                  aria-label={t("common:clearSearch", { defaultValue: "Clear search" })}>
                   ✕
                 </button>
               ) : null
@@ -418,7 +427,7 @@ export const Sidebar = ({
                     <div className="flex items-center gap-2">
                       <Dropdown
                         overlay={
-                          <Menu>
+                          <Menu id={`history-actions-${chat.id}`}>
                             <Menu.Item
                               key="pin"
                               icon={
@@ -442,12 +451,14 @@ export const Sidebar = ({
                             <Menu.Item
                               key="edit"
                               icon={<PencilIcon className="w-4 h-4" />}
-                              onClick={() => {
-                                const newTitle = prompt(
-                                  t("editHistoryTitle"),
-                                  chat.title
-                                )
-                                if (newTitle) {
+                              onClick={async () => {
+                                const newTitle = await promptInput({
+                                  title: t("editHistoryTitle", { defaultValue: "Rename chat" }),
+                                  defaultValue: chat.title,
+                                  okText: t("common:save", { defaultValue: "Save" }),
+                                  cancelText: t("common:cancel", { defaultValue: "Cancel" })
+                                })
+                                if (newTitle && newTitle !== chat.title) {
                                   editHistory({ id: chat.id, title: newTitle })
                                 }
                               }}>
@@ -457,9 +468,20 @@ export const Sidebar = ({
                               key="delete"
                               icon={<Trash2 className="w-4 h-4" />}
                               danger
-                              onClick={() => {
-                                if (!confirm(t("deleteHistoryConfirmation")))
-                                  return
+                              onClick={async () => {
+                                const ok = await confirmDanger({
+                                  title: t("common:confirmTitle", {
+                                    defaultValue: "Please confirm"
+                                  }),
+                                  content: t("deleteHistoryConfirmation"),
+                                  okText: t("common:delete", {
+                                    defaultValue: "Delete"
+                                  }),
+                                  cancelText: t("common:cancel", {
+                                    defaultValue: "Cancel"
+                                  })
+                                })
+                                if (!ok) return
                                 deleteHistory(chat.id)
                               }}>
                               {t("common:delete")}
@@ -467,10 +489,17 @@ export const Sidebar = ({
                           </Menu>
                         }
                         trigger={["click"]}
-                        placement="bottomRight">
-                        <button className="text-gray-500 dark:text-gray-400 opacity-80 hover:opacity-100">
+                        placement="bottomRight"
+                        open={openMenuFor === chat.id}
+                        onOpenChange={(o) => setOpenMenuFor(o ? chat.id : null)}>
+                        <IconButton
+                          className="text-gray-500 dark:text-gray-400 opacity-80 hover:opacity-100"
+                          ariaLabel={`${t("option:header.moreActions", "More actions")}: ${chat.title}`}
+                          hasPopup="menu"
+                          ariaExpanded={openMenuFor === chat.id}
+                          ariaControls={`history-actions-${chat.id}`}>
                           <MoreVertical className="w-4 h-4" />
-                        </button>
+                        </IconButton>
                       </Dropdown>
                     </div>
                   </div>

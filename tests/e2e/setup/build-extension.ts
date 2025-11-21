@@ -3,11 +3,16 @@ import path from 'path'
 
 export default async function globalSetup() {
   // Build the extension once before running tests
-  // Prefer bun if available; fall back to npm
+  // Prefer npm (bun may be unavailable in some environments)
   try {
-    execSync('bun run build', { stdio: 'inherit' })
+    execSync('npm run build:chrome', { stdio: 'inherit' })
   } catch {
-    execSync('npm run build', { stdio: 'inherit' })
+    try {
+      // Fallback: use wxt directly
+      execSync('cross-env TARGET=chrome wxt build', { stdio: 'inherit' })
+    } catch {
+      // Last resort: bun (if present)
+      execSync('bun run build:chrome', { stdio: 'inherit' })
+    }
   }
 }
-

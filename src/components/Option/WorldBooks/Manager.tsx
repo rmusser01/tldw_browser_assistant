@@ -1,11 +1,19 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
-import { Button, Form, Input, InputNumber, Modal, Skeleton, Switch, Table, Tooltip, Tag, Select, notification, Descriptions } from "antd"
+import { Button, Form, Input, InputNumber, Modal, Skeleton, Switch, Table, Tooltip, Tag, Select, Descriptions } from "antd"
 import React from "react"
+import { confirmDanger } from "@/components/Common/confirm-danger"
 import { tldwClient } from "@/services/tldw/TldwApiClient"
 import { Pen, Trash2, BookOpen } from "lucide-react"
+import { useServerOnline } from "@/hooks/useServerOnline"
+import FeatureEmptyState from "@/components/Common/FeatureEmptyState"
+import { useTranslation } from "react-i18next"
+import { useAntdNotification } from "@/hooks/useAntdNotification"
 
 export const WorldBooksManager: React.FC = () => {
+  const isOnline = useServerOnline()
+  const { t } = useTranslation(["option"])
   const qc = useQueryClient()
+  const notification = useAntdNotification()
   const [open, setOpen] = React.useState(false)
   const [openEdit, setOpenEdit] = React.useState(false)
   const [openEntries, setOpenEntries] = React.useState<null | number>(null)
@@ -25,7 +33,8 @@ export const WorldBooksManager: React.FC = () => {
       await tldwClient.initialize()
       const res = await tldwClient.listWorldBooks(false)
       return res?.world_books || []
-    }
+    },
+    enabled: isOnline
   })
 
   const { data: characters } = useQuery({
@@ -102,13 +111,27 @@ export const WorldBooksManager: React.FC = () => {
           }}>Stats</button>
         </Tooltip>
         <Tooltip title="Delete">
-          <button className="text-red-500" disabled={deleting} onClick={() => { if (confirm('Delete this world book?')) deleteWB(record.id) }}>
+          <button className="text-red-500" disabled={deleting} onClick={async () => { const ok = await confirmDanger({ title: 'Please confirm', content: 'Delete this world book?', okText: 'Delete', cancelText: 'Cancel' }); if (ok) deleteWB(record.id) }}>
             <Trash2 className="w-4 h-4" />
           </button>
         </Tooltip>
       </div>
     )}
   ]
+
+  if (!isOnline) {
+    return (
+      <FeatureEmptyState
+        title={t("option:worldBooksEmpty.offlineTitle", {
+          defaultValue: "World Books are offline"
+        })}
+        description={t("option:worldBooksEmpty.offlineDescription", {
+          defaultValue:
+            "Connect to your tldw server from the main settings page to view and edit World Books."
+        })}
+      />
+    )
+  }
 
   return (
     <div className="space-y-4">
@@ -199,6 +222,7 @@ export const WorldBooksManager: React.FC = () => {
 
 const EntryManager: React.FC<{ worldBookId: number; form: any }> = ({ worldBookId, form }) => {
   const qc = useQueryClient()
+  const notification = useAntdNotification()
   const { data, status } = useQuery({
     queryKey: ['tldw:listWorldBookEntries', worldBookId],
     queryFn: async () => {
@@ -230,7 +254,7 @@ const EntryManager: React.FC<{ worldBookId: number; form: any }> = ({ worldBookI
             { title: 'Enabled', dataIndex: 'enabled', key: 'enabled', render: (v: boolean) => v ? 'Yes' : 'No' },
             { title: 'Actions', key: 'actions', render: (_: any, r: any) => (
               <div className="flex gap-2">
-                <Tooltip title="Delete"><button className="text-red-500" onClick={() => { if (confirm('Delete entry?')) deleteEntry(r.entry_id) }}><Trash2 className="w-4 h-4" /></button></Tooltip>
+                <Tooltip title="Delete"><button className="text-red-500" onClick={async () => { const ok = await confirmDanger({ title: 'Please confirm', content: 'Delete entry?', okText: 'Delete', cancelText: 'Cancel' }); if (ok) deleteEntry(r.entry_id) }}><Trash2 className="w-4 h-4" /></button></Tooltip>
               </div>
             ) }
           ] as any}

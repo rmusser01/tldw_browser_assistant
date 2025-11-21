@@ -6,7 +6,7 @@
         "message": "Browser extension for tldw_server - your unified AI assistant with RAG, media processing, and more."
     },
     "openSidePanelToChat": {
-        "message": "Open Side Panel to Chat"
+        "message": "Open Sidebar to chat"
     },
     "openOptionToChat": {
         "message": "Open Web UI to Chat"
@@ -25,5 +25,11 @@
     },
     "contextCustom": {
         "message": "Custom"
+    },
+    "contextSendToTldw": {
+        "message": "Send to tldw_server"
+    },
+    "contextProcessLocalTldw": {
+        "message": "Process with tldw_server (don’t store)"
     }
 }

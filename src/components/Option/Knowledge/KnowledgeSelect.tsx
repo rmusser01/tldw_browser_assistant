@@ -5,10 +5,13 @@ import { Dropdown, Tooltip } from "antd"
 import { Blocks } from "lucide-react"
 import React from "react"
 import { useTranslation } from "react-i18next"
+import { IconButton } from "../../Common/IconButton"
+import { useStorage } from "@plasmohq/storage/hook"
 
 export const KnowledgeSelect: React.FC = () => {
   const { t } = useTranslation("playground")
   const { setSelectedKnowledge, selectedKnowledge } = useMessageOption()
+  const [menuDensity] = useStorage("menuDensity", "comfortable")
   const { data } = useQuery({
     queryKey: ["getAllKnowledge"],
     queryFn: async () => {
@@ -27,11 +30,9 @@ export const KnowledgeSelect: React.FC = () => {
               data?.map((d) => ({
                 key: d.id,
                 label: (
-                  <div className="w-52 gap-2 text-lg truncate inline-flex line-clamp-3  items-center  dark:border-gray-700">
-                    <div>
-                      <Blocks className="h-6 w-6 text-gray-400" />
-                    </div>
-                    {d.title}
+                  <div className="w-52 gap-2 text-sm truncate inline-flex items-center leading-5 dark:border-gray-700">
+                    <Blocks className="h-4 w-4 text-gray-400" />
+                    <span className="truncate">{d.title}</span>
                   </div>
                 ),
                 onClick: () => {
@@ -47,15 +48,19 @@ export const KnowledgeSelect: React.FC = () => {
               maxHeight: 500,
               overflowY: "scroll"
             },
-            className: "no-scrollbar",
+            className: `no-scrollbar ${menuDensity === 'compact' ? 'menu-density-compact' : 'menu-density-comfortable'}`,
             activeKey: selectedKnowledge?.id
           }}
           placement={"topLeft"}
           trigger={["click"]}>
           <Tooltip title={t("tooltip.knowledge")}>
-            <button type="button" className="dark:text-gray-300">
+            <IconButton
+              ariaLabel={(t("tooltip.knowledge") as string) || "Knowledge"}
+              hasPopup="menu"
+              className="dark:text-gray-300"
+              data-playground-knowledge-trigger="true">
               <Blocks className="h-6 w-6" />
-            </button>
+            </IconButton>
           </Tooltip>
         </Dropdown>
       )}

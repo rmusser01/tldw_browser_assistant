@@ -87,15 +87,24 @@ export const RagSearchBar: React.FC<Props> = ({ onInsert, onAsk }) => {
     setTagInput("")
   }
 
+  // Allow toolbar button to toggle this panel without prop drilling
+  React.useEffect(() => {
+    const handler = () => setOpen((v) => !v)
+    window.addEventListener("tldw:toggle-rag", handler)
+    return () => window.removeEventListener("tldw:toggle-rag", handler)
+  }, [])
+
   return (
     <div className="w-full mb-2">
       <div className="flex items-center justify-between mb-1">
         <button
           type="button"
-          className="text-xs text-gray-600 dark:text-gray-300 underline"
+          className="text-xs text-gray-600 dark:text-gray-300 underline md:hidden"
           onClick={() => setOpen(!open)}
         >
-          {open ? "Hide RAG Search" : "Show RAG Search"}
+          {open
+            ? t("sidepanel:rag.hide", "Hide RAG search")
+            : t("sidepanel:rag.show", "Show RAG search")}
         </button>
       </div>
       {open && (
@@ -136,7 +145,9 @@ export const RagSearchBar: React.FC<Props> = ({ onInsert, onAsk }) => {
               <Button size="small" onClick={addTag}>{t('sidepanel:rag.add')}</Button>
             </Space>
             <Space size="small" align="center">
-              <span className="text-xs text-gray-500">Timeout (s)</span>
+              <span className="text-xs text-gray-500">
+                {t("sidepanel:header.timeoutLabel", "Timeout (s)")}
+              </span>
               <InputNumber size="small" min={1} value={timeoutSec} onChange={(v) => setTimeoutSec(Number(v||10))} />
             </Space>
             <div className="flex items-center gap-1 flex-wrap">

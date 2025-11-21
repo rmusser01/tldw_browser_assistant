@@ -4,6 +4,7 @@ import { UserCircle2 } from "lucide-react"
 import React from "react"
 import { useStorage } from "@plasmohq/storage/hook"
 import { tldwClient } from "@/services/tldw/TldwApiClient"
+import { IconButton } from "./IconButton"
 
 type Props = {
   className?: string
@@ -32,10 +33,12 @@ export const CharacterSelect: React.FC<Props> = ({
     }
   })
 
+  const [menuDensity] = useStorage("menuDensity", "comfortable")
+
   const items = (data || []).map((c: any) => ({
     key: c.id || c.slug || c.name,
     label: (
-      <div className="w-56 gap-2 text-lg truncate inline-flex items-center dark:border-gray-700">
+      <div className="w-56 gap-2 text-sm truncate inline-flex items-center leading-5 dark:border-gray-700">
         {c.avatar_url || c.image_base64 ? (
           <img src={(c.avatar_url) || (c.image_base64 ? `data:image/png;base64,${c.image_base64}` : '')} className="w-4 h-4 rounded-full" />
         ) : (
@@ -61,12 +64,15 @@ export const CharacterSelect: React.FC<Props> = ({
         items: items.length > 0 ? items : [{ key: "empty", label: <Empty /> }],
         activeKey: selectedCharacter?.id,
         style: { maxHeight: 500, overflowY: "auto" },
-        className: "no-scrollbar"
+        className: `no-scrollbar ${menuDensity === 'compact' ? 'menu-density-compact' : 'menu-density-comfortable'}`
       }}
       placement="topLeft"
       trigger={["click"]}>
       <Tooltip title={selectedCharacter?.name || "Select Character"}>
-        <button type="button" className={className}>
+        <IconButton
+          ariaLabel={(selectedCharacter?.name || "Select Character") as string}
+          hasPopup="menu"
+          className={className}>
           {selectedCharacter?.avatar_url ? (
             <img
               src={selectedCharacter.avatar_url}
@@ -75,7 +81,7 @@ export const CharacterSelect: React.FC<Props> = ({
           ) : (
             <UserCircle2 className={iconClassName} />
           )}
-        </button>
+        </IconButton>
       </Tooltip>
     </Dropdown>
   )

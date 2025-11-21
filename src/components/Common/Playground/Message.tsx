@@ -1,6 +1,7 @@
 import Markdown from "../../Common/Markdown"
 import React, { useEffect } from "react"
 import { Tag, Image, Tooltip, Collapse, Popover, Avatar } from "antd"
+import { IconButton } from "../IconButton"
 import { ActionInfo } from "./ActionInfo"
 import {
   CheckIcon,
@@ -13,6 +14,7 @@ import {
   Square,
   Volume2Icon
 } from "lucide-react"
+import { StopCircle as StopCircleIcon } from "lucide-react"
 import { EditMessageForm } from "./EditMessageForm"
 import { useTranslation } from "react-i18next"
 import { MessageSource } from "./MessageSource"
@@ -60,6 +62,7 @@ type Props = {
   actionInfo?: string | null
   onNewBranch?: () => void
   temporaryChat?: boolean
+  onStopStreaming?: () => void
 }
 
 export const PlaygroundMessage = (props: Props) => {
@@ -144,6 +147,20 @@ export const PlaygroundMessage = (props: Props) => {
   return (
     <div
       className={`group relative flex w-full max-w-3xl flex-col items-end justify-center pb-2 md:px-4 lg:w-4/5 text-gray-800 dark:text-gray-100 ${checkWideMode ? "max-w-none" : ""}`}>
+      {/* Inline stop button while streaming on the latest assistant message */}
+      {props.isBot && (props.isStreaming || props.isProcessing) && isLastMessage && props.onStopStreaming && (
+        <div className="absolute right-2 top-0 z-10">
+          <Tooltip title={t("playground:tooltip.stopStreaming") as string}>
+            <button
+              type="button"
+              onClick={props.onStopStreaming}
+              className="text-gray-800 dark:text-gray-300 border border-gray-300 dark:border-gray-600 rounded-md p-1 bg-white/70 dark:bg-[#1f1f1f]/70 backdrop-blur hover:bg-white dark:hover:bg-[#2a2a2a]">
+              <StopCircleIcon className="w-5 h-5" />
+              <span className="sr-only">{t("playground:composer.stopStreaming")}</span>
+            </button>
+          </Tooltip>
+        </div>
+      )}
       {/* <div className="text-base md:max-w-2xl lg:max-w-xl xl:max-w-3xl flex lg:px-0 m-auto w-full"> */}
       <div className="flex flex-row gap-4 md:gap-6 my-2 m-auto w-full">
         <div className="w-8 flex flex-col relative items-end">
@@ -214,15 +231,25 @@ export const PlaygroundMessage = (props: Props) => {
                                 props.isStreaming && e?.reasoning_running ? (
                                   <div className="flex items-center gap-2">
                                     <span className="italic shimmer-text">
-                                      {t("reasoning.thinking")}
+                                      {t("reasoning.thinking", "Thinking…")}
                                     </span>
                                   </div>
                                 ) : (
-                                  t("reasoning.thought", {
-                                    time: humanizeMilliseconds(
-                                      props.reasoningTimeTaken
-                                    )
-                                  })
+                                  <span className="flex items-center gap-2">
+                                    <span>
+                                      {t(
+                                        "reasoning.thought",
+                                        "Model’s reasoning (optional)"
+                                      )}
+                                    </span>
+                                    {props.reasoningTimeTaken != null && (
+                                      <span className="text-[11px] text-gray-400">
+                                        {humanizeMilliseconds(
+                                          props.reasoningTimeTaken
+                                        )}
+                                      </span>
+                                    )}
+                                  </span>
                                 ),
                               children: <Markdown message={e.content} />
                             }
@@ -331,17 +358,13 @@ export const PlaygroundMessage = (props: Props) => {
             <div
               className={`space-x-2 gap-2 flex ${
                 props.currentMessageIndex !== props.totalMessages - 1
-                  ? //  there is few style issue so i am commenting this out for v1.4.5 release
-                    // next release we will fix this
-                    "invisible group-hover:visible"
-                  : // ? "hidden group-hover:flex"
-                    ""
-                // : "flex"
+                  ? "invisible group-hover:visible group-focus-within:visible"
+                  : ""
               }`}>
               {props.isTTSEnabled && (
                 <Tooltip title={t("tts")}>
-                  <button
-                    aria-label={t("tts")}
+                  <IconButton
+                    ariaLabel={t("tts") as string}
                     onClick={() => {
                       if (isSpeaking) {
                         cancel()
@@ -352,18 +375,27 @@ export const PlaygroundMessage = (props: Props) => {
                       }
                     }}
                     className="flex items-center justify-center w-6 h-6 rounded-full bg-gray-100 dark:bg-[#242424] hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500">
-                    {!isSpeaking ? (
-                      <Volume2Icon className="w-3 h-3 text-gray-400 group-hover:text-gray-500" />
-                    ) : (
-                      <Square className="w-3 h-3 text-red-400 group-hover:text-red-500" />
-                    )}
-                  </button>
+                    <span className="inline-flex items-center gap-1">
+                      {!isSpeaking ? (
+                        <Volume2Icon className="w-3 h-3 text-gray-400 group-hover:text-gray-500" />
+                      ) : (
+                        <Square className="w-3 h-3 text-red-400 group-hover:text-red-500" />
+                      )}
+                      <span
+                        className={`text-[10px] text-gray-500 dark:text-gray-400 hidden group-focus-within:inline ${
+                          isLastMessage ? "inline" : ""
+                        }`}
+                      >
+                        {t("ttsShort", "TTS")}
+                      </span>
+                    </span>
+                  </IconButton>
                 </Tooltip>
               )}
               {!props.hideCopy && (
                 <Tooltip title={t("copyToClipboard")}>
-                  <button
-                    aria-label={t("copyToClipboard")}
+                  <IconButton
+                    ariaLabel={t("copyToClipboard") as string}
                     onClick={async () => {
                       await copyToClipboard({
                         text: props.message,
@@ -377,12 +409,21 @@ export const PlaygroundMessage = (props: Props) => {
                       }, 2000)
                     }}
                     className="flex items-center justify-center w-6 h-6 rounded-full bg-gray-100 dark:bg-[#242424] hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500">
-                    {!isBtnPressed ? (
-                      <CopyIcon className="w-3 h-3 text-gray-400 group-hover:text-gray-500" />
-                    ) : (
-                      <CheckIcon className="w-3 h-3 text-green-400 group-hover:text-green-500" />
-                    )}
-                  </button>
+                    <span className="inline-flex items-center gap-1">
+                      {!isBtnPressed ? (
+                        <CopyIcon className="w-3 h-3 text-gray-400 group-hover:text-gray-500" />
+                      ) : (
+                        <CheckIcon className="w-3 h-3 text-green-400 group-hover:text-green-500" />
+                      )}
+                      <span
+                        className={`text-[10px] text-gray-500 dark:text-gray-400 hidden group-focus-within:inline ${
+                          isLastMessage ? "inline" : ""
+                        }`}
+                      >
+                        {t("copyShort", "Copy")}
+                      </span>
+                    </span>
+                  </IconButton>
                 </Tooltip>
               )}
               {props.isBot && (
@@ -393,56 +434,74 @@ export const PlaygroundMessage = (props: Props) => {
                         <GenerationInfo generationInfo={props.generationInfo} />
                       }
                       title={t("generationInfo")}>
-                      <button
-                        aria-label={t("generationInfo")}
+                      <IconButton
+                        ariaLabel={t("generationInfo") as string}
                         className="flex items-center justify-center w-6 h-6 rounded-full bg-gray-100 dark:bg-[#242424] hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500">
                         <InfoIcon className="w-3 h-3 text-gray-400 group-hover:text-gray-500" />
-                      </button>
+                      </IconButton>
                     </Popover>
                   )}
 
                   {!props.hideEditAndRegenerate && isLastMessage && (
                     <Tooltip title={t("regenerate")}>
-                      <button
-                        aria-label={t("regenerate")}
+                      <IconButton
+                        ariaLabel={t("regenerate") as string}
                         onClick={props.onRengerate}
                         className="flex items-center justify-center w-6 h-6 rounded-full bg-gray-100 dark:bg-[#242424] hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500">
                         <RotateCcw className="w-3 h-3 text-gray-400 group-hover:text-gray-500" />
-                      </button>
+                      </IconButton>
                     </Tooltip>
                   )}
 
                   {props?.onNewBranch && !props?.temporaryChat && (
                     <Tooltip title={t("newBranch")}>
-                      <button
-                        aria-label={t("newBranch")}
+                      <IconButton
+                        ariaLabel={t("newBranch") as string}
                         onClick={props?.onNewBranch}
                         className="flex items-center justify-center w-6 h-6 rounded-full bg-gray-100 dark:bg-[#242424] hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500">
-                        <GitBranchIcon className="w-3 h-3 text-gray-400 group-hover:text-gray-500" />
-                      </button>
+                        <span className="inline-flex items-center gap-1">
+                          <GitBranchIcon className="w-3 h-3 text-gray-400 group-hover:text-gray-500" />
+                          <span
+                            className={`text-[10px] text-gray-500 dark:text-gray-400 hidden group-focus-within:inline ${
+                              isLastMessage ? "inline" : ""
+                            }`}
+                          >
+                            {t("branchShort", "Branch")}
+                          </span>
+                        </span>
+                      </IconButton>
                     </Tooltip>
                   )}
 
                   {!props.hideContinue && isLastMessage && (
                     <Tooltip title={t("continue")}>
-                      <button
-                        aria-label={t("continue")}
+                      <IconButton
+                        ariaLabel={t("continue") as string}
                         onClick={props?.onContinue}
                         className="flex items-center justify-center w-6 h-6 rounded-full bg-gray-100 dark:bg-[#242424] hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500">
                         <PlayCircle className="w-3 h-3 text-gray-400 group-hover:text-gray-500" />
-                      </button>
+                      </IconButton>
                     </Tooltip>
                   )}
                 </>
               )}
               {!props.hideEditAndRegenerate && (
                 <Tooltip title={t("edit")}>
-                  <button
+                  <IconButton
                     onClick={() => setEditMode(true)}
-                    aria-label={t("edit")}
+                    ariaLabel={t("edit") as string}
                     className="flex items-center justify-center w-6 h-6 rounded-full bg-gray-100 dark:bg-[#242424] hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500">
-                    <Pen className="w-3 h-3 text-gray-400 group-hover:text-gray-500" />
-                  </button>
+                    <span className="inline-flex items-center gap-1">
+                      <Pen className="w-3 h-3 text-gray-400 group-hover:text-gray-500" />
+                      <span
+                        className={`text-[10px] text-gray-500 dark:text-gray-400 hidden group-focus-within:inline ${
+                          isLastMessage ? "inline" : ""
+                        }`}
+                      >
+                        {t("edit", "Edit")}
+                      </span>
+                    </span>
+                  </IconButton>
                 </Tooltip>
               )}
             </div>

@@ -24,10 +24,21 @@
         "openHistoryAria": "Open history",
         "openModelSettingsAria": "Open model settings",
         "openSettingsAria": "Open settings",
-        "tempPill": "Temp"
+        "tempPill": "Temp",
+        "modesLabel": "Open modes in Web UI",
+        "modePlayground": "Chat",
+        "modeReview": "Review",
+        "modeMedia": "Media",
+        "modeKnowledge": "Knowledge",
+        "modeNotes": "Notes",
+        "modePrompts": "Prompts",
+        "modeFlashcards": "Flashcards"
+    },
+    "toolbar": {
+        "ragSearch": "RAG Search"
     },
     "notification": {
-        "ingestSent": "Sent to tldw_server",
+        "ingestSent": "Sent to tldw server",
         "ingestSentDesc": "Current page has been submitted for ingestion.",
         "processedLocal": "Processed locally",
         "processedLocalDesc": "Processed content stored locally under Settings > Processed."
@@ -35,6 +46,8 @@
     "rag": {
         "searchPlaceholder": "Search your knowledge…",
         "search": "Search",
+        "show": "Show RAG search",
+        "hide": "Hide RAG search",
         "addTagPlaceholder": "Add tag (Enter)",
         "add": "Add",
         "noResults": "No results",

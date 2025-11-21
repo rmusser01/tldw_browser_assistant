@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react"
-import { notification } from "antd"
 import {
   getElevenLabsApiKey,
   getElevenLabsModel,
@@ -8,7 +7,11 @@ import {
   getTTSProvider,
   getVoice,
   isSSMLEnabled,
-  getSpeechPlaybackSpeed
+  getSpeechPlaybackSpeed,
+  getTldwTTSModel,
+  getTldwTTSVoice,
+  getTldwTTSResponseFormat,
+  getTldwTTSSpeed
 } from "@/services/tts"
 import { markdownToSSML } from "@/utils/markdown-to-ssml"
 import { generateSpeech } from "@/services/elevenlabs"
@@ -16,6 +19,8 @@ import { splitMessageContent } from "@/utils/tts"
 import { removeReasoning } from "@/libs/reasoning"
 import { markdownToText } from "@/utils/markdown-to-text"
 import { generateOpenAITTS } from "@/services/openai-tts"
+import { tldwClient } from "@/services/tldw/TldwApiClient"
+import { useAntdNotification } from "./useAntdNotification"
 
 export interface VoiceOptions {
   utterance: string
@@ -26,6 +31,7 @@ export const useTTS = () => {
   const [audioElement, setAudioElement] = useState<HTMLAudioElement | null>(
     null
   )
+  const notification = useAntdNotification()
 
   const speak = async ({ utterance }: VoiceOptions) => {
     try {
@@ -134,7 +140,7 @@ export const useTTS = () => {
         setAudioElement(null)
       } else if (provider === "openai") {
         const sentences = splitMessageContent(utterance)
-        
+
         let nextAudioData: ArrayBuffer | null = null
         let nextAudioPromise: Promise<ArrayBuffer> | null = null
 
@@ -173,6 +179,64 @@ export const useTTS = () => {
             nextAudioPromise?.then((data) => {
               nextAudioData = data
             }).catch(console.error) || Promise.resolve()
+          ])
+
+          URL.revokeObjectURL(url)
+        }
+
+        setIsSpeaking(false)
+        setAudioElement(null)
+      } else if (provider === "tldw") {
+        const tldwModel = await getTldwTTSModel()
+        const tldwVoice = await getTldwTTSVoice()
+        const tldwResponseFormat = await getTldwTTSResponseFormat()
+        const tldwSpeed = await getTldwTTSSpeed()
+        const sentences = splitMessageContent(utterance)
+
+        let nextAudioData: ArrayBuffer | null = null
+        let nextAudioPromise: Promise<ArrayBuffer> | null = null
+
+        for (let i = 0; i < sentences.length; i++) {
+          setIsSpeaking(true)
+
+          let currentAudioData: ArrayBuffer
+          if (nextAudioData) {
+            currentAudioData = nextAudioData
+            nextAudioData = null
+          } else {
+            currentAudioData = await tldwClient.synthesizeSpeech(sentences[i], {
+              model: tldwModel,
+              voice: tldwVoice,
+              responseFormat: tldwResponseFormat,
+              speed: tldwSpeed
+            })
+          }
+
+          if (i < sentences.length - 1) {
+            nextAudioPromise = tldwClient.synthesizeSpeech(sentences[i + 1], {
+              model: tldwModel,
+              voice: tldwVoice,
+              responseFormat: tldwResponseFormat,
+              speed: tldwSpeed
+            })
+          }
+
+          const blob = new Blob([currentAudioData], { type: "audio/mpeg" })
+          const url = URL.createObjectURL(blob)
+          const audio = new Audio(url)
+          audio.playbackRate = playbackSpeed
+          setAudioElement(audio)
+
+          await Promise.all([
+            new Promise((resolve) => {
+              audio.onended = resolve
+              audio.play()
+            }),
+            nextAudioPromise
+              ?.then((data) => {
+                nextAudioData = data
+              })
+              .catch(console.error) || Promise.resolve()
           ])
 
           URL.revokeObjectURL(url)

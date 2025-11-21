@@ -22,6 +22,24 @@ export const AddKnowledge = ({ open, setOpen }: Props) => {
   const [form] = Form.useForm()
   const [totalFilePerKB] = useStorage("totalFilePerKB", 5)
   const [mode, setMode] = React.useState<"upload" | "text">("upload")
+  const [embeddingLabel, setEmbeddingLabel] = React.useState<string | null>(
+    null
+  )
+
+  React.useEffect(() => {
+    ;(async () => {
+      try {
+        const em = await defaultEmbeddingModelForRag()
+        if (!em) {
+          setEmbeddingLabel(null)
+          return
+        }
+        setEmbeddingLabel(em)
+      } catch {
+        setEmbeddingLabel(null)
+      }
+    })()
+  }, [])
 
   const onUploadHandler = async (data: any) => {
     const defaultEM = await defaultEmbeddingModelForRag()
@@ -30,7 +48,7 @@ export const AddKnowledge = ({ open, setOpen }: Props) => {
       throw new Error(t("noEmbeddingModel"))
     }
 
-  const source: Source[] = []
+    const source: Source[] = []
 
     const allowedTypes = [
       "application/pdf",
@@ -126,7 +144,18 @@ export const AddKnowledge = ({ open, setOpen }: Props) => {
       <Form onFinish={saveKnowledge} form={form} layout="vertical">
         {/* Title is optional now */}
         <Form.Item name="title" label={t("form.title.label")}>
-          <Input size="large" placeholder={t("form.title.placeholderOptional")} />
+          <div className="space-y-1">
+            <Input
+              size="large"
+              placeholder={t("form.title.placeholderOptional")}
+            />
+            <div className="mt-1 text-xs text-gray-500 dark:text-gray-400">
+              {t("form.title.helperOptional", {
+                defaultValue:
+                  "Optional — we’ll use your first file name or the first part of your text if you leave this blank."
+              })}
+            </div>
+          </div>
         </Form.Item>
 
         {mode === "upload" ? (
@@ -175,6 +204,12 @@ export const AddKnowledge = ({ open, setOpen }: Props) => {
                 <p className="ant-upload-text">
                   {t("form.uploadFile.uploadText")}
                 </p>
+                <p className="mt-2 text-xs text-gray-500 dark:text-gray-400">
+                  {t("form.uploadFile.uploadHint", {
+                    defaultValue:
+                      "Supported file types: .pdf, .csv, .txt, .md, .docx"
+                  })}
+                </p>
               </div>
             </Upload.Dragger>
           </Form.Item>
@@ -196,10 +231,18 @@ export const AddKnowledge = ({ open, setOpen }: Props) => {
               name="textContent"
               label={t("form.textInput.contentLabel")}
               rules={[{ required: true, message: t("form.textInput.required") }]}>
-              <Input.TextArea
-                autoSize={{ minRows: 8, maxRows: 16 }}
-                placeholder={t("form.textInput.placeholder")}
-              />
+              <div className="space-y-1">
+                <Input.TextArea
+                  autoSize={{ minRows: 8, maxRows: 16 }}
+                  placeholder={t("form.textInput.placeholder")}
+                />
+                <div className="mt-1 text-xs text-gray-500 dark:text-gray-400">
+                  {t("form.textInput.sizeHint", {
+                    defaultValue:
+                      "For very long documents, prefer file upload. Pasted text is limited to about 500k characters."
+                  })}
+                </div>
+              </div>
             </Form.Item>
           </>
         )}
@@ -212,6 +255,15 @@ export const AddKnowledge = ({ open, setOpen }: Props) => {
             {t("form.submit")}
           </button>
         </Form.Item>
+        {embeddingLabel && (
+          <div className="mt-1 text-xs text-gray-500 dark:text-gray-400">
+            {t(
+              "form.embeddingNote",
+              "Will use embedding model: {{model}}",
+              { model: embeddingLabel }
+            )}
+          </div>
+        )}
       </Form>
     </Modal>
   )

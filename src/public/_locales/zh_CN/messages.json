@@ -1,12 +1,12 @@
 {
     "extName": {
-        "message": "Page Assist - 本地 AI 模型的 Web UI"
+        "message": "tldw Assistant"
     },
     "extDescription": {
         "message": "使用本地运行的 AI 模型来辅助您的网络浏览。"
     },
     "openSidePanelToChat": {
-        "message": "打开侧边栏进行对话"
+        "message": "Open Sidebar to chat"
     },
     "contextSummarize": {
         "message": "总结"
@@ -22,5 +22,11 @@
     },
     "contextCustom": {
         "message": "自定义"
+    },
+    "contextSendToTldw": {
+        "message": "Send to tldw_server"
+    },
+    "contextProcessLocalTldw": {
+        "message": "Process with tldw_server (don’t store)"
     }
 }

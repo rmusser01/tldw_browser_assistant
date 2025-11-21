@@ -3,7 +3,6 @@ import { type ChatHistory, type Message } from "~/store/option"
 import { useStoreMessageOption } from "~/store/option"
 import { removeMessageUsingHistoryId } from "@/db/dexie/helpers"
 import { useNavigate } from "react-router-dom"
-import { notification } from "antd"
 import { useTranslation } from "react-i18next"
 import { usePageAssist } from "@/context"
 import { useWebUI } from "@/store/webui"
@@ -31,6 +30,7 @@ import { documentChatMode } from "./chat-modes/documentChatMode"
 import { generateID } from "@/db/dexie/helpers"
 import { UploadedFile } from "@/db/dexie/types"
 import { updatePageTitle } from "@/utils/update-page-title"
+import { useAntdNotification } from "./useAntdNotification"
 
 export const useMessageOption = () => {
   const {
@@ -59,6 +59,9 @@ export const useMessageOption = () => {
     setIsSearchingInternet,
     selectedQuickPrompt,
     setSelectedQuickPrompt,
+    queuedMessages: storeQueuedMessages,
+    addQueuedMessage: storeAddQueuedMessage,
+    clearQueuedMessages: storeClearQueuedMessages,
     selectedSystemPrompt,
     setSelectedSystemPrompt,
     selectedKnowledge,
@@ -89,9 +92,42 @@ export const useMessageOption = () => {
   const { ttsEnabled } = useWebUI()
 
   const { t } = useTranslation("option")
+  const notification = useAntdNotification()
 
   const navigate = useNavigate()
   const textareaRef = React.useRef<HTMLTextAreaElement>(null)
+
+  // Persist prompt selections across views/contexts
+  const [storedSystemPrompt, setStoredSystemPrompt] = useStorage<string | null>(
+    "selectedSystemPrompt",
+    null
+  )
+  const [storedQuickPrompt, setStoredQuickPrompt] = useStorage<string | null>(
+    "selectedQuickPrompt",
+    null
+  )
+
+  React.useEffect(() => {
+    if (storedSystemPrompt && storedSystemPrompt !== selectedSystemPrompt) {
+      setSelectedSystemPrompt(storedSystemPrompt)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [storedSystemPrompt])
+
+  React.useEffect(() => {
+    if (storedQuickPrompt && storedQuickPrompt !== selectedQuickPrompt) {
+      setSelectedQuickPrompt(storedQuickPrompt)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [storedQuickPrompt])
+
+  React.useEffect(() => {
+    setStoredSystemPrompt(selectedSystemPrompt ?? null)
+  }, [selectedSystemPrompt, setStoredSystemPrompt])
+
+  React.useEffect(() => {
+    setStoredQuickPrompt(selectedQuickPrompt ?? null)
+  }, [selectedQuickPrompt, setStoredQuickPrompt])
 
   const handleFocusTextArea = () => focusTextArea(textareaRef)
 
@@ -176,6 +212,7 @@ export const useMessageOption = () => {
     setUploadedFiles([])
     setFileRetrievalEnabled(false)
     setActionInfo(null)
+    storeClearQueuedMessages()
   }
 
   const saveMessageOnSuccess = createSaveMessageOnSuccess(
@@ -189,7 +226,8 @@ export const useMessageOption = () => {
     setHistoryId as (id: string) => void
   )
 
-  const validateBeforeSubmitFn = () => validateBeforeSubmit(selectedModel, t)
+  const validateBeforeSubmitFn = () =>
+    validateBeforeSubmit(selectedModel, t, notification)
 
   const onSubmit = async ({
     message,
@@ -424,6 +462,9 @@ export const useMessageOption = () => {
     actionInfo,
     setActionInfo,
     setContextFiles,
-    createChatBranch
+    createChatBranch,
+    queuedMessages: storeQueuedMessages,
+    addQueuedMessage: storeAddQueuedMessage,
+    clearQueuedMessages: storeClearQueuedMessages
   }
 }

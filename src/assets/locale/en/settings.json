@@ -30,7 +30,7 @@
         }
       },
       "copilotResumeLastChat": {
-        "label": "Resume the last chat when opening the SidePanel (Copilot)"
+        "label": "Resume the last chat when opening the Sidebar (Copilot)"
       },
       "turnOnChatWithWebsite": {
         "label": "Enable Chat with Website by default (Copilot)"
@@ -82,7 +82,7 @@
         "placeholder": "Select an OCR language"
       },
       "sidepanelTemporaryChat": {
-        "label": "Enable Temporary Chat in SidePanel by default"
+        "label": "Enable Temporary Chat in Sidebar by default"
       },
       "removeReasoningTagFromCopy": {
         "label": "Remove Reasoning Tag from Copied Text" 
@@ -91,7 +91,7 @@
         "label": "Include server prompts in prompt search"
       }
     },
-    "system": {
+    "systemBasics": {
       "heading": "System",
       "uiMode": {
         "label": "Default UI Mode",
@@ -102,9 +102,31 @@
       },
       "actionIcon": { "label": "Browser Action Button" },
       "contextMenu": { "label": "Context Menu Action" },
-      "webuiBtnSidePanel": { "label": "Show Web UI button in Sidepanel" },
+      "webuiBtnSidePanel": { "label": "Show Web UI button in Sidebar" },
       "chatBackgroundImage": { "label": "Chat Background Image" },
-      "firefoxPrivateModeSync": { "label": "Firefox Private Mode Sync", "button": "Sync Data" }
+      "fontSize": {
+        "label": "Font Size"
+      }
+    },
+    "systemData": {
+      "heading": "Data",
+      "firefoxPrivateModeSync": { "label": "Firefox Private Mode Sync", "button": "Sync Data" },
+      "deleteChatHistory": {
+        "label": "System Reset",
+        "button": "Reset All",
+        "confirm": "Are you sure you want to perform a system reset? This will clear all data and cannot be undone."
+      },
+      "export": {
+        "label": "Export Chat History, Knowledge Base, and Prompts",
+        "button": "Export Data",
+        "success": "Export Success"
+      },
+      "import": {
+        "label": "Import Chat History, Knowledge Base, and Prompts",
+        "button": "Import Data",
+        "success": "Import Success",
+        "error": "Import Error"
+      }
     },
     "sidepanelRag": {
       "heading": "Retrieval Settings",
@@ -160,40 +182,7 @@
         "placeholder": "Enter your Firecrawl API key"
       }
     },
-    "system": {
-      "heading": "System Settings",
-      "deleteChatHistory": {
-        "label": "System Reset",
-        "button": "Reset All",
-        "confirm": "Are you sure you want to perform a system reset? This will clear all data and cannot be undone."
-      },
-      "export": {
-        "label": "Export Chat History, Knowledge Base, and Prompts",
-        "button": "Export Data",
-        "success": "Export Success"
-      },
-      "import": {
-        "label": "Import Chat History, Knowledge Base, and Prompts",
-        "button": "Import Data",
-        "success": "Import Success",
-        "error": "Import Error"
-      },
-      "actionIcon": {
-        "label": "Set Default Action for Extension Icon Clicks"
-      },
-      "contextMenu": {
-        "label": "Set Default action for Context Menu"
-      },
-      "fontSize": {
-        "label": "Font Size"
-      },
-      "webuiBtnSidePanel": {
-        "label": "Show Web UI Button in Side Panel"
-      },
-      "chatBackgroundImage": {
-        "label": "Chat Background Image"
-      }
-    },
+    
     "tts": {
       "heading": "Text-to-Speech Settings",
       "ttsEnabled": {
@@ -229,6 +218,18 @@
       "autoSubmitVoiceMessage": {
         "label": "Auto Submit Voice Message"
       }
+    },
+    "empty": {
+      "connectTitle": "Connect tldw Assistant to your server",
+      "connectDescription": "Some settings only take effect when your tldw server is reachable. Connect your server to get the full experience.",
+      "connectExample1": "Open Settings \u2192 tldw server to add your server URL and API key.",
+      "connectExample2": "Use Diagnostics to confirm your server is healthy before trying advanced tools.",
+      "title": "Tune how tldw Assistant behaves",
+      "description": "Adjust defaults for the Web UI, sidepanel, speech, search, and data handling from one place.",
+      "example1": "Choose your default language, theme, and chat resume behavior.",
+      "example2": "Control whether chats are temporary, how large pastes are handled, and how reasoning is displayed.",
+      "primaryCta": "Configure server & auth",
+      "secondaryCta": "Dismiss"
     }
   },
   "manageModels": {
@@ -277,11 +278,14 @@
   },
   "managePrompts": {
     "title": "Manage Prompts",
+    "workspaceTitle": "Prompts workspace",
+    "workspaceDescription": "Reusable prompts are managed from the Prompts workspace. Use the button below to open it.",
+    "openWorkspace": "Open Prompts workspace",
     "addBtn": "Add New Prompt",
     "option1": "Normal",
     "option2": "RAG",
     "questionPrompt": "Question Prompt",
-    "search": "Search prompts...",
+    "search": "Search titles and contents",
     "filter": {
       "all": "All",
       "system": "System",
@@ -298,8 +302,10 @@
       "replace": "Replace"
     },
     "segmented": {
-      "custom": "Custom Prompts",
-      "copilot": "Copilot Prompts"
+      "custom": "Custom prompts",
+      "copilot": "Copilot prompts",
+      "helpCustom": "Create and manage reusable prompts you can insert into chat.",
+      "helpCopilot": "View and tweak predefined Copilot prompts provided by your server."
     },
     "columns": {
       "title": "Title",
@@ -337,7 +343,7 @@
         "missingTextPlaceholder": "The {text} variable is missing in the prompt. Please add it."
       },
       "isSystem": {
-        "label": "Is System Prompt"
+        "label": "Use as system prompt"
       },
       "btnSave": {
         "saving": "Adding Prompt...",
@@ -357,7 +363,24 @@
       "updatedSuccessDesc": "Prompt has been updated successfully",
       "deletedSuccess": "Prompt Deleted",
       "deletedSuccessDesc": "Prompt has been deleted successfully"
-    }
+    },
+    "partialLoad": "Some prompt data isn’t available",
+    "loadErrorHelp": "Check your server connection and refresh to try again.",
+    "emptyConnectTitle": "Connect to use Prompts",
+    "emptyConnectDescription": "To manage reusable prompts, first connect to your tldw server.",
+    "emptyConnectExample1": "Open Settings \u2192 tldw server to add your server URL.",
+    "emptyConnectExample2": "Once connected, create custom prompts you can reuse across chats.",
+    "emptyTitle": "No custom prompts yet",
+    "emptyDescription": "Create reusable prompts for recurring tasks, workflows, and team conventions.",
+    "emptyExample1": "Save your favorite system prompt for summaries, explanations, or translations.",
+    "emptyExample2": "Create quick prompts for common actions like drafting emails or refining notes.",
+    "emptyPrimaryCta": "Create prompt",
+    "filterHelp": "Search matches title and prompt content. Use type and tags to narrow the list.",
+    "copilotEmptyTitle": "No Copilot prompts available",
+    "copilotEmptyDescription": "Copilot prompts are predefined templates provided by your tldw server.",
+    "copilotEmptyExample1": "Check your server version or configuration if you expect Copilot prompts to be available.",
+    "copilotEmptyExample2": "After updating your server, reload the extension and return to this tab.",
+    "copilotEmptyCta": "Open Diagnostics"
   },
   "manageShare": {
     "title": "Manage Share",
@@ -402,7 +425,7 @@
       },
       "globalEnable": {
         "label": "Enable or Disable Server Integration Globally",
-        "warning": "By disabling the server integration globally, Page Assist won't fetch models from the server. You can still add providers from the <anchor>OpenAI compatible API</anchor> section if needed."
+        "warning": "By disabling the server integration globally, tldw Browser_Assistant won't fetch models from the server. You can still add providers from the <anchor>OpenAI compatible API</anchor> section if needed."
       },
       "advanced": {
         "label": "Advanced Server URL Configuration",
@@ -439,16 +462,81 @@
   "about": {
     "title": "About",
     "heading": "About",
-    "chromeVersion": "Page Assist Version",
+    "chromeVersion": "tldw Browser_Assistant Version",
     "ollamaVersion": "Server Version",
-    "support": "You can support the Page Assist project by donating or sponsoring through the following platforms:",
+    "support": "You can support the tldw Browser_Assistant project by donating or sponsoring through the following platforms:",
     "koFi": "Support on Ko-fi",
     "githubSponsor": "Sponsor on GitHub",
     "githubRepo": "GitHub Repository"
   },
   "manageKnowledge": {
     "title": "Manage Knowledge",
-    "heading": "Configure Knowledge Base"
+    "heading": "Configure Knowledge Base",
+    "worldBooksSettingsTitle": "World Books workspace",
+    "worldBooksSettingsDescription": "World Books are managed from the World Books workspace. Use the button below to open it.",
+    "worldBooksOpenWorkspace": "Open World Books workspace",
+    "dictionariesSettingsTitle": "Chat dictionaries workspace",
+    "dictionariesSettingsDescription": "Chat dictionaries are managed from the Chat dictionaries workspace. Use the button below to open it.",
+    "dictionariesOpenWorkspace": "Open Chat dictionaries workspace"
+  },
+  "charactersSettingsTitle": "Characters workspace",
+  "charactersSettingsDescription": "Characters are managed from the Characters workspace. Use the button below to open it.",
+  "charactersOpenWorkspace": "Open Characters workspace",
+  "manageCharacters": {
+    "title": "Manage Characters",
+    "addBtn": "New character",
+    "columns": {
+      "name": "Name",
+      "description": "Description",
+      "actions": "Actions"
+    },
+    "tooltip": {
+      "edit": "Edit character",
+      "delete": "Delete character"
+    },
+    "confirm": {
+      "delete": "Are you sure you want to delete this character? This action cannot be undone."
+    },
+    "form": {
+      "name": {
+        "label": "Name",
+        "placeholder": "e.g. Writing coach",
+        "required": "Please enter a name"
+      },
+      "description": {
+        "label": "Description",
+        "placeholder": "Short description"
+      },
+      "systemPrompt": {
+        "label": "Behavior / instructions",
+        "placeholder": "Describe how this character should behave when chatting.",
+        "help": "Explain the character's role, tone, and constraints. For example: \"You are a patient math tutor who explains concepts step by step.\""
+      },
+      "avatarUrl": {
+        "label": "Avatar URL (optional)",
+        "placeholder": "https://example.com/avatar.png"
+      },
+      "btnSave": {
+        "saving": "Creating character...",
+        "save": "Create character"
+      },
+      "btnEdit": {
+        "saving": "Saving changes...",
+        "save": "Save changes"
+      }
+    },
+    "notification": {
+      "addSuccess": "Character created",
+      "error": "Error",
+      "someError": "Something went wrong. Please try again later",
+      "updatedSuccess": "Character updated",
+      "deletedSuccess": "Character deleted"
+    },
+    "emptyTitle": "No characters yet",
+    "emptyDescription": "Create reusable characters with names, descriptions, and behaviors you can chat with.",
+    "emptyExample1": "Define a writing coach, lore expert, or coding assistant you can reuse across chats.",
+    "emptyExample2": "Give each character a clear description and behavior so their responses stay consistent.",
+    "emptyPrimaryCta": "Create character"
   },
   "rag": {
     "title": "RAG Settings",
@@ -458,6 +546,8 @@
         "label": "Embedding Model",
         "required": "Please select a model",
         "help": "Highly recommended to use embedding models like `nomic-embed-text`.",
+        "helpRecommended": "Recommended: {{model}} (from server config)",
+        "helpMissing": "Previously saved embedding model is no longer available on the server. Please choose another model.",
         "placeholder": "Select a model"
       },
       "chunkSize": {
@@ -510,12 +600,67 @@
     "title": "Chrome AI Settings"
   },
   "mermaid": "Mermaid",
+  "switchToSidebar": "Switch to Sidebar",
+  "healthPage": {
+    "title": "Health Status",
+    "subtitle": "Quick overview of subsystem health endpoints exposed by the server.",
+    "backToChat": "Back to chat",
+    "openSettings": "Open tldw Settings",
+    "recheckAll": "Recheck All",
+    "copyDiagnostics": "Copy diagnostics",
+    "copyDiagnosticsHelp": "Copies JSON diagnostics to clipboard",
+    "serverNotConfigured": "Server is not configured.",
+    "unableToReachCore": "Unable to reach server core health endpoint.",
+    "triedGet": "Tried GET {{url}}",
+    "configureHint": "Please configure a server URL under tldw settings.",
+    "configureCta": "Configure",
+    "connectedTo": "Connected to {{host}}",
+    "autoRefresh": "Auto-refresh",
+    "intervalLabel": "Interval (s):",
+    "checking": "Checking…",
+    "recheck": "Recheck",
+    "healthy": "Healthy",
+    "unhealthy": "Unhealthy",
+    "unknown": "Unknown",
+    "statusHealthy": "Healthy",
+    "statusUnhealthy": "Unhealthy",
+    "statusUnknown": "Unknown",
+    "updatedJustNow": "Updated just now",
+    "updatedSecondsAgo": "Updated {{seconds}}s ago",
+    "checks": {
+      "core": "Core API",
+      "rag": "RAG",
+      "audio": "Audio",
+      "embeddings": "Embeddings",
+      "metrics": "Metrics Health",
+      "chatMetrics": "Chat Metrics",
+      "mcp": "MCP"
+    }
+  },
+  "healthSummary": {
+    "diagnostics": "Diagnostics",
+    "diagnosticsTooltip": "Open detailed diagnostics to troubleshoot or inspect health checks.",
+    "core": "Server",
+    "rag": "Knowledge",
+    "coreAria": "Server: server/API health",
+    "ragAria": "Knowledge: knowledge index health",
+    "coreOnline": "Server: Online",
+    "coreOffline": "Server: Offline",
+    "coreChecking": "Server: Checking…",
+    "ragReady": "Knowledge: Ready",
+    "ragOffline": "Knowledge: Offline",
+    "ragChecking": "Knowledge: Checking…",
+    "footerInfo": "These checks summarize the last successful ping to your tldw server and knowledge index."
+  },
+  "savedSuccessfully": "Settings saved",
+  "saveFailed": "Failed to save settings",
+  "siteAccessGranted": "Host permission granted for {{origin}}",
   "onboarding": {
     "title": "Welcome — Let’s get you connected",
     "description": "Configure your server and authentication. We’ll verify the connection and RAG health inline.",
     "serverUrl": {
       "label": "Server URL",
-      "placeholder": "http://localhost:8000",
+      "placeholder": "http://127.0.0.1:8000",
       "help": "Example: http://127.0.0.1:8000",
       "emptyHint": "Enter your tldw server URL to enable Next.",
       "invalid": "Enter a full URL such as http://127.0.0.1:8000.",
@@ -530,7 +675,10 @@
       "single": "Single User (API Key)",
       "multi": "Multi User (Login)"
     },
-    "apiKey": { "label": "API Key", "placeholder": "Enter your API key" },
+    "apiKey": {
+      "label": "API Key",
+      "placeholder": "Enter your API key (or use the default demo key THIS-IS-A-SECURE-KEY-123-REPLACE-ME for local single-user setups)"
+    },
     "username": { "label": "Username", "placeholder": "Username" },
     "password": { "label": "Password", "placeholder": "Password" },
     "buttons": {
@@ -559,6 +707,50 @@
     "footerHelp": "Once connected, you can revisit these settings anytime from the extension menu."
   },
   "tldw": {
+    "setupLink": "Set up server",
+    "loadError": "Unable to load tldw server settings. Check your connection and try again.",
+    "fields": {
+      "apiKey": {
+        "label": "API Key",
+        "placeholder": "Enter your API key (default demo key: THIS-IS-A-SECURE-KEY-123-REPLACE-ME for local single-user setups)",
+        "required": "Please enter your API key",
+        "extra": "Your tldw_server API key for authentication. For local single-user demos, you can use the default key THIS-IS-A-SECURE-KEY-123-REPLACE-ME unless you have changed it on the server."
+      },
+      "username": {
+        "label": "Username",
+        "placeholder": "Enter username",
+        "required": "Please enter your username"
+      },
+      "password": {
+        "label": "Password",
+        "placeholder": "Enter password",
+        "required": "Please enter your password"
+      },
+      "serverUrl": {
+        "label": "Server URL",
+        "placeholder": "http://localhost:8000",
+        "required": "Please enter the server URL",
+        "invalid": "Please enter a valid URL",
+        "extra": "The URL of your tldw_server instance (e.g., http://localhost:8000)"
+      }
+    },
+    "errors": {
+      "invalidApiKey": "Invalid API key",
+      "forbidden": "Forbidden (check permissions)",
+      "apiKeyValidationFailed": "API key validation failed",
+      "serverUnreachable": "Server unreachable"
+    },
+    "about": {
+      "title": "About tldw_server Integration",
+      "description": "This extension connects to your tldw_server instance, providing access to:",
+      "points": {
+        "providers": "Multiple LLM providers through a unified API",
+        "rag": "RAG (Retrieval-Augmented Generation) search",
+        "media": "Media ingestion and processing",
+        "notes": "Notes and prompts management",
+        "stt": "Speech-to-text transcription"
+      }
+    },
     "advancedTimeouts": "Advanced Timeouts",
     "requestTimeout": "Request Timeout (seconds)",
     "streamingIdle": "Streaming Idle Timeout (seconds)",
@@ -574,6 +766,160 @@
     "timeoutPresetHint": "Balanced works well for most setups. Extended adds extra headroom for slower networks or long-running jobs.",
     "reset": "Reset to recommended",
     "resetDone": "Reset to recommended defaults",
-    "serverNav": "tldw Server"
+    "serverNav": "tldw Server",
+    "serverConfigTitle": "tldw Server Configuration",
+    "serverLabel": "Server:",
+    "notConfigured": "Not configured",
+    "buttons": {
+      "health": "Health",
+      "recheck": "Recheck",
+      "testConnection": "Test Connection",
+      "grantSiteAccess": "Grant Site Access",
+      "login": "Login",
+      "logout": "Logout"
+    },
+    "loginRequired": {
+      "title": "Login Required",
+      "description": "Please login with your tldw_server credentials"
+    },
+    "loggedIn": {
+      "title": "Logged In",
+      "description": "You are currently logged in to tldw_server"
+    },
+    "connection": {
+      "success": "Server responded successfully. You can continue.",
+      "failed": "Connection failed. Please check your settings."
+    },
+    "authMode": {
+      "label": "Authentication Mode",
+      "single": "Single User (API Key)",
+      "multi": "Multi User (Login)"
+    },
+    "hints": {
+      "requestTimeout": "Abort initial requests if no response within this time. Default: {{seconds}}s.",
+      "streamingIdle": "Abort streaming if no updates received within this time. Default: {{seconds}}s."
+    },
+    "login": {
+      "success": "Login successful!",
+      "failed": "Login failed"
+    },
+    "logout": {
+      "success": "Logged out successfully",
+      "failed": "Logout failed"
+    }
+  },
+  "evaluations": {
+    "title": "Evaluations playground",
+    "subtitle": "Define evaluations against your tldw server and inspect recent runs.",
+    "listTitle": "Recent evaluations",
+    "newEvaluationCta": "New evaluation",
+    "startRunCta": "Start run",
+    "loadErrorTitle": "Unable to load evaluations",
+    "loadErrorDescription": "Check your tldw server connection and API credentials, then try again.",
+    "emptyList": "No evaluations yet. Once you create one, it will appear here.",
+    "selectedTag": "Selected",
+    "rateLimitsTitle": "Evaluation limits",
+    "rateLimitsErrorTitle": "Unable to fetch rate limits",
+    "rateLimitsErrorDescription": "We could not retrieve evaluation quotas from the server.",
+    "rateLimitsNoData": "Rate limit information is not available for this server.",
+    "tierLabel": "Tier",
+    "dailyLimitLabel": "Daily evaluations",
+    "tokensTodayLabel": "Tokens today",
+    "perMinuteLabel": "Per-minute limit",
+    "resetAtLabel": "Resets at",
+    "runsTitle": "Runs",
+    "noEvalSelectedRuns": "Select an evaluation to see its recent runs.",
+    "runsErrorTitle": "Unable to load runs",
+    "runsEmpty": "No runs yet for this evaluation.",
+    "runDetailTitle": "Run details",
+    "noRunSelected": "Select a run to see details.",
+    "runDetailErrorTitle": "Unable to load run details",
+    "runStatusLabel": "Status",
+    "runModelLabelShort": "Target model",
+    "runEvalIdLabel": "Evaluation",
+    "runErrorLabel": "Error",
+    "runResultsLabel": "Results (snippet)",
+    "runProgressLabel": "Progress",
+    "runUsageLabel": "Usage",
+    "datasetsTitle": "Datasets",
+    "newDatasetCta": "New dataset",
+    "datasetsErrorTitle": "Unable to load datasets",
+    "datasetsEmpty": "No datasets yet. Create one to attach to evaluations.",
+    "datasetSampleCount": "{{count}} samples",
+    "datasetNameLabel": "Name",
+    "datasetNamePlaceholder": "my_dataset",
+    "datasetDescriptionLabel": "Description",
+    "datasetMetadataLabel": "Metadata (JSON, optional)",
+    "sampleInputLabel": "Sample input",
+    "sampleExpectedLabel": "Expected output (optional)",
+    "samplesJsonLabel": "Samples JSON (optional, overrides fields)",
+    "datasetLabel": "Dataset (optional)",
+    "datasetPlaceholder": "Select dataset",
+    "datasetCreateSuccessTitle": "Dataset created",
+    "datasetCreateSuccessDescription": "Your dataset is ready to use in evaluations.",
+    "datasetCreateErrorTitle": "Failed to create dataset",
+    "datasetCreateErrorDescription": "The server rejected this dataset. Check the fields and try again.",
+    "datasetDeleteSuccessTitle": "Dataset deleted",
+    "datasetDeleteErrorTitle": "Failed to delete dataset",
+    "datasetLoadErrorTitle": "Failed to load dataset",
+    "datasetDetailTitle": "Dataset details",
+    "datasetParseErrorTitle": "Invalid samples JSON",
+    "createEvalModalTitle": "New evaluation",
+    "editEvalModalTitle": "Edit evaluation",
+    "evalNameLabel": "Name",
+    "evalNamePlaceholder": "my_eval_run",
+    "evalNameValidation": "Use only letters, numbers, hyphens, and underscores.",
+    "evalTypeLabel": "Evaluation type",
+    "evalSpecLabel": "Evaluation spec (JSON)",
+    "evalSpecParseError": "Evaluation spec must be valid JSON.",
+    "evalMetadataLabel": "Metadata (JSON, optional)",
+    "inlineDatasetCheckbox": "Attach inline dataset instead of referencing dataset_id",
+    "inlineDatasetErrorTitle": "Invalid inline dataset",
+    "runModelLabel": "Run model (used for quick runs)",
+    "createSuccessTitle": "Evaluation created",
+    "createErrorTitle": "Failed to create evaluation",
+    "createErrorDescription": "The server rejected this evaluation. Ensure name, type, and spec are valid.",
+    "updateSuccessTitle": "Evaluation updated",
+    "updateErrorTitle": "Failed to update evaluation",
+    "deleteErrorTitle": "Failed to delete evaluation",
+    "deleteConfirmTitle": "Delete this evaluation?",
+    "deleteConfirmDescription": "This will remove the evaluation definition. Runs already created remain in history.",
+    "detailTitle": "Evaluation details",
+    "detailErrorTitle": "Unable to load evaluation details",
+    "descriptionLabel": "Description",
+    "noEvalSelectedDetails": "Select an evaluation to inspect its spec.",
+    "runCreateSuccessTitle": "Run started",
+    "runCreateSuccessDescription": "Your evaluation run has started. You can monitor it from the server UI.",
+    "runCreateErrorTitle": "Failed to start run",
+    "runCreateErrorDescription": "The server rejected this run request. Check the model and try again.",
+    "runConfigLabel": "Config (JSON)",
+    "datasetOverrideLabel": "Dataset override (JSON array of samples)",
+    "runConfigParseError": "Invalid config JSON",
+    "runCancelSuccessTitle": "Run cancellation requested",
+    "runCancelErrorTitle": "Failed to cancel run",
+    "cancelRunCta": "Cancel run",
+    "historyTitle": "History",
+    "historyTypeLabel": "Type",
+    "historyUserLabel": "User ID",
+    "historyStartLabel": "Start date (ISO)",
+    "historyEndLabel": "End date (ISO)",
+    "historyFetchCta": "Fetch history",
+    "historyEmpty": "Run a query to see recent activity.",
+    "historyErrorTitle": "Failed to fetch history",
+    "webhooksTitle": "Webhooks",
+    "webhookUrlLabel": "URL",
+    "webhookEventsLabel": "Events",
+    "webhookCreateCta": "Register webhook",
+    "webhookCreateSuccessTitle": "Webhook registered",
+    "webhookCreateErrorTitle": "Failed to register webhook",
+    "webhookDeleteErrorTitle": "Failed to delete webhook",
+    "webhookListErrorTitle": "Unable to load webhooks",
+    "webhooksEmpty": "No webhooks registered yet.",
+    "webhookSecretTitle": "Secret",
+    "idempotencyKeyLabel": "Idempotency key",
+    "emptyConnectTitle": "Connect to use Evaluations",
+    "emptyConnectDescription": "To create and run evaluations, first connect to your tldw server.",
+    "emptyConnectExample1": "Open Settings → tldw server to add your server URL and API key.",
+    "emptyConnectExample2": "Once connected, you can define evaluations and inspect metrics here."
   }
 }

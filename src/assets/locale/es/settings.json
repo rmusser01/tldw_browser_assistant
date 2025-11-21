@@ -1,4 +1,15 @@
 {
+  "navigation": {
+    "serverAndAuth": "Servidor y Auth",
+    "knowledgeTools": "Herramientas de conocimiento",
+    "workspace": "Área de trabajo",
+    "about": "Acerca de"
+  },
+  "healthNav": "Estado",
+  "worldBooksNav": "World Books",
+  "chatDictionariesNav": "Diccionarios de chat",
+  "charactersNav": "Personajes",
+  "mediaNav": "Multimedia",
   "generalSettings": {
     "title": "Configuraciones Generales",
     "settings": {
@@ -317,7 +328,7 @@
       },
       "globalEnable": {
         "label": "Habilitar o deshabilitar la integración del servidor globalmente",
-        "warning": "Al deshabilitar la integración del servidor globalmente, Page Assist no obtendrá modelos del servidor. Aún puede agregar proveedores desde la sección <anchor>API compatible con OpenAI</anchor>."
+        "warning": "Al deshabilitar la integración del servidor globalmente, tldw Assistant no obtendrá modelos del servidor. Aún puede agregar proveedores desde la sección <anchor>API compatible con OpenAI</anchor>."
       },
       "advanced": {
         "label": "Configuración avanzada de URL del servidor",
@@ -354,12 +365,149 @@
   "about": {
     "title": "Sobre",
     "heading": "Sobre",
-    "chromeVersion": "Versión de Page Assist",
+    "chromeVersion": "Versión de tldw Assistant",
     "ollamaVersion": "Versión del servidor",
-    "support": "Podes apoyar el proyecto Page Assist haciendo donaciones o patrocinarnos a través de las seguientes plataformas:",
+    "support": "Podes apoyar el proyecto tldw Assistant haciendo donaciones o patrocinarnos a través de las seguientes plataformas:",
     "koFi": "Apoyar en Ko-fi",
     "githubSponsor": "Patrocinarnos en GitHub",
     "githubRepo": "Repositorio de GitHub"
+  },
+  "switchToSidebar": "Switch to Sidebar",
+  "healthPage": {
+    "title": "Health Status",
+    "subtitle": "Quick overview of subsystem health endpoints exposed by the server.",
+    "backToChat": "Back to chat",
+    "openSettings": "Open tldw Settings",
+    "recheckAll": "Recheck All",
+    "copyDiagnostics": "Copy diagnostics",
+    "serverNotConfigured": "Server is not configured.",
+    "unableToReachCore": "Unable to reach server core health endpoint.",
+    "triedGet": "Tried GET {{url}}",
+    "configureHint": "Please configure a server URL under tldw settings.",
+    "configureCta": "Configure",
+    "connectedTo": "Connected to {{host}}",
+    "autoRefresh": "Auto-refresh",
+    "intervalLabel": "Interval (s):",
+    "checking": "Checking…",
+    "recheck": "Recheck",
+    "healthy": "Healthy",
+    "unhealthy": "Unhealthy",
+    "unknown": "Unknown",
+    "checks": {
+      "core": "Core API",
+      "rag": "RAG",
+      "audio": "Audio",
+      "embeddings": "Embeddings",
+      "metrics": "Metrics Health",
+      "chatMetrics": "Chat Metrics",
+      "mcp": "MCP"
+    }
+  },
+  "savedSuccessfully": "Settings saved",
+  "saveFailed": "Failed to save settings",
+  "siteAccessGranted": "Host permission granted for {{origin}}",
+  "tldw": {
+    "advancedTimeouts": "Advanced Timeouts",
+    "requestTimeout": "Request Timeout (seconds)",
+    "streamingIdle": "Streaming Idle Timeout (seconds)",
+    "chatRequest": "Chat Request Timeout",
+    "chatStreamIdle": "Chat Stream Idle",
+    "ragRequest": "RAG Request Timeout",
+    "mediaRequest": "Media Request Timeout",
+    "uploadRequest": "Upload Request Timeout",
+    "timeoutPresetLabel": "Timeout profile",
+    "timeoutPresetBalanced": "Balanced",
+    "timeoutPresetExtended": "Extended",
+    "timeoutPresetCustom": "Custom",
+    "timeoutPresetHint": "Balanced works well for most setups. Extended adds extra headroom for slower networks or long-running jobs.",
+    "reset": "Reset to recommended",
+    "resetDone": "Reset to recommended defaults",
+    "serverNav": "tldw Server",
+    "serverConfigTitle": "tldw Server Configuration",
+    "serverLabel": "Server:",
+    "notConfigured": "Not configured",
+    "buttons": {
+      "health": "Health",
+      "recheck": "Recheck",
+      "testConnection": "Test Connection",
+      "grantSiteAccess": "Grant Site Access",
+      "login": "Login",
+      "logout": "Logout"
+    },
+    "loginRequired": {
+      "title": "Login Required",
+      "description": "Please login with your tldw_server credentials"
+    },
+    "loggedIn": {
+      "title": "Logged In",
+      "description": "You are currently logged in to tldw_server"
+    },
+    "connection": {
+      "success": "Connection successful!",
+      "failed": "Connection failed. Please check your settings.",
+      "failedDetailed": "Connection failed. Please check your server URL and API key."
+    },
+    "authMode": {
+      "label": "Authentication Mode",
+      "single": "Single User (API Key)",
+      "multi": "Multi User (Login)"
+    },
+    "hints": {
+      "requestTimeout": "Abort initial requests if no response within this time. Default: {{seconds}}s.",
+      "streamingIdle": "Abort streaming if no updates received within this time. Default: {{seconds}}s."
+    },
+    "login": {
+      "success": "Login successful!",
+      "failed": "Login failed"
+    },
+    "logout": {
+      "success": "Logged out successfully",
+      "failed": "Logout failed"
+    },
+    "setupLink": "Set up server",
+    "loadError": "Unable to load tldw server settings. Check your connection and try again.",
+    "fields": {
+      "apiKey": {
+        "label": "API Key",
+        "placeholder": "Enter your API key",
+        "required": "Please enter your API key",
+        "extra": "Your tldw_server API key for authentication"
+      },
+      "username": {
+        "label": "Username",
+        "placeholder": "Enter username",
+        "required": "Please enter your username"
+      },
+      "password": {
+        "label": "Password",
+        "placeholder": "Enter password",
+        "required": "Please enter your password"
+      },
+      "serverUrl": {
+        "label": "Server URL",
+        "placeholder": "http://localhost:8000",
+        "required": "Please enter the server URL",
+        "invalid": "Please enter a valid URL",
+        "extra": "The URL of your tldw_server instance (e.g., http://localhost:8000)"
+      }
+    },
+    "errors": {
+      "invalidApiKey": "Invalid API key",
+      "forbidden": "Forbidden (check permissions)",
+      "apiKeyValidationFailed": "API key validation failed",
+      "serverUnreachable": "Server unreachable"
+    },
+    "about": {
+      "title": "About tldw_server Integration",
+      "description": "This extension connects to your tldw_server instance, providing access to:",
+      "points": {
+        "providers": "Multiple LLM providers through a unified API",
+        "rag": "RAG (Retrieval-Augmented Generation) search",
+        "media": "Media ingestion and processing",
+        "notes": "Notes and prompts management",
+        "stt": "Speech-to-text transcription"
+      }
+    }
   },
   "manageKnowledge": {
     "title": "Administrar Conocimiento",
@@ -423,5 +571,24 @@
   },
   "chromeAiSettings": {
     "title": "Configuración de IA de Chrome"
+  },
+  "onboarding": {
+    "title": "Welcome — Let’s get you connected",
+    "description": "Configure your server and authentication. We’ll verify the connection and RAG health inline.",
+    "serverUrl": {
+      "placeholder": "http://127.0.0.1:8000",
+      "help": "Ejemplo: http://127.0.0.1:8000",
+      "invalid": "Introduce una URL completa como http://127.0.0.1:8000.",
+      "invalidProtocol": "Usa URLs http o https, por ejemplo http://127.0.0.1:8000."
+    },
+    "buttons": {
+      "next": "Next",
+      "back": "Back",
+      "continue": "Continue",
+      "recheck": "Recheck",
+      "finish": "Finish",
+      "finishAnyway": "Finish without connecting",
+      "skip": "Skip for now"
+    }
   }
 }

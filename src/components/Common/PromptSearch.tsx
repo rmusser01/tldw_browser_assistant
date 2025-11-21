@@ -15,9 +15,12 @@ type PromptItem = { id?: string; title: string; content: string; is_system?: boo
 type Props = {
   onInsertMessage: (content: string) => void
   onInsertSystem: (content: string) => void
+  inputId?: string
+  ariaLabel?: string
+  ariaLabelledby?: string
 }
 
-export const PromptSearch: React.FC<Props> = ({ onInsertMessage, onInsertSystem }) => {
+export const PromptSearch: React.FC<Props> = ({ onInsertMessage, onInsertSystem, inputId, ariaLabel, ariaLabelledby }) => {
   const { t } = useTranslation(['option'])
   const { historyId } = useMessageOption()
   const [remote, setRemote] = useStorage('promptSearchIncludeServer', false)
@@ -41,17 +44,36 @@ export const PromptSearch: React.FC<Props> = ({ onInsertMessage, onInsertSystem 
     try {
       const local = (localPrompts || []).filter((p) => (p.title?.toLowerCase().includes(query.toLowerCase()) || p.content?.toLowerCase().includes(query.toLowerCase()))).map((p) => ({ id: p.id, title: p.title, content: p.content, is_system: p.is_system, source: 'local' as const }))
       let merged: PromptItem[] = local
-      if (remote) {
-        try {
-          await tldwClient.initialize()
-          const srv = await tldwClient.searchPrompts(query).catch(() => [])
-          const serverList = Array.isArray(srv) ? srv : (srv?.results || srv?.prompts || [])
-          const norm = (serverList as any[]).map((x) => ({ id: x.id, title: String(x.title || x.name || 'Untitled'), content: String(x.content || x.prompt || ''), is_system: !!x.is_system, source: 'server' as const }))
-          // Merge by id+title+content fingerprint
-          const seen = new Set<string>()
-          merged = [...local, ...norm].filter((p) => {
-            const key = `${p.source}:${p.id || ''}:${p.title}:${p.content.slice(0,64)}`
-            if (seen.has(key)) return false
+          if (remote) {
+            try {
+              await tldwClient.initialize()
+              const srv = await tldwClient.searchPrompts(query).catch(() => [])
+              const serverList = Array.isArray(srv) ? srv : (srv?.results || srv?.prompts || [])
+              const norm = (serverList as any[]).map((x) => {
+                const name = x.name || x.title || 'Untitled'
+                const content =
+                  x.system_prompt ||
+                  x.user_prompt ||
+                  x.content ||
+                  x.prompt ||
+                  ''
+                const isSystem =
+                  typeof x.is_system === 'boolean'
+                    ? x.is_system
+                    : !!(x.system_prompt && !x.user_prompt)
+                return {
+                  id: x.id || x.uuid,
+                  title: String(name),
+                  content: String(content),
+                  is_system: !!isSystem,
+                  source: 'server' as const
+                }
+              })
+              // Merge by id+title+content fingerprint
+              const seen = new Set<string>()
+              merged = [...local, ...norm].filter((p) => {
+                const key = `${p.source}:${p.id || ''}:${p.title}:${p.content.slice(0,64)}`
+                if (seen.has(key)) return false
             seen.add(key)
             return true
           })
@@ -94,6 +116,7 @@ export const PromptSearch: React.FC<Props> = ({ onInsertMessage, onInsertSystem 
     <div className="w-72">
       <Tooltip title={remote ? 'Search local + server prompts' : 'Search local prompts'}>
         <Input.Search
+          id={inputId}
           placeholder={t('selectAPrompt') || 'Search prompts'}
           allowClear
           value={q}
@@ -101,6 +124,8 @@ export const PromptSearch: React.FC<Props> = ({ onInsertMessage, onInsertSystem 
           onFocus={() => setOpen(true)}
           onBlur={() => { setTimeout(() => setOpen(false), 200) }}
           loading={loading}
+          aria-label={ariaLabel}
+          aria-labelledby={ariaLabelledby}
         />
       </Tooltip>
       {open && results.length > 0 && (

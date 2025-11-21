@@ -1,9 +1,16 @@
 import React from 'react'
-import { Button, Empty, Input, List, Pagination, Space, Spin, Tooltip, Typography, message, Select } from 'antd'
+import type { InputRef } from 'antd'
+import { Button, Input, List, Pagination, Space, Spin, Tooltip, Typography, message, Select, Dropdown } from 'antd'
 import { bgRequest } from '@/services/background-proxy'
 import { useQuery, keepPreviousData, useQueryClient } from '@tanstack/react-query'
 import { useServerOnline } from '@/hooks/useServerOnline'
 import { Copy as CopyIcon, Save as SaveIcon, Trash2 as TrashIcon, FileDown as FileDownIcon, Plus as PlusIcon, Search as SearchIcon } from 'lucide-react'
+import { confirmDanger } from '@/components/Common/confirm-danger'
+import { useTranslation } from 'react-i18next'
+import { useNavigate } from 'react-router-dom'
+import FeatureEmptyState from '@/components/Common/FeatureEmptyState'
+import { useDemoMode } from '@/context/demo-mode'
+import { useServerCapabilities } from '@/hooks/useServerCapabilities'
 
 type NoteListItem = {
   id: string | number
@@ -12,7 +19,17 @@ type NoteListItem = {
   updated_at?: string
 }
 
+const MAX_TITLE_LENGTH = 80
+const MAX_PREVIEW_LENGTH = 100
+
+const truncateText = (value?: string | null, max?: number) => {
+  if (!value) return ""
+  if (!max || value.length <= max) return value
+  return `${value.slice(0, max)}...`
+}
+
 const NotesManagerPage: React.FC = () => {
+  const { t } = useTranslation(['option', 'common'])
   const [query, setQuery] = React.useState('')
   const [page, setPage] = React.useState(1)
   const [pageSize, setPageSize] = React.useState(20)
@@ -21,11 +38,19 @@ const NotesManagerPage: React.FC = () => {
   const [title, setTitle] = React.useState('')
   const [content, setContent] = React.useState('')
   const [loadingDetail, setLoadingDetail] = React.useState(false)
+  const [saving, setSaving] = React.useState(false)
   const [keywordTokens, setKeywordTokens] = React.useState<string[]>([])
   const [keywordOptions, setKeywordOptions] = React.useState<string[]>([])
   const [editorKeywords, setEditorKeywords] = React.useState<string[]>([])
+  const [isDirty, setIsDirty] = React.useState(false)
   const isOnline = useServerOnline()
+  const { demoEnabled } = useDemoMode()
   const queryClient = useQueryClient()
+  const navigate = useNavigate()
+  const { capabilities, loading: capsLoading } = useServerCapabilities()
+  const titleInputRef = React.useRef<InputRef | null>(null)
+
+  const editorDisabled = !isOnline || (!capsLoading && capabilities && !capabilities.hasNotes)
 
   const fetchNotes = async (): Promise<NoteListItem[]> => {
     const q = query.trim()
@@ -75,7 +100,11 @@ const NotesManagerPage: React.FC = () => {
       setTitle(String(d?.title || ''))
       setContent(String(d?.content || ''))
       const k = (Array.isArray(d?.metadata?.keywords) ? d.metadata.keywords : (Array.isArray(d?.keywords) ? d.keywords : [])) as any[]
-      setEditorKeywords((k || []).map(String))
+      const normalizedKeywords = (k || []).map((item: any) =>
+        String(item?.keyword || item?.keyword_text || item?.text || item)
+      ).filter((s) => s && s.trim().length > 0)
+      setEditorKeywords(normalizedKeywords)
+      setIsDirty(false)
     } catch {
       message.error('Failed to load note')
     } finally { setLoadingDetail(false) }
@@ -85,32 +114,66 @@ const NotesManagerPage: React.FC = () => {
     setSelectedId(null)
     setTitle('')
     setContent('')
+    setEditorKeywords([])
+    setIsDirty(false)
   }
+
+  const confirmDiscardIfDirty = React.useCallback(async () => {
+    if (!isDirty) return true
+    const ok = await confirmDanger({
+      title: 'Discard changes?',
+      content: 'You have unsaved changes. Discard them?',
+      okText: 'Discard',
+      cancelText: 'Cancel'
+    })
+    return ok
+  }, [isDirty])
+
+  const handleNewNote = React.useCallback(async () => {
+    const ok = await confirmDiscardIfDirty()
+    if (!ok) return
+    resetEditor()
+    setTimeout(() => {
+      titleInputRef.current?.focus()
+    }, 0)
+  }, [confirmDiscardIfDirty])
+
+  const handleSelectNote = React.useCallback(
+    async (id: string | number) => {
+      const ok = await confirmDiscardIfDirty()
+      if (!ok) return
+      await loadDetail(id)
+    },
+    [confirmDiscardIfDirty, loadDetail]
+  )
 
   const saveNote = async () => {
     if (!content.trim() && !title.trim()) { message.warning('Nothing to save'); return }
+    setSaving(true)
     try {
       if (selectedId == null) {
         const payload = { title: title || undefined, content, metadata: { keywords: editorKeywords } }
         const created = await bgRequest<any>({ path: '/api/v1/notes/' as any, method: 'POST' as any, headers: { 'Content-Type': 'application/json' }, body: payload })
         message.success('Note created')
+        setIsDirty(false)
         await refetch()
         if (created?.id != null) await loadDetail(created.id)
       } else {
         const payload = { title: title || undefined, content, metadata: { keywords: editorKeywords } }
         await bgRequest<any>({ path: `/api/v1/notes/${selectedId}` as any, method: 'PUT' as any, headers: { 'Content-Type': 'application/json' }, body: payload })
         message.success('Note updated')
+        setIsDirty(false)
         await refetch()
       }
     } catch (e: any) {
       message.error(e?.message || 'Save failed')
-    }
+    } finally { setSaving(false) }
   }
 
   const deleteNote = async (id?: string | number | null) => {
     const target = id ?? selectedId
     if (target == null) { message.warning('No note selected'); return }
-    const ok = window.confirm('Delete this note?')
+    const ok = await confirmDanger({ title: 'Please confirm', content: 'Delete this note?', okText: 'Delete', cancelText: 'Cancel' })
     if (!ok) return
     try {
       await bgRequest<any>({ path: `/api/v1/notes/${target}` as any, method: 'DELETE' as any })
@@ -283,64 +346,212 @@ const NotesManagerPage: React.FC = () => {
     } catch {}
   }, [])
 
+  React.useEffect(() => {
+    const handler = (e: BeforeUnloadEvent) => {
+      if (!isDirty) return
+      e.preventDefault()
+      e.returnValue = ''
+    }
+    window.addEventListener('beforeunload', handler)
+    return () => window.removeEventListener('beforeunload', handler)
+  }, [isDirty])
+
   return (
-    <div className="w-full h-full flex gap-4 mt-16">
+    <div className="w-full h-full flex flex-col lg:flex-row gap-4 mt-16">
       {/* Left: search + list */}
       <div className="w-full lg:w-1/3 min-w-0 lg:sticky lg:top-16 lg:self-start">
         <div className="p-3 rounded-lg border dark:border-gray-700 bg-white dark:bg-[#171717]">
           <div className="flex items-center gap-2">
             <Input
               allowClear
-              placeholder="Search notes..."
+              placeholder={t('option:notesSearch.placeholder', {
+                defaultValue: 'Search titles and contents'
+              })}
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               onPressEnter={() => { setPage(1); refetch() }}
               className="flex-1 min-w-[12rem]"
             />
             <Button type="primary" onClick={() => { setPage(1); refetch() }} icon={(<SearchIcon className="w-4 h-4" />) as any}>Search</Button>
-            <Button onClick={() => { setQuery(''); setKeywordTokens([]); setPage(1); refetch() }}>Clear</Button>
+            <Button onClick={() => { setQuery(''); setKeywordTokens([]); setPage(1); refetch() }}>
+              {t('option:notesSearch.clear', {
+                defaultValue: 'Clear search & filters'
+              })}
+            </Button>
+            <Tooltip
+              title={t('option:notesSearch.newTooltip', {
+                defaultValue: 'Create a new note'
+              })}>
+              <Button onClick={() => { void handleNewNote() }} icon={(<PlusIcon className="w-4 h-4" />) as any}>
+                {t('option:notesSearch.new', { defaultValue: 'New note' })}
+              </Button>
+            </Tooltip>
           </div>
           <div className="mt-2 flex items-center gap-2">
             <Select
               mode="tags"
               allowClear
-              placeholder="Keywords"
+              placeholder={t('option:notesSearch.keywordsPlaceholder', {
+                defaultValue: 'Filter by keyword'
+              })}
               className="min-w-[12rem] flex-1"
               value={keywordTokens}
               onSearch={(txt) => { if (isOnline) void loadKeywordSuggestions(txt) }}
               onChange={(vals) => { setKeywordTokens(vals as string[]); setPage(1); refetch() }}
               options={keywordOptions.map((k) => ({ label: k, value: k }))}
             />
-            <Button type="link" onClick={() => { setKeywordTokens([]); setPage(1); refetch() }}>Reset filters</Button>
           </div>
         </div>
-        <div className="mt-3 p-3 rounded-lg border dark:border-gray-700 bg-white dark:bg-[#171717] max-h-[50vh] md:max-h-[60vh] lg:max-h-[calc(100dvh-18rem)] overflow-auto">
+          <div className="mt-3 p-3 rounded-lg border dark:border-gray-700 bg-white dark:bg-[#171717] max-h-[50vh] md:max-h-[60vh] lg:max-h-[calc(100dvh-18rem)] overflow-auto">
           <div className="sticky -m-3 mb-2 top-0 z-10 px-3 py-2 bg-white dark:bg-[#171717] border-b dark:border-gray-700 flex items-center justify-between">
             <span className="text-xs uppercase tracking-wide text-gray-500">Notes</span>
-            <span className="text-xs text-gray-400">{total}</span>
+            <span className="text-xs text-gray-400">
+              {t('option:notesSearch.listCount', {
+                defaultValue: '{{count}} notes',
+                count: total
+              })}
+            </span>
             <div className="ml-auto flex items-center gap-2">
-              <Tooltip title="Export all (Markdown)"><Button size="small" onClick={() => void exportAll()}>MD</Button></Tooltip>
-              <Tooltip title="Export all (CSV)"><Button size="small" onClick={() => void exportAllCSV()}>CSV</Button></Tooltip>
-              <Tooltip title="Export all (JSON)"><Button size="small" onClick={() => void exportAllJSON()}>JSON</Button></Tooltip>
+              <Dropdown
+                menu={{
+                  items: [
+                    {
+                      key: 'md',
+                      label: t('option:notesSearch.exportMdTooltip', {
+                        defaultValue: 'Export matching notes as Markdown (.md)'
+                      })
+                    },
+                    {
+                      key: 'csv',
+                      label: t('option:notesSearch.exportCsvTooltip', {
+                        defaultValue: 'Export matching notes as CSV'
+                      })
+                    },
+                    {
+                      key: 'json',
+                      label: t('option:notesSearch.exportJsonTooltip', {
+                        defaultValue: 'Export matching notes as JSON'
+                      })
+                    }
+                  ],
+                  onClick: ({ key }) => {
+                    if (key === 'md') void exportAll()
+                    if (key === 'csv') void exportAllCSV()
+                    if (key === 'json') void exportAllJSON()
+                  }
+                }}
+              >
+                <Button size="small">
+                  {t('option:notesSearch.exportMenuTrigger', {
+                    defaultValue: 'Export'
+                  })}
+                </Button>
+              </Dropdown>
             </div>
           </div>
           {isFetching ? (
             <div className="flex items-center justify-center py-10"><Spin /></div>
-          ) : (Array.isArray(data) && data.length > 0) ? (
+          ) : !isOnline ? (
+            demoEnabled ? (
+              <FeatureEmptyState
+                title={t('option:notesEmpty.demoTitle', {
+                  defaultValue: 'Explore Notes in demo mode'
+                })}
+                description={t('option:notesEmpty.demoDescription', {
+                  defaultValue:
+                    'This demo shows how Notes can organize your insights. Connect your own server later to create and save real notes.'
+                })}
+                examples={[
+                  t('option:notesEmpty.demoExample1', {
+                    defaultValue:
+                      'See how note titles, previews, and timestamps appear in this list.'
+                  }),
+                  t('option:notesEmpty.demoExample2', {
+                    defaultValue:
+                      'When you connect, you’ll be able to create notes from meetings, reviews, and more.'
+                  })
+                ]}
+                primaryActionLabel={t('common:connectToServer', {
+                  defaultValue: 'Connect to server'
+                })}
+                onPrimaryAction={() => navigate('/settings/tldw')}
+              />
+            ) : (
+              <FeatureEmptyState
+                title={t('option:notesEmpty.connectTitle', {
+                  defaultValue: 'Connect to use Notes'
+                })}
+                description={t('option:notesEmpty.connectDescription', {
+                  defaultValue: 'To use Notes, first connect to your tldw server.'
+                })}
+                examples={[
+                  t('option:notesEmpty.connectExample1', {
+                    defaultValue:
+                      'Open Settings → tldw server to add your server URL.'
+                  }),
+                  t('option:notesEmpty.connectExample2', {
+                    defaultValue:
+                      'Use Diagnostics if your server is running but not reachable.'
+                  })
+                ]}
+                primaryActionLabel={t('common:connectToServer', {
+                  defaultValue: 'Connect to server'
+                })}
+                onPrimaryAction={() => navigate('/settings/tldw')}
+              />
+            )
+          ) : (!capsLoading && capabilities && !capabilities.hasNotes) ? (
+            <FeatureEmptyState
+              title={t('option:notesEmpty.offlineTitle', {
+                defaultValue: 'Notes API not available on this server'
+              })}
+              description={t('option:notesEmpty.offlineDescription', {
+                defaultValue:
+                  'This tldw server does not advertise the Notes endpoints (for example, /api/v1/notes/). Upgrade your server to a version that includes the Notes API to use this workspace.'
+              })}
+              examples={[
+                t('option:notesEmpty.offlineExample1', {
+                  defaultValue:
+                    'Open Diagnostics to confirm your server version and available APIs.'
+                }),
+                t('option:notesEmpty.offlineExample2', {
+                  defaultValue:
+                    'After upgrading, reload the extension and return to Notes.'
+                })
+              ]}
+              primaryActionLabel={t('settings:healthSummary.diagnostics', {
+                defaultValue: 'Open Diagnostics'
+              })}
+              onPrimaryAction={() => navigate('/settings/health')}
+            />
+          ) : Array.isArray(data) && data.length > 0 ? (
             <>
-              <List
-                size="small"
-                dataSource={data}
-                renderItem={(item) => (
-                  <List.Item
-                    key={String(item.id)}
-                    onClick={() => void loadDetail(item.id)}
+                  <List
+                    size="small"
+                    dataSource={data}
+                    renderItem={(item) => (
+                      <List.Item
+                        key={String(item.id)}
+                        onClick={() => { void handleSelectNote(item.id) }}
+                        onKeyDown={(e) => {
+                          if (e.key === 'Enter' || e.key === ' ') {
+                            e.preventDefault()
+                            void handleSelectNote(item.id)
+                          }
+                        }}
+                    role="button"
+                    tabIndex={0}
+                    aria-selected={selectedId === item.id}
                     className={`cursor-pointer hover:bg-gray-50 dark:hover:bg-[#262626] rounded px-2 ${selectedId === item.id ? '!bg-gray-100 dark:!bg-gray-800' : ''}`}
                   >
                     <div className="w-full">
-                      <Typography.Text strong ellipsis className="max-w-[18rem]">{item.title || `Note ${item.id}`}</Typography.Text>
+                      <Typography.Text strong ellipsis className="max-w-[18rem]">
+                        {truncateText(item.title || `Note ${item.id}`, MAX_TITLE_LENGTH)}
+                      </Typography.Text>
                       {item.content && (
-                        <div className="text-xs text-gray-500 truncate mt-0.5">{String(item.content).slice(0, 160)}</div>
+                        <div className="text-xs text-gray-500 truncate mt-0.5">
+                          {truncateText(String(item.content), MAX_PREVIEW_LENGTH)}
+                        </div>
                       )}
                       <div className="text-[10px] text-gray-400 mt-0.5">{item.updated_at ? new Date(item.updated_at).toLocaleString() : ''}</div>
                     </div>
@@ -352,27 +563,147 @@ const NotesManagerPage: React.FC = () => {
               </div>
             </>
           ) : (
-            <Empty description="No notes" />
+            <FeatureEmptyState
+              title={t('option:notesEmpty.title', { defaultValue: 'No notes yet' })}
+              description={t('option:notesEmpty.description', {
+                defaultValue: 'Capture and organize free-form notes connected to your tldw insights.'
+              })}
+              examples={[
+                t('option:notesEmpty.exampleCreate', {
+                  defaultValue: 'Create a new note for a recent meeting or transcript.'
+                }),
+                t('option:notesEmpty.exampleLink', {
+                  defaultValue: 'Save review outputs into Notes so you can revisit them later.'
+                })
+              ]}
+              primaryActionLabel={t('option:notesEmpty.primaryCta', { defaultValue: 'Create note' })}
+              onPrimaryAction={resetEditor}
+            />
           )}
         </div>
-      </div>
+        </div>
 
-      {/* Right: editor */}
-      <div className="flex-1 p-3 rounded-lg border dark:border-gray-700 bg-white dark:bg-[#171717] min-h-[70vh] min-w-0 lg:h-[calc(100dvh-8rem)] overflow-auto">
-        <div className="flex items-center justify-between">
-          <Typography.Title level={5} className="!mb-0">{selectedId == null ? 'New Note' : (title || `Note ${selectedId}`)}</Typography.Title>
-          <Space>
-            <Tooltip title="New note"><Button size="small" onClick={resetEditor} icon={(<PlusIcon className="w-4 h-4" />) as any}>New</Button></Tooltip>
-            <Tooltip title="Copy"><Button size="small" onClick={copySelected} icon={(<CopyIcon className="w-4 h-4" />) as any} /></Tooltip>
-            <Tooltip title="Export as Markdown"><Button size="small" onClick={exportSelected} icon={(<FileDownIcon className="w-4 h-4" />) as any}>MD</Button></Tooltip>
-            <Tooltip title="Save"><Button type="primary" size="small" onClick={saveNote} loading={loadingDetail} icon={(<SaveIcon className="w-4 h-4" />) as any}>Save</Button></Tooltip>
-            <Tooltip title="Delete">
-              <Button danger size="small" onClick={() => void deleteNote()} icon={(<TrashIcon className="w-4 h-4" />) as any} disabled={selectedId == null}>Delete</Button>
+        {/* Right: editor */}
+        <div
+          className="relative flex-1 p-3 rounded-lg border dark:border-gray-700 bg-white dark:bg-[#171717] min-h-[70vh] min-w-0 lg:h-[calc(100dvh-8rem)] overflow-auto"
+          aria-disabled={editorDisabled}
+        >
+          {editorDisabled && (
+            <div className="absolute inset-0 z-10 flex flex-col items-center justify-center px-4 text-center bg-white/70 dark:bg-black/60">
+              <Typography.Text className="text-sm font-medium mb-1">
+                {(!capsLoading && capabilities && !capabilities.hasNotes)
+                  ? t('option:notesEmpty.offlineTitle', {
+                    defaultValue: 'Notes API not available on this server'
+                  })
+                  : t('option:notesEmpty.connectTitle', {
+                    defaultValue: 'Connect to use Notes'
+                  })}
+              </Typography.Text>
+              <Typography.Text type="secondary" className="text-xs">
+                {(!capsLoading && capabilities && !capabilities.hasNotes)
+                  ? t('option:notesEmpty.offlineDescription', {
+                    defaultValue:
+                      'This tldw server does not advertise the Notes endpoints (for example, /api/v1/notes/). Upgrade your server to a version that includes the Notes API to use this workspace.'
+                  })
+                  : t('option:notesEmpty.connectDescription', {
+                    defaultValue: 'To use Notes, first connect to your tldw server.'
+                  })}
+              </Typography.Text>
+            </div>
+          )}
+          <div className="flex items-center justify-between">
+            <Typography.Title level={5} className="!mb-0">{selectedId == null ? 'New Note' : (title || `Note ${selectedId}`)}</Typography.Title>
+            <Space>
+            <Tooltip title={t('option:notesSearch.newTooltip', {
+              defaultValue: 'Create a new note'
+            })}>
+              <Button
+                size="small"
+                onClick={() => { void handleNewNote() }}
+                icon={(<PlusIcon className="w-4 h-4" />) as any}
+                disabled={editorDisabled}
+              >
+                {t('option:notesSearch.new', { defaultValue: 'New note' })}
+              </Button>
+            </Tooltip>
+            <Tooltip
+              title={t('option:notesSearch.toolbarCopyTooltip', {
+                defaultValue: 'Copy note content'
+              })}
+            >
+              <Button
+                size="small"
+                onClick={copySelected}
+                icon={(<CopyIcon className="w-4 h-4" />) as any}
+                aria-label={t('option:notesSearch.toolbarCopyTooltip', {
+                  defaultValue: 'Copy note content'
+                })}
+                disabled={editorDisabled}
+              />
+            </Tooltip>
+            <Tooltip
+              title={t('option:notesSearch.toolbarExportMdTooltip', {
+                defaultValue: 'Export note as Markdown (.md)'
+              })}>
+              <Button
+                size="small"
+                onClick={exportSelected}
+                icon={(<FileDownIcon className="w-4 h-4" />) as any}
+                aria-label={t('option:notesSearch.toolbarExportMdTooltip', {
+                  defaultValue: 'Export note as Markdown (.md)'
+                })}
+                disabled={editorDisabled}
+              >
+                MD
+              </Button>
+            </Tooltip>
+            <Tooltip
+              title={t('option:notesSearch.toolbarSaveTooltip', {
+                defaultValue: 'Save note'
+              })}>
+              <Button
+                type="primary"
+                size="small"
+                onClick={saveNote}
+                loading={saving}
+                icon={(<SaveIcon className="w-4 h-4" />) as any}
+                aria-label={t('option:notesSearch.toolbarSaveTooltip', {
+                  defaultValue: 'Save note'
+                })}
+                disabled={editorDisabled}
+              >
+                Save
+              </Button>
+            </Tooltip>
+            <Tooltip
+              title={t('option:notesSearch.toolbarDeleteTooltip', {
+                defaultValue: 'Delete note'
+              })}
+            >
+              <Button
+                danger
+                size="small"
+                onClick={() => void deleteNote()}
+                icon={(<TrashIcon className="w-4 h-4" />) as any}
+                disabled={selectedId == null || editorDisabled}
+                aria-label={t('option:notesSearch.toolbarDeleteTooltip', {
+                  defaultValue: 'Delete note'
+                })}
+              >
+                {t('common:delete', { defaultValue: 'Delete' })}
+              </Button>
             </Tooltip>
           </Space>
         </div>
         <div className="mt-2">
-          <Input placeholder="Title" value={title} onChange={(e) => setTitle(e.target.value)} />
+          <Input
+            placeholder="Title"
+            value={title}
+            onChange={(e) => { setTitle(e.target.value); setIsDirty(true) }}
+            disabled={editorDisabled}
+            ref={titleInputRef}
+            className="bg-transparent hover:bg-white focus:bg-white dark:bg-transparent dark:hover:bg-[#1f1f1f] dark:focus:bg-[#1f1f1f] transition-colors"
+          />
         </div>
         <div className="mt-2">
           <Select
@@ -382,16 +713,24 @@ const NotesManagerPage: React.FC = () => {
             className="min-w-[12rem] w-full"
             value={editorKeywords}
             onSearch={(txt) => { if (isOnline) void loadKeywordSuggestions(txt) }}
-            onChange={(vals) => setEditorKeywords(vals as string[])}
+            onChange={(vals) => { setEditorKeywords(vals as string[]); setIsDirty(true) }}
             options={keywordOptions.map((k) => ({ label: k, value: k }))}
+            disabled={editorDisabled}
           />
+          <Typography.Text type="secondary" className="block text-[11px] mt-1">
+            {t('option:notesSearch.tagsHelp', {
+              defaultValue:
+                'Keywords help you find this note using the keyword filter on the left.'
+            })}
+          </Typography.Text>
         </div>
         <div className="mt-2">
           <textarea
             className="w-full min-h-[50vh] text-sm p-2 rounded border dark:border-gray-700 dark:bg-[#171717] resize-y leading-relaxed"
             value={content}
-            onChange={(e) => setContent(e.target.value)}
+            onChange={(e) => { setContent(e.target.value); setIsDirty(true) }}
             placeholder="Write your note here..."
+            readOnly={editorDisabled}
           />
         </div>
       </div>

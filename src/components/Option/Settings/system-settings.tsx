@@ -8,19 +8,22 @@ import {
 import { Storage } from "@plasmohq/storage"
 import { useStorage } from "@plasmohq/storage/hook"
 import { useMutation, useQueryClient } from "@tanstack/react-query"
-import { Select, notification, Switch } from "antd"
+import { Select, Switch } from "antd"
 import { useTranslation } from "react-i18next"
 import { Loader2, RotateCcw, Upload } from "lucide-react"
 import { toBase64 } from "@/libs/to-base64"
 import { PageAssistDatabase } from "@/db/dexie/chat"
 import { isFireFox, isFireFoxPrivateMode } from "@/utils/is-private-mode"
 import { firefoxSyncDataForPrivateMode } from "@/db/dexie/firefox-sync"
+import { confirmDanger } from "@/components/Common/confirm-danger"
+import { useAntdNotification } from "@/hooks/useAntdNotification"
 
 export const SystemSettings = () => {
   const { t } = useTranslation(["settings", "knowledge"])
   const queryClient = useQueryClient()
   const { clearChat } = useMessageOption()
   const { increase, decrease, scale } = useFontSize()
+  const notification = useAntdNotification()
 
   const [webuiBtnSidePanel, setWebuiBtnSidePanel] = useStorage(
     "webuiBtnSidePanel",
@@ -117,6 +120,21 @@ export const SystemSettings = () => {
         }
 
         const base64String = await toBase64(file)
+
+        // Guard against exceeding extension storage per-item quota.
+        // Chrome's underlying quotas are in bytes; base64 length is a good proxy.
+        const maxLength = 3_000_000 // ~3 MB of base64 data
+        if (base64String.length > maxLength) {
+          notification.error({
+            message: t("settings:chatBackground.tooLargeTitle", "Image too large"),
+            description: t(
+              "settings:chatBackground.tooLargeDescription",
+              "Please choose a smaller image (under 3 MB) for the chat background."
+            )
+          })
+          return
+        }
+
         setChatBackgroundImage(base64String)
       } catch (error) {
         console.error("Error uploading image:", error)
@@ -131,19 +149,19 @@ export const SystemSettings = () => {
     <div>
       <div className="mb-5">
         <h2 className="text-base font-semibold leading-7 text-gray-900 dark:text-white">
-          {t("generalSettings.system.heading")}
+          {t("generalSettings.systemBasics.heading", { defaultValue: t("generalSettings.system.heading", { defaultValue: "System" }) as string })}
         </h2>
         <div className="border border-b border-gray-200 dark:border-gray-600 mt-3"></div>
       </div>
 
       <div className="flex flex-col sm:flex-row mb-3 gap-3 sm:gap-0 sm:justify-between sm:items-center">
         <span className="text-gray-700 dark:text-neutral-50">
-          {t("generalSettings.system.uiMode.label", { defaultValue: "Default UI Mode" })}
+          {t("generalSettings.systemBasics.uiMode.label", { defaultValue: "Default UI Mode" })}
         </span>
         <Select
           options={[
-            { label: t("generalSettings.system.uiMode.options.sidePanel", { defaultValue: "Sidebar" }), value: "sidePanel" },
-            { label: t("generalSettings.system.uiMode.options.webui", { defaultValue: "Full Screen (Web UI)" }), value: "webui" }
+            { label: t("generalSettings.systemBasics.uiMode.options.sidePanel", { defaultValue: "Sidebar" }), value: "sidePanel" },
+            { label: t("generalSettings.systemBasics.uiMode.options.webui", { defaultValue: "Full Screen (Web UI)" }), value: "webui" }
           ]}
           value={uiMode}
           className="w-full sm:w-[220px]"
@@ -158,7 +176,7 @@ export const SystemSettings = () => {
       <div className="flex flex-col sm:flex-row mb-3 gap-3 sm:gap-0 sm:justify-between sm:items-center">
         <span className="text-black dark:text-white font-medium">
           <BetaTag />
-          {t("generalSettings.system.fontSize.label")}
+          {t("generalSettings.systemBasics.fontSize.label", { defaultValue: t("generalSettings.system.fontSize.label", { defaultValue: "Font Size" }) as string })}
         </span>
         <div className="flex flex-row items-center gap-3 justify-center sm:justify-end">
           <button
@@ -180,7 +198,7 @@ export const SystemSettings = () => {
       <div className="flex flex-col sm:flex-row mb-3 gap-3 sm:gap-0 sm:justify-between sm:items-center">
         <span className="text-gray-700 dark:text-neutral-50">
           <BetaTag />
-          {t("generalSettings.system.actionIcon.label")}
+          {t("generalSettings.systemBasics.actionIcon.label", { defaultValue: t("generalSettings.system.actionIcon.label", { defaultValue: "Browser Action Button" }) as string })}
         </span>
         <Select
           options={[
@@ -189,7 +207,7 @@ export const SystemSettings = () => {
               value: "webui"
             },
             {
-              label: "Open SidePanel",
+              label: "Open Sidebar",
               value: "sidePanel"
             }
           ]}
@@ -203,7 +221,7 @@ export const SystemSettings = () => {
       <div className="flex flex-col sm:flex-row mb-3 gap-3 sm:gap-0 sm:justify-between sm:items-center">
         <span className="text-gray-700 dark:text-neutral-50">
           <BetaTag />
-          {t("generalSettings.system.contextMenu.label")}
+          {t("generalSettings.systemBasics.contextMenu.label", { defaultValue: t("generalSettings.system.contextMenu.label", { defaultValue: "Context Menu Action" }) as string })}
         </span>
         <Select
           options={[
@@ -212,7 +230,7 @@ export const SystemSettings = () => {
               value: "webui"
             },
             {
-              label: "Open SidePanel",
+              label: "Open Sidebar",
               value: "sidePanel"
             }
           ]}
@@ -227,7 +245,7 @@ export const SystemSettings = () => {
         <div className="flex flex-col sm:flex-row mb-3 gap-3 sm:gap-0 sm:justify-between sm:items-center">
           <span className="text-gray-700 dark:text-neutral-50">
             <BetaTag />
-            {t("generalSettings.system.firefoxPrivateModeSync.label", {
+            {t("generalSettings.systemData.firefoxPrivateModeSync.label", {
               defaultValue:
                 "Sync Custom Models, Prompts for Firefox Private Windows (Incognito Mode)"
             })}
@@ -241,7 +259,7 @@ export const SystemSettings = () => {
             {syncFirefoxData.isPending ? (
               <Loader2 className="mr-2 h-4 w-4 animate-spin" />
             ) : (
-              t("generalSettings.system.firefoxPrivateModeSync.button", {
+              t("generalSettings.systemData.firefoxPrivateModeSync.button", {
                 defaultValue: "Sync Data"
               })
             )}
@@ -250,7 +268,7 @@ export const SystemSettings = () => {
       )}
       <div className="flex flex-col sm:flex-row mb-3 gap-3 sm:gap-0 sm:justify-between sm:items-center">
         <span className="text-gray-700 dark:text-neutral-50">
-          {t("generalSettings.system.webuiBtnSidePanel.label")}
+          {t("generalSettings.systemBasics.webuiBtnSidePanel.label", { defaultValue: t("generalSettings.system.webuiBtnSidePanel.label", { defaultValue: "Show Web UI button in Sidebar" }) as string })}
         </span>
          <div>
           <Switch
@@ -265,7 +283,7 @@ export const SystemSettings = () => {
       <div className="flex flex-col sm:flex-row mb-3 gap-3 sm:gap-0 sm:justify-between sm:items-center">
         <span className="text-gray-700 dark:text-neutral-50">
           <BetaTag />
-          {t("generalSettings.system.chatBackgroundImage.label")}
+          {t("generalSettings.systemBasics.chatBackgroundImage.label", { defaultValue: t("generalSettings.system.chatBackgroundImage.label", { defaultValue: "Chat Background Image" }) as string })}
         </span>
         <div className="flex items-center gap-2 justify-center sm:justify-end">
           {chatBackgroundImage ? (
@@ -295,17 +313,17 @@ export const SystemSettings = () => {
 
       <div className="flex flex-col sm:flex-row mb-3 gap-3 sm:gap-0 sm:justify-between sm:items-center">
         <span className="text-gray-700 dark:text-neutral-50">
-          {t("generalSettings.system.export.label")}
+          {t("generalSettings.systemData.export.label", { defaultValue: t("generalSettings.system.export.label", { defaultValue: "Export Chat History, Knowledge Base, and Prompts" }) as string })}
         </span>
         <button
           onClick={exportPageAssistData}
           className="bg-gray-800 dark:bg-white text-white dark:text-gray-900 px-4 py-2 rounded-md cursor-pointer w-full sm:w-auto">
-          {t("generalSettings.system.export.button")}
+          {t("generalSettings.systemData.export.button", { defaultValue: t("generalSettings.system.export.button", { defaultValue: "Export Data" }) as string })}
         </button>
       </div>
       <div className="flex flex-col sm:flex-row mb-3 gap-3 sm:gap-0 sm:justify-between sm:items-center">
         <span className="text-gray-700 dark:text-neutral-50">
-          {t("generalSettings.system.import.label")}
+          {t("generalSettings.systemData.import.label", { defaultValue: t("generalSettings.system.import.label", { defaultValue: "Import Chat History, Knowledge Base, and Prompts" }) as string })}
         </span>
         <label
           htmlFor="import"
@@ -315,7 +333,7 @@ export const SystemSettings = () => {
               <Loader2 className="mr-2 h-4 w-4 animate-spin" />
             </>
           ) : (
-            t("generalSettings.system.import.button")
+            t("generalSettings.systemData.import.button", { defaultValue: t("generalSettings.system.import.button", { defaultValue: "Import Data" }) as string })
           )}
         </label>
         <input
@@ -334,33 +352,36 @@ export const SystemSettings = () => {
 
       <div className="flex flex-col sm:flex-row mb-3 gap-3 sm:gap-0 sm:justify-between sm:items-center">
         <span className="text-gray-700 dark:text-neutral-50">
-          {t("generalSettings.system.deleteChatHistory.label")}
+          {t("generalSettings.systemData.deleteChatHistory.label", { defaultValue: t("generalSettings.system.deleteChatHistory.label", { defaultValue: "System Reset" }) as string })}
         </span>
 
         <button
           onClick={async () => {
-            const confirm = window.confirm(
-              t("generalSettings.system.deleteChatHistory.confirm")
-            )
+            const ok = await confirmDanger({
+              title: t("common:confirmTitle", { defaultValue: "Please confirm" }),
+              content: t("generalSettings.systemData.deleteChatHistory.confirm", { defaultValue: t("generalSettings.system.deleteChatHistory.confirm", { defaultValue: "Are you sure you want to perform a system reset? This will clear all data and cannot be undone." }) as string }),
+              okText: t("common:reset", { defaultValue: "Reset" }),
+              cancelText: t("common:cancel", { defaultValue: "Cancel" })
+            })
 
-            if (confirm) {
-              const db = new PageAssistDatabase()
-              await db.clearDB()
-              queryClient.invalidateQueries({
-                queryKey: ["fetchChatHistory"]
-              })
-              clearChat()
-              try {
-                await browser.storage.sync.clear()
-                await browser.storage.local.clear()
-                await browser.storage.session.clear()
-              } catch (e) {
-                console.error("Error clearing storage:", e)
-              }
+            if (!ok) return
+
+            const db = new PageAssistDatabase()
+            await db.clearDB()
+            queryClient.invalidateQueries({
+              queryKey: ["fetchChatHistory"]
+            })
+            clearChat()
+            try {
+              await browser.storage.sync.clear()
+              await browser.storage.local.clear()
+              await browser.storage.session.clear()
+            } catch (e) {
+              console.error("Error clearing storage:", e)
             }
           }}
           className="bg-red-500 dark:bg-red-600 text-white dark:text-gray-200 px-4 py-2 rounded-md w-full sm:w-auto">
-          {t("generalSettings.system.deleteChatHistory.button")}
+          {t("generalSettings.systemData.deleteChatHistory.button", { defaultValue: t("generalSettings.system.deleteChatHistory.button", { defaultValue: "Reset All" }) as string })}
         </button>
       </div>
     </div>

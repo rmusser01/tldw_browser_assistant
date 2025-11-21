@@ -11,10 +11,11 @@ import {
   useSidebarShortcuts,
   useChatModeShortcuts
 } from "@/hooks/keyboard/useKeyboardShortcuts"
+import { useConnectionActions } from "@/hooks/useConnectionState"
+import { useAntdNotification } from "@/hooks/useAntdNotification"
 import { copilotResumeLastChat } from "@/services/app"
 import { Storage } from "@plasmohq/storage"
 import { useStorage } from "@plasmohq/storage/hook"
-import { notification } from "antd"
 import { ChevronDown } from "lucide-react"
 import React from "react"
 import { useTranslation } from "react-i18next"
@@ -68,6 +69,8 @@ const SidepanelChat = () => {
   } = useMessage()
   const { containerRef, isAutoScrollToBottom, autoScrollToBottom } =
     useSmartScroll(messages, streaming, 100)
+  const { checkOnce } = useConnectionActions()
+  const notification = useAntdNotification()
 
   const toggleSidebar = () => {
     setSidebarOpen((prev) => !prev)
@@ -103,6 +106,10 @@ const SidepanelChat = () => {
       }
     }
   }
+
+  React.useEffect(() => {
+    void checkOnce()
+  }, [checkOnce])
 
   React.useEffect(() => {
     if (!drop.current) {
@@ -277,6 +284,10 @@ const SidepanelChat = () => {
 
           <div
             ref={containerRef}
+            role="log"
+            aria-live="polite"
+            aria-relevant="additions"
+            aria-label={t("playground:aria.chatTranscript", "Chat messages")}
             className="custom-scrollbar flex h-full w-full flex-col items-center overflow-x-hidden overflow-y-auto px-5 relative z-10">
             <SidePanelBody scrollParentRef={containerRef} />
           </div>
@@ -286,8 +297,10 @@ const SidepanelChat = () => {
               <div className="fixed bottom-32 z-20 left-0 right-0 flex justify-center">
                 <button
                   onClick={() => autoScrollToBottom()}
-                  className="bg-gray-50 shadow border border-gray-200 dark:border-none dark:bg-white/20 p-1.5 rounded-full pointer-events-auto hover:bg-gray-100 dark:hover:bg-white/30 transition-colors">
-                  <ChevronDown className="size-4 text-gray-600 dark:text-gray-300" />
+                  aria-label={t("playground:composer.scrollToLatest", "Scroll to latest messages")}
+                  title={t("playground:composer.scrollToLatest", "Scroll to latest messages") as string}
+                  className="bg-gray-50 shadow border border-gray-200 dark:border-none dark:bg-white/20 p-1.5 rounded-full pointer-events-auto hover:bg-gray-100 dark:hover:bg-white/30 transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-500">
+                  <ChevronDown className="size-4 text-gray-600 dark:text-gray-300" aria-hidden="true" />
                 </button>
               </div>
             )}
