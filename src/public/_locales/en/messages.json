@@ -1,35 +1,89 @@
 {
-    "extName": {
-        "message": "tldw Assistant"
-    },
-    "extDescription": {
-        "message": "Browser extension for tldw_server - your unified AI assistant with RAG, media processing, and more."
-    },
-    "openSidePanelToChat": {
-        "message": "Open Sidebar to chat"
-    },
-    "openOptionToChat": {
-        "message": "Open Web UI to Chat"
-    },
-    "contextSummarize": {
-        "message": "Summarize"
-    },
-    "contextExplain": {
-        "message": "Explain"
-    },
-    "contextRephrase": {
-        "message": "Rephrase"
-    },
-    "contextTranslate": {
-        "message": "Translate"
-    },
-    "contextCustom": {
-        "message": "Custom"
-    },
-    "contextSendToTldw": {
-        "message": "Send to tldw_server"
-    },
-    "contextProcessLocalTldw": {
-        "message": "Process with tldw_server (don’t store)"
-    }
+  "extName": {
+    "message": "tldw Assistant"
+  },
+  "extDescription": {
+    "message": "Browser extension for tldw_server - your unified AI assistant with RAG, media processing, and more."
+  },
+  "openSidePanelToChat": {
+    "message": "Open Sidebar to chat"
+  },
+  "openOptionToChat": {
+    "message": "Open Web UI to Chat"
+  },
+  "contextSummarize": {
+    "message": "Summarize"
+  },
+  "contextExplain": {
+    "message": "Explain"
+  },
+  "contextRephrase": {
+    "message": "Rephrase"
+  },
+  "contextTranslate": {
+    "message": "Translate"
+  },
+  "contextCustom": {
+    "message": "Custom"
+  },
+  "contextSendToTldw": {
+    "message": "Send to tldw_server"
+  },
+  "contextProcessLocalTldw": {
+    "message": "Process with tldw_server (don’t store)"
+  },
+  "contextTranscribeMedia": {
+    "message": "Transcribe Video/Audio"
+  },
+  "contextTranscribeAndSummarizeMedia": {
+    "message": "Transcribe + Summarize Video/Audio"
+  },
+  "contextSaveToNotes": {
+    "message": "Save to Notes"
+  },
+  "contextSaveToNotesNoSelection": {
+    "message": "Select text first to save to Notes."
+  },
+  "contextSidebarOpening": {
+    "message": "Opening sidebar..."
+  },
+  "contextSaveToNotesOpeningSidebar": {
+    "message": "Opening sidebar to save note..."
+  },
+  "hfSendPageRejected": {
+    "message": "[tldw] Page send request rejected by tldw_server"
+  },
+  "hfSendPageErrorWithDetail": {
+    "message": "[tldw] Failed to send this page to tldw_server: $1. Check Settings \u2192 tldw server and try again."
+  },
+  "hfSendPageError": {
+    "message": "[tldw] Failed to send this page to tldw_server. Check Settings \u2192 tldw server and try again."
+  },
+  "hfSendPageSuccess": {
+    "message": "[tldw] Sent page to tldw_server for processing"
+  },
+  "hfSendPageException": {
+    "message": "[tldw] Something went wrong while sending this page to tldw_server. Check that your tldw_server and the extension are running, then try again."
+  },
+  "hfPullInProgress": {
+    "message": "[tldw Assistant] A model pull request is already in progress. Please wait for it to finish before starting another one."
+  },
+  "hfPullConfirm": {
+    "message": "[tldw Assistant] Do you want to send a request to your tldw_server to pull the \"$1\" model? This is independent of the huggingface.co website. Your server will start pulling the model after you confirm."
+  },
+  "hfPullSending": {
+    "message": "[tldw Assistant] Sending a request to your tldw_server to pull \"$1\". Check the extension icon or your tldw_server logs for progress."
+  },
+  "hfPullErrorWithDetail": {
+    "message": "[tldw Assistant] Failed to send a pull request for \"$1\": $2. Check Settings \u2192 tldw server and try again."
+  },
+  "hfPullError": {
+    "message": "[tldw Assistant] Failed to send a pull request for \"$1\". Check Settings \u2192 tldw server and try again."
+  },
+  "hfPullSuccess": {
+    "message": "[tldw Assistant] Request sent to your tldw_server to pull \"$1\". Monitor the extension icon or tldw_server logs for status."
+  },
+  "hfPullException": {
+    "message": "[tldw Assistant] Something went wrong while sending a pull request for \"$1\" to your tldw_server. Check that your tldw_server and the extension are running, then try again."
+  }
 }

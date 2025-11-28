@@ -1,35 +1,89 @@
 {
-    "extName": {
-        "message": "tldw Assistant"
-    },
-    "extDescription": {
-        "message": "Nutzen Sie Ihre lokal laufenden KI-Modelle, um Sie beim Surfen im Web zu unterstützen."
-    },
-    "openSidePanelToChat": {
-        "message": "Open Sidebar to chat"
-    },
-    "openOptionToChat": {
-        "message": "Web-Benutzeroberfläche zum Chatten öffnen"
-    },
-    "contextSummarize": {
-        "message": "Zusammenfassen"
-    },
-    "contextExplain": {
-        "message": "Erklären"
-    },
-    "contextRephrase": {
-        "message": "Umformulieren"
-    },
-    "contextTranslate": {
-        "message": "Übersetzen"
-    },
-    "contextCustom": {
-        "message": "Benutzerdefiniert"
-    },
-    "contextSendToTldw": {
-        "message": "Send to tldw_server"
-    },
-    "contextProcessLocalTldw": {
-        "message": "Process with tldw_server (don’t store)"
-    }
+  "extName": {
+    "message": "tldw-Assistent"
+  },
+  "extDescription": {
+    "message": "Nutzen Sie Ihre lokal laufenden KI-Modelle, um Sie beim Surfen im Web zu unterstützen."
+  },
+  "openSidePanelToChat": {
+    "message": "Seitenleiste zum Chatten öffnen"
+  },
+  "openOptionToChat": {
+    "message": "Weboberfläche zum Chatten öffnen"
+  },
+  "contextSummarize": {
+    "message": "Zusammenfassen"
+  },
+  "contextExplain": {
+    "message": "Erklären"
+  },
+  "contextRephrase": {
+    "message": "Umformulieren"
+  },
+  "contextTranslate": {
+    "message": "Übersetzen"
+  },
+  "contextCustom": {
+    "message": "Benutzerdefiniert"
+  },
+  "contextSendToTldw": {
+    "message": "An tldw_server senden"
+  },
+  "contextProcessLocalTldw": {
+    "message": "Mit tldw_server verarbeiten (nicht speichern)"
+  },
+  "contextSidebarOpening": {
+    "message": "Seitenleiste wird geöffnet..."
+  },
+  "contextSaveToNotesOpeningSidebar": {
+    "message": "Seitenleiste wird zum Speichern der Notiz geöffnet..."
+  },
+  "contextTranscribeMedia": {
+    "message": "Video/Audio transkribieren"
+  },
+  "contextTranscribeAndSummarizeMedia": {
+    "message": "Video/Audio transkribieren und zusammenfassen"
+  },
+  "contextSaveToNotes": {
+    "message": "In Notizen speichern"
+  },
+  "contextSaveToNotesNoSelection": {
+    "message": "Markieren Sie zuerst Text, um ihn in Notizen zu speichern."
+  },
+  "hfSendPageRejected": {
+    "message": "[tldw] Seiten-Sendeanforderung wurde von tldw_server abgelehnt"
+  },
+  "hfSendPageErrorWithDetail": {
+    "message": "[tldw] Diese Seite konnte nicht an tldw_server gesendet werden: $1. Prüfen Sie unter \"Settings → tldw server\" und versuchen Sie es erneut."
+  },
+  "hfSendPageError": {
+    "message": "[tldw] Diese Seite konnte nicht an tldw_server gesendet werden. Prüfen Sie unter \"Settings → tldw server\" und versuchen Sie es erneut."
+  },
+  "hfSendPageSuccess": {
+    "message": "[tldw] Seite zur Verarbeitung an tldw_server gesendet"
+  },
+  "hfSendPageException": {
+    "message": "[tldw] Beim Senden dieser Seite an tldw_server ist ein Fehler aufgetreten. Stellen Sie sicher, dass Ihr tldw_server und die Erweiterung ausgeführt werden, und versuchen Sie es erneut."
+  },
+  "hfPullInProgress": {
+    "message": "[tldw Assistant] Eine Modell-Abrufanforderung läuft bereits. Bitte warten Sie, bis sie abgeschlossen ist, bevor Sie eine weitere starten."
+  },
+  "hfPullConfirm": {
+    "message": "[tldw Assistant] Möchten Sie eine Anfrage an Ihren tldw_server senden, um das Modell \"$1\" abzurufen? Dies ist unabhängig von der Website huggingface.co. Ihr Server beginnt mit dem Abruf des Modells, nachdem Sie bestätigt haben."
+  },
+  "hfPullSending": {
+    "message": "[tldw Assistant] Anfrage an Ihren tldw_server zum Abruf von \"$1\" wird gesendet. Überprüfen Sie das Erweiterungssymbol oder die Protokolle Ihres tldw_server, um den Fortschritt zu sehen."
+  },
+  "hfPullErrorWithDetail": {
+    "message": "[tldw Assistant] Senden der Abrufanforderung für \"$1\" ist fehlgeschlagen: $2. Prüfen Sie unter \"Settings → tldw server\" und versuchen Sie es erneut."
+  },
+  "hfPullError": {
+    "message": "[tldw Assistant] Senden der Abrufanforderung für \"$1\" ist fehlgeschlagen. Prüfen Sie unter \"Settings → tldw server\" und versuchen Sie es erneut."
+  },
+  "hfPullSuccess": {
+    "message": "[tldw Assistant] Anfrage an Ihren tldw_server zum Abruf von \"$1\" wurde gesendet. Überwachen Sie das Erweiterungssymbol oder die Protokolle von tldw_server, um den Status zu verfolgen."
+  },
+  "hfPullException": {
+    "message": "[tldw Assistant] Beim Senden einer Abrufanforderung für \"$1\" an Ihren tldw_server ist ein Fehler aufgetreten. Stellen Sie sicher, dass Ihr tldw_server und die Erweiterung ausgeführt werden, und versuchen Sie es erneut."
+  }
 }

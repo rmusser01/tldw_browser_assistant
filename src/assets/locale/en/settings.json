@@ -12,6 +12,15 @@
   "mediaNav": "Media",
   "evaluationsSettingsNav": "Evaluations",
   "promptStudioNav": "Prompt Studio",
+  "admin": {
+    "adminGuardForbiddenTitle": "Admin access required for these controls",
+    "adminGuardNotFoundTitle": "Admin APIs are not available on this server",
+    "adminGuardForbiddenBody": "Sign in as an admin user on your tldw server to view and manage users, roles, and system statistics.",
+    "adminGuardNotFoundBody": "This tldw server does not expose the /admin endpoints, or they are disabled. Upgrade or reconfigure the server to enable these views.",
+    "adminGuardLearnMore": "Learn more in the tldw server documentation.",
+    "adminGuardLimitedInfo": "Admin-level details and controls are hidden until admin APIs are available.",
+    "adminGuardConnectionHint": "Only basic connection details are shown; admin dashboards are disabled until admin APIs are available."
+  },
   "promptStudio": {
     "nav": "Prompt Studio",
     "title": "Prompt Studio",
@@ -106,6 +115,9 @@
       "pasteLargeTextAsFile": {
         "label": "Paste Large Text as File"
       },
+      "enableOcrAssets": {
+        "label": "Enable OCR (downloads ~5MB on first use)"
+      },
       "ocrLanguage": {
         "label": "Default OCR Language",
         "placeholder": "Select an OCR language"
@@ -114,7 +126,7 @@
         "label": "Enable Temporary Chat in Sidebar by default"
       },
       "removeReasoningTagFromCopy": {
-        "label": "Remove Reasoning Tag from Copied Text" 
+        "label": "Remove Reasoning Tag from Copied Text"
       },
       "promptSearchIncludeServer": {
         "label": "Include server prompts in prompt search"
@@ -129,17 +141,28 @@
           "sidePanel": "Sidebar"
         }
       },
-      "actionIcon": { "label": "Browser Action Button" },
-      "contextMenu": { "label": "Context Menu Action" },
-      "webuiBtnSidePanel": { "label": "Show Web UI button in Sidebar" },
-      "chatBackgroundImage": { "label": "Chat Background Image" },
+      "actionIcon": {
+        "label": "Browser Action Button"
+      },
+      "contextMenu": {
+        "label": "Context Menu Action"
+      },
+      "webuiBtnSidePanel": {
+        "label": "Show Web UI button in Sidebar"
+      },
+      "chatBackgroundImage": {
+        "label": "Chat Background Image"
+      },
       "fontSize": {
         "label": "Font Size"
       }
     },
     "systemData": {
       "heading": "Data",
-      "firefoxPrivateModeSync": { "label": "Firefox Private Mode Sync", "button": "Sync Data" },
+      "firefoxPrivateModeSync": {
+        "label": "Firefox Private Mode Sync",
+        "button": "Sync Data"
+      },
       "deleteChatHistory": {
         "label": "System Reset",
         "button": "Reset All",
@@ -211,7 +234,6 @@
         "placeholder": "Enter your Firecrawl API key"
       }
     },
-    
     "tts": {
       "heading": "Text-to-Speech Settings",
       "ttsEnabled": {
@@ -240,18 +262,69 @@
     },
     "stt": {
       "heading": "Speech-to-Text Settings",
+      "usedByChat": "These Speech-to-Text defaults are used by the chat dictation button in the Playground and Sidebar.",
       "autoStopTimeout": {
         "label": "Auto Stop Timeout (ms)",
         "placeholder": "Enter auto-stop timeout in milliseconds"
       },
       "autoSubmitVoiceMessage": {
         "label": "Auto Submit Voice Message"
+      },
+      "model": {
+        "label": "Transcription model (tldw_server)"
+      },
+      "useSegmentation": {
+        "label": "Run segmentation for transcripts (TreeSeg)"
+      },
+      "timestampGranularities": {
+        "label": "Timestamp granularity",
+        "segment": "Per segment",
+        "word": "Per word",
+        "segmentWord": "Segment + word"
+      },
+      "task": {
+        "label": "Transcription task",
+        "transcribe": "Transcribe (same language)",
+        "translate": "Translate to English"
+      },
+      "responseFormat": {
+        "label": "Response format",
+        "json": "JSON (text + segments)",
+        "verboseJson": "Verbose JSON",
+        "text": "Plain text",
+        "srt": "SRT subtitles",
+        "vtt": "VTT subtitles"
+      },
+      "temperature": {
+        "label": "Sampling temperature"
+      },
+      "prompt": {
+        "label": "Default transcription prompt",
+        "placeholder": "Optional text to guide style"
+      },
+      "segK": {
+        "label": "Max segments (TreeSeg K)"
+      },
+      "segMinSegmentSize": {
+        "label": "Minimum items per segment"
+      },
+      "segLambdaBalance": {
+        "label": "Balance penalty (TreeSeg λ)"
+      },
+      "segUtteranceExpansionWidth": {
+        "label": "Utterance expansion width"
+      },
+      "segEmbeddingsProvider": {
+        "label": "Segmentation embeddings provider"
+      },
+      "segEmbeddingsModel": {
+        "label": "Segmentation embeddings model"
       }
     },
     "empty": {
       "connectTitle": "Connect tldw Assistant to your server",
       "connectDescription": "Some settings only take effect when your tldw server is reachable. Connect your server to get the full experience.",
-      "connectExample1": "Open Settings \u2192 tldw server to add your server URL and API key.",
+      "connectExample1": "Open Settings → tldw server to add your server URL and API key.",
       "connectExample2": "Use Diagnostics to confirm your server is healthy before trying advanced tools.",
       "title": "Tune how tldw Assistant behaves",
       "description": "Adjust defaults for the Web UI, sidepanel, speech, search, and data handling from one place.",
@@ -303,7 +376,7 @@
       "successDescription": "Successfully pulled the model",
       "successDeleteDescription": "Successfully deleted the model",
       "someError": "Something went wrong. Please try again later"
-    } 
+    }
   },
   "managePrompts": {
     "title": "Manage Prompts",
@@ -397,7 +470,7 @@
     "loadErrorHelp": "Check your server connection and refresh to try again.",
     "emptyConnectTitle": "Connect to use Prompts",
     "emptyConnectDescription": "To manage reusable prompts, first connect to your tldw server.",
-    "emptyConnectExample1": "Open Settings \u2192 tldw server to add your server URL.",
+    "emptyConnectExample1": "Open Settings → tldw server to add your server URL.",
     "emptyConnectExample2": "Once connected, create custom prompts you can reuse across chats.",
     "emptyTitle": "No custom prompts yet",
     "emptyDescription": "Create reusable prompts for recurring tasks, workflows, and team conventions.",
@@ -499,8 +572,8 @@
     "githubRepo": "GitHub Repository"
   },
   "manageKnowledge": {
-    "title": "Manage Knowledge",
-    "heading": "Configure Knowledge Base",
+    "title": "Knowledge QA",
+    "heading": "Knowledge QA",
     "worldBooksSettingsTitle": "World Books workspace",
     "worldBooksSettingsDescription": "World Books are managed from the World Books workspace. Use the button below to open it.",
     "worldBooksOpenWorkspace": "Open World Books workspace",
@@ -517,14 +590,43 @@
     "columns": {
       "name": "Name",
       "description": "Description",
-      "actions": "Actions"
+      "actions": "Actions",
+      "avatar": "Avatar"
+    },
+    "actions": {
+      "chat": "Chat",
+      "edit": "Edit",
+      "delete": "Delete",
+      "viewConversations": "View conversations"
+    },
+    "tags": {
+      "label": "Tags",
+      "placeholder": "Add tags",
+      "help": "Use tags to group characters by use case (e.g., “writing”, “teaching”)."
     },
     "tooltip": {
       "edit": "Edit character",
       "delete": "Delete character"
     },
+    "aria": {
+      "chatWith": "Chat as {{name}}",
+      "edit": "Edit character {{name}}",
+      "delete": "Delete character {{name}}",
+      "viewConversations": "View conversations for {{name}}"
+    },
     "confirm": {
       "delete": "Are you sure you want to delete this character? This action cannot be undone."
+    },
+    "conversations": {
+      "title": "Conversations for {{name}}",
+      "titleGeneric": "Character conversations",
+      "subtitle": "Select a conversation to continue as this character.",
+      "empty": "No conversations found for this character yet.",
+      "error": "Unable to load conversations for this character.",
+      "updated": "Updated {{time}}",
+      "unknownTime": "Unknown",
+      "resume": "Continue chat",
+      "untitled": "Untitled"
     },
     "form": {
       "name": {
@@ -532,18 +634,21 @@
         "placeholder": "e.g. Writing coach",
         "required": "Please enter a name"
       },
-      "description": {
-        "label": "Description",
-        "placeholder": "Short description"
-      },
+      "description": "Define a reusable character you can chat with in the sidebar.",
       "systemPrompt": {
         "label": "Behavior / instructions",
-        "placeholder": "Describe how this character should behave when chatting.",
-        "help": "Explain the character's role, tone, and constraints. For example: \"You are a patient math tutor who explains concepts step by step.\""
+        "placeholder": "E.g., You are a patient math teacher who explains concepts step by step and checks understanding with short examples.",
+        "help": "Explain the character's role, tone, and constraints. For example: \"You are a patient math tutor who explains concepts step by step.\"",
+        "min": "Add a short description so the character knows how to respond."
       },
       "avatarUrl": {
         "label": "Avatar URL (optional)",
         "placeholder": "https://example.com/avatar.png"
+      },
+      "greeting": {
+        "label": "Greeting message (optional)",
+        "placeholder": "Hi there! I’m your writing coach. Paste your draft and I’ll help you tighten it up.",
+        "help": "Optional first message the character will send when you start a chat."
       },
       "btnSave": {
         "saving": "Creating character...",
@@ -561,11 +666,17 @@
       "updatedSuccess": "Character updated",
       "deletedSuccess": "Character deleted"
     },
+    "loadError": {
+      "title": "Couldn't load characters",
+      "description": "Check your connection and try again."
+    },
     "emptyTitle": "No characters yet",
-    "emptyDescription": "Create reusable characters with names, descriptions, and behaviors you can chat with.",
+    "emptyDescription": "Create a reusable character with a name, description, and system prompt you can chat with.",
     "emptyExample1": "Define a writing coach, lore expert, or coding assistant you can reuse across chats.",
     "emptyExample2": "Give each character a clear description and behavior so their responses stay consistent.",
-    "emptyPrimaryCta": "Create character"
+    "emptyPrimaryCta": "Create character",
+    "avatarAltWithName": "Avatar of {{name}}",
+    "avatarAlt": "User avatar"
   },
   "rag": {
     "title": "RAG Settings",
@@ -681,6 +792,12 @@
     "ragChecking": "Knowledge: Checking…",
     "footerInfo": "These checks summarize the last successful ping to your tldw server and knowledge index."
   },
+  "storage": {
+    "quotaFriendlyMessage": "Too many settings writes in a short period; please wait a few seconds and try again.",
+    "quotaTitle": "Storage limit reached",
+    "writeError": "Could not save settings",
+    "writeErrorDescription": "We couldn't save your settings. Please try again shortly."
+  },
   "savedSuccessfully": "Settings saved",
   "saveFailed": "Failed to save settings",
   "siteAccessGranted": "Host permission granted for {{origin}}",
@@ -708,8 +825,14 @@
       "label": "API Key",
       "placeholder": "Enter your API key (or use the default demo key THIS-IS-A-SECURE-KEY-123-REPLACE-ME for local single-user setups)"
     },
-    "username": { "label": "Username", "placeholder": "Username" },
-    "password": { "label": "Password", "placeholder": "Password" },
+    "username": {
+      "label": "Username",
+      "placeholder": "Username"
+    },
+    "password": {
+      "label": "Password",
+      "placeholder": "Password"
+    },
     "buttons": {
       "next": "Next",
       "back": "Back",
@@ -966,5 +1089,22 @@
     "testCta": "Test Evaluations API",
     "testOk": "Evaluations API reachable",
     "testFail": "Unable to reach Evaluations API"
+  },
+  "systemNotifications": {
+    "importSuccess": "Imported data successfully",
+    "importError": "Import error",
+    "syncSuccess": "Firefox data synced successfully, You don't need to do this again",
+    "syncError": "Firefox data sync failed",
+    "invalidImage": "Please select a valid image file"
+  },
+  "prompts": {
+    "enterPrompt": "Enter a prompt.",
+    "enterPromptPlaceholder": "Enter a prompt.",
+    "enterFollowUpPrompt": "Enter a follow up prompt.",
+    "enterFollowUpPromptPlaceholder": "Enter a follow up prompt.",
+    "privateModeDescription": "Firefox Private Mode does not support saving data to IndexedDB. Please add prompts from a normal window."
+  },
+  "models": {
+    "privateModeDescription": "Firefox Private Mode does not support saving data to IndexedDB. Please add custom model from a normal window."
   }
 }

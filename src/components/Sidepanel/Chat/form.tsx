@@ -7,6 +7,7 @@ import { toBase64 } from "~/libs/to-base64"
 import {
   Checkbox,
   Dropdown,
+  Switch,
   Image,
   Tooltip,
   Popover
@@ -47,6 +48,7 @@ import { ConnectionPhase } from "@/types/connection"
 import { useServerCapabilities } from "@/hooks/useServerCapabilities"
 import { tldwClient } from "@/services/tldw/TldwApiClient"
 import { useAntdNotification } from "@/hooks/useAntdNotification"
+import { useFocusComposerOnConnect, focusComposer } from "@/hooks/useComposerFocus"
 
 type Props = {
   dropedFile: File | undefined
@@ -57,12 +59,31 @@ export const SidepanelForm = ({ dropedFile }: Props) => {
   const inputRef = React.useRef<HTMLInputElement>(null)
   const { sendWhenEnter, setSendWhenEnter } = useWebUI()
   const [typing, setTyping] = React.useState<boolean>(false)
-  const { t } = useTranslation(["playground", "common", "option"])
+  const { t } = useTranslation(["playground", "common", "option", "sidepanel"])
   const notification = useAntdNotification()
   const [chatWithWebsiteEmbedding] = useStorage(
     "chatWithWebsiteEmbedding",
     false
   )
+  const [sttModel] = useStorage("sttModel", "whisper-1")
+  const [sttUseSegmentation] = useStorage("sttUseSegmentation", false)
+  const [sttTimestampGranularities] = useStorage(
+    "sttTimestampGranularities",
+    "segment"
+  )
+  const [sttPrompt] = useStorage("sttPrompt", "")
+  const [sttTask] = useStorage("sttTask", "transcribe")
+  const [sttResponseFormat] = useStorage("sttResponseFormat", "json")
+  const [sttTemperature] = useStorage("sttTemperature", 0)
+  const [sttSegK] = useStorage("sttSegK", 6)
+  const [sttSegMinSegmentSize] = useStorage("sttSegMinSegmentSize", 5)
+  const [sttSegLambdaBalance] = useStorage("sttSegLambdaBalance", 0.01)
+  const [sttSegUtteranceExpansionWidth] = useStorage(
+    "sttSegUtteranceExpansionWidth",
+    2
+  )
+  const [sttSegEmbeddingsProvider] = useStorage("sttSegEmbeddingsProvider", "")
+  const [sttSegEmbeddingsModel] = useStorage("sttSegEmbeddingsModel", "")
   const form = useForm({
     initialValues: {
       message: "",
@@ -83,6 +104,36 @@ export const SidepanelForm = ({ dropedFile }: Props) => {
       stopSpeechRecognition()
     }
   }
+
+  // Restore unsent draft on mount
+  React.useEffect(() => {
+    try {
+      if (typeof window === "undefined") return
+      const draft = window.localStorage.getItem("tldw:sidepanelChatDraft")
+      if (draft && draft.length > 0) {
+        form.setFieldValue("message", draft)
+      }
+    } catch {
+      // ignore draft restore errors
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
+  // Persist draft whenever the message changes
+  React.useEffect(() => {
+    try {
+      if (typeof window === "undefined") return
+      const value = form.values.message
+      if (typeof value !== "string") return
+      if (value.trim().length === 0) {
+        window.localStorage.removeItem("tldw:sidepanelChatDraft")
+      } else {
+        window.localStorage.setItem("tldw:sidepanelChatDraft", value)
+      }
+    } catch {
+      // ignore persistence errors
+    }
+  }, [form.values.message])
 
   const serverRecorderRef = React.useRef<MediaRecorder | null>(null)
   const serverChunksRef = React.useRef<BlobPart[]>([])
@@ -132,18 +183,7 @@ export const SidepanelForm = ({ dropedFile }: Props) => {
   }
 
   // When sidepanel connection transitions to CONNECTED, focus the composer
-  const previousPhaseRef = React.useRef<ConnectionPhase | null>(null)
-  React.useEffect(() => {
-    if (
-      previousPhaseRef.current !== ConnectionPhase.CONNECTED &&
-      phase === ConnectionPhase.CONNECTED
-    ) {
-      setTimeout(() => {
-        window.dispatchEvent(new CustomEvent("tldw:focus-composer"))
-      }, 0)
-    }
-    previousPhaseRef.current = phase
-  }, [phase])
+  useFocusComposerOnConnect(phase)
 
   // Allow other components (e.g., connection card) to request focus
   React.useEffect(() => {
@@ -220,7 +260,10 @@ export const SidepanelForm = ({ dropedFile }: Props) => {
   }
 
   const handleDisconnectedFocus = () => {
-    if (!isConnectionReady && !hasShownConnectBanner) {
+    // When there are no messages, the shared connection card in the body
+    // provides the primary CTA. Only show the inline banner when there is
+    // existing history and the connection drops.
+    if (!isConnectionReady && messages.length > 0 && !hasShownConnectBanner) {
       setShowConnectBanner(true)
       setHasShownConnectBanner(true)
     }
@@ -280,9 +323,14 @@ export const SidepanelForm = ({ dropedFile }: Props) => {
   const handleToggleTemporaryChat = React.useCallback(() => {
     if (isFireFoxPrivateMode) {
       notification.error({
-        message: "Error",
-        description:
-          "tldw Assistant can't save chat in Firefox Private Mode. Temporary chat is enabled by default. More fixes coming soon."
+        message: t(
+          "sidepanel:errors.privateModeTitle",
+          "tldw Assistant can't save data"
+        ),
+        description: t(
+          "sidepanel:errors.privateModeDescription",
+          "Firefox Private Mode does not support saving chat history. Temporary chat is enabled by default. More fixes coming soon."
+        )
       })
       return
     }
@@ -350,9 +398,51 @@ export const SidepanelForm = ({ dropedFile }: Props) => {
           if (blob.size === 0) {
             return
           }
-          const res = await tldwClient.transcribeAudio(blob, {
+          const sttOptions: Record<string, any> = {
             language: speechToTextLanguage
-          })
+          }
+          if (sttModel && sttModel.trim().length > 0) {
+            sttOptions.model = sttModel.trim()
+          }
+          if (sttTimestampGranularities) {
+            sttOptions.timestamp_granularities = sttTimestampGranularities
+          }
+          if (sttPrompt && sttPrompt.trim().length > 0) {
+            sttOptions.prompt = sttPrompt.trim()
+          }
+          if (sttTask) {
+            sttOptions.task = sttTask
+          }
+          if (sttResponseFormat) {
+            sttOptions.response_format = sttResponseFormat
+          }
+          if (typeof sttTemperature === "number") {
+            sttOptions.temperature = sttTemperature
+          }
+          if (sttUseSegmentation) {
+            sttOptions.segment = true
+            if (typeof sttSegK === "number") {
+              sttOptions.seg_K = sttSegK
+            }
+            if (typeof sttSegMinSegmentSize === "number") {
+              sttOptions.seg_min_segment_size = sttSegMinSegmentSize
+            }
+            if (typeof sttSegLambdaBalance === "number") {
+              sttOptions.seg_lambda_balance = sttSegLambdaBalance
+            }
+            if (typeof sttSegUtteranceExpansionWidth === "number") {
+              sttOptions.seg_utterance_expansion_width =
+                sttSegUtteranceExpansionWidth
+            }
+            if (sttSegEmbeddingsProvider?.trim()) {
+              sttOptions.seg_embeddings_provider =
+                sttSegEmbeddingsProvider.trim()
+            }
+            if (sttSegEmbeddingsModel?.trim()) {
+              sttOptions.seg_embeddings_model = sttSegEmbeddingsModel.trim()
+            }
+          }
+          const res = await tldwClient.transcribeAudio(blob, sttOptions)
           let text = ""
           if (res) {
             if (typeof res === "string") {
@@ -407,7 +497,17 @@ export const SidepanelForm = ({ dropedFile }: Props) => {
         )
       })
     }
-  }, [hasServerAudio, isServerDictating, speechToTextLanguage, stopServerDictation, t, form])
+  }, [
+    hasServerAudio,
+    isServerDictating,
+    speechToTextLanguage,
+    sttModel,
+    sttTimestampGranularities,
+    sttUseSegmentation,
+    stopServerDictation,
+    t,
+    form
+  ])
 
   const handleLiveCaptionsToggle = React.useCallback(async () => {
     if (wsSttActive) {
@@ -438,6 +538,22 @@ export const SidepanelForm = ({ dropedFile }: Props) => {
   }, [])
 
   React.useEffect(() => {
+    const handler = () => {
+      if (!isConnectionReady) {
+        return
+      }
+      setIngestOpen(true)
+      requestAnimationFrame(() => {
+        quickIngestBtnRef.current?.focus()
+      })
+    }
+    window.addEventListener("tldw:open-quick-ingest", handler)
+    return () => {
+      window.removeEventListener("tldw:open-quick-ingest", handler)
+    }
+  }, [isConnectionReady])
+
+  React.useEffect(() => {
     if (sttError) {
       notification.error({
         message: t("playground:actions.streamErrorTitle", "Live captions unavailable"),
@@ -450,20 +566,19 @@ export const SidepanelForm = ({ dropedFile }: Props) => {
     <div className="flex w-72 flex-col gap-4">
       <div className="space-y-2">
         <p className="text-[11px] font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400">
-          {t("playground:more.history", "History & saving")}
+          {t("playground:more.history", "Chat saving")}
         </p>
-        <button
-          type="button"
-          onClick={handleToggleTemporaryChat}
-          className="flex w-full items-center justify-between rounded-md px-2 py-1 text-sm text-gray-700 transition hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-[#2a2a2a]"
-        >
-          <span>
-            {temporaryChat
-              ? t("playground:actions.temporaryOn", "Temporary chat")
-              : t("playground:actions.temporaryOff", "Save chat")}
-          </span>
-          <BsIncognito className="h-4 w-4" />
-        </button>
+        <p className="text-[11px] text-gray-500 dark:text-gray-400">
+          {temporaryChat
+            ? t(
+                "playground:composer.persistence.ephemeral",
+                "Not saved in history; clears when you close this tab."
+              )
+            : t(
+                "playground:composer.persistence.local",
+                "Saved in this browser only."
+              )}
+        </p>
       </div>
 
       <div className="space-y-2">
@@ -510,35 +625,8 @@ export const SidepanelForm = ({ dropedFile }: Props) => {
 
       <div className="space-y-2">
         <p className="text-[11px] font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400">
-          {t("playground:more.voice", "Voice & captions")}
+          {t("playground:more.voice", "More voice options")}
         </p>
-        {browserSupportsSpeechRecognition ? (
-          <button
-            type="button"
-            onClick={handleSpeechToggle}
-            className="flex w-full items-center justify-between rounded-md px-2 py-1 text-sm text-gray-700 transition hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-[#2a2a2a]"
-          >
-            <span>
-              {isListening
-                ? t("playground:actions.speechStop", "Stop dictation")
-                : t("playground:actions.speechStart", "Start dictation")}
-            </span>
-            <MicIcon className="h-4 w-4" />
-          </button>
-        ) : hasServerAudio && (
-          <button
-            type="button"
-            onClick={handleServerDictationToggle}
-            className="flex w-full items-center justify-between rounded-md px-2 py-1 text-sm text-gray-700 transition hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-[#2a2a2a]"
-          >
-            <span>
-              {isServerDictating
-                ? t("playground:actions.speechStop", "Stop dictation")
-                : t("playground:actions.speechStart", "Start dictation")}
-            </span>
-            <MicIcon className="h-4 w-4" />
-          </button>
-        )}
         <button
           type="button"
           onClick={handleLiveCaptionsToggle}
@@ -726,7 +814,7 @@ export const SidepanelForm = ({ dropedFile }: Props) => {
   return (
     <div className="flex w-full flex-col items-center px-2">
       <div className="relative z-10 flex w-full flex-col items-center justify-center gap-2 text-base">
-        <div className="relative flex w-full flex-row justify-center gap-2 lg:w-4/5">
+        <div className="relative flex w-full flex-row justify-center gap-2">
           <div
             data-istemporary-chat={temporaryChat}
             aria-disabled={!isConnectionReady}
@@ -862,36 +950,6 @@ export const SidepanelForm = ({ dropedFile }: Props) => {
                         await sendMessage({ image: "", message: value.message })
                       }}
                     />
-                    {/* Minimal connection indicator is always visible so users see status before focusing */}
-                    {!isConnectionReady && (
-                      <div className="mb-2 flex flex-wrap items-center justify-between gap-2 text-[11px] text-gray-600 dark:text-gray-300">
-                        <div className="inline-flex items-center gap-1 rounded-full border border-dashed border-gray-300 bg-gray-100 px-2 py-0.5 font-medium text-gray-700 dark:border-gray-600 dark:bg-[#262626] dark:text-gray-200">
-                          <span className="h-1.5 w-1.5 rounded-full bg-red-500" />
-                          <span>
-                            {t(
-                              "playground:composer.connectionChipDisconnected",
-                              "Server: Not connected"
-                            )}
-                          </span>
-                        </div>
-                        <div className="flex flex-wrap items-center gap-2">
-                          <button
-                            type="button"
-                            onClick={openSettings}
-                            className="text-[11px] font-medium text-pink-600 hover:underline dark:text-pink-300"
-                          >
-                            {t("settings:tldw.setupLink", "Set up server")}
-                          </button>
-                          <button
-                            type="button"
-                            onClick={openDiagnostics}
-                            className="text-[11px] font-medium text-gray-600 underline hover:text-gray-800 dark:text-gray-300 dark:hover:text-gray-100"
-                          >
-                            {t("settings:healthSummary.diagnostics", "Diagnostics")}
-                          </button>
-                        </div>
-                      </div>
-                    )}
                     <textarea
                       onKeyDown={(e) => handleKeyDown(e)}
                       onFocus={handleDisconnectedFocus}
@@ -922,20 +980,64 @@ export const SidepanelForm = ({ dropedFile }: Props) => {
                           ? t("form.textarea.placeholder")
                           : t(
                               "playground:composer.connectionPlaceholder",
-                              "Connect to your tldw server to start chatting."
+                              "Connect to tldw to start chatting."
                             )
                       }
                       {...form.getInputProps("message")}
                     />
                     <div className="mt-4 flex w-full flex-col gap-3 md:flex-row md:items-center md:justify-between">
-                      <div className="flex flex-wrap items-center gap-2" />
+                      <div className="flex flex-wrap items-start gap-2 text-xs text-gray-700 dark:text-gray-200">
+                        <div className="flex flex-col gap-0.5">
+                          <div className="flex items-center gap-1">
+                            <Switch
+                              size="small"
+                              checked={temporaryChat}
+                              onChange={handleToggleTemporaryChat}
+                              aria-label={
+                                temporaryChat
+                                  ? (t(
+                                      "playground:actions.temporaryOn",
+                                      "Temporary chat (not saved)"
+                                    ) as string)
+                                  : (t(
+                                      "playground:actions.temporaryOff",
+                                      "Save chat to history"
+                                    ) as string)
+                              }
+                            />
+                            <span>
+                              {temporaryChat
+                                ? t(
+                                    "playground:actions.temporaryOn",
+                                    "Temporary chat (not saved)"
+                                  )
+                                : t(
+                                    "playground:actions.temporaryOff",
+                                    "Save chat to history"
+                                  )}
+                            </span>
+                          </div>
+                          <p className="text-[11px] text-gray-500 dark:text-gray-400">
+                            {temporaryChat
+                              ? t(
+                                  "playground:composer.persistence.ephemeral",
+                                  "Not saved in history; clears when you close this tab."
+                                )
+                              : t(
+                                  "playground:composer.persistence.local",
+                                  "Saved in this browser only."
+                                )}
+                          </p>
+                        </div>
+                      </div>
                       <div className="flex flex-wrap items-center justify-end gap-2">
                         {/* RAG toggle for better discoverability */}
                         <button
                           type="button"
                           onClick={() => window.dispatchEvent(new CustomEvent('tldw:toggle-rag'))}
                           className="inline-flex items-center gap-2 rounded-md border border-gray-200 px-3 py-1.5 text-xs font-semibold text-gray-700 transition hover:bg-gray-100 dark:border-gray-600 dark:text-gray-200 dark:hover:bg-[#2a2a2a]"
-                          title={t('sidepanel:toolbar.ragSearch', 'RAG Search') as string}>
+                          title={t('sidepanel:toolbar.ragSearch', 'RAG Search') as string}
+                          aria-label={t('sidepanel:toolbar.ragSearch', 'RAG Search') as string}>
                           <Search className="h-4 w-4" />
                           <span className="hidden sm:inline">{t('sidepanel:toolbar.ragSearch', 'RAG Search')}</span>
                         </button>
@@ -1124,7 +1226,7 @@ export const SidepanelForm = ({ dropedFile }: Props) => {
                       <div className="mt-2 flex flex-wrap items-center justify-between gap-2 rounded-md border border-amber-300 bg-amber-50 px-3 py-2 text-xs text-amber-900 dark:border-amber-500 dark:bg-[#2a2310] dark:text-amber-100">
                         <p className="max-w-xs text-left">
                           {t(
-                            "playground:composer.connectNotice",
+                            "sidepanel:composer.connectHint",
                             "Connect to your tldw server in Settings to send messages."
                           )}
                         </p>
@@ -1154,7 +1256,7 @@ export const SidepanelForm = ({ dropedFile }: Props) => {
                         </div>
                       </div>
                     )}
-                    {isConnectionReady && queuedMessages.length > 0 && (
+                    {queuedMessages.length > 0 && (
                       <div className="mt-2 flex flex-wrap items-center justify-between gap-2 rounded-md border border-green-300 bg-green-50 px-3 py-2 text-xs text-green-900 dark:border-green-500 dark:bg-[#102a10] dark:text-green-100">
                         <p className="max-w-xs text-left">
                           <span className="block font-medium">
@@ -1168,21 +1270,25 @@ export const SidepanelForm = ({ dropedFile }: Props) => {
                             "We’ll hold these messages and send them once your tldw server is connected."
                           )}
                         </p>
-                        <div className="flex flex-wrap items-center gap-2">
-                          <button
-                            type="button"
-                            onClick={async () => {
-                              for (const item of queuedMessages) {
-                                await submitQueuedInSidepanel(item.message, item.image)
-                              }
-                              clearQueuedMessages()
-                            }}
-                            className="rounded-md border border-green-300 bg-white px-2 py-1 text-xs font-medium text-green-900 hover:bg-green-100 dark:bg-[#163816] dark:text-green-50 dark:hover:bg-[#194419]"
-                          >
-                            {t(
-                              "playground:composer.queuedBanner.sendNow",
-                              "Send queued messages"
-                            )}
+                          <div className="flex flex-wrap items-center gap-2">
+                            <button
+                              type="button"
+                              onClick={async () => {
+                                if (!isConnectionReady) return
+                                for (const item of queuedMessages) {
+                                  await submitQueuedInSidepanel(item.message, item.image)
+                                }
+                                clearQueuedMessages()
+                              }}
+                              disabled={!isConnectionReady}
+                              className={`rounded-md border border-green-300 bg-white px-2 py-1 text-xs font-medium text-green-900 hover:bg-green-100 dark:bg-[#163816] dark:text-green-50 dark:hover:bg-[#194419] ${
+                                !isConnectionReady ? "cursor-not-allowed opacity-60" : ""
+                              }`}
+                            >
+                              {t(
+                                "playground:composer.queuedBanner.sendNow",
+                                "Send queued messages"
+                              )}
                           </button>
                           <button
                             type="button"
@@ -1224,13 +1330,15 @@ export const SidepanelForm = ({ dropedFile }: Props) => {
         isOCREnabled={useOCR}
       />
       {/* Quick ingest modal */}
-      <QuickIngestModal
-        open={ingestOpen}
-        onClose={() => {
-          setIngestOpen(false)
-          requestAnimationFrame(() => quickIngestBtnRef.current?.focus())
-        }}
-      />
+      {ingestOpen && (
+        <QuickIngestModal
+          open={ingestOpen}
+          onClose={() => {
+            setIngestOpen(false)
+            requestAnimationFrame(() => quickIngestBtnRef.current?.focus())
+          }}
+        />
+      )}
     </div>
   )
 }

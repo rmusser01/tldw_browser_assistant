@@ -1,41 +1,55 @@
 {
-    "addBtn": "新しい知識を追加",
-    "columns": {
-        "title": "タイトル",
-        "status": "ステータス",
-        "embeddings": "埋め込みモデル",
-        "createdAt": "作成日",
-        "action": "アクション"
+  "addBtn": "新しい知識を追加",
+  "columns": {
+    "title": "タイトル",
+    "status": "ステータス",
+    "embeddings": "埋め込みモデル",
+    "createdAt": "作成日",
+    "action": "アクション"
+  },
+  "expandedColumns": {
+    "name": "名前"
+  },
+  "confirm": {
+    "delete": "この知識を削除してもよろしいですか?"
+  },
+  "deleteSuccess": "知識が正常に削除されました",
+  "status": {
+    "pending": "保留中",
+    "finished": "完了",
+    "processing": "処理中",
+    "failed": "失敗"
+  },
+  "addKnowledge": "知識を追加",
+  "updateKnowledge": "ソースを追加",
+  "form": {
+    "title": {
+      "label": "知識タイトル",
+      "placeholder": "知識のタイトルを入力してください",
+      "required": "知識のタイトルは必須です"
     },
-    "expandedColumns": {
-        "name": "名前"
+    "uploadFile": {
+      "label": "ファイルをアップロード",
+      "uploadText": "ファイルをここにドラッグアンドドロップするか、クリックしてアップロード",
+      "uploadHint": "サポートされているファイルタイプ: .pdf、.csv、.txt",
+      "required": "ファイルは必須です"
     },
-    "confirm": {
-        "delete": "この知識を削除してもよろしいですか?"
-    },
-    "deleteSuccess": "知識が正常に削除されました",
-    "status": {
-        "pending": "保留中",
-        "finished": "完了",
-        "processing": "処理中",
-        "failed": "失敗"
-    },
-    "addKnowledge": "知識を追加",
-    "updateKnowledge": "ソースを追加",
-    "form": {
-        "title": {
-            "label": "知識タイトル",
-            "placeholder": "知識のタイトルを入力してください",
-            "required": "知識のタイトルは必須です"
-        },
-        "uploadFile": {
-            "label": "ファイルをアップロード",
-            "uploadText": "ファイルをここにドラッグアンドドロップするか、クリックしてアップロード",
-            "uploadHint": "サポートされているファイルタイプ: .pdf、.csv、.txt",
-            "required": "ファイルは必須です"
-        },
-        "submit": "送信",
-        "success": "知識が正常に追加されました"
-    },
-    "noEmbeddingModel": "最初にRAGの設定ページから埋め込みモデルを追加してください"
+    "submit": "送信",
+    "success": "知識が正常に追加されました"
+  },
+  "noEmbeddingModel": "最初にRAGの設定ページから埋め込みモデルを追加してください",
+  "privateModeDescription": "Firefox のプライベートモードは IndexedDB への保存をサポートしません。通常ウィンドウでナレッジベースを追加してください。",
+  "rag": {
+    "searchFailed": "RAG 検索に失敗しました。もう一度お試しください、または診断画面を確認してください。"
+  },
+  "empty": {
+    "demoTitle": "デモモードで Knowledge QA を試す",
+    "demoDescription": "このデモでは、Knowledge QA がサンプルコンテンツに対して RAG 検索を実行する方法を確認できます。後で自分のサーバーを接続して、自分の書き起こしやドキュメントを検索できます。",
+    "demoExample1": "RAG のクイック検索を試して、結果と出典を確認してみてください。",
+    "demoExample2": "自分のサーバーを接続して、実際のメディアやノートに対して Knowledge QA を有効にしましょう。",
+    "connectTitle": "Knowledge QA を使うには接続してください",
+    "connectDescription": "Knowledge QA と RAG 検索を使うには、まず tldw サーバーに接続する必要があります。",
+    "connectExample1": "設定 → tldw server を開き、サーバー URL を追加してください。",
+    "connectExample2": "サーバーが起動しているのに接続できない場合は、Diagnostics を確認してください。"
+  }
 }

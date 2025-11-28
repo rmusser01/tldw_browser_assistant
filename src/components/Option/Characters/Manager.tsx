@@ -1,19 +1,38 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
-import { Button, Form, Input, Modal, Skeleton, Table, Tag, Tooltip, Select } from "antd"
+import {
+  Button,
+  Form,
+  Input,
+  Modal,
+  Skeleton,
+  Table,
+  Tag,
+  Tooltip,
+  Select,
+  Alert,
+  Checkbox
+} from "antd"
+import type { InputRef } from "antd"
 import React from "react"
-import { tldwClient } from "@/services/tldw/TldwApiClient"
-import { Pen, Trash2, UserCircle2, MessageCircle } from "lucide-react"
+import { tldwClient, type ServerChatSummary } from "@/services/tldw/TldwApiClient"
+import { History, Pen, Trash2, UserCircle2, MessageCircle } from "lucide-react"
 import { useTranslation } from "react-i18next"
-import { confirmDanger } from "@/components/Common/confirm-danger"
+import { useConfirmDanger } from "@/components/Common/confirm-danger"
 import { useNavigate } from "react-router-dom"
 import { useStorage } from "@plasmohq/storage/hook"
 import FeatureEmptyState from "@/components/Common/FeatureEmptyState"
 import { useAntdNotification } from "@/hooks/useAntdNotification"
+import { focusComposer } from "@/hooks/useComposerFocus"
+import { useStoreMessageOption } from "@/store/option"
+import { updatePageTitle } from "@/utils/update-page-title"
 
 const MAX_NAME_LENGTH = 75
 const MAX_DESCRIPTION_LENGTH = 65
 const MAX_TAG_LENGTH = 20
 const MAX_TAGS_DISPLAYED = 6
+const BASE64_IMAGE_PATTERN =
+  /^(?:[A-Za-z0-9+/_-]{4})*(?:[A-Za-z0-9+/_-]{2}==|[A-Za-z0-9+/_-]{3}=)?$/
+const ALLOWED_IMAGE_MIME_TYPES = new Set(["image/png", "image/jpeg", "image/gif"])
 
 const truncateText = (value?: string, max?: number) => {
   if (!value) return ""
@@ -21,11 +40,152 @@ const truncateText = (value?: string, max?: number) => {
   return `${value.slice(0, max)}...`
 }
 
+const detectImageMime = (bytes: Uint8Array): string | null => {
+  const isPng =
+    bytes.length >= 4 &&
+    bytes[0] === 0x89 &&
+    bytes[1] === 0x50 &&
+    bytes[2] === 0x4e &&
+    bytes[3] === 0x47
+  if (isPng) return "image/png"
+
+  const isJpeg =
+    bytes.length >= 3 &&
+    bytes[0] === 0xff &&
+    bytes[1] === 0xd8 &&
+    bytes[2] === 0xff
+  if (isJpeg) return "image/jpeg"
+
+  const isGif =
+    bytes.length >= 6 &&
+    bytes[0] === 0x47 &&
+    bytes[1] === 0x49 &&
+    bytes[2] === 0x46 &&
+    bytes[3] === 0x38 &&
+    (bytes[4] === 0x39 || bytes[4] === 0x37) &&
+    bytes[5] === 0x61
+  if (isGif) return "image/gif"
+
+  return null
+}
+
+const decodeBase64Header = (value: string): Uint8Array | null => {
+  if (typeof atob !== "function") return null
+
+  try {
+    const decoded = atob(value.slice(0, Math.min(value.length, 128)))
+    const headerBytes = new Uint8Array(Math.min(decoded.length, 32))
+    for (let i = 0; i < headerBytes.length; i += 1) {
+      headerBytes[i] = decoded.charCodeAt(i)
+    }
+    return headerBytes
+  } catch {
+    return null
+  }
+}
+
+/**
+ * Lightweight client-side guard: only allows rendering known raster formats.
+ * Server-side validation should enforce allowable avatar uploads.
+ */
+const validateAndCreateImageDataUrl = (value: unknown): string => {
+  if (typeof value !== "string") return ""
+  const trimmed = value.trim()
+  if (!trimmed || trimmed.toLowerCase().startsWith("data:")) return ""
+  if (!BASE64_IMAGE_PATTERN.test(trimmed)) return ""
+
+  const headerBytes = decodeBase64Header(trimmed)
+  if (!headerBytes) return ""
+
+  const mime = detectImageMime(headerBytes)
+  if (!mime || !ALLOWED_IMAGE_MIME_TYPES.has(mime)) return ""
+
+  return `data:${mime};base64,${trimmed}`
+}
+
+const normalizeAlternateGreetings = (value: any): string[] => {
+  if (!value) return []
+  if (Array.isArray(value)) {
+    return value.map((v) => String(v)).filter((v) => v.trim().length > 0)
+  }
+  if (typeof value === "string") {
+    try {
+      const parsed = JSON.parse(value)
+      if (Array.isArray(parsed)) {
+        return parsed.map((v) => String(v)).filter((v) => v.trim().length > 0)
+      }
+    } catch {
+      // fall through to newline splitting
+    }
+    return value
+      .split(/\r?\n|;/)
+      .map((v) => v.trim())
+      .filter((v) => v.length > 0)
+  }
+  return []
+}
+
+const buildCharacterPayload = (values: any): Record<string, any> => {
+  const payload: Record<string, any> = {
+    name: values.name,
+    description: values.description,
+    personality: values.personality,
+    scenario: values.scenario,
+    system_prompt: values.system_prompt,
+    post_history_instructions: values.post_history_instructions,
+    first_message: values.greeting || values.first_message,
+    message_example: values.message_example,
+    creator_notes: values.creator_notes,
+    tags: Array.isArray(values.tags)
+      ? values.tags.filter((tag: string) => tag && tag.trim().length > 0)
+      : values.tags,
+    alternate_greetings: Array.isArray(values.alternate_greetings)
+      ? values.alternate_greetings.filter((g: string) => g && g.trim().length > 0)
+      : values.alternate_greetings,
+    creator: values.creator,
+    character_version: values.character_version,
+    extensions: values.extensions,
+    image_base64: values.image_base64
+  }
+
+  // Keep compatibility with mock server / older deployments
+  if (values.greeting) {
+    payload.greeting = values.greeting
+  }
+  if (values.avatar_url) {
+    payload.avatar_url = values.avatar_url
+  }
+
+  Object.keys(payload).forEach((key) => {
+    const v = payload[key]
+    if (
+      typeof v === "undefined" ||
+      v === null ||
+      (typeof v === "string" && v.trim().length === 0) ||
+      (Array.isArray(v) && v.length === 0)
+    ) {
+      delete payload[key]
+    }
+  })
+
+  // Parse extensions JSON when user provides structured data
+  if (typeof values.extensions === "string" && values.extensions.trim().length > 0) {
+    try {
+      payload.extensions = JSON.parse(values.extensions)
+    } catch {
+      payload.extensions = values.extensions
+    }
+  }
+
+  return payload
+}
+
 export const CharactersManager: React.FC = () => {
   const { t } = useTranslation(["settings", "common"])
   const qc = useQueryClient()
   const navigate = useNavigate()
   const notification = useAntdNotification()
+  const confirmDanger = useConfirmDanger()
   const [open, setOpen] = React.useState(false)
   const [openEdit, setOpenEdit] = React.useState(false)
   const [editId, setEditId] = React.useState<string | null>(null)
@@ -33,14 +193,112 @@ export const CharactersManager: React.FC = () => {
   const [createForm] = Form.useForm()
   const [editForm] = Form.useForm()
   const [, setSelectedCharacter] = useStorage<any>("selectedCharacter", null)
+  const newButtonRef = React.useRef<HTMLButtonElement | null>(null)
+  const lastEditTriggerRef = React.useRef<HTMLButtonElement | null>(null)
+  const createNameRef = React.useRef<InputRef>(null)
+  const editNameRef = React.useRef<InputRef>(null)
+  const [searchTerm, setSearchTerm] = React.useState("")
+  const [filterTags, setFilterTags] = React.useState<string[]>([])
+  const [matchAllTags, setMatchAllTags] = React.useState(false)
+  const [showEditAdvanced, setShowEditAdvanced] = React.useState(false)
+  const [conversationsOpen, setConversationsOpen] = React.useState(false)
+  const [conversationCharacter, setConversationCharacter] = React.useState<any | null>(null)
+  const [characterChats, setCharacterChats] = React.useState<ServerChatSummary[]>([])
+  const [chatsError, setChatsError] = React.useState<string | null>(null)
+  const [loadingChats, setLoadingChats] = React.useState(false)
+  const [resumingChatId, setResumingChatId] = React.useState<string | null>(null)
 
-  const { data, status } = useQuery({
-    queryKey: ["tldw:listCharacters"],
+  const hasFilters =
+    searchTerm.trim().length > 0 || (filterTags && filterTags.length > 0)
+
+  const {
+    setHistory,
+    setMessages,
+    setHistoryId,
+    setServerChatId,
+    setServerChatState,
+    setServerChatTopic,
+    setServerChatClusterId,
+    setServerChatSource,
+    setServerChatExternalRef
+  } = useStoreMessageOption()
+
+  const characterIdentifier = (record: any): string =>
+    String(record?.id ?? record?.slug ?? record?.name ?? "")
+
+  const formatUpdatedLabel = (value?: string | null) => {
+    const fallback = t("settings:manageCharacters.conversations.unknownTime", {
+      defaultValue: "Unknown"
+    })
+    let formatted = fallback
+    if (value) {
+      try {
+        formatted = new Date(value).toLocaleString()
+      } catch {
+        formatted = String(value)
+      }
+    }
+    return t("settings:manageCharacters.conversations.updated", {
+      defaultValue: "Updated {{time}}",
+      time: formatted
+    })
+  }
+
+  const {
+    data,
+    status,
+    error,
+    refetch
+  } = useQuery({
+    queryKey: [
+      "tldw:listCharacters",
+      {
+        search: searchTerm.trim() || "",
+        tags: filterTags.slice().sort(),
+        matchAll: matchAllTags
+      }
+    ],
     queryFn: async () => {
       try {
         await tldwClient.initialize()
-        const list = await tldwClient.listCharacters()
-        return Array.isArray(list) ? list : []
+        const query = searchTerm.trim()
+        const tags = filterTags.filter((t) => t.trim().length > 0)
+        const hasSearch = query.length > 0
+        const hasTags = tags.length > 0
+
+        if (!hasSearch && !hasTags) {
+          const list = await tldwClient.listCharacters()
+          return Array.isArray(list) ? list : []
+        }
+
+        if (hasSearch && !hasTags) {
+          const list = await tldwClient.searchCharacters(query)
+          return Array.isArray(list) ? list : []
+        }
+
+        if (!hasSearch && hasTags) {
+          const list = await tldwClient.filterCharactersByTags(tags, {
+            match_all: matchAllTags
+          })
+          return Array.isArray(list) ? list : []
+        }
+
+        // When both search and tags are active, use server search then filter client-side by tags
+        const searched = await tldwClient.searchCharacters(query)
+        const normalized = Array.isArray(searched) ? searched : []
+        const filtered = normalized.filter((c: any) => {
+          const ct: string[] = Array.isArray(c?.tags)
+            ? c.tags
+            : typeof c?.tags === "string"
+              ? [c.tags]
+              : []
+          if (ct.length === 0) return false
+          if (matchAllTags) {
+            return tags.every((tag) => ct.includes(tag))
+          }
+          return tags.some((tag) => ct.includes(tag))
+        })
+        return filtered
       } catch (e: any) {
         notification.error({
           message: t("settings:manageCharacters.notification.error", {
@@ -52,7 +310,7 @@ export const CharactersManager: React.FC = () => {
               defaultValue: "Something went wrong. Please try again later"
             })
         })
-        return []
+        throw e
       }
     }
   })
@@ -65,8 +323,17 @@ export const CharactersManager: React.FC = () => {
     return Array.from(set.values())
   }, [data])
 
+  const tagFilterOptions = React.useMemo(
+    () =>
+      Array.from(
+        new Set([...(allTags || []), ...(filterTags || [])].filter(Boolean))
+      ).map((tag) => ({ label: tag, value: tag })),
+    [allTags, filterTags]
+  )
+
   const { mutate: createCharacter, isPending: creating } = useMutation({
-    mutationFn: async (values: any) => tldwClient.createCharacter(values),
+    mutationFn: async (values: any) =>
+      tldwClient.createCharacter(buildCharacterPayload(values)),
     onSuccess: () => {
       qc.invalidateQueries({ queryKey: ["tldw:listCharacters"] })
       setOpen(false)
@@ -76,6 +343,9 @@ export const CharactersManager: React.FC = () => {
           defaultValue: "Character created"
         })
       })
+      setTimeout(() => {
+        newButtonRef.current?.focus()
+      }, 0)
     },
     onError: (e: any) =>
       notification.error({
@@ -89,11 +359,76 @@ export const CharactersManager: React.FC = () => {
           })
       })
   })
+  React.useEffect(() => {
+    if (open) {
+      setTimeout(() => {
+        createNameRef.current?.focus()
+      }, 0)
+    }
+  }, [open])
+
+  React.useEffect(() => {
+    if (openEdit) {
+      setTimeout(() => {
+        editNameRef.current?.focus()
+      }, 0)
+    }
+  }, [openEdit])
+
+  React.useEffect(() => {
+    if (!conversationsOpen || !conversationCharacter) return
+    let cancelled = false
+    const load = async () => {
+      setLoadingChats(true)
+      setChatsError(null)
+      setCharacterChats([])
+      try {
+        await tldwClient.initialize()
+        const characterId = characterIdentifier(conversationCharacter)
+        const chats = await tldwClient.listChats({
+          character_id: characterId || undefined,
+          limit: 100,
+          ordering: "-updated_at"
+        })
+        if (!cancelled) {
+          const filtered = Array.isArray(chats)
+            ? chats.filter(
+                (c) =>
+                  characterId &&
+                  String(c.character_id ?? "") === String(characterId)
+              )
+            : []
+          setCharacterChats(filtered)
+        }
+      } catch {
+        if (!cancelled) {
+          setChatsError(
+            t("settings:manageCharacters.conversations.error", {
+              defaultValue:
+                "Unable to load conversations for this character."
+            })
+          )
+        }
+      } finally {
+        if (!cancelled) {
+          setLoadingChats(false)
+        }
+      }
+    }
+    load()
+    return () => {
+      cancelled = true
+    }
+  }, [conversationsOpen, conversationCharacter, t])
 
   const { mutate: updateCharacter, isPending: updating } = useMutation({
     mutationFn: async (values: any) => {
       if (!editId) return
-      return await tldwClient.updateCharacter(editId, values, editVersion ?? undefined)
+      return await tldwClient.updateCharacter(
+        editId,
+        buildCharacterPayload(values),
+        editVersion ?? undefined
+      )
     },
     onSuccess: () => {
       qc.invalidateQueries({ queryKey: ["tldw:listCharacters"] })
@@ -105,6 +440,9 @@ export const CharactersManager: React.FC = () => {
           defaultValue: "Character updated"
         })
       })
+      setTimeout(() => {
+        lastEditTriggerRef.current?.focus()
+      }, 0)
     },
     onError: (e: any) =>
       notification.error({
@@ -144,51 +482,167 @@ export const CharactersManager: React.FC = () => {
 
   return (
     <div className="space-y-4">
-      <div className="flex justify-end">
-        <Button type="primary" onClick={() => setOpen(true)}>
-          {t("settings:manageCharacters.addBtn", { defaultValue: "New character" })}
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+        <Button
+          type="primary"
+          ref={newButtonRef}
+          onClick={() => setOpen(true)}>
+          {t("settings:manageCharacters.addBtn", {
+            defaultValue: "New character"
+          })}
         </Button>
+        <div className="flex flex-1 flex-col gap-2 sm:flex-row sm:items-center sm:justify-end">
+          <Input
+            allowClear
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            placeholder={t(
+              "settings:manageCharacters.search.placeholder",
+              {
+                defaultValue: "Search characters"
+              }
+            )}
+            aria-label={t("settings:manageCharacters.search.label", {
+              defaultValue: "Search characters"
+            })}
+            className="sm:max-w-xs"
+          />
+          <div className="flex flex-col gap-1 sm:flex-row sm:items-center">
+            <Select
+              mode="multiple"
+              allowClear
+              className="min-w-[12rem]"
+              placeholder={t(
+                "settings:manageCharacters.filter.tagsPlaceholder",
+                {
+                  defaultValue: "Filter by tags"
+                }
+              )}
+              value={filterTags}
+              options={tagFilterOptions}
+              onChange={(value) =>
+                setFilterTags(
+                  (value as string[]).filter((v) => v && v.trim().length > 0)
+                )
+              }
+            />
+            <Checkbox
+              checked={matchAllTags}
+              onChange={(e) => setMatchAllTags(e.target.checked)}>
+              {t("settings:manageCharacters.filter.matchAll", {
+                defaultValue: "Match all tags"
+              })}
+            </Checkbox>
+          </div>
+        </div>
       </div>
-      {status === 'pending' && <Skeleton active paragraph={{ rows: 6 }} />}
-      {status === 'success' && Array.isArray(data) && data.length === 0 && (
-        <FeatureEmptyState
-          title={t("settings:manageCharacters.emptyTitle", {
-            defaultValue: "No characters yet"
-          })}
-          description={t("settings:manageCharacters.emptyDescription", {
-            defaultValue:
-              "Create reusable characters with names, descriptions, and behaviors you can chat with."
-          })}
-          examples={[
-            t("settings:manageCharacters.emptyExample1", {
-              defaultValue:
-                "Define a writing coach, lore expert, or coding assistant you can reuse across chats."
-            }),
-            t("settings:manageCharacters.emptyExample2", {
-              defaultValue:
-                "Give each character a clear description and behavior so their responses stay consistent."
-            })
-          ]}
-          primaryActionLabel={t("settings:manageCharacters.emptyPrimaryCta", {
-            defaultValue: "Create character"
-          })}
-          onPrimaryAction={() => setOpen(true)}
-        />
+      {status === "error" && (
+        <div className="rounded-lg border border-red-100 bg-red-50 p-4 dark:border-red-400/40 dark:bg-red-500/10">
+          <Alert
+            type="error"
+            message={t("settings:manageCharacters.loadError.title", {
+              defaultValue: "Couldn't load characters"
+            })}
+            description={
+              <div className="flex items-center justify-between gap-2">
+                <span className="text-sm text-red-700 dark:text-red-200">
+                  {(error as any)?.message ||
+                    t("settings:manageCharacters.loadError.description", {
+                      defaultValue: "Check your connection and try again."
+                    })}
+                </span>
+                <Button size="small" onClick={() => refetch()}>
+                  {t("common:retry", { defaultValue: "Retry" })}
+                </Button>
+              </div>
+            }
+            showIcon
+            className="border-0 bg-transparent p-0"
+          />
+        </div>
       )}
-      {status === 'success' && Array.isArray(data) && data.length > 0 && (
+      {status === "pending" && <Skeleton active paragraph={{ rows: 6 }} />}
+      {status === "success" &&
+        Array.isArray(data) &&
+        data.length === 0 &&
+        !hasFilters && (
+          <FeatureEmptyState
+            title={t("settings:manageCharacters.emptyTitle", {
+              defaultValue: "No characters yet"
+            })}
+            description={t("settings:manageCharacters.emptyDescription", {
+              defaultValue:
+                "Create a reusable character with a name, description, and system prompt you can chat with."
+            })}
+            primaryActionLabel={t(
+              "settings:manageCharacters.emptyPrimaryCta",
+              {
+                defaultValue: "Create character"
+              }
+            )}
+            onPrimaryAction={() => setOpen(true)}
+          />
+        )}
+      {status === "success" &&
+        Array.isArray(data) &&
+        data.length === 0 &&
+        hasFilters && (
+          <div className="rounded-lg border border-dashed border-gray-300 bg-white p-4 text-sm text-gray-700 dark:border-gray-700 dark:bg-[#0f1115] dark:text-gray-200">
+            <div className="flex flex-wrap items-center justify-between gap-2">
+              <span>
+                {t("settings:manageCharacters.filteredEmptyTitle", {
+                  defaultValue: "No characters match your filters"
+                })}
+              </span>
+              <Button
+                size="small"
+                onClick={() => {
+                  setSearchTerm("")
+                  setFilterTags([])
+                  setMatchAllTags(false)
+                  refetch()
+                }}>
+                {t("settings:manageCharacters.filter.clear", {
+                  defaultValue: "Clear filters"
+                })}
+              </Button>
+            </div>
+          </div>
+        )}
+      {status === "success" && Array.isArray(data) && data.length > 0 && (
         <Table
           rowKey={(r: any) => r.id || r.slug || r.name}
           dataSource={data}
           columns={[
             {
-              title: '',
-              key: 'avatar',
+              title: (
+                <span className="sr-only">
+                  {t("settings:manageCharacters.columns.avatar", {
+                    defaultValue: "Avatar"
+                  })}
+                </span>
+              ),
+              key: "avatar",
               width: 48,
-              render: (_: any, record: any) => record?.avatar_url ? (
-                <img src={record.avatar_url} className="w-6 h-6 rounded-full" />
-              ) : (
-                <UserCircle2 className="w-5 h-5" />
-              )
+              render: (_: any, record: any) =>
+                record?.avatar_url ? (
+                  <img
+                    src={record.avatar_url}
+                    className="w-6 h-6 rounded-full"
+                    alt={
+                      record?.name
+                        ? t("settings:manageCharacters.avatarAltWithName", {
+                            defaultValue: "Avatar of {{name}}",
+                            name: record.name
+                          })
+                        : t("settings:manageCharacters.avatarAlt", {
+                            defaultValue: "User avatar"
+                          })
+                    }
+                  />
+                ) : (
+                  <UserCircle2 className="w-5 h-5" />
+                )
             },
             {
               title: t("settings:manageCharacters.columns.name", {
@@ -215,9 +669,11 @@ export const CharactersManager: React.FC = () => {
               )
             },
             {
-              title: t('managePrompts.tags.label', { defaultValue: 'Tags' }),
-              dataIndex: 'tags',
-              key: 'tags',
+              title: t("settings:manageCharacters.tags.label", {
+                defaultValue: "Tags"
+              }),
+              dataIndex: "tags",
+              key: "tags",
               render: (tags: string[]) => {
                 const all = tags || []
                 const visible = all.slice(0, MAX_TAGS_DISPLAYED)
@@ -238,120 +694,403 @@ export const CharactersManager: React.FC = () => {
               title: t("settings:manageCharacters.columns.actions", {
                 defaultValue: "Actions"
               }),
-              key: 'actions',
-              render: (_: any, record: any) => (
-                <div className="flex gap-3">
-                  <Tooltip
-                    title={t("settings:manageCharacters.tooltip.edit", {
-                      defaultValue: "Edit character"
-                    })}>
-                    <button
-                      type="button"
-                      className="text-gray-500"
-                      aria-label={t("settings:manageCharacters.tooltip.edit", {
-                        defaultValue: "Edit character"
-                      })}
-                      onClick={() => {
-                        setEditId(record.id || record.slug || record.name)
-                        setEditVersion(record?.version ?? null)
-                        editForm.setFieldsValue({
-                          name: record.name,
-                          description: record.description,
-                          avatar_url: record.avatar_url,
-                          tags: record.tags,
-                          system_prompt: record.system_prompt
-                        })
-                        setOpenEdit(true)
-                      }}>
-                      <Pen className="w-4 h-4" />
-                    </button>
-                  </Tooltip>
-                  <Tooltip
-                    title={t("settings:manageCharacters.tooltip.delete", {
-                      defaultValue: "Delete character"
-                    })}>
-                    <button
-                      type="button"
-                      className="text-red-500"
-                      aria-label={t("settings:manageCharacters.tooltip.delete", {
-                        defaultValue: "Delete character"
-                      })}
-                      disabled={deleting}
-                      onClick={async () => {
-                        const ok = await confirmDanger({
-                          title: t("common:confirmTitle", {
-                            defaultValue: "Please confirm"
-                          }),
-                          content: t(
-                            "settings:manageCharacters.confirm.delete",
-                            {
-                              defaultValue:
-                                "Are you sure you want to delete this character? This action cannot be undone."
-                            }
-                          ),
-                          okText: t("common:delete", { defaultValue: "Delete" }),
-                          cancelText: t("common:cancel", {
-                            defaultValue: "Cancel"
+              key: "actions",
+              render: (_: any, record: any) => {
+                const chatLabel = t("settings:manageCharacters.actions.chat", {
+                  defaultValue: "Chat"
+                })
+                const editLabel = t(
+                  "settings:manageCharacters.actions.edit",
+                  {
+                    defaultValue: "Edit"
+                  }
+                )
+                const deleteLabel = t(
+                  "settings:manageCharacters.actions.delete",
+                  {
+                    defaultValue: "Delete"
+                  }
+                )
+                const name = record?.name || record?.title || record?.slug || ""
+                return (
+                  <div className="flex flex-wrap items-center gap-2">
+                    <Tooltip
+                      title={chatLabel}>
+                      <button
+                        type="button"
+                        className="inline-flex items-center gap-1 rounded-md border border-transparent px-2 py-1 text-blue-600 transition hover:border-blue-100 hover:bg-blue-50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500 dark:text-blue-400 dark:hover:border-blue-300/40 dark:hover:bg-blue-500/10"
+                        aria-label={t("settings:manageCharacters.aria.chatWith", {
+                          defaultValue: "Chat as {{name}}",
+                          name
+                        })}
+                        onClick={() => {
+                          const id = record.id || record.slug || record.name
+                          setSelectedCharacter({
+                            id,
+                            name: record.name || record.title || record.slug,
+                            system_prompt:
+                              record.system_prompt ||
+                              record.systemPrompt ||
+                              record.instructions ||
+                              "",
+                            greeting:
+                              record.greeting ||
+                              record.first_message ||
+                              record.greet ||
+                              "",
+                            avatar_url:
+                              record.avatar_url ||
+                              validateAndCreateImageDataUrl(record.image_base64) ||
+                              ""
                           })
-                        })
-                        if (ok) {
-                          deleteCharacter(record.id || record.slug || record.name)
-                        }
-                      }}>
-                      <Trash2 className="w-4 h-4" />
-                    </button>
-                  </Tooltip>
-                  <Tooltip
-                    title={t("common:chatWithCharacter", {
-                      defaultValue: "Chat with character"
-                    })}>
-                    <button
-                      type="button"
-                      className="text-gray-500"
-                      aria-label={t("common:chatWithCharacter", {
-                        defaultValue: "Chat with character"
-                      })}
-                      onClick={() => {
-                        const id = record.id || record.slug || record.name
-                        setSelectedCharacter({
-                          id,
-                          name: record.name || record.title || record.slug,
-                          system_prompt:
-                            record.system_prompt ||
-                            record.systemPrompt ||
-                            record.instructions ||
-                            "",
-                          greeting:
-                            record.greeting ||
-                            record.first_message ||
-                            record.greet ||
-                            "",
-                          avatar_url:
-                            record.avatar_url ||
-                            (record.image_base64
-                              ? `data:image/png;base64,${record.image_base64}`
-                              : "")
-                        })
-                        navigate("/")
-                      }}>
-                      <MessageCircle className="w-4 h-4" />
-                    </button>
-                  </Tooltip>
-                </div>
-              )
+                          navigate("/")
+                          setTimeout(() => {
+                            focusComposer()
+                          }, 0)
+                        }}>
+                        <MessageCircle className="w-4 h-4" />
+                        <span className="hidden sm:inline text-xs font-medium">
+                          {chatLabel}
+                        </span>
+                      </button>
+                    </Tooltip>
+                    <Tooltip
+                      title={t("settings:manageCharacters.actions.viewConversations", {
+                        defaultValue: "View conversations"
+                      })}>
+                      <button
+                        type="button"
+                        className="inline-flex items-center gap-1 rounded-md border border-transparent px-2 py-1 text-gray-600 transition hover:border-gray-200 hover:bg-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-500 dark:text-gray-200 dark:hover:border-gray-500 dark:hover:bg-[#1f1f1f]"
+                        aria-label={t("settings:manageCharacters.aria.viewConversations", {
+                          defaultValue: "View conversations for {{name}}",
+                          name
+                        })}
+                        onClick={() => {
+                          setConversationCharacter(record)
+                          setCharacterChats([])
+                          setChatsError(null)
+                          setConversationsOpen(true)
+                        }}>
+                        <History className="w-4 h-4" />
+                        <span className="hidden sm:inline text-xs font-medium">
+                          {t("settings:manageCharacters.actions.viewConversations", {
+                            defaultValue: "View conversations"
+                          })}
+                        </span>
+                      </button>
+                    </Tooltip>
+                    <Tooltip
+                      title={editLabel}>
+                      <button
+                        type="button"
+                        className="inline-flex items-center gap-1 rounded-md border border-transparent px-2 py-1 text-gray-600 transition hover:border-gray-200 hover:bg-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-500 dark:text-gray-200 dark:hover:border-gray-500 dark:hover:bg-[#1f1f1f]"
+                        aria-label={t("settings:manageCharacters.aria.edit", {
+                          defaultValue: "Edit character {{name}}",
+                          name
+                        })}
+                        onClick={(e) => {
+                          lastEditTriggerRef.current = e.currentTarget
+                          setEditId(record.id || record.slug || record.name)
+                          setEditVersion(record?.version ?? null)
+                          const ex = record.extensions
+                          const extensionsValue =
+                            ex && typeof ex === "object" && !Array.isArray(ex)
+                              ? JSON.stringify(ex, null, 2)
+                              : typeof ex === "string"
+                                ? ex
+                                : ""
+                          editForm.setFieldsValue({
+                            name: record.name,
+                            description: record.description,
+                            avatar_url: record.avatar_url,
+                            tags: record.tags,
+                            greeting:
+                              record.greeting ||
+                              record.first_message ||
+                              record.greet,
+                            system_prompt: record.system_prompt,
+                            personality: record.personality,
+                            scenario: record.scenario,
+                            post_history_instructions:
+                              record.post_history_instructions,
+                            message_example: record.message_example,
+                            creator_notes: record.creator_notes,
+                            alternate_greetings: normalizeAlternateGreetings(
+                              record.alternate_greetings
+                            ),
+                            creator: record.creator,
+                            character_version: record.character_version,
+                            extensions: extensionsValue,
+                            image_base64: record.image_base64
+                          })
+                          setOpenEdit(true)
+                        }}>
+                        <Pen className="w-4 h-4" />
+                        <span className="hidden sm:inline text-xs font-medium">
+                          {editLabel}
+                        </span>
+                      </button>
+                    </Tooltip>
+                    <Tooltip
+                      title={deleteLabel}>
+                      <button
+                        type="button"
+                        className="inline-flex items-center gap-1 rounded-md border border-transparent px-2 py-1 text-red-600 transition hover:border-red-100 hover:bg-red-50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-500 disabled:cursor-not-allowed disabled:opacity-60 dark:text-red-400 dark:hover:border-red-300/40 dark:hover:bg-red-500/10"
+                        aria-label={t("settings:manageCharacters.aria.delete", {
+                          defaultValue: "Delete character {{name}}",
+                          name
+                        })}
+                        disabled={deleting}
+                        onClick={async () => {
+                          const ok = await confirmDanger({
+                            title: t("common:confirmTitle", {
+                              defaultValue: "Please confirm"
+                            }),
+                            content: t(
+                              "settings:manageCharacters.confirm.delete",
+                              {
+                                defaultValue:
+                                  "Are you sure you want to delete this character? This action cannot be undone."
+                              }
+                            ),
+                            okText: t("common:delete", { defaultValue: "Delete" }),
+                            cancelText: t("common:cancel", {
+                              defaultValue: "Cancel"
+                            })
+                          })
+                          if (ok) {
+                            deleteCharacter(record.id || record.slug || record.name)
+                          }
+                        }}>
+                        <Trash2 className="w-4 h-4" />
+                        <span className="hidden sm:inline text-xs font-medium">
+                          {deleteLabel}
+                        </span>
+                      </button>
+                    </Tooltip>
+                  </div>
+                )
+              }
             }
           ]}
         />
       )}
 
       <Modal
+        title={
+          conversationCharacter
+            ? t("settings:manageCharacters.conversations.title", {
+                defaultValue: "Conversations for {{name}}",
+                name:
+                  conversationCharacter.name ||
+                  conversationCharacter.title ||
+                  conversationCharacter.slug ||
+                  ""
+              })
+            : t("settings:manageCharacters.conversations.titleGeneric", {
+                defaultValue: "Character conversations"
+              })
+        }
+        open={conversationsOpen}
+        onCancel={() => {
+          setConversationsOpen(false)
+          setConversationCharacter(null)
+          setCharacterChats([])
+          setChatsError(null)
+          setResumingChatId(null)
+        }}
+        footer={null}
+        destroyOnClose>
+        <div className="space-y-3">
+          <p className="text-sm text-gray-600 dark:text-gray-300">
+            {t("settings:manageCharacters.conversations.subtitle", {
+              defaultValue:
+                "Select a conversation to continue as this character."
+            })}
+          </p>
+          {chatsError && (
+            <Alert type="error" showIcon message={chatsError} />
+          )}
+          {loadingChats && <Skeleton active title paragraph={{ rows: 4 }} />}
+          {!loadingChats && !chatsError && (
+            <>
+              {characterChats.length === 0 ? (
+                <div className="rounded-md border border-dashed border-gray-200 bg-gray-50 p-3 text-sm text-gray-600 dark:border-gray-800 dark:bg-[#0f1115] dark:text-gray-300">
+                  {t("settings:manageCharacters.conversations.empty", {
+                    defaultValue: "No conversations found for this character yet."
+                  })}
+                </div>
+              ) : (
+                <div className="space-y-2">
+                  {characterChats.map((chat) => (
+                    <div
+                      key={chat.id}
+                      className="flex items-start justify-between gap-3 rounded-md border border-gray-200 bg-white p-3 shadow-sm dark:border-gray-700 dark:bg-[#0f1115]">
+                      <div className="min-w-0 space-y-1">
+                        <div className="font-medium text-gray-900 dark:text-gray-100 truncate">
+                          {chat.title ||
+                            t("settings:manageCharacters.conversations.untitled", {
+                              defaultValue: "Untitled"
+                            })}
+                        </div>
+                        <div className="text-xs text-gray-500 dark:text-gray-400">
+                          {formatUpdatedLabel(chat.updated_at || chat.created_at)}
+                        </div>
+                        <div className="flex flex-wrap items-center gap-2 text-xs text-gray-500 dark:text-gray-400">
+                          <span className="inline-flex items-center rounded-full bg-gray-100 px-2 py-0.5 lowercase text-gray-700 dark:bg-gray-800 dark:text-gray-200">
+                            {(chat.state as string) || "in-progress"}
+                          </span>
+                          {chat.topic_label && (
+                            <span
+                              className="truncate max-w-[14rem]"
+                              title={String(chat.topic_label)}
+                            >
+                              {String(chat.topic_label)}
+                            </span>
+                          )}
+                        </div>
+                      </div>
+                      <Button
+                        type="primary"
+                        size="small"
+                        loading={resumingChatId === chat.id}
+                        onClick={async () => {
+                          if (!conversationCharacter) return
+                          setResumingChatId(chat.id)
+                          try {
+                            await tldwClient.initialize()
+
+                            const assistantName =
+                              conversationCharacter.name ||
+                              conversationCharacter.title ||
+                              conversationCharacter.slug ||
+                              t("common:assistant", {
+                                defaultValue: "Assistant"
+                              })
+
+                            const messages = await tldwClient.listChatMessages(
+                              chat.id,
+                              { include_deleted: "false" } as any
+                            )
+                            const history = messages.map((m) => ({
+                              role: m.role,
+                              content: m.content
+                            }))
+                            const mappedMessages = messages.map((m) => ({
+                              isBot: m.role === "assistant",
+                              name:
+                                m.role === "assistant"
+                                  ? assistantName
+                                  : m.role === "system"
+                                    ? "System"
+                                    : "You",
+                              message: m.content,
+                              sources: [],
+                              images: [],
+                              serverMessageId: m.id,
+                              serverMessageVersion: m.version
+                            }))
+
+                            const id = characterIdentifier(conversationCharacter)
+                            setSelectedCharacter({
+                              id,
+                              name:
+                                conversationCharacter.name ||
+                                conversationCharacter.title ||
+                                conversationCharacter.slug,
+                              system_prompt:
+                                conversationCharacter.system_prompt ||
+                                conversationCharacter.systemPrompt ||
+                                conversationCharacter.instructions ||
+                                "",
+                              greeting:
+                                conversationCharacter.greeting ||
+                                conversationCharacter.first_message ||
+                                conversationCharacter.greet ||
+                                "",
+                              avatar_url:
+                                conversationCharacter.avatar_url ||
+                                validateAndCreateImageDataUrl(
+                                  conversationCharacter.image_base64
+                                ) ||
+                                ""
+                            })
+
+                            setHistoryId(null)
+                            setServerChatId(chat.id)
+                            setServerChatState(
+                              (chat as any)?.state ??
+                                (chat as any)?.conversation_state ??
+                                "in-progress"
+                            )
+                            setServerChatTopic(
+                              (chat as any)?.topic_label ?? null
+                            )
+                            setServerChatClusterId(
+                              (chat as any)?.cluster_id ?? null
+                            )
+                            setServerChatSource(
+                              (chat as any)?.source ?? null
+                            )
+                            setServerChatExternalRef(
+                              (chat as any)?.external_ref ?? null
+                            )
+                            setHistory(history)
+                            setMessages(mappedMessages)
+                            updatePageTitle(chat.title)
+                            setConversationsOpen(false)
+                            setConversationCharacter(null)
+                            navigate("/")
+                            setTimeout(() => {
+                              focusComposer()
+                            }, 0)
+                          } catch (e) {
+                            setChatsError(
+                              t("settings:manageCharacters.conversations.error", {
+                                defaultValue:
+                                  "Unable to load conversations for this character."
+                              })
+                            )
+                          } finally {
+                            setResumingChatId(null)
+                          }
+                        }}>
+                        {t("settings:manageCharacters.conversations.resume", {
+                          defaultValue: "Continue chat"
+                        })}
+                      </Button>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </>
+          )}
+        </div>
+      </Modal>
+
+      <Modal
         title={t("settings:manageCharacters.modal.addTitle", {
           defaultValue: "New character"
         })}
         open={open}
-        onCancel={() => setOpen(false)}
+        onCancel={() => {
+          setOpen(false)
+          createForm.resetFields()
+          setTimeout(() => {
+            newButtonRef.current?.focus()
+          }, 0)
+        }}
         footer={null}>
-        <Form layout="vertical" form={createForm} onFinish={(v) => createCharacter(v)}>
+        <p className="text-sm text-gray-600 dark:text-gray-300 mb-4">
+          {t("settings:manageCharacters.modal.description", {
+            defaultValue: "Define a reusable character you can chat with in the sidebar."
+          })}
+        </p>
+        <Form
+          layout="vertical"
+          form={createForm}
+          className="space-y-3"
+          onFinish={(v) => createCharacter(v)}>
           <Form.Item
             name="name"
             label={t("settings:manageCharacters.form.name.label", {
@@ -367,6 +1106,7 @@ export const CharactersManager: React.FC = () => {
               }
             ]}>
             <Input
+              ref={createNameRef}
               placeholder={t(
                 "settings:manageCharacters.form.name.placeholder",
                 { defaultValue: "e.g. Writing coach" }
@@ -399,14 +1139,45 @@ export const CharactersManager: React.FC = () => {
           </Form.Item>
           <Form.Item
             name="tags"
-            label={t("managePrompts.tags.label", { defaultValue: "Tags" })}>
+            label={t("settings:manageCharacters.tags.label", {
+              defaultValue: "Tags"
+            })}
+            help={t("settings:manageCharacters.tags.help", {
+              defaultValue:
+                "Use tags to group characters by use case (e.g., “writing”, “teaching”)."
+            })}>
             <Select
               mode="tags"
               allowClear
-              placeholder={t("managePrompts.tags.placeholder", {
-                defaultValue: "Add tags"
-              })}
+              placeholder={t(
+                "settings:manageCharacters.tags.placeholder",
+                {
+                  defaultValue: "Add tags"
+                }
+              )}
               options={allTags.map((tag) => ({ label: tag, value: tag }))}
+            />
+          </Form.Item>
+          <Form.Item
+            name="greeting"
+            label={t("settings:manageCharacters.form.greeting.label", {
+              defaultValue: "Greeting message (optional)"
+            })}
+            help={t("settings:manageCharacters.form.greeting.help", {
+              defaultValue:
+                "Optional first message the character will send when you start a chat."
+            })}>
+            <Input.TextArea
+              autoSize={{ minRows: 2, maxRows: 4 }}
+              placeholder={t(
+                "settings:manageCharacters.form.greeting.placeholder",
+                {
+                  defaultValue:
+                    "Hi there! I’m your writing coach. Paste your draft and I’ll help you tighten it up."
+                }
+              )}
+              showCount
+              maxLength={240}
             />
           </Form.Item>
           <Form.Item
@@ -421,9 +1192,149 @@ export const CharactersManager: React.FC = () => {
                 defaultValue:
                   "Describe how this character should respond, including role, tone, and constraints."
               }
-            )}>
-            <Input.TextArea autoSize={{ minRows: 3, maxRows: 8 }} />
+            )}
+            rules={[
+              {
+                min: 10,
+                message: t(
+                  "settings:manageCharacters.form.systemPrompt.min",
+                  {
+                    defaultValue:
+                      "Add a short description so the character knows how to respond."
+                  }
+                )
+              }
+            ]}>
+            <Input.TextArea
+              autoSize={{ minRows: 3, maxRows: 8 }}
+              showCount
+              maxLength={2000}
+              placeholder={t(
+                "settings:manageCharacters.form.systemPrompt.placeholder",
+                {
+                  defaultValue:
+                    "E.g., You are a patient math teacher who explains concepts step by step and checks understanding with short examples."
+                }
+              )}
+            />
           </Form.Item>
+          <div className="space-y-3 rounded-md border border-dashed border-gray-300 p-3 dark:border-gray-700">
+            <Form.Item
+              name="personality"
+              label={t("settings:manageCharacters.form.personality.label", {
+                defaultValue: "Personality"
+              })}>
+              <Input.TextArea autoSize={{ minRows: 2, maxRows: 6 }} />
+            </Form.Item>
+            <Form.Item
+              name="scenario"
+              label={t("settings:manageCharacters.form.scenario.label", {
+                defaultValue: "Scenario"
+              })}>
+              <Input.TextArea autoSize={{ minRows: 2, maxRows: 6 }} />
+            </Form.Item>
+            <Form.Item
+              name="post_history_instructions"
+              label={t("settings:manageCharacters.form.postHistory.label", {
+                defaultValue: "Post-history instructions"
+              })}>
+              <Input.TextArea autoSize={{ minRows: 2, maxRows: 6 }} />
+            </Form.Item>
+            <Form.Item
+              name="message_example"
+              label={t(
+                "settings:manageCharacters.form.messageExample.label",
+                {
+                  defaultValue: "Message example"
+                }
+              )}>
+              <Input.TextArea autoSize={{ minRows: 2, maxRows: 6 }} />
+            </Form.Item>
+            <Form.Item
+              name="creator_notes"
+              label={t(
+                "settings:manageCharacters.form.creatorNotes.label",
+                {
+                  defaultValue: "Creator notes"
+                }
+              )}>
+              <Input.TextArea autoSize={{ minRows: 2, maxRows: 6 }} />
+            </Form.Item>
+            <Form.Item
+              name="alternate_greetings"
+              label={t(
+                "settings:manageCharacters.form.alternateGreetings.label",
+                {
+                  defaultValue: "Alternate greetings"
+                }
+              )}
+              help={t(
+                "settings:manageCharacters.form.alternateGreetings.help",
+                {
+                  defaultValue:
+                    "Optional alternate greetings to rotate between when starting chats."
+                }
+              )}>
+              <Select
+                mode="tags"
+                allowClear
+                placeholder={t(
+                  "settings:manageCharacters.form.alternateGreetings.placeholder",
+                  {
+                    defaultValue: "Add alternate greetings"
+                  }
+                )}
+              />
+            </Form.Item>
+            <Form.Item
+              name="creator"
+              label={t("settings:manageCharacters.form.creator.label", {
+                defaultValue: "Creator"
+              })}>
+              <Input />
+            </Form.Item>
+            <Form.Item
+              name="character_version"
+              label={t(
+                "settings:manageCharacters.form.characterVersion.label",
+                {
+                  defaultValue: "Character version"
+                }
+              )}>
+              <Input />
+            </Form.Item>
+            <Form.Item
+              name="extensions"
+              label={t("settings:manageCharacters.form.extensions.label", {
+                defaultValue: "Extensions (JSON)"
+              })}
+              help={t(
+                "settings:manageCharacters.form.extensions.help",
+                {
+                  defaultValue:
+                    "Optional JSON object with additional metadata; invalid JSON will be sent as raw text."
+                }
+              )}>
+              <Input.TextArea autoSize={{ minRows: 2, maxRows: 8 }} />
+            </Form.Item>
+            <Form.Item
+              name="image_base64"
+              label={t(
+                "settings:manageCharacters.form.imageBase64.label",
+                {
+                  defaultValue: "Avatar image (base64)"
+                }
+              )}
+              help={t(
+                "settings:manageCharacters.form.imageBase64.help",
+                {
+                  defaultValue:
+                    "Base64-encoded PNG/JPEG/GIF without the data:image/...;base64, prefix."
+                }
+              )}>
+              <Input.TextArea autoSize={{ minRows: 2, maxRows: 6 }} />
+            </Form.Item>
+          </div>
           <Button
             type="primary"
             htmlType="submit"
@@ -445,9 +1356,26 @@ export const CharactersManager: React.FC = () => {
           defaultValue: "Edit character"
         })}
         open={openEdit}
-        onCancel={() => setOpenEdit(false)}
+        onCancel={() => {
+          setOpenEdit(false)
+          editForm.resetFields()
+          setEditId(null)
+          setEditVersion(null)
+          setTimeout(() => {
+            lastEditTriggerRef.current?.focus()
+          }, 0)
+        }}
         footer={null}>
-        <Form layout="vertical" form={editForm} onFinish={(v) => updateCharacter(v)}>
+        <p className="text-sm text-gray-600 dark:text-gray-300 mb-4">
+          {t("settings:manageCharacters.modal.description", {
+            defaultValue: "Define a reusable character you can chat with in the sidebar."
+          })}
+        </p>
+        <Form
+          layout="vertical"
+          form={editForm}
+          className="space-y-3"
+          onFinish={(v) => updateCharacter(v)}>
           <Form.Item
             name="name"
             label={t("settings:manageCharacters.form.name.label", {
@@ -463,6 +1391,7 @@ export const CharactersManager: React.FC = () => {
               }
             ]}>
             <Input
+              ref={editNameRef}
               placeholder={t(
                 "settings:manageCharacters.form.name.placeholder",
                 { defaultValue: "e.g. Writing coach" }
@@ -495,14 +1424,45 @@ export const CharactersManager: React.FC = () => {
           </Form.Item>
           <Form.Item
             name="tags"
-            label={t("managePrompts.tags.label", { defaultValue: "Tags" })}>
+            label={t("settings:manageCharacters.tags.label", {
+              defaultValue: "Tags"
+            })}
+            help={t("settings:manageCharacters.tags.help", {
+              defaultValue:
+                "Use tags to group characters by use case (e.g., “writing”, “teaching”)."
+            })}>
             <Select
               mode="tags"
               allowClear
-              placeholder={t("managePrompts.tags.placeholder", {
-                defaultValue: "Add tags"
-              })}
+              placeholder={t(
+                "settings:manageCharacters.tags.placeholder",
+                {
+                  defaultValue: "Add tags"
+                }
+              )}
               options={allTags.map((tag) => ({ label: tag, value: tag }))}
+            />
+          </Form.Item>
+          <Form.Item
+            name="greeting"
+            label={t("settings:manageCharacters.form.greeting.label", {
+              defaultValue: "Greeting message (optional)"
+            })}
+            help={t("settings:manageCharacters.form.greeting.help", {
+              defaultValue:
+                "Optional first message the character will send when you start a chat."
+            })}>
+            <Input.TextArea
+              autoSize={{ minRows: 2, maxRows: 4 }}
+              placeholder={t(
+                "settings:manageCharacters.form.greeting.placeholder",
+                {
+                  defaultValue:
+                    "Hi there! I’m your writing coach. Paste your draft and I’ll help you tighten it up."
+                }
+              )}
+              showCount
+              maxLength={240}
             />
           </Form.Item>
           <Form.Item
@@ -517,9 +1477,166 @@ export const CharactersManager: React.FC = () => {
                 defaultValue:
                   "Describe how this character should respond, including role, tone, and constraints."
               }
-            )}>
-            <Input.TextArea autoSize={{ minRows: 3, maxRows: 8 }} />
+            )}
+            rules={[
+              {
+                min: 10,
+                message: t(
+                  "settings:manageCharacters.form.systemPrompt.min",
+                  {
+                    defaultValue:
+                      "Add a short description so the character knows how to respond."
+                  }
+                )
+              }
+            ]}>
+            <Input.TextArea
+              autoSize={{ minRows: 3, maxRows: 8 }}
+              showCount
+              maxLength={2000}
+              placeholder={t(
+                "settings:manageCharacters.form.systemPrompt.placeholder",
+                {
+                  defaultValue:
+                    "E.g., You are a patient math teacher who explains concepts step by step and checks understanding with short examples."
+                }
+              )}
+            />
           </Form.Item>
+          <button
+            type="button"
+            className="mb-2 text-xs font-medium text-blue-600 underline-offset-2 hover:underline dark:text-blue-400"
+            onClick={() => setShowEditAdvanced((v) => !v)}>
+            {showEditAdvanced
+              ? t("settings:manageCharacters.advanced.hide", {
+                  defaultValue: "Hide advanced fields"
+                })
+              : t("settings:manageCharacters.advanced.show", {
+                  defaultValue: "Show advanced fields"
+                })}
+          </button>
+          {showEditAdvanced && (
+            <div className="space-y-3 rounded-md border border-dashed border-gray-300 p-3 dark:border-gray-700">
+              <Form.Item
+                name="personality"
+                label={t("settings:manageCharacters.form.personality.label", {
+                  defaultValue: "Personality"
+                })}>
+                <Input.TextArea autoSize={{ minRows: 2, maxRows: 6 }} />
+              </Form.Item>
+              <Form.Item
+                name="scenario"
+                label={t("settings:manageCharacters.form.scenario.label", {
+                  defaultValue: "Scenario"
+                })}>
+                <Input.TextArea autoSize={{ minRows: 2, maxRows: 6 }} />
+              </Form.Item>
+              <Form.Item
+                name="post_history_instructions"
+                label={t(
+                  "settings:manageCharacters.form.postHistory.label",
+                  {
+                    defaultValue: "Post-history instructions"
+                  }
+                )}>
+                <Input.TextArea autoSize={{ minRows: 2, maxRows: 6 }} />
+              </Form.Item>
+              <Form.Item
+                name="message_example"
+                label={t(
+                  "settings:manageCharacters.form.messageExample.label",
+                  {
+                    defaultValue: "Message example"
+                  }
+                )}>
+                <Input.TextArea autoSize={{ minRows: 2, maxRows: 6 }} />
+              </Form.Item>
+              <Form.Item
+                name="creator_notes"
+                label={t(
+                  "settings:manageCharacters.form.creatorNotes.label",
+                  {
+                    defaultValue: "Creator notes"
+                  }
+                )}>
+                <Input.TextArea autoSize={{ minRows: 2, maxRows: 6 }} />
+              </Form.Item>
+              <Form.Item
+                name="alternate_greetings"
+                label={t(
+                  "settings:manageCharacters.form.alternateGreetings.label",
+                  {
+                    defaultValue: "Alternate greetings"
+                  }
+                )}
+                help={t(
+                  "settings:manageCharacters.form.alternateGreetings.help",
+                  {
+                    defaultValue:
+                      "Optional alternate greetings to rotate between when starting chats."
+                  }
+                )}>
+                <Select
+                  mode="tags"
+                  allowClear
+                  placeholder={t(
+                    "settings:manageCharacters.form.alternateGreetings.placeholder",
+                    {
+                      defaultValue: "Add alternate greetings"
+                    }
+                  )}
+                />
+              </Form.Item>
+              <Form.Item
+                name="creator"
+                label={t("settings:manageCharacters.form.creator.label", {
+                  defaultValue: "Creator"
+                })}>
+                <Input />
+              </Form.Item>
+              <Form.Item
+                name="character_version"
+                label={t(
+                  "settings:manageCharacters.form.characterVersion.label",
+                  {
+                    defaultValue: "Character version"
+                  }
+                )}>
+                <Input />
+              </Form.Item>
+              <Form.Item
+                name="extensions"
+                label={t("settings:manageCharacters.form.extensions.label", {
+                  defaultValue: "Extensions (JSON)"
+                })}
+                help={t(
+                  "settings:manageCharacters.form.extensions.help",
+                  {
+                    defaultValue:
+                      "Optional JSON object with additional metadata; invalid JSON will be sent as raw text."
+                  }
+                )}>
+                <Input.TextArea autoSize={{ minRows: 2, maxRows: 8 }} />
+              </Form.Item>
+              <Form.Item
+                name="image_base64"
+                label={t(
+                  "settings:manageCharacters.form.imageBase64.label",
+                  {
+                    defaultValue: "Avatar image (base64)"
+                  }
+                )}
+                help={t(
+                  "settings:manageCharacters.form.imageBase64.help",
+                  {
+                    defaultValue:
+                      "Base64-encoded PNG/JPEG/GIF without the data:image/...;base64, prefix."
+                  }
+                )}>
+                <Input.TextArea autoSize={{ minRows: 2, maxRows: 6 }} />
+              </Form.Item>
+            </div>
+          )}
           <Button
             type="primary"
             htmlType="submit"

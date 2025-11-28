@@ -5,7 +5,6 @@ import {
   Input,
   Alert,
   Form,
-  message,
   Spin,
   Button,
   Collapse,
@@ -19,6 +18,9 @@ import { tldwClient, TldwConfig } from "@/services/tldw/TldwApiClient"
 import { tldwAuth } from "@/services/tldw/TldwAuth"
 import { SettingsSkeleton } from "@/components/Common/Settings/SettingsSkeleton"
 import { DEFAULT_TLDW_API_KEY } from "@/services/tldw-server"
+import { apiSend } from "@/services/api-send"
+import { useAntdMessage } from "@/hooks/useAntdMessage"
+import { useConnectionStore } from "@/store/connection"
 
 type TimeoutPresetKey = 'balanced' | 'extended'
 
@@ -55,6 +57,7 @@ const TIMEOUT_PRESETS: Record<TimeoutPresetKey, TimeoutValues> = {
 
 export const TldwSettings = () => {
   const { t } = useTranslation(["settings", "common"])
+  const message = useAntdMessage()
   const [form] = Form.useForm()
   const [loading, setLoading] = useState(false)
   const [initializing, setInitializing] = useState(true)
@@ -74,6 +77,7 @@ export const TldwSettings = () => {
   const [mediaRequestTimeoutSec, setMediaRequestTimeoutSec] = useState<number>(60)
   const [uploadRequestTimeoutSec, setUploadRequestTimeoutSec] = useState<number>(60)
   const [timeoutPreset, setTimeoutPreset] = useState<TimeoutPresetKey | 'custom'>('balanced')
+  const [showDefaultKeyWarning, setShowDefaultKeyWarning] = useState(false)
 
   const determinePreset = (values: TimeoutValues): TimeoutPresetKey | 'custom' => {
     for (const [key, presetValues] of Object.entries(TIMEOUT_PRESETS) as [TimeoutPresetKey, typeof TIMEOUT_PRESETS[TimeoutPresetKey]][]) {
@@ -235,7 +239,6 @@ export const TldwSettings = () => {
       if (values.authMode === 'single-user' && values.apiKey) {
         // Validate against a strictly protected endpoint by provoking a non-auth error (400) vs 401
         // We intentionally use an invalid model id; if auth is valid, server should respond 400/404/422, not 401
-        const { apiSend } = await import('@/services/api-send')
         const resp = await apiSend({
           path: `${String(values.serverUrl).replace(/\/$/, '')}/api/v1/chat/completions` as any,
           method: 'POST',
@@ -256,7 +259,6 @@ export const TldwSettings = () => {
         }
       } else {
         // Test basic health endpoint via background proxy
-        const { apiSend } = await import('@/services/api-send')
         const resp = await apiSend({
           path: `${String(values.serverUrl).replace(/\/$/, '')}/api/v1/health` as any,
           method: 'GET'
@@ -277,9 +279,26 @@ export const TldwSettings = () => {
       
       if (success) {
         message.success(t('settings:tldw.connection.success', 'Connection successful!'))
+        if (
+          values.authMode === 'single-user' &&
+          typeof values.apiKey === 'string' &&
+          values.apiKey.trim() === DEFAULT_TLDW_API_KEY
+        ) {
+          setShowDefaultKeyWarning(true)
+        } else {
+          setShowDefaultKeyWarning(false)
+        }
         await tldwClient.initialize()
+        try {
+          // Refresh shared connection state so entry views transition
+          // from the connection card to the live chat/media UI.
+          await useConnectionStore.getState().checkOnce()
+        } catch {
+          // Best-effort only; ignore failures here.
+        }
       } else {
         message.error(t('settings:tldw.connection.failed', 'Connection failed. Please check your settings.'))
+        setShowDefaultKeyWarning(false)
       }
     } catch (error) {
       setConnectionStatus('error')
@@ -380,6 +399,63 @@ export const TldwSettings = () => {
             onClose={() => setInitializingError(null)}
           />
         )}
+        {showDefaultKeyWarning && authMode === 'single-user' && (
+          <Alert
+            type="warning"
+            showIcon
+            closable
+            className="mb-4"
+            message={t(
+              'settings:tldw.defaultKeyWarning.title',
+              'Default demo API key in use'
+            )}
+            description={t(
+              'settings:tldw.defaultKeyWarning.body',
+              'You are using the default demo API key for tldw_server. For production or shared deployments, rotate the key on your server and update it here. Continue at your own risk.'
+            )}
+            onClose={() => setShowDefaultKeyWarning(false)}
+          />
+        )}
+        <div className="mb-4 p-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
+          <h3 className="font-semibold mb-2">
+            {t('settings:tldw.about.title', 'About tldw_server Integration')}
+          </h3>
+          <p className="text-sm text-gray-600 dark:text-gray-400">
+            {t(
+              'settings:tldw.about.description',
+              'This extension connects to your tldw_server instance, providing access to:'
+            )}
+          </p>
+          <ul className="mt-2 text-sm text-gray-600 dark:text-gray-400 list-disc list-inside">
+            <li>
+              {t(
+                'settings:tldw.about.points.providers',
+                'Multiple LLM providers through a unified API'
+              )}
+            </li>
+            <li>
+              {t('settings:tldw.about.points.rag', 'RAG (Retrieval-Augmented Generation) search')}
+            </li>
+            <li>
+              {t(
+                'settings:tldw.about.points.media',
+                'Media ingestion and processing'
+              )}
+            </li>
+            <li>
+              {t(
+                'settings:tldw.about.points.notes',
+                'Notes and prompts management'
+              )}
+            </li>
+            <li>
+              {t(
+                'settings:tldw.about.points.stt',
+                'Speech-to-text transcription'
+              )}
+            </li>
+          </ul>
+        </div>
         <div className="mb-4 p-2 rounded border border-transparent bg-transparent flex items-center justify-between transition-colors duration-150 hover:border-gray-200 hover:bg-gray-50 dark:border-transparent dark:hover:border-gray-700 dark:hover:bg-[#1c1c1c]">
           <div className="text-sm text-gray-800 dark:text-gray-100">
             <span className="mr-2 font-medium">{t('settings:tldw.serverLabel', 'Server:')}</span>
@@ -414,7 +490,6 @@ export const TldwSettings = () => {
           >
             <Input placeholder={t('settings:tldw.fields.serverUrl.placeholder', 'http://localhost:8000') as string} />
           </Form.Item>
-
           <Form.Item
             label={t('settings:tldw.authMode.label', 'Authentication Mode')}
             name="authMode"
@@ -428,158 +503,6 @@ export const TldwSettings = () => {
               onChange={(value) => setAuthMode(value as 'single-user' | 'multi-user')}
             />
           </Form.Item>
-
-          <Collapse className="mt-4" items={[{
-            key: 'adv',
-            label: t('settings:tldw.advancedTimeouts'),
-            children: (
-              <div className="space-y-3">
-                <div className="flex flex-col gap-2">
-                  <span className="text-sm font-medium">
-                    {t('settings:tldw.timeoutPresetLabel')}
-                  </span>
-                  <div className="flex flex-wrap items-center gap-3">
-                    <Segmented
-                      value={timeoutPreset === 'extended' ? 'extended' : 'balanced'}
-                      onChange={(value) => applyTimeoutPreset(value as TimeoutPresetKey)}
-                      options={[
-                        { label: t('settings:tldw.timeoutPresetBalanced'), value: 'balanced' },
-                        { label: t('settings:tldw.timeoutPresetExtended'), value: 'extended' }
-                      ]}
-                    />
-                    {timeoutPreset === 'custom' && (
-                      <Tag color="default">{t('settings:tldw.timeoutPresetCustom')}</Tag>
-                    )}
-                  </div>
-                  <span className="text-xs text-gray-500">
-                    {t('settings:tldw.timeoutPresetHint')}
-                  </span>
-                </div>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div>
-                    <label className="block text-sm font-medium mb-1">{t('settings:tldw.requestTimeout')}</label>
-                    <Input
-                      type="number"
-                      min={1}
-                      value={requestTimeoutSec}
-                      onChange={(e) => {
-                        setRequestTimeoutSec(parseSeconds(e.target.value, TIMEOUT_PRESETS.balanced.request))
-                        setTimeoutPreset('custom')
-                      }}
-                      placeholder="10"
-                      addonAfter="s"
-                    />
-                    <div className="text-xs text-gray-500 mt-1">
-                      {t('settings:tldw.hints.requestTimeout', {
-                        defaultValue:
-                          'Abort initial requests if no response within this time. Default: {{seconds}}s.',
-                        seconds: TIMEOUT_PRESETS.balanced.request
-                      })}
-                    </div>
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium mb-1">{t('settings:tldw.streamingIdle')}</label>
-                    <Input
-                      type="number"
-                      min={1}
-                      value={streamIdleTimeoutSec}
-                      onChange={(e) => {
-                        setStreamIdleTimeoutSec(parseSeconds(e.target.value, TIMEOUT_PRESETS.balanced.stream))
-                        setTimeoutPreset('custom')
-                      }}
-                      placeholder="15"
-                      addonAfter="s"
-                    />
-                    <div className="text-xs text-gray-500 mt-1">
-                      {t('settings:tldw.hints.streamingIdle', {
-                        defaultValue:
-                          'Abort streaming if no updates received within this time. Default: {{seconds}}s.',
-                        seconds: TIMEOUT_PRESETS.balanced.stream
-                      })}
-                    </div>
-                  </div>
-                </div>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div>
-                    <label className="block text-sm font-medium mb-1">{t('settings:tldw.chatRequest')}</label>
-                    <Input
-                      type="number"
-                      min={1}
-                      value={chatRequestTimeoutSec}
-                      onChange={(e) => {
-                        setChatRequestTimeoutSec(parseSeconds(e.target.value, TIMEOUT_PRESETS.balanced.chatRequest))
-                        setTimeoutPreset('custom')
-                      }}
-                      addonAfter="s"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium mb-1">{t('settings:tldw.chatStreamIdle')}</label>
-                    <Input
-                      type="number"
-                      min={1}
-                      value={chatStreamIdleTimeoutSec}
-                      onChange={(e) => {
-                        setChatStreamIdleTimeoutSec(parseSeconds(e.target.value, TIMEOUT_PRESETS.balanced.chatStream))
-                        setTimeoutPreset('custom')
-                      }}
-                      addonAfter="s"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium mb-1">{t('settings:tldw.ragRequest')}</label>
-                    <Input
-                      type="number"
-                      min={1}
-                      value={ragRequestTimeoutSec}
-                      onChange={(e) => {
-                        setRagRequestTimeoutSec(parseSeconds(e.target.value, TIMEOUT_PRESETS.balanced.ragRequest))
-                        setTimeoutPreset('custom')
-                      }}
-                      addonAfter="s"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium mb-1">{t('settings:tldw.mediaRequest')}</label>
-                    <Input
-                      type="number"
-                      min={1}
-                      value={mediaRequestTimeoutSec}
-                      onChange={(e) => {
-                        setMediaRequestTimeoutSec(parseSeconds(e.target.value, TIMEOUT_PRESETS.balanced.media))
-                        setTimeoutPreset('custom')
-                      }}
-                      addonAfter="s"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium mb-1">{t('settings:tldw.uploadRequest')}</label>
-                    <Input
-                      type="number"
-                      min={1}
-                      value={uploadRequestTimeoutSec}
-                      onChange={(e) => {
-                        setUploadRequestTimeoutSec(parseSeconds(e.target.value, TIMEOUT_PRESETS.balanced.upload))
-                        setTimeoutPreset('custom')
-                      }}
-                      addonAfter="s"
-                    />
-                  </div>
-                </div>
-                <div className="flex justify-end">
-                  <Button
-                    onClick={() => {
-                      applyTimeoutPreset('balanced')
-                      message.success(t('settings:tldw.resetDone'))
-                    }}
-                  >
-                    {t('settings:tldw.reset')}
-                  </Button>
-                </div>
-              </div>
-            )
-          }]} />
-
           {authMode === 'single-user' && (
             <Form.Item
               label={t('settings:tldw.fields.apiKey.label', 'API Key')}
@@ -641,31 +564,31 @@ export const TldwSettings = () => {
           )}
 
           <Space className="w-full justify-between">
-          <Space>
-            <Button type="primary" htmlType="submit">
-              {t("common:save")}
-            </Button>
-            
-            <Button 
-              onClick={testConnection}
-              loading={testingConnection}
-              icon={
-                connectionStatus === 'success' ? (
-                  <CheckIcon className="w-4 h-4 text-green-500" />
-                ) : connectionStatus === 'error' ? (
-                  <XMarkIcon className="w-4 h-4 text-red-500" />
-                ) : null
-              }
-            >
-              {t('settings:tldw.buttons.testConnection', 'Test Connection')}
-            </Button>
-
-            {import.meta.env.BROWSER !== 'firefox' && (
-              <Button onClick={grantSiteAccess}>
-                {t('settings:tldw.buttons.grantSiteAccess', 'Grant Site Access')}
+            <Space>
+              <Button type="primary" htmlType="submit">
+                {t('common:save')}
               </Button>
-            )}
-          </Space>
+
+              <Button
+                onClick={testConnection}
+                loading={testingConnection}
+                icon={
+                  connectionStatus === 'success' ? (
+                    <CheckIcon className="w-4 h-4 text-green-500" />
+                  ) : connectionStatus === 'error' ? (
+                    <XMarkIcon className="w-4 h-4 text-red-500" />
+                  ) : null
+                }
+              >
+                {t('settings:tldw.buttons.testConnection', 'Test Connection')}
+              </Button>
+
+              {import.meta.env.BROWSER !== 'firefox' && (
+                <Button onClick={grantSiteAccess}>
+                  {t('settings:tldw.buttons.grantSiteAccess', 'Grant Site Access')}
+                </Button>
+              )}
+            </Space>
 
             {connectionStatus && (
               <span className={`text-sm ${connectionStatus === 'success' ? 'text-green-500' : 'text-red-500'}`}>
@@ -688,21 +611,219 @@ export const TldwSettings = () => {
               </div>
             )}
           </Space>
+          <Collapse
+            className="mt-4"
+            items={[
+              {
+                key: 'adv',
+                label: t('settings:tldw.advancedTimeouts'),
+                children: (
+                  <div className="space-y-3">
+                    <div className="flex flex-col gap-2">
+                      <span className="text-sm font-medium">
+                        {t('settings:tldw.timeoutPresetLabel')}
+                      </span>
+                      <div className="flex flex-wrap items-center gap-3">
+                        <Segmented
+                          value={timeoutPreset === 'extended' ? 'extended' : 'balanced'}
+                          onChange={(value) => applyTimeoutPreset(value as TimeoutPresetKey)}
+                          options={[
+                            {
+                              label: t('settings:tldw.timeoutPresetBalanced'),
+                              value: 'balanced'
+                            },
+                            {
+                              label: t('settings:tldw.timeoutPresetExtended'),
+                              value: 'extended'
+                            }
+                          ]}
+                        />
+                        {timeoutPreset === 'custom' && (
+                          <Tag color="default">
+                            {t('settings:tldw.timeoutPresetCustom')}
+                          </Tag>
+                        )}
+                      </div>
+                      <span className="text-xs text-gray-500">
+                        {t('settings:tldw.timeoutPresetHint')}
+                      </span>
+                    </div>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      <div>
+                        <label className="block text-sm font-medium mb-1">
+                          {t('settings:tldw.requestTimeout')}
+                        </label>
+                        <Input
+                          type="number"
+                          min={1}
+                          value={requestTimeoutSec}
+                          onChange={(e) => {
+                            setRequestTimeoutSec(
+                              parseSeconds(
+                                e.target.value,
+                                TIMEOUT_PRESETS.balanced.request
+                              )
+                            )
+                            setTimeoutPreset('custom')
+                          }}
+                          placeholder="10"
+                          suffix="s"
+                        />
+                        <div className="text-xs text-gray-500 mt-1">
+                          {t('settings:tldw.hints.requestTimeout', {
+                            defaultValue:
+                              'Abort initial requests if no response within this time. Default: {{seconds}}s.',
+                            seconds: TIMEOUT_PRESETS.balanced.request
+                          })}
+                        </div>
+                      </div>
+                      <div>
+                        <label className="block text-sm font-medium mb-1">
+                          {t('settings:tldw.streamingIdle')}
+                        </label>
+                        <Input
+                          type="number"
+                          min={1}
+                          value={streamIdleTimeoutSec}
+                          onChange={(e) => {
+                            setStreamIdleTimeoutSec(
+                              parseSeconds(
+                                e.target.value,
+                                TIMEOUT_PRESETS.balanced.stream
+                              )
+                            )
+                            setTimeoutPreset('custom')
+                          }}
+                          placeholder="15"
+                          suffix="s"
+                        />
+                        <div className="text-xs text-gray-500 mt-1">
+                          {t('settings:tldw.hints.streamingIdle', {
+                            defaultValue:
+                              'Abort streaming if no updates received within this time. Default: {{seconds}}s.',
+                            seconds: TIMEOUT_PRESETS.balanced.stream
+                          })}
+                        </div>
+                      </div>
+                    </div>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      <div>
+                        <label className="block text-sm font-medium mb-1">
+                          {t('settings:tldw.chatRequest')}
+                        </label>
+                        <Input
+                          type="number"
+                          min={1}
+                          value={chatRequestTimeoutSec}
+                          onChange={(e) => {
+                            setChatRequestTimeoutSec(
+                              parseSeconds(
+                                e.target.value,
+                                TIMEOUT_PRESETS.balanced.chatRequest
+                              )
+                            )
+                            setTimeoutPreset('custom')
+                          }}
+                          suffix="s"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-sm font-medium mb-1">
+                          {t('settings:tldw.chatStreamIdle')}
+                        </label>
+                        <Input
+                          type="number"
+                          min={1}
+                          value={chatStreamIdleTimeoutSec}
+                          onChange={(e) => {
+                            setChatStreamIdleTimeoutSec(
+                              parseSeconds(
+                                e.target.value,
+                                TIMEOUT_PRESETS.balanced.chatStream
+                              )
+                            )
+                            setTimeoutPreset('custom')
+                          }}
+                          suffix="s"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-sm font-medium mb-1">
+                          {t('settings:tldw.ragRequest')}
+                        </label>
+                        <Input
+                          type="number"
+                          min={1}
+                          value={ragRequestTimeoutSec}
+                          onChange={(e) => {
+                            setRagRequestTimeoutSec(
+                              parseSeconds(
+                                e.target.value,
+                                TIMEOUT_PRESETS.balanced.ragRequest
+                              )
+                            )
+                            setTimeoutPreset('custom')
+                          }}
+                          suffix="s"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-sm font-medium mb-1">
+                          {t('settings:tldw.mediaRequest')}
+                        </label>
+                        <Input
+                          type="number"
+                          min={1}
+                          value={mediaRequestTimeoutSec}
+                          onChange={(e) => {
+                            setMediaRequestTimeoutSec(
+                              parseSeconds(
+                                e.target.value,
+                                TIMEOUT_PRESETS.balanced.media
+                              )
+                            )
+                            setTimeoutPreset('custom')
+                          }}
+                          suffix="s"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-sm font-medium mb-1">
+                          {t('settings:tldw.uploadRequest')}
+                        </label>
+                        <Input
+                          type="number"
+                          min={1}
+                          value={uploadRequestTimeoutSec}
+                          onChange={(e) => {
+                            setUploadRequestTimeoutSec(
+                              parseSeconds(
+                                e.target.value,
+                                TIMEOUT_PRESETS.balanced.upload
+                              )
+                            )
+                            setTimeoutPreset('custom')
+                          }}
+                          suffix="s"
+                        />
+                      </div>
+                    </div>
+                    <div className="flex justify-end">
+                      <Button
+                        onClick={() => {
+                          applyTimeoutPreset('balanced')
+                          message.success(t('settings:tldw.resetDone'))
+                        }}
+                      >
+                        {t('settings:tldw.reset')}
+                      </Button>
+                    </div>
+                  </div>
+                )
+              }
+            ]}
+          />
         </Form>
-
-        <div className="mt-8 p-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
-          <h3 className="font-semibold mb-2">{t('settings:tldw.about.title', 'About tldw_server Integration')}</h3>
-          <p className="text-sm text-gray-600 dark:text-gray-400">
-            {t('settings:tldw.about.description', 'This extension connects to your tldw_server instance, providing access to:')}
-          </p>
-          <ul className="mt-2 text-sm text-gray-600 dark:text-gray-400 list-disc list-inside">
-            <li>{t('settings:tldw.about.points.providers', 'Multiple LLM providers through a unified API')}</li>
-            <li>{t('settings:tldw.about.points.rag', 'RAG (Retrieval-Augmented Generation) search')}</li>
-            <li>{t('settings:tldw.about.points.media', 'Media ingestion and processing')}</li>
-            <li>{t('settings:tldw.about.points.notes', 'Notes and prompts management')}</li>
-            <li>{t('settings:tldw.about.points.stt', 'Speech-to-text transcription')}</li>
-          </ul>
-        </div>
       </div>
     </Spin>
   )

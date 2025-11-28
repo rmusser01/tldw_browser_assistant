@@ -6,7 +6,6 @@ import {
   Empty,
   Input,
   List,
-  message,
   Space,
   Spin,
   Tag,
@@ -35,10 +34,11 @@ import { ChevronDown, CopyIcon, SendIcon } from "lucide-react"
 import { useNavigate } from "react-router-dom"
 import { Storage } from "@plasmohq/storage"
 import { getAllPrompts } from "@/db/dexie/helpers"
-import { confirmDanger } from "@/components/Common/confirm-danger"
+import { useConfirmDanger } from "@/components/Common/confirm-danger"
 import FeatureEmptyState from "@/components/Common/FeatureEmptyState"
 import { useAntdNotification } from "@/hooks/useAntdNotification"
 import { useDemoMode } from "@/context/demo-mode"
+import { useAntdMessage } from "@/hooks/useAntdMessage"
 
 type MediaItem = any
 type NoteItem = any
@@ -52,11 +52,13 @@ type ResultItem = {
   raw: any
 }
 
-type ReviewPageProps = { allowGeneration?: boolean }
+type ReviewPageProps = { allowGeneration?: boolean; forceOffline?: boolean }
 
-export const ReviewPage: React.FC<ReviewPageProps> = ({ allowGeneration = true }) => {
+export const ReviewPage: React.FC<ReviewPageProps> = ({ allowGeneration = true, forceOffline = false }) => {
   const { t } = useTranslation(["option", "review"])
   const notification = useAntdNotification()
+  const message = useAntdMessage()
+  const confirmDanger = useConfirmDanger()
   const isViewMediaMode = !allowGeneration
   const [query, setQuery] = React.useState<string>("")
   const [kinds, setKinds] = React.useState<{ media: boolean; notes: boolean }>(() => ({
@@ -67,7 +69,14 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({ allowGeneration = true }
   const [analysis, setAnalysis] = React.useState<string>("")
   const [loadingAnalysis, setLoadingAnalysis] = React.useState<boolean>(false)
   const [existingAnalyses, setExistingAnalyses] = React.useState<NoteItem[]>([])
-  const { selectedModel, messages, setMessages } = useMessageOption()
+  const {
+    selectedModel,
+    messages,
+    setMessages,
+    setChatMode,
+    setSelectedKnowledge,
+    setRagMediaIds
+  } = useMessageOption()
   const navigate = useNavigate()
   const [lastPrompt, setLastPrompt] = React.useState<string | null>(null)
   const [mediaTypes, setMediaTypes] = React.useState<string[]>([])
@@ -128,7 +137,8 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({ allowGeneration = true }
   const [sidebarHidden, setSidebarHidden] = React.useState<boolean>(false)
   const [advancedOpen, setAdvancedOpen] = React.useState<boolean>(false)
   const modeToastPrev = React.useRef<"review" | "summary" | null>(null)
-  const isOnline = useServerOnline()
+  const serverOnline = useServerOnline()
+  const isOnline = forceOffline ? false : serverOnline
 
   // Storage scoping: per server host and auth mode to avoid cross-user leakage
   const scopedKey = React.useCallback((base: string) => {
@@ -402,6 +412,14 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({ allowGeneration = true }
       } catch {}
     })()
   }, [reviewSystemPrompt, reviewUserPrefix, summarySystemPrompt, summaryUserPrefix, scopedKey])
+
+  const hasSelectedMedia = selected?.kind === "media"
+  const hasSelectedVersion =
+    hasSelectedMedia &&
+    selectedExistingIndex >= 0 &&
+    selectedExistingIndex < existingAnalyses.length
+  const canCreateVersion =
+    hasSelectedMedia && !!selectedContent?.trim() && !!analysis.trim()
 
   // Persist auto-review toggle in storage (load)
   React.useEffect(() => {
@@ -978,6 +996,19 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({ allowGeneration = true }
     return displayedResults.findIndex((r) => r.id === selected.id && r.kind === selected.kind)
   }, [displayedResults, selected])
 
+  // If the currently selected item drops out of the visible results (after filters/search),
+  // clear the selection to avoid confusing "stale" details.
+  React.useEffect(() => {
+    if (!selected) return
+    const stillVisible = displayedResults.some(
+      (r) => r.id === selected.id && r.kind === selected.kind
+    )
+    if (!stillVisible) {
+      setSelected(null)
+      setAnalysis("")
+    }
+  }, [displayedResults, selected])
+
   const { demoEnabled } = useDemoMode()
   const [previewExpanded, setPreviewExpanded] = React.useState<{ content: boolean; analysis: boolean }>({ content: false, analysis: false })
   const previewCards = React.useMemo(() => ([
@@ -1036,6 +1067,11 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({ allowGeneration = true }
           defaultValue: 'Connect to server'
         })}
         onPrimaryAction={() => navigate('/settings/tldw')}
+        secondaryActionLabel={t('option:header.quickIngest', 'Quick ingest')}
+        onSecondaryAction={() =>
+          window.dispatchEvent(new CustomEvent("tldw:open-quick-ingest"))
+        }
+        secondaryDisabled={!isOnline}
       />
     ) : (
       <FeatureEmptyState
@@ -1086,6 +1122,11 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({ allowGeneration = true }
           defaultValue: 'Connect to server'
         })}
         onPrimaryAction={() => navigate('/settings/tldw')}
+        secondaryActionLabel={t('option:header.quickIngest', 'Quick ingest')}
+        onSecondaryAction={() =>
+          window.dispatchEvent(new CustomEvent("tldw:open-quick-ingest"))
+        }
+        secondaryDisabled={!isOnline}
       />
     )
 
@@ -1176,13 +1217,33 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({ allowGeneration = true }
       {!sidebarHidden && (
       <div className="w-full lg:w-1/3 min-w-0 lg:sticky lg:top-16 lg:self-start">
         <div className="p-3 rounded-lg border dark:border-gray-700 bg-white dark:bg-[#171717]">
+          {isViewMediaMode && (
+            <p className="mb-2 text-xs text-gray-500 dark:text-gray-400">
+              {t(
+                'review:reviewPage.mediaModeHint',
+                'Search and inspect one media item at a time. Select a result to view its content and analyses on the right.'
+              )}
+            </p>
+          )}
           <div className="flex flex-wrap items-center gap-2">
             <Input
               allowClear
+              disabled={!isOnline}
               placeholder={
                 isViewMediaMode
                   ? t('review:reviewPage.mediaOnlySearchPlaceholder', 'Search media (title/content)')
                   : t('review:reviewPage.searchPlaceholder', 'Search media, notes...')
+              }
+              aria-label={
+                isViewMediaMode
+                  ? (t(
+                      'review:reviewPage.mediaOnlySearchPlaceholder',
+                      'Search media (title/content)'
+                    ) as string)
+                  : (t(
+                      'review:reviewPage.searchPlaceholder',
+                      'Search media, notes...'
+                    ) as string)
               }
               value={query}
               onChange={(e) => setQuery(e.target.value)}
@@ -1190,9 +1251,18 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({ allowGeneration = true }
               className="flex-1 min-w-[12rem]"
             />
           </div>
+          {!isOnline && (
+            <p className="mt-2 text-xs text-gray-500 dark:text-gray-400">
+              {t(
+                'review:reviewPage.offlineHint',
+                'Connect to your tldw server in Settings to send messages and view media. Then you can search media from this page.'
+              )}
+            </p>
+          )}
           <div className="mt-2">
             <Button
               type="primary"
+              disabled={!isOnline}
               onClick={() => {
                 setPage(1)
                 refetch()
@@ -1250,6 +1320,9 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({ allowGeneration = true }
                 mode="tags"
                 allowClear
                 placeholder={t('review:reviewPage.mediaTypes', 'Media types')}
+                aria-label={
+                  t('review:reviewPage.mediaTypes', 'Media types') as string
+                }
                 className="min-w-[12rem] flex-1"
                 value={mediaTypes}
                 onChange={(vals) => {
@@ -1265,6 +1338,9 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({ allowGeneration = true }
                 mode="tags"
                 allowClear
                 placeholder={t('review:reviewPage.keywords', 'Keywords')}
+                aria-label={
+                  t('review:reviewPage.keywords', 'Keywords') as string
+                }
                 className="min-w-[12rem] flex-1"
                 value={keywordTokens}
                 onSearch={(txt) => loadKeywordSuggestions(txt)}
@@ -1311,6 +1387,12 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({ allowGeneration = true }
               </div>
             )}
           </div>
+          <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">
+            {t(
+              'review:mediaPage.filterHelp',
+              'Search matches title and content; Media types and Keywords further narrow the results.'
+            )}
+          </p>
         </div>
         <div className="mt-3 p-3 rounded-lg border dark:border-gray-700 bg-white dark:bg-[#171717] max-h-[50vh] md:max-h-[60vh] lg:max-h-[calc(100dvh-18rem)] overflow-auto">
           <div
@@ -1325,13 +1407,49 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({ allowGeneration = true }
                 {t('review:reviewPage.loadedOf', '{{count}} loaded', { count: displayedResults.length })}{mediaTotal ? ` · ${mediaTotal} total` : ''}
               </span>
             </div>
-            <span className="text-xs text-gray-400">
-              {`${displayedResults.length} item${displayedResults.length === 1 ? '' : 's'}`}
-            </span>
+            <div className="flex items-center gap-2">
+              <span className="text-xs text-gray-400">
+                {`${displayedResults.length} item${displayedResults.length === 1 ? '' : 's'}`}
+              </span>
+              <Tooltip
+                title={
+                  t(
+                    'review:reviewPage.resultsHelp',
+                    'Keyboard: Tab into the results list, use Enter or Space to select the focused row, then use the Prev/Next buttons in the analysis toolbar to move between items.'
+                  ) as string
+                }
+              >
+                <Button
+                  size="small"
+                  shape="circle"
+                  type="text"
+                  aria-label={t(
+                    'review:reviewPage.resultsHelpLabel',
+                    'Review results keyboard shortcuts'
+                  ) as string}
+                  className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-200"
+                >
+                  ?
+                </Button>
+              </Tooltip>
+            </div>
           </div>
+          <p className="mb-2 text-xs text-gray-500 dark:text-gray-400">
+            {t(
+              'review:reviewPage.resultsHint',
+              'Click a result to load its content and analyses on the right.'
+            )}
+          </p>
           {isFetching ? (
-            <div className="flex items-center justify-center py-10">
+            <div
+              className="flex flex-col items-center justify-center py-10"
+              role="status"
+              aria-live="polite"
+            >
               <Spin />
+              <div className="mt-2 text-xs text-gray-500 dark:text-gray-400">
+                {t('review:mediaPage.searchingBanner', 'Searching media…')}
+              </div>
             </div>
           ) : (
             <List
@@ -1372,8 +1490,10 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({ allowGeneration = true }
                         loadExistingAnalyses(item)
                       }
                     }}
-                    className={`cursor-pointer hover:bg-gray-50 dark:hover:bg-[#262626] rounded px-2 result-fade-in ${
-                      isSelected ? '!bg-gray-100 dark:!bg-gray-800' : ''
+                    className={`cursor-pointer hover:bg-gray-50 dark:hover:bg-[#262626] rounded px-2 result-fade-in border-l-2 ${
+                      isSelected
+                        ? 'border-l-blue-500 !bg-gray-100 dark:!bg-gray-800'
+                        : 'border-l-transparent'
                     }`}>
                     <div className="w-full">
                       <div className="flex items-center gap-2">
@@ -1386,6 +1506,11 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({ allowGeneration = true }
                           className="max-w-[18rem]">
                           {item.title || String(item.id)}
                         </Typography.Text>
+                        {isSelected && (
+                          <Tag color="green" className="text-[10px]">
+                            {t('review:reviewPage.selectedBadge', 'Selected')}
+                          </Tag>
+                        )}
                       </div>
                       {item.snippet && (
                         <div className="text-xs text-gray-500 truncate mt-0.5">
@@ -1405,7 +1530,7 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({ allowGeneration = true }
             />
           )}
           {kinds.media && mediaTotal > 0 && (
-            <div className="mt-3 flex justify-center">
+            <div className="mt-3 flex flex-col items-center gap-1">
               <Pagination
                 size="small"
                 current={page}
@@ -1418,6 +1543,12 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({ allowGeneration = true }
                   setPageSize(ps)
                 }}
               />
+              <p className="text-[11px] text-gray-500 dark:text-gray-400">
+                {t(
+                  'review:reviewPage.paginationHint',
+                  'Use filters or pagination to refine the results if many items are loaded.'
+                )}
+              </p>
             </div>
           )}
         </div>
@@ -1425,48 +1556,103 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({ allowGeneration = true }
       )}
       {/* Vertical toggle bar */}
       <div className="w-6 flex-shrink-0 h-full flex items-center">
+        {/*
+          Align with Multi-Item Review: state-aware accessible label.
+        */}
+        {(() => {
+          const sidebarLabel = sidebarHidden
+            ? t('review:reviewPage.showSidebar', 'Show results sidebar')
+            : t('review:reviewPage.hideSidebar', 'Hide results sidebar')
+          return (
         <button
-          title={
-            sidebarHidden
-              ? t('review:reviewPage.showSidebar', 'Show results sidebar')
-              : t('review:reviewPage.hideSidebar', 'Hide results sidebar')
-          }
-          aria-label={t('review:reviewPage.toggleSidebar', 'Toggle results sidebar')}
+          title={sidebarLabel}
+          aria-label={sidebarLabel}
           onClick={() => setSidebarHidden((v) => !v)}
           className="h-full w-6 rounded bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 flex items-center justify-center text-xs font-semibold text-gray-600 dark:text-gray-300"
         >
           <span className="sr-only">
-            {t('review:reviewPage.toggleSidebar', 'Toggle results sidebar')}
+            {sidebarLabel}
           </span>
           <span aria-hidden="true">
             {sidebarHidden ? '>>' : '<<'}
           </span>
         </button>
+          )
+        })()}
       </div>
 
       {/* Right/center: analysis panel */}
       <div className="flex-1 p-3 rounded-lg border dark:border-gray-700 bg-white dark:bg-[#171717] min-h-[70vh] min-w-0 lg:h-[calc(100dvh-8rem)] overflow-auto">
         <div className="sticky top-0 z-20 mb-3 flex flex-wrap items-center gap-2 rounded-md border border-dashed border-gray-300 bg-white/80 p-2 dark:border-gray-700 dark:bg-[#111111]/80 backdrop-blur">
           <div className="flex items-center gap-2 text-xs text-gray-600 dark:text-gray-300">
-            <span className="font-semibold uppercase">{t('review:reviewPage.bulkToolbar', 'Bulk view toolbar')}</span>
+            <span className="font-semibold uppercase">
+              {t('review:reviewPage.bulkToolbar', 'Review controls')}
+            </span>
             <span className="text-gray-500">
               {t('review:reviewPage.loadedCount', '{{count}} loaded', { count: displayedResults.length })}
               {mediaTotal > 0 ? ` / ${mediaTotal}` : ""}
             </span>
           </div>
-          <div className="flex flex-wrap items-center gap-2 ml-auto">
-            <Button size="small" onClick={() => { setContentCollapsed(false); setAnalysisCollapsed(false) }}>
-              {t('review:reviewPage.expandAllContent', 'Expand all')}
+          {isViewMediaMode && selected && selected.kind === 'media' && (
+            <Button
+              size="small"
+              type="link"
+              onClick={() => {
+                try {
+                  localStorage.setItem('tldw:lastMediaId', String(selected.id))
+                } catch {}
+                navigate('/media-multi')
+              }}
+            >
+              {t('review:reviewPage.openInMulti', 'Open in Multi-Item Review')}
             </Button>
-            <Button size="small" onClick={() => { setContentCollapsed(true); setAnalysisCollapsed(true) }}>
-              {t('review:reviewPage.collapseAllContent', 'Collapse all')}
-            </Button>
-            <Button size="small" onClick={goPrevItem} disabled={selectedResultIndex <= 0}>
-              {t('review:reviewPage.prevItem', 'Prev item')}
-            </Button>
-            <Button size="small" onClick={goNextItem} disabled={selectedResultIndex < 0 || selectedResultIndex >= displayedResults.length - 1}>
-              {t('review:reviewPage.nextItem', 'Next item')}
-            </Button>
+          )}
+          <div className="flex flex-wrap items-center gap-3 ml-auto">
+            <div className="flex flex-wrap items-center gap-1">
+              <span className="text-[11px] text-gray-500">
+                {t('review:reviewPage.viewLabel', 'Content view')}
+              </span>
+              <Button
+                size="small"
+                onClick={() => {
+                  setContentCollapsed(false)
+                  setAnalysisCollapsed(false)
+                }}
+              >
+                {t('review:reviewPage.expandAllContent', 'Show full')}
+              </Button>
+              <Button
+                size="small"
+                onClick={() => {
+                  setContentCollapsed(true)
+                  setAnalysisCollapsed(true)
+                }}
+              >
+                {t('review:reviewPage.collapseAllContent', 'Show shorter')}
+              </Button>
+            </div>
+            <div className="flex flex-wrap items-center gap-1">
+              <span className="text-[11px] text-gray-500">
+                {t('review:reviewPage.navigateLabel', 'Items')}
+              </span>
+              <Button
+                size="small"
+                onClick={goPrevItem}
+                disabled={selectedResultIndex <= 0}
+              >
+                {t('review:reviewPage.prevItem', 'Previous')}
+              </Button>
+              <Button
+                size="small"
+                onClick={goNextItem}
+                disabled={
+                  selectedResultIndex < 0 ||
+                  selectedResultIndex >= displayedResults.length - 1
+                }
+              >
+                {t('review:reviewPage.nextItem', 'Next')}
+              </Button>
+            </div>
           </div>
           {displayedResults.length > 5 && (
             <div className="w-full flex flex-wrap items-center gap-2">
@@ -1500,7 +1686,7 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({ allowGeneration = true }
             />
           </div>
         ) : (
-          <div className="flex flex-col gap-3 h-full min-w-0">
+            <div className="flex flex-col gap-3 h-full min-w-0">
             <div className="flex flex-wrap items-center justify-between gap-2">
               <div className="flex items-center gap-2 min-w-0">
                 <Tag color={selected.kind === "media" ? "blue" : "gold"}>
@@ -1515,112 +1701,447 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({ allowGeneration = true }
                   <Tag color="green">Current v{currentVersionNumber}</Tag>
                 )}
               </div>
-              <div className="flex flex-wrap items-center gap-2">
-                {allowGeneration && (
-                  <>
-                    <Tooltip title="Quick Review">
-                      <Button icon={(<SparklesIcon className="w-4 h-4" />) as any} onClick={() => runOneOff("review")} loading={loadingAnalysis}>Review</Button>
-                    </Tooltip>
-                    <Tooltip title="Summarize">
-                      <Button icon={(<FileTextIcon className="w-4 h-4" />) as any} onClick={() => runOneOff("summary")} loading={loadingAnalysis}>Summarize</Button>
-                    </Tooltip>
+              <div className="flex flex-wrap items-center gap-3">
+              <div className="flex flex-col gap-1">
+                <span className="text-[11px] text-gray-500">
+                  {t(
+                    "review:reviewPage.askAssistantLabel",
+                    "Ask the assistant"
+                  )}
+                </span>
+                <div className="flex flex-wrap items-center gap-2">
+                  {selected?.kind === "media" && (
+                    <>
+                      <Tooltip
+                        title={
+                          t(
+                            "review:reviewPage.chatWithMediaHint",
+                            "Open Chat and prefill the composer with this media’s content."
+                          ) as string
+                        }
+                      >
+                        <Button
+                          icon={(<SendIcon className="w-4 h-4" />) as any}
+                          onClick={() => {
+                            const title = selected.title || String(selected.id)
+                            const content =
+                              selectedContent ||
+                              contentFromDetail(selectedDetail) ||
+                              ""
+                            try {
+                              const payload = {
+                                mediaId: String(selected.id),
+                                title,
+                                content
+                              }
+                              if (typeof window !== "undefined") {
+                                window.localStorage.setItem(
+                                  "tldw:discussMediaPrompt",
+                                  JSON.stringify(payload)
+                                )
+                                try {
+                                  window.dispatchEvent(
+                                    new CustomEvent("tldw:discuss-media", {
+                                      detail: payload
+                                    })
+                                  )
+                                } catch {
+                                  // ignore event errors
+                                }
+                              }
+                            } catch {
+                              // ignore storage errors
+                            }
+                            setChatMode("normal")
+                            setSelectedKnowledge(null as any)
+                            setRagMediaIds(null)
+                            navigate("/")
+                            message.success(
+                              t(
+                                "review:reviewPage.chatPrepared",
+                                "Prepared chat with this media in the composer."
+                              )
+                            )
+                          }}
+                        >
+                          {t(
+                            "review:reviewPage.chatWithMedia",
+                            "Chat with this media"
+                          )}
+                        </Button>
+                      </Tooltip>
+                      <Tooltip
+                        title={
+                          t(
+                            "review:reviewPage.chatAboutMediaHint",
+                            "Open RAG chat scoped to this media only."
+                          ) as string
+                        }
+                      >
+                        <Button
+                          onClick={() => {
+                            const idNum = Number(selected.id)
+                            if (!Number.isFinite(idNum)) {
+                              message.warning(
+                                t(
+                                  "review:reviewPage.chatAboutMediaInvalidId",
+                                  "This media item does not have a numeric id yet."
+                                )
+                              )
+                              return
+                            }
+                            setSelectedKnowledge(null as any)
+                            setRagMediaIds([idNum])
+                            setChatMode("rag")
+                            navigate("/")
+                            try {
+                              if (typeof window !== "undefined") {
+                                window.dispatchEvent(
+                                  new CustomEvent("tldw:focus-composer")
+                                )
+                              }
+                            } catch {
+                              // ignore
+                            }
+                            message.success(
+                              t(
+                                "review:reviewPage.chatAboutMediaRagSent",
+                                "Opened media-scoped RAG chat."
+                              )
+                            )
+                          }}
+                        >
+                          {t(
+                            "review:reviewPage.chatAboutMedia",
+                            "Chat about this media"
+                          )}
+                        </Button>
+                      </Tooltip>
+                    </>
+                  )}
+                  {allowGeneration && (
+                      <>
+                        <Tooltip
+                          title={
+                            t(
+                              "review:reviewPage.reviewHint",
+                              "Ask the assistant to review this item."
+                            ) as string
+                          }
+                        >
+                          <Button
+                            icon={(<SparklesIcon className="w-4 h-4" />) as any}
+                            onClick={() => runOneOff("review")}
+                            loading={loadingAnalysis}
+                          >
+                            {t("review:reviewPage.review", "Get review")}
+                          </Button>
+                        </Tooltip>
+                        <Tooltip
+                          title={
+                            t(
+                              "review:reviewPage.summaryHint",
+                              "Ask for a shorter summary."
+                            ) as string
+                          }
+                        >
+                          <Button
+                            icon={(<FileTextIcon className="w-4 h-4" />) as any}
+                            onClick={() => runOneOff("summary")}
+                            loading={loadingAnalysis}
+                          >
+                            {t("review:reviewPage.summary", "Get summary")}
+                          </Button>
+                        </Tooltip>
+                      </>
+                    )}
+                  </div>
+                </div>
+                <div className="flex flex-col gap-1">
+                  <span className="text-[11px] text-gray-500">
+                    {t(
+                      "review:reviewPage.saveResultsLabel",
+                      "Save results"
+                    )}
+                  </span>
+                  <div className="flex flex-wrap items-center gap-2">
+                    {allowGeneration && selected?.kind === "media" && (
+                      <>
+                        <Tooltip
+                          title={
+                            t(
+                              "review:reviewPage.attachGeneratedHint",
+                              "Run the assistant and attach the result to this media item."
+                            ) as string
+                          }
+                        >
+                          <Button
+                            onClick={() => analyzeAndSaveToMedia(analysisMode)}
+                            loading={loadingAnalysis}
+                          >
+                            {analysisMode === "review"
+                              ? t(
+                                  "review:reviewPage.attachReview",
+                                  "Attach review to media"
+                                )
+                              : t(
+                                  "review:reviewPage.attachSummary",
+                                  "Attach summary to media"
+                                )}
+                          </Button>
+                        </Tooltip>
+                        <Tooltip
+                          title={
+                            t(
+                              "review:reviewPage.saveGeneratedNoteHint",
+                              "Run the assistant and save the result as a note."
+                            ) as string
+                          }
+                        >
+                          <Button
+                            onClick={() => analyzeAndSaveToNote(analysisMode)}
+                            loading={loadingAnalysis}
+                          >
+                            {analysisMode === "review"
+                              ? t(
+                                  "review:reviewPage.saveReviewNote",
+                                  "Save review as note"
+                                )
+                              : t(
+                                  "review:reviewPage.saveSummaryNote",
+                                  "Save summary as note"
+                                )}
+                          </Button>
+                        </Tooltip>
+                      </>
+                    )}
                     {selected?.kind === "media" && (
-                      <Tooltip title="Analyze & attach to media">
-                        <Button onClick={() => analyzeAndSaveToMedia(analysisMode)} loading={loadingAnalysis}>
-                          {analysisMode === 'review' ? 'Generate review & attach' : 'Generate summary & attach'}
+                      <Tooltip
+                        title={
+                          t(
+                            "review:reviewPage.saveToMediaHint",
+                            "Attach the current text in the editor to this media item."
+                          ) as string
+                        }
+                      >
+                        <Button
+                          icon={(<PaperclipIcon className="w-4 h-4" />) as any}
+                          onClick={saveAnalysisToMedia}
+                          disabled={!analysis.trim()}
+                        >
+                          {t(
+                            "review:reviewPage.saveToMedia",
+                            "Attach current text to media"
+                          )}
                         </Button>
                       </Tooltip>
                     )}
-                    <Tooltip title="Analyze & save as note">
-                      <Button onClick={() => analyzeAndSaveToNote(analysisMode)} loading={loadingAnalysis}>
-                        {analysisMode === 'review' ? 'Generate review & save note' : 'Generate summary & save note'}
+                    <Tooltip
+                      title={t(
+                        "review:reviewPage.saveAnalysisHint",
+                        "Create a note from the current analysis."
+                      ) as string}
+                    >
+                      <Button
+                        icon={(<SaveIcon className="w-4 h-4" />) as any}
+                        onClick={saveAnalysis}
+                        disabled={!analysis.trim()}
+                      >
+                        {t(
+                          "review:reviewPage.saveAnalysis",
+                          "Save to notes"
+                        )}
                       </Button>
                     </Tooltip>
-                  </>
-                )}
-                {selected?.kind === "media" && (
-                  <Tooltip title="Attach analysis to media">
-                    <Button icon={(<PaperclipIcon className="w-4 h-4" />) as any} onClick={saveAnalysisToMedia} disabled={!analysis.trim()}>Save to Media</Button>
-                  </Tooltip>
-                )}
-                {selected?.kind === 'media' && (
-                  <Tooltip title="Create a new version with current analysis and prompt">
-                    <Button type="dashed" onClick={async () => {
-                      if (!selected || selected.kind !== 'media') return
-                      if (!selectedContent?.trim()) { message.warning('No media content available'); return }
-                      if (!analysis.trim()) { message.warning('Analysis is empty'); return }
-                      const sys = analysisMode === 'review' ? reviewSystemPrompt : summarySystemPrompt
-                      const prompt = lastPrompt || sys
-                      try {
-                        await bgRequest<any>({ path: `/api/v1/media/${selected.id}/versions` as any, method: 'POST' as any, headers: { 'Content-Type': 'application/json' }, body: { content: selectedContent, prompt, analysis_content: analysis } })
-                        message.success('Created new version')
-                        await loadExistingAnalyses(selected)
-                      } catch (e: any) { message.error(e?.message || 'Create version failed') }
-                    }}>Create Version</Button>
-                  </Tooltip>
-                )}
-                {selected?.kind === 'media' && (
-                  <Tooltip title="Create a new version cloned from the selected version">
-                    <Button type="dashed" onClick={async () => {
-                      if (!selected || selected.kind !== 'media') return
-                      if (selectedExistingIndex < 0 || selectedExistingIndex >= existingAnalyses.length) { message.warning('Select a version first'); return }
-                      const v = existingAnalyses[selectedExistingIndex]
-                      const vv = getVersionNumber(v)
-                      if (!vv) { message.warning('No version number'); return }
-                      try {
-                        const detail = await fetchVersionWithContent(selected.id, vv)
-                        const content = String(detail?.content || detail?.text || '')
-                        const prompt = getVersionPrompt(v) || ''
-                        const analysisText = getVersionAnalysis(v)
-                        if (!content) { message.warning('Selected version has no content'); return }
-                        await bgRequest<any>({ path: `/api/v1/media/${selected.id}/versions` as any, method: 'POST' as any, headers: { 'Content-Type': 'application/json' }, body: { content, prompt, analysis_content: analysisText } })
-                        message.success('Cloned version created')
-                        await loadExistingAnalyses(selected)
-                      } catch (e: any) { message.error(e?.message || 'Clone failed') }
-                    }}>Clone Version</Button>
-                  </Tooltip>
-                )}
-                {selected?.kind === 'media' && (
-                  <Tooltip title="Restore selected version as current">
-                    <Button onClick={async () => {
-                      if (!selected || selected.kind !== 'media') return
-                      if (selectedExistingIndex < 0 || selectedExistingIndex >= existingAnalyses.length) { message.warning('Select a version first'); return }
-                      const v = existingAnalyses[selectedExistingIndex]
-                      const vv = getVersionNumber(v)
-                      if (!vv) { message.warning('No version number'); return }
-                      const ok = await confirmDanger({ title: 'Please confirm', content: 'Restore this version as current?', okText: 'Restore', cancelText: 'Cancel' })
-                      if (!ok) return
-                      try {
-                        await bgRequest<any>({ path: `/api/v1/media/${selected.id}/versions/rollback` as any, method: 'POST' as any, headers: { 'Content-Type': 'application/json' }, body: { version_number: vv } })
-                        message.success('Version restored')
-                        await loadExistingAnalyses(selected)
-                      } catch (e: any) { message.error(e?.message || 'Restore failed') }
-                    }}>Restore</Button>
-                  </Tooltip>
-                )}
-                {selected?.kind === 'media' && selectedExistingIndex >= 0 && selectedExistingIndex < existingAnalyses.length && (
-                  <Tooltip title="Restore selected version (header quick action)">
-                    <Button onClick={async () => {
-                      const v = existingAnalyses[selectedExistingIndex]
-                      const vv = getVersionNumber(v)
-                      if (!vv) { message.warning('No version number'); return }
-                      const ok = await confirmDanger({ title: 'Please confirm', content: `Restore v${vv} as current?`, okText: 'Restore', cancelText: 'Cancel' })
-                      if (!ok) return
-                      try {
-                        await bgRequest<any>({ path: `/api/v1/media/${selected?.id}/versions/rollback` as any, method: 'POST' as any, headers: { 'Content-Type': 'application/json' }, body: { version_number: vv } })
-                        message.success('Version restored')
-                        if (selected) await loadExistingAnalyses(selected)
-                      } catch (e: any) { message.error(e?.message || 'Restore failed') }
-                    }}>Restore v{getVersionNumber(existingAnalyses[selectedExistingIndex])}</Button>
-                  </Tooltip>
-                )}
-                <Tooltip title="Create a note from analysis">
-                  <Button type="primary" icon={(<SaveIcon className="w-4 h-4" />) as any} onClick={saveAnalysis} disabled={!analysis.trim()}>Save to Notes</Button>
-                </Tooltip>
+                    {hasSelectedMedia && (
+                      <Dropdown
+                        menu={{
+                          items: [
+                            {
+                              key: "saveNewVersion",
+                              disabled: !canCreateVersion,
+                              label: t(
+                                "review:reviewPage.moreSaveNewVersion",
+                                "Save as new version"
+                              )
+                            },
+                            {
+                              key: "duplicateVersion",
+                              disabled: !hasSelectedVersion,
+                              label: t(
+                                "review:reviewPage.moreDuplicateVersion",
+                                "Duplicate version"
+                              )
+                            },
+                            {
+                              key: "restoreVersion",
+                              disabled: !hasSelectedVersion,
+                              label: t(
+                                "review:reviewPage.moreRestoreVersion",
+                                "Restore selected version"
+                              )
+                            }
+                          ],
+                          onClick: async ({ key }) => {
+                            if (!selected || selected.kind !== "media") {
+                              return
+                            }
+                            if (key === "saveNewVersion") {
+                              if (!selectedContent?.trim()) {
+                                message.warning("No media content available")
+                                return
+                              }
+                              if (!analysis.trim()) {
+                                message.warning("Analysis is empty")
+                                return
+                              }
+                              const sys =
+                                analysisMode === "review"
+                                  ? reviewSystemPrompt
+                                  : summarySystemPrompt
+                              const prompt = lastPrompt || sys
+                              try {
+                                await bgRequest<any>({
+                                  path: `/api/v1/media/${selected.id}/versions` as any,
+                                  method: "POST" as any,
+                                  headers: {
+                                    "Content-Type": "application/json"
+                                  },
+                                  body: {
+                                    content: selectedContent,
+                                    prompt,
+                                    analysis_content: analysis
+                                  }
+                                })
+                                message.success("Created new version")
+                                await loadExistingAnalyses(selected)
+                              } catch (e: any) {
+                                message.error(
+                                  e?.message || "Create version failed"
+                                )
+                              }
+                            } else if (key === "duplicateVersion") {
+                              if (
+                                selectedExistingIndex < 0 ||
+                                selectedExistingIndex >= existingAnalyses.length
+                              ) {
+                                message.warning("Select a version first")
+                                return
+                              }
+                              const v =
+                                existingAnalyses[selectedExistingIndex]
+                              const vv = getVersionNumber(v)
+                              if (!vv) {
+                                message.warning("No version number")
+                                return
+                              }
+                              try {
+                                const detail = await fetchVersionWithContent(
+                                  selected.id,
+                                  vv
+                                )
+                                const content = String(
+                                  detail?.content || detail?.text || ""
+                                )
+                                const prompt = getVersionPrompt(v) || ""
+                                const analysisText = getVersionAnalysis(v)
+                                if (!content) {
+                                  message.warning(
+                                    "Selected version has no content"
+                                  )
+                                  return
+                                }
+                                await bgRequest<any>({
+                                  path: `/api/v1/media/${selected.id}/versions` as any,
+                                  method: "POST" as any,
+                                  headers: {
+                                    "Content-Type": "application/json"
+                                  },
+                                  body: {
+                                    content,
+                                    prompt,
+                                    analysis_content: analysisText
+                                  }
+                                })
+                                message.success("Cloned version created")
+                                await loadExistingAnalyses(selected)
+                              } catch (e: any) {
+                                message.error(
+                                  e?.message || "Clone failed"
+                                )
+                              }
+                            } else if (key === "restoreVersion") {
+                              if (
+                                selectedExistingIndex < 0 ||
+                                selectedExistingIndex >= existingAnalyses.length
+                              ) {
+                                message.warning("Select a version first")
+                                return
+                              }
+                              const v =
+                                existingAnalyses[selectedExistingIndex]
+                              const vv = getVersionNumber(v)
+                              if (!vv) {
+                                message.warning("No version number")
+                                return
+                              }
+                              const ok = await confirmDanger({
+                                title: "Please confirm",
+                                content:
+                                  "Restore this version as current?",
+                                okText: "Restore",
+                                cancelText: "Cancel"
+                              })
+                              if (!ok) return
+                              try {
+                                await bgRequest<any>({
+                                  path: `/api/v1/media/${selected.id}/versions/rollback` as any,
+                                  method: "POST" as any,
+                                  headers: {
+                                    "Content-Type": "application/json"
+                                  },
+                                  body: { version_number: vv }
+                                })
+                                message.success("Version restored")
+                                await loadExistingAnalyses(selected)
+                              } catch (e: any) {
+                                message.error(
+                                  e?.message || "Restore failed"
+                                )
+                              }
+                            }
+                          }
+                        }}
+                      >
+                        <Button>
+                          {t(
+                            "review:reviewPage.moreActions",
+                            "More actions"
+                          )}
+                          <ChevronDown className="ml-1 h-3 w-3" />
+                        </Button>
+                      </Dropdown>
+                    )}
+                  </div>
+                </div>
                 {allowGeneration && (
-                  <Radio.Group size="small" value={analysisMode} onChange={(e) => setAnalysisMode(e.target.value)}>
-                    <Radio.Button value="review">Use Review</Radio.Button>
-                    <Radio.Button value="summary">Use Summary</Radio.Button>
+                  <Radio.Group
+                    size="small"
+                    value={analysisMode}
+                    onChange={(e) => setAnalysisMode(e.target.value)}
+                  >
+                    <Radio.Button value="review">
+                      {t(
+                        "review:reviewPage.modeReview",
+                        "Use review"
+                      )}
+                    </Radio.Button>
+                    <Radio.Button value="summary">
+                      {t(
+                        "review:reviewPage.modeSummary",
+                        "Use summary"
+                      )}
+                    </Radio.Button>
                   </Radio.Group>
                 )}
               </div>

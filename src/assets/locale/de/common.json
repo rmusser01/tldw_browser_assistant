@@ -1,16 +1,17 @@
 {
-  "pageAssist": "tldw Assistant",
+  "pageAssist": "tldw-Assistent",
   "titles": {
     "options": "tldw Assistant — Options",
     "sidepanel": "tldw Assistant — Sidepanel"
   },
   "pdf": {
-    "passwordTitle": "Enter the PDF password",
-    "unlock": "Unlock"
+    "passwordTitle": "PDF-Passwort eingeben",
+    "unlock": "Entsperren"
   },
   "loading": {
-    "title": "Loading…",
-    "description": "Please wait while we get things ready."
+    "title": "Wird geladen…",
+    "description": "Bitte warten Sie, während wir alles vorbereiten.",
+    "content": "Inhalt wird geladen…"
   },
   "selectAModel": "Modell auswählen",
   "save": "Speichern",
@@ -61,11 +62,11 @@
   },
   "submit": "Absenden",
   "send": "Absenden",
-  "connectToServer": "Connect to server",
+  "connectToServer": "Mit Server verbinden",
   "noData": "Keine Daten",
   "noHistory": "Kein Chat-Verlauf",
   "chatWithCurrentPage": "Mit aktueller Seite chatten",
-  "beta": "Beta",
+  "beta": "Beta-Version",
   "tts": "Vorlesen",
   "currentChatModelSettings": "Aktuelle Chat-Modell-Einstellungen",
   "modelSettings": {
@@ -86,20 +87,20 @@
         "placeholder": "Geben Sie die Kontextfenstergröße ein (Standard: 2048)"
       },
       "numPredict": {
-        "label": "Max Tokens (num_predict)",
+        "label": "Maximale Tokens (num_predict)",
         "placeholder": "Geben Sie den Max-Tokens-Wert ein (z.B. 2048, 4096)"
       },
       "seed": {
-        "label": "Seed",
+        "label": "Seed (Startwert)",
         "placeholder": "Geben Sie den Seed-Wert ein (z.B. 1234)",
         "help": "Reproduzierbarkeit der Modellausgabe"
       },
       "topK": {
-        "label": "Top K",
+        "label": "Top K (oberste K)",
         "placeholder": "Geben Sie den Top-K-Wert ein (z.B. 40, 100)"
       },
       "topP": {
-        "label": "Top P",
+        "label": "Top P (oberste P)",
         "placeholder": "Geben Sie den Top-P-Wert ein (z.B. 0.9, 0.95)"
       },
       "numGpu": {
@@ -110,6 +111,43 @@
         "label": "Temporärer System-Prompt",
         "placeholder": "System-Prompt eingeben",
         "help": "Dies ist eine schnelle Möglichkeit, den System-Prompt im aktuellen Chat festzulegen, der den ausgewählten System-Prompt überschreibt, falls vorhanden."
+      },
+      "thinking": {
+        "label": "Denkmodus"
+      },
+      "useMMap": {
+        "label": "useMmap (Speicherabbildung)"
+      },
+      "tfsZ": {
+        "label": "TFS-Z (TFS-Parameter)",
+        "placeholder": "z.B. 1.0, 1.1"
+      },
+      "numKeep": {
+        "label": "Anzahl beibehalten (Num Keep)",
+        "placeholder": "z.B. 256, 512"
+      },
+      "numThread": {
+        "label": "Anzahl Threads (Num Thread)",
+        "placeholder": "z.B. 8, 16"
+      },
+      "useMlock": {
+        "label": "useMlock (Speicher sperren)"
+      },
+      "reasoningEffort": {
+        "label": "Reasoning-Aufwand",
+        "placeholder": "niedrig, mittel, hoch"
+      },
+      "minP": {
+        "label": "Min P (minimales P)",
+        "placeholder": "z.B. 0.05"
+      },
+      "repeatPenalty": {
+        "label": "Wiederholungsstrafe",
+        "placeholder": "z.B. 1.1, 1.2"
+      },
+      "repeatLastN": {
+        "label": "Letzte N wiederholen",
+        "placeholder": "z.B. 64, 128"
       }
     },
     "advanced": "Weitere Modell-Einstellungen"
@@ -152,6 +190,7 @@
   "sidebarChat": "Seitenleisten-Chat",
   "reasoning": {
     "thinking": "Denke nach....",
+    "loading": "Lade Begründung....",
     "thought": "Gedanke für {{time}}"
   },
   "embeddingGen": "Erstelle Embeddings, dies kann eine Weile dauern",
@@ -161,7 +200,41 @@
     "confirm": "Sind Sie sicher, dass Sie den Download abbrechen möchten? Dadurch wird der Downloadvorgang gestoppt. Laut der Ollama-Dokumentation können Sie dort weitermachen, wo Sie aufgehört haben."
   },
   "table": {
-    "copyCsv": "Copy as CSV",
-    "downloadCsv": "Download CSV"
-  }
+    "copyCsv": "Als CSV kopieren",
+    "downloadCsv": "CSV herunterladen"
+  },
+  "dismiss": "Ausblenden",
+  "privateModeSaveErrorTitle": "tldw Assistant kann keine Daten speichern",
+  "confirmTitle": "Bitte bestätigen",
+  "saving": "Speichern...",
+  "close": "Schließen",
+  "loadMore": "Mehr laden...",
+  "startChat": "Chat starten",
+  "previous": "Zurück",
+  "next": "Weiter",
+  "chatWithCharacter": "Mit Charakter chatten",
+  "ttsShort": "Ton",
+  "copyShort": "Kopieren",
+  "branchShort": "Zweig",
+  "segmented": {
+    "available": "Server-Modelle",
+    "custom": "Benutzerdefinierte Modelle"
+  },
+  "success": "Erfolg",
+  "created": "Erstellt",
+  "updated": "Aktualisiert",
+  "deleted": "Gelöscht",
+  "create": "Erstellen",
+  "reset": "Zurücksetzen",
+  "serverOffline": "Server offline oder nicht konfiguriert",
+  "serverChats": "Server-Chats",
+  "serverChatLoadError": "Server-Chat konnte nicht geladen werden. Überprüfen Sie Ihre Verbindung und versuchen Sie es erneut.",
+  "serverChatSourceLabel": "Serverquelle",
+  "serverChatsUnavailable": "Server-Chats nicht verfügbar. Überprüfen Sie Ihre Serververbindung.",
+  "historiesDeleted": "{{count}} Verläufe gelöscht",
+  "deleteHistoriesError": "Fehler beim Löschen der Verläufe",
+  "mermaid": "Mermaid-Diagramme",
+  "search": "Suchen",
+  "searchResults": "Suchergebnisse",
+  "newBranch": "Neuer Zweig"
 }

@@ -1,35 +1,89 @@
 {
-    "extName": {
-        "message": "tldw Assistant"
-    },
-    "extDescription": {
-        "message": "Brug dine lokalt kørende AI-modeller til at hjælpe dig med at surfe på nettet."
-    },
-    "openSidePanelToChat": {
-        "message": "Open Sidebar to chat"
-    },
-    "openOptionToChat": {
-        "message": "Åben Web UI for at Chatte"
-    },
-    "contextSummarize": {
-        "message": "Opsummer"
-    },
-    "contextExplain": {
-        "message": "Forklar"
-    },
-    "contextRephrase": {
-        "message": "Omskriv"
-    },
-    "contextTranslate": {
-        "message": "Oversæt"
-    },
-    "contextCustom": {
-        "message": "Tilpasset"
-    },
-    "contextSendToTldw": {
-        "message": "Send to tldw_server"
-    },
-    "contextProcessLocalTldw": {
-        "message": "Process with tldw_server (don’t store)"
-    }
+  "extName": {
+    "message": "tldw-assistenten"
+  },
+  "extDescription": {
+    "message": "Brug dine lokalt kørende AI-modeller til at hjælpe dig med at surfe på nettet."
+  },
+  "openSidePanelToChat": {
+    "message": "Åbn sidepanel for at chatte"
+  },
+  "openOptionToChat": {
+    "message": "Åben Web UI for at Chatte"
+  },
+  "contextSummarize": {
+    "message": "Opsummer"
+  },
+  "contextExplain": {
+    "message": "Forklar"
+  },
+  "contextRephrase": {
+    "message": "Omskriv"
+  },
+  "contextTranslate": {
+    "message": "Oversæt"
+  },
+  "contextCustom": {
+    "message": "Tilpasset"
+  },
+  "contextSendToTldw": {
+    "message": "Send til tldw_server"
+  },
+  "contextProcessLocalTldw": {
+    "message": "Behandl med tldw_server (gem ikke)"
+  },
+  "contextSidebarOpening": {
+    "message": "Åbner sidepanel..."
+  },
+  "contextSaveToNotesOpeningSidebar": {
+    "message": "Åbner sidepanel for at gemme noten..."
+  },
+  "contextTranscribeMedia": {
+    "message": "Transskriber video/lyd"
+  },
+  "contextTranscribeAndSummarizeMedia": {
+    "message": "Transskriber + opsummer video/lyd"
+  },
+  "contextSaveToNotes": {
+    "message": "Gem i noter"
+  },
+  "contextSaveToNotesNoSelection": {
+    "message": "Markér tekst først for at gemme i noter."
+  },
+  "hfSendPageRejected": {
+    "message": "[tldw] Anmodning om at sende siden blev afvist af tldw_server"
+  },
+  "hfSendPageErrorWithDetail": {
+    "message": "[tldw] Det lykkedes ikke at sende denne side til tldw_server: $1. Tjek \"Settings → tldw server\" og prøv igen."
+  },
+  "hfSendPageError": {
+    "message": "[tldw] Det lykkedes ikke at sende denne side til tldw_server. Tjek \"Settings → tldw server\" og prøv igen."
+  },
+  "hfSendPageSuccess": {
+    "message": "[tldw] Siden blev sendt til tldw_server til behandling"
+  },
+  "hfSendPageException": {
+    "message": "[tldw] Noget gik galt, da siden skulle sendes til tldw_server. Kontrollér, at din tldw_server og udvidelse kører, og prøv igen."
+  },
+  "hfPullInProgress": {
+    "message": "[tldw Assistant] En model-download er allerede i gang. Vent venligst, til den er færdig, før du starter en ny."
+  },
+  "hfPullConfirm": {
+    "message": "[tldw Assistant] Vil du sende en anmodning til din tldw_server om at hente modellen \"$1\"? Dette er uafhængigt af websitet huggingface.co. Din server begynder at hente modellen, når du bekræfter."
+  },
+  "hfPullSending": {
+    "message": "[tldw Assistant] Sender en anmodning til din tldw_server om at hente \"$1\". Tjek udvidelsesikonet eller loggene fra tldw_server for at se status."
+  },
+  "hfPullErrorWithDetail": {
+    "message": "[tldw Assistant] Det lykkedes ikke at sende en henteanmodning for \"$1\": $2. Tjek \"Settings → tldw server\" og prøv igen."
+  },
+  "hfPullError": {
+    "message": "[tldw Assistant] Det lykkedes ikke at sende en henteanmodning for \"$1\". Tjek \"Settings → tldw server\" og prøv igen."
+  },
+  "hfPullSuccess": {
+    "message": "[tldw Assistant] Anmodning om at hente \"$1\" er sendt til din tldw_server. Følg status via udvidelsesikonet eller loggene fra tldw_server."
+  },
+  "hfPullException": {
+    "message": "[tldw Assistant] Noget gik galt, da en henteanmodning for \"$1\" blev sendt til din tldw_server. Kontrollér, at din tldw_server og udvidelsen kører, og prøv igen."
+  }
 }

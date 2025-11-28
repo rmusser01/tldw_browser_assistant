@@ -1,41 +1,55 @@
 {
-    "addBtn": "添加新知识",
-    "columns": {
-        "title": "标题",
-        "status": "状态",
-        "embeddings": "嵌入模型",
-        "createdAt": "创建于",
-        "action": "操作"
+  "addBtn": "添加新知识",
+  "columns": {
+    "title": "标题",
+    "status": "状态",
+    "embeddings": "嵌入模型",
+    "createdAt": "创建于",
+    "action": "操作"
+  },
+  "expandedColumns": {
+    "name": "名称"
+  },
+  "confirm": {
+    "delete": "您确定要删除此知识吗?"
+  },
+  "deleteSuccess": "知识删除成功",
+  "status": {
+    "pending": "待定",
+    "finished": "已完成",
+    "processing": "处理中",
+    "failed": "失败"
+  },
+  "addKnowledge": "添加知识",
+  "updateKnowledge": "更新知识",
+  "form": {
+    "title": {
+      "label": "知识标题",
+      "placeholder": "输入知识标题",
+      "required": "知识标题是必需的"
     },
-    "expandedColumns": {
-        "name": "名称"
+    "uploadFile": {
+      "label": "上传文件",
+      "uploadText": "将文件拖放到此处或点击上传",
+      "uploadHint": "支持的文件类型: .pdf, .csv, .txt, .md",
+      "required": "文件是必需的"
     },
-    "confirm": {
-        "delete": "您确定要删除此知识吗?"
-    },
-    "deleteSuccess": "知识删除成功",
-    "status": {
-        "pending": "待定",
-        "finished": "已完成",
-        "processing": "处理中",
-        "failed": "失败"
-    },
-    "addKnowledge": "添加知识",
-    "updateKnowledge": "更新知识",
-    "form": {
-        "title": {
-            "label": "知识标题",
-            "placeholder": "输入知识标题",
-            "required": "知识标题是必需的"
-        },
-        "uploadFile": {
-            "label": "上传文件",
-            "uploadText": "将文件拖放到此处或点击上传",
-            "uploadHint": "支持的文件类型: .pdf, .csv, .txt, .md",
-            "required": "文件是必需的"
-        },
-        "submit": "提交",
-        "success": "知识添加成功"
-    },
-    "noEmbeddingModel": "请先从RAG设置页面添加一个嵌入模型"
+    "submit": "提交",
+    "success": "知识添加成功"
+  },
+  "noEmbeddingModel": "请先从RAG设置页面添加一个嵌入模型",
+  "privateModeDescription": "Firefox 隐私模式不支持将数据保存到 IndexedDB。请在普通窗口添加知识库。",
+  "rag": {
+    "searchFailed": "RAG 搜索失败。请重试或查看诊断页面。"
+  },
+  "empty": {
+    "demoTitle": "在演示模式中体验 Knowledge QA",
+    "demoDescription": "此演示展示了 Knowledge QA 如何在示例内容上执行 RAG 搜索。稍后你可以连接自己的服务器，在自己的转录和文档中进行搜索。",
+    "demoExample1": "尝试快速 RAG 搜索，并查看结果和引用。",
+    "demoExample2": "连接你自己的服务器，在真实媒体和笔记上启用 Knowledge QA。",
+    "connectTitle": "连接以使用 Knowledge QA",
+    "connectDescription": "要使用 Knowledge QA 和 RAG 搜索，请先连接你的 tldw 服务器。",
+    "connectExample1": "打开“设置 → tldw server”以添加你的服务器 URL。",
+    "connectExample2": "如果服务器正在运行但无法访问，请使用 Diagnostics 进行检查."
+  }
 }

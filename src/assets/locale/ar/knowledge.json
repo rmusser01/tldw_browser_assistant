@@ -1,41 +1,55 @@
-{ 
-    "addBtn": "إضافة معرفة جديدة",
-    "columns": {
-        "title": "العنوان",
-        "status": "الحالة",
-        "embeddings": "نموذج التضمين",
-        "createdAt": "تاريخ الإنشاء",
-        "action": "الإجراءات"
+{
+  "addBtn": "إضافة معرفة جديدة",
+  "columns": {
+    "title": "العنوان",
+    "status": "الحالة",
+    "embeddings": "نموذج التضمين",
+    "createdAt": "تاريخ الإنشاء",
+    "action": "الإجراءات"
+  },
+  "expandedColumns": {
+    "name": "الاسم"
+  },
+  "confirm": {
+    "delete": "هل أنت متأكد أنك تريد حذف هذه المعرفة؟"
+  },
+  "deleteSuccess": "تم حذف المعرفة بنجاح",
+  "status": {
+    "pending": "قيد الانتظار",
+    "finished": "مكتمل",
+    "processing": "قيد المعالجة",
+    "failed": "فشل"
+  },
+  "addKnowledge": "إضافة معرفة",
+  "updateKnowledge": "تحديث المعرفة",
+  "form": {
+    "title": {
+      "label": "عنوان المعرفة",
+      "placeholder": "أدخل عنوان المعرفة",
+      "required": "عنوان المعرفة مطلوب"
     },
-    "expandedColumns": {
-        "name": "الاسم"
+    "uploadFile": {
+      "label": "رفع ملف",
+      "uploadText": "اسحب وأفلت ملفًا هنا أو انقر للرفع",
+      "uploadHint": "أنواع الملفات المدعومة: .pdf, .csv, .txt, .md, .docx",
+      "required": "الملف مطلوب"
     },
-    "confirm": {
-        "delete": "هل أنت متأكد أنك تريد حذف هذه المعرفة؟"
-    },
-    "deleteSuccess": "تم حذف المعرفة بنجاح",
-    "status": {
-        "pending": "قيد الانتظار",
-        "finished": "مكتمل",
-        "processing": "قيد المعالجة",
-        "failed": "فشل"
-    },
-    "addKnowledge": "إضافة معرفة",
-    "updateKnowledge": "تحديث المعرفة",
-    "form": {
-        "title": {
-            "label": "عنوان المعرفة",
-            "placeholder": "أدخل عنوان المعرفة",
-            "required": "عنوان المعرفة مطلوب"
-        },
-        "uploadFile": {
-            "label": "رفع ملف",
-            "uploadText": "اسحب وأفلت ملفًا هنا أو انقر للرفع",
-            "uploadHint": "أنواع الملفات المدعومة: .pdf, .csv, .txt, .md, .docx",
-            "required": "الملف مطلوب"
-        },
-        "submit": "إرسال",
-        "success": "تمت إضافة المعرفة بنجاح"
-    },
-    "noEmbeddingModel": "يرجى إضافة نموذج تضمين من صفحة إعدادات RAG أولاً"
+    "submit": "إرسال",
+    "success": "تمت إضافة المعرفة بنجاح"
+  },
+  "noEmbeddingModel": "يرجى إضافة نموذج تضمين من صفحة إعدادات RAG أولاً",
+  "privateModeDescription": "وضع التصفح الخاص في فايرفوكس لا يدعم حفظ البيانات في IndexedDB. الرجاء إضافة قاعدة معرفة من نافذة عادية.",
+  "rag": {
+    "searchFailed": "فشل بحث RAG. حاول مرة أخرى أو تحقق من صفحة التشخيص."
+  },
+  "empty": {
+    "demoTitle": "استكشف Knowledge QA في وضع العرض التجريبي",
+    "demoDescription": "يوضح لك هذا العرض كيف يمكن لـ Knowledge QA تشغيل عمليات بحث RAG على محتوى تجريبي. يمكنك لاحقًا توصيل خادومك الخاص للبحث في التسجيلات والمستندات الخاصة بك.",
+    "demoExample1": "جرّب عمليات بحث RAG سريعة واطلع على النتائج والمراجع.",
+    "demoExample2": "وصّل خادومك الخاص لتمكين Knowledge QA على الوسائط والملاحظات الحقيقية لديك.",
+    "connectTitle": "اتصل لاستخدام Knowledge QA",
+    "connectDescription": "لاستخدام Knowledge QA وبحث RAG، يجب أولًا الاتصال بخادوم tldw الخاص بك.",
+    "connectExample1": "افتح الإعدادات → tldw server لإضافة رابط خادومك.",
+    "connectExample2": "استخدم صفحة التشخيص Diagnostics إذا كان الخادوم يعمل لكنه غير متاح."
+  }
 }

@@ -1,7 +1,9 @@
 import React from "react"
+import { Skeleton } from "antd"
 import { useTranslation } from "react-i18next"
 import { useNavigate } from "react-router-dom"
 import FeatureEmptyState from "@/components/Common/FeatureEmptyState"
+import { PageShell } from "@/components/Common/PageShell"
 import { useServerOnline } from "@/hooks/useServerOnline"
 import { useDemoMode } from "@/context/demo-mode"
 import { CharactersManager } from "./Manager"
@@ -12,7 +14,8 @@ export const CharactersWorkspace: React.FC = () => {
   const navigate = useNavigate()
   const isOnline = useServerOnline()
   const { demoEnabled } = useDemoMode()
-   const { capabilities, loading: capsLoading } = useServerCapabilities()
+  const { capabilities, loading: capsLoading } = useServerCapabilities()
+  const hasCharacters = capabilities?.hasCharacters
 
   if (!isOnline) {
     return demoEnabled ? (
@@ -66,10 +69,7 @@ export const CharactersWorkspace: React.FC = () => {
     )
   }
 
-  const charactersUnsupported =
-    !capsLoading && capabilities && !capabilities.hasCharacters
-
-  if (isOnline && charactersUnsupported) {
+  if (isOnline && !capsLoading && !hasCharacters) {
     return (
       <FeatureEmptyState
         title={t("option:charactersEmpty.offlineTitle", {
@@ -77,16 +77,16 @@ export const CharactersWorkspace: React.FC = () => {
         })}
         description={t("option:charactersEmpty.offlineDescription", {
           defaultValue:
-            "This tldw server does not advertise the Characters endpoints (for example, /api/v1/characters). Upgrade your server to a version that includes Characters to use this workspace."
+            "This server does not advertise /api/v1/characters."
         })}
         examples={[
           t("option:charactersEmpty.offlineExample1", {
             defaultValue:
-              "Open Diagnostics to confirm your server version and available APIs."
+              "Open Diagnostics to confirm your server version and available APIs for Characters."
           }),
           t("option:charactersEmpty.offlineExample2", {
             defaultValue:
-              "After upgrading, reload the extension and return to Characters."
+              "If you upgrade your server, reload the extension and return to Characters."
           })
         ]}
         primaryActionLabel={t("settings:healthSummary.diagnostics", {
@@ -98,7 +98,7 @@ export const CharactersWorkspace: React.FC = () => {
   }
 
   return (
-    <div className="w-full max-w-5xl mx-auto space-y-4">
+    <PageShell className="space-y-4">
       <div className="space-y-1">
         <h1 className="text-lg font-semibold text-gray-900 dark:text-gray-50">
           {t("option:header.modeCharacters", "Characters")}
@@ -110,7 +110,12 @@ export const CharactersWorkspace: React.FC = () => {
           })}
         </p>
       </div>
-      <CharactersManager />
-    </div>
+      {capsLoading && (
+        <div className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-800 dark:bg-[#0f1115]">
+          <Skeleton active title paragraph={{ rows: 5 }} />
+        </div>
+      )}
+      {!capsLoading && hasCharacters && <CharactersManager />}
+    </PageShell>
   )
 }

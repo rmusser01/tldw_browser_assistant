@@ -1,10 +1,11 @@
 import React from 'react'
 import { Modal, Button, Input, Select, Space, Switch, Typography, Divider, List, Tag, message, Collapse, InputNumber, Tooltip as AntTooltip, Spin } from 'antd'
 import { useTranslation } from 'react-i18next'
+import { browser } from "wxt/browser"
 import { tldwClient } from '@/services/tldw/TldwApiClient'
 import { HelpCircle, Headphones, Layers, Database, FileText, Film, Cookie, Info, Clock, Grid, BookText } from 'lucide-react'
 import { useStorage } from '@plasmohq/storage/hook'
-import { confirmDanger } from '@/components/Common/confirm-danger'
+import { useConfirmDanger } from '@/components/Common/confirm-danger'
 import { defaultEmbeddingModelForRag } from '@/services/ollama'
 import { tldwModels } from '@/services/tldw'
 
@@ -37,6 +38,36 @@ function detectTypeFromUrl(url: string): Entry['type'] {
   } catch {
     return 'auto'
   }
+}
+
+function mediaIdFromPayload(
+  data: any,
+  visited?: WeakSet<object>
+): string | number | null {
+  if (!data || typeof data !== "object") {
+    return null
+  }
+  if (!visited) {
+    visited = new WeakSet<object>()
+  }
+
+  if (visited.has(data as object)) {
+    return null
+  }
+  visited.add(data as object)
+
+  const direct =
+    (data as any).id ??
+    (data as any).media_id ??
+    (data as any).pk ??
+    (data as any).uuid
+  if (direct !== undefined && direct !== null) {
+    return direct
+  }
+  if ((data as any).media && typeof (data as any).media === "object") {
+    return mediaIdFromPayload((data as any).media, visited)
+  }
+  return null
 }
 
 export const QuickIngestModal: React.FC<Props> = ({ open, onClose }) => {
@@ -80,7 +111,10 @@ export const QuickIngestModal: React.FC<Props> = ({ open, onClose }) => {
   const lastSavedUiPrefsRef = React.useRef<string | null>(null)
   const specPrefsCacheRef = React.useRef<string | null>(null)
   const [totalPlanned, setTotalPlanned] = React.useState<number>(0)
+  const [processedCount, setProcessedCount] = React.useState<number>(0)
+  const [liveTotalCount, setLiveTotalCount] = React.useState<number>(0)
   const [ragEmbeddingLabel, setRagEmbeddingLabel] = React.useState<string | null>(null)
+  const confirmDanger = useConfirmDanger()
 
   const persistSpecPrefs = React.useCallback(
     (next: { preferServer?: boolean; lastRemote?: { version?: string; cachedAt?: number } }) => {
@@ -151,146 +185,74 @@ export const QuickIngestModal: React.FC<Props> = ({ open, onClose }) => {
     }
     const total = valid.length + localFiles.length
     setTotalPlanned(total)
+    setProcessedCount(0)
+    setLiveTotalCount(total)
     setRunning(true)
     setResults([])
     try {
-      await tldwClient.initialize()
-    } catch {}
-    const out: ResultItem[] = []
-    for (const r of valid) {
-      const t = r.type === 'auto' ? detectTypeFromUrl(r.url) : r.type
+      // Ensure tldwConfig is hydrated for background requests
       try {
-        let data: any
-        if (storeRemote) {
-          // Ingest & store via multipart form
-          const fields: Record<string, any> = {
-            urls: r.url,
-            media_type: t,
-            perform_analysis: common.perform_analysis,
-            perform_chunking: common.perform_chunking,
-            overwrite_existing: common.overwrite_existing
+        await tldwClient.initialize()
+      } catch {}
+
+      // Prepare entries payload (URLs + simple options)
+      const entries = valid.map((r) => ({
+        id: r.id,
+        url: r.url,
+        type: r.type,
+        audio: r.audio,
+        document: r.document,
+        video: r.video
+      }))
+
+      // Convert local files to transferable payloads (ArrayBuffer)
+      const filesPayload = await Promise.all(
+        localFiles.map(async (f) => {
+          // Use a typed array to avoid any serialization quirks when passing to the background worker
+          const data = new Uint8Array(await f.arrayBuffer())
+          return {
+            id: crypto.randomUUID(),
+            name: f.name,
+            type: f.type,
+            data
           }
-          // Merge advanced values; rebuild nested structure for dot-notation keys
-          const nested: Record<string, any> = {}
-          const assignPath = (obj: any, path: string[], val: any) => {
-            let cur = obj
-            for (let i = 0; i < path.length; i++) {
-              const seg = path[i]
-              if (i === path.length - 1) cur[seg] = val
-              else cur = (cur[seg] = cur[seg] || {})
-            }
-          }
-          for (const [k, v] of Object.entries(advancedValues)) {
-            if (k.includes('.')) assignPath(nested, k.split('.'), v)
-            else fields[k] = v
-          }
-          for (const [k, v] of Object.entries(nested)) fields[k] = v
-          if (r.audio?.language) fields['transcription_language'] = r.audio.language
-          if (typeof r.audio?.diarize === 'boolean') fields['diarize'] = r.audio.diarize
-          if (typeof r.video?.captions === 'boolean') fields['timestamp_option'] = r.video.captions
-          // Document/PDF OCR hint (best-effort)
-          if (typeof r.document?.ocr === 'boolean') fields['pdf_parsing_engine'] = r.document.ocr ? 'pymupdf4llm' : ''
-          data = await tldwClient.addMediaForm(fields)
-        } else {
-          // Process only (no store)
-          const nestedBody: Record<string, any> = {}
-          const assignPath = (obj: any, path: string[], val: any) => {
-            let cur = obj
-            for (let i = 0; i < path.length; i++) {
-              const seg = path[i]
-              if (i === path.length - 1) cur[seg] = val
-              else cur = (cur[seg] = cur[seg] || {})
-            }
-          }
-          for (const [k, v] of Object.entries(advancedValues)) {
-            if (k.includes('.')) assignPath(nestedBody, k.split('.'), v)
-            else nestedBody[k] = v
-          }
-          // Use addMedia with flags to request processing for remote URL
-          data = await tldwClient.addMedia(r.url, { type: t, audio: r.audio, document: r.document, video: r.video, ...common, ...nestedBody })
+        })
+      )
+
+      const resp = (await browser.runtime.sendMessage({
+        type: "tldw:quick-ingest-batch",
+        payload: {
+          entries,
+          files: filesPayload,
+          storeRemote,
+          common,
+          advancedValues
         }
-        out.push({ id: r.id, status: 'ok', url: r.url, type: t, data })
-        setResults([...out])
-      } catch (e: any) {
-        out.push({ id: r.id, status: 'error', url: r.url, type: t, error: e?.message || 'Request failed' })
-        setResults([...out])
+      })) as { ok: boolean; error?: string; results?: ResultItem[] } | undefined
+
+      if (!resp?.ok) {
+        const msg = resp?.error || "Quick ingest failed. Check tldw server settings and try again."
+        messageApi.error(msg)
+        setRunning(false)
+        return
       }
-    }
-    // Process local files (upload or process)
-    for (const f of localFiles) {
-      const id = crypto.randomUUID()
-      try {
-        let data: any
-        const ft = (f.type || '').toLowerCase()
-        const mediaType: Entry['type'] = ft.startsWith('audio/') ? 'audio' : ft.startsWith('video/') ? 'video' : ft.includes('pdf') ? 'pdf' : 'document'
-        if (storeRemote) {
-          const fields: Record<string, any> = {
-            media_type: mediaType,
-            perform_analysis: common.perform_analysis,
-            perform_chunking: common.perform_chunking,
-            overwrite_existing: common.overwrite_existing
-          }
-          // Merge advanced values (respect dot notation like above)
-          const nested: Record<string, any> = {}
-          const assignPath = (obj: any, path: string[], val: any) => {
-            let cur = obj
-            for (let i = 0; i < path.length; i++) {
-              const seg = path[i]
-              if (i === path.length - 1) cur[seg] = val
-              else cur = (cur[seg] = cur[seg] || {})
-            }
-          }
-          for (const [k, v] of Object.entries(advancedValues)) {
-            if (k.includes('.')) assignPath(nested, k.split('.'), v)
-            else fields[k] = v
-          }
-          for (const [k, v] of Object.entries(nested)) fields[k] = v
-          data = await tldwClient.uploadMedia(f, fields)
-        } else {
-          // Process without storing
-          if (ft.startsWith('audio/')) {
-            data = await tldwClient.transcribeAudio(f)
-          } else {
-            // Best-effort: Some servers allow process-only via flags on add endpoint
-            const fields: Record<string, any> = {
-              media_type: mediaType,
-              perform_analysis: common.perform_analysis,
-              perform_chunking: common.perform_chunking,
-              overwrite_existing: false,
-              process_only: true
-            }
-            const nested: Record<string, any> = {}
-            const assignPath = (obj: any, path: string[], val: any) => {
-              let cur = obj
-              for (let i = 0; i < path.length; i++) {
-                const seg = path[i]
-                if (i === path.length - 1) cur[seg] = val
-                else cur = (cur[seg] = cur[seg] || {})
-              }
-            }
-            for (const [k, v] of Object.entries(advancedValues)) {
-              if (k.includes('.')) assignPath(nested, k.split('.'), v)
-              else fields[k] = v
-            }
-            for (const [k, v] of Object.entries(nested)) fields[k] = v
-            data = await tldwClient.uploadMedia(f, fields)
-          }
-        }
-        out.push({ id, status: 'ok', fileName: f.name, type: mediaType, data })
-        setResults([...out])
-      } catch (e: any) {
-        out.push({ id, status: 'error', fileName: f.name, type: 'file', error: e?.message || 'Upload failed' })
-        setResults([...out])
+
+      const out = resp.results || []
+      setResults(out)
+      setRunning(false)
+      if (!storeRemote && out.length > 0) {
+        messageApi.info('Processing complete. You can download results as JSON.')
       }
-    }
-    setRunning(false)
-    if (!storeRemote && out.length > 0) messageApi.info('Processing complete. You can download results as JSON.')
-    if (out.length > 0) {
-      const successCount = out.filter((r) => r.status === 'ok').length
-      const failCount = out.length - successCount
-      const summary = `${successCount} succeeded · ${failCount} failed`
-      if (failCount > 0) messageApi.warning(summary)
-      else messageApi.success(summary)
+      if (out.length > 0) {
+        const successCount = out.filter((r) => r.status === 'ok').length
+        const failCount = out.length - successCount
+        const summary = `${successCount} succeeded · ${failCount} failed`
+        if (failCount > 0) messageApi.warning(summary)
+        else messageApi.success(summary)
+      }
+    } catch (e: any) {
+      setRunning(false)
+      messageApi.error(e?.message || 'Quick ingest failed.')
     }
   }
 
@@ -437,10 +399,26 @@ export const QuickIngestModal: React.FC<Props> = ({ open, onClose }) => {
       used = 'server'
       try {
         const rVer = remote?.info?.version
+        const prevVersion = specPrefs?.lastRemote?.version
+        const prevCachedAt = specPrefs?.lastRemote?.cachedAt
+        const now = Date.now()
+        const shouldReuseCachedAt =
+          prevVersion && prevVersion === rVer && typeof prevCachedAt === 'number'
+
+        // For background auto-loads (reportDiff === false), skip writing to
+        // extension storage entirely to avoid hitting MAX_WRITE_OPERATIONS_PER_MINUTE.
+        // We only persist when the user explicitly reloads or toggles settings.
+        if (!reportDiff) {
+          return
+        }
+
         const payload = {
           ...(specPrefs || {}),
           preferServer: true,
-          lastRemote: { version: rVer, cachedAt: Date.now() }
+          lastRemote: {
+            version: rVer,
+            cachedAt: shouldReuseCachedAt ? prevCachedAt : now
+          }
         }
         // Log approximate size of what we persist for debugging quota issues
         try {
@@ -508,7 +486,8 @@ export const QuickIngestModal: React.FC<Props> = ({ open, onClose }) => {
   }, [specPrefs])
 
   React.useEffect(() => {
-    (async () => {
+    if (!open) return
+    ;(async () => {
       // Load bundled once for diffing later
       try {
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -517,12 +496,13 @@ export const QuickIngestModal: React.FC<Props> = ({ open, onClose }) => {
         setBundledSpec(localSpec)
       } catch {}
       // Prefer server
-      const prefer = typeof specPrefs?.preferServer === 'boolean' ? specPrefs.preferServer : true
+      const prefer =
+        typeof specPrefs?.preferServer === 'boolean' ? specPrefs.preferServer : true
       await loadSpec(prefer)
       if (specSource === 'none') await loadSpec(false)
     })()
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [open])
 
   React.useEffect(() => {
     lastSavedAdvValuesRef.current = JSON.stringify(savedAdvValues || {})
@@ -577,6 +557,60 @@ export const QuickIngestModal: React.FC<Props> = ({ open, onClose }) => {
     a.download = 'processed.json'
     a.click()
     URL.revokeObjectURL(a.href)
+  }
+
+  const openInMediaViewer = (item: ResultItem) => {
+    try {
+      const id = mediaIdFromPayload(item.data)
+      if (id == null) {
+        return
+      }
+      const idStr = String(id)
+      try {
+        localStorage.setItem("tldw:lastMediaId", idStr)
+      } catch {
+        // ignore storage failures
+      }
+      const hash = "#/media-multi"
+      const path = window.location.pathname || ""
+      if (path.includes("options.html")) {
+        window.location.hash = hash
+      } else {
+        window.open(`/options.html${hash}`, "_blank")
+      }
+    } catch {
+      // best-effort — do not crash modal
+    }
+  }
+
+  const discussInChat = (item: ResultItem) => {
+    try {
+      const id = mediaIdFromPayload(item.data)
+      if (id == null) {
+        return
+      }
+      const payload = {
+        mediaId: String(id),
+        url: item.url || (item.data && (item.data.url || item.data.source_url)) || undefined
+      }
+      try {
+        localStorage.setItem("tldw:discussMediaPrompt", JSON.stringify(payload))
+      } catch {
+        // ignore localStorage failures
+      }
+      const hash = "#/"
+      const path = window.location.pathname || ""
+      if (path.includes("options.html")) {
+        window.location.hash = hash
+        window.dispatchEvent(
+          new CustomEvent("tldw:discuss-media", { detail: payload })
+        )
+      } else {
+        window.open(`/options.html${hash}`, "_blank")
+      }
+    } catch {
+      // swallow errors; logging not needed here
+    }
   }
 
   const plannedCount = React.useMemo(() => {
@@ -634,6 +668,45 @@ export const QuickIngestModal: React.FC<Props> = ({ open, onClose }) => {
     })
   }, [])
 
+  // Live progress updates from background batch processor
+  React.useEffect(() => {
+    const handler = (message: any) => {
+      if (!message || message.type !== "tldw:quick-ingest-progress") return
+      const payload = message.payload || {}
+      const result = payload.result as ResultItem | undefined
+      if (typeof payload.processedCount === "number") {
+        setProcessedCount(payload.processedCount)
+      }
+      if (typeof payload.totalCount === "number") {
+        setLiveTotalCount(payload.totalCount)
+        setTotalPlanned(payload.totalCount)
+      }
+      if (!result || !result.id) return
+
+      setResults((prev) => {
+        const map = new Map<string, ResultItem>()
+        for (const r of prev) {
+          if (r.id) map.set(r.id, r)
+        }
+        const existing = map.get(result.id)
+        map.set(result.id, { ...(existing || {}), ...result })
+        return Array.from(map.values())
+      })
+    }
+
+    try {
+      // @ts-ignore
+      browser?.runtime?.onMessage?.addListener(handler)
+    } catch {}
+
+    return () => {
+      try {
+        // @ts-ignore
+        browser?.runtime?.onMessage?.removeListener(handler)
+      } catch {}
+    }
+  }, [])
+
   return (
     <Modal
       title={t('quickIngest.title') || 'Quick Ingest Media'}
@@ -641,7 +714,7 @@ export const QuickIngestModal: React.FC<Props> = ({ open, onClose }) => {
       onCancel={onClose}
       footer={null}
       width={760}
-      destroyOnClose
+      destroyOnHidden
       rootClassName="quick-ingest-modal"
       maskClosable={!running}
     >
@@ -803,15 +876,36 @@ export const QuickIngestModal: React.FC<Props> = ({ open, onClose }) => {
           <Space wrap size="middle" align="center">
             <Space align="center">
               <span>Analysis</span>
-              <Switch checked={common.perform_analysis} onChange={(v) => setCommon((c) => ({ ...c, perform_analysis: v }))} disabled={running} />
+              <Switch
+                aria-label="Ingestion options \u2013 analysis"
+                checked={common.perform_analysis}
+                onChange={(v) =>
+                  setCommon((c) => ({ ...c, perform_analysis: v }))
+                }
+                disabled={running}
+              />
             </Space>
             <Space align="center">
               <span>Chunking</span>
-              <Switch checked={common.perform_chunking} onChange={(v) => setCommon((c) => ({ ...c, perform_chunking: v }))} disabled={running} />
+              <Switch
+                aria-label="Ingestion options \u2013 chunking"
+                checked={common.perform_chunking}
+                onChange={(v) =>
+                  setCommon((c) => ({ ...c, perform_chunking: v }))
+                }
+                disabled={running}
+              />
             </Space>
             <Space align="center">
               <span>Overwrite existing</span>
-              <Switch checked={common.overwrite_existing} onChange={(v) => setCommon((c) => ({ ...c, overwrite_existing: v }))} disabled={running} />
+              <Switch
+                aria-label="Ingestion options \u2013 overwrite existing"
+                checked={common.overwrite_existing}
+                onChange={(v) =>
+                  setCommon((c) => ({ ...c, overwrite_existing: v }))
+                }
+                disabled={running}
+              />
             </Space>
           </Space>
         </div>
@@ -891,20 +985,30 @@ export const QuickIngestModal: React.FC<Props> = ({ open, onClose }) => {
 
         <div className="sticky bottom-0 z-10 mt-3 bg-white/90 dark:bg-[#111111]/90 backdrop-blur pt-2 pb-2 border-t border-gray-200 dark:border-gray-700">
           <div className="flex flex-col gap-2">
-            <div className="sr-only" aria-live="polite" role="status">
-              {running && totalPlanned > 0
-                ? t('quickIngest.progress', 'Processing {{done}} / {{total}} items…', {
-                    done: results.length,
-                    total: totalPlanned
-                  })
-                : `${plannedCount || 0} ${plannedCount === 1 ? 'item' : 'items'} ready`}
-            </div>
+            {(() => {
+              const done = processedCount || results.length
+              const total = liveTotalCount || totalPlanned
+              return (
+                <div className="sr-only" aria-live="polite" role="status">
+                  {running && total > 0
+                    ? t('quickIngest.progress', 'Processing {{done}} / {{total}} items…', {
+                        done,
+                        total
+                      })
+                    : `${plannedCount || 0} ${plannedCount === 1 ? 'item' : 'items'} ready`}
+                </div>
+              )
+            })()}
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 text-sm text-gray-700 dark:text-gray-200">
               <div className="flex items-start gap-3">
                 <Space align="center">
                   <Typography.Text strong>Processing mode</Typography.Text>
                   <Switch
-                    aria-label="Toggle processing mode"
+                    aria-label={
+                      storeRemote
+                        ? "Processing mode \u2013 store to remote DB"
+                        : "Processing mode \u2013 process locally"
+                    }
                     checked={storeRemote}
                     onChange={setStoreRemote}
                     disabled={running}
@@ -915,12 +1019,17 @@ export const QuickIngestModal: React.FC<Props> = ({ open, onClose }) => {
                 </Space>
               </div>
               <span className="text-xs text-gray-500 dark:text-gray-400">
-                {running && totalPlanned > 0
-                  ? t('quickIngest.progress', 'Processing {{done}} / {{total}} items…', {
-                      done: results.length,
-                      total: totalPlanned
+                {(() => {
+                  const done = processedCount || results.length
+                  const total = liveTotalCount || totalPlanned
+                  if (running && total > 0) {
+                    return t('quickIngest.progress', 'Processing {{done}} / {{total}} items…', {
+                      done,
+                      total
                     })
-                  : `${plannedCount || 0} ${plannedCount === 1 ? 'item' : 'items'} ready`}
+                  }
+                  return `${plannedCount || 0} ${plannedCount === 1 ? 'item' : 'items'} ready`
+                })()}
               </span>
             </div>
             <Typography.Text type="secondary" className="text-xs">
@@ -994,7 +1103,7 @@ export const QuickIngestModal: React.FC<Props> = ({ open, onClose }) => {
                   <span className="text-xs text-gray-500">Prefer server</span>
                   <Switch
                     size="small"
-                    aria-label="Prefer server OpenAPI spec"
+                    aria-label="Advanced options \u2013 prefer server OpenAPI spec"
                     checked={!!specPrefs?.preferServer}
                     onChange={async (v) => {
                       persistSpecPrefs({ ...(specPrefs || {}), preferServer: v })
@@ -1082,6 +1191,7 @@ export const QuickIngestModal: React.FC<Props> = ({ open, onClose }) => {
                           const setV = (nv: any) => setAdvancedValue(f.name, nv)
                           const isOpen = fieldDetailsOpen[f.name]
                           const setOpen = (open: boolean) => setFieldDetailsOpen((prev) => ({ ...prev, [f.name]: open }))
+                          const ariaLabel = `${g} \u2013 ${f.title || f.name}`
                           const Label = (
                             <div className="flex items-center gap-1">
                               <span className="min-w-60 text-sm">{f.title || f.name}</span>
@@ -1096,7 +1206,14 @@ export const QuickIngestModal: React.FC<Props> = ({ open, onClose }) => {
                             return (
                               <div key={f.name} className="flex items-center gap-2">
                                 {Label}
-                                <Select className="w-72" allowClear value={v} onChange={setV as any} options={f.enum.map((e) => ({ value: e, label: String(e) }))} />
+                                <Select
+                                  className="w-72"
+                                  allowClear
+                                  aria-label={ariaLabel}
+                                  value={v}
+                                  onChange={setV as any}
+                                  options={f.enum.map((e) => ({ value: e, label: String(e) }))}
+                                />
                                 {f.description && (
                                   <button className="text-xs underline text-gray-500" onClick={() => setOpen(!isOpen)}>{isOpen ? 'Hide details' : 'Show details'}</button>
                                 )}
@@ -1111,7 +1228,7 @@ export const QuickIngestModal: React.FC<Props> = ({ open, onClose }) => {
                                 <Switch
                                   checked={boolState === 'true'}
                                   onChange={(checked) => setAdvancedValue(f.name, checked)}
-                                  aria-label={`Toggle ${f.title || f.name}`}
+                                  aria-label={ariaLabel}
                                 />
                                 <Button
                                   size="small"
@@ -1132,7 +1249,12 @@ export const QuickIngestModal: React.FC<Props> = ({ open, onClose }) => {
                             return (
                               <div key={f.name} className="flex items-center gap-2">
                                 {Label}
-                                <InputNumber className="w-40" value={v} onChange={setV as any} />
+                                <InputNumber
+                                  className="w-40"
+                                  aria-label={ariaLabel}
+                                  value={v}
+                                  onChange={setV as any}
+                                />
                                 {f.description && (
                                   <button className="text-xs underline text-gray-500" onClick={() => setOpen(!isOpen)}>{isOpen ? 'Hide details' : 'Show details'}</button>
                                 )}
@@ -1142,7 +1264,12 @@ export const QuickIngestModal: React.FC<Props> = ({ open, onClose }) => {
                           return (
                             <div key={f.name} className="flex items-center gap-2">
                               {Label}
-                              <Input className="w-96" value={v} onChange={(e) => setV(e.target.value)} />
+                              <Input
+                                className="w-96"
+                                aria-label={ariaLabel}
+                                value={v}
+                                onChange={(e) => setV(e.target.value)}
+                              />
                               {f.description && (
                                 <button className="text-xs underline text-gray-500" onClick={() => setOpen(!isOpen)}>{isOpen ? 'Hide details' : 'Show details'}</button>
                               )}
@@ -1172,29 +1299,71 @@ export const QuickIngestModal: React.FC<Props> = ({ open, onClose }) => {
             <List
               size="small"
               dataSource={results}
-              renderItem={(item) => (
-                <List.Item actions={[
-                  !storeRemote && item.status === 'ok' ? (
+              renderItem={(item) => {
+                const mediaId = item.status === "ok" && storeRemote ? mediaIdFromPayload(item.data) : null
+                const hasMediaId = mediaId != null
+                const actions: React.ReactNode[] = []
+                if (!storeRemote && item.status === "ok") {
+                  actions.push(
                     <button
                       key="dl"
                       type="button"
                       onClick={() => downloadJson(item)}
-                      aria-label={`Download JSON for ${item.url || item.fileName || 'item'}`}
-                      className="text-blue-600 hover:underline">
-                      {t('quickIngest.downloadJson') || 'Download JSON'}
+                      aria-label={`Download JSON for ${item.url || item.fileName || "item"}`}
+                      className="text-blue-600 hover:underline"
+                    >
+                      {t("quickIngest.downloadJson") || "Download JSON"}
                     </button>
-                  ) : null
-                ]}>
-                  <div className="text-sm">
-                    <div className="flex items-center gap-2">
-                      <Tag color={item.status === 'ok' ? 'green' : 'red'}>{item.status.toUpperCase()}</Tag>
-                      <span>{item.type.toUpperCase()}</span>
+                  )
+                }
+                if (hasMediaId) {
+                  actions.push(
+                    <button
+                      key="open-media"
+                      type="button"
+                      onClick={() => openInMediaViewer(item)}
+                      className="text-blue-600 hover:underline"
+                    >
+                      {t("quickIngest.openInMedia", "Open in Media viewer")}
+                    </button>
+                  )
+                  actions.push(
+                    <button
+                      key="discuss-chat"
+                      type="button"
+                      onClick={() => discussInChat(item)}
+                      className="text-blue-600 hover:underline"
+                    >
+                      {t("quickIngest.discussInChat", "Discuss in chat")}
+                    </button>
+                  )
+                }
+                return (
+                  <List.Item actions={actions}>
+                    <div className="text-sm">
+                      <div className="flex items-center gap-2">
+                        <Tag color={item.status === "ok" ? "green" : "red"}>
+                          {item.status.toUpperCase()}
+                        </Tag>
+                        <span>{item.type.toUpperCase()}</span>
+                      </div>
+                      <div className="text-xs text-gray-500 break-all">
+                        {item.url || item.fileName}
+                      </div>
+                      {hasMediaId ? (
+                        <div className="text-[11px] text-gray-500">
+                          {t("quickIngest.savedAsMedia", "Saved as media {{id}}", {
+                            id: String(mediaId)
+                          })}
+                        </div>
+                      ) : null}
+                      {item.error ? (
+                        <div className="text-xs text-red-500">{item.error}</div>
+                      ) : null}
                     </div>
-                    <div className="text-xs text-gray-500 break-all">{item.url}</div>
-                    {item.error ? <div className="text-xs text-red-500">{item.error}</div> : null}
-                  </div>
-                </List.Item>
-              )}
+                  </List.Item>
+                )
+              }}
             />
           </div>
         )}

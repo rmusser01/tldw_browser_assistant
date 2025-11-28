@@ -18,14 +18,13 @@ import {
   Tabs,
   Tag,
   Tooltip,
-  Typography,
-  message
+  Typography
 } from "antd"
 import { Checkbox } from "antd"
 import dayjs from "dayjs"
 import relativeTime from "dayjs/plugin/relativeTime"
 import { useTranslation } from "react-i18next"
-import { confirmDanger } from "@/components/Common/confirm-danger"
+import { useConfirmDanger } from "@/components/Common/confirm-danger"
 import { useServerOnline } from "@/hooks/useServerOnline"
 import {
   createDeck,
@@ -49,6 +48,7 @@ import FeatureEmptyState from "@/components/Common/FeatureEmptyState"
 import { useNavigate } from "react-router-dom"
 import { useDemoMode } from "@/context/demo-mode"
 import { useServerCapabilities } from "@/hooks/useServerCapabilities"
+import { useAntdMessage } from "@/hooks/useAntdMessage"
 
 dayjs.extend(relativeTime)
 
@@ -64,6 +64,8 @@ export const FlashcardsPage: React.FC = () => {
   const { demoEnabled } = useDemoMode()
   const { capabilities, loading: capsLoading } = useServerCapabilities()
   const [activeTab, setActiveTab] = React.useState<string>("review")
+  const message = useAntdMessage()
+  const confirmDanger = useConfirmDanger()
 
   if (!isOnline) {
     return demoEnabled ? (
@@ -542,6 +544,47 @@ export const FlashcardsPage: React.FC = () => {
     ],
     [t]
   )
+
+  // Deep-link support: if tldw:lastDeckId is set (e.g., from omni-search),
+  // select that deck in both Review and Manage views once decks are loaded.
+  const [pendingDeckId, setPendingDeckId] = React.useState<number | null>(() => {
+    try {
+      if (typeof window === "undefined") return null
+      const raw = window.localStorage.getItem("tldw:lastDeckId")
+      if (!raw) return null
+      const num = Number(raw)
+      return Number.isFinite(num) ? num : null
+    } catch {
+      return null
+    }
+  })
+
+  React.useEffect(() => {
+    if (!isOnline) return
+    if (pendingDeckId == null) return
+    const decks = decksQuery.data
+    if (!Array.isArray(decks) || decks.length === 0) return
+    const match = decks.find((d) => d.id === pendingDeckId)
+    if (!match) {
+      // Deck no longer exists; clear marker.
+      setPendingDeckId(null)
+      try {
+        window.localStorage.removeItem("tldw:lastDeckId")
+      } catch {
+        // ignore storage errors
+      }
+      return
+    }
+    setReviewDeckId(pendingDeckId)
+    setMDeckId(pendingDeckId)
+    setActiveTab("review")
+    setPendingDeckId(null)
+    try {
+      window.localStorage.removeItem("tldw:lastDeckId")
+    } catch {
+      // ignore storage errors
+    }
+  }, [decksQuery.data, isOnline, pendingDeckId])
 
   return (
     <div className="mx-auto max-w-6xl p-4">
@@ -1148,6 +1191,7 @@ export default FlashcardsPage
 
 // --- Import Panel ---
 const ImportPanel: React.FC = () => {
+  const message = useAntdMessage()
   const { t } = useTranslation(["option", "common"]) 
   const isOnline = useServerOnline()
   const [content, setContent] = React.useState("")
@@ -1326,7 +1370,8 @@ My deck	What is a closure?	A function with preserved outer scope.	javascript; fu
 
 // --- Export Panel ---
 const ExportPanel: React.FC = () => {
-  const { t } = useTranslation(["option", "common"]) 
+  const { t } = useTranslation(["option", "common"])
+  const message = useAntdMessage()
   const isOnline = useServerOnline()
   const { data: decks, isLoading: decksLoading } = useQuery({
     queryKey: ["flashcards:decks"],

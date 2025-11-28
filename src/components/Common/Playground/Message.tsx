@@ -1,4 +1,3 @@
-import Markdown from "../../Common/Markdown"
 import React, { useEffect } from "react"
 import { Tag, Image, Tooltip, Collapse, Popover, Avatar } from "antd"
 import { IconButton } from "../IconButton"
@@ -29,6 +28,8 @@ import { PlaygroundUserMessageBubble } from "./PlaygroundUserMessage"
 import { copyToClipboard } from "@/utils/clipboard"
 import { ChatDocuments } from "@/models/ChatTypes"
 import { PiGitBranch } from "react-icons/pi"
+
+const Markdown = React.lazy(() => import("../../Common/Markdown"))
 
 type Props = {
   message: string
@@ -63,6 +64,8 @@ type Props = {
   onNewBranch?: () => void
   temporaryChat?: boolean
   onStopStreaming?: () => void
+  serverChatId?: string | null
+  serverMessageId?: string | null
 }
 
 export const PlaygroundMessage = (props: Props) => {
@@ -146,7 +149,7 @@ export const PlaygroundMessage = (props: Props) => {
 
   return (
     <div
-      className={`group relative flex w-full max-w-3xl flex-col items-end justify-center pb-2 md:px-4 lg:w-4/5 text-gray-800 dark:text-gray-100 ${checkWideMode ? "max-w-none" : ""}`}>
+      className={`group relative flex w-full max-w-3xl flex-col items-end justify-center pb-2 md:px-4 text-gray-800 dark:text-gray-100 ${checkWideMode ? "max-w-none" : ""}`}>
       {/* Inline stop button while streaming on the latest assistant message */}
       {props.isBot && (props.isStreaming || props.isProcessing) && isLastMessage && props.onStopStreaming && (
         <div className="absolute right-2 top-0 z-10">
@@ -251,14 +254,33 @@ export const PlaygroundMessage = (props: Props) => {
                                     )}
                                   </span>
                                 ),
-                              children: <Markdown message={e.content} />
+                              children: (
+                                <React.Suspense
+                                  fallback={
+                                    <p className="text-sm text-gray-500 dark:text-gray-400">
+                                      {t("reasoning.loading")}
+                                    </p>
+                                  }>
+                                  <Markdown message={e.content} />
+                                </React.Suspense>
+                              )
                             }
                           ]}
                         />
                       )
                     }
 
-                    return <Markdown key={i} message={e.content} />
+                    return (
+                      <React.Suspense
+                        key={i}
+                        fallback={
+                          <p className="text-sm text-gray-500 dark:text-gray-400">
+                            {t("loading.content")}
+                          </p>
+                        }>
+                        <Markdown message={e.content} />
+                      </React.Suspense>
+                    )
                   })}
                 </>
               ) : (

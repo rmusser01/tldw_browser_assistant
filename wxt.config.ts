@@ -1,17 +1,24 @@
 import { defineConfig } from "wxt"
+import path from "path"
 import react from "@vitejs/plugin-react"
 import topLevelAwait from "vite-plugin-top-level-await"
 import { parse } from "acorn"
 import MagicString from "magic-string"
 import { walk } from "estree-walker"
 import type { Plugin } from "vite"
+import { fileURLToPath } from "url"
 
 const isFirefox = process.env.TARGET === "firefox"
+const projectRoot = path.dirname(fileURLToPath(import.meta.url))
+
+const isAnyMatch = (id: string, matches: string[]) => {
+  return matches.some((m) => id.includes(m))
+}
 
 const safeInnerHTMLPlugin = (): Plugin => ({
   name: "sanitize-innerhtml",
   enforce: "post",
-  renderChunk(code) {
+  transform(code) {
     if (!code.includes("innerHTML")) return null
 
     const ast = parse(code, { ecmaVersion: "latest", sourceType: "module" }) as any
@@ -48,10 +55,25 @@ const safeInnerHTMLPlugin = (): Plugin => ({
     if (!replaced) return null
 
     const helper = `
+import * as __DOMPurifyModule from "dompurify";
+const __createDOMPurify =
+  // ESM default export or CJS default property
+  typeof __DOMPurifyModule === "object" &&
+  __DOMPurifyModule &&
+  "default" in __DOMPurifyModule
+    ? // @ts-ignore
+      __DOMPurifyModule.default
+    : __DOMPurifyModule;
+const DOMPurify =
+  typeof __createDOMPurify === "function"
+    ? __createDOMPurify(typeof window !== "undefined" ? window : undefined)
+    : __createDOMPurify;
+
 const __setSafeInnerHTML = (el, html) => {
   if (!el) return;
   const doc = el.ownerDocument || document;
   const raw = html?.valueOf?.() ?? html ?? "";
+  const sanitized = DOMPurify.sanitize(String(raw), { RETURN_TRUSTED_TYPE: false });
   while (el.firstChild) {
     el.removeChild(el.firstChild);
   }
@@ -59,8 +81,8 @@ const __setSafeInnerHTML = (el, html) => {
   range.selectNodeContents(el);
   const markup =
     el.namespaceURI === "http://www.w3.org/2000/svg"
-      ? "<svg xmlns=\\"http://www.w3.org/2000/svg\\">" + String(raw) + "</svg>"
-      : String(raw);
+      ? "<svg xmlns=\\"http://www.w3.org/2000/svg\\">" + sanitized + "</svg>"
+      : sanitized;
   const fragment = range.createContextualFragment(markup);
   const target =
     el.namespaceURI === "http://www.w3.org/2000/svg" ? fragment.firstChild : fragment;
@@ -125,23 +147,29 @@ export default defineConfig({
         promiseImportName: (i) => `__tla_${i}`
       }) as any
     ],
+    // Ensure every entry (options, sidepanel, content scripts) shares a single React instance.
+    resolve: {
+      dedupe: ["react", "react-dom", "react/jsx-runtime", "react/jsx-dev-runtime"],
+      alias: {
+        react: path.resolve(projectRoot, "node_modules/react"),
+        "react-dom": path.resolve(projectRoot, "node_modules/react-dom"),
+        "react/jsx-runtime": path.resolve(projectRoot, "node_modules/react/jsx-runtime"),
+        "react/jsx-dev-runtime": path.resolve(projectRoot, "node_modules/react/jsx-dev-runtime")
+      }
+    },
     // Disable Hot Module Replacement so streaming connections aren't killed by dev reloads
     server: {
       hmr: false
+    },
+    optimizeDeps: {
+      include: ["react", "react-dom", "react/jsx-runtime", "react/jsx-dev-runtime"]
     },
     build: {
       // Firefox MV2 validator chokes on modern ESM in chunks; downlevel and turn off module preload there.
       target: isFirefox ? "es2017" : "esnext",
       modulePreload: isFirefox ? false : undefined,
       rollupOptions: {
-        external: ["langchain", "@langchain/community"],
-        ...(isFirefox
-          ? {
-              output: {
-                manualChunks: undefined
-              }
-            }
-          : {})
+        external: ["langchain", "@langchain/community"]
       }
     }
   }),
@@ -163,10 +191,10 @@ export default defineConfig({
     browser_specific_settings:
       process.env.TARGET === "firefox"
         ? {
-          gecko: {
-            id: "tldw-assistant@tldw"
+            gecko: {
+              id: "tldw-assistant@tldw"
+            }
           }
-        }
         : undefined,
     // Allow outbound calls to the user's tldw_server (local or remote) without an extra permission prompt.
     host_permissions: ["http://*/*", "https://*/*"],

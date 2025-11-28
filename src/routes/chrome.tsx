@@ -28,9 +28,13 @@ import OptionKnowledgeWorkspace from "./option-knowledge"
 import OptionFlashcards from "./option-flashcards"
 import OptionTts from "./option-tts"
 import OptionEvaluations from "./option-evaluations"
+import OptionStt from "./option-stt"
 import OptionSettingsEvaluations from "./option-settings-evaluations"
 import OptionPromptStudio from "./option-prompt-studio"
 import OptionSettingsPromptStudio from "./option-settings-prompt-studio"
+import OptionAdminServer from "./option-admin-server"
+import OptionAdminLlamacpp from "./option-admin-llamacpp"
+import OptionAdminMlx from "./option-admin-mlx"
 
 export const OptionRoutingChrome = () => {
   return (
@@ -66,7 +70,11 @@ export const OptionRoutingChrome = () => {
       <Route path="/prompts" element={<OptionPromptsWorkspace />} />
       <Route path="/prompt-studio" element={<OptionPromptStudio />} />
       <Route path="/tts" element={<OptionTts />} />
+      <Route path="/stt" element={<OptionStt />} />
       <Route path="/evaluations" element={<OptionEvaluations />} />
+      <Route path="/admin/server" element={<OptionAdminServer />} />
+      <Route path="/admin/llamacpp" element={<OptionAdminLlamacpp />} />
+      <Route path="/admin/mlx" element={<OptionAdminMlx />} />
     </Routes>
   )
 }

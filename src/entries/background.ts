@@ -4,6 +4,14 @@ import type { AllowedPath } from "@/services/tldw/openapi-guard"
 import { getInitialConfig } from "@/services/action"
 import { tldwClient } from "@/services/tldw/TldwApiClient"
 import { tldwAuth } from "@/services/tldw/TldwAuth"
+import { apiSend } from "@/services/api-send"
+import {
+  ensureSidepanelOpen,
+  pickFirstString,
+  extractTranscriptionPieces,
+  clampText,
+  notify
+} from "@/services/background-helpers"
 
 export default defineBackground({
   main() {
@@ -17,8 +25,20 @@ export default defineBackground({
       webui: "open-web-ui-pa",
       sidePanel: "open-side-panel-pa"
     }
+    const transcribeMenuId = {
+      transcribe: "transcribe-media-pa",
+      transcribeAndSummarize: "transcribe-and-summarize-media-pa"
+    }
+    const saveToNotesMenuId = "save-to-notes-pa"
     const initialize = async () => {
       try {
+        // Clear any existing menu items to avoid duplicate-id errors
+        try {
+          await browser.contextMenus.removeAll()
+        } catch (e) {
+          console.debug("[tldw] contextMenus.removeAll failed:", (e as any)?.message || e)
+        }
+
         storage.watch({
           actionIconClick: (value) => {
             const oldValue = value?.oldValue || "webui"
@@ -81,6 +101,12 @@ export default defineBackground({
         })
 
         browser.contextMenus.create({
+          id: saveToNotesMenuId,
+          title: browser.i18n.getMessage("contextSaveToNotes"),
+          contexts: ["selection"]
+        })
+
+        browser.contextMenus.create({
           id: "send-to-tldw",
           title: browser.i18n.getMessage("contextSendToTldw"),
           contexts: ["page", "link"]
@@ -89,6 +115,18 @@ export default defineBackground({
         browser.contextMenus.create({
           id: "process-local-tldw",
           title: browser.i18n.getMessage("contextProcessLocalTldw"),
+          contexts: ["page", "link"]
+        })
+
+        browser.contextMenus.create({
+          id: transcribeMenuId.transcribe,
+          title: browser.i18n.getMessage("contextTranscribeMedia"),
+          contexts: ["page", "link"]
+        })
+
+        browser.contextMenus.create({
+          id: transcribeMenuId.transcribeAndSummarize,
+          title: browser.i18n.getMessage("contextTranscribeAndSummarizeMedia"),
           contexts: ["page", "link"]
         })
 
@@ -171,6 +209,86 @@ export default defineBackground({
       return '/api/v1/media/process-web-scraping'
     }
 
+    const handleTranscribeClick = async (
+      info: any,
+      tab: any,
+      mode: 'transcribe' | 'transcribe+summary'
+    ) => {
+      const pageUrl = info.pageUrl || (tab && tab.url) || ''
+      const targetUrl = (info.linkUrl && /^https?:/i.test(info.linkUrl)) ? info.linkUrl : pageUrl
+      if (!targetUrl) {
+        notify('tldw_server', 'No URL found to transcribe.')
+        return
+      }
+      const path = getProcessPathForUrl(targetUrl)
+      if (path !== '/api/v1/media/process-audios' && path !== '/api/v1/media/process-videos') {
+        notify('tldw_server', 'Transcription is available for audio or video URLs only.')
+        return
+      }
+
+      try {
+        const resp = await apiSend({
+          path,
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: {
+            urls: [targetUrl],
+            perform_analysis: mode === 'transcribe+summary',
+            perform_chunking: false,
+            summarize_recursively: mode === 'transcribe+summary',
+            timestamp_option: true
+          },
+          timeoutMs: 180000
+        })
+        if (!resp?.ok) {
+          notify('tldw_server', resp?.error || 'Transcription failed. Check your connection and server config.')
+          return
+        }
+        const { transcript, summary } = extractTranscriptionPieces(resp.data)
+        const safeTranscript = clampText(transcript)
+        const safeSummary = clampText(summary)
+        const label = mode === 'transcribe+summary' ? 'Transcription + summary' : 'Transcription'
+        const bodyParts = []
+        if (safeTranscript) bodyParts.push(`Transcript:\n${safeTranscript}`)
+        if (safeSummary) bodyParts.push(`Summary:\n${safeSummary}`)
+        const combinedText = bodyParts.join('\n\n') || 'Request completed. Open Media or the sidebar to view results.'
+
+        ensureSidepanelOpen(tab?.id)
+        try {
+          await browser.runtime.sendMessage({
+            from: 'background',
+            type: mode === 'transcribe+summary' ? 'transcription+summary' : 'transcription',
+            text: combinedText,
+            payload: {
+              url: targetUrl,
+              transcript: safeTranscript,
+              summary: safeSummary,
+              mode
+            }
+          })
+        } catch {
+          setTimeout(() => {
+            try {
+              browser.runtime.sendMessage({
+                from: 'background',
+                type: mode === 'transcribe+summary' ? 'transcription+summary' : 'transcription',
+                text: combinedText,
+                payload: {
+                  url: targetUrl,
+                  transcript: safeTranscript,
+                  summary: safeSummary,
+                  mode
+                }
+              })
+            } catch {}
+          }, 500)
+        }
+        notify('tldw_server', `${label} sent to sidebar. You can also review it under Media in the Web UI.`)
+      } catch (e: any) {
+        notify('tldw_server', e?.message || 'Transcription request failed.')
+      }
+    }
+
     const deriveRequestTimeout = (cfg: any, path: string, override?: number) => {
       if (override && override > 0) return override
       const p = String(path || '')
@@ -211,59 +329,392 @@ export default defineBackground({
       return null
     }
 
-    browser.runtime.onMessage.addListener(async (message) => {
+    const normalizeFileData = (input: any): Uint8Array | null => {
+      if (!input) return null
+      if (input instanceof ArrayBuffer) return new Uint8Array(input)
+      if (ArrayBuffer.isView(input)) {
+        return new Uint8Array(input.buffer, input.byteOffset, input.byteLength)
+      }
+      // Accept common structured-clone shapes (e.g., { data: [...] })
+      if (Array.isArray((input as any)?.data)) return new Uint8Array((input as any).data)
+      if (Array.isArray(input)) return new Uint8Array(input)
+      if (typeof input === 'string' && input.startsWith('data:')) {
+        try {
+          const base64 = input.split(',', 2)[1] || ''
+          const binary = atob(base64)
+          const out = new Uint8Array(binary.length)
+          for (let i = 0; i < binary.length; i += 1) out[i] = binary.charCodeAt(i)
+          return out
+        } catch {
+          return null
+        }
+      }
+      return null
+    }
+
+    const handleUpload = async (payload: {
+      path?: string
+      method?: string
+      fields?: Record<string, any>
+      file?: { name?: string; type?: string; data?: ArrayBuffer | Uint8Array | { data?: number[] } | number[] | string }
+    }) => {
+      const { path, method = 'POST', fields = {}, file } = payload || {}
+      const storage = new Storage({ area: 'local' })
+      const cfg = await storage.get<any>('tldwConfig')
+      const isAbsolute = typeof path === 'string' && /^https?:/i.test(path)
+      if (!cfg?.serverUrl && !isAbsolute) {
+        return { ok: false, status: 400, error: 'tldw server not configured' }
+      }
+      const baseUrl = cfg?.serverUrl ? String(cfg.serverUrl).replace(/\/$/, '') : ''
+      const url = isAbsolute ? path : `${baseUrl}${path?.startsWith('/') ? '' : '/'}${path}`
+      try {
+        const form = new FormData()
+        for (const [k, v] of Object.entries(fields || {})) {
+          // Preserve arrays (e.g., urls) instead of stringifying them into JSON blobs
+          if (Array.isArray(v)) {
+            v.forEach((item) => form.append(k, typeof item === 'string' ? item : JSON.stringify(item)))
+          } else {
+            form.append(k, typeof v === 'string' ? v : JSON.stringify(v))
+          }
+        }
+        if (file?.data !== undefined && file?.data !== null) {
+          const bytes = normalizeFileData(file.data)
+          if (!bytes || bytes.byteLength === 0) {
+            return { ok: false, status: 400, error: 'File data missing or unreadable. Please re-select the file and try again.' }
+          }
+          const blob = new Blob([bytes], {
+            type: file.type || 'application/octet-stream'
+          })
+          const filename = file.name || 'file'
+          // @ts-ignore File may not exist in some workers; Blob is accepted by FormData
+          try {
+            form.append('files', new File([blob], filename, { type: blob.type }))
+          } catch {
+            form.append('files', blob, filename)
+          }
+          // Backward-compat: also include singular key some servers accept
+          form.append('file', blob, filename)
+        }
+        const headers: Record<string, string> = {}
+        if (cfg?.authMode === 'single-user') {
+          const key = (cfg?.apiKey || '').trim()
+          if (!key) {
+            return {
+              ok: false,
+              status: 401,
+              error: 'Add or update your API key in Settings → tldw server, then try again.'
+            }
+          }
+          headers['X-API-KEY'] = key
+        }
+        if (cfg?.authMode === 'multi-user') {
+          const token = (cfg?.accessToken || '').trim()
+          if (!token) return { ok: false, status: 401, error: 'Not authenticated. Please login under Settings > tldw.' }
+          headers['Authorization'] = `Bearer ${token}`
+        }
+        const controller = new AbortController()
+        const timeoutMs =
+          Number(cfg?.uploadRequestTimeoutMs) > 0
+            ? Number(cfg.uploadRequestTimeoutMs)
+            : Number(cfg?.requestTimeoutMs) > 0
+              ? Number(cfg.requestTimeoutMs)
+              : 10000
+        const timeout = setTimeout(() => controller.abort(), timeoutMs)
+        const resp = await fetch(url, { method, headers, body: form, signal: controller.signal })
+        clearTimeout(timeout)
+        const contentType = resp.headers.get('content-type') || ''
+        let data: any = null
+        if (contentType.includes('application/json')) data = await resp.json().catch(() => null)
+        else data = await resp.text().catch(() => null)
+        return { ok: resp.ok, status: resp.status, data }
+      } catch (e: any) {
+        return { ok: false, status: 0, error: e?.message || 'Upload failed' }
+      }
+    }
+
+    browser.runtime.onMessage.addListener(async (message, sender) => {
       if (message.type === 'tldw:debug') {
         streamDebugEnabled = Boolean(message?.enable)
         return { ok: true }
       }
+      if (message.type === 'tldw:get-tab-id') {
+        const tabId = sender?.tab?.id ?? null
+        return { ok: tabId != null, tabId }
+      }
+      if (message.type === 'tldw:quick-ingest-batch') {
+        const payload = message.payload || {}
+        const entries = Array.isArray(payload.entries) ? payload.entries : []
+        const files = Array.isArray(payload.files) ? payload.files : []
+        const storeRemote = Boolean(payload.storeRemote)
+        const common = payload.common || {}
+        const advancedValues = payload.advancedValues && typeof payload.advancedValues === 'object'
+          ? payload.advancedValues
+          : {}
+
+        const totalCount = entries.length + files.length
+        let processedCount = 0
+
+        const detectTypeFromUrl = (raw: string): string => {
+          try {
+            const u = new URL(raw)
+            const p = (u.pathname || '').toLowerCase()
+            if (p.match(/\.(mp3|wav|flac|m4a|aac)$/)) return 'audio'
+            if (p.match(/\.(mp4|mov|mkv|webm)$/)) return 'video'
+            if (p.match(/\.(pdf)$/)) return 'pdf'
+            if (p.match(/\.(doc|docx|txt|rtf|md)$/)) return 'document'
+            return 'html'
+          } catch {
+            return 'auto'
+          }
+        }
+
+        const assignPath = (obj: any, path: string[], val: any) => {
+          let cur = obj
+          for (let i = 0; i < path.length; i++) {
+            const seg = path[i]
+            if (i === path.length - 1) cur[seg] = val
+            else cur = (cur[seg] = cur[seg] || {})
+          }
+        }
+
+        const out: any[] = []
+
+        const emitProgress = (result: any) => {
+          processedCount += 1
+          // Best-effort OS notification
+          try {
+            const label =
+              result?.url ||
+              result?.fileName ||
+              (result?.type === 'file' ? 'File' : 'Item')
+            const statusLabel =
+              result?.status === 'ok'
+                ? 'Completed'
+                : result?.status === 'error'
+                  ? 'Failed'
+                  : 'Processed'
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            // @ts-ignore
+            chrome?.notifications?.create?.({
+              type: 'basic',
+              iconUrl: '/icon.png',
+              title: 'Quick Ingest',
+              message: `${processedCount}/${totalCount}: ${label} – ${statusLabel}`
+            })
+          } catch {}
+
+          // In-app progress event for any open UI
+          try {
+            void browser.runtime
+              .sendMessage({
+                type: 'tldw:quick-ingest-progress',
+                payload: {
+                  result,
+                  processedCount,
+                  totalCount
+                }
+              })
+              .catch(() => {})
+          } catch {}
+        }
+
+        // Process URL entries
+        for (const r of entries) {
+          const url = String(r?.url || '').trim()
+          if (!url) continue
+          const explicitType = r?.type && typeof r.type === 'string' ? r.type : 'auto'
+          const t = explicitType === 'auto' ? detectTypeFromUrl(url) : explicitType
+          try {
+            let data: any
+            if (storeRemote) {
+              // Ingest & store via multipart form
+              const fields: Record<string, any> = {
+                urls: [url],
+                media_type: t,
+                perform_analysis: Boolean(common.perform_analysis),
+                perform_chunking: Boolean(common.perform_chunking),
+                overwrite_existing: Boolean(common.overwrite_existing)
+              }
+              // Merge advanced values; rebuild nested structure for dot-notation keys
+              const nested: Record<string, any> = {}
+              for (const [k, v] of Object.entries(advancedValues as Record<string, any>)) {
+                if (k.includes('.')) assignPath(nested, k.split('.'), v)
+                else fields[k] = v
+              }
+              for (const [k, v] of Object.entries(nested)) fields[k] = v
+              if (r?.audio?.language) fields['transcription_language'] = r.audio.language
+              if (typeof r?.audio?.diarize === 'boolean') fields['diarize'] = r.audio.diarize
+              if (typeof r?.video?.captions === 'boolean') fields['timestamp_option'] = r.video.captions
+              if (typeof r?.document?.ocr === 'boolean') {
+                fields['pdf_parsing_engine'] = r.document.ocr ? 'pymupdf4llm' : ''
+              }
+              const resp = await handleUpload({ path: '/api/v1/media/add', method: 'POST', fields })
+              if (!resp?.ok) {
+                const msg = resp?.error || `Upload failed: ${resp?.status}`
+                throw new Error(msg)
+              }
+              data = resp.data
+            } else {
+              // Process only (no store)
+              const nestedBody: Record<string, any> = {}
+              for (const [k, v] of Object.entries(advancedValues as Record<string, any>)) {
+                if (k.includes('.')) assignPath(nestedBody, k.split('.'), v)
+                else nestedBody[k] = v
+              }
+              const body: any = {
+                url,
+                type: t,
+                audio: r?.audio,
+                document: r?.document,
+                video: r?.video,
+                perform_analysis: Boolean(common.perform_analysis),
+                perform_chunking: Boolean(common.perform_chunking),
+                overwrite_existing: Boolean(common.overwrite_existing),
+                ...nestedBody
+              }
+              const resp = await browser.runtime.sendMessage({
+                type: 'tldw:request',
+                payload: {
+                  path: '/api/v1/media/add',
+                  method: 'POST',
+                  headers: { 'Content-Type': 'application/json' },
+                  body
+                }
+              }) as { ok: boolean; error?: string; status?: number; data?: any } | undefined
+              if (!resp?.ok) {
+                const msg = resp?.error || `Request failed: ${resp?.status}`
+                throw new Error(msg)
+              }
+              data = resp.data
+            }
+            const result = { id: r.id, status: 'ok', url, type: t, data }
+            out.push(result)
+            emitProgress(result)
+          } catch (e: any) {
+            const result = {
+              id: r.id,
+              status: 'error',
+              url,
+              type: t,
+              error: e?.message || 'Request failed'
+            }
+            out.push(result)
+            emitProgress(result)
+          }
+        }
+
+        // Process local files (upload or process)
+        for (const f of files) {
+          const id = f?.id || crypto.randomUUID()
+          const name = f?.name || 'upload'
+          const fileType = String(f?.type || '').toLowerCase()
+          const mediaType: 'audio' | 'video' | 'pdf' | 'document' =
+            fileType.startsWith('audio/')
+              ? 'audio'
+              : fileType.startsWith('video/')
+                ? 'video'
+                : fileType.includes('pdf')
+                  ? 'pdf'
+                  : 'document'
+          try {
+            let data: any
+            if (storeRemote) {
+              const fields: Record<string, any> = {
+                media_type: mediaType,
+                perform_analysis: Boolean(common.perform_analysis),
+                perform_chunking: Boolean(common.perform_chunking),
+                overwrite_existing: Boolean(common.overwrite_existing)
+              }
+              const nested: Record<string, any> = {}
+              for (const [k, v] of Object.entries(advancedValues as Record<string, any>)) {
+                if (k.includes('.')) assignPath(nested, k.split('.'), v)
+                else fields[k] = v
+              }
+              for (const [k, v] of Object.entries(nested)) fields[k] = v
+              const resp = await handleUpload({
+                path: '/api/v1/media/add',
+                method: 'POST',
+                fields,
+                file: { name, type: f?.type || 'application/octet-stream', data: f?.data }
+              })
+              if (!resp?.ok) {
+                const msg = resp?.error || `Upload failed: ${resp?.status}`
+                throw new Error(msg)
+              }
+              data = resp.data
+            } else {
+              if (fileType.startsWith('audio/')) {
+                // Process-only audio: call audio transcription endpoint
+                const resp = await handleUpload({
+                  path: '/api/v1/audio/transcriptions',
+                  method: 'POST',
+                  fields: {},
+                  file: { name, type: f?.type || 'application/octet-stream', data: f?.data }
+                })
+                if (!resp?.ok) {
+                  const msg = resp?.error || `Upload failed: ${resp?.status}`
+                  throw new Error(msg)
+                }
+                data = resp.data
+              } else {
+                // Process-only (non-audio) via media add with process_only flag
+                const fields: Record<string, any> = {
+                  media_type: mediaType,
+                  perform_analysis: Boolean(common.perform_analysis),
+                  perform_chunking: Boolean(common.perform_chunking),
+                  overwrite_existing: false,
+                  process_only: true
+                }
+                const nested: Record<string, any> = {}
+                for (const [k, v] of Object.entries(advancedValues as Record<string, any>)) {
+                  if (k.includes('.')) assignPath(nested, k.split('.'), v)
+                  else fields[k] = v
+                }
+                for (const [k, v] of Object.entries(nested)) fields[k] = v
+                const resp = await handleUpload({
+                  path: '/api/v1/media/add',
+                  method: 'POST',
+                  fields,
+                  file: { name, type: f?.type || 'application/octet-stream', data: f?.data }
+                })
+                if (!resp?.ok) {
+                  const msg = resp?.error || `Upload failed: ${resp?.status}`
+                  throw new Error(msg)
+                }
+                data = resp.data
+              }
+            }
+            const result = { id, status: 'ok', fileName: name, type: mediaType, data }
+            out.push(result)
+            emitProgress(result)
+          } catch (e: any) {
+            const result = {
+              id,
+              status: 'error',
+              fileName: name,
+              type: 'file',
+              error: e?.message || 'Upload failed'
+            }
+            out.push(result)
+            emitProgress(result)
+          }
+        }
+
+        return { ok: true, results: out }
+      }
       if (message.type === "sidepanel") {
-        await browser.sidebarAction.open()
-      } else if (message.type === 'tldw:upload') {
-        const { path, method = 'POST', fields = {}, file } = message.payload || {}
-        const storage = new Storage({ area: 'local' })
-        const cfg = await storage.get<any>('tldwConfig')
-        const isAbsolute = typeof path === 'string' && /^https?:/i.test(path)
-        if (!cfg?.serverUrl && !isAbsolute) {
-          return { ok: false, status: 400, error: 'tldw server not configured' }
-        }
-        const baseUrl = cfg?.serverUrl ? String(cfg.serverUrl).replace(/\/$/, '') : ''
-        const url = isAbsolute ? path : `${baseUrl}${path.startsWith('/') ? '' : '/'}${path}`
         try {
-          const form = new FormData()
-          // append fields
-          for (const [k, v] of Object.entries(fields || {})) {
-            form.append(k, typeof v === 'string' ? v : JSON.stringify(v))
+          if (import.meta.env.BROWSER === "firefox") {
+            await browser.sidebarAction.open()
+          } else {
+            const tabId = sender?.tab?.id ?? undefined
+            ensureSidepanelOpen(tabId)
           }
-          if (file?.data) {
-            const blob = new Blob([file.data], { type: file.type || 'application/octet-stream' })
-            const filename = file.name || 'file'
-            // @ts-ignore File may not exist in some workers; Blob is accepted by FormData
-            try { form.append('file', new File([blob], filename, { type: blob.type })) } catch { form.append('file', blob, filename) }
-          }
-          const headers: Record<string, string> = {}
-          if (cfg?.authMode === 'single-user') {
-            const key = (cfg?.apiKey || '').trim()
-            if (!key) return { ok: false, status: 401, error: 'X-API-KEY header required for single-user mode. Configure API key in Settings > tldw.' }
-            headers['X-API-KEY'] = key
-          }
-          if (cfg?.authMode === 'multi-user') {
-            const token = (cfg?.accessToken || '').trim()
-            if (!token) return { ok: false, status: 401, error: 'Not authenticated. Please login under Settings > tldw.' }
-            headers['Authorization'] = `Bearer ${token}`
-          }
-          const controller = new AbortController()
-          const timeoutMs = Number(cfg?.uploadRequestTimeoutMs) > 0 ? Number(cfg.uploadRequestTimeoutMs) : (Number(cfg?.requestTimeoutMs) > 0 ? Number(cfg.requestTimeoutMs) : 10000)
-          const timeout = setTimeout(() => controller.abort(), timeoutMs)
-          const resp = await fetch(url, { method, headers, body: form, signal: controller.signal })
-          clearTimeout(timeout)
-          const contentType = resp.headers.get('content-type') || ''
-          let data: any = null
-          if (contentType.includes('application/json')) data = await resp.json().catch(() => null)
-          else data = await resp.text().catch(() => null)
-          return { ok: resp.ok, status: resp.status, data }
-        } catch (e: any) {
-          return { ok: false, status: 0, error: e?.message || 'Upload failed' }
+        } catch {
+          // no-op: opening the sidepanel is best-effort
         }
+      } else if (message.type === 'tldw:upload') {
+        return handleUpload(message.payload || {})
       } else if (message.type === 'tldw:request') {
         const { path, method = 'GET', headers = {}, body, noAuth = false, timeoutMs: overrideTimeoutMs } = message.payload || {}
         const storage = new Storage({ area: 'local' })
@@ -282,8 +733,15 @@ export default defineBackground({
           }
           if (cfg?.authMode === 'single-user') {
             const key = (cfg?.apiKey || '').trim()
-            if (key) h['X-API-KEY'] = key
-            else return { ok: false, status: 401, error: 'X-API-KEY header required for single-user mode. Configure API key in Settings > tldw.' }
+            if (!key) {
+              return {
+                ok: false,
+                status: 401,
+                error:
+                  'Add or update your API key in Settings → tldw server, then try again.'
+              }
+            }
+            h['X-API-KEY'] = key
           } else if (cfg?.authMode === 'multi-user') {
             const token = (cfg?.accessToken || '').trim()
             if (token) h['Authorization'] = `Bearer ${token}`
@@ -350,7 +808,6 @@ export default defineBackground({
           const pageUrl = tab?.url || ''
           if (!pageUrl) return { ok: false, status: 400, error: 'No active tab URL' }
           const path = message.mode === 'process' ? getProcessPathForUrl(pageUrl) : '/api/v1/media/add'
-          const { apiSend } = await import('@/services/api-send')
           const resp = await apiSend({ path, method: 'POST', headers: { 'Content-Type': 'application/json' }, body: { url: pageUrl }, timeoutMs: 120000 })
           return resp
         } catch (e: any) {
@@ -380,9 +837,12 @@ export default defineBackground({
               const cfg = await storage.get<any>('tldwConfig')
               if (!cfg?.serverUrl) throw new Error('tldw server not configured')
               const base = cfg.serverUrl.replace(/^http/, 'ws').replace(/\/$/, '')
-              const token = cfg.authMode === 'single-user' ? cfg.apiKey : cfg.accessToken
-              if (!token) throw new Error('Not authenticated. Configure tldw credentials in Settings > tldw.')
-              const url = `${base}/api/v1/audio/stream/transcribe?token=${encodeURIComponent(token || '')}`
+              const rawToken = cfg.authMode === 'single-user' ? cfg.apiKey : cfg.accessToken
+              const token = String(rawToken || '').trim()
+              if (!token) {
+                throw new Error('Not authenticated. Configure tldw credentials in Settings > tldw.')
+              }
+              const url = `${base}/api/v1/audio/stream/transcribe?token=${encodeURIComponent(token)}`
               ws = new WebSocket(url)
               ws.binaryType = 'arraybuffer'
               connectTimer = setTimeout(() => {
@@ -459,6 +919,34 @@ export default defineBackground({
         browser.tabs.create({
           url: browser.runtime.getURL("/options.html")
         })
+      } else if (info.menuItemId === transcribeMenuId.transcribe) {
+        await handleTranscribeClick(info, tab, 'transcribe')
+      } else if (info.menuItemId === transcribeMenuId.transcribeAndSummarize) {
+        await handleTranscribeClick(info, tab, 'transcribe+summary')
+      } else if (info.menuItemId === saveToNotesMenuId) {
+        const selection = String(info.selectionText || '').trim()
+        if (!selection) {
+          notify(browser.i18n.getMessage("contextSaveToNotes"), browser.i18n.getMessage("contextSaveToNotesNoSelection"))
+          return
+        }
+        chrome.sidePanel.open({
+          tabId: tab.id!
+        })
+        setTimeout(
+          async () => {
+            await browser.runtime.sendMessage({
+              from: "background",
+              type: "save-to-notes",
+              text: selection,
+              payload: {
+                selectionText: selection,
+                pageUrl: info.pageUrl || (tab && tab.url) || "",
+                pageTitle: tab?.title || ""
+              }
+            })
+          },
+          isCopilotRunning ? 0 : 5000
+        )
       } else if (info.menuItemId === "send-to-tldw") {
         try {
           const pageUrl = info.pageUrl || (tab && tab.url) || ''
@@ -616,8 +1104,15 @@ export default defineBackground({
             }
             if (cfg.authMode === 'single-user') {
               const key = (cfg.apiKey || '').trim()
-              if (key) headers['X-API-KEY'] = key
-              else { safePost({ event: 'error', message: 'X-API-KEY header required for single-user mode. Configure API key in Settings > tldw.' }); return }
+              if (!key) {
+                safePost({
+                  event: 'error',
+                  message:
+                    'Add or update your API key in Settings → tldw server, then try again.'
+                })
+                return
+              }
+              headers['X-API-KEY'] = key
             } else if (cfg.authMode === 'multi-user') {
               const token = (cfg.accessToken || '').trim()
               if (token) headers['Authorization'] = `Bearer ${token}`

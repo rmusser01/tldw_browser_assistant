@@ -4,6 +4,14 @@ import type { AllowedPath } from "@/services/tldw/openapi-guard"
 import { getInitialConfig } from "@/services/action"
 import { tldwClient } from "@/services/tldw/TldwApiClient"
 import { tldwAuth } from "@/services/tldw/TldwAuth"
+import { apiSend } from "@/services/api-send"
+import {
+  ensureSidepanelOpen,
+  pickFirstString,
+  extractTranscriptionPieces,
+  clampText,
+  notify
+} from "@/services/background-helpers"
 
 export default defineBackground({
   main() {
@@ -16,6 +24,16 @@ export default defineBackground({
 
     const initialize = async () => {
       try {
+        // Clear any existing context menus to avoid duplicate-id errors
+        try {
+          await browser.contextMenus.removeAll()
+        } catch (e) {
+          console.debug(
+            "[tldw] (firefox) contextMenus.removeAll failed:",
+            (e as any)?.message || e
+          )
+        }
+
         storage.watch({
           "actionIconClick": (value) => {
             const oldValue = value?.oldValue || "webui"
@@ -75,6 +93,12 @@ export default defineBackground({
           title: browser.i18n.getMessage("contextCustom"),
           contexts: ["selection"]
         })
+
+        browser.contextMenus.create({
+          id: saveToNotesMenuId,
+          title: browser.i18n.getMessage("contextSaveToNotes"),
+          contexts: ["selection"]
+        })
     
       } catch (error) {
         console.error("Error in initLogic:", error)
@@ -96,6 +120,86 @@ export default defineBackground({
       return '/api/v1/media/process-web-scraping'
     }
 
+    const handleTranscribeClick = async (
+      info: any,
+      tab: any,
+      mode: 'transcribe' | 'transcribe+summary'
+    ) => {
+      const pageUrl = info.pageUrl || (tab && tab.url) || ''
+      const targetUrl = (info.linkUrl && /^https?:/i.test(info.linkUrl)) ? info.linkUrl : pageUrl
+      if (!targetUrl) {
+        notify('tldw_server', 'No URL found to transcribe.')
+        return
+      }
+      const path = getProcessPathForUrl(targetUrl)
+      if (path !== '/api/v1/media/process-audios' && path !== '/api/v1/media/process-videos') {
+        notify('tldw_server', 'Transcription is available for audio or video URLs only.')
+        return
+      }
+
+      try {
+        const resp = await apiSend({
+          path,
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: {
+            urls: [targetUrl],
+            perform_analysis: mode === 'transcribe+summary',
+            perform_chunking: false,
+            summarize_recursively: mode === 'transcribe+summary',
+            timestamp_option: true
+          },
+          timeoutMs: 180000
+        })
+        if (!resp?.ok) {
+          notify('tldw_server', resp?.error || 'Transcription failed. Check your connection and server config.')
+          return
+        }
+        const { transcript, summary } = extractTranscriptionPieces(resp.data)
+        const safeTranscript = clampText(transcript)
+        const safeSummary = clampText(summary)
+        const label = mode === 'transcribe+summary' ? 'Transcription + summary' : 'Transcription'
+        const bodyParts = []
+        if (safeTranscript) bodyParts.push(`Transcript:\n${safeTranscript}`)
+        if (safeSummary) bodyParts.push(`Summary:\n${safeSummary}`)
+        const combinedText = bodyParts.join('\n\n') || 'Request completed. Open Media or the sidebar to view results.'
+
+        ensureSidepanelOpen()
+        try {
+          await browser.runtime.sendMessage({
+            from: 'background',
+            type: mode === 'transcribe+summary' ? 'transcription+summary' : 'transcription',
+            text: combinedText,
+            payload: {
+              url: targetUrl,
+              transcript: safeTranscript,
+              summary: safeSummary,
+              mode
+            }
+          })
+        } catch {
+          setTimeout(() => {
+            try {
+              browser.runtime.sendMessage({
+                from: 'background',
+                type: mode === 'transcribe+summary' ? 'transcription+summary' : 'transcription',
+                text: combinedText,
+                payload: {
+                  url: targetUrl,
+                  transcript: safeTranscript,
+                  summary: safeSummary,
+                  mode
+                }
+              })
+            } catch {}
+          }, 500)
+        }
+        notify('tldw_server', `${label} sent to sidebar. You can also review it under Media in the Web UI.`)
+      } catch (e: any) {
+        notify('tldw_server', e?.message || 'Transcription request failed.')
+      }
+    }
+
     const parseRetryAfter = (headerValue?: string | null): number | null => {
       if (!headerValue) return null
       const asNumber = Number(headerValue)
@@ -109,10 +213,14 @@ export default defineBackground({
       return null
     }
 
-    browser.runtime.onMessage.addListener(async (message) => {
+    browser.runtime.onMessage.addListener(async (message, sender) => {
       if (message.type === 'tldw:debug') {
         streamDebugEnabled = Boolean(message?.enable)
         return { ok: true }
+      }
+      if (message.type === 'tldw:get-tab-id') {
+        const tabId = sender?.tab?.id ?? null
+        return { ok: tabId != null, tabId }
       }
       if (message.type === "sidepanel") {
         await browser.sidebarAction.open()
@@ -170,7 +278,7 @@ export default defineBackground({
           }
           if (cfg?.authMode === 'single-user') {
             if (cfg?.apiKey) h['X-API-KEY'] = String(cfg.apiKey).trim()
-            else return { ok: false, status: 401, error: 'X-API-KEY header required for single-user mode. Configure API key in Settings > tldw.' }
+            else return { ok: false, status: 401, error: 'Add or update your API key in Settings → tldw server, then try again.' }
           } else if (cfg?.authMode === 'multi-user') {
             if (cfg?.accessToken) h['Authorization'] = `Bearer ${String(cfg.accessToken).trim()}`
             else return { ok: false, status: 401, error: 'Not authenticated. Please login under Settings > tldw.' }
@@ -236,7 +344,6 @@ export default defineBackground({
           const pageUrl = tab?.url || ''
           if (!pageUrl) return { ok: false, status: 400, error: 'No active tab URL' }
           const path = message.mode === 'process' ? getProcessPathForUrl(pageUrl) : '/api/v1/media/add'
-          const { apiSend } = await import('@/services/api-send')
           const resp = await apiSend({ path, method: 'POST', headers: { 'Content-Type': 'application/json' }, body: { url: pageUrl }, timeoutMs: 120000 })
           return resp
         } catch (e: any) {
@@ -313,29 +420,73 @@ export default defineBackground({
       webui: "open-web-ui-pa",
       sidePanel: "open-side-panel-pa"
     }
+    const transcribeMenuId = {
+      transcribe: "transcribe-media-pa",
+      transcribeAndSummarize: "transcribe-and-summarize-media-pa"
+    }
+    const saveToNotesMenuId = "save-to-notes-pa"
 
 
     // Add context menu for tldw ingest
     try {
       browser.contextMenus.create({
         id: 'send-to-tldw',
-        title: 'Send to tldw_server',
+        title: browser.i18n.getMessage("contextSendToTldw"),
         contexts: ["page", "link"]
       })
       browser.contextMenus.create({
         id: 'process-local-tldw',
-        title: 'Process (no server save)',
+        title: browser.i18n.getMessage("contextProcessLocalTldw"),
+        contexts: ["page", "link"]
+      })
+      browser.contextMenus.create({
+        id: transcribeMenuId.transcribe,
+        title: browser.i18n.getMessage("contextTranscribeMedia"),
+        contexts: ["page", "link"]
+      })
+      browser.contextMenus.create({
+        id: transcribeMenuId.transcribeAndSummarize,
+        title: browser.i18n.getMessage("contextTranscribeAndSummarizeMedia"),
         contexts: ["page", "link"]
       })
     } catch {}
 
-    browser.contextMenus.onClicked.addListener((info, tab) => {
+    browser.contextMenus.onClicked.addListener(async (info, tab) => {
       if (info.menuItemId === "open-side-panel-pa") {
         browser.sidebarAction.toggle()
       } else if (info.menuItemId === "open-web-ui-pa") {
         browser.tabs.create({
           url: browser.runtime.getURL("/options.html")
         })
+      } else if (info.menuItemId === transcribeMenuId.transcribe) {
+        await handleTranscribeClick(info, tab, 'transcribe')
+      } else if (info.menuItemId === transcribeMenuId.transcribeAndSummarize) {
+        await handleTranscribeClick(info, tab, 'transcribe+summary')
+      } else if (info.menuItemId === saveToNotesMenuId) {
+        const selection = String(info.selectionText || '').trim()
+        if (!selection) {
+          notify(browser.i18n.getMessage("contextSaveToNotes"), browser.i18n.getMessage("contextSaveToNotesNoSelection"))
+          return
+        }
+        if (!isCopilotRunning) {
+          ensureSidepanelOpen()
+          notify(
+            browser.i18n.getMessage("contextSaveToNotes"),
+            browser.i18n.getMessage("contextSaveToNotesOpeningSidebar")
+          )
+        }
+        setTimeout(async () => {
+          await browser.runtime.sendMessage({
+            from: "background",
+            type: "save-to-notes",
+            text: selection,
+            payload: {
+              selectionText: selection,
+              pageUrl: info.pageUrl || (tab && tab.url) || "",
+              pageTitle: tab?.title || ""
+            }
+          })
+        }, isCopilotRunning ? 0 : 1000)
       } else if (info.menuItemId === 'send-to-tldw') {
         const pageUrl = info.pageUrl || (tab && tab.url) || ''
         const targetUrl = (info.linkUrl && /^https?:/i.test(info.linkUrl)) ? info.linkUrl : pageUrl
@@ -355,6 +506,10 @@ export default defineBackground({
       } else if (info.menuItemId === "summarize-pa") {
         if (!isCopilotRunning) {
           browser.sidebarAction.toggle()
+          notify(
+            browser.i18n.getMessage("contextSummarize"),
+            browser.i18n.getMessage("contextSidebarOpening")
+          )
         }
         setTimeout(async () => {
           await browser.runtime.sendMessage({
@@ -362,10 +517,14 @@ export default defineBackground({
             type: "summary",
             text: info.selectionText
           })
-        }, isCopilotRunning ? 0 : 5000)
+        }, isCopilotRunning ? 0 : 1000)
       } else if (info.menuItemId === "rephrase-pa") {
         if (!isCopilotRunning) {
           browser.sidebarAction.toggle()
+          notify(
+            browser.i18n.getMessage("contextRephrase"),
+            browser.i18n.getMessage("contextSidebarOpening")
+          )
         }
         setTimeout(async () => {
           await browser.runtime.sendMessage({
@@ -373,10 +532,14 @@ export default defineBackground({
             from: "background",
             text: info.selectionText
           })
-        }, isCopilotRunning ? 0 : 5000)
+        }, isCopilotRunning ? 0 : 1000)
       } else if (info.menuItemId === "translate-pg") {
         if (!isCopilotRunning) {
           browser.sidebarAction.toggle()
+          notify(
+            browser.i18n.getMessage("contextTranslate"),
+            browser.i18n.getMessage("contextSidebarOpening")
+          )
         }
         setTimeout(async () => {
           await browser.runtime.sendMessage({
@@ -384,10 +547,14 @@ export default defineBackground({
             from: "background",
             text: info.selectionText
           })
-        }, isCopilotRunning ? 0 : 5000)
+        }, isCopilotRunning ? 0 : 1000)
       } else if (info.menuItemId === "explain-pa") {
         if (!isCopilotRunning) {
           browser.sidebarAction.toggle()
+          notify(
+            browser.i18n.getMessage("contextExplain"),
+            browser.i18n.getMessage("contextSidebarOpening")
+          )
         }
         setTimeout(async () => {
           await browser.runtime.sendMessage({
@@ -395,10 +562,14 @@ export default defineBackground({
             from: "background",
             text: info.selectionText
           })
-        }, isCopilotRunning ? 0 : 5000)
+        }, isCopilotRunning ? 0 : 1000)
       } else if (info.menuItemId === "custom-pg") {
         if (!isCopilotRunning) {
           browser.sidebarAction.toggle()
+          notify(
+            browser.i18n.getMessage("contextCustom"),
+            browser.i18n.getMessage("contextSidebarOpening")
+          )
         }
         setTimeout(async () => {
           await browser.runtime.sendMessage({
@@ -406,7 +577,7 @@ export default defineBackground({
             from: "background",
             text: info.selectionText
           })
-        }, isCopilotRunning ? 0 : 5000)
+        }, isCopilotRunning ? 0 : 1000)
       }
     })
 
@@ -437,7 +608,7 @@ export default defineBackground({
             if (cfg.authMode === 'single-user') {
               const key = (cfg.apiKey || '').trim()
               if (key) headers['X-API-KEY'] = key
-              else { safePost({ event: 'error', message: 'X-API-KEY header required for single-user mode. Configure API key in Settings > tldw.' }); return }
+              else { safePost({ event: 'error', message: 'Add or update your API key in Settings → tldw server, then try again.' }); return }
             } else if (cfg.authMode === 'multi-user') {
               const token = (cfg.accessToken || '').trim()
               if (token) headers['Authorization'] = `Bearer ${token}`

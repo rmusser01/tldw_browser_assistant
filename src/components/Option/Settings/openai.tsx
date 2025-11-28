@@ -9,7 +9,6 @@ import {
   Input,
   Modal,
   Table,
-  message,
   Tooltip,
   Select,
   Switch,
@@ -30,10 +29,11 @@ import { OAI_API_PROVIDERS } from "@/utils/oai-api-providers"
 import { ProviderIcons } from "@/components/Common/ProviderIcon"
 const noPopupProvider = ["lmstudio", "llamafile", "ollama2", "llamacpp", "vllm"]
 import { isFireFoxPrivateMode } from "@/utils/is-private-mode"
-import { confirmDanger } from "@/components/Common/confirm-danger"
+import { useConfirmDanger } from "@/components/Common/confirm-danger"
+import { useAntdMessage } from "@/hooks/useAntdMessage"
 
 export const OpenAIApp = () => {
-  const { t } = useTranslation(["openai", "settings"])
+  const { t } = useTranslation(["openai", "settings", "common"])
   const [open, setOpen] = useState(false)
   const [editingConfig, setEditingConfig] = useState(null)
   const queryClient = useQueryClient()
@@ -41,6 +41,8 @@ export const OpenAIApp = () => {
   const [openaiId, setOpenaiId] = useState<string | null>(null)
   const [openModelModal, setOpenModelModal] = useState(false)
   const [provider, setProvider] = useState("custom")
+  const message = useAntdMessage()
+  const confirmDanger = useConfirmDanger()
 
   const { data: configs, isLoading } = useQuery({
     queryKey: ["openAIConfigs"],
@@ -144,9 +146,14 @@ export const OpenAIApp = () => {
                 onClick={() => {
                   if (isFireFoxPrivateMode) {
                     notification.error({
-                      message: "tldw Assistant can't save data",
-                      description:
+                      message: t(
+                        "common:privateModeSaveErrorTitle",
+                        "tldw Assistant can't save data"
+                      ),
+                      description: t(
+                        "openai:privateModeDescription",
                         "Firefox Private Mode does not support saving data to IndexedDB. Please add OpenAI configurations from a normal window."
+                      )
                     })
                     return
                   }

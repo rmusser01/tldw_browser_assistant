@@ -1,41 +1,55 @@
 {
-    "addBtn": "Legg Til Ny Kunnskap",
-    "columns": {
-        "title": "Tittel",
-        "status": "Status",
-        "embeddings": "Embedding Modell",
-        "createdAt": "Opprettet På",
-        "action": "Handlinger"
+  "addBtn": "Legg Til Ny Kunnskap",
+  "columns": {
+    "title": "Tittel",
+    "status": "Status (fremdrift)",
+    "embeddings": "Embedding Modell",
+    "createdAt": "Opprettet På",
+    "action": "Handlinger"
+  },
+  "expandedColumns": {
+    "name": "Navn"
+  },
+  "confirm": {
+    "delete": "Er du sikker på at du vil slette denne kunnskapen?"
+  },
+  "deleteSuccess": "Kunnskap slettet med suksess",
+  "status": {
+    "pending": "Venter",
+    "finished": "Ferdig",
+    "processing": "Behandler",
+    "failed": "Mislyktes"
+  },
+  "addKnowledge": "Legg Til Kunnskap",
+  "updateKnowledge": "Legg Til Kilde",
+  "form": {
+    "title": {
+      "label": "Kunnskapstittel",
+      "placeholder": "Skriv inn kunnskapstittel",
+      "required": "Kunnskapstittel er nødvendig"
     },
-    "expandedColumns": {
-        "name": "Navn"
+    "uploadFile": {
+      "label": "Last Opp Filer",
+      "uploadText": "Dra og slipp filen her og klikk for å laste opp",
+      "uploadHint": "Støttede filtyper: .pdf, .csv, .txt, .md, .docx",
+      "required": "En fil er nødvendig"
     },
-    "confirm": {
-        "delete": "Er du sikker på at du vil slette denne kunnskapen?"
-    },
-    "deleteSuccess": "Kunnskap slettet med suksess",
-    "status": {
-        "pending": "Venter",
-        "finished": "Ferdig",
-        "processing": "Behandler",
-        "failed": "Mislyktes"
-    },
-    "addKnowledge": "Legg Til Kunnskap",
-    "updateKnowledge": "Legg Til Kilde",
-    "form": {
-        "title": {
-            "label": "Kunnskapstittel",
-            "placeholder": "Skriv inn kunnskapstittel",
-            "required": "Kunnskapstittel er nødvendig"
-        },
-        "uploadFile": {
-            "label": "Last Opp Filer",
-            "uploadText": "Dra og slipp filen her og klikk for å laste opp",
-            "uploadHint": "Støttede filtyper: .pdf, .csv, .txt, .md, .docx",
-            "required": "En fil er nødvendig"
-        },
-        "submit": "Send Inn",
-        "success": "Kunnskap lagt til med suksess"
-    },
-    "noEmbeddingModel": "Vennligst legg til en embedding-modell fra RAG-innstillingene først"
+    "submit": "Send Inn",
+    "success": "Kunnskap lagt til med suksess"
+  },
+  "noEmbeddingModel": "Vennligst legg til en embedding-modell fra RAG-innstillingene først",
+  "privateModeDescription": "Firefox privatmodus støtter ikke lagring i IndexedDB. Legg til en kunnskapsbase fra et vanlig vindu.",
+  "rag": {
+    "searchFailed": "RAG-søk mislyktes. Prøv igjen eller sjekk Diagnostikk."
+  },
+  "empty": {
+    "demoTitle": "Utforsk Knowledge QA i demomodus",
+    "demoDescription": "Denne demoen viser hvordan Knowledge QA kan kjøre RAG-søk på eksempelinnhold. Senere kan du koble til din egen server for å søke i dine egne transkripsjoner og dokumenter.",
+    "demoExample1": "Prøv raske RAG-søk og se gjennom resultater og referanser.",
+    "demoExample2": "Koble til din egen server for å aktivere Knowledge QA på faktisk medieinnhold og notater.",
+    "connectTitle": "Koble til for å bruke Knowledge QA",
+    "connectDescription": "For å bruke Knowledge QA og RAG-søk må du først koble til tldw-serveren din.",
+    "connectExample1": "Åpne Innstillinger → tldw server for å legge til server-URL-en din.",
+    "connectExample2": "Bruk Diagnostikk hvis serveren kjører men ikke er tilgjengelig."
+  }
 }

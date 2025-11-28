@@ -11,16 +11,20 @@ import {
   Form,
   Input,
   InputNumber,
+  notification,
   Modal,
   Select,
   Skeleton,
   Switch
 } from "antd"
-import React, { useCallback } from "react"
+import React, { useCallback, useMemo } from "react"
 import { useTranslation } from "react-i18next"
 import { SaveButton } from "../SaveButton"
 import { getOCRLanguage } from "@/services/ocr"
 import { ocrLanguages } from "@/data/ocr-language"
+import { fetchChatModels } from "@/services/tldw-server"
+import { ProviderIcons } from "@/components/Common/ProviderIcon"
+import { tldwClient } from "@/services/tldw/TldwApiClient"
 
 type Props = {
   open: boolean
@@ -42,9 +46,38 @@ export const CurrentChatModelSettings = ({
     selectedSystemPrompt,
     uploadedFiles,
     removeUploadedFile,
+    selectedModel,
+    setSelectedModel,
     fileRetrievalEnabled,
-    setFileRetrievalEnabled
+    setFileRetrievalEnabled,
+    serverChatId,
+    serverChatTopic,
+    setServerChatTopic,
+    serverChatState,
+    setServerChatState
   } = useMessageOption()
+
+  const conversationStateOptions: { value: string; label: string }[] = useMemo(
+    () => [
+      {
+        value: "in-progress",
+        label: t("playground:composer.state.inProgress", "in-progress") as string
+      },
+      {
+        value: "resolved",
+        label: t("playground:composer.state.resolved", "resolved") as string
+      },
+      {
+        value: "backlog",
+        label: t("playground:composer.state.backlog", "backlog") as string
+      },
+      {
+        value: "non-viable",
+        label: t("playground:composer.state.nonViable", "non-viable") as string
+      }
+    ],
+    [t]
+  )
 
   const savePrompt = useCallback(
     (value: string) => {
@@ -110,6 +143,174 @@ export const CurrentChatModelSettings = ({
     refetchOnWindowFocus: false
   })
 
+  const { data: composerModels, isLoading: modelsLoading } = useQuery({
+    queryKey: ["playground:chatModels", open],
+    queryFn: async () => {
+      try {
+        return await fetchChatModels({ returnEmpty: true })
+      } catch (error) {
+        console.error("Failed to fetch chat models:", error)
+        throw error
+      }
+    },
+    enabled: open,
+    retry: 2
+  })
+
+  const modelOptions = useMemo(() => {
+    const providerDisplayName = (provider?: string) => {
+      const key = String(provider || "unknown").toLowerCase()
+      if (key === "openai") return "OpenAI"
+      if (key === "anthropic") return "Anthropic"
+      if (key === "google") return "Google"
+      if (key === "mistral") return "Mistral"
+      if (key === "cohere") return "Cohere"
+      if (key === "groq") return "Groq"
+      if (key === "huggingface") return "HuggingFace"
+      if (key === "openrouter") return "OpenRouter"
+      if (key === "ollama") return "Ollama"
+      if (key === "llama") return "Llama.cpp"
+      if (key === "kobold") return "Kobold.cpp"
+      if (key === "ooba") return "Oobabooga"
+      if (key === "tabby") return "TabbyAPI"
+      if (key === "vllm") return "vLLM"
+      if (key === "aphrodite") return "Aphrodite"
+      if (key === "zai") return "Z.AI"
+      if (key === "custom_openai_api") return "Custom OpenAI API"
+      return provider || "API"
+    }
+
+    type GroupOption = {
+      label: React.ReactNode
+      options: Array<{
+        label: React.ReactNode
+        value: string
+        searchLabel: string
+      }>
+    }
+    const models = (composerModels as any[]) || []
+    if (!models.length) {
+      if (selectedModel) {
+        const displayText = `Custom - ${selectedModel}`
+        const fallbackGroup: GroupOption = {
+          label: (
+            <span className="truncate">
+              Custom
+            </span>
+          ),
+          options: [
+            {
+              label: (
+                <span className="truncate">
+                  {displayText}
+                </span>
+              ),
+              value: selectedModel,
+              searchLabel: displayText.toLowerCase()
+            }
+          ]
+        }
+        return [fallbackGroup]
+      }
+      return []
+    }
+
+    const groups = new Map<string, GroupOption>()
+
+    for (const m of models as any[]) {
+      const rawProvider = (m.details && m.details.provider) || m.provider
+      const providerKey = String(rawProvider || "other").toLowerCase()
+      const providerLabel = providerDisplayName(rawProvider)
+      const modelLabel = m.nickname || m.model
+      const details: any = m.details || {}
+      const caps: string[] = Array.isArray(details.capabilities)
+        ? details.capabilities
+        : []
+      const hasVision = caps.includes("vision")
+      const hasTools = caps.includes("tools")
+      const hasFast = caps.includes("fast")
+
+      const optionDisplay = `${providerLabel} - ${modelLabel}`
+      const optionLabel = (
+        <div className="flex items-center gap-2" data-title={`${providerLabel} - ${modelLabel}`}>
+          <ProviderIcons provider={rawProvider} className="h-4 w-4" />
+          <div className="flex flex-col min-w-0">
+            <span className="truncate">{optionDisplay}</span>
+            {(hasVision || hasTools || hasFast) && (
+              <div className="mt-0.5 flex flex-wrap gap-1 text-[10px]">
+                {hasVision && (
+                  <span className="rounded-full bg-blue-50 px-1.5 py-0.5 text-blue-700 dark:bg-blue-900/30 dark:text-blue-100">
+                    Vision
+                  </span>
+                )}
+                {hasTools && (
+                  <span className="rounded-full bg-purple-50 px-1.5 py-0.5 text-purple-700 dark:bg-purple-900/30 dark:text-purple-100">
+                    Tools
+                  </span>
+                )}
+                {hasFast && (
+                  <span className="rounded-full bg-emerald-50 px-1.5 py-0.5 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-100">
+                    Fast
+                  </span>
+                )}
+              </div>
+            )}
+          </div>
+        </div>
+      )
+
+      if (!groups.has(providerKey)) {
+        groups.set(providerKey, {
+          label: (
+            <div className="flex items-center gap-1.5 text-[11px] font-medium uppercase tracking-wide text-gray-500 dark:text-gray-400">
+              <ProviderIcons provider={rawProvider} className="h-3 w-3" />
+              <span>{providerLabel}</span>
+            </div>
+          ),
+          options: []
+        })
+      }
+      const group = groups.get(providerKey)!
+      group.options.push({
+        label: optionLabel,
+        value: m.model,
+        searchLabel: optionDisplay.toLowerCase()
+      })
+    }
+
+    const groupedOptions: GroupOption[] = Array.from(groups.values())
+
+    if (selectedModel) {
+      const hasSelected = groupedOptions.some((group) =>
+        group.options.some((option) => option.value === selectedModel)
+      )
+
+      if (!hasSelected) {
+        const displayText = `Custom - ${selectedModel}`
+        groupedOptions.push({
+          label: (
+            <span className="truncate">
+              Custom
+            </span>
+          ),
+          options: [
+            {
+              label: (
+                <span className="truncate">
+                  {displayText}
+                </span>
+              ),
+              value: selectedModel,
+              searchLabel: displayText.toLowerCase()
+            }
+          ]
+        })
+      }
+    }
+
+    return groupedOptions
+  }, [composerModels, selectedModel])
+
   const renderBody = () => {
     return (
       <>
@@ -166,6 +367,39 @@ export const CurrentChatModelSettings = ({
             )}
 
             <Form.Item
+              label={t("modelSettings.form.model.label", { defaultValue: "API / model" })}
+              help={t("modelSettings.form.model.help", { defaultValue: "Choose the API/model used for this chat." })}>
+              <Select
+                showSearch
+                value={selectedModel || undefined}
+                onChange={(value) => setSelectedModel(value)}
+                placeholder={t("playground:composer.modelPlaceholder", "API / model")}
+                options={modelOptions as any}
+                loading={modelsLoading}
+                allowClear
+                optionLabelProp="label"
+                popupMatchSelectWidth={false}
+                styles={{
+                  popup: {
+                    root: {
+                      maxHeight: "calc(100vh - 220px)",
+                      overflowY: "auto"
+                    }
+                  }
+                }}
+                listHeight={560}
+                filterOption={(input, option) => {
+                  const normalizedInput = input.toLowerCase()
+                  const rawSearchLabel =
+                    (option as any)?.searchLabel ??
+                    (typeof option?.label === "string" ? option.label : "")
+                  const normalizedLabel = String(rawSearchLabel).toLowerCase()
+                  return normalizedLabel.includes(normalizedInput)
+                }}
+              />
+            </Form.Item>
+
+            <Form.Item
               name="keepAlive"
               help={t("modelSettings.form.keepAlive.help")}
               label={t("modelSettings.form.keepAlive.label")}>
@@ -209,12 +443,6 @@ export const CurrentChatModelSettings = ({
                 style={{ width: "100%" }}
                 placeholder={t("modelSettings.form.numPredict.placeholder")}
               />
-            </Form.Item>
-
-            <Form.Item
-              name="thinking"
-              label={t("modelSettings.form.thinking.label")}>
-              <Switch />
             </Form.Item>
 
             {uploadedFiles.length > 0 && (
@@ -399,6 +627,71 @@ export const CurrentChatModelSettings = ({
                 }
               ]}
             />
+            <Form.Item
+              label={t("playground:composer.conversationTags", "Conversation state")}
+              help={t(
+                "playground:composer.stateHelp",
+                "Default state is “in-progress.” Update it as the conversation progresses."
+              )}>
+              <Select
+                value={serverChatState || "in-progress"}
+                options={conversationStateOptions}
+                onChange={async (val) => {
+                  const next = val || "in-progress"
+                  setServerChatState(next as any)
+                  if (!serverChatId) return
+                  try {
+                    await tldwClient.updateChat(serverChatId, { state: next })
+                  } catch (error: any) {
+                    notification.error({
+                      message: t("error", { defaultValue: "Error" }),
+                      description:
+                        error?.message ||
+                        t("somethingWentWrong", {
+                          defaultValue: "Something went wrong"
+                        })
+                    })
+                  }
+                }}
+              />
+            </Form.Item>
+
+            <Form.Item
+              label={t("playground:composer.topicPlaceholder", "Conversation tag")}
+              help={t(
+                "playground:composer.persistence.topicHelp",
+                "Optional label for this chat; saved to the server when available."
+              )}>
+              <Input
+                value={serverChatTopic || ""}
+                onChange={(e) => setServerChatTopic(e.target.value || null)}
+                onBlur={async (e) => {
+                  const normalized = e.target.value.trim()
+                  const topicValue = normalized.length > 0 ? normalized : null
+                  setServerChatTopic(topicValue)
+                  if (!serverChatId) return
+                  try {
+                    await tldwClient.updateChat(serverChatId, {
+                      topic_label: topicValue || undefined
+                    })
+                  } catch (error: any) {
+                    notification.error({
+                      message: t("error", { defaultValue: "Error" }),
+                      description:
+                        error?.message ||
+                        t("somethingWentWrong", {
+                          defaultValue: "Something went wrong"
+                        })
+                    })
+                  }
+                }}
+                placeholder={t(
+                  "playground:composer.topicPlaceholder",
+                  "Conversation tag (optional)"
+                )}
+              />
+            </Form.Item>
+
             <SaveButton
               className="w-full text-center inline-flex items-center justify-center"
               btnType="submit"

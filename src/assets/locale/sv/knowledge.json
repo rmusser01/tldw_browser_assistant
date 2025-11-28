@@ -1,41 +1,55 @@
 {
-    "addBtn": "Lägg till ny kunskap",
-    "columns": {
-        "title": "Titel",
-        "status": "Status",
-        "embeddings": "Inbäddningsmodell",
-        "createdAt": "Skapad den",
-        "action": "Åtgärder"
+  "addBtn": "Lägg till ny kunskap",
+  "columns": {
+    "title": "Titel",
+    "status": "Status (läge)",
+    "embeddings": "Inbäddningsmodell",
+    "createdAt": "Skapad den",
+    "action": "Åtgärder"
+  },
+  "expandedColumns": {
+    "name": "Namn"
+  },
+  "confirm": {
+    "delete": "Är du säker på att du vill ta bort denna kunskap?"
+  },
+  "deleteSuccess": "Kunskap raderades framgångsrikt",
+  "status": {
+    "pending": "Väntar",
+    "finished": "Klar",
+    "processing": "Bearbetar",
+    "failed": "Misslyckades"
+  },
+  "addKnowledge": "Lägg till kunskap",
+  "updateKnowledge": "Lägg till källa",
+  "form": {
+    "title": {
+      "label": "Kunskapstitel",
+      "placeholder": "Ange kunskapstitel",
+      "required": "Kunskapstitel är obligatorisk"
     },
-    "expandedColumns": {
-        "name": "Namn"
+    "uploadFile": {
+      "label": "Ladda upp fil",
+      "uploadText": "Dra och släpp en fil här eller klicka för att ladda upp",
+      "uploadHint": "Stödda filtyper: .pdf, .csv, .txt, .md, .docx",
+      "required": "Fil är obligatorisk"
     },
-    "confirm": {
-        "delete": "Är du säker på att du vill ta bort denna kunskap?"
-    },
-    "deleteSuccess": "Kunskap raderades framgångsrikt",
-    "status": {
-        "pending": "Väntar",
-        "finished": "Klar",
-        "processing": "Bearbetar",
-        "failed": "Misslyckades"
-    },
-    "addKnowledge": "Lägg till kunskap",
-    "updateKnowledge": "Lägg till källa",
-    "form": {
-        "title": {
-            "label": "Kunskapstitel",
-            "placeholder": "Ange kunskapstitel",
-            "required": "Kunskapstitel är obligatorisk"
-        },
-        "uploadFile": {
-            "label": "Ladda upp fil",
-            "uploadText": "Dra och släpp en fil här eller klicka för att ladda upp",
-            "uploadHint": "Stödda filtyper: .pdf, .csv, .txt, .md, .docx",
-            "required": "Fil är obligatorisk"
-        },
-        "submit": "Skicka in",
-        "success": "Kunskap tillagd framgångsrikt"
-    },
-    "noEmbeddingModel": "Vänligen lägg till en inbäddningsmodell från sidan för RAG-inställningar först"
+    "submit": "Skicka in",
+    "success": "Kunskap tillagd framgångsrikt"
+  },
+  "noEmbeddingModel": "Vänligen lägg till en inbäddningsmodell från sidan för RAG-inställningar först",
+  "privateModeDescription": "Firefox privat läge stöder inte lagring i IndexedDB. Lägg till en kunskapsbas från ett vanligt fönster.",
+  "rag": {
+    "searchFailed": "RAG-sökning misslyckades. Försök igen eller kontrollera Diagnostics."
+  },
+  "empty": {
+    "demoTitle": "Utforska Knowledge QA i demoläge",
+    "demoDescription": "Denna demo visar hur Knowledge QA kan köra RAG-sökningar på exempeldata. Senare kan du koppla din egen server för att söka i dina egna transkriptioner och dokument.",
+    "demoExample1": "Prova snabba RAG-sökningar och granska resultat och källhänvisningar.",
+    "demoExample2": "Koppla din egen server för att aktivera Knowledge QA för ditt riktiga media och dina anteckningar.",
+    "connectTitle": "Anslut för att använda Knowledge QA",
+    "connectDescription": "För att använda Knowledge QA och RAG-sökning måste du först ansluta till din tldw-server.",
+    "connectExample1": "Öppna Inställningar → tldw server för att lägga till din server-URL.",
+    "connectExample2": "Använd Diagnostics om servern körs men inte går att nå."
+  }
 }

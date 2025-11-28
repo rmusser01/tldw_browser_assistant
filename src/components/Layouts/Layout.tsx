@@ -18,22 +18,25 @@ import { CurrentChatModelSettings } from "../Common/Settings/CurrentChatModelSet
 import { Sidebar } from "../Option/Sidebar"
 import { Header } from "./Header"
 import { useMigration } from "../../hooks/useMigration"
-import { confirmDanger } from "@/components/Common/confirm-danger"
+import { useConfirmDanger } from "@/components/Common/confirm-danger"
 import { DemoModeProvider, useDemoMode } from "@/context/demo-mode"
 
 type OptionLayoutProps = {
   children: React.ReactNode
   hideHeader?: boolean
+  showHeaderSelectors?: boolean
 }
 
 const OptionLayoutInner: React.FC<OptionLayoutProps> = ({
   children,
-  hideHeader = false
+  hideHeader = false,
+  showHeaderSelectors = true
 }) => {
+  const confirmDanger = useConfirmDanger()
   const [sidebarOpen, setSidebarOpen] = useState(false)
   const { t } = useTranslation(["option", "common", "settings"])
   const [openModelSettings, setOpenModelSettings] = useState(false)
-  useMigration()
+  const { isLoading: migrationLoading } = useMigration()
   const { demoEnabled } = useDemoMode()
   const {
     setMessages,
@@ -59,6 +62,21 @@ const OptionLayoutInner: React.FC<OptionLayoutProps> = ({
   useChatShortcuts(clearChat, true)
   useSidebarShortcuts(toggleSidebar, true)
 
+  if (migrationLoading) {
+    return (
+      <div className="flex h-screen w-full items-center justify-center bg-slate-50 dark:bg-[#101010]">
+        <div className="text-center space-y-2">
+          <div className="text-base font-medium text-gray-800 dark:text-gray-100">
+            Migrating your chat history…
+          </div>
+          <div className="text-xs text-gray-500 dark:text-gray-400">
+            This runs once after an update and will reload the extension when finished.
+          </div>
+        </div>
+      </div>
+    )
+  }
+
   return (
     <div className="flex h-full w-full">
       <main
@@ -72,6 +90,7 @@ const OptionLayoutInner: React.FC<OptionLayoutProps> = ({
             <Header
               setSidebarOpen={setSidebarOpen}
               setOpenModelSettings={setOpenModelSettings}
+              showSelectors={showHeaderSelectors}
             />
           </div>
         )}

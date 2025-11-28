@@ -1,43 +1,57 @@
 {
-    "addBtn": "新增知識",
-    "columns": {
-        "title": "標題",
-        "status": "狀態",
-        "embeddings": "嵌入模型",
-        "createdAt": "創建於",
-        "action": "操作"
+  "addBtn": "新增知識",
+  "columns": {
+    "title": "標題",
+    "status": "狀態",
+    "embeddings": "嵌入模型",
+    "createdAt": "創建於",
+    "action": "操作"
+  },
+  "expandedColumns": {
+    "name": "名稱"
+  },
+  "confirm": {
+    "delete": "您確定要刪除此知識嗎？",
+    "deleteSource": "您確定要刪除此來源嗎？"
+  },
+  "deleteSuccess": "知識刪除成功",
+  "status": {
+    "pending": "待處理",
+    "finished": "已完成",
+    "processing": "處理中",
+    "failed": "失敗"
+  },
+  "addKnowledge": "新增知識",
+  "updateKnowledge": "新增來源",
+  "form": {
+    "title": {
+      "label": "知識標題",
+      "placeholder": "輸入知識標題",
+      "required": "輸入知識標題是必需的"
     },
-    "expandedColumns": {
-        "name": "名稱"
+    "uploadFile": {
+      "label": "上傳文件",
+      "uploadText": "將文件拖放到此處或點擊上傳",
+      "uploadHint": "支援的檔案類型: .pdf, .csv, .txt, .md, .docx",
+      "required": "文件是必需的",
+      "uploadError": "不支援的檔案類型"
     },
-    "confirm": {
-        "delete": "您確定要刪除此知識嗎？",
-        "deleteSource": "您確定要刪除此來源嗎？"
-    },
-    "deleteSuccess": "知識刪除成功",
-    "status": {
-        "pending": "待處理",
-        "finished": "已完成",
-        "processing": "處理中",
-        "failed": "失敗"
-    },
-    "addKnowledge": "新增知識",
-    "updateKnowledge": "新增來源",
-    "form": {
-        "title": {
-            "label": "知識標題",
-            "placeholder": "輸入知識標題",
-            "required": "輸入知識標題是必需的"
-        },
-        "uploadFile": {
-            "label": "上傳文件",
-            "uploadText": "將文件拖放到此處或點擊上傳",
-            "uploadHint": "支援的檔案類型: .pdf, .csv, .txt, .md, .docx",
-            "required": "文件是必需的",
-            "uploadError": "不支援的檔案類型"
-        },
-        "submit": "新增",
-        "success": "知識新增成功"
-    },
-    "noEmbeddingModel": "請先從 RAG 設定頁面新增一個嵌入模型"
+    "submit": "新增",
+    "success": "知識新增成功"
+  },
+  "noEmbeddingModel": "請先從 RAG 設定頁面新增一個嵌入模型",
+  "privateModeDescription": "Firefox 隱私模式不支援將資料儲存到 IndexedDB。請在一般視窗中新增知識庫。",
+  "rag": {
+    "searchFailed": "RAG 搜尋失敗。請再試一次或查看 Diagnostics。"
+  },
+  "empty": {
+    "demoTitle": "在展示模式中體驗 Knowledge QA",
+    "demoDescription": "此展示說明 Knowledge QA 如何在範例內容上執行 RAG 搜尋。之後你可以連線自己的伺服器，搜尋自己的逐字稿與文件。",
+    "demoExample1": "嘗試快速的 RAG 搜尋並檢視結果與引用。",
+    "demoExample2": "連線自己的伺服器，讓 Knowledge QA 能用在你的實際媒體與筆記上。",
+    "connectTitle": "連線以使用 Knowledge QA",
+    "connectDescription": "若要使用 Knowledge QA 與 RAG 搜尋，請先連線到你的 tldw 伺服器。",
+    "connectExample1": "開啟「設定 → tldw server」來新增伺服器 URL。",
+    "connectExample2": "若伺服器正在執行但無法連線，請查看 Diagnostics。"
+  }
 }

@@ -1,41 +1,55 @@
 {
-    "addBtn": "Agregar Nuevo Conocimiento",
-    "columns": {
-        "title": "Título",
-        "status": "Estado",
-        "embeddings": "Modelo de Embedding",
-        "createdAt": "Creado",
-        "action": "Acciones"
+  "addBtn": "Agregar Nuevo Conocimiento",
+  "columns": {
+    "title": "Título",
+    "status": "Estado",
+    "embeddings": "Modelo de Embedding",
+    "createdAt": "Creado",
+    "action": "Acciones"
+  },
+  "expandedColumns": {
+    "name": "Nombre"
+  },
+  "confirm": {
+    "delete": "¿Esta seguro que desea borrar este conocimiento?"
+  },
+  "deleteSuccess": "Conocimiento borrado",
+  "status": {
+    "pending": "Pendiente",
+    "finished": "Finalizado",
+    "processing": "Procesando",
+    "failed": "Fallido"
+  },
+  "addKnowledge": "Agregar Conocimiento",
+  "updateKnowledge": "Actualizar Conocimiento",
+  "form": {
+    "title": {
+      "label": "Título del Conocimiento",
+      "placeholder": "Ingresar un título de conocimiento",
+      "required": "El Título de conocimiento es obligatorio"
     },
-    "expandedColumns": {
-        "name": "Nombre"
+    "uploadFile": {
+      "label": "Subir un Archivo",
+      "uploadText": "Arraste y suelte un archivo aquí o haga click para subirlo",
+      "uploadHint": "Tipos de archivo soportados: .pdf, .csv, .txt, .md, .docx",
+      "required": "El archivo es obligatorio"
     },
-    "confirm": {
-        "delete": "¿Esta seguro que desea borrar este conocimiento?"
-    },
-    "deleteSuccess": "Conocimiento borrado",
-    "status": {
-        "pending": "Pendiente",
-        "finished": "Finalizado",
-        "processing": "Procesando",
-        "failed": "Fallido"
-    },
-    "addKnowledge": "Agregar Conocimiento",
-    "updateKnowledge": "Actualizar Conocimiento",
-    "form": {
-        "title": {
-            "label": "Título del Conocimiento",
-            "placeholder": "Ingresar un título de conocimiento",
-            "required": "El Título de conocimiento es obligatorio"
-        },
-        "uploadFile": {
-            "label": "Subir un Archivo",
-            "uploadText": "Arraste y suelte un archivo aquí o haga click para subirlo",
-            "uploadHint": "Tipos de archivo soportados: .pdf, .csv, .txt, .md, .docx",
-            "required": "El archivo es obligatorio"
-        },
-        "submit": "Enviar",
-        "success": "Conocimiento agregado exitosamente"
-    },
-    "noEmbeddingModel": "Por favor, agregue un modelo de embedding de la página de configuraciones de RAG primero"
+    "submit": "Enviar",
+    "success": "Conocimiento agregado exitosamente"
+  },
+  "noEmbeddingModel": "Por favor, agregue un modelo de embedding de la página de configuraciones de RAG primero",
+  "privateModeDescription": "El modo privado de Firefox no admite guardar datos en IndexedDB. Añade una base de conocimiento desde una ventana normal.",
+  "rag": {
+    "searchFailed": "La búsqueda RAG ha fallado. Intenta de nuevo o revisa Diagnóstico."
+  },
+  "empty": {
+    "demoTitle": "Explora Knowledge QA en modo demo",
+    "demoDescription": "Esta demo muestra cómo Knowledge QA puede ejecutar búsquedas RAG sobre contenido de ejemplo. Luego puedes conectar tu propio servidor para buscar en tus transcripciones y documentos.",
+    "demoExample1": "Prueba búsquedas RAG rápidas e inspecciona resultados y citas.",
+    "demoExample2": "Conecta tu propio servidor para habilitar Knowledge QA sobre tus medios y notas reales.",
+    "connectTitle": "Conéctate para usar Knowledge QA",
+    "connectDescription": "Para usar Knowledge QA y la búsqueda RAG, primero conéctate a tu servidor tldw.",
+    "connectExample1": "Abre Configuración → tldw server para agregar la URL de tu servidor.",
+    "connectExample2": "Usa Diagnóstico si tu servidor está en ejecución pero no es accesible."
+  }
 }

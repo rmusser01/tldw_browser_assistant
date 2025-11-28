@@ -1,41 +1,55 @@
 {
-    "addBtn": "افزودن دانش جدید",
-    "columns": {
-        "title": "عنوان",
-        "status": "وضعیت",
-        "embeddings": "مدل جاسازی",
-        "createdAt": "ایجاد شده در",
-        "action": "اقدامات"
+  "addBtn": "افزودن دانش جدید",
+  "columns": {
+    "title": "عنوان",
+    "status": "وضعیت",
+    "embeddings": "مدل جاسازی",
+    "createdAt": "ایجاد شده در",
+    "action": "اقدامات"
+  },
+  "expandedColumns": {
+    "name": "نام"
+  },
+  "confirm": {
+    "delete": "آیا مطمئن هستید که می خواهید این دانش را حذف کنید؟"
+  },
+  "deleteSuccess": "دانش با موفقیت حذف شد",
+  "status": {
+    "pending": "انتظار",
+    "finished": "تمام",
+    "processing": "در حال پردازش",
+    "failed": "ناموفق"
+  },
+  "addKnowledge": "دانش را اضافه کنید",
+  "updateKnowledge": "به روز رسانی دانش",
+  "form": {
+    "title": {
+      "label": "عنوان دانش",
+      "placeholder": "عنوان دانش را وارد کنید",
+      "required": "وارد کردن عنوان دانش الزامی است"
     },
-    "expandedColumns": {
-        "name": "نام"
+    "uploadFile": {
+      "label": "آپلود فایل",
+      "uploadText": "یک فایل را در اینجا بکشید و رها کنید یا برای آپلود کلیک کنید",
+      "uploadHint": "انواع فایل های پشتیبانی شده: .pdf, .csv, .txt, .md, .docx",
+      "required": "وارد کردن فایل مورد نیاز است"
     },
-    "confirm": {
-        "delete": "آیا مطمئن هستید که می خواهید این دانش را حذف کنید؟"
-    },
-    "deleteSuccess": "دانش با موفقیت حذف شد",
-    "status": {
-        "pending": "انتظار",
-        "finished": "تمام",
-        "processing": "در حال پردازش",
-        "failed": "ناموفق"
-    },
-    "addKnowledge": "دانش را اضافه کنید",
-    "updateKnowledge": "به روز رسانی دانش",
-    "form": {
-        "title": {
-            "label": "عنوان دانش",
-            "placeholder": "عنوان دانش را وارد کنید",
-            "required": "وارد کردن عنوان دانش الزامی است"
-        },
-        "uploadFile": {
-            "label": "آپلود فایل",
-            "uploadText": "یک فایل را در اینجا بکشید و رها کنید یا برای آپلود کلیک کنید",
-            "uploadHint": "انواع فایل های پشتیبانی شده: .pdf, .csv, .txt, .md, .docx",
-            "required": "وارد کردن فایل مورد نیاز است"
-        },
-        "submit": "ارسال",
-        "success": "دانش با موفقیت اضافه شد"
-    },
-    "noEmbeddingModel": "لطفا ابتدا یک مدل جاسازی را از صفحه تنظیمات RAG اضافه کنید"
+    "submit": "ارسال",
+    "success": "دانش با موفقیت اضافه شد"
+  },
+  "noEmbeddingModel": "لطفا ابتدا یک مدل جاسازی را از صفحه تنظیمات RAG اضافه کنید",
+  "privateModeDescription": "حالت خصوصی فایرفاکس ذخیره در IndexedDB را پشتیبانی نمی‌کند. لطفاً پایگاه دانش را از یک پنجره عادی اضافه کنید.",
+  "rag": {
+    "searchFailed": "جستجوی RAG ناموفق بود. دوباره تلاش کنید یا صفحه Diagnostics را بررسی کنید."
+  },
+  "empty": {
+    "demoTitle": "کاوش Knowledge QA در حالت دمو",
+    "demoDescription": "این دمو نشان می‌دهد چگونه Knowledge QA می‌تواند روی محتوای نمونه، جستجوهای RAG انجام دهد. بعداً می‌توانید سرور خود را متصل کنید تا روی رونوشت‌ها و اسناد خود جستجو کنید.",
+    "demoExample1": "جستجوهای سریع RAG را امتحان کنید و نتایج و ارجاعات را بررسی کنید.",
+    "demoExample2": "سرور خود را متصل کنید تا Knowledge QA را روی رسانه‌ها و یادداشت‌های واقعی خود فعال کنید.",
+    "connectTitle": "برای استفاده از Knowledge QA وصل شوید",
+    "connectDescription": "برای استفاده از Knowledge QA و جستجوی RAG، ابتدا به سرور tldw خود متصل شوید.",
+    "connectExample1": "تنظیمات → tldw server را باز کنید و آدرس سرور خود را اضافه کنید.",
+    "connectExample2": "اگر سرور شما در حال اجرا است اما در دسترس نیست، از بخش Diagnostics استفاده کنید."
+  }
 }

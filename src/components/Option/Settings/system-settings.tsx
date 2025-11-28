@@ -15,8 +15,9 @@ import { toBase64 } from "@/libs/to-base64"
 import { PageAssistDatabase } from "@/db/dexie/chat"
 import { isFireFox, isFireFoxPrivateMode } from "@/utils/is-private-mode"
 import { firefoxSyncDataForPrivateMode } from "@/db/dexie/firefox-sync"
-import { confirmDanger } from "@/components/Common/confirm-danger"
+import { useConfirmDanger } from "@/components/Common/confirm-danger"
 import { useAntdNotification } from "@/hooks/useAntdNotification"
+import { Highlight, themes } from "prism-react-renderer"
 
 export const SystemSettings = () => {
   const { t } = useTranslation(["settings", "knowledge"])
@@ -24,6 +25,32 @@ export const SystemSettings = () => {
   const { clearChat } = useMessageOption()
   const { increase, decrease, scale } = useFontSize()
   const notification = useAntdNotification()
+  const confirmDanger = useConfirmDanger()
+  const quotaFriendlyMessage = t(
+    "settings:storage.quotaFriendlyMessage",
+    "Too many settings writes in a short period; please wait a few seconds and try again."
+  )
+
+  const showStorageError = (error: unknown) => {
+    const msg =
+      error instanceof Error ? error.message : typeof error === "string" ? error : ""
+    const quotaHit =
+      msg?.includes("MAX_WRITE_OPERATIONS_PER_MINUTE") ||
+      msg?.includes("QUOTA_BYTES_PER_ITEM") ||
+      msg?.includes("QUOTA_BYTES")
+
+    notification.error({
+      message: quotaHit
+        ? t("settings:storage.quotaTitle", "Storage limit reached")
+        : t("settings:storage.writeError", "Could not save settings"),
+      description: quotaHit
+        ? quotaFriendlyMessage
+        : t(
+            "settings:storage.writeErrorDescription",
+            "We couldn't save your settings. Please try again shortly."
+          )
+    })
+  }
 
   const [webuiBtnSidePanel, setWebuiBtnSidePanel] = useStorage(
     "webuiBtnSidePanel",
@@ -75,7 +102,10 @@ export const SystemSettings = () => {
       })
 
       notification.success({
-        message: "Imported data successfully"
+        message: t(
+          "settings:systemNotifications.importSuccess",
+          "Imported data successfully"
+        )
       })
 
       setTimeout(() => { 
@@ -85,23 +115,68 @@ export const SystemSettings = () => {
     onError: (error) => {
       console.error("Import error:", error)
       notification.error({
-        message: "Import error"
+        message: t(
+          "settings:systemNotifications.importError",
+          "Import error"
+        )
       })
     }
   })
+  const [codeTheme, setCodeTheme] = useStorage("codeTheme", "auto")
+  const sampleCode = `function hello(name: string) {
+  console.log('Hello, ' + name)
+}`
+
+  const codeThemeOptions = [
+    {
+      label: t("generalSettings.systemBasics.codeTheme.auto", {
+        defaultValue: "Follow app theme (auto)"
+      }),
+      value: "auto"
+    },
+    { label: "Dracula (dark)", value: "dracula" },
+    { label: "GitHub (light)", value: "github" },
+    { label: "Night Owl (dark)", value: "nightOwl" },
+    { label: "Night Owl Light", value: "nightOwlLight" },
+    { label: "VS Dark", value: "vsDark" }
+  ]
+
+  const resolvePreviewTheme = (key: string) => {
+    switch (key) {
+      case "github":
+        return themes.github
+      case "nightOwl":
+        return themes.nightOwl
+      case "nightOwlLight":
+        return themes.nightOwlLight
+      case "vsDark":
+        return themes.vsDark
+      case "dracula":
+        return themes.dracula
+      case "auto":
+      default:
+        // For preview, pick a neutral default; actual CodeBlock uses real auto logic.
+        return themes.dracula
+    }
+  }
 
   const syncFirefoxData = useMutation({
     mutationFn: firefoxSyncDataForPrivateMode,
     onSuccess: () => {
       notification.success({
-        message:
+        message: t(
+          "settings:systemNotifications.syncSuccess",
           "Firefox data synced successfully, You don't need to do this again"
+        )
       })
     },
     onError: (error) => {
       console.log(error)
       notification.error({
-        message: "Firefox data sync failed"
+        message: t(
+          "settings:systemNotifications.syncError",
+          "Firefox data sync failed"
+        )
       })
     }
   })
@@ -114,7 +189,10 @@ export const SystemSettings = () => {
       try {
         if (!file.type.startsWith("image/")) {
           notification.error({
-            message: "Please select a valid image file"
+            message: t(
+              "settings:systemNotifications.invalidImage",
+              "Please select a valid image file"
+            )
           })
           return
         }
@@ -129,18 +207,21 @@ export const SystemSettings = () => {
             message: t("settings:chatBackground.tooLargeTitle", "Image too large"),
             description: t(
               "settings:chatBackground.tooLargeDescription",
-              "Please choose a smaller image (under 3 MB) for the chat background."
+              "Please choose a smaller image (around 3 MB or less) for the chat background. Try compressing or resizing it and upload again."
             )
           })
           return
         }
 
-        setChatBackgroundImage(base64String)
+        try {
+          await Promise.resolve(setChatBackgroundImage(base64String))
+        } catch (err) {
+          console.error("Storage error while saving background image:", err)
+          showStorageError(err)
+        }
       } catch (error) {
         console.error("Error uploading image:", error)
-        notification.error({
-          message: "Failed to upload image"
-        })
+        showStorageError(error)
       }
     }
   }
@@ -192,6 +273,74 @@ export const SystemSettings = () => {
             className="bg-black hover:bg-gray-800 dark:bg-white dark:hover:bg-gray-200 text-white dark:text-black px-3 py-1.5 rounded-lg transition-colors duration-200 font-medium text-sm">
             A+
           </button>{" "}
+        </div>
+      </div>
+
+      <div className="flex flex-col sm:flex-row mb-3 gap-3 sm:gap-0 sm:justify-between sm:items-center">
+        <span className="text-gray-700 dark:text-neutral-50">
+          {t("generalSettings.systemBasics.codeTheme.label", {
+            defaultValue: "Code block theme"
+          })}
+        </span>
+        <div className="w-full sm:w-[320px] flex flex-col gap-2">
+          <Select
+            className="w-full"
+            value={codeTheme}
+            onChange={setCodeTheme}
+            options={codeThemeOptions}
+          />
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+            {codeThemeOptions.map((opt) => (
+              <button
+                key={opt.value}
+                type="button"
+                onClick={() => setCodeTheme(opt.value)}
+                className={`rounded-md border px-2 py-2 text-left transition-colors ${
+                  codeTheme === opt.value
+                    ? "border-gray-400 dark:border-gray-500 bg-gray-50 dark:bg-[#232222]"
+                    : "border-gray-200 dark:border-gray-700 bg-white dark:bg-[#1a1a1a] hover:border-gray-400 dark:hover:border-gray-500"
+                }`}>
+                <div className="flex items-center justify-between mb-1">
+                  <span className="text-xs text-gray-800 dark:text-gray-100">
+                    {opt.label}
+                  </span>
+                  {codeTheme === opt.value && (
+                    <span className="rounded-full bg-gray-200 dark:bg-gray-700 px-2 py-0.5 text-[10px] text-gray-700 dark:text-gray-100">
+                      {t("generalSettings.systemBasics.codeTheme.current", {
+                        defaultValue: "Current"
+                      })}
+                    </span>
+                  )}
+                </div>
+                <Highlight
+                  code={sampleCode}
+                  language={"tsx" as any}
+                  theme={resolvePreviewTheme(opt.value)}>
+                  {({ className, style, tokens, getLineProps, getTokenProps }) => (
+                    <pre
+                      className={`${className} m-0 max-h-24 overflow-hidden rounded-sm text-[10px] leading-snug`}
+                      style={{
+                        ...style,
+                        fontFamily: "var(--font-mono)"
+                      }}>
+                      {tokens.slice(0, 4).map((line, i) => (
+                        <div
+                          key={i}
+                          {...getLineProps({ line, key: i })}>
+                          {line.map((token, key) => (
+                            <span
+                              key={key}
+                              {...getTokenProps({ token, key })}
+                            />
+                          ))}
+                        </div>
+                      ))}
+                    </pre>
+                  )}
+                </Highlight>
+              </button>
+            ))}
+          </div>
         </div>
       </div>
 

@@ -1,32 +1,89 @@
 {
-    "extName": {
-        "message": "tldw Assistant"
-    },
-    "extDescription": {
-        "message": "Usa i tuoi modelli AI in esecuzione locale per assisterti nella navigazione web."
-    },
-    "openSidePanelToChat": {
-        "message": "Open Sidebar to chat"
-    },
-    "contextSummarize": {
-        "message": "Riassumi"
-    },
-    "contextExplain": {
-        "message": "Spiega"
-    },
-    "contextRephrase": {
-        "message": "Riformula"
-    },
-    "contextTranslate": {
-        "message": "Traduci"
-    },
-    "contextCustom": {
-        "message": "Personalizzato"
-    },
-    "contextSendToTldw": {
-        "message": "Send to tldw_server"
-    },
-    "contextProcessLocalTldw": {
-        "message": "Process with tldw_server (don’t store)"
-    }
+  "extName": {
+    "message": "Assistente tldw"
+  },
+  "extDescription": {
+    "message": "Usa i tuoi modelli AI in esecuzione locale per assisterti nella navigazione web."
+  },
+  "openSidePanelToChat": {
+    "message": "Apri la barra laterale per chattare"
+  },
+  "contextSummarize": {
+    "message": "Riassumi"
+  },
+  "contextExplain": {
+    "message": "Spiega"
+  },
+  "contextRephrase": {
+    "message": "Riformula"
+  },
+  "contextTranslate": {
+    "message": "Traduci"
+  },
+  "contextCustom": {
+    "message": "Personalizzato"
+  },
+  "contextSendToTldw": {
+    "message": "Invia a tldw_server"
+  },
+  "contextProcessLocalTldw": {
+    "message": "Elabora con tldw_server (non salvare)"
+  },
+  "contextSidebarOpening": {
+    "message": "Apertura della barra laterale..."
+  },
+  "contextSaveToNotesOpeningSidebar": {
+    "message": "Apertura della barra laterale per salvare la nota..."
+  },
+  "openOptionToChat": {
+    "message": "Apri l’interfaccia Web per chattare"
+  },
+  "contextTranscribeMedia": {
+    "message": "Trascrivi video/audio"
+  },
+  "contextTranscribeAndSummarizeMedia": {
+    "message": "Trascrivi e riassumi video/audio"
+  },
+  "contextSaveToNotes": {
+    "message": "Salva nelle note"
+  },
+  "contextSaveToNotesNoSelection": {
+    "message": "Seleziona prima del testo da salvare nelle note."
+  },
+  "hfSendPageRejected": {
+    "message": "[tldw] La richiesta di invio della pagina è stata rifiutata da tldw_server"
+  },
+  "hfSendPageErrorWithDetail": {
+    "message": "[tldw] Impossibile inviare questa pagina a tldw_server: $1. Controlla \"Settings → tldw server\" e riprova."
+  },
+  "hfSendPageError": {
+    "message": "[tldw] Impossibile inviare questa pagina a tldw_server. Controlla \"Settings → tldw server\" e riprova."
+  },
+  "hfSendPageSuccess": {
+    "message": "[tldw] Pagina inviata a tldw_server per l’elaborazione"
+  },
+  "hfSendPageException": {
+    "message": "[tldw] Si è verificato un problema durante l’invio di questa pagina a tldw_server. Assicurati che tldw_server e l’estensione siano in esecuzione, quindi riprova."
+  },
+  "hfPullInProgress": {
+    "message": "[tldw Assistant] È già in corso una richiesta di download del modello. Attendi che finisca prima di avviarne un’altra."
+  },
+  "hfPullConfirm": {
+    "message": "[tldw Assistant] Vuoi inviare una richiesta al tuo tldw_server per scaricare il modello \"$1\"? Questa operazione è indipendente dal sito huggingface.co. Il tuo server inizierà a scaricare il modello dopo la conferma."
+  },
+  "hfPullSending": {
+    "message": "[tldw Assistant] Invio di una richiesta al tuo tldw_server per scaricare \"$1\". Controlla l’icona dell’estensione o i log del tuo tldw_server per seguire l’avanzamento."
+  },
+  "hfPullErrorWithDetail": {
+    "message": "[tldw Assistant] Impossibile inviare una richiesta di download per \"$1\": $2. Controlla \"Settings → tldw server\" e riprova."
+  },
+  "hfPullError": {
+    "message": "[tldw Assistant] Impossibile inviare una richiesta di download per \"$1\". Controlla \"Settings → tldw server\" e riprova."
+  },
+  "hfPullSuccess": {
+    "message": "[tldw Assistant] Richiesta inviata al tuo tldw_server per scaricare \"$1\". Monitora l’icona dell’estensione أو i log di tldw_server per lo stato."
+  },
+  "hfPullException": {
+    "message": "[tldw Assistant] Si è verificato un problema durante l’invio di una richiesta di download per \"$1\" al tuo tldw_server. Assicurati che tldw_server e l’estensione siano in esecuzione، quindi riprova."
+  }
 }

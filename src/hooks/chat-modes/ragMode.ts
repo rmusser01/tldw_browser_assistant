@@ -16,6 +16,28 @@ import { formatDocs } from "@/chain/chat-with-x"
 import { getNoOfRetrievedDocs } from "@/services/app"
 import { tldwClient } from "@/services/tldw/TldwApiClient"
 
+type RagModeParams = {
+  selectedModel: string
+  useOCR: boolean
+  selectedKnowledge: any
+  currentChatModelSettings: any
+  setMessages: (messages: Message[] | ((prev: Message[]) => Message[])) => void
+  saveMessageOnSuccess: (data: any) => Promise<string | null>
+  saveMessageOnError: (data: any) => Promise<string | null>
+  setHistory: (history: ChatHistory) => void
+  setIsProcessing: (value: boolean) => void
+  setStreaming: (value: boolean) => void
+  setAbortController: (controller: AbortController | null) => void
+  historyId: string | null
+  setHistoryId: (id: string) => void
+  ragMediaIds: number[] | null
+  ragSearchMode: "hybrid" | "vector" | "fts"
+  ragTopK: number | null
+  ragEnableGeneration: boolean
+  ragEnableCitations: boolean
+  ragSources: string[]
+}
+
 export const ragMode = async (
   message: string,
   image: string,
@@ -36,22 +58,14 @@ export const ragMode = async (
     setStreaming,
     setAbortController,
     historyId,
-    setHistoryId
-  }: {
-    selectedModel: string
-    useOCR: boolean
-    selectedKnowledge: any
-    currentChatModelSettings: any
-    setMessages: (messages: Message[] | ((prev: Message[]) => Message[])) => void
-    saveMessageOnSuccess: (data: any) => Promise<string | null>
-    saveMessageOnError: (data: any) => Promise<string | null>
-    setHistory: (history: ChatHistory) => void
-    setIsProcessing: (value: boolean) => void
-    setStreaming: (value: boolean) => void
-    setAbortController: (controller: AbortController | null) => void
-    historyId: string | null
-    setHistoryId: (id: string) => void
-  }
+    setHistoryId,
+    ragMediaIds,
+    ragSearchMode,
+    ragTopK,
+    ragEnableGeneration,
+    ragEnableCitations,
+    ragSources
+  }: RagModeParams
 ) => {
   console.log("Using ragMode")
   const url = cleanUrl((await (await new (await import("@plasmohq/storage")).Storage({ area: 'local' })).get("tldwConfig") as any)?.serverUrl || "")
@@ -127,15 +141,32 @@ export const ragMode = async (
       query = response.content.toString()
       query = removeReasoning(query)
     }
-    const docSize = await getNoOfRetrievedDocs()
+    const defaultTopK = await getNoOfRetrievedDocs()
     let context: string = ""
     let source: any[] = []
     try {
       await tldwClient.initialize()
-      const ragRes = await tldwClient.ragSearch(query, {
-        top_k: docSize,
-        knowledge_id: selectedKnowledge?.id
-      })
+      const top_k =
+        typeof ragTopK === "number" && ragTopK > 0 ? ragTopK : defaultTopK
+      const ragOptions: any = {
+        top_k,
+        search_mode: ragSearchMode
+      }
+      if (ragEnableGeneration) {
+        ragOptions.enable_generation = true
+      }
+      if (ragEnableCitations) {
+        ragOptions.enable_citations = true
+      }
+      if (Array.isArray(ragSources) && ragSources.length > 0) {
+        ragOptions.sources = ragSources
+      }
+      if (Array.isArray(ragMediaIds) && ragMediaIds.length > 0) {
+        ragOptions.include_media_ids = ragMediaIds
+        // When a specific media list is provided, ensure we query the media DB
+        ragOptions.sources = ["media_db"]
+      }
+      const ragRes = await tldwClient.ragSearch(query, ragOptions)
       const docs = ragRes?.results || ragRes?.documents || ragRes?.docs || []
       context = formatDocs(
         docs.map((d: any) => ({ pageContent: d.content || d.text || d.chunk || "", metadata: d.metadata || {} }))

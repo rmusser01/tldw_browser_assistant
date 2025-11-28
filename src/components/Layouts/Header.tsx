@@ -1,15 +1,16 @@
 import React from "react"
 import { useStorage } from "@plasmohq/storage/hook"
-import { CogIcon, Gauge, UserCircle2 } from "lucide-react"
+import { CogIcon, Gauge, Mic, UserCircle2 } from "lucide-react"
 import { useTranslation } from "react-i18next"
 import { useLocation, NavLink, useNavigate } from "react-router-dom"
-import { SelectedKnowledge } from "../Option/Knowledge/SelectedKnowledge"
 import { ModelSelect } from "../Common/ModelSelect"
 import { PromptSelect } from "../Common/PromptSelect"
 import PromptSearch from "../Common/PromptSearch"
 import { useQuery } from "@tanstack/react-query"
 import { useServerOnline } from "@/hooks/useServerOnline"
 import { fetchChatModels } from "@/services/tldw-server"
+import { getTitleById, updateHistory } from "@/db"
+import { useStoreChatModelSettings } from "@/store/model"
 import { useMessageOption } from "~/hooks/useMessageOption"
 import { Avatar, Select, Input, Divider, Dropdown } from "antd"
 import QuickIngestModal from "../Common/QuickIngestModal"
@@ -23,10 +24,12 @@ import {
   NotebookPen,
   BookMarked,
   BookOpen,
-  ChevronDown
+  ChevronDown,
+  Github
 } from "lucide-react"
 import { getAllPrompts } from "@/db/dexie/helpers"
 import { ProviderIcons } from "../Common/ProviderIcon"
+import logoImage from "~/assets/icon.png"
 import { NewChat } from "./NewChat"
 import { MoreOptions } from "./MoreOptions"
 import { browser } from "wxt/browser"
@@ -35,9 +38,12 @@ import { PrimaryToolbar } from "./PrimaryToolbar"
 import { useConnectionState } from "@/hooks/useConnectionState"
 import { useShortcutConfig, formatShortcut } from "@/hooks/keyboard/useShortcutConfig"
 import { ConnectionPhase } from "@/types/connection"
+import type { Character } from "@/types/character"
 import type { TFunction } from "i18next"
 import { Link } from "react-router-dom"
 import { hasPromptStudio } from "@/services/prompt-studio"
+import OmniSearchBar from "../Common/OmniSearchBar"
+import { useOmniSearchDeps } from "@/hooks/useOmniSearchDeps"
 
 const classNames = (...classes: (string | false | null | undefined)[]) =>
   classes.filter(Boolean).join(" ")
@@ -45,6 +51,7 @@ const classNames = (...classes: (string | false | null | undefined)[]) =>
 type Props = {
   setSidebarOpen: (open: boolean) => void
   setOpenModelSettings: (open: boolean) => void
+  showSelectors?: boolean
 }
 
 type NavigationItem =
@@ -62,11 +69,12 @@ type NavigationItem =
 
 type CoreMode =
   | "playground"
-  | "review"
   | "media"
+  | "mediaMulti"
   | "knowledge"
   | "notes"
   | "prompts"
+  | "stt"
   | "promptStudio"
   | "flashcards"
   | "worldBooks"
@@ -76,7 +84,8 @@ type CoreMode =
 
 export const Header: React.FC<Props> = ({
   setOpenModelSettings,
-  setSidebarOpen
+  setSidebarOpen,
+  showSelectors = true
 }) => {
   const { t, i18n } = useTranslation(["option", "common", "settings"])
   const isRTL = i18n?.dir() === "rtl"
@@ -85,6 +94,10 @@ export const Header: React.FC<Props> = ({
   const [hideCurrentChatModelSettings] = useStorage(
     "hideCurrentChatModelSettings",
     false
+  )
+  const [selectedCharacter] = useStorage<Character | null>(
+    "selectedCharacter",
+    null
   )
   const {
     selectedModel,
@@ -97,8 +110,10 @@ export const Header: React.FC<Props> = ({
     messages,
     streaming,
     historyId,
-    temporaryChat
+    temporaryChat,
+    serverChatId
   } = useMessageOption()
+  const omniDeps = useOmniSearchDeps()
   const isOnline = useServerOnline()
   const {
     data: models,
@@ -140,11 +155,32 @@ export const Header: React.FC<Props> = ({
   const { shortcuts: shortcutConfig } = useShortcutConfig()
   const quickIngestBtnRef = React.useRef<HTMLButtonElement>(null)
 
+  React.useEffect(() => {
+    const handler = () => {
+      if (ingestDisabled) {
+        return
+      }
+      setQuickIngestOpen(true)
+      requestAnimationFrame(() => {
+        quickIngestBtnRef.current?.focus()
+      })
+    }
+    window.addEventListener("tldw:open-quick-ingest", handler)
+    return () => {
+      window.removeEventListener("tldw:open-quick-ingest", handler)
+    }
+  }, [ingestDisabled])
+
   const currentCoreMode: CoreMode = React.useMemo(() => {
-    if (pathname.startsWith("/review")) return "media"
-    if (pathname.startsWith("/media-multi") || pathname.startsWith("/media"))
+    if (pathname.startsWith("/review") || pathname.startsWith("/media-multi"))
+      return "mediaMulti"
+    if (pathname.startsWith("/media"))
       return "media"
-    if (pathname.startsWith("/settings/knowledge")) return "knowledge"
+    if (
+      pathname.startsWith("/settings/knowledge") ||
+      pathname.startsWith("/knowledge")
+    )
+      return "knowledge"
     if (pathname.startsWith("/notes")) return "notes"
     if (pathname.startsWith("/prompts") || pathname.startsWith("/settings/prompt"))
       return "prompts"
@@ -169,22 +205,23 @@ export const Header: React.FC<Props> = ({
     )
       return "characters"
     if (pathname.startsWith("/flashcards")) return "flashcards"
+    if (pathname.startsWith("/stt")) return "stt"
     if (pathname.startsWith("/tts")) return "tts"
     return "playground"
   }, [pathname])
 
   const openSidebar = React.useCallback(async () => {
     try {
-      // @ts-ignore
-      if (chrome?.sidePanel) {
+      if (import.meta.env.BROWSER === "firefox") {
+        await browser.sidebarAction.open()
+      } else {
+        // Chromium sidePanel API
         // @ts-ignore
         const tabs = await chrome.tabs.query({ active: true, currentWindow: true })
         if (tabs?.[0]?.id) {
           // @ts-ignore
           await chrome.sidePanel.open({ tabId: tabs[0].id })
         }
-      } else {
-        await browser.sidebarAction.open()
       }
     } catch {}
   }, [])
@@ -194,11 +231,11 @@ export const Header: React.FC<Props> = ({
       case "playground":
         navigate("/")
         break
-      case "review":
-        navigate("/media-multi")
-        break
       case "media":
         navigate("/media")
+        break
+      case "mediaMulti":
+        navigate("/media-multi")
         break
       case "knowledge":
         navigate("/knowledge")
@@ -227,6 +264,9 @@ export const Header: React.FC<Props> = ({
       case "tts":
         navigate("/tts")
         break
+      case "stt":
+        navigate("/stt")
+        break
     }
   }
 
@@ -245,7 +285,6 @@ export const Header: React.FC<Props> = ({
     (async () => {
       try {
         if (historyId && historyId !== 'temp' && !temporaryChat) {
-          const { getTitleById } = await import('@/db')
           const title = await getTitleById(historyId)
           setChatTitle(title || '')
         } else {
@@ -258,7 +297,6 @@ export const Header: React.FC<Props> = ({
   const saveTitle = async (value: string) => {
     try {
       if (historyId && historyId !== 'temp' && !temporaryChat) {
-        const { updateHistory } = await import('@/db')
         await updateHistory(historyId, value.trim() || 'Untitled')
       }
     } catch (e) {
@@ -288,48 +326,43 @@ export const Header: React.FC<Props> = ({
   const navigationGroups = React.useMemo(
     (): Array<{ title: string; items: NavigationItem[] }> => [
       {
-        title: t("option:header.groupWorkspace", "Workspace"),
+        title: t("option:header.groupChatting", "Chatting"),
         items: [
           {
             type: "link" as const,
-            to: "/media-multi",
-            icon: Microscope,
-            label: t("option:header.review", "Review")
-          },
-          {
-            type: "link" as const,
-            to: "/flashcards",
+            to: "/",
             icon: Layers,
-            label: t("option:header.flashcards", "Flashcards")
+            label: t("option:header.modePlayground", "Chat")
           },
           {
             type: "link" as const,
-            to: "/evaluations",
-            icon: Microscope,
-            label: t("option:header.evaluations", "Evaluations")
+            to: "/prompts",
+            icon: NotebookPen,
+            label: t("option:header.modePromptsPlayground", "Prompts")
           },
           {
             type: "link" as const,
-            to: "/tts",
-            icon: Gauge,
-            label: t("option:tts.playground", "TTS Playground")
+            to: "/characters",
+            icon: UserCircle2,
+            label: t("option:header.modeCharacters", "Characters")
           },
           {
             type: "link" as const,
-            to: "/notes",
-            icon: StickyNote,
-            label: t("option:header.notes", "Notes")
+            to: "/dictionaries",
+            icon: BookMarked,
+            label: t("option:header.modeDictionaries", "Chat dictionaries")
+          },
+          {
+            type: "link" as const,
+            to: "/world-books",
+            icon: BookOpen,
+            label: t("option:header.modeWorldBooks", "World Books")
           }
         ]
       },
       {
         title: t("option:header.groupKnowledge", "Knowledge"),
         items: [
-          {
-            type: "component" as const,
-            key: "selected-knowledge",
-            node: <SelectedKnowledge />
-          },
           {
             type: "link" as const,
             to: "/media",
@@ -341,6 +374,70 @@ export const Header: React.FC<Props> = ({
             to: "/media-multi",
             icon: LayoutGrid,
             label: t("option:header.libraryView", "Multi-Item Review")
+          },
+          {
+            type: "link" as const,
+            to: "/flashcards",
+            icon: Layers,
+            label: t("option:header.flashcards", "Flashcards")
+          },
+          {
+            type: "link" as const,
+            to: "/notes",
+            icon: StickyNote,
+            label: t("option:header.notes", "Notes")
+          }
+        ]
+      },
+  {
+    title: t("option:header.groupWorkspace", "Workspace"),
+    items: [
+      {
+        type: "link" as const,
+        to: "/evaluations",
+        icon: Microscope,
+        label: t("option:header.evaluations", "Evaluations")
+      },
+      {
+        type: "link" as const,
+        to: "/stt",
+        icon: Mic,
+        label: t("option:header.modeStt", "STT Playground")
+      },
+      {
+        type: "link" as const,
+        to: "/tts",
+        icon: Gauge,
+        label: t("option:tts.playground", "TTS Playground")
+          },
+          {
+            type: "link" as const,
+            to: "/prompt-studio",
+            icon: NotebookPen,
+            label: t("option:header.modePromptStudio", "Prompt Studio")
+          }
+        ]
+      },
+      {
+        title: t("option:header.groupAdministration", "Administration"),
+        items: [
+          {
+            type: "link" as const,
+            to: "/admin/server",
+            icon: CogIcon,
+            label: t("option:header.adminServer", "Server Admin")
+          },
+          {
+            type: "link" as const,
+            to: "/admin/llamacpp",
+            icon: Microscope,
+            label: t("option:header.adminLlamacpp", "Llama.cpp Admin")
+          },
+          {
+            type: "link" as const,
+            to: "/admin/mlx",
+            icon: Gauge,
+            label: t("option:header.adminMlx", "MLX LM Admin")
           }
         ]
       },
@@ -352,30 +449,6 @@ export const Header: React.FC<Props> = ({
             to: "/settings",
             icon: CogIcon,
             label: t("settings")
-          },
-          {
-            type: "link" as const,
-            to: "/settings/prompt",
-            icon: NotebookPen,
-            label: t("settings:managePrompts.title")
-          },
-          {
-            type: "link" as const,
-            to: "/settings/world-books",
-            icon: BookOpen,
-            label: t("settings:manageKnowledge.worldBooks", "World Books")
-          },
-          {
-            type: "link" as const,
-            to: "/settings/chat-dictionaries",
-            icon: BookMarked,
-            label: t("settings:manageKnowledge.chatDictionaries", "Chat dictionaries")
-          },
-          {
-            type: "link" as const,
-            to: "/settings/characters",
-            icon: UserCircle2,
-            label: t("settings:charactersNav", "Characters")
           }
         ]
       }
@@ -485,66 +558,141 @@ export const Header: React.FC<Props> = ({
           onToggleSidebar={() => setSidebarOpen(true)}
           showBack={pathname !== "/"}
           isRTL={isRTL}>
-          <div className="flex items-center gap-3 min-w-0">
-            <NewChat clearChat={clearChat} />
-            <button
-              type="button"
-              onClick={() => navigate("/settings/tldw")}
-              className="inline-flex items-center gap-1 rounded-md border border-transparent px-2 py-1 text-xs text-gray-600 transition hover:border-gray-300 hover:bg-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-amber-500 dark:text-gray-200 dark:hover:border-gray-500 dark:hover:bg-[#1f1f1f]"
-            >
-              <CogIcon className="h-4 w-4" aria-hidden="true" />
-              <span className="hidden sm:inline">
-                {t("option:header.serverSettings", "Server settings")}
-              </span>
-            </button>
-            <button
-              type="button"
-              onClick={() => {
-                try {
-                  window.open(
-                    "https://github.com/rmusser01/tldw_browser_assistant",
-                    "_blank",
-                    "noopener"
-                  )
-                } catch {}
-              }}
-              className="inline-flex items-center gap-1 rounded-md border border-transparent px-2 py-1 text-xs text-gray-600 transition hover:border-gray-300 hover:bg-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-amber-500 dark:text-gray-200 dark:hover:border-gray-500 dark:hover:bg-[#1f1f1f]"
-            >
-              <span className="hidden sm:inline">
-                {t("option:githubRepository", "GitHub Repository")}
-              </span>
-            </button>
-            {!temporaryChat && historyId && historyId !== "temp" && (
-              <div className="hidden min-w-[160px] max-w-[280px] lg:block">
-                {isEditingTitle ? (
-                  <Input
-                    size="small"
-                    autoFocus
-                    value={chatTitle}
-                    onChange={(e) => setChatTitle(e.target.value)}
-                    onPressEnter={async () => {
-                      setIsEditingTitle(false)
-                      await saveTitle(chatTitle)
-                    }}
-                    onBlur={async () => {
-                      setIsEditingTitle(false)
-                      await saveTitle(chatTitle)
-                    }}
-                  />
-                ) : (
+          <div className="flex w-full items-center gap-3 min-w-0">
+            <div className="flex items-center gap-3 min-w-0 flex-shrink-0">
+              <NewChat clearChat={clearChat} />
+              {isChatRoute && (
+                <>
                   <button
                     type="button"
-                    onClick={() => setIsEditingTitle(true)}
-                    className="truncate text-left text-sm text-gray-700 hover:underline dark:text-gray-200"
-                    title={chatTitle || "Untitled"}
+                    onClick={() => setOpenModelSettings(true)}
+                    className="inline-flex items-center gap-1 rounded-md border border-transparent px-2 py-1 text-xs text-gray-600 transition hover:border-gray-300 hover:bg-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-amber-500 dark:text-gray-200 dark:hover:border-gray-500 dark:hover:bg-[#1f1f1f]"
                   >
-                    {chatTitle || t("option:header.untitledChat", "Untitled")}
+                    <Gauge className="h-4 w-4" aria-hidden="true" />
+                    <span className="hidden sm:inline">
+                      {t("option:header.modelSettings", "Model settings")}
+                    </span>
                   </button>
+                  <button
+                    type="button"
+                    onClick={() => navigate("/settings/health")}
+                    className="inline-flex items-center gap-1 rounded-md border border-transparent px-2 py-1 text-xs text-gray-600 transition hover:border-gray-300 hover:bg-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-amber-500 dark:text-gray-200 dark:hover:border-gray-500 dark:hover:bg-[#1f1f1f]"
+                  >
+                    <Microscope className="h-4 w-4" aria-hidden="true" />
+                    <span className="hidden sm:inline">
+                      {t("settings:healthSummary.diagnostics", "Diagnostics")}
+                    </span>
+                  </button>
+                </>
+              )}
+              {/* GitHub link moved to right-side cluster */}
+              {!temporaryChat && historyId && historyId !== "temp" && (
+                <div className="hidden min-w-[160px] max-w-[280px] lg:block">
+                  {isEditingTitle ? (
+                    <Input
+                      size="small"
+                      autoFocus
+                      value={chatTitle}
+                      onChange={(e) => setChatTitle(e.target.value)}
+                      onPressEnter={async () => {
+                        setIsEditingTitle(false)
+                        await saveTitle(chatTitle)
+                      }}
+                      onBlur={async () => {
+                        setIsEditingTitle(false)
+                        await saveTitle(chatTitle)
+                      }}
+                    />
+                  ) : (
+                    <button
+                      type="button"
+                      onClick={() => setIsEditingTitle(true)}
+                      className="truncate text-left text-sm text-gray-700 hover:underline dark:text-gray-200"
+                      title={chatTitle || "Untitled"}
+                    >
+                      {chatTitle || t("option:header.untitledChat", "Untitled")}
+                    </button>
+                  )}
+                </div>
+              )}
+              {serverChatId && (
+                <span
+                  className="hidden md:inline-flex items-center gap-1 rounded-full border border-emerald-200 bg-emerald-50 px-2 py-0.5 text-xs text-emerald-700 shadow-sm dark:border-emerald-500/50 dark:bg-emerald-500/10 dark:text-emerald-100"
+                  title={t(
+                    "option:header.serverBackedTooltip",
+                    "Messages in this chat are also saved on your tldw server."
+                  )}>
+                  <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 dark:bg-emerald-300" />
+                  {t("option:header.serverBackedLabel", "Server-backed chat")}
+                </span>
+              )}
+              {/* Status chips for current selections */}
+              <div className="hidden md:flex items-center gap-2">
+                {selectedCharacter?.name && (
+                  <span className="inline-flex items-center gap-2 rounded-full border border-blue-100 bg-blue-50 px-2 py-0.5 text-xs text-blue-700 shadow-sm dark:border-blue-400/40 dark:bg-blue-500/10 dark:text-blue-100">
+                    {selectedCharacter?.avatar_url ? (
+                      <img
+                        src={selectedCharacter.avatar_url}
+                        className="h-4 w-4 rounded-full"
+                      />
+                    ) : (
+                      <UserCircle2 className="h-4 w-4" />
+                    )}
+                    <span className="max-w-[140px] truncate">
+                      {selectedCharacter.name}
+                    </span>
+                  </span>
+                )}
+                {(selectedSystemPrompt || selectedQuickPrompt) && (
+                  <span className="inline-flex items-center gap-1 rounded-full border border-gray-200 bg-white px-2 py-0.5 text-xs text-gray-700 shadow-sm dark:border-gray-700 dark:bg-[#1f1f1f] dark:text-gray-300">
+                    {t("option:header.promptLabel", "Prompt")}:
+                    <span className="max-w-[140px] truncate">
+                      {selectedSystemPrompt
+                        ? (getPromptInfoById(selectedSystemPrompt)?.title || t("option:header.systemPrompt", "System prompt"))
+                        : t("option:header.customPrompt", "Custom")}
+                    </span>
+                  </span>
                 )}
               </div>
-            )}
-            {/* Status chips for current selections */}
-            <div className="hidden md:flex items-center gap-2">
+            </div>
+            <div className="flex-1 min-w-[160px] flex justify-center">
+              <OmniSearchBar deps={omniDeps} />
+            </div>
+            <div className="hidden sm:flex items-center gap-3 flex-shrink-0">
+              <button
+                type="button"
+                onClick={() => navigate("/settings/tldw")}
+                className="inline-flex items-center gap-1 rounded-md border border-transparent px-2 py-1 text-xs text-gray-600 transition hover:border-gray-300 hover:bg-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-amber-500 dark:text-gray-200 dark:hover:border-gray-500 dark:hover:bg-[#1f1f1f]">
+                <CogIcon className="h-4 w-4" aria-hidden="true" />
+                <span className="hidden sm:inline">
+                  {t("option:header.serverSettings", "Settings")}
+                </span>
+              </button>
+              <div className="flex items-center gap-2">
+                <img
+                  src={logoImage}
+                  alt={t("common:pageAssist", "tldw Assistant")}
+                  className="h-6 w-auto"
+                />
+                <span className="text-sm font-medium text-gray-800 dark:text-gray-100">
+                  {t("common:pageAssist", "tldw Assistant")}
+                </span>
+              </div>
+              <button
+                type="button"
+                onClick={() => {
+                  try {
+                    window.open(
+                      "https://github.com/rmusser01/tldw_browser_assistant",
+                      "_blank",
+                      "noopener"
+                    )
+                  } catch {}
+                }}
+                className="inline-flex items-center justify-center rounded-md border border-transparent p-1 text-gray-600 transition hover:border-gray-300 hover:bg-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-amber-500 dark:text-gray-200 dark:hover:border-gray-500 dark:hover:bg-[#1f1f1f]"
+                aria-label={t("option:githubRepository", "GitHub Repository") as string}>
+                <Github className="h-4 w-4" aria-hidden="true" />
+              </button>
               {selectedModel && (
                 <span className="inline-flex items-center gap-1 rounded-full border border-gray-200 bg-white px-2 py-0.5 text-xs text-gray-700 shadow-sm dark:border-gray-700 dark:bg-[#1f1f1f] dark:text-gray-300">
                   {t("option:header.modelLabel", "Model")}:
@@ -556,125 +704,138 @@ export const Header: React.FC<Props> = ({
                   </span>
                 </span>
               )}
-              {(selectedSystemPrompt || selectedQuickPrompt) && (
-                <span className="inline-flex items-center gap-1 rounded-full border border-gray-200 bg-white px-2 py-0.5 text-xs text-gray-700 shadow-sm dark:border-gray-700 dark:bg-[#1f1f1f] dark:text-gray-300">
-                  {t("option:header.promptLabel", "Prompt")}:
-                  <span className="max-w-[140px] truncate">
-                    {selectedSystemPrompt
-                      ? (getPromptInfoById(selectedSystemPrompt)?.title || t("option:header.systemPrompt", "System prompt"))
-                      : t("option:header.customPrompt", "Custom")}
-                  </span>
-                </span>
-              )}
             </div>
           </div>
         </PrimaryToolbar>
 
-        <div className="flex flex-wrap items-center gap-3">
-          <div className="flex flex-col gap-1 min-w-[220px]">
-            {(() => {
-              const id = "header-model-label"
-              return (
-                <span
-                  id={id}
-                  className="text-xs font-medium uppercase tracking-wide text-gray-500 dark:text-gray-400"
-                >
-                  {t("option:header.modelLabel", "Model")}
-                </span>
-              )
-            })()}
-            <div className="hidden lg:block">
-              <Select
-                className="min-w-[220px] max-w-[320px]"
-                placeholder={t("common:selectAModel")}
-                aria-label={t("common:selectAModel") as string}
-                aria-labelledby="header-model-label"
-                value={selectedModel}
-                onChange={(value) => {
-                  setSelectedModel(value)
-                  localStorage.setItem("selectedModel", value)
-                }}
-                filterOption={(input, option) => {
-                  // @ts-ignore
-                  const haystack = option?.label?.props?.["data-title"] as string | undefined
-                  return haystack?.toLowerCase().includes(input.toLowerCase()) ?? false
-                }}
-                showSearch
-                loading={isModelsLoading}
-                options={models?.map((model) => ({
-                  label: (
-                    <span
-                      key={model.model}
-                      data-title={model.name}
-                      className="flex items-center gap-2">
-                      {model?.avatar ? (
-                        <Avatar src={model.avatar} alt={model.name} size="small" />
-                      ) : (
-                        <ProviderIcons provider={model?.provider} className="h-4 w-4" />
-                      )}
-                      <span className="truncate">
-                        {model?.nickname || model.model}
+        {showSelectors && (
+          <div className="flex flex-wrap items-center gap-3">
+            <div className="flex flex-col gap-1 min-w-[220px]">
+              {(() => {
+                const id = "header-model-label"
+                return (
+                  <span
+                    id={id}
+                    className="text-xs font-medium uppercase tracking-wide text-gray-500 dark:text-gray-400"
+                  >
+                    {t("option:header.modelLabel", "Model")}
+                  </span>
+                )
+              })()}
+              <div className="hidden lg:block">
+                <Select
+                  className="min-w-[220px] max-w-[320px]"
+                  placeholder={t("common:selectAModel")}
+                  aria-label={t("common:selectAModel") as string}
+                  aria-labelledby="header-model-label"
+                  value={selectedModel}
+                  onChange={(value) => {
+                    setSelectedModel(value)
+                    localStorage.setItem("selectedModel", value)
+                  }}
+                  filterOption={(input, option) => {
+                    // @ts-ignore
+                    const haystack = option?.label?.props?.["data-title"] as string | undefined
+                    return haystack?.toLowerCase().includes(input.toLowerCase()) ?? false
+                  }}
+                  showSearch
+                  loading={isModelsLoading}
+                  options={models?.map((model) => ({
+                    label: (
+                      <span
+                        key={model.model}
+                        data-title={model.name}
+                        className="flex items-center gap-2">
+                        {model?.avatar ? (
+                          <Avatar src={model.avatar} alt={model.name} size="small" />
+                        ) : (
+                          <ProviderIcons provider={model?.provider} className="h-4 w-4" />
+                        )}
+                        <span className="truncate">
+                          {model?.nickname || model.model}
+                        </span>
                       </span>
-                    </span>
-                  ),
-                  value: model.model
-                }))}
-                size="large"
-              />
+                    ),
+                    value: model.model
+                  }))}
+                  size="large"
+                />
+              </div>
+              <div className="lg:hidden">
+                <ModelSelect />
+              </div>
             </div>
-            <div className="lg:hidden">
-              <ModelSelect />
-            </div>
-          </div>
 
-          <div className="hidden min-w-[240px] flex-col gap-1 lg:flex">
-            {(() => {
-              const id = "header-prompt-label"
-              return (
-                <span
-                  id={id}
-                  className="text-xs font-medium uppercase tracking-wide text-gray-500 dark:text-gray-400"
-                >
-                  {t("option:header.promptLabel", "Prompt")}
-                </span>
-              )
-            })()}
-            <PromptSearch
-              inputId="header-prompt-search"
-              ariaLabel={t("option:selectAPrompt", "Select a Prompt") as string}
-              ariaLabelledby="header-prompt-label"
-              onInsertMessage={(content) => {
-                setSelectedSystemPrompt(undefined)
-                setSelectedQuickPrompt(content)
-              }}
-              onInsertSystem={(content) => {
-                setSelectedSystemPrompt(undefined)
-                import("@/store/model").then(({ useStoreChatModelSettings }) => {
+            <div className="hidden min-w-[240px] flex-col gap-1 lg:flex">
+              {(() => {
+                const id = "header-prompt-label"
+                return (
+                  <span
+                    id={id}
+                    className="text-xs font-medium uppercase tracking-wide text-gray-500 dark:text-gray-400"
+                  >
+                    {t("option:header.promptLabel", "Prompt")}
+                  </span>
+                )
+              })()}
+              <PromptSearch
+                inputId="header-prompt-search"
+                ariaLabel={t("option:selectAPrompt", "Select a Prompt") as string}
+                ariaLabelledby="header-prompt-label"
+                onInsertMessage={(content) => {
+                  setSelectedSystemPrompt(undefined)
+                  setSelectedQuickPrompt(content)
+                }}
+                onInsertSystem={(content) => {
+                  setSelectedSystemPrompt(undefined)
                   const { setSystemPrompt } =
                     useStoreChatModelSettings.getState?.() || ({ setSystemPrompt: undefined } as any)
                   setSystemPrompt?.(content)
-                })
-              }}
-            />
-          </div>
+                }}
+              />
+            </div>
 
-          <div className="w-full min-w-[180px] lg:hidden">
-            <PromptSelect
-              selectedSystemPrompt={selectedSystemPrompt}
-              setSelectedSystemPrompt={setSelectedSystemPrompt}
-              setSelectedQuickPrompt={setSelectedQuickPrompt}
-            />
-          </div>
+            <div className="w-full min-w-[180px] lg:hidden">
+              <PromptSelect
+                selectedSystemPrompt={selectedSystemPrompt}
+                setSelectedSystemPrompt={setSelectedSystemPrompt}
+                setSelectedQuickPrompt={setSelectedQuickPrompt}
+              />
+            </div>
 
-          <CharacterSelect className="text-gray-600 hover:text-gray-800 dark:text-gray-300 dark:hover:text-gray-100" />
-        </div>
+            <CharacterSelect className="text-gray-600 hover:text-gray-800 dark:text-gray-300 dark:hover:text-gray-100" />
+          </div>
+        )}
       </div>
 
-      <Divider className="hidden lg:block" plain />
+      {showSelectors && <Divider className="hidden lg:block" plain />}
 
       <div className="flex flex-col gap-3">
         <div className="flex flex-col gap-2 sm:flex-row sm:flex-wrap sm:items-center sm:justify-end">
           <div className="flex items-center gap-3 text-xs text-gray-600 dark:text-gray-300">
+            <button
+              type="button"
+              ref={quickIngestBtnRef}
+              onClick={() => setQuickIngestOpen(true)}
+              disabled={ingestDisabled}
+              title={
+                ingestDisabled
+                  ? t("option:header.connectToIngest", "Connect to your server to ingest.")
+                  : t(
+                      "option:header.quickIngestHelp",
+                      "Upload URLs/files with analysis and advanced options."
+                    )
+              }
+              className={classNames(
+                "inline-flex items-center gap-1 rounded-full border border-transparent px-2 py-1 text-xs transition hover:border-gray-300 hover:bg-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-500 dark:hover:border-gray-500 dark:hover:bg-[#1f1f1f]",
+                ingestDisabled
+                  ? "cursor-not-allowed text-gray-400 dark:text-gray-600"
+                  : "text-gray-600 dark:text-gray-200"
+              )}
+              aria-disabled={ingestDisabled}>
+              <UploadCloud className="h-3 w-3" aria-hidden="true" />
+              <span>{t("option:header.quickIngest", "Quick ingest")}</span>
+            </button>
             <button
               type="button"
               onClick={() => navigate("/settings/health")}
@@ -731,31 +892,6 @@ export const Header: React.FC<Props> = ({
                 <span>{t("option:header.modelSettings", "Model settings")}</span>
               </button>
 
-              <button
-                type="button"
-                ref={quickIngestBtnRef}
-                onClick={() => setQuickIngestOpen(true)}
-                disabled={ingestDisabled}
-                title={
-                  ingestDisabled
-                    ? t("option:header.connectToIngest", "Connect to your server to ingest.")
-                    : t("option:header.quickIngestHelp", "Upload URLs/files with analysis and advanced options.")
-                }
-                className={classNames(
-                  "flex w-full items-center gap-2 rounded-md border border-transparent px-3 py-2 text-sm transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-500 sm:w-auto",
-                  ingestDisabled
-                    ? "cursor-not-allowed text-gray-400 dark:text-gray-600"
-                    : "text-gray-600 hover:border-gray-300 hover:bg-white dark:text-gray-200 dark:hover:border-gray-500 dark:hover:bg-[#1f1f1f]"
-                )}
-                aria-disabled={ingestDisabled}
-              >
-                <UploadCloud className="h-4 w-4" aria-hidden="true" />
-                <span>{t("option:header.quickIngest", "Quick ingest")}</span>
-                <span className="hidden text-[11px] font-normal text-gray-500 sm:inline">
-                  {t("option:header.quickIngestHint", "URLs & files with extra controls")}
-                </span>
-              </button>
-
               {messages.length > 0 && !streaming && (
                 <div className="flex items-center gap-1">
                   <MoreOptions
@@ -779,61 +915,27 @@ export const Header: React.FC<Props> = ({
           )}
 
           {isChatRoute && (
-            <Dropdown
-              trigger={["click"]}
-              menu={{
-                items: [
-                  {
-                    key: "modelSettings",
-                    label: (
-                      <span className="inline-flex items-center gap-2">
-                        <Gauge className="h-4 w-4" aria-hidden="true" />
-                        <span>{t("option:header.modelSettings", "Model settings")}</span>
-                      </span>
-                    ),
-                    onClick: () => setOpenModelSettings(true)
-                  },
-                  {
-                    key: "quickIngest",
-                    label: (
-                      <span className="inline-flex items-center gap-2">
-                        <UploadCloud className="h-4 w-4" aria-hidden="true" />
-                        <span>{t("option:header.quickIngest", "Quick ingest")}</span>
-                      </span>
-                    ),
-                    onClick: () => setQuickIngestOpen(true)
-                  },
-                  {
-                    key: "diagnostics",
-                    label: (
-                      <span className="inline-flex items-center gap-2">
-                        <Microscope className="h-4 w-4" aria-hidden="true" />
-                        <span>{t("settings:healthSummary.diagnostics", "Diagnostics")}</span>
-                      </span>
-                    ),
-                    onClick: () => navigate("/settings/health")
-                  },
-                  {
-                    key: "openSidebar",
-                    label: (
-                      <span className="inline-flex items-center gap-2">
-                        <LayoutGrid className="h-4 w-4" aria-hidden="true" />
-                        <span>{t("option:header.openSidebar", "Open sidebar")}</span>
-                      </span>
-                    ),
-                    onClick: () => { void openSidebar() }
-                  }
-                ]
-              }}
-            >
+            <>
+              {messages.length > 0 && !streaming && (
+                <div className="flex items-center gap-1">
+                  <MoreOptions
+                    shareModeEnabled={shareModeEnabled}
+                    historyId={historyId}
+                    messages={messages}
+                  />
+                  <span className="sr-only">{t("option:header.moreActions", "More actions")}</span>
+                </div>
+              )}
+
               <button
                 type="button"
-                className="flex w-full items-center gap-2 rounded-md border border-gray-200 px-3 py-2 text-sm text-gray-700 transition hover:bg-white dark:border-gray-600 dark:text-gray-200 dark:hover:bg-[#1f1f1f] sm:w-auto"
+                onClick={() => { void openSidebar() }}
+                className="flex w-full items-center gap-2 rounded-md border border-transparent px-3 py-2 text-sm text-gray-600 transition hover:border-gray-300 hover:bg-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-500 dark:text-gray-200 dark:hover:border-gray-500 dark:hover:bg-[#1f1f1f] sm:w-auto"
               >
                 <LayoutGrid className="h-4 w-4" aria-hidden="true" />
-                <span>{t("option:header.toolsMenu", "Chat tools")}</span>
+                <span>{t("option:header.openSidebar", "Open sidebar")}</span>
               </button>
-            </Dropdown>
+            </>
           )}
         </div>
 
@@ -842,9 +944,13 @@ export const Header: React.FC<Props> = ({
               <span className="font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400">
                 {t("option:header.modesLabel", "Modes")}
               </span>
-            <div className="flex flex-wrap gap-1">
+            <div
+              className="flex flex-wrap gap-1"
+              role="tablist"
+              aria-label={t("option:header.modesAriaLabel", "Application modes")}
+            >
               {(() => {
-                const modeOptions: Array<{
+                const primaryModes: Array<{
                   key: CoreMode
                   label: string
                   shortcut?: import("@/hooks/keyboard/useKeyboardShortcuts").KeyboardShortcut
@@ -855,18 +961,13 @@ export const Header: React.FC<Props> = ({
                     shortcut: shortcutConfig.modePlayground
                   },
                   {
-                    key: "review",
-                    label: t("option:header.modeReview", "Review"),
-                    shortcut: shortcutConfig.modeReview
-                  },
-                  {
                     key: "media",
                     label: t("option:header.modeMedia", "Media"),
                     shortcut: shortcutConfig.modeMedia
                   },
                   {
                     key: "knowledge",
-                    label: t("option:header.modeKnowledge", "Knowledge"),
+                    label: t("option:header.modeKnowledge", "Knowledge QA"),
                     shortcut: shortcutConfig.modeKnowledge
                   },
                   {
@@ -875,19 +976,35 @@ export const Header: React.FC<Props> = ({
                     shortcut: shortcutConfig.modeNotes
                   },
                   {
+                    key: "flashcards",
+                    label: t("option:header.modeFlashcards", "Flashcards"),
+                    shortcut: shortcutConfig.modeFlashcards
+                  }
+                ]
+                const secondaryModes: Array<{
+                  key: CoreMode
+                  label: string
+                  shortcut?: import("@/hooks/keyboard/useKeyboardShortcuts").KeyboardShortcut
+                }> = [
+                  {
+                    key: "mediaMulti",
+                    label: t("option:header.libraryView", "Multi-Item Review"),
+                    shortcut: undefined
+                  },
+                  {
+                    key: "stt",
+                    label: t("option:header.modeStt", "STT Playground"),
+                    shortcut: undefined
+                  },
+                  {
                     key: "prompts",
-                    label: t("option:header.modePromptsPlayground", "Prompts Playground"),
+                    label: t("option:header.modePromptsPlayground", "Prompts"),
                     shortcut: shortcutConfig.modePrompts
                   },
                   {
                     key: "promptStudio",
                     label: t("option:header.modePromptStudio", "Prompt Studio"),
                     shortcut: undefined
-                  },
-                  {
-                    key: "flashcards",
-                    label: t("option:header.modeFlashcards", "Flashcards"),
-                    shortcut: shortcutConfig.modeFlashcards
                   },
                   {
                     key: "worldBooks",
@@ -905,37 +1022,65 @@ export const Header: React.FC<Props> = ({
                     shortcut: shortcutConfig.modeCharacters
                   }
                 ]
-                return modeOptions.map((mode) => {
+                const renderModeButton = (mode: typeof primaryModes[0]) => {
                   const promptStudioUnavailable = mode.key === "promptStudio" && promptStudioCapability.data === false
+                  const isSelected = currentCoreMode === mode.key
                   return (
-                  <button
-                    key={mode.key}
-                    type="button"
-                    onClick={() => {
-                      if (promptStudioUnavailable) return
-                      handleCoreModeChange(mode.key)
-                    }}
-                    disabled={promptStudioUnavailable}
-                    title={
-                      mode.shortcut
-                        ? t("option:header.modeShortcutHint", "{{shortcut}} to switch", {
-                            shortcut: formatShortcut(mode.shortcut)
-                          }) || undefined
-                        : undefined
-                    }
-                    className={classNames(
-                      "rounded-full px-3 py-1 text-xs font-medium transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-500",
-                      currentCoreMode === mode.key
-                        ? "bg-amber-500 text-gray-900 shadow-sm dark:bg-amber-400 dark:text-gray-900"
-                        : "bg-gray-200 text-gray-700 hover:bg-gray-300 dark:bg-[#262626] dark:text-gray-200 dark:hover:bg-[#333333]",
-                      promptStudioUnavailable ? "opacity-60 cursor-not-allowed" : ""
-                    )}
-                    aria-current={currentCoreMode === mode.key ? "page" : undefined}
-                  >
-                    {mode.label}
-                  </button>
+                    <button
+                      key={mode.key}
+                      type="button"
+                      role="tab"
+                      aria-selected={isSelected}
+                      onClick={() => {
+                        if (promptStudioUnavailable) return
+                        handleCoreModeChange(mode.key)
+                      }}
+                      disabled={promptStudioUnavailable}
+                      aria-disabled={promptStudioUnavailable}
+                      title={
+                        mode.shortcut
+                          ? t("option:header.modeShortcutHint", "{{shortcut}} to switch", {
+                              shortcut: formatShortcut(mode.shortcut)
+                            }) || undefined
+                          : undefined
+                      }
+                      className={classNames(
+                        "rounded-full px-3 py-1 text-xs font-medium transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-500",
+                        isSelected
+                          ? "bg-amber-500 text-gray-900 shadow-sm dark:bg-amber-400 dark:text-gray-900"
+                          : "bg-gray-200 text-gray-700 hover:bg-gray-300 dark:bg-[#262626] dark:text-gray-200 dark:hover:bg-[#333333]",
+                        promptStudioUnavailable ? "opacity-60 cursor-not-allowed" : ""
+                      )}
+                    >
+                      {mode.label}
+                    </button>
                   )
-                })
+                }
+                return (
+                  <>
+                    {primaryModes.map(renderModeButton)}
+                    <Dropdown
+                      menu={{
+                        items: secondaryModes.map((mode) => ({
+                          key: mode.key,
+                          label: mode.label,
+                          disabled: mode.key === "promptStudio" && promptStudioCapability.data === false
+                        })),
+                        onClick: ({ key }) => handleCoreModeChange(key as CoreMode)
+                      }}
+                    >
+                      <button
+                        type="button"
+                        className={classNames(
+                          "rounded-full px-3 py-1 text-xs font-medium transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-500",
+                          "bg-gray-200 text-gray-700 hover:bg-gray-300 dark:bg-[#262626] dark:text-gray-200 dark:hover:bg-[#333333]"
+                        )}
+                      >
+                        {t("option:header.moreTools", "More...")}
+                      </button>
+                    </Dropdown>
+                  </>
+                )
               })()}
             </div>
           </div>
@@ -946,6 +1091,7 @@ export const Header: React.FC<Props> = ({
             aria-expanded={shortcutsExpanded}
             aria-controls={shortcutsSectionId}
             ref={shortcutsToggleRef}
+            title={t("option:header.shortcutsKeyHint", "Press ? to toggle shortcuts")}
             className="inline-flex items-center self-start rounded-md border border-transparent px-2 py-1 text-xs font-semibold uppercase tracking-wide text-gray-500 transition hover:border-gray-300 hover:bg-white dark:text-gray-300 dark:hover:border-gray-500 dark:hover:bg-[#1f1f1f]">
             <ChevronDown
               className={classNames(
@@ -956,6 +1102,11 @@ export const Header: React.FC<Props> = ({
             {shortcutsExpanded
               ? t("option:header.hideShortcuts", "Hide shortcuts")
               : t("option:header.showShortcuts", "Show shortcuts")}
+            {!shortcutsExpanded && (
+              <span className="ml-1.5 text-[10px] font-normal normal-case tracking-normal text-gray-400">
+                {t("option:header.shortcutsKeyHintInline", "(Press ?)")}
+              </span>
+            )}
           </button>
           {shortcutsExpanded && (
             <div
@@ -1025,13 +1176,15 @@ export const Header: React.FC<Props> = ({
         </div>
       </div>
 
-      <QuickIngestModal
-        open={quickIngestOpen}
-        onClose={() => {
-          setQuickIngestOpen(false)
-          requestAnimationFrame(() => quickIngestBtnRef.current?.focus())
-        }}
-      />
+      {quickIngestOpen && (
+        <QuickIngestModal
+          open={quickIngestOpen}
+          onClose={() => {
+            setQuickIngestOpen(false)
+            requestAnimationFrame(() => quickIngestBtnRef.current?.focus())
+          }}
+        />
+      )}
     </header>
   )
 }

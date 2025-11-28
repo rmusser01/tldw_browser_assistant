@@ -31,6 +31,7 @@ import { generateID } from "@/db/dexie/helpers"
 import { UploadedFile } from "@/db/dexie/types"
 import { updatePageTitle } from "@/utils/update-page-title"
 import { useAntdNotification } from "./useAntdNotification"
+import { tldwClient } from "@/services/tldw/TldwApiClient"
 
 export const useMessageOption = () => {
   const {
@@ -79,7 +80,33 @@ export const useMessageOption = () => {
     actionInfo,
     setActionInfo,
     setFileRetrievalEnabled,
-    fileRetrievalEnabled
+    fileRetrievalEnabled,
+    ragMediaIds,
+    setRagMediaIds,
+    ragSearchMode,
+    setRagSearchMode,
+    ragTopK,
+    setRagTopK,
+    ragEnableGeneration,
+    setRagEnableGeneration,
+    ragEnableCitations,
+    setRagEnableCitations,
+    ragSources,
+    setRagSources,
+    ragAdvancedOptions,
+    setRagAdvancedOptions,
+    serverChatId,
+    setServerChatId,
+    serverChatState,
+    setServerChatState,
+    serverChatTopic,
+    setServerChatTopic,
+    serverChatClusterId,
+    setServerChatClusterId,
+    serverChatSource,
+    setServerChatSource,
+    serverChatExternalRef,
+    setServerChatExternalRef
   } = useStoreMessageOption()
 
   const currentChatModelSettings = useStoreChatModelSettings()
@@ -96,6 +123,35 @@ export const useMessageOption = () => {
 
   const navigate = useNavigate()
   const textareaRef = React.useRef<HTMLTextAreaElement>(null)
+
+  React.useEffect(() => {
+    if (!serverChatId) return
+    const loadChatMeta = async () => {
+      try {
+        await tldwClient.initialize().catch(() => null)
+        const chat = await tldwClient.getChat(serverChatId)
+        setServerChatState(
+          (chat as any)?.state ??
+            (chat as any)?.conversation_state ??
+            "in-progress"
+        )
+        setServerChatTopic((chat as any)?.topic_label ?? null)
+        setServerChatClusterId((chat as any)?.cluster_id ?? null)
+        setServerChatSource((chat as any)?.source ?? null)
+        setServerChatExternalRef((chat as any)?.external_ref ?? null)
+      } catch {
+        // ignore metadata hydration failures
+      }
+    }
+    void loadChatMeta()
+  }, [
+    serverChatId,
+    setServerChatClusterId,
+    setServerChatExternalRef,
+    setServerChatSource,
+    setServerChatState,
+    setServerChatTopic
+  ])
 
   // Persist prompt selections across views/contexts
   const [storedSystemPrompt, setStoredSystemPrompt] = useStorage<string | null>(
@@ -142,8 +198,11 @@ export const useMessageOption = () => {
       const maxSize = 10 * 1024 * 1024
       if (file.size > maxSize) {
         notification.error({
-          message: "File Too Large",
-          description: "File size must be less than 10MB"
+          message: t("upload.fileTooLargeTitle", "File Too Large"),
+          description: t(
+            "upload.fileTooLargeDescription",
+            "File size must be less than 10MB"
+          )
         })
         return
       }
@@ -170,8 +229,11 @@ export const useMessageOption = () => {
     } catch (error) {
       console.error("Error uploading file:", error)
       notification.error({
-        message: "Upload Failed",
-        description: "Failed to upload file. Please try again."
+        message: t("upload.uploadFailedTitle", "Upload Failed"),
+        description: t(
+          "upload.uploadFailedDescription",
+          "Failed to upload file. Please try again."
+        )
       })
       throw error
     }
@@ -195,6 +257,7 @@ export const useMessageOption = () => {
     setMessages([])
     setHistory([])
     setHistoryId(null)
+    setServerChatId(null)
     setIsFirstMessage(true)
     setIsLoading(false)
     setIsProcessing(false)
@@ -212,10 +275,17 @@ export const useMessageOption = () => {
     setUploadedFiles([])
     setFileRetrievalEnabled(false)
     setActionInfo(null)
+    setRagMediaIds(null)
+    setRagSearchMode("hybrid")
+    setRagTopK(null)
+    setRagEnableGeneration(false)
+    setRagEnableCitations(false)
+    setRagSources([])
     storeClearQueuedMessages()
+    setServerChatId(null)
   }
 
-  const saveMessageOnSuccess = createSaveMessageOnSuccess(
+  const baseSaveMessageOnSuccess = createSaveMessageOnSuccess(
     temporaryChat,
     setHistoryId as (id: string) => void
   )
@@ -225,6 +295,43 @@ export const useMessageOption = () => {
     setHistory,
     setHistoryId as (id: string) => void
   )
+
+  const saveMessageOnSuccess = async (payload: any): Promise<string | null> => {
+    const historyKey = await baseSaveMessageOnSuccess(payload)
+
+    // When resuming a server-backed chat, mirror new turns to /api/v1/chats.
+    if (
+      serverChatId &&
+      !payload?.isRegenerate &&
+      !payload?.isContinue &&
+      typeof payload?.message === "string" &&
+      typeof payload?.fullText === "string"
+    ) {
+      try {
+        const cid = serverChatId
+        const userContent = payload.message.trim()
+        const assistantContent = payload.fullText.trim()
+
+        if (userContent.length > 0) {
+          await tldwClient.addChatMessage(cid, {
+            role: "user",
+            content: userContent
+          })
+        }
+
+        if (assistantContent.length > 0) {
+          await tldwClient.addChatMessage(cid, {
+            role: "assistant",
+            content: assistantContent
+          })
+        }
+      } catch {
+        // Ignore sync errors; local history is still saved.
+      }
+    }
+
+    return historyKey
+  }
 
   const validateBeforeSubmitFn = () =>
     validateBeforeSubmit(selectedModel, t, notification)
@@ -276,6 +383,13 @@ export const useMessageOption = () => {
       historyId,
       setHistoryId,
       fileRetrievalEnabled,
+      ragMediaIds,
+      ragSearchMode,
+      ragTopK,
+      ragEnableGeneration,
+      ragEnableCitations,
+      ragSources,
+      ragAdvancedOptions,
       setActionInfo,
       webSearch
     }
@@ -409,7 +523,21 @@ export const useMessageOption = () => {
     setMessages,
     setContext: setContextFiles,
     setSelectedSystemPrompt,
-    setSystemPrompt: currentChatModelSettings.setSystemPrompt
+    setSystemPrompt: currentChatModelSettings.setSystemPrompt,
+    serverChatId,
+    setServerChatId,
+    serverChatState,
+    setServerChatState,
+    serverChatTopic,
+    setServerChatTopic,
+    serverChatClusterId,
+    setServerChatClusterId,
+    serverChatSource,
+    setServerChatSource,
+    serverChatExternalRef,
+    setServerChatExternalRef,
+    messages,
+    history
   })
 
   return {
@@ -465,6 +593,30 @@ export const useMessageOption = () => {
     createChatBranch,
     queuedMessages: storeQueuedMessages,
     addQueuedMessage: storeAddQueuedMessage,
-    clearQueuedMessages: storeClearQueuedMessages
+    clearQueuedMessages: storeClearQueuedMessages,
+    serverChatId,
+    setServerChatId,
+    serverChatState,
+    setServerChatState,
+    serverChatTopic,
+    setServerChatTopic,
+    serverChatClusterId,
+    setServerChatClusterId,
+    serverChatSource,
+    setServerChatSource,
+    serverChatExternalRef,
+    setServerChatExternalRef,
+    ragMediaIds,
+    setRagMediaIds,
+    ragSearchMode,
+    setRagSearchMode,
+    ragTopK,
+    setRagTopK,
+    ragEnableGeneration,
+    setRagEnableGeneration,
+    ragEnableCitations,
+    setRagEnableCitations,
+    ragSources,
+    setRagSources
   }
 }

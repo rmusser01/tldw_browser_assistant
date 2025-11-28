@@ -1,13 +1,15 @@
 import React from "react"
 import { useTranslation } from "react-i18next"
+import { Button, Tooltip } from "antd"
 import { ServerConnectionCard } from "@/components/Common/ServerConnectionCard"
 import { useConnectionState } from "@/hooks/useConnectionState"
 import { ConnectionPhase } from "@/types/connection"
 import { cleanUrl } from "@/libs/clean-url"
 
 export const EmptySidePanel = () => {
-  const { t } = useTranslation(["sidepanel", "settings"])
+  const { t } = useTranslation(["sidepanel", "settings", "option"])
   const { phase, isConnected, serverUrl } = useConnectionState()
+  const isConnectionReady = isConnected && phase === ConnectionPhase.CONNECTED
 
   const openSettings = () => {
     try {
@@ -22,11 +24,23 @@ export const EmptySidePanel = () => {
   }
 
   const showConnectionCard =
-    !isConnected || phase !== ConnectionPhase.CONNECTED
+    !isConnectionReady
+
+  const handleQuickIngest = () => {
+    if (!isConnectionReady) {
+      return
+    }
+    window.dispatchEvent(new CustomEvent("tldw:open-quick-ingest"))
+  }
 
   if (showConnectionCard) {
     return (
-      <ServerConnectionCard onOpenSettings={openSettings} showToastOnError />
+      <div className="mt-2 flex w-full flex-col items-stretch gap-3">
+        <ServerConnectionCard
+          onOpenSettings={openSettings}
+          variant="compact"
+        />
+      </div>
     )
   }
 
@@ -43,6 +57,30 @@ export const EmptySidePanel = () => {
             { host }
           )}
         </span>
+      </div>
+      <div className="mt-3">
+        <Tooltip
+          placement="bottom"
+          title={t(
+            "sidepanel:quickIngestHint",
+            "Upload URLs or files to your tldw server."
+          )}
+        >
+          <Button
+            type="default"
+            size="small"
+            block
+            onClick={handleQuickIngest}
+            disabled={!isConnectionReady}
+            aria-disabled={!isConnectionReady}
+            aria-label={t(
+              "sidepanel:quickIngestAria",
+              "Open Quick ingest to add media"
+            )}
+          >
+            {t("option:header.quickIngest", "Quick ingest")}
+          </Button>
+        </Tooltip>
       </div>
     </div>
   )
