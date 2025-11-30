@@ -8,7 +8,7 @@
   "empty": {
     "title": "Start a new chat",
     "description": "Experiment with different models, prompts, and knowledge sources here.",
-    "demoDescription": "You’re in demo mode — try asking a question to see how the assistant responds. You can connect your own tldw server later.",
+    "demoDescription": "You’re in demo mode — try asking a question to see how the assistant responds. You can connect your own tldw server later to save chats, ingest media, and use Knowledge search.",
     "example1": "Ask a question, then drag in documents or web pages you want to discuss.",
     "example2": "Use Quick ingest to add transcripts or notes, then reference them in chat.",
     "example3": "Try different prompts or models from the header to compare answers.",
@@ -58,7 +58,8 @@
     "knowledge": "Knowledge",
     "vision": "[Experimental] Vision Chat",
     "clearContext": "Clear Context",
-    "uploadDocuments": "Upload Documents (beta)"
+    "uploadDocuments": "Upload Documents (beta)",
+    "quickIngest": "Stage URLs and files for processing, even while your server is offline."
   },
   "sendWhenEnter": "Send when Enter pressed",
     "welcome": "Hello! How can I help you today?",
@@ -142,14 +143,24 @@
     "contextManager": "Context Management",
     "contextManagerTitle": "Context Management",
     "persistence": {
-      "ephemeral": "Not saved in history; clears when you close this tab.",
-      "local": "Saved in this browser only.",
+      "ephemeral": "Temporary chat: not saved in history and cleared when you close this window.",
+      "local": "Saved locally in this browser only (not synced to your tldw server).",
       "server": "Saved Locally+Server",
+      "ephemeralPill": "Temporary",
+      "localPill": "Local only",
+      "serverPill": "Locally + Server",
       "saveToServer": "Also save this chat to server",
+      "connectToSave": "Connect your server to save chats there.",
       "serverDefaultTitle": "Extension chat",
       "serverSavedTitle": "Chat now saved on server",
       "serverSaved": "Future messages in this chat will sync to your tldw server.",
-      "serverCharacterRequired": "Unable to find or create a default assistant character on the server. Try again from the Characters page."
+      "serverBenefits": "This keeps a durable record in server history so you can reopen the conversation later, access it from other browsers, and run server-side analytics over your chats.",
+      "serverCharacterRequired": "Unable to find or create a default assistant character on the server. Try again from the Characters page.",
+      "serverCharacterCta": "Open Characters workspace",
+      "serverCharacterHintTitle": "Create a default assistant character",
+      "serverCharacterHintBody": "Create a simple assistant persona (name and a short description are enough). Once it exists, the extension can reuse it when saving chats to your server.",
+      "serverInlineTitle": "Saved locally + on your server",
+      "serverInlineBody": "This chat is stored both in this browser and on your tldw server, so you can reopen it from server history, keep a long-term record, and analyze it alongside other conversations."
     },
     "conversationTags": "Conversation tags",
     "stateHelp": "Default state is “in-progress.” Update it as the conversation progresses.",

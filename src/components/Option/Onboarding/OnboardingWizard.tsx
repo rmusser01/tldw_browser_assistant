@@ -6,6 +6,7 @@ import { useTranslation } from 'react-i18next'
 import { tldwClient, TldwConfig } from '@/services/tldw/TldwApiClient'
 import { getTldwServerURL, DEFAULT_TLDW_API_KEY } from '@/services/tldw-server'
 import { tldwAuth } from '@/services/tldw/TldwAuth'
+import { mapMultiUserLoginErrorMessage } from '@/services/auth-errors'
 
 type Props = {
   onFinish?: () => void
@@ -76,25 +77,7 @@ export const OnboardingWizard: React.FC<Props> = ({ onFinish }) => {
     await tldwClient.updateConfig(cfg)
   }
 
-  React.useEffect(() => {
-    const trimmed = serverUrl.trim()
-
-    // Run reachability checks whenever a valid URL is present,
-    // even if the user hasn't focused/edited the field yet. This
-    // enables first-run auto advance when a default URL is prefilled.
-    if (!urlState.valid || !trimmed) {
-      setReachability('idle')
-      if (reachabilityDebounceRef.current) {
-        clearTimeout(reachabilityDebounceRef.current)
-        reachabilityDebounceRef.current = null
-      }
-      if (reachabilityAbortRef.current) {
-        reachabilityAbortRef.current.abort()
-        reachabilityAbortRef.current = null
-      }
-      return
-    }
-
+  const resetReachabilityTimers = () => {
     if (reachabilityDebounceRef.current) {
       clearTimeout(reachabilityDebounceRef.current)
       reachabilityDebounceRef.current = null
@@ -103,6 +86,41 @@ export const OnboardingWizard: React.FC<Props> = ({ onFinish }) => {
       reachabilityAbortRef.current.abort()
       reachabilityAbortRef.current = null
     }
+  }
+
+  const lastServerUrlRef = React.useRef(serverUrl)
+
+  // When the user edits the URL after a failure, clear stale errors so the
+  // next test reflects the new value.
+  React.useEffect(() => {
+    const prev = lastServerUrlRef.current
+    const changed = prev.trim() !== serverUrl.trim()
+    if (!changed || !serverTouched) {
+      lastServerUrlRef.current = serverUrl
+      return
+    }
+    lastServerUrlRef.current = serverUrl
+    if (connected === false || errorDetail) {
+      setConnected(null)
+      setErrorDetail('')
+      setRagHealthy('unknown')
+    }
+  }, [connected, errorDetail, serverTouched, serverUrl])
+
+  React.useEffect(() => {
+    const trimmed = serverUrl.trim()
+
+    // Run reachability checks only once the user has interacted with
+    // the field or a real config URL is present. This avoids treating
+    // the default http://127.0.0.1:8000 as "reachable" before a real
+    // response comes back.
+    if (!urlState.valid || !trimmed || !serverTouched) {
+      setReachability('idle')
+      resetReachabilityTimers()
+      return
+    }
+
+    resetReachabilityTimers()
 
     setReachability('checking')
 
@@ -134,25 +152,11 @@ export const OnboardingWizard: React.FC<Props> = ({ onFinish }) => {
     }, 400)
 
     return () => {
-      if (reachabilityDebounceRef.current) {
-        clearTimeout(reachabilityDebounceRef.current)
-        reachabilityDebounceRef.current = null
-      }
+      resetReachabilityTimers()
     }
   }, [serverUrl, serverTouched, urlState])
 
   // Auto-advance to step 2 when the URL is reachable
-  const autoAdvancedRef = React.useRef(false)
-  React.useEffect(() => {
-    if (step === 1 && reachability === 'reachable' && urlState.valid && !autoAdvancedRef.current) {
-      autoAdvancedRef.current = true
-      ;(async () => {
-        try { await savePartial() } catch {}
-        setStep(2)
-      })()
-    }
-  }, [step, reachability, urlState])
-
   // In step 3, auto-finish as soon as both checks pass, if enabled
   const autoFinishRef = React.useRef(false)
   React.useEffect(() => {
@@ -164,13 +168,7 @@ export const OnboardingWizard: React.FC<Props> = ({ onFinish }) => {
 
   React.useEffect(() => {
     return () => {
-      if (reachabilityDebounceRef.current) {
-        clearTimeout(reachabilityDebounceRef.current)
-      }
-      if (reachabilityAbortRef.current) {
-        reachabilityAbortRef.current.abort()
-        reachabilityAbortRef.current = null
-      }
+      resetReachabilityTimers()
     }
   }, [])
 
@@ -192,8 +190,19 @@ export const OnboardingWizard: React.FC<Props> = ({ onFinish }) => {
       return { connected: !!ok, rag: 'healthy' }
     } catch (e: any) {
       setConnected(false)
-      const msg = e?.message || 'Connection failed. Please check your server URL and credentials.'
-      setErrorDetail(msg)
+      const raw = e?.message || ''
+      const friendly =
+        raw && /network|timeout|failed to fetch/i.test(raw)
+          ? t(
+              'settings:onboarding.errors.serverUnreachable',
+              'Server not reachable. Check that your tldw_server is running and that your browser can reach it, then try again.'
+            )
+          : raw ||
+            t(
+              'settings:onboarding.connectionFailedDetailed',
+              'Connection failed. Please check your server URL and credentials.'
+            )
+      setErrorDetail(friendly)
       return { connected: false, rag: 'unknown' }
     } finally {
       setTesting(false)
@@ -218,7 +227,12 @@ export const OnboardingWizard: React.FC<Props> = ({ onFinish }) => {
           setStep(3)
         }
       } catch (e: any) {
-        setErrorDetail(e?.message || 'Login failed')
+        const friendly = mapMultiUserLoginErrorMessage(
+          t,
+          e,
+          'onboarding'
+        )
+        setErrorDetail(friendly)
       } finally {
         setLoading(false)
       }
@@ -288,11 +302,23 @@ export const OnboardingWizard: React.FC<Props> = ({ onFinish }) => {
     <div className="mx-auto w-full max-w-2xl rounded-xl border border-gray-200 bg-white px-6 py-6 text-gray-900 shadow-sm dark:border-gray-700 dark:bg-[#171717] dark:text-gray-100">
       <h2 className="text-lg font-semibold mb-2 text-gray-900 dark:text-gray-100">{t('settings:onboarding.title')}</h2>
       <p className="text-sm text-gray-700 dark:text-gray-300 mb-4">{t('settings:onboarding.description')}</p>
+      <p className="text-xs text-gray-600 dark:text-gray-400 mb-4">
+        {t(
+          'settings:onboarding.exploreWithoutServer',
+          'You can explore the UI without a server; some features (chat, media ingest, Knowledge search) will stay disabled until you connect.'
+        )}
+      </p>
 
       {step === 1 && (
         <div className="space-y-3">
-          <label className="block text-sm font-medium text-gray-800 dark:text-gray-100">{t('settings:onboarding.serverUrl.label')}</label>
+          <label
+            htmlFor="onboarding-server-url"
+            className="block text-sm font-medium text-gray-800 dark:text-gray-100"
+          >
+            {t('settings:onboarding.serverUrl.label')}
+          </label>
           <Input
+            id="onboarding-server-url"
             placeholder={t('settings:onboarding.serverUrl.placeholder')}
             value={serverUrl}
             onChange={(e) => {
@@ -318,6 +344,26 @@ export const OnboardingWizard: React.FC<Props> = ({ onFinish }) => {
             </span>
           </div>
           <div className="text-xs text-gray-500">{t('settings:onboarding.serverUrl.help')}</div>
+          <div className="mt-1 text-xs text-gray-600 dark:text-gray-400">
+            <button
+              type="button"
+              className="underline text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300"
+              onClick={() => {
+                try {
+                  const docsUrl =
+                    t('settings:onboarding.serverDocsUrl', 'https://docs.tldw.app/extension/server-setup') ||
+                    'https://docs.tldw.app/extension/server-setup'
+                  window.open(docsUrl, '_blank', 'noopener,noreferrer')
+                } catch {
+                  // ignore navigation errors
+                }
+              }}>
+              {t(
+                'settings:onboarding.serverDocsCta',
+                'Learn how tldw server works'
+              )}
+            </button>
+          </div>
           {connected === false && errorDetail && (
             <Alert
               className="mt-2"
@@ -362,9 +408,40 @@ export const OnboardingWizard: React.FC<Props> = ({ onFinish }) => {
               </div>
               <div>
                 <label className="block text-sm font-medium text-gray-800 dark:text-gray-100">{t('settings:onboarding.password.label')}</label>
-                <Input.Password placeholder={t('settings:onboarding.password.placeholder')} value={password} onChange={(e) => setPassword(e.target.value)} />
+              <Input.Password placeholder={t('settings:onboarding.password.placeholder')} value={password} onChange={(e) => setPassword(e.target.value)} />
               </div>
             </div>
+          )}
+          {errorDetail && (
+            <Alert
+              className="mt-2"
+              type="error"
+              showIcon
+              message={t('settings:onboarding.connectionFailed')}
+              description={
+                <span className="inline-flex flex-col gap-1 text-xs">
+                  <span>{errorDetail}</span>
+                  <button
+                    type="button"
+                    className="self-start underline text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300"
+                    onClick={() => {
+                      try {
+                        const base =
+                          window.location.href.replace(/#.*$/, '') ||
+                          '/options.html'
+                        window.location.href = `${base}#/settings/health`
+                      } catch {
+                        // ignore navigation failures in onboarding context
+                      }
+                    }}>
+                    {t(
+                      'settings:healthSummary.diagnostics',
+                      'Open Health & diagnostics'
+                    )}
+                  </button>
+                </span>
+              }
+            />
           )}
           <div>
             <Checkbox
@@ -409,16 +486,34 @@ export const OnboardingWizard: React.FC<Props> = ({ onFinish }) => {
               message={t('settings:onboarding.connectionFailed')}
               description={t(
                 'settings:onboarding.connection.continueAnyway',
-                'You can finish setup now and connect later from Settings.'
+                'You can finish setup now and explore the UI without a server. Chat, media ingest, and Knowledge search will remain limited until you connect a tldw server from Settings → tldw Server.'
               )}
             />
           )}
-          {typeof ragHealthy !== 'undefined' && (
+          <div className="space-y-1">
             <div className="flex items-center gap-2">
-              <span className="text-sm font-medium">{t('settings:onboarding.rag.label')}</span>
-              {ragHealthy === 'healthy' ? <Tag color="green">{t('settings:onboarding.rag.healthy')}</Tag> : ragHealthy === 'unhealthy' ? <Tag color="red">{t('settings:onboarding.rag.unhealthy')}</Tag> : <Tag>{t('settings:onboarding.rag.unknown')}</Tag>}
+              <span className="text-sm font-medium">
+                {t('settings:onboarding.rag.label')}
+              </span>
+              {ragHealthy === 'healthy' ? (
+                <Tag color="green">
+                  {t('settings:onboarding.rag.healthy')}
+                </Tag>
+              ) : ragHealthy === 'unhealthy' ? (
+                <Tag color="red">
+                  {t('settings:onboarding.rag.unhealthy')}
+                </Tag>
+              ) : (
+                <Tag>{t('settings:onboarding.rag.unknown')}</Tag>
+              )}
             </div>
-          )}
+            <p className="text-xs text-gray-500 dark:text-gray-400">
+              {t(
+                'settings:onboarding.rag.help',
+                'Checks whether your server can search your notes, media, and other connected knowledge sources.'
+              )}
+            </p>
+          </div>
           {errorDetail && (
             <Alert type="error" showIcon message={t('settings:onboarding.connectionFailed')} description={errorDetail} />
           )}
@@ -430,6 +525,17 @@ export const OnboardingWizard: React.FC<Props> = ({ onFinish }) => {
                 danger={connected === false}
                 onClick={finish}
                 disabled={testing}
+                title={
+                  connected === false
+                    ? t(
+                        'settings:onboarding.buttons.finishAnyway',
+                        'Finish setup for now — connect later from Settings → tldw Server.'
+                      )
+                    : t(
+                        'settings:onboarding.buttons.finish',
+                        'Finish setup'
+                      )
+                }
               >
                 {connected === false
                   ? t(

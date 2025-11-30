@@ -8,6 +8,15 @@
   "openSidePanelToChat": {
     "message": "Открыть боковую панель для чата"
   },
+  "openQuickIngest": {
+    "message": "Открыть быстрое добавление"
+  },
+  "buttonOpenQuickIngest": {
+    "message": "Открыть быстрый импорт"
+  },
+  "learnMoreTldw": {
+    "message": "Узнайте, как работает сервер tldw"
+  },
   "contextSummarize": {
     "message": "Обобщить"
   },
@@ -34,6 +43,9 @@
   },
   "contextSaveToNotesOpeningSidebar": {
     "message": "Открываем боковую панель, чтобы сохранить заметку..."
+  },
+  "contextSaveToNotesDeliveryFailed": {
+    "message": "Не удалось открыть боковую панель для сохранения этой заметки. Проверьте, что боковая панель tldw Assistant разрешена на этом сайте, и попробуйте снова."
   },
   "openOptionToChat": {
     "message": "Открыть веб-интерфейс для чата"

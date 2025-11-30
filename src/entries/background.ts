@@ -4,6 +4,7 @@ import type { AllowedPath } from "@/services/tldw/openapi-guard"
 import { getInitialConfig } from "@/services/action"
 import { tldwClient } from "@/services/tldw/TldwApiClient"
 import { tldwAuth } from "@/services/tldw/TldwAuth"
+import { tldwModels } from "@/services/tldw"
 import { apiSend } from "@/services/api-send"
 import {
   ensureSidepanelOpen,
@@ -12,6 +13,15 @@ import {
   clampText,
   notify
 } from "@/services/background-helpers"
+
+const warmModels = async (force?: boolean) => {
+  try {
+    return await tldwModels.warmCache(Boolean(force))
+  } catch (e) {
+    console.debug("[tldw] model warmup failed", e)
+    return null
+  }
+}
 
 export default defineBackground({
   main() {
@@ -30,6 +40,7 @@ export default defineBackground({
       transcribeAndSummarize: "transcribe-and-summarize-media-pa"
     }
     const saveToNotesMenuId = "save-to-notes-pa"
+    let modelWarmTimer: ReturnType<typeof setInterval> | null = null
     const initialize = async () => {
       try {
         // Clear any existing menu items to avoid duplicate-id errors
@@ -189,6 +200,12 @@ export default defineBackground({
           // Best-effort warning; no-op on failure
           console.debug('[tldw] OpenAPI check skipped:', (e as any)?.message || e)
         }
+
+        await warmModels(true)
+        if (modelWarmTimer) clearInterval(modelWarmTimer)
+        modelWarmTimer = setInterval(() => {
+          void warmModels(true)
+        }, 15 * 60 * 1000)
       } catch (error) {
         console.error("Error in initLogic:", error)
       }
@@ -436,6 +453,15 @@ export default defineBackground({
       if (message.type === 'tldw:debug') {
         streamDebugEnabled = Boolean(message?.enable)
         return { ok: true }
+      }
+      if (message.type === 'tldw:models:refresh') {
+        try {
+          const models = await warmModels(true)
+          const count = Array.isArray(models) ? models.length : 0
+          return { ok: true, count }
+        } catch (e: any) {
+          return { ok: false, error: e?.message || 'Model refresh failed' }
+        }
       }
       if (message.type === 'tldw:get-tab-id') {
         const tabId = sender?.tab?.id ?? null
@@ -929,21 +955,31 @@ export default defineBackground({
           notify(browser.i18n.getMessage("contextSaveToNotes"), browser.i18n.getMessage("contextSaveToNotesNoSelection"))
           return
         }
-        chrome.sidePanel.open({
-          tabId: tab.id!
-        })
+        const title = browser.i18n.getMessage("contextSaveToNotes") || "Save to Notes"
+        const openingMessage =
+          browser.i18n.getMessage("contextSaveToNotesOpeningSidebar") ||
+          "Opening sidebar to save note…"
+        notify(title, openingMessage)
+          ensureSidepanelOpen(tab.id!)
         setTimeout(
           async () => {
-            await browser.runtime.sendMessage({
-              from: "background",
-              type: "save-to-notes",
-              text: selection,
-              payload: {
-                selectionText: selection,
-                pageUrl: info.pageUrl || (tab && tab.url) || "",
-                pageTitle: tab?.title || ""
-              }
-            })
+            try {
+              await browser.runtime.sendMessage({
+                from: "background",
+                type: "save-to-notes",
+                text: selection,
+                payload: {
+                  selectionText: selection,
+                  pageUrl: info.pageUrl || (tab && tab.url) || "",
+                  pageTitle: tab?.title || ""
+                }
+              })
+            } catch (e: any) {
+              const failureMessage =
+                browser.i18n.getMessage("contextSaveToNotesDeliveryFailed") ||
+                "Could not open the sidebar to save this note. Check that the tldw Assistant sidepanel is allowed on this site and try again."
+              notify(title, failureMessage)
+            }
           },
           isCopilotRunning ? 0 : 5000
         )

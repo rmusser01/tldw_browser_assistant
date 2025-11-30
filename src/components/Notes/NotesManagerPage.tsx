@@ -15,6 +15,7 @@ import { tldwClient } from '@/services/tldw/TldwApiClient'
 import { useAntdMessage } from '@/hooks/useAntdMessage'
 import { useStoreMessageOption } from "@/store/option"
 import { updatePageTitle } from "@/utils/update-page-title"
+import { useScrollToServerCard } from "@/hooks/useScrollToServerCard"
 
 type NoteListItem = {
   id: string | number
@@ -94,6 +95,8 @@ const NotesManagerPage: React.FC = () => {
   } = useStoreMessageOption()
 
   const editorDisabled = !isOnline || (!capsLoading && capabilities && !capabilities.hasNotes)
+
+  const scrollToServerCard = useScrollToServerCard("/notes")
 
   const fetchNotes = async (): Promise<NoteListItem[]> => {
     const q = query.trim()
@@ -653,10 +656,10 @@ const NotesManagerPage: React.FC = () => {
                       'When you connect, you’ll be able to create notes from meetings, reviews, and more.'
                   })
                 ]}
-                primaryActionLabel={t('common:connectToServer', {
-                  defaultValue: 'Connect to server'
+                primaryActionLabel={t("option:connectionCard.buttonGoToServerCard", {
+                  defaultValue: "Go to server card"
                 })}
-                onPrimaryAction={() => navigate('/settings/tldw')}
+                onPrimaryAction={scrollToServerCard}
               />
             ) : (
               <FeatureEmptyState
@@ -664,22 +667,18 @@ const NotesManagerPage: React.FC = () => {
                   defaultValue: 'Connect to use Notes'
                 })}
                 description={t('option:notesEmpty.connectDescription', {
-                  defaultValue: 'To use Notes, first connect to your tldw server.'
+                  defaultValue: 'This view needs a connected server. Use the server connection card above to fix your connection, then return here to capture and organize notes.'
                 })}
                 examples={[
                   t('option:notesEmpty.connectExample1', {
                     defaultValue:
-                      'Open Settings → tldw server to add your server URL.'
-                  }),
-                  t('option:notesEmpty.connectExample2', {
-                    defaultValue:
-                      'Use Diagnostics if your server is running but not reachable.'
+                      'Use the connection card at the top of this page to add your server URL and API key.'
                   })
                 ]}
-                primaryActionLabel={t('common:connectToServer', {
-                  defaultValue: 'Connect to server'
+                primaryActionLabel={t("option:connectionCard.buttonGoToServerCard", {
+                  defaultValue: "Go to server card"
                 })}
-                onPrimaryAction={() => navigate('/settings/tldw')}
+                onPrimaryAction={scrollToServerCard}
               />
             )
           ) : (!capsLoading && capabilities && !capabilities.hasNotes) ? (
@@ -702,7 +701,7 @@ const NotesManagerPage: React.FC = () => {
                 })
               ]}
               primaryActionLabel={t('settings:healthSummary.diagnostics', {
-                defaultValue: 'Open Diagnostics'
+                defaultValue: 'Health & diagnostics'
               })}
               onPrimaryAction={() => navigate('/settings/health')}
             />

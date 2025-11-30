@@ -236,5 +236,15 @@
   "mermaid": "نمودارهای Mermaid",
   "search": "جستجو",
   "searchResults": "نتایج جستجو",
-  "newBranch": "شاخه جدید"
+  "newBranch": "شاخه جدید",
+  "error": {
+    "friendlyApiKeySummary": "نتوانستیم به سرور tldw شما متصل شویم.",
+    "friendlyApiKeyHint": "ممکن است کلید API شما نامعتبر باشد. تنظیمات → سرور tldw را باز کنید تا آدرس URL و کلید API را بررسی کنید و دوباره تلاش کنید.",
+    "friendlyTimeoutSummary": "گفتگوی شما منقضی شد.",
+    "friendlyTimeoutHint": "سرور ارسال پاسخ‌ها را متوقف کرد. دوباره تلاش کنید یا وضعیت سرور را در سلامت و عیب‌یابی بررسی کنید.",
+    "friendlyGenericSummary": "در برقراری ارتباط با سرور tldw شما مشکلی پیش آمد.",
+    "friendlyGenericHint": "بعداً دوباره تلاش کنید یا سلامت و عیب‌یابی را برای بررسی وضعیت سرور باز کنید.",
+    "showDetails": "نمایش جزئیات فنی",
+    "hideDetails": "پنهان کردن جزئیات فنی"
+  }
 }

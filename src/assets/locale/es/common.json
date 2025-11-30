@@ -236,5 +236,15 @@
   "mermaid": "Diagramas Mermaid",
   "search": "Buscar",
   "searchResults": "Resultados de la búsqueda",
-  "newBranch": "Nueva rama"
+  "newBranch": "Nueva rama",
+  "error": {
+    "friendlyApiKeySummary": "No pudimos conectarnos a su servidor tldw.",
+    "friendlyApiKeyHint": "Su clave API puede ser inválida. Abra Ajustes → servidor tldw para comprobar la URL y la clave API, luego inténtelo de nuevo.",
+    "friendlyTimeoutSummary": "Su chat agotó el tiempo de espera.",
+    "friendlyTimeoutHint": "El servidor dejó de transmitir respuestas. Inténtelo de nuevo o abra Salud y diagnóstico para comprobar el estado del servidor.",
+    "friendlyGenericSummary": "Algo salió mal al comunicarse con su servidor tldw.",
+    "friendlyGenericHint": "Inténtelo de nuevo en un momento o abra Salud y diagnóstico para revisar el estado del servidor.",
+    "showDetails": "Mostrar detalles técnicos",
+    "hideDetails": "Ocultar detalles técnicos"
+  }
 }

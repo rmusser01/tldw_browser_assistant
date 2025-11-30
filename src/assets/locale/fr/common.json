@@ -236,5 +236,15 @@
   "deleteHistoriesError": "Erreur lors de la suppression des historiques",
   "search": "Rechercher",
   "searchResults": "Résultats de recherche",
-  "newBranch": "Nouvelle branche"
+  "newBranch": "Nouvelle branche",
+  "error": {
+    "friendlyApiKeySummary": "Nous n'avons pas pu atteindre votre serveur tldw.",
+    "friendlyApiKeyHint": "Votre clé API est peut-être invalide. Ouvrez Paramètres → serveur tldw pour vérifier votre URL et votre clé API, puis réessayez.",
+    "friendlyTimeoutSummary": "Votre discussion a expiré.",
+    "friendlyTimeoutHint": "Le serveur a cessé d'envoyer des réponses. Réessayez ou ouvrez État et diagnostics pour vérifier l'état du serveur.",
+    "friendlyGenericSummary": "Une erreur est survenue lors de la communication avec votre serveur tldw.",
+    "friendlyGenericHint": "Réessayez dans un instant ou ouvrez État et diagnostics pour vérifier l'état du serveur.",
+    "showDetails": "Afficher les détails techniques",
+    "hideDetails": "Masquer les détails techniques"
+  }
 }

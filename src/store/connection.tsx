@@ -1,7 +1,7 @@
 import { create } from "zustand"
 
 import { tldwClient } from "@/services/tldw/TldwApiClient"
-import { getTldwServerURL } from "@/services/tldw-server"
+import { getStoredTldwServerURL } from "@/services/tldw-server"
 import { apiSend } from "@/services/api-send"
 import {
   ConnectionPhase,
@@ -44,6 +44,36 @@ const getOfflineBypassFlag = async (): Promise<boolean> => {
   }
 
   return false
+}
+
+const setOfflineBypassFlag = async (enabled: boolean): Promise<void> => {
+  try {
+    if (typeof chrome !== "undefined" && chrome?.storage?.local) {
+      await new Promise<void>((resolve) => {
+        const storage = chrome.storage.local
+        if (enabled) {
+          storage.set({ [TEST_BYPASS_KEY]: true }, () => resolve())
+        } else {
+          storage.remove(TEST_BYPASS_KEY, () => resolve())
+        }
+      })
+      return
+    }
+  } catch {
+    // ignore storage write errors
+  }
+
+  try {
+    if (typeof localStorage !== "undefined") {
+      if (enabled) {
+        localStorage.setItem(TEST_BYPASS_KEY, "true")
+      } else {
+        localStorage.removeItem(TEST_BYPASS_KEY)
+      }
+    }
+  } catch {
+    // ignore localStorage availability
+  }
 }
 
 const getForceUnconfiguredFlag = async (): Promise<boolean> => {
@@ -95,6 +125,8 @@ type ConnectionStore = {
   state: ConnectionState
   checkOnce: () => Promise<void>
   setServerUrl: (url: string) => Promise<void>
+  enableOfflineBypass: () => Promise<void>
+  disableOfflineBypass: () => Promise<void>
 }
 
 const initialState: ConnectionState = {
@@ -105,6 +137,7 @@ const initialState: ConnectionState = {
   lastStatusCode: null,
   isConnected: false,
   isChecking: false,
+  offlineBypass: false,
   knowledgeStatus: "unknown",
   knowledgeLastCheckedAt: null,
   knowledgeError: null
@@ -121,6 +154,27 @@ export const useConnectionStore = create<ConnectionStore>((set, get) => ({
       return
     }
 
+    let persistedServerUrl: string | null = null
+    try {
+      const cfg = await tldwClient.getConfig()
+      if (cfg?.serverUrl) persistedServerUrl = cfg.serverUrl
+    } catch {
+      // ignore config read errors
+    }
+    try {
+      if (!persistedServerUrl && typeof chrome !== "undefined" && chrome?.storage?.local) {
+        await new Promise<void>((resolve) =>
+          chrome.storage.local.get("tldwConfig", (res) => {
+            const url = res?.tldwConfig?.serverUrl
+            if (url) persistedServerUrl = url
+            resolve()
+          })
+        )
+      }
+    } catch {
+      // ignore storage read errors
+    }
+
     // Test-only hook: force a missing/unconfigured state without network calls.
     const forceUnconfigured = await getForceUnconfiguredFlag()
     if (forceUnconfigured) {
@@ -128,9 +182,10 @@ export const useConnectionStore = create<ConnectionStore>((set, get) => ({
         state: {
           ...prev,
           phase: ConnectionPhase.UNCONFIGURED,
-          serverUrl: null,
+          serverUrl: persistedServerUrl,
           isConnected: false,
           isChecking: false,
+          offlineBypass: false,
           lastCheckedAt: Date.now(),
           lastError: null,
           lastStatusCode: null,
@@ -147,7 +202,11 @@ export const useConnectionStore = create<ConnectionStore>((set, get) => ({
     // or chrome.storage.local[__tldw_allow_offline].
     const bypass = await getOfflineBypassFlag()
     if (bypass) {
-      const serverUrl = (await ensurePlaceholderConfig()) ?? prev.serverUrl ?? "offline://local"
+      const serverUrl =
+        persistedServerUrl ??
+        (await ensurePlaceholderConfig()) ??
+        prev.serverUrl ??
+        "offline://local"
       set({
         state: {
           ...prev,
@@ -155,6 +214,7 @@ export const useConnectionStore = create<ConnectionStore>((set, get) => ({
           serverUrl,
           isConnected: true,
           isChecking: false,
+          offlineBypass: true,
           lastCheckedAt: Date.now(),
           lastError: null,
           lastStatusCode: null,
@@ -182,7 +242,9 @@ export const useConnectionStore = create<ConnectionStore>((set, get) => ({
       state: {
         ...prev,
         phase: ConnectionPhase.SEARCHING,
+        serverUrl: persistedServerUrl ?? prev.serverUrl,
         isChecking: true,
+        offlineBypass: false,
         lastError: null
       }
     })
@@ -193,13 +255,15 @@ export const useConnectionStore = create<ConnectionStore>((set, get) => ({
 
       if (!serverUrl) {
         try {
-          const fallback = await getTldwServerURL()
-          if (fallback) {
+          // Only reuse a previously stored URL; do not implicitly
+          // fall back to the hard-coded localhost default here.
+          const storedUrl = await getStoredTldwServerURL()
+          if (storedUrl) {
             await tldwClient.updateConfig({
-              serverUrl: fallback
+              serverUrl: storedUrl
             })
             cfg = await tldwClient.getConfig()
-            serverUrl = cfg?.serverUrl ?? null
+            serverUrl = cfg?.serverUrl ?? storedUrl
           }
         } catch {
           // ignore fallback errors; we will treat as unconfigured below
@@ -217,6 +281,7 @@ export const useConnectionStore = create<ConnectionStore>((set, get) => ({
             serverUrl: null,
             isConnected: false,
             isChecking: false,
+            offlineBypass: false,
             lastCheckedAt: Date.now(),
             lastError: null,
             lastStatusCode: null,
@@ -280,6 +345,7 @@ export const useConnectionStore = create<ConnectionStore>((set, get) => ({
           serverUrl,
           isConnected: ok,
           isChecking: false,
+          offlineBypass: false,
           lastCheckedAt: Date.now(),
           lastError: ok ? null : (raced.error || 'timeout-or-offline'),
           lastStatusCode: ok ? null : raced.status,
@@ -295,6 +361,7 @@ export const useConnectionStore = create<ConnectionStore>((set, get) => ({
           phase: ConnectionPhase.ERROR,
           isConnected: false,
           isChecking: false,
+          offlineBypass: false,
           lastCheckedAt: Date.now(),
           lastError: (error as Error)?.message ?? "unknown-error",
           lastStatusCode: 0,
@@ -309,6 +376,16 @@ export const useConnectionStore = create<ConnectionStore>((set, get) => ({
   async setServerUrl(url: string) {
     await tldwClient.updateConfig({ serverUrl: url })
     await get().checkOnce()
+  },
+
+  async enableOfflineBypass() {
+    await setOfflineBypassFlag(true)
+    await get().checkOnce()
+  },
+
+  async disableOfflineBypass() {
+    await setOfflineBypassFlag(false)
+    await get().checkOnce()
   }
 }))
 
@@ -321,14 +398,7 @@ if (typeof window !== "undefined") {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   ;(window as any).__tldw_enableOfflineBypass = async () => {
     try {
-      if (typeof chrome !== "undefined" && chrome?.storage?.local) {
-        await new Promise<void>((resolve) =>
-          chrome.storage.local.set({ [TEST_BYPASS_KEY]: true }, () => resolve())
-        )
-      } else if (typeof localStorage !== "undefined") {
-        localStorage.setItem(TEST_BYPASS_KEY, "true")
-      }
-      await useConnectionStore.getState().checkOnce()
+      await useConnectionStore.getState().enableOfflineBypass()
       return true
     } catch {
       return false
@@ -338,14 +408,7 @@ if (typeof window !== "undefined") {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   ;(window as any).__tldw_disableOfflineBypass = async () => {
     try {
-      if (typeof chrome !== "undefined" && chrome?.storage?.local) {
-        await new Promise<void>((resolve) =>
-          chrome.storage.local.remove(TEST_BYPASS_KEY, () => resolve())
-        )
-      } else if (typeof localStorage !== "undefined") {
-        localStorage.removeItem(TEST_BYPASS_KEY)
-      }
-      await useConnectionStore.getState().checkOnce()
+      await useConnectionStore.getState().disableOfflineBypass()
       return true
     } catch {
       return false

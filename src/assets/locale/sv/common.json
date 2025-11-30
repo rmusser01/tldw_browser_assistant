@@ -236,5 +236,15 @@
   "mermaid": "Mermaid-diagram",
   "search": "Sök",
   "searchResults": "Sökresultat",
-  "newBranch": "Ny gren"
+  "newBranch": "Ny gren",
+  "error": {
+    "friendlyApiKeySummary": "Vi kunde inte nå din tldw-server.",
+    "friendlyApiKeyHint": "Din API‑nyckel kan vara ogiltig. Öppna Inställningar → tldw‑server för att kontrollera din URL och API‑nyckel och försök igen.",
+    "friendlyTimeoutSummary": "Din chatt gick ut på tid.",
+    "friendlyTimeoutHint": "Servern slutade strömma svar. Försök igen eller öppna Hälsa & diagnostik för att kontrollera serverstatus.",
+    "friendlyGenericSummary": "Något gick fel vid kommunikationen med din tldw‑server.",
+    "friendlyGenericHint": "Försök igen om en stund eller öppna Hälsa & diagnostik för att undersöka serverhälsan.",
+    "showDetails": "Visa tekniska detaljer",
+    "hideDetails": "Dölj tekniska detaljer"
+  }
 }

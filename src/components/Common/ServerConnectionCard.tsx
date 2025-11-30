@@ -8,9 +8,13 @@ import {
   useConnectionActions,
   useConnectionState
 } from "@/hooks/useConnectionState"
+import { useConnectionStore } from "@/store/connection"
 import { ConnectionPhase } from "@/types/connection"
 import { useAntdNotification } from "@/hooks/useAntdNotification"
 import { focusComposer } from "@/hooks/useComposerFocus"
+import { getReturnTo, clearReturnTo } from "@/utils/return-to"
+import { useNavigate } from "react-router-dom"
+import { ServerOverviewHint } from "@/components/Common/ServerOverviewHint"
 
 type Props = {
   onOpenSettings?: () => void
@@ -113,12 +117,53 @@ export const ServerConnectionCard: React.FC<Props> = ({
   variant = "default"
 }) => {
   const { t } = useTranslation(["playground", "common", "settings", "option"])
-  const { phase, serverUrl, lastCheckedAt, lastError, isChecking, lastStatusCode } =
-    useConnectionState()
-  const { checkOnce } = useConnectionActions()
+  const navigate = useNavigate()
+  const {
+    phase,
+    serverUrl,
+    lastCheckedAt,
+    lastError,
+    isChecking,
+    lastStatusCode,
+    offlineBypass
+  } = useConnectionState()
+  const {
+    checkOnce,
+    enableOfflineBypass,
+    disableOfflineBypass
+  } = useConnectionActions()
   const notification = useAntdNotification()
+  const [knownServerUrl, setKnownServerUrl] = React.useState<string | null>(null)
+  const [showAdvanced, setShowAdvanced] = React.useState(false)
+  const [offlineHintVisible, setOfflineHintVisible] = React.useState(false)
+  const [returnTo, setReturnToState] = React.useState<string | null>(null)
 
-  const serverHost = serverUrl ? cleanUrl(serverUrl) : null
+  React.useEffect(() => {
+    const target = getReturnTo()
+    if (target) {
+      setReturnToState(target)
+    }
+  }, [])
+
+  React.useEffect(() => {
+    let cancelled = false
+    try {
+      if (typeof chrome !== "undefined" && chrome?.storage?.local) {
+        chrome.storage.local.get("tldwConfig", (res) => {
+          const url = res?.tldwConfig?.serverUrl
+          if (url && !cancelled) setKnownServerUrl(url)
+        })
+      }
+    } catch {
+      // ignore storage read issues
+    }
+    return () => {
+      cancelled = true
+    }
+  }, [])
+
+  const displayServerUrl = serverUrl || knownServerUrl
+  const serverHost = displayServerUrl ? cleanUrl(displayServerUrl) : null
 
   const isSearching = phase === ConnectionPhase.SEARCHING && isChecking
   const elapsed = useElapsedTimer(isSearching)
@@ -261,28 +306,20 @@ export const ServerConnectionCard: React.FC<Props> = ({
           "option:connectionCard.buttonStartChat",
           t("common:startChat", "Start chatting")
         )
-      : statusVariant === "error"
-        ? t(
-            "option:connectionCard.buttonOpenSettings",
-            "Open tldw server settings"
-          )
       : statusVariant === "missing"
         ? t("settings:tldw.setupLink", "Set up server")
-        : t(
-            "option:connectionCard.buttonChecking",
-            "Checking…"
-          )
+        : statusVariant === "error"
+          ? t(
+              "option:connectionCard.buttonTroubleshoot",
+              "Troubleshoot connection"
+            )
+          : t(
+              "option:connectionCard.buttonChecking",
+              "Checking…"
+            )
 
   const diagnosticsLabel =
-    statusVariant === "missing"
-      ? t(
-          "option:connectionCard.buttonOpenDiagnostics",
-          "Open diagnostics"
-        )
-      : t(
-            "option:connectionCard.buttonViewDiagnostics",
-            "View diagnostics"
-        )
+    t("settings:healthSummary.diagnostics", "Health & diagnostics")
 
   const handlePrimary = () => {
     if (statusVariant === "ok") {
@@ -296,22 +333,53 @@ export const ServerConnectionCard: React.FC<Props> = ({
       } else {
         focusComposer()
       }
+    } else if (statusVariant === "missing") {
+      handleOpenSettings()
     } else if (statusVariant === "error") {
-      handleOpenSettings()
-    } else {
-      handleOpenSettings()
+      handleOpenDiagnostics()
     }
   }
 
   const defaultOpenSettings = () => {
+    // Shared helper for non-sidepanel contexts (e.g., popup / background).
+    // Prefer opening the extension's options.html directly so users land on
+    // the tldw settings page instead of the generic extensions manager.
     try {
+      // @ts-ignore
+      if (typeof browser !== "undefined" && browser.runtime?.getURL) {
+        // @ts-ignore
+        const url = browser.runtime.getURL("/options.html#/settings/tldw")
+        // @ts-ignore
+        if (browser.tabs?.create) {
+          // @ts-ignore
+          browser.tabs.create({ url })
+        } else {
+          window.open(url, "_blank")
+        }
+        return
+      }
+    } catch {
+      // Fall through to chrome.* / window.open below.
+    }
+
+    try {
+      // @ts-ignore
+      if (chrome?.runtime?.getURL) {
+        // @ts-ignore
+        const url = chrome.runtime.getURL("/options.html#/settings/tldw")
+        window.open(url, "_blank")
+        return
+      }
       // @ts-ignore
       if (chrome?.runtime?.openOptionsPage) {
         // @ts-ignore
         chrome.runtime.openOptionsPage()
         return
       }
-    } catch {}
+    } catch {
+      // ignore and fall back to plain window.open
+    }
+
     window.open("/options.html#/settings/tldw", "_blank")
   }
 
@@ -333,8 +401,59 @@ export const ServerConnectionCard: React.FC<Props> = ({
     )
   }
 
+  const handleOpenQuickIngestIntro = () => {
+    window.dispatchEvent(new CustomEvent("tldw:open-quick-ingest-intro"))
+  }
+
+  const handleOpenQuickIngest = async () => {
+    try {
+      await checkOnce()
+    } catch {
+      // ignore check failures; we will gate on current connection state
+    }
+    const { state } = useConnectionStore.getState()
+    const canOpen = state.offlineBypass || state.isConnected
+    if (!canOpen) {
+      setOfflineHintVisible(true)
+      return
+    }
+    window.dispatchEvent(new CustomEvent("tldw:open-quick-ingest"))
+  }
+
+  const handleOfflineBypass = async () => {
+    try {
+      await enableOfflineBypass()
+    } catch {
+      // ignore enable failures; fallback to a regular check
+      await checkOnce()
+    }
+    setOfflineHintVisible(true)
+  }
+
+  const handleDisableOfflineBypass = async () => {
+    try {
+      await disableOfflineBypass()
+    } catch {
+      // ignore disable failures; fallback to a regular check
+      await checkOnce()
+    }
+    setOfflineHintVisible(false)
+  }
+
+  const handleReturn = () => {
+    const target = getReturnTo()
+    if (!target) {
+      navigate(-1)
+      return
+    }
+    clearReturnTo()
+    navigate(target)
+  }
+
   return (
     <div
+      id="server-connection-card"
+      tabIndex={-1}
       className={`mx-auto w-full ${
         isCompact ? "mt-4 max-w-md px-3" : "mt-12 max-w-xl px-4"
       }`}>
@@ -353,6 +472,10 @@ export const ServerConnectionCard: React.FC<Props> = ({
         <p className="text-sm text-gray-600 dark:text-gray-300 text-center">
           {descriptionCopy}
         </p>
+
+        {statusVariant === "missing" && !isCompact && (
+          <ServerOverviewHint />
+        )}
 
         {!isCompact && statusVariant === "ok" && (
           <ul className="mt-1 max-w-sm list-disc text-left text-xs text-gray-600 dark:text-gray-300">
@@ -418,6 +541,14 @@ export const ServerConnectionCard: React.FC<Props> = ({
               })()}
             </Tag>
           )}
+          {offlineBypass && (
+            <Tag color="gold" className="px-4 py-1 text-xs">
+              {t(
+                "option:connectionCard.offlineModeBadge",
+                "Offline mode — staging only"
+              )}
+            </Tag>
+          )}
         </div>
 
         <div className="flex flex-col items-center gap-2 text-xs text-gray-500 dark:text-gray-400">
@@ -470,6 +601,15 @@ export const ServerConnectionCard: React.FC<Props> = ({
             block>
             {primaryLabel}
           </Button>
+          {returnTo && (
+            <Button
+              onClick={handleReturn}
+              block>
+              {t("option:connectionCard.backToWorkspace", {
+                defaultValue: "Back to workspace"
+              })}
+            </Button>
+          )}
           {enableDemo && statusVariant === "missing" && (
             <Button
               onClick={() =>
@@ -487,39 +627,113 @@ export const ServerConnectionCard: React.FC<Props> = ({
             icon={<Settings className="h-4 w-4" />}
             onClick={handleOpenSettings}
             block>
-            {(statusVariant === "ok" || statusVariant === "error") && serverUrl
-              ? t(
-                  "option:connectionCard.buttonChangeServer",
-                  t("tldwState.changeServer", "Change server")
-                )
-              : t(
-                  "option:connectionCard.buttonConfigureServer",
-                  "Configure server"
-                )}
+            {t(
+              "option:connectionCard.buttonChangeServer",
+              t("tldwState.changeServer", "Change server")
+            )}
           </Button>
         </div>
 
-        {statusVariant === "error" && (
-          <div className="flex w-full flex-col gap-2 sm:flex-row">
-            <Button
-              size="small"
-              onClick={handleOpenDiagnostics}
-              className="border-gray-300 text-gray-700 dark:border-gray-600 dark:text-gray-200">
-              {t(
-                "option:connectionCard.buttonDiagnostics",
-                "Diagnostics"
-              )}
-            </Button>
-            <Button
-              size="small"
-              onClick={handleOpenHelpDocs}
-              className="border-gray-300 text-gray-700 dark:border-gray-600 dark:text-gray-200">
-              {t(
-                "option:connectionCard.buttonHelpDocs",
-                "Help docs"
-              )}
-            </Button>
-          </div>
+        {isCompact && (statusVariant === "missing" || statusVariant === "error") && (
+          <p className="mt-1 text-[11px] text-gray-500 dark:text-gray-400">
+            {t(
+              "option:connectionCard.sidepanelOpenSettingsHint",
+              "Settings open in a new browser tab so you can configure your tldw server."
+            )}
+          </p>
+        )}
+
+        {(statusVariant === "error" ||
+          statusVariant === "missing" ||
+          offlineBypass) && (
+          <>
+            <button
+              type="button"
+              data-testid="toggle-advanced-troubleshooting"
+              onClick={() => setShowAdvanced((prev) => !prev)}
+              className="mt-1 text-xs text-blue-600 hover:text-blue-500 dark:text-blue-400">
+              {showAdvanced
+                ? t(
+                    "option:connectionCard.hideAdvanced",
+                    "Hide troubleshooting options"
+                  )
+                : t(
+                    "option:connectionCard.showAdvanced",
+                    "More troubleshooting options"
+                  )}
+            </button>
+            {showAdvanced && (
+              <div className="flex w-full flex-col gap-2 text-xs text-gray-600 dark:text-gray-300">
+                <div className="flex flex-wrap items-center gap-2">
+                  <Button
+                    size="small"
+                    onClick={
+                      offlineBypass
+                        ? handleDisableOfflineBypass
+                        : handleOfflineBypass
+                    }>
+                    {offlineBypass
+                      ? t(
+                          "option:connectionCard.buttonDisableOffline",
+                          "Disable offline mode"
+                        )
+                      : t(
+                          "option:connectionCard.buttonContinueOffline",
+                          "Continue offline"
+                        )}
+                  </Button>
+                  <Button size="small" onClick={handleOpenQuickIngestIntro}>
+                    {t(
+                      "option:connectionCard.buttonOpenQuickIngestIntro",
+                      "Open Quick Ingest intro"
+                    )}
+                  </Button>
+                  <Button
+                    size="small"
+                    data-testid="open-quick-ingest"
+                    onClick={handleOpenQuickIngest}>
+                    {t(
+                      "option:connectionCard.buttonOpenQuickIngest",
+                      "Open Quick Ingest"
+                    )}
+                  </Button>
+                  <Button
+                    size="small"
+                    onClick={handleOpenHelpDocs}
+                    className="border-gray-300 text-gray-700 dark:border-gray-600 dark:text-gray-200">
+                    {t(
+                      "option:connectionCard.buttonHelpDocs",
+                      "Help docs"
+                    )}
+                  </Button>
+                  <Button
+                    size="small"
+                    onClick={handleOpenDiagnostics}
+                    className="border-gray-300 text-gray-700 dark:border-gray-600 dark:text-gray-200">
+                    {t(
+                      "settings:healthSummary.diagnostics",
+                      "Health & diagnostics"
+                    )}
+                  </Button>
+                </div>
+                {offlineHintVisible || offlineBypass ? (
+                  <span className="text-[11px] text-gray-500 dark:text-gray-400">
+                    {t(
+                      "option:connectionCard.quickIngestHint",
+                      "When your server is offline, Quick Ingest works as a staging area. You can queue URLs and files now and process them once you reconnect."
+                    )}
+                  </span>
+                ) : (
+                  <span className="text-[11px] text-gray-500 dark:text-gray-400">
+                    {t(
+                      "option:connectionCard.quickIngestInlineHint",
+                      "Quick Ingest can queue URLs and files while your server is offline so you can process them once you reconnect."
+                    )}
+                  </span>
+                )}
+              </div>
+            )}
+          </>
         )}
 
         {statusVariant !== "error" && (
