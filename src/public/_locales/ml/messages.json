@@ -8,6 +8,18 @@
   "openSidePanelToChat": {
     "message": "ചാറ്റ് ചെയ്യാൻ സൈഡ് പാനൽ തുറക്കുക"
   },
+  "openQuickIngest": {
+    "message": "ക്വിക് ഇൻജെസ്റ്റ് തുറക്കുക"
+  },
+  "buttonOpenQuickIngest": {
+    "message": "ക്വിക് ഇൻജെസ്റ്റ് തുറക്കുക"
+  },
+  "buttonTryDemo": {
+    "message": "ഡെമോ പരീക്ഷിക്കുക"
+  },
+  "learnMoreTldw": {
+    "message": "tldw സർവർ എങ്ങനെ പ്രവർത്തിക്കുന്നു എന്ന് അറിയുക"
+  },
   "contextSummarize": {
     "message": "സംഗ്രഹിക്കുക"
   },
@@ -34,6 +46,9 @@
   },
   "contextSaveToNotesOpeningSidebar": {
     "message": "കുറിപ്പ് സംരക്ഷിക്കാന്‍ സൈഡ്ബാർ തുറക്കുന്നു..."
+  },
+  "contextSaveToNotesDeliveryFailed": {
+    "message": "ഈ കുറിപ്പ് സംരക്ഷിക്കാൻ സൈഡ്ബാർ തുറക്കാനായില്ല. tldw Assistant സൈഡ്ബാർ ഈ സൈറ്റിൽ അനുവദിച്ചിട്ടുണ്ടെന്ന് ഉറപ്പാക്കി വീണ്ടും ശ്രമിക്കുക."
   },
   "openOptionToChat": {
     "message": "ചാറ്റ് ചെയ്യാൻ Web UI തുറക്കുക"

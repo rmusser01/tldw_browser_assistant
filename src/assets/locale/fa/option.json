@@ -17,7 +17,17 @@
     "buttonChangeServer": "Change server",
     "buttonOpenDiagnostics": "Open diagnostics",
     "buttonViewDiagnostics": "View diagnostics",
-    "buttonTryDemo": "Try a demo"
+    "buttonOpenQuickIngest": "باز کردن درون‌ریزی سریع",
+    "buttonTryDemo": "امتحان نسخه آزمایشی",
+    "buttonContinueOffline": "ادامه به صورت آفلاین",
+    "buttonDisableOffline": "غیرفعال کردن حالت آفلاین",
+    "offlineModeBadge": "حالت آفلاین — فقط برای staging",
+    "buttonGoToServerCard": "رفتن به کارت سرور",
+    "tipQuickIngest": "نکته: در حالت آفلاین برای درون‌ریزی کمک می‌خواهید؟",
+    "quickIngestHint": "وقتی سرور شما آفلاین است، درون‌ریزی سریع مانند یک ناحیه staging عمل می‌کند. می‌توانید آدرس‌های URL و فایل‌ها را اکنون در صف قرار دهید و پس از اتصال دوباره پردازش کنید.",
+    "backToWorkspace": "بازگشت به فضای کاری",
+    "sidepanelOpenSettingsHint": "تنظیمات در یک برگه جدید مرورگر باز می‌شود تا بتوانید سرور tldw خود را پیکربندی کنید.",
+    "quickIngestInlineHint": "وقتی سرور شما آفلاین است، درون‌ریزی سریع می‌تواند آدرس‌های URL و فایل‌ها را در صف قرار دهد تا پس از اتصال مجدد پردازششان کنید."
   },
   "header": {
     "showShortcuts": "نمایش میانبرها",
@@ -26,7 +36,7 @@
     "groupKnowledge": "دانش",
     "groupSettings": "میانبرهای تنظیمات",
     "backToHome": "Back to home",
-    "openSidebar": "Open chat sidebar",
+    "openSidebar": "باز کردن نوار کناری",
     "untitledChat": "Untitled",
     "modelLabel": "Model",
     "promptLabel": "Prompt",
@@ -69,7 +79,7 @@
   "validationSelectModel": "لطفا یک مدل را برای ادامه انتخاب کنید",
   "deleteHistoryConfirmation": "آیا مطمئن هستید که می خواهید این تاریخچه را حذف کنید؟",
   "editHistoryTitle": "یک عنوان جدید وارد کنید",
-  "temporaryChat": "گپ موقت",
+  "temporaryChat": "گپ موقت (ذخیره نمی‌شود)",
   "more": {
     "copy": {
       "group": "کپی",
@@ -158,10 +168,19 @@
   "quickIngest": {
     "title": "Quick Ingest Media",
     "subtitle": "Enter one or more URLs. Force type per row if needed.",
+    "offlineTitle": "سرور آفلاین — فقط در staging",
+    "offlineDescription": "می‌توانید URLها و فایل‌ها را اینجا صف کنید و فیلدها را بررسی کنید، اما واردسازی اجرا نخواهد شد تا وقتی سرور tldw شما آنلاین شود. برای پردازش موارد معلق دوباره متصل شوید.",
     "sourceHeading": "Source URLs or files",
     "storeRemote": "Store to remote DB",
-    "storeRemoteHelp": "Uploads to your tldw server for indexing.",
-    "processOnlyHelp": "Process only and keep results local (download JSON).",
+    "storeRemoteAria": "نتایج درون‌ریزی را روی سرور tldw خود ذخیره کنید",
+    "processOnlyAria": "نتایج درون‌ریزی را فقط به‌صورت محلی پردازش کنید",
+    "storeRemoteHelp": "برای نمایه‌سازی به سرور tldw شما بارگذاری می‌شود.",
+    "processOnlyHelp": "فقط پردازش کرده و نتایج را محلی نگه دارید (دانلود JSON).",
+    "storageHeading": "محل ذخیره نتایج درون‌ریزی",
+    "storageServerDescription": "روی سرور tldw شما ذخیره می‌شود (پیشنهادی برای RAG و محیط‌های کاری مشترک).",
+    "storageLocalDescription": "فقط در این مرورگر نگه داشته می‌شود؛ هیچ داده‌ای روی سرورتان نوشته نمی‌شود.",
+    "storageDocsLink": "درباره درون‌ریزی و ذخیره‌سازی بیشتر بدانید",
+    "storageDocsUrl": "https://docs.tldw.app/extension/media-ingest-storage",
     "bulkPlaceholder": "Paste URLs (one per line)",
     "or": "or",
     "remove": "Remove",
@@ -182,7 +201,11 @@
     "advancedSummary": "{{count}} advanced fields loaded",
     "advancedEmpty": "No advanced options detected — try reloading the spec.",
     "modifiedCount": "{{count}} modified",
-    "progress": "Processing {{done}} / {{total}} items…"
+    "progress": "در حال پردازش {{done}} / {{total}} مورد…",
+    "errorSummary": "در حال حاضر نتوانستیم موارد اینجست را پردازش کنیم.",
+    "errorHint": "پس از بررسی سرور tldw خود دوباره تلاش کنید. بخش Health & diagnostics می‌تواند در برطرف کردن مشکلات اینجست کمک کند.",
+    "checkHealthLink": "سلامت سرور را در Health & diagnostics بررسی کنید",
+    "healthAriaHint": "اجرای اخیر ناموفق بود — برای جزئیات بیشتر از سربرگ Health & diagnostics را باز کنید."
   },
   "notesSearch": {
     "placeholder": "Search titles and contents",
@@ -255,14 +278,21 @@
     "connectExample1": "Open Settings → tldw server to add your server URL.",
     "connectExample2": "Use Diagnostics if your server is running but not reachable.",
     "headerDescription": "Create reusable characters you can pick from the chat header and reuse across conversations.",
+    "headerSelectHint": "یک شخصیت بسازید تا شخصیت او را در چت‌های مختلف دوباره استفاده کنید. برای شروع از «کاراکتر جدید» استفاده کنید.",
     "offlineTitle": "Characters API not available on this server",
     "offlineDescription": "This server does not advertise /api/v1/characters.",
     "offlineExample1": "Open Diagnostics to confirm your server version and available APIs for Characters.",
     "offlineExample2": "If you upgrade your server, reload the extension and return to Characters."
   },
   "characters": {
-    "selectCharacter": "Select character",
-    "chattingAs": "You're now chatting as {{name}}."
+    "selectCharacter": "انتخاب شخصیت",
+    "chattingAs": "چت به‌عنوان {{name}}",
+    "clearCharacter": "پاک‌کردن شخصیت",
+    "none": "هیچ‌کدام (بدون شخصیت)",
+    "searchPlaceholder": "جستجو بر اساس نام شخصیت",
+    "noMatches": "هنوز شخصیتی با این جستجو مطابقت ندارد.",
+    "refresh": "بارگذاری مجدد شخصیت‌ها",
+    "refreshing": "در حال بارگذاری مجدد شخصیت‌ها…"
   },
   "promptInsert": {
     "useInChat": "Use in chat",

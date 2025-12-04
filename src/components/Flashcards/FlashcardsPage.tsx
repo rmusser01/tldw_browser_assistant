@@ -49,12 +49,60 @@ import { useNavigate } from "react-router-dom"
 import { useDemoMode } from "@/context/demo-mode"
 import { useServerCapabilities } from "@/hooks/useServerCapabilities"
 import { useAntdMessage } from "@/hooks/useAntdMessage"
+import { useScrollToServerCard } from "@/hooks/useScrollToServerCard"
+import { MarkdownErrorBoundary } from "@/components/Common/MarkdownErrorBoundary"
+import { StatusBadge } from "@/components/Common/StatusBadge"
 
 dayjs.extend(relativeTime)
 
 const { Text, Title } = Typography
 
 type DueStatus = "new" | "learning" | "due" | "all"
+
+const Markdown = React.lazy(() => import("@/components/Common/Markdown"))
+
+type SafeMarkdownProps = {
+  content: string
+  className?: string
+  size?: "xs" | "sm" | "base"
+}
+
+const MarkdownWithBoundary: React.FC<SafeMarkdownProps> = ({
+  content,
+  className = "",
+  size = "sm"
+}) => {
+  const sizeClass =
+    size === "xs" ? "prose-xs" : size === "sm" ? "prose-sm" : "prose"
+
+  return (
+    <MarkdownErrorBoundary fallbackText={content}>
+      <React.Suspense
+        fallback={<div className="whitespace-pre-wrap">{content}</div>}
+      >
+        <Markdown
+          message={content}
+          className={`${sizeClass} break-words dark:prose-invert max-w-none prose-p:leading-relaxed prose-pre:p-0 dark:prose-dark ${className}`}
+        />
+      </React.Suspense>
+    </MarkdownErrorBoundary>
+  )
+}
+
+function useDebouncedFormField(form: any, name: string, delay = 300): string {
+  const value = Form.useWatch(name, form)
+  const [debounced, setDebounced] = React.useState<string>(value ?? "")
+
+  React.useEffect(() => {
+    const nextValue = value ?? ""
+    const timer = window.setTimeout(() => {
+      setDebounced(nextValue)
+    }, delay)
+    return () => window.clearTimeout(timer)
+  }, [value, delay])
+
+  return debounced
+}
 
 export const FlashcardsPage: React.FC = () => {
   const { t } = useTranslation(["option", "common"]) // keys use defaultValue fallbacks
@@ -66,13 +114,21 @@ export const FlashcardsPage: React.FC = () => {
   const [activeTab, setActiveTab] = React.useState<string>("review")
   const message = useAntdMessage()
   const confirmDanger = useConfirmDanger()
+  const scrollToServerCard = useScrollToServerCard("/flashcards")
 
   if (!isOnline) {
     return demoEnabled ? (
       <FeatureEmptyState
-        title={t("option:flashcards.demoTitle", {
-          defaultValue: "Explore Flashcards in demo mode"
-        })}
+        title={
+          <span className="inline-flex items-center gap-2">
+            <StatusBadge variant="demo">Demo</StatusBadge>
+            <span>
+              {t("option:flashcards.demoTitle", {
+                defaultValue: "Explore Flashcards in demo mode"
+              })}
+            </span>
+          </span>
+        }
         description={t("option:flashcards.demoDescription", {
           defaultValue:
             "This demo shows how Flashcards can turn your content into spaced‑repetition cards. Connect your own server later to generate and review cards from your own notes and media."
@@ -87,34 +143,39 @@ export const FlashcardsPage: React.FC = () => {
               "When you connect, you’ll be able to generate cards from lectures, meetings, or notes and review them on a schedule."
           })
         ]}
-        primaryActionLabel={t("common:connectToServer", {
-          defaultValue: "Connect to server"
+        primaryActionLabel={t("option:connectionCard.buttonGoToServerCard", {
+          defaultValue: "Go to server card"
         })}
-        onPrimaryAction={() => navigate("/settings/tldw")}
+        onPrimaryAction={scrollToServerCard}
       />
     ) : (
       <FeatureEmptyState
-        title={t("option:flashcards.emptyConnectTitle", {
-          defaultValue: "Connect to use Flashcards"
-        })}
+        title={
+          <span className="inline-flex items-center gap-2">
+            <StatusBadge variant="warning">
+              Not connected
+            </StatusBadge>
+            <span>
+              {t("option:flashcards.emptyConnectTitle", {
+                defaultValue: "Connect to use Flashcards"
+              })}
+            </span>
+          </span>
+        }
         description={t("option:flashcards.emptyConnectDescription", {
           defaultValue:
-            "To review or generate flashcards, first connect to your tldw server."
+            "This view needs a connected server. Use the server connection card above to fix your connection, then return here to review and generate flashcards."
         })}
         examples={[
           t("option:flashcards.emptyConnectExample1", {
             defaultValue:
-              "Go to Settings → tldw server to add your server URL."
-          }),
-          t("option:flashcards.emptyConnectExample2", {
-            defaultValue:
-              "Once connected, review due cards or create new decks from your notes and media."
+              "Use the connection card at the top of this page to add your server URL and API key."
           })
         ]}
-        primaryActionLabel={t("common:connectToServer", {
-          defaultValue: "Connect to server"
+        primaryActionLabel={t("option:connectionCard.buttonGoToServerCard", {
+          defaultValue: "Go to server card"
         })}
-        onPrimaryAction={() => navigate("/settings/tldw")}
+        onPrimaryAction={scrollToServerCard}
       />
     )
   }
@@ -125,9 +186,18 @@ export const FlashcardsPage: React.FC = () => {
   if (isOnline && flashcardsUnsupported) {
     return (
       <FeatureEmptyState
-        title={t("option:flashcards.offlineTitle", {
-          defaultValue: "Flashcards API not available on this server"
-        })}
+        title={
+          <span className="inline-flex items-center gap-2">
+            <StatusBadge variant="error">
+              Feature unavailable
+            </StatusBadge>
+            <span>
+              {t("option:flashcards.offlineTitle", {
+                defaultValue: "Flashcards API not available on this server"
+              })}
+            </span>
+          </span>
+        }
         description={t("option:flashcards.offlineDescription", {
           defaultValue:
             "This tldw server does not advertise the Flashcards endpoints. Upgrade your server to a version that includes /api/v1/flashcards… to use this workspace."
@@ -135,7 +205,7 @@ export const FlashcardsPage: React.FC = () => {
         examples={[
           t("option:flashcards.offlineExample1", {
             defaultValue:
-              "Check Diagnostics to confirm your server version and available APIs."
+              "Check Health & diagnostics to confirm your server version and available APIs."
           }),
           t("option:flashcards.offlineExample2", {
             defaultValue:
@@ -143,7 +213,7 @@ export const FlashcardsPage: React.FC = () => {
           })
         ]}
         primaryActionLabel={t("settings:healthSummary.diagnostics", {
-          defaultValue: "Open Diagnostics"
+          defaultValue: "Health & diagnostics"
         })}
         onPrimaryAction={() => navigate("/settings/health")}
       />
@@ -200,6 +270,10 @@ export const FlashcardsPage: React.FC = () => {
 
   // CREATE TAB STATE
   const [createForm] = Form.useForm<FlashcardCreate>()
+  const createFrontPreview = useDebouncedFormField(createForm, "front")
+  const createBackPreview = useDebouncedFormField(createForm, "back")
+  const createExtraPreview = useDebouncedFormField(createForm, "extra")
+  const createNotesPreview = useDebouncedFormField(createForm, "notes")
   const createMutation = useMutation({
     mutationKey: ["flashcards:create"],
     mutationFn: (payload: FlashcardCreate) => createFlashcard(payload),
@@ -390,6 +464,10 @@ export const FlashcardsPage: React.FC = () => {
   const [editOpen, setEditOpen] = React.useState(false)
   const [editing, setEditing] = React.useState<Flashcard | null>(null)
   const [editForm] = Form.useForm<FlashcardUpdate & { tags_text?: string[] }>()
+  const editFrontPreview = useDebouncedFormField(editForm, "front")
+  const editBackPreview = useDebouncedFormField(editForm, "back")
+  const editExtraPreview = useDebouncedFormField(editForm, "extra")
+  const editNotesPreview = useDebouncedFormField(editForm, "notes")
 
   // Quick actions: review
   const [quickReviewOpen, setQuickReviewOpen] = React.useState(false)
@@ -624,15 +702,34 @@ export const FlashcardsPage: React.FC = () => {
                         ))}
                       </div>
                       <div>
-                        <Title level={5} className="!mb-2">{t("option:flashcards.front", { defaultValue: "Front" })}</Title>
-                        <div className="whitespace-pre-wrap border rounded p-3 bg-white dark:bg-[#111]">{reviewQuery.data.front}</div>
+                        <Title level={5} className="!mb-2">
+                          {t("option:flashcards.front", { defaultValue: "Front" })}
+                        </Title>
+                        <div className="border rounded p-3 bg-white dark:bg-[#111] text-sm">
+                          <MarkdownWithBoundary
+                            content={reviewQuery.data.front}
+                            size="sm"
+                          />
+                        </div>
                       </div>
                       {showAnswer && (
                         <div>
-                          <Title level={5} className="!mb-2">{t("option:flashcards.back", { defaultValue: "Back" })}</Title>
-                          <div className="whitespace-pre-wrap border rounded p-3 bg-white dark:bg-[#111]">{reviewQuery.data.back}</div>
+                          <Title level={5} className="!mb-2">
+                            {t("option:flashcards.back", { defaultValue: "Back" })}
+                          </Title>
+                          <div className="border rounded p-3 bg-white dark:bg-[#111] text-sm">
+                            <MarkdownWithBoundary
+                              content={reviewQuery.data.back}
+                              size="sm"
+                            />
+                          </div>
                           {reviewQuery.data.extra && (
-                            <div className="mt-2 text-sm opacity-80 whitespace-pre-wrap">{reviewQuery.data.extra}</div>
+                            <div className="mt-2 text-sm opacity-80">
+                              <MarkdownWithBoundary
+                                content={reviewQuery.data.extra}
+                                size="xs"
+                              />
+                            </div>
                           )}
                         </div>
                       )}
@@ -756,7 +853,10 @@ export const FlashcardsPage: React.FC = () => {
                     })}
                   </Text>
                 </div>
-                <Form form={createForm} layout="vertical" initialValues={{ is_cloze: false, model_type: "basic", reverse: false }}>
+                <Form
+                  form={createForm}
+                  layout="vertical"
+                  initialValues={{ is_cloze: false, model_type: "basic", reverse: false }}>
                   <Space align="end" className="mb-2">
                     <Form.Item name="deck_id" label={t("option:flashcards.deck", { defaultValue: "Deck" })} className="!mb-0">
                       <Select
@@ -810,13 +910,90 @@ export const FlashcardsPage: React.FC = () => {
                       </Text>
                     </div>
                   </Form.Item>
-                  <Form.Item name="tags" label={t("option:flashcards.tags", { defaultValue: "Tags" })}>
+                  <Form.Item
+                    name="tags"
+                    label={t("option:flashcards.tags", { defaultValue: "Tags" })}>
                     <Select mode="tags" placeholder="tag1, tag2" open={false} allowClear />
                   </Form.Item>
-                  <Form.Item name="front" label={t("option:flashcards.front", { defaultValue: "Front" })} rules={[{ required: true }]}> <Input.TextArea rows={3} /></Form.Item>
-                  <Form.Item name="back" label={t("option:flashcards.back", { defaultValue: "Back" })} rules={[{ required: true }]}> <Input.TextArea rows={6} /></Form.Item>
-                  <Form.Item name="extra" label={t("option:flashcards.extra", { defaultValue: "Extra" })}> <Input.TextArea rows={3} /></Form.Item>
-                  <Form.Item name="notes" label={t("option:flashcards.notes", { defaultValue: "Notes" })}> <Input.TextArea rows={2} /></Form.Item>
+                  <Form.Item
+                    name="front"
+                    label={t("option:flashcards.front", { defaultValue: "Front" })}
+                    rules={[{ required: true }]}>
+                    <Input.TextArea rows={3} />
+                    <Text type="secondary" className="block text-[11px] mt-1">
+                      Supports Markdown and LaTeX (e.g. <code>$x^2$</code>,
+                      <code>$$\\int_0^1 x^2 dx$$</code>).
+                    </Text>
+                    {createFrontPreview && (
+                      <div className="mt-2 border rounded p-2 text-xs bg-white dark:bg-[#111]">
+                        <Text type="secondary" className="block text-[11px] mb-1">
+                          Preview
+                        </Text>
+                        <MarkdownWithBoundary
+                          content={createFrontPreview || ""}
+                          size="xs"
+                        />
+                      </div>
+                    )}
+                  </Form.Item>
+                  <Form.Item
+                    name="back"
+                    label={t("option:flashcards.back", { defaultValue: "Back" })}
+                    rules={[{ required: true }]}>
+                    <Input.TextArea rows={6} />
+                    <Text type="secondary" className="block text-[11px] mt-1">
+                      Supports Markdown and LaTeX for formulas, lists, and code.
+                    </Text>
+                    {createBackPreview && (
+                      <div className="mt-2 border rounded p-2 text-xs bg-white dark:bg-[#111]">
+                        <Text type="secondary" className="block text-[11px] mb-1">
+                          Preview
+                        </Text>
+                        <MarkdownWithBoundary
+                          content={createBackPreview || ""}
+                          size="xs"
+                        />
+                      </div>
+                    )}
+                  </Form.Item>
+                  <Form.Item
+                    name="extra"
+                    label={t("option:flashcards.extra", { defaultValue: "Extra" })}>
+                    <Input.TextArea rows={3} />
+                    <Text type="secondary" className="block text-[11px] mt-1">
+                      Optional hints or explanations (Markdown + LaTeX supported).
+                    </Text>
+                    {createExtraPreview && (
+                      <div className="mt-2 border rounded p-2 text-xs bg-white dark:bg-[#111]">
+                        <Text type="secondary" className="block text-[11px] mb-1">
+                          Preview
+                        </Text>
+                        <MarkdownWithBoundary
+                          content={createExtraPreview || ""}
+                          size="xs"
+                        />
+                      </div>
+                    )}
+                  </Form.Item>
+                  <Form.Item
+                    name="notes"
+                    label={t("option:flashcards.notes", { defaultValue: "Notes" })}>
+                    <Input.TextArea rows={2} />
+                    <Text type="secondary" className="block text-[11px] mt-1">
+                      Internal notes (Markdown + LaTeX supported).
+                    </Text>
+                    {createNotesPreview && (
+                      <div className="mt-2 border rounded p-2 text-xs bg-white dark:bg-[#111]">
+                        <Text type="secondary" className="block text-[11px] mb-1">
+                          Preview
+                        </Text>
+                        <MarkdownWithBoundary
+                          content={createNotesPreview || ""}
+                          size="xs"
+                        />
+                      </div>
+                    )}
+                  </Form.Item>
                   <Space>
                     <Button type="primary" onClick={() => {
                       createForm
@@ -1045,8 +1222,21 @@ export const FlashcardsPage: React.FC = () => {
                       />
                       {previewOpen.has(item.uuid) && (
                         <div className="mt-2">
-                          <div className="whitespace-pre-wrap border rounded p-2 bg-white dark:bg-[#111]">{item.back}</div>
-                          {item.extra && <div className="opacity-80 text-xs whitespace-pre-wrap mt-1">{item.extra}</div>}
+                          <div className="border rounded p-2 bg-white dark:bg-[#111] text-xs sm:text-sm">
+                            <MarkdownWithBoundary
+                              content={item.back}
+                              size="xs"
+                              className="sm:prose-sm"
+                            />
+                          </div>
+                          {item.extra && (
+                            <div className="opacity-80 text-xs mt-1">
+                              <MarkdownWithBoundary
+                                content={item.extra}
+                                size="xs"
+                              />
+                            </div>
+                          )}
                         </div>
                       )}
                     </List.Item>
@@ -1074,9 +1264,26 @@ export const FlashcardsPage: React.FC = () => {
                 >
                   {quickReviewCard && (
                     <div className="flex flex-col gap-3">
-                      <div className="whitespace-pre-wrap border rounded p-3">{quickReviewCard.front}</div>
-                      <div className="whitespace-pre-wrap border rounded p-3">{quickReviewCard.back}</div>
-                      {quickReviewCard.extra && <div className="opacity-80 text-sm whitespace-pre-wrap">{quickReviewCard.extra}</div>}
+                      <div className="border rounded p-3 text-sm">
+                        <MarkdownWithBoundary
+                          content={quickReviewCard.front}
+                          size="sm"
+                        />
+                      </div>
+                      <div className="border rounded p-3 text-sm">
+                        <MarkdownWithBoundary
+                          content={quickReviewCard.back}
+                          size="sm"
+                        />
+                      </div>
+                      {quickReviewCard.extra && (
+                        <div className="opacity-80 text-sm">
+                          <MarkdownWithBoundary
+                            content={quickReviewCard.extra}
+                            size="xs"
+                          />
+                        </div>
+                      )}
                       <div className="flex flex-wrap gap-2">
                         {ratingOptions.map((opt) => (
                           <Tooltip key={opt.value} title={opt.description}>
@@ -1149,13 +1356,89 @@ export const FlashcardsPage: React.FC = () => {
                     <Form.Item name="is_cloze" label={t("option:flashcards.isCloze", { defaultValue: "Is Cloze" })} valuePropName="checked">
                       <Switch />
                     </Form.Item>
-                    <Form.Item name="tags" label={t("option:flashcards.tags", { defaultValue: "Tags" })}>
+                    <Form.Item
+                      name="tags"
+                      label={t("option:flashcards.tags", { defaultValue: "Tags" })}>
                       <Select mode="tags" open={false} allowClear />
                     </Form.Item>
-                    <Form.Item name="front" label={t("option:flashcards.front", { defaultValue: "Front" })} rules={[{ required: true }]}> <Input.TextArea rows={3} /></Form.Item>
-                    <Form.Item name="back" label={t("option:flashcards.back", { defaultValue: "Back" })} rules={[{ required: true }]}> <Input.TextArea rows={6} /></Form.Item>
-                    <Form.Item name="extra" label={t("option:flashcards.extra", { defaultValue: "Extra" })}> <Input.TextArea rows={3} /></Form.Item>
-                    <Form.Item name="notes" label={t("option:flashcards.notes", { defaultValue: "Notes" })}> <Input.TextArea rows={2} /></Form.Item>
+                    <Form.Item
+                      name="front"
+                      label={t("option:flashcards.front", { defaultValue: "Front" })}
+                      rules={[{ required: true }]}>
+                      <Input.TextArea rows={3} />
+                      <Text type="secondary" className="block text-[11px] mt-1">
+                        Supports Markdown and LaTeX.
+                      </Text>
+                      {editFrontPreview && (
+                        <div className="mt-2 border rounded p-2 text-xs bg-white dark:bg-[#111]">
+                      <Text type="secondary" className="block text-[11px] mb-1">
+                        Preview
+                      </Text>
+                      <MarkdownWithBoundary
+                        content={editFrontPreview || ""}
+                        size="xs"
+                      />
+                        </div>
+                      )}
+                    </Form.Item>
+                    <Form.Item
+                      name="back"
+                      label={t("option:flashcards.back", { defaultValue: "Back" })}
+                      rules={[{ required: true }]}>
+                      <Input.TextArea rows={6} />
+                      <Text type="secondary" className="block text-[11px] mt-1">
+                        Supports Markdown and LaTeX.
+                      </Text>
+                      {editBackPreview && (
+                        <div className="mt-2 border rounded p-2 text-xs bg-white dark:bg-[#111]">
+                      <Text type="secondary" className="block text-[11px] mb-1">
+                        Preview
+                      </Text>
+                      <MarkdownWithBoundary
+                        content={editBackPreview || ""}
+                        size="xs"
+                      />
+                        </div>
+                      )}
+                    </Form.Item>
+                    <Form.Item
+                      name="extra"
+                      label={t("option:flashcards.extra", { defaultValue: "Extra" })}>
+                      <Input.TextArea rows={3} />
+                      <Text type="secondary" className="block text-[11px] mt-1">
+                        Optional hints/explanations (Markdown + LaTeX supported).
+                      </Text>
+                      {editExtraPreview && (
+                        <div className="mt-2 border rounded p-2 text-xs bg-white dark:bg-[#111]">
+                      <Text type="secondary" className="block text-[11px] mb-1">
+                        Preview
+                      </Text>
+                      <MarkdownWithBoundary
+                        content={editExtraPreview || ""}
+                        size="xs"
+                      />
+                        </div>
+                      )}
+                    </Form.Item>
+                    <Form.Item
+                      name="notes"
+                      label={t("option:flashcards.notes", { defaultValue: "Notes" })}>
+                      <Input.TextArea rows={2} />
+                      <Text type="secondary" className="block text-[11px] mt-1">
+                        Internal notes (Markdown + LaTeX supported).
+                      </Text>
+                      {editNotesPreview && (
+                        <div className="mt-2 border rounded p-2 text-xs bg-white dark:bg-[#111]">
+                      <Text type="secondary" className="block text-[11px] mb-1">
+                        Preview
+                      </Text>
+                      <MarkdownWithBoundary
+                        content={editNotesPreview || ""}
+                        size="xs"
+                      />
+                        </div>
+                      )}
+                    </Form.Item>
                     <Form.Item name="expected_version" hidden>
                       <Input type="number" />
                     </Form.Item>

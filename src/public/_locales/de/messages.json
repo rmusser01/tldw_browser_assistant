@@ -11,6 +11,18 @@
   "openOptionToChat": {
     "message": "Weboberfläche zum Chatten öffnen"
   },
+  "openQuickIngest": {
+    "message": "Schnelle Eingabe öffnen"
+  },
+  "buttonOpenQuickIngest": {
+    "message": "Schnelle Eingabe öffnen"
+  },
+  "buttonTryDemo": {
+    "message": "Demo ausprobieren"
+  },
+  "learnMoreTldw": {
+    "message": "Erfahren Sie, wie der tldw-Server funktioniert"
+  },
   "contextSummarize": {
     "message": "Zusammenfassen"
   },
@@ -37,6 +49,9 @@
   },
   "contextSaveToNotesOpeningSidebar": {
     "message": "Seitenleiste wird zum Speichern der Notiz geöffnet..."
+  },
+  "contextSaveToNotesDeliveryFailed": {
+    "message": "Die Seitenleiste konnte nicht geöffnet werden, um diese Notiz zu speichern. Prüfen Sie, ob die tldw Assistant-Seitenleiste auf dieser Seite erlaubt ist, und versuchen Sie es erneut."
   },
   "contextTranscribeMedia": {
     "message": "Video/Audio transkribieren"

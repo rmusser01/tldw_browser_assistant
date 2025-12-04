@@ -8,6 +8,18 @@
   "openSidePanelToChat": {
     "message": "チャット用サイドバーを開く"
   },
+  "openQuickIngest": {
+    "message": "クイックインジェストを開く"
+  },
+  "buttonOpenQuickIngest": {
+    "message": "クイックインジェストを開く"
+  },
+  "buttonTryDemo": {
+    "message": "デモを試す"
+  },
+  "learnMoreTldw": {
+    "message": "tldw サーバーの仕組みを学ぶ"
+  },
   "contextSummarize": {
     "message": "要約"
   },
@@ -34,6 +46,9 @@
   },
   "contextSaveToNotesOpeningSidebar": {
     "message": "ノートを保存するためにサイドバーを開いています..."
+  },
+  "contextSaveToNotesDeliveryFailed": {
+    "message": "このノートを保存するためにサイドバーを開けませんでした。tldw Assistant のサイドバーがこのサイトで許可されているか確認し、もう一度お試しください。"
   },
   "openOptionToChat": {
     "message": "チャット用 Web UI を開く"

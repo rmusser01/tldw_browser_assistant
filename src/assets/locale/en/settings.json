@@ -12,6 +12,7 @@
   "mediaNav": "Media",
   "evaluationsSettingsNav": "Evaluations",
   "promptStudioNav": "Prompt Studio",
+  "chatSettingsNav": "Chat",
   "admin": {
     "adminGuardForbiddenTitle": "Admin access required for these controls",
     "adminGuardNotFoundTitle": "Admin APIs are not available on this server",
@@ -47,6 +48,37 @@
     "evalMaxTokens": "Max tokens",
     "unavailable": "Prompt Studio isn’t available on the server yet.",
     "unavailableBody": "Once enabled, you can monitor queue health and set defaults here."
+  },
+  "chatSettings": {
+    "title": "Chat settings",
+    "description": "Control default behavior for the chat playground and composer.",
+    "userHeading": "User messages",
+    "assistantHeading": "Assistant messages",
+    "userColor": "User text color",
+    "assistantColor": "Assistant text color",
+    "userFont": "User font",
+    "assistantFont": "Assistant font",
+    "userSize": "User text size",
+    "assistantSize": "Assistant text size",
+    "color": {
+      "default": "Default",
+      "blue": "Blue",
+      "green": "Green",
+      "purple": "Purple",
+      "orange": "Orange",
+      "red": "Red"
+    },
+    "font": {
+      "default": "Default",
+      "sans": "Sans serif",
+      "serif": "Serif",
+      "mono": "Monospace"
+    },
+    "size": {
+      "sm": "Small",
+      "md": "Medium",
+      "lg": "Large"
+    }
   },
   "generalSettings": {
     "title": "General Settings",
@@ -743,12 +775,15 @@
   "switchToSidebar": "Switch to Sidebar",
   "healthPage": {
     "title": "Health Status",
-    "subtitle": "Quick overview of subsystem health endpoints exposed by the server.",
+    "subtitle": "Quick overview of how your tldw server powers chat, Knowledge search, media ingest, and other tools.",
     "backToChat": "Back to chat",
     "openSettings": "Open tldw Settings",
+    "noServerBannerTitle": "Don’t have a server yet?",
+    "noServerBannerBody": "You can explore the UI first, then connect a tldw server later to enable chat history, media ingest, and Knowledge search.",
+    "noServerBannerCta": "Learn how tldw server works",
     "recheckAll": "Recheck All",
     "copyDiagnostics": "Copy diagnostics",
-    "copyDiagnosticsHelp": "Copies JSON diagnostics to clipboard",
+    "copyDiagnosticsHelp": "Copies JSON diagnostics (server URL, status codes, and anonymized environment info) to your clipboard. API keys and message content are not included.",
     "serverNotConfigured": "Server is not configured.",
     "unableToReachCore": "Unable to reach server core health endpoint.",
     "triedGet": "Tried GET {{url}}",
@@ -757,6 +792,8 @@
     "connectedTo": "Connected to {{host}}",
     "autoRefresh": "Auto-refresh",
     "intervalLabel": "Interval (s):",
+    "nextRefreshIn": "Next auto-refresh in {{seconds}}s",
+    "intervalWarning": "Short intervals can put load on your server. Consider using at least {{seconds}}s.",
     "checking": "Checking…",
     "recheck": "Recheck",
     "healthy": "Healthy",
@@ -765,8 +802,14 @@
     "statusHealthy": "Healthy",
     "statusUnhealthy": "Unhealthy",
     "statusUnknown": "Unknown",
+    "statusCodeTag": "HTTP {{code}}",
+    "statusCodeNetwork": "Network/timeout",
     "updatedJustNow": "Updated just now",
     "updatedSecondsAgo": "Updated {{seconds}}s ago",
+    "troubleshootLink": "Troubleshooting tips",
+    "errorDetailsLabel": "Technical details (for advanced users)",
+    "copyError": "Copy error",
+    "rawResponseFrom": "Raw response from {{path}}",
     "checks": {
       "core": "Core API",
       "rag": "RAG",
@@ -774,11 +817,25 @@
       "embeddings": "Embeddings",
       "metrics": "Metrics Health",
       "chatMetrics": "Chat Metrics",
-      "mcp": "MCP"
+      "mcp": "MCP",
+      "coreDescription": "Verifies the main chat API. If this is unhealthy, confirm your server URL, API key, and core logs.",
+      "ragDescription": "Powers Knowledge search & retrieval. If this is unhealthy, ensure RAG is enabled and the knowledge index has been built on your server.",
+      "audioDescription": "Covers text-to-speech and speech-to-text APIs. If this is unhealthy, confirm your audio endpoints are enabled and reachable.",
+      "embeddingsDescription": "Checks the embeddings and indexing services used for retrieval. If this is unhealthy, rebuild your embedding index or restart the worker.",
+      "metricsDescription": "Verifies metrics and monitoring endpoints. If this is unhealthy, metrics dashboards or alerting may be unavailable.",
+      "chatMetricsDescription": "Tracks chat analytics such as volume and latency. If this is unhealthy, chat metrics collection or endpoints may be failing.",
+      "mcpDescription": "Checks Model Context Protocol (MCP) tools. If this is unhealthy, external tools and plugins may not be available in chat.",
+      "coreDocsUrl": "https://docs.tldw.app/health/core",
+      "ragDocsUrl": "https://docs.tldw.app/health/rag",
+      "audioDocsUrl": "https://docs.tldw.app/health/audio",
+      "embeddingsDocsUrl": "https://docs.tldw.app/health/embeddings",
+      "metricsDocsUrl": "https://docs.tldw.app/health/metrics",
+      "chatMetricsDocsUrl": "https://docs.tldw.app/health/chat-metrics",
+      "mcpDocsUrl": "https://docs.tldw.app/health/mcp"
     }
   },
   "healthSummary": {
-    "diagnostics": "Diagnostics",
+    "diagnostics": "Health & diagnostics",
     "diagnosticsTooltip": "Open detailed diagnostics to troubleshoot or inspect health checks.",
     "core": "Server",
     "rag": "Knowledge",
@@ -803,8 +860,12 @@
   "siteAccessGranted": "Host permission granted for {{origin}}",
   "onboarding": {
     "title": "Welcome — Let’s get you connected",
-    "description": "Configure your server and authentication. We’ll verify the connection and RAG health inline.",
-    "serverUrl": {
+  "description": "Connect this extension to your tldw server (a separate app running on your machine or server). We’ll walk through adding the URL, API key, and checking that everything is reachable.",
+  "exploreWithoutServer": "You can explore the UI without a server; some features (chat, media ingest, Knowledge search) will stay disabled until you connect.",
+  "serverDocsUrl": "https://docs.tldw.app/extension/server-setup",
+  "serverDocsCta": "Learn how tldw server works",
+  "learnMoreTldw": "Learn how tldw server works",
+  "serverUrl": {
       "label": "Server URL",
       "placeholder": "http://127.0.0.1:8000",
       "help": "Example: http://127.0.0.1:8000",
@@ -847,16 +908,23 @@
       "unknown": "Unknown",
       "connected": "Connected",
       "failed": "Failed",
-      "continueAnyway": "You can continue and complete setup now. You’ll be able to verify the connection later from Settings."
+      "continueAnyway": "You can finish setup now and explore the UI without a server. Chat, media ingest, and Knowledge search will remain limited until you connect a tldw server from Settings → tldw Server."
     },
     "rag": {
-      "label": "RAG:",
+      "label": "Knowledge search & retrieval:",
       "healthy": "Healthy",
       "unhealthy": "Unhealthy",
-      "unknown": "Unknown"
+      "unknown": "Unknown",
+      "help": "Checks whether your server can search your notes, media, and other connected knowledge sources."
     },
     "connectionFailed": "Connection failed",
-    "footerHelp": "Once connected, you can revisit these settings anytime from the extension menu."
+    "footerHelp": "Once connected, you can revisit these settings anytime from the extension menu.",
+    "errors": {
+      "invalidCredentials": "Login failed. Check your username and password or confirm multi-user login is enabled on your tldw server.",
+      "forbidden": "Forbidden. Check that your user account has permission to log in.",
+      "serverUnreachable": "Couldn’t reach your tldw server. Check the server URL or open Health & diagnostics for more details.",
+      "generic": "Login failed. Open Health & diagnostics from the header to inspect server errors."
+    }
   },
   "tldw": {
     "setupLink": "Set up server",
@@ -890,18 +958,14 @@
       "invalidApiKey": "Invalid API key",
       "forbidden": "Forbidden (check permissions)",
       "apiKeyValidationFailed": "API key validation failed",
-      "serverUnreachable": "Server unreachable"
+      "serverUnreachable": "Server unreachable",
+      "serverUnreachableDetailed": "Server not reachable. Check that your tldw_server is running and that your browser can reach it, then try again. Health & diagnostics can help debug connectivity issues.",
+      "connectionFailedDetailed": "Connection failed. Please check your server URL and API key, then open Health & diagnostics for more details.",
+      "seeHealth": "Open Health & diagnostics for more details."
     },
     "about": {
-      "title": "About tldw_server Integration",
-      "description": "This extension connects to your tldw_server instance, providing access to:",
-      "points": {
-        "providers": "Multiple LLM providers through a unified API",
-        "rag": "RAG (Retrieval-Augmented Generation) search",
-        "media": "Media ingestion and processing",
-        "notes": "Notes and prompts management",
-        "stt": "Speech-to-text transcription"
-      }
+      "title": "About tldw server integration",
+      "description": "tldw server turns this extension into a full workspace for chat, Knowledge search, and media."
     },
     "advancedTimeouts": "Advanced Timeouts",
     "requestTimeout": "Request Timeout (seconds)",
@@ -953,7 +1017,11 @@
     },
     "login": {
       "success": "Login successful!",
-      "failed": "Login failed"
+      "failed": "Login failed",
+      "invalidCredentials": "Login failed. Check your username/password or confirm multi-user auth is enabled on your tldw server.",
+      "forbidden": "Forbidden. Check that this user has permission to log in.",
+      "serverUnreachable": "Couldn’t reach your tldw server. Check the server URL or open Health & diagnostics for more details.",
+      "generic": "Login failed. See Health & diagnostics for server details."
     },
     "logout": {
       "success": "Logged out successfully",
@@ -1106,5 +1174,8 @@
   },
   "models": {
     "privateModeDescription": "Firefox Private Mode does not support saving data to IndexedDB. Please add custom model from a normal window."
+  },
+  "serverOverview": {
+    "docsUrl": "https://docs.tldw.app/extension/server-setup"
   }
 }

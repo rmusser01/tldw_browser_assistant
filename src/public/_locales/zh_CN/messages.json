@@ -8,6 +8,18 @@
   "openSidePanelToChat": {
     "message": "打开侧边栏聊天"
   },
+  "openQuickIngest": {
+    "message": "打开快速导入"
+  },
+  "buttonOpenQuickIngest": {
+    "message": "打开快速导入"
+  },
+  "buttonTryDemo": {
+    "message": "试用演示"
+  },
+  "learnMoreTldw": {
+    "message": "了解 tldw 服务器的工作方式"
+  },
   "contextSummarize": {
     "message": "总结"
   },
@@ -34,6 +46,9 @@
   },
   "contextSaveToNotesOpeningSidebar": {
     "message": "正在打开侧边栏以保存笔记..."
+  },
+  "contextSaveToNotesDeliveryFailed": {
+    "message": "无法打开侧边栏以保存此笔记。请确认 tldw Assistant 侧边栏在此站点被允许，然后重试。"
   },
   "openOptionToChat": {
     "message": "打开 Web 界面进行聊天"

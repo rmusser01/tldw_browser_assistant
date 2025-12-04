@@ -10,6 +10,8 @@ import {
   mergeReasoningContent
 } from "@/libs/reasoning"
 import { systemPromptFormatter } from "@/utils/system-message"
+import type { ActorSettings } from "@/types/actor"
+import { maybeInjectActorMessage } from "@/utils/actor"
 
 export const continueChatMode = async (
   messages: Message[],
@@ -27,7 +29,8 @@ export const continueChatMode = async (
     setStreaming,
     setAbortController,
     historyId,
-    setHistoryId
+    setHistoryId,
+    actorSettings
   }: {
     selectedModel: string
     selectedSystemPrompt: string
@@ -41,6 +44,7 @@ export const continueChatMode = async (
     setAbortController: (controller: AbortController | null) => void
     historyId: string | null
     setHistoryId: (id: string) => void
+    actorSettings?: ActorSettings
   }
 ) => {
   console.log("Using continueChatMode")
@@ -98,6 +102,17 @@ export const continueChatMode = async (
       )
       promptContent = currentChatModelSettings.systemPrompt
     }
+
+    // Inject Actor prompt for "continue" turns as well, respecting templateMode
+    // when a scene template is selected in Chat Settings.
+    const templatesActive = !!selectedSystemPrompt
+    const nextHistory = await maybeInjectActorMessage(
+      applicationChatHistory,
+      actorSettings || null,
+      templatesActive
+    )
+    applicationChatHistory.length = 0
+    applicationChatHistory.push(...nextHistory)
 
     let generationInfo: any | undefined = undefined
 

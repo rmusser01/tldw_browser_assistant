@@ -34,12 +34,15 @@ import React from "react"
 import { IconButton } from "@/components/Common/IconButton"
 import { useStorage } from "@plasmohq/storage/hook"
 import { CharacterSelect } from "@/components/Common/CharacterSelect"
+import { PromptSelect } from "@/components/Common/PromptSelect"
 import { Sidebar } from "@/components/Option/Sidebar"
 // import { BsIncognito } from "react-icons/bs"
 import { isFireFoxPrivateMode } from "@/utils/is-private-mode"
 import { useAntdNotification } from "@/hooks/useAntdNotification"
-import { useConnectionState } from "@/hooks/useConnectionState"
-import { ConnectionPhase } from "@/types/connection"
+import {
+  useConnectionActions,
+  useConnectionUxState
+} from "@/hooks/useConnectionState"
 import { Storage } from "@plasmohq/storage"
 
 type SidepanelHeaderProps = {
@@ -175,8 +178,22 @@ export const SidepanelHeader = ({
     }),
     [sendQuickIngest, t]
   )
-  const { isConnected, phase } = useConnectionState()
-  const ingestDisabled = phase === ConnectionPhase.UNCONFIGURED
+  const { uxState, mode } = useConnectionUxState()
+  const { checkOnce } = useConnectionActions()
+
+  const isConnectedUx =
+    uxState === "connected_ok" ||
+    uxState === "connected_degraded" ||
+    uxState === "demo_mode"
+  const isChecking = uxState === "testing"
+  const isConfigOrError =
+    uxState === "unconfigured" ||
+    uxState === "configuring_url" ||
+    uxState === "configuring_auth" ||
+    uxState === "error_unreachable" ||
+    uxState === "error_auth"
+
+  const ingestDisabled = !isConnectedUx
 
   return (
     <div
@@ -192,6 +209,92 @@ export const SidepanelHeader = ({
       </div>
 
       <div className="flex items-center space-x-3">
+        <Tooltip
+          title={
+            isChecking
+              ? t(
+                  "sidepanel:header.connection.checking",
+                  "Checking connection to your tldw server…"
+                )
+              : isConnectedUx && mode === "demo"
+                ? t(
+                    "sidepanel:header.connection.demo",
+                    "Demo mode: explore with a sample workspace. Open Options to connect your own server."
+                  )
+                : isConnectedUx
+                  ? t(
+                      "sidepanel:header.connection.ok",
+                      "Connected to your tldw server"
+                    )
+                  : isConfigOrError
+                    ? t(
+                        "sidepanel:header.connection.unconfigured",
+                        "Finish setup in Options to connect your tldw server."
+                      )
+                    : t(
+                        "sidepanel:header.connection.failed",
+                        "We couldn’t reach your tldw server. Open Options to review your setup."
+                      )
+          }>
+          <button
+            type="button"
+            onClick={() => {
+              if (isChecking) return
+              if (isConfigOrError) {
+                openOptionsPage("#/")
+                return
+              }
+              void checkOnce()
+            }}
+            disabled={isChecking}
+            className={`inline-flex items-center gap-1 rounded-full border px-2.5 py-1 text-xs font-medium focus:outline-none focus-visible:ring-2 focus-visible:ring-pink-700 ${
+              isConnectedUx
+                ? "border-emerald-500/60 bg-emerald-50 text-emerald-700 dark:border-emerald-400/60 dark:bg-emerald-900/40 dark:text-emerald-100"
+                : isChecking
+                  ? "border-blue-400/60 bg-blue-50 text-blue-700 dark:border-blue-300/60 dark:bg-blue-900/40 dark:text-blue-100"
+                  : "border-amber-500/60 bg-amber-50 text-amber-700 dark:border-amber-400/60 dark:bg-amber-900/40 dark:text-amber-100"
+            }`}
+            aria-label={t(
+              "sidepanel:header.connection.label",
+              "Server connection status"
+            ) as string}>
+            <span
+              className={`h-2 w-2 rounded-full ${
+                isConnectedUx
+                  ? "bg-emerald-500"
+                  : isChecking
+                    ? "bg-blue-500"
+                    : "bg-amber-500"
+              }`}
+            />
+            <span>
+              {isChecking
+                ? t(
+                    "sidepanel:header.connection.checking",
+                    "Checking…"
+                  )
+                : uxState === "demo_mode"
+                  ? t(
+                      "sidepanel:header.connection.demoLabel",
+                      "Demo mode"
+                    )
+                  : isConnectedUx
+                    ? t(
+                        "sidepanel:header.connection.connected",
+                        "Connected"
+                      )
+                    : isConfigOrError
+                      ? t(
+                          "sidepanel:header.connection.configure",
+                          "Connect"
+                        )
+                      : t(
+                          "sidepanel:header.connection.retry",
+                          "Retry"
+                        )}
+            </span>
+          </button>
+        </Tooltip>
         <Popover
           trigger="click"
           open={modeOpen}
@@ -472,6 +575,13 @@ export const SidepanelHeader = ({
             <HistoryIcon className="size-4 text-gray-500 dark:text-gray-400" />
           </IconButton>
         </Tooltip>
+        <PromptSelect
+          selectedSystemPrompt={selectedSystemPrompt}
+          setSelectedSystemPrompt={setSelectedSystemPrompt}
+          setSelectedQuickPrompt={setSelectedQuickPrompt}
+          className="text-gray-500 dark:text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors"
+          iconClassName="size-4"
+        />
         <CharacterSelect className="text-gray-500 dark:text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors" iconClassName="size-4" />
         {/* Conversation settings button moved next to submit in input bar */}
         <Link to="/settings">

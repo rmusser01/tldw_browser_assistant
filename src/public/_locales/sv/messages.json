@@ -11,6 +11,18 @@
   "openOptionToChat": {
     "message": "Öppna Web UI för att chatta"
   },
+  "openQuickIngest": {
+    "message": "Öppna snabbimport"
+  },
+  "buttonOpenQuickIngest": {
+    "message": "Öppna snabbimport"
+  },
+  "buttonTryDemo": {
+    "message": "Prova en demo"
+  },
+  "learnMoreTldw": {
+    "message": "Lär dig hur tldw-servern fungerar"
+  },
   "contextSummarize": {
     "message": "Sammanfatta"
   },
@@ -37,6 +49,9 @@
   },
   "contextSaveToNotesOpeningSidebar": {
     "message": "Öppnar sidopanelen för att spara anteckningen..."
+  },
+  "contextSaveToNotesDeliveryFailed": {
+    "message": "Kunde inte öppna sidopanelen för att spara den här anteckningen. Kontrollera att tldw Assistant-sidopanelen är tillåten på den här sidan och försök igen."
   },
   "contextTranscribeMedia": {
     "message": "Transkribera video/ljud"

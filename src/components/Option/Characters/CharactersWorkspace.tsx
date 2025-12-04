@@ -1,7 +1,7 @@
 import React from "react"
 import { Skeleton } from "antd"
 import { useTranslation } from "react-i18next"
-import { useNavigate } from "react-router-dom"
+import { useLocation, useNavigate } from "react-router-dom"
 import FeatureEmptyState from "@/components/Common/FeatureEmptyState"
 import { PageShell } from "@/components/Common/PageShell"
 import { useServerOnline } from "@/hooks/useServerOnline"
@@ -10,19 +10,49 @@ import { CharactersManager } from "./Manager"
 import { useServerCapabilities } from "@/hooks/useServerCapabilities"
 
 export const CharactersWorkspace: React.FC = () => {
-  const { t } = useTranslation(["option", "common", "settings"])
+  const { t } = useTranslation(["option", "common", "settings", "playground"])
   const navigate = useNavigate()
+  const location = useLocation()
   const isOnline = useServerOnline()
   const { demoEnabled } = useDemoMode()
   const { capabilities, loading: capsLoading } = useServerCapabilities()
   const hasCharacters = capabilities?.hasCharacters
+  const fromPersistenceError = React.useMemo(
+    () => location.search.includes("from=server-chat-persistence-error"),
+    [location.search]
+  )
+  const fromHeaderSelect = React.useMemo(
+    () => location.search.includes("from=header-select"),
+    [location.search]
+  )
+  const newButtonRef = React.useRef<HTMLButtonElement | null>(null)
+
+  React.useEffect(() => {
+    if (!fromHeaderSelect) return
+    if (capsLoading || !hasCharacters) return
+
+    const id = window.setTimeout(() => {
+      newButtonRef.current?.focus()
+    }, 300)
+
+    return () => window.clearTimeout(id)
+  }, [fromHeaderSelect, capsLoading, hasCharacters])
 
   if (!isOnline) {
     return demoEnabled ? (
       <FeatureEmptyState
-        title={t("option:charactersEmpty.demoTitle", {
-          defaultValue: "Explore Characters in demo mode"
-        })}
+        title={
+          <span className="inline-flex items-center gap-2">
+            <span className="rounded-full bg-blue-50 px-2 py-0.5 text-[11px] font-medium text-blue-700 dark:bg-blue-900/40 dark:text-blue-200">
+              Demo
+            </span>
+            <span>
+              {t("option:charactersEmpty.demoTitle", {
+                defaultValue: "Explore Characters in demo mode"
+              })}
+            </span>
+          </span>
+        }
         description={t("option:charactersEmpty.demoDescription", {
           defaultValue:
             "This demo shows how Characters encapsulate a persona and system prompt that you can chat with."
@@ -44,9 +74,18 @@ export const CharactersWorkspace: React.FC = () => {
       />
     ) : (
       <FeatureEmptyState
-        title={t("option:charactersEmpty.connectTitle", {
-          defaultValue: "Connect to use Characters"
-        })}
+        title={
+          <span className="inline-flex items-center gap-2">
+            <span className="rounded-full bg-yellow-50 px-2 py-0.5 text-[11px] font-medium text-yellow-700 dark:bg-yellow-900/40 dark:text-yellow-200">
+              Not connected
+            </span>
+            <span>
+              {t("option:charactersEmpty.connectTitle", {
+                defaultValue: "Connect to use Characters"
+              })}
+            </span>
+          </span>
+        }
         description={t("option:charactersEmpty.connectDescription", {
           defaultValue:
             "To use Characters, first connect to your tldw server so character definitions can be stored."
@@ -72,9 +111,18 @@ export const CharactersWorkspace: React.FC = () => {
   if (isOnline && !capsLoading && !hasCharacters) {
     return (
       <FeatureEmptyState
-        title={t("option:charactersEmpty.offlineTitle", {
-          defaultValue: "Characters API not available on this server"
-        })}
+        title={
+          <span className="inline-flex items-center gap-2">
+            <span className="rounded-full bg-amber-50 px-2 py-0.5 text-[11px] font-medium text-amber-700 dark:bg-amber-900/40 dark:text-amber-200">
+              Feature unavailable
+            </span>
+            <span>
+              {t("option:charactersEmpty.offlineTitle", {
+                defaultValue: "Characters API not available on this server"
+              })}
+            </span>
+          </span>
+        }
         description={t("option:charactersEmpty.offlineDescription", {
           defaultValue:
             "This server does not advertise /api/v1/characters."
@@ -90,7 +138,7 @@ export const CharactersWorkspace: React.FC = () => {
           })
         ]}
         primaryActionLabel={t("settings:healthSummary.diagnostics", {
-          defaultValue: "Open Diagnostics"
+          defaultValue: "Health & diagnostics"
         })}
         onPrimaryAction={() => navigate("/settings/health")}
       />
@@ -109,13 +157,38 @@ export const CharactersWorkspace: React.FC = () => {
               "Create reusable characters you can pick from the chat header and reuse across conversations."
           })}
         </p>
+        {fromHeaderSelect && (
+          <p className="mt-1 max-w-xl text-[11px] text-blue-700 dark:text-blue-300">
+            {t("option:charactersEmpty.headerSelectHint", {
+              defaultValue:
+                "Create a character to reuse their persona across chats. Use “New character” to get started."
+            })}
+          </p>
+        )}
+        {fromPersistenceError && (
+          <p className="mt-1 max-w-xl text-[11px] text-blue-700 dark:text-blue-300">
+            <span className="font-semibold">
+              {t(
+                "playground:composer.persistence.serverCharacterHintTitle",
+                "Create a default assistant character"
+              )}
+              {": "}
+            </span>
+            {t(
+              "playground:composer.persistence.serverCharacterHintBody",
+              "Create a simple assistant persona (name and a short description are enough). Once it exists, the extension can reuse it when saving chats to your server."
+            )}
+          </p>
+        )}
       </div>
       {capsLoading && (
         <div className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-800 dark:bg-[#0f1115]">
           <Skeleton active title paragraph={{ rows: 5 }} />
         </div>
       )}
-      {!capsLoading && hasCharacters && <CharactersManager />}
+      {!capsLoading && hasCharacters && (
+        <CharactersManager forwardedNewButtonRef={newButtonRef} />
+      )}
     </PageShell>
   )
 }

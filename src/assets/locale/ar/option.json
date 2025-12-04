@@ -17,7 +17,17 @@
     "buttonChangeServer": "تغيير الخادم",
     "buttonOpenDiagnostics": "فتح صفحة التشخيص",
     "buttonViewDiagnostics": "عرض التشخيص",
-    "buttonTryDemo": "تجربة العرض التوضيحي"
+    "buttonOpenQuickIngest": "افتح الاستيعاب السريع",
+    "buttonTryDemo": "تجربة العرض التوضيحي",
+    "buttonContinueOffline": "المتابعة دون اتصال",
+    "buttonDisableOffline": "تعطيل وضع عدم الاتصال",
+    "offlineModeBadge": "وضع عدم الاتصال — للتجهيز فقط",
+    "buttonGoToServerCard": "الانتقال إلى بطاقة الخادم",
+    "tipQuickIngest": "نصيحة: هل تحتاج إلى مساعدة في الاستيعاب أثناء عدم الاتصال؟",
+    "quickIngestHint": "عندما يكون الخادم غير متصل، يعمل الاستيعاب السريع كمنطقة تجهيز. يمكنك وضع عناوين URL والملفات في الطابور الآن ومعالجتها بعد إعادة الاتصال.",
+    "backToWorkspace": "العودة إلى مساحة العمل",
+    "sidepanelOpenSettingsHint": "تُفتح الإعدادات في علامة تبويب جديدة بالمتصفح لتكوين خادم tldw الخاص بك.",
+    "quickIngestInlineHint": "يمكن للاستيعاب السريع وضع عناوين URL والملفات في الطابور أثناء عدم اتصال الخادم حتى تعالجها عند إعادة الاتصال."
   },
   "header": {
     "showShortcuts": "إظهار الاختصارات",
@@ -27,7 +37,7 @@
     "groupAdministration": "الإدارة",
     "groupSettings": "اختصارات الإعدادات",
     "backToHome": "العودة إلى الصفحة الرئيسية",
-    "openSidebar": "فتح الشريط الجانبي للدردشة",
+    "openSidebar": "فتح الشريط الجانبي",
     "untitledChat": "محادثة بدون عنوان",
     "modelLabel": "النموذج",
     "promptLabel": "الموجّه",
@@ -74,7 +84,7 @@
   "validationSelectModel": "الرجاء اختيار نموذج للمتابعة",
   "deleteHistoryConfirmation": "هل أنت متأكد أنك تريد حذف هذا السجل؟",
   "editHistoryTitle": "أدخل عنواناً جديداً",
-  "temporaryChat": "محادثة مؤقتة",
+  "temporaryChat": "محادثة مؤقتة (غير محفوظة)",
   "more": {
     "copy": {
       "group": "نسخ",
@@ -255,10 +265,19 @@
   "quickIngest": {
     "title": "استيعاب سريع للوسائط",
     "subtitle": "أدخل عنوان URL واحداً أو أكثر. يمكنك فرض النوع لكل سطر إذا لزم الأمر.",
+    "offlineTitle": "الخادم غير متصل — للاختبار فقط",
+    "offlineDescription": "يمكنك وضع روابط وملفات في قائمة الانتظار هنا وتفقد الحقول، لكن لن يتم الاستيعاب حتى يعود خادم tldw إلى العمل. أعد الاتصال لمعالجة العناصر المعلقة.",
     "sourceHeading": "عناوين URL أو ملفات المصدر",
     "storeRemote": "التخزين في قاعدة بيانات بعيدة",
-    "storeRemoteHelp": "يرفع العناصر إلى خادم tldw للفهرسة.",
-    "processOnlyHelp": "المعالجة فقط مع إبقاء النتائج محلياً (تنزيل JSON).",
+    "storeRemoteAria": "خزن نتائج الاستيعاب على خادم tldw الخاص بك",
+    "processOnlyAria": "عالج نتائج الاستيعاب محليًا فقط",
+    "storeRemoteHelp": "يحمّل إلى خادم tldw الخاص بك للفهرسة.",
+    "processOnlyHelp": "يعالج فقط ويحفظ النتائج محليًا (تنزيل JSON).",
+    "storageHeading": "مكان تخزين نتائج الاستيعاب",
+    "storageServerDescription": "مخزَّنة على خادم tldw الخاص بك (موصى به لـ RAG ومساحات العمل المشتركة).",
+    "storageLocalDescription": "محفوظة في هذا المتصفح فقط؛ لا تُكتب بيانات على الخادم.",
+    "storageDocsLink": "معرفة المزيد عن الاستيعاب والتخزين",
+    "storageDocsUrl": "https://docs.tldw.app/extension/media-ingest-storage",
     "bulkPlaceholder": "الصق عناوين URL (واحد في كل سطر)",
     "or": "أو",
     "remove": "إزالة",
@@ -279,7 +298,11 @@
     "advancedSummary": "{{count}} من الحقول المتقدمة تم تحميلها",
     "advancedEmpty": "لم يتم اكتشاف خيارات متقدمة — جرّب إعادة تحميل المواصفات.",
     "modifiedCount": "{{count}} تم تعديلها",
-    "progress": "جارٍ معالجة {{done}} من {{total}} عنصراً…"
+    "progress": "جارٍ معالجة {{done}} من {{total}} عنصراً…",
+    "errorSummary": "تعذر علينا معالجة عناصر الاستيعاب الآن.",
+    "errorHint": "جرّب مرة أخرى بعد التحقق من خادم tldw الخاص بك. يمكن أن تساعد صفحة Health & diagnostics في استكشاف مشكلات الاستيعاب وإصلاحها.",
+    "checkHealthLink": "تحقق من حالة الخادم في Health & diagnostics",
+    "healthAriaHint": "فشلت عمليات الاستيعاب الأخيرة — افتح Health & diagnostics من الشريط العلوي لمزيد من التفاصيل."
   },
   "notesSearch": {
     "placeholder": "ابحث في العناوين والمحتوى",
@@ -352,6 +375,7 @@
     "connectExample1": "افتح الإعدادات → خادم tldw لإضافة عنوان URL لخادمك.",
     "connectExample2": "استخدم صفحة التشخيص إذا كان خادمك يعمل ولكنه غير قابل للوصول.",
     "headerDescription": "أنشئ شخصيات قابلة لإعادة الاستخدام يمكنك اختيارها من ترويسة الدردشة وإعادة استخدامها عبر المحادثات.",
+    "headerSelectHint": "أنشئ شخصية لإعادة استخدام هويتها عبر الدردشات. استخدم \"شخصية جديدة\" للبدء.",
     "offlineTitle": "واجهة برمجة تطبيقات الشخصيات غير متوفرة على هذا الخادم",
     "offlineDescription": "هذا الخادم لا يعلن عن ‎/api/v1/characters‎.",
     "offlineExample1": "افتح صفحة التشخيص لتأكيد إصدار الخادم وواجهات برمجة التطبيقات المتاحة للشخصيات.",
@@ -359,7 +383,13 @@
   },
   "characters": {
     "selectCharacter": "اختر شخصية",
-    "chattingAs": "أنت الآن تتحدث كشخصية {{name}}."
+    "chattingAs": "أنت الآن تتحدث كشخصية {{name}}.",
+    "clearCharacter": "مسح الشخصية",
+    "none": "لا شيء (بدون شخصية)",
+    "searchPlaceholder": "ابحث عن الشخصيات بالاسم",
+    "noMatches": "لا توجد شخصيات مطابقة لبحثك حتى الآن.",
+    "refresh": "تحديث الشخصيات",
+    "refreshing": "جارٍ تحديث الشخصيات…"
   },
   "promptInsert": {
     "useInChat": "استخدام في الدردشة",

@@ -15,6 +15,8 @@ import { getModelNicknameByID } from "@/db/dexie/nickname"
 import { formatDocs } from "@/chain/chat-with-x"
 import { getNoOfRetrievedDocs } from "@/services/app"
 import { tldwClient } from "@/services/tldw/TldwApiClient"
+import type { ActorSettings } from "@/types/actor"
+import { maybeInjectActorMessage } from "@/utils/actor"
 
 type RagModeParams = {
   selectedModel: string
@@ -36,6 +38,7 @@ type RagModeParams = {
   ragEnableGeneration: boolean
   ragEnableCitations: boolean
   ragSources: string[]
+  actorSettings?: ActorSettings
 }
 
 export const ragMode = async (
@@ -64,7 +67,8 @@ export const ragMode = async (
     ragTopK,
     ragEnableGeneration,
     ragEnableCitations,
-    ragSources
+    ragSources,
+    actorSettings
   }: RagModeParams
 ) => {
   console.log("Using ragMode")
@@ -199,7 +203,14 @@ export const ragMode = async (
       useOCR: useOCR
     })
 
-    const applicationChatHistory = generateHistory(history, selectedModel)
+    let applicationChatHistory = generateHistory(history, selectedModel)
+
+    const templatesActive = false
+    applicationChatHistory = await maybeInjectActorMessage(
+      applicationChatHistory,
+      actorSettings || null,
+      templatesActive
+    )
 
     let generationInfo: any | undefined = undefined
 

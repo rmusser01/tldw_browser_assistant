@@ -11,6 +11,18 @@
   "openOptionToChat": {
     "message": "Åben Web UI for at Chatte"
   },
+  "openQuickIngest": {
+    "message": "Åpne hurtigimport"
+  },
+  "buttonOpenQuickIngest": {
+    "message": "Åpne hurtigimport"
+  },
+  "buttonTryDemo": {
+    "message": "Prøv en demo"
+  },
+  "learnMoreTldw": {
+    "message": "Lær hvordan tldw-serveren fungerer"
+  },
   "contextSummarize": {
     "message": "Oppsummer"
   },
@@ -37,6 +49,9 @@
   },
   "contextSaveToNotesOpeningSidebar": {
     "message": "Åpner sidepanelet for å lagre notatet..."
+  },
+  "contextSaveToNotesDeliveryFailed": {
+    "message": "Kunne ikke åpne sidepanelet for å lagre denne notisen. Kontroller at tldw Assistant-sidepanelet er tillatt på dette nettstedet og prøv igjen."
   },
   "contextTranscribeMedia": {
     "message": "Transkriber video/lyd"

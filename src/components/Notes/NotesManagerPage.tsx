@@ -15,6 +15,8 @@ import { tldwClient } from '@/services/tldw/TldwApiClient'
 import { useAntdMessage } from '@/hooks/useAntdMessage'
 import { useStoreMessageOption } from "@/store/option"
 import { updatePageTitle } from "@/utils/update-page-title"
+import { useScrollToServerCard } from "@/hooks/useScrollToServerCard"
+const Markdown = React.lazy(() => import("@/components/Common/Markdown"))
 
 type NoteListItem = {
   id: string | number
@@ -94,6 +96,8 @@ const NotesManagerPage: React.FC = () => {
   } = useStoreMessageOption()
 
   const editorDisabled = !isOnline || (!capsLoading && capabilities && !capabilities.hasNotes)
+
+  const scrollToServerCard = useScrollToServerCard("/notes")
 
   const fetchNotes = async (): Promise<NoteListItem[]> => {
     const q = query.trim()
@@ -636,9 +640,18 @@ const NotesManagerPage: React.FC = () => {
           ) : !isOnline ? (
             demoEnabled ? (
               <FeatureEmptyState
-                title={t('option:notesEmpty.demoTitle', {
-                  defaultValue: 'Explore Notes in demo mode'
-                })}
+                title={
+                  <span className="inline-flex items-center gap-2">
+                    <span className="rounded-full bg-blue-50 px-2 py-0.5 text-[11px] font-medium text-blue-700 dark:bg-blue-900/40 dark:text-blue-200">
+                      Demo
+                    </span>
+                    <span>
+                      {t('option:notesEmpty.demoTitle', {
+                        defaultValue: 'Explore Notes in demo mode'
+                      })}
+                    </span>
+                  </span>
+                }
                 description={t('option:notesEmpty.demoDescription', {
                   defaultValue:
                     'This demo shows how Notes can organize your insights. Connect your own server later to create and save real notes.'
@@ -653,40 +666,54 @@ const NotesManagerPage: React.FC = () => {
                       'When you connect, you’ll be able to create notes from meetings, reviews, and more.'
                   })
                 ]}
-                primaryActionLabel={t('common:connectToServer', {
-                  defaultValue: 'Connect to server'
+                primaryActionLabel={t("option:connectionCard.buttonGoToServerCard", {
+                  defaultValue: "Go to server card"
                 })}
-                onPrimaryAction={() => navigate('/settings/tldw')}
+                onPrimaryAction={scrollToServerCard}
               />
             ) : (
               <FeatureEmptyState
-                title={t('option:notesEmpty.connectTitle', {
-                  defaultValue: 'Connect to use Notes'
-                })}
+                title={
+                  <span className="inline-flex items-center gap-2">
+                    <span className="rounded-full bg-yellow-50 px-2 py-0.5 text-[11px] font-medium text-yellow-700 dark:bg-yellow-900/40 dark:text-yellow-200">
+                      Not connected
+                    </span>
+                    <span>
+                      {t('option:notesEmpty.connectTitle', {
+                        defaultValue: 'Connect to use Notes'
+                      })}
+                    </span>
+                  </span>
+                }
                 description={t('option:notesEmpty.connectDescription', {
-                  defaultValue: 'To use Notes, first connect to your tldw server.'
+                  defaultValue: 'This view needs a connected server. Use the server connection card above to fix your connection, then return here to capture and organize notes.'
                 })}
                 examples={[
                   t('option:notesEmpty.connectExample1', {
                     defaultValue:
-                      'Open Settings → tldw server to add your server URL.'
-                  }),
-                  t('option:notesEmpty.connectExample2', {
-                    defaultValue:
-                      'Use Diagnostics if your server is running but not reachable.'
+                      'Use the connection card at the top of this page to add your server URL and API key.'
                   })
                 ]}
-                primaryActionLabel={t('common:connectToServer', {
-                  defaultValue: 'Connect to server'
+                primaryActionLabel={t("option:connectionCard.buttonGoToServerCard", {
+                  defaultValue: "Go to server card"
                 })}
-                onPrimaryAction={() => navigate('/settings/tldw')}
+                onPrimaryAction={scrollToServerCard}
               />
             )
           ) : (!capsLoading && capabilities && !capabilities.hasNotes) ? (
             <FeatureEmptyState
-              title={t('option:notesEmpty.offlineTitle', {
-                defaultValue: 'Notes API not available on this server'
-              })}
+              title={
+                <span className="inline-flex items-center gap-2">
+                  <span className="rounded-full bg-amber-50 px-2 py-0.5 text-[11px] font-medium text-amber-700 dark:bg-amber-900/40 dark:text-amber-200">
+                    Feature unavailable
+                  </span>
+                  <span>
+                    {t('option:notesEmpty.offlineTitle', {
+                      defaultValue: 'Notes API not available on this server'
+                    })}
+                  </span>
+                </span>
+              }
               description={t('option:notesEmpty.offlineDescription', {
                 defaultValue:
                   'This tldw server does not advertise the Notes endpoints (for example, /api/v1/notes/). Upgrade your server to a version that includes the Notes API to use this workspace.'
@@ -694,7 +721,7 @@ const NotesManagerPage: React.FC = () => {
               examples={[
                 t('option:notesEmpty.offlineExample1', {
                   defaultValue:
-                    'Open Diagnostics to confirm your server version and available APIs.'
+                    'Open Health & diagnostics to confirm your server version and available APIs.'
                 }),
                 t('option:notesEmpty.offlineExample2', {
                   defaultValue:
@@ -702,7 +729,7 @@ const NotesManagerPage: React.FC = () => {
                 })
               ]}
               primaryActionLabel={t('settings:healthSummary.diagnostics', {
-                defaultValue: 'Open Diagnostics'
+                defaultValue: 'Health & diagnostics'
               })}
               onPrimaryAction={() => navigate('/settings/health')}
             />
@@ -724,10 +751,18 @@ const NotesManagerPage: React.FC = () => {
                     role="button"
                     tabIndex={0}
                     aria-selected={selectedId === item.id}
-                    className={`cursor-pointer hover:bg-gray-50 dark:hover:bg-[#262626] rounded px-2 ${selectedId === item.id ? '!bg-gray-100 dark:!bg-gray-800' : ''}`}
+                    className={`cursor-pointer rounded-md border px-2 py-2 transition-colors ${
+                      selectedId === item.id
+                        ? 'border-amber-500 bg-gray-50 dark:border-amber-400 dark:bg-[#1f1f1f]'
+                        : 'border-transparent hover:border-gray-300 hover:bg-gray-50 dark:border-transparent dark:hover:border-gray-600 dark:hover:bg-[#262626]'
+                    }`}
                   >
                     <div className="w-full">
-                      <Typography.Text strong ellipsis className="max-w-[18rem]">
+                      <Typography.Text
+                        strong
+                        ellipsis
+                        className="max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg"
+                      >
                         {truncateText(item.title || `Note ${item.id}`, MAX_TITLE_LENGTH)}
                       </Typography.Text>
                       {item.content && (
@@ -758,7 +793,16 @@ const NotesManagerPage: React.FC = () => {
             </>
           ) : (
             <FeatureEmptyState
-              title={t('option:notesEmpty.title', { defaultValue: 'No notes yet' })}
+              title={
+                <span className="inline-flex items-center gap-2">
+                  <span className="rounded-full bg-gray-100 px-2 py-0.5 text-[11px] font-medium text-gray-700 dark:bg-gray-800 dark:text-gray-200">
+                    Getting started
+                  </span>
+                  <span>
+                    {t('option:notesEmpty.title', { defaultValue: 'No notes yet' })}
+                  </span>
+                </span>
+              }
               description={t('option:notesEmpty.description', {
                 defaultValue: 'Capture and organize free-form notes connected to your tldw insights.'
               })}
@@ -797,38 +841,46 @@ const NotesManagerPage: React.FC = () => {
                   </div>
                 )}
               </div>
-              {!editorDisabled && (
-                <Space>
-                  {backlinkConversationId && (
+              <Space>
+                {!editorDisabled && (
+                  <>
+                    {backlinkConversationId && (
+                      <Tooltip
+                        title={t("option:notesSearch.openConversationTooltip", {
+                          defaultValue: "Open linked conversation"
+                        })}>
+                        <Button
+                          size="small"
+                          loading={openingLinkedChat}
+                          onClick={() => {
+                            void openLinkedConversation()
+                          }}
+                          icon={(<LinkIcon className="w-4 h-4" />) as any}
+                        >
+                          {t("option:notesSearch.openConversation", {
+                            defaultValue: "Open conversation"
+                          })}
+                        </Button>
+                      </Tooltip>
+                    )}
                     <Tooltip
-                      title={t("option:notesSearch.openConversationTooltip", {
-                        defaultValue: "Open linked conversation"
+                      title={t("option:notesSearch.newTooltip", {
+                        defaultValue: "Create a new note"
                       })}>
                       <Button
                         size="small"
-                        loading={openingLinkedChat}
                         onClick={() => {
-                          void openLinkedConversation()
+                          void handleNewNote()
                         }}
-                        icon={(<LinkIcon className="w-4 h-4" />) as any}
+                        icon={(<PlusIcon className="w-4 h-4" />) as any}
                       >
-                        {t("option:notesSearch.openConversation", {
-                          defaultValue: "Open conversation"
+                        {t("option:notesSearch.new", {
+                          defaultValue: "New note"
                         })}
                       </Button>
                     </Tooltip>
-                  )}
-                  <Tooltip title={t('option:notesSearch.newTooltip', {
-                    defaultValue: 'Create a new note'
-                  })}>
-                    <Button
-                      size="small"
-                      onClick={() => { void handleNewNote() }}
-                      icon={(<PlusIcon className="w-4 h-4" />) as any}
-                    >
-                      {t('option:notesSearch.new', { defaultValue: 'New note' })}
-                    </Button>
-                  </Tooltip>
+                  </>
+                )}
               <Tooltip
                 title={t('option:notesSearch.toolbarCopyTooltip', {
                   defaultValue: 'Copy note content'
@@ -838,6 +890,7 @@ const NotesManagerPage: React.FC = () => {
                   size="small"
                   onClick={copySelected}
                   icon={(<CopyIcon className="w-4 h-4" />) as any}
+                  disabled={!content}
                   aria-label={t('option:notesSearch.toolbarCopyTooltip', {
                     defaultValue: 'Copy note content'
                   })}
@@ -851,6 +904,7 @@ const NotesManagerPage: React.FC = () => {
                   size="small"
                   onClick={exportSelected}
                   icon={(<FileDownIcon className="w-4 h-4" />) as any}
+                  disabled={!title && !content}
                   aria-label={t('option:notesSearch.toolbarExportMdTooltip', {
                     defaultValue: 'Export note as Markdown (.md)'
                   })}
@@ -867,6 +921,9 @@ const NotesManagerPage: React.FC = () => {
                   size="small"
                   onClick={saveNote}
                   loading={saving}
+                  disabled={
+                    editorDisabled || (!title.trim() && !content.trim())
+                  }
                   icon={(<SaveIcon className="w-4 h-4" />) as any}
                   aria-label={t('option:notesSearch.toolbarSaveTooltip', {
                     defaultValue: 'Save note'
@@ -885,7 +942,7 @@ const NotesManagerPage: React.FC = () => {
                   size="small"
                   onClick={() => void deleteNote()}
                   icon={(<TrashIcon className="w-4 h-4" />) as any}
-                  disabled={selectedId == null}
+                  disabled={editorDisabled || selectedId == null}
                   aria-label={t('option:notesSearch.toolbarDeleteTooltip', {
                     defaultValue: 'Delete note'
                   })}
@@ -894,7 +951,6 @@ const NotesManagerPage: React.FC = () => {
                 </Button>
               </Tooltip>
             </Space>
-            )}
         </div>
         <div className="mt-2">
           <Input
@@ -934,6 +990,26 @@ const NotesManagerPage: React.FC = () => {
             readOnly={editorDisabled}
           />
         </div>
+        {content.trim().length > 0 && (
+          <div className="mt-4">
+            <Typography.Text type="secondary" className="block text-[11px] mb-1">
+              Preview (Markdown + LaTeX)
+            </Typography.Text>
+            <div className="w-full min-h-[6rem] text-sm p-2 rounded border dark:border-gray-700 dark:bg-[#171717] overflow-auto">
+              <React.Suspense
+                fallback={
+                  <Typography.Text type="secondary" className="text-xs">
+                    Rendering preview…
+                  </Typography.Text>
+                }>
+                <Markdown
+                  message={content}
+                  className="prose-sm break-words dark:prose-invert max-w-none prose-p:leading-relaxed prose-pre:p-0 dark:prose-dark"
+                />
+              </React.Suspense>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   )

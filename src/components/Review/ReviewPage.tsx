@@ -39,6 +39,8 @@ import FeatureEmptyState from "@/components/Common/FeatureEmptyState"
 import { useAntdNotification } from "@/hooks/useAntdNotification"
 import { useDemoMode } from "@/context/demo-mode"
 import { useAntdMessage } from "@/hooks/useAntdMessage"
+import { useScrollToServerCard } from "@/hooks/useScrollToServerCard"
+const Markdown = React.lazy(() => import("@/components/Common/Markdown"))
 
 type MediaItem = any
 type NoteItem = any
@@ -139,6 +141,8 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({ allowGeneration = true, 
   const modeToastPrev = React.useRef<"review" | "summary" | null>(null)
   const serverOnline = useServerOnline()
   const isOnline = forceOffline ? false : serverOnline
+  const returnToPath = isViewMediaMode ? "/media" : "/review"
+  const scrollToServerCard = useScrollToServerCard(returnToPath)
 
   // Storage scoping: per server host and auth mode to avoid cross-user leakage
   const scopedKey = React.useCallback((base: string) => {
@@ -163,6 +167,120 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({ allowGeneration = true, 
       .replace(/\u00A0/g, ' ')
   }, [])
 
+  const formatDuration = (seconds: number | null | undefined): string | null => {
+    if (seconds == null || !Number.isFinite(Number(seconds))) return null
+    const total = Math.max(0, Math.floor(Number(seconds)))
+    const h = Math.floor(total / 3600)
+    const m = Math.floor((total % 3600) / 60)
+    const s = total % 60
+    if (h > 0) {
+      return `${h}:${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`
+    }
+    return `${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`
+  }
+
+  const deriveMediaMeta = (m: any): {
+    type: string
+    created_at?: string
+    status?: any
+    source?: string | null
+    duration?: number | null
+  } => {
+    const type = String(m?.type || m?.media_type || "").toLowerCase().trim()
+    const status =
+      m?.status ??
+      m?.ingest_status ??
+      m?.ingestStatus ??
+      m?.processing_state ??
+      m?.processingStatus
+
+    let source: string | null = null
+    const rawSource =
+      (m?.source as string | null | undefined) ??
+      (m?.origin as string | null | undefined) ??
+      (m?.provider as string | null | undefined)
+    if (typeof rawSource === "string" && rawSource.trim().length > 0) {
+      source = rawSource.trim()
+    } else if (m?.url) {
+      try {
+        const u = new URL(String(m.url))
+        const host = u.hostname.replace(/^www\./i, "")
+        if (/youtube\.com|youtu\.be/i.test(host)) {
+          source = "YouTube"
+        } else if (/vimeo\.com/i.test(host)) {
+          source = "Vimeo"
+        } else if (/soundcloud\.com/i.test(host)) {
+          source = "SoundCloud"
+        } else {
+          source = host
+        }
+      } catch {
+        // ignore URL parse errors; leave source null
+      }
+    }
+
+    let duration: number | null = null
+    const rawDuration =
+      (m?.duration as number | string | null | undefined) ??
+      (m?.media_duration as number | string | null | undefined) ??
+      (m?.length_seconds as number | string | null | undefined) ??
+      (m?.duration_seconds as number | string | null | undefined)
+    if (typeof rawDuration === "number") {
+      duration = rawDuration
+    } else if (typeof rawDuration === "string") {
+      const n = Number(rawDuration)
+      if (!Number.isNaN(n)) {
+        duration = n
+      }
+    }
+
+    return {
+      type,
+      created_at: m?.created_at,
+      status,
+      source,
+      duration
+    }
+  }
+
+  const deriveStatusBadge = React.useCallback(
+    (
+      status: any
+    ): {
+      label: string | null
+      color: string
+    } => {
+      if (!status) return { label: null, color: "default" }
+      const v = String(status).toLowerCase()
+      if (/(processing|running|in_progress)/.test(v)) {
+        return {
+          label: t("review:reviewPage.statusProcessing", "Processing"),
+          color: "orange"
+        }
+      }
+      if (/(queued|pending)/.test(v)) {
+        return {
+          label: t("review:reviewPage.statusQueued", "Queued"),
+          color: "gold"
+        }
+      }
+      if (/(error|failed|timeout)/.test(v)) {
+        return {
+          label: t("review:reviewPage.statusError", "Error"),
+          color: "red"
+        }
+      }
+      if (/(ready|completed|done|success)/.test(v)) {
+        return {
+          label: t("review:reviewPage.statusReady", "Ready"),
+          color: "green"
+        }
+      }
+      return { label: null, color: "default" }
+    },
+    [t]
+  )
+
   const runSearch = async (): Promise<ResultItem[]> => {
     const results: ResultItem[] = []
     const hasQuery = query.trim().length > 0
@@ -181,7 +299,8 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({ allowGeneration = true, 
           setMediaTotal(Number(pagination?.total_items || items.length || 0))
           for (const m of items) {
             const id = m?.id ?? m?.media_id ?? m?.pk ?? m?.uuid
-            const type = String(m?.type || m?.media_type || "").toLowerCase()
+            const meta = deriveMediaMeta(m)
+            const type = meta.type
             if (type && !availableMediaTypes.includes(type)) {
               setAvailableMediaTypes((prev) =>
                 prev.includes(type) ? prev : [...prev, type]
@@ -192,10 +311,7 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({ allowGeneration = true, 
               id,
               title: m?.title || m?.filename || `Media ${id}`,
               snippet: m?.snippet || m?.summary || "",
-              meta: {
-                type,
-                created_at: m?.created_at
-              },
+              meta: meta,
               raw: m
             })
           }
@@ -223,7 +339,8 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({ allowGeneration = true, 
           setMediaTotal(Number(pagination?.total_items || items.length || 0))
           for (const m of items) {
             const id = m?.id ?? m?.media_id ?? m?.pk ?? m?.uuid
-            const type = String(m?.type || m?.media_type || "").toLowerCase()
+            const meta = deriveMediaMeta(m)
+            const type = meta.type
             if (type && !availableMediaTypes.includes(type)) {
               setAvailableMediaTypes((prev) =>
                 prev.includes(type) ? prev : [...prev, type]
@@ -234,10 +351,7 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({ allowGeneration = true, 
               id,
               title: m?.title || m?.filename || `Media ${id}`,
               snippet: m?.snippet || m?.summary || "",
-              meta: {
-                type,
-                created_at: m?.created_at
-              },
+              meta: meta,
               raw: m
             })
           }
@@ -351,9 +465,7 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({ allowGeneration = true, 
           for (const listing of listings) {
             const items = Array.isArray(listing?.items) ? listing.items : []
             for (const m of items) {
-              const t = String(m?.type || m?.media_type || "")
-                .toLowerCase()
-                .trim()
+              const t = deriveMediaMeta(m).type
               if (t) typeSet.add(t)
             }
           }
@@ -1021,13 +1133,20 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({ allowGeneration = true, 
     const baseEmpty = demoEnabled ? (
       <FeatureEmptyState
         title={
-          isViewMediaMode
-            ? t('review:mediaEmpty.demoTitle', {
-              defaultValue: 'Explore Media in demo mode'
-            })
-            : t('review:empty.demoTitle', {
-              defaultValue: 'Explore Review in demo mode'
-            })
+          <span className="inline-flex items-center gap-2">
+            <span className="rounded-full bg-blue-50 px-2 py-0.5 text-[11px] font-medium text-blue-700 dark:bg-blue-900/40 dark:text-blue-200">
+              {t('review:reviewPage.demoBadge', { defaultValue: 'Demo' })}
+            </span>
+            <span>
+              {isViewMediaMode
+                ? t('review:mediaEmpty.demoTitle', {
+                  defaultValue: 'Explore Media in demo mode'
+                })
+                : t('review:empty.demoTitle', {
+                  defaultValue: 'Explore Review in demo mode'
+                })}
+            </span>
+          </span>
         }
         description={
           isViewMediaMode
@@ -1063,10 +1182,10 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({ allowGeneration = true, 
                 })
               ]
         }
-        primaryActionLabel={t('common:connectToServer', {
-          defaultValue: 'Connect to server'
+        primaryActionLabel={t("option:connectionCard.buttonGoToServerCard", {
+          defaultValue: "Go to server card"
         })}
-        onPrimaryAction={() => navigate('/settings/tldw')}
+        onPrimaryAction={scrollToServerCard}
         secondaryActionLabel={t('option:header.quickIngest', 'Quick ingest')}
         onSecondaryAction={() =>
           window.dispatchEvent(new CustomEvent("tldw:open-quick-ingest"))
@@ -1076,23 +1195,32 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({ allowGeneration = true, 
     ) : (
       <FeatureEmptyState
         title={
-          isViewMediaMode
-            ? t('review:mediaEmpty.connectTitle', {
-              defaultValue: 'Connect to use Media'
-            })
-            : t('review:empty.connectTitle', {
-              defaultValue: 'Connect to use Review'
-            })
+          <span className="inline-flex items-center gap-2">
+            <span className="rounded-full bg-yellow-50 px-2 py-0.5 text-[11px] font-medium text-yellow-700 dark:bg-yellow-900/40 dark:text-yellow-200">
+              {t('review:reviewPage.notConnectedBadge', {
+                defaultValue: 'Not connected'
+              })}
+            </span>
+            <span>
+              {isViewMediaMode
+                ? t('review:mediaEmpty.connectTitle', {
+                  defaultValue: 'Connect to use Media'
+                })
+                : t('review:empty.connectTitle', {
+                  defaultValue: 'Connect to use Review'
+                })}
+            </span>
+          </span>
         }
         description={
           isViewMediaMode
             ? t('review:mediaEmpty.connectDescription', {
               defaultValue:
-                'To view processed media, first connect to your tldw server so recordings and documents can be listed here.'
+                'This view needs a connected server. Use the server connection card above to fix your connection, then return here to browse your processed media.'
             })
             : t('review:empty.connectDescription', {
               defaultValue:
-                'To review media and notes, first connect to your tldw server.'
+                'This view needs a connected server. Use the server connection card above to fix your connection, then return here to review media and notes.'
             })
         }
         examples={
@@ -1100,28 +1228,20 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({ allowGeneration = true, 
             ? [
                 t('review:mediaEmpty.connectExample1', {
                   defaultValue:
-                    'Open Settings → tldw server to add your server URL.'
-                }),
-                t('review:mediaEmpty.connectExample2', {
-                  defaultValue:
-                    'Once connected, use Quick ingest in the header to add media from your recordings and files.'
+                    'Use the connection card at the top of this page to add your server URL and API key.'
                 })
               ]
             : [
                 t('review:empty.connectExample1', {
                   defaultValue:
-                    'Open Settings → tldw server to add your server URL.'
-                }),
-                t('review:empty.connectExample2', {
-                  defaultValue:
-                    'Once connected, browse media and notes, then generate structured reviews and summaries.'
+                    'Use the connection card at the top of this page to add your server URL and API key.'
                 })
               ]
         }
-        primaryActionLabel={t('common:connectToServer', {
-          defaultValue: 'Connect to server'
+        primaryActionLabel={t("option:connectionCard.buttonGoToServerCard", {
+          defaultValue: "Go to server card"
         })}
-        onPrimaryAction={() => navigate('/settings/tldw')}
+        onPrimaryAction={scrollToServerCard}
         secondaryActionLabel={t('option:header.quickIngest', 'Quick ingest')}
         onSecondaryAction={() =>
           window.dispatchEvent(new CustomEvent("tldw:open-quick-ingest"))
@@ -1471,6 +1591,12 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({ allowGeneration = true, 
                   !!selected &&
                   selected.id === item.id &&
                   selected.kind === item.kind
+                const { label: statusLabel, color: statusColor } = deriveStatusBadge(
+                  item.meta?.status ??
+                    item.meta?.ingest_status ??
+                    item.meta?.processing_state ??
+                    item.meta?.processingStatus
+                )
                 return (
                   <List.Item
                     key={`${item.kind}:${item.id}`}
@@ -1495,34 +1621,67 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({ allowGeneration = true, 
                         ? 'border-l-blue-500 !bg-gray-100 dark:!bg-gray-800'
                         : 'border-l-transparent'
                     }`}>
-                    <div className="w-full">
-                      <div className="flex items-center gap-2">
-                        <Tag color={item.kind === "media" ? "blue" : "gold"}>
-                          {item.kind.toUpperCase()}
-                        </Tag>
-                        <Typography.Text
-                          strong
-                          ellipsis
-                          className="max-w-[18rem]">
-                          {item.title || String(item.id)}
-                        </Typography.Text>
-                        {isSelected && (
-                          <Tag color="green" className="text-[10px]">
-                            {t('review:reviewPage.selectedBadge', 'Selected')}
+                    <div className="w-full flex items-start justify-between gap-3">
+                      <div className="min-w-0 flex-1">
+                        <div className="flex items-center gap-2">
+                          <Tag color={item.kind === "media" ? "blue" : "gold"}>
+                            {item.kind.toUpperCase()}
                           </Tag>
-                        )}
-                      </div>
-                      {item.snippet && (
-                        <div className="text-xs text-gray-500 truncate mt-0.5">
-                          {item.snippet}
+                          <Typography.Text
+                            strong
+                            ellipsis
+                            className="max-w-[18rem]">
+                            {item.title || String(item.id)}
+                          </Typography.Text>
+                          {isSelected && (
+                            <Tag color="green" className="text-[10px]">
+                              {t('review:reviewPage.selectedBadge', 'Selected')}
+                            </Tag>
+                          )}
                         </div>
-                      )}
-                      <div className="text-[10px] text-gray-400 mt-0.5">
-                        {item.meta?.type ? String(item.meta.type) : ""}{" "}
-                        {item.meta?.created_at
-                          ? `· ${new Date(item.meta.created_at).toLocaleString()}`
-                          : ""}
+                        {item.snippet && (
+                          <div className="text-xs text-gray-500 truncate mt-0.5">
+                            {item.snippet}
+                          </div>
+                        )}
+                        {(() => {
+                          const sourceLabel =
+                            typeof item.meta?.source === "string" &&
+                            item.meta.source.trim().length > 0
+                              ? item.meta.source.trim()
+                              : null
+                          const durationSeconds =
+                            typeof item.meta?.duration === "number"
+                              ? item.meta.duration
+                              : null
+                          const durationLabel = formatDuration(durationSeconds)
+                          const parts: string[] = []
+                          if (sourceLabel) parts.push(sourceLabel)
+                          if (durationLabel) parts.push(durationLabel)
+                          if (parts.length === 0) return null
+                          return (
+                            <div className="text-[10px] text-gray-500 mt-0.5">
+                              {parts.join(" · ")}
+                            </div>
+                          )
+                        })()}
+                        <div className="text-[10px] text-gray-400 mt-0.5">
+                          {item.meta?.type ? String(item.meta.type) : ""}{" "}
+                          {item.meta?.created_at
+                            ? `· ${new Date(
+                                item.meta.created_at
+                              ).toLocaleString()}`
+                            : ""}
+                        </div>
                       </div>
+                      {statusLabel && (
+                        <Tag
+                          color={statusColor}
+                          className="text-[10px] flex-shrink-0"
+                        >
+                          {statusLabel}
+                        </Tag>
+                      )}
                     </div>
                   </List.Item>
                 )
@@ -2392,38 +2551,67 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({ allowGeneration = true, 
             <div className="flex flex-col gap-3 flex-1 min-h-0">
               <div className="rounded border dark:border-gray-700 p-2 overflow-auto min-h-[14rem] md:h-[32vh]">
                 <div className="flex items-center justify-between">
-                  <Typography.Text type="secondary">Media Content</Typography.Text>
+                  <Typography.Text type="secondary">
+                    {t("review:reviewPage.mediaContent", "Media Content")}
+                  </Typography.Text>
                   <div className="flex items-center gap-2">
                     <Button size="small" type="link" onClick={() => setContentCollapsed((v) => !v)}>
                       {contentCollapsed ? t('review:reviewPage.expandContent', 'Expand') : t('review:reviewPage.collapseContent', 'Collapse')}
                     </Button>
-                    <Tooltip title="Copy content">
+                    <Tooltip title={t("review:reviewPage.copyContent", "Copy content")}>
                       <Button size="small" onClick={async () => { try { await navigator.clipboard.writeText(selectedContent || '') ; message.success('Content copied') } catch { message.error('Copy failed') } }} icon={(<CopyIcon className="w-4 h-4" />) as any} />
                     </Tooltip>
-                    <Button size="small" onClick={() => setMediaJsonOpen(v => !v)}>{mediaJsonOpen ? 'Hide raw' : 'Show raw'}</Button>
+                    <Button size="small" onClick={() => setMediaJsonOpen(v => !v)}>
+                      {mediaJsonOpen
+                        ? t("review:reviewPage.hideRaw", "Hide raw")
+                        : t("review:reviewPage.showRaw", "Show raw")}
+                    </Button>
                   </div>
                 </div>
-                <div className="mt-2 prose prose-sm dark:prose-invert max-w-none whitespace-pre-wrap break-words text-sm text-gray-700 dark:text-gray-300">
+                <div className="mt-2 text-sm text-gray-700 dark:text-gray-300">
                   {selectedContent ? (
-                    contentCollapsed
-                      ? <span className="text-xs text-gray-500">{selectedContent.slice(0, 160)}{selectedContent.length > 160 ? '…' : ''}</span>
-                      : (
-                        <>
-                          {mediaExpanded || selectedContent.length <= 2500
-                            ? selectedContent
-                            : (selectedContent.slice(0, 2500) + '…')}
-                          {selectedContent.length > 2500 && (
-                            <button
-                              className="ml-2 underline text-xs"
-                              onClick={() => setMediaExpanded((v) => !v)}
-                            >
-                              {mediaExpanded ? 'Show less' : 'Show more'}
-                            </button>
-                          )}
-                        </>
-                      )
+                    contentCollapsed ? (
+                      <span className="text-xs text-gray-500">
+                        {selectedContent.slice(0, 160)}
+                        {selectedContent.length > 160 ? "…" : ""}
+                      </span>
+                    ) : (
+                      <>
+                        {mediaExpanded || selectedContent.length <= 2500 ? (
+                          <React.Suspense
+                            fallback={
+                              <span className="text-xs text-gray-500 whitespace-pre-wrap break-words">
+                                {selectedContent}
+                              </span>
+                            }>
+                            <Markdown
+                              message={selectedContent}
+                              className="prose prose-sm break-words dark:prose-invert max-w-none prose-p:leading-relaxed prose-pre:p-0 dark:prose-dark"
+                            />
+                          </React.Suspense>
+                        ) : (
+                          <span className="text-xs text-gray-500 whitespace-pre-wrap break-words">
+                            {selectedContent.slice(0, 2500) + "…"}
+                          </span>
+                        )}
+                        {selectedContent.length > 2500 && (
+                          <button
+                            className="ml-2 underline text-xs"
+                            onClick={() => setMediaExpanded((v) => !v)}>
+                            {mediaExpanded
+                              ? t("review:reviewPage.showLess", "Show less")
+                              : t("review:reviewPage.showMore", "Show more")}
+                          </button>
+                        )}
+                      </>
+                    )
                   ) : (
-                    <span className="text-xs text-gray-500">No content available</span>
+                    <span className="text-xs text-gray-500">
+                      {t(
+                        "review:reviewPage.noContent",
+                        "No content available"
+                      )}
+                    </span>
                   )}
                 </div>
                 {mediaJsonOpen && (
@@ -2434,15 +2622,17 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({ allowGeneration = true, 
               </div>
               <div className="rounded border dark:border-gray-700 p-2 overflow-auto min-h-[14rem] md:h-[32vh] bg-gray-50 dark:bg-[#121212]">
                 <div className="flex items-center justify-between">
-                  <Typography.Text type="secondary">Analysis</Typography.Text>
+                  <Typography.Text type="secondary">
+                    {t("review:reviewPage.analysisTitle", "Analysis")}
+                  </Typography.Text>
                   <div className="flex items-center gap-2">
                     <Button size="small" type="link" onClick={() => setAnalysisCollapsed((v) => !v)}>
                       {analysisCollapsed ? t('review:reviewPage.expandAnalysis', 'Expand') : t('review:reviewPage.collapseAnalysis', 'Collapse')}
                     </Button>
-                    <Tooltip title="Copy analysis">
+                    <Tooltip title={t("review:reviewPage.copyAnalysis", "Copy analysis")}>
                       <Button size="small" onClick={async () => { try { await navigator.clipboard.writeText(analysis || '') ; message.success('Analysis copied') } catch { message.error('Copy failed') } }} icon={(<CopyIcon className="w-4 h-4" />) as any} />
                     </Tooltip>
-                    <Tooltip title="Send analysis to chat">
+                    <Tooltip title={t("review:reviewPage.sendAnalysisToChat", "Send analysis to chat")}>
                       <Button size="small" onClick={async () => {
                         if (!analysis.trim()) { message.warning('Nothing to send'); return }
                         try {
@@ -2475,10 +2665,10 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({ allowGeneration = true, 
                   <Checkbox checked={onlyWithAnalysis} onChange={(e) => setOnlyWithAnalysis(e.target.checked)} className="text-xs">Only with analysis</Checkbox>
                 </div>
                 <div className="flex items-center gap-2">
-                  <Tooltip title="Copy all as plain text">
+                  <Tooltip title={t("review:reviewPage.copyAllPlain", "Copy all as plain text")}>
                     <Button size="small" onClick={async () => { const text = (existingAnalyses || []).map((n, idx) => `Note ${n?.id ?? idx+1}\n\n${String(n?.content || '')}`).join("\n\n---\n\n"); try { await navigator.clipboard.writeText(text); message.success('Copied all notes') } catch { message.error('Copy failed') } }}>Copy All</Button>
                   </Tooltip>
-                  <Tooltip title="Copy all as Markdown">
+                  <Tooltip title={t("review:reviewPage.copyAllMarkdown", "Copy all as Markdown")}>
                     <Button size="small" onClick={async () => { const md = (existingAnalyses || []).map((n, idx) => `### Note ${n?.id ?? idx+1}\n\n${toMarkdown(String(n?.content || ''))}`).join("\n\n---\n\n"); try { await navigator.clipboard.writeText(md); message.success('Copied all notes as Markdown') } catch { message.error('Copy failed') } }}>Copy MD</Button>
                   </Tooltip>
                 </div>
@@ -2588,7 +2778,11 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({ allowGeneration = true, 
                     </Dropdown>
                   </div>
                 ) : null}
-                <Button size="small" onClick={() => setNotesJsonOpen(v => !v)}>{notesJsonOpen ? 'Hide raw' : 'Show raw'}</Button>
+                <Button size="small" onClick={() => setNotesJsonOpen(v => !v)}>
+                  {notesJsonOpen
+                    ? t("review:reviewPage.hideRaw", "Hide raw")
+                    : t("review:reviewPage.showRaw", "Show raw")}
+                </Button>
               </div>
                 {displayedVersionIndices.length === 0 ? (
                   <div className="text-xs text-gray-500 mt-2">No saved analyses for this item yet.</div>
@@ -2597,22 +2791,82 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({ allowGeneration = true, 
                     <List.Item className={`!px-1 flex items-start justify-between gap-2 ${displayedVersionIndices[i] === selectedExistingIndex ? 'bg-gray-50 dark:bg-[#262626] rounded' : ''}`} onClick={() => setSelectedExistingIndex(displayedVersionIndices[i])}>
                       <div className="min-w-0">
                         <div className="text-xs font-medium">v{getVersionNumber(n) || (i+1)} {getVersionTimestamp(n) ? `· ${getVersionTimestamp(n)}` : ''} {currentVersionNumber && getVersionNumber(n) === currentVersionNumber ? (<Tag color="green">Current</Tag>) : null}</div>
-                        <div className="text-xs text-gray-500 whitespace-pre-wrap max-w-[48rem]">
+                        <div className="text-xs text-gray-500 max-w-[48rem]">
                           {(() => {
-                            const key = String(getVersionNumber(n) ?? displayedVersionIndices[i])
-                            const a = getVersionAnalysis(n) || ''
+                            const key = String(
+                              getVersionNumber(n) ?? displayedVersionIndices[i]
+                            )
+                            const a = getVersionAnalysis(n) || ""
                             const isLong = a.length > 2500
                             const expanded = expandedAnalyses.has(key)
-                            const shown = expanded || !isLong ? a : (a.slice(0, 2500) + '…')
+                            if (!a) {
+                              return (
+                                <span className="opacity-60">
+                                  {t(
+                                    "review:reviewPage.noAnalysis",
+                                    "No analysis yet"
+                                  )}
+                                </span>
+                              )
+                            }
+                            if (!expanded && isLong) {
+                              return (
+                                <>
+                                  <span className="whitespace-pre-wrap">
+                                    {a.slice(0, 2500) + "…"}
+                                  </span>
+                                  <button
+                                    className="ml-2 underline text-[10px]"
+                                    onClick={(e) => {
+                                      e.stopPropagation()
+                                      setExpandedAnalyses((prev) => {
+                                        const ns = new Set(prev)
+                                        ns.add(key)
+                                        return ns
+                                      })
+                                    }}>
+                                    {t(
+                                      "review:reviewPage.showMore",
+                                      "Show more"
+                                    )}
+                                  </button>
+                                </>
+                              )
+                            }
                             return (
                               <>
-                                {shown}
+                                <React.Suspense
+                                  fallback={
+                                    <span className="whitespace-pre-wrap">
+                                      {a}
+                                    </span>
+                                  }>
+                                  <Markdown
+                                    message={a}
+                                    className="prose-xs break-words dark:prose-invert max-w-none prose-p:leading-relaxed prose-pre:p-0 dark:prose-dark"
+                                  />
+                                </React.Suspense>
                                 {isLong && (
                                   <button
                                     className="ml-2 underline text-[10px]"
-                                    onClick={(e) => { e.stopPropagation(); setExpandedAnalyses(prev => { const ns = new Set(prev); if (ns.has(key)) ns.delete(key); else ns.add(key); return ns }) }}
-                                  >
-                                    {expanded ? 'Show less' : 'Show more'}
+                                    onClick={(e) => {
+                                      e.stopPropagation()
+                                      setExpandedAnalyses((prev) => {
+                                        const ns = new Set(prev)
+                                        if (ns.has(key)) ns.delete(key)
+                                        else ns.add(key)
+                                        return ns
+                                      })
+                                    }}>
+                                    {expanded
+                                      ? t(
+                                          "review:reviewPage.showLess",
+                                          "Show less"
+                                        )
+                                      : t(
+                                          "review:reviewPage.showMore",
+                                          "Show more"
+                                        )}
                                   </button>
                                 )}
                               </>

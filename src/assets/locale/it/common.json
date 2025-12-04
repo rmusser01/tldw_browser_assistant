@@ -236,5 +236,15 @@
   "deleteHistoriesError": "Errore durante l’eliminazione delle cronologie",
   "search": "Cerca",
   "searchResults": "Risultati della ricerca",
-  "newBranch": "Nuovo ramo"
+  "newBranch": "Nuovo ramo",
+  "error": {
+    "friendlyApiKeySummary": "Non siamo riusciti a raggiungere il tuo server tldw.",
+    "friendlyApiKeyHint": "La tua chiave API potrebbe non essere valida. Apri Impostazioni → server tldw per controllare l'URL e la chiave API, quindi riprova.",
+    "friendlyTimeoutSummary": "La tua chat ha superato il tempo limite.",
+    "friendlyTimeoutHint": "Il server ha smesso di trasmettere risposte. Riprova oppure apri Stato e diagnostica per controllare lo stato del server.",
+    "friendlyGenericSummary": "Qualcosa è andato storto durante la comunicazione con il tuo server tldw.",
+    "friendlyGenericHint": "Riprova tra un momento oppure apri Stato e diagnostica per verificare lo stato del server.",
+    "showDetails": "Mostra dettagli tecnici",
+    "hideDetails": "Nascondi dettagli tecnici"
+  }
 }

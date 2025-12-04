@@ -14,6 +14,8 @@ import {
 } from "@/libs/reasoning"
 import { getModelNicknameByID } from "@/db/dexie/nickname"
 import { systemPromptFormatter } from "@/utils/system-message"
+import type { ActorSettings } from "@/types/actor"
+import { maybeInjectActorMessage } from "@/utils/actor"
 
 export const searchChatMode = async (
   message: string,
@@ -34,7 +36,8 @@ export const searchChatMode = async (
     setStreaming,
     setAbortController,
     historyId,
-    setHistoryId
+    setHistoryId,
+    actorSettings
   }: {
     selectedModel: string
     useOCR: boolean
@@ -48,6 +51,7 @@ export const searchChatMode = async (
     setAbortController: (controller: AbortController | null) => void
     historyId: string | null
     setHistoryId: (id: string) => void
+    actorSettings?: ActorSettings
   }
 ) => {
   console.log("Using searchChatMode")
@@ -191,7 +195,7 @@ export const searchChatMode = async (
       })
     }
 
-    const applicationChatHistory = generateHistory(history, selectedModel)
+    let applicationChatHistory = generateHistory(history, selectedModel)
 
     if (prompt) {
       applicationChatHistory.unshift(
@@ -200,6 +204,13 @@ export const searchChatMode = async (
         })
       )
     }
+
+    const templatesActive = false
+    applicationChatHistory = await maybeInjectActorMessage(
+      applicationChatHistory,
+      actorSettings || null,
+      templatesActive
+    )
 
     let generationInfo: any | undefined = undefined
 

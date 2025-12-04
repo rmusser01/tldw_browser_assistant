@@ -42,13 +42,19 @@ import { isFireFoxPrivateMode } from "@/utils/is-private-mode"
 import { useFocusShortcuts } from "@/hooks/keyboard"
 import { RagSearchBar } from "@/components/Sidepanel/Chat/RagSearchBar"
 import { CurrentChatModelSettings } from "@/components/Common/Settings/CurrentChatModelSettings"
+import { ActorPopout } from "@/components/Common/Settings/ActorPopout"
 import QuickIngestModal from "@/components/Common/QuickIngestModal"
-import { useConnectionState } from "@/hooks/useConnectionState"
+import {
+  useConnectionState,
+  useConnectionUxState
+} from "@/hooks/useConnectionState"
 import { ConnectionPhase } from "@/types/connection"
 import { useServerCapabilities } from "@/hooks/useServerCapabilities"
 import { tldwClient } from "@/services/tldw/TldwApiClient"
 import { useAntdNotification } from "@/hooks/useAntdNotification"
 import { useFocusComposerOnConnect, focusComposer } from "@/hooks/useComposerFocus"
+import { useQuickIngestStore } from "@/store/quick-ingest"
+import { cleanUrl } from "@/libs/clean-url"
 
 type Props = {
   dropedFile: File | undefined
@@ -84,6 +90,8 @@ export const SidepanelForm = ({ dropedFile }: Props) => {
   )
   const [sttSegEmbeddingsProvider] = useStorage("sttSegEmbeddingsProvider", "")
   const [sttSegEmbeddingsModel] = useStorage("sttSegEmbeddingsModel", "")
+  const queuedQuickIngestCount = useQuickIngestStore((s) => s.queuedCount)
+  const quickIngestHadFailure = useQuickIngestStore((s) => s.hadRecentFailure)
   const form = useForm({
     initialValues: {
       message: "",
@@ -155,13 +163,41 @@ export const SidepanelForm = ({ dropedFile }: Props) => {
   })
   const [wsSttActive, setWsSttActive] = React.useState(false)
   const [ingestOpen, setIngestOpen] = React.useState(false)
+  const [autoProcessQueuedIngest, setAutoProcessQueuedIngest] =
+    React.useState(false)
   const quickIngestBtnRef = React.useRef<HTMLButtonElement>(null)
-  const { phase, isConnected } = useConnectionState()
+  const [openActorSettings, setOpenActorSettings] = React.useState(false)
+  const { phase, isConnected, serverUrl } = useConnectionState()
+  const { uxState } = useConnectionUxState()
   const isConnectionReady = isConnected && phase === ConnectionPhase.CONNECTED
   const { capabilities, loading: capsLoading } = useServerCapabilities()
   const hasServerAudio = isConnectionReady && !capsLoading && capabilities?.hasAudio
   const [hasShownConnectBanner, setHasShownConnectBanner] = React.useState(false)
   const [showConnectBanner, setShowConnectBanner] = React.useState(false)
+  const host = React.useMemo(
+    () => (serverUrl ? cleanUrl(serverUrl) : "tldw_server"),
+    [serverUrl]
+  )
+
+  const connectBannerCopy = React.useMemo(() => {
+    if (uxState === "error_auth") {
+      return t(
+        "option:connectionCard.descriptionErrorAuth",
+        "Your server is up but the API key is wrong or missing. Fix the key in Settings → tldw server, then retry."
+      )
+    }
+    if (uxState === "error_unreachable") {
+      return t(
+        "option:connectionCard.descriptionError",
+        "We couldn’t reach {{host}}. Check that your tldw_server is running and that your browser can reach it, then open diagnostics or update the URL.",
+        { host }
+      )
+    }
+    return t(
+      "sidepanel:composer.connectHint",
+      "Finish setup in Options to start chatting."
+    )
+  }, [host, t, uxState])
 
   const onInputChange = async (
     e: React.ChangeEvent<HTMLInputElement> | File
@@ -181,6 +217,15 @@ export const SidepanelForm = ({ dropedFile }: Props) => {
       textareaRef.current.focus()
     }
   }
+
+  React.useEffect(() => {
+    if (typeof window === "undefined") return
+    const handler = () => setOpenActorSettings(true)
+    window.addEventListener("tldw:open-actor-settings", handler)
+    return () => {
+      window.removeEventListener("tldw:open-actor-settings", handler)
+    }
+  }, [])
 
   // When sidepanel connection transitions to CONNECTED, focus the composer
   useFocusComposerOnConnect(phase)
@@ -313,32 +358,76 @@ export const SidepanelForm = ({ dropedFile }: Props) => {
         return
       }
     } catch {}
-    window.open("/options.html#/settings/tldw", "_blank")
+    window.open("/options.html#/", "_blank")
   }, [])
 
   const openDiagnostics = React.useCallback(() => {
     window.open("/options.html#/settings/health", "_blank")
   }, [])
 
-  const handleToggleTemporaryChat = React.useCallback(() => {
-    if (isFireFoxPrivateMode) {
-      notification.error({
-        message: t(
-          "sidepanel:errors.privateModeTitle",
-          "tldw Assistant can't save data"
-        ),
-        description: t(
-          "sidepanel:errors.privateModeDescription",
-          "Firefox Private Mode does not support saving chat history. Temporary chat is enabled by default. More fixes coming soon."
-        )
+  const getPersistenceModeLabel = React.useCallback(
+    (isTemporary: boolean) =>
+      isTemporary
+        ? t(
+            "playground:composer.persistence.ephemeral",
+            "Temporary chat: not saved in history and cleared when you close this window."
+          )
+        : t(
+            "playground:composer.persistence.local",
+            "Saved in this browser only."
+          ),
+    [t]
+  )
+
+  const getPersistenceModeChipLabel = React.useCallback(
+    (isTemporary: boolean) =>
+      isTemporary
+        ? t(
+            "playground:composer.persistence.ephemeralShort",
+            "Temporary (not saved)"
+          )
+        : t(
+            "playground:composer.persistence.localShort",
+            "Saved locally"
+          ),
+    [t]
+  )
+
+  const handleToggleTemporaryChat = React.useCallback(
+    (next: boolean) => {
+      if (isFireFoxPrivateMode) {
+        notification.error({
+          message: t(
+            "sidepanel:errors.privateModeTitle",
+            "tldw Assistant can't save data"
+          ),
+          description: t(
+            "sidepanel:errors.privateModeDescription",
+            "Firefox Private Mode does not support saving chat history. Temporary chat is enabled by default. More fixes coming soon."
+          )
+        })
+        return
+      }
+      setTemporaryChat(next)
+      if (messages.length > 0) {
+        clearChat()
+      }
+
+      const modeLabel = getPersistenceModeLabel(next)
+      notification.info({
+        message: modeLabel,
+        placement: "bottomRight",
+        duration: 2.5
       })
-      return
-    }
-    setTemporaryChat(!temporaryChat)
-    if (messages.length > 0) {
-      clearChat()
-    }
-  }, [clearChat, messages.length, temporaryChat])
+    },
+    [
+      clearChat,
+      getPersistenceModeLabel,
+      messages.length,
+      notification,
+      setTemporaryChat
+    ]
+  )
 
   const handleWebSearchToggle = React.useCallback(() => {
     setWebSearch(!webSearch)
@@ -534,14 +623,31 @@ export const SidepanelForm = ({ dropedFile }: Props) => {
   }, [])
 
   const handleQuickIngestOpen = React.useCallback(() => {
+    setAutoProcessQueuedIngest(false)
     setIngestOpen(true)
   }, [])
+
+  const handleProcessQueuedIngest = React.useCallback(() => {
+    if (!isConnectionReady) return
+
+    // Snapshot the current queue size; if it has been cleared between
+    // render and click, we still open the modal but skip auto-processing.
+    if (queuedQuickIngestCount <= 0) {
+      setAutoProcessQueuedIngest(false)
+      setIngestOpen(true)
+      return
+    }
+
+    setAutoProcessQueuedIngest(true)
+    setIngestOpen(true)
+  }, [isConnectionReady, queuedQuickIngestCount])
 
   React.useEffect(() => {
     const handler = () => {
       if (!isConnectionReady) {
         return
       }
+      setAutoProcessQueuedIngest(false)
       setIngestOpen(true)
       requestAnimationFrame(() => {
         quickIngestBtnRef.current?.focus()
@@ -562,6 +668,15 @@ export const SidepanelForm = ({ dropedFile }: Props) => {
     }
   }, [sttError, t])
 
+  const persistenceModeLabel = React.useMemo(
+    () => getPersistenceModeLabel(temporaryChat),
+    [getPersistenceModeLabel, temporaryChat]
+  )
+  const persistenceModeChipLabel = React.useMemo(
+    () => getPersistenceModeChipLabel(temporaryChat),
+    [getPersistenceModeChipLabel, temporaryChat]
+  )
+
   const moreToolsContent = React.useMemo(() => (
     <div className="flex w-72 flex-col gap-4">
       <div className="space-y-2">
@@ -569,15 +684,7 @@ export const SidepanelForm = ({ dropedFile }: Props) => {
           {t("playground:more.history", "Chat saving")}
         </p>
         <p className="text-[11px] text-gray-500 dark:text-gray-400">
-          {temporaryChat
-            ? t(
-                "playground:composer.persistence.ephemeral",
-                "Not saved in history; clears when you close this tab."
-              )
-            : t(
-                "playground:composer.persistence.local",
-                "Saved in this browser only."
-              )}
+          {persistenceModeLabel}
         </p>
       </div>
 
@@ -651,11 +758,27 @@ export const SidepanelForm = ({ dropedFile }: Props) => {
           onClick={handleQuickIngestOpen}
           disabled={!isConnectionReady}
           title={
-            !isConnectionReady
-              ? t("playground:actions.ingestDisabled", "Connect to your tldw server to ingest.")
-              : t("playground:actions.ingestHint", "Upload URLs or files with advanced options.")
+            (!isConnectionReady
+              ? t(
+                  "playground:actions.ingestDisabled",
+                  "Connect to your tldw server to ingest."
+                )
+              : t(
+                  "playground:actions.ingestHint",
+                  "Upload URLs or files with advanced options."
+                )) +
+            (queuedQuickIngestCount > 0 && quickIngestHadFailure
+              ? " " +
+                t(
+                  "quickIngest.healthAriaHint",
+                  "Recent runs failed — open Health & diagnostics from the header for more details."
+                )
+              : "")
           }
-          className="flex w-full items-center justify-between rounded-md px-2 py-1 text-sm text-gray-700 transition hover:bg-gray-100 disabled:cursor-not-allowed disabled:opacity-50 dark:text-gray-200 dark:hover:bg-[#2a2a2a]"
+          className="relative flex w-full items-center justify-between rounded-md px-2 py-1 text-sm text-gray-700 transition hover:bg-gray-100 disabled:cursor-not-allowed disabled:opacity-50 dark:text-gray-200 dark:hover:bg-[#2a2a2a]"
+          data-has-queued-ingest={
+            queuedQuickIngestCount > 0 ? "true" : "false"
+          }
         >
           <span className="flex flex-col items-start text-left">
             <span>{t("playground:actions.ingest", "Quick ingest")}</span>
@@ -663,8 +786,28 @@ export const SidepanelForm = ({ dropedFile }: Props) => {
               {t("playground:actions.ingestSub", "Use URLs/files; download or store.")}
             </span>
           </span>
-          <UploadCloud className="h-4 w-4" />
+          <div className="relative">
+            <UploadCloud className="h-4 w-4" />
+            {queuedQuickIngestCount > 0 && (
+              <span className="absolute -top-1 -right-1 inline-flex h-3 min-w-3 items-center justify-center rounded-full bg-blue-600 px-1 text-[9px] font-semibold text-white">
+                {queuedQuickIngestCount > 9 ? "9+" : queuedQuickIngestCount}
+              </span>
+            )}
+          </div>
         </button>
+        {queuedQuickIngestCount > 0 && (
+          <button
+            type="button"
+            onClick={handleProcessQueuedIngest}
+            disabled={!isConnectionReady}
+            className="mt-1 text-[11px] text-blue-600 hover:text-blue-500 disabled:cursor-not-allowed disabled:opacity-50 dark:text-blue-400"
+          >
+            {t(
+              "quickIngest.processQueuedItemsShort",
+              "Process queued items"
+            )}
+          </button>
+        )}
         <button
           type="button"
           onClick={handleImageUpload}
@@ -679,8 +822,10 @@ export const SidepanelForm = ({ dropedFile }: Props) => {
   ), [
     browserSupportsSpeechRecognition,
     chatMode,
+    isConnectionReady,
     handleImageUpload,
     handleLiveCaptionsToggle,
+    handleProcessQueuedIngest,
     handleQuickIngestOpen,
     handleServerDictationToggle,
     handleSpeechToggle,
@@ -690,6 +835,8 @@ export const SidepanelForm = ({ dropedFile }: Props) => {
     hasServerAudio,
     isListening,
     isServerDictating,
+    queuedQuickIngestCount,
+    quickIngestHadFailure,
     temporaryChat,
     t,
     webSearch,
@@ -1011,22 +1158,17 @@ export const SidepanelForm = ({ dropedFile }: Props) => {
                                     "playground:actions.temporaryOn",
                                     "Temporary chat (not saved)"
                                   )
-                                : t(
-                                    "playground:actions.temporaryOff",
-                                    "Save chat to history"
-                                  )}
+                                    : t(
+                                        "playground:actions.temporaryOff",
+                                        "Save chat to history"
+                                      )}
+                            </span>
+                            <span className="inline-flex items-center rounded-full border border-gray-200 bg-white px-2 py-0.5 text-[11px] font-medium text-gray-700 shadow-sm dark:border-gray-700 dark:bg-[#1f1f1f] dark:text-gray-200">
+                              {persistenceModeChipLabel}
                             </span>
                           </div>
                           <p className="text-[11px] text-gray-500 dark:text-gray-400">
-                            {temporaryChat
-                              ? t(
-                                  "playground:composer.persistence.ephemeral",
-                                  "Not saved in history; clears when you close this tab."
-                                )
-                              : t(
-                                  "playground:composer.persistence.local",
-                                  "Saved in this browser only."
-                                )}
+                            {persistenceModeLabel}
                           </p>
                         </div>
                       </div>
@@ -1225,10 +1367,7 @@ export const SidepanelForm = ({ dropedFile }: Props) => {
                     {showConnectBanner && !isConnectionReady && (
                       <div className="mt-2 flex flex-wrap items-center justify-between gap-2 rounded-md border border-amber-300 bg-amber-50 px-3 py-2 text-xs text-amber-900 dark:border-amber-500 dark:bg-[#2a2310] dark:text-amber-100">
                         <p className="max-w-xs text-left">
-                          {t(
-                            "sidepanel:composer.connectHint",
-                            "Connect to your tldw server in Settings to send messages."
-                          )}
+                          {connectBannerCopy}
                         </p>
                         <div className="flex flex-wrap items-center gap-2">
                           <button
@@ -1236,14 +1375,20 @@ export const SidepanelForm = ({ dropedFile }: Props) => {
                             onClick={openSettings}
                             className="rounded-md border border-amber-300 bg-white px-2 py-1 text-xs font-medium text-amber-900 hover:bg-amber-100 dark:bg-[#3a2b10] dark:text-amber-50 dark:hover:bg-[#4a3512]"
                           >
-                            {t("settings:tldw.setupLink", "Set up server")}
+                            {t(
+                              "sidepanel:composer.connectPrimaryCta",
+                              "Finish setup in Options"
+                            )}
                           </button>
                           <button
                             type="button"
                             onClick={openDiagnostics}
                             className="text-xs font-medium text-amber-900 underline hover:text-amber-700 dark:text-amber-100 dark:hover:text-amber-300"
                           >
-                            {t("settings:healthSummary.diagnostics", "Diagnostics")}
+                            {t(
+                              "settings:healthSummary.diagnostics",
+                              "Health & diagnostics"
+                            )}
                           </button>
                           <button
                             type="button"
@@ -1305,7 +1450,10 @@ export const SidepanelForm = ({ dropedFile }: Props) => {
                             onClick={openDiagnostics}
                             className="text-xs font-medium text-green-900 underline hover:text-green-700 dark:text-green-100 dark:hover:text-green-300"
                           >
-                            {t("settings:healthSummary.diagnostics", "Diagnostics")}
+                            {t(
+                              "settings:healthSummary.diagnostics",
+                              "Health & diagnostics"
+                            )}
                           </button>
                         </div>
                       </div>
@@ -1329,16 +1477,17 @@ export const SidepanelForm = ({ dropedFile }: Props) => {
         setOpen={setOpenModelSettings}
         isOCREnabled={useOCR}
       />
+      <ActorPopout open={openActorSettings} setOpen={setOpenActorSettings} />
       {/* Quick ingest modal */}
-      {ingestOpen && (
-        <QuickIngestModal
-          open={ingestOpen}
-          onClose={() => {
-            setIngestOpen(false)
-            requestAnimationFrame(() => quickIngestBtnRef.current?.focus())
-          }}
-        />
-      )}
+      <QuickIngestModal
+        open={ingestOpen}
+        autoProcessQueued={autoProcessQueuedIngest}
+        onClose={() => {
+          setIngestOpen(false)
+          setAutoProcessQueuedIngest(false)
+          requestAnimationFrame(() => quickIngestBtnRef.current?.focus())
+        }}
+      />
     </div>
   )
 }

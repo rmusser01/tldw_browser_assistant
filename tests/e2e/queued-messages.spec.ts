@@ -13,6 +13,7 @@ test.describe('Queued messages banners', () => {
       const msgStore: any = (window as any).__tldw_useStoreMessageOption
       if (!conn || !msgStore) return
       const prevState = conn.getState().state
+      const now = Date.now()
       conn.setState({
         state: {
           ...prevState,
@@ -20,12 +21,16 @@ test.describe('Queued messages banners', () => {
           isConnected: true,
           isChecking: false,
           serverUrl: prevState.serverUrl || 'http://127.0.0.1:8000',
-          lastCheckedAt: Date.now(),
+          lastCheckedAt: now,
           lastError: null,
           lastStatusCode: null,
           knowledgeStatus: 'ready',
-          knowledgeLastCheckedAt: Date.now(),
-          knowledgeError: null
+          knowledgeLastCheckedAt: now,
+          knowledgeError: null,
+          mode: 'normal',
+          configStep: 'health',
+          errorKind: 'none',
+          hasCompletedFirstRun: true
         }
       })
 
@@ -50,7 +55,9 @@ test.describe('Queued messages banners', () => {
     ).toBeVisible()
 
     // Diagnostics link provides a clear fix path
-    const diagnosticsLink = page.getByRole('link', { name: /Diagnostics/i })
+    const diagnosticsLink = page.getByRole('link', {
+      name: /Health & diagnostics/i
+    })
     await expect(diagnosticsLink).toBeVisible()
     await diagnosticsLink.click()
     await expect(page).toHaveURL(/options\.html#\/settings\/health/i)
@@ -68,6 +75,7 @@ test.describe('Queued messages banners', () => {
       const msgStore: any = (window as any).__tldw_useStoreMessageOption
       if (!conn || !msgStore) return
       const prevState = conn.getState().state
+      const now = Date.now()
       conn.setState({
         state: {
           ...prevState,
@@ -75,12 +83,16 @@ test.describe('Queued messages banners', () => {
           isConnected: true,
           isChecking: false,
           serverUrl: prevState.serverUrl || 'http://127.0.0.1:8000',
-          lastCheckedAt: Date.now(),
+          lastCheckedAt: now,
           lastError: null,
           lastStatusCode: null,
           knowledgeStatus: 'ready',
-          knowledgeLastCheckedAt: Date.now(),
-          knowledgeError: null
+          knowledgeLastCheckedAt: now,
+          knowledgeError: null,
+          mode: 'normal',
+          configStep: 'health',
+          errorKind: 'none',
+          hasCompletedFirstRun: true
         }
       })
 
@@ -126,6 +138,7 @@ test.describe('Queued messages banners', () => {
       const msgStore: any = (window as any).__tldw_useStoreMessageOption
       if (!conn || !msgStore) return
       const prevState = conn.getState().state
+      const now = Date.now()
       conn.setState({
         state: {
           ...prevState,
@@ -133,12 +146,16 @@ test.describe('Queued messages banners', () => {
           isConnected: true,
           isChecking: false,
           serverUrl: prevState.serverUrl || 'http://127.0.0.1:8000',
-          lastCheckedAt: Date.now(),
+          lastCheckedAt: now,
           lastError: null,
           lastStatusCode: null,
           knowledgeStatus: 'ready',
-          knowledgeLastCheckedAt: Date.now(),
-          knowledgeError: null
+          knowledgeLastCheckedAt: now,
+          knowledgeError: null,
+          mode: 'normal',
+          configStep: 'health',
+          errorKind: 'none',
+          hasCompletedFirstRun: true
         }
       })
 
@@ -154,7 +171,7 @@ test.describe('Queued messages banners', () => {
     const sendQueued = page.getByRole('button', { name: /Send queued messages/i })
     await expect(sendQueued).toBeVisible()
     await expect(
-      page.getByRole('button', { name: /Diagnostics/i })
+      page.getByRole('button', { name: /Health & diagnostics/i })
     ).toBeVisible()
 
     // Click Send queued messages and ensure the queue is cleared

@@ -22,14 +22,56 @@ import { tagColors } from "@/utils/color"
 import { removeModelSuffix } from "@/db/dexie/models"
 import { GenerationInfo } from "./GenerationInfo"
 import { parseReasoning } from "@/libs/reasoning"
+import {
+  decodeChatErrorPayload,
+  type ChatErrorPayload
+} from "@/utils/chat-error-message"
 import { humanizeMilliseconds } from "@/utils/humanize-milliseconds"
 import { useStorage } from "@plasmohq/storage/hook"
 import { PlaygroundUserMessageBubble } from "./PlaygroundUserMessage"
 import { copyToClipboard } from "@/utils/clipboard"
 import { ChatDocuments } from "@/models/ChatTypes"
 import { PiGitBranch } from "react-icons/pi"
+import { buildChatTextClass } from "@/utils/chat-style"
 
 const Markdown = React.lazy(() => import("../../Common/Markdown"))
+
+const ErrorBubble: React.FC<{
+  payload: ChatErrorPayload
+  toggleLabels: { show: string; hide: string }
+}> = ({ payload, toggleLabels }) => {
+  const [showDetails, setShowDetails] = React.useState(false)
+
+  const MARKDOWN_BASE_CLASSES =
+    "prose break-words dark:prose-invert prose-p:leading-relaxed prose-pre:p-0 dark:prose-dark"
+
+  return (
+    <div
+      role="alert"
+      aria-live="assertive"
+      className="rounded-md border border-red-200 bg-red-50 p-3 text-sm text-red-800 dark:border-red-700 dark:bg-red-900/20 dark:text-red-100">
+      <p className="font-semibold">{payload.summary}</p>
+      {payload.hint && (
+        <p className="mt-1 text-xs text-red-900 dark:text-red-100">
+          {payload.hint}
+        </p>
+      )}
+      {payload.detail && (
+        <button
+          type="button"
+          onClick={() => setShowDetails((prev) => !prev)}
+          className="mt-2 text-xs font-medium text-red-800 underline hover:text-red-700 dark:text-red-200 dark:hover:text-red-100">
+          {showDetails ? toggleLabels.hide : toggleLabels.show}
+        </button>
+      )}
+      {showDetails && payload.detail && (
+        <pre className="mt-2 max-h-40 overflow-auto whitespace-pre-wrap rounded bg-red-100/70 p-2 text-xs text-red-900 dark:bg-red-900/40 dark:text-red-100">
+          {payload.detail}
+        </pre>
+      )}
+    </div>
+  )
+}
 
 type Props = {
   message: string
@@ -79,10 +121,23 @@ export const PlaygroundMessage = (props: Props) => {
   )
   const [autoPlayTTS] = useStorage("isTTSAutoPlayEnabled", false)
   const [copyAsFormattedText] = useStorage("copyAsFormattedText", false)
+  const [userTextColor] = useStorage("chatUserTextColor", "default")
+  const [assistantTextColor] = useStorage("chatAssistantTextColor", "default")
+  const [userTextFont] = useStorage("chatUserTextFont", "default")
+  const [assistantTextFont] = useStorage("chatAssistantTextFont", "default")
+  const [userTextSize] = useStorage("chatUserTextSize", "md")
+  const [assistantTextSize] = useStorage("chatAssistantTextSize", "md")
   const { t } = useTranslation("common")
   const { cancel, isSpeaking, speak } = useTTS()
   const isLastMessage: boolean =
     props.currentMessageIndex === props.totalMessages - 1
+  const errorPayload = decodeChatErrorPayload(props.message)
+  const errorFriendlyText = React.useMemo(() => {
+    if (!errorPayload) return null
+    return [errorPayload.summary, errorPayload.hint, errorPayload.detail]
+      .filter(Boolean)
+      .join("\n")
+  }, [errorPayload])
 
   const autoCopyToClipboard = async () => {
     if (
@@ -91,7 +146,8 @@ export const PlaygroundMessage = (props: Props) => {
       isLastMessage &&
       !props.isStreaming &&
       !props.isProcessing &&
-      props.message.trim().length > 0
+      props.message.trim().length > 0 &&
+      !errorPayload
     ) {
       await copyToClipboard({
         text: props.message,
@@ -115,6 +171,23 @@ export const PlaygroundMessage = (props: Props) => {
     props.isProcessing,
     props.message
   ])
+
+  const userTextClass = React.useMemo(
+    () => buildChatTextClass(userTextColor, userTextFont, userTextSize),
+    [userTextColor, userTextFont, userTextSize]
+  )
+
+  const assistantTextClass = React.useMemo(
+    () =>
+      buildChatTextClass(
+        assistantTextColor,
+        assistantTextFont,
+        assistantTextSize
+      ),
+    [assistantTextColor, assistantTextFont, assistantTextSize]
+  )
+
+  const chatTextClass = props.isBot ? assistantTextClass : userTextClass
   useEffect(() => {
     if (
       autoPlayTTS &&
@@ -123,7 +196,8 @@ export const PlaygroundMessage = (props: Props) => {
       isLastMessage &&
       !props.isStreaming &&
       !props.isProcessing &&
-      props.message.trim().length > 0
+      props.message.trim().length > 0 &&
+      !errorPayload
     ) {
       let messageToSpeak = props.message
 
@@ -140,12 +214,16 @@ export const PlaygroundMessage = (props: Props) => {
     props.isStreaming,
     props.isProcessing,
     props.message,
-    copyAsFormattedText
+    copyAsFormattedText,
+    errorPayload
   ])
 
   if (isUserChatBubble && !props.isBot) {
     return <PlaygroundUserMessageBubble {...props} />
   }
+
+  const MARKDOWN_BASE_CLASSES =
+    "prose break-words dark:prose-invert prose-p:leading-relaxed prose-pre:p-0 dark:prose-dark"
 
   return (
     <div
@@ -217,75 +295,99 @@ export const PlaygroundMessage = (props: Props) => {
           <div className="flex flex-grow flex-col">
             {!editMode ? (
               props.isBot ? (
-                <>
-                  {parseReasoning(props.message).map((e, i) => {
-                    if (e.type === "reasoning") {
-                      return (
-                        <Collapse
-                          key={i}
-                          className="border-none text-gray-500 dark:text-gray-400 !mb-3 "
-                          defaultActiveKey={
-                            props?.openReasoning ? "reasoning" : undefined
-                          }
-                          items={[
-                            {
-                              key: "reasoning",
-                              label:
-                                props.isStreaming && e?.reasoning_running ? (
-                                  <div className="flex items-center gap-2">
-                                    <span className="italic shimmer-text">
-                                      {t("reasoning.thinking", "Thinking…")}
-                                    </span>
-                                  </div>
-                                ) : (
-                                  <span className="flex items-center gap-2">
-                                    <span>
-                                      {t(
-                                        "reasoning.thought",
-                                        "Model’s reasoning (optional)"
-                                      )}
-                                    </span>
-                                    {props.reasoningTimeTaken != null && (
-                                      <span className="text-[11px] text-gray-400">
-                                        {humanizeMilliseconds(
-                                          props.reasoningTimeTaken
+                errorPayload ? (
+                  <ErrorBubble
+                    payload={errorPayload}
+                    toggleLabels={{
+                      show: t(
+                        "error.showDetails",
+                        "Show technical details"
+                      ) as string,
+                      hide: t(
+                        "error.hideDetails",
+                        "Hide technical details"
+                      ) as string
+                    }}
+                  />
+                ) : (
+                  <>
+                    {parseReasoning(props.message).map((e, i) => {
+                      if (e.type === "reasoning") {
+                        return (
+                          <Collapse
+                            key={i}
+                            className="border-none text-gray-500 dark:text-gray-400 !mb-3 "
+                            defaultActiveKey={
+                              props?.openReasoning ? "reasoning" : undefined
+                            }
+                            items={[
+                              {
+                                key: "reasoning",
+                                label:
+                                  props.isStreaming && e?.reasoning_running ? (
+                                    <div className="flex items-center gap-2">
+                                      <span className="italic shimmer-text">
+                                        {t("reasoning.thinking", "Thinking…")}
+                                      </span>
+                                    </div>
+                                  ) : (
+                                    <span className="flex items-center gap-2">
+                                      <span>
+                                        {t(
+                                          "reasoning.thought",
+                                          "Model’s reasoning (optional)"
                                         )}
                                       </span>
-                                    )}
-                                  </span>
-                                ),
-                              children: (
-                                <React.Suspense
-                                  fallback={
-                                    <p className="text-sm text-gray-500 dark:text-gray-400">
-                                      {t("reasoning.loading")}
-                                    </p>
-                                  }>
-                                  <Markdown message={e.content} />
-                                </React.Suspense>
-                              )
-                            }
-                          ]}
-                        />
-                      )
-                    }
+                                      {props.reasoningTimeTaken != null && (
+                                        <span className="text-[11px] text-gray-400">
+                                          {humanizeMilliseconds(
+                                            props.reasoningTimeTaken
+                                          )}
+                                        </span>
+                                      )}
+                                    </span>
+                                  ),
+                                children: (
+                                  <React.Suspense
+                                    fallback={
+                                      <p
+                                        className={`text-sm text-gray-500 dark:text-gray-400 ${assistantTextClass}`}>
+                                        {t("reasoning.loading")}
+                                      </p>
+                                    }>
+                                    <Markdown
+                                      message={e.content}
+                                      className={`${MARKDOWN_BASE_CLASSES} ${assistantTextClass}`}
+                                    />
+                                  </React.Suspense>
+                                )
+                              }
+                            ]}
+                          />
+                        )
+                      }
 
-                    return (
-                      <React.Suspense
-                        key={i}
-                        fallback={
-                          <p className="text-sm text-gray-500 dark:text-gray-400">
-                            {t("loading.content")}
-                          </p>
-                        }>
-                        <Markdown message={e.content} />
-                      </React.Suspense>
-                    )
-                  })}
-                </>
+                      return (
+                        <React.Suspense
+                          key={i}
+                          fallback={
+                            <p
+                              className={`text-sm text-gray-500 dark:text-gray-400 ${assistantTextClass}`}>
+                              {t("loading.content")}
+                            </p>
+                          }>
+                          <Markdown
+                            message={e.content}
+                            className={`${MARKDOWN_BASE_CLASSES} ${assistantTextClass}`}
+                          />
+                        </React.Suspense>
+                      )
+                    })}
+                  </>
+                )
               ) : (
                 <p
-                  className={`prose dark:prose-invert whitespace-pre-line prose-p:leading-relaxed prose-pre:p-0 dark:prose-dark ${
+                  className={`prose dark:prose-invert whitespace-pre-line prose-p:leading-relaxed prose-pre:p-0 dark:prose-dark ${chatTextClass} ${
                     props.message_type &&
                     "italic text-gray-500 dark:text-gray-400 text-sm"
                   }
@@ -392,7 +494,7 @@ export const PlaygroundMessage = (props: Props) => {
                         cancel()
                       } else {
                         speak({
-                          utterance: props.message
+                          utterance: errorFriendlyText || props.message
                         })
                       }
                     }}
@@ -420,7 +522,7 @@ export const PlaygroundMessage = (props: Props) => {
                     ariaLabel={t("copyToClipboard") as string}
                     onClick={async () => {
                       await copyToClipboard({
-                        text: props.message,
+                        text: errorFriendlyText || props.message,
                         formatted: copyAsFormattedText
                       })
 

@@ -11,6 +11,7 @@ import { tldwClient } from "@/services/tldw/TldwApiClient"
 import { getNoOfRetrievedDocs } from "@/services/app"
 import { RagDocsPerReplyHint } from "./RagDocsPerReplyHint"
 import { useAntdMessage } from "@/hooks/useAntdMessage"
+import { useKnowledgeStatus } from "@/hooks/useConnectionState"
 
 export const KnowledgeSettings = () => {
   const { t } = useTranslation(["knowledge", "common"])
@@ -45,6 +46,7 @@ export const KnowledgeSettings = () => {
   const [enableReranking, setEnableReranking] = useState<boolean | null>(null)
   const [enableCache, setEnableCache] = useState<boolean | null>(null)
   const message = useAntdMessage()
+  const { knowledgeStatus } = useKnowledgeStatus()
 
   const ragUnsupported = !capsLoading && capabilities && !capabilities.hasRag
 
@@ -154,9 +156,18 @@ export const KnowledgeSettings = () => {
   if (!isOnline) {
     return demoEnabled ? (
       <FeatureEmptyState
-        title={t("knowledge:empty.demoTitle", {
-          defaultValue: "Explore Knowledge in demo mode"
-        })}
+        title={
+          <span className="inline-flex items-center gap-2">
+            <span className="rounded-full bg-blue-50 px-2 py-0.5 text-[11px] font-medium text-blue-700 dark:bg-blue-900/40 dark:text-blue-200">
+              Demo
+            </span>
+            <span>
+              {t("knowledge:empty.demoTitle", {
+                defaultValue: "Explore Knowledge in demo mode"
+              })}
+            </span>
+          </span>
+        }
         description={t("knowledge:empty.demoDescription", {
           defaultValue:
             "This demo shows how Knowledge can organize your sources for better search. Connect your own server later to index your real documents and transcripts."
@@ -178,9 +189,18 @@ export const KnowledgeSettings = () => {
       />
     ) : (
       <FeatureEmptyState
-        title={t("knowledge:empty.connectTitle", {
-          defaultValue: "Connect to use Knowledge"
-        })}
+        title={
+          <span className="inline-flex items-center gap-2">
+            <span className="rounded-full bg-yellow-50 px-2 py-0.5 text-[11px] font-medium text-yellow-700 dark:bg-yellow-900/40 dark:text-yellow-200">
+              Not connected
+            </span>
+            <span>
+              {t("knowledge:empty.connectTitle", {
+                defaultValue: "Connect to use Knowledge"
+              })}
+            </span>
+          </span>
+        }
         description={t("knowledge:empty.connectDescription", {
           defaultValue:
             "To use Knowledge, first connect to your tldw server so new sources can be indexed."
@@ -203,6 +223,59 @@ export const KnowledgeSettings = () => {
     )
   }
 
+  if (knowledgeStatus === "empty") {
+    return (
+      <FeatureEmptyState
+        title={
+          <span className="inline-flex items-center gap-2">
+            <span className="rounded-full bg-emerald-50 px-2 py-0.5 text-[11px] font-medium text-emerald-700 dark:bg-emerald-900/40 dark:text-emerald-200">
+              {t("knowledge:empty.noSourcesPill", {
+                defaultValue: "No sources yet"
+              })}
+            </span>
+            <span>
+              {t("knowledge:empty.noSourcesTitle", {
+                defaultValue: "Index knowledge to use Knowledge QA"
+              })}
+            </span>
+          </span>
+        }
+        description={t("knowledge:empty.noSourcesDescription", {
+          defaultValue:
+            "Your server is online, but no knowledge indexes were found. Add notes or ingest media to start using Knowledge search and grounded chat."
+        })}
+        examples={[
+          t("knowledge:empty.noSourcesExample1", {
+            defaultValue:
+              "Use Quick ingest to add documents, web pages, and media for RAG."
+          }),
+          t("knowledge:empty.noSourcesExample2", {
+            defaultValue:
+              "Create notes from Chat or the Notes view to capture key ideas."
+          }),
+          t("knowledge:empty.noSourcesExample3", {
+            defaultValue:
+              "Once content is indexed, Knowledge QA can ground answers in your sources."
+          })
+        ]}
+        primaryActionLabel={t("knowledge:empty.noSourcesPrimaryCta", {
+          defaultValue: "Open Quick ingest"
+        })}
+        onPrimaryAction={() => {
+          try {
+            window.dispatchEvent(new CustomEvent("tldw:open-quick-ingest-intro"))
+          } catch {
+            // ignore dispatch errors
+          }
+        }}
+        secondaryActionLabel={t("knowledge:empty.noSourcesSecondaryCta", {
+          defaultValue: "Open Notes"
+        })}
+        onSecondaryAction={() => navigate("/notes")}
+      />
+    )
+  }
+
   const ragScopeText = (() => {
     if (Array.isArray(ragMediaIds) && ragMediaIds.length > 0) {
       return t("knowledge:ragWorkspace.scopeMediaOnly", {
@@ -221,13 +294,19 @@ export const KnowledgeSettings = () => {
         <div className="flex flex-col gap-1">
           <h2 className="text-sm font-semibold text-gray-900 dark:text-gray-50">
             {t("knowledge:ragWorkspace.title", {
-              defaultValue: "RAG search & knowledge chat"
+              defaultValue: "Knowledge search & chat"
             })}
           </h2>
           <p className="text-xs text-gray-600 dark:text-gray-300">
             {t("knowledge:ragWorkspace.description", {
               defaultValue:
-                "Configure RAG retrieval options, run quick searches, and use Chat with grounded answers."
+                "Configure knowledge search (RAG) options, run quick searches, and use Chat with grounded answers."
+            })}
+          </p>
+          <p className="text-[11px] text-gray-500 dark:text-gray-400">
+            {t("knowledge:ragWorkspace.subtitleRag", {
+              defaultValue:
+                "Retrieval-augmented generation (RAG) lets the assistant ground answers in your media, notes, and other indexed knowledge sources."
             })}
           </p>
         </div>

@@ -10,7 +10,7 @@ import {
   Collapse,
   Tag
 } from "antd"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import React, { useEffect, useState } from "react"
 import { browser } from "wxt/browser"
 import { useTranslation } from "react-i18next"
@@ -21,6 +21,8 @@ import { DEFAULT_TLDW_API_KEY } from "@/services/tldw-server"
 import { apiSend } from "@/services/api-send"
 import { useAntdMessage } from "@/hooks/useAntdMessage"
 import { useConnectionStore } from "@/store/connection"
+import { mapMultiUserLoginErrorMessage } from "@/services/auth-errors"
+import { ServerOverviewHint } from "@/components/Common/ServerOverviewHint"
 
 type TimeoutPresetKey = 'balanced' | 'extended'
 
@@ -55,9 +57,13 @@ const TIMEOUT_PRESETS: Record<TimeoutPresetKey, TimeoutValues> = {
   }
 }
 
+type CoreStatus = 'unknown' | 'checking' | 'connected' | 'failed'
+type RagStatus = 'healthy' | 'unhealthy' | 'unknown' | 'checking'
+
 export const TldwSettings = () => {
   const { t } = useTranslation(["settings", "common"])
   const message = useAntdMessage()
+  const navigate = useNavigate()
   const [form] = Form.useForm()
   const [loading, setLoading] = useState(false)
   const [initializing, setInitializing] = useState(true)
@@ -65,7 +71,8 @@ export const TldwSettings = () => {
   const [testingConnection, setTestingConnection] = useState(false)
   const [connectionStatus, setConnectionStatus] = useState<'success' | 'error' | null>(null)
   const [connectionDetail, setConnectionDetail] = useState<string>("")
-  const [ragStatus, setRagStatus] = useState<'healthy' | 'unhealthy' | 'unknown'>("unknown")
+  const [coreStatus, setCoreStatus] = useState<CoreStatus>("unknown")
+  const [ragStatus, setRagStatus] = useState<RagStatus>("unknown")
   const [authMode, setAuthMode] = useState<'single-user' | 'multi-user'>('single-user')
   const [isLoggedIn, setIsLoggedIn] = useState(false)
   const [serverUrl, setServerUrl] = useState("")
@@ -111,6 +118,54 @@ export const TldwSettings = () => {
   const parseSeconds = (value: string, fallback: number) => {
     const parsed = parseInt(value, 10)
     return Number.isNaN(parsed) ? fallback : parsed
+  }
+
+  const coreStatusColor = (status: CoreStatus) => {
+    switch (status) {
+      case "connected":
+        return "green"
+      case "failed":
+        return "red"
+      default:
+        return "default"
+    }
+  }
+
+  const coreStatusLabel = (status: CoreStatus) => {
+    switch (status) {
+      case "checking":
+        return t("settings:tldw.connection.coreChecking", "Core: checking…")
+      case "connected":
+        return t("settings:tldw.connection.coreOk", "Core: reachable")
+      case "failed":
+        return t("settings:tldw.connection.coreFailed", "Core: unreachable")
+      default:
+        return t("settings:tldw.connection.coreUnknown", "Core: waiting")
+    }
+  }
+
+  const ragStatusColor = (status: RagStatus) => {
+    switch (status) {
+      case "healthy":
+        return "green"
+      case "unhealthy":
+        return "red"
+      default:
+        return "default"
+    }
+  }
+
+  const ragStatusLabel = (status: RagStatus) => {
+    switch (status) {
+      case "checking":
+        return t("settings:tldw.connection.ragChecking", "RAG: checking…")
+      case "healthy":
+        return t("settings:tldw.connection.ragHealthy", "RAG: healthy")
+      case "unhealthy":
+        return t("settings:tldw.connection.ragUnhealthy", "RAG: needs attention")
+      default:
+        return t("settings:tldw.connection.ragUnknown", "RAG: waiting")
+    }
   }
 
   useEffect(() => {
@@ -231,45 +286,91 @@ export const TldwSettings = () => {
     setTestingConnection(true)
     setConnectionStatus(null)
     setConnectionDetail("")
+    setCoreStatus("checking")
+    setRagStatus("unknown")
     
     try {
       const values = form.getFieldsValue()
+      try {
+        await form.validateFields(["serverUrl"])
+      } catch {
+        const urlRaw = String(values?.serverUrl || "").trim()
+        const friendly = urlRaw
+          ? (t(
+              "settings:tldw.fields.serverUrl.invalid",
+              "Please enter a valid URL"
+            ) as string)
+          : (t(
+              "settings:tldw.fields.serverUrl.required",
+              "Please enter the server URL"
+            ) as string)
+        setConnectionStatus("error")
+        setCoreStatus("failed")
+        setConnectionDetail(friendly)
+        message.error(friendly)
+        return
+      }
       let success = false
 
-      if (values.authMode === 'single-user' && values.apiKey) {
-        // Validate against a strictly protected endpoint by provoking a non-auth error (400) vs 401
-        // We intentionally use an invalid model id; if auth is valid, server should respond 400/404/422, not 401
-        const resp = await apiSend({
-          path: `${String(values.serverUrl).replace(/\/$/, '')}/api/v1/chat/completions` as any,
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json', 'X-API-KEY': String(values.apiKey).trim() },
-          body: { model: '__validation__', messages: [{ role: 'user', content: 'ping' }], stream: false },
-          noAuth: true
-        })
-        // Treat any non-401 as valid auth; 401/403 invalid/forbidden
-        success = resp?.status !== 401 && resp?.status !== 403
-        if (!success) {
-          const code = resp?.status
-          const hint = code === 401
-            ? t('settings:tldw.errors.invalidApiKey', 'Invalid API key')
-            : code === 403
-              ? t('settings:tldw.errors.forbidden', 'Forbidden (check permissions)')
-              : (resp?.error || t('settings:tldw.errors.apiKeyValidationFailed', 'API key validation failed'))
-          setConnectionDetail(`${hint}${code ? ` — HTTP ${code}` : ''}`)
+      // Test core connectivity via the health endpoint only, so we never
+      // rely on the LLM provider for connection checks.
+      const baseUrl = String(values.serverUrl || '').replace(/\/$/, '')
+      const singleUser = values.authMode === "single-user"
+      const hasApiKey =
+        singleUser && typeof values.apiKey === "string" && values.apiKey.trim().length > 0
+
+      const resp = await apiSend({
+        path: `${baseUrl}/api/v1/health` as any,
+        method: "GET",
+        // For single-user mode, send the API key explicitly and bypass
+        // background auth injection so we validate the current form values.
+        headers:
+          hasApiKey && baseUrl
+            ? { "X-API-KEY": String(values.apiKey).trim() }
+            : undefined,
+        noAuth: hasApiKey && baseUrl ? true : false
+      })
+
+      success = !!resp?.ok
+      setCoreStatus(success ? "connected" : "failed")
+
+      if (!success) {
+        const code = resp?.status
+        const detail = resp?.error || ""
+
+        if (code === 401 || code === 403) {
+          const hint =
+            code === 401
+              ? t(
+                  "settings:tldw.errors.invalidApiKey",
+                  "Invalid API key"
+                )
+              : t(
+                  "settings:tldw.errors.forbidden",
+                  "Forbidden (check permissions)"
+                )
+          const healthHint = t(
+            "settings:tldw.errors.seeHealth",
+            "Open Health & diagnostics for more details."
+          )
+          const suffix = code ? ` — HTTP ${code}` : ""
+          const extra = detail ? ` (${detail})` : ""
+          setConnectionDetail(`${hint}${suffix} — ${healthHint}${extra}`)
+        } else {
+          const base = t(
+            "settings:tldw.errors.serverUnreachableDetailed",
+            "Server not reachable. Check that your tldw_server is running and that your browser can reach it, then try again. Health & diagnostics can help debug connectivity issues."
+          )
+          const suffix = code ? ` — HTTP ${code}` : ""
+          const extra = detail ? ` (${detail})` : ""
+          setConnectionDetail(`${base}${suffix}${extra}`)
         }
-      } else {
-        // Test basic health endpoint via background proxy
-        const resp = await apiSend({
-          path: `${String(values.serverUrl).replace(/\/$/, '')}/api/v1/health` as any,
-          method: 'GET'
-        })
-        success = !!resp?.ok
-        if (!success) setConnectionDetail(`${t('settings:tldw.errors.serverUnreachable', 'Server unreachable')}${resp?.status ? ` — HTTP ${resp.status}` : ''}`)
       }
 
       setConnectionStatus(success ? 'success' : 'error')
       // Probe RAG health after core connection test when server URL is present
       try {
+        setRagStatus("checking")
         await tldwClient.initialize()
         const rag = await tldwClient.ragHealth()
         setRagStatus('healthy')
@@ -302,9 +403,21 @@ export const TldwSettings = () => {
       }
     } catch (error) {
       setConnectionStatus('error')
-      const detail = (error as any)?.message || t('settings:tldw.connection.failedDetailed', 'Connection failed. Please check your server URL and API key.')
-      setConnectionDetail(detail)
-      message.error(detail)
+      setCoreStatus("failed")
+      const raw = (error as any)?.message || ''
+      const friendly =
+        raw && /network|timeout|failed to fetch/i.test(raw)
+          ? t(
+              'settings:tldw.errors.serverUnreachableDetailed',
+              'Server not reachable. Check that your tldw_server is running and that your browser can reach it, then try again. Health & diagnostics can help debug connectivity issues.'
+            )
+          : raw ||
+            t(
+              'settings:tldw.errors.connectionFailedDetailed',
+              'Connection failed. Please check your server URL and API key, then open Health & diagnostics for more details.'
+            )
+      setConnectionDetail(friendly)
+      message.error(friendly)
       console.error('Connection test failed:', error)
     } finally {
       setTestingConnection(false)
@@ -354,7 +467,12 @@ export const TldwSettings = () => {
       // Test connection after login
       await testConnection()
     } catch (error: any) {
-      message.error(error.message || t('settings:tldw.login.failed', 'Login failed'))
+      const friendly = mapMultiUserLoginErrorMessage(
+        t,
+        error,
+        'settings'
+      )
+      message.error(friendly)
       console.error('Login failed:', error)
     } finally {
       setLoading(false)
@@ -416,45 +534,20 @@ export const TldwSettings = () => {
             onClose={() => setShowDefaultKeyWarning(false)}
           />
         )}
-        <div className="mb-4 p-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
-          <h3 className="font-semibold mb-2">
-            {t('settings:tldw.about.title', 'About tldw_server Integration')}
+        <div className="mb-4 rounded-lg bg-gray-50 p-4 dark:bg-gray-800">
+          <h3 className="mb-2 font-semibold">
+            {t(
+              "settings:tldw.about.title",
+              "About tldw server integration"
+            )}
           </h3>
           <p className="text-sm text-gray-600 dark:text-gray-400">
             {t(
-              'settings:tldw.about.description',
-              'This extension connects to your tldw_server instance, providing access to:'
+              "settings:tldw.about.description",
+              "tldw server turns this extension into a full workspace for chat, knowledge search, and media."
             )}
           </p>
-          <ul className="mt-2 text-sm text-gray-600 dark:text-gray-400 list-disc list-inside">
-            <li>
-              {t(
-                'settings:tldw.about.points.providers',
-                'Multiple LLM providers through a unified API'
-              )}
-            </li>
-            <li>
-              {t('settings:tldw.about.points.rag', 'RAG (Retrieval-Augmented Generation) search')}
-            </li>
-            <li>
-              {t(
-                'settings:tldw.about.points.media',
-                'Media ingestion and processing'
-              )}
-            </li>
-            <li>
-              {t(
-                'settings:tldw.about.points.notes',
-                'Notes and prompts management'
-              )}
-            </li>
-            <li>
-              {t(
-                'settings:tldw.about.points.stt',
-                'Speech-to-text transcription'
-              )}
-            </li>
-          </ul>
+          <ServerOverviewHint />
         </div>
         <div className="mb-4 p-2 rounded border border-transparent bg-transparent flex items-center justify-between transition-colors duration-150 hover:border-gray-200 hover:bg-gray-50 dark:border-transparent dark:hover:border-gray-700 dark:hover:bg-[#1c1c1c]">
           <div className="text-sm text-gray-800 dark:text-gray-100">
@@ -590,26 +683,67 @@ export const TldwSettings = () => {
               )}
             </Space>
 
-            {connectionStatus && (
-              <span className={`text-sm ${connectionStatus === 'success' ? 'text-green-500' : 'text-red-500'}`}>
-                {connectionStatus === 'success' ? t('settings:tldw.connection.success', 'Connection successful!') : t('settings:tldw.connection.failed', 'Connection failed. Please check your settings.')}
-              </span>
-            )}
-            {connectionDetail && connectionStatus !== 'success' && (
-              <span className="text-xs text-gray-500">{connectionDetail}</span>
-            )}
-            {connectionStatus === 'success' && (
-              <div className="ml-4">
-                <span className="text-sm mr-2">{t('settings:onboarding.rag.label', 'RAG:')}</span>
-                {ragStatus === 'healthy' ? (
-                  <Tag color="green">{t('settings:healthPage.healthy', 'Healthy')}</Tag>
-                ) : ragStatus === 'unhealthy' ? (
-                  <Tag color="red">{t('settings:healthPage.unhealthy', 'Unhealthy')}</Tag>
-                ) : (
-                  <Tag>{t('settings:healthPage.unknown', 'Unknown')}</Tag>
-                )}
+            <div className="flex flex-col items-start gap-1 ml-4">
+              {testingConnection && (
+                <span className="text-xs text-gray-500">
+                  {t(
+                    "settings:tldw.connection.checking",
+                    "Checking connection and RAG health…"
+                  )}
+                </span>
+              )}
+              {connectionStatus && !testingConnection && (
+                <span
+                  className={`text-sm ${
+                    connectionStatus === "success"
+                      ? "text-green-500"
+                      : "text-red-500"
+                  }`}>
+                  {connectionStatus === "success"
+                    ? t(
+                        "settings:tldw.connection.success",
+                        "Connection successful!"
+                      )
+                    : t(
+                        "settings:tldw.connection.failed",
+                        "Connection failed. Please check your settings."
+                      )}
+                </span>
+              )}
+              {connectionDetail && connectionStatus !== "success" && (
+                <span className="flex flex-wrap items-center gap-2 text-xs text-gray-500">
+                  <span>{connectionDetail}</span>
+                  <button
+                    type="button"
+                    className="underline text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300"
+                    onClick={() => {
+                      try {
+                        navigate("/settings/health")
+                      } catch {
+                        // ignore navigation failure
+                      }
+                    }}>
+                    {t(
+                      "settings:healthSummary.diagnostics",
+                      "Health & diagnostics"
+                    )}
+                  </button>
+                </span>
+              )}
+              <div className="flex flex-wrap items-center gap-2 text-xs text-gray-600 dark:text-gray-300">
+                <span className="font-medium">
+                  {t("settings:tldw.connection.checksLabel", "Checks")}
+                </span>
+                <Tag
+                  color={coreStatusColor(coreStatus)}>
+                  {coreStatusLabel(coreStatus)}
+                </Tag>
+                <Tag
+                  color={ragStatusColor(ragStatus)}>
+                  {ragStatusLabel(ragStatus)}
+                </Tag>
               </div>
-            )}
+            </div>
           </Space>
           <Collapse
             className="mt-4"

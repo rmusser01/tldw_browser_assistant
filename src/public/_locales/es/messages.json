@@ -11,6 +11,18 @@
   "openOptionToChat": {
     "message": "Abrir Web UI para Chatear"
   },
+  "openQuickIngest": {
+    "message": "Abrir ingesta rápida"
+  },
+  "buttonOpenQuickIngest": {
+    "message": "Abrir ingesta rápida"
+  },
+  "buttonTryDemo": {
+    "message": "Probar una demo"
+  },
+  "learnMoreTldw": {
+    "message": "Aprende cómo funciona el servidor tldw"
+  },
   "contextSummarize": {
     "message": "Resumir"
   },
@@ -37,6 +49,9 @@
   },
   "contextSaveToNotesOpeningSidebar": {
     "message": "Abriendo la barra lateral para guardar la nota..."
+  },
+  "contextSaveToNotesDeliveryFailed": {
+    "message": "No se pudo abrir la barra lateral para guardar esta nota. Verifica que la barra lateral de tldw Assistant esté permitida en este sitio y vuelve a intentarlo."
   },
   "contextTranscribeMedia": {
     "message": "Transcribir vídeo/audio"

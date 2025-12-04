@@ -12,7 +12,8 @@ import {
   Tooltip,
   notification,
   Popover,
-  Modal
+  Modal,
+  Button
 } from "antd"
 import { Image } from "antd"
 import { useWebUI } from "~/store/webui"
@@ -42,16 +43,41 @@ import { otherUnsupportedTypes } from "../Knowledge/utils/unsupported-types"
 import { PASTED_TEXT_CHAR_LIMIT } from "@/utils/constant"
 import { isFireFoxPrivateMode } from "@/utils/is-private-mode"
 import { CurrentChatModelSettings } from "@/components/Common/Settings/CurrentChatModelSettings"
+import { ActorPopout } from "@/components/Common/Settings/ActorPopout"
 import { PromptSelect } from "@/components/Common/PromptSelect"
 import { useConnectionState } from "@/hooks/useConnectionState"
 import { ConnectionPhase } from "@/types/connection"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { fetchChatModels } from "@/services/tldw-server"
 import { useServerCapabilities } from "@/hooks/useServerCapabilities"
 import { tldwClient, type ConversationState } from "@/services/tldw/TldwApiClient"
 import { CharacterSelect } from "@/components/Common/CharacterSelect"
 import { ProviderIcons } from "@/components/Common/ProviderIcon"
 import type { Character } from "@/types/character"
+
+const getPersistenceModeLabel = (
+  t: (...args: any[]) => any,
+  temporaryChat: boolean,
+  serverChatId: string | null
+) => {
+  if (temporaryChat) {
+    return t(
+      "playground:composer.persistence.ephemeral",
+      "Temporary chat: not saved in history and cleared when you close this window."
+    )
+  }
+  if (serverChatId) {
+    return t(
+      "playground:composer.persistence.server",
+      "Saved Locally+Server"
+    )
+  }
+  return t(
+    "playground:composer.persistence.local",
+    "Saved in this browser only."
+  )
+}
+
 type Props = {
   dropedFile: File | undefined
 }
@@ -60,6 +86,7 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
   const { t } = useTranslation(["playground", "common", "option"])
   const inputRef = React.useRef<HTMLInputElement>(null)
   const fileInputRef = React.useRef<HTMLInputElement>(null)
+  const navigate = useNavigate()
 
   const [typing, setTyping] = React.useState<boolean>(false)
   const [checkWideMode] = useStorage("checkWideMode", false)
@@ -105,6 +132,7 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
   const [autoSubmitVoiceMessage] = useStorage("autoSubmitVoiceMessage", false)
   const [openModelSettings, setOpenModelSettings] = React.useState(false)
   const [isContextModalOpen, setIsContextModalOpen] = React.useState(false)
+  const [openActorSettings, setOpenActorSettings] = React.useState(false)
 
   const { phase, isConnected } = useConnectionState()
   const isConnectionReady = isConnected && phase === ConnectionPhase.CONNECTED
@@ -138,6 +166,21 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
     "selectedCharacter",
     null
   )
+  const [serverPersistenceHintSeen, setServerPersistenceHintSeen] = useStorage(
+    "serverPersistenceHintSeen",
+    false
+  )
+  const [showServerPersistenceHint, setShowServerPersistenceHint] =
+    React.useState(false)
+
+  React.useEffect(() => {
+    if (typeof window === "undefined") return
+    const handler = () => setOpenActorSettings(true)
+    window.addEventListener("tldw:open-actor-settings", handler)
+    return () => {
+      window.removeEventListener("tldw:open-actor-settings", handler)
+    }
+  }, [])
 
   const {
     tabMentionsEnabled,
@@ -615,8 +658,16 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
       if (history.length > 0) {
         clearChat()
       }
+
+      const modeLabel = getPersistenceModeLabel(t, next, serverChatId)
+
+      notification.info({
+        message: modeLabel,
+        placement: "bottomRight",
+        duration: 2.5
+      })
     },
-    [clearChat, history.length]
+    [clearChat, history.length, serverChatId, setTemporaryChat, t]
   )
 
   const handleSaveChatToServer = React.useCallback(async () => {
@@ -670,7 +721,21 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
           description: t(
             "playground:composer.persistence.serverCharacterRequired",
             "Unable to find or create a default assistant character on the server. Try again from the Characters page."
-          )
+          ),
+          btn: (
+            <Button
+              type="primary"
+              size="small"
+              onClick={() => {
+                navigate("/characters?from=server-chat-persistence-error")
+              }}>
+              {t(
+                "playground:composer.persistence.serverCharacterCta",
+                "Open Characters workspace"
+              )}
+            </Button>
+          ),
+          duration: 6
         })
         return
       }
@@ -718,11 +783,21 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
           "playground:composer.persistence.serverSavedTitle",
           "Chat now saved on server"
         ),
-        description: t(
-          "playground:composer.persistence.serverSaved",
-          "Future messages in this chat will sync to your tldw server."
-        )
+        description:
+          t(
+            "playground:composer.persistence.serverSaved",
+            "Future messages in this chat will sync to your tldw server."
+          ) +
+          " " +
+          t(
+            "playground:composer.persistence.serverBenefits",
+            "This keeps a durable record in server history so you can reopen the conversation later, access it from other browsers, and run server-side analytics over your chats."
+          )
       })
+      if (!serverPersistenceHintSeen) {
+        setServerPersistenceHintSeen(true)
+        setShowServerPersistenceHint(true)
+      }
     } catch (e: any) {
       notification.error({
         message: t("error"),
@@ -735,6 +810,9 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
     temporaryChat,
     serverChatId,
     setServerChatId,
+    navigate,
+    serverPersistenceHintSeen,
+    setServerPersistenceHintSeen,
     t
   ])
 
@@ -1042,6 +1120,51 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
     }
   }
 
+  const persistenceModeLabel = React.useMemo(
+    () => getPersistenceModeLabel(t, temporaryChat, serverChatId),
+    [serverChatId, temporaryChat, t]
+  )
+
+  const persistencePillLabel = React.useMemo(() => {
+    if (temporaryChat) {
+      return t(
+        "playground:composer.persistence.ephemeralPill",
+        "Temporary"
+      )
+    }
+    if (serverChatId) {
+      return t(
+        "playground:composer.persistence.serverPill",
+        "Locally + Server"
+      )
+    }
+    return t(
+      "playground:composer.persistence.localPill",
+      "Local only"
+    )
+  }, [serverChatId, temporaryChat, t])
+
+  const focusConnectionCard = React.useCallback(() => {
+    try {
+      const card = document.getElementById("server-connection-card")
+      if (card) {
+        card.scrollIntoView({ block: "nearest", behavior: "smooth" })
+        ;(card as HTMLElement).focus()
+        return
+      }
+    } catch {
+      // ignore DOM errors and fall through to hash navigation
+    }
+    try {
+      const base =
+        window.location.href.replace(/#.*$/, "") || "/options.html"
+      const target = `${base}#/settings/tldw`
+      window.location.href = target
+    } catch {
+      // ignore navigation failures
+    }
+  }, [])
+
   return (
     <div className="flex w-full flex-col items-center px-2">
       <div className="relative z-10 flex w-full flex-col items-center justify-center gap-2 text-base">
@@ -1302,62 +1425,15 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
                       />
                     </div>
                     <div className="mt-2 flex flex-col gap-1">
-                      <div className="flex flex-wrap items-center gap-2 text-[11px] text-gray-600 dark:text-gray-300">
-                        <span className="font-semibold uppercase tracking-wide">
-                          {t("playground:composer.contextLabel", "Context:")}
-                        </span>
-                        <button
-                          type="button"
-                          onClick={() => {
-                            const chips =
-                              document.querySelector<HTMLElement>(
-                                "[data-playground-tabs='true']"
-                              )
-                            chips?.focus()
-                          }}
-                          className="inline-flex items-center gap-1 rounded-full border border-transparent px-2 py-0.5 hover:border-gray-300 hover:bg-gray-50 dark:hover:border-gray-600 dark:hover:bg-[#262626]">
-                          <span>
-                            {t("playground:composer.contextTabs", {
-                              defaultValue: "{{count}} tabs",
-                              count: selectedDocuments.length
-                            } as any) as string}
-                          </span>
-                        </button>
-                        <button
-                          type="button"
-                          onClick={() => {
-                            const files =
-                              document.querySelector<HTMLElement>(
-                                "[data-playground-uploads='true']"
-                              )
-                            if (files) {
-                              files.focus()
-                              files.scrollIntoView({ block: "nearest" })
-                            }
-                          }}
-                          className="inline-flex items-center gap-1 rounded-full border border-transparent px-2 py-0.5 hover:border-gray-300 hover:bg-gray-50 dark:hover:border-gray-600 dark:hover:bg-[#262626]">
-                          <span>
-                            {t("playground:composer.contextFiles", {
-                              defaultValue: "{{count}} files",
-                              count: uploadedFiles.length
-                            } as any) as string}
-                          </span>
-                        </button>
-                        <button
-                          type="button"
-                          onClick={() => setIsContextModalOpen(true)}
-                          className="inline-flex items-center gap-1 rounded-full border border-gray-200 px-2 py-0.5 text-[11px] font-medium text-gray-700 transition hover:bg-gray-100 dark:border-gray-600 dark:text-gray-200 dark:hover:bg-[#2a2a2a]">
-                          {t("playground:composer.contextManager", "Context Management")}
-                        </button>
-                      </div>
-                      <div className="mt-1 flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
+                      <div className="mt-1 flex flex-col gap-2">
                         <div className="flex flex-wrap items-start gap-3">
                           <div className="flex flex-col gap-0.5 text-xs text-gray-700 dark:text-gray-200">
-                            <div className="flex items-center gap-1">
+                            <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
                               <Switch
                                 size="small"
                                 checked={temporaryChat}
                                 onChange={handleToggleTemporaryChat}
+                                title={persistenceModeLabel as string}
                                 aria-label={
                                   temporaryChat
                                     ? (t(
@@ -1381,116 +1457,215 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
                                       "Save chat to history"
                                     )}
                               </span>
+                              <span className="inline-flex items-center rounded-full border border-gray-200 bg-white px-2 py-0.5 text-[11px] font-medium text-gray-700 shadow-sm dark:border-gray-700 dark:bg-[#1f1f1f] dark:text-gray-200">
+                                {persistencePillLabel}
+                              </span>
+                              <span className="text-[11px] text-gray-500 dark:text-gray-400 font-semibold">
+                                {persistenceModeLabel}
+                              </span>
                             </div>
-                            <p className="text-[11px] text-gray-500 dark:text-gray-400">
-                              {temporaryChat
-                                ? t(
-                                    "playground:composer.persistence.ephemeral",
-                                    "Not saved in history; clears when you close this tab."
-                                  )
-                                : serverChatId
-                                  ? t(
-                                      "playground:composer.persistence.server",
-                                      "Saved Locally+Server"
-                                    )
-                                  : t(
-                                      "playground:composer.persistence.local",
-                                      "Saved in this browser only."
-                                    )}
-                            </p>
                             {!temporaryChat && isConnectionReady && !serverChatId && (
                               <button
                                 type="button"
                                 onClick={handleSaveChatToServer}
-                                className="inline-flex w-fit items-center gap-1 text-[11px] font-medium text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300">
+                                className="mt-1 inline-flex w-fit items-center gap-1 rounded-full border border-blue-200 bg-blue-50 px-2 py-0.5 text-[11px] font-medium text-blue-700 hover:bg-blue-100 dark:border-blue-500/60 dark:bg-blue-900/30 dark:text-blue-200 dark:hover:bg-blue-900/50">
                                 {t(
                                   "playground:composer.persistence.saveToServer",
                                   "Also save this chat to server"
                                 )}
                               </button>
                             )}
-                          </div>
-                        </div>
-                        <div className="flex items-center justify-end gap-3 flex-wrap">
-                          <CharacterSelect className="text-gray-600 hover:text-gray-800 dark:text-gray-300 dark:hover:text-gray-100" iconClassName="size-5" />
-                          {(browserSupportsSpeechRecognition || hasServerAudio) && (
-                            <>
-                              <Tooltip
-                                title={
-                                  hasServerAudio
-                                    ? t(
-                                        "playground:tooltip.speechToTextServer",
-                                        "Dictation via your tldw server"
-                                      ) +
-                                      " " +
-                                      t(
-                                        "playground:tooltip.speechToTextDetails",
-                                        "Uses {{model}} · {{task}} · {{format}}. Configure in Settings → General → Speech-to-Text.",
-                                        {
-                                          model: sttModel || "whisper-1",
-                                          task:
-                                            sttTask === "translate"
-                                              ? "translate"
-                                              : "transcribe",
-                                          format: (sttResponseFormat || "json").toUpperCase()
-                                        } as any
-                                      )
-                                    : t(
-                                        "playground:tooltip.speechToTextBrowser",
-                                        "Dictation via browser speech recognition"
-                                      )
-                                }>
+                            {!temporaryChat && !isConnectionReady && (
+                              <button
+                                type="button"
+                                onClick={focusConnectionCard}
+                                className="mt-1 inline-flex w-fit items-center gap-1 text-[11px] font-medium text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300">
+                                {t(
+                                  "playground:composer.persistence.connectToSave",
+                                  "Connect your server to save chats there."
+                                )}
+                              </button>
+                            )}
+                            {!temporaryChat && serverChatId && showServerPersistenceHint && (
+                              <p className="mt-1 max-w-md text-[11px] text-gray-600 dark:text-gray-300">
+                                <span className="font-semibold">
+                                  {t(
+                                    "playground:composer.persistence.serverInlineTitle",
+                                    "Saved locally + on your server"
+                                  )}
+                                  {": "}
+                                </span>
+                                {t(
+                                  "playground:composer.persistence.serverInlineBody",
+                                  "This chat is stored both in this browser and on your tldw server, so you can reopen it from server history, keep a long-term record, and analyze it alongside other conversations."
+                                )}
                                 <button
                                   type="button"
-                                  onClick={hasServerAudio ? handleServerDictationToggle : handleSpeechToggle}
-                                  className={`inline-flex items-center justify-center rounded-full border px-2 py-1 text-xs transition hover:bg-gray-100 dark:hover:bg-[#2a2a2a] ${
-                                    (hasServerAudio && isServerDictating) || (!hasServerAudio && isListening)
-                                      ? "border-blue-500 text-blue-600 dark:border-blue-400 dark:text-blue-300"
-                                      : "border-gray-200 text-gray-700 dark:border-gray-600 dark:text-gray-200"
-                                  }`}
-                                  aria-label={
-                                    hasServerAudio
-                                      ? (isServerDictating
-                                          ? (t("playground:actions.speechStop", "Stop dictation") as string)
-                                          : (t("playground:actions.speechStart", "Start dictation") as string))
-                                      : (isListening
-                                          ? (t("playground:actions.speechStop", "Stop dictation") as string)
-                                          : (t("playground:actions.speechStart", "Start dictation") as string))
-                                  }>
-                                  <MicIcon className="h-4 w-4" />
+                                  onClick={() => setShowServerPersistenceHint(false)}
+                                  className="ml-1 text-[11px] font-medium text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300"
+                                >
+                                  {t("common:dismiss", "Dismiss")}
                                 </button>
-                              </Tooltip>
-                            </>
-                          )}
-                          <Tooltip
-                            title={
-                              t(
-                                "common:currentChatModelSettings"
-                              ) as string
-                            }>
+                              </p>
+                            )}
+                          </div>
+                        </div>
+                          <div className="flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
+                          <div className="flex flex-wrap items-center gap-2 text-[11px] text-gray-600 dark:text-gray-300">
                             <button
                               type="button"
-                              onClick={() => setOpenModelSettings(true)}
-                              aria-label={
+                              onClick={() => setIsContextModalOpen(true)}
+                              title={
+                                t(
+                                  "playground:composer.contextManagerTitle",
+                                  "Open Context Management"
+                                ) as string
+                              }
+                              className="inline-flex items-center gap-1 rounded-full border border-gray-200 px-2 py-0.5 text-[11px] font-medium text-gray-700 transition hover:bg-gray-100 dark:border-gray-600 dark:text-gray-200 dark:hover:bg-[#2a2a2a]">
+                              {t(
+                                "playground:composer.contextManager",
+                                "Context Management"
+                              )}
+                            </button>
+                            {selectedDocuments.length > 0 && (
+                              <button
+                                type="button"
+                                onClick={() => {
+                                  const chips =
+                                    document.querySelector<HTMLElement>(
+                                      "[data-playground-tabs='true']"
+                                    )
+                                  if (chips) {
+                                    chips.focus()
+                                    chips.scrollIntoView({ block: "nearest" })
+                                  }
+                                }}
+                                title={
+                                  t(
+                                    "playground:composer.contextTabsHint",
+                                    "Review or remove referenced tabs, or add more from your open browser tabs."
+                                  ) as string
+                                }
+                                className="inline-flex items-center gap-1 rounded-full border border-transparent px-2 py-0.5 hover:border-gray-300 hover:bg-gray-50 dark:hover:border-gray-600 dark:hover:bg-[#262626]">
+                                <FileText className="h-3 w-3 text-gray-500 dark:text-gray-400" />
+                                <span>
+                                  {t("playground:composer.contextTabs", {
+                                    defaultValue: "{{count}} tabs",
+                                    count: selectedDocuments.length
+                                  } as any) as string}
+                                </span>
+                              </button>
+                            )}
+                            {uploadedFiles.length > 0 && (
+                              <button
+                                type="button"
+                                onClick={() => {
+                                  const files =
+                                    document.querySelector<HTMLElement>(
+                                      "[data-playground-uploads='true']"
+                                    )
+                                  if (files) {
+                                    files.focus()
+                                    files.scrollIntoView({ block: "nearest" })
+                                  }
+                                }}
+                                title={
+                                  t(
+                                    "playground:composer.contextFilesHint",
+                                    "Review attached files, remove them, or add more."
+                                  ) as string
+                                }
+                                className="inline-flex items-center gap-1 rounded-full border border-transparent px-2 py-0.5 hover:border-gray-300 hover:bg-gray-50 dark:hover:border-gray-600 dark:hover:bg-[#262626]">
+                                <FileIcon className="h-3 w-3 text-gray-500 dark:text-gray-400" />
+                                <span>
+                                  {t("playground:composer.contextFiles", {
+                                    defaultValue: "{{count}} files",
+                                    count: uploadedFiles.length
+                                  } as any) as string}
+                                </span>
+                              </button>
+                            )}
+                          </div>
+                          <div className="flex items-center justify-end gap-3 flex-wrap">
+                            <CharacterSelect className="text-gray-600 hover:text-gray-800 dark:text-gray-300 dark:hover:text-gray-100" iconClassName="size-5" />
+                            {(browserSupportsSpeechRecognition || hasServerAudio) && (
+                              <>
+                                <Tooltip
+                                  title={
+                                    hasServerAudio
+                                      ? t(
+                                          "playground:tooltip.speechToTextServer",
+                                          "Dictation via your tldw server"
+                                        ) +
+                                        " " +
+                                        t(
+                                          "playground:tooltip.speechToTextDetails",
+                                          "Uses {{model}} · {{task}} · {{format}}. Configure in Settings → General → Speech-to-Text.",
+                                          {
+                                            model: sttModel || "whisper-1",
+                                            task:
+                                              sttTask === "translate"
+                                                ? "translate"
+                                                : "transcribe",
+                                            format: (sttResponseFormat || "json").toUpperCase()
+                                          } as any
+                                        )
+                                      : t(
+                                          "playground:tooltip.speechToTextBrowser",
+                                          "Dictation via browser speech recognition"
+                                        )
+                                  }>
+                                  <button
+                                    type="button"
+                                    onClick={hasServerAudio ? handleServerDictationToggle : handleSpeechToggle}
+                                    className={`inline-flex items-center justify-center rounded-full border px-2 py-1 text-xs transition hover:bg-gray-100 dark:hover:bg-[#2a2a2a] ${
+                                      (hasServerAudio && isServerDictating) || (!hasServerAudio && isListening)
+                                        ? "border-blue-500 text-blue-600 dark:border-blue-400 dark:text-blue-300"
+                                        : "border-gray-200 text-gray-700 dark:border-gray-600 dark:text-gray-200"
+                                    }`}
+                                    aria-label={
+                                      hasServerAudio
+                                        ? (isServerDictating
+                                            ? (t("playground:actions.speechStop", "Stop dictation") as string)
+                                            : (t("playground:actions.speechStart", "Start dictation") as string))
+                                        : (isListening
+                                            ? (t("playground:actions.speechStop", "Stop dictation") as string)
+                                            : (t("playground:actions.speechStart", "Start dictation") as string))
+                                    }>
+                                    <MicIcon className="h-4 w-4" />
+                                  </button>
+                                </Tooltip>
+                              </>
+                            )}
+                            <Tooltip
+                              title={
                                 t(
                                   "common:currentChatModelSettings"
                                 ) as string
-                              }
-                              className="inline-flex items-center gap-2 rounded-md border border-gray-200 px-3 py-1.5 text-xs text-gray-700 transition hover:bg-gray-100 dark:border-gray-600 dark:text-gray-200 dark:hover:bg-[#2a2a2a]">
-                              <Gauge
-                                className="h-4 w-4"
-                                aria-hidden="true"
-                              />
-                              <span className="flex flex-col items-start text-left">
-                                <span className="font-medium">
-                                  {t("playground:composer.chatSettings", "Chat Settings")}
+                              }>
+                              <button
+                                type="button"
+                                onClick={() => setOpenModelSettings(true)}
+                                aria-label={
+                                  t(
+                                    "common:currentChatModelSettings"
+                                  ) as string
+                                }
+                                className="inline-flex items-center gap-2 rounded-md border border-gray-200 px-3 py-1.5 text-xs text-gray-700 transition hover:bg-gray-100 dark:border-gray-600 dark:text-gray-200 dark:hover:bg-[#2a2a2a]">
+                                <Gauge
+                                  className="h-4 w-4"
+                                  aria-hidden="true"
+                                />
+                                <span className="flex flex-col items-start text-left">
+                                  <span className="font-medium">
+                                    {t("playground:composer.chatSettings", "Chat Settings")}
+                                  </span>
+                                  <span className="text-[11px] text-gray-500 dark:text-gray-400">
+                                    {modelSummaryLabel} • {promptSummaryLabel}
+                                  </span>
                                 </span>
-                                <span className="text-[11px] text-gray-500 dark:text-gray-400">
-                                  {modelSummaryLabel} • {promptSummaryLabel}
-                                </span>
-                              </span>
-                            </button>
-                          </Tooltip>
+                              </button>
+                            </Tooltip>
                           <Popover
                             trigger="click"
                             placement="topRight"
@@ -1501,14 +1676,14 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
                               aria-label={t("playground:composer.moreTools", "More tools") as string}
                               title={t("playground:composer.moreTools", "More tools") as string}
                               className="inline-flex items-center gap-2 rounded-md border border-gray-200 px-3 py-1.5 text-sm text-gray-700 transition hover:bg-gray-100 dark:border-gray-600 dark:text-gray-200 dark:hover:bg-[#2a2a2a]">
-                              <span>
-                                {t(
-                                  "playground:composer.toolsButton",
-                                  "+Tools"
-                                )}
-                              </span>
-                            </button>
-                          </Popover>
+                                <span>
+                                  {t(
+                                    "playground:composer.toolsButton",
+                                    "+Tools"
+                                  )}
+                                </span>
+                              </button>
+                            </Popover>
 
                           {!isSending ? (
                             <Dropdown.Button
@@ -1520,83 +1695,93 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
                                       "playground:composer.connectToSend",
                                       "Connect to your tldw server to start chatting."
                                     ) as string)
-                                  : undefined
+                                  : (t(
+                                      "playground:composer.submitAria",
+                                      "Send message"
+                                    ) as string)
+                              }
+                              aria-label={
+                                t(
+                                  "playground:composer.submitAria",
+                                  "Send message"
+                                ) as string
                               }
                               className="!justify-end !w-auto"
-                              icon={
-                                <svg
-                                  xmlns="http://www.w3.org/2000/svg"
-                                  fill="none"
-                                  viewBox="0 0 24 24"
-                                  strokeWidth={1.5}
-                                  stroke="currentColor"
-                                  className="w-5 h-5">
-                                  <path
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                    d="m19.5 8.25-7.5 7.5-7.5-7.5"
-                                  />
-                                </svg>
-                              }
-                              menu={{
-                                items: [
-                                  {
-                                    key: 1,
-                                    label: (
-                                      <Checkbox
-                                        checked={sendWhenEnter}
-                                        onChange={(e) =>
-                                          setSendWhenEnter(e.target.checked)
-                                        }>
-                                        {t("sendWhenEnter")}
-                                      </Checkbox>
-                                    )
-                                  },
-                                  {
-                                    key: 2,
-                                    label: (
-                                      <Checkbox
-                                        checked={useOCR}
-                                        onChange={(e) =>
-                                          setUseOCR(e.target.checked)
-                                        }>
-                                        {t("useOCR")}
-                                      </Checkbox>
-                                    )
-                                  }
-                                ]
-                              }}>
-                              <div className="inline-flex gap-2">
-                                {sendWhenEnter ? (
+                                icon={
                                   <svg
                                     xmlns="http://www.w3.org/2000/svg"
                                     fill="none"
+                                    viewBox="0 0 24 24"
+                                    strokeWidth={1.5}
                                     stroke="currentColor"
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                    strokeWidth="2"
-                                    className="h-5 w-5"
-                                    viewBox="0 0 24 24">
-                                    <path d="M9 10L4 15 9 20"></path>
-                                    <path d="M20 4v7a4 4 0 01-4 4H4"></path>
+                                    className="w-5 h-5">
+                                    <path
+                                      strokeLinecap="round"
+                                      strokeLinejoin="round"
+                                      d="m19.5 8.25-7.5 7.5-7.5-7.5"
+                                    />
                                   </svg>
-                                ) : null}
-                                {t("common:send", "Send")}
-                              </div>
-                            </Dropdown.Button>
-                          ) : (
-                            <Tooltip
-                              title={
-                                t("tooltip.stopStreaming") as string
-                              }>
-                              <button
-                                type="button"
-                                onClick={stopStreamingRequest}
-                                className="text-gray-800 dark:text-gray-300 border border-gray-300 dark:border-gray-600 rounded-md p-1">
-                                <StopCircleIcon className="size-5" />
-                              </button>
-                            </Tooltip>
-                          )}
+                                }
+                                menu={{
+                                  items: [
+                                    {
+                                      key: 1,
+                                      label: (
+                                        <Checkbox
+                                          checked={sendWhenEnter}
+                                          onChange={(e) =>
+                                            setSendWhenEnter(e.target.checked)
+                                          }>
+                                          {t("sendWhenEnter")}
+                                        </Checkbox>
+                                      )
+                                    },
+                                    {
+                                      key: 2,
+                                      label: (
+                                        <Checkbox
+                                          checked={useOCR}
+                                          onChange={(e) =>
+                                            setUseOCR(e.target.checked)
+                                          }>
+                                          {t("useOCR")}
+                                        </Checkbox>
+                                      )
+                                    }
+                                  ]
+                                }}>
+                                <div className="inline-flex gap-2">
+                                  {sendWhenEnter ? (
+                                    <svg
+                                      xmlns="http://www.w3.org/2000/svg"
+                                      fill="none"
+                                      stroke="currentColor"
+                                      strokeLinecap="round"
+                                      strokeLinejoin="round"
+                                      strokeWidth="2"
+                                      className="h-5 w-5"
+                                      viewBox="0 0 24 24">
+                                      <path d="M9 10L4 15 9 20"></path>
+                                      <path d="M20 4v7a4 4 0 01-4 4H4"></path>
+                                    </svg>
+                                  ) : null}
+                                  {t("common:send", "Send")}
+                                </div>
+                              </Dropdown.Button>
+                            ) : (
+                              <Tooltip
+                                title={
+                                  t("tooltip.stopStreaming") as string
+                                }>
+                                <button
+                                  type="button"
+                                  onClick={stopStreamingRequest}
+                                  className="text-gray-800 dark:text-gray-300 border border-gray-300 dark:border-gray-600 rounded-md p-1">
+                                  <StopCircleIcon className="size-5" />
+                                </button>
+                              </Tooltip>
+                            )}
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -1619,7 +1804,10 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
                             to="/settings/health"
                             className="text-xs font-medium text-amber-900 underline hover:text-amber-700 dark:text-amber-100 dark:hover:text-amber-300"
                           >
-                            {t("settings:healthSummary.diagnostics", "Diagnostics")}
+                            {t(
+                              "settings:healthSummary.diagnostics",
+                              "Health & diagnostics"
+                            )}
                           </Link>
                           <button
                             type="button"
@@ -1680,7 +1868,10 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
                             to="/settings/health"
                             className="text-xs font-medium text-green-900 underline hover:text-green-700 dark:text-green-100 dark:hover:text-green-300"
                           >
-                            {t("settings:healthSummary.diagnostics", "Diagnostics")}
+                            {t(
+                              "settings:healthSummary.diagnostics",
+                              "Health & diagnostics"
+                            )}
                           </Link>
                           <button
                             type="button"
@@ -1868,6 +2059,7 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
         setOpen={setOpenModelSettings}
         isOCREnabled={useOCR}
       />
+      <ActorPopout open={openActorSettings} setOpen={setOpenActorSettings} />
     </div>
   )
 }

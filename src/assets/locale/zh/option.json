@@ -17,7 +17,17 @@
     "buttonChangeServer": "Change server",
     "buttonOpenDiagnostics": "Open diagnostics",
     "buttonViewDiagnostics": "View diagnostics",
-    "buttonTryDemo": "Try a demo"
+    "buttonOpenQuickIngest": "打开快速导入",
+    "buttonTryDemo": "试用演示",
+    "buttonContinueOffline": "继续离线使用",
+    "buttonDisableOffline": "关闭离线模式",
+    "offlineModeBadge": "离线模式 — 仅用于暂存",
+    "buttonGoToServerCard": "前往服务器卡片",
+    "tipQuickIngest": "提示：离线时需要导入帮助吗？",
+    "quickIngestHint": "当服务器离线时，快速导入充当暂存区。你可以先把 URL 和文件排队，重新连接后再处理。",
+    "backToWorkspace": "返回工作区",
+    "sidepanelOpenSettingsHint": "设置会在新的浏览器标签页中打开，方便你配置 tldw 服务器。",
+    "quickIngestInlineHint": "服务器离线时，快速导入可以排队 URL 和文件，等你重新连接后再处理。"
   },
   "header": {
     "showShortcuts": "显示快捷方式",
@@ -26,7 +36,7 @@
     "groupKnowledge": "知识",
     "groupSettings": "设置快捷方式",
     "backToHome": "Back to home",
-    "openSidebar": "Open chat sidebar",
+    "openSidebar": "打开侧边栏",
     "untitledChat": "Untitled",
     "modelLabel": "Model",
     "promptLabel": "Prompt",
@@ -69,7 +79,7 @@
   "validationSelectModel": "请选择一个模型以继续",
   "deleteHistoryConfirmation": "你确定要删除这个历史记录吗？",
   "editHistoryTitle": "输入一个新的标题",
-  "temporaryChat": "临时聊天",
+  "temporaryChat": "临时聊天（不保存）",
   "more": {
     "copy": {
       "group": "复制",
@@ -250,10 +260,19 @@
   "quickIngest": {
     "title": "Quick Ingest Media",
     "subtitle": "Enter one or more URLs. Force type per row if needed.",
+    "offlineTitle": "服务器离线 — 仅限暂存环境",
+    "offlineDescription": "您可以在此处排队 URL 和文件并查看字段，但在您的 tldw 服务器上线之前不会进行摄取。请重新连接以处理待处理项。",
     "sourceHeading": "Source URLs or files",
     "storeRemote": "Store to remote DB",
-    "storeRemoteHelp": "Uploads to your tldw server for indexing.",
-    "processOnlyHelp": "Process only and keep results local (download JSON).",
+    "storeRemoteAria": "将摄取结果存储到你的 tldw 服务器",
+    "processOnlyAria": "仅在本地处理摄取结果",
+    "storeRemoteHelp": "上传到你的 tldw 服务器以便索引。",
+    "processOnlyHelp": "只处理并保留本地结果（下载 JSON）。",
+    "storageHeading": "摄取结果的存储位置",
+    "storageServerDescription": "存储在你的 tldw 服务器上（推荐用于 RAG 和共享工作区）。",
+    "storageLocalDescription": "仅保存在此浏览器中；不会向服务器写入数据。",
+    "storageDocsLink": "了解更多摄取与存储信息",
+    "storageDocsUrl": "https://docs.tldw.app/extension/media-ingest-storage",
     "bulkPlaceholder": "Paste URLs (one per line)",
     "or": "or",
     "remove": "Remove",
@@ -274,7 +293,11 @@
     "advancedSummary": "{{count}} advanced fields loaded",
     "advancedEmpty": "No advanced options detected — try reloading the spec.",
     "modifiedCount": "{{count}} modified",
-    "progress": "Processing {{done}} / {{total}} items…"
+    "progress": "正在处理 {{done}} / {{total}} 个项目…",
+    "errorSummary": "当前无法处理这些摄取任务。",
+    "errorHint": "检查你的 tldw 服务器后再试一次。Health & diagnostics 可以帮助排查摄取相关的问题。",
+    "checkHealthLink": "在 Health & diagnostics 中检查服务器健康状态",
+    "healthAriaHint": "最近的运行失败了——请从顶部打开 Health & diagnostics 查看详细信息。"
   },
   "notesSearch": {
     "placeholder": "Search titles and contents",
@@ -347,14 +370,21 @@
     "connectExample1": "Open Settings → tldw server to add your server URL.",
     "connectExample2": "Use Diagnostics if your server is running but not reachable.",
     "headerDescription": "Create reusable characters you can pick from the chat header and reuse across conversations.",
+    "headerSelectHint": "创建一个角色，在多个聊天中重复使用其人设。点击“新建角色”开始。",
     "offlineTitle": "Characters API not available on this server",
     "offlineDescription": "This server does not advertise /api/v1/characters.",
     "offlineExample1": "Open Diagnostics to confirm your server version and available APIs for Characters.",
     "offlineExample2": "If you upgrade your server, reload the extension and return to Characters."
   },
   "characters": {
-    "selectCharacter": "Select character",
-    "chattingAs": "You're now chatting as {{name}}."
+    "selectCharacter": "选择角色",
+    "chattingAs": "你现在以 {{name}} 的身份聊天。",
+    "clearCharacter": "清除角色",
+    "none": "无（无角色）",
+    "searchPlaceholder": "按名称搜索角色",
+    "noMatches": "目前还没有符合你搜索条件的角色。",
+    "refresh": "刷新角色列表",
+    "refreshing": "正在刷新角色列表…"
   },
   "promptInsert": {
     "useInChat": "Use in chat",

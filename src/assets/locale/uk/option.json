@@ -17,7 +17,17 @@
     "buttonChangeServer": "Change server",
     "buttonOpenDiagnostics": "Open diagnostics",
     "buttonViewDiagnostics": "View diagnostics",
-    "buttonTryDemo": "Try a demo"
+    "buttonOpenQuickIngest": "Відкрити швидке імпортування",
+    "buttonTryDemo": "Спробувати демо",
+    "buttonContinueOffline": "Продовжити офлайн",
+    "buttonDisableOffline": "Вимкнути офлайн-режим",
+    "offlineModeBadge": "Офлайн-режим — лише staging",
+    "buttonGoToServerCard": "Перейти до картки сервера",
+    "tipQuickIngest": "Порада: потрібна допомога зі швидким імпортуванням, коли ви офлайн?",
+    "quickIngestHint": "Коли сервер офлайн, Quick Ingest працює як зона підготовки. Ви можете поставити URL і файли в чергу зараз і обробити їх після повторного підключення.",
+    "backToWorkspace": "Повернутися до робочого простору",
+    "sidepanelOpenSettingsHint": "Налаштування відкриваються в новій вкладці браузера, щоб ви могли налаштувати сервер tldw.",
+    "quickIngestInlineHint": "Quick Ingest може ставити URL і файли в чергу, поки сервер офлайн, щоб ви могли обробити їх після відновлення з'єднання."
   },
   "header": {
     "showShortcuts": "Показати ярлики",
@@ -26,7 +36,7 @@
     "groupKnowledge": "Знання",
     "groupSettings": "Ярлики налаштувань",
     "backToHome": "Back to home",
-    "openSidebar": "Open chat sidebar",
+    "openSidebar": "Відкрити бокову панель",
     "untitledChat": "Untitled",
     "modelLabel": "Model",
     "promptLabel": "Prompt",
@@ -69,7 +79,7 @@
   "validationSelectModel": "Будь ласка, виберіть модель для продовження",
   "deleteHistoryConfirmation": "Ви впевнені, що хочете видалити цю історію?",
   "editHistoryTitle": "Введіть нову назву",
-  "temporaryChat": "Тимчасовий чат",
+  "temporaryChat": "Тимчасовий чат (не зберігається)",
   "more": {
     "copy": {
       "group": "Копіювати",
@@ -158,10 +168,19 @@
   "quickIngest": {
     "title": "Quick Ingest Media",
     "subtitle": "Enter one or more URLs. Force type per row if needed.",
+    "offlineTitle": "Сервер офлайн — лише тестове середовище",
+    "offlineDescription": "Ви можете додавати URL і файли в чергу та переглядати поля, але обробка не відбудеться, поки ваш сервер tldw не в мережі. Підключіться знову, щоб обробити очікувані елементи.",
     "sourceHeading": "Source URLs or files",
     "storeRemote": "Store to remote DB",
-    "storeRemoteHelp": "Uploads to your tldw server for indexing.",
-    "processOnlyHelp": "Process only and keep results local (download JSON).",
+    "storeRemoteAria": "Зберігати результати інжесту на вашому сервері tldw",
+    "processOnlyAria": "Обробляти результати інжесту лише локально",
+    "storeRemoteHelp": "Завантажує результати на ваш сервер tldw для індексації.",
+    "processOnlyHelp": "Лише обробляє та зберігає результати локально (експорт JSON).",
+    "storageHeading": "Де зберігаються результати інжесту",
+    "storageServerDescription": "Зберігаються на вашому сервері tldw (рекомендовано для RAG і спільних просторів).",
+    "storageLocalDescription": "Зберігаються лише в цьому браузері; дані не надсилаються на сервер.",
+    "storageDocsLink": "Дізнайтесь більше про інжест і зберігання",
+    "storageDocsUrl": "https://docs.tldw.app/extension/media-ingest-storage",
     "bulkPlaceholder": "Paste URLs (one per line)",
     "or": "or",
     "remove": "Remove",
@@ -182,7 +201,11 @@
     "advancedSummary": "{{count}} advanced fields loaded",
     "advancedEmpty": "No advanced options detected — try reloading the spec.",
     "modifiedCount": "{{count}} modified",
-    "progress": "Processing {{done}} / {{total}} items…"
+    "progress": "Оброблено {{done}} з {{total}} елементів…",
+    "errorSummary": "Зараз нам не вдалося обробити елементи інжесту.",
+    "errorHint": "Спробуйте ще раз після перевірки свого сервера tldw. Розділ Health & diagnostics може допомогти усунути проблеми з інжестом.",
+    "checkHealthLink": "Перевірте стан сервера в Health & diagnostics",
+    "healthAriaHint": "Останні запуски завершилися помилкою — відкрийте Health & diagnostics у верхньому меню, щоб дізнатися більше."
   },
   "notesSearch": {
     "placeholder": "Search titles and contents",
@@ -255,14 +278,21 @@
     "connectExample1": "Open Settings → tldw server to add your server URL.",
     "connectExample2": "Use Diagnostics if your server is running but not reachable.",
     "headerDescription": "Create reusable characters you can pick from the chat header and reuse across conversations.",
+    "headerSelectHint": "Створіть персонажа, щоб повторно використовувати його особистість у різних чатах. Натисніть «Новий персонаж», щоб почати.",
     "offlineTitle": "Characters API not available on this server",
     "offlineDescription": "This server does not advertise /api/v1/characters.",
     "offlineExample1": "Open Diagnostics to confirm your server version and available APIs for Characters.",
     "offlineExample2": "If you upgrade your server, reload the extension and return to Characters."
   },
   "characters": {
-    "selectCharacter": "Select character",
-    "chattingAs": "You're now chatting as {{name}}."
+    "selectCharacter": "Вибрати персонажа",
+    "chattingAs": "Зараз ви спілкуєтеся як {{name}}",
+    "clearCharacter": "Очистити персонажа",
+    "none": "Немає (без персонажа)",
+    "searchPlaceholder": "Пошук за ім'ям персонажа",
+    "noMatches": "Поки що немає персонажів, що відповідають цьому пошуку.",
+    "refresh": "Оновити персонажів",
+    "refreshing": "Оновлюємо персонажів…"
   },
   "promptInsert": {
     "useInChat": "Use in chat",

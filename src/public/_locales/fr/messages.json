@@ -8,6 +8,18 @@
   "openSidePanelToChat": {
     "message": "Ouvrir le panneau latéral pour discuter"
   },
+  "openQuickIngest": {
+    "message": "Ouvrir l'ingestion rapide"
+  },
+  "buttonOpenQuickIngest": {
+    "message": "Ouvrir l'ingestion rapide"
+  },
+  "buttonTryDemo": {
+    "message": "Essayer la démo"
+  },
+  "learnMoreTldw": {
+    "message": "Découvrir le fonctionnement du serveur tldw"
+  },
   "contextSummarize": {
     "message": "Résumer"
   },
@@ -34,6 +46,9 @@
   },
   "contextSaveToNotesOpeningSidebar": {
     "message": "Ouverture du panneau latéral pour enregistrer la note..."
+  },
+  "contextSaveToNotesDeliveryFailed": {
+    "message": "Impossible d’ouvrir le panneau latéral pour enregistrer cette note. Vérifiez que le panneau tldw Assistant est autorisé sur ce site et réessayez."
   },
   "openOptionToChat": {
     "message": "Ouvrir l’interface Web pour discuter"

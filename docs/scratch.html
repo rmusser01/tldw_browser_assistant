@@ -1,0 +1,63 @@
+  <!DOCTYPE html>
+  <html>
+  <head>
+  <style>
+  :root {
+    --color-bg: #0f1117;
+    --color-surface: #161925;
+    --color-surface-2: #1d2130;
+    --color-primary: #7c5dff;
+    --color-primary-strong: #5a3df0;
+    --color-accent: #5ef5d8;
+    --color-success: #3dd598;
+    --color-warn: #ffb547;
+    --color-danger: #ff5c8d;
+    --color-muted: #94a3b8;
+    --color-border: #2a3042;
+    --color-text: #e6e8ef;
+    --color-text-muted: #b6bed1;
+    --color-focus: #5ef5d8;
+  }
+  .light {
+    --color-bg: #f7f8fb;
+    --color-surface: #ffffff;
+    --color-surface-2: #f0f2f9;
+    --color-primary: #5a3df0;
+    --color-primary-strong: #442ac7;
+    --color-accent: #15d1b1;
+    --color-success: #1f9c73;
+    --color-warn: #d98c1f;
+    --color-danger: #d63964;
+    --color-muted: #60708f;
+    --color-border: #d9deea;
+    --color-text: #0f1117;
+    --color-text-muted: #475168;
+    --color-focus: #15d1b1;
+  }
+  .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(120px,1fr)); gap:12px; }
+  .swatch { border-radius:8px; padding:12px; color:#fff; font:12px/1.4 Inter,sans-serif; }
+  </style>
+  </head>
+  <body style="background:#0f1117;padding:20px;font-family:Inter,sans-serif;color:#e6e8ef">
+  <h3>Dark</h3>
+  <div class="grid">
+    <div class="swatch" style="background:var(--color-primary)">primary</div>
+    <div class="swatch" style="background:var(--color-primary-strong)">primary-strong</div>
+    <div class="swatch" style="background:var(--color-accent);color:#0f1117">accent</div>
+    <div class="swatch" style="background:var(--color-success)">success</div>
+    <div class="swatch" style="background:var(--color-warn);color:#0f1117">warn</div>
+    <div class="swatch" style="background:var(--color-danger)">danger</div>
+    <div class="swatch" style="background:var(--color-surface);color:#e6e8ef;border:1px solid var(--color-border)">surface</div>
+  </div>
+  <h3 style="margin-top:32px;">Light</h3>
+  <div class="grid light" style="background:#f7f8fb;padding:12px;border-radius:12px;">
+    <div class="swatch" style="background:var(--color-primary);color:#fff">primary</div>
+    <div class="swatch" style="background:var(--color-primary-strong);color:#fff">primary-strong</div>
+    <div class="swatch" style="background:var(--color-accent);color:#0f1117">accent</div>
+    <div class="swatch" style="background:var(--color-success);color:#fff">success</div>
+    <div class="swatch" style="background:var(--color-warn);color:#0f1117">warn</div>
+    <div class="swatch" style="background:var(--color-danger);color:#fff">danger</div>
+    <div class="swatch" style="background:var(--color-surface);color:#0f1117;border:1px solid var(--color-border)">surface</div>
+  </div>
+  </body>
+  </html>

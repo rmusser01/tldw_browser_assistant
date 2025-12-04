@@ -17,7 +17,17 @@
     "buttonChangeServer": "Change server",
     "buttonOpenDiagnostics": "Open diagnostics",
     "buttonViewDiagnostics": "View diagnostics",
-    "buttonTryDemo": "Try a demo"
+    "buttonOpenQuickIngest": "ക്വിക് ഇൻജെസ്റ്റ് തുറക്കുക",
+    "buttonTryDemo": "ഡെമോ പരീക്ഷിക്കുക",
+    "buttonContinueOffline": "ഓഫ്ലൈനായി തുടരുക",
+    "buttonDisableOffline": "ഓഫ്ലൈൻ മോഡ് അപ്രാപ്തമാക്കുക",
+    "offlineModeBadge": "ഓഫ്ലൈൻ മോഡ് — സ്റ്റേജിംഗ് മാത്രം",
+    "buttonGoToServerCard": "സെർവർ കാർഡിലേക്ക് പോകുക",
+    "tipQuickIngest": "ടിപ്പ്: ഓഫ്ലൈനായിരിക്കുമ്പോൾ ഇൻജസ്റ്റിൽ സഹായം വേണ്ടേ?",
+    "quickIngestHint": "നിങ്ങളുടെ സർവർ ഓഫ്‌ലൈൻ ആയിരിക്കുമ്പോൾ, Quick Ingest ഒരു സ്റ്റേജിംഗ് മേഖല പോലെ പ്രവർത്തിക്കുന്നു. നിങ്ങൾക്ക് ഇപ്പോൾ URL കളും ഫയലുകളും നിരയിലാക്കാം, പിന്നെ വീണ്ടും കണക്റ്റ് ചെയ്താൽ അവ പ്രോസസ്സ് ചെയ്യാം.",
+    "backToWorkspace": "വർക്ക്സ്പേസിലേക്ക് മടങ്ങുക",
+    "sidepanelOpenSettingsHint": "നിങ്ങളുടെ tldw സർവർ ക്രമീകരിക്കാൻ സജ്ജീകരണങ്ങൾ ഒരു പുതിയ ബ്രൗസർ ടാബിൽ തുറക്കും.",
+    "quickIngestInlineHint": "നിങ്ങളുടെ സർവർ ഓഫ്‌ലൈൻ ആയിരിക്കുമ്പോൾ Quick Ingest URL കളെയും ഫയലുകളെയും നിരയിലാക്കും, പിന്നെ നിങ്ങൾ വീണ്ടും കണക്റ്റ് ചെയ്താൽ അവ പ്രോസസ്സ് ചെയ്യാം."
   },
   "header": {
     "showShortcuts": "ഷോർട്ട്കട്ടുകൾ കാണിക്കുക",
@@ -26,7 +36,7 @@
     "groupKnowledge": "നോളജ്",
     "groupSettings": "സജ്ജീകരണ ഷോർട്ട്കട്ടുകൾ",
     "backToHome": "Back to home",
-    "openSidebar": "Open chat sidebar",
+    "openSidebar": "സൈഡ്‌ബാർ തുറക്കുക",
     "untitledChat": "Untitled",
     "modelLabel": "Model",
     "promptLabel": "Prompt",
@@ -69,7 +79,7 @@
   "deleteHistoryConfirmation": "നിങ്ങളുടെ ചാറ്റ് ചരിത്രം ഇല്ലാതാക്കണമെന്ന് തീർച്ചയാണോ?",
   "editHistoryTitle": "ചാറ്റ് title എഡിറ്റുചെയ്യുക",
   "validationSelectModel": "തുടരുന്നതിന് ഒരു മോഡല്‍ തിരഞ്ഞെടുക്കുക",
-  "temporaryChat": "താൽക്കാലിക ചാറ്റ്",
+  "temporaryChat": "താൽക്കാലിക ചാറ്റ് (സംരക്ഷിക്കപ്പെടില്ല)",
   "more": {
     "copy": {
       "group": "പകർത്തുക",
@@ -158,10 +168,19 @@
   "quickIngest": {
     "title": "Quick Ingest Media",
     "subtitle": "Enter one or more URLs. Force type per row if needed.",
+    "offlineTitle": "Server offline — staging only",
+    "offlineDescription": "You can queue URLs and files here and inspect fields, but ingestion will not run until your tldw server is online. Reconnect to process pending items.",
     "sourceHeading": "Source URLs or files",
     "storeRemote": "Store to remote DB",
-    "storeRemoteHelp": "Uploads to your tldw server for indexing.",
-    "processOnlyHelp": "Process only and keep results local (download JSON).",
+    "storeRemoteAria": "ഇൻജെസ്റ്റ് ഫലങ്ങൾ നിങ്ങളുടെ tldw സർവറിൽ സംഭരിക്കുക",
+    "processOnlyAria": "ഇൻജെസ്റ്റ് ഫലങ്ങൾ ലോക്കലിൽ മാത്രമായി പ്രോസസ്സ് ചെയ്യുക",
+    "storeRemoteHelp": "ഇൻഡെക്സിംഗിനായി നിങ്ങളുടെ tldw സർവറിലേക്ക് അപ്‌ലോഡ് ചെയ്യുന്നു.",
+    "processOnlyHelp": "പ്രോസസ്സ് മാത്രമാക്കി ഫലങ്ങൾ ലോക്കലിൽ സൂക്ഷിക്കുക (JSON ഡൗൺലോഡ് ചെയ്യുക).",
+    "storageHeading": "ഇൻജെസ്റ്റ് ഫലങ്ങൾ എവിടെ സൂക്ഷിക്കപ്പെടുന്നു",
+    "storageServerDescription": "നിങ്ങളുടെ tldw സർവറിൽ സൂക്ഷിക്കുന്നു (RAG-നും പങ്കിട്ട വർക്ക്‌സ്പേസുകൾക്കും ശുപാർശ).",
+    "storageLocalDescription": "ഈ ബ്രൗസറിൽ മാത്രം സൂക്ഷിക്കുന്നു; നിങ്ങളുടെ സർവറിൽ ഡാറ്റ എഴുതുന്നില്ല.",
+    "storageDocsLink": "ഇൻജെസ്റ്റും സംഭരണവും കുറിച്ച് കൂടുതൽ അറിയുക",
+    "storageDocsUrl": "https://docs.tldw.app/extension/media-ingest-storage",
     "bulkPlaceholder": "Paste URLs (one per line)",
     "or": "or",
     "remove": "Remove",
@@ -182,7 +201,11 @@
     "advancedSummary": "{{count}} advanced fields loaded",
     "advancedEmpty": "No advanced options detected — try reloading the spec.",
     "modifiedCount": "{{count}} modified",
-    "progress": "Processing {{done}} / {{total}} items…"
+    "progress": "പ്രോസസ്സ് ചെയ്യുന്നു {{done}} / {{total}} ഇനങ്ങൾ…",
+    "errorSummary": "ഇപ്പോൾ ഇൻജെസ്റ്റ് ഐറ്റങ്ങൾ പ്രോസസ്സ് ചെയ്യാൻ കഴിഞ്ഞില്ല.",
+    "errorHint": "നിങ്ങളുടെ tldw സർവർ ശരിയായി പ്രവർത്തിക്കുന്നുണ്ടോെന്ന് പരിശോധിച്ചതിന് ശേഷം വീണ്ടും ശ്രമിക്കുക. Health & diagnostics വിഭാഗം ഇൻജെസ്റ്റ് പ്രശ്നങ്ങൾ കണ്ടെത്താനും പരിഹരിക്കാനും സഹായിക്കും.",
+    "checkHealthLink": "Health & diagnostics ൽ സർവറിന്റെ ആരോഗ്യസ്ഥിതി പരിശോധിക്കുക",
+    "healthAriaHint": "സമീപകാല റണ്ണുകൾ പരാജയപ്പെട്ടു — കൂടുതൽ വിവരങ്ങൾക്ക് മുകളിലെ ഹെഡറിൽ നിന്ന് Health & diagnostics തുറക്കുക."
   },
   "notesSearch": {
     "placeholder": "Search titles and contents",
@@ -255,14 +278,21 @@
     "connectExample1": "Open Settings → tldw server to add your server URL.",
     "connectExample2": "Use Diagnostics if your server is running but not reachable.",
     "headerDescription": "Create reusable characters you can pick from the chat header and reuse across conversations.",
+    "headerSelectHint": "ഒരു കഥാപാത്രം സൃഷ്ടിച്ച് അവരുടെ വ്യക്തിത്വം വിവിധ ചാറ്റുകളിൽ ആവർത്തിച്ച് ഉപയോഗിക്കൂ. തുടങ്ങാൻ “പുതിയ കഥാപാത്രം” ഉപയോഗിക്കുക.",
     "offlineTitle": "Characters API not available on this server",
     "offlineDescription": "This server does not advertise /api/v1/characters.",
     "offlineExample1": "Open Diagnostics to confirm your server version and available APIs for Characters.",
     "offlineExample2": "If you upgrade your server, reload the extension and return to Characters."
   },
   "characters": {
-    "selectCharacter": "Select character",
-    "chattingAs": "You're now chatting as {{name}}."
+    "selectCharacter": "കഥാപാത്രം തിരഞ്ഞെടുക്കുക",
+    "chattingAs": "ഇപ്പോൾ നിങ്ങൾ {{name}} ആയി സംസാരിക്കുന്നു.",
+    "clearCharacter": "കഥാപാത്രം നീക്കുക",
+    "none": "ഒന്നുമില്ല (കഥാപാത്രമില്ല)",
+    "searchPlaceholder": "പേരുപയോഗിച്ച് കഥാപാത്രങ്ങളെ തിരയുക",
+    "noMatches": "നിങ്ങളുടെ തിരച്ചിലിന് യോജിക്കുന്ന കഥാപാത്രങ്ങൾ ഇതുവരെ ഒന്നും ഇല്ല.",
+    "refresh": "കഥാപാത്രങ്ങൾ പുതുക്കുക",
+    "refreshing": "കഥാപാത്രങ്ങൾ പുതുക്കുന്നു…"
   },
   "promptInsert": {
     "useInChat": "Use in chat",

@@ -15,6 +15,11 @@ test.describe('Sidepanel first-run and connection panel', () => {
       page.getByText(/Connect tldw Assistant to your server/i)
     ).toBeVisible()
 
+    // Helper microcopy should set expectations about where Settings opens.
+    await expect(
+      page.getByText(/Settings open in a new browser tab/i)
+    ).toBeVisible()
+
     // Clicking any server-config CTA should open the Options page in a new tab
     const [settingsPage] = await Promise.all([
       context.waitForEvent('page'),
@@ -25,8 +30,11 @@ test.describe('Sidepanel first-run and connection panel', () => {
         .click()
     ])
     await settingsPage.waitForLoadState('domcontentloaded')
-    // In Chromium, chrome.runtime.openOptionsPage navigates to chrome://extensions/?options=<id>
-    await expect(settingsPage).toHaveURL(/chrome:\/\/extensions\/\?options=/i)
+    // Depending on the browser, this may be either the generic extensions manager
+    // or the extension's options.html page. Accept both forms.
+    await expect(settingsPage).toHaveURL(
+      /chrome:\/\/extensions\/\?options=|options\.html#\/settings\/tldw/i
+    )
 
     await context.close()
   })
@@ -41,11 +49,13 @@ test.describe('Sidepanel first-run and connection panel', () => {
       // @ts-ignore
       const store = (window as any).__tldw_useConnectionStore
       if (store?.setState) {
+        const prev = store.getState().state
         const now = Date.now()
         store.setState({
           state: {
+            ...prev,
             phase: 'connected',
-            serverUrl: 'http://127.0.0.1:8000',
+            serverUrl: prev.serverUrl || 'http://127.0.0.1:8000',
             lastCheckedAt: now,
             lastError: null,
             lastStatusCode: null,
@@ -53,7 +63,11 @@ test.describe('Sidepanel first-run and connection panel', () => {
             isChecking: false,
             knowledgeStatus: 'ready',
             knowledgeLastCheckedAt: now,
-            knowledgeError: null
+            knowledgeError: null,
+            mode: 'normal',
+            configStep: 'health',
+            errorKind: 'none',
+            hasCompletedFirstRun: true
           },
           checkOnce: async () => {}
         })
@@ -64,6 +78,50 @@ test.describe('Sidepanel first-run and connection panel', () => {
     const composer = page.getByPlaceholder('Type a message...')
     await expect(composer).toBeVisible()
     await expect(composer).toBeFocused()
+
+    await context.close()
+  })
+
+  test('sidepanel shows the same persistence mode labels as the playground', async () => {
+    const extPath = path.resolve('.output/chrome-mv3')
+    const { context, openSidepanel } = (await launchWithExtension(extPath)) as any
+    const page = await openSidepanel()
+
+    // Composer should be visible even before the server is connected.
+    const textarea = page.getByPlaceholder(/Type a message|Connect to tldw/i)
+    await expect(textarea).toBeVisible()
+
+    // Default state: local-only persistence.
+    await expect(
+      page.getByText(/Saved locally in this browser only/i)
+    ).toBeVisible()
+
+    // Toggle to temporary chat and confirm the label updates.
+    const persistenceSwitch = page.getByRole('switch', {
+      name: /Save chat|Save to history|Temporary chat/i
+    })
+    await expect(persistenceSwitch).toBeVisible()
+    await persistenceSwitch.click()
+
+    await expect(
+      page.getByText(/Temporary chat: not saved in history/i)
+    ).toBeVisible()
+
+    await context.close()
+  })
+
+  test('sidepanel header links to Health & diagnostics', async () => {
+    const extPath = path.resolve('.output/chrome-mv3')
+    const { context, openSidepanel } = (await launchWithExtension(extPath)) as any
+    const page = await openSidepanel()
+
+    const [healthPage] = await Promise.all([
+      context.waitForEvent('page'),
+      page.getByRole('button', { name: /Health & diagnostics/i }).click()
+    ])
+
+    await healthPage.waitForLoadState('domcontentloaded')
+    await expect(healthPage).toHaveURL(/options\.html#\/settings\/health/i)
 
     await context.close()
   })

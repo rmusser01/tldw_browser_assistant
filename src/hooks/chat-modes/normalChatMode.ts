@@ -12,6 +12,8 @@ import {
 } from "@/libs/reasoning"
 import { getModelNicknameByID } from "@/db/dexie/nickname"
 import { systemPromptFormatter } from "@/utils/system-message"
+import type { ActorSettings } from "@/types/actor"
+import { maybeInjectActorMessage } from "@/utils/actor"
 
 export const normalChatMode = async (
   message: string,
@@ -34,7 +36,8 @@ export const normalChatMode = async (
     setAbortController,
     historyId,
     setHistoryId,
-    uploadedFiles
+    uploadedFiles,
+    actorSettings
   }: {
     selectedModel: string
     useOCR: boolean
@@ -50,6 +53,7 @@ export const normalChatMode = async (
     historyId: string | null
     setHistoryId: (id: string) => void
     uploadedFiles?: any[]
+    actorSettings?: ActorSettings
   }
 ) => {
   console.log("Using normalChatMode")
@@ -144,7 +148,7 @@ export const normalChatMode = async (
       })
     }
 
-    const applicationChatHistory = generateHistory(history, selectedModel)
+    let applicationChatHistory = generateHistory(history, selectedModel)
 
     if (prompt && !selectedPrompt) {
       applicationChatHistory.unshift(
@@ -175,6 +179,16 @@ export const normalChatMode = async (
       )
       promptContent = currentChatModelSettings.systemPrompt
     }
+
+    // Inject Actor prompt according to chatPosition / depth / role,
+    // respecting templateMode when a scene template is selected
+    // in Chat Settings (represented by selectedSystemPrompt).
+    const templatesActive = !!selectedSystemPrompt
+    applicationChatHistory = await maybeInjectActorMessage(
+      applicationChatHistory,
+      actorSettings || null,
+      templatesActive
+    )
 
     let generationInfo: any | undefined = undefined
 
