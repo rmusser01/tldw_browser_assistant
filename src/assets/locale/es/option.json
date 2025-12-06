@@ -71,7 +71,8 @@
     "moreActions": "More actions",
     "toolsMenu": "Chat tools",
     "serverBackedLabel": "Server-backed chat",
-    "serverBackedTooltip": "Messages in this chat are also saved on your tldw server."
+    "serverBackedTooltip": "Messages in this chat are also saved on your tldw server.",
+    "quickIngestQueuedAria": "{{label}} — {{count}} elementos en cola — haz clic para revisar y procesar"
   },
   "sidebarTitle": "Histórico del Chat",
   "error": "Error",
@@ -272,7 +273,7 @@
     "storageServerDescription": "Almacenados en tu servidor tldw (recomendado para RAG y espacios de trabajo compartidos).",
     "storageLocalDescription": "Se conservan solo en este navegador; no se escriben datos en tu servidor.",
     "storageDocsLink": "Más información sobre ingestión y almacenamiento",
-    "storageDocsUrl": "https://docs.tldw.app/extension/media-ingest-storage",
+    "storageDocsUrl": "https://github.com/rmusser01/tldw_browser_assistant",
     "bulkPlaceholder": "Paste URLs (one per line)",
     "or": "or",
     "remove": "Remove",
@@ -325,6 +326,12 @@
     "toolbarCopyTooltip": "Copy note content",
     "toolbarDeleteTooltip": "Delete note",
     "exportMenuTrigger": "Export",
+    "resultsLabel": "Results",
+    "showingRange": "Showing {{start}}-{{end}} of {{total}}",
+    "expandSidebar": "Expand sidebar",
+    "collapseSidebar": "Collapse sidebar",
+    "titlePlaceholder": "Title",
+    "keywordsEditorPlaceholder": "Keywords (tags)",
     "tagsHelp": "Keywords help you find this note using the keyword filter on the left."
   },
   "tts": {
@@ -391,6 +398,8 @@
     "selectCharacter": "Seleccionar personaje",
     "chattingAs": "Ahora estás chateando como {{name}}.",
     "clearCharacter": "Borrar personaje",
+    "fetchErrorTitle": "No se pueden cargar los personajes",
+    "fetchErrorBody": "Comprueba tu conexión o el estado del servidor y vuelve a intentarlo.",
     "none": "Ninguno (sin personaje)",
     "searchPlaceholder": "Buscar personajes por nombre",
     "noMatches": "Todavía no hay personajes que coincidan con tu búsqueda.",
@@ -404,5 +413,17 @@
     "confirmDescription": "Your message already has text. Do you want to overwrite it with this prompt or append the prompt below it?",
     "overwrite": "Overwrite message",
     "append": "Append"
+  }
+,
+  "quickChatHelper": {
+    "tooltip": "Asistente de chat rápido",
+    "title": "Asistente de chat rápido",
+    "inputPlaceholder": "Haz una pregunta rápida...",
+    "sendButton": "Enviar",
+    "emptyState": "Inicia un chat rápido en paralelo para mantener limpia la conversación principal.",
+    "popOutButton": "Abrir en una ventana independiente",
+    "noModelWarning": "Selecciona primero un modelo en el chat principal.",
+    "userMessageAria": "Tu mensaje",
+    "assistantMessageAria": "Mensaje del asistente"
   }
 }

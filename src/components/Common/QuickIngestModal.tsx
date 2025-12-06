@@ -1290,6 +1290,11 @@ export const QuickIngestModal: React.FC<Props> = ({
     return () => window.removeEventListener('tldw:quick-ingest-force-intro', forceIntro)
   }, [setInspectorIntroDismissed])
 
+  React.useEffect(() => {
+    if (!open) return
+    window.dispatchEvent(new CustomEvent("tldw:quick-ingest-ready"))
+  }, [open])
+
   // Derive a short, state-aware connectivity banner message so users
   // immediately understand whether Quick Ingest will run or only queue.
   const isOnlineForIngest = ingestConnectionStatus === "online"
@@ -2121,9 +2126,9 @@ export const QuickIngestModal: React.FC<Props> = ({
                                     const docsUrl =
                                       t(
                                         'quickIngest.storageDocsUrl',
-                                        'https://docs.tldw.app/extension/media-ingest-storage'
+                                        'https://github.com/rmusser01/tldw_browser_assistant'
                                       ) ||
-                                      'https://docs.tldw.app/extension/media-ingest-storage'
+                                      'https://github.com/rmusser01/tldw_browser_assistant'
                                     window.open(
                                       docsUrl,
                                       '_blank',

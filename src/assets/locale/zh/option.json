@@ -71,7 +71,8 @@
     "moreActions": "More actions",
     "toolsMenu": "Chat tools",
     "serverBackedLabel": "Server-backed chat",
-    "serverBackedTooltip": "Messages in this chat are also saved on your tldw server."
+    "serverBackedTooltip": "Messages in this chat are also saved on your tldw server.",
+    "quickIngestQueuedAria": "{{label}} — 已排队 {{count}} 个项目 — 单击以查看并处理"
   },
   "sidebarTitle": "聊天历史",
   "error": "错误",
@@ -272,7 +273,7 @@
     "storageServerDescription": "存储在你的 tldw 服务器上（推荐用于 RAG 和共享工作区）。",
     "storageLocalDescription": "仅保存在此浏览器中；不会向服务器写入数据。",
     "storageDocsLink": "了解更多摄取与存储信息",
-    "storageDocsUrl": "https://docs.tldw.app/extension/media-ingest-storage",
+    "storageDocsUrl": "https://github.com/rmusser01/tldw_browser_assistant",
     "bulkPlaceholder": "Paste URLs (one per line)",
     "or": "or",
     "remove": "Remove",
@@ -314,6 +315,12 @@
     "toolbarCopyTooltip": "Copy note content",
     "toolbarDeleteTooltip": "Delete note",
     "exportMenuTrigger": "Export",
+    "resultsLabel": "Results",
+    "showingRange": "Showing {{start}}-{{end}} of {{total}}",
+    "expandSidebar": "Expand sidebar",
+    "collapseSidebar": "Collapse sidebar",
+    "titlePlaceholder": "Title",
+    "keywordsEditorPlaceholder": "Keywords (tags)",
     "tagsHelp": "Keywords help you find this note using the keyword filter on the left."
   },
   "tts": {
@@ -380,6 +387,8 @@
     "selectCharacter": "选择角色",
     "chattingAs": "你现在以 {{name}} 的身份聊天。",
     "clearCharacter": "清除角色",
+    "fetchErrorTitle": "无法加载角色",
+    "fetchErrorBody": "请检查你的网络连接或服务器状态，然后重试。",
     "none": "无（无角色）",
     "searchPlaceholder": "按名称搜索角色",
     "noMatches": "目前还没有符合你搜索条件的角色。",
@@ -393,5 +402,16 @@
     "confirmDescription": "Your message already has text. Do you want to overwrite it with this prompt or append the prompt below it?",
     "overwrite": "Overwrite message",
     "append": "Append"
+  },
+  "quickChatHelper": {
+    "tooltip": "快捷聊天助手",
+    "title": "快捷聊天助手",
+    "inputPlaceholder": "快速提问...",
+    "sendButton": "发送",
+    "emptyState": "开始一个快速侧边聊天，保持主对话干净整洁。",
+    "popOutButton": "在单独窗口中打开",
+    "noModelWarning": "请先在主聊天中选择一个模型。",
+    "userMessageAria": "你的消息",
+    "assistantMessageAria": "助手的消息"
   }
 }

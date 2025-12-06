@@ -71,7 +71,8 @@
     "moreActions": "More actions",
     "toolsMenu": "Chat tools",
     "serverBackedLabel": "Server-backed chat",
-    "serverBackedTooltip": "Messages in this chat are also saved on your tldw server."
+    "serverBackedTooltip": "Messages in this chat are also saved on your tldw server.",
+    "quickIngestQueuedAria": "{{label}} — {{count}} ഇനം ക്യൂ ചെയ്തിരിക്കുന്നു — പരിശോധിച്ച് പ്രോസസ്സ് ചെയ്യാൻ ക്ലിക്ക് ചെയ്യുക"
   },
   "sidebarTitle": "ചാറ്റ് ചരിത്രം",
   "error": "പിശക്",
@@ -180,7 +181,7 @@
     "storageServerDescription": "നിങ്ങളുടെ tldw സർവറിൽ സൂക്ഷിക്കുന്നു (RAG-നും പങ്കിട്ട വർക്ക്‌സ്പേസുകൾക്കും ശുപാർശ).",
     "storageLocalDescription": "ഈ ബ്രൗസറിൽ മാത്രം സൂക്ഷിക്കുന്നു; നിങ്ങളുടെ സർവറിൽ ഡാറ്റ എഴുതുന്നില്ല.",
     "storageDocsLink": "ഇൻജെസ്റ്റും സംഭരണവും കുറിച്ച് കൂടുതൽ അറിയുക",
-    "storageDocsUrl": "https://docs.tldw.app/extension/media-ingest-storage",
+    "storageDocsUrl": "https://github.com/rmusser01/tldw_browser_assistant",
     "bulkPlaceholder": "Paste URLs (one per line)",
     "or": "or",
     "remove": "Remove",
@@ -222,6 +223,12 @@
     "toolbarCopyTooltip": "Copy note content",
     "toolbarDeleteTooltip": "Delete note",
     "exportMenuTrigger": "Export",
+    "resultsLabel": "Results",
+    "showingRange": "Showing {{start}}-{{end}} of {{total}}",
+    "expandSidebar": "Expand sidebar",
+    "collapseSidebar": "Collapse sidebar",
+    "titlePlaceholder": "Title",
+    "keywordsEditorPlaceholder": "Keywords (tags)",
     "tagsHelp": "Keywords help you find this note using the keyword filter on the left."
   },
   "tts": {
@@ -288,6 +295,8 @@
     "selectCharacter": "കഥാപാത്രം തിരഞ്ഞെടുക്കുക",
     "chattingAs": "ഇപ്പോൾ നിങ്ങൾ {{name}} ആയി സംസാരിക്കുന്നു.",
     "clearCharacter": "കഥാപാത്രം നീക്കുക",
+    "fetchErrorTitle": "കഥാപാത്രങ്ങൾ ലോഡ് ചെയ്യാൻ കഴിഞ്ഞില്ല",
+    "fetchErrorBody": "നിങ്ങളുടെ കണക്ഷൻ അല്ലെങ്കിൽ സർവർ നില പരിശോധിച്ച് വീണ്ടും ശ്രമിക്കുക.",
     "none": "ഒന്നുമില്ല (കഥാപാത്രമില്ല)",
     "searchPlaceholder": "പേരുപയോഗിച്ച് കഥാപാത്രങ്ങളെ തിരയുക",
     "noMatches": "നിങ്ങളുടെ തിരച്ചിലിന് യോജിക്കുന്ന കഥാപാത്രങ്ങൾ ഇതുവരെ ഒന്നും ഇല്ല.",
@@ -393,5 +402,17 @@
     "mapping": "Column mapping",
     "mappingPreview": "Preview of the first few mapped rows:",
     "exportHelp": "Filter by deck, tag, or search, then export as CSV/TSV for spreadsheets or Anki (.apkg) for Anki clients."
+  }
+,
+  "quickChatHelper": {
+    "tooltip": "ക്വിക്ക് ചാറ്റ് സഹായകാങ്ക്",
+    "title": "ക്വിക്ക് ചാറ്റ് സഹായകാംശം",
+    "inputPlaceholder": "എളുപ്പത്തില്‍ ഒരു വഴി ചോദിക്കൂ...",
+    "sendButton": "യൂഴിക്കുക",
+    "emptyState": "പ്രധാന ചര്‍ച്ച ശുദ്ധമാക്കാന്‍ ഒരു ചുരുങ്ങിയ വശചാറ്റ് ആരംഭിക്കൂ.",
+    "popOutButton": "പോപ്പ് ഔട്ട് ചെയ്യുക",
+    "noModelWarning": "ദയവായി ആദ്യം മുഖ്യ ചാറ്റില്‍ ഒരു മോഡല്‍ തിരഞ്ഞെടുക്കുക.",
+    "userMessageAria": "നിങ്ങളുടെ സന്ദേശം",
+    "assistantMessageAria": "അസിസ്റ്റന്റിന്റെ സന്ദേശം"
   }
 }

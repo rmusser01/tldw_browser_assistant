@@ -71,7 +71,8 @@
     "moreActions": "More actions",
     "toolsMenu": "Chat tools",
     "serverBackedLabel": "Server-backed chat",
-    "serverBackedTooltip": "Messages in this chat are also saved on your tldw server."
+    "serverBackedTooltip": "Messages in this chat are also saved on your tldw server.",
+    "quickIngestQueuedAria": "{{label}} — {{count}} مورد در صف — برای بررسی و پردازش کلیک کنید"
   },
   "sidebarTitle": "تاریخچه گپ",
   "error": "خطا",
@@ -180,7 +181,7 @@
     "storageServerDescription": "روی سرور tldw شما ذخیره می‌شود (پیشنهادی برای RAG و محیط‌های کاری مشترک).",
     "storageLocalDescription": "فقط در این مرورگر نگه داشته می‌شود؛ هیچ داده‌ای روی سرورتان نوشته نمی‌شود.",
     "storageDocsLink": "درباره درون‌ریزی و ذخیره‌سازی بیشتر بدانید",
-    "storageDocsUrl": "https://docs.tldw.app/extension/media-ingest-storage",
+    "storageDocsUrl": "https://github.com/rmusser01/tldw_browser_assistant",
     "bulkPlaceholder": "Paste URLs (one per line)",
     "or": "or",
     "remove": "Remove",
@@ -222,6 +223,12 @@
     "toolbarCopyTooltip": "Copy note content",
     "toolbarDeleteTooltip": "Delete note",
     "exportMenuTrigger": "Export",
+    "resultsLabel": "نتایج",
+    "showingRange": "نمایش {{start}}-{{end}} از {{total}}",
+    "expandSidebar": "گسترش نوار کناری",
+    "collapseSidebar": "بستن نوار کناری",
+    "titlePlaceholder": "عنوان",
+    "keywordsEditorPlaceholder": "کلیدواژه‌ها (تگ‌ها)",
     "tagsHelp": "Keywords help you find this note using the keyword filter on the left."
   },
   "tts": {
@@ -288,6 +295,8 @@
     "selectCharacter": "انتخاب شخصیت",
     "chattingAs": "چت به‌عنوان {{name}}",
     "clearCharacter": "پاک‌کردن شخصیت",
+    "fetchErrorTitle": "بارگذاری شخصیت‌ها ممکن نیست",
+    "fetchErrorBody": "اتصال خود یا وضعیت سرور را بررسی کرده و دوباره تلاش کنید.",
     "none": "هیچ‌کدام (بدون شخصیت)",
     "searchPlaceholder": "جستجو بر اساس نام شخصیت",
     "noMatches": "هنوز شخصیتی با این جستجو مطابقت ندارد.",
@@ -393,5 +402,17 @@
     "mapping": "Column mapping",
     "mappingPreview": "Preview of the first few mapped rows:",
     "exportHelp": "Filter by deck, tag, or search, then export as CSV/TSV for spreadsheets or Anki (.apkg) for Anki clients."
+  }
+,
+  "quickChatHelper": {
+    "tooltip": "دستیار گفتگوی سریع",
+    "title": "دستیار گفتگوی سریع",
+    "inputPlaceholder": "یک سؤال کوتاه بپرسید...",
+    "sendButton": "ارسال",
+    "emptyState": "یک گفتگوی جانبی سریع شروع کنید تا رشتهٔ اصلی تمیز بماند.",
+    "popOutButton": "باز کردن در پنجرهٔ جداگانه",
+    "noModelWarning": "لطفاً ابتدا یک مدل را در گفتگوی اصلی انتخاب کنید.",
+    "userMessageAria": "پیام شما",
+    "assistantMessageAria": "پیام دستیار"
   }
 }

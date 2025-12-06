@@ -148,6 +148,8 @@ export const Header: React.FC<Props> = ({
   const [quickIngestOpen, setQuickIngestOpen] = React.useState(false)
   const [quickIngestAutoProcessQueued, setQuickIngestAutoProcessQueued] =
     React.useState(false)
+  const quickIngestReadyRef = React.useRef(false)
+  const pendingQuickIngestIntroRef = React.useRef(false)
   const { queuedQuickIngestCount, quickIngestHadFailure } =
     useQuickIngestStore((s) => ({
       queuedQuickIngestCount: s.queuedCount,
@@ -161,6 +163,37 @@ export const Header: React.FC<Props> = ({
   const { shortcuts: shortcutConfig } = useShortcutConfig()
   const quickIngestBtnRef = React.useRef<HTMLButtonElement>(null)
   const hasQueuedQuickIngest = queuedQuickIngestCount > 0
+
+  const quickIngestAriaLabel = React.useMemo(() => {
+    const base = t("option:header.quickIngest", "Quick ingest")
+    if (!hasQueuedQuickIngest) {
+      return base
+    }
+
+    const queuedText = t(
+      "option:header.quickIngestQueuedAria",
+      "{{label}} — {{count}} items queued — click to review and process",
+      {
+        label: base,
+        count: queuedQuickIngestCount
+      }
+    )
+
+    if (quickIngestHadFailure) {
+      const failureHint = t(
+        "quickIngest.healthAriaHint",
+        "Recent runs failed — open Health & diagnostics from the header for more details."
+      )
+      return `${queuedText} ${failureHint}`
+    }
+
+    return queuedText
+  }, [
+    hasQueuedQuickIngest,
+    queuedQuickIngestCount,
+    quickIngestHadFailure,
+    t
+  ])
 
   const openQuickIngest = React.useCallback(
     (options?: { autoProcessQueued?: boolean; focusTrigger?: boolean }) => {
@@ -187,12 +220,32 @@ export const Header: React.FC<Props> = ({
   }, [openQuickIngest])
 
   React.useEffect(() => {
+    const markQuickIngestReady = () => {
+      quickIngestReadyRef.current = true
+      if (pendingQuickIngestIntroRef.current) {
+        pendingQuickIngestIntroRef.current = false
+        window.dispatchEvent(
+          new CustomEvent("tldw:quick-ingest-force-intro")
+        )
+      }
+    }
+    window.addEventListener("tldw:quick-ingest-ready", markQuickIngestReady)
+    return () => {
+      window.removeEventListener(
+        "tldw:quick-ingest-ready",
+        markQuickIngestReady
+      )
+    }
+  }, [])
+
+  React.useEffect(() => {
     const handler = () => {
       openQuickIngest({ focusTrigger: false })
-      // Nudge the modal to show the intro drawer once mounted
-      window.setTimeout(() => {
+      if (quickIngestReadyRef.current) {
         window.dispatchEvent(new CustomEvent("tldw:quick-ingest-force-intro"))
-      }, 150)
+      } else {
+        pendingQuickIngestIntroRef.current = true
+      }
     }
     window.addEventListener("tldw:open-quick-ingest-intro", handler)
     return () => {
@@ -245,11 +298,20 @@ export const Header: React.FC<Props> = ({
         await browser.sidebarAction.open()
       } else {
         // Chromium sidePanel API
-        // @ts-ignore
-        const tabs = await chrome.tabs.query({ active: true, currentWindow: true })
-        if (tabs?.[0]?.id) {
-          // @ts-ignore
-          await chrome.sidePanel.open({ tabId: tabs[0].id })
+        if (
+          typeof chrome === "undefined" ||
+          !chrome?.tabs?.query ||
+          !chrome?.sidePanel?.open
+        ) {
+          return
+        }
+        const tabs = await chrome.tabs.query({
+          active: true,
+          currentWindow: true
+        })
+        const tabId = tabs?.[0]?.id
+        if (tabId) {
+          await chrome.sidePanel.open({ tabId })
         }
       }
     } catch {}
@@ -736,9 +798,29 @@ export const Header: React.FC<Props> = ({
                     localStorage.setItem("selectedModel", value)
                   }}
                   filterOption={(input, option) => {
-                    // @ts-ignore
-                    const haystack = option?.label?.props?.["data-title"] as string | undefined
-                    return haystack?.toLowerCase().includes(input.toLowerCase()) ?? false
+                    const rawLabel = option?.label
+                    let haystack: string | undefined
+                    if (typeof rawLabel === "string") {
+                      haystack = rawLabel
+                    } else if (React.isValidElement(rawLabel)) {
+                      const props = rawLabel.props as {
+                        "data-title"?: string
+                        children?: React.ReactNode
+                      }
+                      haystack =
+                        props["data-title"] ||
+                        (typeof props.children === "string"
+                          ? props.children
+                          : undefined)
+                    }
+                    if (!haystack && option?.value != null) {
+                      haystack = String(option.value)
+                    }
+                    return (
+                      haystack
+                        ?.toLowerCase()
+                        .includes(input.toLowerCase()) ?? false
+                    )
                   }}
                   showSearch
                   loading={isModelsLoading}
@@ -825,31 +907,7 @@ export const Header: React.FC<Props> = ({
                   openQuickIngest()
                 }}
                 data-testid="open-quick-ingest"
-                aria-label={
-                  hasQueuedQuickIngest
-                    ? [
-                        t(
-                          "option:header.quickIngestQueuedAria",
-                          "{{label}} — {{count}} items queued — click to review and process",
-                          {
-                            label: t(
-                              "option:header.quickIngest",
-                              "Quick ingest"
-                            ),
-                            count: queuedQuickIngestCount
-                          }
-                        ),
-                        quickIngestHadFailure
-                          ? t(
-                              "quickIngest.healthAriaHint",
-                              "Recent runs failed — open Health & diagnostics from the header for more details."
-                            )
-                          : ""
-                      ]
-                        .filter(Boolean)
-                        .join(" ")
-                    : t("option:header.quickIngest", "Quick ingest")
-                }
+                aria-label={quickIngestAriaLabel}
                 title={
                   t(
                     "playground:tooltip.quickIngest",
@@ -1002,6 +1060,11 @@ export const Header: React.FC<Props> = ({
                     shortcut: shortcutConfig.modeMedia
                   },
                   {
+                    key: "mediaMulti",
+                    label: t("option:header.libraryView", "Multi-Item Review"),
+                    shortcut: undefined
+                  },
+                  {
                     key: "knowledge",
                     label: t("option:header.modeKnowledge", "Knowledge QA"),
                     shortcut: shortcutConfig.modeKnowledge
@@ -1015,6 +1078,11 @@ export const Header: React.FC<Props> = ({
                     key: "flashcards",
                     label: t("option:header.modeFlashcards", "Flashcards"),
                     shortcut: shortcutConfig.modeFlashcards
+                  },
+                  {
+                    key: "prompts",
+                    label: t("option:header.modePromptsPlayground", "Prompts"),
+                    shortcut: shortcutConfig.modePrompts
                   }
                 ]
                 const secondaryModes: Array<{
@@ -1023,19 +1091,9 @@ export const Header: React.FC<Props> = ({
                   shortcut?: import("@/hooks/keyboard/useKeyboardShortcuts").KeyboardShortcut
                 }> = [
                   {
-                    key: "mediaMulti",
-                    label: t("option:header.libraryView", "Multi-Item Review"),
-                    shortcut: undefined
-                  },
-                  {
                     key: "stt",
                     label: t("option:header.modeStt", "STT Playground"),
                     shortcut: undefined
-                  },
-                  {
-                    key: "prompts",
-                    label: t("option:header.modePromptsPlayground", "Prompts"),
-                    shortcut: shortcutConfig.modePrompts
                   },
                   {
                     key: "promptStudio",
