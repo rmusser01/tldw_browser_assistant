@@ -14,7 +14,7 @@ import {
   Switch,
   notification
 } from "antd"
-import { useState } from "react"
+import React, { useState } from "react"
 import { useTranslation } from "react-i18next"
 import {
   addOpenAICofig,
@@ -31,6 +31,26 @@ const noPopupProvider = ["lmstudio", "llamafile", "ollama2", "llamacpp", "vllm"]
 import { isFireFoxPrivateMode } from "@/utils/is-private-mode"
 import { useConfirmDanger } from "@/components/Common/confirm-danger"
 import { useAntdMessage } from "@/hooks/useAntdMessage"
+
+const filterByLabelOrValue = (
+  input: string,
+  option?: { label?: React.ReactNode; value?: unknown }
+) => {
+  const rawLabel = option?.label
+  let haystack: string | undefined
+
+  if (typeof rawLabel === "string") {
+    haystack = rawLabel
+  } else if (React.isValidElement(rawLabel)) {
+    haystack = (rawLabel.props as { "data-title"?: string })?.["data-title"]
+  }
+
+  if (!haystack && option?.value != null) {
+    haystack = String(option.value)
+  }
+
+  return haystack?.toLowerCase().includes(input.toLowerCase()) ?? false
+}
 
 export const OpenAIApp = () => {
   const { t } = useTranslation(["openai", "settings", "common"])
@@ -264,14 +284,7 @@ export const OpenAIApp = () => {
                 })
                 setProvider(e)
               }}
-              filterOption={(input, option) => {
-                //@ts-ignore
-                return (
-                  option?.label?.props["data-title"]
-                    ?.toLowerCase()
-                    ?.indexOf(input.toLowerCase()) >= 0
-                )
-              }}
+	              filterOption={filterByLabelOrValue}
               showSearch
               className="w-full !mb-4"
               options={OAI_API_PROVIDERS.map((e) => ({

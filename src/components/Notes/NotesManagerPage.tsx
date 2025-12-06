@@ -1,10 +1,10 @@
 import React from 'react'
 import type { InputRef } from 'antd'
-import { Button, Input, List, Pagination, Space, Spin, Tooltip, Typography, Select, Dropdown } from 'antd'
+import { Input, Typography, Select, Button, Tooltip } from 'antd'
+import { Plus as PlusIcon, Search as SearchIcon, ChevronLeft, ChevronRight } from 'lucide-react'
 import { bgRequest } from '@/services/background-proxy'
 import { useQuery, keepPreviousData, useQueryClient } from '@tanstack/react-query'
 import { useServerOnline } from '@/hooks/useServerOnline'
-import { Copy as CopyIcon, Save as SaveIcon, Trash2 as TrashIcon, FileDown as FileDownIcon, Plus as PlusIcon, Search as SearchIcon, Link2 as LinkIcon } from 'lucide-react'
 import { useConfirmDanger } from '@/components/Common/confirm-danger'
 import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
@@ -16,19 +16,15 @@ import { useAntdMessage } from '@/hooks/useAntdMessage'
 import { useStoreMessageOption } from "@/store/option"
 import { updatePageTitle } from "@/utils/update-page-title"
 import { useScrollToServerCard } from "@/hooks/useScrollToServerCard"
-const Markdown = React.lazy(() => import("@/components/Common/Markdown"))
+import { MarkdownPreview } from "@/components/Common/MarkdownPreview"
+import NotesEditorHeader from "@/components/Notes/NotesEditorHeader"
+import NotesListPanel from "@/components/Notes/NotesListPanel"
+import type { NoteListItem } from "@/components/Notes/types"
 
-type NoteListItem = {
-  id: string | number
-  title?: string
-  content?: string
-  updated_at?: string
-  conversation_id?: string | null
-  message_id?: string | null
+type NoteWithKeywords = {
+  metadata?: { keywords?: any[] }
+  keywords?: any[]
 }
-
-const MAX_TITLE_LENGTH = 80
-const MAX_PREVIEW_LENGTH = 100
 
 const extractBacklink = (note: any) => {
   const meta = note?.metadata || {}
@@ -51,10 +47,29 @@ const extractBacklink = (note: any) => {
   }
 }
 
-const truncateText = (value?: string | null, max?: number) => {
-  if (!value) return ""
-  if (!max || value.length <= max) return value
-  return `${value.slice(0, max)}...`
+const extractKeywords = (note: NoteWithKeywords | any): string[] => {
+  const rawKeywords = (Array.isArray(note?.metadata?.keywords)
+    ? note.metadata.keywords
+    : Array.isArray(note?.keywords)
+      ? note.keywords
+      : []) as any[]
+  return (rawKeywords || [])
+    .map((item: any) => {
+      const raw =
+        item?.keyword ??
+        item?.keyword_text ??
+        item?.text ??
+        item
+      return typeof raw === 'string' ? raw : null
+    })
+    .filter((s): s is string => !!s && s.trim().length > 0)
+}
+
+// 120px offset accounts for page header and padding
+const MIN_SIDEBAR_HEIGHT = 600
+const calculateSidebarHeight = () => {
+  const vh = typeof window !== 'undefined' ? window.innerHeight : MIN_SIDEBAR_HEIGHT
+  return Math.max(MIN_SIDEBAR_HEIGHT, vh - 120)
 }
 
 const NotesManagerPage: React.FC = () => {
@@ -71,10 +86,13 @@ const NotesManagerPage: React.FC = () => {
   const [keywordTokens, setKeywordTokens] = React.useState<string[]>([])
   const [keywordOptions, setKeywordOptions] = React.useState<string[]>([])
   const [editorKeywords, setEditorKeywords] = React.useState<string[]>([])
+  const [originalMetadata, setOriginalMetadata] = React.useState<Record<string, any> | null>(null)
   const [isDirty, setIsDirty] = React.useState(false)
   const [backlinkConversationId, setBacklinkConversationId] = React.useState<string | null>(null)
   const [backlinkMessageId, setBacklinkMessageId] = React.useState<string | null>(null)
   const [openingLinkedChat, setOpeningLinkedChat] = React.useState(false)
+  const [showPreview, setShowPreview] = React.useState(false)
+  const keywordSearchTimeoutRef = React.useRef<number | null>(null)
   const isOnline = useServerOnline()
   const { demoEnabled } = useDemoMode()
   const queryClient = useQueryClient()
@@ -99,42 +117,75 @@ const NotesManagerPage: React.FC = () => {
 
   const scrollToServerCard = useScrollToServerCard("/notes")
 
+  const fetchFilteredNotesRaw = async (
+    q: string,
+    toks: string[],
+    page: number,
+    pageSize: number
+  ): Promise<{ items: any[]; total: number }> => {
+    const qstr = q || toks.join(' ')
+    if (!qstr.trim()) {
+      return { items: [], total: 0 }
+    }
+
+    const params = new URLSearchParams()
+    params.set('query', qstr)
+    params.set('limit', String(pageSize))
+    params.set('offset', String((page - 1) * pageSize))
+    params.set('include_keywords', 'true')
+    toks.forEach((tok) => {
+      const v = tok.trim()
+      if (v.length > 0) {
+        params.append('tokens', v)
+      }
+    })
+
+    const abs = await bgRequest<any>({
+      path: `/api/v1/notes/search/?${params.toString()}` as any,
+      method: 'GET' as any
+    })
+
+    let items: any[] = []
+    let total = 0
+
+    if (Array.isArray(abs)) {
+      items = abs
+      total = abs.length
+    } else if (abs && typeof abs === 'object') {
+      if (Array.isArray((abs as any).items)) {
+        items = (abs as any).items
+      }
+      const pagination = (abs as any).pagination
+      if (pagination && typeof pagination.total_items === 'number') {
+        total = Number(pagination.total_items)
+      } else if (Array.isArray((abs as any).items)) {
+        total = (abs as any).items.length
+      }
+    }
+
+    return { items, total }
+  }
+
   const fetchNotes = async (): Promise<NoteListItem[]> => {
     const q = query.trim()
     const toks = keywordTokens.map((k) => k.toLowerCase())
     // Prefer search when query or keyword filters are present
     if (q || toks.length > 0) {
-      const cfg = await (async () => {
-        try { return await tldwClient.getConfig() } catch { return null }
-      })()
-      const base = String(cfg?.serverUrl || '').replace(/\/$/, '')
-      const qstr = q || toks.join(' ')
-      const abs = await bgRequest<any>({ path: `${base}/api/v1/notes/search/?query=${encodeURIComponent(qstr)}` as any, method: 'GET' as any })
-      let arr: any[] = Array.isArray(abs) ? abs : []
-      if (toks.length > 0) {
-        arr = arr.filter((n) => {
-          const hay = `${n?.title || ''} ${n?.content || ''}`.toLowerCase()
-          return toks.every((k) => hay.includes(k))
-        })
-      }
-      if (q) {
-        const ql = q.toLowerCase()
-        arr = arr.filter((n) => (`${n?.title || ''} ${n?.content || ''}`.toLowerCase()).includes(ql))
-      }
-      setTotal(arr.length)
-      return arr
-        .slice((page - 1) * pageSize, (page - 1) * pageSize + pageSize)
-        .map((n: any) => {
-          const links = extractBacklink(n)
-          return {
-            id: n?.id,
-            title: n?.title,
-            content: n?.content,
-            updated_at: n?.updated_at,
-            conversation_id: links.conversation_id,
-            message_id: links.message_id
-          }
-        })
+      const { items, total } = await fetchFilteredNotesRaw(q, toks, page, pageSize)
+      setTotal(total)
+      return items.map((n: any) => {
+        const links = extractBacklink(n)
+        const keywords = extractKeywords(n)
+        return {
+          id: n?.id,
+          title: n?.title,
+          content: n?.content,
+          updated_at: n?.updated_at,
+          conversation_id: links.conversation_id,
+          message_id: links.message_id,
+          keywords
+        }
+      })
     }
     // Browse list with pagination when no filters
     const res = await bgRequest<any>({ path: `/api/v1/notes/?page=${page}&results_per_page=${pageSize}` as any, method: 'GET' as any })
@@ -143,23 +194,28 @@ const NotesManagerPage: React.FC = () => {
     setTotal(Number(pagination?.total_items || items.length || 0))
     return items.map((n: any) => {
       const links = extractBacklink(n)
+      const keywords = extractKeywords(n)
       return {
         id: n?.id,
         title: n?.title,
         content: n?.content,
         updated_at: n?.updated_at,
         conversation_id: links.conversation_id,
-        message_id: links.message_id
+        message_id: links.message_id,
+        keywords
       }
     })
   }
 
   const { data, isFetching, refetch } = useQuery({
-    queryKey: ['notes', query, page, pageSize],
+    queryKey: ['notes', query, page, pageSize, keywordTokens.join('|')],
     queryFn: fetchNotes,
     placeholderData: keepPreviousData,
     enabled: isOnline
   })
+
+  const filteredCount = Array.isArray(data) ? data.length : 0
+  const hasActiveFilters = query.trim().length > 0 || keywordTokens.length > 0
 
   const loadDetail = React.useCallback(async (id: string | number) => {
     setLoadingDetail(true)
@@ -168,11 +224,11 @@ const NotesManagerPage: React.FC = () => {
       setSelectedId(id)
       setTitle(String(d?.title || ''))
       setContent(String(d?.content || ''))
-      const k = (Array.isArray(d?.metadata?.keywords) ? d.metadata.keywords : (Array.isArray(d?.keywords) ? d.keywords : [])) as any[]
-      const normalizedKeywords = (k || []).map((item: any) =>
-        String(item?.keyword || item?.keyword_text || item?.text || item)
-      ).filter((s) => s && s.trim().length > 0)
-      setEditorKeywords(normalizedKeywords)
+      setEditorKeywords(extractKeywords(d))
+      const rawMeta = d && typeof d === "object" ? (d as any).metadata : null
+      setOriginalMetadata(
+        rawMeta && typeof rawMeta === "object" ? { ...(rawMeta as Record<string, any>) } : null
+      )
       const links = extractBacklink(d)
       setBacklinkConversationId(links.conversation_id)
       setBacklinkMessageId(links.message_id)
@@ -187,6 +243,7 @@ const NotesManagerPage: React.FC = () => {
     setTitle('')
     setContent('')
     setEditorKeywords([])
+    setOriginalMetadata(null)
     setBacklinkConversationId(null)
     setBacklinkMessageId(null)
     setIsDirty(false)
@@ -225,7 +282,10 @@ const NotesManagerPage: React.FC = () => {
     if (!content.trim() && !title.trim()) { message.warning('Nothing to save'); return }
     setSaving(true)
     try {
-      const metadata: Record<string, any> = { keywords: editorKeywords }
+      const metadata: Record<string, any> = {
+        ...(originalMetadata || {}),
+        keywords: editorKeywords
+      }
       if (backlinkConversationId) metadata.conversation_id = backlinkConversationId
       if (backlinkMessageId) metadata.message_id = backlinkMessageId
       if (selectedId == null) {
@@ -363,22 +423,23 @@ const NotesManagerPage: React.FC = () => {
       const q = query.trim()
       const toks = keywordTokens.map((k) => k.toLowerCase())
       if (q || toks.length > 0) {
-        const cfg = await tldwClient.getConfig().catch(() => null)
-        const base = String(cfg?.serverUrl || '').replace(/\/$/, '')
-        const qstr = q || toks.join(' ')
-        const abs = await bgRequest<any>({ path: `${base}/api/v1/notes/search/?query=${encodeURIComponent(qstr)}` as any, method: 'GET' as any })
-        let raw: any[] = Array.isArray(abs) ? abs : []
-        if (toks.length > 0) {
-          raw = raw.filter((n) => {
-            const hay = `${n?.title || ''} ${n?.content || ''}`.toLowerCase()
-            return toks.every((k) => hay.includes(k))
-          })
+        // Fetch all matching notes in chunks using server-side filtering
+        let p = 1
+        const ps = 100
+        // eslint-disable-next-line no-constant-condition
+        while (true) {
+          const { items } = await fetchFilteredNotesRaw(q, toks, p, ps)
+          if (!items.length) break
+          arr.push(
+            ...items.map((n: any) => ({
+              id: n?.id,
+              title: n?.title,
+              content: n?.content
+            }))
+          )
+          if (items.length < ps) break
+          p++
         }
-        if (q) {
-          const ql = q.toLowerCase()
-          raw = raw.filter((n) => (`${n?.title || ''} ${n?.content || ''}`.toLowerCase()).includes(ql))
-        }
-        arr = raw.map((n: any) => ({ id: n?.id, title: n?.title, content: n?.content }))
       } else {
         // Iterate pages (chunk by 100)
         let p = 1
@@ -413,22 +474,25 @@ const NotesManagerPage: React.FC = () => {
     const q = query.trim()
     const toks = keywordTokens.map((k) => k.toLowerCase())
     if (q || toks.length > 0) {
-      const cfg = await tldwClient.getConfig().catch(() => null)
-      const base = String(cfg?.serverUrl || '').replace(/\/$/, '')
-      const qstr = q || toks.join(' ')
-      const abs = await bgRequest<any>({ path: `${base}/api/v1/notes/search/?query=${encodeURIComponent(qstr)}` as any, method: 'GET' as any })
-      let raw: any[] = Array.isArray(abs) ? abs : []
-      if (toks.length > 0) {
-        raw = raw.filter((n) => {
-          const hay = `${n?.title || ''} ${n?.content || ''}`.toLowerCase()
-          return toks.every((k) => hay.includes(k))
-        })
+      // Fetch all matching notes in chunks using server-side filtering
+      let p = 1
+      const ps = 100
+      // eslint-disable-next-line no-constant-condition
+      while (true) {
+        const { items } = await fetchFilteredNotesRaw(q, toks, p, ps)
+        if (!items.length) break
+        arr.push(
+          ...items.map((n: any) => ({
+            id: n?.id,
+            title: n?.title,
+            content: n?.content,
+            updated_at: n?.updated_at,
+            keywords: extractKeywords(n)
+          }))
+        )
+        if (items.length < ps) break
+        p++
       }
-      if (q) {
-        const ql = q.toLowerCase()
-        raw = raw.filter((n) => (`${n?.title || ''} ${n?.content || ''}`.toLowerCase()).includes(ql))
-      }
-      arr = raw.map((n: any) => ({ id: n?.id, title: n?.title, content: n?.content, updated_at: n?.updated_at }))
     } else {
       // Iterate pages (chunk by 100)
       let p = 1
@@ -436,7 +500,15 @@ const NotesManagerPage: React.FC = () => {
       while (true) {
         const res = await bgRequest<any>({ path: `/api/v1/notes/?page=${p}&results_per_page=${ps}` as any, method: 'GET' as any })
         const items = Array.isArray(res?.items) ? res.items : (Array.isArray(res) ? res : [])
-        arr.push(...items.map((n: any) => ({ id: n?.id, title: n?.title, content: n?.content, updated_at: n?.updated_at })))
+        arr.push(
+          ...items.map((n: any) => ({
+            id: n?.id,
+            title: n?.title,
+            content: n?.content,
+            updated_at: n?.updated_at,
+            keywords: extractKeywords(n)
+          }))
+        )
         const pagination = res?.pagination
         const totalPages = Number(pagination?.total_pages || (items.length < ps ? p : p + 1))
         if (p >= totalPages || items.length === 0) break
@@ -451,8 +523,21 @@ const NotesManagerPage: React.FC = () => {
       const arr = await gatherAllMatching()
       if (!arr.length) { message.info('No notes to export'); return }
       const escape = (s: any) => '"' + String(s ?? '').replace(/"/g, '""') + '"'
-      const header = ['id','title','content','updated_at']
-      const rows = [header.join(','), ...arr.map(n => [n.id, n.title || '', (n.content || '').replace(/\r?\n/g, '\\n'), n.updated_at || ''].map(escape).join(','))]
+      const header = ['id','title','content','updated_at','keywords']
+      const rows = [
+        header.join(','),
+        ...arr.map((n) =>
+          [
+            n.id,
+            n.title || '',
+            (n.content || '').replace(/\r?\n/g, '\\n'),
+            n.updated_at || '',
+            (n.keywords || []).join('; ')
+          ]
+            .map(escape)
+            .join(',')
+        )
+      ]
       const blob = new Blob([rows.join('\n')], { type: 'text/csv;charset=utf-8' })
       const url = URL.createObjectURL(blob)
       const a = document.createElement('a')
@@ -485,19 +570,51 @@ const NotesManagerPage: React.FC = () => {
 
   const loadKeywordSuggestions = React.useCallback(async (text?: string) => {
     try {
-      const cfg = await tldwClient.getConfig().catch(() => null)
-      const base = String(cfg?.serverUrl || '').replace(/\/$/, '')
       if (text && text.trim().length > 0) {
-        const abs = await bgRequest<any>({ path: `${base}/api/v1/notes/keywords/search/?query=${encodeURIComponent(text)}&limit=10` as any, method: 'GET' as any })
-        const arr = Array.isArray(abs) ? abs.map((x: any) => String(x?.keyword || x?.keyword_text || x?.text || "")).filter(Boolean) : []
+        const abs = await bgRequest<any>({
+          path: `/api/v1/notes/keywords/search/?query=${encodeURIComponent(text)}&limit=10` as any,
+          method: 'GET' as any
+        })
+        const arr = Array.isArray(abs)
+          ? abs
+              .map((x: any) =>
+                String(x?.keyword || x?.keyword_text || x?.text || '')
+              )
+              .filter(Boolean)
+          : []
         setKeywordOptions(arr)
       } else {
-        const abs = await bgRequest<any>({ path: `${base}/api/v1/notes/keywords/?limit=200` as any, method: 'GET' as any })
-        const arr = Array.isArray(abs) ? abs.map((x: any) => String(x?.keyword || x?.keyword_text || x?.text || "")).filter(Boolean) : []
+        const abs = await bgRequest<any>({
+          path: `/api/v1/notes/keywords/?limit=200` as any,
+          method: 'GET' as any
+        })
+        const arr = Array.isArray(abs)
+          ? abs
+              .map((x: any) =>
+                String(x?.keyword || x?.keyword_text || x?.text || '')
+              )
+              .filter(Boolean)
+          : []
         setKeywordOptions(arr)
       }
     } catch {}
   }, [])
+
+  const debouncedLoadKeywordSuggestions = React.useCallback(
+    (text?: string) => {
+      if (typeof window === 'undefined') {
+        void loadKeywordSuggestions(text)
+        return
+      }
+      if (keywordSearchTimeoutRef.current != null) {
+        window.clearTimeout(keywordSearchTimeoutRef.current)
+      }
+      keywordSearchTimeoutRef.current = window.setTimeout(() => {
+        void loadKeywordSuggestions(text)
+      }, 300)
+    },
+    [loadKeywordSuggestions]
+  )
 
   React.useEffect(() => {
     const handler = (e: BeforeUnloadEvent) => {
@@ -508,6 +625,19 @@ const NotesManagerPage: React.FC = () => {
     window.addEventListener('beforeunload', handler)
     return () => window.removeEventListener('beforeunload', handler)
   }, [isDirty])
+
+  React.useEffect(() => {
+    return () => {
+      if (keywordSearchTimeoutRef.current != null) {
+        clearTimeout(keywordSearchTimeoutRef.current)
+      }
+    }
+  }, [])
+
+  React.useEffect(() => {
+    // When selecting a different note, default back to edit mode so users can start typing immediately.
+    setShowPreview(false)
+  }, [selectedId])
 
   // Deep-link support: if tldw:lastNoteId is set (e.g., from omni-search),
   // automatically load that note once when the list is available.
@@ -538,478 +668,305 @@ const NotesManagerPage: React.FC = () => {
     })()
   }, [data, handleSelectNote, isOnline, pendingNoteId, selectedId])
 
+  const [sidebarCollapsed, setSidebarCollapsed] = React.useState(false)
+
+  const [sidebarHeight, setSidebarHeight] = React.useState(calculateSidebarHeight())
+
+  React.useEffect(() => {
+    if (typeof window === 'undefined') {
+      return
+    }
+    const handleResize = () => {
+      setSidebarHeight(calculateSidebarHeight())
+    }
+    window.addEventListener('resize', handleResize)
+    return () => window.removeEventListener('resize', handleResize)
+  }, [])
+
   return (
-    <div className="w-full h-full flex flex-col lg:flex-row gap-4 mt-16">
-      {/* Left: search + list */}
-      <div className="w-full lg:w-1/3 min-w-0 lg:sticky lg:top-16 lg:self-start">
-        <div className="p-3 rounded-lg border dark:border-gray-700 bg-white dark:bg-[#171717]">
-          <div className="flex items-center gap-2">
-            <Input
-              allowClear
-              placeholder={t('option:notesSearch.placeholder', {
-                defaultValue: 'Search titles and contents'
-              })}
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
-              onPressEnter={() => { setPage(1); refetch() }}
-              className="flex-1 min-w-[12rem]"
-            />
-            <Button type="primary" onClick={() => { setPage(1); refetch() }} icon={(<SearchIcon className="w-4 h-4" />) as any}>Search</Button>
-            <Tooltip title={t('option:notesSearch.clearTooltip', { defaultValue: 'Clear search and filters' })}>
-              <Button onClick={() => { setQuery(''); setKeywordTokens([]); setPage(1); refetch() }}>
-                {t('option:notesSearch.clear', {
-                  defaultValue: 'Clear'
+    <div className="flex h-full w-full bg-gray-50 dark:bg-[#101010] p-4 mt-16">
+      {/* Collapsible Sidebar */}
+      <div
+        className={`flex-shrink-0 transition-all duration-300 ease-in-out ${
+          sidebarCollapsed ? 'w-0 overflow-hidden' : 'w-[380px]'
+        }`}
+        style={{ minHeight: `${MIN_SIDEBAR_HEIGHT}px`, height: `${sidebarHeight}px` }}
+      >
+        <div className="flex h-full flex-col overflow-hidden rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-[#171717]">
+          {/* Toolbar Section */}
+          <div className="flex-shrink-0 border-b border-gray-200 dark:border-gray-700 p-4 bg-white dark:bg-[#171717]">
+            <div className="flex items-center justify-between mb-3">
+              <div className="text-xs uppercase tracking-[0.16em] text-gray-500 dark:text-gray-400">
+                {t('option:notesSearch.headerLabel', { defaultValue: 'Notes' })}
+                <span className="ml-2 text-gray-400 dark:text-gray-500">
+                  {hasActiveFilters && filteredCount > 0 && total > 0
+                    ? t('option:notesSearch.headerCount', {
+                        defaultValue: '{{visible}} of {{total}}',
+                        visible: filteredCount,
+                        total
+                      })
+                    : t('option:notesSearch.headerCountFallback', {
+                        defaultValue: '{{total}} total',
+                        total
+                      })}
+                </span>
+              </div>
+              <Tooltip
+                title={t('option:notesSearch.newTooltip', {
+                  defaultValue: 'Create a new note'
                 })}
-              </Button>
-            </Tooltip>
-            <Tooltip
-              title={t('option:notesSearch.newTooltip', {
-                defaultValue: 'Create a new note'
-              })}>
-              <Button onClick={() => { void handleNewNote() }} icon={(<PlusIcon className="w-4 h-4" />) as any}>
-                {t('option:notesSearch.new', { defaultValue: 'New note' })}
-              </Button>
-            </Tooltip>
+              >
+                <Button
+                  type="text"
+                  shape="circle"
+                  onClick={() => void handleNewNote()}
+                  className="flex items-center justify-center"
+                  icon={(<PlusIcon className="w-4 h-4" />) as any}
+                  aria-label={t('option:notesSearch.new', {
+                    defaultValue: 'New note'
+                  })}
+                />
+              </Tooltip>
+            </div>
+            <div className="space-y-2">
+              <Input
+                allowClear
+                placeholder={t('option:notesSearch.placeholder', {
+                  defaultValue: 'Search notes...'
+                })}
+                prefix={(<SearchIcon className="w-4 h-4 text-gray-400" />) as any}
+                value={query}
+                onChange={(e) => {
+                  setQuery(e.target.value)
+                  setPage(1)
+                }}
+                onPressEnter={() => {
+                  setPage(1)
+                }}
+              />
+              <Select
+                mode="tags"
+                allowClear
+                placeholder={t('option:notesSearch.keywordsPlaceholder', {
+                  defaultValue: 'Filter by keyword'
+                })}
+                className="w-full"
+                value={keywordTokens}
+                onSearch={(txt) => {
+                  if (isOnline) void debouncedLoadKeywordSuggestions(txt)
+                }}
+                onChange={(vals) => {
+                  setKeywordTokens(vals as string[])
+                  setPage(1)
+                }}
+                options={keywordOptions.map((k) => ({ label: k, value: k }))}
+              />
+              {hasActiveFilters && (
+                <Button
+                  size="small"
+                  onClick={() => {
+                    setQuery('')
+                    setKeywordTokens([])
+                    setPage(1)
+                  }}
+                  className="w-full text-xs"
+                >
+                  {t('option:notesSearch.clear', {
+                    defaultValue: 'Clear search & filters'
+                  })}
+                </Button>
+              )}
+            </div>
           </div>
-          <div className="mt-2 flex items-center gap-2">
-            <Select
-              mode="tags"
-              allowClear
-              placeholder={t('option:notesSearch.keywordsPlaceholder', {
-                defaultValue: 'Filter by keyword'
-              })}
-              className="min-w-[12rem] flex-1"
-              value={keywordTokens}
-              onSearch={(txt) => { if (isOnline) void loadKeywordSuggestions(txt) }}
-              onChange={(vals) => { setKeywordTokens(vals as string[]); setPage(1); refetch() }}
-              options={keywordOptions.map((k) => ({ label: k, value: k }))}
+
+          {/* Notes List Section */}
+          <div className="flex-1 overflow-y-auto">
+            <NotesListPanel
+              isOnline={isOnline}
+              isFetching={isFetching}
+              demoEnabled={demoEnabled}
+              capsLoading={capsLoading}
+              capabilities={capabilities || null}
+              notes={Array.isArray(data) ? data : undefined}
+              total={total}
+              page={page}
+              pageSize={pageSize}
+              selectedId={selectedId}
+              onSelectNote={(id) => {
+                void handleSelectNote(id)
+              }}
+              onChangePage={(nextPage, nextPageSize) => {
+                setPage(nextPage)
+                setPageSize(nextPageSize)
+              }}
+              onResetEditor={resetEditor}
+              onScrollToServerCard={scrollToServerCard}
+              onOpenHealth={() => navigate('/settings/health')}
+              onExportAllMd={() => {
+                void exportAll()
+              }}
+              onExportAllCsv={() => {
+                void exportAllCSV()
+              }}
+              onExportAllJson={() => {
+                void exportAllJSON()
+              }}
             />
           </div>
         </div>
-          <div className="mt-3 p-3 rounded-lg border dark:border-gray-700 bg-white dark:bg-[#171717] max-h-[50vh] md:max-h-[60vh] lg:max-h-[calc(100dvh-18rem)] overflow-auto">
-          <div className="sticky -m-3 mb-2 top-0 z-10 px-3 py-2 bg-white dark:bg-[#171717] border-b dark:border-gray-700 flex items-center justify-between">
-            <span className="text-xs text-gray-500">
-              <span className="uppercase tracking-wide">Notes</span>
-              <span className="text-gray-400 ml-1">
-                {t('option:notesSearch.listCount', {
-                  defaultValue: '{{count}} notes',
-                  count: total
-                })}
-              </span>
-            </span>
-            <div className="flex items-center gap-2">
-              <Dropdown
-                menu={{
-                  items: [
-                    {
-                      key: 'md',
-                      label: t('option:notesSearch.exportMdTooltip', {
-                        defaultValue: 'Export matching notes as Markdown (.md)'
-                      })
-                    },
-                    {
-                      key: 'csv',
-                      label: t('option:notesSearch.exportCsvTooltip', {
-                        defaultValue: 'Export matching notes as CSV'
-                      })
-                    },
-                    {
-                      key: 'json',
-                      label: t('option:notesSearch.exportJsonTooltip', {
-                        defaultValue: 'Export matching notes as JSON'
-                      })
-                    }
-                  ],
-                  onClick: ({ key }) => {
-                    if (key === 'md') void exportAll()
-                    if (key === 'csv') void exportAllCSV()
-                    if (key === 'json') void exportAllJSON()
-                  }
-                }}
-              >
-                <Button size="small">
-                  {t('option:notesSearch.exportMenuTrigger', {
-                    defaultValue: 'Export'
-                  })}
-                </Button>
-              </Dropdown>
-            </div>
-          </div>
-          {isFetching ? (
-            <div className="flex items-center justify-center py-10"><Spin /></div>
-          ) : !isOnline ? (
-            demoEnabled ? (
-              <FeatureEmptyState
-                title={
-                  <span className="inline-flex items-center gap-2">
-                    <span className="rounded-full bg-blue-50 px-2 py-0.5 text-[11px] font-medium text-blue-700 dark:bg-blue-900/40 dark:text-blue-200">
-                      Demo
-                    </span>
-                    <span>
-                      {t('option:notesEmpty.demoTitle', {
-                        defaultValue: 'Explore Notes in demo mode'
-                      })}
-                    </span>
-                  </span>
-                }
-                description={t('option:notesEmpty.demoDescription', {
-                  defaultValue:
-                    'This demo shows how Notes can organize your insights. Connect your own server later to create and save real notes.'
-                })}
-                examples={[
-                  t('option:notesEmpty.demoExample1', {
-                    defaultValue:
-                      'See how note titles, previews, and timestamps appear in this list.'
-                  }),
-                  t('option:notesEmpty.demoExample2', {
-                    defaultValue:
-                      'When you connect, you’ll be able to create notes from meetings, reviews, and more.'
-                  })
-                ]}
-                primaryActionLabel={t("option:connectionCard.buttonGoToServerCard", {
-                  defaultValue: "Go to server card"
-                })}
-                onPrimaryAction={scrollToServerCard}
-              />
-            ) : (
-              <FeatureEmptyState
-                title={
-                  <span className="inline-flex items-center gap-2">
-                    <span className="rounded-full bg-yellow-50 px-2 py-0.5 text-[11px] font-medium text-yellow-700 dark:bg-yellow-900/40 dark:text-yellow-200">
-                      Not connected
-                    </span>
-                    <span>
-                      {t('option:notesEmpty.connectTitle', {
-                        defaultValue: 'Connect to use Notes'
-                      })}
-                    </span>
-                  </span>
-                }
-                description={t('option:notesEmpty.connectDescription', {
-                  defaultValue: 'This view needs a connected server. Use the server connection card above to fix your connection, then return here to capture and organize notes.'
-                })}
-                examples={[
-                  t('option:notesEmpty.connectExample1', {
-                    defaultValue:
-                      'Use the connection card at the top of this page to add your server URL and API key.'
-                  })
-                ]}
-                primaryActionLabel={t("option:connectionCard.buttonGoToServerCard", {
-                  defaultValue: "Go to server card"
-                })}
-                onPrimaryAction={scrollToServerCard}
-              />
-            )
-          ) : (!capsLoading && capabilities && !capabilities.hasNotes) ? (
-            <FeatureEmptyState
-              title={
-                <span className="inline-flex items-center gap-2">
-                  <span className="rounded-full bg-amber-50 px-2 py-0.5 text-[11px] font-medium text-amber-700 dark:bg-amber-900/40 dark:text-amber-200">
-                    Feature unavailable
-                  </span>
-                  <span>
-                    {t('option:notesEmpty.offlineTitle', {
-                      defaultValue: 'Notes API not available on this server'
-                    })}
-                  </span>
-                </span>
-              }
-              description={t('option:notesEmpty.offlineDescription', {
-                defaultValue:
-                  'This tldw server does not advertise the Notes endpoints (for example, /api/v1/notes/). Upgrade your server to a version that includes the Notes API to use this workspace.'
-              })}
-              examples={[
-                t('option:notesEmpty.offlineExample1', {
-                  defaultValue:
-                    'Open Health & diagnostics to confirm your server version and available APIs.'
-                }),
-                t('option:notesEmpty.offlineExample2', {
-                  defaultValue:
-                    'After upgrading, reload the extension and return to Notes.'
-                })
-              ]}
-              primaryActionLabel={t('settings:healthSummary.diagnostics', {
-                defaultValue: 'Health & diagnostics'
-              })}
-              onPrimaryAction={() => navigate('/settings/health')}
-            />
-          ) : Array.isArray(data) && data.length > 0 ? (
-            <>
-                  <List
-                    size="small"
-                    dataSource={data}
-                    renderItem={(item) => (
-                      <List.Item
-                        key={String(item.id)}
-                        onClick={() => { void handleSelectNote(item.id) }}
-                        onKeyDown={(e) => {
-                          if (e.key === 'Enter' || e.key === ' ') {
-                            e.preventDefault()
-                            void handleSelectNote(item.id)
-                          }
-                        }}
-                    role="button"
-                    tabIndex={0}
-                    aria-selected={selectedId === item.id}
-                    className={`cursor-pointer rounded-md border px-2 py-2 transition-colors ${
-                      selectedId === item.id
-                        ? 'border-amber-500 bg-gray-50 dark:border-amber-400 dark:bg-[#1f1f1f]'
-                        : 'border-transparent hover:border-gray-300 hover:bg-gray-50 dark:border-transparent dark:hover:border-gray-600 dark:hover:bg-[#262626]'
-                    }`}
-                  >
-                    <div className="w-full">
-                      <Typography.Text
-                        strong
-                        ellipsis
-                        className="max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg"
-                      >
-                        {truncateText(item.title || `Note ${item.id}`, MAX_TITLE_LENGTH)}
-                      </Typography.Text>
-                      {item.content && (
-                        <div className="text-xs text-gray-500 truncate mt-0.5">
-                          {truncateText(String(item.content), MAX_PREVIEW_LENGTH)}
-                        </div>
-                      )}
-                      {item.conversation_id && (
-                        <div className="text-[11px] text-blue-600 dark:text-blue-300 mt-0.5">
-                          {t("option:notesSearch.linkedConversation", {
-                            defaultValue: "Linked to conversation"
-                          })}
-                          {": "}
-                          {String(item.conversation_id)}
-                          {item.message_id
-                            ? ` · msg ${String(item.message_id)}`
-                            : ""}
-                        </div>
-                      )}
-                      <div className="text-[10px] text-gray-400 mt-0.5">{item.updated_at ? new Date(item.updated_at).toLocaleString() : ''}</div>
-                    </div>
-                  </List.Item>
-                )}
-              />
-              <div className="mt-2 flex justify-center">
-                <Pagination size="small" current={page} pageSize={pageSize} total={total} showSizeChanger pageSizeOptions={[10,20,50,100] as any} onChange={(p, ps) => { setPage(p); setPageSize(ps) }} />
-              </div>
-            </>
+      </div>
+
+      {/* Collapse Button - Simple style like Media page */}
+      <button
+        onClick={() => setSidebarCollapsed(!sidebarCollapsed)}
+        className="relative w-6 bg-white dark:bg-[#171717] border-y border-r border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-[#262626] flex items-center justify-center group transition-colors rounded-r-lg"
+        style={{ minHeight: `${MIN_SIDEBAR_HEIGHT}px`, height: `${sidebarHeight}px` }}
+        aria-label={
+          sidebarCollapsed
+            ? t('option:notesSearch.expandSidebar', {
+                defaultValue: 'Expand sidebar'
+              })
+            : t('option:notesSearch.collapseSidebar', {
+                defaultValue: 'Collapse sidebar'
+              })
+        }
+      >
+        <div className="flex items-center justify-center w-full h-full">
+          {sidebarCollapsed ? (
+            <ChevronRight className="w-4 h-4 text-gray-400 dark:text-gray-500 group-hover:text-gray-600 dark:group-hover:text-gray-300" />
           ) : (
-            <FeatureEmptyState
-              title={
-                <span className="inline-flex items-center gap-2">
-                  <span className="rounded-full bg-gray-100 px-2 py-0.5 text-[11px] font-medium text-gray-700 dark:bg-gray-800 dark:text-gray-200">
-                    Getting started
-                  </span>
-                  <span>
-                    {t('option:notesEmpty.title', { defaultValue: 'No notes yet' })}
-                  </span>
-                </span>
-              }
-              description={t('option:notesEmpty.description', {
-                defaultValue: 'Capture and organize free-form notes connected to your tldw insights.'
-              })}
-              examples={[
-                t('option:notesEmpty.exampleCreate', {
-                  defaultValue: 'Create a new note for a recent meeting or transcript.'
-                }),
-                t('option:notesEmpty.exampleLink', {
-                  defaultValue: 'Save review outputs into Notes so you can revisit them later.'
-                })
-              ]}
-              primaryActionLabel={t('option:notesEmpty.primaryCta', { defaultValue: 'Create note' })}
-              onPrimaryAction={resetEditor}
-            />
+            <ChevronLeft className="w-4 h-4 text-gray-400 dark:text-gray-500 group-hover:text-gray-600 dark:group-hover:text-gray-300" />
           )}
         </div>
-        </div>
+      </button>
 
-        {/* Right: editor */}
-        <div
-          className="relative flex-1 p-3 rounded-lg border dark:border-gray-700 bg-white dark:bg-[#171717] min-h-[70vh] min-w-0 lg:h-[calc(100dvh-8rem)] overflow-auto"
-          aria-disabled={editorDisabled}
-        >
-            <div className="flex items-center justify-between">
-              <div className="flex flex-col gap-0.5">
-                <Typography.Title level={5} className="!mb-0">
-                  {selectedId == null ? "New Note" : title || `Note ${selectedId}`}
-                </Typography.Title>
-                {backlinkConversationId && (
-                  <div className="text-xs text-blue-600 dark:text-blue-300">
-                    {t("option:notesSearch.linkedConversation", {
-                      defaultValue: "Linked to conversation"
-                    })}{" "}
-                    {backlinkConversationId}
-                    {backlinkMessageId ? ` · msg ${backlinkMessageId}` : ""}
-                  </div>
-                )}
-              </div>
-              <Space>
-                {!editorDisabled && (
-                  <>
-                    {backlinkConversationId && (
-                      <Tooltip
-                        title={t("option:notesSearch.openConversationTooltip", {
-                          defaultValue: "Open linked conversation"
-                        })}>
-                        <Button
-                          size="small"
-                          loading={openingLinkedChat}
-                          onClick={() => {
-                            void openLinkedConversation()
-                          }}
-                          icon={(<LinkIcon className="w-4 h-4" />) as any}
-                        >
-                          {t("option:notesSearch.openConversation", {
-                            defaultValue: "Open conversation"
-                          })}
-                        </Button>
-                      </Tooltip>
-                    )}
-                    <Tooltip
-                      title={t("option:notesSearch.newTooltip", {
-                        defaultValue: "Create a new note"
-                      })}>
-                      <Button
-                        size="small"
-                        onClick={() => {
-                          void handleNewNote()
-                        }}
-                        icon={(<PlusIcon className="w-4 h-4" />) as any}
-                      >
-                        {t("option:notesSearch.new", {
-                          defaultValue: "New note"
-                        })}
-                      </Button>
-                    </Tooltip>
-                  </>
-                )}
-              <Tooltip
-                title={t('option:notesSearch.toolbarCopyTooltip', {
-                  defaultValue: 'Copy note content'
-                })}
-              >
-                <Button
-                  size="small"
-                  onClick={copySelected}
-                  icon={(<CopyIcon className="w-4 h-4" />) as any}
-                  disabled={!content}
-                  aria-label={t('option:notesSearch.toolbarCopyTooltip', {
-                    defaultValue: 'Copy note content'
-                  })}
-                />
-              </Tooltip>
-              <Tooltip
-                title={t('option:notesSearch.toolbarExportMdTooltip', {
-                  defaultValue: 'Export note as Markdown (.md)'
-                })}>
-                <Button
-                  size="small"
-                  onClick={exportSelected}
-                  icon={(<FileDownIcon className="w-4 h-4" />) as any}
-                  disabled={!title && !content}
-                  aria-label={t('option:notesSearch.toolbarExportMdTooltip', {
-                    defaultValue: 'Export note as Markdown (.md)'
-                  })}
-                >
-                  MD
-                </Button>
-              </Tooltip>
-              <Tooltip
-                title={t('option:notesSearch.toolbarSaveTooltip', {
-                  defaultValue: 'Save note'
-                })}>
-                <Button
-                  type="primary"
-                  size="small"
-                  onClick={saveNote}
-                  loading={saving}
-                  disabled={
-                    editorDisabled || (!title.trim() && !content.trim())
-                  }
-                  icon={(<SaveIcon className="w-4 h-4" />) as any}
-                  aria-label={t('option:notesSearch.toolbarSaveTooltip', {
-                    defaultValue: 'Save note'
-                  })}
-                >
-                  Save
-                </Button>
-              </Tooltip>
-              <Tooltip
-                title={t('option:notesSearch.toolbarDeleteTooltip', {
-                  defaultValue: 'Delete note'
-                })}
-              >
-                <Button
-                  danger
-                  size="small"
-                  onClick={() => void deleteNote()}
-                  icon={(<TrashIcon className="w-4 h-4" />) as any}
-                  disabled={editorDisabled || selectedId == null}
-                  aria-label={t('option:notesSearch.toolbarDeleteTooltip', {
-                    defaultValue: 'Delete note'
-                  })}
-                >
-                  {t('common:delete', { defaultValue: 'Delete' })}
-                </Button>
-              </Tooltip>
-            </Space>
-        </div>
-        <div className="mt-2">
+      {/* Editor Panel */}
+      <div
+        className="flex-1 flex flex-col overflow-hidden rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-[#171717] ml-4"
+        aria-disabled={editorDisabled}
+      >
+        <NotesEditorHeader
+          title={title}
+          selectedId={selectedId}
+          backlinkConversationId={backlinkConversationId}
+          backlinkMessageId={backlinkMessageId}
+          editorDisabled={editorDisabled}
+          openingLinkedChat={openingLinkedChat}
+          showPreview={showPreview}
+          hasContent={content.trim().length > 0}
+          canSave={
+            !editorDisabled &&
+            (title.trim().length > 0 || content.trim().length > 0)
+          }
+          canExport={Boolean(title || content)}
+          isSaving={saving}
+          canDelete={!editorDisabled && selectedId != null}
+          onOpenLinkedConversation={() => {
+            void openLinkedConversation()
+          }}
+          onNewNote={() => {
+            void handleNewNote()
+          }}
+          onTogglePreview={() => {
+            setShowPreview((prev) => !prev)
+          }}
+          onCopy={() => {
+            void copySelected()
+          }}
+          onExport={exportSelected}
+          onSave={() => {
+            void saveNote()
+          }}
+          onDelete={() => {
+            void deleteNote()
+          }}
+        />
+        <div className="flex-1 flex flex-col px-4 py-3 overflow-auto">
           <Input
-            placeholder="Title"
+            placeholder={t('option:notesSearch.titlePlaceholder', {
+              defaultValue: 'Title'
+            })}
             value={title}
-            onChange={(e) => { setTitle(e.target.value); setIsDirty(true) }}
+            onChange={(e) => {
+              setTitle(e.target.value)
+              setIsDirty(true)
+            }}
             disabled={editorDisabled}
             ref={titleInputRef}
-            className="bg-transparent hover:bg-white focus:bg-white dark:bg-transparent dark:hover:bg-[#1f1f1f] dark:focus:bg-[#1f1f1f] transition-colors"
+            className="bg-transparent hover:bg-gray-50 focus:bg-gray-50 dark:bg-transparent dark:hover:bg-[#262626] dark:focus:bg-[#262626] transition-colors"
           />
-        </div>
-        <div className="mt-2">
-          <Select
-            mode="tags"
-            allowClear
-            placeholder="Keywords (tags)"
-            className="min-w-[12rem] w-full"
-            value={editorKeywords}
-            onSearch={(txt) => { if (isOnline) void loadKeywordSuggestions(txt) }}
-            onChange={(vals) => { setEditorKeywords(vals as string[]); setIsDirty(true) }}
-            options={keywordOptions.map((k) => ({ label: k, value: k }))}
-            disabled={editorDisabled}
-          />
-          <Typography.Text type="secondary" className="block text-[11px] mt-1">
-            {t('option:notesSearch.tagsHelp', {
-              defaultValue:
-                'Keywords help you find this note using the keyword filter on the left.'
-            })}
-          </Typography.Text>
-        </div>
-        <div className="mt-2">
-          <textarea
-            className="w-full min-h-[50vh] text-sm p-2 rounded border dark:border-gray-700 dark:bg-[#171717] resize-y leading-relaxed"
-            value={content}
-            onChange={(e) => { setContent(e.target.value); setIsDirty(true) }}
-            placeholder="Write your note here..."
-            readOnly={editorDisabled}
-          />
-        </div>
-        {content.trim().length > 0 && (
-          <div className="mt-4">
-            <Typography.Text type="secondary" className="block text-[11px] mb-1">
-              Preview (Markdown + LaTeX)
+          <div className="mt-3">
+              <Select
+                mode="tags"
+                allowClear
+              placeholder={t('option:notesSearch.keywordsEditorPlaceholder', {
+                defaultValue: 'Keywords (tags)'
+              })}
+              className="w-full"
+              value={editorKeywords}
+              onSearch={(txt) => {
+                if (isOnline) void debouncedLoadKeywordSuggestions(txt)
+              }}
+              onChange={(vals) => {
+                setEditorKeywords(vals as string[])
+                setIsDirty(true)
+              }}
+              options={keywordOptions.map((k) => ({ label: k, value: k }))}
+              disabled={editorDisabled}
+            />
+            <Typography.Text
+              type="secondary"
+              className="block text-[11px] mt-1 text-gray-500 dark:text-gray-400"
+            >
+              {t('option:notesSearch.tagsHelp', {
+                defaultValue:
+                  'Keywords help you find this note using the keyword filter on the left.'
+              })}
             </Typography.Text>
-            <div className="w-full min-h-[6rem] text-sm p-2 rounded border dark:border-gray-700 dark:bg-[#171717] overflow-auto">
-              <React.Suspense
-                fallback={
-                  <Typography.Text type="secondary" className="text-xs">
-                    Rendering preview…
-                  </Typography.Text>
-                }>
-                <Markdown
-                  message={content}
-                  className="prose-sm break-words dark:prose-invert max-w-none prose-p:leading-relaxed prose-pre:p-0 dark:prose-dark"
-                />
-              </React.Suspense>
-            </div>
           </div>
-        )}
+          <div className="mt-3 flex-1 min-h-0">
+            {showPreview ? (
+              content.trim().length > 0 ? (
+                <div className="h-full flex flex-col">
+                  <Typography.Text
+                    type="secondary"
+                    className="block text-[11px] mb-2 text-gray-500 dark:text-gray-400"
+                  >
+                    {t('option:notesSearch.previewTitle', {
+                      defaultValue: 'Preview (Markdown + LaTeX)'
+                    })}
+                  </Typography.Text>
+                  <div className="w-full flex-1 text-sm p-4 rounded-lg border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-[#0c0c0c] overflow-auto">
+                    <MarkdownPreview content={content} size="sm" />
+                  </div>
+                </div>
+              ) : (
+                <Typography.Text
+                  type="secondary"
+                  className="block text-[11px] mt-1 text-gray-500 dark:text-gray-400"
+                >
+                  {t('option:notesSearch.emptyPreview', {
+                    defaultValue:
+                      'Start typing to see a live preview of your note.'
+                  })}
+                </Typography.Text>
+              )
+            ) : (
+              <textarea
+                className="w-full h-full min-h-0 text-sm p-4 rounded-lg border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-[#0c0c0c] text-gray-900 dark:text-gray-100 resize-none leading-relaxed focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-600"
+                value={content}
+                onChange={(e) => {
+                  setContent(e.target.value)
+                  setIsDirty(true)
+                }}
+                placeholder={t('option:notesSearch.editorPlaceholder', {
+                  defaultValue: 'Write your note here... (Markdown supported)'
+                })}
+                readOnly={editorDisabled}
+              />
+            )}
+          </div>
+        </div>
       </div>
     </div>
   )

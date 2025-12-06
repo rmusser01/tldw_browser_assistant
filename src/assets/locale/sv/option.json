@@ -70,8 +70,9 @@
     },
     "moreActions": "More actions",
     "toolsMenu": "Chat tools",
-    "serverBackedLabel": "Server-backed chat",
-    "serverBackedTooltip": "Messages in this chat are also saved on your tldw server."
+    "serverBackedLabel": "Serverlagrad chatt",
+    "serverBackedTooltip": "Meddelanden i den här chatten sparas också på din tldw-server.",
+    "quickIngestQueuedAria": "{{label}} — {{count}} objekt i kö — klicka för att granska och bearbeta"
   },
   "sidebarTitle": "Chatthistorik",
   "error": "Fel",
@@ -180,7 +181,7 @@
     "storageServerDescription": "Lagrade på din tldw-server (rekommenderas för RAG och delade arbetsytor).",
     "storageLocalDescription": "Behålls bara i denna webbläsare; inga data skrivs till servern.",
     "storageDocsLink": "Läs mer om ingest och lagring",
-    "storageDocsUrl": "https://docs.tldw.app/extension/media-ingest-storage",
+    "storageDocsUrl": "https://github.com/rmusser01/tldw_browser_assistant",
     "bulkPlaceholder": "Paste URLs (one per line)",
     "or": "or",
     "remove": "Remove",
@@ -222,6 +223,12 @@
     "toolbarCopyTooltip": "Copy note content",
     "toolbarDeleteTooltip": "Delete note",
     "exportMenuTrigger": "Export",
+    "resultsLabel": "Results",
+    "showingRange": "Showing {{start}}-{{end}} of {{total}}",
+    "expandSidebar": "Expand sidebar",
+    "collapseSidebar": "Collapse sidebar",
+    "titlePlaceholder": "Title",
+    "keywordsEditorPlaceholder": "Keywords (tags)",
     "tagsHelp": "Keywords help you find this note using the keyword filter on the left."
   },
   "tts": {
@@ -288,6 +295,8 @@
     "selectCharacter": "Välj karaktär",
     "chattingAs": "Du chattar nu som {{name}}.",
     "clearCharacter": "Rensa karaktär",
+    "fetchErrorTitle": "Det gick inte att läsa in karaktärer",
+    "fetchErrorBody": "Kontrollera din anslutning eller serverns status och försök igen.",
     "none": "Ingen (ingen karaktär)",
     "searchPlaceholder": "Sök karaktärer efter namn",
     "noMatches": "Inga karaktärer matchar din sökning ännu.",
@@ -393,5 +402,17 @@
     "mapping": "Column mapping",
     "mappingPreview": "Preview of the first few mapped rows:",
     "exportHelp": "Filter by deck, tag, or search, then export as CSV/TSV for spreadsheets or Anki (.apkg) for Anki clients."
+  }
+,
+  "quickChatHelper": {
+    "tooltip": "Snabbchatsassistent",
+    "title": "Snabbchatsassistent",
+    "inputPlaceholder": "Ställ en snabb fråga...",
+    "sendButton": "Skicka",
+    "emptyState": "Starta en snabb sidokonversation för att hålla huvudtråden ren.",
+    "popOutButton": "Öppna i separat fönster",
+    "noModelWarning": "Välj först en modell i huvudchatten.",
+    "userMessageAria": "Ditt meddelande",
+    "assistantMessageAria": "Assistentens meddelande"
   }
 }

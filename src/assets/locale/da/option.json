@@ -72,7 +72,8 @@
     "moreActions": "Flere handlinger",
     "toolsMenu": "Chat-værktøjer",
     "serverBackedLabel": "Server-understøttet chat",
-    "serverBackedTooltip": "Beskeder i denne chat gemmes også på din tldw-server."
+    "serverBackedTooltip": "Beskeder i denne chat gemmes også på din tldw-server.",
+    "quickIngestQueuedAria": "{{label}} — {{count}} elementer i kø — klik for at gennemgå og behandle"
   },
   "sidebarTitle": "Chathistorik",
   "error": "Fejl",
@@ -181,7 +182,7 @@
     "storageServerDescription": "Gemt på din tldw-server (anbefales til RAG og delte arbejdsområder).",
     "storageLocalDescription": "Beholdes kun i denne browser; ingen data skrives til din server.",
     "storageDocsLink": "Få mere at vide om ingest og lagring",
-    "storageDocsUrl": "https://docs.tldw.app/extension/media-ingest-storage",
+    "storageDocsUrl": "https://github.com/rmusser01/tldw_browser_assistant",
     "bulkPlaceholder": "Indsæt URL’er (én pr. linje)",
     "or": "eller",
     "remove": "Fjern",
@@ -234,6 +235,12 @@
     "toolbarCopyTooltip": "Kopiér noteindhold",
     "toolbarDeleteTooltip": "Slet note",
     "exportMenuTrigger": "Eksportér",
+    "resultsLabel": "Resultater",
+    "showingRange": "Viser {{start}}-{{end}} af {{total}}",
+    "expandSidebar": "Udvid sidepanel",
+    "collapseSidebar": "Skjul sidepanel",
+    "titlePlaceholder": "Titel",
+    "keywordsEditorPlaceholder": "Nøgleord (tags)",
     "tagsHelp": "Nøgleord hjælper dig med at finde denne note via nøgleordsfilteret til venstre."
   },
   "tts": {
@@ -300,6 +307,8 @@
     "selectCharacter": "Vælg karakter",
     "chattingAs": "Du chatter nu som {{name}}.",
     "clearCharacter": "Ryd karakter",
+    "fetchErrorTitle": "Kunne ikke indlæse karakterer",
+    "fetchErrorBody": "Tjek din forbindelse eller serverens status, og prøv igen.",
     "none": "Ingen (ingen karakter)",
     "refresh": "Opdater karakterer",
     "refreshing": "Opdaterer karakterer…"
@@ -403,5 +412,16 @@
     "mapping": "Kolonnetilknytning",
     "mappingPreview": "Forhåndsvisning af de første par tilknyttede rækker:",
     "exportHelp": "Filtrér efter sæt, tag eller søgning, og eksportér derefter som CSV/TSV til regneark eller Anki (.apkg) til Anki-klienter."
+  },
+  "quickChatHelper": {
+    "tooltip": "Hurtig chat-hjælper",
+    "title": "Hurtig chat-hjælper",
+    "inputPlaceholder": "Stil et hurtigt spørgsmål...",
+    "sendButton": "Send",
+    "emptyState": "Start en hurtig sidechat, så din hovedsamtale forbliver ryddelig.",
+    "popOutButton": "Åbn i separat vindue",
+    "noModelWarning": "Vælg først en model i hovedchatten.",
+    "userMessageAria": "Din besked",
+    "assistantMessageAria": "Assistentens besked"
   }
 }

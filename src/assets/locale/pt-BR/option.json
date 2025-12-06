@@ -71,7 +71,8 @@
     "moreActions": "More actions",
     "toolsMenu": "Chat tools",
     "serverBackedLabel": "Server-backed chat",
-    "serverBackedTooltip": "Messages in this chat are also saved on your tldw server."
+    "serverBackedTooltip": "Messages in this chat are also saved on your tldw server.",
+    "quickIngestQueuedAria": "{{label}} — {{count}} itens em fila — clique para revisar e processar"
   },
   "sidebarTitle": "Histórico de Chat",
   "error": "Erro",
@@ -180,7 +181,7 @@
     "storageServerDescription": "Armazenados no seu servidor tldw (recomendado para RAG e workspaces compartilhados).",
     "storageLocalDescription": "Mantidos apenas neste navegador; nenhum dado é gravado no servidor.",
     "storageDocsLink": "Saiba mais sobre ingest e armazenamento",
-    "storageDocsUrl": "https://docs.tldw.app/extension/media-ingest-storage",
+    "storageDocsUrl": "https://github.com/rmusser01/tldw_browser_assistant",
     "bulkPlaceholder": "Paste URLs (one per line)",
     "or": "or",
     "remove": "Remove",
@@ -233,6 +234,12 @@
     "toolbarCopyTooltip": "Copy note content",
     "toolbarDeleteTooltip": "Delete note",
     "exportMenuTrigger": "Export",
+    "resultsLabel": "Results",
+    "showingRange": "Showing {{start}}-{{end}} of {{total}}",
+    "expandSidebar": "Expand sidebar",
+    "collapseSidebar": "Collapse sidebar",
+    "titlePlaceholder": "Title",
+    "keywordsEditorPlaceholder": "Keywords (tags)",
     "tagsHelp": "Keywords help you find this note using the keyword filter on the left."
   },
   "tts": {
@@ -299,6 +306,8 @@
     "selectCharacter": "Selecionar personagem",
     "chattingAs": "Você está conversando como {{name}}.",
     "clearCharacter": "Limpar personagem",
+    "fetchErrorTitle": "Não foi possível carregar os personagens",
+    "fetchErrorBody": "Verifique sua conexão ou o status do servidor e tente novamente.",
     "none": "Nenhum (sem personagem)",
     "searchPlaceholder": "Buscar personagens por nome",
     "noMatches": "Ainda não há personagens que correspondam à sua pesquisa.",
@@ -404,5 +413,17 @@
     "mapping": "Column mapping",
     "mappingPreview": "Preview of the first few mapped rows:",
     "exportHelp": "Filter by deck, tag, or search, then export as CSV/TSV for spreadsheets or Anki (.apkg) for Anki clients."
+  }
+,
+  "quickChatHelper": {
+    "tooltip": "Assistente de bate-papo rápido",
+    "title": "Assistente de bate-papo rápido",
+    "inputPlaceholder": "Faça uma pergunta rápida...",
+    "sendButton": "Enviar",
+    "emptyState": "Inicie um bate-papo rápido lateral para manter a conversa principal organizada.",
+    "popOutButton": "Abrir em uma janela separada",
+    "noModelWarning": "Selecione primeiro um modelo no chat principal.",
+    "userMessageAria": "Sua mensagem",
+    "assistantMessageAria": "Mensagem do assistente"
   }
 }

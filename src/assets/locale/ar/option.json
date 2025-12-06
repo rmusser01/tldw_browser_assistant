@@ -76,7 +76,8 @@
     "toolsMenu": "أدوات الدردشة",
     "serverBackedLabel": "دردشة مدعومة بالخادم",
     "serverBackedTooltip": "يتم حفظ الرسائل في هذه الدردشة أيضاً على خادم tldw الخاص بك.",
-    "omniSearchPlaceholder": "ابحث في الشاشات، المحادثات، الوسائط، الملاحظات…"
+    "omniSearchPlaceholder": "ابحث في الشاشات، المحادثات، الوسائط، الملاحظات…",
+    "quickIngestQueuedAria": "{{label}} — {{count}} عناصر في الطابور — انقر للمراجعة والمعالجة"
   },
   "sidebarTitle": "سجل المحادثات",
   "error": "خطأ",
@@ -277,7 +278,7 @@
     "storageServerDescription": "مخزَّنة على خادم tldw الخاص بك (موصى به لـ RAG ومساحات العمل المشتركة).",
     "storageLocalDescription": "محفوظة في هذا المتصفح فقط؛ لا تُكتب بيانات على الخادم.",
     "storageDocsLink": "معرفة المزيد عن الاستيعاب والتخزين",
-    "storageDocsUrl": "https://docs.tldw.app/extension/media-ingest-storage",
+    "storageDocsUrl": "https://github.com/rmusser01/tldw_browser_assistant",
     "bulkPlaceholder": "الصق عناوين URL (واحد في كل سطر)",
     "or": "أو",
     "remove": "إزالة",
@@ -319,6 +320,12 @@
     "toolbarCopyTooltip": "نسخ محتوى الملاحظة",
     "toolbarDeleteTooltip": "حذف الملاحظة",
     "exportMenuTrigger": "تصدير",
+    "resultsLabel": "النتائج",
+    "showingRange": "عرض {{start}}-{{end}} من أصل {{total}}",
+    "expandSidebar": "توسيع الشريط الجانبي",
+    "collapseSidebar": "طيّ الشريط الجانبي",
+    "titlePlaceholder": "العنوان",
+    "keywordsEditorPlaceholder": "الكلمات المفتاحية (الوسوم)",
     "tagsHelp": "تساعدك الكلمات المفتاحية على العثور على هذه الملاحظة باستخدام عامل التصفية في الجهة اليسرى."
   },
   "tts": {
@@ -385,6 +392,8 @@
     "selectCharacter": "اختر شخصية",
     "chattingAs": "أنت الآن تتحدث كشخصية {{name}}.",
     "clearCharacter": "مسح الشخصية",
+    "fetchErrorTitle": "تعذّر تحميل الشخصيات",
+    "fetchErrorBody": "تحقق من الاتصال أو من حالة الخادم ثم حاول مرة أخرى.",
     "none": "لا شيء (بدون شخصية)",
     "searchPlaceholder": "ابحث عن الشخصيات بالاسم",
     "noMatches": "لا توجد شخصيات مطابقة لبحثك حتى الآن.",
@@ -398,5 +407,17 @@
     "confirmDescription": "رسالتك تحتوي بالفعل على نص. هل تريد استبداله بهذا الموجّه أم إلحاق الموجّه أسفل النص الحالي؟",
     "overwrite": "استبدال الرسالة",
     "append": "إلحاق"
+  }
+,
+  "quickChatHelper": {
+    "tooltip": "مساعد الدردشة السريعة",
+    "title": "مساعد الدردشة السريعة",
+    "inputPlaceholder": "اطرح سؤالاً سريعاً...",
+    "sendButton": "إرسال",
+    "emptyState": "ابدأ محادثة جانبية سريعة للحفاظ على نظافة المحادثة الرئيسية.",
+    "popOutButton": "فتح في نافذة منفصلة",
+    "noModelWarning": "يرجى اختيار نموذج في المحادثة الرئيسية أولاً.",
+    "userMessageAria": "رسالتك",
+    "assistantMessageAria": "رسالة المساعد"
   }
 }

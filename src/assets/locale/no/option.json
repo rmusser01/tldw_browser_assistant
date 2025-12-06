@@ -71,7 +71,8 @@
     "moreActions": "More actions",
     "toolsMenu": "Chat tools",
     "serverBackedLabel": "Server-backed chat",
-    "serverBackedTooltip": "Messages in this chat are also saved on your tldw server."
+    "serverBackedTooltip": "Messages in this chat are also saved on your tldw server.",
+    "quickIngestQueuedAria": "{{label}} — {{count}} elementer i kø — klikk for å gjennomgå og behandle"
   },
   "sidebarTitle": "Chathistorikk",
   "error": "Feil",
@@ -180,7 +181,7 @@
     "storageServerDescription": "Lagret på tldw-serveren din (anbefales for RAG og delte arbeidsområder).",
     "storageLocalDescription": "Beholdes kun i denne nettleseren; ingen data skrives til serveren.",
     "storageDocsLink": "Lær mer om ingest og lagring",
-    "storageDocsUrl": "https://docs.tldw.app/extension/media-ingest-storage",
+    "storageDocsUrl": "https://github.com/rmusser01/tldw_browser_assistant",
     "bulkPlaceholder": "Paste URLs (one per line)",
     "or": "or",
     "remove": "Remove",
@@ -222,6 +223,12 @@
     "toolbarCopyTooltip": "Copy note content",
     "toolbarDeleteTooltip": "Delete note",
     "exportMenuTrigger": "Export",
+    "resultsLabel": "Results",
+    "showingRange": "Showing {{start}}-{{end}} of {{total}}",
+    "expandSidebar": "Expand sidebar",
+    "collapseSidebar": "Collapse sidebar",
+    "titlePlaceholder": "Title",
+    "keywordsEditorPlaceholder": "Keywords (tags)",
     "tagsHelp": "Keywords help you find this note using the keyword filter on the left."
   },
   "tts": {
@@ -288,6 +295,8 @@
     "selectCharacter": "Velg karakter",
     "chattingAs": "Du chatter nå som {{name}}.",
     "clearCharacter": "Fjern karakter",
+    "fetchErrorTitle": "Kan ikke laste inn karakterer",
+    "fetchErrorBody": "Kontroller tilkoblingen eller serverstatusen, og prøv igjen.",
     "none": "Ingen (ingen karakter)",
     "searchPlaceholder": "Søk etter karakterer etter navn",
     "noMatches": "Det finnes foreløpig ingen karakterer som samsvarer med søket ditt.",
@@ -393,5 +402,17 @@
     "mapping": "Column mapping",
     "mappingPreview": "Preview of the first few mapped rows:",
     "exportHelp": "Filter by deck, tag, or search, then export as CSV/TSV for spreadsheets or Anki (.apkg) for Anki clients."
+  }
+,
+  "quickChatHelper": {
+    "tooltip": "Hurtig chat-hjelper",
+    "title": "Hurtig chat-hjelper",
+    "inputPlaceholder": "Still et raskt spørsmål...",
+    "sendButton": "Send",
+    "emptyState": "Start en rask sidechat for å holde hovedsamtalen ryddig.",
+    "popOutButton": "Åpne i eget vindu",
+    "noModelWarning": "Velg først en modell i hovedchatten.",
+    "userMessageAria": "Meldingen din",
+    "assistantMessageAria": "Assistentens melding"
   }
 }
