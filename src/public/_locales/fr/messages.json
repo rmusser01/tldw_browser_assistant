@@ -101,31 +101,123 @@
   "hfPullException": {
     "message": "[tldw Assistant] Une erreur s’est produite lors de l’envoi d’une requête de récupération pour « $1 » à votre tldw_server. Assurez-vous que votre tldw_server et l’extension sont en cours d’exécution, puis réessayez."
   },
-  "quickChatHelper.tooltip": {
-    "message": "Assistant de discussion rapide"
+  "footerHelp": {
+    "message": "Une fois la connexion établie, vous pouvez revenir à ces paramètres à tout moment depuis le menu de l’extension.",
+    "description": "Texte d’aide de bas de page pour l’onboarding dans les paramètres."
   },
-  "quickChatHelper.title": {
-    "message": "Assistant de discussion rapide"
+  "progressAria": {
+    "message": "Progression de la configuration",
+    "description": "Libellé aria pour l’indicateur de progression de la configuration."
   },
-  "quickChatHelper.inputPlaceholder": {
-    "message": "Posez une question rapide..."
+  "stepLabel": {
+    "message": "Bienvenue",
+    "description": "Libellé pour la première étape de l’onboarding (bienvenue)."
   },
-  "quickChatHelper.sendButton": {
-    "message": "Envoyer"
+  "path": {
+    "message": "Comment souhaitez-vous commencer ?",
+    "description": "Titre pour le choix de la façon de commencer dans l’onboarding."
   },
-  "quickChatHelper.emptyState": {
-    "message": "Lancez une discussion rapide sur le côté pour garder votre fil principal propre."
+  "authModeHelp": {
+    "message": "Le mode Single User (clé API) est recommandé pour les serveurs personnels ou les petites équipes. Le mode Multi User (connexion) est destiné aux déploiements partagés où les utilisateurs se connectent avec un nom d’utilisateur ou via SSO. Choisissez le mode qui correspond à la configuration de votre tldw_server.",
+    "description": "Texte d’aide expliquant les modes d’authentification Single User et Multi User."
   },
-  "quickChatHelper.popOutButton": {
-    "message": "Ouvrir dans une fenêtre séparée"
+  "apiKeyHelp": {
+    "message": "Trouvez votre clé API dans tldw_server \u2192 Settings \u2192 API Keys. Générez-y une clé puis collez-la ici.",
+    "description": "Texte d’aide indiquant où trouver la clé API."
   },
-  "quickChatHelper.noModelWarning": {
-    "message": "Veuillez d’abord sélectionner un modèle dans la discussion principale."
+  "authStepAria": {
+    "message": "Step {{current}} of {{total}} \u2014 authentication configuration",
+    "description": "Libellé aria pour l’étape de configuration de l’authentification (actuellement en anglais)."
   },
-  "quickChatHelper.userMessageAria": {
-    "message": "Votre message"
+  "confirmStepAria": {
+    "message": "Step {{current}} of {{total}} \u2014 connection summary and next steps",
+    "description": "Libellé aria pour l’étape de confirmation de la connexion (actuellement en anglais)."
   },
-  "quickChatHelper.assistantMessageAria": {
-    "message": "Message de l’assistant"
+  "nextSteps": {
+    "message": "You\u2019re ready to go",
+    "description": "Titre du panneau final de l’onboarding avec les prochaines étapes (actuellement en anglais)."
+  },
+  "notesEmpty.connectTitle": {
+    "message": "Connect to use Notes"
+  },
+  "notesEmpty.connectDescription": {
+    "message": "To use Notes, first connect to your tldw server."
+  },
+  "notesEmpty.connectExample1": {
+    "message": "Open Settings \u2192 tldw server to add your server URL."
+  },
+  "notesEmpty.connectExample2": {
+    "message": "Use Diagnostics if your server is running but not reachable."
+  },
+  "notesEmpty.demoTitle": {
+    "message": "Explore Notes in demo mode"
+  },
+  "notesEmpty.demoDescription": {
+    "message": "This demo shows how Notes can organize your insights. Connect your own server later to create and save real notes."
+  },
+  "notesEmpty.demoExample1": {
+    "message": "See how note titles, previews, and timestamps appear in the list."
+  },
+  "notesEmpty.demoExample2": {
+    "message": "When you connect, you\u2019ll be able to create notes from meetings, reviews, and more."
+  },
+  "notesEmpty.demoExample3": {
+    "message": "Use Notes alongside Media and Review to keep track of your findings."
+  },
+  "notesEmpty.demoPreviewHeading": {
+    "message": "Example notes (preview only)"
+  },
+  "notesEmpty.demoSample1Title": {
+    "message": "Demo note: Weekly meeting recap"
+  },
+  "notesEmpty.demoSample1Preview": {
+    "message": "Decisions, blockers, and follow-ups from a recent team sync."
+  },
+  "notesEmpty.demoSample1Meta": {
+    "message": "Today \u00b7 9:32 AM"
+  },
+  "notesEmpty.demoSample2Title": {
+    "message": "Demo note: Research highlights"
+  },
+  "notesEmpty.demoSample2Preview": {
+    "message": "Key insights pulled from a long article or paper."
+  },
+  "notesEmpty.demoSample2Meta": {
+    "message": "Yesterday \u00b7 4:10 PM"
+  },
+  "notesEmpty.demoSample3Title": {
+    "message": "Demo note: Call summary"
+  },
+  "notesEmpty.demoSample3Preview": {
+    "message": "Summary of a customer call with next steps and owners."
+  },
+  "notesEmpty.demoSample3Meta": {
+    "message": "This week"
+  },
+  "notesEmpty.title": {
+    "message": "No notes yet"
+  },
+  "notesEmpty.description": {
+    "message": "Capture and organize free-form notes connected to your tldw insights."
+  },
+  "notesEmpty.exampleCreate": {
+    "message": "Create a new note for a recent meeting or transcript."
+  },
+  "notesEmpty.exampleLink": {
+    "message": "Save review outputs into Notes so you can revisit them later."
+  },
+  "notesEmpty.primaryCta": {
+    "message": "Create note"
+  "authStepAria": {
+    "message": "Étape 3 sur 4 — configuration de l'authentification",
+    "description": "Libellé aria pour l'étape de configuration de l'authentification (actuellement en anglais)."
+  },
+  "confirmStepAria": {
+    "message": "Étape 4 sur 4 — résumé de la connexion et étapes suivantes",
+    "description": "Libellé aria pour l'étape de confirmation de la connexion (actuellement en anglais)."
+  },
+  "nextSteps": {
+    "message": "Vous êtes prêt à commencer",
+    "description": "Titre du panneau final de l'onboarding avec les prochaines étapes (actuellement en anglais)."
   }
 }

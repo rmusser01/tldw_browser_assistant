@@ -92,6 +92,14 @@
       },
       "promptSearchIncludeServer": {
         "label": "Include server prompts in prompt search"
+      },
+      "restartOnboarding": {
+        "label": "Genstart onboarding fra begyndelsen",
+        "button": "Genstart onboarding",
+        "confirmTitle": "Genstart onboarding?",
+        "confirmMessage": "Dette nulstiller din onboarding-status og fører dig tilbage til opsætningsflowet.",
+        "toast": "Onboarding er blevet nulstillet",
+        "toastBody": "Vi fører dig tilbage til velkomsttrinnet, så du kan gennemgå server-URL og API-nøgle."
       }
     },
     "sidepanelRag": {
@@ -331,7 +339,7 @@
       "modifiedAt": "Ændret den",
       "size": "Størrelse",
       "actions": "Handlinger",
-      "nickname": "Nickname"
+      "nickname": "Kaldenavn"
     },
     "expandedColumns": {
       "parentModel": "Forælder model",
@@ -340,10 +348,10 @@
       "parameterSize": "Parameterstørrelse",
       "quantizationLevel": "kvantificeringsniveau"
     },
-    "tooltip": {
+      "tooltip": {
       "delete": "Slet Model",
       "repull": "Hent Model Igen",
-      "editNickname": "Edit Nickname"
+      "editNickname": "Rediger kaldenavn"
     },
     "confirm": {
       "delete": "Er du sikker på, at du vil slette denne model?",
@@ -778,9 +786,6 @@
       "webSearchFollowUpPromptPlaceholder": "Din Websøgnings opfølgende Prompt"
     }
   },
-  "chromeAiSettings": {
-    "title": "Chrome AI Indstillinger"
-  },
   "onboarding": {
     "title": "Welcome — Let’s get you connected",
     "description": "Configure your server and authentication. We’ll verify the connection and RAG health inline.",
@@ -838,7 +843,47 @@
       "unknown": "Unknown"
     },
     "connectionFailed": "Connection failed",
-    "footerHelp": "Once connected, you can revisit these settings anytime from the extension menu."
+    "footerHelp": "Når du er tilsluttet, kan du til enhver tid vende tilbage til disse indstillinger fra udvidelsesmenuen.",
+    "progressAria": "Introduktionsforløb",
+    "stepLabel": {
+      "welcome": "Velkommen",
+      "url": "Tilslut din tldw-server",
+      "auth": "Vælg hvordan du logger ind",
+      "health": "Bekræft forbindelse og Knowledge"
+    },
+    "path": {
+      "heading": "Hvordan vil du gerne starte?",
+      "hasServer": "Jeg kører allerede tldw_server",
+      "noServer": "Jeg har ikke en server endnu",
+      "demo": "Udforsk bare med en lokal demo",
+      "noServerTitle": "Ingen server endnu? Du kan stadig udforske.",
+      "noServerBody": "tldw_server er en separat, selvhostet app. Du kan følge opsætningsvejledningen nu eller vende tilbage senere og fortsætte i demotilstand.",
+      "noServerOptionLocal": "Kør lokalt med Docker eller Python på din egen maskine.",
+      "noServerOptionRemote": "Udrul tldw_server til en ekstern VPS eller administreret hosting.",
+      "noServerOptionManaged": "Brug en administreret kommerciel tldw_server-løsning, når den er tilgængelig.",
+      "openSetupGuide": "Åbn opsætningsvejledning",
+      "useDemoFromNoServer": "Brug lokal demotilstand",
+      "remindMeLater": "Påmind mig senere",
+      "demoTitle": "Udforsk udvidelsen i demotilstand",
+      "demoBody": "Demotilstand lader dig afprøve chat, noter og medier med eksempeldata. Serverafhængige funktioner som Knowledge-søgning forbliver begrænsede, indtil du forbinder din egen tldw_server.",
+      "demoCta": "Brug lokal demotilstand"
+    },
+    "authModeHelp": "Single User (API-nøgle) anbefales til personlige eller små team-servere. Multi User (login) er til delte installationer, hvor brugere logger ind med brugernavne eller SSO. Vælg den tilstand, der matcher, hvordan din tldw_server er konfigureret.",
+    "apiKeyHelp": "Find din API-nøgle i tldw_server → Settings → API Keys. Opret en nøgle dér og indsæt den her.",
+    "authStepAria": "Trin 2 af 3 — vælg, hvordan du logger ind",
+    "confirmStepAria": "Trin 3 af 3 — bekræft forbindelsen og gennemgå næste trin",
+    "nextSteps": {
+      "title": "Du er klar til at gå i gang",
+      "subtitle": "Herfra kan du åbne sidepanelet, indlæse en side eller udforske medier og noter.",
+      "chatTitle": "Begynd at chatte",
+      "chatBody": "Åbn sidepanelet og stil dit første spørgsmål.",
+      "chatCta": "Åbn sidepanel",
+      "ingestTitle": "Indlæs din første side",
+      "ingestBody": "Brug Quick ingest i headeren for at gemme den aktuelle fane på din server.",
+      "mediaTitle": "Udforsk medier og noter",
+      "mediaBody": "Gå til Medier og Noter under Indstillinger for at se, hvad der er gemt og kan søges i."
+    },
+    "headerShortcuts": "Vis hurtige genveje i headeren"
   },
   "manageCharacters": {
     "title": "Manage Characters",

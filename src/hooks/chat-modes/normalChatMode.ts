@@ -1,5 +1,4 @@
-import { cleanUrl } from "~/libs/clean-url"
-import { systemPromptForNonRagOption } from "~/services/ollama"
+import { systemPromptForNonRagOption } from "~/services/tldw-server"
 import { type ChatHistory, type Message } from "~/store/option"
 import { generateID, getPromptById } from "@/db/dexie/helpers"
 import { generateHistory } from "@/utils/generate-history"
@@ -14,6 +13,15 @@ import { getModelNicknameByID } from "@/db/dexie/nickname"
 import { systemPromptFormatter } from "@/utils/system-message"
 import type { ActorSettings } from "@/types/actor"
 import { maybeInjectActorMessage } from "@/utils/actor"
+import { tldwClient } from "@/services/tldw/TldwApiClient"
+import { getSearchSettings } from "@/services/search"
+
+interface WebSearchPayload {
+  query: string
+  aggregate: boolean
+  engine?: string
+  result_count?: number
+}
 
 export const normalChatMode = async (
   message: string,
@@ -37,7 +45,9 @@ export const normalChatMode = async (
     historyId,
     setHistoryId,
     uploadedFiles,
-    actorSettings
+    actorSettings,
+    webSearch,
+    setIsSearchingInternet
   }: {
     selectedModel: string
     useOCR: boolean
@@ -54,6 +64,8 @@ export const normalChatMode = async (
     setHistoryId: (id: string) => void
     uploadedFiles?: any[]
     actorSettings?: ActorSettings
+    webSearch?: boolean
+    setIsSearchingInternet?: (value: boolean) => void
   }
 ) => {
   console.log("Using normalChatMode")
@@ -63,8 +75,6 @@ export const normalChatMode = async (
   if (image.length > 0) {
     image = `data:image/jpeg;base64,${image.split(",")[1]}`
   }
-
-  const ollama = await pageAssistModel({ model: selectedModel!, baseUrl: "" })
 
   let newMessage: Message[] = []
   let generateMessageId = generateID()
@@ -116,6 +126,140 @@ export const normalChatMode = async (
   let fullText = ""
   let contentToSave = ""
   let timetaken = 0
+
+  // If web search is enabled, delegate to tldw_server's websearch endpoint
+  if (webSearch) {
+    try {
+      setIsProcessing(true)
+      if (setIsSearchingInternet) {
+        setIsSearchingInternet(true)
+      }
+
+      await tldwClient.initialize()
+      const { searchProvider, totalSearchResults } = await getSearchSettings()
+
+      // Map UI provider to server-side engine where possible
+      const engineMap: Record<string, string> = {
+        google: "google",
+        duckduckgo: "duckduckgo",
+        brave: "brave",
+        "brave-api": "brave",
+        searxng: "searx",
+        "tavily-api": "tavily",
+        exa: "exa",
+        firecrawl: "firecrawl"
+      }
+      const provider = (searchProvider || "").toLowerCase()
+      const engine = engineMap[provider]
+
+      const payload: WebSearchPayload = {
+        query: message,
+        aggregate: true
+      }
+      if (engine) {
+        payload.engine = engine
+      }
+      if (typeof totalSearchResults === "number" && totalSearchResults > 0) {
+        payload.result_count = totalSearchResults
+      }
+
+      const res = await tldwClient.webSearch({
+        ...payload,
+        signal
+      })
+
+      if (res?.error) {
+        throw new Error(
+          typeof res.error === "string"
+            ? res.error
+            : res.error?.message || "Web search failed"
+        )
+      }
+
+      const answer =
+        (res?.final_answer?.text && String(res.final_answer.text)) ||
+        ""
+
+      fullText =
+        answer && answer.trim().length > 0
+          ? answer
+          : "No web search results were returned."
+
+      setMessages((prev) => {
+        return prev.map((msg) => {
+          if (msg.id === generateMessageId) {
+            return {
+              ...msg,
+              message: fullText
+            }
+          }
+          return msg
+        })
+      })
+
+      setHistory([
+        ...history,
+        {
+          role: "user",
+          content: message,
+          image
+        },
+        {
+          role: "assistant",
+          content: fullText
+        }
+      ])
+
+      await saveMessageOnSuccess({
+        historyId,
+        setHistoryId,
+        isRegenerate,
+        selectedModel: selectedModel,
+        message,
+        image,
+        fullText,
+        source: [],
+        generationInfo: undefined,
+        prompt_content: undefined,
+        prompt_id: undefined,
+        reasoning_time_taken: timetaken
+      })
+
+      setIsProcessing(false)
+      setStreaming(false)
+    } catch (e) {
+      console.error(e)
+      const errorSave = await saveMessageOnError({
+        e,
+        botMessage: fullText,
+        history,
+        historyId,
+        image,
+        selectedModel,
+        setHistory,
+        setHistoryId,
+        userMessage: message,
+        isRegenerating: isRegenerate,
+        prompt_content: undefined,
+        prompt_id: undefined
+      })
+
+      if (!errorSave) {
+        throw e
+      }
+      setIsProcessing(false)
+      setStreaming(false)
+    } finally {
+      if (setIsSearchingInternet) {
+        setIsSearchingInternet(false)
+      }
+      setAbortController(null)
+    }
+
+    return
+  }
+
+  const ollama = await pageAssistModel({ model: selectedModel, baseUrl: "" })
 
   try {
     const prompt = await systemPromptForNonRagOption()
@@ -316,8 +460,7 @@ export const normalChatMode = async (
     setIsProcessing(false)
     setStreaming(false)
   } catch (e) {
-
-    console.log(e)
+    console.error(e)
 
     const errorSave = await saveMessageOnError({
       e,

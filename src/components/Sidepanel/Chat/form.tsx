@@ -13,7 +13,7 @@ import {
   Popover
 } from "antd"
 import { useWebUI } from "~/store/webui"
-import { defaultEmbeddingModelForRag } from "~/services/ollama"
+import { defaultEmbeddingModelForRag } from "~/services/tldw-server"
 import {
   ImageIcon,
   MicIcon,
@@ -52,7 +52,7 @@ import { ConnectionPhase } from "@/types/connection"
 import { useServerCapabilities } from "@/hooks/useServerCapabilities"
 import { tldwClient } from "@/services/tldw/TldwApiClient"
 import { useAntdNotification } from "@/hooks/useAntdNotification"
-import { useFocusComposerOnConnect, focusComposer } from "@/hooks/useComposerFocus"
+import { useFocusComposerOnConnect } from "@/hooks/useComposerFocus"
 import { useQuickIngestStore } from "@/store/quick-ingest"
 import { cleanUrl } from "@/libs/clean-url"
 
@@ -241,7 +241,87 @@ export const SidepanelForm = ({ dropedFile }: Props) => {
     return () => window.removeEventListener('tldw:focus-composer', handler)
   }, [])
 
+  const {
+    onSubmit,
+    selectedModel,
+    chatMode,
+    stopStreamingRequest,
+    streaming,
+    setChatMode,
+    webSearch,
+    setWebSearch,
+    selectedQuickPrompt,
+    setSelectedQuickPrompt,
+    selectedSystemPrompt,
+    setSelectedSystemPrompt,
+    speechToTextLanguage,
+    useOCR,
+    setUseOCR,
+    defaultInternetSearchOn,
+    defaultChatWithWebsite,
+    temporaryChat,
+    setTemporaryChat,
+    messages,
+    clearChat,
+    queuedMessages,
+    addQueuedMessage,
+    clearQueuedMessages
+  } = useMessage()
+
+  const handleDisconnectedFocus = () => {
+    // When there are no messages, the shared connection card in the body
+    // provides the primary CTA. Only show the inline banner when there is
+    // existing history and the connection drops.
+    if (!isConnectionReady && messages.length > 0 && !hasShownConnectBanner) {
+      setShowConnectBanner(true)
+      setHasShownConnectBanner(true)
+    }
+  }
+
+  const handlePaste = (e: React.ClipboardEvent) => {
+    if (e.clipboardData.files.length > 0) {
+      const file = e.clipboardData.files[0]
+      // Only handle image files from paste
+      if (file.type.startsWith("image/")) {
+        e.preventDefault()
+        onInputChange(file)
+      }
+    }
+  }
+
   useFocusShortcuts(textareaRef, true)
+
+  const ensureEmbeddingModelAvailable = async (): Promise<boolean> => {
+    // Fast path: no RAG or web search enabled
+    if (chatMode !== "rag" && !webSearch) {
+      return true
+    }
+
+    let defaultEM: string | null | undefined
+
+    // When chatting with the current page via embeddings, require a default embedding model
+    if (chatMode === "rag" && chatWithWebsiteEmbedding) {
+      defaultEM = await defaultEmbeddingModelForRag()
+      if (!defaultEM) {
+        form.setFieldError("message", t("formError.noEmbeddingModel"))
+        return false
+      }
+    }
+
+    // When web search is enabled and not in simple-search mode, also require an embedding model
+    if (webSearch) {
+      if (typeof defaultEM === "undefined") {
+        defaultEM = await defaultEmbeddingModelForRag()
+      }
+      const simpleSearch = await getIsSimpleInternetSearch()
+      if (!defaultEM && !simpleSearch) {
+        form.setFieldError("message", t("formError.noEmbeddingModel"))
+        return false
+      }
+    }
+
+    return true
+  }
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if (!isConnectionReady) {
@@ -279,20 +359,9 @@ export const SidepanelForm = ({ dropedFile }: Props) => {
           form.setFieldError("message", t("formError.noModel"))
           return
         }
-        if (chatMode === "rag") {
-          const defaultEM = await defaultEmbeddingModelForRag()
-          if (!defaultEM && chatWithWebsiteEmbedding) {
-            form.setFieldError("message", t("formError.noEmbeddingModel"))
-            return
-          }
-        }
-        if (webSearch) {
-          const defaultEM = await defaultEmbeddingModelForRag()
-          const simpleSearch = await getIsSimpleInternetSearch()
-          if (!defaultEM && !simpleSearch) {
-            form.setFieldError("message", t("formError.noEmbeddingModel"))
-            return
-          }
+        const hasEmbedding = await ensureEmbeddingModelAvailable()
+        if (!hasEmbedding) {
+          return
         }
         form.reset()
         textAreaFocus()
@@ -303,50 +372,6 @@ export const SidepanelForm = ({ dropedFile }: Props) => {
       })()
     }
   }
-
-  const handleDisconnectedFocus = () => {
-    // When there are no messages, the shared connection card in the body
-    // provides the primary CTA. Only show the inline banner when there is
-    // existing history and the connection drops.
-    if (!isConnectionReady && messages.length > 0 && !hasShownConnectBanner) {
-      setShowConnectBanner(true)
-      setHasShownConnectBanner(true)
-    }
-  }
-
-  const handlePaste = (e: React.ClipboardEvent) => {
-    if (e.clipboardData.files.length > 0) {
-      onInputChange(e.clipboardData.files[0])
-    }
-  }
-
-
-  const {
-    onSubmit,
-    selectedModel,
-    chatMode,
-    stopStreamingRequest,
-    streaming,
-    setChatMode,
-    webSearch,
-    setWebSearch,
-    selectedQuickPrompt,
-    setSelectedQuickPrompt,
-    selectedSystemPrompt,
-    setSelectedSystemPrompt,
-    speechToTextLanguage,
-    useOCR,
-    setUseOCR,
-    defaultInternetSearchOn,
-    defaultChatWithWebsite,
-    temporaryChat,
-    setTemporaryChat,
-    messages,
-    clearChat,
-    queuedMessages,
-    addQueuedMessage,
-    clearQueuedMessages
-  } = useMessage()
 
   const [openModelSettings, setOpenModelSettings] = React.useState(false)
   const openSettings = React.useCallback(() => {
@@ -891,21 +916,6 @@ export const SidepanelForm = ({ dropedFile }: Props) => {
       form.setFieldError("message", t("formError.noModel"))
       return
     }
-    if (chatMode === "rag") {
-      const defaultEM = await defaultEmbeddingModelForRag()
-      if (!defaultEM && chatWithWebsiteEmbedding) {
-        form.setFieldError("message", t("formError.noEmbeddingModel"))
-        return
-      }
-    }
-    if (webSearch) {
-      const defaultEM = await defaultEmbeddingModelForRag()
-      const simpleSearch = await getIsSimpleInternetSearch()
-      if (!defaultEM && !simpleSearch) {
-        form.setFieldError("message", t("formError.noEmbeddingModel"))
-        return
-      }
-    }
     await sendMessage({
       image,
       message
@@ -995,26 +1005,9 @@ export const SidepanelForm = ({ dropedFile }: Props) => {
                       form.setFieldError("message", t("formError.noModel"))
                       return
                     }
-                    if (chatMode === "rag") {
-                      const defaultEM = await defaultEmbeddingModelForRag()
-                      if (!defaultEM && chatWithWebsiteEmbedding) {
-                        form.setFieldError(
-                          "message",
-                          t("formError.noEmbeddingModel")
-                        )
-                        return
-                      }
-                    }
-                    if (webSearch) {
-                      const defaultEM = await defaultEmbeddingModelForRag()
-                      const simpleSearch = await getIsSimpleInternetSearch()
-                      if (!defaultEM && !simpleSearch) {
-                        form.setFieldError(
-                          "message",
-                          t("formError.noEmbeddingModel")
-                        )
-                        return
-                      }
+                    const hasEmbedding = await ensureEmbeddingModelAvailable()
+                    if (!hasEmbedding) {
+                      return
                     }
                     await stopListening()
                     if (
@@ -1076,20 +1069,9 @@ export const SidepanelForm = ({ dropedFile }: Props) => {
                           form.setFieldError("message", t("formError.noModel"))
                           return
                         }
-                        if (chatMode === "rag") {
-                          const defaultEM = await defaultEmbeddingModelForRag()
-                          if (!defaultEM && chatWithWebsiteEmbedding) {
-                            form.setFieldError("message", t("formError.noEmbeddingModel"))
-                            return
-                          }
-                        }
-                        if (webSearch) {
-                          const defaultEM = await defaultEmbeddingModelForRag()
-                          const simpleSearch = await getIsSimpleInternetSearch()
-                          if (!defaultEM && !simpleSearch) {
-                            form.setFieldError("message", t("formError.noEmbeddingModel"))
-                            return
-                          }
+                        const hasEmbedding = await ensureEmbeddingModelAvailable()
+                        if (!hasEmbedding) {
+                          return
                         }
                         await stopListening()
                         form.reset()
@@ -1420,8 +1402,16 @@ export const SidepanelForm = ({ dropedFile }: Props) => {
                               type="button"
                               onClick={async () => {
                                 if (!isConnectionReady) return
+                                const hasEmbedding =
+                                  await ensureEmbeddingModelAvailable()
+                                if (!hasEmbedding) {
+                                  return
+                                }
                                 for (const item of queuedMessages) {
-                                  await submitQueuedInSidepanel(item.message, item.image)
+                                  await submitQueuedInSidepanel(
+                                    item.message,
+                                    item.image
+                                  )
                                 }
                                 clearQueuedMessages()
                               }}

@@ -92,6 +92,14 @@
       },
       "promptSearchIncludeServer": {
         "label": "Include server prompts in prompt search"
+      },
+      "restartOnboarding": {
+        "label": "從頭重新開始引導設定",
+        "button": "重新開始引導",
+        "confirmTitle": "要重新開始引導嗎？",
+        "confirmMessage": "這會重設你的引導狀態，並將你帶回設定流程的起始步驟。",
+        "toast": "引導已重設",
+        "toastBody": "我們會帶你回到歡迎步驟，好讓你再次檢查伺服器 URL 和 API 金鑰。"
       }
     },
     "sidepanelRag": {
@@ -346,7 +354,7 @@
       "modifiedAt": "修改時間",
       "size": "大小",
       "actions": "操作",
-      "nickname": "Nickname"
+      "nickname": "暱稱"
     },
     "expandedColumns": {
       "parentModel": "父模型",
@@ -355,10 +363,10 @@
       "parameterSize": "參數大小",
       "quantizationLevel": "量化級別"
     },
-    "tooltip": {
+      "tooltip": {
       "delete": "刪除模型",
       "repull": "重新下載模型",
-      "editNickname": "Edit Nickname"
+      "editNickname": "編輯暱稱"
     },
     "confirm": {
       "delete": "您確定要刪除該模型嗎？",
@@ -792,9 +800,6 @@
       "webSearchFollowUpPromptPlaceholder": "請輸入網路搜尋後續提示詞"
     }
   },
-  "chromeAiSettings": {
-    "title": "Chrome AI 設定"
-  },
   "onboarding": {
     "title": "Welcome — Let’s get you connected",
     "description": "Configure your server and authentication. We’ll verify the connection and RAG health inline.",
@@ -852,7 +857,47 @@
       "unknown": "Unknown"
     },
     "connectionFailed": "Connection failed",
-    "footerHelp": "Once connected, you can revisit these settings anytime from the extension menu."
+    "footerHelp": "連線完成後，你可以隨時從擴充功能選單回到這些設定。",
+    "progressAria": "導覽設定進度",
+    "stepLabel": {
+      "welcome": "歡迎",
+      "url": "連線到你的 tldw 伺服器",
+      "auth": "選擇你要如何登入",
+      "health": "確認連線與 Knowledge 狀態"
+    },
+    "path": {
+      "heading": "你想要如何開始？",
+      "hasServer": "我已經在執行 tldw_server",
+      "noServer": "我還沒有伺服器",
+      "demo": "先用本機示範模式試用看看",
+      "noServerTitle": "還沒有伺服器？一樣可以先體驗。",
+      "noServerBody": "tldw_server 是獨立的自我託管應用程式。你可以現在依照安裝指南進行設定，或之後再回來，以示範模式繼續。",
+      "noServerOptionLocal": "在自己的電腦上使用 Docker 或 Python 本機執行。",
+      "noServerOptionRemote": "將 tldw_server 部署到遠端 VPS 或代管主機服務。",
+      "noServerOptionManaged": "在可用時使用受代管的商用 tldw_server 部署。",
+      "openSetupGuide": "開啟安裝指南",
+      "useDemoFromNoServer": "使用本機示範模式",
+      "remindMeLater": "稍後再提醒我",
+      "demoTitle": "以示範模式體驗擴充功能",
+      "demoBody": "示範模式讓你用範例資料試用聊天、筆記與媒體等功能。依賴伺服器的功能（例如 Knowledge 搜尋）在你連線自己的 tldw_server 之前會維持受限。",
+      "demoCta": "使用本機示範模式"
+    },
+    "authModeHelp": "Single User（API Key）適合個人或小型團隊的伺服器。Multi User（Login）適用於多人共用的部署，使用者以帳號或 SSO 登入。請選擇符合你 tldw_server 設定方式的模式。",
+    "apiKeyHelp": "在 tldw_server → Settings → API Keys 中可以找到你的 API 金鑰。在那裡產生金鑰後，將其貼到這裡。",
+    "authStepAria": "步驟 2 / 3 — 驗證設定",
+    "confirmStepAria": "步驟 3 / 3 — 連線摘要與後續步驟",
+    "nextSteps": {
+      "title": "你已準備好了",
+      "subtitle": "接下來你可以開啟側邊面板、匯入頁面，或探索媒體和筆記。",
+      "chatTitle": "開始聊天",
+      "chatBody": "開啟側邊面板並提出你的第一個問題。",
+      "chatCta": "開啟側邊面板",
+      "ingestTitle": "匯入你的第一個頁面",
+      "ingestBody": "使用標頭中的快速匯入將目前分頁儲存到你的伺服器。",
+      "mediaTitle": "探索媒體與筆記",
+      "mediaBody": "造訪選項中的媒體與筆記，查看已儲存和可搜尋的內容。"
+    },
+    "headerShortcuts": "在標頭顯示快速捷徑"
   },
   "manageCharacters": {
     "title": "管理角色",

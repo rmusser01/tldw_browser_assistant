@@ -11,8 +11,6 @@ import OptionAbout from "./option-settings-about"
 import SidepanelChat from "./sidepanel-chat"
 import SidepanelSettings from "./sidepanel-settings"
 import OptionRagSettings from "./option-rag"
-import OptionChrome from "./option-settings-chrome"
-import OptionOpenAI from "./option-settings-openai"
 import { OptionTldwSettings } from "./option-settings-tldw"
 import OptionMedia from "./option-media"
 import OptionMediaMulti from "./option-media-multi"
@@ -37,20 +35,30 @@ import OptionAdminLlamacpp from "./option-admin-llamacpp"
 import OptionAdminMlx from "./option-admin-mlx"
 import OptionChatSettings from "./option-settings-chat"
 import OptionQuickChatPopout from "./option-quick-chat-popout"
+import OptionLayout from "~/components/Layouts/Layout"
+import { OnboardingWizard } from "@/components/Option/Onboarding/OnboardingWizard"
 
 export const OptionRoutingChrome = () => {
   return (
     <Routes>
       <Route path="/" element={<OptionIndex />} />
+      {/* Dedicated route for Playwright onboarding tests so they can
+          exercise the wizard independently of first-run gating logic. */}
+      <Route
+        path="/onboarding-test"
+        element={
+          <OptionLayout hideHeader={true} showHeaderSelectors={false}>
+            <OnboardingWizard />
+          </OptionLayout>
+        }
+      />
       <Route path="/settings" element={<OptionSettings />} />
       <Route path="/settings/tldw" element={<OptionTldwSettings />} />
       <Route path="/settings/model" element={<OptionModal />} />
       <Route path="/settings/prompt" element={<OptionPrompt />} />
       <Route path="/settings/evaluations" element={<OptionSettingsEvaluations />} />
-      {/** Ollama settings removed in favor of tldw_server */}
-      <Route path="/settings/chrome" element={<OptionChrome />} />
+      {/** Chrome AI and OpenAI/custom provider settings removed; extension is tldw_server-only */}
       <Route path="/settings/chat" element={<OptionChatSettings />} />
-      <Route path="/settings/openai" element={<OptionOpenAI />} />
       <Route path="/settings/share" element={<OptionShare />} />
       <Route path="/settings/processed" element={<OptionProcessed />} />
       <Route path="/settings/health" element={<OptionHealth />} />

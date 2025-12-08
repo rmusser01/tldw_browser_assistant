@@ -2,9 +2,8 @@ import {
   BaseMessage,
   AIMessage,
   HumanMessage,
-  SystemMessage,
-  MessageContent
-} from "@langchain/core/messages"
+  SystemMessage
+} from "@/types/messages"
 import { tldwChat, ChatMessage } from "@/services/tldw"
 
 export interface ChatTldwOptions {
@@ -16,6 +15,7 @@ export interface ChatTldwOptions {
   presencePenalty?: number
   systemPrompt?: string
   streaming?: boolean
+  reasoningEffort?: "low" | "medium" | "high"
 }
 
 export class ChatTldw {
@@ -27,6 +27,7 @@ export class ChatTldw {
   presencePenalty?: number
   systemPrompt?: string
   streaming: boolean
+  reasoningEffort?: "low" | "medium" | "high"
 
   constructor(options: ChatTldwOptions) {
     // Normalize model id: drop internal prefix like "tldw:" so server receives provider/model
@@ -38,6 +39,7 @@ export class ChatTldw {
     this.presencePenalty = options.presencePenalty ?? 0
     this.systemPrompt = options.systemPrompt
     this.streaming = options.streaming ?? false
+    this.reasoningEffort = options.reasoningEffort
   }
 
   /**
@@ -67,10 +69,10 @@ export class ChatTldw {
       frequencyPenalty: this.frequencyPenalty,
       presencePenalty: this.presencePenalty,
       systemPrompt: this.systemPrompt,
-      stream: true
+      stream: true,
+      reasoningEffort: this.reasoningEffort
     })
 
-    const self = this
     async function* generator() {
       let fullText = ""
       try {
@@ -120,7 +122,8 @@ export class ChatTldw {
       frequencyPenalty: this.frequencyPenalty,
       presencePenalty: this.presencePenalty,
       systemPrompt: this.systemPrompt,
-      stream: false
+      stream: false,
+      reasoningEffort: this.reasoningEffort
     })
 
     return {
@@ -132,6 +135,15 @@ export class ChatTldw {
   // We don't rely on BaseChatModel's default stream helper in the current
   // chat pipeline; see the custom `stream` implementation above which
   // matches the expected `ollama.stream` contract.
+
+  /**
+   * Non-streaming invoke helper to match the simple `.invoke()` shape used
+   * by title generation and other one-off calls.
+   */
+  async invoke(messages: BaseMessage[]): Promise<{ content: string }> {
+    const { text } = await this.generateOnce(messages)
+    return { content: text }
+  }
 
   private convertToTldwMessages(messages: BaseMessage[]): ChatMessage[] {
     return messages.map(msg => {
@@ -145,24 +157,28 @@ export class ChatTldw {
         role = 'user'
       }
 
-      // Handle different content types
-      let content: string
+      // Handle different content types. We preserve structured content where
+      // possible so tldw_server can support multimodal inputs.
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      let content: any
       if (typeof msg.content === 'string') {
         content = msg.content
       } else if (Array.isArray(msg.content)) {
-        // Handle multimodal content
-        content = msg.content
-          .map((item: any) => {
-            if (typeof item === 'string') {
-              return item
-            } else if (item.type === 'text') {
-              return item.text
-            }
-            return ''
-          })
-          .join('\n')
+        content = msg.content.map((item: any) => {
+          if (typeof item === 'string') {
+            return item
+          }
+          if (item?.type === 'text' && typeof item.text === 'string') {
+            return { type: 'text', text: item.text }
+          }
+          if (item?.type === 'image_url' && item.image_url) {
+            return { type: 'image_url', image_url: item.image_url }
+          }
+          // Preserve any other structured parts as-is
+          return item
+        })
       } else {
-        content = String(msg.content)
+        content = msg.content
       }
 
       return {

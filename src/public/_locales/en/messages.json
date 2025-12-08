@@ -101,31 +101,132 @@
   "hfPullException": {
     "message": "[tldw Assistant] Something went wrong while sending a pull request for \"$1\" to your tldw_server. Check that your tldw_server and the extension are running, then try again."
   },
-  "quickChatHelper.tooltip": {
-    "message": "Quick Chat Helper"
+  "footerHelp": {
+    "message": "Once connected, you can revisit these settings anytime from the extension menu.",
+    "description": "Onboarding footer help text in Settings."
   },
-  "quickChatHelper.title": {
-    "message": "Quick Chat Helper"
+  "progressAria": {
+    "message": "Onboarding progress",
+    "description": "Aria label for onboarding progress indicator."
   },
-  "quickChatHelper.inputPlaceholder": {
-    "message": "Ask a quick question..."
+  "stepLabel": {
+    "message": "Welcome",
+    "description": "Label for the first onboarding step (welcome)."
   },
-  "quickChatHelper.sendButton": {
-    "message": "Send"
+  "path": {
+    "message": "How would you like to get started?",
+    "description": "Heading for choosing how to get started in onboarding."
   },
-  "quickChatHelper.emptyState": {
-    "message": "Start a quick side chat to keep your main thread clean."
+  "authModeHelp": {
+    "message": "Single User (API Key) is recommended for personal or small-team servers. Multi User (Login) is for shared deployments where people sign in with usernames or SSO. Choose the mode that matches how your tldw_server is set up.",
+    "description": "Help text explaining Single User vs Multi User authentication modes."
   },
-  "quickChatHelper.popOutButton": {
-    "message": "Pop out"
+  "apiKeyHelp": {
+    "message": "Find your API key in tldw_server \u2192 Settings \u2192 API Keys. Generate a key there and paste it here.",
+    "description": "Help text describing where to find the API key."
   },
-  "quickChatHelper.noModelWarning": {
-    "message": "Please select a model in the main chat first."
+  "authStepAria": {
+    "message": "Step {{current}} of {{total}} \u2014 Choose how you sign in",
+    "description": "Aria label for the authentication step in onboarding."
   },
-  "quickChatHelper.userMessageAria": {
-    "message": "Your message"
+  "confirmStepAria": {
+    "message": "Step {{current}} of {{total}} \u2014 Confirm connection and review next steps",
+    "description": "Aria label for the confirmation step in onboarding."
   },
-  "quickChatHelper.assistantMessageAria": {
-    "message": "Assistant message"
+  "nextSteps": {
+    "message": "You\u2019re ready to go",
+    "description": "Title for the final onboarding panel describing next steps."
+  },
+  "notesEmpty.connectTitle": {
+    "message": "Connect to use Notes"
+  },
+  "notesEmpty.connectDescription": {
+    "message": "To use Notes, first connect to your tldw server."
+  },
+  "notesEmpty.connectExample1": {
+    "message": "Open Settings \u2192 tldw server to add your server URL."
+  },
+  "notesEmpty.connectExample2": {
+    "message": "Use Diagnostics if your server is running but not reachable."
+  },
+  "notesEmpty.demoTitle": {
+    "message": "Explore Notes in demo mode"
+  },
+  "notesEmpty.demoDescription": {
+    "message": "This demo shows how Notes can organize your insights. Connect your own server later to create and save real notes."
+  },
+  "notesEmpty.demoExample1": {
+    "message": "See how note titles, previews, and timestamps appear in the list."
+  },
+  "notesEmpty.demoExample2": {
+    "message": "When you connect, you\u2019ll be able to create notes from meetings, reviews, and more."
+  },
+  "notesEmpty.demoExample3": {
+    "message": "Use Notes alongside Media and Review to keep track of your findings."
+  },
+  "notesEmpty.demoPreviewHeading": {
+    "message": "Example notes (preview only)"
+  },
+  "notesEmpty.demoSample1Title": {
+    "message": "Demo note: Weekly meeting recap"
+  },
+  "notesEmpty.demoSample1Preview": {
+    "message": "Decisions, blockers, and follow-ups from a recent team sync."
+  },
+  "notesEmpty.demoSample1Meta": {
+    "message": "Today \u00b7 9:32 AM"
+  },
+  "notesEmpty.demoSample2Title": {
+    "message": "Demo note: Research highlights"
+  },
+  "notesEmpty.demoSample2Preview": {
+    "message": "Key insights pulled from a long article or paper."
+  },
+  "notesEmpty.demoSample2Meta": {
+    "message": "Yesterday \u00b7 4:10 PM"
+  },
+  "notesEmpty.demoSample3Title": {
+    "message": "Demo note: Call summary"
+  },
+  "notesEmpty.demoSample3Preview": {
+    "message": "Summary of a customer call with next steps and owners."
+  },
+  "notesEmpty.demoSample3Meta": {
+    "message": "This week"
+  },
+  "notesEmpty.title": {
+    "message": "No notes yet"
+  },
+  "notesEmpty.description": {
+    "message": "Capture and organize free-form notes connected to your tldw insights."
+  },
+  "notesEmpty.exampleCreate": {
+    "message": "Create a new note for a recent meeting or transcript."
+  },
+  "notesEmpty.exampleLink": {
+    "message": "Save review outputs into Notes so you can revisit them later."
+  },
+  "notesEmpty.primaryCta": {
+    "message": "Create note"
+  },
+  "headerShortcuts": {
+    "message": "Show quick shortcuts in the header",
+    "description": "Setting option to show quick shortcuts in the header during onboarding."
+  },
+  "restartOnboardingLabel": {
+    "message": "Restart onboarding from the beginning",
+    "description": "Label for the setting that restarts the onboarding flow."
+  },
+  "restartOnboardingButton": {
+    "message": "Restart onboarding",
+    "description": "Button text to restart onboarding from Settings."
+  },
+  "restartOnboardingConfirmTitle": {
+    "message": "Restart onboarding?",
+    "description": "Confirmation dialog title when restarting onboarding."
+  },
+  "restartOnboardingConfirmMessage": {
+    "message": "This will reset your onboarding state and take you back to the setup flow.",
+    "description": "Confirmation dialog body explaining what restarting onboarding does."
   }
 }

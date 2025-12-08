@@ -6,7 +6,8 @@ import { apiSend } from "@/services/api-send"
 import {
   ConnectionPhase,
   type ConnectionState,
-  type KnowledgeStatus
+  type KnowledgeStatus,
+  deriveConnectionUxState
 } from "@/types/connection"
 
 // Shared timeout before treating the server as unreachable.
@@ -112,7 +113,7 @@ const ensurePlaceholderConfig = async (): Promise<string | null> => {
   try {
     await tldwClient.updateConfig({
       serverUrl: placeholderUrl,
-      authMode: "single-user" as any,
+      authMode: "single-user",
       apiKey: "test-bypass"
     })
     return placeholderUrl
@@ -357,7 +358,16 @@ export const useConnectionStore = create<ConnectionStore>((set, get) => ({
         try {
           const resp = await apiSend({
             path: '/api/v1/health',
-            method: 'GET'
+            method: 'GET',
+            // Allow unauthenticated health checks when no credentials have
+            // been configured yet so first‑run onboarding can still detect a
+            // reachable server URL. Once an API key or access token exists,
+            // health should run with auth.
+            noAuth:
+              !cfg ||
+              (!cfg.apiKey &&
+                !cfg.accessToken &&
+                cfg.authMode !== "multi-user")
           })
           return { ok: Boolean(resp?.ok), status: Number(resp?.status) || 0, error: resp?.ok ? null : (resp?.error || null) }
         } catch (e) {
@@ -471,8 +481,20 @@ export const useConnectionStore = create<ConnectionStore>((set, get) => ({
       state: {
         ...prev,
         phase: ConnectionPhase.UNCONFIGURED,
+        // Always return to the guided config flow when onboarding starts.
         configStep: "url",
-        hasCompletedFirstRun: false
+        hasCompletedFirstRun: false,
+        // Exit demo/offline modes so the wizard can take over again.
+        mode: "normal",
+        isConnected: false,
+        isChecking: false,
+        offlineBypass: false,
+        errorKind: "none",
+        lastError: null,
+        lastStatusCode: null,
+        knowledgeStatus: "unknown",
+        knowledgeLastCheckedAt: null,
+        knowledgeError: null
       }
     })
   },
@@ -512,6 +534,33 @@ export const useConnectionStore = create<ConnectionStore>((set, get) => ({
 
   async testConnectionFromOnboarding() {
     const prev = get().state
+    const isTestBypass =
+      prev.offlineBypass || (await getOfflineBypassFlag())
+
+    // When offline bypass is enabled (Playwright/CI path), treat the
+    // connection as healthy immediately so onboarding can progress
+    // without waiting on real network checks. In normal production
+    // runs offlineBypass is false and we fall back to checkOnce().
+    if (isTestBypass) {
+      set({
+        state: {
+          ...prev,
+          configStep: "health",
+          phase: ConnectionPhase.CONNECTED,
+          isConnected: true,
+          isChecking: false,
+          offlineBypass: true,
+          errorKind: "none",
+          lastError: null,
+          lastStatusCode: null,
+          knowledgeStatus: "ready",
+          knowledgeLastCheckedAt: Date.now(),
+          knowledgeError: null
+        }
+      })
+      return
+    }
+
     set({
       state: {
         ...prev,
@@ -556,6 +605,17 @@ if (typeof window !== "undefined") {
   // Expose for Playwright tests and debugging only.
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   ;(window as any).__tldw_useConnectionStore = useConnectionStore
+
+  // Optional helper so tests can derive the UX state from a raw
+  // ConnectionState snapshot without re‑implementing the logic.
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  ;(window as any).__tldw_deriveUx = (state: any) => {
+    try {
+      return deriveConnectionUxState(state as ConnectionState)
+    } catch {
+      return "unknown"
+    }
+  }
 
   // Allow tests to flip the offline bypass without rebuilding the extension.
   // eslint-disable-next-line @typescript-eslint/no-explicit-any

@@ -165,6 +165,14 @@
       },
       "promptSearchIncludeServer": {
         "label": "Include server prompts in prompt search"
+      },
+      "restartOnboarding": {
+        "label": "Restart onboarding from the beginning",
+        "button": "Restart onboarding",
+        "confirmTitle": "Restart onboarding?",
+        "confirmMessage": "This will reset your onboarding state and take you back to the setup flow.",
+        "toast": "Onboarding has been reset",
+        "toastBody": "We’ll take you back to the welcome step so you can review your server URL and API key."
       }
     },
     "systemBasics": {
@@ -771,9 +779,6 @@
       "webSearchFollowUpPromptPlaceholder": "Your Web Search Follow Up Prompt"
     }
   },
-  "chromeAiSettings": {
-    "title": "Chrome AI Settings"
-  },
   "mermaid": "Mermaid",
   "switchToSidebar": "Switch to Sidebar",
   "healthPage": {
@@ -862,7 +867,7 @@
   "saveFailed": "Failed to save settings",
   "siteAccessGranted": "Host permission granted for {{origin}}",
   "onboarding": {
-    "title": "Welcome — Let’s get you connected",
+    "title": "Welcome to tldw Browser Assistant— Let’s get you connected",
     "description": "Connect this extension to your tldw server (a separate app running on your machine or server). We’ll walk through adding the URL, API key, and checking that everything is reachable.",
     "exploreWithoutServer": "You can explore the UI without a server; some features (chat, media ingest, Knowledge search) will stay disabled until you connect.",
     "serverDocsUrl": "https://github.com/rmusser01/tldw_browser_assistant",
@@ -921,6 +926,50 @@
       "help": "Checks whether your server can search your notes, media, and other connected knowledge sources."
     },
     "connectionFailed": "Connection failed",
+    "progressAria": "Onboarding progress",
+    "stepLabel": {
+      "welcome": "Welcome",
+      "url": "Connect to your tldw server",
+      "auth": "Choose how you sign in",
+      "health": "Confirm connection & Knowledge"
+    },
+    "path": {
+      "heading": "How would you like to get started?",
+      "hasServer": "I already run tldw_server",
+      "noServer": "I don’t have a server yet",
+      "demo": "Just explore with a local demo",
+      "noServerTitle": "No server yet? You can still explore.",
+      "noServerBody": "tldw_server is a separate, self-hosted app. You can follow the setup guide now, or come back later and continue in demo mode.",
+      "noServerOptionLocal": "Run locally with Docker or Python on your own machine.",
+      "noServerOptionRemote": "Deploy tldw_server to a remote VPS or managed hosting.",
+      "noServerOptionManaged": "Use a managed commercial tldw_server deployment when available.",
+      "openSetupGuide": "Open setup guide",
+      "useDemoFromNoServer": "Use local demo mode",
+      "remindMeLater": "Remind me later",
+      "demoTitle": "Explore the extension in demo mode",
+      "demoBody": "Demo mode lets you try chat, notes, and media with sample data. Server-dependent features like Knowledge search will stay limited until you connect your own tldw_server.",
+      "demoCta": "Use local demo mode"
+    },
+    "authModeHelp": "Single User (API Key) is recommended for personal or small-team servers. Multi User (Login) is for shared deployments where people sign in with usernames or SSO. Choose the mode that matches how your tldw_server is set up.",
+    "auth": {
+      "missingCredentials": "Enter both a username and password to continue.",
+      "missingApiKey": "API key is required."
+    },
+    "apiKeyHelp": "Find your API key in tldw_server → Settings → API Keys. Generate a key there and paste it here.",
+    "authStepAria": "Step 2 of 3 — Choose how you sign in",
+    "confirmStepAria": "Step 3 of 3 — connection summary and next steps",
+    "nextSteps": {
+      "title": "You’re ready to go",
+      "subtitle": "From here you can open the sidepanel, ingest a page, or explore media and notes.",
+      "chatTitle": "Start chatting",
+      "chatBody": "Open the sidepanel and ask your first question.",
+      "chatCta": "Open sidepanel",
+      "ingestTitle": "Ingest your first page",
+      "ingestBody": "Use Quick ingest from the header to save the current tab to your server.",
+      "mediaTitle": "Explore media & notes",
+      "mediaBody": "Visit Media and Notes in Options to see what’s stored and searchable."
+    },
+    "headerShortcuts": "Show quick shortcuts in the header",
     "footerHelp": "Once connected, you can revisit these settings anytime from the extension menu.",
     "errors": {
       "invalidCredentials": "Login failed. Check your username and password or confirm multi-user login is enabled on your tldw server.",

@@ -1,16 +1,15 @@
-import { getModelInfo, isCustomModel, isOllamaModel } from "@/db/dexie/models"
-import { ChatChromeAI } from "./ChatChromeAi"
 import { ChatTldw } from "./ChatTldw"
-import { getOpenAIConfigById } from "@/db/dexie/openai"
-import { urlRewriteRuntime } from "@/libs/runtime"
-import { ChatGoogleAI } from "./ChatGoogleAI"
-import { CustomChatOpenAI } from "./CustomChatOpenAI"
-import { getCustomHeaders } from "@/utils/clean-headers"
 import {
   getAllDefaultModelSettings,
   getModelSettings
 } from "@/services/model-settings"
 import { useStoreChatModelSettings } from "@/store/model"
+
+const isValidReasoningEffort = (
+  value: unknown
+): value is "low" | "medium" | "high" => {
+  return value === "low" || value === "medium" || value === "high"
+}
 
 export const pageAssistModel = async ({
   model,
@@ -18,7 +17,7 @@ export const pageAssistModel = async ({
 }: {
   model: string
   baseUrl: string
-}) => {
+}): Promise<ChatTldw> => {
   const currentChatModelSettings = useStoreChatModelSettings.getState()
   const userDefaultModelSettings = await getAllDefaultModelSettings()
 
@@ -74,106 +73,12 @@ export const pageAssistModel = async ({
       userDefaultModelSettings?.numThread,
     useMlock:
       currentChatModelSettings?.useMlock ?? userDefaultModelSettings?.useMlock,
-    reasoningEffort: currentChatModelSettings?.reasoningEffort
+    reasoningEffort:
+      currentChatModelSettings?.reasoningEffort ??
+      userDefaultModelSettings?.reasoningEffort
   }
 
-  if (model === "chrome::gemini-nano::page-assist") {
-    return new ChatChromeAI({
-      temperature,
-      topK
-    })
-  }
-
-  const isCustom = isCustomModel(model)
   const modelSettings = await getModelSettings(model)
-
-  if (isCustom) {
-    const modelInfo = await getModelInfo(model)
-    const providerInfo = await getOpenAIConfigById(modelInfo.provider_id)
-
-    if (isOllamaModel(model)) {
-      await urlRewriteRuntime(providerInfo.baseUrl || "")
-    }
-
-    if (providerInfo?.fix_cors) {
-      console.log("Fixing CORS for provider:", providerInfo.provider)
-      await urlRewriteRuntime(providerInfo.baseUrl || "")
-    }
-
-    const modelConfig = {
-      maxTokens: modelSettings?.numPredict || numPredict,
-      temperature: modelSettings?.temperature || temperature,
-      topP: modelSettings?.topP || topP,
-      reasoningEffort:
-        modelSettings?.reasoningEffort || (reasoningEffort as any)
-    }
-
-    if (providerInfo.provider === "gemini") {
-      return new ChatGoogleAI({
-        modelName: modelInfo.model_id,
-        openAIApiKey: providerInfo.apiKey || "temp",
-        temperature: modelConfig?.temperature,
-        topP: modelConfig?.topP,
-        maxTokens: modelConfig?.maxTokens,
-        configuration: {
-          apiKey: providerInfo.apiKey || "temp",
-          baseURL: providerInfo.baseUrl || "",
-          defaultHeaders: getCustomHeaders({
-            headers: providerInfo?.headers || []
-          })
-        }
-      }) as any
-    }
-
-    if (providerInfo.provider === "openrouter") {
-      return new CustomChatOpenAI({
-        modelName: modelInfo.model_id,
-        openAIApiKey: providerInfo.apiKey || "temp",
-        temperature: modelConfig?.temperature,
-        topP: modelConfig?.topP,
-        maxTokens: modelConfig?.maxTokens,
-        configuration: {
-          apiKey: providerInfo.apiKey || "temp",
-          baseURL: providerInfo.baseUrl || "",
-          defaultHeaders: {
-            "HTTP-Referer": "https://pageassist.xyz/",
-            "X-Title": "tldw Browser_Assistant",
-            ...getCustomHeaders({
-              headers: providerInfo?.headers || []
-            })
-          }
-        },
-        reasoning_effort: modelConfig?.reasoningEffort as any
-      }) as any
-    }
-
-    if (providerInfo.provider === "ollama2") {
-      // Redirect Ollama models to tldw_server Chat
-      return new ChatTldw({
-        model: modelInfo.model_id,
-        temperature: modelSettings?.temperature || temperature,
-        topP: modelSettings?.topP || topP,
-        maxTokens: modelSettings?.numPredict || numPredict,
-        streaming: true
-      }) as any
-    }
-
-    return new CustomChatOpenAI({
-      modelName: modelInfo.model_id,
-      openAIApiKey: providerInfo.apiKey || "temp",
-      temperature: modelConfig?.temperature,
-      topP: modelConfig?.topP,
-      maxTokens: modelConfig?.maxTokens,
-      configuration: {
-        apiKey: providerInfo.apiKey || "temp",
-        baseURL: providerInfo.baseUrl || "",
-        defaultHeaders: getCustomHeaders({
-          headers: providerInfo?.headers || []
-        })
-      },
-      reasoning_effort: modelConfig?.reasoningEffort as any
-    }) as any
-  }
 
   const _keepAlive = modelSettings?.keepAlive || keepAlive || ""
   const payload = {
@@ -191,7 +96,7 @@ export const pageAssistModel = async ({
     tfsZ: modelSettings?.tfsZ || tfsZ,
     numKeep: modelSettings?.numKeep || numKeep,
     numThread: modelSettings?.numThread || numThread,
-    useMlock: modelSettings?.useMLock || useMlock
+    useMlock: modelSettings?.useMlock || useMlock
   }
 
   // Default to tldw_server chat model
@@ -200,6 +105,11 @@ export const pageAssistModel = async ({
     temperature: payload.temperature,
     topP: payload.topP,
     maxTokens: payload.numPredict,
-    streaming: true
-  }) as any
+    streaming: true,
+    reasoningEffort: isValidReasoningEffort(modelSettings?.reasoningEffort)
+      ? modelSettings.reasoningEffort
+      : isValidReasoningEffort(reasoningEffort)
+        ? reasoningEffort
+        : undefined
+  })
 }

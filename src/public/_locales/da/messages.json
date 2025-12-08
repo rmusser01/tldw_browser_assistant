@@ -101,31 +101,127 @@
   "hfPullException": {
     "message": "[tldw Assistant] Noget gik galt, da en henteanmodning for \"$1\" blev sendt til din tldw_server. Kontrollér, at din tldw_server og udvidelsen kører, og prøv igen."
   },
-  "quickChatHelper.tooltip": {
-    "message": "Hurtig chat-hjælper"
+  "footerHelp": {
+    "message": "Når du er tilsluttet, kan du til enhver tid vende tilbage til disse indstillinger fra udvidelsesmenuen.",
+    "description": "Onboarding-footertekst i indstillinger."
   },
-  "quickChatHelper.title": {
-    "message": "Hurtig chat-hjælper"
+  "progressAria": {
+    "message": "Introduktionsforløb",
+    "description": "Aria-etiket for fremskridt i onboarding-forløbet."
   },
-  "quickChatHelper.inputPlaceholder": {
-    "message": "Stil et hurtigt spørgsmål..."
+  "stepLabel": {
+    "message": "Velkommen",
+    "description": "Etiket for det første onboarding-trin (velkomst)."
   },
-  "quickChatHelper.sendButton": {
-    "message": "Send"
+  "path": {
+    "message": "Hvordan vil du gerne starte?",
+    "description": "Overskrift for valg af, hvordan brugeren vil starte onboarding."
   },
-  "quickChatHelper.emptyState": {
-    "message": "Start en hurtig sidechat, så din hovedsamtale forbliver ryddelig."
+  "authModeHelp": {
+    "message": "Single User (API-nøgle) anbefales til personlige eller små team-servere. Multi User (login) er til delte installationer, hvor brugere logger ind med brugernavne eller SSO. Vælg den tilstand, der matcher, hvordan din tldw_server er konfigureret.",
+    "description": "Hjælpetekst, der forklarer Single User vs Multi User-godkendelsestilstande."
   },
-  "quickChatHelper.popOutButton": {
-    "message": "Åbn i separat vindue"
+  "apiKeyHelp": {
+    "message": "Find din API-nøgle i tldw_server \u2192 Settings \u2192 API Keys. Opret en nøgle dér og indsæt den her.",
+    "description": "Hjælpetekst, der beskriver, hvor API-nøglen findes."
   },
-  "quickChatHelper.noModelWarning": {
-    "message": "Vælg først en model i hovedchatten."
+  "authStepAria": {
+    "message": "Trin 3 af 4 \u2014 vælg, hvordan du logger ind",
+    "description": "Aria-etiket for godkendelsestrinnet i onboarding."
   },
-  "quickChatHelper.userMessageAria": {
-    "message": "Din besked"
+  "confirmStepAria": {
+    "message": "Trin 4 af 4 \u2014 bekræft forbindelsen og gennemgå næste trin",
+    "description": "Aria-etiket for bekræftelsestrinnet i onboarding."
   },
-  "quickChatHelper.assistantMessageAria": {
-    "message": "Assistentens besked"
+  "nextSteps": {
+    "message": "Du er klar til at gå i gang",
+    "description": "Titel for den sidste onboarding-sektion med næste trin."
+  },
+  "notesEmpty.connectTitle": {
+    "message": "Connect to use Notes"
+  },
+  "notesEmpty.connectDescription": {
+    "message": "To use Notes, first connect to your tldw server."
+  },
+  "notesEmpty.connectExample1": {
+    "message": "Open Settings \u2192 tldw server to add your server URL."
+  },
+  "notesEmpty.connectExample2": {
+    "message": "Use Diagnostics if your server is running but not reachable."
+  },
+  "notesEmpty.demoTitle": {
+    "message": "Explore Notes in demo mode"
+  },
+  "notesEmpty.demoDescription": {
+    "message": "This demo shows how Notes can organize your insights. Connect your own server later to create and save real notes."
+  },
+  "notesEmpty.demoExample1": {
+    "message": "See how note titles, previews, and timestamps appear in the list."
+  },
+  "notesEmpty.demoExample2": {
+    "message": "When you connect, you\u2019ll be able to create notes from meetings, reviews, and more."
+  },
+  "notesEmpty.demoExample3": {
+    "message": "Use Notes alongside Media and Review to keep track of your findings."
+  },
+  "notesEmpty.demoPreviewHeading": {
+    "message": "Example notes (preview only)"
+  },
+  "notesEmpty.demoSample1Title": {
+    "message": "Demo note: Weekly meeting recap"
+  },
+  "notesEmpty.demoSample1Preview": {
+    "message": "Decisions, blockers, and follow-ups from a recent team sync."
+  },
+  "notesEmpty.demoSample1Meta": {
+    "message": "Today \u00b7 9:32 AM"
+  },
+  "notesEmpty.demoSample2Title": {
+    "message": "Demo note: Research highlights"
+  },
+  "notesEmpty.demoSample2Preview": {
+    "message": "Key insights pulled from a long article or paper."
+  },
+  "notesEmpty.demoSample2Meta": {
+    "message": "Yesterday \u00b7 4:10 PM"
+  },
+  "notesEmpty.demoSample3Title": {
+    "message": "Demo note: Call summary"
+  },
+  "notesEmpty.demoSample3Preview": {
+    "message": "Summary of a customer call with next steps and owners."
+  },
+  "notesEmpty.demoSample3Meta": {
+    "message": "This week"
+  },
+  "notesEmpty.title": {
+    "message": "No notes yet"
+  },
+  "notesEmpty.description": {
+    "message": "Capture and organize free-form notes connected to your tldw insights."
+  },
+  "notesEmpty.exampleCreate": {
+    "message": "Create a new note for a recent meeting or transcript."
+  },
+  "notesEmpty.exampleLink": {
+    "message": "Save review outputs into Notes so you can revisit them later."
+  },
+  "notesEmpty.primaryCta": {
+    "message": "Create note"
+  },
+  "headerShortcuts": {
+    "message": "Vis hurtige genveje i headeren"
+  },
+  "restartOnboardingLabel": {
+    "message": "Genstart onboarding fra begyndelsen"
+  },
+  "restartOnboardingButton": {
+    "message": "Genstart onboarding"
+  },
+  "restartOnboardingConfirmTitle": {
+    "message": "Genstart onboarding?"
+  },
+  "restartOnboardingConfirmMessage": {
+    "message": "Dette nulstiller din onboarding-status og fører dig tilbage til opsætningsflowet."
   }
 }

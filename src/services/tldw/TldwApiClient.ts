@@ -24,9 +24,24 @@ export interface TldwModel {
   json_output?: boolean
 }
 
+type TextContent = string
+type ImageUrlPart = {
+  type: "image_url"
+  image_url: {
+    url: string
+    detail?: string
+  }
+}
+type TextPart = {
+  type: "text"
+  text: string
+}
+type ContentPart = string | TextPart | ImageUrlPart
+export type MessageContent = string | ContentPart[]
+
 export interface ChatMessage {
   role: 'system' | 'user' | 'assistant'
-  content: string
+  content: MessageContent
 }
 
 export interface ChatCompletionRequest {
@@ -38,6 +53,7 @@ export interface ChatCompletionRequest {
   top_p?: number
   frequency_penalty?: number
   presence_penalty?: number
+  reasoning_effort?: "low" | "medium" | "high"
 }
 
 export interface ServerChatSummary {
@@ -692,6 +708,19 @@ export class TldwApiClient {
   async ragSimple(query: string, options?: any): Promise<any> {
     const { timeoutMs, ...rest } = options || {}
     return await bgRequest<any>({ path: '/api/v1/rag/simple', method: 'POST', headers: { 'Content-Type': 'application/json' }, body: { query, ...rest }, timeoutMs })
+  }
+
+  // Research / Web search
+  async webSearch(options: any): Promise<any> {
+    const { timeoutMs, signal, ...rest } = options || {}
+    return await bgRequest<any>({
+      path: "/api/v1/research/websearch",
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: rest,
+      timeoutMs,
+      abortSignal: signal
+    })
   }
 
   // Media Methods

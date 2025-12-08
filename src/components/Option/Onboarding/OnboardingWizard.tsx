@@ -1,5 +1,7 @@
 import React from 'react'
+import type { InputRef } from 'antd'
 import { Alert, Button, Input, Segmented, Space, Tag, Checkbox } from 'antd'
+import type { SegmentedValue } from 'antd/es/segmented'
 import { useStorage } from '@plasmohq/storage/hook'
 import { Storage } from '@plasmohq/storage'
 import { useTranslation } from 'react-i18next'
@@ -11,30 +13,67 @@ import {
   useConnectionState,
   useConnectionUxState
 } from '@/hooks/useConnectionState'
+import { useServerUrlHint, type UrlState } from '@/hooks/useServerUrlHint'
 import { useConnectionStore } from '@/store/connection'
 import { ConnectionPhase } from '@/types/connection'
+import { useDemoMode } from '@/context/demo-mode'
+import { openSidepanelForActiveTab } from '@/utils/sidepanel'
+
+const localStorageInstance = new Storage({ area: 'local' })
 
 type Props = {
   onFinish?: () => void
 }
 
+type PathChoice = 'has-server' | 'no-server' | 'demo'
+type AuthMode = 'single-user' | 'multi-user'
+
+const isPathChoice = (value: SegmentedValue): value is PathChoice =>
+  value === 'has-server' || value === 'no-server' || value === 'demo'
+
+const isAuthMode = (value: SegmentedValue): value is AuthMode =>
+  value === 'single-user' || value === 'multi-user'
+
 export const OnboardingWizard: React.FC<Props> = ({ onFinish }) => {
   const { t } = useTranslation(['settings', 'common'])
+  const { setDemoEnabled } = useDemoMode()
   const [loading, setLoading] = React.useState(false)
   const [serverUrl, setServerUrl] = React.useState('')
   const [serverTouched, setServerTouched] = React.useState(false)
-  const [authMode, setAuthMode] = React.useState<'single-user'|'multi-user'>('single-user')
+  const [authMode, setAuthMode] = React.useState<AuthMode>('single-user')
   const [apiKey, setApiKey] = React.useState(DEFAULT_TLDW_API_KEY)
   const [username, setUsername] = React.useState('')
   const [password, setPassword] = React.useState('')
   const [authError, setAuthError] = React.useState<string | null>(null)
-  const [autoFinishOnSuccess, setAutoFinishOnSuccess] = useStorage(
-    { key: 'onboardingAutoFinish', instance: new Storage({ area: 'local' }) },
-    true
-  )
+  const [pathChoice, setPathChoice] = React.useState<PathChoice>('has-server')
+	  const [autoFinishOnSuccess, setAutoFinishOnSuccess] = useStorage(
+	    { key: 'onboardingAutoFinish', instance: localStorageInstance },
+	    false
+	  )
+	  const [headerShortcutsPref, setHeaderShortcutsPref] = useStorage(
+	    { key: 'headerShortcutsExpanded', instance: localStorageInstance },
+	    true
+	  )
 
   const { uxState, configStep } = useConnectionUxState()
   const connectionState = useConnectionState()
+
+  const openServerDocs = React.useCallback(() => {
+    try {
+      const docsUrl =
+        t(
+          'settings:onboarding.serverDocsUrl',
+          'https://github.com/rmusser01/tldw_browser_assistant'
+        ) || 'https://github.com/rmusser01/tldw_browser_assistant'
+      window.open(docsUrl, '_blank', 'noopener,noreferrer')
+    } catch {
+      // ignore navigation errors
+    }
+  }, [t])
+
+	  const urlInputRef = React.useRef<HTMLInputElement | HTMLTextAreaElement | null>(null)
+  const authStepRef = React.useRef<HTMLDivElement | null>(null)
+  const confirmStepRef = React.useRef<HTMLDivElement | null>(null)
 
   React.useEffect(() => {
     try {
@@ -82,7 +121,7 @@ export const OnboardingWizard: React.FC<Props> = ({ onFinish }) => {
     })()
   }, [])
 
-  const urlState = React.useMemo(() => {
+  const urlState = React.useMemo<UrlState>(() => {
     const trimmed = serverUrl.trim()
     if (!trimmed) {
       return { valid: false, reason: 'empty' as const }
@@ -99,6 +138,11 @@ export const OnboardingWizard: React.FC<Props> = ({ onFinish }) => {
   }, [serverUrl])
 
   const activeStep = React.useMemo(() => {
+    // activeStep covers the three in-wizard steps:
+    // 1: Server URL
+    // 2: Authentication
+    // 3: Health / confirmation
+    // (Path selection above the wizard is treated as a pre-step.)
     if (configStep === 'url') return 1
     if (configStep === 'auth') return 2
     if (configStep === 'health') return 3
@@ -117,34 +161,33 @@ export const OnboardingWizard: React.FC<Props> = ({ onFinish }) => {
     return 1
   }, [configStep, uxState])
 
-  const serverHint = React.useMemo(() => {
-    if (!urlState.valid) {
-      const tone = urlState.reason === 'empty' ? 'neutral' : 'error'
-      const message = urlState.reason === 'empty'
-        ? t(
-            'settings:onboarding.serverUrl.emptyHint',
-            'Enter your tldw server URL to enable Next.'
-          )
-        : urlState.reason === 'protocol'
-        ? t(
-            'settings:onboarding.serverUrl.invalidProtocol',
-            'Use http or https URLs, for example http://127.0.0.1:8000.'
-          )
-        : t(
-            'settings:onboarding.serverUrl.invalid',
-            'Enter a full URL such as http://127.0.0.1:8000.'
-          )
-      return { valid: false as const, tone, message }
-    }
+  const serverHint = useServerUrlHint(
+    serverUrl,
+    urlState,
+    connectionState,
+    uxState,
+    t
+  )
 
-    const tone: 'neutral' | 'success' | 'error' = 'neutral'
-    const message = t(
-      'settings:onboarding.serverUrl.ready',
-      'Enter your tldw server URL, then click Next to test your connection.'
-    )
-
-    return { valid: true as const, tone, message }
-  }, [urlState, t])
+  React.useEffect(() => {
+    const trimmed = serverUrl.trim()
+    if (!urlState.valid || !trimmed) return
+    if (connectionState.serverUrl === trimmed) return
+    // Keep the connection store config/server URL in sync with the field so
+    // health checks (and success copy) can update while staying on Step 1.
+    const timeout = window.setTimeout(() => {
+      try {
+        void useConnectionStore.getState().setServerUrl(trimmed)
+      } catch (err) {
+        // eslint-disable-next-line no-console
+        console.debug(
+          "[OnboardingWizard] Failed to sync serverUrl into connection store",
+          err
+        )
+      }
+    }, 500)
+    return () => window.clearTimeout(timeout)
+  }, [serverUrl, urlState.valid, connectionState.serverUrl])
 
   const connectionStatusTag = React.useMemo(() => {
     if (uxState === 'connected_ok' || uxState === 'connected_degraded') {
@@ -194,24 +237,58 @@ export const OnboardingWizard: React.FC<Props> = ({ onFinish }) => {
     return null
   }, [uxState, t])
 
-  const totalSteps = 3
+  const visualSteps = React.useMemo(
+    () => [
+      {
+        index: 1,
+        label: t(
+          "settings:onboarding.stepLabel.url",
+          "Connect to your tldw server"
+        )
+      },
+      {
+        index: 2,
+        label: t(
+          "settings:onboarding.stepLabel.auth",
+          "Choose how you sign in"
+        )
+      },
+      {
+        index: 3,
+        label: t(
+          "settings:onboarding.stepLabel.health",
+          "Confirm connection & Knowledge"
+        )
+      }
+    ],
+    [t]
+  )
+
+  const totalSteps = visualSteps.length
+
+  const displayStep = React.useMemo(() => {
+    if (activeStep === 1) return 1
+    if (activeStep === 2) return 2
+    if (activeStep === 3) return 3
+    return 1
+  }, [activeStep])
 
   const stepTitle = React.useMemo(() => {
     if (activeStep === 1) {
       return t(
-        'settings:onboarding.stepLabel.url',
-        'Tell the extension where your server is'
+        "settings:onboarding.stepLabel.url",
+        "Tell the extension where your server is"
       )
     }
     if (activeStep === 2) {
       return t(
-        'settings:onboarding.stepLabel.auth',
-        'Set up authentication'
+        "settings:onboarding.stepLabel.auth",
+        "Set up authentication"
       )
     }
     return t(
-      'settings:onboarding.stepLabel.health',
-      'Check connection and Knowledge'
+      "settings:onboarding.stepLabel.health",
+      "Check connection and Knowledge"
     )
   }, [activeStep, t])
 
@@ -283,12 +360,21 @@ export const OnboardingWizard: React.FC<Props> = ({ onFinish }) => {
 
   const handleContinueFromAuth = async () => {
     setAuthError(null)
+    if (authMode === 'single-user' && !apiKey.trim()) {
+      setAuthError(
+        t(
+          'settings:onboarding.auth.missingApiKey',
+          'API key is required.'
+        ) ?? 'API key is required.'
+      )
+      return
+    }
     if (authMode === 'multi-user' && (!username || !password)) {
       setAuthError(
         t(
           'settings:onboarding.auth.missingCredentials',
           'Enter both a username and password to continue.'
-        ) as string
+        ) ?? 'Enter both a username and password to continue.'
       )
       return
     }
@@ -297,7 +383,7 @@ export const OnboardingWizard: React.FC<Props> = ({ onFinish }) => {
       if (authMode === 'multi-user' && username && password) {
         try {
           await tldwAuth.login({ username, password })
-        } catch (error: any) {
+        } catch (error: unknown) {
           const friendly = mapMultiUserLoginErrorMessage(
             t,
             error,
@@ -327,6 +413,24 @@ export const OnboardingWizard: React.FC<Props> = ({ onFinish }) => {
   const handleRecheck = async () => {
     await useConnectionStore.getState().testConnectionFromOnboarding()
   }
+
+	  const handleUseDemoMode = () => {
+	    try {
+	      setDemoEnabled(true)
+	    } catch {
+      // Ignore demo storage failures; connection store mode still applies.
+    }
+    try {
+      useConnectionStore.getState().setDemoMode()
+    } catch (err) {
+      // eslint-disable-next-line no-console
+      console.debug(
+        "[OnboardingWizard] Failed to enable demo mode from onboarding",
+        err
+	      )
+	    }
+	    finish()
+	  }
 
   const finish = React.useCallback(() => {
     useConnectionStore.getState().markFirstRunComplete()
@@ -358,6 +462,21 @@ export const OnboardingWizard: React.FC<Props> = ({ onFinish }) => {
     uxState
   ])
 
+  React.useEffect(() => {
+    // Basic focus management between steps for accessibility.
+    try {
+      if (activeStep === 1 && urlInputRef.current) {
+        urlInputRef.current.focus()
+      } else if (activeStep === 2 && authStepRef.current) {
+        authStepRef.current.focus()
+      } else if (activeStep === 3 && confirmStepRef.current) {
+        confirmStepRef.current.focus()
+      }
+    } catch {
+      // ignore focus errors
+    }
+  }, [activeStep])
+
   return (
     <div className="mx-auto w-full max-w-2xl rounded-xl border border-gray-200 bg-white px-6 py-6 text-gray-900 shadow-sm dark:border-gray-700 dark:bg-[#171717] dark:text-gray-100">
       <h2 className="text-lg font-semibold mb-2 text-gray-900 dark:text-gray-100">{t('settings:onboarding.title')}</h2>
@@ -369,15 +488,196 @@ export const OnboardingWizard: React.FC<Props> = ({ onFinish }) => {
         )}
       </p>
 
-      <div className="mb-4 flex items-center justify-between text-xs text-gray-600 dark:text-gray-400">
+      <div className="mb-4 space-y-2">
+        <div className="text-xs font-medium text-gray-700 dark:text-gray-300">
+          {t(
+            'settings:onboarding.path.heading',
+            'How would you like to get started?'
+          )}
+        </div>
+        <Segmented
+          size="small"
+          value={pathChoice}
+          onChange={(value: SegmentedValue) => {
+            if (isPathChoice(value)) {
+              setPathChoice(value)
+            }
+          }}
+          options={[
+            {
+              label: t(
+                'settings:onboarding.path.hasServer',
+                'I already run tldw_server'
+              ),
+              value: 'has-server'
+            },
+            {
+              label: t(
+                'settings:onboarding.path.noServer',
+                "I don’t have a server yet"
+              ),
+              value: 'no-server'
+            },
+            {
+              label: t(
+                'settings:onboarding.path.demo',
+                'Just explore with a local demo'
+              ),
+              value: 'demo'
+            }
+          ]}
+          className="w-full"
+        />
+        {pathChoice === 'no-server' && (
+          <Alert
+            className="mt-2 text-xs"
+            type="info"
+            showIcon
+            message={t(
+              'settings:onboarding.path.noServerTitle',
+              'No server yet? You can still explore.'
+            )}
+            description={
+              <span className="inline-flex flex-col gap-2">
+                <span>
+                  {t(
+                    'settings:onboarding.path.noServerBody',
+                    'tldw_server is a separate, self-hosted app. You can follow the setup guide now, or come back later and continue in demo mode.'
+                  )}
+                </span>
+                <ul className="ml-4 list-disc space-y-1 text-[11px]">
+                  <li>
+                    {t(
+                      'settings:onboarding.path.noServerOptionLocal',
+                      'Run locally with Docker or Python on your own machine.'
+                    )}
+                  </li>
+                  <li>
+                    {t(
+                      'settings:onboarding.path.noServerOptionRemote',
+                      'Deploy tldw_server to a remote VPS or managed hosting.'
+                    )}
+                  </li>
+                  <li>
+                    {t(
+                      'settings:onboarding.path.noServerOptionManaged',
+                      'Use a managed commercial tldw_server deployment when available.'
+                    )}
+                  </li>
+                </ul>
+                <span className="inline-flex flex-wrap items-center gap-2">
+                  <Button
+                    size="small"
+                    onClick={openServerDocs}
+                  >
+                    {t(
+                      'settings:onboarding.path.openSetupGuide',
+                      'Open setup guide'
+                    )}
+                  </Button>
+                  <Button
+                    size="small"
+                    onClick={handleUseDemoMode}
+                  >
+                    {t(
+                      'settings:onboarding.path.useDemoFromNoServer',
+                      'Use local demo mode'
+                    )}
+                  </Button>
+                  <Button
+                    size="small"
+                    type="link"
+                    onClick={finish}
+                  >
+                    {t(
+                      'settings:onboarding.path.remindMeLater',
+                      'Remind me later'
+                    )}
+                  </Button>
+                </span>
+              </span>
+            }
+          />
+        )}
+        {pathChoice === 'demo' && (
+          <Alert
+            className="mt-2 text-xs"
+            type="info"
+            showIcon
+            message={t(
+              'settings:onboarding.path.demoTitle',
+              'Explore the extension in demo mode'
+            )}
+            description={
+              <span className="inline-flex flex-col gap-2">
+                <span>
+                  {t(
+                    'settings:onboarding.path.demoBody',
+                    'Demo mode lets you try chat, notes, and media with sample data. Server-dependent features like Knowledge search will stay limited until you connect your own tldw_server.'
+                  )}
+                </span>
+                <span>
+                  <Button
+                    size="small"
+                    type="primary"
+                    onClick={handleUseDemoMode}
+                  >
+                    {t(
+                      'settings:onboarding.path.demoCta',
+                      'Use local demo mode'
+                    )}
+                  </Button>
+                </span>
+              </span>
+            }
+          />
+        )}
+      </div>
+
+      <div className="mb-3 flex items-center justify-between text-xs text-gray-600 dark:text-gray-400">
         <span>
           {t('settings:onboarding.progress', 'Step {{current}} of {{total}}', {
-            current: activeStep,
+            current: displayStep,
             total: totalSteps
           })}
         </span>
         <span className="text-right">{stepTitle}</span>
       </div>
+      <nav
+        aria-label={t(
+          "settings:onboarding.progressAria",
+          "Onboarding progress"
+        )}
+        className="mb-4"
+      >
+        <ol className="flex items-center gap-2 text-[11px] text-gray-500 dark:text-gray-400">
+          {visualSteps.map((step) => (
+            <li
+              key={step.index}
+              aria-current={step.index === displayStep ? "step" : undefined}
+              className={`inline-flex items-center gap-1 ${
+                step.index === displayStep
+                  ? "font-semibold text-blue-600 dark:text-blue-400"
+                  : ""
+              }`}
+            >
+              <span
+                className={`flex h-4 w-4 items-center justify-center rounded-full border text-[10px] ${
+                  step.index <= displayStep
+                    ? "border-blue-500 bg-blue-500 text-white"
+                    : "border-gray-300 bg-white text-gray-600 dark:border-gray-600 dark:bg-[#111] dark:text-gray-300"
+                }`}
+              >
+                {step.index}
+              </span>
+              <span>{step.label}</span>
+              {step.index < visualSteps.length && (
+                <span className="mx-1 text-gray-400">›</span>
+              )}
+            </li>
+          ))}
+        </ol>
+      </nav>
 
       {activeStep === 1 && (
         <div className="space-y-3">
@@ -438,6 +738,9 @@ export const OnboardingWizard: React.FC<Props> = ({ onFinish }) => {
           </label>
           <Input
             id="onboarding-server-url"
+            ref={(instance: InputRef | null) => {
+              urlInputRef.current = instance?.input ?? null
+            }}
             placeholder={t('settings:onboarding.serverUrl.placeholder')}
             value={serverUrl}
             onChange={(e) => {
@@ -448,6 +751,9 @@ export const OnboardingWizard: React.FC<Props> = ({ onFinish }) => {
             status={serverHint.tone === 'error' && serverTouched ? 'error' : ''}
           />
           <div
+            role="status"
+            aria-live="polite"
+            aria-atomic="true"
             className={
               'text-xs ' +
               (serverHint.tone === 'error'
@@ -466,16 +772,7 @@ export const OnboardingWizard: React.FC<Props> = ({ onFinish }) => {
             <button
               type="button"
               className="underline text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300"
-              onClick={() => {
-                try {
-                  const docsUrl =
-                    t('settings:onboarding.serverDocsUrl', 'https://github.com/rmusser01/tldw_browser_assistant') ||
-                    'https://github.com/rmusser01/tldw_browser_assistant'
-                  window.open(docsUrl, '_blank', 'noopener,noreferrer')
-                } catch {
-                  // ignore navigation errors
-                }
-              }}>
+              onClick={openServerDocs}>
               {t(
                 'settings:onboarding.serverDocsCta',
                 'Learn how tldw server works'
@@ -495,19 +792,53 @@ export const OnboardingWizard: React.FC<Props> = ({ onFinish }) => {
       )}
 
       {activeStep === 2 && (
-        <div className="space-y-4">
+        <div
+          className="space-y-4"
+          ref={authStepRef}
+          tabIndex={-1}
+          aria-label={t(
+            "settings:onboarding.authStepAria",
+            "Step {{current}} of {{total}} — authentication configuration",
+            { current: displayStep, total: totalSteps }
+          )}
+        >
           <div>
             <label className="block text-sm font-medium mb-1 text-gray-800 dark:text-gray-100">{t('settings:onboarding.authMode.label')}</label>
             <Segmented
-              options={[{ label: t('settings:onboarding.authMode.single'), value: 'single-user' }, { label: t('settings:onboarding.authMode.multi'), value: 'multi-user' }]}
+              options={[
+                {
+                  label: t('settings:onboarding.authMode.single'),
+                  value: 'single-user'
+                },
+                {
+                  label: t('settings:onboarding.authMode.multi'),
+                  value: 'multi-user'
+                }
+              ]}
               value={authMode}
-              onChange={(v) => setAuthMode(v as any)}
+              onChange={(value: SegmentedValue) => {
+                if (isAuthMode(value)) {
+                  setAuthMode(value)
+                }
+              }}
             />
+            <p className="mt-2 text-xs text-gray-600 dark:text-gray-400">
+              {t(
+                'settings:onboarding.authModeHelp',
+                'Single User (API Key) is recommended for personal or small-team servers. Multi User (Login) is for shared deployments where people sign in with usernames or SSO. Choose the mode that matches how your tldw_server is set up.'
+              )}
+            </p>
           </div>
           {authMode === 'single-user' ? (
             <div>
               <label className="block text-sm font-medium text-gray-800 dark:text-gray-100">{t('settings:onboarding.apiKey.label')}</label>
               <Input.Password placeholder={t('settings:onboarding.apiKey.placeholder')} value={apiKey} onChange={(e) => setApiKey(e.target.value)} />
+              <p className="mt-1 text-xs text-gray-600 dark:text-gray-400">
+                {t(
+                  'settings:onboarding.apiKeyHelp',
+                  'Find your API key in tldw_server → Settings → API Keys. Generate a key there and paste it here.'
+                )}
+              </p>
             </div>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
@@ -532,12 +863,18 @@ export const OnboardingWizard: React.FC<Props> = ({ onFinish }) => {
               }
             />
           )}
-          <div>
+          <div className="flex flex-col gap-2">
             <Checkbox
               checked={autoFinishOnSuccess}
               onChange={(e) => setAutoFinishOnSuccess(e.target.checked)}
             >
               {t('settings:onboarding.autoFinish', 'Finish automatically when connection and RAG are healthy')}
+            </Checkbox>
+            <Checkbox
+              checked={headerShortcutsPref}
+              onChange={(e) => setHeaderShortcutsPref(e.target.checked)}
+            >
+              {t('settings:onboarding.headerShortcuts', 'Show quick shortcuts in the header')}
             </Checkbox>
           </div>
           <div className="flex justify-between">
@@ -554,7 +891,16 @@ export const OnboardingWizard: React.FC<Props> = ({ onFinish }) => {
       )}
 
       {activeStep === 3 && (
-        <div className="space-y-3">
+        <div
+          className="space-y-3"
+          ref={confirmStepRef}
+          tabIndex={-1}
+          aria-label={t(
+            "settings:onboarding.confirmStepAria",
+            "Step {{current}} of {{total}} — connection summary and next steps",
+            { current: displayStep, total: totalSteps }
+          )}
+        >
           <div>
             <Checkbox
               checked={autoFinishOnSuccess}
@@ -602,6 +948,76 @@ export const OnboardingWizard: React.FC<Props> = ({ onFinish }) => {
               )}
             </p>
           </div>
+          <div className="mt-3 grid gap-3 rounded-md border border-gray-200 bg-gray-50 p-3 text-xs text-gray-700 dark:border-gray-700 dark:bg-[#1b1b1b] dark:text-gray-200">
+            <div>
+              <div className="text-sm font-semibold">
+                {t(
+                  'settings:onboarding.nextSteps.title',
+                  'You’re ready to go'
+                )}
+              </div>
+              <p className="mt-1">
+                {t(
+                  'settings:onboarding.nextSteps.subtitle',
+                  'From here you can open the sidepanel, ingest a page, or explore media and notes.'
+                )}
+              </p>
+            </div>
+            <div className="grid gap-2 md:grid-cols-3">
+	              <div className="rounded border border-gray-200 bg-white p-2 dark:border-gray-600 dark:bg-[#121212]">
+	                <div className="text-xs font-semibold">
+	                  {t(
+	                    'settings:onboarding.nextSteps.chatTitle',
+	                    'Start chatting'
+                  )}
+                </div>
+	                <p className="mt-1 text-[11px]">
+	                  {t(
+	                    'settings:onboarding.nextSteps.chatBody',
+	                    'Open the sidepanel and ask your first question.'
+	                  )}
+	                </p>
+	                <Button
+	                  size="small"
+	                  className="mt-2"
+	                  onClick={() => void openSidepanelForActiveTab()}
+	                >
+                  {t(
+                    'settings:onboarding.nextSteps.chatCta',
+                    'Open sidepanel'
+                  )}
+                </Button>
+              </div>
+              <div className="rounded border border-gray-200 bg-white p-2 dark:border-gray-600 dark:bg-[#121212]">
+                <div className="text-xs font-semibold">
+                  {t(
+                    'settings:onboarding.nextSteps.ingestTitle',
+                    'Ingest your first page'
+                  )}
+                </div>
+                <p className="mt-1 text-[11px]">
+                  {t(
+                    'settings:onboarding.nextSteps.ingestBody',
+                    'Use Quick ingest from the header to save the current tab to your server.'
+                  )}
+                </p>
+              </div>
+              <div className="rounded border border-gray-200 bg-white p-2 dark:border-gray-600 dark:bg-[#121212]">
+                <div className="text-xs font-semibold">
+                  {t(
+                    'settings:onboarding.nextSteps.mediaTitle',
+                    'Explore media & notes'
+                  )}
+                </div>
+                <p className="mt-1 text-[11px]">
+                  {t(
+                    'settings:onboarding.nextSteps.mediaBody',
+                    'Visit Media and Notes in Options to see what’s stored and searchable.'
+                  )}
+                </p>
+              </div>
+            </div>
+          </div>
           {connectionErrorDescription && (
             <Alert
               type="error"
@@ -635,8 +1051,8 @@ export const OnboardingWizard: React.FC<Props> = ({ onFinish }) => {
                         'Finish setup for now — connect later from Settings → tldw Server.'
                       )
                     : t(
-                        'settings:onboarding.buttons.finishAndStart',
-                        'Done, start using assistant'
+                        'settings:onboarding.buttons.finish',
+                        'Finish'
                       )
                 }
               >
@@ -646,8 +1062,8 @@ export const OnboardingWizard: React.FC<Props> = ({ onFinish }) => {
                       'Finish without connecting'
                     )
                   : t(
-                      'settings:onboarding.buttons.finishAndStart',
-                      'Done, start using assistant'
+                      'settings:onboarding.buttons.finish',
+                      'Finish'
                     )}
               </Button>
             </Space>

@@ -81,17 +81,25 @@
         "label": "Activer le chat temporaire dans le panneau latéral par défaut"
       },
       "enableOcrAssets": {
-        "label": "Enable OCR (downloads ~5MB on first use)"
+        "label": "Activer l’OCR (télécharge ~5 Mo lors de la première utilisation)"
       },
       "ocrLanguage": {
-        "label": "Default OCR Language",
-        "placeholder": "Select an OCR language"
+        "label": "Langue OCR par défaut",
+        "placeholder": "Sélectionner une langue OCR"
       },
       "removeReasoningTagFromCopy": {
-        "label": "Remove Reasoning Tag from Copied Text"
+        "label": "Supprimer le tag de raisonnement du texte copié"
       },
       "promptSearchIncludeServer": {
-        "label": "Include server prompts in prompt search"
+        "label": "Inclure les prompts du serveur dans la recherche de prompts"
+      },
+      "restartOnboarding": {
+        "label": "Redémarrer le parcours d’accueil depuis le début",
+        "button": "Redémarrer le parcours d’accueil",
+        "confirmTitle": "Redémarrer le parcours d’accueil\u00a0?",
+        "confirmMessage": "Cela réinitialisera votre état de parcours d’accueil et vous ramènera au flux de configuration.",
+        "toast": "Le parcours d’accueil a été réinitialisé",
+        "toastBody": "Nous vous ramènerons à l’étape de bienvenue pour que vous puissiez vérifier l’URL de votre serveur et votre clé API."
       }
     },
     "sidepanelRag": {
@@ -777,13 +785,10 @@
       "webSearchFollowUpPromptPlaceholder": "Votre prompt de suivi de recherche Web"
     }
   },
-  "chromeAiSettings": {
-    "title": "Paramètres Chrome AI"
-  },
   "mermaid": "Mermaid",
   "onboarding": {
-    "title": "Welcome — Let’s get you connected",
-    "description": "Configure your server and authentication. We’ll verify the connection and RAG health inline.",
+    "title": "Bienvenue — connectons votre extension",
+    "description": "Configurez votre serveur et l’authentification. Nous vérifierons en direct la connexion et l’état de la recherche Knowledge (RAG).",
     "learnMoreTldw": "Découvrir le fonctionnement du serveur tldw",
     "serverDocsUrl": "https://github.com/rmusser01/tldw_browser_assistant",
     "serverUrl": {
@@ -791,54 +796,95 @@
       "help": "Exemple : http://127.0.0.1:8000",
       "invalid": "Saisissez une URL complète telle que http://127.0.0.1:8000.",
       "invalidProtocol": "Utilisez des URL http ou https, par exemple http://127.0.0.1:8000.",
-      "label": "Server URL",
-      "emptyHint": "Enter your tldw server URL to enable Next.",
-      "ready": "We’ll enable Next once we can reach this address.",
-      "checking": "Checking reachability…",
-      "reachable": "Server responded successfully. You can continue.",
-      "unreachable": "We couldn’t reach this address yet. Double-check the URL or try again."
+      "label": "URL du serveur tldw",
+      "emptyHint": "Saisissez l’URL de votre serveur tldw pour activer « Suivant ».",
+      "ready": "Nous activerons « Suivant » dès que cette adresse sera joignable.",
+      "checking": "Vérification de l’accessibilité…",
+      "reachable": "Le serveur a répondu correctement. Vous pouvez continuer.",
+      "unreachable": "Nous ne parvenons pas encore à joindre cette adresse. Vérifiez l’URL ou réessayez."
     },
     "buttons": {
-      "next": "Next",
-      "back": "Back",
-      "continue": "Continue",
-      "recheck": "Recheck",
-      "finish": "Finish",
-      "finishAnyway": "Finish without connecting",
-      "skip": "Skip for now"
+      "next": "Suivant",
+      "back": "Retour",
+      "continue": "Continuer",
+      "recheck": "Revérifier",
+      "finish": "Terminer",
+      "finishAnyway": "Terminer sans se connecter",
+      "skip": "Ignorer pour l’instant"
     },
     "authMode": {
-      "label": "Authentication Mode",
-      "single": "Single User (API Key)",
-      "multi": "Multi User (Login)"
+      "label": "Mode d’authentification",
+      "single": "Utilisateur unique (clé API)",
+      "multi": "Multi-utilisateurs (connexion)"
     },
     "apiKey": {
-      "label": "API Key",
-      "placeholder": "Enter your API key (or use the default demo key THIS-IS-A-SECURE-KEY-123-REPLACE-ME for local single-user setups)"
+      "label": "Clé API",
+      "placeholder": "Saisissez votre clé API (ou utilisez la clé de démonstration THIS-IS-A-SECURE-KEY-123-REPLACE-ME pour une configuration locale à utilisateur unique)."
     },
     "username": {
-      "label": "Username",
-      "placeholder": "Username"
+      "label": "Nom d’utilisateur",
+      "placeholder": "Nom d’utilisateur"
     },
     "password": {
-      "label": "Password",
-      "placeholder": "Password"
+      "label": "Mot de passe",
+      "placeholder": "Mot de passe"
     },
     "connection": {
-      "label": "Connection:",
-      "unknown": "Unknown",
-      "connected": "Connected",
-      "failed": "Failed",
-      "continueAnyway": "You can continue and complete setup now. You’ll be able to verify the connection later from Settings."
+      "label": "Connexion :",
+      "unknown": "Inconnue",
+      "connected": "Connecté",
+      "failed": "Échec",
+      "continueAnyway": "Vous pouvez continuer et terminer la configuration maintenant. Vous pourrez vérifier la connexion plus tard depuis les paramètres."
     },
     "rag": {
-      "label": "RAG:",
-      "healthy": "Healthy",
-      "unhealthy": "Unhealthy",
-      "unknown": "Unknown"
+      "label": "Recherche Knowledge (RAG) :",
+      "healthy": "Opérationnel",
+      "unhealthy": "En difficulté",
+      "unknown": "Inconnu",
+      "help": "Vérifie si votre serveur peut rechercher dans vos notes, médias et autres sources de connaissances connectées."
     },
-    "connectionFailed": "Connection failed",
-    "footerHelp": "Once connected, you can revisit these settings anytime from the extension menu."
+    "connectionFailed": "Échec de la connexion",
+    "footerHelp": "Une fois la connexion établie, vous pouvez revenir à ces paramètres à tout moment depuis le menu de l’extension.",
+    "progressAria": "Progression de la configuration",
+    "stepLabel": {
+      "welcome": "Bienvenue",
+      "url": "Connecter votre serveur tldw",
+      "auth": "Choisissez votre mode de connexion",
+      "health": "Confirmer la connexion et Knowledge"
+    },
+    "path": {
+      "heading": "Comment souhaitez-vous commencer ?",
+      "hasServer": "J’exécute déjà tldw_server",
+      "noServer": "Je n’ai pas encore de serveur",
+      "demo": "Simplement explorer avec une démo locale",
+      "noServerTitle": "Pas encore de serveur ? Vous pouvez quand même explorer.",
+      "noServerBody": "tldw_server est une application distincte, auto-hébergée. Vous pouvez suivre le guide de configuration maintenant ou revenir plus tard et continuer en mode démo.",
+      "noServerOptionLocal": "Lancer en local avec Docker ou Python sur votre propre machine.",
+      "noServerOptionRemote": "Déployer tldw_server sur un VPS distant ou un hébergement managé.",
+      "noServerOptionManaged": "Utiliser un déploiement tldw_server commercial managé lorsqu’il est disponible.",
+      "openSetupGuide": "Ouvrir le guide de configuration",
+      "useDemoFromNoServer": "Utiliser le mode démo local",
+      "remindMeLater": "Me le rappeler plus tard",
+      "demoTitle": "Explorer l’extension en mode démo",
+      "demoBody": "Le mode démo vous permet d’essayer le chat, les notes et les médias avec des données d’exemple. Les fonctionnalités dépendantes du serveur, comme la recherche Knowledge, resteront limitées tant que vous n’aurez pas connecté votre propre tldw_server.",
+      "demoCta": "Utiliser le mode démo local"
+    },
+    "authModeHelp": "Le mode Single User (clé API) est recommandé pour les serveurs personnels ou les petites équipes. Le mode Multi User (connexion) est destiné aux déploiements partagés où les utilisateurs se connectent avec un nom d’utilisateur ou via SSO. Choisissez le mode qui correspond à la configuration de votre tldw_server.",
+    "apiKeyHelp": "Trouvez votre clé API dans tldw_server → Settings → API Keys. Générez-y une clé puis collez-la ici.",
+    "authStepAria": "Étape 2 sur 3 — configuration de l’authentification",
+    "confirmStepAria": "Étape 3 sur 3 — récapitulatif de la connexion et prochaines étapes",
+    "nextSteps": {
+      "title": "Tout est prêt",
+      "subtitle": "Vous pouvez maintenant ouvrir le panneau latéral, ingérer une page ou explorer les médias et les notes.",
+      "chatTitle": "Commencer à discuter",
+      "chatBody": "Ouvrez le panneau latéral et posez votre première question.",
+      "chatCta": "Ouvrir le panneau latéral",
+      "ingestTitle": "Ingestion de votre première page",
+      "ingestBody": "Utilisez Quick Ingest dans l’en-tête pour enregistrer l’onglet actuel sur votre serveur.",
+      "mediaTitle": "Explorer les médias et les notes",
+      "mediaBody": "Visitez Médias et Notes dans Options pour voir ce qui est stocké et consultable."
+    },
+    "headerShortcuts": "Afficher les raccourcis rapides dans l’en-tête"
   },
   "manageCharacters": {
     "title": "Gérer les personnages",

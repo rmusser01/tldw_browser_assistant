@@ -1,5 +1,5 @@
 import { cleanUrl } from "~/libs/clean-url"
-import { promptForRag } from "~/services/ollama" // Reuse prompts storage for now
+import { promptForRag } from "~/services/tldw-server" // Reuse prompts storage for now
 import { type ChatHistory, type Message } from "~/store/option"
 import { generateID } from "@/db/dexie/helpers"
 import { generateHistory } from "@/utils/generate-history"
@@ -12,7 +12,7 @@ import {
   removeReasoning
 } from "@/libs/reasoning"
 import { getModelNicknameByID } from "@/db/dexie/nickname"
-import { formatDocs } from "@/chain/chat-with-x"
+import { formatDocs } from "@/utils/format-docs"
 import { getNoOfRetrievedDocs } from "@/services/app"
 import { tldwClient } from "@/services/tldw/TldwApiClient"
 import type { ActorSettings } from "@/types/actor"
@@ -141,7 +141,17 @@ export const ragMode = async (
         model: selectedModel!,
         baseUrl: cleanUrl(url)
       })
-      const response = await questionOllama.invoke(promptForQuestion)
+      const questionMessage = await humanMessageFormatter({
+        content: [
+          {
+            text: promptForQuestion,
+            type: "text"
+          }
+        ],
+        model: selectedModel,
+        useOCR
+      })
+      const response = await questionOllama.invoke([questionMessage])
       query = response.content.toString()
       query = removeReasoning(query)
     }

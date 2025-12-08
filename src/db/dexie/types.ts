@@ -94,74 +94,6 @@ export type UserSettings = {
   user_id: string;
 };
 
-export type Source = {
-  source_id: string;
-  type: string;
-  filename?: string;
-  content: string;
-};
-
-export type Knowledge = {
-  id: string;
-  db_type: string;
-  title: string;
-  status: string;
-  embedding_model: string;
-  source: Source[];
-  knownledge: any;
-  createdAt: number;
-  systemPrompt?: string;
-  followupPrompt?: string;
-};
-
-
-export interface PageAssistVector {
-  file_id: string;
-  content: string;
-  embedding: number[];
-  metadata: Record<string, any>;
-}
-
-export type VectorData = {
-  id: string;
-  vectors: PageAssistVector[];
-};
-
-
-// Types for Document
-export type DocumentSource = {
-  source_id: string;
-  type: string;
-  filename?: string;
-  content: string;
-};
-
-export type Document = {
-  id: string;
-  db_type: string;
-  title: string;
-  status: string;
-  embedding_model: string;
-  source: DocumentSource[];
-  document: any;
-  createdAt: number;
-  systemPrompt?: string;
-  followupPrompt?: string;
-  compressedContent?: string;
-};
-
-export type OpenAIModelConfig = {
-  id: string
-  name: string
-  baseUrl: string
-  apiKey?: string
-  createdAt: number
-  provider?: string
-  db_type: string
-  fix_cors?: boolean
-  headers?: { key: string; value: string }[]
-}
-
 export type Model = {
   id: string
   model_id: string
@@ -185,7 +117,6 @@ export type ModelNickname = {
 export type MessageHistory = Message[];
 export type ChatHistory = HistoryInfo[];
 export type Prompts = Prompt[];
-export type OpenAIModelConfigs = OpenAIModelConfig[]
 export type Models = Model[]
 export type ModelNicknames = ModelNickname[]
 

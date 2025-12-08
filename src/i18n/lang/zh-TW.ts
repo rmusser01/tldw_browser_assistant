@@ -4,8 +4,7 @@ import common from "@/assets/locale/zh-TW/common.json";
 import sidepanel from "@/assets/locale/zh-TW/sidepanel.json";
 import settings from "@/assets/locale/zh-TW/settings.json";
 import knowledge from "@/assets/locale/zh-TW/knowledge.json";
-import chrome from "@/assets/locale/zh-TW/chrome.json";
-import openai from "@/assets/locale/zh-TW/openai.json";
+import review from "@/assets/locale/zh-TW/review.json";
 
 
 export const zhTW = {
@@ -15,6 +14,5 @@ export const zhTW = {
     sidepanel,
     settings,
     knowledge,
-    chrome,
-    openai
+    review,
 }

@@ -95,6 +95,14 @@
       },
       "promptSearchIncludeServer": {
         "label": "Include server prompts in prompt search"
+      },
+      "restartOnboarding": {
+        "label": "온보딩을 처음부터 다시 시작",
+        "button": "온보딩 다시 시작",
+        "confirmTitle": "온보딩을 다시 시작할까요?",
+        "confirmMessage": "온보딩 상태가 초기화되고 설정 흐름의 처음으로 돌아갑니다.",
+        "toast": "온보딩이 초기화되었습니다",
+        "toastBody": "서버 URL과 API 키를 다시 확인할 수 있도록 환영 단계로 돌아갑니다."
       }
     },
     "sidepanelRag": {
@@ -334,7 +342,7 @@
       "modifiedAt": "수정 일시",
       "size": "크기",
       "actions": "동작",
-      "nickname": "Nickname"
+      "nickname": "별칭"
     },
     "expandedColumns": {
       "parentModel": "상위 모델",
@@ -343,10 +351,10 @@
       "parameterSize": "파라미터 크기",
       "quantizationLevel": "양자화 수준"
     },
-    "tooltip": {
+      "tooltip": {
       "delete": "모델 삭제",
       "repull": "모델 다시 가져오기",
-      "editNickname": "Edit Nickname"
+      "editNickname": "별칭 편집"
     },
     "confirm": {
       "delete": "이 모델을 정말 삭제하시겠습니까?",
@@ -780,9 +788,6 @@
       "webSearchFollowUpPromptPlaceholder": "웹 검색 후속 프롬프트"
     }
   },
-  "chromeAiSettings": {
-    "title": "Chrome AI 설정"
-  },
   "onboarding": {
     "title": "Welcome — Let’s get you connected",
     "description": "Configure your server and authentication. We’ll verify the connection and RAG health inline.",
@@ -840,7 +845,47 @@
       "unknown": "Unknown"
     },
     "connectionFailed": "Connection failed",
-    "footerHelp": "Once connected, you can revisit these settings anytime from the extension menu."
+    "footerHelp": "연결이 완료되면 확장 프로그램 메뉴에서 언제든지 이 설정으로 다시 돌아올 수 있습니다.",
+    "progressAria": "온보딩 진행 상황",
+    "stepLabel": {
+      "welcome": "환영합니다",
+      "url": "tldw 서버에 연결",
+      "auth": "로그인 방법 선택",
+      "health": "연결 및 Knowledge 확인"
+    },
+    "path": {
+      "heading": "어떻게 시작하시겠어요?",
+      "hasServer": "이미 tldw_server를 운영하고 있습니다",
+      "noServer": "아직 서버가 없습니다",
+      "demo": "로컬 데모로만 살펴보기",
+      "noServerTitle": "아직 서버가 없나요? 그래도 둘러볼 수 있습니다.",
+      "noServerBody": "tldw_server는 별도로 실행하는 자체 호스팅 앱입니다. 지금 설정 가이드를 따라 진행하거나, 나중에 다시 돌아와 데모 모드로 계속할 수 있습니다.",
+      "noServerOptionLocal": "내 컴퓨터에서 Docker 또는 Python으로 로컬 실행합니다.",
+      "noServerOptionRemote": "tldw_server를 원격 VPS나 관리형 호스팅에 배포합니다.",
+      "noServerOptionManaged": "가능한 경우 관리형 상용 tldw_server 배포를 사용합니다.",
+      "openSetupGuide": "설정 가이드 열기",
+      "useDemoFromNoServer": "로컬 데모 모드 사용",
+      "remindMeLater": "나중에 다시 알려주기",
+      "demoTitle": "데모 모드에서 확장 프로그램 살펴보기",
+      "demoBody": "데모 모드에서는 샘플 데이터를 사용해 채팅, 노트 및 미디어를 시험해 볼 수 있습니다. Knowledge 검색처럼 서버에 의존하는 기능은, 직접 운영하는 tldw_server를 연결할 때까지 제한된 상태로 유지됩니다.",
+      "demoCta": "로컬 데모 모드 사용"
+    },
+    "authModeHelp": "Single User(API 키)는 개인 또는 소규모 팀 서버에 권장됩니다. Multi User(로그인)는 사람들이 사용자 이름이나 SSO로 로그인하는 공유 배포 환경에 적합합니다. tldw_server 설정 방식에 맞는 모드를 선택하세요.",
+    "apiKeyHelp": "tldw_server → Settings → API Keys에서 API 키를 찾을 수 있습니다. 그곳에서 키를 생성한 뒤 여기에 붙여넣으세요.",
+    "authStepAria": "Step 2 of 3 — authentication configuration",
+    "confirmStepAria": "Step 3 of 3 — connection summary and next steps",
+    "nextSteps": {
+      "title": "You’re ready to go",
+      "subtitle": "From here you can open the sidepanel, ingest a page, or explore media and notes.",
+      "chatTitle": "Start chatting",
+      "chatBody": "Open the sidepanel and ask your first question.",
+      "chatCta": "Open sidepanel",
+      "ingestTitle": "Ingest your first page",
+      "ingestBody": "Use Quick ingest from the header to save the current tab to your server.",
+      "mediaTitle": "Explore media & notes",
+      "mediaBody": "Visit Media and Notes in Options to see what’s stored and searchable."
+    },
+    "headerShortcuts": "헤더에 빠른 바로가기를 표시하기"
   },
   "manageCharacters": {
     "title": "Manage Characters",

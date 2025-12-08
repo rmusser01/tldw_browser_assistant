@@ -1,8 +1,8 @@
 import { pageAssistModel } from "@/models"
 import { Storage } from "@plasmohq/storage"
-import { getOllamaURL } from "./ollama"
+import { getOllamaURL } from "./tldw-server"
 import { cleanUrl } from "@/libs/clean-url"
-import { HumanMessage } from "@langchain/core/messages"
+import { HumanMessage } from "@/types/messages"
 import { removeReasoning } from "@/libs/reasoning"
 const storage = new Storage()
 

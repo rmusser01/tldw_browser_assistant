@@ -1,5 +1,5 @@
 import { cleanUrl } from "~/libs/clean-url"
-import { promptForRag } from "~/services/ollama"
+import { promptForRag } from "~/services/tldw-server"
 import { type ChatHistory, type Message } from "~/store/option"
 import { generateID } from "@/db/dexie/helpers"
 import { generateHistory } from "@/utils/generate-history"
@@ -8,8 +8,7 @@ import { humanMessageFormatter } from "@/utils/human-message"
 import {
   isReasoningEnded,
   isReasoningStarted,
-  mergeReasoningContent,
-  removeReasoning
+  mergeReasoningContent
 } from "@/libs/reasoning"
 import { getModelNicknameByID } from "@/db/dexie/nickname"
 import { ChatDocuments } from "@/models/ChatTypes"
@@ -106,9 +105,7 @@ export const tabChatMode = async (
 
   let timetaken = 0
   try {
-    let query = message
-    const { ragPrompt: systemPrompt, ragQuestionPrompt: questionPrompt } =
-      await promptForRag()
+    const { ragPrompt: systemPrompt } = await promptForRag()
     let context = await getTabContents(documents)
 
     let humanMessage = await humanMessageFormatter({
@@ -138,23 +135,6 @@ export const tabChatMode = async (
         model: selectedModel,
         useOCR: useOCR
       })
-    }
-    // console.log(context)
-    if (newMessage.length > 2) {
-      const lastTenMessages = newMessage.slice(-10)
-      lastTenMessages.pop()
-      const chat_history = lastTenMessages
-        .map((message) => {
-          return `${message.isBot ? "Assistant: " : "Human: "}${message.message}`
-        })
-        .join("\n")
-      const promptForQuestion = questionPrompt
-        .replaceAll("{chat_history}", chat_history)
-        .replaceAll("{question}", message)
-      const questionOllama = await pageAssistModel({ model: selectedModel!, baseUrl: "" })
-      const response = await questionOllama.invoke(promptForQuestion)
-      query = response.content.toString()
-      query = removeReasoning(query)
     }
     let source: any[] = []
 

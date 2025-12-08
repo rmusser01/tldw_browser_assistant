@@ -1,5 +1,5 @@
 import { useDarkMode } from "~/hooks/useDarkmode"
-import { Select, Switch } from "antd"
+import { Modal, Select, Switch, notification } from "antd"
 import { MoonIcon, SunIcon } from "lucide-react"
 import { useNavigate } from "react-router-dom"
 import { SearchModeSettings } from "./search-mode"
@@ -12,6 +12,7 @@ import { SSTSettings } from "./sst-settings"
 import { BetaTag } from "@/components/Common/Beta"
 import { getDefaultOcrLanguage, ocrLanguages } from "@/data/ocr-language"
 import { useServerOnline } from "@/hooks/useServerOnline"
+import { useConnectionActions } from "@/hooks/useConnectionState"
 import FeatureEmptyState from "@/components/Common/FeatureEmptyState"
 
 export const GeneralSettings = () => {
@@ -44,7 +45,7 @@ export const GeneralSettings = () => {
   // Persisted preference: auto-finish onboarding when connection & RAG are healthy
   const [onboardingAutoFinish, setOnboardingAutoFinish] = useStorage(
     "onboardingAutoFinish",
-    true
+    false
   )
 
   const [autoCopyResponseToClipboard, setAutoCopyResponseToClipboard] =
@@ -120,6 +121,7 @@ export const GeneralSettings = () => {
   const { changeLocale, locale, supportLanguage } = useI18n()
   const isOnline = useServerOnline()
   const navigate = useNavigate()
+  const { beginOnboarding } = useConnectionActions()
 
   return (
     <dl className="flex flex-col space-y-6 text-sm">
@@ -428,6 +430,51 @@ export const GeneralSettings = () => {
           checked={onboardingAutoFinish}
           onChange={(checked) => setOnboardingAutoFinish(checked)}
         />
+      </div>
+
+      <div className="flex flex-row justify-between">
+        <div className="inline-flex items-center gap-2">
+          <span className="text-gray-700   dark:text-neutral-50">
+            {t(
+              "generalSettings.settings.restartOnboarding.label",
+              "Restart onboarding from the beginning"
+            )}
+          </span>
+        </div>
+
+        <button
+          type="button"
+          className="text-xs text-blue-600 hover:text-blue-500 dark:text-blue-400"
+          onClick={() => {
+            Modal.confirm({
+              title: t(
+                "generalSettings.settings.restartOnboarding.confirmTitle",
+                "Restart onboarding?"
+              ),
+              content: t(
+                "generalSettings.settings.restartOnboarding.confirmMessage",
+                "This will reset your onboarding state and take you back to the setup flow."
+              ),
+              onOk: () => {
+                beginOnboarding()
+                notification.success({
+                  message: t(
+                    "generalSettings.settings.restartOnboarding.toast",
+                    "Onboarding has been reset"
+                  )
+                })
+                setTimeout(() => {
+                  navigate("/")
+                }, 800)
+              }
+            })
+          }}
+        >
+          {t(
+            "generalSettings.settings.restartOnboarding.button",
+            "Restart onboarding"
+          )}
+        </button>
       </div>
 
       <div className="flex flex-row justify-between">

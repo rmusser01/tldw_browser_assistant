@@ -1,9 +1,9 @@
-import { test, expect } from '@playwright/test'
-import path from 'path'
-import { launchWithExtension } from './utils/extension'
-import { grantHostPermission } from './utils/permissions'
-import { MockTldwServer } from './utils/mock-server'
-const DEFAULT_TLDW_API_KEY = 'THIS-IS-A-SECURE-KEY-123-FAKE-KEY'
+import { test, expect } from "@playwright/test"
+import path from "path"
+import { launchWithExtension } from "./utils/extension"
+import { grantHostPermission } from "./utils/permissions"
+import { waitForConnectionStore, forceConnected } from "./utils/connection"
+import { requireRealServerConfig } from "./utils/real-server"
 
 test.describe('Options first-run and connection panel', () => {
   test('shows connection card and inline Set up server link navigates to tldw settings', async () => {
@@ -32,17 +32,11 @@ test.describe('Options first-run and connection panel', () => {
     }, DEFAULT_TLDW_API_KEY)
     await page.reload()
 
-    // Expect deterministic error card copy and shared server overview block.
+    // Expect deterministic error card copy and CTAs.
     await expect(page.getByText(/Can.?t reach your tldw server/i)).toBeVisible()
     await expect(
-      page.getByText(/How tldw server fits into this extension/i)
-    ).toBeVisible()
-    await expect(
-      page.getByRole('button', { name: /View server setup guide/i })
-    ).toBeVisible()
-    await expect(
       page.getByRole('button', {
-        name: /Troubleshoot connection|Retry connection/i
+        name: /Health & diagnostics|Open diagnostics|View diagnostics/i
       })
     ).toBeVisible()
     await expect(page.getByRole('button', { name: /Change server/i })).toBeVisible()
@@ -58,18 +52,16 @@ test.describe('Options first-run and connection panel', () => {
   })
 
   test('Start chatting focuses the composer when connected', async () => {
-    const server = new MockTldwServer()
-    server.setApiKey(DEFAULT_TLDW_API_KEY)
-    const serverPort = await server.start(0)
-    const serverBaseUrl = `http://127.0.0.1:${serverPort}`
-    const hostPermissionOrigin = `${serverBaseUrl}/*`
+    const { serverUrl, apiKey } = requireRealServerConfig(test)
+    const serverBaseUrl = serverUrl
+    const hostPermissionOrigin = `${new URL(serverBaseUrl).origin}/*`
 
     const extPath = path.resolve('.output/chrome-mv3')
     const seed = {
       tldwConfig: {
         serverUrl: serverBaseUrl,
         authMode: 'single-user',
-        apiKey: DEFAULT_TLDW_API_KEY
+        apiKey
       }
     }
     const { context, page: initialPage, extensionId } = await launchWithExtension(extPath, {
@@ -88,7 +80,7 @@ test.describe('Options first-run and connection panel', () => {
     await page.evaluate((cfg) => new Promise<void>((resolve) => {
       // @ts-ignore
       chrome.storage.local.set({ tldwConfig: cfg }, () => resolve())
-    }), { serverUrl: serverBaseUrl, authMode: 'single-user', apiKey: DEFAULT_TLDW_API_KEY })
+    }), { serverUrl: serverBaseUrl, authMode: 'single-user', apiKey })
     await page.reload()
     page = await context.newPage()
     page.on('console', (msg) => console.log('console', msg.type(), msg.text()))
@@ -96,38 +88,14 @@ test.describe('Options first-run and connection panel', () => {
     await page.goto(optionsUrl, { waitUntil: 'domcontentloaded' })
     await page.waitForSelector('#root', { state: 'attached', timeout: 5000 })
     // Ensure the connection card renders (error or connected)
-    const cardHeadline = page.locator('body').getByText(/Can.?t reach your tldw server|Connected to/i)
+    const cardHeadline = page
+      .locator('body')
+      .getByText(/Can.?t reach your tldw server|Connected to/i)
     await expect(cardHeadline).toBeVisible()
 
-    // Force connected state via test hook to avoid network flakiness
-    await page.evaluate((url) => {
-      // @ts-ignore
-      const store = window.__tldw_useConnectionStore
-      if (store?.setState) {
-        const prev = store.getState().state
-        const now = Date.now()
-        store.setState({
-          state: {
-            ...prev,
-            phase: 'connected',
-            serverUrl: url,
-            lastCheckedAt: now,
-            lastError: null,
-            lastStatusCode: null,
-            isConnected: true,
-            isChecking: false,
-            knowledgeStatus: 'ready',
-            knowledgeLastCheckedAt: now,
-            knowledgeError: null,
-            mode: 'normal',
-            configStep: 'health',
-            errorKind: 'none',
-            hasCompletedFirstRun: true
-          },
-          checkOnce: async () => {}
-        })
-      }
-    }, serverBaseUrl)
+    // Force connected state via shared helper to avoid network flakiness
+    await waitForConnectionStore(page, 'options-first-run-connected')
+    await forceConnected(page, { serverUrl: serverBaseUrl }, 'options-first-run-connected')
 
     // Connected card shows Start chatting; clicking focuses the composer
     await expect(page.getByRole('button', { name: /Start chatting/i })).toBeVisible()
@@ -135,6 +103,5 @@ test.describe('Options first-run and connection panel', () => {
     await expect(page.locator('#textarea-message')).toBeFocused()
 
     await context.close()
-    await server.stop()
   })
 })

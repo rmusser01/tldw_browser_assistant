@@ -1,5 +1,5 @@
 import { cleanUrl } from "~/libs/clean-url"
-import { geWebSearchFollowUpPrompt, promptForRag } from "~/services/ollama"
+import { promptForRag } from "~/services/tldw-server"
 import { type ChatHistory, type Message } from "~/store/option"
 import { addFileToSession, generateID, getSessionFiles } from "@/db/dexie/helpers"
 import { generateHistory } from "@/utils/generate-history"
@@ -12,16 +12,38 @@ import {
   removeReasoning
 } from "@/libs/reasoning"
 import { getModelNicknameByID } from "@/db/dexie/nickname"
-import { formatDocs } from "@/chain/chat-with-x"
+import { formatDocs } from "@/utils/format-docs"
 import { getAllDefaultModelSettings } from "@/services/model-settings"
 import { getNoOfRetrievedDocs } from "@/services/app"
 import { UploadedFile } from "@/db/dexie/types"
-import { getSystemPromptForWeb, isQueryHaveWebsite } from "@/web/web"
 // Server-backed RAG replaces local vectorstore
 import { getMaxContextSize } from "@/services/kb"
 import { tldwClient } from "@/services/tldw/TldwApiClient"
 import type { ActorSettings } from "@/types/actor"
 import { maybeInjectActorMessage } from "@/utils/actor"
+import type { ChatModelSettings } from "@/store/model"
+import { extractTokenFromChunk } from "@/utils/extract-token-from-chunk"
+
+interface RagDocumentMetadata {
+  filename?: string
+  title?: string
+  type?: string
+  url?: string
+  [key: string]: unknown
+}
+
+interface RagDocument {
+  content?: string
+  text?: string
+  chunk?: string
+  metadata?: RagDocumentMetadata
+}
+
+interface RagResponse {
+  results?: RagDocument[]
+  documents?: RagDocument[]
+  docs?: RagDocument[]
+}
 
 export const documentChatMode = async (
   message: string,
@@ -46,12 +68,11 @@ export const documentChatMode = async (
     setHistoryId,
     fileRetrievalEnabled,
     setActionInfo,
-    webSearch,
     actorSettings
   }: {
     selectedModel: string
     useOCR: boolean
-    currentChatModelSettings: any
+    currentChatModelSettings: ChatModelSettings | null
     setMessages: (
       messages: Message[] | ((prev: Message[]) => Message[])
     ) => void
@@ -65,7 +86,6 @@ export const documentChatMode = async (
     setHistoryId: (id: string) => void
     fileRetrievalEnabled: boolean
     setActionInfo: (actionInfo: string | null) => void
-    webSearch: boolean
     actorSettings?: ActorSettings
   }
 ) => {
@@ -83,7 +103,7 @@ export const documentChatMode = async (
   )
 
   const allFiles = [...sessionFiles, ...newFiles]
-  const ollama = await pageAssistModel({ model: selectedModel!, baseUrl: "" })
+  const ollama = await pageAssistModel({ model: selectedModel, baseUrl: "" })
 
   let newMessage: Message[] = []
   let generateMessageId = generateID()
@@ -144,82 +164,6 @@ export const documentChatMode = async (
     let source: any[] = []
     const docSize = await getNoOfRetrievedDocs()
 
-    if (webSearch) {
-      //  setIsSearchingInternet(true)
-      setActionInfo("webSearch")
-
-      let query = message
-
-      // if (newMessage.length > 2) {
-      let questionPrompt = await geWebSearchFollowUpPrompt()
-      const lastTenMessages = newMessage.slice(-10)
-      lastTenMessages.pop()
-      const chat_history = lastTenMessages
-        .map((message) => {
-          return `${message.isBot ? "Assistant: " : "Human: "}${message.message}`
-        })
-        .join("\n")
-      const promptForQuestion = questionPrompt
-        .replaceAll("{chat_history}", chat_history)
-        .replaceAll("{question}", message)
-      const questionModel = await pageAssistModel({ model: selectedModel!, baseUrl: "" })
-
-      let questionMessage = await humanMessageFormatter({
-        content: [
-          {
-            text: promptForQuestion,
-            type: "text"
-          }
-        ],
-        model: selectedModel,
-        useOCR: useOCR
-      })
-
-      if (image.length > 0) {
-        questionMessage = await humanMessageFormatter({
-          content: [
-            {
-              text: promptForQuestion,
-              type: "text"
-            },
-            {
-              image_url: image,
-              type: "image_url"
-            }
-          ],
-          model: selectedModel,
-          useOCR: useOCR
-        })
-      }
-      try {
-        const isWebQuery = await isQueryHaveWebsite(query)
-        if (!isWebQuery) {
-          const response = await questionModel.invoke([questionMessage])
-          query = response?.content?.toString() || message
-          query = removeReasoning(query)
-        }
-      } catch (error) {
-        console.error("Error in questionModel.invoke:", error)
-      }
-
-      const { prompt, source: webSource } = await getSystemPromptForWeb(
-        query,
-        true
-      )
-
-      context += prompt + "\n"
-      source = [
-        ...source,
-        ...webSource.map((source) => {
-          return {
-            ...source,
-            type: "url"
-          }
-        })
-      ]
-
-      setActionInfo(null)
-    }
     if (newMessage.length > 2) {
       const lastTenMessages = newMessage.slice(-10)
       lastTenMessages.pop()
@@ -231,53 +175,69 @@ export const documentChatMode = async (
       const promptForQuestion = questionPrompt
         .replaceAll("{chat_history}", chat_history)
         .replaceAll("{question}", message)
-      const questionOllama = await pageAssistModel({
-        model: selectedModel!,
-        baseUrl: ""
+      const questionMessage = await humanMessageFormatter({
+        content: [
+          {
+            text: promptForQuestion,
+            type: "text"
+          }
+        ],
+        model: selectedModel,
+        useOCR
       })
-      const response = await questionOllama.invoke(promptForQuestion)
+      const response = await ollama.invoke([questionMessage])
       query = response.content.toString()
       query = removeReasoning(query)
     }
     // Try server-backed RAG over media_db first
     try {
-      const keyword_filter = uploadedFiles.map(f => f.filename).slice(0, 10)
-      const ragPayload: any = {
+      const keyword_filter = uploadedFiles.map((f) => f.filename).slice(0, 10)
+      if (uploadedFiles.length > 10) {
+        setActionInfo("Only the first 10 uploaded files are used for filtering")
+      }
+      const ragPayload = {
         query,
         sources: ["media_db"],
-        search_mode: 'hybrid',
+        search_mode: "hybrid",
         hybrid_alpha: 0.7,
         top_k: docSize,
         min_score: 0,
         enable_reranking: true,
-        reranking_strategy: 'flashrank',
+        reranking_strategy: "flashrank",
         rerank_top_k: Math.max(docSize * 2, 10),
         keyword_filter,
         enable_cache: true,
         adaptive_cache: true,
         enable_chunk_citations: true,
         enable_generation: false
-      }
-      const ragRes = await tldwClient.ragSearch(query, ragPayload)
-      const docs = ragRes?.results || ragRes?.documents || ragRes?.docs || []
+      } as const
+      const ragRes = (await tldwClient.ragSearch(
+        query,
+        ragPayload
+      )) as RagResponse
+      const docs: RagDocument[] =
+        ragRes?.results || ragRes?.documents || ragRes?.docs || []
       if (docs.length > 0) {
         context += formatDocs(
-          docs.map((d: any) => ({ pageContent: d.content || d.text || d.chunk || '', metadata: d.metadata || {} }))
+          docs.map((d) => ({
+            pageContent: d.content || d.text || d.chunk || "",
+            metadata: d.metadata || {}
+          }))
         )
         source = [
           ...source,
-          ...docs.map((d: any) => ({
-            name: d.metadata?.filename || d.metadata?.title || 'media',
-            type: d.metadata?.type || 'media',
-            mode: 'rag',
-            url: d.metadata?.url || '',
-            pageContent: d.content || d.text || d.chunk || '',
+          ...docs.map((d) => ({
+            name: d.metadata?.filename || d.metadata?.title || "media",
+            type: d.metadata?.type || "media",
+            mode: "rag",
+            url: d.metadata?.url || "",
+            pageContent: d.content || d.text || d.chunk || "",
             metadata: d.metadata || {}
           }))
         ]
       }
     } catch (e) {
-      console.error('media_db RAG failed; will fallback to inline context', e)
+      console.error("media_db RAG failed; will fallback to inline context", e)
     }
 
     // Fallback inline if no RAG context
@@ -355,11 +315,11 @@ export const documentChatMode = async (
     let apiReasoning = false
 
     for await (const chunk of chunks) {
-      const token = typeof chunk === 'string' ? chunk : (chunk?.content ?? (chunk?.choices?.[0]?.delta?.content ?? ''))
-      if (chunk?.additional_kwargs?.reasoning_content) {
+      const token = extractTokenFromChunk(chunk)
+      if ((chunk as any)?.additional_kwargs?.reasoning_content) {
         const reasoningContent = mergeReasoningContent(
           fullText,
-          chunk?.additional_kwargs?.reasoning_content || ""
+          (chunk as any)?.additional_kwargs?.reasoning_content || ""
         )
         contentToSave = reasoningContent
         fullText = reasoningContent
@@ -464,7 +424,7 @@ export const documentChatMode = async (
     setIsProcessing(false)
     setStreaming(false)
   } catch (e) {
-    console.log(e)
+    console.error(e)
     const errorSave = await saveMessageOnError({
       e,
       botMessage: fullText,

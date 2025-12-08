@@ -92,6 +92,14 @@
       },
       "promptSearchIncludeServer": {
         "label": "Include server prompts in prompt search"
+      },
+      "restartOnboarding": {
+        "label": "Starta om onboarding från början",
+        "button": "Starta om onboarding",
+        "confirmTitle": "Starta om onboarding?",
+        "confirmMessage": "Detta återställer din onboarding‑status och tar dig tillbaka till installationsflödet.",
+        "toast": "Onboarding har återställts",
+        "toastBody": "Vi tar dig tillbaka till välkomststeget så att du kan granska server‑URL och API‑nyckel."
       }
     },
     "sidepanelRag": {
@@ -328,10 +336,10 @@
     "columns": {
       "name": "Namn",
       "digest": "Sammanfattning",
-      "modifiedAt": "Modifierad Den",
+      "modifiedAt": "Modifierad den",
       "size": "Storlek",
       "actions": "Åtgärder",
-      "nickname": "Nickname"
+      "nickname": "Smeknamn"
     },
     "expandedColumns": {
       "parentModel": "Föräldramodell",
@@ -340,10 +348,10 @@
       "parameterSize": "Parameterstorlek",
       "quantizationLevel": "Kvantifieringsnivå"
     },
-    "tooltip": {
+      "tooltip": {
       "delete": "Radera Modell",
       "repull": "Hämta Modell Igen",
-      "editNickname": "Edit Nickname"
+      "editNickname": "Redigera smeknamn"
     },
     "confirm": {
       "delete": "Är du säker på att du vill radera denna modell?",
@@ -777,9 +785,6 @@
       "webSearchFollowUpPromptPlaceholder": "Din uppföljningsinstruktion för webbsök"
     }
   },
-  "chromeAiSettings": {
-    "title": "Chrome AI-inställningar"
-  },
   "onboarding": {
     "title": "Welcome — Let’s get you connected",
     "description": "Configure your server and authentication. We’ll verify the connection and RAG health inline.",
@@ -837,7 +842,47 @@
       "unknown": "Unknown"
     },
     "connectionFailed": "Connection failed",
-    "footerHelp": "Once connected, you can revisit these settings anytime from the extension menu."
+    "footerHelp": "När du är ansluten kan du när som helst gå tillbaka till dessa inställningar via tilläggsmenyn.",
+    "progressAria": "Förloppsindikator för onboarding",
+    "stepLabel": {
+      "welcome": "Välkommen",
+      "url": "Anslut till din tldw-server",
+      "auth": "Välj hur du loggar in",
+      "health": "Bekräfta anslutning och Knowledge"
+    },
+    "path": {
+      "heading": "Hur vill du komma igång?",
+      "hasServer": "Jag kör redan tldw_server",
+      "noServer": "Jag har ingen server ännu",
+      "demo": "Utforska bara med en lokal demo",
+      "noServerTitle": "Ingen server än? Du kan ändå utforska.",
+      "noServerBody": "tldw_server är en separat, egenhostad app. Du kan följa installationsguiden nu eller komma tillbaka senare och fortsätta i demoläge.",
+      "noServerOptionLocal": "Kör lokalt med Docker eller Python på din egen dator.",
+      "noServerOptionRemote": "Distribuera tldw_server till en fjärr-VPS eller ett hanterat webbhotell.",
+      "noServerOptionManaged": "Använd ett hanterat kommersiellt tldw_server-erbjudande när det finns tillgängligt.",
+      "openSetupGuide": "Öppna installationsguide",
+      "useDemoFromNoServer": "Använd lokalt demoläge",
+      "remindMeLater": "Påminn mig senare",
+      "demoTitle": "Utforska tillägget i demoläge",
+      "demoBody": "Demoläget låter dig testa chatt, anteckningar och media med exempeldata. Serverberoende funktioner, som Knowledge-sökning, förblir begränsade tills du ansluter din egen tldw_server.",
+      "demoCta": "Använd lokalt demoläge"
+    },
+    "authModeHelp": "Single User (API-nyckel) rekommenderas för personliga servrar eller små team. Multi User (Login) är för delade installationer där användare loggar in med användarnamn eller SSO. Välj det läge som stämmer med hur din tldw_server är konfigurerad.",
+    "apiKeyHelp": "Hitta din API-nyckel i tldw_server → Settings → API Keys. Skapa en nyckel där och klistra in den här.",
+    "authStepAria": "Steg 2 av 3 — konfiguration av autentisering",
+    "confirmStepAria": "Steg 3 av 3 — sammanfattning av anslutning och nästa steg",
+    "nextSteps": {
+      "title": "Du är redo att börja",
+      "subtitle": "Härifrån kan du öppna sidopanelen, ingestera en sida eller utforska media och anteckningar.",
+      "chatTitle": "Börja chatta",
+      "chatBody": "Öppna sidopanelen och ställ din första fråga.",
+      "chatCta": "Öppna sidopanel",
+      "ingestTitle": "Ingestera din första sida",
+      "ingestBody": "Använd Snabbingest i sidhuvudet för att spara den aktuella fliken till din server.",
+      "mediaTitle": "Utforska media och anteckningar",
+      "mediaBody": "Gå till Media och Anteckningar i Alternativ för att se vad som är sparat och sökbart."
+    },
+    "headerShortcuts": "Visa snabba genvägar i sidhuvudet"
   },
   "manageCharacters": {
     "title": "Manage Characters",

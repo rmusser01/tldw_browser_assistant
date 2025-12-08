@@ -4,16 +4,14 @@ import common from "@/assets/locale/no/common.json";
 import sidepanel from "@/assets/locale/no/sidepanel.json";
 import settings from "@/assets/locale/no/settings.json";
 import knowledge from "@/assets/locale/no/knowledge.json";
-import chrome from "@/assets/locale/no/chrome.json";
-import openai from "@/assets/locale/no/openai.json";
+import review from "@/assets/locale/no/review.json";
 
 export const no = {
-    option,
-    playground,
-    common,
-    sidepanel,
-    settings,
-    knowledge,
-    chrome,
-    openai
+  option,
+  playground,
+  common,
+  sidepanel,
+  settings,
+  knowledge,
+  review
 }

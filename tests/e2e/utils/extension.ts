@@ -14,12 +14,17 @@ export interface LaunchWithExtensionResult {
   context: BrowserContext
   page: Page
   extensionId: string
+  optionsUrl: string
+  sidepanelUrl: string
   openSidepanel: () => Promise<Page>
 }
 
-export async function launchWithExtension(extensionPath: string, {
-  seedConfig
-}: { seedConfig?: Record<string, any> } = {}): Promise<LaunchWithExtensionResult> {
+export async function launchWithExtension(
+  extensionPath: string,
+  {
+    seedConfig
+  }: { seedConfig?: Record<string, any> } = {}
+): Promise<LaunchWithExtensionResult> {
   // Pick the first existing extension build so tests work whether dev output or prod build is present.
   const candidates = [
     extensionPath,
@@ -72,6 +77,17 @@ export async function launchWithExtension(extensionPath: string, {
   const optionsUrl = `chrome-extension://${extensionId}/options.html`
   const sidepanelUrl = `chrome-extension://${extensionId}/sidepanel.html`
 
+  // Ensure each test run starts from a clean extension storage state so
+  // first-run onboarding and connection flows behave deterministically.
+  await context.addInitScript(() => {
+    try {
+      // @ts-ignore
+      chrome?.storage?.local?.clear?.()
+    } catch {
+      // ignore if not available
+    }
+  })
+
   if (seedConfig) {
     // Pre-seed storage before any pages load so the extension picks it up immediately.
     await context.addInitScript((cfg) => {
@@ -95,5 +111,5 @@ export async function launchWithExtension(extensionPath: string, {
     return p
   }
 
-  return { context, page, extensionId, openSidepanel }
+  return { context, page, extensionId, optionsUrl, sidepanelUrl, openSidepanel }
 }

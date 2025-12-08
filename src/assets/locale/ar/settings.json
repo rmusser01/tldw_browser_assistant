@@ -92,6 +92,14 @@
       },
       "promptSearchIncludeServer": {
         "label": "Include server prompts in prompt search"
+      },
+      "restartOnboarding": {
+        "label": "إعادة بدء عملية الإعداد من البداية",
+        "button": "إعادة بدء الإعداد",
+        "confirmTitle": "هل تريد إعادة بدء الإعداد؟",
+        "confirmMessage": "سيؤدي هذا إلى إعادة تعيين حالة الإعداد وإعادتك إلى مسار الإعداد من جديد.",
+        "toast": "تمت إعادة تعيين عملية الإعداد",
+        "toastBody": "سنرجعك إلى خطوة الترحيب حتى تتمكن من مراجعة عنوان خادمك (URL) ومفتاح الـ API."
       }
     },
     "sidepanelRag": {
@@ -331,7 +339,7 @@
       "modifiedAt": "تم التعديل في",
       "size": "الحجم",
       "actions": "الإجراءات",
-      "nickname": "Nickname"
+      "nickname": "الاسم المستعار"
     },
     "expandedColumns": {
       "parentModel": "النموذج الأصلي",
@@ -340,10 +348,10 @@
       "parameterSize": "حجم المعلمة",
       "quantizationLevel": "مستوى التكميم"
     },
-    "tooltip": {
+      "tooltip": {
       "delete": "حذف النموذج",
       "repull": "إعادة سحب النموذج",
-      "editNickname": "Edit Nickname"
+      "editNickname": "تحرير الاسم المستعار"
     },
     "confirm": {
       "delete": "هل أنت متأكد أنك تريد حذف هذا النموذج؟",
@@ -777,67 +785,104 @@
       "webSearchFollowUpPromptPlaceholder": "إرشاد متابعة بحث الويب الخاص بك"
     }
   },
-  "chromeAiSettings": {
-    "title": "إعدادات Chrome AI"
-  },
   "onboarding": {
-    "title": "Welcome — Let’s get you connected",
-    "description": "Configure your server and authentication. We’ll verify the connection and RAG health inline.",
+    "title": "مرحبًا — لنقم بتوصيلك",
+    "description": "قم بإعداد الخادم وطريقة المصادقة. سنتحقق مباشرة من اتصال الخادم وحالة نظام البحث المعرفي (RAG).",
     "learnMoreTldw": "تعرّف على كيفية عمل خادم tldw",
     "serverDocsUrl": "https://github.com/rmusser01/tldw_browser_assistant",
     "serverUrl": {
       "placeholder": "http://127.0.0.1:8000",
       "help": "مثال: http://127.0.0.1:8000",
-      "invalid": "أدخل عنوان URL كاملاً مثل http://127.0.0.1:8000.",
+      "invalid": "أدخل عنوان URL كاملًا مثل http://127.0.0.1:8000.",
       "invalidProtocol": "استخدم عناوين http أو https، على سبيل المثال http://127.0.0.1:8000.",
-      "label": "Server URL",
-      "emptyHint": "Enter your tldw server URL to enable Next.",
-      "ready": "We’ll enable Next once we can reach this address.",
-      "checking": "Checking reachability…",
-      "reachable": "Server responded successfully. You can continue.",
-      "unreachable": "We couldn’t reach this address yet. Double-check the URL or try again."
+      "label": "عنوان خادم tldw",
+      "emptyHint": "أدخل عنوان خادم tldw لتمكين زر «التالي».",
+      "ready": "سنفعّل زر «التالي» عندما نتمكن من الوصول إلى هذا العنوان.",
+      "checking": "جارٍ التحقق من إمكانية الوصول…",
+      "reachable": "استجاب الخادم بنجاح. يمكنك المتابعة.",
+      "unreachable": "لم نتمكن من الوصول إلى هذا العنوان بعد. تحقّق من العنوان أو حاول مرة أخرى."
     },
     "buttons": {
-      "next": "Next",
-      "back": "Back",
-      "continue": "Continue",
-      "recheck": "Recheck",
-      "finish": "Finish",
-      "finishAnyway": "Finish without connecting",
-      "skip": "Skip for now"
+      "next": "التالي",
+      "back": "رجوع",
+      "continue": "متابعة",
+      "recheck": "إعادة التحقق",
+      "finish": "إنهاء",
+      "finishAnyway": "إنهاء بدون اتصال",
+      "skip": "تخطي الآن"
     },
     "authMode": {
-      "label": "Authentication Mode",
-      "single": "Single User (API Key)",
-      "multi": "Multi User (Login)"
+      "label": "وضع المصادقة",
+      "single": "مستخدم واحد (مفتاح API)",
+      "multi": "متعدد المستخدمين (تسجيل الدخول)"
     },
     "apiKey": {
-      "label": "API Key",
-      "placeholder": "Enter your API key (or use the default demo key THIS-IS-A-SECURE-KEY-123-REPLACE-ME for local single-user setups)"
+      "label": "مفتاح API",
+      "placeholder": "أدخل مفتاح الـ API الخاص بك (أو استخدم مفتاح التجربة الافتراضي THIS-IS-A-SECURE-KEY-123-REPLACE-ME للإعدادات المحلية ذات المستخدم الواحد)"
     },
     "username": {
-      "label": "Username",
-      "placeholder": "Username"
+      "label": "اسم المستخدم",
+      "placeholder": "اسم المستخدم"
     },
     "password": {
-      "label": "Password",
-      "placeholder": "Password"
+      "label": "كلمة المرور",
+      "placeholder": "كلمة المرور"
     },
     "connection": {
-      "label": "Connection:",
-      "unknown": "Unknown",
-      "connected": "Connected",
-      "failed": "Failed",
-      "continueAnyway": "You can continue and complete setup now. You’ll be able to verify the connection later from Settings."
+      "label": "الاتصال:",
+      "unknown": "غير معروف",
+      "connected": "متصل",
+      "failed": "فشل",
+      "continueAnyway": "يمكنك المتابعة وإكمال الإعداد الآن، وستتمكن من التحقق من الاتصال لاحقًا من صفحة الإعدادات."
     },
     "rag": {
-      "label": "RAG:",
-      "healthy": "Healthy",
-      "unhealthy": "Unhealthy",
-      "unknown": "Unknown"
+      "label": "البحث المعرفي (RAG):",
+      "healthy": "سليم",
+      "unhealthy": "به مشكلات",
+      "unknown": "غير معروف"
     },
-    "connectionFailed": "Connection failed",
-    "footerHelp": "Once connected, you can revisit these settings anytime from the extension menu."
+    "connectionFailed": "فشل الاتصال",
+    "footerHelp": "بعد الاتصال، يمكنك العودة إلى هذه الإعدادات في أي وقت من قائمة الامتداد.",
+    "progressAria": "تقدّم الإعداد الأولي",
+    "stepLabel": {
+      "welcome": "مرحبًا",
+      "url": "اتصال بخادم tldw الخاص بك",
+      "auth": "اختر طريقة تسجيل الدخول",
+      "health": "تأكيد الاتصال وفحص المعرفة"
+    },
+    "path": {
+      "heading": "كيف تود أن تبدأ؟",
+      "hasServer": "أقوم بتشغيل tldw_server بالفعل",
+      "noServer": "لا يوجد لدي خادم بعد",
+      "demo": "استكشف فقط من خلال وضع تجريبي محلي",
+      "noServerTitle": "لا يوجد خادم بعد؟ لا يزال بإمكانك الاستكشاف.",
+      "noServerBody": "tldw_server تطبيق منفصل تستضيفه بنفسك. يمكنك اتباع دليل الإعداد الآن، أو العودة لاحقًا والمتابعة في الوضع التجريبي.",
+      "noServerOptionLocal": "شغِّله محليًا باستخدام Docker أو Python على جهازك.",
+      "noServerOptionRemote": "انشر tldw_server على خادم VPS بعيد أو استضافة مُدارة.",
+      "noServerOptionManaged": "استخدم نشرًا تجاريًا مدارًا لـ tldw_server عندما يكون متاحًا.",
+      "openSetupGuide": "فتح دليل الإعداد",
+      "useDemoFromNoServer": "استخدام الوضع التجريبي المحلي",
+      "remindMeLater": "ذكّرني لاحقًا",
+      "demoTitle": "استكشف الامتداد في الوضع التجريبي",
+      "demoBody": "يتيح لك الوضع التجريبي تجربة الدردشة والملاحظات والوسائط باستخدام بيانات نموذجية. ستظل الميزات المعتمدة على الخادم مثل بحث «المعرفة» محدودة إلى أن تتصل بخادم tldw_server الخاص بك.",
+      "demoCta": "استخدام الوضع التجريبي المحلي"
+    },
+    "authModeHelp": "يوصى بوضع المستخدم الواحد (مفتاح API) للخوادم الشخصية أو خوادم الفرق الصغيرة. وضع متعددي المستخدمين (تسجيل الدخول) مخصص للنشر المشترك حيث يسجّل الأشخاص الدخول بأسماء مستخدمين أو عبر SSO. اختر الوضع الذي يطابق طريقة إعداد tldw_server لديك.",
+    "apiKeyHelp": "ستجد مفتاح الـ API في tldw_server → الإعدادات → مفاتيح API. أنشئ مفتاحًا هناك ثم الصقه هنا.",
+    "authStepAria": "الخطوة 2 من 3 — اختيار طريقة تسجيل الدخول",
+    "confirmStepAria": "الخطوة 3 من 3 — تأكيد الاتصال ومراجعة الخطوات التالية",
+    "nextSteps": {
+      "title": "أنت جاهز للانطلاق",
+      "subtitle": "من هنا يمكنك فتح اللوحة الجانبية، واستيعاب صفحة، أو استكشاف الوسائط والملاحظات.",
+      "chatTitle": "ابدأ الدردشة",
+      "chatBody": "افتح اللوحة الجانبية واطرح سؤالك الأول.",
+      "chatCta": "فتح اللوحة الجانبية",
+      "ingestTitle": "استيعاب صفحتك الأولى",
+      "ingestBody": "استخدم «الإدخال السريع» من الشريط العلوي لحفظ علامة التبويب الحالية في خادمك.",
+      "mediaTitle": "استكشف الوسائط والملاحظات",
+      "mediaBody": "انتقل إلى «الوسائط» و«الملاحظات» في صفحة الخيارات لمعرفة ما هو مخزَّن وقابل للبحث."
+    },
+    "headerShortcuts": "إظهار الاختصارات السريعة في الشريط العلوي"
   },
   "manageCharacters": {
     "title": "إدارة الشخصيات",

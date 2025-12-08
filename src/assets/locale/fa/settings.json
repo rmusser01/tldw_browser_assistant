@@ -92,6 +92,14 @@
       },
       "promptSearchIncludeServer": {
         "label": "Include server prompts in prompt search"
+      },
+      "restartOnboarding": {
+        "label": "شروع دوباره فرایند راه‌اندازی از ابتدا",
+        "button": "شروع دوباره راه‌اندازی",
+        "confirmTitle": "شروع دوباره راه‌اندازی؟",
+        "confirmMessage": "با این کار وضعیت راه‌اندازی شما بازنشانی می‌شود و دوباره به جریان تنظیمات اولیه برمی‌گردید.",
+        "toast": "فرایند راه‌اندازی بازنشانی شد",
+        "toastBody": "شما را به مرحله خوش‌آمدگویی برمی‌گردانیم تا بتوانید URL سرور و کلید API خود را بازبینی کنید."
       }
     },
     "sidepanelRag": {
@@ -331,7 +339,7 @@
       "modifiedAt": "اصلاح شده در",
       "size": "اندازه",
       "actions": "اقدامات",
-      "nickname": "Nickname"
+      "nickname": "نام مستعار"
     },
     "expandedColumns": {
       "parentModel": "مدل والد",
@@ -340,10 +348,10 @@
       "parameterSize": "اندازه پارامترها",
       "quantizationLevel": "سطح کوانتیزاسیون"
     },
-    "tooltip": {
+      "tooltip": {
       "delete": "حذف مدل",
       "repull": "دریافت دوباره مدل",
-      "editNickname": "Edit Nickname"
+      "editNickname": "ویرایش نام مستعار"
     },
     "confirm": {
       "delete": "آیا مطمئن هستید که می خواهید این مدل را حذف کنید؟",
@@ -777,9 +785,6 @@
       "webSearchFollowUpPromptPlaceholder": "پرامپت پیگیری جستجوی وب شما"
     }
   },
-  "chromeAiSettings": {
-    "title": "تنظیمات هوش مصنوعی کروم"
-  },
   "manageCharacters": {
     "title": "مدیریت شخصیت‌ها",
     "addBtn": "شخصیت جدید",
@@ -989,7 +994,47 @@
       "unknown": "Unknown"
     },
     "connectionFailed": "Connection failed",
-    "footerHelp": "Once connected, you can revisit these settings anytime from the extension menu."
+    "footerHelp": "پس از برقراری اتصال، می‌توانید هر زمان از منوی افزونه دوباره به این تنظیمات برگردید.",
+    "progressAria": "پیشرفت راه‌اندازی اولیه",
+    "stepLabel": {
+      "welcome": "خوش آمدید",
+      "url": "اتصال به سرور tldw خود",
+      "auth": "روش ورود خود را انتخاب کنید",
+      "health": "تأیید اتصال و وضعیت Knowledge"
+    },
+    "path": {
+      "heading": "دوست دارید چگونه شروع کنید؟",
+      "hasServer": "در حال حاضر tldw_server را اجرا می‌کنم",
+      "noServer": "هنوز سروری ندارم",
+      "demo": "فقط با نسخه‌ی نمایشی محلی کاوش کن",
+      "noServerTitle": "هنوز سروری ندارید؟ همچنان می‌توانید کاوش کنید.",
+      "noServerBody": "tldw_server یک برنامه‌ی جداگانه و خودمیزبان است. می‌توانید اکنون راهنمای راه‌اندازی را دنبال کنید، یا بعداً برگردید و در حالت نمایشی ادامه دهید.",
+      "noServerOptionLocal": "آن را به‌صورت محلی با Docker یا Python روی دستگاه خود اجرا کنید.",
+      "noServerOptionRemote": "tldw_server را روی یک VPS راه دور یا میزبانی مدیریت‌شده مستقر کنید.",
+      "noServerOptionManaged": "در صورت دسترس بودن، از یک استقرار تجاریِ مدیریت‌شده‌ی tldw_server استفاده کنید.",
+      "openSetupGuide": "باز کردن راهنمای راه‌اندازی",
+      "useDemoFromNoServer": "استفاده از حالت نمایشی محلی",
+      "remindMeLater": "بعداً یادآوری کن",
+      "demoTitle": "کاوش افزونه در حالت نمایشی",
+      "demoBody": "حالت نمایشی به شما اجازه می‌دهد چت، یادداشت‌ها و رسانه‌ها را با داده‌های نمونه امتحان کنید. قابلیت‌هایی که به سرور وابسته‌اند، مانند جست‌وجوی Knowledge، تا زمانی که tldw_server خودتان را متصل نکنید محدود می‌مانند.",
+      "demoCta": "استفاده از حالت نمایشی محلی"
+    },
+    "authModeHelp": "حالت Single User (کلید API) برای سرورهای شخصی یا تیم‌های کوچک توصیه می‌شود. حالت Multi User (ورود) برای استقرارهای مشترک است که در آن کاربران با نام کاربری یا SSO وارد می‌شوند. حالتی را انتخاب کنید که با نحوه‌ی پیکربندی tldw_server شما مطابقت دارد.",
+    "apiKeyHelp": "کلید API خود را در tldw_server → Settings → API Keys پیدا کنید. در آنجا یک کلید تولید کرده و آن را اینجا جای‌گذاری کنید.",
+    "authStepAria": "Step 2 of 3 — authentication configuration",
+    "confirmStepAria": "Step 3 of 3 — connection summary and next steps",
+    "nextSteps": {
+      "title": "You’re ready to go",
+      "subtitle": "From here you can open the sidepanel, ingest a page, or explore media and notes.",
+      "chatTitle": "Start chatting",
+      "chatBody": "Open the sidepanel and ask your first question.",
+      "chatCta": "Open sidepanel",
+      "ingestTitle": "Ingest your first page",
+      "ingestBody": "Use Quick ingest from the header to save the current tab to your server.",
+      "mediaTitle": "Explore media & notes",
+      "mediaBody": "Visit Media and Notes in Options to see what’s stored and searchable."
+    },
+    "headerShortcuts": "نمایش میانبرهای سریع در سربرگ"
   },
   "evaluations": {
     "title": "Evaluations playground",

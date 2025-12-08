@@ -3,33 +3,20 @@ import {
   getLastUsedChatSystemPrompt
 } from "@/services/model-settings"
 import { PageAssitDatabase as ChromeDB } from "../index"
-import { getAllKnowledge } from "../knowledge"
-import { getAllVector } from "../vector"
 import { PageAssistDatabase as DexieDB } from "./chat"
-import { PageAssistKnowledge as DexieDBK } from "./knowledge"
-import { PageAssistVectorDb as DexieDBV } from "./vector"
-import { OpenAIModelDb as DexieDBOAI } from "./openai"
 import { ModelNickname as DexieDBNick } from "./nickname"
 import { ModelDb as DexieDBM } from "./models"
-import { getAllOpenAIConfig } from "../openai"
-import { getAllModelsExT } from "../models"
 import { getAllModelNicknamesMig } from "../nickname"
 
 export class DatabaseMigration {
   private chromeDB: ChromeDB
   private dexieDB: DexieDB
-  private dexieDBK: DexieDBK
-  private dexieDBV: DexieDBV
-  private dexieDBOAI: DexieDBOAI
   private dexieDBM: DexieDBM
   private dexieNick: DexieDBNick
 
   constructor() {
     this.chromeDB = new ChromeDB()
     this.dexieDB = new DexieDB()
-    this.dexieDBK = new DexieDBK()
-    this.dexieDBV = new DexieDBV()
-    this.dexieDBOAI = new DexieDBOAI()
     this.dexieDBM = new DexieDBM()
     this.dexieNick = new DexieDBNick()
   }
@@ -54,8 +41,6 @@ export class DatabaseMigration {
       webshares: 0,
       sessionFiles: 0,
       userSettings: 0,
-      knowledge: 0,
-      vector: 0,
     }
 
     try {
@@ -119,38 +104,8 @@ export class DatabaseMigration {
       }
 
 
-      // Migrate knowledge
-      try {
-        const knowledges = await getAllKnowledge()
-        await this.dexieDBK.importDataV2(knowledges)
-      } catch (error) {
-        errors.push(`Failed to migrate knowledge: ${error}`)
-      }
-
-      // Migrate OpenAI config
-      try {
-        const configs = await getAllOpenAIConfig()
-        await this.dexieDBOAI.importDataV2(configs)
-      } catch(error) {
-        errors.push(`Failed to migrate OAI: ${error}`)
-      }
-
-      // Migrate Custom models
-
-      try {
-        const models = await getAllModelsExT()
-        await this.dexieDBM.importDataV2(models)
-      } catch(error) {
-        errors.push(`Failed to migrate OAI: ${error}`)
-      }
-
-      // Migrate vector
-      try {
-        const vectors = await getAllVector()
-        await this.dexieDBV.saveImportedDataV2(vectors)
-      } catch (error) {
-        errors.push(`Failed to migrate knowledge: ${error}`)
-      }
+      // Skip migration of legacy OpenAI configs and custom models; the
+      // extension is now tldw_server-only.
 
      // Migrate nickname
       try {

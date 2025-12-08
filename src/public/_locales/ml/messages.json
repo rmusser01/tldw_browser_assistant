@@ -101,31 +101,127 @@
   "hfPullException": {
     "message": "[tldw Assistant] \"$1\" മോഡലിന്റെ പുൾ അഭ്യർത്ഥന tldw_server-ലേക്ക് അയയ്ക്കുമ്പോൾ പ്രശ്നം സംഭവിച്ചു. tldw_serverയും എക്‌സ്റ്റൻഷനും പ്രവർത്തിക്കുന്നുണ്ടോ എന്ന് ഉറപ്പാക്കി വീണ്ടും ശ്രമിക്കുക."
   },
-  "quickChatHelper.tooltip": {
-    "message": "ക്വിക്ക് ചാറ്റ് സഹായകാങ്ക്"
+  "footerHelp": {
+    "message": "കണക്റ്റ് ചെയ്ത ശേഷം ഈ ക്രമീകരണങ്ങളിലേക്ക് നിങ്ങൾക്ക് എപ്പോഴും എക്സ്റ്റൻഷൻ മെനുവിൽ നിന്ന് മടങ്ങി വരാം.",
+    "description": "സെറ്റിംഗ്സിലെ ഓൺബോർഡിംഗ് ഭാഗത്തിലെ ഫൂട്ടർ സഹായ സന്ദേശം."
   },
-  "quickChatHelper.title": {
-    "message": "ക്വിക്ക് ചാറ്റ് സഹായകാംശം"
+  "progressAria": {
+    "message": "ഓൺബോർഡിംഗ് പുരോഗതി",
+    "description": "ഓൺബോർഡിംഗ് പുരോഗതി സൂചികയ്ക്കുള്ള aria ലേബൽ."
   },
-  "quickChatHelper.inputPlaceholder": {
-    "message": "എളുപ്പത്തില്‍ ഒരു വഴി ചോദിക്കൂ..."
+  "stepLabel": {
+    "message": "സ്വാഗതം",
+    "description": "ഓൺബോർഡിംഗിന്റെ ആദ്യ ഘട്ടമായ സ്വാഗതത്തിനുള്ള ലേബൽ."
   },
-  "quickChatHelper.sendButton": {
-    "message": "യൂഴിക്കുക"
+  "path": {
+    "message": "തുടങ്ങാൻ നിങ്ങൾ ആഗ്രഹിക്കുന്നത് എങ്ങനെ?",
+    "description": "ഓൺബോർഡിംഗ് ആരംഭിക്കുന്ന മാർഗം തിരഞ്ഞെടുക്കാനുള്ള തലക്കെട്ട്."
   },
-  "quickChatHelper.emptyState": {
-    "message": "പ്രധാന ചര്‍ച്ച ശുദ്ധമാക്കാന്‍ ഒരു ചുരുങ്ങിയ വശചാറ്റ് ആരംഭിക്കൂ."
+  "authModeHelp": {
+    "message": "Single User (API Key) വ്യക്തിഗത അല്ലെങ്കിൽ ചെറിയ ടീമുകളുടെ സർവർകൾക്ക് ശുപാർശ ചെയ്യുന്നു. Multi User (Login) എന്നത് ഉപയോക്താക്കൾ യൂസർനെയിം അല്ലെങ്കിൽ SSO ഉപയോഗിച്ച് ലോഗിൻ ചെയ്യുന്ന ഷെയർ ചെയ്ത ഡിപ്ലോയ്മെന്റുകൾക്കാണ്. നിങ്ങളുടെ tldw_server എങ്ങനെ സജ്ജീകരിച്ചിട്ടുണ്ടോ അതിനൊത്തു വരുന്ന മോഡ് തിരഞ്ഞെടുക്കുക.",
+    "description": "Single User vs Multi User എന്ന പ്രാമാണീകരണ മോഡുകൾ വിശദീകരിക്കുന്ന സഹായ വാചകം."
   },
-  "quickChatHelper.popOutButton": {
-    "message": "പോപ്പ് ഔട്ട് ചെയ്യുക"
+  "apiKeyHelp": {
+    "message": "നിങ്ങളുടെ API കീ, tldw_server \u2192 Settings \u2192 API Keys എന്നിടത്ത് ലഭിക്കും. അവിടെ ഒരു കീ സൃഷ്ടിച്ച് ഇവിടെ പേസ്റ്റ് ചെയ്യുക.",
+    "description": "API കീ എവിടെ കണ്ടെത്താം എന്ന് വിശദീകരിക്കുന്ന സഹായ വാചകം."
   },
-  "quickChatHelper.noModelWarning": {
-    "message": "ദയവായി ആദ്യം മുഖ്യ ചാറ്റില്‍ ഒരു മോഡല്‍ തിരഞ്ഞെടുക്കുക."
+  "authStepAria": {
+    "message": "{{total}} ൽ {{current}}‑ാം പടി — ഓതന്റിക്കേഷൻ ക്രമീകരണം",
+    "description": "ഓൺബോർഡിംഗിലെ പ്രാമാണീകരണ ക്രമീകരണ ഘട്ടത്തിനുള്ള aria ലേബൽ."
   },
-  "quickChatHelper.userMessageAria": {
-    "message": "നിങ്ങളുടെ സന്ദേശം"
+  "confirmStepAria": {
+    "message": "{{total}} ൽ {{current}}‑ാം പടി — കണക്ഷൻ സംഗ്രഹവും അടുത്ത ചുവടുകളും",
+    "description": "ഓൺബോർഡിംഗിലെ കണക്ഷൻ സ്ഥിരീകരണ ഘട്ടത്തിനുള്ള aria ലേബൽ."
   },
-  "quickChatHelper.assistantMessageAria": {
-    "message": "അസിസ്റ്റന്റിന്റെ സന്ദേശം"
+  "nextSteps": {
+    "message": "നിങ്ങൾ തുടക്കം കുറിക്കാൻ തയ്യാറാണ്",
+    "description": "ഓൺബോർഡിംഗ് അവസാന ഘട്ടത്തിലെ തലക്കെട്ട്."
+  },
+  "notesEmpty.connectTitle": {
+    "message": "Connect to use Notes"
+  },
+  "notesEmpty.connectDescription": {
+    "message": "To use Notes, first connect to your tldw server."
+  },
+  "notesEmpty.connectExample1": {
+    "message": "Open Settings \u2192 tldw server to add your server URL."
+  },
+  "notesEmpty.connectExample2": {
+    "message": "Use Diagnostics if your server is running but not reachable."
+  },
+  "notesEmpty.demoTitle": {
+    "message": "Explore Notes in demo mode"
+  },
+  "notesEmpty.demoDescription": {
+    "message": "This demo shows how Notes can organize your insights. Connect your own server later to create and save real notes."
+  },
+  "notesEmpty.demoExample1": {
+    "message": "See how note titles, previews, and timestamps appear in the list."
+  },
+  "notesEmpty.demoExample2": {
+    "message": "When you connect, you\u2019ll be able to create notes from meetings, reviews, and more."
+  },
+  "notesEmpty.demoExample3": {
+    "message": "Use Notes alongside Media and Review to keep track of your findings."
+  },
+  "notesEmpty.demoPreviewHeading": {
+    "message": "Example notes (preview only)"
+  },
+  "notesEmpty.demoSample1Title": {
+    "message": "Demo note: Weekly meeting recap"
+  },
+  "notesEmpty.demoSample1Preview": {
+    "message": "Decisions, blockers, and follow-ups from a recent team sync."
+  },
+  "notesEmpty.demoSample1Meta": {
+    "message": "Today \u00b7 9:32 AM"
+  },
+  "notesEmpty.demoSample2Title": {
+    "message": "Demo note: Research highlights"
+  },
+  "notesEmpty.demoSample2Preview": {
+    "message": "Key insights pulled from a long article or paper."
+  },
+  "notesEmpty.demoSample2Meta": {
+    "message": "Yesterday \u00b7 4:10 PM"
+  },
+  "notesEmpty.demoSample3Title": {
+    "message": "Demo note: Call summary"
+  },
+  "notesEmpty.demoSample3Preview": {
+    "message": "Summary of a customer call with next steps and owners."
+  },
+  "notesEmpty.demoSample3Meta": {
+    "message": "This week"
+  },
+  "notesEmpty.title": {
+    "message": "No notes yet"
+  },
+  "notesEmpty.description": {
+    "message": "Capture and organize free-form notes connected to your tldw insights."
+  },
+  "notesEmpty.exampleCreate": {
+    "message": "Create a new note for a recent meeting or transcript."
+  },
+  "notesEmpty.exampleLink": {
+    "message": "Save review outputs into Notes so you can revisit them later."
+  },
+  "notesEmpty.primaryCta": {
+    "message": "Create note"
+  },
+  "headerShortcuts": {
+    "message": "തലക്കെട്ടിൽ ദ്രുത ഷോർട്ട്‌കട്ടുകൾ കാണിക്കുക"
+  },
+  "restartOnboardingLabel": {
+    "message": "ഓൺബോർഡിംഗ് തുടക്കം മുതൽ വീണ്ടും ആരംഭിക്കുക"
+  },
+  "restartOnboardingButton": {
+    "message": "ഓൺബോർഡിംഗ് വീണ്ടും ആരംഭിക്കുക"
+  },
+  "restartOnboardingConfirmTitle": {
+    "message": "ഓൺബോർഡിംഗ് വീണ്ടും ആരംഭിക്കണോ?"
+  },
+  "restartOnboardingConfirmMessage": {
+    "message": "ഇത് നിങ്ങളുടെ ഓൺബോർഡിംഗ് നില റീസെറ്റ് ചെയ്ത് നിങ്ങളെ സജ്ജീകരണ പ്രവാഹത്തിന്റെ തുടക്കത്തിലേക്ക് തിരികെ കൊണ്ടുപോകും."
   }
 }

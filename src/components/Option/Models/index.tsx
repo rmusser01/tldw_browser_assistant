@@ -1,14 +1,11 @@
-import { Segmented, Spin } from "antd"
+import { Spin } from "antd"
 import dayjs from "dayjs"
 import relativeTime from "dayjs/plugin/relativeTime"
 import { useState } from "react"
 import { useTranslation } from "react-i18next"
 import { useQueryClient } from "@tanstack/react-query"
 import { browser } from "wxt/browser"
-import { CustomModelsTable } from "./CustomModelsTable"
 import { AvailableModelsList } from "./AvailableModelsList"
-import { AddCustomModelModal } from "./AddCustomModelModal"
-import { isFireFoxPrivateMode } from "@/utils/is-private-mode"
 import { useAntdNotification } from "@/hooks/useAntdNotification"
 import { tldwModels } from "@/services/tldw"
 
@@ -24,12 +21,12 @@ const isRefreshResponse = (res: unknown): res is RefreshResponse =>
   typeof (res as { ok?: unknown }).ok === "boolean"
 
 export const ModelsBody = () => {
-  const [openAddModelModal, setOpenAddModelModal] = useState(false)
-  const [segmented, setSegmented] = useState<string>("available")
+  // Custom provider models have been removed; we only show
+  // tldw_server models discovered from the server.
   const [refreshing, setRefreshing] = useState(false)
   const [lastRefreshedAt, setLastRefreshedAt] = useState<number | null>(null)
 
-  const { t } = useTranslation(["settings", "common", "openai"])
+  const { t } = useTranslation(["settings", "common"])
   const notification = useAntdNotification()
   const queryClient = useQueryClient()
 
@@ -68,10 +65,14 @@ export const ModelsBody = () => {
           })
         })
       }
-    } catch (e: any) {
+    } catch (e: unknown) {
+      console.error("[tldw] Failed to refresh models", e)
+      const rawMessage = e instanceof Error ? e.message : String(e)
+      const message =
+        rawMessage.length > 200 ? `${rawMessage.slice(0, 197)}...` : rawMessage
       notification.error({
         message: t("settings:models.refreshFailed", { defaultValue: "Failed to refresh models" }),
-        description: e?.message
+        description: message
       })
     } finally {
       setRefreshing(false)
@@ -81,7 +82,6 @@ export const ModelsBody = () => {
   return (
     <div>
       <div>
-        {/* Add new model button */}
         <div className="mb-6">
           <div className="-ml-4 -mt-2 flex flex-wrap items-center justify-between sm:flex-nowrap">
             <div className="ml-4 mt-2 flex flex-wrap items-center gap-3">
@@ -92,10 +92,10 @@ export const ModelsBody = () => {
                 {refreshing ? (
                   <>
                     <Spin size="small" className="mr-2" />
-                    {t("common:loading", "Loading…")}
+                    {t("common:loading", { defaultValue: "Loading…" })}
                   </>
                 ) : (
-                  t("common:refresh", "Refresh")
+                  t("common:refresh", { defaultValue: "Refresh" })
                 )}
               </button>
               {lastRefreshedAt && (
@@ -107,53 +107,10 @@ export const ModelsBody = () => {
                 </span>
               )}
             </div>
-            <div className="ml-4 mt-2 flex-shrink-0">
-              <button
-                onClick={() => {
-                  if (isFireFoxPrivateMode) {
-                    notification.error({
-                      message: t(
-                        "common:privateModeSaveErrorTitle",
-                        "tldw Assistant can't save data"
-                      ),
-                      description: t(
-                        "settings:models.privateModeDescription",
-                        "Firefox Private Mode does not support saving data to IndexedDB. Please add custom model from a normal window."
-                      )
-                    })
-                    return
-                  }
-                  setOpenAddModelModal(true)
-                }}
-                className="inline-flex items-center rounded-md border border-transparent bg-black px-2 py-2 text-md font-medium leading-4 text-white shadow-sm hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:bg-white dark:text-gray-800 dark:hover:bg-gray-100 dark:focus:ring-gray-500 dark:focus:ring-offset-gray-100 disabled:opacity-50">
-                {t("manageModels.addBtn")}
-              </button>
-            </div>
           </div>
-          <div className="flex items-center justify-end mt-3">
-            <Segmented
-              options={[
-                {
-                  label: t("common:segmented.available"),
-                  value: "available"
-                },
-                {
-                  label: t("common:segmented.custom"),
-                  value: "custom"
-                }
-              ]}
-              value={segmented}
-              onChange={(v) => setSegmented(String(v))}
-            />
-          </div>
+          <AvailableModelsList />
         </div>
-        {segmented === 'available' ? <AvailableModelsList /> : <CustomModelsTable />}
       </div>
-
-      <AddCustomModelModal
-        open={openAddModelModal}
-        setOpen={setOpenAddModelModal}
-      />
     </div>
   )
 }

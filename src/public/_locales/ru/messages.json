@@ -101,31 +101,159 @@
   "hfPullException": {
     "message": "[tldw Assistant] При отправке запроса на загрузку \"$1\" на ваш tldw_server что-то пошло не так. Убедитесь, что ваш tldw_server и расширение запущены, затем повторите попытку."
   },
-  "quickChatHelper.tooltip": {
-    "message": "Помощник быстрого чата"
+  "footerHelp": {
+    "message": "После подключения вы можете в любое время вернуться к этим настройкам через меню расширения.",
+    "description": "Текст справки внизу экрана для мастера первоначальной настройки."
   },
-  "quickChatHelper.title": {
-    "message": "Помощник быстрого чата"
+  "progressAria": {
+    "message": "Ход первоначальной настройки",
+    "description": "Aria-метка для индикатора прогресса первоначальной настройки."
   },
-  "quickChatHelper.inputPlaceholder": {
-    "message": "Задайте быстрый вопрос..."
+  "stepLabel": {
+    "message": "Добро пожаловать",
+    "description": "Метка для первого шага мастера настройки (добро пожаловать)."
   },
-  "quickChatHelper.sendButton": {
-    "message": "Отправить"
+  "path": {
+    "message": "С чего вы хотите начать?",
+    "description": "Заголовок выбора, с чего начать в мастере настройки."
   },
-  "quickChatHelper.emptyState": {
-    "message": "Начните быстрый боковой чат, чтобы основной диалог оставался аккуратным."
+  "authModeHelp": {
+    "message": "Режим Single User (API Key) рекомендуется для личных серверов или серверов небольших команд. Multi User (Login) предназначен для общих установок, где пользователи входят под учётной записью или через SSO. Выберите режим, соответствующий конфигурации вашего tldw_server.",
+    "description": "Справочный текст, объясняющий режимы аутентификации Single User и Multi User."
   },
-  "quickChatHelper.popOutButton": {
-    "message": "Открыть в отдельном окне"
+  "apiKeyHelp": {
+    "message": "Найдите свой API-ключ в tldw_server \u2192 Settings \u2192 API Keys. Сгенерируйте там ключ и вставьте его сюда.",
+    "description": "Справочный текст, описывающий, где найти API-ключ."
   },
-  "quickChatHelper.noModelWarning": {
-    "message": "Сначала выберите модель в основном чате."
+  "authStepAria": {
+    "message": "Шаг 3 из 4 — настройка аутентификации",
+    "description": "Aria-метка для шага настройки аутентификации в мастере (пока на английском)."
   },
-  "quickChatHelper.userMessageAria": {
-    "message": "Ваше сообщение"
+  "confirmStepAria": {
+    "message": "Шаг 4 из 4 — сводка подключения и следующие шаги",
+    "description": "Aria-метка для шага подтверждения подключения в мастере (пока на английском)."
   },
-  "quickChatHelper.assistantMessageAria": {
-    "message": "Сообщение ассистента"
+  "nextSteps": {
+    "message": "Вы готовы к работе",
+    "description": "Заголовок финального шага мастера настройки."
+  },
+  "nextStepsSubtitle": {
+    "message": "Отсюда вы можете открыть боковую панель, импортировать страницу или просмотреть медиа и заметки.",
+    "description": "Подзаголовок финального шага мастера настройки."
+  },
+  "nextStepsChatTitle": {
+    "message": "Начните чат",
+    "description": "Заголовок карточки следующего шага для начала чата."
+  },
+  "nextStepsChatBody": {
+    "message": "Откройте боковую панель и задайте свой первый вопрос.",
+    "description": "Описание карточки следующего шага для начала чата."
+  },
+  "nextStepsChatCta": {
+    "message": "Открыть боковую панель",
+    "description": "Подпись кнопки для открытия боковой панели с чатом."
+  },
+  "nextStepsIngestTitle": {
+    "message": "Импортируйте свою первую страницу",
+    "description": "Заголовок карточки следующего шага для первого импорта страницы."
+  },
+  "nextStepsIngestBody": {
+    "message": "Используйте «Быстрый импорт» в заголовке, чтобы сохранить текущую вкладку на сервер.",
+    "description": "Описание карточки следующего шага о первом импорте страницы."
+  },
+  "nextStepsMediaTitle": {
+    "message": "Изучите медиа и заметки",
+    "description": "Заголовок карточки следующего шага для раздела медиа и заметок."
+  },
+  "nextStepsMediaBody": {
+    "message": "Зайдите в раздел «Медиа и заметки» в настройках, чтобы увидеть, что сохранено и доступно для поиска.",
+    "description": "Описание карточки следующего шага о просмотре медиа и заметок."
+  },
+  "notesEmpty.connectTitle": {
+    "message": "Connect to use Notes"
+  },
+  "notesEmpty.connectDescription": {
+    "message": "To use Notes, first connect to your tldw server."
+  },
+  "notesEmpty.connectExample1": {
+    "message": "Open Settings \u2192 tldw server to add your server URL."
+  },
+  "notesEmpty.connectExample2": {
+    "message": "Use Diagnostics if your server is running but not reachable."
+  },
+  "notesEmpty.demoTitle": {
+    "message": "Explore Notes in demo mode"
+  },
+  "notesEmpty.demoDescription": {
+    "message": "This demo shows how Notes can organize your insights. Connect your own server later to create and save real notes."
+  },
+  "notesEmpty.demoExample1": {
+    "message": "See how note titles, previews, and timestamps appear in the list."
+  },
+  "notesEmpty.demoExample2": {
+    "message": "When you connect, you\u2019ll be able to create notes from meetings, reviews, and more."
+  },
+  "notesEmpty.demoExample3": {
+    "message": "Use Notes alongside Media and Review to keep track of your findings."
+  },
+  "notesEmpty.demoPreviewHeading": {
+    "message": "Example notes (preview only)"
+  },
+  "notesEmpty.demoSample1Title": {
+    "message": "Demo note: Weekly meeting recap"
+  },
+  "notesEmpty.demoSample1Preview": {
+    "message": "Decisions, blockers, and follow-ups from a recent team sync."
+  },
+  "notesEmpty.demoSample1Meta": {
+    "message": "Today \u00b7 9:32 AM"
+  },
+  "notesEmpty.demoSample2Title": {
+    "message": "Demo note: Research highlights"
+  },
+  "notesEmpty.demoSample2Preview": {
+    "message": "Key insights pulled from a long article or paper."
+  },
+  "notesEmpty.demoSample2Meta": {
+    "message": "Yesterday \u00b7 4:10 PM"
+  },
+  "notesEmpty.demoSample3Title": {
+    "message": "Demo note: Call summary"
+  },
+  "notesEmpty.demoSample3Preview": {
+    "message": "Summary of a customer call with next steps and owners."
+  },
+  "notesEmpty.demoSample3Meta": {
+    "message": "This week"
+  },
+  "notesEmpty.title": {
+    "message": "No notes yet"
+  },
+  "notesEmpty.description": {
+    "message": "Capture and organize free-form notes connected to your tldw insights."
+  },
+  "notesEmpty.exampleCreate": {
+    "message": "Create a new note for a recent meeting or transcript."
+  },
+  "notesEmpty.exampleLink": {
+    "message": "Save review outputs into Notes so you can revisit them later."
+  },
+  "notesEmpty.primaryCta": {
+    "message": "Create note"
+  },
+  "headerShortcuts": {
+    "message": "Показать быстрые ярлыки в заголовке"
+  },
+  "restartOnboardingLabel": {
+    "message": "Снова пройти мастер настройки с самого начала"
+  },
+  "restartOnboardingButton": {
+    "message": "Перезапустить мастер настройки"
+  },
+  "restartOnboardingConfirmTitle": {
+    "message": "Перезапустить мастер настройки?"
+  },
+  "restartOnboardingConfirmMessage": {
+    "message": "Это сбросит состояние мастера настройки и вернёт вас к началу процесса."
   }
 }

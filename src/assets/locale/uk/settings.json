@@ -92,6 +92,14 @@
       },
       "promptSearchIncludeServer": {
         "label": "Include server prompts in prompt search"
+      },
+      "restartOnboarding": {
+        "label": "Перезапустити онбординг з самого початку",
+        "button": "Перезапустити онбординг",
+        "confirmTitle": "Перезапустити онбординг?",
+        "confirmMessage": "Це скине стан онбордингу та поверне вас на початок процесу налаштування.",
+        "toast": "Онбординг було скинуто",
+        "toastBody": "Ми повернемо вас до кроку привітання, щоб ви могли перевірити URL сервера та ключ API."
       }
     },
     "sidepanelRag": {
@@ -331,7 +339,7 @@
       "modifiedAt": "Оновлено",
       "size": "Розмір",
       "actions": "Дії",
-      "nickname": "Nickname"
+      "nickname": "Псевдонім"
     },
     "expandedColumns": {
       "parentModel": "Батьківська модель",
@@ -340,10 +348,10 @@
       "parameterSize": "Розмір параметрів",
       "quantizationLevel": "Рівень квантування"
     },
-    "tooltip": {
+      "tooltip": {
       "delete": "Видалити модель",
       "repull": "Повторно завантажити модель",
-      "editNickname": "Edit Nickname"
+      "editNickname": "Редагувати псевдонім"
     },
     "confirm": {
       "delete": "Ви впевнені, що хочете видалити цю модель?",
@@ -777,9 +785,6 @@
       "webSearchFollowUpPromptPlaceholder": "Ваш запит для подальшого пошуку в мережі"
     }
   },
-  "chromeAiSettings": {
-    "title": "Налаштування Chrome AI"
-  },
   "onboarding": {
     "title": "Welcome — Let’s get you connected",
     "description": "Configure your server and authentication. We’ll verify the connection and RAG health inline.",
@@ -837,7 +842,47 @@
       "unknown": "Unknown"
     },
     "connectionFailed": "Connection failed",
-    "footerHelp": "Once connected, you can revisit these settings anytime from the extension menu."
+    "footerHelp": "Після підключення ви можете будь-коли повернутися до цих налаштувань через меню розширення.",
+    "progressAria": "Прогрес початкового налаштування",
+    "stepLabel": {
+      "welcome": "Ласкаво просимо",
+      "url": "Підключіть свій сервер tldw",
+      "auth": "Виберіть спосіб входу",
+      "health": "Підтвердіть підключення та Knowledge"
+    },
+    "path": {
+      "heading": "З чого ви хочете почати?",
+      "hasServer": "Я вже запускаю tldw_server",
+      "noServer": "У мене ще немає сервера",
+      "demo": "Просто дослідити за допомогою локальної демо-версії",
+      "noServerTitle": "Ще немає сервера? Ви все одно можете продовжити знайомство.",
+      "noServerBody": "tldw_server — це окремий застосунок із самостійним хостингом. Ви можете пройти інструкцію з налаштування зараз або повернутися пізніше й продовжити в демо-режимі.",
+      "noServerOptionLocal": "Запустити локально за допомогою Docker або Python на вашій машині.",
+      "noServerOptionRemote": "Розгорнути tldw_server на віддаленому VPS або керованому хостингу.",
+      "noServerOptionManaged": "Використовувати кероване комерційне розгортання tldw_server, коли воно доступне.",
+      "openSetupGuide": "Відкрити інструкцію з налаштування",
+      "useDemoFromNoServer": "Використовувати локальний демо-режим",
+      "remindMeLater": "Нагадати пізніше",
+      "demoTitle": "Ознайомитися з розширенням у демо-режимі",
+      "demoBody": "Демо-режим дозволяє випробувати чат, нотатки та медіа на прикладних даних. Функції, що залежать від сервера, як-от пошук у Knowledge, залишатимуться обмеженими, доки ви не підключите власний tldw_server.",
+      "demoCta": "Використовувати локальний демо-режим"
+    },
+    "authModeHelp": "Режим Single User (API Key) рекомендовано для персональних серверів або серверів невеликих команд. Multi User (Login) підходить для спільних розгортань, де користувачі входять за допомогою імені користувача або SSO. Оберіть режим, що відповідає конфігурації вашого tldw_server.",
+    "apiKeyHelp": "Знайдіть свій API-ключ у tldw_server → Settings → API Keys. Згенеруйте там ключ і вставте його тут.",
+    "authStepAria": "Крок {{current}} з {{total}} — налаштування автентифікації",
+    "confirmStepAria": "Крок {{current}} з {{total}} — підтвердження підключення та наступні кроки",
+    "nextSteps": {
+      "title": "Ви готові до роботи",
+      "subtitle": "Звідси ви можете відкрити бічну панель, завантажити сторінку або дослідити медіа й нотатки.",
+      "chatTitle": "Почніть спілкування",
+      "chatBody": "Відкрийте бічну панель і задайте своє перше питання.",
+      "chatCta": "Відкрити бічну панель",
+      "ingestTitle": "Завантажте вашу першу сторінку",
+      "ingestBody": "Використайте швидке завантаження в заголовку, щоб зберегти поточну вкладку на сервері.",
+      "mediaTitle": "Досліджуйте медіа й нотатки",
+      "mediaBody": "Відвідайте Розділ медіа й нотаток в Налаштуваннях, щоб побачити те, що збережено та доступне для пошуку."
+    },
+    "headerShortcuts": "Показувати швидкі ярлики в заголовку"
   },
   "manageCharacters": {
     "title": "Manage Characters",

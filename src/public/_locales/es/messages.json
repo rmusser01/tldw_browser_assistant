@@ -101,31 +101,127 @@
   "hfPullException": {
     "message": "[tldw Assistant] Ocurrió un problema al enviar una solicitud de descarga de \"$1\" a tu tldw_server. Comprueba que tu tldw_server y la extensión estén en ejecución y vuelve a intentarlo."
   },
-  "quickChatHelper.tooltip": {
-    "message": "Asistente de chat rápido"
+  "footerHelp": {
+    "message": "Una vez conectado, puedes volver a estos ajustes en cualquier momento desde el menú de la extensión.",
+    "description": "Texto de ayuda en el pie de página del asistente de configuración."
   },
-  "quickChatHelper.title": {
-    "message": "Asistente de chat rápido"
+  "progressAria": {
+    "message": "Progreso de incorporación",
+    "description": "Etiqueta aria para el indicador de progreso de la incorporación."
   },
-  "quickChatHelper.inputPlaceholder": {
-    "message": "Haz una pregunta rápida..."
+  "stepLabel": {
+    "message": "Bienvenido",
+    "description": "Etiqueta para el primer paso de la incorporación (bienvenida)."
   },
-  "quickChatHelper.sendButton": {
-    "message": "Enviar"
+  "path": {
+    "message": "¿Cómo quieres empezar?",
+    "description": "Encabezado para elegir cómo empezar en el flujo de incorporación."
   },
-  "quickChatHelper.emptyState": {
-    "message": "Inicia un chat rápido en paralelo para mantener limpia la conversación principal."
+  "authModeHelp": {
+    "message": "Se recomienda Single User (API Key) para servidores personales o de equipos pequeños. Multi User (Login) está pensado para despliegues compartidos donde las personas inician sesión con nombres de usuario o SSO. Elige el modo que coincida con la configuración de tu tldw_server.",
+    "description": "Texto de ayuda que explica los modos de autenticación Single User y Multi User."
   },
-  "quickChatHelper.popOutButton": {
-    "message": "Abrir en una ventana independiente"
+  "apiKeyHelp": {
+    "message": "Busca tu clave de API en tldw_server \u2192 Settings \u2192 API Keys. Genera allí una clave y pégala aquí.",
+    "description": "Texto de ayuda que indica dónde encontrar la clave de API."
   },
-  "quickChatHelper.noModelWarning": {
-    "message": "Selecciona primero un modelo en el chat principal."
+  "authStepAria": {
+    "message": "Paso 3 de 4 \u2014 configuraci\u00f3n de autenticaci\u00f3n",
+    "description": "Etiqueta aria para el paso de configuración de autenticación en la incorporación (aún en inglés)."
   },
-  "quickChatHelper.userMessageAria": {
-    "message": "Tu mensaje"
+  "confirmStepAria": {
+    "message": "Paso 4 de 4 \u2014 resumen de la conexión y siguientes pasos",
+    "description": "Etiqueta aria para el paso de confirmación de la conexión en la incorporación (aún en inglés)."
   },
-  "quickChatHelper.assistantMessageAria": {
-    "message": "Mensaje del asistente"
+  "nextSteps": {
+    "message": "Ya est\u00e1s listo",
+    "description": "Título del panel final de incorporación con los siguientes pasos (actualmente en inglés)."
+  },
+  "notesEmpty.connectTitle": {
+    "message": "Connect to use Notes"
+  },
+  "notesEmpty.connectDescription": {
+    "message": "To use Notes, first connect to your tldw server."
+  },
+  "notesEmpty.connectExample1": {
+    "message": "Open Settings \u2192 tldw server to add your server URL."
+  },
+  "notesEmpty.connectExample2": {
+    "message": "Use Diagnostics if your server is running but not reachable."
+  },
+  "notesEmpty.demoTitle": {
+    "message": "Explore Notes in demo mode"
+  },
+  "notesEmpty.demoDescription": {
+    "message": "This demo shows how Notes can organize your insights. Connect your own server later to create and save real notes."
+  },
+  "notesEmpty.demoExample1": {
+    "message": "See how note titles, previews, and timestamps appear in the list."
+  },
+  "notesEmpty.demoExample2": {
+    "message": "When you connect, you\u2019ll be able to create notes from meetings, reviews, and more."
+  },
+  "notesEmpty.demoExample3": {
+    "message": "Use Notes alongside Media and Review to keep track of your findings."
+  },
+  "notesEmpty.demoPreviewHeading": {
+    "message": "Example notes (preview only)"
+  },
+  "notesEmpty.demoSample1Title": {
+    "message": "Demo note: Weekly meeting recap"
+  },
+  "notesEmpty.demoSample1Preview": {
+    "message": "Decisions, blockers, and follow-ups from a recent team sync."
+  },
+  "notesEmpty.demoSample1Meta": {
+    "message": "Today \u00b7 9:32 AM"
+  },
+  "notesEmpty.demoSample2Title": {
+    "message": "Demo note: Research highlights"
+  },
+  "notesEmpty.demoSample2Preview": {
+    "message": "Key insights pulled from a long article or paper."
+  },
+  "notesEmpty.demoSample2Meta": {
+    "message": "Yesterday \u00b7 4:10 PM"
+  },
+  "notesEmpty.demoSample3Title": {
+    "message": "Demo note: Call summary"
+  },
+  "notesEmpty.demoSample3Preview": {
+    "message": "Summary of a customer call with next steps and owners."
+  },
+  "notesEmpty.demoSample3Meta": {
+    "message": "This week"
+  },
+  "notesEmpty.title": {
+    "message": "No notes yet"
+  },
+  "notesEmpty.description": {
+    "message": "Capture and organize free-form notes connected to your tldw insights."
+  },
+  "notesEmpty.exampleCreate": {
+    "message": "Create a new note for a recent meeting or transcript."
+  },
+  "notesEmpty.exampleLink": {
+    "message": "Save review outputs into Notes so you can revisit them later."
+  },
+  "notesEmpty.primaryCta": {
+    "message": "Create note"
+  },
+  "headerShortcuts": {
+    "message": "Mostrar accesos rápidos en el encabezado"
+  },
+  "restartOnboardingLabel": {
+    "message": "Reiniciar la incorporación desde el principio"
+  },
+  "restartOnboardingButton": {
+    "message": "Reiniciar incorporación"
+  },
+  "restartOnboardingConfirmTitle": {
+    "message": "¿Reiniciar la incorporación?"
+  },
+  "restartOnboardingConfirmMessage": {
+    "message": "Esto restablecerá tu estado de incorporación y te llevará de nuevo al flujo de configuración."
   }
 }

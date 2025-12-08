@@ -95,6 +95,14 @@
       },
       "promptSearchIncludeServer": {
         "label": "Include server prompts in prompt search"
+      },
+      "restartOnboarding": {
+        "label": "ഓൺബോർഡിംഗ് തുടക്കം മുതൽ വീണ്ടും ആരംഭിക്കുക",
+        "button": "ഓൺബോർഡിംഗ് വീണ്ടും ആരംഭിക്കുക",
+        "confirmTitle": "ഓൺബോർഡിംഗ് വീണ്ടും ആരംഭിക്കണോ?",
+        "confirmMessage": "ഇത് നിങ്ങളുടെ ഓൺബോർഡിംഗ് നില റീസെറ്റ് ചെയ്ത് നിങ്ങളെ സജ്ജീകരണ പ്രവാഹത്തിന്റെ തുടക്കത്തിലേക്ക് തിരികെ കൊണ്ടുപോകും.",
+        "toast": "ഓൺബോർഡിംഗ് റീസെറ്റ് ചെയ്തു",
+        "toastBody": "സർവർ URLയും API കീയുമെല്ലാം വീണ്ടും പരിശോധിക്കാനായി നിങ്ങളെ സ്വാഗത ഘട്ടത്തിലേക്ക് തിരികെ കൊണ്ടുപോകും."
       }
     },
     "sidepanelRag": {
@@ -334,7 +342,7 @@
       "modifiedAt": "അവസാനമായി പരിഷ്‌കരിച്ചത്",
       "size": "വലുപ്പം",
       "actions": "പ്രവർത്തനങ്ങൾ",
-      "nickname": "Nickname"
+      "nickname": "പേരുപേര്"
     },
     "expandedColumns": {
       "parentModel": "പാരന്റ് മോഡല്‍",
@@ -343,10 +351,10 @@
       "parameterSize": "പാരാമീറ്റര്‍ വലുപ്പം",
       "quantizationLevel": "ക്വാണ്ടൈസേഷന്‍ ലെവല്‍"
     },
-    "tooltip": {
+      "tooltip": {
       "delete": "മോഡല്‍ ഇല്ലാതാക്കുക",
       "repull": "മോഡല്‍ വീണ്ടും ലഭ്യമാക്കുക",
-      "editNickname": "Edit Nickname"
+      "editNickname": "പേരുപേര് തിരുത്തുക"
     },
     "confirm": {
       "delete": "ഈ മോഡല്‍ ഇല്ലാതാക്കണമെന്ന് തീർച്ചയാണോ?",
@@ -780,12 +788,9 @@
       "webSearchFollowUpPromptPlaceholder": "നിങ്ങളുടെ വെബ് തിരയല്‍ തുടര്‍പ്രോംപ്റ്റ്"
     }
   },
-  "chromeAiSettings": {
-    "title": "ക്രോം AI ക്രമീകരണങ്ങൾ"
-  },
   "onboarding": {
-    "title": "Welcome — Let’s get you connected",
-    "description": "Configure your server and authentication. We’ll verify the connection and RAG health inline.",
+    "title": "സ്വാഗതം — നിങ്ങൾക്ക് കണക്റ്റ് ആകാം",
+    "description": "നിങ്ങളുടെ സർവറും ഓതന്റിക്കേഷനും സജ്ജമാക്കുക. കണക്ഷനും Knowledge/RAG നിലയും നാം ഇവിടെ തന്നെ പരിശോധിക്കും.",
     "learnMoreTldw": "tldw സർവർ എങ്ങനെ പ്രവർത്തിക്കുന്നു എന്ന് അറിയുക",
     "serverDocsUrl": "https://github.com/rmusser01/tldw_browser_assistant",
     "serverUrl": {
@@ -793,54 +798,94 @@
       "help": "ഉദാഹരണം: http://127.0.0.1:8000",
       "invalid": "http://127.0.0.1:8000 പോലുള്ള പൂർണ്ണ URL നൽകുക.",
       "invalidProtocol": "http അല്ലെങ്കിൽ https URL ഉപയോഗിക്കുക (ഉദാ: http://127.0.0.1:8000).",
-      "label": "Server URL",
-      "emptyHint": "Enter your tldw server URL to enable Next.",
-      "ready": "We’ll enable Next once we can reach this address.",
-      "checking": "Checking reachability…",
-      "reachable": "Server responded successfully. You can continue.",
-      "unreachable": "We couldn’t reach this address yet. Double-check the URL or try again."
+      "label": "tldw സർവർ URL",
+      "emptyHint": "‘Next’ എനേബിൾ ചെയ്യാൻ നിങ്ങളുടെ tldw സർവർ URL നൽകുക.",
+      "ready": "ഈ അഡ്രസിലെത്താൻ കഴിയുമ്പോൾ ഞങ്ങൾ ‘Next’ എനേബിൾ ചെയ്യും.",
+      "checking": "ആക്‌സസിബിലിറ്റി പരിശോധിക്കുന്നു…",
+      "reachable": "സർവർ വിജയകരമായി പ്രതികരിച്ചു. നിങ്ങൾക്ക് തുടരാം.",
+      "unreachable": "ഇനിയും ഈ അഡ്രസിലെത്താൻ കഴിഞ്ഞില്ല. URL വീണ്ടും പരിശോധിക്കുകയോ പിന്നീട് വീണ്ടും ശ്രമിക്കുകയോ ചെയ്യൂ."
     },
     "buttons": {
-      "next": "Next",
-      "back": "Back",
-      "continue": "Continue",
-      "recheck": "Recheck",
-      "finish": "Finish",
-      "finishAnyway": "Finish without connecting",
-      "skip": "Skip for now"
+      "next": "അടുത്തത്",
+      "back": "തിരികെ",
+      "continue": "തുടരുക",
+      "recheck": "വീണ്ടും പരിശോധിക്കുക",
+      "finish": "പൂർത്തിയാക്കുക",
+      "finishAnyway": "കണക്റ്റ് ചെയ്യാതെ പൂർത്തിയാക്കുക",
+      "skip": "ഇപ്പോൾ ഒഴിവാക്കുക"
     },
     "authMode": {
-      "label": "Authentication Mode",
-      "single": "Single User (API Key)",
-      "multi": "Multi User (Login)"
+      "label": "ഓതന്റിക്കേഷൻ മോഡ്",
+      "single": "ഒരു ഉപയോക്താവ് (API കീ)",
+      "multi": "ഒന്നിലധികം ഉപയോക്താക്കൾ (ലോഗിൻ)"
     },
     "apiKey": {
-      "label": "API Key",
-      "placeholder": "Enter your API key (or use the default demo key THIS-IS-A-SECURE-KEY-123-REPLACE-ME for local single-user setups)"
+      "label": "API കീ",
+      "placeholder": "നിങ്ങളുടെ API കീ നൽകുക (അല്ലെങ്കിൽ ലോക്കൽ സിംഗിൾ-യൂസർ സജ്ജീകരണങ്ങൾക്ക് ഡീഫോൾട്ട് ഡെമോ കീ THIS-IS-A-SECURE-KEY-123-REPLACE-ME ഉപയോഗിക്കുക)"
     },
     "username": {
-      "label": "Username",
-      "placeholder": "Username"
+      "label": "യൂസർനെയിം",
+      "placeholder": "യൂസർനെയിം"
     },
     "password": {
-      "label": "Password",
-      "placeholder": "Password"
+      "label": "പാസ്‌വേഡ്",
+      "placeholder": "പാസ്‌വേഡ്"
     },
     "connection": {
-      "label": "Connection:",
-      "unknown": "Unknown",
-      "connected": "Connected",
-      "failed": "Failed",
-      "continueAnyway": "You can continue and complete setup now. You’ll be able to verify the connection later from Settings."
+      "label": "കണക്ഷൻ:",
+      "unknown": "അജ്ഞാതം",
+      "connected": "കണക്റ്റ് ചെയ്തു",
+      "failed": "പരാജയപ്പെട്ടു",
+      "continueAnyway": "ഇപ്പോൾ തുടരുകയും സജ്ജീകരണം പൂർത്തിയാക്കുകയും ചെയ്യാം. പിന്നീട് Settingsൽ നിന്ന് കണക്ഷൻ പരിശോധിക്കാൻ കഴിയും."
     },
     "rag": {
-      "label": "RAG:",
-      "healthy": "Healthy",
-      "unhealthy": "Unhealthy",
-      "unknown": "Unknown"
+      "label": "Knowledge തിരയൽ (RAG):",
+      "healthy": "സാധാരണ",
+      "unhealthy": "പ്രശ്നങ്ങളുണ്ട്",
+      "unknown": "അജ്ഞാതം"
     },
-    "connectionFailed": "Connection failed",
-    "footerHelp": "Once connected, you can revisit these settings anytime from the extension menu."
+    "connectionFailed": "കണക്ഷൻ പരാജയപ്പെട്ടു",
+    "footerHelp": "കണക്റ്റ് ചെയ്ത ശേഷം ഈ ക്രമീകരണങ്ങളിലേക്ക് നിങ്ങൾക്ക് എപ്പോഴും എക്സ്റ്റൻഷൻ മെനുവിൽ നിന്ന് മടങ്ങി വരാം.",
+    "progressAria": "ഓൺബോർഡിംഗ് പുരോഗതി",
+    "stepLabel": {
+      "welcome": "സ്വാഗതം",
+      "url": "നിങ്ങളുടെ tldw സർവറിൽ കണക്റ്റ് ചെയ്യുക",
+      "auth": "നിങ്ങൾ എങ്ങനെ സൈൻ ഇൻ ചെയ്യണമെന്ന് തിരഞ്ഞെടുക്കുക",
+      "health": "കണക്ഷനും Knowledge ഉം സ്ഥിരീകരിക്കുക"
+    },
+    "path": {
+      "heading": "തുടങ്ങാൻ നിങ്ങൾ ആഗ്രഹിക്കുന്നത് എങ്ങനെ?",
+      "hasServer": "ഞാൻ ഇതിനകം tldw_server പ്രവർത്തിപ്പിച്ചുകൊണ്ടിരിക്കുന്നു",
+      "noServer": "എന്നെക്കൊണ്ടു് ഇനിയും ഒരു സർവർ ഇല്ല",
+      "demo": "ലോകൽ ഡെമോ ഉപയോഗിച്ച് ഒന്ന് നോക്കാം",
+      "noServerTitle": "ഇനിയും സർവർ ഇല്ലേ? നിങ്ങൾക്ക് ഇപ്പോഴും എക്സ്പ്ലോർ ചെയ്യാം.",
+      "noServerBody": "tldw_server ഒരു വേറിട്ട, സ്വയം ഹോസ്റ്റ് ചെയ്യുന്ന ആപ്പാണ്. ഇപ്പോൾ സജ്ജമാക്കൽ ഗൈഡ് പിന്തുടരാം, അല്ലെങ്കിൽ പിന്നീട് തിരിച്ചെത്തി ഡെമോ മോഡിൽ തുടരാം.",
+      "noServerOptionLocal": "നിങ്ങളുടെ സ്വന്തമായ മെഷീനിൽ Docker അല്ലെങ്കിൽ Python ഉപയോഗിച്ച് ലോക്കലായി റൺ ചെയ്യുക.",
+      "noServerOptionRemote": "tldw_server നെ ഒരു റിമോട്ട് VPS ലേക്കോ മാനേജ്ഡ് ഹോസ്റ്റിംഗിലേക്കോ ഡിപ്ലോയ് ചെയ്യുക.",
+      "noServerOptionManaged": "ലഭ്യമായിരിക്കുന്നുവെങ്കിൽ മാനേജുചെയ്യുന്ന കമർഷ്യൽ tldw_server ഡിപ്ലോയ്‌മെന്റ് ഉപയോഗിക്കുക.",
+      "openSetupGuide": "സജ്ജമാക്കൽ ഗൈഡ് തുറക്കുക",
+      "useDemoFromNoServer": "ലോകൽ ഡെമോ മോഡ് ഉപയോഗിക്കുക",
+      "remindMeLater": "പിന്നീട് ഓർമ്മിപ്പിക്കുക",
+      "demoTitle": "ഡെമോ മോഡിൽ എക്സ്റ്റൻഷൻ എക്സ്പ്ലോർ ചെയ്യുക",
+      "demoBody": "ഡെമോ മോഡ് ഉപയോഗിച്ച് സാമ്പിൾ ഡാറ്റ ഉപയോഗിച്ചു് ചാറ്റ്, നോട്ടുകൾ, മീഡിയ എന്നിവ പരീക്ഷിക്കാൻ കഴിയും. സർവർ ആശ്രയിക്കുന്ന സവിശേഷതകൾ (ഉദാ. Knowledge സെർച്ച്) നിങ്ങൾ നിങ്ങളുടെ സ്വന്തം tldw_server കണക്റ്റ് ചെയ്യുന്നതുവരെ നിയന്ത്രിച്ച നിലയിൽ തുടരും.",
+      "demoCta": "ലോകൽ ഡെമോ മോഡ് ഉപയോഗിക്കുക"
+    },
+    "authModeHelp": "Single User (API Key) വ്യക്തിഗത അല്ലെങ്കിൽ ചെറിയ ടീങ്ങളുടെ സർവർകൾക്ക് ശുപാർശ ചെയ്യുന്നു. Multi User (Login) എന്നത് ഉപയോക്താക്കൾ യൂസർനെയിം അല്ലെങ്കിൽ SSO ഉപയോഗിച്ച് ലോഗിൻ ചെയ്യുന്ന ഷെയർ ചെയ്ത ഡിപ്ലോയ്മെന്റുകൾക്കാണ്. നിങ്ങളുടെ tldw_server എങ്ങനെ സജ്ജീകരിച്ചിട്ടുണ്ടോ അതിനൊത്തു വരുന്ന മോഡ് തിരഞ്ഞെടുക്കുക.",
+    "apiKeyHelp": "നിങ്ങളുടെ API കീ, tldw_server → Settings → API Keys എന്നിടത്ത് ലഭിക്കും. അവിടെ ഒരു കീ സൃഷ്ടിച്ച് ഇവിടെ പേസ്റ്റ് ചെയ്യുക.",
+    "authStepAria": "3ൽ 2-ാം പടി — ഓതന്റിക്കേഷൻ ക്രമീകരണം",
+    "confirmStepAria": "3ൽ 3-ാം പടി — കണക്ഷൻ സംഗ്രഹവും അടുത്ത ചുവടുകളും",
+    "nextSteps": {
+      "title": "തുടങ്ങാൻ നിങ്ങൾ തയ്യാറായി",
+      "subtitle": "ഇവിടെ നിന്ന് നിങ്ങൾക്ക് സൈഡ്‌പാനൽ തുറക്കുകയോ ഒരു പേജ് ഇൻജെസ്റ്റ് ചെയ്യുകയോ മീഡിയയും നോട്ടുകളും പരിശോധിക്കുകയോ ചെയ്യാം.",
+      "chatTitle": "ചാറ്റ് ആരംഭിക്കുക",
+      "chatBody": "സൈഡ്‌പാനൽ തുറന്ന് നിങ്ങളുടെ ആദ്യ ചോദ്യം ചോദിക്കുക.",
+      "chatCta": "സൈഡ്‌പാനൽ തുറക്കുക",
+      "ingestTitle": "നിങ്ങളുടെ ആദ്യ പേജ് ഇൻജെസ്റ്റ് ചെയ്യുക",
+      "ingestBody": "മുകളിൽ ഉള്ള ഹെഡറിലെ ‘Quick ingest’ ഉപയോഗിച്ച് നിലവിലെ ടാബ് നിങ്ങളുടെ സർവറിൽ സംരക്ഷിക്കുക.",
+      "mediaTitle": "മീഡിയയും നോട്ടുകളും പരിശോധിക്കുക",
+      "mediaBody": "ഓപ്ഷൻസിലെ ‘Media’യും ‘Notes’ഉം സന്ദർശിച്ച് എന്തൊക്കെ സൂക്ഷിച്ചിട്ടുണ്ടെന്നും തിരയാനാവുന്നതെന്നും കാണുക."
+    },
+    "headerShortcuts": "തലക്കെട്ടിൽ ദ്രുത ഷോർട്ട്‌കട്ടുകൾ കാണിക്കുക"
   },
   "manageCharacters": {
     "title": "Manage Characters",

@@ -7,10 +7,6 @@ import {
   SessionFiles,
   UserSettings,
   Webshare,
-  Knowledge,
-  VectorData,
-  Document,
-  OpenAIModelConfig,
   Model,
   ModelNickname
 } from "./types"
@@ -23,13 +19,6 @@ export class PageAssistDexieDB extends Dexie {
   sessionFiles!: Table<SessionFiles>;
   userSettings!: Table<UserSettings>;
 
-  // Knowledge management tables
-  knowledge!: Table<Knowledge>;
-  documents!: Table<Document>;
-  vectors!: Table<VectorData>;
-
-  // Openai config
-  openaiConfigs!: Table<OpenAIModelConfig>;
   customModels!: Table<Model>;
   modelNickname!: Table<ModelNickname>
   processedMedia!: Table<any>
@@ -44,12 +33,6 @@ export class PageAssistDexieDB extends Dexie {
       webshares: 'id, title, url, api_url, share_id, createdAt',
       sessionFiles: 'sessionId, retrievalEnabled, createdAt',
       userSettings: 'id, user_id',
-      // Knowledge management tables
-      knowledge: 'id, db_type, title, status, embedding_model, createdAt',
-      documents: 'id, db_type, title, status, embedding_model, createdAt',
-      vectors: 'id, vectors',
-      // OpenAI Configs
-      openaiConfigs: 'id, name, baseUrl, apiKey, createdAt, provider, db_type, headers',
       customModels: 'id, model_id, name, model_name, model_image, provider_id, lookup, model_type, db_type',
       modelNickname: 'id, model_id, model_name, model_avatar',
       processedMedia: 'id, url, createdAt'

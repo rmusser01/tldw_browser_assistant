@@ -1,8 +1,12 @@
-import { test, expect } from '@playwright/test'
-import path from 'path'
-import { launchWithExtension } from './utils/extension'
-import { MockTldwServer } from './utils/mock-server'
-import { grantHostPermission } from './utils/permissions'
+import { test, expect } from "@playwright/test"
+import path from "path"
+import { launchWithExtension } from "./utils/extension"
+import { grantHostPermission } from "./utils/permissions"
+import { requireRealServerConfig } from "./utils/real-server"
+import {
+  waitForConnectionStore,
+  forceConnectionState
+} from "./utils/connection"
 
 test.describe('Composer readiness based on connection state', () => {
   test('sidepanel composer is disabled and shows connection helper when server is not configured', async () => {
@@ -48,22 +52,19 @@ test.describe('Composer readiness based on connection state', () => {
     const { context, page } = await launchWithExtension(extPath)
 
     // Force the shared connection state into a "connected phase but not ready" state
-    await page.evaluate(() => {
-      const conn: any = (window as any).__tldw_useConnectionStore
-      if (!conn) return
-      const prev = conn.getState().state
-      conn.setState({
-        state: {
-          ...prev,
-          phase: 'connected',
-          isConnected: false,
-          isChecking: false,
-          mode: 'normal',
-          configStep: prev.configStep || 'health',
-          errorKind: 'none'
-        }
-      })
-    })
+    await waitForConnectionStore(page, "composer-not-ready")
+    await forceConnectionState(
+      page,
+      {
+        phase: "connected",
+        isConnected: false,
+        isChecking: false,
+        mode: "normal",
+        configStep: "health",
+        errorKind: "none"
+      },
+      "composer-not-ready"
+    )
 
     await page.reload()
 
@@ -86,29 +87,41 @@ test.describe('Composer readiness based on connection state', () => {
     await context.close()
   })
 
-  test('sidepanel composer is enabled with normal placeholder when connected', async () => {
-    const server = new MockTldwServer()
-    await server.start()
+  test("sidepanel composer is enabled with normal placeholder when connected", async () => {
+    const { serverUrl, apiKey } = requireRealServerConfig(test)
 
-    const extPath = path.resolve('.output/chrome-mv3')
-    const { context, openSidepanel, extensionId } = (await launchWithExtension(extPath)) as any
+    const extPath = path.resolve(".output/chrome-mv3")
+    const { context, openSidepanel, extensionId } =
+      (await launchWithExtension(extPath)) as any
 
     // Ensure host permission for the mock server is granted
-    const granted = await grantHostPermission(context, extensionId, 'http://127.0.0.1/*')
+    const granted = await grantHostPermission(
+      context,
+      extensionId,
+      new URL(serverUrl).origin + "/*"
+    )
     if (!granted) {
       test.skip(
         true,
-        'Host permission not granted for http://127.0.0.1/*; allow it in chrome://extensions > tldw Assistant > Site access, then re-run'
+        "Host permission not granted for tldw_server origin; allow it in chrome://extensions > tldw Assistant > Site access, then re-run"
       )
     }
 
     const page = await openSidepanel()
 
     // Seed a valid config so the shared connection store can reach the mock server
-    await page.evaluate((cfg) => new Promise<void>((resolve) => {
-      // @ts-ignore
-      chrome.storage.local.set({ tldwConfig: cfg }, () => resolve())
-    }), { serverUrl: server.url, authMode: 'single-user', apiKey: 'THIS-IS-A-SECURE-KEY-123-FAKE-KEY' })
+    await page.evaluate(
+      (cfg) =>
+        new Promise<void>((resolve) => {
+          // @ts-ignore
+          chrome.storage.local.set({ tldwConfig: cfg }, () => resolve())
+        }),
+      {
+        serverUrl,
+        authMode: "single-user",
+        apiKey
+      }
+    )
 
     await page.reload()
 
@@ -117,10 +130,9 @@ test.describe('Composer readiness based on connection state', () => {
     await expect(textarea).toBeVisible({ timeout: 15_000 })
 
     // Send button should be enabled when the server is connected
-    const sendButton = page.getByRole('button', { name: /Send/i }).first()
+    const sendButton = page.getByRole("button", { name: /Send/i }).first()
     await expect(sendButton).toBeEnabled()
 
     await context.close()
-    await server.stop()
   })
 })
