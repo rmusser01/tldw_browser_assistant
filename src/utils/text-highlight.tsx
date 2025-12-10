@@ -1,13 +1,14 @@
 import React from "react"
 
 /**
- * Highlights all occurrences of a search query in the given text.
- * Returns a React node with matched text wrapped in <mark> elements.
+ * Highlights occurrences of query terms within text by wrapping matches in <mark> elements.
  *
- * @param text - The text to search within
- * @param query - The search query to highlight
- * @param options - Optional configuration
- * @returns React node with highlighted matches, or the original text if no query
+ * @param text - The text to search within.
+ * @param query - The search query; may contain multiple terms separated by whitespace.
+ * @param options - Optional settings.
+ * @param options.caseSensitive - If true, matches respect case (default: false).
+ * @param options.highlightClassName - Class name applied to each <mark> (default: "bg-yellow-200 dark:bg-yellow-700 rounded px-0.5").
+ * @returns A React node with matched segments wrapped in <mark>, or the original `text` when no matches are found.
  */
 export function highlightText(
   text: string,
@@ -71,12 +72,14 @@ export function highlightText(
 }
 
 /**
- * Checks if a text contains the search query.
+ * Determines whether any whitespace-separated term from `query` appears in `text`.
+ *
+ * The `query` is split on whitespace into terms; the function returns `true` if at least one term is found.
  *
  * @param text - The text to search within
- * @param query - The search query
- * @param caseSensitive - Whether the search should be case-sensitive
- * @returns true if the text contains the query
+ * @param query - Whitespace-separated terms to search for
+ * @param caseSensitive - If `true`, matching is case-sensitive; otherwise matching is case-insensitive
+ * @returns `true` if any term from `query` is found in `text`, `false` otherwise
  */
 export function textContainsQuery(
   text: string,
@@ -101,12 +104,14 @@ export function textContainsQuery(
 }
 
 /**
- * Counts the number of matches for a query in the given text.
+ * Count occurrences of one or more query terms in the given text.
+ *
+ * Splits `query` on whitespace into terms, escapes regex metacharacters, and counts all non-overlapping occurrences of any term. Returns 0 when `text` or `query` is falsy or when no terms remain after splitting. Matching respects the `caseSensitive` flag.
  *
  * @param text - The text to search within
- * @param query - The search query
- * @param caseSensitive - Whether the search should be case-sensitive
- * @returns The number of matches
+ * @param query - Whitespace-separated search terms
+ * @param caseSensitive - Whether matching is case-sensitive (default: `false`)
+ * @returns The number of matches found
  */
 export function countMatches(
   text: string,

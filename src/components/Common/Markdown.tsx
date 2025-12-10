@@ -13,6 +13,14 @@ import { preprocessLaTeX } from "@/utils/latex"
 import { useStorage } from "@plasmohq/storage/hook"
 import { highlightText } from "@/utils/text-highlight"
 
+/**
+ * Render Markdown into styled React elements, with support for GitHub-flavored Markdown, LaTeX math, fenced code blocks, tables, and optional search-term highlighting.
+ *
+ * @param message - The Markdown source to render.
+ * @param className - Optional additional CSS classes applied to the root container; when the persisted "checkWideMode" flag is true, `max-w-none` is appended.
+ * @param searchQuery - Optional text to highlight inside rendered text nodes; matching substrings are emphasized.
+ * @returns A React element tree representing the rendered Markdown content.
+ */
 function Markdown({
   message,
   className = "prose break-words dark:prose-invert prose-p:leading-relaxed prose-pre:p-0 dark:prose-dark",
