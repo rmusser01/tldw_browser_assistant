@@ -11,6 +11,11 @@
     "descriptionMissing": "tldw_server is the backend that powers chat, knowledge search, and media processing. Connect your own tldw server URL to start using the assistant.",
     "descriptionSearching": "We’re checking {{host}} to see if your tldw server is reachable. This may take a moment while we wait for a response.",
     "descriptionConnected": "Connected to your tldw server at {{host}}. You can start chatting or use Review, Knowledge, and other tools.",
+    "descriptionConnectedList": {
+      "reviewMedia": "Gjennomgå medier og transkripsjoner",
+      "searchKnowledge": "Søk i kunnskap og notater",
+      "useRag": "Bruk RAG med dine egne dokumenter"
+    },
     "descriptionError": "We couldn’t reach your tldw server at {{host}}. Make sure the server is running, the URL is correct, and your browser can reach it over the network.",
     "buttonStartChat": "Start chatting",
     "buttonRetry": "Retry connection",
@@ -27,7 +32,8 @@
     "quickIngestHint": "Når serveren er frakoblet, fungerer Quick Ingest som et staging-område. Du kan legge URL-er og filer i kø nå og behandle dem når du kobler til igjen.",
     "backToWorkspace": "Tilbake til arbeidsområdet",
     "sidepanelOpenSettingsHint": "Innstillinger åpnes i en ny nettleserfane slik at du kan konfigurere tldw-serveren.",
-    "quickIngestInlineHint": "Quick Ingest kan legge URL-er og filer i kø mens serveren er frakoblet, så du kan behandle dem når du kobler til igjen."
+    "quickIngestInlineHint": "Quick Ingest kan legge URL-er og filer i kø mens serveren er frakoblet, så du kan behandle dem når du kobler til igjen.",
+    "connectedCaption": "Chat og verktøy er nå tilgjengelige i Innstillinger og i sidepanelet."
   },
   "header": {
     "showShortcuts": "Vis snarveier",
@@ -72,6 +78,13 @@
     "toolsMenu": "Chat tools",
     "serverBackedLabel": "Server-backed chat",
     "serverBackedTooltip": "Messages in this chat are also saved on your tldw server.",
+    "omniSearchPlaceholder": "Søk i skjermer, chatter, medier, notater…",
+    "omniSearchNoResults": "Ingen treff for \"{{query}}\".",
+    "omniSearchCreateNote": "Opprett notat \"{{query}}\"",
+    "omniSearchCreateNoteSuccess": "Notat \"{{query}}\" opprettet",
+    "omniSearchCreateFlashcards": "Opprett flashkort-samling \"{{query}}\"",
+    "omniSearchCreateFlashcardsSuccess": "Flashkort-samling \"{{query}}\" opprettet",
+    "omniSearchStartChat": "Start ny chat \"{{query}}\"",
     "quickIngestQueuedAria": "{{label}} — {{count}} elementer i kø — klikk for å gjennomgå og behandle"
   },
   "sidebarTitle": "Chathistorikk",
@@ -423,6 +436,15 @@
     "exportHelp": "Filter by deck, tag, or search, then export as CSV/TSV for spreadsheets or Anki (.apkg) for Anki clients."
   }
 ,
+  "omniSearch": {
+    "filterScreen": "Skjermer",
+    "filterChat": "Samtaler",
+    "filterMedia": "Media",
+    "filterNote": "Notater",
+    "filterFlashcards": "Flashkort-samlinger",
+    "filterPrompt": "Prompter",
+    "filteringBy": "Filtrerer etter:"
+  },
   "quickChatHelper": {
     "tooltip": "Hurtig chat-hjelper",
     "title": "Hurtig chat-hjelper",

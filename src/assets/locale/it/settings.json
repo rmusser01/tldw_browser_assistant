@@ -850,11 +850,23 @@
       "auth": "Scegli come effettuare l’accesso",
       "health": "Conferma connessione e Knowledge"
     },
+    "startServer": {
+      "title": "Prima di iniziare — Avvia il tuo server tldw",
+      "body": "Se non hai ancora avviato il server, esegui uno di questi comandi nella repository tldw_server, poi torna qui.",
+      "copy": "Copia comando",
+      "optionLocal": "Esegui in locale con Python",
+      "optionLocalHint": "Esegui all'interno del virtualenv tldw_server dalla root della repository del server.",
+      "optionDocker": "Esegui con Docker Compose (single-user)",
+      "optionDockerHint": "Esegui dalla root della repository tldw_server per avviare l'API e il database."
+    },
     "path": {
       "heading": "Come vuoi iniziare?",
       "hasServer": "Eseguo già tldw_server",
+      "hasServerHelp": "Connect to an existing tldw_server you already run.",
       "noServer": "Non ho ancora un server",
+      "noServerHelp": "Follow a setup guide for tldw_server, or start in demo mode.",
       "demo": "Esplora soltanto con una demo locale",
+      "demoHelp": "Try the workspace with sample data; connect your own server later.",
       "noServerTitle": "Nessun server ancora? Puoi comunque esplorare.",
       "noServerBody": "tldw_server è un’app separata, self-hosted. Puoi seguire ora la guida di configurazione oppure tornare più tardi e continuare in modalità demo.",
       "noServerOptionLocal": "Esegui in locale con Docker o Python sulla tua macchina.",

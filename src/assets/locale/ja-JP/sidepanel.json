@@ -41,8 +41,26 @@
     "modePrompts": "Prompts",
     "modeFlashcards": "Flashcards"
   },
+  "controlRow": {
+    "saveMode": "保存モード",
+    "ephemeral": "一時チャット",
+    "searchSection": "検索とビジョン",
+    "webSearch": "ウェブ検索",
+    "vision": "ビジョン",
+    "uploadImage": "画像をアップロード",
+    "quickIngest": "ページをクイック取り込み",
+    "openInFullUI": "フル UI で開く",
+    "modeChat": "チャット",
+    "modeMedia": "メディア",
+    "modeNotes": "ノート",
+    "modeFlashcards": "フラッシュカード",
+    "ragSearch": "RAG 検索",
+    "moreTools": "その他のツール"
+  },
   "composer": {
-    "connectHint": "Connect to your tldw server in Settings to send messages."
+    "connectHint": "Connect to your tldw server in Settings to send messages.",
+    "connectingPlaceholder": "Connecting...",
+    "disconnectedPlaceholder": "Connect to your tldw server in Settings to send messages and view media."
   },
   "notification": {
     "ingestSent": "Sent to tldw server",

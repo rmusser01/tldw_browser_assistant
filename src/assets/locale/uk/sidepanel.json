@@ -41,8 +41,26 @@
     "modePrompts": "Prompts",
     "modeFlashcards": "Flashcards"
   },
+  "controlRow": {
+    "saveMode": "Режим збереження",
+    "ephemeral": "Тимчасовий",
+    "searchSection": "Пошук і Vision",
+    "webSearch": "Пошук в інтернеті",
+    "vision": "Vision",
+    "uploadImage": "Завантажити зображення",
+    "quickIngest": "Швидко імпортувати сторінку",
+    "openInFullUI": "Відкрити у повному інтерфейсі",
+    "modeChat": "Чат",
+    "modeMedia": "Медіа",
+    "modeNotes": "Нотатки",
+    "modeFlashcards": "Флеш-картки",
+    "ragSearch": "RAG-пошук",
+    "moreTools": "Більше інструментів"
+  },
   "composer": {
-    "connectHint": "Connect to your tldw server in Settings to send messages."
+    "connectHint": "Підключіться до свого сервера tldw у налаштуваннях, щоб надсилати повідомлення.",
+    "connectingPlaceholder": "Підключення...",
+    "disconnectedPlaceholder": "Підключіться до свого сервера tldw у налаштуваннях, щоб надсилати повідомлення й переглядати медіа."
   },
   "notification": {
     "ingestSent": "Sent to tldw server",

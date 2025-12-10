@@ -2,6 +2,8 @@ import { BrowserContext, Page, chromium } from '@playwright/test'
 import path from 'path'
 import fs from 'fs'
 
+import { resolveExtensionId } from './extension-id'
+
 function makeTempProfileDirs() {
   const root = path.resolve('tmp-playwright-profile')
   fs.mkdirSync(root, { recursive: true })
@@ -68,12 +70,7 @@ export async function launchWithExtension(
   }
   await waitForTargets()
 
-  const pages = context.backgroundPages()
-  const workers = context.serviceWorkers()
-  const targetUrl = pages[0]?.url() || workers[0]?.url() || ''
-  const match = targetUrl.match(/chrome-extension:\/\/([a-p]{32})/)
-  if (!match) throw new Error(`Could not determine extension id from ${targetUrl}`)
-  const extensionId = match[1]
+  const extensionId = await resolveExtensionId(context)
   const optionsUrl = `chrome-extension://${extensionId}/options.html`
   const sidepanelUrl = `chrome-extension://${extensionId}/sidepanel.html`
 

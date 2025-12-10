@@ -41,8 +41,26 @@
     "modePrompts": "Prompts",
     "modeFlashcards": "Flashcards"
   },
+  "controlRow": {
+    "saveMode": "儲存模式",
+    "ephemeral": "暫時會話",
+    "searchSection": "搜尋與視覺",
+    "webSearch": "網頁搜尋",
+    "vision": "視覺",
+    "uploadImage": "上傳圖片",
+    "quickIngest": "快速擷取頁面",
+    "openInFullUI": "在完整介面中開啟",
+    "modeChat": "聊天",
+    "modeMedia": "媒體",
+    "modeNotes": "筆記",
+    "modeFlashcards": "抽認卡",
+    "ragSearch": "RAG 搜尋",
+    "moreTools": "更多工具"
+  },
   "composer": {
-    "connectHint": "Connect to your tldw server in Settings to send messages."
+    "connectHint": "請在「設定」中連線到您的 tldw 伺服器以傳送訊息。",
+    "connectingPlaceholder": "正在連線…",
+    "disconnectedPlaceholder": "請在「設定」中連線到您的 tldw 伺服器以傳送訊息並檢視媒體。"
   },
   "notification": {
     "ingestSent": "Sent to tldw server",

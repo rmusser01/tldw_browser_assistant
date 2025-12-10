@@ -82,5 +82,81 @@
   },
   "restartOnboardingConfirmMessage": {
     "message": "سيؤدي هذا إلى إعادة تعيين حالة الإعداد وإعادتك إلى مسار الإعداد من جديد."
+  },
+  "omniSearchPlaceholder": {
+    "message": "ابحث في الشاشات والدردشات والوسائط والملاحظات…",
+    "description": "Placeholder text for the omni-search input in the header."
+  },
+  "omniSearchNoResults": {
+    "message": "لا توجد أي نتائج لـ \"{{query}}\".",
+    "description": "No-results text for omni-search when nothing matches the query."
+  },
+  "omniSearchCreateNote": {
+    "message": "إنشاء ملاحظة \"{{query}}\"",
+    "description": "Omni-search action label to create a note from the current query."
+  },
+  "omniSearchCreateFlashcards": {
+    "message": "إنشاء مجموعة بطاقات \"{{query}}\"",
+    "description": "Omni-search action label to create a flashcard collection from the current query."
+  },
+  "omniSearchStartChat": {
+    "message": "بدء محادثة جديدة \"{{query}}\"",
+    "description": "Omni-search action label to start a new chat from the current query."
+  },
+  "connectionCard_connectedCaption": {
+    "message": "أصبحت الدردشة والأدوات متاحة الآن في صفحة الخيارات وفي اللوحة الجانبية.",
+    "description": "Caption under the server connection card when the extension is connected."
+  },
+  "quickIngestQueuedAria": {
+    "message": "{{label}} — {{count}} عناصر في قائمة الانتظار — انقر للمراجعة والمعالجة",
+    "description": "ARIA label template for the Quick ingest button when there are queued items."
+  },
+  "connectionCard_descriptionConnectedList_reviewMedia": {
+    "message": "مراجعة الوسائط والنصوص",
+    "description": "First bullet in the connected-state server connection card, highlighting media review."
+  },
+  "connectionCard_descriptionConnectedList_searchKnowledge": {
+    "message": "البحث في قاعدة المعرفة والملاحظات",
+    "description": "Second bullet in the connected-state server connection card, highlighting knowledge/notes search."
+  },
+  "connectionCard_descriptionConnectedList_useRag": {
+    "message": "استخدام RAG مع مستنداتك الخاصة",
+    "description": "Third bullet in the connected-state server connection card, highlighting retrieval-augmented generation usage."
+  },
+  "omniSearch_filterScreen": {
+    "message": "الشاشات",
+    "description": "Filter label for screens in omni-search."
+  },
+  "omniSearch_filterChat": {
+    "message": "الدردشات",
+    "description": "Filter label for chats in omni-search."
+  },
+  "omniSearch_filterMedia": {
+    "message": "الوسائط",
+    "description": "Filter label for media in omni-search."
+  },
+  "omniSearch_filterNote": {
+    "message": "الملاحظات",
+    "description": "Filter label for notes in omni-search."
+  },
+  "omniSearch_filterFlashcards": {
+    "message": "مجموعات البطاقات",
+    "description": "Filter label for flashcard collections in omni-search."
+  },
+  "omniSearch_filterPrompt": {
+    "message": "المطالبات",
+    "description": "Filter label for prompts in omni-search."
+  },
+  "omniSearch_filteringBy": {
+    "message": "التصفية حسب:",
+    "description": "Prefix label shown before the active omni-search filter type."
+  },
+  "omniSearchCreateNoteSuccess": {
+    "message": "تم إنشاء الملاحظة \"{{query}}\"",
+    "description": "Confirmation toast message shown after creating a note from omni-search."
+  },
+  "omniSearchCreateFlashcardsSuccess": {
+    "message": "تم إنشاء مجموعة البطاقات \"{{query}}\"",
+    "description": "Confirmation toast message shown after creating a flashcard collection from omni-search."
   }
 }

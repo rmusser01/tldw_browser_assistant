@@ -851,11 +851,23 @@
       "auth": "Vælg hvordan du logger ind",
       "health": "Bekræft forbindelse og Knowledge"
     },
+    "startServer": {
+      "title": "Før du går i gang — start din tldw-server",
+      "body": "Hvis du endnu ikke har startet serveren, skal du køre en af disse kommandoer i tldw_server-repositoriet og derefter vende tilbage hertil.",
+      "copy": "Kopiér kommando",
+      "optionLocal": "Kør lokalt med Python",
+      "optionLocalHint": "Kør den inde i din tldw_server-virtualenv fra roden af server-repositoriet.",
+      "optionDocker": "Kør med Docker Compose (enkel bruger)",
+      "optionDockerHint": "Kør den fra roden af tldw_server-repositoriet for at starte API'et og databasen."
+    },
     "path": {
       "heading": "Hvordan vil du gerne starte?",
       "hasServer": "Jeg kører allerede tldw_server",
+      "hasServerHelp": "Opret forbindelse til en eksisterende tldw_server, du allerede kører.",
       "noServer": "Jeg har ikke en server endnu",
+      "noServerHelp": "Følg en opsætningsvejledning til tldw_server, eller start i demotilstand.",
       "demo": "Udforsk bare med en lokal demo",
+      "demoHelp": "Prøv arbejdsområdet med eksempeldata; du kan forbinde din egen server senere.",
       "noServerTitle": "Ingen server endnu? Du kan stadig udforske.",
       "noServerBody": "tldw_server er en separat, selvhostet app. Du kan følge opsætningsvejledningen nu eller vende tilbage senere og fortsætte i demotilstand.",
       "noServerOptionLocal": "Kør lokalt med Docker eller Python på din egen maskine.",

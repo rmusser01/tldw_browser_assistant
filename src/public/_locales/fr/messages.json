@@ -137,87 +137,152 @@
     "message": "You\u2019re ready to go",
     "description": "Titre du panneau final de l’onboarding avec les prochaines étapes (actuellement en anglais)."
   },
-  "notesEmpty.connectTitle": {
-    "message": "Connect to use Notes"
+  "notesEmpty_connectTitle": {
+    "message": "Se connecter pour utiliser Notes"
   },
-  "notesEmpty.connectDescription": {
-    "message": "To use Notes, first connect to your tldw server."
+  "notesEmpty_connectDescription": {
+    "message": "Pour utiliser Notes, connectez d’abord votre serveur tldw."
   },
-  "notesEmpty.connectExample1": {
-    "message": "Open Settings \u2192 tldw server to add your server URL."
+  "notesEmpty_connectExample1": {
+    "message": "Ouvrez Param\u00e8tres \u2192 tldw server pour ajouter l’URL de votre serveur."
   },
-  "notesEmpty.connectExample2": {
-    "message": "Use Diagnostics if your server is running but not reachable."
+  "notesEmpty_connectExample2": {
+    "message": "Utilisez Diagnostics si votre serveur est en ligne mais injoignable."
   },
-  "notesEmpty.demoTitle": {
-    "message": "Explore Notes in demo mode"
+  "notesEmpty_demoTitle": {
+    "message": "Explorer Notes en mode d\u00e9mo"
   },
-  "notesEmpty.demoDescription": {
-    "message": "This demo shows how Notes can organize your insights. Connect your own server later to create and save real notes."
+  "notesEmpty_demoDescription": {
+    "message": "Cette d\u00e9mo montre comment Notes peut organiser vos insights. Vous pourrez ensuite connecter votre propre serveur pour cr\u00e9er et enregistrer de vraies notes."
   },
-  "notesEmpty.demoExample1": {
-    "message": "See how note titles, previews, and timestamps appear in the list."
+  "notesEmpty_demoExample1": {
+    "message": "Voyez comment les titres, aper\u00e7us et horodatages des notes s’affichent dans la liste."
   },
-  "notesEmpty.demoExample2": {
-    "message": "When you connect, you\u2019ll be able to create notes from meetings, reviews, and more."
+  "notesEmpty_demoExample2": {
+    "message": "Une fois connect\u00e9, vous pourrez cr\u00e9er des notes \u00e0 partir de r\u00e9unions, de Review et plus encore."
   },
-  "notesEmpty.demoExample3": {
-    "message": "Use Notes alongside Media and Review to keep track of your findings."
+  "notesEmpty_demoExample3": {
+    "message": "Utilisez Notes avec Media et Review pour garder une trace de vos r\u00e9sultats."
   },
-  "notesEmpty.demoPreviewHeading": {
-    "message": "Example notes (preview only)"
+  "notesEmpty_demoPreviewHeading": {
+    "message": "Notes d’exemple (aper\u00e7u uniquement)"
   },
-  "notesEmpty.demoSample1Title": {
-    "message": "Demo note: Weekly meeting recap"
+  "notesEmpty_demoSample1Title": {
+    "message": "Note de d\u00e9mo : r\u00e9capitulatif de la r\u00e9union hebdomadaire"
   },
-  "notesEmpty.demoSample1Preview": {
-    "message": "Decisions, blockers, and follow-ups from a recent team sync."
+  "notesEmpty_demoSample1Preview": {
+    "message": "D\u00e9cisions, blocages et actions de suivi issues d’une r\u00e9union d’\u00e9quipe r\u00e9cente."
   },
-  "notesEmpty.demoSample1Meta": {
-    "message": "Today \u00b7 9:32 AM"
+  "notesEmpty_demoSample1Meta": {
+    "message": "Aujourd’hui \u00b7 09:32"
   },
-  "notesEmpty.demoSample2Title": {
-    "message": "Demo note: Research highlights"
+  "notesEmpty_demoSample2Title": {
+    "message": "Note de d\u00e9mo : points cl\u00e9s de la recherche"
   },
-  "notesEmpty.demoSample2Preview": {
-    "message": "Key insights pulled from a long article or paper."
+  "notesEmpty_demoSample2Preview": {
+    "message": "Principales id\u00e9es extraites d’un long article ou document."
   },
-  "notesEmpty.demoSample2Meta": {
-    "message": "Yesterday \u00b7 4:10 PM"
+  "notesEmpty_demoSample2Meta": {
+    "message": "Hier \u00b7 16:10"
   },
-  "notesEmpty.demoSample3Title": {
-    "message": "Demo note: Call summary"
+  "notesEmpty_demoSample3Title": {
+    "message": "Note de d\u00e9mo : r\u00e9sum\u00e9 d’appel"
   },
-  "notesEmpty.demoSample3Preview": {
-    "message": "Summary of a customer call with next steps and owners."
+  "notesEmpty_demoSample3Preview": {
+    "message": "R\u00e9sum\u00e9 d’un appel client avec prochaines \u00e9tapes et responsables."
   },
-  "notesEmpty.demoSample3Meta": {
-    "message": "This week"
+  "notesEmpty_demoSample3Meta": {
+    "message": "Cette semaine"
   },
-  "notesEmpty.title": {
-    "message": "No notes yet"
+  "notesEmpty_title": {
+    "message": "Pas encore de notes"
   },
-  "notesEmpty.description": {
-    "message": "Capture and organize free-form notes connected to your tldw insights."
+  "notesEmpty_description": {
+    "message": "Capturez et organisez des notes libres li\u00e9es \u00e0 vos insights tldw."
   },
-  "notesEmpty.exampleCreate": {
-    "message": "Create a new note for a recent meeting or transcript."
+  "notesEmpty_exampleCreate": {
+    "message": "Cr\u00e9ez une nouvelle note pour une r\u00e9union r\u00e9cente ou une transcription."
   },
-  "notesEmpty.exampleLink": {
-    "message": "Save review outputs into Notes so you can revisit them later."
+  "notesEmpty_exampleLink": {
+    "message": "Enregistrez les r\u00e9sultats de Review dans Notes pour pouvoir les consulter plus tard."
   },
-  "notesEmpty.primaryCta": {
-    "message": "Create note"
-  "authStepAria": {
-    "message": "Étape 3 sur 4 — configuration de l'authentification",
-    "description": "Libellé aria pour l'étape de configuration de l'authentification (actuellement en anglais)."
+  "notesEmpty_primaryCta": {
+    "message": "Cr\u00e9er une note"
   },
-  "confirmStepAria": {
-    "message": "Étape 4 sur 4 — résumé de la connexion et étapes suivantes",
-    "description": "Libellé aria pour l'étape de confirmation de la connexion (actuellement en anglais)."
+  "omniSearchPlaceholder": {
+    "message": "Rechercher dans les \u00e9crans, les chats, les m\u00e9dias et les notes\u2026",
+    "description": "Placeholder text for the omni-search input in the header."
   },
-  "nextSteps": {
-    "message": "Vous êtes prêt à commencer",
-    "description": "Titre du panneau final de l'onboarding avec les prochaines étapes (actuellement en anglais)."
+  "omniSearchNoResults": {
+    "message": "Aucun r\u00e9sultat pour \u00ab {{query}} \u00bb.",
+    "description": "No-results text for omni-search when nothing matches the query."
+  },
+  "omniSearchCreateNote": {
+    "message": "Cr\u00e9er la note \u00ab {{query}} \u00bb",
+    "description": "Omni-search action label to create a note from the current query."
+  },
+  "omniSearchCreateFlashcards": {
+    "message": "Cr\u00e9er la collection de Flashcards \u00ab {{query}} \u00bb",
+    "description": "Omni-search action label to create a flashcard collection from the current query."
+  },
+  "omniSearchStartChat": {
+    "message": "D\u00e9marrer un nouveau chat \u00ab {{query}} \u00bb",
+    "description": "Omni-search action label to start a new chat from the current query."
+  },
+  "connectionCard_connectedCaption": {
+    "message": "Le chat et les outils sont maintenant disponibles dans les Param\u00e8tres et la barre lat\u00e9rale.",
+    "description": "Caption under the server connection card when the extension is connected."
+  },
+  "quickIngestQueuedAria": {
+    "message": "{{label}} \u2014 {{count}} \u00e9l\u00e9ments en file d\u2019attente \u2014 cliquez pour revoir et traiter",
+    "description": "ARIA label template for the Quick ingest button when there are queued items."
+  },
+  "connectionCard_descriptionConnectedList_reviewMedia": {
+    "message": "Revoir les m\u00e9dias et les transcriptions",
+    "description": "First bullet in the connected-state server connection card, highlighting media review."
+  },
+  "connectionCard_descriptionConnectedList_searchKnowledge": {
+    "message": "Rechercher dans les connaissances et les notes",
+    "description": "Second bullet in the connected-state server connection card, highlighting knowledge/notes search."
+  },
+  "connectionCard_descriptionConnectedList_useRag": {
+    "message": "Utiliser RAG avec vos propres documents",
+    "description": "Third bullet in the connected-state server connection card, highlighting retrieval-augmented generation usage."
+  },
+  "omniSearch_filterScreen": {
+    "message": "\u00c9crans",
+    "description": "Filter label for screens in omni-search."
+  },
+  "omniSearch_filterChat": {
+    "message": "Chats",
+    "description": "Filter label for chats in omni-search."
+  },
+  "omniSearch_filterMedia": {
+    "message": "M\u00e9dias",
+    "description": "Filter label for media in omni-search."
+  },
+  "omniSearch_filterNote": {
+    "message": "Notes",
+    "description": "Filter label for notes in omni-search."
+  },
+  "omniSearch_filterFlashcards": {
+    "message": "Collections de Flashcards",
+    "description": "Filter label for flashcard collections in omni-search."
+  },
+  "omniSearch_filterPrompt": {
+    "message": "Prompts",
+    "description": "Filter label for prompts in omni-search."
+  },
+  "omniSearch_filteringBy": {
+    "message": "Filtrer par :",
+    "description": "Prefix label shown before the active omni-search filter type."
+  },
+  "omniSearchCreateNoteSuccess": {
+    "message": "Note \u00ab {{query}} \u00bb cr\u00e9\u00e9e",
+    "description": "Confirmation toast message shown after creating a note from omni-search."
+  },
+  "omniSearchCreateFlashcardsSuccess": {
+    "message": "Collection de Flashcards \u00ab {{query}} \u00bb cr\u00e9\u00e9e",
+    "description": "Confirmation toast message shown after creating a flashcard collection from omni-search."
   }
 }

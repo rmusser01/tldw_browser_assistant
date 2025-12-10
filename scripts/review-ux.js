@@ -3,8 +3,40 @@
 
 const path = require('path')
 const fs = require('fs')
+const os = require('os')
 const { chromium } = require('@playwright/test')
 const { spawn } = require('child_process')
+
+function makeTempProfileDirs() {
+  const root = path.resolve('tmp-playwright-profile')
+  let homeDir
+  let userDataDir
+
+  try {
+    fs.mkdirSync(root, { recursive: true })
+    homeDir = fs.mkdtempSync(path.join(root, 'ux-home-'))
+    userDataDir = fs.mkdtempSync(path.join(root, 'ux-user-data-'))
+  } catch (err) {
+    const message =
+      err && err.message ? err.message : String(err || 'Unknown error')
+    throw new Error(
+      `Failed to create temporary profile directories for review-ux: ${message}`
+    )
+  }
+
+  const cleanup = () => {
+    for (const dir of [homeDir, userDataDir]) {
+      if (!dir) continue
+      try {
+        fs.rmSync(dir, { recursive: true, force: true })
+      } catch {
+        // Ignore cleanup errors (directories may already be gone)
+      }
+    }
+  }
+
+  return { homeDir, userDataDir, cleanup }
+}
 
 async function waitForExtensionId(context, timeoutMs = 10000) {
   const start = Date.now()
@@ -27,8 +59,8 @@ async function main() {
     throw new Error(`Extension build not found at: ${extensionPath}`)
   }
 
-  const userDataDir = path.resolve(__dirname, '..', 'playwright-mcp-artifacts', 'chrome-user-data')
-  fs.mkdirSync(userDataDir, { recursive: true })
+  const { homeDir, userDataDir, cleanup } = makeTempProfileDirs()
+  const crashDumpsDir = String(os.tmpdir())
 
   // Start a lightweight mock tldw_server so health/model calls succeed
   const mock = spawn(process.execPath, [path.resolve(__dirname, 'mock-tldw.js')], {
@@ -36,10 +68,16 @@ async function main() {
   })
 
   const context = await chromium.launchPersistentContext(userDataDir, {
-    headless: false,
+    headless: !!process.env.CI,
+    env: {
+      ...process.env,
+      HOME: homeDir
+    },
     args: [
       `--disable-extensions-except=${extensionPath}`,
-      `--load-extension=${extensionPath}`
+      `--load-extension=${extensionPath}`,
+      '--disable-crash-reporter',
+      `--crash-dumps-dir=${crashDumpsDir}`
     ]
   })
 
@@ -47,12 +85,16 @@ async function main() {
     // Obtain the extension id from the registered service worker
     const extensionId = await waitForExtensionId(context)
     const base = `chrome-extension://${extensionId}`
+    const apiKey =
+      process.env.TLDW_E2E_API_KEY ||
+      process.env.TLDW_WALKTHROUGH_API_KEY ||
+      'THIS-IS-A-SECURE-KEY-123-FAKE-KEY'
 
     const page = await context.newPage()
     await page.goto(`${base}/options.html`, { waitUntil: 'load' })
     await page.waitForSelector('#root', { timeout: 10000 })
     // Preconfigure server URL + auth in extension storage
-    await page.evaluate(async () => {
+    await page.evaluate(async (apiKeyValue) => {
       // Request host permissions so background fetches are allowed
       try {
         await new Promise((resolve) => chrome.permissions.request({ origins: ['http://127.0.0.1/*'] }, resolve))
@@ -62,11 +104,11 @@ async function main() {
         tldwConfig: {
           serverUrl: 'http://127.0.0.1:8000',
           authMode: 'single-user',
-          apiKey: 'test-key'
+          apiKey: apiKeyValue
         },
         tldwServerUrl: 'http://127.0.0.1:8000'
       })
-    })
+    }, apiKey)
     await page.reload({ waitUntil: 'load' })
     // Give background time to start and health check to settle
     await page.waitForTimeout(1000)
@@ -174,7 +216,12 @@ async function main() {
     console.log('Screenshots saved to playwright-mcp-artifacts/*.png')
   } finally {
     await context.close()
-    try { process.kill(-mock.pid) } catch {}
+    try {
+      process.kill(-mock.pid)
+    } catch {}
+    try {
+      cleanup()
+    } catch {}
   }
 }
 

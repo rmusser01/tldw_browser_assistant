@@ -28,9 +28,6 @@ type Props = {
 type PathChoice = 'has-server' | 'no-server' | 'demo'
 type AuthMode = 'single-user' | 'multi-user'
 
-const isPathChoice = (value: SegmentedValue): value is PathChoice =>
-  value === 'has-server' || value === 'no-server' || value === 'demo'
-
 const isAuthMode = (value: SegmentedValue): value is AuthMode =>
   value === 'single-user' || value === 'multi-user'
 
@@ -46,14 +43,14 @@ export const OnboardingWizard: React.FC<Props> = ({ onFinish }) => {
   const [password, setPassword] = React.useState('')
   const [authError, setAuthError] = React.useState<string | null>(null)
   const [pathChoice, setPathChoice] = React.useState<PathChoice>('has-server')
-	  const [autoFinishOnSuccess, setAutoFinishOnSuccess] = useStorage(
-	    { key: 'onboardingAutoFinish', instance: localStorageInstance },
-	    false
-	  )
-	  const [headerShortcutsPref, setHeaderShortcutsPref] = useStorage(
-	    { key: 'headerShortcutsExpanded', instance: localStorageInstance },
-	    true
-	  )
+  const [autoFinishOnSuccess, setAutoFinishOnSuccess] = useStorage(
+    { key: 'onboardingAutoFinish', instance: localStorageInstance },
+    false
+  )
+  const [headerShortcutsPref, setHeaderShortcutsPref] = useStorage(
+    { key: 'headerShortcutsExpanded', instance: localStorageInstance },
+    true
+  )
 
   const { uxState, configStep } = useConnectionUxState()
   const connectionState = useConnectionState()
@@ -71,9 +68,11 @@ export const OnboardingWizard: React.FC<Props> = ({ onFinish }) => {
     }
   }, [t])
 
-	  const urlInputRef = React.useRef<HTMLInputElement | HTMLTextAreaElement | null>(null)
+  const urlInputRef =
+    React.useRef<HTMLInputElement | HTMLTextAreaElement | null>(null)
   const authStepRef = React.useRef<HTMLDivElement | null>(null)
   const confirmStepRef = React.useRef<HTMLDivElement | null>(null)
+  const pathRadioRefs = React.useRef<(HTMLButtonElement | null)[]>([])
 
   React.useEffect(() => {
     try {
@@ -414,10 +413,10 @@ export const OnboardingWizard: React.FC<Props> = ({ onFinish }) => {
     await useConnectionStore.getState().testConnectionFromOnboarding()
   }
 
-	  const handleUseDemoMode = () => {
-	    try {
-	      setDemoEnabled(true)
-	    } catch {
+  const handleUseDemoMode = () => {
+    try {
+      setDemoEnabled(true)
+    } catch {
       // Ignore demo storage failures; connection store mode still applies.
     }
     try {
@@ -427,10 +426,10 @@ export const OnboardingWizard: React.FC<Props> = ({ onFinish }) => {
       console.debug(
         "[OnboardingWizard] Failed to enable demo mode from onboarding",
         err
-	      )
-	    }
-	    finish()
-	  }
+      )
+    }
+    finish()
+  }
 
   const finish = React.useCallback(() => {
     useConnectionStore.getState().markFirstRunComplete()
@@ -477,6 +476,47 @@ export const OnboardingWizard: React.FC<Props> = ({ onFinish }) => {
     }
   }, [activeStep])
 
+  const handlePathKeyDown = (
+    event: React.KeyboardEvent<HTMLButtonElement>,
+    currentIndex: number,
+    options: { value: PathChoice }[]
+  ) => {
+    const { key } = event
+    if (
+      key !== 'ArrowRight' &&
+      key !== 'ArrowLeft' &&
+      key !== 'ArrowDown' &&
+      key !== 'ArrowUp'
+    ) {
+      return
+    }
+
+    event.preventDefault()
+
+    const lastIndex = options.length - 1
+    let nextIndex = currentIndex
+
+    if (key === 'ArrowRight' || key === 'ArrowDown') {
+      nextIndex = currentIndex === lastIndex ? 0 : currentIndex + 1
+    } else if (key === 'ArrowLeft' || key === 'ArrowUp') {
+      nextIndex = currentIndex === 0 ? lastIndex : currentIndex - 1
+    }
+
+    const nextOption = options[nextIndex]
+    if (!nextOption) return
+
+    setPathChoice(nextOption.value)
+
+    const nextButton = pathRadioRefs.current[nextIndex]
+    if (nextButton) {
+      try {
+        nextButton.focus()
+      } catch {
+        // ignore focus errors
+      }
+    }
+  }
+
   return (
     <div className="mx-auto w-full max-w-2xl rounded-xl border border-gray-200 bg-white px-6 py-6 text-gray-900 shadow-sm dark:border-gray-700 dark:bg-[#171717] dark:text-gray-100">
       <h2 className="text-lg font-semibold mb-2 text-gray-900 dark:text-gray-100">{t('settings:onboarding.title')}</h2>
@@ -495,39 +535,84 @@ export const OnboardingWizard: React.FC<Props> = ({ onFinish }) => {
             'How would you like to get started?'
           )}
         </div>
-        <Segmented
-          size="small"
-          value={pathChoice}
-          onChange={(value: SegmentedValue) => {
-            if (isPathChoice(value)) {
-              setPathChoice(value)
-            }
-          }}
-          options={[
+        <div
+          role="radiogroup"
+          aria-label={t(
+            'settings:onboarding.path.heading',
+            'How would you like to get started?'
+          )}
+          aria-orientation="horizontal"
+          className="grid gap-3 md:grid-cols-3"
+        >
+          {[
             {
+              value: 'has-server' as PathChoice,
               label: t(
                 'settings:onboarding.path.hasServer',
                 'I already run tldw_server'
               ),
-              value: 'has-server'
+              description: t(
+                'settings:onboarding.path.hasServerHelp',
+                'Connect to an existing tldw_server you already run.'
+              )
             },
             {
+              value: 'no-server' as PathChoice,
               label: t(
                 'settings:onboarding.path.noServer',
                 "I don’t have a server yet"
               ),
-              value: 'no-server'
+              description: t(
+                'settings:onboarding.path.noServerHelp',
+                'Follow a setup guide for tldw_server, or start in demo mode.'
+              )
             },
             {
+              value: 'demo' as PathChoice,
               label: t(
                 'settings:onboarding.path.demo',
                 'Just explore with a local demo'
               ),
-              value: 'demo'
+              description: t(
+                'settings:onboarding.path.demoHelp',
+                'Try the workspace with sample data; connect your own server later.'
+              )
             }
-          ]}
-          className="w-full"
-        />
+          ].map((option, index, options) => {
+            if (index === 0) {
+              pathRadioRefs.current.length = options.length
+            }
+            const selected = pathChoice === option.value
+            return (
+              <button
+                key={option.value}
+                type="button"
+                role="radio"
+                aria-checked={selected}
+                tabIndex={selected ? 0 : -1}
+                onClick={() => setPathChoice(option.value)}
+                onKeyDown={(event) =>
+                  handlePathKeyDown(event, index, options)
+                }
+                ref={(element) => {
+                  pathRadioRefs.current[index] = element
+                }}
+                className={`flex h-full w-full flex-col items-start rounded-md border px-3 py-2 text-left text-xs transition-colors ${
+                  selected
+                    ? 'border-blue-500 bg-blue-50 text-gray-900 dark:border-blue-400 dark:bg-blue-900/20'
+                    : 'border-gray-200 bg-white text-gray-800 hover:border-blue-400 hover:bg-blue-50/40 dark:border-gray-700 dark:bg-[#111111] dark:text-gray-100 dark:hover:border-blue-400 dark:hover:bg-blue-900/10'
+                }`}
+              >
+                <span className="text-[11px] font-semibold">
+                  {option.label}
+                </span>
+                <span className="mt-1 text-[11px] text-gray-600 dark:text-gray-300">
+                  {option.description}
+                </span>
+              </button>
+            )
+          })}
+        </div>
         {pathChoice === 'no-server' && (
           <Alert
             className="mt-2 text-xs"
@@ -685,7 +770,7 @@ export const OnboardingWizard: React.FC<Props> = ({ onFinish }) => {
             <div className="font-medium text-sm mb-1">
               {t(
                 'settings:onboarding.startServer.title',
-                'Step 0 — Start your tldw server'
+                'Before you start — Start your tldw server'
               )}
             </div>
             <p className="mb-2">

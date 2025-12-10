@@ -850,11 +850,23 @@
       "auth": "Виберіть спосіб входу",
       "health": "Підтвердіть підключення та Knowledge"
     },
+    "startServer": {
+      "title": "Перш ніж почати — запустіть свій сервер tldw",
+      "body": "Якщо ви ще не запустили свій сервер, виконайте одну з цих команд у репозиторії tldw_server, а потім поверніться сюди.",
+      "copy": "Копіювати команду",
+      "optionLocal": "Запустити локально за допомогою Python",
+      "optionLocalHint": "Запустіть її всередині virtualenv tldw_server з кореня репозиторію сервера.",
+      "optionDocker": "Запустити з Docker Compose (один користувач)",
+      "optionDockerHint": "Запустіть її з кореня репозиторію tldw_server, щоб запустити API та базу даних."
+    },
     "path": {
       "heading": "З чого ви хочете почати?",
       "hasServer": "Я вже запускаю tldw_server",
+      "hasServerHelp": "Connect to an existing tldw_server you already run.",
       "noServer": "У мене ще немає сервера",
+      "noServerHelp": "Follow a setup guide for tldw_server, or start in demo mode.",
       "demo": "Просто дослідити за допомогою локальної демо-версії",
+      "demoHelp": "Try the workspace with sample data; connect your own server later.",
       "noServerTitle": "Ще немає сервера? Ви все одно можете продовжити знайомство.",
       "noServerBody": "tldw_server — це окремий застосунок із самостійним хостингом. Ви можете пройти інструкцію з налаштування зараз або повернутися пізніше й продовжити в демо-режимі.",
       "noServerOptionLocal": "Запустити локально за допомогою Docker або Python на вашій машині.",

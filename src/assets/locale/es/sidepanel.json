@@ -41,8 +41,26 @@
     "modePrompts": "Prompts",
     "modeFlashcards": "Flashcards"
   },
+  "controlRow": {
+    "saveMode": "Modo de guardado",
+    "ephemeral": "Temporal",
+    "searchSection": "Búsqueda y Visión",
+    "webSearch": "Búsqueda web",
+    "vision": "Vision",
+    "uploadImage": "Subir imagen",
+    "quickIngest": "Página de Quick Ingest",
+    "openInFullUI": "Abrir en la interfaz completa",
+    "modeChat": "Chat",
+    "modeMedia": "Media",
+    "modeNotes": "Notes",
+    "modeFlashcards": "Flashcards",
+    "ragSearch": "RAG Search",
+    "moreTools": "Más herramientas"
+  },
   "composer": {
-    "connectHint": "Connect to your tldw server in Settings to send messages."
+    "connectHint": "Connect to your tldw server in Settings to send messages.",
+    "connectingPlaceholder": "Conectando...",
+    "disconnectedPlaceholder": "Conéctate a tu servidor tldw en Ajustes para enviar mensajes y ver medios."
   },
   "notification": {
     "ingestSent": "Sent to tldw server",

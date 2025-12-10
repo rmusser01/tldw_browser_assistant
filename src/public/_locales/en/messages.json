@@ -137,76 +137,76 @@
     "message": "You\u2019re ready to go",
     "description": "Title for the final onboarding panel describing next steps."
   },
-  "notesEmpty.connectTitle": {
+  "notesEmpty_connectTitle": {
     "message": "Connect to use Notes"
   },
-  "notesEmpty.connectDescription": {
+  "notesEmpty_connectDescription": {
     "message": "To use Notes, first connect to your tldw server."
   },
-  "notesEmpty.connectExample1": {
+  "notesEmpty_connectExample1": {
     "message": "Open Settings \u2192 tldw server to add your server URL."
   },
-  "notesEmpty.connectExample2": {
+  "notesEmpty_connectExample2": {
     "message": "Use Diagnostics if your server is running but not reachable."
   },
-  "notesEmpty.demoTitle": {
+  "notesEmpty_demoTitle": {
     "message": "Explore Notes in demo mode"
   },
-  "notesEmpty.demoDescription": {
+  "notesEmpty_demoDescription": {
     "message": "This demo shows how Notes can organize your insights. Connect your own server later to create and save real notes."
   },
-  "notesEmpty.demoExample1": {
+  "notesEmpty_demoExample1": {
     "message": "See how note titles, previews, and timestamps appear in the list."
   },
-  "notesEmpty.demoExample2": {
+  "notesEmpty_demoExample2": {
     "message": "When you connect, you\u2019ll be able to create notes from meetings, reviews, and more."
   },
-  "notesEmpty.demoExample3": {
+  "notesEmpty_demoExample3": {
     "message": "Use Notes alongside Media and Review to keep track of your findings."
   },
-  "notesEmpty.demoPreviewHeading": {
+  "notesEmpty_demoPreviewHeading": {
     "message": "Example notes (preview only)"
   },
-  "notesEmpty.demoSample1Title": {
+  "notesEmpty_demoSample1Title": {
     "message": "Demo note: Weekly meeting recap"
   },
-  "notesEmpty.demoSample1Preview": {
+  "notesEmpty_demoSample1Preview": {
     "message": "Decisions, blockers, and follow-ups from a recent team sync."
   },
-  "notesEmpty.demoSample1Meta": {
+  "notesEmpty_demoSample1Meta": {
     "message": "Today \u00b7 9:32 AM"
   },
-  "notesEmpty.demoSample2Title": {
+  "notesEmpty_demoSample2Title": {
     "message": "Demo note: Research highlights"
   },
-  "notesEmpty.demoSample2Preview": {
+  "notesEmpty_demoSample2Preview": {
     "message": "Key insights pulled from a long article or paper."
   },
-  "notesEmpty.demoSample2Meta": {
+  "notesEmpty_demoSample2Meta": {
     "message": "Yesterday \u00b7 4:10 PM"
   },
-  "notesEmpty.demoSample3Title": {
+  "notesEmpty_demoSample3Title": {
     "message": "Demo note: Call summary"
   },
-  "notesEmpty.demoSample3Preview": {
+  "notesEmpty_demoSample3Preview": {
     "message": "Summary of a customer call with next steps and owners."
   },
-  "notesEmpty.demoSample3Meta": {
+  "notesEmpty_demoSample3Meta": {
     "message": "This week"
   },
-  "notesEmpty.title": {
+  "notesEmpty_title": {
     "message": "No notes yet"
   },
-  "notesEmpty.description": {
+  "notesEmpty_description": {
     "message": "Capture and organize free-form notes connected to your tldw insights."
   },
-  "notesEmpty.exampleCreate": {
+  "notesEmpty_exampleCreate": {
     "message": "Create a new note for a recent meeting or transcript."
   },
-  "notesEmpty.exampleLink": {
+  "notesEmpty_exampleLink": {
     "message": "Save review outputs into Notes so you can revisit them later."
   },
-  "notesEmpty.primaryCta": {
+  "notesEmpty_primaryCta": {
     "message": "Create note"
   },
   "headerShortcuts": {
@@ -228,5 +228,81 @@
   "restartOnboardingConfirmMessage": {
     "message": "This will reset your onboarding state and take you back to the setup flow.",
     "description": "Confirmation dialog body explaining what restarting onboarding does."
+  },
+  "omniSearchPlaceholder": {
+    "message": "Search screens, chats, media, notes…",
+    "description": "Placeholder text for the omni-search input in the header."
+  },
+  "omniSearchNoResults": {
+    "message": "No matches for \"{{query}}\".",
+    "description": "No-results text for omni-search when nothing matches the query."
+  },
+  "omniSearchCreateNote": {
+    "message": "Create note \"{{query}}\"",
+    "description": "Omni-search action label to create a note from the current query."
+  },
+  "omniSearchCreateFlashcards": {
+    "message": "Create flashcard collection \"{{query}}\"",
+    "description": "Omni-search action label to create a flashcard collection from the current query."
+  },
+  "omniSearchStartChat": {
+    "message": "Start new chat \"{{query}}\"",
+    "description": "Omni-search action label to start a new chat from the current query."
+  },
+  "connectionCard_connectedCaption": {
+    "message": "Chat and tools are now available in Options and the sidepanel.",
+    "description": "Caption under the server connection card when the extension is connected."
+  },
+  "quickIngestQueuedAria": {
+    "message": "{{label}} — {{count}} items queued — click to review and process",
+    "description": "ARIA label template for the Quick ingest button when there are queued items."
+  },
+  "connectionCard_descriptionConnectedList_reviewMedia": {
+    "message": "Review media & transcripts",
+    "description": "First bullet in the connected-state server connection card, highlighting media review."
+  },
+  "connectionCard_descriptionConnectedList_searchKnowledge": {
+    "message": "Search knowledge and notes",
+    "description": "Second bullet in the connected-state server connection card, highlighting knowledge/notes search."
+  },
+  "connectionCard_descriptionConnectedList_useRag": {
+    "message": "Use RAG with your own documents",
+    "description": "Third bullet in the connected-state server connection card, highlighting retrieval-augmented generation usage."
+  },
+  "omniSearch_filterScreen": {
+    "message": "Screens",
+    "description": "Filter label for screens in omni-search."
+  },
+  "omniSearch_filterChat": {
+    "message": "Chats",
+    "description": "Filter label for chats in omni-search."
+  },
+  "omniSearch_filterMedia": {
+    "message": "Media",
+    "description": "Filter label for media in omni-search."
+  },
+  "omniSearch_filterNote": {
+    "message": "Notes",
+    "description": "Filter label for notes in omni-search."
+  },
+  "omniSearch_filterFlashcards": {
+    "message": "Flashcard Collections",
+    "description": "Filter label for flashcard collections in omni-search."
+  },
+  "omniSearch_filterPrompt": {
+    "message": "Prompts",
+    "description": "Filter label for prompts in omni-search."
+  },
+  "omniSearch_filteringBy": {
+    "message": "Filtering by:",
+    "description": "Prefix label shown before the active omni-search filter type."
+  },
+  "omniSearchCreateNoteSuccess": {
+    "message": "Note \"{{query}}\" created",
+    "description": "Confirmation toast message shown after creating a note from omni-search."
+  },
+  "omniSearchCreateFlashcardsSuccess": {
+    "message": "Flashcard collection \"{{query}}\" created",
+    "description": "Confirmation toast message shown after creating a flashcard collection from omni-search."
   }
 }

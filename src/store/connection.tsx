@@ -9,6 +9,7 @@ import {
   type KnowledgeStatus,
   deriveConnectionUxState
 } from "@/types/connection"
+import { CONNECTED_THROTTLE_MS } from "@/config/connection-timing"
 
 // Shared timeout before treating the server as unreachable.
 // See New-Views-PRD.md §5.1.x / §10.1 (20 seconds).
@@ -286,7 +287,7 @@ export const useConnectionStore = create<ConnectionStore>((set, get) => ({
       prev.isConnected &&
       prev.phase === ConnectionPhase.CONNECTED &&
       prev.lastCheckedAt != null &&
-      now - prev.lastCheckedAt < 60_000
+      now - prev.lastCheckedAt < CONNECTED_THROTTLE_MS
     ) {
       return
     }

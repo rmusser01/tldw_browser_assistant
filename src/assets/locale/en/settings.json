@@ -112,7 +112,8 @@
         "label": "Hide the current Chat Model Settings"
       },
       "hideQuickChatHelper": {
-        "label": "Hide Quick Chat Helper button"
+        "label": "Hide Quick Chat Helper button",
+        "showLabel": "Show Quick Chat Helper button"
       },
       "restoreLastChatModel": {
         "label": "Restore last used model for previous chats"
@@ -845,6 +846,7 @@
   "healthSummary": {
     "diagnostics": "Health & diagnostics",
     "diagnosticsTooltip": "Open detailed diagnostics to troubleshoot or inspect health checks.",
+    "fullDiagnosticsAria": "{{label}}. {{status}}. {{help}}",
     "core": "Server",
     "rag": "Knowledge",
     "coreAria": "Server: server/API health",
@@ -876,7 +878,7 @@
     "serverUrl": {
       "label": "Server URL",
       "placeholder": "http://127.0.0.1:8000",
-      "help": "Example: http://127.0.0.1:8000",
+      "help": "Default address for local installs: http://127.0.0.1:8000",
       "emptyHint": "Enter your tldw server URL to enable Next.",
       "invalid": "Enter a full URL such as http://127.0.0.1:8000.",
       "invalidProtocol": "Use http or https URLs, for example http://127.0.0.1:8000.",
@@ -933,11 +935,23 @@
       "auth": "Choose how you sign in",
       "health": "Confirm connection & Knowledge"
     },
+    "startServer": {
+      "title": "Before you start — Start your tldw server",
+      "body": "If you have not started your server yet, run one of these commands in the tldw_server repository, then return here.",
+      "copy": "Copy command",
+      "optionLocal": "Run locally with Python",
+      "optionLocalHint": "Run inside your tldw_server virtualenv from the server repository root.",
+      "optionDocker": "Run with Docker Compose (single-user)",
+      "optionDockerHint": "Run from the tldw_server repository root to start the API and database."
+    },
     "path": {
       "heading": "How would you like to get started?",
       "hasServer": "I already run tldw_server",
+      "hasServerHelp": "Connect to an existing tldw_server you already run.",
       "noServer": "I don’t have a server yet",
+      "noServerHelp": "Follow a setup guide for tldw_server, or start in demo mode.",
       "demo": "Just explore with a local demo",
+      "demoHelp": "Try the workspace with sample data; connect your own server later.",
       "noServerTitle": "No server yet? You can still explore.",
       "noServerBody": "tldw_server is a separate, self-hosted app. You can follow the setup guide now, or come back later and continue in demo mode.",
       "noServerOptionLocal": "Run locally with Docker or Python on your own machine.",
@@ -1000,10 +1014,10 @@
       },
       "serverUrl": {
         "label": "Server URL",
-        "placeholder": "http://localhost:8000",
+        "placeholder": "http://127.0.0.1:8000",
         "required": "Please enter the server URL",
         "invalid": "Please enter a valid URL",
-        "extra": "The URL of your tldw_server instance (e.g., http://localhost:8000)"
+        "extra": "The URL of your tldw_server instance. Default address for local installs: http://127.0.0.1:8000"
       }
     },
     "errors": {

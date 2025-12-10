@@ -1002,11 +1002,23 @@
       "auth": "روش ورود خود را انتخاب کنید",
       "health": "تأیید اتصال و وضعیت Knowledge"
     },
+    "startServer": {
+      "title": "قبل از شروع — سرور tldw خود را راه‌اندازی کنید",
+      "body": "اگر هنوز سرور خود را راه‌اندازی نکرده‌اید، یکی از این دستورات را در مخزن tldw_server اجرا کنید و سپس به اینجا برگردید.",
+      "copy": "کپی دستور",
+      "optionLocal": "اجرا به‌صورت محلی با Python",
+      "optionLocalHint": "آن را داخل virtualenv مربوط به tldw_server و از ریشه مخزن سرور اجرا کنید.",
+      "optionDocker": "اجرا با Docker Compose (تک‌کاربره)",
+      "optionDockerHint": "آن را از ریشه مخزن tldw_server اجرا کنید تا API و پایگاه داده راه‌اندازی شوند."
+    },
     "path": {
       "heading": "دوست دارید چگونه شروع کنید؟",
       "hasServer": "در حال حاضر tldw_server را اجرا می‌کنم",
+      "hasServerHelp": "Connect to an existing tldw_server you already run.",
       "noServer": "هنوز سروری ندارم",
+      "noServerHelp": "Follow a setup guide for tldw_server, or start in demo mode.",
       "demo": "فقط با نسخه‌ی نمایشی محلی کاوش کن",
+      "demoHelp": "Try the workspace with sample data; connect your own server later.",
       "noServerTitle": "هنوز سروری ندارید؟ همچنان می‌توانید کاوش کنید.",
       "noServerBody": "tldw_server یک برنامه‌ی جداگانه و خودمیزبان است. می‌توانید اکنون راهنمای راه‌اندازی را دنبال کنید، یا بعداً برگردید و در حالت نمایشی ادامه دهید.",
       "noServerOptionLocal": "آن را به‌صورت محلی با Docker یا Python روی دستگاه خود اجرا کنید.",

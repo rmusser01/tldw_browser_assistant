@@ -11,6 +11,11 @@
     "descriptionMissing": "tldw server is an optional backend that runs on your own machine or server. It powers chat history, Knowledge search, and media processing. You can explore the extension first, then connect your own server when you’re ready.",
     "descriptionSearching": "We’re checking {{host}} to see if your tldw server is reachable. This can take a few seconds the first time or after the server restarts.",
     "descriptionConnected": "Connected to your tldw server at {{host}}. You can start chatting, search knowledge, review media, and use other tools from the header.",
+    "descriptionConnectedList": {
+      "reviewMedia": "Review media & transcripts",
+      "searchKnowledge": "Search knowledge and notes",
+      "useRag": "Use RAG with your own documents"
+    },
     "descriptionError": "We couldn’t reach your tldw server at {{host}}. Check that the server is running, the URL matches your tldw_server, and your browser is allowed to reach it. Use Diagnostics for detailed errors and next steps.",
     "buttonStartChat": "Start chatting",
     "buttonRetry": "Retry connection",
@@ -29,6 +34,7 @@
     "sidepanelOpenSettingsHint": "Settings open in a new browser tab so you can configure your tldw server.",
     "quickIngestInlineHint": "Quick Ingest can queue URLs and files while your server is offline so you can process them once you reconnect."
   },
+  "buttonRetry": "Retry connection",
   "header": {
     "backToHome": "Back to home",
     "openSidebar": "Open Sidebar",
@@ -77,6 +83,13 @@
     "serverBackedLabel": "Server-backed chat",
     "serverBackedTooltip": "Messages in this chat are also saved on your tldw server.",
     "omniSearchPlaceholder": "Search screens, chats, media, notes…",
+    "omniSearchNoResults": "No matches for \"{{query}}\".",
+    "omniSearchCreateNote": "Create note \"{{query}}\"",
+    "omniSearchCreateNoteSuccess": "Note \"{{query}}\" created",
+    "omniSearchCreateFlashcards": "Create flashcard collection \"{{query}}\"",
+    "omniSearchCreateFlashcardsSuccess": "Flashcard collection \"{{query}}\" created",
+    "omniSearchStartChat": "Start new chat \"{{query}}\"",
+    "connectionCard.connectedCaption": "Chat and tools are now available in Options and the sidepanel.",
     "quickIngestQueuedAria": "{{label}} — {{count}} items queued — click to review and process"
   },
   "promptStudio": {
@@ -209,14 +222,18 @@
     "offlineQueueToast": "Offline mode: items are queued here until your server is back online.",
     "unconfiguredQueueToast": "Server not configured: items are staged here and will not run until you configure a server under Settings → tldw server.",
     "offlineBypassQueueToast": "Offline mode enabled: items are staged here and will process once you disable offline mode.",
-    "offlineFooter": "Offline mode: items are staged here and will process once your server reconnects.",
-    "unconfiguredFooter": "Server not configured: items are staged here and will process after you configure a server URL and API key under Settings → tldw server.",
-    "offlineBypassFooter": "Offline mode enabled: items are staged here and will process once you disable offline mode.",
+    "offlineFooter": "Can’t reach your server. Items are staged here and will process once your server reconnects.",
+    "unconfiguredFooter": "Can’t reach your server. Items are staged here and will process after you configure a server URL and API key under Settings → tldw server.",
+    "offlineBypassFooter": "Can’t reach your server. Items are staged here and will process once you disable offline mode.",
     "processQueuedItems": "Process queued items",
     "processQueuedItemsAria": "Process queued Quick Ingest items",
     "runAria": "Run quick ingest",
     "runLabel": "Run quick ingest",
     "results": "Results",
+    "resultsFilterAria": "Filter results by status",
+    "resultsFilterAll": "All",
+    "resultsFilterFailed": "Failed only",
+    "resultsFilterSucceeded": "Succeeded only",
     "downloadJson": "Download JSON",
     "advancedSummary": "{{count}} advanced fields loaded",
     "advancedEmpty": "No advanced options detected — try reloading the spec.",
@@ -238,6 +255,8 @@
     "noFailedUrlToRetry": "No failed URL items to retry.",
     "queuedFailedUrls": "Queued {{count}} failed URL(s) to retry.",
     "openInspectorIntro": "Open Inspector intro",
+    "ragEmbeddingHintInline": "Uses {{label}} for RAG search.",
+    "recommendedGroup": "Recommended fields",
     "tipsTitle": "Tips",
     "tipsHybrid": "Hybrid input: drop files or paste URLs (comma/newline separated) to build the queue.",
     "tipsPerType": "Per-type settings (Audio/PDF/Video) apply to all items of that type.",
@@ -399,6 +418,15 @@
     "exampleCreate": "Create a new note for a recent meeting or transcript.",
     "exampleLink": "Save review outputs into Notes so you can revisit them later.",
     "primaryCta": "Create note"
+  },
+  "omniSearch": {
+    "filterScreen": "Screens",
+    "filterChat": "Chats",
+    "filterMedia": "Media",
+    "filterNote": "Notes",
+    "filterFlashcards": "Flashcard Collections",
+    "filterPrompt": "Prompts",
+    "filteringBy": "Filtering by:"
   },
   "worldBooksEmpty": {
     "demoTitle": "Explore World Books in demo mode",

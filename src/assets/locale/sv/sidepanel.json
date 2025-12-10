@@ -41,8 +41,26 @@
     "modePrompts": "Prompts",
     "modeFlashcards": "Flashcards"
   },
+  "controlRow": {
+    "saveMode": "Lagringsläge",
+    "ephemeral": "Temporär",
+    "searchSection": "Sök & Vision",
+    "webSearch": "Webbsök",
+    "vision": "Vision",
+    "uploadImage": "Ladda upp bild",
+    "quickIngest": "Snabbimportera sidan",
+    "openInFullUI": "Öppna i fullständigt gränssnitt",
+    "modeChat": "Chatt",
+    "modeMedia": "Media",
+    "modeNotes": "Anteckningar",
+    "modeFlashcards": "Flashcards",
+    "ragSearch": "RAG-sökning",
+    "moreTools": "Fler verktyg"
+  },
   "composer": {
-    "connectHint": "Connect to your tldw server in Settings to send messages."
+    "connectHint": "Anslut till din tldw-server i Inställningar för att kunna skicka meddelanden.",
+    "connectingPlaceholder": "Ansluter...",
+    "disconnectedPlaceholder": "Anslut till din tldw-server i Inställningar för att skicka meddelanden och visa media."
   },
   "notification": {
     "ingestSent": "Sent to tldw server",

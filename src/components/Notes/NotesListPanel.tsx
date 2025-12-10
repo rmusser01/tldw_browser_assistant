@@ -2,6 +2,9 @@ import React from 'react'
 import { Button, Dropdown, Pagination, Spin, Tooltip } from 'antd'
 import { useTranslation } from 'react-i18next'
 import FeatureEmptyState from '@/components/Common/FeatureEmptyState'
+import ConnectionProblemBanner from '@/components/Common/ConnectionProblemBanner'
+import { useConnectionActions } from '@/hooks/useConnectionState'
+import { getDemoNotes } from '@/utils/demo-content'
 import type { ServerCapabilities } from '@/services/tldw/server-capabilities'
 import type { NoteListItem } from '@/components/Notes/types'
 
@@ -28,7 +31,7 @@ type NotesListPanelProps = {
   onSelectNote: (id: string | number) => void
   onChangePage: (page: number, pageSize: number) => void
   onResetEditor: () => void
-  onScrollToServerCard: () => void
+  onOpenSettings: () => void
   onOpenHealth: () => void
   onExportAllMd: () => void
   onExportAllCsv: () => void
@@ -49,62 +52,20 @@ const NotesListPanel: React.FC<NotesListPanelProps> = ({
   onSelectNote,
   onChangePage,
   onResetEditor,
-  onScrollToServerCard,
+  onOpenSettings,
   onOpenHealth,
   onExportAllMd,
   onExportAllCsv,
   onExportAllJson
 }) => {
   const { t } = useTranslation(['option', 'settings'])
+  const { checkOnce } = useConnectionActions()
   const hasNotes = Array.isArray(notes) && notes.length > 0
   const startItem = hasNotes ? (page - 1) * pageSize + 1 : 0
   const endItem = hasNotes ? Math.min(page * pageSize, total) : 0
   const exportDisabled = !isOnline || !hasNotes
 
-  const demoNotes = React.useMemo(
-    () => [
-      {
-        id: "demo-1",
-        title: t("option:notesEmpty.demoSample1Title", {
-          defaultValue: "Demo note: Weekly meeting recap"
-        }),
-        preview: t("option:notesEmpty.demoSample1Preview", {
-          defaultValue:
-            "Decisions, blockers, and follow-ups from a recent team sync."
-        }),
-        updated_at: t("option:notesEmpty.demoSample1Meta", {
-          defaultValue: "Today · 9:32 AM"
-        })
-      },
-      {
-        id: "demo-2",
-        title: t("option:notesEmpty.demoSample2Title", {
-          defaultValue: "Demo note: Research highlights"
-        }),
-        preview: t("option:notesEmpty.demoSample2Preview", {
-          defaultValue:
-            "Key insights pulled from a long article or paper."
-        }),
-        updated_at: t("option:notesEmpty.demoSample2Meta", {
-          defaultValue: "Yesterday · 4:10 PM"
-        })
-      },
-      {
-        id: "demo-3",
-        title: t("option:notesEmpty.demoSample3Title", {
-          defaultValue: "Demo note: Call summary"
-        }),
-        preview: t("option:notesEmpty.demoSample3Preview", {
-          defaultValue:
-            "Summary of a customer call with next steps and owners."
-        }),
-        updated_at: t("option:notesEmpty.demoSample3Meta", {
-          defaultValue: "This week"
-        })
-      }
-    ],
-    [t]
-  )
+  const demoNotes = React.useMemo(() => getDemoNotes(t), [t])
 
   return (
     <div className="flex flex-col h-full">
@@ -211,10 +172,8 @@ const NotesListPanel: React.FC<NotesListPanelProps> = ({
                     'Use Notes alongside Media and Review to keep track of your findings.'
                 })
               ]}
-              primaryActionLabel={t('option:connectionCard.buttonGoToServerCard', {
-                defaultValue: 'Go to server card'
-              })}
-              onPrimaryAction={onScrollToServerCard}
+              primaryActionLabel={t('settings:tldw.setupLink', 'Set up server')}
+              onPrimaryAction={onOpenSettings}
             />
             <div className="rounded-lg border border-dashed border-gray-300 bg-white p-3 text-xs text-gray-700 dark:border-gray-700 dark:bg-[#111] dark:text-gray-200">
               <div className="mb-2 font-semibold">
@@ -240,19 +199,11 @@ const NotesListPanel: React.FC<NotesListPanelProps> = ({
             </div>
           </div>
         ) : (
-          <FeatureEmptyState
-            title={
-              <span className="inline-flex items-center gap-2">
-                <span className="rounded-full bg-yellow-50 px-2 py-0.5 text-[11px] font-medium text-yellow-700 dark:bg-yellow-900/40 dark:text-yellow-200">
-                  Not connected
-                </span>
-                <span>
-                  {t('option:notesEmpty.connectTitle', {
-                    defaultValue: 'Connect to use Notes'
-                  })}
-                </span>
-              </span>
-            }
+          <ConnectionProblemBanner
+            badgeLabel="Not connected"
+            title={t('option:notesEmpty.connectTitle', {
+              defaultValue: 'Connect to use Notes'
+            })}
             description={t('option:notesEmpty.connectDescription', {
               defaultValue:
                 'This view needs a connected server. Use the server connection card above to fix your connection, then return here to capture and organize notes.'
@@ -263,10 +214,12 @@ const NotesListPanel: React.FC<NotesListPanelProps> = ({
                   'Use the connection card at the top of this page to add your server URL and API key.'
               })
             ]}
-            primaryActionLabel={t('option:connectionCard.buttonGoToServerCard', {
-              defaultValue: 'Go to server card'
-            })}
-            onPrimaryAction={onScrollToServerCard}
+            primaryActionLabel={t('settings:tldw.setupLink', 'Set up server')}
+            onPrimaryAction={onOpenSettings}
+            retryActionLabel={t('option:buttonRetry', 'Retry connection')}
+            onRetry={() => {
+              void checkOnce()
+            }}
           />
         )
       ) : !capsLoading && capabilities && !capabilities.hasNotes ? (

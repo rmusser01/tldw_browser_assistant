@@ -2,6 +2,8 @@ import { chromium } from '@playwright/test'
 import fs from 'node:fs'
 import path from 'node:path'
 
+import { resolveExtensionId } from './extension-id'
+
 type LaunchOptions = {
   seedConfig?: Record<string, any>
   allowOffline?: boolean
@@ -66,12 +68,7 @@ export async function launchWithBuiltExtension(
   }
   await waitForTargets()
 
-  const pages = context.backgroundPages()
-  const workers = context.serviceWorkers()
-  const targetUrl = pages[0]?.url() || workers[0]?.url() || ''
-  const match = targetUrl.match(/chrome-extension:\/\/([a-p]{32})/)
-  if (!match) throw new Error(`Could not determine extension id from ${targetUrl}`)
-  const extensionId = match[1]
+  const extensionId = await resolveExtensionId(context)
   const optionsUrl = `chrome-extension://${extensionId}/options.html`
   const sidepanelUrl = `chrome-extension://${extensionId}/sidepanel.html`
 

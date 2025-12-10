@@ -137,77 +137,77 @@
     "message": "Du \u00e4r redo att b\u00f6rja",
     "description": "Rubrik för sista onboarding-panelen med nästa steg."
   },
-  "notesEmpty.connectTitle": {
-    "message": "Connect to use Notes"
+  "notesEmpty_connectTitle": {
+    "message": "Anslut för att använda Anteckningar"
   },
-  "notesEmpty.connectDescription": {
-    "message": "To use Notes, first connect to your tldw server."
+  "notesEmpty_connectDescription": {
+    "message": "För att använda Anteckningar måste du först ansluta till din tldw-server."
   },
-  "notesEmpty.connectExample1": {
-    "message": "Open Settings \u2192 tldw server to add your server URL."
+  "notesEmpty_connectExample1": {
+    "message": "Öppna Settings \u2192 tldw server för att lägga till din server-URL."
   },
-  "notesEmpty.connectExample2": {
-    "message": "Use Diagnostics if your server is running but not reachable."
+  "notesEmpty_connectExample2": {
+    "message": "Använd Diagnostics om din server körs men inte kan nås."
   },
-  "notesEmpty.demoTitle": {
-    "message": "Explore Notes in demo mode"
+  "notesEmpty_demoTitle": {
+    "message": "Utforska Anteckningar i demoläge"
   },
-  "notesEmpty.demoDescription": {
-    "message": "This demo shows how Notes can organize your insights. Connect your own server later to create and save real notes."
+  "notesEmpty_demoDescription": {
+    "message": "Den här demon visar hur Anteckningar kan organisera dina insikter. Senare kan du ansluta din egen server för att skapa och spara riktiga anteckningar."
   },
-  "notesEmpty.demoExample1": {
-    "message": "See how note titles, previews, and timestamps appear in the list."
+  "notesEmpty_demoExample1": {
+    "message": "Se hur anteckningstitlar, förhandsvisningar och tidsstämplar visas i listan."
   },
-  "notesEmpty.demoExample2": {
-    "message": "When you connect, you\u2019ll be able to create notes from meetings, reviews, and more."
+  "notesEmpty_demoExample2": {
+    "message": "När du ansluter kan du skapa anteckningar från möten, granskningar och mer."
   },
-  "notesEmpty.demoExample3": {
-    "message": "Use Notes alongside Media and Review to keep track of your findings."
+  "notesEmpty_demoExample3": {
+    "message": "Använd Anteckningar tillsammans med Media och Review för att hålla reda på dina insikter."
   },
-  "notesEmpty.demoPreviewHeading": {
-    "message": "Example notes (preview only)"
+  "notesEmpty_demoPreviewHeading": {
+    "message": "Exempelanteckningar (endast förhandsvisning)"
   },
-  "notesEmpty.demoSample1Title": {
-    "message": "Demo note: Weekly meeting recap"
+  "notesEmpty_demoSample1Title": {
+    "message": "Demoanteckning: sammanfattning av veckomöte"
   },
-  "notesEmpty.demoSample1Preview": {
-    "message": "Decisions, blockers, and follow-ups from a recent team sync."
+  "notesEmpty_demoSample1Preview": {
+    "message": "Beslut, hinder och uppföljningar från en nylig teamsynk."
   },
-  "notesEmpty.demoSample1Meta": {
-    "message": "Today \u00b7 9:32 AM"
+  "notesEmpty_demoSample1Meta": {
+    "message": "Idag \u00b7 09:32"
   },
-  "notesEmpty.demoSample2Title": {
-    "message": "Demo note: Research highlights"
+  "notesEmpty_demoSample2Title": {
+    "message": "Demoanteckning: forskningshöjdpunkter"
   },
-  "notesEmpty.demoSample2Preview": {
-    "message": "Key insights pulled from a long article or paper."
+  "notesEmpty_demoSample2Preview": {
+    "message": "Viktiga insikter hämtade från en lång artikel eller rapport."
   },
-  "notesEmpty.demoSample2Meta": {
-    "message": "Yesterday \u00b7 4:10 PM"
+  "notesEmpty_demoSample2Meta": {
+    "message": "Igår \u00b7 16:10"
   },
-  "notesEmpty.demoSample3Title": {
-    "message": "Demo note: Call summary"
+  "notesEmpty_demoSample3Title": {
+    "message": "Demoanteckning: sammanfattning av samtal"
   },
-  "notesEmpty.demoSample3Preview": {
-    "message": "Summary of a customer call with next steps and owners."
+  "notesEmpty_demoSample3Preview": {
+    "message": "Sammanfattning av ett kundsamtal med nästa steg och ansvariga."
   },
-  "notesEmpty.demoSample3Meta": {
-    "message": "This week"
+  "notesEmpty_demoSample3Meta": {
+    "message": "Den här veckan"
   },
-  "notesEmpty.title": {
-    "message": "No notes yet"
+  "notesEmpty_title": {
+    "message": "Inga anteckningar ännu"
   },
-  "notesEmpty.description": {
-    "message": "Capture and organize free-form notes connected to your tldw insights."
+  "notesEmpty_description": {
+    "message": "Fånga och organisera fria anteckningar kopplade till dina tldw‑insikter."
   },
-  "notesEmpty.exampleCreate": {
-    "message": "Create a new note for a recent meeting or transcript."
+  "notesEmpty_exampleCreate": {
+    "message": "Skapa en ny anteckning för ett nyligen hållit möte eller en transkribering."
   },
-  "notesEmpty.exampleLink": {
-    "message": "Save review outputs into Notes so you can revisit them later."
+  "notesEmpty_exampleLink": {
+    "message": "Spara resultat från granskningar i Anteckningar så att du kan gå tillbaka till dem senare."
   },
-  "notesEmpty.primaryCta": {
-    "message": "Create note"
+  "notesEmpty_primaryCta": {
+    "message": "Skapa anteckning"
   },
   "headerShortcuts": {
     "message": "Visa snabba genvägar i sidhuvudet",
@@ -224,5 +224,81 @@
   },
   "restartOnboardingConfirmMessage": {
     "message": "Detta återställer din onboarding‑status och tar dig tillbaka till installationsflödet."
+  },
+  "omniSearchPlaceholder": {
+    "message": "Sök i skärmar, chattar, media, anteckningar…",
+    "description": "Placeholder text for the omni-search input in the header."
+  },
+  "omniSearchNoResults": {
+    "message": "Inga träffar för \"{{query}}\".",
+    "description": "No-results text for omni-search when nothing matches the query."
+  },
+  "omniSearchCreateNote": {
+    "message": "Skapa anteckning \"{{query}}\"",
+    "description": "Omni-search action label to create a note from the current query."
+  },
+  "omniSearchCreateFlashcards": {
+    "message": "Skapa Flashcards-samling \"{{query}}\"",
+    "description": "Omni-search action label to create a flashcard collection from the current query."
+  },
+  "omniSearchStartChat": {
+    "message": "Starta ny chatt \"{{query}}\"",
+    "description": "Omni-search action label to start a new chat from the current query."
+  },
+  "connectionCard_connectedCaption": {
+    "message": "Chatt och verktyg är nu tillgängliga i Inställningar och sidopanelen.",
+    "description": "Caption under the server connection card when the extension is connected."
+  },
+  "quickIngestQueuedAria": {
+    "message": "{{label}} — {{count}} objekt i kö — klicka för att granska och bearbeta",
+    "description": "ARIA label template for the Quick ingest button when there are queued items."
+  },
+  "connectionCard_descriptionConnectedList_reviewMedia": {
+    "message": "Granska media och transkriptioner",
+    "description": "First bullet in the connected-state server connection card, highlighting media review."
+  },
+  "connectionCard_descriptionConnectedList_searchKnowledge": {
+    "message": "Sök i kunskap och anteckningar",
+    "description": "Second bullet in the connected-state server connection card, highlighting knowledge/notes search."
+  },
+  "connectionCard_descriptionConnectedList_useRag": {
+    "message": "Använd RAG med dina egna dokument",
+    "description": "Third bullet in the connected-state server connection card, highlighting retrieval-augmented generation usage."
+  },
+  "omniSearch_filterScreen": {
+    "message": "Skärmar",
+    "description": "Filter label for screens in omni-search."
+  },
+  "omniSearch_filterChat": {
+    "message": "Chattar",
+    "description": "Filter label for chats in omni-search."
+  },
+  "omniSearch_filterMedia": {
+    "message": "Media",
+    "description": "Filter label for media in omni-search."
+  },
+  "omniSearch_filterNote": {
+    "message": "Anteckningar",
+    "description": "Filter label for notes in omni-search."
+  },
+  "omniSearch_filterFlashcards": {
+    "message": "Flashcards-samlingar",
+    "description": "Filter label for flashcard collections in omni-search."
+  },
+  "omniSearch_filterPrompt": {
+    "message": "Frågor",
+    "description": "Filter label for prompts in omni-search."
+  },
+  "omniSearch_filteringBy": {
+    "message": "Filtrerar efter:",
+    "description": "Prefix label shown before the active omni-search filter type."
+  },
+  "omniSearchCreateNoteSuccess": {
+    "message": "Anteckning \"{{query}}\" skapad",
+    "description": "Confirmation toast message shown after creating a note from omni-search."
+  },
+  "omniSearchCreateFlashcardsSuccess": {
+    "message": "Flashcards-samling \"{{query}}\" skapad",
+    "description": "Confirmation toast message shown after creating a flashcard collection from omni-search."
   }
 }

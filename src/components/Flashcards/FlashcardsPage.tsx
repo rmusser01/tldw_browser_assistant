@@ -52,7 +52,10 @@ import { useAntdMessage } from "@/hooks/useAntdMessage"
 import { useScrollToServerCard } from "@/hooks/useScrollToServerCard"
 import { MarkdownErrorBoundary } from "@/components/Common/MarkdownErrorBoundary"
 import { StatusBadge } from "@/components/Common/StatusBadge"
+import ConnectionProblemBanner from "@/components/Common/ConnectionProblemBanner"
+import { useConnectionActions } from "@/hooks/useConnectionState"
 import { processInChunks } from "@/utils/chunk-processing"
+import { getDemoFlashcardDecks } from "@/utils/demo-content"
 
 dayjs.extend(relativeTime)
 
@@ -118,36 +121,22 @@ export const FlashcardsPage: React.FC = () => {
   const message = useAntdMessage()
   const confirmDanger = useConfirmDanger()
   const scrollToServerCard = useScrollToServerCard("/flashcards")
+  const { checkOnce } = useConnectionActions()
+  const [checkingConnection, setCheckingConnection] = React.useState(false)
 
-  const demoDecks = [
-    {
-      id: "demo-deck-1",
-      name: t("option:flashcards.demoSample1Title", {
-        defaultValue: "Demo deck: Core concepts"
-      }),
-      summary: t("option:flashcards.demoSample1Summary", {
-        defaultValue: "10 cards · Great for testing spacing and ratings."
+  const handleRetryConnection = React.useCallback(() => {
+    if (checkingConnection) return
+    setCheckingConnection(true)
+    Promise.resolve(checkOnce())
+      .catch(() => {
+        // errors are surfaced via connection UX state
       })
-    },
-    {
-      id: "demo-deck-2",
-      name: t("option:flashcards.demoSample2Title", {
-        defaultValue: "Demo deck: Product terms"
-      }),
-      summary: t("option:flashcards.demoSample2Summary", {
-        defaultValue: "8 cards · Names, acronyms, and key definitions."
+      .finally(() => {
+        setCheckingConnection(false)
       })
-    },
-    {
-      id: "demo-deck-3",
-      name: t("option:flashcards.demoSample3Title", {
-        defaultValue: "Demo deck: Meeting follow-ups"
-      }),
-      summary: t("option:flashcards.demoSample3Summary", {
-        defaultValue: "6 cards · Example action items to review."
-      })
-    }
-  ]
+  }, [checkOnce, checkingConnection])
+
+  const demoDecks = React.useMemo(() => getDemoFlashcardDecks(t), [t])
 
   if (!isOnline) {
     return demoEnabled ? (
@@ -207,19 +196,11 @@ export const FlashcardsPage: React.FC = () => {
         </div>
       </div>
     ) : (
-      <FeatureEmptyState
-        title={
-          <span className="inline-flex items-center gap-2">
-            <StatusBadge variant="warning">
-              Not connected
-            </StatusBadge>
-            <span>
-              {t("option:flashcards.emptyConnectTitle", {
-                defaultValue: "Connect to use Flashcards"
-              })}
-            </span>
-          </span>
-        }
+      <ConnectionProblemBanner
+        badgeLabel="Not connected"
+        title={t("option:flashcards.emptyConnectTitle", {
+          defaultValue: "Connect to use Flashcards"
+        })}
         description={t("option:flashcards.emptyConnectDescription", {
           defaultValue:
             "This view needs a connected server. Use the server connection card above to fix your connection, then return here to review and generate flashcards."
@@ -234,6 +215,9 @@ export const FlashcardsPage: React.FC = () => {
           defaultValue: "Go to server card"
         })}
         onPrimaryAction={scrollToServerCard}
+        retryActionLabel={t("option:buttonRetry", "Retry connection")}
+        onRetry={handleRetryConnection}
+        retryDisabled={checkingConnection}
       />
     )
   }

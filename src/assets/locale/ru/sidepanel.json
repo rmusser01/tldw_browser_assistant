@@ -41,8 +41,26 @@
     "modePrompts": "Prompts",
     "modeFlashcards": "Flashcards"
   },
+  "controlRow": {
+    "saveMode": "Режим сохранения",
+    "ephemeral": "Временный чат",
+    "searchSection": "Поиск и визуальный анализ",
+    "webSearch": "Веб-поиск",
+    "vision": "Визуальный анализ",
+    "uploadImage": "Загрузить изображение",
+    "quickIngest": "Быстрая обработка страницы",
+    "openInFullUI": "Открыть в полном интерфейсе",
+    "modeChat": "Чат",
+    "modeMedia": "Медиа",
+    "modeNotes": "Заметки",
+    "modeFlashcards": "Флеш-карточки",
+    "ragSearch": "Поиск RAG",
+    "moreTools": "Больше инструментов"
+  },
   "composer": {
-    "connectHint": "Connect to your tldw server in Settings to send messages."
+    "connectHint": "Connect to your tldw server in Settings to send messages.",
+    "connectingPlaceholder": "Connecting...",
+    "disconnectedPlaceholder": "Connect to your tldw server in Settings to send messages and view media."
   },
   "notification": {
     "ingestSent": "Sent to tldw server",

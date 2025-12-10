@@ -137,77 +137,77 @@
     "message": "Du er klar til at gå i gang",
     "description": "Titel for den sidste onboarding-sektion med næste trin."
   },
-  "notesEmpty.connectTitle": {
-    "message": "Connect to use Notes"
+  "notesEmpty_connectTitle": {
+    "message": "Opret forbindelse for at bruge noter"
   },
-  "notesEmpty.connectDescription": {
-    "message": "To use Notes, first connect to your tldw server."
+  "notesEmpty_connectDescription": {
+    "message": "For at bruge noter skal du først oprette forbindelse til din tldw server."
   },
-  "notesEmpty.connectExample1": {
-    "message": "Open Settings \u2192 tldw server to add your server URL."
+  "notesEmpty_connectExample1": {
+    "message": "Åbn Settings \u2192 tldw server for at tilføje din server-URL."
   },
-  "notesEmpty.connectExample2": {
-    "message": "Use Diagnostics if your server is running but not reachable."
+  "notesEmpty_connectExample2": {
+    "message": "Brug Diagnostics, hvis din server kører, men ikke kan nås."
   },
-  "notesEmpty.demoTitle": {
-    "message": "Explore Notes in demo mode"
+  "notesEmpty_demoTitle": {
+    "message": "Udforsk noter i demotilstand"
   },
-  "notesEmpty.demoDescription": {
-    "message": "This demo shows how Notes can organize your insights. Connect your own server later to create and save real notes."
+  "notesEmpty_demoDescription": {
+    "message": "Denne demo viser, hvordan noter kan organisere dine indsigter. Opret forbindelse til din egen server senere for at oprette og gemme rigtige noter."
   },
-  "notesEmpty.demoExample1": {
-    "message": "See how note titles, previews, and timestamps appear in the list."
+  "notesEmpty_demoExample1": {
+    "message": "Se, hvordan notetitler, forhåndsvisninger og tidsstempler vises i listen."
   },
-  "notesEmpty.demoExample2": {
-    "message": "When you connect, you\u2019ll be able to create notes from meetings, reviews, and more."
+  "notesEmpty_demoExample2": {
+    "message": "Når du opretter forbindelse, kan du oprette noter ud fra møder, gennemgange og meget mere."
   },
-  "notesEmpty.demoExample3": {
-    "message": "Use Notes alongside Media and Review to keep track of your findings."
+  "notesEmpty_demoExample3": {
+    "message": "Brug noter sammen med Media og Review for at holde styr på dine fund."
   },
-  "notesEmpty.demoPreviewHeading": {
-    "message": "Example notes (preview only)"
+  "notesEmpty_demoPreviewHeading": {
+    "message": "Eksempelnoter (kun forhåndsvisning)"
   },
-  "notesEmpty.demoSample1Title": {
-    "message": "Demo note: Weekly meeting recap"
+  "notesEmpty_demoSample1Title": {
+    "message": "Demo-note: Opsummering af ugentligt møde"
   },
-  "notesEmpty.demoSample1Preview": {
-    "message": "Decisions, blockers, and follow-ups from a recent team sync."
+  "notesEmpty_demoSample1Preview": {
+    "message": "Beslutninger, blokeringer og opfølgninger fra et nyligt teammøde."
   },
-  "notesEmpty.demoSample1Meta": {
-    "message": "Today \u00b7 9:32 AM"
+  "notesEmpty_demoSample1Meta": {
+    "message": "I dag \u00b7 9:32 AM"
   },
-  "notesEmpty.demoSample2Title": {
-    "message": "Demo note: Research highlights"
+  "notesEmpty_demoSample2Title": {
+    "message": "Demo-note: Forskningshøjdepunkter"
   },
-  "notesEmpty.demoSample2Preview": {
-    "message": "Key insights pulled from a long article or paper."
+  "notesEmpty_demoSample2Preview": {
+    "message": "Vigtige indsigter udtrukket fra en lang artikel eller en rapport."
   },
-  "notesEmpty.demoSample2Meta": {
-    "message": "Yesterday \u00b7 4:10 PM"
+  "notesEmpty_demoSample2Meta": {
+    "message": "I går \u00b7 4:10 PM"
   },
-  "notesEmpty.demoSample3Title": {
-    "message": "Demo note: Call summary"
+  "notesEmpty_demoSample3Title": {
+    "message": "Demo-note: Sammenfatning af opkald"
   },
-  "notesEmpty.demoSample3Preview": {
-    "message": "Summary of a customer call with next steps and owners."
+  "notesEmpty_demoSample3Preview": {
+    "message": "Resumé af et kundekald med næste skridt og ansvarlige."
   },
-  "notesEmpty.demoSample3Meta": {
-    "message": "This week"
+  "notesEmpty_demoSample3Meta": {
+    "message": "Denne uge"
   },
-  "notesEmpty.title": {
-    "message": "No notes yet"
+  "notesEmpty_title": {
+    "message": "Ingen noter endnu"
   },
-  "notesEmpty.description": {
-    "message": "Capture and organize free-form notes connected to your tldw insights."
+  "notesEmpty_description": {
+    "message": "Indfang og organisér fritekstnoter, der er knyttet til dine tldw-indsigter."
   },
-  "notesEmpty.exampleCreate": {
-    "message": "Create a new note for a recent meeting or transcript."
+  "notesEmpty_exampleCreate": {
+    "message": "Opret en ny note til et nyligt møde eller en transskription."
   },
-  "notesEmpty.exampleLink": {
-    "message": "Save review outputs into Notes so you can revisit them later."
+  "notesEmpty_exampleLink": {
+    "message": "Gem review-resultater i noter, så du kan vende tilbage til dem senere."
   },
-  "notesEmpty.primaryCta": {
-    "message": "Create note"
+  "notesEmpty_primaryCta": {
+    "message": "Opret note"
   },
   "headerShortcuts": {
     "message": "Vis hurtige genveje i headeren"
@@ -223,5 +223,81 @@
   },
   "restartOnboardingConfirmMessage": {
     "message": "Dette nulstiller din onboarding-status og fører dig tilbage til opsætningsflowet."
+  },
+  "omniSearchPlaceholder": {
+    "message": "Search screens, chats, media, notes…",
+    "description": "Placeholder text for the omni-search input in the header."
+  },
+  "omniSearchNoResults": {
+    "message": "No matches for \"{{query}}\".",
+    "description": "No-results text for omni-search when nothing matches the query."
+  },
+  "omniSearchCreateNote": {
+    "message": "Create note \"{{query}}\"",
+    "description": "Omni-search action label to create a note from the current query."
+  },
+  "omniSearchCreateFlashcards": {
+    "message": "Create flashcard collection \"{{query}}\"",
+    "description": "Omni-search action label to create a flashcard collection from the current query."
+  },
+  "omniSearchStartChat": {
+    "message": "Start new chat \"{{query}}\"",
+    "description": "Omni-search action label to start a new chat from the current query."
+  },
+  "connectionCard_connectedCaption": {
+    "message": "Chat and tools are now available in Options and the sidepanel.",
+    "description": "Caption under the server connection card when the extension is connected."
+  },
+  "quickIngestQueuedAria": {
+    "message": "{{label}} — {{count}} items queued — click to review and process",
+    "description": "ARIA label template for the Quick ingest button when there are queued items."
+  },
+  "connectionCard_descriptionConnectedList_reviewMedia": {
+    "message": "Review media & transcripts",
+    "description": "First bullet in the connected-state server connection card, highlighting media review."
+  },
+  "connectionCard_descriptionConnectedList_searchKnowledge": {
+    "message": "Search knowledge and notes",
+    "description": "Second bullet in the connected-state server connection card, highlighting knowledge/notes search."
+  },
+  "connectionCard_descriptionConnectedList_useRag": {
+    "message": "Use RAG with your own documents",
+    "description": "Third bullet in the connected-state server connection card, highlighting retrieval-augmented generation usage."
+  },
+  "omniSearch_filterScreen": {
+    "message": "Screens",
+    "description": "Filter label for screens in omni-search."
+  },
+  "omniSearch_filterChat": {
+    "message": "Chats",
+    "description": "Filter label for chats in omni-search."
+  },
+  "omniSearch_filterMedia": {
+    "message": "Media",
+    "description": "Filter label for media in omni-search."
+  },
+  "omniSearch_filterNote": {
+    "message": "Notes",
+    "description": "Filter label for notes in omni-search."
+  },
+  "omniSearch_filterFlashcards": {
+    "message": "Flashcard Collections",
+    "description": "Filter label for flashcard collections in omni-search."
+  },
+  "omniSearch_filterPrompt": {
+    "message": "Prompts",
+    "description": "Filter label for prompts in omni-search."
+  },
+  "omniSearch_filteringBy": {
+    "message": "Filtering by:",
+    "description": "Prefix label shown before the active omni-search filter type."
+  },
+  "omniSearchCreateNoteSuccess": {
+    "message": "Note \"{{query}}\" created",
+    "description": "Confirmation toast message shown after creating a note from omni-search."
+  },
+  "omniSearchCreateFlashcardsSuccess": {
+    "message": "Flashcard collection \"{{query}}\" created",
+    "description": "Confirmation toast message shown after creating a flashcard collection from omni-search."
   }
 }
