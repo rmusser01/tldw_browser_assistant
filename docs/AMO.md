@@ -24,37 +24,25 @@ Summary
   Content Security Policy and wasm
 
   - The CSP includes 'wasm-unsafe-eval' and allows worker scripts from blob: because we use:
-    - pa-tesseract.js (OCR) in ocr/worker.min.js and ocr/tesseract-core-simd.wasm, and
-    - pdfjs-dist for client‑side PDF text extraction.
-  - These libraries rely on WebAssembly and internal Function usage for their own runtime; we do not use eval / Function to execute arbitrary content from the web page or from users.
-  - For pdf.js we explicitly disable JavaScript execution inside PDFs by calling:
-
-    pdfDist.getDocument({
-      data,
-      useWorkerFetch: false,
-      isEvalSupported: false,
-      useSystemFonts: true
-    })
-
-    so embedded PDF JavaScript is never executed.
+  - pa-tesseract.js (OCR) in ocr/worker.min.js and ocr/tesseract-core-simd.wasm.
+  - This library relies on WebAssembly and internal Function usage for its own runtime; we do not use eval / Function to execute arbitrary content from the web page or from users.
 
   ———
 
   DANGEROUS_EVAL and UNSAFE_VAR_ASSIGNMENT warnings
 
   - The DANGEROUS_EVAL warnings flagged by addons‑linter correspond to:
-    - Minified OCR worker code in ocr/worker.min.js
-    - The pdf.js worker chunk chunks/pdf.worker-*.js
+  - Minified OCR worker code in ocr/worker.min.js.
   - These are third‑party libraries, running either:
-    - In a web worker (pdf.js, Tesseract), or
-    - Against data we control, not arbitrary content from web pages.
+  - In a web worker (Tesseract), or
+  - Against data we control, not arbitrary content from web pages.
   - Our own application code does not use eval or new Function for user or page content.
 
   For DOM insertion:
 
   - We previously had a few places that used innerHTML/outerHTML. These have been either:
-    - Removed (e.g., the HuggingFace content script now uses DOM node APIs to change the SVG icon), or
-    - Automatically rewritten by a Vite plugin to a helper __setSafeInnerHTML(...).
+  - Removed (e.g., the HuggingFace content script now uses DOM node APIs to change the SVG icon), or
+  - Automatically rewritten by a Vite plugin to a helper __setSafeInnerHTML(...).
   - That helper now sanitizes all HTML with DOMPurify before it is parsed:
 
     import DOMPurifyInit from "dompurify";

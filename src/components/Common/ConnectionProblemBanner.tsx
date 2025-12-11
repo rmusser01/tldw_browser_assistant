@@ -27,6 +27,7 @@ const ConnectionProblemBanner: React.FC<ConnectionProblemBannerProps> = ({
   onPrimaryAction,
   retryActionLabel,
   onRetry,
+  retryDisabled,
   secondaryActionLabel,
   onSecondaryAction,
   primaryDisabled,
@@ -63,9 +64,7 @@ const ConnectionProblemBanner: React.FC<ConnectionProblemBannerProps> = ({
             type="button"
             onClick={onRetry}
             disabled={retryDisabled}
-            className={`inline-flex items-center gap-1 text-blue-600 hover:text-blue-500 dark:text-blue-400 ${
-              retryDisabled ? "opacity-60 cursor-not-allowed" : ""
-            }`}
+            className="inline-flex items-center gap-1 text-blue-600 hover:text-blue-500 dark:text-blue-400 disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:text-blue-600 dark:disabled:hover:text-blue-400"
           >
             {retryActionLabel}
           </button>
