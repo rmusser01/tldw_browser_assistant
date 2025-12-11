@@ -27,6 +27,7 @@ const ConnectionProblemBanner: React.FC<ConnectionProblemBannerProps> = ({
   onPrimaryAction,
   retryActionLabel,
   onRetry,
+  retryDisabled,
   secondaryActionLabel,
   onSecondaryAction,
   primaryDisabled,

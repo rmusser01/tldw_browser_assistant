@@ -26,12 +26,14 @@ export function highlightText(
     highlightClassName = "bg-yellow-200 dark:bg-yellow-700 rounded px-0.5"
   } = options
 
-  // Escape special regex characters in the query
+  // Escape special regex characters in the query for use in the split regex,
+  // but keep the raw terms for comparison so metacharacters still match literally.
   const escapedQuery = query.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")
+  const rawTerms = query.split(/\s+/).filter(Boolean)
 
   // Split query on whitespace to highlight multiple terms
   const terms = escapedQuery.split(/\s+/).filter(Boolean)
-  if (terms.length === 0) {
+  if (terms.length === 0 || rawTerms.length === 0) {
     return text
   }
 
@@ -51,10 +53,10 @@ export function highlightText(
     <>
       {parts.map((part, index) => {
         // Check if this part matches any of the search terms
-        const isMatch = terms.some((term) =>
+        const isMatch = rawTerms.some((rawTerm) =>
           caseSensitive
-            ? part === term
-            : part.toLowerCase() === term.toLowerCase()
+            ? part === rawTerm
+            : part.toLowerCase() === rawTerm.toLowerCase()
         )
 
         if (isMatch) {
