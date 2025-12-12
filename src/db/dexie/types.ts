@@ -137,3 +137,57 @@ export type ProcessedMedia = {
   metadata?: Record<string, any>
   createdAt: number
 }
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Folder System Types (mirrors tldw_server keyword_collections)
+// ─────────────────────────────────────────────────────────────────────────────
+
+/**
+ * Folder entity - mirrors server's `keyword_collections` table.
+ * Folders organize keywords hierarchically via parent_id.
+ */
+export type Folder = {
+  id: number
+  name: string
+  parent_id: number | null
+  created_at: string
+  last_modified: string
+  version: number
+  client_id?: string
+  deleted: boolean
+}
+
+/**
+ * Keyword entity - mirrors server's `keywords` table.
+ * Keywords are tags that can be attached to conversations/prompts.
+ */
+export type Keyword = {
+  id: number
+  keyword: string
+  created_at: string
+  last_modified: string
+  version: number
+  client_id?: string
+  deleted: boolean
+}
+
+/**
+ * Link between a folder and its keywords.
+ * Mirrors server's `collection_keywords` junction table.
+ */
+export type FolderKeywordLink = {
+  folder_id: number
+  keyword_id: number
+}
+
+/**
+ * Link between a conversation and its keywords.
+ * Mirrors server's `conversation_keywords` junction table.
+ */
+export type ConversationKeywordLink = {
+  conversation_id: string
+  keyword_id: number
+}
+
+export type Folders = Folder[]
+export type Keywords = Keyword[]

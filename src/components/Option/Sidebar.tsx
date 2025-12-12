@@ -26,13 +26,16 @@ import {
   Loader2,
   ChevronDown,
   GitBranch,
-  MessageSquare
+  MessageSquare,
+  FolderIcon
 } from "lucide-react"
 import { useNavigate } from "react-router-dom"
 import { useTranslation } from "react-i18next"
 import { lastUsedChatModelEnabled } from "@/services/model-settings"
 import { useDebounce } from "@/hooks/useDebounce"
-import { useState } from "react"
+import { useState, useEffect } from "react"
+import { FolderTree, FolderToolbar, FolderPicker } from "@/components/Folders"
+import { useFolderStore, useFolderViewMode, useFolderActions } from "@/store/folder"
 import { PageAssistDatabase } from "@/db/dexie/chat"
 import {
   deleteByHistoryId,
@@ -96,6 +99,19 @@ export const Sidebar = ({
   const [openMenuFor, setOpenMenuFor] = useState<string | null>(null)
   const confirmDanger = useConfirmDanger()
   const { isConnected } = useConnectionState()
+
+  // Folder system state
+  const viewMode = useFolderViewMode()
+  const { refreshFromServer, addConversationToFolder } = useFolderActions()
+  const [folderPickerOpen, setFolderPickerOpen] = useState(false)
+  const [folderPickerChatId, setFolderPickerChatId] = useState<string | null>(null)
+
+  // Load folders on mount when connected
+  useEffect(() => {
+    if (isConnected && isOpen) {
+      refreshFromServer()
+    }
+  }, [isConnected, isOpen])
   const {
     serverChatId,
     setServerChatId,
@@ -364,28 +380,42 @@ export const Sidebar = ({
     }
   }
 
+  // Handle folder selection for a chat
+  const handleFolderSelect = async (folderIds: number[]) => {
+    if (!folderPickerChatId) return
+    for (const folderId of folderIds) {
+      await addConversationToFolder(folderPickerChatId, folderId)
+    }
+    setFolderPickerOpen(false)
+    setFolderPickerChatId(null)
+    message.success(t("common:success"))
+  }
+
   return (
     <div
       className={`overflow-y-auto z-99 ${temporaryChat ? "pointer-events-none opacity-50" : ""}`}>
       <div className="sticky top-0 z-10 my-3">
-        <div className="relative">
-          <Input
-            placeholder={t("common:search")}
-            value={searchQuery}
-            onChange={handleSearchChange}
-            prefix={<SearchIcon className="w-4 h-4 text-gray-400" />}
-            suffix={
-              searchQuery ? (
-                <button
-                  onClick={clearSearch}
-                  className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-200"
-                  aria-label={t("common:clearSearch", { defaultValue: "Clear search" })}>
-                  ✕
-                </button>
-              ) : null
-            }
-            className="w-full rounded-md border border-gray-300 dark:border-gray-700 dark:bg-[#232222]"
-          />
+        <div className="flex items-center gap-2">
+          <div className="relative flex-1">
+            <Input
+              placeholder={t("common:search")}
+              value={searchQuery}
+              onChange={handleSearchChange}
+              prefix={<SearchIcon className="w-4 h-4 text-gray-400" />}
+              suffix={
+                searchQuery ? (
+                  <button
+                    onClick={clearSearch}
+                    className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-200"
+                    aria-label={t("common:clearSearch", { defaultValue: "Clear search" })}>
+                    ✕
+                  </button>
+                ) : null
+              }
+              className="w-full rounded-md border border-gray-300 dark:border-gray-700 dark:bg-[#232222]"
+            />
+          </div>
+          {isConnected && <FolderToolbar compact />}
         </div>
       </div>
 
@@ -572,6 +602,18 @@ export const Sidebar = ({
                                 ? t("common:unpin")
                                 : t("common:pin")}
                             </Menu.Item>
+                            {isConnected && (
+                              <Menu.Item
+                                key="moveToFolder"
+                                icon={<FolderIcon className="w-4 h-4" />}
+                                onClick={() => {
+                                  setFolderPickerChatId(chat.id)
+                                  setFolderPickerOpen(true)
+                                  setOpenMenuFor(null)
+                                }}>
+                                {t("common:moveToFolder")}
+                              </Menu.Item>
+                            )}
                             <Menu.Item
                               key="edit"
                               icon={<PencilIcon className="w-4 h-4" />}
@@ -791,6 +833,62 @@ export const Sidebar = ({
           </div>
         </div>
       )}
+
+      {/* Folder Tree View - shown when viewMode is 'folders' */}
+      {isConnected && viewMode === 'folders' && (
+        <div className="mt-4 border-t border-gray-200 dark:border-gray-800 pt-3">
+          <FolderTree
+            onConversationSelect={async (conversationId) => {
+              const db = new PageAssistDatabase()
+              const history = await db.getChatHistory(conversationId)
+              const historyDetails = await db.getHistoryInfo(conversationId)
+              setServerChatId(null)
+              setHistoryId(conversationId)
+              setHistory(formatToChatHistory(history))
+              setMessages(formatToMessage(history))
+              const isLastUsedChatModel = await lastUsedChatModelEnabled()
+              if (isLastUsedChatModel && historyDetails?.model_id) {
+                setSelectedModel(historyDetails.model_id)
+              }
+              if (historyDetails?.last_used_prompt) {
+                if (historyDetails.last_used_prompt.prompt_id) {
+                  const prompt = await getPromptById(historyDetails.last_used_prompt.prompt_id)
+                  if (prompt) {
+                    setSelectedSystemPrompt(historyDetails.last_used_prompt.prompt_id)
+                  }
+                }
+                setSystemPrompt(historyDetails.last_used_prompt.prompt_content)
+              }
+              if (setContext) {
+                const session = await getSessionFiles(conversationId)
+                setContext(session)
+              }
+              const chatInfo = await db.getHistoryInfo(conversationId)
+              updatePageTitle(chatInfo?.title)
+              navigate("/")
+              onClose()
+            }}
+            conversations={chatHistories.flatMap(g => g.items.map(item => ({
+              id: item.id,
+              title: item.title
+            })))}
+            showConversations
+          />
+        </div>
+      )}
+
+      {/* Folder Picker Modal */}
+      <FolderPicker
+        open={folderPickerOpen}
+        onClose={() => {
+          setFolderPickerOpen(false)
+          setFolderPickerChatId(null)
+        }}
+        onSelect={handleFolderSelect}
+        title={t("common:moveToFolder")}
+        allowMultiple
+        showCreateNew
+      />
     </div>
   )
 }

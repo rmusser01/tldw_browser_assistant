@@ -238,7 +238,7 @@
   },
   "privateModeSaveErrorTitle": "tldw Assistant can't save data",
   "error": {
-    "friendlyApiKeySummary": "We couldn’t reach your tldw server.",
+    "friendlyApiKeySummary": "We couldn't reach your tldw server.",
     "friendlyApiKeyHint": "Your API key may be invalid. Open Settings → tldw server to check your URL and API key, then try again.",
     "friendlyTimeoutSummary": "Your chat timed out.",
     "friendlyTimeoutHint": "The server stopped streaming responses. Try again, or open Health & diagnostics to check server status.",
@@ -246,5 +246,18 @@
     "friendlyGenericHint": "Try again in a moment, or open Health & diagnostics to inspect server health.",
     "showDetails": "Show technical details",
     "hideDetails": "Hide technical details"
-  }
+  },
+  "folders": "Folders",
+  "folderView": "Folder view",
+  "dateView": "Date view",
+  "newFolder": "New Folder",
+  "folderName": "Folder name",
+  "selectFolder": "Select folder",
+  "noFolders": "No folders",
+  "expandAll": "Expand all",
+  "collapseAll": "Collapse all",
+  "refresh": "Refresh",
+  "confirm": "Confirm",
+  "untitled": "Untitled",
+  "moveToFolder": "Move to folder"
 }

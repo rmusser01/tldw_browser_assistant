@@ -45,6 +45,56 @@ const RESULT_FILTERS = {
 
 type ResultsFilter = (typeof RESULT_FILTERS)[keyof typeof RESULT_FILTERS]
 
+// Extracted schema for /api/v1/media/add endpoint - used as fallback when server spec unavailable
+const MEDIA_ADD_SCHEMA_FALLBACK: Array<{ name: string; type: string; description?: string; title?: string }> = [
+  { name: 'accept_archives', type: 'boolean', description: 'Accept .zip archives of EMLs', title: 'Accept Archives' },
+  { name: 'accept_mbox', type: 'boolean', description: 'Accept .mbox mailboxes', title: 'Accept Mbox' },
+  { name: 'accept_pst', type: 'boolean', description: 'Accept .pst/.ost containers', title: 'Accept Pst' },
+  { name: 'api_name', type: 'string', description: 'Optional API name', title: 'Api Name' },
+  { name: 'author', type: 'string', description: 'Optional author', title: 'Author' },
+  { name: 'chunk_language', type: 'string', description: 'Chunking language override', title: 'Chunk Language' },
+  { name: 'chunk_method', type: 'string', description: 'Chunking method', title: 'Chunk Method' },
+  { name: 'chunk_overlap', type: 'integer', description: 'Chunk overlap size', title: 'Chunk Overlap' },
+  { name: 'chunk_size', type: 'integer', description: 'Target chunk size', title: 'Chunk Size' },
+  { name: 'claims_extractor_mode', type: 'string', description: 'Claims extractor mode', title: 'Claims Extractor Mode' },
+  { name: 'claims_max_per_chunk', type: 'string', description: 'Max claims per chunk', title: 'Claims Max Per Chunk' },
+  { name: 'context_strategy', type: 'string', description: 'Context strategy', title: 'Context Strategy' },
+  { name: 'context_token_budget', type: 'string', description: 'Token budget for auto strategy', title: 'Context Token Budget' },
+  { name: 'context_window_size', type: 'string', description: 'Context window size (chars)', title: 'Context Window Size' },
+  { name: 'contextual_llm_model', type: 'string', description: 'LLM model for contextual chunking', title: 'Contextual Llm Model' },
+  { name: 'cookies', type: 'string', description: 'Cookie string', title: 'Cookies' },
+  { name: 'custom_chapter_pattern', type: 'string', description: 'Regex for chapter splitting', title: 'Custom Chapter Pattern' },
+  { name: 'custom_prompt', type: 'string', description: 'Custom prompt', title: 'Custom Prompt' },
+  { name: 'diarize', type: 'boolean', description: 'Enable speaker diarization', title: 'Diarize' },
+  { name: 'embedding_model', type: 'string', description: 'Embedding model', title: 'Embedding Model' },
+  { name: 'embedding_provider', type: 'string', description: 'Embedding provider', title: 'Embedding Provider' },
+  { name: 'enable_contextual_chunking', type: 'boolean', description: 'Enable contextual chunking', title: 'Enable Contextual Chunking' },
+  { name: 'end_time', type: 'string', description: 'End time (HH:MM:SS)', title: 'End Time' },
+  { name: 'generate_embeddings', type: 'boolean', description: 'Generate embeddings', title: 'Generate Embeddings' },
+  { name: 'ingest_attachments', type: 'boolean', description: 'Parse nested attachments', title: 'Ingest Attachments' },
+  { name: 'keep_original_file', type: 'boolean', description: 'Retain original files', title: 'Keep Original File' },
+  { name: 'keywords', type: 'string', description: 'Comma-separated keywords', title: 'Keywords' },
+  { name: 'max_depth', type: 'integer', description: 'Max nested parsing depth', title: 'Max Depth' },
+  { name: 'overwrite_existing', type: 'boolean', description: 'Overwrite existing media', title: 'Overwrite Existing' },
+  { name: 'pdf_parsing_engine', type: 'string', description: 'PDF parsing engine', title: 'Pdf Parsing Engine' },
+  { name: 'perform_analysis', type: 'boolean', description: 'Perform analysis', title: 'Perform Analysis' },
+  { name: 'perform_chunking', type: 'boolean', description: 'Enable chunking', title: 'Perform Chunking' },
+  { name: 'perform_claims_extraction', type: 'string', description: 'Extract factual claims', title: 'Perform Claims Extraction' },
+  { name: 'perform_confabulation_check_of_analysis', type: 'boolean', description: 'Enable confabulation check', title: 'Confabulation Check' },
+  { name: 'perform_rolling_summarization', type: 'boolean', description: 'Rolling summarization', title: 'Rolling Summarization' },
+  { name: 'start_time', type: 'string', description: 'Start time (HH:MM:SS)', title: 'Start Time' },
+  { name: 'summarize_recursively', type: 'boolean', description: 'Recursive summarization', title: 'Summarize Recursively' },
+  { name: 'system_prompt', type: 'string', description: 'System prompt', title: 'System Prompt' },
+  { name: 'timestamp_option', type: 'boolean', description: 'Include timestamps', title: 'Timestamp Option' },
+  { name: 'title', type: 'string', description: 'Optional title', title: 'Title' },
+  { name: 'transcription_language', type: 'string', description: 'Transcription language', title: 'Transcription Language' },
+  { name: 'transcription_model', type: 'string', description: 'Transcription model', title: 'Transcription Model' },
+  { name: 'use_adaptive_chunking', type: 'boolean', description: 'Adaptive chunking', title: 'Use Adaptive Chunking' },
+  { name: 'use_cookies', type: 'boolean', description: 'Use cookies for downloads', title: 'Use Cookies' },
+  { name: 'use_multi_level_chunking', type: 'boolean', description: 'Multi-level chunking', title: 'Use Multi Level Chunking' },
+  { name: 'vad_use', type: 'boolean', description: 'Enable VAD filter', title: 'Vad Use' },
+]
+
 const isLikelyUrl = (raw: string) => {
   const val = (raw || '').trim()
   if (!val) return false
@@ -135,8 +185,7 @@ export const QuickIngestModal: React.FC<Props> = ({
   const [advancedOpen, setAdvancedOpen] = React.useState<boolean>(false)
   const [advancedValues, setAdvancedValues] = React.useState<Record<string, any>>({})
   const [advSchema, setAdvSchema] = React.useState<Array<{ name: string; type: string; enum?: any[]; description?: string; title?: string }>>([])
-  const [specSource, setSpecSource] = React.useState<'server' | 'server-cached' | 'bundled' | 'none'>('none')
-  const [bundledSpec, setBundledSpec] = React.useState<any | null>(null)
+  const [specSource, setSpecSource] = React.useState<'server' | 'server-cached' | 'fallback' | 'none'>('none')
   const [fieldDetailsOpen, setFieldDetailsOpen] = React.useState<Record<string, boolean>>({})
   const [advSearch, setAdvSearch] = React.useState<string>('')
   const [savedAdvValues, setSavedAdvValues] = useStorage<Record<string, any>>('quickIngestAdvancedValues', {})
@@ -847,7 +896,7 @@ export const QuickIngestModal: React.FC<Props> = ({
   }
 
   const loadSpec = React.useCallback(async (preferServer = true, reportDiff = false) => {
-    let used: 'server' | 'bundled' | 'none' = 'none'
+    let used: 'server' | 'fallback' | 'none' = 'none'
     let remote: any | null = null
     if (preferServer) {
       try {
@@ -892,55 +941,16 @@ export const QuickIngestModal: React.FC<Props> = ({
         } catch {}
         persistSpecPrefs(payload)
       } catch {}
-      if (reportDiff && bundledSpec) {
-        // Compare fields
-        const bundledPaths = bundledSpec?.paths || {}
-        const bContent = (bundledPaths['/api/v1/media/add'] || bundledPaths['/api/v1/media/add/'])?.post?.requestBody?.content || {}
-        const bProps = (bContent['multipart/form-data'] || bContent['application/x-www-form-urlencoded'] || {})?.schema?.properties || {}
-        const rPaths = remote?.paths || {}
-        const rContent = (rPaths['/api/v1/media/add'] || rPaths['/api/v1/media/add/'])?.post?.requestBody?.content || {}
-        const rProps = (rContent['multipart/form-data'] || rContent['application/x-www-form-urlencoded'] || {})?.schema?.properties || {}
-        const bSet = new Set(Object.keys(bProps))
-        const rSet = new Set(Object.keys(rProps))
-        const newFields = [...rSet].filter((k) => !bSet.has(k))
-        const missingFields = [...bSet].filter((k) => !rSet.has(k))
-        const bVer = bundledSpec?.info?.version
-        const rVer = remote?.info?.version
-        if (newFields.length || missingFields.length || (bVer && rVer && bVer !== rVer)) {
-          const msgs: string[] = []
-          if (bVer && rVer && bVer !== rVer) msgs.push(`Spec version differs (server: ${rVer}, bundled: ${bVer})`)
-          if (newFields.length) msgs.push(`Server has new fields: ${newFields.slice(0,6).join(', ')}${newFields.length>6?'…':''}`)
-          if (missingFields.length) msgs.push(`Bundled fields not on server: ${missingFields.slice(0,6).join(', ')}${missingFields.length>6?'…':''}`)
-          messageApi.warning(msgs.join(' • '))
-        } else {
-          messageApi.success('Advanced spec reloaded from server')
-        }
+      if (reportDiff) {
+        messageApi.success('Advanced spec reloaded from server')
       }
     } else {
-      try {
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
-        const localSpec = await import('../../../openapi.json')
-        setBundledSpec(localSpec)
-        parseSpec(localSpec)
-        used = 'bundled'
-      } catch {
-        setAdvSchema([
-          { name: 'context_window_size', type: 'integer' },
-          { name: 'generate_embeddings', type: 'boolean' },
-          { name: 'embedding_model', type: 'string' },
-          { name: 'embedding_provider', type: 'string' },
-          { name: 'perform_rolling_summarization', type: 'boolean' },
-          { name: 'perform_confabulation_check_of_analysis', type: 'boolean' },
-          { name: 'system_prompt', type: 'string' },
-          { name: 'custom_prompt', type: 'string' },
-          { name: 'title', type: 'string' }
-        ])
-        used = 'none'
-      }
+      // Use extracted schema fallback (no bundled openapi.json import)
+      setAdvSchema(MEDIA_ADD_SCHEMA_FALLBACK)
+      used = 'fallback'
     }
     setSpecSource(used)
-  }, [bundledSpec, persistSpecPrefs, specPrefs])
+  }, [persistSpecPrefs, specPrefs, messageApi])
 
   React.useEffect(() => {
     specPrefsCacheRef.current = JSON.stringify(specPrefs || {})
@@ -949,14 +959,7 @@ export const QuickIngestModal: React.FC<Props> = ({
   React.useEffect(() => {
     if (!open) return
     ;(async () => {
-      // Load bundled once for diffing later
-      try {
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
-        const localSpec = await import('../../../openapi.json')
-        setBundledSpec(localSpec)
-      } catch {}
-      // Prefer server
+      // Prefer server spec; fall back to extracted schema if unavailable
       const prefer =
         typeof specPrefs?.preferServer === 'boolean' ? specPrefs.preferServer : true
       await loadSpec(prefer)

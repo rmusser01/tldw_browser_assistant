@@ -1,7 +1,7 @@
 # Product Requirements Document: Folder System & UX Enhancements
-## tldw Assistant Browser Extension - Keyword-Based Folder Organization
+## tldw Assistant Browser Extension - Server-Native Folder Organization
 
-**Version:** 1.0
+**Version:** 2.0
 **Date:** December 11, 2025
 **Reference Project:** NotebookLM Pro Tree Extension (V17.6)
 
@@ -9,96 +9,206 @@
 
 ## Executive Summary
 
-This PRD outlines design/UX enhancements adapted from the NotebookLM Pro Tree extension for implementation in the tldw extension. The primary feature is a **virtual folder system using a special keyword format** (`___folder_name___`) to organize items hierarchically, while maintaining compatibility with the existing flat keyword/tag system.
+This PRD outlines design/UX enhancements adapted from the NotebookLM Pro Tree extension for implementation in the tldw extension. The primary feature is a **folder system using tldw_server's native `keyword_collections` table** to organize items hierarchically, with full sync support across devices.
+
+### Key Discovery: Server Already Supports Folders
+
+The tldw_server already has substantial infrastructure for folders and keywords:
+
+| Server Feature | Database Location | Status |
+|----------------|-------------------|--------|
+| **Keywords for conversations** | `keywords` + `conversation_keywords` tables | ✅ Exists in DB |
+| **Keywords for prompts** | `PromptKeywordsTable` + `PromptKeywordLinks` | ✅ Exists + API |
+| **Hierarchical folders** | `keyword_collections` with `parent_id` | ✅ Exists in DB |
+| **Folder-keyword links** | `collection_keywords` junction table | ✅ Exists in DB |
+
+**Note:** While the database layer is complete, some API endpoints may need to be exposed.
 
 ### Key Decisions
 | Decision | Choice | Rationale |
 |----------|--------|-----------|
 | **Folder Scope** | All features (chats, prompts, notes) | Unified organization across the extension |
-| **Folder Creation** | Both button + manual keyword | Accessible for all users, power-user friendly |
-| **Multi-folder Assignment** | Yes, items in all matching folders | Like email labels; flexible organization |
-| **Sync Strategy** | Existing keyword system | No server changes needed - folders are client-side interpretation of `___` keywords |
-| **Nesting Delimiter** | Slash between keywords | `___parent___/___child___` displays as `parent/child` |
+| **Folder Creation** | UI button + API call | Creates real server entity in `keyword_collections` |
+| **Multi-folder Assignment** | Yes, items in all assigned folders | Items can be linked to multiple keywords/folders |
+| **Sync Strategy** | Server sync via existing infrastructure | Full sync support (versioning, client_id, sync_log) |
+| **Nesting** | Native `parent_id` hierarchy | Server handles tree structure properly |
+| **Case Sensitivity** | Case-insensitive (server uses `COLLATE NOCASE`) | "Work" and "work" are same folder |
 
 ---
 
-## 1. Folder System via Keywords
+## 1. Server Data Architecture
 
-### 1.1 Keyword Format Specification
+### 1.1 Existing Server Schema (ChaChaNotes_DB.py)
 
-**Format:** `___folder_name___`
-- Triple underscores as prefix and suffix
-- Prevents accidental folder creation (e.g., normal keyword `cakes` vs folder keyword `___cakes___`)
-- Nested folders: chain keywords with `/` separator: `___parent___/___child___`
+**Keywords Table:**
+```sql
+CREATE TABLE keywords (
+  id            INTEGER PRIMARY KEY,
+  keyword       TEXT UNIQUE COLLATE NOCASE,  -- Case-insensitive!
+  created_at    DATETIME,
+  last_modified DATETIME,
+  version       INTEGER,
+  client_id     TEXT,
+  deleted       BOOLEAN DEFAULT 0
+);
+```
 
-**Examples:**
-| Keyword Type | Keyword Value | UI Display |
-|--------------|---------------|------------|
-| Normal keyword | `recipe` | Tag chip: "recipe" |
-| Folder keyword | `___recipes___` | 📁 recipes |
-| Nested folder | `___work___/___projects___` | 📁 work / projects |
-| Deep nesting | `___work___/___projects___/___2024___` | 📁 work / projects / 2024 |
+**Folder Collections Table (keyword_collections):**
+```sql
+CREATE TABLE keyword_collections (
+  id            INTEGER PRIMARY KEY,
+  name          TEXT UNIQUE COLLATE NOCASE,
+  parent_id     INTEGER REFERENCES keyword_collections(id) ON DELETE SET NULL,
+  created_at    DATETIME,
+  last_modified DATETIME,
+  deleted       BOOLEAN DEFAULT 0,
+  client_id     TEXT,
+  version       INTEGER
+);
+```
 
-**How Nesting Works:**
-- Each segment is a complete `___name___` keyword
-- Segments joined by `/` (no spaces)
-- Item with `___work___/___projects___` appears under: work → projects
-- The full string `___work___/___projects___` is stored as a single keyword
+**Junction Tables:**
+```sql
+-- Link conversations to keywords
+CREATE TABLE conversation_keywords (
+  conversation_id TEXT,
+  keyword_id      INTEGER REFERENCES keywords(id),
+  PRIMARY KEY(conversation_id, keyword_id)
+);
 
-**Validation Rules:**
-- Folder name cannot be empty (reject `______`)
-- Individual segment names cannot contain `/`
-- Folder names are case-insensitive for matching, preserved for display
-- Max nesting depth: 5 levels (configurable)
-- Min keyword length: 7 characters (`___` + at least 1 char + `___`)
+-- Link folders to keywords (folders can contain keywords)
+CREATE TABLE collection_keywords (
+  collection_id INTEGER REFERENCES keyword_collections(id) ON DELETE CASCADE,
+  keyword_id    INTEGER REFERENCES keywords(id) ON DELETE CASCADE,
+  PRIMARY KEY(collection_id, keyword_id)
+);
+```
 
-### 1.2 Data Architecture
+### 1.2 How Folders Work
 
-**Core Principle:** Folders are a client-side UI interpretation of keywords. The keyword itself (`___name___`) is the source of truth for folder membership. Only UI preferences are stored separately.
+**Two Organization Systems:**
 
-**Required Changes to `src/db/dexie/types.ts`:**
+1. **Keywords (Tags):** Flat labels attached to items
+   - Conversations have keywords via `conversation_keywords`
+   - Prompts have keywords via `PromptKeywordLinks`
+
+2. **Folders (Collections):** Hierarchical containers
+   - `keyword_collections` table with `parent_id` for nesting
+   - Folders can contain keywords (organizing keywords into groups)
+   - OR folders can directly contain items (via new junction tables if needed)
+
+**Recommended Approach: Folders Contain Keywords**
+
+```
+📁 Work (folder/collection)
+   └─ keyword: "project-alpha"
+   └─ keyword: "project-beta"
+   └─ 📁 Archive (nested folder)
+       └─ keyword: "2024-completed"
+
+Conversation A has keywords: ["project-alpha", "meeting-notes"]
+  → Appears under: Work folder (via project-alpha keyword)
+```
+
+**Alternative: Direct Folder-Item Links**
+
+Could add `conversation_collections` junction table if needed:
+```sql
+CREATE TABLE conversation_collections (
+  conversation_id TEXT,
+  collection_id   INTEGER REFERENCES keyword_collections(id),
+  PRIMARY KEY(conversation_id, collection_id)
+);
+```
+
+### 1.3 Data Flow
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│                     tldw_server                              │
+│  ┌─────────────┐    ┌────────────────────┐                  │
+│  │  keywords   │───▶│ conversation_      │                  │
+│  │  (tags)     │    │ keywords           │                  │
+│  └─────────────┘    └────────────────────┘                  │
+│        │                                                     │
+│        ▼                                                     │
+│  ┌─────────────────┐                                        │
+│  │ collection_     │  (folders can group keywords)          │
+│  │ keywords        │                                        │
+│  └─────────────────┘                                        │
+│        │                                                     │
+│        ▼                                                     │
+│  ┌─────────────────┐                                        │
+│  │ keyword_        │  (hierarchical via parent_id)          │
+│  │ collections     │                                        │
+│  └─────────────────┘                                        │
+└─────────────────────────────────────────────────────────────┘
+                          │
+                          ▼ Sync
+┌─────────────────────────────────────────────────────────────┐
+│                    Extension (Dexie)                         │
+│  - Cache folders and keywords locally                        │
+│  - Store UI preferences (expand state, colors)               │
+└─────────────────────────────────────────────────────────────┘
+```
+
+### 1.4 Extension Data Types
+
+**Local Dexie Types:**
 ```typescript
+// Mirror server keyword_collections
+type Folder = {
+  id: number;
+  name: string;
+  parent_id: number | null;
+  created_at: string;
+  last_modified: string;
+  version: number;
+  deleted: boolean;
+};
+
+// Mirror server keywords
+type Keyword = {
+  id: number;
+  keyword: string;
+  created_at: string;
+  last_modified: string;
+  version: number;
+  deleted: boolean;
+};
+
+// Extend existing HistoryInfo
 type HistoryInfo = {
   // ... existing fields
-  keywords?: string[];  // NEW: Array of keyword strings (includes folder keywords)
-}
+  keyword_ids?: number[];  // Links to server keyword IDs
+};
 ```
 
-**Folder UI Preferences (local storage only - not synced):**
+**Local UI Preferences (not synced):**
 ```typescript
 interface FolderUIPreferences {
-  // Keyed by folder keyword (e.g., "___work___")
-  [folderKeyword: string]: {
-    isOpen: boolean;      // Expand/collapse state
-    color?: string;       // Optional folder color (hex)
-    order?: number;       // Sort order (for manual reordering)
-  }
+  [folderId: number]: {
+    isOpen: boolean;    // Expand/collapse state
+    color?: string;     // UI color override
+  };
 }
-
-// Stored in localStorage or Zustand with persist
-// Example: { "___work___": { isOpen: true, color: "#4285f4" } }
 ```
 
-**What is NOT stored separately:**
-- ❌ Item-to-folder mappings (derived from item keywords)
-- ❌ Pinned state (already exists as `is_pinned` on `HistoryInfo`)
-- ❌ Folder hierarchy (derived from keyword path parsing)
-
-### 1.3 Core Folder Features
+### 1.5 Core Folder Features
 
 | Feature | Implementation |
 |---------|----------------|
-| **Create Folder** | "New Folder" button opens dialog → user enters name → adds `___name___` keyword to selected item(s) |
-| **Nested Folders** | Parse hierarchy from keyword path: `___parent___/___child___` |
-| **Folder Colors** | Store in `FolderUIPreferences`, 7 color options |
-| **Expand/Collapse** | Store `isOpen` in `FolderUIPreferences` |
-| **Assign to Folder** | Add folder keyword to item's keywords array |
-| **Remove from Folder** | Remove specific folder keyword from item (show which folder in context menu) |
-| **Bulk Operations** | Expand All / Collapse All buttons in toolbar |
-| **Folder Ordering** | Store `order` in `FolderUIPreferences` |
+| **Create Folder** | POST to `/api/v1/notes/keyword-collections/` → creates `keyword_collections` row |
+| **Nested Folders** | Set `parent_id` when creating folder |
+| **Folder Colors** | Store locally in `FolderUIPreferences` (or extend server schema) |
+| **Expand/Collapse** | Store locally in `FolderUIPreferences` |
+| **Assign to Folder** | Add keyword to item, link keyword to folder via `collection_keywords` |
+| **Remove from Folder** | Unlink keyword from folder |
+| **Bulk Operations** | Local UI only (Expand All / Collapse All) |
+| **Folder Ordering** | Use existing `last_modified` or add `order` column to server |
 | **Pin Items** | Use existing `is_pinned` field (no changes needed) |
 
-**Important:** Folders only exist when at least one item has the folder keyword. There are no "empty folders" - if you remove the last item from a folder, the folder disappears from the tree.
+**Empty Folders:** Server supports empty folders (they're real entities). UI can show empty folders unlike the previous keyword-based approach.
 
 ---
 
@@ -106,16 +216,40 @@ interface FolderUIPreferences {
 
 ### 2.1 Tree View Component
 
-**NotebookLM Pattern:** Recursive `buildFolderNode()` creating nested `.plugin-tree-node` divs
-
-**tldw Implementation:** Use Ant Design `Tree` or `DirectoryTree` component (already available in antd v5.18.0)
+**tldw Implementation:** Use Ant Design `Tree` component (already available in antd v5.18.0)
 
 ```tsx
-// Conceptual structure
+// Build tree from server folders (keyword_collections with parent_id)
+const buildTreeData = (folders: Folder[]): TreeDataNode[] => {
+  const map = new Map<number, TreeDataNode>();
+  const roots: TreeDataNode[] = [];
+
+  // Create nodes
+  folders.filter(f => !f.deleted).forEach(folder => {
+    map.set(folder.id, {
+      key: folder.id,
+      title: folder.name,
+      children: [],
+    });
+  });
+
+  // Build hierarchy using parent_id
+  folders.filter(f => !f.deleted).forEach(folder => {
+    const node = map.get(folder.id)!;
+    if (folder.parent_id && map.has(folder.parent_id)) {
+      map.get(folder.parent_id)!.children!.push(node);
+    } else {
+      roots.push(node);
+    }
+  });
+
+  return roots;
+};
+
 <Tree
-  treeData={folderTreeData}
+  treeData={buildTreeData(folders)}
   draggable
-  onDrop={handleDragToFolder}
+  onDrop={handleMoveFolder}  // PATCH folder's parent_id on server
   titleRender={(node) => <FolderNode folder={node} />}
 />
 ```
@@ -131,7 +265,7 @@ interface FolderUIPreferences {
 **Enhanced structure:**
 ```
 ┌─────────────────────────────────┐
-│ [Search] [Toggle View]          │
+│ [Search] [📁/📅 Toggle]         │
 ├─────────────────────────────────┤
 │ TOOLBAR                         │
 │ [+Folder] [Expand] [Collapse]   │
@@ -140,13 +274,14 @@ interface FolderUIPreferences {
 │   └─ Chat 1                     │
 │   └─ Chat 2                     │
 ├─────────────────────────────────┤
-│ 📁 FOLDERS                      │
-│   └─ 📁 work                    │  ← Items with ___work___
-│       └─ Chat A                 │
-│       └─ 📁 projects            │  ← Items with ___work___/___projects___
+│ 📁 FOLDERS (from server)        │
+│   └─ 📁 Work                    │  ← keyword_collections.id=1
+│       └─ Chat A                 │  ← has keyword linked to "Work"
+│       └─ 📁 Projects            │  ← parent_id=1
 │           └─ Chat B             │
-│   └─ 📁 personal                │  ← Items with ___personal___
+│   └─ 📁 Personal                │  ← keyword_collections.id=3
 │       └─ Chat C                 │
+│   └─ 📁 Archive (empty)         │  ← Empty folders visible
 ├─────────────────────────────────┤
 │ UNGROUPED (by date)             │
 │   Today                         │
@@ -157,22 +292,32 @@ interface FolderUIPreferences {
 ```
 
 **Notes:**
-- Folder names display without the `___` prefix/suffix
-- `___work___/___projects___` displays as nested tree: work → projects
-- Items in multiple folders appear in each matching folder
-- "UNGROUPED" contains items with no folder keywords
+- Folders are real server entities from `keyword_collections` table
+- Nesting via `parent_id` (proper tree structure)
+- Items appear in folders via keyword associations
+- Empty folders can exist and be shown
+- Toggle switches between folder view and date view
 
-### 2.3 Move-to-Folder Trigger
+### 2.3 Folder Assignment UI
 
-**NotebookLM Pattern:** Inject `.plugin-move-trigger` button on each row
+**Workflow: Add item to folder**
+1. User clicks "Add to Folder" on conversation
+2. FolderPicker modal shows folder tree
+3. On select: link conversation to folder's keyword
 
-**tldw Adaptation:** Add "Move to Folder" menu item in existing `Dropdown` actions:
 ```tsx
 <Menu.Item
-  key="moveToFolder"
-  icon={<FolderIcon className="w-4 h-4" />}
+  key="addToFolder"
+  icon={<FolderPlus className="w-4 h-4" />}
   onClick={() => showFolderPicker(chat.id)}>
-  {t("common:moveToFolder")}
+  {t("common:addToFolder")}
+</Menu.Item>
+
+<Menu.Item
+  key="removeFromFolder"
+  icon={<FolderMinus className="w-4 h-4" />}
+  onClick={() => showRemoveFolderPicker(chat.id)}>
+  {t("common:removeFromFolder")}
 </Menu.Item>
 ```
 
@@ -204,162 +349,179 @@ Export/import `FolderUIPreferences` (colors, order, expand state) as JSON. Note:
 
 | Data Type | Storage Location | Syncs to Server? |
 |-----------|------------------|------------------|
-| Chat keywords (including folder keywords) | Dexie `HistoryInfo.keywords` | **New field** - sync TBD based on server capabilities |
-| Prompt keywords | Dexie `Prompt.keywords` | Already exists - uses existing sync if available |
-| Folder UI preferences (color, order, isOpen) | localStorage or Zustand persist | No (local only) |
+| Folders | Dexie `folders` table (cache) | Yes - from `keyword_collections` |
+| Keywords | Dexie `keywords` table (cache) | Yes - from server `keywords` table |
+| Conversation-keyword links | Server `conversation_keywords` | Yes - server is source of truth |
+| Folder UI preferences | Zustand with localStorage persist | No (local only) |
 
-**Note:** `HistoryInfo` currently has no `keywords` field. This PRD adds it. Sync to server depends on whether tldw_server supports keywords on chat histories - if not, keywords will be local-only for chats initially.
+### 4.2 Server API Endpoints
 
-### 4.2 Files to Modify
+**Existing endpoints (ChaChaNotes_DB.py):**
+
+| Operation | Endpoint | DB Method |
+|-----------|----------|-----------|
+| List keywords | `GET /api/v1/notes/keywords/` | `fetch_all_keywords()` |
+| Create keyword | `POST /api/v1/notes/keywords/` | `add_keyword(keyword_text)` |
+| Delete keyword | `DELETE /api/v1/notes/keywords/{id}` | `soft_delete_keyword()` |
+| Link conversation to keyword | N/A | `link_conversation_to_keyword()` |
+| Unlink conversation from keyword | N/A | `unlink_conversation_from_keyword()` |
+| Get keywords for conversation | N/A | `get_keywords_for_conversation()` |
+
+**Endpoints needed (may need to be exposed):**
+
+| Operation | Suggested Endpoint | DB Method (exists) |
+|-----------|-------------------|-------------------|
+| List folders | `GET /api/v1/notes/collections/` | `list_keyword_collections()` |
+| Create folder | `POST /api/v1/notes/collections/` | `add_keyword_collection(name, parent_id)` |
+| Update folder | `PATCH /api/v1/notes/collections/{id}` | `update_keyword_collection()` |
+| Delete folder | `DELETE /api/v1/notes/collections/{id}` | `soft_delete_keyword_collection()` |
+| Link keyword to folder | `POST /api/v1/notes/collections/{id}/keywords` | `link_collection_to_keyword()` |
+| Unlink keyword from folder | `DELETE /api/v1/notes/collections/{id}/keywords/{kw_id}` | `unlink_collection_from_keyword()` |
+
+### 4.3 Files to Modify
+
+**Extension files:**
 
 | File | Changes |
 |------|---------|
-| `src/db/dexie/types.ts` | Add `keywords` field to `HistoryInfo` |
-| `src/db/dexie/schema.ts` | Add migration for keywords field, add index |
-| `src/db/dexie/helpers.ts` | Add keyword management functions |
-| `src/components/Option/Sidebar.tsx` | Add folder tree view, toolbar, folder filtering |
-| `src/store/folder.tsx` | **New:** Zustand store for `FolderUIPreferences` |
-| `src/components/Folders/` | **New:** Shared folder components |
-| `src/utils/folder-keywords.ts` | **New:** Keyword parsing utilities |
-| `src/assets/locale/*/common.json` | Add i18n strings for folder UI |
-| `src/components/Option/Prompt/index.tsx` | Integrate folder view (prompts already have keywords) |
+| `src/db/dexie/types.ts` | Add `Folder`, `Keyword` types; add `keyword_ids` to `HistoryInfo` |
+| `src/db/dexie/schema.ts` | Add `folders`, `keywords` tables with migrations |
+| `src/services/tldw-server.ts` | Add folder/keyword API methods |
+| `src/store/folder.tsx` | **New:** Zustand store for folders, keywords, UI prefs |
+| `src/components/Folders/` | **New:** FolderTree, FolderPicker, FolderToolbar |
+| `src/components/Option/Sidebar.tsx` | Integrate folder tree view |
+| `src/assets/locale/*/common.json` | Add i18n strings |
 
-### 4.3 Keyword Parsing Utilities
+**Server files (tldw_server2):**
+
+| File | Changes |
+|------|---------|
+| `app/api/v1/endpoints/notes.py` | Expose keyword_collections endpoints |
+| `app/api/v1/schemas/notes_schemas.py` | Add CollectionCreate, CollectionResponse schemas |
+
+### 4.4 Extension Service Layer
 
 ```typescript
-// src/utils/folder-keywords.ts
+// src/services/folder-api.ts
 
-const FOLDER_PREFIX = '___';
-const FOLDER_SUFFIX = '___';
-const PATH_DELIMITER = '/'; // Separates ___parent___/___child___
-const MAX_NESTING_DEPTH = 5;
-const MIN_SEGMENT_LENGTH = 7; // ___ + 1 char + ___ = 7
+// Folders (keyword_collections)
+export const fetchFolders = () =>
+  bgRequest<Folder[]>({ path: '/api/v1/notes/collections/', method: 'GET' });
 
-// Detect if keyword is a folder (single or nested)
-export const isFolderKeyword = (kw: string): boolean => {
-  if (!kw || kw.length < MIN_SEGMENT_LENGTH) return false;
-  // Check if it starts with ___ and the first segment is valid
-  const segments = kw.split(PATH_DELIMITER);
-  return segments.every(seg =>
-    seg.startsWith(FOLDER_PREFIX) &&
-    seg.endsWith(FOLDER_SUFFIX) &&
-    seg.length >= MIN_SEGMENT_LENGTH
-  );
-};
-
-// Parse folder keyword into display segments
-// "___work___/___projects___" -> ["work", "projects"]
-export const parseFolderSegments = (kw: string): string[] => {
-  if (!isFolderKeyword(kw)) return [];
-  return kw
-    .split(PATH_DELIMITER)
-    .map(seg => seg.slice(FOLDER_PREFIX.length, -FOLDER_SUFFIX.length))
-    .slice(0, MAX_NESTING_DEPTH);
-};
-
-// Get display path (for UI)
-// "___work___/___projects___" -> "work / projects"
-export const getFolderDisplayPath = (kw: string): string => {
-  return parseFolderSegments(kw).join(' / ');
-};
-
-// Get leaf folder name (last segment)
-export const getFolderDisplayName = (kw: string): string => {
-  const segments = parseFolderSegments(kw);
-  return segments[segments.length - 1] || '';
-};
-
-// Generate folder keyword from display name
-// "my folder" -> "___my_folder___"
-export const createFolderKeyword = (name: string): string => {
-  const sanitized = name
-    .trim()
-    .toLowerCase()
-    .replace(/\s+/g, '_')
-    .replace(/[^a-z0-9_]/g, '');
-  if (!sanitized) return '';
-  return `${FOLDER_PREFIX}${sanitized}${FOLDER_SUFFIX}`;
-};
-
-// Create nested folder keyword
-// ["work", "projects"] -> "___work___/___projects___"
-export const createNestedFolderKeyword = (segments: string[]): string => {
-  return segments
-    .map(createFolderKeyword)
-    .filter(Boolean)
-    .slice(0, MAX_NESTING_DEPTH)
-    .join(PATH_DELIMITER);
-};
-
-// Validate folder keyword
-export const validateFolderKeyword = (kw: string): { valid: boolean; error?: string } => {
-  if (!kw) return { valid: false, error: 'Empty keyword' };
-  const segments = kw.split(PATH_DELIMITER);
-  if (segments.length > MAX_NESTING_DEPTH) {
-    return { valid: false, error: `Max depth is ${MAX_NESTING_DEPTH}` };
-  }
-  for (const seg of segments) {
-    if (!seg.startsWith(FOLDER_PREFIX) || !seg.endsWith(FOLDER_SUFFIX)) {
-      return { valid: false, error: 'Invalid segment format' };
-    }
-    if (seg.length < MIN_SEGMENT_LENGTH) {
-      return { valid: false, error: 'Empty folder name' };
-    }
-  }
-  return { valid: true };
-};
-
-// Extract all unique folder keywords from items
-export const extractFolderKeywords = (items: { keywords?: string[] }[]): string[] => {
-  const folders = new Set<string>();
-  items.forEach(item => {
-    item.keywords?.filter(isFolderKeyword).forEach(kw => folders.add(kw));
+export const createFolder = (name: string, parentId?: number) =>
+  bgRequest<Folder>({
+    path: '/api/v1/notes/collections/',
+    method: 'POST',
+    body: { name, parent_id: parentId }
   });
-  return Array.from(folders);
-};
 
-// Build tree structure for Ant Design Tree component
-export interface FolderTreeNode {
-  key: string;           // Full keyword path
-  title: string;         // Display name (leaf segment)
-  children: FolderTreeNode[];
-  isLeaf?: boolean;
+export const updateFolder = (id: number, data: { name?: string; parent_id?: number }) =>
+  bgRequest<Folder>({
+    path: `/api/v1/notes/collections/${id}`,
+    method: 'PATCH',
+    body: data
+  });
+
+export const deleteFolder = (id: number) =>
+  bgRequest({ path: `/api/v1/notes/collections/${id}`, method: 'DELETE' });
+
+// Keywords
+export const fetchKeywords = () =>
+  bgRequest<Keyword[]>({ path: '/api/v1/notes/keywords/', method: 'GET' });
+
+export const createKeyword = (keyword: string) =>
+  bgRequest<Keyword>({
+    path: '/api/v1/notes/keywords/',
+    method: 'POST',
+    body: { keyword }
+  });
+
+// Linking
+export const linkConversationToKeyword = (conversationId: string, keywordId: number) =>
+  bgRequest({
+    path: `/api/v1/notes/conversations/${conversationId}/keywords/${keywordId}`,
+    method: 'POST'
+  });
+
+export const unlinkConversationFromKeyword = (conversationId: string, keywordId: number) =>
+  bgRequest({
+    path: `/api/v1/notes/conversations/${conversationId}/keywords/${keywordId}`,
+    method: 'DELETE'
+  });
+
+export const getKeywordsForConversation = (conversationId: string) =>
+  bgRequest<Keyword[]>({
+    path: `/api/v1/notes/conversations/${conversationId}/keywords`,
+    method: 'GET'
+  });
+```
+
+### 4.5 Zustand Store
+
+```typescript
+// src/store/folder.tsx
+import { create } from 'zustand';
+import { persist } from 'zustand/middleware';
+
+interface FolderState {
+  // Server data (cached)
+  folders: Folder[];
+  keywords: Keyword[];
+
+  // Local UI preferences
+  uiPrefs: Record<number, { isOpen: boolean; color?: string }>;
+
+  // Actions
+  setFolders: (folders: Folder[]) => void;
+  setKeywords: (keywords: Keyword[]) => void;
+  toggleFolderOpen: (folderId: number) => void;
+  setFolderColor: (folderId: number, color: string) => void;
+
+  // Sync
+  refreshFromServer: () => Promise<void>;
 }
 
-export const buildFolderTree = (folderKeywords: string[]): FolderTreeNode[] => {
-  const root: FolderTreeNode[] = [];
-  const nodeMap = new Map<string, FolderTreeNode>();
+export const useFolderStore = create<FolderState>()(
+  persist(
+    (set, get) => ({
+      folders: [],
+      keywords: [],
+      uiPrefs: {},
 
-  // Sort by depth (shorter paths first) to ensure parents exist before children
-  const sorted = [...folderKeywords].sort((a, b) =>
-    a.split(PATH_DELIMITER).length - b.split(PATH_DELIMITER).length
-  );
+      setFolders: (folders) => set({ folders }),
+      setKeywords: (keywords) => set({ keywords }),
 
-  for (const keyword of sorted) {
-    const segments = keyword.split(PATH_DELIMITER);
-    let currentPath = '';
-    let parentChildren = root;
+      toggleFolderOpen: (folderId) => set((state) => ({
+        uiPrefs: {
+          ...state.uiPrefs,
+          [folderId]: {
+            ...state.uiPrefs[folderId],
+            isOpen: !state.uiPrefs[folderId]?.isOpen
+          }
+        }
+      })),
 
-    for (let i = 0; i < segments.length; i++) {
-      currentPath = currentPath ? `${currentPath}${PATH_DELIMITER}${segments[i]}` : segments[i];
+      setFolderColor: (folderId, color) => set((state) => ({
+        uiPrefs: {
+          ...state.uiPrefs,
+          [folderId]: { ...state.uiPrefs[folderId], color }
+        }
+      })),
 
-      let node = nodeMap.get(currentPath);
-      if (!node) {
-        const displayName = segments[i].slice(FOLDER_PREFIX.length, -FOLDER_SUFFIX.length);
-        node = {
-          key: currentPath,
-          title: displayName,
-          children: [],
-        };
-        nodeMap.set(currentPath, node);
-        parentChildren.push(node);
+      refreshFromServer: async () => {
+        const [folders, keywords] = await Promise.all([
+          fetchFolders(),
+          fetchKeywords()
+        ]);
+        set({ folders, keywords });
       }
-      parentChildren = node.children;
+    }),
+    {
+      name: 'folder-store',
+      partialize: (state) => ({ uiPrefs: state.uiPrefs }) // Only persist UI prefs
     }
-  }
-
-  return root;
-};
+  )
+);
 ```
 
 ---
@@ -392,78 +554,94 @@ Use these icons from the existing `lucide-react` package:
 
 ## 6. Implementation Phases
 
-### Phase 1: Foundation
-1. Add `keywords` field to `HistoryInfo` type in Dexie
-2. Create Dexie schema migration with multi-entry index on keywords
-3. Create `src/utils/folder-keywords.ts` with all parsing utilities (including nested folder support)
-4. Create `src/store/folder.tsx` Zustand store for `FolderUIPreferences`
+### Phase 1: Server API (tldw_server2)
+1. Expose `keyword_collections` endpoints in `notes.py`:
+   - `GET /api/v1/notes/collections/` - list folders
+   - `POST /api/v1/notes/collections/` - create folder
+   - `PATCH /api/v1/notes/collections/{id}` - update folder
+   - `DELETE /api/v1/notes/collections/{id}` - soft delete
+2. Expose conversation-keyword linking endpoints:
+   - `POST /api/v1/notes/conversations/{id}/keywords/{kw_id}` - link
+   - `DELETE /api/v1/notes/conversations/{id}/keywords/{kw_id}` - unlink
+   - `GET /api/v1/notes/conversations/{id}/keywords` - get keywords for conversation
+3. Add Pydantic schemas for Collection CRUD
 
-### Phase 2: Folder UI Components
+### Phase 2: Extension Foundation
+1. Add `Folder`, `Keyword` types to `src/db/dexie/types.ts`
+2. Add `folders`, `keywords` tables to Dexie schema (as cache)
+3. Create `src/services/folder-api.ts` with API methods
+4. Create `src/store/folder.tsx` Zustand store
+5. Add `keyword_ids` field to `HistoryInfo` type
+
+### Phase 3: Folder UI Components
 1. Create `src/components/Folders/` directory:
-   - `FolderTree.tsx` - Main tree using Ant Design Tree (supports nesting from day 1)
-   - `FolderPicker.tsx` - Modal/dropdown for folder assignment
-   - `FolderToolbar.tsx` - New Folder, Expand All, Collapse All buttons
-2. Integrate folder tree into Sidebar.tsx
-3. Add "Move to Folder" and "Remove from Folder" actions to chat dropdown menu
-4. Multi-folder display: items appear in all matching folders
+   - `FolderTree.tsx` - Main tree using Ant Design Tree
+   - `FolderPicker.tsx` - Modal for folder assignment
+   - `FolderToolbar.tsx` - New Folder, Expand All, Collapse All
+2. Integrate folder tree into `Sidebar.tsx`
+3. Add folder assignment actions to chat dropdown menu
+4. Toggle between folder view and date view
 
-### Phase 3: Prompts Integration & Enhancements
-1. Add folder view to Prompts page (prompts already have keywords)
-2. Folder colors (store in `FolderUIPreferences`)
-3. Manual folder ordering (up/down buttons in folder context menu)
-4. "New Folder" dialog with nested folder creation support
+### Phase 4: Prompts & Enhancements
+1. Add folder view to Prompts page
+2. Folder colors (local UI preference)
+3. Drag-and-drop folder reordering (update `parent_id`)
+4. Nested folder creation dialog
 
-### Phase 4: Polish
+### Phase 5: Polish
 1. Search/filter within folders
-2. Keyboard navigation (arrow keys, Enter to expand/collapse)
-3. Accessibility (ARIA tree roles, focus management)
-4. Performance optimization for large folder counts
-5. Handle edge cases (special characters in names, very deep nesting)
+2. Keyboard navigation
+3. Accessibility (ARIA tree roles)
+4. Performance optimization
+5. Offline support with optimistic updates
 
 ---
 
 ## 7. Feature Integration Points
 
-| Feature | Current State | Folder Integration |
-|---------|---------------|-------------------|
-| **Chat History** | No `keywords` field | Add `keywords` field to `HistoryInfo` type |
-| **Prompts** | Has `keywords`/`tags` field | Already supported - parse `___` keywords from existing field |
-| **Notes** | Investigate during implementation | Add same pattern if feature exists |
+| Feature | Server Support | Extension Integration |
+|---------|---------------|----------------------|
+| **Chat History** | `conversation_keywords` table exists | Cache keywords, link via API |
+| **Prompts** | `PromptKeywordLinks` table exists | Already has keywords, add folder linking |
+| **Notes** | `note_keywords` table exists | Same pattern as chats |
+| **Folders** | `keyword_collections` table exists | Sync and cache folders |
 
 ### 7.1 Shared Components
 
-All folder components are reusable across features:
-
 ```
 src/components/Folders/
-├── FolderTree.tsx          # Main tree component (Ant Design Tree)
-├── FolderPicker.tsx        # Modal/dropdown to select folder(s)
-├── FolderToolbar.tsx       # New Folder, Expand All, Collapse All buttons
-├── FolderColorPicker.tsx   # Color selection popover (Phase 3)
-└── useFolders.ts           # Shared hook for folder state & operations
+├── FolderTree.tsx          # Ant Design Tree with server data
+├── FolderPicker.tsx        # Modal to select folder(s)
+├── FolderToolbar.tsx       # New Folder, Expand/Collapse All
+├── FolderColorPicker.tsx   # Color selection (local UI)
+└── useFolders.ts           # Hook wrapping Zustand store
 ```
 
 ### 7.2 Folder Picker Component
 
-Used when assigning items to folders:
-
 ```tsx
 <FolderPicker
-  selectedFolders={item.keywords?.filter(isFolderKeyword)}
-  onSelect={(folderKeywords) => updateItemKeywords(item.id, folderKeywords)}
-  allowMultiple={true}   // Items can be in multiple folders
-  showCreateNew={true}   // "New Folder..." option at bottom
-  showNested={true}      // Allow selecting/creating nested folders
+  itemId={conversation.id}
+  itemType="conversation"
+  selectedKeywordIds={conversation.keyword_ids}
+  onSelect={async (keywordIds) => {
+    // Link conversation to keywords via API
+    await Promise.all(keywordIds.map(kwId =>
+      linkConversationToKeyword(conversation.id, kwId)
+    ));
+  }}
+  allowMultiple={true}
+  showCreateNew={true}
 />
 ```
 
-### 7.3 Multi-Folder Item Handling
+### 7.3 Multi-Keyword Item Handling
 
-When an item is in multiple folders:
-- **Tree view:** Item appears in each folder it belongs to
-- **Remove from folder:** Context menu shows "Remove from [folder name]" for each folder
-- **Move to folder:** Adds keyword (doesn't remove from other folders)
-- **Remove all folders:** Separate action to clear all folder keywords
+When an item has multiple keywords (and thus appears in multiple folders):
+- **Tree view:** Item appears under each folder whose keyword it has
+- **Remove from folder:** Unlink specific keyword via API
+- **Add to folder:** Link new keyword via API
+- **Bulk operations:** Update multiple links in parallel
 
 ---
 
@@ -471,19 +649,22 @@ When an item is in multiple folders:
 
 | Question | Decision | Rationale |
 |----------|----------|-----------|
-| **Default folders** | No | Let users create their own organization |
-| **Empty folders** | No | Folders only exist when items have the keyword (simplest model) |
-| **Folder deletion** | Remove keyword from all items | With confirmation dialog; most intuitive behavior |
-| **Case sensitivity** | Case-insensitive matching | `___Work___` and `___work___` are the same folder; preserve original case for display |
-| **Slash in folder names** | Rejected at input | User cannot type `/` in folder name (it's the nesting delimiter) |
+| **Folder storage** | Server `keyword_collections` | Native hierarchy via `parent_id`, full sync support |
+| **Empty folders** | Yes, supported | Server stores folders as entities, not derived from items |
+| **Folder deletion** | Soft delete on server | Preserves history, can be restored |
+| **Case sensitivity** | Case-insensitive (server) | `COLLATE NOCASE` in SQLite handles this |
+| **Item-folder linking** | Via keywords | Items have keywords → keywords belong to folders |
+| **Offline support** | Optimistic UI with sync queue | Cache locally, sync when connected |
 
 ## 9. Open Questions (For Implementation)
 
-1. **Notes feature:** Does the Notes feature exist in the codebase? If so, should it support folders?
+1. **API exposure:** Which keyword_collections endpoints are already exposed vs need to be added?
 
-2. **Server sync for chat keywords:** Does tldw_server support keywords on chat histories? If not, chat keywords will be local-only initially.
+2. **Folder-keyword relationship:** Should each folder have a "default" keyword, or can items be in folders directly?
 
-3. **Folder icon in tree:** Should folders show item count badge? (e.g., "work (5)")
+3. **Bulk operations:** Should we add batch endpoints for linking multiple items to a folder?
+
+4. **Folder ordering:** Add `order` column to `keyword_collections` or use `last_modified`?
 
 ---
 

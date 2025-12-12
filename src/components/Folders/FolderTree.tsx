@@ -1,0 +1,165 @@
+/**
+ * FolderTree Component
+ *
+ * Displays folders in a hierarchical tree structure using Ant Design Tree.
+ * Shows folders from server's keyword_collections with proper nesting via parent_id.
+ */
+
+import { Tree, Empty, Spin } from "antd"
+import type { TreeDataNode, TreeProps } from "antd"
+import { Folder, FolderOpen, ChevronRight, ChevronDown } from "lucide-react"
+import { useFolderStore, useFolderUIPrefs, type FolderTreeNode } from "@/store/folder"
+import { useTranslation } from "react-i18next"
+import { useMemo, useCallback } from "react"
+
+interface FolderTreeProps {
+  onFolderSelect?: (folderId: number) => void
+  onConversationSelect?: (conversationId: string) => void
+  selectedFolderId?: number | null
+  conversations?: Array<{ id: string; title: string }>
+  showConversations?: boolean
+}
+
+export const FolderTree = ({
+  onFolderSelect,
+  onConversationSelect,
+  selectedFolderId,
+  conversations = [],
+  showConversations = true
+}: FolderTreeProps) => {
+  const { t } = useTranslation()
+  const folderTree = useFolderStore((s) => s.getFolderTree())
+  const isLoading = useFolderStore((s) => s.isLoading)
+  const uiPrefs = useFolderUIPrefs()
+  const toggleFolderOpen = useFolderStore((s) => s.toggleFolderOpen)
+  const getConversationsForFolder = useFolderStore((s) => s.getConversationsForFolder)
+
+  // Convert folder tree to Ant Design tree data
+  const treeData = useMemo((): TreeDataNode[] => {
+    const convertNode = (node: FolderTreeNode): TreeDataNode => {
+      const isOpen = uiPrefs[node.key]?.isOpen ?? true
+      const color = uiPrefs[node.key]?.color
+
+      // Get conversations for this folder
+      const folderConversationIds = getConversationsForFolder(node.key)
+      const folderConversations = showConversations
+        ? conversations.filter(c => folderConversationIds.includes(c.id))
+        : []
+
+      const children: TreeDataNode[] = [
+        // Child folders first
+        ...node.children.map(convertNode),
+        // Then conversations
+        ...folderConversations.map(conv => ({
+          key: `conv-${conv.id}`,
+          title: conv.title || t("common:untitled"),
+          isLeaf: true,
+          icon: null,
+          className: "folder-tree-conversation"
+        }))
+      ]
+
+      return {
+        key: node.key,
+        title: (
+          <span className="flex items-center gap-1.5">
+            <span
+              className="truncate max-w-[150px]"
+              style={color ? { color } : undefined}
+            >
+              {node.title}
+            </span>
+            {node.itemCount > 0 && (
+              <span className="text-xs text-gray-400 dark:text-gray-500">
+                ({node.itemCount})
+              </span>
+            )}
+          </span>
+        ),
+        children: children.length > 0 ? children : undefined,
+        isLeaf: children.length === 0,
+        icon: ({ expanded }: { expanded?: boolean }) => {
+          const IconComponent = expanded || isOpen ? FolderOpen : Folder
+          return (
+            <IconComponent
+              className="w-4 h-4"
+              style={color ? { color } : undefined}
+            />
+          )
+        },
+        className: `folder-tree-folder ${selectedFolderId === node.key ? 'folder-tree-selected' : ''}`
+      }
+    }
+
+    return folderTree.map(convertNode)
+  }, [folderTree, uiPrefs, conversations, showConversations, selectedFolderId, getConversationsForFolder, t])
+
+  // Expanded keys from UI prefs
+  const expandedKeys = useMemo(() => {
+    return Object.entries(uiPrefs)
+      .filter(([_, prefs]) => prefs.isOpen)
+      .map(([id]) => Number(id))
+  }, [uiPrefs])
+
+  // Handle expand/collapse
+  const handleExpand: TreeProps['onExpand'] = useCallback((keys, { node, expanded }) => {
+    const folderId = typeof node.key === 'number' ? node.key : Number(node.key)
+    if (!isNaN(folderId) && !String(node.key).startsWith('conv-')) {
+      toggleFolderOpen(folderId)
+    }
+  }, [toggleFolderOpen])
+
+  // Handle selection
+  const handleSelect: TreeProps['onSelect'] = useCallback((keys, { node }) => {
+    const key = String(node.key)
+    if (key.startsWith('conv-')) {
+      const conversationId = key.replace('conv-', '')
+      onConversationSelect?.(conversationId)
+    } else {
+      const folderId = Number(key)
+      if (!isNaN(folderId)) {
+        onFolderSelect?.(folderId)
+      }
+    }
+  }, [onFolderSelect, onConversationSelect])
+
+  if (isLoading) {
+    return (
+      <div className="flex items-center justify-center py-8">
+        <Spin size="small" />
+      </div>
+    )
+  }
+
+  if (treeData.length === 0) {
+    return (
+      <Empty
+        image={Empty.PRESENTED_IMAGE_SIMPLE}
+        description={t("common:noFolders")}
+        className="py-4"
+      />
+    )
+  }
+
+  return (
+    <Tree
+      treeData={treeData}
+      expandedKeys={expandedKeys}
+      onExpand={handleExpand}
+      onSelect={handleSelect}
+      selectedKeys={selectedFolderId ? [selectedFolderId] : []}
+      showIcon
+      switcherIcon={({ expanded }: { expanded?: boolean }) =>
+        expanded ? (
+          <ChevronDown className="w-3 h-3 text-gray-400" />
+        ) : (
+          <ChevronRight className="w-3 h-3 text-gray-400" />
+        )
+      }
+      className="folder-tree bg-transparent"
+      blockNode
+    />
+  )
+}
+
+export default FolderTree
