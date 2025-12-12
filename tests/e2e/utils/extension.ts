@@ -76,25 +76,35 @@ export async function launchWithExtension(
 
   // Ensure each test run starts from a clean extension storage state so
   // first-run onboarding and connection flows behave deterministically.
-  await context.addInitScript(() => {
-    try {
-      // @ts-ignore
-      chrome?.storage?.local?.clear?.()
-    } catch {
-      // ignore if not available
-    }
-  })
-
+  // If seedConfig is provided, we clear first then set, ensuring both happen
+  // in the same script to avoid race conditions.
   if (seedConfig) {
-    // Pre-seed storage before any pages load so the extension picks it up immediately.
     await context.addInitScript((cfg) => {
       try {
+        // @ts-ignore - Clear then immediately set to avoid race conditions
+        chrome?.storage?.local?.clear?.(() => {
+          // @ts-ignore
+          chrome?.storage?.local?.set?.(cfg, () => {})
+        })
+      } catch {
+        // Fallback: try setting without clearing
+        try {
+          // @ts-ignore
+          chrome?.storage?.local?.set?.(cfg, () => {})
+        } catch {
+          // ignore
+        }
+      }
+    }, seedConfig)
+  } else {
+    await context.addInitScript(() => {
+      try {
         // @ts-ignore
-        chrome?.storage?.local?.set?.(cfg, () => {})
+        chrome?.storage?.local?.clear?.()
       } catch {
         // ignore if not available
       }
-    }, seedConfig)
+    })
   }
 
   const page = await context.newPage()

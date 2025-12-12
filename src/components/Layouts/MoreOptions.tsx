@@ -15,7 +15,6 @@ import { useTranslation } from "react-i18next"
 import { removeModelSuffix } from "@/db/dexie/models"
 import { copyToClipboard } from "@/utils/clipboard"
 import ReactDOM from "react-dom"
-import html2canvas from "html2canvas"
 import { ImageExportWrapper } from "../Common/ImageExport"
 import { useAntdMessage } from "@/hooks/useAntdMessage"
 interface MoreOptionsProps {
@@ -62,6 +61,9 @@ const downloadFile = (content: string, filename: string) => {
 }
 
 const generateChatImage = async (messages: Message[]) => {
+  // Lazy-load html2canvas to reduce initial bundle size (~400KB)
+  const html2canvas = (await import("html2canvas")).default
+
   const root = document.createElement("div")
   document.body.appendChild(root)
   const element = <ImageExportWrapper messages={messages} />

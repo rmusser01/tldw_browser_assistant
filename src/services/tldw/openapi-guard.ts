@@ -1,15 +1,10 @@
 // Type-level guard to keep the extension's API usage aligned with the
-// bundled OpenAPI spec. This file only exports types and helper
+// server's OpenAPI spec. This file only exports types and helper
 // functions, so it does not increase the runtime bundle size.
-
-// Import the OpenAPI JSON as a type (erased at runtime).
-// `resolveJsonModule` is enabled in tsconfig so TypeScript can infer
-// literal keys from the JSON structure.
-import type openapiJson from "../../../openapi.json"
-
-type OpenAPISpec = typeof openapiJson
-type SpecPaths = OpenAPISpec["paths"]
-export type SpecPathKey = keyof SpecPaths & string
+//
+// NOTE: The openapi.json import was removed to eliminate the 1.4 MB
+// JSON from the initial bundle. The ClientPath union below is manually
+// maintained. QuickIngestModal dynamically imports the spec when needed.
 
 // Union of relative API paths that the web UI calls via bgRequest/bgStream
 // or direct fetch. If a new endpoint is added in the UI, it should be
@@ -93,8 +88,8 @@ export const API_PATHS = {
 } as const satisfies Record<string, ClientPath>
 
 // Allowed relative API path: anything beginning with a slash. We keep
-// this wide to avoid breaking existing call sites, but use ClientPath
-// + SpecPathKey below as a compatibility safety net.
+// this wide to avoid breaking existing call sites, while ClientPath
+// provides a manually-maintained list of known endpoints.
 export type AllowedPath = `/${string}`
 
 // Absolute URL permitted in a few places
@@ -116,8 +111,3 @@ export type UpperLower<M extends string> = Uppercase<M> | Lowercase<M> | M
 export function normalizeMethod<M extends string>(method: M): Uppercase<M> {
   return String(method).toUpperCase() as Uppercase<M>
 }
-
-// For tooling: this type exposes any client paths that do not appear
-// in the bundled OpenAPI spec. It is not used at runtime, but can be
-// inspected in editors to spot drift between the UI and server.
-export type UndocumentedClientPath = Exclude<ClientPath, SpecPathKey>

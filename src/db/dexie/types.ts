@@ -12,6 +12,11 @@ export type HistoryInfo = {
   doc_id?: string;
   last_used_prompt?: LastUsedModelType;
   model_id?: string;
+  // Timeline/branching fields (server-compatible with ChaChaDB)
+  root_id?: string;                    // All forks share same root_id
+  parent_conversation_id?: string;     // Parent in fork tree
+  forked_from_message_id?: string;     // Message that spawned this fork
+  character_id?: number;               // Associated character/assistant
 };
 
 export type WebSearch = {
@@ -59,6 +64,9 @@ export type Message = {
   modelName?: string;
   modelImage?: string;
   documents?: ChatDocuments;
+  // Timeline/branching fields (server-compatible with ChaChaDB)
+  parent_message_id?: string | null;   // Parent message for threading/swipes
+  depth?: number;                       // Computed depth in conversation tree
 };
 
 export type Webshare = {

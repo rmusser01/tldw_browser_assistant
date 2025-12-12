@@ -155,3 +155,40 @@ export async function forceErrorUnreachable(
   )
 }
 
+/**
+ * Set the selected model via chrome.storage.local.
+ * This sets the Plasmo storage value that useStorage("selectedModel") reads.
+ * Must be called and awaited before React components mount.
+ */
+export async function setSelectedModel(page: Page, model: string) {
+  // Set via chrome.storage.local (what Plasmo useStorage reads)
+  await page.evaluate(async ({ modelId }) => {
+    return new Promise<void>((resolve) => {
+      // @ts-ignore
+      if (chrome?.storage?.local?.set) {
+        // @ts-ignore
+        chrome.storage.local.set({ selectedModel: modelId }, () => {
+          // eslint-disable-next-line no-console
+          console.log('MODEL_DEBUG: Set chrome.storage.local selectedModel to', modelId)
+          resolve()
+        })
+      } else {
+        resolve()
+      }
+    })
+  }, { modelId: model })
+
+  // Also try to update any mounted React components via Plasmo's storage event
+  await page.evaluate(({ modelId }) => {
+    // Dispatch storage change event to notify Plasmo hooks
+    window.dispatchEvent(new CustomEvent('storage', {
+      detail: { key: 'selectedModel', newValue: modelId }
+    }))
+    // eslint-disable-next-line no-console
+    console.log('MODEL_DEBUG: Dispatched storage event for', modelId)
+  }, { modelId: model })
+
+  // Wait for storage to persist and React to re-render
+  await page.waitForTimeout(300)
+}
+

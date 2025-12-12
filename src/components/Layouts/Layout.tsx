@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { lazy, Suspense, useState } from "react"
 
 import { Drawer, Tooltip } from "antd"
 import { EraserIcon, XIcon } from "lucide-react"
@@ -21,6 +21,11 @@ import { CurrentChatModelSettings } from "../Common/Settings/CurrentChatModelSet
 import { Sidebar } from "../Option/Sidebar"
 import { Header } from "./Header"
 import { useMigration } from "../../hooks/useMigration"
+
+// Lazy-load Timeline to reduce initial bundle size (~1.2MB cytoscape)
+const TimelineModal = lazy(() =>
+  import("@/components/Timeline").then((m) => ({ default: m.TimelineModal }))
+)
 import { useConfirmDanger } from "@/components/Common/confirm-danger"
 import { DemoModeProvider, useDemoMode } from "@/context/demo-mode"
 
@@ -206,6 +211,13 @@ const OptionLayoutInner: React.FC<OptionLayoutProps> = ({
 
         {/* Quick Chat Helper floating button */}
         {!hideHeader && <QuickChatHelperButton />}
+
+        {/* Timeline Modal - lazy-loaded */}
+        {!hideHeader && (
+          <Suspense fallback={null}>
+            <TimelineModal />
+          </Suspense>
+        )}
       </main>
     </div>
   )

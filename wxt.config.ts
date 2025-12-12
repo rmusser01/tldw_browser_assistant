@@ -10,6 +10,7 @@ import { fileURLToPath } from "url"
 
 const isFirefox = process.env.TARGET === "firefox"
 const projectRoot = path.dirname(fileURLToPath(import.meta.url))
+const analyzeBundle = process.env.ANALYZE === "true"
 
 const isAnyMatch = (id: string, matches: string[]) => {
   return matches.some((m) => id.includes(m))
@@ -136,16 +137,37 @@ const firefoxMV2Permissions = [
   "file://*/*"
 ]
 
+// Bundle analysis plugin (enabled via ANALYZE=true)
+const bundleAnalyzerPlugin = async (): Promise<Plugin | null> => {
+  if (!analyzeBundle) return null
+  try {
+    const { visualizer } = await import("rollup-plugin-visualizer")
+    return visualizer({
+      filename: "build/bundle-stats.html",
+      open: true,
+      gzipSize: true,
+      brotliSize: true,
+      template: "treemap"
+    }) as Plugin
+  } catch {
+    console.warn("rollup-plugin-visualizer not installed. Run: bun add -D rollup-plugin-visualizer")
+    return null
+  }
+}
+
 // See https://wxt.dev/api/config.html
 export default defineConfig({
-  vite: () => ({
+  vite: async () => {
+    const analyzerPlugin = await bundleAnalyzerPlugin()
+    return {
     plugins: [
       react(),
       safeInnerHTMLPlugin(),
       topLevelAwait({
         promiseExportName: "__tla",
         promiseImportName: (i) => `__tla_${i}`
-      }) as any
+      }) as any,
+      ...(analyzerPlugin ? [analyzerPlugin] : [])
     ],
     // Ensure every entry (options, sidepanel, content scripts) shares a single React instance.
     resolve: {
@@ -169,7 +191,7 @@ export default defineConfig({
       target: isFirefox ? "es2017" : "esnext",
       modulePreload: isFirefox ? false : undefined
     }
-  }),
+  }},
   entrypointsDir:
     isFirefox ? "entries-firefox" : "entries",
   srcDir: "src",
