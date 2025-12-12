@@ -156,39 +156,35 @@ export async function forceErrorUnreachable(
 }
 
 /**
- * Set the selected model via chrome.storage.local.
- * This sets the Plasmo storage value that useStorage("selectedModel") reads.
+ * Set the selected model via chrome.storage.sync.
+ * Plasmo's useStorage defaults to sync area, so we must use sync not local.
  * Must be called and awaited before React components mount.
  */
 export async function setSelectedModel(page: Page, model: string) {
-  // Set via chrome.storage.local (what Plasmo useStorage reads)
+  // Set via chrome.storage.sync (what Plasmo useStorage reads by default)
   await page.evaluate(async ({ modelId }) => {
     return new Promise<void>((resolve) => {
-      // @ts-ignore
-      if (chrome?.storage?.local?.set) {
+      // @ts-ignore - Plasmo useStorage defaults to sync area
+      if (chrome?.storage?.sync?.set) {
         // @ts-ignore
-        chrome.storage.local.set({ selectedModel: modelId }, () => {
+        chrome.storage.sync.set({ selectedModel: JSON.stringify(modelId) }, () => {
           // eslint-disable-next-line no-console
-          console.log('MODEL_DEBUG: Set chrome.storage.local selectedModel to', modelId)
+          console.log('MODEL_DEBUG: Set chrome.storage.sync selectedModel to', modelId)
           resolve()
         })
       } else {
-        resolve()
+        // Fallback to local if sync not available
+        // @ts-ignore
+        chrome?.storage?.local?.set?.({ selectedModel: JSON.stringify(modelId) }, () => {
+          // eslint-disable-next-line no-console
+          console.log('MODEL_DEBUG: Fallback to chrome.storage.local selectedModel', modelId)
+          resolve()
+        })
       }
     })
   }, { modelId: model })
 
-  // Also try to update any mounted React components via Plasmo's storage event
-  await page.evaluate(({ modelId }) => {
-    // Dispatch storage change event to notify Plasmo hooks
-    window.dispatchEvent(new CustomEvent('storage', {
-      detail: { key: 'selectedModel', newValue: modelId }
-    }))
-    // eslint-disable-next-line no-console
-    console.log('MODEL_DEBUG: Dispatched storage event for', modelId)
-  }, { modelId: model })
-
-  // Wait for storage to persist and React to re-render
-  await page.waitForTimeout(300)
+  // Wait for storage to persist
+  await page.waitForTimeout(200)
 }
 
