@@ -328,7 +328,10 @@
     "errorSummary": "当前无法处理这些摄取任务。",
     "errorHint": "检查你的 tldw 服务器后再试一次。Health & diagnostics 可以帮助排查摄取相关的问题。",
     "checkHealthLink": "在 Health & diagnostics 中检查服务器健康状态",
-    "healthAriaHint": "最近的运行失败了——请从顶部打开 Health & diagnostics 查看详细信息。"
+    "healthAriaHint": "最近的运行失败了——请从顶部打开 Health & diagnostics 查看详细信息。",
+    "specReloadedToast": "Advanced spec reloaded from server",
+    "specReloadedToastDiff": "Advanced spec reloaded from server (fields added: {{added}}, removed: {{removed}})",
+    "specFallbackWarning": "Using bundled media.add schema fallback (v{{version}}); please verify against your tldw_server /openapi.json if fields look outdated."
   },
   "notesSearch": {
     "placeholder": "Search titles and contents",

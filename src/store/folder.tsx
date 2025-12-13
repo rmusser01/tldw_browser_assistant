@@ -163,7 +163,7 @@ export const buildFolderTree = (
   const roots: FolderTreeNode[] = []
   activeFolders.forEach(folder => {
     const node = nodeMap.get(folder.id)!
-    if (folder.parent_id && nodeMap.has(folder.parent_id)) {
+    if (folder.parent_id != null && nodeMap.has(folder.parent_id)) {
       nodeMap.get(folder.parent_id)!.children.push(node)
     } else {
       roots.push(node)
@@ -234,7 +234,7 @@ export const useFolderStore = create<FolderState>()(
 
       expandAllFolders: () => set((state) => {
         const newPrefs = { ...state.uiPrefs }
-        state.folders.forEach(f => {
+        state.folders.filter(f => !f.deleted).forEach(f => {
           newPrefs[f.id] = { ...newPrefs[f.id], isOpen: true }
         })
         return { uiPrefs: newPrefs }
@@ -242,7 +242,7 @@ export const useFolderStore = create<FolderState>()(
 
       collapseAllFolders: () => set((state) => {
         const newPrefs = { ...state.uiPrefs }
-        state.folders.forEach(f => {
+        state.folders.filter(f => !f.deleted).forEach(f => {
           newPrefs[f.id] = { ...newPrefs[f.id], isOpen: false }
         })
         return { uiPrefs: newPrefs }
@@ -251,12 +251,22 @@ export const useFolderStore = create<FolderState>()(
       // Server sync
       refreshFromServer: async () => {
         set({ isLoading: true, error: null })
+        const controller = new AbortController()
+        const timeoutMs = 15000
+        const timeoutId = setTimeout(() => {
+          try {
+            controller.abort()
+          } catch {
+            // ignore abort errors
+          }
+        }, timeoutMs)
+
         try {
           const [folders, keywords, folderKeywordLinks, conversationKeywordLinks] = await Promise.all([
-            fetchFolders(),
+            fetchFolders({ abortSignal: controller.signal, timeoutMs }),
             fetchKeywords(),
-            fetchFolderKeywordLinks(),
-            fetchConversationKeywordLinks()
+            fetchFolderKeywordLinks({ abortSignal: controller.signal, timeoutMs }),
+            fetchConversationKeywordLinks(undefined, { abortSignal: controller.signal, timeoutMs })
           ])
 
           // Cache to Dexie (atomic)
@@ -310,6 +320,8 @@ export const useFolderStore = create<FolderState>()(
           } catch {
             // Ignore cache read errors
           }
+        } finally {
+          clearTimeout(timeoutId)
         }
       },
 
@@ -372,12 +384,17 @@ export const useFolderStore = create<FolderState>()(
       addKeywordToFolder: async (folderId, keywordId) => {
         const success = await apiLinkKeywordToFolder(folderId, keywordId)
         if (success) {
-          const link: FolderKeywordLink = { folder_id: folderId, keyword_id: keywordId }
+          const link: FolderKeywordLink = {
+            folder_id: folderId,
+            keyword_id: keywordId
+          }
           set((state) => {
             const exists = state.folderKeywordLinks.some(
               (l) => l.folder_id === link.folder_id && l.keyword_id === link.keyword_id
             )
-            return exists ? state : { folderKeywordLinks: [...state.folderKeywordLinks, link] }
+            return exists
+              ? state
+              : { folderKeywordLinks: [...state.folderKeywordLinks, link] }
           })
           await db.folderKeywordLinks.put(link)
         }
@@ -387,10 +404,12 @@ export const useFolderStore = create<FolderState>()(
       addConversationToFolder: async (conversationId, folderId) => {
         const state = get()
         // Find a keyword associated with this folder, or create one
-        let keyword = state.keywords.find(k =>
-          state.folderKeywordLinks.some(l =>
-            l.folder_id === folderId && l.keyword_id === k.id
-          )
+        let keyword = state.keywords.find(
+          (k) =>
+            !k.deleted &&
+            state.folderKeywordLinks.some(
+              (l) => l.folder_id === folderId && l.keyword_id === k.id
+            )
         )
 
         let createdKeywordForFolder = false
@@ -405,38 +424,46 @@ export const useFolderStore = create<FolderState>()(
 
           const linked = await get().addKeywordToFolder(folderId, keyword.id)
           if (!linked) {
-            if (createdKeywordForFolder) {
-              await apiDeleteKeyword(keyword.id)
-              set((state) => ({
-                keywords: state.keywords.map((k) =>
-                  k.id === keyword!.id ? { ...k, deleted: true } : k
-                )
-              }))
-              await db.keywords.update(keyword.id, { deleted: true })
-            }
+            await apiDeleteKeyword(keyword.id)
+            set((state) => ({
+              keywords: state.keywords.map((k) =>
+                k.id === keyword.id ? { ...k, deleted: true } : k
+              )
+            }))
+            await db.keywords.update(keyword.id, { deleted: true })
             return false
           }
         }
 
-        const success = await apiLinkKeywordToConversation(conversationId, keyword.id)
+        const keywordId = keyword.id
+
+        const success = await apiLinkKeywordToConversation(conversationId, keywordId)
         if (!success && createdKeywordForFolder) {
-          await apiUnlinkKeywordFromFolder(folderId, keyword.id)
+          await apiUnlinkKeywordFromFolder(folderId, keywordId)
 
           set((state) => ({
             folderKeywordLinks: state.folderKeywordLinks.filter(
-              (l) => !(l.folder_id === folderId && l.keyword_id === keyword.id)
+              (l) => !(l.folder_id === folderId && l.keyword_id === keywordId)
             )
           }))
 
           await db.folderKeywordLinks
             .where('[folder_id+keyword_id]')
-            .equals([folderId, keyword.id])
+            .equals([folderId, keywordId])
             .delete()
+
+          await apiDeleteKeyword(keywordId)
+          set((state) => ({
+            keywords: state.keywords.map((k) =>
+              k.id === keywordId ? { ...k, deleted: true } : k
+            )
+          }))
+          await db.keywords.update(keywordId, { deleted: true })
         }
         if (success) {
           const link: ConversationKeywordLink = {
             conversation_id: conversationId,
-            keyword_id: keyword.id
+            keyword_id: keywordId
           }
           set((state) => {
             const exists = state.conversationKeywordLinks.some(

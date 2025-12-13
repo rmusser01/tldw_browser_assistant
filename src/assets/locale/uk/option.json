@@ -219,7 +219,10 @@
     "errorSummary": "Зараз нам не вдалося обробити елементи інжесту.",
     "errorHint": "Спробуйте ще раз після перевірки свого сервера tldw. Розділ Health & diagnostics може допомогти усунути проблеми з інжестом.",
     "checkHealthLink": "Перевірте стан сервера в Health & diagnostics",
-    "healthAriaHint": "Останні запуски завершилися помилкою — відкрийте Health & diagnostics у верхньому меню, щоб дізнатися більше."
+    "healthAriaHint": "Останні запуски завершилися помилкою — відкрийте Health & diagnostics у верхньому меню, щоб дізнатися більше.",
+    "specReloadedToast": "Advanced spec reloaded from server",
+    "specReloadedToastDiff": "Advanced spec reloaded from server (fields added: {{added}}, removed: {{removed}})",
+    "specFallbackWarning": "Using bundled media.add schema fallback (v{{version}}); please verify against your tldw_server /openapi.json if fields look outdated."
   },
   "notesSearch": {
     "placeholder": "Пошук за заголовками та вмістом",

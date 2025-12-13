@@ -330,7 +330,10 @@
     "errorSummary": "지금은 인제스트 항목을 처리할 수 없습니다.",
     "errorHint": "tldw 서버를 확인한 후 다시 시도하세요. 상태 및 진단에서 인제스트 문제를 해결할 수 있습니다.",
     "checkHealthLink": "상태 및 진단에서 서버 상태 확인",
-    "healthAriaHint": "최근 실행이 실패했습니다 — 자세한 내용은 헤더의 상태 및 진단을 열어 확인하세요."
+    "healthAriaHint": "최근 실행이 실패했습니다 — 자세한 내용은 헤더의 상태 및 진단을 열어 확인하세요.",
+    "specReloadedToast": "Advanced spec reloaded from server",
+    "specReloadedToastDiff": "Advanced spec reloaded from server (fields added: {{added}}, removed: {{removed}})",
+    "specFallbackWarning": "Using bundled media.add schema fallback (v{{version}}); please verify against your tldw_server /openapi.json if fields look outdated."
   },
   "notesSearch": {
     "placeholder": "Search titles and contents",

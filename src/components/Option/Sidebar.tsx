@@ -11,6 +11,7 @@ import {
   Menu,
   Tooltip,
   Input,
+  Modal,
   message,
   Button
 } from "antd"
@@ -115,11 +116,18 @@ export const Sidebar = ({
     useFolderActions()
   const [folderPickerOpen, setFolderPickerOpen] = useState(false)
   const [folderPickerChatId, setFolderPickerChatId] = useState<string | null>(null)
+  const folderRefreshInFlightRef = React.useRef<Promise<void> | null>(null)
 
   // Load folders when the sidebar is open and folder view is active.
   useEffect(() => {
     if (isConnected && isOpen && viewMode === "folders") {
-      refreshFromServer()
+      if (folderRefreshInFlightRef.current) return
+      const refreshPromise = refreshFromServer().finally(() => {
+        if (folderRefreshInFlightRef.current === refreshPromise) {
+          folderRefreshInFlightRef.current = null
+        }
+      })
+      folderRefreshInFlightRef.current = refreshPromise
     }
   }, [isConnected, isOpen, viewMode, refreshFromServer])
   const {
@@ -412,13 +420,17 @@ export const Sidebar = ({
 
         const lastUsedPrompt = historyDetails?.last_used_prompt
         if (lastUsedPrompt) {
+          let promptContent = lastUsedPrompt.prompt_content ?? ""
           if (lastUsedPrompt.prompt_id) {
             const prompt = await getPromptById(lastUsedPrompt.prompt_id)
             if (prompt) {
-              setSelectedSystemPrompt(lastUsedPrompt.prompt_id)
+              setSelectedSystemPrompt(prompt.id)
+              if (!promptContent.trim()) {
+                promptContent = prompt.content
+              }
             }
           }
-          setSystemPrompt(lastUsedPrompt.prompt_content)
+          setSystemPrompt(promptContent)
         }
 
         if (setContext) {
@@ -434,10 +446,10 @@ export const Sidebar = ({
 
         return { history, historyDetails }
       } catch (error) {
-        console.error("Failed to load local chat history:", error)
+        console.error("Failed to load local chat history from local storage:", error)
         message.error(
-          t("common:error.friendlyGenericSummary", {
-            defaultValue: "Something went wrong while talking to your tldw server."
+          t("common:error.friendlyLocalHistorySummary", {
+            defaultValue: "Something went wrong while loading local chat history."
           })
         )
         return null
@@ -593,12 +605,16 @@ export const Sidebar = ({
     )
   }, [folderConversationIds, loadedConversationTitleById])
 
+  const stableMissingFolderConversationIds = React.useMemo(() => {
+    return [...missingFolderConversationIds].sort()
+  }, [missingFolderConversationIds])
+
   const { data: missingFolderConversationTitles = [] } = useQuery({
-    queryKey: ["folderConversationTitles", missingFolderConversationIds],
+    queryKey: ["folderConversationTitles", stableMissingFolderConversationIds],
     queryFn: async () => {
       const db = new PageAssistDatabase()
       const results = await Promise.all(
-        missingFolderConversationIds.map(async (conversationId) => {
+        stableMissingFolderConversationIds.map(async (conversationId) => {
           try {
             const historyInfo = await db.getHistoryInfo(conversationId)
             return {
@@ -624,7 +640,7 @@ export const Sidebar = ({
       isOpen &&
       isConnected &&
       viewMode === "folders" &&
-      missingFolderConversationIds.length > 0,
+      stableMissingFolderConversationIds.length > 0,
     staleTime: 30_000
   })
 
@@ -1066,7 +1082,23 @@ export const Sidebar = ({
       )}
 
       {/* Folder Picker Modal */}
-      <React.Suspense fallback={null}>
+      <React.Suspense
+        fallback={
+          folderPickerOpen ? (
+            <Modal
+              open={folderPickerOpen}
+              onCancel={() => {
+                setFolderPickerOpen(false)
+                setFolderPickerChatId(null)
+              }}
+              footer={null}
+              title={t("common:moveToFolder")}>
+              <div className="flex items-center justify-center py-6">
+                <Loader2 className="h-5 w-5 animate-spin text-gray-500" />
+              </div>
+            </Modal>
+          ) : null
+        }>
         <FolderPicker
           open={folderPickerOpen}
           onClose={() => {

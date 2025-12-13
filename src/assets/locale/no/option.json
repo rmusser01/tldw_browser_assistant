@@ -219,7 +219,10 @@
     "errorSummary": "Vi kunne ikke behandle ingest-elementene akkurat nå.",
     "errorHint": "Prøv igjen etter at du har sjekket tldw-serveren din. Health & diagnostics kan hjelpe med å feilsøke ingest-problemer.",
     "checkHealthLink": "Sjekk serverhelsen i Health & diagnostics",
-    "healthAriaHint": "Nylige kjøringer mislyktes — åpne Health & diagnostics fra toppmenyen for flere detaljer."
+    "healthAriaHint": "Nylige kjøringer mislyktes — åpne Health & diagnostics fra toppmenyen for flere detaljer.",
+    "specReloadedToast": "Advanced spec reloaded from server",
+    "specReloadedToastDiff": "Advanced spec reloaded from server (fields added: {{added}}, removed: {{removed}})",
+    "specFallbackWarning": "Using bundled media.add schema fallback (v{{version}}); please verify against your tldw_server /openapi.json if fields look outdated."
   },
   "notesSearch": {
     "placeholder": "Search titles and contents",

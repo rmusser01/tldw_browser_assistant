@@ -334,7 +334,10 @@
     "errorSummary": "Nous n'avons pas pu traiter les éléments d'ingestion pour le moment.",
     "errorHint": "Réessayez après avoir vérifié votre serveur tldw. Santé et diagnostics peut aider à résoudre les problèmes d'ingestion.",
     "checkHealthLink": "Vérifier l'état du serveur dans Santé et diagnostics",
-    "healthAriaHint": "Les dernières exécutions ont échoué — ouvrez Santé et diagnostics depuis l'en-tête pour plus de détails."
+    "healthAriaHint": "Les dernières exécutions ont échoué — ouvrez Santé et diagnostics depuis l'en-tête pour plus de détails.",
+    "specReloadedToast": "Advanced spec reloaded from server",
+    "specReloadedToastDiff": "Advanced spec reloaded from server (fields added: {{added}}, removed: {{removed}})",
+    "specFallbackWarning": "Using bundled media.add schema fallback (v{{version}}); please verify against your tldw_server /openapi.json if fields look outdated."
   },
   "notesSearch": {
     "placeholder": "Search titles and contents",

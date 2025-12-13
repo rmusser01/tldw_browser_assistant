@@ -2731,9 +2731,9 @@ export const QuickIngestModal: React.FC<Props> = ({
                   }
                   const allMatched = advSchema.filter(match)
 
-                  // Derive a small "Recommended fields" subset for common
-                  // parameters. We keep these also in their original groups
-                  // so users can still find them where they logically live.
+                  // Build a small "Recommended fields" subset for common
+                  // parameters, while intentionally duplicating those fields
+                  // in their logical groups (they get a "Recommended" badge there).
                   for (const f of allMatched) {
                     const logical = logicalGroupForField(f.name)
                     const isRecommended = isRecommendedField(f.name, logical)

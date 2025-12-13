@@ -319,7 +319,10 @@
     "errorSummary": "目前無法處理這些匯入項目。",
     "errorHint": "請先檢查你的 tldw 伺服器，然後再試一次。Health & diagnostics 可以協助排除匯入相關的問題。",
     "checkHealthLink": "在 Health & diagnostics 中檢查伺服器健康狀態",
-    "healthAriaHint": "最近的執行失敗——請從頂端開啟 Health & diagnostics 以查看詳細資訊。"
+    "healthAriaHint": "最近的執行失敗——請從頂端開啟 Health & diagnostics 以查看詳細資訊。",
+    "specReloadedToast": "Advanced spec reloaded from server",
+    "specReloadedToastDiff": "Advanced spec reloaded from server (fields added: {{added}}, removed: {{removed}})",
+    "specFallbackWarning": "Using bundled media.add schema fallback (v{{version}}); please verify against your tldw_server /openapi.json if fields look outdated."
   },
   "notesSearch": {
     "placeholder": "Search titles and contents",

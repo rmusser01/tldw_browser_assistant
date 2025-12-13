@@ -230,7 +230,10 @@
     "errorSummary": "Não foi possível processar os itens de ingestão agora.",
     "errorHint": "Tente novamente após verificar seu servidor tldw. A seção Saúde e diagnóstico pode ajudar a solucionar problemas de ingestão.",
     "checkHealthLink": "Verificar saúde do servidor em Saúde e diagnóstico",
-    "healthAriaHint": "As últimas execuções falharam — abra Saúde e diagnóstico no cabeçalho para mais detalhes."
+    "healthAriaHint": "As últimas execuções falharam — abra Saúde e diagnóstico no cabeçalho para mais detalhes.",
+    "specReloadedToast": "Advanced spec reloaded from server",
+    "specReloadedToastDiff": "Advanced spec reloaded from server (fields added: {{added}}, removed: {{removed}})",
+    "specFallbackWarning": "Using bundled media.add schema fallback (v{{version}}); please verify against your tldw_server /openapi.json if fields look outdated."
   },
   "notesSearch": {
     "placeholder": "Search titles and contents",

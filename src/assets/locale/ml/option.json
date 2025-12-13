@@ -219,7 +219,10 @@
     "errorSummary": "ഇപ്പോൾ ഇൻജെസ്റ്റ് ഐറ്റങ്ങൾ പ്രോസസ്സ് ചെയ്യാൻ കഴിഞ്ഞില്ല.",
     "errorHint": "നിങ്ങളുടെ tldw സർവർ ശരിയായി പ്രവർത്തിക്കുന്നുണ്ടോെന്ന് പരിശോധിച്ചതിന് ശേഷം വീണ്ടും ശ്രമിക്കുക. Health & diagnostics വിഭാഗം ഇൻജെസ്റ്റ് പ്രശ്നങ്ങൾ കണ്ടെത്താനും പരിഹരിക്കാനും സഹായിക്കും.",
     "checkHealthLink": "Health & diagnostics ൽ സർവറിന്റെ ആരോഗ്യസ്ഥിതി പരിശോധിക്കുക",
-    "healthAriaHint": "സമീപകാല റണ്ണുകൾ പരാജയപ്പെട്ടു — കൂടുതൽ വിവരങ്ങൾക്ക് മുകളിലെ ഹെഡറിൽ നിന്ന് Health & diagnostics തുറക്കുക."
+    "healthAriaHint": "സമീപകാല റണ്ണുകൾ പരാജയപ്പെട്ടു — കൂടുതൽ വിവരങ്ങൾക്ക് മുകളിലെ ഹെഡറിൽ നിന്ന് Health & diagnostics തുറക്കുക.",
+    "specReloadedToast": "Advanced spec reloaded from server",
+    "specReloadedToastDiff": "Advanced spec reloaded from server (fields added: {{added}}, removed: {{removed}})",
+    "specFallbackWarning": "Using bundled media.add schema fallback (v{{version}}); please verify against your tldw_server /openapi.json if fields look outdated."
   },
   "notesSearch": {
     "placeholder": "Search titles and contents",

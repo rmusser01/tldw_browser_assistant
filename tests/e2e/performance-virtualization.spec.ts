@@ -18,6 +18,7 @@ import {
   logReport,
   PerfTimer
 } from "./utils/performance"
+import { injectSyntheticMessages } from "./utils/synthetic-messages"
 
 // Configuration
 const TEST_EXT_PATH = path.resolve("build/chrome-mv3")
@@ -109,28 +110,7 @@ test.describe("List Virtualization Performance", () => {
 
       // Inject synthetic messages via the exposed debug store
       const messageCount = 100
-      const injected = await page.evaluate((count) => {
-        const store = (window as any).__tldw_useChatStore?.getState?.()
-        if (!store?.addMessage) {
-          return {
-            ok: false,
-            reason:
-              "Synthetic injection unavailable: window.__tldw_useChatStore.getState().addMessage is not exposed"
-          }
-        }
-
-        for (let i = 0; i < count; i++) {
-          const role = i % 2 === 0 ? "user" : "assistant"
-          const content =
-            role === "user"
-              ? `Test message ${i}: ${Math.random().toString(36).substring(7)}`
-              : `Response ${i}: Lorem ipsum dolor sit amet, consectetur adipiscing elit. ` +
-                `Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ` +
-                `Message number ${i} with some additional content to make it realistic.`
-          store.addMessage(role, content)
-        }
-        return { ok: true }
-      }, messageCount)
+      const injected = await injectSyntheticMessages(page, messageCount)
 
       test.skip(
         !injected.ok,
@@ -245,25 +225,7 @@ test.describe("List Virtualization Performance", () => {
       // Inject many messages
       const startTime = performance.now()
       const messageCount = 200
-      const injected = await page.evaluate((count) => {
-        const store = (window as any).__tldw_useChatStore?.getState?.()
-        if (!store?.addMessage) {
-          return {
-            ok: false,
-            reason:
-              "Synthetic injection unavailable: window.__tldw_useChatStore.getState().addMessage is not exposed"
-          }
-        }
-
-        for (let i = 0; i < count; i++) {
-          const role = i % 2 === 0 ? "user" : "assistant"
-          store.addMessage(
-            role,
-            `Message ${i}: Lorem ipsum dolor sit amet, consectetur adipiscing elit.`
-          )
-        }
-        return { ok: true }
-      }, messageCount)
+      const injected = await injectSyntheticMessages(page, messageCount)
 
       test.skip(
         !injected.ok,

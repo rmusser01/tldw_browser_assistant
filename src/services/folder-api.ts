@@ -313,7 +313,8 @@ export const fetchFolderKeywordLinks = async (options?: { abortSignal?: AbortSig
  * Fetch all conversation-keyword links for a set of conversations
  */
 export const fetchConversationKeywordLinks = async (
-  conversationIds?: string[]
+  conversationIds?: string[],
+  options?: { abortSignal?: AbortSignal; timeoutMs?: number }
 ): Promise<ConversationKeywordLink[]> => {
   try {
     const path = (conversationIds?.length
@@ -324,7 +325,9 @@ export const fetchConversationKeywordLinks = async (
 
     const response = await bgRequest<ArrayOrWrapped<ConversationKeywordLink, "links">>({
       path,
-      method: 'GET'
+      method: 'GET',
+      abortSignal: options?.abortSignal,
+      timeoutMs: options?.timeoutMs
     })
     return normalizeArrayResponse(response, "links")
   } catch (error) {

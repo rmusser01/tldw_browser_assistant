@@ -323,7 +323,10 @@
     "errorSummary": "تعذر علينا معالجة عناصر الاستيعاب الآن.",
     "errorHint": "جرّب مرة أخرى بعد التحقق من خادم tldw الخاص بك. يمكن أن تساعد صفحة Health & diagnostics في استكشاف مشكلات الاستيعاب وإصلاحها.",
     "checkHealthLink": "تحقق من حالة الخادم في Health & diagnostics",
-    "healthAriaHint": "فشلت عمليات الاستيعاب الأخيرة — افتح Health & diagnostics من الشريط العلوي لمزيد من التفاصيل."
+    "healthAriaHint": "فشلت عمليات الاستيعاب الأخيرة — افتح Health & diagnostics من الشريط العلوي لمزيد من التفاصيل.",
+    "specReloadedToast": "Advanced spec reloaded from server",
+    "specReloadedToastDiff": "Advanced spec reloaded from server (fields added: {{added}}, removed: {{removed}})",
+    "specFallbackWarning": "Using bundled media.add schema fallback (v{{version}}); please verify against your tldw_server /openapi.json if fields look outdated."
   },
   "notesSearch": {
     "placeholder": "ابحث في العناوين والمحتوى",
