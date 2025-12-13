@@ -35,6 +35,8 @@ test.describe("React Query Cache Performance", () => {
       }
     })
 
+    const startTime = performance.now()
+
     try {
       const apiRequests: { url: string; method: string }[] = []
 
@@ -91,7 +93,7 @@ test.describe("React Query Cache Performance", () => {
           unit: " endpoints",
           target: 0
         }
-      ], performance.now())
+      ], startTime)
 
       logReport(report)
 
@@ -129,6 +131,7 @@ test.describe("React Query Cache Performance", () => {
       await page.waitForTimeout(2000)
 
       // Start tracking requests after initial load
+      const startTime = performance.now()
       const apiRequests: { url: string; method: string; route: string }[] = []
       let currentRoute = "home"
 
@@ -181,7 +184,7 @@ test.describe("React Query Cache Performance", () => {
           value: count,
           unit: " requests"
         }))
-      ], performance.now())
+      ], startTime)
 
       logReport(report)
 
@@ -261,12 +264,12 @@ test.describe("React Query Cache Performance", () => {
       await page.waitForSelector("#root", { state: "attached", timeout: 15000 })
 
       const healthRequests: number[] = []
-      const startTime = Date.now()
+      const startPerf = performance.now()
 
       page.on("request", (request) => {
         const url = request.url()
         if (url.includes("/health") || url.includes("/status")) {
-          healthRequests.push(Date.now() - startTime)
+          healthRequests.push(performance.now() - startPerf)
         }
       })
 
@@ -299,7 +302,7 @@ test.describe("React Query Cache Performance", () => {
           value: healthRequests.length * 6,
           unit: " req/min"
         }
-      ], performance.now())
+      ], startPerf)
 
       logReport(report)
 
@@ -349,6 +352,7 @@ test.describe("React Query Cache Performance", () => {
       expect(patched).toBe(true)
 
       // Perform some actions that trigger background messages
+      const startTime = performance.now()
       await page.waitForTimeout(5000)
 
       const messageCount = await page.evaluate(() => (window as any).__messageCount || 0)
@@ -364,7 +368,7 @@ test.describe("React Query Cache Performance", () => {
           value: messageCount / 5,
           unit: " msg/s"
         }
-      ], performance.now())
+      ], startTime)
 
       logReport(report)
 

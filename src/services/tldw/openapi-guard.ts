@@ -5,8 +5,10 @@
 // NOTE: The openapi.json import was removed to eliminate the 1.4 MB
 // JSON from the initial bundle. The ClientPath union below is manually
 // maintained. QuickIngestModal dynamically imports the spec when needed.
-// To verify that ClientPath stays in sync with the OpenAPI spec, run:
+// To verify that ClientPath and MEDIA_ADD_SCHEMA_FALLBACK stay in sync
+// with the OpenAPI spec, run:
 //   npm run verify:openapi
+//   bun run verify:openapi
 
 // Union of relative API paths that the web UI calls via bgRequest/bgStream
 // or direct fetch. If a new endpoint is added in the UI, it should be
@@ -17,12 +19,12 @@ export type ClientPath =
   | "/api/v1/llm/models/metadata"
   | "/api/v1/llm/providers"
   | "/api/v1/chat/completions"
-  | "/api/v1/rag/"
+  | "/api/v1/rag"
   | "/api/v1/rag/health"
   | "/api/v1/rag/search"
   | "/api/v1/rag/search/stream"
   | "/api/v1/rag/simple"
-  | "/api/v1/media/"
+  | "/api/v1/media"
   | "/api/v1/media/add"
   | "/api/v1/media/process-audios"
   | "/api/v1/media/process-documents"
@@ -30,20 +32,17 @@ export type ClientPath =
   | "/api/v1/media/process-pdfs"
   | "/api/v1/media/process-videos"
   | "/api/v1/media/process-web-scraping"
-  | "/api/v1/notes/"
-  | "/api/v1/notes/search/"
+  | "/api/v1/notes"
+  | "/api/v1/notes/search"
   | "/api/v1/prompts"
-  | "/api/v1/prompts/"
   | "/api/v1/prompts/search"
   | "/api/v1/chat/dictionaries"
   | "/api/v1/chat/dictionaries/import/json"
-  | "/api/v1/chats/"
+  | "/api/v1/chats"
   | "/api/v1/characters"
-  | "/api/v1/characters/"
   | "/api/v1/characters/world-books"
   | "/api/v1/characters/world-books/import"
   | "/api/v1/character_chat_sessions"
-  | "/api/v1/character_chat_sessions/"
   | "/api/v1/character_messages"
   | "/api/v1/character_messages/stream"
   | "/api/v1/character-chat/sessions"
@@ -59,7 +58,6 @@ export type ClientPath =
   | "/api/v1/metrics/health"
   | "/api/v1/metrics/chat"
   | "/api/v1/evaluations"
-  | "/api/v1/evaluations/"
   | "/api/v1/evaluations/runs"
   | "/api/v1/evaluations/datasets"
   | "/api/v1/evaluations/rate-limits"

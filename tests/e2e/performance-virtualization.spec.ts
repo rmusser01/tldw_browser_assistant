@@ -165,6 +165,7 @@ test.describe("List Virtualization Performance", () => {
       }
 
       // Measure scroll performance
+      const startTime = performance.now()
       const { avgFPS, minFPS, maxFPS, droppedFrames } = await measureScrollFPS(
         page,
         containerSelector,
@@ -194,7 +195,7 @@ test.describe("List Virtualization Performance", () => {
           value: droppedFrames,
           unit: " frames"
         }
-      ], performance.now())
+      ], startTime)
 
       logReport(report)
 
@@ -242,6 +243,7 @@ test.describe("List Virtualization Performance", () => {
         : await countDOMNodes(page, "#root")
 
       // Inject many messages
+      const startTime = performance.now()
       const messageCount = 200
       const injected = await page.evaluate((count) => {
         const store = (window as any).__tldw_useChatStore?.getState?.()
@@ -301,7 +303,7 @@ test.describe("List Virtualization Performance", () => {
           unit: "",
           target: TARGETS.domNodesPerMessage
         }
-      ], performance.now())
+      ], startTime)
 
       logReport(report)
 
@@ -391,6 +393,7 @@ test.describe("Memory Performance", () => {
       await page.waitForSelector("#root", { state: "attached", timeout: 15000 })
 
       // Measure baseline memory
+      const startTime = performance.now()
       const baselineMemory = await page.evaluate(() => {
         if ((performance as any).memory) {
           return {
@@ -419,7 +422,7 @@ test.describe("Memory Performance", () => {
             value: baselineMemory.jsHeapSizeLimit,
             unit: "MB"
           }
-        ], performance.now())
+        ], startTime)
 
         logReport(report)
 

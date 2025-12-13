@@ -15,7 +15,12 @@ const normalizeArrayResponse = <T, K extends string>(
   key: K
 ): T[] => {
   if (!response) return []
-  return Array.isArray(response) ? response : (response as any)?.[key] || []
+  if (Array.isArray(response)) return response
+
+  const wrapped = (response as any)?.[key]
+  if (Array.isArray(wrapped)) return wrapped
+
+  throw new Error(`Unexpected response shape (expected array or { ${key}: [] })`)
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -26,18 +31,13 @@ const normalizeArrayResponse = <T, K extends string>(
  * Fetch all folders from server
  */
 export const fetchFolders = async (options?: { abortSignal?: AbortSignal; timeoutMs?: number }): Promise<Folder[]> => {
-  try {
-    const response = await bgRequest<ArrayOrWrapped<Folder, "collections">>({
-      path: '/api/v1/notes/collections/',
-      method: 'GET',
-      abortSignal: options?.abortSignal,
-      timeoutMs: options?.timeoutMs
-    })
-    return normalizeArrayResponse(response, "collections")
-  } catch (error) {
-    console.error('Failed to fetch folders:', error)
-    return []
-  }
+  const response = await bgRequest<ArrayOrWrapped<Folder, "collections">>({
+    path: '/api/v1/notes/collections/',
+    method: 'GET',
+    abortSignal: options?.abortSignal,
+    timeoutMs: options?.timeoutMs
+  })
+  return normalizeArrayResponse(response, "collections")
 }
 
 /**
@@ -110,16 +110,11 @@ export const deleteFolder = async (id: number, options?: { abortSignal?: AbortSi
  * Fetch all keywords from server
  */
 export const fetchKeywords = async (): Promise<Keyword[]> => {
-  try {
-    const response = await bgRequest<ArrayOrWrapped<Keyword, "keywords">>({
-      path: '/api/v1/notes/keywords/',
-      method: 'GET'
-    })
-    return normalizeArrayResponse(response, "keywords")
-  } catch (error) {
-    console.error('Failed to fetch keywords:', error)
-    return []
-  }
+  const response = await bgRequest<ArrayOrWrapped<Keyword, "keywords">>({
+    path: '/api/v1/notes/keywords/',
+    method: 'GET'
+  })
+  return normalizeArrayResponse(response, "keywords")
 }
 
 /**

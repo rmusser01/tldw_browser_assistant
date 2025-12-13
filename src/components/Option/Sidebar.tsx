@@ -497,6 +497,10 @@ export const Sidebar = ({
           succeededFolderIds
         })
 
+        // UX choice: treat multi-folder assignment as atomic (all-or-nothing).
+        // If any folder add fails, roll back successful additions so the chat
+        // isn't left partially filed. If we want best-effort behavior instead,
+        // keep successful additions and surface a partial-success message.
         if (succeededFolderIds.length > 0) {
           const rollbackResults = await Promise.allSettled(
             succeededFolderIds.map((folderId) =>

@@ -23,13 +23,15 @@ function IndexSidepanel() {
   )
 
   useEffect(() => {
+    if (typeof document === "undefined") return
     if (i18n.resolvedLanguage) {
       document.documentElement.lang = i18n.resolvedLanguage
-      const resolvedDirection = i18n.dir(i18n.resolvedLanguage) as "ltr" | "rtl"
+      const dir = i18n.dir(i18n.resolvedLanguage)
+      const resolvedDirection: "ltr" | "rtl" = dir === "rtl" ? "rtl" : "ltr"
       document.documentElement.dir = resolvedDirection
       setDirection(resolvedDirection)
     }
-  }, [i18n, i18n.resolvedLanguage])
+  }, [i18n.resolvedLanguage])
 
   useEffect(() => {
     document.title = t('common:titles.sidepanel', { defaultValue: 'tldw Assistant — Sidebar' })

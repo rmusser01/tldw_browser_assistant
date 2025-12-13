@@ -21,6 +21,7 @@ import {
   createKeyword as apiCreateKeyword,
   deleteKeyword as apiDeleteKeyword,
   linkKeywordToFolder as apiLinkKeywordToFolder,
+  unlinkKeywordFromFolder as apiUnlinkKeywordFromFolder,
   linkKeywordToConversation as apiLinkKeywordToConversation,
   unlinkKeywordFromConversation as apiUnlinkKeywordFromConversation
 } from "@/services/folder-api"
@@ -258,23 +259,6 @@ export const useFolderStore = create<FolderState>()(
             fetchConversationKeywordLinks()
           ])
 
-          const hadData =
-            get().folders.length > 0 ||
-            get().keywords.length > 0 ||
-            get().folderKeywordLinks.length > 0 ||
-            get().conversationKeywordLinks.length > 0
-
-          const looksLikeFailure =
-            hadData &&
-            folders.length === 0 &&
-            keywords.length === 0 &&
-            folderKeywordLinks.length === 0 &&
-            conversationKeywordLinks.length === 0
-
-          if (looksLikeFailure) {
-            throw new Error('Folder sync returned empty payload; keeping cached data')
-          }
-
           // Cache to Dexie (atomic)
           await db.transaction(
             "rw",
@@ -435,6 +419,20 @@ export const useFolderStore = create<FolderState>()(
         }
 
         const success = await apiLinkKeywordToConversation(conversationId, keyword.id)
+        if (!success && createdKeywordForFolder) {
+          await apiUnlinkKeywordFromFolder(folderId, keyword.id)
+
+          set((state) => ({
+            folderKeywordLinks: state.folderKeywordLinks.filter(
+              (l) => !(l.folder_id === folderId && l.keyword_id === keyword.id)
+            )
+          }))
+
+          await db.folderKeywordLinks
+            .where('[folder_id+keyword_id]')
+            .equals([folderId, keyword.id])
+            .delete()
+        }
         if (success) {
           const link: ConversationKeywordLink = {
             conversation_id: conversationId,
@@ -458,46 +456,55 @@ export const useFolderStore = create<FolderState>()(
         // Find keywords associated with this folder
         const folderKeywordIds = new Set(
           state.folderKeywordLinks
-            .filter(l => l.folder_id === folderId)
-            .map(l => l.keyword_id)
+            .filter((l) => l.folder_id === folderId)
+            .map((l) => l.keyword_id)
         )
 
         // Find which of these keywords are linked to the conversation
-        const linksToRemove = state.conversationKeywordLinks.filter(l =>
-          l.conversation_id === conversationId &&
-          folderKeywordIds.has(l.keyword_id)
+        const linksToRemove = state.conversationKeywordLinks.filter(
+          (l) => l.conversation_id === conversationId && folderKeywordIds.has(l.keyword_id)
         )
 
-        let success = true
-        const removedLinks: ConversationKeywordLink[] = []
-        for (const link of linksToRemove) {
-          const result = await apiUnlinkKeywordFromConversation(conversationId, link.keyword_id)
-          if (result) {
-            removedLinks.push(link)
-            await db.conversationKeywordLinks
-              .where('[conversation_id+keyword_id]')
-              .equals([link.conversation_id, link.keyword_id])
-              .delete()
-          } else {
-            success = false
-          }
-        }
+        if (linksToRemove.length === 0) return true
 
-        if (removedLinks.length > 0) {
-          const removedKeySet = new Set(
-            removedLinks.map(
-              (r) => `${r.conversation_id}::${r.keyword_id}`
-            )
-          )
-
-          set((state) => ({
-            conversationKeywordLinks: state.conversationKeywordLinks.filter(
-              (l) => !removedKeySet.has(`${l.conversation_id}::${l.keyword_id}`)
-            )
+        const results = await Promise.all(
+          linksToRemove.map(async (link) => ({
+            ok: await apiUnlinkKeywordFromConversation(conversationId, link.keyword_id),
+            link
           }))
+        )
+
+        if (!results.every((r) => r.ok)) {
+          return false
         }
 
-        return success
+        try {
+          await db.transaction("rw", db.conversationKeywordLinks, async () => {
+            await Promise.all(
+              linksToRemove.map((link) =>
+                db.conversationKeywordLinks
+                  .where('[conversation_id+keyword_id]')
+                  .equals([link.conversation_id, link.keyword_id])
+                  .delete()
+              )
+            )
+          })
+        } catch (error) {
+          console.error('Failed to delete conversation-keyword links from cache:', error)
+          return false
+        }
+
+        const removedKeySet = new Set(
+          linksToRemove.map((link) => `${link.conversation_id}::${link.keyword_id}`)
+        )
+
+        set((state) => ({
+          conversationKeywordLinks: state.conversationKeywordLinks.filter(
+            (l) => !removedKeySet.has(`${l.conversation_id}::${l.keyword_id}`)
+          )
+        }))
+
+        return true
       },
 
       // Computed helpers

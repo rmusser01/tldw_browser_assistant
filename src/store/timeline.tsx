@@ -131,6 +131,58 @@ const defaultSettings: TimelineSettings = {
 // Store Implementation
 // ============================================================================
 
+const SEARCH_DEBOUNCE_MS = 300
+let searchTimeout: ReturnType<typeof setTimeout> | null = null
+
+const clearPendingSearch = () => {
+  if (!searchTimeout) return
+  clearTimeout(searchTimeout)
+  searchTimeout = null
+}
+
+const applySearchResults = (
+  set: (partial: Partial<TimelineState>) => void,
+  graph: TimelineGraph | null,
+  query: string,
+  mode: TimelineState['searchMode']
+) => {
+  const trimmedQuery = query.trim()
+
+  if (!graph || !trimmedQuery) {
+    set({
+      searchResults: [],
+      highlightedNodeIds: new Set()
+    })
+    return
+  }
+
+  const results = timelineSearch.searchNodes(graph.nodes, trimmedQuery, { mode })
+  set({
+    searchResults: results,
+    highlightedNodeIds: new Set(results.map((r) => r.node.id))
+  })
+}
+
+const scheduleSearchFromState = (
+  get: () => TimelineState,
+  set: (partial: Partial<TimelineState>) => void
+) => {
+  clearPendingSearch()
+
+  const { graph, searchQuery, searchMode } = get()
+  if (!graph || !searchQuery.trim()) {
+    applySearchResults(set, graph, searchQuery, searchMode)
+    return
+  }
+
+  searchTimeout = setTimeout(() => {
+    searchTimeout = null
+    const { graph: latestGraph, searchQuery: latestQuery, searchMode: latestMode } =
+      get()
+    applySearchResults(set, latestGraph, latestQuery, latestMode)
+  }, SEARCH_DEBOUNCE_MS)
+}
+
 export const useTimelineStore = create<TimelineState>((set, get) => ({
   // Initial state
   isOpen: false,
@@ -154,6 +206,7 @@ export const useTimelineStore = create<TimelineState>((set, get) => ({
   // ============================================================================
 
   openTimeline: async (historyId: string, messageId?: string) => {
+    clearPendingSearch()
     const currentRequestId = get().requestId + 1
 
     set({
@@ -199,6 +252,7 @@ export const useTimelineStore = create<TimelineState>((set, get) => ({
   },
 
   closeTimeline: () => {
+    clearPendingSearch()
     set({
       isOpen: false,
       graph: null,
@@ -236,16 +290,8 @@ export const useTimelineStore = create<TimelineState>((set, get) => ({
 
       // Re-run search if active
       const { searchQuery, searchMode } = get()
-      if (searchQuery) {
-        const results = timelineSearch.searchNodes(
-          graph.nodes,
-          searchQuery,
-          { mode: searchMode }
-        )
-        set({
-          searchResults: results,
-          highlightedNodeIds: new Set(results.map((r) => r.node.id))
-        })
+      if (searchQuery.trim()) {
+        applySearchResults(set, graph, searchQuery, searchMode)
       }
     } catch (error) {
       console.error('Failed to refresh timeline:', error)
@@ -304,49 +350,17 @@ export const useTimelineStore = create<TimelineState>((set, get) => ({
   // ============================================================================
 
   setSearchQuery: (query: string) => {
-    const { graph, searchMode } = get()
-
     set({ searchQuery: query })
-
-    if (!graph || !query.trim()) {
-      set({
-        searchResults: [],
-        highlightedNodeIds: new Set()
-      })
-      return
-    }
-
-    const results = timelineSearch.searchNodes(
-      graph.nodes,
-      query,
-      { mode: searchMode }
-    )
-
-    set({
-      searchResults: results,
-      highlightedNodeIds: new Set(results.map((r) => r.node.id))
-    })
+    scheduleSearchFromState(get, set)
   },
 
   setSearchMode: (mode: 'fragments' | 'substring' | 'regex') => {
     set({ searchMode: mode })
-
-    // Re-run search with new mode
-    const { graph, searchQuery } = get()
-    if (graph && searchQuery.trim()) {
-      const results = timelineSearch.searchNodes(
-        graph.nodes,
-        searchQuery,
-        { mode }
-      )
-      set({
-        searchResults: results,
-        highlightedNodeIds: new Set(results.map((r) => r.node.id))
-      })
-    }
+    scheduleSearchFromState(get, set)
   },
 
   clearSearch: () => {
+    clearPendingSearch()
     set({
       searchQuery: '',
       searchResults: [],

@@ -136,7 +136,7 @@ export const QuickIngestModal: React.FC<Props> = ({
   const [advancedOpen, setAdvancedOpen] = React.useState<boolean>(false)
   const [advancedValues, setAdvancedValues] = React.useState<Record<string, any>>({})
   const [advSchema, setAdvSchema] = React.useState<Array<{ name: string; type: string; enum?: any[]; description?: string; title?: string }>>([])
-  const [specSource, setSpecSource] = React.useState<'server' | 'server-cached' | 'fallback' | 'none'>('none')
+  const [specSource, setSpecSource] = React.useState<'server' | 'fallback' | 'none'>('none')
   const [fieldDetailsOpen, setFieldDetailsOpen] = React.useState<Record<string, boolean>>({})
   const [advSearch, setAdvSearch] = React.useState<string>('')
   const [savedAdvValues, setSavedAdvValues] = useStorage<Record<string, any>>('quickIngestAdvancedValues', {})
@@ -719,7 +719,7 @@ export const QuickIngestModal: React.FC<Props> = ({
     if (['start_time', 'end_time'].includes(n)) return 'Timing'
     return 'Other'
   }
-	
+
   const isRecommendedField = (name: string, logicalGroup: string): boolean => {
     const n = name.toLowerCase()
     if (RECOMMENDED_FIELD_NAMES.has(n)) return true
@@ -918,11 +918,15 @@ export const QuickIngestModal: React.FC<Props> = ({
           } catch {
             // Fall back to generic message if diff computation fails
           }
-          const extra =
+          messageApi.success(
             added || removed
-              ? ` (fields added: ${added}, removed: ${removed})`
-              : ""
-          messageApi.success(`Advanced spec reloaded from server${extra}`)
+              ? qi(
+                  'specReloadedToastDiff',
+                  'Advanced spec reloaded from server (fields added: {{added}}, removed: {{removed}})',
+                  { added, removed }
+                )
+              : qi('specReloadedToast', 'Advanced spec reloaded from server')
+          )
         }
       } else {
         // Use extracted schema fallback (no bundled openapi.json import)
@@ -932,13 +936,17 @@ export const QuickIngestModal: React.FC<Props> = ({
         // Warn when falling back to a bundled schema that may be stale.
         if (reportDiff) {
           messageApi.warning(
-            `Using bundled media.add schema fallback (v${fallbackSchemaVersion}); ` +
-              `please verify against your tldw_server /openapi.json if fields look outdated.`
+            qi(
+              'specFallbackWarning',
+              'Using bundled media.add schema fallback (v{{version}}); please verify against your tldw_server /openapi.json if fields look outdated.',
+              { version: fallbackSchemaVersion }
+            )
           )
         }
       }
 
       setSpecSource(used)
+      return used
     },
     [persistSpecPrefs, specPrefs, messageApi, advSchema, fallbackSchemaVersion]
   )
@@ -954,7 +962,6 @@ export const QuickIngestModal: React.FC<Props> = ({
       const prefer =
         typeof specPrefs?.preferServer === 'boolean' ? specPrefs.preferServer : true
       await loadSpec(prefer)
-      if (specSource === 'none') await loadSpec(false)
     })()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [open])
@@ -1233,14 +1240,10 @@ export const QuickIngestModal: React.FC<Props> = ({
     return current !== saved
   }, [advancedValues, savedAdvValues])
   const specSourceLabel = React.useMemo(() => {
-    switch (specSource) {
-      case 'server':
-        return qi('specSourceLive', 'Live server spec')
-      case 'server-cached':
-        return qi('specSourceCached', 'Cached server spec')
-      default:
-        return qi('specSourceFallback', 'Fallback spec')
+    if (specSource === 'server') {
+      return qi('specSourceLive', 'Live server spec')
     }
+    return qi('specSourceFallback', 'Fallback spec')
   }, [qi, specSource])
 
   const setAdvancedValue = React.useCallback((name: string, value: any) => {
@@ -1955,7 +1958,7 @@ export const QuickIngestModal: React.FC<Props> = ({
             <Space wrap size="middle" align="center">
                 <Space align="center">
                   <span>{qi('analysisLabel', 'Analysis')}</span>
-	                  <Switch
+                  <Switch
                     aria-label="Ingestion options \u2013 analysis"
                     title="Toggle analysis"
                     checked={common.perform_analysis}
@@ -2573,11 +2576,13 @@ export const QuickIngestModal: React.FC<Props> = ({
                   </Typography.Text>
                 )}
                 <AntTooltip
-                  title={<div className="max-w-80 text-xs">{specSource === 'server'
-                    ? qi('specTooltipLive', 'Using live server OpenAPI spec')
-                    : specSource === 'server-cached'
-                      ? qi('specTooltipCached', 'Using cached server OpenAPI spec')
-                      : qi('specTooltipFallback', 'No spec detected; using fallback fields')}</div>}
+                  title={
+                    <div className="max-w-80 text-xs">
+                      {specSource === 'server'
+                        ? qi('specTooltipLive', 'Using live server OpenAPI spec')
+                        : qi('specTooltipFallback', 'No spec detected; using fallback fields')}
+                    </div>
+                  }
                 >
                   <Info className="w-4 h-4 text-gray-500" />
                 </AntTooltip>
@@ -2724,23 +2729,23 @@ export const QuickIngestModal: React.FC<Props> = ({
                       (f.description || '').toLowerCase().includes(q)
                     )
                   }
-	                  const allMatched = advSchema.filter(match)
+                  const allMatched = advSchema.filter(match)
 
-	                  // Derive a small "Recommended fields" subset for common
-	                  // parameters. We keep these also in their original groups
-	                  // so users can still find them where they logically live.
-	                  for (const f of allMatched) {
-	                    const logical = logicalGroupForField(f.name)
-	                    const isRecommended = isRecommendedField(f.name, logical)
-	
-	                    if (isRecommended && recommended.length < MAX_RECOMMENDED_FIELDS) {
-	                      recommended.push(f)
-	                    }
-	
-	                    const groupKey = logical
-	                    if (!grouped[groupKey]) grouped[groupKey] = []
-	                    grouped[groupKey].push(f)
-	                  }
+                  // Derive a small "Recommended fields" subset for common
+                  // parameters. We keep these also in their original groups
+                  // so users can still find them where they logically live.
+                  for (const f of allMatched) {
+                    const logical = logicalGroupForField(f.name)
+                    const isRecommended = isRecommendedField(f.name, logical)
+
+                    if (isRecommended && recommended.length < MAX_RECOMMENDED_FIELDS) {
+                      recommended.push(f)
+                    }
+
+                    const groupKey = logical
+                    if (!grouped[groupKey]) grouped[groupKey] = []
+                    grouped[groupKey].push(f)
+                  }
 
                   const recommendedNameSet = new Set(
                     recommended.map((f) => f.name)
@@ -2942,10 +2947,10 @@ export const QuickIngestModal: React.FC<Props> = ({
         {results.length > 0 && (
           <div className="mt-4">
             <div className="flex items-center justify-between">
-	      <Typography.Title level={5} className="!mb-0">{t('quickIngest.results') || 'Results'}</Typography.Title>
-	              <div className="flex items-center gap-2 text-xs">
-	                <Tag color="blue">
-	                  {qi('resultsCount', '{{count}} item(s)', { count: results.length })}
+      <Typography.Title level={5} className="!mb-0">{t('quickIngest.results') || 'Results'}</Typography.Title>
+              <div className="flex items-center gap-2 text-xs">
+                <Tag color="blue">
+                  {qi('resultsCount', '{{count}} item(s)', { count: results.length })}
                 </Tag>
                 <Button
                   size="small"
@@ -2956,34 +2961,34 @@ export const QuickIngestModal: React.FC<Props> = ({
                 <Select
                   size="small"
                   className="w-32"
-	                  aria-label={t(
-	                    "quickIngest.resultsFilterAria",
-	                    "Filter results by status"
-	                  ) as string}
-	                  value={resultsFilter}
-	                  onChange={(value) =>
-	                    setResultsFilter(value as ResultsFilter)
-	                  }
-	                  options={[
-	                    {
-	                      value: RESULT_FILTERS.ALL,
-	                      label: t(
-	                        "quickIngest.resultsFilterAll",
-	                        "All"
-	                      )
-	                    },
-	                    {
-	                      value: RESULT_FILTERS.ERROR,
-	                      label: t(
-	                        "quickIngest.resultsFilterFailed",
-	                        "Failed only"
-	                      )
-	                    },
-	                    {
-	                      value: RESULT_FILTERS.SUCCESS,
-	                      label: t(
-	                        "quickIngest.resultsFilterSucceeded",
-	                        "Succeeded only"
+                  aria-label={t(
+                    "quickIngest.resultsFilterAria",
+                    "Filter results by status"
+                  ) as string}
+                  value={resultsFilter}
+                  onChange={(value) =>
+                    setResultsFilter(value as ResultsFilter)
+                  }
+                  options={[
+                    {
+                      value: RESULT_FILTERS.ALL,
+                      label: t(
+                        "quickIngest.resultsFilterAll",
+                        "All"
+                      )
+                    },
+                    {
+                      value: RESULT_FILTERS.ERROR,
+                      label: t(
+                        "quickIngest.resultsFilterFailed",
+                        "Failed only"
+                      )
+                    },
+                    {
+                      value: RESULT_FILTERS.SUCCESS,
+                      label: t(
+                        "quickIngest.resultsFilterSucceeded",
+                        "Succeeded only"
                       )
                     }
                   ]}

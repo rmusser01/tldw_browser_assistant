@@ -2,6 +2,8 @@
 // Canonical source for media.add schema:
 //   - tldw_server2 OpenAPI: /openapi.json
 //   - Notes/media ingestion section: /docs-static/Design/Media_Ingestion.md (if available)
+// Last synchronized: 2025-12-13 from tldw_server v0.1.0 (Body_add_media_api_v1_media_add_post)
+// Run `bun verify:openapi` to check for field-name drift against /api/v1/media/add
 
 export const MEDIA_ADD_SCHEMA_FALLBACK_VERSION = "0.1.0"
 
@@ -58,4 +60,3 @@ export const MEDIA_ADD_SCHEMA_FALLBACK: Array<{
   { name: 'use_multi_level_chunking', type: 'boolean', description: 'Multi-level chunking', title: 'Use Multi Level Chunking' },
   { name: 'vad_use', type: 'boolean', description: 'Enable VAD filter', title: 'Vad Use' }
 ]
-
