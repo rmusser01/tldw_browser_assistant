@@ -316,7 +316,47 @@ export const useFolderStore = create<FolderState>()(
               db.folderKeywordLinks.toArray(),
               db.conversationKeywordLinks.toArray()
             ])
-            set({ folders, keywords, folderKeywordLinks, conversationKeywordLinks })
+            set((state) => {
+              const prevLastSynced = state.lastSynced
+              if (prevLastSynced) {
+                return { folders, keywords, folderKeywordLinks, conversationKeywordLinks }
+              }
+
+              const hasCachedData =
+                folders.length > 0 ||
+                keywords.length > 0 ||
+                folderKeywordLinks.length > 0 ||
+                conversationKeywordLinks.length > 0
+              if (!hasCachedData) {
+                return { folders, keywords, folderKeywordLinks, conversationKeywordLinks }
+              }
+
+              const candidates: number[] = []
+              const addTs = (value?: string | null) => {
+                if (!value) return
+                const ts = Date.parse(value)
+                if (Number.isFinite(ts)) candidates.push(ts)
+              }
+
+              for (const item of folders) {
+                addTs(item.last_modified)
+                addTs(item.created_at)
+              }
+              for (const item of keywords) {
+                addTs(item.last_modified)
+                addTs(item.created_at)
+              }
+
+              const guessedLastSynced = candidates.length > 0 ? Math.max(...candidates) : Date.now()
+
+              return {
+                folders,
+                keywords,
+                folderKeywordLinks,
+                conversationKeywordLinks,
+                lastSynced: guessedLastSynced
+              }
+            })
           } catch {
             // Ignore cache read errors
           }
@@ -589,10 +629,11 @@ export const useFolderStore = create<FolderState>()(
     }),
     {
       name: 'tldw-folder-store',
-      // Only persist UI preferences, not server data
+      // Persist UI prefs + cache metadata (not the server data itself).
       partialize: (state) => ({
         uiPrefs: state.uiPrefs,
-        viewMode: state.viewMode
+        viewMode: state.viewMode,
+        lastSynced: state.lastSynced
       })
     }
   )

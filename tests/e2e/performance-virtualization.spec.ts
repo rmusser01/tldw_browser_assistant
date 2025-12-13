@@ -279,8 +279,6 @@ test.describe("List Virtualization Performance", () => {
 
       // If virtualization works, we should have way fewer than messageCount * typical_nodes_per_message
       // A virtualized list should only render ~10-30 visible items
-      const maxExpectedNodes = Math.min(50 * 30, messageCount * TARGETS.domNodesPerMessage)
-
       console.log(`DOM nodes: ${afterNodes} (${nodesPerMessage.toFixed(1)} per message)`)
 
       if (nodesPerMessage > 0) {

@@ -9,16 +9,16 @@ export async function injectSyntheticMessages(
   if (!Number.isFinite(count) || count < 0) {
     return { ok: false, reason: "count must be a finite, non-negative number" }
   }
-	  return page.evaluate((cnt) => {
-	    try {
-	      const store = (window as any).__tldw_useQuickChatStore?.getState?.()
-	      if (!store?.addMessage) {
-	        return {
-	          ok: false,
-	          reason:
-	            "Synthetic injection unavailable: window.__tldw_useQuickChatStore.getState().addMessage is not exposed"
-	        }
-	      }
+  return page.evaluate((cnt) => {
+    try {
+      const store = (window as any).__tldw_useQuickChatStore?.getState?.()
+      if (!store?.addMessage) {
+        return {
+          ok: false,
+          reason:
+            "Synthetic injection unavailable: window.__tldw_useQuickChatStore.getState().addMessage is not exposed"
+        }
+      }
 
       const n = Math.max(0, Math.floor(cnt))
       for (let i = 0; i < n; i++) {

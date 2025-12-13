@@ -12,51 +12,67 @@
     "description": "Third bullet in the connected-state server connection card, highlighting retrieval-augmented generation usage."
   },
   "folders": {
-    "message": "資料夾"
+    "message": "資料夾",
+    "description": "Generic label for folders in the UI."
   },
   "folderView": {
-    "message": "資料夾檢視"
+    "message": "資料夾檢視",
+    "description": "View mode label for showing items grouped by folder."
   },
   "dateView": {
-    "message": "日期檢視"
+    "message": "日期檢視",
+    "description": "View mode label for showing items grouped by date."
   },
   "newFolder": {
-    "message": "新資料夾"
+    "message": "新資料夾",
+    "description": "Button label for creating a new folder."
   },
   "folderName": {
-    "message": "資料夾名稱"
+    "message": "資料夾名稱",
+    "description": "Form label for a folder name input."
   },
   "selectFolder": {
-    "message": "選擇資料夾"
+    "message": "選擇資料夾",
+    "description": "Prompt/label to select a folder."
   },
   "noFolders": {
-    "message": "無資料夾"
+    "message": "無資料夾",
+    "description": "Empty-state message shown when there are no folders."
   },
   "expandAll": {
-    "message": "全部展開"
+    "message": "全部展開",
+    "description": "Action label to expand all nodes in a tree view."
   },
   "collapseAll": {
-    "message": "全部收合"
+    "message": "全部收合",
+    "description": "Action label to collapse all nodes in a tree view."
   },
   "refresh": {
-    "message": "重新整理"
+    "message": "重新整理",
+    "description": "Generic action label to refresh/reload."
   },
   "confirm": {
-    "message": "確認"
+    "message": "確認",
+    "description": "Generic action label to confirm."
   },
   "untitled": {
-    "message": "未命名"
+    "message": "未命名",
+    "description": "Fallback label used when an item has no title."
   },
   "moveToFolder": {
-    "message": "移至資料夾"
+    "message": "移至資料夾",
+    "description": "Action label to move an item to a folder."
   },
   "specReloadedToast": {
-    "message": "進階規格已從伺服器重新載入"
+    "message": "進階規格已從伺服器重新載入",
+    "description": "Toast shown after reloading the Quick Ingest advanced schema from the server."
   },
   "specReloadedToastDiff": {
-    "message": "進階規格已從伺服器重新載入（新增欄位：{{added}}，移除欄位：{{removed}}）"
+    "message": "進階規格已從伺服器重新載入（新增欄位：{{added}}，移除欄位：{{removed}}）",
+    "description": "Toast shown after reloading the Quick Ingest advanced schema from the server, with counts for fields added and removed."
   },
   "specFallbackWarning": {
-    "message": "使用內建 media.add 綱要備用版本（v{{version}}）；若欄位似乎過時，請對照您的 tldw_server /openapi.json 進行驗證。"
+    "message": "使用內建 media.add 綱要備用版本（v{{version}}）；若欄位似乎過時，請對照您的 tldw_server /openapi.json 進行驗證。",
+    "description": "Warning shown when the Quick Ingest advanced schema falls back to the bundled schema; contains the bundled schema version."
   }
 }

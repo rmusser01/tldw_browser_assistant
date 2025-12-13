@@ -333,51 +333,67 @@
     "description": "Confirmation toast message shown after creating a flashcard collection from omni-search."
   },
   "folders": {
-    "message": "Папки"
+    "message": "Папки",
+    "description": "Generic label for folders in the UI."
   },
   "folderView": {
-    "message": "Просмотр папок"
+    "message": "Просмотр папок",
+    "description": "View mode label for showing items grouped by folder."
   },
   "dateView": {
-    "message": "Просмотр по датам"
+    "message": "Просмотр по датам",
+    "description": "View mode label for showing items grouped by date."
   },
   "newFolder": {
-    "message": "Новая папка"
+    "message": "Новая папка",
+    "description": "Button label for creating a new folder."
   },
   "folderName": {
-    "message": "Название папки"
+    "message": "Название папки",
+    "description": "Form label for a folder name input."
   },
   "selectFolder": {
-    "message": "Выберите папку"
+    "message": "Выберите папку",
+    "description": "Prompt/label to select a folder."
   },
   "noFolders": {
-    "message": "Нет папок"
+    "message": "Нет папок",
+    "description": "Empty-state message shown when there are no folders."
   },
   "expandAll": {
-    "message": "Развернуть все"
+    "message": "Развернуть все",
+    "description": "Action label to expand all nodes in a tree view."
   },
   "collapseAll": {
-    "message": "Свернуть все"
+    "message": "Свернуть все",
+    "description": "Action label to collapse all nodes in a tree view."
   },
   "refresh": {
-    "message": "Обновить"
+    "message": "Обновить",
+    "description": "Generic action label to refresh/reload."
   },
   "confirm": {
-    "message": "Подтвердить"
+    "message": "Подтвердить",
+    "description": "Generic action label to confirm."
   },
   "untitled": {
-    "message": "Без названия"
+    "message": "Без названия",
+    "description": "Fallback label used when an item has no title."
   },
   "moveToFolder": {
-    "message": "Переместить в папку"
+    "message": "Переместить в папку",
+    "description": "Action label to move an item to a folder."
   },
   "specReloadedToast": {
-    "message": "Расширенная спецификация перезагружена с сервера"
+    "message": "Расширенная спецификация перезагружена с сервера",
+    "description": "Toast shown after reloading the Quick Ingest advanced schema from the server."
   },
   "specReloadedToastDiff": {
-    "message": "Расширенная спецификация перезагружена с сервера (добавлено полей: {{added}}, удалено: {{removed}})"
+    "message": "Расширенная спецификация перезагружена с сервера (добавлено полей: $1, удалено: $2)",
+    "description": "Toast shown after reloading the Quick Ingest advanced schema from the server, with counts for fields added ($1) and removed ($2)."
   },
   "specFallbackWarning": {
-    "message": "Используется встроенный резервный вариант схемы media.add (v{{version}}); проверьте tldw_server /openapi.json, если поля выглядят устаревшими."
+    "message": "Используется встроенный резервный вариант схемы media.add (v$1); проверьте tldw_server /openapi.json, если поля выглядят устаревшими.",
+    "description": "Warning shown when the Quick Ingest advanced schema falls back to the bundled schema; $1 is the bundled schema version."
   }
 }

@@ -216,11 +216,16 @@ export const unlinkKeywordFromFolder = async (
 /**
  * Get all keywords for a folder
  */
-export const getKeywordsForFolder = async (folderId: number): Promise<Keyword[]> => {
+export const getKeywordsForFolder = async (
+  folderId: number,
+  options?: { abortSignal?: AbortSignal; timeoutMs?: number }
+): Promise<Keyword[]> => {
   try {
     const response = await bgRequest<ArrayOrWrapped<Keyword, "keywords">>({
       path: `/api/v1/notes/collections/${folderId}/keywords`,
-      method: 'GET'
+      method: 'GET',
+      abortSignal: options?.abortSignal,
+      timeoutMs: options?.timeoutMs
     })
     return normalizeArrayResponse(response, "keywords")
   } catch (error) {
@@ -283,13 +288,16 @@ export const unlinkKeywordFromConversation = async (
  * Get all keywords for a conversation
  */
 export const getKeywordsForConversation = async (
-  conversationId: string
+  conversationId: string,
+  options?: { abortSignal?: AbortSignal; timeoutMs?: number }
 ): Promise<Keyword[]> => {
   try {
     const cid = encodeURIComponent(conversationId)
     const response = await bgRequest<ArrayOrWrapped<Keyword, "keywords">>({
       path: `/api/v1/notes/conversations/${cid}/keywords`,
-      method: 'GET'
+      method: 'GET',
+      abortSignal: options?.abortSignal,
+      timeoutMs: options?.timeoutMs
     })
     return normalizeArrayResponse(response, "keywords")
   } catch (error) {

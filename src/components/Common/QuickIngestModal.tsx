@@ -776,44 +776,74 @@ export const QuickIngestModal: React.FC<Props> = ({
       return cur
     }
 
-    const resolveRef = (schema: any): any => {
+    const resolveRef = (schema: any, seen = new Set<string>()): any => {
       if (!schema) return {}
       if (schema.$ref) {
-        const target = getByRef(schema.$ref)
-        return target ? resolveRef(target) : {}
+        const ref = String(schema.$ref)
+        if (seen.has(ref)) {
+          return { type: 'string', description: 'Unresolvable schema cycle' }
+        }
+        seen.add(ref)
+        const target = getByRef(ref)
+        return target ? resolveRef(target, seen) : {}
       }
       return schema
     }
 
-    const mergeProps = (schema: any): Record<string, any> => {
+    const mergeProps = (schema: any, stack: WeakSet<object>, allowVisited = false): Record<string, any> => {
       const s = resolveRef(schema)
       let props: Record<string, any> = {}
-      if (!s || typeof s !== 'object') return props
-      // Merge from compositions
-      for (const key of ['allOf', 'oneOf', 'anyOf'] as const) {
-        if (Array.isArray((s as any)[key])) {
-          for (const sub of (s as any)[key]) {
-            props = { ...props, ...mergeProps(sub) }
+      if (!s || typeof s !== 'object' || Array.isArray(s)) return props
+
+      const already = stack.has(s as object)
+      if (already && !allowVisited) return props
+
+      if (!already) {
+        stack.add(s as object)
+      }
+
+      try {
+        // Merge from compositions
+        for (const key of ['allOf', 'oneOf', 'anyOf'] as const) {
+          if (Array.isArray((s as any)[key])) {
+            for (const sub of (s as any)[key]) {
+              props = { ...props, ...mergeProps(sub, stack) }
+            }
           }
         }
-      }
-      if (s.properties && typeof s.properties === 'object') {
-        for (const [k, v] of Object.entries<any>(s.properties)) {
-          props[k] = resolveRef(v)
+        if ((s as any).properties && typeof (s as any).properties === 'object') {
+          for (const [k, v] of Object.entries<any>((s as any).properties)) {
+            props[k] = resolveRef(v)
+          }
+        }
+        return props
+      } finally {
+        if (!already) {
+          stack.delete(s as object)
         }
       }
-      return props
     }
 
-    const flattenProps = (obj: Record<string, any>, parent = ''): Array<[string, any]> => {
+    const flattenProps = (obj: Record<string, any>, parent = '', stack: WeakSet<object>): Array<[string, any]> => {
       const out: Array<[string, any]> = []
       for (const [k, v0] of Object.entries<any>(obj || {})) {
         const v = resolveRef(v0)
         const name = parent ? `${parent}.${k}` : k
         const isObj = (v?.type === 'object' && v?.properties && typeof v.properties === 'object')
         if (isObj) {
-          const child = mergeProps(v)
-          out.push(...flattenProps(child, name))
+          const node = v as unknown
+          if (!node || typeof node !== 'object' || Array.isArray(node) || stack.has(node as object)) {
+            out.push([name, v])
+            continue
+          }
+
+          stack.add(node as object)
+          try {
+            const child = mergeProps(v, stack, true)
+            out.push(...flattenProps(child, name, stack))
+          } finally {
+            stack.delete(node as object)
+          }
         } else {
           out.push([name, v])
         }
@@ -826,8 +856,22 @@ export const QuickIngestModal: React.FC<Props> = ({
     const content = mediaAdd?.post?.requestBody?.content || {}
     const mp = content['multipart/form-data'] || content['application/x-www-form-urlencoded'] || content['application/json'] || {}
     const rootSchema = mp?.schema || {}
-    const props = mergeProps(rootSchema)
-    const flat = flattenProps(props)
+    const stack = new WeakSet<object>()
+    const rootResolved = resolveRef(rootSchema)
+    if (rootResolved && typeof rootResolved === 'object' && !Array.isArray(rootResolved)) {
+      stack.add(rootResolved)
+    }
+
+    let props: Record<string, any> = {}
+    let flat: Array<[string, any]> = []
+    try {
+      props = mergeProps(rootSchema, stack, true)
+      flat = flattenProps(props, '', stack)
+    } finally {
+      if (rootResolved && typeof rootResolved === 'object' && !Array.isArray(rootResolved)) {
+        stack.delete(rootResolved)
+      }
+    }
 
     const entries: Array<{ name: string; type: string; enum?: any[]; description?: string; title?: string }> = []
     // Expose all available ingestion-time options, except input list and media type selector which are handled above
@@ -863,7 +907,12 @@ export const QuickIngestModal: React.FC<Props> = ({
         try {
           const healthy = await tldwClient.healthCheck()
           if (healthy) remote = await tldwClient.getOpenAPISpec()
-        } catch {}
+        } catch (e) {
+          console.debug(
+            "[QuickIngest] Failed to load OpenAPI spec from server; using bundled fallback.",
+            (e as any)?.message || e
+          )
+        }
       }
 
       if (remote) {
@@ -898,10 +947,20 @@ export const QuickIngestModal: React.FC<Props> = ({
                 "[QuickIngest] Persisting quickIngestSpecPrefs (~%d bytes)",
                 approxSize
               )
-            } catch {}
+            } catch (e) {
+              console.debug(
+                "[QuickIngest] Failed to estimate quickIngestSpecPrefs size:",
+                (e as any)?.message || e
+              )
+            }
             persistSpecPrefs(payload)
           }
-        } catch {}
+        } catch (e) {
+          console.debug(
+            "[QuickIngest] Failed to persist OpenAPI spec metadata:",
+            (e as any)?.message || e
+          )
+        }
 
         if (reportDiff) {
           let added = 0
@@ -915,7 +974,11 @@ export const QuickIngestModal: React.FC<Props> = ({
             for (const name of beforeNames) {
               if (!afterNames.has(name)) removed += 1
             }
-          } catch {
+          } catch (e) {
+            console.debug(
+              "[QuickIngest] Failed to compute OpenAPI field diff:",
+              (e as any)?.message || e
+            )
             // Fall back to generic message if diff computation fails
           }
           messageApi.success(
@@ -1243,7 +1306,10 @@ export const QuickIngestModal: React.FC<Props> = ({
     if (specSource === 'server') {
       return qi('specSourceLive', 'Live server spec')
     }
-    return qi('specSourceFallback', 'Fallback spec')
+    if (specSource === 'fallback') {
+      return qi('specSourceFallback', 'Fallback spec')
+    }
+    return null
   }, [qi, specSource])
 
   const setAdvancedValue = React.useCallback((name: string, value: any) => {
@@ -2569,23 +2635,25 @@ export const QuickIngestModal: React.FC<Props> = ({
                 {modifiedAdvancedCount > 0 && (
                   <Tag color="gold">{t('quickIngest.modifiedCount', '{{count}} modified', { count: modifiedAdvancedCount })}</Tag>
                 )}
-                <Tag color="geekblue">{specSourceLabel}</Tag>
+                {specSourceLabel && <Tag color="geekblue">{specSourceLabel}</Tag>}
                 {lastRefreshedLabel && (
                   <Typography.Text className="text-[11px] text-gray-500">
                     {t('quickIngest.advancedRefreshed', 'Refreshed {{time}}', { time: lastRefreshedLabel })}
                   </Typography.Text>
                 )}
-                <AntTooltip
-                  title={
-                    <div className="max-w-80 text-xs">
-                      {specSource === 'server'
-                        ? qi('specTooltipLive', 'Using live server OpenAPI spec')
-                        : qi('specTooltipFallback', 'No spec detected; using fallback fields')}
-                    </div>
-                  }
-                >
-                  <Info className="w-4 h-4 text-gray-500" />
-                </AntTooltip>
+                {specSource !== 'none' && (
+                  <AntTooltip
+                    title={
+                      <div className="max-w-80 text-xs">
+                        {specSource === 'server'
+                          ? qi('specTooltipLive', 'Using live server OpenAPI spec')
+                          : qi('specTooltipFallback', 'No spec detected; using fallback fields')}
+                      </div>
+                    }
+                  >
+                    <Info className="w-4 h-4 text-gray-500" />
+                  </AntTooltip>
+                )}
               </div>
               <div className="flex flex-wrap items-center gap-2 text-xs text-gray-500 ml-auto">
                 {ragEmbeddingLabel && (
