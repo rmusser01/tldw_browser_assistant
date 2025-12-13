@@ -331,9 +331,9 @@
     "errorHint": "Überprüfen Sie die Details oder versuchen Sie es später erneut.",
     "checkHealthLink": "Systemstatus prüfen",
     "healthAriaHint": "Öffnet die Systemstatusseite",
-    "specReloadedToast": "Advanced spec reloaded from server",
-    "specReloadedToastDiff": "Advanced spec reloaded from server (fields added: {{added}}, removed: {{removed}})",
-    "specFallbackWarning": "Using bundled media.add schema fallback (v{{version}}); please verify against your tldw_server /openapi.json if fields look outdated."
+    "specReloadedToast": "Erweiterte Spezifikation vom Server neu geladen",
+    "specReloadedToastDiff": "Erweiterte Spezifikation vom Server neu geladen (Felder hinzugefügt: {{added}}, entfernt: {{removed}})",
+    "specFallbackWarning": "Verwende gebündelte media.add Schema-Fallback (v{{version}}); bitte überprüfe die /openapi.json deines tldw_server, falls Felder veraltet erscheinen."
   },
   "notesSearch": {
     "placeholder": "Search titles and contents",

@@ -667,12 +667,12 @@
     "message": "移动到文件夹"
   },
   "specReloadedToast": {
-    "message": "Advanced spec reloaded from server"
+    "message": "高级规范已从服务器重新加载"
   },
   "specReloadedToastDiff": {
-    "message": "Advanced spec reloaded from server (fields added: {{added}}, removed: {{removed}})"
+    "message": "高级规范已从服务器重新加载（添加的字段：{{added}}，移除的字段：{{removed}}）"
   },
   "specFallbackWarning": {
-    "message": "Using bundled media.add schema fallback (v{{version}}); please verify against your tldw_server /openapi.json if fields look outdated."
+    "message": "使用捆绑的 media.add 架构备选方案（v{{version}}）；如果字段看起来已过期，请根据你的 tldw_server /openapi.json 进行验证。"
   }
 }

@@ -31,13 +31,18 @@ const normalizeArrayResponse = <T, K extends string>(
  * Fetch all folders from server
  */
 export const fetchFolders = async (options?: { abortSignal?: AbortSignal; timeoutMs?: number }): Promise<Folder[]> => {
-  const response = await bgRequest<ArrayOrWrapped<Folder, "collections">>({
-    path: '/api/v1/notes/collections/',
-    method: 'GET',
-    abortSignal: options?.abortSignal,
-    timeoutMs: options?.timeoutMs
-  })
-  return normalizeArrayResponse(response, "collections")
+  try {
+    const response = await bgRequest<ArrayOrWrapped<Folder, "collections">>({
+      path: '/api/v1/notes/collections/',
+      method: 'GET',
+      abortSignal: options?.abortSignal,
+      timeoutMs: options?.timeoutMs
+    })
+    return normalizeArrayResponse(response, "collections")
+  } catch (error) {
+    console.error('Failed to fetch folders:', error)
+    return []
+  }
 }
 
 /**
@@ -109,12 +114,19 @@ export const deleteFolder = async (id: number, options?: { abortSignal?: AbortSi
 /**
  * Fetch all keywords from server
  */
-export const fetchKeywords = async (): Promise<Keyword[]> => {
-  const response = await bgRequest<ArrayOrWrapped<Keyword, "keywords">>({
-    path: '/api/v1/notes/keywords/',
-    method: 'GET'
-  })
-  return normalizeArrayResponse(response, "keywords")
+export const fetchKeywords = async (options?: { abortSignal?: AbortSignal; timeoutMs?: number }): Promise<Keyword[]> => {
+  try {
+    const response = await bgRequest<ArrayOrWrapped<Keyword, "keywords">>({
+      path: '/api/v1/notes/keywords/',
+      method: 'GET',
+      abortSignal: options?.abortSignal,
+      timeoutMs: options?.timeoutMs
+    })
+    return normalizeArrayResponse(response, "keywords")
+  } catch (error) {
+    console.error('Failed to fetch keywords:', error)
+    return []
+  }
 }
 
 /**

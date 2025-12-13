@@ -372,12 +372,12 @@
     "message": "Переместить в папку"
   },
   "specReloadedToast": {
-    "message": "Advanced spec reloaded from server"
+    "message": "Расширенная спецификация перезагружена с сервера"
   },
   "specReloadedToastDiff": {
-    "message": "Advanced spec reloaded from server (fields added: {{added}}, removed: {{removed}})"
+    "message": "Расширенная спецификация перезагружена с сервера (добавлено полей: {{added}}, удалено: {{removed}})"
   },
   "specFallbackWarning": {
-    "message": "Using bundled media.add schema fallback (v{{version}}); please verify against your tldw_server /openapi.json if fields look outdated."
+    "message": "Используется встроенный резервный вариант схемы media.add (v{{version}}); проверьте tldw_server /openapi.json, если поля выглядят устаревшими."
   }
 }

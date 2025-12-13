@@ -198,48 +198,48 @@
     "description": "API 키를 어디에서 찾을 수 있는지 설명하는 도움말 텍스트."
   },
   "authStepAria": {
-    "message": "Step 2 of 3 \u2014 authentication configuration",
+    "message": "{{total}}단계 중 {{current}}단계 \u2014 로그인 방법 선택",
     "description": "온보딩 중 인증 설정 단계의 aria 레이블."
   },
   "confirmStepAria": {
-    "message": "Step 3 of 3 \u2014 connection summary and next steps",
+    "message": "{{total}}단계 중 {{current}}단계 \u2014 연결 요약 및 다음 단계",
     "description": "온보딩 중 연결 요약 및 다음 단계 화면의 aria 레이블."
   },
   "nextSteps": {
-    "message": "You\u2019re ready to go",
+    "message": "준비가 완료되었습니다",
     "description": "온보딩 마지막 패널의 제목."
   },
   "nextStepsSubtitle": {
-    "message": "From here you can open the sidepanel, ingest a page, or explore media and notes.",
-    "description": "온보딩 마지막 패널에 표시되는 요약 설명(현재 영어)."
+    "message": "이제 사이드패널을 열거나, 페이지를 수집하거나, 미디어와 노트를 둘러볼 수 있습니다.",
+    "description": "온보딩 마지막 패널에 표시되는 요약 설명."
   },
   "nextStepsChatTitle": {
-    "message": "Start chatting",
-    "description": "다음 단계 카드에서 채팅을 시작하는 옵션의 제목(현재 영어)."
+    "message": "채팅 시작하기",
+    "description": "다음 단계 카드에서 채팅을 시작하는 옵션의 제목."
   },
   "nextStepsChatBody": {
-    "message": "Open the sidepanel and ask your first question.",
-    "description": "다음 단계 카드에서 채팅을 시작하는 옵션의 설명(현재 영어)."
+    "message": "사이드패널을 열고 첫 질문을 해보세요.",
+    "description": "다음 단계 카드에서 채팅을 시작하는 옵션의 설명."
   },
   "nextStepsChatCta": {
-    "message": "Open sidepanel",
-    "description": "사이드패널을 여는 버튼의 텍스트(현재 영어)."
+    "message": "사이드패널 열기",
+    "description": "사이드패널을 여는 버튼의 텍스트."
   },
   "nextStepsIngestTitle": {
-    "message": "Ingest your first page",
-    "description": "다음 단계 카드에서 첫 페이지를 수집하는 옵션의 제목(현재 영어)."
+    "message": "첫 페이지 수집하기",
+    "description": "다음 단계 카드에서 첫 페이지를 수집하는 옵션의 제목."
   },
   "nextStepsIngestBody": {
-    "message": "Use Quick ingest from the header to save the current tab to your server.",
-    "description": "다음 단계 카드에서 페이지 수집 동작을 설명하는 텍스트(현재 영어)."
+    "message": "헤더의 Quick ingest를 사용해 현재 탭을 서버에 저장하세요.",
+    "description": "다음 단계 카드에서 페이지 수집 동작을 설명하는 텍스트."
   },
   "nextStepsMediaTitle": {
-    "message": "Explore media & notes",
-    "description": "다음 단계 카드에서 미디어 및 노트를 탐색하는 옵션의 제목(현재 영어)."
+    "message": "미디어 및 노트 둘러보기",
+    "description": "다음 단계 카드에서 미디어 및 노트를 탐색하는 옵션의 제목."
   },
   "nextStepsMediaBody": {
-    "message": "Visit Media and Notes in Options to see what’s stored and searchable.",
-    "description": "다음 단계 카드에서 미디어 및 노트를 탐색하는 옵션의 설명(현재 영어)."
+    "message": "옵션에서 미디어와 노트를 열어 저장된 내용과 검색 가능한 항목을 확인하세요.",
+    "description": "다음 단계 카드에서 미디어 및 노트를 탐색하는 옵션의 설명."
   },
   "headerShortcuts": {
     "message": "헤더에 빠른 바로가기를 표시하기",
@@ -373,12 +373,12 @@
     "message": "폴더로 이동"
   },
   "specReloadedToast": {
-    "message": "Advanced spec reloaded from server"
+    "message": "서버에서 고급 스펙을 다시 로드했습니다"
   },
   "specReloadedToastDiff": {
-    "message": "Advanced spec reloaded from server (fields added: {{added}}, removed: {{removed}})"
+    "message": "서버에서 고급 스펙을 다시 로드했습니다 (추가된 필드: {{added}}, 제거된 필드: {{removed}})"
   },
   "specFallbackWarning": {
-    "message": "Using bundled media.add schema fallback (v{{version}}); please verify against your tldw_server /openapi.json if fields look outdated."
+    "message": "번들에 포함된 media.add 스키마 폴백(v{{version}})을 사용 중입니다. 필드가 오래되어 보이면 tldw_server /openapi.json과 비교해 확인하세요."
   }
 }

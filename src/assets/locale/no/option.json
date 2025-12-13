@@ -220,9 +220,9 @@
     "errorHint": "Prøv igjen etter at du har sjekket tldw-serveren din. Health & diagnostics kan hjelpe med å feilsøke ingest-problemer.",
     "checkHealthLink": "Sjekk serverhelsen i Health & diagnostics",
     "healthAriaHint": "Nylige kjøringer mislyktes — åpne Health & diagnostics fra toppmenyen for flere detaljer.",
-    "specReloadedToast": "Advanced spec reloaded from server",
-    "specReloadedToastDiff": "Advanced spec reloaded from server (fields added: {{added}}, removed: {{removed}})",
-    "specFallbackWarning": "Using bundled media.add schema fallback (v{{version}}); please verify against your tldw_server /openapi.json if fields look outdated."
+    "specReloadedToast": "Avansert spesifikasjon lastet inn på nytt fra serveren",
+    "specReloadedToastDiff": "Avansert spesifikasjon lastet inn på nytt fra serveren (felter lagt til: {{added}}, fjernet: {{removed}})",
+    "specFallbackWarning": "Bruker medfølgende media.add-skjema som reserve (v{{version}}); verifiser mot tldw_server /openapi.json hvis feltene ser utdaterte ut."
   },
   "notesSearch": {
     "placeholder": "Search titles and contents",

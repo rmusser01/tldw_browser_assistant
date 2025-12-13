@@ -340,12 +340,12 @@
     "message": "ഫോൾഡറിലേക്ക് നീക്കുക"
   },
   "specReloadedToast": {
-    "message": "Advanced spec reloaded from server"
+    "message": "സർവറിൽ നിന്ന് അഡ്വാൻസ്ഡ് സ്പെക് വീണ്ടും ലോഡ് ചെയ്തു"
   },
   "specReloadedToastDiff": {
-    "message": "Advanced spec reloaded from server (fields added: {{added}}, removed: {{removed}})"
+    "message": "സർവറിൽ നിന്ന് അഡ്വാൻസ്ഡ് സ്പെക് വീണ്ടും ലോഡ് ചെയ്തു (ചേർത്ത ഫീൽഡുകൾ: {{added}}, നീക്കിയ ഫീൽഡുകൾ: {{removed}})"
   },
   "specFallbackWarning": {
-    "message": "Using bundled media.add schema fallback (v{{version}}); please verify against your tldw_server /openapi.json if fields look outdated."
+    "message": "ബണ്ടിൽ ചെയ്ത media.add സ്കീമ ഫാൾബാക്ക് (v{{version}}) ഉപയോഗിക്കുന്നു; ഫീൽഡുകൾ പഴകിയതായി തോന്നിയാൽ നിങ്ങളുടെ tldw_server /openapi.json പ്രകാരം ദയവായി പരിശോധിക്കുക."
   }
 }

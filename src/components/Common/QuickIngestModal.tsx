@@ -763,7 +763,7 @@ export const QuickIngestModal: React.FC<Props> = ({
     }
   }
 
-  const parseSpec = (spec: any) => {
+  const parseSpec = React.useCallback((spec: any) => {
     const getByRef = (ref: string): any => {
       // Handles refs like '#/components/schemas/MediaIngestRequest'
       if (!ref || typeof ref !== 'string' || !ref.startsWith('#/')) return null
@@ -847,7 +847,7 @@ export const QuickIngestModal: React.FC<Props> = ({
     entries.sort((a,b) => a.name.localeCompare(b.name))
     setAdvSchema(entries)
     return entries
-  }
+  }, [])
 
   const loadSpec = React.useCallback(
     async (
@@ -948,7 +948,7 @@ export const QuickIngestModal: React.FC<Props> = ({
       setSpecSource(used)
       return used
     },
-    [persistSpecPrefs, specPrefs, messageApi, advSchema, fallbackSchemaVersion]
+    [persistSpecPrefs, specPrefs, messageApi, advSchema, fallbackSchemaVersion, parseSpec, qi]
   )
 
   React.useEffect(() => {

@@ -51,12 +51,12 @@
     "message": "移至資料夾"
   },
   "specReloadedToast": {
-    "message": "Advanced spec reloaded from server"
+    "message": "進階規格已從伺服器重新載入"
   },
   "specReloadedToastDiff": {
-    "message": "Advanced spec reloaded from server (fields added: {{added}}, removed: {{removed}})"
+    "message": "進階規格已從伺服器重新載入（新增欄位：{{added}}，移除欄位：{{removed}}）"
   },
   "specFallbackWarning": {
-    "message": "Using bundled media.add schema fallback (v{{version}}); please verify against your tldw_server /openapi.json if fields look outdated."
+    "message": "使用內建 media.add 綱要備用版本（v{{version}}）；若欄位似乎過時，請對照您的 tldw_server /openapi.json 進行驗證。"
   }
 }

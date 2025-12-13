@@ -5,10 +5,20 @@
 // NOTE: The openapi.json import was removed to eliminate the 1.4 MB
 // JSON from the initial bundle. The ClientPath union below is manually
 // maintained. QuickIngestModal dynamically imports the spec when needed.
-// To verify that ClientPath and MEDIA_ADD_SCHEMA_FALLBACK stay in sync
-// with the OpenAPI spec, run:
-//   npm run verify:openapi
-//   bun run verify:openapi
+//
+// Maintenance:
+// - When you add a new server endpoint that the extension calls (via bgRequest,
+//   bgStream, or direct fetch), add its relative path to ClientPath so TS can
+//   type-check it against the OpenAPI spec.
+// - When you remove or rename an endpoint, update ClientPath (and any entries
+//   in API_PATHS) to match the current server API.
+// - To verify that ClientPath and MEDIA_ADD_SCHEMA_FALLBACK stay in sync with
+//   openapi.json, run:
+//     npm run verify:openapi
+//     bun run verify:openapi
+//   If verification fails, reconcile the differences by updating ClientPath
+//   (or, if the spec is stale, regenerate / update openapi.json) until the
+//   check passes.
 
 // Union of relative API paths that the web UI calls via bgRequest/bgStream
 // or direct fetch. If a new endpoint is added in the UI, it should be

@@ -220,9 +220,9 @@
     "errorHint": "پس از بررسی سرور tldw خود دوباره تلاش کنید. بخش Health & diagnostics می‌تواند در برطرف کردن مشکلات اینجست کمک کند.",
     "checkHealthLink": "سلامت سرور را در Health & diagnostics بررسی کنید",
     "healthAriaHint": "اجرای اخیر ناموفق بود — برای جزئیات بیشتر از سربرگ Health & diagnostics را باز کنید.",
-    "specReloadedToast": "Advanced spec reloaded from server",
-    "specReloadedToastDiff": "Advanced spec reloaded from server (fields added: {{added}}, removed: {{removed}})",
-    "specFallbackWarning": "Using bundled media.add schema fallback (v{{version}}); please verify against your tldw_server /openapi.json if fields look outdated."
+    "specReloadedToast": "مشخصات پیشرفته از سرور دوباره بارگذاری شد",
+    "specReloadedToastDiff": "مشخصات پیشرفته از سرور دوباره بارگذاری شد (فیلدهای اضافه‌شده: {{added}}, حذف‌شده: {{removed}})",
+    "specFallbackWarning": "در حال استفاده از طرحوارهٔ جایگزینِ بسته‌بندی‌شدهٔ media.add (v{{version}}); اگر فیلدها قدیمی به نظر می‌رسند، لطفاً با tldw_server /openapi.json بررسی کنید."
   },
   "notesSearch": {
     "placeholder": "Search titles and contents",

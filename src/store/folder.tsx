@@ -264,7 +264,7 @@ export const useFolderStore = create<FolderState>()(
         try {
           const [folders, keywords, folderKeywordLinks, conversationKeywordLinks] = await Promise.all([
             fetchFolders({ abortSignal: controller.signal, timeoutMs }),
-            fetchKeywords(),
+            fetchKeywords({ abortSignal: controller.signal, timeoutMs }),
             fetchFolderKeywordLinks({ abortSignal: controller.signal, timeoutMs }),
             fetchConversationKeywordLinks(undefined, { abortSignal: controller.signal, timeoutMs })
           ])
@@ -518,7 +518,7 @@ export const useFolderStore = create<FolderState>()(
           })
         } catch (error) {
           console.error('Failed to delete conversation-keyword links from cache:', error)
-          return false
+          // Continue to update in-memory state even if DB sync fails
         }
 
         const removedKeySet = new Set(

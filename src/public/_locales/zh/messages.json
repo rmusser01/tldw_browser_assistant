@@ -160,51 +160,64 @@
     "description": "Confirmation toast message shown after creating a flashcard collection from omni-search."
   },
   "folders": {
-    "message": "文件夹"
+    "message": "文件夹",
+    "description": "Section label for the folders view."
   },
   "folderView": {
-    "message": "文件夹视图"
+    "message": "文件夹视图",
+    "description": "Toggle label for viewing items grouped by folder."
   },
   "dateView": {
-    "message": "日期视图"
+    "message": "日期视图",
+    "description": "Toggle label for viewing items grouped by date."
   },
   "newFolder": {
-    "message": "新建文件夹"
+    "message": "新建文件夹",
+    "description": "Button label to create a new folder."
   },
   "folderName": {
-    "message": "文件夹名称"
+    "message": "文件夹名称",
+    "description": "Label for the folder name input."
   },
   "selectFolder": {
-    "message": "选择文件夹"
+    "message": "选择文件夹",
+    "description": "Prompt label shown when choosing a folder."
   },
   "noFolders": {
-    "message": "没有文件夹"
+    "message": "没有文件夹",
+    "description": "Placeholder message shown when there are no folders."
   },
   "expandAll": {
-    "message": "全部展开"
+    "message": "全部展开",
+    "description": "Button label to expand all folders."
   },
   "collapseAll": {
-    "message": "全部折叠"
+    "message": "全部折叠",
+    "description": "Button label to collapse all folders."
   },
   "refresh": {
-    "message": "刷新"
+    "message": "刷新",
+    "description": "Button label to refresh the folders view."
   },
   "confirm": {
-    "message": "确认"
+    "message": "确认",
+    "description": "Generic confirm button label."
   },
   "untitled": {
-    "message": "未命名"
+    "message": "未命名",
+    "description": "Fallback label for items without a title."
   },
   "moveToFolder": {
-    "message": "移动到文件夹"
+    "message": "移动到文件夹",
+    "description": "Menu item label to move an item into a folder."
   },
   "specReloadedToast": {
-    "message": "Advanced spec reloaded from server"
+    "message": "高级规范已从服务器重新加载"
   },
   "specReloadedToastDiff": {
-    "message": "Advanced spec reloaded from server (fields added: {{added}}, removed: {{removed}})"
+    "message": "高级规范已从服务器重新加载（添加的字段：{{added}}，移除的字段：{{removed}}）"
   },
   "specFallbackWarning": {
-    "message": "Using bundled media.add schema fallback (v{{version}}); please verify against your tldw_server /openapi.json if fields look outdated."
+    "message": "使用捆绑的 media.add 架构备选方案（v{{version}}）；如果字段看起来已过期，请根据你的 tldw_server /openapi.json 进行验证。"
   }
 }

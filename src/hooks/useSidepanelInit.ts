@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next"
 
 export type SidepanelDirection = "ltr" | "rtl"
 
-export type UseSidepanelInitOptions = {
+export interface UseSidepanelInitOptions {
   titleDefaultValue?: string
 }
 

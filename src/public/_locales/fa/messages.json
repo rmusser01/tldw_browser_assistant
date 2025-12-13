@@ -340,12 +340,12 @@
     "message": "انتقال به پوشه"
   },
   "specReloadedToast": {
-    "message": "Advanced spec reloaded from server"
+    "message": "مشخصات پیشرفته از سرور دوباره بارگذاری شد"
   },
   "specReloadedToastDiff": {
-    "message": "Advanced spec reloaded from server (fields added: {{added}}, removed: {{removed}})"
+    "message": "مشخصات پیشرفته از سرور دوباره بارگذاری شد (فیلدهای اضافه‌شده: {{added}}, حذف‌شده: {{removed}})"
   },
   "specFallbackWarning": {
-    "message": "Using bundled media.add schema fallback (v{{version}}); please verify against your tldw_server /openapi.json if fields look outdated."
+    "message": "در حال استفاده از طرحوارهٔ جایگزینِ بسته‌بندی‌شدهٔ media.add (v{{version}}); اگر فیلدها قدیمی به نظر می‌رسند، لطفاً با tldw_server /openapi.json بررسی کنید."
   }
 }

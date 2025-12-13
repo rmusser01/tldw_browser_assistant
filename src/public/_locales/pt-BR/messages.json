@@ -1163,12 +1163,12 @@
     "message": "Mover para pasta"
   },
   "specReloadedToast": {
-    "message": "Advanced spec reloaded from server"
+    "message": "Spec avançada recarregada do servidor"
   },
   "specReloadedToastDiff": {
-    "message": "Advanced spec reloaded from server (fields added: {{added}}, removed: {{removed}})"
+    "message": "Spec avançada recarregada do servidor (campos adicionados: {{added}}, removidos: {{removed}})"
   },
   "specFallbackWarning": {
-    "message": "Using bundled media.add schema fallback (v{{version}}); please verify against your tldw_server /openapi.json if fields look outdated."
+    "message": "Usando o fallback do esquema media.add incluído (v{{version}}); se os campos parecerem desatualizados, compare com o /openapi.json do seu tldw_server."
   }
 }

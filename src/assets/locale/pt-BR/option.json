@@ -231,9 +231,9 @@
     "errorHint": "Tente novamente após verificar seu servidor tldw. A seção Saúde e diagnóstico pode ajudar a solucionar problemas de ingestão.",
     "checkHealthLink": "Verificar saúde do servidor em Saúde e diagnóstico",
     "healthAriaHint": "As últimas execuções falharam — abra Saúde e diagnóstico no cabeçalho para mais detalhes.",
-    "specReloadedToast": "Advanced spec reloaded from server",
-    "specReloadedToastDiff": "Advanced spec reloaded from server (fields added: {{added}}, removed: {{removed}})",
-    "specFallbackWarning": "Using bundled media.add schema fallback (v{{version}}); please verify against your tldw_server /openapi.json if fields look outdated."
+    "specReloadedToast": "Spec avançada recarregada do servidor",
+    "specReloadedToastDiff": "Spec avançada recarregada do servidor (campos adicionados: {{added}}, removidos: {{removed}})",
+    "specFallbackWarning": "Usando o fallback do esquema media.add incluído (v{{version}}); se os campos parecerem desatualizados, compare com o /openapi.json do seu tldw_server."
   },
   "notesSearch": {
     "placeholder": "Search titles and contents",

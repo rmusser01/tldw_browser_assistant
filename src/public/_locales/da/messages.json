@@ -340,12 +340,12 @@
     "message": "Flyt til mappe"
   },
   "specReloadedToast": {
-    "message": "Advanced spec reloaded from server"
+    "message": "Avanceret specifikation genindlæst fra serveren"
   },
   "specReloadedToastDiff": {
-    "message": "Advanced spec reloaded from server (fields added: {{added}}, removed: {{removed}})"
+    "message": "Avanceret specifikation genindlæst fra serveren (tilføjede felter: {{added}}, fjernede felter: {{removed}})"
   },
   "specFallbackWarning": {
-    "message": "Using bundled media.add schema fallback (v{{version}}); please verify against your tldw_server /openapi.json if fields look outdated."
+    "message": "Bruger medfølgende media.add-skema som reserveløsning (v{{version}}); sammenlign venligst med din tldw_server /openapi.json, hvis felterne ser forældede ud."
   }
 }

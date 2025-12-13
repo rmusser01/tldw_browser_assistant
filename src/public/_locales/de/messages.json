@@ -340,12 +340,12 @@
     "message": "In Ordner verschieben"
   },
   "specReloadedToast": {
-    "message": "Advanced spec reloaded from server"
+    "message": "Erweiterte Spezifikation vom Server neu geladen"
   },
   "specReloadedToastDiff": {
-    "message": "Advanced spec reloaded from server (fields added: {{added}}, removed: {{removed}})"
+    "message": "Erweiterte Spezifikation vom Server neu geladen (Felder hinzugefügt: {{added}}, entfernt: {{removed}})"
   },
   "specFallbackWarning": {
-    "message": "Using bundled media.add schema fallback (v{{version}}); please verify against your tldw_server /openapi.json if fields look outdated."
+    "message": "Verwende gebündelte media.add Schema-Fallback (v{{version}}); bitte überprüfe die /openapi.json deines tldw_server, falls Felder veraltet erscheinen."
   }
 }

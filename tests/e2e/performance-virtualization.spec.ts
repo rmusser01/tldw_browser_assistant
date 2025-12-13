@@ -21,7 +21,7 @@ import {
 import { injectSyntheticMessages } from "./utils/synthetic-messages"
 
 // Configuration
-const TEST_EXT_PATH = path.resolve("build/chrome-mv3")
+const TEST_EXT_PATH = path.resolve(process.env.TLDW_E2E_EXT_PATH || "build/chrome-mv3")
 const DEFAULT_SERVER_URL = "http://localhost:8000"
 const SERVER_URL = process.env.TLDW_E2E_SERVER_URL || DEFAULT_SERVER_URL
 const API_KEY = process.env.TLDW_E2E_API_KEY
@@ -108,6 +108,10 @@ test.describe("List Virtualization Performance", () => {
       await page.goto(optionsUrl, { waitUntil: "domcontentloaded" })
       await page.waitForSelector("#root", { state: "attached", timeout: 15000 })
 
+      // Bypass onboarding / ensure stores are ready for deterministic injection.
+      await waitForConnectionStore(page, "virtualization-test-init")
+      await forceConnected(page, { serverUrl: SERVER_URL }, "virtualization-test-connected")
+
       // Inject synthetic messages via the exposed debug store
       const messageCount = 100
       const injected = await injectSyntheticMessages(page, messageCount)
@@ -156,24 +160,24 @@ test.describe("List Virtualization Performance", () => {
         {
           name: "Average FPS",
           value: avgFPS,
-          unit: " FPS",
+          unit: "FPS",
           target: TARGETS.scrollFPS,
           higherIsBetter: true
         },
         {
           name: "Min FPS",
           value: minFPS,
-          unit: " FPS"
+          unit: "FPS"
         },
         {
           name: "Max FPS",
           value: maxFPS,
-          unit: " FPS"
+          unit: "FPS"
         },
         {
           name: "Dropped frames",
           value: droppedFrames,
-          unit: " frames"
+          unit: "frames"
         }
       ], startTime)
 
@@ -202,6 +206,10 @@ test.describe("List Virtualization Performance", () => {
     try {
       await page.goto(optionsUrl, { waitUntil: "domcontentloaded" })
       await page.waitForSelector("#root", { state: "attached", timeout: 15000 })
+
+      // Bypass onboarding / ensure stores are ready for deterministic injection.
+      await waitForConnectionStore(page, "virtualization-test-init")
+      await forceConnected(page, { serverUrl: SERVER_URL }, "virtualization-test-connected")
 
       // Count initial DOM nodes in the message area
       const containerSelectors = [
@@ -247,17 +255,17 @@ test.describe("List Virtualization Performance", () => {
         {
           name: "Initial DOM nodes",
           value: initialNodes,
-          unit: " nodes"
+          unit: "nodes"
         },
         {
           name: "After 200 messages",
           value: afterNodes,
-          unit: " nodes"
+          unit: "nodes"
         },
         {
           name: "Node growth",
           value: nodeGrowth,
-          unit: " nodes"
+          unit: "nodes"
         },
         {
           name: "Nodes per message",
