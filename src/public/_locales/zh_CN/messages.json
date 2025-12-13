@@ -626,5 +626,44 @@
   },
   "flashcards_exportHelp": {
     "message": "可先依牌組、標籤或搜尋條件篩選，再匯出為 CSV/TSV 供試算表使用，或匯出為 Anki (.apkg) 供 Anki 用戶端使用。"
+  },
+  "folders": {
+    "message": "Folders"
+  },
+  "folderView": {
+    "message": "Folder view"
+  },
+  "dateView": {
+    "message": "Date view"
+  },
+  "newFolder": {
+    "message": "New Folder"
+  },
+  "folderName": {
+    "message": "Folder name"
+  },
+  "selectFolder": {
+    "message": "Select folder"
+  },
+  "noFolders": {
+    "message": "No folders"
+  },
+  "expandAll": {
+    "message": "Expand all"
+  },
+  "collapseAll": {
+    "message": "Collapse all"
+  },
+  "refresh": {
+    "message": "Refresh"
+  },
+  "confirm": {
+    "message": "Confirm"
+  },
+  "untitled": {
+    "message": "Untitled"
+  },
+  "moveToFolder": {
+    "message": "Move to folder"
   }
 }

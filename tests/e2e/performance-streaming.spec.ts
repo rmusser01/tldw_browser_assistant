@@ -5,25 +5,23 @@
  * Requires TLDW_E2E_SERVER_URL and TLDW_E2E_API_KEY environment variables.
  */
 
-import { test, expect } from "@playwright/test"
+import { test, expect, type Page } from "@playwright/test"
 import path from "path"
 import { launchWithExtension } from "./utils/extension"
 import { waitForConnectionStore, forceConnected, setSelectedModel } from "./utils/connection"
 import {
   PerfTimer,
-  measureTimeToFirstToken,
   measureStreamingThroughput,
   measureMemoryDelta,
   createReport,
-  logReport,
-  assertPerformance
+  logReport
 } from "./utils/performance"
 
 // Configuration
 const TEST_EXT_PATH = path.resolve("build/chrome-mv3")
-const DEFAULT_SERVER_URL = "http://localhost:8000"
-const SERVER_URL = process.env.TLDW_E2E_SERVER_URL || DEFAULT_SERVER_URL
-const API_KEY = process.env.TLDW_E2E_API_KEY || "test-api-key"
+const SERVER_URL = process.env.TLDW_E2E_SERVER_URL
+const API_KEY = process.env.TLDW_E2E_API_KEY
+const REQUIRE_ENV_REASON = "Set TLDW_E2E_SERVER_URL and TLDW_E2E_API_KEY to run streaming performance tests"
 
 // Performance targets
 const TARGETS = {
@@ -32,52 +30,54 @@ const TARGETS = {
   memoryDeltaMB: 50 // MB - max memory growth during stream
 }
 
+const ROOT_SELECTOR = "#root"
+const CHAT_INPUT_SELECTOR = 'textarea[placeholder*="message"], input[placeholder*="message"]'
+
+async function setupConnectedChat(page: Page, url: string | undefined, label: string) {
+  if (url) {
+    await page.goto(url, { waitUntil: "domcontentloaded" })
+  }
+  await page.waitForSelector(ROOT_SELECTOR, { state: "attached", timeout: 15000 })
+
+  // Bypass onboarding by forcing connected state and setting model
+  await waitForConnectionStore(page, `${label}-init`)
+  await forceConnected(page, { serverUrl: SERVER_URL! }, `${label}-connected`)
+  await setSelectedModel(page, "gpt-4")
+
+  // Reload page so Plasmo's useStorage reads the model from chrome.storage.local on mount
+  await page.reload({ waitUntil: "domcontentloaded" })
+  await page.waitForSelector(ROOT_SELECTOR, { state: "attached", timeout: 15000 })
+
+  // Re-apply connection state after reload
+  await waitForConnectionStore(page, `${label}-after-reload`)
+  await forceConnected(page, { serverUrl: SERVER_URL! }, `${label}-reconnected`)
+
+  // Wait for React to re-render after state change
+  await page.waitForTimeout(300)
+
+  // Wait for chat input to be ready
+  await page.waitForSelector(CHAT_INPUT_SELECTOR, { state: "visible", timeout: 10000 })
+  return CHAT_INPUT_SELECTOR
+}
+
 test.describe("Streaming Performance", () => {
-  test.beforeAll(async () => {
-    // Skip if no server configured
-    if (!process.env.TLDW_E2E_SERVER_URL && !process.env.TLDW_E2E_API_KEY) {
-      console.log(
-        "Note: Using default server URL. Set TLDW_E2E_SERVER_URL and TLDW_E2E_API_KEY for real server tests."
-      )
-    }
-  })
+  test.skip(!SERVER_URL || !API_KEY, REQUIRE_ENV_REASON)
 
   test("measures time to first token", async () => {
     const { context, page, optionsUrl } = await launchWithExtension(TEST_EXT_PATH, {
       seedConfig: {
-        serverUrl: SERVER_URL,
+        serverUrl: SERVER_URL!,
         authMode: "single-user",
-        apiKey: API_KEY,
+        apiKey: API_KEY!,
         selectedModel: "gpt-4"
       }
     })
 
     try {
-      // Navigate to chat page
-      await page.goto(optionsUrl, { waitUntil: "domcontentloaded" })
-      await page.waitForSelector("#root", { state: "attached", timeout: 15000 })
-
-      // Bypass onboarding by forcing connected state and setting model
-      await waitForConnectionStore(page, "ttft-test-init")
-      await forceConnected(page, { serverUrl: SERVER_URL }, "ttft-test-connected")
-      await setSelectedModel(page, "gpt-4")
-
-      // Reload page so Plasmo's useStorage reads the model from chrome.storage.local on mount
-      await page.reload({ waitUntil: "domcontentloaded" })
-      await page.waitForSelector("#root", { state: "attached", timeout: 15000 })
-
-      // Re-apply connection state after reload
-      await waitForConnectionStore(page, "ttft-test-after-reload")
-      await forceConnected(page, { serverUrl: SERVER_URL }, "ttft-test-reconnected")
-
-      // Wait for React to re-render after state change
-      await page.waitForTimeout(300)
-
-      // Wait for chat input to be ready
-      const inputSelector = 'textarea[placeholder*="message"], input[placeholder*="message"]'
-      await page.waitForSelector(inputSelector, { state: "visible", timeout: 10000 })
+      const inputSelector = await setupConnectedChat(page, optionsUrl, "ttft-test")
 
       // Measure TTFT
+      const reportStartTime = performance.now()
       const timer = new PerfTimer()
       timer.start()
 
@@ -104,7 +104,7 @@ test.describe("Streaming Performance", () => {
         timer.mark("streaming-started")
       }
 
-      const ttft = timer.sinceMark("sent")
+      const ttft = timer.betweenMarks("sent", "streaming-started")
 
       // Create report
       const report = createReport("Time to First Token", [
@@ -114,7 +114,7 @@ test.describe("Streaming Performance", () => {
           unit: "ms",
           target: TARGETS.timeToFirstToken
         }
-      ], timer.startTime)
+      ], reportStartTime)
 
       logReport(report)
 
@@ -129,35 +129,18 @@ test.describe("Streaming Performance", () => {
   test("measures streaming throughput", async () => {
     const { context, page, optionsUrl } = await launchWithExtension(TEST_EXT_PATH, {
       seedConfig: {
-        serverUrl: SERVER_URL,
+        serverUrl: SERVER_URL!,
         authMode: "single-user",
-        apiKey: API_KEY,
+        apiKey: API_KEY!,
         selectedModel: "gpt-4"
       }
     })
 
     try {
-      await page.goto(optionsUrl, { waitUntil: "domcontentloaded" })
-      await page.waitForSelector("#root", { state: "attached", timeout: 15000 })
-
-      // Bypass onboarding by forcing connected state and setting model
-      await waitForConnectionStore(page, "throughput-test-init")
-      await forceConnected(page, { serverUrl: SERVER_URL }, "throughput-test-connected")
-      await setSelectedModel(page, "gpt-4")
-
-      // Reload page so Plasmo's useStorage reads the model from chrome.storage.local on mount
-      await page.reload({ waitUntil: "domcontentloaded" })
-      await page.waitForSelector("#root", { state: "attached", timeout: 15000 })
-
-      // Re-apply connection state after reload
-      await waitForConnectionStore(page, "throughput-test-after-reload")
-      await forceConnected(page, { serverUrl: SERVER_URL }, "throughput-test-reconnected")
-      await page.waitForTimeout(300)
-
-      const inputSelector = 'textarea[placeholder*="message"], input[placeholder*="message"]'
-      await page.waitForSelector(inputSelector, { state: "visible", timeout: 10000 })
+      const inputSelector = await setupConnectedChat(page, optionsUrl, "throughput-test")
 
       // Request a longer response for throughput measurement
+      const reportStartTime = performance.now()
       const input = page.locator(inputSelector).first()
       await input.fill("Write a 200-word essay about the benefits of performance testing")
       await input.press("Enter")
@@ -205,7 +188,7 @@ test.describe("Streaming Performance", () => {
           value: totalTokens,
           unit: " tokens"
         }
-      ], performance.now())
+      ], reportStartTime)
 
       logReport(report)
 
@@ -220,35 +203,18 @@ test.describe("Streaming Performance", () => {
   test("memory stays stable during streaming", async () => {
     const { context, page, optionsUrl } = await launchWithExtension(TEST_EXT_PATH, {
       seedConfig: {
-        serverUrl: SERVER_URL,
+        serverUrl: SERVER_URL!,
         authMode: "single-user",
-        apiKey: API_KEY,
+        apiKey: API_KEY!,
         selectedModel: "gpt-4"
       }
     })
 
     try {
-      await page.goto(optionsUrl, { waitUntil: "domcontentloaded" })
-      await page.waitForSelector("#root", { state: "attached", timeout: 15000 })
-
-      // Bypass onboarding by forcing connected state and setting model
-      await waitForConnectionStore(page, "memory-test-init")
-      await forceConnected(page, { serverUrl: SERVER_URL }, "memory-test-connected")
-      await setSelectedModel(page, "gpt-4")
-
-      // Reload page so Plasmo's useStorage reads the model from chrome.storage.local on mount
-      await page.reload({ waitUntil: "domcontentloaded" })
-      await page.waitForSelector("#root", { state: "attached", timeout: 15000 })
-
-      // Re-apply connection state after reload
-      await waitForConnectionStore(page, "memory-test-after-reload")
-      await forceConnected(page, { serverUrl: SERVER_URL }, "memory-test-reconnected")
-      await page.waitForTimeout(300)
-
-      const inputSelector = 'textarea[placeholder*="message"], input[placeholder*="message"]'
-      await page.waitForSelector(inputSelector, { state: "visible", timeout: 10000 })
+      const inputSelector = await setupConnectedChat(page, optionsUrl, "memory-test")
 
       // Measure memory during a chat exchange
+      const reportStartTime = performance.now()
       const { beforeMB, afterMB, deltaMB } = await measureMemoryDelta(page, async () => {
         const input = page.locator(inputSelector).first()
 
@@ -279,7 +245,7 @@ test.describe("Streaming Performance", () => {
           unit: "MB",
           target: TARGETS.memoryDeltaMB
         }
-      ], performance.now())
+      ], reportStartTime)
 
       logReport(report)
 
@@ -300,34 +266,17 @@ test.describe("Streaming Performance", () => {
   test("cancellation works cleanly", async () => {
     const { context, page, optionsUrl } = await launchWithExtension(TEST_EXT_PATH, {
       seedConfig: {
-        serverUrl: SERVER_URL,
+        serverUrl: SERVER_URL!,
         authMode: "single-user",
-        apiKey: API_KEY,
+        apiKey: API_KEY!,
         selectedModel: "gpt-4"
       }
     })
 
     try {
-      await page.goto(optionsUrl, { waitUntil: "domcontentloaded" })
-      await page.waitForSelector("#root", { state: "attached", timeout: 15000 })
+      const inputSelector = await setupConnectedChat(page, optionsUrl, "cancel-test")
 
-      // Bypass onboarding by forcing connected state and setting model
-      await waitForConnectionStore(page, "cancel-test-init")
-      await forceConnected(page, { serverUrl: SERVER_URL }, "cancel-test-connected")
-      await setSelectedModel(page, "gpt-4")
-
-      // Reload page so Plasmo's useStorage reads the model from chrome.storage.local on mount
-      await page.reload({ waitUntil: "domcontentloaded" })
-      await page.waitForSelector("#root", { state: "attached", timeout: 15000 })
-
-      // Re-apply connection state after reload
-      await waitForConnectionStore(page, "cancel-test-after-reload")
-      await forceConnected(page, { serverUrl: SERVER_URL }, "cancel-test-reconnected")
-      await page.waitForTimeout(300)
-
-      const inputSelector = 'textarea[placeholder*="message"], input[placeholder*="message"]'
-      await page.waitForSelector(inputSelector, { state: "visible", timeout: 10000 })
-
+      const reportStartTime = performance.now()
       const timer = new PerfTimer()
       timer.start()
 
@@ -362,7 +311,7 @@ test.describe("Streaming Performance", () => {
             unit: "ms",
             target: 1000 // Should be responsive
           }
-        ], timer.startTime)
+        ], reportStartTime)
 
         logReport(report)
 
@@ -378,36 +327,21 @@ test.describe("Streaming Performance", () => {
 })
 
 test.describe("Sidepanel Streaming Performance", () => {
+  test.skip(!SERVER_URL || !API_KEY, REQUIRE_ENV_REASON)
+
   test("sidepanel TTFT matches options page", async () => {
     const { context, openSidepanel } = await launchWithExtension(TEST_EXT_PATH, {
       seedConfig: {
-        serverUrl: SERVER_URL,
+        serverUrl: SERVER_URL!,
         authMode: "single-user",
-        apiKey: API_KEY,
+        apiKey: API_KEY!,
         selectedModel: "gpt-4"
       }
     })
 
     try {
       const sidepanel = await openSidepanel()
-      await sidepanel.waitForSelector("#root", { state: "attached", timeout: 15000 })
-
-      // Bypass onboarding by forcing connected state and setting model
-      await waitForConnectionStore(sidepanel, "sidepanel-ttft-init")
-      await forceConnected(sidepanel, { serverUrl: SERVER_URL }, "sidepanel-ttft-connected")
-      await setSelectedModel(sidepanel, "gpt-4")
-
-      // Reload page so Plasmo's useStorage reads the model from chrome.storage.local on mount
-      await sidepanel.reload({ waitUntil: "domcontentloaded" })
-      await sidepanel.waitForSelector("#root", { state: "attached", timeout: 15000 })
-
-      // Re-apply connection state after reload
-      await waitForConnectionStore(sidepanel, "sidepanel-ttft-after-reload")
-      await forceConnected(sidepanel, { serverUrl: SERVER_URL }, "sidepanel-ttft-reconnected")
-      await sidepanel.waitForTimeout(300)
-
-      const inputSelector = 'textarea[placeholder*="message"], input[placeholder*="message"]'
-      await sidepanel.waitForSelector(inputSelector, { state: "visible", timeout: 10000 })
+      const inputSelector = await setupConnectedChat(sidepanel, undefined, "sidepanel-ttft")
 
       const timer = new PerfTimer()
       timer.start()
@@ -440,7 +374,7 @@ test.describe("Sidepanel Streaming Performance", () => {
         }
       }
 
-      const ttft = timer.sinceMark("sent")
+      const ttft = timer.betweenMarks("sent", "response")
 
       // Log but don't fail if no server is available (TTFT will be ~10s timeout)
       console.log(`Sidepanel TTFT: ${ttft.toFixed(0)}ms`)

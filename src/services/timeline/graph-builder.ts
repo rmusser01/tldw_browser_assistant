@@ -123,15 +123,15 @@ export class TimelineGraphBuilder {
   private async getAllMessagesFromHistories(
     historyIds: string[]
   ): Promise<Message[]> {
-    const allMessages: Message[] = []
-
-    for (const historyId of historyIds) {
-      const messages = await db.messages
-        .where('history_id')
-        .equals(historyId)
-        .toArray()
-      allMessages.push(...messages)
-    }
+    const messageArrays = await Promise.all(
+      historyIds.map((historyId) =>
+        db.messages
+          .where("history_id")
+          .equals(historyId)
+          .toArray()
+      )
+    )
+    const allMessages: Message[] = messageArrays.flat()
 
     // Sort by timestamp to maintain order
     return allMessages.sort((a, b) => a.createdAt - b.createdAt)
@@ -155,6 +155,12 @@ export class TimelineGraphBuilder {
     // Track content+depth -> node ID (for merging identical messages)
     const contentDepthToNodeMap = new Map<string, string>()
 
+    // Pre-build a map for O(1) parent lookups when computing depth
+    const messageById = new Map<string, Message>()
+    for (const msg of messages) {
+      messageById.set(msg.id, msg)
+    }
+
     // Create root node
     const rootNode: TimelineNode = {
       id: 'root',
@@ -162,7 +168,7 @@ export class TimelineGraphBuilder {
       depth: 0,
       content: '',
       role: 'system',
-      timestamp: Math.min(...messages.map(m => m.createdAt)),
+      timestamp: messages.length > 0 ? Math.min(...messages.map(m => m.createdAt)) : Date.now(),
       history_ids: histories.map(h => h.id),
       message_ids: [],
       is_current: false,
@@ -179,7 +185,7 @@ export class TimelineGraphBuilder {
     // Process messages to build nodes
     for (const message of messages) {
       // Compute depth (distance from root)
-      const depth = this.computeDepth(message, messages) + 1
+      const depth = this.computeDepth(message, messageById) + 1
 
       // Check if we should merge with existing node (same content at same depth)
       const contentKey = `${message.content.trim()}:${depth}`
@@ -271,12 +277,23 @@ export class TimelineGraphBuilder {
   /**
    * Compute the depth of a message in the conversation tree
    */
-  private computeDepth(message: Message, allMessages: Message[]): number {
+  private computeDepth(
+    message: Message,
+    messageById: Map<string, Message>
+  ): number {
     let depth = 0
     let currentMsg = message
+    const visited = new Set<string>()
 
     while (currentMsg.parent_message_id) {
-      const parent = allMessages.find(m => m.id === currentMsg.parent_message_id)
+      if (visited.has(currentMsg.id)) {
+        console.warn('Cycle detected in message chain:', currentMsg.id)
+        break
+      }
+      visited.add(currentMsg.id)
+      const parent = currentMsg.parent_message_id
+        ? messageById.get(currentMsg.parent_message_id)
+        : undefined
       if (!parent) break
       depth++
       currentMsg = parent

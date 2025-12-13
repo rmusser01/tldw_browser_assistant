@@ -5,13 +5,14 @@
  * during Playwright tests against the extension.
  */
 
-import { Page } from "@playwright/test"
+import { Page, Request } from "@playwright/test"
 
 export interface PerformanceMetrics {
   name: string
   value: number
   unit: string
   target?: number
+  higherIsBetter?: boolean
   passed?: boolean
 }
 
@@ -52,6 +53,10 @@ export class PerfTimer {
     const endTime = this.marks.get(end)
     if (!startTime || !endTime) return -1
     return endTime - startTime
+  }
+
+  getStartTime(): number {
+    return this.startTime
   }
 }
 
@@ -133,9 +138,12 @@ export async function measureStreamingThroughput(
     return { tokensPerSecond: 0, totalTokens: lastLength }
   }
 
+  // Note: Token estimation uses ~4 chars/token which is approximate for English text
+  // Actual tokenization varies by model and language
   // Estimate tokens (roughly 4 chars per token)
+  const CHARS_PER_TOKEN = 4 // Approximate for English; adjust as needed
   const totalChars = samples[samples.length - 1].length - samples[0].length
-  const totalTokens = Math.ceil(totalChars / 4)
+  const totalTokens = Math.ceil(totalChars / CHARS_PER_TOKEN)
   const elapsedSeconds = (samples[samples.length - 1].time - samples[0].time) / 1000
 
   return {
@@ -313,7 +321,7 @@ export async function trackNetworkRequests(
   const requests: string[] = []
   const byType: Record<string, number> = {}
 
-  const handler = (request: any) => {
+  const handler = (request: Request) => {
     const url = request.url()
     requests.push(url)
 
@@ -354,7 +362,12 @@ export function createReport(
   // Evaluate pass/fail for each metric
   const evaluatedMetrics = metrics.map((m) => ({
     ...m,
-    passed: m.target !== undefined ? m.value <= m.target : undefined
+    passed:
+      m.target !== undefined
+        ? m.higherIsBetter
+          ? m.value >= m.target
+          : m.value <= m.target
+        : undefined
   }))
 
   return {

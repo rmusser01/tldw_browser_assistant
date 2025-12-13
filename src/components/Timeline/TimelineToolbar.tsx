@@ -27,11 +27,13 @@ const { Text } = Typography
 
 export const TimelineToolbar: React.FC = () => {
   const {
+    graph,
     searchQuery,
     searchResults,
     searchMode,
     settings,
     isLoading,
+    error,
     setSearchQuery,
     setSearchMode,
     clearSearch,
@@ -45,6 +47,12 @@ export const TimelineToolbar: React.FC = () => {
 
   const hasSearchResults = searchResults.length > 0
   const hasSearch = searchQuery.trim().length > 0
+  const canZoom = Boolean(graph) && !isLoading && !error
+
+  const zoomTo = React.useCallback((nextZoom: number) => {
+    const clamped = Math.min(settings.maxZoom, Math.max(settings.minZoom, nextZoom))
+    updateSettings({ zoomLevel: clamped })
+  }, [settings.maxZoom, settings.minZoom, updateSettings])
 
   return (
     <div className="timeline-toolbar">
@@ -75,6 +83,7 @@ export const TimelineToolbar: React.FC = () => {
             ]}
           />
           <Input
+            id="timeline-search-input"
             className="timeline-search-input"
             placeholder="Search messages... (space = AND)"
             prefix={<SearchOutlined />}
@@ -158,89 +167,20 @@ export const TimelineToolbar: React.FC = () => {
             <Tooltip title="Zoom in">
               <Button
                 icon={<ZoomInOutlined />}
-                onClick={() => {
-                  // Cytoscape zoom will be handled in GraphCanvas
-                  // This is a placeholder for direct zoom control
-                }}
+                disabled={!canZoom}
+                onClick={() => zoomTo(settings.zoomLevel * 1.2)}
               />
             </Tooltip>
             <Tooltip title="Zoom out">
               <Button
                 icon={<ZoomOutOutlined />}
-                onClick={() => {
-                  // Placeholder
-                }}
+                disabled={!canZoom}
+                onClick={() => zoomTo(settings.zoomLevel / 1.2)}
               />
             </Tooltip>
           </Button.Group>
         </Space>
       </div>
-
-      {/* Styles */}
-      <style>{`
-        .timeline-toolbar {
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-          padding: 12px 16px;
-          background: var(--bg-tertiary, #262626);
-          border-bottom: 1px solid var(--border-color, #333);
-          gap: 16px;
-        }
-
-        .toolbar-left {
-          display: flex;
-          align-items: center;
-        }
-
-        .toolbar-center {
-          display: flex;
-          align-items: center;
-          flex: 1;
-          justify-content: center;
-        }
-
-        .toolbar-right {
-          display: flex;
-          align-items: center;
-        }
-
-        .timeline-search-input {
-          border-radius: 0;
-        }
-
-        .timeline-search-input input {
-          background: var(--bg-primary, #1a1a1a);
-        }
-
-        /* Dark mode */
-        .dark .timeline-toolbar {
-          background: #262626;
-          border-bottom-color: #333;
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-          .timeline-toolbar {
-            flex-wrap: wrap;
-            gap: 8px;
-          }
-
-          .toolbar-center {
-            order: 3;
-            flex-basis: 100%;
-            justify-content: stretch;
-          }
-
-          .toolbar-center .ant-space-compact {
-            width: 100% !important;
-          }
-
-          .toolbar-center .ant-input {
-            flex: 1;
-          }
-        }
-      `}</style>
     </div>
   )
 }

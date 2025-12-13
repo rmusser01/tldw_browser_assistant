@@ -23,7 +23,10 @@ import {
 const TEST_EXT_PATH = path.resolve("build/chrome-mv3")
 const DEFAULT_SERVER_URL = "http://localhost:8000"
 const SERVER_URL = process.env.TLDW_E2E_SERVER_URL || DEFAULT_SERVER_URL
-const API_KEY = process.env.TLDW_E2E_API_KEY || "test-api-key"
+const API_KEY = process.env.TLDW_E2E_API_KEY
+if (!API_KEY) {
+  throw new Error("TLDW_E2E_API_KEY must be set for performance-virtualization e2e tests")
+}
 
 // Performance targets
 const TARGETS = {
@@ -82,7 +85,7 @@ test.describe("List Virtualization Performance", () => {
           unit: "ms",
           target: TARGETS.coldStartMs
         }
-      ], timer.startTime)
+      ], timer.getStartTime())
 
       logReport(report)
 
@@ -148,8 +151,11 @@ test.describe("List Virtualization Performance", () => {
       }
 
       if (!containerSelector) {
-        console.log("Could not find scrollable container, skipping scroll test")
-        return
+        throw new Error(
+          `Could not find scrollable container: expected one of [${containerSelectors.join(
+            ", "
+          )}]`
+        )
       }
 
       // Measure scroll performance
@@ -338,7 +344,7 @@ test.describe("List Virtualization Performance", () => {
           unit: "ms",
           target: TARGETS.coldStartMs
         }
-      ], timer.startTime)
+      ], timer.getStartTime())
 
       logReport(report)
 

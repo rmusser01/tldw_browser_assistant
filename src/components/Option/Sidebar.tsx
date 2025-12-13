@@ -33,8 +33,8 @@ import { useNavigate } from "react-router-dom"
 import { useTranslation } from "react-i18next"
 import { lastUsedChatModelEnabled } from "@/services/model-settings"
 import { useDebounce } from "@/hooks/useDebounce"
-import { useState, useEffect } from "react"
-import { FolderTree, FolderToolbar, FolderPicker } from "@/components/Folders"
+import React, { useState, useEffect } from "react"
+import { FolderTree, FolderToolbar } from "@/components/Folders"
 import { useFolderStore, useFolderViewMode, useFolderActions } from "@/store/folder"
 import { PageAssistDatabase } from "@/db/dexie/chat"
 import {
@@ -89,6 +89,13 @@ export const Sidebar = ({
   isOpen,
   setContext
 }: Props) => {
+  const FolderPicker = React.useMemo(
+    () =>
+      React.lazy(
+        () => import("@/components/Folders/FolderPicker").then((m) => ({ default: m.FolderPicker }))
+      ),
+    []
+  )
   const { t } = useTranslation(["option", "common"])
   const client = useQueryClient()
   const navigate = useNavigate()
@@ -102,16 +109,19 @@ export const Sidebar = ({
 
   // Folder system state
   const viewMode = useFolderViewMode()
-  const { refreshFromServer, addConversationToFolder } = useFolderActions()
+  const folderKeywordLinks = useFolderStore((s) => s.folderKeywordLinks)
+  const conversationKeywordLinks = useFolderStore((s) => s.conversationKeywordLinks)
+  const { refreshFromServer, addConversationToFolder, removeConversationFromFolder } =
+    useFolderActions()
   const [folderPickerOpen, setFolderPickerOpen] = useState(false)
   const [folderPickerChatId, setFolderPickerChatId] = useState<string | null>(null)
 
-  // Load folders on mount when connected
+  // Load folders when the sidebar is open and folder view is active.
   useEffect(() => {
-    if (isConnected && isOpen) {
+    if (isConnected && isOpen && viewMode === "folders") {
       refreshFromServer()
     }
-  }, [isConnected, isOpen])
+  }, [isConnected, isOpen, viewMode, refreshFromServer])
   const {
     serverChatId,
     setServerChatId,
@@ -380,16 +390,255 @@ export const Sidebar = ({
     }
   }
 
+  const loadLocalConversation = React.useCallback(
+    async (conversationId: string) => {
+      try {
+        const db = new PageAssistDatabase()
+        const [history, historyDetails] = await Promise.all([
+          db.getChatHistory(conversationId),
+          db.getHistoryInfo(conversationId)
+        ])
+
+        // Switch to a local Dexie-backed chat; clear any active server-backed session id.
+        setServerChatId(null)
+        setHistoryId(conversationId)
+        setHistory(formatToChatHistory(history))
+        setMessages(formatToMessage(history))
+
+        const isLastUsedChatModel = await lastUsedChatModelEnabled()
+        if (isLastUsedChatModel && historyDetails?.model_id) {
+          setSelectedModel(historyDetails.model_id)
+        }
+
+        const lastUsedPrompt = historyDetails?.last_used_prompt
+        if (lastUsedPrompt) {
+          if (lastUsedPrompt.prompt_id) {
+            const prompt = await getPromptById(lastUsedPrompt.prompt_id)
+            if (prompt) {
+              setSelectedSystemPrompt(lastUsedPrompt.prompt_id)
+            }
+          }
+          setSystemPrompt(lastUsedPrompt.prompt_content)
+        }
+
+        if (setContext) {
+          const session = await getSessionFiles(conversationId)
+          setContext(session)
+        }
+
+        updatePageTitle(
+          historyDetails?.title || t("common:untitled", { defaultValue: "Untitled" })
+        )
+        navigate("/")
+        onClose()
+
+        return { history, historyDetails }
+      } catch (error) {
+        console.error("Failed to load local chat history:", error)
+        message.error(
+          t("common:error.friendlyGenericSummary", {
+            defaultValue: "Something went wrong while talking to your tldw server."
+          })
+        )
+        return null
+      }
+    },
+    [
+      navigate,
+      onClose,
+      setContext,
+      setHistory,
+      setHistoryId,
+      setMessages,
+      setSelectedModel,
+      setSelectedSystemPrompt,
+      setServerChatId,
+      setSystemPrompt,
+      t
+    ]
+  )
+
   // Handle folder selection for a chat
   const handleFolderSelect = async (folderIds: number[]) => {
-    if (!folderPickerChatId) return
-    for (const folderId of folderIds) {
-      await addConversationToFolder(folderPickerChatId, folderId)
+    const conversationId = folderPickerChatId
+    try {
+      if (!conversationId) return
+
+      const uniqueFolderIds = Array.from(new Set(folderIds))
+      const results = await Promise.allSettled(
+        uniqueFolderIds.map((folderId) =>
+          addConversationToFolder(conversationId, folderId)
+        )
+      )
+
+      const succeededFolderIds: number[] = []
+      const failedFolderAdds: Array<{ folderId: number; reason: unknown }> = []
+
+      results.forEach((result, index) => {
+        const folderId = uniqueFolderIds[index]
+        if (result.status === "fulfilled" && result.value) {
+          succeededFolderIds.push(folderId)
+          return
+        }
+
+        failedFolderAdds.push({
+          folderId,
+          reason:
+            result.status === "rejected"
+              ? result.reason
+              : "addConversationToFolder returned false"
+        })
+      })
+
+      if (failedFolderAdds.length > 0) {
+        console.error("Failed to move chat to folder(s):", {
+          conversationId,
+          failedFolderAdds,
+          succeededFolderIds
+        })
+
+        if (succeededFolderIds.length > 0) {
+          const rollbackResults = await Promise.allSettled(
+            succeededFolderIds.map((folderId) =>
+              removeConversationFromFolder(conversationId, folderId)
+            )
+          )
+
+          const rollbackFailures: Array<{ folderId: number; reason: unknown }> =
+            []
+
+          rollbackResults.forEach((result, index) => {
+            const folderId = succeededFolderIds[index]
+            if (result.status === "fulfilled" && result.value) {
+              return
+            }
+
+            rollbackFailures.push({
+              folderId,
+              reason:
+                result.status === "rejected"
+                  ? result.reason
+                  : "removeConversationFromFolder returned false"
+            })
+          })
+
+          if (rollbackFailures.length > 0) {
+            console.error("Failed to rollback folder move after errors:", {
+              conversationId,
+              rollbackFailures
+            })
+          }
+        }
+
+        message.error(
+          t("common:error.friendlyGenericSummary", {
+            defaultValue: "Something went wrong while talking to your tldw server."
+          })
+        )
+        return
+      }
+
+      message.success(t("common:success"))
+    } catch (error) {
+      console.error("Failed to move chat to folder(s):", error)
+      message.error(
+        t("common:error.friendlyGenericSummary", {
+          defaultValue: "Something went wrong while talking to your tldw server."
+        })
+      )
+    } finally {
+      setFolderPickerOpen(false)
+      setFolderPickerChatId(null)
     }
-    setFolderPickerOpen(false)
-    setFolderPickerChatId(null)
-    message.success(t("common:success"))
   }
+
+  const folderConversationIds = React.useMemo(() => {
+    if (folderKeywordLinks.length === 0 || conversationKeywordLinks.length === 0) {
+      return []
+    }
+
+    const folderKeywordIdSet = new Set(
+      folderKeywordLinks.map((link) => link.keyword_id)
+    )
+
+    const conversationIdSet = new Set<string>()
+    conversationKeywordLinks.forEach((link) => {
+      if (folderKeywordIdSet.has(link.keyword_id)) {
+        conversationIdSet.add(link.conversation_id)
+      }
+    })
+
+    return Array.from(conversationIdSet)
+  }, [conversationKeywordLinks, folderKeywordLinks])
+
+  const loadedConversationTitleById = React.useMemo(() => {
+    const titleById = new Map<string, string>()
+    chatHistories.forEach((group) => {
+      group.items.forEach((item) => {
+        if (item?.id) {
+          titleById.set(String(item.id), String(item.title ?? ""))
+        }
+      })
+    })
+    return titleById
+  }, [chatHistories])
+
+  const missingFolderConversationIds = React.useMemo(() => {
+    return folderConversationIds.filter(
+      (conversationId) => !loadedConversationTitleById.has(conversationId)
+    )
+  }, [folderConversationIds, loadedConversationTitleById])
+
+  const { data: missingFolderConversationTitles = [] } = useQuery({
+    queryKey: ["folderConversationTitles", missingFolderConversationIds],
+    queryFn: async () => {
+      const db = new PageAssistDatabase()
+      const results = await Promise.all(
+        missingFolderConversationIds.map(async (conversationId) => {
+          try {
+            const historyInfo = await db.getHistoryInfo(conversationId)
+            return {
+              id: conversationId,
+              title: historyInfo?.title || ""
+            }
+          } catch (error) {
+            console.error(
+              "Failed to load local history info for folder conversation:",
+              conversationId,
+              error
+            )
+            return {
+              id: conversationId,
+              title: ""
+            }
+          }
+        })
+      )
+      return results
+    },
+    enabled:
+      isOpen &&
+      isConnected &&
+      viewMode === "folders" &&
+      missingFolderConversationIds.length > 0,
+    staleTime: 30_000
+  })
+
+  const folderTreeConversations = React.useMemo(() => {
+    const titleById = new Map<string, string>(loadedConversationTitleById)
+    missingFolderConversationTitles.forEach((entry) => {
+      titleById.set(entry.id, entry.title)
+    })
+
+    return folderConversationIds.map((conversationId) => ({
+      id: conversationId,
+      title: titleById.get(conversationId) || ""
+    }))
+  }, [
+    folderConversationIds,
+    loadedConversationTitleById,
+    missingFolderConversationTitles
+  ])
 
   return (
     <div
@@ -512,43 +761,8 @@ export const Sidebar = ({
                     )}
                     <button
                       className="flex-1 overflow-hidden text-start w-full min-w-0"
-                      onClick={async () => {
-                        const db = new PageAssistDatabase()
-                        const history = await db.getChatHistory(chat.id)
-                        const historyDetails = await db.getHistoryInfo(chat.id)
-                        // Switch to a local Dexie-backed chat; clear any active server-backed session id.
-                        setServerChatId(null)
-                        setHistoryId(chat.id)
-                        setHistory(formatToChatHistory(history))
-                        setMessages(formatToMessage(history))
-                        const isLastUsedChatModel =
-                          await lastUsedChatModelEnabled()
-                        if (isLastUsedChatModel) {
-                          const currentChatModel = historyDetails?.model_id
-                          if (currentChatModel) {
-                            setSelectedModel(currentChatModel)
-                          }
-                        }
-                        const lastUsedPrompt = historyDetails?.last_used_prompt
-                        if (lastUsedPrompt) {
-                          if (lastUsedPrompt.prompt_id) {
-                            const prompt = await getPromptById(
-                              lastUsedPrompt.prompt_id
-                            )
-                            if (prompt) {
-                              setSelectedSystemPrompt(lastUsedPrompt.prompt_id)
-                            }
-                          }
-                          setSystemPrompt(lastUsedPrompt.prompt_content)
-                        }
-
-                        if (setContext) {
-                          const session = await getSessionFiles(chat.id)
-                          setContext(session)
-                        }
-                        updatePageTitle(chat.title)
-                        navigate("/")
-                        onClose()
+                      onClick={() => {
+                        void loadLocalConversation(chat.id)
                       }}>
                       <div className="flex flex-col gap-0.5">
                         <span className="truncate font-medium">{chat.title}</span>
@@ -834,61 +1048,33 @@ export const Sidebar = ({
         </div>
       )}
 
-      {/* Folder Tree View - shown when viewMode is 'folders' */}
-      {isConnected && viewMode === 'folders' && (
-        <div className="mt-4 border-t border-gray-200 dark:border-gray-800 pt-3">
-          <FolderTree
-            onConversationSelect={async (conversationId) => {
-              const db = new PageAssistDatabase()
-              const history = await db.getChatHistory(conversationId)
-              const historyDetails = await db.getHistoryInfo(conversationId)
-              setServerChatId(null)
-              setHistoryId(conversationId)
-              setHistory(formatToChatHistory(history))
-              setMessages(formatToMessage(history))
-              const isLastUsedChatModel = await lastUsedChatModelEnabled()
-              if (isLastUsedChatModel && historyDetails?.model_id) {
-                setSelectedModel(historyDetails.model_id)
-              }
-              if (historyDetails?.last_used_prompt) {
-                if (historyDetails.last_used_prompt.prompt_id) {
-                  const prompt = await getPromptById(historyDetails.last_used_prompt.prompt_id)
-                  if (prompt) {
-                    setSelectedSystemPrompt(historyDetails.last_used_prompt.prompt_id)
-                  }
-                }
-                setSystemPrompt(historyDetails.last_used_prompt.prompt_content)
-              }
-              if (setContext) {
-                const session = await getSessionFiles(conversationId)
-                setContext(session)
-              }
-              const chatInfo = await db.getHistoryInfo(conversationId)
-              updatePageTitle(chatInfo?.title)
-              navigate("/")
-              onClose()
-            }}
-            conversations={chatHistories.flatMap(g => g.items.map(item => ({
-              id: item.id,
-              title: item.title
-            })))}
-            showConversations
-          />
-        </div>
-      )}
+	      {/* Folder Tree View - shown when viewMode is 'folders' */}
+	      {isConnected && viewMode === 'folders' && (
+	        <div className="mt-4 border-t border-gray-200 dark:border-gray-800 pt-3">
+	          <FolderTree
+	            onConversationSelect={(conversationId) => {
+	              void loadLocalConversation(conversationId)
+	            }}
+	            conversations={folderTreeConversations}
+	            showConversations
+	          />
+	        </div>
+	      )}
 
       {/* Folder Picker Modal */}
-      <FolderPicker
-        open={folderPickerOpen}
-        onClose={() => {
-          setFolderPickerOpen(false)
-          setFolderPickerChatId(null)
-        }}
-        onSelect={handleFolderSelect}
-        title={t("common:moveToFolder")}
-        allowMultiple
-        showCreateNew
-      />
+      <React.Suspense fallback={null}>
+        <FolderPicker
+          open={folderPickerOpen}
+          onClose={() => {
+            setFolderPickerOpen(false)
+            setFolderPickerChatId(null)
+          }}
+          onSelect={handleFolderSelect}
+          title={t("common:moveToFolder")}
+          allowMultiple
+          showCreateNew
+        />
+      </React.Suspense>
     </div>
   )
 }

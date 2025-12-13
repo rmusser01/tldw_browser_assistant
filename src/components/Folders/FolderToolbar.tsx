@@ -21,6 +21,7 @@ import {
 import { useFolderStore, useFolderActions, useFolderViewMode, useFolderIsLoading } from "@/store/folder"
 import { useTranslation } from "react-i18next"
 import { useState } from "react"
+import { useAntdMessage } from "@/hooks/useAntdMessage"
 
 interface FolderToolbarProps {
   compact?: boolean
@@ -28,6 +29,7 @@ interface FolderToolbarProps {
 
 export const FolderToolbar = ({ compact = false }: FolderToolbarProps) => {
   const { t } = useTranslation()
+  const message = useAntdMessage()
   const viewMode = useFolderViewMode()
   const isLoading = useFolderIsLoading()
   const {
@@ -51,6 +53,12 @@ export const FolderToolbar = ({ compact = false }: FolderToolbarProps) => {
       await createFolder(newFolderName.trim())
       setNewFolderName("")
       setNewFolderModalOpen(false)
+    } catch (e: any) {
+      // Surface folder creation failures so users aren't left without feedback.
+      // If this becomes noisy, we can refine the error messaging based on error codes.
+      // eslint-disable-next-line no-console
+      console.error("Failed to create folder:", e)
+      message.error(e?.message || "Failed to create folder")
     } finally {
       setIsCreating(false)
     }
@@ -90,6 +98,7 @@ export const FolderToolbar = ({ compact = false }: FolderToolbarProps) => {
               ? <Calendar className="w-4 h-4" />
               : <Folder className="w-4 h-4" />
             }
+            aria-label={viewMode === 'folders' ? t("common:dateView") : t("common:folderView")}
             onClick={() => setViewMode(viewMode === 'folders' ? 'date' : 'folders')}
           />
         </Tooltip>
@@ -100,6 +109,7 @@ export const FolderToolbar = ({ compact = false }: FolderToolbarProps) => {
                 type="text"
                 size="small"
                 icon={<FolderPlus className="w-4 h-4" />}
+                aria-label={t("common:newFolder")}
                 onClick={() => setNewFolderModalOpen(true)}
               />
             </Tooltip>
@@ -108,6 +118,7 @@ export const FolderToolbar = ({ compact = false }: FolderToolbarProps) => {
                 type="text"
                 size="small"
                 icon={<MoreHorizontal className="w-4 h-4" />}
+                aria-label={t("option:moreActions")}
               />
             </Dropdown>
           </>
@@ -147,6 +158,7 @@ export const FolderToolbar = ({ compact = false }: FolderToolbarProps) => {
                 type="text"
                 size="small"
                 icon={<FolderPlus className="w-4 h-4" />}
+                aria-label={t("common:newFolder")}
                 onClick={() => setNewFolderModalOpen(true)}
               />
             </Tooltip>
@@ -155,6 +167,7 @@ export const FolderToolbar = ({ compact = false }: FolderToolbarProps) => {
                 type="text"
                 size="small"
                 icon={<ChevronDown className="w-4 h-4" />}
+                aria-label={t("common:expandAll")}
                 onClick={expandAllFolders}
               />
             </Tooltip>
@@ -163,6 +176,7 @@ export const FolderToolbar = ({ compact = false }: FolderToolbarProps) => {
                 type="text"
                 size="small"
                 icon={<ChevronRight className="w-4 h-4" />}
+                aria-label={t("common:collapseAll")}
                 onClick={collapseAllFolders}
               />
             </Tooltip>
@@ -171,6 +185,7 @@ export const FolderToolbar = ({ compact = false }: FolderToolbarProps) => {
                 type="text"
                 size="small"
                 icon={<RefreshCw className={`w-4 h-4 ${isLoading ? 'animate-spin' : ''}`} />}
+                aria-label={t("common:refresh")}
                 onClick={refreshFromServer}
                 loading={isLoading}
               />

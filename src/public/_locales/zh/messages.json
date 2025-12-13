@@ -158,5 +158,44 @@
   "omniSearchCreateFlashcardsSuccess": {
     "message": "已创建抽认卡集合“{{query}}”",
     "description": "Confirmation toast message shown after creating a flashcard collection from omni-search."
+  },
+  "folders": {
+    "message": "Folders"
+  },
+  "folderView": {
+    "message": "Folder view"
+  },
+  "dateView": {
+    "message": "Date view"
+  },
+  "newFolder": {
+    "message": "New Folder"
+  },
+  "folderName": {
+    "message": "Folder name"
+  },
+  "selectFolder": {
+    "message": "Select folder"
+  },
+  "noFolders": {
+    "message": "No folders"
+  },
+  "expandAll": {
+    "message": "Expand all"
+  },
+  "collapseAll": {
+    "message": "Collapse all"
+  },
+  "refresh": {
+    "message": "Refresh"
+  },
+  "confirm": {
+    "message": "Confirm"
+  },
+  "untitled": {
+    "message": "Untitled"
+  },
+  "moveToFolder": {
+    "message": "Move to folder"
   }
 }

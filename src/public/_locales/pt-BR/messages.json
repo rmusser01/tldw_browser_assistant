@@ -1122,5 +1122,44 @@
   },
   "restartOnboardingToastBody": {
     "message": "Vamos levá‑lo de volta à etapa de boas‑vindas para que você possa revisar a URL do servidor e a chave de API."
+  },
+  "folders": {
+    "message": "Folders"
+  },
+  "folderView": {
+    "message": "Folder view"
+  },
+  "dateView": {
+    "message": "Date view"
+  },
+  "newFolder": {
+    "message": "New Folder"
+  },
+  "folderName": {
+    "message": "Folder name"
+  },
+  "selectFolder": {
+    "message": "Select folder"
+  },
+  "noFolders": {
+    "message": "No folders"
+  },
+  "expandAll": {
+    "message": "Expand all"
+  },
+  "collapseAll": {
+    "message": "Collapse all"
+  },
+  "refresh": {
+    "message": "Refresh"
+  },
+  "confirm": {
+    "message": "Confirm"
+  },
+  "untitled": {
+    "message": "Untitled"
+  },
+  "moveToFolder": {
+    "message": "Move to folder"
   }
 }

@@ -8,9 +8,10 @@
 import { Tree, Empty, Spin } from "antd"
 import type { TreeDataNode, TreeProps } from "antd"
 import { Folder, FolderOpen, ChevronRight, ChevronDown } from "lucide-react"
-import { useFolderStore, useFolderUIPrefs, type FolderTreeNode } from "@/store/folder"
+import { buildFolderTree, useFolderStore, useFolderUIPrefs, type FolderTreeNode } from "@/store/folder"
 import { useTranslation } from "react-i18next"
 import { useMemo, useCallback } from "react"
+import { useShallow } from "zustand/react/shallow"
 
 interface FolderTreeProps {
   onFolderSelect?: (folderId: number) => void
@@ -28,11 +29,52 @@ export const FolderTree = ({
   showConversations = true
 }: FolderTreeProps) => {
   const { t } = useTranslation()
-  const folderTree = useFolderStore((s) => s.getFolderTree())
-  const isLoading = useFolderStore((s) => s.isLoading)
   const uiPrefs = useFolderUIPrefs()
-  const toggleFolderOpen = useFolderStore((s) => s.toggleFolderOpen)
-  const getConversationsForFolder = useFolderStore((s) => s.getConversationsForFolder)
+  const {
+    folders,
+    keywords,
+    folderKeywordLinks,
+    conversationKeywordLinks,
+    isLoading,
+    toggleFolderOpen
+  } = useFolderStore(
+    useShallow((s) => ({
+      folders: s.folders,
+      keywords: s.keywords,
+      folderKeywordLinks: s.folderKeywordLinks,
+      conversationKeywordLinks: s.conversationKeywordLinks,
+      isLoading: s.isLoading,
+      toggleFolderOpen: s.toggleFolderOpen
+    }))
+  )
+
+  const folderTree = useMemo(
+    () => buildFolderTree(folders, keywords, folderKeywordLinks, conversationKeywordLinks),
+    [folders, keywords, folderKeywordLinks, conversationKeywordLinks]
+  )
+
+  const conversationIdsByFolderId = useMemo(() => {
+    const folderIdsByKeywordId = new Map<number, Set<number>>()
+    for (const link of folderKeywordLinks) {
+      const existing = folderIdsByKeywordId.get(link.keyword_id) ?? new Set<number>()
+      existing.add(link.folder_id)
+      folderIdsByKeywordId.set(link.keyword_id, existing)
+    }
+
+    const conversationIdsByFolder = new Map<number, Set<string>>()
+    for (const link of conversationKeywordLinks) {
+      const folderIds = folderIdsByKeywordId.get(link.keyword_id)
+      if (!folderIds) continue
+
+      for (const folderId of folderIds) {
+        const existing = conversationIdsByFolder.get(folderId) ?? new Set<string>()
+        existing.add(link.conversation_id)
+        conversationIdsByFolder.set(folderId, existing)
+      }
+    }
+
+    return conversationIdsByFolder
+  }, [folderKeywordLinks, conversationKeywordLinks])
 
   // Convert folder tree to Ant Design tree data
   const treeData = useMemo((): TreeDataNode[] => {
@@ -41,9 +83,9 @@ export const FolderTree = ({
       const color = uiPrefs[node.key]?.color
 
       // Get conversations for this folder
-      const folderConversationIds = getConversationsForFolder(node.key)
+      const folderConversationIds = conversationIdsByFolderId.get(node.key) ?? new Set<string>()
       const folderConversations = showConversations
-        ? conversations.filter(c => folderConversationIds.includes(c.id))
+        ? conversations.filter((c) => folderConversationIds.has(c.id))
         : []
 
       const children: TreeDataNode[] = [
@@ -92,7 +134,7 @@ export const FolderTree = ({
     }
 
     return folderTree.map(convertNode)
-  }, [folderTree, uiPrefs, conversations, showConversations, selectedFolderId, getConversationsForFolder, t])
+  }, [folderTree, uiPrefs, conversationIdsByFolderId, conversations, showConversations, selectedFolderId, t])
 
   // Expanded keys from UI prefs
   const expandedKeys = useMemo(() => {
@@ -102,7 +144,7 @@ export const FolderTree = ({
   }, [uiPrefs])
 
   // Handle expand/collapse
-  const handleExpand: TreeProps['onExpand'] = useCallback((keys, { node, expanded }) => {
+  const handleExpand: TreeProps['onExpand'] = useCallback((_keys, { node }) => {
     const folderId = typeof node.key === 'number' ? node.key : Number(node.key)
     if (!isNaN(folderId) && !String(node.key).startsWith('conv-')) {
       toggleFolderOpen(folderId)

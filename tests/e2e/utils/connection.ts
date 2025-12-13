@@ -175,16 +175,24 @@ export async function setSelectedModel(page: Page, model: string) {
       } else {
         // Fallback to local if sync not available
         // @ts-ignore
-        chrome?.storage?.local?.set?.({ selectedModel: JSON.stringify(modelId) }, () => {
+        if (chrome?.storage?.local?.set) {
+          // @ts-ignore
+          chrome.storage.local.set({ selectedModel: JSON.stringify(modelId) }, () => {
+            // eslint-disable-next-line no-console
+            console.log('MODEL_DEBUG: Fallback to chrome.storage.local selectedModel', modelId)
+            resolve()
+          })
+        } else {
           // eslint-disable-next-line no-console
-          console.log('MODEL_DEBUG: Fallback to chrome.storage.local selectedModel', modelId)
+          console.warn('MODEL_DEBUG: No chrome.storage available, skipping')
           resolve()
-        })
+        }
       }
     })
   }, { modelId: model })
 
-  // Wait for storage to persist
+  // Small delay to give chrome.storage time to persist and for Plasmo's
+  // useStorage hooks to observe the change before React mounts. If this
+  // ever becomes flaky in CI, consider bumping this to 300–500ms.
   await page.waitForTimeout(200)
 }
-

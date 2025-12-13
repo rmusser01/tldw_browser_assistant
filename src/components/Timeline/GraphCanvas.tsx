@@ -19,6 +19,10 @@ cytoscape.use(dagre)
 // ============================================================================
 
 const getCytoscapeStyles = (settings: ReturnType<typeof useTimelineStore.getState>['settings']) => [
+  // Cytoscape's typed stylesheet helpers are fairly limited, so we define
+  // styles with plain objects and cast to `any` at the leaf level. If this
+  // becomes hard to maintain, consider introducing a small wrapper with
+  // stricter types around `style` definitions.
   // Base node style
   {
     selector: 'node',
@@ -201,7 +205,8 @@ export const GraphCanvas: React.FC = () => {
     selectNode,
     hoverNode,
     toggleSwipeExpansion,
-    getVisibleNodes
+    getVisibleNodes,
+    updateSettings
   } = useTimelineStore()
 
   // Convert graph data to Cytoscape elements
@@ -332,6 +337,14 @@ export const GraphCanvas: React.FC = () => {
       }
     })
 
+    // Sync zoom level back to store (so toolbar controls are relative to current zoom)
+    cy.on('zoom', () => {
+      const currentZoom = cy.zoom()
+      const storeZoom = useTimelineStore.getState().settings.zoomLevel
+      if (Math.abs(storeZoom - currentZoom) < 0.001) return
+      updateSettings({ zoomLevel: currentZoom })
+    })
+
     // Cleanup
     return () => {
       if (longPressTimerRef.current) {
@@ -349,7 +362,10 @@ export const GraphCanvas: React.FC = () => {
     const cy = cyRef.current
     const elements = buildElements()
 
-    // Update elements
+    // Simple full rebuild: remove all elements and re-add them on graph changes.
+    // This keeps the implementation straightforward; if timeline graphs grow
+    // large enough to cause visible flicker, we can switch to Cytoscape's
+    // incremental diff/patch APIs to update only changed nodes/edges.
     cy.elements().remove()
     cy.add(elements)
 
@@ -371,7 +387,27 @@ export const GraphCanvas: React.FC = () => {
   useEffect(() => {
     if (!cyRef.current) return
     cyRef.current.style(getCytoscapeStyles(settings))
-  }, [settings])
+  }, [
+    settings.nodeWidth,
+    settings.nodeHeight,
+    settings.nodeShape,
+    settings.userNodeColor,
+    settings.assistantNodeColor,
+    settings.systemNodeColor,
+    settings.edgeColor,
+    settings.curveStyle
+  ])
+
+  // Apply zoom level changes from toolbar/settings
+  useEffect(() => {
+    if (!cyRef.current) return
+
+    const cy = cyRef.current
+    const clampedZoom = Math.min(settings.maxZoom, Math.max(settings.minZoom, settings.zoomLevel))
+
+    if (Math.abs(cy.zoom() - clampedZoom) < 0.001) return
+    cy.zoom(clampedZoom)
+  }, [settings.zoomLevel, settings.minZoom, settings.maxZoom])
 
   // Update selection state
   useEffect(() => {

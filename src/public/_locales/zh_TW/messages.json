@@ -10,5 +10,44 @@
   "connectionCard_descriptionConnectedList_useRag": {
     "message": "在自己的文件上使用 RAG",
     "description": "Third bullet in the connected-state server connection card, highlighting retrieval-augmented generation usage."
+  },
+  "folders": {
+    "message": "Folders"
+  },
+  "folderView": {
+    "message": "Folder view"
+  },
+  "dateView": {
+    "message": "Date view"
+  },
+  "newFolder": {
+    "message": "New Folder"
+  },
+  "folderName": {
+    "message": "Folder name"
+  },
+  "selectFolder": {
+    "message": "Select folder"
+  },
+  "noFolders": {
+    "message": "No folders"
+  },
+  "expandAll": {
+    "message": "Expand all"
+  },
+  "collapseAll": {
+    "message": "Collapse all"
+  },
+  "refresh": {
+    "message": "Refresh"
+  },
+  "confirm": {
+    "message": "Confirm"
+  },
+  "untitled": {
+    "message": "Untitled"
+  },
+  "moveToFolder": {
+    "message": "Move to folder"
   }
 }

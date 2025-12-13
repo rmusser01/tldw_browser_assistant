@@ -45,7 +45,8 @@ const RESULT_FILTERS = {
 
 type ResultsFilter = (typeof RESULT_FILTERS)[keyof typeof RESULT_FILTERS]
 
-// Extracted schema for /api/v1/media/add endpoint - used as fallback when server spec unavailable
+// Extracted schema for /api/v1/media/add endpoint - used as fallback when server spec unavailable.
+// Snapshot last verified against tldw_server OpenAPI v0.1.0 (2025-01); update if the media.add schema changes.
 const MEDIA_ADD_SCHEMA_FALLBACK: Array<{ name: string; type: string; description?: string; title?: string }> = [
   { name: 'accept_archives', type: 'boolean', description: 'Accept .zip archives of EMLs', title: 'Accept Archives' },
   { name: 'accept_mbox', type: 'boolean', description: 'Accept .mbox mailboxes', title: 'Accept Mbox' },
@@ -893,11 +894,13 @@ export const QuickIngestModal: React.FC<Props> = ({
     }
     entries.sort((a,b) => a.name.localeCompare(b.name))
     setAdvSchema(entries)
+    return entries
   }
 
   const loadSpec = React.useCallback(async (preferServer = true, reportDiff = false) => {
     let used: 'server' | 'fallback' | 'none' = 'none'
     let remote: any | null = null
+    const prevSchema = reportDiff ? [...advSchema] : null
     if (preferServer) {
       try {
         const healthy = await tldwClient.healthCheck()
@@ -905,7 +908,7 @@ export const QuickIngestModal: React.FC<Props> = ({
       } catch {}
     }
     if (remote) {
-      parseSpec(remote)
+      const nextSchema = parseSpec(remote)
       used = 'server'
       try {
         const rVer = remote?.info?.version
@@ -942,7 +945,25 @@ export const QuickIngestModal: React.FC<Props> = ({
         persistSpecPrefs(payload)
       } catch {}
       if (reportDiff) {
-        messageApi.success('Advanced spec reloaded from server')
+        let added = 0
+        let removed = 0
+        try {
+          const beforeNames = new Set((prevSchema || []).map((f) => f.name))
+          const afterNames = new Set((nextSchema || []).map((f) => f.name))
+          for (const name of afterNames) {
+            if (!beforeNames.has(name)) added += 1
+          }
+          for (const name of beforeNames) {
+            if (!afterNames.has(name)) removed += 1
+          }
+        } catch {
+          // Fall back to generic message if diff computation fails
+        }
+        const extra =
+          added || removed
+            ? ` (fields added: ${added}, removed: ${removed})`
+            : ""
+        messageApi.success(`Advanced spec reloaded from server${extra}`)
       }
     } else {
       // Use extracted schema fallback (no bundled openapi.json import)
@@ -1247,8 +1268,6 @@ export const QuickIngestModal: React.FC<Props> = ({
         return qi('specSourceLive', 'Live server spec')
       case 'server-cached':
         return qi('specSourceCached', 'Cached server spec')
-      case 'bundled':
-        return qi('specSourceBundled', 'Bundled spec')
       default:
         return qi('specSourceFallback', 'Fallback spec')
     }
@@ -2588,9 +2607,7 @@ export const QuickIngestModal: React.FC<Props> = ({
                     ? qi('specTooltipLive', 'Using live server OpenAPI spec')
                     : specSource === 'server-cached'
                       ? qi('specTooltipCached', 'Using cached server OpenAPI spec')
-                      : specSource === 'bundled'
-                        ? qi('specTooltipBundled', 'Using bundled spec from extension')
-                        : qi('specTooltipFallback', 'No spec detected; using fallback fields')}</div>}
+                      : qi('specTooltipFallback', 'No spec detected; using fallback fields')}</div>}
                 >
                   <Info className="w-4 h-4 text-gray-500" />
                 </AntTooltip>

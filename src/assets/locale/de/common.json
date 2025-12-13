@@ -246,5 +246,18 @@
     "friendlyGenericHint": "Versuchen Sie es in einem Moment erneut oder öffnen Sie Status & Diagnose, um den Serverzustand zu prüfen.",
     "showDetails": "Technische Details anzeigen",
     "hideDetails": "Technische Details ausblenden"
-  }
+  },
+  "folders": "Folders",
+  "folderView": "Folder view",
+  "dateView": "Date view",
+  "newFolder": "New Folder",
+  "folderName": "Folder name",
+  "selectFolder": "Select folder",
+  "noFolders": "No folders",
+  "expandAll": "Expand all",
+  "collapseAll": "Collapse all",
+  "refresh": "Refresh",
+  "confirm": "Confirm",
+  "untitled": "Untitled",
+  "moveToFolder": "Move to folder"
 }

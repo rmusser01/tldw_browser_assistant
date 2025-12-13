@@ -7,6 +7,7 @@
 
 import { create } from "zustand"
 import { persist } from "zustand/middleware"
+import { useShallow } from "zustand/react/shallow"
 import type { Folder, Keyword, FolderKeywordLink, ConversationKeywordLink } from "@/db/dexie/types"
 import { db } from "@/db/dexie/schema"
 import {
@@ -18,6 +19,7 @@ import {
   updateFolder as apiUpdateFolder,
   deleteFolder as apiDeleteFolder,
   createKeyword as apiCreateKeyword,
+  deleteKeyword as apiDeleteKeyword,
   linkKeywordToFolder as apiLinkKeywordToFolder,
   linkKeywordToConversation as apiLinkKeywordToConversation,
   unlinkKeywordFromConversation as apiUnlinkKeywordFromConversation
@@ -93,7 +95,7 @@ interface FolderState {
 // Helper: Build folder tree from flat list
 // ─────────────────────────────────────────────────────────────────────────────
 
-const buildFolderTree = (
+export const buildFolderTree = (
   folders: Folder[],
   keywords: Keyword[],
   folderKeywordLinks: FolderKeywordLink[],
@@ -236,13 +238,29 @@ export const useFolderStore = create<FolderState>()(
             fetchConversationKeywordLinks()
           ])
 
-          // Cache to Dexie
-          await Promise.all([
-            db.folders.clear().then(() => db.folders.bulkPut(folders)),
-            db.keywords.clear().then(() => db.keywords.bulkPut(keywords)),
-            db.folderKeywordLinks.clear().then(() => db.folderKeywordLinks.bulkPut(folderKeywordLinks)),
-            db.conversationKeywordLinks.clear().then(() => db.conversationKeywordLinks.bulkPut(conversationKeywordLinks))
-          ])
+          // Cache to Dexie (atomic)
+          await db.transaction(
+            "rw",
+            db.folders,
+            db.keywords,
+            db.folderKeywordLinks,
+            db.conversationKeywordLinks,
+            async () => {
+              await Promise.all([
+                db.folders.clear(),
+                db.keywords.clear(),
+                db.folderKeywordLinks.clear(),
+                db.conversationKeywordLinks.clear()
+              ])
+
+              await Promise.all([
+                db.folders.bulkPut(folders),
+                db.keywords.bulkPut(keywords),
+                db.folderKeywordLinks.bulkPut(folderKeywordLinks),
+                db.conversationKeywordLinks.bulkPut(conversationKeywordLinks)
+              ])
+            }
+          )
 
           set({
             folders,
@@ -347,13 +365,29 @@ export const useFolderStore = create<FolderState>()(
           )
         )
 
+        let createdKeywordForFolder = false
+
         if (!keyword) {
           // Create a keyword with the folder name
           const folder = state.folders.find(f => f.id === folderId)
           if (!folder) return false
           keyword = await get().createKeyword(folder.name)
           if (!keyword) return false
-          await get().addKeywordToFolder(folderId, keyword.id)
+          createdKeywordForFolder = true
+
+          const linked = await get().addKeywordToFolder(folderId, keyword.id)
+          if (!linked) {
+            if (createdKeywordForFolder) {
+              await apiDeleteKeyword(keyword.id)
+              set((state) => ({
+                keywords: state.keywords.map((k) =>
+                  k.id === keyword!.id ? { ...k, deleted: true } : k
+                )
+              }))
+              await db.keywords.update(keyword.id, { deleted: true })
+            }
+            return false
+          }
         }
 
         const success = await apiLinkKeywordToConversation(conversationId, keyword.id)
@@ -384,14 +418,11 @@ export const useFolderStore = create<FolderState>()(
         )
 
         let success = true
+        const removedLinks: ConversationKeywordLink[] = []
         for (const link of linksToRemove) {
           const result = await apiUnlinkKeywordFromConversation(conversationId, link.keyword_id)
           if (result) {
-            set((state) => ({
-              conversationKeywordLinks: state.conversationKeywordLinks.filter(l =>
-                !(l.conversation_id === link.conversation_id && l.keyword_id === link.keyword_id)
-              )
-            }))
+            removedLinks.push(link)
             await db.conversationKeywordLinks
               .where('[conversation_id+keyword_id]')
               .equals([link.conversation_id, link.keyword_id])
@@ -400,6 +431,21 @@ export const useFolderStore = create<FolderState>()(
             success = false
           }
         }
+
+        if (removedLinks.length > 0) {
+          const removedKeySet = new Set(
+            removedLinks.map(
+              (r) => `${r.conversation_id}::${r.keyword_id}`
+            )
+          )
+
+          set((state) => ({
+            conversationKeywordLinks: state.conversationKeywordLinks.filter(
+              (l) => !removedKeySet.has(`${l.conversation_id}::${l.keyword_id}`)
+            )
+          }))
+        }
+
         return success
       },
 
@@ -477,15 +523,18 @@ export const useFolderViewMode = () => useFolderStore((s) => s.viewMode)
 export const useFolderIsLoading = () => useFolderStore((s) => s.isLoading)
 export const useFolderUIPrefs = () => useFolderStore((s) => s.uiPrefs)
 
-export const useFolderActions = () => useFolderStore((s) => ({
-  setViewMode: s.setViewMode,
-  toggleFolderOpen: s.toggleFolderOpen,
-  expandAllFolders: s.expandAllFolders,
-  collapseAllFolders: s.collapseAllFolders,
-  refreshFromServer: s.refreshFromServer,
-  createFolder: s.createFolder,
-  updateFolder: s.updateFolder,
-  deleteFolder: s.deleteFolder,
-  addConversationToFolder: s.addConversationToFolder,
-  removeConversationFromFolder: s.removeConversationFromFolder
-}))
+export const useFolderActions = () =>
+  useFolderStore(
+    useShallow((s) => ({
+      setViewMode: s.setViewMode,
+      toggleFolderOpen: s.toggleFolderOpen,
+      expandAllFolders: s.expandAllFolders,
+      collapseAllFolders: s.collapseAllFolders,
+      refreshFromServer: s.refreshFromServer,
+      createFolder: s.createFolder,
+      updateFolder: s.updateFolder,
+      deleteFolder: s.deleteFolder,
+      addConversationToFolder: s.addConversationToFolder,
+      removeConversationFromFolder: s.removeConversationFromFolder
+    }))
+  )

@@ -28,21 +28,14 @@ const { Text, Paragraph } = Typography
 // ============================================================================
 
 export const NodeInfoPanel: React.FC = () => {
-  const {
-    selectedNodeId,
-    graph,
-    searchQuery,
-    selectNode,
-    getNodeById,
-    toggleSwipeExpansion,
-    expandedSwipeNodes
-  } = useTimelineStore()
-
-  // Get the selected node data
-  const node = useMemo(() => {
-    if (!selectedNodeId) return null
-    return getNodeById(selectedNodeId)
-  }, [selectedNodeId, getNodeById])
+  const node = useTimelineStore((s) => {
+    if (!s.selectedNodeId) return null
+    return s.getNodeById(s.selectedNodeId) || null
+  })
+  const searchQuery = useTimelineStore((s) => s.searchQuery)
+  const selectNode = useTimelineStore((s) => s.selectNode)
+  const toggleSwipeExpansion = useTimelineStore((s) => s.toggleSwipeExpansion)
+  const expandedSwipeNodes = useTimelineStore((s) => s.expandedSwipeNodes)
 
   // Get highlighted content if search is active
   const highlightedContent = useMemo(() => {
@@ -76,15 +69,15 @@ export const NodeInfoPanel: React.FC = () => {
       : 'gray'
 
   return (
-    <div className="node-info-panel">
+    <div className="node-info-panel absolute right-0 top-0 bottom-0 w-80 bg-[var(--bg-secondary,#1f1f1f)] border-l border-[var(--border-color,#333)] p-4 overflow-y-auto z-20 flex flex-col">
       {/* Header */}
-      <div className="panel-header">
-        <div className="header-title">
-          <RoleIcon style={{ marginRight: 8 }} />
-          <Text strong style={{ textTransform: 'capitalize' }}>
+      <div className="flex items-center justify-between">
+        <div className="flex items-center">
+          <RoleIcon className="mr-2" />
+          <Text strong className="capitalize">
             {node.role}
           </Text>
-          <Tag color={roleColor} style={{ marginLeft: 8 }}>
+          <Tag color={roleColor} className="ml-2">
             {node.sender_name || node.role}
           </Tag>
         </div>
@@ -97,108 +90,82 @@ export const NodeInfoPanel: React.FC = () => {
       </div>
 
       {/* Metadata */}
-      <div className="panel-meta">
-        <Text type="secondary" style={{ fontSize: 12 }}>
+      <div className="mt-2 flex flex-wrap items-center gap-2">
+        <Text type="secondary" className="text-xs">
           {formattedTime}
         </Text>
         {node.is_swipe && (
-          <Tag color="orange" style={{ marginLeft: 8 }}>
+          <Tag color="orange">
             Alternative Response
           </Tag>
         )}
         {node.has_swipes && (
-          <Tag color="gold" style={{ marginLeft: 8 }}>
+          <Tag color="gold">
             {node.swipe_count} alternative{node.swipe_count !== 1 ? 's' : ''}
           </Tag>
         )}
       </div>
 
-      <Divider style={{ margin: '12px 0' }} />
+      <Divider className="my-3" />
 
       {/* Content */}
-      <div className="panel-content">
+      <div className="flex-1 overflow-y-auto max-h-[300px]">
         {highlightedContent ? (
           <div
-            className="message-content highlighted-content"
+            className="text-sm leading-relaxed"
             dangerouslySetInnerHTML={{ __html: highlightedContent }}
           />
         ) : (
           <Paragraph
-            className="message-content"
-            style={{
-              whiteSpace: 'pre-wrap',
-              wordBreak: 'break-word',
-              margin: 0
-            }}
+            className="whitespace-pre-wrap break-words !mb-0 text-sm leading-relaxed"
           >
             {node.content}
           </Paragraph>
         )}
       </div>
 
-      <Divider style={{ margin: '12px 0' }} />
+      <Divider className="my-3" />
 
       {/* Actions */}
-      <div className="panel-actions">
-        <Space direction="vertical" style={{ width: '100%' }}>
+      <div className="mt-auto">
+        <Space direction="vertical" className="w-full">
           {/* Navigate to message */}
-          <Tooltip title="Go to this message in chat">
-            <Button
-              type="primary"
-              icon={<SendOutlined />}
-              block
-              onClick={() => {
-                // TODO: Implement navigation
-                console.log('Navigate to message:', node.message_ids[0])
-              }}
-            >
-              Go to Message
-            </Button>
+          <Tooltip title="Not yet available">
+            <span className="inline-block w-full">
+              <Button type="primary" icon={<SendOutlined />} block disabled>
+                Go to Message
+              </Button>
+            </span>
           </Tooltip>
 
           {/* Branch from here */}
-          <Tooltip title="Create a new conversation branch from this point">
-            <Button
-              icon={<BranchesOutlined />}
-              block
-              onClick={() => {
-                // TODO: Implement branching
-                console.log('Branch from:', node.message_ids[0])
-              }}
-            >
-              Branch from Here
-            </Button>
+          <Tooltip title="Not yet available">
+            <span className="inline-block w-full">
+              <Button icon={<BranchesOutlined />} block disabled>
+                Branch from Here
+              </Button>
+            </span>
           </Tooltip>
 
           {/* Edit message */}
           {node.role === 'user' && (
-            <Tooltip title="Edit this message (creates a new branch if not the last message)">
-              <Button
-                icon={<EditOutlined />}
-                block
-                onClick={() => {
-                  // TODO: Implement editing
-                  console.log('Edit message:', node.message_ids[0])
-                }}
-              >
-                Edit Message
-              </Button>
+            <Tooltip title="Not yet available">
+              <span className="inline-block w-full">
+                <Button icon={<EditOutlined />} block disabled>
+                  Edit Message
+                </Button>
+              </span>
             </Tooltip>
           )}
 
           {/* Regenerate response */}
           {node.role === 'assistant' && (
-            <Tooltip title="Generate a new alternative response">
-              <Button
-                icon={<ReloadOutlined />}
-                block
-                onClick={() => {
-                  // TODO: Implement regeneration
-                  console.log('Regenerate:', node.message_ids[0])
-                }}
-              >
-                Regenerate Response
-              </Button>
+            <Tooltip title="Not yet available">
+              <span className="inline-block w-full">
+                <Button icon={<ReloadOutlined />} block disabled>
+                  Regenerate Response
+                </Button>
+              </span>
             </Tooltip>
           )}
 
@@ -215,87 +182,19 @@ export const NodeInfoPanel: React.FC = () => {
             </Tooltip>
           )}
         </Space>
+        {/* Conversation info */}
+        {node.history_ids.length > 1 && (
+          <>
+            <Divider className="my-3" />
+            <div className="text-center">
+              <Text type="secondary" className="text-xs">
+                Present in {node.history_ids.length} conversation{node.history_ids.length !== 1 ? 's' : ''}
+              </Text>
+            </div>
+          </>
+        )}
       </div>
 
-      {/* Conversation info */}
-      {node.history_ids.length > 1 && (
-        <>
-          <Divider style={{ margin: '12px 0' }} />
-          <div className="panel-conversations">
-            <Text type="secondary" style={{ fontSize: 12 }}>
-              Present in {node.history_ids.length} conversation{node.history_ids.length !== 1 ? 's' : ''}
-            </Text>
-          </div>
-        </>
-      )}
-
-      {/* Styles */}
-      <style>{`
-        .node-info-panel {
-          position: absolute;
-          right: 0;
-          top: 0;
-          bottom: 0;
-          width: 320px;
-          background: var(--bg-secondary, #1f1f1f);
-          border-left: 1px solid var(--border-color, #333);
-          padding: 16px;
-          overflow-y: auto;
-          z-index: 20;
-          display: flex;
-          flex-direction: column;
-        }
-
-        .panel-header {
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-        }
-
-        .header-title {
-          display: flex;
-          align-items: center;
-        }
-
-        .panel-meta {
-          display: flex;
-          align-items: center;
-          flex-wrap: wrap;
-          margin-top: 8px;
-        }
-
-        .panel-content {
-          flex: 1;
-          overflow-y: auto;
-          max-height: 300px;
-        }
-
-        .message-content {
-          font-size: 14px;
-          line-height: 1.6;
-        }
-
-        .highlighted-content .timeline-search-highlight {
-          background-color: #fbbf24;
-          color: #000;
-          padding: 0 2px;
-          border-radius: 2px;
-        }
-
-        .panel-actions {
-          margin-top: auto;
-        }
-
-        .panel-conversations {
-          text-align: center;
-        }
-
-        /* Dark mode */
-        .dark .node-info-panel {
-          background: #1f1f1f;
-          border-left-color: #333;
-        }
-      `}</style>
     </div>
   )
 }

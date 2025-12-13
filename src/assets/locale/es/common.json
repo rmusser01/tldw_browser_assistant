@@ -246,5 +246,18 @@
     "friendlyGenericHint": "Inténtelo de nuevo en un momento o abra Salud y diagnóstico para revisar el estado del servidor.",
     "showDetails": "Mostrar detalles técnicos",
     "hideDetails": "Ocultar detalles técnicos"
-  }
+  },
+  "folders": "Folders",
+  "folderView": "Folder view",
+  "dateView": "Date view",
+  "newFolder": "New Folder",
+  "folderName": "Folder name",
+  "selectFolder": "Select folder",
+  "noFolders": "No folders",
+  "expandAll": "Expand all",
+  "collapseAll": "Collapse all",
+  "refresh": "Refresh",
+  "confirm": "Confirm",
+  "untitled": "Untitled",
+  "moveToFolder": "Move to folder"
 }

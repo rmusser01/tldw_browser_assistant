@@ -284,5 +284,44 @@
   "omniSearchCreateFlashcardsSuccess": {
     "message": "Collection de Flashcards \u00ab {{query}} \u00bb cr\u00e9\u00e9e",
     "description": "Confirmation toast message shown after creating a flashcard collection from omni-search."
+  },
+  "folders": {
+    "message": "Folders"
+  },
+  "folderView": {
+    "message": "Folder view"
+  },
+  "dateView": {
+    "message": "Date view"
+  },
+  "newFolder": {
+    "message": "New Folder"
+  },
+  "folderName": {
+    "message": "Folder name"
+  },
+  "selectFolder": {
+    "message": "Select folder"
+  },
+  "noFolders": {
+    "message": "No folders"
+  },
+  "expandAll": {
+    "message": "Expand all"
+  },
+  "collapseAll": {
+    "message": "Collapse all"
+  },
+  "refresh": {
+    "message": "Refresh"
+  },
+  "confirm": {
+    "message": "Confirm"
+  },
+  "untitled": {
+    "message": "Untitled"
+  },
+  "moveToFolder": {
+    "message": "Move to folder"
   }
 }

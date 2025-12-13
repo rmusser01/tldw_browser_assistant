@@ -10,6 +10,10 @@
 
 import type { TimelineNode } from './graph-builder'
 
+// Regex search safety limits
+const MAX_REGEX_PATTERN_LENGTH = 100
+const REGEX_MATCH_TIME_LIMIT_MS = 500
+
 // ============================================================================
 // Types
 // ============================================================================
@@ -19,7 +23,6 @@ export type SearchMode = 'fragments' | 'substring' | 'regex'
 export interface SearchOptions {
   mode?: SearchMode
   caseSensitive?: boolean
-  wholeWord?: boolean
 }
 
 export interface SearchMatch {
@@ -245,6 +248,16 @@ export class TimelineSearchService {
     query: string,
     caseSensitive: boolean
   ): SearchMatch[] {
+    // Guard: limit pattern length to reduce ReDoS risk
+    if (query.length > MAX_REGEX_PATTERN_LENGTH) {
+      return this.substringSearch(nodes, query, caseSensitive)
+    }
+
+    // Guard: reject patterns that look prone to catastrophic backtracking
+    if (!this.isSafeRegexPattern(query)) {
+      return this.substringSearch(nodes, query, caseSensitive)
+    }
+
     let regex: RegExp
     try {
       regex = new RegExp(query, caseSensitive ? 'g' : 'gi')
@@ -254,25 +267,53 @@ export class TimelineSearchService {
     }
 
     const matches: SearchMatch[] = []
+    const startTime =
+      typeof performance !== 'undefined' ? performance.now() : Date.now()
 
     for (const node of nodes) {
       if (node.type === 'root') continue
 
       const content = node.content
-      const regexMatches = [...content.matchAll(regex)]
+      const highlightRanges: HighlightRange[] = []
+      const matchedFragments: string[] = []
 
-      if (regexMatches.length > 0) {
-        const highlightRanges: HighlightRange[] = regexMatches.map((m) => ({
-          start: m.index!,
-          end: m.index! + m[0].length,
-          fragment: m[0]
-        }))
+      regex.lastIndex = 0
+      // Use exec loop so we can enforce a time limit and handle zero-length matches
+      // eslint-disable-next-line no-constant-condition
+      while (true) {
+        const now =
+          typeof performance !== 'undefined' ? performance.now() : Date.now()
+        if (now - startTime > REGEX_MATCH_TIME_LIMIT_MS) {
+          // Matching is taking too long – fall back to substring search
+          return this.substringSearch(nodes, query, caseSensitive)
+        }
 
+        const match = regex.exec(content)
+        if (!match) break
+
+        const matchText = match[0]
+        const matchIndex = match.index ?? 0
+
+        if (matchText.length === 0) {
+          // Avoid infinite loops on zero-length matches
+          regex.lastIndex = matchIndex + 1
+          continue
+        }
+
+        highlightRanges.push({
+          start: matchIndex,
+          end: matchIndex + matchText.length,
+          fragment: matchText
+        })
+        matchedFragments.push(matchText)
+      }
+
+      if (highlightRanges.length > 0) {
         matches.push({
           node,
-          matchedFragments: regexMatches.map((m) => m[0]),
+          matchedFragments,
           highlightRanges,
-          score: regexMatches.length
+          score: highlightRanges.length
         })
       }
     }
@@ -296,7 +337,7 @@ export class TimelineSearchService {
     let score = matchedFragments.length * 100
 
     // Bonus for matches near the beginning
-    if (ranges.length > 0) {
+    if (ranges.length > 0 && contentLength > 0) {
       const firstMatchPos = ranges[0].start
       const positionBonus = Math.max(0, 50 - (firstMatchPos / contentLength) * 50)
       score += positionBonus
@@ -332,6 +373,66 @@ export class TimelineSearchService {
     }
 
     return merged
+  }
+
+  /**
+   * Lightweight regex safety check to avoid obvious catastrophic backtracking patterns.
+   *
+   * Heuristics:
+   * - Disallow groups that contain a quantifier and are themselves quantified, e.g. (a+)+
+   * - Disallow patterns with an excessive number of groups.
+   */
+  private isSafeRegexPattern(pattern: string): boolean {
+    const isQuantifier = (ch: string | undefined): boolean =>
+      ch === '*' || ch === '+' || ch === '?' || ch === '{'
+
+    type GroupState = { hasInnerQuantifier: boolean }
+    const groupStack: GroupState[] = []
+
+    let escaped = false
+
+    for (let i = 0; i < pattern.length; i++) {
+      const ch = pattern[i]
+
+      if (escaped) {
+        escaped = false
+        continue
+      }
+
+      if (ch === '\\') {
+        escaped = true
+        continue
+      }
+
+      if (ch === '(') {
+        groupStack.push({ hasInnerQuantifier: false })
+        continue
+      }
+
+      if (ch === ')' && groupStack.length > 0) {
+        const group = groupStack.pop()!
+        const next = pattern[i + 1]
+
+        // If the group contained a quantifier and is itself quantified, this is a common ReDoS pattern
+        if (group.hasInnerQuantifier && isQuantifier(next)) {
+          return false
+        }
+        continue
+      }
+
+      if (isQuantifier(ch) && groupStack.length > 0) {
+        groupStack[groupStack.length - 1].hasInnerQuantifier = true
+      }
+    }
+
+    // Basic structural limit: too many groups can be a red flag
+    const openParens = pattern.split('(').length - 1
+    const closeParens = pattern.split(')').length - 1
+    if (openParens > 10 || closeParens > 10) {
+      return false
+    }
+
+    return true
   }
 
   /**

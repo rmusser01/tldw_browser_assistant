@@ -246,5 +246,18 @@
     "friendlyGenericHint": "Försök igen om en stund eller öppna Hälsa & diagnostik för att undersöka serverhälsan.",
     "showDetails": "Visa tekniska detaljer",
     "hideDetails": "Dölj tekniska detaljer"
-  }
+  },
+  "folders": "Folders",
+  "folderView": "Folder view",
+  "dateView": "Date view",
+  "newFolder": "New Folder",
+  "folderName": "Folder name",
+  "selectFolder": "Select folder",
+  "noFolders": "No folders",
+  "expandAll": "Expand all",
+  "collapseAll": "Collapse all",
+  "refresh": "Refresh",
+  "confirm": "Confirm",
+  "untitled": "Untitled",
+  "moveToFolder": "Move to folder"
 }

@@ -149,8 +149,14 @@ const bundleAnalyzerPlugin = async (): Promise<Plugin | null> => {
       brotliSize: true,
       template: "treemap"
     }) as Plugin
-  } catch {
-    console.warn("rollup-plugin-visualizer not installed. Run: bun add -D rollup-plugin-visualizer")
+  } catch (err) {
+    if (err instanceof Error && err.message.includes("Cannot find module")) {
+      console.warn(
+        "rollup-plugin-visualizer not installed. Run: bun add -D rollup-plugin-visualizer"
+      )
+    } else {
+      console.error("Failed to configure bundle analyzer:", err)
+    }
     return null
   }
 }
@@ -160,15 +166,15 @@ export default defineConfig({
   vite: async () => {
     const analyzerPlugin = await bundleAnalyzerPlugin()
     return {
-    plugins: [
-      react(),
-      safeInnerHTMLPlugin(),
-      topLevelAwait({
-        promiseExportName: "__tla",
-        promiseImportName: (i) => `__tla_${i}`
-      }) as any,
-      ...(analyzerPlugin ? [analyzerPlugin] : [])
-    ],
+      plugins: [
+        react(),
+        safeInnerHTMLPlugin(),
+        topLevelAwait({
+          promiseExportName: "__tla",
+          promiseImportName: (i) => `__tla_${i}`
+        }),
+        ...(analyzerPlugin ? [analyzerPlugin] : [])
+      ],
     // Ensure every entry (options, sidepanel, content scripts) shares a single React instance.
     resolve: {
       dedupe: ["react", "react-dom", "react/jsx-runtime", "react/jsx-dev-runtime"],

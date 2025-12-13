@@ -248,5 +248,18 @@
     "friendlyGenericHint": "കുറച്ച് കഴിഞ്ഞ് വീണ്ടും ശ്രമിക്കുകയോ സർവർ നില പരിശോധിക്കാൻ ആരോഗ്യവും ഡയഗ്നോസ്റ്റിക്സും തുറക്കുകയോ ചെയ്യുക.",
     "showDetails": "സാങ്കേതിക വിശദാംശങ്ങൾ കാണിക്കുക",
     "hideDetails": "സാങ്കേതിക വിശദാംശങ്ങൾ മറയ്ക്കുക"
-  }
+  },
+  "folders": "Folders",
+  "folderView": "Folder view",
+  "dateView": "Date view",
+  "newFolder": "New Folder",
+  "folderName": "Folder name",
+  "selectFolder": "Select folder",
+  "noFolders": "No folders",
+  "expandAll": "Expand all",
+  "collapseAll": "Collapse all",
+  "refresh": "Refresh",
+  "confirm": "Confirm",
+  "untitled": "Untitled",
+  "moveToFolder": "Move to folder"
 }

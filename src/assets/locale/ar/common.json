@@ -246,5 +246,18 @@
     "friendlyGenericHint": "حاول مرة أخرى بعد قليل أو افتح الصحة والتشخيص لعرض حالة الخادم.",
     "showDetails": "إظهار التفاصيل التقنية",
     "hideDetails": "إخفاء التفاصيل التقنية"
-  }
+  },
+  "folders": "Folders",
+  "folderView": "Folder view",
+  "dateView": "Date view",
+  "newFolder": "New Folder",
+  "folderName": "Folder name",
+  "selectFolder": "Select folder",
+  "noFolders": "No folders",
+  "expandAll": "Expand all",
+  "collapseAll": "Collapse all",
+  "refresh": "Refresh",
+  "confirm": "Confirm",
+  "untitled": "Untitled",
+  "moveToFolder": "Move to folder"
 }

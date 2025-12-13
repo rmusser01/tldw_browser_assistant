@@ -243,5 +243,18 @@
     "friendlyGenericHint": "請稍後再試，或開啟 Health & diagnostics 檢查伺服器狀態。",
     "showDetails": "顯示技術詳細資訊",
     "hideDetails": "隱藏技術詳細資訊"
-  }
+  },
+  "folders": "Folders",
+  "folderView": "Folder view",
+  "dateView": "Date view",
+  "newFolder": "New Folder",
+  "folderName": "Folder name",
+  "selectFolder": "Select folder",
+  "noFolders": "No folders",
+  "expandAll": "Expand all",
+  "collapseAll": "Collapse all",
+  "refresh": "Refresh",
+  "confirm": "Confirm",
+  "untitled": "Untitled",
+  "moveToFolder": "Move to folder"
 }

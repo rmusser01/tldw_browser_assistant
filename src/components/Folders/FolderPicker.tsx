@@ -9,8 +9,10 @@ import { useState, useMemo } from "react"
 import { Modal, Input, Tree, Button, Empty, Divider } from "antd"
 import type { TreeDataNode, TreeProps } from "antd"
 import { Folder, FolderPlus, Check } from "lucide-react"
-import { useFolderStore, type FolderTreeNode } from "@/store/folder"
+import { buildFolderTree, useFolderStore, type FolderTreeNode } from "@/store/folder"
 import { useTranslation } from "react-i18next"
+import { useAntdMessage } from "@/hooks/useAntdMessage"
+import { useShallow } from "zustand/react/shallow"
 
 interface FolderPickerProps {
   open: boolean
@@ -32,9 +34,29 @@ export const FolderPicker = ({
   showCreateNew = true
 }: FolderPickerProps) => {
   const { t } = useTranslation()
-  const folderTree = useFolderStore((s) => s.getFolderTree())
-  const createFolder = useFolderStore((s) => s.createFolder)
-  const isLoading = useFolderStore((s) => s.isLoading)
+  const message = useAntdMessage()
+  const {
+    folders,
+    keywords,
+    folderKeywordLinks,
+    conversationKeywordLinks,
+    createFolder,
+    isLoading
+  } = useFolderStore(
+    useShallow((s) => ({
+      folders: s.folders,
+      keywords: s.keywords,
+      folderKeywordLinks: s.folderKeywordLinks,
+      conversationKeywordLinks: s.conversationKeywordLinks,
+      createFolder: s.createFolder,
+      isLoading: s.isLoading
+    }))
+  )
+
+  const folderTree = useMemo(
+    () => buildFolderTree(folders, keywords, folderKeywordLinks, conversationKeywordLinks),
+    [folders, keywords, folderKeywordLinks, conversationKeywordLinks]
+  )
 
   const [selected, setSelected] = useState<number[]>(selectedFolderIds)
   const [newFolderName, setNewFolderName] = useState("")
@@ -87,7 +109,14 @@ export const FolderPicker = ({
         setSelected(prev => [...prev, folder.id])
         setNewFolderName("")
         setShowNewFolderInput(false)
+        message.success(t("common:success", { defaultValue: "Created folder" }))
+      } else {
+        message.error(t("common:error.createFolder", { defaultValue: "Failed to create folder" }))
       }
+    } catch (e: any) {
+      // eslint-disable-next-line no-console
+      console.error("Failed to create folder from picker:", e)
+      message.error(e?.message || t("common:error.createFolder", { defaultValue: "Failed to create folder" }))
     } finally {
       setIsCreating(false)
     }

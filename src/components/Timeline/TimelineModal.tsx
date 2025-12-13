@@ -47,9 +47,9 @@ export const TimelineModal: React.FC = () => {
 
       // Ctrl+F to focus search
       if ((e.ctrlKey || e.metaKey) && e.key === 'f') {
-        const searchInput = document.querySelector<HTMLInputElement>(
-          '.timeline-search-input'
-        )
+        const searchInput = document.getElementById(
+          'timeline-search-input'
+        ) as HTMLInputElement | null
         searchInput?.focus()
         e.preventDefault()
       }
@@ -171,78 +171,6 @@ export const TimelineModal: React.FC = () => {
         )}
       </div>
 
-      {/* Styles */}
-      <style>{`
-        .timeline-modal .ant-modal-content {
-          height: 100vh;
-        }
-
-        .timeline-container {
-          display: flex;
-          flex-direction: column;
-          height: 100%;
-          background: var(--bg-primary, #1a1a1a);
-          color: var(--text-primary, #fff);
-        }
-
-        .timeline-content {
-          flex: 1;
-          position: relative;
-          overflow: hidden;
-        }
-
-        .timeline-loading,
-        .timeline-error,
-        .timeline-empty {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          height: 100%;
-          padding: 24px;
-        }
-
-        .timeline-legend {
-          position: absolute;
-          bottom: 16px;
-          left: 16px;
-          display: flex;
-          gap: 16px;
-          background: rgba(0, 0, 0, 0.7);
-          padding: 8px 16px;
-          border-radius: 8px;
-          font-size: 12px;
-          z-index: 10;
-        }
-
-        .legend-item {
-          display: flex;
-          align-items: center;
-          gap: 6px;
-        }
-
-        .legend-dot {
-          width: 12px;
-          height: 12px;
-          border-radius: 50%;
-        }
-
-        .timeline-search-highlight {
-          background-color: #fbbf24;
-          color: #000;
-          padding: 0 2px;
-          border-radius: 2px;
-        }
-
-        /* Dark mode adjustments */
-        .dark .timeline-container {
-          background: #1a1a1a;
-          color: #fff;
-        }
-
-        .dark .timeline-legend {
-          background: rgba(0, 0, 0, 0.8);
-        }
-      `}</style>
     </Modal>
   )
 }

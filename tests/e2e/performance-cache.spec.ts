@@ -8,13 +8,14 @@
 import { test, expect } from "@playwright/test"
 import path from "path"
 import { launchWithExtension } from "./utils/extension"
-import { trackNetworkRequests, createReport, logReport, PerfTimer } from "./utils/performance"
+import { createReport, logReport } from "./utils/performance"
 
 // Configuration
 const TEST_EXT_PATH = path.resolve("build/chrome-mv3")
 const DEFAULT_SERVER_URL = "http://localhost:8000"
 const SERVER_URL = process.env.TLDW_E2E_SERVER_URL || DEFAULT_SERVER_URL
-const API_KEY = process.env.TLDW_E2E_API_KEY || "test-api-key"
+const SERVER_ORIGIN = new URL(SERVER_URL).origin
+const API_KEY = process.env.TLDW_E2E_API_KEY
 
 // Performance targets
 const TARGETS = {
@@ -23,27 +24,36 @@ const TARGETS = {
 }
 
 test.describe("React Query Cache Performance", () => {
+  test.skip(!API_KEY, "TLDW_E2E_API_KEY must be set for performance-cache e2e tests")
+
   test("tracks API requests on initial load", async () => {
     const { context, page, optionsUrl } = await launchWithExtension(TEST_EXT_PATH, {
       seedConfig: {
         serverUrl: SERVER_URL,
         authMode: "single-user",
-        apiKey: API_KEY
+        apiKey: API_KEY!
       }
     })
 
     try {
       const apiRequests: { url: string; method: string }[] = []
 
-      // Track API requests to the tldw server
+      // Track API requests to the configured tldw server origin
       page.on("request", (request) => {
-        const url = request.url()
-        if (url.includes(SERVER_URL) || url.includes("localhost:8000")) {
-          apiRequests.push({
-            url: url.replace(SERVER_URL, "").replace("http://localhost:8000", ""),
-            method: request.method()
-          })
+        const rawUrl = request.url()
+        let parsed: URL
+        try {
+          parsed = new URL(rawUrl)
+        } catch {
+          return
         }
+        if (parsed.origin !== SERVER_ORIGIN) return
+
+        const relative = parsed.pathname + (parsed.search || "")
+        apiRequests.push({
+          url: relative,
+          method: request.method()
+        })
       })
 
       await page.goto(optionsUrl, { waitUntil: "domcontentloaded" })
@@ -108,7 +118,7 @@ test.describe("React Query Cache Performance", () => {
       seedConfig: {
         serverUrl: SERVER_URL,
         authMode: "single-user",
-        apiKey: API_KEY
+        apiKey: API_KEY!
       }
     })
 
@@ -123,14 +133,21 @@ test.describe("React Query Cache Performance", () => {
       let currentRoute = "home"
 
       page.on("request", (request) => {
-        const url = request.url()
-        if (url.includes(SERVER_URL) || url.includes("localhost:8000")) {
-          apiRequests.push({
-            url: url.replace(SERVER_URL, "").replace("http://localhost:8000", ""),
-            method: request.method(),
-            route: currentRoute
-          })
+        const rawUrl = request.url()
+        let parsed: URL
+        try {
+          parsed = new URL(rawUrl)
+        } catch {
+          return
         }
+        if (parsed.origin !== SERVER_ORIGIN) return
+
+        const relative = parsed.pathname + (parsed.search || "")
+        apiRequests.push({
+          url: relative,
+          method: request.method(),
+          route: currentRoute
+        })
       })
 
       // Navigate through routes
@@ -184,7 +201,7 @@ test.describe("React Query Cache Performance", () => {
       seedConfig: {
         serverUrl: SERVER_URL,
         authMode: "single-user",
-        apiKey: API_KEY
+        apiKey: API_KEY!
       }
     })
 
@@ -235,7 +252,7 @@ test.describe("React Query Cache Performance", () => {
       seedConfig: {
         serverUrl: SERVER_URL,
         authMode: "single-user",
-        apiKey: API_KEY
+        apiKey: API_KEY!
       }
     })
 
@@ -300,7 +317,7 @@ test.describe("React Query Cache Performance", () => {
       seedConfig: {
         serverUrl: SERVER_URL,
         authMode: "single-user",
-        apiKey: API_KEY
+        apiKey: API_KEY!
       }
     })
 
@@ -352,12 +369,14 @@ test.describe("React Query Cache Performance", () => {
 })
 
 test.describe("Stale Time Analysis", () => {
+  test.skip(!API_KEY, "TLDW_E2E_API_KEY must be set for performance-cache e2e tests")
+
   test("documents current staleTime configurations", async () => {
     const { context, page, optionsUrl } = await launchWithExtension(TEST_EXT_PATH, {
       seedConfig: {
         serverUrl: SERVER_URL,
         authMode: "single-user",
-        apiKey: API_KEY
+        apiKey: API_KEY!
       }
     })
 

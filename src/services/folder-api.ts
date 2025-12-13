@@ -282,7 +282,9 @@ export const fetchConversationKeywordLinks = async (
 ): Promise<ConversationKeywordLink[]> => {
   try {
     const path = (conversationIds?.length
-      ? `/api/v1/notes/conversations/keyword-links?ids=${conversationIds.join(',')}`
+      ? `/api/v1/notes/conversations/keyword-links?ids=${conversationIds
+          .map((id) => encodeURIComponent(id))
+          .join(',')}`
       : '/api/v1/notes/conversations/keyword-links') as `/${string}`
 
     const response = await bgRequest<{ links: ConversationKeywordLink[] } | ConversationKeywordLink[]>({

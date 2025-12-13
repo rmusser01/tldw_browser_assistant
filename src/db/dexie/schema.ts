@@ -12,7 +12,8 @@ import {
   Folder,
   Keyword,
   FolderKeywordLink,
-  ConversationKeywordLink
+  ConversationKeywordLink,
+  ProcessedMedia
 } from "./types"
 
 export class PageAssistDexieDB extends Dexie {
@@ -25,7 +26,7 @@ export class PageAssistDexieDB extends Dexie {
 
   customModels!: Table<Model>;
   modelNickname!: Table<ModelNickname>
-  processedMedia!: Table<any>
+  processedMedia!: Table<ProcessedMedia>
 
   // Folder system tables (cache from server)
   folders!: Table<Folder>

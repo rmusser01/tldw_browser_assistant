@@ -69,6 +69,9 @@ export interface TimelineState {
   // Settings
   settings: TimelineSettings
 
+  // Internal
+  requestId: number
+
   // Actions
   openTimeline: (historyId: string, messageId?: string) => Promise<void>
   closeTimeline: () => void
@@ -143,13 +146,17 @@ export const useTimelineStore = create<TimelineState>((set, get) => ({
   searchResults: [],
   searchMode: 'fragments',
   settings: defaultSettings,
+  requestId: 0,
 
   // ============================================================================
   // Actions
   // ============================================================================
 
   openTimeline: async (historyId: string, messageId?: string) => {
+    const currentRequestId = get().requestId + 1
+
     set({
+      requestId: currentRequestId,
       isOpen: true,
       isLoading: true,
       error: null,
@@ -164,6 +171,10 @@ export const useTimelineStore = create<TimelineState>((set, get) => ({
     try {
       const graph = await timelineGraphBuilder.buildGraphForConversation(historyId)
 
+      if (get().requestId !== currentRequestId) {
+        return
+      }
+
       set({
         graph,
         isLoading: false
@@ -176,6 +187,9 @@ export const useTimelineStore = create<TimelineState>((set, get) => ({
       }
     } catch (error) {
       console.error('Failed to load timeline:', error)
+      if (get().requestId !== currentRequestId) {
+        return
+      }
       set({
         error: error instanceof Error ? error.message : 'Failed to load timeline',
         isLoading: false
@@ -377,6 +391,33 @@ export const useTimelineStore = create<TimelineState>((set, get) => ({
     })
   }
 }))
+
+// ============================================================================
+// Selectors
+// ============================================================================
+
+export const useTimelineGraph = () => useTimelineStore((s) => s.graph)
+export const useTimelineIsLoading = () => useTimelineStore((s) => s.isLoading)
+export const useTimelineSettings = () => useTimelineStore((s) => s.settings)
+export const useTimelineSelectedNode = () =>
+  useTimelineStore((s) => s.selectedNodeId)
+
+export const useTimelineActions = () =>
+  useTimelineStore((s) => ({
+    openTimeline: s.openTimeline,
+    closeTimeline: s.closeTimeline,
+    refreshGraph: s.refreshGraph,
+    selectNode: s.selectNode,
+    setSearchQuery: s.setSearchQuery,
+    setSearchMode: s.setSearchMode,
+    clearSearch: s.clearSearch,
+    updateSettings: s.updateSettings,
+    toggleLayoutDirection: s.toggleLayoutDirection,
+    toggleSwipeExpansion: s.toggleSwipeExpansion,
+    expandAllSwipes: s.expandAllSwipes,
+    collapseAllSwipes: s.collapseAllSwipes,
+    hoverNode: s.hoverNode
+  }))
 
 // ============================================================================
 // Debug Export
