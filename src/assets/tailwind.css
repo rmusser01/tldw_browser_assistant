@@ -114,128 +114,65 @@ body {
 
 @layer components {
   .timeline-modal .ant-modal-content {
-    height: 100vh;
+    @apply h-screen bg-bg text-text;
   }
 
   .timeline-container {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-    background: #1a1a1a;
-    color: #fff;
+    @apply flex h-full flex-col bg-bg text-text;
   }
 
   .timeline-content {
-    flex: 1;
-    position: relative;
-    overflow: hidden;
+    @apply relative flex-1 overflow-hidden;
   }
 
   .timeline-loading,
   .timeline-error,
   .timeline-empty {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100%;
-    padding: 24px;
+    @apply flex h-full items-center justify-center p-6;
   }
 
   .timeline-legend {
-    position: absolute;
-    bottom: 16px;
-    left: 16px;
-    display: flex;
-    gap: 16px;
-    background: rgba(0, 0, 0, 0.7);
-    padding: 8px 16px;
-    border-radius: 8px;
-    font-size: 12px;
-    z-index: 10;
+    @apply absolute bottom-4 left-4 z-10 flex gap-4 rounded-lg border border-border bg-surface px-4 py-2 text-xs text-text shadow-card;
   }
 
   .legend-item {
-    display: flex;
-    align-items: center;
-    gap: 6px;
+    @apply flex items-center gap-1.5;
   }
 
   .legend-dot {
-    width: 12px;
-    height: 12px;
-    border-radius: 9999px;
+    @apply h-3 w-3 rounded-full;
   }
 
   .timeline-search-highlight {
-    background-color: #fbbf24;
-    color: #000;
-    padding: 0 2px;
-    border-radius: 2px;
-  }
-
-  .dark .timeline-container {
-    background: #1a1a1a;
-    color: #fff;
-  }
-
-  .dark .timeline-legend {
-    background: rgba(0, 0, 0, 0.8);
+    @apply rounded-sm bg-warn px-0.5 text-text dark:text-bg;
   }
 
   .timeline-toolbar {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 12px 16px;
-    background: #262626;
-    border-bottom: 1px solid #333;
-    gap: 16px;
+    @apply flex items-center justify-between gap-4 border-b border-border bg-surface2 px-4 py-3 max-md:flex-wrap max-md:gap-2;
   }
 
   .toolbar-left {
-    display: flex;
-    align-items: center;
+    @apply flex items-center;
   }
 
   .toolbar-center {
-    display: flex;
-    align-items: center;
-    flex: 1;
-    justify-content: center;
+    @apply flex flex-1 items-center justify-center max-md:order-3 max-md:basis-full max-md:w-full;
   }
 
   .toolbar-right {
-    display: flex;
-    align-items: center;
+    @apply flex items-center;
   }
 
   .timeline-search-input {
-    border-radius: 0;
+    @apply rounded-none;
   }
 
-  .timeline-search-input input {
-    background: #1a1a1a;
+  .toolbar-center .ant-space-compact {
+    @apply max-md:!w-full;
   }
 
-  @media (max-width: 768px) {
-    .timeline-toolbar {
-      flex-wrap: wrap;
-      gap: 8px;
-    }
-
-    .toolbar-center {
-      order: 3;
-      flex-basis: 100%;
-      justify-content: stretch;
-    }
-
-    .toolbar-center .ant-space-compact {
-      width: 100% !important;
-    }
-
-    .toolbar-center .ant-input {
-      flex: 1;
-    }
+  .toolbar-center .ant-input-affix-wrapper {
+    @apply max-md:flex-1;
   }
 }
 

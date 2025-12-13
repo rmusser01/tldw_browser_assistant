@@ -301,42 +301,42 @@
     "description": "Confirmation toast message shown after creating a flashcard collection from omni-search."
   },
   "folders": {
-    "message": "Folders"
+    "message": "Cartelle"
   },
   "folderView": {
-    "message": "Folder view"
+    "message": "Vista cartelle"
   },
   "dateView": {
-    "message": "Date view"
+    "message": "Vista per data"
   },
   "newFolder": {
-    "message": "New Folder"
+    "message": "Nuova cartella"
   },
   "folderName": {
-    "message": "Folder name"
+    "message": "Nome cartella"
   },
   "selectFolder": {
-    "message": "Select folder"
+    "message": "Seleziona cartella"
   },
   "noFolders": {
-    "message": "No folders"
+    "message": "Nessuna cartella"
   },
   "expandAll": {
-    "message": "Expand all"
+    "message": "Espandi tutto"
   },
   "collapseAll": {
-    "message": "Collapse all"
+    "message": "Comprimi tutto"
   },
   "refresh": {
-    "message": "Refresh"
+    "message": "Aggiorna"
   },
   "confirm": {
-    "message": "Confirm"
+    "message": "Conferma"
   },
   "untitled": {
-    "message": "Untitled"
+    "message": "Senza titolo"
   },
   "moveToFolder": {
-    "message": "Move to folder"
+    "message": "Sposta nella cartella"
   }
 }

@@ -15,6 +15,7 @@ import { QuickChatHelperButton } from "@/components/Common/QuickChatHelper"
 function IndexSidepanel() {
   const { mode } = useDarkMode()
   const { t, i18n } = useTranslation()
+  const [direction, setDirection] = useState<"ltr" | "rtl">("ltr")
   const [isVisible, setIsVisible] = useState(
     typeof document !== "undefined"
       ? document.visibilityState === "visible"
@@ -24,7 +25,9 @@ function IndexSidepanel() {
   useEffect(() => {
     if (i18n.resolvedLanguage) {
       document.documentElement.lang = i18n.resolvedLanguage
-      document.documentElement.dir = i18n.dir(i18n.resolvedLanguage)
+      const resolvedDirection = i18n.dir(i18n.resolvedLanguage) as "ltr" | "rtl"
+      document.documentElement.dir = resolvedDirection
+      setDirection(resolvedDirection)
     }
   }, [i18n, i18n.resolvedLanguage])
 
@@ -60,7 +63,8 @@ function IndexSidepanel() {
             }}
             description={t("common:noData")}
           />
-        )}>
+        )}
+        direction={direction}>
         <AntdApp>
           <StyleProvider hashPriority="high">
             <QueryClientProvider client={queryClient}>

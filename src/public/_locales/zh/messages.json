@@ -160,42 +160,42 @@
     "description": "Confirmation toast message shown after creating a flashcard collection from omni-search."
   },
   "folders": {
-    "message": "Folders"
+    "message": "文件夹"
   },
   "folderView": {
-    "message": "Folder view"
+    "message": "文件夹视图"
   },
   "dateView": {
-    "message": "Date view"
+    "message": "日期视图"
   },
   "newFolder": {
-    "message": "New Folder"
+    "message": "新建文件夹"
   },
   "folderName": {
-    "message": "Folder name"
+    "message": "文件夹名称"
   },
   "selectFolder": {
-    "message": "Select folder"
+    "message": "选择文件夹"
   },
   "noFolders": {
-    "message": "No folders"
+    "message": "没有文件夹"
   },
   "expandAll": {
-    "message": "Expand all"
+    "message": "全部展开"
   },
   "collapseAll": {
-    "message": "Collapse all"
+    "message": "全部折叠"
   },
   "refresh": {
-    "message": "Refresh"
+    "message": "刷新"
   },
   "confirm": {
-    "message": "Confirm"
+    "message": "确认"
   },
   "untitled": {
-    "message": "Untitled"
+    "message": "未命名"
   },
   "moveToFolder": {
-    "message": "Move to folder"
+    "message": "移动到文件夹"
   }
 }

@@ -160,42 +160,42 @@
     "description": "Confirmation toast message shown after creating a flashcard collection from omni-search."
   },
   "folders": {
-    "message": "Folders"
+    "message": "Папки"
   },
   "folderView": {
-    "message": "Folder view"
+    "message": "Перегляд папок"
   },
   "dateView": {
-    "message": "Date view"
+    "message": "Перегляд за датою"
   },
   "newFolder": {
-    "message": "New Folder"
+    "message": "Нова папка"
   },
   "folderName": {
-    "message": "Folder name"
+    "message": "Назва папки"
   },
   "selectFolder": {
-    "message": "Select folder"
+    "message": "Виберіть папку"
   },
   "noFolders": {
-    "message": "No folders"
+    "message": "Немає папок"
   },
   "expandAll": {
-    "message": "Expand all"
+    "message": "Розгорнути все"
   },
   "collapseAll": {
-    "message": "Collapse all"
+    "message": "Згорнути все"
   },
   "refresh": {
-    "message": "Refresh"
+    "message": "Оновити"
   },
   "confirm": {
-    "message": "Confirm"
+    "message": "Підтвердити"
   },
   "untitled": {
-    "message": "Untitled"
+    "message": "Без назви"
   },
   "moveToFolder": {
-    "message": "Move to folder"
+    "message": "Перемістити в папку"
   }
 }

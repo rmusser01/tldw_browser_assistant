@@ -58,7 +58,7 @@ export const FolderToolbar = ({ compact = false }: FolderToolbarProps) => {
       // If this becomes noisy, we can refine the error messaging based on error codes.
       // eslint-disable-next-line no-console
       console.error("Failed to create folder:", e)
-      message.error(e?.message || "Failed to create folder")
+      message.error(e?.message || t("common:error.createFolder"))
     } finally {
       setIsCreating(false)
     }

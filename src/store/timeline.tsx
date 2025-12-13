@@ -5,6 +5,7 @@
  */
 
 import { create } from 'zustand'
+import { useShallow } from 'zustand/react/shallow'
 import type {
   TimelineGraph,
   TimelineNode,
@@ -216,10 +217,21 @@ export const useTimelineStore = create<TimelineState>((set, get) => ({
     const { currentHistoryId } = get()
     if (!currentHistoryId) return
 
-    set({ isLoading: true, error: null })
+    const currentRequestId = get().requestId + 1
+
+    set({
+      requestId: currentRequestId,
+      isLoading: true,
+      error: null
+    })
 
     try {
       const graph = await timelineGraphBuilder.buildGraphForConversation(currentHistoryId)
+
+      if (get().requestId !== currentRequestId) {
+        return
+      }
+
       set({ graph, isLoading: false })
 
       // Re-run search if active
@@ -237,6 +249,9 @@ export const useTimelineStore = create<TimelineState>((set, get) => ({
       }
     } catch (error) {
       console.error('Failed to refresh timeline:', error)
+      if (get().requestId !== currentRequestId) {
+        return
+      }
       set({
         error: error instanceof Error ? error.message : 'Failed to refresh',
         isLoading: false
@@ -403,21 +418,23 @@ export const useTimelineSelectedNode = () =>
   useTimelineStore((s) => s.selectedNodeId)
 
 export const useTimelineActions = () =>
-  useTimelineStore((s) => ({
-    openTimeline: s.openTimeline,
-    closeTimeline: s.closeTimeline,
-    refreshGraph: s.refreshGraph,
-    selectNode: s.selectNode,
-    setSearchQuery: s.setSearchQuery,
-    setSearchMode: s.setSearchMode,
-    clearSearch: s.clearSearch,
-    updateSettings: s.updateSettings,
-    toggleLayoutDirection: s.toggleLayoutDirection,
-    toggleSwipeExpansion: s.toggleSwipeExpansion,
-    expandAllSwipes: s.expandAllSwipes,
-    collapseAllSwipes: s.collapseAllSwipes,
-    hoverNode: s.hoverNode
-  }))
+  useTimelineStore(
+    useShallow((s) => ({
+      openTimeline: s.openTimeline,
+      closeTimeline: s.closeTimeline,
+      refreshGraph: s.refreshGraph,
+      selectNode: s.selectNode,
+      setSearchQuery: s.setSearchQuery,
+      setSearchMode: s.setSearchMode,
+      clearSearch: s.clearSearch,
+      updateSettings: s.updateSettings,
+      toggleLayoutDirection: s.toggleLayoutDirection,
+      toggleSwipeExpansion: s.toggleSwipeExpansion,
+      expandAllSwipes: s.expandAllSwipes,
+      collapseAllSwipes: s.collapseAllSwipes,
+      hoverNode: s.hoverNode
+    }))
+  )
 
 // ============================================================================
 // Debug Export

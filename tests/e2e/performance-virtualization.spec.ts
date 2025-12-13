@@ -24,9 +24,6 @@ const TEST_EXT_PATH = path.resolve("build/chrome-mv3")
 const DEFAULT_SERVER_URL = "http://localhost:8000"
 const SERVER_URL = process.env.TLDW_E2E_SERVER_URL || DEFAULT_SERVER_URL
 const API_KEY = process.env.TLDW_E2E_API_KEY
-if (!API_KEY) {
-  throw new Error("TLDW_E2E_API_KEY must be set for performance-virtualization e2e tests")
-}
 
 // Performance targets
 const TARGETS = {
@@ -36,6 +33,7 @@ const TARGETS = {
 }
 
 test.describe("List Virtualization Performance", () => {
+  test.skip(!API_KEY, "TLDW_E2E_API_KEY must be set for performance-virtualization e2e tests")
   test("cold start time to interactive", async () => {
     const { context, page, optionsUrl } = await launchWithExtension(TEST_EXT_PATH, {
       seedConfig: {
@@ -111,12 +109,14 @@ test.describe("List Virtualization Performance", () => {
 
       // Inject synthetic messages via the exposed debug store
       const messageCount = 100
-      await page.evaluate((count) => {
-        // Access the chat store if exposed for debugging
+      const injected = await page.evaluate((count) => {
         const store = (window as any).__tldw_useChatStore?.getState?.()
         if (!store?.addMessage) {
-          console.log("Chat store not available for synthetic message injection")
-          return
+          return {
+            ok: false,
+            reason:
+              "Synthetic injection unavailable: window.__tldw_useChatStore.getState().addMessage is not exposed"
+          }
         }
 
         for (let i = 0; i < count; i++) {
@@ -129,7 +129,13 @@ test.describe("List Virtualization Performance", () => {
                 `Message number ${i} with some additional content to make it realistic.`
           store.addMessage(role, content)
         }
+        return { ok: true }
       }, messageCount)
+
+      test.skip(
+        !injected.ok,
+        injected.reason || "Synthetic message injection unavailable"
+      )
 
       // Wait for messages to render
       await page.waitForTimeout(1000)
@@ -170,7 +176,8 @@ test.describe("List Virtualization Performance", () => {
           name: "Average FPS",
           value: avgFPS,
           unit: " FPS",
-          target: TARGETS.scrollFPS
+          target: TARGETS.scrollFPS,
+          higherIsBetter: true
         },
         {
           name: "Min FPS",
@@ -236,9 +243,15 @@ test.describe("List Virtualization Performance", () => {
 
       // Inject many messages
       const messageCount = 200
-      await page.evaluate((count) => {
+      const injected = await page.evaluate((count) => {
         const store = (window as any).__tldw_useChatStore?.getState?.()
-        if (!store?.addMessage) return
+        if (!store?.addMessage) {
+          return {
+            ok: false,
+            reason:
+              "Synthetic injection unavailable: window.__tldw_useChatStore.getState().addMessage is not exposed"
+          }
+        }
 
         for (let i = 0; i < count; i++) {
           const role = i % 2 === 0 ? "user" : "assistant"
@@ -247,7 +260,13 @@ test.describe("List Virtualization Performance", () => {
             `Message ${i}: Lorem ipsum dolor sit amet, consectetur adipiscing elit.`
           )
         }
+        return { ok: true }
       }, messageCount)
+
+      test.skip(
+        !injected.ok,
+        injected.reason || "Synthetic message injection unavailable"
+      )
 
       await page.waitForTimeout(500)
 
@@ -315,8 +334,8 @@ test.describe("List Virtualization Performance", () => {
       const timer = new PerfTimer()
       timer.start()
 
-      const sidepanel = await openSidepanel()
       timer.mark("navigation-start")
+      const sidepanel = await openSidepanel()
 
       await sidepanel.waitForSelector("#root", { state: "attached", timeout: 15000 })
       timer.mark("root-mounted")
@@ -357,6 +376,7 @@ test.describe("List Virtualization Performance", () => {
 })
 
 test.describe("Memory Performance", () => {
+  test.skip(!API_KEY, "TLDW_E2E_API_KEY must be set for performance-virtualization e2e tests")
   test("memory baseline measurement", async () => {
     const { context, page, optionsUrl } = await launchWithExtension(TEST_EXT_PATH, {
       seedConfig: {

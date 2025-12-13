@@ -1048,18 +1048,18 @@ export const Sidebar = ({
         </div>
       )}
 
-	      {/* Folder Tree View - shown when viewMode is 'folders' */}
-	      {isConnected && viewMode === 'folders' && (
-	        <div className="mt-4 border-t border-gray-200 dark:border-gray-800 pt-3">
-	          <FolderTree
-	            onConversationSelect={(conversationId) => {
-	              void loadLocalConversation(conversationId)
-	            }}
-	            conversations={folderTreeConversations}
-	            showConversations
-	          />
-	        </div>
-	      )}
+      {/* Folder Tree View - shown when viewMode is 'folders' */}
+      {isConnected && viewMode === 'folders' && (
+        <div className="mt-4 border-t border-gray-200 dark:border-gray-800 pt-3">
+          <FolderTree
+            onConversationSelect={(conversationId) => {
+              void loadLocalConversation(conversationId)
+            }}
+            conversations={folderTreeConversations}
+            showConversations
+          />
+        </div>
+      )}
 
       {/* Folder Picker Modal */}
       <React.Suspense fallback={null}>

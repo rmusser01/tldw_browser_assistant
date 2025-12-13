@@ -18,6 +18,9 @@ import {
   CloseOutlined
 } from '@ant-design/icons'
 import { useTimelineStore } from '@/store/timeline'
+import { translateMessage } from '@/i18n/translateMessage'
+import { useTranslation } from 'react-i18next'
+import { useShallow } from 'zustand/react/shallow'
 
 const { Text } = Typography
 
@@ -26,6 +29,7 @@ const { Text } = Typography
 // ============================================================================
 
 export const TimelineToolbar: React.FC = () => {
+  const { t } = useTranslation(['common'])
   const {
     graph,
     searchQuery,
@@ -43,11 +47,34 @@ export const TimelineToolbar: React.FC = () => {
     collapseAllSwipes,
     updateSettings,
     closeTimeline
-  } = useTimelineStore()
+  } = useTimelineStore(
+    useShallow((state) => ({
+      graph: state.graph,
+      searchQuery: state.searchQuery,
+      searchResults: state.searchResults,
+      searchMode: state.searchMode,
+      settings: state.settings,
+      isLoading: state.isLoading,
+      error: state.error,
+      setSearchQuery: state.setSearchQuery,
+      setSearchMode: state.setSearchMode,
+      clearSearch: state.clearSearch,
+      refreshGraph: state.refreshGraph,
+      toggleLayoutDirection: state.toggleLayoutDirection,
+      expandAllSwipes: state.expandAllSwipes,
+      collapseAllSwipes: state.collapseAllSwipes,
+      updateSettings: state.updateSettings,
+      closeTimeline: state.closeTimeline
+    }))
+  )
 
   const hasSearchResults = searchResults.length > 0
   const hasSearch = searchQuery.trim().length > 0
   const canZoom = Boolean(graph) && !isLoading && !error
+  const nextLayoutDirectionLabel =
+    settings.layoutDirection === 'TB'
+      ? translateMessage(t, 'common:timeline.layout.horizontal', 'horizontal')
+      : translateMessage(t, 'common:timeline.layout.vertical', 'vertical')
 
   const zoomTo = React.useCallback((nextZoom: number) => {
     const clamped = Math.min(settings.maxZoom, Math.max(settings.minZoom, nextZoom))
@@ -65,7 +92,11 @@ export const TimelineToolbar: React.FC = () => {
           style={{ marginRight: 8 }}
         />
         <Text strong style={{ fontSize: 16 }}>
-          Conversation Timeline
+          {translateMessage(
+            t,
+            'common:timeline.title',
+            'Conversation Timeline'
+          )}
         </Text>
       </div>
 
@@ -77,15 +108,40 @@ export const TimelineToolbar: React.FC = () => {
             onChange={setSearchMode}
             style={{ width: 120 }}
             options={[
-              { value: 'fragments', label: 'Fragments' },
-              { value: 'substring', label: 'Substring' },
-              { value: 'regex', label: 'Regex' }
+              {
+                value: 'fragments',
+                label: translateMessage(
+                  t,
+                  'common:timeline.searchMode.fragments',
+                  'Fragments'
+                )
+              },
+              {
+                value: 'substring',
+                label: translateMessage(
+                  t,
+                  'common:timeline.searchMode.substring',
+                  'Substring'
+                )
+              },
+              {
+                value: 'regex',
+                label: translateMessage(
+                  t,
+                  'common:timeline.searchMode.regex',
+                  'Regex'
+                )
+              }
             ]}
           />
           <Input
             id="timeline-search-input"
             className="timeline-search-input"
-            placeholder="Search messages... (space = AND)"
+            placeholder={translateMessage(
+              t,
+              'common:timeline.searchPlaceholder',
+              'Search messages... (space = AND)'
+            )}
             prefix={<SearchOutlined />}
             suffix={
               hasSearch ? (
@@ -113,7 +169,17 @@ export const TimelineToolbar: React.FC = () => {
             color={hasSearchResults ? 'green' : 'red'}
           >
             <Text type="secondary" style={{ marginLeft: 4, fontSize: 12 }}>
-              {hasSearchResults ? 'matches' : 'no matches'}
+              {hasSearchResults
+                ? translateMessage(
+                    t,
+                    'common:timeline.searchMatches',
+                    'matches'
+                  )
+                : translateMessage(
+                    t,
+                    'common:timeline.searchNoMatches',
+                    'no matches'
+                  )}
             </Text>
           </Badge>
         )}
@@ -123,16 +189,25 @@ export const TimelineToolbar: React.FC = () => {
       <div className="toolbar-right">
         <Space>
           {/* Refresh */}
-          <Tooltip title="Refresh graph">
+          <Tooltip
+            title={translateMessage(t, 'common:timeline.refreshGraph', 'Refresh graph')}
+          >
             <Button
               icon={<ReloadOutlined spin={isLoading} />}
-              onClick={refreshGraph}
+              onClick={() => void refreshGraph()}
               disabled={isLoading}
             />
           </Tooltip>
 
           {/* Toggle layout direction */}
-          <Tooltip title={`Switch to ${settings.layoutDirection === 'TB' ? 'horizontal' : 'vertical'} layout`}>
+          <Tooltip
+            title={translateMessage(
+              t,
+              'common:timeline.switchLayout',
+              'Switch to {{layout}} layout',
+              { layout: nextLayoutDirectionLabel }
+            )}
+          >
             <Button
               icon={<RotateRightOutlined />}
               onClick={toggleLayoutDirection}
@@ -140,13 +215,25 @@ export const TimelineToolbar: React.FC = () => {
           </Tooltip>
 
           {/* Expand/Collapse swipes */}
-          <Tooltip title="Expand all alternatives">
+          <Tooltip
+            title={translateMessage(
+              t,
+              'common:timeline.expandAllAlternatives',
+              'Expand all alternatives'
+            )}
+          >
             <Button
               icon={<ExpandOutlined />}
               onClick={expandAllSwipes}
             />
           </Tooltip>
-          <Tooltip title="Collapse all alternatives">
+          <Tooltip
+            title={translateMessage(
+              t,
+              'common:timeline.collapseAllAlternatives',
+              'Collapse all alternatives'
+            )}
+          >
             <Button
               icon={<CompressOutlined />}
               onClick={collapseAllSwipes}
@@ -154,7 +241,21 @@ export const TimelineToolbar: React.FC = () => {
           </Tooltip>
 
           {/* Toggle legend */}
-          <Tooltip title={settings.showLegend ? 'Hide legend' : 'Show legend'}>
+          <Tooltip
+            title={
+              settings.showLegend
+                ? translateMessage(
+                    t,
+                    'common:timeline.hideLegend',
+                    'Hide legend'
+                  )
+                : translateMessage(
+                    t,
+                    'common:timeline.showLegend',
+                    'Show legend'
+                  )
+            }
+          >
             <Button
               icon={<UnorderedListOutlined />}
               type={settings.showLegend ? 'primary' : 'default'}
@@ -164,14 +265,16 @@ export const TimelineToolbar: React.FC = () => {
 
           {/* Zoom controls */}
           <Button.Group>
-            <Tooltip title="Zoom in">
+            <Tooltip title={translateMessage(t, 'common:timeline.zoomIn', 'Zoom in')}>
               <Button
                 icon={<ZoomInOutlined />}
                 disabled={!canZoom}
                 onClick={() => zoomTo(settings.zoomLevel * 1.2)}
               />
             </Tooltip>
-            <Tooltip title="Zoom out">
+            <Tooltip
+              title={translateMessage(t, 'common:timeline.zoomOut', 'Zoom out')}
+            >
               <Button
                 icon={<ZoomOutOutlined />}
                 disabled={!canZoom}

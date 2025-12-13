@@ -1124,42 +1124,42 @@
     "message": "Vamos levá‑lo de volta à etapa de boas‑vindas para que você possa revisar a URL do servidor e a chave de API."
   },
   "folders": {
-    "message": "Folders"
+    "message": "Pastas"
   },
   "folderView": {
-    "message": "Folder view"
+    "message": "Visualização de pastas"
   },
   "dateView": {
-    "message": "Date view"
+    "message": "Visualização por data"
   },
   "newFolder": {
-    "message": "New Folder"
+    "message": "Nova pasta"
   },
   "folderName": {
-    "message": "Folder name"
+    "message": "Nome da pasta"
   },
   "selectFolder": {
-    "message": "Select folder"
+    "message": "Selecionar pasta"
   },
   "noFolders": {
-    "message": "No folders"
+    "message": "Nenhuma pasta"
   },
   "expandAll": {
-    "message": "Expand all"
+    "message": "Expandir tudo"
   },
   "collapseAll": {
-    "message": "Collapse all"
+    "message": "Recolher tudo"
   },
   "refresh": {
-    "message": "Refresh"
+    "message": "Atualizar"
   },
   "confirm": {
-    "message": "Confirm"
+    "message": "Confirmar"
   },
   "untitled": {
-    "message": "Untitled"
+    "message": "Sem título"
   },
   "moveToFolder": {
-    "message": "Move to folder"
+    "message": "Mover para pasta"
   }
 }

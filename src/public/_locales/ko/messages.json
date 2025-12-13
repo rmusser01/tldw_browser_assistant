@@ -1,4 +1,178 @@
 {
+  "extName": {
+    "message": "tldw 어시스턴트"
+  },
+  "extDescription": {
+    "message": "tldw_server용 브라우저 확장 프로그램 — RAG, 미디어 처리 등 다양한 기능을 갖춘 통합 AI 어시스턴트입니다."
+  },
+  "openSidePanelToChat": {
+    "message": "채팅을 위해 사이드바 열기"
+  },
+  "openOptionToChat": {
+    "message": "채팅을 위해 웹 UI 열기"
+  },
+  "openQuickIngest": {
+    "message": "퀵 인제스트 열기"
+  },
+  "buttonOpenQuickIngest": {
+    "message": "퀵 인제스트 열기"
+  },
+  "buttonTryDemo": {
+    "message": "데모 사용해 보기"
+  },
+  "learnMoreTldw": {
+    "message": "tldw 서버가 어떻게 작동하는지 알아보기"
+  },
+  "contextSummarize": {
+    "message": "요약"
+  },
+  "contextExplain": {
+    "message": "설명"
+  },
+  "contextRephrase": {
+    "message": "다르게 표현"
+  },
+  "contextTranslate": {
+    "message": "번역"
+  },
+  "contextCustom": {
+    "message": "사용자 정의"
+  },
+  "contextSendToTldw": {
+    "message": "tldw_server로 보내기"
+  },
+  "contextProcessLocalTldw": {
+    "message": "tldw_server로 처리 (저장하지 않음)"
+  },
+  "contextTranscribeMedia": {
+    "message": "동영상/오디오 전사"
+  },
+  "contextTranscribeAndSummarizeMedia": {
+    "message": "동영상/오디오 전사 + 요약"
+  },
+  "contextSaveToNotes": {
+    "message": "노트에 저장"
+  },
+  "contextSaveToNotesNoSelection": {
+    "message": "노트에 저장하려면 먼저 텍스트를 선택하세요."
+  },
+  "contextSidebarOpening": {
+    "message": "사이드바를 여는 중..."
+  },
+  "contextSaveToNotesOpeningSidebar": {
+    "message": "노트를 저장하려고 사이드바를 여는 중..."
+  },
+  "contextSaveToNotesDeliveryFailed": {
+    "message": "이 노트를 저장하려고 사이드바를 열 수 없습니다. 이 사이트에서 tldw Assistant 사이드바가 허용되어 있는지 확인하고 다시 시도하세요."
+  },
+  "hfSendPageRejected": {
+    "message": "[tldw] 페이지 전송 요청이 tldw_server에서 거부되었습니다"
+  },
+  "hfSendPageErrorWithDetail": {
+    "message": "[tldw] 이 페이지를 tldw_server로 보내지 못했습니다: $1. 설정 → tldw server를 확인한 후 다시 시도하세요."
+  },
+  "hfSendPageError": {
+    "message": "[tldw] 이 페이지를 tldw_server로 보내지 못했습니다. 설정 → tldw server를 확인한 후 다시 시도하세요."
+  },
+  "hfSendPageSuccess": {
+    "message": "[tldw] 페이지를 처리하려고 tldw_server로 보냈습니다"
+  },
+  "hfSendPageException": {
+    "message": "[tldw] 이 페이지를 tldw_server로 보내는 동안 문제가 발생했습니다. tldw_server와 확장 프로그램이 실행 중인지 확인한 뒤 다시 시도하세요."
+  },
+  "hfPullInProgress": {
+    "message": "[tldw Assistant] 모델 가져오기 요청이 이미 진행 중입니다. 다른 요청을 시작하기 전에 완료될 때까지 기다려 주세요."
+  },
+  "hfPullConfirm": {
+    "message": "[tldw Assistant] tldw_server에 \"$1\" 모델을 가져오도록 요청을 보낼까요? 이 작업은 huggingface.co 웹사이트와는 별개입니다. 확인하면 서버가 모델을 가져오기 시작합니다."
+  },
+  "hfPullSending": {
+    "message": "[tldw Assistant] tldw_server에 \"$1\" 모델을 가져오도록 요청을 보내는 중입니다. 진행 상황은 확장 프로그램 아이콘 또는 tldw_server 로그에서 확인하세요."
+  },
+  "hfPullErrorWithDetail": {
+    "message": "[tldw Assistant] \"$1\" 모델 가져오기 요청을 보내지 못했습니다: $2. 설정 → tldw server를 확인한 후 다시 시도하세요."
+  },
+  "hfPullError": {
+    "message": "[tldw Assistant] \"$1\" 모델 가져오기 요청을 보내지 못했습니다. 설정 → tldw server를 확인한 후 다시 시도하세요."
+  },
+  "hfPullSuccess": {
+    "message": "[tldw Assistant] tldw_server에 \"$1\" 모델을 가져오도록 요청을 보냈습니다. 상태는 확장 프로그램 아이콘 또는 tldw_server 로그에서 확인하세요."
+  },
+  "hfPullException": {
+    "message": "[tldw Assistant] tldw_server에 \"$1\" 모델 가져오기 요청을 보내는 동안 문제가 발생했습니다. tldw_server와 확장 프로그램이 실행 중인지 확인한 뒤 다시 시도하세요."
+  },
+  "notesEmpty_connectTitle": {
+    "message": "노트를 사용하려면 연결하세요"
+  },
+  "notesEmpty_connectDescription": {
+    "message": "노트를 사용하려면 먼저 tldw 서버에 연결하세요."
+  },
+  "notesEmpty_connectExample1": {
+    "message": "설정 → tldw server에서 서버 URL을 추가하세요."
+  },
+  "notesEmpty_connectExample2": {
+    "message": "서버가 실행 중이지만 연결할 수 없다면 진단을 사용하세요."
+  },
+  "notesEmpty_demoTitle": {
+    "message": "데모 모드에서 노트 살펴보기"
+  },
+  "notesEmpty_demoDescription": {
+    "message": "이 데모는 노트가 인사이트를 어떻게 정리할 수 있는지 보여줍니다. 나중에 자신의 서버에 연결해 실제 노트를 만들고 저장할 수 있습니다."
+  },
+  "notesEmpty_demoExample1": {
+    "message": "목록에서 노트 제목, 미리보기, 타임스탬프가 어떻게 표시되는지 확인하세요."
+  },
+  "notesEmpty_demoExample2": {
+    "message": "연결하면 회의, 리뷰 등에서 노트를 만들 수 있습니다."
+  },
+  "notesEmpty_demoExample3": {
+    "message": "미디어와 리뷰와 함께 노트를 사용해 발견한 내용을 추적하세요."
+  },
+  "notesEmpty_demoPreviewHeading": {
+    "message": "예시 노트 (미리보기 전용)"
+  },
+  "notesEmpty_demoSample1Title": {
+    "message": "데모 노트: 주간 회의 요약"
+  },
+  "notesEmpty_demoSample1Preview": {
+    "message": "최근 팀 싱크에서 나온 결정 사항, 블로커, 후속 조치."
+  },
+  "notesEmpty_demoSample1Meta": {
+    "message": "오늘 \u00b7 오전 9:32"
+  },
+  "notesEmpty_demoSample2Title": {
+    "message": "데모 노트: 연구 하이라이트"
+  },
+  "notesEmpty_demoSample2Preview": {
+    "message": "긴 글이나 논문에서 뽑은 핵심 인사이트."
+  },
+  "notesEmpty_demoSample2Meta": {
+    "message": "어제 \u00b7 오후 4:10"
+  },
+  "notesEmpty_demoSample3Title": {
+    "message": "데모 노트: 통화 요약"
+  },
+  "notesEmpty_demoSample3Preview": {
+    "message": "다음 단계와 담당자가 포함된 고객 통화 요약."
+  },
+  "notesEmpty_demoSample3Meta": {
+    "message": "이번 주"
+  },
+  "notesEmpty_title": {
+    "message": "아직 노트가 없습니다"
+  },
+  "notesEmpty_description": {
+    "message": "tldw 인사이트와 연결된 자유 형식 노트를 기록하고 정리하세요."
+  },
+  "notesEmpty_exampleCreate": {
+    "message": "최근 회의나 녹취에 대한 새 노트를 만드세요."
+  },
+  "notesEmpty_exampleLink": {
+    "message": "리뷰 결과를 노트에 저장해 나중에 다시 볼 수 있게 하세요."
+  },
+  "notesEmpty_primaryCta": {
+    "message": "노트 만들기"
+  },
   "footerHelp": {
     "message": "연결이 완료되면 확장 프로그램 메뉴에서 언제든지 이 설정으로 다시 돌아올 수 있습니다.",
     "description": "온보딩 설정 화면 하단에 표시되는 도움말 텍스트."
@@ -160,42 +334,42 @@
     "description": "Confirmation toast message shown after creating a flashcard collection from omni-search."
   },
   "folders": {
-    "message": "Folders"
+    "message": "폴더"
   },
   "folderView": {
-    "message": "Folder view"
+    "message": "폴더 보기"
   },
   "dateView": {
-    "message": "Date view"
+    "message": "날짜 보기"
   },
   "newFolder": {
-    "message": "New Folder"
+    "message": "새 폴더"
   },
   "folderName": {
-    "message": "Folder name"
+    "message": "폴더 이름"
   },
   "selectFolder": {
-    "message": "Select folder"
+    "message": "폴더 선택"
   },
   "noFolders": {
-    "message": "No folders"
+    "message": "폴더가 없습니다"
   },
   "expandAll": {
-    "message": "Expand all"
+    "message": "모두 펼치기"
   },
   "collapseAll": {
-    "message": "Collapse all"
+    "message": "모두 접기"
   },
   "refresh": {
-    "message": "Refresh"
+    "message": "새로고침"
   },
   "confirm": {
-    "message": "Confirm"
+    "message": "확인"
   },
   "untitled": {
-    "message": "Untitled"
+    "message": "제목 없음"
   },
   "moveToFolder": {
-    "message": "Move to folder"
+    "message": "폴더로 이동"
   }
 }

@@ -5,8 +5,18 @@
  * and keyword management. Uses bgRequest for proper auth handling.
  */
 
-import { bgRequest } from "./background-proxy"
+import { bgRequest } from "@/services/background-proxy"
 import type { Folder, Keyword, FolderKeywordLink, ConversationKeywordLink } from "@/db/dexie/types"
+
+type ArrayOrWrapped<T, K extends string> = T[] | { [key in K]: T[] } | null | undefined
+
+const normalizeArrayResponse = <T, K extends string>(
+  response: ArrayOrWrapped<T, K>,
+  key: K
+): T[] => {
+  if (!response) return []
+  return Array.isArray(response) ? response : (response as any)?.[key] || []
+}
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Folder (keyword_collections) API
@@ -15,14 +25,15 @@ import type { Folder, Keyword, FolderKeywordLink, ConversationKeywordLink } from
 /**
  * Fetch all folders from server
  */
-export const fetchFolders = async (): Promise<Folder[]> => {
+export const fetchFolders = async (options?: { abortSignal?: AbortSignal; timeoutMs?: number }): Promise<Folder[]> => {
   try {
-    const response = await bgRequest<{ collections: Folder[] } | Folder[]>({
+    const response = await bgRequest<ArrayOrWrapped<Folder, "collections">>({
       path: '/api/v1/notes/collections/',
-      method: 'GET'
+      method: 'GET',
+      abortSignal: options?.abortSignal,
+      timeoutMs: options?.timeoutMs
     })
-    // Handle both array and object response formats
-    return Array.isArray(response) ? response : (response?.collections || [])
+    return normalizeArrayResponse(response, "collections")
   } catch (error) {
     console.error('Failed to fetch folders:', error)
     return []
@@ -34,13 +45,16 @@ export const fetchFolders = async (): Promise<Folder[]> => {
  */
 export const createFolder = async (
   name: string,
-  parentId?: number | null
+  parentId?: number | null,
+  options?: { abortSignal?: AbortSignal; timeoutMs?: number }
 ): Promise<Folder | null> => {
   try {
     return await bgRequest<Folder>({
       path: '/api/v1/notes/collections/',
       method: 'POST',
-      body: { name, parent_id: parentId ?? null }
+      body: { name, parent_id: parentId ?? null },
+      abortSignal: options?.abortSignal,
+      timeoutMs: options?.timeoutMs
     })
   } catch (error) {
     console.error('Failed to create folder:', error)
@@ -53,13 +67,16 @@ export const createFolder = async (
  */
 export const updateFolder = async (
   id: number,
-  data: { name?: string; parent_id?: number | null }
+  data: { name?: string; parent_id?: number | null },
+  options?: { abortSignal?: AbortSignal; timeoutMs?: number }
 ): Promise<Folder | null> => {
   try {
     return await bgRequest<Folder>({
       path: `/api/v1/notes/collections/${id}`,
       method: 'PATCH',
-      body: data
+      body: data,
+      abortSignal: options?.abortSignal,
+      timeoutMs: options?.timeoutMs
     })
   } catch (error) {
     console.error('Failed to update folder:', error)
@@ -70,11 +87,13 @@ export const updateFolder = async (
 /**
  * Delete a folder (soft delete on server)
  */
-export const deleteFolder = async (id: number): Promise<boolean> => {
+export const deleteFolder = async (id: number, options?: { abortSignal?: AbortSignal; timeoutMs?: number }): Promise<boolean> => {
   try {
     await bgRequest({
       path: `/api/v1/notes/collections/${id}`,
-      method: 'DELETE'
+      method: 'DELETE',
+      abortSignal: options?.abortSignal,
+      timeoutMs: options?.timeoutMs
     })
     return true
   } catch (error) {
@@ -92,11 +111,11 @@ export const deleteFolder = async (id: number): Promise<boolean> => {
  */
 export const fetchKeywords = async (): Promise<Keyword[]> => {
   try {
-    const response = await bgRequest<{ keywords: Keyword[] } | Keyword[]>({
+    const response = await bgRequest<ArrayOrWrapped<Keyword, "keywords">>({
       path: '/api/v1/notes/keywords/',
       method: 'GET'
     })
-    return Array.isArray(response) ? response : (response?.keywords || [])
+    return normalizeArrayResponse(response, "keywords")
   } catch (error) {
     console.error('Failed to fetch keywords:', error)
     return []
@@ -106,12 +125,14 @@ export const fetchKeywords = async (): Promise<Keyword[]> => {
 /**
  * Create a new keyword
  */
-export const createKeyword = async (keyword: string): Promise<Keyword | null> => {
+export const createKeyword = async (keyword: string, options?: { abortSignal?: AbortSignal; timeoutMs?: number }): Promise<Keyword | null> => {
   try {
     return await bgRequest<Keyword>({
       path: '/api/v1/notes/keywords/',
       method: 'POST',
-      body: { keyword }
+      body: { keyword },
+      abortSignal: options?.abortSignal,
+      timeoutMs: options?.timeoutMs
     })
   } catch (error) {
     console.error('Failed to create keyword:', error)
@@ -122,11 +143,13 @@ export const createKeyword = async (keyword: string): Promise<Keyword | null> =>
 /**
  * Delete a keyword (soft delete on server)
  */
-export const deleteKeyword = async (id: number): Promise<boolean> => {
+export const deleteKeyword = async (id: number, options?: { abortSignal?: AbortSignal; timeoutMs?: number }): Promise<boolean> => {
   try {
     await bgRequest({
       path: `/api/v1/notes/keywords/${id}`,
-      method: 'DELETE'
+      method: 'DELETE',
+      abortSignal: options?.abortSignal,
+      timeoutMs: options?.timeoutMs
     })
     return true
   } catch (error) {
@@ -144,12 +167,15 @@ export const deleteKeyword = async (id: number): Promise<boolean> => {
  */
 export const linkKeywordToFolder = async (
   folderId: number,
-  keywordId: number
+  keywordId: number,
+  options?: { abortSignal?: AbortSignal; timeoutMs?: number }
 ): Promise<boolean> => {
   try {
     await bgRequest({
       path: `/api/v1/notes/collections/${folderId}/keywords/${keywordId}`,
-      method: 'POST'
+      method: 'POST',
+      abortSignal: options?.abortSignal,
+      timeoutMs: options?.timeoutMs
     })
     return true
   } catch (error) {
@@ -163,12 +189,15 @@ export const linkKeywordToFolder = async (
  */
 export const unlinkKeywordFromFolder = async (
   folderId: number,
-  keywordId: number
+  keywordId: number,
+  options?: { abortSignal?: AbortSignal; timeoutMs?: number }
 ): Promise<boolean> => {
   try {
     await bgRequest({
       path: `/api/v1/notes/collections/${folderId}/keywords/${keywordId}`,
-      method: 'DELETE'
+      method: 'DELETE',
+      abortSignal: options?.abortSignal,
+      timeoutMs: options?.timeoutMs
     })
     return true
   } catch (error) {
@@ -182,11 +211,11 @@ export const unlinkKeywordFromFolder = async (
  */
 export const getKeywordsForFolder = async (folderId: number): Promise<Keyword[]> => {
   try {
-    const response = await bgRequest<{ keywords: Keyword[] } | Keyword[]>({
+    const response = await bgRequest<ArrayOrWrapped<Keyword, "keywords">>({
       path: `/api/v1/notes/collections/${folderId}/keywords`,
       method: 'GET'
     })
-    return Array.isArray(response) ? response : (response?.keywords || [])
+    return normalizeArrayResponse(response, "keywords")
   } catch (error) {
     console.error('Failed to get keywords for folder:', error)
     return []
@@ -202,12 +231,16 @@ export const getKeywordsForFolder = async (folderId: number): Promise<Keyword[]>
  */
 export const linkKeywordToConversation = async (
   conversationId: string,
-  keywordId: number
+  keywordId: number,
+  options?: { abortSignal?: AbortSignal; timeoutMs?: number }
 ): Promise<boolean> => {
   try {
+    const cid = encodeURIComponent(conversationId)
     await bgRequest({
-      path: `/api/v1/notes/conversations/${conversationId}/keywords/${keywordId}`,
-      method: 'POST'
+      path: `/api/v1/notes/conversations/${cid}/keywords/${keywordId}`,
+      method: 'POST',
+      abortSignal: options?.abortSignal,
+      timeoutMs: options?.timeoutMs
     })
     return true
   } catch (error) {
@@ -221,12 +254,16 @@ export const linkKeywordToConversation = async (
  */
 export const unlinkKeywordFromConversation = async (
   conversationId: string,
-  keywordId: number
+  keywordId: number,
+  options?: { abortSignal?: AbortSignal; timeoutMs?: number }
 ): Promise<boolean> => {
   try {
+    const cid = encodeURIComponent(conversationId)
     await bgRequest({
-      path: `/api/v1/notes/conversations/${conversationId}/keywords/${keywordId}`,
-      method: 'DELETE'
+      path: `/api/v1/notes/conversations/${cid}/keywords/${keywordId}`,
+      method: 'DELETE',
+      abortSignal: options?.abortSignal,
+      timeoutMs: options?.timeoutMs
     })
     return true
   } catch (error) {
@@ -242,11 +279,12 @@ export const getKeywordsForConversation = async (
   conversationId: string
 ): Promise<Keyword[]> => {
   try {
-    const response = await bgRequest<{ keywords: Keyword[] } | Keyword[]>({
-      path: `/api/v1/notes/conversations/${conversationId}/keywords`,
+    const cid = encodeURIComponent(conversationId)
+    const response = await bgRequest<ArrayOrWrapped<Keyword, "keywords">>({
+      path: `/api/v1/notes/conversations/${cid}/keywords`,
       method: 'GET'
     })
-    return Array.isArray(response) ? response : (response?.keywords || [])
+    return normalizeArrayResponse(response, "keywords")
   } catch (error) {
     console.error('Failed to get keywords for conversation:', error)
     return []
@@ -260,13 +298,15 @@ export const getKeywordsForConversation = async (
 /**
  * Fetch all folder-keyword links (for building the tree)
  */
-export const fetchFolderKeywordLinks = async (): Promise<FolderKeywordLink[]> => {
+export const fetchFolderKeywordLinks = async (options?: { abortSignal?: AbortSignal; timeoutMs?: number }): Promise<FolderKeywordLink[]> => {
   try {
-    const response = await bgRequest<{ links: FolderKeywordLink[] } | FolderKeywordLink[]>({
+    const response = await bgRequest<ArrayOrWrapped<FolderKeywordLink, "links">>({
       path: '/api/v1/notes/collections/keyword-links',
-      method: 'GET'
+      method: 'GET',
+      abortSignal: options?.abortSignal,
+      timeoutMs: options?.timeoutMs
     })
-    return Array.isArray(response) ? response : (response?.links || [])
+    return normalizeArrayResponse(response, "links")
   } catch (error) {
     // This endpoint might not exist yet - return empty array
     console.debug('Folder-keyword links endpoint not available:', error)
@@ -287,11 +327,11 @@ export const fetchConversationKeywordLinks = async (
           .join(',')}`
       : '/api/v1/notes/conversations/keyword-links') as `/${string}`
 
-    const response = await bgRequest<{ links: ConversationKeywordLink[] } | ConversationKeywordLink[]>({
+    const response = await bgRequest<ArrayOrWrapped<ConversationKeywordLink, "links">>({
       path,
       method: 'GET'
     })
-    return Array.isArray(response) ? response : (response?.links || [])
+    return normalizeArrayResponse(response, "links")
   } catch (error) {
     // This endpoint might not exist yet - return empty array
     console.debug('Conversation-keyword links endpoint not available:', error)

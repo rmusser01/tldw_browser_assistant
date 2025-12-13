@@ -139,7 +139,7 @@ export const FolderTree = ({
   // Expanded keys from UI prefs
   const expandedKeys = useMemo(() => {
     return Object.entries(uiPrefs)
-      .filter(([_, prefs]) => prefs.isOpen)
+      .filter(([, prefs]) => prefs.isOpen)
       .map(([id]) => Number(id))
   }, [uiPrefs])
 

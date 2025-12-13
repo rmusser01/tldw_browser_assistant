@@ -301,42 +301,42 @@
     "description": "Confirmation toast message shown after creating a flashcard collection from omni-search."
   },
   "folders": {
-    "message": "Folders"
+    "message": "ഫോൾഡറുകൾ"
   },
   "folderView": {
-    "message": "Folder view"
+    "message": "ഫോൾഡർ കാഴ്ച"
   },
   "dateView": {
-    "message": "Date view"
+    "message": "തീയതി കാഴ്ച"
   },
   "newFolder": {
-    "message": "New Folder"
+    "message": "പുതിയ ഫോൾഡർ"
   },
   "folderName": {
-    "message": "Folder name"
+    "message": "ഫോൾഡർ പേര്"
   },
   "selectFolder": {
-    "message": "Select folder"
+    "message": "ഫോൾഡർ തിരഞ്ഞെടുക്കുക"
   },
   "noFolders": {
-    "message": "No folders"
+    "message": "ഫോൾഡറുകളൊന്നുമില്ല"
   },
   "expandAll": {
-    "message": "Expand all"
+    "message": "എല്ലാം വികസിപ്പിക്കുക"
   },
   "collapseAll": {
-    "message": "Collapse all"
+    "message": "എല്ലാം ചുരുക്കുക"
   },
   "refresh": {
-    "message": "Refresh"
+    "message": "പുതുക്കുക"
   },
   "confirm": {
-    "message": "Confirm"
+    "message": "സ്ഥിരീകരിക്കുക"
   },
   "untitled": {
-    "message": "Untitled"
+    "message": "പേരില്ലാത്തത്"
   },
   "moveToFolder": {
-    "message": "Move to folder"
+    "message": "ഫോൾഡറിലേക്ക് നീക്കുക"
   }
 }

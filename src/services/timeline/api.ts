@@ -15,7 +15,7 @@ import type { ServerChatSummary, ServerChatMessage } from '@/services/tldw/TldwA
 type UnknownRecord = Record<string, unknown>
 
 function isRecord(value: unknown): value is UnknownRecord {
-  return value !== null && typeof value === 'object'
+  return value !== null && typeof value === 'object' && !Array.isArray(value)
 }
 
 function toStringOrNull(value: unknown): string | null {
@@ -175,6 +175,11 @@ export class TimelineApiService {
 
   /**
    * Create a fork (new branch) from an existing conversation
+   *
+   * Note: write operations intentionally propagate errors to the caller (unlike
+   * read methods that catch and return safe fallbacks).
+   *
+   * @throws If the request fails or the server response is invalid.
    */
   async createFork(request: ForkRequest): Promise<ForkResponse> {
     const body: Record<string, unknown> = {
@@ -189,7 +194,7 @@ export class TimelineApiService {
       body.title = request.title
     }
 
-    if (request.character_id) {
+    if (request.character_id !== undefined) {
       body.character_id = request.character_id
     }
 
@@ -217,6 +222,11 @@ export class TimelineApiService {
   /**
    * Add a message to a conversation with optional parent_message_id
    * This enables creating swipes (alternative responses)
+   *
+   * Note: write operations intentionally propagate errors to the caller (unlike
+   * read methods that catch and return safe fallbacks).
+   *
+   * @throws If the request fails.
    */
   async addMessage(
     conversationId: string,

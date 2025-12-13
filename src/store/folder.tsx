@@ -103,16 +103,31 @@ export const buildFolderTree = (
 ): FolderTreeNode[] => {
   const activeFolders = folders.filter(f => !f.deleted)
   const activeKeywords = keywords.filter(k => !k.deleted)
+  const keywordById = new Map<number, Keyword>()
+  activeKeywords.forEach(k => keywordById.set(k.id, k))
 
   // Build keyword lookup by folder
   const keywordsByFolder = new Map<number, Keyword[]>()
+  const keywordIdsByFolder = new Map<number, Set<number>>()
   folderKeywordLinks.forEach(link => {
-    const kw = activeKeywords.find(k => k.id === link.keyword_id)
-    if (kw) {
-      const existing = keywordsByFolder.get(link.folder_id) || []
-      existing.push(kw)
+    const kw = keywordById.get(link.keyword_id)
+    if (!kw) return
+
+    let seen = keywordIdsByFolder.get(link.folder_id)
+    if (!seen) {
+      seen = new Set<number>()
+      keywordIdsByFolder.set(link.folder_id, seen)
+    }
+
+    if (seen.has(kw.id)) return
+    seen.add(kw.id)
+
+    let existing = keywordsByFolder.get(link.folder_id)
+    if (!existing) {
+      existing = []
       keywordsByFolder.set(link.folder_id, existing)
     }
+    existing.push(kw)
   })
 
   // Count conversations per folder (via keywords)
@@ -201,15 +216,20 @@ export const useFolderStore = create<FolderState>()(
         }
       })),
 
-      setFolderColor: (folderId, color) => set((state) => ({
-        uiPrefs: {
-          ...state.uiPrefs,
-          [folderId]: {
-            ...state.uiPrefs[folderId],
-            color
+      setFolderColor: (folderId, color) =>
+        set((state) => {
+          const prev = state.uiPrefs[folderId]
+          return {
+            uiPrefs: {
+              ...state.uiPrefs,
+              [folderId]: {
+                ...prev,
+                isOpen: prev?.isOpen ?? true,
+                color
+              }
+            }
           }
-        }
-      })),
+        }),
 
       expandAllFolders: () => set((state) => {
         const newPrefs = { ...state.uiPrefs }
@@ -237,6 +257,23 @@ export const useFolderStore = create<FolderState>()(
             fetchFolderKeywordLinks(),
             fetchConversationKeywordLinks()
           ])
+
+          const hadData =
+            get().folders.length > 0 ||
+            get().keywords.length > 0 ||
+            get().folderKeywordLinks.length > 0 ||
+            get().conversationKeywordLinks.length > 0
+
+          const looksLikeFailure =
+            hadData &&
+            folders.length === 0 &&
+            keywords.length === 0 &&
+            folderKeywordLinks.length === 0 &&
+            conversationKeywordLinks.length === 0
+
+          if (looksLikeFailure) {
+            throw new Error('Folder sync returned empty payload; keeping cached data')
+          }
 
           // Cache to Dexie (atomic)
           await db.transaction(
@@ -323,11 +360,15 @@ export const useFolderStore = create<FolderState>()(
       deleteFolder: async (id) => {
         const success = await apiDeleteFolder(id)
         if (success) {
-          set((state) => ({
-            folders: state.folders.map(f =>
-              f.id === id ? { ...f, deleted: true } : f
-            )
-          }))
+          set((state) => {
+            const { [id]: _removed, ...restPrefs } = state.uiPrefs
+            return {
+              folders: state.folders.map(f =>
+                f.id === id ? { ...f, deleted: true } : f
+              ),
+              uiPrefs: restPrefs
+            }
+          })
           await db.folders.update(id, { deleted: true })
         }
         return success
@@ -348,9 +389,12 @@ export const useFolderStore = create<FolderState>()(
         const success = await apiLinkKeywordToFolder(folderId, keywordId)
         if (success) {
           const link: FolderKeywordLink = { folder_id: folderId, keyword_id: keywordId }
-          set((state) => ({
-            folderKeywordLinks: [...state.folderKeywordLinks, link]
-          }))
+          set((state) => {
+            const exists = state.folderKeywordLinks.some(
+              (l) => l.folder_id === link.folder_id && l.keyword_id === link.keyword_id
+            )
+            return exists ? state : { folderKeywordLinks: [...state.folderKeywordLinks, link] }
+          })
           await db.folderKeywordLinks.put(link)
         }
         return success
@@ -396,9 +440,14 @@ export const useFolderStore = create<FolderState>()(
             conversation_id: conversationId,
             keyword_id: keyword.id
           }
-          set((state) => ({
-            conversationKeywordLinks: [...state.conversationKeywordLinks, link]
-          }))
+          set((state) => {
+            const exists = state.conversationKeywordLinks.some(
+              (l) => l.conversation_id === link.conversation_id && l.keyword_id === link.keyword_id
+            )
+            return exists
+              ? state
+              : { conversationKeywordLinks: [...state.conversationKeywordLinks, link] }
+          })
           await db.conversationKeywordLinks.put(link)
         }
         return success
@@ -407,14 +456,16 @@ export const useFolderStore = create<FolderState>()(
       removeConversationFromFolder: async (conversationId, folderId) => {
         const state = get()
         // Find keywords associated with this folder
-        const folderKeywordIds = state.folderKeywordLinks
-          .filter(l => l.folder_id === folderId)
-          .map(l => l.keyword_id)
+        const folderKeywordIds = new Set(
+          state.folderKeywordLinks
+            .filter(l => l.folder_id === folderId)
+            .map(l => l.keyword_id)
+        )
 
         // Find which of these keywords are linked to the conversation
         const linksToRemove = state.conversationKeywordLinks.filter(l =>
           l.conversation_id === conversationId &&
-          folderKeywordIds.includes(l.keyword_id)
+          folderKeywordIds.has(l.keyword_id)
         )
 
         let success = true

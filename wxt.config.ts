@@ -10,7 +10,10 @@ import { fileURLToPath } from "url"
 
 const isFirefox = process.env.TARGET === "firefox"
 const projectRoot = path.dirname(fileURLToPath(import.meta.url))
-const analyzeBundle = process.env.ANALYZE === "true"
+
+// Enable bundle analysis for ANALYZE values like: "1", "true", "yes", "on" (case-insensitive)
+const analyzeEnv = (process.env.ANALYZE || "").trim()
+const analyzeBundle = /^(1|true|yes|y|on)$/i.test(analyzeEnv)
 
 const isAnyMatch = (id: string, matches: string[]) => {
   return matches.some((m) => id.includes(m))
@@ -137,20 +140,29 @@ const firefoxMV2Permissions = [
   "file://*/*"
 ]
 
-// Bundle analysis plugin (enabled via ANALYZE=true)
+// Bundle analysis plugin (enabled via ANALYZE env flag)
 const bundleAnalyzerPlugin = async (): Promise<Plugin | null> => {
   if (!analyzeBundle) return null
   try {
     const { visualizer } = await import("rollup-plugin-visualizer")
-    return visualizer({
+    const plugin = visualizer({
       filename: "build/bundle-stats.html",
-      open: true,
+      // Avoid opening a browser tab automatically in CI environments.
+      open: !process.env.CI,
       gzipSize: true,
       brotliSize: true,
       template: "treemap"
     }) as Plugin
+
+    // Ensure it only affects production bundle builds (not dev server transforms).
+    if ((plugin as any).apply === undefined) {
+      ;(plugin as any).apply = "build"
+    }
+
+    return plugin
   } catch (err) {
-    if (err instanceof Error && err.message.includes("Cannot find module")) {
+    const code = (err as any)?.code
+    if (code === "ERR_MODULE_NOT_FOUND" || code === "MODULE_NOT_FOUND") {
       console.warn(
         "rollup-plugin-visualizer not installed. Run: bun add -D rollup-plugin-visualizer"
       )

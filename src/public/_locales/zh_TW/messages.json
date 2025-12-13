@@ -12,42 +12,42 @@
     "description": "Third bullet in the connected-state server connection card, highlighting retrieval-augmented generation usage."
   },
   "folders": {
-    "message": "Folders"
+    "message": "資料夾"
   },
   "folderView": {
-    "message": "Folder view"
+    "message": "資料夾檢視"
   },
   "dateView": {
-    "message": "Date view"
+    "message": "日期檢視"
   },
   "newFolder": {
-    "message": "New Folder"
+    "message": "新資料夾"
   },
   "folderName": {
-    "message": "Folder name"
+    "message": "資料夾名稱"
   },
   "selectFolder": {
-    "message": "Select folder"
+    "message": "選擇資料夾"
   },
   "noFolders": {
-    "message": "No folders"
+    "message": "無資料夾"
   },
   "expandAll": {
-    "message": "Expand all"
+    "message": "全部展開"
   },
   "collapseAll": {
-    "message": "Collapse all"
+    "message": "全部收合"
   },
   "refresh": {
-    "message": "Refresh"
+    "message": "重新整理"
   },
   "confirm": {
-    "message": "Confirm"
+    "message": "確認"
   },
   "untitled": {
-    "message": "Untitled"
+    "message": "未命名"
   },
   "moveToFolder": {
-    "message": "Move to folder"
+    "message": "移至資料夾"
   }
 }

@@ -325,18 +325,28 @@ test.describe("React Query Cache Performance", () => {
       await page.goto(optionsUrl, { waitUntil: "domcontentloaded" })
       await page.waitForSelector("#root", { state: "attached", timeout: 15000 })
 
-      // Inject a message counter into the page
-      await page.evaluate(() => {
+      // Inject a message counter into the page and verify that
+      // chrome.runtime.sendMessage was successfully patched. If we
+      // can't install the override, the metric would be meaningless.
+      const patched = await page.evaluate(() => {
         (window as any).__messageCount = 0
-        const originalSendMessage = chrome?.runtime?.sendMessage
 
-        if (originalSendMessage) {
-          chrome.runtime.sendMessage = function (...args: any[]) {
-            (window as any).__messageCount++
-            return originalSendMessage.apply(this, args as any)
-          }
+        const runtime = (window as any).chrome?.runtime
+        const originalSendMessage = runtime?.sendMessage
+
+        if (!runtime || !originalSendMessage) {
+          return false
         }
+
+        runtime.sendMessage = function (...args: any[]) {
+          ;(window as any).__messageCount++
+          return originalSendMessage.apply(this, args as any)
+        }
+
+        return runtime.sendMessage !== originalSendMessage
       })
+
+      expect(patched).toBe(true)
 
       // Perform some actions that trigger background messages
       await page.waitForTimeout(5000)

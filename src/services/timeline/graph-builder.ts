@@ -149,6 +149,9 @@ export class TimelineGraphBuilder {
     const nodes: TimelineNode[] = []
     const edges: TimelineEdge[] = []
 
+    // Track node ID -> node for O(1) lookups
+    const nodeById = new Map<string, TimelineNode>()
+
     // Track message ID -> node ID mapping (for deduplication)
     const messageToNodeMap = new Map<string, string>()
 
@@ -178,6 +181,7 @@ export class TimelineGraphBuilder {
       is_swipe: false
     }
     nodes.push(rootNode)
+    nodeById.set(rootNode.id, rootNode)
 
     // Group messages by parent_message_id to identify swipes
     const swipeGroups = this.identifySwipeGroups(messages)
@@ -193,7 +197,7 @@ export class TimelineGraphBuilder {
 
       if (existingNodeId) {
         // Merge: add this message to existing node
-        const existingNode = nodes.find(n => n.id === existingNodeId)
+        const existingNode = nodeById.get(existingNodeId)
         if (existingNode) {
           existingNode.message_ids.push(message.id)
           if (!existingNode.history_ids.includes(message.history_id)) {
@@ -227,9 +231,13 @@ export class TimelineGraphBuilder {
       }
 
       nodes.push(node)
+      nodeById.set(nodeId, node)
       messageToNodeMap.set(message.id, nodeId)
       contentDepthToNodeMap.set(contentKey, nodeId)
     }
+
+    // Track edge ID -> edge for O(1) lookups
+    const edgeById = new Map<string, TimelineEdge>()
 
     // Build edges
     for (const message of messages) {
@@ -248,21 +256,25 @@ export class TimelineGraphBuilder {
 
       // Check if edge already exists (from merged nodes)
       const edgeId = `edge-${sourceNodeId}-${targetNodeId}`
-      if (!edges.find(e => e.id === edgeId)) {
-        const targetNode = nodes.find(n => n.id === targetNodeId)
-        edges.push({
+      const existingEdge = edgeById.get(edgeId)
+
+      if (!existingEdge) {
+        const targetNode = nodeById.get(targetNodeId)
+        const edge: TimelineEdge = {
           id: edgeId,
           source: sourceNodeId,
           target: targetNodeId,
           history_ids: [message.history_id],
           is_swipe_edge: targetNode?.is_swipe || false
-        })
-      } else {
-        // Add history_id to existing edge
-        const existingEdge = edges.find(e => e.id === edgeId)
-        if (existingEdge && !existingEdge.history_ids.includes(message.history_id)) {
-          existingEdge.history_ids.push(message.history_id)
         }
+        edges.push(edge)
+        edgeById.set(edgeId, edge)
+        continue
+      }
+
+      // Add history_id to existing edge
+      if (!existingEdge.history_ids.includes(message.history_id)) {
+        existingEdge.history_ids.push(message.history_id)
       }
     }
 

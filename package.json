@@ -15,7 +15,7 @@
     "zip": "cross-env TARGET=chrome wxt zip",
     "zip:firefox": "cross-env TARGET=firefox wxt zip -b firefox",
     "compile": "tsc --noEmit",
-    "verify:openapi": "tsc --noEmit",
+    "verify:openapi": "node scripts/verify-openapi-client-paths.mjs",
     "docs:dev": "vitepress dev docs",
     "docs:build": "vitepress build docs",
     "docs:preview": "vitepress preview docs",

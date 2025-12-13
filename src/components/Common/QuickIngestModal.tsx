@@ -3,6 +3,7 @@ import { Modal, Button, Input, Select, Space, Switch, Typography, List, Tag, mes
 import { useTranslation } from 'react-i18next'
 import { browser } from "wxt/browser"
 import { tldwClient } from '@/services/tldw/TldwApiClient'
+import { MEDIA_ADD_SCHEMA_FALLBACK, MEDIA_ADD_SCHEMA_FALLBACK_VERSION } from '@/services/tldw/fallback-schemas'
 import { HelpCircle, Headphones, Layers, Database, FileText, Film, Cookie, Info, Clock, Grid, BookText, Link2, File as FileIcon, AlertTriangle, Star } from 'lucide-react'
 import { useStorage } from '@plasmohq/storage/hook'
 import { useConfirmDanger } from '@/components/Common/confirm-danger'
@@ -44,57 +45,6 @@ const RESULT_FILTERS = {
 } as const
 
 type ResultsFilter = (typeof RESULT_FILTERS)[keyof typeof RESULT_FILTERS]
-
-// Extracted schema for /api/v1/media/add endpoint - used as fallback when server spec unavailable.
-// Snapshot last verified against tldw_server OpenAPI v0.1.0 (2025-01); update if the media.add schema changes.
-const MEDIA_ADD_SCHEMA_FALLBACK: Array<{ name: string; type: string; description?: string; title?: string }> = [
-  { name: 'accept_archives', type: 'boolean', description: 'Accept .zip archives of EMLs', title: 'Accept Archives' },
-  { name: 'accept_mbox', type: 'boolean', description: 'Accept .mbox mailboxes', title: 'Accept Mbox' },
-  { name: 'accept_pst', type: 'boolean', description: 'Accept .pst/.ost containers', title: 'Accept Pst' },
-  { name: 'api_name', type: 'string', description: 'Optional API name', title: 'Api Name' },
-  { name: 'author', type: 'string', description: 'Optional author', title: 'Author' },
-  { name: 'chunk_language', type: 'string', description: 'Chunking language override', title: 'Chunk Language' },
-  { name: 'chunk_method', type: 'string', description: 'Chunking method', title: 'Chunk Method' },
-  { name: 'chunk_overlap', type: 'integer', description: 'Chunk overlap size', title: 'Chunk Overlap' },
-  { name: 'chunk_size', type: 'integer', description: 'Target chunk size', title: 'Chunk Size' },
-  { name: 'claims_extractor_mode', type: 'string', description: 'Claims extractor mode', title: 'Claims Extractor Mode' },
-  { name: 'claims_max_per_chunk', type: 'string', description: 'Max claims per chunk', title: 'Claims Max Per Chunk' },
-  { name: 'context_strategy', type: 'string', description: 'Context strategy', title: 'Context Strategy' },
-  { name: 'context_token_budget', type: 'string', description: 'Token budget for auto strategy', title: 'Context Token Budget' },
-  { name: 'context_window_size', type: 'string', description: 'Context window size (chars)', title: 'Context Window Size' },
-  { name: 'contextual_llm_model', type: 'string', description: 'LLM model for contextual chunking', title: 'Contextual Llm Model' },
-  { name: 'cookies', type: 'string', description: 'Cookie string', title: 'Cookies' },
-  { name: 'custom_chapter_pattern', type: 'string', description: 'Regex for chapter splitting', title: 'Custom Chapter Pattern' },
-  { name: 'custom_prompt', type: 'string', description: 'Custom prompt', title: 'Custom Prompt' },
-  { name: 'diarize', type: 'boolean', description: 'Enable speaker diarization', title: 'Diarize' },
-  { name: 'embedding_model', type: 'string', description: 'Embedding model', title: 'Embedding Model' },
-  { name: 'embedding_provider', type: 'string', description: 'Embedding provider', title: 'Embedding Provider' },
-  { name: 'enable_contextual_chunking', type: 'boolean', description: 'Enable contextual chunking', title: 'Enable Contextual Chunking' },
-  { name: 'end_time', type: 'string', description: 'End time (HH:MM:SS)', title: 'End Time' },
-  { name: 'generate_embeddings', type: 'boolean', description: 'Generate embeddings', title: 'Generate Embeddings' },
-  { name: 'ingest_attachments', type: 'boolean', description: 'Parse nested attachments', title: 'Ingest Attachments' },
-  { name: 'keep_original_file', type: 'boolean', description: 'Retain original files', title: 'Keep Original File' },
-  { name: 'keywords', type: 'string', description: 'Comma-separated keywords', title: 'Keywords' },
-  { name: 'max_depth', type: 'integer', description: 'Max nested parsing depth', title: 'Max Depth' },
-  { name: 'overwrite_existing', type: 'boolean', description: 'Overwrite existing media', title: 'Overwrite Existing' },
-  { name: 'pdf_parsing_engine', type: 'string', description: 'PDF parsing engine', title: 'Pdf Parsing Engine' },
-  { name: 'perform_analysis', type: 'boolean', description: 'Perform analysis', title: 'Perform Analysis' },
-  { name: 'perform_chunking', type: 'boolean', description: 'Enable chunking', title: 'Perform Chunking' },
-  { name: 'perform_claims_extraction', type: 'string', description: 'Extract factual claims', title: 'Perform Claims Extraction' },
-  { name: 'perform_confabulation_check_of_analysis', type: 'boolean', description: 'Enable confabulation check', title: 'Confabulation Check' },
-  { name: 'perform_rolling_summarization', type: 'boolean', description: 'Rolling summarization', title: 'Rolling Summarization' },
-  { name: 'start_time', type: 'string', description: 'Start time (HH:MM:SS)', title: 'Start Time' },
-  { name: 'summarize_recursively', type: 'boolean', description: 'Recursive summarization', title: 'Summarize Recursively' },
-  { name: 'system_prompt', type: 'string', description: 'System prompt', title: 'System Prompt' },
-  { name: 'timestamp_option', type: 'boolean', description: 'Include timestamps', title: 'Timestamp Option' },
-  { name: 'title', type: 'string', description: 'Optional title', title: 'Title' },
-  { name: 'transcription_language', type: 'string', description: 'Transcription language', title: 'Transcription Language' },
-  { name: 'transcription_model', type: 'string', description: 'Transcription model', title: 'Transcription Model' },
-  { name: 'use_adaptive_chunking', type: 'boolean', description: 'Adaptive chunking', title: 'Use Adaptive Chunking' },
-  { name: 'use_cookies', type: 'boolean', description: 'Use cookies for downloads', title: 'Use Cookies' },
-  { name: 'use_multi_level_chunking', type: 'boolean', description: 'Multi-level chunking', title: 'Use Multi Level Chunking' },
-  { name: 'vad_use', type: 'boolean', description: 'Enable VAD filter', title: 'Vad Use' },
-]
 
 const isLikelyUrl = (raw: string) => {
   const val = (raw || '').trim()
@@ -199,6 +149,8 @@ export const QuickIngestModal: React.FC<Props> = ({
     const d = new Date(ts)
     return d.toLocaleString()
   }, [specPrefs])
+
+  const fallbackSchemaVersion = MEDIA_ADD_SCHEMA_FALLBACK_VERSION
   const SAVE_DEBOUNCE_MS = 2000
   const lastSavedAdvValuesRef = React.useRef<string | null>(null)
   const lastSavedUiPrefsRef = React.useRef<string | null>(null)
@@ -897,81 +849,99 @@ export const QuickIngestModal: React.FC<Props> = ({
     return entries
   }
 
-  const loadSpec = React.useCallback(async (preferServer = true, reportDiff = false) => {
-    let used: 'server' | 'fallback' | 'none' = 'none'
-    let remote: any | null = null
-    const prevSchema = reportDiff ? [...advSchema] : null
-    if (preferServer) {
-      try {
-        const healthy = await tldwClient.healthCheck()
-        if (healthy) remote = await tldwClient.getOpenAPISpec()
-      } catch {}
-    }
-    if (remote) {
-      const nextSchema = parseSpec(remote)
-      used = 'server'
-      try {
-        const rVer = remote?.info?.version
-        const prevVersion = specPrefs?.lastRemote?.version
-        const prevCachedAt = specPrefs?.lastRemote?.cachedAt
-        const now = Date.now()
-        const shouldReuseCachedAt =
-          prevVersion && prevVersion === rVer && typeof prevCachedAt === 'number'
+  const loadSpec = React.useCallback(
+    async (
+      preferServer = true,
+      options: { reportDiff?: boolean; persist?: boolean } = {}
+    ) => {
+      const { reportDiff = false, persist = false } = options
+      let used: 'server' | 'fallback' | 'none' = 'none'
+      let remote: any | null = null
+      const prevSchema = reportDiff ? [...advSchema] : null
 
-        // For background auto-loads (reportDiff === false), skip writing to
-        // extension storage entirely to avoid hitting MAX_WRITE_OPERATIONS_PER_MINUTE.
-        // We only persist when the user explicitly reloads or toggles settings.
-        if (!reportDiff) {
-          return
-        }
-
-        const payload = {
-          ...(specPrefs || {}),
-          preferServer: true,
-          lastRemote: {
-            version: rVer,
-            cachedAt: shouldReuseCachedAt ? prevCachedAt : now
-          }
-        }
-        // Log approximate size of what we persist for debugging quota issues
+      if (preferServer) {
         try {
-          const approxSize = JSON.stringify(payload).length
-          // eslint-disable-next-line no-console
-          console.info(
-            "[QuickIngest] Persisting quickIngestSpecPrefs (~%d bytes)",
-            approxSize
-          )
+          const healthy = await tldwClient.healthCheck()
+          if (healthy) remote = await tldwClient.getOpenAPISpec()
         } catch {}
-        persistSpecPrefs(payload)
-      } catch {}
-      if (reportDiff) {
-        let added = 0
-        let removed = 0
-        try {
-          const beforeNames = new Set((prevSchema || []).map((f) => f.name))
-          const afterNames = new Set((nextSchema || []).map((f) => f.name))
-          for (const name of afterNames) {
-            if (!beforeNames.has(name)) added += 1
-          }
-          for (const name of beforeNames) {
-            if (!afterNames.has(name)) removed += 1
-          }
-        } catch {
-          // Fall back to generic message if diff computation fails
-        }
-        const extra =
-          added || removed
-            ? ` (fields added: ${added}, removed: ${removed})`
-            : ""
-        messageApi.success(`Advanced spec reloaded from server${extra}`)
       }
-    } else {
-      // Use extracted schema fallback (no bundled openapi.json import)
-      setAdvSchema(MEDIA_ADD_SCHEMA_FALLBACK)
-      used = 'fallback'
-    }
-    setSpecSource(used)
-  }, [persistSpecPrefs, specPrefs, messageApi])
+
+      if (remote) {
+        const nextSchema = parseSpec(remote)
+        used = 'server'
+
+        try {
+          const rVer = remote?.info?.version
+          const prevVersion = specPrefs?.lastRemote?.version
+          const prevCachedAt = specPrefs?.lastRemote?.cachedAt
+          const now = Date.now()
+          const shouldReuseCachedAt =
+            prevVersion && prevVersion === rVer && typeof prevCachedAt === 'number'
+
+          // For background auto-loads (persist === false), skip writing to
+          // extension storage entirely to avoid hitting MAX_WRITE_OPERATIONS_PER_MINUTE.
+          // We only persist when the user explicitly reloads or toggles settings.
+          if (persist) {
+            const payload = {
+              ...(specPrefs || {}),
+              preferServer: true,
+              lastRemote: {
+                version: rVer,
+                cachedAt: shouldReuseCachedAt ? prevCachedAt : now
+              }
+            }
+            // Log approximate size of what we persist for debugging quota issues
+            try {
+              const approxSize = JSON.stringify(payload).length
+              // eslint-disable-next-line no-console
+              console.info(
+                "[QuickIngest] Persisting quickIngestSpecPrefs (~%d bytes)",
+                approxSize
+              )
+            } catch {}
+            persistSpecPrefs(payload)
+          }
+        } catch {}
+
+        if (reportDiff) {
+          let added = 0
+          let removed = 0
+          try {
+            const beforeNames = new Set((prevSchema || []).map((f) => f.name))
+            const afterNames = new Set((nextSchema || []).map((f) => f.name))
+            for (const name of afterNames) {
+              if (!beforeNames.has(name)) added += 1
+            }
+            for (const name of beforeNames) {
+              if (!afterNames.has(name)) removed += 1
+            }
+          } catch {
+            // Fall back to generic message if diff computation fails
+          }
+          const extra =
+            added || removed
+              ? ` (fields added: ${added}, removed: ${removed})`
+              : ""
+          messageApi.success(`Advanced spec reloaded from server${extra}`)
+        }
+      } else {
+        // Use extracted schema fallback (no bundled openapi.json import)
+        setAdvSchema(MEDIA_ADD_SCHEMA_FALLBACK)
+        used = 'fallback'
+
+        // Warn when falling back to a bundled schema that may be stale.
+        if (reportDiff) {
+          messageApi.warning(
+            `Using bundled media.add schema fallback (v${fallbackSchemaVersion}); ` +
+              `please verify against your tldw_server /openapi.json if fields look outdated.`
+          )
+        }
+      }
+
+      setSpecSource(used)
+    },
+    [persistSpecPrefs, specPrefs, messageApi, advSchema, fallbackSchemaVersion]
+  )
 
   React.useEffect(() => {
     specPrefsCacheRef.current = JSON.stringify(specPrefs || {})
@@ -1985,7 +1955,7 @@ export const QuickIngestModal: React.FC<Props> = ({
             <Space wrap size="middle" align="center">
                 <Space align="center">
                   <span>{qi('analysisLabel', 'Analysis')}</span>
-                  <Switch
+	                  <Switch
                     aria-label="Ingestion options \u2013 analysis"
                     title="Toggle analysis"
                     checked={common.perform_analysis}
@@ -2646,7 +2616,7 @@ export const QuickIngestModal: React.FC<Props> = ({
                     checked={!!specPrefs?.preferServer}
                     onChange={async (v) => {
                       persistSpecPrefs({ ...(specPrefs || {}), preferServer: v })
-                      await loadSpec(v, true)
+                      await loadSpec(v, { reportDiff: true, persist: true })
                     }}
                   />
                 </Space>
@@ -2656,7 +2626,7 @@ export const QuickIngestModal: React.FC<Props> = ({
                   title={qi('reloadSpecAria', 'Reload advanced spec from server')}
                   onClick={(e) => {
                     e.stopPropagation()
-                    void loadSpec(true, true)
+                    void loadSpec(true, { reportDiff: true, persist: true })
                   }}>
                   {qi('reloadFromServer', 'Reload from server')}
                 </Button>

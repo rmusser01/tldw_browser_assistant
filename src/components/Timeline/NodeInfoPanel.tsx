@@ -53,6 +53,7 @@ export const NodeInfoPanel: React.FC = () => {
 
   // Format timestamp
   const formattedTime = new Date(node.timestamp).toLocaleString()
+  const historyCount = node.history_ids?.length ?? 0
 
   // Role icon
   const RoleIcon = node.role === 'user'
@@ -183,12 +184,12 @@ export const NodeInfoPanel: React.FC = () => {
           )}
         </Space>
         {/* Conversation info */}
-        {node.history_ids.length > 1 && (
+        {historyCount > 1 && (
           <>
             <Divider className="my-3" />
             <div className="text-center">
               <Text type="secondary" className="text-xs">
-                Present in {node.history_ids.length} conversation{node.history_ids.length !== 1 ? 's' : ''}
+                Present in {historyCount} conversation{historyCount !== 1 ? 's' : ''}
               </Text>
             </div>
           </>

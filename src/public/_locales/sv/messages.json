@@ -302,42 +302,42 @@
     "description": "Confirmation toast message shown after creating a flashcard collection from omni-search."
   },
   "folders": {
-    "message": "Folders"
+    "message": "Mappar"
   },
   "folderView": {
-    "message": "Folder view"
+    "message": "Mappvy"
   },
   "dateView": {
-    "message": "Date view"
+    "message": "Datumvy"
   },
   "newFolder": {
-    "message": "New Folder"
+    "message": "Ny mapp"
   },
   "folderName": {
-    "message": "Folder name"
+    "message": "Mappnamn"
   },
   "selectFolder": {
-    "message": "Select folder"
+    "message": "Välj mapp"
   },
   "noFolders": {
-    "message": "No folders"
+    "message": "Inga mappar"
   },
   "expandAll": {
-    "message": "Expand all"
+    "message": "Expandera alla"
   },
   "collapseAll": {
-    "message": "Collapse all"
+    "message": "Fäll ihop alla"
   },
   "refresh": {
-    "message": "Refresh"
+    "message": "Uppdatera"
   },
   "confirm": {
-    "message": "Confirm"
+    "message": "Bekräfta"
   },
   "untitled": {
-    "message": "Untitled"
+    "message": "Utan titel"
   },
   "moveToFolder": {
-    "message": "Move to folder"
+    "message": "Flytta till mapp"
   }
 }

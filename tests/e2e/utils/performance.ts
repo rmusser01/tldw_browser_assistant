@@ -44,14 +44,14 @@ export class PerfTimer {
 
   sinceMark(name: string): number {
     const markTime = this.marks.get(name)
-    if (!markTime) return -1
+    if (markTime === undefined) return -1
     return performance.now() - markTime
   }
 
   betweenMarks(start: string, end: string): number {
     const startTime = this.marks.get(start)
     const endTime = this.marks.get(end)
-    if (!startTime || !endTime) return -1
+    if (startTime === undefined || endTime === undefined) return -1
     return endTime - startTime
   }
 
@@ -364,7 +364,7 @@ export function createReport(
     ...m,
     passed:
       m.target !== undefined
-        ? m.higherIsBetter
+        ? (m.higherIsBetter ?? false)
           ? m.value >= m.target
           : m.value <= m.target
         : undefined
@@ -394,7 +394,8 @@ export function logReport(report: PerformanceReport): void {
   for (const metric of report.metrics) {
     const status =
       metric.passed === undefined ? "" : metric.passed ? " [PASS]" : " [FAIL]"
-    const target = metric.target ? ` (target: ${metric.target}${metric.unit})` : ""
+    const target =
+      metric.target !== undefined ? ` (target: ${metric.target}${metric.unit})` : ""
     console.log(`  ${metric.name}: ${metric.value.toFixed(2)}${metric.unit}${target}${status}`)
   }
 

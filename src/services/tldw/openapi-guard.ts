@@ -5,6 +5,8 @@
 // NOTE: The openapi.json import was removed to eliminate the 1.4 MB
 // JSON from the initial bundle. The ClientPath union below is manually
 // maintained. QuickIngestModal dynamically imports the spec when needed.
+// To verify that ClientPath stays in sync with the OpenAPI spec, run:
+//   npm run verify:openapi
 
 // Union of relative API paths that the web UI calls via bgRequest/bgStream
 // or direct fetch. If a new endpoint is added in the UI, it should be
