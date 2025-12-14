@@ -246,5 +246,18 @@
     "friendlyGenericHint": "Försök igen om en stund eller öppna Hälsa & diagnostik för att undersöka serverhälsan.",
     "showDetails": "Visa tekniska detaljer",
     "hideDetails": "Dölj tekniska detaljer"
-  }
+  },
+  "folders": "Mappar",
+  "folderView": "Mappvy",
+  "dateView": "Datumvy",
+  "newFolder": "Ny mapp",
+  "folderName": "Mappnamn",
+  "selectFolder": "Välj mapp",
+  "noFolders": "Inga mappar",
+  "expandAll": "Expandera alla",
+  "collapseAll": "Fäll ihop alla",
+  "refresh": "Uppdatera",
+  "confirm": "Bekräfta",
+  "untitled": "Utan titel",
+  "moveToFolder": "Flytta till mapp"
 }

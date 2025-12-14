@@ -6,31 +6,22 @@ const queryClient = new QueryClient()
 import { App as AntdApp, ConfigProvider, Empty, theme } from "antd"
 import { StyleProvider } from "@ant-design/cssinjs"
 import { useDarkMode } from "~/hooks/useDarkmode"
+import { useSidepanelInit } from "~/hooks/useSidepanelInit"
 import "~/i18n"
-import { useTranslation } from "react-i18next"
 import { PageAssistProvider } from "@/components/Common/PageAssistProvider"
 import { FontSizeProvider } from "@/context/FontSizeProvider"
 import { QuickChatHelperButton } from "@/components/Common/QuickChatHelper"
 
 function IndexSidepanel() {
   const { mode } = useDarkMode()
-  const { t, i18n } = useTranslation()
+  const { direction, t } = useSidepanelInit({
+    titleDefaultValue: "tldw Assistant — Sidebar"
+  })
   const [isVisible, setIsVisible] = useState(
     typeof document !== "undefined"
       ? document.visibilityState === "visible"
       : true
   )
-
-  useEffect(() => {
-    if (i18n.resolvedLanguage) {
-      document.documentElement.lang = i18n.resolvedLanguage
-      document.documentElement.dir = i18n.dir(i18n.resolvedLanguage)
-    }
-  }, [i18n, i18n.resolvedLanguage])
-
-  useEffect(() => {
-    document.title = t('common:titles.sidepanel', { defaultValue: 'tldw Assistant — Sidebar' })
-  }, [t])
 
   useEffect(() => {
     const handleVisibilityChange = () => {
@@ -60,7 +51,8 @@ function IndexSidepanel() {
             }}
             description={t("common:noData")}
           />
-        )}>
+        )}
+        direction={direction}>
         <AntdApp>
           <StyleProvider hashPriority="high">
             <QueryClientProvider client={queryClient}>

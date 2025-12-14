@@ -299,5 +299,53 @@
   "omniSearchCreateFlashcardsSuccess": {
     "message": "Flashcard collection \"{{query}}\" created",
     "description": "Confirmation toast message shown after creating a flashcard collection from omni-search."
+  },
+  "folders": {
+    "message": "Mapper"
+  },
+  "folderView": {
+    "message": "Mappevisning"
+  },
+  "dateView": {
+    "message": "Datovisning"
+  },
+  "newFolder": {
+    "message": "Ny mappe"
+  },
+  "folderName": {
+    "message": "Mappenavn"
+  },
+  "selectFolder": {
+    "message": "Vælg mappe"
+  },
+  "noFolders": {
+    "message": "Ingen mapper"
+  },
+  "expandAll": {
+    "message": "Udvid alle"
+  },
+  "collapseAll": {
+    "message": "Skjul alle"
+  },
+  "refresh": {
+    "message": "Opdater"
+  },
+  "confirm": {
+    "message": "Bekræft"
+  },
+  "untitled": {
+    "message": "Unavngivet"
+  },
+  "moveToFolder": {
+    "message": "Flyt til mappe"
+  },
+  "specReloadedToast": {
+    "message": "Avanceret specifikation genindlæst fra serveren"
+  },
+  "specReloadedToastDiff": {
+    "message": "Avanceret specifikation genindlæst fra serveren (tilføjede felter: {{added}}, fjernede felter: {{removed}})"
+  },
+  "specFallbackWarning": {
+    "message": "Bruger medfølgende media.add-skema som reserveløsning (v{{version}}); sammenlign venligst med din tldw_server /openapi.json, hvis felterne ser forældede ud."
   }
 }

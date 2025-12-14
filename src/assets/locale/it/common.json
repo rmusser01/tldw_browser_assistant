@@ -246,5 +246,18 @@
     "friendlyGenericHint": "Riprova tra un momento oppure apri Stato e diagnostica per verificare lo stato del server.",
     "showDetails": "Mostra dettagli tecnici",
     "hideDetails": "Nascondi dettagli tecnici"
-  }
+  },
+  "folders": "Cartelle",
+  "folderView": "Vista cartelle",
+  "dateView": "Vista per data",
+  "newFolder": "Nuova cartella",
+  "folderName": "Nome cartella",
+  "selectFolder": "Seleziona cartella",
+  "noFolders": "Nessuna cartella",
+  "expandAll": "Espandi tutto",
+  "collapseAll": "Comprimi tutto",
+  "refresh": "Aggiorna",
+  "confirm": "Conferma",
+  "untitled": "Senza titolo",
+  "moveToFolder": "Sposta nella cartella"
 }

@@ -246,5 +246,18 @@
     "friendlyGenericHint": "بعداً دوباره تلاش کنید یا سلامت و عیب‌یابی را برای بررسی وضعیت سرور باز کنید.",
     "showDetails": "نمایش جزئیات فنی",
     "hideDetails": "پنهان کردن جزئیات فنی"
-  }
+  },
+  "folders": "پوشه‌ها",
+  "folderView": "نمای پوشه",
+  "dateView": "نمای تاریخ",
+  "newFolder": "پوشه جدید",
+  "folderName": "نام پوشه",
+  "selectFolder": "انتخاب پوشه",
+  "noFolders": "پوشه‌ای وجود ندارد",
+  "expandAll": "گسترش همه",
+  "collapseAll": "جمع کردن همه",
+  "refresh": "بازخوانی",
+  "confirm": "تأیید",
+  "untitled": "بدون عنوان",
+  "moveToFolder": "انتقال به پوشه"
 }

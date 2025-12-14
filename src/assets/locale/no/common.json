@@ -246,5 +246,18 @@
     "friendlyGenericHint": "Prøv igjen om et øyeblikk, eller åpne Helse og diagnostikk for å undersøke serverhelse.",
     "showDetails": "Vis tekniske detaljer",
     "hideDetails": "Skjul tekniske detaljer"
-  }
+  },
+  "folders": "Mapper",
+  "folderView": "Mappevisning",
+  "dateView": "Datovisning",
+  "newFolder": "Ny mappe",
+  "folderName": "Mappenavn",
+  "selectFolder": "Velg mappe",
+  "noFolders": "Ingen mapper",
+  "expandAll": "Utvid alle",
+  "collapseAll": "Skjul alle",
+  "refresh": "Oppdater",
+  "confirm": "Bekreft",
+  "untitled": "Uten tittel",
+  "moveToFolder": "Flytt til mappe"
 }

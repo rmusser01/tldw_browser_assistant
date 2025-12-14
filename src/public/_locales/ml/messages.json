@@ -299,5 +299,53 @@
   "omniSearchCreateFlashcardsSuccess": {
     "message": "Flashcard collection \"{{query}}\" created",
     "description": "Confirmation toast message shown after creating a flashcard collection from omni-search."
+  },
+  "folders": {
+    "message": "ഫോൾഡറുകൾ"
+  },
+  "folderView": {
+    "message": "ഫോൾഡർ കാഴ്ച"
+  },
+  "dateView": {
+    "message": "തീയതി കാഴ്ച"
+  },
+  "newFolder": {
+    "message": "പുതിയ ഫോൾഡർ"
+  },
+  "folderName": {
+    "message": "ഫോൾഡർ പേര്"
+  },
+  "selectFolder": {
+    "message": "ഫോൾഡർ തിരഞ്ഞെടുക്കുക"
+  },
+  "noFolders": {
+    "message": "ഫോൾഡറുകളൊന്നുമില്ല"
+  },
+  "expandAll": {
+    "message": "എല്ലാം വികസിപ്പിക്കുക"
+  },
+  "collapseAll": {
+    "message": "എല്ലാം ചുരുക്കുക"
+  },
+  "refresh": {
+    "message": "പുതുക്കുക"
+  },
+  "confirm": {
+    "message": "സ്ഥിരീകരിക്കുക"
+  },
+  "untitled": {
+    "message": "പേരില്ലാത്തത്"
+  },
+  "moveToFolder": {
+    "message": "ഫോൾഡറിലേക്ക് നീക്കുക"
+  },
+  "specReloadedToast": {
+    "message": "സർവറിൽ നിന്ന് അഡ്വാൻസ്ഡ് സ്പെക് വീണ്ടും ലോഡ് ചെയ്തു"
+  },
+  "specReloadedToastDiff": {
+    "message": "സർവറിൽ നിന്ന് അഡ്വാൻസ്ഡ് സ്പെക് വീണ്ടും ലോഡ് ചെയ്തു (ചേർത്ത ഫീൽഡുകൾ: {{added}}, നീക്കിയ ഫീൽഡുകൾ: {{removed}})"
+  },
+  "specFallbackWarning": {
+    "message": "ബണ്ടിൽ ചെയ്ത media.add സ്കീമ ഫാൾബാക്ക് (v{{version}}) ഉപയോഗിക്കുന്നു; ഫീൽഡുകൾ പഴകിയതായി തോന്നിയാൽ നിങ്ങളുടെ tldw_server /openapi.json പ്രകാരം ദയവായി പരിശോധിക്കുക."
   }
 }

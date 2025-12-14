@@ -299,5 +299,53 @@
   "omniSearchCreateFlashcardsSuccess": {
     "message": "Colección de tarjetas \"{{query}}\" creada",
     "description": "Confirmation toast message shown after creating a flashcard collection from omni-search."
+  },
+  "folders": {
+    "message": "Carpetas"
+  },
+  "folderView": {
+    "message": "Vista de carpetas"
+  },
+  "dateView": {
+    "message": "Vista por fecha"
+  },
+  "newFolder": {
+    "message": "Nueva carpeta"
+  },
+  "folderName": {
+    "message": "Nombre de carpeta"
+  },
+  "selectFolder": {
+    "message": "Seleccionar carpeta"
+  },
+  "noFolders": {
+    "message": "Sin carpetas"
+  },
+  "expandAll": {
+    "message": "Expandir todo"
+  },
+  "collapseAll": {
+    "message": "Contraer todo"
+  },
+  "refresh": {
+    "message": "Actualizar"
+  },
+  "confirm": {
+    "message": "Confirmar"
+  },
+  "untitled": {
+    "message": "Sin título"
+  },
+  "moveToFolder": {
+    "message": "Mover a carpeta"
+  },
+  "specReloadedToast": {
+    "message": "Especificación avanzada recargada desde el servidor"
+  },
+  "specReloadedToastDiff": {
+    "message": "Especificación avanzada recargada desde el servidor (campos añadidos: {{added}}, eliminados: {{removed}})"
+  },
+  "specFallbackWarning": {
+    "message": "Usando el respaldo incluido del esquema media.add (v{{version}}); verifica tu tldw_server /openapi.json si los campos parecen desactualizados."
   }
 }

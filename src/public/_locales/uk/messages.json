@@ -158,5 +158,53 @@
   "omniSearchCreateFlashcardsSuccess": {
     "message": "Flashcard collection \"{{query}}\" created",
     "description": "Confirmation toast message shown after creating a flashcard collection from omni-search."
+  },
+  "folders": {
+    "message": "Папки"
+  },
+  "folderView": {
+    "message": "Перегляд папок"
+  },
+  "dateView": {
+    "message": "Перегляд за датою"
+  },
+  "newFolder": {
+    "message": "Нова папка"
+  },
+  "folderName": {
+    "message": "Назва папки"
+  },
+  "selectFolder": {
+    "message": "Виберіть папку"
+  },
+  "noFolders": {
+    "message": "Немає папок"
+  },
+  "expandAll": {
+    "message": "Розгорнути все"
+  },
+  "collapseAll": {
+    "message": "Згорнути все"
+  },
+  "refresh": {
+    "message": "Оновити"
+  },
+  "confirm": {
+    "message": "Підтвердити"
+  },
+  "untitled": {
+    "message": "Без назви"
+  },
+  "moveToFolder": {
+    "message": "Перемістити в папку"
+  },
+  "specReloadedToast": {
+    "message": "Розширену специфікацію перезавантажено із сервера"
+  },
+  "specReloadedToastDiff": {
+    "message": "Розширену специфікацію перезавантажено із сервера (додано полів: {{added}}, видалено: {{removed}})"
+  },
+  "specFallbackWarning": {
+    "message": "Використовується вбудований резервний варіант схеми media.add (v{{version}}); перевірте tldw_server /openapi.json, якщо поля виглядають застарілими."
   }
 }

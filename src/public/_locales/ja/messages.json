@@ -339,5 +339,53 @@
   "omniSearchCreateFlashcardsSuccess": {
     "message": "フラッシュカードコレクション「{{query}}」を作成しました",
     "description": "Confirmation toast message shown after creating a flashcard collection from omni-search."
+  },
+  "folders": {
+    "message": "フォルダー"
+  },
+  "folderView": {
+    "message": "フォルダー表示"
+  },
+  "dateView": {
+    "message": "日付表示"
+  },
+  "newFolder": {
+    "message": "新しいフォルダー"
+  },
+  "folderName": {
+    "message": "フォルダー名"
+  },
+  "selectFolder": {
+    "message": "フォルダーを選択"
+  },
+  "noFolders": {
+    "message": "フォルダーがありません"
+  },
+  "expandAll": {
+    "message": "すべて展開"
+  },
+  "collapseAll": {
+    "message": "すべて折りたたむ"
+  },
+  "refresh": {
+    "message": "再読み込み"
+  },
+  "confirm": {
+    "message": "確認"
+  },
+  "untitled": {
+    "message": "無題"
+  },
+  "moveToFolder": {
+    "message": "フォルダーに移動"
+  },
+  "specReloadedToast": {
+    "message": "サーバーから高度な仕様を再読み込みしました"
+  },
+  "specReloadedToastDiff": {
+    "message": "サーバーから高度な仕様を再読み込みしました（追加: {{added}}、削除: {{removed}}）"
+  },
+  "specFallbackWarning": {
+    "message": "同梱の media.add スキーマ（v{{version}}）をフォールバックとして使用しています。フィールドが古そうな場合は tldw_server の /openapi.json と照合して確認してください。"
   }
 }

@@ -246,5 +246,18 @@
     "friendlyGenericHint": "Réessayez dans un instant ou ouvrez État et diagnostics pour vérifier l'état du serveur.",
     "showDetails": "Afficher les détails techniques",
     "hideDetails": "Masquer les détails techniques"
-  }
+  },
+  "folders": "Dossiers",
+  "folderView": "Vue des dossiers",
+  "dateView": "Vue par date",
+  "newFolder": "Nouveau dossier",
+  "folderName": "Nom du dossier",
+  "selectFolder": "Sélectionner un dossier",
+  "noFolders": "Aucun dossier",
+  "expandAll": "Tout développer",
+  "collapseAll": "Tout réduire",
+  "refresh": "Actualiser",
+  "confirm": "Confirmer",
+  "untitled": "Sans titre",
+  "moveToFolder": "Déplacer vers le dossier"
 }

@@ -4,6 +4,25 @@ import fs from 'fs'
 
 import { resolveExtensionId } from './extension-id'
 
+async function waitForStorageSeed(page: Page) {
+  await page.waitForFunction(
+    () =>
+      new Promise<boolean>((resolve) => {
+        // Ensure we're in an extension context with chrome.storage
+        if (typeof chrome === 'undefined' || !chrome.storage?.local) {
+          resolve(false)
+          return
+        }
+
+        chrome.storage.local.get('__e2eSeeded', (items) => {
+          resolve(!!items.__e2eSeeded)
+        })
+      }),
+    undefined,
+    { timeout: 10000 }
+  )
+}
+
 function makeTempProfileDirs() {
   const root = path.resolve('tmp-playwright-profile')
   fs.mkdirSync(root, { recursive: true })
@@ -76,35 +95,47 @@ export async function launchWithExtension(
 
   // Ensure each test run starts from a clean extension storage state so
   // first-run onboarding and connection flows behave deterministically.
-  await context.addInitScript(() => {
-    try {
-      // @ts-ignore
-      chrome?.storage?.local?.clear?.()
-    } catch {
-      // ignore if not available
-    }
-  })
-
+  // If seedConfig is provided, we clear first then set, ensuring both happen
+  // in the same script to avoid race conditions.
   if (seedConfig) {
-    // Pre-seed storage before any pages load so the extension picks it up immediately.
     await context.addInitScript((cfg) => {
-      try {
-        // @ts-ignore
-        chrome?.storage?.local?.set?.(cfg, () => {})
-      } catch {
-        // ignore if not available
+      if (typeof chrome === 'undefined' || !chrome.storage?.local) {
+        return
       }
+
+      chrome.storage.local.clear(() => {
+        chrome.storage.local.set(cfg, () => {
+          chrome.storage.local.set({ __e2eSeeded: true }, () => {
+            // Sentinel written after clear + seed complete
+          })
+        })
+      })
     }, seedConfig)
+  } else {
+    await context.addInitScript(() => {
+      if (typeof chrome === 'undefined' || !chrome.storage?.local) {
+        return
+      }
+
+      chrome.storage.local.clear(() => {
+        chrome.storage.local.set({ __e2eSeeded: true }, () => {
+          // Sentinel written after clear complete
+        })
+      })
+    })
   }
 
   const page = await context.newPage()
   // Ensure the extension is ready before navigating
   await page.waitForTimeout(250)
   await page.goto(optionsUrl)
+  // Wait until storage has been cleared/seeded (sentinel set)
+  await waitForStorageSeed(page)
 
   async function openSidepanel() {
     const p = await context.newPage()
     await p.goto(sidepanelUrl)
+    await waitForStorageSeed(p)
     return p
   }
 

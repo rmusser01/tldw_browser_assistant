@@ -246,5 +246,18 @@
     "friendlyGenericHint": "Tente novamente em alguns instantes ou abra Saúde e diagnóstico para verificar o status do servidor.",
     "showDetails": "Mostrar detalhes técnicos",
     "hideDetails": "Ocultar detalhes técnicos"
-  }
+  },
+  "folders": "Pastas",
+  "folderView": "Visualização de pastas",
+  "dateView": "Visualização por data",
+  "newFolder": "Nova pasta",
+  "folderName": "Nome da pasta",
+  "selectFolder": "Selecionar pasta",
+  "noFolders": "Sem pastas",
+  "expandAll": "Expandir tudo",
+  "collapseAll": "Recolher tudo",
+  "refresh": "Atualizar",
+  "confirm": "Confirmar",
+  "untitled": "Sem título",
+  "moveToFolder": "Mover para pasta"
 }

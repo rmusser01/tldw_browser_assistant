@@ -11,6 +11,7 @@ import {
   Menu,
   Tooltip,
   Input,
+  Modal,
   message,
   Button
 } from "antd"
@@ -26,13 +27,16 @@ import {
   Loader2,
   ChevronDown,
   GitBranch,
-  MessageSquare
+  MessageSquare,
+  FolderIcon
 } from "lucide-react"
 import { useNavigate } from "react-router-dom"
 import { useTranslation } from "react-i18next"
 import { lastUsedChatModelEnabled } from "@/services/model-settings"
 import { useDebounce } from "@/hooks/useDebounce"
-import { useState } from "react"
+import React, { useState, useEffect } from "react"
+import { FolderTree, FolderToolbar } from "@/components/Folders"
+import { useFolderStore, useFolderViewMode, useFolderActions } from "@/store/folder"
 import { PageAssistDatabase } from "@/db/dexie/chat"
 import {
   deleteByHistoryId,
@@ -86,6 +90,13 @@ export const Sidebar = ({
   isOpen,
   setContext
 }: Props) => {
+  const FolderPicker = React.useMemo(
+    () =>
+      React.lazy(
+        () => import("@/components/Folders/FolderPicker").then((m) => ({ default: m.FolderPicker }))
+      ),
+    []
+  )
   const { t } = useTranslation(["option", "common"])
   const client = useQueryClient()
   const navigate = useNavigate()
@@ -96,6 +107,29 @@ export const Sidebar = ({
   const [openMenuFor, setOpenMenuFor] = useState<string | null>(null)
   const confirmDanger = useConfirmDanger()
   const { isConnected } = useConnectionState()
+
+  // Folder system state
+  const viewMode = useFolderViewMode()
+  const folderKeywordLinks = useFolderStore((s) => s.folderKeywordLinks)
+  const conversationKeywordLinks = useFolderStore((s) => s.conversationKeywordLinks)
+  const { refreshFromServer, addConversationToFolder, removeConversationFromFolder } =
+    useFolderActions()
+  const [folderPickerOpen, setFolderPickerOpen] = useState(false)
+  const [folderPickerChatId, setFolderPickerChatId] = useState<string | null>(null)
+  const folderRefreshInFlightRef = React.useRef<Promise<void> | null>(null)
+
+  // Load folders when the sidebar is open and folder view is active.
+  useEffect(() => {
+    if (isConnected && isOpen && viewMode === "folders") {
+      if (folderRefreshInFlightRef.current) return
+      const refreshPromise = refreshFromServer().finally(() => {
+        if (folderRefreshInFlightRef.current === refreshPromise) {
+          folderRefreshInFlightRef.current = null
+        }
+      })
+      folderRefreshInFlightRef.current = refreshPromise
+    }
+  }, [isConnected, isOpen, viewMode, refreshFromServer])
   const {
     serverChatId,
     setServerChatId,
@@ -364,28 +398,293 @@ export const Sidebar = ({
     }
   }
 
+  const loadLocalConversation = React.useCallback(
+    async (conversationId: string) => {
+      try {
+        const db = new PageAssistDatabase()
+        const [history, historyDetails] = await Promise.all([
+          db.getChatHistory(conversationId),
+          db.getHistoryInfo(conversationId)
+        ])
+
+        // Switch to a local Dexie-backed chat; clear any active server-backed session id.
+        setServerChatId(null)
+        setHistoryId(conversationId)
+        setHistory(formatToChatHistory(history))
+        setMessages(formatToMessage(history))
+
+        const isLastUsedChatModel = await lastUsedChatModelEnabled()
+        if (isLastUsedChatModel && historyDetails?.model_id) {
+          setSelectedModel(historyDetails.model_id)
+        }
+
+        const lastUsedPrompt = historyDetails?.last_used_prompt
+        if (lastUsedPrompt) {
+          let promptContent = lastUsedPrompt.prompt_content ?? ""
+          if (lastUsedPrompt.prompt_id) {
+            const prompt = await getPromptById(lastUsedPrompt.prompt_id)
+            if (prompt) {
+              setSelectedSystemPrompt(prompt.id)
+              if (!promptContent.trim()) {
+                promptContent = prompt.content
+              }
+            }
+          }
+          setSystemPrompt(promptContent)
+        }
+
+        if (setContext) {
+          const session = await getSessionFiles(conversationId)
+          setContext(session)
+        }
+
+        updatePageTitle(
+          historyDetails?.title || t("common:untitled", { defaultValue: "Untitled" })
+        )
+        navigate("/")
+        onClose()
+
+        return { history, historyDetails }
+      } catch (error) {
+        console.error("Failed to load local chat history from local storage:", error)
+        message.error(
+          t("common:error.friendlyLocalHistorySummary", {
+            defaultValue: "Something went wrong while loading local chat history."
+          })
+        )
+        return null
+      }
+    },
+    [
+      navigate,
+      onClose,
+      setContext,
+      setHistory,
+      setHistoryId,
+      setMessages,
+      setSelectedModel,
+      setSelectedSystemPrompt,
+      setServerChatId,
+      setSystemPrompt,
+      t
+    ]
+  )
+
+  // Handle folder selection for a chat
+  const handleFolderSelect = async (folderIds: number[]) => {
+    const conversationId = folderPickerChatId
+    try {
+      if (!conversationId) return
+
+      const uniqueFolderIds = Array.from(new Set(folderIds))
+      const results = await Promise.allSettled(
+        uniqueFolderIds.map((folderId) =>
+          addConversationToFolder(conversationId, folderId)
+        )
+      )
+
+      const succeededFolderIds: number[] = []
+      const failedFolderAdds: Array<{ folderId: number; reason: unknown }> = []
+
+      results.forEach((result, index) => {
+        const folderId = uniqueFolderIds[index]
+        if (result.status === "fulfilled" && result.value) {
+          succeededFolderIds.push(folderId)
+          return
+        }
+
+        failedFolderAdds.push({
+          folderId,
+          reason:
+            result.status === "rejected"
+              ? result.reason
+              : "addConversationToFolder returned false"
+        })
+      })
+
+      if (failedFolderAdds.length > 0) {
+        console.error("Failed to move chat to folder(s):", {
+          conversationId,
+          failedFolderAdds,
+          succeededFolderIds
+        })
+
+        // UX choice: treat multi-folder assignment as atomic (all-or-nothing).
+        // If any folder add fails, roll back successful additions so the chat
+        // isn't left partially filed. If we want best-effort behavior instead,
+        // keep successful additions and surface a partial-success message.
+        if (succeededFolderIds.length > 0) {
+          const rollbackResults = await Promise.allSettled(
+            succeededFolderIds.map((folderId) =>
+              removeConversationFromFolder(conversationId, folderId)
+            )
+          )
+
+          const rollbackFailures: Array<{ folderId: number; reason: unknown }> =
+            []
+
+          rollbackResults.forEach((result, index) => {
+            const folderId = succeededFolderIds[index]
+            if (result.status === "fulfilled" && result.value) {
+              return
+            }
+
+            rollbackFailures.push({
+              folderId,
+              reason:
+                result.status === "rejected"
+                  ? result.reason
+                  : "removeConversationFromFolder returned false"
+            })
+          })
+
+          if (rollbackFailures.length > 0) {
+            console.error("Failed to rollback folder move after errors:", {
+              conversationId,
+              rollbackFailures
+            })
+          }
+        }
+
+        message.error(
+          t("common:error.friendlyGenericSummary", {
+            defaultValue: "Something went wrong while talking to your tldw server."
+          })
+        )
+        return
+      }
+
+      message.success(t("common:success"))
+    } catch (error) {
+      console.error("Failed to move chat to folder(s):", error)
+      message.error(
+        t("common:error.friendlyGenericSummary", {
+          defaultValue: "Something went wrong while talking to your tldw server."
+        })
+      )
+    } finally {
+      setFolderPickerOpen(false)
+      setFolderPickerChatId(null)
+    }
+  }
+
+  const folderConversationIds = React.useMemo(() => {
+    if (folderKeywordLinks.length === 0 || conversationKeywordLinks.length === 0) {
+      return []
+    }
+
+    const folderKeywordIdSet = new Set(
+      folderKeywordLinks.map((link) => link.keyword_id)
+    )
+
+    const conversationIdSet = new Set<string>()
+    conversationKeywordLinks.forEach((link) => {
+      if (folderKeywordIdSet.has(link.keyword_id)) {
+        conversationIdSet.add(link.conversation_id)
+      }
+    })
+
+    return Array.from(conversationIdSet)
+  }, [conversationKeywordLinks, folderKeywordLinks])
+
+  const loadedConversationTitleById = React.useMemo(() => {
+    const titleById = new Map<string, string>()
+    chatHistories.forEach((group) => {
+      group.items.forEach((item) => {
+        if (item?.id) {
+          titleById.set(String(item.id), String(item.title ?? ""))
+        }
+      })
+    })
+    return titleById
+  }, [chatHistories])
+
+  const missingFolderConversationIds = React.useMemo(() => {
+    return folderConversationIds.filter(
+      (conversationId) => !loadedConversationTitleById.has(conversationId)
+    )
+  }, [folderConversationIds, loadedConversationTitleById])
+
+  const stableMissingFolderConversationIds = React.useMemo(() => {
+    return [...missingFolderConversationIds].sort()
+  }, [missingFolderConversationIds])
+
+  const { data: missingFolderConversationTitles = [] } = useQuery({
+    queryKey: ["folderConversationTitles", stableMissingFolderConversationIds],
+    queryFn: async () => {
+      const db = new PageAssistDatabase()
+      const results = await Promise.all(
+        stableMissingFolderConversationIds.map(async (conversationId) => {
+          try {
+            const historyInfo = await db.getHistoryInfo(conversationId)
+            return {
+              id: conversationId,
+              title: historyInfo?.title || ""
+            }
+          } catch (error) {
+            console.error(
+              "Failed to load local history info for folder conversation:",
+              conversationId,
+              error
+            )
+            return {
+              id: conversationId,
+              title: ""
+            }
+          }
+        })
+      )
+      return results
+    },
+    enabled:
+      isOpen &&
+      isConnected &&
+      viewMode === "folders" &&
+      stableMissingFolderConversationIds.length > 0,
+    staleTime: 30_000
+  })
+
+  const folderTreeConversations = React.useMemo(() => {
+    const titleById = new Map<string, string>(loadedConversationTitleById)
+    missingFolderConversationTitles.forEach((entry) => {
+      titleById.set(entry.id, entry.title)
+    })
+
+    return folderConversationIds.map((conversationId) => ({
+      id: conversationId,
+      title: titleById.get(conversationId) || ""
+    }))
+  }, [
+    folderConversationIds,
+    loadedConversationTitleById,
+    missingFolderConversationTitles
+  ])
+
   return (
     <div
       className={`overflow-y-auto z-99 ${temporaryChat ? "pointer-events-none opacity-50" : ""}`}>
       <div className="sticky top-0 z-10 my-3">
-        <div className="relative">
-          <Input
-            placeholder={t("common:search")}
-            value={searchQuery}
-            onChange={handleSearchChange}
-            prefix={<SearchIcon className="w-4 h-4 text-gray-400" />}
-            suffix={
-              searchQuery ? (
-                <button
-                  onClick={clearSearch}
-                  className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-200"
-                  aria-label={t("common:clearSearch", { defaultValue: "Clear search" })}>
-                  ✕
-                </button>
-              ) : null
-            }
-            className="w-full rounded-md border border-gray-300 dark:border-gray-700 dark:bg-[#232222]"
-          />
+        <div className="flex items-center gap-2">
+          <div className="relative flex-1">
+            <Input
+              placeholder={t("common:search")}
+              value={searchQuery}
+              onChange={handleSearchChange}
+              prefix={<SearchIcon className="w-4 h-4 text-gray-400" />}
+              suffix={
+                searchQuery ? (
+                  <button
+                    onClick={clearSearch}
+                    className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-200"
+                    aria-label={t("common:clearSearch", { defaultValue: "Clear search" })}>
+                    ✕
+                  </button>
+                ) : null
+              }
+              className="w-full rounded-md border border-gray-300 dark:border-gray-700 dark:bg-[#232222]"
+            />
+          </div>
+          {isConnected && <FolderToolbar compact />}
         </div>
       </div>
 
@@ -482,43 +781,8 @@ export const Sidebar = ({
                     )}
                     <button
                       className="flex-1 overflow-hidden text-start w-full min-w-0"
-                      onClick={async () => {
-                        const db = new PageAssistDatabase()
-                        const history = await db.getChatHistory(chat.id)
-                        const historyDetails = await db.getHistoryInfo(chat.id)
-                        // Switch to a local Dexie-backed chat; clear any active server-backed session id.
-                        setServerChatId(null)
-                        setHistoryId(chat.id)
-                        setHistory(formatToChatHistory(history))
-                        setMessages(formatToMessage(history))
-                        const isLastUsedChatModel =
-                          await lastUsedChatModelEnabled()
-                        if (isLastUsedChatModel) {
-                          const currentChatModel = historyDetails?.model_id
-                          if (currentChatModel) {
-                            setSelectedModel(currentChatModel)
-                          }
-                        }
-                        const lastUsedPrompt = historyDetails?.last_used_prompt
-                        if (lastUsedPrompt) {
-                          if (lastUsedPrompt.prompt_id) {
-                            const prompt = await getPromptById(
-                              lastUsedPrompt.prompt_id
-                            )
-                            if (prompt) {
-                              setSelectedSystemPrompt(lastUsedPrompt.prompt_id)
-                            }
-                          }
-                          setSystemPrompt(lastUsedPrompt.prompt_content)
-                        }
-
-                        if (setContext) {
-                          const session = await getSessionFiles(chat.id)
-                          setContext(session)
-                        }
-                        updatePageTitle(chat.title)
-                        navigate("/")
-                        onClose()
+                      onClick={() => {
+                        void loadLocalConversation(chat.id)
                       }}>
                       <div className="flex flex-col gap-0.5">
                         <span className="truncate font-medium">{chat.title}</span>
@@ -572,6 +836,18 @@ export const Sidebar = ({
                                 ? t("common:unpin")
                                 : t("common:pin")}
                             </Menu.Item>
+                            {isConnected && (
+                              <Menu.Item
+                                key="moveToFolder"
+                                icon={<FolderIcon className="w-4 h-4" />}
+                                onClick={() => {
+                                  setFolderPickerChatId(chat.id)
+                                  setFolderPickerOpen(true)
+                                  setOpenMenuFor(null)
+                                }}>
+                                {t("common:moveToFolder")}
+                              </Menu.Item>
+                            )}
                             <Menu.Item
                               key="edit"
                               icon={<PencilIcon className="w-4 h-4" />}
@@ -791,6 +1067,50 @@ export const Sidebar = ({
           </div>
         </div>
       )}
+
+      {/* Folder Tree View - shown when viewMode is 'folders' */}
+      {isConnected && viewMode === 'folders' && (
+        <div className="mt-4 border-t border-gray-200 dark:border-gray-800 pt-3">
+          <FolderTree
+            onConversationSelect={(conversationId) => {
+              void loadLocalConversation(conversationId)
+            }}
+            conversations={folderTreeConversations}
+            showConversations
+          />
+        </div>
+      )}
+
+      {/* Folder Picker Modal */}
+      <React.Suspense
+        fallback={
+          folderPickerOpen ? (
+            <Modal
+              open={folderPickerOpen}
+              onCancel={() => {
+                setFolderPickerOpen(false)
+                setFolderPickerChatId(null)
+              }}
+              footer={null}
+              title={t("common:moveToFolder")}>
+              <div className="flex items-center justify-center py-6">
+                <Loader2 className="h-5 w-5 animate-spin text-gray-500" />
+              </div>
+            </Modal>
+          ) : null
+        }>
+        <FolderPicker
+          open={folderPickerOpen}
+          onClose={() => {
+            setFolderPickerOpen(false)
+            setFolderPickerChatId(null)
+          }}
+          onSelect={handleFolderSelect}
+          title={t("common:moveToFolder")}
+          allowMultiple
+          showCreateNew
+        />
+      </React.Suspense>
     </div>
   )
 }

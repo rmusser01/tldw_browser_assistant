@@ -29,6 +29,9 @@ jobs:
       - name: Check duplicate i18n keys
         run: node scripts/check-duplicate-keys.mjs
 
+      - name: Verify OpenAPI paths
+        run: npm run verify:openapi
+
       - name: Type check
         run: bun run compile
 

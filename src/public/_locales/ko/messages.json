@@ -1,4 +1,178 @@
 {
+  "extName": {
+    "message": "tldw 어시스턴트"
+  },
+  "extDescription": {
+    "message": "tldw_server용 브라우저 확장 프로그램 — RAG, 미디어 처리 등 다양한 기능을 갖춘 통합 AI 어시스턴트입니다."
+  },
+  "openSidePanelToChat": {
+    "message": "채팅을 위해 사이드바 열기"
+  },
+  "openOptionToChat": {
+    "message": "채팅을 위해 웹 UI 열기"
+  },
+  "openQuickIngest": {
+    "message": "퀵 인제스트 열기"
+  },
+  "buttonOpenQuickIngest": {
+    "message": "퀵 인제스트 열기"
+  },
+  "buttonTryDemo": {
+    "message": "데모 사용해 보기"
+  },
+  "learnMoreTldw": {
+    "message": "tldw 서버가 어떻게 작동하는지 알아보기"
+  },
+  "contextSummarize": {
+    "message": "요약"
+  },
+  "contextExplain": {
+    "message": "설명"
+  },
+  "contextRephrase": {
+    "message": "다르게 표현"
+  },
+  "contextTranslate": {
+    "message": "번역"
+  },
+  "contextCustom": {
+    "message": "사용자 정의"
+  },
+  "contextSendToTldw": {
+    "message": "tldw_server로 보내기"
+  },
+  "contextProcessLocalTldw": {
+    "message": "tldw_server로 처리 (저장하지 않음)"
+  },
+  "contextTranscribeMedia": {
+    "message": "동영상/오디오 전사"
+  },
+  "contextTranscribeAndSummarizeMedia": {
+    "message": "동영상/오디오 전사 + 요약"
+  },
+  "contextSaveToNotes": {
+    "message": "노트에 저장"
+  },
+  "contextSaveToNotesNoSelection": {
+    "message": "노트에 저장하려면 먼저 텍스트를 선택하세요."
+  },
+  "contextSidebarOpening": {
+    "message": "사이드바를 여는 중..."
+  },
+  "contextSaveToNotesOpeningSidebar": {
+    "message": "노트를 저장하려고 사이드바를 여는 중..."
+  },
+  "contextSaveToNotesDeliveryFailed": {
+    "message": "이 노트를 저장하려고 사이드바를 열 수 없습니다. 이 사이트에서 tldw Assistant 사이드바가 허용되어 있는지 확인하고 다시 시도하세요."
+  },
+  "hfSendPageRejected": {
+    "message": "[tldw] 페이지 전송 요청이 tldw_server에서 거부되었습니다"
+  },
+  "hfSendPageErrorWithDetail": {
+    "message": "[tldw] 이 페이지를 tldw_server로 보내지 못했습니다: $1. 설정 → tldw server를 확인한 후 다시 시도하세요."
+  },
+  "hfSendPageError": {
+    "message": "[tldw] 이 페이지를 tldw_server로 보내지 못했습니다. 설정 → tldw server를 확인한 후 다시 시도하세요."
+  },
+  "hfSendPageSuccess": {
+    "message": "[tldw] 페이지를 처리하려고 tldw_server로 보냈습니다"
+  },
+  "hfSendPageException": {
+    "message": "[tldw] 이 페이지를 tldw_server로 보내는 동안 문제가 발생했습니다. tldw_server와 확장 프로그램이 실행 중인지 확인한 뒤 다시 시도하세요."
+  },
+  "hfPullInProgress": {
+    "message": "[tldw Assistant] 모델 가져오기 요청이 이미 진행 중입니다. 다른 요청을 시작하기 전에 완료될 때까지 기다려 주세요."
+  },
+  "hfPullConfirm": {
+    "message": "[tldw Assistant] tldw_server에 \"$1\" 모델을 가져오도록 요청을 보낼까요? 이 작업은 huggingface.co 웹사이트와는 별개입니다. 확인하면 서버가 모델을 가져오기 시작합니다."
+  },
+  "hfPullSending": {
+    "message": "[tldw Assistant] tldw_server에 \"$1\" 모델을 가져오도록 요청을 보내는 중입니다. 진행 상황은 확장 프로그램 아이콘 또는 tldw_server 로그에서 확인하세요."
+  },
+  "hfPullErrorWithDetail": {
+    "message": "[tldw Assistant] \"$1\" 모델 가져오기 요청을 보내지 못했습니다: $2. 설정 → tldw server를 확인한 후 다시 시도하세요."
+  },
+  "hfPullError": {
+    "message": "[tldw Assistant] \"$1\" 모델 가져오기 요청을 보내지 못했습니다. 설정 → tldw server를 확인한 후 다시 시도하세요."
+  },
+  "hfPullSuccess": {
+    "message": "[tldw Assistant] tldw_server에 \"$1\" 모델을 가져오도록 요청을 보냈습니다. 상태는 확장 프로그램 아이콘 또는 tldw_server 로그에서 확인하세요."
+  },
+  "hfPullException": {
+    "message": "[tldw Assistant] tldw_server에 \"$1\" 모델 가져오기 요청을 보내는 동안 문제가 발생했습니다. tldw_server와 확장 프로그램이 실행 중인지 확인한 뒤 다시 시도하세요."
+  },
+  "notesEmpty_connectTitle": {
+    "message": "노트를 사용하려면 연결하세요"
+  },
+  "notesEmpty_connectDescription": {
+    "message": "노트를 사용하려면 먼저 tldw 서버에 연결하세요."
+  },
+  "notesEmpty_connectExample1": {
+    "message": "설정 → tldw server에서 서버 URL을 추가하세요."
+  },
+  "notesEmpty_connectExample2": {
+    "message": "서버가 실행 중이지만 연결할 수 없다면 진단을 사용하세요."
+  },
+  "notesEmpty_demoTitle": {
+    "message": "데모 모드에서 노트 살펴보기"
+  },
+  "notesEmpty_demoDescription": {
+    "message": "이 데모는 노트가 인사이트를 어떻게 정리할 수 있는지 보여줍니다. 나중에 자신의 서버에 연결해 실제 노트를 만들고 저장할 수 있습니다."
+  },
+  "notesEmpty_demoExample1": {
+    "message": "목록에서 노트 제목, 미리보기, 타임스탬프가 어떻게 표시되는지 확인하세요."
+  },
+  "notesEmpty_demoExample2": {
+    "message": "연결하면 회의, 리뷰 등에서 노트를 만들 수 있습니다."
+  },
+  "notesEmpty_demoExample3": {
+    "message": "미디어와 리뷰와 함께 노트를 사용해 발견한 내용을 추적하세요."
+  },
+  "notesEmpty_demoPreviewHeading": {
+    "message": "예시 노트 (미리보기 전용)"
+  },
+  "notesEmpty_demoSample1Title": {
+    "message": "데모 노트: 주간 회의 요약"
+  },
+  "notesEmpty_demoSample1Preview": {
+    "message": "최근 팀 싱크에서 나온 결정 사항, 블로커, 후속 조치."
+  },
+  "notesEmpty_demoSample1Meta": {
+    "message": "오늘 \u00b7 오전 9:32"
+  },
+  "notesEmpty_demoSample2Title": {
+    "message": "데모 노트: 연구 하이라이트"
+  },
+  "notesEmpty_demoSample2Preview": {
+    "message": "긴 글이나 논문에서 뽑은 핵심 인사이트."
+  },
+  "notesEmpty_demoSample2Meta": {
+    "message": "어제 \u00b7 오후 4:10"
+  },
+  "notesEmpty_demoSample3Title": {
+    "message": "데모 노트: 통화 요약"
+  },
+  "notesEmpty_demoSample3Preview": {
+    "message": "다음 단계와 담당자가 포함된 고객 통화 요약."
+  },
+  "notesEmpty_demoSample3Meta": {
+    "message": "이번 주"
+  },
+  "notesEmpty_title": {
+    "message": "아직 노트가 없습니다"
+  },
+  "notesEmpty_description": {
+    "message": "tldw 인사이트와 연결된 자유 형식 노트를 기록하고 정리하세요."
+  },
+  "notesEmpty_exampleCreate": {
+    "message": "최근 회의나 녹취에 대한 새 노트를 만드세요."
+  },
+  "notesEmpty_exampleLink": {
+    "message": "리뷰 결과를 노트에 저장해 나중에 다시 볼 수 있게 하세요."
+  },
+  "notesEmpty_primaryCta": {
+    "message": "노트 만들기"
+  },
   "footerHelp": {
     "message": "연결이 완료되면 확장 프로그램 메뉴에서 언제든지 이 설정으로 다시 돌아올 수 있습니다.",
     "description": "온보딩 설정 화면 하단에 표시되는 도움말 텍스트."
@@ -24,48 +198,48 @@
     "description": "API 키를 어디에서 찾을 수 있는지 설명하는 도움말 텍스트."
   },
   "authStepAria": {
-    "message": "Step 2 of 3 \u2014 authentication configuration",
+    "message": "{{total}}단계 중 {{current}}단계 \u2014 로그인 방법 선택",
     "description": "온보딩 중 인증 설정 단계의 aria 레이블."
   },
   "confirmStepAria": {
-    "message": "Step 3 of 3 \u2014 connection summary and next steps",
+    "message": "{{total}}단계 중 {{current}}단계 \u2014 연결 요약 및 다음 단계",
     "description": "온보딩 중 연결 요약 및 다음 단계 화면의 aria 레이블."
   },
   "nextSteps": {
-    "message": "You\u2019re ready to go",
+    "message": "준비가 완료되었습니다",
     "description": "온보딩 마지막 패널의 제목."
   },
   "nextStepsSubtitle": {
-    "message": "From here you can open the sidepanel, ingest a page, or explore media and notes.",
-    "description": "온보딩 마지막 패널에 표시되는 요약 설명(현재 영어)."
+    "message": "이제 사이드패널을 열거나, 페이지를 수집하거나, 미디어와 노트를 둘러볼 수 있습니다.",
+    "description": "온보딩 마지막 패널에 표시되는 요약 설명."
   },
   "nextStepsChatTitle": {
-    "message": "Start chatting",
-    "description": "다음 단계 카드에서 채팅을 시작하는 옵션의 제목(현재 영어)."
+    "message": "채팅 시작하기",
+    "description": "다음 단계 카드에서 채팅을 시작하는 옵션의 제목."
   },
   "nextStepsChatBody": {
-    "message": "Open the sidepanel and ask your first question.",
-    "description": "다음 단계 카드에서 채팅을 시작하는 옵션의 설명(현재 영어)."
+    "message": "사이드패널을 열고 첫 질문을 해보세요.",
+    "description": "다음 단계 카드에서 채팅을 시작하는 옵션의 설명."
   },
   "nextStepsChatCta": {
-    "message": "Open sidepanel",
-    "description": "사이드패널을 여는 버튼의 텍스트(현재 영어)."
+    "message": "사이드패널 열기",
+    "description": "사이드패널을 여는 버튼의 텍스트."
   },
   "nextStepsIngestTitle": {
-    "message": "Ingest your first page",
-    "description": "다음 단계 카드에서 첫 페이지를 수집하는 옵션의 제목(현재 영어)."
+    "message": "첫 페이지 수집하기",
+    "description": "다음 단계 카드에서 첫 페이지를 수집하는 옵션의 제목."
   },
   "nextStepsIngestBody": {
-    "message": "Use Quick ingest from the header to save the current tab to your server.",
-    "description": "다음 단계 카드에서 페이지 수집 동작을 설명하는 텍스트(현재 영어)."
+    "message": "헤더의 Quick ingest를 사용해 현재 탭을 서버에 저장하세요.",
+    "description": "다음 단계 카드에서 페이지 수집 동작을 설명하는 텍스트."
   },
   "nextStepsMediaTitle": {
-    "message": "Explore media & notes",
-    "description": "다음 단계 카드에서 미디어 및 노트를 탐색하는 옵션의 제목(현재 영어)."
+    "message": "미디어 및 노트 둘러보기",
+    "description": "다음 단계 카드에서 미디어 및 노트를 탐색하는 옵션의 제목."
   },
   "nextStepsMediaBody": {
-    "message": "Visit Media and Notes in Options to see what’s stored and searchable.",
-    "description": "다음 단계 카드에서 미디어 및 노트를 탐색하는 옵션의 설명(현재 영어)."
+    "message": "옵션에서 미디어와 노트를 열어 저장된 내용과 검색 가능한 항목을 확인하세요.",
+    "description": "다음 단계 카드에서 미디어 및 노트를 탐색하는 옵션의 설명."
   },
   "headerShortcuts": {
     "message": "헤더에 빠른 바로가기를 표시하기",
@@ -158,5 +332,69 @@
   "omniSearchCreateFlashcardsSuccess": {
     "message": "플래시카드 모음 \"{{query}}\"을(를) 만들었습니다.",
     "description": "Confirmation toast message shown after creating a flashcard collection from omni-search."
+  },
+  "folders": {
+    "message": "폴더",
+    "description": "Generic label for folders in the UI."
+  },
+  "folderView": {
+    "message": "폴더 보기",
+    "description": "View mode label for showing items grouped by folder."
+  },
+  "dateView": {
+    "message": "날짜 보기",
+    "description": "View mode label for showing items grouped by date."
+  },
+  "newFolder": {
+    "message": "새 폴더",
+    "description": "Button label for creating a new folder."
+  },
+  "folderName": {
+    "message": "폴더 이름",
+    "description": "Form label for a folder name input."
+  },
+  "selectFolder": {
+    "message": "폴더 선택",
+    "description": "Prompt/label to select a folder."
+  },
+  "noFolders": {
+    "message": "폴더가 없습니다",
+    "description": "Empty-state message shown when there are no folders."
+  },
+  "expandAll": {
+    "message": "모두 펼치기",
+    "description": "Action label to expand all nodes in a tree view."
+  },
+  "collapseAll": {
+    "message": "모두 접기",
+    "description": "Action label to collapse all nodes in a tree view."
+  },
+  "refresh": {
+    "message": "새로고침",
+    "description": "Generic action label to refresh/reload."
+  },
+  "confirm": {
+    "message": "확인",
+    "description": "Generic action label to confirm."
+  },
+  "untitled": {
+    "message": "제목 없음",
+    "description": "Fallback label used when an item has no title."
+  },
+  "moveToFolder": {
+    "message": "폴더로 이동",
+    "description": "Action label to move an item to a folder."
+  },
+  "specReloadedToast": {
+    "message": "서버에서 고급 스펙을 다시 로드했습니다",
+    "description": "Toast shown after reloading the Quick Ingest advanced schema from the server."
+  },
+  "specReloadedToastDiff": {
+    "message": "서버에서 고급 스펙을 다시 로드했습니다 (추가된 필드: {{added}}, 제거된 필드: {{removed}})",
+    "description": "Toast shown after reloading the Quick Ingest advanced schema from the server, with counts for fields added and removed."
+  },
+  "specFallbackWarning": {
+    "message": "번들에 포함된 media.add 스키마 폴백(v{{version}})을 사용 중입니다. 필드가 오래되어 보이면 tldw_server /openapi.json과 비교해 확인하세요.",
+    "description": "Warning shown when the Quick Ingest advanced schema falls back to the bundled schema; contains the bundled schema version."
   }
 }
