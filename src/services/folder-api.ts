@@ -3,12 +3,25 @@
  *
  * Handles communication with tldw_server for folder (keyword_collections)
  * and keyword management. Uses bgRequestClient for proper auth handling.
+ *
+ * All methods in this file return a typed response envelope and use a
+ * single-flight pattern to deduplicate concurrent identical requests.
  */
 
 import { bgRequestClient } from "@/services/background-proxy"
+import type { ClientPathOrUrlWithQuery } from "@/services/tldw/openapi-guard"
 import type { Folder, Keyword, FolderKeywordLink, ConversationKeywordLink } from "@/db/dexie/types"
 
 type ArrayOrWrapped<T, K extends string> = T[] | { [key in K]: T[] } | null | undefined
+
+export interface ApiResult<T> {
+  ok: boolean
+  data?: T
+  error?: string
+  status?: number
+}
+
+const inFlightRequests = new Map<string, Promise<ApiResult<unknown>>>()
 
 const normalizeArrayResponse = <T, K extends string>(
   response: ArrayOrWrapped<T, K>,
@@ -17,10 +30,71 @@ const normalizeArrayResponse = <T, K extends string>(
   if (!response) return []
   if (Array.isArray(response)) return response
 
-  const wrapped = (response as any)?.[key]
+  const wrapped = (response as Record<string, unknown>)?.[key]
   if (Array.isArray(wrapped)) return wrapped
 
   throw new Error(`Unexpected response shape (expected array or { ${key}: [] })`)
+}
+
+const buildRequestKey = (method: string, path: string, body?: any): string => {
+  const m = method.toUpperCase()
+  if (body === undefined || body === null) {
+    return `${m} ${path}`
+  }
+  try {
+    return `${m} ${path} ${JSON.stringify(body)}`
+  } catch {
+    return `${m} ${path} ${String(body)}`
+  }
+}
+
+const extractStatusFromError = (error: unknown): number | undefined => {
+  const msg = error instanceof Error ? error.message : String(error)
+  const match = msg.match(/(\d{3})/)
+  if (!match) return undefined
+  const code = Number(match[1])
+  return Number.isFinite(code) ? code : undefined
+}
+
+const singleFlight = async <T>(
+  key: string,
+  executor: () => Promise<T>
+): Promise<ApiResult<T>> => {
+  const existing = inFlightRequests.get(key) as Promise<ApiResult<T>> | undefined
+  if (existing) return existing
+
+  const promise: Promise<ApiResult<T>> = (async () => {
+    try {
+      const data = await executor()
+      return {
+        ok: true,
+        data,
+        // bgRequest/bgRequestClient does not currently expose HTTP status on success;
+        // use 200 as a generic success indicator.
+        status: 200
+      }
+    } catch (error) {
+      const message = error instanceof Error ? error.message : String(error)
+      return {
+        ok: false,
+        error: message,
+        status: extractStatusFromError(error)
+      }
+    }
+  })()
+
+  inFlightRequests.set(key, promise as Promise<ApiResult<unknown>>)
+
+  const cleanup = () => {
+    const current = inFlightRequests.get(key)
+    if (current === promise) {
+      inFlightRequests.delete(key)
+    }
+  }
+
+  promise.then(cleanup, cleanup)
+
+  return promise
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -30,19 +104,20 @@ const normalizeArrayResponse = <T, K extends string>(
 /**
  * Fetch all folders from server
  */
-export const fetchFolders = async (options?: { abortSignal?: AbortSignal; timeoutMs?: number }): Promise<Folder[]> => {
-  try {
+export const fetchFolders = async (
+  options?: { abortSignal?: AbortSignal; timeoutMs?: number }
+): Promise<ApiResult<Folder[]>> => {
+  const path = '/api/v1/notes/collections' as ClientPathOrUrlWithQuery
+  const key = buildRequestKey('GET', path)
+  return singleFlight<Folder[]>(key, async () => {
     const response = await bgRequestClient<ArrayOrWrapped<Folder, "collections">>({
-      path: '/api/v1/notes/collections',
+      path,
       method: 'GET',
       abortSignal: options?.abortSignal,
       timeoutMs: options?.timeoutMs
     })
     return normalizeArrayResponse(response, "collections")
-  } catch (error) {
-    console.error('Failed to fetch folders:', error)
-    return []
-  }
+  })
 }
 
 /**
@@ -52,19 +127,19 @@ export const createFolder = async (
   name: string,
   parentId?: number | null,
   options?: { abortSignal?: AbortSignal; timeoutMs?: number }
-): Promise<Folder | null> => {
-  try {
+): Promise<ApiResult<Folder>> => {
+  const path = '/api/v1/notes/collections' as ClientPathOrUrlWithQuery
+  const body = { name, parent_id: parentId ?? null }
+  const key = buildRequestKey('POST', path, body)
+  return singleFlight<Folder>(key, async () => {
     return await bgRequestClient<Folder>({
-      path: '/api/v1/notes/collections',
+      path,
       method: 'POST',
-      body: { name, parent_id: parentId ?? null },
+      body,
       abortSignal: options?.abortSignal,
       timeoutMs: options?.timeoutMs
     })
-  } catch (error) {
-    console.error('Failed to create folder:', error)
-    return null
-  }
+  })
 }
 
 /**
@@ -74,37 +149,37 @@ export const updateFolder = async (
   id: number,
   data: { name?: string; parent_id?: number | null },
   options?: { abortSignal?: AbortSignal; timeoutMs?: number }
-): Promise<Folder | null> => {
-  try {
+): Promise<ApiResult<Folder>> => {
+  const path = `/api/v1/notes/collections/${id}` as ClientPathOrUrlWithQuery
+  const key = buildRequestKey('PATCH', path, data)
+  return singleFlight<Folder>(key, async () => {
     return await bgRequestClient<Folder>({
-      path: `/api/v1/notes/collections/${id}`,
+      path,
       method: 'PATCH',
       body: data,
       abortSignal: options?.abortSignal,
       timeoutMs: options?.timeoutMs
     })
-  } catch (error) {
-    console.error('Failed to update folder:', error)
-    return null
-  }
+  })
 }
 
 /**
  * Delete a folder (soft delete on server)
  */
-export const deleteFolder = async (id: number, options?: { abortSignal?: AbortSignal; timeoutMs?: number }): Promise<boolean> => {
-  try {
+export const deleteFolder = async (
+  id: number,
+  options?: { abortSignal?: AbortSignal; timeoutMs?: number }
+): Promise<ApiResult<void>> => {
+  const path = `/api/v1/notes/collections/${id}` as ClientPathOrUrlWithQuery
+  const key = buildRequestKey('DELETE', path)
+  return singleFlight<void>(key, async () => {
     await bgRequestClient({
-      path: `/api/v1/notes/collections/${id}`,
+      path,
       method: 'DELETE',
       abortSignal: options?.abortSignal,
       timeoutMs: options?.timeoutMs
     })
-    return true
-  } catch (error) {
-    console.error('Failed to delete folder:', error)
-    return false
-  }
+  })
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -114,55 +189,60 @@ export const deleteFolder = async (id: number, options?: { abortSignal?: AbortSi
 /**
  * Fetch all keywords from server
  */
-export const fetchKeywords = async (options?: { abortSignal?: AbortSignal; timeoutMs?: number }): Promise<Keyword[]> => {
-  try {
+export const fetchKeywords = async (
+  options?: { abortSignal?: AbortSignal; timeoutMs?: number }
+): Promise<ApiResult<Keyword[]>> => {
+  const path = '/api/v1/notes/keywords' as ClientPathOrUrlWithQuery
+  const key = buildRequestKey('GET', path)
+  return singleFlight<Keyword[]>(key, async () => {
     const response = await bgRequestClient<ArrayOrWrapped<Keyword, "keywords">>({
-      path: '/api/v1/notes/keywords',
+      path,
       method: 'GET',
       abortSignal: options?.abortSignal,
       timeoutMs: options?.timeoutMs
     })
     return normalizeArrayResponse(response, "keywords")
-  } catch (error) {
-    console.error('Failed to fetch keywords:', error)
-    return []
-  }
+  })
 }
 
 /**
  * Create a new keyword
  */
-export const createKeyword = async (keyword: string, options?: { abortSignal?: AbortSignal; timeoutMs?: number }): Promise<Keyword | null> => {
-  try {
+export const createKeyword = async (
+  keyword: string,
+  options?: { abortSignal?: AbortSignal; timeoutMs?: number }
+): Promise<ApiResult<Keyword>> => {
+  const path = '/api/v1/notes/keywords' as ClientPathOrUrlWithQuery
+  const body = { keyword }
+  const key = buildRequestKey('POST', path, body)
+  return singleFlight<Keyword>(key, async () => {
     return await bgRequestClient<Keyword>({
-      path: '/api/v1/notes/keywords',
+      path,
       method: 'POST',
-      body: { keyword },
+      body,
       abortSignal: options?.abortSignal,
       timeoutMs: options?.timeoutMs
     })
-  } catch (error) {
-    console.error('Failed to create keyword:', error)
-    return null
-  }
+  })
 }
 
 /**
  * Delete a keyword (soft delete on server)
  */
-export const deleteKeyword = async (id: number, options?: { abortSignal?: AbortSignal; timeoutMs?: number }): Promise<boolean> => {
-  try {
+export const deleteKeyword = async (
+  id: number,
+  options?: { abortSignal?: AbortSignal; timeoutMs?: number }
+): Promise<ApiResult<void>> => {
+  const path = `/api/v1/notes/keywords/${id}` as ClientPathOrUrlWithQuery
+  const key = buildRequestKey('DELETE', path)
+  return singleFlight<void>(key, async () => {
     await bgRequestClient({
-      path: `/api/v1/notes/keywords/${id}`,
+      path,
       method: 'DELETE',
       abortSignal: options?.abortSignal,
       timeoutMs: options?.timeoutMs
     })
-    return true
-  } catch (error) {
-    console.error('Failed to delete keyword:', error)
-    return false
-  }
+  })
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -176,19 +256,17 @@ export const linkKeywordToFolder = async (
   folderId: number,
   keywordId: number,
   options?: { abortSignal?: AbortSignal; timeoutMs?: number }
-): Promise<boolean> => {
-  try {
+): Promise<ApiResult<void>> => {
+  const path = `/api/v1/notes/collections/${folderId}/keywords/${keywordId}` as ClientPathOrUrlWithQuery
+  const key = buildRequestKey('POST', path)
+  return singleFlight<void>(key, async () => {
     await bgRequestClient({
-      path: `/api/v1/notes/collections/${folderId}/keywords/${keywordId}`,
+      path,
       method: 'POST',
       abortSignal: options?.abortSignal,
       timeoutMs: options?.timeoutMs
     })
-    return true
-  } catch (error) {
-    console.error('Failed to link keyword to folder:', error)
-    return false
-  }
+  })
 }
 
 /**
@@ -198,19 +276,17 @@ export const unlinkKeywordFromFolder = async (
   folderId: number,
   keywordId: number,
   options?: { abortSignal?: AbortSignal; timeoutMs?: number }
-): Promise<boolean> => {
-  try {
+): Promise<ApiResult<void>> => {
+  const path = `/api/v1/notes/collections/${folderId}/keywords/${keywordId}` as ClientPathOrUrlWithQuery
+  const key = buildRequestKey('DELETE', path)
+  return singleFlight<void>(key, async () => {
     await bgRequestClient({
-      path: `/api/v1/notes/collections/${folderId}/keywords/${keywordId}`,
+      path,
       method: 'DELETE',
       abortSignal: options?.abortSignal,
       timeoutMs: options?.timeoutMs
     })
-    return true
-  } catch (error) {
-    console.error('Failed to unlink keyword from folder:', error)
-    return false
-  }
+  })
 }
 
 /**
@@ -219,19 +295,18 @@ export const unlinkKeywordFromFolder = async (
 export const getKeywordsForFolder = async (
   folderId: number,
   options?: { abortSignal?: AbortSignal; timeoutMs?: number }
-): Promise<Keyword[]> => {
-  try {
+): Promise<ApiResult<Keyword[]>> => {
+  const path = `/api/v1/notes/collections/${folderId}/keywords` as ClientPathOrUrlWithQuery
+  const key = buildRequestKey('GET', path)
+  return singleFlight<Keyword[]>(key, async () => {
     const response = await bgRequestClient<ArrayOrWrapped<Keyword, "keywords">>({
-      path: `/api/v1/notes/collections/${folderId}/keywords`,
+      path,
       method: 'GET',
       abortSignal: options?.abortSignal,
       timeoutMs: options?.timeoutMs
     })
     return normalizeArrayResponse(response, "keywords")
-  } catch (error) {
-    console.error('Failed to get keywords for folder:', error)
-    return []
-  }
+  })
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -245,20 +320,18 @@ export const linkKeywordToConversation = async (
   conversationId: string,
   keywordId: number,
   options?: { abortSignal?: AbortSignal; timeoutMs?: number }
-): Promise<boolean> => {
-  try {
-    const cid = encodeURIComponent(conversationId)
+): Promise<ApiResult<void>> => {
+  const cid = encodeURIComponent(conversationId)
+  const path = `/api/v1/notes/conversations/${cid}/keywords/${keywordId}` as ClientPathOrUrlWithQuery
+  const key = buildRequestKey('POST', path)
+  return singleFlight<void>(key, async () => {
     await bgRequestClient({
-      path: `/api/v1/notes/conversations/${cid}/keywords/${keywordId}`,
+      path,
       method: 'POST',
       abortSignal: options?.abortSignal,
       timeoutMs: options?.timeoutMs
     })
-    return true
-  } catch (error) {
-    console.error('Failed to link keyword to conversation:', error)
-    return false
-  }
+  })
 }
 
 /**
@@ -268,20 +341,18 @@ export const unlinkKeywordFromConversation = async (
   conversationId: string,
   keywordId: number,
   options?: { abortSignal?: AbortSignal; timeoutMs?: number }
-): Promise<boolean> => {
-  try {
-    const cid = encodeURIComponent(conversationId)
+): Promise<ApiResult<void>> => {
+  const cid = encodeURIComponent(conversationId)
+  const path = `/api/v1/notes/conversations/${cid}/keywords/${keywordId}` as ClientPathOrUrlWithQuery
+  const key = buildRequestKey('DELETE', path)
+  return singleFlight<void>(key, async () => {
     await bgRequestClient({
-      path: `/api/v1/notes/conversations/${cid}/keywords/${keywordId}`,
+      path,
       method: 'DELETE',
       abortSignal: options?.abortSignal,
       timeoutMs: options?.timeoutMs
     })
-    return true
-  } catch (error) {
-    console.error('Failed to unlink keyword from conversation:', error)
-    return false
-  }
+  })
 }
 
 /**
@@ -290,20 +361,19 @@ export const unlinkKeywordFromConversation = async (
 export const getKeywordsForConversation = async (
   conversationId: string,
   options?: { abortSignal?: AbortSignal; timeoutMs?: number }
-): Promise<Keyword[]> => {
-  try {
-    const cid = encodeURIComponent(conversationId)
+): Promise<ApiResult<Keyword[]>> => {
+  const cid = encodeURIComponent(conversationId)
+  const path = `/api/v1/notes/conversations/${cid}/keywords` as ClientPathOrUrlWithQuery
+  const key = buildRequestKey('GET', path)
+  return singleFlight<Keyword[]>(key, async () => {
     const response = await bgRequestClient<ArrayOrWrapped<Keyword, "keywords">>({
-      path: `/api/v1/notes/conversations/${cid}/keywords`,
+      path,
       method: 'GET',
       abortSignal: options?.abortSignal,
       timeoutMs: options?.timeoutMs
     })
     return normalizeArrayResponse(response, "keywords")
-  } catch (error) {
-    console.error('Failed to get keywords for conversation:', error)
-    return []
-  }
+  })
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -313,20 +383,20 @@ export const getKeywordsForConversation = async (
 /**
  * Fetch all folder-keyword links (for building the tree)
  */
-export const fetchFolderKeywordLinks = async (options?: { abortSignal?: AbortSignal; timeoutMs?: number }): Promise<FolderKeywordLink[]> => {
-  try {
+export const fetchFolderKeywordLinks = async (
+  options?: { abortSignal?: AbortSignal; timeoutMs?: number }
+): Promise<ApiResult<FolderKeywordLink[]>> => {
+  const path = '/api/v1/notes/collections/keyword-links' as ClientPathOrUrlWithQuery
+  const key = buildRequestKey('GET', path)
+  return singleFlight<FolderKeywordLink[]>(key, async () => {
     const response = await bgRequestClient<ArrayOrWrapped<FolderKeywordLink, "links">>({
-      path: '/api/v1/notes/collections/keyword-links',
+      path,
       method: 'GET',
       abortSignal: options?.abortSignal,
       timeoutMs: options?.timeoutMs
     })
     return normalizeArrayResponse(response, "links")
-  } catch (error) {
-    // This endpoint might not exist yet - return empty array
-    console.debug('Folder-keyword links endpoint not available:', error)
-    return []
-  }
+  })
 }
 
 /**
@@ -335,14 +405,17 @@ export const fetchFolderKeywordLinks = async (options?: { abortSignal?: AbortSig
 export const fetchConversationKeywordLinks = async (
   conversationIds?: string[],
   options?: { abortSignal?: AbortSignal; timeoutMs?: number }
-  ): Promise<ConversationKeywordLink[]> => {
-  try {
-    const path = conversationIds?.length
-      ? (`/api/v1/notes/conversations/keyword-links?ids=${conversationIds
-          .map((id) => encodeURIComponent(id))
-          .join(',')}` as `/api/v1/notes/conversations/keyword-links?${string}`)
-      : '/api/v1/notes/conversations/keyword-links'
+): Promise<ApiResult<ConversationKeywordLink[]>> => {
+  const path = (conversationIds?.length
+    ? (() => {
+        const params = new URLSearchParams()
+        params.set('ids', conversationIds.map((id) => encodeURIComponent(id)).join(','))
+        return `/api/v1/notes/conversations/keyword-links?${params.toString()}` as `/api/v1/notes/conversations/keyword-links?${string}`
+      })()
+    : '/api/v1/notes/conversations/keyword-links') as ClientPathOrUrlWithQuery
 
+  const key = buildRequestKey('GET', path)
+  return singleFlight<ConversationKeywordLink[]>(key, async () => {
     const response = await bgRequestClient<ArrayOrWrapped<ConversationKeywordLink, "links">>({
       path,
       method: 'GET',
@@ -350,9 +423,5 @@ export const fetchConversationKeywordLinks = async (
       timeoutMs: options?.timeoutMs
     })
     return normalizeArrayResponse(response, "links")
-  } catch (error) {
-    // This endpoint might not exist yet - return empty array
-    console.debug('Conversation-keyword links endpoint not available:', error)
-    return []
-  }
+  })
 }

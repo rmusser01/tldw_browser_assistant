@@ -262,12 +262,32 @@ export const useFolderStore = create<FolderState>()(
         }, timeoutMs)
 
         try {
-          const [folders, keywords, folderKeywordLinks, conversationKeywordLinks] = await Promise.all([
+          const [foldersRes, keywordsRes, folderKeywordLinksRes, conversationKeywordLinksRes] = await Promise.all([
             fetchFolders({ abortSignal: controller.signal, timeoutMs }),
             fetchKeywords({ abortSignal: controller.signal, timeoutMs }),
             fetchFolderKeywordLinks({ abortSignal: controller.signal, timeoutMs }),
             fetchConversationKeywordLinks(undefined, { abortSignal: controller.signal, timeoutMs })
           ])
+
+          const anyError =
+            !foldersRes.ok ||
+            !keywordsRes.ok ||
+            !folderKeywordLinksRes.ok ||
+            !conversationKeywordLinksRes.ok
+
+          if (anyError) {
+            const firstError =
+              foldersRes.error ||
+              keywordsRes.error ||
+              folderKeywordLinksRes.error ||
+              conversationKeywordLinksRes.error
+            throw new Error(firstError || 'Failed to sync')
+          }
+
+          const folders = foldersRes.data || []
+          const keywords = keywordsRes.data || []
+          const folderKeywordLinks = folderKeywordLinksRes.data || []
+          const conversationKeywordLinks = conversationKeywordLinksRes.data || []
 
           // Cache to Dexie (atomic)
           await db.transaction(
@@ -367,8 +387,9 @@ export const useFolderStore = create<FolderState>()(
 
       // CRUD operations
       createFolder: async (name, parentId) => {
-        const folder = await apiCreateFolder(name, parentId)
-        if (folder) {
+        const result = await apiCreateFolder(name, parentId)
+        if (result.ok && result.data) {
+          const folder = result.data
           set((state) => ({
             folders: [...state.folders, folder],
             uiPrefs: {
@@ -377,13 +398,15 @@ export const useFolderStore = create<FolderState>()(
             }
           }))
           await db.folders.put(folder)
+          return folder
         }
-        return folder
+        return null
       },
 
       updateFolder: async (id, data) => {
-        const folder = await apiUpdateFolder(id, data)
-        if (folder) {
+        const result = await apiUpdateFolder(id, data)
+        if (result.ok && result.data) {
+          const folder = result.data
           set((state) => ({
             folders: state.folders.map(f => f.id === id ? folder : f)
           }))
@@ -394,8 +417,8 @@ export const useFolderStore = create<FolderState>()(
       },
 
       deleteFolder: async (id) => {
-        const success = await apiDeleteFolder(id)
-        if (success) {
+        const result = await apiDeleteFolder(id)
+        if (result.ok) {
           set((state) => {
             const { [id]: _removed, ...restPrefs } = state.uiPrefs
             return {
@@ -406,24 +429,27 @@ export const useFolderStore = create<FolderState>()(
             }
           })
           await db.folders.update(id, { deleted: true })
+          return true
         }
-        return success
+        return false
       },
 
       createKeyword: async (keyword) => {
-        const kw = await apiCreateKeyword(keyword)
-        if (kw) {
+        const result = await apiCreateKeyword(keyword)
+        if (result.ok && result.data) {
+          const kw = result.data
           set((state) => ({
             keywords: [...state.keywords, kw]
           }))
           await db.keywords.put(kw)
+          return kw
         }
-        return kw
+        return null
       },
 
       addKeywordToFolder: async (folderId, keywordId) => {
-        const success = await apiLinkKeywordToFolder(folderId, keywordId)
-        if (success) {
+        const result = await apiLinkKeywordToFolder(folderId, keywordId)
+        if (result.ok) {
           const link: FolderKeywordLink = {
             folder_id: folderId,
             keyword_id: keywordId
@@ -437,8 +463,9 @@ export const useFolderStore = create<FolderState>()(
               : { folderKeywordLinks: [...state.folderKeywordLinks, link] }
           })
           await db.folderKeywordLinks.put(link)
+          return true
         }
-        return success
+        return false
       },
 
       addConversationToFolder: async (conversationId, folderId) => {
@@ -477,7 +504,9 @@ export const useFolderStore = create<FolderState>()(
 
         const keywordId = keyword.id
 
-        const success = await apiLinkKeywordToConversation(conversationId, keywordId)
+        const linkResult = await apiLinkKeywordToConversation(conversationId, keywordId)
+        const success = linkResult.ok
+
         if (!success && createdKeywordForFolder) {
           await apiUnlinkKeywordFromFolder(folderId, keywordId)
 
@@ -535,10 +564,13 @@ export const useFolderStore = create<FolderState>()(
         if (linksToRemove.length === 0) return true
 
         const results = await Promise.all(
-          linksToRemove.map(async (link) => ({
-            ok: await apiUnlinkKeywordFromConversation(conversationId, link.keyword_id),
-            link
-          }))
+          linksToRemove.map(async (link) => {
+            const result = await apiUnlinkKeywordFromConversation(conversationId, link.keyword_id)
+            return {
+              ok: result.ok,
+              link
+            }
+          })
         )
 
         if (!results.every((r) => r.ok)) {
