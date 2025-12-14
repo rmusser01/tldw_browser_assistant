@@ -35,7 +35,13 @@ const normalizeArrayResponse = <T, K extends string>(
     if (Array.isArray(wrapped)) return wrapped
   }
 
-  throw new Error(`Unexpected response shape (expected array or { ${key}: [] })`)
+  const tag = Object.prototype.toString.call(response)
+  const keys =
+    typeof response === 'object' && response !== null ? Object.keys(response) : []
+  const keysPart = keys.length
+    ? ` keys=[${keys.slice(0, 8).join(', ')}${keys.length > 8 ? ', …' : ''}]`
+    : ''
+  throw new Error(`Unexpected response shape (expected array or { ${key}: [] }, got ${tag}${keysPart})`)
 }
 
 const buildRequestKey = (method: string, path: string, body?: unknown): string => {
@@ -123,8 +129,8 @@ const singleFlight = async <T>(
       return {
         ok: true,
         data,
-        // bgRequest/bgRequestClient does not currently expose HTTP status on success;
-        // use 200 as a generic success indicator.
+        // bgRequest/bgRequestClient does not currently expose HTTP status on success,
+        // so use 200 as a generic indicator (this will mask 201/204/etc until status is plumbed through).
         status: 200
       }
     } catch (error) {
