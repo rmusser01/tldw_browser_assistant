@@ -2,6 +2,8 @@ import type { Page } from "@playwright/test"
 
 type SyntheticMessageInjectionResult = { ok: boolean; reason?: string }
 
+const MAX_SYNTHETIC_MESSAGES = 5_000
+
 export async function injectSyntheticMessages(
   page: Page,
   count: number
@@ -9,7 +11,17 @@ export async function injectSyntheticMessages(
   if (!Number.isFinite(count) || count < 0) {
     return { ok: false, reason: "count must be a finite, non-negative number" }
   }
-  return page.evaluate((cnt) => {
+  if (!Number.isInteger(count)) {
+    return { ok: false, reason: "count must be a non-negative integer" }
+  }
+  if (count > MAX_SYNTHETIC_MESSAGES) {
+    return {
+      ok: false,
+      reason: `count must be <= ${MAX_SYNTHETIC_MESSAGES} to avoid freezing the page`
+    }
+  }
+
+  return page.evaluate<SyntheticMessageInjectionResult, number>((cnt) => {
     try {
       const store = (window as any).__tldw_useQuickChatStore?.getState?.()
       if (!store?.addMessage) {
@@ -20,8 +32,7 @@ export async function injectSyntheticMessages(
         }
       }
 
-      const n = Math.max(0, Math.floor(cnt))
-      for (let i = 0; i < n; i++) {
+      for (let i = 0; i < cnt; i++) {
         const role = i % 2 === 0 ? "user" : "assistant"
         const content =
           role === "user"

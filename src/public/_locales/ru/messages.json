@@ -389,11 +389,11 @@
     "description": "Toast shown after reloading the Quick Ingest advanced schema from the server."
   },
   "specReloadedToastDiff": {
-    "message": "Расширенная спецификация перезагружена с сервера (добавлено полей: $1, удалено: $2)",
-    "description": "Toast shown after reloading the Quick Ingest advanced schema from the server, with counts for fields added ($1) and removed ($2)."
+    "message": "Расширенная спецификация перезагружена с сервера (добавлено полей: {{added}}, удалено: {{removed}})",
+    "description": "Toast shown after reloading the Quick Ingest advanced schema from the server, with counts for fields added and removed."
   },
   "specFallbackWarning": {
-    "message": "Используется встроенный резервный вариант схемы media.add (v$1); проверьте tldw_server /openapi.json, если поля выглядят устаревшими.",
-    "description": "Warning shown when the Quick Ingest advanced schema falls back to the bundled schema; $1 is the bundled schema version."
+    "message": "Используется встроенный резервный вариант схемы media.add (v{{version}}); проверьте tldw_server /openapi.json, если поля выглядят устаревшими.",
+    "description": "Warning shown when the Quick Ingest advanced schema falls back to the bundled schema; contains the bundled schema version."
   }
 }

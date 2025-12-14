@@ -65,17 +65,24 @@ test.describe("List Virtualization Performance", () => {
       await page.waitForSelector(inputSelector, { state: "visible", timeout: 10000 })
       timer.mark("interactive")
 
+      const domLoadedToRoot = timer.betweenMarks("dom-loaded", "root-mounted")
+      const rootToInteractive = timer.betweenMarks("root-mounted", "interactive")
       const coldStartTime = timer.betweenMarks("dom-loaded", "interactive")
+
+      // Guard against missing or renamed marks (betweenMarks returns -1).
+      expect(domLoadedToRoot).toBeGreaterThan(0)
+      expect(rootToInteractive).toBeGreaterThan(0)
+      expect(coldStartTime).toBeGreaterThan(0)
 
       const report = createReport("Cold Start Performance", [
         {
           name: "DOM loaded to root",
-          value: timer.betweenMarks("dom-loaded", "root-mounted"),
+          value: domLoadedToRoot,
           unit: "ms"
         },
         {
           name: "Root to interactive",
-          value: timer.betweenMarks("root-mounted", "interactive"),
+          value: rootToInteractive,
           unit: "ms"
         },
         {
@@ -112,6 +119,7 @@ test.describe("List Virtualization Performance", () => {
       await waitForConnectionStore(page, "virtualization-test-init")
       await forceConnected(page, { serverUrl: SERVER_URL }, "virtualization-test-connected")
 
+      const containerSelector = '.quick-chat-helper-modal [role="log"]'
       // Inject synthetic messages via the exposed debug store
       const messageCount = 100
       const injected = await injectSyntheticMessages(page, messageCount)
@@ -121,32 +129,32 @@ test.describe("List Virtualization Performance", () => {
         injected.reason || "Synthetic message injection unavailable"
       )
 
-      // Wait for messages to render
-      await page.waitForTimeout(1000)
+      // Ensure the injected messages have a visible container to render into.
+      await page.evaluate(() => {
+        ;(window as any).__tldw_useQuickChatStore?.getState?.()?.setIsOpen?.(true)
+      })
+      await page.waitForSelector(containerSelector, { state: "attached", timeout: 15000 })
 
-      // Find the scrollable message container
-      const containerSelectors = [
-        '[data-testid="message-list"]',
-        '[class*="message-container"]',
-        '[class*="chat-body"]',
-        ".overflow-y-auto"
-      ]
+      // Deterministic render signal: store has messages + UI has at least one message node.
+      await page.waitForFunction(
+        ({ expectedCount, selector }) => {
+          const store = (window as any).__tldw_useQuickChatStore?.getState?.()
+          const n = store?.messages?.length
+          if (typeof n !== "number" || n < expectedCount) return false
+          const el = document.querySelector(selector) as HTMLElement | null
+          if (!el) return false
+          const rendered = el.querySelectorAll('[role="article"]').length
+          return rendered > 0 && el.scrollHeight > el.clientHeight
+        },
+        { expectedCount: messageCount, selector: containerSelector },
+        { timeout: 15000 }
+      )
 
-      let containerSelector = ""
-      for (const selector of containerSelectors) {
-        if ((await page.locator(selector).count()) > 0) {
-          containerSelector = selector
-          break
-        }
-      }
-
-      if (!containerSelector) {
-        throw new Error(
-          `Could not find scrollable container: expected one of [${containerSelectors.join(
-            ", "
-          )}]`
-        )
-      }
+      // Reset to the top so the scroll measurement starts from a stable state.
+      await page.evaluate((selector) => {
+        const el = document.querySelector(selector) as HTMLElement | null
+        if (el) el.scrollTop = 0
+      }, containerSelector)
 
       // Measure scroll performance
       const startTime = performance.now()
@@ -211,24 +219,17 @@ test.describe("List Virtualization Performance", () => {
       await waitForConnectionStore(page, "virtualization-test-init")
       await forceConnected(page, { serverUrl: SERVER_URL }, "virtualization-test-connected")
 
-      // Count initial DOM nodes in the message area
-      const containerSelectors = [
-        '[data-testid="message-list"]',
-        '[class*="message-container"]',
-        '[class*="chat-body"]'
-      ]
+      const containerSelector = '.quick-chat-helper-modal [role="log"]'
+      const probe = await injectSyntheticMessages(page, 0)
+      test.skip(!probe.ok, probe.reason || "Synthetic message injection unavailable")
 
-      let containerSelector = ""
-      for (const selector of containerSelectors) {
-        if ((await page.locator(selector).count()) > 0) {
-          containerSelector = selector
-          break
-        }
-      }
+      // Ensure the injected messages have a visible container to render into.
+      await page.evaluate(() => {
+        ;(window as any).__tldw_useQuickChatStore?.getState?.()?.setIsOpen?.(true)
+      })
+      await page.waitForSelector(containerSelector, { state: "attached", timeout: 15000 })
 
-      const initialNodes = containerSelector
-        ? await countDOMNodes(page, containerSelector)
-        : await countDOMNodes(page, "#root")
+      const initialNodes = await countDOMNodes(page, containerSelector)
 
       // Inject many messages
       const startTime = performance.now()
@@ -240,12 +241,23 @@ test.describe("List Virtualization Performance", () => {
         injected.reason || "Synthetic message injection unavailable"
       )
 
-      await page.waitForTimeout(500)
+      // Deterministic render signal: store has messages + UI has at least one message node.
+      await page.waitForFunction(
+        ({ expectedCount, selector }) => {
+          const store = (window as any).__tldw_useQuickChatStore?.getState?.()
+          const n = store?.messages?.length
+          if (typeof n !== "number" || n < expectedCount) return false
+          const el = document.querySelector(selector) as HTMLElement | null
+          if (!el) return false
+          const rendered = el.querySelectorAll('[role="article"]').length
+          return rendered > 0 && el.scrollHeight > el.clientHeight
+        },
+        { expectedCount: messageCount, selector: containerSelector },
+        { timeout: 15000 }
+      )
 
       // Count DOM nodes after adding messages
-      const afterNodes = containerSelector
-        ? await countDOMNodes(page, containerSelector)
-        : await countDOMNodes(page, "#root")
+      const afterNodes = await countDOMNodes(page, containerSelector)
 
       // With virtualization, node count should be bounded (not proportional to message count)
       const nodeGrowth = afterNodes - initialNodes
@@ -314,17 +326,24 @@ test.describe("List Virtualization Performance", () => {
       await sidepanel.waitForSelector(inputSelector, { state: "visible", timeout: 10000 })
       timer.mark("interactive")
 
+      const navigationToRoot = timer.betweenMarks("navigation-start", "root-mounted")
+      const rootToInteractive = timer.betweenMarks("root-mounted", "interactive")
       const coldStartTime = timer.betweenMarks("navigation-start", "interactive")
+
+      // Guard against missing or renamed marks (betweenMarks returns -1).
+      expect(navigationToRoot).toBeGreaterThan(0)
+      expect(rootToInteractive).toBeGreaterThan(0)
+      expect(coldStartTime).toBeGreaterThan(0)
 
       const report = createReport("Sidepanel Cold Start", [
         {
           name: "Navigation to root",
-          value: timer.betweenMarks("navigation-start", "root-mounted"),
+          value: navigationToRoot,
           unit: "ms"
         },
         {
           name: "Root to interactive",
-          value: timer.betweenMarks("root-mounted", "interactive"),
+          value: rootToInteractive,
           unit: "ms"
         },
         {
@@ -373,34 +392,38 @@ test.describe("Memory Performance", () => {
         return null
       })
 
-      if (baselineMemory) {
-        const report = createReport("Memory Baseline", [
-          {
-            name: "Used JS Heap",
-            value: baselineMemory.usedJSHeapSize,
-            unit: "MB"
-          },
-          {
-            name: "Total JS Heap",
-            value: baselineMemory.totalJSHeapSize,
-            unit: "MB"
-          },
-          {
-            name: "Heap Size Limit",
-            value: baselineMemory.jsHeapSizeLimit,
-            unit: "MB"
-          }
-        ], startTime)
+      test.skip(!baselineMemory, "Memory API not available in this browser")
+      if (!baselineMemory) return
 
-        logReport(report)
+      expect(baselineMemory.usedJSHeapSize).toBeGreaterThan(0)
+      expect(baselineMemory.totalJSHeapSize).toBeGreaterThan(0)
+      expect(baselineMemory.totalJSHeapSize).toBeGreaterThanOrEqual(baselineMemory.usedJSHeapSize)
+      expect(baselineMemory.jsHeapSizeLimit).toBeGreaterThanOrEqual(baselineMemory.totalJSHeapSize)
 
-        console.log(
-          `Memory: ${baselineMemory.usedJSHeapSize.toFixed(1)}MB used / ` +
-            `${baselineMemory.totalJSHeapSize.toFixed(1)}MB total`
-        )
-      } else {
-        console.log("Memory API not available in this browser")
-      }
+      const report = createReport("Memory Baseline", [
+        {
+          name: "Used JS Heap",
+          value: baselineMemory.usedJSHeapSize,
+          unit: "MB"
+        },
+        {
+          name: "Total JS Heap",
+          value: baselineMemory.totalJSHeapSize,
+          unit: "MB"
+        },
+        {
+          name: "Heap Size Limit",
+          value: baselineMemory.jsHeapSizeLimit,
+          unit: "MB"
+        }
+      ], startTime)
+
+      logReport(report)
+
+      console.log(
+        `Memory: ${baselineMemory.usedJSHeapSize.toFixed(1)}MB used / ` +
+          `${baselineMemory.totalJSHeapSize.toFixed(1)}MB total`
+      )
     } finally {
       await context.close()
     }

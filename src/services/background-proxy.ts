@@ -1,9 +1,19 @@
 import { browser } from "wxt/browser"
 import { Storage } from "@plasmohq/storage"
-import type { AllowedMethodFor, AllowedPath, PathOrUrl, UpperLower } from "@/services/tldw/openapi-guard"
+import type {
+  AllowedMethodFor,
+  AllowedPath,
+  ClientPathOrUrlWithQuery,
+  ClientPathRuntimeWithQuery,
+  PathOrUrl,
+  UpperLower
+} from "@/services/tldw/openapi-guard"
 import { isPlaceholderApiKey } from "@/utils/api-key"
 
-export interface BgRequestInit<P extends PathOrUrl = AllowedPath, M extends AllowedMethodFor<P> = AllowedMethodFor<P>> {
+export interface BgRequestInit<
+  P extends PathOrUrl = AllowedPath,
+  M extends AllowedMethodFor<P> = AllowedMethodFor<P>
+> {
   path: P
   method?: UpperLower<M>
   headers?: Record<string, string>
@@ -13,7 +23,11 @@ export interface BgRequestInit<P extends PathOrUrl = AllowedPath, M extends Allo
   abortSignal?: AbortSignal
 }
 
-export async function bgRequest<T = any, P extends PathOrUrl = AllowedPath, M extends AllowedMethodFor<P> = AllowedMethodFor<P>>(
+export async function bgRequest<
+  T = any,
+  P extends PathOrUrl = AllowedPath,
+  M extends AllowedMethodFor<P> = AllowedMethodFor<P>
+>(
   { path, method = 'GET' as UpperLower<M>, headers = {}, body, noAuth = false, timeoutMs, abortSignal }: BgRequestInit<P, M>
 ): Promise<T> {
   // If extension messaging is available, use it (extension context)
@@ -148,7 +162,10 @@ export async function bgRequest<T = any, P extends PathOrUrl = AllowedPath, M ex
   }
 }
 
-export interface BgStreamInit<P extends AllowedPath = AllowedPath, M extends AllowedMethodFor<P> = AllowedMethodFor<P>> {
+export interface BgStreamInit<
+  P extends AllowedPath = AllowedPath,
+  M extends AllowedMethodFor<P> = AllowedMethodFor<P>
+> {
   path: P
   method?: UpperLower<M>
   headers?: Record<string, string>
@@ -157,7 +174,10 @@ export interface BgStreamInit<P extends AllowedPath = AllowedPath, M extends All
   abortSignal?: AbortSignal
 }
 
-export async function* bgStream<P extends AllowedPath = AllowedPath, M extends AllowedMethodFor<P> = AllowedMethodFor<P>>(
+export async function* bgStream<
+  P extends AllowedPath = AllowedPath,
+  M extends AllowedMethodFor<P> = AllowedMethodFor<P>
+>(
   { path, method = 'POST' as UpperLower<M>, headers = {}, body, streamIdleTimeoutMs, abortSignal }: BgStreamInit<P, M>
 ): AsyncGenerator<string> {
   const port = browser.runtime.connect({ name: 'tldw:stream' })
@@ -227,10 +247,32 @@ export async function bgUpload<T = any, P extends AllowedPath = AllowedPath, M e
   return resp.data as T
 }
 
-export async function bgRequestValidated<T = any, P extends PathOrUrl = AllowedPath, M extends AllowedMethodFor<P> = AllowedMethodFor<P>>(
+export async function bgRequestValidated<
+  T = any,
+  P extends PathOrUrl = AllowedPath,
+  M extends AllowedMethodFor<P> = AllowedMethodFor<P>
+>(
   init: BgRequestInit<P, M>,
   validate?: (data: unknown) => T
 ): Promise<T> {
   const data = await bgRequest<any, P, M>(init)
   return validate ? validate(data) : (data as T)
+}
+
+// Strict variants: enforce that call sites use ClientPath-derived strings by default.
+export async function bgRequestClient<
+  T = any,
+  P extends ClientPathOrUrlWithQuery = ClientPathOrUrlWithQuery,
+  M extends AllowedMethodFor<P> = AllowedMethodFor<P>
+>(init: BgRequestInit<P, M>): Promise<T> {
+  return bgRequest<T, P, M>(init)
+}
+
+export async function* bgStreamClient<
+  P extends ClientPathRuntimeWithQuery = ClientPathRuntimeWithQuery,
+  M extends AllowedMethodFor<P> = AllowedMethodFor<P>
+>(init: BgStreamInit<P, M>): AsyncGenerator<string> {
+  for await (const chunk of bgStream<P, M>(init)) {
+    yield chunk
+  }
 }

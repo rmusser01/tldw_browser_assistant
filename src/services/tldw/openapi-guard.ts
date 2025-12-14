@@ -42,25 +42,18 @@ export type ClientPath =
   | "/api/v1/media/process-videos"
   | "/api/v1/media/process-web-scraping"
   | "/api/v1/notes"
-  | "/api/v1/notes/"
   | "/api/v1/notes/search"
-  | "/api/v1/notes/search/"
   | "/api/v1/notes/collections"
-  | "/api/v1/notes/collections/"
   | "/api/v1/notes/collections/{collection_id}"
   | "/api/v1/notes/collections/{collection_id}/keywords"
   | "/api/v1/notes/collections/{collection_id}/keywords/{keyword_id}"
   | "/api/v1/notes/collections/keyword-links"
-  | "/api/v1/notes/collections/keyword-links/"
   | "/api/v1/notes/keywords"
-  | "/api/v1/notes/keywords/"
   | "/api/v1/notes/keywords/search"
-  | "/api/v1/notes/keywords/search/"
   | "/api/v1/notes/keywords/{keyword_id}"
   | "/api/v1/notes/conversations/{conversation_id}/keywords"
   | "/api/v1/notes/conversations/{conversation_id}/keywords/{keyword_id}"
   | "/api/v1/notes/conversations/keyword-links"
-  | "/api/v1/notes/conversations/keyword-links/"
   | "/api/v1/prompts"
   | "/api/v1/prompts/search"
   | "/api/v1/chat/dictionaries"
@@ -69,9 +62,11 @@ export type ClientPath =
   | "/api/v1/characters"
   | "/api/v1/characters/world-books"
   | "/api/v1/characters/world-books/import"
+  | "/api/v1/audio/providers"
   | "/api/v1/audio/speech"
   | "/api/v1/audio/transcriptions"
   | "/api/v1/audio/voices"
+  | "/api/v1/audio/voices/catalog"
   | "/api/v1/audio/health"
   | "/api/v1/embeddings/models"
   | "/api/v1/embeddings/providers-config"
@@ -97,6 +92,17 @@ export type ClientPath =
   | "/api/v1/auth/refresh"
   | "/api/v1/auth/register"
 
+type ReplacePathParams<Path extends string> =
+  Path extends `${infer Head}{${string}}${infer Tail}`
+    ? ReplacePathParams<`${Head}${string}${Tail}`>
+    : Path
+
+// Runtime path form: replaces OpenAPI-style "{param}" segments with "${string}".
+export type ClientPathRuntime = ReplacePathParams<ClientPath>
+
+// OpenAPI paths don't include query strings, but the UI appends them at runtime.
+export type ClientPathRuntimeWithQuery = ClientPathRuntime | `${ClientPathRuntime}?${string}`
+
 // Centralized, typed API paths for use across the extension. Values are
 // checked against ClientPath so that any drift from the OpenAPI spec is
 // caught at compile time.
@@ -113,6 +119,10 @@ export type AllowedPath = `/${string}`
 export type AbsoluteURL = `${'http' | 'https'}:${string}`
 
 export type PathOrUrl = AllowedPath | AbsoluteURL
+
+export type ClientPathOrUrl = ClientPathRuntime | AbsoluteURL
+
+export type ClientPathOrUrlWithQuery = ClientPathRuntimeWithQuery | AbsoluteURL
 
 // Common HTTP methods accepted
 export type AllowedHttpMethod = 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH' | 'OPTIONS' | 'HEAD'

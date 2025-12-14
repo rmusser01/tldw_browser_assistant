@@ -2,10 +2,10 @@
  * Folder System API Service
  *
  * Handles communication with tldw_server for folder (keyword_collections)
- * and keyword management. Uses bgRequest for proper auth handling.
+ * and keyword management. Uses bgRequestClient for proper auth handling.
  */
 
-import { bgRequest } from "@/services/background-proxy"
+import { bgRequestClient } from "@/services/background-proxy"
 import type { Folder, Keyword, FolderKeywordLink, ConversationKeywordLink } from "@/db/dexie/types"
 
 type ArrayOrWrapped<T, K extends string> = T[] | { [key in K]: T[] } | null | undefined
@@ -32,8 +32,8 @@ const normalizeArrayResponse = <T, K extends string>(
  */
 export const fetchFolders = async (options?: { abortSignal?: AbortSignal; timeoutMs?: number }): Promise<Folder[]> => {
   try {
-    const response = await bgRequest<ArrayOrWrapped<Folder, "collections">>({
-      path: '/api/v1/notes/collections/',
+    const response = await bgRequestClient<ArrayOrWrapped<Folder, "collections">>({
+      path: '/api/v1/notes/collections',
       method: 'GET',
       abortSignal: options?.abortSignal,
       timeoutMs: options?.timeoutMs
@@ -54,8 +54,8 @@ export const createFolder = async (
   options?: { abortSignal?: AbortSignal; timeoutMs?: number }
 ): Promise<Folder | null> => {
   try {
-    return await bgRequest<Folder>({
-      path: '/api/v1/notes/collections/',
+    return await bgRequestClient<Folder>({
+      path: '/api/v1/notes/collections',
       method: 'POST',
       body: { name, parent_id: parentId ?? null },
       abortSignal: options?.abortSignal,
@@ -76,7 +76,7 @@ export const updateFolder = async (
   options?: { abortSignal?: AbortSignal; timeoutMs?: number }
 ): Promise<Folder | null> => {
   try {
-    return await bgRequest<Folder>({
+    return await bgRequestClient<Folder>({
       path: `/api/v1/notes/collections/${id}`,
       method: 'PATCH',
       body: data,
@@ -94,7 +94,7 @@ export const updateFolder = async (
  */
 export const deleteFolder = async (id: number, options?: { abortSignal?: AbortSignal; timeoutMs?: number }): Promise<boolean> => {
   try {
-    await bgRequest({
+    await bgRequestClient({
       path: `/api/v1/notes/collections/${id}`,
       method: 'DELETE',
       abortSignal: options?.abortSignal,
@@ -116,8 +116,8 @@ export const deleteFolder = async (id: number, options?: { abortSignal?: AbortSi
  */
 export const fetchKeywords = async (options?: { abortSignal?: AbortSignal; timeoutMs?: number }): Promise<Keyword[]> => {
   try {
-    const response = await bgRequest<ArrayOrWrapped<Keyword, "keywords">>({
-      path: '/api/v1/notes/keywords/',
+    const response = await bgRequestClient<ArrayOrWrapped<Keyword, "keywords">>({
+      path: '/api/v1/notes/keywords',
       method: 'GET',
       abortSignal: options?.abortSignal,
       timeoutMs: options?.timeoutMs
@@ -134,8 +134,8 @@ export const fetchKeywords = async (options?: { abortSignal?: AbortSignal; timeo
  */
 export const createKeyword = async (keyword: string, options?: { abortSignal?: AbortSignal; timeoutMs?: number }): Promise<Keyword | null> => {
   try {
-    return await bgRequest<Keyword>({
-      path: '/api/v1/notes/keywords/',
+    return await bgRequestClient<Keyword>({
+      path: '/api/v1/notes/keywords',
       method: 'POST',
       body: { keyword },
       abortSignal: options?.abortSignal,
@@ -152,7 +152,7 @@ export const createKeyword = async (keyword: string, options?: { abortSignal?: A
  */
 export const deleteKeyword = async (id: number, options?: { abortSignal?: AbortSignal; timeoutMs?: number }): Promise<boolean> => {
   try {
-    await bgRequest({
+    await bgRequestClient({
       path: `/api/v1/notes/keywords/${id}`,
       method: 'DELETE',
       abortSignal: options?.abortSignal,
@@ -178,7 +178,7 @@ export const linkKeywordToFolder = async (
   options?: { abortSignal?: AbortSignal; timeoutMs?: number }
 ): Promise<boolean> => {
   try {
-    await bgRequest({
+    await bgRequestClient({
       path: `/api/v1/notes/collections/${folderId}/keywords/${keywordId}`,
       method: 'POST',
       abortSignal: options?.abortSignal,
@@ -200,7 +200,7 @@ export const unlinkKeywordFromFolder = async (
   options?: { abortSignal?: AbortSignal; timeoutMs?: number }
 ): Promise<boolean> => {
   try {
-    await bgRequest({
+    await bgRequestClient({
       path: `/api/v1/notes/collections/${folderId}/keywords/${keywordId}`,
       method: 'DELETE',
       abortSignal: options?.abortSignal,
@@ -221,7 +221,7 @@ export const getKeywordsForFolder = async (
   options?: { abortSignal?: AbortSignal; timeoutMs?: number }
 ): Promise<Keyword[]> => {
   try {
-    const response = await bgRequest<ArrayOrWrapped<Keyword, "keywords">>({
+    const response = await bgRequestClient<ArrayOrWrapped<Keyword, "keywords">>({
       path: `/api/v1/notes/collections/${folderId}/keywords`,
       method: 'GET',
       abortSignal: options?.abortSignal,
@@ -248,7 +248,7 @@ export const linkKeywordToConversation = async (
 ): Promise<boolean> => {
   try {
     const cid = encodeURIComponent(conversationId)
-    await bgRequest({
+    await bgRequestClient({
       path: `/api/v1/notes/conversations/${cid}/keywords/${keywordId}`,
       method: 'POST',
       abortSignal: options?.abortSignal,
@@ -271,7 +271,7 @@ export const unlinkKeywordFromConversation = async (
 ): Promise<boolean> => {
   try {
     const cid = encodeURIComponent(conversationId)
-    await bgRequest({
+    await bgRequestClient({
       path: `/api/v1/notes/conversations/${cid}/keywords/${keywordId}`,
       method: 'DELETE',
       abortSignal: options?.abortSignal,
@@ -293,7 +293,7 @@ export const getKeywordsForConversation = async (
 ): Promise<Keyword[]> => {
   try {
     const cid = encodeURIComponent(conversationId)
-    const response = await bgRequest<ArrayOrWrapped<Keyword, "keywords">>({
+    const response = await bgRequestClient<ArrayOrWrapped<Keyword, "keywords">>({
       path: `/api/v1/notes/conversations/${cid}/keywords`,
       method: 'GET',
       abortSignal: options?.abortSignal,
@@ -315,7 +315,7 @@ export const getKeywordsForConversation = async (
  */
 export const fetchFolderKeywordLinks = async (options?: { abortSignal?: AbortSignal; timeoutMs?: number }): Promise<FolderKeywordLink[]> => {
   try {
-    const response = await bgRequest<ArrayOrWrapped<FolderKeywordLink, "links">>({
+    const response = await bgRequestClient<ArrayOrWrapped<FolderKeywordLink, "links">>({
       path: '/api/v1/notes/collections/keyword-links',
       method: 'GET',
       abortSignal: options?.abortSignal,
@@ -335,15 +335,15 @@ export const fetchFolderKeywordLinks = async (options?: { abortSignal?: AbortSig
 export const fetchConversationKeywordLinks = async (
   conversationIds?: string[],
   options?: { abortSignal?: AbortSignal; timeoutMs?: number }
-): Promise<ConversationKeywordLink[]> => {
+  ): Promise<ConversationKeywordLink[]> => {
   try {
-    const path = (conversationIds?.length
-      ? `/api/v1/notes/conversations/keyword-links?ids=${conversationIds
+    const path = conversationIds?.length
+      ? (`/api/v1/notes/conversations/keyword-links?ids=${conversationIds
           .map((id) => encodeURIComponent(id))
-          .join(',')}`
-      : '/api/v1/notes/conversations/keyword-links') as `/${string}`
+          .join(',')}` as `/api/v1/notes/conversations/keyword-links?${string}`)
+      : '/api/v1/notes/conversations/keyword-links'
 
-    const response = await bgRequest<ArrayOrWrapped<ConversationKeywordLink, "links">>({
+    const response = await bgRequestClient<ArrayOrWrapped<ConversationKeywordLink, "links">>({
       path,
       method: 'GET',
       abortSignal: options?.abortSignal,
