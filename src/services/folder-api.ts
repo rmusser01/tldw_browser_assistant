@@ -30,30 +30,84 @@ const normalizeArrayResponse = <T, K extends string>(
   if (!response) return []
   if (Array.isArray(response)) return response
 
-  const wrapped = (response as Record<string, unknown>)?.[key]
-  if (Array.isArray(wrapped)) return wrapped
+  if (typeof response === 'object' && response !== null && key in response) {
+    const wrapped = response[key]
+    if (Array.isArray(wrapped)) return wrapped
+  }
 
   throw new Error(`Unexpected response shape (expected array or { ${key}: [] })`)
 }
 
-const buildRequestKey = (method: string, path: string, body?: any): string => {
+const buildRequestKey = (method: string, path: string, body?: unknown): string => {
   const m = method.toUpperCase()
   if (body === undefined || body === null) {
     return `${m} ${path}`
   }
   try {
-    return `${m} ${path} ${JSON.stringify(body)}`
+    const json = JSON.stringify(body)
+    if (json !== undefined) {
+      return `${m} ${path} ${json}`
+    }
   } catch {
+    // ignore; fall back to a readable string representation
+  }
+  try {
     return `${m} ${path} ${String(body)}`
+  } catch {
+    try {
+      return `${m} ${path} ${Object.prototype.toString.call(body)}`
+    } catch {
+      return `${m} ${path} [unstringifiable body]`
+    }
   }
 }
 
 const extractStatusFromError = (error: unknown): number | undefined => {
+  const asHttpStatus = (value: unknown): number | undefined => {
+    const num =
+      typeof value === 'number'
+        ? value
+        : typeof value === 'string'
+          ? Number(value.trim())
+          : NaN
+    if (!Number.isFinite(num) || !Number.isInteger(num)) return undefined
+    return num >= 100 && num <= 599 ? num : undefined
+  }
+
+  const fromRecord = (record: Record<string, unknown>): number | undefined => {
+    return (
+      asHttpStatus(record.status) ??
+      asHttpStatus(record.statusCode) ??
+      asHttpStatus(record.code)
+    )
+  }
+
+  if (error && typeof error === 'object') {
+    const record = error as Record<string, unknown>
+    const direct = fromRecord(record)
+    if (direct !== undefined) return direct
+
+    const response = record.response
+    if (response && typeof response === 'object') {
+      const nested = fromRecord(response as Record<string, unknown>)
+      if (nested !== undefined) return nested
+    }
+  }
+
   const msg = error instanceof Error ? error.message : String(error)
-  const match = msg.match(/(\d{3})/)
-  if (!match) return undefined
-  const code = Number(match[1])
-  return Number.isFinite(code) ? code : undefined
+  const matches = [
+    msg.match(/\b(?:status|statusCode)\b\s*[:=]?\s*(\d{3})\b/i)?.[1],
+    msg.match(/\bHTTP(?:\/\d(?:\.\d)?)?\s*(\d{3})\b/i)?.[1],
+    msg.match(/\b(?:request|upload)\s+failed\b\s*[:(]\s*(\d{3})\b/i)?.[1],
+    msg.match(/\((\d{3})\)/)?.[1]
+  ]
+
+  for (const match of matches) {
+    const status = asHttpStatus(match)
+    if (status !== undefined) return status
+  }
+
+  return undefined
 }
 
 const singleFlight = async <T>(
@@ -132,7 +186,7 @@ export const createFolder = async (
   const body = { name, parent_id: parentId ?? null }
   const key = buildRequestKey('POST', path, body)
   return singleFlight<Folder>(key, async () => {
-    return await bgRequestClient<Folder>({
+    return bgRequestClient<Folder>({
       path,
       method: 'POST',
       body,
@@ -153,7 +207,7 @@ export const updateFolder = async (
   const path = `/api/v1/notes/collections/${id}` as ClientPathOrUrlWithQuery
   const key = buildRequestKey('PATCH', path, data)
   return singleFlight<Folder>(key, async () => {
-    return await bgRequestClient<Folder>({
+    return bgRequestClient<Folder>({
       path,
       method: 'PATCH',
       body: data,
@@ -216,7 +270,7 @@ export const createKeyword = async (
   const body = { keyword }
   const key = buildRequestKey('POST', path, body)
   return singleFlight<Keyword>(key, async () => {
-    return await bgRequestClient<Keyword>({
+    return bgRequestClient<Keyword>({
       path,
       method: 'POST',
       body,
@@ -409,7 +463,7 @@ export const fetchConversationKeywordLinks = async (
   const path = (conversationIds?.length
     ? (() => {
         const params = new URLSearchParams()
-        params.set('ids', conversationIds.map((id) => encodeURIComponent(id)).join(','))
+        params.set('ids', conversationIds.join(','))
         return `/api/v1/notes/conversations/keyword-links?${params.toString()}` as `/api/v1/notes/conversations/keyword-links?${string}`
       })()
     : '/api/v1/notes/conversations/keyword-links') as ClientPathOrUrlWithQuery
