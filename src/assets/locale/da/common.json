@@ -246,5 +246,18 @@
     "friendlyGenericHint": "Prøv igen om lidt, eller åbn Sundhed og diagnostik for at kontrollere serverens status.",
     "showDetails": "Vis tekniske detaljer",
     "hideDetails": "Skjul tekniske detaljer"
-  }
+  },
+  "folders": "Mapper",
+  "folderView": "Mappevisning",
+  "dateView": "Datovisning",
+  "newFolder": "Ny mappe",
+  "folderName": "Mappenavn",
+  "selectFolder": "Vælg mappe",
+  "noFolders": "Ingen mapper",
+  "expandAll": "Udvid alle",
+  "collapseAll": "Skjul alle",
+  "refresh": "Opdater",
+  "confirm": "Bekræft",
+  "untitled": "Unavngivet",
+  "moveToFolder": "Flyt til mappe"
 }

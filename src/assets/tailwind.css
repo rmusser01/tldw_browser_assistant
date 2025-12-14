@@ -112,6 +112,70 @@ body {
   }
 }
 
+@layer components {
+  .timeline-modal .ant-modal-content {
+    @apply h-screen bg-bg text-text;
+  }
+
+  .timeline-container {
+    @apply flex h-full flex-col bg-bg text-text;
+  }
+
+  .timeline-content {
+    @apply relative flex-1 overflow-hidden;
+  }
+
+  .timeline-loading,
+  .timeline-error,
+  .timeline-empty {
+    @apply flex h-full items-center justify-center p-6;
+  }
+
+  .timeline-legend {
+    @apply absolute bottom-4 left-4 z-10 flex gap-4 rounded-lg border border-border bg-surface px-4 py-2 text-xs text-text shadow-card;
+  }
+
+  .legend-item {
+    @apply flex items-center gap-1.5;
+  }
+
+  .legend-dot {
+    @apply h-3 w-3 rounded-full;
+  }
+
+  .timeline-search-highlight {
+    @apply rounded-sm bg-warn px-0.5 text-text dark:text-bg;
+  }
+
+  .timeline-toolbar {
+    @apply flex items-center justify-between gap-4 border-b border-border bg-surface2 px-4 py-3 max-md:flex-wrap max-md:gap-2;
+  }
+
+  .toolbar-left {
+    @apply flex items-center;
+  }
+
+  .toolbar-center {
+    @apply flex flex-1 items-center justify-center max-md:order-3 max-md:basis-full max-md:w-full;
+  }
+
+  .toolbar-right {
+    @apply flex items-center;
+  }
+
+  .timeline-search-input {
+    @apply rounded-none;
+  }
+
+  .toolbar-center .ant-space-compact {
+    @apply max-md:!w-full;
+  }
+
+  .toolbar-center .ant-input-affix-wrapper {
+    @apply max-md:flex-1;
+  }
+}
+
 .ant-select-selection-search-input {
   border: none !important;
   box-shadow: none !important;

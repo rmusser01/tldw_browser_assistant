@@ -339,7 +339,10 @@
     "errorSummary": "Сейчас не удалось обработать элементы импорта.",
     "errorHint": "Повторите попытку после проверки сервера tldw. Раздел «Health & diagnostics» поможет разобраться с проблемами импорта.",
     "checkHealthLink": "Проверить состояние сервера в «Health & diagnostics»",
-    "healthAriaHint": "Недавние запуски завершились с ошибкой — откройте «Health & diagnostics» в заголовке для подробностей."
+    "healthAriaHint": "Недавние запуски завершились с ошибкой — откройте «Health & diagnostics» в заголовке для подробностей.",
+    "specReloadedToast": "Расширенная спецификация перезагружена с сервера",
+    "specReloadedToastDiff": "Расширенная спецификация перезагружена с сервера (добавлено полей: {{added}}, удалено: {{removed}})",
+    "specFallbackWarning": "Используется встроенный резервный вариант схемы media.add (v{{version}}); проверьте tldw_server /openapi.json, если поля выглядят устаревшими."
   },
   "notesSearch": {
     "placeholder": "Search titles and contents",

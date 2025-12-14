@@ -1122,5 +1122,53 @@
   },
   "restartOnboardingToastBody": {
     "message": "Vamos levá‑lo de volta à etapa de boas‑vindas para que você possa revisar a URL do servidor e a chave de API."
+  },
+  "folders": {
+    "message": "Pastas"
+  },
+  "folderView": {
+    "message": "Visualização de pastas"
+  },
+  "dateView": {
+    "message": "Visualização por data"
+  },
+  "newFolder": {
+    "message": "Nova pasta"
+  },
+  "folderName": {
+    "message": "Nome da pasta"
+  },
+  "selectFolder": {
+    "message": "Selecionar pasta"
+  },
+  "noFolders": {
+    "message": "Nenhuma pasta"
+  },
+  "expandAll": {
+    "message": "Expandir tudo"
+  },
+  "collapseAll": {
+    "message": "Recolher tudo"
+  },
+  "refresh": {
+    "message": "Atualizar"
+  },
+  "confirm": {
+    "message": "Confirmar"
+  },
+  "untitled": {
+    "message": "Sem título"
+  },
+  "moveToFolder": {
+    "message": "Mover para pasta"
+  },
+  "specReloadedToast": {
+    "message": "Spec avançada recarregada do servidor"
+  },
+  "specReloadedToastDiff": {
+    "message": "Spec avançada recarregada do servidor (campos adicionados: {{added}}, removidos: {{removed}})"
+  },
+  "specFallbackWarning": {
+    "message": "Usando o fallback do esquema media.add incluído (v{{version}}); se os campos parecerem desatualizados, compare com o /openapi.json do seu tldw_server."
   }
 }

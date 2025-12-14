@@ -284,5 +284,53 @@
   "omniSearchCreateFlashcardsSuccess": {
     "message": "Collection de Flashcards \u00ab {{query}} \u00bb cr\u00e9\u00e9e",
     "description": "Confirmation toast message shown after creating a flashcard collection from omni-search."
+  },
+  "folders": {
+    "message": "Dossiers"
+  },
+  "folderView": {
+    "message": "Vue des dossiers"
+  },
+  "dateView": {
+    "message": "Vue par date"
+  },
+  "newFolder": {
+    "message": "Nouveau dossier"
+  },
+  "folderName": {
+    "message": "Nom du dossier"
+  },
+  "selectFolder": {
+    "message": "Sélectionner un dossier"
+  },
+  "noFolders": {
+    "message": "Aucun dossier"
+  },
+  "expandAll": {
+    "message": "Tout développer"
+  },
+  "collapseAll": {
+    "message": "Tout réduire"
+  },
+  "refresh": {
+    "message": "Actualiser"
+  },
+  "confirm": {
+    "message": "Confirmer"
+  },
+  "untitled": {
+    "message": "Sans titre"
+  },
+  "moveToFolder": {
+    "message": "Déplacer vers le dossier"
+  },
+  "specReloadedToast": {
+    "message": "Spécification avancée rechargée depuis le serveur"
+  },
+  "specReloadedToastDiff": {
+    "message": "Spécification avancée rechargée depuis le serveur (champs ajoutés : {{added}}, supprimés : {{removed}})"
+  },
+  "specFallbackWarning": {
+    "message": "Utilisation du schéma de secours media.add intégré (v{{version}}) ; vérifiez-le par rapport à votre tldw_server /openapi.json si certains champs semblent obsolètes."
   }
 }

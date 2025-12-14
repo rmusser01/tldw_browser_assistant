@@ -19,13 +19,18 @@ import { tldwClient } from "@/services/tldw/TldwApiClient"
 import { Storage } from "@plasmohq/storage"
 import { useStorage } from "@plasmohq/storage/hook"
 import { ChevronDown } from "lucide-react"
-import React from "react"
+import React, { lazy, Suspense } from "react"
 import { useTranslation } from "react-i18next"
 import { SidePanelBody } from "~/components/Sidepanel/Chat/body"
 import { SidepanelForm } from "~/components/Sidepanel/Chat/form"
 import { SidepanelHeaderSimple } from "~/components/Sidepanel/Chat/SidepanelHeaderSimple"
 import NoteQuickSaveModal from "~/components/Sidepanel/Notes/NoteQuickSaveModal"
 import { useMessage } from "~/hooks/useMessage"
+
+// Lazy-load Timeline to reduce initial bundle size (~1.2MB cytoscape)
+const TimelineModal = lazy(() =>
+  import("@/components/Timeline").then((m) => ({ default: m.TimelineModal }))
+)
 import type { ChatHistory, Message as ChatMessage } from "~/store/option"
 
 const deriveNoteTitle = (
@@ -626,6 +631,9 @@ const SidepanelChat = () => {
         helperText={t("sidepanel:notes.helperText", "Review or edit the selected text, then Save or Cancel.")}
         sourceLabel={t("sidepanel:notes.sourceLabel", "Source")}
       />
+      <Suspense fallback={null}>
+        <TimelineModal />
+      </Suspense>
     </div>
   )
 }

@@ -246,5 +246,18 @@
     "friendlyGenericHint": "잠시 후 다시 시도하거나 상태 및 진단을 열어 서버 상태를 확인하세요.",
     "showDetails": "기술 세부정보 표시",
     "hideDetails": "기술 세부정보 숨기기"
-  }
+  },
+  "folders": "폴더",
+  "folderView": "폴더 보기",
+  "dateView": "날짜 보기",
+  "newFolder": "새 폴더",
+  "folderName": "폴더 이름",
+  "selectFolder": "폴더 선택",
+  "noFolders": "폴더가 없습니다",
+  "expandAll": "모두 펼치기",
+  "collapseAll": "모두 접기",
+  "refresh": "새로고침",
+  "confirm": "확인",
+  "untitled": "제목 없음",
+  "moveToFolder": "폴더로 이동"
 }

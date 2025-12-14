@@ -158,5 +158,53 @@
   "omniSearchCreateFlashcardsSuccess": {
     "message": "تم إنشاء مجموعة البطاقات \"{{query}}\"",
     "description": "Confirmation toast message shown after creating a flashcard collection from omni-search."
+  },
+  "folders": {
+    "message": "المجلدات"
+  },
+  "folderView": {
+    "message": "عرض المجلدات"
+  },
+  "dateView": {
+    "message": "عرض التاريخ"
+  },
+  "newFolder": {
+    "message": "مجلد جديد"
+  },
+  "folderName": {
+    "message": "اسم المجلد"
+  },
+  "selectFolder": {
+    "message": "اختر مجلدًا"
+  },
+  "noFolders": {
+    "message": "لا توجد مجلدات"
+  },
+  "expandAll": {
+    "message": "توسيع الكل"
+  },
+  "collapseAll": {
+    "message": "طيّ الكل"
+  },
+  "refresh": {
+    "message": "تحديث"
+  },
+  "confirm": {
+    "message": "تأكيد"
+  },
+  "untitled": {
+    "message": "بدون عنوان"
+  },
+  "moveToFolder": {
+    "message": "نقل إلى المجلد"
+  },
+  "specReloadedToast": {
+    "message": "تمت إعادة تحميل المواصفات المتقدمة من الخادم"
+  },
+  "specReloadedToastDiff": {
+    "message": "تمت إعادة تحميل المواصفات المتقدمة من الخادم (الحقول المضافة: {{added}}، المحذوفة: {{removed}})"
+  },
+  "specFallbackWarning": {
+    "message": "يتم استخدام مخطط media.add المضمّن كخيار احتياطي (v{{version}})؛ يُرجى التحقق من tldw_server /openapi.json إذا بدت الحقول قديمة."
   }
 }

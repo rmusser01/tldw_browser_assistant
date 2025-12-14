@@ -299,5 +299,53 @@
   "omniSearchCreateFlashcardsSuccess": {
     "message": "Raccolta di flashcard \"{{query}}\" creata",
     "description": "Confirmation toast message shown after creating a flashcard collection from omni-search."
+  },
+  "folders": {
+    "message": "Cartelle"
+  },
+  "folderView": {
+    "message": "Vista cartelle"
+  },
+  "dateView": {
+    "message": "Vista per data"
+  },
+  "newFolder": {
+    "message": "Nuova cartella"
+  },
+  "folderName": {
+    "message": "Nome cartella"
+  },
+  "selectFolder": {
+    "message": "Seleziona cartella"
+  },
+  "noFolders": {
+    "message": "Nessuna cartella"
+  },
+  "expandAll": {
+    "message": "Espandi tutto"
+  },
+  "collapseAll": {
+    "message": "Comprimi tutto"
+  },
+  "refresh": {
+    "message": "Aggiorna"
+  },
+  "confirm": {
+    "message": "Conferma"
+  },
+  "untitled": {
+    "message": "Senza titolo"
+  },
+  "moveToFolder": {
+    "message": "Sposta nella cartella"
+  },
+  "specReloadedToast": {
+    "message": "Spec avanzata ricaricata dal server"
+  },
+  "specReloadedToastDiff": {
+    "message": "Spec avanzata ricaricata dal server (campi aggiunti: {{added}}, rimossi: {{removed}})"
+  },
+  "specFallbackWarning": {
+    "message": "In uso lo schema di fallback media.add incluso (v{{version}}); verifica sul tuo tldw_server /openapi.json se i campi sembrano obsoleti."
   }
 }

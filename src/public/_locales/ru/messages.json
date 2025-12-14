@@ -331,5 +331,69 @@
   "omniSearchCreateFlashcardsSuccess": {
     "message": "Коллекция карточек «{{query}}» создана",
     "description": "Confirmation toast message shown after creating a flashcard collection from omni-search."
+  },
+  "folders": {
+    "message": "Папки",
+    "description": "Generic label for folders in the UI."
+  },
+  "folderView": {
+    "message": "Просмотр папок",
+    "description": "View mode label for showing items grouped by folder."
+  },
+  "dateView": {
+    "message": "Просмотр по датам",
+    "description": "View mode label for showing items grouped by date."
+  },
+  "newFolder": {
+    "message": "Новая папка",
+    "description": "Button label for creating a new folder."
+  },
+  "folderName": {
+    "message": "Название папки",
+    "description": "Form label for a folder name input."
+  },
+  "selectFolder": {
+    "message": "Выберите папку",
+    "description": "Prompt/label to select a folder."
+  },
+  "noFolders": {
+    "message": "Нет папок",
+    "description": "Empty-state message shown when there are no folders."
+  },
+  "expandAll": {
+    "message": "Развернуть все",
+    "description": "Action label to expand all nodes in a tree view."
+  },
+  "collapseAll": {
+    "message": "Свернуть все",
+    "description": "Action label to collapse all nodes in a tree view."
+  },
+  "refresh": {
+    "message": "Обновить",
+    "description": "Generic action label to refresh/reload."
+  },
+  "confirm": {
+    "message": "Подтвердить",
+    "description": "Generic action label to confirm."
+  },
+  "untitled": {
+    "message": "Без названия",
+    "description": "Fallback label used when an item has no title."
+  },
+  "moveToFolder": {
+    "message": "Переместить в папку",
+    "description": "Action label to move an item to a folder."
+  },
+  "specReloadedToast": {
+    "message": "Расширенная спецификация перезагружена с сервера",
+    "description": "Toast shown after reloading the Quick Ingest advanced schema from the server."
+  },
+  "specReloadedToastDiff": {
+    "message": "Расширенная спецификация перезагружена с сервера (добавлено полей: {{added}}, удалено: {{removed}})",
+    "description": "Toast shown after reloading the Quick Ingest advanced schema from the server, with counts for fields added and removed."
+  },
+  "specFallbackWarning": {
+    "message": "Используется встроенный резервный вариант схемы media.add (v{{version}}); проверьте tldw_server /openapi.json, если поля выглядят устаревшими.",
+    "description": "Warning shown when the Quick Ingest advanced schema falls back to the bundled schema; contains the bundled schema version."
   }
 }

@@ -155,3 +155,97 @@ export async function forceErrorUnreachable(
   )
 }
 
+/**
+ * Set the selected model via chrome.storage.sync.
+ * Plasmo's useStorage defaults to sync area, so we must use sync not local.
+ * Must be called and awaited before React components mount.
+ */
+export async function setSelectedModel(page: Page, model: string) {
+  // Set via chrome.storage.sync (what Plasmo useStorage reads by default)
+  await page.evaluate(
+    async ({ modelId, timeoutMs, intervalMs }) => {
+      const w: any = window as any
+      // @ts-ignore
+      const hasSync =
+        w?.chrome?.storage?.sync?.set && w?.chrome?.storage?.sync?.get
+      // @ts-ignore
+      const hasLocal =
+        w?.chrome?.storage?.local?.set && w?.chrome?.storage?.local?.get
+
+      // @ts-ignore - Plasmo useStorage defaults to sync area
+      const storageArea = hasSync
+        ? // @ts-ignore
+          w.chrome.storage.sync
+        : hasLocal
+          ? // @ts-ignore
+            w.chrome.storage.local
+          : null
+
+      if (!storageArea) {
+        // eslint-disable-next-line no-console
+        console.warn('MODEL_DEBUG: No chrome.storage available, skipping')
+        return
+      }
+
+      const setValue = (items: Record<string, unknown>) =>
+        new Promise<void>((resolve, reject) => {
+          storageArea.set(items, () => {
+            // @ts-ignore
+            const err = w?.chrome?.runtime?.lastError
+            if (err) reject(err)
+            else resolve()
+          })
+        })
+
+      const getValue = (keys: string[]) =>
+        new Promise<Record<string, unknown>>((resolve, reject) => {
+          storageArea.get(keys, (items: Record<string, unknown>) => {
+            // @ts-ignore
+            const err = w?.chrome?.runtime?.lastError
+            if (err) reject(err)
+            else resolve(items)
+          })
+        })
+
+      try {
+        await setValue({ selectedModel: modelId })
+      } catch (error) {
+        // eslint-disable-next-line no-console
+        console.warn('MODEL_DEBUG: Failed to set selectedModel', error)
+        return
+      }
+
+      const startedAt = Date.now()
+      let lastRead: unknown = undefined
+      while (Date.now() - startedAt < timeoutMs) {
+        try {
+          const data = await getValue(['selectedModel'])
+          lastRead = data?.selectedModel
+          if (data?.selectedModel === modelId) {
+            // eslint-disable-next-line no-console
+            console.log(
+              'MODEL_DEBUG: Confirmed selectedModel stored as',
+              modelId
+            )
+            return
+          }
+        } catch (error) {
+          // eslint-disable-next-line no-console
+          console.warn('MODEL_DEBUG: Failed to read back selectedModel', error)
+          return
+        }
+
+        await new Promise<void>((resolve) => {
+          setTimeout(resolve, intervalMs)
+        })
+      }
+
+      // eslint-disable-next-line no-console
+      console.warn('MODEL_DEBUG: Timed out waiting for selectedModel', {
+        expected: modelId,
+        actual: lastRead
+      })
+    },
+    { modelId: model, timeoutMs: 3_000, intervalMs: 50 }
+  )
+}

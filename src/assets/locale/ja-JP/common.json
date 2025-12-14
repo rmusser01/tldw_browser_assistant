@@ -246,5 +246,18 @@
     "friendlyGenericHint": "しばらくしてから再試行するか、「ヘルスと診断」を開いてサーバーの状態を確認してください。",
     "showDetails": "技術的な詳細を表示",
     "hideDetails": "技術的な詳細を非表示"
-  }
+  },
+  "folders": "フォルダー",
+  "folderView": "フォルダー表示",
+  "dateView": "日付表示",
+  "newFolder": "新しいフォルダー",
+  "folderName": "フォルダー名",
+  "selectFolder": "フォルダーを選択",
+  "noFolders": "フォルダーがありません",
+  "expandAll": "すべて展開",
+  "collapseAll": "すべて折りたたむ",
+  "refresh": "再読み込み",
+  "confirm": "確認",
+  "untitled": "無題",
+  "moveToFolder": "フォルダーに移動"
 }

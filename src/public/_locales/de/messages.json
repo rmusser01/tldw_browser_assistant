@@ -299,5 +299,53 @@
   "omniSearchCreateFlashcardsSuccess": {
     "message": "Karteikartensammlung \"{{query}}\" erstellt",
     "description": "Confirmation toast message shown after creating a flashcard collection from omni-search."
+  },
+  "folders": {
+    "message": "Ordner"
+  },
+  "folderView": {
+    "message": "Ordneransicht"
+  },
+  "dateView": {
+    "message": "Datumsansicht"
+  },
+  "newFolder": {
+    "message": "Neuer Ordner"
+  },
+  "folderName": {
+    "message": "Ordnername"
+  },
+  "selectFolder": {
+    "message": "Ordner auswählen"
+  },
+  "noFolders": {
+    "message": "Keine Ordner"
+  },
+  "expandAll": {
+    "message": "Alle erweitern"
+  },
+  "collapseAll": {
+    "message": "Alle einklappen"
+  },
+  "refresh": {
+    "message": "Aktualisieren"
+  },
+  "confirm": {
+    "message": "Bestätigen"
+  },
+  "untitled": {
+    "message": "Unbenannt"
+  },
+  "moveToFolder": {
+    "message": "In Ordner verschieben"
+  },
+  "specReloadedToast": {
+    "message": "Erweiterte Spezifikation vom Server neu geladen"
+  },
+  "specReloadedToastDiff": {
+    "message": "Erweiterte Spezifikation vom Server neu geladen (Felder hinzugefügt: {{added}}, entfernt: {{removed}})"
+  },
+  "specFallbackWarning": {
+    "message": "Verwende gebündelte media.add Schema-Fallback (v{{version}}); bitte überprüfe die /openapi.json deines tldw_server, falls Felder veraltet erscheinen."
   }
 }

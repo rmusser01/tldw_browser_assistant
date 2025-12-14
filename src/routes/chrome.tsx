@@ -1,101 +1,119 @@
+// Lazy-load all routes to reduce initial bundle size and improve code splitting
+// (matches the Firefox approach for consistency and better performance)
+import { lazy, Suspense } from "react"
 import { Route, Routes } from "react-router-dom"
-import OptionIndex from "./option-index"
-import OptionSettings from "./option-settings"
-import OptionModal from "./option-settings-model"
-import OptionPrompt from "./option-settings-prompt"
-import OptionShare from "./option-settings-share"
-import OptionProcessed from "./option-settings-processed"
-import OptionHealth from "./option-settings-health"
-import OptionKnowledgeBase from "./option-settings-knowledge"
-import OptionAbout from "./option-settings-about"
-import SidepanelChat from "./sidepanel-chat"
-import SidepanelSettings from "./sidepanel-settings"
-import OptionRagSettings from "./option-rag"
-import { OptionTldwSettings } from "./option-settings-tldw"
-import OptionMedia from "./option-media"
-import OptionMediaMulti from "./option-media-multi"
-import OptionNotes from "./option-notes"
-import OptionWorldBooks from "./option-settings-world-books"
-import OptionDictionaries from "./option-settings-dictionaries"
-import OptionCharacters from "./option-settings-characters"
-import OptionWorldBooksWorkspace from "./option-world-books"
-import OptionDictionariesWorkspace from "./option-dictionaries"
-import OptionCharactersWorkspace from "./option-characters"
-import OptionPromptsWorkspace from "./option-prompts"
-import OptionKnowledgeWorkspace from "./option-knowledge"
-import OptionFlashcards from "./option-flashcards"
-import OptionTts from "./option-tts"
-import OptionEvaluations from "./option-evaluations"
-import OptionStt from "./option-stt"
-import OptionSettingsEvaluations from "./option-settings-evaluations"
-import OptionPromptStudio from "./option-prompt-studio"
-import OptionSettingsPromptStudio from "./option-settings-prompt-studio"
-import OptionAdminServer from "./option-admin-server"
-import OptionAdminLlamacpp from "./option-admin-llamacpp"
-import OptionAdminMlx from "./option-admin-mlx"
-import OptionChatSettings from "./option-settings-chat"
-import OptionQuickChatPopout from "./option-quick-chat-popout"
+
+// Lazy-loaded route components
+const OptionIndex = lazy(() => import("./option-index"))
+const OptionSettings = lazy(() => import("./option-settings"))
+const OptionModal = lazy(() => import("./option-settings-model"))
+const OptionPrompt = lazy(() => import("./option-settings-prompt"))
+const OptionShare = lazy(() => import("./option-settings-share"))
+const OptionProcessed = lazy(() => import("./option-settings-processed"))
+const OptionHealth = lazy(() => import("./option-settings-health"))
+const OptionKnowledgeBase = lazy(() => import("./option-settings-knowledge"))
+const OptionAbout = lazy(() => import("./option-settings-about"))
+const SidepanelChat = lazy(() => import("./sidepanel-chat"))
+const SidepanelSettings = lazy(() => import("./sidepanel-settings"))
+const OptionRagSettings = lazy(() => import("./option-rag"))
+const OptionTldwSettings = lazy(() => import("./option-settings-tldw").then(m => ({ default: m.OptionTldwSettings })))
+const OptionMedia = lazy(() => import("./option-media"))
+const OptionMediaMulti = lazy(() => import("./option-media-multi"))
+const OptionNotes = lazy(() => import("./option-notes"))
+const OptionWorldBooks = lazy(() => import("./option-settings-world-books"))
+const OptionDictionaries = lazy(() => import("./option-settings-dictionaries"))
+const OptionCharacters = lazy(() => import("./option-settings-characters"))
+const OptionWorldBooksWorkspace = lazy(() => import("./option-world-books"))
+const OptionDictionariesWorkspace = lazy(() => import("./option-dictionaries"))
+const OptionCharactersWorkspace = lazy(() => import("./option-characters"))
+const OptionPromptsWorkspace = lazy(() => import("./option-prompts"))
+const OptionKnowledgeWorkspace = lazy(() => import("./option-knowledge"))
+const OptionFlashcards = lazy(() => import("./option-flashcards"))
+const OptionTts = lazy(() => import("./option-tts"))
+const OptionEvaluations = lazy(() => import("./option-evaluations"))
+const OptionStt = lazy(() => import("./option-stt"))
+const OptionSettingsEvaluations = lazy(() => import("./option-settings-evaluations"))
+const OptionPromptStudio = lazy(() => import("./option-prompt-studio"))
+const OptionSettingsPromptStudio = lazy(() => import("./option-settings-prompt-studio"))
+const OptionAdminServer = lazy(() => import("./option-admin-server"))
+const OptionAdminLlamacpp = lazy(() => import("./option-admin-llamacpp"))
+const OptionAdminMlx = lazy(() => import("./option-admin-mlx"))
+const OptionChatSettings = lazy(() => import("./option-settings-chat"))
+const OptionQuickChatPopout = lazy(() => import("./option-quick-chat-popout"))
+
+// Non-lazy imports for components needed immediately
 import OptionLayout from "~/components/Layouts/Layout"
 import { OnboardingWizard } from "@/components/Option/Onboarding/OnboardingWizard"
 
+// Loading fallback for route transitions
+const RouteLoading = () => (
+  <div className="flex h-full w-full items-center justify-center">
+    <div className="text-sm text-gray-500">Loading...</div>
+  </div>
+)
+
 export const OptionRoutingChrome = () => {
   return (
-    <Routes>
-      <Route path="/" element={<OptionIndex />} />
-      {/* Dedicated route for Playwright onboarding tests so they can
-          exercise the wizard independently of first-run gating logic. */}
-      <Route
-        path="/onboarding-test"
-        element={
-          <OptionLayout hideHeader={true} showHeaderSelectors={false}>
-            <OnboardingWizard />
-          </OptionLayout>
-        }
-      />
-      <Route path="/settings" element={<OptionSettings />} />
-      <Route path="/settings/tldw" element={<OptionTldwSettings />} />
-      <Route path="/settings/model" element={<OptionModal />} />
-      <Route path="/settings/prompt" element={<OptionPrompt />} />
-      <Route path="/settings/evaluations" element={<OptionSettingsEvaluations />} />
-      {/** Chrome AI and OpenAI/custom provider settings removed; extension is tldw_server-only */}
-      <Route path="/settings/chat" element={<OptionChatSettings />} />
-      <Route path="/settings/share" element={<OptionShare />} />
-      <Route path="/settings/processed" element={<OptionProcessed />} />
-      <Route path="/settings/health" element={<OptionHealth />} />
-      <Route path="/settings/prompt-studio" element={<OptionSettingsPromptStudio />} />
-      <Route path="/settings/knowledge" element={<OptionKnowledgeBase />} />
-      <Route path="/settings/characters" element={<OptionCharacters />} />
-      <Route path="/settings/world-books" element={<OptionWorldBooks />} />
-      <Route path="/settings/chat-dictionaries" element={<OptionDictionaries />} />
-      <Route path="/settings/rag" element={<OptionRagSettings />} />
-      <Route path="/settings/about" element={<OptionAbout />} />
-      <Route path="/review" element={<OptionMediaMulti />} />
-      <Route path="/flashcards" element={<OptionFlashcards />} />
-      <Route path="/media" element={<OptionMedia />} />
-      <Route path="/media-multi" element={<OptionMediaMulti />} />
-      <Route path="/notes" element={<OptionNotes />} />
-      <Route path="/knowledge" element={<OptionKnowledgeWorkspace />} />
-      <Route path="/world-books" element={<OptionWorldBooksWorkspace />} />
-      <Route path="/dictionaries" element={<OptionDictionariesWorkspace />} />
-      <Route path="/characters" element={<OptionCharactersWorkspace />} />
-      <Route path="/prompts" element={<OptionPromptsWorkspace />} />
-      <Route path="/prompt-studio" element={<OptionPromptStudio />} />
-      <Route path="/tts" element={<OptionTts />} />
-      <Route path="/stt" element={<OptionStt />} />
-      <Route path="/evaluations" element={<OptionEvaluations />} />
-      <Route path="/admin/server" element={<OptionAdminServer />} />
-      <Route path="/admin/llamacpp" element={<OptionAdminLlamacpp />} />
-      <Route path="/admin/mlx" element={<OptionAdminMlx />} />
-      <Route path="/quick-chat-popout" element={<OptionQuickChatPopout />} />
-    </Routes>
+    <Suspense fallback={<RouteLoading />}>
+      <Routes>
+        <Route path="/" element={<OptionIndex />} />
+        {/* Dedicated route for Playwright onboarding tests so they can
+            exercise the wizard independently of first-run gating logic. */}
+        <Route
+          path="/onboarding-test"
+          element={
+            <OptionLayout hideHeader={true} showHeaderSelectors={false}>
+              <OnboardingWizard />
+            </OptionLayout>
+          }
+        />
+        <Route path="/settings" element={<OptionSettings />} />
+        <Route path="/settings/tldw" element={<OptionTldwSettings />} />
+        <Route path="/settings/model" element={<OptionModal />} />
+        <Route path="/settings/prompt" element={<OptionPrompt />} />
+        <Route path="/settings/evaluations" element={<OptionSettingsEvaluations />} />
+        {/** Chrome AI and OpenAI/custom provider settings removed; extension is tldw_server-only */}
+        <Route path="/settings/chat" element={<OptionChatSettings />} />
+        <Route path="/settings/share" element={<OptionShare />} />
+        <Route path="/settings/processed" element={<OptionProcessed />} />
+        <Route path="/settings/health" element={<OptionHealth />} />
+        <Route path="/settings/prompt-studio" element={<OptionSettingsPromptStudio />} />
+        <Route path="/settings/knowledge" element={<OptionKnowledgeBase />} />
+        <Route path="/settings/characters" element={<OptionCharacters />} />
+        <Route path="/settings/world-books" element={<OptionWorldBooks />} />
+        <Route path="/settings/chat-dictionaries" element={<OptionDictionaries />} />
+        <Route path="/settings/rag" element={<OptionRagSettings />} />
+        <Route path="/settings/about" element={<OptionAbout />} />
+        <Route path="/review" element={<OptionMediaMulti />} />
+        <Route path="/flashcards" element={<OptionFlashcards />} />
+        <Route path="/media" element={<OptionMedia />} />
+        <Route path="/media-multi" element={<OptionMediaMulti />} />
+        <Route path="/notes" element={<OptionNotes />} />
+        <Route path="/knowledge" element={<OptionKnowledgeWorkspace />} />
+        <Route path="/world-books" element={<OptionWorldBooksWorkspace />} />
+        <Route path="/dictionaries" element={<OptionDictionariesWorkspace />} />
+        <Route path="/characters" element={<OptionCharactersWorkspace />} />
+        <Route path="/prompts" element={<OptionPromptsWorkspace />} />
+        <Route path="/prompt-studio" element={<OptionPromptStudio />} />
+        <Route path="/tts" element={<OptionTts />} />
+        <Route path="/stt" element={<OptionStt />} />
+        <Route path="/evaluations" element={<OptionEvaluations />} />
+        <Route path="/admin/server" element={<OptionAdminServer />} />
+        <Route path="/admin/llamacpp" element={<OptionAdminLlamacpp />} />
+        <Route path="/admin/mlx" element={<OptionAdminMlx />} />
+        <Route path="/quick-chat-popout" element={<OptionQuickChatPopout />} />
+      </Routes>
+    </Suspense>
   )
 }
 
 export const SidepanelRoutingChrome = () => {
   return (
-    <Routes>
-      <Route path="/" element={<SidepanelChat />} />
-      <Route path="/settings" element={<SidepanelSettings />} />
-    </Routes>
+    <Suspense fallback={<RouteLoading />}>
+      <Routes>
+        <Route path="/" element={<SidepanelChat />} />
+        <Route path="/settings" element={<SidepanelSettings />} />
+      </Routes>
+    </Suspense>
   )
 }

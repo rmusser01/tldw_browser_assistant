@@ -2,7 +2,7 @@ import logoImage from "~/assets/icon.png"
 import { useMessage } from "~/hooks/useMessage"
 import { Link } from "react-router-dom"
 import { Tooltip, Drawer } from "antd"
-import { CogIcon, PlusSquare, XIcon, PencilIcon, Trash2, SearchIcon } from "lucide-react"
+import { CogIcon, PlusSquare, XIcon, PencilIcon, Trash2, SearchIcon, GitBranch } from "lucide-react"
 import { useTranslation } from "react-i18next"
 import React from "react"
 import { IconButton } from "@/components/Common/IconButton"
@@ -13,6 +13,7 @@ import { promptInput } from "@/components/Common/prompt-input"
 import { useConfirmDanger } from "@/components/Common/confirm-danger"
 import { updateHistory, deleteByHistoryId, getTitleById } from "@/db/dexie/helpers"
 import { useMutation, useQueryClient } from "@tanstack/react-query"
+import { useTimelineStore } from "@/store/timeline"
 
 type SidepanelHeaderSimpleProps =
   | {
@@ -79,6 +80,7 @@ export const SidepanelHeaderSimple = ({
 
   const confirmDanger = useConfirmDanger()
   const queryClient = useQueryClient()
+  const { openTimeline } = useTimelineStore()
 
   const { mutate: editHistory } = useMutation({
     mutationKey: ["editHistory"],
@@ -268,6 +270,19 @@ export const SidepanelHeaderSimple = ({
               className="p-1.5 rounded hover:bg-gray-100 dark:hover:bg-gray-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-pink-700"
             >
               <Trash2 className="size-4 text-gray-500 dark:text-gray-400" />
+            </IconButton>
+          </Tooltip>
+        )}
+
+        {/* Timeline - only show when there's a saved chat (historyId exists) and search is not expanded */}
+        {historyId && !streaming && !isSearchExpanded && (
+          <Tooltip title={t("sidepanel:header.timeline", { defaultValue: "Timeline" }) + " (Ctrl+Shift+T)"}>
+            <IconButton
+              ariaLabel={t("sidepanel:header.timelineAria", "View conversation timeline") as string}
+              onClick={() => openTimeline(historyId)}
+              className="p-1.5 rounded hover:bg-gray-100 dark:hover:bg-gray-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-pink-700"
+            >
+              <GitBranch className="size-4 text-gray-500 dark:text-gray-400" />
             </IconButton>
           </Tooltip>
         )}

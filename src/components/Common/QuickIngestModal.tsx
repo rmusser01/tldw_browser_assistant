@@ -3,6 +3,7 @@ import { Modal, Button, Input, Select, Space, Switch, Typography, List, Tag, mes
 import { useTranslation } from 'react-i18next'
 import { browser } from "wxt/browser"
 import { tldwClient } from '@/services/tldw/TldwApiClient'
+import { MEDIA_ADD_SCHEMA_FALLBACK, MEDIA_ADD_SCHEMA_FALLBACK_VERSION } from '@/services/tldw/fallback-schemas'
 import { HelpCircle, Headphones, Layers, Database, FileText, Film, Cookie, Info, Clock, Grid, BookText, Link2, File as FileIcon, AlertTriangle, Star } from 'lucide-react'
 import { useStorage } from '@plasmohq/storage/hook'
 import { useConfirmDanger } from '@/components/Common/confirm-danger'
@@ -135,8 +136,7 @@ export const QuickIngestModal: React.FC<Props> = ({
   const [advancedOpen, setAdvancedOpen] = React.useState<boolean>(false)
   const [advancedValues, setAdvancedValues] = React.useState<Record<string, any>>({})
   const [advSchema, setAdvSchema] = React.useState<Array<{ name: string; type: string; enum?: any[]; description?: string; title?: string }>>([])
-  const [specSource, setSpecSource] = React.useState<'server' | 'server-cached' | 'bundled' | 'none'>('none')
-  const [bundledSpec, setBundledSpec] = React.useState<any | null>(null)
+  const [specSource, setSpecSource] = React.useState<'server' | 'fallback' | 'none'>('none')
   const [fieldDetailsOpen, setFieldDetailsOpen] = React.useState<Record<string, boolean>>({})
   const [advSearch, setAdvSearch] = React.useState<string>('')
   const [savedAdvValues, setSavedAdvValues] = useStorage<Record<string, any>>('quickIngestAdvancedValues', {})
@@ -149,6 +149,8 @@ export const QuickIngestModal: React.FC<Props> = ({
     const d = new Date(ts)
     return d.toLocaleString()
   }, [specPrefs])
+
+  const fallbackSchemaVersion = MEDIA_ADD_SCHEMA_FALLBACK_VERSION
   const SAVE_DEBOUNCE_MS = 2000
   const lastSavedAdvValuesRef = React.useRef<string | null>(null)
   const lastSavedUiPrefsRef = React.useRef<string | null>(null)
@@ -717,7 +719,7 @@ export const QuickIngestModal: React.FC<Props> = ({
     if (['start_time', 'end_time'].includes(n)) return 'Timing'
     return 'Other'
   }
-	
+
   const isRecommendedField = (name: string, logicalGroup: string): boolean => {
     const n = name.toLowerCase()
     if (RECOMMENDED_FIELD_NAMES.has(n)) return true
@@ -761,7 +763,7 @@ export const QuickIngestModal: React.FC<Props> = ({
     }
   }
 
-  const parseSpec = (spec: any) => {
+  const parseSpec = React.useCallback((spec: any) => {
     const getByRef = (ref: string): any => {
       // Handles refs like '#/components/schemas/MediaIngestRequest'
       if (!ref || typeof ref !== 'string' || !ref.startsWith('#/')) return null
@@ -774,44 +776,74 @@ export const QuickIngestModal: React.FC<Props> = ({
       return cur
     }
 
-    const resolveRef = (schema: any): any => {
+    const resolveRef = (schema: any, seen = new Set<string>()): any => {
       if (!schema) return {}
       if (schema.$ref) {
-        const target = getByRef(schema.$ref)
-        return target ? resolveRef(target) : {}
+        const ref = String(schema.$ref)
+        if (seen.has(ref)) {
+          return { type: 'string', description: 'Unresolvable schema cycle' }
+        }
+        seen.add(ref)
+        const target = getByRef(ref)
+        return target ? resolveRef(target, seen) : {}
       }
       return schema
     }
 
-    const mergeProps = (schema: any): Record<string, any> => {
+    const mergeProps = (schema: any, stack: WeakSet<object>, allowVisited = false): Record<string, any> => {
       const s = resolveRef(schema)
       let props: Record<string, any> = {}
-      if (!s || typeof s !== 'object') return props
-      // Merge from compositions
-      for (const key of ['allOf', 'oneOf', 'anyOf'] as const) {
-        if (Array.isArray((s as any)[key])) {
-          for (const sub of (s as any)[key]) {
-            props = { ...props, ...mergeProps(sub) }
+      if (!s || typeof s !== 'object' || Array.isArray(s)) return props
+
+      const already = stack.has(s as object)
+      if (already && !allowVisited) return props
+
+      if (!already) {
+        stack.add(s as object)
+      }
+
+      try {
+        // Merge from compositions
+        for (const key of ['allOf', 'oneOf', 'anyOf'] as const) {
+          if (Array.isArray((s as any)[key])) {
+            for (const sub of (s as any)[key]) {
+              props = { ...props, ...mergeProps(sub, stack) }
+            }
           }
         }
-      }
-      if (s.properties && typeof s.properties === 'object') {
-        for (const [k, v] of Object.entries<any>(s.properties)) {
-          props[k] = resolveRef(v)
+        if ((s as any).properties && typeof (s as any).properties === 'object') {
+          for (const [k, v] of Object.entries<any>((s as any).properties)) {
+            props[k] = resolveRef(v)
+          }
+        }
+        return props
+      } finally {
+        if (!already) {
+          stack.delete(s as object)
         }
       }
-      return props
     }
 
-    const flattenProps = (obj: Record<string, any>, parent = ''): Array<[string, any]> => {
+    const flattenProps = (obj: Record<string, any>, parent = '', stack: WeakSet<object>): Array<[string, any]> => {
       const out: Array<[string, any]> = []
       for (const [k, v0] of Object.entries<any>(obj || {})) {
         const v = resolveRef(v0)
         const name = parent ? `${parent}.${k}` : k
         const isObj = (v?.type === 'object' && v?.properties && typeof v.properties === 'object')
         if (isObj) {
-          const child = mergeProps(v)
-          out.push(...flattenProps(child, name))
+          const node = v as unknown
+          if (!node || typeof node !== 'object' || Array.isArray(node) || stack.has(node as object)) {
+            out.push([name, v])
+            continue
+          }
+
+          stack.add(node as object)
+          try {
+            const child = mergeProps(v, stack, true)
+            out.push(...flattenProps(child, name, stack))
+          } finally {
+            stack.delete(node as object)
+          }
         } else {
           out.push([name, v])
         }
@@ -824,8 +856,22 @@ export const QuickIngestModal: React.FC<Props> = ({
     const content = mediaAdd?.post?.requestBody?.content || {}
     const mp = content['multipart/form-data'] || content['application/x-www-form-urlencoded'] || content['application/json'] || {}
     const rootSchema = mp?.schema || {}
-    const props = mergeProps(rootSchema)
-    const flat = flattenProps(props)
+    const stack = new WeakSet<object>()
+    const rootResolved = resolveRef(rootSchema)
+    if (rootResolved && typeof rootResolved === 'object' && !Array.isArray(rootResolved)) {
+      stack.add(rootResolved)
+    }
+
+    let props: Record<string, any> = {}
+    let flat: Array<[string, any]> = []
+    try {
+      props = mergeProps(rootSchema, stack, true)
+      flat = flattenProps(props, '', stack)
+    } finally {
+      if (rootResolved && typeof rootResolved === 'object' && !Array.isArray(rootResolved)) {
+        stack.delete(rootResolved)
+      }
+    }
 
     const entries: Array<{ name: string; type: string; enum?: any[]; description?: string; title?: string }> = []
     // Expose all available ingestion-time options, except input list and media type selector which are handled above
@@ -844,103 +890,129 @@ export const QuickIngestModal: React.FC<Props> = ({
     }
     entries.sort((a,b) => a.name.localeCompare(b.name))
     setAdvSchema(entries)
-  }
+    return entries
+  }, [])
 
-  const loadSpec = React.useCallback(async (preferServer = true, reportDiff = false) => {
-    let used: 'server' | 'bundled' | 'none' = 'none'
-    let remote: any | null = null
-    if (preferServer) {
-      try {
-        const healthy = await tldwClient.healthCheck()
-        if (healthy) remote = await tldwClient.getOpenAPISpec()
-      } catch {}
-    }
-    if (remote) {
-      parseSpec(remote)
-      used = 'server'
-      try {
-        const rVer = remote?.info?.version
-        const prevVersion = specPrefs?.lastRemote?.version
-        const prevCachedAt = specPrefs?.lastRemote?.cachedAt
-        const now = Date.now()
-        const shouldReuseCachedAt =
-          prevVersion && prevVersion === rVer && typeof prevCachedAt === 'number'
+  const loadSpec = React.useCallback(
+    async (
+      preferServer = true,
+      options: { reportDiff?: boolean; persist?: boolean } = {}
+    ) => {
+      const { reportDiff = false, persist = false } = options
+      let used: 'server' | 'fallback' | 'none' = 'none'
+      let remote: any | null = null
+      const prevSchema = reportDiff ? [...advSchema] : null
 
-        // For background auto-loads (reportDiff === false), skip writing to
-        // extension storage entirely to avoid hitting MAX_WRITE_OPERATIONS_PER_MINUTE.
-        // We only persist when the user explicitly reloads or toggles settings.
-        if (!reportDiff) {
-          return
-        }
-
-        const payload = {
-          ...(specPrefs || {}),
-          preferServer: true,
-          lastRemote: {
-            version: rVer,
-            cachedAt: shouldReuseCachedAt ? prevCachedAt : now
-          }
-        }
-        // Log approximate size of what we persist for debugging quota issues
+      if (preferServer) {
         try {
-          const approxSize = JSON.stringify(payload).length
-          // eslint-disable-next-line no-console
-          console.info(
-            "[QuickIngest] Persisting quickIngestSpecPrefs (~%d bytes)",
-            approxSize
+          const healthy = await tldwClient.healthCheck()
+          if (healthy) remote = await tldwClient.getOpenAPISpec()
+        } catch (e) {
+          console.debug(
+            "[QuickIngest] Failed to load OpenAPI spec from server; using bundled fallback.",
+            (e as any)?.message || e
           )
-        } catch {}
-        persistSpecPrefs(payload)
-      } catch {}
-      if (reportDiff && bundledSpec) {
-        // Compare fields
-        const bundledPaths = bundledSpec?.paths || {}
-        const bContent = (bundledPaths['/api/v1/media/add'] || bundledPaths['/api/v1/media/add/'])?.post?.requestBody?.content || {}
-        const bProps = (bContent['multipart/form-data'] || bContent['application/x-www-form-urlencoded'] || {})?.schema?.properties || {}
-        const rPaths = remote?.paths || {}
-        const rContent = (rPaths['/api/v1/media/add'] || rPaths['/api/v1/media/add/'])?.post?.requestBody?.content || {}
-        const rProps = (rContent['multipart/form-data'] || rContent['application/x-www-form-urlencoded'] || {})?.schema?.properties || {}
-        const bSet = new Set(Object.keys(bProps))
-        const rSet = new Set(Object.keys(rProps))
-        const newFields = [...rSet].filter((k) => !bSet.has(k))
-        const missingFields = [...bSet].filter((k) => !rSet.has(k))
-        const bVer = bundledSpec?.info?.version
-        const rVer = remote?.info?.version
-        if (newFields.length || missingFields.length || (bVer && rVer && bVer !== rVer)) {
-          const msgs: string[] = []
-          if (bVer && rVer && bVer !== rVer) msgs.push(`Spec version differs (server: ${rVer}, bundled: ${bVer})`)
-          if (newFields.length) msgs.push(`Server has new fields: ${newFields.slice(0,6).join(', ')}${newFields.length>6?'…':''}`)
-          if (missingFields.length) msgs.push(`Bundled fields not on server: ${missingFields.slice(0,6).join(', ')}${missingFields.length>6?'…':''}`)
-          messageApi.warning(msgs.join(' • '))
-        } else {
-          messageApi.success('Advanced spec reloaded from server')
         }
       }
-    } else {
-      try {
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
-        const localSpec = await import('../../../openapi.json')
-        setBundledSpec(localSpec)
-        parseSpec(localSpec)
-        used = 'bundled'
-      } catch {
-        setAdvSchema([
-          { name: 'context_window_size', type: 'integer' },
-          { name: 'generate_embeddings', type: 'boolean' },
-          { name: 'embedding_model', type: 'string' },
-          { name: 'embedding_provider', type: 'string' },
-          { name: 'perform_rolling_summarization', type: 'boolean' },
-          { name: 'perform_confabulation_check_of_analysis', type: 'boolean' },
-          { name: 'system_prompt', type: 'string' },
-          { name: 'custom_prompt', type: 'string' },
-          { name: 'title', type: 'string' }
-        ])
-        used = 'none'
+
+      if (remote) {
+        const nextSchema = parseSpec(remote)
+        used = 'server'
+
+        try {
+          const rVer = remote?.info?.version
+          const prevVersion = specPrefs?.lastRemote?.version
+          const prevCachedAt = specPrefs?.lastRemote?.cachedAt
+          const now = Date.now()
+          const shouldReuseCachedAt =
+            prevVersion && prevVersion === rVer && typeof prevCachedAt === 'number'
+
+          // For background auto-loads (persist === false), skip writing to
+          // extension storage entirely to avoid hitting MAX_WRITE_OPERATIONS_PER_MINUTE.
+          // We only persist when the user explicitly reloads or toggles settings.
+          if (persist) {
+            const payload = {
+              ...(specPrefs || {}),
+              preferServer: true,
+              lastRemote: {
+                version: rVer,
+                cachedAt: shouldReuseCachedAt ? prevCachedAt : now
+              }
+            }
+            // Log approximate size of what we persist for debugging quota issues
+            try {
+              const approxSize = JSON.stringify(payload).length
+              // eslint-disable-next-line no-console
+              console.info(
+                "[QuickIngest] Persisting quickIngestSpecPrefs (~%d bytes)",
+                approxSize
+              )
+            } catch (e) {
+              console.debug(
+                "[QuickIngest] Failed to estimate quickIngestSpecPrefs size:",
+                (e as any)?.message || e
+              )
+            }
+            persistSpecPrefs(payload)
+          }
+        } catch (e) {
+          console.debug(
+            "[QuickIngest] Failed to persist OpenAPI spec metadata:",
+            (e as any)?.message || e
+          )
+        }
+
+        if (reportDiff) {
+          let added = 0
+          let removed = 0
+          try {
+            const beforeNames = new Set((prevSchema || []).map((f) => f.name))
+            const afterNames = new Set((nextSchema || []).map((f) => f.name))
+            for (const name of afterNames) {
+              if (!beforeNames.has(name)) added += 1
+            }
+            for (const name of beforeNames) {
+              if (!afterNames.has(name)) removed += 1
+            }
+          } catch (e) {
+            console.debug(
+              "[QuickIngest] Failed to compute OpenAPI field diff:",
+              (e as any)?.message || e
+            )
+            // Fall back to generic message if diff computation fails
+          }
+          messageApi.success(
+            added || removed
+              ? qi(
+                  'specReloadedToastDiff',
+                  'Advanced spec reloaded from server (fields added: {{added}}, removed: {{removed}})',
+                  { added, removed }
+                )
+              : qi('specReloadedToast', 'Advanced spec reloaded from server')
+          )
+        }
+      } else {
+        // Use extracted schema fallback (no bundled openapi.json import)
+        setAdvSchema(MEDIA_ADD_SCHEMA_FALLBACK)
+        used = 'fallback'
+
+        // Warn when falling back to a bundled schema that may be stale.
+        if (reportDiff) {
+          messageApi.warning(
+            qi(
+              'specFallbackWarning',
+              'Using bundled media.add schema fallback (v{{version}}); please verify against your tldw_server /openapi.json if fields look outdated.',
+              { version: fallbackSchemaVersion }
+            )
+          )
+        }
       }
-    }
-    setSpecSource(used)
-  }, [bundledSpec, persistSpecPrefs, specPrefs])
+
+      setSpecSource(used)
+      return used
+    },
+    [persistSpecPrefs, specPrefs, messageApi, advSchema, fallbackSchemaVersion, parseSpec, qi]
+  )
 
   React.useEffect(() => {
     specPrefsCacheRef.current = JSON.stringify(specPrefs || {})
@@ -949,18 +1021,10 @@ export const QuickIngestModal: React.FC<Props> = ({
   React.useEffect(() => {
     if (!open) return
     ;(async () => {
-      // Load bundled once for diffing later
-      try {
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
-        const localSpec = await import('../../../openapi.json')
-        setBundledSpec(localSpec)
-      } catch {}
-      // Prefer server
+      // Prefer server spec; fall back to extracted schema if unavailable
       const prefer =
         typeof specPrefs?.preferServer === 'boolean' ? specPrefs.preferServer : true
       await loadSpec(prefer)
-      if (specSource === 'none') await loadSpec(false)
     })()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [open])
@@ -1239,16 +1303,13 @@ export const QuickIngestModal: React.FC<Props> = ({
     return current !== saved
   }, [advancedValues, savedAdvValues])
   const specSourceLabel = React.useMemo(() => {
-    switch (specSource) {
-      case 'server':
-        return qi('specSourceLive', 'Live server spec')
-      case 'server-cached':
-        return qi('specSourceCached', 'Cached server spec')
-      case 'bundled':
-        return qi('specSourceBundled', 'Bundled spec')
-      default:
-        return qi('specSourceFallback', 'Fallback spec')
+    if (specSource === 'server') {
+      return qi('specSourceLive', 'Live server spec')
     }
+    if (specSource === 'fallback') {
+      return qi('specSourceFallback', 'Fallback spec')
+    }
+    return null
   }, [qi, specSource])
 
   const setAdvancedValue = React.useCallback((name: string, value: any) => {
@@ -2574,23 +2635,25 @@ export const QuickIngestModal: React.FC<Props> = ({
                 {modifiedAdvancedCount > 0 && (
                   <Tag color="gold">{t('quickIngest.modifiedCount', '{{count}} modified', { count: modifiedAdvancedCount })}</Tag>
                 )}
-                <Tag color="geekblue">{specSourceLabel}</Tag>
+                {specSourceLabel && <Tag color="geekblue">{specSourceLabel}</Tag>}
                 {lastRefreshedLabel && (
                   <Typography.Text className="text-[11px] text-gray-500">
                     {t('quickIngest.advancedRefreshed', 'Refreshed {{time}}', { time: lastRefreshedLabel })}
                   </Typography.Text>
                 )}
-                <AntTooltip
-                  title={<div className="max-w-80 text-xs">{specSource === 'server'
-                    ? qi('specTooltipLive', 'Using live server OpenAPI spec')
-                    : specSource === 'server-cached'
-                      ? qi('specTooltipCached', 'Using cached server OpenAPI spec')
-                      : specSource === 'bundled'
-                        ? qi('specTooltipBundled', 'Using bundled spec from extension')
-                        : qi('specTooltipFallback', 'No spec detected; using fallback fields')}</div>}
-                >
-                  <Info className="w-4 h-4 text-gray-500" />
-                </AntTooltip>
+                {specSource !== 'none' && (
+                  <AntTooltip
+                    title={
+                      <div className="max-w-80 text-xs">
+                        {specSource === 'server'
+                          ? qi('specTooltipLive', 'Using live server OpenAPI spec')
+                          : qi('specTooltipFallback', 'No spec detected; using fallback fields')}
+                      </div>
+                    }
+                  >
+                    <Info className="w-4 h-4 text-gray-500" />
+                  </AntTooltip>
+                )}
               </div>
               <div className="flex flex-wrap items-center gap-2 text-xs text-gray-500 ml-auto">
                 {ragEmbeddingLabel && (
@@ -2626,7 +2689,7 @@ export const QuickIngestModal: React.FC<Props> = ({
                     checked={!!specPrefs?.preferServer}
                     onChange={async (v) => {
                       persistSpecPrefs({ ...(specPrefs || {}), preferServer: v })
-                      await loadSpec(v, true)
+                      await loadSpec(v, { reportDiff: true, persist: true })
                     }}
                   />
                 </Space>
@@ -2636,7 +2699,7 @@ export const QuickIngestModal: React.FC<Props> = ({
                   title={qi('reloadSpecAria', 'Reload advanced spec from server')}
                   onClick={(e) => {
                     e.stopPropagation()
-                    void loadSpec(true, true)
+                    void loadSpec(true, { reportDiff: true, persist: true })
                   }}>
                   {qi('reloadFromServer', 'Reload from server')}
                 </Button>
@@ -2734,23 +2797,23 @@ export const QuickIngestModal: React.FC<Props> = ({
                       (f.description || '').toLowerCase().includes(q)
                     )
                   }
-	                  const allMatched = advSchema.filter(match)
+                  const allMatched = advSchema.filter(match)
 
-	                  // Derive a small "Recommended fields" subset for common
-	                  // parameters. We keep these also in their original groups
-	                  // so users can still find them where they logically live.
-	                  for (const f of allMatched) {
-	                    const logical = logicalGroupForField(f.name)
-	                    const isRecommended = isRecommendedField(f.name, logical)
-	
-	                    if (isRecommended && recommended.length < MAX_RECOMMENDED_FIELDS) {
-	                      recommended.push(f)
-	                    }
-	
-	                    const groupKey = logical
-	                    if (!grouped[groupKey]) grouped[groupKey] = []
-	                    grouped[groupKey].push(f)
-	                  }
+                  // Build a small "Recommended fields" subset for common
+                  // parameters, while intentionally duplicating those fields
+                  // in their logical groups (they get a "Recommended" badge there).
+                  for (const f of allMatched) {
+                    const logical = logicalGroupForField(f.name)
+                    const isRecommended = isRecommendedField(f.name, logical)
+
+                    if (isRecommended && recommended.length < MAX_RECOMMENDED_FIELDS) {
+                      recommended.push(f)
+                    }
+
+                    const groupKey = logical
+                    if (!grouped[groupKey]) grouped[groupKey] = []
+                    grouped[groupKey].push(f)
+                  }
 
                   const recommendedNameSet = new Set(
                     recommended.map((f) => f.name)
@@ -2952,10 +3015,10 @@ export const QuickIngestModal: React.FC<Props> = ({
         {results.length > 0 && (
           <div className="mt-4">
             <div className="flex items-center justify-between">
-	      <Typography.Title level={5} className="!mb-0">{t('quickIngest.results') || 'Results'}</Typography.Title>
-	              <div className="flex items-center gap-2 text-xs">
-	                <Tag color="blue">
-	                  {qi('resultsCount', '{{count}} item(s)', { count: results.length })}
+      <Typography.Title level={5} className="!mb-0">{t('quickIngest.results') || 'Results'}</Typography.Title>
+              <div className="flex items-center gap-2 text-xs">
+                <Tag color="blue">
+                  {qi('resultsCount', '{{count}} item(s)', { count: results.length })}
                 </Tag>
                 <Button
                   size="small"
@@ -2966,34 +3029,34 @@ export const QuickIngestModal: React.FC<Props> = ({
                 <Select
                   size="small"
                   className="w-32"
-	                  aria-label={t(
-	                    "quickIngest.resultsFilterAria",
-	                    "Filter results by status"
-	                  ) as string}
-	                  value={resultsFilter}
-	                  onChange={(value) =>
-	                    setResultsFilter(value as ResultsFilter)
-	                  }
-	                  options={[
-	                    {
-	                      value: RESULT_FILTERS.ALL,
-	                      label: t(
-	                        "quickIngest.resultsFilterAll",
-	                        "All"
-	                      )
-	                    },
-	                    {
-	                      value: RESULT_FILTERS.ERROR,
-	                      label: t(
-	                        "quickIngest.resultsFilterFailed",
-	                        "Failed only"
-	                      )
-	                    },
-	                    {
-	                      value: RESULT_FILTERS.SUCCESS,
-	                      label: t(
-	                        "quickIngest.resultsFilterSucceeded",
-	                        "Succeeded only"
+                  aria-label={t(
+                    "quickIngest.resultsFilterAria",
+                    "Filter results by status"
+                  ) as string}
+                  value={resultsFilter}
+                  onChange={(value) =>
+                    setResultsFilter(value as ResultsFilter)
+                  }
+                  options={[
+                    {
+                      value: RESULT_FILTERS.ALL,
+                      label: t(
+                        "quickIngest.resultsFilterAll",
+                        "All"
+                      )
+                    },
+                    {
+                      value: RESULT_FILTERS.ERROR,
+                      label: t(
+                        "quickIngest.resultsFilterFailed",
+                        "Failed only"
+                      )
+                    },
+                    {
+                      value: RESULT_FILTERS.SUCCESS,
+                      label: t(
+                        "quickIngest.resultsFilterSucceeded",
+                        "Succeeded only"
                       )
                     }
                   ]}

@@ -1,27 +1,20 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import { MemoryRouter } from "react-router-dom"
-import { useEffect } from "react"
 import { SidepanelRouting } from "@/routes/firefox-route"
 const queryClient = new QueryClient()
 import { ConfigProvider, Empty, theme } from "antd"
 import { StyleProvider } from "@ant-design/cssinjs"
 import { useDarkMode } from "~/hooks/useDarkmode"
+import { useSidepanelInit } from "~/hooks/useSidepanelInit"
 import "~/i18n"
-import { useTranslation } from "react-i18next"
 import { PageAssistProvider } from "@/components/Common/PageAssistProvider"
 import { FontSizeProvider } from "@/context/FontSizeProvider"
 
 function IndexSidepanel() {
   const { mode } = useDarkMode()
-  const { t, i18n } = useTranslation()
-
-  useEffect(() => {
-    if (i18n.resolvedLanguage) {
-      document.documentElement.lang = i18n.resolvedLanguage
-      document.documentElement.dir = i18n.dir(i18n.resolvedLanguage)
-      document.title = t('common:titles.sidepanel', { defaultValue: 'tldw Assistant' })
-    }
-  }, [i18n, i18n.resolvedLanguage])
+  const { direction, t } = useSidepanelInit({
+    titleDefaultValue: "tldw Assistant — Sidebar"
+  })
 
   return (
     <MemoryRouter>
@@ -40,7 +33,8 @@ function IndexSidepanel() {
             }}
             description={t("common:noData")}
           />
-        )}>
+        )}
+        direction={direction}>
         <StyleProvider hashPriority="high">
           <QueryClientProvider client={queryClient}>
             <PageAssistProvider>

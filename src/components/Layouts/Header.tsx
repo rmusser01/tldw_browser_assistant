@@ -12,7 +12,7 @@ import { fetchChatModels } from "@/services/tldw-server"
 import { getTitleById, updateHistory } from "@/db"
 import { useStoreChatModelSettings } from "@/store/model"
 import { useMessageOption } from "~/hooks/useMessageOption"
-import { Avatar, Select, Input, Divider, Dropdown } from "antd"
+import { Avatar, Select, Input, Divider, Dropdown, Tooltip } from "antd"
 import QuickIngestModal from "../Common/QuickIngestModal"
 import {
   UploadCloud,
@@ -25,7 +25,8 @@ import {
   BookMarked,
   BookOpen,
   ChevronDown,
-  Github
+  Github,
+  GitBranch
 } from "lucide-react"
 import { getAllPrompts } from "@/db/dexie/helpers"
 import { ProviderIcons } from "../Common/ProviderIcon"
@@ -48,6 +49,7 @@ import { hasPromptStudio } from "@/services/prompt-studio"
 import OmniSearchBar from "../Common/OmniSearchBar"
 import { useOmniSearchDeps } from "@/hooks/useOmniSearchDeps"
 import { useQuickIngestStore } from "@/store/quick-ingest"
+import { useTimelineStore } from "@/store/timeline"
 
 const classNames = (...classes: (string | false | null | undefined)[]) =>
   classes.filter(Boolean).join(" ")
@@ -123,6 +125,7 @@ export const Header: React.FC<Props> = ({
     serverChatId
   } = useMessageOption()
   const omniDeps = useOmniSearchDeps()
+  const openTimeline = useTimelineStore((state) => state.openTimeline)
   const isOnline = useServerOnline()
   const {
     data: models,
@@ -169,6 +172,12 @@ export const Header: React.FC<Props> = ({
   const { shortcuts: shortcutConfig } = useShortcutConfig()
   const quickIngestBtnRef = React.useRef<HTMLButtonElement>(null)
   const hasQueuedQuickIngest = queuedQuickIngestCount > 0
+  const canOpenTimeline = Boolean(historyId) && !temporaryChat && historyId !== "temp"
+
+  const handleOpenTimeline = React.useCallback(() => {
+    if (!historyId || temporaryChat || historyId === "temp") return
+    void openTimeline(historyId)
+  }, [historyId, openTimeline, temporaryChat])
 
   const quickIngestAriaLabel = React.useMemo(() => {
     const base = t("option:header.quickIngest", "Quick ingest")
@@ -1099,6 +1108,18 @@ export const Header: React.FC<Props> = ({
                       {t("option:header.moreActions", "More actions")}
                     </span>
                   </div>
+                )}
+
+                {canOpenTimeline && !streaming && (
+                  <Tooltip title={t("option:header.timeline", "Timeline")}>
+                    <button
+                      type="button"
+                      onClick={handleOpenTimeline}
+                      className="inline-flex items-center gap-1 rounded-md border border-transparent px-2 py-1 text-xs text-gray-600 transition hover:border-gray-300 hover:bg-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-500 dark:text-gray-200 dark:hover:border-gray-500 dark:hover:bg-[#1f1f1f]"
+                    >
+                      <GitBranch className="h-4 w-4" aria-hidden="true" />
+                    </button>
+                  </Tooltip>
                 )}
 
                 <button

@@ -300,5 +300,53 @@
   "omniSearchCreateFlashcardsSuccess": {
     "message": "Flashcards-samling \"{{query}}\" skapad",
     "description": "Confirmation toast message shown after creating a flashcard collection from omni-search."
+  },
+  "folders": {
+    "message": "Mappar"
+  },
+  "folderView": {
+    "message": "Mappvy"
+  },
+  "dateView": {
+    "message": "Datumvy"
+  },
+  "newFolder": {
+    "message": "Ny mapp"
+  },
+  "folderName": {
+    "message": "Mappnamn"
+  },
+  "selectFolder": {
+    "message": "Välj mapp"
+  },
+  "noFolders": {
+    "message": "Inga mappar"
+  },
+  "expandAll": {
+    "message": "Expandera alla"
+  },
+  "collapseAll": {
+    "message": "Fäll ihop alla"
+  },
+  "refresh": {
+    "message": "Uppdatera"
+  },
+  "confirm": {
+    "message": "Bekräfta"
+  },
+  "untitled": {
+    "message": "Utan titel"
+  },
+  "moveToFolder": {
+    "message": "Flytta till mapp"
+  },
+  "specReloadedToast": {
+    "message": "Avancerad spec har laddats om från servern"
+  },
+  "specReloadedToastDiff": {
+    "message": "Avancerad spec har laddats om från servern (fält tillagda: {{added}}, borttagna: {{removed}})"
+  },
+  "specFallbackWarning": {
+    "message": "Använder inbyggd reservschema för media.add (v{{version}}); verifiera mot din tldw_server /openapi.json om fälten verkar inaktuella."
   }
 }

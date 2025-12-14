@@ -1,4 +1,4 @@
-import { bgRequest } from "@/services/background-proxy"
+import { bgRequestClient } from "@/services/background-proxy"
 
 export type TldwVoice = {
   id?: string
@@ -12,7 +12,7 @@ export type TldwVoice = {
 
 export const fetchTldwVoices = async (): Promise<TldwVoice[]> => {
   try {
-    const res = await bgRequest<any>({
+    const res = await bgRequestClient<any>({
       path: "/api/v1/audio/voices",
       method: "GET"
     })
@@ -31,7 +31,7 @@ export const fetchTldwVoiceCatalog = async (
   const p = String(provider || "").trim()
   if (!p) return []
   try {
-    const res = await bgRequest<any>({
+    const res = await bgRequestClient<any>({
       path: `/api/v1/audio/voices/catalog?provider=${encodeURIComponent(p)}`,
       method: "GET"
     })

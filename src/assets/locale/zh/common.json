@@ -246,5 +246,18 @@
     "friendlyGenericHint": "请稍后重试，或打开“健康状况与诊断”检查服务器健康状况。",
     "showDetails": "显示技术详情",
     "hideDetails": "隐藏技术详情"
-  }
+  },
+  "folders": "文件夹",
+  "folderView": "文件夹视图",
+  "dateView": "日期视图",
+  "newFolder": "新建文件夹",
+  "folderName": "文件夹名称",
+  "selectFolder": "选择文件夹",
+  "noFolders": "没有文件夹",
+  "expandAll": "全部展开",
+  "collapseAll": "全部折叠",
+  "refresh": "刷新",
+  "confirm": "确认",
+  "untitled": "未命名",
+  "moveToFolder": "移动到文件夹"
 }
