@@ -321,6 +321,10 @@ const NotesManagerPage: React.FC = () => {
   }
 
   const openLinkedConversation = async () => {
+    // Check for unsaved changes before navigating
+    const okToLeave = await confirmDiscardIfDirty()
+    if (!okToLeave) return
+
     if (!backlinkConversationId) {
       message.warning(
         t("option:notesSearch.noLinkedConversation", {
@@ -413,6 +417,12 @@ const NotesManagerPage: React.FC = () => {
     a.download = `${name}.md`
     a.click()
     URL.revokeObjectURL(url)
+    // Show file size in success message
+    const sizeKB = (blob.size / 1024).toFixed(1)
+    message.success(t('option:notesSearch.exportNoteSuccess', {
+      defaultValue: 'Exported ({{size}} KB)',
+      size: sizeKB
+    }))
   }
 
   const exportAll = async () => {
@@ -461,7 +471,16 @@ const NotesManagerPage: React.FC = () => {
       a.download = `notes-export.md`
       a.click()
       URL.revokeObjectURL(url)
-      message.success('Exported all notes')
+      // Format file size for success message
+      const sizeKB = (blob.size / 1024).toFixed(1)
+      const sizeDisplay = blob.size >= 1024 * 1024
+        ? `${(blob.size / (1024 * 1024)).toFixed(2)} MB`
+        : `${sizeKB} KB`
+      message.success(t('option:notesSearch.exportSuccess', {
+        defaultValue: 'Exported {{count}} notes ({{size}})',
+        count: arr.length,
+        size: sizeDisplay
+      }))
     } catch (e: any) {
       message.error(e?.message || 'Export failed')
     }
@@ -859,6 +878,7 @@ const NotesManagerPage: React.FC = () => {
           canExport={Boolean(title || content)}
           isSaving={saving}
           canDelete={!editorDisabled && selectedId != null}
+          isDirty={isDirty}
           onOpenLinkedConversation={() => {
             void openLinkedConversation()
           }}

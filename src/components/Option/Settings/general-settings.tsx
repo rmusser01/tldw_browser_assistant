@@ -1,5 +1,5 @@
 import { useDarkMode } from "~/hooks/useDarkmode"
-import { Modal, Select, Switch, notification } from "antd"
+import { Alert, Modal, Select, Switch, notification } from "antd"
 import { MoonIcon, SunIcon } from "lucide-react"
 import { useNavigate } from "react-router-dom"
 import { SearchModeSettings } from "./search-mode"
@@ -500,15 +500,25 @@ export const GeneralSettings = () => {
         />
       </div>
 
-      <div className="flex flex-row justify-between">
-        <span className="text-gray-700   dark:text-neutral-50">
-          {t("generalSettings.settings.enableOcrAssets.label", "Enable OCR (downloads ~5MB on first use)")}
-        </span>
+      <div className="space-y-2">
+        <div className="flex flex-row justify-between">
+          <span className="text-gray-700   dark:text-neutral-50">
+            {t("generalSettings.settings.enableOcrAssets.label", "Enable OCR")}
+          </span>
 
-        <Switch
-          checked={enableOcrAssets}
-          onChange={(checked) => setEnableOcrAssets(checked)}
-        />
+          <Switch
+            checked={enableOcrAssets}
+            onChange={(checked) => setEnableOcrAssets(checked)}
+          />
+        </div>
+        {!enableOcrAssets && (
+          <Alert
+            type="info"
+            showIcon
+            message={t("generalSettings.settings.enableOcrAssets.downloadNotice", "Enabling OCR will download ~5MB of language data on first use")}
+            className="!py-1.5 !text-xs"
+          />
+        )}
       </div>
 
       <div className="flex flex-row justify-between">

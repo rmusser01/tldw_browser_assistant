@@ -1,5 +1,6 @@
 import React from "react"
 import { Button } from "antd"
+import type { LucideIcon } from "lucide-react"
 
 type FeatureEmptyStateProps = {
   title: React.ReactNode
@@ -12,6 +13,10 @@ type FeatureEmptyStateProps = {
   className?: string
   primaryDisabled?: boolean
   secondaryDisabled?: boolean
+  /** Optional icon to display above the title for visual interest */
+  icon?: LucideIcon
+  /** Icon color class (default: text-gray-400) */
+  iconClassName?: string
 }
 
 const FeatureEmptyState: React.FC<FeatureEmptyStateProps> = ({
@@ -24,7 +29,9 @@ const FeatureEmptyState: React.FC<FeatureEmptyStateProps> = ({
   onSecondaryAction,
   className,
   primaryDisabled = false,
-  secondaryDisabled = false
+  secondaryDisabled = false,
+  icon: Icon,
+  iconClassName
 }) => {
   return (
     <div
@@ -33,7 +40,14 @@ const FeatureEmptyState: React.FC<FeatureEmptyStateProps> = ({
         (className || "")
       }>
       <div className="space-y-3">
-        <h2 className="text-base font-semibold text-gray-900 dark:text-gray-50">
+        {Icon && (
+          <div className="flex justify-center mb-2">
+            <div className="p-3 rounded-full bg-gray-100 dark:bg-gray-800">
+              <Icon className={iconClassName || "h-8 w-8 text-gray-400 dark:text-gray-500"} />
+            </div>
+          </div>
+        )}
+        <h2 className={`text-base font-semibold text-gray-900 dark:text-gray-50 ${Icon ? "text-center" : ""}`}>
           {title}
         </h2>
         {description && (

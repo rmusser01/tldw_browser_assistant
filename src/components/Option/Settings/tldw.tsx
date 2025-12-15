@@ -5,6 +5,7 @@ import {
   Input,
   Alert,
   Form,
+  Modal,
   Spin,
   Button,
   Collapse,
@@ -594,7 +595,32 @@ export const TldwSettings = () => {
                 { label: t('settings:tldw.authMode.single', 'Single User (API Key)'), value: 'single-user' },
                 { label: t('settings:tldw.authMode.multi', 'Multi User (Login)'), value: 'multi-user' }
               ]}
-              onChange={(value) => setAuthMode(value as 'single-user' | 'multi-user')}
+              onChange={(value) => {
+                if (authMode !== value) {
+                  Modal.confirm({
+                    title: t('settings:tldw.authModeChangeWarning.title', 'Change authentication mode?'),
+                    content: t('settings:tldw.authModeChangeWarning.content',
+                      'Switching authentication modes will clear your current credentials. You will need to re-enter them after saving.'),
+                    okText: t('common:continue', 'Continue'),
+                    cancelText: t('common:cancel', 'Cancel'),
+                    centered: true,
+                    onOk: () => {
+                      setAuthMode(value as 'single-user' | 'multi-user')
+                      // Reset form fields for the new auth mode
+                      if (value === 'multi-user') {
+                        form.setFieldValue('apiKey', '')
+                      } else {
+                        form.setFieldsValue({ username: '', password: '' })
+                        setIsLoggedIn(false)
+                      }
+                    },
+                    onCancel: () => {
+                      // Reset the Segmented back to current value
+                      form.setFieldValue('authMode', authMode)
+                    }
+                  })
+                }
+              }}
             />
           </Form.Item>
           {authMode === 'single-user' && (

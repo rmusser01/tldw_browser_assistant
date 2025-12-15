@@ -302,8 +302,43 @@ export default function HealthStatus() {
     uxState === "error_unreachable" || errorKind === "unreachable"
   const showDegradedCallout = uxState === "connected_degraded"
 
+  // Calculate summary stats
+  const totalChecks = checks.length
+  const healthyCount = Object.values(results).filter(r => r.status === 'healthy').length
+  const unhealthyCount = Object.values(results).filter(r => r.status === 'unhealthy').length
+  const unknownCount = totalChecks - healthyCount - unhealthyCount
+  const allChecked = unknownCount === 0
+  const allHealthy = allChecked && unhealthyCount === 0
+
   return (
     <Space direction="vertical" size="large" className="w-full">
+      {/* Summary banner */}
+      {allChecked && (
+        <Alert
+          type={allHealthy ? 'success' : 'warning'}
+          showIcon
+          message={
+            allHealthy
+              ? t('settings:healthPage.summaryAllHealthy', {
+                  defaultValue: 'All {{count}} checks passing',
+                  count: totalChecks
+                })
+              : t('settings:healthPage.summaryPartial', {
+                  defaultValue: '{{healthy}} of {{total}} checks passing',
+                  healthy: healthyCount,
+                  total: totalChecks
+                })
+          }
+          description={
+            !allHealthy
+              ? t('settings:healthPage.summaryUnhealthyHint', {
+                  defaultValue: 'Review the failing checks below for troubleshooting guidance.'
+                })
+              : undefined
+          }
+        />
+      )}
+
       <div className="flex items-center justify-between">
         <div>
           <Typography.Title level={4} className="!mb-0">

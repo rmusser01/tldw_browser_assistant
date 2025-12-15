@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, Tooltip, Typography } from 'antd'
+import { Button, Tag, Tooltip, Typography } from 'antd'
 import { useTranslation } from 'react-i18next'
 import {
   Link2 as LinkIcon,
@@ -25,6 +25,7 @@ interface NotesEditorHeaderProps {
   canExport: boolean
   isSaving: boolean
   canDelete: boolean
+  isDirty?: boolean
   onOpenLinkedConversation: () => void
   onNewNote: () => void
   onTogglePreview: () => void
@@ -47,6 +48,7 @@ const NotesEditorHeader: React.FC<NotesEditorHeaderProps> = ({
   canExport,
   isSaving,
   canDelete,
+  isDirty,
   onOpenLinkedConversation,
   onNewNote,
   onTogglePreview,
@@ -68,9 +70,16 @@ const NotesEditorHeader: React.FC<NotesEditorHeaderProps> = ({
   return (
     <div className="flex items-center justify-between gap-4 px-4 py-3 border-b border-gray-200 dark:border-gray-700 bg-white dark:bg-[#171717]">
       <div className="flex flex-col gap-0.5 min-w-0">
-        <Typography.Title level={5} className="!mb-0 truncate !text-gray-900 dark:!text-gray-100">
-          {displayTitle}
-        </Typography.Title>
+        <div className="flex items-center gap-2">
+          <Typography.Title level={5} className="!mb-0 truncate !text-gray-900 dark:!text-gray-100">
+            {displayTitle}
+          </Typography.Title>
+          {isDirty && (
+            <Tag color="orange" className="!text-[10px] !px-1.5 !py-0 !leading-4 !m-0">
+              {t('option:notesSearch.unsaved', { defaultValue: 'Unsaved' })}
+            </Tag>
+          )}
+        </div>
         {backlinkConversationId && (
           <div className="text-xs text-blue-600 dark:text-blue-300">
             {t('option:notesSearch.linkedConversation', {
@@ -192,9 +201,15 @@ const NotesEditorHeader: React.FC<NotesEditorHeaderProps> = ({
           </Button>
         </Tooltip>
         <Tooltip
-          title={t('option:notesSearch.toolbarSaveTooltip', {
-            defaultValue: 'Save note'
-          })}
+          title={
+            !canSave
+              ? t('option:notesSearch.toolbarSaveDisabledTooltip', {
+                  defaultValue: 'Add a title or content to save'
+                })
+              : t('option:notesSearch.toolbarSaveTooltip', {
+                  defaultValue: 'Save note'
+                })
+          }
         >
           <Button
             type="primary"

@@ -952,7 +952,7 @@ const MediaPageContent: React.FC = () => {
       {/* Left Sidebar */}
       <div
         className={`bg-white dark:bg-[#171717] border-r border-gray-200 dark:border-gray-700 flex flex-col ${
-          sidebarCollapsed ? 'w-0' : 'w-96'
+          sidebarCollapsed ? 'w-0' : 'w-full md:w-80 lg:w-96'
         }`}
         style={{
           overflow: sidebarCollapsed ? 'hidden' : 'visible',

@@ -1,5 +1,6 @@
 import React from "react"
 import { useTranslation } from "react-i18next"
+import { MessageSquarePlus } from "lucide-react"
 import FeatureEmptyState from "@/components/Common/FeatureEmptyState"
 import { useDemoMode } from "@/context/demo-mode"
 import { useServerOnline } from "@/hooks/useServerOnline"
@@ -20,6 +21,7 @@ export const PlaygroundEmpty = () => {
   return (
     <div className="mx-auto mt-10 max-w-xl px-4">
       <FeatureEmptyState
+        icon={MessageSquarePlus}
         title={t("playground:empty.title", {
           defaultValue: "Start a new chat"
         })}

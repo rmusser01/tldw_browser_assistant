@@ -12,8 +12,10 @@ import {
   List,
   Modal,
   Pagination,
+  Progress,
   Select,
   Space,
+  Spin,
   Switch,
   Tabs,
   Tag,
@@ -356,6 +358,20 @@ export const FlashcardsPage: React.FC = () => {
   const [selectAllAcross, setSelectAllAcross] = React.useState<boolean>(false)
   const [deselectedIds, setDeselectedIds] = React.useState<Set<string>>(new Set())
 
+  // Bulk operation progress state
+  const [bulkProgress, setBulkProgress] = React.useState<{
+    open: boolean
+    current: number
+    total: number
+    action: string
+  } | null>(null)
+
+  // Type-to-confirm modal state for large bulk deletes
+  const [bulkDeleteConfirmOpen, setBulkDeleteConfirmOpen] = React.useState(false)
+  const [bulkDeleteInput, setBulkDeleteInput] = React.useState("")
+  const [bulkDeleteCount, setBulkDeleteCount] = React.useState(0)
+  const [pendingDeleteItems, setPendingDeleteItems] = React.useState<Flashcard[]>([])
+
   const manageQuery = useQuery({
     queryKey: ["flashcards:list", mDeckId, mQuery, mTag, mDue, page, pageSize],
     queryFn: async () =>
@@ -445,32 +461,63 @@ export const FlashcardsPage: React.FC = () => {
     setMoveOpen(true)
   }
 
-  const handleBulkDelete = async () => {
-    const toDelete = await getSelectedItems()
-    if (!toDelete.length) return
-    const ok = await confirmDanger({
-      title: t("common:confirmTitle", { defaultValue: "Please confirm" }),
-      content:
-        t("option:flashcards.bulkDeleteConfirm", {
-          defaultValue: `Delete ${toDelete.length} selected cards? This cannot be undone.`
-        }),
-      okText: t("common:delete", { defaultValue: "Delete" }),
-      cancelText: t("common:cancel", { defaultValue: "Cancel" })
-    })
-    if (!ok) return
+  const executeBulkDelete = async (items: Flashcard[]) => {
+    const total = items.length
+    setBulkProgress({ open: true, current: 0, total, action: t("option:flashcards.bulkProgressDeleting", { defaultValue: "Deleting cards" }) })
     try {
-      await processInChunks(toDelete, BULK_MUTATION_CHUNK_SIZE, async (chunk) => {
-        // Fire a bounded number of requests in parallel
+      let processed = 0
+      await processInChunks(items, BULK_MUTATION_CHUNK_SIZE, async (chunk) => {
         await Promise.all(
           chunk.map((c) => deleteFlashcard(c.uuid, c.version))
         )
+        processed += chunk.length
+        setBulkProgress((prev) => prev ? { ...prev, current: Math.min(processed, total) } : null)
       })
       message.success(t("common:deleted", { defaultValue: "Deleted" }))
       clearSelection()
       await qc.invalidateQueries({ queryKey: ["flashcards:list"] })
     } catch (e: any) {
       message.error(e?.message || "Bulk delete failed")
+    } finally {
+      setBulkProgress(null)
     }
+  }
+
+  const handleBulkDelete = async () => {
+    const toDelete = await getSelectedItems()
+    if (!toDelete.length) return
+
+    const count = toDelete.length
+    const LARGE_DELETE_THRESHOLD = 100
+
+    if (count > LARGE_DELETE_THRESHOLD) {
+      // For large deletions, require type-to-confirm
+      setBulkDeleteCount(count)
+      setPendingDeleteItems(toDelete)
+      setBulkDeleteInput("")
+      setBulkDeleteConfirmOpen(true)
+    } else {
+      // Standard confirmation for smaller selections
+      const ok = await confirmDanger({
+        title: t("common:confirmTitle", { defaultValue: "Please confirm" }),
+        content:
+          t("option:flashcards.bulkDeleteConfirm", {
+            defaultValue: `Delete ${count} selected cards? This cannot be undone.`
+          }),
+        okText: t("common:delete", { defaultValue: "Delete" }),
+        cancelText: t("common:cancel", { defaultValue: "Cancel" })
+      })
+      if (!ok) return
+      await executeBulkDelete(toDelete)
+    }
+  }
+
+  const confirmLargeBulkDelete = async () => {
+    setBulkDeleteConfirmOpen(false)
+    setBulkDeleteInput("")
+    await executeBulkDelete(pendingDeleteItems)
+    setPendingDeleteItems([])
+    setBulkDeleteCount(0)
   }
 
   const handleExportSelected = async () => {
@@ -938,9 +985,18 @@ export const FlashcardsPage: React.FC = () => {
                     <div className="space-y-1">
                       <Select
                         options={[
-                          { label: "basic", value: "basic" },
-                          { label: "basic_reverse", value: "basic_reverse" },
-                          { label: "cloze", value: "cloze" }
+                          {
+                            label: t("option:flashcards.templateBasic", { defaultValue: "Basic (Question → Answer)" }),
+                            value: "basic"
+                          },
+                          {
+                            label: t("option:flashcards.templateReverse", { defaultValue: "Basic + Reverse (Both directions)" }),
+                            value: "basic_reverse"
+                          },
+                          {
+                            label: t("option:flashcards.templateCloze", { defaultValue: "Cloze (Fill in the blank)" }),
+                            value: "cloze"
+                          }
                         ]}
                       />
                       <Text type="secondary" className="text-xs">
@@ -1129,9 +1185,15 @@ export const FlashcardsPage: React.FC = () => {
                 </Space>
                 <div className="mb-2 flex flex-wrap items-center gap-2">
                   <Text type="secondary">{t("option:flashcards.selectedCount", { defaultValue: "Selected" })}: {selectedCount}{selectAllAcross ? ` / ${totalCount}` : ''}</Text>
-                  <Button size="small" onClick={selectAllOnPage}>{t("option:flashcards.selectAllOnPage", { defaultValue: "Select all on page" })}</Button>
-                  <Button size="small" onClick={selectAllAcrossResults}>{t("option:flashcards.selectAllAcross", { defaultValue: "Select all across results" })}</Button>
-                  <Button size="small" onClick={clearSelection}>{t("option:flashcards.clearSelection", { defaultValue: "Clear selection" })}</Button>
+                  <Tooltip title={t("option:flashcards.selectAllOnPageTooltip", { defaultValue: "Select only the cards visible on this page" })}>
+                    <Button size="small" onClick={selectAllOnPage}>{t("option:flashcards.selectAllOnPage", { defaultValue: "Select all on page" })}</Button>
+                  </Tooltip>
+                  <Tooltip title={t("option:flashcards.selectAllAcrossTooltip", { defaultValue: "Select all cards matching current filters (across all pages)" })}>
+                    <Button size="small" onClick={selectAllAcrossResults}>{t("option:flashcards.selectAllAcross", { defaultValue: "Select all across results" })}</Button>
+                  </Tooltip>
+                  <Tooltip title={t("option:flashcards.clearSelectionTooltip", { defaultValue: "Deselect all cards" })}>
+                    <Button size="small" onClick={clearSelection}>{t("option:flashcards.clearSelection", { defaultValue: "Clear selection" })}</Button>
+                  </Tooltip>
                   <Dropdown
                     disabled={!anySelection}
                     menu={{
@@ -1404,12 +1466,21 @@ export const FlashcardsPage: React.FC = () => {
                         options={(decksQuery.data || []).map((d) => ({ label: d.name, value: d.id }))}
                       />
                     </Form.Item>
-                    <Form.Item name="model_type" label={t("option:flashcards.modelType", { defaultValue: "Model Type" })}>
+                    <Form.Item name="model_type" label={t("option:flashcards.modelType", { defaultValue: "Card template" })}>
                       <Select
                         options={[
-                          { label: "basic", value: "basic" },
-                          { label: "basic_reverse", value: "basic_reverse" },
-                          { label: "cloze", value: "cloze" }
+                          {
+                            label: t("option:flashcards.templateBasic", { defaultValue: "Basic (Question → Answer)" }),
+                            value: "basic"
+                          },
+                          {
+                            label: t("option:flashcards.templateReverse", { defaultValue: "Basic + Reverse (Both directions)" }),
+                            value: "basic_reverse"
+                          },
+                          {
+                            label: t("option:flashcards.templateCloze", { defaultValue: "Cloze (Fill in the blank)" }),
+                            value: "cloze"
+                          }
                         ]}
                       />
                     </Form.Item>
@@ -1529,6 +1600,85 @@ export const FlashcardsPage: React.FC = () => {
           }
         ]}
       />
+
+      {/* Bulk operation progress modal */}
+      <Modal
+        open={bulkProgress?.open ?? false}
+        closable={false}
+        footer={null}
+        centered
+        title={bulkProgress?.action || t("option:flashcards.bulkProgressTitle", { defaultValue: "Processing" })}
+      >
+        <div className="flex flex-col items-center gap-4 py-4">
+          <Spin size="large" />
+          <div className="text-center">
+            <Text className="block text-lg">
+              {bulkProgress?.current ?? 0} / {bulkProgress?.total ?? 0}
+            </Text>
+            <Text type="secondary" className="block mt-1">
+              {t("option:flashcards.bulkProgressPleaseWait", { defaultValue: "Please wait..." })}
+            </Text>
+          </div>
+          <Progress
+            percent={Math.round(((bulkProgress?.current ?? 0) / (bulkProgress?.total || 1)) * 100)}
+            status="active"
+            className="w-full max-w-xs"
+          />
+        </div>
+      </Modal>
+
+      {/* Type-to-confirm modal for large bulk deletes */}
+      <Modal
+        open={bulkDeleteConfirmOpen}
+        title={t("option:flashcards.bulkDeleteLargeTitle", {
+          defaultValue: "Delete {{count}} cards?",
+          count: bulkDeleteCount
+        })}
+        onCancel={() => {
+          setBulkDeleteConfirmOpen(false)
+          setBulkDeleteInput("")
+          setPendingDeleteItems([])
+          setBulkDeleteCount(0)
+        }}
+        okText={t("common:delete", { defaultValue: "Delete" })}
+        cancelText={t("common:cancel", { defaultValue: "Cancel" })}
+        okButtonProps={{
+          danger: true,
+          disabled: bulkDeleteInput.toUpperCase() !== "DELETE"
+        }}
+        onOk={confirmLargeBulkDelete}
+        centered
+      >
+        <div className="space-y-4">
+          <Alert
+            type="warning"
+            showIcon
+            message={t("option:flashcards.bulkDeleteLargeWarning", {
+              defaultValue: "You are about to delete a large number of cards."
+            })}
+          />
+          <p className="text-gray-700 dark:text-gray-300">
+            {t("option:flashcards.bulkDeleteLargeContent", {
+              defaultValue: "This will permanently delete {{count}} cards. This action cannot be undone.",
+              count: bulkDeleteCount
+            })}
+          </p>
+          <div className="pt-2">
+            <p className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+              {t("option:flashcards.typeDeleteToConfirm", {
+                defaultValue: "Type DELETE to confirm:"
+              })}
+            </p>
+            <Input
+              value={bulkDeleteInput}
+              onChange={(e) => setBulkDeleteInput(e.target.value)}
+              placeholder="DELETE"
+              className="font-mono"
+              autoFocus
+            />
+          </div>
+        </div>
+      </Modal>
     </div>
   )
 }
@@ -1729,23 +1879,41 @@ My deck	What is a closure?	A function with preserved outer scope.	javascript; fu
         {limitsQuery.data && (
           <Tooltip
             title={
-              <pre className="whitespace-pre-wrap text-xs">
-                {JSON.stringify(limitsQuery.data, null, 2)}
-              </pre>
+              <div className="text-xs space-y-1">
+                {limitsQuery.data.max_cards_per_import != null && (
+                  <div>{t("option:flashcards.limitMaxCards", { defaultValue: "Max cards per import: {{count}}", count: limitsQuery.data.max_cards_per_import })}</div>
+                )}
+                {limitsQuery.data.max_content_length != null && (
+                  <div>{t("option:flashcards.limitMaxContent", { defaultValue: "Max content length: {{count}} chars", count: limitsQuery.data.max_content_length.toLocaleString() })}</div>
+                )}
+                {limitsQuery.data.allowed_delimiters && (
+                  <div>{t("option:flashcards.limitDelimiters", { defaultValue: "Delimiters: {{list}}", list: limitsQuery.data.allowed_delimiters.join(", ") })}</div>
+                )}
+                {Object.keys(limitsQuery.data).length === 0 && (
+                  <div>{t("option:flashcards.limitNone", { defaultValue: "No limits configured" })}</div>
+                )}
+              </div>
             }
           >
-            <Text type="secondary" className="cursor-help">
-              {t("option:flashcards.importLimits", { defaultValue: "Import Limits" })}
+            <Text type="secondary" className="cursor-help underline decoration-dotted">
+              {t("option:flashcards.importLimits", { defaultValue: "View limits" })}
             </Text>
           </Tooltip>
         )}
       </div>
-      <Space align="center">
-        <Text>
-          {t("option:flashcards.mapping", { defaultValue: "Column mapping" })}
+      <div className="flex items-center gap-2 p-2 bg-gray-50 dark:bg-gray-800/50 rounded-md">
+        <Text type="secondary" className="text-xs font-medium">
+          {t("option:flashcards.advancedLabel", { defaultValue: "Advanced:" })}
         </Text>
-        <Switch checked={useMapping} onChange={setUseMapping} />
-      </Space>
+        <Tooltip title={t("option:flashcards.mappingTooltip", { defaultValue: "Map columns from your data to card fields. Useful when your file has a different column order." })}>
+          <Space align="center" className="cursor-help">
+            <Text>
+              {t("option:flashcards.mapping", { defaultValue: "Column mapping" })}
+            </Text>
+            <Switch checked={useMapping} onChange={setUseMapping} />
+          </Space>
+        </Tooltip>
+      </div>
       {mappingError && (
         <Alert
           className="mt-2"

@@ -1,14 +1,15 @@
 import React from "react"
-import { Input, Button, Spin, Tag, Tooltip, Radio, Pagination, Empty, Select, Checkbox, Typography, Skeleton, Switch } from "antd"
+import { Input, Button, Spin, Tag, Tooltip, Radio, Pagination, Empty, Select, Checkbox, Typography, Skeleton, Switch, Alert, Collapse } from "antd"
 import { useTranslation } from "react-i18next"
 import { bgRequest } from "@/services/background-proxy"
 import { useQuery, keepPreviousData } from "@tanstack/react-query"
 import { useServerOnline } from "@/hooks/useServerOnline"
-import { CopyIcon } from "lucide-react"
+import { CopyIcon, HelpCircle } from "lucide-react"
 import { tldwClient } from "@/services/tldw/TldwApiClient"
 import { useVirtualizer, type VirtualItem } from "@tanstack/react-virtual"
 import { ChevronDown, ChevronUp } from "lucide-react"
 import { useAntdMessage } from "@/hooks/useAntdMessage"
+import { useStorage } from "@plasmohq/storage/hook"
 
 type MediaItem = {
   id: string | number
@@ -57,6 +58,7 @@ const getContent = (d: MediaDetail): string => {
 export const MediaReviewPage: React.FC = () => {
   const { t } = useTranslation(['review'])
   const message = useAntdMessage()
+  const [helpDismissed, setHelpDismissed] = useStorage<boolean>('mediaReviewHelpDismissed', false)
   const [query, setQuery] = React.useState("")
   const [page, setPage] = React.useState(1)
   const [pageSize, setPageSize] = React.useState(20)
@@ -460,9 +462,11 @@ export const MediaReviewPage: React.FC = () => {
           </div>
           <div className="flex items-center gap-2 flex-wrap justify-end">
             {viewMode === "spread" && (
-              <Button size="small" onClick={() => toggleSelect(d.id)}>
-                {t("mediaPage.remove", "Remove")}
-              </Button>
+              <Tooltip title={t("mediaPage.unstackTooltip", "Remove from current comparison view")}>
+                <Button size="small" onClick={() => toggleSelect(d.id)}>
+                  {t("mediaPage.unstack", "Unstack")}
+                </Button>
+              </Tooltip>
             )}
             <Tooltip title={t('mediaPage.copyContent', 'Copy content')}>
               <Button
@@ -623,6 +627,26 @@ export const MediaReviewPage: React.FC = () => {
           </p>
         </div>
       </div>
+
+      {/* First-use guidance panel */}
+      {!helpDismissed && (
+        <Alert
+          type="info"
+          showIcon
+          icon={<HelpCircle className="w-4 h-4" />}
+          closable
+          onClose={() => setHelpDismissed(true)}
+          className="mb-3"
+          message={t('mediaPage.firstUseTitle', 'Quick Guide: Multi-Item Review')}
+          description={
+            <div className="text-xs space-y-1 mt-1">
+              <p><strong>{t('mediaPage.firstUseStep1', '1. Select items')}</strong> — {t('mediaPage.firstUseStep1Desc', 'Click items in the left panel to add them to your viewer.')}</p>
+              <p><strong>{t('mediaPage.firstUseStep2', '2. Choose a layout')}</strong> — {t('mediaPage.firstUseStep2Desc', 'Use "Spread" to compare side-by-side, "List" for scrolling, or "All" to see everything.')}</p>
+              <p><strong>{t('mediaPage.firstUseStep3', '3. Navigate')}</strong> — {t('mediaPage.firstUseStep3Desc', 'Use Prev/Next buttons or keyboard (Tab + Enter) to move through items.')}</p>
+            </div>
+          }
+        />
+      )}
 
       <div className="flex flex-1 min-h-0 w-full gap-4">
         {!sidebarHidden && (

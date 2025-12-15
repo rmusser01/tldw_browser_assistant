@@ -53,7 +53,7 @@ export function ResultsList({
             <button
               key={result.id}
               onClick={() => onSelect(result.id)}
-              className={`w-full py-2.5 text-left hover:bg-gray-50 dark:hover:bg-[#262626] transition-colors ${
+              className={`w-full py-2.5 text-left hover:bg-gray-50 dark:hover:bg-[#262626] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-inset ${
                 selectedId === result.id
                   ? 'bg-blue-50 dark:bg-blue-900/40 border-l-4 border-l-blue-600 dark:border-l-blue-500 px-3'
                   : 'px-4'
