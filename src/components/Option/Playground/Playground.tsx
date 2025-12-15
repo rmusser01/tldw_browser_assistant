@@ -14,6 +14,7 @@ import { useSmartScroll } from "@/hooks/useSmartScroll"
 import { ChevronDown } from "lucide-react"
 import { useStorage } from "@plasmohq/storage/hook"
 import { Storage } from "@plasmohq/storage"
+import { createSafeStorage } from "@/utils/safe-storage"
 import { otherUnsupportedTypes } from "../Knowledge/utils/unsupported-types"
 import { useTranslation } from "react-i18next"
 export const Playground = () => {
@@ -22,7 +23,7 @@ export const Playground = () => {
   const { t } = useTranslation(["playground"])
   const [chatBackgroundImage] = useStorage({
     key: "chatBackgroundImage",
-    instance: new Storage({
+    instance: createSafeStorage({
       area: "local"
     })
   })

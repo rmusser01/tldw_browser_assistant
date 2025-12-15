@@ -92,6 +92,10 @@
       "ask": "Ask",
       "open": "Open",
       "copy": "Copy"
+    },
+    "hint": {
+      "message": "Recherchez dans votre base de connaissances et insérez les résultats dans votre message.",
+      "dismiss": "Fermer"
     }
   }
 }

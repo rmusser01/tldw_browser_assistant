@@ -13,6 +13,32 @@ interface FilterPanelProps {
   onKeywordSearch?: (text: string) => void
 }
 
+// Normalize media type to Title Case for consistent display
+const toTitleCase = (str: string): string => {
+  if (!str) return str
+  return str
+    .toLowerCase()
+    .split(/[\s_-]+/)
+    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(' ')
+}
+
+// Get user-friendly label for media type
+const getMediaTypeLabel = (type: string): string => {
+  const normalized = toTitleCase(type)
+  // Map common types to better labels if needed
+  const labelMap: Record<string, string> = {
+    'Youtube': 'YouTube',
+    'Pdf': 'PDF',
+    'Mp3': 'MP3',
+    'Mp4': 'MP4',
+    'Wav': 'WAV',
+    'Html': 'HTML',
+    'Url': 'URL'
+  }
+  return labelMap[normalized] || normalized
+}
+
 export function FilterPanel({
   mediaTypes,
   selectedMediaTypes,
@@ -81,17 +107,21 @@ export function FilterPanel({
           <div className="pl-1">
             {mediaTypes.length > 0 ? (
               <div className="space-y-2">
-                {mediaTypes.map(type => (
-                  <label key={type} className="flex items-center gap-2 cursor-pointer">
-                    <input
-                      type="checkbox"
-                      checked={selectedMediaTypes.includes(type)}
-                      onChange={() => handleMediaTypeToggle(type)}
-                      className="w-4 h-4 rounded border-gray-300 dark:border-gray-600 text-blue-600 focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-600"
-                    />
-                    <span className="text-sm text-gray-700 dark:text-gray-300 capitalize">{type}</span>
-                  </label>
-                ))}
+                {mediaTypes.map(type => {
+                  const displayLabel = getMediaTypeLabel(type)
+                  return (
+                    <label key={type} className="flex items-center gap-2 cursor-pointer">
+                      <input
+                        type="checkbox"
+                        checked={selectedMediaTypes.includes(type)}
+                        onChange={() => handleMediaTypeToggle(type)}
+                        className="w-4 h-4 rounded border-gray-300 dark:border-gray-600 text-blue-600 focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-600"
+                        aria-label={t('review:mediaPage.filterMediaType', 'Filter by {{type}}', { type: displayLabel })}
+                      />
+                      <span className="text-sm text-gray-700 dark:text-gray-300">{displayLabel}</span>
+                    </label>
+                  )
+                })}
               </div>
             ) : (
               <div className="text-sm text-gray-500 dark:text-gray-400">
@@ -106,8 +136,15 @@ export function FilterPanel({
 
       {/* Keywords */}
       <div className="space-y-2">
-        <div className="text-sm text-gray-700 dark:text-gray-300">
-          {t('review:reviewPage.keywords', { defaultValue: 'Keywords' })}
+        <div className="flex items-center justify-between">
+          <div className="text-sm text-gray-700 dark:text-gray-300">
+            {t('review:reviewPage.keywords', { defaultValue: 'Keywords' })}
+          </div>
+          {selectedKeywords.length > 0 && (
+            <span className="text-xs px-2 py-0.5 rounded-full bg-blue-100 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300 font-medium">
+              {t('review:mediaPage.keywordsSelected', '{{count}} selected', { count: selectedKeywords.length })}
+            </span>
+          )}
         </div>
         <Select
           mode="tags"
@@ -128,7 +165,7 @@ export function FilterPanel({
         <div className="text-xs text-gray-500 dark:text-gray-400">
           {t('review:mediaPage.keywordHelper', {
             defaultValue:
-              'Keywords help you find this media using the keyword filter on the left.'
+              'Add keywords to narrow down results. Keywords are assigned when reviewing media.'
           })}
         </div>
       </div>

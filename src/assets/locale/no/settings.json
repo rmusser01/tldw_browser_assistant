@@ -81,7 +81,8 @@
         "label": "Aktiver midlertidig chat i sidepanelet som standard"
       },
       "enableOcrAssets": {
-        "label": "Aktiver OCR (laster ned ~5 MB ved første bruk)"
+        "label": "Aktiver OCR (laster ned ~5 MB ved første bruk)",
+        "downloadNotice": "Når du aktiverer OCR, lastes ~5 MB språkdata ned ved første bruk."
       },
       "ocrLanguage": {
         "label": "Standard OCR-språk",

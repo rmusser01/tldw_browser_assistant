@@ -484,7 +484,8 @@ export const PlaygroundMessage = (props: Props) => {
                 props.currentMessageIndex !== props.totalMessages - 1
                   ? "invisible group-hover:visible group-focus-within:visible"
                   : ""
-              }`}>
+              }`}
+              tabIndex={0}>
               {props.isTTSEnabled && (
                 <Tooltip title={t("tts")}>
                   <IconButton

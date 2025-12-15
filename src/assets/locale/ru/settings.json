@@ -81,7 +81,8 @@
         "label": "Включить временный чат в боковой панели по умолчанию"
       },
       "enableOcrAssets": {
-        "label": "Enable OCR (downloads ~5MB on first use)"
+        "label": "Enable OCR (downloads ~5MB on first use)",
+        "downloadNotice": "При включении OCR при первом использовании будет загружено около 5 МБ языковых данных."
       },
       "ocrLanguage": {
         "label": "Default OCR Language",

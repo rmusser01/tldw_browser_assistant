@@ -74,7 +74,7 @@ export const StatusDot = () => {
       )
     }
     return (
-      <AlertCircle className="h-3.5 w-3.5 text-amber-500" />
+      <AlertCircle className="h-3.5 w-3.5 text-red-500" />
     )
   }
 
@@ -82,6 +82,7 @@ export const StatusDot = () => {
     <Tooltip title={tooltip}>
       <button
         type="button"
+        data-testid="status-dot"
         onClick={handleClick}
         disabled={isChecking}
         className="p-1 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-pink-700 disabled:cursor-default"

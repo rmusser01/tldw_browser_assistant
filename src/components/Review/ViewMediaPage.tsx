@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 import { useQuery } from '@tanstack/react-query'
 import { Storage } from '@plasmohq/storage'
+import { safeStorageSerde } from '@/utils/safe-storage'
 import { bgRequest } from '@/services/background-proxy'
 import { useServerOnline } from '@/hooks/useServerOnline'
 import { useServerCapabilities } from '@/hooks/useServerCapabilities'
@@ -221,6 +222,7 @@ const MediaPageContent: React.FC = () => {
   const [pageSize] = useState<number>(20)
   const [mediaTotal, setMediaTotal] = useState<number>(0)
   const [notesTotal, setNotesTotal] = useState<number>(0)
+  const [combinedTotal, setCombinedTotal] = useState<number>(0)
   const [mediaTypes, setMediaTypes] = useState<string[]>([])
   const [availableMediaTypes, setAvailableMediaTypes] = useState<string[]>([])
   const [keywordTokens, setKeywordTokens] = useState<string[]>([])
@@ -230,27 +232,58 @@ const MediaPageContent: React.FC = () => {
   const [contentHeight, setContentHeight] = useState<number>(0)
   const contentDivRef = React.useRef<HTMLDivElement | null>(null)
 
-  // Measure content height whenever content changes
+  // Measure content height whenever content changes - M3 fix
   useEffect(() => {
+    let rafId: number | null = null
+    let lastHeight = 0
+    let stableCount = 0
+    const STABLE_THRESHOLD = 3
+
     const measureHeight = () => {
-      if (contentDivRef.current) {
-        const height = contentDivRef.current.scrollHeight
-        setContentHeight(height)
+      if (!contentDivRef.current) return
+
+      const currentHeight = contentDivRef.current.scrollHeight
+
+      // Check if height has stabilized
+      if (currentHeight === lastHeight) {
+        stableCount++
+        if (stableCount >= STABLE_THRESHOLD) {
+          // Height is stable, update state
+          setContentHeight(currentHeight)
+          return
+        }
+      } else {
+        // Height changed, reset counter
+        stableCount = 0
+        lastHeight = currentHeight
       }
+
+      // Continue measuring until stable
+      rafId = requestAnimationFrame(measureHeight)
     }
 
-    // Measure after a short delay to ensure content is rendered
-    const timer = setTimeout(measureHeight, 200)
+    // Start measuring
+    rafId = requestAnimationFrame(measureHeight)
 
     // Set up ResizeObserver for dynamic updates
     let observer: ResizeObserver | null = null
     if (contentDivRef.current) {
-      observer = new ResizeObserver(measureHeight)
+      observer = new ResizeObserver(() => {
+        // Reset stability tracking on resize
+        lastHeight = 0
+        stableCount = 0
+        if (rafId !== null) {
+          cancelAnimationFrame(rafId)
+        }
+        rafId = requestAnimationFrame(measureHeight)
+      })
       observer.observe(contentDivRef.current)
     }
 
     return () => {
-      clearTimeout(timer)
+      if (rafId !== null) {
+        cancelAnimationFrame(rafId)
+      }
       if (observer) observer.disconnect()
     }
     // Note: contentDivRef excluded as refs are stable
@@ -259,11 +292,27 @@ const MediaPageContent: React.FC = () => {
   const contentRef = useCallback((node: HTMLDivElement | null) => {
     contentDivRef.current = node
     if (node) {
-      // Initial measurement
-      setTimeout(() => {
-        const height = node.scrollHeight
-        setContentHeight(height)
-      }, 100)
+      // Initial measurement using requestAnimationFrame - M3 fix
+      let rafId: number | null = null
+      let lastHeight = 0
+      let stableCount = 0
+
+      const measure = () => {
+        const currentHeight = node.scrollHeight
+        if (currentHeight === lastHeight) {
+          stableCount++
+          if (stableCount >= 3) {
+            setContentHeight(currentHeight)
+            return
+          }
+        } else {
+          stableCount = 0
+          lastHeight = currentHeight
+        }
+        rafId = requestAnimationFrame(measure)
+      }
+
+      rafId = requestAnimationFrame(measure)
     }
   }, [])
 
@@ -271,6 +320,8 @@ const MediaPageContent: React.FC = () => {
     const results: MediaResultItem[] = []
     const hasQuery = query.trim().length > 0
     const hasMediaFilters = mediaTypes.length > 0 || keywordTokens.length > 0
+    let actualMediaCount = 0
+    let actualNotesCount = 0
 
     if (kinds.media) {
       try {
@@ -282,7 +333,9 @@ const MediaPageContent: React.FC = () => {
           })
           const items = Array.isArray(listing?.items) ? listing.items : []
           const pagination = listing?.pagination
-          setMediaTotal(Number(pagination?.total_items || items.length || 0))
+          const mediaServerTotal = Number(pagination?.total_items || items.length || 0)
+          setMediaTotal(mediaServerTotal)
+          actualMediaCount = mediaServerTotal
           for (const m of items) {
             const id = m?.id ?? m?.media_id ?? m?.pk ?? m?.uuid
             const meta = deriveMediaMeta(m)
@@ -325,7 +378,9 @@ const MediaPageContent: React.FC = () => {
               ? mediaResp.results
               : []
           const pagination = mediaResp?.pagination
-          setMediaTotal(Number(pagination?.total_items || items.length || 0))
+          const mediaServerTotal = Number(pagination?.total_items || items.length || 0)
+          setMediaTotal(mediaServerTotal)
+          actualMediaCount = mediaServerTotal
           for (const m of items) {
             const id = m?.id ?? m?.media_id ?? m?.pk ?? m?.uuid
             const meta = deriveMediaMeta(m)
@@ -425,11 +480,13 @@ const MediaPageContent: React.FC = () => {
           }
 
           if (keywordFilterActive && !usedKeywordServerFilter) {
-            setNotesTotal(filteredItems.length)
+            const notesClientTotal = filteredItems.length
+            setNotesTotal(notesClientTotal)
+            actualNotesCount = notesClientTotal
           } else {
-            setNotesTotal(
-              Number(pagination?.total_items || items.length || 0)
-            )
+            const notesServerTotal = Number(pagination?.total_items || items.length || 0)
+            setNotesTotal(notesServerTotal)
+            actualNotesCount = notesServerTotal
           }
 
           for (const n of filteredItems) {
@@ -455,7 +512,9 @@ const MediaPageContent: React.FC = () => {
           })
           const items = Array.isArray(notesResp?.items) ? notesResp.items : []
           const pagination = notesResp?.pagination
-          setNotesTotal(Number(pagination?.total_items || items.length || 0))
+          const notesServerTotal = Number(pagination?.total_items || items.length || 0)
+          setNotesTotal(notesServerTotal)
+          actualNotesCount = notesServerTotal
 
           for (const n of items) {
             const id = n?.id ?? n?.note_id ?? n?.pk ?? n?.uuid
@@ -477,6 +536,10 @@ const MediaPageContent: React.FC = () => {
         console.error('Notes search error:', err)
       }
     }
+
+    // Set combined total after all filtering is complete
+    const finalCombinedTotal = actualMediaCount + actualNotesCount
+    setCombinedTotal(finalCombinedTotal)
 
     return results
   }, [
@@ -517,7 +580,7 @@ const MediaPageContent: React.FC = () => {
   useEffect(() => {
     ;(async () => {
       try {
-        const storage = new Storage({ area: 'local' })
+        const storage = new Storage({ area: 'local', serde: safeStorageSerde } as any)
         const cacheKey = 'reviewMediaTypesCache'
         const cached = (await storage.get(cacheKey).catch(() => null)) as {
           types?: string[]
@@ -970,7 +1033,7 @@ const MediaPageContent: React.FC = () => {
             <span className="text-xs text-gray-500 dark:text-gray-400">
               {results.length} / {
                 kinds.media && kinds.notes
-                  ? mediaTotal + notesTotal
+                  ? combinedTotal
                   : kinds.notes
                     ? notesTotal
                     : mediaTotal
@@ -982,7 +1045,15 @@ const MediaPageContent: React.FC = () => {
         {/* Search */}
         <div className="px-4 py-3 border-b border-gray-200 dark:border-gray-700">
           <div onKeyDown={handleKeyPress}>
-            <SearchBar value={query} onChange={setQuery} />
+            <SearchBar
+              value={query}
+              onChange={setQuery}
+              onClearAll={() => {
+                // M4: Clear filters when clearing search
+                setMediaTypes([])
+                setKeywordTokens([])
+              }}
+            />
           </div>
           <button
             onClick={handleSearch}
@@ -1036,7 +1107,7 @@ const MediaPageContent: React.FC = () => {
             }}
             totalCount={
               kinds.media && kinds.notes
-                ? mediaTotal + notesTotal
+                ? combinedTotal
                 : kinds.notes
                   ? notesTotal
                   : mediaTotal
@@ -1050,7 +1121,7 @@ const MediaPageContent: React.FC = () => {
           currentPage={page}
           totalPages={Math.ceil(
             (kinds.media && kinds.notes
-              ? mediaTotal + notesTotal
+              ? combinedTotal
               : kinds.notes
                 ? notesTotal
                 : mediaTotal) / pageSize
@@ -1058,7 +1129,7 @@ const MediaPageContent: React.FC = () => {
           onPageChange={setPage}
           totalItems={
             kinds.media && kinds.notes
-              ? mediaTotal + notesTotal
+              ? combinedTotal
               : kinds.notes
                 ? notesTotal
                 : mediaTotal

@@ -9,6 +9,7 @@ import { useTranslation } from "react-i18next"
 type Props = {
   onInsert: (text: string) => void
   onAsk: (text: string) => void
+  isConnected?: boolean
 }
 
 type RagResult = {
@@ -34,7 +35,7 @@ const dateRanges = [
   { label: "Last 90 days", value: "90" }
 ]
 
-export const RagSearchBar: React.FC<Props> = ({ onInsert, onAsk }) => {
+export const RagSearchBar: React.FC<Props> = ({ onInsert, onAsk, isConnected = true }) => {
   const { t } = useTranslation(['sidepanel'])
   const [open, setOpen] = useState(false)
   const [ragHintSeen, setRagHintSeen] = useStorage<boolean>('ragSearchHintSeen', false)
@@ -47,9 +48,16 @@ export const RagSearchBar: React.FC<Props> = ({ onInsert, onAsk }) => {
   const [results, setResults] = useState<RagResult[]>([])
   const [timeoutSec, setTimeoutSec] = useState<number>(10)
   const [timedOut, setTimedOut] = useState<boolean>(false)
+  // L13: Track if user has attempted a search, not just initial load
+  const [hasAttemptedSearch, setHasAttemptedSearch] = useState(false)
 
   const runSearch = async () => {
     if (!q.trim()) return
+    // L13: Mark that user has attempted a search
+    if (!hasAttemptedSearch) {
+      setHasAttemptedSearch(true)
+      setRagHintSeen(true)
+    }
     setLoading(true)
     setResults([])
     setTimedOut(false)
@@ -76,8 +84,9 @@ export const RagSearchBar: React.FC<Props> = ({ onInsert, onAsk }) => {
       setResults(docs)
       setTimedOut(false)
     } catch (e) {
-      // Silent fail; parent UI remains usable
-      if (!timedOut) setResults([])
+      // Keep input populated on timeout so user can retry
+      // C5: Always clear results on timeout/error to avoid showing stale data
+      setResults([])
     } finally {
       setLoading(false)
     }
@@ -111,9 +120,17 @@ export const RagSearchBar: React.FC<Props> = ({ onInsert, onAsk }) => {
         </button>
       </div>
       {open && (
-        <div className="p-2 rounded border border-gray-200 dark:border-gray-600 bg-white dark:bg-[#1f1f1f] mb-2">
-          {/* First-use hint banner */}
-          {!ragHintSeen && (
+        <div className="p-2 rounded border border-gray-200 dark:border-gray-600 bg-white dark:bg-[#1f1f1f] mb-2 relative">
+          {/* Disconnected overlay */}
+          {!isConnected && (
+            <div className="absolute inset-0 z-10 bg-gray-100/90 dark:bg-gray-900/90 flex items-center justify-center rounded">
+              <span className="text-sm text-gray-500 dark:text-gray-400">
+                {t('sidepanel:rag.disconnected', 'Connect to server to search knowledge base')}
+              </span>
+            </div>
+          )}
+          {/* L13: First-use hint banner - only show if not seen and user hasn't searched yet */}
+          {!ragHintSeen && !hasAttemptedSearch && (
             <div className="mb-2 p-2 bg-blue-50 dark:bg-blue-900/20 border-l-2 border-blue-400 rounded flex items-start gap-2">
               <div className="flex-1">
                 <p className="text-xs text-blue-800 dark:text-blue-200">
@@ -182,10 +199,11 @@ export const RagSearchBar: React.FC<Props> = ({ onInsert, onAsk }) => {
               <div className="py-4 text-center"><Spin size="small" /></div>
             ) : timedOut ? (
               <div className="text-xs text-gray-600 dark:text-gray-300">
-                {t('sidepanel:rag.timeout.message')}
+                {t('sidepanel:rag.timeout.message', 'Request timed out.')}
                 <div className="mt-1 flex items-center gap-2">
-                  <Button size="small" onClick={() => { setTimeoutSec((v) => Number(v||10) + 5); runSearch() }}>{t('sidepanel:rag.timeout.increase')}</Button>
-                  <Button size="small" type="link" onClick={() => { try { const url = browser.runtime.getURL('/options.html#/settings/health'); browser.tabs.create({ url }) } catch { window.open('#/settings/health', '_blank') } }}>{t('sidepanel:rag.timeout.checkHealth')}</Button>
+                  <Button size="small" type="primary" onClick={runSearch}>{t('sidepanel:rag.timeout.retry', 'Retry')}</Button>
+                  <Button size="small" onClick={() => { setTimeoutSec((v) => Number(v||10) + 5); runSearch() }}>{t('sidepanel:rag.timeout.increase', 'Increase timeout')}</Button>
+                  <Button size="small" type="link" onClick={() => { try { const url = browser.runtime.getURL('/options.html#/settings/health'); browser.tabs.create({ url }) } catch { window.open('#/settings/health', '_blank') } }}>{t('sidepanel:rag.timeout.checkHealth', 'Check server health')}</Button>
                 </div>
               </div>
             ) : results.length === 0 ? (

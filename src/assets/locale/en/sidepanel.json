@@ -37,9 +37,13 @@
   "controlRow": {
     "saveMode": "Save Mode",
     "ephemeral": "Ephemeral",
+    "ephemeralBadge": "Ephemeral",
+    "ephemeralModeActive": "Ephemeral mode: chat won't be saved",
     "searchSection": "Search & Vision",
     "webSearch": "Web Search",
     "vision": "Vision",
+    "visionDisabledRag": "Disable RAG mode to use Vision",
+    "visionTooltip": "Enable Vision to analyze images",
     "uploadImage": "Upload Image",
     "quickIngest": "Quick Ingest Page",
     "openInFullUI": "Open in Full UI",
@@ -70,6 +74,13 @@
     "transcriptLabel": "Transcript",
     "summaryLabel": "Summary"
   },
+  "saveStatus": {
+    "ephemeral": "Ephemeral: Not saved, cleared on close",
+    "local": "Saved locally in this browser",
+    "server": "Saved to server",
+    "saveFailed": "Failed to save chat to server",
+    "saveFailedDescription": "Chat is now saving locally only. Check your connection and try again."
+  },
   "rag": {
     "searchPlaceholder": "Search your knowledge…",
     "search": "Search",
@@ -80,6 +91,7 @@
     "noResults": "No results",
     "timeout": {
       "message": "Request timed out.",
+      "retry": "Retry",
       "increase": "Increase timeout",
       "checkHealth": "Check server health"
     },

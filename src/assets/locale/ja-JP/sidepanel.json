@@ -92,6 +92,10 @@
       "ask": "Ask",
       "open": "Open",
       "copy": "Copy"
+    },
+    "hint": {
+      "message": "ナレッジベースを検索して、結果をメッセージに挿入できます。",
+      "dismiss": "閉じる"
     }
   }
 }

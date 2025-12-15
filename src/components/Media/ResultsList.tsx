@@ -1,5 +1,6 @@
-import { FileText } from 'lucide-react'
-import { Tooltip } from 'antd'
+import { FileText, Loader2 } from 'lucide-react'
+import { Tooltip, Button } from 'antd'
+import { useTranslation } from 'react-i18next'
 
 interface Result {
   id: string | number
@@ -21,6 +22,9 @@ interface ResultsListProps {
   onSelect: (id: string | number) => void
   totalCount: number
   loadedCount: number
+  isLoading?: boolean
+  hasActiveFilters?: boolean
+  onClearFilters?: () => void
 }
 
 export function ResultsList({
@@ -28,8 +32,12 @@ export function ResultsList({
   selectedId,
   onSelect,
   totalCount,
-  loadedCount
+  loadedCount,
+  isLoading = false,
+  hasActiveFilters = false,
+  onClearFilters
 }: ResultsListProps) {
+  const { t } = useTranslation(['review'])
   return (
     <div>
       {/* Results Header */}
@@ -44,15 +52,35 @@ export function ResultsList({
 
       {/* Results List */}
       <div className="divide-y divide-gray-200 dark:divide-gray-700">
-        {results.length === 0 ? (
-          <div className="px-4 py-6 text-center text-gray-500 dark:text-gray-400 text-sm">
-            No results found
+        {results.length === 0 && !isLoading ? (
+          <div className="px-4 py-6 text-center">
+            {hasActiveFilters ? (
+              <>
+                <p className="text-gray-500 dark:text-gray-400 text-sm mb-2">
+                  {t('mediaPage.noMatchingResults', 'No results match your filters')}
+                </p>
+                {onClearFilters && (
+                  <Button size="small" onClick={onClearFilters}>
+                    {t('mediaPage.clearFilters', 'Clear filters')}
+                  </Button>
+                )}
+              </>
+            ) : (
+              <p className="text-gray-500 dark:text-gray-400 text-sm">
+                {t('mediaPage.noResults', 'No results found')}
+              </p>
+            )}
           </div>
         ) : (
           results.map((result) => (
             <button
               key={result.id}
               onClick={() => onSelect(result.id)}
+              aria-label={t('mediaPage.selectResult', 'Select {{type}}: {{title}}', {
+                type: result.kind,
+                title: result.title || `${result.kind} ${result.id}`
+              })}
+              aria-pressed={selectedId === result.id}
               className={`w-full py-2.5 text-left hover:bg-gray-50 dark:hover:bg-[#262626] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-inset ${
                 selectedId === result.id
                   ? 'bg-blue-50 dark:bg-blue-900/40 border-l-4 border-l-blue-600 dark:border-l-blue-500 px-3'
@@ -87,7 +115,8 @@ export function ResultsList({
                       {result.keywords.slice(0, 5).map((keyword, idx) => (
                         <span
                           key={idx}
-                          className="inline-flex items-center px-2 py-0.5 rounded text-xs bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300"
+                          className="inline-flex items-center px-2 py-0.5 rounded text-xs bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 line-clamp-1 max-w-[120px]"
+                          title={keyword}
                         >
                           {keyword}
                         </span>
@@ -112,6 +141,13 @@ export function ResultsList({
               </div>
             </button>
           ))
+        )}
+        {/* Loading indicator */}
+        {isLoading && (
+          <div className="px-4 py-3 text-center text-gray-500 dark:text-gray-400 flex items-center justify-center gap-2">
+            <Loader2 className="w-4 h-4 animate-spin" />
+            <span className="text-sm">{t('mediaPage.loadingMore', 'Loading more results...')}</span>
+          </div>
         )}
       </div>
     </div>

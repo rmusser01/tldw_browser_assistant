@@ -92,6 +92,10 @@
       "ask": "Ask",
       "open": "Open",
       "copy": "Copy"
+    },
+    "hint": {
+      "message": "지식 베이스를 검색하고 결과를 메시지에 삽입하세요.",
+      "dismiss": "닫기"
     }
   }
 }

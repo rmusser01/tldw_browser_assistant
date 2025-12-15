@@ -18,7 +18,7 @@ export const SidePanelBody = ({ scrollParentRef, searchQuery }: Props) => {
     isProcessing,
     regenerateLastMessage,
     editMessage,
-    isSearchingInternet, 
+    isSearchingInternet,
     createChatBranch,
     temporaryChat,
     stopStreamingRequest,
@@ -27,6 +27,7 @@ export const SidePanelBody = ({ scrollParentRef, searchQuery }: Props) => {
   const [isSourceOpen, setIsSourceOpen] = React.useState(false)
   const [source, setSource] = React.useState<any>(null)
   const { ttsEnabled } = useWebUI()
+  const scrollAnchorRef = React.useRef<number | null>(null)
 
   const parentEl = scrollParentRef?.current || null
   const rowVirtualizer = useVirtualizer({
@@ -36,6 +37,34 @@ export const SidePanelBody = ({ scrollParentRef, searchQuery }: Props) => {
     overscan: 6,
     measureElement: (el) => el?.getBoundingClientRect().height || 120
   })
+
+  // Lock scroll position during streaming to prevent virtualizer jumps
+  React.useEffect(() => {
+    if (!parentEl) return
+
+    if (streaming) {
+      // Save current scroll position when streaming starts
+      scrollAnchorRef.current = parentEl.scrollTop
+    } else {
+      // Clear anchor when streaming ends
+      scrollAnchorRef.current = null
+    }
+  }, [streaming, parentEl])
+
+  // Prevent virtualizer scroll jumps during streaming
+  React.useEffect(() => {
+    if (!parentEl || !streaming || scrollAnchorRef.current === null) return
+
+    const handleScroll = () => {
+      // If user manually scrolls, update the anchor
+      if (Math.abs(parentEl.scrollTop - scrollAnchorRef.current!) > 10) {
+        scrollAnchorRef.current = parentEl.scrollTop
+      }
+    }
+
+    parentEl.addEventListener('scroll', handleScroll, { passive: true })
+    return () => parentEl.removeEventListener('scroll', handleScroll)
+  }, [streaming, parentEl])
 
   return (
     <>

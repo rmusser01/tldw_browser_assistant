@@ -1,6 +1,7 @@
 import { bgRequest } from "@/services/background-proxy"
 import { Storage } from "@plasmohq/storage"
 import type { AllowedPath } from "@/services/tldw/openapi-guard"
+import { createSafeStorage } from "@/utils/safe-storage"
 
 // Minimal client types based on openapi.json
 export type Deck = {
@@ -236,7 +237,7 @@ export async function exportFlashcards(params: FlashcardsExportParams = {}): Pro
 
 // Export binary (APKG). Uses direct fetch to preserve binary payload.
 export async function exportFlashcardsFile(params: FlashcardsExportParams & { format: 'apkg' }): Promise<Blob> {
-  const storage = new Storage({ area: 'local' })
+  const storage = createSafeStorage({ area: 'local' })
   const cfg = await storage.get<any>('tldwConfig').catch(() => null)
   const base = (cfg?.serverUrl || '').replace(/\/$/, '')
   if (!base) throw new Error('Server not configured')

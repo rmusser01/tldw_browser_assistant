@@ -41,9 +41,12 @@ const FeatureEmptyState: React.FC<FeatureEmptyStateProps> = ({
       }>
       <div className="space-y-3">
         {Icon && (
-          <div className="flex justify-center mb-2">
+          <div className="flex justify-center">
             <div className="p-3 rounded-full bg-gray-100 dark:bg-gray-800">
-              <Icon className={iconClassName || "h-8 w-8 text-gray-400 dark:text-gray-500"} />
+              <Icon
+                className={iconClassName || "h-8 w-8 text-gray-400 dark:text-gray-500"}
+                aria-hidden="true"
+              />
             </div>
           </div>
         )}

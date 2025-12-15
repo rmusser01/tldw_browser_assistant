@@ -58,7 +58,7 @@ const getContent = (d: MediaDetail): string => {
 export const MediaReviewPage: React.FC = () => {
   const { t } = useTranslation(['review'])
   const message = useAntdMessage()
-  const [helpDismissed, setHelpDismissed] = useStorage<boolean>('mediaReviewHelpDismissed', false)
+  const [helpDismissed, setHelpDismissed, { isLoading: helpDismissedLoading }] = useStorage<boolean>('mediaReviewHelpDismissed', false)
   const [query, setQuery] = React.useState("")
   const [page, setPage] = React.useState(1)
   const [pageSize, setPageSize] = React.useState(20)
@@ -469,8 +469,8 @@ export const MediaReviewPage: React.FC = () => {
               </Tooltip>
             )}
             <Tooltip title={t('mediaPage.copyContent', 'Copy content')}>
-              <Button
-                size="small"
+	                            <Button
+	                              size="small"
                 onClick={async () => {
                   const full = content
                   try { await navigator.clipboard.writeText(full); message.success(t('mediaPage.contentCopied', 'Content copied')) }
@@ -628,8 +628,8 @@ export const MediaReviewPage: React.FC = () => {
         </div>
       </div>
 
-      {/* First-use guidance panel */}
-      {!helpDismissed && (
+	      {/* First-use guidance panel */}
+	      {!helpDismissedLoading && !helpDismissed && (
         <Alert
           type="info"
           showIcon
@@ -758,11 +758,11 @@ export const MediaReviewPage: React.FC = () => {
                               size="small"
                               onClick={(e) => {
                                 e.stopPropagation()
-                                toggleSelect(item.id)
-                              }}
-                            >
-                              {isSelected ? t("mediaPage.remove", "Remove") : t("mediaPage.view", "View")}
-                            </Button>
+	                                toggleSelect(item.id)
+	                              }}
+	                            >
+	                              {isSelected ? t("mediaPage.unstack", "Unstack") : t("mediaPage.view", "View")}
+	                            </Button>
                           </div>
                         </div>
                       )

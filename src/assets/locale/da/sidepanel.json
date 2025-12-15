@@ -92,6 +92,10 @@
       "ask": "Ask",
       "open": "Open",
       "copy": "Copy"
+    },
+    "hint": {
+      "message": "Søg i din vidensbase og indsæt resultater i din besked.",
+      "dismiss": "Luk"
     }
   }
 }

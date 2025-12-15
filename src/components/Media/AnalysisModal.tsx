@@ -1,11 +1,12 @@
 import { useState, useEffect, useMemo } from 'react'
-import { Modal, Button, Select, Input, message } from 'antd'
+import { Modal, Button, Select, Input, message, Spin } from 'antd'
 import { Storage } from '@plasmohq/storage'
 import { useStorage } from '@plasmohq/storage/hook'
 import { useTranslation } from 'react-i18next'
 import { bgRequest } from '@/services/background-proxy'
 import { tldwModels } from '@/services/tldw'
 import { ANALYSIS_PRESETS } from "@/components/Media/analysisPresets"
+import { safeStorageSerde } from "@/utils/safe-storage"
 
 interface AnalysisModalProps {
   open: boolean
@@ -31,6 +32,7 @@ export function AnalysisModal({
   const [userPrefix, setUserPrefix] = useState('')
   const [generating, setGenerating] = useState(false)
   const [showPresets, setShowPresets] = useState(false)
+  const [elapsedSeconds, setElapsedSeconds] = useState(0)
 
   const presets = useMemo(
     () =>
@@ -74,7 +76,7 @@ export function AnalysisModal({
       let cancelled = false
       ;(async () => {
         try {
-          const storage = new Storage({ area: 'local' })
+          const storage = new Storage({ area: 'local', serde: safeStorageSerde } as any)
           const data = (await storage.get('media:analysisPrompts').catch(() => null)) as any
           if (!cancelled && data && typeof data === 'object') {
             if (typeof data.systemPrompt === 'string') setSystemPrompt(data.systemPrompt)
@@ -93,7 +95,7 @@ export function AnalysisModal({
 
   const handleSaveAsDefault = async () => {
     try {
-      const storage = new Storage({ area: 'local' })
+      const storage = new Storage({ area: 'local', serde: safeStorageSerde } as any)
       await storage.set('media:analysisPrompts', { systemPrompt, userPrefix })
       message.success(t('mediaPage.savedAsDefault', 'Saved as default prompts'))
     } catch {
@@ -121,6 +123,11 @@ export function AnalysisModal({
     }
 
     setGenerating(true)
+    setElapsedSeconds(0)
+    const startTime = Date.now()
+    const timer = setInterval(() => {
+      setElapsedSeconds(Math.floor((Date.now() - startTime) / 1000))
+    }, 1000)
     try {
       const body = {
         model: effectiveModel,
@@ -172,7 +179,9 @@ export function AnalysisModal({
       message.error(t('mediaPage.analysisGenerateFailed', 'Failed to generate analysis'))
       console.error('Generation error:', err)
     } finally {
+      clearInterval(timer)
       setGenerating(false)
+      setElapsedSeconds(0)
     }
   }
 
@@ -205,6 +214,22 @@ export function AnalysisModal({
       ]}
     >
       <div className="space-y-4">
+        {/* M9: Show indeterminate spinner with elapsed time instead of misleading progress bar */}
+        {generating && (
+          <div className="rounded-md border border-blue-200 bg-blue-50 dark:border-blue-700 dark:bg-blue-900/20 p-3">
+            <div className="flex items-center gap-3">
+              <Spin size="small" />
+              <div className="flex-1">
+                <div className="text-sm font-medium text-blue-900 dark:text-blue-100">
+                  {t('mediaPage.generatingAnalysis', 'Generating analysis...')}
+                </div>
+                <div className="text-xs text-blue-700 dark:text-blue-300">
+                  {t('mediaPage.elapsedTime', 'Elapsed: {{seconds}}s', { seconds: elapsedSeconds })}
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
         <div>
           <label
             htmlFor="media-analysis-model"

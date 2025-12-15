@@ -1,4 +1,5 @@
 import { Storage } from "@plasmohq/storage"
+import { safeStorageSerde } from "@/utils/safe-storage"
 import { bgRequest, bgStream, bgUpload } from "@/services/background-proxy"
 import { isPlaceholderApiKey } from "@/utils/api-key"
 
@@ -210,8 +211,9 @@ export class TldwApiClient {
 
   constructor() {
     this.storage = new Storage({
-      area: "local"
-    })
+      area: "local",
+      serde: safeStorageSerde
+    } as any)
   }
 
   private getEnvApiKey(): string | null {

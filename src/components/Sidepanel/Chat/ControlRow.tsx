@@ -13,10 +13,13 @@ import {
 } from "lucide-react"
 import React from "react"
 import { useTranslation } from "react-i18next"
+import { BsIncognito } from "react-icons/bs"
 import { ModelSelect } from "@/components/Common/ModelSelect"
 import { PromptSelect } from "@/components/Common/PromptSelect"
 import { SaveStatusIcon } from "./SaveStatusIcon"
 import { useServerCapabilities } from "@/hooks/useServerCapabilities"
+import { formatShortcut, isMac } from "@/hooks/useKeyboardShortcuts"
+import { useFeatureFlag, FEATURE_FLAGS } from "@/hooks/useFeatureFlags"
 
 interface ControlRowProps {
   // Prompt selection
@@ -59,6 +62,7 @@ export const ControlRow: React.FC<ControlRowProps> = ({
   const [moreOpen, setMoreOpen] = React.useState(false)
   const moreBtnRef = React.useRef<HTMLButtonElement>(null)
   const { capabilities } = useServerCapabilities()
+  const [newChatUx] = useFeatureFlag(FEATURE_FLAGS.NEW_CHAT)
 
   const openOptionsPage = React.useCallback((hash: string) => {
     try {
@@ -136,12 +140,22 @@ export const ControlRow: React.FC<ControlRowProps> = ({
           <Eye className="size-3.5" />
           {t("sidepanel:controlRow.vision", "Vision")}
         </span>
-        <Switch
-          size="small"
-          checked={chatMode === "vision"}
-          disabled={chatMode === "rag"}
-          onChange={(checked) => setChatMode(checked ? "vision" : "normal")}
-        />
+        {/* L12: Always show tooltip for disabled controls for better accessibility */}
+        <Tooltip
+          title={
+            chatMode === "rag"
+              ? t("sidepanel:controlRow.visionDisabledRag", "Disable RAG mode to use Vision")
+              : t("sidepanel:controlRow.visionTooltip", "Enable Vision to analyze images")
+          }
+          open={chatMode === "rag" ? undefined : false}
+        >
+          <Switch
+            size="small"
+            checked={chatMode === "vision"}
+            disabled={chatMode === "rag"}
+            onChange={(checked) => setChatMode(checked ? "vision" : "normal")}
+          />
+        </Tooltip>
       </div>
 
       <div className="h-px bg-gray-200 dark:bg-gray-700 my-1" />
@@ -214,31 +228,92 @@ export const ControlRow: React.FC<ControlRowProps> = ({
     </div>
   )
 
-  return (
-    <div className="flex items-center gap-1">
-      {/* Prompt & Model selectors */}
-      <div className="flex items-center gap-1">
+  // New UX: Flattened controls with labels and keyboard hints
+  if (newChatUx) {
+    return (
+      <div data-testid="control-row" className="flex items-center gap-1.5 flex-wrap">
+        {/* Ephemeral mode indicator badge */}
+        {temporaryChat && (
+          <Tooltip title={t("sidepanel:controlRow.ephemeralModeActive", "Ephemeral mode: chat won't be saved")}>
+            <div className="flex items-center gap-1 px-1.5 py-0.5 rounded text-xs font-medium bg-purple-100 text-purple-700 dark:bg-purple-900/30 dark:text-purple-300 border border-purple-200 dark:border-purple-700">
+              <BsIncognito className="size-3" />
+              <span>{t("sidepanel:controlRow.ephemeralBadge", "Ephemeral")}</span>
+            </div>
+          </Tooltip>
+        )}
+
+        {/* Prompt & Model selectors */}
         <PromptSelect
           selectedSystemPrompt={selectedSystemPrompt}
           setSelectedSystemPrompt={setSelectedSystemPrompt}
           setSelectedQuickPrompt={setSelectedQuickPrompt}
           iconClassName="size-4"
-          className="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100"
+          className="text-gray-600 dark:text-gray-200 hover:text-gray-900 dark:hover:text-gray-100"
         />
         <ModelSelect iconClassName="size-4" showSelectedName />
-      </div>
 
-      {/* RAG, Save, More */}
-      <div className="flex items-center gap-0.5">
-        {/* RAG Search Toggle */}
-        <Tooltip title={t("sidepanel:controlRow.ragSearch", "RAG Search")}>
+        {/* Divider */}
+        <div className="h-4 w-px bg-gray-200 dark:bg-gray-700 mx-0.5" />
+
+        {/* RAG Toggle - with label and shortcut */}
+        <button
+          type="button"
+          data-testid="control-rag-toggle"
+          onClick={onToggleRag}
+          className={`flex items-center gap-1.5 px-2 py-1 rounded text-sm font-medium focus:outline-none focus-visible:ring-2 focus-visible:ring-pink-700 transition-colors ${
+            chatMode === "rag"
+              ? "bg-pink-100 dark:bg-pink-900/30 text-pink-700 dark:text-pink-300 hover:bg-pink-200 dark:hover:bg-pink-900/40"
+              : "text-gray-600 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-700"
+          }`}
+          aria-label={t("sidepanel:controlRow.ragSearch", "RAG Search")}
+          aria-pressed={chatMode === "rag"}
+        >
+          <Search className="size-3.5" />
+          <span className="hidden sm:inline">{t("sidepanel:controlRow.rag", "RAG")}</span>
+        </button>
+
+        {/* Web Search Toggle - with label and shortcut (if available) */}
+        {capabilities?.hasWebSearch && (
           <button
             type="button"
-            onClick={onToggleRag}
-            className="p-1.5 rounded hover:bg-gray-200 dark:hover:bg-gray-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-pink-700"
-            aria-label={t("sidepanel:controlRow.ragSearch", "RAG Search")}
+            data-testid="control-web-toggle"
+            onClick={() => setWebSearch(!webSearch)}
+            className={`flex items-center gap-1.5 px-2 py-1 rounded text-sm font-medium focus:outline-none focus-visible:ring-2 focus-visible:ring-pink-700 transition-colors ${
+              webSearch
+                ? "bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 hover:bg-blue-200 dark:hover:bg-blue-900/40"
+                : "text-gray-600 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-700"
+            }`}
+            aria-label={t("sidepanel:controlRow.webSearch", "Web Search")}
+            aria-pressed={webSearch}
           >
-            <Search className="size-4 text-gray-500 dark:text-gray-400" />
+            <Globe className="size-3.5" />
+            <span className="hidden sm:inline">{t("sidepanel:controlRow.web", "Web")}</span>
+          </button>
+        )}
+
+        {/* Vision Toggle - with label */}
+        <Tooltip
+          title={
+            chatMode === "rag"
+              ? t("sidepanel:controlRow.visionDisabledRag", "Disable RAG mode to use Vision")
+              : undefined
+          }
+        >
+          <button
+            type="button"
+            data-testid="control-vision-toggle"
+            onClick={() => setChatMode(chatMode === "vision" ? "normal" : "vision")}
+            disabled={chatMode === "rag"}
+            className={`flex items-center gap-1.5 px-2 py-1 rounded text-sm font-medium focus:outline-none focus-visible:ring-2 focus-visible:ring-pink-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed ${
+              chatMode === "vision"
+                ? "bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300 hover:bg-green-200 dark:hover:bg-green-900/40"
+                : "text-gray-600 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-700"
+            }`}
+            aria-label={t("sidepanel:controlRow.vision", "Vision")}
+            aria-pressed={chatMode === "vision"}
+          >
+            <Eye className="size-3.5" />
+            <span className="hidden sm:inline">{t("sidepanel:controlRow.vision", "Vision")}</span>
           </button>
         </Tooltip>
 
@@ -253,7 +328,97 @@ export const ControlRow: React.FC<ControlRowProps> = ({
         <Popover
           trigger="click"
           open={moreOpen}
-          onOpenChange={setMoreOpen}
+          onOpenChange={(visible) => {
+            setMoreOpen(visible)
+            if (!visible) {
+              requestAnimationFrame(() => moreBtnRef.current?.focus())
+            }
+          }}
+          content={moreMenuContent}
+          placement="topRight"
+        >
+          <button
+            ref={moreBtnRef}
+            type="button"
+            data-testid="control-more-menu"
+            className="p-1.5 rounded hover:bg-gray-200 dark:hover:bg-gray-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-pink-700"
+            aria-label={t("sidepanel:controlRow.moreTools", "More tools")}
+            aria-haspopup="menu"
+            aria-expanded={moreOpen}
+          >
+            <MoreHorizontal className="size-4 text-gray-500 dark:text-gray-400" />
+          </button>
+        </Popover>
+      </div>
+    )
+  }
+
+  // Original UX (fallback)
+  return (
+    <div data-testid="control-row" className="flex items-center gap-1">
+      {/* Ephemeral mode indicator badge */}
+      {temporaryChat && (
+        <Tooltip title={t("sidepanel:controlRow.ephemeralModeActive", "Ephemeral mode: chat won't be saved")}>
+          <div className="flex items-center gap-1 px-1.5 py-0.5 rounded text-xs font-medium bg-purple-100 text-purple-700 dark:bg-purple-900/30 dark:text-purple-300 border border-purple-200 dark:border-purple-700">
+            <BsIncognito className="size-3" />
+            <span>{t("sidepanel:controlRow.ephemeralBadge", "Ephemeral")}</span>
+          </div>
+        </Tooltip>
+      )}
+
+      {/* Prompt & Model selectors */}
+      <div className="flex items-center gap-1">
+        <PromptSelect
+          selectedSystemPrompt={selectedSystemPrompt}
+          setSelectedSystemPrompt={setSelectedSystemPrompt}
+          setSelectedQuickPrompt={setSelectedQuickPrompt}
+          iconClassName="size-4"
+          className="text-gray-600 dark:text-gray-200 hover:text-gray-900 dark:hover:text-gray-100"
+        />
+        <ModelSelect iconClassName="size-4" showSelectedName />
+      </div>
+
+      {/* RAG, Save, More */}
+      <div className="flex items-center gap-0.5">
+        {/* RAG Search Toggle */}
+        <Tooltip title={t("sidepanel:controlRow.ragSearch", "RAG Search")}>
+          <button
+            type="button"
+            onClick={onToggleRag}
+            className={`p-1.5 rounded focus:outline-none focus-visible:ring-2 focus-visible:ring-pink-700 transition-colors ${
+              chatMode === "rag"
+                ? "bg-pink-100 dark:bg-pink-900/30 hover:bg-pink-200 dark:hover:bg-pink-900/40"
+                : "hover:bg-gray-200 dark:hover:bg-gray-700"
+            }`}
+            aria-label={t("sidepanel:controlRow.ragSearch", "RAG Search")}
+            aria-pressed={chatMode === "rag"}
+          >
+            <Search className={`size-4 transition-colors ${
+              chatMode === "rag"
+                ? "text-pink-700 dark:text-pink-400"
+                : "text-gray-500 dark:text-gray-400"
+            }`} />
+          </button>
+        </Tooltip>
+
+        {/* Save Status Icon */}
+        <SaveStatusIcon
+          temporaryChat={temporaryChat}
+          serverChatId={serverChatId}
+          onClick={handleSaveClick}
+        />
+
+        {/* More Tools Menu */}
+        <Popover
+          trigger="click"
+          open={moreOpen}
+          onOpenChange={(visible) => {
+            setMoreOpen(visible)
+            // L11: Restore focus to More button when popover closes
+            if (!visible) {
+              requestAnimationFrame(() => moreBtnRef.current?.focus())
+            }
+          }}
           content={moreMenuContent}
           placement="topRight"
         >

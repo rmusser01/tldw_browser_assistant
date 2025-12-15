@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
-import { Tag, Card, Space, Typography, Button, Alert, Tooltip } from 'antd'
+import { Tag, Card, Space, Typography, Button, Alert, Tooltip, InputNumber, Spin } from 'antd'
 import { browser } from 'wxt/browser'
 import { Link, useNavigate } from 'react-router-dom'
 import { tldwClient } from '@/services/tldw/TldwApiClient'
@@ -110,6 +110,7 @@ export default function HealthStatus() {
   const checks = makeChecks(t)
   const [results, setResults] = useState<Record<string, Result>>({})
   const [loading, setLoading] = useState(false)
+  const [runningChecks, setRunningChecks] = useState<Set<string>>(new Set())
   const [serverUrl, setServerUrl] = useState<string>('')
   const [coreStatus, setCoreStatus] = useState<'unknown'|'connected'|'failed'>('unknown')
   const [autoRefresh, setAutoRefresh] = useState<boolean>(false)
@@ -130,6 +131,7 @@ export default function HealthStatus() {
   const storeHost = storeServerUrl ? cleanUrl(storeServerUrl) : null
 
   const runSingle = async (c: Check): Promise<boolean> => {
+    setRunningChecks(prev => new Set(prev).add(c.key))
     const t0 = performance.now()
     try {
       const resp = await apiSend({ path: c.path, method: 'GET' })
@@ -162,6 +164,12 @@ export default function HealthStatus() {
         }
       }))
       return false
+    } finally {
+      setRunningChecks(prev => {
+        const next = new Set(prev)
+        next.delete(c.key)
+        return next
+      })
     }
   }
 
@@ -207,26 +215,35 @@ export default function HealthStatus() {
   }
 
   const recheckOne = async (c: Check) => {
-    if (loading || isRunningRef.current) return
+    if (runningChecks.has(c.key)) return
     const prev = results[c.key]?.status
     const ok = await runSingle(c)
-    if (ok && prev !== 'healthy') {
-      setRecentHealthy(prevSet => {
-        const next = new Set(prevSet)
-        next.add(c.key)
-        return next
-      })
-      setTimeout(() => {
+    // Show success feedback even if check was already healthy
+    if (ok) {
+      if (prev !== 'healthy') {
         setRecentHealthy(prevSet => {
           const next = new Set(prevSet)
-          next.delete(c.key)
+          next.add(c.key)
           return next
         })
-      }, 1200)
+        setTimeout(() => {
+          setRecentHealthy(prevSet => {
+            const next = new Set(prevSet)
+            next.delete(c.key)
+            return next
+          })
+        }, 1200)
+      }
       notification.success({
-        message: t('settings:tldw.connection.success', 'Server responded successfully. You can continue.'),
+        message: t('settings:healthPage.recheckSuccess', 'Check passed'),
         placement: 'bottomRight',
         duration: 2
+      })
+    } else {
+      notification.warning({
+        message: t('settings:healthPage.recheckFailed', 'Check failed - see details below'),
+        placement: 'bottomRight',
+        duration: 3
       })
     }
   }
@@ -302,10 +319,10 @@ export default function HealthStatus() {
     uxState === "error_unreachable" || errorKind === "unreachable"
   const showDegradedCallout = uxState === "connected_degraded"
 
-  // Calculate summary stats
+  // Calculate summary stats based on current checks
   const totalChecks = checks.length
-  const healthyCount = Object.values(results).filter(r => r.status === 'healthy').length
-  const unhealthyCount = Object.values(results).filter(r => r.status === 'unhealthy').length
+  const healthyCount = checks.filter(c => results[c.key]?.status === 'healthy').length
+  const unhealthyCount = checks.filter(c => results[c.key]?.status === 'unhealthy').length
   const unknownCount = totalChecks - healthyCount - unhealthyCount
   const allChecked = unknownCount === 0
   const allHealthy = allChecked && unhealthyCount === 0
@@ -549,22 +566,38 @@ export default function HealthStatus() {
         <ServerOverviewHint />
       )}
 
+      {autoRefresh && showIntervalWarning && (
+        <Alert
+          type="warning"
+          showIcon
+          message={t(
+            'healthPage.autoRefreshWarningTitle',
+            'Auto-refresh is enabled with a short interval'
+          )}
+          description={t(
+            'healthPage.intervalWarning',
+            'Short intervals can put load on your server. Consider using at least {{seconds}}s.',
+            { seconds: SAFE_FLOOR_SEC }
+          )}
+          className="mb-4"
+        />
+      )}
+
       <div className="flex items-center gap-4">
         <label className="text-sm flex items-center gap-2">
           <input type="checkbox" checked={autoRefresh} onChange={(e) => setAutoRefresh(e.target.checked)} /> {t('healthPage.autoRefresh', 'Auto-refresh')}
         </label>
         <label className="text-sm flex items-center gap-2">
-          {t('healthPage.intervalLabel', 'Interval (s):')}
-          <input
-            type="number"
+          {t('healthPage.intervalLabel', 'Interval:')}
+          <InputNumber
             min={MIN_INTERVAL_SEC}
-            className="w-20 px-2 py-1 rounded border dark:bg-[#262626]"
+            className="w-32"
             value={intervalSec}
-            onChange={(e) => {
-              const raw = parseInt(e.target.value || "30", 10)
-              const next = Number.isFinite(raw) ? Math.max(MIN_INTERVAL_SEC, raw) : MIN_INTERVAL_SEC
+            onChange={(value) => {
+              const next = typeof value === 'number' ? Math.max(MIN_INTERVAL_SEC, value) : MIN_INTERVAL_SEC
               setIntervalSec(next)
             }}
+            suffix={t('healthPage.intervalSuffix', 'seconds')}
           />
         </label>
         {secondsSinceUpdate != null && (
@@ -579,15 +612,6 @@ export default function HealthStatus() {
             {t('healthPage.nextRefreshIn', 'Next auto-refresh in {{seconds}}s', {
               seconds: secondsUntilNext
             })}
-          </span>
-        )}
-        {showIntervalWarning && (
-          <span className="text-xs text-amber-600 dark:text-amber-400">
-            {t(
-              'healthPage.intervalWarning',
-              'Short intervals can put load on your server. Consider using at least {{seconds}}s.',
-              { seconds: SAFE_FLOOR_SEC }
-            )}
           </span>
         )}
       </div>
@@ -645,11 +669,21 @@ export default function HealthStatus() {
               detailText.length > MAX_DETAIL_CHARS
                 ? `${detailText.slice(0, MAX_DETAIL_CHARS)}…`
                 : detailText
+            const isCheckRunning = runningChecks.has(c.key)
             return (
               <Card
                 key={c.key}
                 title={c.label}
-                extra={<a onClick={() => recheckOne(c)}>{loading ? t('healthPage.checking', 'Checking…') : t('healthPage.recheck', 'Recheck')}</a>}
+                extra={
+                  isCheckRunning ? (
+                    <Space size="small">
+                      <Spin size="small" />
+                      <span className="text-gray-500">{t('healthPage.checking', 'Checking…')}</span>
+                    </Space>
+                  ) : (
+                    <a onClick={() => recheckOne(c)}>{t('healthPage.recheck', 'Recheck')}</a>
+                  )
+                }
                 role="group"
                 aria-label={`${c.label}: ${statusLabel}`}
               >

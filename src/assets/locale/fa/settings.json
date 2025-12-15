@@ -81,7 +81,8 @@
         "label": "Resume the last chat when opening the Web UI"
       },
       "enableOcrAssets": {
-        "label": "Enable OCR (downloads ~5MB on first use)"
+        "label": "Enable OCR (downloads ~5MB on first use)",
+        "downloadNotice": "با فعال کردن OCR، در اولین استفاده حدود 5 مگابایت دادهٔ زبان دانلود می‌شود."
       },
       "ocrLanguage": {
         "label": "Default OCR Language",

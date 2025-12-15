@@ -92,6 +92,10 @@
       "ask": "Ask",
       "open": "Open",
       "copy": "Copy"
+    },
+    "hint": {
+      "message": "搜索你的知识库，并将结果插入到消息中。",
+      "dismiss": "关闭"
     }
   }
 }

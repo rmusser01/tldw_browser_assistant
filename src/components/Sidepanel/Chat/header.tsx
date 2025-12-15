@@ -44,6 +44,7 @@ import {
   useConnectionUxState
 } from "@/hooks/useConnectionState"
 import { Storage } from "@plasmohq/storage"
+import { createSafeStorage } from "@/utils/safe-storage"
 
 type SidepanelHeaderProps = {
   sidebarOpen?: boolean
@@ -480,7 +481,7 @@ export const SidepanelHeader = ({
               </button>
               <button
                 onClick={async () => {
-                  const storage = new Storage({ area: 'local' })
+                  const storage = createSafeStorage({ area: 'local' })
                   const current = (await storage.get<string>('uiMode')) || 'sidePanel'
                   const next = current === 'sidePanel' ? 'webui' : 'sidePanel'
                   await storage.set('uiMode', next)

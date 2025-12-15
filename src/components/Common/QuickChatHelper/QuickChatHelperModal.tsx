@@ -7,6 +7,9 @@ import { useQuickChatStore } from "@/store/quick-chat"
 import { QuickChatMessage } from "./QuickChatMessage"
 import { QuickChatInput } from "./QuickChatInput"
 import { browser } from "wxt/browser"
+// L18: Import connection state hooks
+import { useConnectionState } from "@/hooks/useConnectionState"
+import { ConnectionPhase } from "@/types/connection"
 
 type Props = {
   open: boolean
@@ -23,6 +26,9 @@ export const QuickChatHelperModal: React.FC<Props> = ({ open, onClose }) => {
     isStreaming,
     hasModel
   } = useQuickChat()
+  // L18: Get connection status
+  const { phase, isConnected } = useConnectionState()
+  const isConnectionReady = isConnected && phase === ConnectionPhase.CONNECTED
 
   // Scroll to bottom when messages change
   useEffect(() => {
@@ -30,6 +36,13 @@ export const QuickChatHelperModal: React.FC<Props> = ({ open, onClose }) => {
       messagesEndRef.current.scrollIntoView({ behavior: "smooth" })
     }
   }, [messages])
+
+  // Scroll to bottom when streaming ends to ensure all content is visible
+  useEffect(() => {
+    if (!isStreaming && messagesEndRef.current && messages.length > 0) {
+      messagesEndRef.current.scrollIntoView({ behavior: "smooth" })
+    }
+  }, [isStreaming, messages.length])
 
   const handlePopOut = useCallback(() => {
     // Serialize current state to sessionStorage
@@ -59,6 +72,10 @@ export const QuickChatHelperModal: React.FC<Props> = ({ open, onClose }) => {
     "Start a quick side chat to keep your main thread clean."
   )
   const popOutLabel = t("quickChatHelper.popOutButton", "Pop out")
+  const popOutDisabledTooltip = t(
+    "quickChatHelper.popOutDisabled",
+    "Pop-out is disabled when there are no messages. Start a conversation first."
+  )
   const descriptionId =
     messages.length === 0 ? "quick-chat-description" : undefined
 
@@ -66,8 +83,34 @@ export const QuickChatHelperModal: React.FC<Props> = ({ open, onClose }) => {
     <Modal
       title={
         <div className="flex items-center justify-between pr-8">
-          <span id="quick-chat-title">{title}</span>
-          <Tooltip title={popOutLabel}>
+          <div className="flex items-center gap-2">
+            <span id="quick-chat-title">{title}</span>
+            {/* L18: Connection status indicator */}
+            <Tooltip
+              title={
+                isConnectionReady
+                  ? t("common:connected", "Connected")
+                  : t("common:notConnected", "Not connected")
+              }
+            >
+              <span
+                className={`inline-flex h-2 w-2 rounded-full ${
+                  isConnectionReady
+                    ? "bg-green-500"
+                    : "bg-amber-500"
+                }`}
+                aria-label={
+                  isConnectionReady
+                    ? t("common:connected", "Connected")
+                    : t("common:notConnected", "Not connected")
+                }
+              />
+            </Tooltip>
+          </div>
+          <Tooltip
+            title={messages.length === 0 ? popOutDisabledTooltip : popOutLabel}
+            overlayStyle={messages.length === 0 ? { maxWidth: '200px' } : undefined}
+          >
             <Button
               type="text"
               size="small"

@@ -1,8 +1,8 @@
 import React from "react"
 import { useStorage } from "@plasmohq/storage/hook"
-import { CogIcon, Gauge, Mic, UserCircle2 } from "lucide-react"
+import { CogIcon, Gauge, UserCircle2 } from "lucide-react"
 import { useTranslation } from "react-i18next"
-import { useLocation, NavLink, useNavigate } from "react-router-dom"
+import { useLocation, useNavigate } from "react-router-dom"
 import { ModelSelect } from "../Common/ModelSelect"
 import { PromptSelect } from "../Common/PromptSelect"
 import PromptSearch from "../Common/PromptSearch"
@@ -12,22 +12,8 @@ import { fetchChatModels } from "@/services/tldw-server"
 import { getTitleById, updateHistory } from "@/db"
 import { useStoreChatModelSettings } from "@/store/model"
 import { useMessageOption } from "~/hooks/useMessageOption"
-import { Avatar, Select, Input, Divider, Dropdown, Tooltip } from "antd"
-import QuickIngestModal from "../Common/QuickIngestModal"
-import {
-  UploadCloud,
-  Microscope,
-  BookText,
-  LayoutGrid,
-  StickyNote,
-  Layers,
-  NotebookPen,
-  BookMarked,
-  BookOpen,
-  ChevronDown,
-  Github,
-  GitBranch
-} from "lucide-react"
+import { Avatar, Select, Input, Divider, Tooltip } from "antd"
+import { LayoutGrid, Github, GitBranch } from "lucide-react"
 import { getAllPrompts } from "@/db/dexie/helpers"
 import { ProviderIcons } from "../Common/ProviderIcon"
 import logoImage from "~/assets/icon.png"
@@ -36,20 +22,16 @@ import { MoreOptions } from "./MoreOptions"
 import { browser } from "wxt/browser"
 import { CharacterSelect } from "../Common/CharacterSelect"
 import { PrimaryToolbar } from "./PrimaryToolbar"
-import { useConnectionState } from "@/hooks/useConnectionState"
-import {
-  useShortcutConfig,
-  formatShortcut
-} from "@/hooks/keyboard/useShortcutConfig"
-import { ConnectionPhase } from "@/types/connection"
 import type { Character } from "@/types/character"
-import type { TFunction } from "i18next"
-import { Link } from "react-router-dom"
-import { hasPromptStudio } from "@/services/prompt-studio"
 import OmniSearchBar from "../Common/OmniSearchBar"
 import { useOmniSearchDeps } from "@/hooks/useOmniSearchDeps"
-import { useQuickIngestStore } from "@/store/quick-ingest"
 import { useTimelineStore } from "@/store/timeline"
+
+// Extracted components for better maintainability
+import { ModeSelector, type CoreMode } from "./ModeSelector"
+import { ConnectionStatus } from "./ConnectionStatus"
+import { QuickIngestButton } from "./QuickIngestButton"
+import { HeaderShortcuts } from "./HeaderShortcuts"
 
 const classNames = (...classes: (string | false | null | undefined)[]) =>
   classes.filter(Boolean).join(" ")
@@ -59,34 +41,6 @@ type Props = {
   setOpenModelSettings: (open: boolean) => void
   showSelectors?: boolean
 }
-
-type NavigationItem =
-  | {
-      type: "link"
-      to: string
-      icon: React.ComponentType<{ className?: string }>
-      label: string
-    }
-  | {
-      type: "component"
-      key: string
-      node: React.ReactNode
-    }
-
-type CoreMode =
-  | "playground"
-  | "media"
-  | "mediaMulti"
-  | "knowledge"
-  | "notes"
-  | "prompts"
-  | "stt"
-  | "promptStudio"
-  | "flashcards"
-  | "worldBooks"
-  | "dictionaries"
-  | "characters"
-  | "tts"
 
 export const Header: React.FC<Props> = ({
   setOpenModelSettings,
@@ -102,10 +56,6 @@ export const Header: React.FC<Props> = ({
   const isRTL = i18n?.dir() === "rtl"
 
   const [shareModeEnabled] = useStorage("shareMode", false)
-  const [hideCurrentChatModelSettings] = useStorage(
-    "hideCurrentChatModelSettings",
-    false
-  )
   const [selectedCharacter] = useStorage<Character | null>(
     "selectedCharacter",
     null
@@ -129,8 +79,7 @@ export const Header: React.FC<Props> = ({
   const isOnline = useServerOnline()
   const {
     data: models,
-    isLoading: isModelsLoading,
-    refetch
+    isLoading: isModelsLoading
   } = useQuery({
     queryKey: ["fetchModel"],
     queryFn: () => fetchChatModels({ returnEmpty: true }),
@@ -139,127 +88,22 @@ export const Header: React.FC<Props> = ({
     enabled: isOnline
   })
 
-  const promptStudioCapability = useQuery({
-    queryKey: ["prompt-studio", "capability-header"],
-    queryFn: hasPromptStudio,
-    enabled: isOnline,
-    staleTime: 60_000
-  })
-
-  const { data: prompts, isLoading: isPromptLoading } = useQuery({
+  const { data: prompts } = useQuery({
     queryKey: ["fetchAllPromptsLayout"],
     queryFn: getAllPrompts
   })
 
   const { pathname } = useLocation()
   const navigate = useNavigate()
-  const [moreMenuOpen, setMoreMenuOpen] = React.useState(false)
   const [chatTitle, setChatTitle] = React.useState("")
   const [isEditingTitle, setIsEditingTitle] = React.useState(false)
-  const [quickIngestOpen, setQuickIngestOpen] = React.useState(false)
-  const [quickIngestAutoProcessQueued, setQuickIngestAutoProcessQueued] =
-    React.useState(false)
-  const quickIngestReadyRef = React.useRef(false)
-  const pendingQuickIngestIntroRef = React.useRef(false)
-  const { queuedQuickIngestCount, quickIngestHadFailure } = useQuickIngestStore(
-    (s) => ({
-      queuedQuickIngestCount: s.queuedCount,
-      quickIngestHadFailure: s.hadRecentFailure
-    })
-  )
 
-  const { phase, isConnected } = useConnectionState()
-  const { shortcuts: shortcutConfig } = useShortcutConfig()
-  const quickIngestBtnRef = React.useRef<HTMLButtonElement>(null)
-  const hasQueuedQuickIngest = queuedQuickIngestCount > 0
   const canOpenTimeline = Boolean(historyId) && !temporaryChat && historyId !== "temp"
 
   const handleOpenTimeline = React.useCallback(() => {
     if (!historyId || temporaryChat || historyId === "temp") return
     void openTimeline(historyId)
   }, [historyId, openTimeline, temporaryChat])
-
-  const quickIngestAriaLabel = React.useMemo(() => {
-    const base = t("option:header.quickIngest", "Quick ingest")
-    if (!hasQueuedQuickIngest) {
-      return base
-    }
-
-    const queuedText = t(
-      "option:header.quickIngestQueuedAria",
-      "{{label}} — {{count}} items queued — click to review and process",
-      {
-        label: base,
-        count: queuedQuickIngestCount
-      }
-    )
-
-    if (quickIngestHadFailure) {
-      const failureHint = t(
-        "quickIngest.healthAriaHint",
-        "Recent runs failed — open Health & diagnostics from the header for more details."
-      )
-      return `${queuedText} ${failureHint}`
-    }
-
-    return queuedText
-  }, [hasQueuedQuickIngest, queuedQuickIngestCount, quickIngestHadFailure, t])
-
-  const openQuickIngest = React.useCallback(
-    (options?: { autoProcessQueued?: boolean; focusTrigger?: boolean }) => {
-      const { autoProcessQueued = false, focusTrigger = true } = options || {}
-      setQuickIngestAutoProcessQueued(autoProcessQueued)
-      setQuickIngestOpen(true)
-      if (focusTrigger) {
-        requestAnimationFrame(() => {
-          quickIngestBtnRef.current?.focus()
-        })
-      }
-    },
-    []
-  )
-
-  React.useEffect(() => {
-    const handler = () => {
-      openQuickIngest()
-    }
-    window.addEventListener("tldw:open-quick-ingest", handler)
-    return () => {
-      window.removeEventListener("tldw:open-quick-ingest", handler)
-    }
-  }, [openQuickIngest])
-
-  React.useEffect(() => {
-    const markQuickIngestReady = () => {
-      quickIngestReadyRef.current = true
-      if (pendingQuickIngestIntroRef.current) {
-        pendingQuickIngestIntroRef.current = false
-        window.dispatchEvent(new CustomEvent("tldw:quick-ingest-force-intro"))
-      }
-    }
-    window.addEventListener("tldw:quick-ingest-ready", markQuickIngestReady)
-    return () => {
-      window.removeEventListener(
-        "tldw:quick-ingest-ready",
-        markQuickIngestReady
-      )
-    }
-  }, [])
-
-  React.useEffect(() => {
-    const handler = () => {
-      openQuickIngest({ focusTrigger: false })
-      if (quickIngestReadyRef.current) {
-        window.dispatchEvent(new CustomEvent("tldw:quick-ingest-force-intro"))
-      } else {
-        pendingQuickIngestIntroRef.current = true
-      }
-    }
-    window.addEventListener("tldw:open-quick-ingest-intro", handler)
-    return () => {
-      window.removeEventListener("tldw:open-quick-ingest-intro", handler)
-    }
-  }, [openQuickIngest])
 
   const currentCoreMode: CoreMode = React.useMemo(() => {
     if (pathname.startsWith("/review") || pathname.startsWith("/media-multi"))
@@ -371,19 +215,6 @@ export const Header: React.FC<Props> = ({
     }
   }
 
-  // When the More menu opens, focus the first interactive item for a11y
-  React.useEffect(() => {
-    if (!moreMenuOpen) return
-    const id = requestAnimationFrame(() => {
-      const menu = document.getElementById("header-more-menu")
-      const first = menu?.querySelector<HTMLElement>(
-        'button, a, [tabindex]:not([tabindex="-1"])'
-      )
-      first?.focus()
-    })
-    return () => cancelAnimationFrame(id)
-  }, [moreMenuOpen])
-
   React.useEffect(() => {
     ;(async () => {
       try {
@@ -426,259 +257,7 @@ export const Header: React.FC<Props> = ({
     }
   }
 
-  const navigationGroups = React.useMemo(
-    (): Array<{ title: string; items: NavigationItem[] }> => [
-      {
-        title: t("option:header.groupChatting", "Chatting"),
-        items: [
-          {
-            type: "link" as const,
-            to: "/",
-            icon: Layers,
-            label: t("option:header.modePlayground", "Chat")
-          },
-          {
-            type: "link" as const,
-            to: "/prompts",
-            icon: NotebookPen,
-            label: t("option:header.modePromptsPlayground", "Prompts")
-          },
-          {
-            type: "link" as const,
-            to: "/characters",
-            icon: UserCircle2,
-            label: t("option:header.modeCharacters", "Characters")
-          },
-          {
-            type: "link" as const,
-            to: "/dictionaries",
-            icon: BookMarked,
-            label: t("option:header.modeDictionaries", "Chat dictionaries")
-          },
-          {
-            type: "link" as const,
-            to: "/world-books",
-            icon: BookOpen,
-            label: t("option:header.modeWorldBooks", "World Books")
-          }
-        ]
-      },
-      {
-        title: t("option:header.groupKnowledge", "Knowledge"),
-        items: [
-          {
-            type: "link" as const,
-            to: "/media",
-            icon: BookText,
-            label: t("option:header.media", "Media")
-          },
-          {
-            type: "link" as const,
-            to: "/media-multi",
-            icon: LayoutGrid,
-            label: t("option:header.libraryView", "Multi-Item Review")
-          },
-          {
-            type: "link" as const,
-            to: "/flashcards",
-            icon: Layers,
-            label: t("option:header.flashcards", "Flashcards")
-          },
-          {
-            type: "link" as const,
-            to: "/notes",
-            icon: StickyNote,
-            label: t("option:header.notes", "Notes")
-          }
-        ]
-      },
-      {
-        title: t("option:header.groupWorkspace", "Workspace"),
-        items: [
-          {
-            type: "link" as const,
-            to: "/evaluations",
-            icon: Microscope,
-            label: t("option:header.evaluations", "Evaluations")
-          },
-          {
-            type: "link" as const,
-            to: "/stt",
-            icon: Mic,
-            label: t("option:header.modeStt", "STT Playground")
-          },
-          {
-            type: "link" as const,
-            to: "/tts",
-            icon: Gauge,
-            label: t("option:tts.playground", "TTS Playground")
-          },
-          {
-            type: "link" as const,
-            to: "/prompt-studio",
-            icon: NotebookPen,
-            label: t("option:header.modePromptStudio", "Prompt Studio")
-          }
-        ]
-      },
-      {
-        title: t("option:header.groupAdministration", "Administration"),
-        items: [
-          {
-            type: "link" as const,
-            to: "/admin/server",
-            icon: CogIcon,
-            label: t("option:header.adminServer", "Server Admin")
-          },
-          {
-            type: "link" as const,
-            to: "/admin/llamacpp",
-            icon: Microscope,
-            label: t("option:header.adminLlamacpp", "Llama.cpp Admin")
-          },
-          {
-            type: "link" as const,
-            to: "/admin/mlx",
-            icon: Gauge,
-            label: t("option:header.adminMlx", "MLX LM Admin")
-          }
-        ]
-      },
-      {
-        title: t("option:header.groupSettings", "Settings shortcuts"),
-        items: [
-          {
-            type: "link" as const,
-            to: "/settings",
-            icon: CogIcon,
-            label: t("settings")
-          }
-        ]
-      }
-    ],
-    [t]
-  )
-
-  const [shortcutsPreference, setShortcutsPreference] = useStorage<boolean>(
-    "headerShortcutsExpanded",
-    false
-  )
-
-  type DebouncedShortcutsSetter = ((value: boolean) => void) & {
-    cancel: () => void
-  }
-
-  const debouncedSetShortcutsPreference =
-    React.useMemo<DebouncedShortcutsSetter>(() => {
-      let timeoutId: number | undefined
-
-      const fn = ((value: boolean) => {
-        if (timeoutId !== undefined) {
-          window.clearTimeout(timeoutId)
-        }
-        timeoutId = window.setTimeout(() => {
-          timeoutId = undefined
-          try {
-            setShortcutsPreference(value)
-          } catch {
-            // ignore storage write failures
-          }
-        }, 500)
-      }) as DebouncedShortcutsSetter
-
-      fn.cancel = () => {
-        if (timeoutId !== undefined) {
-          window.clearTimeout(timeoutId)
-          timeoutId = undefined
-        }
-      }
-
-      return fn
-    }, [setShortcutsPreference])
-
-  // Track the shortcuts collapse state locally; onboarding and settings
-  // may choose a default, but we avoid frequent writes while toggling.
-  const [shortcutsExpanded, setShortcutsExpanded] = React.useState(() =>
-    Boolean(shortcutsPreference)
-  )
-  const shortcutsToggleRef = React.useRef<HTMLButtonElement>(null)
-  const shortcutsContainerRef = React.useRef<HTMLDivElement>(null)
-  const shortcutsSectionId = "header-shortcuts-section"
-
-  type StatusKind = "unknown" | "ok" | "fail"
-
-  const coreStatus: StatusKind =
-    phase === ConnectionPhase.SEARCHING
-      ? "unknown"
-      : isConnected && phase === ConnectionPhase.CONNECTED
-        ? "ok"
-        : phase === ConnectionPhase.ERROR
-          ? "fail"
-          : "unknown"
-
-  const statusLabelForCore = (status: StatusKind): string => {
-    if (phase === ConnectionPhase.UNCONFIGURED) {
-      return t(
-        "settings:healthSummary.coreUnconfigured",
-        "Server: Not configured"
-      )
-    }
-    if (status === "ok") {
-      return t("settings:healthSummary.coreOnline", "Server: Online")
-    }
-    if (status === "fail") {
-      return t("settings:healthSummary.coreOffline", "Server: Offline")
-    }
-    return t("settings:healthSummary.coreChecking", "Server: Checking…")
-  }
-
-  const StatusDot = ({ status }: { status: StatusKind }) => (
-    <span
-      aria-hidden
-      className={`inline-block h-2 w-2 rounded-full ${
-        status === "ok"
-          ? "bg-green-500"
-          : status === "fail"
-            ? "bg-red-500"
-            : "bg-gray-400"
-      }`}
-    />
-  )
-
   const isChatRoute = currentCoreMode === "playground"
-
-  React.useEffect(() => {
-    setShortcutsExpanded(Boolean(shortcutsPreference))
-  }, [shortcutsPreference])
-
-  React.useEffect(() => {
-    return () => {
-      debouncedSetShortcutsPreference.cancel()
-    }
-  }, [debouncedSetShortcutsPreference])
-
-  // Manage focus for accessibility when expanding/collapsing
-  React.useEffect(() => {
-    if (shortcutsExpanded) {
-      // Wait for the shortcuts container to mount, then focus the first
-      // interactive element so keyboard users can continue naturally
-      requestAnimationFrame(() => {
-        const container = shortcutsContainerRef.current
-        if (!container) return
-        const firstFocusable = container.querySelector<HTMLElement>(
-          'a, button, [tabindex]:not([tabindex="-1"])'
-        )
-        firstFocusable?.focus()
-      })
-    } else {
-      // If focus is currently inside the shortcuts container, return it to the toggle
-      const container = shortcutsContainerRef.current
-      const active = document.activeElement
-      if (container && active && container.contains(active)) {
-        shortcutsToggleRef.current?.focus()
-      }
-    }
-  }, [shortcutsExpanded])
 
   return (
     <header
@@ -969,94 +548,11 @@ export const Header: React.FC<Props> = ({
           <div />
 
           <div className="flex justify-center">
-            <div className="flex items-center gap-3">
-              <button
-                type="button"
-                ref={quickIngestBtnRef}
-                onClick={() => {
-                  openQuickIngest()
-                }}
-                data-testid="open-quick-ingest"
-                aria-label={quickIngestAriaLabel}
-                title={
-                  t(
-                    "playground:tooltip.quickIngest",
-                    t(
-                      "option:header.quickIngestHelp",
-                      "Stage URLs and files for processing, even while your server is offline."
-                    )
-                  ) as string
-                }
-                className={classNames(
-                  "relative inline-flex min-w-[180px] items-center justify-center gap-2 rounded-full border border-transparent px-4 py-2 text-sm font-medium transition hover:border-gray-300 hover:bg-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-500 dark:hover:border-gray-500 dark:hover:bg-[#1f1f1f]",
-                  "text-gray-600 dark:text-gray-200"
-                )}
-                data-has-queued-ingest={hasQueuedQuickIngest ? "true" : "false"}
-                aria-disabled={false}>
-                <UploadCloud className="h-3 w-3" aria-hidden="true" />
-                <span>{t("option:header.quickIngest", "Quick ingest")}</span>
-                {hasQueuedQuickIngest && (
-                  <span className="absolute -top-1 -right-1 inline-flex h-4 min-w-4 items-center justify-center rounded-full bg-blue-600 px-1 text-[9px] font-semibold text-white">
-                    {queuedQuickIngestCount > 9 ? "9+" : queuedQuickIngestCount}
-                  </span>
-                )}
-              </button>
-              {hasQueuedQuickIngest && (
-                <button
-                  type="button"
-                  data-testid="process-queued-ingest-header"
-                  onClick={() => {
-                    openQuickIngest({
-                      autoProcessQueued: true,
-                      focusTrigger: false
-                    })
-                  }}
-                  className="inline-flex items-center rounded-full border border-transparent px-2 py-1 text-xs text-blue-600 hover:text-blue-500 dark:text-blue-400">
-                  {t(
-                    "quickIngest.processQueuedItemsShort",
-                    "Process queued items"
-                  )}
-                </button>
-              )}
-            </div>
+            <QuickIngestButton />
           </div>
 
           <div className="flex items-center justify-end gap-3">
-            <button
-              type="button"
-              onClick={() => navigate("/settings/health")}
-              className="inline-flex items-center gap-1 rounded-full border border-transparent px-2 py-1 text-xs transition hover:border-gray-300 hover:bg-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-500 dark:hover:border-gray-500 dark:hover:bg-[#1f1f1f]"
-              title={
-                t(
-                  "settings:healthSummary.coreAria",
-                  "Server status — click for diagnostics"
-                ) as string
-              }
-              aria-label={
-                t(
-                  "settings:healthSummary.fullDiagnosticsAria",
-                  "{{label}}. {{status}}. {{help}}",
-                  {
-                    label: t(
-                      "settings:healthSummary.diagnostics",
-                      "Health & diagnostics"
-                    ),
-                    status: statusLabelForCore(coreStatus),
-                    help: t(
-                      "settings:healthSummary.diagnosticsTooltip",
-                      "Open detailed diagnostics to troubleshoot or inspect health checks."
-                    )
-                  }
-                )
-              }>
-              <StatusDot status={coreStatus} />
-              <span>
-                {t(
-                  "settings:healthSummary.diagnostics",
-                  "Health & diagnostics"
-                )}
-              </span>
-            </button>
+            <ConnectionStatus />
 
             {!isChatRoute && (
               <>
@@ -1137,271 +633,13 @@ export const Header: React.FC<Props> = ({
         </div>
 
         <div className="flex flex-col gap-2 lg:flex-1">
-          <div className="flex flex-wrap items-center gap-2 text-xs">
-            <span className="font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400">
-              {t("option:header.modesLabel", "Modes")}
-            </span>
-            <div
-              className="flex flex-wrap gap-1"
-              role="tablist"
-              aria-label={t(
-                "option:header.modesAriaLabel",
-                "Application modes"
-              )}>
-              {(() => {
-                const primaryModes: Array<{
-                  key: CoreMode
-                  label: string
-                  shortcut?: import("@/hooks/keyboard/useKeyboardShortcuts").KeyboardShortcut
-                }> = [
-                  {
-                    key: "playground",
-                    label: t("option:header.modePlayground", "Chat"),
-                    shortcut: shortcutConfig.modePlayground
-                  },
-                  {
-                    key: "media",
-                    label: t("option:header.modeMedia", "Media"),
-                    shortcut: shortcutConfig.modeMedia
-                  },
-                  {
-                    key: "mediaMulti",
-                    label: t("option:header.libraryView", "Multi-Item Review"),
-                    shortcut: undefined
-                  },
-                  {
-                    key: "knowledge",
-                    label: t("option:header.modeKnowledge", "Knowledge QA"),
-                    shortcut: shortcutConfig.modeKnowledge
-                  },
-                  {
-                    key: "notes",
-                    label: t("option:header.modeNotes", "Notes"),
-                    shortcut: shortcutConfig.modeNotes
-                  },
-                  {
-                    key: "flashcards",
-                    label: t("option:header.modeFlashcards", "Flashcards"),
-                    shortcut: shortcutConfig.modeFlashcards
-                  },
-                  {
-                    key: "prompts",
-                    label: t("option:header.modePromptsPlayground", "Prompts"),
-                    shortcut: shortcutConfig.modePrompts
-                  }
-                ]
-                const secondaryModes: Array<{
-                  key: CoreMode
-                  label: string
-                  shortcut?: import("@/hooks/keyboard/useKeyboardShortcuts").KeyboardShortcut
-                }> = [
-                  {
-                    key: "stt",
-                    label: t("option:header.modeStt", "STT Playground"),
-                    shortcut: undefined
-                  },
-                  {
-                    key: "promptStudio",
-                    label: t("option:header.modePromptStudio", "Prompt Studio"),
-                    shortcut: undefined
-                  },
-                  {
-                    key: "worldBooks",
-                    label: t("option:header.modeWorldBooks", "World Books"),
-                    shortcut: shortcutConfig.modeWorldBooks
-                  },
-                  {
-                    key: "dictionaries",
-                    label: t(
-                      "option:header.modeDictionaries",
-                      "Chat dictionaries"
-                    ),
-                    shortcut: shortcutConfig.modeDictionaries
-                  },
-                  {
-                    key: "characters",
-                    label: t("option:header.modeCharacters", "Characters"),
-                    shortcut: shortcutConfig.modeCharacters
-                  }
-                ]
-                const renderModeButton = (mode: (typeof primaryModes)[0]) => {
-                  const promptStudioUnavailable =
-                    mode.key === "promptStudio" &&
-                    promptStudioCapability.data === false
-                  const isSelected = currentCoreMode === mode.key
-                  return (
-                    <button
-                      key={mode.key}
-                      type="button"
-                      role="tab"
-                      aria-selected={isSelected}
-                      onClick={() => {
-                        if (promptStudioUnavailable) return
-                        handleCoreModeChange(mode.key)
-                      }}
-                      disabled={promptStudioUnavailable}
-                      aria-disabled={promptStudioUnavailable}
-                      title={
-                        mode.shortcut
-                          ? t(
-                              "option:header.modeShortcutHint",
-                              "{{shortcut}} to switch",
-                              {
-                                shortcut: formatShortcut(mode.shortcut)
-                              }
-                            ) || undefined
-                          : undefined
-                      }
-                      className={classNames(
-                        "core-mode-button rounded-full px-3 py-1 text-xs font-medium transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-500",
-                        isSelected
-                          ? "core-mode-button--active active bg-amber-500 text-gray-900 shadow-sm dark:bg-amber-400 dark:text-gray-900"
-                          : "bg-gray-200 text-gray-700 hover:bg-gray-300 dark:bg-[#262626] dark:text-gray-200 dark:hover:bg-[#333333]",
-                        promptStudioUnavailable
-                          ? "opacity-60 cursor-not-allowed"
-                          : ""
-                      )}
-                      data-active={isSelected ? "true" : undefined}>
-                      {mode.label}
-                    </button>
-                  )
-                }
-                return (
-                  <>
-                    {primaryModes.map(renderModeButton)}
-                    <Dropdown
-                      menu={{
-                        items: secondaryModes.map((mode) => ({
-                          key: mode.key,
-                          label: mode.label,
-                          disabled:
-                            mode.key === "promptStudio" &&
-                            promptStudioCapability.data === false
-                        })),
-                        onClick: ({ key }) =>
-                          handleCoreModeChange(key as CoreMode)
-                      }}>
-                      <button
-                        type="button"
-                        className={classNames(
-                          "core-mode-button rounded-full px-3 py-1 text-xs font-medium transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-500",
-                          "bg-gray-200 text-gray-700 hover:bg-gray-300 dark:bg-[#262626] dark:text-gray-200 dark:hover:bg-[#333333]"
-                        )}>
-                        {t("option:header.moreTools", "More...")}
-                      </button>
-                    </Dropdown>
-                  </>
-                )
-              })()}
-            </div>
-          </div>
-
-          <button
-            type="button"
-            onClick={() => {
-              const next = !shortcutsExpanded
-              setShortcutsExpanded(next)
-              debouncedSetShortcutsPreference(next)
-            }}
-            aria-expanded={shortcutsExpanded}
-            aria-controls={shortcutsSectionId}
-            ref={shortcutsToggleRef}
-            title={t(
-              "option:header.shortcutsKeyHint",
-              "Press ? to toggle shortcuts"
-            )}
-            className="inline-flex items-center self-start rounded-md border border-transparent px-2 py-1 text-xs font-semibold uppercase tracking-wide text-gray-500 transition hover:border-gray-300 hover:bg-white dark:text-gray-300 dark:hover:border-gray-500 dark:hover:bg-[#1f1f1f]">
-            <ChevronDown
-              className={classNames(
-                "mr-1 h-4 w-4 transition-transform",
-                shortcutsExpanded ? "rotate-180" : ""
-              )}
-            />
-            {shortcutsExpanded
-              ? t("option:header.hideShortcuts", "Hide shortcuts")
-              : t("option:header.showShortcuts", "Show shortcuts")}
-            {!shortcutsExpanded && (
-              <span className="ml-1.5 text-[10px] font-normal normal-case tracking-normal text-gray-400">
-                {t("option:header.shortcutsKeyHintInline", "(Press ?)")}
-              </span>
-            )}
-          </button>
-          {shortcutsExpanded && (
-            <div
-              id={shortcutsSectionId}
-              ref={shortcutsContainerRef}
-              onKeyDown={(e) => {
-                if (e.key === "Escape") {
-                  e.preventDefault()
-                  setShortcutsExpanded(false)
-                  // focus is returned by effect, but ensure it in next frame
-                  requestAnimationFrame(() => {
-                    shortcutsToggleRef.current?.focus()
-                  })
-                }
-              }}
-              className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between"
-              role="region"
-              aria-label={t("option:header.showShortcuts", "Shortcuts")}>
-              <div className="flex flex-col gap-4 lg:flex-1">
-                {navigationGroups.map((group, index) => {
-                  const groupId = `header-shortcuts-group-${index}`
-                  return (
-                    <section
-                      key={group.title}
-                      className="flex flex-col gap-2"
-                      aria-labelledby={groupId}>
-                      <h3
-                        id={groupId}
-                        className="text-xs font-semibold uppercase tracking-wide text-gray-400">
-                        {group.title}
-                      </h3>
-                      <div className="flex flex-col gap-2 sm:flex-row sm:flex-wrap">
-                        {group.items.map((item) => {
-                          if (item.type === "component") {
-                            return (
-                              <div key={item.key} className="w-full sm:w-auto">
-                                {item.node}
-                              </div>
-                            )
-                          }
-                          const Icon = item.icon
-                          return (
-                            <NavLink
-                              key={item.to}
-                              to={item.to}
-                              className={({ isActive }) =>
-                                classNames(
-                                  "flex w-full items-center gap-2 rounded-md border px-3 py-2 text-sm transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-500 sm:w-auto",
-                                  isActive
-                                    ? "border-gray-300 bg-white text-gray-900 dark:border-gray-500 dark:bg-[#1f1f1f] dark:text-white"
-                                    : "border-transparent text-gray-600 hover:border-gray-300 hover:bg-white dark:text-gray-200 dark:hover:border-gray-500 dark:hover:bg-[#1f1f1f]"
-                                )
-                              }>
-                              <Icon className="h-4 w-4" aria-hidden="true" />
-                              <span className="truncate">{item.label}</span>
-                            </NavLink>
-                          )
-                        })}
-                      </div>
-                    </section>
-                  )
-                })}
-              </div>
-            </div>
-          )}
+          <ModeSelector
+            currentMode={currentCoreMode}
+            onModeChange={handleCoreModeChange}
+          />
+          <HeaderShortcuts />
         </div>
       </div>
-
-      <QuickIngestModal
-        open={quickIngestOpen}
-        autoProcessQueued={quickIngestAutoProcessQueued}
-        onClose={() => {
-          setQuickIngestOpen(false)
-          setQuickIngestAutoProcessQueued(false)
-          requestAnimationFrame(() => quickIngestBtnRef.current?.focus())
-        }}
-      />
     </header>
   )
 }

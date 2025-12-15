@@ -152,7 +152,8 @@
         "label": "Paste Large Text as File"
       },
       "enableOcrAssets": {
-        "label": "Enable OCR (downloads ~5MB on first use)"
+        "label": "Enable OCR (downloads ~5MB on first use)",
+        "downloadNotice": "Enabling OCR will download ~5MB of language data on first use"
       },
       "ocrLanguage": {
         "label": "Default OCR Language",

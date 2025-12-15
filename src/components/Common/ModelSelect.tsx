@@ -160,7 +160,12 @@ export const ModelSelect: React.FC<Props> = ({iconClassName = "size-5", showSele
           }}
           placement={"topLeft"}
           trigger={["click"]}>
-          <Tooltip title={selectedModel ? `${t("selectAModel")}: ${selectedModel}` : t("selectAModel")}>
+          <Tooltip
+            title={
+              selectedModel
+                ? `${t("modelSelect.tooltip", "Changes model for next message")}: ${selectedModel}`
+                : t("modelSelect.tooltip", "Changes model for next message")
+            }>
             <IconButton
               ariaLabel={t("selectAModel") as string}
               hasPopup="menu"

@@ -1,8 +1,9 @@
 import { Storage } from "@plasmohq/storage"
 import { tldwClient, tldwModels } from "./tldw"
 import { setNoOfRetrievedDocs, setTotalFilePerKB } from "./app"
+import { createSafeStorage } from "@/utils/safe-storage"
 
-const storage = new Storage()
+const storage = createSafeStorage()
 
 // Default local tldw_server endpoint
 const DEFAULT_TLDW_URL = "http://127.0.0.1:8000"

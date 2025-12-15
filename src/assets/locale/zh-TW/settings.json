@@ -85,7 +85,8 @@
         "label": "預設為側邊面板啟用臨時聊天"
       },
       "enableOcrAssets": {
-        "label": "Enable OCR (downloads ~5MB on first use)"
+        "label": "Enable OCR (downloads ~5MB on first use)",
+        "downloadNotice": "啟用 OCR 後，首次使用時將下載約 5MB 的語言資料。"
       },
       "removeReasoningTagFromCopy": {
         "label": "Remove Reasoning Tag from Copied Text"

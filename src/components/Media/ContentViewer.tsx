@@ -18,7 +18,7 @@ import {
   Minimize2
 } from 'lucide-react'
 import React, { useState, useEffect, Suspense, useMemo, useRef, useCallback } from 'react'
-import { Select, Dropdown, Tooltip, message } from 'antd'
+import { Select, Dropdown, Tooltip, message, Spin } from 'antd'
 import { useTranslation } from 'react-i18next'
 import type { MenuProps } from 'antd'
 import { AnalysisModal } from './AnalysisModal'
@@ -52,6 +52,36 @@ interface ContentViewerProps {
   contentRef?: (node: HTMLDivElement | null) => void
 }
 
+const STORAGE_KEY_COLLAPSED_SECTIONS = 'tldw:media:collapsedSections'
+
+// Load collapse states from localStorage with defaults
+const loadCollapsedStates = (): Record<string, boolean> => {
+  try {
+    const stored = localStorage.getItem(STORAGE_KEY_COLLAPSED_SECTIONS)
+    if (stored) {
+      return JSON.parse(stored)
+    }
+  } catch (err) {
+    console.warn('Failed to load collapse states from localStorage:', err)
+  }
+  // Default: all expanded (false = not collapsed)
+  return {
+    statistics: false,
+    content: false,
+    metadata: true,
+    analysis: false
+  }
+}
+
+// Save collapse states to localStorage
+const saveCollapsedStates = (states: Record<string, boolean>) => {
+  try {
+    localStorage.setItem(STORAGE_KEY_COLLAPSED_SECTIONS, JSON.stringify(states))
+  } catch (err) {
+    console.warn('Failed to save collapse states to localStorage:', err)
+  }
+}
+
 export function ContentViewer({
   selectedMedia,
   content,
@@ -74,12 +104,7 @@ export function ContentViewer({
   const { t } = useTranslation(['review'])
   const [collapsedSections, setCollapsedSections] = useState<
     Record<string, boolean>
-  >({
-    statistics: true,
-    content: true,
-    metadata: true,
-    analysis: true
-  })
+  >(loadCollapsedStates)
   const [analysisModalOpen, setAnalysisModalOpen] = useState(false)
   const [editingKeywords, setEditingKeywords] = useState<string[]>([])
   const [savingKeywords, setSavingKeywords] = useState(false)
@@ -211,10 +236,14 @@ export function ContentViewer({
   }, [mediaDetail])
 
   const toggleSection = (section: string) => {
-    setCollapsedSections((prev) => ({
-      ...prev,
-      [section]: !prev[section]
-    }))
+    setCollapsedSections((prev) => {
+      const newState = {
+        ...prev,
+        [section]: !prev[section]
+      }
+      saveCollapsedStates(newState)
+      return newState
+    })
   }
 
   const copyTextWithToasts = async (
@@ -384,7 +413,7 @@ export function ContentViewer({
     <div ref={contentRef} className="flex-1 flex flex-col bg-gray-50 dark:bg-[#101010]">
       {/* Compact Header */}
       <div className="px-4 py-2 border-b border-gray-200 dark:border-gray-700 bg-white dark:bg-[#111]">
-        <div className="flex items-center gap-3">
+        <div className="flex flex-col md:flex-row items-center gap-3">
           {/* Left: Navigation */}
           <div className="flex items-center gap-1">
             <Tooltip
@@ -393,7 +422,7 @@ export function ContentViewer({
               <button
                 onClick={onPrevious}
                 disabled={!hasPrevious}
-                className="p-1.5 text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-[#262626] rounded disabled:opacity-40 disabled:cursor-not-allowed"
+                className="p-1.5 text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-[#262626] rounded disabled:opacity-30 disabled:cursor-not-allowed"
                 aria-label={t('review:reviewPage.prevItem', { defaultValue: 'Previous' })}
               >
                 <ChevronLeft className="w-4 h-4" />
@@ -408,7 +437,7 @@ export function ContentViewer({
               <button
                 onClick={onNext}
                 disabled={!hasNext}
-                className="p-1.5 text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-[#262626] rounded disabled:opacity-40 disabled:cursor-not-allowed"
+                className="p-1.5 text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-[#262626] rounded disabled:opacity-30 disabled:cursor-not-allowed"
                 aria-label={t('review:reviewPage.nextItem', { defaultValue: 'Next' })}
               >
                 <ChevronRight className="w-4 h-4" />
@@ -418,7 +447,7 @@ export function ContentViewer({
 
           {/* Center: Title */}
           <Tooltip title={selectedMedia.title || ''} placement="bottom">
-            <h3 className="flex-1 text-sm font-medium text-gray-900 dark:text-gray-100 truncate text-center px-2">
+            <h3 className="flex-1 text-sm font-medium text-gray-900 dark:text-gray-100 truncate text-center px-2 max-w-[300px] md:max-w-none">
               {selectedMedia.title || `${selectedMedia.kind} ${selectedMedia.id}`}
             </h3>
           </Tooltip>
@@ -488,9 +517,11 @@ export function ContentViewer({
             <Select
               mode="tags"
               allowClear
-              placeholder={t('review:mediaPage.keywordsPlaceholder', {
-                defaultValue: 'Add keywords...'
-              })}
+              placeholder={
+                savingKeywords
+                  ? t('review:mediaPage.savingKeywords', { defaultValue: 'Saving...' })
+                  : t('review:mediaPage.keywordsPlaceholder', { defaultValue: 'Add keywords...' })
+              }
               className="w-full"
               size="small"
               value={editingKeywords}
@@ -500,6 +531,7 @@ export function ContentViewer({
               loading={savingKeywords}
               disabled={savingKeywords}
               tokenSeparators={[',']}
+              suffixIcon={savingKeywords ? <Spin size="small" /> : undefined}
             />
           </div>
 

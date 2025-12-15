@@ -81,7 +81,8 @@
         "label": "Увімкнути тимчасовий чат у бічній панелі за замовчуванням"
       },
       "enableOcrAssets": {
-        "label": "Enable OCR (downloads ~5MB on first use)"
+        "label": "Enable OCR (downloads ~5MB on first use)",
+        "downloadNotice": "Після увімкнення OCR під час першого використання буде завантажено приблизно 5 МБ мовних даних."
       },
       "ocrLanguage": {
         "label": "Default OCR Language",

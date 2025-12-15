@@ -239,13 +239,14 @@ export const TldwSettings = () => {
       }> = {
         serverUrl: values.serverUrl,
         authMode: values.authMode,
-        requestTimeoutMs: Math.max(1, Math.round(Number(requestTimeoutSec) || 10)) * 1000,
-        streamIdleTimeoutMs: Math.max(1, Math.round(Number(streamIdleTimeoutSec) || 15)) * 1000,
-        chatRequestTimeoutMs: Math.max(1, Math.round(Number(chatRequestTimeoutSec) || requestTimeoutSec || 10)) * 1000,
-        chatStreamIdleTimeoutMs: Math.max(1, Math.round(Number(chatStreamIdleTimeoutSec) || streamIdleTimeoutSec || 15)) * 1000,
-        ragRequestTimeoutMs: Math.max(1, Math.round(Number(ragRequestTimeoutSec) || requestTimeoutSec || 10)) * 1000,
-        mediaRequestTimeoutMs: Math.max(1, Math.round(Number(mediaRequestTimeoutSec) || requestTimeoutSec || 10)) * 1000,
-        uploadRequestTimeoutMs: Math.max(1, Math.round(Number(uploadRequestTimeoutSec) || mediaRequestTimeoutSec || 60)) * 1000
+        // Clamp timeout values to prevent integer overflow (max ~24 days in seconds = 2147483 to avoid JS int overflow)
+        requestTimeoutMs: Math.min(2147483000, Math.max(1, Math.round(Number(requestTimeoutSec) || 10)) * 1000),
+        streamIdleTimeoutMs: Math.min(2147483000, Math.max(1, Math.round(Number(streamIdleTimeoutSec) || 15)) * 1000),
+        chatRequestTimeoutMs: Math.min(2147483000, Math.max(1, Math.round(Number(chatRequestTimeoutSec) || requestTimeoutSec || 10)) * 1000),
+        chatStreamIdleTimeoutMs: Math.min(2147483000, Math.max(1, Math.round(Number(chatStreamIdleTimeoutSec) || streamIdleTimeoutSec || 15)) * 1000),
+        ragRequestTimeoutMs: Math.min(2147483000, Math.max(1, Math.round(Number(ragRequestTimeoutSec) || requestTimeoutSec || 10)) * 1000),
+        mediaRequestTimeoutMs: Math.min(2147483000, Math.max(1, Math.round(Number(mediaRequestTimeoutSec) || requestTimeoutSec || 10)) * 1000),
+        uploadRequestTimeoutMs: Math.min(2147483000, Math.max(1, Math.round(Number(uploadRequestTimeoutSec) || mediaRequestTimeoutSec || 60)) * 1000)
       }
 
       if (values.authMode === 'single-user') {
@@ -563,7 +564,7 @@ export const TldwSettings = () => {
           layout="vertical"
           initialValues={{
             authMode: 'single-user',
-            apiKey: DEFAULT_TLDW_API_KEY
+            apiKey: ''
           }}
         >
           <Form.Item
@@ -610,7 +611,8 @@ export const TldwSettings = () => {
                       if (value === 'multi-user') {
                         form.setFieldValue('apiKey', '')
                       } else {
-                        form.setFieldsValue({ username: '', password: '' })
+                        form.setFieldValue('username', '')
+                        form.setFieldValue('password', '')
                         setIsLoggedIn(false)
                       }
                     },
@@ -813,13 +815,22 @@ export const TldwSettings = () => {
                           min={1}
                           value={requestTimeoutSec}
                           onChange={(e) => {
-                            setRequestTimeoutSec(
-                              parseSeconds(
-                                e.target.value,
-                                TIMEOUT_PRESETS.balanced.request
-                              )
+                            const newValue = parseSeconds(
+                              e.target.value,
+                              TIMEOUT_PRESETS.balanced.request
                             )
-                            setTimeoutPreset('custom')
+                            setRequestTimeoutSec(newValue)
+                            setTimeoutPreset(
+                              determinePreset({
+                                request: newValue,
+                                stream: streamIdleTimeoutSec,
+                                chatRequest: chatRequestTimeoutSec,
+                                chatStream: chatStreamIdleTimeoutSec,
+                                ragRequest: ragRequestTimeoutSec,
+                                media: mediaRequestTimeoutSec,
+                                upload: uploadRequestTimeoutSec
+                              })
+                            )
                           }}
                           placeholder="10"
                           suffix="s"
@@ -841,13 +852,22 @@ export const TldwSettings = () => {
                           min={1}
                           value={streamIdleTimeoutSec}
                           onChange={(e) => {
-                            setStreamIdleTimeoutSec(
-                              parseSeconds(
-                                e.target.value,
-                                TIMEOUT_PRESETS.balanced.stream
-                              )
+                            const newValue = parseSeconds(
+                              e.target.value,
+                              TIMEOUT_PRESETS.balanced.stream
                             )
-                            setTimeoutPreset('custom')
+                            setStreamIdleTimeoutSec(newValue)
+                            setTimeoutPreset(
+                              determinePreset({
+                                request: requestTimeoutSec,
+                                stream: newValue,
+                                chatRequest: chatRequestTimeoutSec,
+                                chatStream: chatStreamIdleTimeoutSec,
+                                ragRequest: ragRequestTimeoutSec,
+                                media: mediaRequestTimeoutSec,
+                                upload: uploadRequestTimeoutSec
+                              })
+                            )
                           }}
                           placeholder="15"
                           suffix="s"
@@ -871,13 +891,22 @@ export const TldwSettings = () => {
                           min={1}
                           value={chatRequestTimeoutSec}
                           onChange={(e) => {
-                            setChatRequestTimeoutSec(
-                              parseSeconds(
-                                e.target.value,
-                                TIMEOUT_PRESETS.balanced.chatRequest
-                              )
+                            const newValue = parseSeconds(
+                              e.target.value,
+                              TIMEOUT_PRESETS.balanced.chatRequest
                             )
-                            setTimeoutPreset('custom')
+                            setChatRequestTimeoutSec(newValue)
+                            setTimeoutPreset(
+                              determinePreset({
+                                request: requestTimeoutSec,
+                                stream: streamIdleTimeoutSec,
+                                chatRequest: newValue,
+                                chatStream: chatStreamIdleTimeoutSec,
+                                ragRequest: ragRequestTimeoutSec,
+                                media: mediaRequestTimeoutSec,
+                                upload: uploadRequestTimeoutSec
+                              })
+                            )
                           }}
                           suffix="s"
                         />
@@ -891,13 +920,22 @@ export const TldwSettings = () => {
                           min={1}
                           value={chatStreamIdleTimeoutSec}
                           onChange={(e) => {
-                            setChatStreamIdleTimeoutSec(
-                              parseSeconds(
-                                e.target.value,
-                                TIMEOUT_PRESETS.balanced.chatStream
-                              )
+                            const newValue = parseSeconds(
+                              e.target.value,
+                              TIMEOUT_PRESETS.balanced.chatStream
                             )
-                            setTimeoutPreset('custom')
+                            setChatStreamIdleTimeoutSec(newValue)
+                            setTimeoutPreset(
+                              determinePreset({
+                                request: requestTimeoutSec,
+                                stream: streamIdleTimeoutSec,
+                                chatRequest: chatRequestTimeoutSec,
+                                chatStream: newValue,
+                                ragRequest: ragRequestTimeoutSec,
+                                media: mediaRequestTimeoutSec,
+                                upload: uploadRequestTimeoutSec
+                              })
+                            )
                           }}
                           suffix="s"
                         />
@@ -911,13 +949,22 @@ export const TldwSettings = () => {
                           min={1}
                           value={ragRequestTimeoutSec}
                           onChange={(e) => {
-                            setRagRequestTimeoutSec(
-                              parseSeconds(
-                                e.target.value,
-                                TIMEOUT_PRESETS.balanced.ragRequest
-                              )
+                            const newValue = parseSeconds(
+                              e.target.value,
+                              TIMEOUT_PRESETS.balanced.ragRequest
                             )
-                            setTimeoutPreset('custom')
+                            setRagRequestTimeoutSec(newValue)
+                            setTimeoutPreset(
+                              determinePreset({
+                                request: requestTimeoutSec,
+                                stream: streamIdleTimeoutSec,
+                                chatRequest: chatRequestTimeoutSec,
+                                chatStream: chatStreamIdleTimeoutSec,
+                                ragRequest: newValue,
+                                media: mediaRequestTimeoutSec,
+                                upload: uploadRequestTimeoutSec
+                              })
+                            )
                           }}
                           suffix="s"
                         />
@@ -931,13 +978,22 @@ export const TldwSettings = () => {
                           min={1}
                           value={mediaRequestTimeoutSec}
                           onChange={(e) => {
-                            setMediaRequestTimeoutSec(
-                              parseSeconds(
-                                e.target.value,
-                                TIMEOUT_PRESETS.balanced.media
-                              )
+                            const newValue = parseSeconds(
+                              e.target.value,
+                              TIMEOUT_PRESETS.balanced.media
                             )
-                            setTimeoutPreset('custom')
+                            setMediaRequestTimeoutSec(newValue)
+                            setTimeoutPreset(
+                              determinePreset({
+                                request: requestTimeoutSec,
+                                stream: streamIdleTimeoutSec,
+                                chatRequest: chatRequestTimeoutSec,
+                                chatStream: chatStreamIdleTimeoutSec,
+                                ragRequest: ragRequestTimeoutSec,
+                                media: newValue,
+                                upload: uploadRequestTimeoutSec
+                              })
+                            )
                           }}
                           suffix="s"
                         />
@@ -951,13 +1007,22 @@ export const TldwSettings = () => {
                           min={1}
                           value={uploadRequestTimeoutSec}
                           onChange={(e) => {
-                            setUploadRequestTimeoutSec(
-                              parseSeconds(
-                                e.target.value,
-                                TIMEOUT_PRESETS.balanced.upload
-                              )
+                            const newValue = parseSeconds(
+                              e.target.value,
+                              TIMEOUT_PRESETS.balanced.upload
                             )
-                            setTimeoutPreset('custom')
+                            setUploadRequestTimeoutSec(newValue)
+                            setTimeoutPreset(
+                              determinePreset({
+                                request: requestTimeoutSec,
+                                stream: streamIdleTimeoutSec,
+                                chatRequest: chatRequestTimeoutSec,
+                                chatStream: chatStreamIdleTimeoutSec,
+                                ragRequest: ragRequestTimeoutSec,
+                                media: mediaRequestTimeoutSec,
+                                upload: newValue
+                              })
+                            )
                           }}
                           suffix="s"
                         />

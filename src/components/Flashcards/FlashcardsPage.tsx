@@ -67,6 +67,34 @@ type DueStatus = "new" | "learning" | "due" | "all"
 
 const BULK_MUTATION_CHUNK_SIZE = 50
 
+type FlashcardModelType = Flashcard["model_type"]
+
+const normalizeFlashcardTemplateFields = <
+  T extends {
+    model_type?: FlashcardModelType | null
+    reverse?: boolean | null
+    is_cloze?: boolean | null
+  }
+>(
+  values: T
+): T => {
+  const isCloze = values.model_type === "cloze" || values.is_cloze === true
+  const isReverse =
+    values.model_type === "basic_reverse" || values.reverse === true
+  const model_type: FlashcardModelType = isCloze
+    ? "cloze"
+    : isReverse
+      ? "basic_reverse"
+      : "basic"
+
+  return {
+    ...values,
+    model_type,
+    reverse: model_type === "basic_reverse",
+    is_cloze: model_type === "cloze"
+  }
+}
+
 const Markdown = React.lazy(() => import("@/components/Common/Markdown"))
 
 type SafeMarkdownProps = {
@@ -140,135 +168,16 @@ export const FlashcardsPage: React.FC = () => {
 
   const demoDecks = React.useMemo(() => getDemoFlashcardDecks(t), [t])
 
-  if (!isOnline) {
-    return demoEnabled ? (
-      <div className="space-y-4">
-        <FeatureEmptyState
-          title={
-            <span className="inline-flex items-center gap-2">
-              <StatusBadge variant="demo">Demo</StatusBadge>
-              <span>
-                {t("option:flashcards.demoTitle", {
-                  defaultValue: "Explore Flashcards in demo mode"
-                })}
-              </span>
-            </span>
-          }
-          description={t("option:flashcards.demoDescription", {
-            defaultValue:
-              "This demo shows how Flashcards can turn your content into spaced‑repetition cards. Connect your own server later to generate and review cards from your own notes and media."
-          })}
-          examples={[
-            t("option:flashcards.demoExample1", {
-              defaultValue:
-                "See how decks, cards, and tags are organized across Review and Manage tabs."
-            }),
-            t("option:flashcards.demoExample2", {
-              defaultValue:
-                "When you connect, you’ll be able to generate cards from lectures, meetings, or notes and review them on a schedule."
-            }),
-            t("option:flashcards.demoExample3", {
-              defaultValue:
-                "Use Flashcards together with Notes and Media to keep important ideas fresh."
-            })
-          ]}
-          primaryActionLabel={t("option:connectionCard.buttonGoToServerCard", {
-            defaultValue: "Go to server card"
-          })}
-          onPrimaryAction={scrollToServerCard}
-        />
-        <div className="rounded-lg border border-dashed border-gray-300 bg-white p-3 text-xs text-gray-700 dark:border-gray-700 dark:bg-[#111] dark:text-gray-200">
-          <div className="mb-2 font-semibold">
-            {t("option:flashcards.demoPreviewHeading", {
-              defaultValue: "Example decks (preview only)"
-            })}
-          </div>
-          <div className="divide-y divide-gray-200 dark:divide-gray-800">
-            {demoDecks.map((deck) => (
-              <div key={deck.id} className="py-2">
-                <div className="text-sm font-medium text-gray-900 dark:text-gray-100">
-                  {deck.name}
-                </div>
-                <div className="mt-1 text-[11px] text-gray-600 dark:text-gray-300">
-                  {deck.summary}
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-    ) : (
-      <ConnectionProblemBanner
-        badgeLabel="Not connected"
-        title={t("option:flashcards.emptyConnectTitle", {
-          defaultValue: "Connect to use Flashcards"
-        })}
-        description={t("option:flashcards.emptyConnectDescription", {
-          defaultValue:
-            "This view needs a connected server. Use the server connection card above to fix your connection, then return here to review and generate flashcards."
-        })}
-        examples={[
-          t("option:flashcards.emptyConnectExample1", {
-            defaultValue:
-              "Use the connection card at the top of this page to add your server URL and API key."
-          })
-        ]}
-        primaryActionLabel={t("option:connectionCard.buttonGoToServerCard", {
-          defaultValue: "Go to server card"
-        })}
-        onPrimaryAction={scrollToServerCard}
-        retryActionLabel={t("option:buttonRetry", "Retry connection")}
-        onRetry={handleRetryConnection}
-        retryDisabled={checkingConnection}
-      />
-    )
-  }
-
   const flashcardsUnsupported =
-    !capsLoading && capabilities && !capabilities.hasFlashcards
+    !capsLoading && !!capabilities && !capabilities.hasFlashcards
 
-  if (isOnline && flashcardsUnsupported) {
-    return (
-      <FeatureEmptyState
-        title={
-          <span className="inline-flex items-center gap-2">
-            <StatusBadge variant="error">
-              Feature unavailable
-            </StatusBadge>
-            <span>
-              {t("option:flashcards.offlineTitle", {
-                defaultValue: "Flashcards API not available on this server"
-              })}
-            </span>
-          </span>
-        }
-        description={t("option:flashcards.offlineDescription", {
-          defaultValue:
-            "This tldw server does not advertise the Flashcards endpoints. Upgrade your server to a version that includes /api/v1/flashcards… to use this workspace."
-        })}
-        examples={[
-          t("option:flashcards.offlineExample1", {
-            defaultValue:
-              "Check Health & diagnostics to confirm your server version and available APIs."
-          }),
-          t("option:flashcards.offlineExample2", {
-            defaultValue:
-              "After upgrading, reload the extension and return to Flashcards."
-          })
-        ]}
-        primaryActionLabel={t("settings:healthSummary.diagnostics", {
-          defaultValue: "Health & diagnostics"
-        })}
-        onPrimaryAction={() => navigate("/settings/health")}
-      />
-    )
-  }
+  const flashcardsEnabled = isOnline && !flashcardsUnsupported
 
   // Shared: decks
   const decksQuery = useQuery({
     queryKey: ["flashcards:decks"],
     queryFn: listDecks,
-    enabled: isOnline
+    enabled: flashcardsEnabled
   })
 
   // REVIEW TAB STATE
@@ -290,7 +199,7 @@ export const FlashcardsPage: React.FC = () => {
       })
       return res.items?.[0] || null
     },
-    enabled: isOnline
+    enabled: flashcardsEnabled
   })
 
   const onSubmitReview = async (rating: number) => {
@@ -384,7 +293,7 @@ export const FlashcardsPage: React.FC = () => {
         offset: (page - 1) * pageSize,
         order_by: "due_at"
       }),
-    enabled: isOnline
+    enabled: flashcardsEnabled
   })
 
   const toggleSelect = (uuid: string, checked: boolean) => {
@@ -513,11 +422,13 @@ export const FlashcardsPage: React.FC = () => {
   }
 
   const confirmLargeBulkDelete = async () => {
+    const items = pendingDeleteItems
     setBulkDeleteConfirmOpen(false)
     setBulkDeleteInput("")
-    await executeBulkDelete(pendingDeleteItems)
     setPendingDeleteItems([])
     setBulkDeleteCount(0)
+    if (!items.length) return
+    await executeBulkDelete(items)
   }
 
   const handleExportSelected = async () => {
@@ -669,7 +580,9 @@ export const FlashcardsPage: React.FC = () => {
   const doUpdate = async () => {
     try {
       if (!editing) return
-      const values = (await editForm.validateFields()) as FlashcardUpdate
+      const values = normalizeFlashcardTemplateFields(
+        (await editForm.validateFields()) as FlashcardUpdate
+      )
       await updateFlashcard(editing.uuid, values)
       message.success(t("common:updated", { defaultValue: "Updated" }))
       setEditOpen(false)
@@ -774,11 +687,127 @@ export const FlashcardsPage: React.FC = () => {
     }
   }, [decksQuery.data, isOnline, pendingDeckId])
 
+  if (!isOnline) {
+    return demoEnabled ? (
+      <div className="space-y-4">
+        <FeatureEmptyState
+          title={
+            <span className="inline-flex items-center gap-2">
+              <StatusBadge variant="demo">Demo</StatusBadge>
+              <span>
+                {t("option:flashcards.demoTitle", {
+                  defaultValue: "Explore Flashcards in demo mode"
+                })}
+              </span>
+            </span>
+          }
+          description={t("option:flashcards.demoDescription", {
+            defaultValue:
+              "This demo shows how Flashcards can turn your content into spaced‑repetition cards. Connect your own server later to generate and review cards from your own notes and media."
+          })}
+          examples={[
+            t("option:flashcards.demoExample1", {
+              defaultValue:
+                "See how decks, cards, and tags are organized across Review and Manage tabs."
+            }),
+            t("option:flashcards.demoExample2", {
+              defaultValue:
+                "When you connect, you’ll be able to generate cards from lectures, meetings, or notes and review them on a schedule."
+            }),
+            t("option:flashcards.demoExample3", {
+              defaultValue:
+                "Use Flashcards together with Notes and Media to keep important ideas fresh."
+            })
+          ]}
+          primaryActionLabel={t("option:connectionCard.buttonGoToServerCard", {
+            defaultValue: "Go to server card"
+          })}
+          onPrimaryAction={scrollToServerCard}
+        />
+        <div className="rounded-lg border border-dashed border-gray-300 bg-white p-3 text-xs text-gray-700 dark:border-gray-700 dark:bg-[#111] dark:text-gray-200">
+          <div className="mb-2 font-semibold">
+            {t("option:flashcards.demoPreviewHeading", {
+              defaultValue: "Example decks (preview only)"
+            })}
+          </div>
+          <div className="divide-y divide-gray-200 dark:divide-gray-800">
+            {demoDecks.map((deck) => (
+              <div key={deck.id} className="py-2">
+                <div className="text-sm font-medium text-gray-900 dark:text-gray-100">
+                  {deck.name}
+                </div>
+                <div className="mt-1 text-[11px] text-gray-600 dark:text-gray-300">
+                  {deck.summary}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    ) : (
+      <ConnectionProblemBanner
+        badgeLabel="Not connected"
+        title={t("option:flashcards.emptyConnectTitle", {
+          defaultValue: "Connect to use Flashcards"
+        })}
+        description={t("option:flashcards.emptyConnectDescription", {
+          defaultValue:
+            "This view needs a connected server. Use the server connection card above to fix your connection, then return here to review and generate flashcards."
+        })}
+        examples={[
+          t("option:flashcards.emptyConnectExample1", {
+            defaultValue:
+              "Use the connection card at the top of this page to add your server URL and API key."
+          })
+        ]}
+        primaryActionLabel={t("option:connectionCard.buttonGoToServerCard", {
+          defaultValue: "Go to server card"
+        })}
+        onPrimaryAction={scrollToServerCard}
+        retryActionLabel={t("option:buttonRetry", "Retry connection")}
+        onRetry={handleRetryConnection}
+        retryDisabled={checkingConnection}
+      />
+    )
+  }
+
+  if (flashcardsUnsupported) {
+    return (
+      <FeatureEmptyState
+        title={
+          <span className="inline-flex items-center gap-2">
+            <StatusBadge variant="error">Feature unavailable</StatusBadge>
+            <span>
+              {t("option:flashcards.offlineTitle", {
+                defaultValue: "Flashcards API not available on this server"
+              })}
+            </span>
+          </span>
+        }
+        description={t("option:flashcards.offlineDescription", {
+          defaultValue:
+            "This tldw server does not advertise the Flashcards endpoints. Upgrade your server to a version that includes /api/v1/flashcards… to use this workspace."
+        })}
+        examples={[
+          t("option:flashcards.offlineExample1", {
+            defaultValue:
+              "Check Health & diagnostics to confirm your server version and available APIs."
+          }),
+          t("option:flashcards.offlineExample2", {
+            defaultValue:
+              "After upgrading, reload the extension and return to Flashcards."
+          })
+        ]}
+        primaryActionLabel={t("settings:healthSummary.diagnostics", {
+          defaultValue: "Health & diagnostics"
+        })}
+        onPrimaryAction={() => navigate("/settings/health")}
+      />
+    )
+  }
+
   return (
     <div className="mx-auto max-w-6xl p-4">
-      {!isOnline && (
-        <Alert type="warning" showIcon message={t("common:serverOffline", { defaultValue: "Server offline or not configured" })} className="mb-4" />
-      )}
       <Tabs
         activeKey={activeTab}
         onChange={setActiveTab}
@@ -981,23 +1010,41 @@ export const FlashcardsPage: React.FC = () => {
                       {t("option:flashcards.newDeck", { defaultValue: "New Deck" })}
                     </Button>
                   </Space>
-                  <Form.Item name="model_type" label={t("option:flashcards.modelType", { defaultValue: "Card template" })}>
+                  <Form.Item
+                    name="model_type"
+                    label={t("option:flashcards.modelType", {
+                      defaultValue: "Card template"
+                    })}
+                  >
                     <div className="space-y-1">
                       <Select
                         options={[
                           {
-                            label: t("option:flashcards.templateBasic", { defaultValue: "Basic (Question → Answer)" }),
+                            label: t("option:flashcards.templateBasic", {
+                              defaultValue: "Basic (Question → Answer)"
+                            }),
                             value: "basic"
                           },
                           {
-                            label: t("option:flashcards.templateReverse", { defaultValue: "Basic + Reverse (Both directions)" }),
+                            label: t("option:flashcards.templateReverse", {
+                              defaultValue: "Basic + Reverse (Both directions)"
+                            }),
                             value: "basic_reverse"
                           },
                           {
-                            label: t("option:flashcards.templateCloze", { defaultValue: "Cloze (Fill in the blank)" }),
+                            label: t("option:flashcards.templateCloze", {
+                              defaultValue: "Cloze (Fill in the blank)"
+                            }),
                             value: "cloze"
                           }
                         ]}
+                        onChange={(value: FlashcardModelType) => {
+                          createForm.setFieldsValue({
+                            model_type: value,
+                            reverse: value === "basic_reverse",
+                            is_cloze: value === "cloze"
+                          })
+                        }}
                       />
                       <Text type="secondary" className="text-xs">
                         {t("option:flashcards.modelTypeHelp", {
@@ -1007,9 +1054,23 @@ export const FlashcardsPage: React.FC = () => {
                       </Text>
                     </div>
                   </Form.Item>
-                   <Form.Item name="reverse" label={t("option:flashcards.reverse", { defaultValue: "Also create reverse card" })} valuePropName="checked">
+                  <Form.Item
+                    name="reverse"
+                    label={t("option:flashcards.reverse", {
+                      defaultValue: "Also create reverse card"
+                    })}
+                    valuePropName="checked"
+                  >
                     <div className="space-y-1">
-                      <Switch />
+                      <Switch
+                        onChange={(checked) => {
+                          createForm.setFieldsValue({
+                            model_type: checked ? "basic_reverse" : "basic",
+                            reverse: checked,
+                            is_cloze: false
+                          })
+                        }}
+                      />
                       <Text type="secondary" className="text-xs">
                         {t("option:flashcards.reverseHelp", {
                           defaultValue:
@@ -1018,9 +1079,23 @@ export const FlashcardsPage: React.FC = () => {
                       </Text>
                     </div>
                   </Form.Item>
-                   <Form.Item name="is_cloze" label={t("option:flashcards.isCloze", { defaultValue: "Cloze deletion" })} valuePropName="checked">
+                  <Form.Item
+                    name="is_cloze"
+                    label={t("option:flashcards.isCloze", {
+                      defaultValue: "Cloze deletion"
+                    })}
+                    valuePropName="checked"
+                  >
                     <div className="space-y-1">
-                      <Switch />
+                      <Switch
+                        onChange={(checked) => {
+                          createForm.setFieldsValue({
+                            model_type: checked ? "cloze" : "basic",
+                            is_cloze: checked,
+                            reverse: false
+                          })
+                        }}
+                      />
                       <Text type="secondary" className="text-xs">
                         {t("option:flashcards.isClozeHelp", {
                           defaultValue:
@@ -1114,15 +1189,25 @@ export const FlashcardsPage: React.FC = () => {
                     )}
                   </Form.Item>
                   <Space>
-                    <Button type="primary" onClick={() => {
-                      createForm
-                        .validateFields()
-                        .then((values) => createMutation.mutate(values))
-                        .catch(() => {})
-                    }} loading={createMutation.isPending}>
+                    <Button
+                      type="primary"
+                      onClick={() => {
+                        createForm
+                          .validateFields()
+                          .then((values) =>
+                            createMutation.mutate(
+                              normalizeFlashcardTemplateFields(values)
+                            )
+                          )
+                          .catch(() => {})
+                      }}
+                      loading={createMutation.isPending}
+                    >
                       {t("common:create", { defaultValue: "Create" })}
                     </Button>
-                    <Button onClick={() => createForm.resetFields()}>{t("common:reset", { defaultValue: "Reset" })}</Button>
+                    <Button onClick={() => createForm.resetFields()}>
+                      {t("common:reset", { defaultValue: "Reset" })}
+                    </Button>
                   </Space>
                 </Form>
 
@@ -1466,29 +1551,75 @@ export const FlashcardsPage: React.FC = () => {
                         options={(decksQuery.data || []).map((d) => ({ label: d.name, value: d.id }))}
                       />
                     </Form.Item>
-                    <Form.Item name="model_type" label={t("option:flashcards.modelType", { defaultValue: "Card template" })}>
+                    <Form.Item
+                      name="model_type"
+                      label={t("option:flashcards.modelType", {
+                        defaultValue: "Card template"
+                      })}
+                    >
                       <Select
                         options={[
                           {
-                            label: t("option:flashcards.templateBasic", { defaultValue: "Basic (Question → Answer)" }),
+                            label: t("option:flashcards.templateBasic", {
+                              defaultValue: "Basic (Question → Answer)"
+                            }),
                             value: "basic"
                           },
                           {
-                            label: t("option:flashcards.templateReverse", { defaultValue: "Basic + Reverse (Both directions)" }),
+                            label: t("option:flashcards.templateReverse", {
+                              defaultValue: "Basic + Reverse (Both directions)"
+                            }),
                             value: "basic_reverse"
                           },
                           {
-                            label: t("option:flashcards.templateCloze", { defaultValue: "Cloze (Fill in the blank)" }),
+                            label: t("option:flashcards.templateCloze", {
+                              defaultValue: "Cloze (Fill in the blank)"
+                            }),
                             value: "cloze"
                           }
                         ]}
+                        onChange={(value: FlashcardModelType) => {
+                          editForm.setFieldsValue({
+                            model_type: value,
+                            reverse: value === "basic_reverse",
+                            is_cloze: value === "cloze"
+                          })
+                        }}
                       />
                     </Form.Item>
-                    <Form.Item name="reverse" label={t("option:flashcards.reverse", { defaultValue: "Reverse" })} valuePropName="checked">
-                      <Switch />
+                    <Form.Item
+                      name="reverse"
+                      label={t("option:flashcards.reverse", {
+                        defaultValue: "Reverse"
+                      })}
+                      valuePropName="checked"
+                    >
+                      <Switch
+                        onChange={(checked) => {
+                          editForm.setFieldsValue({
+                            model_type: checked ? "basic_reverse" : "basic",
+                            reverse: checked,
+                            is_cloze: false
+                          })
+                        }}
+                      />
                     </Form.Item>
-                    <Form.Item name="is_cloze" label={t("option:flashcards.isCloze", { defaultValue: "Is Cloze" })} valuePropName="checked">
-                      <Switch />
+                    <Form.Item
+                      name="is_cloze"
+                      label={t("option:flashcards.isCloze", {
+                        defaultValue: "Is Cloze"
+                      })}
+                      valuePropName="checked"
+                    >
+                      <Switch
+                        onChange={(checked) => {
+                          editForm.setFieldsValue({
+                            model_type: checked ? "cloze" : "basic",
+                            is_cloze: checked,
+                            reverse: false
+                          })
+                        }}
+                      />
                     </Form.Item>
                     <Form.Item
                       name="tags"

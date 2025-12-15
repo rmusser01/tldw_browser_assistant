@@ -84,7 +84,8 @@
         "label": "사이드 패널에서 임시 채팅 기본 활성화"
       },
       "enableOcrAssets": {
-        "label": "Enable OCR (downloads ~5MB on first use)"
+        "label": "Enable OCR (downloads ~5MB on first use)",
+        "downloadNotice": "OCR을 활성화하면 처음 사용할 때 약 5MB의 언어 데이터가 다운로드됩니다."
       },
       "ocrLanguage": {
         "label": "Default OCR Language",

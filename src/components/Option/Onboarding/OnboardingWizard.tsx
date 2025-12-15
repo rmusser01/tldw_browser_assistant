@@ -1,10 +1,8 @@
 import React from 'react'
 import type { InputRef } from 'antd'
-import { Alert, Button, Input, Radio, Segmented, Space, Tag, Collapse } from 'antd'
+import { Alert, Button, Input, Radio, Segmented, Space, Tag, Collapse, message } from 'antd'
 import type { SegmentedValue } from 'antd/es/segmented'
 import { ChevronDown } from 'lucide-react'
-import { useStorage } from '@plasmohq/storage/hook'
-import { Storage } from '@plasmohq/storage'
 import { useTranslation } from 'react-i18next'
 import { tldwClient } from '@/services/tldw/TldwApiClient'
 import { getTldwServerURL, DEFAULT_TLDW_API_KEY } from '@/services/tldw-server'
@@ -16,11 +14,10 @@ import {
 } from '@/hooks/useConnectionState'
 import { useServerUrlHint, type UrlState } from '@/hooks/useServerUrlHint'
 import { useConnectionStore } from '@/store/connection'
-import { ConnectionPhase } from '@/types/connection'
 import { useDemoMode } from '@/context/demo-mode'
 import { openSidepanelForActiveTab } from '@/utils/sidepanel'
-
-const localStorageInstance = new Storage({ area: 'local' })
+import { useFeatureFlag, FEATURE_FLAGS } from '@/hooks/useFeatureFlags'
+import { OnboardingConnectForm } from './OnboardingConnectForm'
 
 type Props = {
   onFinish?: () => void
@@ -33,6 +30,12 @@ const isAuthMode = (value: SegmentedValue): value is AuthMode =>
   value === 'single-user' || value === 'multi-user'
 
 export const OnboardingWizard: React.FC<Props> = ({ onFinish }) => {
+  const [useNewOnboarding] = useFeatureFlag(FEATURE_FLAGS.NEW_ONBOARDING)
+
+  // Use new single-step form when feature flag is enabled
+  if (useNewOnboarding) {
+    return <OnboardingConnectForm onFinish={onFinish} />
+  }
   const { t } = useTranslation(['settings', 'common'])
   const { setDemoEnabled } = useDemoMode()
   const [loading, setLoading] = React.useState(false)
@@ -385,6 +388,23 @@ export const OnboardingWizard: React.FC<Props> = ({ onFinish }) => {
           setAuthError(friendly)
           return
         }
+      } else if (authMode === 'single-user' && apiKey) {
+        // Validate API key before saving
+        try {
+          const isValid = await tldwAuth.testApiKey(serverUrl, apiKey)
+          if (!isValid) {
+            setAuthError(
+              t('settings:onboarding.errors.invalidApiKey', 'Invalid API key. Please check your key and try again.')
+            )
+            return
+          }
+        } catch (error: unknown) {
+          setAuthError(
+            (error as Error)?.message ||
+            t('settings:onboarding.errors.apiKeyValidationFailed', 'API key validation failed')
+          )
+          return
+        }
       }
 
       await useConnectionStore.getState().setConfigPartial({
@@ -651,6 +671,10 @@ export const OnboardingWizard: React.FC<Props> = ({ onFinish }) => {
           "settings:onboarding.progressAria",
           "Onboarding progress"
         )}
+        role="progressbar"
+        aria-valuenow={displayStep}
+        aria-valuemin={1}
+        aria-valuemax={totalSteps}
         className="mb-6"
       >
         <div className="flex items-center justify-between">
@@ -742,9 +766,30 @@ export const OnboardingWizard: React.FC<Props> = ({ onFinish }) => {
                             size="small"
                             onClick={() => {
                               try {
-                                void navigator.clipboard.writeText(cmd.command)
+                                navigator.clipboard.writeText(cmd.command)
+                                  .then(() => {
+                                    message.success(
+                                      t(
+                                        'settings:onboarding.startServer.copied',
+                                        'Copied!'
+                                      )
+                                    )
+                                  })
+                                  .catch(() => {
+                                    message.error(
+                                      t(
+                                        'settings:onboarding.startServer.copyFailed',
+                                        'Copy failed'
+                                      )
+                                    )
+                                  })
                               } catch {
-                                // ignore clipboard errors
+                                message.error(
+                                  t(
+                                    'settings:onboarding.startServer.copyFailed',
+                                    'Copy failed'
+                                  )
+                                )
                               }
                             }}
                           >
@@ -989,11 +1034,22 @@ export const OnboardingWizard: React.FC<Props> = ({ onFinish }) => {
 	                    'Open the sidepanel and ask your first question.'
 	                  )}
 	                </p>
-	                <Button
-	                  size="small"
-	                  className="mt-2"
-	                  onClick={() => void openSidepanelForActiveTab()}
-	                >
+                <Button
+                  size="small"
+                  className="mt-2"
+                  onClick={async () => {
+                    try {
+                      await openSidepanelForActiveTab()
+                    } catch (err) {
+                      // Optional: log for diagnostics; UI remains usable even if this fails.
+                      // eslint-disable-next-line no-console
+                      console.debug(
+                        '[OnboardingWizard] Failed to open sidepanel',
+                        err
+                      )
+                    }
+                  }}
+                >
                   {t(
                     'settings:onboarding.nextSteps.chatCta',
                     'Open sidepanel'

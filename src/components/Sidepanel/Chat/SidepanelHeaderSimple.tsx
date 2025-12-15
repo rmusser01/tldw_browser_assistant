@@ -221,7 +221,7 @@ export const SidepanelHeaderSimple = ({
                 </button>
               </div>
             ) : (
-              <Tooltip title={t("common:search", { defaultValue: "Search" }) + " (Ctrl+F)"}>
+              <Tooltip title={t("common:search", { defaultValue: "Search" })}>
                 <IconButton
                   ariaLabel={t("sidepanel:header.searchChatAria", "Search in chat") as string}
                   onClick={handleToggleSearch}
@@ -276,7 +276,7 @@ export const SidepanelHeaderSimple = ({
 
         {/* Timeline - only show when there's a saved chat (historyId exists) and search is not expanded */}
         {historyId && !streaming && !isSearchExpanded && (
-          <Tooltip title={t("sidepanel:header.timeline", { defaultValue: "Timeline" }) + " (Ctrl+Shift+T)"}>
+          <Tooltip title={t("sidepanel:header.timeline", { defaultValue: "Timeline" })}>
             <IconButton
               ariaLabel={t("sidepanel:header.timelineAria", "View conversation timeline") as string}
               onClick={() => openTimeline(historyId)}

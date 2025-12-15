@@ -1,7 +1,7 @@
 import { SaveButton } from "@/components/Common/SaveButton"
 import { getModels, getVoices } from "@/services/elevenlabs"
 import { getTTSSettings, setTTSSettings } from "@/services/tts"
-import { useQuery as useRQ, useQueryClient } from "@tanstack/react-query"
+import { useMutation, useQuery as useRQ, useQueryClient } from "@tanstack/react-query"
 import { fetchTldwVoices, type TldwVoice } from "@/services/tldw/audio-voices"
 import {
   fetchTldwTtsModels,
@@ -10,15 +10,21 @@ import {
 import { useWebUI } from "@/store/webui"
 import { useForm } from "@mantine/form"
 import { useQuery } from "@tanstack/react-query"
-import { Input, InputNumber, Select, Skeleton, Switch } from "antd"
+import { Alert, Button, Input, InputNumber, Select, Skeleton, Switch, Space } from "antd"
 import { useTranslation } from "react-i18next"
 import { useAntdMessage } from "@/hooks/useAntdMessage"
+import React from "react"
 
 export const TTSModeSettings = ({ hideBorder }: { hideBorder?: boolean }) => {
   const { t } = useTranslation("settings")
   const message = useAntdMessage()
   const { setTTSEnabled } = useWebUI()
   const queryClient = useQueryClient()
+
+  // API key test states
+  const [elevenLabsTestResult, setElevenLabsTestResult] = React.useState<{ ok: boolean; message: string } | null>(null)
+  const [testingElevenLabs, setTestingElevenLabs] = React.useState(false)
+
   const ids = {
     ttsEnabled: "tts-enabled-toggle",
     ttsAutoPlay: "tts-auto-play-toggle",
@@ -70,21 +76,16 @@ export const TTSModeSettings = ({ hideBorder }: { hideBorder?: boolean }) => {
     }
   })
 
-  const { data: elevenLabsData } = useQuery({
+  const { data: elevenLabsData, error: elevenLabsError } = useQuery({
     queryKey: ["fetchElevenLabsData", form.values.elevenLabsApiKey],
     queryFn: async () => {
-      try {
-        if (
-          form.values.ttsProvider === "elevenlabs" &&
-          form.values.elevenLabsApiKey
-        ) {
-          const voices = await getVoices(form.values.elevenLabsApiKey)
-          const models = await getModels(form.values.elevenLabsApiKey)
-          return { voices, models }
-        }
-      } catch (e) {
-        console.error(e)
-        message.error("Error fetching ElevenLabs data")
+      if (
+        form.values.ttsProvider === "elevenlabs" &&
+        form.values.elevenLabsApiKey
+      ) {
+        const voices = await getVoices(form.values.elevenLabsApiKey)
+        const models = await getModels(form.values.elevenLabsApiKey)
+        return { voices, models }
       }
       return null
     },
@@ -92,17 +93,50 @@ export const TTSModeSettings = ({ hideBorder }: { hideBorder?: boolean }) => {
       form.values.ttsProvider === "elevenlabs" && !!form.values.elevenLabsApiKey
   })
 
-  const { data: tldwVoices } = useRQ({
+  const { data: tldwVoices, error: tldwVoicesError } = useRQ({
     queryKey: ["fetchTldwVoices"],
     queryFn: fetchTldwVoices,
     enabled: form.values.ttsProvider === "tldw"
   })
 
-  const { data: tldwModels } = useRQ<TldwTtsModel[]>({
+  const { data: tldwModels, error: tldwModelsError } = useRQ<TldwTtsModel[]>({
     queryKey: ["fetchTldwTtsModels"],
     queryFn: fetchTldwTtsModels,
     enabled: form.values.ttsProvider === "tldw"
   })
+
+  // Save mutation with loading state
+  const { mutate: saveTTSMutation, isPending: isSaving } = useMutation({
+    mutationFn: async (values: typeof form.values) => {
+      await setTTSSettings(values)
+      setTTSEnabled(values.ttsEnabled)
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["fetchTTSSettings"] })
+    }
+  })
+
+  // Test ElevenLabs API key
+  const testElevenLabsApiKey = async () => {
+    if (!form.values.elevenLabsApiKey) {
+      setElevenLabsTestResult({ ok: false, message: t("generalSettings.tts.apiKeyTest.enterKey", "Please enter an API key first") })
+      return
+    }
+    setTestingElevenLabs(true)
+    setElevenLabsTestResult(null)
+    try {
+      const voices = await getVoices(form.values.elevenLabsApiKey)
+      if (voices && voices.length > 0) {
+        setElevenLabsTestResult({ ok: true, message: t("generalSettings.tts.apiKeyTest.success", "API key valid! Found {{count}} voices.", { count: voices.length }) })
+      } else {
+        setElevenLabsTestResult({ ok: false, message: t("generalSettings.tts.apiKeyTest.noVoices", "API key accepted but no voices found") })
+      }
+    } catch (e) {
+      setElevenLabsTestResult({ ok: false, message: t("generalSettings.tts.apiKeyTest.failed", "Invalid API key or connection error") })
+    } finally {
+      setTestingElevenLabs(false)
+    }
+  }
 
   if (status === "pending" || status === "error") {
     return <Skeleton active />
@@ -122,10 +156,8 @@ export const TTSModeSettings = ({ hideBorder }: { hideBorder?: boolean }) => {
         )}
       </div>
       <form
-        onSubmit={form.onSubmit(async (values) => {
-          await setTTSSettings(values)
-          setTTSEnabled(values.ttsEnabled)
-          queryClient.invalidateQueries({ queryKey: ["fetchTTSSettings"] })
+        onSubmit={form.onSubmit((values) => {
+          saveTTSMutation(values)
         })}
         className="space-y-4">
         <div className="flex sm:flex-row flex-col space-y-4 sm:space-y-0 sm:justify-between">
@@ -219,13 +251,43 @@ export const TTSModeSettings = ({ hideBorder }: { hideBorder?: boolean }) => {
               <span className="text-gray-700 dark:text-neutral-50">
                 API Key
               </span>
-              <Input.Password
-                placeholder="sk_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
-                className=" mt-4 sm:mt-0 !w-[300px] sm:w-[200px]"
-                required
-                {...form.getInputProps("elevenLabsApiKey")}
-              />
+              <Space.Compact className="mt-4 sm:mt-0">
+                <Input.Password
+                  placeholder="sk_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+                  className="!w-[220px]"
+                  required
+                  {...form.getInputProps("elevenLabsApiKey")}
+                  onFocus={() => setElevenLabsTestResult(null)}
+                />
+                <Button
+                  type="default"
+                  onClick={testElevenLabsApiKey}
+                  loading={testingElevenLabs}
+                >
+                  {t("generalSettings.tts.apiKeyTest.test", "Test")}
+                </Button>
+              </Space.Compact>
             </div>
+            {elevenLabsTestResult && (
+              <Alert
+                type={elevenLabsTestResult.ok ? "success" : "error"}
+                message={elevenLabsTestResult.message}
+                showIcon
+                closable
+                onClose={() => setElevenLabsTestResult(null)}
+                className="mt-2"
+              />
+            )}
+
+            {elevenLabsError && (
+              <Alert
+                type="error"
+                message={t("generalSettings.tts.elevenLabs.fetchError", "Failed to fetch voices and models")}
+                description={t("generalSettings.tts.elevenLabs.fetchErrorHelp", "Check your API key and internet connection, then try again.")}
+                showIcon
+                className="mt-2"
+              />
+            )}
 
             {elevenLabsData && (
               <>
@@ -351,6 +413,15 @@ export const TTSModeSettings = ({ hideBorder }: { hideBorder?: boolean }) => {
         )}
         {form.values.ttsProvider === "tldw" && (
           <>
+            {(tldwVoicesError || tldwModelsError) && (
+              <Alert
+                type="error"
+                message={t("generalSettings.tts.tldw.fetchError", "Failed to fetch TTS configuration")}
+                description={t("generalSettings.tts.tldw.fetchErrorHelp", "Check your tldw server connection and try again.")}
+                showIcon
+                className="mb-4"
+              />
+            )}
             <div className="flex sm:flex-row flex-col space-y-4 sm:space-y-0 sm:justify-between">
               <span className="text-gray-700 dark:text-neutral-50">
                 TTS Model
@@ -478,20 +549,29 @@ export const TTSModeSettings = ({ hideBorder }: { hideBorder?: boolean }) => {
             htmlFor={ids.playbackSpeed}>
             Playback Speed
           </label>
-          <InputNumber
-            id={ids.playbackSpeed}
-            aria-label="Playback speed"
-            placeholder="1"
-            className=" mt-4 sm:mt-0 !w-[300px] sm:w-[200px]"
-            required
-            {...form.getInputProps("playbackSpeed")}
-          />
+          <div className="flex flex-col gap-1">
+            <InputNumber
+              id={ids.playbackSpeed}
+              aria-label="Playback speed"
+              placeholder="1"
+              min={0.25}
+              max={2}
+              step={0.05}
+              className=" mt-4 sm:mt-0 !w-[300px] sm:w-[200px]"
+              required
+              {...form.getInputProps("playbackSpeed")}
+            />
+            <span className="text-xs text-gray-500 dark:text-gray-400 sm:text-right">
+              {t("generalSettings.tts.playbackSpeed.range", "0.25-2x")}
+            </span>
+          </div>
         </div>
 
         <div className="flex justify-end">
           <SaveButton
             btnType="submit"
             disabled={!form.isDirty()}
+            loading={isSaving}
             className="disabled:cursor-not-allowed"
             text={form.isDirty() ? "save" : "saved"}
             textOnSave="saved"

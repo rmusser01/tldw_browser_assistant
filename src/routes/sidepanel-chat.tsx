@@ -17,6 +17,7 @@ import { useAntdNotification } from "@/hooks/useAntdNotification"
 import { copilotResumeLastChat } from "@/services/app"
 import { tldwClient } from "@/services/tldw/TldwApiClient"
 import { Storage } from "@plasmohq/storage"
+import { createSafeStorage } from "@/utils/safe-storage"
 import { useStorage } from "@plasmohq/storage/hook"
 import { ChevronDown } from "lucide-react"
 import React, { lazy, Suspense } from "react"
@@ -64,8 +65,9 @@ const SidepanelChat = () => {
   // Per-tab storage (Chrome side panel) or per-window/global (Firefox sidebar).
   // tabId: undefined = not resolved yet, null = resolved but unavailable.
   const [tabId, setTabId] = React.useState<number | null | undefined>(undefined)
+  const [isRestoringChat, setIsRestoringChat] = React.useState(false)
   const storageRef = React.useRef(
-    new Storage({
+    createSafeStorage({
       area: "local"
     })
   )
@@ -78,6 +80,10 @@ const SidepanelChat = () => {
   const feedbackTimerRef = React.useRef<ReturnType<typeof setTimeout> | null>(
     null
   )
+  // L20: Debounce timer for drag-leave to prevent false positives
+  const dragLeaveTimerRef = React.useRef<ReturnType<typeof setTimeout> | null>(
+    null
+  )
   const showDropFeedback = React.useCallback(
     (feedback: { type: "info" | "error"; message: string }) => {
       setDropFeedback(feedback)
@@ -85,6 +91,7 @@ const SidepanelChat = () => {
         clearTimeout(feedbackTimerRef.current)
       }
       feedbackTimerRef.current = setTimeout(() => {
+        // L16: Explicitly clear feedback on timer expiry
         setDropFeedback(null)
         feedbackTimerRef.current = null
       }, 4000)
@@ -197,7 +204,7 @@ const SidepanelChat = () => {
 
   const [chatBackgroundImage] = useStorage({
     key: "chatBackgroundImage",
-    instance: new Storage({
+    instance: createSafeStorage({
       area: "local"
     })
   })
@@ -222,6 +229,7 @@ const SidepanelChat = () => {
     }
 
     const storage = storageRef.current
+    setIsRestoringChat(true)
     try {
       // Prefer a tab-specific snapshot; fall back to the legacy/global key
       // so existing users don't lose their last session.
@@ -249,23 +257,29 @@ const SidepanelChat = () => {
         if (snapshot.chatMode) {
           setChatMode(snapshot.chatMode)
         }
+        setIsRestoringChat(false)
         return
       }
     } catch {
       // fall through to recent chat resume
     }
 
-    const isEnabled = await copilotResumeLastChat()
-    if (!isEnabled) {
-      return
-    }
-    if (messages.length === 0) {
-      const recentChat = await getRecentChatFromCopilot()
-      if (recentChat) {
-        setHistoryId(recentChat.history.id)
-        setHistory(formatToChatHistory(recentChat.messages))
-        setMessages(formatToMessage(recentChat.messages))
+    try {
+      const isEnabled = await copilotResumeLastChat()
+      if (!isEnabled) {
+        setIsRestoringChat(false)
+        return
       }
+      if (messages.length === 0) {
+        const recentChat = await getRecentChatFromCopilot()
+        if (recentChat) {
+          setHistoryId(recentChat.history.id)
+          setHistory(formatToChatHistory(recentChat.messages))
+          setMessages(formatToMessage(recentChat.messages))
+        }
+      }
+    } finally {
+      setIsRestoringChat(false)
     }
   }
 
@@ -376,6 +390,11 @@ const SidepanelChat = () => {
     const handleDragEnter = (e: DragEvent) => {
       e.preventDefault()
       e.stopPropagation()
+      // L20: Clear drag-leave debounce timer when re-entering
+      if (dragLeaveTimerRef.current) {
+        clearTimeout(dragLeaveTimerRef.current)
+        dragLeaveTimerRef.current = null
+      }
       setDropState("dragging")
       showDropFeedback({
         type: "info",
@@ -389,7 +408,14 @@ const SidepanelChat = () => {
     const handleDragLeave = (e: DragEvent) => {
       e.preventDefault()
       e.stopPropagation()
-      setDropState("idle")
+      // L20: Debounce drag-leave by 50ms to prevent false positives from child elements
+      if (dragLeaveTimerRef.current) {
+        clearTimeout(dragLeaveTimerRef.current)
+      }
+      dragLeaveTimerRef.current = setTimeout(() => {
+        setDropState("idle")
+        dragLeaveTimerRef.current = null
+      }, 50)
     }
 
     drop.current.addEventListener("dragover", handleDragOver)
@@ -411,6 +437,10 @@ const SidepanelChat = () => {
     return () => {
       if (feedbackTimerRef.current) {
         clearTimeout(feedbackTimerRef.current)
+      }
+      // L20: Clean up drag-leave debounce timer
+      if (dragLeaveTimerRef.current) {
+        clearTimeout(dragLeaveTimerRef.current)
       }
     }
   }, [])
@@ -591,7 +621,24 @@ const SidepanelChat = () => {
             aria-relevant="additions"
             aria-label={t("playground:aria.chatTranscript", "Chat messages")}
             className="custom-scrollbar flex h-full w-full flex-col items-center overflow-x-hidden overflow-y-auto px-5 relative z-10">
-            <SidePanelBody scrollParentRef={containerRef} searchQuery={searchQuery} />
+            {isRestoringChat ? (
+              <div className="relative flex w-full flex-col items-center pt-16 pb-4">
+                <div className="w-full max-w-3xl space-y-4">
+                  {[1, 2, 3].map((i) => (
+                    <div key={i} className="flex gap-4 animate-pulse">
+                      <div className="w-8 h-8 rounded-full bg-gray-200 dark:bg-gray-700 flex-shrink-0"></div>
+                      <div className="flex-1 space-y-2">
+                        <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-1/4"></div>
+                        <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-full"></div>
+                        <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-3/4"></div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            ) : (
+              <SidePanelBody scrollParentRef={containerRef} searchQuery={searchQuery} />
+            )}
           </div>
 
           <div className="absolute bottom-0 w-full z-10">

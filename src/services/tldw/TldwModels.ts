@@ -1,5 +1,6 @@
 import { Storage } from "@plasmohq/storage"
 import { tldwClient, TldwModel } from "./TldwApiClient"
+import { createSafeStorage } from "@/utils/safe-storage"
 
 export interface ModelInfo {
   id: string
@@ -16,7 +17,7 @@ export class TldwModelsService {
   private lastFetchTime: number = 0
   private readonly CACHE_DURATION = 15 * 60 * 1000 // 15 minutes
   private readonly CACHE_KEY = "tldwModelsCache"
-  private storage = new Storage({ area: "local" })
+  private storage = createSafeStorage({ area: "local" })
   private storageLoaded = false
   private storageInitPromise: Promise<void> | null = null
 

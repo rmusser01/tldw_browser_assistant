@@ -611,6 +611,7 @@
     "sendButton": "Send",
     "emptyState": "Start a quick side chat to keep your main thread clean.",
     "popOutButton": "Pop out",
+    "popOutDisabled": "Pop-out is disabled when there are no messages. Start a conversation first.",
     "noModelWarning": "Please select a model in the main chat first.",
     "userMessageAria": "Your message",
     "assistantMessageAria": "Assistant message"

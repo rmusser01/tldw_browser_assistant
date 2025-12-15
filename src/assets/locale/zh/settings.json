@@ -84,7 +84,8 @@
         "label": "默认启用侧边栏临时聊天"
       },
       "enableOcrAssets": {
-        "label": "Enable OCR (downloads ~5MB on first use)"
+        "label": "Enable OCR (downloads ~5MB on first use)",
+        "downloadNotice": "启用 OCR 后，首次使用时将下载约 5MB 的语言数据。"
       },
       "ocrLanguage": {
         "label": "Default OCR Language",

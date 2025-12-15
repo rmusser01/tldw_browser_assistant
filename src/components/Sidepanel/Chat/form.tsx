@@ -4,7 +4,7 @@ import React from "react"
 import useDynamicTextareaSize from "~/hooks/useDynamicTextareaSize"
 import { useMessage } from "~/hooks/useMessage"
 import { toBase64 } from "~/libs/to-base64"
-import { Checkbox, Dropdown, Switch, Image, Tooltip } from "antd"
+import { Checkbox, Dropdown, Switch, Image, Tooltip, message } from "antd"
 import { useWebUI } from "~/store/webui"
 import { defaultEmbeddingModelForRag } from "~/services/tldw-server"
 import {
@@ -43,7 +43,6 @@ import { tldwClient } from "@/services/tldw/TldwApiClient"
 import { useAntdNotification } from "@/hooks/useAntdNotification"
 import { useFocusComposerOnConnect } from "@/hooks/useComposerFocus"
 import { useQuickIngestStore } from "@/store/quick-ingest"
-import { cleanUrl } from "@/libs/clean-url"
 
 type Props = {
   dropedFile: File | undefined
@@ -56,6 +55,7 @@ export const SidepanelForm = ({ dropedFile }: Props) => {
   const [typing, setTyping] = React.useState<boolean>(false)
   const { t } = useTranslation(["playground", "common", "option", "sidepanel"])
   const notification = useAntdNotification()
+  const errorTimeoutRef = React.useRef<ReturnType<typeof setTimeout> | null>(null)
   const [chatWithWebsiteEmbedding] = useStorage(
     "chatWithWebsiteEmbedding",
     false
@@ -174,34 +174,11 @@ export const SidepanelForm = ({ dropedFile }: Props) => {
   const { capabilities, loading: capsLoading } = useServerCapabilities()
   const hasServerAudio =
     isConnectionReady && !capsLoading && capabilities?.hasAudio
-  const [hasShownConnectBanner, setHasShownConnectBanner] =
-    React.useState(false)
-  const [showConnectBanner, setShowConnectBanner] = React.useState(false)
   const [isFlushingQueue, setIsFlushingQueue] = React.useState(false)
-  const host = React.useMemo(
-    () => (serverUrl ? cleanUrl(serverUrl) : "tldw_server"),
-    [serverUrl]
+  const [debouncedPlaceholder, setDebouncedPlaceholder] = React.useState<string>(
+    t("form.textarea.placeholder")
   )
-
-  const connectBannerCopy = React.useMemo(() => {
-    if (uxState === "error_auth") {
-      return t(
-        "option:connectionCard.descriptionErrorAuth",
-        "Your server is up but the API key is wrong or missing. Fix the key in Settings → tldw server, then retry."
-      )
-    }
-    if (uxState === "error_unreachable") {
-      return t(
-        "option:connectionCard.descriptionError",
-        "We couldn’t reach {{host}}. Check that your tldw_server is running and that your browser can reach it, then open diagnostics or update the URL.",
-        { host }
-      )
-    }
-    return t(
-      "sidepanel:composer.connectHint",
-      "Finish setup in Options to start chatting."
-    )
-  }, [host, t, uxState])
+  const placeholderTimeoutRef = React.useRef<ReturnType<typeof setTimeout> | null>(null)
 
   const onInputChange = async (
     e: React.ChangeEvent<HTMLInputElement> | File
@@ -273,15 +250,6 @@ export const SidepanelForm = ({ dropedFile }: Props) => {
     serverChatId
   } = useMessage()
 
-  const handleDisconnectedFocus = () => {
-    // When there are no messages, the shared connection card in the body
-    // provides the primary CTA. Only show the inline banner when there is
-    // existing history and the connection drops.
-    if (!isConnectionReady && messages.length > 0 && !hasShownConnectBanner) {
-      setShowConnectBanner(true)
-      setHasShownConnectBanner(true)
-    }
-  }
 
   const handlePaste = (e: React.ClipboardEvent) => {
     if (e.clipboardData.files.length > 0) {
@@ -444,13 +412,21 @@ export const SidepanelForm = ({ dropedFile }: Props) => {
         return
       }
       setTemporaryChat(next)
-      if (messages.length > 0) {
+      // L17: Track if messages were cleared for better notification
+      const hadMessages = messages.length > 0
+      if (hadMessages) {
         clearChat()
       }
 
       const modeLabel = getPersistenceModeLabel(next)
+      const messageText = hadMessages && next
+        ? t(
+            "sidepanel:composer.tempChatClearedMessages",
+            "Temporary chat enabled. Previous messages cleared."
+          )
+        : modeLabel
       notification.info({
-        message: modeLabel,
+        message: messageText,
         placement: "bottomRight",
         duration: 2.5
       })
@@ -522,6 +498,7 @@ export const SidepanelForm = ({ dropedFile }: Props) => {
             "Microphone recording error. Check your permissions and try again."
           )
         })
+        setIsServerDictating(false)
       }
       recorder.onstop = async () => {
         try {
@@ -630,11 +607,31 @@ export const SidepanelForm = ({ dropedFile }: Props) => {
       recorder.start()
       setIsServerDictating(true)
     } catch (e: any) {
+      // L19: Add permissions guidance for microphone errors
+      const isChromeOrEdge = typeof chrome !== 'undefined' && chrome.permissions
       notification.error({
         message: t("playground:actions.speechErrorTitle", "Dictation failed"),
-        description: t(
-          "playground:actions.speechMicError",
-          "Unable to access your microphone. Check browser permissions and try again."
+        description: (
+          <div>
+            <p className="mb-2">
+              {t(
+                "playground:actions.speechMicError",
+                "Unable to access your microphone. Check browser permissions and try again."
+              )}
+            </p>
+            {isChromeOrEdge && (
+              <button
+                type="button"
+                onClick={() => {
+                  const settingsUrl = 'chrome://settings/content/microphone'
+                  window.open(settingsUrl, '_blank')
+                }}
+                className="text-xs underline text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300"
+              >
+                {t("playground:actions.openMicPermissions", "Open microphone settings")}
+              </button>
+            )}
+          </div>
         )
       })
     }
@@ -868,11 +865,54 @@ export const SidepanelForm = ({ dropedFile }: Props) => {
     }
   }, [defaultInternetSearchOn])
 
+  // Auto-dismiss error messages after 5 seconds
   React.useEffect(() => {
-    if (isConnectionReady) {
-      setShowConnectBanner(false)
+    if (form.errors.message) {
+      if (errorTimeoutRef.current) {
+        clearTimeout(errorTimeoutRef.current)
+      }
+      errorTimeoutRef.current = setTimeout(() => {
+        form.clearFieldError("message")
+        errorTimeoutRef.current = null
+      }, 5000)
     }
-  }, [isConnectionReady])
+    return () => {
+      if (errorTimeoutRef.current) {
+        clearTimeout(errorTimeoutRef.current)
+      }
+    }
+  }, [form.errors.message])
+
+  // Debounce placeholder changes to prevent flashing on flaky connections
+  React.useEffect(() => {
+    const targetPlaceholder = isConnectionReady
+      ? t("form.textarea.placeholder")
+      : uxState === "testing"
+        ? t(
+            "sidepanel:composer.connectingPlaceholder",
+            "Connecting..."
+          )
+        : t(
+            "sidepanel:composer.disconnectedPlaceholder",
+            "Not connected — open Settings to connect"
+          )
+
+    // Clear any existing timeout
+    if (placeholderTimeoutRef.current) {
+      clearTimeout(placeholderTimeoutRef.current)
+    }
+
+    // Debounce by 1.5 seconds to avoid flashing
+    placeholderTimeoutRef.current = setTimeout(() => {
+      setDebouncedPlaceholder(targetPlaceholder)
+    }, 1500)
+
+    return () => {
+      if (placeholderTimeoutRef.current) {
+        clearTimeout(placeholderTimeoutRef.current)
+      }
+    }
+  }, [isConnectionReady, uxState, t])
 
   return (
     <div className="flex w-full flex-col items-center px-2">
@@ -891,6 +931,7 @@ export const SidepanelForm = ({ dropedFile }: Props) => {
                 onClick={() => {
                   form.setFieldValue("image", "")
                 }}
+                aria-label={t("sidepanel:composer.removeImage", "Remove uploaded image")}
                 className="absolute top-1 left-1 flex items-center justify-center z-10 bg-white dark:bg-[#262626] p-0.5 rounded-full hover:bg-gray-100 dark:hover:bg-gray-600 text-black dark:text-gray-100">
                 <X className="h-3 w-3" />
               </button>{" "}
@@ -928,10 +969,18 @@ export const SidepanelForm = ({ dropedFile }: Props) => {
                     }`}>
                     {/* Connection status indicator when disconnected */}
                     {!isConnectionReady && (
-                      <div className="flex items-center gap-2 px-2 py-1.5 text-xs text-amber-700 dark:text-amber-300">
+                      <div className={`flex items-center gap-2 px-2 py-1.5 text-xs ${
+                        uxState === "testing"
+                          ? "text-amber-700 dark:text-amber-300"
+                          : "text-red-700 dark:text-red-300"
+                      }`}>
                         <span className="relative flex h-2 w-2">
-                          <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-amber-400 opacity-75"></span>
-                          <span className="relative inline-flex h-2 w-2 rounded-full bg-amber-500"></span>
+                          <span className={`absolute inline-flex h-full w-full animate-ping rounded-full opacity-75 ${
+                            uxState === "testing" ? "bg-amber-400" : "bg-red-400"
+                          }`}></span>
+                          <span className={`relative inline-flex h-2 w-2 rounded-full ${
+                            uxState === "testing" ? "bg-amber-500" : "bg-red-500"
+                          }`}></span>
                         </span>
                         <span>
                           {uxState === "testing"
@@ -942,7 +991,7 @@ export const SidepanelForm = ({ dropedFile }: Props) => {
                           <button
                             type="button"
                             onClick={openSettings}
-                            className="ml-auto text-[11px] font-medium text-amber-700 underline hover:text-amber-800 dark:text-amber-300 dark:hover:text-amber-200"
+                            className="ml-auto text-[11px] font-medium text-red-700 underline hover:text-red-800 dark:text-red-300 dark:hover:text-red-200"
                           >
                             {t("sidepanel:composer.openSettings", "Open Settings")}
                           </button>
@@ -974,17 +1023,122 @@ export const SidepanelForm = ({ dropedFile }: Props) => {
                         await sendCurrentFormMessage(trimmed, "")
                       }}
                     />
+                    {/* Queued messages banner - shown above input area */}
+                    {queuedMessages.length > 0 && (
+                      <div className="mb-2 flex flex-wrap items-center justify-between gap-2 rounded-md border border-green-300 bg-green-50 px-3 py-2 text-xs text-green-900 dark:border-green-500 dark:bg-[#102a10] dark:text-green-100">
+                        <p className="max-w-xs text-left">
+                          <span className="block font-medium">
+                            {t(
+                              "playground:composer.queuedBanner.title",
+                              "Queued while offline"
+                            )}
+                          </span>
+                          {t(
+                            "playground:composer.queuedBanner.body",
+                            "We'll hold these messages and send them once your tldw server is connected."
+                          )}
+                        </p>
+                        <div className="flex flex-wrap items-center gap-2">
+                          <Tooltip
+                            title={
+                              !isConnectionReady || isFlushingQueue
+                                ? !isConnectionReady
+                                  ? t(
+                                      "playground:composer.queuedBanner.waitForConnection",
+                                      "Wait for server connection to send queued messages"
+                                    )
+                                  : t(
+                                      "playground:composer.queuedBanner.sending",
+                                      "Sending..."
+                                    )
+                                : undefined
+                            }>
+                            <span className="inline-block">
+                              <button
+                                type="button"
+                                onClick={async () => {
+                                  if (!isConnectionReady || isFlushingQueue) return
+                                  setIsFlushingQueue(true)
+                                  try {
+                                    const hasEmbedding =
+                                      await ensureEmbeddingModelAvailable()
+                                    if (!hasEmbedding) {
+                                      return
+                                    }
+                                    for (const item of queuedMessages) {
+                                      await submitQueuedInSidepanel(
+                                        item.message,
+                                        item.image
+                                      )
+                                    }
+                                    clearQueuedMessages()
+                                  } finally {
+                                    setIsFlushingQueue(false)
+                                  }
+                                }}
+                                disabled={!isConnectionReady || isFlushingQueue}
+                                className={`rounded-md border border-green-300 bg-white px-2 py-1 text-xs font-medium text-green-900 hover:bg-green-100 dark:bg-[#163816] dark:text-green-50 dark:hover:bg-[#194419] ${
+                                  !isConnectionReady || isFlushingQueue
+                                    ? "cursor-not-allowed opacity-60"
+                                    : ""
+                                }`}>
+                                {t(
+                                  "playground:composer.queuedBanner.sendNow",
+                                  "Send queued messages"
+                                )}
+                              </button>
+                            </span>
+                          </Tooltip>
+                          <button
+                            type="button"
+                            onClick={() => {
+                              const count = queuedMessages.length
+                              clearQueuedMessages()
+                              message.success(
+                                t(
+                                  "playground:composer.queuedBanner.cleared",
+                                  "Queue cleared ({{count}} messages)",
+                                  { count }
+                                )
+                              )
+                            }}
+                            className="text-xs font-medium text-green-900 underline hover:text-green-700 dark:text-green-100 dark:hover:text-green-300">
+                            {t(
+                              "playground:composer.queuedBanner.clear",
+                              "Clear queue"
+                            )}
+                          </button>
+                          <button
+                            type="button"
+                            onClick={openDiagnostics}
+                            className="text-xs font-medium text-green-900 underline hover:text-green-700 dark:text-green-100 dark:hover:text-green-300">
+                            {t(
+                              "settings:healthSummary.diagnostics",
+                              "Health & diagnostics"
+                            )}
+                          </button>
+                        </div>
+                      </div>
+                    )}
                     <textarea
                       onKeyDown={(e) => handleKeyDown(e)}
-                      onFocus={handleDisconnectedFocus}
                       ref={textareaRef}
-                      className={`px-2 py-2 w-full resize-none bg-transparent focus-within:outline-none focus:ring-0 focus-visible:ring-0 ring-0 dark:ring-0 border-0 dark:text-gray-100 ${
+                      className={`px-2 py-2 w-full resize-none focus-within:outline-none focus:ring-0 focus-visible:ring-0 ring-0 dark:ring-0 border-0 dark:text-gray-100 ${
                         !isConnectionReady
-                          ? "cursor-not-allowed text-gray-500 placeholder:text-gray-400 dark:text-gray-400 dark:placeholder:text-gray-500"
-                          : ""
+                          ? "cursor-not-allowed text-gray-500 placeholder:text-gray-400 dark:text-gray-400 dark:placeholder:text-gray-500 bg-gray-100/50 dark:bg-gray-800/50 opacity-70"
+                          : "bg-transparent"
                       }`}
                       readOnly={!isConnectionReady}
+                      aria-readonly={!isConnectionReady}
                       aria-disabled={!isConnectionReady}
+                      aria-label={
+                        !isConnectionReady
+                          ? t(
+                              "sidepanel:composer.disconnectedAriaLabel",
+                              "Message input (read-only: not connected to server)"
+                            )
+                          : t("sidepanel:composer.messageAriaLabel", "Message input")
+                      }
                       onPaste={handlePaste}
                       rows={1}
                       style={{ minHeight: "60px" }}
@@ -999,31 +1153,29 @@ export const SidepanelForm = ({ dropedFile }: Props) => {
                           setTyping(false)
                         }
                       }}
-                      placeholder={
-                        isConnectionReady
-                          ? t("form.textarea.placeholder")
-                          : uxState === "testing"
-                            ? t(
-                                "sidepanel:composer.connectingPlaceholder",
-                                "Connecting..."
-                              )
-                            : t(
-                                "sidepanel:composer.disconnectedPlaceholder",
-                                "Not connected — open Settings to connect"
-                              )
-                      }
+                      placeholder={debouncedPlaceholder || t("form.textarea.placeholder")}
                       {...form.getInputProps("message")}
                     />
                     {/* Inline error message - positioned right after textarea for visibility */}
                     {form.errors.message && (
                       <div
                         role="alert"
-                        className="flex items-center gap-1.5 px-2 py-1 text-xs text-red-600 dark:text-red-400 animate-shake"
+                        className="flex items-center justify-between gap-1.5 px-2 py-1 text-xs text-red-600 dark:text-red-400 animate-shake"
                       >
-                        <svg className="h-3.5 w-3.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                          <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
-                        </svg>
-                        <span>{form.errors.message}</span>
+                        <div className="flex items-center gap-1.5">
+                          <svg className="h-3.5 w-3.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                            <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
+                          </svg>
+                          <span>{form.errors.message}</span>
+                        </div>
+                        <button
+                          type="button"
+                          onClick={() => form.clearFieldError("message")}
+                          className="flex-shrink-0 text-red-600 dark:text-red-400 hover:text-red-800 dark:hover:text-red-300"
+                          aria-label={t("common:dismiss", "Dismiss")}
+                        >
+                          <X className="h-3 w-3" />
+                        </button>
                       </div>
                     )}
                     <div className="mt-2 flex w-full flex-row items-center justify-between gap-2">
@@ -1051,6 +1203,7 @@ export const SidepanelForm = ({ dropedFile }: Props) => {
                             "Send options"
                           )}
                           className="flex items-center gap-2">
+                          {/* L15: gap-2 provides visual separation */}
                           {!streaming ? (
                             <>
                               <Dropdown.Button
@@ -1091,44 +1244,68 @@ export const SidepanelForm = ({ dropedFile }: Props) => {
                                 menu={{
                                   items: [
                                     {
-                                      key: 1,
-                                      label: (
-                                        <Checkbox
-                                          checked={sendWhenEnter}
-                                          onChange={(e) =>
-                                            setSendWhenEnter(e.target.checked)
-                                          }>
-                                          {t("sendWhenEnter")}
-                                        </Checkbox>
-                                      )
+                                      key: "send-section",
+                                      type: "group",
+                                      label: t(
+                                        "playground:composer.actions",
+                                        "Send options"
+                                      ),
+                                      children: [
+                                        {
+                                          key: 1,
+                                          label: (
+                                            <Checkbox
+                                              checked={sendWhenEnter}
+                                              onChange={(e) =>
+                                                setSendWhenEnter(e.target.checked)
+                                              }>
+                                              {t("sendWhenEnter")}
+                                            </Checkbox>
+                                          )
+                                        }
+                                      ]
                                     },
                                     {
-                                      key: 2,
-                                      label: (
-                                        <Checkbox
-                                          checked={chatMode === "rag"}
-                                          onChange={(e) => {
-                                            setChatMode(
-                                              e.target.checked
-                                                ? "rag"
-                                                : "normal"
-                                            )
-                                          }}>
-                                          {t("common:chatWithCurrentPage")}
-                                        </Checkbox>
-                                      )
+                                      type: "divider",
+                                      key: "divider-1"
                                     },
                                     {
-                                      key: 3,
-                                      label: (
-                                        <Checkbox
-                                          checked={useOCR}
-                                          onChange={(e) =>
-                                            setUseOCR(e.target.checked)
-                                          }>
-                                          {t("useOCR")}
-                                        </Checkbox>
-                                      )
+                                      key: "context-section",
+                                      type: "group",
+                                      label: t(
+                                        "playground:composer.coreTools",
+                                        "Conversation options"
+                                      ),
+                                      children: [
+                                        {
+                                          key: 2,
+                                          label: (
+                                            <Checkbox
+                                              checked={chatMode === "rag"}
+                                              onChange={(e) => {
+                                                setChatMode(
+                                                  e.target.checked
+                                                    ? "rag"
+                                                    : "normal"
+                                                )
+                                              }}>
+                                              {t("common:chatWithCurrentPage")}
+                                            </Checkbox>
+                                          )
+                                        },
+                                        {
+                                          key: 3,
+                                          label: (
+                                            <Checkbox
+                                              checked={useOCR}
+                                              onChange={(e) =>
+                                                setUseOCR(e.target.checked)
+                                              }>
+                                              {t("useOCR")}
+                                            </Checkbox>
+                                          )
+                                        }
+                                      ]
                                     }
                                   ]
                                 }}>
@@ -1170,145 +1347,43 @@ export const SidepanelForm = ({ dropedFile }: Props) => {
                               </Tooltip>
                             </>
                           ) : (
-                            <Tooltip title={t("tooltip.stopStreaming")}>
-                              <button
-                                type="button"
-                                onClick={stopStreamingRequest}
-                                className="text-gray-800 dark:text-gray-300 border border-gray-300 dark:border-gray-600 rounded-md p-1">
-                                <StopCircleIcon className="h-5 w-5" />
-                                <span className="sr-only">
-                                  {t(
-                                    "playground:composer.stopStreaming",
-                                    "Stop streaming response"
-                                  )}
-                                </span>
-                              </button>
-                            </Tooltip>
-                          )}
-                          {streaming && (
-                            <Tooltip
-                              title={
-                                t("common:currentChatModelSettings") as string
-                              }>
-                              <button
-                                type="button"
-                                onClick={() => setOpenModelSettings(true)}
-                                className="text-gray-800 dark:text-gray-300 border border-gray-300 dark:border-gray-600 rounded-md p-1">
-                                <Gauge className="h-5 w-5" />
-                                <span className="sr-only">
-                                  {t(
-                                    "playground:composer.openModelSettings",
-                                    "Open current chat settings"
-                                  )}
-                                </span>
-                              </button>
-                            </Tooltip>
+                            <>
+                              <Tooltip title={t("tooltip.stopStreaming")}>
+                                <button
+                                  type="button"
+                                  onClick={stopStreamingRequest}
+                                  className="text-gray-800 dark:text-gray-300 border border-gray-300 dark:border-gray-600 rounded-md p-1">
+                                  <StopCircleIcon className="h-5 w-5" />
+                                  <span className="sr-only">
+                                    {t(
+                                      "playground:composer.stopStreaming",
+                                      "Stop streaming response"
+                                    )}
+                                  </span>
+                                </button>
+                              </Tooltip>
+                              {/* L15: Visual separator between Stop and settings buttons */}
+                              <Tooltip
+                                title={
+                                  t("common:currentChatModelSettings") as string
+                                }>
+                                <button
+                                  type="button"
+                                  onClick={() => setOpenModelSettings(true)}
+                                  className="text-gray-800 dark:text-gray-300 border border-gray-300 dark:border-gray-600 rounded-md p-1">
+                                  <Gauge className="h-5 w-5" />
+                                  <span className="sr-only">
+                                    {t(
+                                      "playground:composer.openModelSettings",
+                                      "Open current chat settings"
+                                    )}
+                                  </span>
+                                </button>
+                              </Tooltip>
+                            </>
                           )}
                         </div>
                       </div>
-                      {showConnectBanner && !isConnectionReady && (
-                        <div className="mt-2 flex flex-wrap items-center justify-between gap-2 rounded-md border border-amber-300 bg-amber-50 px-3 py-2 text-xs text-amber-900 dark:border-amber-500 dark:bg-[#2a2310] dark:text-amber-100">
-                          <p className="max-w-xs text-left">
-                            {connectBannerCopy}
-                          </p>
-                          <div className="flex flex-wrap items-center gap-2">
-                            <button
-                              type="button"
-                              onClick={openSettings}
-                              className="rounded-md border border-amber-300 bg-white px-2 py-1 text-xs font-medium text-amber-900 hover:bg-amber-100 dark:bg-[#3a2b10] dark:text-amber-50 dark:hover:bg-[#4a3512]">
-                              {t(
-                                "sidepanel:composer.connectPrimaryCta",
-                                "Finish setup in Options"
-                              )}
-                            </button>
-                            <button
-                              type="button"
-                              onClick={openDiagnostics}
-                              className="text-xs font-medium text-amber-900 underline hover:text-amber-700 dark:text-amber-100 dark:hover:text-amber-300">
-                              {t(
-                                "settings:healthSummary.diagnostics",
-                                "Health & diagnostics"
-                              )}
-                            </button>
-                            <button
-                              type="button"
-                              onClick={() => setShowConnectBanner(false)}
-                              className="inline-flex items-center rounded-full p-1 text-amber-700 hover:bg-amber-100 dark:text-amber-200 dark:hover:bg-[#3a2b10]"
-                              aria-label={t("common:close", "Dismiss")}>
-                              <X className="h-3 w-3" />
-                            </button>
-                          </div>
-                        </div>
-                      )}
-                      {queuedMessages.length > 0 && (
-                        <div className="mt-2 flex flex-wrap items-center justify-between gap-2 rounded-md border border-green-300 bg-green-50 px-3 py-2 text-xs text-green-900 dark:border-green-500 dark:bg-[#102a10] dark:text-green-100">
-                          <p className="max-w-xs text-left">
-                            <span className="block font-medium">
-                              {t(
-                                "playground:composer.queuedBanner.title",
-                                "Queued while offline"
-                              )}
-                            </span>
-                            {t(
-                              "playground:composer.queuedBanner.body",
-                              "We’ll hold these messages and send them once your tldw server is connected."
-                            )}
-                          </p>
-                          <div className="flex flex-wrap items-center gap-2">
-                            <button
-                              type="button"
-                              onClick={async () => {
-                                if (!isConnectionReady || isFlushingQueue) return
-                                setIsFlushingQueue(true)
-                                try {
-                                  const hasEmbedding =
-                                    await ensureEmbeddingModelAvailable()
-                                  if (!hasEmbedding) {
-                                    return
-                                  }
-                                  for (const item of queuedMessages) {
-                                    await submitQueuedInSidepanel(
-                                      item.message,
-                                      item.image
-                                    )
-                                  }
-                                  clearQueuedMessages()
-                                } finally {
-                                  setIsFlushingQueue(false)
-                                }
-                              }}
-                              disabled={!isConnectionReady || isFlushingQueue}
-                              className={`rounded-md border border-green-300 bg-white px-2 py-1 text-xs font-medium text-green-900 hover:bg-green-100 dark:bg-[#163816] dark:text-green-50 dark:hover:bg-[#194419] ${
-                                !isConnectionReady || isFlushingQueue
-                                  ? "cursor-not-allowed opacity-60"
-                                  : ""
-                              }`}>
-                              {t(
-                                "playground:composer.queuedBanner.sendNow",
-                                "Send queued messages"
-                              )}
-                            </button>
-                            <button
-                              type="button"
-                              onClick={() => clearQueuedMessages()}
-                              className="text-xs font-medium text-green-900 underline hover:text-green-700 dark:text-green-100 dark:hover:text-green-300">
-                              {t(
-                                "playground:composer.queuedBanner.clear",
-                                "Clear queue"
-                              )}
-                            </button>
-                            <button
-                              type="button"
-                              onClick={openDiagnostics}
-                              className="text-xs font-medium text-green-900 underline hover:text-green-700 dark:text-green-100 dark:hover:text-green-300">
-                              {t(
-                                "settings:healthSummary.diagnostics",
-                                "Health & diagnostics"
-                              )}
-                            </button>
-                          </div>
-                        </div>
-                      )}
                     </div>
                   </div>
                 </form>

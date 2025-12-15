@@ -1,4 +1,5 @@
 import { Storage } from "@plasmohq/storage"
+import { createSafeStorage } from "@/utils/safe-storage"
 
 export type PromptStudioDefaults = {
   defaultProjectId?: number | null
@@ -15,7 +16,7 @@ export type PromptStudioDefaults = {
 
 const STORAGE_KEY = "promptStudioDefaults"
 
-const storage = new Storage({ area: "local" })
+const storage = createSafeStorage({ area: "local" })
 
 const DEFAULTS: Required<PromptStudioDefaults> = {
   defaultProjectId: null,

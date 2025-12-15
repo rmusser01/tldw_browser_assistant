@@ -1,5 +1,5 @@
 import { useDarkMode } from "~/hooks/useDarkmode"
-import { Alert, Modal, Select, Switch, notification } from "antd"
+import { Alert, Modal, Select, Switch, notification, Tag } from "antd"
 import { MoonIcon, SunIcon } from "lucide-react"
 import { useNavigate } from "react-router-dom"
 import { SearchModeSettings } from "./search-mode"
@@ -15,9 +15,13 @@ import { useServerOnline } from "@/hooks/useServerOnline"
 import { useConnectionActions } from "@/hooks/useConnectionState"
 import FeatureEmptyState from "@/components/Common/FeatureEmptyState"
 import ConnectFeatureBanner from "@/components/Common/ConnectFeatureBanner"
+import { DEFAULT_CHAT_SETTINGS } from "@/types/chat-settings"
 
 export const GeneralSettings = () => {
-  const [userChatBubble, setUserChatBubble] = useStorage("userChatBubble", true)
+  const [userChatBubble, setUserChatBubble] = useStorage(
+    "userChatBubble",
+    DEFAULT_CHAT_SETTINGS.userChatBubble
+  )
 
   const [copilotResumeLastChat, setCopilotResumeLastChat] = useStorage(
     "copilotResumeLastChat",
@@ -26,7 +30,7 @@ export const GeneralSettings = () => {
 
   const [webUIResumeLastChat, setWebUIResumeLastChat] = useStorage(
     "webUIResumeLastChat",
-    false
+    DEFAULT_CHAT_SETTINGS.webUIResumeLastChat
   )
   const [defaultChatWithWebsite, setDefaultChatWithWebsite] = useStorage(
     "defaultChatWithWebsite",
@@ -35,12 +39,12 @@ export const GeneralSettings = () => {
 
   const [restoreLastChatModel, setRestoreLastChatModel] = useStorage(
     "restoreLastChatModel",
-    false
+    DEFAULT_CHAT_SETTINGS.restoreLastChatModel
   )
 
   const [copyAsFormattedText, setCopyAsFormattedText] = useStorage(
     "copyAsFormattedText",
-    false
+    DEFAULT_CHAT_SETTINGS.copyAsFormattedText
   )
 
   // Persisted preference: auto-finish onboarding when connection & RAG are healthy
@@ -50,12 +54,12 @@ export const GeneralSettings = () => {
   )
 
   const [autoCopyResponseToClipboard, setAutoCopyResponseToClipboard] =
-    useStorage("autoCopyResponseToClipboard", false)
+    useStorage("autoCopyResponseToClipboard", DEFAULT_CHAT_SETTINGS.autoCopyResponseToClipboard)
 
   const [generateTitle, setGenerateTitle] = useStorage("titleGenEnabled", false)
 
   const [hideCurrentChatModelSettings, setHideCurrentChatModelSettings] =
-    useStorage("hideCurrentChatModelSettings", false)
+    useStorage("hideCurrentChatModelSettings", DEFAULT_CHAT_SETTINGS.hideCurrentChatModelSettings)
 
   const [hideQuickChatHelper, setHideQuickChatHelper] = useStorage(
     "hideQuickChatHelper",
@@ -70,17 +74,17 @@ export const GeneralSettings = () => {
     true
   )
 
-  const [checkWideMode, setCheckWideMode] = useStorage("checkWideMode", false)
+  const [checkWideMode, setCheckWideMode] = useStorage("checkWideMode", DEFAULT_CHAT_SETTINGS.checkWideMode)
 
-  const [openReasoning, setOpenReasoning] = useStorage("openReasoning", false)
+  const [openReasoning, setOpenReasoning] = useStorage("openReasoning", DEFAULT_CHAT_SETTINGS.openReasoning)
   const [menuDensity, setMenuDensity] = useStorage(
     "menuDensity",
-    "comfortable"
+    DEFAULT_CHAT_SETTINGS.menuDensity
   )
 
   const [useMarkdownForUserMessage, setUseMarkdownForUserMessage] = useStorage(
     "useMarkdownForUserMessage",
-    false
+    DEFAULT_CHAT_SETTINGS.useMarkdownForUserMessage
   )
 
   const [tabMentionsEnabled, setTabMentionsEnabled] = useStorage(
@@ -218,6 +222,7 @@ export const GeneralSettings = () => {
         <Switch
           checked={copilotResumeLastChat}
           onChange={(checked) => setCopilotResumeLastChat(checked)}
+          aria-label={t("generalSettings.settings.copilotResumeLastChat.label")}
         />
       </div>
       <div className="flex flex-row justify-between">
@@ -229,6 +234,7 @@ export const GeneralSettings = () => {
         <Switch
           checked={defaultChatWithWebsite}
           onChange={(checked) => setDefaultChatWithWebsite(checked)}
+          aria-label={t("generalSettings.settings.turnOnChatWithWebsite.label")}
         />
       </div>
       <div className="flex flex-row justify-between">
@@ -240,6 +246,7 @@ export const GeneralSettings = () => {
         <Switch
           checked={webUIResumeLastChat}
           onChange={(checked) => setWebUIResumeLastChat(checked)}
+          aria-label={t("generalSettings.settings.webUIResumeLastChat.label")}
         />
       </div>
       <div className="flex flex-row justify-between">
@@ -302,6 +309,7 @@ export const GeneralSettings = () => {
         <Switch
           checked={generateTitle}
           onChange={(checked) => setGenerateTitle(checked)}
+          aria-label={t("generalSettings.settings.generateTitle.label")}
         />
       </div>
 
@@ -315,6 +323,7 @@ export const GeneralSettings = () => {
         <Switch
           checked={checkOllamaStatus}
           onChange={(checked) => setCheckOllamaStatus(checked)}
+          aria-label={t("generalSettings.settings.ollamaStatus.label")}
         />
       </div>
 
@@ -366,11 +375,17 @@ export const GeneralSettings = () => {
           <span className="text-gray-700   dark:text-neutral-50">
             {t("generalSettings.settings.userChatBubble.label")}
           </span>
+          {userChatBubble === true && (
+            <Tag className="text-[10px] py-0 px-1.5 leading-4">
+              {t("generalSettings.settings.defaultBadge", "default")}
+            </Tag>
+          )}
         </div>
 
         <Switch
           checked={userChatBubble}
           onChange={(checked) => setUserChatBubble(checked)}
+          aria-label={t("generalSettings.settings.userChatBubble.label")}
         />
       </div>
 
@@ -497,29 +512,38 @@ export const GeneralSettings = () => {
         <Switch
           checked={pasteLargeTextAsFile}
           onChange={(checked) => setPasteLargeTextAsFile(checked)}
+          aria-label={t("generalSettings.settings.pasteLargeTextAsFile.label")}
         />
       </div>
 
-      <div className="space-y-2">
-        <div className="flex flex-row justify-between">
-          <span className="text-gray-700   dark:text-neutral-50">
-            {t("generalSettings.settings.enableOcrAssets.label", "Enable OCR")}
-          </span>
+	      <div className="space-y-2">
+	        <div className="flex flex-row justify-between">
+	          <span className="text-gray-700   dark:text-neutral-50">
+	            {t("generalSettings.settings.enableOcrAssets.label")}
+	          </span>
 
-          <Switch
-            checked={enableOcrAssets}
-            onChange={(checked) => setEnableOcrAssets(checked)}
-          />
-        </div>
-        {!enableOcrAssets && (
-          <Alert
-            type="info"
-            showIcon
-            message={t("generalSettings.settings.enableOcrAssets.downloadNotice", "Enabling OCR will download ~5MB of language data on first use")}
-            className="!py-1.5 !text-xs"
-          />
-        )}
-      </div>
+	          <Switch
+	            checked={enableOcrAssets}
+	            onChange={(checked) => setEnableOcrAssets(checked)}
+	          />
+	        </div>
+	        {!enableOcrAssets && (
+	          <Alert
+	            type="info"
+	            showIcon
+	            message={t("generalSettings.settings.enableOcrAssets.downloadNotice")}
+	            className="!py-1.5 !text-xs"
+	          />
+	        )}
+	        {enableOcrAssets && (
+	          <Alert
+	            type="success"
+	            showIcon
+	            message={t("generalSettings.settings.enableOcrAssets.downloadingAssets", "Downloading OCR assets... This may take a moment.")}
+	            className="!py-1.5 !text-xs"
+	          />
+	        )}
+	      </div>
 
       <div className="flex flex-row justify-between">
         <span className="text-gray-700   dark:text-neutral-50">
@@ -554,13 +578,21 @@ export const GeneralSettings = () => {
       </div>
 
       <div className="flex flex-row justify-between">
-        <span className="text-gray-700 dark:text-neutral-50 ">
-          {t("generalSettings.settings.removeReasoningTagFromCopy.label")}
-        </span>
+        <div className="inline-flex items-center gap-2">
+          <span className="text-gray-700 dark:text-neutral-50 ">
+            {t("generalSettings.settings.removeReasoningTagFromCopy.label")}
+          </span>
+          {removeReasoningTagFromCopy === true && (
+            <Tag className="text-[10px] py-0 px-1.5 leading-4">
+              {t("generalSettings.settings.defaultBadge", "default")}
+            </Tag>
+          )}
+        </div>
 
         <Switch
           checked={removeReasoningTagFromCopy}
           onChange={(checked) => setRemoveReasoningTagFromCopy(checked)}
+          aria-label={t("generalSettings.settings.removeReasoningTagFromCopy.label")}
         />
       </div>
 
@@ -581,7 +613,7 @@ export const GeneralSettings = () => {
 
         <button
           onClick={toggleDarkMode}
-          className={`inline-flex mt-4 items-center rounded-md border border-transparent bg-black px-2 py-2 text-sm font-medium leading-4 text-white shadow-sm  dark:bg-white dark:text-gray-800 disabled:opacity-50 `}>
+          className={`inline-flex mt-4 items-center rounded-md border border-transparent bg-black px-2 py-2 text-sm font-medium leading-4 text-white shadow-sm  dark:bg-white dark:text-gray-800 disabled:opacity-50 whitespace-nowrap`}>
           {mode === "dark" ? (
             <SunIcon className="w-4 h-4 mr-2" />
           ) : (

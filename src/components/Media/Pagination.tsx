@@ -1,5 +1,7 @@
 import { ChevronLeft, ChevronRight } from 'lucide-react'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import { Tooltip } from 'antd'
+import { useTranslation } from 'react-i18next'
 
 interface PaginationProps {
   currentPage: number
@@ -18,7 +20,9 @@ export function Pagination({
   itemsPerPage,
   currentItemsCount
 }: PaginationProps) {
+  const { t } = useTranslation(['review'])
   const [jumpToPage, setJumpToPage] = useState('')
+  const [jumpError, setJumpError] = useState('')
 
   // Handle empty results case
   if (currentItemsCount === 0) {
@@ -52,10 +56,28 @@ export function Pagination({
 
   const handleJumpToPage = () => {
     const pageNum = parseInt(jumpToPage, 10)
-    if (!isNaN(pageNum) && pageNum >= 1 && pageNum <= totalPages) {
-      onPageChange(pageNum)
-      setJumpToPage('')
+    if (isNaN(pageNum) || pageNum < 1) {
+      setJumpError(t('mediaPage.pageRangeError', 'Page must be 1-{{max}}', { max: totalPages }))
+      return
     }
+    // Clamp to current totalPages and clear error + input on success
+    const clampedPage = Math.min(pageNum, totalPages)
+    setJumpError('')
+    setJumpToPage('')
+    onPageChange(clampedPage)
+  }
+
+  // Clear error when totalPages changes (pagination state updated)
+  useEffect(() => {
+    if (jumpError) {
+      setJumpError('')
+    }
+  }, [totalPages])
+
+  const handleJumpInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setJumpToPage(e.target.value)
+    // Clear error when user starts typing again
+    if (jumpError) setJumpError('')
   }
 
   const handleJumpKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -139,6 +161,8 @@ export function Pagination({
               <span
                 key={`ellipsis-${index}`}
                 className="px-1.5 py-0.5 text-gray-400 dark:text-gray-500 text-xs"
+                aria-hidden="true"
+                role="presentation"
               >
                 ...
               </span>
@@ -152,7 +176,9 @@ export function Pagination({
             <button
               key={pageNum}
               onClick={() => handlePageClick(pageNum)}
-              className={`px-2 py-0.5 rounded text-xs transition-colors ${
+              aria-label={t('mediaPage.goToPage', 'Go to page {{num}}', { num: pageNum })}
+              aria-current={isActive ? 'page' : undefined}
+              className={`px-2 py-0.5 rounded text-xs transition-colors focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-1 ${
                 isActive
                   ? 'bg-blue-600 dark:bg-blue-600 text-white font-medium'
                   : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800'
@@ -178,24 +204,36 @@ export function Pagination({
       {totalPages > 5 && (
         <div className="flex items-center justify-center gap-1.5">
           <label htmlFor="jump-to-page" className="text-xs text-gray-600 dark:text-gray-400">
-            Page:
+            {t('mediaPage.pageLabel', 'Page:')}
           </label>
-          <input
-            id="jump-to-page"
-            type="number"
-            min="1"
-            max={totalPages}
-            value={jumpToPage}
-            onChange={(e) => setJumpToPage(e.target.value)}
-            onKeyDown={handleJumpKeyPress}
-            placeholder={`1-${totalPages}`}
-            className="w-16 px-1.5 py-0.5 text-xs border border-gray-300 dark:border-gray-600 bg-white dark:bg-[#0c0c0c] text-gray-900 dark:text-gray-100 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-600 focus:border-transparent"
-          />
+          <Tooltip
+            title={jumpError}
+            open={!!jumpError}
+            color="red"
+          >
+            <input
+              id="jump-to-page"
+              type="number"
+              min="1"
+              max={totalPages}
+              value={jumpToPage}
+              onChange={handleJumpInputChange}
+              onKeyDown={handleJumpKeyPress}
+              placeholder={`1-${totalPages}`}
+              className={`w-16 px-1.5 py-0.5 text-xs border bg-white dark:bg-[#0c0c0c] text-gray-900 dark:text-gray-100 rounded focus:outline-none focus:ring-2 focus:border-transparent transition-colors ${
+                jumpError
+                  ? 'border-red-400 dark:border-red-500 focus:ring-red-500'
+                  : 'border-gray-300 dark:border-gray-600 focus:ring-blue-500 dark:focus:ring-blue-600'
+              }`}
+              aria-invalid={!!jumpError}
+              aria-describedby={jumpError ? 'jump-page-error' : undefined}
+            />
+          </Tooltip>
           <button
             onClick={handleJumpToPage}
             className="px-2 py-0.5 text-xs bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300 rounded transition-colors"
           >
-            Go
+            {t('mediaPage.go', 'Go')}
           </button>
         </div>
       )}

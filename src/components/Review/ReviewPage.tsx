@@ -33,6 +33,7 @@ import {
 import { ChevronDown, CopyIcon, SendIcon } from "lucide-react"
 import { useNavigate } from "react-router-dom"
 import { Storage } from "@plasmohq/storage"
+import { safeStorageSerde } from "@/utils/safe-storage"
 import { getAllPrompts } from "@/db/dexie/helpers"
 import { useConfirmDanger } from "@/components/Common/confirm-danger"
 import FeatureEmptyState from "@/components/Common/FeatureEmptyState"
@@ -452,7 +453,7 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({
   React.useEffect(() => {
     ;(async () => {
       try {
-        const storage = new Storage({ area: "local" })
+        const storage = new Storage({ area: "local", serde: safeStorageSerde } as any)
         const cacheKey = "reviewMediaTypesCache"
         const cached = (await storage.get(cacheKey).catch(() => null)) as {
           types?: string[]
@@ -531,7 +532,7 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({
   React.useEffect(() => {
     ;(async () => {
       try {
-        const storage = new Storage({ area: "local" })
+        const storage = new Storage({ area: "local", serde: safeStorageSerde } as any)
         const data = (await storage
           .get(scopedKey("review:prompts"))
           .catch(() => null)) as any
@@ -552,7 +553,7 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({
   React.useEffect(() => {
     ;(async () => {
       try {
-        const storage = new Storage({ area: "local" })
+        const storage = new Storage({ area: "local", serde: safeStorageSerde } as any)
         await storage.set(scopedKey("review:prompts"), {
           reviewSystemPrompt,
           reviewUserPrefix,
@@ -581,7 +582,7 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({
   React.useEffect(() => {
     ;(async () => {
       try {
-        const storage = new Storage({ area: "local" })
+        const storage = new Storage({ area: "local", serde: safeStorageSerde } as any)
         const saved = (await storage
           .get(scopedKey("review:autoReviewOnSelect"))
           .catch(() => null)) as any
@@ -609,7 +610,7 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({
   React.useEffect(() => {
     ;(async () => {
       try {
-        const storage = new Storage({ area: "local" })
+        const storage = new Storage({ area: "local", serde: safeStorageSerde } as any)
         await storage.set(
           scopedKey("review:autoReviewOnSelect"),
           autoReviewOnSelect
@@ -622,7 +623,7 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({
   React.useEffect(() => {
     ;(async () => {
       try {
-        const storage = new Storage({ area: "local" })
+        const storage = new Storage({ area: "local", serde: safeStorageSerde } as any)
         await storage.set(scopedKey("review:filtersOpen"), filtersOpen)
       } catch {}
     })()
@@ -632,7 +633,7 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({
   React.useEffect(() => {
     ;(async () => {
       try {
-        const storage = new Storage({ area: "local" })
+        const storage = new Storage({ area: "local", serde: safeStorageSerde } as any)
         await storage.set(scopedKey("review:defaultMode"), analysisMode)
       } catch {}
     })()
@@ -839,7 +840,7 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({
       setExistingAnalyses(arr)
       // Restore previously selected version index if present
       try {
-        const storage = new Storage({ area: "local" })
+        const storage = new Storage({ area: "local", serde: safeStorageSerde } as any)
         const idx = (await storage
           .get(scopedKey(`review:selectedVersion:${item.id}`))
           .catch(() => null)) as any
@@ -864,7 +865,7 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({
     ;(async () => {
       try {
         if (!selected || selected.kind !== "media") return
-        const storage = new Storage({ area: "local" })
+        const storage = new Storage({ area: "local", serde: safeStorageSerde } as any)
         await storage.set(
           scopedKey(`review:selectedVersion:${selected.id}`),
           selectedExistingIndex
@@ -878,7 +879,7 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({
     ;(async () => {
       try {
         if (!selected || selected.kind !== "media") return
-        const storage = new Storage({ area: "local" })
+        const storage = new Storage({ area: "local", serde: safeStorageSerde } as any)
         const saved = (await storage
           .get(scopedKey(`review:withAnalysisOnly:${selected.id}`))
           .catch(() => null)) as any
@@ -891,7 +892,7 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({
     ;(async () => {
       try {
         if (!selected || selected.kind !== "media") return
-        const storage = new Storage({ area: "local" })
+        const storage = new Storage({ area: "local", serde: safeStorageSerde } as any)
         await storage.set(
           scopedKey(`review:withAnalysisOnly:${selected.id}`),
           onlyWithAnalysis
@@ -1057,7 +1058,7 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({
           setExpandedPrompts(new Set())
           return
         }
-        const storage = new Storage({ area: "local" })
+        const storage = new Storage({ area: "local", serde: safeStorageSerde } as any)
         const saved = (await storage
           .get(scopedKey(`review:expandedPrompts:${selected.id}`))
           .catch(() => null)) as any
@@ -1070,7 +1071,7 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({
     ;(async () => {
       try {
         if (!selected || selected.kind !== "media") return
-        const storage = new Storage({ area: "local" })
+        const storage = new Storage({ area: "local", serde: safeStorageSerde } as any)
         await storage.set(
           scopedKey(`review:expandedPrompts:${selected.id}`),
           Array.from(expandedPrompts)
@@ -2799,7 +2800,7 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({
                           size="small"
                           onClick={async () => {
                             try {
-                              const storage = new Storage({ area: "local" })
+                              const storage = new Storage({ area: "local", serde: safeStorageSerde } as any)
                               await storage.set(scopedKey("review:prompts"), {
                                 reviewSystemPrompt,
                                 reviewUserPrefix,
@@ -3023,7 +3024,7 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({
                           size="small"
                           onClick={async () => {
                             try {
-                              const storage = new Storage({ area: "local" })
+                              const storage = new Storage({ area: "local", serde: safeStorageSerde } as any)
                               await storage.set(scopedKey("review:prompts"), {
                                 reviewSystemPrompt,
                                 reviewUserPrefix,

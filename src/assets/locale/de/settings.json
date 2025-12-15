@@ -78,7 +78,8 @@
         "label": "Langen Text als Datei einfügen"
       },
       "enableOcrAssets": {
-        "label": "OCR aktivieren (lädt beim ersten Gebrauch ~5 MB herunter)"
+        "label": "OCR aktivieren (lädt beim ersten Gebrauch ~5 MB herunter)",
+        "downloadNotice": "Beim Aktivieren von OCR werden beim ersten Gebrauch ~5 MB Sprachdaten heruntergeladen."
       },
       "ocrLanguage": {
         "label": "Standard-OCR-Sprache",

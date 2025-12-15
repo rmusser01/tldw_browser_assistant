@@ -81,7 +81,8 @@
         "label": "Abilita Chat Temporanea nel Pannello Laterale per impostazione predefinita"
       },
       "enableOcrAssets": {
-        "label": "Abilita OCR (scarica ~5MB al primo utilizzo)"
+        "label": "Abilita OCR (scarica ~5MB al primo utilizzo)",
+        "downloadNotice": "Abilitando l’OCR verranno scaricati ~5 MB di dati linguistici al primo utilizzo."
       },
       "ocrLanguage": {
         "label": "Lingua predefinita OCR",

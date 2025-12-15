@@ -6,6 +6,7 @@ import { XIcon } from "lucide-react"
 import { Storage } from "@plasmohq/storage"
 import { browser } from "wxt/browser"
 import { SETTINGS_NAV_GROUPS, type SettingsNavItem } from "./settings-nav"
+import { createSafeStorage } from "@/utils/safe-storage"
 
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(" ")
@@ -51,7 +52,7 @@ export const SettingsLayout = ({ children }: { children: React.ReactNode }) => {
                     className="text-xs border rounded px-2 py-1 text-gray-700 dark:text-gray-200 disabled:opacity-50 disabled:cursor-not-allowed"
                     disabled={!sidepanelSupported}
                     onClick={async () => {
-                      const storage = new Storage({ area: "local" })
+                      const storage = createSafeStorage({ area: "local" })
                       await storage.set("uiMode", "sidePanel")
                       await storage.set("actionIconClick", "sidePanel")
                       await storage.set("contextMenuClick", "sidePanel")

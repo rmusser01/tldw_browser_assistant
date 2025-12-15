@@ -20,6 +20,7 @@ import { MarkdownPreview } from "@/components/Common/MarkdownPreview"
 import NotesEditorHeader from "@/components/Notes/NotesEditorHeader"
 import NotesListPanel from "@/components/Notes/NotesListPanel"
 import type { NoteListItem } from "@/components/Notes/types"
+import { translateMessage } from "@/i18n/translateMessage"
 
 type NoteWithKeywords = {
   metadata?: { keywords?: any[] }
@@ -417,11 +418,14 @@ const NotesManagerPage: React.FC = () => {
     a.download = `${name}.md`
     a.click()
     URL.revokeObjectURL(url)
-    // Show file size in success message
+    // Show file size in success message (KB/MB)
     const sizeKB = (blob.size / 1024).toFixed(1)
+    const sizeDisplay = blob.size >= 1024 * 1024
+      ? `${(blob.size / (1024 * 1024)).toFixed(2)} MB`
+      : `${sizeKB} KB`
     message.success(t('option:notesSearch.exportNoteSuccess', {
-      defaultValue: 'Exported ({{size}} KB)',
-      size: sizeKB
+      defaultValue: 'Exported ({{size}})',
+      size: sizeDisplay
     }))
   }
 
@@ -562,7 +566,14 @@ const NotesManagerPage: React.FC = () => {
       a.download = `notes-export.csv`
       a.click()
       URL.revokeObjectURL(url)
-      message.success('Exported CSV')
+      const sizeKB = (blob.size / 1024).toFixed(1)
+      const sizeDisplay = blob.size >= 1024 * 1024
+        ? `${(blob.size / (1024 * 1024)).toFixed(2)} MB`
+        : `${sizeKB} KB`
+      message.success(translateMessage(t, 'option:notesSearch.exportCsvSuccess', 'Exported {{count}} notes as CSV ({{size}})', {
+        count: arr.length,
+        size: sizeDisplay
+      }))
     } catch (e: any) {
       message.error(e?.message || 'Export failed')
     }
@@ -579,7 +590,14 @@ const NotesManagerPage: React.FC = () => {
       a.download = `notes-export.json`
       a.click()
       URL.revokeObjectURL(url)
-      message.success('Exported JSON')
+      const sizeKB = (blob.size / 1024).toFixed(1)
+      const sizeDisplay = blob.size >= 1024 * 1024
+        ? `${(blob.size / (1024 * 1024)).toFixed(2)} MB`
+        : `${sizeKB} KB`
+      message.success(translateMessage(t, 'option:notesSearch.exportJsonSuccess', 'Exported {{count}} notes as JSON ({{size}})', {
+        count: arr.length,
+        size: sizeDisplay
+      }))
     } catch (e: any) {
       message.error(e?.message || 'Export failed')
     }

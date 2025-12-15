@@ -81,7 +81,8 @@
         "label": "Activer le chat temporaire dans le panneau latéral par défaut"
       },
       "enableOcrAssets": {
-        "label": "Activer l’OCR (télécharge ~5 Mo lors de la première utilisation)"
+        "label": "Activer l’OCR (télécharge ~5 Mo lors de la première utilisation)",
+        "downloadNotice": "L’activation de l’OCR téléchargera ~5 Mo de données linguistiques lors de la première utilisation."
       },
       "ocrLanguage": {
         "label": "Langue OCR par défaut",

@@ -116,7 +116,7 @@ export const MentionsDropdown: React.FC<MentionsDropdownProps> = ({
             disabled={isRefreshing}
             type="button"
             className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-100 disabled:opacity-50 disabled:cursor-not-allowed"
-            title="Refresh tabs (Ctrl+R)">
+            title="Refresh tabs">
             <RefreshCw className={`h-4 w-4 ${isRefreshing ? 'animate-spin' : ''}`} />
           </button>
           <button

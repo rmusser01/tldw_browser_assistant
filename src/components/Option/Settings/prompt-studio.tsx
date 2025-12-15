@@ -168,7 +168,7 @@ export const PromptStudioSettings: React.FC = () => {
             </Form.Item>
             <Form.Item>
               <Button
-                type="primary"
+                type="default"
                 htmlType="submit"
                 loading={testStatusMutation.isPending}
                 disabled={!capabilityReady}>

@@ -16,6 +16,10 @@
     "content": "Loading content…"
   },
   "selectAModel": "Select a Model",
+  "modelSelect": {
+    "label": "Model",
+    "tooltip": "Changes model for next message"
+  },
   "save": "Save",
   "saved": "Saved",
   "cancel": "Cancel",

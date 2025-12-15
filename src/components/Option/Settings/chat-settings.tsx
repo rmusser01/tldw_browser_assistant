@@ -6,10 +6,7 @@ import { DEFAULT_CHAT_SETTINGS } from "@/types/chat-settings"
 export const ChatSettings = () => {
   const { t } = useTranslation("settings")
 
-  const [webUIResumeLastChat, setWebUIResumeLastChat] = useStorage(
-    "webUIResumeLastChat",
-    DEFAULT_CHAT_SETTINGS.webUIResumeLastChat
-  )
+  // Note: webUIResumeLastChat is configured in General Settings to avoid duplication
 
   const [restoreLastChatModel, setRestoreLastChatModel] = useStorage(
     "restoreLastChatModel",
@@ -125,21 +122,6 @@ export const ChatSettings = () => {
           )}
         </p>
         <div className="border border-b border-gray-200 dark:border-gray-600 mt-3" />
-      </div>
-
-      <div className="flex flex-row justify-between">
-        <div className="inline-flex items-center gap-2">
-          <span className="text-gray-700 dark:text-neutral-50">
-            {t(
-              "generalSettings.settings.webUIResumeLastChat.label",
-              "Resume the last chat when opening the Web UI"
-            )}
-          </span>
-        </div>
-        <Switch
-          checked={webUIResumeLastChat}
-          onChange={(checked) => setWebUIResumeLastChat(checked)}
-        />
       </div>
 
       <div className="flex flex-row justify-between">

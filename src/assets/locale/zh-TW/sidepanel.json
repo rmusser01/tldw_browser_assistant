@@ -92,6 +92,10 @@
       "ask": "Ask",
       "open": "Open",
       "copy": "Copy"
+    },
+    "hint": {
+      "message": "搜尋你的知識庫，並將結果插入到訊息中。",
+      "dismiss": "關閉"
     }
   }
 }

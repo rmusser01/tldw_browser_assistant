@@ -21,6 +21,8 @@ import { CurrentChatModelSettings } from "../Common/Settings/CurrentChatModelSet
 import { Sidebar } from "../Option/Sidebar"
 import { Header } from "./Header"
 import { useMigration } from "../../hooks/useMigration"
+import { useChatSidebar } from "@/hooks/useFeatureFlags"
+import { ChatSidebar } from "@/components/Common/ChatSidebar"
 
 // Lazy-load Timeline to reduce initial bundle size (~1.2MB cytoscape)
 const TimelineModal = lazy(() =>
@@ -42,10 +44,12 @@ const OptionLayoutInner: React.FC<OptionLayoutProps> = ({
 }) => {
   const confirmDanger = useConfirmDanger()
   const [sidebarOpen, setSidebarOpen] = useState(false)
+  const [chatSidebarCollapsed, setChatSidebarCollapsed] = useState(false)
   const { t } = useTranslation(["option", "common", "settings"])
   const [openModelSettings, setOpenModelSettings] = useState(false)
   const { isLoading: migrationLoading } = useMigration()
   const { demoEnabled } = useDemoMode()
+  const [showChatSidebar] = useChatSidebar()
   const {
     setMessages,
     setHistory,
@@ -94,9 +98,18 @@ const OptionLayoutInner: React.FC<OptionLayoutProps> = ({
 
   return (
     <div className="flex h-full w-full">
+      {/* Persistent ChatSidebar when feature flag enabled */}
+      {showChatSidebar && !hideHeader && (
+        <ChatSidebar
+          collapsed={chatSidebarCollapsed}
+          onToggleCollapse={() => setChatSidebarCollapsed((prev) => !prev)}
+          onNewChat={clearChat}
+          className="shrink-0 border-r border-gray-200 dark:border-gray-800"
+        />
+      )}
       <main
         className={classNames(
-          "relative w-full",
+          "relative flex-1",
           hideHeader ? "min-h-screen bg-slate-50 dark:bg-[#101010]" : "h-dvh"
         )}
         data-demo-mode={demoEnabled ? "on" : "off"}>
@@ -118,7 +131,8 @@ const OptionLayoutInner: React.FC<OptionLayoutProps> = ({
           )}>
           {children}
         </div>
-        {!hideHeader && (
+        {/* Legacy Drawer sidebar - only shown when new ChatSidebar feature is disabled */}
+        {!hideHeader && !showChatSidebar && (
           <Drawer
             title={
               <div className="flex items-center justify-between">

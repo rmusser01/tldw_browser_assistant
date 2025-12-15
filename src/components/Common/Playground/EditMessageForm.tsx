@@ -26,6 +26,13 @@ export const EditMessageForm = (props: Props) => {
     form.setFieldValue("message", props.value)
   }, [props.value])
 
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    if (e.key === "Escape") {
+      e.preventDefault()
+      props.onClose()
+    }
+  }
+
   return (
     <form
       onSubmit={form.onSubmit((data) => {
@@ -36,6 +43,7 @@ export const EditMessageForm = (props: Props) => {
       className="flex flex-col gap-2">
       <textarea
         {...form.getInputProps("message")}
+        onKeyDown={handleKeyDown}
         onCompositionStart={() => {
           if (import.meta.env.BROWSER !== "firefox") {
             setIsComposing(true)

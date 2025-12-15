@@ -81,7 +81,8 @@
         "label": "Aktivera Temporär Chatt i Sidopanelen som standard"
       },
       "enableOcrAssets": {
-        "label": "Enable OCR (downloads ~5MB on first use)"
+        "label": "Enable OCR (downloads ~5MB on first use)",
+        "downloadNotice": "När du aktiverar OCR laddas ungefär 5 MB språkdata ner vid första användningen."
       },
       "ocrLanguage": {
         "label": "Default OCR Language",

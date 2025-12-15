@@ -81,7 +81,8 @@
         "label": "تمكين المحادثة المؤقتة في اللوحة الجانبية بشكل افتراضي"
       },
       "enableOcrAssets": {
-        "label": "Enable OCR (downloads ~5MB on first use)"
+        "label": "Enable OCR (downloads ~5MB on first use)",
+        "downloadNotice": "سيؤدي تفعيل OCR إلى تنزيل حوالي 5MB من بيانات اللغة عند أول استخدام."
       },
       "ocrLanguage": {
         "label": "Default OCR Language",

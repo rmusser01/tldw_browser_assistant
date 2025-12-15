@@ -158,6 +158,7 @@ export const QuickIngestModal: React.FC<Props> = ({
   const [totalPlanned, setTotalPlanned] = React.useState<number>(0)
   const [processedCount, setProcessedCount] = React.useState<number>(0)
   const [liveTotalCount, setLiveTotalCount] = React.useState<number>(0)
+  const [currentFileName, setCurrentFileName] = React.useState<string | null>(null)
   const [ragEmbeddingLabel, setRagEmbeddingLabel] = React.useState<string | null>(null)
   const [runStartedAt, setRunStartedAt] = React.useState<number | null>(null)
   const [pendingUrlInput, setPendingUrlInput] = React.useState<string>('')
@@ -559,6 +560,7 @@ export const QuickIngestModal: React.FC<Props> = ({
     setTotalPlanned(total)
     setProcessedCount(0)
     setLiveTotalCount(total)
+    setCurrentFileName(null)
     setRunStartedAt(Date.now())
     setRunning(true)
     setResults([])
@@ -638,6 +640,7 @@ export const QuickIngestModal: React.FC<Props> = ({
       setResults(out)
       setRunning(false)
       setRunStartedAt(null)
+      setCurrentFileName(null)
       if (!storeRemote && out.length > 0) {
         messageApi.info('Processing complete. You can download results as JSON.')
       }
@@ -659,6 +662,7 @@ export const QuickIngestModal: React.FC<Props> = ({
       }
       setRunning(false)
       setRunStartedAt(null)
+      setCurrentFileName(null)
       setLastRunError(msg)
       markFailure()
     }
@@ -1244,6 +1248,38 @@ export const QuickIngestModal: React.FC<Props> = ({
     const id = window.setInterval(() => setProgressTick((t) => t + 1), 1000)
     return () => window.clearInterval(id)
   }, [running])
+
+  // Simulate file processing progress by cycling through queued items
+  React.useEffect(() => {
+    if (!running || totalPlanned === 0) {
+      setCurrentFileName(null)
+      return
+    }
+
+    const allItems = [
+      ...rows.filter(r => r.url.trim()).map(r => {
+        try {
+          const url = new URL(r.url)
+          return url.pathname.split('/').pop() || r.url.slice(0, 30)
+        } catch {
+          return r.url.slice(0, 30)
+        }
+      }),
+      ...localFiles.map(f => f.name)
+    ]
+
+    if (allItems.length === 0) return
+
+    let idx = 0
+    setCurrentFileName(allItems[0])
+
+    const id = window.setInterval(() => {
+      idx = (idx + 1) % allItems.length
+      setCurrentFileName(allItems[idx])
+    }, 2000) // Cycle every 2 seconds
+
+    return () => window.clearInterval(id)
+  }, [running, totalPlanned, rows, localFiles])
 
   const progressMeta = React.useMemo(() => {
     const total = liveTotalCount || totalPlanned || 0
@@ -2189,16 +2225,27 @@ export const QuickIngestModal: React.FC<Props> = ({
                   const done = processedCount || results.length
                   const total = liveTotalCount || totalPlanned
                   return (
-                    <div className="sr-only" aria-live="polite" role="status">
-                      {running && total > 0
-                        ? t('quickIngest.progress', 'Processing {{done}} / {{total}} items…', {
-                            done,
-                            total
-                          })
-                        : qi('itemsReadySr', '{{count}} item(s) ready', {
-                            count: plannedCount || 0
+                    <>
+                      <div className="sr-only" aria-live="polite" role="status">
+                        {running && total > 0
+                          ? t('quickIngest.progress', 'Processing {{done}} / {{total}} items…', {
+                              done,
+                              total
+                            })
+                          : qi('itemsReadySr', '{{count}} item(s) ready', {
+                              count: plannedCount || 0
+                            })}
+                      </div>
+                      {running && currentFileName && (
+                        <div className="text-xs text-gray-600 dark:text-gray-400 bg-blue-50 dark:bg-blue-900/20 rounded px-2 py-1 border border-blue-200 dark:border-blue-800">
+                          {t('quickIngest.processingFile', 'Processing file {{current}} of {{total}}: {{filename}}', {
+                            current: Math.min(done + 1, total),
+                            total,
+                            filename: currentFileName
                           })}
-                    </div>
+                        </div>
+                      )}
+                    </>
                   )
                 })()}
                 <div className="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between text-sm text-gray-700 dark:text-gray-200">
