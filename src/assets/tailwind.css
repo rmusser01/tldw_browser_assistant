@@ -630,7 +630,32 @@ body {
     font-size: 0.75rem;
     min-width: 180px;
   }
+}
 
+/* Onboarding path selection radio cards - hide default radio circle */
+.onboarding-path-radio .ant-radio {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.onboarding-path-radio .ant-radio-wrapper {
+  margin: 0;
+  padding: 0;
+}
+
+.onboarding-path-radio .ant-radio-wrapper::after {
+  display: none;
+}
+
+.onboarding-path-radio .ant-radio + span {
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+@media (max-width: 640px) {
   /* -------- Uncomment for Option B -----------
      Stacked mini-card view.
      Requires each <td> to carry data-label="Header".

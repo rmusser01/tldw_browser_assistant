@@ -88,6 +88,10 @@
       "ask": "Ask",
       "open": "Open",
       "copy": "Copy"
+    },
+    "hint": {
+      "message": "Search your knowledge base and insert results into your message.",
+      "dismiss": "Dismiss"
     }
   },
   "errors": {

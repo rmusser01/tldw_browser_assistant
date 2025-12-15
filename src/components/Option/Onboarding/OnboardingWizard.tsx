@@ -1,6 +1,6 @@
 import React from 'react'
 import type { InputRef } from 'antd'
-import { Alert, Button, Input, Segmented, Space, Tag, Collapse } from 'antd'
+import { Alert, Button, Input, Radio, Segmented, Space, Tag, Collapse } from 'antd'
 import type { SegmentedValue } from 'antd/es/segmented'
 import { ChevronDown } from 'lucide-react'
 import { useStorage } from '@plasmohq/storage/hook'
@@ -67,7 +67,6 @@ export const OnboardingWizard: React.FC<Props> = ({ onFinish }) => {
     React.useRef<HTMLInputElement | HTMLTextAreaElement | null>(null)
   const authStepRef = React.useRef<HTMLDivElement | null>(null)
   const confirmStepRef = React.useRef<HTMLDivElement | null>(null)
-  const pathRadioRefs = React.useRef<(HTMLButtonElement | null)[]>([])
 
   React.useEffect(() => {
     try {
@@ -471,47 +470,6 @@ export const OnboardingWizard: React.FC<Props> = ({ onFinish }) => {
     }
   }, [activeStep])
 
-  const handlePathKeyDown = (
-    event: React.KeyboardEvent<HTMLButtonElement>,
-    currentIndex: number,
-    options: { value: PathChoice }[]
-  ) => {
-    const { key } = event
-    if (
-      key !== 'ArrowRight' &&
-      key !== 'ArrowLeft' &&
-      key !== 'ArrowDown' &&
-      key !== 'ArrowUp'
-    ) {
-      return
-    }
-
-    event.preventDefault()
-
-    const lastIndex = options.length - 1
-    let nextIndex = currentIndex
-
-    if (key === 'ArrowRight' || key === 'ArrowDown') {
-      nextIndex = currentIndex === lastIndex ? 0 : currentIndex + 1
-    } else if (key === 'ArrowLeft' || key === 'ArrowUp') {
-      nextIndex = currentIndex === 0 ? lastIndex : currentIndex - 1
-    }
-
-    const nextOption = options[nextIndex]
-    if (!nextOption) return
-
-    setPathChoice(nextOption.value)
-
-    const nextButton = pathRadioRefs.current[nextIndex]
-    if (nextButton) {
-      try {
-        nextButton.focus()
-      } catch {
-        // ignore focus errors
-      }
-    }
-  }
-
   return (
     <div className="mx-auto w-full max-w-2xl rounded-xl border border-gray-200 bg-white px-6 py-6 text-gray-900 shadow-sm dark:border-gray-700 dark:bg-[#171717] dark:text-gray-100">
       <h2 className="text-lg font-semibold mb-3 text-gray-900 dark:text-gray-100">{t('settings:onboarding.title')}</h2>
@@ -523,14 +481,10 @@ export const OnboardingWizard: React.FC<Props> = ({ onFinish }) => {
             'How would you like to get started?'
           )}
         </div>
-        <div
-          role="radiogroup"
-          aria-label={t(
-            'settings:onboarding.path.heading',
-            'How would you like to get started?'
-          )}
-          aria-orientation="horizontal"
-          className="grid gap-3 md:grid-cols-3"
+        <Radio.Group
+          value={pathChoice}
+          onChange={(e) => setPathChoice(e.target.value as PathChoice)}
+          className="grid gap-3 md:grid-cols-3 w-full onboarding-path-radio"
         >
           {[
             {
@@ -548,7 +502,7 @@ export const OnboardingWizard: React.FC<Props> = ({ onFinish }) => {
               value: 'no-server' as PathChoice,
               label: t(
                 'settings:onboarding.path.noServer',
-                "I don’t have a server yet"
+                "I don't have a server yet"
               ),
               description: t(
                 'settings:onboarding.path.noServerHelp',
@@ -566,41 +520,25 @@ export const OnboardingWizard: React.FC<Props> = ({ onFinish }) => {
                 'Try the workspace with sample data; connect your own server later.'
               )
             }
-          ].map((option, index, options) => {
-            if (index === 0) {
-              pathRadioRefs.current.length = options.length
-            }
-            const selected = pathChoice === option.value
-            return (
-              <button
-                key={option.value}
-                type="button"
-                role="radio"
-                aria-checked={selected}
-                tabIndex={selected ? 0 : -1}
-                onClick={() => setPathChoice(option.value)}
-                onKeyDown={(event) =>
-                  handlePathKeyDown(event, index, options)
-                }
-                ref={(element) => {
-                  pathRadioRefs.current[index] = element
-                }}
-                className={`flex h-full w-full flex-col items-start rounded-md border px-3 py-2 text-left text-xs transition-colors ${
-                  selected
-                    ? 'border-blue-500 bg-blue-50 text-gray-900 dark:border-blue-400 dark:bg-blue-900/20'
-                    : 'border-gray-200 bg-white text-gray-800 hover:border-blue-400 hover:bg-blue-50/40 dark:border-gray-700 dark:bg-[#111111] dark:text-gray-100 dark:hover:border-blue-400 dark:hover:bg-blue-900/10'
-                }`}
-              >
-                <span className="text-[11px] font-semibold">
-                  {option.label}
-                </span>
-                <span className="mt-1 text-[11px] text-gray-600 dark:text-gray-300">
-                  {option.description}
-                </span>
-              </button>
-            )
-          })}
-        </div>
+          ].map((option) => (
+            <Radio
+              key={option.value}
+              value={option.value}
+              className={`!flex h-full w-full flex-col items-start rounded-md border px-3 py-2 text-left text-xs transition-colors m-0 ${
+                pathChoice === option.value
+                  ? 'border-blue-500 bg-blue-50 dark:border-blue-400 dark:bg-blue-900/20'
+                  : 'border-gray-200 bg-white hover:border-blue-400 hover:bg-blue-50/40 dark:border-gray-700 dark:bg-[#111111] dark:hover:border-blue-400 dark:hover:bg-blue-900/10'
+              }`}
+            >
+              <span className="text-[11px] font-semibold text-gray-900 dark:text-gray-100">
+                {option.label}
+              </span>
+              <span className="mt-1 text-[11px] text-gray-600 dark:text-gray-300">
+                {option.description}
+              </span>
+            </Radio>
+          ))}
+        </Radio.Group>
         {pathChoice === 'no-server' && (
           <Alert
             className="mt-2 text-xs"

@@ -1,5 +1,7 @@
 import React, { useState } from "react"
 import { Input, Select, Button, Tag, Space, Tooltip, Spin, List, InputNumber } from "antd"
+import { X } from "lucide-react"
+import { useStorage } from "@plasmohq/storage/hook"
 import { tldwClient } from "@/services/tldw/TldwApiClient"
 import { browser } from "wxt/browser"
 import { useTranslation } from "react-i18next"
@@ -35,6 +37,7 @@ const dateRanges = [
 export const RagSearchBar: React.FC<Props> = ({ onInsert, onAsk }) => {
   const { t } = useTranslation(['sidepanel'])
   const [open, setOpen] = useState(false)
+  const [ragHintSeen, setRagHintSeen] = useStorage<boolean>('ragSearchHintSeen', false)
   const [q, setQ] = useState("")
   const [type, setType] = useState("")
   const [range, setRange] = useState("")
@@ -109,6 +112,24 @@ export const RagSearchBar: React.FC<Props> = ({ onInsert, onAsk }) => {
       </div>
       {open && (
         <div className="p-2 rounded border border-gray-200 dark:border-gray-600 bg-white dark:bg-[#1f1f1f] mb-2">
+          {/* First-use hint banner */}
+          {!ragHintSeen && (
+            <div className="mb-2 p-2 bg-blue-50 dark:bg-blue-900/20 border-l-2 border-blue-400 rounded flex items-start gap-2">
+              <div className="flex-1">
+                <p className="text-xs text-blue-800 dark:text-blue-200">
+                  {t('sidepanel:rag.hint.message', 'Search your knowledge base and insert results into your message.')}
+                </p>
+              </div>
+              <button
+                type="button"
+                onClick={() => setRagHintSeen(true)}
+                className="p-0.5 rounded hover:bg-blue-100 dark:hover:bg-blue-800/30 text-blue-600 dark:text-blue-300"
+                aria-label={t('sidepanel:rag.hint.dismiss', 'Dismiss')}
+              >
+                <X className="h-3.5 w-3.5" />
+              </button>
+            </div>
+          )}
           <div className="flex gap-2 items-center mb-2">
             <Input
               placeholder={t('sidepanel:rag.searchPlaceholder')}
