@@ -4,7 +4,7 @@ import React from "react"
 import useDynamicTextareaSize from "~/hooks/useDynamicTextareaSize"
 import { useMessage } from "~/hooks/useMessage"
 import { toBase64 } from "~/libs/to-base64"
-import { Checkbox, Dropdown, Switch, Image, Tooltip, Popover } from "antd"
+import { Checkbox, Dropdown, Switch, Image, Tooltip } from "antd"
 import { useWebUI } from "~/store/webui"
 import { defaultEmbeddingModelForRag } from "~/services/tldw-server"
 import {
@@ -15,18 +15,13 @@ import {
   EyeIcon,
   EyeOffIcon,
   Gauge,
-  UploadCloud,
-  MoreHorizontal
+  UploadCloud
 } from "lucide-react"
 import { useTranslation } from "react-i18next"
 import { getVariable } from "@/utils/select-variable"
-import { ModelSelect } from "@/components/Common/ModelSelect"
-import { PromptSelect } from "@/components/Common/PromptSelect"
 import { useSpeechRecognition } from "@/hooks/useSpeechRecognition"
 import { useTldwStt } from "@/hooks/useTldwStt"
 import { useMicStream } from "@/hooks/useMicStream"
-import { PiGlobeX, PiGlobe } from "react-icons/pi"
-import { Search } from "lucide-react"
 import { BsIncognito } from "react-icons/bs"
 import { handleChatInputKeyDown } from "@/utils/key-down"
 import { getIsSimpleInternetSearch } from "@/services/search"
@@ -780,162 +775,6 @@ export const SidepanelForm = ({ dropedFile }: Props) => {
     [getPersistenceModeChipLabel, temporaryChat]
   )
 
-  const moreToolsContent = React.useMemo(
-    () => (
-      <div className="flex w-72 flex-col gap-4">
-        <div className="space-y-2">
-          <p className="text-[11px] font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400">
-            {t("playground:more.history", "Chat saving")}
-          </p>
-          <p className="text-[11px] text-gray-500 dark:text-gray-400">
-            {persistenceModeLabel}
-          </p>
-        </div>
-
-        <div className="space-y-2">
-          <p className="text-[11px] font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400">
-            {t("playground:more.searchRag", "Search & RAG")}
-          </p>
-          {chatMode !== "vision" && (
-            <button
-              type="button"
-              onClick={handleWebSearchToggle}
-              disabled={chatMode === "rag"}
-              className="flex w-full items-center justify-between rounded-md px-2 py-1 text-sm text-gray-700 transition hover:bg-gray-100 disabled:cursor-not-allowed disabled:opacity-40 dark:text-gray-200 dark:hover:bg-[#2a2a2a]">
-              <span>
-                {webSearch
-                  ? t("playground:actions.webSearchOn", "Web search on")
-                  : t("playground:actions.webSearchOff", "Web search off")}
-              </span>
-              {webSearch ? (
-                <PiGlobe className="h-4 w-4" />
-              ) : (
-                <PiGlobeX className="h-4 w-4" />
-              )}
-            </button>
-          )}
-          <button
-            type="button"
-            onClick={handleVisionToggle}
-            disabled={chatMode === "rag"}
-            className="flex w-full items-center justify-between rounded-md px-2 py-1 text-sm text-gray-700 transition hover:bg-gray-100 disabled:cursor-not-allowed disabled:opacity-40 dark:text-gray-200 dark:hover:bg-[#2a2a2a]">
-            <span>
-              {chatMode === "vision"
-                ? t("playground:actions.visionOn", "Vision on")
-                : t("playground:actions.visionOff", "Vision off")}
-            </span>
-            {chatMode === "vision" ? (
-              <EyeIcon className="h-4 w-4" />
-            ) : (
-              <EyeOffIcon className="h-4 w-4" />
-            )}
-          </button>
-        </div>
-
-        <div className="space-y-2">
-          <p className="text-[11px] font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400">
-            {t("playground:more.voice", "More voice options")}
-          </p>
-          <button
-            type="button"
-            onClick={handleLiveCaptionsToggle}
-            className="flex w-full items-center justify-between rounded-md px-2 py-1 text-sm text-gray-700 transition hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-[#2a2a2a]">
-            <span>
-              {wsSttActive
-                ? t("playground:actions.streamStop", "Stop captions")
-                : t("playground:actions.streamStart", "Live captions")}
-            </span>
-            <MicIcon className="h-4 w-4" />
-          </button>
-        </div>
-
-        <div className="space-y-2">
-          <p className="text-[11px] font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400">
-            {t("playground:more.uploads", "Uploads & ingest")}
-          </p>
-          <button
-            type="button"
-            ref={quickIngestBtnRef}
-            onClick={handleQuickIngestOpen}
-            disabled={!isConnectionReady}
-            title={
-              (!isConnectionReady
-                ? t(
-                    "playground:actions.ingestDisabled",
-                    "Connect to your tldw server to ingest."
-                  )
-                : t(
-                    "playground:actions.ingestHint",
-                    "Upload URLs or files with advanced options."
-                  )) +
-              (queuedQuickIngestCount > 0 && quickIngestHadFailure
-                ? " " +
-                  t(
-                    "quickIngest.healthAriaHint",
-                    "Recent runs failed — open Health & diagnostics from the header for more details."
-                  )
-                : "")
-            }
-            className="relative flex w-full items-center justify-between rounded-md px-2 py-1 text-sm text-gray-700 transition hover:bg-gray-100 disabled:cursor-not-allowed disabled:opacity-50 dark:text-gray-200 dark:hover:bg-[#2a2a2a]"
-            data-has-queued-ingest={
-              queuedQuickIngestCount > 0 ? "true" : "false"
-            }>
-            <span className="flex flex-col items-start text-left">
-              <span>{t("playground:actions.ingest", "Quick ingest")}</span>
-              <span className="text-[11px] text-gray-500">
-                {t(
-                  "playground:actions.ingestSub",
-                  "Use URLs/files; download or store."
-                )}
-              </span>
-            </span>
-            <div className="relative">
-              <UploadCloud className="h-4 w-4" />
-              {queuedQuickIngestCount > 0 && (
-                <span className="absolute -top-1 -right-1 inline-flex h-3 min-w-3 items-center justify-center rounded-full bg-blue-600 px-1 text-[9px] font-semibold text-white">
-                  {queuedQuickIngestCount > 9 ? "9+" : queuedQuickIngestCount}
-                </span>
-              )}
-            </div>
-          </button>
-          {queuedQuickIngestCount > 0 && (
-            <button
-              type="button"
-              onClick={handleProcessQueuedIngest}
-              disabled={!isConnectionReady}
-              className="mt-1 text-[11px] text-blue-600 hover:text-blue-500 disabled:cursor-not-allowed disabled:opacity-50 dark:text-blue-400">
-              {t("quickIngest.processQueuedItemsShort", "Process queued items")}
-            </button>
-          )}
-          <button
-            type="button"
-            onClick={handleImageUpload}
-            disabled={chatMode === "vision" || chatMode === "rag"}
-            className="flex w-full items-center justify-between rounded-md px-2 py-1 text-sm text-gray-700 transition hover:bg-gray-100 disabled:cursor-not-allowed disabled:opacity-40 dark:text-gray-200 dark:hover:bg-[#2a2a2a]">
-            <span>{t("playground:actions.upload", "Attach image")}</span>
-            <ImageIcon className="h-4 w-4" />
-          </button>
-        </div>
-      </div>
-    ),
-    [
-      chatMode,
-      isConnectionReady,
-      handleImageUpload,
-      handleLiveCaptionsToggle,
-      handleProcessQueuedIngest,
-      handleQuickIngestOpen,
-      handleVisionToggle,
-      handleWebSearchToggle,
-      queuedQuickIngestCount,
-      quickIngestHadFailure,
-      persistenceModeLabel,
-      t,
-      webSearch,
-      wsSttActive
-    ]
-  )
-
   React.useEffect(() => {
     if (dropedFile) {
       onInputChange(dropedFile)
@@ -1042,9 +881,7 @@ export const SidepanelForm = ({ dropedFile }: Props) => {
           <div
             data-istemporary-chat={temporaryChat}
             aria-disabled={!isConnectionReady}
-            className={` bg-neutral-50  dark:bg-[#262626] relative w-full max-w-[48rem] p-1 backdrop-blur-lg duration-100 border border-gray-300 rounded-t-xl  dark:border-gray-600 data-[istemporary-chat='true']:bg-purple-900 data-[istemporary-chat='true']:dark:bg-purple-900 ${
-              !isConnectionReady ? "opacity-60" : ""
-            }`}>
+            className="bg-neutral-50 dark:bg-[#262626] relative w-full max-w-[48rem] p-1 backdrop-blur-lg duration-100 border border-gray-300 rounded-t-xl dark:border-gray-600 data-[istemporary-chat='true']:bg-purple-900 data-[istemporary-chat='true']:dark:bg-purple-900">
             <div
               className={`border-b border-gray-200 dark:border-gray-600 relative ${
                 form.values.image.length === 0 ? "hidden" : "block"
@@ -1086,9 +923,32 @@ export const SidepanelForm = ({ dropedFile }: Props) => {
                   <div
                     className={`w-full flex flex-col px-1 ${
                       !isConnectionReady
-                        ? "rounded-md border border-dashed border-gray-300 bg-gray-50 dark:border-gray-700 dark:bg-[#1b1b1b]"
+                        ? "rounded-md border border-dashed border-amber-400 bg-amber-50/50 dark:border-amber-600 dark:bg-amber-900/10"
                         : ""
                     }`}>
+                    {/* Connection status indicator when disconnected */}
+                    {!isConnectionReady && (
+                      <div className="flex items-center gap-2 px-2 py-1.5 text-xs text-amber-700 dark:text-amber-300">
+                        <span className="relative flex h-2 w-2">
+                          <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-amber-400 opacity-75"></span>
+                          <span className="relative inline-flex h-2 w-2 rounded-full bg-amber-500"></span>
+                        </span>
+                        <span>
+                          {uxState === "testing"
+                            ? t("sidepanel:composer.connectingStatus", "Connecting to server...")
+                            : t("sidepanel:composer.disconnectedStatus", "Not connected")}
+                        </span>
+                        {uxState !== "testing" && (
+                          <button
+                            type="button"
+                            onClick={openSettings}
+                            className="ml-auto text-[11px] font-medium text-amber-700 underline hover:text-amber-800 dark:text-amber-300 dark:hover:text-amber-200"
+                          >
+                            {t("sidepanel:composer.openSettings", "Open Settings")}
+                          </button>
+                        )}
+                      </div>
+                    )}
                     {/* RAG Search Bar: search KB, insert snippets, ask directly */}
                     <RagSearchBar
                       onInsert={(text) => {
@@ -1149,53 +1009,25 @@ export const SidepanelForm = ({ dropedFile }: Props) => {
                               )
                             : t(
                                 "sidepanel:composer.disconnectedPlaceholder",
-                                "Connect to your tldw server in Settings to send messages and view media."
+                                "Not connected — open Settings to connect"
                               )
                       }
                       {...form.getInputProps("message")}
                     />
-                    <div className="mt-2 flex w-full flex-row items-center justify-between gap-2">
-                      {/* Hidden: Save toggle (now in ControlRow) */}
-                      <div className="hidden flex-wrap items-start gap-2 text-xs text-gray-700 dark:text-gray-200">
-                        <div className="flex flex-col gap-0.5">
-                          <div className="flex items-center gap-1">
-                            <Switch
-                              size="small"
-                              checked={temporaryChat}
-                              onChange={handleToggleTemporaryChat}
-                              aria-label={
-                                temporaryChat
-                                  ? (t(
-                                      "playground:actions.temporaryOn",
-                                      "Temporary chat (not saved)"
-                                    ) as string)
-                                  : (t(
-                                      "playground:actions.temporaryOff",
-                                      "Save chat to history"
-                                    ) as string)
-                              }
-                            />
-                            <span>
-                              {temporaryChat
-                                ? t(
-                                    "playground:actions.temporaryOn",
-                                    "Temporary chat (not saved)"
-                                  )
-                                : t(
-                                    "playground:actions.temporaryOff",
-                                    "Save chat to history"
-                                  )}
-                            </span>
-                            <span className="inline-flex items-center rounded-full border border-gray-200 bg-white px-2 py-0.5 text-[11px] font-medium text-gray-700 shadow-sm dark:border-gray-700 dark:bg-[#1f1f1f] dark:text-gray-200">
-                              {persistenceModeChipLabel}
-                            </span>
-                          </div>
-                          <p className="text-[11px] text-gray-500 dark:text-gray-400">
-                            {persistenceModeLabel}
-                          </p>
-                        </div>
+                    {/* Inline error message - positioned right after textarea for visibility */}
+                    {form.errors.message && (
+                      <div
+                        role="alert"
+                        className="flex items-center gap-1.5 px-2 py-1 text-xs text-red-600 dark:text-red-400 animate-shake"
+                      >
+                        <svg className="h-3.5 w-3.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                          <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
+                        </svg>
+                        <span>{form.errors.message}</span>
                       </div>
-                      {/* Control Row - moved here to be in same row as Send button */}
+                    )}
+                    <div className="mt-2 flex w-full flex-row items-center justify-between gap-2">
+                      {/* Control Row - contains Prompt, Model, RAG, Save, and More tools */}
                       <ControlRow
                         selectedSystemPrompt={selectedSystemPrompt}
                         setSelectedSystemPrompt={setSelectedSystemPrompt}
@@ -1212,82 +1044,6 @@ export const SidepanelForm = ({ dropedFile }: Props) => {
                         isConnected={isConnectionReady}
                       />
                       <div className="flex flex-wrap items-center justify-end gap-2">
-                        {/* Hidden: Model label, RAG, Prompt, Model, More (now in ControlRow) */}
-                        <span className="hidden mr-2 text-[11px] text-gray-500 dark:text-gray-400">
-                          {selectedModel &&
-                            t(
-                              "sidepanel:composer.currentModelLabel",
-                              "Model: {{model}}",
-                              { model: selectedModel }
-                            )}
-                        </span>
-                        {/* Hidden: RAG toggle (now in ControlRow) */}
-                        <button
-                          type="button"
-                          onClick={() =>
-                            window.dispatchEvent(
-                              new CustomEvent("tldw:toggle-rag")
-                            )
-                          }
-                          className="hidden inline-flex items-center gap-2 rounded-md border border-gray-200 px-3 py-1.5 text-xs font-semibold text-gray-700 transition hover:bg-gray-100 dark:border-gray-600 dark:text-gray-200 dark:hover:bg-[#2a2a2a]"
-                          title={
-                            t(
-                              "sidepanel:toolbar.ragSearch",
-                              "RAG Search"
-                            ) as string
-                          }
-                          aria-label={
-                            t(
-                              "sidepanel:toolbar.ragSearch",
-                              "RAG Search"
-                            ) as string
-                          }>
-                          <Search className="h-4 w-4" />
-                          <span className="hidden sm:inline">
-                            {t("sidepanel:toolbar.ragSearch", "RAG Search")}
-                          </span>
-                        </button>
-                        {/* Hidden: Prompt and Model selectors (now in ControlRow) */}
-                        <div className="hidden">
-                          <PromptSelect
-                            selectedSystemPrompt={selectedSystemPrompt}
-                            setSelectedSystemPrompt={setSelectedSystemPrompt}
-                            setSelectedQuickPrompt={setSelectedQuickPrompt}
-                            iconClassName="size-4"
-                            className="text-gray-700 dark:text-gray-200 hover:text-gray-900 dark:hover:text-gray-100"
-                          />
-                        </div>
-                        <div className="hidden">
-                          <ModelSelect iconClassName="size-4" />
-                        </div>
-                        <div className="hidden">
-                          <Popover
-                            trigger="click"
-                            placement="topRight"
-                            content={moreToolsContent}
-                            overlayClassName="sidepanel-more-tools">
-                            <button
-                              type="button"
-                              aria-label={
-                                t(
-                                  "playground:composer.moreTools",
-                                  "More tools"
-                                ) as string
-                              }
-                              title={
-                                t(
-                                  "playground:composer.moreTools",
-                                  "More tools"
-                                ) as string
-                              }
-                              className="inline-flex items-center gap-2 rounded-md border border-gray-200 px-3 py-1.5 text-xs font-semibold text-gray-700 transition hover:bg-gray-100 dark:border-gray-600 dark:text-gray-200 dark:hover:bg-[#2a2a2a]">
-                              <MoreHorizontal className="h-4 w-4" />
-                              <span>
-                                {t("playground:composer.moreTools", "More tools")}
-                              </span>
-                            </button>
-                          </Popover>
-                        </div>
                         <div
                           role="group"
                           aria-label={t(
@@ -1557,11 +1313,6 @@ export const SidepanelForm = ({ dropedFile }: Props) => {
                   </div>
                 </form>
               </div>
-              {form.errors.message && (
-                <div className="text-red-500 text-center text-sm mt-1">
-                  {form.errors.message}
-                </div>
-              )}
             </div>
           </div>
         </div>

@@ -40,6 +40,16 @@ module.exports = {
       },
       maskImage: {
         'bottom-fade': 'linear-gradient(0deg, transparent 0, #000 160px)',
+      },
+      keyframes: {
+        shake: {
+          '0%, 100%': { transform: 'translateX(0)' },
+          '10%, 30%, 50%, 70%, 90%': { transform: 'translateX(-2px)' },
+          '20%, 40%, 60%, 80%': { transform: 'translateX(2px)' }
+        }
+      },
+      animation: {
+        shake: 'shake 0.3s ease-in-out'
       }
     }
   },

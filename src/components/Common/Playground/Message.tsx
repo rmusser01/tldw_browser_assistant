@@ -561,7 +561,16 @@ export const PlaygroundMessage = (props: Props) => {
                       <IconButton
                         ariaLabel={t("generationInfo") as string}
                         className="flex items-center justify-center w-6 h-6 rounded-full bg-gray-100 dark:bg-[#242424] hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500">
-                        <InfoIcon className="w-3 h-3 text-gray-400 group-hover:text-gray-500" />
+                        <span className="inline-flex items-center gap-1">
+                          <InfoIcon className="w-3 h-3 text-gray-400 group-hover:text-gray-500" />
+                          <span
+                            className={`text-[10px] text-gray-500 dark:text-gray-400 hidden group-focus-within:inline ${
+                              isLastMessage ? "inline" : ""
+                            }`}
+                          >
+                            {t("infoShort", "Info")}
+                          </span>
+                        </span>
                       </IconButton>
                     </Popover>
                   )}
@@ -572,7 +581,16 @@ export const PlaygroundMessage = (props: Props) => {
                         ariaLabel={t("regenerate") as string}
                         onClick={props.onRengerate}
                         className="flex items-center justify-center w-6 h-6 rounded-full bg-gray-100 dark:bg-[#242424] hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500">
-                        <RotateCcw className="w-3 h-3 text-gray-400 group-hover:text-gray-500" />
+                        <span className="inline-flex items-center gap-1">
+                          <RotateCcw className="w-3 h-3 text-gray-400 group-hover:text-gray-500" />
+                          <span
+                            className={`text-[10px] text-gray-500 dark:text-gray-400 hidden group-focus-within:inline ${
+                              isLastMessage ? "inline" : ""
+                            }`}
+                          >
+                            {t("regenShort", "Redo")}
+                          </span>
+                        </span>
                       </IconButton>
                     </Tooltip>
                   )}
@@ -603,7 +621,16 @@ export const PlaygroundMessage = (props: Props) => {
                         ariaLabel={t("continue") as string}
                         onClick={props?.onContinue}
                         className="flex items-center justify-center w-6 h-6 rounded-full bg-gray-100 dark:bg-[#242424] hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500">
-                        <PlayCircle className="w-3 h-3 text-gray-400 group-hover:text-gray-500" />
+                        <span className="inline-flex items-center gap-1">
+                          <PlayCircle className="w-3 h-3 text-gray-400 group-hover:text-gray-500" />
+                          <span
+                            className={`text-[10px] text-gray-500 dark:text-gray-400 hidden group-focus-within:inline ${
+                              isLastMessage ? "inline" : ""
+                            }`}
+                          >
+                            {t("continueShort", "More")}
+                          </span>
+                        </span>
                       </IconButton>
                     </Tooltip>
                   )}

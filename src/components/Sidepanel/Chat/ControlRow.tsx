@@ -16,6 +16,7 @@ import { useTranslation } from "react-i18next"
 import { ModelSelect } from "@/components/Common/ModelSelect"
 import { PromptSelect } from "@/components/Common/PromptSelect"
 import { SaveStatusIcon } from "./SaveStatusIcon"
+import { useServerCapabilities } from "@/hooks/useServerCapabilities"
 
 interface ControlRowProps {
   // Prompt selection
@@ -57,6 +58,7 @@ export const ControlRow: React.FC<ControlRowProps> = ({
   const { t } = useTranslation(["sidepanel", "playground", "common"])
   const [moreOpen, setMoreOpen] = React.useState(false)
   const moreBtnRef = React.useRef<HTMLButtonElement>(null)
+  const { capabilities } = useServerCapabilities()
 
   const openOptionsPage = React.useCallback((hash: string) => {
     try {
@@ -108,21 +110,25 @@ export const ControlRow: React.FC<ControlRowProps> = ({
 
       <div className="h-px bg-gray-200 dark:bg-gray-700 my-1" />
 
-      {/* Web Search */}
+      {/* Search & Vision Section */}
       <div className="text-xs text-gray-500 font-medium">
         {t("sidepanel:controlRow.searchSection", "Search & Vision")}
       </div>
-      <div className="flex items-center justify-between gap-2">
-        <span className="text-sm flex items-center gap-1.5">
-          <Globe className="size-3.5" />
-          {t("sidepanel:controlRow.webSearch", "Web Search")}
-        </span>
-        <Switch
-          size="small"
-          checked={webSearch}
-          onChange={(checked) => setWebSearch(checked)}
-        />
-      </div>
+
+      {/* Web Search - only show if server supports it */}
+      {capabilities?.hasWebSearch && (
+        <div className="flex items-center justify-between gap-2">
+          <span className="text-sm flex items-center gap-1.5">
+            <Globe className="size-3.5" />
+            {t("sidepanel:controlRow.webSearch", "Web Search")}
+          </span>
+          <Switch
+            size="small"
+            checked={webSearch}
+            onChange={(checked) => setWebSearch(checked)}
+          />
+        </div>
+      )}
 
       {/* Vision */}
       <div className="flex items-center justify-between gap-2">
@@ -219,7 +225,7 @@ export const ControlRow: React.FC<ControlRowProps> = ({
           iconClassName="size-4"
           className="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100"
         />
-        <ModelSelect iconClassName="size-4" />
+        <ModelSelect iconClassName="size-4" showSelectedName />
       </div>
 
       {/* RAG, Save, More */}
