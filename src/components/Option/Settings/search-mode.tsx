@@ -207,6 +207,7 @@ export const SearchModeSettings = () => {
           <div>
             <Switch
               className="mt-4 sm:mt-0"
+              aria-label={t("generalSettings.webSearch.searchMode.label")}
               {...form.getInputProps("isSimpleInternetSearch", {
                 type: "checkbox"
               })}
@@ -235,6 +236,7 @@ export const SearchModeSettings = () => {
           <div>
             <Switch
               className="mt-4 sm:mt-0"
+              aria-label={t("generalSettings.webSearch.visitSpecificWebsite.label")}
               {...form.getInputProps("visitSpecificWebsite", {
                 type: "checkbox"
               })}
@@ -249,6 +251,7 @@ export const SearchModeSettings = () => {
           <div>
             <Switch
               className="mt-4 sm:mt-0"
+              aria-label={t("generalSettings.webSearch.searchOnByDefault.label")}
               {...form.getInputProps("defaultInternetSearchOn", {
                 type: "checkbox"
               })}

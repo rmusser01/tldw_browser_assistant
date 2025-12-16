@@ -346,6 +346,7 @@ export const KnowledgeSettings = () => {
                     size="small"
                     checked={autoRagOn}
                     onChange={(checked) => setChatMode(checked ? "rag" : "normal")}
+                    aria-label={t("knowledge:ragWorkspace.autoRagLabel", { defaultValue: "Use RAG for every reply" })}
                   />
                 </div>
                 <p className="text-[11px] text-gray-600 dark:text-gray-300">

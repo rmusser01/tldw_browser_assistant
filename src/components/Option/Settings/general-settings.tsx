@@ -259,6 +259,7 @@ export const GeneralSettings = () => {
         <Switch
           checked={hideCurrentChatModelSettings}
           onChange={(checked) => setHideCurrentChatModelSettings(checked)}
+          aria-label={t("generalSettings.settings.hideCurrentChatModelSettings.label")}
         />
       </div>
       <div className="flex flex-row justify-between">
@@ -271,6 +272,7 @@ export const GeneralSettings = () => {
         <Switch
           checked={hideQuickChatHelper}
           onChange={(checked) => setHideQuickChatHelper(checked)}
+          aria-label={t("generalSettings.settings.hideQuickChatHelper.label", "Hide Quick Chat Helper button")}
         />
       </div>
       <div className="flex flex-row justify-between">
@@ -283,6 +285,7 @@ export const GeneralSettings = () => {
         <Switch
           checked={restoreLastChatModel}
           onChange={(checked) => setRestoreLastChatModel(checked)}
+          aria-label={t("generalSettings.settings.restoreLastChatModel.label")}
         />
       </div>
 
@@ -296,6 +299,7 @@ export const GeneralSettings = () => {
         <Switch
           checked={sendNotificationAfterIndexing}
           onChange={setSendNotificationAfterIndexing}
+          aria-label={t("generalSettings.settings.sendNotificationAfterIndexing.label")}
         />
       </div>
 
@@ -337,6 +341,7 @@ export const GeneralSettings = () => {
         <Switch
           checked={checkWideMode}
           onChange={(checked) => setCheckWideMode(checked)}
+          aria-label={t("generalSettings.settings.wideMode.label")}
         />
       </div>
 
@@ -367,6 +372,7 @@ export const GeneralSettings = () => {
         <Switch
           checked={openReasoning}
           onChange={(checked) => setOpenReasoning(checked)}
+          aria-label={t("generalSettings.settings.openReasoning.label")}
         />
       </div>
 
@@ -399,6 +405,7 @@ export const GeneralSettings = () => {
         <Switch
           checked={autoCopyResponseToClipboard}
           onChange={(checked) => setAutoCopyResponseToClipboard(checked)}
+          aria-label={t("generalSettings.settings.autoCopyResponseToClipboard.label")}
         />
       </div>
 
@@ -412,6 +419,7 @@ export const GeneralSettings = () => {
         <Switch
           checked={useMarkdownForUserMessage}
           onChange={(checked) => setUseMarkdownForUserMessage(checked)}
+          aria-label={t("generalSettings.settings.useMarkdownForUserMessage.label")}
         />
       </div>
 
@@ -425,6 +433,7 @@ export const GeneralSettings = () => {
         <Switch
           checked={copyAsFormattedText}
           onChange={(checked) => setCopyAsFormattedText(checked)}
+          aria-label={t("generalSettings.settings.copyAsFormattedText.label")}
         />
       </div>
 
@@ -441,6 +450,7 @@ export const GeneralSettings = () => {
         <Switch
           checked={onboardingAutoFinish}
           onChange={(checked) => setOnboardingAutoFinish(checked)}
+          aria-label={t("generalSettings.settings.onboardingAutoFinish.label", "Auto-finish onboarding after successful connection")}
         />
       </div>
 
@@ -500,6 +510,7 @@ export const GeneralSettings = () => {
         <Switch
           checked={tabMentionsEnabled}
           onChange={(checked) => setTabMentionsEnabled(checked)}
+          aria-label={t("generalSettings.settings.tabMentionsEnabled.label")}
         />
       </div>
       <div className="flex flex-row justify-between">
@@ -525,6 +536,7 @@ export const GeneralSettings = () => {
 	          <Switch
 	            checked={enableOcrAssets}
 	            onChange={(checked) => setEnableOcrAssets(checked)}
+	            aria-label={t("generalSettings.settings.enableOcrAssets.label")}
 	          />
 	        </div>
 	        {!enableOcrAssets && (
@@ -574,6 +586,7 @@ export const GeneralSettings = () => {
         <Switch
           checked={sidepanelTemporaryChat}
           onChange={(checked) => setSidepanelTemporaryChat(checked)}
+          aria-label={t("generalSettings.settings.sidepanelTemporaryChat.label")}
         />
       </div>
 
@@ -603,6 +616,7 @@ export const GeneralSettings = () => {
         <Switch
           checked={promptSearchIncludeServer}
           onChange={setPromptSearchIncludeServer}
+          aria-label={t("generalSettings.settings.promptSearchIncludeServer.label")}
         />
       </div>
 

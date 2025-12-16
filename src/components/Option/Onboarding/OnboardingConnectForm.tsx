@@ -504,10 +504,49 @@ export function OnboardingConnectForm({ onFinish }: Props) {
         </h2>
         <p className="mt-1 text-sm text-gray-600 dark:text-gray-400">
           {t(
-            "settings:onboarding.subtitle",
-            "Connect to your tldw server to get started"
+            "settings:onboarding.valueProp",
+            "Chat with AI, save web content, and build your personal knowledge base."
           )}
         </p>
+      </div>
+
+      {/* Demo Mode - Prominent placement for users without a server */}
+      <div className="mb-6 p-4 rounded-lg border-2 border-dashed border-purple-300 dark:border-purple-700 bg-gradient-to-r from-purple-50 to-pink-50 dark:from-purple-900/20 dark:to-pink-900/20">
+        <div className="flex items-center gap-3">
+          <div className="w-10 h-10 rounded-full bg-gradient-to-br from-purple-400 to-pink-500 flex items-center justify-center shrink-0">
+            <Sparkles className="size-5 text-white" />
+          </div>
+          <div className="flex-1 min-w-0">
+            <h3 className="font-medium text-gray-900 dark:text-gray-100">
+              {t("settings:onboarding.demo.titleNoServer", "No server? Try Demo Mode")}
+            </h3>
+            <p className="text-xs text-gray-600 dark:text-gray-400">
+              {t(
+                "settings:onboarding.demo.descriptionShort",
+                "Explore the extension with sample data - no setup required."
+              )}
+            </p>
+          </div>
+          <Button
+            type="primary"
+            onClick={handleDemoMode}
+            className="shrink-0 bg-gradient-to-r from-purple-500 to-pink-500 border-0 hover:from-purple-600 hover:to-pink-600"
+          >
+            {t("settings:onboarding.demo.buttonTry", "Try Demo")}
+          </Button>
+        </div>
+      </div>
+
+      {/* Divider with "or connect to your server" */}
+      <div className="relative mb-6">
+        <div className="absolute inset-0 flex items-center">
+          <div className="w-full border-t border-gray-200 dark:border-gray-700" />
+        </div>
+        <div className="relative flex justify-center text-xs uppercase">
+          <span className="bg-white dark:bg-gray-900 px-2 text-gray-500">
+            {t("settings:onboarding.orConnectServer", "or connect to your server")}
+          </span>
+        </div>
       </div>
 
       {/* Server URL */}
@@ -517,22 +556,32 @@ export function OnboardingConnectForm({ onFinish }: Props) {
             <Server className="size-4" />
             {t("settings:onboarding.serverUrl.label", "Server URL")}
           </label>
-          <Input
-            ref={urlInputRef as any}
-            placeholder={t(
-              "settings:onboarding.serverUrl.placeholder",
-              "http://127.0.0.1:8000"
-            )}
-            value={serverUrl}
-            onChange={(e) => setServerUrl(e.target.value)}
-            status={
-              serverUrl && !urlValidation.valid ? "error" : undefined
-            }
-            disabled={isConnecting}
-            size="large"
-          />
+          <div className="relative">
+            <Input
+              ref={urlInputRef as any}
+              placeholder={t(
+                "settings:onboarding.serverUrl.placeholder",
+                "http://127.0.0.1:8000"
+              )}
+              value={serverUrl}
+              onChange={(e) => setServerUrl(e.target.value)}
+              status={
+                serverUrl && !urlValidation.valid ? "error" : undefined
+              }
+              disabled={isConnecting}
+              size="large"
+              suffix={
+                serverUrl && urlValidation.valid ? (
+                  <Check className="size-4 text-green-500" aria-label={t("common:valid", "Valid")} />
+                ) : serverUrl && !urlValidation.valid ? (
+                  <X className="size-4 text-red-500" aria-label={t("common:invalid", "Invalid")} />
+                ) : null
+              }
+              aria-describedby={serverUrl && !urlValidation.valid ? "url-error" : undefined}
+            />
+          </div>
           {serverUrl && !urlValidation.valid && (
-            <p className="mt-1 text-xs text-red-500">
+            <p id="url-error" role="alert" className="mt-1 text-xs text-red-500">
               {urlValidation.reason === "protocol"
                 ? t(
                     "settings:onboarding.serverUrl.protocolError",
@@ -542,6 +591,11 @@ export function OnboardingConnectForm({ onFinish }: Props) {
                     "settings:onboarding.serverUrl.invalidError",
                     "Please enter a valid URL"
                   )}
+            </p>
+          )}
+          {serverUrl && urlValidation.valid && !isConnecting && progress.serverReachable === "idle" && (
+            <p className="mt-1 text-xs text-green-600 dark:text-green-400">
+              {t("settings:onboarding.serverUrl.validUrl", "URL format is valid. Click Connect to test the connection.")}
             </p>
           )}
         </div>
@@ -643,8 +697,14 @@ export function OnboardingConnectForm({ onFinish }: Props) {
 
         {/* Connection Progress */}
         {(progress.serverReachable !== "idle" || isConnecting) && (
-          <div className="p-3 rounded-lg border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800/50 space-y-2">
-            <div className="text-xs font-medium text-gray-500 uppercase tracking-wide mb-2">
+          <div
+            className="p-3 rounded-lg border border-blue-200 dark:border-blue-800 bg-blue-50 dark:bg-blue-900/20 space-y-2"
+            role="status"
+            aria-live="polite"
+            aria-busy={isConnecting}
+          >
+            <div className="flex items-center gap-2 text-xs font-medium text-blue-700 dark:text-blue-300 uppercase tracking-wide mb-2">
+              {isConnecting && <Loader2 className="size-3 animate-spin" />}
               {t("settings:onboarding.progress.title", "Connection Status")}
             </div>
             <ProgressItem
@@ -712,46 +772,6 @@ export function OnboardingConnectForm({ onFinish }: Props) {
             {t("common:retry", "Retry")}
           </Button>
         )}
-      </div>
-
-      {/* Divider */}
-      <div className="relative my-6">
-        <div className="absolute inset-0 flex items-center">
-          <div className="w-full border-t border-gray-200 dark:border-gray-700" />
-        </div>
-        <div className="relative flex justify-center text-xs uppercase">
-          <span className="bg-white dark:bg-gray-900 px-2 text-gray-500">
-            {t("common:or", "or")}
-          </span>
-        </div>
-      </div>
-
-      {/* Demo Mode */}
-      <div className="p-4 rounded-lg border border-dashed border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-800/50">
-        <div className="flex items-start gap-3">
-          <div className="w-10 h-10 rounded-full bg-gradient-to-br from-purple-400 to-pink-500 flex items-center justify-center shrink-0">
-            <Sparkles className="size-5 text-white" />
-          </div>
-          <div className="flex-1 min-w-0">
-            <h3 className="font-medium text-gray-900 dark:text-gray-100">
-              {t("settings:onboarding.demo.title", "Try Demo Mode")}
-            </h3>
-            <p className="mt-1 text-xs text-gray-600 dark:text-gray-400">
-              {t(
-                "settings:onboarding.demo.description",
-                "Explore the extension with sample data. No server required."
-              )}
-            </p>
-            <Button
-              type="default"
-              size="small"
-              onClick={handleDemoMode}
-              className="mt-2"
-            >
-              {t("settings:onboarding.demo.button", "Start Demo")}
-            </Button>
-          </div>
-        </div>
       </div>
 
       {/* Advanced: Server commands */}
