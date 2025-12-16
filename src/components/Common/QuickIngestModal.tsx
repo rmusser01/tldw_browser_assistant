@@ -559,7 +559,6 @@ export const QuickIngestModal: React.FC<Props> = ({
     setTotalPlanned(total)
     setProcessedCount(0)
     setLiveTotalCount(total)
-    setCurrentFileName(null)
     setRunStartedAt(Date.now())
     setRunning(true)
     setResults([])
@@ -639,7 +638,6 @@ export const QuickIngestModal: React.FC<Props> = ({
       setResults(out)
       setRunning(false)
       setRunStartedAt(null)
-      setCurrentFileName(null)
       if (!storeRemote && out.length > 0) {
         messageApi.info('Processing complete. You can download results as JSON.')
       }
@@ -661,7 +659,6 @@ export const QuickIngestModal: React.FC<Props> = ({
       }
       setRunning(false)
       setRunStartedAt(null)
-      setCurrentFileName(null)
       setLastRunError(msg)
       markFailure()
     }

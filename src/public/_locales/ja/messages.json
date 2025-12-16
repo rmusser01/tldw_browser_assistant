@@ -386,7 +386,7 @@
     "message": "フォルダーに移動"
   },
   "quickIngest_ocrHelp": {
-    "message": "OCR helps extract text from scanned PDFs or images."
+    "message": "OCRはスキャンしたPDFや画像からテキストを抽出するのに役立ちます。"
   },
   "specReloadedToast": {
     "message": "サーバーから高度な仕様を再読み込みしました"

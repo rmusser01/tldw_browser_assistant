@@ -313,7 +313,7 @@
     "audioLanguage": "Language (e.g., en)",
     "audioDiarizationHelp": "Turn on to separate speakers in transcripts.",
     "documentOptions": "Document options",
-    "ocrHelp": "OCR helps extract text from scanned PDFs or images.",
+    "ocrHelp": "OCR 可帮助从扫描的 PDF 或图片中提取文本。",
     "videoOptions": "Video options",
     "captionsHelp": "Include timestamps/captions when available.",
     "cancel": "Cancel",

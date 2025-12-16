@@ -4,6 +4,8 @@ import { useStorage } from "@plasmohq/storage/hook"
 import { Link } from "react-router-dom"
 import { DEFAULT_CHAT_SETTINGS } from "@/types/chat-settings"
 
+const SELECT_WIDTH = 200
+
 export const ChatSettings = () => {
   const { t } = useTranslation("settings")
 
@@ -106,13 +108,15 @@ export const ChatSettings = () => {
       </div>
 
       <div className="flex flex-row justify-between">
-        <div className="inline-flex items-center gap-2">
-          <span className="text-gray-700 dark:text-neutral-50">
-            {t("chatAppearance.userColor", "User text color")}
-          </span>
-        </div>
+        <label
+          htmlFor="user-text-color"
+          className="inline-flex items-center gap-2 text-gray-700 dark:text-neutral-50"
+        >
+          {t("chatAppearance.userColor", "User text color")}
+        </label>
         <Select
-          style={{ width: 200 }}
+          id="user-text-color"
+          style={{ width: SELECT_WIDTH }}
           value={userTextColor}
           onChange={(value) => setUserTextColor(value)}
           options={colorOptions}
@@ -120,13 +124,15 @@ export const ChatSettings = () => {
       </div>
 
       <div className="flex flex-row justify-between">
-        <div className="inline-flex items-center gap-2">
-          <span className="text-gray-700 dark:text-neutral-50">
-            {t("chatAppearance.userFont", "User font")}
-          </span>
-        </div>
+        <label
+          htmlFor="user-text-font"
+          className="inline-flex items-center gap-2 text-gray-700 dark:text-neutral-50"
+        >
+          {t("chatAppearance.userFont", "User font")}
+        </label>
         <Select
-          style={{ width: 200 }}
+          id="user-text-font"
+          style={{ width: SELECT_WIDTH }}
           value={userTextFont}
           onChange={(value) => setUserTextFont(value)}
           options={fontOptions}
@@ -134,13 +140,15 @@ export const ChatSettings = () => {
       </div>
 
       <div className="flex flex-row justify-between">
-        <div className="inline-flex items-center gap-2">
-          <span className="text-gray-700 dark:text-neutral-50">
-            {t("chatAppearance.userSize", "User text size")}
-          </span>
-        </div>
+        <label
+          htmlFor="user-text-size"
+          className="inline-flex items-center gap-2 text-gray-700 dark:text-neutral-50"
+        >
+          {t("chatAppearance.userSize", "User text size")}
+        </label>
         <Select
-          style={{ width: 200 }}
+          id="user-text-size"
+          style={{ width: SELECT_WIDTH }}
           value={userTextSize}
           onChange={(value) => setUserTextSize(value)}
           options={sizeOptions}
@@ -154,13 +162,15 @@ export const ChatSettings = () => {
       </div>
 
       <div className="flex flex-row justify-between">
-        <div className="inline-flex items-center gap-2">
-          <span className="text-gray-700 dark:text-neutral-50">
-            {t("chatAppearance.assistantColor", "Assistant text color")}
-          </span>
-        </div>
+        <label
+          htmlFor="assistant-text-color"
+          className="inline-flex items-center gap-2 text-gray-700 dark:text-neutral-50"
+        >
+          {t("chatAppearance.assistantColor", "Assistant text color")}
+        </label>
         <Select
-          style={{ width: 200 }}
+          id="assistant-text-color"
+          style={{ width: SELECT_WIDTH }}
           value={assistantTextColor}
           onChange={(value) => setAssistantTextColor(value)}
           options={colorOptions}
@@ -168,13 +178,15 @@ export const ChatSettings = () => {
       </div>
 
       <div className="flex flex-row justify-between">
-        <div className="inline-flex items-center gap-2">
-          <span className="text-gray-700 dark:text-neutral-50">
-            {t("chatAppearance.assistantFont", "Assistant font")}
-          </span>
-        </div>
+        <label
+          htmlFor="assistant-text-font"
+          className="inline-flex items-center gap-2 text-gray-700 dark:text-neutral-50"
+        >
+          {t("chatAppearance.assistantFont", "Assistant font")}
+        </label>
         <Select
-          style={{ width: 200 }}
+          id="assistant-text-font"
+          style={{ width: SELECT_WIDTH }}
           value={assistantTextFont}
           onChange={(value) => setAssistantTextFont(value)}
           options={fontOptions}
@@ -182,13 +194,15 @@ export const ChatSettings = () => {
       </div>
 
       <div className="flex flex-row justify-between">
-        <div className="inline-flex items-center gap-2">
-          <span className="text-gray-700 dark:text-neutral-50">
-            {t("chatAppearance.assistantSize", "Assistant text size")}
-          </span>
-        </div>
+        <label
+          htmlFor="assistant-text-size"
+          className="inline-flex items-center gap-2 text-gray-700 dark:text-neutral-50"
+        >
+          {t("chatAppearance.assistantSize", "Assistant text size")}
+        </label>
         <Select
-          style={{ width: 200 }}
+          id="assistant-text-size"
+          style={{ width: SELECT_WIDTH }}
           value={assistantTextSize}
           onChange={(value) => setAssistantTextSize(value)}
           options={sizeOptions}

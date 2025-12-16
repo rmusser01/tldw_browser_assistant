@@ -205,7 +205,7 @@
     "message": "Перемістити в папку"
   },
   "quickIngest_ocrHelp": {
-    "message": "OCR helps extract text from scanned PDFs or images."
+    "message": "OCR допомагає витягувати текст зі сканованих PDF-файлів або зображень."
   },
   "specReloadedToast": {
     "message": "Розширену специфікацію перезавантажено із сервера"

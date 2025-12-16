@@ -10,6 +10,39 @@
   "chatDictionariesNav": "Chatordbøker",
   "charactersNav": "Tegn",
   "mediaNav": "Media",
+  "chatAppearance": {
+    "title": "Chat appearance",
+    "description": "Customize colors, fonts, and text sizes for chat messages.",
+    "behaviorNote": "Looking for chat behavior settings (wide mode, reasoning, copy options)?",
+    "goToGeneral": "Go to General Settings",
+    "userHeading": "User messages",
+    "assistantHeading": "Assistant messages",
+    "userColor": "User text color",
+    "assistantColor": "Assistant text color",
+    "userFont": "User font",
+    "assistantFont": "Assistant font",
+    "userSize": "User text size",
+    "assistantSize": "Assistant text size",
+    "color": {
+      "default": "Default",
+      "blue": "Blue",
+      "green": "Green",
+      "purple": "Purple",
+      "orange": "Orange",
+      "red": "Red"
+    },
+    "font": {
+      "default": "Default",
+      "sans": "Sans serif",
+      "serif": "Serif",
+      "mono": "Monospace"
+    },
+    "size": {
+      "sm": "Small",
+      "md": "Medium",
+      "lg": "Large"
+    }
+  },
   "generalSettings": {
     "title": "Generelle Innstillinger",
     "settings": {

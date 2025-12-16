@@ -491,6 +491,22 @@ export const FlashcardsPage: React.FC = () => {
   const editExtraPreview = useDebouncedFormField(editForm, "extra")
   const editNotesPreview = useDebouncedFormField(editForm, "notes")
 
+  const syncEditTemplateFields = React.useCallback(
+    (
+      partial: Partial<
+        Pick<FlashcardUpdate, "model_type" | "reverse" | "is_cloze">
+      >
+    ) => {
+      const normalized = normalizeFlashcardTemplateFields(partial)
+      editForm.setFieldsValue({
+        model_type: normalized.model_type,
+        reverse: normalized.reverse,
+        is_cloze: normalized.is_cloze
+      } as any)
+    },
+    [editForm]
+  )
+
   // Quick actions: review
   const [quickReviewOpen, setQuickReviewOpen] = React.useState(false)
   const [quickReviewCard, setQuickReviewCard] = React.useState<Flashcard | null>(null)
@@ -1578,11 +1594,7 @@ export const FlashcardsPage: React.FC = () => {
                           }
                         ]}
                         onChange={(value: FlashcardModelType) => {
-                          editForm.setFieldsValue({
-                            model_type: value,
-                            reverse: value === "basic_reverse",
-                            is_cloze: value === "cloze"
-                          })
+                          syncEditTemplateFields({ model_type: value })
                         }}
                       />
                     </Form.Item>
@@ -1595,11 +1607,7 @@ export const FlashcardsPage: React.FC = () => {
                     >
                       <Switch
                         onChange={(checked) => {
-                          editForm.setFieldsValue({
-                            model_type: checked ? "basic_reverse" : "basic",
-                            reverse: checked,
-                            is_cloze: false
-                          })
+                          syncEditTemplateFields({ reverse: checked })
                         }}
                       />
                     </Form.Item>
@@ -1612,11 +1620,7 @@ export const FlashcardsPage: React.FC = () => {
                     >
                       <Switch
                         onChange={(checked) => {
-                          editForm.setFieldsValue({
-                            model_type: checked ? "cloze" : "basic",
-                            is_cloze: checked,
-                            reverse: false
-                          })
+                          syncEditTemplateFields({ is_cloze: checked })
                         }}
                       />
                     </Form.Item>

@@ -63,6 +63,15 @@ export const TTSModeSettings = ({ hideBorder }: { hideBorder?: boolean }) => {
       tldwTtsVoice: "",
       tldwTtsResponseFormat: "mp3",
       tldwTtsSpeed: 1
+    },
+    validate: {
+      playbackSpeed: (value) =>
+        value == null
+          ? (t(
+              "generalSettings.tts.playbackSpeed.required",
+              "Playback speed is required"
+            ) as string)
+          : null
     }
   })
 
@@ -78,15 +87,9 @@ export const TTSModeSettings = ({ hideBorder }: { hideBorder?: boolean }) => {
   const { data: elevenLabsData, error: elevenLabsError } = useQuery({
     queryKey: ["fetchElevenLabsData", form.values.elevenLabsApiKey],
     queryFn: async () => {
-      if (
-        form.values.ttsProvider === "elevenlabs" &&
-        form.values.elevenLabsApiKey
-      ) {
-        const voices = await getVoices(form.values.elevenLabsApiKey)
-        const models = await getModels(form.values.elevenLabsApiKey)
-        return { voices, models }
-      }
-      return null
+      const voices = await getVoices(form.values.elevenLabsApiKey)
+      const models = await getModels(form.values.elevenLabsApiKey)
+      return { voices, models }
     },
     enabled:
       form.values.ttsProvider === "elevenlabs" && !!form.values.elevenLabsApiKey
@@ -117,13 +120,15 @@ export const TTSModeSettings = ({ hideBorder }: { hideBorder?: boolean }) => {
       // Surface a user-visible error and log for diagnostics
       // eslint-disable-next-line no-console
       console.error("Failed to save TTS settings:", error)
-      const err = error as any
+      const errorMessage =
+        error instanceof Error
+          ? error.message
+          : (t(
+              "generalSettings.tts.saveError",
+              "Failed to save TTS settings. Please try again."
+            ) as string)
       message.error(
-        err?.message ||
-          (t(
-            "generalSettings.tts.saveError",
-            "Failed to save TTS settings. Please try again."
-          ) as string)
+        errorMessage
       )
     }
   })
@@ -139,12 +144,36 @@ export const TTSModeSettings = ({ hideBorder }: { hideBorder?: boolean }) => {
     try {
       const voices = await getVoices(form.values.elevenLabsApiKey)
       if (voices && voices.length > 0) {
-        setElevenLabsTestResult({ ok: true, message: t("generalSettings.tts.apiKeyTest.success", "API key valid! Found {{count}} voices.", { count: voices.length }) })
+        const successMessage = t(
+          "generalSettings.tts.apiKeyTest.success",
+          "API key valid! Found {{count}} voices.",
+          { count: voices.length }
+        )
+        message.success(successMessage as string)
+        setElevenLabsTestResult({
+          ok: true,
+          message: successMessage as string
+        })
       } else {
-        setElevenLabsTestResult({ ok: false, message: t("generalSettings.tts.apiKeyTest.noVoices", "API key accepted but no voices found") })
+        const noVoicesMessage = t(
+          "generalSettings.tts.apiKeyTest.noVoices",
+          "API key accepted but no voices found"
+        )
+        setElevenLabsTestResult({
+          ok: false,
+          message: noVoicesMessage as string
+        })
       }
     } catch (e) {
-      setElevenLabsTestResult({ ok: false, message: t("generalSettings.tts.apiKeyTest.failed", "Invalid API key or connection error") })
+      const failureMessage = t(
+        "generalSettings.tts.apiKeyTest.failed",
+        "Invalid API key or connection error"
+      )
+      message.error(failureMessage as string)
+      setElevenLabsTestResult({
+        ok: false,
+        message: failureMessage as string
+      })
     } finally {
       setTestingElevenLabs(false)
     }
@@ -561,7 +590,6 @@ export const TTSModeSettings = ({ hideBorder }: { hideBorder?: boolean }) => {
               max={2}
               step={0.05}
               className=" mt-4 sm:mt-0 !w-[300px] sm:w-[200px]"
-              required
               {...form.getInputProps("playbackSpeed")}
             />
             <span className="text-xs text-gray-500 dark:text-gray-400 sm:text-right">

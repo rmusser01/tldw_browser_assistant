@@ -727,7 +727,7 @@ export const SidepanelForm = ({ dropedFile, inputRef }: Props) => {
   }, [chatMode, setChatMode])
 
   const handleImageUpload = React.useCallback(() => {
-    inputRef.current?.click()
+    fileInputRef.current?.click()
   }, [])
 
   const handleRagToggle = React.useCallback(() => {

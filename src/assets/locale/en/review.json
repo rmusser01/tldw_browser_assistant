@@ -228,6 +228,8 @@
     "saveAsVersion": "Save as New Version",
     "analysisPlaceholder": "Enter analysis text...",
     "wordCount": "{{count}} words",
-    "charCount": "{{count}} characters"
+    "charCount": "{{count}} characters",
+    "pageRangeError": "Page must be 1-{{max}}",
+    "pageRangeClamped": "Navigating to page {{page}}"
   }
 }

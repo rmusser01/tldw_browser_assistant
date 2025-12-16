@@ -66,17 +66,17 @@ const LegacyOnboardingWizard: React.FC<Props> = ({ onFinish }) => {
   const confirmStepRef = React.useRef<HTMLDivElement | null>(null)
 
   React.useEffect(() => {
-    try {
-      useConnectionStore.getState().beginOnboarding()
-    } catch (err) {
-      // Store init failures should not block the wizard, but log for diagnostics.
-      // eslint-disable-next-line no-console
-      console.debug(
-        "[OnboardingWizard] Failed to begin onboarding from connection store",
-        err
-      )
-    }
-    ;(async () => {
+    (async () => {
+      try {
+        await useConnectionStore.getState().beginOnboarding()
+      } catch (err) {
+        // Store init failures should not block the wizard, but log for diagnostics.
+        // eslint-disable-next-line no-console
+        console.debug(
+          "[OnboardingWizard] Failed to begin onboarding from connection store",
+          err
+        )
+      }
       try {
         const cfg = await tldwClient.getConfig()
         if (cfg?.serverUrl) {
@@ -337,15 +337,16 @@ const LegacyOnboardingWizard: React.FC<Props> = ({ onFinish }) => {
   }
 
   const handleBackToUrl = () => {
-    try {
-      useConnectionStore.getState().beginOnboarding()
-    } catch (err) {
-      // eslint-disable-next-line no-console
-      console.debug(
-        "[OnboardingWizard] Failed to reset onboarding step to URL",
-        err
-      )
-    }
+    useConnectionStore
+      .getState()
+      .beginOnboarding()
+      .catch((err) => {
+        // eslint-disable-next-line no-console
+        console.debug(
+          "[OnboardingWizard] Failed to reset onboarding step to URL",
+          err
+        )
+      })
   }
 
   const handleContinueFromAuth = async () => {
@@ -440,7 +441,16 @@ const LegacyOnboardingWizard: React.FC<Props> = ({ onFinish }) => {
   }
 
   const finish = React.useCallback(() => {
-    useConnectionStore.getState().markFirstRunComplete()
+    useConnectionStore
+      .getState()
+      .markFirstRunComplete()
+      .catch((err) => {
+        // eslint-disable-next-line no-console
+        console.debug(
+          "[OnboardingWizard] Failed to mark first run complete",
+          err
+        )
+      })
     onFinish?.()
   }, [onFinish])
 
@@ -503,14 +513,18 @@ const LegacyOnboardingWizard: React.FC<Props> = ({ onFinish }) => {
       }
     }
 
-    // Use both requestAnimationFrame and a small timeout for reliability
+    let timeoutId: number | undefined
     const rafId = requestAnimationFrame(() => {
       // Small delay to ensure DOM is fully rendered
-      const timeoutId = setTimeout(focusTarget, 50)
-      return () => clearTimeout(timeoutId)
+      timeoutId = window.setTimeout(focusTarget, 50)
     })
 
-    return () => cancelAnimationFrame(rafId)
+    return () => {
+      cancelAnimationFrame(rafId)
+      if (timeoutId !== undefined) {
+        clearTimeout(timeoutId)
+      }
+    }
   }, [activeStep])
 
   return (
@@ -798,30 +812,20 @@ const LegacyOnboardingWizard: React.FC<Props> = ({ onFinish }) => {
                           </span>
                           <Button
                             size="small"
-                            onClick={() => {
+                            onClick={async () => {
                               try {
-                                navigator.clipboard.writeText(cmd.command)
-                                  .then(() => {
-                                    message.success(
-                                      t(
-                                        'settings:onboarding.startServer.copied',
-                                        'Copied!'
-                                      )
-                                    )
-                                  })
-                                  .catch(() => {
-                                    message.error(
-                                      t(
-                                        'settings:onboarding.startServer.copyFailed',
-                                        'Copy failed'
-                                      )
-                                    )
-                                  })
+                                await navigator.clipboard.writeText(cmd.command)
+                                message.success(
+                                  t(
+                                    "settings:onboarding.startServer.copied",
+                                    "Copied!"
+                                  )
+                                )
                               } catch {
                                 message.error(
                                   t(
-                                    'settings:onboarding.startServer.copyFailed',
-                                    'Copy failed'
+                                    "settings:onboarding.startServer.copyFailed",
+                                    "Copy failed"
                                   )
                                 )
                               }

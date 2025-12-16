@@ -10,7 +10,6 @@ import { cleanUrl } from "@/libs/clean-url"
 import {
   MessageSquare,
   Settings,
-  AlertCircle,
   KeyRound,
   Wifi,
   WifiOff,
@@ -123,13 +122,6 @@ export const EmptySidePanel = ({ inputRef }: EmptySidePanelProps) => {
     openExtensionUrl("/options.html#/")
   }
 
-  const handleQuickIngest = () => {
-    if (!isConnectionReady) {
-      return
-    }
-    window.dispatchEvent(new CustomEvent("tldw:open-quick-ingest"))
-  }
-
   const bannerHeading = (() => {
     if (uxState === "error_auth") {
       return t(
@@ -181,6 +173,17 @@ export const EmptySidePanel = ({ inputRef }: EmptySidePanelProps) => {
       "tldw_server is your private AI workspace that keeps chats, notes, and media on your own machine. Add your server URL to get started."
     )
   })()
+
+  const insertPrompt = (text: string) => {
+    const input =
+      inputRef?.current ??
+      document.querySelector<HTMLTextAreaElement>('[data-testid="chat-input"]')
+    if (input) {
+      input.value = text
+      input.focus()
+      input.dispatchEvent(new Event("input", { bubbles: true }))
+    }
+  }
 
   React.useEffect(() => {
     if (!showConnectionCard) return
@@ -301,16 +304,14 @@ export const EmptySidePanel = ({ inputRef }: EmptySidePanelProps) => {
         <button
           type="button"
           className="w-full flex items-center gap-2.5 px-3 py-2 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-[#1a1a1a] hover:border-blue-300 dark:hover:border-blue-600 hover:bg-blue-50/50 dark:hover:bg-blue-900/10 transition-colors text-left group"
-          onClick={() => {
-            const input =
-              inputRef?.current ??
-              document.querySelector<HTMLTextAreaElement>('[data-testid="chat-input"]')
-            if (input) {
-              input.value = t("sidepanel:emptyChat.examplePrompt1Text", "Summarize this page")
-              input.focus()
-              input.dispatchEvent(new Event('input', { bubbles: true }))
-            }
-          }}
+          onClick={() =>
+            insertPrompt(
+              t(
+                "sidepanel:emptyChat.examplePrompt1Text",
+                "Summarize this page"
+              )
+            )
+          }
         >
           <FileText className="size-4 text-gray-400 group-hover:text-blue-500 dark:group-hover:text-blue-400 flex-shrink-0" />
           <span className="text-xs text-gray-600 dark:text-gray-300">
@@ -320,16 +321,14 @@ export const EmptySidePanel = ({ inputRef }: EmptySidePanelProps) => {
         <button
           type="button"
           className="w-full flex items-center gap-2.5 px-3 py-2 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-[#1a1a1a] hover:border-blue-300 dark:hover:border-blue-600 hover:bg-blue-50/50 dark:hover:bg-blue-900/10 transition-colors text-left group"
-          onClick={() => {
-            const input =
-              inputRef?.current ??
-              document.querySelector<HTMLTextAreaElement>('[data-testid="chat-input"]')
-            if (input) {
-              input.value = t("sidepanel:emptyChat.examplePrompt2Text", "What are the key points?")
-              input.focus()
-              input.dispatchEvent(new Event('input', { bubbles: true }))
-            }
-          }}
+          onClick={() =>
+            insertPrompt(
+              t(
+                "sidepanel:emptyChat.examplePrompt2Text",
+                "What are the key points?"
+              )
+            )
+          }
         >
           <Search className="size-4 text-gray-400 group-hover:text-blue-500 dark:group-hover:text-blue-400 flex-shrink-0" />
           <span className="text-xs text-gray-600 dark:text-gray-300">
@@ -339,16 +338,14 @@ export const EmptySidePanel = ({ inputRef }: EmptySidePanelProps) => {
         <button
           type="button"
           className="w-full flex items-center gap-2.5 px-3 py-2 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-[#1a1a1a] hover:border-blue-300 dark:hover:border-blue-600 hover:bg-blue-50/50 dark:hover:bg-blue-900/10 transition-colors text-left group"
-          onClick={() => {
-            const input =
-              inputRef?.current ??
-              document.querySelector<HTMLTextAreaElement>('[data-testid="chat-input"]')
-            if (input) {
-              input.value = t("sidepanel:emptyChat.examplePrompt3Text", "Explain this in simple terms")
-              input.focus()
-              input.dispatchEvent(new Event('input', { bubbles: true }))
-            }
-          }}
+          onClick={() =>
+            insertPrompt(
+              t(
+                "sidepanel:emptyChat.examplePrompt3Text",
+                "Explain this in simple terms"
+              )
+            )
+          }
         >
           <BookOpen className="size-4 text-gray-400 group-hover:text-blue-500 dark:group-hover:text-blue-400 flex-shrink-0" />
           <span className="text-xs text-gray-600 dark:text-gray-300">

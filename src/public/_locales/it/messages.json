@@ -346,7 +346,7 @@
     "message": "Sposta nella cartella"
   },
   "quickIngest_ocrHelp": {
-    "message": "OCR helps extract text from scanned PDFs or images."
+    "message": "L'OCR aiuta a estrarre testo da PDF scansionati o immagini."
   },
   "specReloadedToast": {
     "message": "Spec avanzata ricaricata dal server"

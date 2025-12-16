@@ -45,7 +45,10 @@ const getStorageFlag = async (key: string): Promise<boolean> => {
 
 const getOfflineBypassFlag = async (): Promise<boolean> => {
   // Build-time flag for Playwright/CI: VITE_TLDW_E2E_ALLOW_OFFLINE=true
-  if ((import.meta as any)?.env?.VITE_TLDW_E2E_ALLOW_OFFLINE === "true") {
+  const meta = import.meta as unknown as {
+    env?: { VITE_TLDW_E2E_ALLOW_OFFLINE?: string }
+  }
+  if (meta?.env?.VITE_TLDW_E2E_ALLOW_OFFLINE === "true") {
     return true
   }
 
@@ -242,23 +245,23 @@ export const useConnectionStore = create<ConnectionStore>((set, get) => ({
       return
     }
 
-    // Load persisted first-run flag if not already set
-    if (!prev.hasCompletedFirstRun) {
-      const persistedFirstRun = await getFirstRunCompleteFlag()
-      if (persistedFirstRun) {
-        set({
-          state: {
-            ...prev,
-            hasCompletedFirstRun: true
-          }
-        })
-      }
+    // Load all persisted flags upfront
+    const persistedFirstRun = await getFirstRunCompleteFlag()
+    const persistedServerUrl = await getPersistedServerUrl()
+    const forceUnconfigured = await getForceUnconfiguredFlag()
+    const bypass = await getOfflineBypassFlag()
+
+    // Apply persisted first-run flag if not already set
+    if (!prev.hasCompletedFirstRun && persistedFirstRun) {
+      set({
+        state: {
+          ...prev,
+          hasCompletedFirstRun: true
+        }
+      })
     }
 
-    const persistedServerUrl = await getPersistedServerUrl()
-
     // Test-only hook: force a missing/unconfigured state without network calls.
-    const forceUnconfigured = await getForceUnconfiguredFlag()
     if (forceUnconfigured) {
       set({
         state: {
@@ -283,7 +286,6 @@ export const useConnectionStore = create<ConnectionStore>((set, get) => ({
     // Optional test toggle: allow CI/Playwright to treat the app as "connected"
     // without hitting a live server. Controlled via env VITE_TLDW_E2E_ALLOW_OFFLINE
     // or chrome.storage.local[__tldw_allow_offline].
-    const bypass = await getOfflineBypassFlag()
     if (bypass) {
       const serverUrl =
         persistedServerUrl ??

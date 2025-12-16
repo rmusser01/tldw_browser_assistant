@@ -98,6 +98,13 @@ export function CompactMessage({
   const [showSources, setShowSources] = useState(false)
   const { cancel, isSpeaking, speak } = useTTS()
 
+  // Keep edited text in sync with message prop when not actively editing
+  React.useEffect(() => {
+    if (!editMode) {
+      setEditedText(message)
+    }
+  }, [message, editMode])
+
   const errorPayload = decodeChatErrorPayload(message)
   const displayName = isBot
     ? removeModelSuffix(modelName || name)

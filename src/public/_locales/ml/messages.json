@@ -346,7 +346,7 @@
     "message": "ഫോൾഡറിലേക്ക് നീക്കുക"
   },
   "quickIngest_ocrHelp": {
-    "message": "OCR helps extract text from scanned PDFs or images."
+    "message": "സ്കാൻ ചെയ്ത PDFകളിൽ നിന്നോ ചിത്രങ്ങളിൽ നിന്നോ ഉള്ള വാചകം പകർത്താൻ OCR സഹായിക്കുന്നു."
   },
   "specReloadedToast": {
     "message": "സർവറിൽ നിന്ന് അഡ്വാൻസ്ഡ് സ്പെക് വീണ്ടും ലോഡ് ചെയ്തു"

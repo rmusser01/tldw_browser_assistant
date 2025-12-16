@@ -429,7 +429,6 @@ export default defineBackground({
       file?: { name?: string; type?: string; data?: ArrayBuffer | Uint8Array | { data?: number[] } | number[] | string }
     }) => {
       const { path, method = 'POST', fields = {}, file } = payload || {}
-      const storage = createSafeStorage({ area: 'local' })
       const cfg = await storage.get<any>('tldwConfig')
       const isAbsolute = typeof path === 'string' && /^https?:/i.test(path)
       if (!cfg?.serverUrl && !isAbsolute) {
@@ -796,7 +795,6 @@ export default defineBackground({
         return handleUpload(message.payload || {})
       } else if (message.type === 'tldw:request') {
         const { path, method = 'GET', headers = {}, body, noAuth = false, timeoutMs: overrideTimeoutMs } = message.payload || {}
-        const storage = createSafeStorage({ area: 'local' })
         const cfg = await storage.get<any>('tldwConfig')
         const isAbsolute = typeof path === 'string' && /^https?:/i.test(path)
         if (!cfg?.serverUrl && !isAbsolute) {
@@ -902,7 +900,6 @@ export default defineBackground({
           isCopilotRunning = false
         })
       } else if (port.name === 'tldw:stt') {
-        const storage = createSafeStorage({ area: 'local' })
         let ws: WebSocket | null = null
         let disconnected = false
         let connectTimer: ReturnType<typeof setTimeout> | null = null
@@ -1170,7 +1167,6 @@ export default defineBackground({
     // Stream handler via Port API
     browser.runtime.onConnect.addListener((port) => {
       if (port.name === 'tldw:stream') {
-        const storage = createSafeStorage({ area: 'local' })
         let abort: AbortController | null = null
         let idleTimer: any = null
         let closed = false

@@ -346,7 +346,7 @@
     "message": "In Ordner verschieben"
   },
   "quickIngest_ocrHelp": {
-    "message": "OCR helps extract text from scanned PDFs or images."
+    "message": "OCR hilft beim Extrahieren von Text aus gescannten PDFs oder Bildern."
   },
   "specReloadedToast": {
     "message": "Erweiterte Spezifikation vom Server neu geladen"

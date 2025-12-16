@@ -70,7 +70,7 @@
     "message": "啟用 OCR 後，首次使用時將下載約 5MB 的語言資料。"
   },
   "quickIngest_ocrHelp": {
-    "message": "OCR helps extract text from scanned PDFs or images."
+    "message": "OCR 可協助從掃描的 PDF 或圖片中擷取文字。"
   },
   "specReloadedToast": {
     "message": "進階規格已從伺服器重新載入",

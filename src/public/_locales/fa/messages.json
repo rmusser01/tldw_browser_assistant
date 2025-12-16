@@ -346,7 +346,7 @@
     "message": "انتقال به پوشه"
   },
   "quickIngest_ocrHelp": {
-    "message": "OCR helps extract text from scanned PDFs or images."
+    "message": "OCR به استخراج متن از PDF‌های اسکن‌شده یا تصاویر کمک می‌کند."
   },
   "specReloadedToast": {
     "message": "مشخصات پیشرفته از سرور دوباره بارگذاری شد"

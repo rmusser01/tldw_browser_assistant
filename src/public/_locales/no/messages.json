@@ -346,7 +346,7 @@
     "message": "Flytt til mappe"
   },
   "quickIngest_ocrHelp": {
-    "message": "OCR helps extract text from scanned PDFs or images."
+    "message": "OCR hjelper med å hente ut tekst fra skannede PDF-er eller bilder."
   },
   "specReloadedToast": {
     "message": "Avansert spesifikasjon lastet på nytt fra serveren"

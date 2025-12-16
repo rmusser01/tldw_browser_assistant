@@ -304,7 +304,7 @@
     "audioLanguage": "Language (e.g., en)",
     "audioDiarizationHelp": "Turn on to separate speakers in transcripts.",
     "documentOptions": "Document options",
-    "ocrHelp": "OCR helps extract text from scanned PDFs or images.",
+    "ocrHelp": "OCRはスキャンしたPDFや画像からテキストを抽出するのに役立ちます。",
     "videoOptions": "Video options",
     "captionsHelp": "Include timestamps/captions when available.",
     "cancel": "Cancel",

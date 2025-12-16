@@ -218,7 +218,7 @@
     "description": "Menu item label to move an item into a folder."
   },
   "quickIngest_ocrHelp": {
-    "message": "OCR helps extract text from scanned PDFs or images."
+    "message": "OCR 可帮助从扫描的 PDF 或图片中提取文本。"
   },
   "specReloadedToast": {
     "message": "高级规范已从服务器重新加载"

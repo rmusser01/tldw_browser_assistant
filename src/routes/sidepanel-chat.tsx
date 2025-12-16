@@ -438,10 +438,12 @@ const SidepanelChat = () => {
     return () => {
       if (feedbackTimerRef.current) {
         clearTimeout(feedbackTimerRef.current)
+        feedbackTimerRef.current = null
       }
       // L20: Clean up drag-leave debounce timer
       if (dragLeaveTimerRef.current) {
         clearTimeout(dragLeaveTimerRef.current)
+        dragLeaveTimerRef.current = null
       }
     }
   }, [])

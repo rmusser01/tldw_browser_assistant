@@ -31,7 +31,6 @@ import {
 import { useConnectionStore } from "@/store/connection"
 import { useDemoMode } from "@/context/demo-mode"
 import { openSidepanelForActiveTab } from "@/utils/sidepanel"
-import { useFeatureFlag, FEATURE_FLAGS } from "@/hooks/useFeatureFlags"
 import { cn } from "@/libs/utils"
 
 type AuthMode = "single-user" | "multi-user"
@@ -170,7 +169,9 @@ export function OnboardingConnectForm({ onFinish }: Props) {
         // Ignore config load errors
       }
     })()
-  }, [actions])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+  // ^ Intentionally running only on mount to load initial config once
 
   // URL validation
   const urlValidation = useMemo(() => {
@@ -257,7 +258,7 @@ export function OnboardingConnectForm({ onFinish }: Props) {
 
     try {
       // Phase 1: Set server URL and check reachability
-      await useConnectionStore.getState().setConfigPartial({ serverUrl })
+      await actions.setConfigPartial({ serverUrl })
 
       // Give a moment for the UI to show "checking"
       await new Promise((r) => setTimeout(r, 300))
@@ -310,7 +311,7 @@ export function OnboardingConnectForm({ onFinish }: Props) {
         }
       }
 
-      await useConnectionStore.getState().setConfigPartial({
+      await actions.setConfigPartial({
         authMode,
         apiKey: authMode === "single-user" ? apiKey : undefined,
       })
@@ -322,7 +323,7 @@ export function OnboardingConnectForm({ onFinish }: Props) {
         knowledgeIndex: "idle",
       }))
 
-      await useConnectionStore.getState().testConnectionFromOnboarding()
+      await actions.testConnectionFromOnboarding()
 
       // Check results
       const state = useConnectionStore.getState().state
@@ -390,16 +391,24 @@ export function OnboardingConnectForm({ onFinish }: Props) {
   ])
 
   // Handle demo mode
-  const handleDemoMode = useCallback(() => {
+  const handleDemoMode = useCallback(async () => {
     setDemoEnabled(true)
     actions.setDemoMode()
-    actions.markFirstRunComplete()
+    try {
+      await actions.markFirstRunComplete()
+    } catch {
+      // ignore persistence errors; demo mode remains active in memory
+    }
     onFinish?.()
   }, [setDemoEnabled, actions, onFinish])
 
   // Handle finish
-  const handleFinish = useCallback(() => {
-    actions.markFirstRunComplete()
+  const handleFinish = useCallback(async () => {
+    try {
+      await actions.markFirstRunComplete()
+    } catch {
+      // ignore persistence errors; UI has already completed onboarding
+    }
     onFinish?.()
   }, [actions, onFinish])
 

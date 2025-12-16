@@ -673,7 +673,7 @@
     "message": "移动到文件夹"
   },
   "quickIngest_ocrHelp": {
-    "message": "OCR helps extract text from scanned PDFs or images."
+    "message": "OCR 有助于从扫描的 PDF 或图像中提取文本。"
   },
   "specReloadedToast": {
     "message": "高级规范已从服务器重新加载"

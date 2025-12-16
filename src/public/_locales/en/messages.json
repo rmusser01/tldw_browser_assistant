@@ -235,6 +235,9 @@
   "enableOcrAssets_downloadNotice": {
     "message": "Enabling OCR will download ~5MB of language data on first use"
   },
+  "enableOcrAssets_assetsEnabled": {
+    "message": "OCR assets enabled and ready"
+  },
   "omniSearchPlaceholder": {
     "message": "Search screens, chats, media, notes…",
     "description": "Placeholder text for the omni-search input in the header."

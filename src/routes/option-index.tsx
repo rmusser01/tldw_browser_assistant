@@ -29,7 +29,7 @@ const OptionIndex = () => {
   React.useEffect(() => {
     if (!hasCompletedFirstRun && !onboardingInitiated.current) {
       onboardingInitiated.current = true
-      beginOnboarding()
+      void beginOnboarding()
     }
   }, [hasCompletedFirstRun, beginOnboarding])
 
@@ -41,9 +41,16 @@ const OptionIndex = () => {
     return (
       <OptionLayout hideHeader showHeaderSelectors={false}>
         <OnboardingWizard
-          onFinish={() => {
-            void checkOnce()
-            markFirstRunComplete()
+          onFinish={async () => {
+            try {
+              await checkOnce()
+            } finally {
+              try {
+                await markFirstRunComplete()
+              } catch {
+                // ignore markFirstRunComplete failures here; connection state will self-heal on next load
+              }
+            }
           }}
         />
       </OptionLayout>

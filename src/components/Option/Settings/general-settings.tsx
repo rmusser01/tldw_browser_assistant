@@ -198,6 +198,7 @@ export const GeneralSettings = () => {
         </span>
 
         <Select
+          aria-label={t("generalSettings.settings.language.label")}
           placeholder={t("generalSettings.settings.language.placeholder")}
           allowClear
           showSearch
@@ -352,6 +353,7 @@ export const GeneralSettings = () => {
           </span>
         </div>
         <Select
+          aria-label={t("generalSettings.settings.menuDensity.label", "Menu density")}
           style={{ width: 200 }}
           value={menuDensity}
           onChange={(v) => setMenuDensity(v)}
@@ -477,17 +479,26 @@ export const GeneralSettings = () => {
                 "generalSettings.settings.restartOnboarding.confirmMessage",
                 "This will reset your onboarding state and take you back to the setup flow."
               ),
-              onOk: () => {
-                beginOnboarding()
-                notification.success({
-                  message: t(
-                    "generalSettings.settings.restartOnboarding.toast",
-                    "Onboarding has been reset"
-                  )
-                })
-                setTimeout(() => {
-                  navigate("/")
-                }, 800)
+              onOk: async () => {
+                try {
+                  await beginOnboarding()
+                  notification.success({
+                    message: t(
+                      "generalSettings.settings.restartOnboarding.toast",
+                      "Onboarding has been reset"
+                    )
+                  })
+                  setTimeout(() => {
+                    navigate("/")
+                  }, 800)
+                } catch {
+                  notification.error({
+                    message: t(
+                      "generalSettings.settings.restartOnboarding.error",
+                      "Failed to restart onboarding. Please try again."
+                    )
+                  })
+                }
               }
             })
           }}
@@ -543,7 +554,10 @@ export const GeneralSettings = () => {
           <Alert
             type="info"
             showIcon
-            message={t("generalSettings.settings.enableOcrAssets.downloadNotice")}
+            message={t(
+              "generalSettings.settings.enableOcrAssets.downloadNotice",
+              "Enable to download OCR language assets for image text recognition"
+            )}
             className="!py-1.5 !text-xs"
           />
         )}
@@ -551,7 +565,10 @@ export const GeneralSettings = () => {
           <Alert
             type="success"
             showIcon
-            message={t("generalSettings.settings.enableOcrAssets.downloadingAssets", "Downloading OCR assets... This may take a moment.")}
+            message={t(
+              "generalSettings.settings.enableOcrAssets.assetsEnabled",
+              "OCR assets enabled and ready"
+            )}
             className="!py-1.5 !text-xs"
           />
         )}
@@ -563,6 +580,7 @@ export const GeneralSettings = () => {
         </span>
 
         <Select
+          aria-label={t("generalSettings.settings.ocrLanguage.label")}
           placeholder={t("generalSettings.settings.ocrLanguage.placeholder")}
           showSearch
           style={{ width: "200px" }}
