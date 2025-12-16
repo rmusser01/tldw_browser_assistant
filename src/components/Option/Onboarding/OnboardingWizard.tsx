@@ -475,9 +475,31 @@ export const OnboardingWizard: React.FC<Props> = ({ onFinish }) => {
     uxState
   ])
 
+  // Track step changes for aria-live announcements
+  const [stepAnnouncement, setStepAnnouncement] = React.useState<string | null>(null)
+  const prevStepRef = React.useRef(activeStep)
+
   React.useEffect(() => {
-    // Basic focus management between steps for accessibility.
-    try {
+    // Announce step changes to screen readers
+    if (prevStepRef.current !== activeStep) {
+      const stepLabels: Record<number, string> = {
+        1: t('settings:onboarding.step1Label', 'Step 1: Server URL'),
+        2: t('settings:onboarding.step2Label', 'Step 2: Authentication'),
+        3: t('settings:onboarding.step3Label', 'Step 3: Confirmation')
+      }
+      setStepAnnouncement(stepLabels[activeStep] || `Step ${activeStep}`)
+      prevStepRef.current = activeStep
+
+      // Clear announcement after a short delay
+      const clearTimer = setTimeout(() => setStepAnnouncement(null), 2000)
+      return () => clearTimeout(clearTimer)
+    }
+  }, [activeStep, t])
+
+  React.useEffect(() => {
+    // Focus management between steps for accessibility.
+    // Use requestAnimationFrame for more reliable focus after DOM updates.
+    const focusTarget = () => {
       if (activeStep === 1 && urlInputRef.current) {
         urlInputRef.current.focus()
       } else if (activeStep === 2 && authStepRef.current) {
@@ -485,13 +507,31 @@ export const OnboardingWizard: React.FC<Props> = ({ onFinish }) => {
       } else if (activeStep === 3 && confirmStepRef.current) {
         confirmStepRef.current.focus()
       }
-    } catch {
-      // ignore focus errors
     }
+
+    // Use both requestAnimationFrame and a small timeout for reliability
+    const rafId = requestAnimationFrame(() => {
+      // Small delay to ensure DOM is fully rendered
+      const timeoutId = setTimeout(focusTarget, 50)
+      return () => clearTimeout(timeoutId)
+    })
+
+    return () => cancelAnimationFrame(rafId)
   }, [activeStep])
 
   return (
     <div className="mx-auto w-full max-w-2xl rounded-xl border border-gray-200 bg-white px-6 py-6 text-gray-900 shadow-sm dark:border-gray-700 dark:bg-[#171717] dark:text-gray-100">
+      {/* Screen reader announcement for step changes */}
+      {stepAnnouncement && (
+        <div
+          role="status"
+          aria-live="polite"
+          aria-atomic="true"
+          className="sr-only"
+        >
+          {stepAnnouncement}
+        </div>
+      )}
       <h2 className="text-lg font-semibold mb-3 text-gray-900 dark:text-gray-100">{t('settings:onboarding.title')}</h2>
 
       <div className="mb-4 space-y-2">

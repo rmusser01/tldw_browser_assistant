@@ -55,7 +55,6 @@ export const SidepanelForm = ({ dropedFile }: Props) => {
   const [typing, setTyping] = React.useState<boolean>(false)
   const { t } = useTranslation(["playground", "common", "option", "sidepanel"])
   const notification = useAntdNotification()
-  const errorTimeoutRef = React.useRef<ReturnType<typeof setTimeout> | null>(null)
   const [chatWithWebsiteEmbedding] = useStorage(
     "chatWithWebsiteEmbedding",
     false
@@ -183,14 +182,32 @@ export const SidepanelForm = ({ dropedFile }: Props) => {
   const onInputChange = async (
     e: React.ChangeEvent<HTMLInputElement> | File
   ) => {
-    if (e instanceof File) {
-      const base64 = await toBase64(e)
-      form.setFieldValue("image", base64)
-    } else {
-      if (e.target.files) {
-        const base64 = await toBase64(e.target.files[0])
-        form.setFieldValue("image", base64)
+    try {
+      let file: File
+      if (e instanceof File) {
+        file = e
+      } else if (e.target.files && e.target.files[0]) {
+        file = e.target.files[0]
+      } else {
+        return
       }
+
+      const base64 = await toBase64(file)
+      form.setFieldValue("image", base64)
+
+      // Show success feedback
+      message.success({
+        content: t("sidepanel:composer.imageUploaded", {
+          defaultValue: "Image added: {{name}}",
+          name: file.name.length > 20 ? `${file.name.slice(0, 17)}...` : file.name
+        }),
+        duration: 2
+      })
+    } catch (err) {
+      message.error({
+        content: t("sidepanel:composer.imageUploadError", "Failed to process image"),
+        duration: 3
+      })
     }
   }
   const textAreaFocus = () => {
@@ -865,23 +882,20 @@ export const SidepanelForm = ({ dropedFile }: Props) => {
     }
   }, [defaultInternetSearchOn])
 
-  // Auto-dismiss error messages after 5 seconds
+  // Clear error messages when user starts typing (they're taking action)
+  // Errors persist until user interaction rather than auto-dismissing
   React.useEffect(() => {
-    if (form.errors.message) {
-      if (errorTimeoutRef.current) {
-        clearTimeout(errorTimeoutRef.current)
-      }
-      errorTimeoutRef.current = setTimeout(() => {
-        form.clearFieldError("message")
-        errorTimeoutRef.current = null
-      }, 5000)
+    if (form.values.message && form.errors.message) {
+      form.clearFieldError("message")
     }
-    return () => {
-      if (errorTimeoutRef.current) {
-        clearTimeout(errorTimeoutRef.current)
-      }
+  }, [form.values.message])
+
+  // Clear "no model" error when a model is selected
+  React.useEffect(() => {
+    if (selectedModel && form.errors.message) {
+      form.clearFieldError("message")
     }
-  }, [form.errors.message])
+  }, [selectedModel])
 
   // Debounce placeholder changes to prevent flashing on flaky connections
   React.useEffect(() => {
@@ -1120,42 +1134,63 @@ export const SidepanelForm = ({ dropedFile }: Props) => {
                         </div>
                       </div>
                     )}
-                    <textarea
-                      onKeyDown={(e) => handleKeyDown(e)}
-                      ref={textareaRef}
-                      className={`px-2 py-2 w-full resize-none focus-within:outline-none focus:ring-0 focus-visible:ring-0 ring-0 dark:ring-0 border-0 dark:text-gray-100 ${
-                        !isConnectionReady
-                          ? "cursor-not-allowed text-gray-500 placeholder:text-gray-400 dark:text-gray-400 dark:placeholder:text-gray-500 bg-gray-100/50 dark:bg-gray-800/50 opacity-70"
-                          : "bg-transparent"
-                      }`}
-                      readOnly={!isConnectionReady}
-                      aria-readonly={!isConnectionReady}
-                      aria-disabled={!isConnectionReady}
-                      aria-label={
-                        !isConnectionReady
-                          ? t(
-                              "sidepanel:composer.disconnectedAriaLabel",
-                              "Message input (read-only: not connected to server)"
-                            )
-                          : t("sidepanel:composer.messageAriaLabel", "Message input")
-                      }
-                      onPaste={handlePaste}
-                      rows={1}
-                      style={{ minHeight: "60px" }}
-                      tabIndex={0}
-                      onCompositionStart={() => {
-                        if (import.meta.env.BROWSER !== "firefox") {
-                          setTyping(true)
+                    <div className="relative">
+                      <textarea
+                        onKeyDown={(e) => handleKeyDown(e)}
+                        ref={textareaRef}
+                        className={`px-2 py-2 w-full resize-none focus-within:outline-none focus:ring-0 focus-visible:ring-0 ring-0 dark:ring-0 border-0 dark:text-gray-100 ${
+                          !isConnectionReady
+                            ? "cursor-not-allowed text-gray-400 placeholder:text-gray-400 dark:text-gray-500 dark:placeholder:text-gray-500 bg-transparent"
+                            : "bg-transparent"
+                        }`}
+                        readOnly={!isConnectionReady}
+                        aria-readonly={!isConnectionReady}
+                        aria-disabled={!isConnectionReady}
+                        aria-label={
+                          !isConnectionReady
+                            ? t(
+                                "sidepanel:composer.disconnectedAriaLabel",
+                                "Message input (read-only: not connected to server)"
+                              )
+                            : t("sidepanel:composer.messageAriaLabel", "Message input")
                         }
-                      }}
-                      onCompositionEnd={() => {
-                        if (import.meta.env.BROWSER !== "firefox") {
-                          setTyping(false)
-                        }
-                      }}
-                      placeholder={debouncedPlaceholder || t("form.textarea.placeholder")}
-                      {...form.getInputProps("message")}
-                    />
+                        onPaste={handlePaste}
+                        rows={1}
+                        style={{ minHeight: "60px" }}
+                        tabIndex={0}
+                        onCompositionStart={() => {
+                          if (import.meta.env.BROWSER !== "firefox") {
+                            setTyping(true)
+                          }
+                        }}
+                        onCompositionEnd={() => {
+                          if (import.meta.env.BROWSER !== "firefox") {
+                            setTyping(false)
+                          }
+                        }}
+                        placeholder={debouncedPlaceholder || t("form.textarea.placeholder")}
+                        {...form.getInputProps("message")}
+                      />
+                      {/* Disconnected overlay - provides clear visual feedback */}
+                      {!isConnectionReady && (
+                        <div
+                          className="absolute inset-0 bg-gradient-to-b from-gray-100/80 to-gray-100/60 dark:from-gray-800/80 dark:to-gray-800/60 flex items-center justify-center pointer-events-none rounded"
+                          aria-hidden="true"
+                        >
+                          <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/90 dark:bg-gray-900/90 shadow-sm border border-gray-200 dark:border-gray-700">
+                            <span className="relative flex h-2 w-2">
+                              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-amber-400 opacity-75"></span>
+                              <span className="relative inline-flex h-2 w-2 rounded-full bg-amber-500"></span>
+                            </span>
+                            <span className="text-xs font-medium text-gray-600 dark:text-gray-300">
+                              {uxState === "testing"
+                                ? t("sidepanel:composer.overlayConnecting", "Connecting...")
+                                : t("sidepanel:composer.overlayDisconnected", "Not connected")}
+                            </span>
+                          </div>
+                        </div>
+                      )}
+                    </div>
                     {/* Inline error message - positioned right after textarea for visibility */}
                     {form.errors.message && (
                       <div

@@ -7,6 +7,18 @@ import {
 } from "@/hooks/useConnectionState"
 import { ConnectionPhase } from "@/types/connection"
 import { cleanUrl } from "@/libs/clean-url"
+import {
+  MessageSquare,
+  Settings,
+  AlertCircle,
+  KeyRound,
+  Wifi,
+  WifiOff,
+  Sparkles,
+  FileText,
+  Search,
+  BookOpen
+} from "lucide-react"
 
 export const EmptySidePanel = () => {
   const { t } = useTranslation(["sidepanel", "settings", "option", "playground"])
@@ -178,52 +190,170 @@ export const EmptySidePanel = () => {
   }, [showConnectionCard, hasCompletedFirstRun])
 
   if (showConnectionCard) {
+    // Determine the icon based on error state
+    const StatusIcon = uxState === "error_auth"
+      ? KeyRound
+      : uxState === "error_unreachable"
+        ? WifiOff
+        : Settings
+
+    const iconColorClass = uxState === "error_auth" || uxState === "error_unreachable"
+      ? "text-amber-600 dark:text-amber-400"
+      : "text-blue-500 dark:text-blue-400"
+
     return (
       <div className="mt-4 flex w-full flex-col items-stretch gap-3 px-3">
-        <div className="flex flex-wrap items-start justify-between gap-3 rounded-md border border-amber-200 bg-amber-50 px-3 py-2 text-[11px] text-amber-900 dark:border-amber-500 dark:bg-[#2a2310] dark:text-amber-100">
-          <div className="flex-1 space-y-1">
-            <p className="font-medium">{bannerHeading}</p>
-            <p className="text-[11px] leading-snug">{bannerBody}</p>
+        {/* Main card with icon */}
+        <div className="rounded-lg border border-gray-200 bg-white dark:border-gray-700 dark:bg-[#1a1a1a] overflow-hidden">
+          {/* Header with icon */}
+          <div className="flex items-center gap-3 px-4 py-3 border-b border-gray-100 dark:border-gray-800">
+            <div className={`flex-shrink-0 p-2 rounded-full ${
+              uxState === "error_auth" || uxState === "error_unreachable"
+                ? "bg-amber-100 dark:bg-amber-900/30"
+                : "bg-blue-100 dark:bg-blue-900/30"
+            }`}>
+              <StatusIcon className={`size-5 ${iconColorClass}`} />
+            </div>
+            <div className="flex-1 min-w-0">
+              <p className="text-sm font-medium text-gray-900 dark:text-gray-100">
+                {bannerHeading}
+              </p>
+            </div>
           </div>
-          <button
-            type="button"
-            onClick={openOnboarding}
-            ref={primaryButtonRef}
-            className="rounded-md border border-amber-300 bg-white px-2 py-1 text-[11px] font-medium text-amber-900 hover:bg-amber-100 dark:bg-[#3a2b10] dark:text-amber-50 dark:hover:bg-[#4a3512]"
-          >
-            {/* L14: Different button labels for first-run vs reconnect */}
-            {!hasCompletedFirstRun
-              ? t("sidepanel:firstRun.finishSetup", "Finish setup")
-              : uxState === "error_auth" || uxState === "error_unreachable"
-                ? t("sidepanel:firstRun.reviewSettings", "Review settings")
-                : t("sidepanel:firstRun.openOptionsPrimary", "Open tldw Settings")}
-          </button>
+
+          {/* Body */}
+          <div className="px-4 py-3 space-y-3">
+            <p className="text-xs text-gray-600 dark:text-gray-300 leading-relaxed">
+              {bannerBody}
+            </p>
+
+            {/* Action button */}
+            <button
+              type="button"
+              onClick={openOnboarding}
+              ref={primaryButtonRef}
+              className={`w-full flex items-center justify-center gap-2 rounded-md px-3 py-2 text-xs font-medium transition-colors ${
+                uxState === "error_auth" || uxState === "error_unreachable"
+                  ? "bg-amber-500 hover:bg-amber-600 text-white"
+                  : "bg-blue-500 hover:bg-blue-600 text-white"
+              }`}
+            >
+              <Settings className="size-3.5" />
+              {!hasCompletedFirstRun
+                ? t("sidepanel:firstRun.finishSetup", "Finish setup")
+                : uxState === "error_auth" || uxState === "error_unreachable"
+                  ? t("sidepanel:firstRun.reviewSettings", "Review settings")
+                  : t("sidepanel:firstRun.openOptionsPrimary", "Open tldw Settings")}
+            </button>
+          </div>
+
+          {/* Step indicator for first-run */}
+          {stepSummary && (
+            <div className="px-4 py-2 bg-gray-50 dark:bg-[#111] border-t border-gray-100 dark:border-gray-800">
+              <p className="text-[10px] text-gray-500 dark:text-gray-400">
+                {stepSummary}
+              </p>
+            </div>
+          )}
         </div>
-        {stepSummary && (
-          <p className="px-1 text-[11px] text-gray-600 dark:text-gray-300">
-            {stepSummary}
-          </p>
+
+        {/* Quick tips for first-time users */}
+        {!hasCompletedFirstRun && (
+          <div className="text-[10px] text-gray-400 dark:text-gray-500 text-center">
+            {t("sidepanel:firstRun.quickTip", "Need help? Check our docs or try demo mode.")}
+          </div>
         )}
       </div>
     )
   }
 
-  // Connected state: show minimal empty chat guidance
-  // (Status dot in header already shows connection status)
+  // Connected state: show welcoming empty chat guidance
   return (
-    <div className="mt-4 w-full px-6 flex flex-col items-center justify-center text-center">
-      <div className="mb-2 text-green-600 dark:text-green-400 text-xs font-medium">
-        {t("sidepanel:emptyChat.connected", "✓ Connected")}
+    <div className="mt-4 w-full px-4 flex flex-col items-center justify-center">
+      {/* Animated icon */}
+      <div className="mb-3 relative">
+        <div className="w-12 h-12 rounded-full bg-gradient-to-br from-green-100 to-emerald-100 dark:from-green-900/30 dark:to-emerald-900/30 flex items-center justify-center">
+          <MessageSquare className="size-6 text-green-600 dark:text-green-400" />
+        </div>
+        <div className="absolute -top-0.5 -right-0.5 w-3 h-3 rounded-full bg-green-500 border-2 border-white dark:border-[#1a1a1a]" />
       </div>
-      <p className="text-sm text-gray-600 dark:text-gray-300 mb-3">
+
+      {/* Status and heading */}
+      <div className="mb-1 text-green-600 dark:text-green-400 text-xs font-medium flex items-center gap-1">
+        <Wifi className="size-3" />
+        {t("sidepanel:emptyChat.connected", "Connected")}
+      </div>
+      <p className="text-sm font-medium text-gray-700 dark:text-gray-200 mb-4">
         {mode === "demo"
           ? t("sidepanel:emptyChat.demoHint", "Demo mode — try sending a message")
           : t("sidepanel:emptyChat.hint", "Start a conversation below")}
       </p>
-      <div className="text-xs text-gray-400 dark:text-gray-500 space-y-1">
-        <p>{t("sidepanel:emptyChat.examplePrompt1", "Try: \"Summarize this page\"")}</p>
-        <p>{t("sidepanel:emptyChat.examplePrompt2", "Or: \"What are the key points?\"")}</p>
+
+      {/* Suggestion cards */}
+      <div className="w-full space-y-2 text-left">
+        <p className="text-[10px] uppercase tracking-wide text-gray-400 dark:text-gray-500 font-medium px-1">
+          {t("sidepanel:emptyChat.suggestions", "Try asking")}
+        </p>
+        <button
+          type="button"
+          className="w-full flex items-center gap-2.5 px-3 py-2 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-[#1a1a1a] hover:border-blue-300 dark:hover:border-blue-600 hover:bg-blue-50/50 dark:hover:bg-blue-900/10 transition-colors text-left group"
+          onClick={() => {
+            const input = document.querySelector<HTMLTextAreaElement>('[data-testid="chat-input"]')
+            if (input) {
+              input.value = t("sidepanel:emptyChat.examplePrompt1Text", "Summarize this page")
+              input.focus()
+              input.dispatchEvent(new Event('input', { bubbles: true }))
+            }
+          }}
+        >
+          <FileText className="size-4 text-gray-400 group-hover:text-blue-500 dark:group-hover:text-blue-400 flex-shrink-0" />
+          <span className="text-xs text-gray-600 dark:text-gray-300">
+            {t("sidepanel:emptyChat.examplePrompt1", "\"Summarize this page\"")}
+          </span>
+        </button>
+        <button
+          type="button"
+          className="w-full flex items-center gap-2.5 px-3 py-2 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-[#1a1a1a] hover:border-blue-300 dark:hover:border-blue-600 hover:bg-blue-50/50 dark:hover:bg-blue-900/10 transition-colors text-left group"
+          onClick={() => {
+            const input = document.querySelector<HTMLTextAreaElement>('[data-testid="chat-input"]')
+            if (input) {
+              input.value = t("sidepanel:emptyChat.examplePrompt2Text", "What are the key points?")
+              input.focus()
+              input.dispatchEvent(new Event('input', { bubbles: true }))
+            }
+          }}
+        >
+          <Search className="size-4 text-gray-400 group-hover:text-blue-500 dark:group-hover:text-blue-400 flex-shrink-0" />
+          <span className="text-xs text-gray-600 dark:text-gray-300">
+            {t("sidepanel:emptyChat.examplePrompt2", "\"What are the key points?\"")}
+          </span>
+        </button>
+        <button
+          type="button"
+          className="w-full flex items-center gap-2.5 px-3 py-2 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-[#1a1a1a] hover:border-blue-300 dark:hover:border-blue-600 hover:bg-blue-50/50 dark:hover:bg-blue-900/10 transition-colors text-left group"
+          onClick={() => {
+            const input = document.querySelector<HTMLTextAreaElement>('[data-testid="chat-input"]')
+            if (input) {
+              input.value = t("sidepanel:emptyChat.examplePrompt3Text", "Explain this in simple terms")
+              input.focus()
+              input.dispatchEvent(new Event('input', { bubbles: true }))
+            }
+          }}
+        >
+          <BookOpen className="size-4 text-gray-400 group-hover:text-blue-500 dark:group-hover:text-blue-400 flex-shrink-0" />
+          <span className="text-xs text-gray-600 dark:text-gray-300">
+            {t("sidepanel:emptyChat.examplePrompt3", "\"Explain this in simple terms\"")}
+          </span>
+        </button>
       </div>
+
+      {/* Demo mode indicator */}
+      {mode === "demo" && (
+        <div className="mt-4 flex items-center gap-1.5 text-[10px] text-purple-600 dark:text-purple-400">
+          <Sparkles className="size-3" />
+          {t("sidepanel:emptyChat.demoIndicator", "Running in demo mode")}
+        </div>
+      )}
     </div>
   )
 }

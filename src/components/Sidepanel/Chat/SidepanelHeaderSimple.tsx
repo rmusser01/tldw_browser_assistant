@@ -2,7 +2,7 @@ import logoImage from "~/assets/icon.png"
 import { useMessage } from "~/hooks/useMessage"
 import { Link } from "react-router-dom"
 import { Tooltip, Drawer } from "antd"
-import { CogIcon, PlusSquare, XIcon, PencilIcon, Trash2, SearchIcon, GitBranch } from "lucide-react"
+import { CogIcon, PlusSquare, XIcon, PencilIcon, Trash2, SearchIcon, GitBranch, History } from "lucide-react"
 import { useTranslation } from "react-i18next"
 import React from "react"
 import { IconButton } from "@/components/Common/IconButton"
@@ -283,6 +283,19 @@ export const SidepanelHeaderSimple = ({
               className="p-1.5 rounded hover:bg-gray-100 dark:hover:bg-gray-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-pink-700"
             >
               <GitBranch className="size-4 text-gray-500 dark:text-gray-400" />
+            </IconButton>
+          </Tooltip>
+        )}
+
+        {/* History - browse past chats */}
+        {!isSearchExpanded && (
+          <Tooltip title={t("sidepanel:header.history", { defaultValue: "Chat History" })}>
+            <IconButton
+              ariaLabel={t("sidepanel:header.historyAria", "Browse chat history") as string}
+              onClick={() => handleSidebarOpenChange(true)}
+              className="p-1.5 rounded hover:bg-gray-100 dark:hover:bg-gray-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-pink-700"
+            >
+              <History className="size-4 text-gray-500 dark:text-gray-400" />
             </IconButton>
           </Tooltip>
         )}

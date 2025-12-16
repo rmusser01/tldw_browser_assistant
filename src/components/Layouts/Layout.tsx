@@ -121,7 +121,6 @@ const OptionLayoutInner: React.FC<OptionLayoutProps> = ({
           <div className="relative flex min-h-[135vh] flex-col pt-2 sm:pt-3">
             <div className="relative z-20 w-full">
               <Header
-                setSidebarOpen={setSidebarOpen}
                 setOpenModelSettings={setOpenModelSettings}
                 showSelectors={showHeaderSelectors}
               />

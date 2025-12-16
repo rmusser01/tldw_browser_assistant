@@ -37,14 +37,12 @@ const classNames = (...classes: (string | false | null | undefined)[]) =>
   classes.filter(Boolean).join(" ")
 
 type Props = {
-  setSidebarOpen: (open: boolean) => void
   setOpenModelSettings: (open: boolean) => void
   showSelectors?: boolean
 }
 
 export const Header: React.FC<Props> = ({
   setOpenModelSettings,
-  setSidebarOpen,
   showSelectors = true
 }) => {
   const { t, i18n } = useTranslation([
@@ -270,7 +268,6 @@ export const Header: React.FC<Props> = ({
       */}
       <div className="flex w-full flex-col gap-3">
         <PrimaryToolbar
-          onToggleSidebar={() => setSidebarOpen(true)}
           showBack={pathname !== "/"}
           isRTL={isRTL}>
           <div className="flex w-full items-center gap-3 min-w-0">

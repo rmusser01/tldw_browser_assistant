@@ -1,5 +1,5 @@
 import React from "react"
-import { Search as SearchIcon } from "lucide-react"
+import { Search as SearchIcon, Command } from "lucide-react"
 
 import { useDebounce } from "@/hooks/useDebounce"
 import {
@@ -276,13 +276,19 @@ export const OmniSearchBar: React.FC<Props> = ({ deps }) => {
             "option:header.omniSearchPlaceholder",
             "Search screens, chats, media, notes…"
           )}
-          className="w-full rounded-md border border-gray-300 bg-white py-1.5 pl-9 pr-3 text-sm text-gray-900 shadow-sm outline-none ring-0 placeholder:text-gray-400 focus:border-amber-500 focus:outline-none focus:ring-2 focus:ring-amber-500/50 dark:border-gray-600 dark:bg-[#111111] dark:text-gray-100 dark:placeholder:text-gray-500"
+          className="w-full rounded-md border border-gray-300 bg-white py-1.5 pl-9 pr-12 text-sm text-gray-900 shadow-sm outline-none ring-0 placeholder:text-gray-400 focus:border-amber-500 focus:outline-none focus:ring-2 focus:ring-amber-500/50 dark:border-gray-600 dark:bg-[#111111] dark:text-gray-100 dark:placeholder:text-gray-500"
         />
-        {loading && (
-          <span className="pointer-events-none absolute inset-y-0 right-3 flex items-center">
+        {/* Keyboard shortcut hint or loading indicator */}
+        <span className="pointer-events-none absolute inset-y-0 right-3 flex items-center">
+          {loading ? (
             <span className="h-3 w-3 animate-spin rounded-full border border-gray-400 border-t-transparent" />
-          </span>
-        )}
+          ) : !query ? (
+            <kbd className="hidden sm:flex items-center gap-0.5 rounded border border-gray-200 bg-gray-100 px-1.5 py-0.5 text-[10px] text-gray-400 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-500">
+              <Command className="size-2.5" />
+              <span>K</span>
+            </kbd>
+          ) : null}
+        </span>
       </div>
 
       {open && response && (

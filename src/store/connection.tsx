@@ -17,6 +17,7 @@ export const CONNECTION_TIMEOUT_MS = 20_000
 
 const TEST_BYPASS_KEY = "__tldw_allow_offline"
 const FORCE_UNCONFIGURED_KEY = "__tldw_force_unconfigured"
+const FIRST_RUN_COMPLETE_KEY = "__tldw_first_run_complete"
 
 const getOfflineBypassFlag = async (): Promise<boolean> => {
   // Build-time flag for Playwright/CI: VITE_TLDW_E2E_ALLOW_OFFLINE=true
@@ -102,6 +103,60 @@ const getForceUnconfiguredFlag = async (): Promise<boolean> => {
   return false
 }
 
+const getFirstRunCompleteFlag = async (): Promise<boolean> => {
+  try {
+    if (typeof chrome !== "undefined" && chrome?.storage?.local) {
+      return await new Promise<boolean>((resolve) => {
+        chrome.storage.local.get(FIRST_RUN_COMPLETE_KEY, (res) =>
+          resolve(Boolean(res?.[FIRST_RUN_COMPLETE_KEY]))
+        )
+      })
+    }
+  } catch {
+    // ignore storage read errors
+  }
+
+  try {
+    if (typeof localStorage !== "undefined") {
+      return localStorage.getItem(FIRST_RUN_COMPLETE_KEY) === "true"
+    }
+  } catch {
+    // ignore localStorage availability
+  }
+
+  return false
+}
+
+const setFirstRunCompleteFlag = async (complete: boolean): Promise<void> => {
+  try {
+    if (typeof chrome !== "undefined" && chrome?.storage?.local) {
+      await new Promise<void>((resolve) => {
+        const storage = chrome.storage.local
+        if (complete) {
+          storage.set({ [FIRST_RUN_COMPLETE_KEY]: true }, () => resolve())
+        } else {
+          storage.remove(FIRST_RUN_COMPLETE_KEY, () => resolve())
+        }
+      })
+      return
+    }
+  } catch {
+    // ignore storage write errors
+  }
+
+  try {
+    if (typeof localStorage !== "undefined") {
+      if (complete) {
+        localStorage.setItem(FIRST_RUN_COMPLETE_KEY, "true")
+      } else {
+        localStorage.removeItem(FIRST_RUN_COMPLETE_KEY)
+      }
+    }
+  } catch {
+    // ignore localStorage availability
+  }
+}
+
 const ensurePlaceholderConfig = async (): Promise<string | null> => {
   try {
     const cfg = await tldwClient.getConfig()
@@ -161,11 +216,11 @@ type ConnectionStore = {
   setServerUrl: (url: string) => Promise<void>
   enableOfflineBypass: () => Promise<void>
   disableOfflineBypass: () => Promise<void>
-  beginOnboarding: () => void
+  beginOnboarding: () => Promise<void>
   setConfigPartial: (config: Partial<TldwConfig>) => Promise<void>
   testConnectionFromOnboarding: () => Promise<void>
   setDemoMode: () => void
-  markFirstRunComplete: () => void
+  markFirstRunComplete: () => Promise<void>
 }
 
 const initialState: ConnectionState = {
@@ -221,6 +276,19 @@ export const useConnectionStore = create<ConnectionStore>((set, get) => ({
     // Avoid overlapping checks
     if (prev.isChecking) {
       return
+    }
+
+    // Load persisted first-run flag if not already set
+    if (!prev.hasCompletedFirstRun) {
+      const persistedFirstRun = await getFirstRunCompleteFlag()
+      if (persistedFirstRun) {
+        set({
+          state: {
+            ...prev,
+            hasCompletedFirstRun: true
+          }
+        })
+      }
     }
 
     const persistedServerUrl = await getPersistedServerUrl()
@@ -476,8 +544,10 @@ export const useConnectionStore = create<ConnectionStore>((set, get) => ({
     await get().checkOnce()
   },
 
-  beginOnboarding() {
+  async beginOnboarding() {
     const prev = get().state
+    // Clear the persisted first-run flag so onboarding can restart
+    await setFirstRunCompleteFlag(false)
     set({
       state: {
         ...prev,
@@ -588,11 +658,13 @@ export const useConnectionStore = create<ConnectionStore>((set, get) => ({
     })
   },
 
-  markFirstRunComplete() {
+  async markFirstRunComplete() {
     const prev = get().state
     if (prev.hasCompletedFirstRun) {
       return
     }
+    // Persist to chrome.storage so it survives browser data clears
+    await setFirstRunCompleteFlag(true)
     set({
       state: {
         ...prev,

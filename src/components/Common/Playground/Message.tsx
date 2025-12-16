@@ -1,7 +1,7 @@
 import React, { useEffect } from "react"
 import { Tag, Image, Tooltip, Collapse, Popover, Avatar } from "antd"
 import { IconButton } from "../IconButton"
-import { ActionInfo } from "./ActionInfo"
+import { LoadingStatus } from "./ActionInfo"
 import {
   CheckIcon,
   CopyIcon,
@@ -275,12 +275,15 @@ export const PlaygroundMessage = (props: Props) => {
               : "You"}
           </span>
 
-          {props.isBot && props.isSearchingInternet && isLastMessage ? (
-            <ActionInfo action={"webSearch"} />
-          ) : null}
-          {props.isBot && props.actionInfo && isLastMessage ? (
-            <ActionInfo action={props.actionInfo} />
-          ) : null}
+          {/* Unified loading status indicator */}
+          {props.isBot && isLastMessage && (props.isProcessing || props.isStreaming || props.isSearchingInternet || props.actionInfo) && (
+            <LoadingStatus
+              isProcessing={props.isProcessing}
+              isStreaming={props.isStreaming}
+              isSearchingInternet={props.isSearchingInternet}
+              actionInfo={props.actionInfo}
+            />
+          )}
           <div>
             {props?.message_type && (
               <Tag color={tagColors[props?.message_type] || "default"}>

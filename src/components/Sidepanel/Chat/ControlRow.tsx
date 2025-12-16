@@ -19,7 +19,6 @@ import { PromptSelect } from "@/components/Common/PromptSelect"
 import { SaveStatusIcon } from "./SaveStatusIcon"
 import { useServerCapabilities } from "@/hooks/useServerCapabilities"
 import { formatShortcut, isMac } from "@/hooks/useKeyboardShortcuts"
-import { useFeatureFlag, FEATURE_FLAGS } from "@/hooks/useFeatureFlags"
 
 interface ControlRowProps {
   // Prompt selection
@@ -62,7 +61,6 @@ export const ControlRow: React.FC<ControlRowProps> = ({
   const [moreOpen, setMoreOpen] = React.useState(false)
   const moreBtnRef = React.useRef<HTMLButtonElement>(null)
   const { capabilities } = useServerCapabilities()
-  const [newChatUx] = useFeatureFlag(FEATURE_FLAGS.NEW_CHAT)
 
   const openOptionsPage = React.useCallback((hash: string) => {
     try {
@@ -228,10 +226,8 @@ export const ControlRow: React.FC<ControlRowProps> = ({
     </div>
   )
 
-  // New UX: Flattened controls with labels and keyboard hints
-  if (newChatUx) {
-    return (
-      <div data-testid="control-row" className="flex items-center gap-1.5 flex-wrap">
+  return (
+    <div data-testid="control-row" className="flex items-center gap-1.5 flex-wrap">
         {/* Ephemeral mode indicator badge */}
         {temporaryChat && (
           <Tooltip title={t("sidepanel:controlRow.ephemeralModeActive", "Ephemeral mode: chat won't be saved")}>
@@ -351,91 +347,4 @@ export const ControlRow: React.FC<ControlRowProps> = ({
         </Popover>
       </div>
     )
-  }
-
-  // Original UX (fallback)
-  return (
-    <div data-testid="control-row" className="flex items-center gap-1">
-      {/* Ephemeral mode indicator badge */}
-      {temporaryChat && (
-        <Tooltip title={t("sidepanel:controlRow.ephemeralModeActive", "Ephemeral mode: chat won't be saved")}>
-          <div className="flex items-center gap-1 px-1.5 py-0.5 rounded text-xs font-medium bg-purple-100 text-purple-700 dark:bg-purple-900/30 dark:text-purple-300 border border-purple-200 dark:border-purple-700">
-            <BsIncognito className="size-3" />
-            <span>{t("sidepanel:controlRow.ephemeralBadge", "Ephemeral")}</span>
-          </div>
-        </Tooltip>
-      )}
-
-      {/* Prompt & Model selectors */}
-      <div className="flex items-center gap-1">
-        <PromptSelect
-          selectedSystemPrompt={selectedSystemPrompt}
-          setSelectedSystemPrompt={setSelectedSystemPrompt}
-          setSelectedQuickPrompt={setSelectedQuickPrompt}
-          iconClassName="size-4"
-          className="text-gray-600 dark:text-gray-200 hover:text-gray-900 dark:hover:text-gray-100"
-        />
-        <ModelSelect iconClassName="size-4" showSelectedName />
-      </div>
-
-      {/* RAG, Save, More */}
-      <div className="flex items-center gap-0.5">
-        {/* RAG Search Toggle */}
-        <Tooltip title={t("sidepanel:controlRow.ragSearch", "RAG Search")}>
-          <button
-            type="button"
-            onClick={onToggleRag}
-            className={`p-1.5 rounded focus:outline-none focus-visible:ring-2 focus-visible:ring-pink-700 transition-colors ${
-              chatMode === "rag"
-                ? "bg-pink-100 dark:bg-pink-900/30 hover:bg-pink-200 dark:hover:bg-pink-900/40"
-                : "hover:bg-gray-200 dark:hover:bg-gray-700"
-            }`}
-            aria-label={t("sidepanel:controlRow.ragSearch", "RAG Search")}
-            aria-pressed={chatMode === "rag"}
-          >
-            <Search className={`size-4 transition-colors ${
-              chatMode === "rag"
-                ? "text-pink-700 dark:text-pink-400"
-                : "text-gray-500 dark:text-gray-400"
-            }`} />
-          </button>
-        </Tooltip>
-
-        {/* Save Status Icon */}
-        <SaveStatusIcon
-          temporaryChat={temporaryChat}
-          serverChatId={serverChatId}
-          onClick={handleSaveClick}
-        />
-
-        {/* More Tools Menu */}
-        <Popover
-          trigger="click"
-          open={moreOpen}
-          onOpenChange={(visible) => {
-            setMoreOpen(visible)
-            // L11: Restore focus to More button when popover closes
-            if (!visible) {
-              requestAnimationFrame(() => moreBtnRef.current?.focus())
-            }
-          }}
-          content={moreMenuContent}
-          placement="topRight"
-        >
-          <Tooltip title={t("sidepanel:controlRow.moreTools", "More tools")}>
-            <button
-              ref={moreBtnRef}
-              type="button"
-              className="p-1.5 rounded hover:bg-gray-200 dark:hover:bg-gray-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-pink-700"
-              aria-label={t("sidepanel:controlRow.moreTools", "More tools")}
-              aria-haspopup="menu"
-              aria-expanded={moreOpen}
-            >
-              <MoreHorizontal className="size-4 text-gray-500 dark:text-gray-400" />
-            </button>
-          </Tooltip>
-        </Popover>
-      </div>
-    </div>
-  )
 }
