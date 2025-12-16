@@ -147,7 +147,9 @@ export function CompactMessage({
           </div>
           <div className="flex-1 min-w-0">
             <div className="flex items-center gap-2 text-xs text-gray-500 dark:text-gray-400 mb-1">
-              <span className="font-medium text-red-600 dark:text-red-400">Error</span>
+              <span className="font-medium text-red-600 dark:text-red-400">
+                {t("common:error", "Error")}
+              </span>
               {formattedTime && <span>{formattedTime}</span>}
             </div>
             <div className="text-sm text-red-700 dark:text-red-300">
@@ -387,6 +389,7 @@ export function CompactMessage({
             <Tooltip title={copied ? t("common:copied", "Copied!") : t("common:copy", "Copy")}>
               <button
                 onClick={handleCopy}
+                aria-label={copied ? t("common:copied", "Copied!") : t("common:copy", "Copy")}
                 className="p-1 rounded text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800"
               >
                 {copied ? <Check className="size-3.5 text-green-500" /> : <Copy className="size-3.5" />}
@@ -401,6 +404,7 @@ export function CompactMessage({
                     setEditedText(message)
                     setEditMode(true)
                   }}
+                  aria-label={t("common:edit", "Edit")}
                   className="p-1 rounded text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800"
                 >
                   <Edit3 className="size-3.5" />
@@ -413,6 +417,7 @@ export function CompactMessage({
               <Tooltip title={t("common:regenerate", "Regenerate")}>
                 <button
                   onClick={onRegenerate}
+                  aria-label={t("common:regenerate", "Regenerate")}
                   className="p-1 rounded text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800"
                 >
                   <RotateCcw className="size-3.5" />
@@ -425,6 +430,7 @@ export function CompactMessage({
               <Tooltip title={isSpeaking ? t("common:stop", "Stop") : t("common:speak", "Speak")}>
                 <button
                   onClick={handleSpeak}
+                  aria-label={isSpeaking ? t("common:stop", "Stop") : t("common:speak", "Speak")}
                   className="p-1 rounded text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800"
                 >
                   {isSpeaking ? <Square className="size-3.5" /> : <Volume2 className="size-3.5" />}
@@ -437,6 +443,7 @@ export function CompactMessage({
               <Tooltip title={t("common:branch", "Create branch")}>
                 <button
                   onClick={onNewBranch}
+                  aria-label={t("common:branch", "Create branch")}
                   className="p-1 rounded text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800"
                 >
                   <GitBranch className="size-3.5" />
@@ -449,6 +456,7 @@ export function CompactMessage({
               <Tooltip title={t("common:stop", "Stop")}>
                 <button
                   onClick={onStopStreaming}
+                  aria-label={t("common:stop", "Stop")}
                   className="p-1 rounded text-red-400 hover:text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20"
                 >
                   <Square className="size-3.5" />

@@ -30,9 +30,9 @@
     "message": "{{count}} 个字符"
   },
   "mediaPage.pageRangeError": {
-    "message": "Page must be 1-{{max}}"
+    "message": "页码必须为 1-{{max}}"
   },
   "mediaPage.pageRangeClamped": {
-    "message": "Navigating to page {{page}}"
+    "message": "正在导航至第 {{page}} 页"
   }
 }

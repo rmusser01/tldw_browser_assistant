@@ -115,7 +115,8 @@
       },
       "enableOcrAssets": {
         "label": "فعال‌سازی OCR (دانلود حدود ۵ مگابایت در اولین استفاده)",
-        "downloadNotice": "با فعال کردن OCR، در اولین استفاده حدود ۵ مگابایت دادهٔ زبان دانلود می‌شود."
+        "downloadNotice": "با فعال کردن OCR، در اولین استفاده حدود ۵ مگابایت دادهٔ زبان دانلود می‌شود.",
+        "assetsEnabled": "دارایی‌های OCR فعال شده و آماده‌اند"
       },
       "ocrLanguage": {
         "label": "Default OCR Language",

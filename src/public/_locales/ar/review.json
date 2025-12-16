@@ -1,38 +1,38 @@
 {
   "mediaPage.nothingToSend": {
-    "message": "Nothing to send"
+    "message": "لا يوجد ما يتم إرساله"
   },
   "mediaPage.emptyAnalysis": {
-    "message": "Analysis cannot be empty"
+    "message": "لا يمكن أن يكون التحليل فارغاً"
   },
   "mediaPage.noMediaId": {
-    "message": "No media ID available"
+    "message": "لا تتوفر هوية وسائط"
   },
   "mediaPage.versionSaved": {
-    "message": "Saved as new version"
+    "message": "تم الحفظ كإصدار جديد"
   },
   "mediaPage.saveFailed": {
-    "message": "Failed to save version"
+    "message": "فشل حفظ الإصدار"
   },
   "mediaPage.sendToChat": {
-    "message": "Send to Chat"
+    "message": "إرسال إلى الدردشة"
   },
   "mediaPage.saveAsVersion": {
-    "message": "Save as New Version"
+    "message": "حفظ كإصدار جديد"
   },
   "mediaPage.analysisPlaceholder": {
-    "message": "Enter analysis text..."
+    "message": "أدخل نص التحليل..."
   },
   "mediaPage.wordCount": {
-    "message": "{{count}} words"
+    "message": "{{count}} كلمة"
   },
   "mediaPage.charCount": {
-    "message": "{{count}} characters"
+    "message": "{{count}} حرف"
   },
   "mediaPage.pageRangeError": {
-    "message": "Page must be 1-{{max}}"
+    "message": "يجب أن تكون الصفحة بين 1 و {{max}}"
   },
   "mediaPage.pageRangeClamped": {
-    "message": "Navigating to page {{page}}"
+    "message": "الانتقال إلى الصفحة {{page}}"
   }
 }

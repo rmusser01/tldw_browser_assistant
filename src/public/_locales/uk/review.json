@@ -1,38 +1,38 @@
 {
   "mediaPage.nothingToSend": {
-    "message": "Nothing to send"
+    "message": "Немає що надсилати"
   },
   "mediaPage.emptyAnalysis": {
-    "message": "Analysis cannot be empty"
+    "message": "Аналіз не може бути порожнім"
   },
   "mediaPage.noMediaId": {
-    "message": "No media ID available"
+    "message": "Ідентифікатор медіа недоступний"
   },
   "mediaPage.versionSaved": {
-    "message": "Saved as new version"
+    "message": "Збережено як нову версію"
   },
   "mediaPage.saveFailed": {
-    "message": "Failed to save version"
+    "message": "Не вдалося зберегти версію"
   },
   "mediaPage.sendToChat": {
-    "message": "Send to Chat"
+    "message": "Надіслати в чат"
   },
   "mediaPage.saveAsVersion": {
-    "message": "Save as New Version"
+    "message": "Зберегти як нову версію"
   },
   "mediaPage.analysisPlaceholder": {
-    "message": "Enter analysis text..."
+    "message": "Введіть текст аналізу..."
   },
   "mediaPage.wordCount": {
-    "message": "{{count}} words"
+    "message": "{{count}} слів"
   },
   "mediaPage.charCount": {
-    "message": "{{count}} characters"
+    "message": "{{count}} символів"
   },
   "mediaPage.pageRangeError": {
-    "message": "Page must be 1-{{max}}"
+    "message": "Сторінка має бути від 1 до {{max}}"
   },
   "mediaPage.pageRangeClamped": {
-    "message": "Navigating to page {{page}}"
+    "message": "Перехід до сторінки {{page}}"
   }
 }

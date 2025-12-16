@@ -205,6 +205,7 @@
     "audioDiarizationHelp": "Turn on to separate speakers in transcripts.",
     "documentOptions": "Document options",
     "ocrHelp": "OCR hjelper med å hente ut tekst fra skannede PDF-er eller bilder.",
+    "quickIngest_ocrHelp": "OCR hjelper med å hente ut tekst fra skannede PDF-er eller bilder.",
     "videoOptions": "Video options",
     "captionsHelp": "Include timestamps/captions when available.",
     "cancel": "Cancel",

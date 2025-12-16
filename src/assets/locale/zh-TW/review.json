@@ -165,8 +165,8 @@
     "analysisPlaceholder": "請輸入分析文字...",
     "wordCount": "{{count}} 個單詞",
     "charCount": "{{count}} 個字元",
-    "pageRangeError": "Page must be 1-{{max}}",
-    "pageRangeClamped": "Navigating to page {{page}}"
+    "pageRangeError": "頁碼必須為 1-{{max}}",
+    "pageRangeClamped": "正在導航至第 {{page}} 頁"
   },
   "empty": {
     "connectTitle": "Connect to use Review",

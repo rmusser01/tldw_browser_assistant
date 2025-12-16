@@ -87,8 +87,10 @@ export const TTSModeSettings = ({ hideBorder }: { hideBorder?: boolean }) => {
   const { data: elevenLabsData, error: elevenLabsError } = useQuery({
     queryKey: ["fetchElevenLabsData", form.values.elevenLabsApiKey],
     queryFn: async () => {
-      const voices = await getVoices(form.values.elevenLabsApiKey)
-      const models = await getModels(form.values.elevenLabsApiKey)
+      const [voices, models] = await Promise.all([
+        getVoices(form.values.elevenLabsApiKey),
+        getModels(form.values.elevenLabsApiKey)
+      ])
       return { voices, models }
     },
     enabled:

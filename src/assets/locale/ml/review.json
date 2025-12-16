@@ -165,8 +165,8 @@
     "analysisPlaceholder": "വിശകലന ടെക്സ്റ്റ് നൽകുക...",
     "wordCount": "{{count}} വാക്കുകൾ",
     "charCount": "{{count}} അക്ഷരങ്ങൾ",
-    "pageRangeError": "Page must be 1-{{max}}",
-    "pageRangeClamped": "Navigating to page {{page}}"
+    "pageRangeError": "പേജ് 1-{{max}} ആയിരിക്കണം",
+    "pageRangeClamped": "പേജ് {{page}} ലേക്ക് നാവിഗേറ്റ് ചെയ്യുന്നു"
   },
   "empty": {
     "connectTitle": "Connect to use Review",

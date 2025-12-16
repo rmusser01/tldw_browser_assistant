@@ -165,8 +165,8 @@
     "analysisPlaceholder": "Введите текст анализа...",
     "wordCount": "{{count}} слов",
     "charCount": "{{count}} символов",
-    "pageRangeError": "Page must be 1-{{max}}",
-    "pageRangeClamped": "Navigating to page {{page}}"
+    "pageRangeError": "Страница должна быть от 1 до {{max}}",
+    "pageRangeClamped": "Переход к странице {{page}}"
   },
   "empty": {
     "connectTitle": "Connect to use Review",

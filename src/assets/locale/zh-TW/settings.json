@@ -119,7 +119,8 @@
       },
       "enableOcrAssets": {
         "label": "啟用 OCR（首次使用時下載約 5MB）",
-        "downloadNotice": "啟用 OCR 後，首次使用時將下載約 5MB 的語言資料。"
+        "downloadNotice": "啟用 OCR 後，首次使用時將下載約 5MB 的語言資料。",
+        "assetsEnabled": "OCR 資源已啟用並可使用"
       },
       "removeReasoningTagFromCopy": {
         "label": "從複製的文字中刪除推理標籤"

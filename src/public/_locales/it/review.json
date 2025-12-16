@@ -30,9 +30,9 @@
     "message": "{{count}} caratteri"
   },
   "mediaPage.pageRangeError": {
-    "message": "Page must be 1-{{max}}"
+    "message": "La pagina deve essere compresa tra 1 e {{max}}"
   },
   "mediaPage.pageRangeClamped": {
-    "message": "Navigating to page {{page}}"
+    "message": "Navigazione alla pagina {{page}}"
   }
 }

@@ -386,7 +386,7 @@ export const GeneralSettings = () => {
           <span className="text-gray-700   dark:text-neutral-50">
             {t("generalSettings.settings.userChatBubble.label")}
           </span>
-          {userChatBubble === true && (
+          {userChatBubble === DEFAULT_CHAT_SETTINGS.userChatBubble && (
             <Tag className="text-[10px] py-0 px-1.5 leading-4">
               {t("generalSettings.settings.defaultBadge", "default")}
             </Tag>

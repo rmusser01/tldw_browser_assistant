@@ -165,8 +165,8 @@
     "analysisPlaceholder": "أدخل نص التحليل...",
     "wordCount": "{{count}} كلمة",
     "charCount": "{{count}} حرف",
-    "pageRangeError": "Page must be 1-{{max}}",
-    "pageRangeClamped": "Navigating to page {{page}}"
+    "pageRangeError": "يجب أن تكون الصفحة بين 1 و {{max}}",
+    "pageRangeClamped": "الانتقال إلى الصفحة {{page}}"
   },
   "empty": {
     "connectTitle": "Connect to use Review",

@@ -111,8 +111,10 @@ const TtsPlaygroundPage: React.FC = () => {
         return null
       }
       try {
-        const voices = await getVoices(ttsSettings.elevenLabsApiKey)
-        const models = await getModels(ttsSettings.elevenLabsApiKey)
+        const [voices, models] = await Promise.all([
+          getVoices(ttsSettings.elevenLabsApiKey),
+          getModels(ttsSettings.elevenLabsApiKey)
+        ])
         return { voices, models }
       } catch (e) {
         console.error(e)

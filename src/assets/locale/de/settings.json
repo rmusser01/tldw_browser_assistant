@@ -112,7 +112,8 @@
       },
       "enableOcrAssets": {
         "label": "OCR aktivieren (lädt beim ersten Gebrauch ~5 MB herunter)",
-        "downloadNotice": "Beim Aktivieren von OCR werden beim ersten Gebrauch ~5 MB Sprachdaten heruntergeladen."
+        "downloadNotice": "Beim Aktivieren von OCR werden beim ersten Gebrauch ~5 MB Sprachdaten heruntergeladen.",
+        "assetsEnabled": "OCR-Ressourcen aktiviert und bereit"
       },
       "ocrLanguage": {
         "label": "Standard-OCR-Sprache",

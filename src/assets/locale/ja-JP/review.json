@@ -165,8 +165,8 @@
     "analysisPlaceholder": "分析テキストを入力してください...",
     "wordCount": "{{count}}語",
     "charCount": "{{count}}文字",
-    "pageRangeError": "Page must be 1-{{max}}",
-    "pageRangeClamped": "Navigating to page {{page}}"
+    "pageRangeError": "ページは1〜{{max}}でなければなりません",
+    "pageRangeClamped": "ページ{{page}}へ移動しています"
   },
   "empty": {
     "connectTitle": "Connect to use Review",

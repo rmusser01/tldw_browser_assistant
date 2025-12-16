@@ -305,6 +305,7 @@
     "audioDiarizationHelp": "Turn on to separate speakers in transcripts.",
     "documentOptions": "Document options",
     "ocrHelp": "OCR ayuda a extraer texto de PDFs escaneados o imágenes.",
+    "quickIngest_ocrHelp": "OCR ayuda a extraer texto de PDFs escaneados o imágenes.",
     "videoOptions": "Video options",
     "captionsHelp": "Include timestamps/captions when available.",
     "cancel": "Cancel",

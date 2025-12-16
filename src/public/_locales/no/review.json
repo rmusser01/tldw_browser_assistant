@@ -30,9 +30,9 @@
     "message": "{{count}} tegn"
   },
   "mediaPage.pageRangeError": {
-    "message": "Page must be 1-{{max}}"
+    "message": "Side må være 1-{{max}}"
   },
   "mediaPage.pageRangeClamped": {
-    "message": "Navigating to page {{page}}"
+    "message": "Navigerer til side {{page}}"
   }
 }

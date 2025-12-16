@@ -165,8 +165,8 @@
     "analysisPlaceholder": "متن تحلیل را وارد کنید...",
     "wordCount": "{{count}} کلمه",
     "charCount": "{{count}} نویسه",
-    "pageRangeError": "Page must be 1-{{max}}",
-    "pageRangeClamped": "Navigating to page {{page}}"
+    "pageRangeError": "صفحه باید بین ۱ تا {{max}} باشد",
+    "pageRangeClamped": "در حال انتقال به صفحهٔ {{page}}"
   },
   "empty": {
     "connectTitle": "Connect to use Review",

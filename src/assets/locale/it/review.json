@@ -165,8 +165,8 @@
     "analysisPlaceholder": "Inserisci il testo dell'analisi...",
     "wordCount": "{{count}} parole",
     "charCount": "{{count}} caratteri",
-    "pageRangeError": "Page must be 1-{{max}}",
-    "pageRangeClamped": "Navigating to page {{page}}"
+    "pageRangeError": "La pagina deve essere compresa tra 1 e {{max}}",
+    "pageRangeClamped": "Navigazione alla pagina {{page}}"
   },
   "empty": {
     "connectTitle": "Connect to use Review",

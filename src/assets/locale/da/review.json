@@ -165,8 +165,8 @@
     "analysisPlaceholder": "Indtast analysetekst...",
     "wordCount": "{{count}} ord",
     "charCount": "{{count}} tegn",
-    "pageRangeError": "Page must be 1-{{max}}",
-    "pageRangeClamped": "Navigating to page {{page}}"
+    "pageRangeError": "Side skal være 1-{{max}}",
+    "pageRangeClamped": "Navigerer til side {{page}}"
   },
   "empty": {
     "connectTitle": "Connect to use Review",

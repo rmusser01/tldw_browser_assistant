@@ -115,7 +115,8 @@
       },
       "enableOcrAssets": {
         "label": "Aktivér OCR (henter ca. 5 MB ved første brug)",
-        "downloadNotice": "Når du aktiverer OCR, downloades ca. 5 MB sprogdata ved første brug."
+        "downloadNotice": "Når du aktiverer OCR, downloades ca. 5 MB sprogdata ved første brug.",
+        "assetsEnabled": "OCR-ressourcer er aktiveret og klar"
       },
       "ocrLanguage": {
         "label": "Default OCR Language",

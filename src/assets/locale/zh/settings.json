@@ -118,7 +118,8 @@
       },
       "enableOcrAssets": {
         "label": "启用 OCR（首次使用时下载约 5MB）",
-        "downloadNotice": "启用 OCR 后，首次使用时将下载约 5MB 的语言数据。"
+        "downloadNotice": "启用 OCR 后，首次使用时将下载约 5MB 的语言数据。",
+        "assetsEnabled": "OCR 资源已启用并准备就绪"
       },
       "ocrLanguage": {
         "label": "Default OCR Language",

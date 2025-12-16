@@ -118,7 +118,8 @@
       },
       "enableOcrAssets": {
         "label": "OCR 활성화 (처음 사용할 때 약 5MB 다운로드)",
-        "downloadNotice": "OCR을 활성화하면 처음 사용할 때 약 5MB의 언어 데이터가 다운로드됩니다."
+        "downloadNotice": "OCR을 활성화하면 처음 사용할 때 약 5MB의 언어 데이터가 다운로드됩니다.",
+        "assetsEnabled": "OCR 리소스가 활성화되어 준비되었습니다"
       },
       "ocrLanguage": {
         "label": "Default OCR Language",

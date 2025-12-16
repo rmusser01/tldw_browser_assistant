@@ -1,38 +1,38 @@
 {
   "mediaPage.nothingToSend": {
-    "message": "Nothing to send"
+    "message": "没有可发送的内容"
   },
   "mediaPage.emptyAnalysis": {
-    "message": "Analysis cannot be empty"
+    "message": "分析内容不能为空"
   },
   "mediaPage.noMediaId": {
-    "message": "No media ID available"
+    "message": "没有可用的媒体 ID"
   },
   "mediaPage.versionSaved": {
-    "message": "Saved as new version"
+    "message": "已保存为新版本"
   },
   "mediaPage.saveFailed": {
-    "message": "Failed to save version"
+    "message": "保存版本失败"
   },
   "mediaPage.sendToChat": {
-    "message": "Send to Chat"
+    "message": "发送到聊天"
   },
   "mediaPage.saveAsVersion": {
-    "message": "Save as New Version"
+    "message": "保存为新版本"
   },
   "mediaPage.analysisPlaceholder": {
-    "message": "Enter analysis text..."
+    "message": "请输入分析文本..."
   },
   "mediaPage.wordCount": {
-    "message": "{{count}} words"
+    "message": "{{count}} 个单词"
   },
   "mediaPage.charCount": {
-    "message": "{{count}} characters"
+    "message": "{{count}} 个字符"
   },
   "mediaPage.pageRangeError": {
-    "message": "Page must be 1-{{max}}"
+    "message": "页码必须为 1-{{max}}"
   },
   "mediaPage.pageRangeClamped": {
-    "message": "Navigating to page {{page}}"
+    "message": "正在导航至第 {{page}} 页"
   }
 }

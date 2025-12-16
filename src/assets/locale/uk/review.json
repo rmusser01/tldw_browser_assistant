@@ -165,8 +165,8 @@
     "analysisPlaceholder": "Введіть текст аналізу...",
     "wordCount": "{{count}} слів",
     "charCount": "{{count}} символів",
-    "pageRangeError": "Page must be 1-{{max}}",
-    "pageRangeClamped": "Navigating to page {{page}}"
+    "pageRangeError": "Сторінка має бути 1-{{max}}",
+    "pageRangeClamped": "Перехід до сторінки {{page}}"
   },
   "empty": {
     "connectTitle": "Connect to use Review",

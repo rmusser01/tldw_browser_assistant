@@ -165,8 +165,8 @@
     "analysisPlaceholder": "분석 내용을 입력하세요...",
     "wordCount": "{{count}} 단어",
     "charCount": "{{count}}자",
-    "pageRangeError": "Page must be 1-{{max}}",
-    "pageRangeClamped": "Navigating to page {{page}}"
+    "pageRangeError": "페이지는 1-{{max}} 범위여야 합니다",
+    "pageRangeClamped": "페이지 {{page}}로 이동 중"
   },
   "empty": {
     "connectTitle": "Connect to use Review",

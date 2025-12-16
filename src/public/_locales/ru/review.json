@@ -30,9 +30,9 @@
     "message": "{{count}} символов"
   },
   "mediaPage.pageRangeError": {
-    "message": "Page must be 1-{{max}}"
+    "message": "Страница должна быть от 1 до {{max}}"
   },
   "mediaPage.pageRangeClamped": {
-    "message": "Navigating to page {{page}}"
+    "message": "Переход к странице {{page}}"
   }
 }

@@ -305,6 +305,7 @@
     "audioDiarizationHelp": "Turn on to separate speakers in transcripts.",
     "documentOptions": "Document options",
     "ocrHelp": "OCR 可協助從掃描的 PDF 或圖片中擷取文字。",
+    "quickIngest_ocrHelp": "OCR 可協助從掃描的 PDF 或圖片中擷取文字。",
     "videoOptions": "Video options",
     "captionsHelp": "Include timestamps/captions when available.",
     "cancel": "Cancel",

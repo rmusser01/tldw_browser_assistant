@@ -305,6 +305,7 @@
     "audioDiarizationHelp": "Turn on to separate speakers in transcripts.",
     "documentOptions": "Document options",
     "ocrHelp": "OCRはスキャンしたPDFや画像からテキストを抽出するのに役立ちます。",
+    "quickIngest_ocrHelp": "OCRはスキャンしたPDFや画像からテキストを抽出するのに役立ちます。",
     "videoOptions": "Video options",
     "captionsHelp": "Include timestamps/captions when available.",
     "cancel": "Cancel",

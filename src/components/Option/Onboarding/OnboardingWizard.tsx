@@ -1089,11 +1089,15 @@ const LegacyOnboardingWizard: React.FC<Props> = ({ onFinish }) => {
                     try {
                       await openSidepanelForActiveTab()
                     } catch (err) {
-                      // Optional: log for diagnostics; UI remains usable even if this fails.
-                      // eslint-disable-next-line no-console
                       console.debug(
                         '[OnboardingWizard] Failed to open sidepanel',
                         err
+                      )
+                      message.warning(
+                        t(
+                          'settings:onboarding.nextSteps.sidepanelOpenFailed',
+                          'Could not open sidepanel automatically. Please try opening it manually.'
+                        )
                       )
                     }
                   }}

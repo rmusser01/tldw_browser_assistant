@@ -30,9 +30,9 @@
     "message": "{{count}} അക്ഷരങ്ങൾ"
   },
   "mediaPage.pageRangeError": {
-    "message": "Page must be 1-{{max}}"
+    "message": "താൾ 1 മുതൽ {{max}} വരെയായിരിക്കണം"
   },
   "mediaPage.pageRangeClamped": {
-    "message": "Navigating to page {{page}}"
+    "message": "താൾ {{page}} ലേക്ക് പോകുന്നു"
   }
 }

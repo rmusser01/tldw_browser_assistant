@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useMemo, useCallback, useRef } from "react"
 import { Input, Button, Tooltip, message } from "antd"
 import type { InputRef } from "antd"
+import type { TFunction } from "i18next"
 import {
   Check,
   X,
@@ -52,6 +53,71 @@ type ConnectionErrorKind =
 
 interface Props {
   onFinish?: () => void
+}
+
+const validateMultiUserAuth = async (
+  username: string,
+  password: string,
+  t: TFunction,
+  setProgress: React.Dispatch<React.SetStateAction<ConnectionProgress>>,
+  setErrorKind: React.Dispatch<React.SetStateAction<ConnectionErrorKind>>,
+  setErrorMessage: React.Dispatch<React.SetStateAction<string | null>>
+): Promise<boolean> => {
+  try {
+    await tldwAuth.login({ username, password })
+    return true
+  } catch (error: unknown) {
+    const friendly = mapMultiUserLoginErrorMessage(t, error, "onboarding")
+    setProgress((p) => ({
+      ...p,
+      authentication: "error",
+    }))
+    setErrorKind("auth_invalid")
+    setErrorMessage(friendly)
+    return false
+  }
+}
+
+const validateApiKey = async (
+  serverUrl: string,
+  apiKey: string,
+  t: TFunction,
+  setProgress: React.Dispatch<React.SetStateAction<ConnectionProgress>>,
+  setErrorKind: React.Dispatch<React.SetStateAction<ConnectionErrorKind>>,
+  setErrorMessage: React.Dispatch<React.SetStateAction<string | null>>
+): Promise<boolean> => {
+  try {
+    const isValid = await tldwAuth.testApiKey(serverUrl, apiKey)
+    if (!isValid) {
+      setProgress((p) => ({
+        ...p,
+        authentication: "error",
+      }))
+      setErrorKind("auth_invalid")
+      setErrorMessage(
+        t(
+          "settings:onboarding.errors.invalidApiKey",
+          "Invalid API key. Please check your key and try again."
+        )
+      )
+      return false
+    }
+    return true
+  } catch (error: unknown) {
+    setProgress((p) => ({
+      ...p,
+      authentication: "error",
+    }))
+    setErrorKind("auth_invalid")
+    setErrorMessage(
+      (error as Error)?.message ||
+        t(
+          "settings:onboarding.errors.apiKeyValidationFailed",
+          "API key validation failed"
+        )
+    )
+    return false
+  }
 }
 
 const ProgressItem = ({
@@ -148,11 +214,16 @@ export function OnboardingConnectForm({ onFinish }: Props) {
   const [errorKind, setErrorKind] = useState<ConnectionErrorKind>(null)
   const [errorMessage, setErrorMessage] = useState<string | null>(null)
   const [showSuccess, setShowSuccess] = useState(false)
+  const [hasRunConnectionTest, setHasRunConnectionTest] = useState(false)
 
   const urlInputRef = useRef<InputRef | null>(null)
+  const hasLoadedInitialConfigRef = useRef(false)
 
   // Load initial config
   useEffect(() => {
+    if (hasLoadedInitialConfigRef.current) return
+    hasLoadedInitialConfigRef.current = true
+
     ;(async () => {
       try {
         actions.beginOnboarding()
@@ -169,9 +240,8 @@ export function OnboardingConnectForm({ onFinish }: Props) {
         // Ignore config load errors
       }
     })()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
-  // ^ Intentionally running only on mount to load initial config once
+  }, [actions])
+  // ^ Guarded by ref to effectively run only once while keeping actions in dependencies
 
   // URL validation
   const urlValidation = useMemo(() => {
@@ -247,6 +317,7 @@ export function OnboardingConnectForm({ onFinish }: Props) {
   const handleConnect = useCallback(async () => {
     if (!urlValidation.valid) return
 
+    setHasRunConnectionTest(true)
     setIsConnecting(true)
     setErrorKind(null)
     setErrorMessage(null)
@@ -271,44 +342,31 @@ export function OnboardingConnectForm({ onFinish }: Props) {
       }))
 
       // Validate auth credentials
+      let authValid = true
       if (authMode === "multi-user" && username && password) {
-        try {
-          await tldwAuth.login({ username, password })
-        } catch (error: unknown) {
-          const friendly = mapMultiUserLoginErrorMessage(t, error, "onboarding")
-          setProgress((p) => ({
-            ...p,
-            authentication: "error",
-          }))
-          setErrorKind("auth_invalid")
-          setErrorMessage(friendly)
-          setIsConnecting(false)
-          return
-        }
+        authValid = await validateMultiUserAuth(
+          username,
+          password,
+          t,
+          setProgress,
+          setErrorKind,
+          setErrorMessage
+        )
       } else if (authMode === "single-user" && apiKey) {
         // Validate API key before saving
-        try {
-          const isValid = await tldwAuth.testApiKey(serverUrl, apiKey)
-          if (!isValid) {
-            setProgress((p) => ({
-              ...p,
-              authentication: "error",
-            }))
-            setErrorKind("auth_invalid")
-            setErrorMessage(t("settings:onboarding.errors.invalidApiKey", "Invalid API key. Please check your key and try again."))
-            setIsConnecting(false)
-            return
-          }
-        } catch (error: unknown) {
-          setProgress((p) => ({
-            ...p,
-            authentication: "error",
-          }))
-          setErrorKind("auth_invalid")
-          setErrorMessage((error as Error)?.message || t("settings:onboarding.errors.apiKeyValidationFailed", "API key validation failed"))
-          setIsConnecting(false)
-          return
-        }
+        authValid = await validateApiKey(
+          serverUrl,
+          apiKey,
+          t,
+          setProgress,
+          setErrorKind,
+          setErrorMessage
+        )
+      }
+
+      if (!authValid) {
+        setIsConnecting(false)
+        return
       }
 
       await actions.setConfigPartial({
@@ -324,51 +382,6 @@ export function OnboardingConnectForm({ onFinish }: Props) {
       }))
 
       await actions.testConnectionFromOnboarding()
-
-      // Check results
-      const state = useConnectionStore.getState().state
-      const isConnected = state.isConnected
-
-      if (isConnected) {
-        const knowledgeOk =
-          state.knowledgeStatus === "ready" ||
-          state.knowledgeStatus === "indexing"
-        const knowledgeEmpty = state.knowledgeStatus === "empty"
-
-        setProgress((p) => ({
-          ...p,
-          authentication: "success",
-          knowledgeIndex: knowledgeEmpty
-            ? "empty"
-            : knowledgeOk
-              ? "success"
-              : "error",
-        }))
-
-        // Show success state
-        setShowSuccess(true)
-      } else {
-        // Connection failed
-        const kind = categorizeError(state.lastStatusCode, state.lastError)
-        setErrorKind(kind)
-        setErrorMessage(state.lastError)
-
-        if (state.errorKind === "auth") {
-          setProgress((p) => ({
-            ...p,
-            serverReachable: "success",
-            authentication: "error",
-            knowledgeIndex: "idle",
-          }))
-        } else {
-          setProgress((p) => ({
-            ...p,
-            serverReachable: "error",
-            authentication: "idle",
-            knowledgeIndex: "idle",
-          }))
-        }
-      }
     } catch (error) {
       setProgress((p) => ({
         ...p,
@@ -390,6 +403,55 @@ export function OnboardingConnectForm({ onFinish }: Props) {
     t,
     actions,
   ])
+
+  // React to connection test results using hook state
+  useEffect(() => {
+    if (!hasRunConnectionTest) return
+
+    const state = connectionState
+    const isConnected = state.isConnected
+
+    if (isConnected) {
+      const knowledgeOk =
+        state.knowledgeStatus === "ready" ||
+        state.knowledgeStatus === "indexing"
+      const knowledgeEmpty = state.knowledgeStatus === "empty"
+
+      setProgress((p) => ({
+        ...p,
+        authentication: "success",
+        knowledgeIndex: knowledgeEmpty
+          ? "empty"
+          : knowledgeOk
+            ? "success"
+            : "error",
+      }))
+
+      // Show success state
+      setShowSuccess(true)
+    } else if (!state.isChecking) {
+      // Connection failed
+      const kind = categorizeError(state.lastStatusCode, state.lastError)
+      setErrorKind(kind)
+      setErrorMessage(state.lastError)
+
+      if (state.errorKind === "auth") {
+        setProgress((p) => ({
+          ...p,
+          serverReachable: "success",
+          authentication: "error",
+          knowledgeIndex: "idle",
+        }))
+      } else {
+        setProgress((p) => ({
+          ...p,
+          serverReachable: "error",
+          authentication: "idle",
+          knowledgeIndex: "idle",
+        }))
+      }
+    }
+  }, [hasRunConnectionTest, connectionState, categorizeError])
 
   // Handle demo mode
   const handleDemoMode = useCallback(async () => {
@@ -463,10 +525,15 @@ export function OnboardingConnectForm({ onFinish }: Props) {
               try {
                 await openSidepanelForActiveTab()
               } catch (err) {
-                // eslint-disable-next-line no-console
                 console.debug(
                   "[OnboardingConnectForm] Failed to open sidepanel",
                   err
+                )
+                message.warning(
+                  t(
+                    "settings:onboarding.success.sidepanelOpenFailed",
+                    "Could not open sidepanel automatically. Please try opening it manually from the extension icon."
+                  )
                 )
               }
               handleFinish()

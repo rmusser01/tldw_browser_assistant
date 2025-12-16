@@ -205,6 +205,7 @@
     "audioDiarizationHelp": "Ative para separar os locutores nas transcrições.",
     "documentOptions": "Opções de documento",
     "ocrHelp": "A OCR ajuda a extrair texto de PDFs digitalizados ou imagens.",
+    "quickIngest_ocrHelp": "A OCR ajuda a extrair texto de PDFs digitalizados ou imagens.",
     "videoOptions": "Opções de vídeo",
     "captionsHelp": "Inclua timestamps/legendas quando disponíveis.",
     "cancel": "Cancelar",

@@ -30,9 +30,9 @@
     "message": "{{count}}文字"
   },
   "mediaPage.pageRangeError": {
-    "message": "Page must be 1-{{max}}"
+    "message": "ページは1〜{{max}}の範囲内である必要があります"
   },
   "mediaPage.pageRangeClamped": {
-    "message": "Navigating to page {{page}}"
+    "message": "ページ{{page}}に移動しています"
   }
 }

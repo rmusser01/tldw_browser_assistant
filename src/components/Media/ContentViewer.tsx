@@ -23,6 +23,7 @@ import { useTranslation } from 'react-i18next'
 import type { MenuProps } from 'antd'
 import { AnalysisModal } from './AnalysisModal'
 import { AnalysisEditModal } from './AnalysisEditModal'
+import { ContentEditModal } from './ContentEditModal'
 import { VersionHistoryPanel } from './VersionHistoryPanel'
 import { DeveloperToolsSection } from './DeveloperToolsSection'
 import { DiffViewModal } from './DiffViewModal'
@@ -119,6 +120,8 @@ export function ContentViewer({
   const [diffRightText, setDiffRightText] = useState('')
   const [diffLeftLabel, setDiffLeftLabel] = useState('')
   const [diffRightLabel, setDiffRightLabel] = useState('')
+  const [contentEditModalOpen, setContentEditModalOpen] = useState(false)
+  const [editingContentText, setEditingContentText] = useState('')
 
   // Content length threshold for collapse (2500 chars)
   const CONTENT_COLLAPSE_THRESHOLD = 2500
@@ -551,24 +554,47 @@ export function ContentViewer({
                   <ChevronUp className="w-4 h-4 text-gray-400" />
                 )}
               </button>
-              {/* Expand/collapse toggle for long content */}
-              {!collapsedSections.content && shouldShowExpandToggle && (
+              <div className="flex items-center gap-1">
+                {!isNote && content && (
                   <button
-                    onClick={() => setContentExpanded(v => !v)}
+                    onClick={() => {
+                      setEditingContentText(content)
+                      setContentEditModalOpen(true)
+                    }}
+                    className="p-1 text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 transition-colors"
+                    title={t('review:mediaPage.editContent', {
+                      defaultValue: 'Edit content'
+                    })}
+                    aria-label={t('review:mediaPage.editContent', {
+                      defaultValue: 'Edit content'
+                    })}
+                  >
+                    <Edit3 className="w-4 h-4" />
+                  </button>
+                )}
+                {/* Expand/collapse toggle for long content */}
+                {!collapsedSections.content && shouldShowExpandToggle && (
+                  <button
+                    onClick={() => setContentExpanded((v) => !v)}
                     className="p-1 text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 transition-colors"
                     title={
                       contentExpanded
-                        ? t('review:mediaPage.collapse', { defaultValue: 'Collapse' })
-                        : t('review:mediaPage.expand', { defaultValue: 'Expand' })
+                        ? t('review:mediaPage.collapse', {
+                            defaultValue: 'Collapse'
+                          })
+                        : t('review:mediaPage.expand', {
+                            defaultValue: 'Expand'
+                          })
                     }
                   >
                     {contentExpanded ? (
                       <Minimize2 className="w-4 h-4" />
                     ) : (
                       <Expand className="w-4 h-4" />
-                  )}
-                </button>
-              )}
+                    )}
+                  </button>
+                )}
+              </div>
             </div>
             {!collapsedSections.content && (
               <div className="p-3 bg-white dark:bg-[#171717] animate-in fade-in slide-in-from-top-1 duration-150">
@@ -893,6 +919,21 @@ export function ContentViewer({
           }
         }}
       />
+
+      {/* Content Edit Modal */}
+      {selectedMedia && !isNote && (
+        <ContentEditModal
+          open={contentEditModalOpen}
+          onClose={() => setContentEditModalOpen(false)}
+          initialText={editingContentText || content}
+          mediaId={selectedMedia.id}
+          onSaveNewVersion={() => {
+            if (onRefreshMedia) {
+              onRefreshMedia()
+            }
+          }}
+        />
+      )}
 
       {/* Diff View Modal */}
       <DiffViewModal
