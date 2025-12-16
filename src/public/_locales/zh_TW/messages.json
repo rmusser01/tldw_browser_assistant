@@ -69,6 +69,9 @@
   "enableOcrAssets_downloadNotice": {
     "message": "啟用 OCR 後，首次使用時將下載約 5MB 的語言資料。"
   },
+  "enableOcrAssets_assetsEnabled": {
+    "message": "OCR 資源已啟用並可使用"
+  },
   "quickIngest_ocrHelp": {
     "message": "OCR 可協助從掃描的 PDF 或圖片中擷取文字。"
   },

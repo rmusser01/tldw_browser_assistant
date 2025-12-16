@@ -11,36 +11,36 @@
   "charactersNav": "Personnages",
   "mediaNav": "Médias",
   "chatAppearance": {
-    "title": "Chat appearance",
-    "description": "Customize colors, fonts, and text sizes for chat messages.",
-    "behaviorNote": "Looking for chat behavior settings (wide mode, reasoning, copy options)?",
-    "goToGeneral": "Go to General Settings",
-    "userHeading": "User messages",
-    "assistantHeading": "Assistant messages",
-    "userColor": "User text color",
-    "assistantColor": "Assistant text color",
-    "userFont": "User font",
-    "assistantFont": "Assistant font",
-    "userSize": "User text size",
-    "assistantSize": "Assistant text size",
+    "title": "Apparence du chat",
+    "description": "Personnalisez les couleurs, les polices et la taille du texte des messages de chat.",
+    "behaviorNote": "Vous cherchez les paramètres de comportement du chat (mode large, raisonnement, options de copie) ?",
+    "goToGeneral": "Aller aux paramètres généraux",
+    "userHeading": "Messages de l'utilisateur",
+    "assistantHeading": "Messages de l'assistant",
+    "userColor": "Couleur du texte de l'utilisateur",
+    "assistantColor": "Couleur du texte de l'assistant",
+    "userFont": "Police de l'utilisateur",
+    "assistantFont": "Police de l'assistant",
+    "userSize": "Taille du texte de l'utilisateur",
+    "assistantSize": "Taille du texte de l'assistant",
     "color": {
-      "default": "Default",
-      "blue": "Blue",
-      "green": "Green",
-      "purple": "Purple",
+      "default": "Par défaut",
+      "blue": "Bleu",
+      "green": "Vert",
+      "purple": "Violet",
       "orange": "Orange",
-      "red": "Red"
+      "red": "Rouge"
     },
     "font": {
-      "default": "Default",
-      "sans": "Sans serif",
-      "serif": "Serif",
-      "mono": "Monospace"
+      "default": "Par défaut",
+      "sans": "Sans empattement (sans serif)",
+      "serif": "Avec empattement (serif)",
+      "mono": "Monospace (chasse fixe)"
     },
     "size": {
-      "sm": "Small",
-      "md": "Medium",
-      "lg": "Large"
+      "sm": "Petite",
+      "md": "Moyenne",
+      "lg": "Grande"
     }
   },
   "generalSettings": {

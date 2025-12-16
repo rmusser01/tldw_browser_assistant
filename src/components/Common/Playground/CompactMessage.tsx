@@ -229,7 +229,14 @@ export function CompactMessage({
                 <img
                   key={idx}
                   src={img}
-                  alt={`Attachment ${idx + 1}`}
+                  alt={
+                    translateMessage(
+                      t,
+                      "playground:attachments.imageLabel",
+                      "Attachment {{number}}",
+                      { number: idx + 1 }
+                    ) as string
+                  }
                   className="max-h-32 rounded border border-gray-200 dark:border-gray-700"
                 />
               ))}
@@ -325,13 +332,15 @@ export function CompactMessage({
                 {showSources ? <ChevronDown className="size-3" /> : <ChevronRight className="size-3" />}
                 <FileText className="size-3" />
                 <span>
-                  {t("playground:sources.count", {
-                    defaultValue:
-                      sources.length === 1
-                        ? "{{count}} source"
-                        : "{{count}} sources",
-                    count: sources.length
-                  } as any) as string}
+                  {String(
+                    t("playground:sources.count", {
+                      defaultValue:
+                        sources.length === 1
+                          ? "{{count}} source"
+                          : "{{count}} sources",
+                      count: sources.length
+                    })
+                  )}
                 </span>
               </button>
               {showSources && (
@@ -361,7 +370,10 @@ export function CompactMessage({
                   ))}
                   {sources.length > 5 && (
                     <div className="text-xs text-gray-400 italic pl-2">
-                      {t("playground:sources.more", `+${sources.length - 5} more`)}
+                      {t("playground:sources.more", {
+                        defaultValue: "+{{count}} more",
+                        count: sources.length - 5
+                      })}
                     </div>
                   )}
                 </div>

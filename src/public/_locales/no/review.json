@@ -28,5 +28,11 @@
   },
   "mediaPage.charCount": {
     "message": "{{count}} tegn"
+  },
+  "mediaPage.pageRangeError": {
+    "message": "Page must be 1-{{max}}"
+  },
+  "mediaPage.pageRangeClamped": {
+    "message": "Navigating to page {{page}}"
   }
 }

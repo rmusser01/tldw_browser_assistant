@@ -388,6 +388,7 @@ export function OnboardingConnectForm({ onFinish }: Props) {
     password,
     categorizeError,
     t,
+    actions,
   ])
 
   // Handle demo mode
@@ -415,6 +416,11 @@ export function OnboardingConnectForm({ onFinish }: Props) {
   // Copy server command
   const handleCopyCommand = useCallback(
     (cmd: string) => {
+      if (!navigator.clipboard?.writeText) {
+        message.error(t("common:copyFailed", "Copy failed"))
+        return
+      }
+
       navigator.clipboard.writeText(cmd).then(
         () => message.success(t("common:copied", "Copied!")),
         () => message.error(t("common:copyFailed", "Copy failed"))

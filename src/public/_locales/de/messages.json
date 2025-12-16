@@ -230,6 +230,9 @@
   "enableOcrAssets_downloadNotice": {
     "message": "Beim Aktivieren von OCR werden beim ersten Gebrauch ~5 MB Sprachdaten heruntergeladen."
   },
+  "enableOcrAssets_assetsEnabled": {
+    "message": "OCR-Ressourcen aktiviert und bereit"
+  },
   "omniSearchPlaceholder": {
     "message": "Suche in Bildschirmen, Chats, Medien und Notizen…",
     "description": "Placeholder text for the omni-search input in the header."

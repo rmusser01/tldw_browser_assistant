@@ -53,7 +53,7 @@ export function Pagination({
 
   const handleJumpToPage = useCallback(() => {
     const pageNum = parseInt(jumpToPage, 10)
-    if (isNaN(pageNum) || pageNum < 1) {
+    if (isNaN(pageNum) || pageNum < 1 || pageNum > totalPages) {
       setJumpError(
         t('mediaPage.pageRangeError', 'Page must be 1-{{max}}', {
           max: totalPages
@@ -61,18 +61,10 @@ export function Pagination({
       )
       return
     }
-    const clampedPage = Math.min(pageNum, totalPages)
-    if (clampedPage !== pageNum) {
-      setJumpError(
-        t('mediaPage.pageRangeClamped', 'Navigating to page {{page}}', {
-          page: clampedPage
-        })
-      )
-    } else {
-      setJumpError('')
-    }
+
+    setJumpError('')
     setJumpToPage('')
-    onPageChange(clampedPage)
+    onPageChange(pageNum)
   }, [jumpToPage, totalPages, onPageChange, t])
 
   const handleJumpInputChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {

@@ -11,36 +11,36 @@
   "charactersNav": "Персонажи",
   "mediaNav": "Медиа",
   "chatAppearance": {
-    "title": "Chat appearance",
-    "description": "Customize colors, fonts, and text sizes for chat messages.",
-    "behaviorNote": "Looking for chat behavior settings (wide mode, reasoning, copy options)?",
-    "goToGeneral": "Go to General Settings",
-    "userHeading": "User messages",
-    "assistantHeading": "Assistant messages",
-    "userColor": "User text color",
-    "assistantColor": "Assistant text color",
-    "userFont": "User font",
-    "assistantFont": "Assistant font",
-    "userSize": "User text size",
-    "assistantSize": "Assistant text size",
+    "title": "Внешний вид чата",
+    "description": "Настройте цвета, шрифты и размер текста для сообщений в чате.",
+    "behaviorNote": "Ищете настройки поведения чата (широкий режим, рассуждения, параметры копирования и т. д.)?",
+    "goToGeneral": "Перейти к Общим настройкам",
+    "userHeading": "Сообщения пользователя",
+    "assistantHeading": "Сообщения ассистента",
+    "userColor": "Цвет текста пользователя",
+    "assistantColor": "Цвет текста ассистента",
+    "userFont": "Шрифт пользователя",
+    "assistantFont": "Шрифт ассистента",
+    "userSize": "Размер текста пользователя",
+    "assistantSize": "Размер текста ассистента",
     "color": {
-      "default": "Default",
-      "blue": "Blue",
-      "green": "Green",
-      "purple": "Purple",
-      "orange": "Orange",
-      "red": "Red"
+      "default": "По умолчанию",
+      "blue": "Синий",
+      "green": "Зелёный",
+      "purple": "Фиолетовый",
+      "orange": "Оранжевый",
+      "red": "Красный"
     },
     "font": {
-      "default": "Default",
-      "sans": "Sans serif",
-      "serif": "Serif",
-      "mono": "Monospace"
+      "default": "По умолчанию",
+      "sans": "Без засечек",
+      "serif": "С засечками",
+      "mono": "Моноширинный"
     },
     "size": {
-      "sm": "Small",
-      "md": "Medium",
-      "lg": "Large"
+      "sm": "Маленький",
+      "md": "Средний",
+      "lg": "Большой"
     }
   },
   "generalSettings": {
@@ -115,7 +115,8 @@
       },
       "enableOcrAssets": {
         "label": "Включить OCR (загружает ~5 МБ при первом использовании)",
-        "downloadNotice": "При включении OCR при первом использовании будет загружено около 5 МБ языковых данных."
+        "downloadNotice": "При включении OCR при первом использовании будет загружено около 5 МБ языковых данных.",
+        "assetsEnabled": "Ресурсы OCR включены и готовы к использованию"
       },
       "ocrLanguage": {
         "label": "Default OCR Language",

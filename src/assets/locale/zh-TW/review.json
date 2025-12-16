@@ -164,7 +164,9 @@
     "saveAsVersion": "儲存為新版本",
     "analysisPlaceholder": "請輸入分析文字...",
     "wordCount": "{{count}} 個單詞",
-    "charCount": "{{count}} 個字元"
+    "charCount": "{{count}} 個字元",
+    "pageRangeError": "Page must be 1-{{max}}",
+    "pageRangeClamped": "Navigating to page {{page}}"
   },
   "empty": {
     "connectTitle": "Connect to use Review",

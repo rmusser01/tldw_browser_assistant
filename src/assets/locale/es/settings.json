@@ -11,36 +11,36 @@
   "charactersNav": "Personajes",
   "mediaNav": "Multimedia",
   "chatAppearance": {
-    "title": "Chat appearance",
-    "description": "Customize colors, fonts, and text sizes for chat messages.",
-    "behaviorNote": "Looking for chat behavior settings (wide mode, reasoning, copy options)?",
-    "goToGeneral": "Go to General Settings",
-    "userHeading": "User messages",
-    "assistantHeading": "Assistant messages",
-    "userColor": "User text color",
-    "assistantColor": "Assistant text color",
-    "userFont": "User font",
-    "assistantFont": "Assistant font",
-    "userSize": "User text size",
-    "assistantSize": "Assistant text size",
+    "title": "Apariencia del chat",
+    "description": "Personaliza los colores, las fuentes y los tamaños de texto de los mensajes del chat.",
+    "behaviorNote": "¿Buscas opciones de comportamiento del chat (modo ancho, razonamiento, opciones de copiado)?",
+    "goToGeneral": "Ir a Configuraciones Generales",
+    "userHeading": "Mensajes del usuario",
+    "assistantHeading": "Mensajes del asistente",
+    "userColor": "Color de texto del usuario",
+    "assistantColor": "Color de texto del asistente",
+    "userFont": "Fuente de los mensajes del usuario",
+    "assistantFont": "Fuente de los mensajes del asistente",
+    "userSize": "Tamaño de texto del usuario",
+    "assistantSize": "Tamaño de texto del asistente",
     "color": {
-      "default": "Default",
-      "blue": "Blue",
-      "green": "Green",
-      "purple": "Purple",
-      "orange": "Orange",
-      "red": "Red"
+      "default": "Predeterminado",
+      "blue": "Azul",
+      "green": "Verde",
+      "purple": "Morado",
+      "orange": "Naranja",
+      "red": "Rojo"
     },
     "font": {
-      "default": "Default",
+      "default": "Predeterminada",
       "sans": "Sans serif",
       "serif": "Serif",
-      "mono": "Monospace"
+      "mono": "Monoespaciada"
     },
     "size": {
-      "sm": "Small",
-      "md": "Medium",
-      "lg": "Large"
+      "sm": "Pequeño",
+      "md": "Mediano",
+      "lg": "Grande"
     }
   },
   "generalSettings": {

@@ -230,6 +230,9 @@
   "enableOcrAssets_downloadNotice": {
     "message": "OCR പ്രവർത്തനക്ഷമമാക്കുമ്പോൾ, ആദ്യ ഉപയോഗത്തിൽ ഏകദേശം 5MB ഭാഷാ ഡാറ്റ ഡൗൺലോഡ് ചെയ്യും."
   },
+  "enableOcrAssets_assetsEnabled": {
+    "message": "OCR ആസറ്റുകൾ പ്രവർത്തനക്ഷമമാക്കി തയ്യാറാക്കി"
+  },
   "omniSearchPlaceholder": {
     "message": "Search screens, chats, media, notes…",
     "description": "Placeholder text for the omni-search input in the header."

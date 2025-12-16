@@ -330,6 +330,9 @@
   "enableOcrAssets_downloadNotice": {
     "message": "L’activation de l’OCR téléchargera ~5 Mo de données linguistiques lors de la première utilisation."
   },
+  "enableOcrAssets_assetsEnabled": {
+    "message": "Les ressources OCR sont activées et prêtes"
+  },
   "quickIngest_ocrHelp": {
     "message": "L'OCR aide à extraire le texte des PDF scannés ou des images."
   },

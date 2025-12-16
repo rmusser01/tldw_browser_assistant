@@ -625,7 +625,10 @@ const SidepanelChat = () => {
             aria-label={t("playground:aria.chatTranscript", "Chat messages")}
             className="custom-scrollbar flex h-full w-full flex-col items-center overflow-x-hidden overflow-y-auto px-5 relative z-10">
             {isRestoringChat ? (
-              <div className="relative flex w-full flex-col items-center pt-16 pb-4">
+              <div
+                className="relative flex w-full flex-col items-center pt-16 pb-4"
+                aria-busy="true"
+                aria-label={t("sidepanel:chat.restoringChat", "Restoring previous chat")}>
                 <div className="w-full max-w-3xl space-y-4">
                   {[1, 2, 3].map((i) => (
                     <div key={i} className="flex gap-4 animate-pulse">

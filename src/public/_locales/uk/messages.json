@@ -89,6 +89,9 @@
   "enableOcrAssets_downloadNotice": {
     "message": "Після увімкнення OCR під час першого використання буде завантажено приблизно 5 МБ мовних даних."
   },
+  "enableOcrAssets_assetsEnabled": {
+    "message": "Ресурси OCR увімкнено та підготовлено"
+  },
   "omniSearchPlaceholder": {
     "message": "Search screens, chats, media, notes…",
     "description": "Placeholder text for the omni-search input in the header."

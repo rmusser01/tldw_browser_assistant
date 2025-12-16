@@ -262,6 +262,9 @@
   "enableOcrAssets_downloadNotice": {
     "message": "При включении OCR при первом использовании будет загружено около 5 МБ языковых данных."
   },
+  "enableOcrAssets_assetsEnabled": {
+    "message": "Ресурсы OCR включены и готовы к использованию"
+  },
   "omniSearchPlaceholder": {
     "message": "Поиск по экранам, чатам, медиа и заметкам…",
     "description": "Placeholder text for the omni-search input in the header."

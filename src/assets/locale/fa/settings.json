@@ -11,36 +11,36 @@
   "charactersNav": "شخصیت‌ها",
   "mediaNav": "رسانه",
   "chatAppearance": {
-    "title": "Chat appearance",
-    "description": "Customize colors, fonts, and text sizes for chat messages.",
-    "behaviorNote": "Looking for chat behavior settings (wide mode, reasoning, copy options)?",
-    "goToGeneral": "Go to General Settings",
-    "userHeading": "User messages",
-    "assistantHeading": "Assistant messages",
-    "userColor": "User text color",
-    "assistantColor": "Assistant text color",
-    "userFont": "User font",
-    "assistantFont": "Assistant font",
-    "userSize": "User text size",
-    "assistantSize": "Assistant text size",
+    "title": "ظاهر چت",
+    "description": "رنگ‌ها، فونت‌ها و اندازهٔ متن پیام‌های چت را سفارشی کنید.",
+    "behaviorNote": "دنبال تنظیمات رفتار چت می‌گردید (حالت عریض، استدلال، گزینه‌های کپی)؟",
+    "goToGeneral": "رفتن به تنظیمات عمومی",
+    "userHeading": "پیام‌های کاربر",
+    "assistantHeading": "پیام‌های دستیار",
+    "userColor": "رنگ متن پیام‌های کاربر",
+    "assistantColor": "رنگ متن پیام‌های دستیار",
+    "userFont": "فونت پیام‌های کاربر",
+    "assistantFont": "فونت پیام‌های دستیار",
+    "userSize": "اندازهٔ متن پیام‌های کاربر",
+    "assistantSize": "اندازهٔ متن پیام‌های دستیار",
     "color": {
-      "default": "Default",
-      "blue": "Blue",
-      "green": "Green",
-      "purple": "Purple",
-      "orange": "Orange",
-      "red": "Red"
+      "default": "پیش‌فرض",
+      "blue": "آبی",
+      "green": "سبز",
+      "purple": "بنفش",
+      "orange": "نارنجی",
+      "red": "قرمز"
     },
     "font": {
-      "default": "Default",
-      "sans": "Sans serif",
-      "serif": "Serif",
-      "mono": "Monospace"
+      "default": "پیش‌فرض",
+      "sans": "بدون سریف",
+      "serif": "سریف",
+      "mono": "تک‌عرض"
     },
     "size": {
-      "sm": "Small",
-      "md": "Medium",
-      "lg": "Large"
+      "sm": "کوچک",
+      "md": "متوسط",
+      "lg": "بزرگ"
     }
   },
   "generalSettings": {

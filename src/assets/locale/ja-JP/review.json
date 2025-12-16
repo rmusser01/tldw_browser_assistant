@@ -164,7 +164,9 @@
     "saveAsVersion": "新しいバージョンとして保存",
     "analysisPlaceholder": "分析テキストを入力してください...",
     "wordCount": "{{count}}語",
-    "charCount": "{{count}}文字"
+    "charCount": "{{count}}文字",
+    "pageRangeError": "Page must be 1-{{max}}",
+    "pageRangeClamped": "Navigating to page {{page}}"
   },
   "empty": {
     "connectTitle": "Connect to use Review",

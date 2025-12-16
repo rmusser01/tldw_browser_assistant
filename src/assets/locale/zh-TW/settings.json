@@ -11,36 +11,36 @@
   "charactersNav": "角色",
   "mediaNav": "媒體",
   "chatAppearance": {
-    "title": "Chat appearance",
-    "description": "Customize colors, fonts, and text sizes for chat messages.",
-    "behaviorNote": "Looking for chat behavior settings (wide mode, reasoning, copy options)?",
-    "goToGeneral": "Go to General Settings",
-    "userHeading": "User messages",
-    "assistantHeading": "Assistant messages",
-    "userColor": "User text color",
-    "assistantColor": "Assistant text color",
-    "userFont": "User font",
-    "assistantFont": "Assistant font",
-    "userSize": "User text size",
-    "assistantSize": "Assistant text size",
+    "title": "聊天外觀",
+    "description": "自訂聊天訊息的顏色、字體與文字大小。",
+    "behaviorNote": "在找聊天行為設定嗎（寬螢幕模式、推理、複製選項等）？",
+    "goToGeneral": "前往一般設定",
+    "userHeading": "使用者訊息",
+    "assistantHeading": "助理訊息",
+    "userColor": "使用者文字顏色",
+    "assistantColor": "助理文字顏色",
+    "userFont": "使用者字體",
+    "assistantFont": "助理字體",
+    "userSize": "使用者文字大小",
+    "assistantSize": "助理文字大小",
     "color": {
-      "default": "Default",
-      "blue": "Blue",
-      "green": "Green",
-      "purple": "Purple",
-      "orange": "Orange",
-      "red": "Red"
+      "default": "預設",
+      "blue": "藍色",
+      "green": "綠色",
+      "purple": "紫色",
+      "orange": "橘色",
+      "red": "紅色"
     },
     "font": {
-      "default": "Default",
-      "sans": "Sans serif",
-      "serif": "Serif",
-      "mono": "Monospace"
+      "default": "預設",
+      "sans": "無襯線",
+      "serif": "有襯線",
+      "mono": "等寬字"
     },
     "size": {
-      "sm": "Small",
-      "md": "Medium",
-      "lg": "Large"
+      "sm": "小",
+      "md": "中",
+      "lg": "大"
     }
   },
   "generalSettings": {

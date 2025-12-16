@@ -270,6 +270,9 @@
   "enableOcrAssets_downloadNotice": {
     "message": "OCR を有効にすると、初回使用時に約 5MB の言語データをダウンロードします。"
   },
+  "enableOcrAssets_assetsEnabled": {
+    "message": "OCR アセットが有効化され、利用可能です"
+  },
   "omniSearchPlaceholder": {
     "message": "画面、チャット、メディア、メモを検索…",
     "description": "Placeholder text for the omni-search input in the header."

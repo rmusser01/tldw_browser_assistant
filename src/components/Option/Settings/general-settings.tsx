@@ -111,7 +111,10 @@ export const GeneralSettings = () => {
   )
 
   const [removeReasoningTagFromCopy, setRemoveReasoningTagFromCopy] =
-    useStorage("removeReasoningTagFromCopy", true)
+    useStorage(
+      "removeReasoningTagFromCopy",
+      DEFAULT_CHAT_SETTINGS.removeReasoningTagFromCopy
+    )
 
   const [promptSearchIncludeServer, setPromptSearchIncludeServer] =
     useStorage("promptSearchIncludeServer", false)
@@ -491,7 +494,8 @@ export const GeneralSettings = () => {
                   setTimeout(() => {
                     navigate("/")
                   }, 800)
-                } catch {
+                } catch (err) {
+                  console.error("Failed to restart onboarding:", err)
                   notification.error({
                     message: t(
                       "generalSettings.settings.restartOnboarding.error",
@@ -613,7 +617,8 @@ export const GeneralSettings = () => {
           <span className="text-gray-700 dark:text-neutral-50 ">
             {t("generalSettings.settings.removeReasoningTagFromCopy.label")}
           </span>
-          {removeReasoningTagFromCopy === true && (
+          {removeReasoningTagFromCopy ===
+            DEFAULT_CHAT_SETTINGS.removeReasoningTagFromCopy && (
             <Tag className="text-[10px] py-0 px-1.5 leading-4">
               {t("generalSettings.settings.defaultBadge", "default")}
             </Tag>

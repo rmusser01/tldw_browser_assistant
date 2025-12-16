@@ -17,6 +17,7 @@ export interface ChatSettingsConfig {
   chatAssistantTextFont: string
   chatUserTextSize: "sm" | "md" | "lg"
   chatAssistantTextSize: "sm" | "md" | "lg"
+  removeReasoningTagFromCopy: boolean
 }
 
 export const DEFAULT_CHAT_SETTINGS: ChatSettingsConfig = {
@@ -35,6 +36,6 @@ export const DEFAULT_CHAT_SETTINGS: ChatSettingsConfig = {
   chatUserTextFont: "default",
   chatAssistantTextFont: "default",
   chatUserTextSize: "md",
-  chatAssistantTextSize: "md"
+  chatAssistantTextSize: "md",
+  removeReasoningTagFromCopy: true
 }
-

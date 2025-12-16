@@ -11,36 +11,36 @@
   "charactersNav": "캐릭터",
   "mediaNav": "미디어",
   "chatAppearance": {
-    "title": "Chat appearance",
-    "description": "Customize colors, fonts, and text sizes for chat messages.",
-    "behaviorNote": "Looking for chat behavior settings (wide mode, reasoning, copy options)?",
-    "goToGeneral": "Go to General Settings",
-    "userHeading": "User messages",
-    "assistantHeading": "Assistant messages",
-    "userColor": "User text color",
-    "assistantColor": "Assistant text color",
-    "userFont": "User font",
-    "assistantFont": "Assistant font",
-    "userSize": "User text size",
-    "assistantSize": "Assistant text size",
+    "title": "채팅 모양",
+    "description": "채팅 메시지의 색상, 글꼴, 글자 크기를 사용자 지정합니다.",
+    "behaviorNote": "채팅 동작 설정(와이드 모드, 추론, 복사 옵션)을 찾고 계신가요?",
+    "goToGeneral": "일반 설정으로 이동",
+    "userHeading": "사용자 메시지",
+    "assistantHeading": "어시스턴트 메시지",
+    "userColor": "사용자 텍스트 색상",
+    "assistantColor": "어시스턴트 텍스트 색상",
+    "userFont": "사용자 글꼴",
+    "assistantFont": "어시스턴트 글꼴",
+    "userSize": "사용자 텍스트 크기",
+    "assistantSize": "어시스턴트 텍스트 크기",
     "color": {
-      "default": "Default",
-      "blue": "Blue",
-      "green": "Green",
-      "purple": "Purple",
-      "orange": "Orange",
-      "red": "Red"
+      "default": "기본값",
+      "blue": "파랑",
+      "green": "초록",
+      "purple": "보라",
+      "orange": "주황",
+      "red": "빨강"
     },
     "font": {
-      "default": "Default",
-      "sans": "Sans serif",
-      "serif": "Serif",
-      "mono": "Monospace"
+      "default": "기본값",
+      "sans": "고딕체 (Sans serif)",
+      "serif": "명조체 (Serif)",
+      "mono": "고정폭 글꼴 (Monospace)"
     },
     "size": {
-      "sm": "Small",
-      "md": "Medium",
-      "lg": "Large"
+      "sm": "작게",
+      "md": "보통",
+      "lg": "크게"
     }
   },
   "generalSettings": {

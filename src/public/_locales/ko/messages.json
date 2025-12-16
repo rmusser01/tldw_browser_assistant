@@ -263,6 +263,9 @@
   "enableOcrAssets_downloadNotice": {
     "message": "OCR을 활성화하면 처음 사용할 때 약 5MB의 언어 데이터가 다운로드됩니다."
   },
+  "enableOcrAssets_assetsEnabled": {
+    "message": "OCR 리소스가 활성화되어 준비되었습니다"
+  },
   "omniSearchPlaceholder": {
     "message": "화면, 채팅, 미디어, 노트를 검색…",
     "description": "Placeholder text for the omni-search input in the header."

@@ -28,6 +28,11 @@
   },
   "mediaPage.charCount": {
     "message": "{{count}} characters"
+  },
+  "mediaPage.pageRangeError": {
+    "message": "Page must be 1-{{max}}"
+  },
+  "mediaPage.pageRangeClamped": {
+    "message": "Navigating to page {{page}}"
   }
 }
-

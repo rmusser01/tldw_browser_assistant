@@ -11,36 +11,36 @@
   "charactersNav": "角色",
   "mediaNav": "媒体",
   "chatAppearance": {
-    "title": "Chat appearance",
-    "description": "Customize colors, fonts, and text sizes for chat messages.",
-    "behaviorNote": "Looking for chat behavior settings (wide mode, reasoning, copy options)?",
-    "goToGeneral": "Go to General Settings",
-    "userHeading": "User messages",
-    "assistantHeading": "Assistant messages",
-    "userColor": "User text color",
-    "assistantColor": "Assistant text color",
-    "userFont": "User font",
-    "assistantFont": "Assistant font",
-    "userSize": "User text size",
-    "assistantSize": "Assistant text size",
+    "title": "聊天外观",
+    "description": "自定义聊天消息的颜色、字体和文字大小。",
+    "behaviorNote": "在寻找聊天行为设置（宽屏模式、推理、复制选项）吗？",
+    "goToGeneral": "前往一般设置",
+    "userHeading": "用户消息",
+    "assistantHeading": "助手消息",
+    "userColor": "用户文字颜色",
+    "assistantColor": "助手文字颜色",
+    "userFont": "用户字体",
+    "assistantFont": "助手字体",
+    "userSize": "用户文字大小",
+    "assistantSize": "助手文字大小",
     "color": {
-      "default": "Default",
-      "blue": "Blue",
-      "green": "Green",
-      "purple": "Purple",
-      "orange": "Orange",
-      "red": "Red"
+      "default": "默认",
+      "blue": "蓝色",
+      "green": "绿色",
+      "purple": "紫色",
+      "orange": "橙色",
+      "red": "红色"
     },
     "font": {
-      "default": "Default",
-      "sans": "Sans serif",
-      "serif": "Serif",
-      "mono": "Monospace"
+      "default": "默认",
+      "sans": "无衬线（Sans serif）",
+      "serif": "衬线（Serif）",
+      "mono": "等宽字体（Monospace）"
     },
     "size": {
-      "sm": "Small",
-      "md": "Medium",
-      "lg": "Large"
+      "sm": "小",
+      "md": "中",
+      "lg": "大"
     }
   },
   "generalSettings": {

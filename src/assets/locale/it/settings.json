@@ -11,36 +11,36 @@
   "charactersNav": "Personaggi",
   "mediaNav": "Media",
   "chatAppearance": {
-    "title": "Chat appearance",
-    "description": "Customize colors, fonts, and text sizes for chat messages.",
-    "behaviorNote": "Looking for chat behavior settings (wide mode, reasoning, copy options)?",
-    "goToGeneral": "Go to General Settings",
-    "userHeading": "User messages",
-    "assistantHeading": "Assistant messages",
-    "userColor": "User text color",
-    "assistantColor": "Assistant text color",
-    "userFont": "User font",
-    "assistantFont": "Assistant font",
-    "userSize": "User text size",
-    "assistantSize": "Assistant text size",
+    "title": "Aspetto della chat",
+    "description": "Personalizza colori, caratteri e dimensioni del testo per i messaggi della chat.",
+    "behaviorNote": "Cerchi le impostazioni di comportamento della chat (modalità ampia, ragionamento, opzioni di copia)?",
+    "goToGeneral": "Vai alle Impostazioni Generali",
+    "userHeading": "Messaggi utente",
+    "assistantHeading": "Messaggi assistente",
+    "userColor": "Colore testo utente",
+    "assistantColor": "Colore testo assistente",
+    "userFont": "Carattere utente",
+    "assistantFont": "Carattere assistente",
+    "userSize": "Dimensione testo utente",
+    "assistantSize": "Dimensione testo assistente",
     "color": {
-      "default": "Default",
-      "blue": "Blue",
-      "green": "Green",
-      "purple": "Purple",
-      "orange": "Orange",
-      "red": "Red"
+      "default": "Predefinito",
+      "blue": "Blu",
+      "green": "Verde",
+      "purple": "Viola",
+      "orange": "Arancione",
+      "red": "Rosso"
     },
     "font": {
-      "default": "Default",
+      "default": "Predefinito",
       "sans": "Sans serif",
       "serif": "Serif",
-      "mono": "Monospace"
+      "mono": "Monospaziato"
     },
     "size": {
-      "sm": "Small",
-      "md": "Medium",
-      "lg": "Large"
+      "sm": "Piccolo",
+      "md": "Medio",
+      "lg": "Grande"
     }
   },
   "generalSettings": {

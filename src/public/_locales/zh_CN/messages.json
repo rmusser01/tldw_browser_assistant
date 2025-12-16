@@ -191,6 +191,9 @@
   "enableOcrAssets_downloadNotice": {
     "message": "启用 OCR 后，首次使用时将下载约 5MB 的语言数据。"
   },
+  "enableOcrAssets_assetsEnabled": {
+    "message": "OCR 资源已启用并准备就绪"
+  },
   "omniSearchPlaceholder": {
     "message": "在标题栏搜索屏幕、聊天、媒体、笔记…",
     "description": "Placeholder text for the omni-search input in the header."

@@ -11,7 +11,7 @@ import { useWebUI } from "@/store/webui"
 import { useForm } from "@mantine/form"
 import { Alert, Button, Input, InputNumber, Select, Skeleton, Switch, Space } from "antd"
 import { useTranslation } from "react-i18next"
-import React from "react"
+import React, { useState } from "react"
 import { useAntdMessage } from "@/hooks/useAntdMessage"
 
 export const TTSModeSettings = ({ hideBorder }: { hideBorder?: boolean }) => {
@@ -21,8 +21,8 @@ export const TTSModeSettings = ({ hideBorder }: { hideBorder?: boolean }) => {
   const queryClient = useQueryClient()
 
   // API key test states
-  const [elevenLabsTestResult, setElevenLabsTestResult] = React.useState<{ ok: boolean; message: string } | null>(null)
-  const [testingElevenLabs, setTestingElevenLabs] = React.useState(false)
+  const [elevenLabsTestResult, setElevenLabsTestResult] = useState<{ ok: boolean; message: string } | null>(null)
+  const [testingElevenLabs, setTestingElevenLabs] = useState(false)
 
   const ids = {
     ttsEnabled: "tts-enabled-toggle",
@@ -66,7 +66,7 @@ export const TTSModeSettings = ({ hideBorder }: { hideBorder?: boolean }) => {
     },
     validate: {
       playbackSpeed: (value) =>
-        value == null
+        value === null || value === undefined
           ? (t(
               "generalSettings.tts.playbackSpeed.required",
               "Playback speed is required"

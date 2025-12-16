@@ -164,7 +164,9 @@
     "saveAsVersion": "새 버전으로 저장",
     "analysisPlaceholder": "분석 내용을 입력하세요...",
     "wordCount": "{{count}} 단어",
-    "charCount": "{{count}}자"
+    "charCount": "{{count}}자",
+    "pageRangeError": "Page must be 1-{{max}}",
+    "pageRangeClamped": "Navigating to page {{page}}"
   },
   "empty": {
     "connectTitle": "Connect to use Review",

@@ -231,6 +231,9 @@
   "enableOcrAssets_downloadNotice": {
     "message": "När du aktiverar OCR laddas ungefär 5 MB språkdata ner vid första användningen."
   },
+  "enableOcrAssets_assetsEnabled": {
+    "message": "OCR-resurserna är aktiverade och klara"
+  },
   "omniSearchPlaceholder": {
     "message": "Sök i skärmar, chattar, media, anteckningar…",
     "description": "Placeholder text for the omni-search input in the header."

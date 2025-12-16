@@ -29,6 +29,9 @@ type AuthMode = 'single-user' | 'multi-user'
 const isAuthMode = (value: SegmentedValue): value is AuthMode =>
   value === 'single-user' || value === 'multi-user'
 
+// Auto-finish is always enabled for better UX
+const AUTO_FINISH_ON_SUCCESS = true
+
 const LegacyOnboardingWizard: React.FC<Props> = ({ onFinish }) => {
   const { t } = useTranslation(['settings', 'common'])
   const { setDemoEnabled } = useDemoMode()
@@ -41,8 +44,6 @@ const LegacyOnboardingWizard: React.FC<Props> = ({ onFinish }) => {
   const [password, setPassword] = React.useState('')
   const [authError, setAuthError] = React.useState<string | null>(null)
   const [pathChoice, setPathChoice] = React.useState<PathChoice>('has-server')
-  // Auto-finish is now always enabled for better UX - no checkbox needed
-  const autoFinishOnSuccess = true
 
   const { uxState, configStep } = useConnectionUxState()
   const connectionState = useConnectionState()
@@ -456,7 +457,7 @@ const LegacyOnboardingWizard: React.FC<Props> = ({ onFinish }) => {
 
   const autoFinishRef = React.useRef(false)
   React.useEffect(() => {
-    if (!autoFinishOnSuccess) return
+    if (!AUTO_FINISH_ON_SUCCESS) return
     if (autoFinishRef.current) return
     if (activeStep !== 3) return
 
@@ -473,7 +474,6 @@ const LegacyOnboardingWizard: React.FC<Props> = ({ onFinish }) => {
     }
   }, [
     activeStep,
-    autoFinishOnSuccess,
     connectionState.knowledgeStatus,
     finish,
     uxState
@@ -813,6 +813,16 @@ const LegacyOnboardingWizard: React.FC<Props> = ({ onFinish }) => {
                           <Button
                             size="small"
                             onClick={async () => {
+                              if (!navigator.clipboard?.writeText) {
+                                message.error(
+                                  t(
+                                    "settings:onboarding.startServer.copyFailed",
+                                    "Copy failed"
+                                  )
+                                )
+                                return
+                              }
+
                               try {
                                 await navigator.clipboard.writeText(cmd.command)
                                 message.success(

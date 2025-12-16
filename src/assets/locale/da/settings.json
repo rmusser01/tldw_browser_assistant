@@ -11,36 +11,36 @@
   "charactersNav": "Karakterer",
   "mediaNav": "Medier",
   "chatAppearance": {
-    "title": "Chat appearance",
-    "description": "Customize colors, fonts, and text sizes for chat messages.",
-    "behaviorNote": "Looking for chat behavior settings (wide mode, reasoning, copy options)?",
-    "goToGeneral": "Go to General Settings",
-    "userHeading": "User messages",
-    "assistantHeading": "Assistant messages",
-    "userColor": "User text color",
-    "assistantColor": "Assistant text color",
-    "userFont": "User font",
-    "assistantFont": "Assistant font",
-    "userSize": "User text size",
-    "assistantSize": "Assistant text size",
+    "title": "Chat-udseende",
+    "description": "Tilpas farver, skrifttyper og tekststørrelser for chatbeskeder.",
+    "behaviorNote": "Leder du efter indstillinger for chatadfærd (bred tilstand, ræsonnement, kopiindstillinger)?",
+    "goToGeneral": "Gå til Generelle indstillinger",
+    "userHeading": "Brugerbeskeder",
+    "assistantHeading": "Assistentbeskeder",
+    "userColor": "Brugerens tekstfarve",
+    "assistantColor": "Assistentens tekstfarve",
+    "userFont": "Brugerens skrifttype",
+    "assistantFont": "Assistentens skrifttype",
+    "userSize": "Brugerens tekststørrelse",
+    "assistantSize": "Assistentens tekststørrelse",
     "color": {
-      "default": "Default",
-      "blue": "Blue",
-      "green": "Green",
-      "purple": "Purple",
+      "default": "Standard",
+      "blue": "Blå",
+      "green": "Grøn",
+      "purple": "Lilla",
       "orange": "Orange",
-      "red": "Red"
+      "red": "Rød"
     },
     "font": {
-      "default": "Default",
-      "sans": "Sans serif",
-      "serif": "Serif",
-      "mono": "Monospace"
+      "default": "Standard",
+      "sans": "Sans serif (grotesk)",
+      "serif": "Serif (med fødder)",
+      "mono": "Monospace (fast bredde)"
     },
     "size": {
-      "sm": "Small",
-      "md": "Medium",
-      "lg": "Large"
+      "sm": "Lille",
+      "md": "Mellem",
+      "lg": "Stor"
     }
   },
   "generalSettings": {

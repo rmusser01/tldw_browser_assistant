@@ -502,7 +502,7 @@ export const FlashcardsPage: React.FC = () => {
         model_type: normalized.model_type,
         reverse: normalized.reverse,
         is_cloze: normalized.is_cloze
-      } as any)
+      })
     },
     [editForm]
   )

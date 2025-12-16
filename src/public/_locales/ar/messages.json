@@ -89,6 +89,9 @@
   "enableOcrAssets_downloadNotice": {
     "message": "سيؤدي تفعيل OCR إلى تنزيل حوالي 5MB من بيانات اللغة عند أول استخدام."
   },
+  "enableOcrAssets_assetsEnabled": {
+    "message": "تم تمكين حزم OCR وهي جاهزة للاستخدام"
+  },
   "omniSearchPlaceholder": {
     "message": "ابحث في الشاشات والدردشات والوسائط والملاحظات…",
     "description": "Placeholder text for the omni-search input in the header."

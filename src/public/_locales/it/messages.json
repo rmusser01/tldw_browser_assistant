@@ -230,6 +230,9 @@
   "enableOcrAssets_downloadNotice": {
     "message": "Abilitando l’OCR verranno scaricati ~5 MB di dati linguistici al primo utilizzo."
   },
+  "enableOcrAssets_assetsEnabled": {
+    "message": "Le risorse OCR sono abilitate e pronte"
+  },
   "omniSearchPlaceholder": {
     "message": "Cerca tra schermate, chat, media e note…",
     "description": "Placeholder text for the omni-search input in the header."

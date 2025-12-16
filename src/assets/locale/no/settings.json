@@ -11,36 +11,36 @@
   "charactersNav": "Tegn",
   "mediaNav": "Media",
   "chatAppearance": {
-    "title": "Chat appearance",
-    "description": "Customize colors, fonts, and text sizes for chat messages.",
-    "behaviorNote": "Looking for chat behavior settings (wide mode, reasoning, copy options)?",
-    "goToGeneral": "Go to General Settings",
-    "userHeading": "User messages",
-    "assistantHeading": "Assistant messages",
-    "userColor": "User text color",
-    "assistantColor": "Assistant text color",
-    "userFont": "User font",
-    "assistantFont": "Assistant font",
-    "userSize": "User text size",
-    "assistantSize": "Assistant text size",
+    "title": "Chat-utseende",
+    "description": "Tilpass farger, skrifttyper og tekststørrelse for chatmeldinger.",
+    "behaviorNote": "Leter du etter innstillinger for chatteadferd (breddemodus, resonnement, kopieringsvalg)?",
+    "goToGeneral": "Gå til Generelle innstillinger",
+    "userHeading": "Brukermeldinger",
+    "assistantHeading": "Assistentmeldinger",
+    "userColor": "Farge på brukertekst",
+    "assistantColor": "Farge på assistenttekst",
+    "userFont": "Skrift for bruker",
+    "assistantFont": "Skrift for assistent",
+    "userSize": "Tekststørrelse for bruker",
+    "assistantSize": "Tekststørrelse for assistent",
     "color": {
-      "default": "Default",
-      "blue": "Blue",
-      "green": "Green",
-      "purple": "Purple",
-      "orange": "Orange",
-      "red": "Red"
+      "default": "Standard",
+      "blue": "Blå",
+      "green": "Grønn",
+      "purple": "Lilla",
+      "orange": "Oransje",
+      "red": "Rød"
     },
     "font": {
-      "default": "Default",
-      "sans": "Sans serif",
-      "serif": "Serif",
-      "mono": "Monospace"
+      "default": "Standard",
+      "sans": "Sans serif (grotesk)",
+      "serif": "Serif (antiqua)",
+      "mono": "Monospace (fastbredde)"
     },
     "size": {
-      "sm": "Small",
-      "md": "Medium",
-      "lg": "Large"
+      "sm": "Liten",
+      "md": "Middels",
+      "lg": "Stor"
     }
   },
   "generalSettings": {
