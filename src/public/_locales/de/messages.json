@@ -224,6 +224,12 @@
   "restartOnboardingConfirmMessage": {
     "message": "Dadurch wird dein Onboarding-Status zurückgesetzt und du kehrst zum Einrichtungsablauf zurück."
   },
+  "enableOcrAssets_label": {
+    "message": "OCR aktivieren (lädt beim ersten Gebrauch ~5 MB herunter)"
+  },
+  "enableOcrAssets_downloadNotice": {
+    "message": "Beim Aktivieren von OCR werden beim ersten Gebrauch ~5 MB Sprachdaten heruntergeladen."
+  },
   "omniSearchPlaceholder": {
     "message": "Suche in Bildschirmen, Chats, Medien und Notizen…",
     "description": "Placeholder text for the omni-search input in the header."
@@ -338,6 +344,9 @@
   },
   "moveToFolder": {
     "message": "In Ordner verschieben"
+  },
+  "quickIngest_ocrHelp": {
+    "message": "OCR helps extract text from scanned PDFs or images."
   },
   "specReloadedToast": {
     "message": "Erweiterte Spezifikation vom Server neu geladen"

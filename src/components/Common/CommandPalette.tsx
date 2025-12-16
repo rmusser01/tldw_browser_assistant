@@ -18,7 +18,7 @@ import {
   Command,
   ArrowRight,
 } from "lucide-react"
-import { useShortcut, formatShortcut, isMac } from "@/hooks/useKeyboardShortcuts"
+import { useShortcut, formatShortcut } from "@/hooks/useKeyboardShortcuts"
 import { searchSettings, type SettingDefinition } from "@/data/settings-index"
 
 export interface CommandItem {
@@ -204,7 +204,9 @@ export function CommandPalette({
     return results.slice(0, 5).map((setting) => ({
       id: `setting-${setting.id}`,
       label: t(setting.labelKey, setting.defaultLabel),
-      description: setting.defaultDescription,
+      description: setting.descriptionKey
+        ? t(setting.descriptionKey, setting.defaultDescription)
+        : setting.defaultDescription,
       icon: <Settings className="size-4" />,
       action: () => { navigate(setting.route); setOpen(false) },
       category: "setting" as const,
@@ -239,7 +241,6 @@ export function CommandPalette({
       action: [],
       navigation: [],
       setting: [],
-      recent: [],
     }
     for (const cmd of filteredCommands) {
       groups[cmd.category]?.push(cmd)
@@ -294,14 +295,14 @@ export function CommandPalette({
 
   if (!open) return null
 
+  const categories = ["action", "navigation", "setting"] as const
+
   const categoryLabels: Record<string, string> = {
     action: t("common:commandPalette.categoryActions", "Actions"),
     navigation: t("common:commandPalette.categoryNavigation", "Navigation"),
     setting: t("common:commandPalette.categorySettings", "Settings"),
     recent: t("common:commandPalette.categoryRecent", "Recent"),
   }
-
-  let itemIndex = -1
 
   return (
     <>
@@ -350,18 +351,21 @@ export function CommandPalette({
             </div>
           ) : (
             <>
-              {(["action", "navigation", "setting"] as const).map((category) => {
+              {categories.map((category) => {
                 const items = groupedCommands[category]
                 if (!items?.length) return null
+
+                const categoryStartIndex = categories
+                  .slice(0, categories.indexOf(category))
+                  .reduce((sum, cat) => sum + (groupedCommands[cat]?.length ?? 0), 0)
 
                 return (
                   <div key={category} className="mb-2">
                     <div className="px-2 py-1.5 text-xs font-medium text-gray-500 dark:text-gray-400">
                       {categoryLabels[category]}
                     </div>
-                    {items.map((cmd) => {
-                      itemIndex++
-                      const currentIndex = itemIndex
+                    {items.map((cmd, idx) => {
+                      const currentIndex = categoryStartIndex + idx
                       const isSelected = currentIndex === selectedIndex
 
                       return (

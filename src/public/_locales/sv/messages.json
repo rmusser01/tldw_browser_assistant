@@ -225,6 +225,12 @@
   "restartOnboardingConfirmMessage": {
     "message": "Detta återställer din onboarding‑status och tar dig tillbaka till installationsflödet."
   },
+  "enableOcrAssets_label": {
+    "message": "Aktivera OCR (laddar ner ~5 MB vid första användningen)"
+  },
+  "enableOcrAssets_downloadNotice": {
+    "message": "När du aktiverar OCR laddas ungefär 5 MB språkdata ner vid första användningen."
+  },
   "omniSearchPlaceholder": {
     "message": "Sök i skärmar, chattar, media, anteckningar…",
     "description": "Placeholder text for the omni-search input in the header."
@@ -339,6 +345,9 @@
   },
   "moveToFolder": {
     "message": "Flytta till mapp"
+  },
+  "quickIngest_ocrHelp": {
+    "message": "OCR helps extract text from scanned PDFs or images."
   },
   "specReloadedToast": {
     "message": "Avancerad spec har laddats om från servern"

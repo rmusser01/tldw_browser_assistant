@@ -1,3 +1,4 @@
+import { useCallback } from "react"
 import { useStorage } from "@plasmohq/storage/hook"
 
 /**
@@ -72,23 +73,37 @@ export function useAllFeatureFlags() {
       setChatSidebar,
     },
     // Enable all new UX features
-    enableAll: () => {
+    enableAll: useCallback(() => {
       setNewOnboarding(true)
       setNewChat(true)
       setNewSettings(true)
       setCommandPalette(true)
       setCompactMessages(true)
       setChatSidebar(true)
-    },
+    }, [
+      setNewOnboarding,
+      setNewChat,
+      setNewSettings,
+      setCommandPalette,
+      setCompactMessages,
+      setChatSidebar
+    ]),
     // Disable all new UX features (revert to old)
-    disableAll: () => {
+    disableAll: useCallback(() => {
       setNewOnboarding(false)
       setNewChat(false)
       setNewSettings(false)
       setCommandPalette(false)
       setCompactMessages(false)
       setChatSidebar(false)
-    },
+    }, [
+      setNewOnboarding,
+      setNewChat,
+      setNewSettings,
+      setCommandPalette,
+      setCompactMessages,
+      setChatSidebar
+    ])
   }
 }
 

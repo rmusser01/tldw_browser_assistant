@@ -47,7 +47,7 @@ export const AboutApp = () => {
             <h2 className="text-base font-semibold leading-7 text-gray-900 dark:text-white">
               {t("about.heading")}
             </h2>
-            <div className="border border-b border-gray-200 dark:border-gray-600 mt-3 mb-4"></div>
+            <div className="border-b border-gray-200 dark:border-gray-600 mt-3 mb-4"></div>
           </div>
           <Descriptions
             column={1}
@@ -59,7 +59,7 @@ export const AboutApp = () => {
                 children: data.chromeVersion
               },
               {
-                key: 1,
+                key: 2,
                 label: t("about.ollamaVersion"),
                 children: data.ollama
               },

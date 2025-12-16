@@ -225,7 +225,7 @@ export const SETTINGS_INDEX: SettingDefinition[] = [
   },
   {
     id: "setting-stt-language",
-    labelKey: "settings:sstSettings.language.label",
+    labelKey: "settings:generalSettings.settings.speechRecognitionLang.label",
     defaultLabel: "Speech recognition language",
     defaultDescription: "Language for voice input",
     route: "/settings",
@@ -413,7 +413,7 @@ export const SETTINGS_INDEX: SettingDefinition[] = [
   // ========================================
   {
     id: "setting-user-text-color",
-    labelKey: "settings:chatSettings.userColor",
+    labelKey: "settings:chatAppearance.userColor",
     defaultLabel: "User text color",
     defaultDescription: "Color for your messages in chat",
     route: "/settings/chat",
@@ -423,7 +423,7 @@ export const SETTINGS_INDEX: SettingDefinition[] = [
   },
   {
     id: "setting-assistant-text-color",
-    labelKey: "settings:chatSettings.assistantColor",
+    labelKey: "settings:chatAppearance.assistantColor",
     defaultLabel: "Assistant text color",
     defaultDescription: "Color for AI responses in chat",
     route: "/settings/chat",
@@ -433,7 +433,7 @@ export const SETTINGS_INDEX: SettingDefinition[] = [
   },
   {
     id: "setting-user-font",
-    labelKey: "settings:chatSettings.userFont",
+    labelKey: "settings:chatAppearance.userFont",
     defaultLabel: "User message font",
     defaultDescription: "Font style for your messages",
     route: "/settings/chat",
@@ -443,7 +443,7 @@ export const SETTINGS_INDEX: SettingDefinition[] = [
   },
   {
     id: "setting-assistant-font",
-    labelKey: "settings:chatSettings.assistantFont",
+    labelKey: "settings:chatAppearance.assistantFont",
     defaultLabel: "Assistant message font",
     defaultDescription: "Font style for AI responses",
     route: "/settings/chat",

@@ -527,35 +527,35 @@ export const GeneralSettings = () => {
         />
       </div>
 
-	      <div className="space-y-2">
-	        <div className="flex flex-row justify-between">
-	          <span className="text-gray-700   dark:text-neutral-50">
-	            {t("generalSettings.settings.enableOcrAssets.label")}
-	          </span>
+      <div className="space-y-2">
+        <div className="flex flex-row justify-between">
+          <span className="text-gray-700   dark:text-neutral-50">
+            {t("generalSettings.settings.enableOcrAssets.label")}
+          </span>
 
-	          <Switch
-	            checked={enableOcrAssets}
-	            onChange={(checked) => setEnableOcrAssets(checked)}
-	            aria-label={t("generalSettings.settings.enableOcrAssets.label")}
-	          />
-	        </div>
-	        {!enableOcrAssets && (
-	          <Alert
-	            type="info"
-	            showIcon
-	            message={t("generalSettings.settings.enableOcrAssets.downloadNotice")}
-	            className="!py-1.5 !text-xs"
-	          />
-	        )}
-	        {enableOcrAssets && (
-	          <Alert
-	            type="success"
-	            showIcon
-	            message={t("generalSettings.settings.enableOcrAssets.downloadingAssets", "Downloading OCR assets... This may take a moment.")}
-	            className="!py-1.5 !text-xs"
-	          />
-	        )}
-	      </div>
+          <Switch
+            checked={enableOcrAssets}
+            onChange={(checked) => setEnableOcrAssets(checked)}
+            aria-label={t("generalSettings.settings.enableOcrAssets.label")}
+          />
+        </div>
+        {!enableOcrAssets && (
+          <Alert
+            type="info"
+            showIcon
+            message={t("generalSettings.settings.enableOcrAssets.downloadNotice")}
+            className="!py-1.5 !text-xs"
+          />
+        )}
+        {enableOcrAssets && (
+          <Alert
+            type="success"
+            showIcon
+            message={t("generalSettings.settings.enableOcrAssets.downloadingAssets", "Downloading OCR assets... This may take a moment.")}
+            className="!py-1.5 !text-xs"
+          />
+        )}
+      </div>
 
       <div className="flex flex-row justify-between">
         <span className="text-gray-700   dark:text-neutral-50">

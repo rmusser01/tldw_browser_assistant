@@ -19,18 +19,12 @@ const TEST_BYPASS_KEY = "__tldw_allow_offline"
 const FORCE_UNCONFIGURED_KEY = "__tldw_force_unconfigured"
 const FIRST_RUN_COMPLETE_KEY = "__tldw_first_run_complete"
 
-const getOfflineBypassFlag = async (): Promise<boolean> => {
-  // Build-time flag for Playwright/CI: VITE_TLDW_E2E_ALLOW_OFFLINE=true
-  if ((import.meta as any)?.env?.VITE_TLDW_E2E_ALLOW_OFFLINE === "true") {
-    return true
-  }
-
-  // Runtime toggle (settable by tests) via chrome.storage.local or localStorage.
+const getStorageFlag = async (key: string): Promise<boolean> => {
   try {
     if (typeof chrome !== "undefined" && chrome?.storage?.local) {
       return await new Promise<boolean>((resolve) => {
-        chrome.storage.local.get(TEST_BYPASS_KEY, (res) =>
-          resolve(Boolean(res?.[TEST_BYPASS_KEY]))
+        chrome.storage.local.get(key, (res) =>
+          resolve(Boolean(res?.[key]))
         )
       })
     }
@@ -40,13 +34,23 @@ const getOfflineBypassFlag = async (): Promise<boolean> => {
 
   try {
     if (typeof localStorage !== "undefined") {
-      return localStorage.getItem(TEST_BYPASS_KEY) === "true"
+      return localStorage.getItem(key) === "true"
     }
   } catch {
     // ignore localStorage availability
   }
 
   return false
+}
+
+const getOfflineBypassFlag = async (): Promise<boolean> => {
+  // Build-time flag for Playwright/CI: VITE_TLDW_E2E_ALLOW_OFFLINE=true
+  if ((import.meta as any)?.env?.VITE_TLDW_E2E_ALLOW_OFFLINE === "true") {
+    return true
+  }
+
+  // Runtime toggle (settable by tests) via chrome.storage.local or localStorage.
+  return getStorageFlag(TEST_BYPASS_KEY)
 }
 
 const setOfflineBypassFlag = async (enabled: boolean): Promise<void> => {
@@ -80,51 +84,11 @@ const setOfflineBypassFlag = async (enabled: boolean): Promise<void> => {
 }
 
 const getForceUnconfiguredFlag = async (): Promise<boolean> => {
-  try {
-    if (typeof chrome !== "undefined" && chrome?.storage?.local) {
-      return await new Promise<boolean>((resolve) => {
-        chrome.storage.local.get(FORCE_UNCONFIGURED_KEY, (res) =>
-          resolve(Boolean(res?.[FORCE_UNCONFIGURED_KEY]))
-        )
-      })
-    }
-  } catch {
-    // ignore storage read errors
-  }
-
-  try {
-    if (typeof localStorage !== "undefined") {
-      return localStorage.getItem(FORCE_UNCONFIGURED_KEY) === "true"
-    }
-  } catch {
-    // ignore localStorage availability
-  }
-
-  return false
+  return getStorageFlag(FORCE_UNCONFIGURED_KEY)
 }
 
 const getFirstRunCompleteFlag = async (): Promise<boolean> => {
-  try {
-    if (typeof chrome !== "undefined" && chrome?.storage?.local) {
-      return await new Promise<boolean>((resolve) => {
-        chrome.storage.local.get(FIRST_RUN_COMPLETE_KEY, (res) =>
-          resolve(Boolean(res?.[FIRST_RUN_COMPLETE_KEY]))
-        )
-      })
-    }
-  } catch {
-    // ignore storage read errors
-  }
-
-  try {
-    if (typeof localStorage !== "undefined") {
-      return localStorage.getItem(FIRST_RUN_COMPLETE_KEY) === "true"
-    }
-  } catch {
-    // ignore localStorage availability
-  }
-
-  return false
+  return getStorageFlag(FIRST_RUN_COMPLETE_KEY)
 }
 
 const setFirstRunCompleteFlag = async (complete: boolean): Promise<void> => {

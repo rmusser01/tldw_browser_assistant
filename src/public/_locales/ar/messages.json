@@ -83,6 +83,12 @@
   "restartOnboardingConfirmMessage": {
     "message": "سيؤدي هذا إلى إعادة تعيين حالة الإعداد وإعادتك إلى مسار الإعداد من جديد."
   },
+  "enableOcrAssets_label": {
+    "message": "تفعيل OCR (تنزيل حوالي 5 ميجابايت عند أول استخدام)"
+  },
+  "enableOcrAssets_downloadNotice": {
+    "message": "سيؤدي تفعيل OCR إلى تنزيل حوالي 5MB من بيانات اللغة عند أول استخدام."
+  },
   "omniSearchPlaceholder": {
     "message": "ابحث في الشاشات والدردشات والوسائط والملاحظات…",
     "description": "Placeholder text for the omni-search input in the header."
@@ -197,6 +203,9 @@
   },
   "moveToFolder": {
     "message": "نقل إلى المجلد"
+  },
+  "quickIngest_ocrHelp": {
+    "message": "تساعد OCR في استخراج النص من ملفات PDF الممسوحة ضوئياً أو الصور."
   },
   "specReloadedToast": {
     "message": "تمت إعادة تحميل المواصفات المتقدمة من الخادم"

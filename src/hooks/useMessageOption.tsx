@@ -106,7 +106,9 @@ export const useMessageOption = () => {
     serverChatSource,
     setServerChatSource,
     serverChatExternalRef,
-    setServerChatExternalRef
+    setServerChatExternalRef,
+    isEmbedding,
+    setIsEmbedding
   } = useStoreMessageOption()
 
   const currentChatModelSettings = useStoreChatModelSettings()
@@ -554,6 +556,7 @@ export const useMessageOption = () => {
     setSelectedModel,
     chatMode,
     setChatMode,
+    isEmbedding,
     speechToTextLanguage,
     setSpeechToTextLanguage,
     regenerateLastMessage,

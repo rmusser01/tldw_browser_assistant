@@ -1,6 +1,6 @@
 import React from "react"
 import { useTranslation } from "react-i18next"
-import { Globe, Search, Cpu, Database, Sparkles, Loader2 } from "lucide-react"
+import { Globe, Cpu, Database, Sparkles, Loader2 } from "lucide-react"
 
 type Props = {
   action: string
@@ -35,7 +35,7 @@ export const ActionInfo = ({ action }: Props) => {
   const IconComponent = config?.icon || Loader2
   const label = config
     ? t(config.labelKey, config.defaultLabel)
-    : t(action)
+    : t(`actionInfo.${action}`, action)
 
   return (
     <div

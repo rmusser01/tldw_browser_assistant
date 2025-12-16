@@ -262,7 +262,13 @@
     "message": "オンボーディングをやり直しますか？"
   },
   "restartOnboardingConfirmMessage": {
-    "message": "オンボーディングの状態をリセットし、設定フローの最初に戻します。"
+    "message": "オンボーディングの状態をリセットし、設定フローの最初に戻ります。"
+  },
+  "enableOcrAssets_label": {
+    "message": "OCR を有効にする（初回使用時に約 5MB をダウンロード）"
+  },
+  "enableOcrAssets_downloadNotice": {
+    "message": "OCR を有効にすると、初回使用時に約 5MB の言語データをダウンロードします。"
   },
   "omniSearchPlaceholder": {
     "message": "画面、チャット、メディア、メモを検索…",
@@ -378,6 +384,9 @@
   },
   "moveToFolder": {
     "message": "フォルダーに移動"
+  },
+  "quickIngest_ocrHelp": {
+    "message": "OCR helps extract text from scanned PDFs or images."
   },
   "specReloadedToast": {
     "message": "サーバーから高度な仕様を再読み込みしました"

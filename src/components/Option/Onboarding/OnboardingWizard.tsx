@@ -29,13 +29,7 @@ type AuthMode = 'single-user' | 'multi-user'
 const isAuthMode = (value: SegmentedValue): value is AuthMode =>
   value === 'single-user' || value === 'multi-user'
 
-export const OnboardingWizard: React.FC<Props> = ({ onFinish }) => {
-  const [useNewOnboarding] = useFeatureFlag(FEATURE_FLAGS.NEW_ONBOARDING)
-
-  // Use new single-step form when feature flag is enabled
-  if (useNewOnboarding) {
-    return <OnboardingConnectForm onFinish={onFinish} />
-  }
+const LegacyOnboardingWizard: React.FC<Props> = ({ onFinish }) => {
   const { t } = useTranslation(['settings', 'common'])
   const { setDemoEnabled } = useDemoMode()
   const [loading, setLoading] = React.useState(false)
@@ -1180,6 +1174,17 @@ export const OnboardingWizard: React.FC<Props> = ({ onFinish }) => {
       )}
     </div>
   )
+}
+
+export const OnboardingWizard: React.FC<Props> = ({ onFinish }) => {
+  const [useNewOnboarding] = useFeatureFlag(FEATURE_FLAGS.NEW_ONBOARDING)
+
+  // Use new single-step form when feature flag is enabled
+  if (useNewOnboarding) {
+    return <OnboardingConnectForm onFinish={onFinish} />
+  }
+
+  return <LegacyOnboardingWizard onFinish={onFinish} />
 }
 
 export default OnboardingWizard

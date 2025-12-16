@@ -127,6 +127,7 @@ const SidepanelChat = () => {
   const [noteSourceUrl, setNoteSourceUrl] = React.useState<string | undefined>()
   const [noteSaving, setNoteSaving] = React.useState(false)
   const [noteError, setNoteError] = React.useState<string | null>(null)
+  const textareaRef = React.useRef<HTMLTextAreaElement>(null)
 
   const resetNoteModal = React.useCallback(() => {
     setNoteModalOpen(false)
@@ -637,7 +638,11 @@ const SidepanelChat = () => {
                 </div>
               </div>
             ) : (
-              <SidePanelBody scrollParentRef={containerRef} searchQuery={searchQuery} />
+              <SidePanelBody
+                scrollParentRef={containerRef}
+                searchQuery={searchQuery}
+                inputRef={textareaRef}
+              />
             )}
           </div>
 
@@ -653,7 +658,7 @@ const SidepanelChat = () => {
                 </button>
               </div>
             )}
-            <SidepanelForm dropedFile={dropedFile} />
+            <SidepanelForm dropedFile={dropedFile} inputRef={textareaRef} />
           </div>
         </div>
       </main>

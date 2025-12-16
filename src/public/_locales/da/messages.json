@@ -224,6 +224,12 @@
   "restartOnboardingConfirmMessage": {
     "message": "Dette nulstiller din onboarding-status og fører dig tilbage til opsætningsflowet."
   },
+  "enableOcrAssets_label": {
+    "message": "Aktivér OCR (henter ca. 5 MB ved første brug)"
+  },
+  "enableOcrAssets_downloadNotice": {
+    "message": "Når du aktiverer OCR, downloades ca. 5 MB sprogdata ved første brug."
+  },
   "omniSearchPlaceholder": {
     "message": "Search screens, chats, media, notes…",
     "description": "Placeholder text for the omni-search input in the header."
@@ -338,6 +344,9 @@
   },
   "moveToFolder": {
     "message": "Flyt til mappe"
+  },
+  "quickIngest_ocrHelp": {
+    "message": "OCR hjælper med at udtrække tekst fra scannede PDF’er eller billeder."
   },
   "specReloadedToast": {
     "message": "Avanceret specifikation genindlæst fra serveren"

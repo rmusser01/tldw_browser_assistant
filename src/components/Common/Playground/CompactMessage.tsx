@@ -25,6 +25,8 @@ import { humanizeMilliseconds } from "@/utils/humanize-milliseconds"
 import { decodeChatErrorPayload, type ChatErrorPayload } from "@/utils/chat-error-message"
 import { highlightText } from "@/utils/text-highlight"
 import { cn } from "@/libs/utils"
+import { translateMessage } from "@/i18n/translateMessage"
+import type { Source, GenerationInfo } from "./types"
 
 const Markdown = React.lazy(() => import("../../Common/Markdown"))
 
@@ -41,10 +43,10 @@ interface CompactMessageProps {
   onEditFormSubmit?: (value: string, isSend: boolean) => void
   isProcessing?: boolean
   isStreaming?: boolean
-  sources?: any[]
-  onSourceClick?: (source: any) => void
+  sources?: Source[]
+  onSourceClick?: (source: Source) => void
   isTTSEnabled?: boolean
-  generationInfo?: any
+  generationInfo?: GenerationInfo
   reasoningTimeTaken?: number
   openReasoning?: boolean
   onNewBranch?: () => void
@@ -96,7 +98,6 @@ export function CompactMessage({
   const [showSources, setShowSources] = useState(false)
   const { cancel, isSpeaking, speak } = useTTS()
 
-  const isLastMessage = currentMessageIndex === totalMessages - 1
   const errorPayload = decodeChatErrorPayload(message)
   const displayName = isBot
     ? removeModelSuffix(modelName || name)
@@ -316,7 +317,15 @@ export function CompactMessage({
               >
                 {showSources ? <ChevronDown className="size-3" /> : <ChevronRight className="size-3" />}
                 <FileText className="size-3" />
-                <span>{sources.length} {sources.length === 1 ? "source" : "sources"}</span>
+                <span>
+                  {t("playground:sources.count", {
+                    defaultValue:
+                      sources.length === 1
+                        ? "{{count}} source"
+                        : "{{count}} sources",
+                    count: sources.length
+                  } as any) as string}
+                </span>
               </button>
               {showSources && (
                 <div className="mt-2 space-y-1.5 pl-4 border-l-2 border-gray-200 dark:border-gray-700">
@@ -327,7 +336,14 @@ export function CompactMessage({
                       className="block w-full text-left text-xs p-2 rounded bg-gray-50 dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700"
                     >
                       <div className="font-medium text-gray-700 dark:text-gray-300 truncate">
-                        {source.title || source.name || `Source ${idx + 1}`}
+                        {source.title ||
+                          source.name ||
+                          translateMessage(
+                            t,
+                            "playground:sources.fallbackTitle",
+                            "Source {{index}}",
+                            { index: idx + 1 }
+                          )}
                       </div>
                       {source.snippet && (
                         <div className="text-gray-500 dark:text-gray-400 truncate mt-0.5">
@@ -336,6 +352,11 @@ export function CompactMessage({
                       )}
                     </button>
                   ))}
+                  {sources.length > 5 && (
+                    <div className="text-xs text-gray-400 italic pl-2">
+                      {t("playground:sources.more", `+${sources.length - 5} more`)}
+                    </div>
+                  )}
                 </div>
               )}
             </div>

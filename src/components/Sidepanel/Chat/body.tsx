@@ -11,7 +11,11 @@ type Props = {
   searchQuery?: string
 }
 
-export const SidePanelBody = ({ scrollParentRef, searchQuery }: Props) => {
+export const SidePanelBody = ({
+  scrollParentRef,
+  searchQuery,
+  inputRef
+}: Props & { inputRef?: React.RefObject<HTMLTextAreaElement> }) => {
   const {
     messages,
     streaming,
@@ -22,7 +26,8 @@ export const SidePanelBody = ({ scrollParentRef, searchQuery }: Props) => {
     createChatBranch,
     temporaryChat,
     stopStreamingRequest,
-    serverChatId
+    serverChatId,
+    isEmbedding
   } = useMessage()
   const [isSourceOpen, setIsSourceOpen] = React.useState(false)
   const [source, setSource] = React.useState<any>(null)
@@ -69,7 +74,7 @@ export const SidePanelBody = ({ scrollParentRef, searchQuery }: Props) => {
   return (
     <>
       <div className="relative flex w-full flex-col items-center pt-16 pb-4">
-        {messages.length === 0 && <EmptySidePanel />}
+        {messages.length === 0 && <EmptySidePanel inputRef={inputRef} />}
         <div style={{ height: rowVirtualizer.getTotalSize(), width: '100%', position: 'relative' }}>
           {rowVirtualizer.getVirtualItems().map((vr) => {
             const index = vr.index
@@ -102,6 +107,7 @@ export const SidePanelBody = ({ scrollParentRef, searchQuery }: Props) => {
                   serverChatId={serverChatId}
                   serverMessageId={message.serverMessageId}
                   searchQuery={searchQuery}
+                  isEmbedding={isEmbedding}
                 />
               </div>
             )

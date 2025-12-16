@@ -224,6 +224,12 @@
   "restartOnboardingConfirmMessage": {
     "message": "ഇത് നിങ്ങളുടെ ഓൺബോർഡിംഗ് നില റീസെറ്റ് ചെയ്ത് നിങ്ങളെ സജ്ജീകരണ പ്രവാഹത്തിന്റെ തുടക്കത്തിലേക്ക് തിരികെ കൊണ്ടുപോകും."
   },
+  "enableOcrAssets_label": {
+    "message": "OCR പ്രവർത്തനക്ഷമമാക്കുക (ആദ്യ ഉപയോഗത്തിൽ ഏകദേശം 5MB ഡൗൺലോഡ് ചെയ്യും)"
+  },
+  "enableOcrAssets_downloadNotice": {
+    "message": "OCR പ്രവർത്തനക്ഷമമാക്കുമ്പോൾ, ആദ്യ ഉപയോഗത്തിൽ ഏകദേശം 5MB ഭാഷാ ഡാറ്റ ഡൗൺലോഡ് ചെയ്യും."
+  },
   "omniSearchPlaceholder": {
     "message": "Search screens, chats, media, notes…",
     "description": "Placeholder text for the omni-search input in the header."
@@ -338,6 +344,9 @@
   },
   "moveToFolder": {
     "message": "ഫോൾഡറിലേക്ക് നീക്കുക"
+  },
+  "quickIngest_ocrHelp": {
+    "message": "OCR helps extract text from scanned PDFs or images."
   },
   "specReloadedToast": {
     "message": "സർവറിൽ നിന്ന് അഡ്വാൻസ്ഡ് സ്പെക് വീണ്ടും ലോഡ് ചെയ്തു"

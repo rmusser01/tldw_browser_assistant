@@ -63,6 +63,15 @@
     "message": "移至資料夾",
     "description": "Action label to move an item to a folder."
   },
+  "enableOcrAssets_label": {
+    "message": "啟用 OCR（首次使用時下載約 5MB）"
+  },
+  "enableOcrAssets_downloadNotice": {
+    "message": "啟用 OCR 後，首次使用時將下載約 5MB 的語言資料。"
+  },
+  "quickIngest_ocrHelp": {
+    "message": "OCR helps extract text from scanned PDFs or images."
+  },
   "specReloadedToast": {
     "message": "進階規格已從伺服器重新載入",
     "description": "Toast shown after reloading the Quick Ingest advanced schema from the server."

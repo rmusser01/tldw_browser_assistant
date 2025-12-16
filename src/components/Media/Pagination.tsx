@@ -120,7 +120,11 @@ export function Pagination({
     return (
       <div className="px-4 py-2 border-t border-gray-200 dark:border-gray-700 bg-white dark:bg-[#171717]">
         <div className="text-xs text-gray-600 dark:text-gray-400 text-center">
-          0 of {totalItems} results
+          {t(
+            'mediaPage.showingZero',
+            '0 of {{total}} results',
+            { total: totalItems }
+          )}
         </div>
       </div>
     )
@@ -130,7 +134,11 @@ export function Pagination({
     return (
       <div className="px-4 py-2 border-t border-gray-200 dark:border-gray-700 bg-white dark:bg-[#171717]">
         <div className="text-xs text-gray-600 dark:text-gray-400 text-center">
-          {currentItemsCount} of {totalItems} results
+          {t(
+            'mediaPage.showingCount',
+            '{{count}} of {{total}} results',
+            { count: currentItemsCount, total: totalItems }
+          )}
         </div>
       </div>
     )
@@ -140,7 +148,11 @@ export function Pagination({
     <div className="px-4 py-2 border-t border-gray-200 dark:border-gray-700 bg-white dark:bg-[#171717]">
       {/* Items count */}
       <div className="text-xs text-gray-600 dark:text-gray-400 mb-2 text-center">
-        Showing {startItem}-{endItem} of {totalItems}
+        {t(
+          'mediaPage.showingRange',
+          'Showing {{start}}-{{end}} of {{total}}',
+          { start: startItem, end: endItem, total: totalItems }
+        )}
       </div>
 
       {/* Pagination controls */}
@@ -150,7 +162,7 @@ export function Pagination({
           onClick={handlePrevious}
           disabled={currentPage === 1}
           className="px-1.5 py-0.5 rounded hover:bg-gray-100 dark:hover:bg-gray-800 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
-          aria-label="Previous page"
+          aria-label={t('mediaPage.previousPage', 'Previous page')}
         >
           <ChevronLeft className="w-3.5 h-3.5 text-gray-600 dark:text-gray-400" />
         </button>
@@ -195,7 +207,7 @@ export function Pagination({
           onClick={handleNext}
           disabled={currentPage === totalPages}
           className="px-1.5 py-0.5 rounded hover:bg-gray-100 dark:hover:bg-gray-800 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
-          aria-label="Next page"
+          aria-label={t('mediaPage.nextPage', 'Next page')}
         >
           <ChevronRight className="w-3.5 h-3.5 text-gray-600 dark:text-gray-400" />
         </button>

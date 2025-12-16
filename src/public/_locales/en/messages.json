@@ -229,6 +229,12 @@
     "message": "This will reset your onboarding state and take you back to the setup flow.",
     "description": "Confirmation dialog body explaining what restarting onboarding does."
   },
+  "enableOcrAssets_label": {
+    "message": "Enable OCR (downloads ~5MB on first use)"
+  },
+  "enableOcrAssets_downloadNotice": {
+    "message": "Enabling OCR will download ~5MB of language data on first use"
+  },
   "omniSearchPlaceholder": {
     "message": "Search screens, chats, media, notes…",
     "description": "Placeholder text for the omni-search input in the header."
@@ -343,6 +349,9 @@
   },
   "moveToFolder": {
     "message": "Move to folder"
+  },
+  "quickIngest_ocrHelp": {
+    "message": "OCR helps extract text from scanned PDFs or images."
   },
   "specReloadedToast": {
     "message": "Advanced spec reloaded from server"

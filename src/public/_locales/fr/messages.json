@@ -324,6 +324,15 @@
   "moveToFolder": {
     "message": "Déplacer vers le dossier"
   },
+  "enableOcrAssets_label": {
+    "message": "Activer l’OCR (télécharge ~5 Mo lors de la première utilisation)"
+  },
+  "enableOcrAssets_downloadNotice": {
+    "message": "L’activation de l’OCR téléchargera ~5 Mo de données linguistiques lors de la première utilisation."
+  },
+  "quickIngest_ocrHelp": {
+    "message": "OCR helps extract text from scanned PDFs or images."
+  },
   "specReloadedToast": {
     "message": "Spécification avancée rechargée depuis le serveur"
   },

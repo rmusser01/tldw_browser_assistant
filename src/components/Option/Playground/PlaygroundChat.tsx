@@ -19,7 +19,8 @@ export const PlaygroundChat = () => {
     createChatBranch,
     temporaryChat,
     serverChatId,
-    stopStreamingRequest
+    stopStreamingRequest,
+    isEmbedding
   } = useMessageOption()
   const [isSourceOpen, setIsSourceOpen] = React.useState(false)
   const [source, setSource] = React.useState<any>(null)
@@ -76,6 +77,7 @@ export const PlaygroundChat = () => {
             actionInfo={actionInfo}
             serverChatId={serverChatId}
             serverMessageId={message.serverMessageId}
+            isEmbedding={isEmbedding}
           />
         ))}
       </div>

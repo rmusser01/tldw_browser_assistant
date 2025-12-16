@@ -224,6 +224,12 @@
   "restartOnboardingConfirmMessage": {
     "message": "Questo reimposterà lo stato di onboarding e ti riporterà al flusso di configurazione."
   },
+  "enableOcrAssets_label": {
+    "message": "Abilita OCR (scarica ~5MB al primo utilizzo)"
+  },
+  "enableOcrAssets_downloadNotice": {
+    "message": "Abilitando l’OCR verranno scaricati ~5 MB di dati linguistici al primo utilizzo."
+  },
   "omniSearchPlaceholder": {
     "message": "Cerca tra schermate, chat, media e note…",
     "description": "Placeholder text for the omni-search input in the header."
@@ -338,6 +344,9 @@
   },
   "moveToFolder": {
     "message": "Sposta nella cartella"
+  },
+  "quickIngest_ocrHelp": {
+    "message": "OCR helps extract text from scanned PDFs or images."
   },
   "specReloadedToast": {
     "message": "Spec avanzata ricaricata dal server"

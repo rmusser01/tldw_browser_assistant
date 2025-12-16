@@ -11,8 +11,8 @@ import { useWebUI } from "@/store/webui"
 import { useForm } from "@mantine/form"
 import { Alert, Button, Input, InputNumber, Select, Skeleton, Switch, Space } from "antd"
 import { useTranslation } from "react-i18next"
-import { useAntdMessage } from "@/hooks/useAntdMessage"
 import React from "react"
+import { useAntdMessage } from "@/hooks/useAntdMessage"
 
 export const TTSModeSettings = ({ hideBorder }: { hideBorder?: boolean }) => {
   const { t } = useTranslation("settings")
@@ -92,13 +92,13 @@ export const TTSModeSettings = ({ hideBorder }: { hideBorder?: boolean }) => {
       form.values.ttsProvider === "elevenlabs" && !!form.values.elevenLabsApiKey
   })
 
-  const { data: tldwVoices, error: tldwVoicesError } = useQuery({
+  const { data: tldwVoices } = useQuery({
     queryKey: ["fetchTldwVoices"],
     queryFn: fetchTldwVoices,
     enabled: form.values.ttsProvider === "tldw"
   })
 
-  const { data: tldwModels, error: tldwModelsError } = useQuery<TldwTtsModel[]>({
+  const { data: tldwModels } = useQuery<TldwTtsModel[]>({
     queryKey: ["fetchTldwTtsModels"],
     queryFn: fetchTldwTtsModels,
     enabled: form.values.ttsProvider === "tldw"
@@ -112,6 +112,19 @@ export const TTSModeSettings = ({ hideBorder }: { hideBorder?: boolean }) => {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["fetchTTSSettings"] })
+    },
+    onError: (error: unknown) => {
+      // Surface a user-visible error and log for diagnostics
+      // eslint-disable-next-line no-console
+      console.error("Failed to save TTS settings:", error)
+      const err = error as any
+      message.error(
+        err?.message ||
+          (t(
+            "generalSettings.tts.saveError",
+            "Failed to save TTS settings. Please try again."
+          ) as string)
+      )
     }
   })
 
@@ -248,7 +261,7 @@ export const TTSModeSettings = ({ hideBorder }: { hideBorder?: boolean }) => {
           <>
             <div className="flex sm:flex-row flex-col space-y-4 sm:space-y-0 sm:justify-between">
               <span className="text-gray-700 dark:text-neutral-50">
-                API Key
+                {t("generalSettings.tts.elevenLabs.apiKey", "API Key")}
               </span>
               <Space.Compact className="mt-4 sm:mt-0">
                 <Input.Password
@@ -292,7 +305,7 @@ export const TTSModeSettings = ({ hideBorder }: { hideBorder?: boolean }) => {
               <>
                 <div className="flex sm:flex-row flex-col space-y-4 sm:space-y-0 sm:justify-between">
                   <span className="text-gray-700 dark:text-neutral-50">
-                    TTS Voice
+                    {t("generalSettings.tts.elevenLabs.voice", "TTS Voice")}
                   </span>
                   <Select
                     id={ids.elevenVoice}
@@ -309,7 +322,7 @@ export const TTSModeSettings = ({ hideBorder }: { hideBorder?: boolean }) => {
 
                 <div className="flex sm:flex-row flex-col space-y-4 sm:space-y-0 sm:justify-between">
                   <span className="text-gray-700 dark:text-neutral-50">
-                    TTS Model
+                    {t("generalSettings.tts.elevenLabs.model", "TTS Model")}
                   </span>
                   <Select
                     id={ids.elevenModel}
@@ -412,15 +425,6 @@ export const TTSModeSettings = ({ hideBorder }: { hideBorder?: boolean }) => {
         )}
         {form.values.ttsProvider === "tldw" && (
           <>
-            {(tldwVoicesError || tldwModelsError) && (
-              <Alert
-                type="error"
-                message={t("generalSettings.tts.tldw.fetchError", "Failed to fetch TTS configuration")}
-                description={t("generalSettings.tts.tldw.fetchErrorHelp", "Check your tldw server connection and try again.")}
-                showIcon
-                className="mb-4"
-              />
-            )}
             <div className="flex sm:flex-row flex-col space-y-4 sm:space-y-0 sm:justify-between">
               <span className="text-gray-700 dark:text-neutral-50">
                 TTS Model
@@ -546,7 +550,7 @@ export const TTSModeSettings = ({ hideBorder }: { hideBorder?: boolean }) => {
           <label
             className="text-gray-700 dark:text-neutral-50"
             htmlFor={ids.playbackSpeed}>
-            Playback Speed
+            {t("generalSettings.tts.playbackSpeed.label", "Playback Speed")}
           </label>
           <div className="flex flex-col gap-1">
             <InputNumber

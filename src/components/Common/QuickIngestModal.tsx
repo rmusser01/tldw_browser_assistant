@@ -37,7 +37,6 @@ type Props = {
 const MAX_LOCAL_FILE_BYTES = 500 * 1024 * 1024 // 500MB soft cap for local file ingest
 const INLINE_FILE_WARN_BYTES = 100 * 1024 * 1024 // warn/block before copying very large buffers in-memory
 const MAX_RECOMMENDED_FIELDS = 12
-const SIMULATED_CYCLE_MS = 2000
 
 const RESULT_FILTERS = {
   ALL: "all",
@@ -159,7 +158,6 @@ export const QuickIngestModal: React.FC<Props> = ({
   const [totalPlanned, setTotalPlanned] = React.useState<number>(0)
   const [processedCount, setProcessedCount] = React.useState<number>(0)
   const [liveTotalCount, setLiveTotalCount] = React.useState<number>(0)
-  const [currentFileName, setCurrentFileName] = React.useState<string | null>(null)
   const [ragEmbeddingLabel, setRagEmbeddingLabel] = React.useState<string | null>(null)
   const [runStartedAt, setRunStartedAt] = React.useState<number | null>(null)
   const [pendingUrlInput, setPendingUrlInput] = React.useState<string>('')
@@ -1250,40 +1248,6 @@ export const QuickIngestModal: React.FC<Props> = ({
     return () => window.clearInterval(id)
   }, [running])
 
-  // Simulate file processing progress by cycling through queued items
-  React.useEffect(() => {
-    const showSimulatedPreview = false
-
-    if (!running || totalPlanned === 0 || !showSimulatedPreview) {
-      setCurrentFileName(null)
-      return
-    }
-
-    const allItems = [
-      ...rows.filter(r => r.url.trim()).map(r => {
-        try {
-          const url = new URL(r.url)
-          return url.pathname.split('/').pop() || r.url.slice(0, 30)
-        } catch {
-          return r.url.slice(0, 30)
-        }
-      }),
-      ...localFiles.map(f => f.name)
-    ]
-
-    if (allItems.length === 0) return
-
-    let idx = 0
-    setCurrentFileName(allItems[0])
-
-    const id = window.setInterval(() => {
-      idx = (idx + 1) % allItems.length
-      setCurrentFileName(allItems[idx])
-    }, SIMULATED_CYCLE_MS) // Cycle every 2 seconds
-
-    return () => window.clearInterval(id)
-  }, [running, totalPlanned, rows, localFiles])
-
   const progressMeta = React.useMemo(() => {
     const total = liveTotalCount || totalPlanned || 0
     const done = processedCount || results.length || 0
@@ -2239,15 +2203,6 @@ export const QuickIngestModal: React.FC<Props> = ({
                               count: plannedCount || 0
                             })}
                       </div>
-                      {running && currentFileName && (
-                        <div className="text-xs text-gray-600 dark:text-gray-400 bg-blue-50 dark:bg-blue-900/20 rounded px-2 py-1 border border-blue-200 dark:border-blue-800">
-                          {t('quickIngest.processingFile', 'Processing file {{current}} of {{total}}: {{filename}}', {
-                            current: Math.min(done + 1, total),
-                            total,
-                            filename: `${currentFileName} (simulated)`
-                          })}
-                        </div>
-                      )}
                     </>
                   )
                 })()}
@@ -2557,7 +2512,7 @@ export const QuickIngestModal: React.FC<Props> = ({
           placement="right"
           onClose={() => setInspectorOpen(false)}
           open={inspectorOpen && (!!selectedRow || !!selectedFile)}
-          destroyOnHidden
+          destroyOnClose
           width={380}
         >
           <div className="space-y-3">

@@ -185,6 +185,12 @@
   "restartOnboardingConfirmMessage": {
     "message": "这将重置您的引导状态，并带您返回设置流程的起始步骤。"
   },
+  "enableOcrAssets_label": {
+    "message": "启用 OCR（首次使用时下载约 5MB）"
+  },
+  "enableOcrAssets_downloadNotice": {
+    "message": "启用 OCR 后，首次使用时将下载约 5MB 的语言数据。"
+  },
   "omniSearchPlaceholder": {
     "message": "在标题栏搜索屏幕、聊天、媒体、笔记…",
     "description": "Placeholder text for the omni-search input in the header."
@@ -665,6 +671,9 @@
   },
   "moveToFolder": {
     "message": "移动到文件夹"
+  },
+  "quickIngest_ocrHelp": {
+    "message": "OCR helps extract text from scanned PDFs or images."
   },
   "specReloadedToast": {
     "message": "高级规范已从服务器重新加载"

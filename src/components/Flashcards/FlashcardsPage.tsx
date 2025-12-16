@@ -240,6 +240,23 @@ export const FlashcardsPage: React.FC = () => {
   const [newDeckModalOpen, setNewDeckModalOpen] = React.useState(false)
   const [newDeckName, setNewDeckName] = React.useState("")
   const [newDeckDesc, setNewDeckDesc] = React.useState("")
+
+  const syncTemplateFields = React.useCallback(
+    (
+      partial: Partial<
+        Pick<FlashcardCreate, "model_type" | "reverse" | "is_cloze">
+      >
+    ) => {
+      const normalized = normalizeFlashcardTemplateFields(partial)
+      createForm.setFieldsValue({
+        model_type: normalized.model_type,
+        reverse: normalized.reverse,
+        is_cloze: normalized.is_cloze
+      })
+    },
+    [createForm]
+  )
+
   const createDeckMutation = useMutation({
     mutationKey: ["flashcards:deck:create"],
     mutationFn: () => createDeck({ name: newDeckName.trim(), description: newDeckDesc.trim() || undefined }),
@@ -1037,13 +1054,9 @@ export const FlashcardsPage: React.FC = () => {
                           value: "cloze"
                         }
                       ]}
-                      onChange={(value: FlashcardModelType) => {
-                        createForm.setFieldsValue({
-                          model_type: value,
-                          reverse: value === "basic_reverse",
-                          is_cloze: value === "cloze"
-                        })
-                      }}
+                      onChange={(value: FlashcardModelType) =>
+                        syncTemplateFields({ model_type: value })
+                      }
                     />
                   </Form.Item>
                   <Text type="secondary" className="text-xs -mt-4 mb-4">
@@ -1061,11 +1074,7 @@ export const FlashcardsPage: React.FC = () => {
                   >
                     <Switch
                       onChange={(checked) => {
-                        createForm.setFieldsValue({
-                          model_type: checked ? "basic_reverse" : "basic",
-                          reverse: checked,
-                          is_cloze: false
-                        })
+                        syncTemplateFields({ reverse: checked })
                       }}
                     />
                   </Form.Item>
@@ -1084,11 +1093,7 @@ export const FlashcardsPage: React.FC = () => {
                   >
                     <Switch
                       onChange={(checked) => {
-                        createForm.setFieldsValue({
-                          model_type: checked ? "cloze" : "basic",
-                          is_cloze: checked,
-                          reverse: false
-                        })
+                        syncTemplateFields({ is_cloze: checked })
                       }}
                     />
                   </Form.Item>

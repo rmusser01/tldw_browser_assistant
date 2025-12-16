@@ -38,40 +38,40 @@ export const ChatSettings = () => {
   const colorOptions = [
     {
       value: "default",
-      label: t("chatSettings.color.default", "Default")
+      label: t("chatAppearance.color.default", "Default")
     },
-    { value: "blue", label: t("chatSettings.color.blue", "Blue") },
-    { value: "green", label: t("chatSettings.color.green", "Green") },
-    { value: "purple", label: t("chatSettings.color.purple", "Purple") },
-    { value: "orange", label: t("chatSettings.color.orange", "Orange") },
-    { value: "red", label: t("chatSettings.color.red", "Red") }
+    { value: "blue", label: t("chatAppearance.color.blue", "Blue") },
+    { value: "green", label: t("chatAppearance.color.green", "Green") },
+    { value: "purple", label: t("chatAppearance.color.purple", "Purple") },
+    { value: "orange", label: t("chatAppearance.color.orange", "Orange") },
+    { value: "red", label: t("chatAppearance.color.red", "Red") }
   ]
 
   const fontOptions = [
     {
       value: "default",
-      label: t("chatSettings.font.default", "Default")
+      label: t("chatAppearance.font.default", "Default")
     },
-    { value: "sans", label: t("chatSettings.font.sans", "Sans serif") },
-    { value: "serif", label: t("chatSettings.font.serif", "Serif") },
-    { value: "mono", label: t("chatSettings.font.mono", "Monospace") }
+    { value: "sans", label: t("chatAppearance.font.sans", "Sans serif") },
+    { value: "serif", label: t("chatAppearance.font.serif", "Serif") },
+    { value: "mono", label: t("chatAppearance.font.mono", "Monospace") }
   ]
 
   const sizeOptions = [
-    { value: "sm", label: t("chatSettings.size.sm", "Small") },
-    { value: "md", label: t("chatSettings.size.md", "Medium") },
-    { value: "lg", label: t("chatSettings.size.lg", "Large") }
+    { value: "sm", label: t("chatAppearance.size.sm", "Small") },
+    { value: "md", label: t("chatAppearance.size.md", "Medium") },
+    { value: "lg", label: t("chatAppearance.size.lg", "Large") }
   ]
 
   return (
     <dl className="flex flex-col space-y-6 text-sm">
       <div>
         <h2 className="text-base font-semibold leading-7 text-gray-900 dark:text-white">
-          {t("chatSettings.title", "Chat Appearance")}
+          {t("chatAppearance.title", "Chat Appearance")}
         </h2>
         <p className="mt-1 text-sm text-gray-600 dark:text-gray-300">
           {t(
-            "chatSettings.description",
+            "chatAppearance.description",
             "Customize colors, fonts, and text sizes for chat messages."
           )}
         </p>
@@ -85,14 +85,14 @@ export const ChatSettings = () => {
         message={
           <span>
             {t(
-              "chatSettings.behaviorNote",
+              "chatAppearance.behaviorNote",
               "Looking for chat behavior settings (wide mode, reasoning, copy options)?"
             )}{" "}
             <Link
               to="/settings"
               className="text-blue-600 hover:text-blue-500 dark:text-blue-400 underline"
             >
-              {t("chatSettings.goToGeneral", "Go to General Settings")}
+              {t("chatAppearance.goToGeneral", "Go to General Settings")}
             </Link>
           </span>
         }
@@ -101,14 +101,14 @@ export const ChatSettings = () => {
 
       <div className="pt-4">
         <h3 className="text-sm font-semibold leading-6 text-gray-900 dark:text-white">
-          {t("chatSettings.userHeading", "User messages")}
+          {t("chatAppearance.userHeading", "User messages")}
         </h3>
       </div>
 
       <div className="flex flex-row justify-between">
         <div className="inline-flex items-center gap-2">
           <span className="text-gray-700 dark:text-neutral-50">
-            {t("chatSettings.userColor", "User text color")}
+            {t("chatAppearance.userColor", "User text color")}
           </span>
         </div>
         <Select
@@ -122,7 +122,7 @@ export const ChatSettings = () => {
       <div className="flex flex-row justify-between">
         <div className="inline-flex items-center gap-2">
           <span className="text-gray-700 dark:text-neutral-50">
-            {t("chatSettings.userFont", "User font")}
+            {t("chatAppearance.userFont", "User font")}
           </span>
         </div>
         <Select
@@ -136,7 +136,7 @@ export const ChatSettings = () => {
       <div className="flex flex-row justify-between">
         <div className="inline-flex items-center gap-2">
           <span className="text-gray-700 dark:text-neutral-50">
-            {t("chatSettings.userSize", "User text size")}
+            {t("chatAppearance.userSize", "User text size")}
           </span>
         </div>
         <Select
@@ -149,14 +149,14 @@ export const ChatSettings = () => {
 
       <div className="pt-4">
         <h3 className="text-sm font-semibold leading-6 text-gray-900 dark:text-white">
-          {t("chatSettings.assistantHeading", "Assistant messages")}
+          {t("chatAppearance.assistantHeading", "Assistant messages")}
         </h3>
       </div>
 
       <div className="flex flex-row justify-between">
         <div className="inline-flex items-center gap-2">
           <span className="text-gray-700 dark:text-neutral-50">
-            {t("chatSettings.assistantColor", "Assistant text color")}
+            {t("chatAppearance.assistantColor", "Assistant text color")}
           </span>
         </div>
         <Select
@@ -170,7 +170,7 @@ export const ChatSettings = () => {
       <div className="flex flex-row justify-between">
         <div className="inline-flex items-center gap-2">
           <span className="text-gray-700 dark:text-neutral-50">
-            {t("chatSettings.assistantFont", "Assistant font")}
+            {t("chatAppearance.assistantFont", "Assistant font")}
           </span>
         </div>
         <Select
@@ -184,7 +184,7 @@ export const ChatSettings = () => {
       <div className="flex flex-row justify-between">
         <div className="inline-flex items-center gap-2">
           <span className="text-gray-700 dark:text-neutral-50">
-            {t("chatSettings.assistantSize", "Assistant text size")}
+            {t("chatAppearance.assistantSize", "Assistant text size")}
           </span>
         </div>
         <Select

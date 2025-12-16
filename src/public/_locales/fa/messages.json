@@ -224,6 +224,12 @@
   "restartOnboardingConfirmMessage": {
     "message": "با این کار وضعیت راه‌اندازی شما بازنشانی می‌شود و دوباره به جریان تنظیمات اولیه برمی‌گردید."
   },
+  "enableOcrAssets_label": {
+    "message": "فعال‌سازی OCR (دانلود حدود ۵ مگابایت در اولین استفاده)"
+  },
+  "enableOcrAssets_downloadNotice": {
+    "message": "با فعال کردن OCR، در اولین استفاده حدود ۵ مگابایت دادهٔ زبان دانلود می‌شود."
+  },
   "omniSearchPlaceholder": {
     "message": "Search screens, chats, media, notes…",
     "description": "Placeholder text for the omni-search input in the header."
@@ -338,6 +344,9 @@
   },
   "moveToFolder": {
     "message": "انتقال به پوشه"
+  },
+  "quickIngest_ocrHelp": {
+    "message": "OCR helps extract text from scanned PDFs or images."
   },
   "specReloadedToast": {
     "message": "مشخصات پیشرفته از سرور دوباره بارگذاری شد"

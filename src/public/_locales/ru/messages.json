@@ -256,6 +256,12 @@
   "restartOnboardingConfirmMessage": {
     "message": "Это сбросит состояние мастера настройки и вернёт вас к началу процесса."
   },
+  "enableOcrAssets_label": {
+    "message": "Включить OCR (загружает ~5 МБ при первом использовании)"
+  },
+  "enableOcrAssets_downloadNotice": {
+    "message": "При включении OCR при первом использовании будет загружено около 5 МБ языковых данных."
+  },
   "omniSearchPlaceholder": {
     "message": "Поиск по экранам, чатам, медиа и заметкам…",
     "description": "Placeholder text for the omni-search input in the header."
@@ -383,6 +389,9 @@
   "moveToFolder": {
     "message": "Переместить в папку",
     "description": "Action label to move an item to a folder."
+  },
+  "quickIngest_ocrHelp": {
+    "message": "OCR помогает извлекать текст из отсканированных PDF и изображений."
   },
   "specReloadedToast": {
     "message": "Расширенная спецификация перезагружена с сервера",

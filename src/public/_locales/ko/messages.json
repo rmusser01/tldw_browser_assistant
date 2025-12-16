@@ -257,6 +257,12 @@
   "restartOnboardingConfirmMessage": {
     "message": "온보딩 상태가 초기화되고 설정 흐름의 처음으로 돌아갑니다."
   },
+  "enableOcrAssets_label": {
+    "message": "OCR 활성화 (처음 사용할 때 약 5MB 다운로드)"
+  },
+  "enableOcrAssets_downloadNotice": {
+    "message": "OCR을 활성화하면 처음 사용할 때 약 5MB의 언어 데이터가 다운로드됩니다."
+  },
   "omniSearchPlaceholder": {
     "message": "화면, 채팅, 미디어, 노트를 검색…",
     "description": "Placeholder text for the omni-search input in the header."
@@ -384,6 +390,9 @@
   "moveToFolder": {
     "message": "폴더로 이동",
     "description": "Action label to move an item to a folder."
+  },
+  "quickIngest_ocrHelp": {
+    "message": "OCR은 스캔한 PDF나 이미지에서 텍스트 추출을 돕습니다."
   },
   "specReloadedToast": {
     "message": "서버에서 고급 스펙을 다시 로드했습니다",

@@ -1041,6 +1041,12 @@
   "restartOnboardingConfirmMessage": {
     "message": "Isso irá redefinir o seu estado de onboarding e levá‑lo de volta ao fluxo de configuração."
   },
+  "enableOcrAssets_label": {
+    "message": "Ativar OCR (faz download de ~5 MB no primeiro uso)"
+  },
+  "enableOcrAssets_downloadNotice": {
+    "message": "Ao ativar o OCR, serão baixados ~5 MB de dados de idioma no primeiro uso."
+  },
   "omniSearchPlaceholder": {
     "message": "Pesquisar em telas, chats, mídias e notas…",
     "description": "Placeholder text for the omni-search input in the header."

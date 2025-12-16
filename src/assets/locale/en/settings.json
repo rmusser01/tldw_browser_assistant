@@ -49,9 +49,9 @@
     "unavailable": "Prompt Studio isn’t available on the server yet.",
     "unavailableBody": "Once enabled, you can monitor queue health and set defaults here."
   },
-  "chatSettings": {
-    "title": "Chat settings",
-    "description": "Control default behavior for the chat playground and composer.",
+  "chatAppearance": {
+    "title": "Chat appearance",
+    "description": "Customize colors, fonts, and text sizes for chat messages.",
     "userHeading": "User messages",
     "assistantHeading": "Assistant messages",
     "userColor": "User text color",

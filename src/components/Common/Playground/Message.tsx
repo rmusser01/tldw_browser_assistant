@@ -107,6 +107,7 @@ type Props = {
   serverChatId?: string | null
   serverMessageId?: string | null
   searchQuery?: string
+  isEmbedding?: boolean
 }
 
 export const PlaygroundMessage = (props: Props) => {
@@ -276,11 +277,12 @@ export const PlaygroundMessage = (props: Props) => {
           </span>
 
           {/* Unified loading status indicator */}
-          {props.isBot && isLastMessage && (props.isProcessing || props.isStreaming || props.isSearchingInternet || props.actionInfo) && (
+          {props.isBot && isLastMessage && (props.isProcessing || props.isStreaming || props.isSearchingInternet || props.actionInfo || props.isEmbedding) && (
             <LoadingStatus
               isProcessing={props.isProcessing}
               isStreaming={props.isStreaming}
               isSearchingInternet={props.isSearchingInternet}
+              isEmbedding={props.isEmbedding}
               actionInfo={props.actionInfo}
             />
           )}

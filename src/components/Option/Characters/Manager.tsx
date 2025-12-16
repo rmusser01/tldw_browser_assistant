@@ -374,6 +374,7 @@ export const CharactersManager: React.FC<CharactersManagerProps> = ({
     return () => {
       if (searchDebounceRef.current) {
         clearTimeout(searchDebounceRef.current)
+        searchDebounceRef.current = null
       }
     }
   }, [searchTerm])
@@ -777,7 +778,6 @@ export const CharactersManager: React.FC<CharactersManagerProps> = ({
                   size="small"
                   onClick={() => {
                     setSearchTerm("")
-                    setDebouncedSearchTerm("")
                     setFilterTags([])
                     setMatchAllTags(false)
                     refetch()

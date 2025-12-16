@@ -20,7 +20,11 @@ import {
   BookOpen
 } from "lucide-react"
 
-export const EmptySidePanel = () => {
+type EmptySidePanelProps = {
+  inputRef?: React.RefObject<HTMLTextAreaElement>
+}
+
+export const EmptySidePanel = ({ inputRef }: EmptySidePanelProps) => {
   const { t } = useTranslation(["sidepanel", "settings", "option", "playground"])
   const { phase, isConnected, serverUrl } = useConnectionState()
   const { uxState, mode, configStep, hasCompletedFirstRun } =
@@ -298,7 +302,9 @@ export const EmptySidePanel = () => {
           type="button"
           className="w-full flex items-center gap-2.5 px-3 py-2 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-[#1a1a1a] hover:border-blue-300 dark:hover:border-blue-600 hover:bg-blue-50/50 dark:hover:bg-blue-900/10 transition-colors text-left group"
           onClick={() => {
-            const input = document.querySelector<HTMLTextAreaElement>('[data-testid="chat-input"]')
+            const input =
+              inputRef?.current ??
+              document.querySelector<HTMLTextAreaElement>('[data-testid="chat-input"]')
             if (input) {
               input.value = t("sidepanel:emptyChat.examplePrompt1Text", "Summarize this page")
               input.focus()
@@ -315,7 +321,9 @@ export const EmptySidePanel = () => {
           type="button"
           className="w-full flex items-center gap-2.5 px-3 py-2 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-[#1a1a1a] hover:border-blue-300 dark:hover:border-blue-600 hover:bg-blue-50/50 dark:hover:bg-blue-900/10 transition-colors text-left group"
           onClick={() => {
-            const input = document.querySelector<HTMLTextAreaElement>('[data-testid="chat-input"]')
+            const input =
+              inputRef?.current ??
+              document.querySelector<HTMLTextAreaElement>('[data-testid="chat-input"]')
             if (input) {
               input.value = t("sidepanel:emptyChat.examplePrompt2Text", "What are the key points?")
               input.focus()
@@ -332,7 +340,9 @@ export const EmptySidePanel = () => {
           type="button"
           className="w-full flex items-center gap-2.5 px-3 py-2 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-[#1a1a1a] hover:border-blue-300 dark:hover:border-blue-600 hover:bg-blue-50/50 dark:hover:bg-blue-900/10 transition-colors text-left group"
           onClick={() => {
-            const input = document.querySelector<HTMLTextAreaElement>('[data-testid="chat-input"]')
+            const input =
+              inputRef?.current ??
+              document.querySelector<HTMLTextAreaElement>('[data-testid="chat-input"]')
             if (input) {
               input.value = t("sidepanel:emptyChat.examplePrompt3Text", "Explain this in simple terms")
               input.focus()

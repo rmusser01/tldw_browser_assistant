@@ -14,8 +14,7 @@ import {
   X,
   EyeIcon,
   EyeOffIcon,
-  Gauge,
-  UploadCloud
+  Gauge
 } from "lucide-react"
 import { useTranslation } from "react-i18next"
 import { getVariable } from "@/utils/select-variable"
@@ -46,11 +45,13 @@ import { useQuickIngestStore } from "@/store/quick-ingest"
 
 type Props = {
   dropedFile: File | undefined
+  inputRef?: React.RefObject<HTMLTextAreaElement>
 }
 
-export const SidepanelForm = ({ dropedFile }: Props) => {
-  const textareaRef = React.useRef<HTMLTextAreaElement>(null)
-  const inputRef = React.useRef<HTMLInputElement>(null)
+export const SidepanelForm = ({ dropedFile, inputRef }: Props) => {
+  const localTextareaRef = React.useRef<HTMLTextAreaElement>(null)
+  const textareaRef = inputRef ?? localTextareaRef
+  const fileInputRef = React.useRef<HTMLInputElement>(null)
   const { sendWhenEnter, setSendWhenEnter } = useWebUI()
   const [typing, setTyping] = React.useState<boolean>(false)
   const { t } = useTranslation(["playground", "common", "option", "sidepanel"])
@@ -189,6 +190,18 @@ export const SidepanelForm = ({ dropedFile }: Props) => {
       } else if (e.target.files && e.target.files[0]) {
         file = e.target.files[0]
       } else {
+        return
+      }
+
+      // Validate that the file is an image
+      if (!file.type.startsWith("image/")) {
+        message.error({
+          content: t(
+            "sidepanel:composer.imageTypeError",
+            "Please select an image file"
+          ),
+          duration: 3
+        })
         return
       }
 
@@ -884,14 +897,14 @@ export const SidepanelForm = ({ dropedFile }: Props) => {
     if (form.values.message && form.errors.message) {
       form.clearFieldError("message")
     }
-  }, [form.values.message])
+  }, [form.values.message, form.errors.message, form.clearFieldError])
 
   // Clear "no model" error when a model is selected
   React.useEffect(() => {
     if (selectedModel && form.errors.message) {
       form.clearFieldError("message")
     }
-  }, [selectedModel])
+  }, [selectedModel, form.errors.message, form.clearFieldError])
 
   // Debounce placeholder changes to prevent flashing on flaky connections
   React.useEffect(() => {
@@ -912,14 +925,15 @@ export const SidepanelForm = ({ dropedFile }: Props) => {
       clearTimeout(placeholderTimeoutRef.current)
     }
 
-    // Debounce by 1.5 seconds to avoid flashing
+    // Debounce by ~400ms to avoid flashing while keeping the UI responsive
     placeholderTimeoutRef.current = setTimeout(() => {
       setDebouncedPlaceholder(targetPlaceholder)
-    }, 1500)
+    }, 400)
 
     return () => {
       if (placeholderTimeoutRef.current) {
         clearTimeout(placeholderTimeoutRef.current)
+        placeholderTimeoutRef.current = null
       }
     }
   }, [isConnectionReady, uxState, t])
@@ -964,7 +978,7 @@ export const SidepanelForm = ({ dropedFile }: Props) => {
                     name="file-upload"
                     type="file"
                     className="sr-only"
-                    ref={inputRef}
+                    ref={fileInputRef}
                     accept="image/*"
                     multiple={false}
                     tabIndex={-1}
@@ -1075,13 +1089,31 @@ export const SidepanelForm = ({ dropedFile }: Props) => {
                                     if (!hasEmbedding) {
                                       return
                                     }
-                                    for (const item of queuedMessages) {
-                                      await submitQueuedInSidepanel(
-                                        item.message,
-                                        item.image
-                                      )
+                                    const successfullySentIndices = new Set<number>()
+                                    for (const [index, item] of queuedMessages.entries()) {
+                                      try {
+                                        await submitQueuedInSidepanel(
+                                          item.message,
+                                          item.image
+                                        )
+                                        successfullySentIndices.add(index)
+                                      } catch (error) {
+                                        console.error(
+                                          "Failed to send queued sidepanel message",
+                                          error
+                                        )
+                                      }
                                     }
-                                    clearQueuedMessages()
+
+                                    if (successfullySentIndices.size > 0) {
+                                      const remainingQueued = queuedMessages.filter(
+                                        (_, index) => !successfullySentIndices.has(index)
+                                      )
+                                      clearQueuedMessages()
+                                      for (const item of remainingQueued) {
+                                        addQueuedMessage(item)
+                                      }
+                                    }
                                   } finally {
                                     setIsFlushingQueue(false)
                                   }

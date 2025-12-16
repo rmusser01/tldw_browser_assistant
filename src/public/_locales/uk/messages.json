@@ -83,6 +83,12 @@
   "restartOnboardingConfirmMessage": {
     "message": "Це скине стан онбордингу та поверне вас на початок процесу налаштування."
   },
+  "enableOcrAssets_label": {
+    "message": "Увімкнути OCR (завантажує ~5 МБ під час першого використання)"
+  },
+  "enableOcrAssets_downloadNotice": {
+    "message": "Після увімкнення OCR під час першого використання буде завантажено приблизно 5 МБ мовних даних."
+  },
   "omniSearchPlaceholder": {
     "message": "Search screens, chats, media, notes…",
     "description": "Placeholder text for the omni-search input in the header."
@@ -197,6 +203,9 @@
   },
   "moveToFolder": {
     "message": "Перемістити в папку"
+  },
+  "quickIngest_ocrHelp": {
+    "message": "OCR helps extract text from scanned PDFs or images."
   },
   "specReloadedToast": {
     "message": "Розширену специфікацію перезавантажено із сервера"
