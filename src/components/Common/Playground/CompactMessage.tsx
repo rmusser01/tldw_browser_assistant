@@ -92,6 +92,7 @@ export function CompactMessage({
   const { t } = useTranslation(["common", "playground"])
   const [copied, setCopied] = useState(false)
   const [editMode, setEditMode] = useState(false)
+  const [editedText, setEditedText] = useState(message)
   const [showSources, setShowSources] = useState(false)
   const { cancel, isSpeaking, speak } = useTTS()
 
@@ -231,16 +232,26 @@ export function CompactMessage({
           {editMode ? (
             <div className="mt-1">
               <textarea
-                defaultValue={message}
+                value={editedText}
+                onChange={(e) => setEditedText(e.target.value)}
                 className="w-full p-2 text-sm border border-gray-200 dark:border-gray-700 rounded bg-white dark:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-pink-500"
                 rows={3}
                 autoFocus
               />
               <div className="flex gap-2 mt-2">
                 <button
-                  onClick={() => {
-                    setEditMode(false)
-                    // TODO: Submit edit
+                  onClick={async () => {
+                    if (!onEditFormSubmit) {
+                      setEditMode(false)
+                      return
+                    }
+                    try {
+                      await onEditFormSubmit(editedText, false)
+                      setEditMode(false)
+                    } catch (error) {
+                      // eslint-disable-next-line no-console
+                      console.error("Failed to save edited message:", error)
+                    }
                   }}
                   className="px-3 py-1 text-xs bg-pink-600 text-white rounded hover:bg-pink-700"
                 >
@@ -346,7 +357,10 @@ export function CompactMessage({
             {!isBot && onEditFormSubmit && (
               <Tooltip title={t("common:edit", "Edit")}>
                 <button
-                  onClick={() => setEditMode(true)}
+                  onClick={() => {
+                    setEditedText(message)
+                    setEditMode(true)
+                  }}
                   className="p-1 rounded text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800"
                 >
                   <Edit3 className="size-3.5" />

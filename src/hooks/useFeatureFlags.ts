@@ -2,7 +2,7 @@ import { useStorage } from "@plasmohq/storage/hook"
 
 /**
  * Feature flags for gradual UX redesign rollout.
- * All flags default to false (old UX) and can be enabled per-user.
+ * All flags default to true (new UX) and can be disabled per-user.
  */
 
 // Flag keys

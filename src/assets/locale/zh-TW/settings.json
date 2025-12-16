@@ -85,14 +85,14 @@
         "label": "預設為側邊面板啟用臨時聊天"
       },
       "enableOcrAssets": {
-        "label": "Enable OCR (downloads ~5MB on first use)",
+        "label": "啟用 OCR（首次使用時下載約 5MB）",
         "downloadNotice": "啟用 OCR 後，首次使用時將下載約 5MB 的語言資料。"
       },
       "removeReasoningTagFromCopy": {
-        "label": "Remove Reasoning Tag from Copied Text"
+        "label": "從複製的文字中刪除推理標籤"
       },
       "promptSearchIncludeServer": {
-        "label": "Include server prompts in prompt search"
+        "label": "在提示詞搜尋中包含伺服器提示詞"
       },
       "restartOnboarding": {
         "label": "從頭重新開始引導設定",

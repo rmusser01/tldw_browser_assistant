@@ -1,7 +1,7 @@
 import { SaveButton } from "@/components/Common/SaveButton"
 import { getModels, getVoices } from "@/services/elevenlabs"
 import { getTTSSettings, setTTSSettings } from "@/services/tts"
-import { useMutation, useQuery as useRQ, useQueryClient } from "@tanstack/react-query"
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
 import { fetchTldwVoices, type TldwVoice } from "@/services/tldw/audio-voices"
 import {
   fetchTldwTtsModels,
@@ -9,7 +9,6 @@ import {
 } from "@/services/tldw/audio-models"
 import { useWebUI } from "@/store/webui"
 import { useForm } from "@mantine/form"
-import { useQuery } from "@tanstack/react-query"
 import { Alert, Button, Input, InputNumber, Select, Skeleton, Switch, Space } from "antd"
 import { useTranslation } from "react-i18next"
 import { useAntdMessage } from "@/hooks/useAntdMessage"
@@ -93,13 +92,13 @@ export const TTSModeSettings = ({ hideBorder }: { hideBorder?: boolean }) => {
       form.values.ttsProvider === "elevenlabs" && !!form.values.elevenLabsApiKey
   })
 
-  const { data: tldwVoices, error: tldwVoicesError } = useRQ({
+  const { data: tldwVoices, error: tldwVoicesError } = useQuery({
     queryKey: ["fetchTldwVoices"],
     queryFn: fetchTldwVoices,
     enabled: form.values.ttsProvider === "tldw"
   })
 
-  const { data: tldwModels, error: tldwModelsError } = useRQ<TldwTtsModel[]>({
+  const { data: tldwModels, error: tldwModelsError } = useQuery<TldwTtsModel[]>({
     queryKey: ["fetchTldwTtsModels"],
     queryFn: fetchTldwTtsModels,
     enabled: form.values.ttsProvider === "tldw"

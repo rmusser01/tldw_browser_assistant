@@ -37,6 +37,7 @@ type Props = {
 const MAX_LOCAL_FILE_BYTES = 500 * 1024 * 1024 // 500MB soft cap for local file ingest
 const INLINE_FILE_WARN_BYTES = 100 * 1024 * 1024 // warn/block before copying very large buffers in-memory
 const MAX_RECOMMENDED_FIELDS = 12
+const SIMULATED_CYCLE_MS = 2000
 
 const RESULT_FILTERS = {
   ALL: "all",
@@ -1251,7 +1252,9 @@ export const QuickIngestModal: React.FC<Props> = ({
 
   // Simulate file processing progress by cycling through queued items
   React.useEffect(() => {
-    if (!running || totalPlanned === 0) {
+    const showSimulatedPreview = false
+
+    if (!running || totalPlanned === 0 || !showSimulatedPreview) {
       setCurrentFileName(null)
       return
     }
@@ -1276,7 +1279,7 @@ export const QuickIngestModal: React.FC<Props> = ({
     const id = window.setInterval(() => {
       idx = (idx + 1) % allItems.length
       setCurrentFileName(allItems[idx])
-    }, 2000) // Cycle every 2 seconds
+    }, SIMULATED_CYCLE_MS) // Cycle every 2 seconds
 
     return () => window.clearInterval(id)
   }, [running, totalPlanned, rows, localFiles])
@@ -2241,7 +2244,7 @@ export const QuickIngestModal: React.FC<Props> = ({
                           {t('quickIngest.processingFile', 'Processing file {{current}} of {{total}}: {{filename}}', {
                             current: Math.min(done + 1, total),
                             total,
-                            filename: currentFileName
+                            filename: `${currentFileName} (simulated)`
                           })}
                         </div>
                       )}

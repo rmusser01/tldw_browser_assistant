@@ -1016,44 +1016,42 @@ export const FlashcardsPage: React.FC = () => {
                       defaultValue: "Card template"
                     })}
                   >
-                    <div className="space-y-1">
-                      <Select
-                        options={[
-                          {
-                            label: t("option:flashcards.templateBasic", {
-                              defaultValue: "Basic (Question → Answer)"
-                            }),
-                            value: "basic"
-                          },
-                          {
-                            label: t("option:flashcards.templateReverse", {
-                              defaultValue: "Basic + Reverse (Both directions)"
-                            }),
-                            value: "basic_reverse"
-                          },
-                          {
-                            label: t("option:flashcards.templateCloze", {
-                              defaultValue: "Cloze (Fill in the blank)"
-                            }),
-                            value: "cloze"
-                          }
-                        ]}
-                        onChange={(value: FlashcardModelType) => {
-                          createForm.setFieldsValue({
-                            model_type: value,
-                            reverse: value === "basic_reverse",
-                            is_cloze: value === "cloze"
-                          })
-                        }}
-                      />
-                      <Text type="secondary" className="text-xs">
-                        {t("option:flashcards.modelTypeHelp", {
-                          defaultValue:
-                            "Basic shows a question on the front and answer on the back. Reverse also creates the opposite card. Cloze hides parts of the text using {{...}}."
-                        })}
-                      </Text>
-                    </div>
+                    <Select
+                      options={[
+                        {
+                          label: t("option:flashcards.templateBasic", {
+                            defaultValue: "Basic (Question → Answer)"
+                          }),
+                          value: "basic"
+                        },
+                        {
+                          label: t("option:flashcards.templateReverse", {
+                            defaultValue: "Basic + Reverse (Both directions)"
+                          }),
+                          value: "basic_reverse"
+                        },
+                        {
+                          label: t("option:flashcards.templateCloze", {
+                            defaultValue: "Cloze (Fill in the blank)"
+                          }),
+                          value: "cloze"
+                        }
+                      ]}
+                      onChange={(value: FlashcardModelType) => {
+                        createForm.setFieldsValue({
+                          model_type: value,
+                          reverse: value === "basic_reverse",
+                          is_cloze: value === "cloze"
+                        })
+                      }}
+                    />
                   </Form.Item>
+                  <Text type="secondary" className="text-xs -mt-4 mb-4">
+                    {t("option:flashcards.modelTypeHelp", {
+                      defaultValue:
+                        "Basic shows a question on the front and answer on the back. Reverse also creates the opposite card. Cloze hides parts of the text using {{...}}."
+                    })}
+                  </Text>
                   <Form.Item
                     name="reverse"
                     label={t("option:flashcards.reverse", {
@@ -1061,24 +1059,22 @@ export const FlashcardsPage: React.FC = () => {
                     })}
                     valuePropName="checked"
                   >
-                    <div className="space-y-1">
-                      <Switch
-                        onChange={(checked) => {
-                          createForm.setFieldsValue({
-                            model_type: checked ? "basic_reverse" : "basic",
-                            reverse: checked,
-                            is_cloze: false
-                          })
-                        }}
-                      />
-                      <Text type="secondary" className="text-xs">
-                        {t("option:flashcards.reverseHelp", {
-                          defaultValue:
-                            "Also create a card where the back becomes the question."
-                        })}
-                      </Text>
-                    </div>
+                    <Switch
+                      onChange={(checked) => {
+                        createForm.setFieldsValue({
+                          model_type: checked ? "basic_reverse" : "basic",
+                          reverse: checked,
+                          is_cloze: false
+                        })
+                      }}
+                    />
                   </Form.Item>
+                  <Text type="secondary" className="text-xs -mt-4 mb-4">
+                    {t("option:flashcards.reverseHelp", {
+                      defaultValue:
+                        "Also create a card where the back becomes the question."
+                    })}
+                  </Text>
                   <Form.Item
                     name="is_cloze"
                     label={t("option:flashcards.isCloze", {
@@ -1086,24 +1082,22 @@ export const FlashcardsPage: React.FC = () => {
                     })}
                     valuePropName="checked"
                   >
-                    <div className="space-y-1">
-                      <Switch
-                        onChange={(checked) => {
-                          createForm.setFieldsValue({
-                            model_type: checked ? "cloze" : "basic",
-                            is_cloze: checked,
-                            reverse: false
-                          })
-                        }}
-                      />
-                      <Text type="secondary" className="text-xs">
-                        {t("option:flashcards.isClozeHelp", {
-                          defaultValue:
-                            "Use for fill‑in‑the‑blank cards. Wrap hidden text in {{...}} on the front."
-                        })}
-                      </Text>
-                    </div>
+                    <Switch
+                      onChange={(checked) => {
+                        createForm.setFieldsValue({
+                          model_type: checked ? "cloze" : "basic",
+                          is_cloze: checked,
+                          reverse: false
+                        })
+                      }}
+                    />
                   </Form.Item>
+                  <Text type="secondary" className="text-xs -mt-4 mb-4">
+                    {t("option:flashcards.isClozeHelp", {
+                      defaultValue:
+                        "Use for fill‑in‑the‑blank cards. Wrap hidden text in {{...}} on the front."
+                    })}
+                  </Text>
                   <Form.Item
                     name="tags"
                     label={t("option:flashcards.tags", { defaultValue: "Tags" })}>

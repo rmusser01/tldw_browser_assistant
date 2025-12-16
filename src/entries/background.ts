@@ -1,6 +1,6 @@
 import { browser } from "wxt/browser"
 import { Storage } from "@plasmohq/storage"
-import { safeStorageSerde } from "@/utils/safe-storage"
+import { safeStorageSerde, createSafeStorage } from "@/utils/safe-storage"
 import type { AllowedPath } from "@/services/tldw/openapi-guard"
 import { getInitialConfig } from "@/services/action"
 import { tldwClient } from "@/services/tldw/TldwApiClient"
@@ -69,10 +69,9 @@ const warmModels = async (
 
 export default defineBackground({
   main() {
-    const storage = new Storage({
-      area: "local",
-      serde: safeStorageSerde
-    } as any)
+    const storage = createSafeStorage({
+      area: "local"
+    })
     let isCopilotRunning: boolean = false
     let actionIconClick: string = "webui"
     let contextMenuClick: string = "sidePanel"

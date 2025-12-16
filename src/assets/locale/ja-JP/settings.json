@@ -84,7 +84,7 @@
         "label": "サイドパネルでの一時チャットをデフォルトで有効にする"
       },
       "enableOcrAssets": {
-        "label": "Enable OCR (downloads ~5MB on first use)",
+        "label": "OCR を有効にする（初回使用時に約 5MB をダウンロード）",
         "downloadNotice": "OCR を有効にすると、初回使用時に約 5MB の言語データをダウンロードします。"
       },
       "ocrLanguage": {

@@ -95,7 +95,7 @@ export const MentionsDropdown: React.FC<MentionsDropdownProps> = ({
     }
   }
 
-  if (!show || tabs.length === 0) return null
+  if (!show) return null
 
   return (
     <div

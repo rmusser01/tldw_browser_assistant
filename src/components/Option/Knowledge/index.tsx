@@ -698,14 +698,40 @@ export const KnowledgeSettings = () => {
                                 })}
                               </div>
                               <ul className="list-disc pl-4 space-y-0.5 text-gray-700 dark:text-gray-300">
-                                <li><code className="text-[10px]">strategy</code> - "standard" or "agentic"</li>
-                                <li><code className="text-[10px]">enable_reranking</code> - true/false</li>
-                                <li><code className="text-[10px]">enable_cache</code> - true/false</li>
-                                <li><code className="text-[10px]">top_k</code> - number of results</li>
-                                <li><code className="text-[10px]">search_mode</code> - "hybrid", "vector", or "fts"</li>
-                                <li><code className="text-[10px]">enable_generation</code> - true/false</li>
-                                <li><code className="text-[10px]">enable_citations</code> - true/false</li>
-                                <li><code className="text-[10px]">sources</code> - array of source types</li>
+                                <li>
+                                  <code className="text-[10px]">strategy</code> -{" "}
+                                  {t("knowledge:rag.hint.strategy", { defaultValue: '"standard" or "agentic"' })}
+                                </li>
+                                <li>
+                                  <code className="text-[10px]">enable_reranking</code> -{" "}
+                                  {t("knowledge:rag.hint.boolean", { defaultValue: "true/false" })}
+                                </li>
+                                <li>
+                                  <code className="text-[10px]">enable_cache</code> -{" "}
+                                  {t("knowledge:rag.hint.boolean", { defaultValue: "true/false" })}
+                                </li>
+                                <li>
+                                  <code className="text-[10px]">top_k</code> -{" "}
+                                  {t("knowledge:rag.hint.topK", { defaultValue: "number of results" })}
+                                </li>
+                                <li>
+                                  <code className="text-[10px]">search_mode</code> -{" "}
+                                  {t("knowledge:rag.hint.searchMode", {
+                                    defaultValue: '"hybrid", "vector", or "fts"'
+                                  })}
+                                </li>
+                                <li>
+                                  <code className="text-[10px]">enable_generation</code> -{" "}
+                                  {t("knowledge:rag.hint.boolean", { defaultValue: "true/false" })}
+                                </li>
+                                <li>
+                                  <code className="text-[10px]">enable_citations</code> -{" "}
+                                  {t("knowledge:rag.hint.boolean", { defaultValue: "true/false" })}
+                                </li>
+                                <li>
+                                  <code className="text-[10px]">sources</code> -{" "}
+                                  {t("knowledge:rag.hint.sources", { defaultValue: "array of source types" })}
+                                </li>
                               </ul>
                             </div>
                           }
@@ -735,13 +761,13 @@ export const KnowledgeSettings = () => {
                             JSON.parse(advancedOverridesText)
                             return (
                               <div className="absolute top-1 right-1 px-1.5 py-0.5 rounded text-[10px] bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300">
-                                Valid JSON
+                                {t("knowledge:ragWorkspace.jsonValid", { defaultValue: "Valid JSON" })}
                               </div>
                             )
                           } catch {
                             return (
                               <div className="absolute top-1 right-1 px-1.5 py-0.5 rounded text-[10px] bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-300">
-                                Invalid JSON
+                                {t("knowledge:ragWorkspace.jsonInvalid", { defaultValue: "Invalid JSON" })}
                               </div>
                             )
                           }
@@ -923,6 +949,7 @@ export const KnowledgeSettings = () => {
                               })
                             const url = meta?.url || meta?.source || ""
                             const snippet = String(content || "").slice(0, 260)
+                            const wasTruncated = String(content || "").length > 260
                             const insertText = `${snippet}${
                               url ? `\n\nSource: ${url}` : ""
                             }`
@@ -965,7 +992,7 @@ export const KnowledgeSettings = () => {
                                   }
                                   description={
                                     <div className="text-[11px] text-gray-600 dark:text-gray-300 line-clamp-3">
-                                      {snippet}{snippet.length >= 260 && '...'}
+                                      {snippet}{wasTruncated && '...'}
                                     </div>
                                   }
                                 />

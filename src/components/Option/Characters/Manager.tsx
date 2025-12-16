@@ -593,7 +593,9 @@ export const CharactersManager: React.FC<CharactersManagerProps> = ({
 
   const { mutate: updateCharacter, isPending: updating } = useMutation({
     mutationFn: async (values: any) => {
-      if (!editId) return
+      if (!editId) {
+        throw new Error("No character selected for editing")
+      }
       return await tldwClient.updateCharacter(
         editId,
         buildCharacterPayload(values),

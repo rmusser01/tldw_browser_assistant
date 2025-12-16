@@ -423,10 +423,14 @@ const NotesManagerPage: React.FC = () => {
     const sizeDisplay = blob.size >= 1024 * 1024
       ? `${(blob.size / (1024 * 1024)).toFixed(2)} MB`
       : `${sizeKB} KB`
-    message.success(t('option:notesSearch.exportNoteSuccess', {
-      defaultValue: 'Exported ({{size}})',
-      size: sizeDisplay
-    }))
+    message.success(
+      translateMessage(
+        t,
+        'option:notesSearch.exportNoteSuccess',
+        'Exported ({{size}})',
+        { size: sizeDisplay }
+      )
+    )
   }
 
   const exportAll = async () => {
@@ -480,11 +484,14 @@ const NotesManagerPage: React.FC = () => {
       const sizeDisplay = blob.size >= 1024 * 1024
         ? `${(blob.size / (1024 * 1024)).toFixed(2)} MB`
         : `${sizeKB} KB`
-      message.success(t('option:notesSearch.exportSuccess', {
-        defaultValue: 'Exported {{count}} notes ({{size}})',
-        count: arr.length,
-        size: sizeDisplay
-      }))
+      message.success(
+        translateMessage(
+          t,
+          'option:notesSearch.exportSuccess',
+          'Exported {{count}} notes ({{size}})',
+          { count: arr.length, size: sizeDisplay }
+        )
+      )
     } catch (e: any) {
       message.error(e?.message || 'Export failed')
     }
@@ -539,10 +546,10 @@ const NotesManagerPage: React.FC = () => {
     return arr
   }
 
-  const exportAllCSV = async () => {
-    try {
-      const arr = await gatherAllMatching()
-      if (!arr.length) { message.info('No notes to export'); return }
+	  const exportAllCSV = async () => {
+	    try {
+	      const arr = await gatherAllMatching()
+	      if (!arr.length) { message.info('No notes to export'); return }
       const escape = (s: any) => '"' + String(s ?? '').replace(/"/g, '""') + '"'
       const header = ['id','title','content','updated_at','keywords']
       const rows = [
@@ -560,20 +567,24 @@ const NotesManagerPage: React.FC = () => {
         )
       ]
       const blob = new Blob([rows.join('\n')], { type: 'text/csv;charset=utf-8' })
-      const url = URL.createObjectURL(blob)
-      const a = document.createElement('a')
-      a.href = url
-      a.download = `notes-export.csv`
-      a.click()
-      URL.revokeObjectURL(url)
-      const sizeKB = (blob.size / 1024).toFixed(1)
-      const sizeDisplay = blob.size >= 1024 * 1024
-        ? `${(blob.size / (1024 * 1024)).toFixed(2)} MB`
-        : `${sizeKB} KB`
-      message.success(translateMessage(t, 'option:notesSearch.exportCsvSuccess', 'Exported {{count}} notes as CSV ({{size}})', {
-        count: arr.length,
-        size: sizeDisplay
-      }))
+	      const url = URL.createObjectURL(blob)
+	      const a = document.createElement('a')
+	      a.href = url
+	      a.download = `notes-export.csv`
+	      a.click()
+	      URL.revokeObjectURL(url)
+	      const sizeKB = (blob.size / 1024).toFixed(1)
+	      const sizeDisplay = blob.size >= 1024 * 1024
+	        ? `${(blob.size / (1024 * 1024)).toFixed(2)} MB`
+	        : `${sizeKB} KB`
+	      message.success(
+          translateMessage(
+            t,
+            'option:notesSearch.exportCsvSuccess',
+            'Exported {{count}} notes as CSV ({{size}})',
+            { count: arr.length, size: sizeDisplay }
+          )
+        )
     } catch (e: any) {
       message.error(e?.message || 'Export failed')
     }
@@ -584,20 +595,24 @@ const NotesManagerPage: React.FC = () => {
       const arr = await gatherAllMatching()
       if (!arr.length) { message.info('No notes to export'); return }
       const blob = new Blob([JSON.stringify(arr, null, 2)], { type: 'application/json;charset=utf-8' })
-      const url = URL.createObjectURL(blob)
-      const a = document.createElement('a')
-      a.href = url
-      a.download = `notes-export.json`
-      a.click()
-      URL.revokeObjectURL(url)
-      const sizeKB = (blob.size / 1024).toFixed(1)
-      const sizeDisplay = blob.size >= 1024 * 1024
-        ? `${(blob.size / (1024 * 1024)).toFixed(2)} MB`
-        : `${sizeKB} KB`
-      message.success(translateMessage(t, 'option:notesSearch.exportJsonSuccess', 'Exported {{count}} notes as JSON ({{size}})', {
-        count: arr.length,
-        size: sizeDisplay
-      }))
+	      const url = URL.createObjectURL(blob)
+	      const a = document.createElement('a')
+	      a.href = url
+	      a.download = `notes-export.json`
+	      a.click()
+	      URL.revokeObjectURL(url)
+	      const sizeKB = (blob.size / 1024).toFixed(1)
+	      const sizeDisplay = blob.size >= 1024 * 1024
+	        ? `${(blob.size / (1024 * 1024)).toFixed(2)} MB`
+	        : `${sizeKB} KB`
+	      message.success(
+          translateMessage(
+            t,
+            'option:notesSearch.exportJsonSuccess',
+            'Exported {{count}} notes as JSON ({{size}})',
+            { count: arr.length, size: sizeDisplay }
+          )
+        )
     } catch (e: any) {
       message.error(e?.message || 'Export failed')
     }

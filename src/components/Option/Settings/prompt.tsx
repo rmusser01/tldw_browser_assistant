@@ -1,5 +1,5 @@
 import { useQuery, useQueryClient } from "@tanstack/react-query"
-import { Skeleton, Radio, Form, Input, Alert, Modal } from "antd"
+import { Skeleton, Radio, Form, Input, Alert, Modal, notification } from "antd"
 import React from "react"
 import { useTranslation } from "react-i18next"
 import { SaveButton } from "~/components/Common/SaveButton"
@@ -97,14 +97,32 @@ export const SettingPrompt = () => {
               layout="vertical"
               onValuesChange={() => setIsDirty(true)}
               onFinish={(values) => {
-                setPromptForRag(
-                  values?.systemPrompt || "",
-                  values?.questionPrompt || ""
-                )
-                setIsDirty(false)
-                queryClient.invalidateQueries({
-                  queryKey: ["fetchRagPrompt"]
-                })
+                ;(async () => {
+                  try {
+                    await setPromptForRag(
+                      values?.systemPrompt || "",
+                      values?.questionPrompt || ""
+                    )
+                    setIsDirty(false)
+                    queryClient.invalidateQueries({
+                      queryKey: ["fetchRagPrompt"]
+                    })
+                  } catch (e: any) {
+                    console.error("Failed to save RAG prompts:", e)
+                    notification.error({
+                      message: t(
+                        "managePrompts.notification.error",
+                        "Error"
+                      ),
+                      description:
+                        e?.message ||
+                        t(
+                          "managePrompts.notification.someError",
+                          "Something went wrong. Please try again later"
+                        )
+                    })
+                  }
+                })()
               }}
               initialValues={{
                 systemPrompt: data.prompt.ragPrompt,
@@ -161,14 +179,32 @@ export const SettingPrompt = () => {
               layout="vertical"
               onValuesChange={() => setIsDirty(true)}
               onFinish={(values) => {
-                setWebPrompts(
-                  values?.webSearchPrompt || "",
-                  values?.webSearchFollowUpPrompt || ""
-                )
-                setIsDirty(false)
-                queryClient.invalidateQueries({
-                  queryKey: ["fetchRagPrompt"]
-                })
+                ;(async () => {
+                  try {
+                    await setWebPrompts(
+                      values?.webSearchPrompt || "",
+                      values?.webSearchFollowUpPrompt || ""
+                    )
+                    setIsDirty(false)
+                    queryClient.invalidateQueries({
+                      queryKey: ["fetchRagPrompt"]
+                    })
+                  } catch (e: any) {
+                    console.error("Failed to save web search prompts:", e)
+                    notification.error({
+                      message: t(
+                        "managePrompts.notification.error",
+                        "Error"
+                      ),
+                      description:
+                        e?.message ||
+                        t(
+                          "managePrompts.notification.someError",
+                          "Something went wrong. Please try again later"
+                        )
+                    })
+                  }
+                })()
               }}
               initialValues={{
                 webSearchPrompt: data.webSearchPrompt,

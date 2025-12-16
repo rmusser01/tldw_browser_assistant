@@ -81,7 +81,7 @@
         "label": "Ativar Chat Temporário no Painel Lateral por padrão"
       },
       "enableOcrAssets": {
-        "label": "Enable OCR (downloads ~5MB on first use)",
+        "label": "Ativar OCR (faz download de ~5 MB no primeiro uso)",
         "downloadNotice": "Ao ativar o OCR, serão baixados ~5 MB de dados de idioma no primeiro uso."
       },
       "ocrLanguage": {

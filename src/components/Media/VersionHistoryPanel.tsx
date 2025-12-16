@@ -170,8 +170,6 @@ export function VersionHistoryPanel({
         headers: { 'Content-Type': 'application/json' },
         body: { version_number: vNum }
       })
-      message.success(t('mediaPage.rollbackSuccess', 'Rolled back to version {{num}}', { num: vNum }))
-      // Show info about keywords not being changed
       message.info(
         t('mediaPage.rollbackKeywordsNotice', 'Rolled back to version {{num}}. Keywords were not changed.', { num: vNum }),
         5

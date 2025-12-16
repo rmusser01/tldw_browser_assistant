@@ -637,16 +637,12 @@ export const SidepanelForm = ({ dropedFile }: Props) => {
               )}
             </p>
             {isChromeOrEdge && (
-              <button
-                type="button"
-                onClick={() => {
-                  const settingsUrl = 'chrome://settings/content/microphone'
-                  window.open(settingsUrl, '_blank')
-                }}
-                className="text-xs underline text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300"
-              >
-                {t("playground:actions.openMicPermissions", "Open microphone settings")}
-              </button>
+              <span className="text-xs text-blue-600 dark:text-blue-400">
+                {t(
+                  "playground:actions.micPermissionsHint",
+                  "Check Site Settings > Microphone in your browser"
+                )}
+              </span>
             )}
           </div>
         )

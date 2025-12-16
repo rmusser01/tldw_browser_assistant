@@ -81,7 +81,7 @@
         "label": "Enable Chat with Website by default (Copilot)"
       },
       "enableOcrAssets": {
-        "label": "Enable OCR (downloads ~5MB on first use)",
+        "label": "Aktivér OCR (henter ca. 5 MB ved første brug)",
         "downloadNotice": "Når du aktiverer OCR, downloades ca. 5 MB sprogdata ved første brug."
       },
       "ocrLanguage": {

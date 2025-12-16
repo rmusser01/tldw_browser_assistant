@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import { ChevronDown, ChevronUp, Code, Copy, Check } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 import { message } from 'antd'
@@ -18,6 +18,15 @@ export function DeveloperToolsSection({
   const [expanded, setExpanded] = useState(defaultExpanded)
   const [copied, setCopied] = useState(false)
   const copyTimeoutRef = useRef<NodeJS.Timeout | null>(null)
+
+  useEffect(() => {
+    return () => {
+      if (copyTimeoutRef.current) {
+        clearTimeout(copyTimeoutRef.current)
+        copyTimeoutRef.current = null
+      }
+    }
+  }, [])
 
   let jsonString: string | null = null
   let stringifyError: string | null = null

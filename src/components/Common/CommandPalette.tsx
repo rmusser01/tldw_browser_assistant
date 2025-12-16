@@ -361,13 +361,14 @@ export function CommandPalette({
                     </div>
                     {items.map((cmd) => {
                       itemIndex++
-                      const isSelected = itemIndex === selectedIndex
+                      const currentIndex = itemIndex
+                      const isSelected = currentIndex === selectedIndex
 
                       return (
                         <button
                           key={cmd.id}
                           onClick={() => executeCommand(cmd)}
-                          onMouseEnter={() => setSelectedIndex(itemIndex)}
+                          onMouseEnter={() => setSelectedIndex(currentIndex)}
                           data-selected={isSelected}
                           className={`flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-left transition-colors ${
                             isSelected
