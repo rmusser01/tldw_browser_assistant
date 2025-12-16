@@ -115,12 +115,12 @@ export function ChatSidebar({
     queryKey: ["localChatHistory", searchQuery],
     queryFn: async (): Promise<ChatHistoryItem[]> => {
       const db = new PageAssistDatabase()
-      const result = await db.getChatHistoriesPaginated(1, 100, searchQuery || undefined)
+      const result = await db.getChatHistoriesPaginated(1, searchQuery || undefined)
       return result.histories.map((h) => ({
         id: h.id,
         title: h.title,
         createdAtMs: h.createdAt,
-        updatedAtMs: h.updatedAt || null,
+        updatedAtMs: h.createdAt, // HistoryInfo doesn't have updatedAt, use createdAt
       }))
     },
     staleTime: 10_000,
@@ -144,7 +144,7 @@ export function ChatSidebar({
       <div
         data-testid="chat-sidebar"
         className={cn(
-          "flex flex-col items-center py-4 gap-2 w-12 border-r border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900",
+          "flex flex-col h-screen items-center py-4 gap-2 w-12 border-r border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900",
           className
         )}
       >
@@ -219,7 +219,7 @@ export function ChatSidebar({
     <div
       data-testid="chat-sidebar"
       className={cn(
-        "flex flex-col w-64 border-r border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900",
+        "flex flex-col h-screen w-64 border-r border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900",
         className
       )}
     >

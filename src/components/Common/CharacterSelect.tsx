@@ -442,7 +442,7 @@ export const CharacterSelect: React.FC<Props> = ({
             setSearchQuery("")
           }
         }}
-        dropdownRender={(menu) => (
+        popupRender={(menu) => (
           <div className="w-64" ref={menuContainerRef}>
             <div className="px-2 py-2 border-b border-gray-100 dark:border-gray-700">
               <Input

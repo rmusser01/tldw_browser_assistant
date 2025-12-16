@@ -127,7 +127,7 @@ export const QuickChatHelperModal: React.FC<Props> = ({ open, onClose }) => {
       footer={null}
       width={480}
       className="quick-chat-helper-modal"
-      destroyOnClose={false}
+      destroyOnHidden={false}
       maskClosable={true}
       keyboard={true}
       aria-labelledby="quick-chat-title"

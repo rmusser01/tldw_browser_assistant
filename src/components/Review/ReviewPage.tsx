@@ -2607,7 +2607,7 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({
                 <Dropdown
                   trigger={["click"]}
                   placement="bottomLeft"
-                  dropdownRender={() => (
+                  popupRender={() => (
                     <div className="p-2 w-[420px] bg-white dark:bg-[#171717] border dark:border-gray-700 rounded shadow">
                       <div className="flex items-center justify-between mb-1">
                         <div className="text-xs text-gray-500">
@@ -2832,7 +2832,7 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({
                 <Dropdown
                   trigger={["click"]}
                   placement="bottomLeft"
-                  dropdownRender={() => (
+                  popupRender={() => (
                     <div className="p-2 w-[420px] bg-white dark:bg-[#171717] border dark:border-gray-700 rounded shadow">
                       <div className="flex items-center justify-between mb-1">
                         <div className="text-xs text-gray-500">
@@ -3467,7 +3467,7 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({
                       <Dropdown
                         trigger={["click"]}
                         placement="bottomLeft"
-                        dropdownRender={() => (
+                        popupRender={() => (
                           <div className="p-2 w-[260px] bg-white dark:bg-[#171717] border dark:border-gray-700 rounded shadow">
                             <div className="text-xs text-gray-500 mb-2">
                               More actions

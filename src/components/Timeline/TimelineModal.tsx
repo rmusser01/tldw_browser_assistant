@@ -89,7 +89,7 @@ export const TimelineModal: React.FC = () => {
       }}
       closable={true}
       maskClosable={false}
-      destroyOnClose
+      destroyOnHidden
       className="timeline-modal"
     >
       <div className="timeline-container">

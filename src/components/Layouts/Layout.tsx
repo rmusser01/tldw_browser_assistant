@@ -97,40 +97,38 @@ const OptionLayoutInner: React.FC<OptionLayoutProps> = ({
   }
 
   return (
-    <div className="flex h-full w-full">
+    <div className="flex min-h-screen w-full">
       {/* Persistent ChatSidebar when feature flag enabled */}
       {showChatSidebar && !hideHeader && (
         <ChatSidebar
           collapsed={chatSidebarCollapsed}
           onToggleCollapse={() => setChatSidebarCollapsed((prev) => !prev)}
           onNewChat={clearChat}
-          className="shrink-0 border-r border-gray-200 dark:border-gray-800"
+          className="sticky top-0 shrink-0 border-r border-gray-200 dark:border-gray-800"
         />
       )}
       <main
         className={classNames(
-          "relative flex-1",
-          hideHeader ? "min-h-screen bg-slate-50 dark:bg-[#101010]" : "h-dvh"
+          "relative flex-1 flex flex-col",
+          hideHeader ? "bg-slate-50 dark:bg-[#101010]" : ""
         )}
         data-demo-mode={demoEnabled ? "on" : "off"}>
-        {!hideHeader && (
-          <div className="relative z-20 w-full">
-            <Header
-              setSidebarOpen={setSidebarOpen}
-              setOpenModelSettings={setOpenModelSettings}
-              showSelectors={showHeaderSelectors}
-            />
+        {hideHeader ? (
+          <div className="relative flex min-h-screen flex-1 flex-col items-center justify-center px-4 py-10 sm:px-8 overflow-auto">
+            {children}
+          </div>
+        ) : (
+          <div className="relative flex min-h-[120vh] flex-col pt-2 sm:pt-3">
+            <div className="relative z-20 w-full">
+              <Header
+                setSidebarOpen={setSidebarOpen}
+                setOpenModelSettings={setOpenModelSettings}
+                showSelectors={showHeaderSelectors}
+              />
+            </div>
+            {children}
           </div>
         )}
-        <div
-          className={classNames(
-            "relative flex h-full flex-col",
-            hideHeader
-              ? "min-h-screen items-center justify-center px-4 py-10 sm:px-8"
-              : "pt-2 sm:pt-3"
-          )}>
-          {children}
-        </div>
         {/* Legacy Drawer sidebar - only shown when new ChatSidebar feature is disabled */}
         {!hideHeader && !showChatSidebar && (
           <Drawer

@@ -1,5 +1,5 @@
 import { ChevronLeft, ChevronRight } from 'lucide-react'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback, useMemo } from 'react'
 import { Tooltip } from 'antd'
 import { useTranslation } from 'react-i18next'
 
@@ -24,37 +24,34 @@ export function Pagination({
   const [jumpToPage, setJumpToPage] = useState('')
   const [jumpError, setJumpError] = useState('')
 
-  // Handle empty results case
-  if (currentItemsCount === 0) {
-    return (
-      <div className="px-4 py-2 border-t border-gray-200 dark:border-gray-700 bg-white dark:bg-[#171717]">
-        <div className="text-xs text-gray-600 dark:text-gray-400 text-center">
-          0 of {totalItems} results
-        </div>
-      </div>
-    )
-  }
+  // Clear error when totalPages changes (pagination state updated)
+  // IMPORTANT: All hooks must be called before any early returns
+  useEffect(() => {
+    if (jumpError) {
+      setJumpError('')
+    }
+  }, [totalPages])
 
   const startItem = (currentPage - 1) * itemsPerPage + 1
   const endItem = (currentPage - 1) * itemsPerPage + currentItemsCount
 
-  const handlePrevious = () => {
+  const handlePrevious = useCallback(() => {
     if (currentPage > 1) {
       onPageChange(currentPage - 1)
     }
-  }
+  }, [currentPage, onPageChange])
 
-  const handleNext = () => {
+  const handleNext = useCallback(() => {
     if (currentPage < totalPages) {
       onPageChange(currentPage + 1)
     }
-  }
+  }, [currentPage, totalPages, onPageChange])
 
-  const handlePageClick = (page: number) => {
+  const handlePageClick = useCallback((page: number) => {
     onPageChange(page)
-  }
+  }, [onPageChange])
 
-  const handleJumpToPage = () => {
+  const handleJumpToPage = useCallback(() => {
     const pageNum = parseInt(jumpToPage, 10)
     if (isNaN(pageNum) || pageNum < 1) {
       setJumpError(t('mediaPage.pageRangeError', 'Page must be 1-{{max}}', { max: totalPages }))
@@ -65,29 +62,22 @@ export function Pagination({
     setJumpError('')
     setJumpToPage('')
     onPageChange(clampedPage)
-  }
+  }, [jumpToPage, totalPages, onPageChange, t])
 
-  // Clear error when totalPages changes (pagination state updated)
-  useEffect(() => {
-    if (jumpError) {
-      setJumpError('')
-    }
-  }, [totalPages])
-
-  const handleJumpInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleJumpInputChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     setJumpToPage(e.target.value)
     // Clear error when user starts typing again
-    if (jumpError) setJumpError('')
-  }
+    setJumpError('')
+  }, [])
 
-  const handleJumpKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+  const handleJumpKeyPress = useCallback((e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
       handleJumpToPage()
     }
-  }
+  }, [handleJumpToPage])
 
   // Generate page numbers to display
-  const getPageNumbers = () => {
+  const pageNumbers = useMemo(() => {
     const pages: (number | string)[] = []
     const maxPagesToShow = 5
 
@@ -123,6 +113,17 @@ export function Pagination({
     }
 
     return pages
+  }, [totalPages, currentPage])
+
+  // Handle empty results case - after all hooks
+  if (currentItemsCount === 0) {
+    return (
+      <div className="px-4 py-2 border-t border-gray-200 dark:border-gray-700 bg-white dark:bg-[#171717]">
+        <div className="text-xs text-gray-600 dark:text-gray-400 text-center">
+          0 of {totalItems} results
+        </div>
+      </div>
+    )
   }
 
   if (totalPages <= 1) {
@@ -155,7 +156,7 @@ export function Pagination({
         </button>
 
         {/* Page numbers */}
-        {getPageNumbers().map((page, index) => {
+        {pageNumbers.map((page, index) => {
           if (page === '...') {
             return (
               <span

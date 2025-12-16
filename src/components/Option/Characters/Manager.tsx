@@ -1124,7 +1124,7 @@ export const CharactersManager: React.FC<CharactersManagerProps> = ({
           setResumingChatId(null)
         }}
         footer={null}
-        destroyOnClose>
+        destroyOnHidden>
         <div className="space-y-3">
           <p className="text-sm text-gray-600 dark:text-gray-300">
             {t("settings:manageCharacters.conversations.subtitle", {

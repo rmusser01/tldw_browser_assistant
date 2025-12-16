@@ -263,7 +263,7 @@ export const Header: React.FC<Props> = ({
     <header
       data-istemporary-chat={temporaryChat}
       data-ischat-route={isChatRoute}
-      className="sticky top-0 z-30 flex w-full flex-col gap-3 border-b bg-gray-50/95 p-3 backdrop-blur dark:border-gray-600 dark:bg-[#171717]/95 data-[istemporary-chat='true']:bg-purple-900 data-[istemporary-chat='true']:dark:bg-purple-900 data-[ischat-route='true']:bg-white/95 data-[ischat-route='true']:dark:bg-[#111111]/95">
+      className="z-30 flex w-full flex-col gap-3 border-b bg-gray-50/95 p-3 backdrop-blur dark:border-gray-600 dark:bg-[#171717]/95 data-[istemporary-chat='true']:bg-purple-900 data-[istemporary-chat='true']:dark:bg-purple-900 data-[ischat-route='true']:bg-white/95 data-[ischat-route='true']:dark:bg-[#111111]/95">
       {/*
         Top band: place the details bar directly below the PrimaryToolbar (New Chat)
         on all breakpoints to keep the most-used actions grouped together.
