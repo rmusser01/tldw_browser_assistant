@@ -160,12 +160,13 @@
     "noMediaId": "没有可用的媒体 ID",
     "versionSaved": "已保存为新版本",
     "saveFailed": "保存版本失败",
+    "saveUnauthorized": "没有权限保存",
     "sendToChat": "发送到聊天",
     "saveAsVersion": "保存为新版本",
     "analysisPlaceholder": "请输入分析文本...",
     "wordCount": "{{count}} 个单词",
     "charCount": "{{count}} 个字符",
-    "pageRangeError": "页码必须为 1-{{max}}",
+    "pageRangeError": "页码必须在 1 到 {{max}} 之间",
     "pageRangeClamped": "正在导航至第 {{page}} 页"
   },
   "empty": {

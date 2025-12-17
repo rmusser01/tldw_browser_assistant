@@ -83,7 +83,12 @@ export function ContentEditModal({
       onClose()
     } catch (err) {
       console.error('Failed to save content version:', err)
-      message.error(t('mediaPage.saveFailed', 'Failed to save version'))
+      const errMsg = err instanceof Error ? err.message : ''
+      message.error(
+        errMsg.includes('401') || errMsg.includes('403')
+          ? t('mediaPage.saveUnauthorized', 'Not authorized to save')
+          : t('mediaPage.saveFailed', 'Failed to save version')
+      )
     } finally {
       setSaving(false)
     }
@@ -157,4 +162,3 @@ export function ContentEditModal({
     </Modal>
   )
 }
-

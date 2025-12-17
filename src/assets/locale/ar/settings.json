@@ -11,36 +11,36 @@
   "charactersNav": "الشخصيات",
   "mediaNav": "الوسائط",
   "chatAppearance": {
-    "title": "Chat appearance",
-    "description": "Customize colors, fonts, and text sizes for chat messages.",
-    "behaviorNote": "Looking for chat behavior settings (wide mode, reasoning, copy options)?",
-    "goToGeneral": "Go to General Settings",
-    "userHeading": "User messages",
-    "assistantHeading": "Assistant messages",
-    "userColor": "User text color",
-    "assistantColor": "Assistant text color",
-    "userFont": "User font",
-    "assistantFont": "Assistant font",
-    "userSize": "User text size",
-    "assistantSize": "Assistant text size",
+    "title": "مظهر الدردشة",
+    "description": "تخصيص الألوان والخطوط وأحجام النص لرسائل الدردشة.",
+    "behaviorNote": "هل تبحث عن إعدادات سلوك الدردشة (الوضع العريض، التفسير، خيارات النسخ)؟",
+    "goToGeneral": "اذهب إلى الإعدادات العامة",
+    "userHeading": "رسائل المستخدم",
+    "assistantHeading": "رسائل المساعد",
+    "userColor": "لون نص المستخدم",
+    "assistantColor": "لون نص المساعد",
+    "userFont": "خط المستخدم",
+    "assistantFont": "خط المساعد",
+    "userSize": "حجم نص المستخدم",
+    "assistantSize": "حجم نص المساعد",
     "color": {
-      "default": "Default",
-      "blue": "Blue",
-      "green": "Green",
-      "purple": "Purple",
-      "orange": "Orange",
-      "red": "Red"
+      "default": "افتراضي",
+      "blue": "أزرق",
+      "green": "أخضر",
+      "purple": "بنفسجي",
+      "orange": "برتقالي",
+      "red": "أحمر"
     },
     "font": {
-      "default": "Default",
-      "sans": "Sans serif",
-      "serif": "Serif",
-      "mono": "Monospace"
+      "default": "افتراضي",
+      "sans": "بدون زوائد (Sans serif)",
+      "serif": "بزوائد (Serif)",
+      "mono": "ثابت العرض (Monospace)"
     },
     "size": {
-      "sm": "Small",
-      "md": "Medium",
-      "lg": "Large"
+      "sm": "صغير",
+      "md": "متوسط",
+      "lg": "كبير"
     }
   },
   "generalSettings": {

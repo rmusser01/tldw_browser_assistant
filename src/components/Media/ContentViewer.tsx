@@ -23,7 +23,6 @@ import { useTranslation } from 'react-i18next'
 import type { MenuProps } from 'antd'
 import { AnalysisModal } from './AnalysisModal'
 import { AnalysisEditModal } from './AnalysisEditModal'
-import { ContentEditModal } from './ContentEditModal'
 import { VersionHistoryPanel } from './VersionHistoryPanel'
 import { DeveloperToolsSection } from './DeveloperToolsSection'
 import { DiffViewModal } from './DiffViewModal'
@@ -32,6 +31,11 @@ import type { MediaResultItem } from './types'
 
 // Lazy load Markdown component
 const Markdown = React.lazy(() => import('@/components/Common/Markdown'))
+
+// Lazy load ContentEditModal for code splitting
+const ContentEditModal = React.lazy(() =>
+  import('./ContentEditModal').then((m) => ({ default: m.ContentEditModal }))
+)
 
 interface ContentViewerProps {
   selectedMedia: MediaResultItem | null
@@ -922,17 +926,19 @@ export function ContentViewer({
 
       {/* Content Edit Modal */}
       {selectedMedia && !isNote && (
-        <ContentEditModal
-          open={contentEditModalOpen}
-          onClose={() => setContentEditModalOpen(false)}
-          initialText={editingContentText || content}
-          mediaId={selectedMedia.id}
-          onSaveNewVersion={() => {
-            if (onRefreshMedia) {
-              onRefreshMedia()
-            }
-          }}
-        />
+        <Suspense fallback={null}>
+          <ContentEditModal
+            open={contentEditModalOpen}
+            onClose={() => setContentEditModalOpen(false)}
+            initialText={editingContentText || content}
+            mediaId={selectedMedia.id}
+            onSaveNewVersion={() => {
+              if (onRefreshMedia) {
+                onRefreshMedia()
+              }
+            }}
+          />
+        </Suspense>
       )}
 
       {/* Diff View Modal */}

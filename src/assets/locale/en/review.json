@@ -224,6 +224,7 @@
     "noMediaId": "No media ID available",
     "versionSaved": "Saved as new version",
     "saveFailed": "Failed to save version",
+    "saveUnauthorized": "Not authorized to save",
     "sendToChat": "Send to Chat",
     "saveAsVersion": "Save as New Version",
     "analysisPlaceholder": "Enter analysis text...",

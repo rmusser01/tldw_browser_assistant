@@ -144,8 +144,14 @@ export const TTSModeSettings = ({ hideBorder }: { hideBorder?: boolean }) => {
     setTestingElevenLabs(true)
     setElevenLabsTestResult(null)
     try {
-      const voices = await getVoices(form.values.elevenLabsApiKey)
-      if (voices && voices.length > 0) {
+      const [voices, models] = await Promise.all([
+        getVoices(form.values.elevenLabsApiKey),
+        getModels(form.values.elevenLabsApiKey)
+      ])
+      const hasVoices = Array.isArray(voices) && voices.length > 0
+      const hasModels = Array.isArray(models) && models.length > 0
+
+      if (hasVoices && hasModels) {
         const successMessage = t(
           "generalSettings.tts.apiKeyTest.success",
           "API key valid! Found {{count}} voices.",
@@ -157,24 +163,33 @@ export const TTSModeSettings = ({ hideBorder }: { hideBorder?: boolean }) => {
           message: successMessage as string
         })
       } else {
-        const noVoicesMessage = t(
+        const noResourcesMessage = t(
           "generalSettings.tts.apiKeyTest.noVoices",
-          "API key accepted but no voices found"
+          "API key accepted but no voices or models found"
         )
         setElevenLabsTestResult({
           ok: false,
-          message: noVoicesMessage as string
+          message: noResourcesMessage as string
         })
       }
-    } catch (e) {
-      const failureMessage = t(
+    } catch (e: unknown) {
+      // eslint-disable-next-line no-console
+      console.error("Failed to test ElevenLabs API key:", e)
+      const baseMessage = t(
         "generalSettings.tts.apiKeyTest.failed",
         "Invalid API key or connection error"
-      )
-      message.error(failureMessage as string)
+      ) as string
+      const errorDetail =
+        e instanceof Error
+          ? e.message
+          : typeof e === "string"
+            ? e
+            : JSON.stringify(e)
+      const failureMessage = `${baseMessage} (${errorDetail})`
+      message.error(failureMessage)
       setElevenLabsTestResult({
         ok: false,
-        message: failureMessage as string
+        message: failureMessage
       })
     } finally {
       setTestingElevenLabs(false)
@@ -304,6 +319,7 @@ export const TTSModeSettings = ({ hideBorder }: { hideBorder?: boolean }) => {
                 />
                 <Button
                   type="default"
+                  aria-label={t("generalSettings.tts.apiKeyTest.test", "Test")}
                   onClick={testElevenLabsApiKey}
                   loading={testingElevenLabs}
                 >

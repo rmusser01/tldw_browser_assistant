@@ -246,6 +246,11 @@ export const GeneralSettings = () => {
           <span className="text-gray-700   dark:text-neutral-50">
             {t("generalSettings.settings.webUIResumeLastChat.label")}
           </span>
+          {webUIResumeLastChat === DEFAULT_CHAT_SETTINGS.webUIResumeLastChat && (
+            <Tag className="text-[10px] py-0 px-1.5 leading-4">
+              {t("generalSettings.settings.defaultBadge", "default")}
+            </Tag>
+          )}
         </div>
         <Switch
           checked={webUIResumeLastChat}
@@ -258,6 +263,11 @@ export const GeneralSettings = () => {
           <span className="text-gray-700   dark:text-neutral-50">
             {t("generalSettings.settings.hideCurrentChatModelSettings.label")}
           </span>
+          {hideCurrentChatModelSettings === DEFAULT_CHAT_SETTINGS.hideCurrentChatModelSettings && (
+            <Tag className="text-[10px] py-0 px-1.5 leading-4">
+              {t("generalSettings.settings.defaultBadge", "default")}
+            </Tag>
+          )}
         </div>
 
         <Switch
@@ -284,6 +294,11 @@ export const GeneralSettings = () => {
           <span className="text-gray-700   dark:text-neutral-50">
             {t("generalSettings.settings.restoreLastChatModel.label")}
           </span>
+          {restoreLastChatModel === DEFAULT_CHAT_SETTINGS.restoreLastChatModel && (
+            <Tag className="text-[10px] py-0 px-1.5 leading-4">
+              {t("generalSettings.settings.defaultBadge", "default")}
+            </Tag>
+          )}
         </div>
 
         <Switch
@@ -340,6 +355,11 @@ export const GeneralSettings = () => {
           <span className="text-gray-700   dark:text-neutral-50">
             {t("generalSettings.settings.wideMode.label")}
           </span>
+          {checkWideMode === DEFAULT_CHAT_SETTINGS.checkWideMode && (
+            <Tag className="text-[10px] py-0 px-1.5 leading-4">
+              {t("generalSettings.settings.defaultBadge", "default")}
+            </Tag>
+          )}
         </div>
 
         <Switch
@@ -354,6 +374,11 @@ export const GeneralSettings = () => {
           <span className="text-gray-700   dark:text-neutral-50">
             {t("generalSettings.settings.menuDensity.label", "Menu density")}
           </span>
+          {menuDensity === DEFAULT_CHAT_SETTINGS.menuDensity && (
+            <Tag className="text-[10px] py-0 px-1.5 leading-4">
+              {t("generalSettings.settings.defaultBadge", "default")}
+            </Tag>
+          )}
         </div>
         <Select
           aria-label={t("generalSettings.settings.menuDensity.label", "Menu density")}
@@ -372,6 +397,11 @@ export const GeneralSettings = () => {
           <span className="text-gray-700   dark:text-neutral-50">
             {t("generalSettings.settings.openReasoning.label")}
           </span>
+          {openReasoning === DEFAULT_CHAT_SETTINGS.openReasoning && (
+            <Tag className="text-[10px] py-0 px-1.5 leading-4">
+              {t("generalSettings.settings.defaultBadge", "default")}
+            </Tag>
+          )}
         </div>
 
         <Switch
@@ -405,6 +435,11 @@ export const GeneralSettings = () => {
           <span className="text-gray-700   dark:text-neutral-50">
             {t("generalSettings.settings.autoCopyResponseToClipboard.label")}
           </span>
+          {autoCopyResponseToClipboard === DEFAULT_CHAT_SETTINGS.autoCopyResponseToClipboard && (
+            <Tag className="text-[10px] py-0 px-1.5 leading-4">
+              {t("generalSettings.settings.defaultBadge", "default")}
+            </Tag>
+          )}
         </div>
 
         <Switch
@@ -419,6 +454,11 @@ export const GeneralSettings = () => {
           <span className="text-gray-700   dark:text-neutral-50">
             {t("generalSettings.settings.useMarkdownForUserMessage.label")}
           </span>
+          {useMarkdownForUserMessage === DEFAULT_CHAT_SETTINGS.useMarkdownForUserMessage && (
+            <Tag className="text-[10px] py-0 px-1.5 leading-4">
+              {t("generalSettings.settings.defaultBadge", "default")}
+            </Tag>
+          )}
         </div>
 
         <Switch
@@ -433,6 +473,11 @@ export const GeneralSettings = () => {
           <span className="text-gray-700   dark:text-neutral-50">
             {t("generalSettings.settings.copyAsFormattedText.label")}
           </span>
+          {copyAsFormattedText === DEFAULT_CHAT_SETTINGS.copyAsFormattedText && (
+            <Tag className="text-[10px] py-0 px-1.5 leading-4">
+              {t("generalSettings.settings.defaultBadge", "default")}
+            </Tag>
+          )}
         </div>
 
         <Switch
@@ -491,9 +536,7 @@ export const GeneralSettings = () => {
                       "Onboarding has been reset"
                     )
                   })
-                  setTimeout(() => {
-                    navigate("/")
-                  }, 800)
+                  navigate("/")
                 } catch (err) {
                   console.error("Failed to restart onboarding:", err)
                   notification.error({

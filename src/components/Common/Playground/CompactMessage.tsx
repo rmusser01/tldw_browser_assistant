@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from "react"
-import { Tooltip, Collapse, Avatar } from "antd"
+import { Tooltip, Collapse, Avatar, message as antdMessage } from "antd"
 import {
   Check,
   Copy,
@@ -29,6 +29,8 @@ import { translateMessage } from "@/i18n/translateMessage"
 import type { Source, GenerationInfo } from "./types"
 
 const Markdown = React.lazy(() => import("../../Common/Markdown"))
+
+const MAX_PREVIEW_SOURCES = 5
 
 interface CompactMessageProps {
   message: string
@@ -91,10 +93,11 @@ export function CompactMessage({
   sendStatus,
   timestamp,
 }: CompactMessageProps) {
-  const { t } = useTranslation(["common", "playground"])
+  const { t, i18n } = useTranslation(["common", "playground"])
   const [copied, setCopied] = useState(false)
   const [editMode, setEditMode] = useState(false)
   const [editedText, setEditedText] = useState(message)
+  const [saveError, setSaveError] = useState<string | null>(null)
   const [showSources, setShowSources] = useState(false)
   const { cancel, isSpeaking, speak } = useTTS()
 
@@ -120,8 +123,11 @@ export function CompactMessage({
   const formattedTime = useMemo(() => {
     if (!timestamp) return null
     const date = new Date(timestamp)
-    return date.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })
-  }, [timestamp])
+    return date.toLocaleTimeString(i18n.language, {
+      hour: "2-digit",
+      minute: "2-digit",
+    })
+  }, [timestamp, i18n.language])
 
   const handleCopy = async () => {
     await copyToClipboard({ text: message, formatted: false })
@@ -237,7 +243,7 @@ export function CompactMessage({
                       "playground:attachments.imageLabel",
                       "Attachment {{number}}",
                       { number: idx + 1 }
-                    ) as string
+                    )
                   }
                   className="max-h-32 rounded border border-gray-200 dark:border-gray-700"
                 />
@@ -250,7 +256,12 @@ export function CompactMessage({
             <div className="mt-1">
               <textarea
                 value={editedText}
-                onChange={(e) => setEditedText(e.target.value)}
+                onChange={(e) => {
+                  setEditedText(e.target.value)
+                  if (saveError) {
+                    setSaveError(null)
+                  }
+                }}
                 className="w-full p-2 text-sm border border-gray-200 dark:border-gray-700 rounded bg-white dark:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-pink-500"
                 rows={3}
                 autoFocus
@@ -264,10 +275,17 @@ export function CompactMessage({
                     }
                     try {
                       await onEditFormSubmit(editedText, false)
+                      setSaveError(null)
                       setEditMode(false)
                     } catch (error) {
                       // eslint-disable-next-line no-console
                       console.error("Failed to save edited message:", error)
+                      const errorMessage =
+                        error instanceof Error
+                          ? error.message
+                          : t("common:saveFailed", "Failed to save message")
+                      setSaveError(errorMessage)
+                      antdMessage.error(errorMessage)
                     }
                   }}
                   className="px-3 py-1 text-xs bg-pink-600 text-white rounded hover:bg-pink-700"
@@ -281,6 +299,11 @@ export function CompactMessage({
                   {t("common:cancel", "Cancel")}
                 </button>
               </div>
+              {saveError && (
+                <div className="mt-1 text-xs text-red-500">
+                  {saveError}
+                </div>
+              )}
             </div>
           ) : (
             <div className="text-sm text-gray-800 dark:text-gray-200">
@@ -347,7 +370,7 @@ export function CompactMessage({
               </button>
               {showSources && (
                 <div className="mt-2 space-y-1.5 pl-4 border-l-2 border-gray-200 dark:border-gray-700">
-                  {sources.slice(0, 5).map((source, idx) => (
+                  {sources.slice(0, MAX_PREVIEW_SOURCES).map((source, idx) => (
                     <button
                       key={idx}
                       onClick={() => onSourceClick?.(source)}
@@ -370,11 +393,11 @@ export function CompactMessage({
                       )}
                     </button>
                   ))}
-                  {sources.length > 5 && (
+                  {sources.length > MAX_PREVIEW_SOURCES && (
                     <div className="text-xs text-gray-400 italic pl-2">
                       {t("playground:sources.more", {
                         defaultValue: "+{{count}} more",
-                        count: sources.length - 5
+                        count: sources.length - MAX_PREVIEW_SOURCES
                       })}
                     </div>
                   )}

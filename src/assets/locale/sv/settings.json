@@ -11,36 +11,36 @@
   "charactersNav": "Tecken",
   "mediaNav": "Media",
   "chatAppearance": {
-    "title": "Chat appearance",
-    "description": "Customize colors, fonts, and text sizes for chat messages.",
-    "behaviorNote": "Looking for chat behavior settings (wide mode, reasoning, copy options)?",
-    "goToGeneral": "Go to General Settings",
-    "userHeading": "User messages",
-    "assistantHeading": "Assistant messages",
-    "userColor": "User text color",
-    "assistantColor": "Assistant text color",
-    "userFont": "User font",
-    "assistantFont": "Assistant font",
-    "userSize": "User text size",
-    "assistantSize": "Assistant text size",
+    "title": "Chattutseende",
+    "description": "Anpassa färger, typsnitt och textstorlekar för chattmeddelanden.",
+    "behaviorNote": "Letar du efter inställningar för chattbeteende (bredskärmsläge, resonemang, kopieringsalternativ)?",
+    "goToGeneral": "Gå till Allmänna Inställningar",
+    "userHeading": "Användarmeddelanden",
+    "assistantHeading": "Assistentmeddelanden",
+    "userColor": "Textfärg för användare",
+    "assistantColor": "Textfärg för assistent",
+    "userFont": "Typsnitt för användare",
+    "assistantFont": "Typsnitt för assistent",
+    "userSize": "Textstorlek för användare",
+    "assistantSize": "Textstorlek för assistent",
     "color": {
-      "default": "Default",
-      "blue": "Blue",
-      "green": "Green",
-      "purple": "Purple",
+      "default": "Standard",
+      "blue": "Blå",
+      "green": "Grön",
+      "purple": "Lila",
       "orange": "Orange",
-      "red": "Red"
+      "red": "Röd"
     },
     "font": {
-      "default": "Default",
-      "sans": "Sans serif",
+      "default": "Standard",
+      "sans": "Sans",
       "serif": "Serif",
       "mono": "Monospace"
     },
     "size": {
-      "sm": "Small",
-      "md": "Medium",
-      "lg": "Large"
+      "sm": "Liten",
+      "md": "Mellan",
+      "lg": "Stor"
     }
   },
   "generalSettings": {

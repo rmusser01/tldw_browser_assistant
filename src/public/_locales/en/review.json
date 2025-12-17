@@ -14,6 +14,9 @@
   "mediaPage.saveFailed": {
     "message": "Failed to save version"
   },
+  "mediaPage.saveUnauthorized": {
+    "message": "Not authorized to save"
+  },
   "mediaPage.sendToChat": {
     "message": "Send to Chat"
   },
