@@ -24,6 +24,7 @@ import {
   DiffViewer,
   ApprovalBanner,
   TerminalOutput,
+  AgentErrorBoundary,
   parseDiff
 } from "@/components/Agent"
 import type {
@@ -82,6 +83,16 @@ const SidepanelAgent: FC = () => {
   // UI state
   const [activeTab, setActiveTab] = useState<TabKey>("chat")
   const chatContainerRef = useRef<HTMLDivElement>(null)
+
+  // Cleanup agent on unmount
+  useEffect(() => {
+    return () => {
+      if (agentRef.current) {
+        agentRef.current.cancel()
+        agentRef.current = null
+      }
+    }
+  }, [])
 
   // Auto-scroll chat
   useEffect(() => {
@@ -369,9 +380,22 @@ const SidepanelAgent: FC = () => {
   ], [messages, streamingContent, toolCalls, expandedToolIds, toggleToolExpand, diffs, selectedHunks, executions, t])
 
   return (
-    <div className="flex flex-col h-dvh bg-white dark:bg-[#171717]">
-      {/* Header */}
-      <div className="flex items-center justify-between px-4 py-2 border-b border-gray-200 dark:border-gray-700">
+    <AgentErrorBoundary
+      fallbackMessage={t("agentError", "Agent encountered an error")}
+      onReset={() => {
+        setIsRunning(false)
+        setMessages([])
+        setToolCalls([])
+        setDiffs([])
+        setExecutions([])
+        setPendingApprovals([])
+        setStreamingContent("")
+        agentRef.current = null
+      }}
+    >
+      <div className="flex flex-col h-dvh bg-white dark:bg-[#171717]">
+        {/* Header */}
+        <div className="flex items-center justify-between px-4 py-2 border-b border-gray-200 dark:border-gray-700">
         <WorkspaceSelector
           onWorkspaceChange={setWorkspace}
           className="flex-1 max-w-[250px]"

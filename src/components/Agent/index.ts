@@ -22,3 +22,6 @@ export { ApprovalBanner } from "./ApprovalBanner"
 // Terminal output
 export { TerminalOutput } from "./TerminalOutput"
 export type { CommandExecution } from "./TerminalOutput"
+
+// Error handling
+export { AgentErrorBoundary } from "./AgentErrorBoundary"
