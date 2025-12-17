@@ -24,7 +24,7 @@ export interface ToolCallEntry {
   id: string
   toolCall: ToolCall
   status: "pending" | "running" | "complete" | "error"
-  result?: any
+  result?: unknown
   error?: string
   timestamp: Date
 }
@@ -149,8 +149,25 @@ const formatArgs = (toolName: string, argsStr: string): string => {
   }
 }
 
+// Safely format full arguments JSON for expanded view
+const formatFullArgs = (
+  argsStr: string | undefined,
+  invalidFallback: string
+): string => {
+  if (!argsStr) {
+    return "{}"
+  }
+
+  try {
+    const parsed = JSON.parse(argsStr)
+    return JSON.stringify(parsed, null, 2)
+  } catch {
+    return invalidFallback || argsStr
+  }
+}
+
 // Format result for display
-const formatResult = (result: any): string => {
+const formatResult = (result: unknown): string => {
   if (!result) return ""
 
   try {
@@ -159,56 +176,73 @@ const formatResult = (result: any): string => {
     }
 
     // Handle common result structures
-    if (result.ok === false) {
-      return `Error: ${result.error || "Unknown error"}`
+    if (
+      typeof result === "object" &&
+      result !== null &&
+      "ok" in result &&
+      (result as { ok: unknown }).ok === false
+    ) {
+      const error =
+        "error" in result && typeof (result as { error?: unknown }).error === "string"
+          ? (result as { error: string }).error
+          : "Unknown error"
+      return `Error: ${error}`
     }
 
-    if (result.data) {
-      const data = result.data
+    if (typeof result === "object" && result !== null && "data" in result) {
+      const data = (result as { data?: unknown }).data as Record<string, unknown> | undefined
 
       // File listing
-      if (data.entries) {
-        return `${data.entries.length} entries${data.truncated ? " (truncated)" : ""}`
+      if (Array.isArray(data?.entries)) {
+        const truncated = data?.truncated ? " (truncated)" : ""
+        return `${data.entries.length} entries${truncated}`
       }
 
       // Search results
-      if (data.matches) {
-        return `${data.total_matches || data.matches.length} matches`
+      if (Array.isArray(data?.matches)) {
+        const totalMatches =
+          typeof data?.total_matches === "number"
+            ? data.total_matches
+            : data.matches.length
+        return `${totalMatches} matches`
       }
 
       // Git status
-      if (data.branch !== undefined) {
+      if (data && "branch" in data) {
         const parts = []
-        if (data.staged?.length) parts.push(`${data.staged.length} staged`)
-        if (data.modified?.length) parts.push(`${data.modified.length} modified`)
-        if (data.untracked?.length) parts.push(`${data.untracked.length} untracked`)
+        const staged = Array.isArray(data.staged) ? data.staged.length : 0
+        const modified = Array.isArray(data.modified) ? data.modified.length : 0
+        const untracked = Array.isArray(data.untracked) ? data.untracked.length : 0
+        if (staged) parts.push(`${staged} staged`)
+        if (modified) parts.push(`${modified} modified`)
+        if (untracked) parts.push(`${untracked} untracked`)
         return parts.length ? parts.join(", ") : "Clean"
       }
 
       // File operations
-      if (data.bytes !== undefined) {
+      if (typeof data?.bytes === "number") {
         return `${data.bytes} bytes written`
       }
 
-      if (data.deleted) {
+      if (data?.deleted) {
         return "Deleted"
       }
 
-      if (data.created) {
+      if (data?.created) {
         return "Created"
       }
 
       // Git operations
-      if (data.hash) {
+      if (typeof data?.hash === "string") {
         return `Commit: ${data.hash.substring(0, 7)}`
       }
 
-      if (data.commits) {
+      if (Array.isArray(data?.commits)) {
         return `${data.commits.length} commits`
       }
 
       // Exec results
-      if (data.exit_code !== undefined) {
+      if (typeof data?.exit_code === "number") {
         return data.exit_code === 0 ? "Success" : `Exit code: ${data.exit_code}`
       }
     }
@@ -313,7 +347,10 @@ export const ToolCallLog: FC<ToolCallLogProps> = ({
                     {t("arguments", "Arguments")}:
                   </span>
                   <pre className="mt-1 p-2 text-xs bg-gray-100 dark:bg-gray-900 rounded overflow-x-auto">
-                    {JSON.stringify(JSON.parse(entry.toolCall.function.arguments || "{}"), null, 2)}
+                    {formatFullArgs(
+                      entry.toolCall.function.arguments,
+                      t("invalidJson", "Invalid JSON; showing raw value")
+                    )}
                   </pre>
                 </div>
 

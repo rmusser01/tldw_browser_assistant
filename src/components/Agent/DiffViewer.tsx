@@ -48,7 +48,8 @@ interface DiffViewerProps {
   diffs: FileDiff[]
   selectedHunks?: Set<string>
   onHunkSelectionChange?: (hunkIds: Set<string>) => void
-  viewMode?: "unified" | "split"
+  // Currently only unified view is implemented
+  viewMode?: "unified"
   className?: string
   collapsible?: boolean
   showLineNumbers?: boolean
@@ -291,10 +292,16 @@ export const DiffViewer: FC<DiffViewerProps> = ({
       })
       .join("\n")
 
-    await navigator.clipboard.writeText(text)
-    setCopiedHunk(hunk.id)
-    message.success(t("copiedToClipboard", "Copied to clipboard"))
-    setTimeout(() => setCopiedHunk(null), 2000)
+    try {
+      await navigator.clipboard.writeText(text)
+      setCopiedHunk(hunk.id)
+      message.success(t("copiedToClipboard", "Copied to clipboard"))
+      setTimeout(() => setCopiedHunk(null), 2000)
+    } catch (err) {
+      // eslint-disable-next-line no-console
+      console.error("Failed to copy hunk to clipboard:", err)
+      message.error(t("copyFailed", "Failed to copy"))
+    }
   }
 
   if (diffs.length === 0) {
@@ -311,7 +318,10 @@ export const DiffViewer: FC<DiffViewerProps> = ({
       <div className="flex items-center justify-between px-3 py-2 bg-gray-100 dark:bg-gray-800 rounded-lg">
         <div className="flex items-center gap-4">
           <span className="text-sm font-medium">
-            {diffs.length} {diffs.length === 1 ? "file" : "files"} changed
+            {diffs.length}{" "}
+            {diffs.length === 1
+              ? t("fileChanged", "file changed")
+              : t("filesChanged", "files changed")}
           </span>
           <span className="flex items-center gap-1 text-sm text-green-600 dark:text-green-400">
             <Plus className="size-3" />
@@ -425,7 +435,7 @@ export const DiffViewer: FC<DiffViewerProps> = ({
                         {hunk.lines.filter(l => l.type !== "header").map((line, idx) => (
                           <div
                             key={idx}
-                            className={`flex ${
+                          className={`flex ${
                               line.type === "add"
                                 ? "bg-green-50 dark:bg-green-900/20"
                                 : line.type === "remove"
@@ -433,7 +443,7 @@ export const DiffViewer: FC<DiffViewerProps> = ({
                                   : ""
                             }`}
                           >
-                            {showLineNumbers && viewMode === "unified" && (
+                            {showLineNumbers && (
                               <>
                                 <LineNumber num={line.oldLineNum} className="border-r border-gray-200 dark:border-gray-700" />
                                 <LineNumber num={line.newLineNum} className="border-r border-gray-200 dark:border-gray-700" />

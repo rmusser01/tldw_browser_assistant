@@ -28,6 +28,7 @@ import { DeveloperToolsSection } from './DeveloperToolsSection'
 import { DiffViewModal } from './DiffViewModal'
 import { bgRequest } from '@/services/background-proxy'
 import type { MediaResultItem } from './types'
+import { createSafeStorage } from '@/utils/safe-storage'
 
 // Lazy load Markdown component
 const Markdown = React.lazy(() => import('@/components/Common/Markdown'))
@@ -59,32 +60,35 @@ interface ContentViewerProps {
 
 const STORAGE_KEY_COLLAPSED_SECTIONS = 'tldw:media:collapsedSections'
 
-// Load collapse states from localStorage with defaults
-const loadCollapsedStates = (): Record<string, boolean> => {
-  try {
-    const stored = localStorage.getItem(STORAGE_KEY_COLLAPSED_SECTIONS)
-    if (stored) {
-      return JSON.parse(stored)
-    }
-  } catch (err) {
-    console.warn('Failed to load collapse states from localStorage:', err)
-  }
-  // Default: all expanded (false = not collapsed)
-  return {
-    statistics: false,
-    content: false,
-    metadata: true,
-    analysis: false
-  }
+const uiStorage = createSafeStorage({ area: 'local' })
+
+const DEFAULT_COLLAPSED_SECTIONS: Record<string, boolean> = {
+  statistics: false,
+  content: false,
+  metadata: true,
+  analysis: false
 }
 
-// Save collapse states to localStorage
-const saveCollapsedStates = (states: Record<string, boolean>) => {
+// Load collapse states from extension storage with defaults
+const loadCollapsedStates = async (): Promise<Record<string, boolean>> => {
   try {
-    localStorage.setItem(STORAGE_KEY_COLLAPSED_SECTIONS, JSON.stringify(states))
+    const stored = await uiStorage.get(STORAGE_KEY_COLLAPSED_SECTIONS)
+    if (stored) {
+      return stored as Record<string, boolean>
+    }
   } catch (err) {
-    console.warn('Failed to save collapse states to localStorage:', err)
+    console.warn('Failed to load collapse states:', err)
   }
+  return DEFAULT_COLLAPSED_SECTIONS
+}
+
+// Save collapse states to extension storage
+const saveCollapsedStates = (states: Record<string, boolean>) => {
+  uiStorage
+    .set(STORAGE_KEY_COLLAPSED_SECTIONS, states)
+    .catch((err) => {
+      console.warn('Failed to save collapse states:', err)
+    })
 }
 
 export function ContentViewer({
@@ -109,7 +113,7 @@ export function ContentViewer({
   const { t } = useTranslation(['review'])
   const [collapsedSections, setCollapsedSections] = useState<
     Record<string, boolean>
-  >(loadCollapsedStates)
+  >(DEFAULT_COLLAPSED_SECTIONS)
   const [analysisModalOpen, setAnalysisModalOpen] = useState(false)
   const [editingKeywords, setEditingKeywords] = useState<string[]>([])
   const [savingKeywords, setSavingKeywords] = useState(false)
@@ -130,6 +134,24 @@ export function ContentViewer({
   // Content length threshold for collapse (2500 chars)
   const CONTENT_COLLAPSE_THRESHOLD = 2500
   const shouldShowExpandToggle = content && content.length > CONTENT_COLLAPSE_THRESHOLD
+
+  // Load initial collapsed section state from storage
+  useEffect(() => {
+    let cancelled = false
+
+    const initCollapsedState = async () => {
+      const initial = await loadCollapsedStates()
+      if (!cancelled) {
+        setCollapsedSections(initial)
+      }
+    }
+
+    void initCollapsedState()
+
+    return () => {
+      cancelled = true
+    }
+  }, [])
 
   // Sync editing keywords with selected media
   useEffect(() => {

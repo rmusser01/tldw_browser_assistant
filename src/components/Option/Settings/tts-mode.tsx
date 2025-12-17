@@ -154,8 +154,8 @@ export const TTSModeSettings = ({ hideBorder }: { hideBorder?: boolean }) => {
       if (hasVoices && hasModels) {
         const successMessage = t(
           "generalSettings.tts.apiKeyTest.success",
-          "API key valid! Found {{count}} voices.",
-          { count: voices.length }
+          "API key valid! Found {{voiceCount}} voices and {{modelCount}} models.",
+          { voiceCount: voices.length, modelCount: models.length }
         )
         message.success(successMessage as string)
         setElevenLabsTestResult({

@@ -7,6 +7,8 @@
 import { Component, ErrorInfo, ReactNode } from "react"
 import { AlertTriangle, RefreshCw } from "lucide-react"
 import { Button } from "antd"
+import i18n from "i18next"
+import { translateMessage } from "@/i18n/translateMessage"
 
 interface Props {
   children: ReactNode
@@ -59,18 +61,30 @@ export class AgentErrorBoundary extends Component<Props, State> {
             </div>
 
             <h2 className="text-lg font-semibold mb-2">
-              {this.props.fallbackMessage || "Something went wrong"}
+              {this.props.fallbackMessage ||
+                translateMessage(
+                  i18n.t,
+                  "common:agent.errorBoundary.title",
+                  "Something went wrong"
+                )}
             </h2>
 
             <p className="text-sm text-gray-500 dark:text-gray-400 mb-4">
-              An error occurred in the agent interface. This may be due to an unexpected
-              response or a temporary issue.
+              {translateMessage(
+                i18n.t,
+                "common:agent.errorBoundary.description",
+                "An error occurred in the agent interface. This may be due to an unexpected response or a temporary issue."
+              )}
             </p>
 
             {this.state.error && (
               <details className="w-full mb-4 text-left">
                 <summary className="text-sm text-gray-500 dark:text-gray-400 cursor-pointer hover:text-gray-700 dark:hover:text-gray-200">
-                  View error details
+                  {translateMessage(
+                    i18n.t,
+                    "common:agent.errorBoundary.viewDetails",
+                    "View error details"
+                  )}
                 </summary>
                 <pre className="mt-2 p-3 text-xs bg-gray-100 dark:bg-gray-800 rounded-lg overflow-x-auto">
                   <code className="text-red-600 dark:text-red-400">
@@ -90,7 +104,11 @@ export class AgentErrorBoundary extends Component<Props, State> {
               icon={<RefreshCw className="size-4" />}
               onClick={this.handleReset}
             >
-              Try Again
+              {translateMessage(
+                i18n.t,
+                "common:agent.errorBoundary.retry",
+                "Try Again"
+              )}
             </Button>
           </div>
         </div>

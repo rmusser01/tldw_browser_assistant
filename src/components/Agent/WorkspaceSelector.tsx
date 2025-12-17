@@ -2,7 +2,7 @@
  * WorkspaceSelector - Select and manage workspace directories
  */
 
-import { FC, useState, useEffect } from "react"
+import { FC, useState, useEffect, useRef } from "react"
 import { useTranslation } from "react-i18next"
 import { Dropdown, Modal, Input, message } from "antd"
 import {
@@ -48,10 +48,15 @@ export const WorkspaceSelector: FC<WorkspaceSelectorProps> = ({
   // Get currently selected workspace
   const selectedWorkspace = workspaces?.find(w => w.id === selectedId) || null
 
+  const callbackRef = useRef(onWorkspaceChange)
+  useEffect(() => {
+    callbackRef.current = onWorkspaceChange
+  })
+
   // Notify parent of workspace change
   useEffect(() => {
-    onWorkspaceChange?.(selectedWorkspace)
-  }, [selectedWorkspace, onWorkspaceChange])
+    callbackRef.current?.(selectedWorkspace)
+  }, [selectedWorkspace])
 
   // Handle workspace selection
   const handleSelect = async (workspace: Workspace) => {
@@ -59,19 +64,23 @@ export const WorkspaceSelector: FC<WorkspaceSelectorProps> = ({
       // Set workspace in native agent
       const result = await nativeClient.setWorkspace(workspace.path)
       if (!result.ok) {
-        message.error(result.error || "Failed to set workspace")
+        message.error(result.error || t("failedToSetWorkspace", "Failed to set workspace"))
         return
       }
       setSelectedId(workspace.id)
-    } catch (e: any) {
-      message.error(e.message || "Failed to set workspace")
+    } catch (e: unknown) {
+      const err =
+        e && typeof e === "object" && "message" in e
+          ? String((e as { message?: unknown }).message)
+          : t("failedToSetWorkspace", "Failed to set workspace")
+      message.error(err)
     }
   }
 
   // Handle adding new workspace
   const handleAddWorkspace = async () => {
     if (!newPath.trim()) {
-      message.error("Please enter a path")
+      message.error(t("pleaseEnterPath", "Please enter a path"))
       return
     }
 
@@ -80,14 +89,14 @@ export const WorkspaceSelector: FC<WorkspaceSelectorProps> = ({
       // Validate path via native agent
       const result = await nativeClient.setWorkspace(newPath.trim())
       if (!result.ok) {
-        message.error(result.error || "Invalid path")
+        message.error(result.error || t("invalidPath", "Invalid path"))
         return
       }
 
       // Add to list
       const workspace: Workspace = {
-        id: `ws-${Date.now()}`,
-        name: newName.trim() || newPath.split("/").pop() || "Workspace",
+        id: crypto.randomUUID(),
+        name: newName.trim() || (newPath.split(/[/\\]/).pop() || "Workspace"),
         path: newPath.trim()
       }
 
@@ -96,9 +105,13 @@ export const WorkspaceSelector: FC<WorkspaceSelectorProps> = ({
       setShowAddModal(false)
       setNewPath("")
       setNewName("")
-      message.success("Workspace added")
-    } catch (e: any) {
-      message.error(e.message || "Failed to add workspace")
+      message.success(t("workspaceAdded", "Workspace added"))
+    } catch (e: unknown) {
+      const err =
+        e && typeof e === "object" && "message" in e
+          ? String((e as { message?: unknown }).message)
+          : t("failedToAddWorkspace", "Failed to add workspace")
+      message.error(err)
     } finally {
       setIsValidating(false)
     }
@@ -122,7 +135,7 @@ export const WorkspaceSelector: FC<WorkspaceSelectorProps> = ({
           {t("agentNotInstalled", "tldw-agent not installed")}
         </span>
         <a
-          href="https://github.com/tldw/tldw-agent#installation"
+          href="https://github.com/rmusser01/tldw_browser_assistant/blob/HEAD/docs/agent/user-guide.md#installation"
           target="_blank"
           rel="noopener noreferrer"
           className="text-sm text-blue-600 dark:text-blue-400 hover:underline ml-auto"

@@ -25,3 +25,6 @@ export type { CommandExecution } from "./TerminalOutput"
 
 // Error handling
 export { AgentErrorBoundary } from "./AgentErrorBoundary"
+
+// Test utilities (for E2E testing)
+export { ErrorBoundaryTestTrigger } from "./ErrorBoundaryTestTrigger"

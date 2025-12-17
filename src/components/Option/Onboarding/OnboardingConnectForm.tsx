@@ -1,7 +1,6 @@
 import { useState, useEffect, useMemo, useCallback, useRef } from "react"
 import { Input, Button, Tooltip, message } from "antd"
 import type { InputRef } from "antd"
-import type { TFunction } from "i18next"
 import {
   Check,
   X,
@@ -22,8 +21,6 @@ import {
 import { useTranslation } from "react-i18next"
 import { tldwClient } from "@/services/tldw/TldwApiClient"
 import { getTldwServerURL, DEFAULT_TLDW_API_KEY } from "@/services/tldw-server"
-import { tldwAuth } from "@/services/tldw/TldwAuth"
-import { mapMultiUserLoginErrorMessage } from "@/services/auth-errors"
 import {
   useConnectionState,
   useConnectionActions,
@@ -33,143 +30,24 @@ import { useConnectionStore } from "@/store/connection"
 import { useDemoMode } from "@/context/demo-mode"
 import { openSidepanelForActiveTab } from "@/utils/sidepanel"
 import { cn } from "@/libs/utils"
+import {
+  validateApiKey,
+  validateMultiUserAuth,
+  type ConnectionErrorKind,
+  type ValidationResult,
+} from "./validation"
+import { ProgressItem, type ProgressStatus } from "./ProgressItem"
 
 type AuthMode = "single-user" | "multi-user"
 
 type ConnectionProgress = {
-  serverReachable: "idle" | "checking" | "success" | "error"
-  authentication: "idle" | "checking" | "success" | "error"
-  knowledgeIndex: "idle" | "checking" | "success" | "error" | "empty"
-}
-
-type ConnectionErrorKind =
-  | "dns_failed"
-  | "refused"
-  | "timeout"
-  | "ssl_error"
-  | "auth_invalid"
-  | "server_error"
-  | null
-
-type ValidationResult = {
-  success: boolean
-  error?: string
-  errorKind?: ConnectionErrorKind
+  serverReachable: ProgressStatus
+  authentication: ProgressStatus
+  knowledgeIndex: ProgressStatus
 }
 
 interface Props {
   onFinish?: () => void
-}
-
-const validateMultiUserAuth = async (
-  username: string,
-  password: string,
-  t: TFunction
-): Promise<ValidationResult> => {
-  try {
-    await tldwAuth.login({ username, password })
-    return { success: true }
-  } catch (error: unknown) {
-    const friendly = mapMultiUserLoginErrorMessage(t, error, "onboarding")
-    return {
-      success: false,
-      errorKind: "auth_invalid",
-      error: friendly,
-    }
-  }
-}
-
-const validateApiKey = async (
-  serverUrl: string,
-  apiKey: string,
-  t: TFunction
-): Promise<ValidationResult> => {
-  try {
-    const isValid = await tldwAuth.testApiKey(serverUrl, apiKey)
-    if (!isValid) {
-      return {
-        success: false,
-        errorKind: "auth_invalid",
-        error: t(
-          "settings:onboarding.errors.invalidApiKey",
-          "Invalid API key. Please check your key and try again."
-        ),
-      }
-    }
-    return { success: true }
-  } catch (error: unknown) {
-    return {
-      success: false,
-      errorKind: "auth_invalid",
-      error:
-        (error as Error)?.message ||
-        t(
-          "settings:onboarding.errors.apiKeyValidationFailed",
-          "API key validation failed"
-        ),
-    }
-  }
-}
-
-const ProgressItem = ({
-  label,
-  status,
-}: {
-  label: string
-  status: ConnectionProgress[keyof ConnectionProgress]
-}) => {
-  const { t } = useTranslation(["settings", "common"])
-
-  return (
-    <div className="flex items-center gap-2 text-sm">
-      <div
-        className={cn(
-          "w-5 h-5 rounded-full flex items-center justify-center",
-          status === "idle" && "bg-gray-200 dark:bg-gray-700",
-          status === "checking" && "bg-blue-100 dark:bg-blue-900/30",
-          status === "success" && "bg-green-100 dark:bg-green-900/30",
-          status === "error" && "bg-red-100 dark:bg-red-900/30",
-          status === "empty" && "bg-amber-100 dark:bg-amber-900/30"
-        )}
-      >
-        {status === "idle" && (
-          <div className="w-2 h-2 rounded-full bg-gray-400" />
-        )}
-        {status === "checking" && (
-          <Loader2 className="size-3 text-blue-600 animate-spin" />
-        )}
-        {status === "success" && <Check className="size-3 text-green-600" />}
-        {status === "error" && <X className="size-3 text-red-600" />}
-        {status === "empty" && (
-          <AlertCircle className="size-3 text-amber-600" />
-        )}
-      </div>
-      <span
-        className={cn(
-          "text-gray-700 dark:text-gray-300",
-          status === "checking" &&
-            "font-medium text-blue-600 dark:text-blue-400",
-          status === "success" && "text-green-600 dark:text-green-400",
-          status === "error" && "text-red-600 dark:text-red-400"
-        )}
-      >
-        {label}
-      </span>
-      {status === "checking" && (
-        <span className="text-xs text-gray-400 animate-pulse">
-          {t("common:checking", "Checking...")}
-        </span>
-      )}
-      {status === "empty" && (
-        <span className="text-xs text-amber-600 dark:text-amber-400">
-          {t(
-            "settings:onboarding.progress.noIndex",
-            "No documents indexed yet"
-          )}
-        </span>
-      )}
-    </div>
-  )
 }
 
 /**

@@ -16,6 +16,7 @@ const OptionAbout = lazy(() => import("./option-settings-about"))
 const SidepanelChat = lazy(() => import("./sidepanel-chat"))
 const SidepanelSettings = lazy(() => import("./sidepanel-settings"))
 const SidepanelAgent = lazy(() => import("./sidepanel-agent"))
+const SidepanelErrorBoundaryTest = lazy(() => import("./sidepanel-error-boundary-test"))
 const OptionRagSettings = lazy(() => import("./option-rag"))
 const OptionTldwSettings = lazy(() => import("./option-settings-tldw").then(m => ({ default: m.OptionTldwSettings })))
 const OptionMedia = lazy(() => import("./option-media"))
@@ -115,6 +116,8 @@ export const SidepanelRoutingChrome = () => {
         <Route path="/" element={<SidepanelChat />} />
         <Route path="/agent" element={<SidepanelAgent />} />
         <Route path="/settings" element={<SidepanelSettings />} />
+        {/* Test route for E2E testing of error boundary */}
+        <Route path="/error-boundary-test" element={<SidepanelErrorBoundaryTest />} />
       </Routes>
     </Suspense>
   )

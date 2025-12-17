@@ -206,12 +206,12 @@ export const ApprovalBanner: FC<ApprovalBannerProps> = ({
           </Button>
 
           {onToggleExpanded && (
-            <button
+            <Button
+              size="small"
+              type="text"
               onClick={onToggleExpanded}
-              className="p-1 rounded hover:bg-yellow-100 dark:hover:bg-yellow-900/40"
-            >
-              <ChevronUp className={`size-4 text-yellow-600 transition-transform ${expanded ? "" : "rotate-180"}`} />
-            </button>
+              icon={<ChevronUp className={`size-4 text-yellow-600 transition-transform ${expanded ? "" : "rotate-180"}`} />}
+            />
           )}
         </div>
       </div>
@@ -252,20 +252,26 @@ export const ApprovalBanner: FC<ApprovalBannerProps> = ({
                 </div>
 
                 <div className="flex items-center gap-1 ml-2">
-                  <button
-                    onClick={() => onApprove([approval.toolCallId])}
-                    className="p-1.5 rounded hover:bg-green-100 dark:hover:bg-green-900/40 text-green-600"
-                    title={t("approve", "Approve")}
-                  >
-                    <Check className="size-4" />
-                  </button>
-                  <button
-                    onClick={() => onReject([approval.toolCallId])}
-                    className="p-1.5 rounded hover:bg-red-100 dark:hover:bg-red-900/40 text-red-600"
-                    title={t("reject", "Reject")}
-                  >
-                    <X className="size-4" />
-                  </button>
+                  <Tooltip title={t("approve", "Approve")}>
+                    <Button
+                      size="small"
+                      type="text"
+                      onClick={() => onApprove([approval.toolCallId])}
+                      aria-label={t("approve", "Approve")}
+                      icon={<Check className="size-4 text-green-600" />}
+                      className="hover:bg-green-100 dark:hover:bg-green-900/40"
+                    />
+                  </Tooltip>
+                  <Tooltip title={t("reject", "Reject")}>
+                    <Button
+                      size="small"
+                      type="text"
+                      onClick={() => onReject([approval.toolCallId])}
+                      aria-label={t("reject", "Reject")}
+                      icon={<X className="size-4 text-red-600" />}
+                      className="hover:bg-red-100 dark:hover:bg-red-900/40"
+                    />
+                  </Tooltip>
                 </div>
               </div>
             )

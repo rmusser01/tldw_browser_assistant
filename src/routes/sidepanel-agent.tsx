@@ -482,7 +482,8 @@ const SidepanelAgent: FC = () => {
           )}
         </div>
       </div>
-    </div>
+      </div>
+    </AgentErrorBoundary>
   )
 }
 

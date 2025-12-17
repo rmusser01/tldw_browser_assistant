@@ -81,13 +81,20 @@ function parseAnsiColors(text: string): { text: string; className: string }[] {
       }
     }
 
-    // Parse color codes
+    // Parse color / style codes
     const codes = match[1].split(";")
+    const classes: string[] = currentClass ? currentClass.split(" ") : []
     for (const code of codes) {
       if (colorMap[code] !== undefined) {
-        currentClass = colorMap[code]
+        if (code === "0") {
+          // Reset all styles
+          classes.length = 0
+        } else if (colorMap[code]) {
+          classes.push(colorMap[code])
+        }
       }
     }
+    currentClass = classes.join(" ")
 
     lastIndex = ansiRegex.lastIndex
   }
@@ -164,11 +171,59 @@ const ExecutionOutput: FC<{
     return parts.join("\n")
   }, [execution.stdout, execution.stderr])
 
+  const parsedStdout = useMemo(
+    () =>
+      execution.stdout
+        ? execution.stdout.split("\n").map((line) => parseAnsiColors(line))
+        : [],
+    [execution.stdout]
+  )
+
   const copyOutput = async () => {
-    await navigator.clipboard.writeText(output)
-    setCopied(true)
-    message.success(t("copiedToClipboard", "Copied to clipboard"))
-    setTimeout(() => setCopied(false), 2000)
+    if (!output) {
+      return
+    }
+
+    try {
+      if (!navigator.clipboard?.writeText) {
+        throw new Error("Clipboard API not available")
+      }
+
+      await navigator.clipboard.writeText(output)
+      setCopied(true)
+      message.success(t("copiedToClipboard", "Copied to clipboard"))
+      setTimeout(() => setCopied(false), 2000)
+      return
+    } catch (err) {
+      // eslint-disable-next-line no-console
+      console.error("[TerminalOutput] Clipboard write failed, attempting fallback", err)
+
+      try {
+        const textarea = document.createElement("textarea")
+        textarea.value = output
+        textarea.style.position = "fixed"
+        textarea.style.opacity = "0"
+        textarea.style.left = "-9999px"
+        document.body.appendChild(textarea)
+        textarea.focus()
+        textarea.select()
+        const ok = document.execCommand("copy")
+        document.body.removeChild(textarea)
+
+        if (ok) {
+          setCopied(true)
+          message.success(t("copiedToClipboard", "Copied to clipboard"))
+          setTimeout(() => setCopied(false), 2000)
+          return
+        }
+      } catch (fallbackErr) {
+        // eslint-disable-next-line no-console
+        console.error("[TerminalOutput] Fallback copy failed", fallbackErr)
+      }
+
+      setCopied(false)
+      message.error(t("copyFailed", "Failed to copy"))
+    }
   }
 
   return (
@@ -234,11 +289,11 @@ const ExecutionOutput: FC<{
           </button>
 
           {/* stdout */}
-          {execution.stdout && (
+          {parsedStdout.length > 0 && (
             <div className="p-3 font-mono text-sm overflow-x-auto">
-              {execution.stdout.split("\n").map((line, idx) => (
+              {parsedStdout.map((segments, idx) => (
                 <div key={idx} className="whitespace-pre-wrap break-all">
-                  {parseAnsiColors(line).map((segment, segIdx) => (
+                  {segments.map((segment, segIdx) => (
                     <span key={segIdx} className={segment.className}>
                       {segment.text}
                     </span>

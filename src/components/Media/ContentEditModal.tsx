@@ -70,7 +70,7 @@ export function ContentEditModal({
     try {
       await bgRequest({
         path: `/api/v1/media/${mediaId}/versions`,
-        method: 'POST' as any,
+        method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: {
           content: text
@@ -83,7 +83,10 @@ export function ContentEditModal({
       onClose()
     } catch (err) {
       console.error('Failed to save content version:', err)
-      const errMsg = err instanceof Error ? err.message : ''
+      const errMsg =
+        err && typeof err === 'object' && 'message' in err
+          ? String((err as { message?: unknown }).message)
+          : String(err || 'Unknown error')
       message.error(
         errMsg.includes('401') || errMsg.includes('403')
           ? t('mediaPage.saveUnauthorized', 'Not authorized to save')
