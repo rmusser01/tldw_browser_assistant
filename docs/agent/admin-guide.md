@@ -9,6 +9,7 @@ This guide covers deployment, configuration, security, and maintenance of the tl
 - [Configuration](#configuration)
 - [Security](#security)
 - [Command Allowlist Management](#command-allowlist-management)
+- [Session & Storage Management](#session--storage-management)
 - [Monitoring and Logging](#monitoring-and-logging)
 - [Troubleshooting](#troubleshooting)
 - [Enterprise Deployment](#enterprise-deployment)
@@ -444,6 +445,206 @@ execution:
       template: ""
       description: "Disabled"
 ```
+
+## Session & Storage Management
+
+The agent extension stores session history and workspace preferences in browser storage (`chrome.storage.local`).
+
+### Storage Architecture
+
+```text
+┌─────────────────────────────────────────────────────────────────┐
+│                  Browser Extension Storage                       │
+├─────────────────────────────────────────────────────────────────┤
+│                                                                  │
+│  agent:sessions          Array of stored sessions (~2MB max)     │
+│  agent:activeSession     Current session reference               │
+│  agent:workspaceHistory  Recent workspace list                   │
+│  agent:selectedWorkspace Currently selected workspace ID         │
+│  agent:workspaces        User's workspace definitions            │
+│  agent:settings          User preferences                        │
+│                                                                  │
+└─────────────────────────────────────────────────────────────────┘
+```
+
+### Storage Limits
+
+The extension enforces strict limits to stay within browser quotas:
+
+| Limit | Default Value | Purpose |
+|-------|---------------|---------|
+| Sessions per workspace | 5 | Prevents workspace clutter |
+| Total sessions | 30 | Global storage cap |
+| Session age | 30 days | Auto-cleanup old sessions |
+| Workspace history | 10 | Quick access list |
+| Message length | 4,000 chars | Truncation threshold |
+| Tool result length | 2,000 chars | Truncation threshold |
+| Tool args length | 1,000 chars | Truncation threshold |
+
+### Storage Keys Reference
+
+| Key | Type | Description |
+|-----|------|-------------|
+| `agent:sessions` | `StoredAgentSession[]` | All saved sessions |
+| `agent:activeSession` | `ActiveSessionRef` | Currently active session ID + workspace |
+| `agent:workspaceHistory` | `WorkspaceHistoryEntry[]` | Recently used workspaces |
+| `agent:selectedWorkspace` | `string` | Currently selected workspace ID |
+| `agent:workspaces` | `Workspace[]` | User's defined workspaces |
+| `agent:settings` | `AgentSettings` | User preferences |
+
+### Session Data Structure
+
+Each stored session contains:
+
+```typescript
+{
+  schemaVersion: 1,           // For future migrations
+  id: "uuid",                 // Unique session ID
+  workspaceId: "uuid",        // Associated workspace
+  task: "Full task text",     // User's original request
+  title: "Short title...",    // Truncated (50 chars)
+  status: "complete",         // idle | running | waiting_approval | complete | error | cancelled
+  currentStep: 5,             // Agent step number
+  messages: [...],            // Conversation history (truncated)
+  toolCalls: [...],           // Tool call log (truncated)
+  pendingApprovals: [...],    // Pending approval requests
+  diffs: [...],               // File change summaries
+  executions: [...],          // Command execution summaries
+  createdAt: "2025-01-15T10:30:00Z",
+  updatedAt: "2025-01-15T10:35:00Z"
+}
+```
+
+### Automatic Cleanup
+
+Sessions are automatically cleaned up:
+
+1. **On Extension Load**:
+   - "Running" sessions marked as "error" (stale from browser crash)
+   - Sessions older than 30 days removed
+   - Global limit enforced (oldest first)
+
+2. **On Session Save**:
+   - Per-workspace limit enforced (oldest first)
+   - Global limit enforced (oldest first)
+
+3. **Workspace History**:
+   - Orphaned entries (deleted workspaces) removed
+   - Limited to 10 most recent
+
+### Restorable Sessions
+
+Only sessions with `status: "waiting_approval"` can be restored. This is by design:
+
+- **`waiting_approval`**: User closed browser while agent needed approval - safe to restore
+- **`running`**: Agent was mid-execution - marked as "error" on next load (can't safely resume)
+- **`complete`/`error`/`cancelled`**: Terminal states - no restoration needed
+
+### Clearing Storage
+
+**Via Browser Developer Tools:**
+
+```javascript
+// Clear all agent storage
+chrome.storage.local.get(null, (items) => {
+  const agentKeys = Object.keys(items).filter(k => k.startsWith('agent:'))
+  chrome.storage.local.remove(agentKeys)
+})
+
+// Clear only sessions
+chrome.storage.local.remove('agent:sessions')
+
+// Clear workspace history
+chrome.storage.local.remove('agent:workspaceHistory')
+```
+
+**Via Extension Settings:**
+Users can clear session history from the Session History panel using "Clear All".
+
+### Storage Quotas
+
+Browser extension storage limits:
+
+| Browser | `chrome.storage.local` Limit |
+|---------|------------------------------|
+| Chrome | 5 MB (default), 10 MB with `unlimitedStorage` |
+| Firefox | 5 MB |
+| Edge | 5 MB |
+
+The agent is designed to stay well under 2 MB with default limits.
+
+### Backup and Export
+
+Currently, session data cannot be exported. Future versions may add:
+- Export sessions as JSON
+- Import sessions from backup
+- Sync across browsers (if logged in)
+
+### Monitoring Storage Usage
+
+**Via Developer Tools:**
+
+```javascript
+// Check total storage usage
+chrome.storage.local.getBytesInUse(null, (bytes) => {
+  console.log(`Total: ${(bytes / 1024).toFixed(2)} KB`)
+})
+
+// Check session storage specifically
+chrome.storage.local.get('agent:sessions', (result) => {
+  const size = JSON.stringify(result).length
+  console.log(`Sessions: ${(size / 1024).toFixed(2)} KB`)
+})
+```
+
+### Schema Versioning
+
+Sessions include a `schemaVersion` field for future migrations:
+
+```typescript
+// Current version
+CURRENT_SCHEMA_VERSION = 1
+
+// Future migration example
+if (session.schemaVersion < 2) {
+  // Migrate from v1 to v2
+  session.newField = defaultValue
+  session.schemaVersion = 2
+}
+```
+
+### Security Considerations
+
+**Stored Data:**
+- Message content may contain code snippets
+- Tool arguments may contain file paths
+- No secrets should be stored (redacted in logs, not in sessions)
+
+**Data Truncation:**
+- Large content is truncated before storage
+- Truncated `arguments` fields may be invalid JSON
+- Sessions are for review, not re-execution
+
+**Access Control:**
+- Extension storage is isolated to the extension origin
+- Other extensions cannot access this data
+- User can clear via browser settings
+
+### Enterprise Considerations
+
+**MDM/GPO:**
+- Cannot directly configure extension storage limits
+- Consider disabling session persistence for high-security environments
+
+**Data Retention:**
+- Sessions auto-delete after 30 days
+- No cloud sync - data stays local
+- Users can manually clear at any time
+
+**Compliance:**
+- Code snippets may be stored in session history
+- Consider warning users about data persistence
+- Implement additional cleanup policies if needed
 
 ## Monitoring and Logging
 

@@ -41,7 +41,6 @@ interface CommandPaletteProps {
   onToggleWebSearch?: () => void
   onIngestPage?: () => void
   onSwitchModel?: () => void
-  onToggleSidebar?: () => void
 }
 
 export function CommandPalette({
@@ -51,7 +50,6 @@ export function CommandPalette({
   onToggleWebSearch,
   onIngestPage,
   onSwitchModel,
-  onToggleSidebar,
 }: CommandPaletteProps) {
   const [open, setOpen] = useState(false)
   const [query, setQuery] = useState("")
