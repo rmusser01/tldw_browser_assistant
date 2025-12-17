@@ -17,6 +17,22 @@ export type ValidationResult = {
   errorKind?: ConnectionErrorKind
 }
 
+export const categorizeConnectionError = (
+  status: number | null,
+  error: string | null
+): ConnectionErrorKind => {
+  if (status === 401 || status === 403) return "auth_invalid"
+  if (status && status >= 500) return "server_error"
+  if (error?.includes("timeout")) return "timeout"
+  if (error?.includes("ENOTFOUND") || error?.includes("getaddrinfo"))
+    return "dns_failed"
+  if (error?.includes("ECONNREFUSED")) return "refused"
+  if (error?.includes("SSL") || error?.includes("certificate"))
+    return "ssl_error"
+  if (!status && error) return "refused"
+  return null
+}
+
 export const validateMultiUserAuth = async (
   username: string,
   password: string,
@@ -27,9 +43,13 @@ export const validateMultiUserAuth = async (
     return { success: true }
   } catch (error: unknown) {
     const friendly = mapMultiUserLoginErrorMessage(t, error, "onboarding")
+    const rawMessage =
+      error instanceof Error ? error.message : (error as any)?.message ?? null
+    const errorKind = categorizeConnectionError(null, rawMessage) ?? "auth_invalid"
+
     return {
       success: false,
-      errorKind: "auth_invalid",
+      errorKind,
       error: friendly
     }
   }
@@ -54,16 +74,21 @@ export const validateApiKey = async (
     }
     return { success: true }
   } catch (error: unknown) {
+    const errorMessage =
+      error instanceof Error
+        ? error.message
+        : t(
+            "settings:onboarding.errors.apiKeyValidationFailed",
+            "API key validation failed"
+          )
+    const errorKind =
+      categorizeConnectionError(null, error instanceof Error ? error.message : null) ??
+      "auth_invalid"
+
     return {
       success: false,
-      errorKind: "auth_invalid",
-      error:
-        (error as Error)?.message ||
-        t(
-          "settings:onboarding.errors.apiKeyValidationFailed",
-          "API key validation failed"
-        )
+      errorKind,
+      error: errorMessage
     }
   }
 }
-

@@ -29,6 +29,7 @@ import { DiffViewModal } from './DiffViewModal'
 import { bgRequest } from '@/services/background-proxy'
 import type { MediaResultItem } from './types'
 import { createSafeStorage } from '@/utils/safe-storage'
+import { getTextStats } from '@/utils/text-stats'
 
 // Lazy load Markdown component
 const Markdown = React.lazy(() => import('@/components/Common/Markdown'))
@@ -72,9 +73,19 @@ const DEFAULT_COLLAPSED_SECTIONS: Record<string, boolean> = {
 // Load collapse states from extension storage with defaults
 const loadCollapsedStates = async (): Promise<Record<string, boolean>> => {
   try {
-    const stored = await uiStorage.get(STORAGE_KEY_COLLAPSED_SECTIONS)
-    if (stored) {
-      return stored as Record<string, boolean>
+    const stored = (await uiStorage.get(
+      STORAGE_KEY_COLLAPSED_SECTIONS
+    )) as unknown
+
+    if (
+      stored &&
+      typeof stored === 'object' &&
+      !Array.isArray(stored)
+    ) {
+      const entries = Object.entries(stored as Record<string, unknown>)
+      if (entries.every(([, value]) => typeof value === 'boolean')) {
+        return stored as Record<string, boolean>
+      }
     }
   } catch (err) {
     console.warn('Failed to load collapse states:', err)
@@ -396,20 +407,17 @@ export function ContentViewer({
   const { wordCount, charCount, paragraphCount } = useMemo(() => {
     const text = content || ''
     const apiWordCount = mediaDetail?.content?.word_count
+    const {
+      wordCount: computedWordCount,
+      charCount,
+      paragraphCount
+    } = getTextStats(text)
     const wordCountValue =
-      typeof apiWordCount === 'number'
-        ? apiWordCount
-        : text.trim()
-          ? text.trim().split(/\s+/).filter((w) => w.length > 0).length
-          : 0
-    const charCountValue = text.length
-    const paragraphCountValue = text.trim()
-      ? text.split(/\n\n/).filter((p: string) => p.trim().length > 0).length
-      : 0
+      typeof apiWordCount === 'number' ? apiWordCount : computedWordCount
     return {
       wordCount: wordCountValue,
-      charCount: charCountValue,
-      paragraphCount: paragraphCountValue
+      charCount,
+      paragraphCount
     }
   }, [content, mediaDetail])
 
@@ -451,7 +459,7 @@ export function ContentViewer({
               <button
                 onClick={onPrevious}
                 disabled={!hasPrevious}
-                className="p-1.5 text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-[#262626] rounded disabled:opacity-30 disabled:cursor-not-allowed"
+                className="p-1.5 text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-[#262626] rounded disabled:opacity-50 disabled:cursor-not-allowed"
                 aria-label={t('review:reviewPage.prevItem', { defaultValue: 'Previous' })}
               >
                 <ChevronLeft className="w-4 h-4" />
@@ -466,7 +474,7 @@ export function ContentViewer({
               <button
                 onClick={onNext}
                 disabled={!hasNext}
-                className="p-1.5 text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-[#262626] rounded disabled:opacity-30 disabled:cursor-not-allowed"
+                className="p-1.5 text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-[#262626] rounded disabled:opacity-50 disabled:cursor-not-allowed"
                 aria-label={t('review:reviewPage.nextItem', { defaultValue: 'Next' })}
               >
                 <ChevronRight className="w-4 h-4" />

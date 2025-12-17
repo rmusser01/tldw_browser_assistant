@@ -3,6 +3,7 @@ import { Modal, message } from 'antd'
 import { useTranslation } from 'react-i18next'
 import { Copy, Save } from 'lucide-react'
 import { bgRequest } from '@/services/background-proxy'
+import { getTextStats } from '@/utils/text-stats'
 
 interface ContentEditModalProps {
   open: boolean
@@ -97,10 +98,7 @@ export function ContentEditModal({
     }
   }
 
-  const charCount = text.length
-  const wordCount = text.trim()
-    ? text.trim().split(/\s+/).filter((w) => w.length > 0).length
-    : 0
+  const { wordCount, charCount } = getTextStats(text)
 
   return (
     <Modal

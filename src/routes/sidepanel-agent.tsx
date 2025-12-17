@@ -14,7 +14,9 @@ import {
   Send,
   Square,
   Loader2,
-  Settings
+  Settings,
+  History,
+  X
 } from "lucide-react"
 import { useStorage } from "@plasmohq/storage/hook"
 
@@ -25,8 +27,13 @@ import {
   ApprovalBanner,
   TerminalOutput,
   AgentErrorBoundary,
+  SessionHistoryPanel,
+  SessionRestoreDialog,
   parseDiff
 } from "@/components/Agent"
+import { useSessionPersistence } from "@/hooks/useSessionPersistence"
+import type { SessionSaveInput } from "@/services/agent/storage"
+import { sessionToRestoreOutput } from "@/services/agent/storage"
 import type {
   Workspace,
   ToolCallEntry,
@@ -82,7 +89,25 @@ const SidepanelAgent: FC = () => {
 
   // UI state
   const [activeTab, setActiveTab] = useState<TabKey>("chat")
+  const [showHistory, setShowHistory] = useState(false)
+  const [showRestoreDialog, setShowRestoreDialog] = useState(false)
   const chatContainerRef = useRef<HTMLDivElement>(null)
+
+  // Track current task for session saving
+  const currentTaskRef = useRef<string>("")
+
+  // Session persistence
+  const {
+    sessions,
+    isLoading: sessionsLoading,
+    restorableSession,
+    saveCurrentSession,
+    saveCurrentSessionImmediate,
+    loadSession,
+    deleteSession: deleteStoredSession,
+    clearAllSessions,
+    dismissRestorableSession,
+  } = useSessionPersistence(workspace?.id || null)
 
   // Cleanup agent on unmount
   useEffect(() => {
@@ -93,6 +118,54 @@ const SidepanelAgent: FC = () => {
       }
     }
   }, [])
+
+  // Show restore dialog when restorable session exists
+  useEffect(() => {
+    if (restorableSession && !isRunning) {
+      setShowRestoreDialog(true)
+    }
+  }, [restorableSession, isRunning])
+
+  // Build session input for saving
+  const buildSessionInput = useCallback((): SessionSaveInput | null => {
+    if (!workspace) return null
+    return {
+      workspaceId: workspace.id,
+      task: currentTaskRef.current,
+      status: "running",
+      currentStep,
+      messages,
+      toolCalls: toolCalls.map(tc => ({
+        id: tc.id,
+        toolCall: tc.toolCall,
+        status: tc.status,
+        result: tc.result,
+        error: tc.error,
+        timestamp: tc.timestamp
+      })),
+      pendingApprovals: pendingApprovals.map(pa => ({
+        toolCallId: pa.toolCallId,
+        toolName: pa.toolName,
+        args: pa.args,
+        tier: pa.tier,
+        status: pa.status
+      })),
+      diffs: diffs.map(d => ({
+        path: d.path,
+        type: d.type,
+        hunks: d.hunks
+      })),
+      executions: executions.map(e => ({
+        id: e.id,
+        commandId: e.commandId,
+        status: e.status,
+        exitCode: e.exitCode,
+        stdout: e.stdout,
+        stderr: e.stderr,
+        timestamp: e.timestamp
+      }))
+    }
+  }, [workspace, currentStep, messages, toolCalls, pendingApprovals, diffs, executions])
 
   // Auto-scroll chat
   useEffect(() => {
@@ -145,6 +218,14 @@ const SidepanelAgent: FC = () => {
           )
         )
 
+        // Debounced auto-save during execution
+        {
+          const input = buildSessionInput()
+          if (input) {
+            saveCurrentSession({ ...input, status: "running" })
+          }
+        }
+
         // Handle patch results - extract diffs for review
         const tcEntry = toolCalls.find(tc => tc.id === event.tool_call_id)
         if (tcEntry?.toolCall.function.name === "fs_apply_patch") {
@@ -188,6 +269,15 @@ const SidepanelAgent: FC = () => {
       case "approval_needed":
         setPendingApprovals(event.approvals)
         setApprovalExpanded(true)
+
+        // Immediate save - user may close browser while waiting for approval
+        {
+          const input = buildSessionInput()
+          if (input) {
+            saveCurrentSessionImmediate({ ...input, status: "waiting_approval" })
+              .catch(err => console.error("Failed to save session on approval_needed:", err))
+          }
+        }
         break
 
       case "complete":
@@ -198,15 +288,34 @@ const SidepanelAgent: FC = () => {
         } else if (event.result.status === "max_steps_reached") {
           message.warning(t("agentMaxSteps", "Agent reached maximum steps"))
         }
+
+        // Save final session state
+        {
+          const input = buildSessionInput()
+          if (input) {
+            const finalStatus = event.result.status === "cancelled" ? "cancelled" : "complete"
+            saveCurrentSessionImmediate({ ...input, status: finalStatus })
+              .catch(err => console.error("Failed to save session on complete:", err))
+          }
+        }
         break
 
       case "error":
         setIsRunning(false)
         agentRef.current = null
         message.error(event.error)
+
+        // Save error state
+        {
+          const input = buildSessionInput()
+          if (input) {
+            saveCurrentSessionImmediate({ ...input, status: "error" })
+              .catch(err => console.error("Failed to save session on error:", err))
+          }
+        }
         break
     }
-  }, [toolCalls, t])
+  }, [toolCalls, t, buildSessionInput, saveCurrentSession, saveCurrentSessionImmediate])
 
   // Start agent
   const handleSubmit = useCallback(async () => {
@@ -218,6 +327,7 @@ const SidepanelAgent: FC = () => {
     }
 
     const task = inputValue.trim()
+    currentTaskRef.current = task
     setInputValue("")
     setMessages(prev => [...prev, { role: "user", content: task }])
     setToolCalls([])
@@ -232,6 +342,44 @@ const SidepanelAgent: FC = () => {
 
     await agent.run()
   }, [inputValue, workspace, settings, handleAgentEvent, t])
+
+  // Restore session from history
+  const handleRestoreSession = useCallback(async (sessionId: string) => {
+    const session = await loadSession(sessionId)
+    if (!session) {
+      message.error(t("failedToLoadSession", "Failed to load session"))
+      return
+    }
+
+    const restored = sessionToRestoreOutput(session)
+    currentTaskRef.current = session.task
+    setMessages(restored.messages)
+    setToolCalls(restored.toolCalls)
+    setPendingApprovals(restored.pendingApprovals)
+    setDiffs(restored.diffs.map((d, i) => ({
+      path: d.path,
+      type: d.type,
+      hunks: [] // Hunks are not fully stored, just show metadata
+    })))
+    setExecutions(restored.executions)
+    setCurrentStep(session.currentStep)
+    setShowHistory(false)
+
+    message.success(t("sessionRestored", "Session restored"))
+  }, [loadSession, t])
+
+  // Handle restore dialog actions
+  const handleRestoreFromDialog = useCallback(async () => {
+    if (restorableSession) {
+      await handleRestoreSession(restorableSession.id)
+      setShowRestoreDialog(false)
+    }
+  }, [restorableSession, handleRestoreSession])
+
+  const handleStartFresh = useCallback(async () => {
+    await dismissRestorableSession()
+    setShowRestoreDialog(false)
+  }, [dismissRestorableSession])
 
   // Cancel agent
   const handleCancel = useCallback(() => {
@@ -393,7 +541,7 @@ const SidepanelAgent: FC = () => {
         agentRef.current = null
       }}
     >
-      <div className="flex flex-col h-dvh bg-white dark:bg-[#171717]">
+      <div className="relative flex flex-col h-dvh bg-white dark:bg-[#171717]">
         {/* Header */}
         <div className="flex items-center justify-between px-4 py-2 border-b border-gray-200 dark:border-gray-700">
         <WorkspaceSelector
@@ -410,12 +558,43 @@ const SidepanelAgent: FC = () => {
           )}
           <button
             className="p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-800"
+            onClick={() => setShowHistory(!showHistory)}
+            title={t("sessionHistory", "Session History")}
+          >
+            <History className="size-4 text-gray-500" />
+          </button>
+          <button
+            className="p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-800"
             title={t("settings", "Settings")}
           >
             <Settings className="size-4 text-gray-500" />
           </button>
         </div>
       </div>
+
+      {/* Session History Panel (slide-out) */}
+      {showHistory && (
+        <div className="absolute right-0 top-0 bottom-0 w-80 bg-white dark:bg-[#171717] border-l border-gray-200 dark:border-gray-700 z-50 flex flex-col shadow-xl">
+          <div className="flex items-center justify-between px-4 py-3 border-b border-gray-200 dark:border-gray-700">
+            <h2 className="font-semibold">{t("sessionHistory", "Session History")}</h2>
+            <button
+              onClick={() => setShowHistory(false)}
+              className="p-1 rounded hover:bg-gray-100 dark:hover:bg-gray-800"
+            >
+              <X className="size-4" />
+            </button>
+          </div>
+          <div className="flex-1 overflow-y-auto p-4">
+            <SessionHistoryPanel
+              sessions={sessions}
+              isLoading={sessionsLoading}
+              onRestore={handleRestoreSession}
+              onDelete={deleteStoredSession}
+              onClearAll={clearAllSessions}
+            />
+          </div>
+        </div>
+      )}
 
       {/* Main content */}
       <div className="flex-1 overflow-hidden">
@@ -482,6 +661,15 @@ const SidepanelAgent: FC = () => {
           )}
         </div>
       </div>
+
+      {/* Session Restore Dialog */}
+      <SessionRestoreDialog
+        session={restorableSession}
+        open={showRestoreDialog}
+        onRestore={handleRestoreFromDialog}
+        onStartFresh={handleStartFresh}
+        onCancel={() => setShowRestoreDialog(false)}
+      />
       </div>
     </AgentErrorBoundary>
   )

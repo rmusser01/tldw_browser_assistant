@@ -28,7 +28,7 @@ The tldw Agent consists of three components:
 ### Deployment Models
 
 **Model 1: Fully Local**
-```
+```text
 User Machine
 ├── Browser Extension
 ├── Local Agent
@@ -37,7 +37,7 @@ User Machine
 Best for: Individual developers, air-gapped environments
 
 **Model 2: Shared Server**
-```
+```text
 User Machine                    Server
 ├── Browser Extension     ──▶   tldw_server
 └── Local Agent
@@ -45,7 +45,7 @@ User Machine                    Server
 Best for: Teams, organizations with central LLM infrastructure
 
 **Model 3: Cloud Hosted**
-```
+```text
 User Machine                    Cloud
 ├── Browser Extension     ──▶   tldw_server (managed)
 └── Local Agent
@@ -275,7 +275,7 @@ Environment variables override config file values.
 
 The tldw Agent implements defense-in-depth:
 
-```
+```text
 ┌─────────────────────────────────────────────────────────────┐
 │                    Security Layers                          │
 ├─────────────────────────────────────────────────────────────┤

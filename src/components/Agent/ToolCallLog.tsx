@@ -166,7 +166,7 @@ const formatFullArgs = (
   }
 }
 
-// Format result for display
+// Format result for display (compact preview)
 const formatResult = (result: unknown): string => {
   if (!result) return ""
 
@@ -253,6 +253,43 @@ const formatResult = (result: unknown): string => {
   }
 }
 
+// Safely format full result JSON for expanded view
+const formatFullResult = (result: unknown): string => {
+  if (result == null) {
+    return ""
+  }
+
+  try {
+    const seen = new WeakSet<object>()
+    const serialized = JSON.stringify(
+      result,
+      (_key, value) => {
+        if (typeof value === "object" && value !== null) {
+          if (seen.has(value as object)) {
+            return "[Circular]"
+          }
+          seen.add(value as object)
+        }
+        if (typeof value === "bigint") {
+          return value.toString()
+        }
+        return value
+      },
+      2
+    )
+    return serialized
+  } catch {
+    try {
+      if (typeof result === "string") {
+        return result
+      }
+      return String(result)
+    } catch {
+      return "[Unserializable result]"
+    }
+  }
+}
+
 export const ToolCallLog: FC<ToolCallLogProps> = ({
   entries,
   className = "",
@@ -296,6 +333,7 @@ export const ToolCallLog: FC<ToolCallLogProps> = ({
           >
             <button
               onClick={() => onToggleExpand?.(entry.id)}
+              aria-expanded={isExpanded}
               className="w-full flex items-center gap-2 px-3 py-2 text-left hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors"
             >
               {/* Expand/collapse toggle */}
@@ -361,7 +399,7 @@ export const ToolCallLog: FC<ToolCallLogProps> = ({
                       {t("result", "Result")}:
                     </span>
                     <pre className="mt-1 p-2 text-xs bg-gray-100 dark:bg-gray-900 rounded overflow-x-auto max-h-48">
-                      {JSON.stringify(entry.result, null, 2)}
+                      {formatFullResult(entry.result)}
                     </pre>
                   </div>
                 )}

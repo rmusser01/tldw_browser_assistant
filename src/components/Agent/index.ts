@@ -26,5 +26,9 @@ export type { CommandExecution } from "./TerminalOutput"
 // Error handling
 export { AgentErrorBoundary } from "./AgentErrorBoundary"
 
+// Session persistence UI
+export { SessionHistoryPanel } from "./SessionHistoryPanel"
+export { SessionRestoreDialog } from "./SessionRestoreDialog"
+
 // Test utilities (for E2E testing)
 export { ErrorBoundaryTestTrigger } from "./ErrorBoundaryTestTrigger"

@@ -162,6 +162,15 @@ const ExecutionOutput: FC<{
   const { t } = useTranslation("common")
   const [expanded, setExpanded] = useState(defaultExpanded)
   const [copied, setCopied] = useState(false)
+  const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+
+  useEffect(() => {
+    return () => {
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current)
+      }
+    }
+  }, [])
 
   const hasOutput = execution.stdout || execution.stderr
   const output = useMemo(() => {
@@ -192,7 +201,10 @@ const ExecutionOutput: FC<{
       await navigator.clipboard.writeText(output)
       setCopied(true)
       message.success(t("copiedToClipboard", "Copied to clipboard"))
-      setTimeout(() => setCopied(false), 2000)
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current)
+      }
+      timeoutRef.current = setTimeout(() => setCopied(false), 2000)
       return
     } catch (err) {
       // eslint-disable-next-line no-console
@@ -213,7 +225,10 @@ const ExecutionOutput: FC<{
         if (ok) {
           setCopied(true)
           message.success(t("copiedToClipboard", "Copied to clipboard"))
-          setTimeout(() => setCopied(false), 2000)
+          if (timeoutRef.current) {
+            clearTimeout(timeoutRef.current)
+          }
+          timeoutRef.current = setTimeout(() => setCopied(false), 2000)
           return
         }
       } catch (fallbackErr) {
@@ -233,6 +248,7 @@ const ExecutionOutput: FC<{
         onClick={() => collapsible && setExpanded(!expanded)}
         className="w-full flex items-center gap-2 px-3 py-2 bg-gray-900 text-left hover:bg-gray-800 transition-colors"
         disabled={!collapsible}
+        aria-expanded={collapsible ? expanded : undefined}
       >
         {collapsible && (
           expanded

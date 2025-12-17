@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo, useCallback, useRef } from "react"
+import { useState, useEffect, useMemo, useCallback, useRef, useReducer } from "react"
 import { Input, Button, Tooltip, message } from "antd"
 import type { InputRef } from "antd"
 import {
@@ -33,6 +33,7 @@ import { cn } from "@/libs/utils"
 import {
   validateApiKey,
   validateMultiUserAuth,
+  categorizeConnectionError,
   type ConnectionErrorKind,
   type ValidationResult,
 } from "./validation"
@@ -44,6 +45,99 @@ type ConnectionProgress = {
   serverReachable: ProgressStatus
   authentication: ProgressStatus
   knowledgeIndex: ProgressStatus
+}
+
+type ConnectionUiState = {
+  isConnecting: boolean
+  progress: ConnectionProgress
+  errorKind: ConnectionErrorKind
+  errorMessage: string | null
+  showSuccess: boolean
+  hasRunConnectionTest: boolean
+}
+
+type ConnectionUiAction =
+  | { type: "START_CONNECT" }
+  | { type: "FINISH_CONNECT" }
+  | {
+      type: "UPDATE_PROGRESS"
+      updater: (prev: ConnectionProgress) => ConnectionProgress
+    }
+  | {
+      type: "SET_ERROR"
+      errorKind: ConnectionErrorKind
+      errorMessage: string | null
+    }
+  | {
+      type: "SET_SHOW_SUCCESS"
+      showSuccess: boolean
+    }
+  | {
+      type: "SET_HAS_RUN_TEST"
+      hasRunConnectionTest: boolean
+    }
+
+const initialConnectionUiState: ConnectionUiState = {
+  isConnecting: false,
+  progress: {
+    serverReachable: "idle",
+    authentication: "idle",
+    knowledgeIndex: "idle",
+  },
+  errorKind: null,
+  errorMessage: null,
+  showSuccess: false,
+  hasRunConnectionTest: false,
+}
+
+function connectionUiReducer(
+  state: ConnectionUiState,
+  action: ConnectionUiAction
+): ConnectionUiState {
+  switch (action.type) {
+    case "START_CONNECT":
+      return {
+        ...state,
+        hasRunConnectionTest: true,
+        isConnecting: true,
+        errorKind: null,
+        errorMessage: null,
+        progress: {
+          serverReachable: "checking",
+          authentication: "idle",
+          knowledgeIndex: "idle",
+        },
+        showSuccess: false,
+      }
+    case "FINISH_CONNECT":
+      return {
+        ...state,
+        isConnecting: false,
+      }
+    case "UPDATE_PROGRESS":
+      return {
+        ...state,
+        progress: action.updater(state.progress),
+      }
+    case "SET_ERROR":
+      return {
+        ...state,
+        errorKind: action.errorKind,
+        errorMessage: action.errorMessage,
+      }
+    case "SET_SHOW_SUCCESS":
+      return {
+        ...state,
+        showSuccess: action.showSuccess,
+      }
+    case "SET_HAS_RUN_TEST":
+      return {
+        ...state,
+        hasRunConnectionTest: action.hasRunConnectionTest,
+      }
+    default:
+      return state
+  }
 }
 
 interface Props {
@@ -73,17 +167,19 @@ export function OnboardingConnectForm({ onFinish }: Props) {
   const [password, setPassword] = useState("")
   const [showAdvanced, setShowAdvanced] = useState(false)
 
-  // UI state
-  const [isConnecting, setIsConnecting] = useState(false)
-  const [progress, setProgress] = useState<ConnectionProgress>({
-    serverReachable: "idle",
-    authentication: "idle",
-    knowledgeIndex: "idle",
-  })
-  const [errorKind, setErrorKind] = useState<ConnectionErrorKind>(null)
-  const [errorMessage, setErrorMessage] = useState<string | null>(null)
-  const [showSuccess, setShowSuccess] = useState(false)
-  const [hasRunConnectionTest, setHasRunConnectionTest] = useState(false)
+  // UI state (managed via reducer)
+  const [uiState, dispatchUi] = useReducer(
+    connectionUiReducer,
+    initialConnectionUiState
+  )
+  const {
+    isConnecting,
+    progress,
+    errorKind,
+    errorMessage,
+    showSuccess,
+    hasRunConnectionTest,
+  } = uiState
 
   const urlInputRef = useRef<InputRef | null>(null)
   const hasLoadedInitialConfigRef = useRef(false)
@@ -165,36 +261,11 @@ export function OnboardingConnectForm({ onFinish }: Props) {
     }
   }, [errorKind, t])
 
-  // Categorize errors from status code and error message
-  const categorizeError = useCallback(
-    (status: number | null, error: string | null): ConnectionErrorKind => {
-      if (status === 401 || status === 403) return "auth_invalid"
-      if (status && status >= 500) return "server_error"
-      if (error?.includes("timeout")) return "timeout"
-      if (error?.includes("ENOTFOUND") || error?.includes("getaddrinfo"))
-        return "dns_failed"
-      if (error?.includes("ECONNREFUSED")) return "refused"
-      if (error?.includes("SSL") || error?.includes("certificate"))
-        return "ssl_error"
-      if (!status && error) return "refused"
-      return null
-    },
-    []
-  )
-
   // Handle progressive connection test
   const handleConnect = useCallback(async () => {
     if (!urlValidation.valid) return
 
-    setHasRunConnectionTest(true)
-    setIsConnecting(true)
-    setErrorKind(null)
-    setErrorMessage(null)
-    setProgress({
-      serverReachable: "checking",
-      authentication: "idle",
-      knowledgeIndex: "idle",
-    })
+    dispatchUi({ type: "START_CONNECT" })
 
     try {
       // Phase 1: Set server URL and check reachability
@@ -204,11 +275,14 @@ export function OnboardingConnectForm({ onFinish }: Props) {
       await new Promise((r) => setTimeout(r, 300))
 
       // Phase 2: Test auth
-      setProgress((p) => ({
-        ...p,
-        serverReachable: "success",
-        authentication: "checking",
-      }))
+      dispatchUi({
+        type: "UPDATE_PROGRESS",
+        updater: (p) => ({
+          ...p,
+          serverReachable: "success",
+          authentication: "checking",
+        }),
+      })
 
       // Validate auth credentials
       let authResult: ValidationResult | null = null
@@ -220,18 +294,22 @@ export function OnboardingConnectForm({ onFinish }: Props) {
       }
 
       if (authResult && !authResult.success) {
-        setProgress((p) => ({
-          ...p,
-          authentication: "error",
-        }))
-        if (authResult.errorKind) {
-          setErrorKind(authResult.errorKind)
-        }
-        if (authResult.error) {
-          setErrorMessage(authResult.error)
+        dispatchUi({
+          type: "UPDATE_PROGRESS",
+          updater: (p) => ({
+            ...p,
+            authentication: "error",
+          }),
+        })
+        if (authResult.errorKind || authResult.error) {
+          dispatchUi({
+            type: "SET_ERROR",
+            errorKind: authResult.errorKind ?? null,
+            errorMessage: authResult.error ?? null,
+          })
         }
 
-        setIsConnecting(false)
+        dispatchUi({ type: "FINISH_CONNECT" })
         return
       }
 
@@ -241,37 +319,50 @@ export function OnboardingConnectForm({ onFinish }: Props) {
       })
 
       // Phase 3: Run full connection test (authentication is verified here)
-      setProgress((p) => ({
-        ...p,
-        authentication: "checking",
-        knowledgeIndex: "idle",
-      }))
+      dispatchUi({
+        type: "UPDATE_PROGRESS",
+        updater: (p) => ({
+          ...p,
+          authentication: "checking",
+          knowledgeIndex: "idle",
+        }),
+      })
 
       try {
         await actions.testConnectionFromOnboarding()
       } catch (error) {
         // If full connection test fails, reflect auth error if we're still in that phase
-        setProgress((p) => ({
-          ...p,
-          authentication:
-            p.authentication === "checking" ? "error" : p.authentication,
-        }))
+        dispatchUi({
+          type: "UPDATE_PROGRESS",
+          updater: (p) => ({
+            ...p,
+            authentication:
+              p.authentication === "checking" ? "error" : p.authentication,
+          }),
+        })
         throw error
       }
     } catch (error) {
-      setProgress((p) => ({
-        ...p,
-        // Only set serverReachable to error if we never marked it successful
-        serverReachable:
-          p.serverReachable === "checking" ? "error" : p.serverReachable,
-      }))
+      dispatchUi({
+        type: "UPDATE_PROGRESS",
+        updater: (p) => ({
+          ...p,
+          // Only set serverReachable to error if we never marked it successful
+          serverReachable:
+            p.serverReachable === "checking" ? "error" : p.serverReachable,
+        }),
+      })
       const message = (error as Error)?.message || null
       const kind =
-        categorizeError(null, message) ?? ("refused" as ConnectionErrorKind)
-      setErrorKind(kind)
-      setErrorMessage(message || "Connection failed")
+        categorizeConnectionError(null, message) ??
+        ("refused" as ConnectionErrorKind)
+      dispatchUi({
+        type: "SET_ERROR",
+        errorKind: kind,
+        errorMessage: message || "Connection failed",
+      })
     } finally {
-      setIsConnecting(false)
+      dispatchUi({ type: "FINISH_CONNECT" })
     }
   }, [
     urlValidation.valid,
@@ -280,9 +371,9 @@ export function OnboardingConnectForm({ onFinish }: Props) {
     apiKey,
     username,
     password,
-    categorizeError,
     t,
     actions,
+    dispatchUi,
   ])
 
   // React to connection test results using hook state
@@ -298,41 +389,56 @@ export function OnboardingConnectForm({ onFinish }: Props) {
         state.knowledgeStatus === "indexing"
       const knowledgeEmpty = state.knowledgeStatus === "empty"
 
-      setProgress((p) => ({
-        ...p,
-        authentication: "success",
-        knowledgeIndex: knowledgeEmpty
-          ? "empty"
-          : knowledgeOk
-            ? "success"
-            : "error",
-      }))
+      dispatchUi({
+        type: "UPDATE_PROGRESS",
+        updater: (p) => ({
+          ...p,
+          authentication: "success",
+          knowledgeIndex: knowledgeEmpty
+            ? "empty"
+            : knowledgeOk
+              ? "success"
+              : "error",
+        }),
+      })
 
       // Show success state
-      setShowSuccess(true)
+      dispatchUi({ type: "SET_SHOW_SUCCESS", showSuccess: true })
     } else if (!state.isChecking) {
       // Connection failed
-      const kind = categorizeError(state.lastStatusCode, state.lastError)
-      setErrorKind(kind)
-      setErrorMessage(state.lastError)
+      const kind = categorizeConnectionError(
+        state.lastStatusCode,
+        state.lastError
+      )
+      dispatchUi({
+        type: "SET_ERROR",
+        errorKind: kind,
+        errorMessage: state.lastError ?? null,
+      })
 
       if (state.errorKind === "auth") {
-        setProgress((p) => ({
-          ...p,
-          serverReachable: "success",
-          authentication: "error",
-          knowledgeIndex: "idle",
-        }))
+        dispatchUi({
+          type: "UPDATE_PROGRESS",
+          updater: (p) => ({
+            ...p,
+            serverReachable: "success",
+            authentication: "error",
+            knowledgeIndex: "idle",
+          }),
+        })
       } else {
-        setProgress((p) => ({
-          ...p,
-          serverReachable: "error",
-          authentication: "idle",
-          knowledgeIndex: "idle",
-        }))
+        dispatchUi({
+          type: "UPDATE_PROGRESS",
+          updater: (p) => ({
+            ...p,
+            serverReachable: "error",
+            authentication: "idle",
+            knowledgeIndex: "idle",
+          }),
+        })
       }
     }
-  }, [hasRunConnectionTest, connectionState, categorizeError])
+  }, [hasRunConnectionTest, connectionState, dispatchUi])
 
   // Handle demo mode
   const handleDemoMode = useCallback(async () => {

@@ -9,6 +9,8 @@ The tldw Agent is a powerful coding assistant that runs locally on your machine,
 - [Getting Started](#getting-started)
 - [Using the Agent](#using-the-agent)
 - [Understanding Approvals](#understanding-approvals)
+- [Session Persistence](#session-persistence)
+- [Workspace History](#workspace-history)
 - [Troubleshooting](#troubleshooting)
 - [FAQ](#faq)
 
@@ -228,6 +230,130 @@ When approvals are pending, a yellow banner appears:
 - Click the expand button to see individual items
 - Approve or reject items individually
 - Or use bulk actions for all items
+
+## Session Persistence
+
+The agent automatically saves your sessions, so you can resume work even after closing your browser.
+
+### How It Works
+
+Sessions are automatically saved:
+- **During execution** - Every few seconds while the agent is working
+- **When paused** - Immediately when the agent needs your approval
+- **On completion** - When a task finishes (success, error, or cancelled)
+
+### Viewing Session History
+
+Click the **History** button (clock icon) in the agent header to see past sessions:
+
+```
+┌─────────────────────────────────────────────┐
+│ Session History                         [X] │
+├─────────────────────────────────────────────┤
+│ ▸ Add dark mode toggle        ✓ Complete   │
+│   2h ago • 15 messages • 8 tool calls       │
+│                                             │
+│ ▸ Fix login validation        ⏸ Paused     │
+│   1d ago • 8 messages • 3 tool calls        │
+│                                             │
+│ ▸ Refactor user service       ✗ Error      │
+│   3d ago • 12 messages • 5 tool calls       │
+└─────────────────────────────────────────────┘
+```
+
+### Session Statuses
+
+| Status | Icon | Meaning |
+|--------|------|---------|
+| **Complete** | ✓ | Task finished successfully |
+| **Paused** | ⏸ | Waiting for your approval (can be restored) |
+| **Error** | ✗ | Task encountered an error |
+| **Cancelled** | ⊘ | Task was cancelled by you |
+
+### Restoring a Session
+
+Sessions with **Paused** status can be restored:
+
+1. Open Session History
+2. Click on a paused session to expand it
+3. Click **Restore** to resume where you left off
+4. Review pending approvals and continue
+
+**Note**: Only "Paused" (waiting for approval) sessions can be restored. Other sessions are for reference only.
+
+### Automatic Session Recovery
+
+If you close your browser while the agent is waiting for approval:
+
+1. When you return, a dialog appears: "Previous Session Found"
+2. Choose **Restore Session** to continue where you left off
+3. Or choose **Start Fresh** to discard and start a new task
+
+```
+┌─────────────────────────────────────────────────┐
+│ ⚠️ Previous Session Found                       │
+├─────────────────────────────────────────────────┤
+│ Add input validation to signup form             │
+│ 🕐 2 hours ago • 8 messages • 3 tool calls      │
+│                                                 │
+│ ⚠️ 2 pending approvals                          │
+│   📝 1 file change • 🖥️ 1 command               │
+│                                                 │
+│ [Restore Session]          [Start Fresh]        │
+└─────────────────────────────────────────────────┘
+```
+
+### Managing Sessions
+
+- **Delete a session**: Expand it in history and click **Delete**
+- **Clear all**: Click **Clear All** at the top of the history panel
+- **Storage**: Sessions older than 30 days are automatically removed
+
+### Storage Limits
+
+To keep storage manageable:
+- Maximum **5 sessions per workspace**
+- Maximum **30 sessions total** across all workspaces
+- Sessions expire after **30 days**
+
+Older sessions are automatically removed when limits are reached.
+
+## Workspace History
+
+The agent remembers your recently used workspaces for quick access.
+
+### Recent Workspaces
+
+When you open the workspace dropdown, you'll see:
+
+```
+┌─────────────────────────────────────────────┐
+│ 🕐 RECENT                                   │
+│   My React App              Just now        │
+│   Backend API               2h ago          │
+│   Documentation             1d ago          │
+├─────────────────────────────────────────────┤
+│ ALL WORKSPACES                              │
+│   My React App          ~/projects/myapp    │
+│   Backend API           ~/projects/api      │
+│   Documentation         ~/docs              │
+│   Old Project           ~/archive/old       │
+├─────────────────────────────────────────────┤
+│ ➕ Add Workspace                            │
+└─────────────────────────────────────────────┘
+```
+
+### Auto-Select Last Workspace
+
+When you open the agent:
+- If no workspace is selected, the **last used workspace** is automatically selected
+- This saves you from re-selecting every time
+
+### Workspace History Limits
+
+- Maximum **10 recent workspaces** are tracked
+- Workspaces that no longer exist are automatically removed
+- The list is sorted by most recently used
 
 ## Troubleshooting
 

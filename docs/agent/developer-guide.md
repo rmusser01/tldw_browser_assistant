@@ -9,6 +9,8 @@ This guide is for developers who want to contribute to the tldw Agent project, u
 - [Project Structure](#project-structure)
 - [Browser Extension](#browser-extension)
 - [Local Agent (Go)](#local-agent-go)
+- [Session Persistence](#session-persistence)
+- [Workspace History](#workspace-history)
 - [Adding New Tools](#adding-new-tools)
 - [Testing](#testing)
 - [Contributing](#contributing)
@@ -21,7 +23,7 @@ The tldw Agent consists of two main components:
 
 The extension provides the user interface and orchestrates the agent loop:
 
-```
+```text
 custom_extension/
 ├── src/
 │   ├── components/Agent/     # Agent UI components
@@ -34,7 +36,7 @@ custom_extension/
 
 The local agent runs on the user's machine and handles all workspace operations:
 
-```
+```text
 tldw-agent/
 ├── cmd/tldw-agent-host/      # Native messaging entry point
 ├── internal/
@@ -46,7 +48,7 @@ tldw-agent/
 
 ### Communication Flow
 
-```
+```text
 ┌─────────────────────────────────────────────────────────────────┐
 │                     Browser Extension                            │
 │  ┌─────────────┐    ┌─────────────┐    ┌─────────────────────┐  │
@@ -139,7 +141,7 @@ go build -o tldw-agent-host ./cmd/tldw-agent-host
 
 ### Browser Extension
 
-```
+```text
 src/
 ├── components/
 │   └── Agent/
@@ -171,7 +173,7 @@ src/
 
 ### Local Agent (Go)
 
-```
+```text
 tldw-agent/
 ├── cmd/
 │   └── tldw-agent-host/
@@ -396,6 +398,282 @@ func (e *ExecTools) Run(args map[string]interface{}) (*ToolResult, error) {
 }
 ```
 
+## Session Persistence
+
+The session persistence system automatically saves and restores agent sessions using browser extension storage.
+
+### Architecture
+
+```text
+┌─────────────────────────────────────────────────────────────────────────┐
+│                        Session Persistence                               │
+├─────────────────────────────────────────────────────────────────────────┤
+│                                                                          │
+│  ┌──────────────────┐     ┌────────────────────┐     ┌───────────────┐  │
+│  │ sidepanel-agent  │────▶│ useSessionPersist. │────▶│ sessionStorage│  │
+│  │ (React page)     │     │ (React hook)       │     │ (service)     │  │
+│  └──────────────────┘     └────────────────────┘     └───────┬───────┘  │
+│                                                               │          │
+│                                                               ▼          │
+│                                                      ┌───────────────┐  │
+│                                                      │ @plasmohq/    │  │
+│                                                      │ storage       │  │
+│                                                      │ (chrome.      │  │
+│                                                      │  storage.     │  │
+│                                                      │  local)       │  │
+│                                                      └───────────────┘  │
+└─────────────────────────────────────────────────────────────────────────┘
+```
+
+### File Structure
+
+```text
+src/services/agent/storage/
+├── index.ts              # Barrel exports
+├── types.ts              # TypeScript type definitions
+├── constants.ts          # Storage keys and limits
+├── utils.ts              # Helper functions (truncation, conversion)
+├── sessionStorage.ts     # Session CRUD operations
+└── workspaceHistory.ts   # Workspace history tracking
+
+src/hooks/
+├── useSessionPersistence.ts  # Session persistence hook
+└── useWorkspaceHistory.ts    # Workspace history hook
+
+src/components/Agent/
+├── SessionHistoryPanel.tsx   # Session list UI
+└── SessionRestoreDialog.tsx  # Restore dialog
+```
+
+### Storage Schema
+
+Sessions are stored as a single array in `chrome.storage.local`:
+
+```typescript
+// Storage key: "agent:sessions"
+interface StoredAgentSession {
+  schemaVersion: number       // For migrations (currently 1)
+  id: string                  // UUID
+  workspaceId: string
+  task: string                // Full task text
+  title: string               // Truncated title (50 chars)
+  status: AgentStatus         // idle | running | waiting_approval | complete | error | cancelled
+  currentStep: number
+  messages: StoredAgentMessage[]
+  toolCalls: StoredToolCallEntry[]
+  pendingApprovals: StoredPendingApproval[]
+  diffs: StoredFileDiff[]
+  executions: StoredCommandExecution[]
+  createdAt: string           // ISO timestamp
+  updatedAt: string           // ISO timestamp
+}
+
+// Storage key: "agent:activeSession"
+interface ActiveSessionRef {
+  sessionId: string
+  workspaceId: string
+}
+```
+
+### Storage Limits
+
+Defined in `constants.ts`:
+
+```typescript
+export const STORAGE_LIMITS = {
+  MAX_SESSIONS_PER_WORKSPACE: 5,
+  MAX_TOTAL_SESSIONS: 30,
+  MAX_SESSION_AGE_DAYS: 30,
+  MAX_MESSAGE_LENGTH: 4000,
+  MAX_TOOL_RESULT_LENGTH: 2000,
+  MAX_ARGS_LENGTH: 1000,
+  MAX_DIFF_PREVIEW_LENGTH: 500,
+  MAX_OUTPUT_PREVIEW_LENGTH: 1000,
+  MAX_TITLE_LENGTH: 50,
+  AUTO_SAVE_DEBOUNCE_MS: 3000,
+}
+```
+
+### Using the Hook
+
+```typescript
+import { useSessionPersistence } from "@/hooks/useSessionPersistence"
+import type { SessionSaveInput } from "@/services/agent/storage"
+
+function MyComponent() {
+  const {
+    // State
+    sessions,              // SessionMetadata[] - list for display
+    activeSessionId,       // string | null
+    isLoading,            // boolean
+    restorableSession,    // StoredAgentSession | null
+
+    // Actions
+    saveCurrentSession,           // (input: SessionSaveInput) => void (debounced)
+    saveCurrentSessionImmediate,  // (input: SessionSaveInput) => Promise<string>
+    loadSession,                  // (id: string) => Promise<StoredAgentSession | null>
+    deleteSession,                // (id: string) => Promise<void>
+    clearAllSessions,             // () => Promise<void>
+    dismissRestorableSession,     // () => Promise<void>
+  } = useSessionPersistence(workspaceId)
+
+  // Auto-save during agent execution (debounced)
+  useEffect(() => {
+    if (agentRunning) {
+      saveCurrentSession(buildInput("running"))
+    }
+  }, [toolCalls])
+
+  // Immediate save on critical events
+  const handleApprovalNeeded = () => {
+    saveCurrentSessionImmediate(buildInput("waiting_approval"))
+  }
+}
+```
+
+### Auto-Save Triggers
+
+The agent page triggers saves at specific events:
+
+| Event | Save Type | Status |
+|-------|-----------|--------|
+| `tool_complete` | Debounced (3s) | `running` |
+| `approval_needed` | Immediate | `waiting_approval` |
+| `complete` | Immediate | `complete` or `cancelled` |
+| `error` | Immediate | `error` |
+
+### Data Truncation
+
+To stay within storage limits, data is truncated:
+
+```typescript
+import { truncateContent, summarizeMessage, summarizeToolCall } from "@/services/agent/storage"
+
+// Truncates with "[truncated]" suffix
+truncateContent("very long string...", 4000)  // "very long str...[truncated]"
+
+// Converts and truncates message
+summarizeMessage({ role: "assistant", content: longContent })
+
+// Converts and truncates tool call
+summarizeToolCall({ id, toolCall, status, result, timestamp })
+```
+
+**Important**: Truncated `arguments` fields may be invalid JSON. They are for display only - sessions cannot be "resumed" (re-executed).
+
+### Restoring Sessions
+
+Only `waiting_approval` status sessions can be restored:
+
+```typescript
+import { sessionToRestoreOutput } from "@/services/agent/storage"
+
+// Convert stored session to component state
+const session = await loadSession(sessionId)
+const restored = sessionToRestoreOutput(session)
+
+// Populate UI state
+setMessages(restored.messages)
+setToolCalls(restored.toolCalls)
+setPendingApprovals(restored.pendingApprovals)
+setDiffs(restored.diffs)
+setExecutions(restored.executions)
+```
+
+### Pruning and Cleanup
+
+Sessions are automatically pruned:
+
+```typescript
+import { initializeSessionStorage } from "@/services/agent/storage"
+
+// On mount, cleans up:
+// 1. Marks "running" sessions as "error" (stale from browser crash)
+// 2. Removes sessions older than MAX_SESSION_AGE_DAYS
+// 3. Enforces MAX_TOTAL_SESSIONS limit
+const { staleMarked, expired, globalPruned } = await initializeSessionStorage()
+```
+
+### Schema Migrations
+
+The `schemaVersion` field enables future migrations:
+
+```typescript
+import { CURRENT_SCHEMA_VERSION } from "@/services/agent/storage"
+
+// Future: Add migration logic
+function migrateSession(session: any): StoredAgentSession {
+  if (session.schemaVersion === CURRENT_SCHEMA_VERSION) {
+    return session
+  }
+  // Add migration logic for older versions
+}
+```
+
+## Workspace History
+
+The workspace history system tracks recently used workspaces.
+
+### Storage Schema
+
+```typescript
+// Storage key: "agent:workspaceHistory"
+interface WorkspaceHistoryEntry {
+  workspaceId: string
+  name: string
+  path: string
+  lastUsedAt: string      // ISO timestamp
+  sessionCount: number
+}
+
+// Storage key: "agent:selectedWorkspace"
+// Value: string (workspace ID)
+```
+
+### Using the Hooks
+
+```typescript
+import { useWorkspaceHistory, useAutoSelectWorkspace } from "@/hooks/useWorkspaceHistory"
+
+function WorkspaceSelector({ workspaces }) {
+  const {
+    recentWorkspaces,     // WorkspaceHistoryEntry[] - filtered to existing
+    selectedWorkspaceId,  // string | null
+    isLoading,
+    recordUsage,          // (workspace) => Promise<void>
+    getLastUsed,          // () => WorkspaceHistoryEntry | null
+    removeWorkspace,      // (id) => Promise<void>
+    setSelectedId,        // (id | null) => Promise<void>
+  } = useWorkspaceHistory(workspaces)
+
+  // Auto-select last used workspace on mount
+  useAutoSelectWorkspace(workspaces, selectedId, handleSelect)
+
+  // Record usage when workspace is selected
+  const handleSelect = async (workspace) => {
+    await recordUsage(workspace)
+    // ... select workspace
+  }
+}
+```
+
+### Orphan Filtering
+
+Workspace history automatically filters out deleted workspaces:
+
+```typescript
+// getRecentWorkspaces filters to existing workspaces only
+const recent = await getRecentWorkspaces(existingWorkspaceIds)
+
+// Orphaned entries are removed from storage
+```
+
+### Limits
+
+- Maximum **10 workspaces** in history
+- Sorted by `lastUsedAt` descending
+- Automatically cleaned up when workspaces are deleted
+
 ## Adding New Tools
 
 ### 1. Define the Tool (Go)
@@ -577,7 +855,7 @@ func TestFSRead(t *testing.T) {
 
 Follow conventional commits:
 
-```
+```text
 feat: add new grep tool option
 fix: handle symlinks in path validation
 docs: update developer guide

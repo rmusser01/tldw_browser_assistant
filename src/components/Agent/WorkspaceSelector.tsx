@@ -2,19 +2,21 @@
  * WorkspaceSelector - Select and manage workspace directories
  */
 
-import { FC, useState, useEffect, useRef } from "react"
+import { FC, useState, useEffect, useRef, useCallback } from "react"
 import { useTranslation } from "react-i18next"
-import { Dropdown, Modal, Input, message } from "antd"
+import { Dropdown, Modal, Input, message, Divider } from "antd"
 import {
   FolderOpen,
   ChevronDown,
   Plus,
   AlertCircle,
   Check,
-  Trash2
+  Trash2,
+  Clock
 } from "lucide-react"
 import { useStorage } from "@plasmohq/storage/hook"
 import * as nativeClient from "@/services/native/native-client"
+import { useWorkspaceHistory, useAutoSelectWorkspace } from "@/hooks/useWorkspaceHistory"
 
 export interface Workspace {
   id: string
@@ -40,6 +42,12 @@ export const WorkspaceSelector: FC<WorkspaceSelectorProps> = ({
   const [newName, setNewName] = useState("")
   const [isValidating, setIsValidating] = useState(false)
 
+  // Workspace history
+  const {
+    recentWorkspaces,
+    recordUsage,
+  } = useWorkspaceHistory(workspaces || [])
+
   // Check if native host is installed
   useEffect(() => {
     nativeClient.isHostInstalled().then(setIsHostInstalled)
@@ -47,6 +55,11 @@ export const WorkspaceSelector: FC<WorkspaceSelectorProps> = ({
 
   // Get currently selected workspace
   const selectedWorkspace = workspaces?.find(w => w.id === selectedId) || null
+
+  // Auto-select callback
+  const handleAutoSelect = useCallback((workspace: Workspace) => {
+    handleSelect(workspace)
+  }, [])
 
   const callbackRef = useRef(onWorkspaceChange)
   useEffect(() => {
@@ -58,6 +71,13 @@ export const WorkspaceSelector: FC<WorkspaceSelectorProps> = ({
     callbackRef.current?.(selectedWorkspace)
   }, [selectedWorkspace])
 
+  // Auto-select last used workspace on mount
+  useAutoSelectWorkspace(
+    workspaces || [],
+    selectedId,
+    handleAutoSelect
+  )
+
   // Handle workspace selection
   const handleSelect = async (workspace: Workspace) => {
     try {
@@ -68,6 +88,9 @@ export const WorkspaceSelector: FC<WorkspaceSelectorProps> = ({
         return
       }
       setSelectedId(workspace.id)
+
+      // Record usage in history
+      await recordUsage(workspace)
     } catch (e: unknown) {
       const err =
         e && typeof e === "object" && "message" in e
@@ -96,7 +119,7 @@ export const WorkspaceSelector: FC<WorkspaceSelectorProps> = ({
       // Add to list
       const workspace: Workspace = {
         id: crypto.randomUUID(),
-        name: newName.trim() || (newPath.split(/[/\\]/).pop() || "Workspace"),
+        name: newName.trim() || (newPath.split(/[/\\]/).pop() || t("workspace", "Workspace")),
         path: newPath.trim()
       }
 
@@ -158,8 +181,72 @@ export const WorkspaceSelector: FC<WorkspaceSelectorProps> = ({
     )
   }
 
-  const menuItems = [
-    ...(workspaces || []).map(ws => ({
+  // Format relative time for recent workspaces
+  const formatRelativeTime = (isoString: string): string => {
+    const date = new Date(isoString)
+    const now = new Date()
+    const diffMs = now.getTime() - date.getTime()
+    const diffMins = Math.floor(diffMs / (1000 * 60))
+    const diffHours = Math.floor(diffMs / (1000 * 60 * 60))
+    const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24))
+
+    if (diffMins < 1) return t("justNow", "Just now")
+    if (diffMins < 60) return `${diffMins}m ${t("ago", "ago")}`
+    if (diffHours < 24) return `${diffHours}h ${t("ago", "ago")}`
+    if (diffDays < 7) return `${diffDays}d ${t("ago", "ago")}`
+    return date.toLocaleDateString()
+  }
+
+  // Build menu items with recent workspaces section
+  const menuItems = []
+
+  // Recent workspaces section (if any)
+  if (recentWorkspaces.length > 0) {
+    menuItems.push({
+      key: "recent-header",
+      type: "group" as const,
+      label: (
+        <div className="flex items-center gap-1.5 text-xs text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+          <Clock className="size-3" />
+          {t("recent", "Recent")}
+        </div>
+      ),
+      children: recentWorkspaces.slice(0, 3).map(recent => {
+        const ws = workspaces?.find(w => w.id === recent.workspaceId)
+        if (!ws) return null
+        return {
+          key: `recent-${ws.id}`,
+          label: (
+            <div className="flex items-center justify-between gap-3 py-1">
+              <div className="flex flex-col min-w-0">
+                <span className="font-medium truncate">{ws.name}</span>
+                <span className="text-xs text-gray-500 dark:text-gray-400">
+                  {formatRelativeTime(recent.lastUsedAt)}
+                </span>
+              </div>
+              {ws.id === selectedId && (
+                <Check className="size-4 text-green-500 flex-shrink-0" />
+              )}
+            </div>
+          ),
+          onClick: () => handleSelect(ws)
+        }
+      }).filter(Boolean)
+    })
+
+    menuItems.push({ type: "divider" as const, key: "recent-divider" })
+  }
+
+  // All workspaces section
+  menuItems.push({
+    key: "all-header",
+    type: "group" as const,
+    label: (
+      <span className="text-xs text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+        {t("allWorkspaces", "All Workspaces")}
+      </span>
+    ),
+    children: (workspaces || []).map(ws => ({
       key: ws.id,
       label: (
         <div className="flex items-center justify-between gap-3 py-1">
@@ -183,19 +270,22 @@ export const WorkspaceSelector: FC<WorkspaceSelectorProps> = ({
         </div>
       ),
       onClick: () => handleSelect(ws)
-    })),
-    { type: "divider" as const },
-    {
-      key: "add",
-      label: (
-        <div className="flex items-center gap-2 text-blue-600 dark:text-blue-400">
-          <Plus className="size-4" />
-          <span>{t("addWorkspace", "Add Workspace")}</span>
-        </div>
-      ),
-      onClick: () => setShowAddModal(true)
-    }
-  ]
+    }))
+  })
+
+  menuItems.push({ type: "divider" as const, key: "add-divider" })
+
+  // Add workspace option
+  menuItems.push({
+    key: "add",
+    label: (
+      <div className="flex items-center gap-2 text-blue-600 dark:text-blue-400">
+        <Plus className="size-4" />
+        <span>{t("addWorkspace", "Add Workspace")}</span>
+      </div>
+    ),
+    onClick: () => setShowAddModal(true)
+  })
 
   return (
     <>
