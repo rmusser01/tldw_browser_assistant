@@ -94,6 +94,10 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
     onSubmit,
     selectedModel,
     chatMode,
+    compareMode,
+    setCompareMode,
+    compareSelectedModels,
+    setCompareSelectedModels,
     speechToTextLanguage,
     stopStreamingRequest,
     streaming: isSending,
@@ -205,6 +209,13 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
     enabled: true
   })
 
+  // Ensure compare selection has a sensible default when enabling compare mode
+  React.useEffect(() => {
+    if (compareMode && compareSelectedModels.length === 0 && selectedModel) {
+      setCompareSelectedModels([selectedModel])
+    }
+  }, [compareMode, compareSelectedModels.length, selectedModel, setCompareSelectedModels])
+
   const modelSummaryLabel = React.useMemo(() => {
     if (!selectedModel) {
       return t(
@@ -220,6 +231,35 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
       selectedModel
     )
   }, [composerModels, selectedModel, t])
+
+  const compareSummaryLabel = React.useMemo(() => {
+    if (!compareMode) {
+      return null
+    }
+    const count = compareSelectedModels.length
+    if (count === 0) {
+      return t("playground:composer.compareNoneSelected", "No models selected for compare")
+    }
+    if (count === 1) {
+      return t("playground:composer.compareSingle", "Comparing 1 model")
+    }
+    return t("playground:composer.compareMany", "Comparing {{count}} models", { count })
+  }, [compareMode, compareSelectedModels.length, t])
+
+  const compareActiveSummary = React.useMemo(() => {
+    if (!compareMode || compareSelectedModels.length === 0) {
+      return null
+    }
+    const maxNames = 2
+    const names = compareSelectedModels.slice(0, maxNames)
+    const moreCount = compareSelectedModels.length - names.length
+    const label = names.join(", ") + (moreCount > 0 ? ` +${moreCount}` : "")
+    return t(
+      "playground:composer.compareActiveSummary",
+      "Active models next turn: {{label}}",
+      { label }
+    )
+  }, [compareMode, compareSelectedModels, t])
 
   const promptSummaryLabel = React.useMemo(() => {
     if (selectedSystemPrompt) {
@@ -574,8 +614,19 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
         return
       }
       const defaultEM = await defaultEmbeddingModelForRag()
-      if (!selectedModel || selectedModel.length === 0) {
-        form.setFieldError("message", t("formError.noModel"))
+      if (!compareMode) {
+        if (!selectedModel || selectedModel.length === 0) {
+          form.setFieldError("message", t("formError.noModel"))
+          return
+        }
+      } else if (!compareSelectedModels || compareSelectedModels.length === 0) {
+        form.setFieldError(
+          "message",
+          t(
+            "playground:composer.validationCompareSelectModelsInline",
+            "Select at least one model for Compare mode."
+          )
+        )
         return
       }
 
@@ -610,8 +661,19 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
     }
     form.onSubmit(async () => {
       const defaultEM = await defaultEmbeddingModelForRag()
-      if (!selectedModel || selectedModel.length === 0) {
-        form.setFieldError("message", t("formError.noModel"))
+      if (!compareMode) {
+        if (!selectedModel || selectedModel.length === 0) {
+          form.setFieldError("message", t("formError.noModel"))
+          return
+        }
+      } else if (!compareSelectedModels || compareSelectedModels.length === 0) {
+        form.setFieldError(
+          "message",
+          t(
+            "playground:composer.validationCompareSelectModelsInline",
+            "Select at least one model for Compare mode."
+          )
+        )
         return
       }
       if (webSearch) {
@@ -1279,8 +1341,22 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
                 <form
                   onSubmit={form.onSubmit(async (value) => {
                     stopListening()
-                    if (!selectedModel || selectedModel.length === 0) {
-                      form.setFieldError("message", t("formError.noModel"))
+                    if (!compareMode) {
+                      if (!selectedModel || selectedModel.length === 0) {
+                        form.setFieldError("message", t("formError.noModel"))
+                        return
+                      }
+                    } else if (
+                      !compareSelectedModels ||
+                      compareSelectedModels.length === 0
+                    ) {
+                      form.setFieldError(
+                        "message",
+                        t(
+                          "playground:composer.validationCompareSelectModelsInline",
+                          "Select at least one model for Compare mode."
+                        )
+                      )
                       return
                     }
                     const defaultEM = await defaultEmbeddingModelForRag()
@@ -1637,6 +1713,27 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
                                 </Tooltip>
                               </>
                             )}
+                            <div className="flex flex-col items-end text-[11px] text-gray-500 dark:text-gray-400 mr-2">
+                              <label className="inline-flex items-center gap-1 cursor-pointer">
+                                <Checkbox
+                                  checked={compareMode}
+                                  onChange={(e) => setCompareMode(e.target.checked)}
+                                />
+                                <span>
+                                  {t("playground:composer.compareLabel", "Compare models")}
+                                </span>
+                              </label>
+                              {compareSummaryLabel && (
+                                <span className="mt-0.5">
+                                  {compareSummaryLabel}
+                                </span>
+                              )}
+                              {compareActiveSummary && (
+                                <span className="mt-0.5 text-[10px] text-gray-400 dark:text-gray-500">
+                                  {compareActiveSummary}
+                                </span>
+                              )}
+                            </div>
                             <Tooltip
                               title={
                                 t(

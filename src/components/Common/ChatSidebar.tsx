@@ -483,6 +483,21 @@ export function ChatSidebar({
     ]
   )
 
+  React.useEffect(() => {
+    const handler = (event: Event) => {
+      const detail = (event as CustomEvent).detail as {
+        historyId?: string
+      }
+      if (detail?.historyId) {
+        void loadLocalConversation(detail.historyId)
+      }
+    }
+    window.addEventListener("tldw:open-history", handler as any)
+    return () => {
+      window.removeEventListener("tldw:open-history", handler as any)
+    }
+  }, [loadLocalConversation])
+
   // Handle folder selection for a chat
   const handleFolderSelect = async (folderIds: number[]) => {
     const conversationId = folderPickerChatId
@@ -1357,4 +1372,3 @@ export function ChatSidebar({
 }
 
 export default ChatSidebar
-

@@ -259,5 +259,9 @@
   "refresh": "بازخوانی",
   "confirm": "تأیید",
   "untitled": "بدون عنوان",
-  "moveToFolder": "انتقال به پوشه"
+  "moveToFolder": "انتقال به پوشه",
+  "noToolCalls": "هنوز هیچ فراخوانی ابزاری انجام نشده است",
+  "arguments": "آرگومان‌ها",
+  "invalidJson": "JSON نامعتبر؛ مقدار خام نمایش داده می‌شود",
+  "result": "نتیجه"
 }

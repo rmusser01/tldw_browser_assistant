@@ -259,5 +259,9 @@
   "refresh": "Atualizar",
   "confirm": "Confirmar",
   "untitled": "Sem título",
-  "moveToFolder": "Mover para pasta"
+  "moveToFolder": "Mover para pasta",
+  "noToolCalls": "Ainda não há chamadas de ferramentas",
+  "arguments": "Argumentos",
+  "invalidJson": "JSON inválido; mostrando valor bruto",
+  "result": "Resultado"
 }

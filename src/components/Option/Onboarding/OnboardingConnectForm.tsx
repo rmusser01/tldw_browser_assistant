@@ -19,6 +19,7 @@ import {
   RefreshCw,
 } from "lucide-react"
 import { useTranslation } from "react-i18next"
+import { DOCUMENTATION_URL } from "@/config/constants"
 import { tldwClient } from "@/services/tldw/TldwApiClient"
 import { getTldwServerURL, DEFAULT_TLDW_API_KEY } from "@/services/tldw-server"
 import {
@@ -353,8 +354,13 @@ export function OnboardingConnectForm({ onFinish }: Props) {
         }),
       })
       const message = (error as Error)?.message || null
+      const status =
+        (error as any)?.status ??
+        (error as any)?.response?.status ??
+        (error as any)?.statusCode ??
+        null
       const kind =
-        categorizeConnectionError(null, message) ??
+        categorizeConnectionError(status, message) ??
         ("refused" as ConnectionErrorKind)
       dispatchUi({
         type: "SET_ERROR",
@@ -480,11 +486,7 @@ export function OnboardingConnectForm({ onFinish }: Props) {
 
   // Open docs
   const openDocs = useCallback(() => {
-    window.open(
-      "https://github.com/rmusser01/tldw_browser_assistant",
-      "_blank",
-      "noopener,noreferrer"
-    )
+    window.open(DOCUMENTATION_URL, "_blank", "noopener,noreferrer")
   }, [])
 
   // Success screen

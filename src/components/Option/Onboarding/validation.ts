@@ -17,6 +17,45 @@ export type ValidationResult = {
   errorKind?: ConnectionErrorKind
 }
 
+const extractStatusAndMessage = (
+  error: unknown
+): { status: number | null; message: string | null } => {
+  let status: number | null = null
+  let message: string | null = null
+
+  if (error instanceof Error) {
+    message = error.message
+  }
+
+  if (typeof error === "object" && error !== null) {
+    const errObj = error as {
+      status?: unknown
+      statusCode?: unknown
+      response?: { status?: unknown }
+      message?: unknown
+    }
+
+    if (message === null && typeof errObj.message === "string") {
+      message = errObj.message
+    }
+
+    const responseStatus =
+      typeof errObj.response?.status === "number"
+        ? errObj.response.status
+        : null
+    const directStatus =
+      typeof errObj.status === "number"
+        ? errObj.status
+        : typeof errObj.statusCode === "number"
+          ? errObj.statusCode
+          : null
+
+    status = responseStatus ?? directStatus ?? null
+  }
+
+  return { status, message }
+}
+
 export const categorizeConnectionError = (
   status: number | null,
   error: string | null
@@ -43,9 +82,9 @@ export const validateMultiUserAuth = async (
     return { success: true }
   } catch (error: unknown) {
     const friendly = mapMultiUserLoginErrorMessage(t, error, "onboarding")
-    const rawMessage =
-      error instanceof Error ? error.message : (error as any)?.message ?? null
-    const errorKind = categorizeConnectionError(null, rawMessage) ?? "auth_invalid"
+    const { status, message } = extractStatusAndMessage(error)
+    const errorKind =
+      categorizeConnectionError(status, message) ?? "auth_invalid"
 
     return {
       success: false,
@@ -74,16 +113,15 @@ export const validateApiKey = async (
     }
     return { success: true }
   } catch (error: unknown) {
+    const { status, message } = extractStatusAndMessage(error)
     const errorMessage =
-      error instanceof Error
-        ? error.message
-        : t(
-            "settings:onboarding.errors.apiKeyValidationFailed",
-            "API key validation failed"
-          )
+      message ??
+      t(
+        "settings:onboarding.errors.apiKeyValidationFailed",
+        "API key validation failed"
+      )
     const errorKind =
-      categorizeConnectionError(null, error instanceof Error ? error.message : null) ??
-      "auth_invalid"
+      categorizeConnectionError(status, message) ?? "auth_invalid"
 
     return {
       success: false,

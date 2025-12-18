@@ -163,7 +163,7 @@ export const createBranchMessage = ({
   messages?: Message[]
   history?: ChatHistory
 }) => {
-  return async (index: number) => {
+  return async (index: number): Promise<string | null> => {
     // When a server-backed character chat is active, create a new server chat
     // branched from the current context and mirror the prefix messages.
     if (serverChatId) {
@@ -187,7 +187,7 @@ export const createBranchMessage = ({
             description:
               "Unable to determine character for this server chat. Branching is only supported for character-backed chats."
           })
-          return
+          return null
         }
 
         const created = await tldwClient.createChat({
@@ -258,21 +258,23 @@ export const createBranchMessage = ({
             setHistory(snapshot)
           }
         }
+
+        return newChatId
       } catch (e) {
         console.log("[branch] server branch failed", e)
         notification.error({
           message: "Branch failed",
           description:
             "Unable to create a branched server chat. Check your server connection and try again."
-        })
+          })
       }
-      return
+      return null
     }
 
     // Local Dexie-backed branch (existing behavior)
     if (!historyId) {
       // No persisted history; nothing to branch from.
-      return
+      return null
     }
 
     try {
@@ -297,8 +299,10 @@ export const createBranchMessage = ({
           setSystemPrompt(lastUsedPrompt.prompt_content)
         }
       }
+      return newBranch.history.id
     } catch (e) {
       console.log("[branch] local branch failed", e)
+      return null
     }
   }
 }

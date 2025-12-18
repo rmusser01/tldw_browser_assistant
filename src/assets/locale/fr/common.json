@@ -259,5 +259,9 @@
   "refresh": "Actualiser",
   "confirm": "Confirmer",
   "untitled": "Sans titre",
-  "moveToFolder": "Déplacer vers le dossier"
+  "moveToFolder": "Déplacer vers le dossier",
+  "noToolCalls": "Aucun appel d’outil pour le moment",
+  "arguments": "Arguments",
+  "invalidJson": "JSON invalide ; affichage de la valeur brute",
+  "result": "Résultat"
 }

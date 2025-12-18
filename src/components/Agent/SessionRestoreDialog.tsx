@@ -13,9 +13,10 @@ import {
   Wrench,
   AlertTriangle,
   FileEdit,
-  Terminal,
+  Terminal
 } from "lucide-react"
 import type { StoredAgentSession } from "@/services/agent/storage"
+import { formatRelativeTime } from "@/utils/dateFormatters"
 
 interface SessionRestoreDialogProps {
   session: StoredAgentSession | null
@@ -23,22 +24,6 @@ interface SessionRestoreDialogProps {
   onRestore: () => void
   onStartFresh: () => void
   onCancel: () => void
-}
-
-// Format relative time
-function formatRelativeTime(isoString: string): string {
-  const date = new Date(isoString)
-  const now = new Date()
-  const diffMs = now.getTime() - date.getTime()
-  const diffMins = Math.floor(diffMs / (1000 * 60))
-  const diffHours = Math.floor(diffMs / (1000 * 60 * 60))
-  const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24))
-
-  if (diffMins < 1) return "Just now"
-  if (diffMins < 60) return `${diffMins} minute${diffMins !== 1 ? "s" : ""} ago`
-  if (diffHours < 24) return `${diffHours} hour${diffHours !== 1 ? "s" : ""} ago`
-  if (diffDays < 7) return `${diffDays} day${diffDays !== 1 ? "s" : ""} ago`
-  return date.toLocaleDateString()
 }
 
 export const SessionRestoreDialog: FC<SessionRestoreDialogProps> = ({
@@ -92,15 +77,15 @@ export const SessionRestoreDialog: FC<SessionRestoreDialogProps> = ({
           <div className="flex items-center gap-4 text-sm text-gray-500 dark:text-gray-400">
             <span className="flex items-center gap-1">
               <Clock className="size-4" />
-              {formatRelativeTime(session.updatedAt)}
+              {formatRelativeTime(session.updatedAt, t)}
             </span>
             <span className="flex items-center gap-1">
               <MessageSquare className="size-4" />
-              {session.messages.length} messages
+              {session.messages.length} {t("messages", "messages")}
             </span>
             <span className="flex items-center gap-1">
               <Wrench className="size-4" />
-              {session.toolCalls.length} tool calls
+              {session.toolCalls.length} {t("toolCalls", "tool calls")}
             </span>
           </div>
         </div>
@@ -111,7 +96,12 @@ export const SessionRestoreDialog: FC<SessionRestoreDialogProps> = ({
             <div className="flex items-center gap-2 mb-2">
               <AlertTriangle className="size-4 text-yellow-600 dark:text-yellow-400" />
               <span className="font-medium text-yellow-800 dark:text-yellow-200">
-                {approvalSummary.total} {t("pendingApprovals", "pending approval")}{approvalSummary.total !== 1 ? "s" : ""}
+                {approvalSummary.total}{" "}
+                {t("pendingApprovals", {
+                  count: approvalSummary.total,
+                  defaultValue:
+                    approvalSummary.total === 1 ? "pending approval" : "pending approvals"
+                })}
               </span>
             </div>
 
@@ -119,17 +109,31 @@ export const SessionRestoreDialog: FC<SessionRestoreDialogProps> = ({
               {approvalSummary.fileChanges > 0 && (
                 <span className="flex items-center gap-1">
                   <FileEdit className="size-3.5" />
-                  {approvalSummary.fileChanges} file change{approvalSummary.fileChanges !== 1 ? "s" : ""}
+                  {approvalSummary.fileChanges}{" "}
+                  {t("fileChanges", {
+                    count: approvalSummary.fileChanges,
+                    defaultValue:
+                      approvalSummary.fileChanges === 1
+                        ? "file change"
+                        : "file changes"
+                  })}
                 </span>
               )}
               {approvalSummary.commands > 0 && (
                 <span className="flex items-center gap-1">
                   <Terminal className="size-3.5" />
-                  {approvalSummary.commands} command{approvalSummary.commands !== 1 ? "s" : ""}
+                  {approvalSummary.commands}{" "}
+                  {t("commands", {
+                    count: approvalSummary.commands,
+                    defaultValue:
+                      approvalSummary.commands === 1 ? "command" : "commands"
+                  })}
                 </span>
               )}
               {approvalSummary.other > 0 && (
-                <span>{approvalSummary.other} other</span>
+                <span>
+                  {approvalSummary.other} {t("other", "other")}
+                </span>
               )}
             </div>
           </div>
@@ -176,5 +180,3 @@ export const SessionRestoreDialog: FC<SessionRestoreDialogProps> = ({
     </Modal>
   )
 }
-
-export default SessionRestoreDialog

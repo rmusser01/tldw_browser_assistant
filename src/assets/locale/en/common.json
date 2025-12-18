@@ -287,5 +287,9 @@
     "showLegend": "Show legend",
     "zoomIn": "Zoom in",
     "zoomOut": "Zoom out"
-  }
+  },
+  "noToolCalls": "No tool calls yet",
+  "arguments": "Arguments",
+  "invalidJson": "Invalid JSON; showing raw value",
+  "result": "Result"
 }

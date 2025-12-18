@@ -290,11 +290,13 @@ const formatFullResult = (result: unknown): string => {
   }
 }
 
+const EMPTY_SET = new Set<string>()
+
 export const ToolCallLog: FC<ToolCallLogProps> = ({
   entries,
   className = "",
   autoScroll = true,
-  expandedIds = new Set(),
+  expandedIds = EMPTY_SET,
   onToggleExpand
 }) => {
   const { t } = useTranslation("common")

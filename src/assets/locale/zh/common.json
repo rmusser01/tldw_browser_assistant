@@ -259,5 +259,9 @@
   "refresh": "刷新",
   "confirm": "确认",
   "untitled": "未命名",
-  "moveToFolder": "移动到文件夹"
+  "moveToFolder": "移动到文件夹",
+  "noToolCalls": "尚无工具调用",
+  "arguments": "参数",
+  "invalidJson": "JSON 无效；显示原始值",
+  "result": "结果"
 }

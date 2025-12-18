@@ -17,10 +17,95 @@ import { removeModelSuffix } from "@/db/dexie/models"
 import { copyToClipboard } from "@/utils/clipboard"
 import { ImageExportWrapper } from "../Common/ImageExport"
 import { useAntdMessage } from "@/hooks/useAntdMessage"
+import { useStoreMessageOption } from "~/store/option"
 interface MoreOptionsProps {
   messages: Message[]
   historyId: string
   shareModeEnabled: boolean
+}
+
+const buildCanonicalMessages = (
+  messages: Message[],
+  canonicalByCluster: Record<string, string | null>
+): Message[] => {
+  const raw = messages as any[]
+
+  // Build a simple index of compare clusters
+  const clusters: Record<
+    string,
+    {
+      userIndex: number
+      replyIndices: number[]
+    }
+  > = {}
+
+  raw.forEach((msg, idx) => {
+    if (msg.messageType === "compare:user" && msg.clusterId) {
+      const clusterId = msg.clusterId as string
+      const replyIndices: number[] = []
+      raw.forEach((m2: any, j: number) => {
+        if (
+          j !== idx &&
+          m2.clusterId === clusterId &&
+          m2.messageType === "compare:reply"
+        ) {
+          replyIndices.push(j)
+        }
+      })
+      clusters[clusterId] = {
+        userIndex: idx,
+        replyIndices
+      }
+    }
+  })
+
+  const canonicalMessages: any[] = []
+
+  raw.forEach((msg, idx) => {
+    const clusterId = msg.clusterId as string | undefined
+    const messageType = msg.messageType as string | undefined
+
+    if (!clusterId || !clusters[clusterId]) {
+      canonicalMessages.push(msg)
+      return
+    }
+
+    const cluster = clusters[clusterId]
+
+    if (messageType === "compare:user") {
+      canonicalMessages.push(msg)
+      return
+    }
+
+    if (messageType === "compare:reply") {
+      const replyIndices = cluster.replyIndices
+      let canonicalIndex: number | null = null
+      const canonicalId = canonicalByCluster?.[clusterId] || null
+
+      if (canonicalId) {
+        const targetIdx = replyIndices.find(
+          (i) => raw[i].id && raw[i].id === canonicalId
+        )
+        if (typeof targetIdx === "number") {
+          canonicalIndex = targetIdx
+        }
+      }
+
+      if (canonicalIndex == null && replyIndices.length > 0) {
+        canonicalIndex = replyIndices[0]
+      }
+
+      if (idx === canonicalIndex) {
+        canonicalMessages.push(msg)
+      }
+
+      return
+    }
+
+    canonicalMessages.push(msg)
+  })
+
+  return canonicalMessages as Message[]
 }
 const formatAsText = (messages: Message[]) => {
   return messages
@@ -94,6 +179,9 @@ export const MoreOptions = ({
   const [onShareOpen, setOnShareOpen] = useState(false)
   const [open, setOpen] = useState(false)
   const message = useAntdMessage()
+  const canonicalByCluster = useStoreMessageOption(
+    (state) => state.compareCanonicalByCluster
+  )
   const baseItems: MenuProps["items"] = [
     {
       type: "group",
@@ -137,6 +225,24 @@ export const MoreOptions = ({
             })
             message.success(t("more.copy.success"))
           }
+        },
+        {
+          key: "copy-canonical-markdown",
+          label: t("option:more.copy.canonicalMarkdown", {
+            defaultValue: "Copy canonical transcript"
+          }),
+          icon: <FileCode className="w-4 h-4" />,
+          onClick: async () => {
+            const canonicalMessages = buildCanonicalMessages(
+              messages,
+              canonicalByCluster || {}
+            )
+            await copyToClipboard({
+              text: formatAsMarkdown(canonicalMessages),
+              formatted: false
+            })
+            message.success(t("more.copy.success"))
+          }
         }
       ]
     },
@@ -161,6 +267,23 @@ export const MoreOptions = ({
           icon: <FileCode className="w-4 h-4" />,
           onClick: () => {
             downloadFile(formatAsMarkdown(messages), "chat.md")
+          }
+        },
+        {
+          key: "download-canonical-md",
+          label: t("option:more.download.canonicalMarkdown", {
+            defaultValue: "Canonical transcript (Markdown)"
+          }),
+          icon: <FileCode className="w-4 h-4" />,
+          onClick: () => {
+            const canonicalMessages = buildCanonicalMessages(
+              messages,
+              canonicalByCluster || {}
+            )
+            downloadFile(
+              formatAsMarkdown(canonicalMessages),
+              "chat_canonical.md"
+            )
           }
         },
         {

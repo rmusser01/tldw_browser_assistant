@@ -259,5 +259,9 @@
   "refresh": "Oppdater",
   "confirm": "Bekreft",
   "untitled": "Uten tittel",
-  "moveToFolder": "Flytt til mappe"
+  "moveToFolder": "Flytt til mappe",
+  "noToolCalls": "Ingen verktøykall ennå",
+  "arguments": "Argumenter",
+  "invalidJson": "Ugyldig JSON; viser råverdi",
+  "result": "Resultat"
 }

@@ -259,5 +259,9 @@
   "refresh": "Uppdatera",
   "confirm": "Bekräfta",
   "untitled": "Utan titel",
-  "moveToFolder": "Flytta till mapp"
+  "moveToFolder": "Flytta till mapp",
+  "noToolCalls": "Inga verktygsanrop ännu",
+  "arguments": "Argument",
+  "invalidJson": "Ogiltig JSON; visar råvärde",
+  "result": "Resultat"
 }

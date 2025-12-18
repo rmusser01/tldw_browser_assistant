@@ -259,5 +259,9 @@
   "refresh": "再読み込み",
   "confirm": "確認",
   "untitled": "無題",
-  "moveToFolder": "フォルダーに移動"
+  "moveToFolder": "フォルダーに移動",
+  "noToolCalls": "ツール呼び出しはまだありません",
+  "arguments": "引数",
+  "invalidJson": "無効な JSON です。生の値を表示しています",
+  "result": "結果"
 }

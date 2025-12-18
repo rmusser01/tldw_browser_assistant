@@ -33,6 +33,9 @@ import { useAntdNotification } from "./useAntdNotification"
 import { tldwClient } from "@/services/tldw/TldwApiClient"
 import { getActorSettingsForChat } from "@/services/actor-settings"
 
+// Max models per compare turn (Phase 3 polish)
+export const MAX_COMPARE_MODELS = 3
+
 export const useMessageOption = () => {
   const {
     controller: abortController,
@@ -108,7 +111,19 @@ export const useMessageOption = () => {
     serverChatExternalRef,
     setServerChatExternalRef,
     isEmbedding,
-    setIsEmbedding
+    setIsEmbedding,
+    compareMode,
+    setCompareMode,
+    compareSelectedModels,
+    setCompareSelectedModels,
+    compareSelectionByCluster,
+    setCompareSelectionForCluster,
+    compareParentByHistory,
+    setCompareParentForHistory,
+    compareCanonicalByCluster,
+    setCompareCanonicalForCluster,
+    compareSplitChats,
+    setCompareSplitChat
   } = useStoreMessageOption()
 
   const currentChatModelSettings = useStoreChatModelSettings()
@@ -335,8 +350,69 @@ export const useMessageOption = () => {
     return historyKey
   }
 
-  const validateBeforeSubmitFn = () =>
-    validateBeforeSubmit(selectedModel, t, notification)
+  const buildChatModeParams = async () => {
+    const actorSettings = await getActorSettingsForChat({
+      historyId,
+      serverChatId
+    })
+
+    return {
+      selectedModel,
+      useOCR,
+      selectedSystemPrompt,
+      selectedKnowledge,
+      currentChatModelSettings,
+      setMessages,
+      setIsSearchingInternet,
+      saveMessageOnSuccess,
+      saveMessageOnError,
+      setHistory,
+      setIsProcessing,
+      setStreaming,
+      setAbortController,
+      historyId,
+      setHistoryId,
+      fileRetrievalEnabled,
+      ragMediaIds,
+      ragSearchMode,
+      ragTopK,
+      ragEnableGeneration,
+      ragEnableCitations,
+      ragSources,
+      ragAdvancedOptions,
+      setActionInfo,
+      webSearch,
+      actorSettings
+    }
+  }
+
+  const validateBeforeSubmitFn = () => {
+    if (compareMode) {
+      if (!compareSelectedModels || compareSelectedModels.length === 0) {
+        notification.error({
+          message: t("error"),
+          description: t(
+            "playground:composer.validationCompareSelectModels",
+            "Select at least one model to use in Compare mode."
+          )
+        })
+        return false
+      }
+      if (compareSelectedModels.length > MAX_COMPARE_MODELS) {
+        notification.error({
+          message: t("error"),
+          description: t(
+            "playground:composer.compareMaxModels",
+            "You can compare up to {{limit}} models per turn.",
+            { limit: MAX_COMPARE_MODELS }
+          )
+        })
+        return false
+      }
+      return true
+    }
+    return validateBeforeSubmit(selectedModel, t, notification)
+  }
 
   const onSubmit = async ({
     message,
@@ -368,39 +444,7 @@ export const useMessageOption = () => {
       signal = controller.signal
     }
 
-    const actorSettings = await getActorSettingsForChat({
-      historyId,
-      serverChatId
-    })
-
-    const chatModeParams = {
-      selectedModel,
-      useOCR,
-      selectedSystemPrompt,
-      selectedKnowledge,
-      currentChatModelSettings,
-      setMessages,
-      setIsSearchingInternet,
-      saveMessageOnSuccess,
-      saveMessageOnError,
-      setHistory,
-      setIsProcessing,
-      setStreaming,
-      setAbortController,
-      historyId,
-      setHistoryId,
-      fileRetrievalEnabled,
-      ragMediaIds,
-      ragSearchMode,
-      ragTopK,
-      ragEnableGeneration,
-      ragEnableCitations,
-      ragSources,
-      ragAdvancedOptions,
-      setActionInfo,
-      webSearch,
-      actorSettings
-    }
+    const chatModeParams = await buildChatModeParams()
 
     try {
       if (isContinue) {
@@ -465,17 +509,138 @@ export const useMessageOption = () => {
           ...chatModeParams,
           uploadedFiles: uploadedFiles
         }
+        const baseMessages = chatHistory || messages
+        const baseHistory = memory || history
 
-        await normalChatMode(
-          message,
-          image,
-          isRegenerate,
-          chatHistory || messages,
-          memory || history,
-          signal,
-          enhancedChatModeParams
-        )
+        if (!compareMode) {
+          await normalChatMode(
+            message,
+            image,
+            isRegenerate,
+            baseMessages,
+            baseHistory,
+            signal,
+            enhancedChatModeParams
+          )
+        } else {
+          const modelsRaw =
+            compareSelectedModels && compareSelectedModels.length > 0
+              ? compareSelectedModels
+              : selectedModel
+                ? [selectedModel]
+                : []
+          if (modelsRaw.length === 0) {
+            throw new Error("No models selected for Compare mode")
+          }
+          const models =
+            modelsRaw.length > MAX_COMPARE_MODELS
+              ? modelsRaw.slice(0, MAX_COMPARE_MODELS)
+              : modelsRaw
+
+          if (modelsRaw.length > MAX_COMPARE_MODELS) {
+            notification.warning({
+              message: t("error"),
+              description: t(
+                "playground:composer.compareMaxModelsTrimmed",
+                "Compare is limited to {{limit}} models per turn. Using the first {{limit}} selected models.",
+                { limit: MAX_COMPARE_MODELS }
+              )
+            })
+          }
+          const clusterId = generateID()
+
+          for (let index = 0; index < models.length; index++) {
+            const modelId = models[index]
+            const isFirst = index === 0
+            await normalChatMode(
+              message,
+              image,
+              // First model uses isRegenerate flag as passed; others behave like regenerate
+              isFirst ? isRegenerate : true,
+              baseMessages,
+              baseHistory,
+              signal,
+              {
+                ...enhancedChatModeParams,
+                selectedModel: modelId,
+                clusterId,
+                userMessageType: isFirst ? "compare:user" : undefined,
+                assistantMessageType: "compare:reply",
+                modelIdOverride: modelId
+              }
+            )
+          }
+        }
       }
+    } catch (e: any) {
+      notification.error({
+        message: t("error"),
+        description: e?.message || t("somethingWentWrong")
+      })
+      setIsProcessing(false)
+      setStreaming(false)
+    }
+  }
+
+  const sendPerModelReply = async ({
+    clusterId,
+    modelId,
+    message
+  }: {
+    clusterId: string
+    modelId: string
+    message: string
+  }) => {
+    const trimmed = message.trim()
+    if (!trimmed) {
+      return
+    }
+
+    if (
+      contextFiles.length > 0 ||
+      (documentContext && documentContext.length > 0) ||
+      selectedKnowledge
+    ) {
+      notification.error({
+        message: t("error"),
+        description: t(
+          "playground:composer.comparePerModelUnsupported",
+          "Per-model replies are not yet supported when documents or knowledge mode are active."
+        )
+      })
+      return
+    }
+
+    setStreaming(true)
+    const newController = new AbortController()
+    setAbortController(newController)
+    const signal = newController.signal
+
+    const baseMessages = messages
+    const baseHistory = history
+
+    try {
+      const chatModeParams = await buildChatModeParams()
+      const enhancedChatModeParams = {
+        ...chatModeParams,
+        uploadedFiles: uploadedFiles
+      }
+
+      await normalChatMode(
+        trimmed,
+        "",
+        false,
+        baseMessages,
+        baseHistory,
+        signal,
+        {
+          ...enhancedChatModeParams,
+          selectedModel: modelId,
+          clusterId,
+          assistantMessageType: "compare:reply",
+          modelIdOverride: modelId
+        }
+      )
     } catch (e: any) {
       notification.error({
         message: t("error"),
@@ -614,6 +779,19 @@ export const useMessageOption = () => {
     ragEnableCitations,
     setRagEnableCitations,
     ragSources,
-    setRagSources
+    setRagSources,
+    compareMode,
+    setCompareMode,
+    compareSelectedModels,
+    setCompareSelectedModels,
+    compareSelectionByCluster,
+    setCompareSelectionForCluster,
+    sendPerModelReply,
+    compareParentByHistory,
+    setCompareParentForHistory,
+    compareCanonicalByCluster,
+    setCompareCanonicalForCluster,
+    compareSplitChats,
+    setCompareSplitChat
   }
 }

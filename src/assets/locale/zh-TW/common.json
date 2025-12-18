@@ -256,5 +256,9 @@
   "refresh": "重新整理",
   "confirm": "確認",
   "untitled": "未命名",
-  "moveToFolder": "移至資料夾"
+  "moveToFolder": "移至資料夾",
+  "noToolCalls": "尚未有工具呼叫",
+  "arguments": "參數",
+  "invalidJson": "JSON 無效；顯示原始值",
+  "result": "結果"
 }

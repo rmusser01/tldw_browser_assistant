@@ -259,5 +259,9 @@
   "refresh": "새로고침",
   "confirm": "확인",
   "untitled": "제목 없음",
-  "moveToFolder": "폴더로 이동"
+  "moveToFolder": "폴더로 이동",
+  "noToolCalls": "아직 도구 호출이 없습니다",
+  "arguments": "인수",
+  "invalidJson": "잘못된 JSON입니다. 원시 값을 표시합니다",
+  "result": "결과"
 }

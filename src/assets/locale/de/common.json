@@ -259,5 +259,9 @@
   "refresh": "Aktualisieren",
   "confirm": "Bestätigen",
   "untitled": "Unbenannt",
-  "moveToFolder": "In Ordner verschieben"
+  "moveToFolder": "In Ordner verschieben",
+  "noToolCalls": "Noch keine Tool-Aufrufe",
+  "arguments": "Argumente",
+  "invalidJson": "Ungültiges JSON; Rohwert wird angezeigt",
+  "result": "Ergebnis"
 }

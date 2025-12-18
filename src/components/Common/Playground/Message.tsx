@@ -126,6 +126,12 @@ type Props = {
   serverMessageId?: string | null
   searchQuery?: string
   isEmbedding?: boolean
+  // Compare/multi-model metadata (optional)
+  clusterId?: string
+  modelId?: string
+  compareSelectable?: boolean
+  compareSelected?: boolean
+  onToggleCompareSelect?: () => void
 }
 
 export const PlaygroundMessage = (props: Props) => {
@@ -293,16 +299,37 @@ export const PlaygroundMessage = (props: Props) => {
           )}
         </div>
         <div className="flex w-[calc(100%-50px)] flex-col gap-2 lg:w-[calc(100%-115px)]">
-          <span className="text-xs font-bold text-gray-800 dark:text-white">
-            {props.isBot
-              ? removeModelSuffix(
-                  `${props?.modelName || props?.name}`?.replaceAll(
-                    /accounts\/[^\/]+\/models\//g,
-                    ""
+          <div className="flex items-center gap-2">
+            <span className="text-xs font-bold text-gray-800 dark:text-white">
+              {props.isBot
+                ? removeModelSuffix(
+                    `${props?.modelName || props?.name}`?.replaceAll(
+                      /accounts\/[^\/]+\/models\//g,
+                      ""
+                    )
                   )
-                )
-              : "You"}
-          </span>
+                : "You"}
+            </span>
+            {props.isBot && props.message_type === "compare:reply" && (
+              props.onToggleCompareSelect ? (
+                <button
+                  type="button"
+                  onClick={props.onToggleCompareSelect}
+                  className={`rounded-full px-2 py-0.5 text-[10px] font-medium border transition ${
+                    props.compareSelected
+                      ? "bg-blue-600 text-white border-blue-600"
+                      : "bg-blue-50 text-blue-700 border-blue-200 dark:bg-blue-900/30 dark:text-blue-300 dark:border-blue-700"
+                  }`}
+                >
+                  {t("playground:composer.compareTag", "Compare")}
+                </button>
+              ) : (
+                <span className="rounded-full bg-blue-50 px-2 py-0.5 text-[10px] font-medium text-blue-700 dark:bg-blue-900/30 dark:text-blue-300">
+                  {t("playground:composer.compareTag", "Compare")}
+                </span>
+              )
+            )}
+          </div>
 
           {/* Unified loading status indicator */}
           {shouldShowLoadingStatus && (

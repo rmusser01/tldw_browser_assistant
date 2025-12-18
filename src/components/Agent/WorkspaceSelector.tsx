@@ -56,11 +56,6 @@ export const WorkspaceSelector: FC<WorkspaceSelectorProps> = ({
   // Get currently selected workspace
   const selectedWorkspace = workspaces?.find(w => w.id === selectedId) || null
 
-  // Auto-select callback
-  const handleAutoSelect = useCallback((workspace: Workspace) => {
-    handleSelect(workspace)
-  }, [])
-
   const callbackRef = useRef(onWorkspaceChange)
   useEffect(() => {
     callbackRef.current = onWorkspaceChange
@@ -75,7 +70,10 @@ export const WorkspaceSelector: FC<WorkspaceSelectorProps> = ({
   useAutoSelectWorkspace(
     workspaces || [],
     selectedId,
-    handleAutoSelect
+    // Auto-select callback always uses latest handleSelect
+    (workspace: Workspace) => {
+      handleSelect(workspace)
+    }
   )
 
   // Handle workspace selection

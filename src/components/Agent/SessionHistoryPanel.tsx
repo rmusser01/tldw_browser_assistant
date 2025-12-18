@@ -16,10 +16,11 @@ import {
   CheckCircle,
   XCircle,
   Pause,
-  Loader2,
+  Loader2
 } from "lucide-react"
 import type { SessionMetadata } from "@/services/agent/storage"
 import type { AgentStatus } from "@/services/agent/types"
+import { formatRelativeTime } from "@/utils/dateFormatters"
 
 interface SessionHistoryPanelProps {
   sessions: SessionMetadata[]
@@ -31,40 +32,66 @@ interface SessionHistoryPanelProps {
 }
 
 // Status badge component
-const StatusBadge: FC<{ status: AgentStatus }> = ({ status }) => {
-  const config: Record<AgentStatus, { icon: FC<{ className?: string }>; color: string; label: string }> = {
-    idle: { icon: Clock, color: "text-gray-500 bg-gray-100 dark:bg-gray-800", label: "Idle" },
-    running: { icon: Loader2, color: "text-blue-500 bg-blue-100 dark:bg-blue-900/40", label: "Running" },
-    waiting_approval: { icon: Pause, color: "text-yellow-500 bg-yellow-100 dark:bg-yellow-900/40", label: "Paused" },
-    complete: { icon: CheckCircle, color: "text-green-500 bg-green-100 dark:bg-green-900/40", label: "Complete" },
-    error: { icon: XCircle, color: "text-red-500 bg-red-100 dark:bg-red-900/40", label: "Error" },
-    cancelled: { icon: AlertCircle, color: "text-orange-500 bg-orange-100 dark:bg-orange-900/40", label: "Cancelled" },
+const StatusBadge: FC<{
+  status: AgentStatus
+  t: (key: string, defaultValue: string) => string
+}> = ({ status, t }) => {
+  const config: Record<
+    AgentStatus,
+    {
+      icon: FC<{ className?: string }>
+      color: string
+      labelKey: string
+      labelDefault: string
+    }
+  > = {
+    idle: {
+      icon: Clock,
+      color: "text-gray-500 bg-gray-100 dark:bg-gray-800",
+      labelKey: "statusIdle",
+      labelDefault: "Idle"
+    },
+    running: {
+      icon: Loader2,
+      color: "text-blue-500 bg-blue-100 dark:bg-blue-900/40",
+      labelKey: "statusRunning",
+      labelDefault: "Running"
+    },
+    waiting_approval: {
+      icon: Pause,
+      color: "text-yellow-500 bg-yellow-100 dark:bg-yellow-900/40",
+      labelKey: "statusPaused",
+      labelDefault: "Paused"
+    },
+    complete: {
+      icon: CheckCircle,
+      color: "text-green-500 bg-green-100 dark:bg-green-900/40",
+      labelKey: "statusComplete",
+      labelDefault: "Complete"
+    },
+    error: {
+      icon: XCircle,
+      color: "text-red-500 bg-red-100 dark:bg-red-900/40",
+      labelKey: "statusError",
+      labelDefault: "Error"
+    },
+    cancelled: {
+      icon: AlertCircle,
+      color: "text-orange-500 bg-orange-100 dark:bg-orange-900/40",
+      labelKey: "statusCancelled",
+      labelDefault: "Cancelled"
+    }
   }
 
-  const { icon: Icon, color, label } = config[status] || config.idle
+  const { icon: Icon, color, labelKey, labelDefault } =
+    config[status] || config.idle
 
   return (
     <span className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-medium ${color}`}>
       <Icon className={`size-3 ${status === "running" ? "animate-spin" : ""}`} />
-      {label}
+      {t(labelKey, labelDefault)}
     </span>
   )
-}
-
-// Format relative time
-function formatRelativeTime(isoString: string): string {
-  const date = new Date(isoString)
-  const now = new Date()
-  const diffMs = now.getTime() - date.getTime()
-  const diffMins = Math.floor(diffMs / (1000 * 60))
-  const diffHours = Math.floor(diffMs / (1000 * 60 * 60))
-  const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24))
-
-  if (diffMins < 1) return "Just now"
-  if (diffMins < 60) return `${diffMins}m ago`
-  if (diffHours < 24) return `${diffHours}h ago`
-  if (diffDays < 7) return `${diffDays}d ago`
-  return date.toLocaleDateString()
 }
 
 export const SessionHistoryPanel: FC<SessionHistoryPanelProps> = ({
@@ -73,9 +100,10 @@ export const SessionHistoryPanel: FC<SessionHistoryPanelProps> = ({
   onRestore,
   onDelete,
   onClearAll,
-  className = "",
+  className = ""
 }) => {
   const { t } = useTranslation("common")
+  const translateStatus = (key: string, defaultValue: string) => t(key, defaultValue)
   const [expandedId, setExpandedId] = useState<string | null>(null)
 
   // Sort sessions by updatedAt descending
@@ -153,13 +181,13 @@ export const SessionHistoryPanel: FC<SessionHistoryPanelProps> = ({
                     <span className="font-medium text-sm truncate">
                       {session.title || session.task.substring(0, 50)}
                     </span>
-                    <StatusBadge status={session.status} />
+                    <StatusBadge status={session.status} t={translateStatus} />
                   </div>
 
                   <div className="flex items-center gap-3 text-xs text-gray-500 dark:text-gray-400">
                     <span className="flex items-center gap-1">
                       <Clock className="size-3" />
-                      {formatRelativeTime(session.updatedAt)}
+                      {formatRelativeTime(session.updatedAt, t)}
                     </span>
                     <span className="flex items-center gap-1">
                       <MessageSquare className="size-3" />
@@ -245,5 +273,3 @@ export const SessionHistoryPanel: FC<SessionHistoryPanelProps> = ({
     </div>
   )
 }
-
-export default SessionHistoryPanel

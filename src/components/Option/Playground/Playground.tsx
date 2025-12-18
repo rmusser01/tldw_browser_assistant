@@ -17,6 +17,7 @@ import { Storage } from "@plasmohq/storage"
 import { createSafeStorage } from "@/utils/safe-storage"
 import { otherUnsupportedTypes } from "../Knowledge/utils/unsupported-types"
 import { useTranslation } from "react-i18next"
+import { useStoreMessageOption } from "~/store/option"
 export const Playground = () => {
   const drop = React.useRef<HTMLDivElement>(null)
   const [dropedFile, setDropedFile] = React.useState<File | undefined>()
@@ -30,6 +31,7 @@ export const Playground = () => {
 
   const {
     messages,
+    historyId,
     setHistoryId,
     setHistory,
     setMessages,
@@ -190,6 +192,15 @@ export const Playground = () => {
     setRecentMessagesOnLoad()
   }, [])
 
+  const compareParentByHistory = useStoreMessageOption(
+    (state) => state.compareParentByHistory
+  )
+
+  const parentMeta =
+    historyId && compareParentByHistory
+      ? compareParentByHistory[historyId]
+      : undefined
+
   return (
     <div
       ref={drop}
@@ -238,6 +249,28 @@ export const Playground = () => {
       )}
 
       <div className="relative z-10 flex h-full w-full flex-col">
+        {parentMeta?.parentHistoryId && (
+          <div className="flex w-full justify-center px-5 pt-2">
+            <button
+              type="button"
+              className="inline-flex items-center gap-2 rounded-full border border-blue-200 bg-blue-50 px-3 py-1 text-[11px] font-medium text-blue-700 hover:bg-blue-100 dark:border-blue-700 dark:bg-blue-900/30 dark:text-blue-200 dark:hover:bg-blue-900/50"
+              onClick={() => {
+                window.dispatchEvent(
+                  new CustomEvent("tldw:open-history", {
+                    detail: { historyId: parentMeta.parentHistoryId }
+                  })
+                )
+              }}>
+              <span aria-hidden="true">←</span>
+              <span>
+                {t(
+                  "playground:composer.compareBreadcrumb",
+                  "Back to comparison chat"
+                )}
+              </span>
+            </button>
+          </div>
+        )}
         <div
           ref={containerRef}
           role="log"

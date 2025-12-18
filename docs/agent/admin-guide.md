@@ -665,7 +665,7 @@ if (session.schemaVersion < 2) {
 
 ### Log Format
 
-```
+```text
 2025-01-15T10:30:45.123Z INFO  [handler] Tool call: fs.read path=/src/main.ts
 2025-01-15T10:30:45.156Z INFO  [handler] Tool result: ok=true bytes=1234
 2025-01-15T10:30:46.789Z WARN  [validator] Blocked path access: .env
@@ -889,3 +889,4 @@ For enterprise deployments, consider:
 - [User Guide](./user-guide.md) - For end users
 - [Developer Guide](./developer-guide.md) - For contributing
 - [Security Whitepaper](./security.md) - Detailed security analysis
+- Report issues at: [GitHub Issues](https://github.com/tldw/tldw-agent/issues)

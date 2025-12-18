@@ -259,5 +259,9 @@
   "refresh": "تحديث",
   "confirm": "تأكيد",
   "untitled": "بدون عنوان",
-  "moveToFolder": "نقل إلى المجلد"
+  "moveToFolder": "نقل إلى المجلد",
+  "noToolCalls": "لا توجد استدعاءات أدوات بعد",
+  "arguments": "المعاملات",
+  "invalidJson": "JSON غير صالح؛ يتم عرض القيمة الخام",
+  "result": "النتيجة"
 }

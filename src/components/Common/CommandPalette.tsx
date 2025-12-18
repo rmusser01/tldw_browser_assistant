@@ -9,7 +9,6 @@ import {
   StickyNote,
   Layers,
   UploadCloud,
-  Sparkles,
   Globe,
   Eye,
   BrainCircuit,
@@ -41,6 +40,7 @@ interface CommandPaletteProps {
   onToggleWebSearch?: () => void
   onIngestPage?: () => void
   onSwitchModel?: () => void
+  onToggleSidebar?: () => void
 }
 
 export function CommandPalette({
@@ -50,6 +50,7 @@ export function CommandPalette({
   onToggleWebSearch,
   onIngestPage,
   onSwitchModel,
+  onToggleSidebar,
 }: CommandPaletteProps) {
   const [open, setOpen] = useState(false)
   const [query, setQuery] = useState("")
@@ -183,11 +184,18 @@ export function CommandPalette({
     {
       id: "action-toggle-sidebar",
       label: t("common:commandPalette.toggleSidebar", "Toggle Sidebar"),
-      icon: <Sparkles className="size-4" />,
-      shortcut: { key: "[", modifiers: ["meta"] },
-      action: () => { onToggleSidebar?.(); setOpen(false) },
+      description: t(
+        "common:commandPalette.toggleSidebarDesc",
+        "Show or hide the chat sidebar"
+      ),
+      icon: <Eye className="size-4" />,
+      shortcut: { key: "b", modifiers: ["meta"] },
+      action: () => {
+        onToggleSidebar?.()
+        setOpen(false)
+      },
       category: "action",
-      keywords: ["sidebar", "panel", "hide", "show"],
+      keywords: ["sidebar", "layout", "panel"],
     },
   ], [t, navigate, onNewChat, onToggleRag, onToggleWebSearch, onIngestPage, onSwitchModel, onToggleSidebar])
 
@@ -239,6 +247,7 @@ export function CommandPalette({
       action: [],
       navigation: [],
       setting: [],
+      recent: [],
     }
     for (const cmd of filteredCommands) {
       groups[cmd.category]?.push(cmd)
@@ -293,7 +302,7 @@ export function CommandPalette({
 
   if (!open) return null
 
-  const categories = ["action", "navigation", "setting"] as const
+  const categories = ["recent", "action", "navigation", "setting"] as const
 
   const categoryLabels: Record<string, string> = {
     action: t("common:commandPalette.categoryActions", "Actions"),

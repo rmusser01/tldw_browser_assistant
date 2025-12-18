@@ -39,40 +39,40 @@ interface TerminalOutputProps {
   maxHeight?: string
 }
 
+// ANSI escape code patterns and color mappings
+const ANSI_REGEX = /\x1b\[([0-9;]+)m/g
+const ANSI_COLOR_MAP: Record<string, string> = {
+  "30": "text-gray-900 dark:text-gray-100",
+  "31": "text-red-500",
+  "32": "text-green-500",
+  "33": "text-yellow-500",
+  "34": "text-blue-500",
+  "35": "text-purple-500",
+  "36": "text-cyan-500",
+  "37": "text-gray-300",
+  "90": "text-gray-500",
+  "91": "text-red-400",
+  "92": "text-green-400",
+  "93": "text-yellow-400",
+  "94": "text-blue-400",
+  "95": "text-purple-400",
+  "96": "text-cyan-400",
+  "97": "text-white",
+  "1": "font-bold",
+  "0": ""
+}
+
 // Simple ANSI color code parser (basic support)
 function parseAnsiColors(text: string): { text: string; className: string }[] {
   const segments: { text: string; className: string }[] = []
   let currentClass = ""
   let buffer = ""
-
-  // Map ANSI codes to Tailwind classes
-  const colorMap: Record<string, string> = {
-    "30": "text-gray-900 dark:text-gray-100",
-    "31": "text-red-500",
-    "32": "text-green-500",
-    "33": "text-yellow-500",
-    "34": "text-blue-500",
-    "35": "text-purple-500",
-    "36": "text-cyan-500",
-    "37": "text-gray-300",
-    "90": "text-gray-500",
-    "91": "text-red-400",
-    "92": "text-green-400",
-    "93": "text-yellow-400",
-    "94": "text-blue-400",
-    "95": "text-purple-400",
-    "96": "text-cyan-400",
-    "97": "text-white",
-    "1": "font-bold",
-    "0": ""
-  }
-
-  // Simple regex to match ANSI escape codes
-  const ansiRegex = /\x1b\[([0-9;]+)m/g
+  
+  ANSI_REGEX.lastIndex = 0
   let lastIndex = 0
   let match
 
-  while ((match = ansiRegex.exec(text)) !== null) {
+  while ((match = ANSI_REGEX.exec(text)) !== null) {
     // Push text before this match
     if (match.index > lastIndex) {
       buffer = text.slice(lastIndex, match.index)
@@ -85,18 +85,18 @@ function parseAnsiColors(text: string): { text: string; className: string }[] {
     const codes = match[1].split(";")
     const classes: string[] = currentClass ? currentClass.split(" ") : []
     for (const code of codes) {
-      if (colorMap[code] !== undefined) {
+      if (ANSI_COLOR_MAP[code] !== undefined) {
         if (code === "0") {
           // Reset all styles
           classes.length = 0
-        } else if (colorMap[code]) {
-          classes.push(colorMap[code])
+        } else if (ANSI_COLOR_MAP[code]) {
+          classes.push(ANSI_COLOR_MAP[code])
         }
       }
     }
     currentClass = classes.join(" ")
 
-    lastIndex = ansiRegex.lastIndex
+    lastIndex = ANSI_REGEX.lastIndex
   }
 
   // Push remaining text
@@ -296,6 +296,7 @@ const ExecutionOutput: FC<{
             onClick={copyOutput}
             className="absolute top-2 right-2 p-1.5 rounded bg-gray-800 hover:bg-gray-700 transition-colors"
             title={t("copyOutput", "Copy output")}
+            aria-label={t("copyOutput", "Copy output")}
           >
             {copied ? (
               <CheckCheck className="size-4 text-green-500" />
