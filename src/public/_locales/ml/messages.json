@@ -378,6 +378,170 @@
   "result": {
     "message": "ഫലം"
   },
+  "tools_fs_list": {
+    "message": "ഡയറക്ടറി പട്ടികപ്പെടുത്തുക",
+    "description": "Label for the fs.list tool (list directory)."
+  },
+  "tools_fs_read": {
+    "message": "ഫയൽ വായിക്കുക",
+    "description": "Label for the fs.read tool (read file)."
+  },
+  "tools_fs_write": {
+    "message": "ഫയൽ എഴുതുക",
+    "description": "Label for the fs.write tool (write file)."
+  },
+  "tools_fs_apply_patch": {
+    "message": "പാച്ച് പ്രയോഗിക്കുക",
+    "description": "Label for the fs.apply_patch tool (apply patch)."
+  },
+  "tools_fs_mkdir": {
+    "message": "ഡയറക്ടറി സൃഷ്ടിക്കുക",
+    "description": "Label for the fs.mkdir tool (create directory)."
+  },
+  "tools_fs_delete": {
+    "message": "ഇല്ലാതാക്കുക",
+    "description": "Label for the fs.delete tool (delete file or directory)."
+  },
+  "tools_search_grep": {
+    "message": "ഉള്ളടക്കം തിരയുക",
+    "description": "Label for the search.grep tool (search file contents)."
+  },
+  "tools_search_glob": {
+    "message": "ഫയലുകൾ കണ്ടെത്തുക",
+    "description": "Label for the search.glob tool (find files by pattern)."
+  },
+  "tools_git_status": {
+    "message": "Git നില",
+    "description": "Label for the git.status tool."
+  },
+  "tools_git_diff": {
+    "message": "Git വ്യത്യാസം",
+    "description": "Label for the git.diff tool."
+  },
+  "tools_git_log": {
+    "message": "Git ലോഗ്",
+    "description": "Label for the git.log tool."
+  },
+  "tools_git_branch": {
+    "message": "Git ബ്രാഞ്ച്",
+    "description": "Label for the git.branch tool."
+  },
+  "tools_git_add": {
+    "message": "ഫയലുകൾ സ്റ്റേജ് ചെയ്യുക",
+    "description": "Label for the git.add tool (stage files)."
+  },
+  "tools_git_commit": {
+    "message": "കമ്മിറ്റ്",
+    "description": "Label for the git.commit tool."
+  },
+  "tools_exec_run": {
+    "message": "കമാൻഡ് പ്രവർത്തിപ്പിക്കുക",
+    "description": "Label for the exec.run tool (run command)."
+  },
+  "commandPalette_goToChat": {
+    "message": "ചാറ്റിലേക്കു പോകുക",
+    "description": "Command palette action label to navigate to the Chat screen."
+  },
+  "commandPalette_goToMedia": {
+    "message": "മീഡിയയിലേക്കു പോകുക",
+    "description": "Command palette action label to navigate to the Media screen."
+  },
+  "commandPalette_goToNotes": {
+    "message": "നോട്ടുകളിലേക്കു പോകുക",
+    "description": "Command palette action label to navigate to the Notes screen."
+  },
+  "commandPalette_goToFlashcards": {
+    "message": "ഫ്ലാഷ്‌കാർഡുകളിലേക്കു പോകുക",
+    "description": "Command palette action label to navigate to the Flashcards screen."
+  },
+  "commandPalette_goToSettings": {
+    "message": "സെറ്റിംഗ്സിലേക്കു പോകുക",
+    "description": "Command palette action label to navigate to the Settings screen."
+  },
+  "commandPalette_goToHealth": {
+    "message": "Health & Diagnostics തുറക്കുക",
+    "description": "Command palette action label to open the Health & diagnostics screen."
+  },
+  "commandPalette_newChat": {
+    "message": "പുതിയ ചാറ്റ്",
+    "description": "Command palette action label to start a new chat."
+  },
+  "commandPalette_toggleKnowledgeSearch": {
+    "message": "നോളെജ് തിരച്ചിൽ ടോഗിൾ ചെയ്യുക",
+    "description": "Command palette toggle label for enabling or disabling knowledge search."
+  },
+  "commandPalette_toggleKnowledgeSearchDesc": {
+    "message": "നിങ്ങളുടെ നോളെജ് ബേസിൽ തിരയുക",
+    "description": "Command palette description text explaining the knowledge search toggle."
+  },
+  "commandPalette_toggleWebSearch": {
+    "message": "വെബ് തിരച്ചിൽ ടോഗിൾ ചെയ്യുക",
+    "description": "Command palette toggle label for enabling or disabling web search."
+  },
+  "commandPalette_toggleWebDesc": {
+    "message": "ഇന്റർനെറ്റിൽ തിരയുക",
+    "description": "Command palette description text explaining the web search toggle."
+  },
+  "commandPalette_ingestPage": {
+    "message": "നിലവിലെ പേജ് ഇൻജെസ്റ്റ് ചെയ്യുക",
+    "description": "Command palette action label to ingest the current page into knowledge."
+  },
+  "commandPalette_ingestDesc": {
+    "message": "ഈ പേജ് നിങ്ങളുടെ നോളെജ് ബേസിൽ സംരക്ഷിക്കുക",
+    "description": "Command palette description text explaining page ingestion into knowledge."
+  },
+  "commandPalette_switchModel": {
+    "message": "മോഡൽ മാറ്റുക",
+    "description": "Command palette action label to switch the active chat/model."
+  },
+  "commandPalette_toggleSidebar": {
+    "message": "സൈഡ്ബാർ ടോഗിൾ ചെയ്യുക",
+    "description": "Command palette toggle label to show or hide the sidepanel."
+  },
+  "commandPalette_toggleSidebarDesc": {
+    "message": "ചാറ്റ് സൈഡ്ബാർ കാണിക്കുക/മറയ്ക്കുക",
+    "description": "Command palette description text explaining the sidebar visibility toggle."
+  },
+  "commandPalette_placeholder": {
+    "message": "ഒരു കമാൻഡ് ടൈപ്പ് ചെയ്യുക അല്ലെങ്കിൽ തിരയുക…",
+    "description": "Placeholder text shown in the command palette input."
+  },
+  "commandPalette_noResults": {
+    "message": "ഫലങ്ങളൊന്നും കണ്ടെത്തിയില്ല",
+    "description": "No-results state text in the command palette when nothing matches the query."
+  },
+  "commandPalette_title": {
+    "message": "കമാൻഡ് പാലറ്റ്",
+    "description": "Title of the command palette UI."
+  },
+  "commandPalette_navigate": {
+    "message": "നാവിഗേറ്റ്",
+    "description": "Command palette keyboard hint label for navigation."
+  },
+  "commandPalette_select": {
+    "message": "തിരഞ്ഞെടുക്കുക",
+    "description": "Command palette keyboard hint label for selection."
+  },
+  "commandPalette_toOpen": {
+    "message": "തുറക്കാൻ",
+    "description": "Command palette keyboard hint label indicating the shortcut to open an item."
+  },
+  "commandPalette_categoryActions": {
+    "message": "പ്രവർത്തനങ്ങൾ",
+    "description": "Label for the Actions category in the command palette."
+  },
+  "commandPalette_categoryNavigation": {
+    "message": "നാവിഗേഷൻ",
+    "description": "Label for the Navigation category in the command palette."
+  },
+  "commandPalette_categorySettings": {
+    "message": "സെറ്റിംഗുകൾ",
+    "description": "Label for the Settings category in the command palette."
+  },
+  "commandPalette_categoryRecent": {
+    "message": "സമീപകാലത്",
+    "description": "Label for the Recent items category in the command palette."
+  },
   "markdown_unableToRender": {
     "message": "ഉള്ളടക്കം പ്രദർശിപ്പിക്കാൻ കഴിഞ്ഞില്ല"
   },

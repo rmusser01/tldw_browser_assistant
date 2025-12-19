@@ -223,8 +223,8 @@
       "serverSaved": "Future messages in this chat will sync to your tldw server.",
       "serverCharacterRequired": "Unable to find or create a default assistant character on the server. Try again from the Characters page."
     },
-    "connectToSend": "Connect to your tldw server in Settings to send messages and view media.",
-    "compareTag": "Compare",
+    "connectToSend": "Підключіть свій сервер tldw у Налаштуваннях, щоб надсилати повідомлення та переглядати медіа.",
+    "compareTag": "Порівняти",
     "compareMaxModelsTitle": "Досягнуто ліміту порівняння",
     "compareMaxModels": "За один хід можна порівняти до {{limit}} моделей.",
     "compareMaxModelsTrimmed": "Порівняння обмежено {{limit}} моделями на хід. Використовуються перші {{limit}} вибраних моделей.",

@@ -216,6 +216,14 @@
   "ttsShort": "Ton",
   "copyShort": "Kopieren",
   "branchShort": "Zweig",
+  "infoShort": "Info",
+  "regenShort": "Neu",
+  "continueShort": "Mehr",
+  "fileChanges": "Dateiänderungen",
+  "deletions": "Löschvorgänge",
+  "gitOperations": "Git-Operationen",
+  "commands": "Befehle",
+  "otherOperations": "Andere Vorgänge",
   "segmented": {
     "available": "Server-Modelle",
     "custom": "Benutzerdefinierte Modelle"
@@ -283,9 +291,9 @@
     "exec_run": "Befehl ausführen"
   },
   "markdown": {
-    "unableToRender": "Unable to render content",
-    "couldNotDisplay": "The message content could not be displayed. This may be due to invalid formatting.",
-    "showRawContent": "Show raw content"
+    "unableToRender": "Inhalt kann nicht gerendert werden",
+    "couldNotDisplay": "Der Nachrichteninhalt konnte nicht angezeigt werden. Dies kann an ungültiger Formatierung liegen.",
+    "showRawContent": "Rohinhalt anzeigen"
   },
   "commandPalette": {
     "goToChat": "Zum Chat wechseln",

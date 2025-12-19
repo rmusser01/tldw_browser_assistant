@@ -10,6 +10,10 @@ import { browser } from "wxt/browser"
 import { useConnectionPhase, useIsConnected } from "@/hooks/useConnectionState"
 import { ConnectionPhase } from "@/types/connection"
 
+const EMPTY_POP_OUT_TOOLTIP_STYLES = {
+  root: { maxWidth: "200px" }
+}
+
 type Props = {
   open: boolean
   onClose: () => void
@@ -88,8 +92,9 @@ export const QuickChatHelperModal: React.FC<Props> = ({ open, onClose }) => {
           <span id="quick-chat-title">{title}</span>
           <Tooltip
             title={messages.length === 0 ? popOutDisabledTooltip : popOutLabel}
-            styles={messages.length === 0 ? { root: { maxWidth: '200px' } } : undefined}
-          >
+            styles={
+              messages.length === 0 ? EMPTY_POP_OUT_TOOLTIP_STYLES : undefined
+            }>
             <Button
               type="text"
               size="small"

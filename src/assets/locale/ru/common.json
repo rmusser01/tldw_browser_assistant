@@ -216,6 +216,14 @@
   "ttsShort": "Голос",
   "copyShort": "Копировать",
   "branchShort": "Ветка",
+  "infoShort": "Инфо",
+  "regenShort": "Снова",
+  "continueShort": "Ещё",
+  "fileChanges": "Изменения файлов",
+  "deletions": "Удаления",
+  "gitOperations": "Операции Git",
+  "commands": "Команды",
+  "otherOperations": "Другие операции",
   "segmented": {
     "available": "Серверные модели",
     "custom": "Пользовательские модели"
@@ -293,7 +301,7 @@
     "goToNotes": "Перейти к заметкам",
     "goToFlashcards": "Перейти к флешкартам",
     "goToSettings": "Перейти к настройкам",
-    "goToHealth": "Открыть Health & diagnostics",
+    "goToHealth": "Открыть «Состояние и диагностика»",
     "newChat": "Новый чат",
     "toggleKnowledgeSearch": "Переключить поиск по знаниям",
     "toggleKnowledgeSearchDesc": "Искать в вашей базе знаний",

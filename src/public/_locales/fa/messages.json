@@ -378,6 +378,170 @@
   "result": {
     "message": "نتیجه"
   },
+  "tools_fs_list": {
+    "message": "فهرست پوشه",
+    "description": "Label for the fs.list tool (list directory)."
+  },
+  "tools_fs_read": {
+    "message": "خواندن فایل",
+    "description": "Label for the fs.read tool (read file)."
+  },
+  "tools_fs_write": {
+    "message": "نوشتن فایل",
+    "description": "Label for the fs.write tool (write file)."
+  },
+  "tools_fs_apply_patch": {
+    "message": "اعمال وصله",
+    "description": "Label for the fs.apply_patch tool (apply patch)."
+  },
+  "tools_fs_mkdir": {
+    "message": "ایجاد پوشه",
+    "description": "Label for the fs.mkdir tool (create directory)."
+  },
+  "tools_fs_delete": {
+    "message": "حذف",
+    "description": "Label for the fs.delete tool (delete file or directory)."
+  },
+  "tools_search_grep": {
+    "message": "جستجوی محتوا",
+    "description": "Label for the search.grep tool (search file contents)."
+  },
+  "tools_search_glob": {
+    "message": "یافتن فایل‌ها",
+    "description": "Label for the search.glob tool (find files by pattern)."
+  },
+  "tools_git_status": {
+    "message": "وضعیت گیت",
+    "description": "Label for the git.status tool."
+  },
+  "tools_git_diff": {
+    "message": "تفاوت گیت",
+    "description": "Label for the git.diff tool."
+  },
+  "tools_git_log": {
+    "message": "گزارش گیت",
+    "description": "Label for the git.log tool."
+  },
+  "tools_git_branch": {
+    "message": "شاخه گیت",
+    "description": "Label for the git.branch tool."
+  },
+  "tools_git_add": {
+    "message": "مرحله‌بندی فایل‌ها",
+    "description": "Label for the git.add tool (stage files)."
+  },
+  "tools_git_commit": {
+    "message": "کامیت",
+    "description": "Label for the git.commit tool."
+  },
+  "tools_exec_run": {
+    "message": "اجرای دستور",
+    "description": "Label for the exec.run tool (run command)."
+  },
+  "commandPalette_goToChat": {
+    "message": "رفتن به چت",
+    "description": "Command palette action label to navigate to the Chat screen."
+  },
+  "commandPalette_goToMedia": {
+    "message": "رفتن به رسانه‌ها",
+    "description": "Command palette action label to navigate to the Media screen."
+  },
+  "commandPalette_goToNotes": {
+    "message": "رفتن به یادداشت‌ها",
+    "description": "Command palette action label to navigate to the Notes screen."
+  },
+  "commandPalette_goToFlashcards": {
+    "message": "رفتن به فلش‌کارت‌ها",
+    "description": "Command palette action label to navigate to the Flashcards screen."
+  },
+  "commandPalette_goToSettings": {
+    "message": "رفتن به تنظیمات",
+    "description": "Command palette action label to navigate to the Settings screen."
+  },
+  "commandPalette_goToHealth": {
+    "message": "رفتن به Health & Diagnostics",
+    "description": "Command palette action label to open the Health & diagnostics screen."
+  },
+  "commandPalette_newChat": {
+    "message": "گفتگوی جدید",
+    "description": "Command palette action label to start a new chat."
+  },
+  "commandPalette_toggleKnowledgeSearch": {
+    "message": "تغییر وضعیت جستجوی دانش",
+    "description": "Command palette toggle label for enabling or disabling knowledge search."
+  },
+  "commandPalette_toggleKnowledgeSearchDesc": {
+    "message": "جستجو در پایگاه دانش شما",
+    "description": "Command palette description text explaining the knowledge search toggle."
+  },
+  "commandPalette_toggleWebSearch": {
+    "message": "تغییر وضعیت جستجوی وب",
+    "description": "Command palette toggle label for enabling or disabling web search."
+  },
+  "commandPalette_toggleWebDesc": {
+    "message": "جستجو در اینترنت",
+    "description": "Command palette description text explaining the web search toggle."
+  },
+  "commandPalette_ingestPage": {
+    "message": "وارد کردن صفحه فعلی",
+    "description": "Command palette action label to ingest the current page into knowledge."
+  },
+  "commandPalette_ingestDesc": {
+    "message": "ذخیره این صفحه در پایگاه دانش شما",
+    "description": "Command palette description text explaining page ingestion into knowledge."
+  },
+  "commandPalette_switchModel": {
+    "message": "تغییر مدل",
+    "description": "Command palette action label to switch the active chat/model."
+  },
+  "commandPalette_toggleSidebar": {
+    "message": "نمایش/مخفی کردن نوار کناری",
+    "description": "Command palette toggle label to show or hide the sidepanel."
+  },
+  "commandPalette_toggleSidebarDesc": {
+    "message": "نمایش یا پنهان کردن نوار کناری چت",
+    "description": "Command palette description text explaining the sidebar visibility toggle."
+  },
+  "commandPalette_placeholder": {
+    "message": "یک دستور بنویسید یا جستجو کنید...",
+    "description": "Placeholder text shown in the command palette input."
+  },
+  "commandPalette_noResults": {
+    "message": "هیچ نتیجه‌ای یافت نشد",
+    "description": "No-results state text in the command palette when nothing matches the query."
+  },
+  "commandPalette_title": {
+    "message": "پالت دستورات",
+    "description": "Title of the command palette UI."
+  },
+  "commandPalette_navigate": {
+    "message": "حرکت",
+    "description": "Command palette keyboard hint label for navigation."
+  },
+  "commandPalette_select": {
+    "message": "انتخاب",
+    "description": "Command palette keyboard hint label for selection."
+  },
+  "commandPalette_toOpen": {
+    "message": "برای باز کردن",
+    "description": "Command palette keyboard hint label indicating the shortcut to open an item."
+  },
+  "commandPalette_categoryActions": {
+    "message": "اقدامات",
+    "description": "Label for the Actions category in the command palette."
+  },
+  "commandPalette_categoryNavigation": {
+    "message": "ناوبری",
+    "description": "Label for the Navigation category in the command palette."
+  },
+  "commandPalette_categorySettings": {
+    "message": "تنظیمات",
+    "description": "Label for the Settings category in the command palette."
+  },
+  "commandPalette_categoryRecent": {
+    "message": "اخیر",
+    "description": "Label for the Recent items category in the command palette."
+  },
   "markdown_unableToRender": {
     "message": "Unable to render content"
   },

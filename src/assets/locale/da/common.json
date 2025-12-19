@@ -216,6 +216,14 @@
   "ttsShort": "Tale",
   "copyShort": "Kopiér",
   "branchShort": "Gren",
+  "infoShort": "Info",
+  "regenShort": "Gentag",
+  "continueShort": "Mere",
+  "fileChanges": "Filændringer",
+  "deletions": "Sletninger",
+  "gitOperations": "Git-handlinger",
+  "commands": "Kommandoer",
+  "otherOperations": "Andre handlinger",
   "segmented": {
     "available": "Servermodeller",
     "custom": "Brugertilpassede modeller"

@@ -216,6 +216,14 @@
   "ttsShort": "음성",
   "copyShort": "복사",
   "branchShort": "브랜치",
+  "infoShort": "정보",
+  "regenShort": "다시",
+  "continueShort": "더 보기",
+  "fileChanges": "파일 변경",
+  "deletions": "삭제 작업",
+  "gitOperations": "Git 작업",
+  "commands": "명령",
+  "otherOperations": "기타 작업",
   "segmented": {
     "available": "서버 모델",
     "custom": "사용자 정의 모델"
@@ -283,9 +291,9 @@
     "exec_run": "명령 실행"
   },
   "markdown": {
-    "unableToRender": "Unable to render content",
-    "couldNotDisplay": "The message content could not be displayed. This may be due to invalid formatting.",
-    "showRawContent": "Show raw content"
+    "unableToRender": "콘텐츠를 렌더링할 수 없습니다",
+    "couldNotDisplay": "메시지 내용을 표시할 수 없습니다. 잘못된 형식일 수 있습니다.",
+    "showRawContent": "원본 콘텐츠 표시"
   },
   "commandPalette": {
     "goToChat": "채팅으로 이동",

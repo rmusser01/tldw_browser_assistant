@@ -88,6 +88,14 @@
   "ttsShort": "TTS",
   "copyShort": "Copy",
   "branchShort": "Branch",
+  "infoShort": "Info",
+  "regenShort": "Redo",
+  "continueShort": "More",
+  "fileChanges": "File changes",
+  "deletions": "Deletions",
+  "gitOperations": "Git operations",
+  "commands": "Commands",
+  "otherOperations": "Other operations",
   "currentChatModelSettings": "Current Chat Model Settings",
   "modelSettings": {
     "label": "Model Settings",
@@ -245,6 +253,7 @@
   },
   "privateModeSaveErrorTitle": "tldw Assistant can't save data",
   "error": {
+    "label": "Error",
     "friendlyApiKeySummary": "We couldn't reach your tldw server.",
     "friendlyApiKeyHint": "Your API key may be invalid. Open Settings → tldw server to check your URL and API key, then try again.",
     "friendlyTimeoutSummary": "Your chat timed out.",

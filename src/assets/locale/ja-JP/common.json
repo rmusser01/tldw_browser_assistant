@@ -216,6 +216,14 @@
   "ttsShort": "音声",
   "copyShort": "コピー",
   "branchShort": "ブランチ",
+  "infoShort": "情報",
+  "regenShort": "再実行",
+  "continueShort": "さらに",
+  "fileChanges": "ファイルの変更",
+  "deletions": "削除",
+  "gitOperations": "Git 操作",
+  "commands": "コマンド",
+  "otherOperations": "その他の操作",
   "segmented": {
     "available": "サーバーモデル",
     "custom": "カスタムモデル"

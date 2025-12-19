@@ -254,6 +254,8 @@ export const PlaygroundMessage = (props: Props) => {
     errorPayload
   ])
 
+  const compareLabel = t("playground:composer.compareTag", "Compare")
+
   if (isUserChatBubble && !props.isBot) {
     return <PlaygroundUserMessageBubble {...props} />
   }
@@ -318,17 +320,19 @@ export const PlaygroundMessage = (props: Props) => {
                 <button
                   type="button"
                   onClick={props.onToggleCompareSelect}
+                  aria-label={compareLabel}
+                  aria-pressed={props.compareSelected}
                   className={`rounded-full px-2 py-0.5 text-[10px] font-medium border transition ${
                     props.compareSelected
                       ? "bg-blue-600 text-white border-blue-600"
                       : "bg-blue-50 text-blue-700 border-blue-200 dark:bg-blue-900/30 dark:text-blue-300 dark:border-blue-700"
                   }`}
                 >
-                  {t("playground:composer.compareTag", "Compare")}
+                  {compareLabel}
                 </button>
               ) : (
                 <span className="rounded-full bg-blue-50 px-2 py-0.5 text-[10px] font-medium text-blue-700 dark:bg-blue-900/30 dark:text-blue-300">
-                  {t("playground:composer.compareTag", "Compare")}
+                  {compareLabel}
                 </span>
               )
             )}

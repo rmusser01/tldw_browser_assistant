@@ -217,6 +217,14 @@
   "ttsShort": "Voce",
   "copyShort": "Copia",
   "branchShort": "Ramo",
+  "infoShort": "Info",
+  "regenShort": "Rigenera",
+  "continueShort": "Altro",
+  "fileChanges": "Modifiche ai file",
+  "deletions": "Eliminazioni",
+  "gitOperations": "Operazioni Git",
+  "commands": "Comandi",
+  "otherOperations": "Altre operazioni",
   "segmented": {
     "available": "Modelli del server",
     "custom": "Modelli personalizzati"

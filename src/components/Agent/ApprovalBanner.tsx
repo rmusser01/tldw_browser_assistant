@@ -129,6 +129,15 @@ export const ApprovalBanner: FC<ApprovalBannerProps> = ({
       })
     }
 
+    if (groups.other?.length) {
+      result.push({
+        label: t("otherOperations", "Other operations"),
+        icon: FileEdit,
+        color: "text-gray-500",
+        approvals: groups.other
+      })
+    }
+
     return result
   }, [approvals, t])
   const allIds = useMemo(() => approvals.map(a => a.toolCallId), [approvals])

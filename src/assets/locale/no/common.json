@@ -216,6 +216,14 @@
   "ttsShort": "Tale",
   "copyShort": "Kopier",
   "branchShort": "Gren",
+  "infoShort": "Info",
+  "regenShort": "Igjen",
+  "continueShort": "Mer",
+  "fileChanges": "Filendringer",
+  "deletions": "Slettinger",
+  "gitOperations": "Git-operasjoner",
+  "commands": "Kommandoer",
+  "otherOperations": "Andre operasjoner",
   "segmented": {
     "available": "Servermodeller",
     "custom": "Egendefinerte modeller"
@@ -283,9 +291,9 @@
     "exec_run": "Kjør kommando"
   },
   "markdown": {
-    "unableToRender": "Unable to render content",
-    "couldNotDisplay": "The message content could not be displayed. This may be due to invalid formatting.",
-    "showRawContent": "Show raw content"
+    "unableToRender": "Kan ikke gjengi innhold",
+    "couldNotDisplay": "Meldingsinnholdet kunne ikke vises. Dette kan skyldes ugyldig formatering.",
+    "showRawContent": "Vis rått innhold"
   },
   "commandPalette": {
     "goToChat": "Gå til Chat",

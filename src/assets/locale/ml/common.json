@@ -218,6 +218,14 @@
   "ttsShort": "ശബ്ദം",
   "copyShort": "പകർത്തുക",
   "branchShort": "ബ്രാഞ്ച്",
+  "infoShort": "വിവരം",
+  "regenShort": "വീണ്ടും",
+  "continueShort": "കൂടുതൽ",
+  "fileChanges": "ഫയൽ മാറ്റങ്ങൾ",
+  "deletions": "ഇല്ലാതാക്കലുകൾ",
+  "gitOperations": "Git പ്രവർത്തനങ്ങൾ",
+  "commands": "കമാൻഡുകൾ",
+  "otherOperations": "മറ്റ് പ്രവർത്തനങ്ങൾ",
   "segmented": {
     "available": "സെർവർ മോഡലുകൾ",
     "custom": "കസ്റ്റം മോഡലുകൾ"
