@@ -224,7 +224,7 @@
       "serverCharacterRequired": "Unable to find or create a default assistant character on the server. Try again from the Characters page."
     },
     "connectToSend": "Подключите ваш сервер tldw в настройках, чтобы отправлять сообщения и просматривать медиафайлы.",
-    "compareTag": "Compare",
+    "compareTag": "Сравнить",
     "compareMaxModelsTitle": "Достигнут лимит сравнения",
     "compareMaxModels": "Вы можете сравнивать до {{limit}} моделей за один запрос.",
     "compareMaxModelsTrimmed": "Сравнение ограничено {{limit}} моделями за один запрос. Будут использованы только первые {{limit}} выбранных моделей.",

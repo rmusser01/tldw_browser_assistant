@@ -701,7 +701,7 @@ export const PlaygroundMessage = (props: Props) => {
           ) : (
             // add invisible div to prevent layout shift
             <div className="invisible">
-              <div className="flex items-center justify-center w-10 h-10 sm:w-6 sm:h-6 rounded-full bg-gray-100 dark:bg-[#2d2d2d]"></div>
+              <div className={ACTION_BUTTON_CLASS}></div>
             </div>
           )}
         </div>

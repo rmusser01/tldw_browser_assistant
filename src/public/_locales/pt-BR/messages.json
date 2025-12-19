@@ -1324,6 +1324,12 @@
   "specFallbackWarning": {
     "message": "Usando o fallback do esquema media.add incluído (v{{version}}); se os campos parecerem desatualizados, compare com o /openapi.json do seu tldw_server."
   },
+  "serverChatsUnavailableNotConnected": {
+    "message": "Os chats do servidor ficam disponíveis quando você se conecta ao seu servidor tldw."
+  },
+  "serverChatsUnavailableServerError": {
+    "message": "Os chats do servidor não estão disponíveis no momento. Verifique os logs do servidor ou tente novamente."
+  },
   "noToolCalls": {
     "message": "Ainda não há chamadas de ferramentas"
   },

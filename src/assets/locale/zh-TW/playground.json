@@ -127,7 +127,7 @@
   },
   "more": {
     "history": "Chat saving",
-    "searchKnowledge": "Search & RAG",
+    "searchKnowledge": "知識搜尋（RAG）",
     "voice": "More voice options",
     "uploads": "Uploads & ingest"
   },
@@ -223,8 +223,8 @@
       "serverSaved": "Future messages in this chat will sync to your tldw server.",
       "serverCharacterRequired": "Unable to find or create a default assistant character on the server. Try again from the Characters page."
     },
-    "connectToSend": "Connect to your tldw server in Settings to send messages and view media.",
-    "compareTag": "Compare",
+    "connectToSend": "在「設定」中連線到你的 tldw 伺服器以發送訊息並查看媒體。",
+    "compareTag": "比較",
     "compareMaxModelsTitle": "已達比較上限",
     "compareMaxModels": "每次最多可比較 {{limit}} 個模型。",
     "compareMaxModelsTrimmed": "每次比較限制為 {{limit}} 個模型。使用前 {{limit}} 個選定的模型。",

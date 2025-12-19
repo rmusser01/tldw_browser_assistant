@@ -408,6 +408,12 @@
     "message": "Используется встроенный резервный вариант схемы media.add (v{{version}}); проверьте tldw_server /openapi.json, если поля выглядят устаревшими.",
     "description": "Warning shown when the Quick Ingest advanced schema falls back to the bundled schema; contains the bundled schema version."
   },
+  "serverChatsUnavailableNotConnected": {
+    "message": "Серверные чаты будут доступны после подключения к вашему серверу tldw."
+  },
+  "serverChatsUnavailableServerError": {
+    "message": "Серверные чаты сейчас недоступны. Проверьте журналы сервера или попробуйте снова."
+  },
   "noToolCalls": {
     "message": "Пока нет вызовов инструментов"
   },

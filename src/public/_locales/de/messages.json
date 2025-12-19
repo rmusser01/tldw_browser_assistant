@@ -360,6 +360,12 @@
   "specFallbackWarning": {
     "message": "Verwende gebündelte media.add Schema-Fallback (v{{version}}); bitte überprüfe die /openapi.json deines tldw_server, falls Felder veraltet erscheinen."
   },
+  "serverChatsUnavailableNotConnected": {
+    "message": "Server-Chats sind verfügbar, sobald Sie eine Verbindung zu Ihrem tldw-Server hergestellt haben."
+  },
+  "serverChatsUnavailableServerError": {
+    "message": "Server-Chats sind derzeit nicht verfügbar. Prüfen Sie die Serverprotokolle oder versuchen Sie es erneut."
+  },
   "noToolCalls": {
     "message": "Noch keine Tool-Aufrufe"
   },

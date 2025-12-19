@@ -34,5 +34,17 @@
   },
   "mediaPage.pageRangeClamped": {
     "message": "Navigerar till sida {{page}}"
+  },
+  "noToolCalls": {
+    "message": "Inga verktygsanrop ännu"
+  },
+  "arguments": {
+    "message": "Argument"
+  },
+  "invalidJson": {
+    "message": "Ogiltig JSON; visar råvärde"
+  },
+  "result": {
+    "message": "Resultat"
   }
 }

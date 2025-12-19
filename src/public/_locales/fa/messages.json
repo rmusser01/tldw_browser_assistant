@@ -360,6 +360,12 @@
   "specFallbackWarning": {
     "message": "در حال استفاده از طرحوارهٔ جایگزینِ بسته‌بندی‌شدهٔ media.add (v{{version}}); اگر فیلدها قدیمی به نظر می‌رسند، لطفاً با tldw_server /openapi.json بررسی کنید."
   },
+  "serverChatsUnavailableNotConnected": {
+    "message": "پس از اتصال به سرور tldw خود، گپ‌های سرور در دسترس خواهند بود."
+  },
+  "serverChatsUnavailableServerError": {
+    "message": "گپ‌های سرور در حال حاضر در دسترس نیستند. لاگ‌های سرور را بررسی کنید یا دوباره تلاش کنید."
+  },
   "noToolCalls": {
     "message": "هنوز هیچ فراخوانی ابزاری انجام نشده است"
   },

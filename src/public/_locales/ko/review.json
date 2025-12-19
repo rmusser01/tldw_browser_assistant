@@ -34,5 +34,17 @@
   },
   "mediaPage.pageRangeClamped": {
     "message": "페이지 {{page}}로 이동 중"
+  },
+  "noToolCalls": {
+    "message": "아직 도구 호출이 없습니다"
+  },
+  "arguments": {
+    "message": "인수"
+  },
+  "invalidJson": {
+    "message": "잘못된 JSON입니다. 원시 값을 표시합니다"
+  },
+  "result": {
+    "message": "결과"
   }
 }

@@ -360,6 +360,12 @@
   "specFallbackWarning": {
     "message": "Bruger medfølgende media.add-skema som reserveløsning (v{{version}}); sammenlign venligst med din tldw_server /openapi.json, hvis felterne ser forældede ud."
   },
+  "serverChatsUnavailableNotConnected": {
+    "message": "Serverchats er tilgængelige, når du opretter forbindelse til din tldw-server."
+  },
+  "serverChatsUnavailableServerError": {
+    "message": "Serverchats er ikke tilgængelige lige nu. Tjek serverloggene, eller prøv igen."
+  },
   "noToolCalls": {
     "message": "Ingen værktøjskald endnu"
   },

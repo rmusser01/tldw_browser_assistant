@@ -7,8 +7,7 @@ import { useQuickChatStore } from "@/store/quick-chat"
 import { QuickChatMessage } from "./QuickChatMessage"
 import { QuickChatInput } from "./QuickChatInput"
 import { browser } from "wxt/browser"
-// L18: Import connection state hooks
-import { useConnectionState } from "@/hooks/useConnectionState"
+import { useConnectionPhase, useIsConnected } from "@/hooks/useConnectionState"
 import { ConnectionPhase } from "@/types/connection"
 
 type Props = {
@@ -26,8 +25,8 @@ export const QuickChatHelperModal: React.FC<Props> = ({ open, onClose }) => {
     isStreaming,
     hasModel
   } = useQuickChat()
-  // L18: Get connection status
-  const { phase, isConnected } = useConnectionState()
+  const phase = useConnectionPhase()
+  const isConnected = useIsConnected()
   const isConnectionReady = isConnected && phase === ConnectionPhase.CONNECTED
 
   // Scroll to bottom when messages change or streaming completes

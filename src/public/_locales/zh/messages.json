@@ -232,6 +232,12 @@
   "specFallbackWarning": {
     "message": "使用捆绑的 media.add 架构备选方案（v{{version}}）；如果字段看起来已过期，请根据你的 tldw_server /openapi.json 进行验证。"
   },
+  "serverChatsUnavailableNotConnected": {
+    "message": "连接到 tldw 服务器后即可使用服务器聊天。"
+  },
+  "serverChatsUnavailableServerError": {
+    "message": "当前无法使用服务器聊天。请检查服务器日志或稍后再试。"
+  },
   "noToolCalls": {
     "message": "尚无工具调用"
   },
@@ -260,21 +266,27 @@
     "message": "Exported {{count}} notes ({{size}})"
   },
   "notesSearch_exportCsvSuccess": {
-    "message": "Exported {{count}} notes as CSV ({{size}})"
+    "message": "已將 {{count}} 筆筆記匯出為 CSV ({{size}})",
+    "description": "Export success message when matching notes are exported as CSV."
   },
   "notesSearch_exportJsonSuccess": {
-    "message": "Exported {{count}} notes as JSON ({{size}})"
+    "message": "已將 {{count}} 筆筆記匯出為 JSON ({{size}})",
+    "description": "Export success message when matching notes are exported as JSON."
   },
   "exportNoteSuccess": {
-    "message": "Exported ({{size}})"
+    "message": "已匯出 ({{size}})",
+    "description": "Export success message for a single note, showing the exported file size."
   },
   "exportSuccess": {
-    "message": "Exported {{count}} notes ({{size}})"
+    "message": "已匯出 {{count}} 筆筆記 ({{size}})",
+    "description": "Export success message when multiple notes are exported, including count and size."
   },
   "exportCsvSuccess": {
-    "message": "Exported {{count}} notes as CSV ({{size}})"
+    "message": "已將 {{count}} 筆筆記匯出為 CSV ({{size}})",
+    "description": "Export success message when notes are exported as CSV."
   },
   "exportJsonSuccess": {
-    "message": "Exported {{count}} notes as JSON ({{size}})"
+    "message": "已將 {{count}} 筆筆記匯出為 JSON ({{size}})",
+    "description": "Export success message when notes are exported as JSON."
   }
 }

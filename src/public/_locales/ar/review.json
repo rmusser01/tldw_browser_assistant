@@ -34,5 +34,17 @@
   },
   "mediaPage.pageRangeClamped": {
     "message": "الانتقال إلى الصفحة {{page}}"
+  },
+  "noToolCalls": {
+    "message": "لا توجد استدعاءات أدوات بعد"
+  },
+  "arguments": {
+    "message": "المعاملات"
+  },
+  "invalidJson": {
+    "message": "JSON غير صالح؛ يتم عرض القيمة الخام"
+  },
+  "result": {
+    "message": "النتيجة"
   }
 }

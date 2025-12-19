@@ -306,6 +306,27 @@
     "message": "내 문서와 함께 RAG 사용",
     "description": "Third bullet in the connected-state server connection card, highlighting retrieval-augmented generation usage."
   },
+  "searchKnowledge": {
+    "message": "Search & RAG"
+  },
+  "compareTag": {
+    "message": "Compare"
+  },
+  "compareMaxModelsTitle": {
+    "message": "비교 제한에 도달했습니다"
+  },
+  "compareMaxModels": {
+    "message": "턴당 최대 {{limit}}개의 모델을 비교할 수 있습니다."
+  },
+  "compareMaxModelsTrimmed": {
+    "message": "비교는 턴당 {{limit}}개의 모델로 제한됩니다. 선택한 처음 {{limit}}개의 모델을 사용합니다."
+  },
+  "compareMaxLabel": {
+    "message": "턴당 최대 모델 수"
+  },
+  "compareMaxHelper": {
+    "message": "선택됨: {{current}} / {{limit}}"
+  },
   "omniSearch_filterScreen": {
     "message": "화면",
     "description": "Filter label for screens in omni-search."
@@ -408,6 +429,12 @@
   "specFallbackWarning": {
     "message": "번들에 포함된 media.add 스키마 폴백(v{{version}})을 사용 중입니다. 필드가 오래되어 보이면 tldw_server /openapi.json과 비교해 확인하세요.",
     "description": "Warning shown when the Quick Ingest advanced schema falls back to the bundled schema; contains the bundled schema version."
+  },
+  "serverChatsUnavailableNotConnected": {
+    "message": "tldw 서버에 연결하면 서버 채팅을 사용할 수 있습니다."
+  },
+  "serverChatsUnavailableServerError": {
+    "message": "현재 서버 채팅을 사용할 수 없습니다. 서버 로그를 확인하거나 다시 시도하세요."
   },
   "noToolCalls": {
     "message": "아직 도구 호출이 없습니다"

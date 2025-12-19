@@ -360,6 +360,12 @@
   "specFallbackWarning": {
     "message": "Bruker innebygd media.add-skjemafallback (v{{version}}); vennligst verifiser mot tldw_server /openapi.json hvis feltene ser utdaterte ut."
   },
+  "serverChatsUnavailableNotConnected": {
+    "message": "Serverchatter blir tilgjengelige når du kobler til tldw-serveren din."
+  },
+  "serverChatsUnavailableServerError": {
+    "message": "Serverchatter er utilgjengelige akkurat nå. Sjekk serverloggene eller prøv igjen."
+  },
   "noToolCalls": {
     "message": "Ingen verktøykall ennå"
   },

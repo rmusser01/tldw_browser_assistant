@@ -34,5 +34,17 @@
   },
   "mediaPage.pageRangeClamped": {
     "message": "Navigation zu Seite {{page}}"
+  },
+  "noToolCalls": {
+    "message": "Noch keine Tool-Aufrufe"
+  },
+  "arguments": {
+    "message": "Argumente"
+  },
+  "invalidJson": {
+    "message": "Ungültiges JSON; Rohwert wird angezeigt"
+  },
+  "result": {
+    "message": "Ergebnis"
   }
 }

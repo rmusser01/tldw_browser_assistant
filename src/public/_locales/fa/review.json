@@ -34,5 +34,17 @@
   },
   "mediaPage.pageRangeClamped": {
     "message": "در حال رفتن به صفحه {{page}}"
+  },
+  "noToolCalls": {
+    "message": "هنوز هیچ فراخوانی ابزاری انجام نشده است"
+  },
+  "arguments": {
+    "message": "آرگومان‌ها"
+  },
+  "invalidJson": {
+    "message": "JSON نامعتبر؛ مقدار خام نمایش داده می‌شود"
+  },
+  "result": {
+    "message": "نتیجه"
   }
 }

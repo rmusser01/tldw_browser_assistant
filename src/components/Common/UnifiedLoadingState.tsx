@@ -31,10 +31,11 @@ interface UnifiedLoadingStateProps {
  * ```tsx
  * <UnifiedLoadingState
  *   sources={[
- *     { key: 'local', loading: isLocalLoading },
- *     { key: 'server', loading: isServerLoading },
- *     { key: 'folders', loading: isFoldersLoading }
+ *     { key: "local", loading: isLocalLoading, label: "Local data" },
+ *     { key: "server", loading: isServerLoading, label: "Server sync" },
+ *     { key: "folders", loading: isFoldersLoading, label: "Folder structure" }
  *   ]}
+ *   showLabels={true}
  * >
  *   <YourContent />
  * </UnifiedLoadingState>
@@ -58,7 +59,7 @@ export function UnifiedLoadingState({
     if (!showLabels) return
     if (process.env.NODE_ENV === "production") return
     const missingLabels = loadingSources
-      .filter((source) => !source.label)
+      .filter((source) => !source.label?.trim())
       .map((source) => source.key)
     if (missingLabels.length > 0) {
       // eslint-disable-next-line no-console

@@ -225,10 +225,10 @@
     },
     "connectToSend": "Connect to your tldw server in Settings to send messages and view media.",
     "compareTag": "Compare",
-    "compareMaxModelsTitle": "Compare limit reached",
-    "compareMaxModels": "You can compare up to {{limit}} models per turn.",
-    "compareMaxModelsTrimmed": "Compare is limited to {{limit}} models per turn. Using the first {{limit}} selected models.",
-    "compareMaxLabel": "Max models per turn",
-    "compareMaxHelper": "Selected {{current}} / {{limit}}"
+    "compareMaxModelsTitle": "Досягнуто ліміту порівняння",
+    "compareMaxModels": "За один хід можна порівняти до {{limit}} моделей.",
+    "compareMaxModelsTrimmed": "Порівняння обмежено {{limit}} моделями на хід. Використовуються перші {{limit}} вибраних моделей.",
+    "compareMaxLabel": "Макс. моделей на хід",
+    "compareMaxHelper": "Вибрано {{current}} / {{limit}}"
   }
 }

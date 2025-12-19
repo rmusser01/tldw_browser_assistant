@@ -400,6 +400,15 @@
   "specFallbackWarning": {
     "message": "同梱の media.add スキーマ（v{{version}}）をフォールバックとして使用しています。フィールドが古そうな場合は tldw_server の /openapi.json と照合して確認してください。"
   },
+  "searchKnowledge": {
+    "message": "ナレッジとメモを検索"
+  },
+  "serverChatsUnavailableNotConnected": {
+    "message": "tldw サーバーに接続すると、サーバーチャットを利用できるようになります。"
+  },
+  "serverChatsUnavailableServerError": {
+    "message": "現在サーバーチャットを利用できません。サーバーログを確認するか、もう一度お試しください。"
+  },
   "noToolCalls": {
     "message": "ツール呼び出しはまだありません"
   },
@@ -411,6 +420,24 @@
   },
   "result": {
     "message": "結果"
+  },
+  "compareTag": {
+    "message": "Compare"
+  },
+  "compareMaxModelsTitle": {
+    "message": "比較制限に達しました"
+  },
+  "compareMaxModels": {
+    "message": "ターンあたり最大{{limit}}個のモデルを比較できます。"
+  },
+  "compareMaxModelsTrimmed": {
+    "message": "比較はターンあたり{{limit}}個のモデルに制限されています。選択した最初の{{limit}}個のモデルを使用します。"
+  },
+  "compareMaxLabel": {
+    "message": "ターンあたりの最大モデル数"
+  },
+  "compareMaxHelper": {
+    "message": "選択済み: {{current}} / {{limit}}"
   },
   "markdown_unableToRender": {
     "message": "Unable to render content"

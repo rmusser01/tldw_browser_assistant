@@ -360,6 +360,12 @@
   "specFallbackWarning": {
     "message": "In uso lo schema di fallback media.add incluso (v{{version}}); verifica sul tuo tldw_server /openapi.json se i campi sembrano obsoleti."
   },
+  "serverChatsUnavailableNotConnected": {
+    "message": "Le chat del server saranno disponibili una volta connesso al tuo server tldw."
+  },
+  "serverChatsUnavailableServerError": {
+    "message": "Le chat del server non sono disponibili al momento. Controlla i log del server o riprova."
+  },
   "noToolCalls": {
     "message": "Nessuna chiamata di tool al momento"
   },

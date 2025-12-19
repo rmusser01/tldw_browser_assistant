@@ -219,6 +219,12 @@
   "specFallbackWarning": {
     "message": "يتم استخدام مخطط media.add المضمّن كخيار احتياطي (v{{version}})؛ يُرجى التحقق من tldw_server /openapi.json إذا بدت الحقول قديمة."
   },
+  "serverChatsUnavailableNotConnected": {
+    "message": "تتوفّر محادثات الخادم عند الاتصال بخادم tldw الخاص بك."
+  },
+  "serverChatsUnavailableServerError": {
+    "message": "محادثات الخادم غير متاحة حالياً. تحقّق من سجلات الخادم أو حاول مرة أخرى."
+  },
   "noToolCalls": {
     "message": "لا توجد استدعاءات أدوات بعد"
   },

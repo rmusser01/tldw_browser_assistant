@@ -132,6 +132,21 @@
     "message": "Use RAG with your own documents",
     "description": "Third bullet in the connected-state server connection card, highlighting retrieval-augmented generation usage."
   },
+  "compareMaxModelsTitle": {
+    "message": "Досягнуто ліміту порівняння"
+  },
+  "compareMaxModels": {
+    "message": "За один хід можна порівняти до {{limit}} моделей."
+  },
+  "compareMaxModelsTrimmed": {
+    "message": "Порівняння обмежено {{limit}} моделями на хід. Використовуються перші {{limit}} вибраних моделей."
+  },
+  "compareMaxLabel": {
+    "message": "Макс. моделей на хід"
+  },
+  "compareMaxHelper": {
+    "message": "Вибрано {{current}} / {{limit}}"
+  },
   "omniSearch_filterScreen": {
     "message": "Screens",
     "description": "Filter label for screens in omni-search."
@@ -218,6 +233,12 @@
   },
   "specFallbackWarning": {
     "message": "Використовується вбудований резервний варіант схеми media.add (v{{version}}); перевірте tldw_server /openapi.json, якщо поля виглядають застарілими."
+  },
+  "serverChatsUnavailableNotConnected": {
+    "message": "Серверні чати будуть доступні після підключення до вашого сервера tldw."
+  },
+  "serverChatsUnavailableServerError": {
+    "message": "Серверні чати зараз недоступні. Перевірте журнали сервера або спробуйте ще раз."
   },
   "noToolCalls": {
     "message": "Ще немає викликів інструментів"

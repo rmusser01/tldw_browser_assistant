@@ -93,6 +93,19 @@ const getStatusLabel = (status: ToolCallEntry["status"]): string => {
   return STATUS_INFO[status]?.label ?? "Unknown"
 }
 
+const isErrorResult = (result: unknown): result is { ok: false; error?: string } => {
+  return (
+    typeof result === "object" &&
+    result !== null &&
+    "ok" in result &&
+    (result as { ok: unknown }).ok === false
+  )
+}
+
+const hasDataProperty = (result: unknown): result is { data: Record<string, unknown> } => {
+  return typeof result === "object" && result !== null && "data" in result
+}
+
 // Get status icon
 const StatusIcon: FC<{ status: ToolCallEntry["status"]; className?: string }> = ({
   status,
@@ -175,39 +188,30 @@ const formatResult = (result: unknown): string => {
     }
 
     // Handle common result structures
-    if (
-      typeof result === "object" &&
-      result !== null &&
-      "ok" in result &&
-      (result as { ok: unknown }).ok === false
-    ) {
-      const error =
-        "error" in result && typeof (result as { error?: unknown }).error === "string"
-          ? (result as { error: string }).error
-          : "Unknown error"
-      return `Error: ${error}`
+    if (isErrorResult(result)) {
+      return `Error: ${result.error ?? "Unknown error"}`
     }
 
-    if (typeof result === "object" && result !== null && "data" in result) {
-      const data = (result as { data?: unknown }).data as Record<string, unknown> | undefined
+    if (hasDataProperty(result)) {
+      const data = result.data
 
       // File listing
-      if (Array.isArray(data?.entries)) {
-        const truncated = data?.truncated ? " (truncated)" : ""
+      if (Array.isArray(data.entries)) {
+        const truncated = data.truncated ? " (truncated)" : ""
         return `${data.entries.length} entries${truncated}`
       }
 
       // Search results
-      if (Array.isArray(data?.matches)) {
+      if (Array.isArray(data.matches)) {
         const totalMatches =
-          typeof data?.total_matches === "number"
+          typeof data.total_matches === "number"
             ? data.total_matches
             : data.matches.length
         return `${totalMatches} matches`
       }
 
       // Git status
-      if (data && "branch" in data) {
+      if ("branch" in data) {
         const parts = []
         const staged = Array.isArray(data.staged) ? data.staged.length : 0
         const modified = Array.isArray(data.modified) ? data.modified.length : 0
@@ -219,29 +223,29 @@ const formatResult = (result: unknown): string => {
       }
 
       // File operations
-      if (typeof data?.bytes === "number") {
+      if (typeof data.bytes === "number") {
         return `${data.bytes} bytes written`
       }
 
-      if (data?.deleted) {
+      if (data.deleted) {
         return "Deleted"
       }
 
-      if (data?.created) {
+      if (data.created) {
         return "Created"
       }
 
       // Git operations
-      if (typeof data?.hash === "string") {
+      if (typeof data.hash === "string") {
         return `Commit: ${data.hash.substring(0, 7)}`
       }
 
-      if (Array.isArray(data?.commits)) {
+      if (Array.isArray(data.commits)) {
         return `${data.commits.length} commits`
       }
 
       // Exec results
-      if (typeof data?.exit_code === "number") {
+      if (typeof data.exit_code === "number") {
         return data.exit_code === 0 ? "Success" : `Exit code: ${data.exit_code}`
       }
     }

@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef, useCallback, useMemo } from "react"
+import { createPortal } from "react-dom"
 import { useNavigate } from "react-router-dom"
 import { useTranslation } from "react-i18next"
 import {
@@ -19,6 +20,7 @@ import {
 } from "lucide-react"
 import { useShortcut, formatShortcut } from "@/hooks/useKeyboardShortcuts"
 import { searchSettings, type SettingDefinition } from "@/data/settings-index"
+import { cn } from "@/libs/utils"
 
 export interface CommandItem {
   id: string
@@ -343,6 +345,7 @@ export function CommandPalette({
   }, [])
 
   if (!open) return null
+  if (typeof document === "undefined") return null
 
   const categories = ["recent", "action", "navigation", "setting"] as const
 
@@ -353,7 +356,7 @@ export function CommandPalette({
     recent: t("common:commandPalette.categoryRecent", "Recent"),
   }
 
-  return (
+  const modalContent = (
     <>
       {/* Backdrop */}
       <div
@@ -423,11 +426,12 @@ export function CommandPalette({
                           onClick={() => executeCommand(cmd)}
                           onMouseEnter={() => setSelectedIndex(currentIndex)}
                           data-selected={isSelected}
-                          className={`flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-left transition-colors ${
+                          className={cn(
+                            "flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-left transition-colors",
                             isSelected
                               ? "bg-pink-50 text-pink-900 dark:bg-pink-900/20 dark:text-pink-100"
                               : "text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-800"
-                          }`}
+                          )}
                           role="option"
                           aria-selected={isSelected}
                         >
@@ -488,6 +492,8 @@ export function CommandPalette({
       </div>
     </>
   )
+
+  return createPortal(modalContent, document.body)
 }
 
 export default CommandPalette

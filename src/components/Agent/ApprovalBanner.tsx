@@ -132,7 +132,10 @@ export const ApprovalBanner: FC<ApprovalBannerProps> = ({
     return result
   }, [approvals, t])
   const allIds = useMemo(() => approvals.map(a => a.toolCallId), [approvals])
-  const pendingCount = approvals.filter(a => a.status === "pending").length
+  const pendingCount = useMemo(
+    () => approvals.filter(a => a.status === "pending").length,
+    [approvals]
+  )
 
   // Confirm before rejecting all pending actions
   const handleRejectAll = useCallback(() => {

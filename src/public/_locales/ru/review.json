@@ -34,5 +34,17 @@
   },
   "mediaPage.pageRangeClamped": {
     "message": "Переход к странице {{page}}"
+  },
+  "noToolCalls": {
+    "message": "Пока нет вызовов инструментов"
+  },
+  "arguments": {
+    "message": "Аргументы"
+  },
+  "invalidJson": {
+    "message": "Некорректный JSON; показывается исходное значение"
+  },
+  "result": {
+    "message": "Результат"
   }
 }

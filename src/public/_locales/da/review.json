@@ -34,5 +34,17 @@
   },
   "mediaPage.pageRangeClamped": {
     "message": "Navigerer til side {{page}}"
+  },
+  "noToolCalls": {
+    "message": "Ingen værktøjskald endnu"
+  },
+  "arguments": {
+    "message": "Argumenter"
+  },
+  "invalidJson": {
+    "message": "Ugyldig JSON; viser rå værdi"
+  },
+  "result": {
+    "message": "Resultat"
   }
 }

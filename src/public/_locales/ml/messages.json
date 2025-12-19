@@ -360,6 +360,12 @@
   "specFallbackWarning": {
     "message": "ബണ്ടിൽ ചെയ്ത media.add സ്കീമ ഫാൾബാക്ക് (v{{version}}) ഉപയോഗിക്കുന്നു; ഫീൽഡുകൾ പഴകിയതായി തോന്നിയാൽ നിങ്ങളുടെ tldw_server /openapi.json പ്രകാരം ദയവായി പരിശോധിക്കുക."
   },
+  "serverChatsUnavailableNotConnected": {
+    "message": "നിങ്ങളുടെ tldw സെർവറിലേക്ക് കണക്റ്റ് ചെയ്താൽ സെർവർ ചാറ്റുകൾ ലഭ്യമാകും."
+  },
+  "serverChatsUnavailableServerError": {
+    "message": "സെർവർ ചാറ്റുകൾ ഇപ്പോൾ ലഭ്യമല്ല. സെർവർ ലോഗുകൾ പരിശോധിക്കുകയോ വീണ്ടും ശ്രമിക്കുകയോ ചെയ്യുക."
+  },
   "noToolCalls": {
     "message": "ഇതുവരെ ടൂൾ കോൾ ഒന്നുമില്ല"
   },

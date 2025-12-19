@@ -24,7 +24,6 @@ export interface DiffHunk {
   newStart: number
   newCount: number
   lines: DiffLine[]
-  selected?: boolean
 }
 
 export interface DiffLine {
@@ -153,8 +152,7 @@ export function parseDiff(diffText: string): FileDiff[] {
         lines: [{
           type: "header",
           content: line
-        }],
-        selected: true
+        }]
       }
       continue
     }
@@ -523,7 +521,7 @@ export const DiffViewer: FC<DiffViewerProps> = ({
                             }`}>
                               {line.type === "add" ? "+" : line.type === "remove" ? "-" : " "}
                             </span>
-                            <pre className="flex-1 px-2 whitespace-pre-wrap break-all">
+                            <pre className="flex-1 px-2 whitespace-pre">
                               {line.content}
                             </pre>
                           </div>

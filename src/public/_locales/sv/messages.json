@@ -361,6 +361,12 @@
   "specFallbackWarning": {
     "message": "Använder inbyggd reservschema för media.add (v{{version}}); verifiera mot din tldw_server /openapi.json om fälten verkar inaktuella."
   },
+  "serverChatsUnavailableNotConnected": {
+    "message": "Serverchattar blir tillgängliga när du ansluter till din tldw‑server."
+  },
+  "serverChatsUnavailableServerError": {
+    "message": "Serverchattar är inte tillgängliga just nu. Kontrollera serverloggarna eller försök igen."
+  },
   "noToolCalls": {
     "message": "Inga verktygsanrop ännu"
   },

@@ -34,5 +34,17 @@
   },
   "mediaPage.pageRangeClamped": {
     "message": "താൾ {{page}} ലേക്ക് പോകുന്നു"
+  },
+  "noToolCalls": {
+    "message": "ഇതുവരെ ടൂൾ കോൾ ഒന്നുമില്ല"
+  },
+  "arguments": {
+    "message": "ആർഗ്യുമെന്റുകൾ"
+  },
+  "invalidJson": {
+    "message": "അസാധുവായ JSON; അസംസ്കൃത മൂല്യം കാണിക്കുന്നു"
+  },
+  "result": {
+    "message": "ഫലം"
   }
 }

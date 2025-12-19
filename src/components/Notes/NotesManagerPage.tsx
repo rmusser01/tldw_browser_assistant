@@ -21,6 +21,7 @@ import NotesEditorHeader from "@/components/Notes/NotesEditorHeader"
 import NotesListPanel from "@/components/Notes/NotesListPanel"
 import type { NoteListItem } from "@/components/Notes/types"
 import { translateMessage } from "@/i18n/translateMessage"
+import { formatFileSize } from "@/utils/format"
 
 type NoteWithKeywords = {
   metadata?: { keywords?: any[] }
@@ -406,13 +407,6 @@ const NotesManagerPage: React.FC = () => {
       await navigator.clipboard.writeText(content || '')
       message.success('Copied')
     } catch { message.error('Copy failed') }
-  }
-
-  const formatFileSize = (bytes: number): string => {
-    const sizeKB = (bytes / 1024).toFixed(1)
-    return bytes >= 1024 * 1024
-      ? `${(bytes / (1024 * 1024)).toFixed(2)} MB`
-      : `${sizeKB} KB`
   }
 
   const exportSelected = () => {

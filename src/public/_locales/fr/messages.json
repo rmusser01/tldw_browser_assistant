@@ -345,6 +345,12 @@
   "specFallbackWarning": {
     "message": "Utilisation du schéma de secours media.add intégré (v{{version}}) ; vérifiez-le par rapport à votre tldw_server /openapi.json si certains champs semblent obsolètes."
   },
+  "serverChatsUnavailableNotConnected": {
+    "message": "Les chats serveur ne sont pas disponibles. Connectez-vous à votre serveur tldw pour y accéder."
+  },
+  "serverChatsUnavailableServerError": {
+    "message": "Les chats serveur sont indisponibles pour le moment. Consultez les journaux du serveur ou réessayez."
+  },
   "noToolCalls": {
     "message": "Aucun appel d’outil pour le moment"
   },

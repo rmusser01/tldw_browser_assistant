@@ -34,5 +34,17 @@
   },
   "mediaPage.pageRangeClamped": {
     "message": "Перехід до сторінки {{page}}"
+  },
+  "noToolCalls": {
+    "message": "Ще немає викликів інструментів"
+  },
+  "arguments": {
+    "message": "Аргументи"
+  },
+  "invalidJson": {
+    "message": "Некоректний JSON; показано сире значення"
+  },
+  "result": {
+    "message": "Результат"
   }
 }
