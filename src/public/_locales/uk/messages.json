@@ -20,15 +20,15 @@
     "description": "Текст довідки, який пояснює режими автентифікації Single User та Multi User."
   },
   "apiKeyHelp": {
-    "message": "Знайдіть свій API-ключ у tldw_server \u2192 Settings \u2192 API Keys. Згенеруйте там ключ і вставте його тут.",
+    "message": "Знайдіть свій API-ключ у tldw_server → Settings → API Keys. Згенеруйте там ключ і вставте його тут.",
     "description": "Текст довідки, що описує, де знайти API-ключ."
   },
   "authStepAria": {
-    "message": "Крок {{current}} з {{total}} \u2014 налаштування автентифікації",
+    "message": "Крок {{current}} з {{total}} — налаштування автентифікації",
     "description": "Мітка aria для кроку налаштування автентифікації в майстрі."
   },
   "confirmStepAria": {
-    "message": "Крок {{current}} з {{total}} \u2014 підтвердження підключення та наступні кроки",
+    "message": "Крок {{current}} з {{total}} — підтвердження підключення та наступні кроки",
     "description": "Мітка aria для кроку підтвердження підключення в майстрі."
   },
   "nextSteps": {
@@ -218,5 +218,17 @@
   },
   "specFallbackWarning": {
     "message": "Використовується вбудований резервний варіант схеми media.add (v{{version}}); перевірте tldw_server /openapi.json, якщо поля виглядають застарілими."
+  },
+  "noToolCalls": {
+    "message": "Ще немає викликів інструментів"
+  },
+  "arguments": {
+    "message": "Аргументи"
+  },
+  "invalidJson": {
+    "message": "Некоректний JSON; показано сире значення"
+  },
+  "result": {
+    "message": "Результат"
   }
 }

@@ -28,7 +28,7 @@ The tldw Agent consists of three components:
 
 ### Deployment Models
 
-**Model 1: Fully Local**
+#### Model 1: Fully Local
 ```text
 User Machine
 ├── Browser Extension
@@ -37,7 +37,7 @@ User Machine
 ```
 Best for: Individual developers, air-gapped environments
 
-**Model 2: Shared Server**
+#### Model 2: Shared Server
 ```text
 User Machine                    Server
 ├── Browser Extension     ──▶   tldw_server
@@ -45,7 +45,7 @@ User Machine                    Server
 ```
 Best for: Teams, organizations with central LLM infrastructure
 
-**Model 3: Cloud Hosted**
+#### Model 3: Cloud Hosted
 ```text
 User Machine                    Cloud
 ├── Browser Extension     ──▶   tldw_server (managed)
@@ -651,6 +651,7 @@ if (session.schemaVersion < 2) {
 ### Log Files
 
 **Location:**
+
 | OS | Default Path |
 |----|--------------|
 | macOS | `~/.tldw-agent/logs/agent.log` |

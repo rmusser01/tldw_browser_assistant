@@ -169,7 +169,7 @@ export const SidepanelHeaderSimple = ({
   return (
     <div
       data-istemporary-chat={temporaryChat}
-      className="px-3 justify-between bg-white dark:bg-[#171717] border-b border-gray-300 dark:border-gray-700 py-2 items-center absolute top-0 z-10 flex h-12 w-full data-[istemporary-chat='true']:bg-blue-50 data-[istemporary-chat='true']:dark:bg-blue-950/30"
+      className="px-3 justify-between bg-white dark:bg-[#171717] border-b border-gray-300 dark:border-gray-700 py-2 items-center absolute top-0 z-10 flex h-12 w-full data-[istemporary-chat='true']:bg-purple-50 data-[istemporary-chat='true']:dark:bg-purple-900/30"
     >
       {/* Left: Status dot + Logo + Title */}
       <div className="flex items-center gap-2">

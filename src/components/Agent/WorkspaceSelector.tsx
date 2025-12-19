@@ -2,7 +2,7 @@
  * WorkspaceSelector - Select and manage workspace directories
  */
 
-import { FC, useState, useEffect, useRef, useCallback } from "react"
+import { FC, useState, useEffect, useRef } from "react"
 import { useTranslation } from "react-i18next"
 import { Dropdown, Modal, Input, message, Divider } from "antd"
 import {
@@ -41,6 +41,7 @@ export const WorkspaceSelector: FC<WorkspaceSelectorProps> = ({
   const [newPath, setNewPath] = useState("")
   const [newName, setNewName] = useState("")
   const [isValidating, setIsValidating] = useState(false)
+  const [isSelecting, setIsSelecting] = useState(false)
 
   // Workspace history
   const {
@@ -50,7 +51,31 @@ export const WorkspaceSelector: FC<WorkspaceSelectorProps> = ({
 
   // Check if native host is installed
   useEffect(() => {
-    nativeClient.isHostInstalled().then(setIsHostInstalled)
+    let cancelled = false
+
+    const checkHost = async () => {
+      try {
+        const installed = await nativeClient.isHostInstalled()
+        if (!cancelled) {
+          setIsHostInstalled(installed)
+        }
+      } catch (error) {
+        // If detection fails, treat host as not installed so the UI doesn't stay stuck
+        console.warn(
+          "[WorkspaceSelector] Failed to detect native host installation:",
+          error
+        )
+        if (!cancelled) {
+          setIsHostInstalled(false)
+        }
+      }
+    }
+
+    void checkHost()
+
+    return () => {
+      cancelled = true
+    }
   }, [])
 
   // Get currently selected workspace
@@ -78,6 +103,7 @@ export const WorkspaceSelector: FC<WorkspaceSelectorProps> = ({
 
   // Handle workspace selection
   const handleSelect = async (workspace: Workspace) => {
+    setIsSelecting(true)
     try {
       // Set workspace in native agent
       const result = await nativeClient.setWorkspace(workspace.path)
@@ -95,6 +121,8 @@ export const WorkspaceSelector: FC<WorkspaceSelectorProps> = ({
           ? String((e as { message?: unknown }).message)
           : t("failedToSetWorkspace", "Failed to set workspace")
       message.error(err)
+    } finally {
+      setIsSelecting(false)
     }
   }
 
@@ -116,7 +144,7 @@ export const WorkspaceSelector: FC<WorkspaceSelectorProps> = ({
 
       // Add to list
       const workspace: Workspace = {
-        id: crypto.randomUUID(),
+        id: (crypto as any)?.randomUUID?.() || Math.random().toString(36).slice(2),
         name: newName.trim() || (newPath.split(/[/\\]/).pop() || t("workspace", "Workspace")),
         path: newPath.trim()
       }
@@ -171,7 +199,11 @@ export const WorkspaceSelector: FC<WorkspaceSelectorProps> = ({
   if (isHostInstalled === null) {
     return (
       <div className={`flex items-center gap-2 px-3 py-2 rounded-lg bg-gray-100 dark:bg-gray-800 ${className}`}>
-        <div className="size-4 border-2 border-gray-300 dark:border-gray-600 border-t-transparent rounded-full animate-spin" />
+        <div
+          className="size-4 border-2 border-gray-300 dark:border-gray-600 border-t-transparent rounded-full animate-spin"
+          role="status"
+          aria-label={t("checkingAgent", "Checking agent...")}
+        />
         <span className="text-sm text-gray-500">
           {t("checkingAgent", "Checking agent...")}
         </span>
@@ -260,7 +292,8 @@ export const WorkspaceSelector: FC<WorkspaceSelectorProps> = ({
             )}
             <button
               onClick={(e) => handleRemove(ws.id, e)}
-              className="p-1 rounded hover:bg-gray-200 dark:hover:bg-gray-700"
+              className="p-1 rounded hover:bg-gray-200 dark:hover:bg-gray-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-pink-500"
+              aria-label={t("removeWorkspace", "Remove workspace")}
             >
               <Trash2 className="size-3 text-gray-400 hover:text-red-500" />
             </button>
@@ -293,11 +326,25 @@ export const WorkspaceSelector: FC<WorkspaceSelectorProps> = ({
         placement="bottomLeft"
       >
         <button
-          className={`flex items-center gap-2 px-3 py-2 rounded-lg bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors ${className}`}
+          className={`flex items-center gap-2 px-3 py-2 rounded-lg bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-pink-500 focus-visible:ring-offset-2 ${className} ${isSelecting ? "opacity-70 cursor-wait" : ""}`}
+          aria-label={selectedWorkspace?.name || t("selectWorkspace", "Select Workspace")}
+          aria-haspopup="listbox"
+          aria-busy={isSelecting}
+          disabled={isSelecting}
         >
-          <FolderOpen className="size-4 text-gray-500 dark:text-gray-400" />
+          {isSelecting ? (
+            <div
+              className="size-4 border-2 border-gray-400 border-t-transparent rounded-full animate-spin"
+              role="status"
+              aria-label={t("selectingWorkspace", "Selecting workspace...")}
+            />
+          ) : (
+            <FolderOpen className="size-4 text-gray-500 dark:text-gray-400" />
+          )}
           <span className="text-sm font-medium truncate max-w-[200px]">
-            {selectedWorkspace?.name || t("selectWorkspace", "Select Workspace")}
+            {isSelecting
+              ? t("selectingWorkspace", "Selecting...")
+              : selectedWorkspace?.name || t("selectWorkspace", "Select Workspace")}
           </span>
           <ChevronDown className="size-4 text-gray-400" />
         </button>

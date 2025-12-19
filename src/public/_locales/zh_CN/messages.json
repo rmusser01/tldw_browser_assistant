@@ -122,7 +122,7 @@
     "description": "解释 Single User 与 Multi User 身份验证模式差异的说明文本。"
   },
   "apiKeyHelp": {
-    "message": "在 tldw_server \u2192 Settings \u2192 API Keys 中找到你的 API 密钥。在那里生成密钥并粘贴到这里。",
+    "message": "在 tldw_server → Settings → API Keys 中找到你的 API 密钥。在那里生成密钥并粘贴到这里。",
     "description": "说明在哪里可以找到 API 密钥的帮助文本。"
   },
   "authStepAria": {
@@ -277,7 +277,7 @@
     "message": "若要使用“笔记”，请先连接到你的 tldw 服务器。"
   },
   "notesEmpty_connectExample1": {
-    "message": "打开“设置” \u2192 “tldw server”，添加你的服务器 URL。"
+    "message": "打开“设置” → “tldw server”，添加你的服务器 URL。"
   },
   "notesEmpty_connectExample2": {
     "message": "如果服务器已运行但无法访问，请使用“诊断”功能。"
@@ -307,7 +307,7 @@
     "message": "最近一次团队同步中的决策、阻碍及后续事项。"
   },
   "notesEmpty_demoSample1Meta": {
-    "message": "今天 \u00b7 上午 9:32"
+    "message": "今天 · 上午 9:32"
   },
   "notesEmpty_demoSample2Title": {
     "message": "演示笔记：研究亮点"
@@ -316,7 +316,7 @@
     "message": "从长篇文章或论文中提取的关键洞见。"
   },
   "notesEmpty_demoSample2Meta": {
-    "message": "昨天 \u00b7 下午 4:10"
+    "message": "昨天 · 下午 4:10"
   },
   "notesEmpty_demoSample3Title": {
     "message": "演示笔记：通话摘要"
@@ -686,5 +686,17 @@
   },
   "specFallbackWarning": {
     "message": "使用捆绑的 media.add 架构备选方案（v{{version}}）；如果字段看起来已过期，请根据你的 tldw_server /openapi.json 进行验证。"
+  },
+  "noToolCalls": {
+    "message": "尚无工具调用"
+  },
+  "arguments": {
+    "message": "参数"
+  },
+  "invalidJson": {
+    "message": "JSON 无效；显示原始值"
+  },
+  "result": {
+    "message": "结果"
   }
 }

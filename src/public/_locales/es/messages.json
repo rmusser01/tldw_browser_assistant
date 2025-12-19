@@ -122,19 +122,19 @@
     "description": "Texto de ayuda que explica los modos de autenticación Single User y Multi User."
   },
   "apiKeyHelp": {
-    "message": "Busca tu clave de API en tldw_server \u2192 Settings \u2192 API Keys. Genera allí una clave y pégala aquí.",
+    "message": "Busca tu clave de API en tldw_server → Settings → API Keys. Genera allí una clave y pégala aquí.",
     "description": "Texto de ayuda que indica dónde encontrar la clave de API."
   },
   "authStepAria": {
-    "message": "Paso 3 de 4 \u2014 configuraci\u00f3n de autenticaci\u00f3n",
+    "message": "Paso 3 de 4 — configuración de autenticación",
     "description": "Etiqueta aria para el paso de configuración de autenticación en la incorporación (aún en inglés)."
   },
   "confirmStepAria": {
-    "message": "Paso 4 de 4 \u2014 resumen de la conexión y siguientes pasos",
+    "message": "Paso 4 de 4 — resumen de la conexión y siguientes pasos",
     "description": "Etiqueta aria para el paso de confirmación de la conexión en la incorporación (aún en inglés)."
   },
   "nextSteps": {
-    "message": "Ya est\u00e1s listo",
+    "message": "Ya estás listo",
     "description": "Título del panel final de incorporación con los siguientes pasos (actualmente en inglés)."
   },
   "notesEmpty_connectTitle": {
@@ -144,22 +144,22 @@
     "message": "Para usar Notas, primero conecta tu servidor tldw."
   },
   "notesEmpty_connectExample1": {
-    "message": "Abre Configuraci\u00f3n \u2192 servidor tldw para agregar la URL de tu servidor."
+    "message": "Abre Configuración → servidor tldw para agregar la URL de tu servidor."
   },
   "notesEmpty_connectExample2": {
-    "message": "Usa Diagn\u00f3stico si tu servidor est\u00e1 en ejecuci\u00f3n pero no es accesible."
+    "message": "Usa Diagnóstico si tu servidor está en ejecución pero no es accesible."
   },
   "notesEmpty_demoTitle": {
-    "message": "Explora Notas en modo de demostraci\u00f3n"
+    "message": "Explora Notas en modo de demostración"
   },
   "notesEmpty_demoDescription": {
-    "message": "Esta demostraci\u00f3n muestra c\u00f3mo Notas puede organizar tus hallazgos. M\u00e1s tarde puedes conectar tu propio servidor para crear y guardar notas reales."
+    "message": "Esta demostración muestra cómo Notas puede organizar tus hallazgos. Más tarde puedes conectar tu propio servidor para crear y guardar notas reales."
   },
   "notesEmpty_demoExample1": {
-    "message": "Observa c\u00f3mo aparecen en la lista los t\u00edtulos, vistas previas y marcas de tiempo de las notas."
+    "message": "Observa cómo aparecen en la lista los títulos, vistas previas y marcas de tiempo de las notas."
   },
   "notesEmpty_demoExample2": {
-    "message": "Cuando te conectes, podr\u00e1s crear notas a partir de reuniones, rese\u00f1as y m\u00e1s."
+    "message": "Cuando te conectes, podrás crear notas a partir de reuniones, reseñas y más."
   },
   "notesEmpty_demoExample3": {
     "message": "Usa Notas junto con Media y Review para llevar un registro de tus hallazgos."
@@ -168,43 +168,43 @@
     "message": "Notas de ejemplo (solo vista previa)"
   },
   "notesEmpty_demoSample1Title": {
-    "message": "Nota demo: Resumen de la reuni\u00f3n semanal"
+    "message": "Nota demo: Resumen de la reunión semanal"
   },
   "notesEmpty_demoSample1Preview": {
-    "message": "Decisiones, bloqueos y seguimientos de una sincronizaci\u00f3n reciente del equipo."
+    "message": "Decisiones, bloqueos y seguimientos de una sincronización reciente del equipo."
   },
   "notesEmpty_demoSample1Meta": {
-    "message": "Hoy \u00b7 9:32 a. m."
+    "message": "Hoy · 9:32 a. m."
   },
   "notesEmpty_demoSample2Title": {
-    "message": "Nota demo: Aspectos destacados de la investigaci\u00f3n"
+    "message": "Nota demo: Aspectos destacados de la investigación"
   },
   "notesEmpty_demoSample2Preview": {
-    "message": "Ideas clave extra\u00eddas de un art\u00edculo o paper largo."
+    "message": "Ideas clave extraídas de un artículo o paper largo."
   },
   "notesEmpty_demoSample2Meta": {
-    "message": "Ayer \u00b7 4:10 p. m."
+    "message": "Ayer · 4:10 p. m."
   },
   "notesEmpty_demoSample3Title": {
     "message": "Nota demo: Resumen de llamada"
   },
   "notesEmpty_demoSample3Preview": {
-    "message": "Resumen de una llamada con un cliente con pr\u00f3ximos pasos y responsables."
+    "message": "Resumen de una llamada con un cliente con próximos pasos y responsables."
   },
   "notesEmpty_demoSample3Meta": {
     "message": "Esta semana"
   },
   "notesEmpty_title": {
-    "message": "A\u00fan no hay notas"
+    "message": "Aún no hay notas"
   },
   "notesEmpty_description": {
     "message": "Captura y organiza notas libres conectadas a tus hallazgos en tldw."
   },
   "notesEmpty_exampleCreate": {
-    "message": "Crea una nota nueva para una reuni\u00f3n o transcripci\u00f3n reciente."
+    "message": "Crea una nota nueva para una reunión o transcripción reciente."
   },
   "notesEmpty_exampleLink": {
-    "message": "Guarda los resultados de las revisiones en Notas para poder consultarlos m\u00e1s tarde."
+    "message": "Guarda los resultados de las revisiones en Notas para poder consultarlos más tarde."
   },
   "notesEmpty_primaryCta": {
     "message": "Crear nota"
@@ -359,5 +359,17 @@
   },
   "specFallbackWarning": {
     "message": "Usando el respaldo incluido del esquema media.add (v{{version}}); verifica tu tldw_server /openapi.json si los campos parecen desactualizados."
+  },
+  "noToolCalls": {
+    "message": "Aún no hay llamadas de herramientas"
+  },
+  "arguments": {
+    "message": "Argumentos"
+  },
+  "invalidJson": {
+    "message": "JSON no válido; se muestra el valor bruto"
+  },
+  "result": {
+    "message": "Resultado"
   }
 }

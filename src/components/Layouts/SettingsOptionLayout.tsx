@@ -45,7 +45,7 @@ export const SettingsLayout = ({ children }: { children: React.ReactNode }) => {
       <main className="relative w-full flex-1">
         <div className="mx-auto w-full h-full custom-scrollbar overflow-y-auto">
           <div className="flex flex-col lg:flex-row lg:gap-x-16 lg:px-24">
-            <aside className="sticky lg:mt-0 mt-14 top-0 z-20 bg-white dark:bg-[#171717] border-b dark:border-gray-600 lg:border-0 lg:bg-transparent lg:dark:bg-transparent">
+            <aside className="lg:sticky lg:mt-0 mt-14 lg:top-0 z-20 bg-white dark:bg-[#171717] border-b dark:border-gray-600 lg:border-0 lg:bg-transparent lg:dark:bg-transparent">
               <nav className="w-full overflow-x-auto px-4 py-4 sm:px-6 lg:px-0 lg:py-0 lg:mt-20">
                 <div className="flex items-center justify-between mb-3">
                   <button
@@ -144,10 +144,16 @@ export const SettingsLayout = ({ children }: { children: React.ReactNode }) => {
                   title={t("common:close", "Close")}
                   onClick={(e) => {
                     e.preventDefault()
-                    try {
-                      navigate(-1)
-                    } catch {
+                    // Check if there's browser history to go back to
+                    // If history length is 1 or less, there's no previous page
+                    if (window.history.length <= 1) {
                       navigate("/")
+                    } else {
+                      try {
+                        navigate(-1)
+                      } catch {
+                        navigate("/")
+                      }
                     }
                   }}>
                   <XIcon className="h-4 w-4" />

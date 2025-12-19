@@ -678,7 +678,7 @@
     "message": "Decisões, impedimentos e próximos passos de uma sincronização recente da equipe."
   },
   "notesEmpty_demoSample1Meta": {
-    "message": "Hoje \u00b7 9h32"
+    "message": "Hoje · 9h32"
   },
   "notesEmpty_demoSample2Title": {
     "message": "Nota demo: destaques de pesquisa"
@@ -687,7 +687,7 @@
     "message": "Principais insights extraídos de um artigo ou texto longo."
   },
   "notesEmpty_demoSample2Meta": {
-    "message": "Ontem \u00b7 16h10"
+    "message": "Ontem · 16h10"
   },
   "notesEmpty_demoSample3Title": {
     "message": "Nota demo: resumo de ligação"
@@ -917,78 +917,222 @@
   "flashcards_showAnswer": {
     "message": "Mostrar resposta"
   },
-  "flashcards_hideAnswer": { "message": "Ocultar resposta" },
-  "flashcards_preview": { "message": "Prévia" },
-  "flashcards_rate": { "message": "Avaliar" },
-  "flashcards_answerMs": { "message": "Tempo para responder (segundos, opcional)" },
-  "flashcards_noDue": { "message": "Nenhum cartão para revisar" },
-  "flashcards_deck": { "message": "Baralho" },
-  "flashcards_newDeck": { "message": "Novo baralho" },
-  "flashcards_modelType": { "message": "Modelo de cartão" },
-  "flashcards_reverse": { "message": "Também criar cartão invertido" },
-  "flashcards_isCloze": { "message": "Exclusão cloze" },
-  "flashcards_tags": { "message": "Tags" },
-  "flashcards_dueStatus": { "message": "Status de revisão" },
-  "flashcards_tag": { "message": "Tag" },
-  "flashcards_noCards": { "message": "Nenhum cartão" },
-  "flashcards_due": { "message": "Pendente" },
-  "flashcards_editCard": { "message": "Editar cartão" },
-  "flashcards_importTitle": { "message": "Importar flashcards" },
-  "flashcards_exportTitle": { "message": "Exportar flashcards" },
-  "flashcards_importHelp": { "message": "Cole linhas TSV/CSV: Baralho, frente, verso, tags, notas" },
-  "flashcards_pasteContent": { "message": "Cole o conteúdo aqui..." },
-  "flashcards_tab": { "message": "Tabulação" },
-  "flashcards_comma": { "message": ", (vírgula)" },
-  "flashcards_semicolon": { "message": "; (ponto e vírgula)" },
-  "flashcards_pipe": { "message": "| (barra vertical)" },
-  "flashcards_hasHeader": { "message": "Tem linha de cabeçalho" },
-  "flashcards_import": { "message": "Importar" },
-  "flashcards_imported": { "message": "Importado" },
-  "flashcards_importLimits": { "message": "Limites de importação" },
-  "flashcards_csv": { "message": "CSV/TSV" },
-  "flashcards_apkg": { "message": "Anki (.apkg)" },
-  "flashcards_includeReverse": { "message": "Incluir invertido" },
-  "flashcards_includeHeader": { "message": "Incluir linha de cabeçalho" },
-  "flashcards_extendedHeader": { "message": "Cabeçalho estendido (metadados técnicos)" },
-  "flashcards_download": { "message": "Download" },
-  "flashcards_duplicate": { "message": "Duplicar" },
-  "flashcards_move": { "message": "Mover" },
-  "flashcards_bulkMove": { "message": "Mover em lote" },
-  "flashcards_bulkDelete": { "message": "Excluir em massa" },
-  "flashcards_exportSelectedCsv": { "message": "Exportar selecionados (CSV/TSV)" },
-  "flashcards_selectedCount": { "message": "Selecionado" },
-  "flashcards_selectAllOnPage": { "message": "Selecionar todos na página" },
-  "flashcards_selectAllAcross": { "message": "Selecionar todos nos resultados" },
-  "flashcards_clearSelection": { "message": "Limpar seleção" },
-  "flashcards_ratingAgain": { "message": "De novo" },
-  "flashcards_ratingAgainHelp": { "message": "Eu não me lembrei deste cartão." },
-  "flashcards_ratingHard": { "message": "Difícil" },
-  "flashcards_ratingHardHelp": { "message": "Eu mal me lembrei; pareceu difícil." },
-  "flashcards_ratingGood": { "message": "Bom" },
-  "flashcards_ratingGoodHelp": { "message": "Eu me lembrei com um pouco de esforço." },
-  "flashcards_ratingEasy": { "message": "Fácil" },
-  "flashcards_ratingEasyHelp": { "message": "Eu lembrei rapidamente e com confiança." },
-  "flashcards_showTiming": { "message": "Acompanhar tempo de resposta" },
-  "flashcards_hideTiming": { "message": "Ocultar tempo" },
-  "flashcards_noDueTitle": { "message": "Nenhum cartão para revisar" },
-  "flashcards_noDueDescription": { "message": "Você está em dia. Crie novos cartões ou importe um baralho existente para começar a revisar." },
-  "flashcards_noDueCreateCta": { "message": "Criar um novo cartão" },
-  "flashcards_noDueImportCta": { "message": "Importar um baralho" },
-  "flashcards_createTitle": { "message": "Crie flashcards a partir de suas notas" },
-  "flashcards_createDescription": { "message": "Use a frente para a pergunta e o verso para a resposta. Você pode agrupar cartões em baralhos e adicionar tags para pesquisar mais rápido." },
-  "flashcards_modelTypeHelp": { "message": "Básico mostra a pergunta na frente e a resposta no verso. Invertido também cria o cartão oposto. Cloze oculta partes do texto usando {{...}}." },
-  "flashcards_reverseHelp": { "message": "Também criar um cartão em que o verso vira a pergunta." },
-  "flashcards_isClozeHelp": { "message": "Use para cartões de preencher lacunas. Envolva o texto oculto em {{...}} na frente." },
-  "flashcards_bulkActions": { "message": "Ações em massa" },
-  "flashcards_selectionHelp": { "message": "“Selecionar todos nos resultados” aplica ações a todos os cartões que correspondem aos seus filtros, não apenas a esta página." },
-  "flashcards_noCardsTitle": { "message": "Ainda não há flashcards" },
-  "flashcards_noCardsDescription": { "message": "Crie cartões a partir de suas notas e mídias ou importe um baralho existente." },
-  "flashcards_clearFilters": { "message": "Limpar filtros" },
-  "flashcards_noCardsCreateCta": { "message": "Crie seu primeiro cartão" },
-  "flashcards_noCardsImportCta": { "message": "Importar flashcards" },
-  "flashcards_mapping": { "message": "Mapeamento de colunas" },
-  "flashcards_mappingPreview": { "message": "Prévia das primeiras linhas mapeadas:" },
-  "flashcards_exportHelp": { "message": "Filtre por baralho, tag ou busca e, em seguida, exporte como CSV/TSV para planilhas ou Anki (.apkg) para clientes Anki." },
+  "flashcards_hideAnswer": {
+    "message": "Ocultar resposta"
+  },
+  "flashcards_preview": {
+    "message": "Prévia"
+  },
+  "flashcards_rate": {
+    "message": "Avaliar"
+  },
+  "flashcards_answerMs": {
+    "message": "Tempo para responder (segundos, opcional)"
+  },
+  "flashcards_noDue": {
+    "message": "Nenhum cartão para revisar"
+  },
+  "flashcards_deck": {
+    "message": "Baralho"
+  },
+  "flashcards_newDeck": {
+    "message": "Novo baralho"
+  },
+  "flashcards_modelType": {
+    "message": "Modelo de cartão"
+  },
+  "flashcards_reverse": {
+    "message": "Também criar cartão invertido"
+  },
+  "flashcards_isCloze": {
+    "message": "Exclusão cloze"
+  },
+  "flashcards_tags": {
+    "message": "Tags"
+  },
+  "flashcards_dueStatus": {
+    "message": "Status de revisão"
+  },
+  "flashcards_tag": {
+    "message": "Tag"
+  },
+  "flashcards_noCards": {
+    "message": "Nenhum cartão"
+  },
+  "flashcards_due": {
+    "message": "Pendente"
+  },
+  "flashcards_editCard": {
+    "message": "Editar cartão"
+  },
+  "flashcards_importTitle": {
+    "message": "Importar flashcards"
+  },
+  "flashcards_exportTitle": {
+    "message": "Exportar flashcards"
+  },
+  "flashcards_importHelp": {
+    "message": "Cole linhas TSV/CSV: Baralho, frente, verso, tags, notas"
+  },
+  "flashcards_pasteContent": {
+    "message": "Cole o conteúdo aqui..."
+  },
+  "flashcards_tab": {
+    "message": "Tabulação"
+  },
+  "flashcards_comma": {
+    "message": ", (vírgula)"
+  },
+  "flashcards_semicolon": {
+    "message": "; (ponto e vírgula)"
+  },
+  "flashcards_pipe": {
+    "message": "| (barra vertical)"
+  },
+  "flashcards_hasHeader": {
+    "message": "Tem linha de cabeçalho"
+  },
+  "flashcards_import": {
+    "message": "Importar"
+  },
+  "flashcards_imported": {
+    "message": "Importado"
+  },
+  "flashcards_importLimits": {
+    "message": "Limites de importação"
+  },
+  "flashcards_csv": {
+    "message": "CSV/TSV"
+  },
+  "flashcards_apkg": {
+    "message": "Anki (.apkg)"
+  },
+  "flashcards_includeReverse": {
+    "message": "Incluir invertido"
+  },
+  "flashcards_includeHeader": {
+    "message": "Incluir linha de cabeçalho"
+  },
+  "flashcards_extendedHeader": {
+    "message": "Cabeçalho estendido (metadados técnicos)"
+  },
+  "flashcards_download": {
+    "message": "Download"
+  },
+  "flashcards_duplicate": {
+    "message": "Duplicar"
+  },
+  "flashcards_move": {
+    "message": "Mover"
+  },
+  "flashcards_bulkMove": {
+    "message": "Mover em lote"
+  },
+  "flashcards_bulkDelete": {
+    "message": "Excluir em massa"
+  },
+  "flashcards_exportSelectedCsv": {
+    "message": "Exportar selecionados (CSV/TSV)"
+  },
+  "flashcards_selectedCount": {
+    "message": "Selecionado"
+  },
+  "flashcards_selectAllOnPage": {
+    "message": "Selecionar todos na página"
+  },
+  "flashcards_selectAllAcross": {
+    "message": "Selecionar todos nos resultados"
+  },
+  "flashcards_clearSelection": {
+    "message": "Limpar seleção"
+  },
+  "flashcards_ratingAgain": {
+    "message": "De novo"
+  },
+  "flashcards_ratingAgainHelp": {
+    "message": "Eu não me lembrei deste cartão."
+  },
+  "flashcards_ratingHard": {
+    "message": "Difícil"
+  },
+  "flashcards_ratingHardHelp": {
+    "message": "Eu mal me lembrei; pareceu difícil."
+  },
+  "flashcards_ratingGood": {
+    "message": "Bom"
+  },
+  "flashcards_ratingGoodHelp": {
+    "message": "Eu me lembrei com um pouco de esforço."
+  },
+  "flashcards_ratingEasy": {
+    "message": "Fácil"
+  },
+  "flashcards_ratingEasyHelp": {
+    "message": "Eu lembrei rapidamente e com confiança."
+  },
+  "flashcards_showTiming": {
+    "message": "Acompanhar tempo de resposta"
+  },
+  "flashcards_hideTiming": {
+    "message": "Ocultar tempo"
+  },
+  "flashcards_noDueTitle": {
+    "message": "Nenhum cartão para revisar"
+  },
+  "flashcards_noDueDescription": {
+    "message": "Você está em dia. Crie novos cartões ou importe um baralho existente para começar a revisar."
+  },
+  "flashcards_noDueCreateCta": {
+    "message": "Criar um novo cartão"
+  },
+  "flashcards_noDueImportCta": {
+    "message": "Importar um baralho"
+  },
+  "flashcards_createTitle": {
+    "message": "Crie flashcards a partir de suas notas"
+  },
+  "flashcards_createDescription": {
+    "message": "Use a frente para a pergunta e o verso para a resposta. Você pode agrupar cartões em baralhos e adicionar tags para pesquisar mais rápido."
+  },
+  "flashcards_modelTypeHelp": {
+    "message": "Básico mostra a pergunta na frente e a resposta no verso. Invertido também cria o cartão oposto. Cloze oculta partes do texto usando {{...}}."
+  },
+  "flashcards_reverseHelp": {
+    "message": "Também criar um cartão em que o verso vira a pergunta."
+  },
+  "flashcards_isClozeHelp": {
+    "message": "Use para cartões de preencher lacunas. Envolva o texto oculto em {{...}} na frente."
+  },
+  "flashcards_bulkActions": {
+    "message": "Ações em massa"
+  },
+  "flashcards_selectionHelp": {
+    "message": "“Selecionar todos nos resultados” aplica ações a todos os cartões que correspondem aos seus filtros, não apenas a esta página."
+  },
+  "flashcards_noCardsTitle": {
+    "message": "Ainda não há flashcards"
+  },
+  "flashcards_noCardsDescription": {
+    "message": "Crie cartões a partir de suas notas e mídias ou importe um baralho existente."
+  },
+  "flashcards_clearFilters": {
+    "message": "Limpar filtros"
+  },
+  "flashcards_noCardsCreateCta": {
+    "message": "Crie seu primeiro cartão"
+  },
+  "flashcards_noCardsImportCta": {
+    "message": "Importar flashcards"
+  },
+  "flashcards_mapping": {
+    "message": "Mapeamento de colunas"
+  },
+  "flashcards_mappingPreview": {
+    "message": "Prévia das primeiras linhas mapeadas:"
+  },
+  "flashcards_exportHelp": {
+    "message": "Filtre por baralho, tag ou busca e, em seguida, exporte como CSV/TSV para planilhas ou Anki (.apkg) para clientes Anki."
+  },
   "footerHelp": {
     "message": "Depois de conectado, você pode voltar a estas configurações a qualquer momento pelo menu da extensão.",
     "description": "Texto de ajuda no rodapé para o fluxo de onboarding nas configurações."
@@ -1010,15 +1154,15 @@
     "description": "Texto explicativo sobre os modos de autenticação Single User e Multi User."
   },
   "apiKeyHelp": {
-    "message": "Encontre sua chave de API em tldw_server \u2192 Settings \u2192 API Keys. Gere uma chave lá e cole aqui.",
+    "message": "Encontre sua chave de API em tldw_server → Settings → API Keys. Gere uma chave lá e cole aqui.",
     "description": "Texto que explica onde encontrar a chave de API."
   },
   "authStepAria": {
-    "message": "Etapa 3 de 4 \u2014 escolha como você faz login",
+    "message": "Etapa 3 de 4 — escolha como você faz login",
     "description": "Rótulo aria para a etapa de configuração de autenticação no onboarding."
   },
   "confirmStepAria": {
-    "message": "Etapa 4 de 4 \u2014 confirme a conexão e revise os próximos passos",
+    "message": "Etapa 4 de 4 — confirme a conexão e revise os próximos passos",
     "description": "Rótulo aria para a etapa de confirmação de conexão no onboarding."
   },
   "nextSteps": {
@@ -1179,5 +1323,17 @@
   },
   "specFallbackWarning": {
     "message": "Usando o fallback do esquema media.add incluído (v{{version}}); se os campos parecerem desatualizados, compare com o /openapi.json do seu tldw_server."
+  },
+  "noToolCalls": {
+    "message": "Ainda não há chamadas de ferramentas"
+  },
+  "arguments": {
+    "message": "Argumentos"
+  },
+  "invalidJson": {
+    "message": "JSON inválido; mostrando valor bruto"
+  },
+  "result": {
+    "message": "Resultado"
   }
 }

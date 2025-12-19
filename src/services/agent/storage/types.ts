@@ -33,7 +33,7 @@ export interface StoredToolCallEntry {
   name: string
   arguments: string // Truncated if > MAX_ARGS_LENGTH - DISPLAY ONLY
   result?: string // Truncated if > MAX_TOOL_RESULT_LENGTH
-  status: "pending" | "approved" | "rejected" | "completed" | "error"
+  status: "pending" | "running" | "approved" | "rejected" | "completed" | "error"
   timestamp: string // ISO string
 }
 
@@ -225,7 +225,7 @@ export interface SessionRestoreOutput {
   executions: Array<{
     id: string
     commandId: string
-    status: string
+    status: "pending" | "running" | "complete" | "error" | "timeout"
     exitCode?: number
     stdout?: string
     stderr?: string

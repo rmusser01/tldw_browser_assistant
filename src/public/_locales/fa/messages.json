@@ -122,7 +122,7 @@
     "description": "متن راهنما برای توضیح حالت‌های احراز هویت Single User و Multi User."
   },
   "apiKeyHelp": {
-    "message": "کلید API خود را در tldw_server \u2192 Settings \u2192 API Keys پیدا کنید. در آنجا یک کلید تولید کرده و آن را اینجا جای‌گذاری کنید.",
+    "message": "کلید API خود را در tldw_server → Settings → API Keys پیدا کنید. در آنجا یک کلید تولید کرده و آن را اینجا جای‌گذاری کنید.",
     "description": "متن راهنما برای توضیح محل یافتن کلید API."
   },
   "authStepAria": {
@@ -144,7 +144,7 @@
     "message": "برای استفاده از یادداشت‌ها، ابتدا به سرور tldw خود متصل شوید."
   },
   "notesEmpty_connectExample1": {
-    "message": "برای افزودن نشانی سرور خود، «Settings \u2192 tldw server» را باز کنید."
+    "message": "برای افزودن نشانی سرور خود، «Settings → tldw server» را باز کنید."
   },
   "notesEmpty_connectExample2": {
     "message": "اگر سرور شما در حال اجرا است اما در دسترس نیست، از بخش Diagnostics استفاده کنید."
@@ -174,7 +174,7 @@
     "message": "تصمیم‌ها، موانع و پیگیری‌ها از هماهنگی اخیر تیم."
   },
   "notesEmpty_demoSample1Meta": {
-    "message": "امروز \u00b7 ۹:۳۲ صبح"
+    "message": "امروز · ۹:۳۲ صبح"
   },
   "notesEmpty_demoSample2Title": {
     "message": "یادداشت دمو: نکات برجسته تحقیق"
@@ -183,7 +183,7 @@
     "message": "نکات کلیدی استخراج‌شده از یک مقاله یا نوشته طولانی."
   },
   "notesEmpty_demoSample2Meta": {
-    "message": "دیروز \u00b7 ۴:۱۰ عصر"
+    "message": "دیروز · ۴:۱۰ عصر"
   },
   "notesEmpty_demoSample3Title": {
     "message": "یادداشت دمو: خلاصه تماس"
@@ -359,5 +359,17 @@
   },
   "specFallbackWarning": {
     "message": "در حال استفاده از طرحوارهٔ جایگزینِ بسته‌بندی‌شدهٔ media.add (v{{version}}); اگر فیلدها قدیمی به نظر می‌رسند، لطفاً با tldw_server /openapi.json بررسی کنید."
+  },
+  "noToolCalls": {
+    "message": "هنوز هیچ فراخوانی ابزاری انجام نشده است"
+  },
+  "arguments": {
+    "message": "آرگومان‌ها"
+  },
+  "invalidJson": {
+    "message": "JSON نامعتبر؛ مقدار خام نمایش داده می‌شود"
+  },
+  "result": {
+    "message": "نتیجه"
   }
 }

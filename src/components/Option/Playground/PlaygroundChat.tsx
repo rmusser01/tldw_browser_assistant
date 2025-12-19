@@ -115,7 +115,8 @@ export const PlaygroundChat = () => {
     setCompareCanonicalForCluster,
     setCompareParentForHistory,
     compareSplitChats,
-    setCompareSplitChat
+    setCompareSplitChat,
+    compareMaxModels
   } = useMessageOption()
   const [isSourceOpen, setIsSourceOpen] = React.useState(false)
   const [source, setSource] = React.useState<any>(null)
@@ -141,7 +142,7 @@ export const PlaygroundChat = () => {
                 images={message.images || []}
                 currentMessageIndex={block.index}
                 totalMessages={messages.length}
-                onRengerate={regenerateLastMessage}
+                onRegenerate={regenerateLastMessage}
                 isProcessing={isProcessing}
                 isSearchingInternet={isSearchingInternet}
                 sources={message.sources}
@@ -198,7 +199,7 @@ export const PlaygroundChat = () => {
                 images={userMessage.images || []}
                 currentMessageIndex={block.userIndex}
                 totalMessages={messages.length}
-                onRengerate={regenerateLastMessage}
+                onRegenerate={regenerateLastMessage}
                 isProcessing={isProcessing}
                 isSearchingInternet={isSearchingInternet}
                 sources={userMessage.sources}
@@ -330,7 +331,11 @@ export const PlaygroundChat = () => {
                       ? clusterSelection.filter((id) => id !== modelKey)
                       : [...clusterSelection, modelKey]
 
-                    if (!isSelected && clusterSelection.length >= MAX_COMPARE_MODELS) {
+                    if (
+                      !isSelected &&
+                      compareMaxModels &&
+                      clusterSelection.length >= compareMaxModels
+                    ) {
                       notification.warning({
                         message: t(
                           "playground:composer.compareMaxModelsTitle",
@@ -339,7 +344,7 @@ export const PlaygroundChat = () => {
                         description: t(
                           "playground:composer.compareMaxModels",
                           "You can compare up to {{limit}} models per turn.",
-                          { limit: MAX_COMPARE_MODELS }
+                          { limit: compareMaxModels }
                         )
                       })
                       return
@@ -415,7 +420,7 @@ export const PlaygroundChat = () => {
                         images={message.images || []}
                         currentMessageIndex={index}
                         totalMessages={messages.length}
-                        onRengerate={regenerateLastMessage}
+                        onRegenerate={regenerateLastMessage}
                         isProcessing={isProcessing}
                         isSearchingInternet={isSearchingInternet}
                         sources={message.sources}

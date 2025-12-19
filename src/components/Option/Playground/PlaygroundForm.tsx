@@ -261,6 +261,8 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
     )
   }, [compareMode, compareSelectedModels, t])
 
+  const { compareMaxModels, setCompareMaxModels } = useMessageOption()
+
   const promptSummaryLabel = React.useMemo(() => {
     if (selectedSystemPrompt) {
       return t(
@@ -716,8 +718,39 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
         })
         return
       }
+
+      const hasExistingHistory = history.length > 0
+
+      // Show confirmation when enabling temporary mode with existing messages
+      if (next && hasExistingHistory) {
+        Modal.confirm({
+          title: t(
+            "playground:composer.tempChatConfirmTitle",
+            "Enable temporary mode?"
+          ),
+          content: t(
+            "playground:composer.tempChatConfirmContent",
+            "This will clear your current conversation. Messages won't be saved."
+          ),
+          okText: t("common:confirm", "Confirm"),
+          cancelText: t("common:cancel", "Cancel"),
+          onOk: () => {
+            setTemporaryChat(next)
+            clearChat()
+            const modeLabel = getPersistenceModeLabel(t, next, serverChatId)
+            notification.info({
+              message: modeLabel,
+              placement: "bottomRight",
+              duration: 2.5
+            })
+          }
+        })
+        return
+      }
+
+      // No confirmation needed when disabling temporary mode or no existing messages
       setTemporaryChat(next)
-      if (history.length > 0) {
+      if (hasExistingHistory) {
         clearChat()
       }
 
@@ -879,8 +912,35 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
   ])
 
   const handleClearContext = React.useCallback(() => {
-    setHistory([])
-  }, [setHistory])
+    // Only show confirmation if there's history to clear
+    if (history.length === 0) {
+      return
+    }
+
+    Modal.confirm({
+      title: t(
+        "playground:composer.clearContextConfirmTitle",
+        "Clear conversation?"
+      ),
+      content: t(
+        "playground:composer.clearContextConfirmContent",
+        "This will remove all messages from the current conversation. This action cannot be undone."
+      ),
+      okText: t("common:confirm", "Confirm"),
+      okButtonProps: { danger: true },
+      cancelText: t("common:cancel", "Cancel"),
+      onOk: () => {
+        setHistory([])
+        notification.success({
+          message: t(
+            "playground:composer.clearContextSuccess",
+            "Conversation cleared"
+          ),
+          duration: 2
+        })
+      }
+    })
+  }, [history.length, setHistory, t])
 
   const handleImageUpload = React.useCallback(() => {
     inputRef.current?.click()
@@ -1733,6 +1793,58 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
                                   {compareActiveSummary}
                                 </span>
                               )}
+                              {compareMode && (
+                                <div className="mt-0.5 flex items-center gap-1 text-[10px] text-gray-400 dark:text-gray-500">
+                                  <span>
+                                    {t(
+                                      "playground:composer.compareMaxLabel",
+                                      "Max models per turn"
+                                    )}
+                                    :
+                                  </span>
+                                  <Select
+                                    size="small"
+                                    value={compareMaxModels}
+                                    style={{ width: 70 }}
+                                    onChange={(value: number) => {
+                                      const next = Math.min(
+                                        Math.max(value, 2),
+                                        4
+                                      )
+                                      setCompareMaxModels(next)
+                                      if (
+                                        compareSelectedModels &&
+                                        compareSelectedModels.length > next
+                                      ) {
+                                        setCompareSelectedModels(
+                                          compareSelectedModels.slice(0, next)
+                                        )
+                                      }
+                                    }}
+                                    options={[2, 3, 4].map((v) => ({
+                                      value: v,
+                                      label: v.toString()
+                                    }))}
+                                  />
+                                  <span
+                                    className={`ml-1 ${
+                                      compareSelectedModels.length >=
+                                      (compareMaxModels || MAX_COMPARE_MODELS)
+                                        ? "text-amber-600 dark:text-amber-400"
+                                        : ""
+                                    }`}>
+                                    {t(
+                                      "playground:composer.compareMaxHelper",
+                                      "Selected {{current}} / {{limit}}",
+                                      {
+                                        current: compareSelectedModels.length,
+                                        limit:
+                                          compareMaxModels || MAX_COMPARE_MODELS
+                                      }
+                                    )}
+                                  </span>
+                                </div>
+                              )}
                             </div>
                             <Tooltip
                               title={
@@ -1984,7 +2096,7 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
                 </form>
               </div>
               {form.errors.message && (
-                <div className="text-red-500 text-center text-sm mt-1">
+                <div className="text-red-600 dark:text-red-400 text-center text-sm mt-2 px-3 py-2 bg-red-50 dark:bg-red-900/20 rounded-md border border-red-200 dark:border-red-800 transition-opacity">
                   {form.errors.message}
                 </div>
               )}
@@ -1998,7 +2110,9 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
         title={t("playground:composer.contextManagerTitle", "Context Management")}
         onCancel={() => setIsContextModalOpen(false)}
         footer={null}
-        width={760}
+        width="90%"
+        style={{ maxWidth: 760 }}
+        keyboard={true}
         destroyOnHidden>
         <div className="flex flex-col gap-5">
           <div className="flex items-start justify-between gap-3">

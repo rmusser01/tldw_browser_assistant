@@ -76,6 +76,15 @@ export const QuickChatHelperModal: React.FC<Props> = ({ open, onClose }) => {
     "quickChatHelper.popOutDisabled",
     "Pop-out is disabled when there are no messages. Start a conversation first."
   )
+  const connectionLabel = isConnectionReady
+    ? t("common:connected", "Connected")
+    : t("common:notConnected", "Not connected")
+  const connectionBadgeClass = isConnectionReady
+    ? "border-emerald-200 bg-emerald-50 text-emerald-700 dark:border-emerald-500/40 dark:bg-emerald-500/10 dark:text-emerald-100"
+    : "border-amber-200 bg-amber-50 text-amber-700 dark:border-amber-500/40 dark:bg-amber-500/10 dark:text-amber-100"
+  const connectionDotClass = isConnectionReady
+    ? "bg-emerald-500"
+    : "bg-amber-500"
   const descriptionId =
     messages.length === 0 ? "quick-chat-description" : undefined
 
@@ -85,31 +94,18 @@ export const QuickChatHelperModal: React.FC<Props> = ({ open, onClose }) => {
         <div className="flex items-center justify-between pr-8">
           <div className="flex items-center gap-2">
             <span id="quick-chat-title">{title}</span>
-            {/* L18: Connection status indicator */}
-            <Tooltip
-              title={
-                isConnectionReady
-                  ? t("common:connected", "Connected")
-                  : t("common:notConnected", "Not connected")
-              }
+            <span
+              role="status"
+              aria-live="polite"
+              className={`inline-flex items-center gap-1 rounded-full border px-2 py-0.5 text-[11px] font-medium ${connectionBadgeClass}`}
             >
-              <span
-                className={`inline-flex h-2 w-2 rounded-full ${
-                  isConnectionReady
-                    ? "bg-green-500"
-                    : "bg-amber-500"
-                }`}
-                aria-label={
-                  isConnectionReady
-                    ? t("common:connected", "Connected")
-                    : t("common:notConnected", "Not connected")
-                }
-              />
-            </Tooltip>
+              <span className={`h-1.5 w-1.5 rounded-full ${connectionDotClass}`} />
+              <span>{connectionLabel}</span>
+            </span>
           </div>
           <Tooltip
             title={messages.length === 0 ? popOutDisabledTooltip : popOutLabel}
-            overlayStyle={messages.length === 0 ? { maxWidth: '200px' } : undefined}
+            styles={messages.length === 0 ? { root: { maxWidth: '200px' } } : undefined}
           >
             <Button
               type="text"

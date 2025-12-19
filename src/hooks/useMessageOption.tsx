@@ -33,7 +33,7 @@ import { useAntdNotification } from "./useAntdNotification"
 import { tldwClient } from "@/services/tldw/TldwApiClient"
 import { getActorSettingsForChat } from "@/services/actor-settings"
 
-// Max models per compare turn (Phase 3 polish)
+// Default max models per compare turn (Phase 3 polish)
 export const MAX_COMPARE_MODELS = 3
 
 export const useMessageOption = () => {
@@ -132,6 +132,12 @@ export const useMessageOption = () => {
   const [speechToTextLanguage, setSpeechToTextLanguage] = useStorage(
     "speechToTextLanguage",
     "en-US"
+  )
+
+  // Per-user configurable max compare models (2–4, default 3)
+  const [compareMaxModels, setCompareMaxModels] = useStorage(
+    "compareMaxModels",
+    MAX_COMPARE_MODELS
   )
   const { ttsEnabled } = useWebUI()
 
@@ -388,6 +394,11 @@ export const useMessageOption = () => {
 
   const validateBeforeSubmitFn = () => {
     if (compareMode) {
+      const maxModels =
+        typeof compareMaxModels === "number" && compareMaxModels > 0
+          ? compareMaxModels
+          : MAX_COMPARE_MODELS
+
       if (!compareSelectedModels || compareSelectedModels.length === 0) {
         notification.error({
           message: t("error"),
@@ -398,13 +409,13 @@ export const useMessageOption = () => {
         })
         return false
       }
-      if (compareSelectedModels.length > MAX_COMPARE_MODELS) {
+      if (compareSelectedModels.length > maxModels) {
         notification.error({
           message: t("error"),
           description: t(
             "playground:composer.compareMaxModels",
             "You can compare up to {{limit}} models per turn.",
-            { limit: MAX_COMPARE_MODELS }
+            { limit: maxModels }
           )
         })
         return false
@@ -523,6 +534,11 @@ export const useMessageOption = () => {
             enhancedChatModeParams
           )
         } else {
+          const maxModels =
+            typeof compareMaxModels === "number" && compareMaxModels > 0
+              ? compareMaxModels
+              : MAX_COMPARE_MODELS
+
           const modelsRaw =
             compareSelectedModels && compareSelectedModels.length > 0
               ? compareSelectedModels
@@ -533,17 +549,17 @@ export const useMessageOption = () => {
             throw new Error("No models selected for Compare mode")
           }
           const models =
-            modelsRaw.length > MAX_COMPARE_MODELS
-              ? modelsRaw.slice(0, MAX_COMPARE_MODELS)
+            modelsRaw.length > maxModels
+              ? modelsRaw.slice(0, maxModels)
               : modelsRaw
 
-          if (modelsRaw.length > MAX_COMPARE_MODELS) {
+          if (modelsRaw.length > maxModels) {
             notification.warning({
               message: t("error"),
               description: t(
                 "playground:composer.compareMaxModelsTrimmed",
                 "Compare is limited to {{limit}} models per turn. Using the first {{limit}} selected models.",
-                { limit: MAX_COMPARE_MODELS }
+                { limit: maxModels }
               )
             })
           }
@@ -792,6 +808,8 @@ export const useMessageOption = () => {
     compareCanonicalByCluster,
     setCompareCanonicalForCluster,
     compareSplitChats,
-    setCompareSplitChat
+    setCompareSplitChat,
+    compareMaxModels,
+    setCompareMaxModels
   }
 }

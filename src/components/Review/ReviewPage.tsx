@@ -657,11 +657,10 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({
         setKeywordOptions(preloadedKeywords)
         return
       }
+
       try {
-        const cfg = await tldwClient.getConfig()
-        const base = String(cfg?.serverUrl || "").replace(/\/$/, "")
         const abs = await bgRequest<any>({
-          path: `${base}/api/v1/notes/keywords/search/?query=${encodeURIComponent(q)}&limit=10` as any,
+          path: `/api/v1/notes/keywords/search/?query=${encodeURIComponent(q)}&limit=10` as any,
           method: "GET" as any
         })
         const serverOpts: string[] = Array.isArray(abs)
@@ -1159,10 +1158,9 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({
     ;(async () => {
       try {
         if (!isOnline) return
-        const cfg = await tldwClient.getConfig()
-        const base = String(cfg?.serverUrl || "").replace(/\/$/, "")
+
         const abs = await bgRequest<any>({
-          path: `${base}/api/v1/notes/keywords/?limit=200` as any,
+          path: `/api/v1/notes/keywords/?limit=200` as any,
           method: "GET" as any
         })
         const arr: string[] = Array.isArray(abs)
@@ -1175,7 +1173,9 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({
         const uniq = Array.from(new Set<string>(arr)) as string[]
         setPreloadedKeywords(uniq)
         if (uniq.length) setKeywordOptions(uniq)
-      } catch {}
+      } catch {
+        // Keyword preload failed - will fall back to local filtering
+      }
     })()
   }, [isOnline])
 

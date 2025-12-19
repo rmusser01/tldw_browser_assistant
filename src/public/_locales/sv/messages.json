@@ -122,19 +122,19 @@
     "description": "Hjälptext som förklarar autentiseringslägena Single User och Multi User."
   },
   "apiKeyHelp": {
-    "message": "Hitta din API-nyckel i tldw_server \u2192 Settings \u2192 API Keys. Skapa en nyckel där och klistra in den här.",
+    "message": "Hitta din API-nyckel i tldw_server → Settings → API Keys. Skapa en nyckel där och klistra in den här.",
     "description": "Hjälptext som anger var API-nyckeln finns."
   },
   "authStepAria": {
-    "message": "Steg 3 av 4 \u2014 konfiguration av autentisering",
+    "message": "Steg 3 av 4 — konfiguration av autentisering",
     "description": "Aria-etikett för autentiseringssteget i onboarding."
   },
   "confirmStepAria": {
-    "message": "Steg 4 av 4 \u2014 sammanfattning av anslutning och nästa steg",
+    "message": "Steg 4 av 4 — sammanfattning av anslutning och nästa steg",
     "description": "Aria-etikett för bekräftelsesteget i onboarding."
   },
   "nextSteps": {
-    "message": "Du \u00e4r redo att b\u00f6rja",
+    "message": "Du är redo att börja",
     "description": "Rubrik för sista onboarding-panelen med nästa steg."
   },
   "notesEmpty_connectTitle": {
@@ -144,7 +144,7 @@
     "message": "För att använda Anteckningar måste du först ansluta till din tldw-server."
   },
   "notesEmpty_connectExample1": {
-    "message": "Öppna Settings \u2192 tldw server för att lägga till din server-URL."
+    "message": "Öppna Settings → tldw server för att lägga till din server-URL."
   },
   "notesEmpty_connectExample2": {
     "message": "Använd Diagnostics om din server körs men inte kan nås."
@@ -174,7 +174,7 @@
     "message": "Beslut, hinder och uppföljningar från en nylig teamsynk."
   },
   "notesEmpty_demoSample1Meta": {
-    "message": "Idag \u00b7 09:32"
+    "message": "Idag · 09:32"
   },
   "notesEmpty_demoSample2Title": {
     "message": "Demoanteckning: forskningshöjdpunkter"
@@ -183,7 +183,7 @@
     "message": "Viktiga insikter hämtade från en lång artikel eller rapport."
   },
   "notesEmpty_demoSample2Meta": {
-    "message": "Igår \u00b7 16:10"
+    "message": "Igår · 16:10"
   },
   "notesEmpty_demoSample3Title": {
     "message": "Demoanteckning: sammanfattning av samtal"
@@ -360,5 +360,17 @@
   },
   "specFallbackWarning": {
     "message": "Använder inbyggd reservschema för media.add (v{{version}}); verifiera mot din tldw_server /openapi.json om fälten verkar inaktuella."
+  },
+  "noToolCalls": {
+    "message": "Inga verktygsanrop ännu"
+  },
+  "arguments": {
+    "message": "Argument"
+  },
+  "invalidJson": {
+    "message": "Ogiltig JSON; visar råvärde"
+  },
+  "result": {
+    "message": "Resultat"
   }
 }

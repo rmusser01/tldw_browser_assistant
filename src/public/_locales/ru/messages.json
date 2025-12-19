@@ -122,7 +122,7 @@
     "description": "Справочный текст, объясняющий режимы аутентификации Single User и Multi User."
   },
   "apiKeyHelp": {
-    "message": "Найдите свой API-ключ в tldw_server \u2192 Settings \u2192 API Keys. Сгенерируйте там ключ и вставьте его сюда.",
+    "message": "Найдите свой API-ключ в tldw_server → Settings → API Keys. Сгенерируйте там ключ и вставьте его сюда.",
     "description": "Справочный текст, описывающий, где найти API-ключ."
   },
   "authStepAria": {
@@ -176,7 +176,7 @@
     "message": "Чтобы использовать «Заметки», сначала подключитесь к своему серверу tldw."
   },
   "notesEmpty_connectExample1": {
-    "message": "Откройте «Настройки» \u2192 «tldw server» и добавьте URL вашего сервера."
+    "message": "Откройте «Настройки» → «tldw server» и добавьте URL вашего сервера."
   },
   "notesEmpty_connectExample2": {
     "message": "Если сервер запущен, но недоступен, воспользуйтесь разделом «Диагностика»."
@@ -206,7 +206,7 @@
     "message": "Решения, блокеры и последующие действия из недавнего командного созвона."
   },
   "notesEmpty_demoSample1Meta": {
-    "message": "Сегодня \u00b7 9:32"
+    "message": "Сегодня · 9:32"
   },
   "notesEmpty_demoSample2Title": {
     "message": "Демо‑заметка: ключевые выводы исследования"
@@ -215,7 +215,7 @@
     "message": "Ключевые выводы, извлечённые из длинной статьи или научной работы."
   },
   "notesEmpty_demoSample2Meta": {
-    "message": "Вчера \u00b7 16:10"
+    "message": "Вчера · 16:10"
   },
   "notesEmpty_demoSample3Title": {
     "message": "Демо‑заметка: краткое содержание звонка"
@@ -407,5 +407,17 @@
   "specFallbackWarning": {
     "message": "Используется встроенный резервный вариант схемы media.add (v{{version}}); проверьте tldw_server /openapi.json, если поля выглядят устаревшими.",
     "description": "Warning shown when the Quick Ingest advanced schema falls back to the bundled schema; contains the bundled schema version."
+  },
+  "noToolCalls": {
+    "message": "Пока нет вызовов инструментов"
+  },
+  "arguments": {
+    "message": "Аргументы"
+  },
+  "invalidJson": {
+    "message": "Некорректный JSON; показывается исходное значение"
+  },
+  "result": {
+    "message": "Результат"
   }
 }

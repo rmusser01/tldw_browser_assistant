@@ -17,7 +17,7 @@
   },
   "formError": {
     "noModel": "Please select a model",
-    "noEmbeddingModel": "Please set an embedding model on the Settings > RAG page"
+    "noEmbeddingModel": "Please set an embedding model on the Settings > Knowledge page"
   },
   "form": {
     "textarea": {
@@ -43,7 +43,7 @@
   },
   "more": {
     "history": "Chat saving",
-    "searchRag": "Search & RAG",
+    "searchRag": "Search & Knowledge",
     "voice": "More voice options",
     "uploads": "Uploads & ingest"
   },
@@ -64,7 +64,7 @@
   "sendWhenEnter": "Send when Enter pressed",
     "welcome": "Hello! How can I help you today?",
   "useOCR": "Extract text from image (OCR)",
-  "fileRetrievalEnabled": "Enable RAG for Documents",
+  "fileRetrievalEnabled": "Enable Knowledge Search for Documents",
   "stt": {
     "title": "STT Playground",
     "subtitle": "Try out transcription models, run longer dictation sessions, and save transcripts into Notes.",
@@ -188,6 +188,12 @@
     "saveSnippetError": "Failed to save snippet. Check your connection and try again.",
     "saveSnippetEmpty": "Snippet cannot be empty",
     "connectToSend": "Connect to your tldw server in Settings to send messages and view media."
+    ,
+    "compareMaxModelsTitle": "Compare limit reached",
+    "compareMaxModels": "You can compare up to {{limit}} models per turn.",
+    "compareMaxModelsTrimmed": "Compare is limited to {{limit}} models per turn. Using the first {{limit}} selected models.",
+    "compareMaxLabel": "Max models per turn",
+    "compareMaxHelper": "Selected {{current}} / {{limit}}"
   },
   "actor": {
     "title": "Scene Director (Actor)",

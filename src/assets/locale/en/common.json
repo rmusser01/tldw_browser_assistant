@@ -291,5 +291,49 @@
   "noToolCalls": "No tool calls yet",
   "arguments": "Arguments",
   "invalidJson": "Invalid JSON; showing raw value",
-  "result": "Result"
+  "result": "Result",
+  "commandPalette": {
+    "toggleKnowledgeSearch": "Toggle Knowledge Search",
+    "toggleKnowledgeSearchDesc": "Search your knowledge base"
+  },
+  "featureHints": {
+    "knowledge": {
+      "title": "Chat with your knowledge",
+      "description": "Enable this to search your documents and include relevant context in your chats."
+    },
+    "moreTools": {
+      "title": "More tools available",
+      "description": "Access vision mode, image upload, quick ingest, and links to the full UI."
+    },
+    "commandPalette": {
+      "title": "Quick commands",
+      "description": "Press Cmd+K to search commands, settings, and more."
+    },
+    "modelSettings": {
+      "title": "Adjust model parameters",
+      "description": "Fine-tune temperature, context length, and other model settings."
+    }
+  },
+  "chatSidebar": {
+    "title": "Chats",
+    "newChat": "New Chat",
+    "collapse": "Collapse sidebar",
+    "expand": "Expand sidebar",
+    "search": "Search chats...",
+    "ingest": "Ingest Page",
+    "media": "Media",
+    "notes": "Notes",
+    "settings": "Settings",
+    "loadError": "Failed to load chats",
+    "localTab": "Local",
+    "serverTab": "Server",
+    "foldersTab": "Folders",
+    "tabs": {
+      "local": "Local",
+      "server": "Server",
+      "folders": "Folders"
+    },
+    "noServerChats": "No server chats yet",
+    "foldersRequireConnection": "Folders require a server connection"
+  }
 }

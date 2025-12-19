@@ -39,7 +39,8 @@ export const SidePanelBody = ({
     count: messages.length,
     getScrollElement: () => parentEl,
     estimateSize: () => 120,
-    overscan: 6,
+    // Reduced from 6 to 3 for better performance on large conversations
+    overscan: 3,
     measureElement: (el) => el?.getBoundingClientRect().height || 120
   })
 
@@ -88,7 +89,7 @@ export const SidePanelBody = ({
                   images={message.images || []}
                   currentMessageIndex={index}
                   totalMessages={messages.length}
-                  onRengerate={regenerateLastMessage}
+                  onRegenerate={regenerateLastMessage}
                   message_type={message.messageType}
                   isProcessing={isProcessing}
                   isSearchingInternet={isSearchingInternet}
@@ -114,7 +115,6 @@ export const SidePanelBody = ({
           })}
         </div>
       </div>
-      <div className="w-full pb-[157px]"></div>
 
       <MessageSourcePopup
         open={isSourceOpen}

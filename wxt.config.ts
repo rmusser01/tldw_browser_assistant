@@ -7,6 +7,10 @@ import MagicString from "magic-string"
 import { walk } from "estree-walker"
 import type { Plugin } from "vite"
 import { fileURLToPath } from "url"
+import { createRequire } from "module"
+
+const require = createRequire(import.meta.url)
+const pkg = require("./package.json")
 
 const isFirefox = process.env.TARGET === "firefox"
 const projectRoot = path.dirname(fileURLToPath(import.meta.url))
@@ -216,7 +220,7 @@ export default defineConfig({
   outDir: "build",
 
   manifest: ({
-    version: "0.1.0",
+    version: pkg.version,
     name:
       process.env.TARGET === "firefox"
         ? "tldw Assistant"

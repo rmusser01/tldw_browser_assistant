@@ -122,15 +122,15 @@
     "description": "Hilfetext, der die Authentifizierungsmodi Single User vs Multi User erklärt."
   },
   "apiKeyHelp": {
-    "message": "Du findest deinen API-Key in tldw_server \u2192 Settings \u2192 API Keys. Erzeuge dort einen Schlüssel und füge ihn hier ein.",
+    "message": "Du findest deinen API-Key in tldw_server → Settings → API Keys. Erzeuge dort einen Schlüssel und füge ihn hier ein.",
     "description": "Hilfetext, der beschreibt, wo der API-Key zu finden ist."
   },
   "authStepAria": {
-    "message": "Schritt 3 von 4 \u2014 Wähle, wie du dich anmeldest",
+    "message": "Schritt 3 von 4 — Wähle, wie du dich anmeldest",
     "description": "Aria-Label für den Authentifizierungsschritt im Onboarding."
   },
   "confirmStepAria": {
-    "message": "Schritt 4 von 4 \u2014 Verbindung bestätigen und nächste Schritte ansehen",
+    "message": "Schritt 4 von 4 — Verbindung bestätigen und nächste Schritte ansehen",
     "description": "Aria-Label für den Bestätigungsschritt im Onboarding."
   },
   "nextSteps": {
@@ -144,16 +144,16 @@
     "message": "Um Notizen zu verwenden, verbinde dich zuerst mit deinem tldw server."
   },
   "notesEmpty_connectExample1": {
-    "message": "\u00d6ffne Settings \u2192 tldw server, um deine Server-URL hinzuzuf\u00fcgen."
+    "message": "Öffne Settings → tldw server, um deine Server-URL hinzuzufügen."
   },
   "notesEmpty_connectExample2": {
-    "message": "Verwende Diagnostics, wenn dein Server l\u00e4uft, aber nicht erreichbar ist."
+    "message": "Verwende Diagnostics, wenn dein Server läuft, aber nicht erreichbar ist."
   },
   "notesEmpty_demoTitle": {
     "message": "Erkunde Notizen im Demo-Modus"
   },
   "notesEmpty_demoDescription": {
-    "message": "Diese Demo zeigt, wie Notizen deine Erkenntnisse organisieren k\u00f6nnen. Du kannst sp\u00e4ter deinen eigenen Server verbinden, um echte Notizen zu erstellen und zu speichern."
+    "message": "Diese Demo zeigt, wie Notizen deine Erkenntnisse organisieren können. Du kannst später deinen eigenen Server verbinden, um echte Notizen zu erstellen und zu speichern."
   },
   "notesEmpty_demoExample1": {
     "message": "Sieh dir an, wie Notentitel, Vorschaun und Zeitstempel in der Liste erscheinen."
@@ -168,13 +168,13 @@
     "message": "Beispielnotizen (nur Vorschau)"
   },
   "notesEmpty_demoSample1Title": {
-    "message": "Demo-Notiz: W\u00f6chentliche Meeting-Zusammenfassung"
+    "message": "Demo-Notiz: Wöchentliche Meeting-Zusammenfassung"
   },
   "notesEmpty_demoSample1Preview": {
     "message": "Entscheidungen, Blocker und Follow-ups aus einem aktuellen Teammeeting."
   },
   "notesEmpty_demoSample1Meta": {
-    "message": "Heute \u00b7 9:32 AM"
+    "message": "Heute · 9:32 AM"
   },
   "notesEmpty_demoSample2Title": {
     "message": "Demo-Notiz: Forschungshighlights"
@@ -183,13 +183,13 @@
     "message": "Wichtige Erkenntnisse aus einem langen Artikel oder Paper."
   },
   "notesEmpty_demoSample2Meta": {
-    "message": "Gestern \u00b7 4:10 PM"
+    "message": "Gestern · 4:10 PM"
   },
   "notesEmpty_demoSample3Title": {
     "message": "Demo-Notiz: Anrufzusammenfassung"
   },
   "notesEmpty_demoSample3Preview": {
-    "message": "Zusammenfassung eines Kundengespr\u00e4chs mit n\u00e4chsten Schritten und Verantwortlichen."
+    "message": "Zusammenfassung eines Kundengesprächs mit nächsten Schritten und Verantwortlichen."
   },
   "notesEmpty_demoSample3Meta": {
     "message": "Diese Woche"
@@ -198,13 +198,13 @@
     "message": "Noch keine Notizen"
   },
   "notesEmpty_description": {
-    "message": "Erfasse und organisiere Freitextnotizen, die mit deinen tldw-Insights verkn\u00fcpft sind."
+    "message": "Erfasse und organisiere Freitextnotizen, die mit deinen tldw-Insights verknüpft sind."
   },
   "notesEmpty_exampleCreate": {
-    "message": "Erstelle eine neue Notiz zu einem k\u00fcrzlichen Meeting oder Transkript."
+    "message": "Erstelle eine neue Notiz zu einem kürzlichen Meeting oder Transkript."
   },
   "notesEmpty_exampleLink": {
-    "message": "Speichere Review-Ergebnisse in Notizen, damit du sp\u00e4ter darauf zur\u00fcckkommen kannst."
+    "message": "Speichere Review-Ergebnisse in Notizen, damit du später darauf zurückkommen kannst."
   },
   "notesEmpty_primaryCta": {
     "message": "Notiz erstellen"
@@ -359,5 +359,17 @@
   },
   "specFallbackWarning": {
     "message": "Verwende gebündelte media.add Schema-Fallback (v{{version}}); bitte überprüfe die /openapi.json deines tldw_server, falls Felder veraltet erscheinen."
+  },
+  "noToolCalls": {
+    "message": "Noch keine Tool-Aufrufe"
+  },
+  "arguments": {
+    "message": "Argumente"
+  },
+  "invalidJson": {
+    "message": "Ungültiges JSON; Rohwert wird angezeigt"
+  },
+  "result": {
+    "message": "Ergebnis"
   }
 }

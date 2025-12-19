@@ -335,13 +335,15 @@ export const DiffViewer: FC<DiffViewerProps> = ({
         <div className="flex items-center gap-2">
           <button
             onClick={selectAllHunks}
-            className="text-xs px-2 py-1 rounded hover:bg-gray-200 dark:hover:bg-gray-700"
+            className="text-xs px-2 py-1 rounded hover:bg-gray-200 dark:hover:bg-gray-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-pink-500"
+            aria-label={t("selectAllHunks", "Select all diff hunks")}
           >
             {t("selectAll", "Select All")}
           </button>
           <button
             onClick={deselectAllHunks}
-            className="text-xs px-2 py-1 rounded hover:bg-gray-200 dark:hover:bg-gray-700"
+            className="text-xs px-2 py-1 rounded hover:bg-gray-200 dark:hover:bg-gray-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-pink-500"
+            aria-label={t("deselectAllHunks", "Deselect all diff hunks")}
           >
             {t("deselectAll", "Deselect All")}
           </button>
@@ -362,7 +364,9 @@ export const DiffViewer: FC<DiffViewerProps> = ({
             {/* File header */}
             <button
               onClick={() => collapsible && toggleFile(diff.id)}
-              className="w-full flex items-center gap-2 px-3 py-2 bg-gray-50 dark:bg-gray-800/50 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors text-left"
+              className="w-full flex items-center gap-2 px-3 py-2 bg-gray-50 dark:bg-gray-800/50 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-pink-500"
+              aria-expanded={isExpanded}
+              aria-label={`${getFilePath(diff)} - ${isExpanded ? t("collapse", "Collapse") : t("expand", "Expand")}`}
             >
               {collapsible && (
                 isExpanded
@@ -407,8 +411,9 @@ export const DiffViewer: FC<DiffViewerProps> = ({
                         <div className="flex items-center gap-2">
                           <button
                             onClick={() => copyHunk(hunk)}
-                            className="p-1 rounded hover:bg-blue-100 dark:hover:bg-blue-900/40"
+                            className="p-1 rounded hover:bg-blue-100 dark:hover:bg-blue-900/40 focus:outline-none focus-visible:ring-2 focus-visible:ring-pink-500"
                             title={t("copyHunk", "Copy hunk")}
+                            aria-label={t("copyHunk", "Copy hunk")}
                           >
                             {copiedHunk === hunk.id ? (
                               <CheckCheck className="size-3.5 text-green-500" />
@@ -418,12 +423,14 @@ export const DiffViewer: FC<DiffViewerProps> = ({
                           </button>
                           <button
                             onClick={() => toggleHunk(hunk.id)}
-                            className={`size-5 rounded border flex items-center justify-center transition-colors ${
+                            className={`size-5 rounded border flex items-center justify-center transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-pink-500 ${
                               isSelected
                                 ? "bg-blue-500 border-blue-500"
                                 : "border-gray-300 dark:border-gray-600 hover:border-blue-400"
                             }`}
                             title={isSelected ? t("deselectHunk", "Deselect hunk") : t("selectHunk", "Select hunk")}
+                            aria-label={isSelected ? t("deselectHunk", "Deselect hunk") : t("selectHunk", "Select hunk")}
+                            aria-pressed={isSelected}
                           >
                             {isSelected && <Check className="size-3 text-white" />}
                           </button>

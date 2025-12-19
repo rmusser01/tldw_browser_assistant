@@ -122,15 +122,15 @@
     "description": "Testo esplicativo per le modalità di autenticazione Single User e Multi User."
   },
   "apiKeyHelp": {
-    "message": "Trova la tua API key in tldw_server \u2192 Settings \u2192 API Keys. Genera lì una chiave e incollala qui.",
+    "message": "Trova la tua API key in tldw_server → Settings → API Keys. Genera lì una chiave e incollala qui.",
     "description": "Testo che indica dove trovare la API key."
   },
   "authStepAria": {
-    "message": "Passaggio 3 di 4 \u2014 scegli come effettuare l’accesso",
+    "message": "Passaggio 3 di 4 — scegli come effettuare l’accesso",
     "description": "Etichetta aria per il passaggio di scelta della modalità di accesso."
   },
   "confirmStepAria": {
-    "message": "Passaggio 4 di 4 \u2014 conferma la connessione e verifica i prossimi passi",
+    "message": "Passaggio 4 di 4 — conferma la connessione e verifica i prossimi passi",
     "description": "Etichetta aria per il passaggio di conferma della connessione."
   },
   "nextSteps": {
@@ -144,16 +144,16 @@
     "message": "Per usare Note, collega prima il tuo server tldw."
   },
   "notesEmpty_connectExample1": {
-    "message": "Apri Impostazioni \u2192 server tldw per aggiungere l'URL del tuo server."
+    "message": "Apri Impostazioni → server tldw per aggiungere l'URL del tuo server."
   },
   "notesEmpty_connectExample2": {
-    "message": "Usa Diagnostica se il server \u00e8 in esecuzione ma non \u00e8 raggiungibile."
+    "message": "Usa Diagnostica se il server è in esecuzione ma non è raggiungibile."
   },
   "notesEmpty_demoTitle": {
-    "message": "Esplora Note in modalit\u00e0 demo"
+    "message": "Esplora Note in modalità demo"
   },
   "notesEmpty_demoDescription": {
-    "message": "Questa demo mostra come Note pu\u00f2 organizzare le tue informazioni. Pi\u00f9 tardi potrai collegare il tuo server per creare e salvare note reali."
+    "message": "Questa demo mostra come Note può organizzare le tue informazioni. Più tardi potrai collegare il tuo server per creare e salvare note reali."
   },
   "notesEmpty_demoExample1": {
     "message": "Guarda come titoli, anteprime e orari delle note compaiono nell'elenco."
@@ -171,10 +171,10 @@
     "message": "Nota di esempio: riepilogo della riunione settimanale"
   },
   "notesEmpty_demoSample1Preview": {
-    "message": "Decisioni, blocchi e attivit\u00e0 di follow-up da un recente allineamento del team."
+    "message": "Decisioni, blocchi e attività di follow-up da un recente allineamento del team."
   },
   "notesEmpty_demoSample1Meta": {
-    "message": "Oggi \u00b7 9:32"
+    "message": "Oggi · 9:32"
   },
   "notesEmpty_demoSample2Title": {
     "message": "Nota di esempio: punti salienti della ricerca"
@@ -183,7 +183,7 @@
     "message": "Approfondimenti chiave estratti da un lungo articolo o da un paper."
   },
   "notesEmpty_demoSample2Meta": {
-    "message": "Ieri \u00b7 16:10"
+    "message": "Ieri · 16:10"
   },
   "notesEmpty_demoSample3Title": {
     "message": "Nota di esempio: riepilogo chiamata"
@@ -204,7 +204,7 @@
     "message": "Crea una nuova nota per una riunione recente o una trascrizione."
   },
   "notesEmpty_exampleLink": {
-    "message": "Salva i risultati delle revisioni in Note cos\u00ec potrai rivederli in seguito."
+    "message": "Salva i risultati delle revisioni in Note così potrai rivederli in seguito."
   },
   "notesEmpty_primaryCta": {
     "message": "Crea nota"
@@ -359,5 +359,17 @@
   },
   "specFallbackWarning": {
     "message": "In uso lo schema di fallback media.add incluso (v{{version}}); verifica sul tuo tldw_server /openapi.json se i campi sembrano obsoleti."
+  },
+  "noToolCalls": {
+    "message": "Nessuna chiamata di tool al momento"
+  },
+  "arguments": {
+    "message": "Argomenti"
+  },
+  "invalidJson": {
+    "message": "JSON non valido; viene mostrato il valore grezzo"
+  },
+  "result": {
+    "message": "Risultato"
   }
 }

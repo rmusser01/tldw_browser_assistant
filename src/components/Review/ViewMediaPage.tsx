@@ -645,42 +645,21 @@ const MediaPageContent: React.FC = () => {
   }, []) // Intentionally empty - runs only on mount with initial (empty) filters
 
   // Load keyword suggestions for the filter dropdown
+  // Note: /api/v1/media/keywords endpoint doesn't exist on the server
+  // So we extract keywords from the current search results instead
   const loadKeywordSuggestions = useCallback(async (searchText?: string) => {
-    try {
-      // Try to get keywords from media API
-      const endpoint = searchText && searchText.trim().length > 0
-        ? `/api/v1/media/keywords/search?query=${encodeURIComponent(searchText)}&limit=20`
-        : `/api/v1/media/keywords?limit=50`
-
-      const response = await bgRequest<any>({
-        path: endpoint as any,
-        method: 'GET' as any
-      })
-
-      let keywords: string[] = []
-      if (Array.isArray(response)) {
-        keywords = response
-          .map((x: any) => String(x?.keyword || x?.keyword_text || x?.text || x?.name || (typeof x === 'string' ? x : '')))
-          .filter(Boolean)
-      } else if (response?.items && Array.isArray(response.items)) {
-        keywords = response.items
-          .map((x: any) => String(x?.keyword || x?.keyword_text || x?.text || x?.name || (typeof x === 'string' ? x : '')))
-          .filter(Boolean)
-      }
-
-      setKeywordOptions(keywords)
-    } catch {
-      // Fallback: collect keywords from current results
-      const keywordsFromResults = new Set<string>()
-      for (const result of results) {
-        if (result.keywords) {
-          for (const kw of result.keywords) {
+    const keywordsFromResults = new Set<string>()
+    for (const result of results) {
+      if (result.keywords) {
+        for (const kw of result.keywords) {
+          // Filter by search text if provided
+          if (!searchText || kw.toLowerCase().includes(searchText.toLowerCase())) {
             keywordsFromResults.add(kw)
           }
         }
       }
-      setKeywordOptions(Array.from(keywordsFromResults))
     }
+    setKeywordOptions(Array.from(keywordsFromResults))
   }, [results])
 
   // Load initial keyword suggestions

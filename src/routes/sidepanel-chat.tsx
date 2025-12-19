@@ -10,7 +10,8 @@ import { useSmartScroll } from "@/hooks/useSmartScroll"
 import {
   useChatShortcuts,
   useSidebarShortcuts,
-  useChatModeShortcuts
+  useChatModeShortcuts,
+  useWebSearchShortcuts
 } from "@/hooks/keyboard/useKeyboardShortcuts"
 import { useConnectionActions } from "@/hooks/useConnectionState"
 import { useAntdNotification } from "@/hooks/useAntdNotification"
@@ -25,6 +26,7 @@ import { useTranslation } from "react-i18next"
 import { SidePanelBody } from "~/components/Sidepanel/Chat/body"
 import { SidepanelForm } from "~/components/Sidepanel/Chat/form"
 import { SidepanelHeaderSimple } from "~/components/Sidepanel/Chat/SidepanelHeaderSimple"
+import { ConnectionBanner } from "~/components/Sidepanel/Chat/ConnectionBanner"
 import NoteQuickSaveModal from "~/components/Sidepanel/Notes/NoteQuickSaveModal"
 import { useMessage } from "~/hooks/useMessage"
 
@@ -61,6 +63,7 @@ const SidepanelChat = () => {
   const [dropedFile, setDropedFile] = React.useState<File | undefined>()
   const [sidebarOpen, setSidebarOpen] = React.useState(false)
   const [searchQuery, setSearchQuery] = React.useState("")
+  const [composerHeight, setComposerHeight] = React.useState(0)
   const { t } = useTranslation(["playground", "sidepanel", "common"])
   // Per-tab storage (Chrome side panel) or per-window/global (Firefox sidebar).
   // tabId: undefined = not resolved yet, null = resolved but unavailable.
@@ -114,7 +117,9 @@ const SidepanelChat = () => {
     setChatMode,
     setTemporaryChat,
     sidepanelTemporaryChat,
-    clearChat
+    clearChat,
+    webSearch,
+    setWebSearch
   } = useMessage()
   const { containerRef, isAutoScrollToBottom, autoScrollToBottom } =
     useSmartScroll(messages, streaming, 100)
@@ -199,9 +204,14 @@ const SidepanelChat = () => {
     setChatMode(chatMode === "rag" ? "normal" : "rag")
   }
 
+  const toggleWebSearchMode = () => {
+    setWebSearch(!webSearch)
+  }
+
   useChatShortcuts(clearChat, true)
   useSidebarShortcuts(toggleSidebar, true)
   useChatModeShortcuts(toggleChatMode, true)
+  useWebSearchShortcuts(toggleWebSearchMode, true)
 
   const [chatBackgroundImage] = useStorage({
     key: "chatBackgroundImage",
@@ -566,6 +576,7 @@ const SidepanelChat = () => {
             searchQuery={searchQuery}
             setSearchQuery={setSearchQuery}
           />
+          <ConnectionBanner />
         </div>
         <div
           ref={drop}
@@ -623,7 +634,8 @@ const SidepanelChat = () => {
             aria-live="polite"
             aria-relevant="additions"
             aria-label={t("playground:aria.chatTranscript", "Chat messages")}
-            className="custom-scrollbar flex h-full w-full flex-col items-center overflow-x-hidden overflow-y-auto px-5 relative z-10">
+            className="custom-scrollbar flex h-full w-full flex-col items-center overflow-x-hidden overflow-y-auto px-5 relative z-10"
+            style={{ paddingBottom: composerHeight ? composerHeight + 16 : 160 }}>
             {isRestoringChat ? (
               <div
                 className="relative flex w-full flex-col items-center pt-16 pb-4"
@@ -663,7 +675,11 @@ const SidepanelChat = () => {
                 </button>
               </div>
             )}
-            <SidepanelForm dropedFile={dropedFile} inputRef={textareaRef} />
+            <SidepanelForm
+              dropedFile={dropedFile}
+              inputRef={textareaRef}
+              onHeightChange={setComposerHeight}
+            />
           </div>
         </div>
       </main>

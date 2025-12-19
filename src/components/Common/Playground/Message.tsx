@@ -47,7 +47,7 @@ const ErrorBubble: React.FC<{
     <div
       role="alert"
       aria-live="assertive"
-      className="rounded-md border border-red-200 bg-red-50 p-3 text-sm text-red-800 dark:border-red-700 dark:bg-red-900/20 dark:text-red-100">
+      className="rounded-md border border-red-200 bg-red-50 p-3 text-sm text-red-800 dark:border-red-700 dark:bg-red-900/30 dark:text-red-100">
       <p className="font-semibold">{payload.summary}</p>
       {payload.hint && (
         <p className="mt-1 text-xs text-red-900 dark:text-red-100">
@@ -80,8 +80,8 @@ const ActionButtonWithLabel: React.FC<{
   <span className={`inline-flex items-center gap-1 ${className}`}>
     {icon}
     <span
-      className={`text-[10px] text-gray-500 dark:text-gray-400 hidden group-focus-within:inline ${
-        isLastMessage ? "inline" : ""
+      className={`text-[10px] text-gray-500 dark:text-gray-400 opacity-0 group-focus-within:opacity-100 transition-opacity ${
+        isLastMessage ? "opacity-100" : ""
       }`}
     >
       {label}
@@ -100,7 +100,7 @@ type Props = {
   images?: string[]
   currentMessageIndex: number
   totalMessages: number
-  onRengerate: () => void
+  onRegenerate: () => void
   onEditFormSubmit: (value: string, isSend: boolean) => void
   isProcessing: boolean
   webSearch?: {}
@@ -558,7 +558,7 @@ export const PlaygroundMessage = (props: Props) => {
                         })
                       }
                     }}
-                    className="flex items-center justify-center w-6 h-6 rounded-full bg-gray-100 dark:bg-[#242424] hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500">
+                    className="flex items-center justify-center w-10 h-10 sm:w-6 sm:h-6 rounded-full bg-gray-100 dark:bg-[#2d2d2d] hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500">
                     <ActionButtonWithLabel
                       icon={
                         !isSpeaking ? (
@@ -589,7 +589,7 @@ export const PlaygroundMessage = (props: Props) => {
                         setIsBtnPressed(false)
                       }, 2000)
                     }}
-                    className="flex items-center justify-center w-6 h-6 rounded-full bg-gray-100 dark:bg-[#242424] hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500">
+                    className="flex items-center justify-center w-10 h-10 sm:w-6 sm:h-6 rounded-full bg-gray-100 dark:bg-[#2d2d2d] hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500">
                     <ActionButtonWithLabel
                       icon={
                         !isBtnPressed ? (
@@ -614,7 +614,7 @@ export const PlaygroundMessage = (props: Props) => {
                       title={t("generationInfo")}>
                       <IconButton
                         ariaLabel={t("generationInfo") as string}
-                        className="flex items-center justify-center w-6 h-6 rounded-full bg-gray-100 dark:bg-[#242424] hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500">
+                        className="flex items-center justify-center w-10 h-10 sm:w-6 sm:h-6 rounded-full bg-gray-100 dark:bg-[#2d2d2d] hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500">
                         <ActionButtonWithLabel
                           icon={
                             <InfoIcon className="w-3 h-3 text-gray-400 group-hover:text-gray-500" />
@@ -630,8 +630,8 @@ export const PlaygroundMessage = (props: Props) => {
                     <Tooltip title={t("regenerate")}>
                       <IconButton
                         ariaLabel={t("regenerate") as string}
-                        onClick={props.onRengerate}
-                        className="flex items-center justify-center w-6 h-6 rounded-full bg-gray-100 dark:bg-[#242424] hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500">
+                        onClick={props.onRegenerate}
+                        className="flex items-center justify-center w-10 h-10 sm:w-6 sm:h-6 rounded-full bg-gray-100 dark:bg-[#2d2d2d] hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500">
                         <ActionButtonWithLabel
                           icon={
                             <RotateCcw className="w-3 h-3 text-gray-400 group-hover:text-gray-500" />
@@ -648,7 +648,7 @@ export const PlaygroundMessage = (props: Props) => {
                       <IconButton
                         ariaLabel={t("newBranch") as string}
                         onClick={props?.onNewBranch}
-                        className="flex items-center justify-center w-6 h-6 rounded-full bg-gray-100 dark:bg-[#242424] hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500">
+                        className="flex items-center justify-center w-10 h-10 sm:w-6 sm:h-6 rounded-full bg-gray-100 dark:bg-[#2d2d2d] hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500">
                         <ActionButtonWithLabel
                           icon={
                             <GitBranchIcon className="w-3 h-3 text-gray-400 group-hover:text-gray-500" />
@@ -665,7 +665,7 @@ export const PlaygroundMessage = (props: Props) => {
                       <IconButton
                         ariaLabel={t("continue") as string}
                         onClick={props?.onContinue}
-                        className="flex items-center justify-center w-6 h-6 rounded-full bg-gray-100 dark:bg-[#242424] hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500">
+                        className="flex items-center justify-center w-10 h-10 sm:w-6 sm:h-6 rounded-full bg-gray-100 dark:bg-[#2d2d2d] hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500">
                         <ActionButtonWithLabel
                           icon={
                             <PlayCircle className="w-3 h-3 text-gray-400 group-hover:text-gray-500" />
@@ -683,7 +683,7 @@ export const PlaygroundMessage = (props: Props) => {
                   <IconButton
                     onClick={() => setEditMode(true)}
                     ariaLabel={t("edit") as string}
-                    className="flex items-center justify-center w-6 h-6 rounded-full bg-gray-100 dark:bg-[#242424] hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500">
+                    className="flex items-center justify-center w-10 h-10 sm:w-6 sm:h-6 rounded-full bg-gray-100 dark:bg-[#2d2d2d] hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500">
                     <ActionButtonWithLabel
                       icon={
                         <Pen className="w-3 h-3 text-gray-400 group-hover:text-gray-500" />
@@ -698,7 +698,7 @@ export const PlaygroundMessage = (props: Props) => {
           ) : (
             // add invisible div to prevent layout shift
             <div className="invisible">
-              <div className="flex items-center justify-center w-6 h-6 rounded-full bg-gray-100 dark:bg-[#242424] hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500"></div>
+              <div className="flex items-center justify-center w-10 h-10 sm:w-6 sm:h-6 rounded-full bg-gray-100 dark:bg-[#2d2d2d]"></div>
             </div>
           )}
         </div>

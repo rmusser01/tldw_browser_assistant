@@ -17,7 +17,7 @@ import { Storage } from "@plasmohq/storage"
 import { createSafeStorage } from "@/utils/safe-storage"
 import { otherUnsupportedTypes } from "../Knowledge/utils/unsupported-types"
 import { useTranslation } from "react-i18next"
-import { useStoreMessageOption } from "~/store/option"
+import { useStoreMessageOption } from "@/store/option"
 export const Playground = () => {
   const drop = React.useRef<HTMLDivElement>(null)
   const [dropedFile, setDropedFile] = React.useState<File | undefined>()

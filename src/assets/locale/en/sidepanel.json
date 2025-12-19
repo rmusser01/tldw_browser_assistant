@@ -42,7 +42,7 @@
     "searchSection": "Search & Vision",
     "webSearch": "Web Search",
     "vision": "Vision",
-    "visionDisabledRag": "Disable RAG mode to use Vision",
+    "visionDisabledKnowledge": "Disable Knowledge Search to use Vision",
     "visionTooltip": "Enable Vision to analyze images",
     "uploadImage": "Upload Image",
     "quickIngest": "Quick Ingest Page",
@@ -51,11 +51,12 @@
     "modeMedia": "Media",
     "modeNotes": "Notes",
     "modeFlashcards": "Flashcards",
-    "ragSearch": "RAG Search",
+    "knowledgeSearch": "Knowledge Search",
+    "knowledge": "Knowledge",
     "moreTools": "More tools"
   },
   "toolbar": {
-    "ragSearch": "RAG Search"
+    "knowledgeSearch": "Knowledge Search"
   },
   "composer": {
     "connectHint": "Connect to your tldw server in Settings to send messages.",
@@ -84,11 +85,12 @@
   "rag": {
     "searchPlaceholder": "Search your knowledge…",
     "search": "Search",
-    "show": "Show RAG search",
-    "hide": "Hide RAG search",
+    "show": "Show Knowledge Search",
+    "hide": "Hide Knowledge Search",
     "addTagPlaceholder": "Add tag (Enter)",
     "add": "Add",
     "noResults": "No results",
+    "disconnected": "Connect to server to search knowledge base",
     "timeout": {
       "message": "Request timed out.",
       "retry": "Retry",
@@ -106,8 +108,37 @@
       "dismiss": "Dismiss"
     }
   },
+  "composer": {
+    "tempChatConfirmTitle": "Enable temporary mode?",
+    "tempChatConfirmContent": "This will clear your current conversation. Messages won't be saved.",
+    "tempChatClearedMessages": "Temporary chat enabled. Previous messages cleared.",
+    "clearQueueConfirmTitle": "Clear message queue?",
+    "clearQueueConfirmContent": "This will delete {{count}} queued message(s) that haven't been sent yet."
+  },
   "errors": {
     "privateModeTitle": "tldw Assistant can't save data",
     "privateModeDescription": "Firefox Private Mode does not support saving chat history. Temporary chat is enabled by default. More fixes coming soon."
+  },
+  "connectionBanner": {
+    "connecting": "Connecting to your tldw server...",
+    "authErrorTitle": "API key needs attention",
+    "authErrorBody": "Your server is reachable but the API key is wrong or missing.",
+    "unreachableTitle": "Can't reach your tldw server",
+    "unreachableBody": "Check that your server is running and accessible.",
+    "noUrlBody": "Add your server URL in Settings to get started.",
+    "disconnectedTitle": "Not connected to tldw server",
+    "disconnectedBody": "Open Settings to configure your server connection.",
+    "setupTitle": "Finish setup to start chatting",
+    "setupBody": "Complete the setup wizard in Settings to connect.",
+    "openSettings": "Open Settings"
+  },
+  "temporaryBadge": {
+    "title": "Temporary Chat",
+    "label": "Temp",
+    "description": "This chat won't be saved. Messages will be cleared when you close or start a new chat.",
+    "clickHint": "Click to disable",
+    "ariaLabel": "Temporary chat mode is active. Click to toggle.",
+    "indicatorTooltip": "Messages in this chat won't be saved",
+    "indicatorAria": "Temporary chat"
   }
 }

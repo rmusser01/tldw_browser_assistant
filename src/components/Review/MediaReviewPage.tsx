@@ -5,7 +5,6 @@ import { bgRequest } from "@/services/background-proxy"
 import { useQuery, keepPreviousData } from "@tanstack/react-query"
 import { useServerOnline } from "@/hooks/useServerOnline"
 import { CopyIcon, HelpCircle } from "lucide-react"
-import { tldwClient } from "@/services/tldw/TldwApiClient"
 import { useVirtualizer, type VirtualItem } from "@tanstack/react-virtual"
 import { ChevronDown, ChevronUp } from "lucide-react"
 import { useAntdMessage } from "@/hooks/useAntdMessage"
@@ -230,18 +229,18 @@ export const MediaReviewPage: React.FC = () => {
   // Keyword suggestions: preload and on-demand search
   const loadKeywordSuggestions = React.useCallback(async (q?: string) => {
     try {
-      const cfg = await tldwClient.getConfig()
-      const base = String(cfg?.serverUrl || "").replace(/\/$/, "")
       if (q && q.trim().length > 0) {
-        const abs = await bgRequest<any>({ path: `${base}/api/v1/notes/keywords/search/?query=${encodeURIComponent(q)}&limit=10` as any, method: 'GET' as any })
+        const abs = await bgRequest<any>({ path: `/api/v1/notes/keywords/search/?query=${encodeURIComponent(q)}&limit=10` as any, method: 'GET' as any })
         const arr = Array.isArray(abs) ? abs.map((x: any) => String(x?.keyword || x?.keyword_text || x?.text || "")).filter(Boolean) : []
         setKeywordOptions(arr)
       } else {
-        const abs = await bgRequest<any>({ path: `${base}/api/v1/notes/keywords/?limit=200` as any, method: 'GET' as any })
+        const abs = await bgRequest<any>({ path: `/api/v1/notes/keywords/?limit=200` as any, method: 'GET' as any })
         const arr = Array.isArray(abs) ? abs.map((x: any) => String(x?.keyword || x?.keyword_text || x?.text || "")).filter(Boolean) : []
         setKeywordOptions(arr)
       }
-    } catch {}
+    } catch {
+      // Keyword load failed - feature will use empty suggestions
+    }
   }, [])
 
   React.useEffect(() => { if (isOnline) void loadKeywordSuggestions() }, [loadKeywordSuggestions, isOnline])

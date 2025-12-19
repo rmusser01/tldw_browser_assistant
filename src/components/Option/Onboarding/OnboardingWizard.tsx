@@ -32,6 +32,15 @@ const isAuthMode = (value: SegmentedValue): value is AuthMode =>
 // Auto-finish is always enabled for better UX
 const AUTO_FINISH_ON_SUCCESS = true
 
+/**
+ * @deprecated This legacy multi-step wizard is being phased out in favor of
+ * OnboardingConnectForm, which provides a simpler single-page experience.
+ * The new form is now the default (NEW_ONBOARDING feature flag = true).
+ * This component will be removed in a future release.
+ *
+ * Migration: All new users see OnboardingConnectForm. The legacy wizard
+ * remains available via feature flag for users who explicitly disable it.
+ */
 const LegacyOnboardingWizard: React.FC<Props> = ({ onFinish }) => {
   const { t } = useTranslation(['settings', 'common'])
   const { setDemoEnabled } = useDemoMode()
@@ -494,8 +503,8 @@ const LegacyOnboardingWizard: React.FC<Props> = ({ onFinish }) => {
       setStepAnnouncement(stepLabels[activeStep] || `Step ${activeStep}`)
       prevStepRef.current = activeStep
 
-      // Clear announcement after a short delay
-      const clearTimer = setTimeout(() => setStepAnnouncement(null), 2000)
+      // Clear announcement after delay - extended for slower readers
+      const clearTimer = setTimeout(() => setStepAnnouncement(null), 4000)
       return () => clearTimeout(clearTimer)
     }
   }, [activeStep, t])
@@ -755,7 +764,7 @@ const LegacyOnboardingWizard: React.FC<Props> = ({ onFinish }) => {
                       ? "font-semibold text-blue-600 dark:text-blue-400"
                       : step.index < displayStep
                         ? "text-gray-600 dark:text-gray-300"
-                        : "text-gray-400 dark:text-gray-500"
+                        : "text-gray-500 dark:text-gray-400"
                   }`}
                 >
                   {step.label}

@@ -122,15 +122,15 @@
     "description": "Hjelpetekst som forklarer autentiseringsmodusene Single User og Multi User."
   },
   "apiKeyHelp": {
-    "message": "Finn API-nøkkelen din i tldw_server \u2192 Settings \u2192 API Keys. Generer en nøkkel der og lim den inn her.",
+    "message": "Finn API-nøkkelen din i tldw_server → Settings → API Keys. Generer en nøkkel der og lim den inn her.",
     "description": "Hjelpetekst som forklarer hvor API-nøkkelen finnes."
   },
   "authStepAria": {
-    "message": "Trinn 3 av 4 \u2014 velg hvordan du logger inn",
+    "message": "Trinn 3 av 4 — velg hvordan du logger inn",
     "description": "Aria-etikett for autentiseringssteget i onboarding."
   },
   "confirmStepAria": {
-    "message": "Trinn 4 av 4 \u2014 bekreft tilkoblingen og se gjennom neste trinn",
+    "message": "Trinn 4 av 4 — bekreft tilkoblingen og se gjennom neste trinn",
     "description": "Aria-etikett for bekreftelsessteget i onboarding."
   },
   "nextSteps": {
@@ -144,7 +144,7 @@
     "message": "For å bruke Notater må du først koble til tldw-serveren din."
   },
   "notesEmpty_connectExample1": {
-    "message": "\u00c5pne Innstillinger \u2192 tldw-server for å legge til server-URL-en din."
+    "message": "Åpne Innstillinger → tldw-server for å legge til server-URL-en din."
   },
   "notesEmpty_connectExample2": {
     "message": "Bruk Diagnostikk hvis serveren kjører men ikke kan nås."
@@ -174,7 +174,7 @@
     "message": "Beslutninger, hindringer og oppfølgingspunkter fra et nylig teammøte."
   },
   "notesEmpty_demoSample1Meta": {
-    "message": "I dag \u00b7 09:32"
+    "message": "I dag · 09:32"
   },
   "notesEmpty_demoSample2Title": {
     "message": "Eksempelnotat: forskningshøydepunkter"
@@ -183,7 +183,7 @@
     "message": "Viktige innsikter hentet fra en lang artikkel eller rapport."
   },
   "notesEmpty_demoSample2Meta": {
-    "message": "I går \u00b7 16:10"
+    "message": "I går · 16:10"
   },
   "notesEmpty_demoSample3Title": {
     "message": "Eksempelnotat: samtalereferat"
@@ -359,5 +359,17 @@
   },
   "specFallbackWarning": {
     "message": "Bruker innebygd media.add-skjemafallback (v{{version}}); vennligst verifiser mot tldw_server /openapi.json hvis feltene ser utdaterte ut."
+  },
+  "noToolCalls": {
+    "message": "Ingen verktøykall ennå"
+  },
+  "arguments": {
+    "message": "Argumenter"
+  },
+  "invalidJson": {
+    "message": "Ugyldig JSON; viser råverdi"
+  },
+  "result": {
+    "message": "Resultat"
   }
 }

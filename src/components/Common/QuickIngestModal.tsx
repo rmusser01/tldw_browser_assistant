@@ -1515,6 +1515,7 @@ export const QuickIngestModal: React.FC<Props> = ({
       onCancel={onClose}
       footer={null}
       width={760}
+      style={{ maxWidth: "calc(100vw - 32px)" }}
       destroyOnHidden
       rootClassName="quick-ingest-modal"
       maskClosable={!running}

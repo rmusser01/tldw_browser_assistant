@@ -166,15 +166,15 @@
     "description": "API キーの確認場所を説明するヘルプテキスト。"
   },
   "authStepAria": {
-    "message": "Step {{current}} of {{total}} \u2014 authentication configuration",
+    "message": "Step {{current}} of {{total}} — authentication configuration",
     "description": "オンボーディングにおける認証設定ステップの aria ラベル（現在は英語のまま）。"
   },
   "confirmStepAria": {
-    "message": "Step {{current}} of {{total}} \u2014 connection summary and next steps",
+    "message": "Step {{current}} of {{total}} — connection summary and next steps",
     "description": "オンボーディングにおける接続確認ステップの aria ラベル（現在は英語のまま）。"
   },
   "nextSteps": {
-    "message": "You\u2019re ready to go",
+    "message": "You’re ready to go",
     "description": "オンボーディングの最後のパネルのタイトル（現在は英語のまま）。"
   },
   "notesEmpty_connectTitle": {
@@ -184,70 +184,70 @@
     "message": "Notes を利用するには、まず tldw サーバーに接続してください。"
   },
   "notesEmpty_connectExample1": {
-    "message": "\u3010\u8a2d\u5b9a\u3011\u2192\u3010tldw server\u3011\u3092\u958b\u304d\u3001\u30b5\u30fc\u30d0\u30fc URL \u3092\u8ffd\u52a0\u3057\u3066\u304f\u3060\u3055\u3044\u3002"
+    "message": "【設定】→【tldw server】を開き、サーバー URL を追加してください。"
   },
   "notesEmpty_connectExample2": {
-    "message": "\u30b5\u30fc\u30d0\u30fc\u304c\u52d5\u4f5c\u3057\u3066\u3044\u308b\u306e\u306b\u5230\u9054\u3067\u304d\u306a\u3044\u5834\u5408\u306f\u3001\u3010\u8a3a\u65ad\u3011\u3092\u4f7f\u7528\u3057\u3066\u304f\u3060\u3055\u3044\u3002"
+    "message": "サーバーが動作しているのに到達できない場合は、【診断】を使用してください。"
   },
   "notesEmpty_demoTitle": {
-    "message": "\u30c7\u30e2\u30e2\u30fc\u30c9\u3067 Notes \u3092\u8a66\u3059"
+    "message": "デモモードで Notes を試す"
   },
   "notesEmpty_demoDescription": {
-    "message": "\u3053\u306e\u30c7\u30e2\u3067\u306f\u3001Notes \u304c\u30a4\u30f3\u30b5\u30a4\u30c8\u3092\u3069\u306e\u3088\u3046\u306b\u6574\u7406\u3067\u304d\u308b\u304b\u3092\u7d39\u4ecb\u3057\u307e\u3059\u3002\u3042\u3068\u304b\u3089\u81ea\u5206\u306e\u30b5\u30fc\u30d0\u30fc\u306b\u63a5\u7d9a\u3057\u3066\u3001\u672c\u7269\u306e\u30e1\u30e2\u3092\u4f5c\u6210\u30fb\u4fdd\u5b58\u3067\u304d\u307e\u3059\u3002"
+    "message": "このデモでは、Notes がインサイトをどのように整理できるかを紹介します。あとから自分のサーバーに接続して、本物のメモを作成・保存できます。"
   },
   "notesEmpty_demoExample1": {
-    "message": "\u30ea\u30b9\u30c8\u3067\u30e1\u30e2\u306e\u30bf\u30a4\u30c8\u30eb\u3001\u30d7\u30ec\u30d3\u30e5\u30fc\u3001\u30bf\u30a4\u30e0\u30b9\u30bf\u30f3\u30d7\u304c\u3069\u306e\u3088\u3046\u306b\u8868\u793a\u3055\u308c\u308b\u304b\u3092\u78ba\u8a8d\u3067\u304d\u307e\u3059\u3002"
+    "message": "リストでメモのタイトル、プレビュー、タイムスタンプがどのように表示されるかを確認できます。"
   },
   "notesEmpty_demoExample2": {
-    "message": "\u63a5\u7d9a\u3059\u308b\u3068\u3001\u4f1a\u8b70\u3084\u30ec\u30d3\u30e5\u30fc\u306a\u3069\u304b\u3089\u30e1\u30e2\u3092\u4f5c\u6210\u3067\u304d\u308b\u3088\u3046\u306b\u306a\u308a\u307e\u3059\u3002"
+    "message": "接続すると、会議やレビューなどからメモを作成できるようになります。"
   },
   "notesEmpty_demoExample3": {
-    "message": "Notes \u3092 Media \u3084 Review \u3068\u4e00\u7dd2\u306b\u4f7f\u3046\u3053\u3068\u3067\u3001\u898b\u3064\u3051\u305f\u60c5\u5831\u3092\u6574\u7406\u3057\u3066\u304a\u3051\u307e\u3059\u3002"
+    "message": "Notes を Media や Review と一緒に使うことで、見つけた情報を整理しておけます。"
   },
   "notesEmpty_demoPreviewHeading": {
-    "message": "\u30b5\u30f3\u30d7\u30eb\u306e\u30e1\u30e2\uff08\u30d7\u30ec\u30d3\u30e5\u30fc\u306e\u307f\uff09"
+    "message": "サンプルのメモ（プレビューのみ）"
   },
   "notesEmpty_demoSample1Title": {
-    "message": "\u30c7\u30e2\u30e1\u30e2: \u9031\u6b21\u30df\u30fc\u30c6\u30a3\u30f3\u30b0\u306e\u632f\u308a\u8fd4\u308a"
+    "message": "デモメモ: 週次ミーティングの振り返り"
   },
   "notesEmpty_demoSample1Preview": {
-    "message": "\u6700\u8fd1\u306e\u30c1\u30fc\u30e0\u540c\u671f\u3067\u6c7a\u307e\u3063\u305f\u4e8b\u9805\u3001\u30d6\u30ed\u30c3\u30ab\u30fc\u3001\u30d5\u30a9\u30ed\u30fc\u30a2\u30c3\u30d7\u3002"
+    "message": "最近のチーム同期で決まった事項、ブロッカー、フォローアップ。"
   },
   "notesEmpty_demoSample1Meta": {
-    "message": "\u4eca\u65e5 \u00b7 9:32"
+    "message": "今日 · 9:32"
   },
   "notesEmpty_demoSample2Title": {
-    "message": "\u30c7\u30e2\u30e1\u30e2: \u30ea\u30b5\u30fc\u30c1\u306e\u30cf\u30a4\u30e9\u30a4\u30c8"
+    "message": "デモメモ: リサーチのハイライト"
   },
   "notesEmpty_demoSample2Preview": {
-    "message": "\u9577\u3044\u8a18\u4e8b\u3084\u8ad6\u6587\u304b\u3089\u62bd\u51fa\u3057\u305f\u4e3b\u306a\u30a4\u30f3\u30b5\u30a4\u30c8\u3002"
+    "message": "長い記事や論文から抽出した主なインサイト。"
   },
   "notesEmpty_demoSample2Meta": {
-    "message": "\u6628\u65e5 \u00b7 16:10"
+    "message": "昨日 · 16:10"
   },
   "notesEmpty_demoSample3Title": {
-    "message": "\u30c7\u30e2\u30e1\u30e2: \u901a\u8a71\u30b5\u30de\u30ea\u30fc"
+    "message": "デモメモ: 通話サマリー"
   },
   "notesEmpty_demoSample3Preview": {
-    "message": "\u9867\u5ba2\u3068\u306e\u901a\u8a71\u5185\u5bb9\u306e\u8981\u7d04\u3068\u3001\u6b21\u306e\u30b9\u30c6\u30c3\u30d7\u3084\u62c5\u5f53\u8005\u3002"
+    "message": "顧客との通話内容の要約と、次のステップや担当者。"
   },
   "notesEmpty_demoSample3Meta": {
-    "message": "\u4eca\u9031"
+    "message": "今週"
   },
   "notesEmpty_title": {
-    "message": "\u307e\u3060\u30e1\u30e2\u304c\u3042\u308a\u307e\u305b\u3093"
+    "message": "まだメモがありません"
   },
   "notesEmpty_description": {
-    "message": "tldw \u306e\u30a4\u30f3\u30b5\u30a4\u30c8\u306b\u95a2\u9023\u3059\u308b\u81ea\u7531\u5f62\u5f0f\u306e\u30e1\u30e2\u3092\u4fdd\u5b58\u30fb\u6574\u7406\u3067\u304d\u307e\u3059\u3002"
+    "message": "tldw のインサイトに関連する自由形式のメモを保存・整理できます。"
   },
   "notesEmpty_exampleCreate": {
-    "message": "\u6700\u8fd1\u306e\u30df\u30fc\u30c6\u30a3\u30f3\u30b0\u3084\u66f8\u304d\u8d77\u3053\u3057\u306b\u3064\u3044\u3066\u3001\u65b0\u3057\u3044\u30e1\u30e2\u3092\u4f5c\u6210\u3057\u3066\u307f\u3066\u304f\u3060\u3055\u3044\u3002"
+    "message": "最近のミーティングや書き起こしについて、新しいメモを作成してみてください。"
   },
   "notesEmpty_exampleLink": {
-    "message": "\u30ec\u30d3\u30e5\u30fc\u7d50\u679c\u3092 Notes \u306b\u4fdd\u5b58\u3057\u3066\u3001\u3042\u3068\u304b\u3089\u898b\u8fd4\u305b\u308b\u3088\u3046\u306b\u3057\u307e\u3057\u3087\u3046\u3002"
+    "message": "レビュー結果を Notes に保存して、あとから見返せるようにしましょう。"
   },
   "notesEmpty_primaryCta": {
-    "message": "\u30e1\u30e2\u3092\u4f5c\u6210"
+    "message": "メモを作成"
   },
   "headerShortcuts": {
     "message": "ヘッダーにクイックショートカットを表示する"
@@ -399,5 +399,17 @@
   },
   "specFallbackWarning": {
     "message": "同梱の media.add スキーマ（v{{version}}）をフォールバックとして使用しています。フィールドが古そうな場合は tldw_server の /openapi.json と照合して確認してください。"
+  },
+  "noToolCalls": {
+    "message": "ツール呼び出しはまだありません"
+  },
+  "arguments": {
+    "message": "引数"
+  },
+  "invalidJson": {
+    "message": "無効な JSON です。生の値を表示しています"
+  },
+  "result": {
+    "message": "結果"
   }
 }

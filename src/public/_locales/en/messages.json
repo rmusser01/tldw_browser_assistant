@@ -122,19 +122,19 @@
     "description": "Help text explaining Single User vs Multi User authentication modes."
   },
   "apiKeyHelp": {
-    "message": "Find your API key in tldw_server \u2192 Settings \u2192 API Keys. Generate a key there and paste it here.",
+    "message": "Find your API key in tldw_server → Settings → API Keys. Generate a key there and paste it here.",
     "description": "Help text describing where to find the API key."
   },
   "authStepAria": {
-    "message": "Step {{current}} of {{total}} \u2014 Choose how you sign in",
+    "message": "Step {{current}} of {{total}} — Choose how you sign in",
     "description": "Aria label for the authentication step in onboarding."
   },
   "confirmStepAria": {
-    "message": "Step {{current}} of {{total}} \u2014 Confirm connection and review next steps",
+    "message": "Step {{current}} of {{total}} — Confirm connection and review next steps",
     "description": "Aria label for the confirmation step in onboarding."
   },
   "nextSteps": {
-    "message": "You\u2019re ready to go",
+    "message": "You’re ready to go",
     "description": "Title for the final onboarding panel describing next steps."
   },
   "notesEmpty_connectTitle": {
@@ -144,7 +144,7 @@
     "message": "To use Notes, first connect to your tldw server."
   },
   "notesEmpty_connectExample1": {
-    "message": "Open Settings \u2192 tldw server to add your server URL."
+    "message": "Open Settings → tldw server to add your server URL."
   },
   "notesEmpty_connectExample2": {
     "message": "Use Diagnostics if your server is running but not reachable."
@@ -159,7 +159,7 @@
     "message": "See how note titles, previews, and timestamps appear in the list."
   },
   "notesEmpty_demoExample2": {
-    "message": "When you connect, you\u2019ll be able to create notes from meetings, reviews, and more."
+    "message": "When you connect, you’ll be able to create notes from meetings, reviews, and more."
   },
   "notesEmpty_demoExample3": {
     "message": "Use Notes alongside Media and Review to keep track of your findings."
@@ -174,7 +174,7 @@
     "message": "Decisions, blockers, and follow-ups from a recent team sync."
   },
   "notesEmpty_demoSample1Meta": {
-    "message": "Today \u00b7 9:32 AM"
+    "message": "Today · 9:32 AM"
   },
   "notesEmpty_demoSample2Title": {
     "message": "Demo note: Research highlights"
@@ -183,7 +183,7 @@
     "message": "Key insights pulled from a long article or paper."
   },
   "notesEmpty_demoSample2Meta": {
-    "message": "Yesterday \u00b7 4:10 PM"
+    "message": "Yesterday · 4:10 PM"
   },
   "notesEmpty_demoSample3Title": {
     "message": "Demo note: Call summary"
@@ -364,5 +364,17 @@
   },
   "specFallbackWarning": {
     "message": "Using bundled media.add schema fallback (v{{version}}); please verify against your tldw_server /openapi.json if fields look outdated."
+  },
+  "noToolCalls": {
+    "message": "No tool calls yet"
+  },
+  "arguments": {
+    "message": "Arguments"
+  },
+  "invalidJson": {
+    "message": "Invalid JSON; raw value found"
+  },
+  "result": {
+    "message": "Result"
   }
 }

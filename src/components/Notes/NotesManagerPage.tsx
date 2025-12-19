@@ -647,7 +647,9 @@ const NotesManagerPage: React.FC = () => {
           : []
         setKeywordOptions(arr)
       }
-    } catch {}
+    } catch {
+      // Keyword load failed - feature will use empty suggestions
+    }
   }, [])
 
   const debouncedLoadKeywordSuggestions = React.useCallback(

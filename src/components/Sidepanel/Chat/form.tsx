@@ -4,7 +4,7 @@ import React from "react"
 import useDynamicTextareaSize from "~/hooks/useDynamicTextareaSize"
 import { useMessage } from "~/hooks/useMessage"
 import { toBase64 } from "~/libs/to-base64"
-import { Checkbox, Dropdown, Switch, Image, Tooltip, message } from "antd"
+import { Checkbox, Dropdown, Switch, Image, Tooltip, message, Modal } from "antd"
 import { useWebUI } from "~/store/webui"
 import { defaultEmbeddingModelForRag } from "~/services/tldw-server"
 import {
@@ -46,9 +46,15 @@ import { useQuickIngestStore } from "@/store/quick-ingest"
 type Props = {
   dropedFile: File | undefined
   inputRef?: React.RefObject<HTMLTextAreaElement>
+  onHeightChange?: (height: number) => void
 }
 
-export const SidepanelForm = ({ dropedFile, inputRef }: Props) => {
+export const SidepanelForm = ({
+  dropedFile,
+  inputRef,
+  onHeightChange
+}: Props) => {
+  const formContainerRef = React.useRef<HTMLDivElement>(null)
   const localTextareaRef = React.useRef<HTMLTextAreaElement>(null)
   const textareaRef = inputRef ?? localTextareaRef
   const fileInputRef = React.useRef<HTMLInputElement>(null)
@@ -116,7 +122,28 @@ export const SidepanelForm = ({ dropedFile, inputRef }: Props) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
+  // Warn Firefox private mode users on mount that data won't persist
+  React.useEffect(() => {
+    if (isFireFoxPrivateMode) {
+      notification.warning({
+        message: t(
+          "sidepanel:errors.privateModeTitle",
+          "tldw Assistant can't save data"
+        ),
+        description: t(
+          "sidepanel:errors.privateModeDescription",
+          "Firefox Private Mode does not support saving chat history. Your conversations won't be saved."
+        ),
+        duration: 6
+      })
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
   // Persist draft whenever the message changes
+  const [draftSaved, setDraftSaved] = React.useState(false)
+  const draftSavedTimeoutRef = React.useRef<ReturnType<typeof setTimeout> | null>(null)
+
   React.useEffect(() => {
     try {
       if (typeof window === "undefined") return
@@ -124,13 +151,53 @@ export const SidepanelForm = ({ dropedFile, inputRef }: Props) => {
       if (typeof value !== "string") return
       if (value.trim().length === 0) {
         window.localStorage.removeItem("tldw:sidepanelChatDraft")
+        setDraftSaved(false)
       } else {
         window.localStorage.setItem("tldw:sidepanelChatDraft", value)
+        // Show "Draft saved" briefly
+        setDraftSaved(true)
+        if (draftSavedTimeoutRef.current) {
+          clearTimeout(draftSavedTimeoutRef.current)
+        }
+        draftSavedTimeoutRef.current = setTimeout(() => {
+          setDraftSaved(false)
+        }, 4000)
       }
     } catch {
       // ignore persistence errors
     }
   }, [form.values.message])
+
+  // Cleanup timeout on unmount
+  React.useEffect(() => {
+    return () => {
+      if (draftSavedTimeoutRef.current) {
+        clearTimeout(draftSavedTimeoutRef.current)
+      }
+    }
+  }, [])
+
+  React.useEffect(() => {
+    if (!onHeightChange) return
+    const node = formContainerRef.current
+    if (!node || typeof ResizeObserver === "undefined") return
+
+    const notifyHeight = (height: number) => {
+      onHeightChange(Math.max(0, Math.ceil(height)))
+    }
+
+    notifyHeight(node.getBoundingClientRect().height)
+    const observer = new ResizeObserver((entries) => {
+      const entry = entries[0]
+      if (!entry) return
+      notifyHeight(entry.contentRect.height)
+    })
+    observer.observe(node)
+
+    return () => {
+      observer.disconnect()
+    }
+  }, [onHeightChange])
 
   const serverRecorderRef = React.useRef<MediaRecorder | null>(null)
   const serverChunksRef = React.useRef<BlobPart[]>([])
@@ -441,22 +508,47 @@ export const SidepanelForm = ({ dropedFile, inputRef }: Props) => {
         })
         return
       }
-      setTemporaryChat(next)
-      // L17: Track if messages were cleared for better notification
+
       const hadMessages = messages.length > 0
+
+      // Show confirmation when enabling temporary mode with existing messages
+      if (next && hadMessages) {
+        Modal.confirm({
+          title: t(
+            "sidepanel:composer.tempChatConfirmTitle",
+            "Enable temporary mode?"
+          ),
+          content: t(
+            "sidepanel:composer.tempChatConfirmContent",
+            "This will clear your current conversation. Messages won't be saved."
+          ),
+          okText: t("common:confirm", "Confirm"),
+          cancelText: t("common:cancel", "Cancel"),
+          onOk: () => {
+            setTemporaryChat(next)
+            clearChat()
+            notification.info({
+              message: t(
+                "sidepanel:composer.tempChatClearedMessages",
+                "Temporary chat enabled. Previous messages cleared."
+              ),
+              placement: "bottomRight",
+              duration: 2.5
+            })
+          }
+        })
+        return
+      }
+
+      // No confirmation needed when disabling temporary mode or no messages
+      setTemporaryChat(next)
       if (hadMessages) {
         clearChat()
       }
 
       const modeLabel = getPersistenceModeLabel(next)
-      const messageText = hadMessages && next
-        ? t(
-            "sidepanel:composer.tempChatClearedMessages",
-            "Temporary chat enabled. Previous messages cleared."
-          )
-        : modeLabel
       notification.info({
-        message: messageText,
+        message: modeLabel,
         placement: "bottomRight",
         duration: 2.5
       })
@@ -466,7 +558,8 @@ export const SidepanelForm = ({ dropedFile, inputRef }: Props) => {
       getPersistenceModeLabel,
       messages.length,
       notification,
-      setTemporaryChat
+      setTemporaryChat,
+      t
     ]
   )
 
@@ -756,9 +849,6 @@ export const SidepanelForm = ({ dropedFile, inputRef }: Props) => {
 
   React.useEffect(() => {
     const handler = () => {
-      if (!isConnectionReady) {
-        return
-      }
       setAutoProcessQueuedIngest(false)
       setIngestOpen(true)
       requestAnimationFrame(() => {
@@ -939,13 +1029,12 @@ export const SidepanelForm = ({ dropedFile, inputRef }: Props) => {
   }, [isConnectionReady, uxState, t])
 
   return (
-    <div className="flex w-full flex-col items-center px-2">
+    <div ref={formContainerRef} className="flex w-full flex-col items-center px-2">
       <div className="relative z-10 flex w-full flex-col items-center justify-center gap-2 text-base">
         <div className="relative flex w-full flex-row justify-center gap-2">
           <div
-            data-istemporary-chat={temporaryChat}
             aria-disabled={!isConnectionReady}
-            className="bg-neutral-50 dark:bg-[#262626] relative w-full max-w-[48rem] p-1 backdrop-blur-lg duration-100 border border-gray-300 rounded-t-xl dark:border-gray-600 data-[istemporary-chat='true']:bg-purple-900 data-[istemporary-chat='true']:dark:bg-purple-900">
+            className="bg-neutral-50 dark:bg-[#262626] relative w-full max-w-[48rem] p-1 backdrop-blur-lg duration-100 border border-gray-300 rounded-t-xl dark:border-gray-600">
             <div
               className={`border-b border-gray-200 dark:border-gray-600 relative ${
                 form.values.image.length === 0 ? "hidden" : "block"
@@ -1135,14 +1224,29 @@ export const SidepanelForm = ({ dropedFile, inputRef }: Props) => {
                             type="button"
                             onClick={() => {
                               const count = queuedMessages.length
-                              clearQueuedMessages()
-                              message.success(
-                                t(
-                                  "playground:composer.queuedBanner.cleared",
-                                  "Queue cleared ({{count}} messages)",
+                              Modal.confirm({
+                                title: t(
+                                  "sidepanel:composer.clearQueueConfirmTitle",
+                                  "Clear message queue?"
+                                ),
+                                content: t(
+                                  "sidepanel:composer.clearQueueConfirmContent",
+                                  "This will delete {{count}} queued message(s) that haven't been sent yet.",
                                   { count }
-                                )
-                              )
+                                ),
+                                okText: t("common:confirm", "Confirm"),
+                                cancelText: t("common:cancel", "Cancel"),
+                                onOk: () => {
+                                  clearQueuedMessages()
+                                  message.success(
+                                    t(
+                                      "playground:composer.queuedBanner.cleared",
+                                      "Queue cleared ({{count}} messages)",
+                                      { count }
+                                    )
+                                  )
+                                }
+                              })
                             }}
                             className="text-xs font-medium text-green-900 underline hover:text-green-700 dark:text-green-100 dark:hover:text-green-300">
                             {t(
@@ -1199,30 +1303,23 @@ export const SidepanelForm = ({ dropedFile, inputRef }: Props) => {
                         placeholder={debouncedPlaceholder || t("form.textarea.placeholder")}
                         {...form.getInputProps("message")}
                       />
-                      {/* Disconnected overlay - provides clear visual feedback */}
-                      {!isConnectionReady && (
-                        <div
-                          className="absolute inset-0 bg-gradient-to-b from-gray-100/80 to-gray-100/60 dark:from-gray-800/80 dark:to-gray-800/60 flex items-center justify-center pointer-events-none rounded"
-                          aria-hidden="true"
+                      {/* Draft saved indicator */}
+                      {draftSaved && (
+                        <span
+                          className="absolute bottom-1 right-2 text-[10px] text-gray-500 dark:text-gray-400 animate-pulse pointer-events-none"
+                          role="status"
+                          aria-live="polite"
                         >
-                          <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/90 dark:bg-gray-900/90 shadow-sm border border-gray-200 dark:border-gray-700">
-                            <span className="relative flex h-2 w-2">
-                              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-amber-400 opacity-75"></span>
-                              <span className="relative inline-flex h-2 w-2 rounded-full bg-amber-500"></span>
-                            </span>
-                            <span className="text-xs font-medium text-gray-600 dark:text-gray-300">
-                              {uxState === "testing"
-                                ? t("sidepanel:composer.overlayConnecting", "Connecting...")
-                                : t("sidepanel:composer.overlayDisconnected", "Not connected")}
-                            </span>
-                          </div>
-                        </div>
+                          {t("sidepanel:composer.draftSaved", "Draft saved")}
+                        </span>
                       )}
                     </div>
                     {/* Inline error message - positioned right after textarea for visibility */}
                     {form.errors.message && (
                       <div
                         role="alert"
+                        aria-live="assertive"
+                        aria-atomic="true"
                         className="flex items-center justify-between gap-1.5 px-2 py-1 text-xs text-red-600 dark:text-red-400 animate-shake"
                       >
                         <div className="flex items-center gap-1.5">

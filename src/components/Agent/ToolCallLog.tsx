@@ -78,20 +78,22 @@ const getToolDisplayName = (name: string): string => {
   return displayNames[name] || name
 }
 
+// Status info with colors and accessible labels
+const STATUS_INFO: Record<ToolCallEntry["status"], { color: string; label: string }> = {
+  pending: { color: "text-gray-400", label: "Pending" },
+  running: { color: "text-blue-500", label: "Running" },
+  complete: { color: "text-green-500", label: "Complete" },
+  error: { color: "text-red-500", label: "Error" }
+}
+
 // Get status color
 const getStatusColor = (status: ToolCallEntry["status"]): string => {
-  switch (status) {
-    case "pending":
-      return "text-gray-400"
-    case "running":
-      return "text-blue-500"
-    case "complete":
-      return "text-green-500"
-    case "error":
-      return "text-red-500"
-    default:
-      return "text-gray-400"
-  }
+  return STATUS_INFO[status]?.color ?? "text-gray-400"
+}
+
+// Get accessible status label
+const getStatusLabel = (status: ToolCallEntry["status"]): string => {
+  return STATUS_INFO[status]?.label ?? "Unknown"
 }
 
 // Get status icon
@@ -345,8 +347,13 @@ export const ToolCallLog: FC<ToolCallLogProps> = ({
                   : <ChevronRight className="size-4 text-gray-400" />
               )}
 
-              {/* Status indicator */}
-              <StatusIcon status={entry.status} />
+              {/* Status indicator with accessible label */}
+              <span className="flex items-center gap-1" aria-label={`Status: ${getStatusLabel(entry.status)}`}>
+                <StatusIcon status={entry.status} />
+                <span className={`text-xs ${getStatusColor(entry.status)}`}>
+                  {getStatusLabel(entry.status)}
+                </span>
+              </span>
 
               {/* Tool icon */}
               <Icon className={`size-4 ${getStatusColor(entry.status)}`} />

@@ -71,7 +71,7 @@ export const SessionRestoreDialog: FC<SessionRestoreDialogProps> = ({
         {/* Session info */}
         <div className="bg-gray-50 dark:bg-gray-800 rounded-lg p-4">
           <h4 className="font-medium text-gray-900 dark:text-gray-100 mb-2 line-clamp-2">
-            {session.title || session.task.substring(0, 100)}
+            {session.title || (session.task.length > 100 ? `${session.task.substring(0, 97)}...` : session.task)}
           </h4>
 
           <div className="flex items-center gap-4 text-sm text-gray-500 dark:text-gray-400">
@@ -169,13 +169,21 @@ export const SessionRestoreDialog: FC<SessionRestoreDialogProps> = ({
           </Button>
         </div>
 
-        {/* Note */}
-        <p className="text-xs text-gray-500 dark:text-gray-500 text-center">
-          {t(
-            "startFreshNote",
-            "Starting fresh will delete the previous session."
-          )}
-        </p>
+        {/* Notes */}
+        <div className="space-y-1 text-xs text-gray-500 dark:text-gray-400 text-center">
+          <p>
+            {t(
+              "startFreshNote",
+              "Starting fresh will delete the previous session."
+            )}
+          </p>
+          <p>
+            {t(
+              "restoreDiffNote",
+              "Note: Restored sessions show file changes but diff content may not be viewable."
+            )}
+          </p>
+        </div>
       </div>
     </Modal>
   )

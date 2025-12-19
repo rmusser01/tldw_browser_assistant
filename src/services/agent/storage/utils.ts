@@ -290,20 +290,29 @@ export function sessionToRestoreOutput(session: StoredAgentSession): SessionRest
         role: m.role as "user" | "assistant",
         content: m.content,
       })),
-    toolCalls: session.toolCalls.map((tc) => ({
-      id: tc.id,
-      toolCall: {
+    toolCalls: session.toolCalls.map((tc) => {
+      const status: SessionRestoreOutput["toolCalls"][number]["status"] =
+        tc.status === "completed"
+          ? "complete"
+          : tc.status === "error"
+            ? "error"
+            : "pending"
+
+      return {
         id: tc.id,
-        type: "function" as const,
-        function: {
-          name: tc.name,
-          arguments: tc.arguments, // Note: may be truncated/invalid JSON
+        toolCall: {
+          id: tc.id,
+          type: "function" as const,
+          function: {
+            name: tc.name,
+            arguments: tc.arguments, // Note: may be truncated/invalid JSON
+          },
         },
-      },
-      status: tc.status === "completed" ? "complete" : tc.status,
-      result: tc.result,
-      timestamp: isoStringToDate(tc.timestamp),
-    })),
+        status,
+        result: tc.result,
+        timestamp: isoStringToDate(tc.timestamp),
+      }
+    }),
     pendingApprovals: session.pendingApprovals.map((pa) => {
       // Try to parse args back, fall back to empty object
       let args: Record<string, unknown> = {}

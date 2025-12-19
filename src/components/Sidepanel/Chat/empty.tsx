@@ -266,7 +266,7 @@ export const EmptySidePanel = ({ inputRef }: EmptySidePanelProps) => {
 
         {/* Quick tips for first-time users */}
         {!hasCompletedFirstRun && (
-          <div className="text-[10px] text-gray-400 dark:text-gray-500 text-center">
+          <div className="text-[10px] text-gray-500 dark:text-gray-400 text-center">
             {t("sidepanel:firstRun.quickTip", "Need help? Check our docs or try demo mode.")}
           </div>
         )}
@@ -298,7 +298,7 @@ export const EmptySidePanel = ({ inputRef }: EmptySidePanelProps) => {
 
       {/* Suggestion cards */}
       <div className="w-full space-y-2 text-left">
-        <p className="text-[10px] uppercase tracking-wide text-gray-400 dark:text-gray-500 font-medium px-1">
+        <p className="text-[10px] uppercase tracking-wide text-gray-500 dark:text-gray-400 font-medium px-1">
           {t("sidepanel:emptyChat.suggestions", "Try asking")}
         </p>
         <button
@@ -354,11 +354,19 @@ export const EmptySidePanel = ({ inputRef }: EmptySidePanelProps) => {
         </button>
       </div>
 
-      {/* Demo mode indicator */}
+      {/* Demo mode indicator with limitations */}
       {mode === "demo" && (
-        <div className="mt-4 flex items-center gap-1.5 text-[10px] text-purple-600 dark:text-purple-400">
-          <Sparkles className="size-3" />
-          {t("sidepanel:emptyChat.demoIndicator", "Running in demo mode")}
+        <div className="mt-4 px-3 py-2 rounded-lg bg-purple-50 dark:bg-purple-900/20 border border-purple-200 dark:border-purple-800">
+          <div className="flex items-center gap-1.5 text-xs font-medium text-purple-700 dark:text-purple-300">
+            <Sparkles className="size-3.5" />
+            {t("sidepanel:emptyChat.demoIndicator", "Running in demo mode")}
+          </div>
+          <p className="mt-1 text-[10px] text-purple-600 dark:text-purple-400">
+            {t(
+              "sidepanel:emptyChat.demoLimitations",
+              "Some features are limited. Connect to tldw_server for full functionality."
+            )}
+          </p>
         </div>
       )}
     </div>

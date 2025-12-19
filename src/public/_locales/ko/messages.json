@@ -138,7 +138,7 @@
     "message": "최근 팀 싱크에서 나온 결정 사항, 블로커, 후속 조치."
   },
   "notesEmpty_demoSample1Meta": {
-    "message": "오늘 \u00b7 오전 9:32"
+    "message": "오늘 · 오전 9:32"
   },
   "notesEmpty_demoSample2Title": {
     "message": "데모 노트: 연구 하이라이트"
@@ -147,7 +147,7 @@
     "message": "긴 글이나 논문에서 뽑은 핵심 인사이트."
   },
   "notesEmpty_demoSample2Meta": {
-    "message": "어제 \u00b7 오후 4:10"
+    "message": "어제 · 오후 4:10"
   },
   "notesEmpty_demoSample3Title": {
     "message": "데모 노트: 통화 요약"
@@ -194,15 +194,15 @@
     "description": "Single User와 Multi User 인증 모드를 설명하는 도움말 텍스트."
   },
   "apiKeyHelp": {
-    "message": "tldw_server \u2192 Settings \u2192 API Keys에서 API 키를 찾을 수 있습니다. 그곳에서 키를 생성한 뒤 여기에 붙여넣으세요.",
+    "message": "tldw_server → Settings → API Keys에서 API 키를 찾을 수 있습니다. 그곳에서 키를 생성한 뒤 여기에 붙여넣으세요.",
     "description": "API 키를 어디에서 찾을 수 있는지 설명하는 도움말 텍스트."
   },
   "authStepAria": {
-    "message": "{{total}}단계 중 {{current}}단계 \u2014 로그인 방법 선택",
+    "message": "{{total}}단계 중 {{current}}단계 — 로그인 방법 선택",
     "description": "온보딩 중 인증 설정 단계의 aria 레이블."
   },
   "confirmStepAria": {
-    "message": "{{total}}단계 중 {{current}}단계 \u2014 연결 요약 및 다음 단계",
+    "message": "{{total}}단계 중 {{current}}단계 — 연결 요약 및 다음 단계",
     "description": "온보딩 중 연결 요약 및 다음 단계 화면의 aria 레이블."
   },
   "nextSteps": {
@@ -408,5 +408,17 @@
   "specFallbackWarning": {
     "message": "번들에 포함된 media.add 스키마 폴백(v{{version}})을 사용 중입니다. 필드가 오래되어 보이면 tldw_server /openapi.json과 비교해 확인하세요.",
     "description": "Warning shown when the Quick Ingest advanced schema falls back to the bundled schema; contains the bundled schema version."
+  },
+  "noToolCalls": {
+    "message": "아직 도구 호출이 없습니다"
+  },
+  "arguments": {
+    "message": "인수"
+  },
+  "invalidJson": {
+    "message": "잘못된 JSON입니다. 원시 값을 표시합니다"
+  },
+  "result": {
+    "message": "결과"
   }
 }

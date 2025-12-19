@@ -25,6 +25,8 @@ const extractStatusAndMessage = (
 
   if (error instanceof Error) {
     message = error.message
+  } else if (typeof error === "string") {
+    message = error
   }
 
   if (typeof error === "object" && error !== null) {

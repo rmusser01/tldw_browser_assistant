@@ -41,9 +41,7 @@ function IndexOption() {
         }}
         renderEmpty={() => (
           <Empty
-            imageStyle={{
-              height: 60
-            }}
+            styles={{ image: { height: 60 } }}
             description={t("common:noData")}
           />
         )}

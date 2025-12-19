@@ -122,7 +122,7 @@
     "description": "Single User vs Multi User എന്ന പ്രാമാണീകരണ മോഡുകൾ വിശദീകരിക്കുന്ന സഹായ വാചകം."
   },
   "apiKeyHelp": {
-    "message": "നിങ്ങളുടെ API കീ, tldw_server \u2192 Settings \u2192 API Keys എന്നിടത്ത് ലഭിക്കും. അവിടെ ഒരു കീ സൃഷ്ടിച്ച് ഇവിടെ പേസ്റ്റ് ചെയ്യുക.",
+    "message": "നിങ്ങളുടെ API കീ, tldw_server → Settings → API Keys എന്നിടത്ത് ലഭിക്കും. അവിടെ ഒരു കീ സൃഷ്ടിച്ച് ഇവിടെ പേസ്റ്റ് ചെയ്യുക.",
     "description": "API കീ എവിടെ കണ്ടെത്താം എന്ന് വിശദീകരിക്കുന്ന സഹായ വാചകം."
   },
   "authStepAria": {
@@ -144,7 +144,7 @@
     "message": "Notes ഉപയോഗിക്കാൻ ആദ്യം നിങ്ങളുടെ tldw സർവറിലേക്ക് കണക്റ്റ് ചെയ്യണം."
   },
   "notesEmpty_connectExample1": {
-    "message": "നിങ്ങളുടെ സർവർ URL ചേർക്കാൻ Settings \u2192 tldw server തുറക്കുക."
+    "message": "നിങ്ങളുടെ സർവർ URL ചേർക്കാൻ Settings → tldw server തുറക്കുക."
   },
   "notesEmpty_connectExample2": {
     "message": "നിങ്ങളുടെ സർവർ പ്രവർത്തിക്കുമ്പോഴും എത്തിച്ചേരാനാവുന്നില്ലെങ്കിൽ Diagnostics ഉപയോഗിക്കുക."
@@ -174,7 +174,7 @@
     "message": "അടുത്തിടെ നടന്ന ടീം സിങ്കിൽ നിന്നുള്ള തീരുമാനങ്ങൾ, തടസ്സങ്ങൾ, ഫോളോ‑അപ്പുകൾ."
   },
   "notesEmpty_demoSample1Meta": {
-    "message": "ഇന്ന് \u00b7 9:32 AM"
+    "message": "ഇന്ന് · 9:32 AM"
   },
   "notesEmpty_demoSample2Title": {
     "message": "ഡെമോ കുറിപ്പ്: റിസർച്ച് ഹൈലൈറ്റുകൾ"
@@ -183,7 +183,7 @@
     "message": "ഒരു നീണ്ട ലേഖനം അല്ലെങ്കിൽ പേപ്പറിൽ നിന്നെടുത്ത പ്രധാന ഇൻസൈറ്റുകൾ."
   },
   "notesEmpty_demoSample2Meta": {
-    "message": "ഇന്നലെ \u00b7 4:10 PM"
+    "message": "ഇന്നലെ · 4:10 PM"
   },
   "notesEmpty_demoSample3Title": {
     "message": "ഡെമോ കുറിപ്പ്: കോൾ സംഗ്രഹം"
@@ -359,5 +359,17 @@
   },
   "specFallbackWarning": {
     "message": "ബണ്ടിൽ ചെയ്ത media.add സ്കീമ ഫാൾബാക്ക് (v{{version}}) ഉപയോഗിക്കുന്നു; ഫീൽഡുകൾ പഴകിയതായി തോന്നിയാൽ നിങ്ങളുടെ tldw_server /openapi.json പ്രകാരം ദയവായി പരിശോധിക്കുക."
+  },
+  "noToolCalls": {
+    "message": "ഇതുവരെ ടൂൾ കോൾ ഒന്നുമില്ല"
+  },
+  "arguments": {
+    "message": "ആർഗ്യുമെന്റുകൾ"
+  },
+  "invalidJson": {
+    "message": "അസാധുവായ JSON; അസംസ്കൃത മൂല്യം കാണിക്കുന്നു"
+  },
+  "result": {
+    "message": "ഫലം"
   }
 }

@@ -226,7 +226,7 @@ export const DEFAULT_SHORTCUTS: Omit<Shortcut, "action">[] = [
     id: "toggle-rag",
     key: "r",
     modifiers: ["alt"],
-    description: "Toggle RAG mode",
+    description: "Toggle Knowledge Search",
     scope: "chat",
   },
   {

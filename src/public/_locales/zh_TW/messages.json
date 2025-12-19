@@ -86,5 +86,17 @@
   "specFallbackWarning": {
     "message": "使用內建 media.add 綱要備用版本（v{{version}}）；若欄位似乎過時，請對照您的 tldw_server /openapi.json 進行驗證。",
     "description": "Warning shown when the Quick Ingest advanced schema falls back to the bundled schema; contains the bundled schema version."
+  },
+  "noToolCalls": {
+    "message": "尚未有工具呼叫"
+  },
+  "arguments": {
+    "message": "參數"
+  },
+  "invalidJson": {
+    "message": "JSON 無效；顯示原始值"
+  },
+  "result": {
+    "message": "結果"
   }
 }

@@ -151,9 +151,27 @@ const SidepanelAgent: FC = () => {
         status: pa.status
       })),
       diffs: diffs.map(d => ({
-        path: d.path,
-        type: d.type,
-        hunks: d.hunks
+        path: d.newPath || d.oldPath,
+        type: d.isNew ? "create" : d.isDeleted ? "delete" : "modify",
+        hunks: d.hunks.map(h => ({
+          oldStart: h.oldStart,
+          oldLines: h.oldCount,
+          newStart: h.newStart,
+          newLines: h.newCount,
+          lines: h.lines.map(line => {
+            switch (line.type) {
+              case "header":
+                return line.content
+              case "add":
+                return `+${line.content}`
+              case "remove":
+                return `-${line.content}`
+              case "context":
+              default:
+                return ` ${line.content}`
+            }
+          })
+        }))
       })),
       executions: executions.map(e => ({
         id: e.id,
@@ -357,9 +375,12 @@ const SidepanelAgent: FC = () => {
     setToolCalls(restored.toolCalls)
     setPendingApprovals(restored.pendingApprovals)
     setDiffs(restored.diffs.map((d, i) => ({
-      path: d.path,
-      type: d.type,
-      hunks: [] // Hunks are not fully stored, just show metadata
+      id: `restored-${i}`,
+      oldPath: d.path,
+      newPath: d.path,
+      hunks: [],
+      isNew: d.type === "create",
+      isDeleted: d.type === "delete",
     })))
     setExecutions(restored.executions)
     setCurrentStep(session.currentStep)
@@ -441,7 +462,10 @@ const SidepanelAgent: FC = () => {
                 className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}
               >
                 <div
-                  className={`max-w-[80%] rounded-lg px-4 py-2 ${
+                  tabIndex={0}
+                  role="article"
+                  aria-label={`${msg.role === "user" ? t("userMessage", "Your message") : t("assistantMessage", "Assistant message")}: ${msg.content.substring(0, 50)}${msg.content.length > 50 ? "..." : ""}`}
+                  className={`max-w-[80%] rounded-lg px-4 py-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-pink-500 ${
                     msg.role === "user"
                       ? "bg-blue-500 text-white"
                       : "bg-gray-100 dark:bg-gray-800"
@@ -498,6 +522,11 @@ const SidepanelAgent: FC = () => {
       ),
       children: (
         <div className="p-4 overflow-y-auto h-full">
+          {diffs.length > 0 && diffs.every(d => d.hunks.length === 0) && (
+            <p className="mb-3 text-xs text-gray-500 dark:text-gray-400">
+              {t("diffMetadataOnly", "Diff content not stored; showing metadata only")}
+            </p>
+          )}
           <DiffViewer
             diffs={diffs}
             selectedHunks={selectedHunks}
@@ -513,7 +542,7 @@ const SidepanelAgent: FC = () => {
           <TerminalIcon className="size-4" />
           {t("terminal", "Terminal")}
           {executions.length > 0 && (
-            <span className="px-1.5 py-0.5 text-xs rounded-full bg-gray-100 dark:bg-gray-800">
+            <span className="px-1.5 py-0.5 text-xs rounded-full bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-300">
               {executions.length}
             </span>
           )}
@@ -557,15 +586,18 @@ const SidepanelAgent: FC = () => {
             </span>
           )}
           <button
-            className="p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-800"
+            className="p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-pink-500"
             onClick={() => setShowHistory(!showHistory)}
             title={t("sessionHistory", "Session History")}
+            aria-label={t("sessionHistory", "Session History")}
+            aria-expanded={showHistory}
           >
             <History className="size-4 text-gray-500" />
           </button>
           <button
-            className="p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-800"
+            className="p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-pink-500"
             title={t("settings", "Settings")}
+            aria-label={t("settings", "Settings")}
           >
             <Settings className="size-4 text-gray-500" />
           </button>
@@ -579,7 +611,8 @@ const SidepanelAgent: FC = () => {
             <h2 className="font-semibold">{t("sessionHistory", "Session History")}</h2>
             <button
               onClick={() => setShowHistory(false)}
-              className="p-1 rounded hover:bg-gray-100 dark:hover:bg-gray-800"
+              className="p-1 rounded hover:bg-gray-100 dark:hover:bg-gray-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-pink-500"
+              aria-label={t("close", "Close")}
             >
               <X className="size-4" />
             </button>

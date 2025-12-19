@@ -13,12 +13,17 @@ permissions:
 jobs:
   release-please:
     runs-on: ubuntu-latest
+    outputs:
+      release_created: ${{ steps.release.outputs.release_created }}
+      tag_name: ${{ steps.release.outputs.tag_name }}
     steps:
       - name: Run release-please
+        id: release
         uses: google-github-actions/release-please-action@v4
         with:
           release-type: simple
           package-name: tldw-assistant
+          prerelease: true
           changelog-types: |
             [{"type":"feat","section":"Features","hidden":false},
              {"type":"fix","section":"Bug Fixes","hidden":false},
@@ -26,4 +31,3 @@ jobs:
              {"type":"refactor","section":"Refactors","hidden":false},
              {"type":"docs","section":"Documentation","hidden":false},
              {"type":"chore","section":"Chores","hidden":true}]
-

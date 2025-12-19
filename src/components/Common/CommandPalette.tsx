@@ -144,13 +144,13 @@ export function CommandPalette({
     },
     {
       id: "action-toggle-rag",
-      label: t("common:commandPalette.toggleRag", "Toggle RAG Mode"),
-      description: t("common:commandPalette.toggleRagDesc", "Search your knowledge base"),
+      label: t("common:commandPalette.toggleKnowledgeSearch", "Toggle Knowledge Search"),
+      description: t("common:commandPalette.toggleKnowledgeSearchDesc", "Search your knowledge base"),
       icon: <Search className="size-4" />,
-      shortcut: { key: "r", modifiers: ["meta"] },
+      shortcut: { key: "r", modifiers: ["alt"] },
       action: () => { onToggleRag?.(); setOpen(false) },
       category: "action",
-      keywords: ["search", "knowledge", "retrieve"],
+      keywords: ["search", "knowledge", "retrieve", "rag"],
     },
     {
       id: "action-toggle-web",
@@ -321,7 +321,7 @@ export function CommandPalette({
 
       {/* Palette */}
       <div
-        className="fixed left-1/2 top-[20%] z-50 w-full max-w-lg -translate-x-1/2 overflow-hidden rounded-xl border border-gray-200 bg-white shadow-2xl dark:border-gray-700 dark:bg-gray-900"
+        className="fixed left-1/2 top-[15%] sm:top-[20%] z-50 w-[calc(100%-2rem)] sm:w-full max-w-lg -translate-x-1/2 overflow-hidden rounded-xl border border-gray-200 bg-white shadow-2xl dark:border-gray-700 dark:bg-gray-900"
         role="dialog"
         aria-modal="true"
         aria-label={t("common:commandPalette.title", "Command Palette")}

@@ -85,7 +85,7 @@
 body {
   background: var(--color-bg);
   color: var(--color-text);
-  font-family: "Inter", system-ui, -apple-system, sans-serif;
+  font-family: "Arimo", "Inter", system-ui, -apple-system, sans-serif;
 }
 
 @tailwind base;

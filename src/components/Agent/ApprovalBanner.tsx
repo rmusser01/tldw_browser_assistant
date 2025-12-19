@@ -2,9 +2,9 @@
  * ApprovalBanner - Sticky banner for pending tool approvals
  */
 
-import { FC, useMemo } from "react"
+import { FC, useMemo, useCallback } from "react"
 import { useTranslation } from "react-i18next"
-import { Button, Tooltip } from "antd"
+import { Button, Tooltip, Modal } from "antd"
 import {
   AlertTriangle,
   FileEdit,
@@ -17,6 +17,7 @@ import {
   ChevronUp
 } from "lucide-react"
 import type { PendingApproval, ApprovalTier } from "@/services/agent/types"
+import { approvalCategoryLabels } from "@/styles/design-tokens"
 
 interface ApprovalBannerProps {
   approvals: PendingApproval[]
@@ -144,8 +145,29 @@ export const ApprovalBanner: FC<ApprovalBannerProps> = ({
   const allIds = approvals.map(a => a.toolCallId)
   const pendingCount = approvals.filter(a => a.status === "pending").length
 
+  // Confirm before rejecting all pending actions
+  const handleRejectAll = useCallback(() => {
+    Modal.confirm({
+      title: t("confirmRejectAllTitle", "Reject all pending actions?"),
+      content: t(
+        "confirmRejectAllContent",
+        "This will cancel all {{count}} pending operations. This action cannot be undone.",
+        { count: pendingCount }
+      ),
+      okText: t("rejectAll", "Reject All"),
+      okButtonProps: { danger: true },
+      cancelText: t("cancel", "Cancel"),
+      onOk: () => onReject(allIds)
+    })
+  }, [t, pendingCount, onReject, allIds])
+
   return (
-    <div className={`bg-yellow-50 dark:bg-yellow-900/20 border-t border-yellow-200 dark:border-yellow-800 ${className}`}>
+    <div
+      className={`bg-yellow-50 dark:bg-yellow-900/40 border-t border-yellow-200 dark:border-yellow-700 ${className}`}
+      role="region"
+      aria-label={t("pendingApprovalsRegion", "Pending approvals requiring your action")}
+      aria-expanded={expanded}
+    >
       {/* Collapsed view */}
       <div className="flex items-center justify-between px-4 py-3">
         <div className="flex items-center gap-3">
@@ -154,7 +176,11 @@ export const ApprovalBanner: FC<ApprovalBannerProps> = ({
           </div>
 
           <div className="flex items-center gap-2">
-            <span className="font-medium text-yellow-800 dark:text-yellow-200">
+            <span
+              className="font-medium text-yellow-800 dark:text-yellow-200"
+              aria-live="polite"
+              aria-atomic="true"
+            >
               {pendingCount} {pendingCount === 1 ? t("actionPending", "action pending") : t("actionsPending", "actions pending")}
             </span>
 
@@ -162,8 +188,13 @@ export const ApprovalBanner: FC<ApprovalBannerProps> = ({
             <div className="flex items-center gap-1.5">
               {categories.map((cat, idx) => {
                 const Icon = cat.icon
+                // Use user-friendly labels from design tokens
+                const categoryKey = Object.keys(approvalCategoryLabels).find(
+                  key => approvalCategoryLabels[key].toLowerCase() === cat.label.toLowerCase()
+                ) || cat.label.toLowerCase()
+                const friendlyLabel = approvalCategoryLabels[categoryKey] || cat.label
                 return (
-                  <Tooltip key={idx} title={`${cat.approvals.length} ${cat.label.toLowerCase()}`}>
+                  <Tooltip key={idx} title={`${cat.approvals.length} ${friendlyLabel.toLowerCase()}`}>
                     <span className={`flex items-center gap-1 px-2 py-0.5 rounded-full bg-white dark:bg-gray-800 text-xs ${cat.color}`}>
                       <Icon className="size-3" />
                       {cat.approvals.length}
@@ -200,7 +231,7 @@ export const ApprovalBanner: FC<ApprovalBannerProps> = ({
             size="small"
             danger
             icon={<X className="size-3.5" />}
-            onClick={() => onReject(allIds)}
+            onClick={handleRejectAll}
           >
             {t("rejectAll", "Reject All")}
           </Button>
@@ -210,6 +241,11 @@ export const ApprovalBanner: FC<ApprovalBannerProps> = ({
               size="small"
               type="text"
               onClick={onToggleExpanded}
+              aria-expanded={expanded}
+              aria-label={expanded
+                ? t("collapseApprovals", "Collapse approval details")
+                : t("expandApprovals", "Expand approval details")
+              }
               icon={<ChevronUp className={`size-4 text-yellow-600 transition-transform ${expanded ? "" : "rotate-180"}`} />}
             />
           )}
@@ -245,9 +281,16 @@ export const ApprovalBanner: FC<ApprovalBannerProps> = ({
                   </div>
 
                   {isRisky && (
-                    <span className="px-1.5 py-0.5 text-xs font-medium rounded bg-red-100 dark:bg-red-900/40 text-red-700 dark:text-red-300">
-                      {t("requiresApproval", "Requires approval")}
-                    </span>
+                    <Tooltip
+                      title={t(
+                        "riskyOperationTooltip",
+                        "This operation is potentially destructive and requires individual approval for safety."
+                      )}
+                    >
+                      <span className="px-1.5 py-0.5 text-xs font-medium rounded bg-red-100 dark:bg-red-900/40 text-red-700 dark:text-red-300 cursor-help">
+                        {t("requiresApproval", "Requires approval")}
+                      </span>
+                    </Tooltip>
                   )}
                 </div>
 

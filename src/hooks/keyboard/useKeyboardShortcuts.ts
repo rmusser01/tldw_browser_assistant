@@ -208,6 +208,38 @@ export const useChatModeShortcuts = (
 }
 
 /**
+ * Hook specifically for web search shortcuts
+ * @param toggleWebSearch Function to toggle web search
+ * @param enabled Whether the shortcuts are enabled
+ */
+export const useWebSearchShortcuts = (
+  toggleWebSearch: () => void,
+  enabled: boolean = true
+) => {
+  const { shortcuts: configuredShortcuts } = useShortcutConfig()
+
+  const toggleWebSearchAction = useCallback(() => {
+    toggleWebSearch()
+  }, [toggleWebSearch])
+
+  const shortcuts: KeyboardShortcutConfig[] = [
+    {
+      shortcut: configuredShortcuts.toggleWebSearch,
+      action: toggleWebSearchAction,
+      enabled,
+      description: 'Toggle web search'
+    }
+  ]
+
+  useKeyboardShortcuts(shortcuts)
+
+  return {
+    toggleWebSearch: toggleWebSearchAction,
+    shortcuts
+  }
+}
+
+/**
  * Hook specifically for Quick Chat Helper shortcuts
  * @param toggleQuickChat Function to toggle Quick Chat Helper modal
  * @param enabled Whether the shortcuts are enabled

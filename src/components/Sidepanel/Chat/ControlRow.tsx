@@ -4,18 +4,14 @@ import {
   MoreHorizontal,
   Eye,
   Globe,
-  Image as ImageIcon,
-  UploadCloud,
-  LayoutGrid,
-  BookText,
-  StickyNote,
-  Layers
+  Image as ImageIcon
 } from "lucide-react"
 import React from "react"
 import { useTranslation } from "react-i18next"
 import { BsIncognito } from "react-icons/bs"
 import { ModelSelect } from "@/components/Common/ModelSelect"
 import { PromptSelect } from "@/components/Common/PromptSelect"
+import { FeatureHint, useFeatureHintSeen } from "@/components/Common/FeatureHint"
 import { SaveStatusIcon } from "./SaveStatusIcon"
 import { useServerCapabilities } from "@/hooks/useServerCapabilities"
 import { formatShortcut, isMac } from "@/hooks/useKeyboardShortcuts"
@@ -62,22 +58,9 @@ export const ControlRow: React.FC<ControlRowProps> = ({
   const moreBtnRef = React.useRef<HTMLButtonElement>(null)
   const { capabilities } = useServerCapabilities()
 
-  const openOptionsPage = React.useCallback((hash: string) => {
-    try {
-      if (
-        typeof browser === "undefined" ||
-        !browser.runtime ||
-        !browser.tabs
-      ) {
-        window.open(`/options.html${hash}`, "_blank")
-        return
-      }
-      const url = browser.runtime.getURL(`/options.html${hash}`)
-      browser.tabs.create({ url })
-    } catch {
-      window.open(`/options.html${hash}`, "_blank")
-    }
-  }, [])
+  // Track if hints have been seen
+  const knowledgeHintSeen = useFeatureHintSeen("knowledge-search")
+  const moreToolsHintSeen = useFeatureHintSeen("more-tools")
 
   const handleSaveClick = () => {
     // Toggle between ephemeral and local save
@@ -142,7 +125,7 @@ export const ControlRow: React.FC<ControlRowProps> = ({
         <Tooltip
           title={
             chatMode === "rag"
-              ? t("sidepanel:controlRow.visionDisabledRag", "Disable RAG mode to use Vision")
+              ? t("sidepanel:controlRow.visionDisabledKnowledge", "Disable Knowledge Search to use Vision")
               : t("sidepanel:controlRow.visionTooltip", "Enable Vision to analyze images")
           }
           open={chatMode === "rag" ? undefined : false}
@@ -174,55 +157,6 @@ export const ControlRow: React.FC<ControlRowProps> = ({
         </button>
       </Upload>
 
-      {/* Quick Ingest */}
-      <button
-        disabled={!isConnected}
-        onClick={() => {
-          try {
-            browser.runtime.sendMessage({ type: "tldw:ingest", mode: "store" })
-          } catch {}
-          setMoreOpen(false)
-        }}
-        className="w-full text-left text-sm px-2 py-1.5 rounded flex items-center gap-2 hover:bg-gray-100 dark:hover:bg-gray-800 disabled:opacity-50 disabled:cursor-not-allowed"
-      >
-        <UploadCloud className="size-4 text-gray-500" />
-        {t("sidepanel:controlRow.quickIngest", "Quick Ingest Page")}
-      </button>
-
-      <div className="h-px bg-gray-200 dark:bg-gray-700 my-1" />
-
-      {/* Modes - open full UI */}
-      <div className="text-xs text-gray-500 font-medium">
-        {t("sidepanel:controlRow.openInFullUI", "Open in Full UI")}
-      </div>
-      <button
-        onClick={() => openOptionsPage("#/")}
-        className="w-full text-left text-sm px-2 py-1.5 rounded flex items-center gap-2 hover:bg-gray-100 dark:hover:bg-gray-800"
-      >
-        <LayoutGrid className="size-4 text-gray-500" />
-        {t("sidepanel:controlRow.modeChat", "Chat")}
-      </button>
-      <button
-        onClick={() => openOptionsPage("#/media")}
-        className="w-full text-left text-sm px-2 py-1.5 rounded flex items-center gap-2 hover:bg-gray-100 dark:hover:bg-gray-800"
-      >
-        <BookText className="size-4 text-gray-500" />
-        {t("sidepanel:controlRow.modeMedia", "Media")}
-      </button>
-      <button
-        onClick={() => openOptionsPage("#/notes")}
-        className="w-full text-left text-sm px-2 py-1.5 rounded flex items-center gap-2 hover:bg-gray-100 dark:hover:bg-gray-800"
-      >
-        <StickyNote className="size-4 text-gray-500" />
-        {t("sidepanel:controlRow.modeNotes", "Notes")}
-      </button>
-      <button
-        onClick={() => openOptionsPage("#/flashcards")}
-        className="w-full text-left text-sm px-2 py-1.5 rounded flex items-center gap-2 hover:bg-gray-100 dark:hover:bg-gray-800"
-      >
-        <Layers className="size-4 text-gray-500" />
-        {t("sidepanel:controlRow.modeFlashcards", "Flashcards")}
-      </button>
     </div>
   )
 
@@ -251,22 +185,32 @@ export const ControlRow: React.FC<ControlRowProps> = ({
         {/* Divider */}
         <div className="h-4 w-px bg-gray-200 dark:bg-gray-700 mx-0.5" />
 
-        {/* RAG Toggle - with label and shortcut */}
-        <button
-          type="button"
-          data-testid="control-rag-toggle"
-          onClick={onToggleRag}
-          className={`flex items-center gap-1.5 px-2 py-1 rounded text-sm font-medium focus:outline-none focus-visible:ring-2 focus-visible:ring-pink-700 transition-colors ${
-            chatMode === "rag"
-              ? "bg-pink-100 dark:bg-pink-900/30 text-pink-700 dark:text-pink-300 hover:bg-pink-200 dark:hover:bg-pink-900/40"
-              : "text-gray-600 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-700"
-          }`}
-          aria-label={t("sidepanel:controlRow.ragSearch", "RAG Search")}
-          aria-pressed={chatMode === "rag"}
-        >
-          <Search className="size-3.5" />
-          <span className="hidden sm:inline">{t("sidepanel:controlRow.rag", "RAG")}</span>
-        </button>
+        {/* Knowledge Search Toggle - with label and shortcut */}
+        <div className="relative">
+          <button
+            type="button"
+            data-testid="control-rag-toggle"
+            onClick={onToggleRag}
+            className={`flex items-center gap-1.5 px-3 py-2 sm:px-2 sm:py-1 rounded text-sm font-medium focus:outline-none focus-visible:ring-2 focus-visible:ring-pink-700 transition-colors min-h-[44px] sm:min-h-0 ${
+              chatMode === "rag"
+                ? "bg-pink-100 dark:bg-pink-900/30 text-pink-700 dark:text-pink-300 hover:bg-pink-200 dark:hover:bg-pink-900/40"
+                : "text-gray-600 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-700"
+            }`}
+            aria-label={t("sidepanel:controlRow.knowledgeSearch", "Knowledge Search")}
+            aria-pressed={chatMode === "rag"}
+          >
+            <Search className="size-3.5" />
+            <span className="hidden sm:inline">{t("sidepanel:controlRow.knowledge", "Knowledge")}</span>
+          </button>
+          {!knowledgeHintSeen && isConnected && (
+            <FeatureHint
+              featureKey="knowledge-search"
+              title={t("common:featureHints.knowledge.title", "Chat with your knowledge")}
+              description={t("common:featureHints.knowledge.description", "Enable this to search your documents and include relevant context in your chats.")}
+              position="top"
+            />
+          )}
+        </div>
 
         {/* Web Search Toggle - with label and shortcut (if available) */}
         {capabilities?.hasWebSearch && (
@@ -274,7 +218,7 @@ export const ControlRow: React.FC<ControlRowProps> = ({
             type="button"
             data-testid="control-web-toggle"
             onClick={() => setWebSearch(!webSearch)}
-            className={`flex items-center gap-1.5 px-2 py-1 rounded text-sm font-medium focus:outline-none focus-visible:ring-2 focus-visible:ring-pink-700 transition-colors ${
+            className={`flex items-center gap-1.5 px-3 py-2 sm:px-2 sm:py-1 rounded text-sm font-medium focus:outline-none focus-visible:ring-2 focus-visible:ring-pink-700 transition-colors min-h-[44px] sm:min-h-0 ${
               webSearch
                 ? "bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 hover:bg-blue-200 dark:hover:bg-blue-900/40"
                 : "text-gray-600 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-700"
@@ -287,32 +231,6 @@ export const ControlRow: React.FC<ControlRowProps> = ({
           </button>
         )}
 
-        {/* Vision Toggle - with label */}
-        <Tooltip
-          title={
-            chatMode === "rag"
-              ? t("sidepanel:controlRow.visionDisabledRag", "Disable RAG mode to use Vision")
-              : undefined
-          }
-        >
-          <button
-            type="button"
-            data-testid="control-vision-toggle"
-            onClick={() => setChatMode(chatMode === "vision" ? "normal" : "vision")}
-            disabled={chatMode === "rag"}
-            className={`flex items-center gap-1.5 px-2 py-1 rounded text-sm font-medium focus:outline-none focus-visible:ring-2 focus-visible:ring-pink-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed ${
-              chatMode === "vision"
-                ? "bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300 hover:bg-green-200 dark:hover:bg-green-900/40"
-                : "text-gray-600 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-700"
-            }`}
-            aria-label={t("sidepanel:controlRow.vision", "Vision")}
-            aria-pressed={chatMode === "vision"}
-          >
-            <Eye className="size-3.5" />
-            <span className="hidden sm:inline">{t("sidepanel:controlRow.vision", "Vision")}</span>
-          </button>
-        </Tooltip>
-
         {/* Save Status Icon */}
         <SaveStatusIcon
           temporaryChat={temporaryChat}
@@ -321,30 +239,40 @@ export const ControlRow: React.FC<ControlRowProps> = ({
         />
 
         {/* More Tools Menu */}
-        <Popover
-          trigger="click"
-          open={moreOpen}
-          onOpenChange={(visible) => {
-            setMoreOpen(visible)
-            if (!visible) {
-              requestAnimationFrame(() => moreBtnRef.current?.focus())
-            }
-          }}
-          content={moreMenuContent}
-          placement="topRight"
-        >
-          <button
-            ref={moreBtnRef}
-            type="button"
-            data-testid="control-more-menu"
-            className="p-1.5 rounded hover:bg-gray-200 dark:hover:bg-gray-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-pink-700"
-            aria-label={t("sidepanel:controlRow.moreTools", "More tools")}
-            aria-haspopup="menu"
-            aria-expanded={moreOpen}
+        <div className="relative">
+          <Popover
+            trigger="click"
+            open={moreOpen}
+            onOpenChange={(visible) => {
+              setMoreOpen(visible)
+              if (!visible) {
+                requestAnimationFrame(() => moreBtnRef.current?.focus())
+              }
+            }}
+            content={moreMenuContent}
+            placement="topRight"
           >
-            <MoreHorizontal className="size-4 text-gray-500 dark:text-gray-400" />
-          </button>
-        </Popover>
+            <button
+              ref={moreBtnRef}
+              type="button"
+              data-testid="control-more-menu"
+              className="p-2 sm:p-1.5 min-h-[44px] sm:min-h-0 rounded hover:bg-gray-200 dark:hover:bg-gray-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-pink-700"
+              aria-label={t("sidepanel:controlRow.moreTools", "More tools")}
+              aria-haspopup="menu"
+              aria-expanded={moreOpen}
+            >
+              <MoreHorizontal className="size-4 text-gray-500 dark:text-gray-400" />
+            </button>
+          </Popover>
+          {!moreToolsHintSeen && (
+            <FeatureHint
+              featureKey="more-tools"
+              title={t("common:featureHints.moreTools.title", "More tools available")}
+              description={t("common:featureHints.moreTools.description", "Access vision mode, image upload, quick ingest, and links to the full UI.")}
+              position="top"
+            />
+          )}
+        </div>
       </div>
     )
 }
