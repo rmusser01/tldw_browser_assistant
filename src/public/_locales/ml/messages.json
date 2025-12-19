@@ -372,6 +372,15 @@
   "result": {
     "message": "ഫലം"
   },
+  "markdown_unableToRender": {
+    "message": "ഉള്ളടക്കം പ്രദർശിപ്പിക്കാൻ കഴിഞ്ഞില്ല"
+  },
+  "markdown_couldNotDisplay": {
+    "message": "സന്ദേശത്തിന്റെ ഉള്ളടക്കം പ്രദർശിപ്പിക്കാൻ കഴിഞ്ഞില്ല. ഇത് അസാധുവായ ഫോർമാറ്റിംഗ് കാരണം ആയിരിക്കാം."
+  },
+  "markdown_showRawContent": {
+    "message": "അസംസ്കൃത ഉള്ളടക്കം കാണിക്കുക"
+  },
   "notesSearch_exportNoteSuccess": {
     "message": "Exported ({{size}})"
   },
@@ -382,6 +391,18 @@
     "message": "Exported {{count}} notes as CSV ({{size}})"
   },
   "notesSearch_exportJsonSuccess": {
+    "message": "Exported {{count}} notes as JSON ({{size}})"
+  },
+  "exportNoteSuccess": {
+    "message": "Exported ({{size}})"
+  },
+  "exportSuccess": {
+    "message": "Exported {{count}} notes ({{size}})"
+  },
+  "exportCsvSuccess": {
+    "message": "Exported {{count}} notes as CSV ({{size}})"
+  },
+  "exportJsonSuccess": {
     "message": "Exported {{count}} notes as JSON ({{size}})"
   }
 }

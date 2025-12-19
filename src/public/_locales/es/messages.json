@@ -372,6 +372,15 @@
   "result": {
     "message": "Resultado"
   },
+  "markdown_unableToRender": {
+    "message": "Unable to render content"
+  },
+  "markdown_couldNotDisplay": {
+    "message": "The message content could not be displayed. This may be due to invalid formatting."
+  },
+  "markdown_showRawContent": {
+    "message": "Show raw content"
+  },
   "notesSearch_exportNoteSuccess": {
     "message": "Exported ({{size}})"
   },
@@ -382,6 +391,18 @@
     "message": "Exported {{count}} notes as CSV ({{size}})"
   },
   "notesSearch_exportJsonSuccess": {
+    "message": "Exported {{count}} notes as JSON ({{size}})"
+  },
+  "exportNoteSuccess": {
+    "message": "Exported ({{size}})"
+  },
+  "exportSuccess": {
+    "message": "Exported {{count}} notes ({{size}})"
+  },
+  "exportCsvSuccess": {
+    "message": "Exported {{count}} notes as CSV ({{size}})"
+  },
+  "exportJsonSuccess": {
     "message": "Exported {{count}} notes as JSON ({{size}})"
   }
 }

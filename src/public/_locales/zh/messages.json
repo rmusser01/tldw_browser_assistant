@@ -244,6 +244,15 @@
   "result": {
     "message": "结果"
   },
+  "markdown_unableToRender": {
+    "message": "无法渲染内容"
+  },
+  "markdown_couldNotDisplay": {
+    "message": "无法显示消息内容。这可能是由于格式无效所致。"
+  },
+  "markdown_showRawContent": {
+    "message": "显示原始内容"
+  },
   "notesSearch_exportNoteSuccess": {
     "message": "Exported ({{size}})"
   },
@@ -254,6 +263,18 @@
     "message": "Exported {{count}} notes as CSV ({{size}})"
   },
   "notesSearch_exportJsonSuccess": {
+    "message": "Exported {{count}} notes as JSON ({{size}})"
+  },
+  "exportNoteSuccess": {
+    "message": "Exported ({{size}})"
+  },
+  "exportSuccess": {
+    "message": "Exported {{count}} notes ({{size}})"
+  },
+  "exportCsvSuccess": {
+    "message": "Exported {{count}} notes as CSV ({{size}})"
+  },
+  "exportJsonSuccess": {
     "message": "Exported {{count}} notes as JSON ({{size}})"
   }
 }

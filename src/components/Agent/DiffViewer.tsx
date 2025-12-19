@@ -234,7 +234,7 @@ const FileStatusBadge: FC<{ diff: FileDiff }> = ({ diff }) => {
  * Line number component
  */
 const LineNumber: FC<{ num?: number; className?: string }> = ({ num, className = "" }) => (
-  <span className={`select-none text-gray-400 dark:text-gray-600 w-10 text-right pr-2 ${className}`}>
+  <span className={`select-none text-gray-400 dark:text-gray-600 min-w-10 text-right pr-2 ${className}`}>
     {num ?? ""}
   </span>
 )
@@ -419,8 +419,11 @@ export const DiffViewer: FC<DiffViewerProps> = ({
             {/* File header */}
             <button
               onClick={() => collapsible && toggleFile(diff.id)}
-              className="w-full flex items-center gap-2 px-3 py-2 bg-gray-50 dark:bg-gray-800/50 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-pink-500"
-              aria-expanded={isExpanded}
+              disabled={!collapsible}
+              className={`w-full flex items-center gap-2 px-3 py-2 bg-gray-50 dark:bg-gray-800/50 transition-colors text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-pink-500 ${
+                collapsible ? "hover:bg-gray-100 dark:hover:bg-gray-800" : "cursor-default"
+              }`}
+              aria-expanded={collapsible ? isExpanded : undefined}
               aria-label={`${getFilePath(diff)} - ${isExpanded ? t("collapse", "Collapse") : t("expand", "Expand")}`}
             >
               {collapsible && (

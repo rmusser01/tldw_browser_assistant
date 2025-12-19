@@ -15,6 +15,9 @@ import { useStoreChatModelSettings } from "@/store/model"
 import { useLoadLocalConversation } from "@/hooks/useLoadLocalConversation"
 import { cn } from "@/libs/utils"
 
+// Module-level singleton database instance
+const db = new PageAssistDatabase()
+
 interface FolderChatListProps {
   onSelectChat?: (chatId: string) => void
   className?: string
@@ -25,7 +28,6 @@ export function FolderChatList({ onSelectChat, className }: FolderChatListProps)
   const { isConnected } = useConnectionState()
   const { refreshFromServer } = useFolderActions()
   const folderRefreshInFlightRef = useRef<Promise<void> | null>(null)
-  const dbRef = useRef<PageAssistDatabase | null>(null)
 
   const {
     setMessages,
@@ -42,10 +44,6 @@ export function FolderChatList({ onSelectChat, className }: FolderChatListProps)
   const conversationKeywordLinks = useFolderStore((s) => s.conversationKeywordLinks)
   const folders = useFolderStore((s) => s.folders)
   const isFolderLoading = useFolderStore((s) => s.isLoading)
-
-  if (!dbRef.current) {
-    dbRef.current = new PageAssistDatabase()
-  }
 
   // Load folders when component mounts
   useEffect(() => {
@@ -76,7 +74,6 @@ export function FolderChatList({ onSelectChat, className }: FolderChatListProps)
     queryKey: ["folderConversationTitles", folderConversationIds],
     queryFn: async () => {
       if (folderConversationIds.length === 0) return new Map<string, string>()
-      const db = dbRef.current!
       const historyPromises = folderConversationIds.map(async (id) => {
         try {
           const info = await db.getHistoryInfo(id)

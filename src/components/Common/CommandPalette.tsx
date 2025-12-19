@@ -189,7 +189,7 @@ export function CommandPalette({
         "Show or hide the chat sidebar"
       ),
       icon: <Eye className="size-4" />,
-      shortcut: { key: "b", modifiers: ["ctrl"] },
+      shortcut: { key: "b", modifiers: ["ctrl", "shift"] },
       action: () => {
         onToggleSidebar?.()
         setOpen(false)
@@ -243,6 +243,8 @@ export function CommandPalette({
 
   // Group commands by category
   const groupedCommands = useMemo(() => {
+    // "recent" is reserved for future MRU/history commands and may be populated
+    // by additionalCommands when that feature is implemented.
     const groups: Record<string, CommandItem[]> = {
       action: [],
       navigation: [],

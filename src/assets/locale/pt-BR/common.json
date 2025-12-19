@@ -266,8 +266,8 @@
   "invalidJson": "JSON inválido; mostrando valor bruto",
   "result": "Resultado",
   "markdown": {
-    "unableToRender": "Unable to render content",
-    "couldNotDisplay": "The message content could not be displayed. This may be due to invalid formatting.",
-    "showRawContent": "Show raw content"
+    "unableToRender": "Não foi possível renderizar o conteúdo",
+    "couldNotDisplay": "O conteúdo da mensagem não pôde ser exibido. Isso pode ser devido a formatação inválida.",
+    "showRawContent": "Mostrar conteúdo bruto"
   }
 }

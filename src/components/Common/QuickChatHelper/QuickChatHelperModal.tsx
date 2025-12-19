@@ -30,19 +30,13 @@ export const QuickChatHelperModal: React.FC<Props> = ({ open, onClose }) => {
   const { phase, isConnected } = useConnectionState()
   const isConnectionReady = isConnected && phase === ConnectionPhase.CONNECTED
 
-  // Scroll to bottom when messages change
+  // Scroll to bottom when messages change or streaming completes
   useEffect(() => {
-    if (messagesEndRef.current) {
-      messagesEndRef.current.scrollIntoView({ behavior: "smooth" })
+    if (!messagesEndRef.current || messages.length === 0) {
+      return
     }
-  }, [messages])
-
-  // Scroll to bottom when streaming ends to ensure all content is visible
-  useEffect(() => {
-    if (!isStreaming && messagesEndRef.current && messages.length > 0) {
-      messagesEndRef.current.scrollIntoView({ behavior: "smooth" })
-    }
-  }, [isStreaming, messages.length])
+    messagesEndRef.current.scrollIntoView({ behavior: "smooth" })
+  }, [messages, isStreaming])
 
   const handlePopOut = useCallback(() => {
     // Serialize current state to sessionStorage
@@ -92,17 +86,7 @@ export const QuickChatHelperModal: React.FC<Props> = ({ open, onClose }) => {
     <Modal
       title={
         <div className="flex items-center justify-between pr-8">
-          <div className="flex items-center gap-2">
-            <span id="quick-chat-title">{title}</span>
-            <span
-              role="status"
-              aria-live="polite"
-              className={`inline-flex items-center gap-1 rounded-full border px-2 py-0.5 text-[11px] font-medium ${connectionBadgeClass}`}
-            >
-              <span className={`h-1.5 w-1.5 rounded-full ${connectionDotClass}`} />
-              <span>{connectionLabel}</span>
-            </span>
-          </div>
+          <span id="quick-chat-title">{title}</span>
           <Tooltip
             title={messages.length === 0 ? popOutDisabledTooltip : popOutLabel}
             styles={messages.length === 0 ? { root: { maxWidth: '200px' } } : undefined}
@@ -129,6 +113,16 @@ export const QuickChatHelperModal: React.FC<Props> = ({ open, onClose }) => {
       aria-labelledby="quick-chat-title"
       aria-describedby={descriptionId}>
       <div className="flex flex-col h-[50vh] max-h-[400px]">
+        <div className="flex items-center justify-end px-1 pb-2">
+          <span
+            role="status"
+            aria-live="polite"
+            className={`inline-flex items-center gap-1 rounded-full border px-2 py-0.5 text-[11px] font-medium ${connectionBadgeClass}`}
+          >
+            <span className={`h-1.5 w-1.5 rounded-full ${connectionDotClass}`} />
+            <span>{connectionLabel}</span>
+          </span>
+        </div>
         {/* Messages area */}
         <div
           className="flex-1 overflow-y-auto px-1 py-2"

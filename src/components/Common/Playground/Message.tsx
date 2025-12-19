@@ -134,6 +134,9 @@ type Props = {
   onToggleCompareSelect?: () => void
 }
 
+const ACTION_BUTTON_CLASS =
+  "flex items-center justify-center w-10 h-10 sm:w-6 sm:h-6 rounded-full bg-gray-100 dark:bg-[#2d2d2d] hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500"
+
 export const PlaygroundMessage = (props: Props) => {
   const [isBtnPressed, setIsBtnPressed] = React.useState(false)
   const [editMode, setEditMode] = React.useState(false)
@@ -558,7 +561,7 @@ export const PlaygroundMessage = (props: Props) => {
                         })
                       }
                     }}
-                    className="flex items-center justify-center w-10 h-10 sm:w-6 sm:h-6 rounded-full bg-gray-100 dark:bg-[#2d2d2d] hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500">
+                    className={ACTION_BUTTON_CLASS}>
                     <ActionButtonWithLabel
                       icon={
                         !isSpeaking ? (
@@ -589,7 +592,7 @@ export const PlaygroundMessage = (props: Props) => {
                         setIsBtnPressed(false)
                       }, 2000)
                     }}
-                    className="flex items-center justify-center w-10 h-10 sm:w-6 sm:h-6 rounded-full bg-gray-100 dark:bg-[#2d2d2d] hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500">
+                    className={ACTION_BUTTON_CLASS}>
                     <ActionButtonWithLabel
                       icon={
                         !isBtnPressed ? (
@@ -614,7 +617,7 @@ export const PlaygroundMessage = (props: Props) => {
                       title={t("generationInfo")}>
                       <IconButton
                         ariaLabel={t("generationInfo") as string}
-                        className="flex items-center justify-center w-10 h-10 sm:w-6 sm:h-6 rounded-full bg-gray-100 dark:bg-[#2d2d2d] hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500">
+                        className={ACTION_BUTTON_CLASS}>
                         <ActionButtonWithLabel
                           icon={
                             <InfoIcon className="w-3 h-3 text-gray-400 group-hover:text-gray-500" />
@@ -631,7 +634,7 @@ export const PlaygroundMessage = (props: Props) => {
                       <IconButton
                         ariaLabel={t("regenerate") as string}
                         onClick={props.onRegenerate}
-                        className="flex items-center justify-center w-10 h-10 sm:w-6 sm:h-6 rounded-full bg-gray-100 dark:bg-[#2d2d2d] hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500">
+                        className={ACTION_BUTTON_CLASS}>
                         <ActionButtonWithLabel
                           icon={
                             <RotateCcw className="w-3 h-3 text-gray-400 group-hover:text-gray-500" />
@@ -648,7 +651,7 @@ export const PlaygroundMessage = (props: Props) => {
                       <IconButton
                         ariaLabel={t("newBranch") as string}
                         onClick={props?.onNewBranch}
-                        className="flex items-center justify-center w-10 h-10 sm:w-6 sm:h-6 rounded-full bg-gray-100 dark:bg-[#2d2d2d] hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500">
+                        className={ACTION_BUTTON_CLASS}>
                         <ActionButtonWithLabel
                           icon={
                             <GitBranchIcon className="w-3 h-3 text-gray-400 group-hover:text-gray-500" />
@@ -665,7 +668,7 @@ export const PlaygroundMessage = (props: Props) => {
                       <IconButton
                         ariaLabel={t("continue") as string}
                         onClick={props?.onContinue}
-                        className="flex items-center justify-center w-10 h-10 sm:w-6 sm:h-6 rounded-full bg-gray-100 dark:bg-[#2d2d2d] hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500">
+                        className={ACTION_BUTTON_CLASS}>
                         <ActionButtonWithLabel
                           icon={
                             <PlayCircle className="w-3 h-3 text-gray-400 group-hover:text-gray-500" />
@@ -683,7 +686,7 @@ export const PlaygroundMessage = (props: Props) => {
                   <IconButton
                     onClick={() => setEditMode(true)}
                     ariaLabel={t("edit") as string}
-                    className="flex items-center justify-center w-10 h-10 sm:w-6 sm:h-6 rounded-full bg-gray-100 dark:bg-[#2d2d2d] hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500">
+                    className={ACTION_BUTTON_CLASS}>
                     <ActionButtonWithLabel
                       icon={
                         <Pen className="w-3 h-3 text-gray-400 group-hover:text-gray-500" />

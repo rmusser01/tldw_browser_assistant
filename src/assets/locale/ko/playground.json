@@ -223,11 +223,12 @@
       "serverSaved": "Future messages in this chat will sync to your tldw server.",
       "serverCharacterRequired": "Unable to find or create a default assistant character on the server. Try again from the Characters page."
     },
-    "connectToSend": "Connect to your tldw server in Settings to send messages and view media.",
-    "compareMaxModelsTitle": "Compare limit reached",
-    "compareMaxModels": "You can compare up to {{limit}} models per turn.",
-    "compareMaxModelsTrimmed": "Compare is limited to {{limit}} models per turn. Using the first {{limit}} selected models.",
-    "compareMaxLabel": "Max models per turn",
-    "compareMaxHelper": "Selected {{current}} / {{limit}}"
+    "connectToSend": "메시지를 보내고 미디어를 보려면 설정에서 tldw 서버에 연결하세요.",
+    "compareTag": "Compare",
+    "compareMaxModelsTitle": "비교 제한에 도달했습니다",
+    "compareMaxModels": "턴당 최대 {{limit}}개의 모델을 비교할 수 있습니다.",
+    "compareMaxModelsTrimmed": "비교는 턴당 {{limit}}개의 모델로 제한됩니다. 선택한 처음 {{limit}}개의 모델을 사용합니다.",
+    "compareMaxLabel": "턴당 최대 모델 수",
+    "compareMaxHelper": "선택됨: {{current}} / {{limit}}"
   }
 }

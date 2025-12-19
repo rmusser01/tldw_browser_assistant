@@ -204,7 +204,6 @@
     "audioLanguage": "Language (e.g., en)",
     "audioDiarizationHelp": "Turn on to separate speakers in transcripts.",
     "documentOptions": "Document options",
-    "ocrHelp": "OCR допомагає витягувати текст зі сканованих PDF-файлів або зображень.",
     "quickIngest_ocrHelp": "OCR допомагає витягувати текст зі сканованих PDF-файлів або зображень.",
     "videoOptions": "Video options",
     "captionsHelp": "Include timestamps/captions when available.",

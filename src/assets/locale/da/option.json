@@ -205,7 +205,6 @@
     "audioLanguage": "Sprog (f.eks. en)",
     "audioDiarizationHelp": "Aktivér for at adskille talere i transskriptioner.",
     "documentOptions": "Dokumentindstillinger",
-    "ocrHelp": "OCR hjælper med at udtrække tekst fra scannede PDF’er eller billeder.",
     "quickIngest_ocrHelp": "OCR hjælper med at udtrække tekst fra scannede PDF’er eller billeder.",
     "videoOptions": "Videoindstillinger",
     "captionsHelp": "Medtag tidsstempler/undertekster, når de er tilgængelige.",

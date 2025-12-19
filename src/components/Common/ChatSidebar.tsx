@@ -1,7 +1,7 @@
 import React, { useState, useMemo } from "react"
 import { useNavigate } from "react-router-dom"
 import { useTranslation } from "react-i18next"
-import { useInfiniteQuery } from "@tanstack/react-query"
+import { useQueryClient, type InfiniteData } from "@tanstack/react-query"
 import { Input, Tooltip, Segmented } from "antd"
 import {
   Plus,
@@ -16,7 +16,6 @@ import {
 import { useStorage } from "@plasmohq/storage/hook"
 import { Storage } from "@plasmohq/storage"
 
-import { PageAssistDatabase } from "@/db/dexie/chat"
 import type { HistoryInfo } from "@/db/dexie/types"
 import { useConnectionState } from "@/hooks/useConnectionState"
 import { useDebounce } from "@/hooks/useDebounce"
@@ -68,6 +67,7 @@ export function ChatSidebar({
   const { isConnected } = useConnectionState()
   const [searchQuery, setSearchQuery] = useState("")
   const debouncedSearchQuery = useDebounce(searchQuery, 300)
+  const queryClient = useQueryClient()
 
   // Tab state persisted in localStorage
   const [activeTab, setActiveTab] = useStorage<SidebarTab>({
@@ -90,104 +90,18 @@ export function ChatSidebar({
   const { data: serverChatData } = useServerChatHistory(debouncedSearchQuery)
   const serverChats = serverChatData || []
 
-  // Local chat count for tab badge
-  const { data: chatHistoriesData } = useInfiniteQuery({
-    queryKey: ["fetchChatHistory", debouncedSearchQuery],
-    queryFn: async ({ pageParam = 1 }) => {
-      try {
-        const db = new PageAssistDatabase()
-        const result = await db.getChatHistoriesPaginated(
-          pageParam,
-          debouncedSearchQuery || undefined
-        )
+  // Local chat count for tab badge, derived from existing query cache
+  const localChatCount = useMemo(() => {
+    const data = queryClient.getQueryData<
+      InfiniteData<{ groups: ChatGroup[] }>
+    >(["fetchChatHistory", debouncedSearchQuery])
 
-        // Search mode: single "searchResults" group
-        if (debouncedSearchQuery) {
-          return {
-            groups:
-              result.histories.length > 0
-                ? [{ label: "searchResults", items: result.histories }]
-                : [],
-            hasMore: result.hasMore,
-            totalCount: result.totalCount
-          }
-        }
-
-        // Date + pinned grouping with validated timestamps
-        const now = new Date()
-        const today = new Date(now.setHours(0, 0, 0, 0))
-        const yesterday = new Date(today)
-        yesterday.setDate(yesterday.getDate() - 1)
-        const lastWeek = new Date(today)
-        lastWeek.setDate(lastWeek.getDate() - 7)
-
-        const pinnedItems: HistoryInfo[] = []
-        const todayItems: HistoryInfo[] = []
-        const yesterdayItems: HistoryInfo[] = []
-        const lastWeekItems: HistoryInfo[] = []
-        const olderItems: HistoryInfo[] = []
-
-        for (const item of result.histories) {
-          if (item.is_pinned) {
-            pinnedItems.push(item)
-            continue
-          }
-
-          const date = new Date(item.createdAt)
-          const time = Number.isNaN(date.getTime()) ? null : date
-
-          if (!time) {
-            olderItems.push(item)
-            continue
-          }
-
-          if (time >= today) {
-            todayItems.push(item)
-          } else if (time >= yesterday) {
-            yesterdayItems.push(item)
-          } else if (time >= lastWeek) {
-            lastWeekItems.push(item)
-          } else {
-            olderItems.push(item)
-          }
-        }
-
-        const groups: ChatGroup[] = []
-        if (pinnedItems.length) groups.push({ label: "pinned", items: pinnedItems })
-        if (todayItems.length) groups.push({ label: "today", items: todayItems })
-        if (yesterdayItems.length) groups.push({ label: "yesterday", items: yesterdayItems })
-        if (lastWeekItems.length)
-          groups.push({ label: "last7Days", items: lastWeekItems })
-        if (olderItems.length) groups.push({ label: "older", items: olderItems })
-
-        return {
-          groups,
-          hasMore: result.hasMore,
-          totalCount: result.totalCount
-        }
-      } catch (error) {
-        // eslint-disable-next-line no-console
-        console.error("Failed to fetch chat histories:", error)
-        return {
-          groups: [],
-          hasMore: false,
-          totalCount: 0
-        }
-      }
-    },
-    getNextPageParam: (lastPage, allPages) =>
-      lastPage.hasMore ? allPages.length + 1 : undefined,
-    initialPageParam: 1
-  })
-
-  // Calculate local chat count
-  const localChatCount = useMemo(
-    () =>
-      chatHistoriesData?.pages.reduce((total, page) => {
+    return (
+      data?.pages.reduce((total, page) => {
         return total + page.groups.reduce((sum, group) => sum + group.items.length, 0)
-      }, 0) || 0,
-    [chatHistoriesData]
-  )
+      }, 0) || 0
+    )
+  }, [debouncedSearchQuery, queryClient])
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(e.target.value)

@@ -408,6 +408,13 @@ const NotesManagerPage: React.FC = () => {
     } catch { message.error('Copy failed') }
   }
 
+  const formatFileSize = (bytes: number): string => {
+    const sizeKB = (bytes / 1024).toFixed(1)
+    return bytes >= 1024 * 1024
+      ? `${(bytes / (1024 * 1024)).toFixed(2)} MB`
+      : `${sizeKB} KB`
+  }
+
   const exportSelected = () => {
     const name = (title || `note-${selectedId ?? 'new'}`).replace(/[^a-z0-9-_]+/gi, '-')
     const md = title ? `# ${title}\n\n${content || ''}` : (content || '')
@@ -419,10 +426,7 @@ const NotesManagerPage: React.FC = () => {
     a.click()
     URL.revokeObjectURL(url)
     // Show file size in success message (KB/MB)
-    const sizeKB = (blob.size / 1024).toFixed(1)
-    const sizeDisplay = blob.size >= 1024 * 1024
-      ? `${(blob.size / (1024 * 1024)).toFixed(2)} MB`
-      : `${sizeKB} KB`
+    const sizeDisplay = formatFileSize(blob.size)
     message.success(
       translateMessage(
         t,
@@ -480,10 +484,7 @@ const NotesManagerPage: React.FC = () => {
       a.click()
       URL.revokeObjectURL(url)
       // Format file size for success message
-      const sizeKB = (blob.size / 1024).toFixed(1)
-      const sizeDisplay = blob.size >= 1024 * 1024
-        ? `${(blob.size / (1024 * 1024)).toFixed(2)} MB`
-        : `${sizeKB} KB`
+      const sizeDisplay = formatFileSize(blob.size)
       message.success(
         translateMessage(
           t,
@@ -573,10 +574,7 @@ const NotesManagerPage: React.FC = () => {
       a.download = `notes-export.csv`
       a.click()
       URL.revokeObjectURL(url)
-      const sizeKB = (blob.size / 1024).toFixed(1)
-      const sizeDisplay = blob.size >= 1024 * 1024
-        ? `${(blob.size / (1024 * 1024)).toFixed(2)} MB`
-        : `${sizeKB} KB`
+      const sizeDisplay = formatFileSize(blob.size)
       message.success(
         translateMessage(
           t,
@@ -601,10 +599,7 @@ const NotesManagerPage: React.FC = () => {
       a.download = `notes-export.json`
       a.click()
       URL.revokeObjectURL(url)
-      const sizeKB = (blob.size / 1024).toFixed(1)
-      const sizeDisplay = blob.size >= 1024 * 1024
-        ? `${(blob.size / (1024 * 1024)).toFixed(2)} MB`
-        : `${sizeKB} KB`
+      const sizeDisplay = formatFileSize(blob.size)
       message.success(
         translateMessage(
           t,
@@ -649,6 +644,7 @@ const NotesManagerPage: React.FC = () => {
       }
     } catch {
       // Keyword load failed - feature will use empty suggestions
+      console.debug('[NotesManagerPage] Keyword suggestions load failed')
     }
   }, [])
 

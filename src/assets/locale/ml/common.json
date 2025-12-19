@@ -268,8 +268,8 @@
   "invalidJson": "അസാധുവായ JSON; അസംസ്കൃത മൂല്യം കാണിക്കുന്നു",
   "result": "ഫലം",
   "markdown": {
-    "unableToRender": "Unable to render content",
-    "couldNotDisplay": "The message content could not be displayed. This may be due to invalid formatting.",
-    "showRawContent": "Show raw content"
+    "unableToRender": "ഉള്ളടക്കം പ്രദർശിപ്പിക്കാൻ കഴിഞ്ഞില്ല",
+    "couldNotDisplay": "സന്ദേശത്തിന്റെ ഉള്ളടക്കം പ്രദർശിപ്പിക്കാൻ കഴിഞ്ഞില്ല. ഇത് അസാധുവായ ഫോർമാറ്റിംഗ് കാരണം ആയിരിക്കാം.",
+    "showRawContent": "അസംസ്കൃത ഉള്ളടക്കം കാണിക്കുക"
   }
 }

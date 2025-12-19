@@ -266,8 +266,8 @@
   "invalidJson": "無効な JSON です。生の値を表示しています",
   "result": "結果",
   "markdown": {
-    "unableToRender": "Unable to render content",
-    "couldNotDisplay": "The message content could not be displayed. This may be due to invalid formatting.",
-    "showRawContent": "Show raw content"
+    "unableToRender": "コンテンツをレンダリングできません",
+    "couldNotDisplay": "メッセージの内容を表示できませんでした。これは無効なフォーマットによる可能性があります。",
+    "showRawContent": "生のコンテンツを表示"
   }
 }

@@ -224,10 +224,11 @@
       "serverCharacterRequired": "Unable to find or create a default assistant character on the server. Try again from the Characters page."
     },
     "connectToSend": "Connect to your tldw server in Settings to send messages and view media.",
-    "compareMaxModelsTitle": "Compare limit reached",
-    "compareMaxModels": "You can compare up to {{limit}} models per turn.",
-    "compareMaxModelsTrimmed": "Compare is limited to {{limit}} models per turn. Using the first {{limit}} selected models.",
-    "compareMaxLabel": "Max models per turn",
-    "compareMaxHelper": "Selected {{current}} / {{limit}}"
+    "compareTag": "Compare",
+    "compareMaxModelsTitle": "已達比較上限",
+    "compareMaxModels": "每次最多可比較 {{limit}} 個模型。",
+    "compareMaxModelsTrimmed": "每次比較限制為 {{limit}} 個模型。使用前 {{limit}} 個選定的模型。",
+    "compareMaxLabel": "每次最大模型數",
+    "compareMaxHelper": "已選擇 {{current}} / {{limit}}"
   }
 }

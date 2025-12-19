@@ -99,6 +99,15 @@
   "result": {
     "message": "結果"
   },
+  "markdown_unableToRender": {
+    "message": "無法呈現內容"
+  },
+  "markdown_couldNotDisplay": {
+    "message": "訊息內容無法顯示。可能是格式無效所致。"
+  },
+  "markdown_showRawContent": {
+    "message": "顯示原始內容"
+  },
   "notesSearch_exportNoteSuccess": {
     "message": "Exported ({{size}})"
   },
@@ -109,6 +118,18 @@
     "message": "Exported {{count}} notes as CSV ({{size}})"
   },
   "notesSearch_exportJsonSuccess": {
+    "message": "Exported {{count}} notes as JSON ({{size}})"
+  },
+  "exportNoteSuccess": {
+    "message": "Exported ({{size}})"
+  },
+  "exportSuccess": {
+    "message": "Exported {{count}} notes ({{size}})"
+  },
+  "exportCsvSuccess": {
+    "message": "Exported {{count}} notes as CSV ({{size}})"
+  },
+  "exportJsonSuccess": {
     "message": "Exported {{count}} notes as JSON ({{size}})"
   }
 }

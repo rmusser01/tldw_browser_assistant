@@ -187,8 +187,8 @@
     "saveSnippetSuccess": "Saved to knowledge with backlink",
     "saveSnippetError": "Failed to save snippet. Check your connection and try again.",
     "saveSnippetEmpty": "Snippet cannot be empty",
-    "connectToSend": "Connect to your tldw server in Settings to send messages and view media."
-    ,
+    "connectToSend": "Connect to your tldw server in Settings to send messages and view media.",
+    "compareTag": "Compare",
     "compareMaxModelsTitle": "Compare limit reached",
     "compareMaxModels": "You can compare up to {{limit}} models per turn.",
     "compareMaxModelsTrimmed": "Compare is limited to {{limit}} models per turn. Using the first {{limit}} selected models.",

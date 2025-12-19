@@ -266,8 +266,8 @@
   "invalidJson": "Некорректный JSON; показывается исходное значение",
   "result": "Результат",
   "markdown": {
-    "unableToRender": "Unable to render content",
-    "couldNotDisplay": "The message content could not be displayed. This may be due to invalid formatting.",
-    "showRawContent": "Show raw content"
+    "unableToRender": "Не удалось отобразить содержимое",
+    "couldNotDisplay": "Содержимое сообщения не удалось отобразить. Возможно, причина в неверном форматировании.",
+    "showRawContent": "Показать исходный текст"
   }
 }

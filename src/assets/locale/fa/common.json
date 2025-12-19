@@ -266,8 +266,8 @@
   "invalidJson": "JSON نامعتبر؛ مقدار خام نمایش داده می‌شود",
   "result": "نتیجه",
   "markdown": {
-    "unableToRender": "Unable to render content",
-    "couldNotDisplay": "The message content could not be displayed. This may be due to invalid formatting.",
-    "showRawContent": "Show raw content"
+    "unableToRender": "محتوا قابل نمایش نیست",
+    "couldNotDisplay": "محتوای پیام قابل نمایش نبود. این ممکن است به دلیل قالب‌بندی نامعتبر باشد.",
+    "showRawContent": "نمایش محتوای خام"
   }
 }

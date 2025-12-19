@@ -42,8 +42,9 @@ export const SessionRestoreDialog: FC<SessionRestoreDialogProps> = ({
     const pending = session.pendingApprovals.filter((a) => a.status === "pending")
     if (pending.length === 0) return null
 
+    const fileChangePrefixes = ["fs.write", "fs.apply_patch"]
     const fileChanges = pending.filter((a) =>
-      a.toolName.startsWith("fs.write") || a.toolName.startsWith("fs.apply_patch")
+      fileChangePrefixes.some((prefix) => a.toolName.startsWith(prefix))
     ).length
     const commands = pending.filter((a) => a.toolName.startsWith("exec.")).length
     const other = pending.length - fileChanges - commands
@@ -70,8 +71,11 @@ export const SessionRestoreDialog: FC<SessionRestoreDialogProps> = ({
       <div className="space-y-4 py-2">
         {/* Session info */}
         <div className="bg-gray-50 dark:bg-gray-800 rounded-lg p-4">
-          <h4 className="font-medium text-gray-900 dark:text-gray-100 mb-2 line-clamp-2">
-            {session.title || (session.task.length > 100 ? `${session.task.substring(0, 97)}...` : session.task)}
+          <h4
+            className="font-medium text-gray-900 dark:text-gray-100 mb-2 line-clamp-2"
+            title={session.title || session.task}
+          >
+            {session.title || session.task}
           </h4>
 
           <div className="flex items-center gap-4 text-sm text-gray-500 dark:text-gray-400">
@@ -105,8 +109,8 @@ export const SessionRestoreDialog: FC<SessionRestoreDialogProps> = ({
                 {approvalSummary.total}{" "}
                 {t("pendingApprovals", {
                   count: approvalSummary.total,
-                  defaultValue:
-                    approvalSummary.total === 1 ? "pending approval" : "pending approvals"
+                  defaultValue_one: "pending approval",
+                  defaultValue_other: "pending approvals"
                 })}
               </span>
             </div>
@@ -118,10 +122,8 @@ export const SessionRestoreDialog: FC<SessionRestoreDialogProps> = ({
                   {approvalSummary.fileChanges}{" "}
                   {t("fileChanges", {
                     count: approvalSummary.fileChanges,
-                    defaultValue:
-                      approvalSummary.fileChanges === 1
-                        ? "file change"
-                        : "file changes"
+                    defaultValue_one: "file change",
+                    defaultValue_other: "file changes"
                   })}
                 </span>
               )}
@@ -131,8 +133,8 @@ export const SessionRestoreDialog: FC<SessionRestoreDialogProps> = ({
                   {approvalSummary.commands}{" "}
                   {t("commands", {
                     count: approvalSummary.commands,
-                    defaultValue:
-                      approvalSummary.commands === 1 ? "command" : "commands"
+                    defaultValue_one: "command",
+                    defaultValue_other: "commands"
                   })}
                 </span>
               )}

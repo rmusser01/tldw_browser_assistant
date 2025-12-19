@@ -371,7 +371,7 @@ export const ToolCallLog: FC<ToolCallLogProps> = ({
 
               {/* Arguments preview */}
               {argsPreview && (
-                <span className="text-xs text-gray-500 dark:text-gray-400 truncate max-w-[150px]">
+                <span className="text-xs text-gray-500 dark:text-gray-400 truncate max-w-[150px] md:max-w-[200px] lg:max-w-[300px]">
                   {argsPreview}
                 </span>
               )}
@@ -385,7 +385,7 @@ export const ToolCallLog: FC<ToolCallLogProps> = ({
 
               {/* Error indicator */}
               {entry.status === "error" && entry.error && (
-                <span className="ml-auto text-xs text-red-500 truncate max-w-[150px]">
+                <span className="ml-auto text-xs text-red-500 truncate max-w-[150px] md:max-w-[200px] lg:max-w-[300px]">
                   {entry.error}
                 </span>
               )}

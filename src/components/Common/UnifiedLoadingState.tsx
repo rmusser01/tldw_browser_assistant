@@ -48,8 +48,11 @@ export function UnifiedLoadingState({
   children
 }: UnifiedLoadingStateProps) {
   const { t } = useTranslation(["common"])
-  const isAnyLoading = sources.some((source) => source.loading)
-  const loadingSources = sources.filter((source) => source.loading)
+  const loadingSources = useMemo(
+    () => sources.filter((source) => source.loading),
+    [sources]
+  )
+  const isAnyLoading = loadingSources.length > 0
 
   useEffect(() => {
     if (!showLabels) return
@@ -77,7 +80,7 @@ export function UnifiedLoadingState({
     return translateMessage(
       t,
       `common:loadingSource.${source.key}`,
-      "Loading"
+      `Loading: ${source.key}`
     )
   }
 

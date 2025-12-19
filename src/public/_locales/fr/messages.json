@@ -357,6 +357,15 @@
   "result": {
     "message": "Résultat"
   },
+  "markdown_unableToRender": {
+    "message": "Impossible d’afficher le contenu"
+  },
+  "markdown_couldNotDisplay": {
+    "message": "Le contenu du message n’a pas pu être affiché. Cela peut être dû à un formatage non valide."
+  },
+  "markdown_showRawContent": {
+    "message": "Afficher le contenu brut"
+  },
   "notesSearch_exportNoteSuccess": {
     "message": "Exported ({{size}})"
   },
@@ -367,6 +376,18 @@
     "message": "Exported {{count}} notes as CSV ({{size}})"
   },
   "notesSearch_exportJsonSuccess": {
+    "message": "Exported {{count}} notes as JSON ({{size}})"
+  },
+  "exportNoteSuccess": {
+    "message": "Exported ({{size}})"
+  },
+  "exportSuccess": {
+    "message": "Exported {{count}} notes ({{size}})"
+  },
+  "exportCsvSuccess": {
+    "message": "Exported {{count}} notes as CSV ({{size}})"
+  },
+  "exportJsonSuccess": {
     "message": "Exported {{count}} notes as JSON ({{size}})"
   }
 }

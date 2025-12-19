@@ -266,8 +266,8 @@
   "invalidJson": "Ugyldig JSON; viser rå værdi",
   "result": "Resultat",
   "markdown": {
-    "unableToRender": "Unable to render content",
-    "couldNotDisplay": "The message content could not be displayed. This may be due to invalid formatting.",
-    "showRawContent": "Show raw content"
+    "unableToRender": "Kunne ikke gengive indhold",
+    "couldNotDisplay": "Beskedindholdet kunne ikke vises. Dette kan skyldes ugyldig formatering.",
+    "showRawContent": "Vis rå indhold"
   }
 }

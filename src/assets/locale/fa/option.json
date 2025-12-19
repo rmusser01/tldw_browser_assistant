@@ -204,7 +204,6 @@
     "audioLanguage": "Language (e.g., en)",
     "audioDiarizationHelp": "Turn on to separate speakers in transcripts.",
     "documentOptions": "Document options",
-    "ocrHelp": "OCR به استخراج متن از PDF‌های اسکن‌شده یا تصاویر کمک می‌کند.",
     "quickIngest_ocrHelp": "OCR به استخراج متن از PDF‌های اسکن‌شده یا تصاویر کمک می‌کند.",
     "videoOptions": "Video options",
     "captionsHelp": "Include timestamps/captions when available.",

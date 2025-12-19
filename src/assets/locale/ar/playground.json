@@ -224,10 +224,11 @@
       "serverCharacterRequired": "تعذّر العثور على شخصية مساعد افتراضية على الخادم أو إنشاؤها. حاول مرة أخرى من صفحة الشخصيات."
     },
     "connectToSend": "اتصل بخادم tldw الخاص بك من صفحة الإعدادات لإرسال الرسائل وعرض الوسائط.",
-    "compareMaxModelsTitle": "Compare limit reached",
-    "compareMaxModels": "You can compare up to {{limit}} models per turn.",
-    "compareMaxModelsTrimmed": "Compare is limited to {{limit}} models per turn. Using the first {{limit}} selected models.",
-    "compareMaxLabel": "Max models per turn",
-    "compareMaxHelper": "Selected {{current}} / {{limit}}"
+    "compareTag": "Compare",
+    "compareMaxModelsTitle": "تم بلوغ حد المقارنة",
+    "compareMaxModels": "يمكنك مقارنة ما يصل إلى {{limit}} نموذج/نماذج لكل دور.",
+    "compareMaxModelsTrimmed": "المقارنة محدودة بـ {{limit}} نموذج/نماذج لكل دور. يتم استخدام أول {{limit}} نموذج/نماذج محددة.",
+    "compareMaxLabel": "الحد الأقصى للنماذج لكل دور",
+    "compareMaxHelper": "المحدد: {{current}} / {{limit}}"
   }
 }

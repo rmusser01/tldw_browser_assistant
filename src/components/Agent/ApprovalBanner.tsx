@@ -16,7 +16,7 @@ import {
   X,
   ChevronUp
 } from "lucide-react"
-import type { PendingApproval, ApprovalTier } from "@/services/agent/types"
+import type { PendingApproval } from "@/services/agent/types"
 import { approvalCategoryLabels } from "@/styles/design-tokens"
 
 interface ApprovalBannerProps {
@@ -34,7 +34,6 @@ interface ApprovalCategory {
   label: string
   icon: FC<{ className?: string }>
   color: string
-  tier: ApprovalTier
   approvals: PendingApproval[]
 }
 
@@ -102,7 +101,6 @@ export const ApprovalBanner: FC<ApprovalBannerProps> = ({
         label: t("fileChanges", "File changes"),
         icon: FileEdit,
         color: "text-blue-500",
-        tier: "batch",
         approvals: groups.writes
       })
     }
@@ -111,7 +109,6 @@ export const ApprovalBanner: FC<ApprovalBannerProps> = ({
         label: t("deletions", "Deletions"),
         icon: Trash2,
         color: "text-red-500",
-        tier: "individual",
         approvals: groups.deletes
       })
     }
@@ -120,7 +117,6 @@ export const ApprovalBanner: FC<ApprovalBannerProps> = ({
         label: t("gitOperations", "Git operations"),
         icon: GitCommit,
         color: "text-purple-500",
-        tier: "batch",
         approvals: groups.git
       })
     }
@@ -129,14 +125,13 @@ export const ApprovalBanner: FC<ApprovalBannerProps> = ({
         label: t("commands", "Commands"),
         icon: Terminal,
         color: "text-orange-500",
-        tier: "individual",
         approvals: groups.exec
       })
     }
 
     return result
   }, [approvals, t])
-  const allIds = approvals.map(a => a.toolCallId)
+  const allIds = useMemo(() => approvals.map(a => a.toolCallId), [approvals])
   const pendingCount = approvals.filter(a => a.status === "pending").length
 
   // Confirm before rejecting all pending actions
@@ -188,9 +183,7 @@ export const ApprovalBanner: FC<ApprovalBannerProps> = ({
               {categories.map((cat, idx) => {
                 const Icon = cat.icon
                 // Use user-friendly labels from design tokens
-                const categoryKey = Object.keys(approvalCategoryLabels).find(
-                  key => approvalCategoryLabels[key].toLowerCase() === cat.label.toLowerCase()
-                ) || cat.label.toLowerCase()
+                const categoryKey = getToolCategory(cat.approvals[0]?.toolName || "")
                 const friendlyLabel = approvalCategoryLabels[categoryKey] || cat.label
                 return (
                   <Tooltip key={idx} title={`${cat.approvals.length} ${friendlyLabel.toLowerCase()}`}>

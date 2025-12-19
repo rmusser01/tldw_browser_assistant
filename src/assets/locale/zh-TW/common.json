@@ -263,8 +263,8 @@
   "invalidJson": "JSON 無效；顯示原始值",
   "result": "結果",
   "markdown": {
-    "unableToRender": "Unable to render content",
-    "couldNotDisplay": "The message content could not be displayed. This may be due to invalid formatting.",
-    "showRawContent": "Show raw content"
+    "unableToRender": "無法呈現內容",
+    "couldNotDisplay": "訊息內容無法顯示。可能是格式無效所致。",
+    "showRawContent": "顯示原始內容"
   }
 }

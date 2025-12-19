@@ -266,8 +266,8 @@
   "invalidJson": "JSON غير صالح؛ يتم عرض القيمة الخام",
   "result": "النتيجة",
   "markdown": {
-    "unableToRender": "Unable to render content",
-    "couldNotDisplay": "The message content could not be displayed. This may be due to invalid formatting.",
-    "showRawContent": "Show raw content"
+    "unableToRender": "تعذّر عرض المحتوى",
+    "couldNotDisplay": "تعذّر عرض محتوى الرسالة. قد يكون ذلك بسبب تنسيق غير صالح.",
+    "showRawContent": "إظهار المحتوى الخام"
   }
 }
