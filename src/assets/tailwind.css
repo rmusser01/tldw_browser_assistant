@@ -657,12 +657,8 @@ body {
 
 /* Keyboard focus indicator for onboarding path selection cards */
 .onboarding-path-radio .ant-radio-wrapper:focus-within {
-  outline: 2px solid rgb(59 130 246); /* blue-500 */
+  outline: 2px solid var(--color-focus);
   outline-offset: 2px;
-}
-
-.dark .onboarding-path-radio .ant-radio-wrapper:focus-within {
-  outline-color: rgb(96 165 250); /* blue-400 */
 }
 
 @supports selector(.onboarding-path-radio .ant-radio-wrapper:has(.ant-radio-input:focus-visible)) {
@@ -671,12 +667,8 @@ body {
   }
 
   .onboarding-path-radio .ant-radio-wrapper:has(.ant-radio-input:focus-visible) {
-    outline: 2px solid rgb(59 130 246); /* blue-500 */
+    outline: 2px solid var(--color-focus);
     outline-offset: 2px;
-  }
-
-  .dark .onboarding-path-radio .ant-radio-wrapper:has(.ant-radio-input:focus-visible) {
-    outline-color: rgb(96 165 250); /* blue-400 */
   }
 }
 

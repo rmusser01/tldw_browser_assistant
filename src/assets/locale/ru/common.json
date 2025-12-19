@@ -230,7 +230,8 @@
   "serverChats": "Серверные чаты",
   "serverChatLoadError": "Не удалось загрузить серверный чат. Проверьте соединение и попробуйте снова.",
   "serverChatSourceLabel": "Источник сервера",
-  "serverChatsUnavailable": "Серверные чаты недоступны. Проверьте подключение к серверу.",
+  "serverChatsUnavailableNotConnected": "Серверные чаты будут доступны после подключения к вашему серверу tldw.",
+  "serverChatsUnavailableServerError": "Серверные чаты сейчас недоступны. Проверьте журналы сервера или попробуйте снова.",
   "historiesDeleted": "{{count}} историй чата удалено",
   "deleteHistoriesError": "Ошибка при удалении историй",
   "mermaid": "Диаграммы Mermaid",
@@ -263,5 +264,10 @@
   "noToolCalls": "Пока нет вызовов инструментов",
   "arguments": "Аргументы",
   "invalidJson": "Некорректный JSON; показывается исходное значение",
-  "result": "Результат"
+  "result": "Результат",
+  "markdown": {
+    "unableToRender": "Unable to render content",
+    "couldNotDisplay": "The message content could not be displayed. This may be due to invalid formatting.",
+    "showRawContent": "Show raw content"
+  }
 }

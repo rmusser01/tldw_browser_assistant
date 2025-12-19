@@ -230,7 +230,8 @@
   "serverChats": "서버 채팅",
   "serverChatLoadError": "서버 채팅을 불러오지 못했습니다. 연결을 확인하고 다시 시도하세요.",
   "serverChatSourceLabel": "서버",
-  "serverChatsUnavailable": "서버 채팅을 사용할 수 없습니다. 서버 연결을 확인하세요.",
+  "serverChatsUnavailableNotConnected": "tldw 서버에 연결하면 서버 채팅을 사용할 수 있습니다.",
+  "serverChatsUnavailableServerError": "현재 서버 채팅을 사용할 수 없습니다. 서버 로그를 확인하거나 다시 시도하세요.",
   "historiesDeleted": "{{count}}개의 기록이 삭제되었습니다",
   "deleteHistoriesError": "기록 삭제 중 오류가 발생했습니다",
   "mermaid": "Mermaid 다이어그램",
@@ -263,5 +264,10 @@
   "noToolCalls": "아직 도구 호출이 없습니다",
   "arguments": "인수",
   "invalidJson": "잘못된 JSON입니다. 원시 값을 표시합니다",
-  "result": "결과"
+  "result": "결과",
+  "markdown": {
+    "unableToRender": "Unable to render content",
+    "couldNotDisplay": "The message content could not be displayed. This may be due to invalid formatting.",
+    "showRawContent": "Show raw content"
+  }
 }

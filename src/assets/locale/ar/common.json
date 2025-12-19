@@ -230,7 +230,8 @@
   "serverChats": "محادثات الخادم",
   "serverChatLoadError": "فشل تحميل محادثة الخادم. تحقق من الاتصال وحاول مرة أخرى.",
   "serverChatSourceLabel": "الخادم",
-  "serverChatsUnavailable": "محادثات الخادم غير متاحة. تحقّق من اتصال الخادم.",
+  "serverChatsUnavailableNotConnected": "تتوفّر محادثات الخادم عند الاتصال بخادم tldw الخاص بك.",
+  "serverChatsUnavailableServerError": "محادثات الخادم غير متاحة حالياً. تحقّق من سجلات الخادم أو حاول مرة أخرى.",
   "historiesDeleted": "تم حذف {{count}} من السجلات",
   "deleteHistoriesError": "حدث خطأ أثناء حذف السجلات",
   "mermaid": "Mermaid (مخططات)",
@@ -263,5 +264,10 @@
   "noToolCalls": "لا توجد استدعاءات أدوات بعد",
   "arguments": "المعاملات",
   "invalidJson": "JSON غير صالح؛ يتم عرض القيمة الخام",
-  "result": "النتيجة"
+  "result": "النتيجة",
+  "markdown": {
+    "unableToRender": "Unable to render content",
+    "couldNotDisplay": "The message content could not be displayed. This may be due to invalid formatting.",
+    "showRawContent": "Show raw content"
+  }
 }

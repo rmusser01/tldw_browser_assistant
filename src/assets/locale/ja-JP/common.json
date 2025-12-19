@@ -230,7 +230,8 @@
   "serverChats": "サーバーチャット",
   "serverChatLoadError": "サーバーチャットの読み込みに失敗しました。接続を確認して再試行してください。",
   "serverChatSourceLabel": "サーバー",
-  "serverChatsUnavailable": "サーバーチャットを利用できません。サーバー接続を確認してください。",
+  "serverChatsUnavailableNotConnected": "tldw サーバーに接続すると、サーバーチャットを利用できるようになります。",
+  "serverChatsUnavailableServerError": "現在サーバーチャットを利用できません。サーバーログを確認するか、もう一度お試しください。",
   "historiesDeleted": "{{count}} 件の履歴を削除しました",
   "deleteHistoriesError": "履歴の削除中にエラーが発生しました",
   "mermaid": "Mermaid ダイアグラム",
@@ -263,5 +264,10 @@
   "noToolCalls": "ツール呼び出しはまだありません",
   "arguments": "引数",
   "invalidJson": "無効な JSON です。生の値を表示しています",
-  "result": "結果"
+  "result": "結果",
+  "markdown": {
+    "unableToRender": "Unable to render content",
+    "couldNotDisplay": "The message content could not be displayed. This may be due to invalid formatting.",
+    "showRawContent": "Show raw content"
+  }
 }

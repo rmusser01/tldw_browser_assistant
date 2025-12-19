@@ -230,7 +230,8 @@
   "serverChats": "گپ‌های سرور",
   "serverChatLoadError": "بارگذاری گپ سرور ناموفق بود. اتصال خود را بررسی کرده و دوباره تلاش کنید.",
   "serverChatSourceLabel": "سرور",
-  "serverChatsUnavailable": "گپ‌های سرور در دسترس نیستند. اتصال سرور را بررسی کنید.",
+  "serverChatsUnavailableNotConnected": "پس از اتصال به سرور tldw خود، گپ‌های سرور در دسترس خواهند بود.",
+  "serverChatsUnavailableServerError": "گپ‌های سرور در حال حاضر در دسترس نیستند. لاگ‌های سرور را بررسی کنید یا دوباره تلاش کنید.",
   "historiesDeleted": "{{count}} تاریخچه حذف شد",
   "deleteHistoriesError": "خطا در حذف تاریخچه‌ها",
   "mermaid": "نمودارهای Mermaid",
@@ -263,5 +264,10 @@
   "noToolCalls": "هنوز هیچ فراخوانی ابزاری انجام نشده است",
   "arguments": "آرگومان‌ها",
   "invalidJson": "JSON نامعتبر؛ مقدار خام نمایش داده می‌شود",
-  "result": "نتیجه"
+  "result": "نتیجه",
+  "markdown": {
+    "unableToRender": "Unable to render content",
+    "couldNotDisplay": "The message content could not be displayed. This may be due to invalid formatting.",
+    "showRawContent": "Show raw content"
+  }
 }

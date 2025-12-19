@@ -230,7 +230,8 @@
   "serverChats": "Serverchats",
   "serverChatLoadError": "Kunne ikke indlæse serverchat. Kontroller din forbindelse og prøv igen.",
   "serverChatSourceLabel": "Serverkilde",
-  "serverChatsUnavailable": "Serverchats er ikke tilgængelige. Kontroller serverforbindelsen.",
+  "serverChatsUnavailableNotConnected": "Serverchats er tilgængelige, når du opretter forbindelse til din tldw-server.",
+  "serverChatsUnavailableServerError": "Serverchats er ikke tilgængelige lige nu. Tjek serverloggene, eller prøv igen.",
   "historiesDeleted": "{{count}} historikker slettet",
   "deleteHistoriesError": "Fejl ved sletning af historik",
   "mermaid": "Mermaid-diagrammer",
@@ -263,5 +264,10 @@
   "noToolCalls": "Ingen værktøjskald endnu",
   "arguments": "Argumenter",
   "invalidJson": "Ugyldig JSON; viser rå værdi",
-  "result": "Resultat"
+  "result": "Resultat",
+  "markdown": {
+    "unableToRender": "Unable to render content",
+    "couldNotDisplay": "The message content could not be displayed. This may be due to invalid formatting.",
+    "showRawContent": "Show raw content"
+  }
 }

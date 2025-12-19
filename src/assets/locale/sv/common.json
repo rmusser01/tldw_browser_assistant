@@ -230,7 +230,8 @@
   "serverChats": "Serverchattar",
   "serverChatLoadError": "Det gick inte att läsa in serverchatt. Kontrollera anslutningen och försök igen.",
   "serverChatSourceLabel": "Serverkälla",
-  "serverChatsUnavailable": "Serverchattar är inte tillgängliga. Kontrollera serveranslutningen.",
+  "serverChatsUnavailableNotConnected": "Serverchattar blir tillgängliga när du ansluter till din tldw‑server.",
+  "serverChatsUnavailableServerError": "Serverchattar är inte tillgängliga just nu. Kontrollera serverloggarna eller försök igen.",
   "historiesDeleted": "{{count}} historiker borttagna",
   "deleteHistoriesError": "Fel vid borttagning av historiker",
   "mermaid": "Mermaid-diagram",
@@ -263,5 +264,10 @@
   "noToolCalls": "Inga verktygsanrop ännu",
   "arguments": "Argument",
   "invalidJson": "Ogiltig JSON; visar råvärde",
-  "result": "Resultat"
+  "result": "Resultat",
+  "markdown": {
+    "unableToRender": "Unable to render content",
+    "couldNotDisplay": "The message content could not be displayed. This may be due to invalid formatting.",
+    "showRawContent": "Show raw content"
+  }
 }

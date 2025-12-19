@@ -61,7 +61,12 @@
   "composer": {
     "connectHint": "Connect to your tldw server in Settings to send messages.",
     "connectingPlaceholder": "Connecting...",
-    "disconnectedPlaceholder": "Connect to your tldw server in Settings to send messages and view media."
+    "disconnectedPlaceholder": "Connect to your tldw server in Settings to send messages and view media.",
+    "tempChatConfirmTitle": "Enable temporary mode?",
+    "tempChatConfirmContent": "This will clear your current conversation. Messages won't be saved.",
+    "tempChatClearedMessages": "Temporary chat enabled. Previous messages cleared.",
+    "clearQueueConfirmTitle": "Clear message queue?",
+    "clearQueueConfirmContent": "This will delete {{count}} queued message(s) that haven't been sent yet."
   },
   "notification": {
     "ingestSent": "Sent to tldw server",
@@ -107,13 +112,6 @@
       "message": "Search your knowledge base and insert results into your message.",
       "dismiss": "Dismiss"
     }
-  },
-  "composer": {
-    "tempChatConfirmTitle": "Enable temporary mode?",
-    "tempChatConfirmContent": "This will clear your current conversation. Messages won't be saved.",
-    "tempChatClearedMessages": "Temporary chat enabled. Previous messages cleared.",
-    "clearQueueConfirmTitle": "Clear message queue?",
-    "clearQueueConfirmContent": "This will delete {{count}} queued message(s) that haven't been sent yet."
   },
   "errors": {
     "privateModeTitle": "tldw Assistant can't save data",

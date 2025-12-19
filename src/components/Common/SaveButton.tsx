@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { CheckIcon, Loader2 } from "lucide-react"
 import { useTranslation } from "react-i18next"
 type Props = {
@@ -24,9 +24,40 @@ export const SaveButton = ({
   savedDuration = 2000
 }: Props) => {
   const [clickedSave, setClickedSave] = useState(false)
+  const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
   const { t } = useTranslation("common")
 
   const showSaved = clickedSave && !loading
+
+  useEffect(() => {
+    return () => {
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current)
+        timeoutRef.current = null
+      }
+    }
+  }, [])
+
+  useEffect(() => {
+    if (!clickedSave || loading) {
+      return
+    }
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current)
+      timeoutRef.current = null
+    }
+    timeoutRef.current = setTimeout(() => {
+      setClickedSave(false)
+      timeoutRef.current = null
+    }, savedDuration)
+
+    return () => {
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current)
+        timeoutRef.current = null
+      }
+    }
+  }, [clickedSave, loading, savedDuration])
 
   return (
     <button
@@ -37,9 +68,6 @@ export const SaveButton = ({
         if (onClick) {
           onClick()
         }
-        setTimeout(() => {
-          setClickedSave(false)
-        }, savedDuration)
       }}
       disabled={disabled || loading}
       className={`inline-flex mt-4 items-center rounded-md border border-transparent bg-primary px-3 py-2 min-h-[40px] text-sm font-medium leading-4 text-surface shadow-sm transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[color:var(--color-focus)] disabled:opacity-50 ${className}`}>

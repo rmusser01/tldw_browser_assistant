@@ -56,26 +56,23 @@ const TOOL_ICONS: Record<string, FC<{ className?: string }>> = {
   "exec_run": Terminal
 }
 
-// Get human-readable tool name
-const getToolDisplayName = (name: string): string => {
-  const displayNames: Record<string, string> = {
-    "fs_list": "List Directory",
-    "fs_read": "Read File",
-    "fs_write": "Write File",
-    "fs_apply_patch": "Apply Patch",
-    "fs_mkdir": "Create Directory",
-    "fs_delete": "Delete",
-    "search_grep": "Search Content",
-    "search_glob": "Find Files",
-    "git_status": "Git Status",
-    "git_diff": "Git Diff",
-    "git_log": "Git Log",
-    "git_branch": "Git Branch",
-    "git_add": "Stage Files",
-    "git_commit": "Commit",
-    "exec_run": "Run Command"
-  }
-  return displayNames[name] || name
+// Fallback display names for tools (used when no translation is available)
+const TOOL_LABEL_FALLBACKS: Record<string, string> = {
+  "fs_list": "List Directory",
+  "fs_read": "Read File",
+  "fs_write": "Write File",
+  "fs_apply_patch": "Apply Patch",
+  "fs_mkdir": "Create Directory",
+  "fs_delete": "Delete",
+  "search_grep": "Search Content",
+  "search_glob": "Find Files",
+  "git_status": "Git Status",
+  "git_diff": "Git Diff",
+  "git_log": "Git Log",
+  "git_branch": "Git Branch",
+  "git_add": "Stage Files",
+  "git_commit": "Commit",
+  "exec_run": "Run Command"
 }
 
 // Status info with colors and accessible labels
@@ -304,6 +301,13 @@ export const ToolCallLog: FC<ToolCallLogProps> = ({
   const { t } = useTranslation("common")
   const scrollRef = useRef<HTMLDivElement>(null)
 
+  // Get human-readable, localized tool name
+  const getToolDisplayName = (name: string): string => {
+    return t(`tools.${name}`, {
+      defaultValue: TOOL_LABEL_FALLBACKS[name] ?? name
+    })
+  }
+
   // Auto-scroll to bottom
   useEffect(() => {
     if (autoScroll && scrollRef.current) {
@@ -337,7 +341,9 @@ export const ToolCallLog: FC<ToolCallLogProps> = ({
           >
             <button
               onClick={() => onToggleExpand?.(entry.id)}
-              aria-expanded={isExpanded}
+              aria-expanded={onToggleExpand ? isExpanded : undefined}
+              aria-label={`${getToolDisplayName(entry.toolCall.function.name)} - ${getStatusLabel(entry.status)}`}
+              disabled={!onToggleExpand}
               className="w-full flex items-center gap-2 px-3 py-2 text-left hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors"
             >
               {/* Expand/collapse toggle */}

@@ -136,12 +136,6 @@ export const ApprovalBanner: FC<ApprovalBannerProps> = ({
 
     return result
   }, [approvals, t])
-
-  // Nothing to approve
-  if (approvals.length === 0) {
-    return null
-  }
-
   const allIds = approvals.map(a => a.toolCallId)
   const pendingCount = approvals.filter(a => a.status === "pending").length
 
@@ -160,6 +154,11 @@ export const ApprovalBanner: FC<ApprovalBannerProps> = ({
       onOk: () => onReject(allIds)
     })
   }, [t, pendingCount, onReject, allIds])
+
+  // Nothing to approve
+  if (approvals.length === 0) {
+    return null
+  }
 
   return (
     <div
@@ -329,21 +328,23 @@ export const ApprovalBanner: FC<ApprovalBannerProps> = ({
  * Format approval arguments for display
  */
 function formatApprovalArgs(approval: PendingApproval): string {
-  const args = approval.args
+  const args = approval.args ?? {}
 
   switch (approval.toolName) {
     case "fs.write":
-      return args.path || ""
+      return String(args.path ?? "")
     case "fs.apply_patch":
       return "Apply patch"
     case "fs.mkdir":
-      return args.path || ""
+      return String(args.path ?? "")
     case "fs.delete":
-      return `${args.path}${args.recursive ? " (recursive)" : ""}`
+      return `${args.path ?? ""}${args.recursive ? " (recursive)" : ""}`
     case "git.add":
       return Array.isArray(args.paths) ? args.paths.join(", ") : ""
     case "git.commit":
-      return args.message ? `"${args.message.substring(0, 40)}${args.message.length > 40 ? "..." : ""}"` : ""
+      return typeof args.message === "string"
+        ? `"${args.message.substring(0, 40)}${args.message.length > 40 ? "..." : ""}"`
+        : ""
     case "exec.run":
       return args.command_id || ""
     default:

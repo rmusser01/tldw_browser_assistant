@@ -2,7 +2,7 @@
  * DiffViewer - Display unified diffs with hunk selection
  */
 
-import { FC, useState, useMemo } from "react"
+import { FC, useState, useMemo, useEffect } from "react"
 import { useTranslation } from "react-i18next"
 import {
   FileText,
@@ -66,16 +66,23 @@ export function parseDiff(diffText: string): FileDiff[] {
   let oldLineNum = 0
   let newLineNum = 0
 
+  const finalizeFile = (file: FileDiff, hunk: DiffHunk | null) => {
+    if (hunk) {
+      file.hunks.push(hunk)
+    }
+    if (!file.isNew && !file.isDeleted && file.oldPath && file.newPath && file.oldPath !== file.newPath) {
+      file.isRenamed = true
+    }
+    files.push(file)
+  }
+
   for (let i = 0; i < lines.length; i++) {
     const line = lines[i]
 
     // File header: diff --git a/path b/path
     if (line.startsWith("diff --git")) {
       if (currentFile) {
-        if (currentHunk) {
-          currentFile.hunks.push(currentHunk)
-        }
-        files.push(currentFile)
+        finalizeFile(currentFile, currentHunk)
       }
       currentFile = {
         id: `file-${files.length}`,
@@ -107,6 +114,24 @@ export function parseDiff(diffText: string): FileDiff[] {
         if (path === "/dev/null") {
           currentFile.isDeleted = true
         }
+      }
+      continue
+    }
+
+    // Rename metadata: "rename from"/"rename to"
+    if (line.startsWith("rename from ")) {
+      if (currentFile) {
+        currentFile.isRenamed = true
+        const path = line.slice("rename from ".length)
+        currentFile.oldPath = path.startsWith("a/") ? path.slice(2) : path
+      }
+      continue
+    }
+    if (line.startsWith("rename to ")) {
+      if (currentFile) {
+        currentFile.isRenamed = true
+        const path = line.slice("rename to ".length)
+        currentFile.newPath = path.startsWith("b/") ? path.slice(2) : path
       }
       continue
     }
@@ -161,10 +186,7 @@ export function parseDiff(diffText: string): FileDiff[] {
 
   // Push last file and hunk
   if (currentFile) {
-    if (currentHunk) {
-      currentFile.hunks.push(currentHunk)
-    }
-    files.push(currentFile)
+    finalizeFile(currentFile, currentHunk)
   }
 
   return files
@@ -228,16 +250,49 @@ export const DiffViewer: FC<DiffViewerProps> = ({
 }) => {
   const { t } = useTranslation("common")
   const [expandedFiles, setExpandedFiles] = useState<Set<string>>(
-    new Set(diffs.map(d => d.id))
+    () => new Set(diffs.map(d => d.id))
   )
   const [copiedHunk, setCopiedHunk] = useState<string | null>(null)
 
   // Track selected hunks internally if not controlled
   const [internalSelected, setInternalSelected] = useState<Set<string>>(
-    new Set(diffs.flatMap(d => d.hunks.map(h => h.id)))
+    () => new Set(diffs.flatMap(d => d.hunks.map(h => h.id)))
   )
   const selected = selectedHunks ?? internalSelected
   const setSelected = onHunkSelectionChange ?? setInternalSelected
+
+  useEffect(() => {
+    setExpandedFiles((prev) => {
+      let changed = false
+      const next = new Set(prev)
+      for (const diff of diffs) {
+        if (!next.has(diff.id)) {
+          next.add(diff.id)
+          changed = true
+        }
+      }
+      return changed ? next : prev
+    })
+  }, [diffs])
+
+  useEffect(() => {
+    if (selectedHunks) {
+      return
+    }
+    setInternalSelected((prev) => {
+      let changed = false
+      const next = new Set(prev)
+      for (const diff of diffs) {
+        for (const hunk of diff.hunks) {
+          if (!next.has(hunk.id)) {
+            next.add(hunk.id)
+            changed = true
+          }
+        }
+      }
+      return changed ? next : prev
+    })
+  }, [diffs, selectedHunks])
 
   // Count changes
   const stats = useMemo(() => {

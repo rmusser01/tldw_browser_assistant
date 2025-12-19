@@ -231,7 +231,8 @@
   "serverChats": "Chat del server",
   "serverChatLoadError": "Impossibile caricare la chat del server. Controlla la connessione e riprova.",
   "serverChatSourceLabel": "Origine server",
-  "serverChatsUnavailable": "Chat del server non disponibili. Controlla la connessione al server.",
+  "serverChatsUnavailableNotConnected": "Le chat del server saranno disponibili una volta connesso al tuo server tldw.",
+  "serverChatsUnavailableServerError": "Le chat del server non sono disponibili al momento. Controlla i log del server o riprova.",
   "historiesDeleted": "{{count}} cronologie eliminate",
   "deleteHistoriesError": "Errore durante l’eliminazione delle cronologie",
   "search": "Cerca",
@@ -263,5 +264,10 @@
   "noToolCalls": "Nessuna chiamata di tool al momento",
   "arguments": "Argomenti",
   "invalidJson": "JSON non valido; viene mostrato il valore grezzo",
-  "result": "Risultato"
+  "result": "Risultato",
+  "markdown": {
+    "unableToRender": "Unable to render content",
+    "couldNotDisplay": "The message content could not be displayed. This may be due to invalid formatting.",
+    "showRawContent": "Show raw content"
+  }
 }

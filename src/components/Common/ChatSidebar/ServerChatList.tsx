@@ -20,6 +20,13 @@ export function ServerChatList({ searchQuery, className }: ServerChatListProps) 
   const { t } = useTranslation(["common", "sidepanel"])
   const navigate = useNavigate()
   const { isConnected } = useConnectionState()
+  const mountedRef = React.useRef(true)
+
+  React.useEffect(() => {
+    return () => {
+      mountedRef.current = false
+    }
+  }, [])
 
   const {
     setMessages,
@@ -71,9 +78,12 @@ export function ServerChatList({ searchQuery, className }: ServerChatListProps) 
         }
       }
 
+      if (!mountedRef.current) return
+
       const messages = await tldwClient.listChatMessages(chat.id, {
-        include_deleted: "false"
+        include_deleted: false
       })
+      if (!mountedRef.current) return
       const history = messages.map((m) => ({
         role: m.role,
         content: m.content
@@ -92,11 +102,13 @@ export function ServerChatList({ searchQuery, className }: ServerChatListProps) 
         serverMessageId: m.id,
         serverMessageVersion: m.version
       }))
+      if (!mountedRef.current) return
       setHistory(history)
       setMessages(mappedMessages)
       updatePageTitle(chat.title)
       navigate("/")
     } catch (e) {
+      if (!mountedRef.current) return
       console.error("Failed to load server chat", e)
       message.error(
         t("common:serverChatLoadError", {
@@ -112,8 +124,9 @@ export function ServerChatList({ searchQuery, className }: ServerChatListProps) 
     return (
       <div className={cn("flex justify-center items-center py-8", className)}>
         <Empty
-          description={t("common:serverChatsUnavailable", {
-            defaultValue: "Server chats are available once you connect to your tldw server."
+          description={t("common:serverChatsUnavailableNotConnected", {
+            defaultValue:
+              "Server chats are available once you connect to your tldw server."
           })}
         />
       </div>
@@ -134,8 +147,9 @@ export function ServerChatList({ searchQuery, className }: ServerChatListProps) 
     return (
       <div className={cn("flex justify-center items-center py-8 px-2", className)}>
         <span className="text-xs text-gray-500 dark:text-gray-400 text-center">
-          {t("common:serverChatsUnavailable", {
-            defaultValue: "Server chats unavailable right now. Check your server logs or try again."
+          {t("common:serverChatsUnavailableServerError", {
+            defaultValue:
+              "Server chats unavailable right now. Check your server logs or try again."
           })}
         </span>
       </div>
@@ -189,9 +203,8 @@ export function ServerChatList({ searchQuery, className }: ServerChatListProps) 
               {chat.parent_conversation_id ? (
                 <Tooltip
                   title={t("common:serverChatForkedTooltip", {
-                    defaultValue: `Forked from chat ${String(
-                      chat.parent_conversation_id
-                    ).slice(0, 8)}`
+                    chatId: String(chat.parent_conversation_id).slice(0, 8),
+                    defaultValue: "Forked from chat {{chatId}}"
                   })}
                 >
                   <span className="inline-flex items-center gap-1">

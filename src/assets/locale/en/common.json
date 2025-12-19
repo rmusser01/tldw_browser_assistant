@@ -195,7 +195,10 @@
   "serverChats": "Server chats",
   "serverChatLoadError": "Failed to load server chat. Check your connection and try again.",
   "serverChatSourceLabel": "Server",
-  "serverChatsUnavailable": "Server chats unavailable. Check your server connection.",
+  "serverChatForkedLabel": "Forked chat",
+  "serverChatForkedTooltip": "Forked from chat {{chatId}}",
+  "serverChatsUnavailableNotConnected": "Server chats are available once you connect to your tldw server.",
+  "serverChatsUnavailableServerError": "Server chats unavailable right now. Check your server logs or try again.",
   "date": {
     "pinned": "Pinned",
     "today": "Today",
@@ -292,6 +295,11 @@
   "arguments": "Arguments",
   "invalidJson": "Invalid JSON; showing raw value",
   "result": "Result",
+  "markdown": {
+    "unableToRender": "Unable to render content",
+    "couldNotDisplay": "The message content could not be displayed. This may be due to invalid formatting.",
+    "showRawContent": "Show raw content"
+  },
   "commandPalette": {
     "toggleKnowledgeSearch": "Toggle Knowledge Search",
     "toggleKnowledgeSearchDesc": "Search your knowledge base"
@@ -307,7 +315,7 @@
     },
     "commandPalette": {
       "title": "Quick commands",
-      "description": "Press Cmd+K to search commands, settings, and more."
+      "description": "Press {{shortcut}} to search commands, settings, and more."
     },
     "modelSettings": {
       "title": "Adjust model parameters",

@@ -80,8 +80,8 @@ const ActionButtonWithLabel: React.FC<{
   <span className={`inline-flex items-center gap-1 ${className}`}>
     {icon}
     <span
-      className={`text-[10px] text-gray-500 dark:text-gray-400 opacity-0 group-focus-within:opacity-100 transition-opacity ${
-        isLastMessage ? "opacity-100" : ""
+      className={`text-[10px] text-gray-500 dark:text-gray-400 transition-opacity ${
+        isLastMessage ? "opacity-100" : "opacity-0 group-focus-within:opacity-100"
       }`}
     >
       {label}

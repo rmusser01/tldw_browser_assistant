@@ -22,6 +22,7 @@ type FeatureHintProps = {
 }
 
 const STORAGE_KEY = "tldw:seenHints"
+const hintStorage = createSafeStorage({ area: "local" })
 
 /**
  * First-time feature hint component.
@@ -38,13 +39,9 @@ export const FeatureHint: React.FC<FeatureHintProps> = ({
   onDismiss
 }) => {
   const { t } = useTranslation(["common"])
-  const storage = React.useMemo(
-    () => createSafeStorage({ area: "local" }),
-    []
-  )
   const [seenHints, setSeenHints] = useStorage<Record<string, boolean>>({
     key: STORAGE_KEY,
-    instance: storage
+    instance: hintStorage
   })
   const [isVisible, setIsVisible] = React.useState(true)
 
@@ -59,8 +56,10 @@ export const FeatureHint: React.FC<FeatureHintProps> = ({
   const handleDismiss = async () => {
     setIsVisible(false)
     // Mark as seen in storage
-    const updated = { ...(seenHints || {}), [featureKey]: true }
-    await setSeenHints(updated)
+    await setSeenHints((prev) => ({
+      ...(prev || {}),
+      [featureKey]: true
+    }))
     onDismiss?.()
   }
 
@@ -122,13 +121,9 @@ export const FeatureHint: React.FC<FeatureHintProps> = ({
  * Hook to check if a feature hint has been seen
  */
 export const useFeatureHintSeen = (featureKey: string) => {
-  const storage = React.useMemo(
-    () => createSafeStorage({ area: "local" }),
-    []
-  )
   const [seenHints] = useStorage<Record<string, boolean>>({
     key: STORAGE_KEY,
-    instance: storage
+    instance: hintStorage
   })
 
   return seenHints?.[featureKey] === true
@@ -138,21 +133,19 @@ export const useFeatureHintSeen = (featureKey: string) => {
  * Hook to mark a feature hint as seen programmatically
  */
 export const useMarkFeatureHintSeen = () => {
-  const storage = React.useMemo(
-    () => createSafeStorage({ area: "local" }),
-    []
-  )
-  const [seenHints, setSeenHints] = useStorage<Record<string, boolean>>({
+  const [, setSeenHints] = useStorage<Record<string, boolean>>({
     key: STORAGE_KEY,
-    instance: storage
+    instance: hintStorage
   })
 
   return React.useCallback(
     async (featureKey: string) => {
-      const updated = { ...(seenHints || {}), [featureKey]: true }
-      await setSeenHints(updated)
+      await setSeenHints((prev) => ({
+        ...(prev || {}),
+        [featureKey]: true
+      }))
     },
-    [seenHints, setSeenHints]
+    [setSeenHints]
   )
 }
 
@@ -160,13 +153,9 @@ export const useMarkFeatureHintSeen = () => {
  * Hook to reset all feature hints (for testing/debugging)
  */
 export const useResetFeatureHints = () => {
-  const storage = React.useMemo(
-    () => createSafeStorage({ area: "local" }),
-    []
-  )
   const [, setSeenHints] = useStorage<Record<string, boolean>>({
     key: STORAGE_KEY,
-    instance: storage
+    instance: hintStorage
   })
 
   return React.useCallback(async () => {

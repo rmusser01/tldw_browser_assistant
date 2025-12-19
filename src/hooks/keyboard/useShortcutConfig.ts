@@ -27,7 +27,7 @@ export const defaultShortcuts: ShortcutConfig = {
     stopPropagation: true
   },
   newChat: {
-    key: "o",
+    key: "u",
     ctrlKey: true,
     shiftKey: true,
     preventDefault: true,

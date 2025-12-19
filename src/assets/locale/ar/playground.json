@@ -127,7 +127,7 @@
   },
   "more": {
     "history": "حفظ الدردشة",
-    "searchRag": "البحث و RAG",
+    "searchKnowledge": "البحث و RAG",
     "voice": "مزيد من خيارات الصوت",
     "uploads": "التحميل والإدخال"
   },
@@ -223,6 +223,11 @@
       "serverSaved": "سيتم مزامنة الرسائل المستقبلية في هذه المحادثة مع خادم tldw الخاص بك.",
       "serverCharacterRequired": "تعذّر العثور على شخصية مساعد افتراضية على الخادم أو إنشاؤها. حاول مرة أخرى من صفحة الشخصيات."
     },
-    "connectToSend": "اتصل بخادم tldw الخاص بك من صفحة الإعدادات لإرسال الرسائل وعرض الوسائط."
+    "connectToSend": "اتصل بخادم tldw الخاص بك من صفحة الإعدادات لإرسال الرسائل وعرض الوسائط.",
+    "compareMaxModelsTitle": "Compare limit reached",
+    "compareMaxModels": "You can compare up to {{limit}} models per turn.",
+    "compareMaxModelsTrimmed": "Compare is limited to {{limit}} models per turn. Using the first {{limit}} selected models.",
+    "compareMaxLabel": "Max models per turn",
+    "compareMaxHelper": "Selected {{current}} / {{limit}}"
   }
 }

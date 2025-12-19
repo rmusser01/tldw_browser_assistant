@@ -231,7 +231,8 @@
   "serverChats": "Chats serveur",
   "serverChatLoadError": "Échec du chargement du chat serveur. Vérifiez votre connexion et réessayez.",
   "serverChatSourceLabel": "Serveur",
-  "serverChatsUnavailable": "Chats serveur indisponibles. Vérifiez la connexion au serveur.",
+  "serverChatsUnavailableNotConnected": "Les chats serveur sont disponibles une fois que vous êtes connecté à votre serveur tldw.",
+  "serverChatsUnavailableServerError": "Les chats serveur sont indisponibles pour le moment. Consultez les journaux du serveur ou réessayez.",
   "historiesDeleted": "{{count}} historiques supprimés",
   "deleteHistoriesError": "Erreur lors de la suppression des historiques",
   "search": "Rechercher",
@@ -263,5 +264,10 @@
   "noToolCalls": "Aucun appel d’outil pour le moment",
   "arguments": "Arguments",
   "invalidJson": "JSON invalide ; affichage de la valeur brute",
-  "result": "Résultat"
+  "result": "Résultat",
+  "markdown": {
+    "unableToRender": "Unable to render content",
+    "couldNotDisplay": "The message content could not be displayed. This may be due to invalid formatting.",
+    "showRawContent": "Show raw content"
+  }
 }

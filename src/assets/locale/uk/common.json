@@ -230,7 +230,8 @@
   "serverChats": "Серверні чати",
   "serverChatLoadError": "Не вдалося завантажити серверний чат. Перевірте підключення та спробуйте ще раз.",
   "serverChatSourceLabel": "Джерело сервера",
-  "serverChatsUnavailable": "Серверні чати недоступні. Перевірте підключення до сервера.",
+  "serverChatsUnavailableNotConnected": "Серверні чати будуть доступні після підключення до вашого сервера tldw.",
+  "serverChatsUnavailableServerError": "Серверні чати зараз недоступні. Перевірте журнали сервера або спробуйте ще раз.",
   "historiesDeleted": "{{count}} історій чату видалено",
   "deleteHistoriesError": "Помилка під час видалення історій",
   "mermaid": "Діаграми Mermaid",
@@ -263,5 +264,10 @@
   "noToolCalls": "Ще немає викликів інструментів",
   "arguments": "Аргументи",
   "invalidJson": "Некоректний JSON; показано сире значення",
-  "result": "Результат"
+  "result": "Результат",
+  "markdown": {
+    "unableToRender": "Unable to render content",
+    "couldNotDisplay": "The message content could not be displayed. This may be due to invalid formatting.",
+    "showRawContent": "Show raw content"
+  }
 }

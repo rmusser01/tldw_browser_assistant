@@ -1,8 +1,10 @@
-import React from "react"
+import React, { useEffect, useMemo } from "react"
 import { Skeleton } from "antd"
+import { useTranslation } from "react-i18next"
 import { cn } from "@/libs/utils"
+import { translateMessage } from "@/i18n/translateMessage"
 
-export type LoadingSource = {
+export interface LoadingSource {
   key: string
   loading: boolean
   label?: string
@@ -45,11 +47,38 @@ export function UnifiedLoadingState({
   showLabels = false,
   children
 }: UnifiedLoadingStateProps) {
+  const { t } = useTranslation(["common"])
   const isAnyLoading = sources.some((source) => source.loading)
   const loadingSources = sources.filter((source) => source.loading)
 
+  useEffect(() => {
+    if (!showLabels) return
+    if (process.env.NODE_ENV === "production") return
+    const missingLabels = loadingSources
+      .filter((source) => !source.label)
+      .map((source) => source.key)
+    if (missingLabels.length > 0) {
+      // eslint-disable-next-line no-console
+      console.warn(
+        "[UnifiedLoadingState] Missing labels for loading sources:",
+        missingLabels
+      )
+    }
+  }, [loadingSources, showLabels])
+
   if (!isAnyLoading) {
     return <>{children}</>
+  }
+
+  const getSourceLabel = (source: LoadingSource) => {
+    if (source.label) {
+      return translateMessage(t, source.label, source.label)
+    }
+    return translateMessage(
+      t,
+      `common:loadingSource.${source.key}`,
+      "Loading"
+    )
   }
 
   return (
@@ -62,7 +91,7 @@ export function UnifiedLoadingState({
               className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-gray-100 dark:bg-gray-800"
             >
               <span className="w-1.5 h-1.5 rounded-full bg-blue-500 animate-pulse" />
-              {source.label || source.key}
+              {getSourceLabel(source)}
             </span>
           ))}
         </div>
@@ -78,18 +107,21 @@ export function UnifiedLoadingState({
 export function useUnifiedLoading(
   sources: Array<{ key: string; loading: boolean; label?: string }>
 ) {
-  const isLoading = sources.some((s) => s.loading)
-  const loadingSources = sources.filter((s) => s.loading)
-  const completedSources = sources.filter((s) => !s.loading)
+  return useMemo(() => {
+    const isLoading = sources.some((s) => s.loading)
+    const loadingSources = sources.filter((s) => s.loading)
+    const completedSources = sources.filter((s) => !s.loading)
 
-  return {
-    isLoading,
-    loadingSources,
-    completedSources,
-    progress: sources.length > 0
-      ? Math.round((completedSources.length / sources.length) * 100)
-      : 100
-  }
+    return {
+      isLoading,
+      loadingSources,
+      completedSources,
+      progress:
+        sources.length > 0
+          ? Math.round((completedSources.length / sources.length) * 100)
+          : 100
+    }
+  }, [sources])
 }
 
 export default UnifiedLoadingState

@@ -137,7 +137,7 @@ export function CommandPalette({
       id: "action-new-chat",
       label: t("common:commandPalette.newChat", "New Chat"),
       icon: <MessageSquare className="size-4" />,
-      shortcut: { key: "n", modifiers: ["meta"] },
+      shortcut: { key: "u", modifiers: ["ctrl", "shift"] },
       action: () => { onNewChat?.(); setOpen(false) },
       category: "action",
       keywords: ["create", "start", "conversation"],
@@ -157,7 +157,7 @@ export function CommandPalette({
       label: t("common:commandPalette.toggleWebSearch", "Toggle Web Search"),
       description: t("common:commandPalette.toggleWebDesc", "Search the internet"),
       icon: <Globe className="size-4" />,
-      shortcut: { key: "w", modifiers: ["meta"] },
+      shortcut: { key: "w", modifiers: ["alt"] },
       action: () => { onToggleWebSearch?.(); setOpen(false) },
       category: "action",
       keywords: ["internet", "online", "browse"],
@@ -189,7 +189,7 @@ export function CommandPalette({
         "Show or hide the chat sidebar"
       ),
       icon: <Eye className="size-4" />,
-      shortcut: { key: "b", modifiers: ["meta"] },
+      shortcut: { key: "b", modifiers: ["ctrl"] },
       action: () => {
         onToggleSidebar?.()
         setOpen(false)
@@ -258,7 +258,7 @@ export function CommandPalette({
   // Reset selection when filtered results change
   useEffect(() => {
     setSelectedIndex(0)
-  }, [filteredCommands.length])
+  }, [query])
 
   // Focus input when opened
   useEffect(() => {
@@ -278,6 +278,46 @@ export function CommandPalette({
 
   // Handle keyboard navigation
   const handleKeyDown = useCallback((e: React.KeyboardEvent) => {
+    if (e.key === "Tab") {
+      const palette = listRef.current?.parentElement
+      if (!palette) return
+
+      const focusableSelectors =
+        'a[href], button, textarea, input, select, [tabindex]:not([tabindex="-1"])'
+      const focusableElements = Array.from(
+        palette.querySelectorAll<HTMLElement>(focusableSelectors)
+      ).filter(
+        (el) =>
+          !el.hasAttribute("disabled") &&
+          el.getAttribute("aria-hidden") !== "true"
+      )
+
+      if (focusableElements.length === 0) {
+        return
+      }
+
+      const currentIndex = focusableElements.indexOf(
+        document.activeElement as HTMLElement
+      )
+      let nextIndex = currentIndex
+
+      if (e.shiftKey) {
+        nextIndex =
+          currentIndex <= 0
+            ? focusableElements.length - 1
+            : currentIndex - 1
+      } else {
+        nextIndex =
+          currentIndex === -1 || currentIndex === focusableElements.length - 1
+            ? 0
+            : currentIndex + 1
+      }
+
+      e.preventDefault()
+      focusableElements[nextIndex]?.focus()
+      return
+    }
+
     switch (e.key) {
       case "ArrowDown":
         e.preventDefault()
@@ -325,6 +365,7 @@ export function CommandPalette({
         role="dialog"
         aria-modal="true"
         aria-label={t("common:commandPalette.title", "Command Palette")}
+        onKeyDown={handleKeyDown}
       >
         {/* Search input */}
         <div className="flex items-center gap-3 border-b border-gray-200 px-4 py-3 dark:border-gray-700">
@@ -334,7 +375,6 @@ export function CommandPalette({
             type="text"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            onKeyDown={handleKeyDown}
             placeholder={t("common:commandPalette.placeholder", "Type a command or search...")}
             className="flex-1 bg-transparent text-base outline-none placeholder:text-gray-400 dark:text-white"
             autoComplete="off"

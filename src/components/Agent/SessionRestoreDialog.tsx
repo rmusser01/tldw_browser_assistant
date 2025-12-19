@@ -81,11 +81,17 @@ export const SessionRestoreDialog: FC<SessionRestoreDialogProps> = ({
             </span>
             <span className="flex items-center gap-1">
               <MessageSquare className="size-4" />
-              {session.messages.length} {t("messages", "messages")}
+              {t("messageCount", {
+                count: session.messages.length,
+                defaultValue: "{{count}} messages"
+              })}
             </span>
             <span className="flex items-center gap-1">
               <Wrench className="size-4" />
-              {session.toolCalls.length} {t("toolCalls", "tool calls")}
+              {t("toolCallCount", {
+                count: session.toolCalls.length,
+                defaultValue: "{{count}} tool calls"
+              })}
             </span>
           </div>
         </div>

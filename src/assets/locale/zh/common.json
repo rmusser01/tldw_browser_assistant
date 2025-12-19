@@ -231,7 +231,8 @@
   "serverChats": "服务器聊天",
   "serverChatLoadError": "无法加载服务器聊天。请检查连接后重试。",
   "serverChatSourceLabel": "服务器来源",
-  "serverChatsUnavailable": "服务器聊天不可用。请检查服务器连接。",
+  "serverChatsUnavailableNotConnected": "连接到 tldw 服务器后即可使用服务器聊天。",
+  "serverChatsUnavailableServerError": "当前无法使用服务器聊天。请检查服务器日志或稍后再试。",
   "historiesDeleted": "{{count}} 条历史记录已删除",
   "deleteHistoriesError": "删除历史记录时出错",
   "search": "搜索",
@@ -263,5 +264,10 @@
   "noToolCalls": "尚无工具调用",
   "arguments": "参数",
   "invalidJson": "JSON 无效；显示原始值",
-  "result": "结果"
+  "result": "结果",
+  "markdown": {
+    "unableToRender": "Unable to render content",
+    "couldNotDisplay": "The message content could not be displayed. This may be due to invalid formatting.",
+    "showRawContent": "Show raw content"
+  }
 }

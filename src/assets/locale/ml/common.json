@@ -232,7 +232,8 @@
   "serverChats": "സെർവർ ചാറ്റുകൾ",
   "serverChatLoadError": "സെർവർ ചാറ്റ് ലോഡ് ചെയ്യുന്നതിൽ പരാജയപ്പെട്ടു. നിങ്ങളുടെ കണക്ഷൻ പരിശോധന ചെയ്ത് വീണ്ടും ശ്രമിക്കുക.",
   "serverChatSourceLabel": "സെർവർ",
-  "serverChatsUnavailable": "സെർവർ ചാറ്റുകൾ ലഭ്യമല്ല. സെർവർ കണക്ഷൻ പരിശോധിക്കുക.",
+  "serverChatsUnavailableNotConnected": "നിങ്ങളുടെ tldw സെർവറിലേക്ക് കണക്റ്റ് ചെയ്താൽ സെർവർ ചാറ്റുകൾ ലഭ്യമാകും.",
+  "serverChatsUnavailableServerError": "സെർവർ ചാറ്റുകൾ ഇപ്പോൾ ലഭ്യമല്ല. സെർവർ ലോഗുകൾ പരിശോധിക്കുകയോ വീണ്ടും ശ്രമിക്കുകയോ ചെയ്യുക.",
   "historiesDeleted": "{{count}} ചരിത്രങ്ങൾ ഇല്ലാതാക്കി",
   "deleteHistoriesError": "ചരിത്രങ്ങൾ ഇല്ലാതാക്കുന്നതിനിടെ പിശക് സംഭവിച്ചു",
   "mermaid": "Mermaid ഡയറഗ്രാം",
@@ -265,5 +266,10 @@
   "noToolCalls": "ഇതുവരെ ടൂൾ കോൾ ഒന്നുമില്ല",
   "arguments": "ആർഗ്യുമെന്റുകൾ",
   "invalidJson": "അസാധുവായ JSON; അസംസ്കൃത മൂല്യം കാണിക്കുന്നു",
-  "result": "ഫലം"
+  "result": "ഫലം",
+  "markdown": {
+    "unableToRender": "Unable to render content",
+    "couldNotDisplay": "The message content could not be displayed. This may be due to invalid formatting.",
+    "showRawContent": "Show raw content"
+  }
 }

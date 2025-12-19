@@ -230,7 +230,8 @@
   "serverChats": "Server-Chats",
   "serverChatLoadError": "Server-Chat konnte nicht geladen werden. Überprüfen Sie Ihre Verbindung und versuchen Sie es erneut.",
   "serverChatSourceLabel": "Serverquelle",
-  "serverChatsUnavailable": "Server-Chats nicht verfügbar. Überprüfen Sie Ihre Serververbindung.",
+  "serverChatsUnavailableNotConnected": "Server-Chats sind verfügbar, sobald Sie eine Verbindung zu Ihrem tldw-Server hergestellt haben.",
+  "serverChatsUnavailableServerError": "Server-Chats sind derzeit nicht verfügbar. Prüfen Sie die Serverprotokolle oder versuchen Sie es erneut.",
   "historiesDeleted": "{{count}} Verläufe gelöscht",
   "deleteHistoriesError": "Fehler beim Löschen der Verläufe",
   "mermaid": "Mermaid-Diagramme",
@@ -263,5 +264,10 @@
   "noToolCalls": "Noch keine Tool-Aufrufe",
   "arguments": "Argumente",
   "invalidJson": "Ungültiges JSON; Rohwert wird angezeigt",
-  "result": "Ergebnis"
+  "result": "Ergebnis",
+  "markdown": {
+    "unableToRender": "Unable to render content",
+    "couldNotDisplay": "The message content could not be displayed. This may be due to invalid formatting.",
+    "showRawContent": "Show raw content"
+  }
 }

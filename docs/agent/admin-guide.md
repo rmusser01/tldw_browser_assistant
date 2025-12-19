@@ -889,5 +889,5 @@ For enterprise deployments, consider:
 
 - [User Guide](./user-guide.md) - For end users
 - [Developer Guide](./developer-guide.md) - For contributing
-- [Security Whitepaper](./security.md) - Detailed security analysis
+- [Security Whitepaper](./security.md) - (coming soon)
 - Report issues at: [GitHub Issues](https://github.com/tldw/tldw-agent/issues)

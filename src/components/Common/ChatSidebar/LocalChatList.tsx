@@ -6,16 +6,7 @@ import {
   useQuery,
   useQueryClient
 } from "@tanstack/react-query"
-import {
-  Tooltip,
-  Spin,
-  Empty,
-  Skeleton,
-  Dropdown,
-  Menu,
-  Button,
-  message
-} from "antd"
+import { Tooltip, Spin, Empty, Skeleton, Dropdown, Button, Input, Modal, message } from "antd"
 import {
   MessageSquare,
   Trash2,
@@ -34,15 +25,10 @@ import type { HistoryInfo } from "@/db/dexie/types"
 import {
   deleteByHistoryId,
   deleteHistoriesByDateRange,
-  formatToChatHistory,
-  formatToMessage,
-  getSessionFiles,
-  getPromptById,
   getHistoriesWithMetadata,
   updateHistory,
   pinHistory
 } from "@/db/dexie/helpers"
-import { lastUsedChatModelEnabled } from "@/services/model-settings"
 import { isDatabaseClosedError } from "@/utils/ff-error"
 import { updatePageTitle } from "@/utils/update-page-title"
 import { useConnectionState } from "@/hooks/useConnectionState"
@@ -51,6 +37,7 @@ import { IconButton } from "@/components/Common/IconButton"
 import { useMessageOption } from "@/hooks/useMessageOption"
 import { useStoreChatModelSettings } from "@/store/model"
 import { useFolderActions } from "@/store/folder"
+import { useLoadLocalConversation } from "@/hooks/useLoadLocalConversation"
 import { cn } from "@/libs/utils"
 
 type ChatGroup = {
@@ -135,6 +122,8 @@ export function LocalChatList({
   const [dexiePrivateWindowError, setDexiePrivateWindowError] = useState(false)
   const [deleteGroup, setDeleteGroup] = useState<string | null>(null)
   const [openMenuFor, setOpenMenuFor] = useState<string | null>(null)
+  const [renamingChat, setRenamingChat] = useState<string | null>(null)
+  const [renameValue, setRenameValue] = useState("")
 
   // Local chat history query
   const {
@@ -178,7 +167,7 @@ export function LocalChatList({
         const lastWeekItems: HistoryInfo[] = []
         const olderItems: HistoryInfo[] = []
 
-        for (const item of result.histories as HistoryInfo[]) {
+        for (const item of result.histories) {
           if (item.is_pinned) {
             pinnedItems.push(item)
             continue
@@ -215,8 +204,10 @@ export function LocalChatList({
           hasMore: result.hasMore,
           totalCount: result.totalCount
         }
-      } catch (e) {
-        setDexiePrivateWindowError(isDatabaseClosedError(e))
+      } catch (error) {
+        // eslint-disable-next-line no-console
+        console.error("Failed to fetch chat histories:", error)
+        setDexiePrivateWindowError(isDatabaseClosedError(error))
         return {
           groups: [],
           hasMore: false,
@@ -226,9 +217,9 @@ export function LocalChatList({
     },
     getNextPageParam: (lastPage, allPages) =>
       lastPage.hasMore ? allPages.length + 1 : undefined,
-    placeholderData: undefined,
-    enabled: true,
-    initialPageParam: 1
+    initialPageParam: 1,
+    refetchOnWindowFocus: false,
+    staleTime: 30_000
   })
 
   const chatHistories =
@@ -252,13 +243,14 @@ export function LocalChatList({
   )
 
   const { data: historyMetadata } = useQuery({
-    queryKey: ["historyMetadata", allHistoryIds.join(",")],
+    queryKey: ["historyMetadata", allHistoryIds],
     queryFn: async () => {
       if (allHistoryIds.length === 0) return new Map()
       return getHistoriesWithMetadata(allHistoryIds)
     },
     enabled: allHistoryIds.length > 0,
-    staleTime: 30_000
+    staleTime: 30_000,
+    refetchOnMount: false
   })
 
   // Mutations
@@ -323,66 +315,22 @@ export function LocalChatList({
     deleteHistoriesByRange(rangeLabel)
   }
 
-  const loadLocalConversation = React.useCallback(
-    async (conversationId: string) => {
-      try {
-        const db = new PageAssistDatabase()
-        const [history, historyDetails] = await Promise.all([
-          db.getChatHistory(conversationId),
-          db.getHistoryInfo(conversationId)
-        ])
-
-        setServerChatId(null)
-        setHistoryId(conversationId)
-        setHistory(formatToChatHistory(history))
-        setMessages(formatToMessage(history))
-
-        const isLastUsedChatModel = await lastUsedChatModelEnabled()
-        if (isLastUsedChatModel && historyDetails?.model_id) {
-          setSelectedModel(historyDetails.model_id)
-        }
-
-        const lastUsedPrompt = historyDetails?.last_used_prompt
-        if (lastUsedPrompt) {
-          let promptContent = lastUsedPrompt.prompt_content ?? ""
-          if (lastUsedPrompt.prompt_id) {
-            const prompt = await getPromptById(lastUsedPrompt.prompt_id)
-            if (prompt) {
-              setSelectedSystemPrompt(prompt.id)
-              if (!promptContent.trim()) {
-                promptContent = prompt.content
-              }
-            }
-          }
-          setSystemPrompt(promptContent)
-        }
-
-        const session = await getSessionFiles(conversationId)
-        setContextFiles(session)
-
-        updatePageTitle(
-          historyDetails?.title || t("common:untitled", { defaultValue: "Untitled" })
-        )
-      } catch (error) {
-        console.error("Failed to load local chat history:", error)
-        message.error(
-          t("common:error.friendlyLocalHistorySummary", {
-            defaultValue: "Something went wrong while loading local chat history."
-          })
-        )
-      }
-    },
-    [
-      setContextFiles,
-      setHistory,
+  const loadLocalConversation = useLoadLocalConversation(
+    {
+      setServerChatId,
       setHistoryId,
+      setHistory,
       setMessages,
       setSelectedModel,
       setSelectedSystemPrompt,
-      setServerChatId,
       setSystemPrompt,
-      t
-    ]
+      setContextFiles
+    },
+    {
+      t,
+      errorLogPrefix: "Failed to load local chat history",
+      errorDefaultMessage: "Something went wrong while loading local chat history."
+    }
   )
 
   const effectiveSelectedChatId = selectedChatId ?? historyId ?? null
@@ -432,6 +380,36 @@ export function LocalChatList({
 
   return (
     <div className={cn("flex flex-col gap-2", className)}>
+      <Modal
+        title={t("common:renameChat", { defaultValue: "Rename chat" })}
+        open={!!renamingChat}
+        onCancel={() => {
+          setRenamingChat(null)
+          setRenameValue("")
+        }}
+        onOk={() => {
+          const newTitle = renameValue.trim()
+          if (renamingChat && newTitle) {
+            editHistory({ id: renamingChat, title: newTitle })
+          }
+          setRenamingChat(null)
+          setRenameValue("")
+        }}
+      >
+        <Input
+          autoFocus
+          value={renameValue}
+          onChange={(e) => setRenameValue(e.target.value)}
+          onPressEnter={() => {
+            const newTitle = renameValue.trim()
+            if (renamingChat && newTitle) {
+              editHistory({ id: renamingChat, title: newTitle })
+            }
+            setRenamingChat(null)
+            setRenameValue("")
+          }}
+        />
+      </Modal>
       {chatHistories.map((group, groupIndex) => (
         <div key={groupIndex}>
           <div className="flex items-center justify-between mt-2 px-1">
@@ -513,58 +491,50 @@ export function LocalChatList({
                   </div>
                 </button>
                 <Dropdown
-                  overlay={
-                    <Menu id={`history-actions-${chat.id}`}>
-                      <Menu.Item
-                        key="pin"
-                        icon={
-                          chat.is_pinned ? (
-                            <PinOffIcon className="w-4 h-4" />
-                          ) : (
-                            <PinIcon className="w-4 h-4" />
-                          )
-                        }
-                        onClick={() =>
+                  menu={{
+                    items: [
+                      {
+                        key: "pin",
+                        icon: chat.is_pinned ? (
+                          <PinOffIcon className="w-4 h-4" />
+                        ) : (
+                          <PinIcon className="w-4 h-4" />
+                        ),
+                        label: chat.is_pinned ? t("common:unpin") : t("common:pin"),
+                        onClick: () =>
                           pinChatHistory({
                             id: chat.id,
                             is_pinned: !chat.is_pinned
-                          })
+                          }),
+                        disabled: pinLoading
+                      },
+                      ...(isConnected && onOpenFolderPicker
+                        ? [
+                            {
+                              key: "moveToFolder",
+                              icon: <FolderIcon className="w-4 h-4" />,
+                              label: t("common:moveToFolder"),
+                              onClick: () => {
+                                onOpenFolderPicker(chat.id)
+                                setOpenMenuFor(null)
+                              }
+                            }
+                          ]
+                        : []),
+                      {
+                        key: "edit",
+                        icon: <Edit3 className="w-4 h-4" />,
+                        label: t("common:rename"),
+                        onClick: () => {
+                          setRenamingChat(chat.id)
+                          setRenameValue(chat.title)
                         }
-                        disabled={pinLoading}
-                      >
-                        {chat.is_pinned ? t("common:unpin") : t("common:pin")}
-                      </Menu.Item>
-                      {isConnected && onOpenFolderPicker && (
-                        <Menu.Item
-                          key="moveToFolder"
-                          icon={<FolderIcon className="w-4 h-4" />}
-                          onClick={() => {
-                            onOpenFolderPicker(chat.id)
-                            setOpenMenuFor(null)
-                          }}
-                        >
-                          {t("common:moveToFolder")}
-                        </Menu.Item>
-                      )}
-                      <Menu.Item
-                        key="edit"
-                        icon={<Edit3 className="w-4 h-4" />}
-                        onClick={async () => {
-                          const newTitle = window.prompt(
-                            t("common:renameChat", { defaultValue: "Rename chat" }),
-                            chat.title
-                          )
-                          if (newTitle && newTitle.trim() !== chat.title) {
-                            editHistory({ id: chat.id, title: newTitle.trim() })
-                          }
-                        }}
-                      >
-                        {t("common:rename")}
-                      </Menu.Item>
-                      <Menu.Item
-                        key="delete"
-                        icon={<Trash2 className="w-4 h-4" />}
-                        onClick={async () => {
+                      },
+                      {
+                        key: "delete",
+                        icon: <Trash2 className="w-4 h-4" />,
+                        label: t("common:delete"),
+                        onClick: async () => {
                           const ok = await confirmDanger({
                             title: t("common:confirmTitle"),
                             content: t("deleteHistoryConfirmation"),
@@ -573,12 +543,10 @@ export function LocalChatList({
                           })
                           if (!ok) return
                           deleteHistory(chat.id)
-                        }}
-                      >
-                        {t("common:delete")}
-                      </Menu.Item>
-                    </Menu>
-                  }
+                        }
+                      }
+                    ]
+                  }}
                   trigger={["click"]}
                   placement="bottomRight"
                   open={openMenuFor === chat.id}

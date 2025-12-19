@@ -230,7 +230,8 @@
   "serverChats": "伺服器聊天",
   "serverChatLoadError": "無法載入伺服器聊天。請檢查連線後再試一次。",
   "serverChatSourceLabel": "伺服器來源",
-  "serverChatsUnavailable": "伺服器聊天不可用。請檢查伺服器連線。",
+  "serverChatsUnavailableNotConnected": "連線到 tldw 伺服器後即可使用伺服器聊天。",
+  "serverChatsUnavailableServerError": "目前無法使用伺服器聊天。請檢查伺服器記錄或稍後再試。",
   "mermaid": "Mermaid 圖表",
   "search": "搜尋",
   "searchResults": "搜尋結果",
@@ -260,5 +261,10 @@
   "noToolCalls": "尚未有工具呼叫",
   "arguments": "參數",
   "invalidJson": "JSON 無效；顯示原始值",
-  "result": "結果"
+  "result": "結果",
+  "markdown": {
+    "unableToRender": "Unable to render content",
+    "couldNotDisplay": "The message content could not be displayed. This may be due to invalid formatting.",
+    "showRawContent": "Show raw content"
+  }
 }

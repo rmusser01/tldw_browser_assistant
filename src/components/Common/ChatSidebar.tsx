@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState, useMemo } from "react"
 import { useNavigate } from "react-router-dom"
 import { useTranslation } from "react-i18next"
 import { useInfiniteQuery } from "@tanstack/react-query"
@@ -81,9 +81,10 @@ export function ChatSidebar({
 
   // Folder conversation count for tab badge
   const conversationKeywordLinks = useFolderStore((s) => s.conversationKeywordLinks)
-  const folderConversationCount = new Set(
-    conversationKeywordLinks.map((link) => link.conversation_id)
-  ).size
+  const folderConversationCount = useMemo(
+    () => new Set(conversationKeywordLinks.map((link) => link.conversation_id)).size,
+    [conversationKeywordLinks]
+  )
 
   // Server chat count for tab badge
   const { data: serverChatData } = useServerChatHistory(debouncedSearchQuery)
@@ -126,7 +127,7 @@ export function ChatSidebar({
         const lastWeekItems: HistoryInfo[] = []
         const olderItems: HistoryInfo[] = []
 
-        for (const item of result.histories as HistoryInfo[]) {
+        for (const item of result.histories) {
           if (item.is_pinned) {
             pinnedItems.push(item)
             continue
@@ -164,7 +165,9 @@ export function ChatSidebar({
           hasMore: result.hasMore,
           totalCount: result.totalCount
         }
-      } catch {
+      } catch (error) {
+        // eslint-disable-next-line no-console
+        console.error("Failed to fetch chat histories:", error)
         return {
           groups: [],
           hasMore: false,
@@ -174,16 +177,17 @@ export function ChatSidebar({
     },
     getNextPageParam: (lastPage, allPages) =>
       lastPage.hasMore ? allPages.length + 1 : undefined,
-    placeholderData: undefined,
-    enabled: true,
     initialPageParam: 1
   })
 
   // Calculate local chat count
-  const localChatCount =
-    chatHistoriesData?.pages.reduce((total, page) => {
-      return total + page.groups.reduce((sum, group) => sum + group.items.length, 0)
-    }, 0) || 0
+  const localChatCount = useMemo(
+    () =>
+      chatHistoriesData?.pages.reduce((total, page) => {
+        return total + page.groups.reduce((sum, group) => sum + group.items.length, 0)
+      }, 0) || 0,
+    [chatHistoriesData]
+  )
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(e.target.value)
