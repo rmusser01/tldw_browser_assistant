@@ -220,12 +220,42 @@ export const RagSearchBar: React.FC<Props> = ({ onInsert, onAsk, isConnected = t
                   const snippet = content.slice(0, 240)
                   const insertText = `${snippet}${url ? `\n\nSource: ${url}` : ""}`
                   return (
-                      <List.Item
+                    <List.Item
                       actions={[
-                        <a key="insert" onClick={() => onInsert(insertText)}>{t('sidepanel:rag.actions.insert')}</a>,
-                        <a key="ask" onClick={() => onAsk(insertText)}>{t('sidepanel:rag.actions.ask')}</a>,
-                        url ? <a key="open" onClick={() => window.open(String(url), '_blank')}>{t('sidepanel:rag.actions.open')}</a> : null,
-                        <a key="copy" onClick={() => navigator.clipboard.writeText(insertText)}>{t('sidepanel:rag.actions.copy')}</a>
+                        <button
+                          key="insert"
+                          type="button"
+                          onClick={() => onInsert(insertText)}
+                          className="text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300"
+                        >
+                          {t("sidepanel:rag.actions.insert")}
+                        </button>,
+                        <button
+                          key="ask"
+                          type="button"
+                          onClick={() => onAsk(insertText)}
+                          className="text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300"
+                        >
+                          {t("sidepanel:rag.actions.ask")}
+                        </button>,
+                        url ? (
+                          <button
+                            key="open"
+                            type="button"
+                            onClick={() => window.open(String(url), "_blank")}
+                            className="text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300"
+                          >
+                            {t("sidepanel:rag.actions.open")}
+                          </button>
+                        ) : null,
+                        <button
+                          key="copy"
+                          type="button"
+                          onClick={() => navigator.clipboard.writeText(insertText)}
+                          className="text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300"
+                        >
+                          {t("sidepanel:rag.actions.copy")}
+                        </button>
                       ]}
                     >
                       <List.Item.Meta

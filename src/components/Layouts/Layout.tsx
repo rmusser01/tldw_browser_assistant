@@ -23,6 +23,8 @@ import { Header } from "./Header"
 import { useMigration } from "../../hooks/useMigration"
 import { useChatSidebar } from "@/hooks/useFeatureFlags"
 import { ChatSidebar } from "@/components/Common/ChatSidebar"
+import { CommandPalette } from "@/components/Common/CommandPalette"
+import { KeyboardShortcutsModal } from "@/components/Common/KeyboardShortcutsModal"
 
 // Lazy-load Timeline to reduce initial bundle size (~1.2MB cytoscape)
 const TimelineModal = lazy(() =>
@@ -229,6 +231,17 @@ const OptionLayoutInner: React.FC<OptionLayoutProps> = ({
             <TimelineModal />
           </Suspense>
         )}
+
+        {/* Command Palette - global keyboard shortcut ⌘K */}
+        {!hideHeader && (
+          <CommandPalette
+            onNewChat={clearChat}
+            onToggleSidebar={toggleSidebar}
+          />
+        )}
+
+        {/* Keyboard Shortcuts Help Modal - triggered by ? */}
+        {!hideHeader && <KeyboardShortcutsModal />}
       </main>
     </div>
   )

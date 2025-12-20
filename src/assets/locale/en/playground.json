@@ -113,8 +113,8 @@
   "composer": {
     "toolsButton": "+Tools",
     "queuedBanner": {
-      "title": "Queued while offline",
-      "body": "We'll hold these messages and send them once your tldw server is connected.",
+      "title": "Queued from existing drafts",
+      "body": "These drafts were created while offline. We'll send them once your tldw server is connected.",
       "sendNow": "Send queued messages",
       "clear": "Clear queue",
       "cleared": "Queue cleared ({{count}} messages)",

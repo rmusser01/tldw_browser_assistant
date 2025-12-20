@@ -167,6 +167,7 @@ export function OnboardingConnectForm({ onFinish }: Props) {
   const [username, setUsername] = useState("")
   const [password, setPassword] = useState("")
   const [showAdvanced, setShowAdvanced] = useState(false)
+  const [authTouched, setAuthTouched] = useState(false)
 
   // UI state (managed via reducer)
   const [uiState, dispatchUi] = useReducer(
@@ -224,6 +225,33 @@ export function OnboardingConnectForm({ onFinish }: Props) {
     }
   }, [serverUrl])
 
+  const authValidation = useMemo(() => {
+    if (authMode === "single-user") {
+      const missingApiKey = apiKey.trim().length === 0
+      return {
+        valid: !missingApiKey,
+        missingApiKey,
+        missingUsername: false,
+        missingPassword: false,
+      }
+    }
+
+    const missingUsername = username.trim().length === 0
+    const missingPassword = password.trim().length === 0
+    return {
+      valid: !missingUsername && !missingPassword,
+      missingApiKey: false,
+      missingUsername,
+      missingPassword,
+    }
+  }, [authMode, apiKey, username, password])
+
+  const showAuthErrors = authTouched && !authValidation.valid
+
+  useEffect(() => {
+    setAuthTouched(false)
+  }, [authMode])
+
   // Derive error messages from errorKind
   const errorHint = useMemo(() => {
     switch (errorKind) {
@@ -265,6 +293,11 @@ export function OnboardingConnectForm({ onFinish }: Props) {
   // Handle progressive connection test
   const handleConnect = useCallback(async () => {
     if (!urlValidation.valid) return
+    setAuthTouched(true)
+    if (!authValidation.valid) {
+      dispatchUi({ type: "SET_ERROR", errorKind: null, errorMessage: null })
+      return
+    }
 
     dispatchUi({ type: "START_CONNECT" })
 
@@ -372,6 +405,7 @@ export function OnboardingConnectForm({ onFinish }: Props) {
     }
   }, [
     urlValidation.valid,
+    authValidation.valid,
     serverUrl,
     authMode,
     apiKey,
@@ -737,13 +771,34 @@ export function OnboardingConnectForm({ onFinish }: Props) {
               value={apiKey}
               onChange={(e) => setApiKey(e.target.value)}
               disabled={isConnecting}
+              status={
+                showAuthErrors && authValidation.missingApiKey ? "error" : undefined
+              }
+              aria-describedby={
+                showAuthErrors && authValidation.missingApiKey
+                  ? "api-key-error"
+                  : undefined
+              }
             />
-            <p className="mt-1 text-xs text-gray-500">
-              {t(
-                "settings:onboarding.apiKeyHelp",
-                "Find your API key in tldw_server Settings"
-              )}
-            </p>
+            {showAuthErrors && authValidation.missingApiKey ? (
+              <p
+                id="api-key-error"
+                role="alert"
+                className="mt-1 text-xs text-red-500"
+              >
+                {t(
+                  "settings:onboarding.apiKeyRequired",
+                  "Enter your API key to continue."
+                )}
+              </p>
+            ) : (
+              <p className="mt-1 text-xs text-gray-500">
+                {t(
+                  "settings:onboarding.apiKeyHelp",
+                  "Find your API key in tldw_server Settings"
+                )}
+              </p>
+            )}
           </div>
         ) : (
           <div className="space-y-3">
@@ -760,7 +815,27 @@ export function OnboardingConnectForm({ onFinish }: Props) {
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
                 disabled={isConnecting}
+                status={
+                  showAuthErrors && authValidation.missingUsername ? "error" : undefined
+                }
+                aria-describedby={
+                  showAuthErrors && authValidation.missingUsername
+                    ? "username-error"
+                    : undefined
+                }
               />
+              {showAuthErrors && authValidation.missingUsername && (
+                <p
+                  id="username-error"
+                  role="alert"
+                  className="mt-1 text-xs text-red-500"
+                >
+                  {t(
+                    "settings:onboarding.usernameRequired",
+                    "Enter your username to continue."
+                  )}
+                </p>
+              )}
             </div>
             <div>
               <label className="flex items-center gap-2 text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">
@@ -775,7 +850,27 @@ export function OnboardingConnectForm({ onFinish }: Props) {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 disabled={isConnecting}
+                status={
+                  showAuthErrors && authValidation.missingPassword ? "error" : undefined
+                }
+                aria-describedby={
+                  showAuthErrors && authValidation.missingPassword
+                    ? "password-error"
+                    : undefined
+                }
               />
+              {showAuthErrors && authValidation.missingPassword && (
+                <p
+                  id="password-error"
+                  role="alert"
+                  className="mt-1 text-xs text-red-500"
+                >
+                  {t(
+                    "settings:onboarding.passwordRequired",
+                    "Enter your password to continue."
+                  )}
+                </p>
+              )}
             </div>
           </div>
         )}

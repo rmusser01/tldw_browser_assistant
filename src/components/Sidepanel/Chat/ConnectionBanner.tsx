@@ -1,13 +1,14 @@
-import React from "react"
+import React, { useState } from "react"
 import { useTranslation } from "react-i18next"
-import { Alert, Button } from "antd"
-import { Settings, RefreshCw, WifiOff, KeyRound, Loader2 } from "lucide-react"
+import { Alert, Button, Input, message } from "antd"
+import { Settings, RefreshCw, WifiOff, KeyRound, Loader2, Check, Eye, EyeOff } from "lucide-react"
 import {
   useConnectionState,
   useConnectionUxState,
   useConnectionActions
 } from "@/hooks/useConnectionState"
 import { ConnectionPhase } from "@/types/connection"
+import { useStorage } from "@plasmohq/storage/hook"
 
 type ConnectionBannerProps = {
   className?: string
@@ -31,6 +32,13 @@ export const ConnectionBanner: React.FC<ConnectionBannerProps> = ({
   const { uxState, isChecking, hasCompletedFirstRun } = useConnectionUxState()
   const { checkOnce } = useConnectionActions()
 
+  // Inline API key form state
+  const [showApiKeyForm, setShowApiKeyForm] = useState(false)
+  const [apiKeyInput, setApiKeyInput] = useState("")
+  const [showApiKey, setShowApiKey] = useState(false)
+  const [isSaving, setIsSaving] = useState(false)
+  const [, setStoredApiKey] = useStorage("tldwApiKey", "")
+
   // Don't show banner if connected
   const isConnectionReady = isConnected && phase === ConnectionPhase.CONNECTED
   if (isConnectionReady) {
@@ -51,6 +59,29 @@ export const ConnectionBanner: React.FC<ConnectionBannerProps> = ({
 
   const handleRetry = () => {
     void checkOnce()
+  }
+
+  const handleSaveApiKey = async () => {
+    if (!apiKeyInput.trim()) {
+      message.error(t("sidepanel:connectionBanner.apiKeyRequired", "Please enter an API key"))
+      return
+    }
+
+    setIsSaving(true)
+    try {
+      await setStoredApiKey(apiKeyInput.trim())
+      message.success(t("sidepanel:connectionBanner.apiKeySaved", "API key saved"))
+      setShowApiKeyForm(false)
+      setApiKeyInput("")
+      // Trigger a connection check
+      setTimeout(() => {
+        void checkOnce()
+      }, 500)
+    } catch (err) {
+      message.error(t("sidepanel:connectionBanner.apiKeySaveError", "Failed to save API key"))
+    } finally {
+      setIsSaving(false)
+    }
   }
 
   // Determine banner content based on state
@@ -152,28 +183,80 @@ export const ConnectionBanner: React.FC<ConnectionBannerProps> = ({
               <p className="text-xs text-gray-600 dark:text-gray-300">
                 {config.description}
               </p>
-              <div className="mt-2 flex flex-wrap items-center gap-2">
-                {config.showRetry && (
-                  <Button
-                    size="small"
-                    icon={<RefreshCw className="size-3" />}
-                    onClick={handleRetry}
-                    loading={isChecking}
+
+              {/* Inline API key form for auth errors */}
+              {uxState === "error_auth" && showApiKeyForm ? (
+                <div className="mt-3 space-y-2">
+                  <div className="flex items-center gap-2">
+                    <Input.Password
+                      size="small"
+                      placeholder={t("sidepanel:connectionBanner.apiKeyPlaceholder", "Enter your API key")}
+                      value={apiKeyInput}
+                      onChange={(e) => setApiKeyInput(e.target.value)}
+                      onPressEnter={handleSaveApiKey}
+                      visibilityToggle={{
+                        visible: showApiKey,
+                        onVisibleChange: setShowApiKey
+                      }}
+                      className="flex-1"
+                      autoFocus
+                    />
+                    <Button
+                      size="small"
+                      type="primary"
+                      icon={<Check className="size-3" />}
+                      onClick={handleSaveApiKey}
+                      loading={isSaving}
+                    >
+                      {t("common:save", "Save")}
+                    </Button>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setShowApiKeyForm(false)
+                      setApiKeyInput("")
+                    }}
+                    className="text-xs text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 underline"
                   >
-                    {t("common:retry", "Retry")}
-                  </Button>
-                )}
-                {config.showSettings && (
-                  <Button
-                    size="small"
-                    type="primary"
-                    icon={<Settings className="size-3" />}
-                    onClick={openSettings}
-                  >
-                    {t("sidepanel:connectionBanner.openSettings", "Open Settings")}
-                  </Button>
-                )}
-              </div>
+                    {t("common:cancel", "Cancel")}
+                  </button>
+                </div>
+              ) : (
+                <div className="mt-2 flex flex-wrap items-center gap-2">
+                  {/* Quick fix button for auth errors */}
+                  {uxState === "error_auth" && (
+                    <Button
+                      size="small"
+                      type="primary"
+                      icon={<KeyRound className="size-3" />}
+                      onClick={() => setShowApiKeyForm(true)}
+                    >
+                      {t("sidepanel:connectionBanner.enterApiKey", "Enter API Key")}
+                    </Button>
+                  )}
+                  {config.showRetry && (
+                    <Button
+                      size="small"
+                      icon={<RefreshCw className="size-3" />}
+                      onClick={handleRetry}
+                      loading={isChecking}
+                    >
+                      {t("common:retry", "Retry")}
+                    </Button>
+                  )}
+                  {config.showSettings && (
+                    <Button
+                      size="small"
+                      type={uxState === "error_auth" ? "default" : "primary"}
+                      icon={<Settings className="size-3" />}
+                      onClick={openSettings}
+                    >
+                      {t("sidepanel:connectionBanner.openSettings", "Open Settings")}
+                    </Button>
+                  )}
+                </div>
+              )}
             </div>
           )
         }

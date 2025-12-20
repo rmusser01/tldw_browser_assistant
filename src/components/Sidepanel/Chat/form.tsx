@@ -540,7 +540,36 @@ export const SidepanelForm = ({
         return
       }
 
-      // No confirmation needed when disabling temporary mode or no messages
+      // Show confirmation when disabling temporary mode with existing messages
+      if (!next && hadMessages) {
+        Modal.confirm({
+          title: t(
+            "sidepanel:composer.tempChatDisableConfirmTitle",
+            "Disable temporary mode?"
+          ),
+          content: t(
+            "sidepanel:composer.tempChatDisableConfirmContent",
+            "This will clear your current conversation. Messages will start saving again."
+          ),
+          okText: t("common:confirm", "Confirm"),
+          cancelText: t("common:cancel", "Cancel"),
+          onOk: () => {
+            setTemporaryChat(next)
+            clearChat()
+            notification.info({
+              message: t(
+                "sidepanel:composer.tempChatDisabledClearedMessages",
+                "Temporary chat disabled. Previous messages cleared."
+              ),
+              placement: "bottomRight",
+              duration: 2.5
+            })
+          }
+        })
+        return
+      }
+
+      // No confirmation needed when toggling with no messages
       setTemporaryChat(next)
       if (hadMessages) {
         clearChat()
@@ -1143,12 +1172,12 @@ export const SidepanelForm = ({
                           <span className="block font-medium">
                             {t(
                               "playground:composer.queuedBanner.title",
-                              "Queued while offline"
+                              "Queued from existing drafts"
                             )}
                           </span>
                           {t(
                             "playground:composer.queuedBanner.body",
-                            "We'll hold these messages and send them once your tldw server is connected."
+                            "These drafts were created while offline. We'll send them once your tldw server is connected."
                           )}
                         </p>
                         <div className="flex flex-wrap items-center gap-2">
@@ -1336,6 +1365,25 @@ export const SidepanelForm = ({
                         >
                           <X className="h-3 w-3" />
                         </button>
+                      </div>
+                    )}
+                    {/* Proactive validation hints - show why send might be disabled */}
+                    {!form.errors.message && isConnectionReady && !streaming && (
+                      <div className="px-2 py-0.5 text-[10px] text-gray-400 dark:text-gray-500">
+                        {!selectedModel ? (
+                          <span className="flex items-center gap-1">
+                            <svg className="h-3 w-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                            {t("sidepanel:composer.hints.selectModel", "Select a model above to start chatting")}
+                          </span>
+                        ) : form.values.message.trim().length === 0 && form.values.image.length === 0 ? (
+                          <span>
+                            {sendWhenEnter
+                              ? t("sidepanel:composer.hints.typeAndEnter", "Type a message and press Enter to send")
+                              : t("sidepanel:composer.hints.typeAndClick", "Type a message and click Send")}
+                          </span>
+                        ) : null}
                       </div>
                     )}
                     <div className="mt-2 flex w-full flex-row items-center justify-between gap-2">

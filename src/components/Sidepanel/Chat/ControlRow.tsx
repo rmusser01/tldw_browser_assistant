@@ -4,7 +4,9 @@ import {
   MoreHorizontal,
   Eye,
   Globe,
-  Image as ImageIcon
+  Image as ImageIcon,
+  UploadCloud,
+  ExternalLink
 } from "lucide-react"
 import React from "react"
 import { useTranslation } from "react-i18next"
@@ -14,7 +16,7 @@ import { PromptSelect } from "@/components/Common/PromptSelect"
 import { FeatureHint, useFeatureHintSeen } from "@/components/Common/FeatureHint"
 import { SaveStatusIcon } from "./SaveStatusIcon"
 import { useServerCapabilities } from "@/hooks/useServerCapabilities"
-import { formatShortcut, isMac } from "@/hooks/useKeyboardShortcuts"
+import { browser } from "wxt/browser"
 
 interface ControlRowProps {
   // Prompt selection
@@ -65,6 +67,27 @@ export const ControlRow: React.FC<ControlRowProps> = ({
   const handleSaveClick = () => {
     // Toggle between ephemeral and local save
     setTemporaryChat(!temporaryChat)
+  }
+
+  const openQuickIngest = () => {
+    window.dispatchEvent(new CustomEvent("tldw:open-quick-ingest"))
+    setMoreOpen(false)
+    requestAnimationFrame(() => moreBtnRef.current?.focus())
+  }
+
+  const openFullApp = () => {
+    try {
+      const url = browser.runtime.getURL("/options.html#/")
+      if (browser.tabs?.create) {
+        browser.tabs.create({ url })
+        setMoreOpen(false)
+        requestAnimationFrame(() => moreBtnRef.current?.focus())
+        return
+      }
+    } catch {}
+    window.open("/options.html#/", "_blank")
+    setMoreOpen(false)
+    requestAnimationFrame(() => moreBtnRef.current?.focus())
   }
 
   const moreMenuContent = (
@@ -157,6 +180,28 @@ export const ControlRow: React.FC<ControlRowProps> = ({
         </button>
       </Upload>
 
+      <div className="h-px bg-gray-200 dark:bg-gray-700 my-1" />
+
+      <div className="text-xs text-gray-500 font-medium">
+        {t("sidepanel:controlRow.quickActions", "Quick actions")}
+      </div>
+      <button
+        type="button"
+        onClick={openQuickIngest}
+        className="w-full text-left text-sm px-2 py-1.5 rounded flex items-center gap-2 hover:bg-gray-100 dark:hover:bg-gray-800"
+      >
+        <UploadCloud className="size-4 text-gray-500" />
+        {t("sidepanel:controlRow.quickIngest", "Quick ingest")}
+      </button>
+      <button
+        type="button"
+        onClick={openFullApp}
+        className="w-full text-left text-sm px-2 py-1.5 rounded flex items-center gap-2 hover:bg-gray-100 dark:hover:bg-gray-800"
+      >
+        <ExternalLink className="size-4 text-gray-500" />
+        {t("sidepanel:controlRow.openInFullUI", "Open full app")}
+      </button>
+
     </div>
   )
 
@@ -185,28 +230,23 @@ export const ControlRow: React.FC<ControlRowProps> = ({
         {/* Divider */}
         <div className="h-4 w-px bg-gray-200 dark:bg-gray-700 mx-0.5" />
 
-        {/* Knowledge Search Toggle - with label and shortcut */}
+        {/* Knowledge Search - opens panel */}
         <div className="relative">
           <button
             type="button"
             data-testid="control-rag-toggle"
             onClick={onToggleRag}
-            className={`flex items-center gap-1.5 px-3 py-2 sm:px-2 sm:py-1 rounded text-sm font-medium focus:outline-none focus-visible:ring-2 focus-visible:ring-pink-700 transition-colors min-h-[44px] sm:min-h-0 ${
-              chatMode === "rag"
-                ? "bg-pink-100 dark:bg-pink-900/30 text-pink-700 dark:text-pink-300 hover:bg-pink-200 dark:hover:bg-pink-900/40"
-                : "text-gray-600 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-700"
-            }`}
-            aria-label={t("sidepanel:controlRow.knowledgeSearch", "Knowledge Search")}
-            aria-pressed={chatMode === "rag"}
+            className="flex items-center gap-1.5 px-3 py-2 sm:px-2 sm:py-1 rounded text-sm font-medium focus:outline-none focus-visible:ring-2 focus-visible:ring-pink-700 transition-colors min-h-[44px] sm:min-h-0 text-gray-600 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-700"
+            aria-label={t("sidepanel:controlRow.knowledgeSearch", "Open knowledge search")}
           >
             <Search className="size-3.5" />
-            <span className="hidden sm:inline">{t("sidepanel:controlRow.knowledge", "Knowledge")}</span>
+            <span className="hidden sm:inline">{t("sidepanel:controlRow.knowledge", "Knowledge search")}</span>
           </button>
           {!knowledgeHintSeen && isConnected && (
             <FeatureHint
               featureKey="knowledge-search"
-              title={t("common:featureHints.knowledge.title", "Chat with your knowledge")}
-              description={t("common:featureHints.knowledge.description", "Enable this to search your documents and include relevant context in your chats.")}
+              title={t("common:featureHints.knowledge.title", "Search your knowledge")}
+              description={t("common:featureHints.knowledge.description", "Open the knowledge search panel to find snippets and insert them into your chat.")}
               position="top"
             />
           )}
@@ -268,7 +308,7 @@ export const ControlRow: React.FC<ControlRowProps> = ({
             <FeatureHint
               featureKey="more-tools"
               title={t("common:featureHints.moreTools.title", "More tools available")}
-              description={t("common:featureHints.moreTools.description", "Access vision mode, image upload, quick ingest, and links to the full UI.")}
+              description={t("common:featureHints.moreTools.description", "Access vision mode, image upload, quick ingest, and the full app.")}
               position="top"
             />
           )}

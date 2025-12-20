@@ -21,14 +21,17 @@ import {
 } from "lucide-react"
 
 import { PageAssistDatabase } from "@/db/dexie/chat"
-import type { HistoryInfo } from "@/db/dexie/types"
+import type { HistoryInfo, Message } from "@/db/dexie/types"
 import {
   deleteByHistoryId,
   deleteHistoriesByDateRange,
   getHistoriesWithMetadata,
   updateHistory,
-  pinHistory
+  pinHistory,
+  getFullChatData,
+  restoreChat
 } from "@/db/dexie/helpers"
+import { useUndoNotification } from "@/hooks/useUndoNotification"
 import { isDatabaseClosedError } from "@/utils/ff-error"
 import { updatePageTitle } from "@/utils/update-page-title"
 import { useConnectionState } from "@/hooks/useConnectionState"
@@ -105,6 +108,7 @@ export function LocalChatList({
   const { isConnected } = useConnectionState()
   const queryClient = useQueryClient()
   const confirmDanger = useConfirmDanger()
+  const { showUndoNotification, contextHolder } = useUndoNotification()
 
   const {
     setMessages,
@@ -253,15 +257,51 @@ export function LocalChatList({
     refetchOnMount: false
   })
 
+  // State for storing deleted chat data for undo
+  const [deletedChatData, setDeletedChatData] = useState<{
+    historyInfo: HistoryInfo
+    messages: Message[]
+  } | null>(null)
+
   // Mutations
   const { mutate: deleteHistory } = useMutation({
     mutationKey: ["deleteHistory"],
-    mutationFn: deleteByHistoryId,
+    mutationFn: async (history_id: string) => {
+      // Capture the chat data before deletion for undo
+      const chatData = await getFullChatData(history_id)
+      if (chatData) {
+        setDeletedChatData(chatData)
+      }
+      return deleteByHistoryId(history_id)
+    },
     onSuccess: (deletedId: string) => {
       queryClient.invalidateQueries({ queryKey: ["fetchChatHistory"] })
-      if (historyId === deletedId) {
+      const wasActive = historyId === deletedId
+      if (wasActive) {
         clearChat()
         updatePageTitle()
+      }
+
+      // Show undo notification
+      if (deletedChatData) {
+        const chatTitle = deletedChatData.historyInfo.title || t("common:untitledChat", "Untitled Chat")
+        showUndoNotification({
+          title: t("common:undo.chatDeleted", "Chat deleted"),
+          description: t("common:undo.chatDeletedDesc", "\"{{title}}\" was removed", { title: chatTitle }),
+          onUndo: async () => {
+            if (deletedChatData) {
+              await restoreChat(deletedChatData)
+              queryClient.invalidateQueries({ queryKey: ["fetchChatHistory"] })
+              // If this was the active chat, reload it
+              if (wasActive) {
+                loadLocalConversation(deletedChatData.historyInfo.id)
+              }
+            }
+          },
+          onDismiss: () => {
+            setDeletedChatData(null)
+          }
+        })
       }
     }
   })
@@ -380,6 +420,8 @@ export function LocalChatList({
 
   return (
     <div className={cn("flex flex-col gap-2", className)}>
+      {/* Notification context holder for undo notifications */}
+      {contextHolder}
       <Modal
         title={t("common:renameChat", { defaultValue: "Rename chat" })}
         open={!!renamingChat}

@@ -356,12 +356,12 @@
   },
   "featureHints": {
     "knowledge": {
-      "title": "Chat with your knowledge",
-      "description": "Enable this to search your documents and include relevant context in your chats."
+      "title": "Search your knowledge",
+      "description": "Open the knowledge search panel to find snippets and insert them into your chat."
     },
     "moreTools": {
       "title": "More tools available",
-      "description": "Access vision mode, image upload, quick ingest, and links to the full UI."
+      "description": "Access vision mode, image upload, quick ingest, and the full app."
     },
     "commandPalette": {
       "title": "Quick commands",

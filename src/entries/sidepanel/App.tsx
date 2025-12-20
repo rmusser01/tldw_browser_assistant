@@ -11,6 +11,7 @@ import "~/i18n"
 import { PageAssistProvider } from "@/components/Common/PageAssistProvider"
 import { FontSizeProvider } from "@/context/FontSizeProvider"
 import { QuickChatHelperButton } from "@/components/Common/QuickChatHelper"
+import { KeyboardShortcutsModal } from "@/components/Common/KeyboardShortcutsModal"
 
 function IndexSidepanel() {
   const { mode } = useDarkMode()
@@ -58,6 +59,7 @@ function IndexSidepanel() {
                 <FontSizeProvider>
                   {isVisible ? <SidepanelRouting /> : null}
                   <QuickChatHelperButton />
+                  <KeyboardShortcutsModal />
                 </FontSizeProvider>
               </PageAssistProvider>
             </QueryClientProvider>

@@ -974,6 +974,9 @@
       "missingApiKey": "API key is required."
     },
     "apiKeyHelp": "Find your API key in tldw_server → Settings → API Keys. Generate a key there and paste it here.",
+    "apiKeyRequired": "Enter your API key to continue.",
+    "usernameRequired": "Enter your username to continue.",
+    "passwordRequired": "Enter your password to continue.",
     "authStepAria": "Step 2 of 3 — Choose how you sign in",
     "confirmStepAria": "Step 3 of 3 — connection summary and next steps",
     "nextSteps": {
