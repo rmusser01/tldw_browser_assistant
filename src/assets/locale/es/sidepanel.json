@@ -12,6 +12,28 @@
     "privateModeTitle": "tldw Assistant no puede guardar datos",
     "privateModeDescription": "El modo privado de Firefox no admite guardar el historial de chat. El chat temporal está activado por defecto. Más mejoras en camino."
   },
+  "connectionBanner": {
+    "connecting": "Conectando a tu servidor tldw...",
+    "authErrorTitle": "La clave API necesita atención",
+    "authErrorBody": "Tu servidor es accesible, pero la clave API es incorrecta o falta.",
+    "unreachableTitle": "No se puede acceder a tu servidor tldw",
+    "unreachableBody": "Comprueba que tu servidor esté en funcionamiento y accesible.",
+    "noUrlBody": "Añade la URL del servidor en Ajustes para empezar.",
+    "disconnectedTitle": "No conectado al servidor tldw",
+    "disconnectedBody": "Abre Ajustes para configurar tu conexión al servidor.",
+    "setupTitle": "Finaliza la configuración para comenzar a chatear",
+    "setupBody": "Completa el asistente de configuración en Ajustes para conectarte.",
+    "openSettings": "Abrir Ajustes"
+  },
+  "temporaryBadge": {
+    "title": "Chat temporal",
+    "label": "Temp",
+    "description": "Este chat no se guardará. Los mensajes se borrarán al cerrar o iniciar un nuevo chat.",
+    "clickHint": "Haz clic para desactivar",
+    "ariaLabel": "El modo de chat temporal está activo. Haz clic para alternar.",
+    "indicatorTooltip": "Los mensajes de este chat no se guardarán",
+    "indicatorAria": "Chat temporal"
+  },
   "header": {
     "ingest": "Ingest",
     "saveCurrent": "Save current page on server",
@@ -73,6 +95,13 @@
     "sourceLabel": "Source",
     "transcriptLabel": "Transcript",
     "summaryLabel": "Summary"
+  },
+  "saveStatus": {
+    "ephemeral": "Temporal: no se guarda, se borra al cerrar",
+    "local": "Guardado localmente en este navegador",
+    "server": "Guardado en el servidor",
+    "saveFailed": "No se pudo guardar el chat en el servidor",
+    "saveFailedDescription": "El chat ahora se guarda solo localmente. Comprueba tu conexión e inténtalo de nuevo."
   },
   "rag": {
     "searchPlaceholder": "Search your knowledge…",

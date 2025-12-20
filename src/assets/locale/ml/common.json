@@ -226,6 +226,8 @@
   "gitOperations": "Git പ്രവർത്തനങ്ങൾ",
   "commands": "കമാൻഡുകൾ",
   "otherOperations": "മറ്റ് പ്രവർത്തനങ്ങൾ",
+  "fileAccess": "ഫയൽ പ്രവേശനം",
+  "notebookEdits": "നോട്ട്ബുക്ക് തിരുത്തലുകൾ",
   "segmented": {
     "available": "സെർവർ മോഡലുകൾ",
     "custom": "കസ്റ്റം മോഡലുകൾ"
@@ -249,6 +251,7 @@
   "searchResults": "തിരച്ചിൽ ഫലങ്ങൾ",
   "newBranch": "പുതിയ ബ്രാഞ്ച്",
   "error": {
+    "label": "പിശക്",
     "friendlyApiKeySummary": "നിങ്ങളുടെ tldw സർവറെ സമീപിക്കാൻ കഴിഞ്ഞില്ല.",
     "friendlyApiKeyHint": "നിങ്ങളുടെ API കീ അസാധുവായിരിക്കാം. ക്രമീകരണങ്ങൾ → tldw സർവർ തുറന്ന് നിങ്ങളുടെ URLയും API കീയും പരിശോധിച്ച് വീണ്ടും ശ്രമിക്കുക.",
     "friendlyTimeoutSummary": "നിങ്ങളുടെ ചാറ്റിന് സമയപരിധി കഴിഞ്ഞു.",

@@ -427,7 +427,7 @@ export const ToolCallLog: FC<ToolCallLogProps> = ({
                 {entry.error && (
                   <div>
                     <span className="text-xs font-medium text-red-500">
-                      {t("error", "Error")}:
+                      {t("error.label", "Error")}:
                     </span>
                     <pre className="mt-1 p-2 text-xs bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 rounded">
                       {entry.error}

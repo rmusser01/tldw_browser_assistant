@@ -228,6 +228,8 @@
   "gitOperations": "عمليات Git",
   "commands": "الأوامر",
   "otherOperations": "عمليات أخرى",
+  "fileAccess": "الوصول إلى الملفات",
+  "notebookEdits": "تعديلات دفتر الملاحظات",
   "success": "تم بنجاح",
   "created": "تم الإنشاء",
   "updated": "تم التحديث",
@@ -247,6 +249,7 @@
   "searchResults": "نتائج البحث",
   "newBranch": "فرع جديد",
   "error": {
+    "label": "خطأ",
     "friendlyApiKeySummary": "تعذّر الوصول إلى خادم tldw الخاص بك.",
     "friendlyApiKeyHint": "قد يكون مفتاح API الخاص بك غير صالح. افتح الإعدادات → خادم tldw للتحقق من عنوان URL ومفتاح API ثم حاول مرة أخرى.",
     "friendlyTimeoutSummary": "انتهت مهلة محادثتك.",

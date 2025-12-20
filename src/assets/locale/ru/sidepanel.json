@@ -12,6 +12,28 @@
     "privateModeTitle": "tldw Assistant не может сохранить данные",
     "privateModeDescription": "Режим приватного просмотра Firefox не поддерживает сохранение истории чатов. Временный чат включен по умолчанию. Улучшения скоро будут."
   },
+  "connectionBanner": {
+    "connecting": "Подключение к вашему серверу tldw...",
+    "authErrorTitle": "Требуется внимание к API-ключу",
+    "authErrorBody": "Сервер доступен, но API-ключ неверный или отсутствует.",
+    "unreachableTitle": "Не удается подключиться к серверу tldw",
+    "unreachableBody": "Проверьте, что сервер запущен и доступен.",
+    "noUrlBody": "Добавьте URL сервера в настройках, чтобы начать.",
+    "disconnectedTitle": "Нет подключения к серверу tldw",
+    "disconnectedBody": "Откройте настройки, чтобы настроить подключение к серверу.",
+    "setupTitle": "Завершите настройку, чтобы начать чат",
+    "setupBody": "Завершите мастер настройки в настройках, чтобы подключиться.",
+    "openSettings": "Открыть настройки"
+  },
+  "temporaryBadge": {
+    "title": "Временный чат",
+    "label": "Temp",
+    "description": "Этот чат не будет сохранен. Сообщения будут удалены при закрытии или начале нового чата.",
+    "clickHint": "Нажмите, чтобы отключить",
+    "ariaLabel": "Режим временного чата активен. Нажмите, чтобы переключить.",
+    "indicatorTooltip": "Сообщения в этом чате не будут сохранены",
+    "indicatorAria": "Временный чат"
+  },
   "header": {
     "ingest": "Ingest",
     "saveCurrent": "Save current page on server",
@@ -73,6 +95,13 @@
     "sourceLabel": "Source",
     "transcriptLabel": "Transcript",
     "summaryLabel": "Summary"
+  },
+  "saveStatus": {
+    "ephemeral": "Временный: не сохраняется, очищается при закрытии",
+    "local": "Сохранено локально в этом браузере",
+    "server": "Сохранено на сервере",
+    "saveFailed": "Не удалось сохранить чат на сервере",
+    "saveFailedDescription": "Теперь чат сохраняется только локально. Проверьте соединение и попробуйте снова."
   },
   "rag": {
     "searchPlaceholder": "Search your knowledge…",

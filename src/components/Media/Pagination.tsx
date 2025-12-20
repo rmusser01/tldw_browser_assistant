@@ -27,9 +27,7 @@ export function Pagination({
   // Clear error when totalPages changes (pagination state updated)
   // IMPORTANT: All hooks must be called before any early returns
   useEffect(() => {
-    if (jumpError) {
-      setJumpError('')
-    }
+    setJumpError('')
   }, [totalPages])
 
   const startItem = (currentPage - 1) * itemsPerPage + 1

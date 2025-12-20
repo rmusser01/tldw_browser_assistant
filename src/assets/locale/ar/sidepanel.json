@@ -12,6 +12,28 @@
     "privateModeTitle": "يتعذر على tldw Assistant حفظ البيانات",
     "privateModeDescription": "لا يدعم وضع التصفح الخاص في فايرفوكس حفظ سجل الدردشة. يتم تفعيل الدردشة المؤقتة افتراضيًا. تحسينات قادمة قريبًا."
   },
+  "connectionBanner": {
+    "connecting": "جارٍ الاتصال بخادم tldw الخاص بك...",
+    "authErrorTitle": "مفتاح API يحتاج إلى انتباه",
+    "authErrorBody": "الخادم قابل للوصول، لكن مفتاح API غير صحيح أو مفقود.",
+    "unreachableTitle": "تعذر الوصول إلى خادم tldw",
+    "unreachableBody": "تحقق من أن الخادم يعمل ويمكن الوصول إليه.",
+    "noUrlBody": "أضف عنوان URL للخادم في الإعدادات للبدء.",
+    "disconnectedTitle": "غير متصل بخادم tldw",
+    "disconnectedBody": "افتح الإعدادات لتهيئة اتصال الخادم.",
+    "setupTitle": "أكمل الإعداد لبدء الدردشة",
+    "setupBody": "أكمل معالج الإعداد في الإعدادات للاتصال.",
+    "openSettings": "افتح الإعدادات"
+  },
+  "temporaryBadge": {
+    "title": "دردشة مؤقتة",
+    "label": "Temp",
+    "description": "لن يتم حفظ هذه الدردشة. ستُمسح الرسائل عند الإغلاق أو بدء دردشة جديدة.",
+    "clickHint": "انقر للتعطيل",
+    "ariaLabel": "وضع الدردشة المؤقتة نشط. انقر للتبديل.",
+    "indicatorTooltip": "رسائل هذه الدردشة لن تُحفظ",
+    "indicatorAria": "دردشة مؤقتة"
+  },
   "header": {
     "ingest": "Ingest",
     "saveCurrent": "Save current page on server",
@@ -73,6 +95,13 @@
     "sourceLabel": "Source",
     "transcriptLabel": "Transcript",
     "summaryLabel": "Summary"
+  },
+  "saveStatus": {
+    "ephemeral": "مؤقت: غير محفوظ، يمسح عند الإغلاق",
+    "local": "محفوظ محليًا في هذا المتصفح",
+    "server": "محفوظ على الخادم",
+    "saveFailed": "تعذر حفظ الدردشة على الخادم",
+    "saveFailedDescription": "يتم الآن حفظ الدردشة محليًا فقط. تحقق من الاتصال وحاول مرة أخرى."
   },
   "rag": {
     "searchPlaceholder": "Search your knowledge…",

@@ -17,6 +17,7 @@ export type Message = {
   images?: string[]
   search?: WebSearch
   messageType?: string
+  clusterId?: string
   id?: string
   generationInfo?: any
   reasoning_time_taken?: number

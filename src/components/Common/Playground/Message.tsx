@@ -127,8 +127,6 @@ type Props = {
   searchQuery?: string
   isEmbedding?: boolean
   // Compare/multi-model metadata (optional)
-  clusterId?: string
-  modelId?: string
   compareSelectable?: boolean
   compareSelected?: boolean
   onToggleCompareSelect?: () => void
@@ -316,7 +314,7 @@ export const PlaygroundMessage = (props: Props) => {
                 : "You"}
             </span>
             {props.isBot && props.message_type === "compare:reply" && (
-              props.onToggleCompareSelect ? (
+              props.compareSelectable && props.onToggleCompareSelect ? (
                 <button
                   type="button"
                   onClick={props.onToggleCompareSelect}

@@ -7,6 +7,7 @@ import { useTranslation } from "react-i18next"
 import { Button, Tooltip, Modal } from "antd"
 import {
   AlertTriangle,
+  BookText,
   FileEdit,
   Terminal,
   GitCommit,
@@ -30,7 +31,17 @@ interface ApprovalBannerProps {
 }
 
 // Categorize approvals by type
+type ApprovalCategoryKey =
+  | "writes"
+  | "deletes"
+  | "git"
+  | "exec"
+  | "read"
+  | "notebook"
+  | "other"
+
 interface ApprovalCategory {
+  key: ApprovalCategoryKey
   label: string
   icon: FC<{ className?: string }>
   color: string
@@ -39,28 +50,51 @@ interface ApprovalCategory {
 
 // Get icon for tool type
 function getToolIcon(toolName: string): FC<{ className?: string }> {
-  if (toolName.startsWith("fs.write") || toolName.startsWith("fs.apply_patch")) {
+  const category = getToolCategory(toolName)
+
+  if (category === "writes") {
     return FileEdit
   }
-  if (toolName.startsWith("fs.delete")) {
+  if (category === "deletes") {
     return Trash2
   }
-  if (toolName.startsWith("git.")) {
+  if (category === "git") {
     return GitCommit
   }
-  if (toolName.startsWith("exec.")) {
+  if (category === "exec") {
     return Terminal
+  }
+  if (category === "read") {
+    return Eye
+  }
+  if (category === "notebook") {
+    return BookText
   }
   return FileEdit
 }
 
 // Get category for tool
-function getToolCategory(toolName: string): string {
-  if (toolName.startsWith("fs.write") || toolName.startsWith("fs.apply_patch") || toolName.startsWith("fs.mkdir")) {
+function getToolCategory(toolName: string): ApprovalCategoryKey {
+  if (
+    toolName.startsWith("fs.write") ||
+    toolName.startsWith("fs.apply_patch") ||
+    toolName.startsWith("fs.mkdir")
+  ) {
     return "writes"
   }
   if (toolName.startsWith("fs.delete")) {
     return "deletes"
+  }
+  if (
+    toolName.startsWith("fs.read") ||
+    toolName.startsWith("fs.list") ||
+    toolName.startsWith("search.") ||
+    toolName.startsWith("workspace.")
+  ) {
+    return "read"
+  }
+  if (toolName.startsWith("notebook.")) {
+    return "notebook"
   }
   if (toolName.startsWith("git.")) {
     return "git"
@@ -84,44 +118,52 @@ export const ApprovalBanner: FC<ApprovalBannerProps> = ({
 
   // Group approvals by category
   const categories = useMemo(() => {
-    const groups: Record<string, PendingApproval[]> = {}
+    const groups: Record<ApprovalCategoryKey, PendingApproval[]> = {
+      writes: [],
+      deletes: [],
+      git: [],
+      exec: [],
+      read: [],
+      notebook: [],
+      other: []
+    }
 
     for (const approval of approvals) {
-      const category = getToolCategory(approval.toolName)
-      if (!groups[category]) {
-        groups[category] = []
-      }
-      groups[category].push(approval)
+      groups[getToolCategory(approval.toolName)].push(approval)
     }
 
     const result: ApprovalCategory[] = []
 
-    if (groups.writes?.length) {
+    if (groups.writes.length) {
       result.push({
+        key: "writes",
         label: t("fileChanges", "File changes"),
         icon: FileEdit,
         color: "text-blue-500",
         approvals: groups.writes
       })
     }
-    if (groups.deletes?.length) {
+    if (groups.deletes.length) {
       result.push({
+        key: "deletes",
         label: t("deletions", "Deletions"),
         icon: Trash2,
         color: "text-red-500",
         approvals: groups.deletes
       })
     }
-    if (groups.git?.length) {
+    if (groups.git.length) {
       result.push({
+        key: "git",
         label: t("gitOperations", "Git operations"),
         icon: GitCommit,
         color: "text-purple-500",
         approvals: groups.git
       })
     }
-    if (groups.exec?.length) {
+    if (groups.exec.length) {
       result.push({
+        key: "exec",
         label: t("commands", "Commands"),
         icon: Terminal,
         color: "text-orange-500",
@@ -129,8 +171,29 @@ export const ApprovalBanner: FC<ApprovalBannerProps> = ({
       })
     }
 
-    if (groups.other?.length) {
+    if (groups.read.length) {
       result.push({
+        key: "read",
+        label: t("fileAccess", "File access"),
+        icon: Eye,
+        color: "text-sky-500",
+        approvals: groups.read
+      })
+    }
+
+    if (groups.notebook.length) {
+      result.push({
+        key: "notebook",
+        label: t("notebookEdits", "Notebook edits"),
+        icon: BookText,
+        color: "text-emerald-600",
+        approvals: groups.notebook
+      })
+    }
+
+    if (groups.other.length) {
+      result.push({
+        key: "other",
         label: t("otherOperations", "Other operations"),
         icon: FileEdit,
         color: "text-gray-500",
@@ -195,8 +258,7 @@ export const ApprovalBanner: FC<ApprovalBannerProps> = ({
               {categories.map((cat, idx) => {
                 const Icon = cat.icon
                 // Use user-friendly labels from design tokens
-                const categoryKey = getToolCategory(cat.approvals[0]?.toolName || "")
-                const friendlyLabel = approvalCategoryLabels[categoryKey] || cat.label
+                const friendlyLabel = approvalCategoryLabels[cat.key] || cat.label
                 return (
                   <Tooltip key={idx} title={`${cat.approvals.length} ${friendlyLabel.toLowerCase()}`}>
                     <span className={`flex items-center gap-1 px-2 py-0.5 rounded-full bg-white dark:bg-gray-800 text-xs ${cat.color}`}>

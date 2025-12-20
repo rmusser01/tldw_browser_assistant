@@ -228,6 +228,8 @@
   "gitOperations": "Git‑åtgärder",
   "commands": "Kommandon",
   "otherOperations": "Andra åtgärder",
+  "fileAccess": "Filåtkomst",
+  "notebookEdits": "Ändringar i anteckningsbok",
   "success": "Lyckades",
   "created": "Skapad",
   "updated": "Uppdaterad",
@@ -247,6 +249,7 @@
   "searchResults": "Sökresultat",
   "newBranch": "Ny gren",
   "error": {
+    "label": "Fel",
     "friendlyApiKeySummary": "Vi kunde inte nå din tldw-server.",
     "friendlyApiKeyHint": "Din API‑nyckel kan vara ogiltig. Öppna Inställningar → tldw‑server för att kontrollera din URL och API‑nyckel och försök igen.",
     "friendlyTimeoutSummary": "Din chatt gick ut på tid.",

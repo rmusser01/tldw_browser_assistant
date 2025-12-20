@@ -199,6 +199,7 @@ export const approvalCategoryLabels: Record<string, string> = {
   exec: "Commands",
   read: "File Access",
   notebook: "Notebook Edits",
+  other: "Other",
 } as const
 
 // =============================================================================

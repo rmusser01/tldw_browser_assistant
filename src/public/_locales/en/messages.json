@@ -579,5 +579,156 @@
   },
   "exportJsonSuccess": {
     "message": "Exported {{count}} notes as JSON ({{size}})"
+  },
+  "infoShort": {
+    "message": "Info"
+  },
+  "regenShort": {
+    "message": "Redo"
+  },
+  "continueShort": {
+    "message": "More"
+  },
+  "error_label": {
+    "message": "Error"
+  },
+  "modelSelect_label": {
+    "message": "Model",
+    "description": "Label for the model select dropdown."
+  },
+  "modelSelect_tooltip": {
+    "message": "Changes model for next message",
+    "description": "Tooltip for the model select dropdown."
+  },
+  "featureHints_knowledge_title": {
+    "message": "Search your knowledge",
+    "description": "Title for the knowledge search feature hint."
+  },
+  "featureHints_knowledge_description": {
+    "message": "Open the knowledge search panel to find snippets and insert them into your chat.",
+    "description": "Description for the knowledge search feature hint."
+  },
+  "featureHints_moreTools_title": {
+    "message": "More tools available",
+    "description": "Title for the more tools feature hint."
+  },
+  "featureHints_moreTools_description": {
+    "message": "Access vision mode, image upload, quick ingest, and the full app.",
+    "description": "Description for the more tools feature hint."
+  },
+  "featureHints_commandPalette_title": {
+    "message": "Quick commands",
+    "description": "Title for the command palette feature hint."
+  },
+  "featureHints_commandPalette_description": {
+    "message": "Press {{shortcut}} to search commands, settings, and more.",
+    "description": "Description for the command palette feature hint."
+  },
+  "featureHints_modelSettings_title": {
+    "message": "Adjust model parameters",
+    "description": "Title for the model settings feature hint."
+  },
+  "featureHints_modelSettings_description": {
+    "message": "Fine-tune temperature, context length, and other model settings.",
+    "description": "Description for the model settings feature hint."
+  },
+  "chatSidebar_title": {
+    "message": "Chats",
+    "description": "Title for the global chat sidebar."
+  },
+  "chatSidebar_newChat": {
+    "message": "New Chat",
+    "description": "Label for the new chat button in the sidebar."
+  },
+  "chatSidebar_collapse": {
+    "message": "Collapse sidebar",
+    "description": "Tooltip to collapse the chat sidebar."
+  },
+  "chatSidebar_expand": {
+    "message": "Expand sidebar",
+    "description": "Tooltip to expand the chat sidebar."
+  },
+  "chatSidebar_search": {
+    "message": "Search chats...",
+    "description": "Placeholder text for the chat sidebar search input."
+  },
+  "chatSidebar_ingest": {
+    "message": "Ingest Page",
+    "description": "Label for the ingest page shortcut in the sidebar."
+  },
+  "chatSidebar_media": {
+    "message": "Media",
+    "description": "Label for the Media tab shortcut in the sidebar."
+  },
+  "chatSidebar_notes": {
+    "message": "Notes",
+    "description": "Label for the Notes tab shortcut in the sidebar."
+  },
+  "chatSidebar_settings": {
+    "message": "Settings",
+    "description": "Label for the Settings shortcut in the sidebar."
+  },
+  "chatSidebar_loadError": {
+    "message": "Failed to load chats",
+    "description": "Error message shown when chat list loading fails."
+  },
+  "chatSidebar_localTab": {
+    "message": "Local",
+    "description": "Label for the Local tab in the chat sidebar."
+  },
+  "chatSidebar_serverTab": {
+    "message": "Server",
+    "description": "Label for the Server tab in the chat sidebar."
+  },
+  "chatSidebar_foldersTab": {
+    "message": "Folders",
+    "description": "Label for the Folders tab in the chat sidebar."
+  },
+  "chatSidebar_tabs_local": {
+    "message": "Local",
+    "description": "Label inside the tab selector for Local chats."
+  },
+  "chatSidebar_tabs_server": {
+    "message": "Server",
+    "description": "Label inside the tab selector for Server chats."
+  },
+  "chatSidebar_tabs_folders": {
+    "message": "Folders",
+    "description": "Label inside the tab selector for Folders."
+  },
+  "chatSidebar_noServerChats": {
+    "message": "No server chats yet",
+    "description": "Empty-state message when there are no server chats."
+  },
+  "chatSidebar_foldersRequireConnection": {
+    "message": "Folders require a server connection",
+    "description": "Notice shown when folder views require a server connection."
+  },
+  "error_friendlyApiKeySummary": {
+    "message": "We couldn't reach your tldw server."
+  },
+  "error_friendlyApiKeyHint": {
+    "message": "Your API key may be invalid. Open Settings → tldw server to check your URL and API key, then try again."
+  },
+  "error_friendlyTimeoutSummary": {
+    "message": "Your chat timed out."
+  },
+  "error_friendlyTimeoutHint": {
+    "message": "The server stopped streaming responses. Try again, or open Health & diagnostics to check server status."
+  },
+  "error_friendlyGenericSummary": {
+    "message": "Something went wrong while talking to your tldw server."
+  },
+  "error_friendlyGenericHint": {
+    "message": "Try again in a moment, or open Health & diagnostics to inspect server health."
+  },
+  "error_showDetails": {
+    "message": "Show technical details"
+  },
+  "error_hideDetails": {
+    "message": "Hide technical details"
+  },
+  "error_createFolder": {
+    "message": "Failed to create folder"
   }
 }

@@ -224,6 +224,8 @@
   "gitOperations": "Git-handlinger",
   "commands": "Kommandoer",
   "otherOperations": "Andre handlinger",
+  "fileAccess": "Filadgang",
+  "notebookEdits": "Redigeringer i notatbog",
   "segmented": {
     "available": "Servermodeller",
     "custom": "Brugertilpassede modeller"
@@ -247,6 +249,7 @@
   "searchResults": "Søgeresultater",
   "newBranch": "Ny gren",
   "error": {
+    "label": "Fejl",
     "friendlyApiKeySummary": "Vi kunne ikke nå din tldw-server.",
     "friendlyApiKeyHint": "Din API-nøgle er muligvis ugyldig. Åbn Indstillinger → tldw-server for at tjekke din URL og API-nøgle, og prøv igen.",
     "friendlyTimeoutSummary": "Din chat fik timeout.",

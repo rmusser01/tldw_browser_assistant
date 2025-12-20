@@ -18,18 +18,38 @@ import { copyToClipboard } from "@/utils/clipboard"
 import { ImageExportWrapper } from "../Common/ImageExport"
 import { useAntdMessage } from "@/hooks/useAntdMessage"
 import { useStoreMessageOption } from "~/store/option"
+
 interface MoreOptionsProps {
   messages: Message[]
   historyId: string
   shareModeEnabled: boolean
 }
 
+type CompareUserMessage = Message & {
+  messageType: "compare:user"
+  clusterId: string
+}
+
+type CompareReplyMessage = Message & {
+  messageType: "compare:reply"
+  clusterId: string
+  id: string
+}
+
+const isCompareUserMessage = (message: Message): message is CompareUserMessage =>
+  message.messageType === "compare:user" && typeof message.clusterId === "string"
+
+const isCompareReplyMessage = (
+  message: Message
+): message is CompareReplyMessage =>
+  message.messageType === "compare:reply" &&
+  typeof message.clusterId === "string" &&
+  typeof message.id === "string"
+
 const buildCanonicalMessages = (
   messages: Message[],
   canonicalByCluster: Record<string, string | null>
 ): Message[] => {
-  const raw = messages as any[]
-
   // Build a simple index of compare clusters
   const clusters: Record<
     string,
@@ -39,55 +59,60 @@ const buildCanonicalMessages = (
     }
   > = {}
 
-  raw.forEach((msg, idx) => {
-    if (msg.messageType === "compare:user" && msg.clusterId) {
-      const clusterId = msg.clusterId as string
-      const replyIndices: number[] = []
-      raw.forEach((m2: any, j: number) => {
-        if (
-          j !== idx &&
-          m2.clusterId === clusterId &&
-          m2.messageType === "compare:reply"
-        ) {
-          replyIndices.push(j)
-        }
-      })
-      clusters[clusterId] = {
-        userIndex: idx,
-        replyIndices
+  messages.forEach((message, index) => {
+    if (!isCompareUserMessage(message)) {
+      return
+    }
+
+    const clusterId = message.clusterId
+    const replyIndices: number[] = []
+
+    messages.forEach((otherMessage, otherIndex) => {
+      if (
+        otherIndex !== index &&
+        isCompareReplyMessage(otherMessage) &&
+        otherMessage.clusterId === clusterId
+      ) {
+        replyIndices.push(otherIndex)
       }
+    })
+
+    clusters[clusterId] = {
+      userIndex: index,
+      replyIndices
     }
   })
 
-  const canonicalMessages: any[] = []
+  const canonicalMessages: Message[] = []
 
-  raw.forEach((msg, idx) => {
-    const clusterId = msg.clusterId as string | undefined
-    const messageType = msg.messageType as string | undefined
+  messages.forEach((message, index) => {
+    const clusterId = message.clusterId
 
     if (!clusterId || !clusters[clusterId]) {
-      canonicalMessages.push(msg)
+      canonicalMessages.push(message)
       return
     }
 
     const cluster = clusters[clusterId]
 
-    if (messageType === "compare:user") {
-      canonicalMessages.push(msg)
+    if (isCompareUserMessage(message)) {
+      canonicalMessages.push(message)
       return
     }
 
-    if (messageType === "compare:reply") {
+    if (isCompareReplyMessage(message)) {
       const replyIndices = cluster.replyIndices
       let canonicalIndex: number | null = null
-      const canonicalId = canonicalByCluster?.[clusterId] || null
+      const canonicalId = canonicalByCluster?.[clusterId] ?? null
 
       if (canonicalId) {
-        const targetIdx = replyIndices.find(
-          (i) => raw[i].id && raw[i].id === canonicalId
-        )
-        if (typeof targetIdx === "number") {
-          canonicalIndex = targetIdx
+        const targetIndex = replyIndices.find((replyIndex) => {
+          const candidate = messages[replyIndex]
+          return typeof candidate.id === "string" && candidate.id === canonicalId
+        })
+
+        if (typeof targetIndex === "number") {
+          canonicalIndex = targetIndex
         }
       }
 
@@ -95,17 +120,17 @@ const buildCanonicalMessages = (
         canonicalIndex = replyIndices[0]
       }
 
-      if (idx === canonicalIndex) {
-        canonicalMessages.push(msg)
+      if (index === canonicalIndex) {
+        canonicalMessages.push(message)
       }
 
       return
     }
 
-    canonicalMessages.push(msg)
+    canonicalMessages.push(message)
   })
 
-  return canonicalMessages as Message[]
+  return canonicalMessages
 }
 const formatAsText = (messages: Message[]) => {
   return messages

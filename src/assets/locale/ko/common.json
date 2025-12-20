@@ -224,6 +224,8 @@
   "gitOperations": "Git 작업",
   "commands": "명령",
   "otherOperations": "기타 작업",
+  "fileAccess": "파일 접근",
+  "notebookEdits": "노트북 편집",
   "segmented": {
     "available": "서버 모델",
     "custom": "사용자 정의 모델"
@@ -247,6 +249,7 @@
   "searchResults": "검색 결과",
   "newBranch": "새 브랜치",
   "error": {
+    "label": "오류",
     "friendlyApiKeySummary": "tldw 서버에 연결할 수 없습니다.",
     "friendlyApiKeyHint": "API 키가 잘못되었을 수 있습니다. 설정 → tldw 서버에서 URL과 API 키를 확인한 뒤 다시 시도하세요.",
     "friendlyTimeoutSummary": "채팅이 시간 초과되었습니다.",

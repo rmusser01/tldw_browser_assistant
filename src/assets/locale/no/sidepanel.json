@@ -12,6 +12,28 @@
     "privateModeTitle": "tldw Assistant kan ikke lagre data",
     "privateModeDescription": "Firefox privatmodus støtter ikke lagring av chathistorikk. Midlertidig chat er aktivert som standard. Flere forbedringer kommer snart."
   },
+  "connectionBanner": {
+    "connecting": "Kobler til tldw-serveren...",
+    "authErrorTitle": "API-nøkkelen trenger oppmerksomhet",
+    "authErrorBody": "Serveren er tilgjengelig, men API-nøkkelen er feil eller mangler.",
+    "unreachableTitle": "Kan ikke nå tldw-serveren",
+    "unreachableBody": "Sjekk at serveren kjører og er tilgjengelig.",
+    "noUrlBody": "Legg til server-URL i Innstillinger for å komme i gang.",
+    "disconnectedTitle": "Ikke koblet til tldw-serveren",
+    "disconnectedBody": "Åpne Innstillinger for å konfigurere servertilkoblingen.",
+    "setupTitle": "Fullfør oppsettet for å starte å chatte",
+    "setupBody": "Fullfør oppsettsveiviseren i Innstillinger for å koble til.",
+    "openSettings": "Åpne Innstillinger"
+  },
+  "temporaryBadge": {
+    "title": "Midlertidig chat",
+    "label": "Temp",
+    "description": "Denne chatten blir ikke lagret. Meldinger slettes når du lukker eller starter en ny chat.",
+    "clickHint": "Klikk for å deaktivere",
+    "ariaLabel": "Midlertidig chatmodus er aktiv. Klikk for å bytte.",
+    "indicatorTooltip": "Meldinger i denne chatten blir ikke lagret",
+    "indicatorAria": "Midlertidig chat"
+  },
   "header": {
     "ingest": "Ingest",
     "saveCurrent": "Save current page on server",
@@ -73,6 +95,13 @@
     "sourceLabel": "Source",
     "transcriptLabel": "Transcript",
     "summaryLabel": "Summary"
+  },
+  "saveStatus": {
+    "ephemeral": "Midlertidig: ikke lagret, slettes ved lukking",
+    "local": "Lagret lokalt i denne nettleseren",
+    "server": "Lagret på serveren",
+    "saveFailed": "Kunne ikke lagre chatten på serveren",
+    "saveFailedDescription": "Chatten lagres nå kun lokalt. Sjekk tilkoblingen og prøv igjen."
   },
   "rag": {
     "searchPlaceholder": "Search your knowledge…",

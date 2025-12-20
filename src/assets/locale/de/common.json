@@ -224,6 +224,8 @@
   "gitOperations": "Git-Operationen",
   "commands": "Befehle",
   "otherOperations": "Andere Vorgänge",
+  "fileAccess": "Dateizugriff",
+  "notebookEdits": "Notizbuchänderungen",
   "segmented": {
     "available": "Server-Modelle",
     "custom": "Benutzerdefinierte Modelle"
@@ -247,6 +249,7 @@
   "searchResults": "Suchergebnisse",
   "newBranch": "Neuer Zweig",
   "error": {
+    "label": "Fehler",
     "friendlyApiKeySummary": "Wir konnten Ihren tldw-Server nicht erreichen.",
     "friendlyApiKeyHint": "Ihr API-Schlüssel ist möglicherweise ungültig. Öffnen Sie Einstellungen → tldw-Server, um URL und API-Schlüssel zu prüfen, und versuchen Sie es erneut.",
     "friendlyTimeoutSummary": "Ihr Chat hat das Zeitlimit überschritten.",
@@ -301,7 +304,7 @@
     "goToNotes": "Zu Notizen wechseln",
     "goToFlashcards": "Zu Karteikarten wechseln",
     "goToSettings": "Zu Einstellungen wechseln",
-    "goToHealth": "Zu „Health & Diagnostics“ wechseln",
+    "goToHealth": "Zu Status & Diagnose wechseln",
     "newChat": "Neuer Chat",
     "toggleKnowledgeSearch": "Wissenssuche umschalten",
     "toggleKnowledgeSearchDesc": "In deiner Wissensbasis suchen",

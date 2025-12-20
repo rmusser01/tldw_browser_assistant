@@ -224,6 +224,8 @@
   "gitOperations": "Git-operasjoner",
   "commands": "Kommandoer",
   "otherOperations": "Andre operasjoner",
+  "fileAccess": "Filtilgang",
+  "notebookEdits": "Notatbokendringer",
   "segmented": {
     "available": "Servermodeller",
     "custom": "Egendefinerte modeller"
@@ -247,6 +249,7 @@
   "searchResults": "Søkeresultater",
   "newBranch": "Ny gren",
   "error": {
+    "label": "Feil",
     "friendlyApiKeySummary": "Vi fikk ikke kontakt med tldw-serveren din.",
     "friendlyApiKeyHint": "API-nøkkelen din kan være ugyldig. Åpne Innstillinger → tldw server for å sjekke URL og API-nøkkel, og prøv på nytt.",
     "friendlyTimeoutSummary": "Samtalen tidsavbrøt.",
@@ -301,7 +304,7 @@
     "goToNotes": "Gå til Notater",
     "goToFlashcards": "Gå til Flashcards",
     "goToSettings": "Gå til Innstillinger",
-    "goToHealth": "Gå til Health & diagnostics",
+    "goToHealth": "Gå til Helse og diagnostikk",
     "newChat": "Ny chat",
     "toggleKnowledgeSearch": "Slå kunnskapssøk av/på",
     "toggleKnowledgeSearchDesc": "Søk i kunnskapsbasen din",

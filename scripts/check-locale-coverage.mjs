@@ -78,6 +78,16 @@ const REQUIRED_COMMAND_PALETTE_KEYS = [
   "categoryRecent"
 ]
 
+// Nested markdown keys that should be present everywhere
+const REQUIRED_MARKDOWN_KEYS = [
+  "unableToRender",
+  "couldNotDisplay",
+  "showRawContent"
+]
+
+// Nested modelSelect keys (currently required for en only)
+const REQUIRED_MODEL_SELECT_KEYS = ["label", "tooltip"]
+
 // Tool keys used in Agent tool UI
 const REQUIRED_TOOL_KEYS = [
   "fs_list",
@@ -96,6 +106,50 @@ const REQUIRED_TOOL_KEYS = [
   "git_commit",
   "exec_run"
 ]
+
+// Nested error keys that should exist in common.json
+const REQUIRED_ERROR_KEYS = [
+  "label",
+  "friendlyApiKeySummary",
+  "friendlyApiKeyHint",
+  "friendlyTimeoutSummary",
+  "friendlyTimeoutHint",
+  "friendlyGenericSummary",
+  "friendlyGenericHint",
+  "showDetails",
+  "hideDetails"
+]
+
+// Feature hint sections/fields to validate when present
+const FEATURE_HINT_SECTIONS = [
+  "knowledge",
+  "moreTools",
+  "commandPalette",
+  "modelSettings"
+]
+
+const FEATURE_HINT_FIELDS = ["title", "description"]
+
+// chatSidebar keys to validate when present
+const CHAT_SIDEBAR_KEYS = [
+  "title",
+  "newChat",
+  "collapse",
+  "expand",
+  "search",
+  "ingest",
+  "media",
+  "notes",
+  "settings",
+  "loadError",
+  "localTab",
+  "serverTab",
+  "foldersTab",
+  "noServerChats",
+  "foldersRequireConnection"
+]
+
+const CHAT_SIDEBAR_TABS_KEYS = ["local", "server", "folders"]
 
 function loadJson(path) {
   return JSON.parse(readFileSync(path, "utf8"))
@@ -136,6 +190,103 @@ function main() {
           errors.push(
             `✗ ${locale}: missing commandPalette key "${key}" in ${commonPath}`
           )
+        }
+      }
+    }
+
+    // Check markdown nested keys
+    const markdown = common.markdown
+    if (!markdown || typeof markdown !== "object") {
+      errors.push(`✗ ${locale}: missing "markdown" object in ${commonPath}`)
+    } else {
+      for (const key of REQUIRED_MARKDOWN_KEYS) {
+        if (!(key in markdown)) {
+          errors.push(
+            `✗ ${locale}: missing markdown key "${key}" in ${commonPath}`
+          )
+        }
+      }
+    }
+
+    // Check error nested keys
+    const error = common.error
+    if (!error || typeof error !== "object") {
+      errors.push(`✗ ${locale}: missing "error" object in ${commonPath}`)
+    } else {
+      for (const key of REQUIRED_ERROR_KEYS) {
+        if (!(key in error)) {
+          errors.push(`✗ ${locale}: missing error key "${key}" in ${commonPath}`)
+        }
+      }
+
+      // Newer error.createFolder helper currently guaranteed only for en
+      if (locale === "en" && !("createFolder" in error)) {
+        errors.push(
+          `✗ ${locale}: missing error key "createFolder" in ${commonPath}`
+        )
+      }
+    }
+
+    // Model select (currently required for en locale)
+    if (locale === "en") {
+      const modelSelect = common.modelSelect
+      if (!modelSelect || typeof modelSelect !== "object") {
+        errors.push(`✗ ${locale}: missing "modelSelect" object in ${commonPath}`)
+      } else {
+        for (const key of REQUIRED_MODEL_SELECT_KEYS) {
+          if (!(key in modelSelect)) {
+            errors.push(
+              `✗ ${locale}: missing modelSelect key "${key}" in ${commonPath}`
+            )
+          }
+        }
+      }
+    }
+
+    // Feature hints (validate where defined; currently en)
+    const featureHints = common.featureHints
+    if (featureHints && typeof featureHints === "object") {
+      for (const section of FEATURE_HINT_SECTIONS) {
+        const obj = featureHints[section]
+        if (!obj || typeof obj !== "object") {
+          errors.push(
+            `✗ ${locale}: missing featureHints.${section} in ${commonPath}`
+          )
+          continue
+        }
+        for (const field of FEATURE_HINT_FIELDS) {
+          if (!(field in obj)) {
+            errors.push(
+              `✗ ${locale}: missing featureHints.${section}.${field} in ${commonPath}`
+            )
+          }
+        }
+      }
+    }
+
+    // chatSidebar (validate where defined; currently en)
+    const chatSidebar = common.chatSidebar
+    if (chatSidebar && typeof chatSidebar === "object") {
+      for (const key of CHAT_SIDEBAR_KEYS) {
+        if (!(key in chatSidebar)) {
+          errors.push(
+            `✗ ${locale}: missing chatSidebar.${key} in ${commonPath}`
+          )
+        }
+      }
+
+      const tabs = chatSidebar.tabs
+      if (!tabs || typeof tabs !== "object") {
+        errors.push(
+          `✗ ${locale}: missing chatSidebar.tabs object in ${commonPath}`
+        )
+      } else {
+        for (const key of CHAT_SIDEBAR_TABS_KEYS) {
+          if (!(key in tabs)) {
+            errors.push(
+              `✗ ${locale}: missing chatSidebar.tabs.${key} in ${commonPath}`
+            )
+          }
         }
       }
     }
@@ -183,6 +334,77 @@ function main() {
         )
       }
     }
+
+    // markdown_* flattened keys
+    for (const k of REQUIRED_MARKDOWN_KEYS) {
+      const chromeKey = `markdown_${k}`
+      if (!messages[chromeKey] || typeof messages[chromeKey].message !== "string") {
+        errors.push(
+          `✗ ${locale}: missing or invalid Chrome key "${chromeKey}" in ${messagesPath}`
+        )
+      }
+    }
+
+    // error_label flattened key for Chrome _locales
+    if (
+      !messages.error_label ||
+      typeof messages.error_label.message !== "string"
+    ) {
+      errors.push(
+        `✗ ${locale}: missing or invalid Chrome key "error_label" in ${messagesPath}`
+      )
+    }
+
+    // Model select flattened keys (en locale)
+    if (locale === "en") {
+      for (const key of REQUIRED_MODEL_SELECT_KEYS) {
+        const chromeKey = `modelSelect_${key}`
+        if (
+          !messages[chromeKey] ||
+          typeof messages[chromeKey].message !== "string"
+        ) {
+          errors.push(
+            `✗ ${locale}: missing or invalid Chrome key "${chromeKey}" in ${messagesPath}`
+          )
+        }
+      }
+    }
+
+    // Feature hints flattened keys (validate where featureHints is defined)
+    if (featureHints && typeof featureHints === "object") {
+      for (const section of FEATURE_HINT_SECTIONS) {
+        for (const field of FEATURE_HINT_FIELDS) {
+          const chromeKey = `featureHints_${section}_${field}`
+          if (
+            !messages[chromeKey] ||
+            typeof messages[chromeKey].message !== "string"
+          ) {
+            errors.push(
+              `✗ ${locale}: missing or invalid Chrome key "${chromeKey}" in ${messagesPath}`
+            )
+          }
+        }
+      }
+    }
+
+    // chatSidebar flattened keys (validate where chatSidebar is defined)
+    if (chatSidebar && typeof chatSidebar === "object") {
+      const chromeChatKeys = [
+        ...CHAT_SIDEBAR_KEYS,
+        ...CHAT_SIDEBAR_TABS_KEYS.map((k) => `tabs_${k}`)
+      ]
+      for (const key of chromeChatKeys) {
+        const chromeKey = `chatSidebar_${key}`
+        if (
+          !messages[chromeKey] ||
+          typeof messages[chromeKey].message !== "string"
+        ) {
+          errors.push(
+            `✗ ${locale}: missing or invalid Chrome key "${chromeKey}" in ${messagesPath}`
+          )
+        }
+      }
+    }
   }
 
   if (errors.length) {
@@ -196,7 +418,7 @@ function main() {
     process.exit(1)
   } else {
     console.log(
-      "✓ i18n coverage OK for required common, tools, commandPalette keys and Chrome _locales mirrors"
+      "✓ i18n coverage OK for required common, tools, commandPalette, markdown, error, and featureHints/chatSidebar (where defined) plus Chrome _locales mirrors"
     )
   }
 }

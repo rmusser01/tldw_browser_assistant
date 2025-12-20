@@ -574,5 +574,128 @@
   },
   "exportJsonSuccess": {
     "message": "Exported {{count}} notes as JSON ({{size}})"
+  },
+  "infoShort": {
+    "message": "വിവരം"
+  },
+  "regenShort": {
+    "message": "വീണ്ടും"
+  },
+  "continueShort": {
+    "message": "കൂടുതൽ"
+  },
+  "error_label": {
+    "message": "പിശക്"
+  },
+  "error_friendlyApiKeySummary": {
+    "message": "നിങ്ങളുടെ tldw സർവറെ സമീപിക്കാൻ കഴിഞ്ഞില്ല."
+  },
+  "error_friendlyApiKeyHint": {
+    "message": "നിങ്ങളുടെ API കീ അസാധുവായിരിക്കാം. ക്രമീകരണങ്ങൾ → tldw സർവർ തുറന്ന് നിങ്ങളുടെ URLയും API കീയും പരിശോധിച്ച് വീണ്ടും ശ്രമിക്കുക."
+  },
+  "error_friendlyTimeoutSummary": {
+    "message": "നിങ്ങളുടെ ചാറ്റിന് സമയപരിധി കഴിഞ്ഞു."
+  },
+  "error_friendlyTimeoutHint": {
+    "message": "സർവർ പ്രതികരണങ്ങൾ അയക്കുന്നത് നിർത്തി. വീണ്ടും ശ്രമിക്കുക അല്ലെങ്കിൽ സർവർ നില പരിശോധിക്കാൻ ആരോഗ്യവും ഡയഗ്നോസ്റ്റിക്സും തുറക്കുക."
+  },
+  "error_friendlyGenericSummary": {
+    "message": "നിങ്ങളുടെ tldw സർവറുമായി ബന്ധപ്പെടുന്നതിനിടെ എന്തോ പിശക് സംഭവിച്ചു."
+  },
+  "error_friendlyGenericHint": {
+    "message": "കുറച്ച് കഴിഞ്ഞ് വീണ്ടും ശ്രമിക്കുകയോ സർവർ നില പരിശോധിക്കാൻ ആരോഗ്യവും ഡയഗ്നോസ്റ്റിക്സും തുറക്കുകയോ ചെയ്യുക."
+  },
+  "error_showDetails": {
+    "message": "സാങ്കേതിക വിശദാംശങ്ങൾ കാണിക്കുക"
+  },
+  "error_hideDetails": {
+    "message": "സാങ്കേതിക വിശദാംശങ്ങൾ മറയ്ക്കുക"
+  },
+  "error_createFolder": {
+    "message": "Failed to create folder"
+  },
+  "modelSelect_label": {
+    "message": "Model"
+  },
+  "modelSelect_tooltip": {
+    "message": "Changes model for next message"
+  },
+  "featureHints_knowledge_title": {
+    "message": "Search your knowledge"
+  },
+  "featureHints_knowledge_description": {
+    "message": "Open the knowledge search panel to find snippets and insert them into your chat."
+  },
+  "featureHints_moreTools_title": {
+    "message": "More tools available"
+  },
+  "featureHints_moreTools_description": {
+    "message": "Access vision mode, image upload, quick ingest, and the full app."
+  },
+  "featureHints_commandPalette_title": {
+    "message": "Quick commands"
+  },
+  "featureHints_commandPalette_description": {
+    "message": "Press {{shortcut}} to search commands, settings, and more."
+  },
+  "featureHints_modelSettings_title": {
+    "message": "Adjust model parameters"
+  },
+  "featureHints_modelSettings_description": {
+    "message": "Fine-tune temperature, context length, and other model settings."
+  },
+  "chatSidebar_title": {
+    "message": "Chats"
+  },
+  "chatSidebar_newChat": {
+    "message": "New Chat"
+  },
+  "chatSidebar_collapse": {
+    "message": "Collapse sidebar"
+  },
+  "chatSidebar_expand": {
+    "message": "Expand sidebar"
+  },
+  "chatSidebar_search": {
+    "message": "Search chats..."
+  },
+  "chatSidebar_ingest": {
+    "message": "Ingest Page"
+  },
+  "chatSidebar_media": {
+    "message": "Media"
+  },
+  "chatSidebar_notes": {
+    "message": "Notes"
+  },
+  "chatSidebar_settings": {
+    "message": "Settings"
+  },
+  "chatSidebar_loadError": {
+    "message": "Failed to load chats"
+  },
+  "chatSidebar_localTab": {
+    "message": "Local"
+  },
+  "chatSidebar_serverTab": {
+    "message": "Server"
+  },
+  "chatSidebar_foldersTab": {
+    "message": "Folders"
+  },
+  "chatSidebar_tabs_local": {
+    "message": "Local"
+  },
+  "chatSidebar_tabs_server": {
+    "message": "Server"
+  },
+  "chatSidebar_tabs_folders": {
+    "message": "Folders"
+  },
+  "chatSidebar_noServerChats": {
+    "message": "No server chats yet"
+  },
+  "chatSidebar_foldersRequireConnection": {
+    "message": "Folders require a server connection"
   }
 }

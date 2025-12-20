@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useCallback } from "react"
 import { createPortal } from "react-dom"
 import { useTranslation } from "react-i18next"
-import { X, Keyboard, Command
-} from "lucide-react"
+import { X, Keyboard, Command } from "lucide-react"
 import { defaultShortcuts, formatShortcut } from "@/hooks/keyboard/useShortcutConfig"
+import { isMac } from "@/hooks/keyboard/useKeyboardShortcuts"
 
 interface ShortcutGroup {
   title: string
@@ -41,7 +41,6 @@ export function KeyboardShortcutsModal() {
     return () => document.removeEventListener("keydown", handleKeyDown)
   }, [open])
 
-  const isMac = typeof navigator !== "undefined" && /Mac|iPhone|iPad|iPod/.test(navigator.platform)
   const modKey = isMac ? "⌘" : "Ctrl"
 
   const shortcutGroups: ShortcutGroup[] = [

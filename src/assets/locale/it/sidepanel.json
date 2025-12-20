@@ -12,6 +12,28 @@
     "privateModeTitle": "tldw Assistant non può salvare i dati",
     "privateModeDescription": "La modalità privata di Firefox non consente di salvare la cronologia della chat. La chat temporanea è attiva per impostazione predefinita. Altri miglioramenti arriveranno presto."
   },
+  "connectionBanner": {
+    "connecting": "Connessione al server tldw...",
+    "authErrorTitle": "La chiave API richiede attenzione",
+    "authErrorBody": "Il server è raggiungibile, ma la chiave API è errata o mancante.",
+    "unreachableTitle": "Impossibile raggiungere il server tldw",
+    "unreachableBody": "Verifica che il server sia in esecuzione e accessibile.",
+    "noUrlBody": "Aggiungi l'URL del server nelle Impostazioni per iniziare.",
+    "disconnectedTitle": "Non connesso al server tldw",
+    "disconnectedBody": "Apri le Impostazioni per configurare la connessione al server.",
+    "setupTitle": "Completa la configurazione per iniziare a chattare",
+    "setupBody": "Completa la procedura guidata nelle Impostazioni per connetterti.",
+    "openSettings": "Apri Impostazioni"
+  },
+  "temporaryBadge": {
+    "title": "Chat temporanea",
+    "label": "Temp",
+    "description": "Questa chat non verrà salvata. I messaggi verranno cancellati quando chiudi o inizi una nuova chat.",
+    "clickHint": "Clicca per disattivare",
+    "ariaLabel": "La modalità chat temporanea è attiva. Clicca per attivare/disattivare.",
+    "indicatorTooltip": "I messaggi in questa chat non verranno salvati",
+    "indicatorAria": "Chat temporanea"
+  },
   "header": {
     "ingest": "Ingest",
     "saveCurrent": "Save current page on server",
@@ -73,6 +95,13 @@
     "sourceLabel": "Source",
     "transcriptLabel": "Transcript",
     "summaryLabel": "Summary"
+  },
+  "saveStatus": {
+    "ephemeral": "Temporaneo: non salvato, cancellato alla chiusura",
+    "local": "Salvato localmente in questo browser",
+    "server": "Salvato sul server",
+    "saveFailed": "Impossibile salvare la chat sul server",
+    "saveFailedDescription": "La chat ora viene salvata solo localmente. Controlla la connessione e riprova."
   },
   "rag": {
     "searchPlaceholder": "Search your knowledge…",

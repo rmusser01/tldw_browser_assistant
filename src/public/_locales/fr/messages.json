@@ -559,5 +559,128 @@
   },
   "exportJsonSuccess": {
     "message": "Exported {{count}} notes as JSON ({{size}})"
+  },
+  "infoShort": {
+    "message": "Infos"
+  },
+  "regenShort": {
+    "message": "Relancer"
+  },
+  "continueShort": {
+    "message": "Plus"
+  },
+  "error_label": {
+    "message": "Erreur"
+  },
+  "error_friendlyApiKeySummary": {
+    "message": "Nous n'avons pas pu atteindre votre serveur tldw."
+  },
+  "error_friendlyApiKeyHint": {
+    "message": "Votre clé API est peut-être invalide. Ouvrez Paramètres → serveur tldw pour vérifier votre URL et votre clé API, puis réessayez."
+  },
+  "error_friendlyTimeoutSummary": {
+    "message": "Votre discussion a expiré."
+  },
+  "error_friendlyTimeoutHint": {
+    "message": "Le serveur a cessé d'envoyer des réponses. Réessayez ou ouvrez État et diagnostics pour vérifier l'état du serveur."
+  },
+  "error_friendlyGenericSummary": {
+    "message": "Une erreur est survenue lors de la communication avec votre serveur tldw."
+  },
+  "error_friendlyGenericHint": {
+    "message": "Réessayez dans un instant ou ouvrez État et diagnostics pour vérifier l'état du serveur."
+  },
+  "error_showDetails": {
+    "message": "Afficher les détails techniques"
+  },
+  "error_hideDetails": {
+    "message": "Masquer les détails techniques"
+  },
+  "error_createFolder": {
+    "message": "Failed to create folder"
+  },
+  "modelSelect_label": {
+    "message": "Model"
+  },
+  "modelSelect_tooltip": {
+    "message": "Changes model for next message"
+  },
+  "featureHints_knowledge_title": {
+    "message": "Search your knowledge"
+  },
+  "featureHints_knowledge_description": {
+    "message": "Open the knowledge search panel to find snippets and insert them into your chat."
+  },
+  "featureHints_moreTools_title": {
+    "message": "More tools available"
+  },
+  "featureHints_moreTools_description": {
+    "message": "Access vision mode, image upload, quick ingest, and the full app."
+  },
+  "featureHints_commandPalette_title": {
+    "message": "Quick commands"
+  },
+  "featureHints_commandPalette_description": {
+    "message": "Press {{shortcut}} to search commands, settings, and more."
+  },
+  "featureHints_modelSettings_title": {
+    "message": "Adjust model parameters"
+  },
+  "featureHints_modelSettings_description": {
+    "message": "Fine-tune temperature, context length, and other model settings."
+  },
+  "chatSidebar_title": {
+    "message": "Chats"
+  },
+  "chatSidebar_newChat": {
+    "message": "New Chat"
+  },
+  "chatSidebar_collapse": {
+    "message": "Collapse sidebar"
+  },
+  "chatSidebar_expand": {
+    "message": "Expand sidebar"
+  },
+  "chatSidebar_search": {
+    "message": "Search chats..."
+  },
+  "chatSidebar_ingest": {
+    "message": "Ingest Page"
+  },
+  "chatSidebar_media": {
+    "message": "Media"
+  },
+  "chatSidebar_notes": {
+    "message": "Notes"
+  },
+  "chatSidebar_settings": {
+    "message": "Settings"
+  },
+  "chatSidebar_loadError": {
+    "message": "Failed to load chats"
+  },
+  "chatSidebar_localTab": {
+    "message": "Local"
+  },
+  "chatSidebar_serverTab": {
+    "message": "Server"
+  },
+  "chatSidebar_foldersTab": {
+    "message": "Folders"
+  },
+  "chatSidebar_tabs_local": {
+    "message": "Local"
+  },
+  "chatSidebar_tabs_server": {
+    "message": "Server"
+  },
+  "chatSidebar_tabs_folders": {
+    "message": "Folders"
+  },
+  "chatSidebar_noServerChats": {
+    "message": "No server chats yet"
+  },
+  "chatSidebar_foldersRequireConnection": {
+    "message": "Folders require a server connection"
   }
 }

@@ -12,6 +12,28 @@
     "privateModeTitle": "tldw Assistant kan ikke gemme data",
     "privateModeDescription": "Firefox privat tilstand understøtter ikke at gemme chat-historik. Midlertidig chat er slået til som standard. Flere forbedringer kommer snart."
   },
+  "connectionBanner": {
+    "connecting": "Opretter forbindelse til din tldw-server...",
+    "authErrorTitle": "API-nøglen kræver opmærksomhed",
+    "authErrorBody": "Serveren er tilgængelig, men API-nøglen er forkert eller mangler.",
+    "unreachableTitle": "Kan ikke nå din tldw-server",
+    "unreachableBody": "Tjek at serveren kører og er tilgængelig.",
+    "noUrlBody": "Tilføj serverens URL i Indstillinger for at komme i gang.",
+    "disconnectedTitle": "Ikke forbundet til tldw-serveren",
+    "disconnectedBody": "Åbn Indstillinger for at konfigurere serverforbindelsen.",
+    "setupTitle": "Fuldfør opsætningen for at begynde at chatte",
+    "setupBody": "Fuldfør opsætningsguiden i Indstillinger for at oprette forbindelse.",
+    "openSettings": "Åbn Indstillinger"
+  },
+  "temporaryBadge": {
+    "title": "Midlertidig chat",
+    "label": "Temp",
+    "description": "Denne chat gemmes ikke. Beskeder ryddes, når du lukker eller starter en ny chat.",
+    "clickHint": "Klik for at deaktivere",
+    "ariaLabel": "Midlertidig chattilstand er aktiv. Klik for at skifte.",
+    "indicatorTooltip": "Beskeder i denne chat bliver ikke gemt",
+    "indicatorAria": "Midlertidig chat"
+  },
   "header": {
     "ingest": "Ingest",
     "saveCurrent": "Save current page on server",
@@ -73,6 +95,13 @@
     "sourceLabel": "Source",
     "transcriptLabel": "Transcript",
     "summaryLabel": "Summary"
+  },
+  "saveStatus": {
+    "ephemeral": "Midlertidig: ikke gemt, ryddes ved lukning",
+    "local": "Gemt lokalt i denne browser",
+    "server": "Gemt på serveren",
+    "saveFailed": "Kunne ikke gemme chatten på serveren",
+    "saveFailedDescription": "Chatten gemmes nu kun lokalt. Tjek din forbindelse og prøv igen."
   },
   "rag": {
     "searchPlaceholder": "Search your knowledge…",

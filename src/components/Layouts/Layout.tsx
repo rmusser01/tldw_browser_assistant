@@ -23,12 +23,23 @@ import { Header } from "./Header"
 import { useMigration } from "../../hooks/useMigration"
 import { useChatSidebar } from "@/hooks/useFeatureFlags"
 import { ChatSidebar } from "@/components/Common/ChatSidebar"
-import { CommandPalette } from "@/components/Common/CommandPalette"
-import { KeyboardShortcutsModal } from "@/components/Common/KeyboardShortcutsModal"
 
 // Lazy-load Timeline to reduce initial bundle size (~1.2MB cytoscape)
 const TimelineModal = lazy(() =>
   import("@/components/Timeline").then((m) => ({ default: m.TimelineModal }))
+)
+
+// Lazy-load Command Palette and Keyboard Shortcuts modal to reduce bundle size
+const CommandPalette = lazy(() =>
+  import("@/components/Common/CommandPalette").then((m) => ({
+    default: m.CommandPalette
+  }))
+)
+
+const KeyboardShortcutsModal = lazy(() =>
+  import("@/components/Common/KeyboardShortcutsModal").then((m) => ({
+    default: m.KeyboardShortcutsModal
+  }))
 )
 import { useConfirmDanger } from "@/components/Common/confirm-danger"
 import { DemoModeProvider, useDemoMode } from "@/context/demo-mode"
@@ -54,6 +65,7 @@ const OptionLayoutInner: React.FC<OptionLayoutProps> = ({
   const [showChatSidebar] = useChatSidebar()
   const {
     setMessages,
+    history,
     setHistory,
     setHistoryId,
     historyId,
@@ -234,14 +246,20 @@ const OptionLayoutInner: React.FC<OptionLayoutProps> = ({
 
         {/* Command Palette - global keyboard shortcut ⌘K */}
         {!hideHeader && (
-          <CommandPalette
-            onNewChat={clearChat}
-            onToggleSidebar={toggleSidebar}
-          />
+          <Suspense fallback={null}>
+            <CommandPalette
+              onNewChat={clearChat}
+              onToggleSidebar={toggleSidebar}
+            />
+          </Suspense>
         )}
 
         {/* Keyboard Shortcuts Help Modal - triggered by ? */}
-        {!hideHeader && <KeyboardShortcutsModal />}
+        {!hideHeader && (
+          <Suspense fallback={null}>
+            <KeyboardShortcutsModal />
+          </Suspense>
+        )}
       </main>
     </div>
   )

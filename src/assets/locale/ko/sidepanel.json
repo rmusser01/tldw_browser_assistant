@@ -12,6 +12,28 @@
     "privateModeTitle": "tldw Assistant에서 데이터를 저장할 수 없습니다",
     "privateModeDescription": "Firefox 사생활 모드에서는 채팅 기록을 저장할 수 없습니다. 기본적으로 임시 채팅이 활성화되어 있습니다. 곧 개선될 예정입니다."
   },
+  "connectionBanner": {
+    "connecting": "tldw 서버에 연결하는 중...",
+    "authErrorTitle": "API 키에 주의가 필요합니다",
+    "authErrorBody": "서버에는 접속되지만 API 키가 잘못되었거나 누락되었습니다.",
+    "unreachableTitle": "tldw 서버에 연결할 수 없습니다",
+    "unreachableBody": "서버가 실행 중이고 접근 가능한지 확인하세요.",
+    "noUrlBody": "시작하려면 설정에서 서버 URL을 추가하세요.",
+    "disconnectedTitle": "tldw 서버에 연결되지 않음",
+    "disconnectedBody": "설정을 열어 서버 연결을 구성하세요.",
+    "setupTitle": "설정을 완료하고 채팅 시작",
+    "setupBody": "설정에서 설정 마법사를 완료하여 연결하세요.",
+    "openSettings": "설정 열기"
+  },
+  "temporaryBadge": {
+    "title": "임시 채팅",
+    "label": "Temp",
+    "description": "이 채팅은 저장되지 않습니다. 닫거나 새 채팅을 시작하면 메시지가 삭제됩니다.",
+    "clickHint": "클릭하여 비활성화",
+    "ariaLabel": "임시 채팅 모드가 활성화되었습니다. 클릭하여 전환합니다.",
+    "indicatorTooltip": "이 채팅의 메시지는 저장되지 않습니다",
+    "indicatorAria": "임시 채팅"
+  },
   "header": {
     "ingest": "Ingest",
     "saveCurrent": "Save current page on server",
@@ -73,6 +95,13 @@
     "sourceLabel": "Source",
     "transcriptLabel": "Transcript",
     "summaryLabel": "Summary"
+  },
+  "saveStatus": {
+    "ephemeral": "임시: 저장되지 않으며 닫으면 삭제됩니다",
+    "local": "이 브라우저에 로컬로 저장됨",
+    "server": "서버에 저장됨",
+    "saveFailed": "서버에 채팅을 저장하지 못했습니다",
+    "saveFailedDescription": "이제 채팅이 로컬에만 저장됩니다. 연결을 확인하고 다시 시도하세요."
   },
   "rag": {
     "searchPlaceholder": "Search your knowledge…",

@@ -378,6 +378,138 @@
   "result": {
     "message": "Resultat"
   },
+  "fs_list": {
+    "message": "List mappe"
+  },
+  "fs_read": {
+    "message": "Læs fil"
+  },
+  "fs_write": {
+    "message": "Skriv fil"
+  },
+  "fs_apply_patch": {
+    "message": "Anvend patch"
+  },
+  "fs_mkdir": {
+    "message": "Opret mappe"
+  },
+  "fs_delete": {
+    "message": "Slet"
+  },
+  "search_grep": {
+    "message": "Søg i indhold"
+  },
+  "search_glob": {
+    "message": "Find filer"
+  },
+  "git_status": {
+    "message": "Git-status"
+  },
+  "git_diff": {
+    "message": "Git-diff"
+  },
+  "git_log": {
+    "message": "Git-log"
+  },
+  "git_branch": {
+    "message": "Git-branch"
+  },
+  "git_add": {
+    "message": "Stage filer"
+  },
+  "git_commit": {
+    "message": "Commit"
+  },
+  "exec_run": {
+    "message": "Kør kommando"
+  },
+  "unableToRender": {
+    "message": "Kunne ikke gengive indhold"
+  },
+  "couldNotDisplay": {
+    "message": "Beskedindholdet kunne ikke vises. Dette kan skyldes ugyldig formatering."
+  },
+  "showRawContent": {
+    "message": "Vis rå indhold"
+  },
+  "goToChat": {
+    "message": "Gå til chat"
+  },
+  "goToMedia": {
+    "message": "Gå til medier"
+  },
+  "goToNotes": {
+    "message": "Gå til noter"
+  },
+  "goToFlashcards": {
+    "message": "Gå til flashcards"
+  },
+  "goToSettings": {
+    "message": "Gå til indstillinger"
+  },
+  "goToHealth": {
+    "message": "Gå til Health & diagnostics"
+  },
+  "newChat": {
+    "message": "Ny chat"
+  },
+  "toggleKnowledgeSearch": {
+    "message": "Skift videnssøgning"
+  },
+  "toggleKnowledgeSearchDesc": {
+    "message": "Søg i din vidensbase"
+  },
+  "toggleWebSearch": {
+    "message": "Skift websøgning"
+  },
+  "toggleWebDesc": {
+    "message": "Søg på internettet"
+  },
+  "ingestPage": {
+    "message": "Indlæs aktuel side"
+  },
+  "ingestDesc": {
+    "message": "Gem denne side i din vidensbase"
+  },
+  "switchModel": {
+    "message": "Skift model"
+  },
+  "toggleSidebar": {
+    "message": "Skift sidepanel"
+  },
+  "toggleSidebarDesc": {
+    "message": "Vis eller skjul chatsidepanelet"
+  },
+  "placeholder": {
+    "message": "Skriv en kommando eller søg..."
+  },
+  "noResults": {
+    "message": "Ingen resultater fundet"
+  },
+  "title": {
+    "message": "Kommandopalet"
+  },
+  "navigate": {
+    "message": "naviger"
+  },
+  "select": {
+    "message": "vælg"
+  },
+  "toOpen": {
+    "message": "for at åbne"
+  },
+  "categoryActions": {
+    "message": "Handlinger"
+  },
+  "categoryNavigation": {
+    "message": "Navigation"
+  },
+  "categorySettings": {
+    "message": "Indstillinger"
+  },
+  "categoryRecent": {
+    "message": "Seneste"
+  },
   "tools_fs_list": {
     "message": "List mappe",
     "description": "Label for the fs.list tool (list directory)."
@@ -543,13 +675,13 @@
     "description": "Label for the Recent items category in the command palette."
   },
   "markdown_unableToRender": {
-    "message": "Unable to render content"
+    "message": "Kunne ikke gengive indhold"
   },
   "markdown_couldNotDisplay": {
-    "message": "The message content could not be displayed. This may be due to invalid formatting."
+    "message": "Beskedindholdet kunne ikke vises. Dette kan skyldes ugyldig formatering."
   },
   "markdown_showRawContent": {
-    "message": "Show raw content"
+    "message": "Vis rå indhold"
   },
   "notesSearch_exportNoteSuccess": {
     "message": "Exported ({{size}})"
@@ -574,5 +706,128 @@
   },
   "exportJsonSuccess": {
     "message": "Exported {{count}} notes as JSON ({{size}})"
+  },
+  "infoShort": {
+    "message": "Info"
+  },
+  "regenShort": {
+    "message": "Gentag"
+  },
+  "continueShort": {
+    "message": "Mere"
+  },
+  "error_label": {
+    "message": "Fejl"
+  },
+  "error_friendlyApiKeySummary": {
+    "message": "Vi kunne ikke nå din tldw-server."
+  },
+  "error_friendlyApiKeyHint": {
+    "message": "Din API-nøgle er muligvis ugyldig. Åbn Indstillinger → tldw-server for at tjekke din URL og API-nøgle, og prøv igen."
+  },
+  "error_friendlyTimeoutSummary": {
+    "message": "Din chat fik timeout."
+  },
+  "error_friendlyTimeoutHint": {
+    "message": "Serveren stoppede med at sende svar. Prøv igen, eller åbn Sundhed og diagnostik for at tjekke serverstatus."
+  },
+  "error_friendlyGenericSummary": {
+    "message": "Noget gik galt under kommunikationen med din tldw-server."
+  },
+  "error_friendlyGenericHint": {
+    "message": "Prøv igen om lidt, eller åbn Sundhed og diagnostik for at kontrollere serverens status."
+  },
+  "error_showDetails": {
+    "message": "Vis tekniske detaljer"
+  },
+  "error_hideDetails": {
+    "message": "Skjul tekniske detaljer"
+  },
+  "error_createFolder": {
+    "message": "Failed to create folder"
+  },
+  "modelSelect_label": {
+    "message": "Model"
+  },
+  "modelSelect_tooltip": {
+    "message": "Changes model for next message"
+  },
+  "featureHints_knowledge_title": {
+    "message": "Search your knowledge"
+  },
+  "featureHints_knowledge_description": {
+    "message": "Open the knowledge search panel to find snippets and insert them into your chat."
+  },
+  "featureHints_moreTools_title": {
+    "message": "More tools available"
+  },
+  "featureHints_moreTools_description": {
+    "message": "Access vision mode, image upload, quick ingest, and the full app."
+  },
+  "featureHints_commandPalette_title": {
+    "message": "Quick commands"
+  },
+  "featureHints_commandPalette_description": {
+    "message": "Press {{shortcut}} to search commands, settings, and more."
+  },
+  "featureHints_modelSettings_title": {
+    "message": "Adjust model parameters"
+  },
+  "featureHints_modelSettings_description": {
+    "message": "Fine-tune temperature, context length, and other model settings."
+  },
+  "chatSidebar_title": {
+    "message": "Chats"
+  },
+  "chatSidebar_newChat": {
+    "message": "New Chat"
+  },
+  "chatSidebar_collapse": {
+    "message": "Collapse sidebar"
+  },
+  "chatSidebar_expand": {
+    "message": "Expand sidebar"
+  },
+  "chatSidebar_search": {
+    "message": "Search chats..."
+  },
+  "chatSidebar_ingest": {
+    "message": "Ingest Page"
+  },
+  "chatSidebar_media": {
+    "message": "Media"
+  },
+  "chatSidebar_notes": {
+    "message": "Notes"
+  },
+  "chatSidebar_settings": {
+    "message": "Settings"
+  },
+  "chatSidebar_loadError": {
+    "message": "Failed to load chats"
+  },
+  "chatSidebar_localTab": {
+    "message": "Local"
+  },
+  "chatSidebar_serverTab": {
+    "message": "Server"
+  },
+  "chatSidebar_foldersTab": {
+    "message": "Folders"
+  },
+  "chatSidebar_tabs_local": {
+    "message": "Local"
+  },
+  "chatSidebar_tabs_server": {
+    "message": "Server"
+  },
+  "chatSidebar_tabs_folders": {
+    "message": "Folders"
+  },
+  "chatSidebar_noServerChats": {
+    "message": "No server chats yet"
+  },
+  "chatSidebar_foldersRequireConnection": {
+    "message": "Folders require a server connection"
   }
 }

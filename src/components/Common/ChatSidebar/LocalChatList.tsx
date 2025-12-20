@@ -418,6 +418,15 @@ export function LocalChatList({
     )
   }
 
+  const handleRenameSubmit = () => {
+    const newTitle = renameValue.trim()
+    if (renamingChat && newTitle) {
+      editHistory({ id: renamingChat, title: newTitle })
+    }
+    setRenamingChat(null)
+    setRenameValue("")
+  }
+
   return (
     <div className={cn("flex flex-col gap-2", className)}>
       {/* Notification context holder for undo notifications */}
@@ -429,27 +438,13 @@ export function LocalChatList({
           setRenamingChat(null)
           setRenameValue("")
         }}
-        onOk={() => {
-          const newTitle = renameValue.trim()
-          if (renamingChat && newTitle) {
-            editHistory({ id: renamingChat, title: newTitle })
-          }
-          setRenamingChat(null)
-          setRenameValue("")
-        }}
+        onOk={handleRenameSubmit}
       >
         <Input
           autoFocus
           value={renameValue}
           onChange={(e) => setRenameValue(e.target.value)}
-          onPressEnter={() => {
-            const newTitle = renameValue.trim()
-            if (renamingChat && newTitle) {
-              editHistory({ id: renamingChat, title: newTitle })
-            }
-            setRenamingChat(null)
-            setRenameValue("")
-          }}
+          onPressEnter={handleRenameSubmit}
         />
       </Modal>
       {chatHistories.map((group, groupIndex) => (
@@ -479,133 +474,139 @@ export function LocalChatList({
             )}
           </div>
           <div className="flex flex-col gap-2 mt-2">
-            {group.items.map((chat: HistoryInfo) => (
-              <div
-                key={chat.id}
-                className={cn(
-                  "flex py-2 px-2 items-start gap-2 relative rounded-md group transition-opacity duration-300 ease-in-out border",
-                  effectiveSelectedChatId === chat.id
-                    ? "bg-gray-200 dark:bg-[#454242] border-gray-400 dark:border-gray-600 text-gray-900 dark:text-gray-100"
-                    : "bg-gray-50 dark:bg-[#2d2d2d] dark:text-gray-100 text-gray-800 border-gray-300 dark:border-gray-800 hover:bg-gray-200 dark:hover:bg-[#3d3d3d]"
-                )}
-              >
-                {chat?.message_source === "copilot" && (
-                  <BotIcon className="size-3 text-gray-500 dark:text-gray-400 mt-1 flex-shrink-0" />
-                )}
-                {chat?.message_source === "branch" && (
-                  <GitBranch className="size-3 text-gray-500 dark:text-gray-400 mt-1 flex-shrink-0" />
-                )}
-                <button
-                  className="flex-1 overflow-hidden text-start w-full min-w-0 focus:outline-none focus-visible:ring-2 focus-visible:ring-pink-500 focus-visible:ring-offset-1 rounded"
-                  onClick={() => {
-                    void loadLocalConversation(chat.id)
-                    onSelectChat?.(chat.id)
-                  }}
+            {group.items.map((chat: HistoryInfo) => {
+              const metadata = historyMetadata?.get(chat.id)
+              const lastMessage = metadata?.lastMessage
+
+              return (
+                <div
+                  key={chat.id}
+                  className={cn(
+                    "flex py-2 px-2 items-start gap-2 relative rounded-md group transition-opacity duration-300 ease-in-out border",
+                    effectiveSelectedChatId === chat.id
+                      ? "bg-gray-200 dark:bg-[#454242] border-gray-400 dark:border-gray-600 text-gray-900 dark:text-gray-100"
+                      : "bg-gray-50 dark:bg-[#2d2d2d] dark:text-gray-100 text-gray-800 border-gray-300 dark:border-gray-800 hover:bg-gray-200 dark:hover:bg-[#3d3d3d]"
+                  )}
                 >
-                  <div className="flex flex-col gap-0.5">
-                    <span className="truncate font-medium" title={chat.title}>
-                      {chat.title}
-                    </span>
-                    {historyMetadata?.get(chat.id) && (
-                      <div className="flex items-center gap-2 text-xs text-gray-500 dark:text-gray-400">
-                        <span className="flex items-center gap-1">
-                          <MessageSquare className="size-3" />
-                          {historyMetadata.get(chat.id)?.messageCount || 0}
-                        </span>
-                        {historyMetadata.get(chat.id)?.lastMessage && (
-                          <span>
-                            {formatRelativeTime(
-                              historyMetadata.get(chat.id)?.lastMessage?.createdAt ||
-                                chat.createdAt,
-                              t
-                            )}
-                          </span>
-                        )}
-                      </div>
-                    )}
-                    {historyMetadata?.get(chat.id)?.lastMessage && (
-                      <span className="text-xs text-gray-500 dark:text-gray-400 truncate">
-                        {truncateMessage(
-                          historyMetadata.get(chat.id)?.lastMessage?.content || ""
-                        )}
-                      </span>
-                    )}
-                  </div>
-                </button>
-                <Dropdown
-                  menu={{
-                    items: [
-                      {
-                        key: "pin",
-                        icon: chat.is_pinned ? (
-                          <PinOffIcon className="w-4 h-4" />
-                        ) : (
-                          <PinIcon className="w-4 h-4" />
-                        ),
-                        label: chat.is_pinned ? t("common:unpin") : t("common:pin"),
-                        onClick: () =>
-                          pinChatHistory({
-                            id: chat.id,
-                            is_pinned: !chat.is_pinned
-                          }),
-                        disabled: pinLoading
-                      },
-                      ...(isConnected && onOpenFolderPicker
-                        ? [
-                            {
-                              key: "moveToFolder",
-                              icon: <FolderIcon className="w-4 h-4" />,
-                              label: t("common:moveToFolder"),
-                              onClick: () => {
-                                onOpenFolderPicker(chat.id)
-                                setOpenMenuFor(null)
-                              }
-                            }
-                          ]
-                        : []),
-                      {
-                        key: "edit",
-                        icon: <Edit3 className="w-4 h-4" />,
-                        label: t("common:rename"),
-                        onClick: () => {
-                          setRenamingChat(chat.id)
-                          setRenameValue(chat.title)
-                        }
-                      },
-                      {
-                        key: "delete",
-                        icon: <Trash2 className="w-4 h-4" />,
-                        label: t("common:delete"),
-                        onClick: async () => {
-                          const ok = await confirmDanger({
-                            title: t("common:confirmTitle"),
-                            content: t("deleteHistoryConfirmation"),
-                            okText: t("common:delete"),
-                            cancelText: t("common:cancel")
-                          })
-                          if (!ok) return
-                          deleteHistory(chat.id)
-                        }
-                      }
-                    ]
-                  }}
-                  trigger={["click"]}
-                  placement="bottomRight"
-                  open={openMenuFor === chat.id}
-                  onOpenChange={(open) => setOpenMenuFor(open ? chat.id : null)}
-                >
-                  <IconButton
-                    className="text-gray-500 dark:text-gray-400 opacity-80 hover:opacity-100"
-                    ariaLabel={`${t("option:header.moreActions", "More actions")}: ${chat.title}`}
-                    hasPopup="menu"
-                    ariaExpanded={openMenuFor === chat.id}
-                    ariaControls={`history-actions-${chat.id}`}
+                  {chat?.message_source === "copilot" && (
+                    <BotIcon className="size-3 text-gray-500 dark:text-gray-400 mt-1 flex-shrink-0" />
+                  )}
+                  {chat?.message_source === "branch" && (
+                    <GitBranch className="size-3 text-gray-500 dark:text-gray-400 mt-1 flex-shrink-0" />
+                  )}
+                  <button
+                    className="flex-1 overflow-hidden text-start w-full min-w-0 focus:outline-none focus-visible:ring-2 focus-visible:ring-pink-500 focus-visible:ring-offset-1 rounded"
+                    onClick={() => {
+                      loadLocalConversation(chat.id).catch((error) => {
+                        // eslint-disable-next-line no-console
+                        console.error("Failed to load conversation:", error)
+                        message.error(t("common:chatSidebar.loadError", "Failed to load chat"))
+                      })
+                      onSelectChat?.(chat.id)
+                    }}
                   >
-                    <MoreHorizontal className="w-4 h-4" />
-                  </IconButton>
-                </Dropdown>
-              </div>
-            ))}
+                    <div className="flex flex-col gap-0.5">
+                      <span className="truncate font-medium" title={chat.title}>
+                        {chat.title}
+                      </span>
+                      {metadata && (
+                        <div className="flex items-center gap-2 text-xs text-gray-500 dark:text-gray-400">
+                          <span className="flex items-center gap-1">
+                            <MessageSquare className="size-3" />
+                            {metadata.messageCount || 0}
+                          </span>
+                          {lastMessage && (
+                            <span>
+                              {formatRelativeTime(
+                                lastMessage.createdAt || chat.createdAt,
+                                t
+                              )}
+                            </span>
+                          )}
+                        </div>
+                      )}
+                      {lastMessage && (
+                        <span className="text-xs text-gray-500 dark:text-gray-400 truncate">
+                          {truncateMessage(lastMessage.content || "")}
+                        </span>
+                      )}
+                    </div>
+                  </button>
+                  <Dropdown
+                    menu={{
+                      items: [
+                        {
+                          key: "pin",
+                          icon: chat.is_pinned ? (
+                            <PinOffIcon className="w-4 h-4" />
+                          ) : (
+                            <PinIcon className="w-4 h-4" />
+                          ),
+                          label: chat.is_pinned ? t("common:unpin") : t("common:pin"),
+                          onClick: () =>
+                            pinChatHistory({
+                              id: chat.id,
+                              is_pinned: !chat.is_pinned
+                            }),
+                          disabled: pinLoading
+                        },
+                        ...(isConnected && onOpenFolderPicker
+                          ? [
+                              {
+                                key: "moveToFolder",
+                                icon: <FolderIcon className="w-4 h-4" />,
+                                label: t("common:moveToFolder"),
+                                onClick: () => {
+                                  onOpenFolderPicker(chat.id)
+                                  setOpenMenuFor(null)
+                                }
+                              }
+                            ]
+                          : []),
+                        {
+                          key: "edit",
+                          icon: <Edit3 className="w-4 h-4" />,
+                          label: t("common:rename"),
+                          onClick: () => {
+                            setRenamingChat(chat.id)
+                            setRenameValue(chat.title)
+                          }
+                        },
+                        {
+                          key: "delete",
+                          icon: <Trash2 className="w-4 h-4" />,
+                          label: t("common:delete"),
+                          onClick: async () => {
+                            const ok = await confirmDanger({
+                              title: t("common:confirmTitle"),
+                              content: t("option:deleteHistoryConfirmation"),
+                              okText: t("common:delete"),
+                              cancelText: t("common:cancel")
+                            })
+                            if (!ok) return
+                            deleteHistory(chat.id)
+                          }
+                        }
+                      ]
+                    }}
+                    trigger={["click"]}
+                    placement="bottomRight"
+                    open={openMenuFor === chat.id}
+                    onOpenChange={(open) => setOpenMenuFor(open ? chat.id : null)}
+                  >
+                    <IconButton
+                      className="text-gray-500 dark:text-gray-400 opacity-80 hover:opacity-100"
+                      ariaLabel={`${t("option:header.moreActions", "More actions")}: ${chat.title}`}
+                      hasPopup="menu"
+                      ariaExpanded={openMenuFor === chat.id}
+                      ariaControls={`history-actions-${chat.id}`}
+                    >
+                      <MoreHorizontal className="w-4 h-4" />
+                    </IconButton>
+                  </Dropdown>
+                </div>
+              )
+            })}
           </div>
         </div>
       ))}

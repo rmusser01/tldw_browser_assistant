@@ -96,6 +96,8 @@
   "gitOperations": "Git operations",
   "commands": "Commands",
   "otherOperations": "Other operations",
+  "fileAccess": "File access",
+  "notebookEdits": "Notebook edits",
   "currentChatModelSettings": "Current Chat Model Settings",
   "modelSettings": {
     "label": "Model Settings",

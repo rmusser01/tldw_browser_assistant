@@ -224,6 +224,8 @@
   "gitOperations": "Operações Git",
   "commands": "Comandos",
   "otherOperations": "Outras operações",
+  "fileAccess": "Acesso a arquivos",
+  "notebookEdits": "Edições do caderno",
   "segmented": {
     "available": "Modelos do servidor",
     "custom": "Modelos personalizados"
@@ -247,6 +249,7 @@
   "searchResults": "Resultados da pesquisa",
   "newBranch": "Novo ramo",
   "error": {
+    "label": "Erro",
     "friendlyApiKeySummary": "Não foi possível alcançar seu servidor tldw.",
     "friendlyApiKeyHint": "Sua chave de API pode ser inválida. Abra Configurações → servidor tldw para verificar sua URL e chave de API e tente novamente.",
     "friendlyTimeoutSummary": "Seu chat excedeu o tempo limite.",

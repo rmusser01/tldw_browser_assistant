@@ -33,7 +33,7 @@ import {
 } from "@/components/Agent"
 import { useSessionPersistence } from "@/hooks/useSessionPersistence"
 import type { SessionSaveInput } from "@/services/agent/storage"
-import { sessionToRestoreOutput } from "@/services/agent/storage"
+import { sessionToRestoreOutput, generateSessionId } from "@/services/agent/storage"
 import type {
   Workspace,
   ToolCallEntry,
@@ -269,7 +269,9 @@ const SidepanelAgent: FC = () => {
           setExecutions(prev => [
             ...prev,
             {
-              id: event.tool_call_id,
+              // Use a locally generated UUID for execution IDs to avoid relying
+              // on tool_call_id uniqueness across providers or sessions.
+              id: generateSessionId(),
               commandId: JSON.parse(tcEntry.toolCall.function.arguments || "{}").command_id || "",
               args: JSON.parse(tcEntry.toolCall.function.arguments || "{}").args,
               cwd: JSON.parse(tcEntry.toolCall.function.arguments || "{}").cwd,

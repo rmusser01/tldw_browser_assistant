@@ -217,6 +217,8 @@
   "gitOperations": "عملیات Git",
   "commands": "دستورها",
   "otherOperations": "سایر عملیات",
+  "fileAccess": "دسترسی به فایل‌ها",
+  "notebookEdits": "ویرایش‌های دفترچه یادداشت",
   "copilot": {
     "summary": "خلاصه کردن",
     "explain": "توضیح دادن",
@@ -247,6 +249,7 @@
   "searchResults": "نتایج جستجو",
   "newBranch": "شاخه جدید",
   "error": {
+    "label": "خطا",
     "friendlyApiKeySummary": "نتوانستیم به سرور tldw شما متصل شویم.",
     "friendlyApiKeyHint": "ممکن است کلید API شما نامعتبر باشد. تنظیمات → سرور tldw را باز کنید تا آدرس URL و کلید API را بررسی کنید و دوباره تلاش کنید.",
     "friendlyTimeoutSummary": "گفتگوی شما منقضی شد.",
@@ -301,7 +304,7 @@
     "goToNotes": "رفتن به یادداشت‌ها",
     "goToFlashcards": "رفتن به فلش‌کارت‌ها",
     "goToSettings": "رفتن به تنظیمات",
-    "goToHealth": "رفتن به Health & Diagnostics",
+    "goToHealth": "رفتن به سلامت و تشخیص",
     "newChat": "گفتگوی جدید",
     "toggleKnowledgeSearch": "تغییر وضعیت جستجوی دانش",
     "toggleKnowledgeSearchDesc": "جستجو در پایگاه دانش شما",

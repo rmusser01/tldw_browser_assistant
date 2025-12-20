@@ -1,6 +1,8 @@
 import { useEffect, useCallback } from 'react'
 import { useShortcutConfig } from './useShortcutConfig'
 
+export { isMac } from '../useKeyboardShortcuts'
+
 export interface KeyboardShortcut {
   key: string
   ctrlKey?: boolean

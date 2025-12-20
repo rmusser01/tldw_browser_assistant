@@ -224,6 +224,8 @@
   "gitOperations": "Git 操作",
   "commands": "コマンド",
   "otherOperations": "その他の操作",
+  "fileAccess": "ファイルアクセス",
+  "notebookEdits": "ノートブック編集",
   "segmented": {
     "available": "サーバーモデル",
     "custom": "カスタムモデル"
@@ -247,6 +249,7 @@
   "searchResults": "検索結果",
   "newBranch": "新しいブランチ",
   "error": {
+    "label": "エラー",
     "friendlyApiKeySummary": "tldw サーバーに接続できませんでした。",
     "friendlyApiKeyHint": "API キーが無効の可能性があります。設定 → tldw サーバーで URL と API キーを確認してから、もう一度お試しください。",
     "friendlyTimeoutSummary": "チャットがタイムアウトしました。",

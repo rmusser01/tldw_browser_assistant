@@ -229,6 +229,8 @@
   "gitOperations": "Git 操作",
   "commands": "命令",
   "otherOperations": "其他操作",
+  "fileAccess": "文件访问",
+  "notebookEdits": "笔记本编辑",
   "success": "成功",
   "created": "已创建",
   "updated": "已更新",
@@ -247,6 +249,7 @@
   "searchResults": "搜索结果",
   "newBranch": "新分支",
   "error": {
+    "label": "错误",
     "friendlyApiKeySummary": "无法连接到您的 tldw 服务器。",
     "friendlyApiKeyHint": "您的 API 密钥可能无效。打开“设置”→“tldw 服务器”检查 URL 和 API 密钥，然后重试。",
     "friendlyTimeoutSummary": "聊天超时。",
