@@ -336,42 +336,42 @@
   },
   "featureHints": {
     "knowledge": {
-      "title": "Search your knowledge",
-      "description": "Open the knowledge search panel to find snippets and insert them into your chat."
+      "title": "നിങ്ങളുടെ നോളെജ് തിരയുക",
+      "description": "നോളെജ് തിരച്ചിൽ പാനൽ തുറന്ന് സ്നിപ്പറ്റുകൾ കണ്ടെത്തി നിങ്ങളുടെ ചാറ്റിൽ ചേർക്കുക."
     },
     "moreTools": {
-      "title": "More tools available",
-      "description": "Access vision mode, image upload, quick ingest, and the full app."
+      "title": "കൂടുതൽ ഉപകരണങ്ങൾ ലഭ്യമാണ്",
+      "description": "വിഷൻ മോഡ്, ചിത്രം അപ്‌ലോഡ്, ക്വിക്ക് ഇൻജെസ്റ്റ്, പൂർണ്ണ ആപ്പ് എന്നിവയ്ക്ക് ആക്‌സസ് ചെയ്യുക."
     },
     "commandPalette": {
-      "title": "Quick commands",
-      "description": "Press {{shortcut}} to search commands, settings, and more."
+      "title": "വേഗത്തിലുള്ള കമാൻഡുകൾ",
+      "description": "കമാൻഡുകളും സെറ്റിംഗുകളും തുടങ്ങിയവ തിരയാൻ {{shortcut}} അമർത്തുക."
     },
     "modelSettings": {
-      "title": "Adjust model parameters",
-      "description": "Fine-tune temperature, context length, and other model settings."
+      "title": "മോഡൽ പാരാമീറ്ററുകൾ ക്രമീകരിക്കുക",
+      "description": "ടെംപറേച്ചർ, കോൺടെക്സ്റ്റ് നീളം, മറ്റ് മോഡൽ സെറ്റിംഗുകൾ എന്നിവ സൂക്ഷ്മമായി ക്രമീകരിക്കുക."
     }
   },
   "chatSidebar": {
-    "title": "Chats",
-    "newChat": "New Chat",
-    "collapse": "Collapse sidebar",
-    "expand": "Expand sidebar",
-    "search": "Search chats...",
-    "ingest": "Ingest Page",
-    "media": "Media",
-    "notes": "Notes",
-    "settings": "Settings",
-    "loadError": "Failed to load chats",
-    "localTab": "Local",
-    "serverTab": "Server",
-    "foldersTab": "Folders",
+    "title": "ചാറ്റുകൾ",
+    "newChat": "പുതിയ ചാറ്റ്",
+    "collapse": "സൈഡ്ബാർ ചുരുക്കുക",
+    "expand": "സൈഡ്ബാർ വിപുലീകരിക്കുക",
+    "search": "ചാറ്റുകൾ തിരയുക...",
+    "ingest": "നിലവിലെ പേജ് ഇൻജെസ്റ്റ് ചെയ്യുക",
+    "media": "മീഡിയ",
+    "notes": "നോട്ടുകൾ",
+    "settings": "സെറ്റിംഗുകൾ",
+    "loadError": "ചാറ്റുകൾ ലോഡ് ചെയ്യാൻ കഴിഞ്ഞില്ല",
+    "localTab": "ലോക്കൽ",
+    "serverTab": "സർവർ",
+    "foldersTab": "ഫോൾഡറുകൾ",
     "tabs": {
-      "local": "Local",
-      "server": "Server",
-      "folders": "Folders"
+      "local": "ലോക്കൽ",
+      "server": "സർവർ",
+      "folders": "ഫോൾഡറുകൾ"
     },
-    "noServerChats": "No server chats yet",
-    "foldersRequireConnection": "Folders require a server connection"
+    "noServerChats": "സർവർ ചാറ്റുകൾ ഇതുവരെ ഇല്ല",
+    "foldersRequireConnection": "ഫോൾഡറുകൾക്ക് സർവർ കണക്ഷൻ ആവശ്യമുണ്ട്"
   }
 }

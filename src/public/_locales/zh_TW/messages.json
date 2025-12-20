@@ -348,82 +348,82 @@
     "message": "Changes model for next message"
   },
   "featureHints_knowledge_title": {
-    "message": "Search your knowledge"
+    "message": "搜尋你的知識"
   },
   "featureHints_knowledge_description": {
-    "message": "Open the knowledge search panel to find snippets and insert them into your chat."
+    "message": "開啟知識搜尋面板，尋找片段並插入到聊天中。"
   },
   "featureHints_moreTools_title": {
-    "message": "More tools available"
+    "message": "更多工具可用"
   },
   "featureHints_moreTools_description": {
-    "message": "Access vision mode, image upload, quick ingest, and the full app."
+    "message": "使用視覺模式、圖片上傳、快速匯入和完整應用程式。"
   },
   "featureHints_commandPalette_title": {
-    "message": "Quick commands"
+    "message": "快速指令"
   },
   "featureHints_commandPalette_description": {
-    "message": "Press {{shortcut}} to search commands, settings, and more."
+    "message": "按下 {{shortcut}} 搜尋指令、設定等。"
   },
   "featureHints_modelSettings_title": {
-    "message": "Adjust model parameters"
+    "message": "調整模型參數"
   },
   "featureHints_modelSettings_description": {
-    "message": "Fine-tune temperature, context length, and other model settings."
+    "message": "微調溫度、上下文長度和其他模型設定。"
   },
   "chatSidebar_title": {
-    "message": "Chats"
+    "message": "聊天"
   },
   "chatSidebar_newChat": {
-    "message": "New Chat"
+    "message": "新聊天"
   },
   "chatSidebar_collapse": {
-    "message": "Collapse sidebar"
+    "message": "收合側邊欄"
   },
   "chatSidebar_expand": {
-    "message": "Expand sidebar"
+    "message": "展開側邊欄"
   },
   "chatSidebar_search": {
-    "message": "Search chats..."
+    "message": "搜尋聊天..."
   },
   "chatSidebar_ingest": {
-    "message": "Ingest Page"
+    "message": "匯入頁面"
   },
   "chatSidebar_media": {
-    "message": "Media"
+    "message": "媒體"
   },
   "chatSidebar_notes": {
-    "message": "Notes"
+    "message": "筆記"
   },
   "chatSidebar_settings": {
-    "message": "Settings"
+    "message": "設定"
   },
   "chatSidebar_loadError": {
-    "message": "Failed to load chats"
+    "message": "無法載入聊天"
   },
   "chatSidebar_localTab": {
-    "message": "Local"
+    "message": "本機"
   },
   "chatSidebar_serverTab": {
-    "message": "Server"
+    "message": "伺服器"
   },
   "chatSidebar_foldersTab": {
-    "message": "Folders"
+    "message": "資料夾"
   },
   "chatSidebar_tabs_local": {
-    "message": "Local"
+    "message": "本機"
   },
   "chatSidebar_tabs_server": {
-    "message": "Server"
+    "message": "伺服器"
   },
   "chatSidebar_tabs_folders": {
-    "message": "Folders"
+    "message": "資料夾"
   },
   "chatSidebar_noServerChats": {
-    "message": "No server chats yet"
+    "message": "尚無伺服器聊天"
   },
   "chatSidebar_foldersRequireConnection": {
-    "message": "Folders require a server connection"
+    "message": "資料夾需要伺服器連線"
   },
   "option.more.copy.canonicalMarkdown": {
     "message": "Copy canonical transcript"

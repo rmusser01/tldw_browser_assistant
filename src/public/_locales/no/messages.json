@@ -621,82 +621,82 @@
     "message": "Changes model for next message"
   },
   "featureHints_knowledge_title": {
-    "message": "Search your knowledge"
+    "message": "Søk i kunnskapen din"
   },
   "featureHints_knowledge_description": {
-    "message": "Open the knowledge search panel to find snippets and insert them into your chat."
+    "message": "Åpne kunnskapssøk-panelet for å finne utdrag og sette dem inn i chatten."
   },
   "featureHints_moreTools_title": {
-    "message": "More tools available"
+    "message": "Flere verktøy tilgjengelig"
   },
   "featureHints_moreTools_description": {
-    "message": "Access vision mode, image upload, quick ingest, and the full app."
+    "message": "Få tilgang til synsmodus, bildeopplasting, hurtiginnhenting og hele appen."
   },
   "featureHints_commandPalette_title": {
-    "message": "Quick commands"
+    "message": "Hurtigkommandoer"
   },
   "featureHints_commandPalette_description": {
-    "message": "Press {{shortcut}} to search commands, settings, and more."
+    "message": "Trykk {{shortcut}} for å søke etter kommandoer, innstillinger og mer."
   },
   "featureHints_modelSettings_title": {
-    "message": "Adjust model parameters"
+    "message": "Juster modellparametere"
   },
   "featureHints_modelSettings_description": {
-    "message": "Fine-tune temperature, context length, and other model settings."
+    "message": "Finjuster temperatur, kontekstlengde og andre modellinnstillinger."
   },
   "chatSidebar_title": {
-    "message": "Chats"
+    "message": "Chatter"
   },
   "chatSidebar_newChat": {
-    "message": "New Chat"
+    "message": "Ny chat"
   },
   "chatSidebar_collapse": {
-    "message": "Collapse sidebar"
+    "message": "Skjul sidestolpe"
   },
   "chatSidebar_expand": {
-    "message": "Expand sidebar"
+    "message": "Utvid sidestolpe"
   },
   "chatSidebar_search": {
-    "message": "Search chats..."
+    "message": "Søk i chatter..."
   },
   "chatSidebar_ingest": {
-    "message": "Ingest Page"
+    "message": "Innhent side"
   },
   "chatSidebar_media": {
     "message": "Media"
   },
   "chatSidebar_notes": {
-    "message": "Notes"
+    "message": "Notater"
   },
   "chatSidebar_settings": {
-    "message": "Settings"
+    "message": "Innstillinger"
   },
   "chatSidebar_loadError": {
-    "message": "Failed to load chats"
+    "message": "Kunne ikke laste chatter"
   },
   "chatSidebar_localTab": {
-    "message": "Local"
+    "message": "Lokalt"
   },
   "chatSidebar_serverTab": {
     "message": "Server"
   },
   "chatSidebar_foldersTab": {
-    "message": "Folders"
+    "message": "Mapper"
   },
   "chatSidebar_tabs_local": {
-    "message": "Local"
+    "message": "Lokalt"
   },
   "chatSidebar_tabs_server": {
     "message": "Server"
   },
   "chatSidebar_tabs_folders": {
-    "message": "Folders"
+    "message": "Mapper"
   },
   "chatSidebar_noServerChats": {
-    "message": "No server chats yet"
+    "message": "Ingen serverchatter ennå"
   },
   "chatSidebar_foldersRequireConnection": {
-    "message": "Folders require a server connection"
+    "message": "Mapper krever en servertilkobling"
   },
   "connectionBanner_connecting": {
     "message": "Kobler til tldw-serveren...",

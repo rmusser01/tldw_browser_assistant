@@ -334,42 +334,42 @@
   },
   "featureHints": {
     "knowledge": {
-      "title": "Search your knowledge",
-      "description": "Open the knowledge search panel to find snippets and insert them into your chat."
+      "title": "Søk i kunnskapen din",
+      "description": "Åpne kunnskapssøk-panelet for å finne utdrag og sette dem inn i chatten."
     },
     "moreTools": {
-      "title": "More tools available",
-      "description": "Access vision mode, image upload, quick ingest, and the full app."
+      "title": "Flere verktøy tilgjengelig",
+      "description": "Få tilgang til synsmodus, bildeopplasting, hurtiginnhenting og hele appen."
     },
     "commandPalette": {
-      "title": "Quick commands",
-      "description": "Press {{shortcut}} to search commands, settings, and more."
+      "title": "Hurtigkommandoer",
+      "description": "Trykk {{shortcut}} for å søke etter kommandoer, innstillinger og mer."
     },
     "modelSettings": {
-      "title": "Adjust model parameters",
-      "description": "Fine-tune temperature, context length, and other model settings."
+      "title": "Juster modellparametere",
+      "description": "Finjuster temperatur, kontekstlengde og andre modellinnstillinger."
     }
   },
   "chatSidebar": {
-    "title": "Chats",
-    "newChat": "New Chat",
-    "collapse": "Collapse sidebar",
-    "expand": "Expand sidebar",
-    "search": "Search chats...",
-    "ingest": "Ingest Page",
+    "title": "Chatter",
+    "newChat": "Ny chat",
+    "collapse": "Skjul sidestolpe",
+    "expand": "Utvid sidestolpe",
+    "search": "Søk i chatter...",
+    "ingest": "Innhent side",
     "media": "Media",
-    "notes": "Notes",
-    "settings": "Settings",
-    "loadError": "Failed to load chats",
-    "localTab": "Local",
+    "notes": "Notater",
+    "settings": "Innstillinger",
+    "loadError": "Kunne ikke laste chatter",
+    "localTab": "Lokalt",
     "serverTab": "Server",
-    "foldersTab": "Folders",
+    "foldersTab": "Mapper",
     "tabs": {
-      "local": "Local",
+      "local": "Lokalt",
       "server": "Server",
-      "folders": "Folders"
+      "folders": "Mapper"
     },
-    "noServerChats": "No server chats yet",
-    "foldersRequireConnection": "Folders require a server connection"
+    "noServerChats": "Ingen serverchatter ennå",
+    "foldersRequireConnection": "Mapper krever en servertilkobling"
   }
 }

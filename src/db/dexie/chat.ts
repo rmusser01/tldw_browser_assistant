@@ -562,3 +562,5 @@ export class PageAssistDatabase {
   }
 
 }
+
+export const pageAssistDatabase = new PageAssistDatabase()

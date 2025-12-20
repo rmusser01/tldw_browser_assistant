@@ -371,6 +371,27 @@
   "serverChatsUnavailableServerError": {
     "message": "Server chats unavailable right now. Check your server logs or try again."
   },
+  "fileChanges": {
+    "message": "File changes"
+  },
+  "deletions": {
+    "message": "Deletions"
+  },
+  "gitOperations": {
+    "message": "Git operations"
+  },
+  "commands": {
+    "message": "Commands"
+  },
+  "otherOperations": {
+    "message": "Other operations"
+  },
+  "fileAccess": {
+    "message": "File access"
+  },
+  "notebookEdits": {
+    "message": "Notebook edits"
+  },
   "noToolCalls": {
     "message": "No tool calls yet"
   },
@@ -442,6 +463,14 @@
   "tools_exec_run": {
     "message": "Run Command",
     "description": "Label for the exec.run tool (run command)."
+  },
+  "serverChatForkedLabel": {
+    "message": "Forked chat",
+    "description": "Label shown on chats that were forked from another server chat."
+  },
+  "serverChatForkedTooltip": {
+    "message": "Forked from chat {{chatId}}",
+    "description": "Tooltip explaining which original server chat this chat was forked from."
   },
   "commandPalette_goToChat": {
     "message": "Go to Chat",
@@ -555,6 +584,18 @@
   },
   "markdown_showRawContent": {
     "message": "Show raw content"
+  },
+  "status_pending": {
+    "message": "Pending",
+    "description": "Status label for pending operations."
+  },
+  "status_running": {
+    "message": "Running",
+    "description": "Status label for operations currently in progress."
+  },
+  "status_complete": {
+    "message": "Complete",
+    "description": "Status label for completed operations."
   },
   "notesSearch_exportNoteSuccess": {
     "message": "Exported ({{size}})"

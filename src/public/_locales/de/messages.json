@@ -621,82 +621,82 @@
     "message": "Changes model for next message"
   },
   "featureHints_knowledge_title": {
-    "message": "Search your knowledge"
+    "message": "Durchsuche dein Wissen"
   },
   "featureHints_knowledge_description": {
-    "message": "Open the knowledge search panel to find snippets and insert them into your chat."
+    "message": "Öffne die Wissenssuche, um Ausschnitte zu finden und sie in deinen Chat einzufügen."
   },
   "featureHints_moreTools_title": {
-    "message": "More tools available"
+    "message": "Weitere Tools verfügbar"
   },
   "featureHints_moreTools_description": {
-    "message": "Access vision mode, image upload, quick ingest, and the full app."
+    "message": "Greife auf Vision-Modus, Bild-Upload, Schnellimport und die vollständige App zu."
   },
   "featureHints_commandPalette_title": {
-    "message": "Quick commands"
+    "message": "Schnellbefehle"
   },
   "featureHints_commandPalette_description": {
-    "message": "Press {{shortcut}} to search commands, settings, and more."
+    "message": "Drücke {{shortcut}}, um Befehle, Einstellungen und mehr zu durchsuchen."
   },
   "featureHints_modelSettings_title": {
-    "message": "Adjust model parameters"
+    "message": "Modellparameter anpassen"
   },
   "featureHints_modelSettings_description": {
-    "message": "Fine-tune temperature, context length, and other model settings."
+    "message": "Optimiere Temperatur, Kontextlänge und weitere Modelleinstellungen."
   },
   "chatSidebar_title": {
     "message": "Chats"
   },
   "chatSidebar_newChat": {
-    "message": "New Chat"
+    "message": "Neuer Chat"
   },
   "chatSidebar_collapse": {
-    "message": "Collapse sidebar"
+    "message": "Seitenleiste einklappen"
   },
   "chatSidebar_expand": {
-    "message": "Expand sidebar"
+    "message": "Seitenleiste ausklappen"
   },
   "chatSidebar_search": {
-    "message": "Search chats..."
+    "message": "Chats durchsuchen..."
   },
   "chatSidebar_ingest": {
-    "message": "Ingest Page"
+    "message": "Seite erfassen"
   },
   "chatSidebar_media": {
-    "message": "Media"
+    "message": "Medien"
   },
   "chatSidebar_notes": {
-    "message": "Notes"
+    "message": "Notizen"
   },
   "chatSidebar_settings": {
-    "message": "Settings"
+    "message": "Einstellungen"
   },
   "chatSidebar_loadError": {
-    "message": "Failed to load chats"
+    "message": "Chats konnten nicht geladen werden"
   },
   "chatSidebar_localTab": {
-    "message": "Local"
+    "message": "Lokal"
   },
   "chatSidebar_serverTab": {
     "message": "Server"
   },
   "chatSidebar_foldersTab": {
-    "message": "Folders"
+    "message": "Ordner"
   },
   "chatSidebar_tabs_local": {
-    "message": "Local"
+    "message": "Lokal"
   },
   "chatSidebar_tabs_server": {
     "message": "Server"
   },
   "chatSidebar_tabs_folders": {
-    "message": "Folders"
+    "message": "Ordner"
   },
   "chatSidebar_noServerChats": {
-    "message": "No server chats yet"
+    "message": "Noch keine Server-Chats"
   },
   "chatSidebar_foldersRequireConnection": {
-    "message": "Folders require a server connection"
+    "message": "Ordner erfordern eine Serververbindung"
   },
   "option.more.copy.canonicalMarkdown": {
     "message": "Copy canonical transcript"

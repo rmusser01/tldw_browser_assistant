@@ -20,7 +20,7 @@ import {
   FolderIcon
 } from "lucide-react"
 
-import { PageAssistDatabase } from "@/db/dexie/chat"
+import { pageAssistDatabase } from "@/db/dexie/chat"
 import type { HistoryInfo, Message } from "@/db/dexie/types"
 import {
   deleteByHistoryId,
@@ -141,7 +141,7 @@ export function LocalChatList({
     queryKey: ["fetchChatHistory", searchQuery],
     queryFn: async ({ pageParam = 1 }) => {
       try {
-        const db = new PageAssistDatabase()
+        const db = pageAssistDatabase
         const result = await db.getChatHistoriesPaginated(
           pageParam,
           searchQuery || undefined
@@ -307,23 +307,30 @@ export function LocalChatList({
     }
   })
 
-  const { mutate: deleteHistoriesByRange, isPending: deleteRangeLoading } = useMutation({
-    mutationKey: ["deleteHistoriesByRange"],
-    mutationFn: async (rangeLabel: string) => {
-      setDeleteGroup(rangeLabel)
-      return await deleteHistoriesByDateRange(rangeLabel)
-    },
-    onSuccess: (deletedIds: string[]) => {
-      queryClient.invalidateQueries({ queryKey: ["fetchChatHistory"] })
-      if (historyId && deletedIds.includes(historyId)) {
-        clearChat()
+  const { mutate: deleteHistoriesByRange, isPending: deleteRangeLoading } =
+    useMutation({
+      mutationKey: ["deleteHistoriesByRange"],
+      onMutate: async (rangeLabel: string) => {
+        setDeleteGroup(rangeLabel)
+      },
+      mutationFn: async (rangeLabel: string) => {
+        return await deleteHistoriesByDateRange(rangeLabel)
+      },
+      onSuccess: (deletedIds: string[]) => {
+        queryClient.invalidateQueries({ queryKey: ["fetchChatHistory"] })
+        if (historyId && deletedIds.includes(historyId)) {
+          clearChat()
+        }
+        message.success(
+          t("common:historiesDeleted", { count: deletedIds.length })
+        )
+        setDeleteGroup(null)
+      },
+      onError: () => {
+        message.error(t("common:deleteHistoriesError"))
+        setDeleteGroup(null)
       }
-      message.success(t("common:historiesDeleted", { count: deletedIds.length }))
-    },
-    onError: () => {
-      message.error(t("common:deleteHistoriesError"))
-    }
-  })
+    })
 
   const { mutate: pinChatHistory, isPending: pinLoading } = useMutation({
     mutationKey: ["pinHistory"],

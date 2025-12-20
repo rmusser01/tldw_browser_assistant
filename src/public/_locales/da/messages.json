@@ -366,6 +366,27 @@
   "serverChatsUnavailableServerError": {
     "message": "Serverchats er ikke tilgængelige lige nu. Tjek serverloggene, eller prøv igen."
   },
+  "fileChanges": {
+    "message": "Filændringer"
+  },
+  "deletions": {
+    "message": "Sletninger"
+  },
+  "gitOperations": {
+    "message": "Git-handlinger"
+  },
+  "commands": {
+    "message": "Kommandoer"
+  },
+  "otherOperations": {
+    "message": "Andre handlinger"
+  },
+  "fileAccess": {
+    "message": "Filadgang"
+  },
+  "notebookEdits": {
+    "message": "Redigeringer i notatbog"
+  },
   "noToolCalls": {
     "message": "Ingen værktøjskald endnu"
   },
@@ -750,85 +771,85 @@
     "message": "Model"
   },
   "modelSelect_tooltip": {
-    "message": "Changes model for next message"
+    "message": "Ændrer modellen for næste besked"
   },
   "featureHints_knowledge_title": {
-    "message": "Search your knowledge"
+    "message": "Søg i din viden"
   },
   "featureHints_knowledge_description": {
-    "message": "Open the knowledge search panel to find snippets and insert them into your chat."
+    "message": "Åbn videnssøgningspanelet for at finde uddrag og indsætte dem i din chat."
   },
   "featureHints_moreTools_title": {
-    "message": "More tools available"
+    "message": "Flere værktøjer tilgængelige"
   },
   "featureHints_moreTools_description": {
-    "message": "Access vision mode, image upload, quick ingest, and the full app."
+    "message": "Få adgang til vision-tilstand, billedupload, hurtig indlæsning og hele appen."
   },
   "featureHints_commandPalette_title": {
-    "message": "Quick commands"
+    "message": "Hurtige kommandoer"
   },
   "featureHints_commandPalette_description": {
-    "message": "Press {{shortcut}} to search commands, settings, and more."
+    "message": "Tryk på {{shortcut}} for at søge efter kommandoer, indstillinger og mere."
   },
   "featureHints_modelSettings_title": {
-    "message": "Adjust model parameters"
+    "message": "Juster modelparametre"
   },
   "featureHints_modelSettings_description": {
-    "message": "Fine-tune temperature, context length, and other model settings."
+    "message": "Finjuster temperatur, kontekstlængde og andre modelindstillinger."
   },
   "chatSidebar_title": {
     "message": "Chats"
   },
   "chatSidebar_newChat": {
-    "message": "New Chat"
+    "message": "Ny chat"
   },
   "chatSidebar_collapse": {
-    "message": "Collapse sidebar"
+    "message": "Skjul sidepanelet"
   },
   "chatSidebar_expand": {
-    "message": "Expand sidebar"
+    "message": "Vis sidepanelet"
   },
   "chatSidebar_search": {
-    "message": "Search chats..."
+    "message": "Søg i chats..."
   },
   "chatSidebar_ingest": {
-    "message": "Ingest Page"
+    "message": "Indlæs side"
   },
   "chatSidebar_media": {
-    "message": "Media"
+    "message": "Medier"
   },
   "chatSidebar_notes": {
-    "message": "Notes"
+    "message": "Noter"
   },
   "chatSidebar_settings": {
-    "message": "Settings"
+    "message": "Indstillinger"
   },
   "chatSidebar_loadError": {
-    "message": "Failed to load chats"
+    "message": "Kunne ikke indlæse chats"
   },
   "chatSidebar_localTab": {
-    "message": "Local"
+    "message": "Lokal"
   },
   "chatSidebar_serverTab": {
     "message": "Server"
   },
   "chatSidebar_foldersTab": {
-    "message": "Folders"
+    "message": "Mapper"
   },
   "chatSidebar_tabs_local": {
-    "message": "Local"
+    "message": "Lokal"
   },
   "chatSidebar_tabs_server": {
     "message": "Server"
   },
   "chatSidebar_tabs_folders": {
-    "message": "Folders"
+    "message": "Mapper"
   },
   "chatSidebar_noServerChats": {
-    "message": "No server chats yet"
+    "message": "Ingen serverchats endnu"
   },
   "chatSidebar_foldersRequireConnection": {
-    "message": "Folders require a server connection"
+    "message": "Mapper kræver en serverforbindelse"
   },
   "connectionBanner_connecting": {
     "message": "Opretter forbindelse til din tldw-server...",

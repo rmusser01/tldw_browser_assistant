@@ -334,42 +334,42 @@
   },
   "featureHints": {
     "knowledge": {
-      "title": "Search your knowledge",
-      "description": "Open the knowledge search panel to find snippets and insert them into your chat."
+      "title": "내 지식 검색",
+      "description": "지식 검색 패널을 열어 스니펫을 찾고 채팅에 삽입합니다."
     },
     "moreTools": {
-      "title": "More tools available",
-      "description": "Access vision mode, image upload, quick ingest, and the full app."
+      "title": "더 많은 도구",
+      "description": "비전 모드, 이미지 업로드, 빠른 가져오기 및 전체 앱에 액세스합니다."
     },
     "commandPalette": {
-      "title": "Quick commands",
-      "description": "Press {{shortcut}} to search commands, settings, and more."
+      "title": "빠른 명령",
+      "description": "{{shortcut}} 를 눌러 명령, 설정 등을 검색합니다."
     },
     "modelSettings": {
-      "title": "Adjust model parameters",
-      "description": "Fine-tune temperature, context length, and other model settings."
+      "title": "모델 매개변수 조정",
+      "description": "온도, 컨텍스트 길이 등 모델 설정을 세부 조정합니다."
     }
   },
   "chatSidebar": {
-    "title": "Chats",
-    "newChat": "New Chat",
-    "collapse": "Collapse sidebar",
-    "expand": "Expand sidebar",
-    "search": "Search chats...",
-    "ingest": "Ingest Page",
-    "media": "Media",
-    "notes": "Notes",
-    "settings": "Settings",
-    "loadError": "Failed to load chats",
-    "localTab": "Local",
-    "serverTab": "Server",
-    "foldersTab": "Folders",
+    "title": "채팅",
+    "newChat": "새 채팅",
+    "collapse": "사이드바 접기",
+    "expand": "사이드바 펼치기",
+    "search": "채팅 검색...",
+    "ingest": "페이지 가져오기",
+    "media": "미디어",
+    "notes": "노트",
+    "settings": "설정",
+    "loadError": "채팅을 불러오지 못했습니다",
+    "localTab": "로컬",
+    "serverTab": "서버",
+    "foldersTab": "폴더",
     "tabs": {
-      "local": "Local",
-      "server": "Server",
-      "folders": "Folders"
+      "local": "로컬",
+      "server": "서버",
+      "folders": "폴더"
     },
-    "noServerChats": "No server chats yet",
-    "foldersRequireConnection": "Folders require a server connection"
+    "noServerChats": "서버 채팅이 아직 없습니다",
+    "foldersRequireConnection": "폴더를 사용하려면 서버 연결이 필요합니다"
   }
 }

@@ -98,6 +98,9 @@
   "otherOperations": "Other operations",
   "fileAccess": "File access",
   "notebookEdits": "Notebook edits",
+  "applyPatch": "Apply patch",
+  "recursive": "(recursive)",
+  "complexArguments": "[Complex arguments]",
   "currentChatModelSettings": "Current Chat Model Settings",
   "modelSettings": {
     "label": "Model Settings",

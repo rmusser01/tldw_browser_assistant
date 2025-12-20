@@ -552,28 +552,28 @@
     "message": "Show raw content"
   },
   "notesSearch_exportNoteSuccess": {
-    "message": "Exported ({{size}})"
+    "message": "خروجی گرفته شد ({{size}})"
   },
   "notesSearch_exportSuccess": {
-    "message": "Exported {{count}} notes ({{size}})"
+    "message": "از {{count}} یادداشت خروجی گرفته شد ({{size}})"
   },
   "notesSearch_exportCsvSuccess": {
-    "message": "Exported {{count}} notes as CSV ({{size}})"
+    "message": "از {{count}} یادداشت خروجی به صورت CSV گرفته شد ({{size}})"
   },
   "notesSearch_exportJsonSuccess": {
-    "message": "Exported {{count}} notes as JSON ({{size}})"
+    "message": "از {{count}} یادداشت خروجی به صورت JSON گرفته شد ({{size}})"
   },
   "exportNoteSuccess": {
-    "message": "Exported ({{size}})"
+    "message": "خروجی گرفته شد ({{size}})"
   },
   "exportSuccess": {
-    "message": "Exported {{count}} notes ({{size}})"
+    "message": "از {{count}} یادداشت خروجی گرفته شد ({{size}})"
   },
   "exportCsvSuccess": {
-    "message": "Exported {{count}} notes as CSV ({{size}})"
+    "message": "از {{count}} یادداشت خروجی به صورت CSV گرفته شد ({{size}})"
   },
   "exportJsonSuccess": {
-    "message": "Exported {{count}} notes as JSON ({{size}})"
+    "message": "از {{count}} یادداشت خروجی به صورت JSON گرفته شد ({{size}})"
   },
   "infoShort": {
     "message": "اطلاعات"
@@ -621,82 +621,82 @@
     "message": "Changes model for next message"
   },
   "featureHints_knowledge_title": {
-    "message": "Search your knowledge"
+    "message": "در دانش خود جستجو کنید"
   },
   "featureHints_knowledge_description": {
-    "message": "Open the knowledge search panel to find snippets and insert them into your chat."
+    "message": "پنل جستجوی دانش را باز کنید تا تکه‌ها را پیدا کرده و در چت خود درج کنید."
   },
   "featureHints_moreTools_title": {
-    "message": "More tools available"
+    "message": "ابزارهای بیشتری در دسترس است"
   },
   "featureHints_moreTools_description": {
-    "message": "Access vision mode, image upload, quick ingest, and the full app."
+    "message": "به حالت بینایی، بارگذاری تصویر، وارد کردن سریع و اپ کامل دسترسی پیدا کنید."
   },
   "featureHints_commandPalette_title": {
-    "message": "Quick commands"
+    "message": "فرمان‌های سریع"
   },
   "featureHints_commandPalette_description": {
-    "message": "Press {{shortcut}} to search commands, settings, and more."
+    "message": "برای جستجو در فرمان‌ها، تنظیمات و موارد دیگر {{shortcut}} را فشار دهید."
   },
   "featureHints_modelSettings_title": {
-    "message": "Adjust model parameters"
+    "message": "تنظیم پارامترهای مدل"
   },
   "featureHints_modelSettings_description": {
-    "message": "Fine-tune temperature, context length, and other model settings."
+    "message": "دما، طول زمینه و سایر تنظیمات مدل را دقیق تنظیم کنید."
   },
   "chatSidebar_title": {
-    "message": "Chats"
+    "message": "گفتگوها"
   },
   "chatSidebar_newChat": {
-    "message": "New Chat"
+    "message": "گفتگوی جدید"
   },
   "chatSidebar_collapse": {
-    "message": "Collapse sidebar"
+    "message": "بستن نوار کناری"
   },
   "chatSidebar_expand": {
-    "message": "Expand sidebar"
+    "message": "گسترش نوار کناری"
   },
   "chatSidebar_search": {
-    "message": "Search chats..."
+    "message": "جستجوی گفتگوها..."
   },
   "chatSidebar_ingest": {
-    "message": "Ingest Page"
+    "message": "وارد کردن صفحه"
   },
   "chatSidebar_media": {
-    "message": "Media"
+    "message": "رسانه‌ها"
   },
   "chatSidebar_notes": {
-    "message": "Notes"
+    "message": "یادداشت‌ها"
   },
   "chatSidebar_settings": {
-    "message": "Settings"
+    "message": "تنظیمات"
   },
   "chatSidebar_loadError": {
-    "message": "Failed to load chats"
+    "message": "بارگذاری گفتگوها ناموفق بود"
   },
   "chatSidebar_localTab": {
-    "message": "Local"
+    "message": "محلی"
   },
   "chatSidebar_serverTab": {
     "message": "Server"
   },
   "chatSidebar_foldersTab": {
-    "message": "Folders"
+    "message": "پوشه‌ها"
   },
   "chatSidebar_tabs_local": {
-    "message": "Local"
+    "message": "محلی"
   },
   "chatSidebar_tabs_server": {
     "message": "Server"
   },
   "chatSidebar_tabs_folders": {
-    "message": "Folders"
+    "message": "پوشه‌ها"
   },
   "chatSidebar_noServerChats": {
-    "message": "No server chats yet"
+    "message": "هنوز گفتگویی در سرور نیست"
   },
   "chatSidebar_foldersRequireConnection": {
-    "message": "Folders require a server connection"
+    "message": "پوشه‌ها به اتصال به سرور نیاز دارند"
   },
   "option.more.copy.canonicalMarkdown": {
     "message": "Copy canonical transcript"

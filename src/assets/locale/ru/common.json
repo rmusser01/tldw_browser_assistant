@@ -334,42 +334,42 @@
   },
   "featureHints": {
     "knowledge": {
-      "title": "Search your knowledge",
-      "description": "Open the knowledge search panel to find snippets and insert them into your chat."
+      "title": "Поиск по знаниям",
+      "description": "Откройте панель поиска знаний, чтобы найти фрагменты и вставить их в чат."
     },
     "moreTools": {
-      "title": "More tools available",
-      "description": "Access vision mode, image upload, quick ingest, and the full app."
+      "title": "Дополнительные инструменты",
+      "description": "Режим зрения, загрузка изображений, быстрый импорт и полное приложение."
     },
     "commandPalette": {
-      "title": "Quick commands",
-      "description": "Press {{shortcut}} to search commands, settings, and more."
+      "title": "Быстрые команды",
+      "description": "Нажмите {{shortcut}} для поиска команд, настроек и прочего."
     },
     "modelSettings": {
-      "title": "Adjust model parameters",
-      "description": "Fine-tune temperature, context length, and other model settings."
+      "title": "Настройка параметров модели",
+      "description": "Настройте температуру, длину контекста и другие параметры модели."
     }
   },
   "chatSidebar": {
-    "title": "Chats",
-    "newChat": "New Chat",
-    "collapse": "Collapse sidebar",
-    "expand": "Expand sidebar",
-    "search": "Search chats...",
-    "ingest": "Ingest Page",
-    "media": "Media",
-    "notes": "Notes",
-    "settings": "Settings",
-    "loadError": "Failed to load chats",
-    "localTab": "Local",
-    "serverTab": "Server",
-    "foldersTab": "Folders",
+    "title": "Чаты",
+    "newChat": "Новый чат",
+    "collapse": "Свернуть боковую панель",
+    "expand": "Развернуть боковую панель",
+    "search": "Поиск чатов...",
+    "ingest": "Загрузить страницу",
+    "media": "Медиа",
+    "notes": "Заметки",
+    "settings": "Настройки",
+    "loadError": "Не удалось загрузить чаты",
+    "localTab": "Локальные",
+    "serverTab": "Сервер",
+    "foldersTab": "Папки",
     "tabs": {
-      "local": "Local",
-      "server": "Server",
-      "folders": "Folders"
+      "local": "Локальные",
+      "server": "Сервер",
+      "folders": "Папки"
     },
-    "noServerChats": "No server chats yet",
-    "foldersRequireConnection": "Folders require a server connection"
+    "noServerChats": "Пока нет серверных чатов",
+    "foldersRequireConnection": "Для папок требуется подключение к серверу"
   }
 }

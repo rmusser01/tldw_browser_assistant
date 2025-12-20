@@ -622,82 +622,82 @@
     "message": "Changes model for next message"
   },
   "featureHints_knowledge_title": {
-    "message": "Search your knowledge"
+    "message": "Sök i din kunskap"
   },
   "featureHints_knowledge_description": {
-    "message": "Open the knowledge search panel to find snippets and insert them into your chat."
+    "message": "Öppna kunskapssökpanelen för att hitta utdrag och infoga dem i din chatt."
   },
   "featureHints_moreTools_title": {
-    "message": "More tools available"
+    "message": "Fler verktyg tillgängliga"
   },
   "featureHints_moreTools_description": {
-    "message": "Access vision mode, image upload, quick ingest, and the full app."
+    "message": "Använd synläge, bilduppladdning, snabbimport och hela appen."
   },
   "featureHints_commandPalette_title": {
-    "message": "Quick commands"
+    "message": "Snabbkommandon"
   },
   "featureHints_commandPalette_description": {
-    "message": "Press {{shortcut}} to search commands, settings, and more."
+    "message": "Tryck på {{shortcut}} för att söka kommandon, inställningar och mer."
   },
   "featureHints_modelSettings_title": {
-    "message": "Adjust model parameters"
+    "message": "Justera modellparametrar"
   },
   "featureHints_modelSettings_description": {
-    "message": "Fine-tune temperature, context length, and other model settings."
+    "message": "Finjustera temperatur, kontextlängd och andra modellinställningar."
   },
   "chatSidebar_title": {
-    "message": "Chats"
+    "message": "Chattar"
   },
   "chatSidebar_newChat": {
-    "message": "New Chat"
+    "message": "Ny chatt"
   },
   "chatSidebar_collapse": {
-    "message": "Collapse sidebar"
+    "message": "Fäll ihop sidofält"
   },
   "chatSidebar_expand": {
-    "message": "Expand sidebar"
+    "message": "Expandera sidofält"
   },
   "chatSidebar_search": {
-    "message": "Search chats..."
+    "message": "Sök chattar..."
   },
   "chatSidebar_ingest": {
-    "message": "Ingest Page"
+    "message": "Importera sida"
   },
   "chatSidebar_media": {
     "message": "Media"
   },
   "chatSidebar_notes": {
-    "message": "Notes"
+    "message": "Anteckningar"
   },
   "chatSidebar_settings": {
-    "message": "Settings"
+    "message": "Inställningar"
   },
   "chatSidebar_loadError": {
-    "message": "Failed to load chats"
+    "message": "Kunde inte läsa in chattar"
   },
   "chatSidebar_localTab": {
-    "message": "Local"
+    "message": "Lokal"
   },
   "chatSidebar_serverTab": {
     "message": "Server"
   },
   "chatSidebar_foldersTab": {
-    "message": "Folders"
+    "message": "Mappar"
   },
   "chatSidebar_tabs_local": {
-    "message": "Local"
+    "message": "Lokal"
   },
   "chatSidebar_tabs_server": {
     "message": "Server"
   },
   "chatSidebar_tabs_folders": {
-    "message": "Folders"
+    "message": "Mappar"
   },
   "chatSidebar_noServerChats": {
-    "message": "No server chats yet"
+    "message": "Inga serverchattar ännu"
   },
   "chatSidebar_foldersRequireConnection": {
-    "message": "Folders require a server connection"
+    "message": "Mappar kräver en serveranslutning"
   },
   "option.more.copy.canonicalMarkdown": {
     "message": "Copy canonical transcript"

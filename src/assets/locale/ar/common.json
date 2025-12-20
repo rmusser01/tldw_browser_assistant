@@ -334,42 +334,42 @@
   },
   "featureHints": {
     "knowledge": {
-      "title": "Search your knowledge",
-      "description": "Open the knowledge search panel to find snippets and insert them into your chat."
+      "title": "ابحث في معرفتك",
+      "description": "افتح لوحة البحث في المعرفة للعثور على مقتطفات وإدراجها في محادثتك."
     },
     "moreTools": {
-      "title": "More tools available",
-      "description": "Access vision mode, image upload, quick ingest, and the full app."
+      "title": "المزيد من الأدوات متاحة",
+      "description": "يمكنك الوصول إلى وضع الرؤية ورفع الصور والإدخال السريع والتطبيق الكامل."
     },
     "commandPalette": {
-      "title": "Quick commands",
-      "description": "Press {{shortcut}} to search commands, settings, and more."
+      "title": "أوامر سريعة",
+      "description": "اضغط {{shortcut}} للبحث عن الأوامر والإعدادات والمزيد."
     },
     "modelSettings": {
-      "title": "Adjust model parameters",
-      "description": "Fine-tune temperature, context length, and other model settings."
+      "title": "اضبط معلمات النموذج",
+      "description": "اضبط بدقة درجة الحرارة وطول السياق وإعدادات النموذج الأخرى."
     }
   },
   "chatSidebar": {
-    "title": "Chats",
-    "newChat": "New Chat",
-    "collapse": "Collapse sidebar",
-    "expand": "Expand sidebar",
-    "search": "Search chats...",
-    "ingest": "Ingest Page",
-    "media": "Media",
-    "notes": "Notes",
-    "settings": "Settings",
-    "loadError": "Failed to load chats",
-    "localTab": "Local",
-    "serverTab": "Server",
-    "foldersTab": "Folders",
+    "title": "المحادثات",
+    "newChat": "محادثة جديدة",
+    "collapse": "طي الشريط الجانبي",
+    "expand": "توسيع الشريط الجانبي",
+    "search": "ابحث في المحادثات...",
+    "ingest": "إدخال الصفحة",
+    "media": "الوسائط",
+    "notes": "الملاحظات",
+    "settings": "الإعدادات",
+    "loadError": "فشل تحميل المحادثات",
+    "localTab": "محلي",
+    "serverTab": "الخادم",
+    "foldersTab": "المجلدات",
     "tabs": {
-      "local": "Local",
-      "server": "Server",
-      "folders": "Folders"
+      "local": "محلي",
+      "server": "الخادم",
+      "folders": "المجلدات"
     },
-    "noServerChats": "No server chats yet",
-    "foldersRequireConnection": "Folders require a server connection"
+    "noServerChats": "لا توجد محادثات خادم بعد",
+    "foldersRequireConnection": "تتطلب المجلدات اتصالاً بالخادم"
   }
 }

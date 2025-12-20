@@ -495,61 +495,61 @@
     "message": "Changes model for next message"
   },
   "featureHints_knowledge_title": {
-    "message": "Search your knowledge"
+    "message": "Пошук у вашій базі знань"
   },
   "featureHints_knowledge_description": {
-    "message": "Open the knowledge search panel to find snippets and insert them into your chat."
+    "message": "Відкрийте панель пошуку бази знань, щоб знайти фрагменти й вставити їх у чат."
   },
   "featureHints_moreTools_title": {
-    "message": "More tools available"
+    "message": "Доступно більше інструментів"
   },
   "featureHints_moreTools_description": {
-    "message": "Access vision mode, image upload, quick ingest, and the full app."
+    "message": "Отримайте доступ до режиму аналізу зображень, завантаження зображень, швидкого імпорту та повної версії застосунку."
   },
   "featureHints_commandPalette_title": {
-    "message": "Quick commands"
+    "message": "Швидкі команди"
   },
   "featureHints_commandPalette_description": {
-    "message": "Press {{shortcut}} to search commands, settings, and more."
+    "message": "Натисніть {{shortcut}}, щоб шукати команди, налаштування та інше."
   },
   "featureHints_modelSettings_title": {
-    "message": "Adjust model parameters"
+    "message": "Налаштувати параметри моделі"
   },
   "featureHints_modelSettings_description": {
-    "message": "Fine-tune temperature, context length, and other model settings."
+    "message": "Точно налаштуйте температуру, довжину контексту та інші параметри моделі."
   },
   "chatSidebar_title": {
-    "message": "Chats"
+    "message": "Чати"
   },
   "chatSidebar_newChat": {
-    "message": "New Chat"
+    "message": "Новий чат"
   },
   "chatSidebar_collapse": {
-    "message": "Collapse sidebar"
+    "message": "Згорнути бічну панель"
   },
   "chatSidebar_expand": {
-    "message": "Expand sidebar"
+    "message": "Розгорнути бічну панель"
   },
   "chatSidebar_search": {
-    "message": "Search chats..."
+    "message": "Пошук чатів..."
   },
   "chatSidebar_ingest": {
-    "message": "Ingest Page"
+    "message": "Імпортувати сторінку"
   },
   "chatSidebar_media": {
-    "message": "Media"
+    "message": "Медіа"
   },
   "chatSidebar_notes": {
-    "message": "Notes"
+    "message": "Нотатки"
   },
   "chatSidebar_settings": {
-    "message": "Settings"
+    "message": "Налаштування"
   },
   "chatSidebar_loadError": {
-    "message": "Failed to load chats"
+    "message": "Не вдалося завантажити чати"
   },
   "chatSidebar_localTab": {
-    "message": "Local"
+    "message": "Локально"
   },
   "chatSidebar_serverTab": {
     "message": "Server"
@@ -558,7 +558,7 @@
     "message": "Folders"
   },
   "chatSidebar_tabs_local": {
-    "message": "Local"
+    "message": "Локально"
   },
   "chatSidebar_tabs_server": {
     "message": "Server"
@@ -567,15 +567,117 @@
     "message": "Folders"
   },
   "chatSidebar_noServerChats": {
-    "message": "No server chats yet"
+    "message": "Поки що немає чатів на сервері"
   },
   "chatSidebar_foldersRequireConnection": {
-    "message": "Folders require a server connection"
+    "message": "Папки потребують підключення до сервера"
+  },
+  "connectionBanner_connecting": {
+    "message": "Підключення до вашого сервера tldw...",
+    "description": "Connection banner status shown while connecting to the server."
+  },
+  "connectionBanner_authErrorTitle": {
+    "message": "Потрібна увага до API-ключа",
+    "description": "Connection banner title shown when the API key is missing or invalid."
+  },
+  "connectionBanner_authErrorBody": {
+    "message": "Сервер доступний, але API-ключ неправильний або відсутній.",
+    "description": "Connection banner body shown when the API key is missing or invalid."
+  },
+  "connectionBanner_unreachableTitle": {
+    "message": "Не вдається підключитися до сервера tldw",
+    "description": "Connection banner title shown when the server cannot be reached."
+  },
+  "connectionBanner_unreachableBody": {
+    "message": "Перевірте, що сервер запущено та доступний.",
+    "description": "Connection banner body shown when the server cannot be reached."
+  },
+  "connectionBanner_noUrlBody": {
+    "message": "Додайте URL сервера в Налаштуваннях, щоб почати.",
+    "description": "Connection banner body shown when no server URL is configured."
+  },
+  "connectionBanner_disconnectedTitle": {
+    "message": "Немає підключення до сервера tldw",
+    "description": "Connection banner title shown when not connected to the server."
+  },
+  "connectionBanner_disconnectedBody": {
+    "message": "Відкрийте Налаштування, щоб налаштувати підключення.",
+    "description": "Connection banner body shown when not connected to the server."
+  },
+  "connectionBanner_setupTitle": {
+    "message": "Завершіть налаштування, щоб почати чат",
+    "description": "Connection banner title shown when setup is required."
+  },
+  "connectionBanner_setupBody": {
+    "message": "Завершіть майстер налаштування в Налаштуваннях, щоб підключитися.",
+    "description": "Connection banner body shown when setup is required."
+  },
+  "connectionBanner_openSettings": {
+    "message": "Відкрити Налаштування",
+    "description": "Connection banner button label to open Settings."
+  },
+  "temporaryBadge_title": {
+    "message": "Тимчасовий чат",
+    "description": "Title for the temporary chat badge."
+  },
+  "temporaryBadge_label": {
+    "message": "Temp",
+    "description": "Short label shown for temporary chat."
+  },
+  "temporaryBadge_description": {
+    "message": "Цей чат не буде збережено. Повідомлення буде очищено під час закриття або початку нового чату.",
+    "description": "Description explaining that temporary chats are not saved."
+  },
+  "temporaryBadge_clickHint": {
+    "message": "Натисніть, щоб вимкнути",
+    "description": "Hint shown when the temporary chat badge can be clicked to disable."
+  },
+  "temporaryBadge_ariaLabel": {
+    "message": "Режим тимчасового чату активний. Натисніть, щоб перемкнути.",
+    "description": "ARIA label for the temporary chat toggle."
+  },
+  "temporaryBadge_indicatorTooltip": {
+    "message": "Повідомлення в цьому чаті не буде збережено",
+    "description": "Tooltip shown on the temporary chat indicator."
+  },
+  "temporaryBadge_indicatorAria": {
+    "message": "Тимчасовий чат",
+    "description": "ARIA label for the temporary chat indicator."
+  },
+  "saveStatus_ephemeral": {
+    "message": "Тимчасовий: не зберігається, очищується при закритті",
+    "description": "Save status label for ephemeral chats."
+  },
+  "saveStatus_local": {
+    "message": "Збережено локально в цьому браузері",
+    "description": "Save status label for chats saved locally."
+  },
+  "saveStatus_server": {
+    "message": "Збережено на сервері",
+    "description": "Save status label for chats saved on the server."
+  },
+  "saveStatus_saveFailed": {
+    "message": "Не вдалося зберегти чат на сервері",
+    "description": "Save status message shown when saving to the server fails."
+  },
+  "saveStatus_saveFailedDescription": {
+    "message": "Тепер чат зберігається лише локально. Перевірте з'єднання та спробуйте ще раз.",
+    "description": "Save status description shown when saving to the server fails."
+  },
+  "rag_hint_message": {
+    "message": "Шукайте у своїй базі знань і вставляйте результати у повідомлення.",
+    "description": "Hint message encouraging the user to search knowledge and insert results into the chat."
+  },
+  "rag_hint_dismiss": {
+    "message": "Закрити",
+    "description": "Button label to dismiss the knowledge search hint."
   },
   "option.more.copy.canonicalMarkdown": {
-    "message": "Copy canonical transcript"
+    "message": "Копіювати канонічну транскрипцію",
+    "description": "Button label to copy the canonical transcript."
   },
   "option.more.download.canonicalMarkdown": {
-    "message": "Canonical transcript (Markdown)"
+    "message": "Канонічна транскрипція (Markdown)",
+    "description": "Menu label to download the canonical transcript as Markdown."
   }
 }

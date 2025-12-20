@@ -334,42 +334,42 @@
   },
   "featureHints": {
     "knowledge": {
-      "title": "Search your knowledge",
-      "description": "Open the knowledge search panel to find snippets and insert them into your chat."
+      "title": "در دانش خود جستجو کنید",
+      "description": "پنل جستجوی دانش را باز کنید تا تکه‌ها را پیدا کرده و در چت خود درج کنید."
     },
     "moreTools": {
-      "title": "More tools available",
-      "description": "Access vision mode, image upload, quick ingest, and the full app."
+      "title": "ابزارهای بیشتری در دسترس است",
+      "description": "به حالت بینایی، بارگذاری تصویر، وارد کردن سریع و اپ کامل دسترسی پیدا کنید."
     },
     "commandPalette": {
-      "title": "Quick commands",
-      "description": "Press {{shortcut}} to search commands, settings, and more."
+      "title": "فرمان‌های سریع",
+      "description": "برای جستجو در فرمان‌ها، تنظیمات و موارد دیگر {{shortcut}} را فشار دهید."
     },
     "modelSettings": {
-      "title": "Adjust model parameters",
-      "description": "Fine-tune temperature, context length, and other model settings."
+      "title": "تنظیم پارامترهای مدل",
+      "description": "دما، طول زمینه و سایر تنظیمات مدل را دقیق تنظیم کنید."
     }
   },
   "chatSidebar": {
-    "title": "Chats",
-    "newChat": "New Chat",
-    "collapse": "Collapse sidebar",
-    "expand": "Expand sidebar",
-    "search": "Search chats...",
-    "ingest": "Ingest Page",
-    "media": "Media",
-    "notes": "Notes",
-    "settings": "Settings",
-    "loadError": "Failed to load chats",
-    "localTab": "Local",
-    "serverTab": "Server",
-    "foldersTab": "Folders",
+    "title": "گفتگوها",
+    "newChat": "گفتگوی جدید",
+    "collapse": "بستن نوار کناری",
+    "expand": "گسترش نوار کناری",
+    "search": "جستجوی گفتگوها...",
+    "ingest": "وارد کردن صفحه",
+    "media": "رسانه‌ها",
+    "notes": "یادداشت‌ها",
+    "settings": "تنظیمات",
+    "loadError": "بارگذاری گفتگوها ناموفق بود",
+    "localTab": "محلی",
+    "serverTab": "سرور",
+    "foldersTab": "پوشه‌ها",
     "tabs": {
-      "local": "Local",
-      "server": "Server",
-      "folders": "Folders"
+      "local": "محلی",
+      "server": "سرور",
+      "folders": "پوشه‌ها"
     },
-    "noServerChats": "No server chats yet",
-    "foldersRequireConnection": "Folders require a server connection"
+    "noServerChats": "هنوز گفتگویی در سرور نیست",
+    "foldersRequireConnection": "پوشه‌ها به اتصال به سرور نیاز دارند"
   }
 }

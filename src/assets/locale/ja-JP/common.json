@@ -334,42 +334,42 @@
   },
   "featureHints": {
     "knowledge": {
-      "title": "Search your knowledge",
-      "description": "Open the knowledge search panel to find snippets and insert them into your chat."
+      "title": "ナレッジを検索",
+      "description": "ナレッジ検索パネルを開き、スニペットを見つけてチャットに挿入します。"
     },
     "moreTools": {
-      "title": "More tools available",
-      "description": "Access vision mode, image upload, quick ingest, and the full app."
+      "title": "さらに多くのツール",
+      "description": "ビジョンモード、画像アップロード、クイック取り込み、フルアプリにアクセスできます。"
     },
     "commandPalette": {
-      "title": "Quick commands",
-      "description": "Press {{shortcut}} to search commands, settings, and more."
+      "title": "クイックコマンド",
+      "description": "{{shortcut}} を押してコマンドや設定などを検索します。"
     },
     "modelSettings": {
-      "title": "Adjust model parameters",
-      "description": "Fine-tune temperature, context length, and other model settings."
+      "title": "モデルパラメータを調整",
+      "description": "温度、コンテキスト長などのモデル設定を微調整します。"
     }
   },
   "chatSidebar": {
-    "title": "Chats",
-    "newChat": "New Chat",
-    "collapse": "Collapse sidebar",
-    "expand": "Expand sidebar",
-    "search": "Search chats...",
-    "ingest": "Ingest Page",
-    "media": "Media",
-    "notes": "Notes",
-    "settings": "Settings",
-    "loadError": "Failed to load chats",
-    "localTab": "Local",
-    "serverTab": "Server",
-    "foldersTab": "Folders",
+    "title": "チャット",
+    "newChat": "新しいチャット",
+    "collapse": "サイドバーを折りたたむ",
+    "expand": "サイドバーを展開",
+    "search": "チャットを検索...",
+    "ingest": "ページを取り込む",
+    "media": "メディア",
+    "notes": "ノート",
+    "settings": "設定",
+    "loadError": "チャットの読み込みに失敗しました",
+    "localTab": "ローカル",
+    "serverTab": "サーバー",
+    "foldersTab": "フォルダー",
     "tabs": {
-      "local": "Local",
-      "server": "Server",
-      "folders": "Folders"
+      "local": "ローカル",
+      "server": "サーバー",
+      "folders": "フォルダー"
     },
-    "noServerChats": "No server chats yet",
-    "foldersRequireConnection": "Folders require a server connection"
+    "noServerChats": "サーバーチャットはまだありません",
+    "foldersRequireConnection": "フォルダーにはサーバー接続が必要です"
   }
 }

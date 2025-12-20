@@ -331,42 +331,42 @@
   },
   "featureHints": {
     "knowledge": {
-      "title": "Search your knowledge",
-      "description": "Open the knowledge search panel to find snippets and insert them into your chat."
+      "title": "搜尋你的知識",
+      "description": "開啟知識搜尋面板，尋找片段並插入到聊天中。"
     },
     "moreTools": {
-      "title": "More tools available",
-      "description": "Access vision mode, image upload, quick ingest, and the full app."
+      "title": "更多工具可用",
+      "description": "使用視覺模式、圖片上傳、快速匯入和完整應用程式。"
     },
     "commandPalette": {
-      "title": "Quick commands",
-      "description": "Press {{shortcut}} to search commands, settings, and more."
+      "title": "快速指令",
+      "description": "按下 {{shortcut}} 搜尋指令、設定等。"
     },
     "modelSettings": {
-      "title": "Adjust model parameters",
-      "description": "Fine-tune temperature, context length, and other model settings."
+      "title": "調整模型參數",
+      "description": "微調溫度、上下文長度和其他模型設定。"
     }
   },
   "chatSidebar": {
-    "title": "Chats",
-    "newChat": "New Chat",
-    "collapse": "Collapse sidebar",
-    "expand": "Expand sidebar",
-    "search": "Search chats...",
-    "ingest": "Ingest Page",
-    "media": "Media",
-    "notes": "Notes",
-    "settings": "Settings",
-    "loadError": "Failed to load chats",
-    "localTab": "Local",
-    "serverTab": "Server",
-    "foldersTab": "Folders",
+    "title": "聊天",
+    "newChat": "新聊天",
+    "collapse": "收合側邊欄",
+    "expand": "展開側邊欄",
+    "search": "搜尋聊天...",
+    "ingest": "匯入頁面",
+    "media": "媒體",
+    "notes": "筆記",
+    "settings": "設定",
+    "loadError": "無法載入聊天",
+    "localTab": "本機",
+    "serverTab": "伺服器",
+    "foldersTab": "資料夾",
     "tabs": {
-      "local": "Local",
-      "server": "Server",
-      "folders": "Folders"
+      "local": "本機",
+      "server": "伺服器",
+      "folders": "資料夾"
     },
-    "noServerChats": "No server chats yet",
-    "foldersRequireConnection": "Folders require a server connection"
+    "noServerChats": "尚無伺服器聊天",
+    "foldersRequireConnection": "資料夾需要伺服器連線"
   }
 }

@@ -334,42 +334,42 @@
   },
   "featureHints": {
     "knowledge": {
-      "title": "Search your knowledge",
-      "description": "Open the knowledge search panel to find snippets and insert them into your chat."
+      "title": "Buscar en tu conocimiento",
+      "description": "Abre el panel de búsqueda de conocimiento para encontrar fragmentos e insertarlos en tu chat."
     },
     "moreTools": {
-      "title": "More tools available",
-      "description": "Access vision mode, image upload, quick ingest, and the full app."
+      "title": "Más herramientas disponibles",
+      "description": "Accede al modo visión, carga de imágenes, ingesta rápida y la aplicación completa."
     },
     "commandPalette": {
-      "title": "Quick commands",
-      "description": "Press {{shortcut}} to search commands, settings, and more."
+      "title": "Comandos rápidos",
+      "description": "Presiona {{shortcut}} para buscar comandos, configuración y más."
     },
     "modelSettings": {
-      "title": "Adjust model parameters",
-      "description": "Fine-tune temperature, context length, and other model settings."
+      "title": "Ajustar parámetros del modelo",
+      "description": "Ajusta la temperatura, longitud del contexto y otras configuraciones del modelo."
     }
   },
   "chatSidebar": {
     "title": "Chats",
-    "newChat": "New Chat",
-    "collapse": "Collapse sidebar",
-    "expand": "Expand sidebar",
-    "search": "Search chats...",
-    "ingest": "Ingest Page",
-    "media": "Media",
-    "notes": "Notes",
-    "settings": "Settings",
-    "loadError": "Failed to load chats",
+    "newChat": "Nuevo chat",
+    "collapse": "Contraer barra lateral",
+    "expand": "Expandir barra lateral",
+    "search": "Buscar chats...",
+    "ingest": "Ingerir página",
+    "media": "Medios",
+    "notes": "Notas",
+    "settings": "Configuración",
+    "loadError": "Error al cargar chats",
     "localTab": "Local",
-    "serverTab": "Server",
-    "foldersTab": "Folders",
+    "serverTab": "Servidor",
+    "foldersTab": "Carpetas",
     "tabs": {
       "local": "Local",
-      "server": "Server",
-      "folders": "Folders"
+      "server": "Servidor",
+      "folders": "Carpetas"
     },
-    "noServerChats": "No server chats yet",
-    "foldersRequireConnection": "Folders require a server connection"
+    "noServerChats": "Aún no hay chats del servidor",
+    "foldersRequireConnection": "Las carpetas requieren conexión al servidor"
   }
 }

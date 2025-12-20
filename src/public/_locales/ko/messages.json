@@ -622,28 +622,28 @@
     "message": "Show raw content"
   },
   "notesSearch_exportNoteSuccess": {
-    "message": "Exported ({{size}})"
+    "message": "내보냈습니다 ({{size}})"
   },
   "notesSearch_exportSuccess": {
-    "message": "Exported {{count}} notes ({{size}})"
+    "message": "{{count}}개의 노트를 내보냈습니다 ({{size}})"
   },
   "notesSearch_exportCsvSuccess": {
-    "message": "Exported {{count}} notes as CSV ({{size}})"
+    "message": "{{count}}개의 노트를 CSV로 내보냈습니다 ({{size}})"
   },
   "notesSearch_exportJsonSuccess": {
-    "message": "Exported {{count}} notes as JSON ({{size}})"
+    "message": "{{count}}개의 노트를 JSON으로 내보냈습니다 ({{size}})"
   },
   "exportNoteSuccess": {
-    "message": "Exported ({{size}})"
+    "message": "내보냈습니다 ({{size}})"
   },
   "exportSuccess": {
-    "message": "Exported {{count}} notes ({{size}})"
+    "message": "{{count}}개의 노트를 내보냈습니다 ({{size}})"
   },
   "exportCsvSuccess": {
-    "message": "Exported {{count}} notes as CSV ({{size}})"
+    "message": "{{count}}개의 노트를 CSV로 내보냈습니다 ({{size}})"
   },
   "exportJsonSuccess": {
-    "message": "Exported {{count}} notes as JSON ({{size}})"
+    "message": "{{count}}개의 노트를 JSON으로 내보냈습니다 ({{size}})"
   },
   "infoShort": {
     "message": "정보"
@@ -688,85 +688,85 @@
     "message": "Model"
   },
   "modelSelect_tooltip": {
-    "message": "Changes model for next message"
+    "message": "다음 메시지에 사용할 모델을 변경합니다"
   },
   "featureHints_knowledge_title": {
-    "message": "Search your knowledge"
+    "message": "내 지식 검색"
   },
   "featureHints_knowledge_description": {
-    "message": "Open the knowledge search panel to find snippets and insert them into your chat."
+    "message": "지식 검색 패널을 열어 스니펫을 찾고 채팅에 삽입합니다."
   },
   "featureHints_moreTools_title": {
-    "message": "More tools available"
+    "message": "더 많은 도구"
   },
   "featureHints_moreTools_description": {
-    "message": "Access vision mode, image upload, quick ingest, and the full app."
+    "message": "비전 모드, 이미지 업로드, 빠른 가져오기 및 전체 앱에 액세스합니다."
   },
   "featureHints_commandPalette_title": {
-    "message": "Quick commands"
+    "message": "빠른 명령"
   },
   "featureHints_commandPalette_description": {
-    "message": "Press {{shortcut}} to search commands, settings, and more."
+    "message": "{{shortcut}} 를 눌러 명령, 설정 등을 검색합니다."
   },
   "featureHints_modelSettings_title": {
-    "message": "Adjust model parameters"
+    "message": "모델 매개변수 조정"
   },
   "featureHints_modelSettings_description": {
-    "message": "Fine-tune temperature, context length, and other model settings."
+    "message": "온도, 컨텍스트 길이 등 모델 설정을 세부 조정합니다."
   },
   "chatSidebar_title": {
-    "message": "Chats"
+    "message": "채팅"
   },
   "chatSidebar_newChat": {
-    "message": "New Chat"
+    "message": "새 채팅"
   },
   "chatSidebar_collapse": {
-    "message": "Collapse sidebar"
+    "message": "사이드바 접기"
   },
   "chatSidebar_expand": {
-    "message": "Expand sidebar"
+    "message": "사이드바 펼치기"
   },
   "chatSidebar_search": {
-    "message": "Search chats..."
+    "message": "채팅 검색..."
   },
   "chatSidebar_ingest": {
-    "message": "Ingest Page"
+    "message": "페이지 가져오기"
   },
   "chatSidebar_media": {
-    "message": "Media"
+    "message": "미디어"
   },
   "chatSidebar_notes": {
-    "message": "Notes"
+    "message": "노트"
   },
   "chatSidebar_settings": {
-    "message": "Settings"
+    "message": "설정"
   },
   "chatSidebar_loadError": {
-    "message": "Failed to load chats"
+    "message": "채팅을 불러오지 못했습니다"
   },
   "chatSidebar_localTab": {
-    "message": "Local"
+    "message": "로컬"
   },
   "chatSidebar_serverTab": {
-    "message": "Server"
+    "message": "서버"
   },
   "chatSidebar_foldersTab": {
-    "message": "Folders"
+    "message": "폴더"
   },
   "chatSidebar_tabs_local": {
-    "message": "Local"
+    "message": "로컬"
   },
   "chatSidebar_tabs_server": {
-    "message": "Server"
+    "message": "서버"
   },
   "chatSidebar_tabs_folders": {
-    "message": "Folders"
+    "message": "폴더"
   },
   "chatSidebar_noServerChats": {
-    "message": "No server chats yet"
+    "message": "서버 채팅이 아직 없습니다"
   },
   "chatSidebar_foldersRequireConnection": {
-    "message": "Folders require a server connection"
+    "message": "폴더를 사용하려면 서버 연결이 필요합니다"
   },
   "option.more.copy.canonicalMarkdown": {
     "message": "Copy canonical transcript"

@@ -420,19 +420,19 @@
     "message": "Exported {{count}} notes as CSV ({{size}})"
   },
   "notesSearch_exportJsonSuccess": {
-    "message": "Exported {{count}} notes as JSON ({{size}})"
+    "message": "تم تصدير {{count}} ملاحظة كملف JSON ({{size}})"
   },
   "exportNoteSuccess": {
-    "message": "Exported ({{size}})"
+    "message": "تم التصدير ({{size}})"
   },
   "exportSuccess": {
-    "message": "Exported {{count}} notes ({{size}})"
+    "message": "تم تصدير {{count}} ملاحظة ({{size}})"
   },
   "exportCsvSuccess": {
-    "message": "Exported {{count}} notes as CSV ({{size}})"
+    "message": "تم تصدير {{count}} ملاحظة كملف CSV ({{size}})"
   },
   "exportJsonSuccess": {
-    "message": "Exported {{count}} notes as JSON ({{size}})"
+    "message": "تم تصدير {{count}} ملاحظة كملف JSON ({{size}})"
   },
   "infoShort": {
     "message": "معلومات"
@@ -480,82 +480,82 @@
     "message": "Changes model for next message"
   },
   "featureHints_knowledge_title": {
-    "message": "Search your knowledge"
+    "message": "ابحث في معرفتك"
   },
   "featureHints_knowledge_description": {
-    "message": "Open the knowledge search panel to find snippets and insert them into your chat."
+    "message": "افتح لوحة البحث في المعرفة للعثور على مقتطفات وإدراجها في محادثتك."
   },
   "featureHints_moreTools_title": {
-    "message": "More tools available"
+    "message": "المزيد من الأدوات متاحة"
   },
   "featureHints_moreTools_description": {
-    "message": "Access vision mode, image upload, quick ingest, and the full app."
+    "message": "يمكنك الوصول إلى وضع الرؤية ورفع الصور والإدخال السريع والتطبيق الكامل."
   },
   "featureHints_commandPalette_title": {
-    "message": "Quick commands"
+    "message": "أوامر سريعة"
   },
   "featureHints_commandPalette_description": {
-    "message": "Press {{shortcut}} to search commands, settings, and more."
+    "message": "اضغط {{shortcut}} للبحث عن الأوامر والإعدادات والمزيد."
   },
   "featureHints_modelSettings_title": {
-    "message": "Adjust model parameters"
+    "message": "اضبط معلمات النموذج"
   },
   "featureHints_modelSettings_description": {
-    "message": "Fine-tune temperature, context length, and other model settings."
+    "message": "اضبط بدقة درجة الحرارة وطول السياق وإعدادات النموذج الأخرى."
   },
   "chatSidebar_title": {
-    "message": "Chats"
+    "message": "المحادثات"
   },
   "chatSidebar_newChat": {
-    "message": "New Chat"
+    "message": "محادثة جديدة"
   },
   "chatSidebar_collapse": {
-    "message": "Collapse sidebar"
+    "message": "طي الشريط الجانبي"
   },
   "chatSidebar_expand": {
-    "message": "Expand sidebar"
+    "message": "توسيع الشريط الجانبي"
   },
   "chatSidebar_search": {
-    "message": "Search chats..."
+    "message": "ابحث في المحادثات..."
   },
   "chatSidebar_ingest": {
-    "message": "Ingest Page"
+    "message": "إدخال الصفحة"
   },
   "chatSidebar_media": {
-    "message": "Media"
+    "message": "الوسائط"
   },
   "chatSidebar_notes": {
-    "message": "Notes"
+    "message": "الملاحظات"
   },
   "chatSidebar_settings": {
-    "message": "Settings"
+    "message": "الإعدادات"
   },
   "chatSidebar_loadError": {
-    "message": "Failed to load chats"
+    "message": "فشل تحميل المحادثات"
   },
   "chatSidebar_localTab": {
-    "message": "Local"
+    "message": "محلي"
   },
   "chatSidebar_serverTab": {
-    "message": "Server"
+    "message": "الخادم"
   },
   "chatSidebar_foldersTab": {
-    "message": "Folders"
+    "message": "المجلدات"
   },
   "chatSidebar_tabs_local": {
-    "message": "Local"
+    "message": "محلي"
   },
   "chatSidebar_tabs_server": {
-    "message": "Server"
+    "message": "الخادم"
   },
   "chatSidebar_tabs_folders": {
-    "message": "Folders"
+    "message": "المجلدات"
   },
   "chatSidebar_noServerChats": {
-    "message": "No server chats yet"
+    "message": "لا توجد محادثات خادم بعد"
   },
   "chatSidebar_foldersRequireConnection": {
-    "message": "Folders require a server connection"
+    "message": "تتطلب المجلدات اتصالاً بالخادم"
   },
   "option.more.copy.canonicalMarkdown": {
     "message": "Copy canonical transcript"

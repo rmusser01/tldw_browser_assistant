@@ -552,28 +552,28 @@
     "message": "Show raw content"
   },
   "notesSearch_exportNoteSuccess": {
-    "message": "Exported ({{size}})"
+    "message": "Exportado ({{size}})"
   },
   "notesSearch_exportSuccess": {
-    "message": "Exported {{count}} notes ({{size}})"
+    "message": "Exportadas {{count}} notas ({{size}})"
   },
   "notesSearch_exportCsvSuccess": {
-    "message": "Exported {{count}} notes as CSV ({{size}})"
+    "message": "Exportadas {{count}} notas como CSV ({{size}})"
   },
   "notesSearch_exportJsonSuccess": {
-    "message": "Exported {{count}} notes as JSON ({{size}})"
+    "message": "Exportadas {{count}} notas como JSON ({{size}})"
   },
   "exportNoteSuccess": {
-    "message": "Exported ({{size}})"
+    "message": "Exportado ({{size}})"
   },
   "exportSuccess": {
-    "message": "Exported {{count}} notes ({{size}})"
+    "message": "Exportadas {{count}} notas ({{size}})"
   },
   "exportCsvSuccess": {
-    "message": "Exported {{count}} notes as CSV ({{size}})"
+    "message": "Exportadas {{count}} notas como CSV ({{size}})"
   },
   "exportJsonSuccess": {
-    "message": "Exported {{count}} notes as JSON ({{size}})"
+    "message": "Exportadas {{count}} notas como JSON ({{size}})"
   },
   "infoShort": {
     "message": "Info"
@@ -621,82 +621,82 @@
     "message": "Changes model for next message"
   },
   "featureHints_knowledge_title": {
-    "message": "Search your knowledge"
+    "message": "Buscar en tu conocimiento"
   },
   "featureHints_knowledge_description": {
-    "message": "Open the knowledge search panel to find snippets and insert them into your chat."
+    "message": "Abre el panel de búsqueda de conocimiento para encontrar fragmentos e insertarlos en tu chat."
   },
   "featureHints_moreTools_title": {
-    "message": "More tools available"
+    "message": "Más herramientas disponibles"
   },
   "featureHints_moreTools_description": {
-    "message": "Access vision mode, image upload, quick ingest, and the full app."
+    "message": "Accede al modo visión, carga de imágenes, ingesta rápida y la aplicación completa."
   },
   "featureHints_commandPalette_title": {
-    "message": "Quick commands"
+    "message": "Comandos rápidos"
   },
   "featureHints_commandPalette_description": {
-    "message": "Press {{shortcut}} to search commands, settings, and more."
+    "message": "Presiona {{shortcut}} para buscar comandos, configuración y más."
   },
   "featureHints_modelSettings_title": {
-    "message": "Adjust model parameters"
+    "message": "Ajustar parámetros del modelo"
   },
   "featureHints_modelSettings_description": {
-    "message": "Fine-tune temperature, context length, and other model settings."
+    "message": "Ajusta la temperatura, longitud del contexto y otras configuraciones del modelo."
   },
   "chatSidebar_title": {
     "message": "Chats"
   },
   "chatSidebar_newChat": {
-    "message": "New Chat"
+    "message": "Nuevo chat"
   },
   "chatSidebar_collapse": {
-    "message": "Collapse sidebar"
+    "message": "Contraer barra lateral"
   },
   "chatSidebar_expand": {
-    "message": "Expand sidebar"
+    "message": "Expandir barra lateral"
   },
   "chatSidebar_search": {
-    "message": "Search chats..."
+    "message": "Buscar chats..."
   },
   "chatSidebar_ingest": {
-    "message": "Ingest Page"
+    "message": "Ingerir página"
   },
   "chatSidebar_media": {
-    "message": "Media"
+    "message": "Medios"
   },
   "chatSidebar_notes": {
-    "message": "Notes"
+    "message": "Notas"
   },
   "chatSidebar_settings": {
-    "message": "Settings"
+    "message": "Configuración"
   },
   "chatSidebar_loadError": {
-    "message": "Failed to load chats"
+    "message": "Error al cargar chats"
   },
   "chatSidebar_localTab": {
     "message": "Local"
   },
   "chatSidebar_serverTab": {
-    "message": "Server"
+    "message": "Servidor"
   },
   "chatSidebar_foldersTab": {
-    "message": "Folders"
+    "message": "Carpetas"
   },
   "chatSidebar_tabs_local": {
     "message": "Local"
   },
   "chatSidebar_tabs_server": {
-    "message": "Server"
+    "message": "Servidor"
   },
   "chatSidebar_tabs_folders": {
-    "message": "Folders"
+    "message": "Carpetas"
   },
   "chatSidebar_noServerChats": {
-    "message": "No server chats yet"
+    "message": "Aún no hay chats del servidor"
   },
   "chatSidebar_foldersRequireConnection": {
-    "message": "Folders require a server connection"
+    "message": "Las carpetas requieren conexión al servidor"
   },
   "option.more.copy.canonicalMarkdown": {
     "message": "Copy canonical transcript"

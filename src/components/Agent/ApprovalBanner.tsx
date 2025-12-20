@@ -343,7 +343,7 @@ export const ApprovalBanner: FC<ApprovalBannerProps> = ({
                       {approval.toolName}
                     </div>
                     <div className="text-xs text-gray-500 dark:text-gray-400 truncate">
-                      {formatApprovalArgs(approval)}
+                      {formatApprovalArgs(approval, t)}
                     </div>
                   </div>
 
@@ -395,18 +395,23 @@ export const ApprovalBanner: FC<ApprovalBannerProps> = ({
 /**
  * Format approval arguments for display
  */
-function formatApprovalArgs(approval: PendingApproval): string {
+function formatApprovalArgs(
+  approval: PendingApproval,
+  t: (key: string, fallback: string) => string
+): string {
   const args = approval.args ?? {}
 
   switch (approval.toolName) {
     case "fs.write":
       return String(args.path ?? "")
     case "fs.apply_patch":
-      return "Apply patch"
+      return t("applyPatch", "Apply patch")
     case "fs.mkdir":
       return String(args.path ?? "")
     case "fs.delete":
-      return `${args.path ?? ""}${args.recursive ? " (recursive)" : ""}`
+      return `${args.path ?? ""}${
+        args.recursive ? ` ${t("recursive", "(recursive)")}` : ""
+      }`
     case "git.add":
       return Array.isArray(args.paths) ? args.paths.join(", ") : ""
     case "git.commit":
@@ -419,7 +424,7 @@ function formatApprovalArgs(approval: PendingApproval): string {
       try {
         return JSON.stringify(args).substring(0, 50)
       } catch {
-        return "[Complex arguments]"
+        return t("complexArguments", "[Complex arguments]")
       }
   }
 }

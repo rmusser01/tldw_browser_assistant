@@ -669,82 +669,82 @@
     "message": "Changes model for next message"
   },
   "featureHints_knowledge_title": {
-    "message": "Search your knowledge"
+    "message": "Искать в вашей базе знаний"
   },
   "featureHints_knowledge_description": {
-    "message": "Open the knowledge search panel to find snippets and insert them into your chat."
+    "message": "Откройте панель поиска базы знаний, чтобы найти фрагменты и вставить их в чат."
   },
   "featureHints_moreTools_title": {
-    "message": "More tools available"
+    "message": "Доступно больше инструментов"
   },
   "featureHints_moreTools_description": {
-    "message": "Access vision mode, image upload, quick ingest, and the full app."
+    "message": "Откройте режим зрения, загрузку изображений, быстрый импорт и полное приложение."
   },
   "featureHints_commandPalette_title": {
-    "message": "Quick commands"
+    "message": "Быстрые команды"
   },
   "featureHints_commandPalette_description": {
-    "message": "Press {{shortcut}} to search commands, settings, and more."
+    "message": "Нажмите {{shortcut}}, чтобы искать команды, настройки и другое."
   },
   "featureHints_modelSettings_title": {
-    "message": "Adjust model parameters"
+    "message": "Настроить параметры модели"
   },
   "featureHints_modelSettings_description": {
-    "message": "Fine-tune temperature, context length, and other model settings."
+    "message": "Тонко настройте температуру, длину контекста и другие параметры модели."
   },
   "chatSidebar_title": {
-    "message": "Chats"
+    "message": "Чаты"
   },
   "chatSidebar_newChat": {
-    "message": "New Chat"
+    "message": "Новый чат"
   },
   "chatSidebar_collapse": {
-    "message": "Collapse sidebar"
+    "message": "Свернуть боковую панель"
   },
   "chatSidebar_expand": {
-    "message": "Expand sidebar"
+    "message": "Развернуть боковую панель"
   },
   "chatSidebar_search": {
-    "message": "Search chats..."
+    "message": "Поиск чатов..."
   },
   "chatSidebar_ingest": {
-    "message": "Ingest Page"
+    "message": "Импортировать страницу"
   },
   "chatSidebar_media": {
-    "message": "Media"
+    "message": "Медиа"
   },
   "chatSidebar_notes": {
-    "message": "Notes"
+    "message": "Заметки"
   },
   "chatSidebar_settings": {
-    "message": "Settings"
+    "message": "Настройки"
   },
   "chatSidebar_loadError": {
-    "message": "Failed to load chats"
+    "message": "Не удалось загрузить чаты"
   },
   "chatSidebar_localTab": {
-    "message": "Local"
+    "message": "Локальные"
   },
   "chatSidebar_serverTab": {
-    "message": "Server"
+    "message": "Сервер"
   },
   "chatSidebar_foldersTab": {
-    "message": "Folders"
+    "message": "Папки"
   },
   "chatSidebar_tabs_local": {
-    "message": "Local"
+    "message": "Локальные"
   },
   "chatSidebar_tabs_server": {
-    "message": "Server"
+    "message": "Сервер"
   },
   "chatSidebar_tabs_folders": {
-    "message": "Folders"
+    "message": "Папки"
   },
   "chatSidebar_noServerChats": {
-    "message": "No server chats yet"
+    "message": "Пока нет чатов на сервере"
   },
   "chatSidebar_foldersRequireConnection": {
-    "message": "Folders require a server connection"
+    "message": "Папки требуют подключения к серверу"
   },
   "option.more.copy.canonicalMarkdown": {
     "message": "Copy canonical transcript"

@@ -621,82 +621,82 @@
     "message": "Changes model for next message"
   },
   "featureHints_knowledge_title": {
-    "message": "Search your knowledge"
+    "message": "നിങ്ങളുടെ നോളെജ് തിരയുക"
   },
   "featureHints_knowledge_description": {
-    "message": "Open the knowledge search panel to find snippets and insert them into your chat."
+    "message": "നോളെജ് തിരച്ചിൽ പാനൽ തുറന്ന് സ്നിപ്പറ്റുകൾ കണ്ടെത്തി നിങ്ങളുടെ ചാറ്റിൽ ചേർക്കുക."
   },
   "featureHints_moreTools_title": {
-    "message": "More tools available"
+    "message": "കൂടുതൽ ഉപകരണങ്ങൾ ലഭ്യമാണ്"
   },
   "featureHints_moreTools_description": {
-    "message": "Access vision mode, image upload, quick ingest, and the full app."
+    "message": "വിഷൻ മോഡ്, ചിത്രം അപ്‌ലോഡ്, ക്വിക്ക് ഇൻജെസ്റ്റ്, പൂർണ്ണ ആപ്പ് എന്നിവയ്ക്ക് ആക്‌സസ് ചെയ്യുക."
   },
   "featureHints_commandPalette_title": {
-    "message": "Quick commands"
+    "message": "വേഗത്തിലുള്ള കമാൻഡുകൾ"
   },
   "featureHints_commandPalette_description": {
-    "message": "Press {{shortcut}} to search commands, settings, and more."
+    "message": "കമാൻഡുകളും സെറ്റിംഗുകളും തുടങ്ങിയവ തിരയാൻ {{shortcut}} അമർത്തുക."
   },
   "featureHints_modelSettings_title": {
-    "message": "Adjust model parameters"
+    "message": "മോഡൽ പാരാമീറ്ററുകൾ ക്രമീകരിക്കുക"
   },
   "featureHints_modelSettings_description": {
-    "message": "Fine-tune temperature, context length, and other model settings."
+    "message": "ടെംപറേച്ചർ, കോൺടെക്സ്റ്റ് നീളം, മറ്റ് മോഡൽ സെറ്റിംഗുകൾ എന്നിവ സൂക്ഷ്മമായി ക്രമീകരിക്കുക."
   },
   "chatSidebar_title": {
-    "message": "Chats"
+    "message": "ചാറ്റുകൾ"
   },
   "chatSidebar_newChat": {
-    "message": "New Chat"
+    "message": "പുതിയ ചാറ്റ്"
   },
   "chatSidebar_collapse": {
-    "message": "Collapse sidebar"
+    "message": "സൈഡ്ബാർ ചുരുക്കുക"
   },
   "chatSidebar_expand": {
-    "message": "Expand sidebar"
+    "message": "സൈഡ്ബാർ വിപുലീകരിക്കുക"
   },
   "chatSidebar_search": {
-    "message": "Search chats..."
+    "message": "ചാറ്റുകൾ തിരയുക..."
   },
   "chatSidebar_ingest": {
-    "message": "Ingest Page"
+    "message": "നിലവിലെ പേജ് ഇൻജെസ്റ്റ് ചെയ്യുക"
   },
   "chatSidebar_media": {
-    "message": "Media"
+    "message": "മീഡിയ"
   },
   "chatSidebar_notes": {
-    "message": "Notes"
+    "message": "നോട്ടുകൾ"
   },
   "chatSidebar_settings": {
-    "message": "Settings"
+    "message": "സെറ്റിംഗുകൾ"
   },
   "chatSidebar_loadError": {
-    "message": "Failed to load chats"
+    "message": "ചാറ്റുകൾ ലോഡ് ചെയ്യാൻ കഴിഞ്ഞില്ല"
   },
   "chatSidebar_localTab": {
-    "message": "Local"
+    "message": "ലോക്കൽ"
   },
   "chatSidebar_serverTab": {
-    "message": "Server"
+    "message": "സർവർ"
   },
   "chatSidebar_foldersTab": {
-    "message": "Folders"
+    "message": "ഫോൾഡറുകൾ"
   },
   "chatSidebar_tabs_local": {
-    "message": "Local"
+    "message": "ലോക്കൽ"
   },
   "chatSidebar_tabs_server": {
-    "message": "Server"
+    "message": "സർവർ"
   },
   "chatSidebar_tabs_folders": {
-    "message": "Folders"
+    "message": "ഫോൾഡറുകൾ"
   },
   "chatSidebar_noServerChats": {
-    "message": "No server chats yet"
+    "message": "സർവർ ചാറ്റുകൾ ഇതുവരെ ഇല്ല"
   },
   "chatSidebar_foldersRequireConnection": {
-    "message": "Folders require a server connection"
+    "message": "ഫോൾഡറുകൾക്ക് സർവർ കണക്ഷൻ ആവശ്യമുണ്ട്"
   },
   "option.more.copy.canonicalMarkdown": {
     "message": "Copy canonical transcript"

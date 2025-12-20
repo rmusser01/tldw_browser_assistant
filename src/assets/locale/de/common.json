@@ -334,42 +334,42 @@
   },
   "featureHints": {
     "knowledge": {
-      "title": "Search your knowledge",
-      "description": "Open the knowledge search panel to find snippets and insert them into your chat."
+      "title": "Durchsuche dein Wissen",
+      "description": "Öffne die Wissenssuche, um Ausschnitte zu finden und sie in deinen Chat einzufügen."
     },
     "moreTools": {
-      "title": "More tools available",
-      "description": "Access vision mode, image upload, quick ingest, and the full app."
+      "title": "Weitere Tools verfügbar",
+      "description": "Greife auf Vision-Modus, Bild-Upload, Schnellimport und die vollständige App zu."
     },
     "commandPalette": {
-      "title": "Quick commands",
-      "description": "Press {{shortcut}} to search commands, settings, and more."
+      "title": "Schnellbefehle",
+      "description": "Drücke {{shortcut}}, um Befehle, Einstellungen und mehr zu durchsuchen."
     },
     "modelSettings": {
-      "title": "Adjust model parameters",
-      "description": "Fine-tune temperature, context length, and other model settings."
+      "title": "Modellparameter anpassen",
+      "description": "Optimiere Temperatur, Kontextlänge und weitere Modelleinstellungen."
     }
   },
   "chatSidebar": {
     "title": "Chats",
-    "newChat": "New Chat",
-    "collapse": "Collapse sidebar",
-    "expand": "Expand sidebar",
-    "search": "Search chats...",
-    "ingest": "Ingest Page",
-    "media": "Media",
-    "notes": "Notes",
-    "settings": "Settings",
-    "loadError": "Failed to load chats",
-    "localTab": "Local",
+    "newChat": "Neuer Chat",
+    "collapse": "Seitenleiste einklappen",
+    "expand": "Seitenleiste ausklappen",
+    "search": "Chats durchsuchen...",
+    "ingest": "Seite erfassen",
+    "media": "Medien",
+    "notes": "Notizen",
+    "settings": "Einstellungen",
+    "loadError": "Chats konnten nicht geladen werden",
+    "localTab": "Lokal",
     "serverTab": "Server",
-    "foldersTab": "Folders",
+    "foldersTab": "Ordner",
     "tabs": {
-      "local": "Local",
+      "local": "Lokal",
       "server": "Server",
-      "folders": "Folders"
+      "folders": "Ordner"
     },
-    "noServerChats": "No server chats yet",
-    "foldersRequireConnection": "Folders require a server connection"
+    "noServerChats": "Noch keine Server-Chats",
+    "foldersRequireConnection": "Ordner erfordern eine Serververbindung"
   }
 }

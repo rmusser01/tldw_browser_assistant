@@ -613,28 +613,28 @@
     "message": "Show raw content"
   },
   "notesSearch_exportNoteSuccess": {
-    "message": "Exported ({{size}})"
+    "message": "エクスポートしました（{{size}}）"
   },
   "notesSearch_exportSuccess": {
-    "message": "Exported {{count}} notes ({{size}})"
+    "message": "{{count}} 件のノートをエクスポートしました（{{size}}）"
   },
   "notesSearch_exportCsvSuccess": {
-    "message": "Exported {{count}} notes as CSV ({{size}})"
+    "message": "{{count}} 件のノートをCSVとしてエクスポートしました（{{size}}）"
   },
   "notesSearch_exportJsonSuccess": {
-    "message": "Exported {{count}} notes as JSON ({{size}})"
+    "message": "{{count}} 件のノートをJSONとしてエクスポートしました（{{size}}）"
   },
   "exportNoteSuccess": {
-    "message": "Exported ({{size}})"
+    "message": "エクスポートしました（{{size}}）"
   },
   "exportSuccess": {
-    "message": "Exported {{count}} notes ({{size}})"
+    "message": "{{count}} 件のノートをエクスポートしました（{{size}}）"
   },
   "exportCsvSuccess": {
-    "message": "Exported {{count}} notes as CSV ({{size}})"
+    "message": "{{count}} 件のノートをCSVとしてエクスポートしました（{{size}}）"
   },
   "exportJsonSuccess": {
-    "message": "Exported {{count}} notes as JSON ({{size}})"
+    "message": "{{count}} 件のノートをJSONとしてエクスポートしました（{{size}}）"
   },
   "infoShort": {
     "message": "情報"
@@ -682,82 +682,82 @@
     "message": "Changes model for next message"
   },
   "featureHints_knowledge_title": {
-    "message": "Search your knowledge"
+    "message": "ナレッジを検索"
   },
   "featureHints_knowledge_description": {
-    "message": "Open the knowledge search panel to find snippets and insert them into your chat."
+    "message": "ナレッジ検索パネルを開き、スニペットを見つけてチャットに挿入します。"
   },
   "featureHints_moreTools_title": {
-    "message": "More tools available"
+    "message": "さらに多くのツール"
   },
   "featureHints_moreTools_description": {
-    "message": "Access vision mode, image upload, quick ingest, and the full app."
+    "message": "ビジョンモード、画像アップロード、クイック取り込み、フルアプリにアクセスできます。"
   },
   "featureHints_commandPalette_title": {
-    "message": "Quick commands"
+    "message": "クイックコマンド"
   },
   "featureHints_commandPalette_description": {
-    "message": "Press {{shortcut}} to search commands, settings, and more."
+    "message": "{{shortcut}} を押してコマンドや設定などを検索します。"
   },
   "featureHints_modelSettings_title": {
-    "message": "Adjust model parameters"
+    "message": "モデルパラメータを調整"
   },
   "featureHints_modelSettings_description": {
-    "message": "Fine-tune temperature, context length, and other model settings."
+    "message": "温度、コンテキスト長などのモデル設定を微調整します。"
   },
   "chatSidebar_title": {
-    "message": "Chats"
+    "message": "チャット"
   },
   "chatSidebar_newChat": {
-    "message": "New Chat"
+    "message": "新しいチャット"
   },
   "chatSidebar_collapse": {
-    "message": "Collapse sidebar"
+    "message": "サイドバーを折りたたむ"
   },
   "chatSidebar_expand": {
-    "message": "Expand sidebar"
+    "message": "サイドバーを展開"
   },
   "chatSidebar_search": {
-    "message": "Search chats..."
+    "message": "チャットを検索..."
   },
   "chatSidebar_ingest": {
-    "message": "Ingest Page"
+    "message": "ページを取り込む"
   },
   "chatSidebar_media": {
-    "message": "Media"
+    "message": "メディア"
   },
   "chatSidebar_notes": {
-    "message": "Notes"
+    "message": "ノート"
   },
   "chatSidebar_settings": {
-    "message": "Settings"
+    "message": "設定"
   },
   "chatSidebar_loadError": {
-    "message": "Failed to load chats"
+    "message": "チャットの読み込みに失敗しました"
   },
   "chatSidebar_localTab": {
-    "message": "Local"
+    "message": "ローカル"
   },
   "chatSidebar_serverTab": {
-    "message": "Server"
+    "message": "サーバー"
   },
   "chatSidebar_foldersTab": {
-    "message": "Folders"
+    "message": "フォルダー"
   },
   "chatSidebar_tabs_local": {
-    "message": "Local"
+    "message": "ローカル"
   },
   "chatSidebar_tabs_server": {
-    "message": "Server"
+    "message": "サーバー"
   },
   "chatSidebar_tabs_folders": {
-    "message": "Folders"
+    "message": "フォルダー"
   },
   "chatSidebar_noServerChats": {
-    "message": "No server chats yet"
+    "message": "サーバーチャットはまだありません"
   },
   "chatSidebar_foldersRequireConnection": {
-    "message": "Folders require a server connection"
+    "message": "フォルダーにはサーバー接続が必要です"
   },
   "option.more.copy.canonicalMarkdown": {
     "message": "Copy canonical transcript"

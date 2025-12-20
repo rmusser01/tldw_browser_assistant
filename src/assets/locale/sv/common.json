@@ -334,42 +334,42 @@
   },
   "featureHints": {
     "knowledge": {
-      "title": "Search your knowledge",
-      "description": "Open the knowledge search panel to find snippets and insert them into your chat."
+      "title": "Sök i din kunskap",
+      "description": "Öppna kunskapssökpanelen för att hitta utdrag och infoga dem i din chatt."
     },
     "moreTools": {
-      "title": "More tools available",
-      "description": "Access vision mode, image upload, quick ingest, and the full app."
+      "title": "Fler verktyg tillgängliga",
+      "description": "Använd synläge, bilduppladdning, snabbimport och hela appen."
     },
     "commandPalette": {
-      "title": "Quick commands",
-      "description": "Press {{shortcut}} to search commands, settings, and more."
+      "title": "Snabbkommandon",
+      "description": "Tryck på {{shortcut}} för att söka kommandon, inställningar och mer."
     },
     "modelSettings": {
-      "title": "Adjust model parameters",
-      "description": "Fine-tune temperature, context length, and other model settings."
+      "title": "Justera modellparametrar",
+      "description": "Finjustera temperatur, kontextlängd och andra modellinställningar."
     }
   },
   "chatSidebar": {
-    "title": "Chats",
-    "newChat": "New Chat",
-    "collapse": "Collapse sidebar",
-    "expand": "Expand sidebar",
-    "search": "Search chats...",
-    "ingest": "Ingest Page",
+    "title": "Chattar",
+    "newChat": "Ny chatt",
+    "collapse": "Fäll ihop sidofält",
+    "expand": "Expandera sidofält",
+    "search": "Sök chattar...",
+    "ingest": "Importera sida",
     "media": "Media",
-    "notes": "Notes",
-    "settings": "Settings",
-    "loadError": "Failed to load chats",
-    "localTab": "Local",
+    "notes": "Anteckningar",
+    "settings": "Inställningar",
+    "loadError": "Kunde inte läsa in chattar",
+    "localTab": "Lokal",
     "serverTab": "Server",
-    "foldersTab": "Folders",
+    "foldersTab": "Mappar",
     "tabs": {
-      "local": "Local",
+      "local": "Lokal",
       "server": "Server",
-      "folders": "Folders"
+      "folders": "Mappar"
     },
-    "noServerChats": "No server chats yet",
-    "foldersRequireConnection": "Folders require a server connection"
+    "noServerChats": "Inga serverchattar ännu",
+    "foldersRequireConnection": "Mappar kräver en serveranslutning"
   }
 }

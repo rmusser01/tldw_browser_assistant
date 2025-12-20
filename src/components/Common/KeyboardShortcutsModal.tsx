@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback, useRef } from "react"
+import React, { useState, useEffect, useCallback, useRef, useMemo } from "react"
 import { createPortal } from "react-dom"
 import { useTranslation } from "react-i18next"
 import { X, Keyboard, Command } from "lucide-react"
@@ -16,10 +16,34 @@ interface ShortcutGroup {
 export function KeyboardShortcutsModal() {
   const [open, setOpen] = useState(false)
   const openRef = useRef(false)
+  const modalRef = useRef<HTMLDivElement | null>(null)
+  const closeButtonRef = useRef<HTMLButtonElement>(null)
+  const previouslyFocusedElementRef = useRef<HTMLElement | null>(null)
   const { t } = useTranslation(["common", "playground"])
 
   useEffect(() => {
     openRef.current = open
+  }, [open])
+
+  useEffect(() => {
+    if (open) {
+      previouslyFocusedElementRef.current =
+        document.activeElement instanceof HTMLElement ? document.activeElement : null
+
+      if (closeButtonRef.current) {
+        closeButtonRef.current.focus()
+      }
+      return
+    }
+
+    if (!open && previouslyFocusedElementRef.current) {
+      const element = previouslyFocusedElementRef.current
+      previouslyFocusedElementRef.current = null
+
+      if (document.contains(element)) {
+        element.focus()
+      }
+    }
   }, [open])
 
   // Listen for ? key to open the modal
@@ -48,82 +72,119 @@ export function KeyboardShortcutsModal() {
 
   const modKey = isMac ? "⌘" : "Ctrl"
 
-  const shortcutGroups: ShortcutGroup[] = [
-    {
-      title: t("common:shortcuts.groups.general", "General"),
-      shortcuts: [
-        {
-          label: t("common:shortcuts.openCommandPalette", "Open command palette"),
-          keys: `${modKey} + K`
-        },
-        {
-          label: t("common:shortcuts.showKeyboardShortcuts", "Show keyboard shortcuts"),
-          keys: "?"
-        },
-        {
-          label: t("common:shortcuts.focusTextarea", "Focus message input"),
-          keys: formatShortcut(defaultShortcuts.focusTextarea)
-        }
-      ]
-    },
-    {
-      title: t("common:shortcuts.groups.chat", "Chat"),
-      shortcuts: [
-        {
-          label: t("common:shortcuts.newChat", "Start new chat"),
-          keys: formatShortcut(defaultShortcuts.newChat)
-        },
-        {
-          label: t("common:shortcuts.toggleChatMode", "Toggle chat with current page"),
-          keys: formatShortcut(defaultShortcuts.toggleChatMode)
-        },
-        {
-          label: t("common:shortcuts.toggleWebSearch", "Toggle web search"),
-          keys: formatShortcut(defaultShortcuts.toggleWebSearch)
-        },
-        {
-          label: t("common:shortcuts.toggleQuickChat", "Toggle Quick Chat Helper"),
-          keys: formatShortcut(defaultShortcuts.toggleQuickChatHelper)
-        }
-      ]
-    },
-    {
-      title: t("common:shortcuts.groups.navigation", "Navigation"),
-      shortcuts: [
-        {
-          label: t("common:shortcuts.toggleSidebar", "Toggle sidebar"),
-          keys: formatShortcut(defaultShortcuts.toggleSidebar)
-        },
-        {
-          label: t("common:shortcuts.goToPlayground", "Go to Playground"),
-          keys: formatShortcut(defaultShortcuts.modePlayground)
-        },
-        {
-          label: t("common:shortcuts.goToMedia", "Go to Media"),
-          keys: formatShortcut(defaultShortcuts.modeMedia)
-        },
-        {
-          label: t("common:shortcuts.goToKnowledge", "Go to Knowledge"),
-          keys: formatShortcut(defaultShortcuts.modeKnowledge)
-        },
-        {
-          label: t("common:shortcuts.goToNotes", "Go to Notes"),
-          keys: formatShortcut(defaultShortcuts.modeNotes)
-        },
-        {
-          label: t("common:shortcuts.goToPrompts", "Go to Prompts"),
-          keys: formatShortcut(defaultShortcuts.modePrompts)
-        },
-        {
-          label: t("common:shortcuts.goToFlashcards", "Go to Flashcards"),
-          keys: formatShortcut(defaultShortcuts.modeFlashcards)
-        }
-      ]
-    }
-  ]
+  const shortcutGroups: ShortcutGroup[] = useMemo(
+    () => [
+      {
+        title: t("common:shortcuts.groups.general", "General"),
+        shortcuts: [
+          {
+            label: t("common:shortcuts.openCommandPalette", "Open command palette"),
+            keys: `${modKey} + K`
+          },
+          {
+            label: t("common:shortcuts.showKeyboardShortcuts", "Show keyboard shortcuts"),
+            keys: "?"
+          },
+          {
+            label: t("common:shortcuts.focusTextarea", "Focus message input"),
+            keys: formatShortcut(defaultShortcuts.focusTextarea)
+          }
+        ]
+      },
+      {
+        title: t("common:shortcuts.groups.chat", "Chat"),
+        shortcuts: [
+          {
+            label: t("common:shortcuts.newChat", "Start new chat"),
+            keys: formatShortcut(defaultShortcuts.newChat)
+          },
+          {
+            label: t("common:shortcuts.toggleChatMode", "Toggle chat with current page"),
+            keys: formatShortcut(defaultShortcuts.toggleChatMode)
+          },
+          {
+            label: t("common:shortcuts.toggleWebSearch", "Toggle web search"),
+            keys: formatShortcut(defaultShortcuts.toggleWebSearch)
+          },
+          {
+            label: t("common:shortcuts.toggleQuickChat", "Toggle Quick Chat Helper"),
+            keys: formatShortcut(defaultShortcuts.toggleQuickChatHelper)
+          }
+        ]
+      },
+      {
+        title: t("common:shortcuts.groups.navigation", "Navigation"),
+        shortcuts: [
+          {
+            label: t("common:shortcuts.toggleSidebar", "Toggle sidebar"),
+            keys: formatShortcut(defaultShortcuts.toggleSidebar)
+          },
+          {
+            label: t("common:shortcuts.goToPlayground", "Go to Playground"),
+            keys: formatShortcut(defaultShortcuts.modePlayground)
+          },
+          {
+            label: t("common:shortcuts.goToMedia", "Go to Media"),
+            keys: formatShortcut(defaultShortcuts.modeMedia)
+          },
+          {
+            label: t("common:shortcuts.goToKnowledge", "Go to Knowledge"),
+            keys: formatShortcut(defaultShortcuts.modeKnowledge)
+          },
+          {
+            label: t("common:shortcuts.goToNotes", "Go to Notes"),
+            keys: formatShortcut(defaultShortcuts.modeNotes)
+          },
+          {
+            label: t("common:shortcuts.goToPrompts", "Go to Prompts"),
+            keys: formatShortcut(defaultShortcuts.modePrompts)
+          },
+          {
+            label: t("common:shortcuts.goToFlashcards", "Go to Flashcards"),
+            keys: formatShortcut(defaultShortcuts.modeFlashcards)
+          }
+        ]
+      }
+    ],
+    [modKey, t]
+  )
 
   const handleClose = useCallback(() => {
     setOpen(false)
+  }, [])
+
+  const handleKeyDownInModal = useCallback((event: React.KeyboardEvent<HTMLDivElement>) => {
+    if (event.key !== "Tab" || !modalRef.current) {
+      return
+    }
+
+    const focusableSelectors =
+      'a[href], button:not([disabled]), textarea, input, select, [tabindex]:not([tabindex="-1"])'
+    const focusableElements = Array.from(
+      modalRef.current.querySelectorAll<HTMLElement>(focusableSelectors)
+    ).filter(
+      (element) =>
+        !element.hasAttribute("disabled") &&
+        element.getAttribute("aria-hidden") !== "true" &&
+        element.tabIndex !== -1
+    )
+
+    if (focusableElements.length === 0) {
+      event.preventDefault()
+      return
+    }
+
+    const currentIndex = focusableElements.indexOf(document.activeElement as HTMLElement)
+    let nextIndex = currentIndex
+
+    if (event.shiftKey) {
+      nextIndex = currentIndex <= 0 ? focusableElements.length - 1 : currentIndex - 1
+    } else {
+      nextIndex = currentIndex === -1 || currentIndex === focusableElements.length - 1 ? 0 : currentIndex + 1
+    }
+
+    focusableElements[nextIndex].focus()
+    event.preventDefault()
   }, [])
 
   if (!open) return null
@@ -140,10 +201,12 @@ export function KeyboardShortcutsModal() {
 
       {/* Modal */}
       <div
+        ref={modalRef}
         className="fixed left-1/2 top-[10%] sm:top-[15%] z-50 w-[calc(100%-2rem)] sm:w-full max-w-lg -translate-x-1/2 overflow-hidden rounded-xl border border-gray-200 bg-white shadow-2xl dark:border-gray-700 dark:bg-gray-900 max-h-[80vh] flex flex-col"
         role="dialog"
         aria-modal="true"
         aria-labelledby="shortcuts-modal-title"
+        onKeyDown={handleKeyDownInModal}
       >
         {/* Header */}
         <div className="flex items-center justify-between border-b border-gray-200 px-4 py-3 dark:border-gray-700">
@@ -157,6 +220,7 @@ export function KeyboardShortcutsModal() {
             </h2>
           </div>
           <button
+            ref={closeButtonRef}
             onClick={handleClose}
             className="rounded-lg p-2 min-w-[44px] min-h-[44px] flex items-center justify-center text-gray-400 hover:bg-gray-100 hover:text-gray-600 dark:hover:bg-gray-800 dark:hover:text-gray-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-pink-500"
             aria-label={t("common:close", "Close")}
