@@ -20,15 +20,15 @@
     "description": "نص مساعدة يشرح وضعَي المصادقة Single User و Multi User."
   },
   "apiKeyHelp": {
-    "message": "ستجد مفتاح الـ API في tldw_server \u2192 الإعدادات \u2192 مفاتيح API. أنشئ مفتاحًا هناك ثم الصقه هنا.",
+    "message": "ستجد مفتاح الـ API في tldw_server → الإعدادات → مفاتيح API. أنشئ مفتاحًا هناك ثم الصقه هنا.",
     "description": "نص يوضح مكان العثور على مفتاح الـ API."
   },
   "authStepAria": {
-    "message": "الخطوة 2 من 3 \u2014 اختيار طريقة تسجيل الدخول",
+    "message": "الخطوة 2 من 3 — اختيار طريقة تسجيل الدخول",
     "description": "تسمية aria لخطوة اختيار طريقة تسجيل الدخول في معالج الإعداد."
   },
   "confirmStepAria": {
-    "message": "الخطوة 3 من 3 \u2014 تأكيد الاتصال ومراجعة الخطوات التالية",
+    "message": "الخطوة 3 من 3 — تأكيد الاتصال ومراجعة الخطوات التالية",
     "description": "تسمية aria لخطوة تأكيد الاتصال في معالج الإعداد."
   },
   "nextSteps": {
@@ -56,7 +56,7 @@
     "description": "عنوان بطاقة الخطوة التالية لاستيعاب أول صفحة."
   },
   "nextStepsIngestBody": {
-    "message": "استخدم \u00abالإدخال السريع\u00bb من الشريط العلوي لحفظ علامة التبويب الحالية في خادمك.",
+    "message": "استخدم «الإدخال السريع» من الشريط العلوي لحفظ علامة التبويب الحالية في خادمك.",
     "description": "وصف بطاقة الخطوة التالية لاستيعاب صفحة."
   },
   "nextStepsMediaTitle": {
@@ -64,7 +64,7 @@
     "description": "عنوان بطاقة الخطوة التالية لاستكشاف الوسائط والملاحظات."
   },
   "nextStepsMediaBody": {
-    "message": "انتقل إلى \u00abالوسائط\u00bb و\u00abالملاحظات\u00bb في صفحة الخيارات لمعرفة ما هو مخزَّن وقابل للبحث.",
+    "message": "انتقل إلى «الوسائط» و«الملاحظات» في صفحة الخيارات لمعرفة ما هو مخزَّن وقابل للبحث.",
     "description": "وصف بطاقة الخطوة التالية لاستعراض الوسائط والملاحظات."
   },
   "headerShortcuts": {
@@ -82,6 +82,15 @@
   },
   "restartOnboardingConfirmMessage": {
     "message": "سيؤدي هذا إلى إعادة تعيين حالة الإعداد وإعادتك إلى مسار الإعداد من جديد."
+  },
+  "enableOcrAssets_label": {
+    "message": "تفعيل OCR (تنزيل حوالي 5 ميجابايت عند أول استخدام)"
+  },
+  "enableOcrAssets_downloadNotice": {
+    "message": "سيؤدي تفعيل OCR إلى تنزيل حوالي 5MB من بيانات اللغة عند أول استخدام."
+  },
+  "enableOcrAssets_assetsEnabled": {
+    "message": "تم تمكين حزم OCR وهي جاهزة للاستخدام"
   },
   "omniSearchPlaceholder": {
     "message": "ابحث في الشاشات والدردشات والوسائط والملاحظات…",
@@ -198,6 +207,9 @@
   "moveToFolder": {
     "message": "نقل إلى المجلد"
   },
+  "quickIngest_ocrHelp": {
+    "message": "تساعد OCR في استخراج النص من ملفات PDF الممسوحة ضوئياً أو الصور."
+  },
   "specReloadedToast": {
     "message": "تمت إعادة تحميل المواصفات المتقدمة من الخادم"
   },
@@ -206,5 +218,349 @@
   },
   "specFallbackWarning": {
     "message": "يتم استخدام مخطط media.add المضمّن كخيار احتياطي (v{{version}})؛ يُرجى التحقق من tldw_server /openapi.json إذا بدت الحقول قديمة."
+  },
+  "serverChatsUnavailableNotConnected": {
+    "message": "تتوفّر محادثات الخادم عند الاتصال بخادم tldw الخاص بك."
+  },
+  "serverChatsUnavailableServerError": {
+    "message": "محادثات الخادم غير متاحة حالياً. تحقّق من سجلات الخادم أو حاول مرة أخرى."
+  },
+  "noToolCalls": {
+    "message": "لا توجد استدعاءات أدوات بعد"
+  },
+  "arguments": {
+    "message": "المعاملات"
+  },
+  "invalidJson": {
+    "message": "JSON غير صالح؛ يتم عرض القيمة الخام"
+  },
+  "result": {
+    "message": "النتيجة"
+  },
+  "tools_fs_list": {
+    "message": "سرد الدليل",
+    "description": "Label for the fs.list tool (list directory)."
+  },
+  "tools_fs_read": {
+    "message": "قراءة الملف",
+    "description": "Label for the fs.read tool (read file)."
+  },
+  "tools_fs_write": {
+    "message": "كتابة الملف",
+    "description": "Label for the fs.write tool (write file)."
+  },
+  "tools_fs_apply_patch": {
+    "message": "تطبيق التصحيح",
+    "description": "Label for the fs.apply_patch tool (apply patch)."
+  },
+  "tools_fs_mkdir": {
+    "message": "إنشاء دليل",
+    "description": "Label for the fs.mkdir tool (create directory)."
+  },
+  "tools_fs_delete": {
+    "message": "حذف",
+    "description": "Label for the fs.delete tool (delete file or directory)."
+  },
+  "tools_search_grep": {
+    "message": "بحث في المحتوى",
+    "description": "Label for the search.grep tool (search file contents)."
+  },
+  "tools_search_glob": {
+    "message": "البحث عن الملفات",
+    "description": "Label for the search.glob tool (find files by pattern)."
+  },
+  "tools_git_status": {
+    "message": "حالة Git",
+    "description": "Label for the git.status tool."
+  },
+  "tools_git_diff": {
+    "message": "فرق Git",
+    "description": "Label for the git.diff tool."
+  },
+  "tools_git_log": {
+    "message": "سجل Git",
+    "description": "Label for the git.log tool."
+  },
+  "tools_git_branch": {
+    "message": "فرع Git",
+    "description": "Label for the git.branch tool."
+  },
+  "tools_git_add": {
+    "message": "تهيئة الملفات",
+    "description": "Label for the git.add tool (stage files)."
+  },
+  "tools_git_commit": {
+    "message": "Commit",
+    "description": "Label for the git.commit tool."
+  },
+  "tools_exec_run": {
+    "message": "تشغيل أمر",
+    "description": "Label for the exec.run tool (run command)."
+  },
+  "commandPalette_goToChat": {
+    "message": "الانتقال إلى الدردشة",
+    "description": "Command palette action label to navigate to the Chat screen."
+  },
+  "commandPalette_goToMedia": {
+    "message": "الانتقال إلى الوسائط",
+    "description": "Command palette action label to navigate to the Media screen."
+  },
+  "commandPalette_goToNotes": {
+    "message": "الانتقال إلى الملاحظات",
+    "description": "Command palette action label to navigate to the Notes screen."
+  },
+  "commandPalette_goToFlashcards": {
+    "message": "الانتقال إلى البطاقات التعليمية",
+    "description": "Command palette action label to navigate to the Flashcards screen."
+  },
+  "commandPalette_goToSettings": {
+    "message": "الانتقال إلى الإعدادات",
+    "description": "Command palette action label to navigate to the Settings screen."
+  },
+  "commandPalette_goToHealth": {
+    "message": "الانتقال إلى الصحة والتشخيص",
+    "description": "Command palette action label to open the Health & diagnostics screen."
+  },
+  "commandPalette_newChat": {
+    "message": "محادثة جديدة",
+    "description": "Command palette action label to start a new chat."
+  },
+  "commandPalette_toggleKnowledgeSearch": {
+    "message": "تبديل بحث المعرفة",
+    "description": "Command palette toggle label for enabling or disabling knowledge search."
+  },
+  "commandPalette_toggleKnowledgeSearchDesc": {
+    "message": "ابحث في قاعدة معارفك",
+    "description": "Command palette description text explaining the knowledge search toggle."
+  },
+  "commandPalette_toggleWebSearch": {
+    "message": "تبديل بحث الويب",
+    "description": "Command palette toggle label for enabling or disabling web search."
+  },
+  "commandPalette_toggleWebDesc": {
+    "message": "ابحث في الإنترنت",
+    "description": "Command palette description text explaining the web search toggle."
+  },
+  "commandPalette_ingestPage": {
+    "message": "استيراد الصفحة الحالية",
+    "description": "Command palette action label to ingest the current page into knowledge."
+  },
+  "commandPalette_ingestDesc": {
+    "message": "احفظ هذه الصفحة في قاعدة معارفك",
+    "description": "Command palette description text explaining page ingestion into knowledge."
+  },
+  "commandPalette_switchModel": {
+    "message": "تبديل النموذج",
+    "description": "Command palette action label to switch the active chat/model."
+  },
+  "commandPalette_toggleSidebar": {
+    "message": "إظهار/إخفاء الشريط الجانبي",
+    "description": "Command palette toggle label to show or hide the sidepanel."
+  },
+  "commandPalette_toggleSidebarDesc": {
+    "message": "إظهار أو إخفاء شريط الدردشة الجانبي",
+    "description": "Command palette description text explaining the sidebar visibility toggle."
+  },
+  "commandPalette_placeholder": {
+    "message": "اكتب أمرًا أو ابحث...",
+    "description": "Placeholder text shown in the command palette input."
+  },
+  "commandPalette_noResults": {
+    "message": "لم يتم العثور على نتائج",
+    "description": "No-results state text in the command palette when nothing matches the query."
+  },
+  "commandPalette_title": {
+    "message": "لوحة الأوامر",
+    "description": "Title of the command palette UI."
+  },
+  "commandPalette_navigate": {
+    "message": "التنقل",
+    "description": "Command palette keyboard hint label for navigation."
+  },
+  "commandPalette_select": {
+    "message": "اختيار",
+    "description": "Command palette keyboard hint label for selection."
+  },
+  "commandPalette_toOpen": {
+    "message": "للفتح",
+    "description": "Command palette keyboard hint label indicating the shortcut to open an item."
+  },
+  "commandPalette_categoryActions": {
+    "message": "الإجراءات",
+    "description": "Label for the Actions category in the command palette."
+  },
+  "commandPalette_categoryNavigation": {
+    "message": "التنقل",
+    "description": "Label for the Navigation category in the command palette."
+  },
+  "commandPalette_categorySettings": {
+    "message": "الإعدادات",
+    "description": "Label for the Settings category in the command palette."
+  },
+  "commandPalette_categoryRecent": {
+    "message": "الأخيرة",
+    "description": "Label for the Recent items category in the command palette."
+  },
+  "markdown_unableToRender": {
+    "message": "Unable to render content"
+  },
+  "markdown_couldNotDisplay": {
+    "message": "The message content could not be displayed. This may be due to invalid formatting."
+  },
+  "markdown_showRawContent": {
+    "message": "Show raw content"
+  },
+  "notesSearch_exportNoteSuccess": {
+    "message": "Exported ({{size}})"
+  },
+  "notesSearch_exportSuccess": {
+    "message": "Exported {{count}} notes ({{size}})"
+  },
+  "notesSearch_exportCsvSuccess": {
+    "message": "Exported {{count}} notes as CSV ({{size}})"
+  },
+  "notesSearch_exportJsonSuccess": {
+    "message": "تم تصدير {{count}} ملاحظة كملف JSON ({{size}})"
+  },
+  "exportNoteSuccess": {
+    "message": "تم التصدير ({{size}})"
+  },
+  "exportSuccess": {
+    "message": "تم تصدير {{count}} ملاحظة ({{size}})"
+  },
+  "exportCsvSuccess": {
+    "message": "تم تصدير {{count}} ملاحظة كملف CSV ({{size}})"
+  },
+  "exportJsonSuccess": {
+    "message": "تم تصدير {{count}} ملاحظة كملف JSON ({{size}})"
+  },
+  "infoShort": {
+    "message": "معلومات"
+  },
+  "regenShort": {
+    "message": "إعادة"
+  },
+  "continueShort": {
+    "message": "المزيد"
+  },
+  "error_label": {
+    "message": "خطأ"
+  },
+  "error_friendlyApiKeySummary": {
+    "message": "تعذّر الوصول إلى خادم tldw الخاص بك."
+  },
+  "error_friendlyApiKeyHint": {
+    "message": "قد يكون مفتاح API الخاص بك غير صالح. افتح الإعدادات → خادم tldw للتحقق من عنوان URL ومفتاح API ثم حاول مرة أخرى."
+  },
+  "error_friendlyTimeoutSummary": {
+    "message": "انتهت مهلة محادثتك."
+  },
+  "error_friendlyTimeoutHint": {
+    "message": "توقّف الخادم عن بث الردود. حاول مرة أخرى أو افتح الصحة والتشخيص للتحقق من حالة الخادم."
+  },
+  "error_friendlyGenericSummary": {
+    "message": "حدث خطأ أثناء التواصل مع خادم tldw الخاص بك."
+  },
+  "error_friendlyGenericHint": {
+    "message": "حاول مرة أخرى بعد قليل أو افتح الصحة والتشخيص لعرض حالة الخادم."
+  },
+  "error_showDetails": {
+    "message": "إظهار التفاصيل التقنية"
+  },
+  "error_hideDetails": {
+    "message": "إخفاء التفاصيل التقنية"
+  },
+  "error_createFolder": {
+    "message": "Failed to create folder"
+  },
+  "modelSelect_label": {
+    "message": "Model"
+  },
+  "modelSelect_tooltip": {
+    "message": "Changes model for next message"
+  },
+  "featureHints_knowledge_title": {
+    "message": "ابحث في معرفتك"
+  },
+  "featureHints_knowledge_description": {
+    "message": "افتح لوحة البحث في المعرفة للعثور على مقتطفات وإدراجها في محادثتك."
+  },
+  "featureHints_moreTools_title": {
+    "message": "المزيد من الأدوات متاحة"
+  },
+  "featureHints_moreTools_description": {
+    "message": "يمكنك الوصول إلى وضع الرؤية ورفع الصور والإدخال السريع والتطبيق الكامل."
+  },
+  "featureHints_commandPalette_title": {
+    "message": "أوامر سريعة"
+  },
+  "featureHints_commandPalette_description": {
+    "message": "اضغط {{shortcut}} للبحث عن الأوامر والإعدادات والمزيد."
+  },
+  "featureHints_modelSettings_title": {
+    "message": "اضبط معلمات النموذج"
+  },
+  "featureHints_modelSettings_description": {
+    "message": "اضبط بدقة درجة الحرارة وطول السياق وإعدادات النموذج الأخرى."
+  },
+  "chatSidebar_title": {
+    "message": "المحادثات"
+  },
+  "chatSidebar_newChat": {
+    "message": "محادثة جديدة"
+  },
+  "chatSidebar_collapse": {
+    "message": "طي الشريط الجانبي"
+  },
+  "chatSidebar_expand": {
+    "message": "توسيع الشريط الجانبي"
+  },
+  "chatSidebar_search": {
+    "message": "ابحث في المحادثات..."
+  },
+  "chatSidebar_ingest": {
+    "message": "إدخال الصفحة"
+  },
+  "chatSidebar_media": {
+    "message": "الوسائط"
+  },
+  "chatSidebar_notes": {
+    "message": "الملاحظات"
+  },
+  "chatSidebar_settings": {
+    "message": "الإعدادات"
+  },
+  "chatSidebar_loadError": {
+    "message": "فشل تحميل المحادثات"
+  },
+  "chatSidebar_localTab": {
+    "message": "محلي"
+  },
+  "chatSidebar_serverTab": {
+    "message": "الخادم"
+  },
+  "chatSidebar_foldersTab": {
+    "message": "المجلدات"
+  },
+  "chatSidebar_tabs_local": {
+    "message": "محلي"
+  },
+  "chatSidebar_tabs_server": {
+    "message": "الخادم"
+  },
+  "chatSidebar_tabs_folders": {
+    "message": "المجلدات"
+  },
+  "chatSidebar_noServerChats": {
+    "message": "لا توجد محادثات خادم بعد"
+  },
+  "chatSidebar_foldersRequireConnection": {
+    "message": "تتطلب المجلدات اتصالاً بالخادم"
+  },
+  "option.more.copy.canonicalMarkdown": {
+    "message": "Copy canonical transcript"
+  },
+  "option.more.download.canonicalMarkdown": {
+    "message": "Canonical transcript (Markdown)"
   }
 }

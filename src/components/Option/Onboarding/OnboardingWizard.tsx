@@ -1,9 +1,8 @@
 import React from 'react'
 import type { InputRef } from 'antd'
-import { Alert, Button, Input, Segmented, Space, Tag, Checkbox } from 'antd'
+import { Alert, Button, Input, Radio, Segmented, Space, Tag, Collapse, message } from 'antd'
 import type { SegmentedValue } from 'antd/es/segmented'
-import { useStorage } from '@plasmohq/storage/hook'
-import { Storage } from '@plasmohq/storage'
+import { ChevronDown } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 import { tldwClient } from '@/services/tldw/TldwApiClient'
 import { getTldwServerURL, DEFAULT_TLDW_API_KEY } from '@/services/tldw-server'
@@ -15,11 +14,10 @@ import {
 } from '@/hooks/useConnectionState'
 import { useServerUrlHint, type UrlState } from '@/hooks/useServerUrlHint'
 import { useConnectionStore } from '@/store/connection'
-import { ConnectionPhase } from '@/types/connection'
 import { useDemoMode } from '@/context/demo-mode'
 import { openSidepanelForActiveTab } from '@/utils/sidepanel'
-
-const localStorageInstance = new Storage({ area: 'local' })
+import { useFeatureFlag, FEATURE_FLAGS } from '@/hooks/useFeatureFlags'
+import { OnboardingConnectForm } from './OnboardingConnectForm'
 
 type Props = {
   onFinish?: () => void
@@ -31,7 +29,19 @@ type AuthMode = 'single-user' | 'multi-user'
 const isAuthMode = (value: SegmentedValue): value is AuthMode =>
   value === 'single-user' || value === 'multi-user'
 
-export const OnboardingWizard: React.FC<Props> = ({ onFinish }) => {
+// Auto-finish is always enabled for better UX
+const AUTO_FINISH_ON_SUCCESS = true
+
+/**
+ * @deprecated This legacy multi-step wizard is being phased out in favor of
+ * OnboardingConnectForm, which provides a simpler single-page experience.
+ * The new form is now the default (NEW_ONBOARDING feature flag = true).
+ * This component will be removed in a future release.
+ *
+ * Migration: All new users see OnboardingConnectForm. The legacy wizard
+ * remains available via feature flag for users who explicitly disable it.
+ */
+const LegacyOnboardingWizard: React.FC<Props> = ({ onFinish }) => {
   const { t } = useTranslation(['settings', 'common'])
   const { setDemoEnabled } = useDemoMode()
   const [loading, setLoading] = React.useState(false)
@@ -43,14 +53,6 @@ export const OnboardingWizard: React.FC<Props> = ({ onFinish }) => {
   const [password, setPassword] = React.useState('')
   const [authError, setAuthError] = React.useState<string | null>(null)
   const [pathChoice, setPathChoice] = React.useState<PathChoice>('has-server')
-  const [autoFinishOnSuccess, setAutoFinishOnSuccess] = useStorage(
-    { key: 'onboardingAutoFinish', instance: localStorageInstance },
-    false
-  )
-  const [headerShortcutsPref, setHeaderShortcutsPref] = useStorage(
-    { key: 'headerShortcutsExpanded', instance: localStorageInstance },
-    true
-  )
 
   const { uxState, configStep } = useConnectionUxState()
   const connectionState = useConnectionState()
@@ -72,20 +74,19 @@ export const OnboardingWizard: React.FC<Props> = ({ onFinish }) => {
     React.useRef<HTMLInputElement | HTMLTextAreaElement | null>(null)
   const authStepRef = React.useRef<HTMLDivElement | null>(null)
   const confirmStepRef = React.useRef<HTMLDivElement | null>(null)
-  const pathRadioRefs = React.useRef<(HTMLButtonElement | null)[]>([])
 
   React.useEffect(() => {
-    try {
-      useConnectionStore.getState().beginOnboarding()
-    } catch (err) {
-      // Store init failures should not block the wizard, but log for diagnostics.
-      // eslint-disable-next-line no-console
-      console.debug(
-        "[OnboardingWizard] Failed to begin onboarding from connection store",
-        err
-      )
-    }
-    ;(async () => {
+    (async () => {
+      try {
+        await useConnectionStore.getState().beginOnboarding()
+      } catch (err) {
+        // Store init failures should not block the wizard, but log for diagnostics.
+        // eslint-disable-next-line no-console
+        console.debug(
+          "[OnboardingWizard] Failed to begin onboarding from connection store",
+          err
+        )
+      }
       try {
         const cfg = await tldwClient.getConfig()
         if (cfg?.serverUrl) {
@@ -346,15 +347,16 @@ export const OnboardingWizard: React.FC<Props> = ({ onFinish }) => {
   }
 
   const handleBackToUrl = () => {
-    try {
-      useConnectionStore.getState().beginOnboarding()
-    } catch (err) {
-      // eslint-disable-next-line no-console
-      console.debug(
-        "[OnboardingWizard] Failed to reset onboarding step to URL",
-        err
-      )
-    }
+    useConnectionStore
+      .getState()
+      .beginOnboarding()
+      .catch((err) => {
+        // eslint-disable-next-line no-console
+        console.debug(
+          "[OnboardingWizard] Failed to reset onboarding step to URL",
+          err
+        )
+      })
   }
 
   const handleContinueFromAuth = async () => {
@@ -389,6 +391,23 @@ export const OnboardingWizard: React.FC<Props> = ({ onFinish }) => {
             'onboarding'
           )
           setAuthError(friendly)
+          return
+        }
+      } else if (authMode === 'single-user' && apiKey) {
+        // Validate API key before saving
+        try {
+          const isValid = await tldwAuth.testApiKey(serverUrl, apiKey)
+          if (!isValid) {
+            setAuthError(
+              t('settings:onboarding.errors.invalidApiKey', 'Invalid API key. Please check your key and try again.')
+            )
+            return
+          }
+        } catch (error: unknown) {
+          setAuthError(
+            (error as Error)?.message ||
+            t('settings:onboarding.errors.apiKeyValidationFailed', 'API key validation failed')
+          )
           return
         }
       }
@@ -432,13 +451,22 @@ export const OnboardingWizard: React.FC<Props> = ({ onFinish }) => {
   }
 
   const finish = React.useCallback(() => {
-    useConnectionStore.getState().markFirstRunComplete()
+    useConnectionStore
+      .getState()
+      .markFirstRunComplete()
+      .catch((err) => {
+        // eslint-disable-next-line no-console
+        console.debug(
+          "[OnboardingWizard] Failed to mark first run complete",
+          err
+        )
+      })
     onFinish?.()
   }, [onFinish])
 
   const autoFinishRef = React.useRef(false)
   React.useEffect(() => {
-    if (!autoFinishOnSuccess) return
+    if (!AUTO_FINISH_ON_SUCCESS) return
     if (autoFinishRef.current) return
     if (activeStep !== 3) return
 
@@ -455,15 +483,36 @@ export const OnboardingWizard: React.FC<Props> = ({ onFinish }) => {
     }
   }, [
     activeStep,
-    autoFinishOnSuccess,
     connectionState.knowledgeStatus,
     finish,
     uxState
   ])
 
+  // Track step changes for aria-live announcements
+  const [stepAnnouncement, setStepAnnouncement] = React.useState<string | null>(null)
+  const prevStepRef = React.useRef(activeStep)
+
   React.useEffect(() => {
-    // Basic focus management between steps for accessibility.
-    try {
+    // Announce step changes to screen readers
+    if (prevStepRef.current !== activeStep) {
+      const stepLabels: Record<number, string> = {
+        1: t('settings:onboarding.step1Label', 'Step 1: Server URL'),
+        2: t('settings:onboarding.step2Label', 'Step 2: Authentication'),
+        3: t('settings:onboarding.step3Label', 'Step 3: Confirmation')
+      }
+      setStepAnnouncement(stepLabels[activeStep] || `Step ${activeStep}`)
+      prevStepRef.current = activeStep
+
+      // Clear announcement after delay - extended for slower readers
+      const clearTimer = setTimeout(() => setStepAnnouncement(null), 4000)
+      return () => clearTimeout(clearTimer)
+    }
+  }, [activeStep, t])
+
+  React.useEffect(() => {
+    // Focus management between steps for accessibility.
+    // Use requestAnimationFrame for more reliable focus after DOM updates.
+    const focusTarget = () => {
       if (activeStep === 1 && urlInputRef.current) {
         urlInputRef.current.focus()
       } else if (activeStep === 2 && authStepRef.current) {
@@ -471,62 +520,36 @@ export const OnboardingWizard: React.FC<Props> = ({ onFinish }) => {
       } else if (activeStep === 3 && confirmStepRef.current) {
         confirmStepRef.current.focus()
       }
-    } catch {
-      // ignore focus errors
+    }
+
+    let timeoutId: number | undefined
+    const rafId = requestAnimationFrame(() => {
+      // Small delay to ensure DOM is fully rendered
+      timeoutId = window.setTimeout(focusTarget, 50)
+    })
+
+    return () => {
+      cancelAnimationFrame(rafId)
+      if (timeoutId !== undefined) {
+        clearTimeout(timeoutId)
+      }
     }
   }, [activeStep])
 
-  const handlePathKeyDown = (
-    event: React.KeyboardEvent<HTMLButtonElement>,
-    currentIndex: number,
-    options: { value: PathChoice }[]
-  ) => {
-    const { key } = event
-    if (
-      key !== 'ArrowRight' &&
-      key !== 'ArrowLeft' &&
-      key !== 'ArrowDown' &&
-      key !== 'ArrowUp'
-    ) {
-      return
-    }
-
-    event.preventDefault()
-
-    const lastIndex = options.length - 1
-    let nextIndex = currentIndex
-
-    if (key === 'ArrowRight' || key === 'ArrowDown') {
-      nextIndex = currentIndex === lastIndex ? 0 : currentIndex + 1
-    } else if (key === 'ArrowLeft' || key === 'ArrowUp') {
-      nextIndex = currentIndex === 0 ? lastIndex : currentIndex - 1
-    }
-
-    const nextOption = options[nextIndex]
-    if (!nextOption) return
-
-    setPathChoice(nextOption.value)
-
-    const nextButton = pathRadioRefs.current[nextIndex]
-    if (nextButton) {
-      try {
-        nextButton.focus()
-      } catch {
-        // ignore focus errors
-      }
-    }
-  }
-
   return (
     <div className="mx-auto w-full max-w-2xl rounded-xl border border-gray-200 bg-white px-6 py-6 text-gray-900 shadow-sm dark:border-gray-700 dark:bg-[#171717] dark:text-gray-100">
-      <h2 className="text-lg font-semibold mb-2 text-gray-900 dark:text-gray-100">{t('settings:onboarding.title')}</h2>
-      <p className="text-sm text-gray-700 dark:text-gray-300 mb-4">{t('settings:onboarding.description')}</p>
-      <p className="text-xs text-gray-600 dark:text-gray-400 mb-4">
-        {t(
-          'settings:onboarding.exploreWithoutServer',
-          'You can explore the UI without a server; some features (chat, media ingest, Knowledge search) will stay disabled until you connect.'
-        )}
-      </p>
+      {/* Screen reader announcement for step changes */}
+      {stepAnnouncement && (
+        <div
+          role="status"
+          aria-live="polite"
+          aria-atomic="true"
+          className="sr-only"
+        >
+          {stepAnnouncement}
+        </div>
+      )}
+      <h2 className="text-lg font-semibold mb-3 text-gray-900 dark:text-gray-100">{t('settings:onboarding.title')}</h2>
 
       <div className="mb-4 space-y-2">
         <div className="text-xs font-medium text-gray-700 dark:text-gray-300">
@@ -535,14 +558,10 @@ export const OnboardingWizard: React.FC<Props> = ({ onFinish }) => {
             'How would you like to get started?'
           )}
         </div>
-        <div
-          role="radiogroup"
-          aria-label={t(
-            'settings:onboarding.path.heading',
-            'How would you like to get started?'
-          )}
-          aria-orientation="horizontal"
-          className="grid gap-3 md:grid-cols-3"
+        <Radio.Group
+          value={pathChoice}
+          onChange={(e) => setPathChoice(e.target.value as PathChoice)}
+          className="grid gap-3 md:grid-cols-3 w-full onboarding-path-radio"
         >
           {[
             {
@@ -560,7 +579,7 @@ export const OnboardingWizard: React.FC<Props> = ({ onFinish }) => {
               value: 'no-server' as PathChoice,
               label: t(
                 'settings:onboarding.path.noServer',
-                "I don’t have a server yet"
+                "I don't have a server yet"
               ),
               description: t(
                 'settings:onboarding.path.noServerHelp',
@@ -578,41 +597,25 @@ export const OnboardingWizard: React.FC<Props> = ({ onFinish }) => {
                 'Try the workspace with sample data; connect your own server later.'
               )
             }
-          ].map((option, index, options) => {
-            if (index === 0) {
-              pathRadioRefs.current.length = options.length
-            }
-            const selected = pathChoice === option.value
-            return (
-              <button
-                key={option.value}
-                type="button"
-                role="radio"
-                aria-checked={selected}
-                tabIndex={selected ? 0 : -1}
-                onClick={() => setPathChoice(option.value)}
-                onKeyDown={(event) =>
-                  handlePathKeyDown(event, index, options)
-                }
-                ref={(element) => {
-                  pathRadioRefs.current[index] = element
-                }}
-                className={`flex h-full w-full flex-col items-start rounded-md border px-3 py-2 text-left text-xs transition-colors ${
-                  selected
-                    ? 'border-blue-500 bg-blue-50 text-gray-900 dark:border-blue-400 dark:bg-blue-900/20'
-                    : 'border-gray-200 bg-white text-gray-800 hover:border-blue-400 hover:bg-blue-50/40 dark:border-gray-700 dark:bg-[#111111] dark:text-gray-100 dark:hover:border-blue-400 dark:hover:bg-blue-900/10'
-                }`}
-              >
-                <span className="text-[11px] font-semibold">
-                  {option.label}
-                </span>
-                <span className="mt-1 text-[11px] text-gray-600 dark:text-gray-300">
-                  {option.description}
-                </span>
-              </button>
-            )
-          })}
-        </div>
+          ].map((option) => (
+            <Radio
+              key={option.value}
+              value={option.value}
+              className={`!flex h-full w-full flex-col items-start rounded-md border px-3 py-2 text-left text-xs transition-colors m-0 ${
+                pathChoice === option.value
+                  ? 'border-blue-500 bg-blue-50 dark:border-blue-400 dark:bg-blue-900/20'
+                  : 'border-gray-200 bg-white hover:border-blue-400 hover:bg-blue-50/40 dark:border-gray-700 dark:bg-[#111111] dark:hover:border-blue-400 dark:hover:bg-blue-900/10'
+              }`}
+            >
+              <span className="text-[11px] font-semibold text-gray-900 dark:text-gray-100">
+                {option.label}
+              </span>
+              <span className="mt-1 text-[11px] text-gray-600 dark:text-gray-300">
+                {option.description}
+              </span>
+            </Radio>
+          ))}
+        </Radio.Group>
         {pathChoice === 'no-server' && (
           <Alert
             className="mt-2 text-xs"
@@ -719,102 +722,150 @@ export const OnboardingWizard: React.FC<Props> = ({ onFinish }) => {
         )}
       </div>
 
-      <div className="mb-3 flex items-center justify-between text-xs text-gray-600 dark:text-gray-400">
-        <span>
-          {t('settings:onboarding.progress', 'Step {{current}} of {{total}}', {
-            current: displayStep,
-            total: totalSteps
-          })}
-        </span>
-        <span className="text-right">{stepTitle}</span>
-      </div>
+      {/* Progress Stepper */}
       <nav
         aria-label={t(
           "settings:onboarding.progressAria",
           "Onboarding progress"
         )}
-        className="mb-4"
+        role="progressbar"
+        aria-valuenow={displayStep}
+        aria-valuemin={1}
+        aria-valuemax={totalSteps}
+        className="mb-6"
       >
-        <ol className="flex items-center gap-2 text-[11px] text-gray-500 dark:text-gray-400">
-          {visualSteps.map((step) => (
-            <li
-              key={step.index}
-              aria-current={step.index === displayStep ? "step" : undefined}
-              className={`inline-flex items-center gap-1 ${
-                step.index === displayStep
-                  ? "font-semibold text-blue-600 dark:text-blue-400"
-                  : ""
-              }`}
-            >
-              <span
-                className={`flex h-4 w-4 items-center justify-center rounded-full border text-[10px] ${
-                  step.index <= displayStep
-                    ? "border-blue-500 bg-blue-500 text-white"
-                    : "border-gray-300 bg-white text-gray-600 dark:border-gray-600 dark:bg-[#111] dark:text-gray-300"
-                }`}
+        <div className="flex items-center justify-between">
+          {visualSteps.map((step, idx) => (
+            <React.Fragment key={step.index}>
+              <div
+                aria-current={step.index === displayStep ? "step" : undefined}
+                className="flex flex-col items-center"
               >
-                {step.index}
-              </span>
-              <span>{step.label}</span>
-              {step.index < visualSteps.length && (
-                <span className="mx-1 text-gray-400">›</span>
+                <div
+                  className={`flex h-8 w-8 items-center justify-center rounded-full border-2 text-sm font-semibold transition-colors ${
+                    step.index < displayStep
+                      ? "border-blue-500 bg-blue-500 text-white"
+                      : step.index === displayStep
+                        ? "border-blue-500 bg-white text-blue-600 dark:bg-[#171717] dark:text-blue-400"
+                        : "border-gray-300 bg-white text-gray-400 dark:border-gray-600 dark:bg-[#171717] dark:text-gray-500"
+                  }`}
+                >
+                  {step.index < displayStep ? (
+                    <svg className="h-4 w-4" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                    </svg>
+                  ) : (
+                    step.index
+                  )}
+                </div>
+                <span
+                  className={`mt-1.5 text-[11px] text-center max-w-[100px] ${
+                    step.index === displayStep
+                      ? "font-semibold text-blue-600 dark:text-blue-400"
+                      : step.index < displayStep
+                        ? "text-gray-600 dark:text-gray-300"
+                        : "text-gray-500 dark:text-gray-400"
+                  }`}
+                >
+                  {step.label}
+                </span>
+              </div>
+              {idx < visualSteps.length - 1 && (
+                <div
+                  className={`flex-1 h-0.5 mx-2 mt-[-20px] ${
+                    step.index < displayStep
+                      ? "bg-blue-500"
+                      : "bg-gray-200 dark:bg-gray-700"
+                  }`}
+                />
               )}
-            </li>
+            </React.Fragment>
           ))}
-        </ol>
+        </div>
       </nav>
 
       {activeStep === 1 && (
         <div className="space-y-3">
-          <div className="rounded-md border border-dashed border-gray-300 bg-gray-50 px-3 py-2 text-xs text-gray-700 dark:border-gray-600 dark:bg-[#1d1d1d] dark:text-gray-200">
-            <div className="font-medium text-sm mb-1">
-              {t(
-                'settings:onboarding.startServer.title',
-                'Before you start — Start your tldw server'
-              )}
-            </div>
-            <p className="mb-2">
-              {t(
-                'settings:onboarding.startServer.body',
-                'If you have not started your server yet, run one of these commands in the tldw_server repository, then return here.'
-              )}
-            </p>
-            <div className="space-y-2">
-              {startCommands.map((cmd) => (
-                <div
-                  key={cmd.key}
-                  className="rounded border border-gray-200 bg-white px-2 py-2 dark:border-gray-700 dark:bg-[#121212]"
-                >
-                  <div className="flex items-center justify-between gap-2">
-                    <span className="text-[11px] font-medium">
-                      {cmd.label}
-                    </span>
-                    <Button
-                      size="small"
-                      onClick={() => {
-                        try {
-                          void navigator.clipboard.writeText(cmd.command)
-                        } catch {
-                          // ignore clipboard errors
-                        }
-                      }}
-                    >
-                      {t(
-                        'settings:onboarding.startServer.copy',
-                        'Copy command'
-                      )}
-                    </Button>
+          <Collapse
+            ghost
+            size="small"
+            className="bg-gray-50 dark:bg-[#1d1d1d] rounded-md border border-dashed border-gray-300 dark:border-gray-600"
+            expandIcon={({ isActive }) => (
+              <ChevronDown
+                className={`h-4 w-4 text-gray-500 transition-transform ${
+                  isActive ? 'rotate-180' : ''
+                }`}
+              />
+            )}
+            items={[
+              {
+                key: 'server-commands',
+                label: (
+                  <span className="text-xs font-medium text-gray-700 dark:text-gray-200">
+                    {t(
+                      'settings:onboarding.startServer.title',
+                      'Need to start your server? View commands'
+                    )}
+                  </span>
+                ),
+                children: (
+                  <div className="space-y-2 text-xs text-gray-700 dark:text-gray-200">
+                    {startCommands.map((cmd) => (
+                      <div
+                        key={cmd.key}
+                        className="rounded border border-gray-200 bg-white px-2 py-2 dark:border-gray-700 dark:bg-[#121212]"
+                      >
+                        <div className="flex items-center justify-between gap-2">
+                          <span className="text-[11px] font-medium">
+                            {cmd.label}
+                          </span>
+                          <Button
+                            size="small"
+                            onClick={async () => {
+                              if (!navigator.clipboard?.writeText) {
+                                message.error(
+                                  t(
+                                    "settings:onboarding.startServer.copyFailed",
+                                    "Copy failed"
+                                  )
+                                )
+                                return
+                              }
+
+                              try {
+                                await navigator.clipboard.writeText(cmd.command)
+                                message.success(
+                                  t(
+                                    "settings:onboarding.startServer.copied",
+                                    "Copied!"
+                                  )
+                                )
+                              } catch {
+                                message.error(
+                                  t(
+                                    "settings:onboarding.startServer.copyFailed",
+                                    "Copy failed"
+                                  )
+                                )
+                              }
+                            }}
+                          >
+                            {t(
+                              'settings:onboarding.startServer.copy',
+                              'Copy'
+                            )}
+                          </Button>
+                        </div>
+                        <pre className="mt-1 rounded bg-gray-900 px-2 py-1 text-[11px] text-gray-100 overflow-x-auto">
+                          <code>{cmd.command}</code>
+                        </pre>
+                      </div>
+                    ))}
                   </div>
-                  <pre className="mt-1 rounded bg-gray-900 px-2 py-1 text-[11px] text-gray-100 overflow-x-auto">
-                    <code>{cmd.command}</code>
-                  </pre>
-                  <p className="mt-1 text-[11px] text-gray-500 dark:text-gray-400">
-                    {cmd.hint}
-                  </p>
-                </div>
-              ))}
-            </div>
-          </div>
+                )
+              }
+            ]}
+          />
           <label
             htmlFor="onboarding-server-url"
             className="block text-sm font-medium text-gray-800 dark:text-gray-100"
@@ -948,20 +999,6 @@ export const OnboardingWizard: React.FC<Props> = ({ onFinish }) => {
               }
             />
           )}
-          <div className="flex flex-col gap-2">
-            <Checkbox
-              checked={autoFinishOnSuccess}
-              onChange={(e) => setAutoFinishOnSuccess(e.target.checked)}
-            >
-              {t('settings:onboarding.autoFinish', 'Finish automatically when connection and RAG are healthy')}
-            </Checkbox>
-            <Checkbox
-              checked={headerShortcutsPref}
-              onChange={(e) => setHeaderShortcutsPref(e.target.checked)}
-            >
-              {t('settings:onboarding.headerShortcuts', 'Show quick shortcuts in the header')}
-            </Checkbox>
-          </div>
           <div className="flex justify-between">
             <Button onClick={handleBackToUrl}>{t('settings:onboarding.buttons.back')}</Button>
             <Button
@@ -986,14 +1023,6 @@ export const OnboardingWizard: React.FC<Props> = ({ onFinish }) => {
             { current: displayStep, total: totalSteps }
           )}
         >
-          <div>
-            <Checkbox
-              checked={autoFinishOnSuccess}
-              onChange={(e) => setAutoFinishOnSuccess(e.target.checked)}
-            >
-              {t('settings:onboarding.autoFinish', 'Finish automatically when connection and RAG are healthy')}
-            </Checkbox>
-          </div>
           <div className="flex items-center gap-2">
             <span className="text-sm font-medium">{t('settings:onboarding.connection.label')}</span>
             {connectionStatusTag.color ? (
@@ -1062,11 +1091,26 @@ export const OnboardingWizard: React.FC<Props> = ({ onFinish }) => {
 	                    'Open the sidepanel and ask your first question.'
 	                  )}
 	                </p>
-	                <Button
-	                  size="small"
-	                  className="mt-2"
-	                  onClick={() => void openSidepanelForActiveTab()}
-	                >
+                <Button
+                  size="small"
+                  className="mt-2"
+                  onClick={async () => {
+                    try {
+                      await openSidepanelForActiveTab()
+                    } catch (err) {
+                      console.debug(
+                        '[OnboardingWizard] Failed to open sidepanel',
+                        err
+                      )
+                      message.warning(
+                        t(
+                          'settings:onboarding.nextSteps.sidepanelOpenFailed',
+                          'Could not open sidepanel automatically. Please try opening it manually.'
+                        )
+                      )
+                    }
+                  }}
+                >
                   {t(
                     'settings:onboarding.nextSteps.chatCta',
                     'Open sidepanel'
@@ -1157,6 +1201,17 @@ export const OnboardingWizard: React.FC<Props> = ({ onFinish }) => {
       )}
     </div>
   )
+}
+
+export const OnboardingWizard: React.FC<Props> = ({ onFinish }) => {
+  const [useNewOnboarding] = useFeatureFlag(FEATURE_FLAGS.NEW_ONBOARDING)
+
+  // Use new single-step form when feature flag is enabled
+  if (useNewOnboarding) {
+    return <OnboardingConnectForm onFinish={onFinish} />
+  }
+
+  return <LegacyOnboardingWizard onFinish={onFinish} />
 }
 
 export default OnboardingWizard

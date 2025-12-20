@@ -1,7 +1,8 @@
 import { Storage } from "@plasmohq/storage"
+import { createSafeStorage } from "@/utils/safe-storage"
 
-const storage = new Storage()
-const storage2 = new Storage({
+const storage = createSafeStorage()
+const storage2 = createSafeStorage({
   area: "local"
 })
 

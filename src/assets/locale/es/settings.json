@@ -10,6 +10,39 @@
   "chatDictionariesNav": "Diccionarios de chat",
   "charactersNav": "Personajes",
   "mediaNav": "Multimedia",
+  "chatAppearance": {
+    "title": "Apariencia del chat",
+    "description": "Personaliza los colores, las fuentes y los tamaños de texto de los mensajes del chat.",
+    "behaviorNote": "¿Buscas opciones de comportamiento del chat (modo ancho, razonamiento, opciones de copiado)?",
+    "goToGeneral": "Ir a Configuraciones Generales",
+    "userHeading": "Mensajes del usuario",
+    "assistantHeading": "Mensajes del asistente",
+    "userColor": "Color de texto del usuario",
+    "assistantColor": "Color de texto del asistente",
+    "userFont": "Fuente de los mensajes del usuario",
+    "assistantFont": "Fuente de los mensajes del asistente",
+    "userSize": "Tamaño de texto del usuario",
+    "assistantSize": "Tamaño de texto del asistente",
+    "color": {
+      "default": "Predeterminado",
+      "blue": "Azul",
+      "green": "Verde",
+      "purple": "Morado",
+      "orange": "Naranja",
+      "red": "Rojo"
+    },
+    "font": {
+      "default": "Predeterminada",
+      "sans": "Sans serif",
+      "serif": "Serif",
+      "mono": "Monoespaciada"
+    },
+    "size": {
+      "sm": "Pequeño",
+      "md": "Mediano",
+      "lg": "Grande"
+    }
+  },
   "generalSettings": {
     "title": "Configuraciones Generales",
     "settings": {
@@ -81,7 +114,9 @@
         "label": "Habilitar Chat Temporal en el Panel Lateral por defecto"
       },
       "enableOcrAssets": {
-        "label": "Habilitar OCR (descarga ~5 MB la primera vez)"
+        "label": "Habilitar OCR (descarga ~5 MB la primera vez)",
+        "downloadNotice": "Al activar OCR se descargarán ~5 MB de datos de idioma la primera vez que se use.",
+        "assetsEnabled": "Los recursos de OCR están habilitados y listos"
       },
       "ocrLanguage": {
         "label": "Idioma predeterminado de OCR",

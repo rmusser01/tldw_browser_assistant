@@ -47,7 +47,11 @@ export const normalChatMode = async (
     uploadedFiles,
     actorSettings,
     webSearch,
-    setIsSearchingInternet
+    setIsSearchingInternet,
+    clusterId,
+    userMessageType,
+    assistantMessageType,
+    modelIdOverride
   }: {
     selectedModel: string
     useOCR: boolean
@@ -66,6 +70,11 @@ export const normalChatMode = async (
     actorSettings?: ActorSettings
     webSearch?: boolean
     setIsSearchingInternet?: (value: boolean) => void
+    // Optional compare/multi-model metadata
+    clusterId?: string
+    userMessageType?: string
+    assistantMessageType?: string
+    modelIdOverride?: string
   }
 ) => {
   console.log("Using normalChatMode")
@@ -76,14 +85,16 @@ export const normalChatMode = async (
     image = `data:image/jpeg;base64,${image.split(",")[1]}`
   }
 
-  let newMessage: Message[] = []
   let generateMessageId = generateID()
   const modelInfo = await getModelNicknameByID(selectedModel)
 
-  if (!isRegenerate) {
-    newMessage = [
-      ...messages,
-      {
+  setMessages((prev) => {
+    const base = prev
+    const clusterModelId =
+      clusterId != null ? (modelIdOverride || selectedModel) : undefined
+
+    if (!isRegenerate) {
+      const userMessage: Message = {
         isBot: false,
         name: "You",
         message,
@@ -91,38 +102,46 @@ export const normalChatMode = async (
         images: image ? [image] : [],
         modelImage: modelInfo?.model_avatar,
         modelName: modelInfo?.model_name || selectedModel,
-        documents: uploadedFiles?.map(f => ({
-          type: "file",
-          filename: f.filename,
-          fileSize: f.size,
-          processed: f.processed
-        })) || []
-      },
-      {
+        documents:
+          uploadedFiles?.map((f) => ({
+            type: "file",
+            filename: f.filename,
+            fileSize: f.size,
+            processed: f.processed
+          })) || [],
+        messageType: userMessageType,
+        clusterId,
+        modelId: clusterModelId
+      }
+      const assistantStub: Message = {
         isBot: true,
         name: selectedModel,
         message: "▋",
         sources: [],
         id: generateMessageId,
         modelImage: modelInfo?.model_avatar,
-        modelName: modelInfo?.model_name || selectedModel
+        modelName: modelInfo?.model_name || selectedModel,
+        messageType: assistantMessageType,
+        clusterId,
+        modelId: modelIdOverride || selectedModel
       }
-    ]
-  } else {
-    newMessage = [
-      ...messages,
-      {
-        isBot: true,
-        name: selectedModel,
-        message: "▋",
-        sources: [],
-        id: generateMessageId,
-        modelImage: modelInfo?.model_avatar,
-        modelName: modelInfo?.model_name || selectedModel
-      }
-    ]
-  }
-  setMessages(newMessage)
+      return [...base, userMessage, assistantStub]
+    }
+
+    const assistantStub: Message = {
+      isBot: true,
+      name: selectedModel,
+      message: "▋",
+      sources: [],
+      id: generateMessageId,
+      modelImage: modelInfo?.model_avatar,
+      modelName: modelInfo?.model_name || selectedModel,
+      messageType: assistantMessageType,
+      clusterId,
+      modelId: modelIdOverride || selectedModel
+    }
+    return [...base, assistantStub]
+  })
   let fullText = ""
   let contentToSave = ""
   let timetaken = 0

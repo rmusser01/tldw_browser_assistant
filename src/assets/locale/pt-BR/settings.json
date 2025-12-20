@@ -10,6 +10,39 @@
   "chatDictionariesNav": "Dicionários de chat",
   "charactersNav": "Personagens",
   "mediaNav": "Mídia",
+  "chatAppearance": {
+    "title": "Chat appearance",
+    "description": "Customize colors, fonts, and text sizes for chat messages.",
+    "behaviorNote": "Looking for chat behavior settings (wide mode, reasoning, copy options)?",
+    "goToGeneral": "Go to General Settings",
+    "userHeading": "User messages",
+    "assistantHeading": "Assistant messages",
+    "userColor": "User text color",
+    "assistantColor": "Assistant text color",
+    "userFont": "User font",
+    "assistantFont": "Assistant font",
+    "userSize": "User text size",
+    "assistantSize": "Assistant text size",
+    "color": {
+      "default": "Default",
+      "blue": "Blue",
+      "green": "Green",
+      "purple": "Purple",
+      "orange": "Orange",
+      "red": "Red"
+    },
+    "font": {
+      "default": "Default",
+      "sans": "Sans serif",
+      "serif": "Serif",
+      "mono": "Monospace"
+    },
+    "size": {
+      "sm": "Small",
+      "md": "Medium",
+      "lg": "Large"
+    }
+  },
   "generalSettings": {
     "title": "Configurações Gerais",
     "settings": {
@@ -81,7 +114,9 @@
         "label": "Ativar Chat Temporário no Painel Lateral por padrão"
       },
       "enableOcrAssets": {
-        "label": "Enable OCR (downloads ~5MB on first use)"
+        "label": "Ativar OCR (faz download de ~5 MB no primeiro uso)",
+        "downloadNotice": "Ao ativar o OCR, serão baixados ~5 MB de dados de idioma no primeiro uso.",
+        "assetsEnabled": "Os recursos de OCR foram ativados e estão prontos"
       },
       "ocrLanguage": {
         "label": "Default OCR Language",

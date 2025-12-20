@@ -138,7 +138,7 @@
     "message": "최근 팀 싱크에서 나온 결정 사항, 블로커, 후속 조치."
   },
   "notesEmpty_demoSample1Meta": {
-    "message": "오늘 \u00b7 오전 9:32"
+    "message": "오늘 · 오전 9:32"
   },
   "notesEmpty_demoSample2Title": {
     "message": "데모 노트: 연구 하이라이트"
@@ -147,7 +147,7 @@
     "message": "긴 글이나 논문에서 뽑은 핵심 인사이트."
   },
   "notesEmpty_demoSample2Meta": {
-    "message": "어제 \u00b7 오후 4:10"
+    "message": "어제 · 오후 4:10"
   },
   "notesEmpty_demoSample3Title": {
     "message": "데모 노트: 통화 요약"
@@ -194,15 +194,15 @@
     "description": "Single User와 Multi User 인증 모드를 설명하는 도움말 텍스트."
   },
   "apiKeyHelp": {
-    "message": "tldw_server \u2192 Settings \u2192 API Keys에서 API 키를 찾을 수 있습니다. 그곳에서 키를 생성한 뒤 여기에 붙여넣으세요.",
+    "message": "tldw_server → Settings → API Keys에서 API 키를 찾을 수 있습니다. 그곳에서 키를 생성한 뒤 여기에 붙여넣으세요.",
     "description": "API 키를 어디에서 찾을 수 있는지 설명하는 도움말 텍스트."
   },
   "authStepAria": {
-    "message": "{{total}}단계 중 {{current}}단계 \u2014 로그인 방법 선택",
+    "message": "{{total}}단계 중 {{current}}단계 — 로그인 방법 선택",
     "description": "온보딩 중 인증 설정 단계의 aria 레이블."
   },
   "confirmStepAria": {
-    "message": "{{total}}단계 중 {{current}}단계 \u2014 연결 요약 및 다음 단계",
+    "message": "{{total}}단계 중 {{current}}단계 — 연결 요약 및 다음 단계",
     "description": "온보딩 중 연결 요약 및 다음 단계 화면의 aria 레이블."
   },
   "nextSteps": {
@@ -257,6 +257,15 @@
   "restartOnboardingConfirmMessage": {
     "message": "온보딩 상태가 초기화되고 설정 흐름의 처음으로 돌아갑니다."
   },
+  "enableOcrAssets_label": {
+    "message": "OCR 활성화 (처음 사용할 때 약 5MB 다운로드)"
+  },
+  "enableOcrAssets_downloadNotice": {
+    "message": "OCR을 활성화하면 처음 사용할 때 약 5MB의 언어 데이터가 다운로드됩니다."
+  },
+  "enableOcrAssets_assetsEnabled": {
+    "message": "OCR 리소스가 활성화되어 준비되었습니다"
+  },
   "omniSearchPlaceholder": {
     "message": "화면, 채팅, 미디어, 노트를 검색…",
     "description": "Placeholder text for the omni-search input in the header."
@@ -296,6 +305,27 @@
   "connectionCard_descriptionConnectedList_useRag": {
     "message": "내 문서와 함께 RAG 사용",
     "description": "Third bullet in the connected-state server connection card, highlighting retrieval-augmented generation usage."
+  },
+  "searchKnowledge": {
+    "message": "Search & RAG"
+  },
+  "compareTag": {
+    "message": "Compare"
+  },
+  "compareMaxModelsTitle": {
+    "message": "비교 제한에 도달했습니다"
+  },
+  "compareMaxModels": {
+    "message": "턴당 최대 {{limit}}개의 모델을 비교할 수 있습니다."
+  },
+  "compareMaxModelsTrimmed": {
+    "message": "비교는 턴당 {{limit}}개의 모델로 제한됩니다. 선택한 처음 {{limit}}개의 모델을 사용합니다."
+  },
+  "compareMaxLabel": {
+    "message": "턴당 최대 모델 수"
+  },
+  "compareMaxHelper": {
+    "message": "선택됨: {{current}} / {{limit}}"
   },
   "omniSearch_filterScreen": {
     "message": "화면",
@@ -385,6 +415,9 @@
     "message": "폴더로 이동",
     "description": "Action label to move an item to a folder."
   },
+  "quickIngest_ocrHelp": {
+    "message": "OCR은 스캔한 PDF나 이미지에서 텍스트 추출을 돕습니다."
+  },
   "specReloadedToast": {
     "message": "서버에서 고급 스펙을 다시 로드했습니다",
     "description": "Toast shown after reloading the Quick Ingest advanced schema from the server."
@@ -396,5 +429,349 @@
   "specFallbackWarning": {
     "message": "번들에 포함된 media.add 스키마 폴백(v{{version}})을 사용 중입니다. 필드가 오래되어 보이면 tldw_server /openapi.json과 비교해 확인하세요.",
     "description": "Warning shown when the Quick Ingest advanced schema falls back to the bundled schema; contains the bundled schema version."
+  },
+  "serverChatsUnavailableNotConnected": {
+    "message": "tldw 서버에 연결하면 서버 채팅을 사용할 수 있습니다."
+  },
+  "serverChatsUnavailableServerError": {
+    "message": "현재 서버 채팅을 사용할 수 없습니다. 서버 로그를 확인하거나 다시 시도하세요."
+  },
+  "noToolCalls": {
+    "message": "아직 도구 호출이 없습니다"
+  },
+  "arguments": {
+    "message": "인수"
+  },
+  "invalidJson": {
+    "message": "잘못된 JSON입니다. 원시 값을 표시합니다"
+  },
+  "result": {
+    "message": "결과"
+  },
+  "tools_fs_list": {
+    "message": "디렉터리 목록",
+    "description": "Label for the fs.list tool (list directory)."
+  },
+  "tools_fs_read": {
+    "message": "파일 읽기",
+    "description": "Label for the fs.read tool (read file)."
+  },
+  "tools_fs_write": {
+    "message": "파일 쓰기",
+    "description": "Label for the fs.write tool (write file)."
+  },
+  "tools_fs_apply_patch": {
+    "message": "패치 적용",
+    "description": "Label for the fs.apply_patch tool (apply patch)."
+  },
+  "tools_fs_mkdir": {
+    "message": "디렉터리 생성",
+    "description": "Label for the fs.mkdir tool (create directory)."
+  },
+  "tools_fs_delete": {
+    "message": "삭제",
+    "description": "Label for the fs.delete tool (delete file or directory)."
+  },
+  "tools_search_grep": {
+    "message": "콘텐츠 검색",
+    "description": "Label for the search.grep tool (search file contents)."
+  },
+  "tools_search_glob": {
+    "message": "파일 찾기",
+    "description": "Label for the search.glob tool (find files by pattern)."
+  },
+  "tools_git_status": {
+    "message": "Git 상태",
+    "description": "Label for the git.status tool."
+  },
+  "tools_git_diff": {
+    "message": "Git 차이",
+    "description": "Label for the git.diff tool."
+  },
+  "tools_git_log": {
+    "message": "Git 로그",
+    "description": "Label for the git.log tool."
+  },
+  "tools_git_branch": {
+    "message": "Git 브랜치",
+    "description": "Label for the git.branch tool."
+  },
+  "tools_git_add": {
+    "message": "파일 스테이징",
+    "description": "Label for the git.add tool (stage files)."
+  },
+  "tools_git_commit": {
+    "message": "커밋",
+    "description": "Label for the git.commit tool."
+  },
+  "tools_exec_run": {
+    "message": "명령 실행",
+    "description": "Label for the exec.run tool (run command)."
+  },
+  "commandPalette_goToChat": {
+    "message": "채팅으로 이동",
+    "description": "Command palette action label to navigate to the Chat screen."
+  },
+  "commandPalette_goToMedia": {
+    "message": "미디어로 이동",
+    "description": "Command palette action label to navigate to the Media screen."
+  },
+  "commandPalette_goToNotes": {
+    "message": "노트로 이동",
+    "description": "Command palette action label to navigate to the Notes screen."
+  },
+  "commandPalette_goToFlashcards": {
+    "message": "플래시카드로 이동",
+    "description": "Command palette action label to navigate to the Flashcards screen."
+  },
+  "commandPalette_goToSettings": {
+    "message": "설정으로 이동",
+    "description": "Command palette action label to navigate to the Settings screen."
+  },
+  "commandPalette_goToHealth": {
+    "message": "Health & Diagnostics 열기",
+    "description": "Command palette action label to open the Health & diagnostics screen."
+  },
+  "commandPalette_newChat": {
+    "message": "새 채팅",
+    "description": "Command palette action label to start a new chat."
+  },
+  "commandPalette_toggleKnowledgeSearch": {
+    "message": "지식 검색 전환",
+    "description": "Command palette toggle label for enabling or disabling knowledge search."
+  },
+  "commandPalette_toggleKnowledgeSearchDesc": {
+    "message": "지식 베이스에서 검색합니다",
+    "description": "Command palette description text explaining the knowledge search toggle."
+  },
+  "commandPalette_toggleWebSearch": {
+    "message": "웹 검색 전환",
+    "description": "Command palette toggle label for enabling or disabling web search."
+  },
+  "commandPalette_toggleWebDesc": {
+    "message": "인터넷을 검색합니다",
+    "description": "Command palette description text explaining the web search toggle."
+  },
+  "commandPalette_ingestPage": {
+    "message": "현재 페이지 가져오기",
+    "description": "Command palette action label to ingest the current page into knowledge."
+  },
+  "commandPalette_ingestDesc": {
+    "message": "이 페이지를 지식 베이스에 저장합니다",
+    "description": "Command palette description text explaining page ingestion into knowledge."
+  },
+  "commandPalette_switchModel": {
+    "message": "모델 전환",
+    "description": "Command palette action label to switch the active chat/model."
+  },
+  "commandPalette_toggleSidebar": {
+    "message": "사이드바 전환",
+    "description": "Command palette toggle label to show or hide the sidepanel."
+  },
+  "commandPalette_toggleSidebarDesc": {
+    "message": "채팅 사이드바 표시/숨기기",
+    "description": "Command palette description text explaining the sidebar visibility toggle."
+  },
+  "commandPalette_placeholder": {
+    "message": "명령을 입력하거나 검색하세요…",
+    "description": "Placeholder text shown in the command palette input."
+  },
+  "commandPalette_noResults": {
+    "message": "결과가 없습니다",
+    "description": "No-results state text in the command palette when nothing matches the query."
+  },
+  "commandPalette_title": {
+    "message": "명령 팔레트",
+    "description": "Title of the command palette UI."
+  },
+  "commandPalette_navigate": {
+    "message": "이동",
+    "description": "Command palette keyboard hint label for navigation."
+  },
+  "commandPalette_select": {
+    "message": "선택",
+    "description": "Command palette keyboard hint label for selection."
+  },
+  "commandPalette_toOpen": {
+    "message": "열기",
+    "description": "Command palette keyboard hint label indicating the shortcut to open an item."
+  },
+  "commandPalette_categoryActions": {
+    "message": "작업",
+    "description": "Label for the Actions category in the command palette."
+  },
+  "commandPalette_categoryNavigation": {
+    "message": "탐색",
+    "description": "Label for the Navigation category in the command palette."
+  },
+  "commandPalette_categorySettings": {
+    "message": "설정",
+    "description": "Label for the Settings category in the command palette."
+  },
+  "commandPalette_categoryRecent": {
+    "message": "최근 항목",
+    "description": "Label for the Recent items category in the command palette."
+  },
+  "markdown_unableToRender": {
+    "message": "Unable to render content"
+  },
+  "markdown_couldNotDisplay": {
+    "message": "The message content could not be displayed. This may be due to invalid formatting."
+  },
+  "markdown_showRawContent": {
+    "message": "Show raw content"
+  },
+  "notesSearch_exportNoteSuccess": {
+    "message": "내보냈습니다 ({{size}})"
+  },
+  "notesSearch_exportSuccess": {
+    "message": "{{count}}개의 노트를 내보냈습니다 ({{size}})"
+  },
+  "notesSearch_exportCsvSuccess": {
+    "message": "{{count}}개의 노트를 CSV로 내보냈습니다 ({{size}})"
+  },
+  "notesSearch_exportJsonSuccess": {
+    "message": "{{count}}개의 노트를 JSON으로 내보냈습니다 ({{size}})"
+  },
+  "exportNoteSuccess": {
+    "message": "내보냈습니다 ({{size}})"
+  },
+  "exportSuccess": {
+    "message": "{{count}}개의 노트를 내보냈습니다 ({{size}})"
+  },
+  "exportCsvSuccess": {
+    "message": "{{count}}개의 노트를 CSV로 내보냈습니다 ({{size}})"
+  },
+  "exportJsonSuccess": {
+    "message": "{{count}}개의 노트를 JSON으로 내보냈습니다 ({{size}})"
+  },
+  "infoShort": {
+    "message": "정보"
+  },
+  "regenShort": {
+    "message": "다시"
+  },
+  "continueShort": {
+    "message": "더 보기"
+  },
+  "error_label": {
+    "message": "오류"
+  },
+  "error_friendlyApiKeySummary": {
+    "message": "tldw 서버에 연결할 수 없습니다."
+  },
+  "error_friendlyApiKeyHint": {
+    "message": "API 키가 잘못되었을 수 있습니다. 설정 → tldw 서버에서 URL과 API 키를 확인한 뒤 다시 시도하세요."
+  },
+  "error_friendlyTimeoutSummary": {
+    "message": "채팅이 시간 초과되었습니다."
+  },
+  "error_friendlyTimeoutHint": {
+    "message": "서버가 응답 전송을 중단했습니다. 다시 시도하거나 상태 및 진단을 열어 서버 상태를 확인하세요."
+  },
+  "error_friendlyGenericSummary": {
+    "message": "tldw 서버와 통신하는 중 문제가 발생했습니다."
+  },
+  "error_friendlyGenericHint": {
+    "message": "잠시 후 다시 시도하거나 상태 및 진단을 열어 서버 상태를 확인하세요."
+  },
+  "error_showDetails": {
+    "message": "기술 세부정보 표시"
+  },
+  "error_hideDetails": {
+    "message": "기술 세부정보 숨기기"
+  },
+  "error_createFolder": {
+    "message": "Failed to create folder"
+  },
+  "modelSelect_label": {
+    "message": "Model"
+  },
+  "modelSelect_tooltip": {
+    "message": "다음 메시지에 사용할 모델을 변경합니다"
+  },
+  "featureHints_knowledge_title": {
+    "message": "내 지식 검색"
+  },
+  "featureHints_knowledge_description": {
+    "message": "지식 검색 패널을 열어 스니펫을 찾고 채팅에 삽입합니다."
+  },
+  "featureHints_moreTools_title": {
+    "message": "더 많은 도구"
+  },
+  "featureHints_moreTools_description": {
+    "message": "비전 모드, 이미지 업로드, 빠른 가져오기 및 전체 앱에 액세스합니다."
+  },
+  "featureHints_commandPalette_title": {
+    "message": "빠른 명령"
+  },
+  "featureHints_commandPalette_description": {
+    "message": "{{shortcut}} 를 눌러 명령, 설정 등을 검색합니다."
+  },
+  "featureHints_modelSettings_title": {
+    "message": "모델 매개변수 조정"
+  },
+  "featureHints_modelSettings_description": {
+    "message": "온도, 컨텍스트 길이 등 모델 설정을 세부 조정합니다."
+  },
+  "chatSidebar_title": {
+    "message": "채팅"
+  },
+  "chatSidebar_newChat": {
+    "message": "새 채팅"
+  },
+  "chatSidebar_collapse": {
+    "message": "사이드바 접기"
+  },
+  "chatSidebar_expand": {
+    "message": "사이드바 펼치기"
+  },
+  "chatSidebar_search": {
+    "message": "채팅 검색..."
+  },
+  "chatSidebar_ingest": {
+    "message": "페이지 가져오기"
+  },
+  "chatSidebar_media": {
+    "message": "미디어"
+  },
+  "chatSidebar_notes": {
+    "message": "노트"
+  },
+  "chatSidebar_settings": {
+    "message": "설정"
+  },
+  "chatSidebar_loadError": {
+    "message": "채팅을 불러오지 못했습니다"
+  },
+  "chatSidebar_localTab": {
+    "message": "로컬"
+  },
+  "chatSidebar_serverTab": {
+    "message": "서버"
+  },
+  "chatSidebar_foldersTab": {
+    "message": "폴더"
+  },
+  "chatSidebar_tabs_local": {
+    "message": "로컬"
+  },
+  "chatSidebar_tabs_server": {
+    "message": "서버"
+  },
+  "chatSidebar_tabs_folders": {
+    "message": "폴더"
+  },
+  "chatSidebar_noServerChats": {
+    "message": "서버 채팅이 아직 없습니다"
+  },
+  "chatSidebar_foldersRequireConnection": {
+    "message": "폴더를 사용하려면 서버 연결이 필요합니다"
+  },
+  "option.more.copy.canonicalMarkdown": {
+    "message": "Copy canonical transcript"
+  },
+  "option.more.download.canonicalMarkdown": {
+    "message": "Canonical transcript (Markdown)"
   }
 }

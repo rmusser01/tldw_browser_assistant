@@ -11,36 +11,71 @@ type Props = {
   searchQuery?: string
 }
 
-export const SidePanelBody = ({ scrollParentRef, searchQuery }: Props) => {
+export const SidePanelBody = ({
+  scrollParentRef,
+  searchQuery,
+  inputRef
+}: Props & { inputRef?: React.RefObject<HTMLTextAreaElement> }) => {
   const {
     messages,
     streaming,
     isProcessing,
     regenerateLastMessage,
     editMessage,
-    isSearchingInternet, 
+    isSearchingInternet,
     createChatBranch,
     temporaryChat,
     stopStreamingRequest,
-    serverChatId
+    serverChatId,
+    isEmbedding
   } = useMessage()
   const [isSourceOpen, setIsSourceOpen] = React.useState(false)
   const [source, setSource] = React.useState<any>(null)
   const { ttsEnabled } = useWebUI()
+  const scrollAnchorRef = React.useRef<number | null>(null)
 
   const parentEl = scrollParentRef?.current || null
   const rowVirtualizer = useVirtualizer({
     count: messages.length,
     getScrollElement: () => parentEl,
     estimateSize: () => 120,
-    overscan: 6,
+    // Reduced from 6 to 3 for better performance on large conversations
+    overscan: 3,
     measureElement: (el) => el?.getBoundingClientRect().height || 120
   })
+
+  // Lock scroll position during streaming to prevent virtualizer jumps
+  React.useEffect(() => {
+    if (!parentEl) return
+
+    if (streaming) {
+      // Save current scroll position when streaming starts
+      scrollAnchorRef.current = parentEl.scrollTop
+    } else {
+      // Clear anchor when streaming ends
+      scrollAnchorRef.current = null
+    }
+  }, [streaming, parentEl])
+
+  // Prevent virtualizer scroll jumps during streaming
+  React.useEffect(() => {
+    if (!parentEl || !streaming || scrollAnchorRef.current === null) return
+
+    const handleScroll = () => {
+      // If user manually scrolls, update the anchor
+      if (Math.abs(parentEl.scrollTop - scrollAnchorRef.current!) > 10) {
+        scrollAnchorRef.current = parentEl.scrollTop
+      }
+    }
+
+    parentEl.addEventListener('scroll', handleScroll, { passive: true })
+    return () => parentEl.removeEventListener('scroll', handleScroll)
+  }, [streaming, parentEl])
 
   return (
     <>
       <div className="relative flex w-full flex-col items-center pt-16 pb-4">
-        {messages.length === 0 && <EmptySidePanel />}
+        {messages.length === 0 && <EmptySidePanel inputRef={inputRef} />}
         <div style={{ height: rowVirtualizer.getTotalSize(), width: '100%', position: 'relative' }}>
           {rowVirtualizer.getVirtualItems().map((vr) => {
             const index = vr.index
@@ -54,7 +89,7 @@ export const SidePanelBody = ({ scrollParentRef, searchQuery }: Props) => {
                   images={message.images || []}
                   currentMessageIndex={index}
                   totalMessages={messages.length}
-                  onRengerate={regenerateLastMessage}
+                  onRegenerate={regenerateLastMessage}
                   message_type={message.messageType}
                   isProcessing={isProcessing}
                   isSearchingInternet={isSearchingInternet}
@@ -73,13 +108,13 @@ export const SidePanelBody = ({ scrollParentRef, searchQuery }: Props) => {
                   serverChatId={serverChatId}
                   serverMessageId={message.serverMessageId}
                   searchQuery={searchQuery}
+                  isEmbedding={isEmbedding}
                 />
               </div>
             )
           })}
         </div>
       </div>
-      <div className="w-full pb-[157px]"></div>
 
       <MessageSourcePopup
         open={isSourceOpen}

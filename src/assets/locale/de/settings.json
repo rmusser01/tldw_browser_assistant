@@ -10,6 +10,39 @@
   "chatDictionariesNav": "Chat‑Wörterbücher",
   "charactersNav": "Charaktere",
   "mediaNav": "Medien",
+  "chatAppearance": {
+    "title": "Chat‑Erscheinungsbild",
+    "description": "Passen Sie Farben, Schriftarten und Textgrößen für Chatnachrichten an.",
+    "behaviorNote": "Sie suchen Chat‑Verhaltensoptionen (Breitmodus, Reasoning, Kopieroptionen)?",
+    "goToGeneral": "Zu den allgemeinen Einstellungen",
+    "userHeading": "Benutzernachrichten",
+    "assistantHeading": "Assistenten‑Nachrichten",
+    "userColor": "Textfarbe für Benutzernachrichten",
+    "assistantColor": "Textfarbe für Assistenten‑Nachrichten",
+    "userFont": "Schriftart für Benutzernachrichten",
+    "assistantFont": "Schriftart für Assistenten‑Nachrichten",
+    "userSize": "Textgröße für Benutzernachrichten",
+    "assistantSize": "Textgröße für Assistenten‑Nachrichten",
+    "color": {
+      "default": "Standard",
+      "blue": "Blau",
+      "green": "Grün",
+      "purple": "Violett",
+      "orange": "Orange",
+      "red": "Rot"
+    },
+    "font": {
+      "default": "Standard",
+      "sans": "Serifenlos",
+      "serif": "Serifenschrift",
+      "mono": "Monospace"
+    },
+    "size": {
+      "sm": "Klein",
+      "md": "Mittel",
+      "lg": "Groß"
+    }
+  },
   "generalSettings": {
     "title": "Allgemeine Einstellungen",
     "settings": {
@@ -78,7 +111,9 @@
         "label": "Langen Text als Datei einfügen"
       },
       "enableOcrAssets": {
-        "label": "OCR aktivieren (lädt beim ersten Gebrauch ~5 MB herunter)"
+        "label": "OCR aktivieren (lädt beim ersten Gebrauch ~5 MB herunter)",
+        "downloadNotice": "Beim Aktivieren von OCR werden beim ersten Gebrauch ~5 MB Sprachdaten heruntergeladen.",
+        "assetsEnabled": "OCR-Ressourcen aktiviert und bereit"
       },
       "ocrLanguage": {
         "label": "Standard-OCR-Sprache",

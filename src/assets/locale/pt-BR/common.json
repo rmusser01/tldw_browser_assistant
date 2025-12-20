@@ -216,6 +216,19 @@
   "ttsShort": "Voz",
   "copyShort": "Copiar",
   "branchShort": "Ramo",
+  "infoShort": "Info",
+  "regenShort": "Repetir",
+  "continueShort": "Mais",
+  "fileChanges": "Alterações de arquivos",
+  "deletions": "Exclusões",
+  "gitOperations": "Operações Git",
+  "commands": "Comandos",
+  "otherOperations": "Outras operações",
+  "fileAccess": "Acesso a arquivos",
+  "notebookEdits": "Edições do caderno",
+  "applyPatch": "Apply patch",
+  "recursive": "(recursive)",
+  "complexArguments": "[Complex arguments]",
   "segmented": {
     "available": "Modelos do servidor",
     "custom": "Modelos personalizados"
@@ -230,7 +243,8 @@
   "serverChats": "Chats do servidor",
   "serverChatLoadError": "Falha ao carregar o chat do servidor. Verifique sua conexão e tente novamente.",
   "serverChatSourceLabel": "Origem do servidor",
-  "serverChatsUnavailable": "Chats do servidor indisponíveis. Verifique a conexão com o servidor.",
+  "serverChatsUnavailableNotConnected": "Os chats do servidor ficam disponíveis quando você se conecta ao seu servidor tldw.",
+  "serverChatsUnavailableServerError": "Os chats do servidor não estão disponíveis no momento. Verifique os logs do servidor ou tente novamente.",
   "historiesDeleted": "{{count}} históricos excluídos",
   "deleteHistoriesError": "Erro ao excluir históricos",
   "mermaid": "Diagramas Mermaid",
@@ -238,6 +252,7 @@
   "searchResults": "Resultados da pesquisa",
   "newBranch": "Novo ramo",
   "error": {
+    "label": "Erro",
     "friendlyApiKeySummary": "Não foi possível alcançar seu servidor tldw.",
     "friendlyApiKeyHint": "Sua chave de API pode ser inválida. Abra Configurações → servidor tldw para verificar sua URL e chave de API e tente novamente.",
     "friendlyTimeoutSummary": "Seu chat excedeu o tempo limite.",
@@ -259,5 +274,105 @@
   "refresh": "Atualizar",
   "confirm": "Confirmar",
   "untitled": "Sem título",
-  "moveToFolder": "Mover para pasta"
+  "moveToFolder": "Mover para pasta",
+  "noToolCalls": "Ainda não há chamadas de ferramentas",
+  "status": {
+    "pending": "Pendente",
+    "running": "Processando",
+    "complete": "Concluído",
+    "error": "Erro"
+  },
+  "arguments": "Argumentos",
+  "invalidJson": "JSON inválido; mostrando valor bruto",
+  "result": "Resultado",
+  "tools": {
+    "fs_list": "Listar diretório",
+    "fs_read": "Ler arquivo",
+    "fs_write": "Escrever arquivo",
+    "fs_apply_patch": "Aplicar patch",
+    "fs_mkdir": "Criar diretório",
+    "fs_delete": "Excluir",
+    "search_grep": "Pesquisar conteúdo",
+    "search_glob": "Encontrar arquivos",
+    "git_status": "Status do Git",
+    "git_diff": "Diff do Git",
+    "git_log": "Log do Git",
+    "git_branch": "Branch do Git",
+    "git_add": "Preparar arquivos",
+    "git_commit": "Commit",
+    "exec_run": "Executar comando"
+  },
+  "markdown": {
+    "unableToRender": "Não foi possível renderizar o conteúdo",
+    "couldNotDisplay": "O conteúdo da mensagem não pôde ser exibido. Isso pode ser devido a formatação inválida.",
+    "showRawContent": "Mostrar conteúdo bruto"
+  },
+  "commandPalette": {
+    "goToChat": "Ir para o chat",
+    "goToMedia": "Ir para Mídia",
+    "goToNotes": "Ir para Notas",
+    "goToFlashcards": "Ir para flashcards",
+    "goToSettings": "Ir para Configurações",
+    "goToHealth": "Ir para Saúde e diagnósticos",
+    "newChat": "Novo chat",
+    "toggleKnowledgeSearch": "Alternar pesquisa de conhecimento",
+    "toggleKnowledgeSearchDesc": "Buscar na sua base de conhecimento",
+    "toggleWebSearch": "Alternar pesquisa na web",
+    "toggleWebDesc": "Pesquisar na internet",
+    "ingestPage": "Ingerir página atual",
+    "ingestDesc": "Salvar esta página na sua base de conhecimento",
+    "switchModel": "Trocar modelo",
+    "toggleSidebar": "Alternar barra lateral",
+    "toggleSidebarDesc": "Mostrar ou ocultar a barra lateral de chat",
+    "placeholder": "Digite um comando ou pesquise...",
+    "noResults": "Nenhum resultado encontrado",
+    "title": "Paleta de comandos",
+    "navigate": "navegar",
+    "select": "selecionar",
+    "toOpen": "para abrir",
+    "categoryActions": "Ações",
+    "categoryNavigation": "Navegação",
+    "categorySettings": "Configurações",
+    "categoryRecent": "Recentes"
+  },
+  "featureHints": {
+    "knowledge": {
+      "title": "Pesquisar seu conhecimento",
+      "description": "Abra o painel de pesquisa de conhecimento para encontrar trechos e inseri-los no seu chat."
+    },
+    "moreTools": {
+      "title": "Mais ferramentas disponíveis",
+      "description": "Acesse o modo visão, upload de imagens, ingestão rápida e o aplicativo completo."
+    },
+    "commandPalette": {
+      "title": "Comandos rápidos",
+      "description": "Pressione {{shortcut}} para pesquisar comandos, configurações e mais."
+    },
+    "modelSettings": {
+      "title": "Ajustar parâmetros do modelo",
+      "description": "Ajuste temperatura, tamanho do contexto e outras configurações do modelo."
+    }
+  },
+  "chatSidebar": {
+    "title": "Chats",
+    "newChat": "Novo chat",
+    "collapse": "Recolher barra lateral",
+    "expand": "Expandir barra lateral",
+    "search": "Pesquisar chats...",
+    "ingest": "Ingerir página",
+    "media": "Mídia",
+    "notes": "Notas",
+    "settings": "Configurações",
+    "loadError": "Falha ao carregar chats",
+    "localTab": "Local",
+    "serverTab": "Servidor",
+    "foldersTab": "Pastas",
+    "tabs": {
+      "local": "Local",
+      "server": "Servidor",
+      "folders": "Pastas"
+    },
+    "noServerChats": "Ainda não há chats do servidor",
+    "foldersRequireConnection": "Pastas requerem conexão com o servidor"
+  }
 }

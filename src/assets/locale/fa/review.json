@@ -164,7 +164,9 @@
     "saveAsVersion": "ذخیره به‌عنوان نسخه جدید",
     "analysisPlaceholder": "متن تحلیل را وارد کنید...",
     "wordCount": "{{count}} کلمه",
-    "charCount": "{{count}} نویسه"
+    "charCount": "{{count}} نویسه",
+    "pageRangeError": "صفحه باید بین ۱ تا {{max}} باشد",
+    "pageRangeClamped": "در حال انتقال به صفحهٔ {{page}}"
   },
   "empty": {
     "connectTitle": "Connect to use Review",

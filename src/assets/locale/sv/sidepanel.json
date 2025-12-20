@@ -12,6 +12,28 @@
     "privateModeTitle": "tldw Assistant kan inte spara data",
     "privateModeDescription": "Firefox privat läge stöder inte att spara chatt-historik. Tillfällig chatt är aktiverat som standard. Fler förbättringar kommer snart."
   },
+  "connectionBanner": {
+    "connecting": "Ansluter till din tldw-server...",
+    "authErrorTitle": "API-nyckeln behöver uppmärksamhet",
+    "authErrorBody": "Servern är nåbar men API-nyckeln är felaktig eller saknas.",
+    "unreachableTitle": "Kan inte nå din tldw-server",
+    "unreachableBody": "Kontrollera att servern körs och är tillgänglig.",
+    "noUrlBody": "Lägg till serverns URL i Inställningar för att komma igång.",
+    "disconnectedTitle": "Inte ansluten till tldw-servern",
+    "disconnectedBody": "Öppna Inställningar för att konfigurera serveranslutningen.",
+    "setupTitle": "Slutför konfigurationen för att börja chatta",
+    "setupBody": "Slutför installationsguiden i Inställningar för att ansluta.",
+    "openSettings": "Öppna Inställningar"
+  },
+  "temporaryBadge": {
+    "title": "Tillfällig chatt",
+    "label": "Temp",
+    "description": "Den här chatten sparas inte. Meddelanden rensas när du stänger eller startar en ny chatt.",
+    "clickHint": "Klicka för att inaktivera",
+    "ariaLabel": "Tillfälligt chattläge är aktivt. Klicka för att växla.",
+    "indicatorTooltip": "Meddelanden i denna chatt sparas inte",
+    "indicatorAria": "Tillfällig chatt"
+  },
   "header": {
     "ingest": "Ingest",
     "saveCurrent": "Save current page on server",
@@ -74,6 +96,13 @@
     "transcriptLabel": "Transcript",
     "summaryLabel": "Summary"
   },
+  "saveStatus": {
+    "ephemeral": "Tillfällig: inte sparad, rensas vid stängning",
+    "local": "Sparad lokalt i den här webbläsaren",
+    "server": "Sparad på servern",
+    "saveFailed": "Det gick inte att spara chatten på servern",
+    "saveFailedDescription": "Chatten sparas nu bara lokalt. Kontrollera anslutningen och försök igen."
+  },
   "rag": {
     "searchPlaceholder": "Search your knowledge…",
     "search": "Search",
@@ -92,6 +121,10 @@
       "ask": "Ask",
       "open": "Open",
       "copy": "Copy"
+    },
+    "hint": {
+      "message": "Sök i din kunskapsbas och infoga resultat i ditt meddelande.",
+      "dismiss": "Stäng"
     }
   }
 }

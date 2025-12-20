@@ -1,0 +1,50 @@
+{
+  "mediaPage.nothingToSend": {
+    "message": "Немає що надсилати"
+  },
+  "mediaPage.emptyAnalysis": {
+    "message": "Аналіз не може бути порожнім"
+  },
+  "mediaPage.noMediaId": {
+    "message": "Ідентифікатор медіа недоступний"
+  },
+  "mediaPage.versionSaved": {
+    "message": "Збережено як нову версію"
+  },
+  "mediaPage.saveFailed": {
+    "message": "Не вдалося зберегти версію"
+  },
+  "mediaPage.sendToChat": {
+    "message": "Надіслати в чат"
+  },
+  "mediaPage.saveAsVersion": {
+    "message": "Зберегти як нову версію"
+  },
+  "mediaPage.analysisPlaceholder": {
+    "message": "Введіть текст аналізу..."
+  },
+  "mediaPage.wordCount": {
+    "message": "{{count}} слів"
+  },
+  "mediaPage.charCount": {
+    "message": "{{count}} символів"
+  },
+  "mediaPage.pageRangeError": {
+    "message": "Сторінка має бути від 1 до {{max}}"
+  },
+  "mediaPage.pageRangeClamped": {
+    "message": "Перехід до сторінки {{page}}"
+  },
+  "noToolCalls": {
+    "message": "Ще немає викликів інструментів"
+  },
+  "arguments": {
+    "message": "Аргументи"
+  },
+  "invalidJson": {
+    "message": "Некоректний JSON; показано сире значення"
+  },
+  "result": {
+    "message": "Результат"
+  }
+}

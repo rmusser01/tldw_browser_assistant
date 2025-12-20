@@ -10,6 +10,39 @@
   "chatDictionariesNav": "Dictionnaires de chat",
   "charactersNav": "Personnages",
   "mediaNav": "Médias",
+  "chatAppearance": {
+    "title": "Apparence du chat",
+    "description": "Personnalisez les couleurs, les polices et la taille du texte des messages de chat.",
+    "behaviorNote": "Vous cherchez les paramètres de comportement du chat (mode large, raisonnement, options de copie) ?",
+    "goToGeneral": "Aller aux paramètres généraux",
+    "userHeading": "Messages de l'utilisateur",
+    "assistantHeading": "Messages de l'assistant",
+    "userColor": "Couleur du texte de l'utilisateur",
+    "assistantColor": "Couleur du texte de l'assistant",
+    "userFont": "Police de l'utilisateur",
+    "assistantFont": "Police de l'assistant",
+    "userSize": "Taille du texte de l'utilisateur",
+    "assistantSize": "Taille du texte de l'assistant",
+    "color": {
+      "default": "Par défaut",
+      "blue": "Bleu",
+      "green": "Vert",
+      "purple": "Violet",
+      "orange": "Orange",
+      "red": "Rouge"
+    },
+    "font": {
+      "default": "Par défaut",
+      "sans": "Sans empattement (sans serif)",
+      "serif": "Avec empattement (serif)",
+      "mono": "Monospace (chasse fixe)"
+    },
+    "size": {
+      "sm": "Petite",
+      "md": "Moyenne",
+      "lg": "Grande"
+    }
+  },
   "generalSettings": {
     "title": "Paramètres généraux",
     "settings": {
@@ -81,7 +114,9 @@
         "label": "Activer le chat temporaire dans le panneau latéral par défaut"
       },
       "enableOcrAssets": {
-        "label": "Activer l’OCR (télécharge ~5 Mo lors de la première utilisation)"
+        "label": "Activer l’OCR (télécharge ~5 Mo lors de la première utilisation)",
+        "downloadNotice": "L’activation de l’OCR téléchargera ~5 Mo de données linguistiques lors de la première utilisation.",
+        "assetsEnabled": "Les ressources OCR sont activées et prêtes"
       },
       "ocrLanguage": {
         "label": "Langue OCR par défaut",

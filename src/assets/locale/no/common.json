@@ -216,6 +216,16 @@
   "ttsShort": "Tale",
   "copyShort": "Kopier",
   "branchShort": "Gren",
+  "infoShort": "Info",
+  "regenShort": "Igjen",
+  "continueShort": "Mer",
+  "fileChanges": "Filendringer",
+  "deletions": "Slettinger",
+  "gitOperations": "Git-operasjoner",
+  "commands": "Kommandoer",
+  "otherOperations": "Andre operasjoner",
+  "fileAccess": "Filtilgang",
+  "notebookEdits": "Notatbokendringer",
   "segmented": {
     "available": "Servermodeller",
     "custom": "Egendefinerte modeller"
@@ -230,7 +240,8 @@
   "serverChats": "Serverchatter",
   "serverChatLoadError": "Kunne ikke laste server-chat. Kontroller tilkoblingen og prøv igjen.",
   "serverChatSourceLabel": "Serverkilde",
-  "serverChatsUnavailable": "Serverchatter utilgjengelige. Kontroller servertilkoblingen.",
+  "serverChatsUnavailableNotConnected": "Serverchatter blir tilgjengelige når du kobler til tldw-serveren din.",
+  "serverChatsUnavailableServerError": "Serverchatter er utilgjengelige akkurat nå. Sjekk serverloggene eller prøv igjen.",
   "historiesDeleted": "{{count}} historikker slettet",
   "deleteHistoriesError": "Feil ved sletting av historikk",
   "mermaid": "Mermaid-diagrammer",
@@ -238,6 +249,7 @@
   "searchResults": "Søkeresultater",
   "newBranch": "Ny gren",
   "error": {
+    "label": "Feil",
     "friendlyApiKeySummary": "Vi fikk ikke kontakt med tldw-serveren din.",
     "friendlyApiKeyHint": "API-nøkkelen din kan være ugyldig. Åpne Innstillinger → tldw server for å sjekke URL og API-nøkkel, og prøv på nytt.",
     "friendlyTimeoutSummary": "Samtalen tidsavbrøt.",
@@ -259,5 +271,105 @@
   "refresh": "Oppdater",
   "confirm": "Bekreft",
   "untitled": "Uten tittel",
-  "moveToFolder": "Flytt til mappe"
+  "moveToFolder": "Flytt til mappe",
+  "noToolCalls": "Ingen verktøykall ennå",
+  "status": {
+    "pending": "Venter",
+    "running": "Behandler",
+    "complete": "Ferdig",
+    "error": "Feil"
+  },
+  "arguments": "Argumenter",
+  "invalidJson": "Ugyldig JSON; viser råverdi",
+  "result": "Resultat",
+  "tools": {
+    "fs_list": "List katalog",
+    "fs_read": "Les fil",
+    "fs_write": "Skriv fil",
+    "fs_apply_patch": "Bruk patch",
+    "fs_mkdir": "Opprett katalog",
+    "fs_delete": "Slett",
+    "search_grep": "Søk i innhold",
+    "search_glob": "Finn filer",
+    "git_status": "Git-status",
+    "git_diff": "Git-diff",
+    "git_log": "Git-logg",
+    "git_branch": "Git-gren",
+    "git_add": "Stage filer",
+    "git_commit": "Commit",
+    "exec_run": "Kjør kommando"
+  },
+  "markdown": {
+    "unableToRender": "Kan ikke gjengi innhold",
+    "couldNotDisplay": "Meldingsinnholdet kunne ikke vises. Dette kan skyldes ugyldig formatering.",
+    "showRawContent": "Vis rått innhold"
+  },
+  "commandPalette": {
+    "goToChat": "Gå til Chat",
+    "goToMedia": "Gå til Media",
+    "goToNotes": "Gå til Notater",
+    "goToFlashcards": "Gå til Flashcards",
+    "goToSettings": "Gå til Innstillinger",
+    "goToHealth": "Gå til Helse og diagnostikk",
+    "newChat": "Ny chat",
+    "toggleKnowledgeSearch": "Slå kunnskapssøk av/på",
+    "toggleKnowledgeSearchDesc": "Søk i kunnskapsbasen din",
+    "toggleWebSearch": "Slå websøk av/på",
+    "toggleWebDesc": "Søk på internett",
+    "ingestPage": "Importer gjeldende side",
+    "ingestDesc": "Lagre denne siden i kunnskapsbasen din",
+    "switchModel": "Bytt modell",
+    "toggleSidebar": "Slå sidestolpen av/på",
+    "toggleSidebarDesc": "Vis eller skjul chat-sidestolpen",
+    "placeholder": "Skriv en kommando eller søk…",
+    "noResults": "Ingen treff",
+    "title": "Kommando-palett",
+    "navigate": "naviger",
+    "select": "velg",
+    "toOpen": "for å åpne",
+    "categoryActions": "Handlinger",
+    "categoryNavigation": "Navigasjon",
+    "categorySettings": "Innstillinger",
+    "categoryRecent": "Nylig"
+  },
+  "featureHints": {
+    "knowledge": {
+      "title": "Søk i kunnskapen din",
+      "description": "Åpne kunnskapssøk-panelet for å finne utdrag og sette dem inn i chatten."
+    },
+    "moreTools": {
+      "title": "Flere verktøy tilgjengelig",
+      "description": "Få tilgang til synsmodus, bildeopplasting, hurtiginnhenting og hele appen."
+    },
+    "commandPalette": {
+      "title": "Hurtigkommandoer",
+      "description": "Trykk {{shortcut}} for å søke etter kommandoer, innstillinger og mer."
+    },
+    "modelSettings": {
+      "title": "Juster modellparametere",
+      "description": "Finjuster temperatur, kontekstlengde og andre modellinnstillinger."
+    }
+  },
+  "chatSidebar": {
+    "title": "Chatter",
+    "newChat": "Ny chat",
+    "collapse": "Skjul sidestolpe",
+    "expand": "Utvid sidestolpe",
+    "search": "Søk i chatter...",
+    "ingest": "Innhent side",
+    "media": "Media",
+    "notes": "Notater",
+    "settings": "Innstillinger",
+    "loadError": "Kunne ikke laste chatter",
+    "localTab": "Lokalt",
+    "serverTab": "Server",
+    "foldersTab": "Mapper",
+    "tabs": {
+      "local": "Lokalt",
+      "server": "Server",
+      "folders": "Mapper"
+    },
+    "noServerChats": "Ingen serverchatter ennå",
+    "foldersRequireConnection": "Mapper krever en servertilkobling"
+  }
 }

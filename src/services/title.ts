@@ -4,7 +4,9 @@ import { getOllamaURL } from "./tldw-server"
 import { cleanUrl } from "@/libs/clean-url"
 import { HumanMessage } from "@/types/messages"
 import { removeReasoning } from "@/libs/reasoning"
-const storage = new Storage()
+import { createSafeStorage } from "@/utils/safe-storage"
+
+const storage = createSafeStorage()
 
 // this prompt is copied from the OpenWebUI codebase
 export const DEFAULT_TITLE_GEN_PROMPT = `Here is the query:

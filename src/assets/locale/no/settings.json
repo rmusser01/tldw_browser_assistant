@@ -10,6 +10,39 @@
   "chatDictionariesNav": "Chatordbøker",
   "charactersNav": "Tegn",
   "mediaNav": "Media",
+  "chatAppearance": {
+    "title": "Chat-utseende",
+    "description": "Tilpass farger, skrifttyper og tekststørrelse for chatmeldinger.",
+    "behaviorNote": "Leter du etter innstillinger for chatteadferd (breddemodus, resonnement, kopieringsvalg)?",
+    "goToGeneral": "Gå til Generelle innstillinger",
+    "userHeading": "Brukermeldinger",
+    "assistantHeading": "Assistentmeldinger",
+    "userColor": "Farge på brukertekst",
+    "assistantColor": "Farge på assistenttekst",
+    "userFont": "Skrift for bruker",
+    "assistantFont": "Skrift for assistent",
+    "userSize": "Tekststørrelse for bruker",
+    "assistantSize": "Tekststørrelse for assistent",
+    "color": {
+      "default": "Standard",
+      "blue": "Blå",
+      "green": "Grønn",
+      "purple": "Lilla",
+      "orange": "Oransje",
+      "red": "Rød"
+    },
+    "font": {
+      "default": "Standard",
+      "sans": "Sans serif (grotesk)",
+      "serif": "Serif (antiqua)",
+      "mono": "Monospace (fastbredde)"
+    },
+    "size": {
+      "sm": "Liten",
+      "md": "Middels",
+      "lg": "Stor"
+    }
+  },
   "generalSettings": {
     "title": "Generelle Innstillinger",
     "settings": {
@@ -81,7 +114,9 @@
         "label": "Aktiver midlertidig chat i sidepanelet som standard"
       },
       "enableOcrAssets": {
-        "label": "Aktiver OCR (laster ned ~5 MB ved første bruk)"
+        "label": "Aktiver OCR (laster ned ~5 MB ved første bruk)",
+        "downloadNotice": "Når du aktiverer OCR, lastes ~5 MB språkdata ned ved første bruk.",
+        "assetsEnabled": "OCR-ressurser er aktivert og klare"
       },
       "ocrLanguage": {
         "label": "Standard OCR-språk",

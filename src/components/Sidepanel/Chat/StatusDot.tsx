@@ -1,30 +1,26 @@
 import { Tooltip } from "antd"
 import { useTranslation } from "react-i18next"
+import { Check, Loader2, AlertCircle } from "lucide-react"
 import {
   useConnectionActions,
   useConnectionUxState
 } from "@/hooks/useConnectionState"
 
 /**
- * Compact connection status indicator - a colored dot with tooltip.
+ * Compact connection status indicator with icon and color for accessibility.
  *
- * Colors:
- * - Green: Connected
- * - Yellow: Checking/Connecting
- * - Red/Amber: Disconnected or error
+ * States:
+ * - Connected: Green checkmark
+ * - Checking: Yellow spinner
+ * - Disconnected/Error: Amber warning icon
+ *
+ * Uses both color AND shape for color-blind accessibility.
  */
 export const StatusDot = () => {
   const { t } = useTranslation(["sidepanel"])
   const { uxState, mode, isConnectedUx, isChecking, isConfigOrError } =
     useConnectionUxState()
   const { checkOnce } = useConnectionActions()
-
-  const dotClassName = (() => {
-    const base = "h-2.5 w-2.5 rounded-full transition-colors"
-    if (isConnectedUx) return `${base} bg-emerald-500`
-    if (isChecking) return `${base} bg-yellow-500 animate-pulse`
-    return `${base} bg-amber-500`
-  })()
 
   const tooltip = (() => {
     if (isChecking) {
@@ -65,16 +61,34 @@ export const StatusDot = () => {
     }
   }
 
+  // Render icon based on state - uses shape AND color for accessibility
+  const renderStatusIcon = () => {
+    if (isChecking) {
+      return (
+        <Loader2 className="h-3.5 w-3.5 text-yellow-500 animate-spin" />
+      )
+    }
+    if (isConnectedUx) {
+      return (
+        <Check className="h-3.5 w-3.5 text-emerald-500" />
+      )
+    }
+    return (
+      <AlertCircle className="h-3.5 w-3.5 text-red-500" />
+    )
+  }
+
   return (
     <Tooltip title={tooltip}>
       <button
         type="button"
+        data-testid="status-dot"
         onClick={handleClick}
         disabled={isChecking}
         className="p-1 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-pink-700 disabled:cursor-default"
         aria-label={tooltip}
       >
-        <span className={dotClassName} />
+        {renderStatusIcon()}
       </button>
     </Tooltip>
   )

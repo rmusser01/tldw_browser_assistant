@@ -122,15 +122,15 @@
     "description": "Hjelpetekst som forklarer autentiseringsmodusene Single User og Multi User."
   },
   "apiKeyHelp": {
-    "message": "Finn API-nøkkelen din i tldw_server \u2192 Settings \u2192 API Keys. Generer en nøkkel der og lim den inn her.",
+    "message": "Finn API-nøkkelen din i tldw_server → Settings → API Keys. Generer en nøkkel der og lim den inn her.",
     "description": "Hjelpetekst som forklarer hvor API-nøkkelen finnes."
   },
   "authStepAria": {
-    "message": "Trinn 3 av 4 \u2014 velg hvordan du logger inn",
+    "message": "Trinn 3 av 4 — velg hvordan du logger inn",
     "description": "Aria-etikett for autentiseringssteget i onboarding."
   },
   "confirmStepAria": {
-    "message": "Trinn 4 av 4 \u2014 bekreft tilkoblingen og se gjennom neste trinn",
+    "message": "Trinn 4 av 4 — bekreft tilkoblingen og se gjennom neste trinn",
     "description": "Aria-etikett for bekreftelsessteget i onboarding."
   },
   "nextSteps": {
@@ -144,7 +144,7 @@
     "message": "For å bruke Notater må du først koble til tldw-serveren din."
   },
   "notesEmpty_connectExample1": {
-    "message": "\u00c5pne Innstillinger \u2192 tldw-server for å legge til server-URL-en din."
+    "message": "Åpne Innstillinger → tldw-server for å legge til server-URL-en din."
   },
   "notesEmpty_connectExample2": {
     "message": "Bruk Diagnostikk hvis serveren kjører men ikke kan nås."
@@ -174,7 +174,7 @@
     "message": "Beslutninger, hindringer og oppfølgingspunkter fra et nylig teammøte."
   },
   "notesEmpty_demoSample1Meta": {
-    "message": "I dag \u00b7 09:32"
+    "message": "I dag · 09:32"
   },
   "notesEmpty_demoSample2Title": {
     "message": "Eksempelnotat: forskningshøydepunkter"
@@ -183,7 +183,7 @@
     "message": "Viktige innsikter hentet fra en lang artikkel eller rapport."
   },
   "notesEmpty_demoSample2Meta": {
-    "message": "I går \u00b7 16:10"
+    "message": "I går · 16:10"
   },
   "notesEmpty_demoSample3Title": {
     "message": "Eksempelnotat: samtalereferat"
@@ -224,64 +224,73 @@
   "restartOnboardingConfirmMessage": {
     "message": "Dette tilbakestiller onboarding-statusen din og tar deg tilbake til oppsettflyten."
   },
+  "enableOcrAssets_label": {
+    "message": "Aktiver OCR (laster ned ~5 MB ved første bruk)"
+  },
+  "enableOcrAssets_downloadNotice": {
+    "message": "Når du aktiverer OCR, lastes ~5 MB språkdata ned ved første bruk."
+  },
+  "enableOcrAssets_assetsEnabled": {
+    "message": "OCR-ressurser er aktivert og klare"
+  },
   "omniSearchPlaceholder": {
-    "message": "Search screens, chats, media, notes…",
+    "message": "Søk i skjermer, chatter, medier, notater…",
     "description": "Placeholder text for the omni-search input in the header."
   },
   "omniSearchNoResults": {
-    "message": "No matches for \"{{query}}\".",
+    "message": "Ingen treff for \"{{query}}\".",
     "description": "No-results text for omni-search when nothing matches the query."
   },
   "omniSearchCreateNote": {
-    "message": "Create note \"{{query}}\"",
+    "message": "Opprett notat \"{{query}}\"",
     "description": "Omni-search action label to create a note from the current query."
   },
   "omniSearchCreateFlashcards": {
-    "message": "Create flashcard collection \"{{query}}\"",
+    "message": "Opprett flashkort-samling \"{{query}}\"",
     "description": "Omni-search action label to create a flashcard collection from the current query."
   },
   "omniSearchStartChat": {
-    "message": "Start new chat \"{{query}}\"",
+    "message": "Start ny chat \"{{query}}\"",
     "description": "Omni-search action label to start a new chat from the current query."
   },
   "connectionCard_connectedCaption": {
-    "message": "Chat and tools are now available in Options and the sidepanel.",
+    "message": "Chat og verktøy er nå tilgjengelige under Innstillinger og i sidepanelet.",
     "description": "Caption under the server connection card when the extension is connected."
   },
   "quickIngestQueuedAria": {
-    "message": "{{label}} — {{count}} items queued — click to review and process",
+    "message": "{{label}} — {{count}} elementer i kø — klikk for å gjennomgå og behandle",
     "description": "ARIA label template for the Quick ingest button when there are queued items."
   },
   "connectionCard_descriptionConnectedList_reviewMedia": {
-    "message": "Review media & transcripts",
+    "message": "Gjennomgå medier og transkripsjoner",
     "description": "First bullet in the connected-state server connection card, highlighting media review."
   },
   "connectionCard_descriptionConnectedList_searchKnowledge": {
-    "message": "Search knowledge and notes",
+    "message": "Søk i kunnskap og notater",
     "description": "Second bullet in the connected-state server connection card, highlighting knowledge/notes search."
   },
   "connectionCard_descriptionConnectedList_useRag": {
-    "message": "Use RAG with your own documents",
+    "message": "Bruk RAG med dine egne dokumenter",
     "description": "Third bullet in the connected-state server connection card, highlighting retrieval-augmented generation usage."
   },
   "omniSearch_filterScreen": {
-    "message": "Screens",
+    "message": "Skjermer",
     "description": "Filter label for screens in omni-search."
   },
   "omniSearch_filterChat": {
-    "message": "Chats",
+    "message": "Chatter",
     "description": "Filter label for chats in omni-search."
   },
   "omniSearch_filterMedia": {
-    "message": "Media",
+    "message": "Medier",
     "description": "Filter label for media in omni-search."
   },
   "omniSearch_filterNote": {
-    "message": "Notes",
+    "message": "Notater",
     "description": "Filter label for notes in omni-search."
   },
   "omniSearch_filterFlashcards": {
-    "message": "Flashcard Collections",
+    "message": "Flashkort-samlinger",
     "description": "Filter label for flashcard collections in omni-search."
   },
   "omniSearch_filterPrompt": {
@@ -289,15 +298,15 @@
     "description": "Filter label for prompts in omni-search."
   },
   "omniSearch_filteringBy": {
-    "message": "Filtering by:",
+    "message": "Filtrerer etter:",
     "description": "Prefix label shown before the active omni-search filter type."
   },
   "omniSearchCreateNoteSuccess": {
-    "message": "Note \"{{query}}\" created",
+    "message": "Notat \"{{query}}\" opprettet",
     "description": "Confirmation toast message shown after creating a note from omni-search."
   },
   "omniSearchCreateFlashcardsSuccess": {
-    "message": "Flashcard collection \"{{query}}\" created",
+    "message": "Flashkort-samling \"{{query}}\" opprettet",
     "description": "Confirmation toast message shown after creating a flashcard collection from omni-search."
   },
   "folders": {
@@ -339,6 +348,9 @@
   "moveToFolder": {
     "message": "Flytt til mappe"
   },
+  "quickIngest_ocrHelp": {
+    "message": "OCR hjelper med å hente ut tekst fra skannede PDF-er eller bilder."
+  },
   "specReloadedToast": {
     "message": "Avansert spesifikasjon lastet på nytt fra serveren"
   },
@@ -347,5 +359,435 @@
   },
   "specFallbackWarning": {
     "message": "Bruker innebygd media.add-skjemafallback (v{{version}}); vennligst verifiser mot tldw_server /openapi.json hvis feltene ser utdaterte ut."
+  },
+  "serverChatsUnavailableNotConnected": {
+    "message": "Serverchatter blir tilgjengelige når du kobler til tldw-serveren din."
+  },
+  "serverChatsUnavailableServerError": {
+    "message": "Serverchatter er utilgjengelige akkurat nå. Sjekk serverloggene eller prøv igjen."
+  },
+  "noToolCalls": {
+    "message": "Ingen verktøykall ennå"
+  },
+  "arguments": {
+    "message": "Argumenter"
+  },
+  "invalidJson": {
+    "message": "Ugyldig JSON; viser råverdi"
+  },
+  "result": {
+    "message": "Resultat"
+  },
+  "tools_fs_list": {
+    "message": "List katalog",
+    "description": "Label for the fs.list tool (list directory)."
+  },
+  "tools_fs_read": {
+    "message": "Les fil",
+    "description": "Label for the fs.read tool (read file)."
+  },
+  "tools_fs_write": {
+    "message": "Skriv fil",
+    "description": "Label for the fs.write tool (write file)."
+  },
+  "tools_fs_apply_patch": {
+    "message": "Bruk patch",
+    "description": "Label for the fs.apply_patch tool (apply patch)."
+  },
+  "tools_fs_mkdir": {
+    "message": "Opprett katalog",
+    "description": "Label for the fs.mkdir tool (create directory)."
+  },
+  "tools_fs_delete": {
+    "message": "Slett",
+    "description": "Label for the fs.delete tool (delete file or directory)."
+  },
+  "tools_search_grep": {
+    "message": "Søk i innhold",
+    "description": "Label for the search.grep tool (search file contents)."
+  },
+  "tools_search_glob": {
+    "message": "Finn filer",
+    "description": "Label for the search.glob tool (find files by pattern)."
+  },
+  "tools_git_status": {
+    "message": "Git-status",
+    "description": "Label for the git.status tool."
+  },
+  "tools_git_diff": {
+    "message": "Git-diff",
+    "description": "Label for the git.diff tool."
+  },
+  "tools_git_log": {
+    "message": "Git-logg",
+    "description": "Label for the git.log tool."
+  },
+  "tools_git_branch": {
+    "message": "Git-gren",
+    "description": "Label for the git.branch tool."
+  },
+  "tools_git_add": {
+    "message": "Stage filer",
+    "description": "Label for the git.add tool (stage files)."
+  },
+  "tools_git_commit": {
+    "message": "Commit",
+    "description": "Label for the git.commit tool."
+  },
+  "tools_exec_run": {
+    "message": "Kjør kommando",
+    "description": "Label for the exec.run tool (run command)."
+  },
+  "commandPalette_goToChat": {
+    "message": "Gå til Chat",
+    "description": "Command palette action label to navigate to the Chat screen."
+  },
+  "commandPalette_goToMedia": {
+    "message": "Gå til Media",
+    "description": "Command palette action label to navigate to the Media screen."
+  },
+  "commandPalette_goToNotes": {
+    "message": "Gå til Notater",
+    "description": "Command palette action label to navigate to the Notes screen."
+  },
+  "commandPalette_goToFlashcards": {
+    "message": "Gå til Flashcards",
+    "description": "Command palette action label to navigate to the Flashcards screen."
+  },
+  "commandPalette_goToSettings": {
+    "message": "Gå til Innstillinger",
+    "description": "Command palette action label to navigate to the Settings screen."
+  },
+  "commandPalette_goToHealth": {
+    "message": "Gå til Health & diagnostics",
+    "description": "Command palette action label to open the Health & diagnostics screen."
+  },
+  "commandPalette_newChat": {
+    "message": "Ny chat",
+    "description": "Command palette action label to start a new chat."
+  },
+  "commandPalette_toggleKnowledgeSearch": {
+    "message": "Slå kunnskapssøk av/på",
+    "description": "Command palette toggle label for enabling or disabling knowledge search."
+  },
+  "commandPalette_toggleKnowledgeSearchDesc": {
+    "message": "Søk i kunnskapsbasen din",
+    "description": "Command palette description text explaining the knowledge search toggle."
+  },
+  "commandPalette_toggleWebSearch": {
+    "message": "Slå websøk av/på",
+    "description": "Command palette toggle label for enabling or disabling web search."
+  },
+  "commandPalette_toggleWebDesc": {
+    "message": "Søk på internett",
+    "description": "Command palette description text explaining the web search toggle."
+  },
+  "commandPalette_ingestPage": {
+    "message": "Importer gjeldende side",
+    "description": "Command palette action label to ingest the current page into knowledge."
+  },
+  "commandPalette_ingestDesc": {
+    "message": "Lagre denne siden i kunnskapsbasen din",
+    "description": "Command palette description text explaining page ingestion into knowledge."
+  },
+  "commandPalette_switchModel": {
+    "message": "Bytt modell",
+    "description": "Command palette action label to switch the active chat/model."
+  },
+  "commandPalette_toggleSidebar": {
+    "message": "Slå sidestolpen av/på",
+    "description": "Command palette toggle label to show or hide the sidepanel."
+  },
+  "commandPalette_toggleSidebarDesc": {
+    "message": "Vis eller skjul chat-sidestolpen",
+    "description": "Command palette description text explaining the sidebar visibility toggle."
+  },
+  "commandPalette_placeholder": {
+    "message": "Skriv en kommando eller søk…",
+    "description": "Placeholder text shown in the command palette input."
+  },
+  "commandPalette_noResults": {
+    "message": "Ingen treff",
+    "description": "No-results state text in the command palette when nothing matches the query."
+  },
+  "commandPalette_title": {
+    "message": "Kommando-palett",
+    "description": "Title of the command palette UI."
+  },
+  "commandPalette_navigate": {
+    "message": "naviger",
+    "description": "Command palette keyboard hint label for navigation."
+  },
+  "commandPalette_select": {
+    "message": "velg",
+    "description": "Command palette keyboard hint label for selection."
+  },
+  "commandPalette_toOpen": {
+    "message": "for å åpne",
+    "description": "Command palette keyboard hint label indicating the shortcut to open an item."
+  },
+  "commandPalette_categoryActions": {
+    "message": "Handlinger",
+    "description": "Label for the Actions category in the command palette."
+  },
+  "commandPalette_categoryNavigation": {
+    "message": "Navigasjon",
+    "description": "Label for the Navigation category in the command palette."
+  },
+  "commandPalette_categorySettings": {
+    "message": "Innstillinger",
+    "description": "Label for the Settings category in the command palette."
+  },
+  "commandPalette_categoryRecent": {
+    "message": "Nylig",
+    "description": "Label for the Recent items category in the command palette."
+  },
+  "markdown_unableToRender": {
+    "message": "Unable to render content"
+  },
+  "markdown_couldNotDisplay": {
+    "message": "The message content could not be displayed. This may be due to invalid formatting."
+  },
+  "markdown_showRawContent": {
+    "message": "Vis råinnhold"
+  },
+  "notesSearch_exportNoteSuccess": {
+    "message": "Eksportert ({{size}})"
+  },
+  "notesSearch_exportSuccess": {
+    "message": "Eksporterte {{count}} notater ({{size}})"
+  },
+  "notesSearch_exportCsvSuccess": {
+    "message": "Eksporterte {{count}} notater som CSV ({{size}})"
+  },
+  "notesSearch_exportJsonSuccess": {
+    "message": "Eksporterte {{count}} notater som JSON ({{size}})"
+  },
+  "exportNoteSuccess": {
+    "message": "Eksportert ({{size}})"
+  },
+  "exportSuccess": {
+    "message": "Eksporterte {{count}} notater ({{size}})"
+  },
+  "exportCsvSuccess": {
+    "message": "Eksporterte {{count}} notater som CSV ({{size}})"
+  },
+  "exportJsonSuccess": {
+    "message": "Eksporterte {{count}} notater som JSON ({{size}})"
+  },
+  "infoShort": {
+    "message": "Info"
+  },
+  "regenShort": {
+    "message": "Igjen"
+  },
+  "continueShort": {
+    "message": "Mer"
+  },
+  "error_label": {
+    "message": "Feil"
+  },
+  "error_friendlyApiKeySummary": {
+    "message": "Vi fikk ikke kontakt med tldw-serveren din."
+  },
+  "error_friendlyApiKeyHint": {
+    "message": "API-nøkkelen din kan være ugyldig. Åpne Innstillinger → tldw server for å sjekke URL og API-nøkkel, og prøv på nytt."
+  },
+  "error_friendlyTimeoutSummary": {
+    "message": "Samtalen tidsavbrøt."
+  },
+  "error_friendlyTimeoutHint": {
+    "message": "Serveren sluttet å strømme svar. Prøv igjen, eller åpne Helse og diagnostikk for å sjekke serverstatus."
+  },
+  "error_friendlyGenericSummary": {
+    "message": "Noe gikk galt under kommunikasjonen med tldw-serveren din."
+  },
+  "error_friendlyGenericHint": {
+    "message": "Prøv igjen om et øyeblikk, eller åpne Helse og diagnostikk for å undersøke serverhelse."
+  },
+  "error_showDetails": {
+    "message": "Vis tekniske detaljer"
+  },
+  "error_hideDetails": {
+    "message": "Skjul tekniske detaljer"
+  },
+  "error_createFolder": {
+    "message": "Failed to create folder"
+  },
+  "modelSelect_label": {
+    "message": "Model"
+  },
+  "modelSelect_tooltip": {
+    "message": "Changes model for next message"
+  },
+  "featureHints_knowledge_title": {
+    "message": "Søk i kunnskapen din"
+  },
+  "featureHints_knowledge_description": {
+    "message": "Åpne kunnskapssøk-panelet for å finne utdrag og sette dem inn i chatten."
+  },
+  "featureHints_moreTools_title": {
+    "message": "Flere verktøy tilgjengelig"
+  },
+  "featureHints_moreTools_description": {
+    "message": "Få tilgang til synsmodus, bildeopplasting, hurtiginnhenting og hele appen."
+  },
+  "featureHints_commandPalette_title": {
+    "message": "Hurtigkommandoer"
+  },
+  "featureHints_commandPalette_description": {
+    "message": "Trykk {{shortcut}} for å søke etter kommandoer, innstillinger og mer."
+  },
+  "featureHints_modelSettings_title": {
+    "message": "Juster modellparametere"
+  },
+  "featureHints_modelSettings_description": {
+    "message": "Finjuster temperatur, kontekstlengde og andre modellinnstillinger."
+  },
+  "chatSidebar_title": {
+    "message": "Chatter"
+  },
+  "chatSidebar_newChat": {
+    "message": "Ny chat"
+  },
+  "chatSidebar_collapse": {
+    "message": "Skjul sidestolpe"
+  },
+  "chatSidebar_expand": {
+    "message": "Utvid sidestolpe"
+  },
+  "chatSidebar_search": {
+    "message": "Søk i chatter..."
+  },
+  "chatSidebar_ingest": {
+    "message": "Innhent side"
+  },
+  "chatSidebar_media": {
+    "message": "Media"
+  },
+  "chatSidebar_notes": {
+    "message": "Notater"
+  },
+  "chatSidebar_settings": {
+    "message": "Innstillinger"
+  },
+  "chatSidebar_loadError": {
+    "message": "Kunne ikke laste chatter"
+  },
+  "chatSidebar_localTab": {
+    "message": "Lokalt"
+  },
+  "chatSidebar_serverTab": {
+    "message": "Server"
+  },
+  "chatSidebar_foldersTab": {
+    "message": "Mapper"
+  },
+  "chatSidebar_tabs_local": {
+    "message": "Lokalt"
+  },
+  "chatSidebar_tabs_server": {
+    "message": "Server"
+  },
+  "chatSidebar_tabs_folders": {
+    "message": "Mapper"
+  },
+  "chatSidebar_noServerChats": {
+    "message": "Ingen serverchatter ennå"
+  },
+  "chatSidebar_foldersRequireConnection": {
+    "message": "Mapper krever en servertilkobling"
+  },
+  "connectionBanner_connecting": {
+    "message": "Kobler til tldw-serveren...",
+    "description": "Connection banner status shown while connecting to the server."
+  },
+  "connectionBanner_authErrorTitle": {
+    "message": "API-nøkkelen trenger oppmerksomhet",
+    "description": "Connection banner title shown when the API key is missing or invalid."
+  },
+  "connectionBanner_authErrorBody": {
+    "message": "Serveren er tilgjengelig, men API-nøkkelen er feil eller mangler.",
+    "description": "Connection banner body shown when the API key is missing or invalid."
+  },
+  "connectionBanner_unreachableTitle": {
+    "message": "Kan ikke nå tldw-serveren",
+    "description": "Connection banner title shown when the server cannot be reached."
+  },
+  "connectionBanner_unreachableBody": {
+    "message": "Sjekk at serveren kjører og er tilgjengelig.",
+    "description": "Connection banner body shown when the server cannot be reached."
+  },
+  "connectionBanner_noUrlBody": {
+    "message": "Legg til server-URL i Innstillinger for å komme i gang.",
+    "description": "Connection banner body shown when no server URL is configured."
+  },
+  "connectionBanner_disconnectedTitle": {
+    "message": "Ikke koblet til tldw-serveren",
+    "description": "Connection banner title shown when not connected to the server."
+  },
+  "connectionBanner_disconnectedBody": {
+    "message": "Åpne Innstillinger for å konfigurere servertilkoblingen.",
+    "description": "Connection banner body shown when not connected to the server."
+  },
+  "connectionBanner_setupTitle": {
+    "message": "Fullfør oppsettet for å starte å chatte",
+    "description": "Connection banner title shown when setup is required."
+  },
+  "connectionBanner_setupBody": {
+    "message": "Fullfør oppsettsveiviseren i Innstillinger for å koble til.",
+    "description": "Connection banner body shown when setup is required."
+  },
+  "connectionBanner_openSettings": {
+    "message": "Åpne Innstillinger",
+    "description": "Connection banner button label to open Settings."
+  },
+  "temporaryBadge_title": {
+    "message": "Midlertidig chat",
+    "description": "Title for the temporary chat badge."
+  },
+  "temporaryBadge_label": {
+    "message": "Temp",
+    "description": "Short label shown for temporary chat."
+  },
+  "temporaryBadge_description": {
+    "message": "Denne chatten blir ikke lagret. Meldinger slettes når du lukker eller starter en ny chat.",
+    "description": "Description explaining that temporary chats are not saved."
+  },
+  "temporaryBadge_clickHint": {
+    "message": "Klikk for å deaktivere",
+    "description": "Hint shown when the temporary chat badge can be clicked to disable."
+  },
+  "temporaryBadge_ariaLabel": {
+    "message": "Midlertidig chatmodus er aktiv. Klikk for å bytte.",
+    "description": "ARIA label for the temporary chat toggle."
+  },
+  "temporaryBadge_indicatorTooltip": {
+    "message": "Meldinger i denne chatten blir ikke lagret",
+    "description": "Tooltip shown on the temporary chat indicator."
+  },
+  "temporaryBadge_indicatorAria": {
+    "message": "Midlertidig chat",
+    "description": "ARIA label for the temporary chat indicator."
+  },
+  "saveStatus_ephemeral": {
+    "message": "Midlertidig: ikke lagret, slettes ved lukking",
+    "description": "Save status label for ephemeral chats."
+  },
+  "saveStatus_local": {
+    "message": "Lagret lokalt i denne nettleseren",
+    "description": "Save status label for chats saved locally."
+  },
+  "saveStatus_server": {
+    "message": "Lagret på serveren",
+    "description": "Save status label for chats saved on the server."
+  },
+  "saveStatus_saveFailed": {
+    "message": "Kunne ikke lagre chatten på serveren",
+    "description": "Save status message shown when saving to the server fails."
+  },
+  "saveStatus_saveFailedDescription": {
+    "message": "Chatten lagres nå kun lokalt. Sjekk tilkoblingen og prøv igjen.",
+    "description": "Save status description shown when saving to the server fails."
   }
 }

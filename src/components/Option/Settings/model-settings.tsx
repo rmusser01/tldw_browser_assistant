@@ -181,12 +181,12 @@ export const ModelSettings = () => {
                     <Form.Item
                       name="useMMap"
                       label={t("modelSettings.form.useMMap.label")}>
-                      <Switch />
+                      <Switch aria-label={t("modelSettings.form.useMMap.label")} />
                     </Form.Item>
                     <Form.Item
                       name="useMlock"
                       label={t("modelSettings.form.useMlock.label")}>
-                      <Switch />
+                      <Switch aria-label={t("modelSettings.form.useMlock.label")} />
                     </Form.Item>
                   </React.Fragment>
                 )

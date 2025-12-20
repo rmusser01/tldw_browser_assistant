@@ -1,5 +1,5 @@
 import { useDarkMode } from "~/hooks/useDarkmode"
-import { Modal, Select, Switch, notification } from "antd"
+import { Alert, Modal, Select, Switch, notification, Tag } from "antd"
 import { MoonIcon, SunIcon } from "lucide-react"
 import { useNavigate } from "react-router-dom"
 import { SearchModeSettings } from "./search-mode"
@@ -15,9 +15,13 @@ import { useServerOnline } from "@/hooks/useServerOnline"
 import { useConnectionActions } from "@/hooks/useConnectionState"
 import FeatureEmptyState from "@/components/Common/FeatureEmptyState"
 import ConnectFeatureBanner from "@/components/Common/ConnectFeatureBanner"
+import { DEFAULT_CHAT_SETTINGS } from "@/types/chat-settings"
 
 export const GeneralSettings = () => {
-  const [userChatBubble, setUserChatBubble] = useStorage("userChatBubble", true)
+  const [userChatBubble, setUserChatBubble] = useStorage(
+    "userChatBubble",
+    DEFAULT_CHAT_SETTINGS.userChatBubble
+  )
 
   const [copilotResumeLastChat, setCopilotResumeLastChat] = useStorage(
     "copilotResumeLastChat",
@@ -26,7 +30,7 @@ export const GeneralSettings = () => {
 
   const [webUIResumeLastChat, setWebUIResumeLastChat] = useStorage(
     "webUIResumeLastChat",
-    false
+    DEFAULT_CHAT_SETTINGS.webUIResumeLastChat
   )
   const [defaultChatWithWebsite, setDefaultChatWithWebsite] = useStorage(
     "defaultChatWithWebsite",
@@ -35,12 +39,12 @@ export const GeneralSettings = () => {
 
   const [restoreLastChatModel, setRestoreLastChatModel] = useStorage(
     "restoreLastChatModel",
-    false
+    DEFAULT_CHAT_SETTINGS.restoreLastChatModel
   )
 
   const [copyAsFormattedText, setCopyAsFormattedText] = useStorage(
     "copyAsFormattedText",
-    false
+    DEFAULT_CHAT_SETTINGS.copyAsFormattedText
   )
 
   // Persisted preference: auto-finish onboarding when connection & RAG are healthy
@@ -50,12 +54,12 @@ export const GeneralSettings = () => {
   )
 
   const [autoCopyResponseToClipboard, setAutoCopyResponseToClipboard] =
-    useStorage("autoCopyResponseToClipboard", false)
+    useStorage("autoCopyResponseToClipboard", DEFAULT_CHAT_SETTINGS.autoCopyResponseToClipboard)
 
   const [generateTitle, setGenerateTitle] = useStorage("titleGenEnabled", false)
 
   const [hideCurrentChatModelSettings, setHideCurrentChatModelSettings] =
-    useStorage("hideCurrentChatModelSettings", false)
+    useStorage("hideCurrentChatModelSettings", DEFAULT_CHAT_SETTINGS.hideCurrentChatModelSettings)
 
   const [hideQuickChatHelper, setHideQuickChatHelper] = useStorage(
     "hideQuickChatHelper",
@@ -70,17 +74,17 @@ export const GeneralSettings = () => {
     true
   )
 
-  const [checkWideMode, setCheckWideMode] = useStorage("checkWideMode", false)
+  const [checkWideMode, setCheckWideMode] = useStorage("checkWideMode", DEFAULT_CHAT_SETTINGS.checkWideMode)
 
-  const [openReasoning, setOpenReasoning] = useStorage("openReasoning", false)
+  const [openReasoning, setOpenReasoning] = useStorage("openReasoning", DEFAULT_CHAT_SETTINGS.openReasoning)
   const [menuDensity, setMenuDensity] = useStorage(
     "menuDensity",
-    "comfortable"
+    DEFAULT_CHAT_SETTINGS.menuDensity
   )
 
   const [useMarkdownForUserMessage, setUseMarkdownForUserMessage] = useStorage(
     "useMarkdownForUserMessage",
-    false
+    DEFAULT_CHAT_SETTINGS.useMarkdownForUserMessage
   )
 
   const [tabMentionsEnabled, setTabMentionsEnabled] = useStorage(
@@ -107,7 +111,10 @@ export const GeneralSettings = () => {
   )
 
   const [removeReasoningTagFromCopy, setRemoveReasoningTagFromCopy] =
-    useStorage("removeReasoningTagFromCopy", true)
+    useStorage(
+      "removeReasoningTagFromCopy",
+      DEFAULT_CHAT_SETTINGS.removeReasoningTagFromCopy
+    )
 
   const [promptSearchIncludeServer, setPromptSearchIncludeServer] =
     useStorage("promptSearchIncludeServer", false)
@@ -194,6 +201,7 @@ export const GeneralSettings = () => {
         </span>
 
         <Select
+          aria-label={t("generalSettings.settings.language.label")}
           placeholder={t("generalSettings.settings.language.placeholder")}
           allowClear
           showSearch
@@ -218,6 +226,7 @@ export const GeneralSettings = () => {
         <Switch
           checked={copilotResumeLastChat}
           onChange={(checked) => setCopilotResumeLastChat(checked)}
+          aria-label={t("generalSettings.settings.copilotResumeLastChat.label")}
         />
       </div>
       <div className="flex flex-row justify-between">
@@ -229,6 +238,7 @@ export const GeneralSettings = () => {
         <Switch
           checked={defaultChatWithWebsite}
           onChange={(checked) => setDefaultChatWithWebsite(checked)}
+          aria-label={t("generalSettings.settings.turnOnChatWithWebsite.label")}
         />
       </div>
       <div className="flex flex-row justify-between">
@@ -236,10 +246,16 @@ export const GeneralSettings = () => {
           <span className="text-gray-700   dark:text-neutral-50">
             {t("generalSettings.settings.webUIResumeLastChat.label")}
           </span>
+          {webUIResumeLastChat === DEFAULT_CHAT_SETTINGS.webUIResumeLastChat && (
+            <Tag className="text-[10px] py-0 px-1.5 leading-4">
+              {t("generalSettings.settings.defaultBadge", "default")}
+            </Tag>
+          )}
         </div>
         <Switch
           checked={webUIResumeLastChat}
           onChange={(checked) => setWebUIResumeLastChat(checked)}
+          aria-label={t("generalSettings.settings.webUIResumeLastChat.label")}
         />
       </div>
       <div className="flex flex-row justify-between">
@@ -247,11 +263,17 @@ export const GeneralSettings = () => {
           <span className="text-gray-700   dark:text-neutral-50">
             {t("generalSettings.settings.hideCurrentChatModelSettings.label")}
           </span>
+          {hideCurrentChatModelSettings === DEFAULT_CHAT_SETTINGS.hideCurrentChatModelSettings && (
+            <Tag className="text-[10px] py-0 px-1.5 leading-4">
+              {t("generalSettings.settings.defaultBadge", "default")}
+            </Tag>
+          )}
         </div>
 
         <Switch
           checked={hideCurrentChatModelSettings}
           onChange={(checked) => setHideCurrentChatModelSettings(checked)}
+          aria-label={t("generalSettings.settings.hideCurrentChatModelSettings.label")}
         />
       </div>
       <div className="flex flex-row justify-between">
@@ -264,6 +286,7 @@ export const GeneralSettings = () => {
         <Switch
           checked={hideQuickChatHelper}
           onChange={(checked) => setHideQuickChatHelper(checked)}
+          aria-label={t("generalSettings.settings.hideQuickChatHelper.label", "Hide Quick Chat Helper button")}
         />
       </div>
       <div className="flex flex-row justify-between">
@@ -271,11 +294,17 @@ export const GeneralSettings = () => {
           <span className="text-gray-700   dark:text-neutral-50">
             {t("generalSettings.settings.restoreLastChatModel.label")}
           </span>
+          {restoreLastChatModel === DEFAULT_CHAT_SETTINGS.restoreLastChatModel && (
+            <Tag className="text-[10px] py-0 px-1.5 leading-4">
+              {t("generalSettings.settings.defaultBadge", "default")}
+            </Tag>
+          )}
         </div>
 
         <Switch
           checked={restoreLastChatModel}
           onChange={(checked) => setRestoreLastChatModel(checked)}
+          aria-label={t("generalSettings.settings.restoreLastChatModel.label")}
         />
       </div>
 
@@ -289,6 +318,7 @@ export const GeneralSettings = () => {
         <Switch
           checked={sendNotificationAfterIndexing}
           onChange={setSendNotificationAfterIndexing}
+          aria-label={t("generalSettings.settings.sendNotificationAfterIndexing.label")}
         />
       </div>
 
@@ -302,6 +332,7 @@ export const GeneralSettings = () => {
         <Switch
           checked={generateTitle}
           onChange={(checked) => setGenerateTitle(checked)}
+          aria-label={t("generalSettings.settings.generateTitle.label")}
         />
       </div>
 
@@ -315,6 +346,7 @@ export const GeneralSettings = () => {
         <Switch
           checked={checkOllamaStatus}
           onChange={(checked) => setCheckOllamaStatus(checked)}
+          aria-label={t("generalSettings.settings.ollamaStatus.label")}
         />
       </div>
 
@@ -323,11 +355,17 @@ export const GeneralSettings = () => {
           <span className="text-gray-700   dark:text-neutral-50">
             {t("generalSettings.settings.wideMode.label")}
           </span>
+          {checkWideMode === DEFAULT_CHAT_SETTINGS.checkWideMode && (
+            <Tag className="text-[10px] py-0 px-1.5 leading-4">
+              {t("generalSettings.settings.defaultBadge", "default")}
+            </Tag>
+          )}
         </div>
 
         <Switch
           checked={checkWideMode}
           onChange={(checked) => setCheckWideMode(checked)}
+          aria-label={t("generalSettings.settings.wideMode.label")}
         />
       </div>
 
@@ -336,8 +374,14 @@ export const GeneralSettings = () => {
           <span className="text-gray-700   dark:text-neutral-50">
             {t("generalSettings.settings.menuDensity.label", "Menu density")}
           </span>
+          {menuDensity === DEFAULT_CHAT_SETTINGS.menuDensity && (
+            <Tag className="text-[10px] py-0 px-1.5 leading-4">
+              {t("generalSettings.settings.defaultBadge", "default")}
+            </Tag>
+          )}
         </div>
         <Select
+          aria-label={t("generalSettings.settings.menuDensity.label", "Menu density")}
           style={{ width: 200 }}
           value={menuDensity}
           onChange={(v) => setMenuDensity(v)}
@@ -353,11 +397,17 @@ export const GeneralSettings = () => {
           <span className="text-gray-700   dark:text-neutral-50">
             {t("generalSettings.settings.openReasoning.label")}
           </span>
+          {openReasoning === DEFAULT_CHAT_SETTINGS.openReasoning && (
+            <Tag className="text-[10px] py-0 px-1.5 leading-4">
+              {t("generalSettings.settings.defaultBadge", "default")}
+            </Tag>
+          )}
         </div>
 
         <Switch
           checked={openReasoning}
           onChange={(checked) => setOpenReasoning(checked)}
+          aria-label={t("generalSettings.settings.openReasoning.label")}
         />
       </div>
 
@@ -366,11 +416,17 @@ export const GeneralSettings = () => {
           <span className="text-gray-700   dark:text-neutral-50">
             {t("generalSettings.settings.userChatBubble.label")}
           </span>
+          {userChatBubble === DEFAULT_CHAT_SETTINGS.userChatBubble && (
+            <Tag className="text-[10px] py-0 px-1.5 leading-4">
+              {t("generalSettings.settings.defaultBadge", "default")}
+            </Tag>
+          )}
         </div>
 
         <Switch
           checked={userChatBubble}
           onChange={(checked) => setUserChatBubble(checked)}
+          aria-label={t("generalSettings.settings.userChatBubble.label")}
         />
       </div>
 
@@ -379,11 +435,17 @@ export const GeneralSettings = () => {
           <span className="text-gray-700   dark:text-neutral-50">
             {t("generalSettings.settings.autoCopyResponseToClipboard.label")}
           </span>
+          {autoCopyResponseToClipboard === DEFAULT_CHAT_SETTINGS.autoCopyResponseToClipboard && (
+            <Tag className="text-[10px] py-0 px-1.5 leading-4">
+              {t("generalSettings.settings.defaultBadge", "default")}
+            </Tag>
+          )}
         </div>
 
         <Switch
           checked={autoCopyResponseToClipboard}
           onChange={(checked) => setAutoCopyResponseToClipboard(checked)}
+          aria-label={t("generalSettings.settings.autoCopyResponseToClipboard.label")}
         />
       </div>
 
@@ -392,11 +454,17 @@ export const GeneralSettings = () => {
           <span className="text-gray-700   dark:text-neutral-50">
             {t("generalSettings.settings.useMarkdownForUserMessage.label")}
           </span>
+          {useMarkdownForUserMessage === DEFAULT_CHAT_SETTINGS.useMarkdownForUserMessage && (
+            <Tag className="text-[10px] py-0 px-1.5 leading-4">
+              {t("generalSettings.settings.defaultBadge", "default")}
+            </Tag>
+          )}
         </div>
 
         <Switch
           checked={useMarkdownForUserMessage}
           onChange={(checked) => setUseMarkdownForUserMessage(checked)}
+          aria-label={t("generalSettings.settings.useMarkdownForUserMessage.label")}
         />
       </div>
 
@@ -405,11 +473,17 @@ export const GeneralSettings = () => {
           <span className="text-gray-700   dark:text-neutral-50">
             {t("generalSettings.settings.copyAsFormattedText.label")}
           </span>
+          {copyAsFormattedText === DEFAULT_CHAT_SETTINGS.copyAsFormattedText && (
+            <Tag className="text-[10px] py-0 px-1.5 leading-4">
+              {t("generalSettings.settings.defaultBadge", "default")}
+            </Tag>
+          )}
         </div>
 
         <Switch
           checked={copyAsFormattedText}
           onChange={(checked) => setCopyAsFormattedText(checked)}
+          aria-label={t("generalSettings.settings.copyAsFormattedText.label")}
         />
       </div>
 
@@ -426,6 +500,7 @@ export const GeneralSettings = () => {
         <Switch
           checked={onboardingAutoFinish}
           onChange={(checked) => setOnboardingAutoFinish(checked)}
+          aria-label={t("generalSettings.settings.onboardingAutoFinish.label", "Auto-finish onboarding after successful connection")}
         />
       </div>
 
@@ -452,17 +527,25 @@ export const GeneralSettings = () => {
                 "generalSettings.settings.restartOnboarding.confirmMessage",
                 "This will reset your onboarding state and take you back to the setup flow."
               ),
-              onOk: () => {
-                beginOnboarding()
-                notification.success({
-                  message: t(
-                    "generalSettings.settings.restartOnboarding.toast",
-                    "Onboarding has been reset"
-                  )
-                })
-                setTimeout(() => {
+              onOk: async () => {
+                try {
+                  await beginOnboarding()
+                  notification.success({
+                    message: t(
+                      "generalSettings.settings.restartOnboarding.toast",
+                      "Onboarding has been reset"
+                    )
+                  })
                   navigate("/")
-                }, 800)
+                } catch (err) {
+                  console.error("Failed to restart onboarding:", err)
+                  notification.error({
+                    message: t(
+                      "generalSettings.settings.restartOnboarding.error",
+                      "Failed to restart onboarding. Please try again."
+                    )
+                  })
+                }
               }
             })
           }}
@@ -485,6 +568,7 @@ export const GeneralSettings = () => {
         <Switch
           checked={tabMentionsEnabled}
           onChange={(checked) => setTabMentionsEnabled(checked)}
+          aria-label={t("generalSettings.settings.tabMentionsEnabled.label")}
         />
       </div>
       <div className="flex flex-row justify-between">
@@ -497,18 +581,44 @@ export const GeneralSettings = () => {
         <Switch
           checked={pasteLargeTextAsFile}
           onChange={(checked) => setPasteLargeTextAsFile(checked)}
+          aria-label={t("generalSettings.settings.pasteLargeTextAsFile.label")}
         />
       </div>
 
-      <div className="flex flex-row justify-between">
-        <span className="text-gray-700   dark:text-neutral-50">
-          {t("generalSettings.settings.enableOcrAssets.label", "Enable OCR (downloads ~5MB on first use)")}
-        </span>
+      <div className="space-y-2">
+        <div className="flex flex-row justify-between">
+          <span className="text-gray-700   dark:text-neutral-50">
+            {t("generalSettings.settings.enableOcrAssets.label")}
+          </span>
 
-        <Switch
-          checked={enableOcrAssets}
-          onChange={(checked) => setEnableOcrAssets(checked)}
-        />
+          <Switch
+            checked={enableOcrAssets}
+            onChange={(checked) => setEnableOcrAssets(checked)}
+            aria-label={t("generalSettings.settings.enableOcrAssets.label")}
+          />
+        </div>
+        {!enableOcrAssets && (
+          <Alert
+            type="info"
+            showIcon
+            message={t(
+              "generalSettings.settings.enableOcrAssets.downloadNotice",
+              "Enable to download OCR language assets for image text recognition"
+            )}
+            className="!py-1.5 !text-xs"
+          />
+        )}
+        {enableOcrAssets && (
+          <Alert
+            type="success"
+            showIcon
+            message={t(
+              "generalSettings.settings.enableOcrAssets.assetsEnabled",
+              "OCR assets enabled and ready"
+            )}
+            className="!py-1.5 !text-xs"
+          />
+        )}
       </div>
 
       <div className="flex flex-row justify-between">
@@ -517,6 +627,7 @@ export const GeneralSettings = () => {
         </span>
 
         <Select
+          aria-label={t("generalSettings.settings.ocrLanguage.label")}
           placeholder={t("generalSettings.settings.ocrLanguage.placeholder")}
           showSearch
           style={{ width: "200px" }}
@@ -540,17 +651,27 @@ export const GeneralSettings = () => {
         <Switch
           checked={sidepanelTemporaryChat}
           onChange={(checked) => setSidepanelTemporaryChat(checked)}
+          aria-label={t("generalSettings.settings.sidepanelTemporaryChat.label")}
         />
       </div>
 
       <div className="flex flex-row justify-between">
-        <span className="text-gray-700 dark:text-neutral-50 ">
-          {t("generalSettings.settings.removeReasoningTagFromCopy.label")}
-        </span>
+        <div className="inline-flex items-center gap-2">
+          <span className="text-gray-700 dark:text-neutral-50 ">
+            {t("generalSettings.settings.removeReasoningTagFromCopy.label")}
+          </span>
+          {removeReasoningTagFromCopy ===
+            DEFAULT_CHAT_SETTINGS.removeReasoningTagFromCopy && (
+            <Tag className="text-[10px] py-0 px-1.5 leading-4">
+              {t("generalSettings.settings.defaultBadge", "default")}
+            </Tag>
+          )}
+        </div>
 
         <Switch
           checked={removeReasoningTagFromCopy}
           onChange={(checked) => setRemoveReasoningTagFromCopy(checked)}
+          aria-label={t("generalSettings.settings.removeReasoningTagFromCopy.label")}
         />
       </div>
 
@@ -561,6 +682,7 @@ export const GeneralSettings = () => {
         <Switch
           checked={promptSearchIncludeServer}
           onChange={setPromptSearchIncludeServer}
+          aria-label={t("generalSettings.settings.promptSearchIncludeServer.label")}
         />
       </div>
 
@@ -571,7 +693,7 @@ export const GeneralSettings = () => {
 
         <button
           onClick={toggleDarkMode}
-          className={`inline-flex mt-4 items-center rounded-md border border-transparent bg-black px-2 py-2 text-sm font-medium leading-4 text-white shadow-sm  dark:bg-white dark:text-gray-800 disabled:opacity-50 `}>
+          className={`inline-flex mt-4 items-center rounded-md border border-transparent bg-black px-2 py-2 text-sm font-medium leading-4 text-white shadow-sm  dark:bg-white dark:text-gray-800 disabled:opacity-50 whitespace-nowrap`}>
           {mode === "dark" ? (
             <SunIcon className="w-4 h-4 mr-2" />
           ) : (

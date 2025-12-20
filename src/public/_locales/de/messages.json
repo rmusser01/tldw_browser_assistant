@@ -122,15 +122,15 @@
     "description": "Hilfetext, der die Authentifizierungsmodi Single User vs Multi User erklärt."
   },
   "apiKeyHelp": {
-    "message": "Du findest deinen API-Key in tldw_server \u2192 Settings \u2192 API Keys. Erzeuge dort einen Schlüssel und füge ihn hier ein.",
+    "message": "Du findest deinen API-Key in tldw_server → Settings → API Keys. Erzeuge dort einen Schlüssel und füge ihn hier ein.",
     "description": "Hilfetext, der beschreibt, wo der API-Key zu finden ist."
   },
   "authStepAria": {
-    "message": "Schritt 3 von 4 \u2014 Wähle, wie du dich anmeldest",
+    "message": "Schritt 3 von 4 — Wähle, wie du dich anmeldest",
     "description": "Aria-Label für den Authentifizierungsschritt im Onboarding."
   },
   "confirmStepAria": {
-    "message": "Schritt 4 von 4 \u2014 Verbindung bestätigen und nächste Schritte ansehen",
+    "message": "Schritt 4 von 4 — Verbindung bestätigen und nächste Schritte ansehen",
     "description": "Aria-Label für den Bestätigungsschritt im Onboarding."
   },
   "nextSteps": {
@@ -144,16 +144,16 @@
     "message": "Um Notizen zu verwenden, verbinde dich zuerst mit deinem tldw server."
   },
   "notesEmpty_connectExample1": {
-    "message": "\u00d6ffne Settings \u2192 tldw server, um deine Server-URL hinzuzuf\u00fcgen."
+    "message": "Öffne Settings → tldw server, um deine Server-URL hinzuzufügen."
   },
   "notesEmpty_connectExample2": {
-    "message": "Verwende Diagnostics, wenn dein Server l\u00e4uft, aber nicht erreichbar ist."
+    "message": "Verwende Diagnostics, wenn dein Server läuft, aber nicht erreichbar ist."
   },
   "notesEmpty_demoTitle": {
     "message": "Erkunde Notizen im Demo-Modus"
   },
   "notesEmpty_demoDescription": {
-    "message": "Diese Demo zeigt, wie Notizen deine Erkenntnisse organisieren k\u00f6nnen. Du kannst sp\u00e4ter deinen eigenen Server verbinden, um echte Notizen zu erstellen und zu speichern."
+    "message": "Diese Demo zeigt, wie Notizen deine Erkenntnisse organisieren können. Du kannst später deinen eigenen Server verbinden, um echte Notizen zu erstellen und zu speichern."
   },
   "notesEmpty_demoExample1": {
     "message": "Sieh dir an, wie Notentitel, Vorschaun und Zeitstempel in der Liste erscheinen."
@@ -168,13 +168,13 @@
     "message": "Beispielnotizen (nur Vorschau)"
   },
   "notesEmpty_demoSample1Title": {
-    "message": "Demo-Notiz: W\u00f6chentliche Meeting-Zusammenfassung"
+    "message": "Demo-Notiz: Wöchentliche Meeting-Zusammenfassung"
   },
   "notesEmpty_demoSample1Preview": {
     "message": "Entscheidungen, Blocker und Follow-ups aus einem aktuellen Teammeeting."
   },
   "notesEmpty_demoSample1Meta": {
-    "message": "Heute \u00b7 9:32 AM"
+    "message": "Heute · 9:32 AM"
   },
   "notesEmpty_demoSample2Title": {
     "message": "Demo-Notiz: Forschungshighlights"
@@ -183,13 +183,13 @@
     "message": "Wichtige Erkenntnisse aus einem langen Artikel oder Paper."
   },
   "notesEmpty_demoSample2Meta": {
-    "message": "Gestern \u00b7 4:10 PM"
+    "message": "Gestern · 4:10 PM"
   },
   "notesEmpty_demoSample3Title": {
     "message": "Demo-Notiz: Anrufzusammenfassung"
   },
   "notesEmpty_demoSample3Preview": {
-    "message": "Zusammenfassung eines Kundengespr\u00e4chs mit n\u00e4chsten Schritten und Verantwortlichen."
+    "message": "Zusammenfassung eines Kundengesprächs mit nächsten Schritten und Verantwortlichen."
   },
   "notesEmpty_demoSample3Meta": {
     "message": "Diese Woche"
@@ -198,13 +198,13 @@
     "message": "Noch keine Notizen"
   },
   "notesEmpty_description": {
-    "message": "Erfasse und organisiere Freitextnotizen, die mit deinen tldw-Insights verkn\u00fcpft sind."
+    "message": "Erfasse und organisiere Freitextnotizen, die mit deinen tldw-Insights verknüpft sind."
   },
   "notesEmpty_exampleCreate": {
-    "message": "Erstelle eine neue Notiz zu einem k\u00fcrzlichen Meeting oder Transkript."
+    "message": "Erstelle eine neue Notiz zu einem kürzlichen Meeting oder Transkript."
   },
   "notesEmpty_exampleLink": {
-    "message": "Speichere Review-Ergebnisse in Notizen, damit du sp\u00e4ter darauf zur\u00fcckkommen kannst."
+    "message": "Speichere Review-Ergebnisse in Notizen, damit du später darauf zurückkommen kannst."
   },
   "notesEmpty_primaryCta": {
     "message": "Notiz erstellen"
@@ -223,6 +223,15 @@
   },
   "restartOnboardingConfirmMessage": {
     "message": "Dadurch wird dein Onboarding-Status zurückgesetzt und du kehrst zum Einrichtungsablauf zurück."
+  },
+  "enableOcrAssets_label": {
+    "message": "OCR aktivieren (lädt beim ersten Gebrauch ~5 MB herunter)"
+  },
+  "enableOcrAssets_downloadNotice": {
+    "message": "Beim Aktivieren von OCR werden beim ersten Gebrauch ~5 MB Sprachdaten heruntergeladen."
+  },
+  "enableOcrAssets_assetsEnabled": {
+    "message": "OCR-Ressourcen aktiviert und bereit"
   },
   "omniSearchPlaceholder": {
     "message": "Suche in Bildschirmen, Chats, Medien und Notizen…",
@@ -339,6 +348,9 @@
   "moveToFolder": {
     "message": "In Ordner verschieben"
   },
+  "quickIngest_ocrHelp": {
+    "message": "OCR hilft beim Extrahieren von Text aus gescannten PDFs oder Bildern."
+  },
   "specReloadedToast": {
     "message": "Erweiterte Spezifikation vom Server neu geladen"
   },
@@ -347,5 +359,349 @@
   },
   "specFallbackWarning": {
     "message": "Verwende gebündelte media.add Schema-Fallback (v{{version}}); bitte überprüfe die /openapi.json deines tldw_server, falls Felder veraltet erscheinen."
+  },
+  "serverChatsUnavailableNotConnected": {
+    "message": "Server-Chats sind verfügbar, sobald Sie eine Verbindung zu Ihrem tldw-Server hergestellt haben."
+  },
+  "serverChatsUnavailableServerError": {
+    "message": "Server-Chats sind derzeit nicht verfügbar. Prüfen Sie die Serverprotokolle oder versuchen Sie es erneut."
+  },
+  "noToolCalls": {
+    "message": "Noch keine Tool-Aufrufe"
+  },
+  "arguments": {
+    "message": "Argumente"
+  },
+  "invalidJson": {
+    "message": "Ungültiges JSON; Rohwert wird angezeigt"
+  },
+  "result": {
+    "message": "Ergebnis"
+  },
+  "tools_fs_list": {
+    "message": "Verzeichnis auflisten",
+    "description": "Label for the fs.list tool (list directory)."
+  },
+  "tools_fs_read": {
+    "message": "Datei lesen",
+    "description": "Label for the fs.read tool (read file)."
+  },
+  "tools_fs_write": {
+    "message": "Datei schreiben",
+    "description": "Label for the fs.write tool (write file)."
+  },
+  "tools_fs_apply_patch": {
+    "message": "Patch anwenden",
+    "description": "Label for the fs.apply_patch tool (apply patch)."
+  },
+  "tools_fs_mkdir": {
+    "message": "Verzeichnis erstellen",
+    "description": "Label for the fs.mkdir tool (create directory)."
+  },
+  "tools_fs_delete": {
+    "message": "Löschen",
+    "description": "Label for the fs.delete tool (delete file or directory)."
+  },
+  "tools_search_grep": {
+    "message": "Inhalt durchsuchen",
+    "description": "Label for the search.grep tool (search file contents)."
+  },
+  "tools_search_glob": {
+    "message": "Dateien finden",
+    "description": "Label for the search.glob tool (find files by pattern)."
+  },
+  "tools_git_status": {
+    "message": "Git-Status",
+    "description": "Label for the git.status tool."
+  },
+  "tools_git_diff": {
+    "message": "Git-Diff",
+    "description": "Label for the git.diff tool."
+  },
+  "tools_git_log": {
+    "message": "Git-Log",
+    "description": "Label for the git.log tool."
+  },
+  "tools_git_branch": {
+    "message": "Git-Branch",
+    "description": "Label for the git.branch tool."
+  },
+  "tools_git_add": {
+    "message": "Dateien stagen",
+    "description": "Label for the git.add tool (stage files)."
+  },
+  "tools_git_commit": {
+    "message": "Commit",
+    "description": "Label for the git.commit tool."
+  },
+  "tools_exec_run": {
+    "message": "Befehl ausführen",
+    "description": "Label for the exec.run tool (run command)."
+  },
+  "commandPalette_goToChat": {
+    "message": "Zum Chat wechseln",
+    "description": "Command palette action label to navigate to the Chat screen."
+  },
+  "commandPalette_goToMedia": {
+    "message": "Zu Medien wechseln",
+    "description": "Command palette action label to navigate to the Media screen."
+  },
+  "commandPalette_goToNotes": {
+    "message": "Zu Notizen wechseln",
+    "description": "Command palette action label to navigate to the Notes screen."
+  },
+  "commandPalette_goToFlashcards": {
+    "message": "Zu Karteikarten wechseln",
+    "description": "Command palette action label to navigate to the Flashcards screen."
+  },
+  "commandPalette_goToSettings": {
+    "message": "Zu Einstellungen wechseln",
+    "description": "Command palette action label to navigate to the Settings screen."
+  },
+  "commandPalette_goToHealth": {
+    "message": "Zu Status & Diagnose wechseln",
+    "description": "Command palette action label to open the Health & diagnostics screen."
+  },
+  "commandPalette_newChat": {
+    "message": "Neuer Chat",
+    "description": "Command palette action label to start a new chat."
+  },
+  "commandPalette_toggleKnowledgeSearch": {
+    "message": "Wissenssuche umschalten",
+    "description": "Command palette toggle label for enabling or disabling knowledge search."
+  },
+  "commandPalette_toggleKnowledgeSearchDesc": {
+    "message": "In deiner Wissensbasis suchen",
+    "description": "Command palette description text explaining the knowledge search toggle."
+  },
+  "commandPalette_toggleWebSearch": {
+    "message": "Websuche umschalten",
+    "description": "Command palette toggle label for enabling or disabling web search."
+  },
+  "commandPalette_toggleWebDesc": {
+    "message": "Im Internet suchen",
+    "description": "Command palette description text explaining the web search toggle."
+  },
+  "commandPalette_ingestPage": {
+    "message": "Aktuelle Seite erfassen",
+    "description": "Command palette action label to ingest the current page into knowledge."
+  },
+  "commandPalette_ingestDesc": {
+    "message": "Diese Seite in deiner Wissensbasis speichern",
+    "description": "Command palette description text explaining page ingestion into knowledge."
+  },
+  "commandPalette_switchModel": {
+    "message": "Modell wechseln",
+    "description": "Command palette action label to switch the active chat/model."
+  },
+  "commandPalette_toggleSidebar": {
+    "message": "Seitenleiste ein-/ausblenden",
+    "description": "Command palette toggle label to show or hide the sidepanel."
+  },
+  "commandPalette_toggleSidebarDesc": {
+    "message": "Chat-Seitenleiste ein- oder ausblenden",
+    "description": "Command palette description text explaining the sidebar visibility toggle."
+  },
+  "commandPalette_placeholder": {
+    "message": "Befehl eingeben oder suchen...",
+    "description": "Placeholder text shown in the command palette input."
+  },
+  "commandPalette_noResults": {
+    "message": "Keine Ergebnisse gefunden",
+    "description": "No-results state text in the command palette when nothing matches the query."
+  },
+  "commandPalette_title": {
+    "message": "Befehlspalette",
+    "description": "Title of the command palette UI."
+  },
+  "commandPalette_navigate": {
+    "message": "navigieren",
+    "description": "Command palette keyboard hint label for navigation."
+  },
+  "commandPalette_select": {
+    "message": "auswählen",
+    "description": "Command palette keyboard hint label for selection."
+  },
+  "commandPalette_toOpen": {
+    "message": "zum Öffnen",
+    "description": "Command palette keyboard hint label indicating the shortcut to open an item."
+  },
+  "commandPalette_categoryActions": {
+    "message": "Aktionen",
+    "description": "Label for the Actions category in the command palette."
+  },
+  "commandPalette_categoryNavigation": {
+    "message": "Navigation",
+    "description": "Label for the Navigation category in the command palette."
+  },
+  "commandPalette_categorySettings": {
+    "message": "Einstellungen",
+    "description": "Label for the Settings category in the command palette."
+  },
+  "commandPalette_categoryRecent": {
+    "message": "Zuletzt verwendet",
+    "description": "Label for the Recent items category in the command palette."
+  },
+  "markdown_unableToRender": {
+    "message": "Unable to render content"
+  },
+  "markdown_couldNotDisplay": {
+    "message": "The message content could not be displayed. This may be due to invalid formatting."
+  },
+  "markdown_showRawContent": {
+    "message": "Show raw content"
+  },
+  "notesSearch_exportNoteSuccess": {
+    "message": "Exported ({{size}})"
+  },
+  "notesSearch_exportSuccess": {
+    "message": "Exported {{count}} notes ({{size}})"
+  },
+  "notesSearch_exportCsvSuccess": {
+    "message": "Exported {{count}} notes as CSV ({{size}})"
+  },
+  "notesSearch_exportJsonSuccess": {
+    "message": "Exported {{count}} notes as JSON ({{size}})"
+  },
+  "exportNoteSuccess": {
+    "message": "Exported ({{size}})"
+  },
+  "exportSuccess": {
+    "message": "Exported {{count}} notes ({{size}})"
+  },
+  "exportCsvSuccess": {
+    "message": "Exported {{count}} notes as CSV ({{size}})"
+  },
+  "exportJsonSuccess": {
+    "message": "Exported {{count}} notes as JSON ({{size}})"
+  },
+  "infoShort": {
+    "message": "Info"
+  },
+  "regenShort": {
+    "message": "Neu"
+  },
+  "continueShort": {
+    "message": "Mehr"
+  },
+  "error_label": {
+    "message": "Fehler"
+  },
+  "error_friendlyApiKeySummary": {
+    "message": "Wir konnten Ihren tldw-Server nicht erreichen."
+  },
+  "error_friendlyApiKeyHint": {
+    "message": "Ihr API-Schlüssel ist möglicherweise ungültig. Öffnen Sie Einstellungen → tldw-Server, um URL und API-Schlüssel zu prüfen, und versuchen Sie es erneut."
+  },
+  "error_friendlyTimeoutSummary": {
+    "message": "Ihr Chat hat das Zeitlimit überschritten."
+  },
+  "error_friendlyTimeoutHint": {
+    "message": "Der Server hat aufgehört, Antworten zu senden. Versuchen Sie es erneut oder öffnen Sie Status & Diagnose, um den Serverstatus zu prüfen."
+  },
+  "error_friendlyGenericSummary": {
+    "message": "Beim Kontakt mit Ihrem tldw-Server ist ein Fehler aufgetreten."
+  },
+  "error_friendlyGenericHint": {
+    "message": "Versuchen Sie es in einem Moment erneut oder öffnen Sie Status & Diagnose, um den Serverzustand zu prüfen."
+  },
+  "error_showDetails": {
+    "message": "Technische Details anzeigen"
+  },
+  "error_hideDetails": {
+    "message": "Technische Details ausblenden"
+  },
+  "error_createFolder": {
+    "message": "Failed to create folder"
+  },
+  "modelSelect_label": {
+    "message": "Model"
+  },
+  "modelSelect_tooltip": {
+    "message": "Changes model for next message"
+  },
+  "featureHints_knowledge_title": {
+    "message": "Durchsuche dein Wissen"
+  },
+  "featureHints_knowledge_description": {
+    "message": "Öffne die Wissenssuche, um Ausschnitte zu finden und sie in deinen Chat einzufügen."
+  },
+  "featureHints_moreTools_title": {
+    "message": "Weitere Tools verfügbar"
+  },
+  "featureHints_moreTools_description": {
+    "message": "Greife auf Vision-Modus, Bild-Upload, Schnellimport und die vollständige App zu."
+  },
+  "featureHints_commandPalette_title": {
+    "message": "Schnellbefehle"
+  },
+  "featureHints_commandPalette_description": {
+    "message": "Drücke {{shortcut}}, um Befehle, Einstellungen und mehr zu durchsuchen."
+  },
+  "featureHints_modelSettings_title": {
+    "message": "Modellparameter anpassen"
+  },
+  "featureHints_modelSettings_description": {
+    "message": "Optimiere Temperatur, Kontextlänge und weitere Modelleinstellungen."
+  },
+  "chatSidebar_title": {
+    "message": "Chats"
+  },
+  "chatSidebar_newChat": {
+    "message": "Neuer Chat"
+  },
+  "chatSidebar_collapse": {
+    "message": "Seitenleiste einklappen"
+  },
+  "chatSidebar_expand": {
+    "message": "Seitenleiste ausklappen"
+  },
+  "chatSidebar_search": {
+    "message": "Chats durchsuchen..."
+  },
+  "chatSidebar_ingest": {
+    "message": "Seite erfassen"
+  },
+  "chatSidebar_media": {
+    "message": "Medien"
+  },
+  "chatSidebar_notes": {
+    "message": "Notizen"
+  },
+  "chatSidebar_settings": {
+    "message": "Einstellungen"
+  },
+  "chatSidebar_loadError": {
+    "message": "Chats konnten nicht geladen werden"
+  },
+  "chatSidebar_localTab": {
+    "message": "Lokal"
+  },
+  "chatSidebar_serverTab": {
+    "message": "Server"
+  },
+  "chatSidebar_foldersTab": {
+    "message": "Ordner"
+  },
+  "chatSidebar_tabs_local": {
+    "message": "Lokal"
+  },
+  "chatSidebar_tabs_server": {
+    "message": "Server"
+  },
+  "chatSidebar_tabs_folders": {
+    "message": "Ordner"
+  },
+  "chatSidebar_noServerChats": {
+    "message": "Noch keine Server-Chats"
+  },
+  "chatSidebar_foldersRequireConnection": {
+    "message": "Ordner erfordern eine Serververbindung"
+  },
+  "option.more.copy.canonicalMarkdown": {
+    "message": "Copy canonical transcript"
+  },
+  "option.more.download.canonicalMarkdown": {
+    "message": "Canonical transcript (Markdown)"
   }
 }

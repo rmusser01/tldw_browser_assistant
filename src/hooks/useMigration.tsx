@@ -2,13 +2,14 @@ import { useEffect } from "react"
 import { useMutation } from "@tanstack/react-query"
 import { hasLegacyData, runAllMigrations } from "~/db/dexie/migration"
 import { Storage } from "@plasmohq/storage"
+import { createSafeStorage } from "@/utils/safe-storage"
 import { useAntdMessage } from "./useAntdMessage"
 
 const MIGRATION_MESSAGE_KEY = "migration-status"
 const isHarnessEnvironment =
   typeof chrome !== "undefined" && chrome.runtime?.id === "mock-runtime-id"
 
-const storage = new Storage()
+const storage = createSafeStorage()
 
 export const getIsMigrated = async () => {
   const isMigrated = await storage.get("isMigrated")

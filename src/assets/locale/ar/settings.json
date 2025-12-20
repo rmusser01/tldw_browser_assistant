@@ -10,6 +10,39 @@
   "chatDictionariesNav": "قواميس الدردشة",
   "charactersNav": "الشخصيات",
   "mediaNav": "الوسائط",
+  "chatAppearance": {
+    "title": "مظهر الدردشة",
+    "description": "تخصيص الألوان والخطوط وأحجام النص لرسائل الدردشة.",
+    "behaviorNote": "هل تبحث عن إعدادات سلوك الدردشة (الوضع العريض، التفسير، خيارات النسخ)؟",
+    "goToGeneral": "اذهب إلى الإعدادات العامة",
+    "userHeading": "رسائل المستخدم",
+    "assistantHeading": "رسائل المساعد",
+    "userColor": "لون نص المستخدم",
+    "assistantColor": "لون نص المساعد",
+    "userFont": "خط المستخدم",
+    "assistantFont": "خط المساعد",
+    "userSize": "حجم نص المستخدم",
+    "assistantSize": "حجم نص المساعد",
+    "color": {
+      "default": "افتراضي",
+      "blue": "أزرق",
+      "green": "أخضر",
+      "purple": "بنفسجي",
+      "orange": "برتقالي",
+      "red": "أحمر"
+    },
+    "font": {
+      "default": "افتراضي",
+      "sans": "بدون زوائد (Sans serif)",
+      "serif": "بزوائد (Serif)",
+      "mono": "ثابت العرض (Monospace)"
+    },
+    "size": {
+      "sm": "صغير",
+      "md": "متوسط",
+      "lg": "كبير"
+    }
+  },
   "generalSettings": {
     "title": "الإعدادات العامة",
     "settings": {
@@ -81,7 +114,9 @@
         "label": "تمكين المحادثة المؤقتة في اللوحة الجانبية بشكل افتراضي"
       },
       "enableOcrAssets": {
-        "label": "Enable OCR (downloads ~5MB on first use)"
+        "label": "تفعيل OCR (تنزيل حوالي 5 ميجابايت عند أول استخدام)",
+        "downloadNotice": "سيؤدي تفعيل OCR إلى تنزيل حوالي 5MB من بيانات اللغة عند أول استخدام.",
+        "assetsEnabled": "تم تمكين حزم OCR وهي جاهزة للاستخدام"
       },
       "ocrLanguage": {
         "label": "Default OCR Language",

@@ -12,6 +12,28 @@
     "privateModeTitle": "tldw Assistant 無法儲存資料",
     "privateModeDescription": "Firefox 隱私模式不支援儲存聊天記錄。暫存聊天預設為開啟。後續會改進。"
   },
+  "connectionBanner": {
+    "connecting": "正在連線到你的 tldw 伺服器...",
+    "authErrorTitle": "API 金鑰需要處理",
+    "authErrorBody": "伺服器可連線，但 API 金鑰錯誤或缺失。",
+    "unreachableTitle": "無法連線到你的 tldw 伺服器",
+    "unreachableBody": "請確認伺服器正在執行且可連線。",
+    "noUrlBody": "在設定中加入伺服器 URL 以開始使用。",
+    "disconnectedTitle": "未連線到 tldw 伺服器",
+    "disconnectedBody": "開啟設定以設定伺服器連線。",
+    "setupTitle": "完成設定以開始聊天",
+    "setupBody": "在設定中完成設定精靈以連線。",
+    "openSettings": "開啟設定"
+  },
+  "temporaryBadge": {
+    "title": "臨時聊天",
+    "label": "Temp",
+    "description": "此聊天不會被儲存。關閉或開始新聊天時訊息將被清除。",
+    "clickHint": "點擊以停用",
+    "ariaLabel": "臨時聊天模式已啟用。點擊切換。",
+    "indicatorTooltip": "此聊天中的訊息不會被儲存",
+    "indicatorAria": "臨時聊天"
+  },
   "header": {
     "ingest": "Ingest",
     "saveCurrent": "Save current page on server",
@@ -74,6 +96,13 @@
     "transcriptLabel": "Transcript",
     "summaryLabel": "Summary"
   },
+  "saveStatus": {
+    "ephemeral": "臨時：不儲存，關閉時清除",
+    "local": "已在此瀏覽器本機儲存",
+    "server": "已儲存到伺服器",
+    "saveFailed": "無法將聊天儲存到伺服器",
+    "saveFailedDescription": "聊天目前只會儲存在本機。請檢查連線後再試。"
+  },
   "rag": {
     "searchPlaceholder": "Search your knowledge…",
     "search": "Search",
@@ -92,6 +121,10 @@
       "ask": "Ask",
       "open": "Open",
       "copy": "Copy"
+    },
+    "hint": {
+      "message": "搜尋你的知識庫，並將結果插入到訊息中。",
+      "dismiss": "關閉"
     }
   }
 }

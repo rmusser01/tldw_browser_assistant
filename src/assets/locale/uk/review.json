@@ -164,7 +164,9 @@
     "saveAsVersion": "Зберегти як нову версію",
     "analysisPlaceholder": "Введіть текст аналізу...",
     "wordCount": "{{count}} слів",
-    "charCount": "{{count}} символів"
+    "charCount": "{{count}} символів",
+    "pageRangeError": "Сторінка має бути 1-{{max}}",
+    "pageRangeClamped": "Перехід до сторінки {{page}}"
   },
   "empty": {
     "connectTitle": "Connect to use Review",

@@ -2,7 +2,7 @@ import logoImage from "~/assets/icon.png"
 import { useMessage } from "~/hooks/useMessage"
 import { Link } from "react-router-dom"
 import { Tooltip, Drawer } from "antd"
-import { CogIcon, PlusSquare, XIcon, PencilIcon, Trash2, SearchIcon, GitBranch } from "lucide-react"
+import { CogIcon, PlusSquare, XIcon, PencilIcon, Trash2, SearchIcon, GitBranch, History } from "lucide-react"
 import { useTranslation } from "react-i18next"
 import React from "react"
 import { IconButton } from "@/components/Common/IconButton"
@@ -169,7 +169,7 @@ export const SidepanelHeaderSimple = ({
   return (
     <div
       data-istemporary-chat={temporaryChat}
-      className="px-3 justify-between bg-white dark:bg-[#171717] border-b border-gray-300 dark:border-gray-700 py-2 items-center absolute top-0 z-10 flex h-12 w-full data-[istemporary-chat='true']:bg-blue-50 data-[istemporary-chat='true']:dark:bg-blue-950/30"
+      className="px-3 justify-between bg-white dark:bg-[#171717] border-b border-gray-300 dark:border-gray-700 py-2 items-center absolute top-0 z-10 flex h-12 w-full data-[istemporary-chat='true']:bg-purple-50 data-[istemporary-chat='true']:dark:bg-purple-900/30"
     >
       {/* Left: Status dot + Logo + Title */}
       <div className="flex items-center gap-2">
@@ -221,7 +221,7 @@ export const SidepanelHeaderSimple = ({
                 </button>
               </div>
             ) : (
-              <Tooltip title={t("common:search", { defaultValue: "Search" }) + " (Ctrl+F)"}>
+              <Tooltip title={t("common:search", { defaultValue: "Search" })}>
                 <IconButton
                   ariaLabel={t("sidepanel:header.searchChatAria", "Search in chat") as string}
                   onClick={handleToggleSearch}
@@ -276,13 +276,26 @@ export const SidepanelHeaderSimple = ({
 
         {/* Timeline - only show when there's a saved chat (historyId exists) and search is not expanded */}
         {historyId && !streaming && !isSearchExpanded && (
-          <Tooltip title={t("sidepanel:header.timeline", { defaultValue: "Timeline" }) + " (Ctrl+Shift+T)"}>
+          <Tooltip title={t("sidepanel:header.timeline", { defaultValue: "Timeline" })}>
             <IconButton
               ariaLabel={t("sidepanel:header.timelineAria", "View conversation timeline") as string}
               onClick={() => openTimeline(historyId)}
               className="p-1.5 rounded hover:bg-gray-100 dark:hover:bg-gray-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-pink-700"
             >
               <GitBranch className="size-4 text-gray-500 dark:text-gray-400" />
+            </IconButton>
+          </Tooltip>
+        )}
+
+        {/* History - browse past chats */}
+        {!isSearchExpanded && (
+          <Tooltip title={t("sidepanel:header.history", { defaultValue: "Chat History" })}>
+            <IconButton
+              ariaLabel={t("sidepanel:header.historyAria", "Browse chat history") as string}
+              onClick={() => handleSidebarOpenChange(true)}
+              className="p-1.5 rounded hover:bg-gray-100 dark:hover:bg-gray-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-pink-700"
+            >
+              <History className="size-4 text-gray-500 dark:text-gray-400" />
             </IconButton>
           </Tooltip>
         )}

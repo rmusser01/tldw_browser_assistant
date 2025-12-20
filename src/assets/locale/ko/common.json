@@ -216,6 +216,16 @@
   "ttsShort": "음성",
   "copyShort": "복사",
   "branchShort": "브랜치",
+  "infoShort": "정보",
+  "regenShort": "다시",
+  "continueShort": "더 보기",
+  "fileChanges": "파일 변경",
+  "deletions": "삭제 작업",
+  "gitOperations": "Git 작업",
+  "commands": "명령",
+  "otherOperations": "기타 작업",
+  "fileAccess": "파일 접근",
+  "notebookEdits": "노트북 편집",
   "segmented": {
     "available": "서버 모델",
     "custom": "사용자 정의 모델"
@@ -230,7 +240,8 @@
   "serverChats": "서버 채팅",
   "serverChatLoadError": "서버 채팅을 불러오지 못했습니다. 연결을 확인하고 다시 시도하세요.",
   "serverChatSourceLabel": "서버",
-  "serverChatsUnavailable": "서버 채팅을 사용할 수 없습니다. 서버 연결을 확인하세요.",
+  "serverChatsUnavailableNotConnected": "tldw 서버에 연결하면 서버 채팅을 사용할 수 있습니다.",
+  "serverChatsUnavailableServerError": "현재 서버 채팅을 사용할 수 없습니다. 서버 로그를 확인하거나 다시 시도하세요.",
   "historiesDeleted": "{{count}}개의 기록이 삭제되었습니다",
   "deleteHistoriesError": "기록 삭제 중 오류가 발생했습니다",
   "mermaid": "Mermaid 다이어그램",
@@ -238,6 +249,7 @@
   "searchResults": "검색 결과",
   "newBranch": "새 브랜치",
   "error": {
+    "label": "오류",
     "friendlyApiKeySummary": "tldw 서버에 연결할 수 없습니다.",
     "friendlyApiKeyHint": "API 키가 잘못되었을 수 있습니다. 설정 → tldw 서버에서 URL과 API 키를 확인한 뒤 다시 시도하세요.",
     "friendlyTimeoutSummary": "채팅이 시간 초과되었습니다.",
@@ -259,5 +271,105 @@
   "refresh": "새로고침",
   "confirm": "확인",
   "untitled": "제목 없음",
-  "moveToFolder": "폴더로 이동"
+  "moveToFolder": "폴더로 이동",
+  "noToolCalls": "아직 도구 호출이 없습니다",
+  "status": {
+    "pending": "대기 중",
+    "running": "처리 중",
+    "complete": "완료",
+    "error": "오류"
+  },
+  "arguments": "인수",
+  "invalidJson": "잘못된 JSON입니다. 원시 값을 표시합니다",
+  "result": "결과",
+  "tools": {
+    "fs_list": "디렉터리 목록",
+    "fs_read": "파일 읽기",
+    "fs_write": "파일 쓰기",
+    "fs_apply_patch": "패치 적용",
+    "fs_mkdir": "디렉터리 생성",
+    "fs_delete": "삭제",
+    "search_grep": "콘텐츠 검색",
+    "search_glob": "파일 찾기",
+    "git_status": "Git 상태",
+    "git_diff": "Git 차이",
+    "git_log": "Git 로그",
+    "git_branch": "Git 브랜치",
+    "git_add": "파일 스테이징",
+    "git_commit": "커밋",
+    "exec_run": "명령 실행"
+  },
+  "markdown": {
+    "unableToRender": "콘텐츠를 렌더링할 수 없습니다",
+    "couldNotDisplay": "메시지 내용을 표시할 수 없습니다. 잘못된 형식일 수 있습니다.",
+    "showRawContent": "원본 콘텐츠 표시"
+  },
+  "commandPalette": {
+    "goToChat": "채팅으로 이동",
+    "goToMedia": "미디어로 이동",
+    "goToNotes": "노트로 이동",
+    "goToFlashcards": "플래시카드로 이동",
+    "goToSettings": "설정으로 이동",
+    "goToHealth": "건강 및 진단 열기",
+    "newChat": "새 채팅",
+    "toggleKnowledgeSearch": "지식 검색 전환",
+    "toggleKnowledgeSearchDesc": "지식 베이스에서 검색합니다",
+    "toggleWebSearch": "웹 검색 전환",
+    "toggleWebDesc": "인터넷을 검색합니다",
+    "ingestPage": "현재 페이지 가져오기",
+    "ingestDesc": "이 페이지를 지식 베이스에 저장합니다",
+    "switchModel": "모델 전환",
+    "toggleSidebar": "사이드바 전환",
+    "toggleSidebarDesc": "채팅 사이드바 표시/숨기기",
+    "placeholder": "명령을 입력하거나 검색하세요…",
+    "noResults": "결과가 없습니다",
+    "title": "명령 팔레트",
+    "navigate": "이동",
+    "select": "선택",
+    "toOpen": "열기",
+    "categoryActions": "작업",
+    "categoryNavigation": "탐색",
+    "categorySettings": "설정",
+    "categoryRecent": "최근 항목"
+  },
+  "featureHints": {
+    "knowledge": {
+      "title": "내 지식 검색",
+      "description": "지식 검색 패널을 열어 스니펫을 찾고 채팅에 삽입합니다."
+    },
+    "moreTools": {
+      "title": "더 많은 도구",
+      "description": "비전 모드, 이미지 업로드, 빠른 가져오기 및 전체 앱에 액세스합니다."
+    },
+    "commandPalette": {
+      "title": "빠른 명령",
+      "description": "{{shortcut}} 를 눌러 명령, 설정 등을 검색합니다."
+    },
+    "modelSettings": {
+      "title": "모델 매개변수 조정",
+      "description": "온도, 컨텍스트 길이 등 모델 설정을 세부 조정합니다."
+    }
+  },
+  "chatSidebar": {
+    "title": "채팅",
+    "newChat": "새 채팅",
+    "collapse": "사이드바 접기",
+    "expand": "사이드바 펼치기",
+    "search": "채팅 검색...",
+    "ingest": "페이지 가져오기",
+    "media": "미디어",
+    "notes": "노트",
+    "settings": "설정",
+    "loadError": "채팅을 불러오지 못했습니다",
+    "localTab": "로컬",
+    "serverTab": "서버",
+    "foldersTab": "폴더",
+    "tabs": {
+      "local": "로컬",
+      "server": "서버",
+      "folders": "폴더"
+    },
+    "noServerChats": "서버 채팅이 아직 없습니다",
+    "foldersRequireConnection": "폴더를 사용하려면 서버 연결이 필요합니다"
+  }
 }

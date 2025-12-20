@@ -164,7 +164,9 @@
     "saveAsVersion": "Als neue Version speichern",
     "analysisPlaceholder": "Analysentext eingeben...",
     "wordCount": "{{count}} Wörter",
-    "charCount": "{{count}} Zeichen"
+    "charCount": "{{count}} Zeichen",
+    "pageRangeError": "Seite muss 1-{{max}} sein",
+    "pageRangeClamped": "Navigiere zu Seite {{page}}"
   },
   "empty": {
     "connectTitle": "Connect to use Review",

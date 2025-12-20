@@ -1515,6 +1515,7 @@ export const QuickIngestModal: React.FC<Props> = ({
       onCancel={onClose}
       footer={null}
       width={760}
+      style={{ maxWidth: "calc(100vw - 32px)" }}
       destroyOnHidden
       rootClassName="quick-ingest-modal"
       maskClosable={!running}
@@ -2189,16 +2190,18 @@ export const QuickIngestModal: React.FC<Props> = ({
                   const done = processedCount || results.length
                   const total = liveTotalCount || totalPlanned
                   return (
-                    <div className="sr-only" aria-live="polite" role="status">
-                      {running && total > 0
-                        ? t('quickIngest.progress', 'Processing {{done}} / {{total}} items…', {
-                            done,
-                            total
-                          })
-                        : qi('itemsReadySr', '{{count}} item(s) ready', {
-                            count: plannedCount || 0
-                          })}
-                    </div>
+                    <>
+                      <div className="sr-only" aria-live="polite" role="status">
+                        {running && total > 0
+                          ? t('quickIngest.progress', 'Processing {{done}} / {{total}} items…', {
+                              done,
+                              total
+                            })
+                          : qi('itemsReadySr', '{{count}} item(s) ready', {
+                              count: plannedCount || 0
+                            })}
+                      </div>
+                    </>
                   )
                 })()}
                 <div className="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between text-sm text-gray-700 dark:text-gray-200">

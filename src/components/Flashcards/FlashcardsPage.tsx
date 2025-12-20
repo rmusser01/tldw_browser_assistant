@@ -12,8 +12,10 @@ import {
   List,
   Modal,
   Pagination,
+  Progress,
   Select,
   Space,
+  Spin,
   Switch,
   Tabs,
   Tag,
@@ -64,6 +66,34 @@ const { Text, Title } = Typography
 type DueStatus = "new" | "learning" | "due" | "all"
 
 const BULK_MUTATION_CHUNK_SIZE = 50
+
+type FlashcardModelType = Flashcard["model_type"]
+
+const normalizeFlashcardTemplateFields = <
+  T extends {
+    model_type?: FlashcardModelType | null
+    reverse?: boolean | null
+    is_cloze?: boolean | null
+  }
+>(
+  values: T
+): T => {
+  const isCloze = values.model_type === "cloze" || values.is_cloze === true
+  const isReverse =
+    values.model_type === "basic_reverse" || values.reverse === true
+  const model_type: FlashcardModelType = isCloze
+    ? "cloze"
+    : isReverse
+      ? "basic_reverse"
+      : "basic"
+
+  return {
+    ...values,
+    model_type,
+    reverse: model_type === "basic_reverse",
+    is_cloze: model_type === "cloze"
+  }
+}
 
 const Markdown = React.lazy(() => import("@/components/Common/Markdown"))
 
@@ -138,135 +168,16 @@ export const FlashcardsPage: React.FC = () => {
 
   const demoDecks = React.useMemo(() => getDemoFlashcardDecks(t), [t])
 
-  if (!isOnline) {
-    return demoEnabled ? (
-      <div className="space-y-4">
-        <FeatureEmptyState
-          title={
-            <span className="inline-flex items-center gap-2">
-              <StatusBadge variant="demo">Demo</StatusBadge>
-              <span>
-                {t("option:flashcards.demoTitle", {
-                  defaultValue: "Explore Flashcards in demo mode"
-                })}
-              </span>
-            </span>
-          }
-          description={t("option:flashcards.demoDescription", {
-            defaultValue:
-              "This demo shows how Flashcards can turn your content into spaced‑repetition cards. Connect your own server later to generate and review cards from your own notes and media."
-          })}
-          examples={[
-            t("option:flashcards.demoExample1", {
-              defaultValue:
-                "See how decks, cards, and tags are organized across Review and Manage tabs."
-            }),
-            t("option:flashcards.demoExample2", {
-              defaultValue:
-                "When you connect, you’ll be able to generate cards from lectures, meetings, or notes and review them on a schedule."
-            }),
-            t("option:flashcards.demoExample3", {
-              defaultValue:
-                "Use Flashcards together with Notes and Media to keep important ideas fresh."
-            })
-          ]}
-          primaryActionLabel={t("option:connectionCard.buttonGoToServerCard", {
-            defaultValue: "Go to server card"
-          })}
-          onPrimaryAction={scrollToServerCard}
-        />
-        <div className="rounded-lg border border-dashed border-gray-300 bg-white p-3 text-xs text-gray-700 dark:border-gray-700 dark:bg-[#111] dark:text-gray-200">
-          <div className="mb-2 font-semibold">
-            {t("option:flashcards.demoPreviewHeading", {
-              defaultValue: "Example decks (preview only)"
-            })}
-          </div>
-          <div className="divide-y divide-gray-200 dark:divide-gray-800">
-            {demoDecks.map((deck) => (
-              <div key={deck.id} className="py-2">
-                <div className="text-sm font-medium text-gray-900 dark:text-gray-100">
-                  {deck.name}
-                </div>
-                <div className="mt-1 text-[11px] text-gray-600 dark:text-gray-300">
-                  {deck.summary}
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-    ) : (
-      <ConnectionProblemBanner
-        badgeLabel="Not connected"
-        title={t("option:flashcards.emptyConnectTitle", {
-          defaultValue: "Connect to use Flashcards"
-        })}
-        description={t("option:flashcards.emptyConnectDescription", {
-          defaultValue:
-            "This view needs a connected server. Use the server connection card above to fix your connection, then return here to review and generate flashcards."
-        })}
-        examples={[
-          t("option:flashcards.emptyConnectExample1", {
-            defaultValue:
-              "Use the connection card at the top of this page to add your server URL and API key."
-          })
-        ]}
-        primaryActionLabel={t("option:connectionCard.buttonGoToServerCard", {
-          defaultValue: "Go to server card"
-        })}
-        onPrimaryAction={scrollToServerCard}
-        retryActionLabel={t("option:buttonRetry", "Retry connection")}
-        onRetry={handleRetryConnection}
-        retryDisabled={checkingConnection}
-      />
-    )
-  }
-
   const flashcardsUnsupported =
-    !capsLoading && capabilities && !capabilities.hasFlashcards
+    !capsLoading && !!capabilities && !capabilities.hasFlashcards
 
-  if (isOnline && flashcardsUnsupported) {
-    return (
-      <FeatureEmptyState
-        title={
-          <span className="inline-flex items-center gap-2">
-            <StatusBadge variant="error">
-              Feature unavailable
-            </StatusBadge>
-            <span>
-              {t("option:flashcards.offlineTitle", {
-                defaultValue: "Flashcards API not available on this server"
-              })}
-            </span>
-          </span>
-        }
-        description={t("option:flashcards.offlineDescription", {
-          defaultValue:
-            "This tldw server does not advertise the Flashcards endpoints. Upgrade your server to a version that includes /api/v1/flashcards… to use this workspace."
-        })}
-        examples={[
-          t("option:flashcards.offlineExample1", {
-            defaultValue:
-              "Check Health & diagnostics to confirm your server version and available APIs."
-          }),
-          t("option:flashcards.offlineExample2", {
-            defaultValue:
-              "After upgrading, reload the extension and return to Flashcards."
-          })
-        ]}
-        primaryActionLabel={t("settings:healthSummary.diagnostics", {
-          defaultValue: "Health & diagnostics"
-        })}
-        onPrimaryAction={() => navigate("/settings/health")}
-      />
-    )
-  }
+  const flashcardsEnabled = isOnline && !flashcardsUnsupported
 
   // Shared: decks
   const decksQuery = useQuery({
     queryKey: ["flashcards:decks"],
     queryFn: listDecks,
-    enabled: isOnline
+    enabled: flashcardsEnabled
   })
 
   // REVIEW TAB STATE
@@ -288,7 +199,7 @@ export const FlashcardsPage: React.FC = () => {
       })
       return res.items?.[0] || null
     },
-    enabled: isOnline
+    enabled: flashcardsEnabled
   })
 
   const onSubmitReview = async (rating: number) => {
@@ -329,6 +240,23 @@ export const FlashcardsPage: React.FC = () => {
   const [newDeckModalOpen, setNewDeckModalOpen] = React.useState(false)
   const [newDeckName, setNewDeckName] = React.useState("")
   const [newDeckDesc, setNewDeckDesc] = React.useState("")
+
+  const syncTemplateFields = React.useCallback(
+    (
+      partial: Partial<
+        Pick<FlashcardCreate, "model_type" | "reverse" | "is_cloze">
+      >
+    ) => {
+      const normalized = normalizeFlashcardTemplateFields(partial)
+      createForm.setFieldsValue({
+        model_type: normalized.model_type,
+        reverse: normalized.reverse,
+        is_cloze: normalized.is_cloze
+      })
+    },
+    [createForm]
+  )
+
   const createDeckMutation = useMutation({
     mutationKey: ["flashcards:deck:create"],
     mutationFn: () => createDeck({ name: newDeckName.trim(), description: newDeckDesc.trim() || undefined }),
@@ -356,6 +284,20 @@ export const FlashcardsPage: React.FC = () => {
   const [selectAllAcross, setSelectAllAcross] = React.useState<boolean>(false)
   const [deselectedIds, setDeselectedIds] = React.useState<Set<string>>(new Set())
 
+  // Bulk operation progress state
+  const [bulkProgress, setBulkProgress] = React.useState<{
+    open: boolean
+    current: number
+    total: number
+    action: string
+  } | null>(null)
+
+  // Type-to-confirm modal state for large bulk deletes
+  const [bulkDeleteConfirmOpen, setBulkDeleteConfirmOpen] = React.useState(false)
+  const [bulkDeleteInput, setBulkDeleteInput] = React.useState("")
+  const [bulkDeleteCount, setBulkDeleteCount] = React.useState(0)
+  const [pendingDeleteItems, setPendingDeleteItems] = React.useState<Flashcard[]>([])
+
   const manageQuery = useQuery({
     queryKey: ["flashcards:list", mDeckId, mQuery, mTag, mDue, page, pageSize],
     queryFn: async () =>
@@ -368,7 +310,7 @@ export const FlashcardsPage: React.FC = () => {
         offset: (page - 1) * pageSize,
         order_by: "due_at"
       }),
-    enabled: isOnline
+    enabled: flashcardsEnabled
   })
 
   const toggleSelect = (uuid: string, checked: boolean) => {
@@ -445,32 +387,65 @@ export const FlashcardsPage: React.FC = () => {
     setMoveOpen(true)
   }
 
-  const handleBulkDelete = async () => {
-    const toDelete = await getSelectedItems()
-    if (!toDelete.length) return
-    const ok = await confirmDanger({
-      title: t("common:confirmTitle", { defaultValue: "Please confirm" }),
-      content:
-        t("option:flashcards.bulkDeleteConfirm", {
-          defaultValue: `Delete ${toDelete.length} selected cards? This cannot be undone.`
-        }),
-      okText: t("common:delete", { defaultValue: "Delete" }),
-      cancelText: t("common:cancel", { defaultValue: "Cancel" })
-    })
-    if (!ok) return
+  const executeBulkDelete = async (items: Flashcard[]) => {
+    const total = items.length
+    setBulkProgress({ open: true, current: 0, total, action: t("option:flashcards.bulkProgressDeleting", { defaultValue: "Deleting cards" }) })
     try {
-      await processInChunks(toDelete, BULK_MUTATION_CHUNK_SIZE, async (chunk) => {
-        // Fire a bounded number of requests in parallel
+      let processed = 0
+      await processInChunks(items, BULK_MUTATION_CHUNK_SIZE, async (chunk) => {
         await Promise.all(
           chunk.map((c) => deleteFlashcard(c.uuid, c.version))
         )
+        processed += chunk.length
+        setBulkProgress((prev) => prev ? { ...prev, current: Math.min(processed, total) } : null)
       })
       message.success(t("common:deleted", { defaultValue: "Deleted" }))
       clearSelection()
       await qc.invalidateQueries({ queryKey: ["flashcards:list"] })
     } catch (e: any) {
       message.error(e?.message || "Bulk delete failed")
+    } finally {
+      setBulkProgress(null)
     }
+  }
+
+  const handleBulkDelete = async () => {
+    const toDelete = await getSelectedItems()
+    if (!toDelete.length) return
+
+    const count = toDelete.length
+    const LARGE_DELETE_THRESHOLD = 100
+
+    if (count > LARGE_DELETE_THRESHOLD) {
+      // For large deletions, require type-to-confirm
+      setBulkDeleteCount(count)
+      setPendingDeleteItems(toDelete)
+      setBulkDeleteInput("")
+      setBulkDeleteConfirmOpen(true)
+    } else {
+      // Standard confirmation for smaller selections
+      const ok = await confirmDanger({
+        title: t("common:confirmTitle", { defaultValue: "Please confirm" }),
+        content:
+          t("option:flashcards.bulkDeleteConfirm", {
+            defaultValue: `Delete ${count} selected cards? This cannot be undone.`
+          }),
+        okText: t("common:delete", { defaultValue: "Delete" }),
+        cancelText: t("common:cancel", { defaultValue: "Cancel" })
+      })
+      if (!ok) return
+      await executeBulkDelete(toDelete)
+    }
+  }
+
+  const confirmLargeBulkDelete = async () => {
+    const items = pendingDeleteItems
+    setBulkDeleteConfirmOpen(false)
+    setBulkDeleteInput("")
+    setPendingDeleteItems([])
+    setBulkDeleteCount(0)
+    if (!items.length) return
+    await executeBulkDelete(items)
   }
 
   const handleExportSelected = async () => {
@@ -515,6 +490,22 @@ export const FlashcardsPage: React.FC = () => {
   const editBackPreview = useDebouncedFormField(editForm, "back")
   const editExtraPreview = useDebouncedFormField(editForm, "extra")
   const editNotesPreview = useDebouncedFormField(editForm, "notes")
+
+  const syncEditTemplateFields = React.useCallback(
+    (
+      partial: Partial<
+        Pick<FlashcardUpdate, "model_type" | "reverse" | "is_cloze">
+      >
+    ) => {
+      const normalized = normalizeFlashcardTemplateFields(partial)
+      editForm.setFieldsValue({
+        model_type: normalized.model_type,
+        reverse: normalized.reverse,
+        is_cloze: normalized.is_cloze
+      })
+    },
+    [editForm]
+  )
 
   // Quick actions: review
   const [quickReviewOpen, setQuickReviewOpen] = React.useState(false)
@@ -622,7 +613,9 @@ export const FlashcardsPage: React.FC = () => {
   const doUpdate = async () => {
     try {
       if (!editing) return
-      const values = (await editForm.validateFields()) as FlashcardUpdate
+      const values = normalizeFlashcardTemplateFields(
+        (await editForm.validateFields()) as FlashcardUpdate
+      )
       await updateFlashcard(editing.uuid, values)
       message.success(t("common:updated", { defaultValue: "Updated" }))
       setEditOpen(false)
@@ -727,11 +720,127 @@ export const FlashcardsPage: React.FC = () => {
     }
   }, [decksQuery.data, isOnline, pendingDeckId])
 
+  if (!isOnline) {
+    return demoEnabled ? (
+      <div className="space-y-4">
+        <FeatureEmptyState
+          title={
+            <span className="inline-flex items-center gap-2">
+              <StatusBadge variant="demo">Demo</StatusBadge>
+              <span>
+                {t("option:flashcards.demoTitle", {
+                  defaultValue: "Explore Flashcards in demo mode"
+                })}
+              </span>
+            </span>
+          }
+          description={t("option:flashcards.demoDescription", {
+            defaultValue:
+              "This demo shows how Flashcards can turn your content into spaced‑repetition cards. Connect your own server later to generate and review cards from your own notes and media."
+          })}
+          examples={[
+            t("option:flashcards.demoExample1", {
+              defaultValue:
+                "See how decks, cards, and tags are organized across Review and Manage tabs."
+            }),
+            t("option:flashcards.demoExample2", {
+              defaultValue:
+                "When you connect, you’ll be able to generate cards from lectures, meetings, or notes and review them on a schedule."
+            }),
+            t("option:flashcards.demoExample3", {
+              defaultValue:
+                "Use Flashcards together with Notes and Media to keep important ideas fresh."
+            })
+          ]}
+          primaryActionLabel={t("option:connectionCard.buttonGoToServerCard", {
+            defaultValue: "Go to server card"
+          })}
+          onPrimaryAction={scrollToServerCard}
+        />
+        <div className="rounded-lg border border-dashed border-gray-300 bg-white p-3 text-xs text-gray-700 dark:border-gray-700 dark:bg-[#111] dark:text-gray-200">
+          <div className="mb-2 font-semibold">
+            {t("option:flashcards.demoPreviewHeading", {
+              defaultValue: "Example decks (preview only)"
+            })}
+          </div>
+          <div className="divide-y divide-gray-200 dark:divide-gray-800">
+            {demoDecks.map((deck) => (
+              <div key={deck.id} className="py-2">
+                <div className="text-sm font-medium text-gray-900 dark:text-gray-100">
+                  {deck.name}
+                </div>
+                <div className="mt-1 text-[11px] text-gray-600 dark:text-gray-300">
+                  {deck.summary}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    ) : (
+      <ConnectionProblemBanner
+        badgeLabel="Not connected"
+        title={t("option:flashcards.emptyConnectTitle", {
+          defaultValue: "Connect to use Flashcards"
+        })}
+        description={t("option:flashcards.emptyConnectDescription", {
+          defaultValue:
+            "This view needs a connected server. Use the server connection card above to fix your connection, then return here to review and generate flashcards."
+        })}
+        examples={[
+          t("option:flashcards.emptyConnectExample1", {
+            defaultValue:
+              "Use the connection card at the top of this page to add your server URL and API key."
+          })
+        ]}
+        primaryActionLabel={t("option:connectionCard.buttonGoToServerCard", {
+          defaultValue: "Go to server card"
+        })}
+        onPrimaryAction={scrollToServerCard}
+        retryActionLabel={t("option:buttonRetry", "Retry connection")}
+        onRetry={handleRetryConnection}
+        retryDisabled={checkingConnection}
+      />
+    )
+  }
+
+  if (flashcardsUnsupported) {
+    return (
+      <FeatureEmptyState
+        title={
+          <span className="inline-flex items-center gap-2">
+            <StatusBadge variant="error">Feature unavailable</StatusBadge>
+            <span>
+              {t("option:flashcards.offlineTitle", {
+                defaultValue: "Flashcards API not available on this server"
+              })}
+            </span>
+          </span>
+        }
+        description={t("option:flashcards.offlineDescription", {
+          defaultValue:
+            "This tldw server does not advertise the Flashcards endpoints. Upgrade your server to a version that includes /api/v1/flashcards… to use this workspace."
+        })}
+        examples={[
+          t("option:flashcards.offlineExample1", {
+            defaultValue:
+              "Check Health & diagnostics to confirm your server version and available APIs."
+          }),
+          t("option:flashcards.offlineExample2", {
+            defaultValue:
+              "After upgrading, reload the extension and return to Flashcards."
+          })
+        ]}
+        primaryActionLabel={t("settings:healthSummary.diagnostics", {
+          defaultValue: "Health & diagnostics"
+        })}
+        onPrimaryAction={() => navigate("/settings/health")}
+      />
+    )
+  }
+
   return (
     <div className="mx-auto max-w-6xl p-4">
-      {!isOnline && (
-        <Alert type="warning" showIcon message={t("common:serverOffline", { defaultValue: "Server offline or not configured" })} className="mb-4" />
-      )}
       <Tabs
         activeKey={activeTab}
         onChange={setActiveTab}
@@ -934,45 +1043,82 @@ export const FlashcardsPage: React.FC = () => {
                       {t("option:flashcards.newDeck", { defaultValue: "New Deck" })}
                     </Button>
                   </Space>
-                  <Form.Item name="model_type" label={t("option:flashcards.modelType", { defaultValue: "Card template" })}>
-                    <div className="space-y-1">
-                      <Select
-                        options={[
-                          { label: "basic", value: "basic" },
-                          { label: "basic_reverse", value: "basic_reverse" },
-                          { label: "cloze", value: "cloze" }
-                        ]}
-                      />
-                      <Text type="secondary" className="text-xs">
-                        {t("option:flashcards.modelTypeHelp", {
-                          defaultValue:
-                            "Basic shows a question on the front and answer on the back. Reverse also creates the opposite card. Cloze hides parts of the text using {{...}}."
-                        })}
-                      </Text>
-                    </div>
+                  <Form.Item
+                    name="model_type"
+                    label={t("option:flashcards.modelType", {
+                      defaultValue: "Card template"
+                    })}
+                  >
+                    <Select
+                      options={[
+                        {
+                          label: t("option:flashcards.templateBasic", {
+                            defaultValue: "Basic (Question → Answer)"
+                          }),
+                          value: "basic"
+                        },
+                        {
+                          label: t("option:flashcards.templateReverse", {
+                            defaultValue: "Basic + Reverse (Both directions)"
+                          }),
+                          value: "basic_reverse"
+                        },
+                        {
+                          label: t("option:flashcards.templateCloze", {
+                            defaultValue: "Cloze (Fill in the blank)"
+                          }),
+                          value: "cloze"
+                        }
+                      ]}
+                      onChange={(value: FlashcardModelType) =>
+                        syncTemplateFields({ model_type: value })
+                      }
+                    />
                   </Form.Item>
-                   <Form.Item name="reverse" label={t("option:flashcards.reverse", { defaultValue: "Also create reverse card" })} valuePropName="checked">
-                    <div className="space-y-1">
-                      <Switch />
-                      <Text type="secondary" className="text-xs">
-                        {t("option:flashcards.reverseHelp", {
-                          defaultValue:
-                            "Also create a card where the back becomes the question."
-                        })}
-                      </Text>
-                    </div>
+                  <Text type="secondary" className="text-xs -mt-4 mb-4">
+                    {t("option:flashcards.modelTypeHelp", {
+                      defaultValue:
+                        "Basic shows a question on the front and answer on the back. Reverse also creates the opposite card. Cloze hides parts of the text using {{...}}."
+                    })}
+                  </Text>
+                  <Form.Item
+                    name="reverse"
+                    label={t("option:flashcards.reverse", {
+                      defaultValue: "Also create reverse card"
+                    })}
+                    valuePropName="checked"
+                  >
+                    <Switch
+                      onChange={(checked) => {
+                        syncTemplateFields({ reverse: checked })
+                      }}
+                    />
                   </Form.Item>
-                   <Form.Item name="is_cloze" label={t("option:flashcards.isCloze", { defaultValue: "Cloze deletion" })} valuePropName="checked">
-                    <div className="space-y-1">
-                      <Switch />
-                      <Text type="secondary" className="text-xs">
-                        {t("option:flashcards.isClozeHelp", {
-                          defaultValue:
-                            "Use for fill‑in‑the‑blank cards. Wrap hidden text in {{...}} on the front."
-                        })}
-                      </Text>
-                    </div>
+                  <Text type="secondary" className="text-xs -mt-4 mb-4">
+                    {t("option:flashcards.reverseHelp", {
+                      defaultValue:
+                        "Also create a card where the back becomes the question."
+                    })}
+                  </Text>
+                  <Form.Item
+                    name="is_cloze"
+                    label={t("option:flashcards.isCloze", {
+                      defaultValue: "Cloze deletion"
+                    })}
+                    valuePropName="checked"
+                  >
+                    <Switch
+                      onChange={(checked) => {
+                        syncTemplateFields({ is_cloze: checked })
+                      }}
+                    />
                   </Form.Item>
+                  <Text type="secondary" className="text-xs -mt-4 mb-4">
+                    {t("option:flashcards.isClozeHelp", {
+                      defaultValue:
+                        "Use for fill‑in‑the‑blank cards. Wrap hidden text in {{...}} on the front."
+                    })}
+                  </Text>
                   <Form.Item
                     name="tags"
                     label={t("option:flashcards.tags", { defaultValue: "Tags" })}>
@@ -1058,15 +1204,25 @@ export const FlashcardsPage: React.FC = () => {
                     )}
                   </Form.Item>
                   <Space>
-                    <Button type="primary" onClick={() => {
-                      createForm
-                        .validateFields()
-                        .then((values) => createMutation.mutate(values))
-                        .catch(() => {})
-                    }} loading={createMutation.isPending}>
+                    <Button
+                      type="primary"
+                      onClick={() => {
+                        createForm
+                          .validateFields()
+                          .then((values) =>
+                            createMutation.mutate(
+                              normalizeFlashcardTemplateFields(values)
+                            )
+                          )
+                          .catch(() => {})
+                      }}
+                      loading={createMutation.isPending}
+                    >
                       {t("common:create", { defaultValue: "Create" })}
                     </Button>
-                    <Button onClick={() => createForm.resetFields()}>{t("common:reset", { defaultValue: "Reset" })}</Button>
+                    <Button onClick={() => createForm.resetFields()}>
+                      {t("common:reset", { defaultValue: "Reset" })}
+                    </Button>
                   </Space>
                 </Form>
 
@@ -1129,9 +1285,15 @@ export const FlashcardsPage: React.FC = () => {
                 </Space>
                 <div className="mb-2 flex flex-wrap items-center gap-2">
                   <Text type="secondary">{t("option:flashcards.selectedCount", { defaultValue: "Selected" })}: {selectedCount}{selectAllAcross ? ` / ${totalCount}` : ''}</Text>
-                  <Button size="small" onClick={selectAllOnPage}>{t("option:flashcards.selectAllOnPage", { defaultValue: "Select all on page" })}</Button>
-                  <Button size="small" onClick={selectAllAcrossResults}>{t("option:flashcards.selectAllAcross", { defaultValue: "Select all across results" })}</Button>
-                  <Button size="small" onClick={clearSelection}>{t("option:flashcards.clearSelection", { defaultValue: "Clear selection" })}</Button>
+                  <Tooltip title={t("option:flashcards.selectAllOnPageTooltip", { defaultValue: "Select only the cards visible on this page" })}>
+                    <Button size="small" onClick={selectAllOnPage}>{t("option:flashcards.selectAllOnPage", { defaultValue: "Select all on page" })}</Button>
+                  </Tooltip>
+                  <Tooltip title={t("option:flashcards.selectAllAcrossTooltip", { defaultValue: "Select all cards matching current filters (across all pages)" })}>
+                    <Button size="small" onClick={selectAllAcrossResults}>{t("option:flashcards.selectAllAcross", { defaultValue: "Select all across results" })}</Button>
+                  </Tooltip>
+                  <Tooltip title={t("option:flashcards.clearSelectionTooltip", { defaultValue: "Deselect all cards" })}>
+                    <Button size="small" onClick={clearSelection}>{t("option:flashcards.clearSelection", { defaultValue: "Clear selection" })}</Button>
+                  </Tooltip>
                   <Dropdown
                     disabled={!anySelection}
                     menu={{
@@ -1404,20 +1566,63 @@ export const FlashcardsPage: React.FC = () => {
                         options={(decksQuery.data || []).map((d) => ({ label: d.name, value: d.id }))}
                       />
                     </Form.Item>
-                    <Form.Item name="model_type" label={t("option:flashcards.modelType", { defaultValue: "Model Type" })}>
+                    <Form.Item
+                      name="model_type"
+                      label={t("option:flashcards.modelType", {
+                        defaultValue: "Card template"
+                      })}
+                    >
                       <Select
                         options={[
-                          { label: "basic", value: "basic" },
-                          { label: "basic_reverse", value: "basic_reverse" },
-                          { label: "cloze", value: "cloze" }
+                          {
+                            label: t("option:flashcards.templateBasic", {
+                              defaultValue: "Basic (Question → Answer)"
+                            }),
+                            value: "basic"
+                          },
+                          {
+                            label: t("option:flashcards.templateReverse", {
+                              defaultValue: "Basic + Reverse (Both directions)"
+                            }),
+                            value: "basic_reverse"
+                          },
+                          {
+                            label: t("option:flashcards.templateCloze", {
+                              defaultValue: "Cloze (Fill in the blank)"
+                            }),
+                            value: "cloze"
+                          }
                         ]}
+                        onChange={(value: FlashcardModelType) => {
+                          syncEditTemplateFields({ model_type: value })
+                        }}
                       />
                     </Form.Item>
-                    <Form.Item name="reverse" label={t("option:flashcards.reverse", { defaultValue: "Reverse" })} valuePropName="checked">
-                      <Switch />
+                    <Form.Item
+                      name="reverse"
+                      label={t("option:flashcards.reverse", {
+                        defaultValue: "Reverse"
+                      })}
+                      valuePropName="checked"
+                    >
+                      <Switch
+                        onChange={(checked) => {
+                          syncEditTemplateFields({ reverse: checked })
+                        }}
+                      />
                     </Form.Item>
-                    <Form.Item name="is_cloze" label={t("option:flashcards.isCloze", { defaultValue: "Is Cloze" })} valuePropName="checked">
-                      <Switch />
+                    <Form.Item
+                      name="is_cloze"
+                      label={t("option:flashcards.isCloze", {
+                        defaultValue: "Is Cloze"
+                      })}
+                      valuePropName="checked"
+                    >
+                      <Switch
+                        onChange={(checked) => {
+                          syncEditTemplateFields({ is_cloze: checked })
+                        }}
+                      />
                     </Form.Item>
                     <Form.Item
                       name="tags"
@@ -1529,6 +1734,85 @@ export const FlashcardsPage: React.FC = () => {
           }
         ]}
       />
+
+      {/* Bulk operation progress modal */}
+      <Modal
+        open={bulkProgress?.open ?? false}
+        closable={false}
+        footer={null}
+        centered
+        title={bulkProgress?.action || t("option:flashcards.bulkProgressTitle", { defaultValue: "Processing" })}
+      >
+        <div className="flex flex-col items-center gap-4 py-4">
+          <Spin size="large" />
+          <div className="text-center">
+            <Text className="block text-lg">
+              {bulkProgress?.current ?? 0} / {bulkProgress?.total ?? 0}
+            </Text>
+            <Text type="secondary" className="block mt-1">
+              {t("option:flashcards.bulkProgressPleaseWait", { defaultValue: "Please wait..." })}
+            </Text>
+          </div>
+          <Progress
+            percent={Math.round(((bulkProgress?.current ?? 0) / (bulkProgress?.total || 1)) * 100)}
+            status="active"
+            className="w-full max-w-xs"
+          />
+        </div>
+      </Modal>
+
+      {/* Type-to-confirm modal for large bulk deletes */}
+      <Modal
+        open={bulkDeleteConfirmOpen}
+        title={t("option:flashcards.bulkDeleteLargeTitle", {
+          defaultValue: "Delete {{count}} cards?",
+          count: bulkDeleteCount
+        })}
+        onCancel={() => {
+          setBulkDeleteConfirmOpen(false)
+          setBulkDeleteInput("")
+          setPendingDeleteItems([])
+          setBulkDeleteCount(0)
+        }}
+        okText={t("common:delete", { defaultValue: "Delete" })}
+        cancelText={t("common:cancel", { defaultValue: "Cancel" })}
+        okButtonProps={{
+          danger: true,
+          disabled: bulkDeleteInput.toUpperCase() !== "DELETE"
+        }}
+        onOk={confirmLargeBulkDelete}
+        centered
+      >
+        <div className="space-y-4">
+          <Alert
+            type="warning"
+            showIcon
+            message={t("option:flashcards.bulkDeleteLargeWarning", {
+              defaultValue: "You are about to delete a large number of cards."
+            })}
+          />
+          <p className="text-gray-700 dark:text-gray-300">
+            {t("option:flashcards.bulkDeleteLargeContent", {
+              defaultValue: "This will permanently delete {{count}} cards. This action cannot be undone.",
+              count: bulkDeleteCount
+            })}
+          </p>
+          <div className="pt-2">
+            <p className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+              {t("option:flashcards.typeDeleteToConfirm", {
+                defaultValue: "Type DELETE to confirm:"
+              })}
+            </p>
+            <Input
+              value={bulkDeleteInput}
+              onChange={(e) => setBulkDeleteInput(e.target.value)}
+              placeholder="DELETE"
+              className="font-mono"
+              autoFocus
+            />
+          </div>
+        </div>
+      </Modal>
     </div>
   )
 }
@@ -1729,23 +2013,41 @@ My deck	What is a closure?	A function with preserved outer scope.	javascript; fu
         {limitsQuery.data && (
           <Tooltip
             title={
-              <pre className="whitespace-pre-wrap text-xs">
-                {JSON.stringify(limitsQuery.data, null, 2)}
-              </pre>
+              <div className="text-xs space-y-1">
+                {limitsQuery.data.max_cards_per_import != null && (
+                  <div>{t("option:flashcards.limitMaxCards", { defaultValue: "Max cards per import: {{count}}", count: limitsQuery.data.max_cards_per_import })}</div>
+                )}
+                {limitsQuery.data.max_content_length != null && (
+                  <div>{t("option:flashcards.limitMaxContent", { defaultValue: "Max content length: {{count}} chars", count: limitsQuery.data.max_content_length.toLocaleString() })}</div>
+                )}
+                {limitsQuery.data.allowed_delimiters && (
+                  <div>{t("option:flashcards.limitDelimiters", { defaultValue: "Delimiters: {{list}}", list: limitsQuery.data.allowed_delimiters.join(", ") })}</div>
+                )}
+                {Object.keys(limitsQuery.data).length === 0 && (
+                  <div>{t("option:flashcards.limitNone", { defaultValue: "No limits configured" })}</div>
+                )}
+              </div>
             }
           >
-            <Text type="secondary" className="cursor-help">
-              {t("option:flashcards.importLimits", { defaultValue: "Import Limits" })}
+            <Text type="secondary" className="cursor-help underline decoration-dotted">
+              {t("option:flashcards.importLimits", { defaultValue: "View limits" })}
             </Text>
           </Tooltip>
         )}
       </div>
-      <Space align="center">
-        <Text>
-          {t("option:flashcards.mapping", { defaultValue: "Column mapping" })}
+      <div className="flex items-center gap-2 p-2 bg-gray-50 dark:bg-gray-800/50 rounded-md">
+        <Text type="secondary" className="text-xs font-medium">
+          {t("option:flashcards.advancedLabel", { defaultValue: "Advanced:" })}
         </Text>
-        <Switch checked={useMapping} onChange={setUseMapping} />
-      </Space>
+        <Tooltip title={t("option:flashcards.mappingTooltip", { defaultValue: "Map columns from your data to card fields. Useful when your file has a different column order." })}>
+          <Space align="center" className="cursor-help">
+            <Text>
+              {t("option:flashcards.mapping", { defaultValue: "Column mapping" })}
+            </Text>
+            <Switch checked={useMapping} onChange={setUseMapping} />
+          </Space>
+        </Tooltip>
+      </div>
       {mappingError && (
         <Alert
           className="mt-2"

@@ -1,4 +1,5 @@
 import { Storage } from "@plasmohq/storage"
+import { createSafeStorage } from "@/utils/safe-storage"
 import { ModelNicknames } from "./dexie/types"
 
 export class ModelNickname {
@@ -6,7 +7,7 @@ export class ModelNickname {
     private KEY = "modelNickname"
 
     constructor() {
-        this.db = new Storage({
+        this.db = createSafeStorage({
             area: "local"
         })
     }
@@ -79,5 +80,4 @@ export const saveModelNickname = async (
     const modelNickname = new ModelNickname()
     return await modelNickname.saveModelNickname(model_id, model_name, model_avatar)
 }
-
 

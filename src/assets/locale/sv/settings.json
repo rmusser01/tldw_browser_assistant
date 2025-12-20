@@ -10,6 +10,39 @@
   "chatDictionariesNav": "Chatordböcker",
   "charactersNav": "Tecken",
   "mediaNav": "Media",
+  "chatAppearance": {
+    "title": "Chattutseende",
+    "description": "Anpassa färger, typsnitt och textstorlekar för chattmeddelanden.",
+    "behaviorNote": "Letar du efter inställningar för chattbeteende (bredskärmsläge, resonemang, kopieringsalternativ)?",
+    "goToGeneral": "Gå till Allmänna Inställningar",
+    "userHeading": "Användarmeddelanden",
+    "assistantHeading": "Assistentmeddelanden",
+    "userColor": "Textfärg för användare",
+    "assistantColor": "Textfärg för assistent",
+    "userFont": "Typsnitt för användare",
+    "assistantFont": "Typsnitt för assistent",
+    "userSize": "Textstorlek för användare",
+    "assistantSize": "Textstorlek för assistent",
+    "color": {
+      "default": "Standard",
+      "blue": "Blå",
+      "green": "Grön",
+      "purple": "Lila",
+      "orange": "Orange",
+      "red": "Röd"
+    },
+    "font": {
+      "default": "Standard",
+      "sans": "Sans",
+      "serif": "Serif",
+      "mono": "Monospace"
+    },
+    "size": {
+      "sm": "Liten",
+      "md": "Mellan",
+      "lg": "Stor"
+    }
+  },
   "generalSettings": {
     "title": "Allmänna Inställningar",
     "settings": {
@@ -81,7 +114,9 @@
         "label": "Aktivera Temporär Chatt i Sidopanelen som standard"
       },
       "enableOcrAssets": {
-        "label": "Enable OCR (downloads ~5MB on first use)"
+        "label": "Aktivera OCR (laddar ner ~5 MB vid första användningen)",
+        "downloadNotice": "När du aktiverar OCR laddas ungefär 5 MB språkdata ner vid första användningen.",
+        "assetsEnabled": "OCR-resurserna är aktiverade och klara"
       },
       "ocrLanguage": {
         "label": "Default OCR Language",

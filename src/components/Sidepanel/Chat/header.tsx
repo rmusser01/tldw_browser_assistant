@@ -44,6 +44,8 @@ import {
   useConnectionUxState
 } from "@/hooks/useConnectionState"
 import { Storage } from "@plasmohq/storage"
+import { createSafeStorage } from "@/utils/safe-storage"
+import { useQuickChatStore } from "@/store/quick-chat"
 
 type SidepanelHeaderProps = {
   sidebarOpen?: boolean
@@ -90,6 +92,7 @@ export const SidepanelHeader = ({
   const [moreOpen, setMoreOpen] = React.useState<boolean>(false)
   const moreBtnRef = React.useRef<HTMLButtonElement>(null)
   const [debugLogs, setDebugLogs] = React.useState<Array<{ time: number; kind: string; name?: string; data?: string }>>([])
+  const { setIsOpen: setQuickChatOpen } = useQuickChatStore()
 
   React.useEffect(() => {
     const onMsg = (msg: any) => {
@@ -162,10 +165,22 @@ export const SidepanelHeader = ({
   const ingestBtnRef = React.useRef<HTMLButtonElement>(null)
   const [modeOpen, setModeOpen] = React.useState(false)
   const modeBtnRef = React.useRef<HTMLButtonElement>(null)
+  const openQuickIngestQueue = React.useCallback(() => {
+    window.dispatchEvent(new CustomEvent("tldw:open-quick-ingest"))
+  }, [])
+  const { uxState, mode, isConnectedUx, isChecking, isConfigOrError } =
+    useConnectionUxState()
+  const { checkOnce } = useConnectionActions()
 
   const quickIngestMenu = React.useMemo<MenuProps>(
     () => ({
       onClick: ({ key }) => {
+        if (key === "open-queue") {
+          openQuickIngestQueue()
+          setIngestOpen(false)
+          requestAnimationFrame(() => ingestBtnRef.current?.focus())
+          return
+        }
         if (key === 'store' || key === 'process') {
           void (async () => {
             try { await sendQuickIngest(key) } finally {
@@ -177,17 +192,30 @@ export const SidepanelHeader = ({
         }
       },
       items: [
-        { key: 'store', label: t('sidepanel:header.saveCurrent') },
-        { key: 'process', label: t('sidepanel:header.processLocal') }
+        {
+          key: "open-queue",
+          label: t(
+            "option:connectionCard.buttonOpenQuickIngest",
+            "Open Quick Ingest"
+          )
+        },
+        { type: "divider" },
+        {
+          key: "store",
+          label: t("sidepanel:header.saveCurrent"),
+          disabled: !isConnectedUx
+        },
+        {
+          key: "process",
+          label: t("sidepanel:header.processLocal"),
+          disabled: !isConnectedUx
+        }
       ]
     }),
-    [sendQuickIngest, t]
+    [isConnectedUx, openQuickIngestQueue, sendQuickIngest, t]
   )
-  const { uxState, mode, isConnectedUx, isChecking, isConfigOrError } =
-    useConnectionUxState()
-  const { checkOnce } = useConnectionActions()
 
-  const ingestDisabled = !isConnectedUx
+  const canIngestCurrentPage = isConnectedUx
 
   const connectionTooltip = React.useMemo(() => {
     if (isChecking) {
@@ -380,16 +408,15 @@ export const SidepanelHeader = ({
           menu={quickIngestMenu}
           placement="bottomRight"
           trigger={["click"]}
-          open={ingestDisabled ? false : ingestOpen}
+          open={ingestOpen}
           onOpenChange={(open) => {
-            if (ingestDisabled) return
             setIngestOpen(open)
             if (!open) requestAnimationFrame(() => ingestBtnRef.current?.focus())
           }}
         >
           <Tooltip
             title={
-              ingestDisabled
+              !canIngestCurrentPage
                 ? t("sidepanel:header.ingestConnect", "Connect first to save/process the current page.")
                 : t("sidepanel:header.ingestHint", "Quick action: save current page or process locally.")
             }>
@@ -397,14 +424,12 @@ export const SidepanelHeader = ({
               type="button"
               aria-label={t('sidepanel:header.ingest')}
               aria-haspopup="menu"
-              aria-expanded={!ingestDisabled && ingestOpen}
+              aria-expanded={ingestOpen}
               aria-controls="quick-ingest-menu"
-              aria-disabled={ingestDisabled}
-              disabled={ingestDisabled}
               ref={ingestBtnRef}
               className={`flex items-center gap-1 rounded-full px-2 py-1 text-xs focus:outline-none focus-visible:ring-2 focus-visible:ring-pink-700 ${
-                ingestDisabled
-                  ? 'cursor-not-allowed text-gray-400 dark:text-gray-600'
+                !canIngestCurrentPage
+                  ? 'text-gray-400 dark:text-gray-600'
                   : 'text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-[#2a2a2a]'
               }`}>
               <UploadCloud className="size-4 text-gray-500 dark:text-gray-400" />
@@ -467,6 +492,15 @@ export const SidepanelHeader = ({
               />
               <div className="h-px bg-gray-200 dark:bg-gray-700 my-1" />
               <button
+                onClick={() => {
+                  setQuickChatOpen(true)
+                  setMoreOpen(false)
+                }}
+                className="text-left text-sm px-2 py-1 rounded hover:bg-gray-100 dark:hover:bg-gray-800"
+              >
+                {t("option:quickChatHelper.title", "Quick Chat Helper")}
+              </button>
+              <button
                 onClick={() => openOptionsPage('#/settings/world-books')}
                 className="text-left text-sm px-2 py-1 rounded hover:bg-gray-100 dark:hover:bg-gray-800"
               >
@@ -480,7 +514,7 @@ export const SidepanelHeader = ({
               </button>
               <button
                 onClick={async () => {
-                  const storage = new Storage({ area: 'local' })
+                  const storage = createSafeStorage({ area: 'local' })
                   const current = (await storage.get<string>('uiMode')) || 'sidePanel'
                   const next = current === 'sidePanel' ? 'webui' : 'sidePanel'
                   await storage.set('uiMode', next)

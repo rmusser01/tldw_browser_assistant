@@ -12,6 +12,28 @@
     "privateModeTitle": "tldw Assistant はデータを保存できません",
     "privateModeDescription": "Firefox のプライベートモードではチャット履歴を保存できません。デフォルトで一時チャットが有効です。今後改善予定です。"
   },
+  "connectionBanner": {
+    "connecting": "tldw サーバーに接続中...",
+    "authErrorTitle": "API キーに問題があります",
+    "authErrorBody": "サーバーには接続できますが、API キーが間違っているか未設定です。",
+    "unreachableTitle": "tldw サーバーに接続できません",
+    "unreachableBody": "サーバーが稼働していてアクセス可能か確認してください。",
+    "noUrlBody": "開始するには設定でサーバー URL を追加してください。",
+    "disconnectedTitle": "tldw サーバーに接続されていません",
+    "disconnectedBody": "設定を開いてサーバー接続を構成してください。",
+    "setupTitle": "セットアップを完了してチャットを開始",
+    "setupBody": "設定のセットアップ ウィザードを完了して接続してください。",
+    "openSettings": "設定を開く"
+  },
+  "temporaryBadge": {
+    "title": "一時チャット",
+    "label": "Temp",
+    "description": "このチャットは保存されません。閉じるか新しいチャットを開始するとメッセージは消去されます。",
+    "clickHint": "クリックして無効化",
+    "ariaLabel": "一時チャットモードが有効です。クリックして切り替えます。",
+    "indicatorTooltip": "このチャットのメッセージは保存されません",
+    "indicatorAria": "一時チャット"
+  },
   "header": {
     "ingest": "Ingest",
     "saveCurrent": "Save current page on server",
@@ -74,6 +96,13 @@
     "transcriptLabel": "Transcript",
     "summaryLabel": "Summary"
   },
+  "saveStatus": {
+    "ephemeral": "一時的: 保存されず、閉じると消去されます",
+    "local": "このブラウザーにローカル保存されます",
+    "server": "サーバーに保存されます",
+    "saveFailed": "サーバーへのチャット保存に失敗しました",
+    "saveFailedDescription": "チャットは現在ローカルのみに保存されています。接続を確認して再試行してください。"
+  },
   "rag": {
     "searchPlaceholder": "Search your knowledge…",
     "search": "Search",
@@ -92,6 +121,10 @@
       "ask": "Ask",
       "open": "Open",
       "copy": "Copy"
+    },
+    "hint": {
+      "message": "ナレッジベースを検索して、結果をメッセージに挿入できます。",
+      "dismiss": "閉じる"
     }
   }
 }

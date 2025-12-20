@@ -4,7 +4,7 @@ import React from "react"
 import useDynamicTextareaSize from "~/hooks/useDynamicTextareaSize"
 import { useMessage } from "~/hooks/useMessage"
 import { toBase64 } from "~/libs/to-base64"
-import { Checkbox, Dropdown, Switch, Image, Tooltip, Popover } from "antd"
+import { Checkbox, Dropdown, Switch, Image, Tooltip, message, Modal } from "antd"
 import { useWebUI } from "~/store/webui"
 import { defaultEmbeddingModelForRag } from "~/services/tldw-server"
 import {
@@ -14,19 +14,13 @@ import {
   X,
   EyeIcon,
   EyeOffIcon,
-  Gauge,
-  UploadCloud,
-  MoreHorizontal
+  Gauge
 } from "lucide-react"
 import { useTranslation } from "react-i18next"
 import { getVariable } from "@/utils/select-variable"
-import { ModelSelect } from "@/components/Common/ModelSelect"
-import { PromptSelect } from "@/components/Common/PromptSelect"
 import { useSpeechRecognition } from "@/hooks/useSpeechRecognition"
 import { useTldwStt } from "@/hooks/useTldwStt"
 import { useMicStream } from "@/hooks/useMicStream"
-import { PiGlobeX, PiGlobe } from "react-icons/pi"
-import { Search } from "lucide-react"
 import { BsIncognito } from "react-icons/bs"
 import { handleChatInputKeyDown } from "@/utils/key-down"
 import { getIsSimpleInternetSearch } from "@/services/search"
@@ -48,15 +42,22 @@ import { tldwClient } from "@/services/tldw/TldwApiClient"
 import { useAntdNotification } from "@/hooks/useAntdNotification"
 import { useFocusComposerOnConnect } from "@/hooks/useComposerFocus"
 import { useQuickIngestStore } from "@/store/quick-ingest"
-import { cleanUrl } from "@/libs/clean-url"
 
 type Props = {
   dropedFile: File | undefined
+  inputRef?: React.RefObject<HTMLTextAreaElement>
+  onHeightChange?: (height: number) => void
 }
 
-export const SidepanelForm = ({ dropedFile }: Props) => {
-  const textareaRef = React.useRef<HTMLTextAreaElement>(null)
-  const inputRef = React.useRef<HTMLInputElement>(null)
+export const SidepanelForm = ({
+  dropedFile,
+  inputRef,
+  onHeightChange
+}: Props) => {
+  const formContainerRef = React.useRef<HTMLDivElement>(null)
+  const localTextareaRef = React.useRef<HTMLTextAreaElement>(null)
+  const textareaRef = inputRef ?? localTextareaRef
+  const fileInputRef = React.useRef<HTMLInputElement>(null)
   const { sendWhenEnter, setSendWhenEnter } = useWebUI()
   const [typing, setTyping] = React.useState<boolean>(false)
   const { t } = useTranslation(["playground", "common", "option", "sidepanel"])
@@ -121,7 +122,28 @@ export const SidepanelForm = ({ dropedFile }: Props) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
+  // Warn Firefox private mode users on mount that data won't persist
+  React.useEffect(() => {
+    if (isFireFoxPrivateMode) {
+      notification.warning({
+        message: t(
+          "sidepanel:errors.privateModeTitle",
+          "tldw Assistant can't save data"
+        ),
+        description: t(
+          "sidepanel:errors.privateModeDescription",
+          "Firefox Private Mode does not support saving chat history. Your conversations won't be saved."
+        ),
+        duration: 6
+      })
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
   // Persist draft whenever the message changes
+  const [draftSaved, setDraftSaved] = React.useState(false)
+  const draftSavedTimeoutRef = React.useRef<ReturnType<typeof setTimeout> | null>(null)
+
   React.useEffect(() => {
     try {
       if (typeof window === "undefined") return
@@ -129,13 +151,53 @@ export const SidepanelForm = ({ dropedFile }: Props) => {
       if (typeof value !== "string") return
       if (value.trim().length === 0) {
         window.localStorage.removeItem("tldw:sidepanelChatDraft")
+        setDraftSaved(false)
       } else {
         window.localStorage.setItem("tldw:sidepanelChatDraft", value)
+        // Show "Draft saved" briefly
+        setDraftSaved(true)
+        if (draftSavedTimeoutRef.current) {
+          clearTimeout(draftSavedTimeoutRef.current)
+        }
+        draftSavedTimeoutRef.current = setTimeout(() => {
+          setDraftSaved(false)
+        }, 4000)
       }
     } catch {
       // ignore persistence errors
     }
   }, [form.values.message])
+
+  // Cleanup timeout on unmount
+  React.useEffect(() => {
+    return () => {
+      if (draftSavedTimeoutRef.current) {
+        clearTimeout(draftSavedTimeoutRef.current)
+      }
+    }
+  }, [])
+
+  React.useEffect(() => {
+    if (!onHeightChange) return
+    const node = formContainerRef.current
+    if (!node || typeof ResizeObserver === "undefined") return
+
+    const notifyHeight = (height: number) => {
+      onHeightChange(Math.max(0, Math.ceil(height)))
+    }
+
+    notifyHeight(node.getBoundingClientRect().height)
+    const observer = new ResizeObserver((entries) => {
+      const entry = entries[0]
+      if (!entry) return
+      notifyHeight(entry.contentRect.height)
+    })
+    observer.observe(node)
+
+    return () => {
+      observer.disconnect()
+    }
+  }, [onHeightChange])
 
   const serverRecorderRef = React.useRef<MediaRecorder | null>(null)
   const serverChunksRef = React.useRef<BlobPart[]>([])
@@ -179,46 +241,53 @@ export const SidepanelForm = ({ dropedFile }: Props) => {
   const { capabilities, loading: capsLoading } = useServerCapabilities()
   const hasServerAudio =
     isConnectionReady && !capsLoading && capabilities?.hasAudio
-  const [hasShownConnectBanner, setHasShownConnectBanner] =
-    React.useState(false)
-  const [showConnectBanner, setShowConnectBanner] = React.useState(false)
   const [isFlushingQueue, setIsFlushingQueue] = React.useState(false)
-  const host = React.useMemo(
-    () => (serverUrl ? cleanUrl(serverUrl) : "tldw_server"),
-    [serverUrl]
+  const [debouncedPlaceholder, setDebouncedPlaceholder] = React.useState<string>(
+    t("form.textarea.placeholder")
   )
-
-  const connectBannerCopy = React.useMemo(() => {
-    if (uxState === "error_auth") {
-      return t(
-        "option:connectionCard.descriptionErrorAuth",
-        "Your server is up but the API key is wrong or missing. Fix the key in Settings → tldw server, then retry."
-      )
-    }
-    if (uxState === "error_unreachable") {
-      return t(
-        "option:connectionCard.descriptionError",
-        "We couldn’t reach {{host}}. Check that your tldw_server is running and that your browser can reach it, then open diagnostics or update the URL.",
-        { host }
-      )
-    }
-    return t(
-      "sidepanel:composer.connectHint",
-      "Finish setup in Options to start chatting."
-    )
-  }, [host, t, uxState])
+  const placeholderTimeoutRef = React.useRef<ReturnType<typeof setTimeout> | null>(null)
 
   const onInputChange = async (
     e: React.ChangeEvent<HTMLInputElement> | File
   ) => {
-    if (e instanceof File) {
-      const base64 = await toBase64(e)
-      form.setFieldValue("image", base64)
-    } else {
-      if (e.target.files) {
-        const base64 = await toBase64(e.target.files[0])
-        form.setFieldValue("image", base64)
+    try {
+      let file: File
+      if (e instanceof File) {
+        file = e
+      } else if (e.target.files && e.target.files[0]) {
+        file = e.target.files[0]
+      } else {
+        return
       }
+
+      // Validate that the file is an image
+      if (!file.type.startsWith("image/")) {
+        message.error({
+          content: t(
+            "sidepanel:composer.imageTypeError",
+            "Please select an image file"
+          ),
+          duration: 3
+        })
+        return
+      }
+
+      const base64 = await toBase64(file)
+      form.setFieldValue("image", base64)
+
+      // Show success feedback
+      message.success({
+        content: t("sidepanel:composer.imageUploaded", {
+          defaultValue: "Image added: {{name}}",
+          name: file.name.length > 20 ? `${file.name.slice(0, 17)}...` : file.name
+        }),
+        duration: 2
+      })
+    } catch (err) {
+      message.error({
+        content: t("sidepanel:composer.imageUploadError", "Failed to process image"),
+        duration: 3
+      })
     }
   }
   const textAreaFocus = () => {
@@ -278,15 +347,6 @@ export const SidepanelForm = ({ dropedFile }: Props) => {
     serverChatId
   } = useMessage()
 
-  const handleDisconnectedFocus = () => {
-    // When there are no messages, the shared connection card in the body
-    // provides the primary CTA. Only show the inline banner when there is
-    // existing history and the connection drops.
-    if (!isConnectionReady && messages.length > 0 && !hasShownConnectBanner) {
-      setShowConnectBanner(true)
-      setHasShownConnectBanner(true)
-    }
-  }
 
   const handlePaste = (e: React.ClipboardEvent) => {
     if (e.clipboardData.files.length > 0) {
@@ -448,8 +508,70 @@ export const SidepanelForm = ({ dropedFile }: Props) => {
         })
         return
       }
+
+      const hadMessages = messages.length > 0
+
+      // Show confirmation when enabling temporary mode with existing messages
+      if (next && hadMessages) {
+        Modal.confirm({
+          title: t(
+            "sidepanel:composer.tempChatConfirmTitle",
+            "Enable temporary mode?"
+          ),
+          content: t(
+            "sidepanel:composer.tempChatConfirmContent",
+            "This will clear your current conversation. Messages won't be saved."
+          ),
+          okText: t("common:confirm", "Confirm"),
+          cancelText: t("common:cancel", "Cancel"),
+          onOk: () => {
+            setTemporaryChat(next)
+            clearChat()
+            notification.info({
+              message: t(
+                "sidepanel:composer.tempChatClearedMessages",
+                "Temporary chat enabled. Previous messages cleared."
+              ),
+              placement: "bottomRight",
+              duration: 2.5
+            })
+          }
+        })
+        return
+      }
+
+      // Show confirmation when disabling temporary mode with existing messages
+      if (!next && hadMessages) {
+        Modal.confirm({
+          title: t(
+            "sidepanel:composer.tempChatDisableConfirmTitle",
+            "Disable temporary mode?"
+          ),
+          content: t(
+            "sidepanel:composer.tempChatDisableConfirmContent",
+            "This will clear your current conversation. Messages will start saving again."
+          ),
+          okText: t("common:confirm", "Confirm"),
+          cancelText: t("common:cancel", "Cancel"),
+          onOk: () => {
+            setTemporaryChat(next)
+            clearChat()
+            notification.info({
+              message: t(
+                "sidepanel:composer.tempChatDisabledClearedMessages",
+                "Temporary chat disabled. Previous messages cleared."
+              ),
+              placement: "bottomRight",
+              duration: 2.5
+            })
+          }
+        })
+        return
+      }
+
+      // No confirmation needed when toggling with no messages
       setTemporaryChat(next)
-      if (messages.length > 0) {
+      if (hadMessages) {
         clearChat()
       }
 
@@ -465,7 +587,8 @@ export const SidepanelForm = ({ dropedFile }: Props) => {
       getPersistenceModeLabel,
       messages.length,
       notification,
-      setTemporaryChat
+      setTemporaryChat,
+      t
     ]
   )
 
@@ -527,6 +650,7 @@ export const SidepanelForm = ({ dropedFile }: Props) => {
             "Microphone recording error. Check your permissions and try again."
           )
         })
+        setIsServerDictating(false)
       }
       recorder.onstop = async () => {
         try {
@@ -635,11 +759,27 @@ export const SidepanelForm = ({ dropedFile }: Props) => {
       recorder.start()
       setIsServerDictating(true)
     } catch (e: any) {
+      // L19: Add permissions guidance for microphone errors
+      const isChromeOrEdge = typeof chrome !== 'undefined' && chrome.permissions
       notification.error({
         message: t("playground:actions.speechErrorTitle", "Dictation failed"),
-        description: t(
-          "playground:actions.speechMicError",
-          "Unable to access your microphone. Check browser permissions and try again."
+        description: (
+          <div>
+            <p className="mb-2">
+              {t(
+                "playground:actions.speechMicError",
+                "Unable to access your microphone. Check browser permissions and try again."
+              )}
+            </p>
+            {isChromeOrEdge && (
+              <span className="text-xs text-blue-600 dark:text-blue-400">
+                {t(
+                  "playground:actions.micPermissionsHint",
+                  "Check Site Settings > Microphone in your browser"
+                )}
+              </span>
+            )}
+          </div>
         )
       })
     }
@@ -709,7 +849,7 @@ export const SidepanelForm = ({ dropedFile }: Props) => {
   }, [chatMode, setChatMode])
 
   const handleImageUpload = React.useCallback(() => {
-    inputRef.current?.click()
+    fileInputRef.current?.click()
   }, [])
 
   const handleRagToggle = React.useCallback(() => {
@@ -738,9 +878,6 @@ export const SidepanelForm = ({ dropedFile }: Props) => {
 
   React.useEffect(() => {
     const handler = () => {
-      if (!isConnectionReady) {
-        return
-      }
       setAutoProcessQueuedIngest(false)
       setIngestOpen(true)
       requestAnimationFrame(() => {
@@ -778,162 +915,6 @@ export const SidepanelForm = ({ dropedFile }: Props) => {
   const persistenceModeChipLabel = React.useMemo(
     () => getPersistenceModeChipLabel(temporaryChat),
     [getPersistenceModeChipLabel, temporaryChat]
-  )
-
-  const moreToolsContent = React.useMemo(
-    () => (
-      <div className="flex w-72 flex-col gap-4">
-        <div className="space-y-2">
-          <p className="text-[11px] font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400">
-            {t("playground:more.history", "Chat saving")}
-          </p>
-          <p className="text-[11px] text-gray-500 dark:text-gray-400">
-            {persistenceModeLabel}
-          </p>
-        </div>
-
-        <div className="space-y-2">
-          <p className="text-[11px] font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400">
-            {t("playground:more.searchRag", "Search & RAG")}
-          </p>
-          {chatMode !== "vision" && (
-            <button
-              type="button"
-              onClick={handleWebSearchToggle}
-              disabled={chatMode === "rag"}
-              className="flex w-full items-center justify-between rounded-md px-2 py-1 text-sm text-gray-700 transition hover:bg-gray-100 disabled:cursor-not-allowed disabled:opacity-40 dark:text-gray-200 dark:hover:bg-[#2a2a2a]">
-              <span>
-                {webSearch
-                  ? t("playground:actions.webSearchOn", "Web search on")
-                  : t("playground:actions.webSearchOff", "Web search off")}
-              </span>
-              {webSearch ? (
-                <PiGlobe className="h-4 w-4" />
-              ) : (
-                <PiGlobeX className="h-4 w-4" />
-              )}
-            </button>
-          )}
-          <button
-            type="button"
-            onClick={handleVisionToggle}
-            disabled={chatMode === "rag"}
-            className="flex w-full items-center justify-between rounded-md px-2 py-1 text-sm text-gray-700 transition hover:bg-gray-100 disabled:cursor-not-allowed disabled:opacity-40 dark:text-gray-200 dark:hover:bg-[#2a2a2a]">
-            <span>
-              {chatMode === "vision"
-                ? t("playground:actions.visionOn", "Vision on")
-                : t("playground:actions.visionOff", "Vision off")}
-            </span>
-            {chatMode === "vision" ? (
-              <EyeIcon className="h-4 w-4" />
-            ) : (
-              <EyeOffIcon className="h-4 w-4" />
-            )}
-          </button>
-        </div>
-
-        <div className="space-y-2">
-          <p className="text-[11px] font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400">
-            {t("playground:more.voice", "More voice options")}
-          </p>
-          <button
-            type="button"
-            onClick={handleLiveCaptionsToggle}
-            className="flex w-full items-center justify-between rounded-md px-2 py-1 text-sm text-gray-700 transition hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-[#2a2a2a]">
-            <span>
-              {wsSttActive
-                ? t("playground:actions.streamStop", "Stop captions")
-                : t("playground:actions.streamStart", "Live captions")}
-            </span>
-            <MicIcon className="h-4 w-4" />
-          </button>
-        </div>
-
-        <div className="space-y-2">
-          <p className="text-[11px] font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400">
-            {t("playground:more.uploads", "Uploads & ingest")}
-          </p>
-          <button
-            type="button"
-            ref={quickIngestBtnRef}
-            onClick={handleQuickIngestOpen}
-            disabled={!isConnectionReady}
-            title={
-              (!isConnectionReady
-                ? t(
-                    "playground:actions.ingestDisabled",
-                    "Connect to your tldw server to ingest."
-                  )
-                : t(
-                    "playground:actions.ingestHint",
-                    "Upload URLs or files with advanced options."
-                  )) +
-              (queuedQuickIngestCount > 0 && quickIngestHadFailure
-                ? " " +
-                  t(
-                    "quickIngest.healthAriaHint",
-                    "Recent runs failed — open Health & diagnostics from the header for more details."
-                  )
-                : "")
-            }
-            className="relative flex w-full items-center justify-between rounded-md px-2 py-1 text-sm text-gray-700 transition hover:bg-gray-100 disabled:cursor-not-allowed disabled:opacity-50 dark:text-gray-200 dark:hover:bg-[#2a2a2a]"
-            data-has-queued-ingest={
-              queuedQuickIngestCount > 0 ? "true" : "false"
-            }>
-            <span className="flex flex-col items-start text-left">
-              <span>{t("playground:actions.ingest", "Quick ingest")}</span>
-              <span className="text-[11px] text-gray-500">
-                {t(
-                  "playground:actions.ingestSub",
-                  "Use URLs/files; download or store."
-                )}
-              </span>
-            </span>
-            <div className="relative">
-              <UploadCloud className="h-4 w-4" />
-              {queuedQuickIngestCount > 0 && (
-                <span className="absolute -top-1 -right-1 inline-flex h-3 min-w-3 items-center justify-center rounded-full bg-blue-600 px-1 text-[9px] font-semibold text-white">
-                  {queuedQuickIngestCount > 9 ? "9+" : queuedQuickIngestCount}
-                </span>
-              )}
-            </div>
-          </button>
-          {queuedQuickIngestCount > 0 && (
-            <button
-              type="button"
-              onClick={handleProcessQueuedIngest}
-              disabled={!isConnectionReady}
-              className="mt-1 text-[11px] text-blue-600 hover:text-blue-500 disabled:cursor-not-allowed disabled:opacity-50 dark:text-blue-400">
-              {t("quickIngest.processQueuedItemsShort", "Process queued items")}
-            </button>
-          )}
-          <button
-            type="button"
-            onClick={handleImageUpload}
-            disabled={chatMode === "vision" || chatMode === "rag"}
-            className="flex w-full items-center justify-between rounded-md px-2 py-1 text-sm text-gray-700 transition hover:bg-gray-100 disabled:cursor-not-allowed disabled:opacity-40 dark:text-gray-200 dark:hover:bg-[#2a2a2a]">
-            <span>{t("playground:actions.upload", "Attach image")}</span>
-            <ImageIcon className="h-4 w-4" />
-          </button>
-        </div>
-      </div>
-    ),
-    [
-      chatMode,
-      isConnectionReady,
-      handleImageUpload,
-      handleLiveCaptionsToggle,
-      handleProcessQueuedIngest,
-      handleQuickIngestOpen,
-      handleVisionToggle,
-      handleWebSearchToggle,
-      queuedQuickIngestCount,
-      quickIngestHadFailure,
-      persistenceModeLabel,
-      t,
-      webSearch,
-      wsSttActive
-    ]
   )
 
   React.useEffect(() => {
@@ -1029,22 +1010,60 @@ export const SidepanelForm = ({ dropedFile }: Props) => {
     }
   }, [defaultInternetSearchOn])
 
+  // Clear error messages when user starts typing (they're taking action)
+  // Errors persist until user interaction rather than auto-dismissing
   React.useEffect(() => {
-    if (isConnectionReady) {
-      setShowConnectBanner(false)
+    if (form.values.message && form.errors.message) {
+      form.clearFieldError("message")
     }
-  }, [isConnectionReady])
+  }, [form.values.message, form.errors.message, form.clearFieldError])
+
+  // Clear "no model" error when a model is selected
+  React.useEffect(() => {
+    if (selectedModel && form.errors.message) {
+      form.clearFieldError("message")
+    }
+  }, [selectedModel, form.errors.message, form.clearFieldError])
+
+  // Debounce placeholder changes to prevent flashing on flaky connections
+  React.useEffect(() => {
+    const targetPlaceholder = isConnectionReady
+      ? t("form.textarea.placeholder")
+      : uxState === "testing"
+        ? t(
+            "sidepanel:composer.connectingPlaceholder",
+            "Connecting..."
+          )
+        : t(
+            "sidepanel:composer.disconnectedPlaceholder",
+            "Not connected — open Settings to connect"
+          )
+
+    // Clear any existing timeout
+    if (placeholderTimeoutRef.current) {
+      clearTimeout(placeholderTimeoutRef.current)
+    }
+
+    // Debounce by ~400ms to avoid flashing while keeping the UI responsive
+    placeholderTimeoutRef.current = setTimeout(() => {
+      setDebouncedPlaceholder(targetPlaceholder)
+    }, 400)
+
+    return () => {
+      if (placeholderTimeoutRef.current) {
+        clearTimeout(placeholderTimeoutRef.current)
+        placeholderTimeoutRef.current = null
+      }
+    }
+  }, [isConnectionReady, uxState, t])
 
   return (
-    <div className="flex w-full flex-col items-center px-2">
+    <div ref={formContainerRef} className="flex w-full flex-col items-center px-2">
       <div className="relative z-10 flex w-full flex-col items-center justify-center gap-2 text-base">
         <div className="relative flex w-full flex-row justify-center gap-2">
           <div
-            data-istemporary-chat={temporaryChat}
             aria-disabled={!isConnectionReady}
-            className={` bg-neutral-50  dark:bg-[#262626] relative w-full max-w-[48rem] p-1 backdrop-blur-lg duration-100 border border-gray-300 rounded-t-xl  dark:border-gray-600 data-[istemporary-chat='true']:bg-purple-900 data-[istemporary-chat='true']:dark:bg-purple-900 ${
-              !isConnectionReady ? "opacity-60" : ""
-            }`}>
+            className="bg-neutral-50 dark:bg-[#262626] relative w-full max-w-[48rem] p-1 backdrop-blur-lg duration-100 border border-gray-300 rounded-t-xl dark:border-gray-600">
             <div
               className={`border-b border-gray-200 dark:border-gray-600 relative ${
                 form.values.image.length === 0 ? "hidden" : "block"
@@ -1054,6 +1073,7 @@ export const SidepanelForm = ({ dropedFile }: Props) => {
                 onClick={() => {
                   form.setFieldValue("image", "")
                 }}
+                aria-label={t("sidepanel:composer.removeImage", "Remove uploaded image")}
                 className="absolute top-1 left-1 flex items-center justify-center z-10 bg-white dark:bg-[#262626] p-0.5 rounded-full hover:bg-gray-100 dark:hover:bg-gray-600 text-black dark:text-gray-100">
                 <X className="h-3 w-3" />
               </button>{" "}
@@ -1076,7 +1096,7 @@ export const SidepanelForm = ({ dropedFile }: Props) => {
                     name="file-upload"
                     type="file"
                     className="sr-only"
-                    ref={inputRef}
+                    ref={fileInputRef}
                     accept="image/*"
                     multiple={false}
                     tabIndex={-1}
@@ -1086,9 +1106,40 @@ export const SidepanelForm = ({ dropedFile }: Props) => {
                   <div
                     className={`w-full flex flex-col px-1 ${
                       !isConnectionReady
-                        ? "rounded-md border border-dashed border-gray-300 bg-gray-50 dark:border-gray-700 dark:bg-[#1b1b1b]"
+                        ? "rounded-md border border-dashed border-amber-400 bg-amber-50/50 dark:border-amber-600 dark:bg-amber-900/10"
                         : ""
                     }`}>
+                    {/* Connection status indicator when disconnected */}
+                    {!isConnectionReady && (
+                      <div className={`flex items-center gap-2 px-2 py-1.5 text-xs ${
+                        uxState === "testing"
+                          ? "text-amber-700 dark:text-amber-300"
+                          : "text-red-700 dark:text-red-300"
+                      }`}>
+                        <span className="relative flex h-2 w-2">
+                          <span className={`absolute inline-flex h-full w-full animate-ping rounded-full opacity-75 ${
+                            uxState === "testing" ? "bg-amber-400" : "bg-red-400"
+                          }`}></span>
+                          <span className={`relative inline-flex h-2 w-2 rounded-full ${
+                            uxState === "testing" ? "bg-amber-500" : "bg-red-500"
+                          }`}></span>
+                        </span>
+                        <span>
+                          {uxState === "testing"
+                            ? t("sidepanel:composer.connectingStatus", "Connecting to server...")
+                            : t("sidepanel:composer.disconnectedStatus", "Not connected")}
+                        </span>
+                        {uxState !== "testing" && (
+                          <button
+                            type="button"
+                            onClick={openSettings}
+                            className="ml-auto text-[11px] font-medium text-red-700 underline hover:text-red-800 dark:text-red-300 dark:hover:text-red-200"
+                          >
+                            {t("sidepanel:composer.openSettings", "Open Settings")}
+                          </button>
+                        )}
+                      </div>
+                    )}
                     {/* RAG Search Bar: search KB, insert snippets, ask directly */}
                     <RagSearchBar
                       onInsert={(text) => {
@@ -1114,88 +1165,229 @@ export const SidepanelForm = ({ dropedFile }: Props) => {
                         await sendCurrentFormMessage(trimmed, "")
                       }}
                     />
-                    <textarea
-                      onKeyDown={(e) => handleKeyDown(e)}
-                      onFocus={handleDisconnectedFocus}
-                      ref={textareaRef}
-                      className={`px-2 py-2 w-full resize-none bg-transparent focus-within:outline-none focus:ring-0 focus-visible:ring-0 ring-0 dark:ring-0 border-0 dark:text-gray-100 ${
-                        !isConnectionReady
-                          ? "cursor-not-allowed text-gray-500 placeholder:text-gray-400 dark:text-gray-400 dark:placeholder:text-gray-500"
-                          : ""
-                      }`}
-                      readOnly={!isConnectionReady}
-                      aria-disabled={!isConnectionReady}
-                      onPaste={handlePaste}
-                      rows={1}
-                      style={{ minHeight: "60px" }}
-                      tabIndex={0}
-                      onCompositionStart={() => {
-                        if (import.meta.env.BROWSER !== "firefox") {
-                          setTyping(true)
-                        }
-                      }}
-                      onCompositionEnd={() => {
-                        if (import.meta.env.BROWSER !== "firefox") {
-                          setTyping(false)
-                        }
-                      }}
-                      placeholder={
-                        isConnectionReady
-                          ? t("form.textarea.placeholder")
-                          : uxState === "testing"
-                            ? t(
-                                "sidepanel:composer.connectingPlaceholder",
-                                "Connecting..."
-                              )
-                            : t(
-                                "sidepanel:composer.disconnectedPlaceholder",
-                                "Connect to your tldw server in Settings to send messages and view media."
-                              )
-                      }
-                      {...form.getInputProps("message")}
-                    />
-                    <div className="mt-2 flex w-full flex-row items-center justify-between gap-2">
-                      {/* Hidden: Save toggle (now in ControlRow) */}
-                      <div className="hidden flex-wrap items-start gap-2 text-xs text-gray-700 dark:text-gray-200">
-                        <div className="flex flex-col gap-0.5">
-                          <div className="flex items-center gap-1">
-                            <Switch
-                              size="small"
-                              checked={temporaryChat}
-                              onChange={handleToggleTemporaryChat}
-                              aria-label={
-                                temporaryChat
-                                  ? (t(
-                                      "playground:actions.temporaryOn",
-                                      "Temporary chat (not saved)"
-                                    ) as string)
-                                  : (t(
-                                      "playground:actions.temporaryOff",
-                                      "Save chat to history"
-                                    ) as string)
-                              }
-                            />
-                            <span>
-                              {temporaryChat
-                                ? t(
-                                    "playground:actions.temporaryOn",
-                                    "Temporary chat (not saved)"
+                    {/* Queued messages banner - shown above input area */}
+                    {queuedMessages.length > 0 && (
+                      <div className="mb-2 flex flex-wrap items-center justify-between gap-2 rounded-md border border-green-300 bg-green-50 px-3 py-2 text-xs text-green-900 dark:border-green-500 dark:bg-[#102a10] dark:text-green-100">
+                        <p className="max-w-xs text-left">
+                          <span className="block font-medium">
+                            {t(
+                              "playground:composer.queuedBanner.title",
+                              "Queued from existing drafts"
+                            )}
+                          </span>
+                          {t(
+                            "playground:composer.queuedBanner.body",
+                            "These drafts were created while offline. We'll send them once your tldw server is connected."
+                          )}
+                        </p>
+                        <div className="flex flex-wrap items-center gap-2">
+                          <Tooltip
+                            title={
+                              !isConnectionReady || isFlushingQueue
+                                ? !isConnectionReady
+                                  ? t(
+                                      "playground:composer.queuedBanner.waitForConnection",
+                                      "Wait for server connection to send queued messages"
+                                    )
+                                  : t(
+                                      "playground:composer.queuedBanner.sending",
+                                      "Sending..."
+                                    )
+                                : undefined
+                            }>
+                            <span className="inline-block">
+                              <button
+                                type="button"
+                                onClick={async () => {
+                                  if (!isConnectionReady || isFlushingQueue) return
+                                  setIsFlushingQueue(true)
+                                  try {
+                                    const hasEmbedding =
+                                      await ensureEmbeddingModelAvailable()
+                                    if (!hasEmbedding) {
+                                      return
+                                    }
+                                    const successfullySentIndices = new Set<number>()
+                                    for (const [index, item] of queuedMessages.entries()) {
+                                      try {
+                                        await submitQueuedInSidepanel(
+                                          item.message,
+                                          item.image
+                                        )
+                                        successfullySentIndices.add(index)
+                                      } catch (error) {
+                                        console.error(
+                                          "Failed to send queued sidepanel message",
+                                          error
+                                        )
+                                      }
+                                    }
+
+                                    if (successfullySentIndices.size > 0) {
+                                      const remainingQueued = queuedMessages.filter(
+                                        (_, index) => !successfullySentIndices.has(index)
+                                      )
+                                      clearQueuedMessages()
+                                      for (const item of remainingQueued) {
+                                        addQueuedMessage(item)
+                                      }
+                                    }
+                                  } finally {
+                                    setIsFlushingQueue(false)
+                                  }
+                                }}
+                                disabled={!isConnectionReady || isFlushingQueue}
+                                className={`rounded-md border border-green-300 bg-white px-2 py-1 text-xs font-medium text-green-900 hover:bg-green-100 dark:bg-[#163816] dark:text-green-50 dark:hover:bg-[#194419] ${
+                                  !isConnectionReady || isFlushingQueue
+                                    ? "cursor-not-allowed opacity-60"
+                                    : ""
+                                }`}>
+                                {t(
+                                  "playground:composer.queuedBanner.sendNow",
+                                  "Send queued messages"
+                                )}
+                              </button>
+                            </span>
+                          </Tooltip>
+                          <button
+                            type="button"
+                            onClick={() => {
+                              const count = queuedMessages.length
+                              Modal.confirm({
+                                title: t(
+                                  "sidepanel:composer.clearQueueConfirmTitle",
+                                  "Clear message queue?"
+                                ),
+                                content: t(
+                                  "sidepanel:composer.clearQueueConfirmContent",
+                                  "This will delete {{count}} queued message(s) that haven't been sent yet.",
+                                  { count }
+                                ),
+                                okText: t("common:confirm", "Confirm"),
+                                cancelText: t("common:cancel", "Cancel"),
+                                onOk: () => {
+                                  clearQueuedMessages()
+                                  message.success(
+                                    t(
+                                      "playground:composer.queuedBanner.cleared",
+                                      "Queue cleared ({{count}} messages)",
+                                      { count }
+                                    )
                                   )
-                                : t(
-                                    "playground:actions.temporaryOff",
-                                    "Save chat to history"
-                                  )}
-                            </span>
-                            <span className="inline-flex items-center rounded-full border border-gray-200 bg-white px-2 py-0.5 text-[11px] font-medium text-gray-700 shadow-sm dark:border-gray-700 dark:bg-[#1f1f1f] dark:text-gray-200">
-                              {persistenceModeChipLabel}
-                            </span>
-                          </div>
-                          <p className="text-[11px] text-gray-500 dark:text-gray-400">
-                            {persistenceModeLabel}
-                          </p>
+                                }
+                              })
+                            }}
+                            className="text-xs font-medium text-green-900 underline hover:text-green-700 dark:text-green-100 dark:hover:text-green-300">
+                            {t(
+                              "playground:composer.queuedBanner.clear",
+                              "Clear queue"
+                            )}
+                          </button>
+                          <button
+                            type="button"
+                            onClick={openDiagnostics}
+                            className="text-xs font-medium text-green-900 underline hover:text-green-700 dark:text-green-100 dark:hover:text-green-300">
+                            {t(
+                              "settings:healthSummary.diagnostics",
+                              "Health & diagnostics"
+                            )}
+                          </button>
                         </div>
                       </div>
-                      {/* Control Row - moved here to be in same row as Send button */}
+                    )}
+                    <div className="relative">
+                      <textarea
+                        onKeyDown={(e) => handleKeyDown(e)}
+                        ref={textareaRef}
+                        className={`px-2 py-2 w-full resize-none focus-within:outline-none focus:ring-0 focus-visible:ring-0 ring-0 dark:ring-0 border-0 dark:text-gray-100 ${
+                          !isConnectionReady
+                            ? "cursor-not-allowed text-gray-400 placeholder:text-gray-400 dark:text-gray-500 dark:placeholder:text-gray-500 bg-transparent"
+                            : "bg-transparent"
+                        }`}
+                        readOnly={!isConnectionReady}
+                        aria-readonly={!isConnectionReady}
+                        aria-disabled={!isConnectionReady}
+                        aria-label={
+                          !isConnectionReady
+                            ? t(
+                                "sidepanel:composer.disconnectedAriaLabel",
+                                "Message input (read-only: not connected to server)"
+                              )
+                            : t("sidepanel:composer.messageAriaLabel", "Message input")
+                        }
+                        onPaste={handlePaste}
+                        rows={1}
+                        style={{ minHeight: "60px" }}
+                        tabIndex={0}
+                        onCompositionStart={() => {
+                          if (import.meta.env.BROWSER !== "firefox") {
+                            setTyping(true)
+                          }
+                        }}
+                        onCompositionEnd={() => {
+                          if (import.meta.env.BROWSER !== "firefox") {
+                            setTyping(false)
+                          }
+                        }}
+                        placeholder={debouncedPlaceholder || t("form.textarea.placeholder")}
+                        {...form.getInputProps("message")}
+                      />
+                      {/* Draft saved indicator */}
+                      {draftSaved && (
+                        <span
+                          className="absolute bottom-1 right-2 text-[10px] text-gray-500 dark:text-gray-400 animate-pulse pointer-events-none"
+                          role="status"
+                          aria-live="polite"
+                        >
+                          {t("sidepanel:composer.draftSaved", "Draft saved")}
+                        </span>
+                      )}
+                    </div>
+                    {/* Inline error message - positioned right after textarea for visibility */}
+                    {form.errors.message && (
+                      <div
+                        role="alert"
+                        aria-live="assertive"
+                        aria-atomic="true"
+                        className="flex items-center justify-between gap-1.5 px-2 py-1 text-xs text-red-600 dark:text-red-400 animate-shake"
+                      >
+                        <div className="flex items-center gap-1.5">
+                          <svg className="h-3.5 w-3.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                            <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
+                          </svg>
+                          <span>{form.errors.message}</span>
+                        </div>
+                        <button
+                          type="button"
+                          onClick={() => form.clearFieldError("message")}
+                          className="flex-shrink-0 text-red-600 dark:text-red-400 hover:text-red-800 dark:hover:text-red-300"
+                          aria-label={t("common:dismiss", "Dismiss")}
+                        >
+                          <X className="h-3 w-3" />
+                        </button>
+                      </div>
+                    )}
+                    {/* Proactive validation hints - show why send might be disabled */}
+                    {!form.errors.message && isConnectionReady && !streaming && (
+                      <div className="px-2 py-0.5 text-[10px] text-gray-400 dark:text-gray-500">
+                        {!selectedModel ? (
+                          <span className="flex items-center gap-1">
+                            <svg className="h-3 w-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                            {t("sidepanel:composer.hints.selectModel", "Select a model above to start chatting")}
+                          </span>
+                        ) : form.values.message.trim().length === 0 && form.values.image.length === 0 ? (
+                          <span>
+                            {sendWhenEnter
+                              ? t("sidepanel:composer.hints.typeAndEnter", "Type a message and press Enter to send")
+                              : t("sidepanel:composer.hints.typeAndClick", "Type a message and click Send")}
+                          </span>
+                        ) : null}
+                      </div>
+                    )}
+                    <div className="mt-2 flex w-full flex-row items-center justify-between gap-2">
+                      {/* Control Row - contains Prompt, Model, RAG, Save, and More tools */}
                       <ControlRow
                         selectedSystemPrompt={selectedSystemPrompt}
                         setSelectedSystemPrompt={setSelectedSystemPrompt}
@@ -1212,82 +1404,6 @@ export const SidepanelForm = ({ dropedFile }: Props) => {
                         isConnected={isConnectionReady}
                       />
                       <div className="flex flex-wrap items-center justify-end gap-2">
-                        {/* Hidden: Model label, RAG, Prompt, Model, More (now in ControlRow) */}
-                        <span className="hidden mr-2 text-[11px] text-gray-500 dark:text-gray-400">
-                          {selectedModel &&
-                            t(
-                              "sidepanel:composer.currentModelLabel",
-                              "Model: {{model}}",
-                              { model: selectedModel }
-                            )}
-                        </span>
-                        {/* Hidden: RAG toggle (now in ControlRow) */}
-                        <button
-                          type="button"
-                          onClick={() =>
-                            window.dispatchEvent(
-                              new CustomEvent("tldw:toggle-rag")
-                            )
-                          }
-                          className="hidden inline-flex items-center gap-2 rounded-md border border-gray-200 px-3 py-1.5 text-xs font-semibold text-gray-700 transition hover:bg-gray-100 dark:border-gray-600 dark:text-gray-200 dark:hover:bg-[#2a2a2a]"
-                          title={
-                            t(
-                              "sidepanel:toolbar.ragSearch",
-                              "RAG Search"
-                            ) as string
-                          }
-                          aria-label={
-                            t(
-                              "sidepanel:toolbar.ragSearch",
-                              "RAG Search"
-                            ) as string
-                          }>
-                          <Search className="h-4 w-4" />
-                          <span className="hidden sm:inline">
-                            {t("sidepanel:toolbar.ragSearch", "RAG Search")}
-                          </span>
-                        </button>
-                        {/* Hidden: Prompt and Model selectors (now in ControlRow) */}
-                        <div className="hidden">
-                          <PromptSelect
-                            selectedSystemPrompt={selectedSystemPrompt}
-                            setSelectedSystemPrompt={setSelectedSystemPrompt}
-                            setSelectedQuickPrompt={setSelectedQuickPrompt}
-                            iconClassName="size-4"
-                            className="text-gray-700 dark:text-gray-200 hover:text-gray-900 dark:hover:text-gray-100"
-                          />
-                        </div>
-                        <div className="hidden">
-                          <ModelSelect iconClassName="size-4" />
-                        </div>
-                        <div className="hidden">
-                          <Popover
-                            trigger="click"
-                            placement="topRight"
-                            content={moreToolsContent}
-                            overlayClassName="sidepanel-more-tools">
-                            <button
-                              type="button"
-                              aria-label={
-                                t(
-                                  "playground:composer.moreTools",
-                                  "More tools"
-                                ) as string
-                              }
-                              title={
-                                t(
-                                  "playground:composer.moreTools",
-                                  "More tools"
-                                ) as string
-                              }
-                              className="inline-flex items-center gap-2 rounded-md border border-gray-200 px-3 py-1.5 text-xs font-semibold text-gray-700 transition hover:bg-gray-100 dark:border-gray-600 dark:text-gray-200 dark:hover:bg-[#2a2a2a]">
-                              <MoreHorizontal className="h-4 w-4" />
-                              <span>
-                                {t("playground:composer.moreTools", "More tools")}
-                              </span>
-                            </button>
-                          </Popover>
-                        </div>
                         <div
                           role="group"
                           aria-label={t(
@@ -1295,6 +1411,7 @@ export const SidepanelForm = ({ dropedFile }: Props) => {
                             "Send options"
                           )}
                           className="flex items-center gap-2">
+                          {/* L15: gap-2 provides visual separation */}
                           {!streaming ? (
                             <>
                               <Dropdown.Button
@@ -1335,44 +1452,68 @@ export const SidepanelForm = ({ dropedFile }: Props) => {
                                 menu={{
                                   items: [
                                     {
-                                      key: 1,
-                                      label: (
-                                        <Checkbox
-                                          checked={sendWhenEnter}
-                                          onChange={(e) =>
-                                            setSendWhenEnter(e.target.checked)
-                                          }>
-                                          {t("sendWhenEnter")}
-                                        </Checkbox>
-                                      )
+                                      key: "send-section",
+                                      type: "group",
+                                      label: t(
+                                        "playground:composer.actions",
+                                        "Send options"
+                                      ),
+                                      children: [
+                                        {
+                                          key: 1,
+                                          label: (
+                                            <Checkbox
+                                              checked={sendWhenEnter}
+                                              onChange={(e) =>
+                                                setSendWhenEnter(e.target.checked)
+                                              }>
+                                              {t("sendWhenEnter")}
+                                            </Checkbox>
+                                          )
+                                        }
+                                      ]
                                     },
                                     {
-                                      key: 2,
-                                      label: (
-                                        <Checkbox
-                                          checked={chatMode === "rag"}
-                                          onChange={(e) => {
-                                            setChatMode(
-                                              e.target.checked
-                                                ? "rag"
-                                                : "normal"
-                                            )
-                                          }}>
-                                          {t("common:chatWithCurrentPage")}
-                                        </Checkbox>
-                                      )
+                                      type: "divider",
+                                      key: "divider-1"
                                     },
                                     {
-                                      key: 3,
-                                      label: (
-                                        <Checkbox
-                                          checked={useOCR}
-                                          onChange={(e) =>
-                                            setUseOCR(e.target.checked)
-                                          }>
-                                          {t("useOCR")}
-                                        </Checkbox>
-                                      )
+                                      key: "context-section",
+                                      type: "group",
+                                      label: t(
+                                        "playground:composer.coreTools",
+                                        "Conversation options"
+                                      ),
+                                      children: [
+                                        {
+                                          key: 2,
+                                          label: (
+                                            <Checkbox
+                                              checked={chatMode === "rag"}
+                                              onChange={(e) => {
+                                                setChatMode(
+                                                  e.target.checked
+                                                    ? "rag"
+                                                    : "normal"
+                                                )
+                                              }}>
+                                              {t("common:chatWithCurrentPage")}
+                                            </Checkbox>
+                                          )
+                                        },
+                                        {
+                                          key: 3,
+                                          label: (
+                                            <Checkbox
+                                              checked={useOCR}
+                                              onChange={(e) =>
+                                                setUseOCR(e.target.checked)
+                                              }>
+                                              {t("useOCR")}
+                                            </Checkbox>
+                                          )
+                                        }
+                                      ]
                                     }
                                   ]
                                 }}>
@@ -1414,154 +1555,47 @@ export const SidepanelForm = ({ dropedFile }: Props) => {
                               </Tooltip>
                             </>
                           ) : (
-                            <Tooltip title={t("tooltip.stopStreaming")}>
-                              <button
-                                type="button"
-                                onClick={stopStreamingRequest}
-                                className="text-gray-800 dark:text-gray-300 border border-gray-300 dark:border-gray-600 rounded-md p-1">
-                                <StopCircleIcon className="h-5 w-5" />
-                                <span className="sr-only">
-                                  {t(
-                                    "playground:composer.stopStreaming",
-                                    "Stop streaming response"
-                                  )}
-                                </span>
-                              </button>
-                            </Tooltip>
-                          )}
-                          {streaming && (
-                            <Tooltip
-                              title={
-                                t("common:currentChatModelSettings") as string
-                              }>
-                              <button
-                                type="button"
-                                onClick={() => setOpenModelSettings(true)}
-                                className="text-gray-800 dark:text-gray-300 border border-gray-300 dark:border-gray-600 rounded-md p-1">
-                                <Gauge className="h-5 w-5" />
-                                <span className="sr-only">
-                                  {t(
-                                    "playground:composer.openModelSettings",
-                                    "Open current chat settings"
-                                  )}
-                                </span>
-                              </button>
-                            </Tooltip>
+                            <>
+                              <Tooltip title={t("tooltip.stopStreaming")}>
+                                <button
+                                  type="button"
+                                  onClick={stopStreamingRequest}
+                                  className="text-gray-800 dark:text-gray-300 border border-gray-300 dark:border-gray-600 rounded-md p-1">
+                                  <StopCircleIcon className="h-5 w-5" />
+                                  <span className="sr-only">
+                                    {t(
+                                      "playground:composer.stopStreaming",
+                                      "Stop streaming response"
+                                    )}
+                                  </span>
+                                </button>
+                              </Tooltip>
+                              {/* L15: Visual separator between Stop and settings buttons */}
+                              <Tooltip
+                                title={
+                                  t("common:currentChatModelSettings") as string
+                                }>
+                                <button
+                                  type="button"
+                                  onClick={() => setOpenModelSettings(true)}
+                                  className="text-gray-800 dark:text-gray-300 border border-gray-300 dark:border-gray-600 rounded-md p-1">
+                                  <Gauge className="h-5 w-5" />
+                                  <span className="sr-only">
+                                    {t(
+                                      "playground:composer.openModelSettings",
+                                      "Open current chat settings"
+                                    )}
+                                  </span>
+                                </button>
+                              </Tooltip>
+                            </>
                           )}
                         </div>
                       </div>
-                      {showConnectBanner && !isConnectionReady && (
-                        <div className="mt-2 flex flex-wrap items-center justify-between gap-2 rounded-md border border-amber-300 bg-amber-50 px-3 py-2 text-xs text-amber-900 dark:border-amber-500 dark:bg-[#2a2310] dark:text-amber-100">
-                          <p className="max-w-xs text-left">
-                            {connectBannerCopy}
-                          </p>
-                          <div className="flex flex-wrap items-center gap-2">
-                            <button
-                              type="button"
-                              onClick={openSettings}
-                              className="rounded-md border border-amber-300 bg-white px-2 py-1 text-xs font-medium text-amber-900 hover:bg-amber-100 dark:bg-[#3a2b10] dark:text-amber-50 dark:hover:bg-[#4a3512]">
-                              {t(
-                                "sidepanel:composer.connectPrimaryCta",
-                                "Finish setup in Options"
-                              )}
-                            </button>
-                            <button
-                              type="button"
-                              onClick={openDiagnostics}
-                              className="text-xs font-medium text-amber-900 underline hover:text-amber-700 dark:text-amber-100 dark:hover:text-amber-300">
-                              {t(
-                                "settings:healthSummary.diagnostics",
-                                "Health & diagnostics"
-                              )}
-                            </button>
-                            <button
-                              type="button"
-                              onClick={() => setShowConnectBanner(false)}
-                              className="inline-flex items-center rounded-full p-1 text-amber-700 hover:bg-amber-100 dark:text-amber-200 dark:hover:bg-[#3a2b10]"
-                              aria-label={t("common:close", "Dismiss")}>
-                              <X className="h-3 w-3" />
-                            </button>
-                          </div>
-                        </div>
-                      )}
-                      {queuedMessages.length > 0 && (
-                        <div className="mt-2 flex flex-wrap items-center justify-between gap-2 rounded-md border border-green-300 bg-green-50 px-3 py-2 text-xs text-green-900 dark:border-green-500 dark:bg-[#102a10] dark:text-green-100">
-                          <p className="max-w-xs text-left">
-                            <span className="block font-medium">
-                              {t(
-                                "playground:composer.queuedBanner.title",
-                                "Queued while offline"
-                              )}
-                            </span>
-                            {t(
-                              "playground:composer.queuedBanner.body",
-                              "We’ll hold these messages and send them once your tldw server is connected."
-                            )}
-                          </p>
-                          <div className="flex flex-wrap items-center gap-2">
-                            <button
-                              type="button"
-                              onClick={async () => {
-                                if (!isConnectionReady || isFlushingQueue) return
-                                setIsFlushingQueue(true)
-                                try {
-                                  const hasEmbedding =
-                                    await ensureEmbeddingModelAvailable()
-                                  if (!hasEmbedding) {
-                                    return
-                                  }
-                                  for (const item of queuedMessages) {
-                                    await submitQueuedInSidepanel(
-                                      item.message,
-                                      item.image
-                                    )
-                                  }
-                                  clearQueuedMessages()
-                                } finally {
-                                  setIsFlushingQueue(false)
-                                }
-                              }}
-                              disabled={!isConnectionReady || isFlushingQueue}
-                              className={`rounded-md border border-green-300 bg-white px-2 py-1 text-xs font-medium text-green-900 hover:bg-green-100 dark:bg-[#163816] dark:text-green-50 dark:hover:bg-[#194419] ${
-                                !isConnectionReady || isFlushingQueue
-                                  ? "cursor-not-allowed opacity-60"
-                                  : ""
-                              }`}>
-                              {t(
-                                "playground:composer.queuedBanner.sendNow",
-                                "Send queued messages"
-                              )}
-                            </button>
-                            <button
-                              type="button"
-                              onClick={() => clearQueuedMessages()}
-                              className="text-xs font-medium text-green-900 underline hover:text-green-700 dark:text-green-100 dark:hover:text-green-300">
-                              {t(
-                                "playground:composer.queuedBanner.clear",
-                                "Clear queue"
-                              )}
-                            </button>
-                            <button
-                              type="button"
-                              onClick={openDiagnostics}
-                              className="text-xs font-medium text-green-900 underline hover:text-green-700 dark:text-green-100 dark:hover:text-green-300">
-                              {t(
-                                "settings:healthSummary.diagnostics",
-                                "Health & diagnostics"
-                              )}
-                            </button>
-                          </div>
-                        </div>
-                      )}
                     </div>
                   </div>
                 </form>
               </div>
-              {form.errors.message && (
-                <div className="text-red-500 text-center text-sm mt-1">
-                  {form.errors.message}
-                </div>
-              )}
             </div>
           </div>
         </div>

@@ -1,7 +1,7 @@
 {
   "formError": {
     "noModel": "Виберіть модель",
-    "noEmbeddingModel": "Налаштуйте модель вкладень на сторінці Налаштування > RAG"
+    "noEmbeddingModel": "Налаштуйте модель вкладень на сторінці Налаштування > Знання"
   },
   "form": {
     "textarea": {
@@ -127,11 +127,11 @@
   },
   "more": {
     "history": "Chat saving",
-    "searchRag": "Search & RAG",
+    "searchKnowledge": "Пошук і знання",
     "voice": "More voice options",
     "uploads": "Uploads & ingest"
   },
-  "fileRetrievalEnabled": "Enable RAG for Documents",
+  "fileRetrievalEnabled": "Увімкнути пошук знань для документів",
   "stt": {
     "title": "STT Playground",
     "subtitle": "Try out transcription models, run longer dictation sessions, and save transcripts into Notes.",
@@ -223,6 +223,12 @@
       "serverSaved": "Future messages in this chat will sync to your tldw server.",
       "serverCharacterRequired": "Unable to find or create a default assistant character on the server. Try again from the Characters page."
     },
-    "connectToSend": "Connect to your tldw server in Settings to send messages and view media."
+    "connectToSend": "Підключіть свій сервер tldw у Налаштуваннях, щоб надсилати повідомлення та переглядати медіа.",
+    "compareTag": "Порівняти",
+    "compareMaxModelsTitle": "Досягнуто ліміту порівняння",
+    "compareMaxModels": "За один хід можна порівняти до {{limit}} моделей.",
+    "compareMaxModelsTrimmed": "Порівняння обмежено {{limit}} моделями на хід. Використовуються перші {{limit}} вибраних моделей.",
+    "compareMaxLabel": "Макс. моделей на хід",
+    "compareMaxHelper": "Вибрано {{current}} / {{limit}}"
   }
 }

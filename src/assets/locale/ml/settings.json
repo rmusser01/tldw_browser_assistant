@@ -10,6 +10,39 @@
   "chatDictionariesNav": "ചാറ്റ് നിഘണ്ടു",
   "charactersNav": "ക്യാരക്ടേഴ്സ്",
   "mediaNav": "മീഡിയ",
+  "chatAppearance": {
+    "title": "Chat appearance",
+    "description": "Customize colors, fonts, and text sizes for chat messages.",
+    "behaviorNote": "Looking for chat behavior settings (wide mode, reasoning, copy options)?",
+    "goToGeneral": "Go to General Settings",
+    "userHeading": "User messages",
+    "assistantHeading": "Assistant messages",
+    "userColor": "User text color",
+    "assistantColor": "Assistant text color",
+    "userFont": "User font",
+    "assistantFont": "Assistant font",
+    "userSize": "User text size",
+    "assistantSize": "Assistant text size",
+    "color": {
+      "default": "Default",
+      "blue": "Blue",
+      "green": "Green",
+      "purple": "Purple",
+      "orange": "Orange",
+      "red": "Red"
+    },
+    "font": {
+      "default": "Default",
+      "sans": "Sans serif",
+      "serif": "Serif",
+      "mono": "Monospace"
+    },
+    "size": {
+      "sm": "Small",
+      "md": "Medium",
+      "lg": "Large"
+    }
+  },
   "generalSettings": {
     "title": "പൊതുവായ സെറ്റിംഗുകൾ",
     "settings": {
@@ -84,7 +117,9 @@
         "label": "സൈഡ്പാനലിൽ താൽക്കാലിക ചാറ്റ് സ്ഥിരസ്ഥിതിയായി പ്രവർത്തനക്ഷമമാക്കുക"
       },
       "enableOcrAssets": {
-        "label": "Enable OCR (downloads ~5MB on first use)"
+        "label": "OCR പ്രവർത്തനക്ഷമമാക്കുക (ആദ്യ ഉപയോഗത്തിൽ ഏകദേശം 5MB ഡൗൺലോഡ് ചെയ്യും)",
+        "downloadNotice": "OCR പ്രവർത്തനക്ഷമമാക്കുമ്പോൾ, ആദ്യ ഉപയോഗത്തിൽ ഏകദേശം 5MB ഭാഷാ ഡാറ്റ ഡൗൺലോഡ് ചെയ്യും.",
+        "assetsEnabled": "OCR ആസറ്റുകൾ പ്രവർത്തനക്ഷമമാക്കി തയ്യാറാക്കി"
       },
       "ocrLanguage": {
         "label": "Default OCR Language",

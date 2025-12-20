@@ -10,6 +10,8 @@ import { ChatDocuments } from "@/models/ChatTypes"
 import { DocumentChip } from "./DocumentChip"
 import { DocumentFile } from "./DocumentFile"
 import { buildChatTextClass } from "@/utils/chat-style"
+import { IconButton } from "../IconButton"
+import { tagColors } from "@/utils/color"
 
 type Props = {
   message: string
@@ -22,7 +24,7 @@ type Props = {
   images?: string[]
   currentMessageIndex: number
   totalMessages: number
-  onRengerate: () => void
+  onRegenerate: () => void
   onEditFormSubmit: (value: string, isSend: boolean) => void
   isProcessing: boolean
   webSearch?: {}
@@ -170,7 +172,7 @@ export const PlaygroundUserMessageBubble: React.FC<Props> = (props) => {
                     })
                   }
                 }}
-                className="flex items-center justify-center w-6 h-6 rounded-full bg-gray-100 dark:bg-[#242424] hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500">
+                className="flex items-center justify-center w-10 h-10 sm:w-6 sm:h-6 rounded-full bg-gray-100 dark:bg-[#2d2d2d] hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500">
                 {!isSpeaking ? (
                   <PlayIcon className="w-3 h-3 text-gray-400 group-hover:text-gray-500" />
                 ) : (
@@ -190,7 +192,7 @@ export const PlaygroundUserMessageBubble: React.FC<Props> = (props) => {
                     setIsBtnPressed(false)
                   }, 2000)
                 }}
-                className="flex items-center justify-center w-6 h-6 rounded-full bg-gray-50 dark:bg-[#242424] hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500">
+                className="flex items-center justify-center w-10 h-10 sm:w-6 sm:h-6 rounded-full bg-gray-50 dark:bg-[#2d2d2d] hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500">
                 {!isBtnPressed ? (
                   <CopyIcon className="w-3 h-3 text-gray-400 group-hover:text-gray-500" />
                 ) : (
@@ -205,7 +207,7 @@ export const PlaygroundUserMessageBubble: React.FC<Props> = (props) => {
               <IconButton
                 onClick={() => setEditMode(true)}
                 ariaLabel={t("edit") as string}
-                className="flex items-center justify-center w-6 h-6 rounded-full bg-gray-50 dark:bg-[#242424] hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500">
+                className="flex items-center justify-center w-10 h-10 sm:w-6 sm:h-6 rounded-full bg-gray-50 dark:bg-[#2d2d2d] hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500">
                 <Pen className="w-3 h-3 text-gray-400 group-hover:text-gray-500" />
               </IconButton>
             </Tooltip>
@@ -214,10 +216,9 @@ export const PlaygroundUserMessageBubble: React.FC<Props> = (props) => {
       ) : (
         // add invisible div to prevent layout shift
         <div className="invisible">
-          <div className="flex items-center justify-center w-6 h-6 rounded-full bg-gray-50 dark:bg-[#242424] hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500"></div>
+          <div className="flex items-center justify-center w-10 h-10 sm:w-6 sm:h-6 rounded-full bg-gray-50 dark:bg-[#2d2d2d]"></div>
         </div>
       )}
     </div>
   )
 }
-import { IconButton } from "../IconButton"

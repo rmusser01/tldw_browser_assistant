@@ -216,6 +216,16 @@
   "ttsShort": "音声",
   "copyShort": "コピー",
   "branchShort": "ブランチ",
+  "infoShort": "情報",
+  "regenShort": "再実行",
+  "continueShort": "さらに",
+  "fileChanges": "ファイルの変更",
+  "deletions": "削除",
+  "gitOperations": "Git 操作",
+  "commands": "コマンド",
+  "otherOperations": "その他の操作",
+  "fileAccess": "ファイルアクセス",
+  "notebookEdits": "ノートブック編集",
   "segmented": {
     "available": "サーバーモデル",
     "custom": "カスタムモデル"
@@ -230,7 +240,8 @@
   "serverChats": "サーバーチャット",
   "serverChatLoadError": "サーバーチャットの読み込みに失敗しました。接続を確認して再試行してください。",
   "serverChatSourceLabel": "サーバー",
-  "serverChatsUnavailable": "サーバーチャットを利用できません。サーバー接続を確認してください。",
+  "serverChatsUnavailableNotConnected": "tldw サーバーに接続すると、サーバーチャットを利用できるようになります。",
+  "serverChatsUnavailableServerError": "現在サーバーチャットを利用できません。サーバーログを確認するか、もう一度お試しください。",
   "historiesDeleted": "{{count}} 件の履歴を削除しました",
   "deleteHistoriesError": "履歴の削除中にエラーが発生しました",
   "mermaid": "Mermaid ダイアグラム",
@@ -238,6 +249,7 @@
   "searchResults": "検索結果",
   "newBranch": "新しいブランチ",
   "error": {
+    "label": "エラー",
     "friendlyApiKeySummary": "tldw サーバーに接続できませんでした。",
     "friendlyApiKeyHint": "API キーが無効の可能性があります。設定 → tldw サーバーで URL と API キーを確認してから、もう一度お試しください。",
     "friendlyTimeoutSummary": "チャットがタイムアウトしました。",
@@ -259,5 +271,105 @@
   "refresh": "再読み込み",
   "confirm": "確認",
   "untitled": "無題",
-  "moveToFolder": "フォルダーに移動"
+  "moveToFolder": "フォルダーに移動",
+  "noToolCalls": "ツール呼び出しはまだありません",
+  "status": {
+    "pending": "保留中",
+    "running": "処理中",
+    "complete": "完了",
+    "error": "エラー"
+  },
+  "arguments": "引数",
+  "invalidJson": "無効な JSON です。生の値を表示しています",
+  "result": "結果",
+  "tools": {
+    "fs_list": "ディレクトリ一覧",
+    "fs_read": "ファイルを読む",
+    "fs_write": "ファイルを書く",
+    "fs_apply_patch": "パッチを適用",
+    "fs_mkdir": "ディレクトリを作成",
+    "fs_delete": "削除",
+    "search_grep": "内容を検索",
+    "search_glob": "ファイルを検索",
+    "git_status": "Git ステータス",
+    "git_diff": "Git 差分",
+    "git_log": "Git ログ",
+    "git_branch": "Git ブランチ",
+    "git_add": "ファイルをステージ",
+    "git_commit": "コミット",
+    "exec_run": "コマンドを実行"
+  },
+  "markdown": {
+    "unableToRender": "コンテンツをレンダリングできません",
+    "couldNotDisplay": "メッセージの内容を表示できませんでした。これは無効なフォーマットによる可能性があります。",
+    "showRawContent": "生のコンテンツを表示"
+  },
+  "commandPalette": {
+    "goToChat": "チャットへ移動",
+    "goToMedia": "メディアへ移動",
+    "goToNotes": "ノートへ移動",
+    "goToFlashcards": "フラッシュカードへ移動",
+    "goToSettings": "設定へ移動",
+    "goToHealth": "ヘルスと診断を開く",
+    "newChat": "新しいチャット",
+    "toggleKnowledgeSearch": "ナレッジ検索を切り替え",
+    "toggleKnowledgeSearchDesc": "ナレッジベースを検索します",
+    "toggleWebSearch": "Web 検索を切り替え",
+    "toggleWebDesc": "インターネットを検索します",
+    "ingestPage": "現在のページを取り込む",
+    "ingestDesc": "このページをナレッジベースに保存します",
+    "switchModel": "モデルを切り替え",
+    "toggleSidebar": "サイドバーを切り替え",
+    "toggleSidebarDesc": "チャットサイドバーの表示／非表示を切り替えます",
+    "placeholder": "コマンドを入力するか検索します…",
+    "noResults": "結果が見つかりませんでした",
+    "title": "コマンドパレット",
+    "navigate": "移動",
+    "select": "選択",
+    "toOpen": "で開く",
+    "categoryActions": "アクション",
+    "categoryNavigation": "ナビゲーション",
+    "categorySettings": "設定",
+    "categoryRecent": "最近使用したもの"
+  },
+  "featureHints": {
+    "knowledge": {
+      "title": "ナレッジを検索",
+      "description": "ナレッジ検索パネルを開き、スニペットを見つけてチャットに挿入します。"
+    },
+    "moreTools": {
+      "title": "さらに多くのツール",
+      "description": "ビジョンモード、画像アップロード、クイック取り込み、フルアプリにアクセスできます。"
+    },
+    "commandPalette": {
+      "title": "クイックコマンド",
+      "description": "{{shortcut}} を押してコマンドや設定などを検索します。"
+    },
+    "modelSettings": {
+      "title": "モデルパラメータを調整",
+      "description": "温度、コンテキスト長などのモデル設定を微調整します。"
+    }
+  },
+  "chatSidebar": {
+    "title": "チャット",
+    "newChat": "新しいチャット",
+    "collapse": "サイドバーを折りたたむ",
+    "expand": "サイドバーを展開",
+    "search": "チャットを検索...",
+    "ingest": "ページを取り込む",
+    "media": "メディア",
+    "notes": "ノート",
+    "settings": "設定",
+    "loadError": "チャットの読み込みに失敗しました",
+    "localTab": "ローカル",
+    "serverTab": "サーバー",
+    "foldersTab": "フォルダー",
+    "tabs": {
+      "local": "ローカル",
+      "server": "サーバー",
+      "folders": "フォルダー"
+    },
+    "noServerChats": "サーバーチャットはまだありません",
+    "foldersRequireConnection": "フォルダーにはサーバー接続が必要です"
+  }
 }

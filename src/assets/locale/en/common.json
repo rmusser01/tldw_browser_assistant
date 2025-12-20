@@ -16,6 +16,10 @@
     "content": "Loading content…"
   },
   "selectAModel": "Select a Model",
+  "modelSelect": {
+    "label": "Model",
+    "tooltip": "Changes model for next message"
+  },
   "save": "Save",
   "saved": "Saved",
   "cancel": "Cancel",
@@ -84,6 +88,19 @@
   "ttsShort": "TTS",
   "copyShort": "Copy",
   "branchShort": "Branch",
+  "infoShort": "Info",
+  "regenShort": "Redo",
+  "continueShort": "More",
+  "fileChanges": "File changes",
+  "deletions": "Deletions",
+  "gitOperations": "Git operations",
+  "commands": "Commands",
+  "otherOperations": "Other operations",
+  "fileAccess": "File access",
+  "notebookEdits": "Notebook edits",
+  "applyPatch": "Apply patch",
+  "recursive": "(recursive)",
+  "complexArguments": "[Complex arguments]",
   "currentChatModelSettings": "Current Chat Model Settings",
   "modelSettings": {
     "label": "Model Settings",
@@ -191,7 +208,10 @@
   "serverChats": "Server chats",
   "serverChatLoadError": "Failed to load server chat. Check your connection and try again.",
   "serverChatSourceLabel": "Server",
-  "serverChatsUnavailable": "Server chats unavailable. Check your server connection.",
+  "serverChatForkedLabel": "Forked chat",
+  "serverChatForkedTooltip": "Forked from chat {{chatId}}",
+  "serverChatsUnavailableNotConnected": "Server chats are available once you connect to your tldw server.",
+  "serverChatsUnavailableServerError": "Server chats unavailable right now. Check your server logs or try again.",
   "date": {
     "pinned": "Pinned",
     "today": "Today",
@@ -238,6 +258,7 @@
   },
   "privateModeSaveErrorTitle": "tldw Assistant can't save data",
   "error": {
+    "label": "Error",
     "friendlyApiKeySummary": "We couldn't reach your tldw server.",
     "friendlyApiKeyHint": "Your API key may be invalid. Open Settings → tldw server to check your URL and API key, then try again.",
     "friendlyTimeoutSummary": "Your chat timed out.",
@@ -283,5 +304,105 @@
     "showLegend": "Show legend",
     "zoomIn": "Zoom in",
     "zoomOut": "Zoom out"
+  },
+  "noToolCalls": "No tool calls yet",
+  "status": {
+    "pending": "Pending",
+    "running": "Running",
+    "complete": "Complete",
+    "error": "Error"
+  },
+  "arguments": "Arguments",
+  "invalidJson": "Invalid JSON; showing raw value",
+  "result": "Result",
+  "tools": {
+    "fs_list": "List Directory",
+    "fs_read": "Read File",
+    "fs_write": "Write File",
+    "fs_apply_patch": "Apply Patch",
+    "fs_mkdir": "Create Directory",
+    "fs_delete": "Delete",
+    "search_grep": "Search Content",
+    "search_glob": "Find Files",
+    "git_status": "Git Status",
+    "git_diff": "Git Diff",
+    "git_log": "Git Log",
+    "git_branch": "Git Branch",
+    "git_add": "Stage Files",
+    "git_commit": "Commit",
+    "exec_run": "Run Command"
+  },
+  "markdown": {
+    "unableToRender": "Unable to render content",
+    "couldNotDisplay": "The message content could not be displayed. This may be due to invalid formatting.",
+    "showRawContent": "Show raw content"
+  },
+  "commandPalette": {
+    "goToChat": "Go to Chat",
+    "goToMedia": "Go to Media",
+    "goToNotes": "Go to Notes",
+    "goToFlashcards": "Go to Flashcards",
+    "goToSettings": "Go to Settings",
+    "goToHealth": "Health & Diagnostics",
+    "newChat": "New Chat",
+    "toggleKnowledgeSearch": "Toggle Knowledge Search",
+    "toggleKnowledgeSearchDesc": "Search your knowledge base",
+    "toggleWebSearch": "Toggle Web Search",
+    "toggleWebDesc": "Search the internet",
+    "ingestPage": "Ingest Current Page",
+    "ingestDesc": "Save this page to your knowledge base",
+    "switchModel": "Switch Model",
+    "toggleSidebar": "Toggle Sidebar",
+    "toggleSidebarDesc": "Show or hide the chat sidebar",
+    "placeholder": "Type a command or search...",
+    "noResults": "No results found",
+    "title": "Command Palette",
+    "navigate": "navigate",
+    "select": "select",
+    "toOpen": "to open",
+    "categoryActions": "Actions",
+    "categoryNavigation": "Navigation",
+    "categorySettings": "Settings",
+    "categoryRecent": "Recent"
+  },
+  "featureHints": {
+    "knowledge": {
+      "title": "Search your knowledge",
+      "description": "Open the knowledge search panel to find snippets and insert them into your chat."
+    },
+    "moreTools": {
+      "title": "More tools available",
+      "description": "Access vision mode, image upload, quick ingest, and the full app."
+    },
+    "commandPalette": {
+      "title": "Quick commands",
+      "description": "Press {{shortcut}} to search commands, settings, and more."
+    },
+    "modelSettings": {
+      "title": "Adjust model parameters",
+      "description": "Fine-tune temperature, context length, and other model settings."
+    }
+  },
+  "chatSidebar": {
+    "title": "Chats",
+    "newChat": "New Chat",
+    "collapse": "Collapse sidebar",
+    "expand": "Expand sidebar",
+    "search": "Search chats...",
+    "ingest": "Ingest Page",
+    "media": "Media",
+    "notes": "Notes",
+    "settings": "Settings",
+    "loadError": "Failed to load chats",
+    "localTab": "Local",
+    "serverTab": "Server",
+    "foldersTab": "Folders",
+    "tabs": {
+      "local": "Local",
+      "server": "Server",
+      "folders": "Folders"
+    },
+    "noServerChats": "No server chats yet",
+    "foldersRequireConnection": "Folders require a server connection"
   }
 }

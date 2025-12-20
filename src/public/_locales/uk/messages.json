@@ -20,15 +20,15 @@
     "description": "Текст довідки, який пояснює режими автентифікації Single User та Multi User."
   },
   "apiKeyHelp": {
-    "message": "Знайдіть свій API-ключ у tldw_server \u2192 Settings \u2192 API Keys. Згенеруйте там ключ і вставте його тут.",
+    "message": "Знайдіть свій API-ключ у tldw_server → Settings → API Keys. Згенеруйте там ключ і вставте його тут.",
     "description": "Текст довідки, що описує, де знайти API-ключ."
   },
   "authStepAria": {
-    "message": "Крок {{current}} з {{total}} \u2014 налаштування автентифікації",
+    "message": "Крок {{current}} з {{total}} — налаштування автентифікації",
     "description": "Мітка aria для кроку налаштування автентифікації в майстрі."
   },
   "confirmStepAria": {
-    "message": "Крок {{current}} з {{total}} \u2014 підтвердження підключення та наступні кроки",
+    "message": "Крок {{current}} з {{total}} — підтвердження підключення та наступні кроки",
     "description": "Мітка aria для кроку підтвердження підключення в майстрі."
   },
   "nextSteps": {
@@ -83,6 +83,15 @@
   "restartOnboardingConfirmMessage": {
     "message": "Це скине стан онбордингу та поверне вас на початок процесу налаштування."
   },
+  "enableOcrAssets_label": {
+    "message": "Увімкнути OCR (завантажує ~5 МБ під час першого використання)"
+  },
+  "enableOcrAssets_downloadNotice": {
+    "message": "Після увімкнення OCR під час першого використання буде завантажено приблизно 5 МБ мовних даних."
+  },
+  "enableOcrAssets_assetsEnabled": {
+    "message": "Ресурси OCR увімкнено та підготовлено"
+  },
   "omniSearchPlaceholder": {
     "message": "Search screens, chats, media, notes…",
     "description": "Placeholder text for the omni-search input in the header."
@@ -122,6 +131,21 @@
   "connectionCard_descriptionConnectedList_useRag": {
     "message": "Use RAG with your own documents",
     "description": "Third bullet in the connected-state server connection card, highlighting retrieval-augmented generation usage."
+  },
+  "compareMaxModelsTitle": {
+    "message": "Досягнуто ліміту порівняння"
+  },
+  "compareMaxModels": {
+    "message": "За один хід можна порівняти до {{limit}} моделей."
+  },
+  "compareMaxModelsTrimmed": {
+    "message": "Порівняння обмежено {{limit}} моделями на хід. Використовуються перші {{limit}} вибраних моделей."
+  },
+  "compareMaxLabel": {
+    "message": "Макс. моделей на хід"
+  },
+  "compareMaxHelper": {
+    "message": "Вибрано {{current}} / {{limit}}"
   },
   "omniSearch_filterScreen": {
     "message": "Screens",
@@ -198,6 +222,9 @@
   "moveToFolder": {
     "message": "Перемістити в папку"
   },
+  "quickIngest_ocrHelp": {
+    "message": "OCR допомагає витягувати текст зі сканованих PDF-файлів або зображень."
+  },
   "specReloadedToast": {
     "message": "Розширену специфікацію перезавантажено із сервера"
   },
@@ -206,5 +233,451 @@
   },
   "specFallbackWarning": {
     "message": "Використовується вбудований резервний варіант схеми media.add (v{{version}}); перевірте tldw_server /openapi.json, якщо поля виглядають застарілими."
+  },
+  "serverChatsUnavailableNotConnected": {
+    "message": "Серверні чати будуть доступні після підключення до вашого сервера tldw."
+  },
+  "serverChatsUnavailableServerError": {
+    "message": "Серверні чати зараз недоступні. Перевірте журнали сервера або спробуйте ще раз."
+  },
+  "noToolCalls": {
+    "message": "Ще немає викликів інструментів"
+  },
+  "arguments": {
+    "message": "Аргументи"
+  },
+  "invalidJson": {
+    "message": "Некоректний JSON; показано сире значення"
+  },
+  "result": {
+    "message": "Результат"
+  },
+  "tools_fs_list": {
+    "message": "Список каталогу",
+    "description": "Label for the fs.list tool (list directory)."
+  },
+  "tools_fs_read": {
+    "message": "Прочитати файл",
+    "description": "Label for the fs.read tool (read file)."
+  },
+  "tools_fs_write": {
+    "message": "Записати файл",
+    "description": "Label for the fs.write tool (write file)."
+  },
+  "tools_fs_apply_patch": {
+    "message": "Застосувати патч",
+    "description": "Label for the fs.apply_patch tool (apply patch)."
+  },
+  "tools_fs_mkdir": {
+    "message": "Створити каталог",
+    "description": "Label for the fs.mkdir tool (create directory)."
+  },
+  "tools_fs_delete": {
+    "message": "Видалити",
+    "description": "Label for the fs.delete tool (delete file or directory)."
+  },
+  "tools_search_grep": {
+    "message": "Пошук у вмісті",
+    "description": "Label for the search.grep tool (search file contents)."
+  },
+  "tools_search_glob": {
+    "message": "Знайти файли",
+    "description": "Label for the search.glob tool (find files by pattern)."
+  },
+  "tools_git_status": {
+    "message": "Статус Git",
+    "description": "Label for the git.status tool."
+  },
+  "tools_git_diff": {
+    "message": "Git diff",
+    "description": "Label for the git.diff tool."
+  },
+  "tools_git_log": {
+    "message": "Журнал Git",
+    "description": "Label for the git.log tool."
+  },
+  "tools_git_branch": {
+    "message": "Гілка Git",
+    "description": "Label for the git.branch tool."
+  },
+  "tools_git_add": {
+    "message": "Підготувати файли",
+    "description": "Label for the git.add tool (stage files)."
+  },
+  "tools_git_commit": {
+    "message": "Коміт",
+    "description": "Label for the git.commit tool."
+  },
+  "tools_exec_run": {
+    "message": "Виконати команду",
+    "description": "Label for the exec.run tool (run command)."
+  },
+  "commandPalette_goToChat": {
+    "message": "Перейти до чату",
+    "description": "Command palette action label to navigate to the Chat screen."
+  },
+  "commandPalette_goToMedia": {
+    "message": "Перейти до медіа",
+    "description": "Command palette action label to navigate to the Media screen."
+  },
+  "commandPalette_goToNotes": {
+    "message": "Перейти до нотаток",
+    "description": "Command palette action label to navigate to the Notes screen."
+  },
+  "commandPalette_goToFlashcards": {
+    "message": "Перейти до флешкарток",
+    "description": "Command palette action label to navigate to the Flashcards screen."
+  },
+  "commandPalette_goToSettings": {
+    "message": "Перейти до налаштувань",
+    "description": "Command palette action label to navigate to the Settings screen."
+  },
+  "commandPalette_goToHealth": {
+    "message": "Відкрити Health & diagnostics",
+    "description": "Command palette action label to open the Health & diagnostics screen."
+  },
+  "commandPalette_newChat": {
+    "message": "Новий чат",
+    "description": "Command palette action label to start a new chat."
+  },
+  "commandPalette_toggleKnowledgeSearch": {
+    "message": "Перемкнути пошук знань",
+    "description": "Command palette toggle label for enabling or disabling knowledge search."
+  },
+  "commandPalette_toggleKnowledgeSearchDesc": {
+    "message": "Шукати у вашій базі знань",
+    "description": "Command palette description text explaining the knowledge search toggle."
+  },
+  "commandPalette_toggleWebSearch": {
+    "message": "Перемкнути пошук в інтернеті",
+    "description": "Command palette toggle label for enabling or disabling web search."
+  },
+  "commandPalette_toggleWebDesc": {
+    "message": "Шукати в інтернеті",
+    "description": "Command palette description text explaining the web search toggle."
+  },
+  "commandPalette_ingestPage": {
+    "message": "Імпортувати поточну сторінку",
+    "description": "Command palette action label to ingest the current page into knowledge."
+  },
+  "commandPalette_ingestDesc": {
+    "message": "Зберегти цю сторінку у вашій базі знань",
+    "description": "Command palette description text explaining page ingestion into knowledge."
+  },
+  "commandPalette_switchModel": {
+    "message": "Змінити модель",
+    "description": "Command palette action label to switch the active chat/model."
+  },
+  "commandPalette_toggleSidebar": {
+    "message": "Показати/приховати бічну панель",
+    "description": "Command palette toggle label to show or hide the sidepanel."
+  },
+  "commandPalette_toggleSidebarDesc": {
+    "message": "Показати або приховати бічну панель чату",
+    "description": "Command palette description text explaining the sidebar visibility toggle."
+  },
+  "commandPalette_placeholder": {
+    "message": "Введіть команду або пошуковий запит…",
+    "description": "Placeholder text shown in the command palette input."
+  },
+  "commandPalette_noResults": {
+    "message": "Нічого не знайдено",
+    "description": "No-results state text in the command palette when nothing matches the query."
+  },
+  "commandPalette_title": {
+    "message": "Палітра команд",
+    "description": "Title of the command palette UI."
+  },
+  "commandPalette_navigate": {
+    "message": "переміщення",
+    "description": "Command palette keyboard hint label for navigation."
+  },
+  "commandPalette_select": {
+    "message": "вибір",
+    "description": "Command palette keyboard hint label for selection."
+  },
+  "commandPalette_toOpen": {
+    "message": "щоб відкрити",
+    "description": "Command palette keyboard hint label indicating the shortcut to open an item."
+  },
+  "commandPalette_categoryActions": {
+    "message": "Дії",
+    "description": "Label for the Actions category in the command palette."
+  },
+  "commandPalette_categoryNavigation": {
+    "message": "Навігація",
+    "description": "Label for the Navigation category in the command palette."
+  },
+  "commandPalette_categorySettings": {
+    "message": "Налаштування",
+    "description": "Label for the Settings category in the command palette."
+  },
+  "commandPalette_categoryRecent": {
+    "message": "Нещодавні",
+    "description": "Label for the Recent items category in the command palette."
+  },
+  "markdown_unableToRender": {
+    "message": "Не вдалося відобразити вміст"
+  },
+  "markdown_couldNotDisplay": {
+    "message": "Не вдалося відобразити вміст повідомлення. Можливо, це пов’язано з некоректним форматуванням."
+  },
+  "markdown_showRawContent": {
+    "message": "Показати вихідний вміст"
+  },
+  "notesSearch_exportNoteSuccess": {
+    "message": "Exported ({{size}})"
+  },
+  "notesSearch_exportSuccess": {
+    "message": "Exported {{count}} notes ({{size}})"
+  },
+  "notesSearch_exportCsvSuccess": {
+    "message": "Exported {{count}} notes as CSV ({{size}})"
+  },
+  "notesSearch_exportJsonSuccess": {
+    "message": "Exported {{count}} notes as JSON ({{size}})"
+  },
+  "exportNoteSuccess": {
+    "message": "Exported ({{size}})"
+  },
+  "exportSuccess": {
+    "message": "Exported {{count}} notes ({{size}})"
+  },
+  "exportCsvSuccess": {
+    "message": "Exported {{count}} notes as CSV ({{size}})"
+  },
+  "exportJsonSuccess": {
+    "message": "Exported {{count}} notes as JSON ({{size}})"
+  },
+  "infoShort": {
+    "message": "Інфо"
+  },
+  "regenShort": {
+    "message": "Ще раз"
+  },
+  "continueShort": {
+    "message": "Ще"
+  },
+  "error_label": {
+    "message": "Помилка"
+  },
+  "error_friendlyApiKeySummary": {
+    "message": "Не вдалося підключитися до вашого сервера tldw."
+  },
+  "error_friendlyApiKeyHint": {
+    "message": "Ваш API-ключ може бути недійсним. Відкрийте Налаштування → сервер tldw, щоб перевірити URL і API-ключ, а потім спробуйте ще раз."
+  },
+  "error_friendlyTimeoutSummary": {
+    "message": "Час очікування чату вичерпано."
+  },
+  "error_friendlyTimeoutHint": {
+    "message": "Сервер припинив надсилати відповіді. Спробуйте ще раз або відкрийте \"Стан і діагностика\", щоб перевірити стан сервера."
+  },
+  "error_friendlyGenericSummary": {
+    "message": "Під час зв'язку з вашим сервером tldw сталася помилка."
+  },
+  "error_friendlyGenericHint": {
+    "message": "Спробуйте ще раз за мить або відкрийте \"Стан і діагностика\", щоб перевірити стан сервера."
+  },
+  "error_showDetails": {
+    "message": "Показати технічні деталі"
+  },
+  "error_hideDetails": {
+    "message": "Приховати технічні деталі"
+  },
+  "error_createFolder": {
+    "message": "Failed to create folder"
+  },
+  "modelSelect_label": {
+    "message": "Model"
+  },
+  "modelSelect_tooltip": {
+    "message": "Changes model for next message"
+  },
+  "featureHints_knowledge_title": {
+    "message": "Пошук у вашій базі знань"
+  },
+  "featureHints_knowledge_description": {
+    "message": "Відкрийте панель пошуку бази знань, щоб знайти фрагменти й вставити їх у чат."
+  },
+  "featureHints_moreTools_title": {
+    "message": "Доступно більше інструментів"
+  },
+  "featureHints_moreTools_description": {
+    "message": "Отримайте доступ до режиму аналізу зображень, завантаження зображень, швидкого імпорту та повної версії застосунку."
+  },
+  "featureHints_commandPalette_title": {
+    "message": "Швидкі команди"
+  },
+  "featureHints_commandPalette_description": {
+    "message": "Натисніть {{shortcut}}, щоб шукати команди, налаштування та інше."
+  },
+  "featureHints_modelSettings_title": {
+    "message": "Налаштувати параметри моделі"
+  },
+  "featureHints_modelSettings_description": {
+    "message": "Точно налаштуйте температуру, довжину контексту та інші параметри моделі."
+  },
+  "chatSidebar_title": {
+    "message": "Чати"
+  },
+  "chatSidebar_newChat": {
+    "message": "Новий чат"
+  },
+  "chatSidebar_collapse": {
+    "message": "Згорнути бічну панель"
+  },
+  "chatSidebar_expand": {
+    "message": "Розгорнути бічну панель"
+  },
+  "chatSidebar_search": {
+    "message": "Пошук чатів..."
+  },
+  "chatSidebar_ingest": {
+    "message": "Імпортувати сторінку"
+  },
+  "chatSidebar_media": {
+    "message": "Медіа"
+  },
+  "chatSidebar_notes": {
+    "message": "Нотатки"
+  },
+  "chatSidebar_settings": {
+    "message": "Налаштування"
+  },
+  "chatSidebar_loadError": {
+    "message": "Не вдалося завантажити чати"
+  },
+  "chatSidebar_localTab": {
+    "message": "Локально"
+  },
+  "chatSidebar_serverTab": {
+    "message": "Server"
+  },
+  "chatSidebar_foldersTab": {
+    "message": "Folders"
+  },
+  "chatSidebar_tabs_local": {
+    "message": "Локально"
+  },
+  "chatSidebar_tabs_server": {
+    "message": "Server"
+  },
+  "chatSidebar_tabs_folders": {
+    "message": "Folders"
+  },
+  "chatSidebar_noServerChats": {
+    "message": "Поки що немає чатів на сервері"
+  },
+  "chatSidebar_foldersRequireConnection": {
+    "message": "Папки потребують підключення до сервера"
+  },
+  "connectionBanner_connecting": {
+    "message": "Підключення до вашого сервера tldw...",
+    "description": "Connection banner status shown while connecting to the server."
+  },
+  "connectionBanner_authErrorTitle": {
+    "message": "Потрібна увага до API-ключа",
+    "description": "Connection banner title shown when the API key is missing or invalid."
+  },
+  "connectionBanner_authErrorBody": {
+    "message": "Сервер доступний, але API-ключ неправильний або відсутній.",
+    "description": "Connection banner body shown when the API key is missing or invalid."
+  },
+  "connectionBanner_unreachableTitle": {
+    "message": "Не вдається підключитися до сервера tldw",
+    "description": "Connection banner title shown when the server cannot be reached."
+  },
+  "connectionBanner_unreachableBody": {
+    "message": "Перевірте, що сервер запущено та доступний.",
+    "description": "Connection banner body shown when the server cannot be reached."
+  },
+  "connectionBanner_noUrlBody": {
+    "message": "Додайте URL сервера в Налаштуваннях, щоб почати.",
+    "description": "Connection banner body shown when no server URL is configured."
+  },
+  "connectionBanner_disconnectedTitle": {
+    "message": "Немає підключення до сервера tldw",
+    "description": "Connection banner title shown when not connected to the server."
+  },
+  "connectionBanner_disconnectedBody": {
+    "message": "Відкрийте Налаштування, щоб налаштувати підключення.",
+    "description": "Connection banner body shown when not connected to the server."
+  },
+  "connectionBanner_setupTitle": {
+    "message": "Завершіть налаштування, щоб почати чат",
+    "description": "Connection banner title shown when setup is required."
+  },
+  "connectionBanner_setupBody": {
+    "message": "Завершіть майстер налаштування в Налаштуваннях, щоб підключитися.",
+    "description": "Connection banner body shown when setup is required."
+  },
+  "connectionBanner_openSettings": {
+    "message": "Відкрити Налаштування",
+    "description": "Connection banner button label to open Settings."
+  },
+  "temporaryBadge_title": {
+    "message": "Тимчасовий чат",
+    "description": "Title for the temporary chat badge."
+  },
+  "temporaryBadge_label": {
+    "message": "Temp",
+    "description": "Short label shown for temporary chat."
+  },
+  "temporaryBadge_description": {
+    "message": "Цей чат не буде збережено. Повідомлення буде очищено під час закриття або початку нового чату.",
+    "description": "Description explaining that temporary chats are not saved."
+  },
+  "temporaryBadge_clickHint": {
+    "message": "Натисніть, щоб вимкнути",
+    "description": "Hint shown when the temporary chat badge can be clicked to disable."
+  },
+  "temporaryBadge_ariaLabel": {
+    "message": "Режим тимчасового чату активний. Натисніть, щоб перемкнути.",
+    "description": "ARIA label for the temporary chat toggle."
+  },
+  "temporaryBadge_indicatorTooltip": {
+    "message": "Повідомлення в цьому чаті не буде збережено",
+    "description": "Tooltip shown on the temporary chat indicator."
+  },
+  "temporaryBadge_indicatorAria": {
+    "message": "Тимчасовий чат",
+    "description": "ARIA label for the temporary chat indicator."
+  },
+  "saveStatus_ephemeral": {
+    "message": "Тимчасовий: не зберігається, очищується при закритті",
+    "description": "Save status label for ephemeral chats."
+  },
+  "saveStatus_local": {
+    "message": "Збережено локально в цьому браузері",
+    "description": "Save status label for chats saved locally."
+  },
+  "saveStatus_server": {
+    "message": "Збережено на сервері",
+    "description": "Save status label for chats saved on the server."
+  },
+  "saveStatus_saveFailed": {
+    "message": "Не вдалося зберегти чат на сервері",
+    "description": "Save status message shown when saving to the server fails."
+  },
+  "saveStatus_saveFailedDescription": {
+    "message": "Тепер чат зберігається лише локально. Перевірте з'єднання та спробуйте ще раз.",
+    "description": "Save status description shown when saving to the server fails."
+  },
+  "rag_hint_message": {
+    "message": "Шукайте у своїй базі знань і вставляйте результати у повідомлення.",
+    "description": "Hint message encouraging the user to search knowledge and insert results into the chat."
+  },
+  "rag_hint_dismiss": {
+    "message": "Закрити",
+    "description": "Button label to dismiss the knowledge search hint."
+  },
+  "option.more.copy.canonicalMarkdown": {
+    "message": "Копіювати канонічну транскрипцію",
+    "description": "Button label to copy the canonical transcript."
+  },
+  "option.more.download.canonicalMarkdown": {
+    "message": "Канонічна транскрипція (Markdown)",
+    "description": "Menu label to download the canonical transcript as Markdown."
   }
 }

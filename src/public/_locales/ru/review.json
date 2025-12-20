@@ -28,5 +28,23 @@
   },
   "mediaPage.charCount": {
     "message": "{{count}} символов"
+  },
+  "mediaPage.pageRangeError": {
+    "message": "Страница должна быть от 1 до {{max}}"
+  },
+  "mediaPage.pageRangeClamped": {
+    "message": "Переход к странице {{page}}"
+  },
+  "noToolCalls": {
+    "message": "Пока нет вызовов инструментов"
+  },
+  "arguments": {
+    "message": "Аргументы"
+  },
+  "invalidJson": {
+    "message": "Некорректный JSON; показывается исходное значение"
+  },
+  "result": {
+    "message": "Результат"
   }
 }

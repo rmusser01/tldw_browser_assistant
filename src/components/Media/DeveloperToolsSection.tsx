@@ -1,5 +1,5 @@
-import { useState } from 'react'
-import { ChevronDown, ChevronUp, Code, Copy } from 'lucide-react'
+import { useState, useRef, useEffect } from 'react'
+import { ChevronDown, ChevronUp, Code, Copy, Check } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 import { message } from 'antd'
 
@@ -16,14 +16,27 @@ export function DeveloperToolsSection({
 }: DeveloperToolsSectionProps) {
   const { t } = useTranslation(['review'])
   const [expanded, setExpanded] = useState(defaultExpanded)
+  const [copied, setCopied] = useState(false)
+  const copyTimeoutRef = useRef<NodeJS.Timeout | null>(null)
+
+  useEffect(() => {
+    return () => {
+      if (copyTimeoutRef.current) {
+        clearTimeout(copyTimeoutRef.current)
+        copyTimeoutRef.current = null
+      }
+    }
+  }, [])
 
   let jsonString: string | null = null
+  let stringifyError: string | null = null
   if (data != null) {
     try {
       jsonString = JSON.stringify(data, null, 2)
     } catch (err) {
       // eslint-disable-next-line no-console
       console.error('Failed to stringify data in DeveloperToolsSection', err)
+      stringifyError = err instanceof Error ? err.message : String(err)
       jsonString = null
     }
   }
@@ -41,9 +54,20 @@ export function DeveloperToolsSection({
     }
     try {
       await navigator.clipboard.writeText(jsonString)
+      setCopied(true)
       message.success(
         t('mediaPage.jsonCopied', 'JSON copied to clipboard')
       )
+
+      // Clear any existing timeout
+      if (copyTimeoutRef.current) {
+        clearTimeout(copyTimeoutRef.current)
+      }
+
+      // Reset copied state after 2 seconds
+      copyTimeoutRef.current = setTimeout(() => {
+        setCopied(false)
+      }, 2000)
     } catch {
       message.error(t('mediaPage.copyFailed', 'Failed to copy'))
     }
@@ -84,10 +108,18 @@ export function DeveloperToolsSection({
               <button
                 type="button"
                 onClick={handleCopy}
-                className="p-1 text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 transition-colors"
+                className={`p-1 transition-all ${
+                  copied
+                    ? 'text-green-600 dark:text-green-400 bg-green-50 dark:bg-green-900/20'
+                    : 'text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300'
+                }`}
                 title={t('mediaPage.copyJson', 'Copy JSON')}
               >
-                <Copy className="w-3.5 h-3.5" />
+                {copied ? (
+                  <Check className="w-3.5 h-3.5" />
+                ) : (
+                  <Copy className="w-3.5 h-3.5" />
+                )}
               </button>
             )}
           </div>
@@ -97,6 +129,10 @@ export function DeveloperToolsSection({
               <pre className="text-xs p-3 whitespace-pre-wrap break-all text-gray-700 dark:text-gray-300 font-mono">
                 {jsonString}
               </pre>
+            </div>
+          ) : stringifyError ? (
+            <div className="text-sm text-red-500 dark:text-red-400 text-center py-4">
+              {t('mediaPage.jsonStringifyError', 'Cannot display data: {{error}}', { error: stringifyError })}
             </div>
           ) : (
             <div className="text-sm text-gray-500 dark:text-gray-400 text-center py-4">

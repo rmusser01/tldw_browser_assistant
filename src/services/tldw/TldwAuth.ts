@@ -1,4 +1,5 @@
 import { Storage } from "@plasmohq/storage"
+import { safeStorageSerde } from "@/utils/safe-storage"
 import { tldwClient } from "./TldwApiClient"
 import { bgRequest } from "@/services/background-proxy"
 
@@ -28,8 +29,9 @@ export class TldwAuthService {
 
   constructor() {
     this.storage = new Storage({
-      area: "local"
-    })
+      area: "local",
+      serde: safeStorageSerde
+    } as any)
   }
 
   /**
@@ -168,8 +170,8 @@ export class TldwAuthService {
     // Validate against a protected endpoint that requires auth
     const base = String(serverUrl).replace(/\/$/, '')
     try {
-      // Use an absolute URL and bypass injected auth to verify the provided key directly
-      await bgRequest<any>({ path: `${base}/api/v1/llm/models` as any, method: 'GET' as any, headers: { 'X-API-KEY': apiKey }, noAuth: true })
+      // Use /api/v1/users/me which requires valid authentication
+      await bgRequest<any>({ path: `${base}/api/v1/users/me` as any, method: 'GET' as any, headers: { 'X-API-KEY': apiKey }, noAuth: true })
       return true
     } catch (error: any) {
       console.error('API key test failed:', error?.message || error)

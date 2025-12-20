@@ -10,6 +10,39 @@
   "chatDictionariesNav": "واژه‌نامه‌های چت",
   "charactersNav": "شخصیت‌ها",
   "mediaNav": "رسانه",
+  "chatAppearance": {
+    "title": "ظاهر چت",
+    "description": "رنگ‌ها، فونت‌ها و اندازهٔ متن پیام‌های چت را سفارشی کنید.",
+    "behaviorNote": "دنبال تنظیمات رفتار چت می‌گردید (حالت عریض، استدلال، گزینه‌های کپی)؟",
+    "goToGeneral": "رفتن به تنظیمات عمومی",
+    "userHeading": "پیام‌های کاربر",
+    "assistantHeading": "پیام‌های دستیار",
+    "userColor": "رنگ متن پیام‌های کاربر",
+    "assistantColor": "رنگ متن پیام‌های دستیار",
+    "userFont": "فونت پیام‌های کاربر",
+    "assistantFont": "فونت پیام‌های دستیار",
+    "userSize": "اندازهٔ متن پیام‌های کاربر",
+    "assistantSize": "اندازهٔ متن پیام‌های دستیار",
+    "color": {
+      "default": "پیش‌فرض",
+      "blue": "آبی",
+      "green": "سبز",
+      "purple": "بنفش",
+      "orange": "نارنجی",
+      "red": "قرمز"
+    },
+    "font": {
+      "default": "پیش‌فرض",
+      "sans": "بدون سریف",
+      "serif": "سریف",
+      "mono": "تک‌عرض"
+    },
+    "size": {
+      "sm": "کوچک",
+      "md": "متوسط",
+      "lg": "بزرگ"
+    }
+  },
   "generalSettings": {
     "title": "تنظیمات عمومی",
     "settings": {
@@ -81,7 +114,9 @@
         "label": "Resume the last chat when opening the Web UI"
       },
       "enableOcrAssets": {
-        "label": "Enable OCR (downloads ~5MB on first use)"
+        "label": "فعال‌سازی OCR (دانلود حدود ۵ مگابایت در اولین استفاده)",
+        "downloadNotice": "با فعال کردن OCR، در اولین استفاده حدود ۵ مگابایت دادهٔ زبان دانلود می‌شود.",
+        "assetsEnabled": "دارایی‌های OCR فعال شده و آماده‌اند"
       },
       "ocrLanguage": {
         "label": "Default OCR Language",

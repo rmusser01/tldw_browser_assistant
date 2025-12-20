@@ -14,6 +14,9 @@
   "mediaPage.saveFailed": {
     "message": "Failed to save version"
   },
+  "mediaPage.saveUnauthorized": {
+    "message": "Not authorized to save"
+  },
   "mediaPage.sendToChat": {
     "message": "Send to Chat"
   },
@@ -28,5 +31,23 @@
   },
   "mediaPage.charCount": {
     "message": "{{count}} characters"
+  },
+  "mediaPage.pageRangeError": {
+    "message": "Page must be 1-{{max}}"
+  },
+  "mediaPage.pageRangeClamped": {
+    "message": "Navigating to page {{page}}"
+  },
+  "noToolCalls": {
+    "message": "No tool calls yet"
+  },
+  "arguments": {
+    "message": "Arguments"
+  },
+  "invalidJson": {
+    "message": "Invalid JSON; showing raw value"
+  },
+  "result": {
+    "message": "Result"
   }
 }

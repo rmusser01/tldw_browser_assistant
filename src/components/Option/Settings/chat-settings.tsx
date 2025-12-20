@@ -1,63 +1,16 @@
-import { Select, Switch } from "antd"
+import { Alert, Select } from "antd"
 import { useTranslation } from "react-i18next"
 import { useStorage } from "@plasmohq/storage/hook"
+import { Link } from "react-router-dom"
 import { DEFAULT_CHAT_SETTINGS } from "@/types/chat-settings"
+
+const SELECT_WIDTH = 200
 
 export const ChatSettings = () => {
   const { t } = useTranslation("settings")
 
-  const [webUIResumeLastChat, setWebUIResumeLastChat] = useStorage(
-    "webUIResumeLastChat",
-    DEFAULT_CHAT_SETTINGS.webUIResumeLastChat
-  )
-
-  const [restoreLastChatModel, setRestoreLastChatModel] = useStorage(
-    "restoreLastChatModel",
-    DEFAULT_CHAT_SETTINGS.restoreLastChatModel
-  )
-
-  const [hideCurrentChatModelSettings, setHideCurrentChatModelSettings] =
-    useStorage(
-      "hideCurrentChatModelSettings",
-      DEFAULT_CHAT_SETTINGS.hideCurrentChatModelSettings
-    )
-
-  const [checkWideMode, setCheckWideMode] = useStorage(
-    "checkWideMode",
-    DEFAULT_CHAT_SETTINGS.checkWideMode
-  )
-
-  const [openReasoning, setOpenReasoning] = useStorage(
-    "openReasoning",
-    DEFAULT_CHAT_SETTINGS.openReasoning
-  )
-
-  const [userChatBubble, setUserChatBubble] = useStorage(
-    "userChatBubble",
-    DEFAULT_CHAT_SETTINGS.userChatBubble
-  )
-
-  const [autoCopyResponseToClipboard, setAutoCopyResponseToClipboard] =
-    useStorage(
-      "autoCopyResponseToClipboard",
-      DEFAULT_CHAT_SETTINGS.autoCopyResponseToClipboard
-    )
-
-  const [useMarkdownForUserMessage, setUseMarkdownForUserMessage] =
-    useStorage(
-      "useMarkdownForUserMessage",
-      DEFAULT_CHAT_SETTINGS.useMarkdownForUserMessage
-    )
-
-  const [copyAsFormattedText, setCopyAsFormattedText] = useStorage(
-    "copyAsFormattedText",
-    DEFAULT_CHAT_SETTINGS.copyAsFormattedText
-  )
-
-  const [menuDensity, setMenuDensity] = useStorage(
-    "menuDensity",
-    DEFAULT_CHAT_SETTINGS.menuDensity
-  )
+  // Chat appearance settings (unique to this page)
+  // Behavioral settings (wide mode, reasoning, copy behavior, etc.) are in General Settings
 
   const [userTextColor, setUserTextColor] = useStorage(
     "chatUserTextColor",
@@ -87,107 +40,83 @@ export const ChatSettings = () => {
   const colorOptions = [
     {
       value: "default",
-      label: t("chatSettings.color.default", "Default")
+      label: t("chatAppearance.color.default", "Default")
     },
-    { value: "blue", label: t("chatSettings.color.blue", "Blue") },
-    { value: "green", label: t("chatSettings.color.green", "Green") },
-    { value: "purple", label: t("chatSettings.color.purple", "Purple") },
-    { value: "orange", label: t("chatSettings.color.orange", "Orange") },
-    { value: "red", label: t("chatSettings.color.red", "Red") }
+    { value: "blue", label: t("chatAppearance.color.blue", "Blue") },
+    { value: "green", label: t("chatAppearance.color.green", "Green") },
+    { value: "purple", label: t("chatAppearance.color.purple", "Purple") },
+    { value: "orange", label: t("chatAppearance.color.orange", "Orange") },
+    { value: "red", label: t("chatAppearance.color.red", "Red") }
   ]
 
   const fontOptions = [
     {
       value: "default",
-      label: t("chatSettings.font.default", "Default")
+      label: t("chatAppearance.font.default", "Default")
     },
-    { value: "sans", label: t("chatSettings.font.sans", "Sans serif") },
-    { value: "serif", label: t("chatSettings.font.serif", "Serif") },
-    { value: "mono", label: t("chatSettings.font.mono", "Monospace") }
+    { value: "sans", label: t("chatAppearance.font.sans", "Sans serif") },
+    { value: "serif", label: t("chatAppearance.font.serif", "Serif") },
+    { value: "mono", label: t("chatAppearance.font.mono", "Monospace") }
   ]
 
   const sizeOptions = [
-    { value: "sm", label: t("chatSettings.size.sm", "Small") },
-    { value: "md", label: t("chatSettings.size.md", "Medium") },
-    { value: "lg", label: t("chatSettings.size.lg", "Large") }
+    { value: "sm", label: t("chatAppearance.size.sm", "Small") },
+    { value: "md", label: t("chatAppearance.size.md", "Medium") },
+    { value: "lg", label: t("chatAppearance.size.lg", "Large") }
   ]
 
   return (
     <dl className="flex flex-col space-y-6 text-sm">
       <div>
         <h2 className="text-base font-semibold leading-7 text-gray-900 dark:text-white">
-          {t("chatSettings.title", "Chat settings")}
+          {t("chatAppearance.title", "Chat Appearance")}
         </h2>
         <p className="mt-1 text-sm text-gray-600 dark:text-gray-300">
           {t(
-            "chatSettings.description",
-            "Control default behavior for the chat playground and composer."
+            "chatAppearance.description",
+            "Customize colors, fonts, and text sizes for chat messages."
           )}
         </p>
         <div className="border border-b border-gray-200 dark:border-gray-600 mt-3" />
       </div>
 
-      <div className="flex flex-row justify-between">
-        <div className="inline-flex items-center gap-2">
-          <span className="text-gray-700 dark:text-neutral-50">
+      {/* Note about behavioral settings */}
+      <Alert
+        type="info"
+        showIcon
+        message={
+          <span>
             {t(
-              "generalSettings.settings.webUIResumeLastChat.label",
-              "Resume the last chat when opening the Web UI"
-            )}
+              "chatAppearance.behaviorNote",
+              "Looking for chat behavior settings (wide mode, reasoning, copy options)?"
+            )}{" "}
+            <Link
+              to="/settings"
+              className="text-blue-600 hover:text-blue-500 dark:text-blue-400 underline"
+            >
+              {t("chatAppearance.goToGeneral", "Go to General Settings")}
+            </Link>
           </span>
-        </div>
-        <Switch
-          checked={webUIResumeLastChat}
-          onChange={(checked) => setWebUIResumeLastChat(checked)}
-        />
-      </div>
-
-      <div className="flex flex-row justify-between">
-        <div className="inline-flex items-center gap-2">
-          <span className="text-gray-700 dark:text-neutral-50">
-            {t(
-              "generalSettings.settings.restoreLastChatModel.label",
-              "Restore last used model for previous chats"
-            )}
-          </span>
-        </div>
-
-        <Switch
-          checked={restoreLastChatModel}
-          onChange={(checked) => setRestoreLastChatModel(checked)}
-        />
-      </div>
-
-      <div className="flex flex-row justify-between">
-        <div className="inline-flex items-center gap-2">
-          <span className="text-gray-700 dark:text-neutral-50">
-            {t(
-              "generalSettings.settings.hideCurrentChatModelSettings.label",
-              "Hide the current Chat Model Settings"
-            )}
-          </span>
-        </div>
-
-        <Switch
-          checked={hideCurrentChatModelSettings}
-          onChange={(checked) => setHideCurrentChatModelSettings(checked)}
-        />
-      </div>
+        }
+        className="!py-2"
+      />
 
       <div className="pt-4">
         <h3 className="text-sm font-semibold leading-6 text-gray-900 dark:text-white">
-          {t("chatSettings.userHeading", "User messages")}
+          {t("chatAppearance.userHeading", "User messages")}
         </h3>
       </div>
 
       <div className="flex flex-row justify-between">
-        <div className="inline-flex items-center gap-2">
-          <span className="text-gray-700 dark:text-neutral-50">
-            {t("chatSettings.userColor", "User text color")}
-          </span>
-        </div>
+        <label
+          htmlFor="user-text-color"
+          className="inline-flex items-center gap-2 text-gray-700 dark:text-neutral-50"
+        >
+          {t("chatAppearance.userColor", "User text color")}
+        </label>
         <Select
-          style={{ width: 200 }}
+          id="user-text-color"
+          style={{ width: SELECT_WIDTH }}
           value={userTextColor}
           onChange={(value) => setUserTextColor(value)}
           options={colorOptions}
@@ -195,13 +124,15 @@ export const ChatSettings = () => {
       </div>
 
       <div className="flex flex-row justify-between">
-        <div className="inline-flex items-center gap-2">
-          <span className="text-gray-700 dark:text-neutral-50">
-            {t("chatSettings.userFont", "User font")}
-          </span>
-        </div>
+        <label
+          htmlFor="user-text-font"
+          className="inline-flex items-center gap-2 text-gray-700 dark:text-neutral-50"
+        >
+          {t("chatAppearance.userFont", "User font")}
+        </label>
         <Select
-          style={{ width: 200 }}
+          id="user-text-font"
+          style={{ width: SELECT_WIDTH }}
           value={userTextFont}
           onChange={(value) => setUserTextFont(value)}
           options={fontOptions}
@@ -209,13 +140,15 @@ export const ChatSettings = () => {
       </div>
 
       <div className="flex flex-row justify-between">
-        <div className="inline-flex items-center gap-2">
-          <span className="text-gray-700 dark:text-neutral-50">
-            {t("chatSettings.userSize", "User text size")}
-          </span>
-        </div>
+        <label
+          htmlFor="user-text-size"
+          className="inline-flex items-center gap-2 text-gray-700 dark:text-neutral-50"
+        >
+          {t("chatAppearance.userSize", "User text size")}
+        </label>
         <Select
-          style={{ width: 200 }}
+          id="user-text-size"
+          style={{ width: SELECT_WIDTH }}
           value={userTextSize}
           onChange={(value) => setUserTextSize(value)}
           options={sizeOptions}
@@ -224,18 +157,20 @@ export const ChatSettings = () => {
 
       <div className="pt-4">
         <h3 className="text-sm font-semibold leading-6 text-gray-900 dark:text-white">
-          {t("chatSettings.assistantHeading", "Assistant messages")}
+          {t("chatAppearance.assistantHeading", "Assistant messages")}
         </h3>
       </div>
 
       <div className="flex flex-row justify-between">
-        <div className="inline-flex items-center gap-2">
-          <span className="text-gray-700 dark:text-neutral-50">
-            {t("chatSettings.assistantColor", "Assistant text color")}
-          </span>
-        </div>
+        <label
+          htmlFor="assistant-text-color"
+          className="inline-flex items-center gap-2 text-gray-700 dark:text-neutral-50"
+        >
+          {t("chatAppearance.assistantColor", "Assistant text color")}
+        </label>
         <Select
-          style={{ width: 200 }}
+          id="assistant-text-color"
+          style={{ width: SELECT_WIDTH }}
           value={assistantTextColor}
           onChange={(value) => setAssistantTextColor(value)}
           options={colorOptions}
@@ -243,13 +178,15 @@ export const ChatSettings = () => {
       </div>
 
       <div className="flex flex-row justify-between">
-        <div className="inline-flex items-center gap-2">
-          <span className="text-gray-700 dark:text-neutral-50">
-            {t("chatSettings.assistantFont", "Assistant font")}
-          </span>
-        </div>
+        <label
+          htmlFor="assistant-text-font"
+          className="inline-flex items-center gap-2 text-gray-700 dark:text-neutral-50"
+        >
+          {t("chatAppearance.assistantFont", "Assistant font")}
+        </label>
         <Select
-          style={{ width: 200 }}
+          id="assistant-text-font"
+          style={{ width: SELECT_WIDTH }}
           value={assistantTextFont}
           onChange={(value) => setAssistantTextFont(value)}
           options={fontOptions}
@@ -257,144 +194,18 @@ export const ChatSettings = () => {
       </div>
 
       <div className="flex flex-row justify-between">
-        <div className="inline-flex items-center gap-2">
-          <span className="text-gray-700 dark:text-neutral-50">
-            {t("chatSettings.assistantSize", "Assistant text size")}
-          </span>
-        </div>
+        <label
+          htmlFor="assistant-text-size"
+          className="inline-flex items-center gap-2 text-gray-700 dark:text-neutral-50"
+        >
+          {t("chatAppearance.assistantSize", "Assistant text size")}
+        </label>
         <Select
-          style={{ width: 200 }}
+          id="assistant-text-size"
+          style={{ width: SELECT_WIDTH }}
           value={assistantTextSize}
           onChange={(value) => setAssistantTextSize(value)}
           options={sizeOptions}
-        />
-      </div>
-
-      <div className="flex flex-row justify-between">
-        <div className="inline-flex items-center gap-2">
-          <span className="text-gray-700 dark:text-neutral-50">
-            {t(
-              "generalSettings.settings.wideMode.label",
-              "Enable wide screen mode"
-            )}
-          </span>
-        </div>
-
-        <Switch
-          checked={checkWideMode}
-          onChange={(checked) => setCheckWideMode(checked)}
-        />
-      </div>
-
-      <div className="flex flex-row justify-between">
-        <div className="inline-flex items-center gap-2">
-          <span className="text-gray-700 dark:text-neutral-50">
-            {t(
-              "generalSettings.settings.menuDensity.label",
-              "Menu density"
-            )}
-          </span>
-        </div>
-        <Select
-          style={{ width: 200 }}
-          value={menuDensity}
-          onChange={(v) => setMenuDensity(v)}
-          options={[
-            {
-              value: "comfortable",
-              label: t(
-                "generalSettings.settings.menuDensity.comfortable",
-                "Comfortable"
-              )
-            },
-            {
-              value: "compact",
-              label: t(
-                "generalSettings.settings.menuDensity.compact",
-                "Compact"
-              )
-            }
-          ]}
-        />
-      </div>
-
-      <div className="flex flex-row justify-between">
-        <div className="inline-flex items-center gap-2">
-          <span className="text-gray-700 dark:text-neutral-50">
-            {t(
-              "generalSettings.settings.openReasoning.label",
-              "Open Reasoning Collapse by default"
-            )}
-          </span>
-        </div>
-
-        <Switch
-          checked={openReasoning}
-          onChange={(checked) => setOpenReasoning(checked)}
-        />
-      </div>
-
-      <div className="flex flex-row justify-between">
-        <div className="inline-flex items-center gap-2">
-          <span className="text-gray-700 dark:text-neutral-50">
-            {t(
-              "generalSettings.settings.userChatBubble.label",
-              "Use Chat Bubble for User Messages"
-            )}
-          </span>
-        </div>
-
-        <Switch
-          checked={userChatBubble}
-          onChange={(checked) => setUserChatBubble(checked)}
-        />
-      </div>
-
-      <div className="flex flex-row justify-between">
-        <div className="inline-flex items-center gap-2">
-          <span className="text-gray-700 dark:text-neutral-50">
-            {t(
-              "generalSettings.settings.autoCopyResponseToClipboard.label",
-              "Automatically Copy Response to Clipboard"
-            )}
-          </span>
-        </div>
-
-        <Switch
-          checked={autoCopyResponseToClipboard}
-          onChange={(checked) => setAutoCopyResponseToClipboard(checked)}
-        />
-      </div>
-
-      <div className="flex flex-row justify-between">
-        <div className="inline-flex items-center gap-2">
-          <span className="text-gray-700 dark:text-neutral-50">
-            {t(
-              "generalSettings.settings.useMarkdownForUserMessage.label",
-              "Enable Markdown formatting for User messages"
-            )}
-          </span>
-        </div>
-
-        <Switch
-          checked={useMarkdownForUserMessage}
-          onChange={(checked) => setUseMarkdownForUserMessage(checked)}
-        />
-      </div>
-
-      <div className="flex flex-row justify-between">
-        <div className="inline-flex items-center gap-2">
-          <span className="text-gray-700 dark:text-neutral-50">
-            {t(
-              "generalSettings.settings.copyAsFormattedText.label",
-              "Copy as Formatted Text"
-            )}
-          </span>
-        </div>
-
-        <Switch
-          checked={copyAsFormattedText}
-          onChange={(checked) => setCopyAsFormattedText(checked)}
         />
       </div>
     </dl>

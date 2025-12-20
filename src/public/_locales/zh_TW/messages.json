@@ -63,6 +63,18 @@
     "message": "移至資料夾",
     "description": "Action label to move an item to a folder."
   },
+  "enableOcrAssets_label": {
+    "message": "啟用 OCR（首次使用時下載約 5MB）"
+  },
+  "enableOcrAssets_downloadNotice": {
+    "message": "啟用 OCR 後，首次使用時將下載約 5MB 的語言資料。"
+  },
+  "enableOcrAssets_assetsEnabled": {
+    "message": "OCR 資源已啟用並可使用"
+  },
+  "quickIngest_ocrHelp": {
+    "message": "OCR 可協助從掃描的 PDF 或圖片中擷取文字。"
+  },
   "specReloadedToast": {
     "message": "進階規格已從伺服器重新載入",
     "description": "Toast shown after reloading the Quick Ingest advanced schema from the server."
@@ -74,5 +86,349 @@
   "specFallbackWarning": {
     "message": "使用內建 media.add 綱要備用版本（v{{version}}）；若欄位似乎過時，請對照您的 tldw_server /openapi.json 進行驗證。",
     "description": "Warning shown when the Quick Ingest advanced schema falls back to the bundled schema; contains the bundled schema version."
+  },
+  "serverChatsUnavailableNotConnected": {
+    "message": "連線到 tldw 伺服器後即可使用伺服器聊天。"
+  },
+  "serverChatsUnavailableServerError": {
+    "message": "目前無法使用伺服器聊天。請檢查伺服器記錄或稍後再試。"
+  },
+  "noToolCalls": {
+    "message": "尚未有工具呼叫"
+  },
+  "arguments": {
+    "message": "參數"
+  },
+  "invalidJson": {
+    "message": "JSON 無效；顯示原始值"
+  },
+  "result": {
+    "message": "結果"
+  },
+  "tools_fs_list": {
+    "message": "列出目錄",
+    "description": "Label for the fs.list tool (list directory)."
+  },
+  "tools_fs_read": {
+    "message": "讀取檔案",
+    "description": "Label for the fs.read tool (read file)."
+  },
+  "tools_fs_write": {
+    "message": "寫入檔案",
+    "description": "Label for the fs.write tool (write file)."
+  },
+  "tools_fs_apply_patch": {
+    "message": "套用補丁",
+    "description": "Label for the fs.apply_patch tool (apply patch)."
+  },
+  "tools_fs_mkdir": {
+    "message": "建立目錄",
+    "description": "Label for the fs.mkdir tool (create directory)."
+  },
+  "tools_fs_delete": {
+    "message": "刪除",
+    "description": "Label for the fs.delete tool (delete file or directory)."
+  },
+  "tools_search_grep": {
+    "message": "搜尋內容",
+    "description": "Label for the search.grep tool (search file contents)."
+  },
+  "tools_search_glob": {
+    "message": "尋找檔案",
+    "description": "Label for the search.glob tool (find files by pattern)."
+  },
+  "tools_git_status": {
+    "message": "Git 狀態",
+    "description": "Label for the git.status tool."
+  },
+  "tools_git_diff": {
+    "message": "Git 差異",
+    "description": "Label for the git.diff tool."
+  },
+  "tools_git_log": {
+    "message": "Git 日誌",
+    "description": "Label for the git.log tool."
+  },
+  "tools_git_branch": {
+    "message": "Git 分支",
+    "description": "Label for the git.branch tool."
+  },
+  "tools_git_add": {
+    "message": "暫存檔案",
+    "description": "Label for the git.add tool (stage files)."
+  },
+  "tools_git_commit": {
+    "message": "提交",
+    "description": "Label for the git.commit tool."
+  },
+  "tools_exec_run": {
+    "message": "執行命令",
+    "description": "Label for the exec.run tool (run command)."
+  },
+  "commandPalette_goToChat": {
+    "message": "前往聊天",
+    "description": "Command palette action label to navigate to the Chat screen."
+  },
+  "commandPalette_goToMedia": {
+    "message": "前往媒體",
+    "description": "Command palette action label to navigate to the Media screen."
+  },
+  "commandPalette_goToNotes": {
+    "message": "前往筆記",
+    "description": "Command palette action label to navigate to the Notes screen."
+  },
+  "commandPalette_goToFlashcards": {
+    "message": "前往抽認卡",
+    "description": "Command palette action label to navigate to the Flashcards screen."
+  },
+  "commandPalette_goToSettings": {
+    "message": "前往設定",
+    "description": "Command palette action label to navigate to the Settings screen."
+  },
+  "commandPalette_goToHealth": {
+    "message": "前往 Health & diagnostics",
+    "description": "Command palette action label to open the Health & diagnostics screen."
+  },
+  "commandPalette_newChat": {
+    "message": "新聊天",
+    "description": "Command palette action label to start a new chat."
+  },
+  "commandPalette_toggleKnowledgeSearch": {
+    "message": "切換知識搜尋",
+    "description": "Command palette toggle label for enabling or disabling knowledge search."
+  },
+  "commandPalette_toggleKnowledgeSearchDesc": {
+    "message": "在你的知識庫中搜尋",
+    "description": "Command palette description text explaining the knowledge search toggle."
+  },
+  "commandPalette_toggleWebSearch": {
+    "message": "切換網路搜尋",
+    "description": "Command palette toggle label for enabling or disabling web search."
+  },
+  "commandPalette_toggleWebDesc": {
+    "message": "在網際網路上搜尋",
+    "description": "Command palette description text explaining the web search toggle."
+  },
+  "commandPalette_ingestPage": {
+    "message": "擷取目前頁面",
+    "description": "Command palette action label to ingest the current page into knowledge."
+  },
+  "commandPalette_ingestDesc": {
+    "message": "將此頁面儲存到你的知識庫",
+    "description": "Command palette description text explaining page ingestion into knowledge."
+  },
+  "commandPalette_switchModel": {
+    "message": "切換模型",
+    "description": "Command palette action label to switch the active chat/model."
+  },
+  "commandPalette_toggleSidebar": {
+    "message": "切換側邊欄",
+    "description": "Command palette toggle label to show or hide the sidepanel."
+  },
+  "commandPalette_toggleSidebarDesc": {
+    "message": "顯示或隱藏聊天側邊欄",
+    "description": "Command palette description text explaining the sidebar visibility toggle."
+  },
+  "commandPalette_placeholder": {
+    "message": "輸入指令或搜尋…",
+    "description": "Placeholder text shown in the command palette input."
+  },
+  "commandPalette_noResults": {
+    "message": "找不到結果",
+    "description": "No-results state text in the command palette when nothing matches the query."
+  },
+  "commandPalette_title": {
+    "message": "指令選單",
+    "description": "Title of the command palette UI."
+  },
+  "commandPalette_navigate": {
+    "message": "瀏覽",
+    "description": "Command palette keyboard hint label for navigation."
+  },
+  "commandPalette_select": {
+    "message": "選取",
+    "description": "Command palette keyboard hint label for selection."
+  },
+  "commandPalette_toOpen": {
+    "message": "以開啟",
+    "description": "Command palette keyboard hint label indicating the shortcut to open an item."
+  },
+  "commandPalette_categoryActions": {
+    "message": "動作",
+    "description": "Label for the Actions category in the command palette."
+  },
+  "commandPalette_categoryNavigation": {
+    "message": "導覽",
+    "description": "Label for the Navigation category in the command palette."
+  },
+  "commandPalette_categorySettings": {
+    "message": "設定",
+    "description": "Label for the Settings category in the command palette."
+  },
+  "commandPalette_categoryRecent": {
+    "message": "最近使用",
+    "description": "Label for the Recent items category in the command palette."
+  },
+  "markdown_unableToRender": {
+    "message": "無法呈現內容"
+  },
+  "markdown_couldNotDisplay": {
+    "message": "訊息內容無法顯示。可能是格式無效所致。"
+  },
+  "markdown_showRawContent": {
+    "message": "顯示原始內容"
+  },
+  "notesSearch_exportNoteSuccess": {
+    "message": "Exported ({{size}})"
+  },
+  "notesSearch_exportSuccess": {
+    "message": "Exported {{count}} notes ({{size}})"
+  },
+  "notesSearch_exportCsvSuccess": {
+    "message": "Exported {{count}} notes as CSV ({{size}})"
+  },
+  "notesSearch_exportJsonSuccess": {
+    "message": "Exported {{count}} notes as JSON ({{size}})"
+  },
+  "exportNoteSuccess": {
+    "message": "已匯出（{{size}}）"
+  },
+  "exportSuccess": {
+    "message": "已匯出 {{count}} 篇筆記（{{size}}）"
+  },
+  "exportCsvSuccess": {
+    "message": "已將 {{count}} 篇筆記匯出為 CSV（{{size}}）"
+  },
+  "exportJsonSuccess": {
+    "message": "已將 {{count}} 篇筆記匯出為 JSON（{{size}}）"
+  },
+  "infoShort": {
+    "message": "資訊"
+  },
+  "regenShort": {
+    "message": "重試"
+  },
+  "continueShort": {
+    "message": "更多"
+  },
+  "error_label": {
+    "message": "錯誤"
+  },
+  "error_friendlyApiKeySummary": {
+    "message": "無法連線到您的 tldw 伺服器。"
+  },
+  "error_friendlyApiKeyHint": {
+    "message": "您的 API 金鑰可能無效。開啟「設定」→「tldw 伺服器」檢查 URL 與 API 金鑰，然後再試一次。"
+  },
+  "error_friendlyTimeoutSummary": {
+    "message": "您的聊天已逾時。"
+  },
+  "error_friendlyTimeoutHint": {
+    "message": "伺服器停止串流回應。請重試，或開啟 Health & diagnostics 查看伺服器狀態。"
+  },
+  "error_friendlyGenericSummary": {
+    "message": "與您的 tldw 伺服器通訊時發生問題。"
+  },
+  "error_friendlyGenericHint": {
+    "message": "請稍後再試，或開啟 Health & diagnostics 檢查伺服器狀態。"
+  },
+  "error_showDetails": {
+    "message": "顯示技術詳細資訊"
+  },
+  "error_hideDetails": {
+    "message": "隱藏技術詳細資訊"
+  },
+  "error_createFolder": {
+    "message": "Failed to create folder"
+  },
+  "modelSelect_label": {
+    "message": "Model"
+  },
+  "modelSelect_tooltip": {
+    "message": "Changes model for next message"
+  },
+  "featureHints_knowledge_title": {
+    "message": "搜尋你的知識"
+  },
+  "featureHints_knowledge_description": {
+    "message": "開啟知識搜尋面板，尋找片段並插入到聊天中。"
+  },
+  "featureHints_moreTools_title": {
+    "message": "更多工具可用"
+  },
+  "featureHints_moreTools_description": {
+    "message": "使用視覺模式、圖片上傳、快速匯入和完整應用程式。"
+  },
+  "featureHints_commandPalette_title": {
+    "message": "快速指令"
+  },
+  "featureHints_commandPalette_description": {
+    "message": "按下 {{shortcut}} 搜尋指令、設定等。"
+  },
+  "featureHints_modelSettings_title": {
+    "message": "調整模型參數"
+  },
+  "featureHints_modelSettings_description": {
+    "message": "微調溫度、上下文長度和其他模型設定。"
+  },
+  "chatSidebar_title": {
+    "message": "聊天"
+  },
+  "chatSidebar_newChat": {
+    "message": "新聊天"
+  },
+  "chatSidebar_collapse": {
+    "message": "收合側邊欄"
+  },
+  "chatSidebar_expand": {
+    "message": "展開側邊欄"
+  },
+  "chatSidebar_search": {
+    "message": "搜尋聊天..."
+  },
+  "chatSidebar_ingest": {
+    "message": "匯入頁面"
+  },
+  "chatSidebar_media": {
+    "message": "媒體"
+  },
+  "chatSidebar_notes": {
+    "message": "筆記"
+  },
+  "chatSidebar_settings": {
+    "message": "設定"
+  },
+  "chatSidebar_loadError": {
+    "message": "無法載入聊天"
+  },
+  "chatSidebar_localTab": {
+    "message": "本機"
+  },
+  "chatSidebar_serverTab": {
+    "message": "伺服器"
+  },
+  "chatSidebar_foldersTab": {
+    "message": "資料夾"
+  },
+  "chatSidebar_tabs_local": {
+    "message": "本機"
+  },
+  "chatSidebar_tabs_server": {
+    "message": "伺服器"
+  },
+  "chatSidebar_tabs_folders": {
+    "message": "資料夾"
+  },
+  "chatSidebar_noServerChats": {
+    "message": "尚無伺服器聊天"
+  },
+  "chatSidebar_foldersRequireConnection": {
+    "message": "資料夾需要伺服器連線"
+  },
+  "option.more.copy.canonicalMarkdown": {
+    "message": "Copy canonical transcript"
+  },
+  "option.more.download.canonicalMarkdown": {
+    "message": "Canonical transcript (Markdown)"
   }
 }

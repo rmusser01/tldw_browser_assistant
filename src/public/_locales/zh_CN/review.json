@@ -28,5 +28,23 @@
   },
   "mediaPage.charCount": {
     "message": "{{count}} 个字符"
+  },
+  "mediaPage.pageRangeError": {
+    "message": "页码必须为 1-{{max}}"
+  },
+  "mediaPage.pageRangeClamped": {
+    "message": "正在导航至第 {{page}} 页"
+  },
+  "noToolCalls": {
+    "message": "尚无工具调用"
+  },
+  "arguments": {
+    "message": "参数"
+  },
+  "invalidJson": {
+    "message": "JSON 无效；显示原始值"
+  },
+  "result": {
+    "message": "结果"
   }
 }

@@ -1,0 +1,53 @@
+{
+  "mediaPage.nothingToSend": {
+    "message": "没有可发送的内容"
+  },
+  "mediaPage.emptyAnalysis": {
+    "message": "分析内容不能为空"
+  },
+  "mediaPage.noMediaId": {
+    "message": "没有可用的媒体 ID"
+  },
+  "mediaPage.versionSaved": {
+    "message": "已保存为新版本"
+  },
+  "mediaPage.saveFailed": {
+    "message": "保存版本失败"
+  },
+  "mediaPage.saveUnauthorized": {
+    "message": "没有权限保存"
+  },
+  "mediaPage.sendToChat": {
+    "message": "发送到聊天"
+  },
+  "mediaPage.saveAsVersion": {
+    "message": "保存为新版本"
+  },
+  "mediaPage.analysisPlaceholder": {
+    "message": "请输入分析文本..."
+  },
+  "mediaPage.wordCount": {
+    "message": "{{count}} 个单词"
+  },
+  "mediaPage.charCount": {
+    "message": "{{count}} 个字符"
+  },
+  "mediaPage.pageRangeError": {
+    "message": "页码必须在 1 到 {{max}} 之间"
+  },
+  "mediaPage.pageRangeClamped": {
+    "message": "正在导航至第 {{page}} 页"
+  },
+  "noToolCalls": {
+    "message": "尚无工具调用"
+  },
+  "arguments": {
+    "message": "参数"
+  },
+  "invalidJson": {
+    "message": "JSON 无效；显示原始值"
+  },
+  "result": {
+    "message": "结果"
+  }
+}

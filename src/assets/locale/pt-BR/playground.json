@@ -1,7 +1,7 @@
 {
   "formError": {
     "noModel": "Por favor, selecione um modelo",
-    "noEmbeddingModel": "Por favor, configure um modelo de incorporação na página Configurações > RAG"
+    "noEmbeddingModel": "Por favor, configure um modelo de incorporação na página Configurações > Conhecimento"
   },
   "form": {
     "textarea": {
@@ -127,11 +127,11 @@
   },
   "more": {
     "history": "Chat saving",
-    "searchRag": "Search & RAG",
+    "searchKnowledge": "Pesquisar & Conhecimento",
     "voice": "More voice options",
     "uploads": "Uploads & ingest"
   },
-  "fileRetrievalEnabled": "Enable RAG for Documents",
+  "fileRetrievalEnabled": "Ativar Conhecimento para Documentos",
   "stt": {
     "title": "STT Playground",
     "subtitle": "Try out transcription models, run longer dictation sessions, and save transcripts into Notes.",
@@ -223,6 +223,12 @@
       "serverSaved": "Future messages in this chat will sync to your tldw server.",
       "serverCharacterRequired": "Unable to find or create a default assistant character on the server. Try again from the Characters page."
     },
-    "connectToSend": "Connect to your tldw server in Settings to send messages and view media."
+    "connectToSend": "Conecte seu servidor tldw nas Configurações para enviar mensagens e ver mídias.",
+    "compareTag": "Comparar",
+    "compareMaxModelsTitle": "Limite de comparação atingido",
+    "compareMaxModels": "Você pode comparar até {{limit}} modelos por vez.",
+    "compareMaxModelsTrimmed": "A comparação é limitada a {{limit}} modelos por vez. Usando os primeiros {{limit}} modelos selecionados.",
+    "compareMaxLabel": "Máximo de modelos por vez",
+    "compareMaxHelper": "Selecionados {{current}} / {{limit}}"
   }
 }

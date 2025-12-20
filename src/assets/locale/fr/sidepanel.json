@@ -12,6 +12,28 @@
     "privateModeTitle": "tldw Assistant ne peut pas enregistrer les données",
     "privateModeDescription": "Le mode privé de Firefox ne permet pas d’enregistrer l’historique des discussions. Le chat temporaire est activé par défaut. D’autres améliorations arrivent bientôt."
   },
+  "connectionBanner": {
+    "connecting": "Connexion à votre serveur tldw...",
+    "authErrorTitle": "La clé API nécessite une attention",
+    "authErrorBody": "Votre serveur est accessible, mais la clé API est incorrecte ou manquante.",
+    "unreachableTitle": "Impossible de joindre votre serveur tldw",
+    "unreachableBody": "Vérifiez que votre serveur est en cours d'exécution et accessible.",
+    "noUrlBody": "Ajoutez l'URL du serveur dans les paramètres pour commencer.",
+    "disconnectedTitle": "Non connecté au serveur tldw",
+    "disconnectedBody": "Ouvrez les paramètres pour configurer votre connexion au serveur.",
+    "setupTitle": "Terminez la configuration pour commencer à discuter",
+    "setupBody": "Terminez l'assistant de configuration dans les paramètres pour vous connecter.",
+    "openSettings": "Ouvrir les paramètres"
+  },
+  "temporaryBadge": {
+    "title": "Chat temporaire",
+    "label": "Temp",
+    "description": "Ce chat ne sera pas enregistré. Les messages seront effacés lorsque vous fermez ou démarrez un nouveau chat.",
+    "clickHint": "Cliquez pour désactiver",
+    "ariaLabel": "Le mode chat temporaire est actif. Cliquez pour basculer.",
+    "indicatorTooltip": "Les messages de ce chat ne seront pas enregistrés",
+    "indicatorAria": "Chat temporaire"
+  },
   "header": {
     "ingest": "Ingest",
     "saveCurrent": "Save current page on server",
@@ -74,6 +96,13 @@
     "transcriptLabel": "Transcript",
     "summaryLabel": "Summary"
   },
+  "saveStatus": {
+    "ephemeral": "Temporaire : non enregistré, effacé à la fermeture",
+    "local": "Enregistré localement dans ce navigateur",
+    "server": "Enregistré sur le serveur",
+    "saveFailed": "Impossible d'enregistrer le chat sur le serveur",
+    "saveFailedDescription": "Le chat est maintenant enregistré uniquement en local. Vérifiez votre connexion et réessayez."
+  },
   "rag": {
     "searchPlaceholder": "Search your knowledge…",
     "search": "Search",
@@ -92,6 +121,10 @@
       "ask": "Ask",
       "open": "Open",
       "copy": "Copy"
+    },
+    "hint": {
+      "message": "Recherchez dans votre base de connaissances et insérez les résultats dans votre message.",
+      "dismiss": "Fermer"
     }
   }
 }

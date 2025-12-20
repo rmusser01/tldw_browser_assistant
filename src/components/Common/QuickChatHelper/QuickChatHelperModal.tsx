@@ -7,6 +7,12 @@ import { useQuickChatStore } from "@/store/quick-chat"
 import { QuickChatMessage } from "./QuickChatMessage"
 import { QuickChatInput } from "./QuickChatInput"
 import { browser } from "wxt/browser"
+import { useConnectionPhase, useIsConnected } from "@/hooks/useConnectionState"
+import { ConnectionPhase } from "@/types/connection"
+
+const EMPTY_POP_OUT_TOOLTIP_STYLES = {
+  root: { maxWidth: "200px" }
+}
 
 type Props = {
   open: boolean
@@ -23,13 +29,17 @@ export const QuickChatHelperModal: React.FC<Props> = ({ open, onClose }) => {
     isStreaming,
     hasModel
   } = useQuickChat()
+  const phase = useConnectionPhase()
+  const isConnected = useIsConnected()
+  const isConnectionReady = isConnected && phase === ConnectionPhase.CONNECTED
 
-  // Scroll to bottom when messages change
+  // Scroll to bottom when messages change or streaming completes
   useEffect(() => {
-    if (messagesEndRef.current) {
-      messagesEndRef.current.scrollIntoView({ behavior: "smooth" })
+    if (!messagesEndRef.current || messages.length === 0) {
+      return
     }
-  }, [messages])
+    messagesEndRef.current.scrollIntoView({ behavior: "smooth" })
+  }, [messages, isStreaming])
 
   const handlePopOut = useCallback(() => {
     // Serialize current state to sessionStorage
@@ -59,6 +69,19 @@ export const QuickChatHelperModal: React.FC<Props> = ({ open, onClose }) => {
     "Start a quick side chat to keep your main thread clean."
   )
   const popOutLabel = t("quickChatHelper.popOutButton", "Pop out")
+  const popOutDisabledTooltip = t(
+    "quickChatHelper.popOutDisabled",
+    "Pop-out is disabled when there are no messages. Start a conversation first."
+  )
+  const connectionLabel = isConnectionReady
+    ? t("common:connected", "Connected")
+    : t("common:notConnected", "Not connected")
+  const connectionBadgeClass = isConnectionReady
+    ? "border-emerald-200 bg-emerald-50 text-emerald-700 dark:border-emerald-500/40 dark:bg-emerald-500/10 dark:text-emerald-100"
+    : "border-amber-200 bg-amber-50 text-amber-700 dark:border-amber-500/40 dark:bg-amber-500/10 dark:text-amber-100"
+  const connectionDotClass = isConnectionReady
+    ? "bg-emerald-500"
+    : "bg-amber-500"
   const descriptionId =
     messages.length === 0 ? "quick-chat-description" : undefined
 
@@ -67,7 +90,11 @@ export const QuickChatHelperModal: React.FC<Props> = ({ open, onClose }) => {
       title={
         <div className="flex items-center justify-between pr-8">
           <span id="quick-chat-title">{title}</span>
-          <Tooltip title={popOutLabel}>
+          <Tooltip
+            title={messages.length === 0 ? popOutDisabledTooltip : popOutLabel}
+            styles={
+              messages.length === 0 ? EMPTY_POP_OUT_TOOLTIP_STYLES : undefined
+            }>
             <Button
               type="text"
               size="small"
@@ -90,6 +117,16 @@ export const QuickChatHelperModal: React.FC<Props> = ({ open, onClose }) => {
       aria-labelledby="quick-chat-title"
       aria-describedby={descriptionId}>
       <div className="flex flex-col h-[50vh] max-h-[400px]">
+        <div className="flex items-center justify-end px-1 pb-2">
+          <span
+            role="status"
+            aria-live="polite"
+            className={`inline-flex items-center gap-1 rounded-full border px-2 py-0.5 text-[11px] font-medium ${connectionBadgeClass}`}
+          >
+            <span className={`h-1.5 w-1.5 rounded-full ${connectionDotClass}`} />
+            <span>{connectionLabel}</span>
+          </span>
+        </div>
         {/* Messages area */}
         <div
           className="flex-1 overflow-y-auto px-1 py-2"

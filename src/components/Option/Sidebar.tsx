@@ -1040,9 +1040,8 @@ export const Sidebar = ({
                     {chat.parent_conversation_id ? (
                       <Tooltip
                         title={t("common:serverChatForkedTooltip", {
-                          defaultValue: `Forked from chat ${String(
-                            chat.parent_conversation_id
-                          ).slice(0, 8)}`
+                          chatId: String(chat.parent_conversation_id).slice(0, 8),
+                          defaultValue: "Forked from chat {{chatId}}"
                         })}>
                         <span className="inline-flex items-center gap-1">
                           <GitBranch className="size-3" />

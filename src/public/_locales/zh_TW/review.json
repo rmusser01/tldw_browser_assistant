@@ -1,0 +1,50 @@
+{
+  "mediaPage.nothingToSend": {
+    "message": "沒有可傳送的內容"
+  },
+  "mediaPage.emptyAnalysis": {
+    "message": "分析內容不能為空"
+  },
+  "mediaPage.noMediaId": {
+    "message": "沒有可用的媒體 ID"
+  },
+  "mediaPage.versionSaved": {
+    "message": "已儲存為新版本"
+  },
+  "mediaPage.saveFailed": {
+    "message": "儲存版本失敗"
+  },
+  "mediaPage.sendToChat": {
+    "message": "傳送到聊天"
+  },
+  "mediaPage.saveAsVersion": {
+    "message": "儲存為新版本"
+  },
+  "mediaPage.analysisPlaceholder": {
+    "message": "請輸入分析文字..."
+  },
+  "mediaPage.wordCount": {
+    "message": "{{count}} 個單字"
+  },
+  "mediaPage.charCount": {
+    "message": "{{count}} 個字元"
+  },
+  "mediaPage.pageRangeError": {
+    "message": "頁碼必須為 1-{{max}}"
+  },
+  "mediaPage.pageRangeClamped": {
+    "message": "正在導航至第 {{page}} 頁"
+  },
+  "noToolCalls": {
+    "message": "尚未有工具呼叫"
+  },
+  "arguments": {
+    "message": "參數"
+  },
+  "invalidJson": {
+    "message": "JSON 無效；顯示原始值"
+  },
+  "result": {
+    "message": "結果"
+  }
+}

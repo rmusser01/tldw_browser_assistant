@@ -1,0 +1,50 @@
+{
+  "mediaPage.nothingToSend": {
+    "message": "لا يوجد ما يتم إرساله"
+  },
+  "mediaPage.emptyAnalysis": {
+    "message": "لا يمكن أن يكون التحليل فارغاً"
+  },
+  "mediaPage.noMediaId": {
+    "message": "لا تتوفر هوية وسائط"
+  },
+  "mediaPage.versionSaved": {
+    "message": "تم الحفظ كإصدار جديد"
+  },
+  "mediaPage.saveFailed": {
+    "message": "فشل حفظ الإصدار"
+  },
+  "mediaPage.sendToChat": {
+    "message": "إرسال إلى الدردشة"
+  },
+  "mediaPage.saveAsVersion": {
+    "message": "حفظ كإصدار جديد"
+  },
+  "mediaPage.analysisPlaceholder": {
+    "message": "أدخل نص التحليل..."
+  },
+  "mediaPage.wordCount": {
+    "message": "{{count}} كلمة"
+  },
+  "mediaPage.charCount": {
+    "message": "{{count}} حرف"
+  },
+  "mediaPage.pageRangeError": {
+    "message": "يجب أن تكون الصفحة بين 1 و {{max}}"
+  },
+  "mediaPage.pageRangeClamped": {
+    "message": "الانتقال إلى الصفحة {{page}}"
+  },
+  "noToolCalls": {
+    "message": "لا توجد استدعاءات أدوات بعد"
+  },
+  "arguments": {
+    "message": "المعاملات"
+  },
+  "invalidJson": {
+    "message": "JSON غير صالح؛ يتم عرض القيمة الخام"
+  },
+  "result": {
+    "message": "النتيجة"
+  }
+}

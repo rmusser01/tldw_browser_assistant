@@ -85,7 +85,7 @@
 body {
   background: var(--color-bg);
   color: var(--color-text);
-  font-family: "Inter", system-ui, -apple-system, sans-serif;
+  font-family: "Arimo", "Inter", system-ui, -apple-system, sans-serif;
 }
 
 @tailwind base;
@@ -630,7 +630,49 @@ body {
     font-size: 0.75rem;
     min-width: 180px;
   }
+}
 
+/* Onboarding path selection radio cards - hide default radio circle */
+.onboarding-path-radio .ant-radio {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.onboarding-path-radio .ant-radio-wrapper {
+  margin: 0;
+  padding: 0;
+}
+
+.onboarding-path-radio .ant-radio-wrapper::after {
+  display: none;
+}
+
+.onboarding-path-radio .ant-radio + span {
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Keyboard focus indicator for onboarding path selection cards */
+.onboarding-path-radio .ant-radio-wrapper:focus-within {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 2px;
+}
+
+@supports selector(.onboarding-path-radio .ant-radio-wrapper:has(.ant-radio-input:focus-visible)) {
+  .onboarding-path-radio .ant-radio-wrapper:focus-within {
+    outline: none;
+  }
+
+  .onboarding-path-radio .ant-radio-wrapper:has(.ant-radio-input:focus-visible) {
+    outline: 2px solid var(--color-focus);
+    outline-offset: 2px;
+  }
+}
+
+@media (max-width: 640px) {
   /* -------- Uncomment for Option B -----------
      Stacked mini-card view.
      Requires each <td> to carry data-label="Header".

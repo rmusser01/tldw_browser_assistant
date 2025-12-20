@@ -143,12 +143,14 @@
       "group": "Copy",
       "asText": "Copy as Text",
       "asMarkdown": "Copy as Markdown",
+      "canonicalMarkdown": "Copy canonical transcript",
       "success": "Copied to clipboard!"
     },
     "download": {
       "group": "Download",
       "text": "Text File (.txt)",
       "markdown": "Markdown (.md)",
+      "canonicalMarkdown": "Canonical transcript (Markdown)",
       "json": "JSON File (.json)",
       "image": "Image (.png)"
     },
@@ -207,7 +209,7 @@
     "audioLanguage": "Language (e.g., en)",
     "audioDiarizationHelp": "Turn on to separate speakers in transcripts.",
     "documentOptions": "Document options",
-    "ocrHelp": "OCR helps extract text from scanned PDFs or images.",
+    "quickIngest_ocrHelp": "OCR helps extract text from scanned PDFs or images.",
     "videoOptions": "Video options",
     "captionsHelp": "Include timestamps/captions when available.",
     "cancel": "Cancel",
@@ -374,6 +376,10 @@
     "exportMdTooltip": "Export matching notes as Markdown (.md)",
     "exportCsvTooltip": "Export matching notes as CSV",
     "exportJsonTooltip": "Export matching notes as JSON",
+    "exportNoteSuccess": "Exported ({{size}})",
+    "exportSuccess": "Exported {{count}} notes ({{size}})",
+    "exportCsvSuccess": "Exported {{count}} notes as CSV ({{size}})",
+    "exportJsonSuccess": "Exported {{count}} notes as JSON ({{size}})",
     "toolbarExportMdTooltip": "Export note as Markdown (.md)",
     "toolbarSaveTooltip": "Save note",
     "toolbarCopyTooltip": "Copy note content",
@@ -611,6 +617,7 @@
     "sendButton": "Send",
     "emptyState": "Start a quick side chat to keep your main thread clean.",
     "popOutButton": "Pop out",
+    "popOutDisabled": "Pop-out is disabled when there are no messages. Start a conversation first.",
     "noModelWarning": "Please select a model in the main chat first.",
     "userMessageAria": "Your message",
     "assistantMessageAria": "Assistant message"

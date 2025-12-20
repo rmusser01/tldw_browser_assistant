@@ -216,6 +216,16 @@
   "ttsShort": "Tale",
   "copyShort": "Kopiér",
   "branchShort": "Gren",
+  "infoShort": "Info",
+  "regenShort": "Gentag",
+  "continueShort": "Mere",
+  "fileChanges": "Filændringer",
+  "deletions": "Sletninger",
+  "gitOperations": "Git-handlinger",
+  "commands": "Kommandoer",
+  "otherOperations": "Andre handlinger",
+  "fileAccess": "Filadgang",
+  "notebookEdits": "Redigeringer i notatbog",
   "segmented": {
     "available": "Servermodeller",
     "custom": "Brugertilpassede modeller"
@@ -230,7 +240,8 @@
   "serverChats": "Serverchats",
   "serverChatLoadError": "Kunne ikke indlæse serverchat. Kontroller din forbindelse og prøv igen.",
   "serverChatSourceLabel": "Serverkilde",
-  "serverChatsUnavailable": "Serverchats er ikke tilgængelige. Kontroller serverforbindelsen.",
+  "serverChatsUnavailableNotConnected": "Serverchats er tilgængelige, når du opretter forbindelse til din tldw-server.",
+  "serverChatsUnavailableServerError": "Serverchats er ikke tilgængelige lige nu. Tjek serverloggene, eller prøv igen.",
   "historiesDeleted": "{{count}} historikker slettet",
   "deleteHistoriesError": "Fejl ved sletning af historik",
   "mermaid": "Mermaid-diagrammer",
@@ -238,6 +249,7 @@
   "searchResults": "Søgeresultater",
   "newBranch": "Ny gren",
   "error": {
+    "label": "Fejl",
     "friendlyApiKeySummary": "Vi kunne ikke nå din tldw-server.",
     "friendlyApiKeyHint": "Din API-nøgle er muligvis ugyldig. Åbn Indstillinger → tldw-server for at tjekke din URL og API-nøgle, og prøv igen.",
     "friendlyTimeoutSummary": "Din chat fik timeout.",
@@ -259,5 +271,105 @@
   "refresh": "Opdater",
   "confirm": "Bekræft",
   "untitled": "Unavngivet",
-  "moveToFolder": "Flyt til mappe"
+  "moveToFolder": "Flyt til mappe",
+  "noToolCalls": "Ingen værktøjskald endnu",
+  "status": {
+    "pending": "Venter",
+    "running": "Processerer",
+    "complete": "Færdig",
+    "error": "Fejl"
+  },
+  "arguments": "Argumenter",
+  "invalidJson": "Ugyldig JSON; viser rå værdi",
+  "result": "Resultat",
+  "tools": {
+    "fs_list": "List mappe",
+    "fs_read": "Læs fil",
+    "fs_write": "Skriv fil",
+    "fs_apply_patch": "Anvend patch",
+    "fs_mkdir": "Opret mappe",
+    "fs_delete": "Slet",
+    "search_grep": "Søg i indhold",
+    "search_glob": "Find filer",
+    "git_status": "Git-status",
+    "git_diff": "Git-diff",
+    "git_log": "Git-log",
+    "git_branch": "Git-branch",
+    "git_add": "Stage filer",
+    "git_commit": "Commit",
+    "exec_run": "Kør kommando"
+  },
+  "markdown": {
+    "unableToRender": "Kunne ikke gengive indhold",
+    "couldNotDisplay": "Beskedindholdet kunne ikke vises. Dette kan skyldes ugyldig formatering.",
+    "showRawContent": "Vis rå indhold"
+  },
+  "commandPalette": {
+    "goToChat": "Gå til chat",
+    "goToMedia": "Gå til medier",
+    "goToNotes": "Gå til noter",
+    "goToFlashcards": "Gå til flashcards",
+    "goToSettings": "Gå til indstillinger",
+    "goToHealth": "Gå til Health & diagnostics",
+    "newChat": "Ny chat",
+    "toggleKnowledgeSearch": "Skift videnssøgning",
+    "toggleKnowledgeSearchDesc": "Søg i din vidensbase",
+    "toggleWebSearch": "Skift websøgning",
+    "toggleWebDesc": "Søg på internettet",
+    "ingestPage": "Indlæs aktuel side",
+    "ingestDesc": "Gem denne side i din vidensbase",
+    "switchModel": "Skift model",
+    "toggleSidebar": "Skift sidepanel",
+    "toggleSidebarDesc": "Vis eller skjul chatsidepanelet",
+    "placeholder": "Skriv en kommando eller søg...",
+    "noResults": "Ingen resultater fundet",
+    "title": "Kommandopalet",
+    "navigate": "naviger",
+    "select": "vælg",
+    "toOpen": "for at åbne",
+    "categoryActions": "Handlinger",
+    "categoryNavigation": "Navigation",
+    "categorySettings": "Indstillinger",
+    "categoryRecent": "Seneste"
+  },
+  "featureHints": {
+    "knowledge": {
+      "title": "Søg i din viden",
+      "description": "Åbn videnssøgningspanelet for at finde uddrag og indsætte dem i din chat."
+    },
+    "moreTools": {
+      "title": "Flere værktøjer tilgængelige",
+      "description": "Få adgang til vision-tilstand, billedupload, hurtig indlæsning og hele appen."
+    },
+    "commandPalette": {
+      "title": "Hurtige kommandoer",
+      "description": "Tryk på {{shortcut}} for at søge efter kommandoer, indstillinger og mere."
+    },
+    "modelSettings": {
+      "title": "Juster modelparametre",
+      "description": "Finjuster temperatur, kontekstlængde og andre modelindstillinger."
+    }
+  },
+  "chatSidebar": {
+    "title": "Chats",
+    "newChat": "Ny chat",
+    "collapse": "Skjul sidepanelet",
+    "expand": "Vis sidepanelet",
+    "search": "Søg i chats...",
+    "ingest": "Indlæs side",
+    "media": "Medier",
+    "notes": "Noter",
+    "settings": "Indstillinger",
+    "loadError": "Kunne ikke indlæse chats",
+    "localTab": "Lokal",
+    "serverTab": "Server",
+    "foldersTab": "Mapper",
+    "tabs": {
+      "local": "Lokal",
+      "server": "Server",
+      "folders": "Mapper"
+    },
+    "noServerChats": "Ingen serverchats endnu",
+    "foldersRequireConnection": "Mapper kræver en serverforbindelse"
+  }
 }

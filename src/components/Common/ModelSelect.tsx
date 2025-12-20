@@ -11,9 +11,10 @@ import { IconButton } from "./IconButton"
 
 type Props = {
   iconClassName?: string
+  showSelectedName?: boolean
 }
 
-export const ModelSelect: React.FC<Props> = ({iconClassName = "size-5"}) => {
+export const ModelSelect: React.FC<Props> = ({iconClassName = "size-5", showSelectedName = false}) => {
   const { t } = useTranslation("common")
   const { setSelectedModel, selectedModel } = useMessage()
   const [menuDensity] = useStorage("menuDensity", "comfortable")
@@ -133,6 +134,17 @@ export const ModelSelect: React.FC<Props> = ({iconClassName = "size-5"}) => {
     return items
   }, [data, selectedModel, setSelectedModel])
 
+  // Get display name for selected model
+  const selectedModelDisplay = React.useMemo(() => {
+    if (!selectedModel || !data) return null
+    const model = data.find(m => m.model === selectedModel)
+    if (!model) return selectedModel.split('/').pop() || selectedModel
+    // Use nickname if available, otherwise extract short name from model ID
+    const shortName = model.nickname || model.model.split('/').pop() || model.model
+    // Truncate if too long
+    return shortName.length > 20 ? shortName.substring(0, 18) + '…' : shortName
+  }, [selectedModel, data])
+
   return (
     <>
       {data && data.length > 0 && (
@@ -148,15 +160,26 @@ export const ModelSelect: React.FC<Props> = ({iconClassName = "size-5"}) => {
           }}
           placement={"topLeft"}
           trigger={["click"]}>
-          <Tooltip title={t("selectAModel")}>
+          <Tooltip
+            title={
+              selectedModel
+                ? `${t("modelSelect.tooltip", "Changes model for next message")}: ${selectedModel}`
+                : t("modelSelect.tooltip", "Changes model for next message")
+            }>
             <IconButton
               ariaLabel={t("selectAModel") as string}
               hasPopup="menu"
               className="dark:text-gray-300 px-2">
               <LucideBrain className={iconClassName} />
-              <span className="ml-1 hidden sm:inline text-xs">
-                {t("modelSelect.label", "Model")}
-              </span>
+              {showSelectedName && selectedModelDisplay ? (
+                <span className="ml-1.5 max-w-[120px] truncate text-xs font-medium text-gray-700 dark:text-gray-200">
+                  {selectedModelDisplay}
+                </span>
+              ) : (
+                <span className="ml-1 hidden sm:inline text-xs">
+                  {t("modelSelect.label", "Model")}
+                </span>
+              )}
             </IconButton>
           </Tooltip>
         </Dropdown>

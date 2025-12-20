@@ -1,5 +1,6 @@
 import { browser } from "wxt/browser"
 import { Storage } from "@plasmohq/storage"
+import { createSafeStorage } from "@/utils/safe-storage"
 import type {
   AllowedMethodFor,
   AllowedPath,
@@ -85,7 +86,7 @@ export async function bgRequest<
   }
 
   // Fallback: direct fetch (web/dev context)
-  const storage = new Storage({ area: 'local' })
+  const storage = createSafeStorage({ area: 'local' })
   const cfg = await storage.get('tldwConfig').catch(() => null) as any
   const base = (cfg?.serverUrl || '').replace(/\/$/, '')
   const isAbs = /^https?:/i.test(path)

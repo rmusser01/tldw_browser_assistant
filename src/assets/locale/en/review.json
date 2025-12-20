@@ -224,10 +224,13 @@
     "noMediaId": "No media ID available",
     "versionSaved": "Saved as new version",
     "saveFailed": "Failed to save version",
+    "saveUnauthorized": "Not authorized to save",
     "sendToChat": "Send to Chat",
     "saveAsVersion": "Save as New Version",
     "analysisPlaceholder": "Enter analysis text...",
     "wordCount": "{{count}} words",
-    "charCount": "{{count}} characters"
+    "charCount": "{{count}} characters",
+    "pageRangeError": "Page must be 1-{{max}}",
+    "pageRangeClamped": "Navigating to page {{page}}"
   }
 }

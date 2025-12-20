@@ -217,6 +217,16 @@
   "ttsShort": "Voce",
   "copyShort": "Copia",
   "branchShort": "Ramo",
+  "infoShort": "Info",
+  "regenShort": "Rigenera",
+  "continueShort": "Altro",
+  "fileChanges": "Modifiche ai file",
+  "deletions": "Eliminazioni",
+  "gitOperations": "Operazioni Git",
+  "commands": "Comandi",
+  "otherOperations": "Altre operazioni",
+  "fileAccess": "Accesso ai file",
+  "notebookEdits": "Modifiche al taccuino",
   "segmented": {
     "available": "Modelli del server",
     "custom": "Modelli personalizzati"
@@ -231,13 +241,15 @@
   "serverChats": "Chat del server",
   "serverChatLoadError": "Impossibile caricare la chat del server. Controlla la connessione e riprova.",
   "serverChatSourceLabel": "Origine server",
-  "serverChatsUnavailable": "Chat del server non disponibili. Controlla la connessione al server.",
+  "serverChatsUnavailableNotConnected": "Le chat del server saranno disponibili una volta connesso al tuo server tldw.",
+  "serverChatsUnavailableServerError": "Le chat del server non sono disponibili al momento. Controlla i log del server o riprova.",
   "historiesDeleted": "{{count}} cronologie eliminate",
   "deleteHistoriesError": "Errore durante l’eliminazione delle cronologie",
   "search": "Cerca",
   "searchResults": "Risultati della ricerca",
   "newBranch": "Nuovo ramo",
   "error": {
+    "label": "Errore",
     "friendlyApiKeySummary": "Non siamo riusciti a raggiungere il tuo server tldw.",
     "friendlyApiKeyHint": "La tua chiave API potrebbe non essere valida. Apri Impostazioni → server tldw per controllare l'URL e la chiave API, quindi riprova.",
     "friendlyTimeoutSummary": "La tua chat ha superato il tempo limite.",
@@ -259,5 +271,105 @@
   "refresh": "Aggiorna",
   "confirm": "Conferma",
   "untitled": "Senza titolo",
-  "moveToFolder": "Sposta nella cartella"
+  "moveToFolder": "Sposta nella cartella",
+  "noToolCalls": "Nessuna chiamata di tool al momento",
+  "status": {
+    "pending": "In attesa",
+    "running": "In corso",
+    "complete": "Completato",
+    "error": "Errore"
+  },
+  "arguments": "Argomenti",
+  "invalidJson": "JSON non valido; viene mostrato il valore grezzo",
+  "result": "Risultato",
+  "tools": {
+    "fs_list": "Elenca directory",
+    "fs_read": "Leggi file",
+    "fs_write": "Scrivi file",
+    "fs_apply_patch": "Applica patch",
+    "fs_mkdir": "Crea directory",
+    "fs_delete": "Elimina",
+    "search_grep": "Cerca contenuto",
+    "search_glob": "Trova file",
+    "git_status": "Stato Git",
+    "git_diff": "Diff Git",
+    "git_log": "Log Git",
+    "git_branch": "Branch Git",
+    "git_add": "Metti in stage i file",
+    "git_commit": "Commit",
+    "exec_run": "Esegui comando"
+  },
+  "markdown": {
+    "unableToRender": "Impossibile visualizzare il contenuto",
+    "couldNotDisplay": "Il contenuto del messaggio non può essere visualizzato. Potrebbe essere dovuto a una formattazione non valida.",
+    "showRawContent": "Mostra contenuto grezzo"
+  },
+  "commandPalette": {
+    "goToChat": "Vai alla chat",
+    "goToMedia": "Vai a Media",
+    "goToNotes": "Vai alle Note",
+    "goToFlashcards": "Vai alle flashcard",
+    "goToSettings": "Vai alle Impostazioni",
+    "goToHealth": "Vai a Stato e diagnostica",
+    "newChat": "Nuova chat",
+    "toggleKnowledgeSearch": "Attiva/disattiva ricerca conoscenza",
+    "toggleKnowledgeSearchDesc": "Cerca nella tua base di conoscenza",
+    "toggleWebSearch": "Attiva/disattiva ricerca web",
+    "toggleWebDesc": "Cerca su Internet",
+    "ingestPage": "Acquisisci pagina corrente",
+    "ingestDesc": "Salva questa pagina nella tua base di conoscenza",
+    "switchModel": "Cambia modello",
+    "toggleSidebar": "Mostra/nascondi barra laterale",
+    "toggleSidebarDesc": "Mostra o nascondi la barra laterale della chat",
+    "placeholder": "Digita un comando o cerca...",
+    "noResults": "Nessun risultato trovato",
+    "title": "Palette comandi",
+    "navigate": "naviga",
+    "select": "seleziona",
+    "toOpen": "per aprire",
+    "categoryActions": "Azioni",
+    "categoryNavigation": "Navigazione",
+    "categorySettings": "Impostazioni",
+    "categoryRecent": "Recenti"
+  },
+  "featureHints": {
+    "knowledge": {
+      "title": "Cerca nelle tue conoscenze",
+      "description": "Apri il pannello di ricerca della base di conoscenza per trovare frammenti e inserirli nella chat."
+    },
+    "moreTools": {
+      "title": "Altri strumenti disponibili",
+      "description": "Accedi alla modalità visione, al caricamento delle immagini, all’acquisizione rapida e all’app completa."
+    },
+    "commandPalette": {
+      "title": "Comandi rapidi",
+      "description": "Premi {{shortcut}} per cercare comandi, impostazioni e altro."
+    },
+    "modelSettings": {
+      "title": "Regola i parametri del modello",
+      "description": "Affina temperatura, lunghezza del contesto e altre impostazioni del modello."
+    }
+  },
+  "chatSidebar": {
+    "title": "Chat",
+    "newChat": "Nuova chat",
+    "collapse": "Comprimi barra laterale",
+    "expand": "Espandi barra laterale",
+    "search": "Cerca chat...",
+    "ingest": "Importa pagina",
+    "media": "Media",
+    "notes": "Note",
+    "settings": "Impostazioni",
+    "loadError": "Impossibile caricare le chat",
+    "localTab": "Locale",
+    "serverTab": "Server",
+    "foldersTab": "Cartelle",
+    "tabs": {
+      "local": "Locale",
+      "server": "Server",
+      "folders": "Cartelle"
+    },
+    "noServerChats": "Ancora nessuna chat del server",
+    "foldersRequireConnection": "Le cartelle richiedono una connessione al server"
+  }
 }

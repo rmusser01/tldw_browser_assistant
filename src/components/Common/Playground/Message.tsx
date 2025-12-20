@@ -1,7 +1,7 @@
 import React, { useEffect } from "react"
 import { Tag, Image, Tooltip, Collapse, Popover, Avatar } from "antd"
 import { IconButton } from "../IconButton"
-import { ActionInfo } from "./ActionInfo"
+import { LoadingStatus } from "./ActionInfo"
 import {
   CheckIcon,
   CopyIcon,
@@ -47,7 +47,7 @@ const ErrorBubble: React.FC<{
     <div
       role="alert"
       aria-live="assertive"
-      className="rounded-md border border-red-200 bg-red-50 p-3 text-sm text-red-800 dark:border-red-700 dark:bg-red-900/20 dark:text-red-100">
+      className="rounded-md border border-red-200 bg-red-50 p-3 text-sm text-red-800 dark:border-red-700 dark:bg-red-900/30 dark:text-red-100">
       <p className="font-semibold">{payload.summary}</p>
       {payload.hint && (
         <p className="mt-1 text-xs text-red-900 dark:text-red-100">
@@ -71,6 +71,24 @@ const ErrorBubble: React.FC<{
   )
 }
 
+const ActionButtonWithLabel: React.FC<{
+  icon: React.ReactNode
+  label: string
+  isLastMessage: boolean
+  className?: string
+}> = ({ icon, label, isLastMessage, className = "" }) => (
+  <span className={`inline-flex items-center gap-1 ${className}`}>
+    {icon}
+    <span
+      className={`text-[10px] text-gray-500 dark:text-gray-400 transition-opacity ${
+        isLastMessage ? "opacity-100" : "opacity-0 group-focus-within:opacity-100"
+      }`}
+    >
+      {label}
+    </span>
+  </span>
+)
+
 type Props = {
   message: string
   message_type?: string
@@ -82,7 +100,7 @@ type Props = {
   images?: string[]
   currentMessageIndex: number
   totalMessages: number
-  onRengerate: () => void
+  onRegenerate: () => void
   onEditFormSubmit: (value: string, isSend: boolean) => void
   isProcessing: boolean
   webSearch?: {}
@@ -107,7 +125,15 @@ type Props = {
   serverChatId?: string | null
   serverMessageId?: string | null
   searchQuery?: string
+  isEmbedding?: boolean
+  // Compare/multi-model metadata (optional)
+  compareSelectable?: boolean
+  compareSelected?: boolean
+  onToggleCompareSelect?: () => void
 }
+
+const ACTION_BUTTON_CLASS =
+  "flex items-center justify-center w-10 h-10 sm:w-6 sm:h-6 rounded-full bg-gray-100 dark:bg-[#2d2d2d] hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500"
 
 export const PlaygroundMessage = (props: Props) => {
   const [isBtnPressed, setIsBtnPressed] = React.useState(false)
@@ -187,6 +213,16 @@ export const PlaygroundMessage = (props: Props) => {
   )
 
   const chatTextClass = props.isBot ? assistantTextClass : userTextClass
+
+  const shouldShowLoadingStatus =
+    props.isBot &&
+    isLastMessage &&
+    (props.isProcessing ||
+      props.isStreaming ||
+      props.isSearchingInternet ||
+      props.actionInfo ||
+      props.isEmbedding)
+
   useEffect(() => {
     if (
       autoPlayTTS &&
@@ -215,6 +251,8 @@ export const PlaygroundMessage = (props: Props) => {
     props.message,
     errorPayload
   ])
+
+  const compareLabel = t("playground:composer.compareTag", "Compare")
 
   if (isUserChatBubble && !props.isBot) {
     return <PlaygroundUserMessageBubble {...props} />
@@ -264,23 +302,50 @@ export const PlaygroundMessage = (props: Props) => {
           )}
         </div>
         <div className="flex w-[calc(100%-50px)] flex-col gap-2 lg:w-[calc(100%-115px)]">
-          <span className="text-xs font-bold text-gray-800 dark:text-white">
-            {props.isBot
-              ? removeModelSuffix(
-                  `${props?.modelName || props?.name}`?.replaceAll(
-                    /accounts\/[^\/]+\/models\//g,
-                    ""
+          <div className="flex items-center gap-2">
+            <span className="text-xs font-bold text-gray-800 dark:text-white">
+              {props.isBot
+                ? removeModelSuffix(
+                    `${props?.modelName || props?.name}`?.replaceAll(
+                      /accounts\/[^\/]+\/models\//g,
+                      ""
+                    )
                   )
-                )
-              : "You"}
-          </span>
+                : "You"}
+            </span>
+            {props.isBot && props.message_type === "compare:reply" && (
+              props.compareSelectable && props.onToggleCompareSelect ? (
+                <button
+                  type="button"
+                  onClick={props.onToggleCompareSelect}
+                  aria-label={compareLabel}
+                  aria-pressed={props.compareSelected}
+                  className={`rounded-full px-2 py-0.5 text-[10px] font-medium border transition ${
+                    props.compareSelected
+                      ? "bg-blue-600 text-white border-blue-600"
+                      : "bg-blue-50 text-blue-700 border-blue-200 dark:bg-blue-900/30 dark:text-blue-300 dark:border-blue-700"
+                  }`}
+                >
+                  {compareLabel}
+                </button>
+              ) : (
+                <span className="rounded-full bg-blue-50 px-2 py-0.5 text-[10px] font-medium text-blue-700 dark:bg-blue-900/30 dark:text-blue-300">
+                  {compareLabel}
+                </span>
+              )
+            )}
+          </div>
 
-          {props.isBot && props.isSearchingInternet && isLastMessage ? (
-            <ActionInfo action={"webSearch"} />
-          ) : null}
-          {props.isBot && props.actionInfo && isLastMessage ? (
-            <ActionInfo action={props.actionInfo} />
-          ) : null}
+          {/* Unified loading status indicator */}
+          {shouldShowLoadingStatus && (
+            <LoadingStatus
+              isProcessing={props.isProcessing}
+              isStreaming={props.isStreaming}
+              isSearchingInternet={props.isSearchingInternet}
+              isEmbedding={props.isEmbedding}
+              actionInfo={props.actionInfo}
+            />
+          )}
           <div>
             {props?.message_type && (
               <Tag color={tagColors[props?.message_type] || "default"}>
@@ -498,21 +563,18 @@ export const PlaygroundMessage = (props: Props) => {
                         })
                       }
                     }}
-                    className="flex items-center justify-center w-6 h-6 rounded-full bg-gray-100 dark:bg-[#242424] hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500">
-                    <span className="inline-flex items-center gap-1">
-                      {!isSpeaking ? (
-                        <Volume2Icon className="w-3 h-3 text-gray-400 group-hover:text-gray-500" />
-                      ) : (
-                        <Square className="w-3 h-3 text-red-400 group-hover:text-red-500" />
-                      )}
-                      <span
-                        className={`text-[10px] text-gray-500 dark:text-gray-400 hidden group-focus-within:inline ${
-                          isLastMessage ? "inline" : ""
-                        }`}
-                      >
-                        {t("ttsShort", "TTS")}
-                      </span>
-                    </span>
+                    className={ACTION_BUTTON_CLASS}>
+                    <ActionButtonWithLabel
+                      icon={
+                        !isSpeaking ? (
+                          <Volume2Icon className="w-3 h-3 text-gray-400 group-hover:text-gray-500" />
+                        ) : (
+                          <Square className="w-3 h-3 text-red-400 group-hover:text-red-500" />
+                        )
+                      }
+                      label={t("ttsShort", "TTS")}
+                      isLastMessage={isLastMessage}
+                    />
                   </IconButton>
                 </Tooltip>
               )}
@@ -532,21 +594,18 @@ export const PlaygroundMessage = (props: Props) => {
                         setIsBtnPressed(false)
                       }, 2000)
                     }}
-                    className="flex items-center justify-center w-6 h-6 rounded-full bg-gray-100 dark:bg-[#242424] hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500">
-                    <span className="inline-flex items-center gap-1">
-                      {!isBtnPressed ? (
-                        <CopyIcon className="w-3 h-3 text-gray-400 group-hover:text-gray-500" />
-                      ) : (
-                        <CheckIcon className="w-3 h-3 text-green-400 group-hover:text-green-500" />
-                      )}
-                      <span
-                        className={`text-[10px] text-gray-500 dark:text-gray-400 hidden group-focus-within:inline ${
-                          isLastMessage ? "inline" : ""
-                        }`}
-                      >
-                        {t("copyShort", "Copy")}
-                      </span>
-                    </span>
+                    className={ACTION_BUTTON_CLASS}>
+                    <ActionButtonWithLabel
+                      icon={
+                        !isBtnPressed ? (
+                          <CopyIcon className="w-3 h-3 text-gray-400 group-hover:text-gray-500" />
+                        ) : (
+                          <CheckIcon className="w-3 h-3 text-green-400 group-hover:text-green-500" />
+                        )
+                      }
+                      label={t("copyShort", "Copy")}
+                      isLastMessage={isLastMessage}
+                    />
                   </IconButton>
                 </Tooltip>
               )}
@@ -560,8 +619,14 @@ export const PlaygroundMessage = (props: Props) => {
                       title={t("generationInfo")}>
                       <IconButton
                         ariaLabel={t("generationInfo") as string}
-                        className="flex items-center justify-center w-6 h-6 rounded-full bg-gray-100 dark:bg-[#242424] hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500">
-                        <InfoIcon className="w-3 h-3 text-gray-400 group-hover:text-gray-500" />
+                        className={ACTION_BUTTON_CLASS}>
+                        <ActionButtonWithLabel
+                          icon={
+                            <InfoIcon className="w-3 h-3 text-gray-400 group-hover:text-gray-500" />
+                          }
+                          label={t("infoShort", "Info")}
+                          isLastMessage={isLastMessage}
+                        />
                       </IconButton>
                     </Popover>
                   )}
@@ -570,9 +635,15 @@ export const PlaygroundMessage = (props: Props) => {
                     <Tooltip title={t("regenerate")}>
                       <IconButton
                         ariaLabel={t("regenerate") as string}
-                        onClick={props.onRengerate}
-                        className="flex items-center justify-center w-6 h-6 rounded-full bg-gray-100 dark:bg-[#242424] hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500">
-                        <RotateCcw className="w-3 h-3 text-gray-400 group-hover:text-gray-500" />
+                        onClick={props.onRegenerate}
+                        className={ACTION_BUTTON_CLASS}>
+                        <ActionButtonWithLabel
+                          icon={
+                            <RotateCcw className="w-3 h-3 text-gray-400 group-hover:text-gray-500" />
+                          }
+                          label={t("regenShort", "Redo")}
+                          isLastMessage={isLastMessage}
+                        />
                       </IconButton>
                     </Tooltip>
                   )}
@@ -582,17 +653,14 @@ export const PlaygroundMessage = (props: Props) => {
                       <IconButton
                         ariaLabel={t("newBranch") as string}
                         onClick={props?.onNewBranch}
-                        className="flex items-center justify-center w-6 h-6 rounded-full bg-gray-100 dark:bg-[#242424] hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500">
-                        <span className="inline-flex items-center gap-1">
-                          <GitBranchIcon className="w-3 h-3 text-gray-400 group-hover:text-gray-500" />
-                          <span
-                            className={`text-[10px] text-gray-500 dark:text-gray-400 hidden group-focus-within:inline ${
-                              isLastMessage ? "inline" : ""
-                            }`}
-                          >
-                            {t("branchShort", "Branch")}
-                          </span>
-                        </span>
+                        className={ACTION_BUTTON_CLASS}>
+                        <ActionButtonWithLabel
+                          icon={
+                            <GitBranchIcon className="w-3 h-3 text-gray-400 group-hover:text-gray-500" />
+                          }
+                          label={t("branchShort", "Branch")}
+                          isLastMessage={isLastMessage}
+                        />
                       </IconButton>
                     </Tooltip>
                   )}
@@ -602,8 +670,14 @@ export const PlaygroundMessage = (props: Props) => {
                       <IconButton
                         ariaLabel={t("continue") as string}
                         onClick={props?.onContinue}
-                        className="flex items-center justify-center w-6 h-6 rounded-full bg-gray-100 dark:bg-[#242424] hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500">
-                        <PlayCircle className="w-3 h-3 text-gray-400 group-hover:text-gray-500" />
+                        className={ACTION_BUTTON_CLASS}>
+                        <ActionButtonWithLabel
+                          icon={
+                            <PlayCircle className="w-3 h-3 text-gray-400 group-hover:text-gray-500" />
+                          }
+                          label={t("continueShort", "More")}
+                          isLastMessage={isLastMessage}
+                        />
                       </IconButton>
                     </Tooltip>
                   )}
@@ -614,17 +688,14 @@ export const PlaygroundMessage = (props: Props) => {
                   <IconButton
                     onClick={() => setEditMode(true)}
                     ariaLabel={t("edit") as string}
-                    className="flex items-center justify-center w-6 h-6 rounded-full bg-gray-100 dark:bg-[#242424] hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500">
-                    <span className="inline-flex items-center gap-1">
-                      <Pen className="w-3 h-3 text-gray-400 group-hover:text-gray-500" />
-                      <span
-                        className={`text-[10px] text-gray-500 dark:text-gray-400 hidden group-focus-within:inline ${
-                          isLastMessage ? "inline" : ""
-                        }`}
-                      >
-                        {t("edit", "Edit")}
-                      </span>
-                    </span>
+                    className={ACTION_BUTTON_CLASS}>
+                    <ActionButtonWithLabel
+                      icon={
+                        <Pen className="w-3 h-3 text-gray-400 group-hover:text-gray-500" />
+                      }
+                      label={t("edit", "Edit")}
+                      isLastMessage={isLastMessage}
+                    />
                   </IconButton>
                 </Tooltip>
               )}
@@ -632,7 +703,7 @@ export const PlaygroundMessage = (props: Props) => {
           ) : (
             // add invisible div to prevent layout shift
             <div className="invisible">
-              <div className="flex items-center justify-center w-6 h-6 rounded-full bg-gray-100 dark:bg-[#242424] hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500"></div>
+              <div className={ACTION_BUTTON_CLASS}></div>
             </div>
           )}
         </div>

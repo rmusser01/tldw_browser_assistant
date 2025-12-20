@@ -1,6 +1,7 @@
 import { Storage } from "@plasmohq/storage"
+import { createSafeStorage } from "@/utils/safe-storage"
 
-const storage = new Storage()
+const storage = createSafeStorage()
 
 /**
  * Whether to use local embeddings for website chat.

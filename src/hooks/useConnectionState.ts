@@ -3,6 +3,12 @@ import { deriveConnectionUxState } from "@/types/connection"
 
 export const useConnectionState = () => useConnectionStore((s) => s.state)
 
+export const useConnectionPhase = () =>
+  useConnectionStore((s) => s.state.phase)
+
+export const useIsConnected = () =>
+  useConnectionStore((s) => s.state.isConnected)
+
 export const useConnectionActions = () =>
   useConnectionStore((s) => ({
     checkOnce: s.checkOnce,

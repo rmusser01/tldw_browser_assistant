@@ -1,8 +1,9 @@
 import { getDefaultOcrLanguage } from "@/data/ocr-language"
 import { useStoreChatModelSettings } from "@/store/model"
 import { Storage } from "@plasmohq/storage"
+import { createSafeStorage } from "@/utils/safe-storage"
 
-const storage = new Storage()
+const storage = createSafeStorage()
 
 export const isOcrEnabled = async (): Promise<boolean> => {
   const value = await storage.get<boolean | undefined>("enableOcrAssets")

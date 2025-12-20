@@ -1,9 +1,11 @@
 import { Storage } from "@plasmohq/storage"
-const storage = new Storage({
+import { createSafeStorage } from "@/utils/safe-storage"
+
+const storage = createSafeStorage({
   area: "local"
 })
 
-const storage2 = new Storage()
+const storage2 = createSafeStorage()
 
 type ModelSettings = {
   f16KV?: boolean

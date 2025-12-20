@@ -1,3 +1,4 @@
+import React, { useState } from "react"
 import { BetaTag } from "@/components/Common/Beta"
 import { useFontSize } from "@/context/FontSizeProvider"
 import { useMessageOption } from "@/hooks/useMessageOption"
@@ -6,26 +7,67 @@ import {
   importPageAssistData
 } from "@/libs/export-import"
 import { Storage } from "@plasmohq/storage"
+import { createSafeStorage } from "@/utils/safe-storage"
 import { useStorage } from "@plasmohq/storage/hook"
 import { useMutation, useQueryClient } from "@tanstack/react-query"
-import { Select, Switch } from "antd"
+import { Input, Modal, Select, Switch } from "antd"
 import { useTranslation } from "react-i18next"
 import { Loader2, RotateCcw, Upload } from "lucide-react"
 import { toBase64 } from "@/libs/to-base64"
 import { PageAssistDatabase } from "@/db/dexie/chat"
 import { isFireFox, isFireFoxPrivateMode } from "@/utils/is-private-mode"
 import { firefoxSyncDataForPrivateMode } from "@/db/dexie/firefox-sync"
-import { useConfirmDanger } from "@/components/Common/confirm-danger"
 import { useAntdNotification } from "@/hooks/useAntdNotification"
 import { Highlight, themes } from "prism-react-renderer"
 
 export const SystemSettings = () => {
-  const { t } = useTranslation(["settings", "knowledge"])
+  const { t } = useTranslation(["settings", "knowledge", "common"])
   const queryClient = useQueryClient()
   const { clearChat } = useMessageOption()
   const { increase, decrease, scale } = useFontSize()
   const notification = useAntdNotification()
-  const confirmDanger = useConfirmDanger()
+
+  // Two-step reset confirmation state
+  const [resetModalOpen, setResetModalOpen] = useState(false)
+  const [resetInput, setResetInput] = useState("")
+  const [resetting, setResetting] = useState(false)
+
+  const handleResetAll = async () => {
+    setResetting(true)
+    try {
+      const db = new PageAssistDatabase()
+      await db.clearDB()
+      queryClient.invalidateQueries({
+        queryKey: ["fetchChatHistory"]
+      })
+      clearChat()
+      try {
+        await browser.storage.sync.clear()
+        await browser.storage.local.clear()
+        await browser.storage.session.clear()
+      } catch (e) {
+        console.error("Error clearing storage:", e)
+      }
+      setResetModalOpen(false)
+      notification.success({
+        message: t("settings:systemNotifications.resetSuccess", "All data has been reset")
+      })
+      // Clear input after successful reset
+      setResetInput("")
+      // Reload to ensure clean state after full reset
+      setTimeout(() => {
+        window.location.reload()
+      }, 1500)
+    } catch (e) {
+      console.error("Reset error:", e)
+      notification.error({
+        message: t("settings:systemNotifications.resetError", "Reset failed")
+      })
+    } finally {
+      setResetting(false)
+    }
+  }
+
   const quotaFriendlyMessage = t(
     "settings:storage.quotaFriendlyMessage",
     "Too many settings writes in a short period; please wait a few seconds and try again."
@@ -61,7 +103,7 @@ export const SystemSettings = () => {
   const [uiMode, setUiMode] = useStorage(
     {
       key: "uiMode",
-      instance: new Storage({ area: "local" })
+      instance: createSafeStorage({ area: "local" })
     },
     "sidePanel"
   )
@@ -69,7 +111,7 @@ export const SystemSettings = () => {
   const [actionIconClick, setActionIconClick] = useStorage(
     {
       key: "actionIconClick",
-      instance: new Storage({
+      instance: createSafeStorage({
         area: "local"
       })
     },
@@ -79,7 +121,7 @@ export const SystemSettings = () => {
   const [contextMenuClick, setContextMenuClick] = useStorage(
     {
       key: "contextMenuClick",
-      instance: new Storage({
+      instance: createSafeStorage({
         area: "local"
       })
     },
@@ -87,10 +129,21 @@ export const SystemSettings = () => {
   )
   const [chatBackgroundImage, setChatBackgroundImage] = useStorage({
     key: "chatBackgroundImage",
-    instance: new Storage({
+    instance: createSafeStorage({
       area: "local"
     })
   })
+
+  // Track reload timeout for cancellation
+  const reloadTimeoutRef = React.useRef<ReturnType<typeof setTimeout> | null>(null)
+
+  React.useEffect(() => {
+    return () => {
+      if (reloadTimeoutRef.current) {
+        clearTimeout(reloadTimeoutRef.current)
+      }
+    }
+  }, [])
 
   const importDataMutation = useMutation({
     mutationFn: async (file: File) => {
@@ -101,23 +154,70 @@ export const SystemSettings = () => {
         queryKey: ["fetchChatHistory"]
       })
 
+      // Clear any existing reload timeout
+      if (reloadTimeoutRef.current) {
+        clearTimeout(reloadTimeoutRef.current)
+      }
+
+      // Show notification with cancel option
+      const key = `import-reload-${Date.now()}`
       notification.success({
-        message: t(
-          "settings:systemNotifications.importSuccess",
-          "Imported data successfully"
+        key,
+        message: (
+          <span role="status" aria-live="polite">
+            {t(
+              "settings:systemNotifications.importSuccess",
+              "Imported data successfully"
+            )}
+          </span>
+        ),
+        description: (
+          <span role="status" aria-live="polite">
+            {t(
+              "settings:systemNotifications.importReloadNotice",
+              "Page will reload in 5 seconds to apply changes..."
+            )}
+          </span>
+        ),
+        duration: 5,
+        btn: (
+          <button
+            onClick={() => {
+              if (reloadTimeoutRef.current) {
+                clearTimeout(reloadTimeoutRef.current)
+                reloadTimeoutRef.current = null
+              }
+              notification.destroy(key)
+              notification.info({
+                message: t(
+                  "settings:systemNotifications.reloadCancelled",
+                  "Reload cancelled. Some changes may require a manual refresh."
+                ),
+                duration: 4
+              })
+            }}
+            className="text-blue-600 dark:text-blue-400 hover:underline text-sm font-medium"
+          >
+            {t("common:cancel", "Cancel")}
+          </button>
         )
       })
 
-      setTimeout(() => { 
-        window.location.reload() 
-      }, 1000)   
+      reloadTimeoutRef.current = setTimeout(() => {
+        window.location.reload()
+      }, 5000)
     },
     onError: (error) => {
       console.error("Import error:", error)
+      const errorMsg = error instanceof Error ? error.message : String(error)
       notification.error({
         message: t(
           "settings:systemNotifications.importError",
           "Import error"
+        ),
+        description: errorMsg || t(
+          "settings:systemNotifications.importErrorDetail",
+          "The import file may be corrupted or in an invalid format."
         )
       })
     }
@@ -401,7 +501,19 @@ export const SystemSettings = () => {
           </span>
           <button
             onClick={() => {
-              syncFirefoxData.mutate()
+              Modal.confirm({
+                title: t("generalSettings.systemData.firefoxPrivateModeSync.confirmTitle", {
+                  defaultValue: "Sync Firefox Data?"
+                }),
+                content: t("generalSettings.systemData.firefoxPrivateModeSync.confirmContent", {
+                  defaultValue: "This will sync your custom models and prompts to Firefox private mode storage. Continue?"
+                }),
+                okText: t("common:continue", "Continue"),
+                cancelText: t("common:cancel", "Cancel"),
+                onOk: () => {
+                  syncFirefoxData.mutate()
+                }
+              })
             }}
             disabled={syncFirefoxData.isPending}
             className="bg-gray-800 dark:bg-white text-white dark:text-gray-900 px-4 py-2 rounded-md cursor-pointer w-full sm:w-auto">
@@ -505,34 +617,62 @@ export const SystemSettings = () => {
         </span>
 
         <button
-          onClick={async () => {
-            const ok = await confirmDanger({
-              title: t("common:confirmTitle", { defaultValue: "Please confirm" }),
-              content: t("generalSettings.systemData.deleteChatHistory.confirm", { defaultValue: t("generalSettings.system.deleteChatHistory.confirm", { defaultValue: "Are you sure you want to perform a system reset? This will clear all data and cannot be undone." }) as string }),
-              okText: t("common:reset", { defaultValue: "Reset" }),
-              cancelText: t("common:cancel", { defaultValue: "Cancel" })
-            })
-
-            if (!ok) return
-
-            const db = new PageAssistDatabase()
-            await db.clearDB()
-            queryClient.invalidateQueries({
-              queryKey: ["fetchChatHistory"]
-            })
-            clearChat()
-            try {
-              await browser.storage.sync.clear()
-              await browser.storage.local.clear()
-              await browser.storage.session.clear()
-            } catch (e) {
-              console.error("Error clearing storage:", e)
-            }
-          }}
+          onClick={() => setResetModalOpen(true)}
           className="bg-red-500 dark:bg-red-600 text-white dark:text-gray-200 px-4 py-2 rounded-md w-full sm:w-auto">
           {t("generalSettings.systemData.deleteChatHistory.button", { defaultValue: t("generalSettings.system.deleteChatHistory.button", { defaultValue: "Reset All" }) as string })}
         </button>
       </div>
+
+      {/* Two-step reset confirmation modal */}
+      <Modal
+        open={resetModalOpen}
+        title={t("generalSettings.systemData.deleteChatHistory.modalTitle", { defaultValue: "System Reset" })}
+        onCancel={() => {
+          setResetModalOpen(false)
+          setResetInput("")
+        }}
+        okText={t("common:reset", { defaultValue: "Reset" })}
+        cancelText={t("common:cancel", { defaultValue: "Cancel" })}
+        okButtonProps={{
+          danger: true,
+          disabled: resetInput.trim().toUpperCase() !== "RESET",
+          loading: resetting
+        }}
+        onOk={handleResetAll}
+        centered
+      >
+        <div className="space-y-4">
+          <p className="text-gray-700 dark:text-gray-300">
+            {t("generalSettings.systemData.deleteChatHistory.modalWarning", {
+              defaultValue: "This will permanently delete ALL data including:"
+            })}
+          </p>
+          <ul className="list-disc pl-5 text-gray-600 dark:text-gray-400 text-sm space-y-1">
+            <li>{t("generalSettings.systemData.deleteChatHistory.dataChat", { defaultValue: "Chat history and conversations" })}</li>
+            <li>{t("generalSettings.systemData.deleteChatHistory.dataKnowledge", { defaultValue: "Knowledge base and documents" })}</li>
+            <li>{t("generalSettings.systemData.deleteChatHistory.dataPrompts", { defaultValue: "Custom prompts and models" })}</li>
+            <li>{t("generalSettings.systemData.deleteChatHistory.dataSettings", { defaultValue: "All settings and preferences" })}</li>
+          </ul>
+          <div className="pt-2">
+            <p className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+              {t("generalSettings.systemData.deleteChatHistory.typeToConfirm", {
+                defaultValue: "Type RESET to confirm:"
+              })}
+            </p>
+            <Input
+              value={resetInput}
+              onChange={(e) => setResetInput(e.target.value)}
+              placeholder={t("generalSettings.systemData.deleteChatHistory.placeholder", "RESET")}
+              className="font-mono"
+              autoFocus
+              aria-describedby="reset-hint"
+            />
+            <p id="reset-hint" className="text-xs text-gray-500 dark:text-gray-400 mt-1">
+              {t("generalSettings.systemData.deleteChatHistory.caseInsensitiveHint", "Case-insensitive: 'reset', 'RESET', or 'Reset' all work")}
+            </p>
+          </div>
+        </div>
+      </Modal>
     </div>
   )
 }

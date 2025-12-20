@@ -6,7 +6,7 @@
  */
 
 import { create } from "zustand"
-import { persist } from "zustand/middleware"
+import { persist, createJSONStorage, type StateStorage } from "zustand/middleware"
 import { useShallow } from "zustand/react/shallow"
 import type { Folder, Keyword, FolderKeywordLink, ConversationKeywordLink } from "@/db/dexie/types"
 import { db } from "@/db/dexie/schema"
@@ -55,6 +55,9 @@ interface FolderState {
   isLoading: boolean
   lastSynced: number | null
   error: string | null
+
+  // Feature availability (cached to avoid repeated 404s)
+  folderApiAvailable: boolean | null // null = unknown, true/false = checked
 
   // View state
   viewMode: 'folders' | 'date'
@@ -181,6 +184,41 @@ export const buildFolderTree = (
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
+// Throttled Storage Adapter
+// ─────────────────────────────────────────────────────────────────────────────
+
+/**
+ * Creates a throttled localStorage adapter that batches writes to avoid
+ * exceeding browser storage quota limits (MAX_WRITE_OPERATIONS_PER_MINUTE = 120 in Chrome).
+ */
+const createThrottledLocalStorage = (delay = 1000): StateStorage => {
+  let timeoutId: ReturnType<typeof setTimeout> | null = null
+  let pendingValue: string | null = null
+
+  return {
+    getItem: (name) => localStorage.getItem(name),
+    setItem: (name, value) => {
+      pendingValue = value
+      if (!timeoutId) {
+        timeoutId = setTimeout(() => {
+          if (pendingValue !== null) {
+            try {
+              localStorage.setItem(name, pendingValue)
+            } catch (e) {
+              // Ignore storage quota errors silently
+              console.debug('[folder-store] Storage write failed:', e)
+            }
+            pendingValue = null
+          }
+          timeoutId = null
+        }, delay)
+      }
+    },
+    removeItem: (name) => localStorage.removeItem(name)
+  }
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
 // Store
 // ─────────────────────────────────────────────────────────────────────────────
 
@@ -195,6 +233,7 @@ export const useFolderStore = create<FolderState>()(
       isLoading: false,
       lastSynced: null,
       error: null,
+      folderApiAvailable: null, // null = not yet checked
       viewMode: 'date',
       uiPrefs: {},
 
@@ -250,6 +289,14 @@ export const useFolderStore = create<FolderState>()(
 
       // Server sync
       refreshFromServer: async () => {
+        const state = get()
+
+        // Skip if we already know the folder API is not available
+        if (state.folderApiAvailable === false) {
+          console.debug('[folder-store] Skipping refresh - folder API not available')
+          return
+        }
+
         set({ isLoading: true, error: null })
         const controller = new AbortController()
         const timeoutMs = 15000
@@ -319,12 +366,29 @@ export const useFolderStore = create<FolderState>()(
             folderKeywordLinks,
             conversationKeywordLinks,
             lastSynced: Date.now(),
-            isLoading: false
+            isLoading: false,
+            folderApiAvailable: true // Mark API as available
           })
         } catch (error) {
+          // Check if this is a 404 error (folder API not available on server)
+          const errorMsg = error instanceof Error ? error.message : String(error)
+          const is404 = errorMsg.includes('404')
+
+          if (is404) {
+            // Mark API as unavailable and silently skip - don't update error state
+            // to avoid triggering re-renders and retry loops
+            console.debug('[folder-store] Folder API not available (404) - disabling folder sync')
+            set({
+              isLoading: false,
+              folderApiAvailable: false // Cache this so we don't retry
+            })
+            clearTimeout(timeoutId)
+            return // Exit early without triggering error handling
+          }
+
           console.error('Failed to refresh folders from server:', error)
           set({
-            error: error instanceof Error ? error.message : 'Failed to sync',
+            error: errorMsg,
             isLoading: false
           })
 
@@ -661,11 +725,14 @@ export const useFolderStore = create<FolderState>()(
     }),
     {
       name: 'tldw-folder-store',
+      // Use throttled storage to avoid exceeding browser write quota limits
+      storage: createJSONStorage(() => createThrottledLocalStorage(1000)),
       // Persist UI prefs + cache metadata (not the server data itself).
       partialize: (state) => ({
         uiPrefs: state.uiPrefs,
         viewMode: state.viewMode,
-        lastSynced: state.lastSynced
+        lastSynced: state.lastSynced,
+        folderApiAvailable: state.folderApiAvailable
       })
     }
   )

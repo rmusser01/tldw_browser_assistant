@@ -1,0 +1,50 @@
+{
+  "mediaPage.nothingToSend": {
+    "message": "보낼 내용이 없습니다"
+  },
+  "mediaPage.emptyAnalysis": {
+    "message": "분석은 비워 둘 수 없습니다"
+  },
+  "mediaPage.noMediaId": {
+    "message": "사용 가능한 미디어 ID가 없습니다"
+  },
+  "mediaPage.versionSaved": {
+    "message": "새 버전으로 저장되었습니다"
+  },
+  "mediaPage.saveFailed": {
+    "message": "버전을 저장하지 못했습니다"
+  },
+  "mediaPage.sendToChat": {
+    "message": "채팅으로 보내기"
+  },
+  "mediaPage.saveAsVersion": {
+    "message": "새 버전으로 저장"
+  },
+  "mediaPage.analysisPlaceholder": {
+    "message": "분석 내용을 입력하세요..."
+  },
+  "mediaPage.wordCount": {
+    "message": "{{count}} 단어"
+  },
+  "mediaPage.charCount": {
+    "message": "{{count}}자"
+  },
+  "mediaPage.pageRangeError": {
+    "message": "페이지는 1-{{max}} 범위여야 합니다"
+  },
+  "mediaPage.pageRangeClamped": {
+    "message": "페이지 {{page}}로 이동 중"
+  },
+  "noToolCalls": {
+    "message": "아직 도구 호출이 없습니다"
+  },
+  "arguments": {
+    "message": "인수"
+  },
+  "invalidJson": {
+    "message": "잘못된 JSON입니다. 원시 값을 표시합니다"
+  },
+  "result": {
+    "message": "결과"
+  }
+}

@@ -28,5 +28,23 @@
   },
   "mediaPage.charCount": {
     "message": "{{count}} caratteri"
+  },
+  "mediaPage.pageRangeError": {
+    "message": "La pagina deve essere compresa tra 1 e {{max}}"
+  },
+  "mediaPage.pageRangeClamped": {
+    "message": "Navigazione alla pagina {{page}}"
+  },
+  "noToolCalls": {
+    "message": "Nessuna chiamata di tool al momento"
+  },
+  "arguments": {
+    "message": "Argomenti"
+  },
+  "invalidJson": {
+    "message": "JSON non valido; viene mostrato il valore grezzo"
+  },
+  "result": {
+    "message": "Risultato"
   }
 }

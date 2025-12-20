@@ -122,19 +122,19 @@
     "description": "Hjälptext som förklarar autentiseringslägena Single User och Multi User."
   },
   "apiKeyHelp": {
-    "message": "Hitta din API-nyckel i tldw_server \u2192 Settings \u2192 API Keys. Skapa en nyckel där och klistra in den här.",
+    "message": "Hitta din API-nyckel i tldw_server → Settings → API Keys. Skapa en nyckel där och klistra in den här.",
     "description": "Hjälptext som anger var API-nyckeln finns."
   },
   "authStepAria": {
-    "message": "Steg 3 av 4 \u2014 konfiguration av autentisering",
+    "message": "Steg 3 av 4 — konfiguration av autentisering",
     "description": "Aria-etikett för autentiseringssteget i onboarding."
   },
   "confirmStepAria": {
-    "message": "Steg 4 av 4 \u2014 sammanfattning av anslutning och nästa steg",
+    "message": "Steg 4 av 4 — sammanfattning av anslutning och nästa steg",
     "description": "Aria-etikett för bekräftelsesteget i onboarding."
   },
   "nextSteps": {
-    "message": "Du \u00e4r redo att b\u00f6rja",
+    "message": "Du är redo att börja",
     "description": "Rubrik för sista onboarding-panelen med nästa steg."
   },
   "notesEmpty_connectTitle": {
@@ -144,7 +144,7 @@
     "message": "För att använda Anteckningar måste du först ansluta till din tldw-server."
   },
   "notesEmpty_connectExample1": {
-    "message": "Öppna Settings \u2192 tldw server för att lägga till din server-URL."
+    "message": "Öppna Settings → tldw server för att lägga till din server-URL."
   },
   "notesEmpty_connectExample2": {
     "message": "Använd Diagnostics om din server körs men inte kan nås."
@@ -174,7 +174,7 @@
     "message": "Beslut, hinder och uppföljningar från en nylig teamsynk."
   },
   "notesEmpty_demoSample1Meta": {
-    "message": "Idag \u00b7 09:32"
+    "message": "Idag · 09:32"
   },
   "notesEmpty_demoSample2Title": {
     "message": "Demoanteckning: forskningshöjdpunkter"
@@ -183,7 +183,7 @@
     "message": "Viktiga insikter hämtade från en lång artikel eller rapport."
   },
   "notesEmpty_demoSample2Meta": {
-    "message": "Igår \u00b7 16:10"
+    "message": "Igår · 16:10"
   },
   "notesEmpty_demoSample3Title": {
     "message": "Demoanteckning: sammanfattning av samtal"
@@ -224,6 +224,15 @@
   },
   "restartOnboardingConfirmMessage": {
     "message": "Detta återställer din onboarding‑status och tar dig tillbaka till installationsflödet."
+  },
+  "enableOcrAssets_label": {
+    "message": "Aktivera OCR (laddar ner ~5 MB vid första användningen)"
+  },
+  "enableOcrAssets_downloadNotice": {
+    "message": "När du aktiverar OCR laddas ungefär 5 MB språkdata ner vid första användningen."
+  },
+  "enableOcrAssets_assetsEnabled": {
+    "message": "OCR-resurserna är aktiverade och klara"
   },
   "omniSearchPlaceholder": {
     "message": "Sök i skärmar, chattar, media, anteckningar…",
@@ -340,6 +349,9 @@
   "moveToFolder": {
     "message": "Flytta till mapp"
   },
+  "quickIngest_ocrHelp": {
+    "message": "OCR hjälper till att extrahera text från skannade PDF-filer eller bilder."
+  },
   "specReloadedToast": {
     "message": "Avancerad spec har laddats om från servern"
   },
@@ -348,5 +360,349 @@
   },
   "specFallbackWarning": {
     "message": "Använder inbyggd reservschema för media.add (v{{version}}); verifiera mot din tldw_server /openapi.json om fälten verkar inaktuella."
+  },
+  "serverChatsUnavailableNotConnected": {
+    "message": "Serverchattar blir tillgängliga när du ansluter till din tldw‑server."
+  },
+  "serverChatsUnavailableServerError": {
+    "message": "Serverchattar är inte tillgängliga just nu. Kontrollera serverloggarna eller försök igen."
+  },
+  "noToolCalls": {
+    "message": "Inga verktygsanrop ännu"
+  },
+  "arguments": {
+    "message": "Argument"
+  },
+  "invalidJson": {
+    "message": "Ogiltig JSON; visar råvärde"
+  },
+  "result": {
+    "message": "Resultat"
+  },
+  "tools_fs_list": {
+    "message": "Lista katalog",
+    "description": "Label for the fs.list tool (list directory)."
+  },
+  "tools_fs_read": {
+    "message": "Läs fil",
+    "description": "Label for the fs.read tool (read file)."
+  },
+  "tools_fs_write": {
+    "message": "Skriv fil",
+    "description": "Label for the fs.write tool (write file)."
+  },
+  "tools_fs_apply_patch": {
+    "message": "Applicera patch",
+    "description": "Label for the fs.apply_patch tool (apply patch)."
+  },
+  "tools_fs_mkdir": {
+    "message": "Skapa katalog",
+    "description": "Label for the fs.mkdir tool (create directory)."
+  },
+  "tools_fs_delete": {
+    "message": "Ta bort",
+    "description": "Label for the fs.delete tool (delete file or directory)."
+  },
+  "tools_search_grep": {
+    "message": "Sök i innehåll",
+    "description": "Label for the search.grep tool (search file contents)."
+  },
+  "tools_search_glob": {
+    "message": "Hitta filer",
+    "description": "Label for the search.glob tool (find files by pattern)."
+  },
+  "tools_git_status": {
+    "message": "Git-status",
+    "description": "Label for the git.status tool."
+  },
+  "tools_git_diff": {
+    "message": "Git-diff",
+    "description": "Label for the git.diff tool."
+  },
+  "tools_git_log": {
+    "message": "Git-logg",
+    "description": "Label for the git.log tool."
+  },
+  "tools_git_branch": {
+    "message": "Git-gren",
+    "description": "Label for the git.branch tool."
+  },
+  "tools_git_add": {
+    "message": "Stagea filer",
+    "description": "Label for the git.add tool (stage files)."
+  },
+  "tools_git_commit": {
+    "message": "Commit",
+    "description": "Label for the git.commit tool."
+  },
+  "tools_exec_run": {
+    "message": "Kör kommando",
+    "description": "Label for the exec.run tool (run command)."
+  },
+  "commandPalette_goToChat": {
+    "message": "Gå till chatten",
+    "description": "Command palette action label to navigate to the Chat screen."
+  },
+  "commandPalette_goToMedia": {
+    "message": "Gå till Media",
+    "description": "Command palette action label to navigate to the Media screen."
+  },
+  "commandPalette_goToNotes": {
+    "message": "Gå till Anteckningar",
+    "description": "Command palette action label to navigate to the Notes screen."
+  },
+  "commandPalette_goToFlashcards": {
+    "message": "Gå till flashcards",
+    "description": "Command palette action label to navigate to the Flashcards screen."
+  },
+  "commandPalette_goToSettings": {
+    "message": "Gå till Inställningar",
+    "description": "Command palette action label to navigate to the Settings screen."
+  },
+  "commandPalette_goToHealth": {
+    "message": "Gå till Health & diagnostics",
+    "description": "Command palette action label to open the Health & diagnostics screen."
+  },
+  "commandPalette_newChat": {
+    "message": "Ny chatt",
+    "description": "Command palette action label to start a new chat."
+  },
+  "commandPalette_toggleKnowledgeSearch": {
+    "message": "Växla kunskapssökning",
+    "description": "Command palette toggle label for enabling or disabling knowledge search."
+  },
+  "commandPalette_toggleKnowledgeSearchDesc": {
+    "message": "Sök i din kunskapsbas",
+    "description": "Command palette description text explaining the knowledge search toggle."
+  },
+  "commandPalette_toggleWebSearch": {
+    "message": "Växla webbsökning",
+    "description": "Command palette toggle label for enabling or disabling web search."
+  },
+  "commandPalette_toggleWebDesc": {
+    "message": "Sök på internet",
+    "description": "Command palette description text explaining the web search toggle."
+  },
+  "commandPalette_ingestPage": {
+    "message": "Importera aktuell sida",
+    "description": "Command palette action label to ingest the current page into knowledge."
+  },
+  "commandPalette_ingestDesc": {
+    "message": "Spara den här sidan i din kunskapsbas",
+    "description": "Command palette description text explaining page ingestion into knowledge."
+  },
+  "commandPalette_switchModel": {
+    "message": "Byt modell",
+    "description": "Command palette action label to switch the active chat/model."
+  },
+  "commandPalette_toggleSidebar": {
+    "message": "Växla sidopanel",
+    "description": "Command palette toggle label to show or hide the sidepanel."
+  },
+  "commandPalette_toggleSidebarDesc": {
+    "message": "Visa eller dölj chattens sidopanel",
+    "description": "Command palette description text explaining the sidebar visibility toggle."
+  },
+  "commandPalette_placeholder": {
+    "message": "Skriv ett kommando eller sök…",
+    "description": "Placeholder text shown in the command palette input."
+  },
+  "commandPalette_noResults": {
+    "message": "Inga resultat hittades",
+    "description": "No-results state text in the command palette when nothing matches the query."
+  },
+  "commandPalette_title": {
+    "message": "Kommandopalett",
+    "description": "Title of the command palette UI."
+  },
+  "commandPalette_navigate": {
+    "message": "navigera",
+    "description": "Command palette keyboard hint label for navigation."
+  },
+  "commandPalette_select": {
+    "message": "välj",
+    "description": "Command palette keyboard hint label for selection."
+  },
+  "commandPalette_toOpen": {
+    "message": "för att öppna",
+    "description": "Command palette keyboard hint label indicating the shortcut to open an item."
+  },
+  "commandPalette_categoryActions": {
+    "message": "Åtgärder",
+    "description": "Label for the Actions category in the command palette."
+  },
+  "commandPalette_categoryNavigation": {
+    "message": "Navigering",
+    "description": "Label for the Navigation category in the command palette."
+  },
+  "commandPalette_categorySettings": {
+    "message": "Inställningar",
+    "description": "Label for the Settings category in the command palette."
+  },
+  "commandPalette_categoryRecent": {
+    "message": "Senaste",
+    "description": "Label for the Recent items category in the command palette."
+  },
+  "markdown_unableToRender": {
+    "message": "Unable to render content"
+  },
+  "markdown_couldNotDisplay": {
+    "message": "The message content could not be displayed. This may be due to invalid formatting."
+  },
+  "markdown_showRawContent": {
+    "message": "Show raw content"
+  },
+  "notesSearch_exportNoteSuccess": {
+    "message": "Exported ({{size}})"
+  },
+  "notesSearch_exportSuccess": {
+    "message": "Exported {{count}} notes ({{size}})"
+  },
+  "notesSearch_exportCsvSuccess": {
+    "message": "Exported {{count}} notes as CSV ({{size}})"
+  },
+  "notesSearch_exportJsonSuccess": {
+    "message": "Exported {{count}} notes as JSON ({{size}})"
+  },
+  "exportNoteSuccess": {
+    "message": "Exported ({{size}})"
+  },
+  "exportSuccess": {
+    "message": "Exported {{count}} notes ({{size}})"
+  },
+  "exportCsvSuccess": {
+    "message": "Exported {{count}} notes as CSV ({{size}})"
+  },
+  "exportJsonSuccess": {
+    "message": "Exported {{count}} notes as JSON ({{size}})"
+  },
+  "infoShort": {
+    "message": "Info"
+  },
+  "regenShort": {
+    "message": "Igen"
+  },
+  "continueShort": {
+    "message": "Mer"
+  },
+  "error_label": {
+    "message": "Fel"
+  },
+  "error_friendlyApiKeySummary": {
+    "message": "Vi kunde inte nå din tldw-server."
+  },
+  "error_friendlyApiKeyHint": {
+    "message": "Din API‑nyckel kan vara ogiltig. Öppna Inställningar → tldw‑server för att kontrollera din URL och API‑nyckel och försök igen."
+  },
+  "error_friendlyTimeoutSummary": {
+    "message": "Din chatt gick ut på tid."
+  },
+  "error_friendlyTimeoutHint": {
+    "message": "Servern slutade strömma svar. Försök igen eller öppna Hälsa & diagnostik för att kontrollera serverstatus."
+  },
+  "error_friendlyGenericSummary": {
+    "message": "Något gick fel vid kommunikationen med din tldw‑server."
+  },
+  "error_friendlyGenericHint": {
+    "message": "Försök igen om en stund eller öppna Hälsa & diagnostik för att undersöka serverhälsan."
+  },
+  "error_showDetails": {
+    "message": "Visa tekniska detaljer"
+  },
+  "error_hideDetails": {
+    "message": "Dölj tekniska detaljer"
+  },
+  "error_createFolder": {
+    "message": "Failed to create folder"
+  },
+  "modelSelect_label": {
+    "message": "Model"
+  },
+  "modelSelect_tooltip": {
+    "message": "Changes model for next message"
+  },
+  "featureHints_knowledge_title": {
+    "message": "Sök i din kunskap"
+  },
+  "featureHints_knowledge_description": {
+    "message": "Öppna kunskapssökpanelen för att hitta utdrag och infoga dem i din chatt."
+  },
+  "featureHints_moreTools_title": {
+    "message": "Fler verktyg tillgängliga"
+  },
+  "featureHints_moreTools_description": {
+    "message": "Använd synläge, bilduppladdning, snabbimport och hela appen."
+  },
+  "featureHints_commandPalette_title": {
+    "message": "Snabbkommandon"
+  },
+  "featureHints_commandPalette_description": {
+    "message": "Tryck på {{shortcut}} för att söka kommandon, inställningar och mer."
+  },
+  "featureHints_modelSettings_title": {
+    "message": "Justera modellparametrar"
+  },
+  "featureHints_modelSettings_description": {
+    "message": "Finjustera temperatur, kontextlängd och andra modellinställningar."
+  },
+  "chatSidebar_title": {
+    "message": "Chattar"
+  },
+  "chatSidebar_newChat": {
+    "message": "Ny chatt"
+  },
+  "chatSidebar_collapse": {
+    "message": "Fäll ihop sidofält"
+  },
+  "chatSidebar_expand": {
+    "message": "Expandera sidofält"
+  },
+  "chatSidebar_search": {
+    "message": "Sök chattar..."
+  },
+  "chatSidebar_ingest": {
+    "message": "Importera sida"
+  },
+  "chatSidebar_media": {
+    "message": "Media"
+  },
+  "chatSidebar_notes": {
+    "message": "Anteckningar"
+  },
+  "chatSidebar_settings": {
+    "message": "Inställningar"
+  },
+  "chatSidebar_loadError": {
+    "message": "Kunde inte läsa in chattar"
+  },
+  "chatSidebar_localTab": {
+    "message": "Lokal"
+  },
+  "chatSidebar_serverTab": {
+    "message": "Server"
+  },
+  "chatSidebar_foldersTab": {
+    "message": "Mappar"
+  },
+  "chatSidebar_tabs_local": {
+    "message": "Lokal"
+  },
+  "chatSidebar_tabs_server": {
+    "message": "Server"
+  },
+  "chatSidebar_tabs_folders": {
+    "message": "Mappar"
+  },
+  "chatSidebar_noServerChats": {
+    "message": "Inga serverchattar ännu"
+  },
+  "chatSidebar_foldersRequireConnection": {
+    "message": "Mappar kräver en serveranslutning"
+  },
+  "option.more.copy.canonicalMarkdown": {
+    "message": "Copy canonical transcript"
+  },
+  "option.more.download.canonicalMarkdown": {
+    "message": "Canonical transcript (Markdown)"
   }
 }

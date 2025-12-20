@@ -220,6 +220,16 @@
   "ttsShort": "Голос",
   "copyShort": "Копіювати",
   "branchShort": "Гілка",
+  "infoShort": "Інфо",
+  "regenShort": "Ще раз",
+  "continueShort": "Ще",
+  "fileChanges": "Зміни файлів",
+  "deletions": "Видалення",
+  "gitOperations": "Операції Git",
+  "commands": "Команди",
+  "otherOperations": "Інші операції",
+  "fileAccess": "Доступ до файлів",
+  "notebookEdits": "Редагування нотатника",
   "success": "Успішно",
   "created": "Створено",
   "updated": "Оновлено",
@@ -230,7 +240,8 @@
   "serverChats": "Серверні чати",
   "serverChatLoadError": "Не вдалося завантажити серверний чат. Перевірте підключення та спробуйте ще раз.",
   "serverChatSourceLabel": "Джерело сервера",
-  "serverChatsUnavailable": "Серверні чати недоступні. Перевірте підключення до сервера.",
+  "serverChatsUnavailableNotConnected": "Серверні чати будуть доступні після підключення до вашого сервера tldw.",
+  "serverChatsUnavailableServerError": "Серверні чати зараз недоступні. Перевірте журнали сервера або спробуйте ще раз.",
   "historiesDeleted": "{{count}} історій чату видалено",
   "deleteHistoriesError": "Помилка під час видалення історій",
   "mermaid": "Діаграми Mermaid",
@@ -238,6 +249,7 @@
   "searchResults": "Результати пошуку",
   "newBranch": "Нова гілка",
   "error": {
+    "label": "Помилка",
     "friendlyApiKeySummary": "Не вдалося підключитися до вашого сервера tldw.",
     "friendlyApiKeyHint": "Ваш API-ключ може бути недійсним. Відкрийте Налаштування → сервер tldw, щоб перевірити URL і API-ключ, а потім спробуйте ще раз.",
     "friendlyTimeoutSummary": "Час очікування чату вичерпано.",
@@ -259,5 +271,105 @@
   "refresh": "Оновити",
   "confirm": "Підтвердити",
   "untitled": "Без назви",
-  "moveToFolder": "Перемістити в папку"
+  "moveToFolder": "Перемістити в папку",
+  "noToolCalls": "Ще немає викликів інструментів",
+  "status": {
+    "pending": "Очікування",
+    "running": "Обробка",
+    "complete": "Завершено",
+    "error": "Помилка"
+  },
+  "arguments": "Аргументи",
+  "invalidJson": "Некоректний JSON; показано сире значення",
+  "result": "Результат",
+  "tools": {
+    "fs_list": "Список каталогу",
+    "fs_read": "Прочитати файл",
+    "fs_write": "Записати файл",
+    "fs_apply_patch": "Застосувати патч",
+    "fs_mkdir": "Створити каталог",
+    "fs_delete": "Видалити",
+    "search_grep": "Пошук у вмісті",
+    "search_glob": "Знайти файли",
+    "git_status": "Статус Git",
+    "git_diff": "Git diff",
+    "git_log": "Журнал Git",
+    "git_branch": "Гілка Git",
+    "git_add": "Підготувати файли",
+    "git_commit": "Коміт",
+    "exec_run": "Виконати команду"
+  },
+  "markdown": {
+    "unableToRender": "Не вдалося відобразити вміст",
+    "couldNotDisplay": "Не вдалося відобразити вміст повідомлення. Можливо, це пов’язано з некоректним форматуванням.",
+    "showRawContent": "Показати вихідний вміст"
+  },
+  "commandPalette": {
+    "goToChat": "Перейти до чату",
+    "goToMedia": "Перейти до медіа",
+    "goToNotes": "Перейти до нотаток",
+    "goToFlashcards": "Перейти до флешкарток",
+    "goToSettings": "Перейти до налаштувань",
+    "goToHealth": "Відкрити Стан і діагностика",
+    "newChat": "Новий чат",
+    "toggleKnowledgeSearch": "Перемкнути пошук знань",
+    "toggleKnowledgeSearchDesc": "Шукати у вашій базі знань",
+    "toggleWebSearch": "Перемкнути пошук в інтернеті",
+    "toggleWebDesc": "Шукати в інтернеті",
+    "ingestPage": "Імпортувати поточну сторінку",
+    "ingestDesc": "Зберегти цю сторінку у вашій базі знань",
+    "switchModel": "Змінити модель",
+    "toggleSidebar": "Показати/приховати бічну панель",
+    "toggleSidebarDesc": "Показати або приховати бічну панель чату",
+    "placeholder": "Введіть команду або пошуковий запит…",
+    "noResults": "Нічого не знайдено",
+    "title": "Палітра команд",
+    "navigate": "переміщення",
+    "select": "вибір",
+    "toOpen": "щоб відкрити",
+    "categoryActions": "Дії",
+    "categoryNavigation": "Навігація",
+    "categorySettings": "Налаштування",
+    "categoryRecent": "Нещодавні"
+  },
+  "featureHints": {
+    "knowledge": {
+      "title": "Пошук у вашій базі знань",
+      "description": "Відкрийте панель пошуку бази знань, щоб знайти фрагменти й вставити їх у чат."
+    },
+    "moreTools": {
+      "title": "Доступно більше інструментів",
+      "description": "Отримайте доступ до режиму аналізу зображень, завантаження зображень, швидкого імпорту та повної версії застосунку."
+    },
+    "commandPalette": {
+      "title": "Швидкі команди",
+      "description": "Натисніть {{shortcut}}, щоб шукати команди, налаштування та інше."
+    },
+    "modelSettings": {
+      "title": "Налаштувати параметри моделі",
+      "description": "Точно налаштуйте температуру, довжину контексту та інші параметри моделі."
+    }
+  },
+  "chatSidebar": {
+    "title": "Чати",
+    "newChat": "Новий чат",
+    "collapse": "Згорнути бічну панель",
+    "expand": "Розгорнути бічну панель",
+    "search": "Пошук чатів...",
+    "ingest": "Імпортувати сторінку",
+    "media": "Медіа",
+    "notes": "Нотатки",
+    "settings": "Налаштування",
+    "loadError": "Не вдалося завантажити чати",
+    "localTab": "Локально",
+    "serverTab": "Сервер",
+    "foldersTab": "Папки",
+    "tabs": {
+      "local": "Локально",
+      "server": "Сервер",
+      "folders": "Папки"
+    },
+    "noServerChats": "Поки що немає чатів на сервері",
+    "foldersRequireConnection": "Папки потребують підключення до сервера"
+  }
 }

@@ -35,6 +35,9 @@ export type Message = {
   documents?: ChatDocuments
   serverMessageId?: string
   serverMessageVersion?: number
+  // Compare/multi-model metadata (in-memory only)
+  clusterId?: string
+  modelId?: string
 }
 
 export type ChatHistory = {
@@ -140,6 +143,31 @@ type State = {
   setServerChatSource: (source: string | null) => void
   serverChatExternalRef: string | null
   setServerChatExternalRef: (ref: string | null) => void
+
+  // Compare mode (multi-model) state
+  compareMode: boolean
+  setCompareMode: (on: boolean) => void
+  compareSelectedModels: string[]
+  setCompareSelectedModels: (models: string[]) => void
+  compareSelectionByCluster: Record<string, string[]>
+  setCompareSelectionForCluster: (clusterId: string, models: string[]) => void
+  // Compare breadcrumbs / canonical state
+  compareParentByHistory: Record<
+    string,
+    {
+      parentHistoryId: string
+      clusterId?: string
+    }
+  >
+  setCompareParentForHistory: (
+    historyId: string,
+    meta: { parentHistoryId: string; clusterId?: string }
+  ) => void
+  compareCanonicalByCluster: Record<string, string | null>
+  setCompareCanonicalForCluster: (clusterId: string, messageId: string | null) => void
+  // Split-off chats per compare cluster/model
+  compareSplitChats: Record<string, Record<string, string>>
+  setCompareSplitChat: (clusterId: string, modelKey: string, historyId: string) => void
 }
 
 export const useStoreMessageOption = create<State>((set) => ({
@@ -260,7 +288,48 @@ export const useStoreMessageOption = create<State>((set) => ({
     set({ serverChatSource: source != null ? source : null }),
   serverChatExternalRef: null,
   setServerChatExternalRef: (ref) =>
-    set({ serverChatExternalRef: ref != null ? ref : null })
+    set({ serverChatExternalRef: ref != null ? ref : null }),
+
+  compareMode: false,
+  setCompareMode: (compareMode) => set({ compareMode }),
+  compareSelectedModels: [],
+  setCompareSelectedModels: (compareSelectedModels) =>
+    set({ compareSelectedModels }),
+  compareSelectionByCluster: {},
+  setCompareSelectionForCluster: (clusterId, models) =>
+    set((state) => ({
+      compareSelectionByCluster: {
+        ...state.compareSelectionByCluster,
+        [clusterId]: models
+      }
+    })),
+  compareParentByHistory: {},
+  setCompareParentForHistory: (historyId, meta) =>
+    set((state) => ({
+      compareParentByHistory: {
+        ...state.compareParentByHistory,
+        [historyId]: meta
+      }
+    })),
+  compareCanonicalByCluster: {},
+  setCompareCanonicalForCluster: (clusterId, messageId) =>
+    set((state) => ({
+      compareCanonicalByCluster: {
+        ...state.compareCanonicalByCluster,
+        [clusterId]: messageId
+      }
+    })),
+  compareSplitChats: {},
+  setCompareSplitChat: (clusterId, modelKey, historyId) =>
+    set((state) => ({
+      compareSplitChats: {
+        ...state.compareSplitChats,
+        [clusterId]: {
+          ...(state.compareSplitChats[clusterId] || {}),
+          [modelKey]: historyId
+        }
+      }
+    }))
 }))
 
 if (typeof window !== "undefined") {

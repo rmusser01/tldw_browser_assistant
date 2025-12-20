@@ -220,6 +220,16 @@
   "ttsShort": "Röst",
   "copyShort": "Kopiera",
   "branchShort": "Gren",
+  "infoShort": "Info",
+  "regenShort": "Igen",
+  "continueShort": "Mer",
+  "fileChanges": "Filändringar",
+  "deletions": "Raderingar",
+  "gitOperations": "Git‑åtgärder",
+  "commands": "Kommandon",
+  "otherOperations": "Andra åtgärder",
+  "fileAccess": "Filåtkomst",
+  "notebookEdits": "Ändringar i anteckningsbok",
   "success": "Lyckades",
   "created": "Skapad",
   "updated": "Uppdaterad",
@@ -230,7 +240,8 @@
   "serverChats": "Serverchattar",
   "serverChatLoadError": "Det gick inte att läsa in serverchatt. Kontrollera anslutningen och försök igen.",
   "serverChatSourceLabel": "Serverkälla",
-  "serverChatsUnavailable": "Serverchattar är inte tillgängliga. Kontrollera serveranslutningen.",
+  "serverChatsUnavailableNotConnected": "Serverchattar blir tillgängliga när du ansluter till din tldw‑server.",
+  "serverChatsUnavailableServerError": "Serverchattar är inte tillgängliga just nu. Kontrollera serverloggarna eller försök igen.",
   "historiesDeleted": "{{count}} historiker borttagna",
   "deleteHistoriesError": "Fel vid borttagning av historiker",
   "mermaid": "Mermaid-diagram",
@@ -238,6 +249,7 @@
   "searchResults": "Sökresultat",
   "newBranch": "Ny gren",
   "error": {
+    "label": "Fel",
     "friendlyApiKeySummary": "Vi kunde inte nå din tldw-server.",
     "friendlyApiKeyHint": "Din API‑nyckel kan vara ogiltig. Öppna Inställningar → tldw‑server för att kontrollera din URL och API‑nyckel och försök igen.",
     "friendlyTimeoutSummary": "Din chatt gick ut på tid.",
@@ -259,5 +271,105 @@
   "refresh": "Uppdatera",
   "confirm": "Bekräfta",
   "untitled": "Utan titel",
-  "moveToFolder": "Flytta till mapp"
+  "moveToFolder": "Flytta till mapp",
+  "noToolCalls": "Inga verktygsanrop ännu",
+  "status": {
+    "pending": "Väntar",
+    "running": "Bearbetar",
+    "complete": "Klar",
+    "error": "Fel"
+  },
+  "arguments": "Argument",
+  "invalidJson": "Ogiltig JSON; visar råvärde",
+  "result": "Resultat",
+  "tools": {
+    "fs_list": "Lista katalog",
+    "fs_read": "Läs fil",
+    "fs_write": "Skriv fil",
+    "fs_apply_patch": "Applicera patch",
+    "fs_mkdir": "Skapa katalog",
+    "fs_delete": "Ta bort",
+    "search_grep": "Sök i innehåll",
+    "search_glob": "Hitta filer",
+    "git_status": "Git-status",
+    "git_diff": "Git-diff",
+    "git_log": "Git-logg",
+    "git_branch": "Git-gren",
+    "git_add": "Stagea filer",
+    "git_commit": "Commit",
+    "exec_run": "Kör kommando"
+  },
+  "markdown": {
+    "unableToRender": "Kunde inte rendera innehållet",
+    "couldNotDisplay": "Meddelandeinnehållet kunde inte visas. Detta kan bero på ogiltig formatering.",
+    "showRawContent": "Visa råinnehåll"
+  },
+  "commandPalette": {
+    "goToChat": "Gå till chatten",
+    "goToMedia": "Gå till Media",
+    "goToNotes": "Gå till Anteckningar",
+    "goToFlashcards": "Gå till flashcards",
+    "goToSettings": "Gå till Inställningar",
+    "goToHealth": "Gå till Hälsa & diagnostik",
+    "newChat": "Ny chatt",
+    "toggleKnowledgeSearch": "Växla kunskapssökning",
+    "toggleKnowledgeSearchDesc": "Sök i din kunskapsbas",
+    "toggleWebSearch": "Växla webbsökning",
+    "toggleWebDesc": "Sök på internet",
+    "ingestPage": "Importera aktuell sida",
+    "ingestDesc": "Spara den här sidan i din kunskapsbas",
+    "switchModel": "Byt modell",
+    "toggleSidebar": "Växla sidopanel",
+    "toggleSidebarDesc": "Visa eller dölj chattens sidopanel",
+    "placeholder": "Skriv ett kommando eller sök…",
+    "noResults": "Inga resultat hittades",
+    "title": "Kommandopalett",
+    "navigate": "navigera",
+    "select": "välj",
+    "toOpen": "för att öppna",
+    "categoryActions": "Åtgärder",
+    "categoryNavigation": "Navigering",
+    "categorySettings": "Inställningar",
+    "categoryRecent": "Senaste"
+  },
+  "featureHints": {
+    "knowledge": {
+      "title": "Sök i din kunskap",
+      "description": "Öppna kunskapssökpanelen för att hitta utdrag och infoga dem i din chatt."
+    },
+    "moreTools": {
+      "title": "Fler verktyg tillgängliga",
+      "description": "Använd synläge, bilduppladdning, snabbimport och hela appen."
+    },
+    "commandPalette": {
+      "title": "Snabbkommandon",
+      "description": "Tryck på {{shortcut}} för att söka kommandon, inställningar och mer."
+    },
+    "modelSettings": {
+      "title": "Justera modellparametrar",
+      "description": "Finjustera temperatur, kontextlängd och andra modellinställningar."
+    }
+  },
+  "chatSidebar": {
+    "title": "Chattar",
+    "newChat": "Ny chatt",
+    "collapse": "Fäll ihop sidofält",
+    "expand": "Expandera sidofält",
+    "search": "Sök chattar...",
+    "ingest": "Importera sida",
+    "media": "Media",
+    "notes": "Anteckningar",
+    "settings": "Inställningar",
+    "loadError": "Kunde inte läsa in chattar",
+    "localTab": "Lokal",
+    "serverTab": "Server",
+    "foldersTab": "Mappar",
+    "tabs": {
+      "local": "Lokal",
+      "server": "Server",
+      "folders": "Mappar"
+    },
+    "noServerChats": "Inga serverchattar ännu",
+    "foldersRequireConnection": "Mappar kräver en serveranslutning"
+  }
 }

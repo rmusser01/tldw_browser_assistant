@@ -1,4 +1,5 @@
 import { Storage } from "@plasmohq/storage"
+import { createSafeStorage } from "@/utils/safe-storage"
 
 export type EvaluationDefaults = {
   defaultEvalType?: string
@@ -10,7 +11,7 @@ export type EvaluationDefaults = {
 
 const STORAGE_KEY = "evaluationsDefaults"
 
-const storage = new Storage({ area: "local" })
+const storage = createSafeStorage({ area: "local" })
 
 const DEFAULTS: Required<EvaluationDefaults> = {
   defaultEvalType: "response_quality",

@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { Modal, message } from 'antd'
 import { useTranslation } from 'react-i18next'
 import { Copy, Send, Save } from 'lucide-react'
@@ -26,6 +26,8 @@ export function AnalysisEditModal({
   const { t } = useTranslation(['review', 'common'])
   const [text, setText] = useState(initialText)
   const [saving, setSaving] = useState(false)
+  const textareaRef = useRef<HTMLTextAreaElement>(null)
+  const triggerRef = useRef<HTMLElement | null>(null)
 
   // Reset text when modal opens with new initial text
   useEffect(() => {
@@ -33,6 +35,23 @@ export function AnalysisEditModal({
       setText(initialText)
     }
   }, [open, initialText])
+
+  // Capture trigger element for focus restoration
+  useEffect(() => {
+    if (open) {
+      triggerRef.current = document.activeElement as HTMLElement
+    }
+  }, [open])
+
+  const handleAfterOpenChange = (visible: boolean) => {
+    if (visible) {
+      // Focus textarea when modal opens
+      setTimeout(() => textareaRef.current?.focus(), 0)
+    } else {
+      // Restore focus to trigger element when modal closes
+      triggerRef.current?.focus()
+    }
+  }
 
   const handleCopy = async () => {
     try {
@@ -98,11 +117,18 @@ export function AnalysisEditModal({
     }
   }
 
+  const charCount = text.length
+  const charLimit = 25000
+  const warningThreshold = 20000
+  const isApproachingLimit = charCount >= warningThreshold
+  const isOverLimit = charCount >= charLimit
+
   return (
     <Modal
       title={t('mediaPage.editAnalysis', 'Edit Analysis')}
       open={open}
       onCancel={onClose}
+      afterOpenChange={handleAfterOpenChange}
       width={700}
       footer={
         <div className="flex items-center justify-between">
@@ -128,8 +154,9 @@ export function AnalysisEditModal({
             {mediaId && (
               <button
                 onClick={handleSaveAsNewVersion}
-                disabled={saving}
-                className="px-3 py-1.5 text-sm bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 rounded flex items-center gap-1.5 transition-colors disabled:opacity-50"
+                disabled={saving || isOverLimit}
+                className="px-3 py-1.5 text-sm bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 rounded flex items-center gap-1.5 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                title={isOverLimit ? t('mediaPage.charLimitExceeded', 'Character limit exceeded') : undefined}
               >
                 <Save className="w-4 h-4" />
                 {t('mediaPage.saveAsVersion', 'Save as New Version')}
@@ -144,7 +171,9 @@ export function AnalysisEditModal({
             {onSave && (
               <button
                 onClick={handleSave}
-                className="px-3 py-1.5 text-sm bg-blue-600 hover:bg-blue-700 text-white rounded transition-colors"
+                disabled={isOverLimit}
+                className="px-3 py-1.5 text-sm bg-blue-600 hover:bg-blue-700 text-white rounded transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                title={isOverLimit ? t('mediaPage.charLimitExceeded', 'Character limit exceeded') : undefined}
               >
                 {t('common:save', 'Save')}
               </button>
@@ -155,15 +184,32 @@ export function AnalysisEditModal({
     >
       <div className="space-y-3">
         <textarea
+          ref={textareaRef}
           value={text}
           onChange={e => setText(e.target.value)}
-          className="w-full min-h-[300px] p-3 text-sm font-mono rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-[#171717] text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 resize-y leading-relaxed"
+          maxLength={charLimit}
+          className={`w-full min-h-[300px] p-3 text-sm font-mono rounded-lg border bg-white dark:bg-[#171717] text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 resize-y leading-relaxed ${
+            isOverLimit
+              ? 'border-red-400 dark:border-red-500 focus:ring-red-500'
+              : isApproachingLimit
+                ? 'border-orange-400 dark:border-orange-500 focus:ring-orange-500'
+                : 'border-gray-200 dark:border-gray-700 focus:ring-blue-500'
+          }`}
           placeholder={t('mediaPage.analysisPlaceholder', 'Enter analysis text...')}
         />
-        <div className="text-xs text-gray-500 dark:text-gray-400">
-          {t('mediaPage.wordCount', '{{count}} words', { count: text.trim() ? text.trim().split(/\s+/).length : 0 })}
-          {' • '}
-          {t('mediaPage.charCount', '{{count}} characters', { count: text.length })}
+        <div className="flex items-center justify-between text-xs">
+          <div className={`${isOverLimit ? 'text-red-600 dark:text-red-400 font-medium' : isApproachingLimit ? 'text-orange-600 dark:text-orange-400 font-medium' : 'text-gray-500 dark:text-gray-400'}`}>
+            {t('mediaPage.wordCount', '{{count}} words', { count: text.trim() ? text.trim().split(/\s+/).length : 0 })}
+            {' • '}
+            {t('mediaPage.charCount', '{{count}} characters', { count: charCount })}
+          </div>
+          {isApproachingLimit && (
+            <div className={`${isOverLimit ? 'text-red-600 dark:text-red-400' : 'text-orange-600 dark:text-orange-400'} text-xs font-medium`}>
+              {isOverLimit
+                ? t('mediaPage.charLimitExceeded', 'Character limit exceeded')
+                : t('mediaPage.charLimitWarning', 'Approaching character limit (20k)')}
+            </div>
+          )}
         </div>
       </div>
     </Modal>

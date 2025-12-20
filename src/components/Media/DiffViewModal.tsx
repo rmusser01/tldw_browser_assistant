@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react'
+import { useState, useMemo, useRef, useEffect } from 'react'
 import { Modal, Radio } from 'antd'
 import { useTranslation } from 'react-i18next'
 
@@ -64,6 +64,25 @@ export function DiffViewModal({
 }: DiffViewModalProps) {
   const { t } = useTranslation(['review'])
   const [viewMode, setViewMode] = useState<'unified' | 'sideBySide'>('unified')
+  const triggerRef = useRef<HTMLElement | null>(null)
+  const contentRef = useRef<HTMLDivElement>(null)
+
+  // Capture trigger element for focus restoration
+  useEffect(() => {
+    if (open) {
+      triggerRef.current = document.activeElement as HTMLElement
+    }
+  }, [open])
+
+  const handleAfterOpenChange = (visible: boolean) => {
+    if (visible) {
+      // Focus the diff content for keyboard scrolling
+      setTimeout(() => contentRef.current?.focus(), 0)
+    } else {
+      // Restore focus to trigger element when modal closes
+      triggerRef.current?.focus()
+    }
+  }
 
   const diffLines = useMemo(() => computeDiff(leftText, rightText), [leftText, rightText])
 
@@ -120,6 +139,7 @@ export function DiffViewModal({
       title={t('mediaPage.diffView', 'Diff View')}
       open={open}
       onCancel={onClose}
+      afterOpenChange={handleAfterOpenChange}
       footer={null}
       width={900}
       className="diff-modal"
@@ -142,7 +162,37 @@ export function DiffViewModal({
         </Radio.Group>
       </div>
 
-      <div className="border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden max-h-[60vh] overflow-y-auto">
+      <div
+        ref={contentRef}
+        tabIndex={0}
+        className="border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden max-h-[60vh] overflow-y-auto focus:outline-none focus:ring-2 focus:ring-blue-500"
+        onKeyDown={(e) => {
+          // Keyboard navigation for diff scrolling
+          const scrollAmount = 100
+          const pageScrollAmount = 400
+          if (e.key === 'ArrowDown' || e.key === 'j') {
+            e.preventDefault()
+            contentRef.current?.scrollBy({ top: scrollAmount, behavior: 'smooth' })
+          } else if (e.key === 'ArrowUp' || e.key === 'k') {
+            e.preventDefault()
+            contentRef.current?.scrollBy({ top: -scrollAmount, behavior: 'smooth' })
+          } else if (e.key === 'PageDown' || e.key === ' ') {
+            e.preventDefault()
+            contentRef.current?.scrollBy({ top: pageScrollAmount, behavior: 'smooth' })
+          } else if (e.key === 'PageUp') {
+            e.preventDefault()
+            contentRef.current?.scrollBy({ top: -pageScrollAmount, behavior: 'smooth' })
+          } else if (e.key === 'Home') {
+            e.preventDefault()
+            contentRef.current?.scrollTo({ top: 0, behavior: 'smooth' })
+          } else if (e.key === 'End') {
+            e.preventDefault()
+            contentRef.current?.scrollTo({ top: contentRef.current.scrollHeight, behavior: 'smooth' })
+          }
+        }}
+        role="region"
+        aria-label={t('mediaPage.diffContentRegion', 'Diff content - use arrow keys to scroll')}
+      >
         {viewMode === 'unified' ? (
           <div className="font-mono text-xs">
             {diffLines.length === 0 ? (
@@ -203,15 +253,20 @@ export function DiffViewModal({
         )}
       </div>
 
-      {/* Legend */}
-      <div className="mt-3 flex items-center gap-4 text-xs text-gray-500 dark:text-gray-400">
-        <span className="flex items-center gap-1">
-          <span className="w-3 h-3 rounded bg-red-100 dark:bg-red-900/30"></span>
-          {t('mediaPage.removed', 'Removed')}
-        </span>
-        <span className="flex items-center gap-1">
-          <span className="w-3 h-3 rounded bg-green-100 dark:bg-green-900/30"></span>
-          {t('mediaPage.added', 'Added')}
+      {/* Legend & keyboard hints */}
+      <div className="mt-3 flex items-center justify-between text-xs text-gray-500 dark:text-gray-400">
+        <div className="flex items-center gap-4">
+          <span className="flex items-center gap-1">
+            <span className="w-3 h-3 rounded bg-red-100 dark:bg-red-900/30"></span>
+            {t('mediaPage.removed', 'Removed')}
+          </span>
+          <span className="flex items-center gap-1">
+            <span className="w-3 h-3 rounded bg-green-100 dark:bg-green-900/30"></span>
+            {t('mediaPage.added', 'Added')}
+          </span>
+        </div>
+        <span className="hidden sm:block">
+          {t('mediaPage.keyboardNavHint', '↑↓ or j/k to scroll, PgUp/PgDn for pages')}
         </span>
       </div>
     </Modal>

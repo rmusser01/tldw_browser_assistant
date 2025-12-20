@@ -21,10 +21,25 @@ import { CurrentChatModelSettings } from "../Common/Settings/CurrentChatModelSet
 import { Sidebar } from "../Option/Sidebar"
 import { Header } from "./Header"
 import { useMigration } from "../../hooks/useMigration"
+import { useChatSidebar } from "@/hooks/useFeatureFlags"
+import { ChatSidebar } from "@/components/Common/ChatSidebar"
 
 // Lazy-load Timeline to reduce initial bundle size (~1.2MB cytoscape)
 const TimelineModal = lazy(() =>
   import("@/components/Timeline").then((m) => ({ default: m.TimelineModal }))
+)
+
+// Lazy-load Command Palette and Keyboard Shortcuts modal to reduce bundle size
+const CommandPalette = lazy(() =>
+  import("@/components/Common/CommandPalette").then((m) => ({
+    default: m.CommandPalette
+  }))
+)
+
+const KeyboardShortcutsModal = lazy(() =>
+  import("@/components/Common/KeyboardShortcutsModal").then((m) => ({
+    default: m.KeyboardShortcutsModal
+  }))
 )
 import { useConfirmDanger } from "@/components/Common/confirm-danger"
 import { DemoModeProvider, useDemoMode } from "@/context/demo-mode"
@@ -42,12 +57,15 @@ const OptionLayoutInner: React.FC<OptionLayoutProps> = ({
 }) => {
   const confirmDanger = useConfirmDanger()
   const [sidebarOpen, setSidebarOpen] = useState(false)
+  const [chatSidebarCollapsed, setChatSidebarCollapsed] = useState(false)
   const { t } = useTranslation(["option", "common", "settings"])
   const [openModelSettings, setOpenModelSettings] = useState(false)
   const { isLoading: migrationLoading } = useMigration()
   const { demoEnabled } = useDemoMode()
+  const [showChatSidebar] = useChatSidebar()
   const {
     setMessages,
+    history,
     setHistory,
     setHistoryId,
     historyId,
@@ -56,14 +74,22 @@ const OptionLayoutInner: React.FC<OptionLayoutProps> = ({
     temporaryChat,
     setSelectedSystemPrompt,
     setContextFiles,
-    useOCR
+    useOCR,
+    chatMode,
+    setChatMode,
+    webSearch,
+    setWebSearch
   } = useMessageOption()
   const queryClient = useQueryClient()
   const { setSystemPrompt } = useStoreChatModelSettings()
 
   // Create toggle function for sidebar
   const toggleSidebar = () => {
-    setSidebarOpen(prev => !prev)
+    if (showChatSidebar && !hideHeader) {
+      setChatSidebarCollapsed((prev) => !prev)
+      return
+    }
+    setSidebarOpen((prev) => !prev)
   }
 
   // Quick Chat Helper toggle
@@ -93,32 +119,46 @@ const OptionLayoutInner: React.FC<OptionLayoutProps> = ({
   }
 
   return (
-    <div className="flex h-full w-full">
+    <div className="flex min-h-screen w-full">
+      {/* Persistent ChatSidebar when feature flag enabled */}
+      {showChatSidebar && !hideHeader && (
+        <ChatSidebar
+          collapsed={chatSidebarCollapsed}
+          onToggleCollapse={() => setChatSidebarCollapsed((prev) => !prev)}
+          selectedChatId={historyId}
+          onSelectChat={(chatId) => setHistoryId(chatId)}
+          onNewChat={clearChat}
+          onIngest={() => {
+            if (typeof window !== "undefined") {
+              window.dispatchEvent(new CustomEvent("tldw:open-quick-ingest"))
+            }
+          }}
+          className="sticky top-0 shrink-0 border-r border-gray-200 dark:border-gray-800"
+        />
+      )}
       <main
         className={classNames(
-          "relative w-full",
-          hideHeader ? "min-h-screen bg-slate-50 dark:bg-[#101010]" : "h-dvh"
+          "relative flex-1 flex flex-col",
+          hideHeader ? "bg-slate-50 dark:bg-[#101010]" : ""
         )}
         data-demo-mode={demoEnabled ? "on" : "off"}>
-        {!hideHeader && (
-          <div className="relative z-20 w-full">
-            <Header
-              setSidebarOpen={setSidebarOpen}
-              setOpenModelSettings={setOpenModelSettings}
-              showSelectors={showHeaderSelectors}
-            />
+        {hideHeader ? (
+          <div className="relative flex min-h-screen flex-1 flex-col items-center justify-center px-4 py-10 sm:px-8 overflow-auto">
+            {children}
+          </div>
+        ) : (
+          <div className="relative flex min-h-[135vh] flex-col pt-2 sm:pt-3">
+            <div className="relative z-20 w-full">
+              <Header
+                setOpenModelSettings={setOpenModelSettings}
+                showSelectors={showHeaderSelectors}
+              />
+            </div>
+            {children}
           </div>
         )}
-        <div
-          className={classNames(
-            "relative flex h-full flex-col",
-            hideHeader
-              ? "min-h-screen items-center justify-center px-4 py-10 sm:px-8"
-              : "pt-2 sm:pt-3"
-          )}>
-          {children}
-        </div>
-        {!hideHeader && (
+        {/* Legacy Drawer sidebar - only shown when new ChatSidebar feature is disabled */}
+        {!hideHeader && !showChatSidebar && (
           <Drawer
             title={
               <div className="flex items-center justify-between">
@@ -216,6 +256,31 @@ const OptionLayoutInner: React.FC<OptionLayoutProps> = ({
         {!hideHeader && (
           <Suspense fallback={null}>
             <TimelineModal />
+          </Suspense>
+        )}
+
+        {/* Command Palette - global keyboard shortcut ⌘K */}
+        {!hideHeader && (
+          <Suspense fallback={null}>
+            <CommandPalette
+              onNewChat={clearChat}
+              onToggleRag={() => setChatMode(chatMode === "rag" ? "normal" : "rag")}
+              onToggleWebSearch={() => setWebSearch(!webSearch)}
+              onIngestPage={() => {
+                if (typeof window !== "undefined") {
+                  window.dispatchEvent(new CustomEvent("tldw:open-quick-ingest"))
+                }
+              }}
+              onSwitchModel={() => setOpenModelSettings(true)}
+              onToggleSidebar={toggleSidebar}
+            />
+          </Suspense>
+        )}
+
+        {/* Keyboard Shortcuts Help Modal - triggered by ? */}
+        {!hideHeader && (
+          <Suspense fallback={null}>
+            <KeyboardShortcutsModal />
           </Suspense>
         )}
       </main>

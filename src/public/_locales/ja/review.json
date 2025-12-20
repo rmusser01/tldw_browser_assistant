@@ -28,5 +28,23 @@
   },
   "mediaPage.charCount": {
     "message": "{{count}}文字"
+  },
+  "mediaPage.pageRangeError": {
+    "message": "ページは1〜{{max}}の範囲内である必要があります"
+  },
+  "mediaPage.pageRangeClamped": {
+    "message": "ページ{{page}}に移動しています"
+  },
+  "noToolCalls": {
+    "message": "ツール呼び出しはまだありません"
+  },
+  "arguments": {
+    "message": "引数"
+  },
+  "invalidJson": {
+    "message": "無効な JSON です。生の値を表示しています"
+  },
+  "result": {
+    "message": "結果"
   }
 }

@@ -10,6 +10,39 @@
   "chatDictionariesNav": "채팅 사전",
   "charactersNav": "캐릭터",
   "mediaNav": "미디어",
+  "chatAppearance": {
+    "title": "채팅 모양",
+    "description": "채팅 메시지의 색상, 글꼴, 글자 크기를 사용자 지정합니다.",
+    "behaviorNote": "채팅 동작 설정(와이드 모드, 추론, 복사 옵션)을 찾고 계신가요?",
+    "goToGeneral": "일반 설정으로 이동",
+    "userHeading": "사용자 메시지",
+    "assistantHeading": "어시스턴트 메시지",
+    "userColor": "사용자 텍스트 색상",
+    "assistantColor": "어시스턴트 텍스트 색상",
+    "userFont": "사용자 글꼴",
+    "assistantFont": "어시스턴트 글꼴",
+    "userSize": "사용자 텍스트 크기",
+    "assistantSize": "어시스턴트 텍스트 크기",
+    "color": {
+      "default": "기본값",
+      "blue": "파랑",
+      "green": "초록",
+      "purple": "보라",
+      "orange": "주황",
+      "red": "빨강"
+    },
+    "font": {
+      "default": "기본값",
+      "sans": "고딕체 (Sans serif)",
+      "serif": "명조체 (Serif)",
+      "mono": "고정폭 글꼴 (Monospace)"
+    },
+    "size": {
+      "sm": "작게",
+      "md": "보통",
+      "lg": "크게"
+    }
+  },
   "generalSettings": {
     "title": "일반 설정",
     "settings": {
@@ -84,7 +117,9 @@
         "label": "사이드 패널에서 임시 채팅 기본 활성화"
       },
       "enableOcrAssets": {
-        "label": "Enable OCR (downloads ~5MB on first use)"
+        "label": "OCR 활성화 (처음 사용할 때 약 5MB 다운로드)",
+        "downloadNotice": "OCR을 활성화하면 처음 사용할 때 약 5MB의 언어 데이터가 다운로드됩니다.",
+        "assetsEnabled": "OCR 리소스가 활성화되어 준비되었습니다"
       },
       "ocrLanguage": {
         "label": "Default OCR Language",

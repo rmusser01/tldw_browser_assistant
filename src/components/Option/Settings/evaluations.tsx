@@ -1,5 +1,5 @@
 import React from "react"
-import { Button, Card, Form, Input, Select, Space, Alert } from "antd"
+import { Button, Card, Form, Input, Select, Space, Alert, Skeleton } from "antd"
 import { useMutation, useQuery } from "@tanstack/react-query"
 import { useTranslation } from "react-i18next"
 
@@ -150,7 +150,9 @@ export const EvaluationsSettings = () => {
         />
       )}
 
-      <Card>
+      {defaultsLoading && <Skeleton active paragraph={{ rows: 6 }} />}
+
+      {!defaultsLoading && <Card>
         <Form
           form={form}
           layout="vertical"
@@ -232,6 +234,7 @@ export const EvaluationsSettings = () => {
               {t("common:save", { defaultValue: "Save" })}
             </Button>
             <Button
+              type="default"
               loading={testing}
               onClick={() => void testEvalApi()}
               disabled={!isOnline}>
@@ -250,7 +253,7 @@ export const EvaluationsSettings = () => {
             />
           )}
         </Form>
-      </Card>
+      </Card>}
     </div>
   )
 }

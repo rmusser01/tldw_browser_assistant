@@ -10,6 +10,39 @@
   "chatDictionariesNav": "チャット辞書",
   "charactersNav": "キャラクター",
   "mediaNav": "メディア",
+  "chatAppearance": {
+    "title": "チャットの外観",
+    "description": "チャットメッセージの色、フォント、文字サイズをカスタマイズします。",
+    "behaviorNote": "チャットの動作設定（ワイドモード、推論、コピーオプション）をお探しですか？",
+    "goToGeneral": "一般設定へ移動",
+    "userHeading": "ユーザーメッセージ",
+    "assistantHeading": "アシスタントメッセージ",
+    "userColor": "ユーザーの文字色",
+    "assistantColor": "アシスタントの文字色",
+    "userFont": "ユーザーのフォント",
+    "assistantFont": "アシスタントのフォント",
+    "userSize": "ユーザーの文字サイズ",
+    "assistantSize": "アシスタントの文字サイズ",
+    "color": {
+      "default": "デフォルト",
+      "blue": "青",
+      "green": "緑",
+      "purple": "紫",
+      "orange": "オレンジ",
+      "red": "赤"
+    },
+    "font": {
+      "default": "デフォルト",
+      "sans": "サンセリフ体（ゴシック）",
+      "serif": "セリフ体（明朝）",
+      "mono": "等幅フォント"
+    },
+    "size": {
+      "sm": "小",
+      "md": "中",
+      "lg": "大"
+    }
+  },
   "generalSettings": {
     "title": "一般設定",
     "settings": {
@@ -84,17 +117,19 @@
         "label": "サイドパネルでの一時チャットをデフォルトで有効にする"
       },
       "enableOcrAssets": {
-        "label": "Enable OCR (downloads ~5MB on first use)"
+        "label": "OCR を有効にする（初回使用時に約 5MB をダウンロード）",
+        "downloadNotice": "OCR を有効にすると、初回使用時に約 5MB の言語データをダウンロードします。",
+        "assetsEnabled": "OCR アセットが有効化され、利用可能です"
       },
       "ocrLanguage": {
-        "label": "Default OCR Language",
-        "placeholder": "Select an OCR language"
+        "label": "デフォルトの OCR 言語",
+        "placeholder": "OCR 言語を選択"
       },
       "removeReasoningTagFromCopy": {
-        "label": "Remove Reasoning Tag from Copied Text"
+        "label": "コピーしたテキストから推論タグを削除"
       },
       "promptSearchIncludeServer": {
-        "label": "Include server prompts in prompt search"
+        "label": "プロンプト検索にサーバーのプロンプトを含める"
       },
       "restartOnboarding": {
         "label": "オンボーディングを最初からやり直す",

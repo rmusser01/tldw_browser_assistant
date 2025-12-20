@@ -1,5 +1,7 @@
 import { Storage } from "@plasmohq/storage"
-const storage = new Storage()
+import { createSafeStorage } from "@/utils/safe-storage"
+
+const storage = createSafeStorage()
 
 const DEFAULT_SUMMARY_PROMPT = `Provide a concise summary of the following text, capturing its main ideas and key points:
 

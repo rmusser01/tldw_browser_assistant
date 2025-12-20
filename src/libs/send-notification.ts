@@ -1,5 +1,7 @@
 import { Storage } from "@plasmohq/storage"
-const storage = new Storage()
+import { createSafeStorage } from "@/utils/safe-storage"
+
+const storage = createSafeStorage()
 
 export const sendNotification = async (title: string, message: string) => {
   try {

@@ -19,6 +19,10 @@ import { sv } from "./lang/sv";
 import { ko } from "./lang/ko";
 import { ar } from "./lang/ar"
 
+const isMacPlatform =
+    typeof navigator !== "undefined" &&
+    /Mac|iPod|iPhone|iPad/.test(navigator.platform)
+const commandPaletteShortcut = isMacPlatform ? "Cmd+K" : "Ctrl+K"
 
 i18n
     .use(initReactI18next)
@@ -52,7 +56,10 @@ i18n
         lng: localStorage.getItem("i18nextLng") || "en",
         // React already escapes; avoid double-escaping (e.g., http:// -> http:\/\/)
         interpolation: {
-            escapeValue: false
+            escapeValue: false,
+            defaultVariables: {
+                shortcut: commandPaletteShortcut
+            }
         }
     });
 

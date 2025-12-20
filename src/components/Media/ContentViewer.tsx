@@ -18,7 +18,7 @@ import {
   Minimize2
 } from 'lucide-react'
 import React, { useState, useEffect, Suspense, useMemo, useRef, useCallback } from 'react'
-import { Select, Dropdown, Tooltip, message } from 'antd'
+import { Select, Dropdown, Tooltip, message, Spin } from 'antd'
 import { useTranslation } from 'react-i18next'
 import type { MenuProps } from 'antd'
 import { AnalysisModal } from './AnalysisModal'
@@ -28,9 +28,16 @@ import { DeveloperToolsSection } from './DeveloperToolsSection'
 import { DiffViewModal } from './DiffViewModal'
 import { bgRequest } from '@/services/background-proxy'
 import type { MediaResultItem } from './types'
+import { createSafeStorage } from '@/utils/safe-storage'
+import { getTextStats } from '@/utils/text-stats'
 
 // Lazy load Markdown component
 const Markdown = React.lazy(() => import('@/components/Common/Markdown'))
+
+// Lazy load ContentEditModal for code splitting
+const ContentEditModal = React.lazy(() =>
+  import('./ContentEditModal').then((m) => ({ default: m.ContentEditModal }))
+)
 
 interface ContentViewerProps {
   selectedMedia: MediaResultItem | null
@@ -50,6 +57,49 @@ interface ContentViewerProps {
   onOpenInMultiReview?: () => void
   onSendAnalysisToChat?: (text: string) => void
   contentRef?: (node: HTMLDivElement | null) => void
+}
+
+const STORAGE_KEY_COLLAPSED_SECTIONS = 'tldw:media:collapsedSections'
+
+const uiStorage = createSafeStorage({ area: 'local' })
+
+const DEFAULT_COLLAPSED_SECTIONS: Record<string, boolean> = {
+  statistics: false,
+  content: false,
+  metadata: true,
+  analysis: false
+}
+
+// Load collapse states from extension storage with defaults
+const loadCollapsedStates = async (): Promise<Record<string, boolean>> => {
+  try {
+    const stored = (await uiStorage.get(
+      STORAGE_KEY_COLLAPSED_SECTIONS
+    )) as unknown
+
+    if (
+      stored &&
+      typeof stored === 'object' &&
+      !Array.isArray(stored)
+    ) {
+      const entries = Object.entries(stored as Record<string, unknown>)
+      if (entries.every(([, value]) => typeof value === 'boolean')) {
+        return stored as Record<string, boolean>
+      }
+    }
+  } catch (err) {
+    console.warn('Failed to load collapse states:', err)
+  }
+  return DEFAULT_COLLAPSED_SECTIONS
+}
+
+// Save collapse states to extension storage
+const saveCollapsedStates = (states: Record<string, boolean>) => {
+  uiStorage
+    .set(STORAGE_KEY_COLLAPSED_SECTIONS, states)
+    .catch((err) => {
+      console.warn('Failed to save collapse states:', err)
+    })
 }
 
 export function ContentViewer({
@@ -74,12 +124,7 @@ export function ContentViewer({
   const { t } = useTranslation(['review'])
   const [collapsedSections, setCollapsedSections] = useState<
     Record<string, boolean>
-  >({
-    statistics: true,
-    content: true,
-    metadata: true,
-    analysis: true
-  })
+  >(DEFAULT_COLLAPSED_SECTIONS)
   const [analysisModalOpen, setAnalysisModalOpen] = useState(false)
   const [editingKeywords, setEditingKeywords] = useState<string[]>([])
   const [savingKeywords, setSavingKeywords] = useState(false)
@@ -94,10 +139,30 @@ export function ContentViewer({
   const [diffRightText, setDiffRightText] = useState('')
   const [diffLeftLabel, setDiffLeftLabel] = useState('')
   const [diffRightLabel, setDiffRightLabel] = useState('')
+  const [contentEditModalOpen, setContentEditModalOpen] = useState(false)
+  const [editingContentText, setEditingContentText] = useState('')
 
   // Content length threshold for collapse (2500 chars)
   const CONTENT_COLLAPSE_THRESHOLD = 2500
   const shouldShowExpandToggle = content && content.length > CONTENT_COLLAPSE_THRESHOLD
+
+  // Load initial collapsed section state from storage
+  useEffect(() => {
+    let cancelled = false
+
+    const initCollapsedState = async () => {
+      const initial = await loadCollapsedStates()
+      if (!cancelled) {
+        setCollapsedSections(initial)
+      }
+    }
+
+    void initCollapsedState()
+
+    return () => {
+      cancelled = true
+    }
+  }, [])
 
   // Sync editing keywords with selected media
   useEffect(() => {
@@ -211,10 +276,14 @@ export function ContentViewer({
   }, [mediaDetail])
 
   const toggleSection = (section: string) => {
-    setCollapsedSections((prev) => ({
-      ...prev,
-      [section]: !prev[section]
-    }))
+    setCollapsedSections((prev) => {
+      const newState = {
+        ...prev,
+        [section]: !prev[section]
+      }
+      saveCollapsedStates(newState)
+      return newState
+    })
   }
 
   const copyTextWithToasts = async (
@@ -338,20 +407,17 @@ export function ContentViewer({
   const { wordCount, charCount, paragraphCount } = useMemo(() => {
     const text = content || ''
     const apiWordCount = mediaDetail?.content?.word_count
+    const {
+      wordCount: computedWordCount,
+      charCount,
+      paragraphCount
+    } = getTextStats(text)
     const wordCountValue =
-      typeof apiWordCount === 'number'
-        ? apiWordCount
-        : text.trim()
-          ? text.trim().split(/\s+/).filter((w) => w.length > 0).length
-          : 0
-    const charCountValue = text.length
-    const paragraphCountValue = text.trim()
-      ? text.split(/\n\n/).filter((p: string) => p.trim().length > 0).length
-      : 0
+      typeof apiWordCount === 'number' ? apiWordCount : computedWordCount
     return {
       wordCount: wordCountValue,
-      charCount: charCountValue,
-      paragraphCount: paragraphCountValue
+      charCount,
+      paragraphCount
     }
   }, [content, mediaDetail])
 
@@ -384,7 +450,7 @@ export function ContentViewer({
     <div ref={contentRef} className="flex-1 flex flex-col bg-gray-50 dark:bg-[#101010]">
       {/* Compact Header */}
       <div className="px-4 py-2 border-b border-gray-200 dark:border-gray-700 bg-white dark:bg-[#111]">
-        <div className="flex items-center gap-3">
+        <div className="flex flex-col md:flex-row items-center gap-3">
           {/* Left: Navigation */}
           <div className="flex items-center gap-1">
             <Tooltip
@@ -393,7 +459,7 @@ export function ContentViewer({
               <button
                 onClick={onPrevious}
                 disabled={!hasPrevious}
-                className="p-1.5 text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-[#262626] rounded disabled:opacity-40 disabled:cursor-not-allowed"
+                className="p-1.5 text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-[#262626] rounded disabled:opacity-50 disabled:cursor-not-allowed"
                 aria-label={t('review:reviewPage.prevItem', { defaultValue: 'Previous' })}
               >
                 <ChevronLeft className="w-4 h-4" />
@@ -408,7 +474,7 @@ export function ContentViewer({
               <button
                 onClick={onNext}
                 disabled={!hasNext}
-                className="p-1.5 text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-[#262626] rounded disabled:opacity-40 disabled:cursor-not-allowed"
+                className="p-1.5 text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-[#262626] rounded disabled:opacity-50 disabled:cursor-not-allowed"
                 aria-label={t('review:reviewPage.nextItem', { defaultValue: 'Next' })}
               >
                 <ChevronRight className="w-4 h-4" />
@@ -418,7 +484,7 @@ export function ContentViewer({
 
           {/* Center: Title */}
           <Tooltip title={selectedMedia.title || ''} placement="bottom">
-            <h3 className="flex-1 text-sm font-medium text-gray-900 dark:text-gray-100 truncate text-center px-2">
+            <h3 className="flex-1 text-sm font-medium text-gray-900 dark:text-gray-100 truncate text-center px-2 max-w-[300px] md:max-w-none">
               {selectedMedia.title || `${selectedMedia.kind} ${selectedMedia.id}`}
             </h3>
           </Tooltip>
@@ -488,9 +554,11 @@ export function ContentViewer({
             <Select
               mode="tags"
               allowClear
-              placeholder={t('review:mediaPage.keywordsPlaceholder', {
-                defaultValue: 'Add keywords...'
-              })}
+              placeholder={
+                savingKeywords
+                  ? t('review:mediaPage.savingKeywords', { defaultValue: 'Saving...' })
+                  : t('review:mediaPage.keywordsPlaceholder', { defaultValue: 'Add keywords...' })
+              }
               className="w-full"
               size="small"
               value={editingKeywords}
@@ -500,6 +568,7 @@ export function ContentViewer({
               loading={savingKeywords}
               disabled={savingKeywords}
               tokenSeparators={[',']}
+              suffixIcon={savingKeywords ? <Spin size="small" /> : undefined}
             />
           </div>
 
@@ -519,24 +588,47 @@ export function ContentViewer({
                   <ChevronUp className="w-4 h-4 text-gray-400" />
                 )}
               </button>
-              {/* Expand/collapse toggle for long content */}
-              {!collapsedSections.content && shouldShowExpandToggle && (
+              <div className="flex items-center gap-1">
+                {!isNote && content && (
                   <button
-                    onClick={() => setContentExpanded(v => !v)}
+                    onClick={() => {
+                      setEditingContentText(content)
+                      setContentEditModalOpen(true)
+                    }}
+                    className="p-1 text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 transition-colors"
+                    title={t('review:mediaPage.editContent', {
+                      defaultValue: 'Edit content'
+                    })}
+                    aria-label={t('review:mediaPage.editContent', {
+                      defaultValue: 'Edit content'
+                    })}
+                  >
+                    <Edit3 className="w-4 h-4" />
+                  </button>
+                )}
+                {/* Expand/collapse toggle for long content */}
+                {!collapsedSections.content && shouldShowExpandToggle && (
+                  <button
+                    onClick={() => setContentExpanded((v) => !v)}
                     className="p-1 text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 transition-colors"
                     title={
                       contentExpanded
-                        ? t('review:mediaPage.collapse', { defaultValue: 'Collapse' })
-                        : t('review:mediaPage.expand', { defaultValue: 'Expand' })
+                        ? t('review:mediaPage.collapse', {
+                            defaultValue: 'Collapse'
+                          })
+                        : t('review:mediaPage.expand', {
+                            defaultValue: 'Expand'
+                          })
                     }
                   >
                     {contentExpanded ? (
                       <Minimize2 className="w-4 h-4" />
                     ) : (
                       <Expand className="w-4 h-4" />
-                  )}
-                </button>
-              )}
+                    )}
+                  </button>
+                )}
+              </div>
             </div>
             {!collapsedSections.content && (
               <div className="p-3 bg-white dark:bg-[#171717] animate-in fade-in slide-in-from-top-1 duration-150">
@@ -861,6 +953,23 @@ export function ContentViewer({
           }
         }}
       />
+
+      {/* Content Edit Modal */}
+      {selectedMedia && !isNote && (
+        <Suspense fallback={null}>
+          <ContentEditModal
+            open={contentEditModalOpen}
+            onClose={() => setContentEditModalOpen(false)}
+            initialText={editingContentText || content}
+            mediaId={selectedMedia.id}
+            onSaveNewVersion={() => {
+              if (onRefreshMedia) {
+                onRefreshMedia()
+              }
+            }}
+          />
+        </Suspense>
+      )}
 
       {/* Diff View Modal */}
       <DiffViewModal

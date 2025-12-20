@@ -115,10 +115,12 @@ export function VersionHistoryPanel({
     }
   }, [expanded, mediaId, loadVersions])
 
-  // Filter versions
+  // Filter versions - M5: Track count for badge
   const filteredVersions = onlyWithAnalysis
     ? versions.filter(v => getVersionAnalysis(v).trim().length > 0)
     : versions
+
+  const versionsWithAnalysisCount = versions.filter(v => getVersionAnalysis(v).trim().length > 0).length
 
   // Paginate
   const totalPages = Math.ceil(filteredVersions.length / pageSize)
@@ -168,7 +170,10 @@ export function VersionHistoryPanel({
         headers: { 'Content-Type': 'application/json' },
         body: { version_number: vNum }
       })
-      message.success(t('mediaPage.rollbackSuccess', 'Rolled back to version {{num}}', { num: vNum }))
+      message.info(
+        t('mediaPage.rollbackKeywordsNotice', 'Rolled back to version {{num}}. Keywords were not changed.', { num: vNum }),
+        5
+      )
       loadVersions()
       if (onRefresh) onRefresh()
     } catch (err) {
@@ -205,6 +210,12 @@ export function VersionHistoryPanel({
 
   // Copy all analyses
   const handleCopyAll = () => {
+    // Check for Clipboard API availability
+    if (!navigator.clipboard?.writeText) {
+      message.error(t('mediaPage.copyNotSupported', 'Copy is not supported in this context'))
+      return
+    }
+
     const texts = filteredVersions
       .map(v => {
         const num = getVersionNumber(v)
@@ -225,6 +236,12 @@ export function VersionHistoryPanel({
 
   // Copy as markdown
   const handleCopyMd = () => {
+    // Check for Clipboard API availability
+    if (!navigator.clipboard?.writeText) {
+      message.error(t('mediaPage.copyNotSupported', 'Copy is not supported in this context'))
+      return
+    }
+
     const md = filteredVersions
       .map(v => {
         const num = getVersionNumber(v)
@@ -329,17 +346,27 @@ export function VersionHistoryPanel({
             <>
               {/* Toolbar */}
               <div className="flex items-center justify-between mb-3">
-                <Checkbox
-                  checked={onlyWithAnalysis}
-                  onChange={e => {
-                    setOnlyWithAnalysis(e.target.checked)
-                    setPage(1)
-                  }}
-                >
-                  <span className="text-xs text-gray-600 dark:text-gray-400">
-                    {t('mediaPage.onlyWithAnalysis', 'Only with analysis')}
-                  </span>
-                </Checkbox>
+                <div className="flex items-center gap-2">
+                  <Checkbox
+                    checked={onlyWithAnalysis}
+                    onChange={e => {
+                      setOnlyWithAnalysis(e.target.checked)
+                      setPage(1)
+                      // Reset selection when filter changes to avoid out-of-sync state
+                      setSelectedIndex(-1)
+                    }}
+                  >
+                    <span className="text-xs text-gray-600 dark:text-gray-400">
+                      {t('mediaPage.onlyWithAnalysis', 'Only with analysis')}
+                    </span>
+                  </Checkbox>
+                  {/* M5: Show count badge when filter is active */}
+                  {onlyWithAnalysis && versionsWithAnalysisCount > 0 && (
+                    <span className="px-1.5 py-0.5 text-[10px] bg-blue-100 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300 rounded font-medium">
+                      {versionsWithAnalysisCount} {t('mediaPage.withAnalysis', 'with analysis')}
+                    </span>
+                  )}
+                </div>
                 <div className="flex items-center gap-1">
                   <button
                     onClick={handleCopyAll}

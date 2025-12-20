@@ -127,7 +127,7 @@
   },
   "more": {
     "history": "Chat saving",
-    "searchRag": "Search & RAG",
+    "searchKnowledge": "Search & RAG",
     "voice": "More voice options",
     "uploads": "Uploads & ingest"
   },
@@ -223,6 +223,12 @@
       "serverSaved": "Future messages in this chat will sync to your tldw server.",
       "serverCharacterRequired": "Unable to find or create a default assistant character on the server. Try again from the Characters page."
     },
-    "connectToSend": "Connect to your tldw server in Settings to send messages and view media."
+    "connectToSend": "設定でtldwサーバーに接続してメッセージを送信したりメディアを表示したりします。",
+    "compareTag": "Compare",
+    "compareMaxModelsTitle": "比較制限に達しました",
+    "compareMaxModels": "ターンあたり最大{{limit}}個のモデルを比較できます。",
+    "compareMaxModelsTrimmed": "比較はターンあたり{{limit}}個のモデルに制限されています。選択した最初の{{limit}}個のモデルを使用します。",
+    "compareMaxLabel": "ターンあたりの最大モデル数",
+    "compareMaxHelper": "選択済み: {{current}} / {{limit}}"
   }
 }

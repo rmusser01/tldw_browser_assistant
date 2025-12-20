@@ -1,6 +1,7 @@
 import React, { useState } from "react"
 import { useTranslation } from "react-i18next"
-import { Input, Button, List, Switch, Spin, Select, Checkbox, Skeleton, Collapse } from "antd"
+import { Input, Button, List, Switch, Spin, Select, Checkbox, Skeleton, Collapse, Popover } from "antd"
+import { HelpCircle } from "lucide-react"
 import { useMessageOption } from "@/hooks/useMessageOption"
 import { useNavigate } from "react-router-dom"
 import { useServerOnline } from "@/hooks/useServerOnline"
@@ -344,6 +345,7 @@ export const KnowledgeSettings = () => {
                     size="small"
                     checked={autoRagOn}
                     onChange={(checked) => setChatMode(checked ? "rag" : "normal")}
+                    aria-label={t("knowledge:ragWorkspace.autoRagLabel", { defaultValue: "Use RAG for every reply" })}
                   />
                 </div>
                 <p className="text-[11px] text-gray-600 dark:text-gray-300">
@@ -679,25 +681,97 @@ export const KnowledgeSettings = () => {
                       ]}
                     />
                     <div className="mt-3 space-y-1">
-                      <span className="text-[11px] font-medium text-gray-700 dark:text-gray-200">
-                        {t("knowledge:ragWorkspace.advancedLabel", {
-                          defaultValue: "Advanced RAG options (JSON)"
-                        })}
-                      </span>
+                      <div className="flex items-center gap-1">
+                        <span className="text-[11px] font-medium text-gray-700 dark:text-gray-200">
+                          {t("knowledge:ragWorkspace.advancedLabel", {
+                            defaultValue: "Advanced RAG options (JSON)"
+                          })}
+                        </span>
+                        {/* M8: Help popover showing valid field names */}
+                        <Popover
+                          content={
+                            <div className="space-y-1 text-xs max-w-xs">
+                              <div className="font-medium text-gray-900 dark:text-gray-100">
+                                {t("knowledge:ragWorkspace.validFieldsTitle", {
+                                  defaultValue: "Valid JSON field names:"
+                                })}
+                              </div>
+                              <ul className="list-disc pl-4 space-y-0.5 text-gray-700 dark:text-gray-300">
+                                <li>
+                                  <code className="text-[10px]">strategy</code> -{" "}
+                                  {t("knowledge:rag.hint.strategy", { defaultValue: '"standard" or "agentic"' })}
+                                </li>
+                                <li>
+                                  <code className="text-[10px]">enable_reranking</code> -{" "}
+                                  {t("knowledge:rag.hint.boolean", { defaultValue: "true/false" })}
+                                </li>
+                                <li>
+                                  <code className="text-[10px]">enable_cache</code> -{" "}
+                                  {t("knowledge:rag.hint.boolean", { defaultValue: "true/false" })}
+                                </li>
+                                <li>
+                                  <code className="text-[10px]">top_k</code> -{" "}
+                                  {t("knowledge:rag.hint.topK", { defaultValue: "number of results" })}
+                                </li>
+                                <li>
+                                  <code className="text-[10px]">search_mode</code> -{" "}
+                                  {t("knowledge:rag.hint.searchMode", {
+                                    defaultValue: '"hybrid", "vector", or "fts"'
+                                  })}
+                                </li>
+                                <li>
+                                  <code className="text-[10px]">enable_generation</code> -{" "}
+                                  {t("knowledge:rag.hint.boolean", { defaultValue: "true/false" })}
+                                </li>
+                                <li>
+                                  <code className="text-[10px]">enable_citations</code> -{" "}
+                                  {t("knowledge:rag.hint.boolean", { defaultValue: "true/false" })}
+                                </li>
+                                <li>
+                                  <code className="text-[10px]">sources</code> -{" "}
+                                  {t("knowledge:rag.hint.sources", { defaultValue: "array of source types" })}
+                                </li>
+                              </ul>
+                            </div>
+                          }
+                          trigger="hover"
+                        >
+                          <HelpCircle className="w-3 h-3 text-gray-400 dark:text-gray-500 cursor-help" />
+                        </Popover>
+                      </div>
                       <p className="text-[11px] text-gray-500 dark:text-gray-400">
                         {t("knowledge:ragWorkspace.advancedHelp", {
                           defaultValue:
                             "Optional: paste a JSON object with any UnifiedRAGRequest fields (e.g., strategy, enable_reranking). Leave blank to use defaults."
                         })}
                       </p>
-                      <Input.TextArea
-                        autoSize={{ minRows: 3, maxRows: 8 }}
-                        value={advancedOverridesText}
-                        onChange={(e) => setAdvancedOverridesText(e.target.value)}
-                        placeholder={t("knowledge:ragWorkspace.advancedPlaceholder", {
-                          defaultValue: '{ "strategy": "agentic", "enable_reranking": true }'
-                        }) as string}
-                      />
+                      <div className="relative">
+                        <Input.TextArea
+                          autoSize={{ minRows: 3, maxRows: 8 }}
+                          value={advancedOverridesText}
+                          onChange={(e) => setAdvancedOverridesText(e.target.value)}
+                          placeholder={t("knowledge:ragWorkspace.advancedPlaceholder", {
+                            defaultValue: '{ "strategy": "agentic", "enable_reranking": true }'
+                          }) as string}
+                          className="font-mono text-xs"
+                        />
+                        {advancedOverridesText.trim() && (() => {
+                          try {
+                            JSON.parse(advancedOverridesText)
+                            return (
+                              <div className="absolute top-1 right-1 px-1.5 py-0.5 rounded text-[10px] bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300">
+                                {t("knowledge:ragWorkspace.jsonValid", { defaultValue: "Valid JSON" })}
+                              </div>
+                            )
+                          } catch {
+                            return (
+                              <div className="absolute top-1 right-1 px-1.5 py-0.5 rounded text-[10px] bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-300">
+                                {t("knowledge:ragWorkspace.jsonInvalid", { defaultValue: "Invalid JSON" })}
+                              </div>
+                            )
+                          }
+                        })()}
+                      </div>
                       <div className="mt-1 flex justify-end gap-2">
                         <Button
                           size="small"
@@ -807,10 +881,20 @@ export const KnowledgeSettings = () => {
                             Array.isArray(ragCitations) &&
                             ragCitations.length > 0 && (
                               <div className="mt-2">
-                                <div className="font-medium">
-                                  {t("knowledge:ragWorkspace.citationsTitle", {
-                                    defaultValue: "Citations"
-                                  })}
+                                <div className="flex items-center gap-2">
+                                  <div className="font-medium">
+                                    {t("knowledge:ragWorkspace.citationsTitle", {
+                                      defaultValue: "Citations"
+                                    })}
+                                  </div>
+                                  {/* M7: Show truncation indicator */}
+                                  {ragCitations.length > 6 && (
+                                    <span className="px-1.5 py-0.5 text-[10px] bg-amber-100 dark:bg-amber-900/40 text-amber-700 dark:text-amber-300 rounded">
+                                      +{ragCitations.length - 6} {t("knowledge:ragWorkspace.moreCitations", {
+                                        defaultValue: "more citations"
+                                      })}
+                                    </span>
+                                  )}
                                 </div>
                                 <ul className="mt-1 list-disc pl-4 space-y-0.5">
                                   {ragCitations.slice(0, 6).map((c, idx) => {
@@ -864,6 +948,7 @@ export const KnowledgeSettings = () => {
                               })
                             const url = meta?.url || meta?.source || ""
                             const snippet = String(content || "").slice(0, 260)
+                            const wasTruncated = String(content || "").length > 260
                             const insertText = `${snippet}${
                               url ? `\n\nSource: ${url}` : ""
                             }`
@@ -906,7 +991,7 @@ export const KnowledgeSettings = () => {
                                   }
                                   description={
                                     <div className="text-[11px] text-gray-600 dark:text-gray-300 line-clamp-3">
-                                      {snippet}
+                                      {snippet}{wasTruncated && '...'}
                                     </div>
                                   }
                                 />

@@ -12,6 +12,28 @@
     "privateModeTitle": "tldw Assistant نمی‌تواند داده‌ها را ذخیره کند",
     "privateModeDescription": "حالت خصوصی فایرفاکس از ذخیره تاریخچه چت پشتیبانی نمی‌کند. چت موقت به‌صورت پیش‌فرض فعال است. به‌زودی بهبود می‌یابد."
   },
+  "connectionBanner": {
+    "connecting": "در حال اتصال به سرور tldw شما...",
+    "authErrorTitle": "کلید API نیاز به توجه دارد",
+    "authErrorBody": "سرور در دسترس است، اما کلید API نادرست است یا وجود ندارد.",
+    "unreachableTitle": "دسترسی به سرور tldw ممکن نیست",
+    "unreachableBody": "بررسی کنید که سرور در حال اجرا و قابل دسترسی باشد.",
+    "noUrlBody": "برای شروع، نشانی سرور را در تنظیمات اضافه کنید.",
+    "disconnectedTitle": "به سرور tldw متصل نیستید",
+    "disconnectedBody": "برای پیکربندی اتصال سرور، تنظیمات را باز کنید.",
+    "setupTitle": "برای شروع گفتگو، راه اندازی را کامل کنید",
+    "setupBody": "برای اتصال، جادوگر راه اندازی را در تنظیمات کامل کنید.",
+    "openSettings": "باز کردن تنظیمات"
+  },
+  "temporaryBadge": {
+    "title": "گفتگوی موقت",
+    "label": "Temp",
+    "description": "این گفتگو ذخیره نمی شود. پیام ها هنگام بستن یا شروع گفتگوی جدید پاک می شوند.",
+    "clickHint": "برای غیرفعال کردن کلیک کنید",
+    "ariaLabel": "حالت گفتگوی موقت فعال است. برای تغییر کلیک کنید.",
+    "indicatorTooltip": "پیام های این گفتگو ذخیره نمی شود",
+    "indicatorAria": "گفتگوی موقت"
+  },
   "header": {
     "ingest": "Ingest",
     "saveCurrent": "Save current page on server",
@@ -74,6 +96,13 @@
     "transcriptLabel": "Transcript",
     "summaryLabel": "Summary"
   },
+  "saveStatus": {
+    "ephemeral": "موقتی: ذخیره نمی شود، با بستن پاک می شود",
+    "local": "به صورت محلی در این مرورگر ذخیره شد",
+    "server": "در سرور ذخیره شد",
+    "saveFailed": "ذخیره گفتگو روی سرور ناموفق بود",
+    "saveFailedDescription": "اکنون گفتگو فقط به صورت محلی ذخیره می شود. اتصال خود را بررسی کرده و دوباره تلاش کنید."
+  },
   "rag": {
     "searchPlaceholder": "Search your knowledge…",
     "search": "Search",
@@ -92,6 +121,10 @@
       "ask": "Ask",
       "open": "Open",
       "copy": "Copy"
+    },
+    "hint": {
+      "message": "در پایگاه دانش خود جستجو کنید و نتایج را در پیام خود درج کنید.",
+      "dismiss": "بستن"
     }
   }
 }

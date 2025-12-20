@@ -12,6 +12,28 @@
     "privateModeTitle": "tldw Assistant kann keine Daten speichern",
     "privateModeDescription": "Der Firefox-Privatmodus unterstützt kein Speichern des Chatverlaufs. Temporärer Chat ist standardmäßig aktiviert. Weitere Verbesserungen folgen."
   },
+  "connectionBanner": {
+    "connecting": "Verbindung zu deinem tldw-Server wird hergestellt...",
+    "authErrorTitle": "API-Schlüssel erfordert Aufmerksamkeit",
+    "authErrorBody": "Dein Server ist erreichbar, aber der API-Schlüssel ist falsch oder fehlt.",
+    "unreachableTitle": "tldw-Server nicht erreichbar",
+    "unreachableBody": "Prüfe, ob dein Server läuft und erreichbar ist.",
+    "noUrlBody": "Füge die Server-URL in den Einstellungen hinzu, um zu starten.",
+    "disconnectedTitle": "Nicht mit dem tldw-Server verbunden",
+    "disconnectedBody": "Öffne die Einstellungen, um die Serververbindung zu konfigurieren.",
+    "setupTitle": "Einrichtung abschließen, um zu chatten",
+    "setupBody": "Schließe den Einrichtungsassistenten in den Einstellungen ab, um dich zu verbinden.",
+    "openSettings": "Einstellungen öffnen"
+  },
+  "temporaryBadge": {
+    "title": "Temporärer Chat",
+    "label": "Temp",
+    "description": "Dieser Chat wird nicht gespeichert. Nachrichten werden gelöscht, wenn du schließt oder einen neuen Chat startest.",
+    "clickHint": "Zum Deaktivieren klicken",
+    "ariaLabel": "Temporärer Chatmodus ist aktiv. Klicken zum Umschalten.",
+    "indicatorTooltip": "Nachrichten in diesem Chat werden nicht gespeichert",
+    "indicatorAria": "Temporärer Chat"
+  },
   "header": {
     "ingest": "Ingest",
     "saveCurrent": "Save current page on server",
@@ -74,6 +96,13 @@
     "transcriptLabel": "Transcript",
     "summaryLabel": "Summary"
   },
+  "saveStatus": {
+    "ephemeral": "Temporär: nicht gespeichert, beim Schließen gelöscht",
+    "local": "Lokal in diesem Browser gespeichert",
+    "server": "Auf dem Server gespeichert",
+    "saveFailed": "Chat konnte nicht auf dem Server gespeichert werden",
+    "saveFailedDescription": "Der Chat wird jetzt nur lokal gespeichert. Prüfe deine Verbindung und versuche es erneut."
+  },
   "rag": {
     "searchPlaceholder": "Search your knowledge…",
     "search": "Search",
@@ -92,6 +121,10 @@
       "ask": "Ask",
       "open": "Open",
       "copy": "Copy"
+    },
+    "hint": {
+      "message": "Durchsuche deine Wissensbasis und füge Ergebnisse in deine Nachricht ein.",
+      "dismiss": "Schließen"
     }
   }
 }

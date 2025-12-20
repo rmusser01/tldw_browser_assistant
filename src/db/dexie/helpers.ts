@@ -166,6 +166,44 @@ export const deleteByHistoryId = async (history_id: string) => {
   return history_id
 }
 
+/**
+ * Get full chat data including history info and all messages.
+ * Used for undo functionality - captures state before deletion.
+ */
+export const getFullChatData = async (history_id: string) => {
+  const historyInfo = await chatDB.chatHistories.get(history_id)
+  if (!historyInfo) return null
+
+  const db = new PageAssistDatabase()
+  const messages = await db.getChatHistory(history_id)
+
+  return {
+    historyInfo,
+    messages
+  }
+}
+
+/**
+ * Restore a deleted chat with its messages.
+ * Used by undo functionality to bring back deleted conversations.
+ */
+export const restoreChat = async (data: {
+  historyInfo: HistoryInfo
+  messages: Message[]
+}) => {
+  const db = new PageAssistDatabase()
+
+  // Restore the history record
+  await db.addChatHistory(data.historyInfo)
+
+  // Restore all messages
+  for (const msg of data.messages) {
+    await db.addMessage(msg)
+  }
+
+  return data.historyInfo.id
+}
+
 export const updateHistory = async (id: string, title: string) => {
   await chatDB.chatHistories.update(id, { title })
 }

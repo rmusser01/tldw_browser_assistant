@@ -164,7 +164,9 @@
     "saveAsVersion": "Spara som ny version",
     "analysisPlaceholder": "Ange analys-text...",
     "wordCount": "{{count}} ord",
-    "charCount": "{{count}} tecken"
+    "charCount": "{{count}} tecken",
+    "pageRangeError": "Sidan måste vara mellan 1 och {{max}}",
+    "pageRangeClamped": "Navigerar till sida {{page}}"
   },
   "empty": {
     "connectTitle": "Connect to use Review",

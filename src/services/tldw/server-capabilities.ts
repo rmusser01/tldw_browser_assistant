@@ -15,6 +15,7 @@ export type ServerCapabilities = {
   hasMetrics: boolean
   hasMcp: boolean
   hasReading: boolean
+  hasWebSearch: boolean
   specVersion: string | null
 }
 
@@ -33,6 +34,7 @@ const defaultCapabilities: ServerCapabilities = {
   hasMetrics: false,
   hasMcp: false,
   hasReading: false,
+  hasWebSearch: false,
   specVersion: null
 }
 
@@ -68,7 +70,8 @@ const fallbackSpec = {
       "/api/v1/metrics",
       "/api/v1/mcp/health",
       "/api/v1/reading/save",
-      "/api/v1/reading/items"
+      "/api/v1/reading/items",
+      "/api/v1/research/websearch"
     ].map((p) => [p, {}])
   )
 }
@@ -121,6 +124,7 @@ const computeCapabilities = (spec: any | null | undefined): ServerCapabilities =
     hasMetrics: has("/api/v1/metrics/health") || has("/api/v1/metrics"),
     hasMcp: has("/api/v1/mcp/health"),
     hasReading: has("/api/v1/reading/save") && has("/api/v1/reading/items"),
+    hasWebSearch: has("/api/v1/research/websearch"),
     specVersion: spec?.info?.version ?? null
   }
 }

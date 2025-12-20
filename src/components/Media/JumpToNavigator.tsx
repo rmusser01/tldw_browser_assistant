@@ -1,4 +1,7 @@
 import { useTranslation } from 'react-i18next'
+import { Dropdown } from 'antd'
+import type { MenuProps } from 'antd'
+import { MoreHorizontal } from 'lucide-react'
 
 interface JumpToNavigatorProps {
   results: Array<{ id: string | number; title?: string }>
@@ -20,6 +23,13 @@ export function JumpToNavigator({
   }
 
   const displayResults = results.slice(0, maxButtons)
+  const overflowResults = results.slice(maxButtons)
+
+  const overflowMenuItems: MenuProps['items'] = overflowResults.map((r) => ({
+    key: String(r.id),
+    label: String(r.title || r.id),
+    onClick: () => onSelect(r.id)
+  }))
 
   return (
     <div className="flex flex-wrap items-center gap-2">
@@ -41,7 +51,9 @@ export function JumpToNavigator({
                   ? 'bg-blue-600 text-white'
                   : 'bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700'
               }`}
-              title={needsTruncation ? String(r.title || r.id) : undefined}
+              title={String(r.title || r.id)}
+              aria-label={t('mediaPage.jumpToItem', 'Jump to: {{title}}', { title: String(r.title || r.id) })}
+              aria-pressed={isSelected}
             >
               {displayTitle}
               {needsTruncation && '...'}
@@ -49,9 +61,19 @@ export function JumpToNavigator({
           )
         })}
         {results.length > maxButtons && (
-          <span className="text-[11px] text-gray-400 dark:text-gray-500 self-center">
-            {t('mediaPage.moreItems', '+{{count}} more', { count: results.length - maxButtons })}
-          </span>
+          <Dropdown
+            menu={{ items: overflowMenuItems }}
+            trigger={['click']}
+            placement="bottomRight"
+          >
+            <button
+              className="px-2 py-0.5 text-xs rounded bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors flex items-center gap-1"
+              title={t('mediaPage.showMore', 'Show more items')}
+            >
+              <MoreHorizontal className="w-3 h-3" />
+              <span>+{results.length - maxButtons}</span>
+            </button>
+          </Dropdown>
         )}
       </div>
     </div>

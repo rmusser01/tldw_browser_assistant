@@ -1,4 +1,5 @@
 import { Storage } from "@plasmohq/storage"
+import { createSafeStorage } from "@/utils/safe-storage"
 import {
   ACTOR_SETTINGS_VERSION,
   ActorSettings,
@@ -6,7 +7,7 @@ import {
   createDefaultActorSettings
 } from "@/types/actor"
 
-const storage = new Storage({
+const storage = createSafeStorage({
   area: "local"
 })
 

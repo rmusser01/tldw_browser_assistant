@@ -220,6 +220,16 @@
   "ttsShort": "صوت",
   "copyShort": "نسخ",
   "branchShort": "فرع",
+  "infoShort": "معلومات",
+  "regenShort": "إعادة",
+  "continueShort": "المزيد",
+  "fileChanges": "تغييرات الملفات",
+  "deletions": "عمليات الحذف",
+  "gitOperations": "عمليات Git",
+  "commands": "الأوامر",
+  "otherOperations": "عمليات أخرى",
+  "fileAccess": "الوصول إلى الملفات",
+  "notebookEdits": "تعديلات دفتر الملاحظات",
   "success": "تم بنجاح",
   "created": "تم الإنشاء",
   "updated": "تم التحديث",
@@ -230,7 +240,8 @@
   "serverChats": "محادثات الخادم",
   "serverChatLoadError": "فشل تحميل محادثة الخادم. تحقق من الاتصال وحاول مرة أخرى.",
   "serverChatSourceLabel": "الخادم",
-  "serverChatsUnavailable": "محادثات الخادم غير متاحة. تحقّق من اتصال الخادم.",
+  "serverChatsUnavailableNotConnected": "تتوفّر محادثات الخادم عند الاتصال بخادم tldw الخاص بك.",
+  "serverChatsUnavailableServerError": "محادثات الخادم غير متاحة حالياً. تحقّق من سجلات الخادم أو حاول مرة أخرى.",
   "historiesDeleted": "تم حذف {{count}} من السجلات",
   "deleteHistoriesError": "حدث خطأ أثناء حذف السجلات",
   "mermaid": "Mermaid (مخططات)",
@@ -238,6 +249,7 @@
   "searchResults": "نتائج البحث",
   "newBranch": "فرع جديد",
   "error": {
+    "label": "خطأ",
     "friendlyApiKeySummary": "تعذّر الوصول إلى خادم tldw الخاص بك.",
     "friendlyApiKeyHint": "قد يكون مفتاح API الخاص بك غير صالح. افتح الإعدادات → خادم tldw للتحقق من عنوان URL ومفتاح API ثم حاول مرة أخرى.",
     "friendlyTimeoutSummary": "انتهت مهلة محادثتك.",
@@ -259,5 +271,105 @@
   "refresh": "تحديث",
   "confirm": "تأكيد",
   "untitled": "بدون عنوان",
-  "moveToFolder": "نقل إلى المجلد"
+  "moveToFolder": "نقل إلى المجلد",
+  "noToolCalls": "لا توجد استدعاءات أدوات بعد",
+  "status": {
+    "pending": "قيد الانتظار",
+    "running": "قيد المعالجة",
+    "complete": "مكتمل",
+    "error": "خطأ"
+  },
+  "arguments": "المعاملات",
+  "invalidJson": "JSON غير صالح؛ يتم عرض القيمة الخام",
+  "result": "النتيجة",
+  "tools": {
+    "fs_list": "سرد الدليل",
+    "fs_read": "قراءة الملف",
+    "fs_write": "كتابة الملف",
+    "fs_apply_patch": "تطبيق التصحيح",
+    "fs_mkdir": "إنشاء دليل",
+    "fs_delete": "حذف",
+    "search_grep": "بحث في المحتوى",
+    "search_glob": "البحث عن الملفات",
+    "git_status": "حالة Git",
+    "git_diff": "فرق Git",
+    "git_log": "سجل Git",
+    "git_branch": "فرع Git",
+    "git_add": "تهيئة الملفات",
+    "git_commit": "Commit",
+    "exec_run": "تشغيل أمر"
+  },
+  "markdown": {
+    "unableToRender": "تعذّر عرض المحتوى",
+    "couldNotDisplay": "تعذّر عرض محتوى الرسالة. قد يكون ذلك بسبب تنسيق غير صالح.",
+    "showRawContent": "إظهار المحتوى الخام"
+  },
+  "commandPalette": {
+    "goToChat": "الانتقال إلى الدردشة",
+    "goToMedia": "الانتقال إلى الوسائط",
+    "goToNotes": "الانتقال إلى الملاحظات",
+    "goToFlashcards": "الانتقال إلى البطاقات التعليمية",
+    "goToSettings": "الانتقال إلى الإعدادات",
+    "goToHealth": "الانتقال إلى الصحة والتشخيص",
+    "newChat": "محادثة جديدة",
+    "toggleKnowledgeSearch": "تبديل بحث المعرفة",
+    "toggleKnowledgeSearchDesc": "ابحث في قاعدة معارفك",
+    "toggleWebSearch": "تبديل بحث الويب",
+    "toggleWebDesc": "ابحث في الإنترنت",
+    "ingestPage": "استيراد الصفحة الحالية",
+    "ingestDesc": "احفظ هذه الصفحة في قاعدة معارفك",
+    "switchModel": "تبديل النموذج",
+    "toggleSidebar": "إظهار/إخفاء الشريط الجانبي",
+    "toggleSidebarDesc": "إظهار أو إخفاء شريط الدردشة الجانبي",
+    "placeholder": "اكتب أمرًا أو ابحث...",
+    "noResults": "لم يتم العثور على نتائج",
+    "title": "لوحة الأوامر",
+    "navigate": "التنقل",
+    "select": "اختيار",
+    "toOpen": "للفتح",
+    "categoryActions": "الإجراءات",
+    "categoryNavigation": "التنقل",
+    "categorySettings": "الإعدادات",
+    "categoryRecent": "الأخيرة"
+  },
+  "featureHints": {
+    "knowledge": {
+      "title": "ابحث في معرفتك",
+      "description": "افتح لوحة البحث في المعرفة للعثور على مقتطفات وإدراجها في محادثتك."
+    },
+    "moreTools": {
+      "title": "المزيد من الأدوات متاحة",
+      "description": "يمكنك الوصول إلى وضع الرؤية ورفع الصور والإدخال السريع والتطبيق الكامل."
+    },
+    "commandPalette": {
+      "title": "أوامر سريعة",
+      "description": "اضغط {{shortcut}} للبحث عن الأوامر والإعدادات والمزيد."
+    },
+    "modelSettings": {
+      "title": "اضبط معلمات النموذج",
+      "description": "اضبط بدقة درجة الحرارة وطول السياق وإعدادات النموذج الأخرى."
+    }
+  },
+  "chatSidebar": {
+    "title": "المحادثات",
+    "newChat": "محادثة جديدة",
+    "collapse": "طي الشريط الجانبي",
+    "expand": "توسيع الشريط الجانبي",
+    "search": "ابحث في المحادثات...",
+    "ingest": "إدخال الصفحة",
+    "media": "الوسائط",
+    "notes": "الملاحظات",
+    "settings": "الإعدادات",
+    "loadError": "فشل تحميل المحادثات",
+    "localTab": "محلي",
+    "serverTab": "الخادم",
+    "foldersTab": "المجلدات",
+    "tabs": {
+      "local": "محلي",
+      "server": "الخادم",
+      "folders": "المجلدات"
+    },
+    "noServerChats": "لا توجد محادثات خادم بعد",
+    "foldersRequireConnection": "تتطلب المجلدات اتصالاً بالخادم"
+  }
 }

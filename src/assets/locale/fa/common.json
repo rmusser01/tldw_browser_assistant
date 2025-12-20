@@ -209,6 +209,16 @@
   "ttsShort": "صدا",
   "copyShort": "کپی",
   "branchShort": "شاخه",
+  "infoShort": "اطلاعات",
+  "regenShort": "تکرار",
+  "continueShort": "بیشتر",
+  "fileChanges": "تغییرات فایل",
+  "deletions": "حذف‌ها",
+  "gitOperations": "عملیات Git",
+  "commands": "دستورها",
+  "otherOperations": "سایر عملیات",
+  "fileAccess": "دسترسی به فایل‌ها",
+  "notebookEdits": "ویرایش‌های دفترچه یادداشت",
   "copilot": {
     "summary": "خلاصه کردن",
     "explain": "توضیح دادن",
@@ -230,7 +240,8 @@
   "serverChats": "گپ‌های سرور",
   "serverChatLoadError": "بارگذاری گپ سرور ناموفق بود. اتصال خود را بررسی کرده و دوباره تلاش کنید.",
   "serverChatSourceLabel": "سرور",
-  "serverChatsUnavailable": "گپ‌های سرور در دسترس نیستند. اتصال سرور را بررسی کنید.",
+  "serverChatsUnavailableNotConnected": "پس از اتصال به سرور tldw خود، گپ‌های سرور در دسترس خواهند بود.",
+  "serverChatsUnavailableServerError": "گپ‌های سرور در حال حاضر در دسترس نیستند. لاگ‌های سرور را بررسی کنید یا دوباره تلاش کنید.",
   "historiesDeleted": "{{count}} تاریخچه حذف شد",
   "deleteHistoriesError": "خطا در حذف تاریخچه‌ها",
   "mermaid": "نمودارهای Mermaid",
@@ -238,6 +249,7 @@
   "searchResults": "نتایج جستجو",
   "newBranch": "شاخه جدید",
   "error": {
+    "label": "خطا",
     "friendlyApiKeySummary": "نتوانستیم به سرور tldw شما متصل شویم.",
     "friendlyApiKeyHint": "ممکن است کلید API شما نامعتبر باشد. تنظیمات → سرور tldw را باز کنید تا آدرس URL و کلید API را بررسی کنید و دوباره تلاش کنید.",
     "friendlyTimeoutSummary": "گفتگوی شما منقضی شد.",
@@ -259,5 +271,105 @@
   "refresh": "بازخوانی",
   "confirm": "تأیید",
   "untitled": "بدون عنوان",
-  "moveToFolder": "انتقال به پوشه"
+  "moveToFolder": "انتقال به پوشه",
+  "noToolCalls": "هنوز هیچ فراخوانی ابزاری انجام نشده است",
+  "status": {
+    "pending": "انتظار",
+    "running": "در حال پردازش",
+    "complete": "تمام",
+    "error": "خطا"
+  },
+  "arguments": "آرگومان‌ها",
+  "invalidJson": "JSON نامعتبر؛ مقدار خام نمایش داده می‌شود",
+  "result": "نتیجه",
+  "tools": {
+    "fs_list": "فهرست پوشه",
+    "fs_read": "خواندن فایل",
+    "fs_write": "نوشتن فایل",
+    "fs_apply_patch": "اعمال وصله",
+    "fs_mkdir": "ایجاد پوشه",
+    "fs_delete": "حذف",
+    "search_grep": "جستجوی محتوا",
+    "search_glob": "یافتن فایل‌ها",
+    "git_status": "وضعیت گیت",
+    "git_diff": "تفاوت گیت",
+    "git_log": "گزارش گیت",
+    "git_branch": "شاخه گیت",
+    "git_add": "مرحله‌بندی فایل‌ها",
+    "git_commit": "کامیت",
+    "exec_run": "اجرای دستور"
+  },
+  "markdown": {
+    "unableToRender": "محتوا قابل نمایش نیست",
+    "couldNotDisplay": "محتوای پیام قابل نمایش نبود. این ممکن است به دلیل قالب‌بندی نامعتبر باشد.",
+    "showRawContent": "نمایش محتوای خام"
+  },
+  "commandPalette": {
+    "goToChat": "رفتن به چت",
+    "goToMedia": "رفتن به رسانه‌ها",
+    "goToNotes": "رفتن به یادداشت‌ها",
+    "goToFlashcards": "رفتن به فلش‌کارت‌ها",
+    "goToSettings": "رفتن به تنظیمات",
+    "goToHealth": "رفتن به سلامت و تشخیص",
+    "newChat": "گفتگوی جدید",
+    "toggleKnowledgeSearch": "تغییر وضعیت جستجوی دانش",
+    "toggleKnowledgeSearchDesc": "جستجو در پایگاه دانش شما",
+    "toggleWebSearch": "تغییر وضعیت جستجوی وب",
+    "toggleWebDesc": "جستجو در اینترنت",
+    "ingestPage": "وارد کردن صفحه فعلی",
+    "ingestDesc": "ذخیره این صفحه در پایگاه دانش شما",
+    "switchModel": "تغییر مدل",
+    "toggleSidebar": "نمایش/مخفی کردن نوار کناری",
+    "toggleSidebarDesc": "نمایش یا پنهان کردن نوار کناری چت",
+    "placeholder": "یک دستور بنویسید یا جستجو کنید...",
+    "noResults": "هیچ نتیجه‌ای یافت نشد",
+    "title": "پالت دستورات",
+    "navigate": "حرکت",
+    "select": "انتخاب",
+    "toOpen": "برای باز کردن",
+    "categoryActions": "اقدامات",
+    "categoryNavigation": "ناوبری",
+    "categorySettings": "تنظیمات",
+    "categoryRecent": "اخیر"
+  },
+  "featureHints": {
+    "knowledge": {
+      "title": "در دانش خود جستجو کنید",
+      "description": "پنل جستجوی دانش را باز کنید تا تکه‌ها را پیدا کرده و در چت خود درج کنید."
+    },
+    "moreTools": {
+      "title": "ابزارهای بیشتری در دسترس است",
+      "description": "به حالت بینایی، بارگذاری تصویر، وارد کردن سریع و اپ کامل دسترسی پیدا کنید."
+    },
+    "commandPalette": {
+      "title": "فرمان‌های سریع",
+      "description": "برای جستجو در فرمان‌ها، تنظیمات و موارد دیگر {{shortcut}} را فشار دهید."
+    },
+    "modelSettings": {
+      "title": "تنظیم پارامترهای مدل",
+      "description": "دما، طول زمینه و سایر تنظیمات مدل را دقیق تنظیم کنید."
+    }
+  },
+  "chatSidebar": {
+    "title": "گفتگوها",
+    "newChat": "گفتگوی جدید",
+    "collapse": "بستن نوار کناری",
+    "expand": "گسترش نوار کناری",
+    "search": "جستجوی گفتگوها...",
+    "ingest": "وارد کردن صفحه",
+    "media": "رسانه‌ها",
+    "notes": "یادداشت‌ها",
+    "settings": "تنظیمات",
+    "loadError": "بارگذاری گفتگوها ناموفق بود",
+    "localTab": "محلی",
+    "serverTab": "سرور",
+    "foldersTab": "پوشه‌ها",
+    "tabs": {
+      "local": "محلی",
+      "server": "سرور",
+      "folders": "پوشه‌ها"
+    },
+    "noServerChats": "هنوز گفتگویی در سرور نیست",
+    "foldersRequireConnection": "پوشه‌ها به اتصال به سرور نیاز دارند"
+  }
 }

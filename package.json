@@ -24,7 +24,8 @@
     "test:e2e:ui": "playwright test --ui",
     "test:e2e:perf": "playwright test tests/e2e/performance-*.spec.ts",
     "build:analyze": "cross-env ANALYZE=true TARGET=chrome wxt build",
-    "check:i18n:dupes": "node scripts/check-duplicate-keys.mjs"
+    "check:i18n:dupes": "node scripts/check-duplicate-keys.mjs",
+    "check:i18n:coverage": "node scripts/check-locale-coverage.mjs"
   },
   "dependencies": {
     "@ant-design/cssinjs": "^1.18.4",

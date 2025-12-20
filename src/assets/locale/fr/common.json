@@ -221,6 +221,16 @@
   "ttsShort": "Voix",
   "copyShort": "Copier",
   "branchShort": "Branche",
+  "infoShort": "Infos",
+  "regenShort": "Relancer",
+  "continueShort": "Plus",
+  "fileChanges": "Modifications de fichiers",
+  "deletions": "Suppressions",
+  "gitOperations": "Opérations Git",
+  "commands": "Commandes",
+  "otherOperations": "Autres opérations",
+  "fileAccess": "Accès aux fichiers",
+  "notebookEdits": "Modifications du carnet",
   "success": "Succès",
   "created": "Créé",
   "updated": "Mis à jour",
@@ -231,13 +241,15 @@
   "serverChats": "Chats serveur",
   "serverChatLoadError": "Échec du chargement du chat serveur. Vérifiez votre connexion et réessayez.",
   "serverChatSourceLabel": "Serveur",
-  "serverChatsUnavailable": "Chats serveur indisponibles. Vérifiez la connexion au serveur.",
+  "serverChatsUnavailableNotConnected": "Les chats serveur ne sont pas disponibles. Connectez-vous à votre serveur tldw pour y accéder.",
+  "serverChatsUnavailableServerError": "Les chats serveur sont indisponibles pour le moment. Consultez les journaux du serveur ou réessayez.",
   "historiesDeleted": "{{count}} historiques supprimés",
   "deleteHistoriesError": "Erreur lors de la suppression des historiques",
   "search": "Rechercher",
   "searchResults": "Résultats de recherche",
   "newBranch": "Nouvelle branche",
   "error": {
+    "label": "Erreur",
     "friendlyApiKeySummary": "Nous n'avons pas pu atteindre votre serveur tldw.",
     "friendlyApiKeyHint": "Votre clé API est peut-être invalide. Ouvrez Paramètres → serveur tldw pour vérifier votre URL et votre clé API, puis réessayez.",
     "friendlyTimeoutSummary": "Votre discussion a expiré.",
@@ -259,5 +271,105 @@
   "refresh": "Actualiser",
   "confirm": "Confirmer",
   "untitled": "Sans titre",
-  "moveToFolder": "Déplacer vers le dossier"
+  "moveToFolder": "Déplacer vers le dossier",
+  "noToolCalls": "Aucun appel d’outil pour le moment",
+  "status": {
+    "pending": "En attente",
+    "running": "En cours",
+    "complete": "Terminé",
+    "error": "Erreur"
+  },
+  "arguments": "Arguments",
+  "invalidJson": "JSON invalide ; affichage de la valeur brute",
+  "result": "Résultat",
+  "tools": {
+    "fs_list": "Lister le répertoire",
+    "fs_read": "Lire le fichier",
+    "fs_write": "Écrire le fichier",
+    "fs_apply_patch": "Appliquer le patch",
+    "fs_mkdir": "Créer un répertoire",
+    "fs_delete": "Supprimer",
+    "search_grep": "Rechercher le contenu",
+    "search_glob": "Rechercher des fichiers",
+    "git_status": "Statut Git",
+    "git_diff": "Diff Git",
+    "git_log": "Journal Git",
+    "git_branch": "Branche Git",
+    "git_add": "Indexer les fichiers",
+    "git_commit": "Commit",
+    "exec_run": "Exécuter la commande"
+  },
+  "markdown": {
+    "unableToRender": "Impossible d’afficher le contenu",
+    "couldNotDisplay": "Le contenu du message n’a pas pu être affiché. Cela peut être dû à un formatage non valide.",
+    "showRawContent": "Afficher le contenu brut"
+  },
+  "commandPalette": {
+    "goToChat": "Aller au chat",
+    "goToMedia": "Aller à Médias",
+    "goToNotes": "Aller aux Notes",
+    "goToFlashcards": "Aller aux flashcards",
+    "goToSettings": "Aller aux Paramètres",
+    "goToHealth": "Ouvrir État et diagnostics",
+    "newChat": "Nouveau chat",
+    "toggleKnowledgeSearch": "Activer/désactiver la recherche de connaissances",
+    "toggleKnowledgeSearchDesc": "Rechercher dans votre base de connaissances",
+    "toggleWebSearch": "Activer/désactiver la recherche web",
+    "toggleWebDesc": "Rechercher sur Internet",
+    "ingestPage": "Ingérer la page actuelle",
+    "ingestDesc": "Enregistrer cette page dans votre base de connaissances",
+    "switchModel": "Changer de modèle",
+    "toggleSidebar": "Afficher/masquer la barre latérale",
+    "toggleSidebarDesc": "Afficher ou masquer la barre latérale de chat",
+    "placeholder": "Tapez une commande ou une recherche...",
+    "noResults": "Aucun résultat trouvé",
+    "title": "Palette de commandes",
+    "navigate": "naviguer",
+    "select": "sélectionner",
+    "toOpen": "pour ouvrir",
+    "categoryActions": "Actions",
+    "categoryNavigation": "Navigation",
+    "categorySettings": "Paramètres",
+    "categoryRecent": "Récents"
+  },
+  "featureHints": {
+    "knowledge": {
+      "title": "Recherchez dans vos connaissances",
+      "description": "Ouvrez le panneau de recherche de connaissances pour trouver des extraits et les insérer dans votre chat."
+    },
+    "moreTools": {
+      "title": "Plus d’outils disponibles",
+      "description": "Accédez au mode vision, au téléversement d’images, à l’ingestion rapide et à l’application complète."
+    },
+    "commandPalette": {
+      "title": "Commandes rapides",
+      "description": "Appuyez sur {{shortcut}} pour rechercher des commandes, des paramètres, et plus encore."
+    },
+    "modelSettings": {
+      "title": "Ajuster les paramètres du modèle",
+      "description": "Affinez la température, la longueur du contexte et d’autres paramètres du modèle."
+    }
+  },
+  "chatSidebar": {
+    "title": "Chats",
+    "newChat": "Nouveau chat",
+    "collapse": "Réduire la barre latérale",
+    "expand": "Développer la barre latérale",
+    "search": "Rechercher des chats...",
+    "ingest": "Ingérer la page",
+    "media": "Médias",
+    "notes": "Notes",
+    "settings": "Paramètres",
+    "loadError": "Impossible de charger les chats",
+    "localTab": "Local",
+    "serverTab": "Serveur",
+    "foldersTab": "Dossiers",
+    "tabs": {
+      "local": "Local",
+      "server": "Serveur",
+      "folders": "Dossiers"
+    },
+    "noServerChats": "Aucun chat sur le serveur pour le moment",
+    "foldersRequireConnection": "Les dossiers nécessitent une connexion au serveur"
+  }
 }

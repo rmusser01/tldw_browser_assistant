@@ -164,7 +164,9 @@
     "saveAsVersion": "حفظ كإصدار جديد",
     "analysisPlaceholder": "أدخل نص التحليل...",
     "wordCount": "{{count}} كلمة",
-    "charCount": "{{count}} حرف"
+    "charCount": "{{count}} حرف",
+    "pageRangeError": "يجب أن تكون الصفحة بين 1 و {{max}}",
+    "pageRangeClamped": "الانتقال إلى الصفحة {{page}}"
   },
   "empty": {
     "connectTitle": "Connect to use Review",

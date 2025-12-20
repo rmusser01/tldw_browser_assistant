@@ -20,6 +20,8 @@ import { MarkdownPreview } from "@/components/Common/MarkdownPreview"
 import NotesEditorHeader from "@/components/Notes/NotesEditorHeader"
 import NotesListPanel from "@/components/Notes/NotesListPanel"
 import type { NoteListItem } from "@/components/Notes/types"
+import { translateMessage } from "@/i18n/translateMessage"
+import { formatFileSize } from "@/utils/format"
 
 type NoteWithKeywords = {
   metadata?: { keywords?: any[] }
@@ -321,6 +323,10 @@ const NotesManagerPage: React.FC = () => {
   }
 
   const openLinkedConversation = async () => {
+    // Check for unsaved changes before navigating
+    const okToLeave = await confirmDiscardIfDirty()
+    if (!okToLeave) return
+
     if (!backlinkConversationId) {
       message.warning(
         t("option:notesSearch.noLinkedConversation", {
@@ -413,6 +419,16 @@ const NotesManagerPage: React.FC = () => {
     a.download = `${name}.md`
     a.click()
     URL.revokeObjectURL(url)
+    // Show file size in success message (KB/MB)
+    const sizeDisplay = formatFileSize(blob.size)
+    message.success(
+      translateMessage(
+        t,
+        'option:notesSearch.exportNoteSuccess',
+        'Exported ({{size}})',
+        { size: sizeDisplay }
+      )
+    )
   }
 
   const exportAll = async () => {
@@ -461,7 +477,16 @@ const NotesManagerPage: React.FC = () => {
       a.download = `notes-export.md`
       a.click()
       URL.revokeObjectURL(url)
-      message.success('Exported all notes')
+      // Format file size for success message
+      const sizeDisplay = formatFileSize(blob.size)
+      message.success(
+        translateMessage(
+          t,
+          'option:notesSearch.exportSuccess',
+          'Exported {{count}} notes ({{size}})',
+          { count: arr.length, size: sizeDisplay }
+        )
+      )
     } catch (e: any) {
       message.error(e?.message || 'Export failed')
     }
@@ -543,7 +568,15 @@ const NotesManagerPage: React.FC = () => {
       a.download = `notes-export.csv`
       a.click()
       URL.revokeObjectURL(url)
-      message.success('Exported CSV')
+      const sizeDisplay = formatFileSize(blob.size)
+      message.success(
+        translateMessage(
+          t,
+          'option:notesSearch.exportCsvSuccess',
+          'Exported {{count}} notes as CSV ({{size}})',
+          { count: arr.length, size: sizeDisplay }
+        )
+      )
     } catch (e: any) {
       message.error(e?.message || 'Export failed')
     }
@@ -560,7 +593,15 @@ const NotesManagerPage: React.FC = () => {
       a.download = `notes-export.json`
       a.click()
       URL.revokeObjectURL(url)
-      message.success('Exported JSON')
+      const sizeDisplay = formatFileSize(blob.size)
+      message.success(
+        translateMessage(
+          t,
+          'option:notesSearch.exportJsonSuccess',
+          'Exported {{count}} notes as JSON ({{size}})',
+          { count: arr.length, size: sizeDisplay }
+        )
+      )
     } catch (e: any) {
       message.error(e?.message || 'Export failed')
     }
@@ -595,7 +636,10 @@ const NotesManagerPage: React.FC = () => {
           : []
         setKeywordOptions(arr)
       }
-    } catch {}
+    } catch {
+      // Keyword load failed - feature will use empty suggestions
+      console.debug('[NotesManagerPage] Keyword suggestions load failed')
+    }
   }, [])
 
   const debouncedLoadKeywordSuggestions = React.useCallback(
@@ -859,6 +903,7 @@ const NotesManagerPage: React.FC = () => {
           canExport={Boolean(title || content)}
           isSaving={saving}
           canDelete={!editorDisabled && selectedId != null}
+          isDirty={isDirty}
           onOpenLinkedConversation={() => {
             void openLinkedConversation()
           }}

@@ -32,6 +32,7 @@ export const SearchModeSettings = () => {
     queryFn: async () => {
       const data = await getSearchSettings()
       form.setValues(data)
+      form.resetDirty(data)
       return data
     }
   })
@@ -43,14 +44,22 @@ export const SearchModeSettings = () => {
   return (
     <div>
       <div className="mb-5">
-        <h2 className="text-base font-semibold leading-7 text-gray-900 dark:text-white">
-          {t("generalSettings.webSearch.heading")}
-        </h2>
+        <div className="flex items-center gap-2">
+          <h2 className="text-base font-semibold leading-7 text-gray-900 dark:text-white">
+            {t("generalSettings.webSearch.heading")}
+          </h2>
+          {form.isDirty() && (
+            <span className="text-xs px-2 py-0.5 rounded bg-orange-100 dark:bg-orange-900 text-orange-700 dark:text-orange-200">
+              {t("generalSettings.webSearch.unsavedChanges", "Unsaved changes")}
+            </span>
+          )}
+        </div>
         <div className="border border-b border-gray-200 dark:border-gray-600 mt-3"></div>
       </div>
       <form
         onSubmit={form.onSubmit(async (values) => {
           await setSearchSettings(values)
+          form.resetDirty(values)
         })}
         className="space-y-4">
         <div className="flex sm:flex-row flex-col space-y-4 sm:space-y-0 sm:justify-between">
@@ -72,10 +81,10 @@ export const SearchModeSettings = () => {
           </div>
         </div>
         {form.values.searchProvider === "searxng" && (
-          <>
+          <div className="transition-all duration-200">
             <div className="flex sm:flex-row flex-col space-y-4 sm:space-y-0 sm:justify-between">
               <span className="text-gray-700 dark:text-neutral-50">
-                {t("generalSettings.webSearch.searxng.url.label")}
+                {t("generalSettings.webSearch.searxng.url.label")} <span className="text-red-500">*</span>
               </span>
               <div>
                 <Input
@@ -86,10 +95,10 @@ export const SearchModeSettings = () => {
                 />
               </div>
             </div>
-          </>
+          </div>
         )}
         {form.values.searchProvider === "google" && (
-          <>
+          <div className="transition-all duration-200">
             <div className="flex sm:flex-row flex-col space-y-4 sm:space-y-0 sm:justify-between">
               <span className="text-gray-700 dark:text-neutral-50">
                 {t("generalSettings.webSearch.googleDomain.label")}
@@ -112,13 +121,13 @@ export const SearchModeSettings = () => {
                 />
               </div>
             </div>
-          </>
+          </div>
         )}
         {form.values.searchProvider === "brave-api" && (
-          <>
+          <div className="transition-all duration-200">
             <div className="flex sm:flex-row flex-col space-y-4 sm:space-y-0 sm:justify-between">
               <span className="text-gray-700 dark:text-neutral-50">
-                {t("generalSettings.webSearch.braveApi.label")}
+                {t("generalSettings.webSearch.braveApi.label")} <span className="text-red-500">*</span>
               </span>
               <div>
                 <Input.Password
@@ -131,13 +140,13 @@ export const SearchModeSettings = () => {
                 />
               </div>
             </div>
-          </>
+          </div>
         )}
         {form.values.searchProvider === "tavily-api" && (
-          <>
+          <div className="transition-all duration-200">
             <div className="flex sm:flex-row flex-col space-y-4 sm:space-y-0 sm:justify-between">
               <span className="text-gray-700 dark:text-neutral-50">
-                {t("generalSettings.webSearch.tavilyApi.label")}
+                {t("generalSettings.webSearch.tavilyApi.label")} <span className="text-red-500">*</span>
               </span>
               <div>
                 <Input.Password
@@ -150,14 +159,14 @@ export const SearchModeSettings = () => {
                 />
               </div>
             </div>
-          </>
+          </div>
         )}
 
         {form.values.searchProvider === "exa" && (
-          <>
+          <div className="transition-all duration-200">
             <div className="flex sm:flex-row flex-col space-y-4 sm:space-y-0 sm:justify-between">
               <span className="text-gray-700 dark:text-neutral-50">
-                {t("generalSettings.webSearch.exa.label")}
+                {t("generalSettings.webSearch.exa.label")} <span className="text-red-500">*</span>
               </span>
               <div>
                 <Input.Password
@@ -168,14 +177,14 @@ export const SearchModeSettings = () => {
                 />
               </div>
             </div>
-          </>
+          </div>
         )}
 
         {form.values.searchProvider === "firecrawl" && (
-          <>
+          <div className="transition-all duration-200">
             <div className="flex sm:flex-row flex-col space-y-4 sm:space-y-0 sm:justify-between">
               <span className="text-gray-700 dark:text-neutral-50">
-                {t("generalSettings.webSearch.firecrawlAPIKey.label")}
+                {t("generalSettings.webSearch.firecrawlAPIKey.label")} <span className="text-red-500">*</span>
               </span>
               <div>
                 <Input.Password
@@ -188,7 +197,7 @@ export const SearchModeSettings = () => {
                 />
               </div>
             </div>
-          </>
+          </div>
         )}
 
         <div className="flex sm:flex-row flex-col space-y-4 sm:space-y-0 sm:justify-between">
@@ -198,6 +207,7 @@ export const SearchModeSettings = () => {
           <div>
             <Switch
               className="mt-4 sm:mt-0"
+              aria-label={t("generalSettings.webSearch.searchMode.label")}
               {...form.getInputProps("isSimpleInternetSearch", {
                 type: "checkbox"
               })}
@@ -226,6 +236,7 @@ export const SearchModeSettings = () => {
           <div>
             <Switch
               className="mt-4 sm:mt-0"
+              aria-label={t("generalSettings.webSearch.visitSpecificWebsite.label")}
               {...form.getInputProps("visitSpecificWebsite", {
                 type: "checkbox"
               })}
@@ -240,6 +251,7 @@ export const SearchModeSettings = () => {
           <div>
             <Switch
               className="mt-4 sm:mt-0"
+              aria-label={t("generalSettings.webSearch.searchOnByDefault.label")}
               {...form.getInputProps("defaultInternetSearchOn", {
                 type: "checkbox"
               })}

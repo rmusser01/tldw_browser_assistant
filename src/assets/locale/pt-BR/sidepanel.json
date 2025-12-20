@@ -12,6 +12,28 @@
     "privateModeTitle": "tldw Assistant não pode salvar dados",
     "privateModeDescription": "O modo privativo do Firefox não permite salvar o histórico do chat. O chat temporário fica ativado por padrão. Mais melhorias em breve."
   },
+  "connectionBanner": {
+    "connecting": "Conectando ao seu servidor tldw...",
+    "authErrorTitle": "A chave de API precisa de atenção",
+    "authErrorBody": "O servidor está acessível, mas a chave de API está incorreta ou ausente.",
+    "unreachableTitle": "Não foi possível acessar seu servidor tldw",
+    "unreachableBody": "Verifique se o servidor está em execução e acessível.",
+    "noUrlBody": "Adicione a URL do servidor nas Configurações para começar.",
+    "disconnectedTitle": "Não conectado ao servidor tldw",
+    "disconnectedBody": "Abra as Configurações para configurar a conexão com o servidor.",
+    "setupTitle": "Conclua a configuração para começar a conversar",
+    "setupBody": "Conclua o assistente de configuração nas Configurações para se conectar.",
+    "openSettings": "Abrir Configurações"
+  },
+  "temporaryBadge": {
+    "title": "Chat temporário",
+    "label": "Temp",
+    "description": "Este chat não será salvo. As mensagens serão apagadas quando você fechar ou iniciar um novo chat.",
+    "clickHint": "Clique para desativar",
+    "ariaLabel": "O modo de chat temporário está ativo. Clique para alternar.",
+    "indicatorTooltip": "As mensagens deste chat não serão salvas",
+    "indicatorAria": "Chat temporário"
+  },
   "header": {
     "ingest": "Ingest",
     "saveCurrent": "Save current page on server",
@@ -74,6 +96,13 @@
     "transcriptLabel": "Transcript",
     "summaryLabel": "Summary"
   },
+  "saveStatus": {
+    "ephemeral": "Temporário: não salvo, apagado ao fechar",
+    "local": "Salvo localmente neste navegador",
+    "server": "Salvo no servidor",
+    "saveFailed": "Falha ao salvar o chat no servidor",
+    "saveFailedDescription": "O chat agora é salvo apenas localmente. Verifique sua conexão e tente novamente."
+  },
   "rag": {
     "searchPlaceholder": "Search your knowledge…",
     "search": "Search",
@@ -92,6 +121,10 @@
       "ask": "Ask",
       "open": "Open",
       "copy": "Copy"
+    },
+    "hint": {
+      "message": "Pesquise na sua base de conhecimento e insira os resultados na sua mensagem.",
+      "dismiss": "Dispensar"
     }
   }
 }

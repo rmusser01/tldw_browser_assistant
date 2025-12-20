@@ -6,6 +6,7 @@ export interface ShortcutConfig {
   newChat: KeyboardShortcut
   toggleSidebar: KeyboardShortcut
   toggleChatMode: KeyboardShortcut
+  toggleWebSearch: KeyboardShortcut
   toggleQuickChatHelper: KeyboardShortcut
   modePlayground: KeyboardShortcut
   modeMedia: KeyboardShortcut
@@ -26,7 +27,7 @@ export const defaultShortcuts: ShortcutConfig = {
     stopPropagation: true
   },
   newChat: {
-    key: "o",
+    key: "u",
     ctrlKey: true,
     shiftKey: true,
     preventDefault: true,
@@ -41,6 +42,12 @@ export const defaultShortcuts: ShortcutConfig = {
   toggleChatMode: {
     key: "e",
     ctrlKey: true,
+    preventDefault: true,
+    stopPropagation: true
+  },
+  toggleWebSearch: {
+    key: "w",
+    altKey: true,
     preventDefault: true,
     stopPropagation: true
   },

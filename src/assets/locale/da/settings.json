@@ -10,6 +10,39 @@
   "chatDictionariesNav": "Chatordbøger",
   "charactersNav": "Karakterer",
   "mediaNav": "Medier",
+  "chatAppearance": {
+    "title": "Chat-udseende",
+    "description": "Tilpas farver, skrifttyper og tekststørrelser for chatbeskeder.",
+    "behaviorNote": "Leder du efter indstillinger for chatadfærd (bred tilstand, ræsonnement, kopiindstillinger)?",
+    "goToGeneral": "Gå til Generelle indstillinger",
+    "userHeading": "Brugerbeskeder",
+    "assistantHeading": "Assistentbeskeder",
+    "userColor": "Brugerens tekstfarve",
+    "assistantColor": "Assistentens tekstfarve",
+    "userFont": "Brugerens skrifttype",
+    "assistantFont": "Assistentens skrifttype",
+    "userSize": "Brugerens tekststørrelse",
+    "assistantSize": "Assistentens tekststørrelse",
+    "color": {
+      "default": "Standard",
+      "blue": "Blå",
+      "green": "Grøn",
+      "purple": "Lilla",
+      "orange": "Orange",
+      "red": "Rød"
+    },
+    "font": {
+      "default": "Standard",
+      "sans": "Sans serif (grotesk)",
+      "serif": "Serif (med fødder)",
+      "mono": "Monospace (fast bredde)"
+    },
+    "size": {
+      "sm": "Lille",
+      "md": "Mellem",
+      "lg": "Stor"
+    }
+  },
   "generalSettings": {
     "title": "Generelle Indstillinger",
     "settings": {
@@ -81,7 +114,9 @@
         "label": "Enable Chat with Website by default (Copilot)"
       },
       "enableOcrAssets": {
-        "label": "Enable OCR (downloads ~5MB on first use)"
+        "label": "Aktivér OCR (henter ca. 5 MB ved første brug)",
+        "downloadNotice": "Når du aktiverer OCR, downloades ca. 5 MB sprogdata ved første brug.",
+        "assetsEnabled": "OCR-ressourcer er aktiveret og klar"
       },
       "ocrLanguage": {
         "label": "Default OCR Language",

@@ -1,5 +1,5 @@
 import { useQuery, useQueryClient } from "@tanstack/react-query"
-import { Skeleton, Radio, Form, Input, Alert } from "antd"
+import { Skeleton, Radio, Form, Input, Alert, Modal, notification } from "antd"
 import React from "react"
 import { useTranslation } from "react-i18next"
 import { SaveButton } from "~/components/Common/SaveButton"
@@ -15,6 +15,34 @@ export const SettingPrompt = () => {
   const { t } = useTranslation("settings")
 
   const [selectedValue, setSelectedValue] = React.useState<"web" | "rag">("rag")
+  const [isDirty, setIsDirty] = React.useState(false)
+  const [ragForm] = Form.useForm()
+  const [webForm] = Form.useForm()
+
+  const handleTabChange = (newTab: "web" | "rag") => {
+    if (isDirty) {
+      Modal.confirm({
+        title: t("managePrompts.unsavedChangesTitle", "Unsaved Changes"),
+        content: t("managePrompts.unsavedChangesContent", "You have unsaved changes. Are you sure you want to switch tabs? Your changes will be lost."),
+        okText: t("common:discard", "Discard"),
+        cancelText: t("common:cancel", "Cancel"),
+        okButtonProps: { danger: true },
+        onOk: () => {
+          setIsDirty(false)
+          // Reset BOTH forms to ensure clean state
+          ragForm.resetFields()
+          webForm.resetFields()
+          // Refetch to ensure forms use latest server data
+          queryClient.invalidateQueries({
+            queryKey: ["fetchRagPrompt"]
+          })
+          setSelectedValue(newTab)
+        }
+      })
+    } else {
+      setSelectedValue(newTab)
+    }
+  }
 
   const queryClient = useQueryClient()
 
@@ -56,8 +84,8 @@ export const SettingPrompt = () => {
         <div>
           <div className="my-3 flex justify-end">
             <Radio.Group
-              defaultValue={selectedValue}
-              onChange={(e) => setSelectedValue(e.target.value)}>
+              value={selectedValue}
+              onChange={(e) => handleTabChange(e.target.value)}>
               <Radio.Button value="rag">RAG</Radio.Button>
               <Radio.Button value="web">{t("rag.prompt.option2")}</Radio.Button>
             </Radio.Group>
@@ -65,16 +93,36 @@ export const SettingPrompt = () => {
 
           {selectedValue === "rag" && (
             <Form
+              form={ragForm}
               layout="vertical"
+              onValuesChange={() => setIsDirty(true)}
               onFinish={(values) => {
-                // setSystemPromptForNonRagOption(values?.prompt || "")
-                setPromptForRag(
-                  values?.systemPrompt || "",
-                  values?.questionPrompt || ""
-                )
-                queryClient.invalidateQueries({
-                  queryKey: ["fetchRagPrompt"]
-                })
+                ;(async () => {
+                  try {
+                    await setPromptForRag(
+                      values?.systemPrompt || "",
+                      values?.questionPrompt || ""
+                    )
+                    setIsDirty(false)
+                    queryClient.invalidateQueries({
+                      queryKey: ["fetchRagPrompt"]
+                    })
+                  } catch (e: any) {
+                    console.error("Failed to save RAG prompts:", e)
+                    notification.error({
+                      message: t(
+                        "managePrompts.notification.error",
+                        "Error"
+                      ),
+                      description:
+                        e?.message ||
+                        t(
+                          "managePrompts.notification.someError",
+                          "Something went wrong. Please try again later"
+                        )
+                    })
+                  }
+                })()
               }}
               initialValues={{
                 systemPrompt: data.prompt.ragPrompt,
@@ -90,7 +138,6 @@ export const SettingPrompt = () => {
                   }
                 ]}>
                 <Input.TextArea
-                  value={data.webSearchPrompt}
                   rows={5}
                   placeholder={t(
                     "settings:prompts.enterPromptPlaceholder",
@@ -111,7 +158,6 @@ export const SettingPrompt = () => {
                   }
                 ]}>
                 <Input.TextArea
-                  value={data.webSearchFollowUpPrompt}
                   rows={5}
                   placeholder={t(
                     "settings:prompts.enterFollowUpPromptPlaceholder",
@@ -129,15 +175,36 @@ export const SettingPrompt = () => {
 
           {selectedValue === "web" && (
             <Form
+              form={webForm}
               layout="vertical"
+              onValuesChange={() => setIsDirty(true)}
               onFinish={(values) => {
-                setWebPrompts(
-                  values?.webSearchPrompt || "",
-                  values?.webSearchFollowUpPrompt || ""
-                )
-                queryClient.invalidateQueries({
-                  queryKey: ["fetchRagPrompt"]
-                })
+                ;(async () => {
+                  try {
+                    await setWebPrompts(
+                      values?.webSearchPrompt || "",
+                      values?.webSearchFollowUpPrompt || ""
+                    )
+                    setIsDirty(false)
+                    queryClient.invalidateQueries({
+                      queryKey: ["fetchRagPrompt"]
+                    })
+                  } catch (e: any) {
+                    console.error("Failed to save web search prompts:", e)
+                    notification.error({
+                      message: t(
+                        "managePrompts.notification.error",
+                        "Error"
+                      ),
+                      description:
+                        e?.message ||
+                        t(
+                          "managePrompts.notification.someError",
+                          "Something went wrong. Please try again later"
+                        )
+                    })
+                  }
+                })()
               }}
               initialValues={{
                 webSearchPrompt: data.webSearchPrompt,
@@ -154,7 +221,6 @@ export const SettingPrompt = () => {
                   }
                 ]}>
                 <Input.TextArea
-                  value={data.webSearchPrompt}
                   rows={5}
                   placeholder={t("rag.prompt.webSearchPromptPlaceholder")}
                 />
@@ -170,7 +236,6 @@ export const SettingPrompt = () => {
                   }
                 ]}>
                 <Input.TextArea
-                  value={data.webSearchFollowUpPrompt}
                   rows={5}
                   placeholder={t(
                     "rag.prompt.webSearchFollowUpPromptPlaceholder"

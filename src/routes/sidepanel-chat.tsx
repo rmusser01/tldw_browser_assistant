@@ -10,13 +10,15 @@ import { useSmartScroll } from "@/hooks/useSmartScroll"
 import {
   useChatShortcuts,
   useSidebarShortcuts,
-  useChatModeShortcuts
+  useChatModeShortcuts,
+  useWebSearchShortcuts
 } from "@/hooks/keyboard/useKeyboardShortcuts"
 import { useConnectionActions } from "@/hooks/useConnectionState"
 import { useAntdNotification } from "@/hooks/useAntdNotification"
 import { copilotResumeLastChat } from "@/services/app"
 import { tldwClient } from "@/services/tldw/TldwApiClient"
 import { Storage } from "@plasmohq/storage"
+import { createSafeStorage } from "@/utils/safe-storage"
 import { useStorage } from "@plasmohq/storage/hook"
 import { ChevronDown } from "lucide-react"
 import React, { lazy, Suspense } from "react"
@@ -24,6 +26,7 @@ import { useTranslation } from "react-i18next"
 import { SidePanelBody } from "~/components/Sidepanel/Chat/body"
 import { SidepanelForm } from "~/components/Sidepanel/Chat/form"
 import { SidepanelHeaderSimple } from "~/components/Sidepanel/Chat/SidepanelHeaderSimple"
+import { ConnectionBanner } from "~/components/Sidepanel/Chat/ConnectionBanner"
 import NoteQuickSaveModal from "~/components/Sidepanel/Notes/NoteQuickSaveModal"
 import { useMessage } from "~/hooks/useMessage"
 
@@ -60,12 +63,14 @@ const SidepanelChat = () => {
   const [dropedFile, setDropedFile] = React.useState<File | undefined>()
   const [sidebarOpen, setSidebarOpen] = React.useState(false)
   const [searchQuery, setSearchQuery] = React.useState("")
+  const [composerHeight, setComposerHeight] = React.useState(0)
   const { t } = useTranslation(["playground", "sidepanel", "common"])
   // Per-tab storage (Chrome side panel) or per-window/global (Firefox sidebar).
   // tabId: undefined = not resolved yet, null = resolved but unavailable.
   const [tabId, setTabId] = React.useState<number | null | undefined>(undefined)
+  const [isRestoringChat, setIsRestoringChat] = React.useState(false)
   const storageRef = React.useRef(
-    new Storage({
+    createSafeStorage({
       area: "local"
     })
   )
@@ -78,6 +83,10 @@ const SidepanelChat = () => {
   const feedbackTimerRef = React.useRef<ReturnType<typeof setTimeout> | null>(
     null
   )
+  // L20: Debounce timer for drag-leave to prevent false positives
+  const dragLeaveTimerRef = React.useRef<ReturnType<typeof setTimeout> | null>(
+    null
+  )
   const showDropFeedback = React.useCallback(
     (feedback: { type: "info" | "error"; message: string }) => {
       setDropFeedback(feedback)
@@ -85,6 +94,7 @@ const SidepanelChat = () => {
         clearTimeout(feedbackTimerRef.current)
       }
       feedbackTimerRef.current = setTimeout(() => {
+        // L16: Explicitly clear feedback on timer expiry
         setDropFeedback(null)
         feedbackTimerRef.current = null
       }, 4000)
@@ -107,7 +117,9 @@ const SidepanelChat = () => {
     setChatMode,
     setTemporaryChat,
     sidepanelTemporaryChat,
-    clearChat
+    clearChat,
+    webSearch,
+    setWebSearch
   } = useMessage()
   const { containerRef, isAutoScrollToBottom, autoScrollToBottom } =
     useSmartScroll(messages, streaming, 100)
@@ -120,6 +132,7 @@ const SidepanelChat = () => {
   const [noteSourceUrl, setNoteSourceUrl] = React.useState<string | undefined>()
   const [noteSaving, setNoteSaving] = React.useState(false)
   const [noteError, setNoteError] = React.useState<string | null>(null)
+  const textareaRef = React.useRef<HTMLTextAreaElement>(null)
 
   const resetNoteModal = React.useCallback(() => {
     setNoteModalOpen(false)
@@ -191,13 +204,18 @@ const SidepanelChat = () => {
     setChatMode(chatMode === "rag" ? "normal" : "rag")
   }
 
+  const toggleWebSearchMode = () => {
+    setWebSearch(!webSearch)
+  }
+
   useChatShortcuts(clearChat, true)
   useSidebarShortcuts(toggleSidebar, true)
   useChatModeShortcuts(toggleChatMode, true)
+  useWebSearchShortcuts(toggleWebSearchMode, true)
 
   const [chatBackgroundImage] = useStorage({
     key: "chatBackgroundImage",
-    instance: new Storage({
+    instance: createSafeStorage({
       area: "local"
     })
   })
@@ -222,6 +240,7 @@ const SidepanelChat = () => {
     }
 
     const storage = storageRef.current
+    setIsRestoringChat(true)
     try {
       // Prefer a tab-specific snapshot; fall back to the legacy/global key
       // so existing users don't lose their last session.
@@ -249,23 +268,29 @@ const SidepanelChat = () => {
         if (snapshot.chatMode) {
           setChatMode(snapshot.chatMode)
         }
+        setIsRestoringChat(false)
         return
       }
     } catch {
       // fall through to recent chat resume
     }
 
-    const isEnabled = await copilotResumeLastChat()
-    if (!isEnabled) {
-      return
-    }
-    if (messages.length === 0) {
-      const recentChat = await getRecentChatFromCopilot()
-      if (recentChat) {
-        setHistoryId(recentChat.history.id)
-        setHistory(formatToChatHistory(recentChat.messages))
-        setMessages(formatToMessage(recentChat.messages))
+    try {
+      const isEnabled = await copilotResumeLastChat()
+      if (!isEnabled) {
+        setIsRestoringChat(false)
+        return
       }
+      if (messages.length === 0) {
+        const recentChat = await getRecentChatFromCopilot()
+        if (recentChat) {
+          setHistoryId(recentChat.history.id)
+          setHistory(formatToChatHistory(recentChat.messages))
+          setMessages(formatToMessage(recentChat.messages))
+        }
+      }
+    } finally {
+      setIsRestoringChat(false)
     }
   }
 
@@ -376,6 +401,11 @@ const SidepanelChat = () => {
     const handleDragEnter = (e: DragEvent) => {
       e.preventDefault()
       e.stopPropagation()
+      // L20: Clear drag-leave debounce timer when re-entering
+      if (dragLeaveTimerRef.current) {
+        clearTimeout(dragLeaveTimerRef.current)
+        dragLeaveTimerRef.current = null
+      }
       setDropState("dragging")
       showDropFeedback({
         type: "info",
@@ -389,7 +419,14 @@ const SidepanelChat = () => {
     const handleDragLeave = (e: DragEvent) => {
       e.preventDefault()
       e.stopPropagation()
-      setDropState("idle")
+      // L20: Debounce drag-leave by 50ms to prevent false positives from child elements
+      if (dragLeaveTimerRef.current) {
+        clearTimeout(dragLeaveTimerRef.current)
+      }
+      dragLeaveTimerRef.current = setTimeout(() => {
+        setDropState("idle")
+        dragLeaveTimerRef.current = null
+      }, 50)
     }
 
     drop.current.addEventListener("dragover", handleDragOver)
@@ -411,6 +448,12 @@ const SidepanelChat = () => {
     return () => {
       if (feedbackTimerRef.current) {
         clearTimeout(feedbackTimerRef.current)
+        feedbackTimerRef.current = null
+      }
+      // L20: Clean up drag-leave debounce timer
+      if (dragLeaveTimerRef.current) {
+        clearTimeout(dragLeaveTimerRef.current)
+        dragLeaveTimerRef.current = null
       }
     }
   }, [])
@@ -533,6 +576,7 @@ const SidepanelChat = () => {
             searchQuery={searchQuery}
             setSearchQuery={setSearchQuery}
           />
+          <ConnectionBanner />
         </div>
         <div
           ref={drop}
@@ -590,8 +634,33 @@ const SidepanelChat = () => {
             aria-live="polite"
             aria-relevant="additions"
             aria-label={t("playground:aria.chatTranscript", "Chat messages")}
-            className="custom-scrollbar flex h-full w-full flex-col items-center overflow-x-hidden overflow-y-auto px-5 relative z-10">
-            <SidePanelBody scrollParentRef={containerRef} searchQuery={searchQuery} />
+            className="custom-scrollbar flex h-full w-full flex-col items-center overflow-x-hidden overflow-y-auto px-5 relative z-10"
+            style={{ paddingBottom: composerHeight ? composerHeight + 16 : 160 }}>
+            {isRestoringChat ? (
+              <div
+                className="relative flex w-full flex-col items-center pt-16 pb-4"
+                aria-busy="true"
+                aria-label={t("sidepanel:chat.restoringChat", "Restoring previous chat")}>
+                <div className="w-full max-w-3xl space-y-4">
+                  {[1, 2, 3].map((i) => (
+                    <div key={i} className="flex gap-4 animate-pulse">
+                      <div className="w-8 h-8 rounded-full bg-gray-200 dark:bg-gray-700 flex-shrink-0"></div>
+                      <div className="flex-1 space-y-2">
+                        <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-1/4"></div>
+                        <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-full"></div>
+                        <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-3/4"></div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            ) : (
+              <SidePanelBody
+                scrollParentRef={containerRef}
+                searchQuery={searchQuery}
+                inputRef={textareaRef}
+              />
+            )}
           </div>
 
           <div className="absolute bottom-0 w-full z-10">
@@ -606,7 +675,11 @@ const SidepanelChat = () => {
                 </button>
               </div>
             )}
-            <SidepanelForm dropedFile={dropedFile} />
+            <SidepanelForm
+              dropedFile={dropedFile}
+              inputRef={textareaRef}
+              onHeightChange={setComposerHeight}
+            />
           </div>
         </div>
       </main>

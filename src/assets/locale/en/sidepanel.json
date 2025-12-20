@@ -37,26 +37,40 @@
   "controlRow": {
     "saveMode": "Save Mode",
     "ephemeral": "Ephemeral",
+    "ephemeralBadge": "Ephemeral",
+    "ephemeralModeActive": "Ephemeral mode: chat won't be saved",
     "searchSection": "Search & Vision",
     "webSearch": "Web Search",
     "vision": "Vision",
+    "visionDisabledKnowledge": "Disable Knowledge Search to use Vision",
+    "visionTooltip": "Enable Vision to analyze images",
     "uploadImage": "Upload Image",
-    "quickIngest": "Quick Ingest Page",
-    "openInFullUI": "Open in Full UI",
+    "quickActions": "Quick actions",
+    "quickIngest": "Quick ingest",
+    "openInFullUI": "Open full app",
     "modeChat": "Chat",
     "modeMedia": "Media",
     "modeNotes": "Notes",
     "modeFlashcards": "Flashcards",
-    "ragSearch": "RAG Search",
+    "knowledgeSearch": "Open knowledge search",
+    "knowledge": "Knowledge search",
     "moreTools": "More tools"
   },
   "toolbar": {
-    "ragSearch": "RAG Search"
+    "knowledgeSearch": "Knowledge Search"
   },
   "composer": {
     "connectHint": "Connect to your tldw server in Settings to send messages.",
     "connectingPlaceholder": "Connecting...",
-    "disconnectedPlaceholder": "Connect to your tldw server in Settings to send messages and view media."
+    "disconnectedPlaceholder": "Connect to your tldw server in Settings to send messages and view media.",
+    "tempChatConfirmTitle": "Enable temporary mode?",
+    "tempChatConfirmContent": "This will clear your current conversation. Messages won't be saved.",
+    "tempChatDisableConfirmTitle": "Disable temporary mode?",
+    "tempChatDisableConfirmContent": "This will clear your current conversation. Messages will start saving again.",
+    "tempChatDisabledClearedMessages": "Temporary chat disabled. Previous messages cleared.",
+    "tempChatClearedMessages": "Temporary chat enabled. Previous messages cleared.",
+    "clearQueueConfirmTitle": "Clear message queue?",
+    "clearQueueConfirmContent": "This will delete {{count}} queued message(s) that haven't been sent yet."
   },
   "notification": {
     "ingestSent": "Sent to tldw server",
@@ -70,16 +84,25 @@
     "transcriptLabel": "Transcript",
     "summaryLabel": "Summary"
   },
+  "saveStatus": {
+    "ephemeral": "Ephemeral: Not saved, cleared on close",
+    "local": "Saved locally in this browser",
+    "server": "Saved to server",
+    "saveFailed": "Failed to save chat to server",
+    "saveFailedDescription": "Chat is now saving locally only. Check your connection and try again."
+  },
   "rag": {
     "searchPlaceholder": "Search your knowledge…",
     "search": "Search",
-    "show": "Show RAG search",
-    "hide": "Hide RAG search",
+    "show": "Show Knowledge Search",
+    "hide": "Hide Knowledge Search",
     "addTagPlaceholder": "Add tag (Enter)",
     "add": "Add",
     "noResults": "No results",
+    "disconnected": "Connect to server to search knowledge base",
     "timeout": {
       "message": "Request timed out.",
+      "retry": "Retry",
       "increase": "Increase timeout",
       "checkHealth": "Check server health"
     },
@@ -88,10 +111,36 @@
       "ask": "Ask",
       "open": "Open",
       "copy": "Copy"
+    },
+    "hint": {
+      "message": "Search your knowledge base and insert results into your message.",
+      "dismiss": "Dismiss"
     }
   },
   "errors": {
     "privateModeTitle": "tldw Assistant can't save data",
     "privateModeDescription": "Firefox Private Mode does not support saving chat history. Temporary chat is enabled by default. More fixes coming soon."
+  },
+  "connectionBanner": {
+    "connecting": "Connecting to your tldw server...",
+    "authErrorTitle": "API key needs attention",
+    "authErrorBody": "Your server is reachable but the API key is wrong or missing.",
+    "unreachableTitle": "Can't reach your tldw server",
+    "unreachableBody": "Check that your server is running and accessible.",
+    "noUrlBody": "Add your server URL in Settings to get started.",
+    "disconnectedTitle": "Not connected to tldw server",
+    "disconnectedBody": "Open Settings to configure your server connection.",
+    "setupTitle": "Finish setup to start chatting",
+    "setupBody": "Complete the setup wizard in Settings to connect.",
+    "openSettings": "Open Settings"
+  },
+  "temporaryBadge": {
+    "title": "Temporary Chat",
+    "label": "Temp",
+    "description": "This chat won't be saved. Messages will be cleared when you close or start a new chat.",
+    "clickHint": "Click to disable",
+    "ariaLabel": "Temporary chat mode is active. Click to toggle.",
+    "indicatorTooltip": "Messages in this chat won't be saved",
+    "indicatorAria": "Temporary chat"
   }
 }

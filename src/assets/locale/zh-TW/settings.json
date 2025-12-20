@@ -10,6 +10,39 @@
   "chatDictionariesNav": "聊天字典",
   "charactersNav": "角色",
   "mediaNav": "媒體",
+  "chatAppearance": {
+    "title": "聊天外觀",
+    "description": "自訂聊天訊息的顏色、字體與文字大小。",
+    "behaviorNote": "在找聊天行為設定嗎（寬螢幕模式、推理、複製選項等）？",
+    "goToGeneral": "前往一般設定",
+    "userHeading": "使用者訊息",
+    "assistantHeading": "助理訊息",
+    "userColor": "使用者文字顏色",
+    "assistantColor": "助理文字顏色",
+    "userFont": "使用者字體",
+    "assistantFont": "助理字體",
+    "userSize": "使用者文字大小",
+    "assistantSize": "助理文字大小",
+    "color": {
+      "default": "預設",
+      "blue": "藍色",
+      "green": "綠色",
+      "purple": "紫色",
+      "orange": "橘色",
+      "red": "紅色"
+    },
+    "font": {
+      "default": "預設",
+      "sans": "無襯線",
+      "serif": "有襯線",
+      "mono": "等寬字"
+    },
+    "size": {
+      "sm": "小",
+      "md": "中",
+      "lg": "大"
+    }
+  },
   "generalSettings": {
     "title": "一般設定",
     "settings": {
@@ -85,13 +118,15 @@
         "label": "預設為側邊面板啟用臨時聊天"
       },
       "enableOcrAssets": {
-        "label": "Enable OCR (downloads ~5MB on first use)"
+        "label": "啟用 OCR（首次使用時下載約 5MB）",
+        "downloadNotice": "啟用 OCR 後，首次使用時將下載約 5MB 的語言資料。",
+        "assetsEnabled": "OCR 資源已啟用並可使用"
       },
       "removeReasoningTagFromCopy": {
-        "label": "Remove Reasoning Tag from Copied Text"
+        "label": "從複製的文字中刪除推理標籤"
       },
       "promptSearchIncludeServer": {
-        "label": "Include server prompts in prompt search"
+        "label": "在提示詞搜尋中包含伺服器提示詞"
       },
       "restartOnboarding": {
         "label": "從頭重新開始引導設定",

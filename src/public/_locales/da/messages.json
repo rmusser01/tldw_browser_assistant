@@ -122,15 +122,15 @@
     "description": "Hjælpetekst, der forklarer Single User vs Multi User-godkendelsestilstande."
   },
   "apiKeyHelp": {
-    "message": "Find din API-nøgle i tldw_server \u2192 Settings \u2192 API Keys. Opret en nøgle dér og indsæt den her.",
+    "message": "Find din API-nøgle i tldw_server → Settings → API Keys. Opret en nøgle dér og indsæt den her.",
     "description": "Hjælpetekst, der beskriver, hvor API-nøglen findes."
   },
   "authStepAria": {
-    "message": "Trin 3 af 4 \u2014 vælg, hvordan du logger ind",
+    "message": "Trin 3 af 4 — vælg, hvordan du logger ind",
     "description": "Aria-etiket for godkendelsestrinnet i onboarding."
   },
   "confirmStepAria": {
-    "message": "Trin 4 af 4 \u2014 bekræft forbindelsen og gennemgå næste trin",
+    "message": "Trin 4 af 4 — bekræft forbindelsen og gennemgå næste trin",
     "description": "Aria-etiket for bekræftelsestrinnet i onboarding."
   },
   "nextSteps": {
@@ -144,7 +144,7 @@
     "message": "For at bruge noter skal du først oprette forbindelse til din tldw server."
   },
   "notesEmpty_connectExample1": {
-    "message": "Åbn Settings \u2192 tldw server for at tilføje din server-URL."
+    "message": "Åbn Settings → tldw server for at tilføje din server-URL."
   },
   "notesEmpty_connectExample2": {
     "message": "Brug Diagnostics, hvis din server kører, men ikke kan nås."
@@ -174,7 +174,7 @@
     "message": "Beslutninger, blokeringer og opfølgninger fra et nyligt teammøde."
   },
   "notesEmpty_demoSample1Meta": {
-    "message": "I dag \u00b7 9:32 AM"
+    "message": "I dag · 9:32 AM"
   },
   "notesEmpty_demoSample2Title": {
     "message": "Demo-note: Forskningshøjdepunkter"
@@ -183,7 +183,7 @@
     "message": "Vigtige indsigter udtrukket fra en lang artikel eller en rapport."
   },
   "notesEmpty_demoSample2Meta": {
-    "message": "I går \u00b7 4:10 PM"
+    "message": "I går · 4:10 PM"
   },
   "notesEmpty_demoSample3Title": {
     "message": "Demo-note: Sammenfatning af opkald"
@@ -224,48 +224,57 @@
   "restartOnboardingConfirmMessage": {
     "message": "Dette nulstiller din onboarding-status og fører dig tilbage til opsætningsflowet."
   },
+  "enableOcrAssets_label": {
+    "message": "Aktivér OCR (henter ca. 5 MB ved første brug)"
+  },
+  "enableOcrAssets_downloadNotice": {
+    "message": "Når du aktiverer OCR, downloades ca. 5 MB sprogdata ved første brug."
+  },
+  "enableOcrAssets_assetsEnabled": {
+    "message": "OCR-ressourcer er aktiveret og klar"
+  },
   "omniSearchPlaceholder": {
-    "message": "Search screens, chats, media, notes…",
+    "message": "Søg i skærme, chats, medier, noter…",
     "description": "Placeholder text for the omni-search input in the header."
   },
   "omniSearchNoResults": {
-    "message": "No matches for \"{{query}}\".",
+    "message": "Ingen resultater for \"{{query}}\".",
     "description": "No-results text for omni-search when nothing matches the query."
   },
   "omniSearchCreateNote": {
-    "message": "Create note \"{{query}}\"",
+    "message": "Opret note \"{{query}}\"",
     "description": "Omni-search action label to create a note from the current query."
   },
   "omniSearchCreateFlashcards": {
-    "message": "Create flashcard collection \"{{query}}\"",
+    "message": "Opret flashcard-samling \"{{query}}\"",
     "description": "Omni-search action label to create a flashcard collection from the current query."
   },
   "omniSearchStartChat": {
-    "message": "Start new chat \"{{query}}\"",
+    "message": "Start ny chat \"{{query}}\"",
     "description": "Omni-search action label to start a new chat from the current query."
   },
   "connectionCard_connectedCaption": {
-    "message": "Chat and tools are now available in Options and the sidepanel.",
+    "message": "Chat og værktøjer er nu tilgængelige i Indstillinger og sidepanelet.",
     "description": "Caption under the server connection card when the extension is connected."
   },
   "quickIngestQueuedAria": {
-    "message": "{{label}} — {{count}} items queued — click to review and process",
+    "message": "{{label}} — {{count}} elementer i kø — klik for at gennemse og behandle",
     "description": "ARIA label template for the Quick ingest button when there are queued items."
   },
   "connectionCard_descriptionConnectedList_reviewMedia": {
-    "message": "Review media & transcripts",
+    "message": "Gennemse medier og transkriptioner",
     "description": "First bullet in the connected-state server connection card, highlighting media review."
   },
   "connectionCard_descriptionConnectedList_searchKnowledge": {
-    "message": "Search knowledge and notes",
+    "message": "Søg i viden og noter",
     "description": "Second bullet in the connected-state server connection card, highlighting knowledge/notes search."
   },
   "connectionCard_descriptionConnectedList_useRag": {
-    "message": "Use RAG with your own documents",
+    "message": "Brug RAG med dine egne dokumenter",
     "description": "Third bullet in the connected-state server connection card, highlighting retrieval-augmented generation usage."
   },
   "omniSearch_filterScreen": {
-    "message": "Screens",
+    "message": "Skærme",
     "description": "Filter label for screens in omni-search."
   },
   "omniSearch_filterChat": {
@@ -273,31 +282,31 @@
     "description": "Filter label for chats in omni-search."
   },
   "omniSearch_filterMedia": {
-    "message": "Media",
+    "message": "Medier",
     "description": "Filter label for media in omni-search."
   },
   "omniSearch_filterNote": {
-    "message": "Notes",
+    "message": "Noter",
     "description": "Filter label for notes in omni-search."
   },
   "omniSearch_filterFlashcards": {
-    "message": "Flashcard Collections",
+    "message": "Flashcard-samlinger",
     "description": "Filter label for flashcard collections in omni-search."
   },
   "omniSearch_filterPrompt": {
-    "message": "Prompts",
+    "message": "Prompter",
     "description": "Filter label for prompts in omni-search."
   },
   "omniSearch_filteringBy": {
-    "message": "Filtering by:",
+    "message": "Filtrerer efter:",
     "description": "Prefix label shown before the active omni-search filter type."
   },
   "omniSearchCreateNoteSuccess": {
-    "message": "Note \"{{query}}\" created",
+    "message": "Note \"{{query}}\" oprettet",
     "description": "Confirmation toast message shown after creating a note from omni-search."
   },
   "omniSearchCreateFlashcardsSuccess": {
-    "message": "Flashcard collection \"{{query}}\" created",
+    "message": "Flashcard-samling \"{{query}}\" oprettet",
     "description": "Confirmation toast message shown after creating a flashcard collection from omni-search."
   },
   "folders": {
@@ -339,6 +348,9 @@
   "moveToFolder": {
     "message": "Flyt til mappe"
   },
+  "quickIngest_ocrHelp": {
+    "message": "OCR hjælper med at udtrække tekst fra scannede PDF’er eller billeder."
+  },
   "specReloadedToast": {
     "message": "Avanceret specifikation genindlæst fra serveren"
   },
@@ -347,5 +359,602 @@
   },
   "specFallbackWarning": {
     "message": "Bruger medfølgende media.add-skema som reserveløsning (v{{version}}); sammenlign venligst med din tldw_server /openapi.json, hvis felterne ser forældede ud."
+  },
+  "serverChatsUnavailableNotConnected": {
+    "message": "Serverchats er tilgængelige, når du opretter forbindelse til din tldw-server."
+  },
+  "serverChatsUnavailableServerError": {
+    "message": "Serverchats er ikke tilgængelige lige nu. Tjek serverloggene, eller prøv igen."
+  },
+  "fileChanges": {
+    "message": "Filændringer"
+  },
+  "deletions": {
+    "message": "Sletninger"
+  },
+  "gitOperations": {
+    "message": "Git-handlinger"
+  },
+  "commands": {
+    "message": "Kommandoer"
+  },
+  "otherOperations": {
+    "message": "Andre handlinger"
+  },
+  "fileAccess": {
+    "message": "Filadgang"
+  },
+  "notebookEdits": {
+    "message": "Redigeringer i notatbog"
+  },
+  "noToolCalls": {
+    "message": "Ingen værktøjskald endnu"
+  },
+  "arguments": {
+    "message": "Argumenter"
+  },
+  "invalidJson": {
+    "message": "Ugyldig JSON; viser rå værdi"
+  },
+  "result": {
+    "message": "Resultat"
+  },
+  "fs_list": {
+    "message": "List mappe"
+  },
+  "fs_read": {
+    "message": "Læs fil"
+  },
+  "fs_write": {
+    "message": "Skriv fil"
+  },
+  "fs_apply_patch": {
+    "message": "Anvend patch"
+  },
+  "fs_mkdir": {
+    "message": "Opret mappe"
+  },
+  "fs_delete": {
+    "message": "Slet"
+  },
+  "search_grep": {
+    "message": "Søg i indhold"
+  },
+  "search_glob": {
+    "message": "Find filer"
+  },
+  "git_status": {
+    "message": "Git-status"
+  },
+  "git_diff": {
+    "message": "Git-diff"
+  },
+  "git_log": {
+    "message": "Git-log"
+  },
+  "git_branch": {
+    "message": "Git-branch"
+  },
+  "git_add": {
+    "message": "Stage filer"
+  },
+  "git_commit": {
+    "message": "Commit"
+  },
+  "exec_run": {
+    "message": "Kør kommando"
+  },
+  "unableToRender": {
+    "message": "Kunne ikke gengive indhold"
+  },
+  "couldNotDisplay": {
+    "message": "Beskedindholdet kunne ikke vises. Dette kan skyldes ugyldig formatering."
+  },
+  "showRawContent": {
+    "message": "Vis rå indhold"
+  },
+  "goToChat": {
+    "message": "Gå til chat"
+  },
+  "goToMedia": {
+    "message": "Gå til medier"
+  },
+  "goToNotes": {
+    "message": "Gå til noter"
+  },
+  "goToFlashcards": {
+    "message": "Gå til flashcards"
+  },
+  "goToSettings": {
+    "message": "Gå til indstillinger"
+  },
+  "goToHealth": {
+    "message": "Gå til Health & diagnostics"
+  },
+  "newChat": {
+    "message": "Ny chat"
+  },
+  "toggleKnowledgeSearch": {
+    "message": "Skift videnssøgning"
+  },
+  "toggleKnowledgeSearchDesc": {
+    "message": "Søg i din vidensbase"
+  },
+  "toggleWebSearch": {
+    "message": "Skift websøgning"
+  },
+  "toggleWebDesc": {
+    "message": "Søg på internettet"
+  },
+  "ingestPage": {
+    "message": "Indlæs aktuel side"
+  },
+  "ingestDesc": {
+    "message": "Gem denne side i din vidensbase"
+  },
+  "switchModel": {
+    "message": "Skift model"
+  },
+  "toggleSidebar": {
+    "message": "Skift sidepanel"
+  },
+  "toggleSidebarDesc": {
+    "message": "Vis eller skjul chatsidepanelet"
+  },
+  "placeholder": {
+    "message": "Skriv en kommando eller søg..."
+  },
+  "noResults": {
+    "message": "Ingen resultater fundet"
+  },
+  "title": {
+    "message": "Kommandopalet"
+  },
+  "navigate": {
+    "message": "naviger"
+  },
+  "select": {
+    "message": "vælg"
+  },
+  "toOpen": {
+    "message": "for at åbne"
+  },
+  "categoryActions": {
+    "message": "Handlinger"
+  },
+  "categoryNavigation": {
+    "message": "Navigation"
+  },
+  "categorySettings": {
+    "message": "Indstillinger"
+  },
+  "categoryRecent": {
+    "message": "Seneste"
+  },
+  "tools_fs_list": {
+    "message": "List mappe",
+    "description": "Label for the fs.list tool (list directory)."
+  },
+  "tools_fs_read": {
+    "message": "Læs fil",
+    "description": "Label for the fs.read tool (read file)."
+  },
+  "tools_fs_write": {
+    "message": "Skriv fil",
+    "description": "Label for the fs.write tool (write file)."
+  },
+  "tools_fs_apply_patch": {
+    "message": "Anvend patch",
+    "description": "Label for the fs.apply_patch tool (apply patch)."
+  },
+  "tools_fs_mkdir": {
+    "message": "Opret mappe",
+    "description": "Label for the fs.mkdir tool (create directory)."
+  },
+  "tools_fs_delete": {
+    "message": "Slet",
+    "description": "Label for the fs.delete tool (delete file or directory)."
+  },
+  "tools_search_grep": {
+    "message": "Søg i indhold",
+    "description": "Label for the search.grep tool (search file contents)."
+  },
+  "tools_search_glob": {
+    "message": "Find filer",
+    "description": "Label for the search.glob tool (find files by pattern)."
+  },
+  "tools_git_status": {
+    "message": "Git-status",
+    "description": "Label for the git.status tool."
+  },
+  "tools_git_diff": {
+    "message": "Git-diff",
+    "description": "Label for the git.diff tool."
+  },
+  "tools_git_log": {
+    "message": "Git-log",
+    "description": "Label for the git.log tool."
+  },
+  "tools_git_branch": {
+    "message": "Git-branch",
+    "description": "Label for the git.branch tool."
+  },
+  "tools_git_add": {
+    "message": "Stage filer",
+    "description": "Label for the git.add tool (stage files)."
+  },
+  "tools_git_commit": {
+    "message": "Commit",
+    "description": "Label for the git.commit tool."
+  },
+  "tools_exec_run": {
+    "message": "Kør kommando",
+    "description": "Label for the exec.run tool (run command)."
+  },
+  "commandPalette_goToChat": {
+    "message": "Gå til chat",
+    "description": "Command palette action label to navigate to the Chat screen."
+  },
+  "commandPalette_goToMedia": {
+    "message": "Gå til medier",
+    "description": "Command palette action label to navigate to the Media screen."
+  },
+  "commandPalette_goToNotes": {
+    "message": "Gå til noter",
+    "description": "Command palette action label to navigate to the Notes screen."
+  },
+  "commandPalette_goToFlashcards": {
+    "message": "Gå til flashcards",
+    "description": "Command palette action label to navigate to the Flashcards screen."
+  },
+  "commandPalette_goToSettings": {
+    "message": "Gå til indstillinger",
+    "description": "Command palette action label to navigate to the Settings screen."
+  },
+  "commandPalette_goToHealth": {
+    "message": "Gå til Health & diagnostics",
+    "description": "Command palette action label to open the Health & diagnostics screen."
+  },
+  "commandPalette_newChat": {
+    "message": "Ny chat",
+    "description": "Command palette action label to start a new chat."
+  },
+  "commandPalette_toggleKnowledgeSearch": {
+    "message": "Skift videnssøgning",
+    "description": "Command palette toggle label for enabling or disabling knowledge search."
+  },
+  "commandPalette_toggleKnowledgeSearchDesc": {
+    "message": "Søg i din vidensbase",
+    "description": "Command palette description text explaining the knowledge search toggle."
+  },
+  "commandPalette_toggleWebSearch": {
+    "message": "Skift websøgning",
+    "description": "Command palette toggle label for enabling or disabling web search."
+  },
+  "commandPalette_toggleWebDesc": {
+    "message": "Søg på internettet",
+    "description": "Command palette description text explaining the web search toggle."
+  },
+  "commandPalette_ingestPage": {
+    "message": "Indlæs aktuel side",
+    "description": "Command palette action label to ingest the current page into knowledge."
+  },
+  "commandPalette_ingestDesc": {
+    "message": "Gem denne side i din vidensbase",
+    "description": "Command palette description text explaining page ingestion into knowledge."
+  },
+  "commandPalette_switchModel": {
+    "message": "Skift model",
+    "description": "Command palette action label to switch the active chat/model."
+  },
+  "commandPalette_toggleSidebar": {
+    "message": "Skift sidepanel",
+    "description": "Command palette toggle label to show or hide the sidepanel."
+  },
+  "commandPalette_toggleSidebarDesc": {
+    "message": "Vis eller skjul chatsidepanelet",
+    "description": "Command palette description text explaining the sidebar visibility toggle."
+  },
+  "commandPalette_placeholder": {
+    "message": "Skriv en kommando eller søg...",
+    "description": "Placeholder text shown in the command palette input."
+  },
+  "commandPalette_noResults": {
+    "message": "Ingen resultater fundet",
+    "description": "No-results state text in the command palette when nothing matches the query."
+  },
+  "commandPalette_title": {
+    "message": "Kommandopalet",
+    "description": "Title of the command palette UI."
+  },
+  "commandPalette_navigate": {
+    "message": "naviger",
+    "description": "Command palette keyboard hint label for navigation."
+  },
+  "commandPalette_select": {
+    "message": "vælg",
+    "description": "Command palette keyboard hint label for selection."
+  },
+  "commandPalette_toOpen": {
+    "message": "for at åbne",
+    "description": "Command palette keyboard hint label indicating the shortcut to open an item."
+  },
+  "commandPalette_categoryActions": {
+    "message": "Handlinger",
+    "description": "Label for the Actions category in the command palette."
+  },
+  "commandPalette_categoryNavigation": {
+    "message": "Navigation",
+    "description": "Label for the Navigation category in the command palette."
+  },
+  "commandPalette_categorySettings": {
+    "message": "Indstillinger",
+    "description": "Label for the Settings category in the command palette."
+  },
+  "commandPalette_categoryRecent": {
+    "message": "Seneste",
+    "description": "Label for the Recent items category in the command palette."
+  },
+  "markdown_unableToRender": {
+    "message": "Kunne ikke gengive indhold"
+  },
+  "markdown_couldNotDisplay": {
+    "message": "Beskedindholdet kunne ikke vises. Dette kan skyldes ugyldig formatering."
+  },
+  "markdown_showRawContent": {
+    "message": "Vis rå indhold"
+  },
+  "notesSearch_exportNoteSuccess": {
+    "message": "Exported ({{size}})"
+  },
+  "notesSearch_exportSuccess": {
+    "message": "Exported {{count}} notes ({{size}})"
+  },
+  "notesSearch_exportCsvSuccess": {
+    "message": "Exported {{count}} notes as CSV ({{size}})"
+  },
+  "notesSearch_exportJsonSuccess": {
+    "message": "Exported {{count}} notes as JSON ({{size}})"
+  },
+  "exportNoteSuccess": {
+    "message": "Exported ({{size}})"
+  },
+  "exportSuccess": {
+    "message": "Exported {{count}} notes ({{size}})"
+  },
+  "exportCsvSuccess": {
+    "message": "Exported {{count}} notes as CSV ({{size}})"
+  },
+  "exportJsonSuccess": {
+    "message": "Exported {{count}} notes as JSON ({{size}})"
+  },
+  "infoShort": {
+    "message": "Info"
+  },
+  "regenShort": {
+    "message": "Gentag"
+  },
+  "continueShort": {
+    "message": "Mere"
+  },
+  "error_label": {
+    "message": "Fejl"
+  },
+  "error_friendlyApiKeySummary": {
+    "message": "Vi kunne ikke nå din tldw-server."
+  },
+  "error_friendlyApiKeyHint": {
+    "message": "Din API-nøgle er muligvis ugyldig. Åbn Indstillinger → tldw-server for at tjekke din URL og API-nøgle, og prøv igen."
+  },
+  "error_friendlyTimeoutSummary": {
+    "message": "Din chat fik timeout."
+  },
+  "error_friendlyTimeoutHint": {
+    "message": "Serveren stoppede med at sende svar. Prøv igen, eller åbn Sundhed og diagnostik for at tjekke serverstatus."
+  },
+  "error_friendlyGenericSummary": {
+    "message": "Noget gik galt under kommunikationen med din tldw-server."
+  },
+  "error_friendlyGenericHint": {
+    "message": "Prøv igen om lidt, eller åbn Sundhed og diagnostik for at kontrollere serverens status."
+  },
+  "error_showDetails": {
+    "message": "Vis tekniske detaljer"
+  },
+  "error_hideDetails": {
+    "message": "Skjul tekniske detaljer"
+  },
+  "error_createFolder": {
+    "message": "Failed to create folder"
+  },
+  "modelSelect_label": {
+    "message": "Model"
+  },
+  "modelSelect_tooltip": {
+    "message": "Ændrer modellen for næste besked"
+  },
+  "featureHints_knowledge_title": {
+    "message": "Søg i din viden"
+  },
+  "featureHints_knowledge_description": {
+    "message": "Åbn videnssøgningspanelet for at finde uddrag og indsætte dem i din chat."
+  },
+  "featureHints_moreTools_title": {
+    "message": "Flere værktøjer tilgængelige"
+  },
+  "featureHints_moreTools_description": {
+    "message": "Få adgang til vision-tilstand, billedupload, hurtig indlæsning og hele appen."
+  },
+  "featureHints_commandPalette_title": {
+    "message": "Hurtige kommandoer"
+  },
+  "featureHints_commandPalette_description": {
+    "message": "Tryk på {{shortcut}} for at søge efter kommandoer, indstillinger og mere."
+  },
+  "featureHints_modelSettings_title": {
+    "message": "Juster modelparametre"
+  },
+  "featureHints_modelSettings_description": {
+    "message": "Finjuster temperatur, kontekstlængde og andre modelindstillinger."
+  },
+  "chatSidebar_title": {
+    "message": "Chats"
+  },
+  "chatSidebar_newChat": {
+    "message": "Ny chat"
+  },
+  "chatSidebar_collapse": {
+    "message": "Skjul sidepanelet"
+  },
+  "chatSidebar_expand": {
+    "message": "Vis sidepanelet"
+  },
+  "chatSidebar_search": {
+    "message": "Søg i chats..."
+  },
+  "chatSidebar_ingest": {
+    "message": "Indlæs side"
+  },
+  "chatSidebar_media": {
+    "message": "Medier"
+  },
+  "chatSidebar_notes": {
+    "message": "Noter"
+  },
+  "chatSidebar_settings": {
+    "message": "Indstillinger"
+  },
+  "chatSidebar_loadError": {
+    "message": "Kunne ikke indlæse chats"
+  },
+  "chatSidebar_localTab": {
+    "message": "Lokal"
+  },
+  "chatSidebar_serverTab": {
+    "message": "Server"
+  },
+  "chatSidebar_foldersTab": {
+    "message": "Mapper"
+  },
+  "chatSidebar_tabs_local": {
+    "message": "Lokal"
+  },
+  "chatSidebar_tabs_server": {
+    "message": "Server"
+  },
+  "chatSidebar_tabs_folders": {
+    "message": "Mapper"
+  },
+  "chatSidebar_noServerChats": {
+    "message": "Ingen serverchats endnu"
+  },
+  "chatSidebar_foldersRequireConnection": {
+    "message": "Mapper kræver en serverforbindelse"
+  },
+  "connectionBanner_connecting": {
+    "message": "Opretter forbindelse til din tldw-server...",
+    "description": "Connection banner status shown while connecting to the server."
+  },
+  "connectionBanner_authErrorTitle": {
+    "message": "API-nøglen kræver opmærksomhed",
+    "description": "Connection banner title shown when the API key is missing or invalid."
+  },
+  "connectionBanner_authErrorBody": {
+    "message": "Serveren er tilgængelig, men API-nøglen er forkert eller mangler.",
+    "description": "Connection banner body shown when the API key is missing or invalid."
+  },
+  "connectionBanner_unreachableTitle": {
+    "message": "Kan ikke nå din tldw-server",
+    "description": "Connection banner title shown when the server cannot be reached."
+  },
+  "connectionBanner_unreachableBody": {
+    "message": "Tjek at serveren kører og er tilgængelig.",
+    "description": "Connection banner body shown when the server cannot be reached."
+  },
+  "connectionBanner_noUrlBody": {
+    "message": "Tilføj serverens URL i Indstillinger for at komme i gang.",
+    "description": "Connection banner body shown when no server URL is configured."
+  },
+  "connectionBanner_disconnectedTitle": {
+    "message": "Ikke forbundet til tldw-serveren",
+    "description": "Connection banner title shown when not connected to the server."
+  },
+  "connectionBanner_disconnectedBody": {
+    "message": "Åbn Indstillinger for at konfigurere serverforbindelsen.",
+    "description": "Connection banner body shown when not connected to the server."
+  },
+  "connectionBanner_setupTitle": {
+    "message": "Fuldfør opsætningen for at begynde at chatte",
+    "description": "Connection banner title shown when setup is required."
+  },
+  "connectionBanner_setupBody": {
+    "message": "Fuldfør opsætningsguiden i Indstillinger for at oprette forbindelse.",
+    "description": "Connection banner body shown when setup is required."
+  },
+  "connectionBanner_openSettings": {
+    "message": "Åbn Indstillinger",
+    "description": "Connection banner button label to open Settings."
+  },
+  "temporaryBadge_title": {
+    "message": "Midlertidig chat",
+    "description": "Title for the temporary chat badge."
+  },
+  "temporaryBadge_label": {
+    "message": "Temp",
+    "description": "Short label shown for temporary chat."
+  },
+  "temporaryBadge_description": {
+    "message": "Denne chat gemmes ikke. Beskeder ryddes, når du lukker eller starter en ny chat.",
+    "description": "Description explaining that temporary chats are not saved."
+  },
+  "temporaryBadge_clickHint": {
+    "message": "Klik for at deaktivere",
+    "description": "Hint shown when the temporary chat badge can be clicked to disable."
+  },
+  "temporaryBadge_ariaLabel": {
+    "message": "Midlertidig chattilstand er aktiv. Klik for at skifte.",
+    "description": "ARIA label for the temporary chat toggle."
+  },
+  "temporaryBadge_indicatorTooltip": {
+    "message": "Beskeder i denne chat bliver ikke gemt",
+    "description": "Tooltip shown on the temporary chat indicator."
+  },
+  "temporaryBadge_indicatorAria": {
+    "message": "Midlertidig chat",
+    "description": "ARIA label for the temporary chat indicator."
+  },
+  "saveStatus_ephemeral": {
+    "message": "Midlertidig: ikke gemt, ryddes ved lukning",
+    "description": "Save status label for ephemeral chats."
+  },
+  "saveStatus_local": {
+    "message": "Gemt lokalt i denne browser",
+    "description": "Save status label for chats saved locally."
+  },
+  "saveStatus_server": {
+    "message": "Gemt på serveren",
+    "description": "Save status label for chats saved on the server."
+  },
+  "saveStatus_saveFailed": {
+    "message": "Kunne ikke gemme chatten på serveren",
+    "description": "Save status message shown when saving to the server fails."
+  },
+  "saveStatus_saveFailedDescription": {
+    "message": "Chatten gemmes nu kun lokalt. Tjek din forbindelse og prøv igen.",
+    "description": "Save status description shown when saving to the server fails."
+  },
+  "rag_hint_message": {
+    "message": "Søg i din vidensbase og indsæt resultater i din besked.",
+    "description": "Hint message encouraging the user to search knowledge and insert results into the chat."
+  },
+  "rag_hint_dismiss": {
+    "message": "Luk",
+    "description": "Button label to dismiss the knowledge search hint."
+  },
+  "option.more.copy.canonicalMarkdown": {
+    "message": "Copy canonical transcript"
+  },
+  "option.more.download.canonicalMarkdown": {
+    "message": "Canonical transcript (Markdown)"
   }
 }

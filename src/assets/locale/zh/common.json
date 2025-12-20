@@ -221,6 +221,16 @@
   "ttsShort": "语音",
   "copyShort": "复制",
   "branchShort": "分支",
+  "infoShort": "信息",
+  "regenShort": "重试",
+  "continueShort": "更多",
+  "fileChanges": "文件更改",
+  "deletions": "删除操作",
+  "gitOperations": "Git 操作",
+  "commands": "命令",
+  "otherOperations": "其他操作",
+  "fileAccess": "文件访问",
+  "notebookEdits": "笔记本编辑",
   "success": "成功",
   "created": "已创建",
   "updated": "已更新",
@@ -231,13 +241,15 @@
   "serverChats": "服务器聊天",
   "serverChatLoadError": "无法加载服务器聊天。请检查连接后重试。",
   "serverChatSourceLabel": "服务器来源",
-  "serverChatsUnavailable": "服务器聊天不可用。请检查服务器连接。",
+  "serverChatsUnavailableNotConnected": "连接到 tldw 服务器后即可使用服务器聊天。",
+  "serverChatsUnavailableServerError": "当前无法使用服务器聊天。请检查服务器日志或稍后再试。",
   "historiesDeleted": "{{count}} 条历史记录已删除",
   "deleteHistoriesError": "删除历史记录时出错",
   "search": "搜索",
   "searchResults": "搜索结果",
   "newBranch": "新分支",
   "error": {
+    "label": "错误",
     "friendlyApiKeySummary": "无法连接到您的 tldw 服务器。",
     "friendlyApiKeyHint": "您的 API 密钥可能无效。打开“设置”→“tldw 服务器”检查 URL 和 API 密钥，然后重试。",
     "friendlyTimeoutSummary": "聊天超时。",
@@ -259,5 +271,105 @@
   "refresh": "刷新",
   "confirm": "确认",
   "untitled": "未命名",
-  "moveToFolder": "移动到文件夹"
+  "moveToFolder": "移动到文件夹",
+  "noToolCalls": "尚无工具调用",
+  "status": {
+    "pending": "待定",
+    "running": "处理中",
+    "complete": "已完成",
+    "error": "错误"
+  },
+  "arguments": "参数",
+  "invalidJson": "JSON 无效；显示原始值",
+  "result": "结果",
+  "tools": {
+    "fs_list": "列出目录",
+    "fs_read": "读取文件",
+    "fs_write": "写入文件",
+    "fs_apply_patch": "应用补丁",
+    "fs_mkdir": "创建目录",
+    "fs_delete": "删除",
+    "search_grep": "搜索内容",
+    "search_glob": "查找文件",
+    "git_status": "Git 状态",
+    "git_diff": "Git 差异",
+    "git_log": "Git 日志",
+    "git_branch": "Git 分支",
+    "git_add": "暂存文件",
+    "git_commit": "提交",
+    "exec_run": "运行命令"
+  },
+  "markdown": {
+    "unableToRender": "无法渲染内容",
+    "couldNotDisplay": "无法显示消息内容。这可能是由于格式无效所致。",
+    "showRawContent": "显示原始内容"
+  },
+  "commandPalette": {
+    "goToChat": "前往聊天",
+    "goToMedia": "前往媒体",
+    "goToNotes": "前往笔记",
+    "goToFlashcards": "前往抽认卡",
+    "goToSettings": "前往设置",
+    "goToHealth": "前往健康状况与诊断",
+    "newChat": "新建聊天",
+    "toggleKnowledgeSearch": "切换知识搜索",
+    "toggleKnowledgeSearchDesc": "在你的知识库中搜索",
+    "toggleWebSearch": "切换网页搜索",
+    "toggleWebDesc": "在互联网上搜索",
+    "ingestPage": "导入当前页面",
+    "ingestDesc": "将此页面保存到你的知识库",
+    "switchModel": "切换模型",
+    "toggleSidebar": "切换侧边栏",
+    "toggleSidebarDesc": "显示或隐藏聊天侧边栏",
+    "placeholder": "输入命令或搜索…",
+    "noResults": "未找到结果",
+    "title": "命令面板",
+    "navigate": "导航",
+    "select": "选择",
+    "toOpen": "以打开",
+    "categoryActions": "操作",
+    "categoryNavigation": "导航",
+    "categorySettings": "设置",
+    "categoryRecent": "最近使用"
+  },
+  "featureHints": {
+    "knowledge": {
+      "title": "搜索你的知识库",
+      "description": "打开知识搜索面板，查找片段并插入到聊天中。"
+    },
+    "moreTools": {
+      "title": "更多工具可用",
+      "description": "访问视觉模式、图片上传、快速导入以及完整应用。"
+    },
+    "commandPalette": {
+      "title": "快捷命令",
+      "description": "按 {{shortcut}} 搜索命令、设置等更多内容。"
+    },
+    "modelSettings": {
+      "title": "调整模型参数",
+      "description": "微调温度、上下文长度以及其他模型设置。"
+    }
+  },
+  "chatSidebar": {
+    "title": "聊天",
+    "newChat": "新建聊天",
+    "collapse": "收起侧边栏",
+    "expand": "展开侧边栏",
+    "search": "搜索聊天...",
+    "ingest": "导入页面",
+    "media": "媒体",
+    "notes": "笔记",
+    "settings": "设置",
+    "loadError": "加载聊天失败",
+    "localTab": "本地",
+    "serverTab": "服务器",
+    "foldersTab": "文件夹",
+    "tabs": {
+      "local": "本地",
+      "server": "服务器",
+      "folders": "文件夹"
+    },
+    "noServerChats": "暂无服务器聊天",
+    "foldersRequireConnection": "文件夹需要服务器连接"
+  }
 }

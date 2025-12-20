@@ -28,5 +28,23 @@
   },
   "mediaPage.charCount": {
     "message": "{{count}} tecken"
+  },
+  "mediaPage.pageRangeError": {
+    "message": "Sidan måste vara mellan 1 och {{max}}"
+  },
+  "mediaPage.pageRangeClamped": {
+    "message": "Navigerar till sida {{page}}"
+  },
+  "noToolCalls": {
+    "message": "Inga verktygsanrop ännu"
+  },
+  "arguments": {
+    "message": "Argument"
+  },
+  "invalidJson": {
+    "message": "Ogiltig JSON; visar råvärde"
+  },
+  "result": {
+    "message": "Resultat"
   }
 }

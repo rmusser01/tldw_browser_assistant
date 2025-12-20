@@ -122,7 +122,7 @@
     "description": "Single User vs Multi User എന്ന പ്രാമാണീകരണ മോഡുകൾ വിശദീകരിക്കുന്ന സഹായ വാചകം."
   },
   "apiKeyHelp": {
-    "message": "നിങ്ങളുടെ API കീ, tldw_server \u2192 Settings \u2192 API Keys എന്നിടത്ത് ലഭിക്കും. അവിടെ ഒരു കീ സൃഷ്ടിച്ച് ഇവിടെ പേസ്റ്റ് ചെയ്യുക.",
+    "message": "നിങ്ങളുടെ API കീ, tldw_server → Settings → API Keys എന്നിടത്ത് ലഭിക്കും. അവിടെ ഒരു കീ സൃഷ്ടിച്ച് ഇവിടെ പേസ്റ്റ് ചെയ്യുക.",
     "description": "API കീ എവിടെ കണ്ടെത്താം എന്ന് വിശദീകരിക്കുന്ന സഹായ വാചകം."
   },
   "authStepAria": {
@@ -144,7 +144,7 @@
     "message": "Notes ഉപയോഗിക്കാൻ ആദ്യം നിങ്ങളുടെ tldw സർവറിലേക്ക് കണക്റ്റ് ചെയ്യണം."
   },
   "notesEmpty_connectExample1": {
-    "message": "നിങ്ങളുടെ സർവർ URL ചേർക്കാൻ Settings \u2192 tldw server തുറക്കുക."
+    "message": "നിങ്ങളുടെ സർവർ URL ചേർക്കാൻ Settings → tldw server തുറക്കുക."
   },
   "notesEmpty_connectExample2": {
     "message": "നിങ്ങളുടെ സർവർ പ്രവർത്തിക്കുമ്പോഴും എത്തിച്ചേരാനാവുന്നില്ലെങ്കിൽ Diagnostics ഉപയോഗിക്കുക."
@@ -174,7 +174,7 @@
     "message": "അടുത്തിടെ നടന്ന ടീം സിങ്കിൽ നിന്നുള്ള തീരുമാനങ്ങൾ, തടസ്സങ്ങൾ, ഫോളോ‑അപ്പുകൾ."
   },
   "notesEmpty_demoSample1Meta": {
-    "message": "ഇന്ന് \u00b7 9:32 AM"
+    "message": "ഇന്ന് · 9:32 AM"
   },
   "notesEmpty_demoSample2Title": {
     "message": "ഡെമോ കുറിപ്പ്: റിസർച്ച് ഹൈലൈറ്റുകൾ"
@@ -183,7 +183,7 @@
     "message": "ഒരു നീണ്ട ലേഖനം അല്ലെങ്കിൽ പേപ്പറിൽ നിന്നെടുത്ത പ്രധാന ഇൻസൈറ്റുകൾ."
   },
   "notesEmpty_demoSample2Meta": {
-    "message": "ഇന്നലെ \u00b7 4:10 PM"
+    "message": "ഇന്നലെ · 4:10 PM"
   },
   "notesEmpty_demoSample3Title": {
     "message": "ഡെമോ കുറിപ്പ്: കോൾ സംഗ്രഹം"
@@ -223,6 +223,15 @@
   },
   "restartOnboardingConfirmMessage": {
     "message": "ഇത് നിങ്ങളുടെ ഓൺബോർഡിംഗ് നില റീസെറ്റ് ചെയ്ത് നിങ്ങളെ സജ്ജീകരണ പ്രവാഹത്തിന്റെ തുടക്കത്തിലേക്ക് തിരികെ കൊണ്ടുപോകും."
+  },
+  "enableOcrAssets_label": {
+    "message": "OCR പ്രവർത്തനക്ഷമമാക്കുക (ആദ്യ ഉപയോഗത്തിൽ ഏകദേശം 5MB ഡൗൺലോഡ് ചെയ്യും)"
+  },
+  "enableOcrAssets_downloadNotice": {
+    "message": "OCR പ്രവർത്തനക്ഷമമാക്കുമ്പോൾ, ആദ്യ ഉപയോഗത്തിൽ ഏകദേശം 5MB ഭാഷാ ഡാറ്റ ഡൗൺലോഡ് ചെയ്യും."
+  },
+  "enableOcrAssets_assetsEnabled": {
+    "message": "OCR ആസറ്റുകൾ പ്രവർത്തനക്ഷമമാക്കി തയ്യാറാക്കി"
   },
   "omniSearchPlaceholder": {
     "message": "Search screens, chats, media, notes…",
@@ -339,6 +348,9 @@
   "moveToFolder": {
     "message": "ഫോൾഡറിലേക്ക് നീക്കുക"
   },
+  "quickIngest_ocrHelp": {
+    "message": "സ്കാൻ ചെയ്ത PDFകളിൽ നിന്നോ ചിത്രങ്ങളിൽ നിന്നോ ഉള്ള വാചകം പകർത്താൻ OCR സഹായിക്കുന്നു."
+  },
   "specReloadedToast": {
     "message": "സർവറിൽ നിന്ന് അഡ്വാൻസ്ഡ് സ്പെക് വീണ്ടും ലോഡ് ചെയ്തു"
   },
@@ -347,5 +359,349 @@
   },
   "specFallbackWarning": {
     "message": "ബണ്ടിൽ ചെയ്ത media.add സ്കീമ ഫാൾബാക്ക് (v{{version}}) ഉപയോഗിക്കുന്നു; ഫീൽഡുകൾ പഴകിയതായി തോന്നിയാൽ നിങ്ങളുടെ tldw_server /openapi.json പ്രകാരം ദയവായി പരിശോധിക്കുക."
+  },
+  "serverChatsUnavailableNotConnected": {
+    "message": "നിങ്ങളുടെ tldw സെർവറിലേക്ക് കണക്റ്റ് ചെയ്താൽ സെർവർ ചാറ്റുകൾ ലഭ്യമാകും."
+  },
+  "serverChatsUnavailableServerError": {
+    "message": "സെർവർ ചാറ്റുകൾ ഇപ്പോൾ ലഭ്യമല്ല. സെർവർ ലോഗുകൾ പരിശോധിക്കുകയോ വീണ്ടും ശ്രമിക്കുകയോ ചെയ്യുക."
+  },
+  "noToolCalls": {
+    "message": "ഇതുവരെ ടൂൾ കോൾ ഒന്നുമില്ല"
+  },
+  "arguments": {
+    "message": "ആർഗ്യുമെന്റുകൾ"
+  },
+  "invalidJson": {
+    "message": "അസാധുവായ JSON; അസംസ്കൃത മൂല്യം കാണിക്കുന്നു"
+  },
+  "result": {
+    "message": "ഫലം"
+  },
+  "tools_fs_list": {
+    "message": "ഡയറക്ടറി പട്ടികപ്പെടുത്തുക",
+    "description": "Label for the fs.list tool (list directory)."
+  },
+  "tools_fs_read": {
+    "message": "ഫയൽ വായിക്കുക",
+    "description": "Label for the fs.read tool (read file)."
+  },
+  "tools_fs_write": {
+    "message": "ഫയൽ എഴുതുക",
+    "description": "Label for the fs.write tool (write file)."
+  },
+  "tools_fs_apply_patch": {
+    "message": "പാച്ച് പ്രയോഗിക്കുക",
+    "description": "Label for the fs.apply_patch tool (apply patch)."
+  },
+  "tools_fs_mkdir": {
+    "message": "ഡയറക്ടറി സൃഷ്ടിക്കുക",
+    "description": "Label for the fs.mkdir tool (create directory)."
+  },
+  "tools_fs_delete": {
+    "message": "ഇല്ലാതാക്കുക",
+    "description": "Label for the fs.delete tool (delete file or directory)."
+  },
+  "tools_search_grep": {
+    "message": "ഉള്ളടക്കം തിരയുക",
+    "description": "Label for the search.grep tool (search file contents)."
+  },
+  "tools_search_glob": {
+    "message": "ഫയലുകൾ കണ്ടെത്തുക",
+    "description": "Label for the search.glob tool (find files by pattern)."
+  },
+  "tools_git_status": {
+    "message": "Git നില",
+    "description": "Label for the git.status tool."
+  },
+  "tools_git_diff": {
+    "message": "Git വ്യത്യാസം",
+    "description": "Label for the git.diff tool."
+  },
+  "tools_git_log": {
+    "message": "Git ലോഗ്",
+    "description": "Label for the git.log tool."
+  },
+  "tools_git_branch": {
+    "message": "Git ബ്രാഞ്ച്",
+    "description": "Label for the git.branch tool."
+  },
+  "tools_git_add": {
+    "message": "ഫയലുകൾ സ്റ്റേജ് ചെയ്യുക",
+    "description": "Label for the git.add tool (stage files)."
+  },
+  "tools_git_commit": {
+    "message": "കമ്മിറ്റ്",
+    "description": "Label for the git.commit tool."
+  },
+  "tools_exec_run": {
+    "message": "കമാൻഡ് പ്രവർത്തിപ്പിക്കുക",
+    "description": "Label for the exec.run tool (run command)."
+  },
+  "commandPalette_goToChat": {
+    "message": "ചാറ്റിലേക്കു പോകുക",
+    "description": "Command palette action label to navigate to the Chat screen."
+  },
+  "commandPalette_goToMedia": {
+    "message": "മീഡിയയിലേക്കു പോകുക",
+    "description": "Command palette action label to navigate to the Media screen."
+  },
+  "commandPalette_goToNotes": {
+    "message": "നോട്ടുകളിലേക്കു പോകുക",
+    "description": "Command palette action label to navigate to the Notes screen."
+  },
+  "commandPalette_goToFlashcards": {
+    "message": "ഫ്ലാഷ്‌കാർഡുകളിലേക്കു പോകുക",
+    "description": "Command palette action label to navigate to the Flashcards screen."
+  },
+  "commandPalette_goToSettings": {
+    "message": "സെറ്റിംഗ്സിലേക്കു പോകുക",
+    "description": "Command palette action label to navigate to the Settings screen."
+  },
+  "commandPalette_goToHealth": {
+    "message": "Health & Diagnostics തുറക്കുക",
+    "description": "Command palette action label to open the Health & diagnostics screen."
+  },
+  "commandPalette_newChat": {
+    "message": "പുതിയ ചാറ്റ്",
+    "description": "Command palette action label to start a new chat."
+  },
+  "commandPalette_toggleKnowledgeSearch": {
+    "message": "നോളെജ് തിരച്ചിൽ ടോഗിൾ ചെയ്യുക",
+    "description": "Command palette toggle label for enabling or disabling knowledge search."
+  },
+  "commandPalette_toggleKnowledgeSearchDesc": {
+    "message": "നിങ്ങളുടെ നോളെജ് ബേസിൽ തിരയുക",
+    "description": "Command palette description text explaining the knowledge search toggle."
+  },
+  "commandPalette_toggleWebSearch": {
+    "message": "വെബ് തിരച്ചിൽ ടോഗിൾ ചെയ്യുക",
+    "description": "Command palette toggle label for enabling or disabling web search."
+  },
+  "commandPalette_toggleWebDesc": {
+    "message": "ഇന്റർനെറ്റിൽ തിരയുക",
+    "description": "Command palette description text explaining the web search toggle."
+  },
+  "commandPalette_ingestPage": {
+    "message": "നിലവിലെ പേജ് ഇൻജെസ്റ്റ് ചെയ്യുക",
+    "description": "Command palette action label to ingest the current page into knowledge."
+  },
+  "commandPalette_ingestDesc": {
+    "message": "ഈ പേജ് നിങ്ങളുടെ നോളെജ് ബേസിൽ സംരക്ഷിക്കുക",
+    "description": "Command palette description text explaining page ingestion into knowledge."
+  },
+  "commandPalette_switchModel": {
+    "message": "മോഡൽ മാറ്റുക",
+    "description": "Command palette action label to switch the active chat/model."
+  },
+  "commandPalette_toggleSidebar": {
+    "message": "സൈഡ്ബാർ ടോഗിൾ ചെയ്യുക",
+    "description": "Command palette toggle label to show or hide the sidepanel."
+  },
+  "commandPalette_toggleSidebarDesc": {
+    "message": "ചാറ്റ് സൈഡ്ബാർ കാണിക്കുക/മറയ്ക്കുക",
+    "description": "Command palette description text explaining the sidebar visibility toggle."
+  },
+  "commandPalette_placeholder": {
+    "message": "ഒരു കമാൻഡ് ടൈപ്പ് ചെയ്യുക അല്ലെങ്കിൽ തിരയുക…",
+    "description": "Placeholder text shown in the command palette input."
+  },
+  "commandPalette_noResults": {
+    "message": "ഫലങ്ങളൊന്നും കണ്ടെത്തിയില്ല",
+    "description": "No-results state text in the command palette when nothing matches the query."
+  },
+  "commandPalette_title": {
+    "message": "കമാൻഡ് പാലറ്റ്",
+    "description": "Title of the command palette UI."
+  },
+  "commandPalette_navigate": {
+    "message": "നാവിഗേറ്റ്",
+    "description": "Command palette keyboard hint label for navigation."
+  },
+  "commandPalette_select": {
+    "message": "തിരഞ്ഞെടുക്കുക",
+    "description": "Command palette keyboard hint label for selection."
+  },
+  "commandPalette_toOpen": {
+    "message": "തുറക്കാൻ",
+    "description": "Command palette keyboard hint label indicating the shortcut to open an item."
+  },
+  "commandPalette_categoryActions": {
+    "message": "പ്രവർത്തനങ്ങൾ",
+    "description": "Label for the Actions category in the command palette."
+  },
+  "commandPalette_categoryNavigation": {
+    "message": "നാവിഗേഷൻ",
+    "description": "Label for the Navigation category in the command palette."
+  },
+  "commandPalette_categorySettings": {
+    "message": "സെറ്റിംഗുകൾ",
+    "description": "Label for the Settings category in the command palette."
+  },
+  "commandPalette_categoryRecent": {
+    "message": "സമീപകാലത്",
+    "description": "Label for the Recent items category in the command palette."
+  },
+  "markdown_unableToRender": {
+    "message": "ഉള്ളടക്കം പ്രദർശിപ്പിക്കാൻ കഴിഞ്ഞില്ല"
+  },
+  "markdown_couldNotDisplay": {
+    "message": "സന്ദേശത്തിന്റെ ഉള്ളടക്കം പ്രദർശിപ്പിക്കാൻ കഴിഞ്ഞില്ല. ഇത് അസാധുവായ ഫോർമാറ്റിംഗ് കാരണം ആയിരിക്കാം."
+  },
+  "markdown_showRawContent": {
+    "message": "അസംസ്കൃത ഉള്ളടക്കം കാണിക്കുക"
+  },
+  "notesSearch_exportNoteSuccess": {
+    "message": "Exported ({{size}})"
+  },
+  "notesSearch_exportSuccess": {
+    "message": "Exported {{count}} notes ({{size}})"
+  },
+  "notesSearch_exportCsvSuccess": {
+    "message": "Exported {{count}} notes as CSV ({{size}})"
+  },
+  "notesSearch_exportJsonSuccess": {
+    "message": "Exported {{count}} notes as JSON ({{size}})"
+  },
+  "exportNoteSuccess": {
+    "message": "Exported ({{size}})"
+  },
+  "exportSuccess": {
+    "message": "Exported {{count}} notes ({{size}})"
+  },
+  "exportCsvSuccess": {
+    "message": "Exported {{count}} notes as CSV ({{size}})"
+  },
+  "exportJsonSuccess": {
+    "message": "Exported {{count}} notes as JSON ({{size}})"
+  },
+  "infoShort": {
+    "message": "വിവരം"
+  },
+  "regenShort": {
+    "message": "വീണ്ടും"
+  },
+  "continueShort": {
+    "message": "കൂടുതൽ"
+  },
+  "error_label": {
+    "message": "പിശക്"
+  },
+  "error_friendlyApiKeySummary": {
+    "message": "നിങ്ങളുടെ tldw സർവറെ സമീപിക്കാൻ കഴിഞ്ഞില്ല."
+  },
+  "error_friendlyApiKeyHint": {
+    "message": "നിങ്ങളുടെ API കീ അസാധുവായിരിക്കാം. ക്രമീകരണങ്ങൾ → tldw സർവർ തുറന്ന് നിങ്ങളുടെ URLയും API കീയും പരിശോധിച്ച് വീണ്ടും ശ്രമിക്കുക."
+  },
+  "error_friendlyTimeoutSummary": {
+    "message": "നിങ്ങളുടെ ചാറ്റിന് സമയപരിധി കഴിഞ്ഞു."
+  },
+  "error_friendlyTimeoutHint": {
+    "message": "സർവർ പ്രതികരണങ്ങൾ അയക്കുന്നത് നിർത്തി. വീണ്ടും ശ്രമിക്കുക അല്ലെങ്കിൽ സർവർ നില പരിശോധിക്കാൻ ആരോഗ്യവും ഡയഗ്നോസ്റ്റിക്സും തുറക്കുക."
+  },
+  "error_friendlyGenericSummary": {
+    "message": "നിങ്ങളുടെ tldw സർവറുമായി ബന്ധപ്പെടുന്നതിനിടെ എന്തോ പിശക് സംഭവിച്ചു."
+  },
+  "error_friendlyGenericHint": {
+    "message": "കുറച്ച് കഴിഞ്ഞ് വീണ്ടും ശ്രമിക്കുകയോ സർവർ നില പരിശോധിക്കാൻ ആരോഗ്യവും ഡയഗ്നോസ്റ്റിക്സും തുറക്കുകയോ ചെയ്യുക."
+  },
+  "error_showDetails": {
+    "message": "സാങ്കേതിക വിശദാംശങ്ങൾ കാണിക്കുക"
+  },
+  "error_hideDetails": {
+    "message": "സാങ്കേതിക വിശദാംശങ്ങൾ മറയ്ക്കുക"
+  },
+  "error_createFolder": {
+    "message": "Failed to create folder"
+  },
+  "modelSelect_label": {
+    "message": "Model"
+  },
+  "modelSelect_tooltip": {
+    "message": "Changes model for next message"
+  },
+  "featureHints_knowledge_title": {
+    "message": "നിങ്ങളുടെ നോളെജ് തിരയുക"
+  },
+  "featureHints_knowledge_description": {
+    "message": "നോളെജ് തിരച്ചിൽ പാനൽ തുറന്ന് സ്നിപ്പറ്റുകൾ കണ്ടെത്തി നിങ്ങളുടെ ചാറ്റിൽ ചേർക്കുക."
+  },
+  "featureHints_moreTools_title": {
+    "message": "കൂടുതൽ ഉപകരണങ്ങൾ ലഭ്യമാണ്"
+  },
+  "featureHints_moreTools_description": {
+    "message": "വിഷൻ മോഡ്, ചിത്രം അപ്‌ലോഡ്, ക്വിക്ക് ഇൻജെസ്റ്റ്, പൂർണ്ണ ആപ്പ് എന്നിവയ്ക്ക് ആക്‌സസ് ചെയ്യുക."
+  },
+  "featureHints_commandPalette_title": {
+    "message": "വേഗത്തിലുള്ള കമാൻഡുകൾ"
+  },
+  "featureHints_commandPalette_description": {
+    "message": "കമാൻഡുകളും സെറ്റിംഗുകളും തുടങ്ങിയവ തിരയാൻ {{shortcut}} അമർത്തുക."
+  },
+  "featureHints_modelSettings_title": {
+    "message": "മോഡൽ പാരാമീറ്ററുകൾ ക്രമീകരിക്കുക"
+  },
+  "featureHints_modelSettings_description": {
+    "message": "ടെംപറേച്ചർ, കോൺടെക്സ്റ്റ് നീളം, മറ്റ് മോഡൽ സെറ്റിംഗുകൾ എന്നിവ സൂക്ഷ്മമായി ക്രമീകരിക്കുക."
+  },
+  "chatSidebar_title": {
+    "message": "ചാറ്റുകൾ"
+  },
+  "chatSidebar_newChat": {
+    "message": "പുതിയ ചാറ്റ്"
+  },
+  "chatSidebar_collapse": {
+    "message": "സൈഡ്ബാർ ചുരുക്കുക"
+  },
+  "chatSidebar_expand": {
+    "message": "സൈഡ്ബാർ വിപുലീകരിക്കുക"
+  },
+  "chatSidebar_search": {
+    "message": "ചാറ്റുകൾ തിരയുക..."
+  },
+  "chatSidebar_ingest": {
+    "message": "നിലവിലെ പേജ് ഇൻജെസ്റ്റ് ചെയ്യുക"
+  },
+  "chatSidebar_media": {
+    "message": "മീഡിയ"
+  },
+  "chatSidebar_notes": {
+    "message": "നോട്ടുകൾ"
+  },
+  "chatSidebar_settings": {
+    "message": "സെറ്റിംഗുകൾ"
+  },
+  "chatSidebar_loadError": {
+    "message": "ചാറ്റുകൾ ലോഡ് ചെയ്യാൻ കഴിഞ്ഞില്ല"
+  },
+  "chatSidebar_localTab": {
+    "message": "ലോക്കൽ"
+  },
+  "chatSidebar_serverTab": {
+    "message": "സർവർ"
+  },
+  "chatSidebar_foldersTab": {
+    "message": "ഫോൾഡറുകൾ"
+  },
+  "chatSidebar_tabs_local": {
+    "message": "ലോക്കൽ"
+  },
+  "chatSidebar_tabs_server": {
+    "message": "സർവർ"
+  },
+  "chatSidebar_tabs_folders": {
+    "message": "ഫോൾഡറുകൾ"
+  },
+  "chatSidebar_noServerChats": {
+    "message": "സർവർ ചാറ്റുകൾ ഇതുവരെ ഇല്ല"
+  },
+  "chatSidebar_foldersRequireConnection": {
+    "message": "ഫോൾഡറുകൾക്ക് സർവർ കണക്ഷൻ ആവശ്യമുണ്ട്"
+  },
+  "option.more.copy.canonicalMarkdown": {
+    "message": "Copy canonical transcript"
+  },
+  "option.more.download.canonicalMarkdown": {
+    "message": "Canonical transcript (Markdown)"
   }
 }

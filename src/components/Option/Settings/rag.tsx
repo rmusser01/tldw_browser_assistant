@@ -1,5 +1,7 @@
+import React from "react"
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
 import { Avatar, Form, Input, InputNumber, Select, Skeleton } from "antd"
+import { RobotOutlined } from "@ant-design/icons"
 import { SaveButton } from "~/components/Common/SaveButton"
 import {
   defaultEmbeddingChunkOverlap,
@@ -21,6 +23,8 @@ export const RagSettings = () => {
   const [form] = Form.useForm()
   const splittingStrategy = Form.useWatch("splittingStrategy", form)
   const queryClient = useQueryClient()
+  const [failedAvatars, setFailedAvatars] = React.useState<Set<string>>(new Set())
+  const [isFormValid, setIsFormValid] = React.useState(false)
 
   const { data: ollamaInfo, status } = useQuery({
     queryKey: ["fetchRAGSettings"],
@@ -90,6 +94,15 @@ export const RagSettings = () => {
     Array.isArray(ollamaInfo?.models) &&
     !ollamaInfo.models.some((model) => model.model === ollamaInfo.defaultEM)
 
+  // Validate form on initial load
+  React.useEffect(() => {
+    if (status === "success") {
+      form.validateFields()
+        .then(() => setIsFormValid(true))
+        .catch(() => setIsFormValid(false))
+    }
+  }, [status, form])
+
   return (
     <div className="flex flex-col space-y-3">
       {status === "pending" && <Skeleton paragraph={{ rows: 4 }} active />}
@@ -115,6 +128,12 @@ export const RagSettings = () => {
                   separator: data.splittingSeparator,
                   strategy: data.splittingStrategy
                 })
+              }}
+              onFieldsChange={() => {
+                // Check if form has errors
+                form.validateFields()
+                  .then(() => setIsFormValid(true))
+                  .catch(() => setIsFormValid(false))
               }}
               initialValues={{
                 chunkSize: ollamaInfo?.chunkSize,
@@ -164,17 +183,28 @@ export const RagSettings = () => {
                       <span
                         key={model.model}
                         className="flex flex-row gap-3 items-center truncate">
-                        {model?.avatar ? (
+                        {model?.avatar && !failedAvatars.has(model.model) ? (
                           <Avatar
                             src={model.avatar}
                             alt={model.name}
                             size="small"
+                            onError={() => {
+                              setFailedAvatars(prev => new Set(prev).add(model.model))
+                              return false
+                            }}
                           />
                         ) : (
-                          <ProviderIcons
-                            provider={model?.provider}
-                            className="w-5 h-5"
-                          />
+                          model?.avatar && failedAvatars.has(model.model) ? (
+                            <Avatar
+                              size="small"
+                              icon={<RobotOutlined />}
+                            />
+                          ) : (
+                            <ProviderIcons
+                              provider={model?.provider}
+                              className="w-5 h-5"
+                            />
+                          )
                         )}
                         <span className="truncate">
                           {model?.nickname || model?.name}
@@ -233,28 +263,46 @@ export const RagSettings = () => {
               <Form.Item
                 name="chunkSize"
                 label={t("rag.ragSettings.chunkSize.label")}
+                help={t("rag.ragSettings.chunkSize.help", "Number of characters per text chunk (100-10000)")}
                 rules={[
                   {
                     required: true,
                     message: t("rag.ragSettings.chunkSize.required")
+                  },
+                  {
+                    type: 'number',
+                    min: 100,
+                    max: 10000,
+                    message: t("rag.ragSettings.chunkSize.range", "Must be between 100 and 10000")
                   }
                 ]}>
                 <InputNumber
                   style={{ width: "100%" }}
+                  min={100}
+                  max={10000}
                   placeholder={t("rag.ragSettings.chunkSize.placeholder")}
                 />
               </Form.Item>
               <Form.Item
                 name="chunkOverlap"
                 label={t("rag.ragSettings.chunkOverlap.label")}
+                help={t("rag.ragSettings.chunkOverlap.help", "Overlap between chunks to maintain context (0-1000)")}
                 rules={[
                   {
                     required: true,
                     message: t("rag.ragSettings.chunkOverlap.required")
+                  },
+                  {
+                    type: 'number',
+                    min: 0,
+                    max: 1000,
+                    message: t("rag.ragSettings.chunkOverlap.range", "Must be between 0 and 1000")
                   }
                 ]}>
                 <InputNumber
                   style={{ width: "100%" }}
+                  min={0}
+                  max={1000}
                   placeholder={t("rag.ragSettings.chunkOverlap.placeholder")}
                 />
               </Form.Item>
@@ -262,14 +310,23 @@ export const RagSettings = () => {
               <Form.Item
                 name="noOfRetrievedDocs"
                 label={t("rag.ragSettings.noOfRetrievedDocs.label")}
+                help={t("rag.ragSettings.noOfRetrievedDocs.help", "Number of documents to retrieve per query (1-50)")}
                 rules={[
                   {
                     required: true,
                     message: t("rag.ragSettings.noOfRetrievedDocs.required")
+                  },
+                  {
+                    type: 'number',
+                    min: 1,
+                    max: 50,
+                    message: t("rag.ragSettings.noOfRetrievedDocs.range", "Must be between 1 and 50")
                   }
                 ]}>
                 <InputNumber
                   style={{ width: "100%" }}
+                  min={1}
+                  max={50}
                   placeholder={t(
                     "rag.ragSettings.noOfRetrievedDocs.placeholder"
                   )}
@@ -293,7 +350,11 @@ export const RagSettings = () => {
               </Form.Item>
 
               <div className="flex justify-end">
-                <SaveButton disabled={isSaveRAGPending} btnType="submit" />
+                <SaveButton
+                  loading={isSaveRAGPending}
+                  btnType="submit"
+                  disabled={!isFormValid}
+                />
               </div>
             </Form>
           </div>

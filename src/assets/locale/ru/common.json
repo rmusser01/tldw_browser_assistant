@@ -216,6 +216,16 @@
   "ttsShort": "Голос",
   "copyShort": "Копировать",
   "branchShort": "Ветка",
+  "infoShort": "Инфо",
+  "regenShort": "Снова",
+  "continueShort": "Ещё",
+  "fileChanges": "Изменения файлов",
+  "deletions": "Удаления",
+  "gitOperations": "Операции Git",
+  "commands": "Команды",
+  "otherOperations": "Другие операции",
+  "fileAccess": "Доступ к файлам",
+  "notebookEdits": "Правки блокнота",
   "segmented": {
     "available": "Серверные модели",
     "custom": "Пользовательские модели"
@@ -230,7 +240,8 @@
   "serverChats": "Серверные чаты",
   "serverChatLoadError": "Не удалось загрузить серверный чат. Проверьте соединение и попробуйте снова.",
   "serverChatSourceLabel": "Источник сервера",
-  "serverChatsUnavailable": "Серверные чаты недоступны. Проверьте подключение к серверу.",
+  "serverChatsUnavailableNotConnected": "Серверные чаты будут доступны после подключения к вашему серверу tldw.",
+  "serverChatsUnavailableServerError": "Серверные чаты сейчас недоступны. Проверьте журналы сервера или попробуйте снова.",
   "historiesDeleted": "{{count}} историй чата удалено",
   "deleteHistoriesError": "Ошибка при удалении историй",
   "mermaid": "Диаграммы Mermaid",
@@ -238,6 +249,7 @@
   "searchResults": "Результаты поиска",
   "newBranch": "Новая ветка",
   "error": {
+    "label": "Ошибка",
     "friendlyApiKeySummary": "Не удалось подключиться к вашему серверу tldw.",
     "friendlyApiKeyHint": "Ваш API-ключ может быть недействительным. Откройте Настройки → сервер tldw, чтобы проверить URL и API-ключ, затем попробуйте снова.",
     "friendlyTimeoutSummary": "Время ожидания чата истекло.",
@@ -259,5 +271,105 @@
   "refresh": "Обновить",
   "confirm": "Подтвердить",
   "untitled": "Без названия",
-  "moveToFolder": "Переместить в папку"
+  "moveToFolder": "Переместить в папку",
+  "noToolCalls": "Пока нет вызовов инструментов",
+  "status": {
+    "pending": "Ожидание",
+    "running": "Обработка",
+    "complete": "Завершено",
+    "error": "Ошибка"
+  },
+  "arguments": "Аргументы",
+  "invalidJson": "Некорректный JSON; показывается исходное значение",
+  "result": "Результат",
+  "tools": {
+    "fs_list": "Список каталога",
+    "fs_read": "Прочитать файл",
+    "fs_write": "Записать файл",
+    "fs_apply_patch": "Применить патч",
+    "fs_mkdir": "Создать каталог",
+    "fs_delete": "Удалить",
+    "search_grep": "Поиск по содержимому",
+    "search_glob": "Найти файлы",
+    "git_status": "Статус Git",
+    "git_diff": "Git diff",
+    "git_log": "Журнал Git",
+    "git_branch": "Ветка Git",
+    "git_add": "Подготовить файлы",
+    "git_commit": "Коммит",
+    "exec_run": "Выполнить команду"
+  },
+  "markdown": {
+    "unableToRender": "Не удалось отобразить содержимое",
+    "couldNotDisplay": "Содержимое сообщения не удалось отобразить. Возможно, причина в неверном форматировании.",
+    "showRawContent": "Показать исходный текст"
+  },
+  "commandPalette": {
+    "goToChat": "Перейти к чату",
+    "goToMedia": "Перейти к медиа",
+    "goToNotes": "Перейти к заметкам",
+    "goToFlashcards": "Перейти к флешкартам",
+    "goToSettings": "Перейти к настройкам",
+    "goToHealth": "Открыть «Состояние и диагностика»",
+    "newChat": "Новый чат",
+    "toggleKnowledgeSearch": "Переключить поиск по знаниям",
+    "toggleKnowledgeSearchDesc": "Искать в вашей базе знаний",
+    "toggleWebSearch": "Переключить веб‑поиск",
+    "toggleWebDesc": "Искать в интернете",
+    "ingestPage": "Загрузить текущую страницу",
+    "ingestDesc": "Сохранить эту страницу в вашей базе знаний",
+    "switchModel": "Сменить модель",
+    "toggleSidebar": "Показать/скрыть боковую панель",
+    "toggleSidebarDesc": "Показать или скрыть боковую панель чата",
+    "placeholder": "Введите команду или выполните поиск…",
+    "noResults": "Ничего не найдено",
+    "title": "Палитра команд",
+    "navigate": "перемещение",
+    "select": "выбор",
+    "toOpen": "для открытия",
+    "categoryActions": "Действия",
+    "categoryNavigation": "Навигация",
+    "categorySettings": "Настройки",
+    "categoryRecent": "Недавние"
+  },
+  "featureHints": {
+    "knowledge": {
+      "title": "Поиск по знаниям",
+      "description": "Откройте панель поиска знаний, чтобы найти фрагменты и вставить их в чат."
+    },
+    "moreTools": {
+      "title": "Дополнительные инструменты",
+      "description": "Режим зрения, загрузка изображений, быстрый импорт и полное приложение."
+    },
+    "commandPalette": {
+      "title": "Быстрые команды",
+      "description": "Нажмите {{shortcut}} для поиска команд, настроек и прочего."
+    },
+    "modelSettings": {
+      "title": "Настройка параметров модели",
+      "description": "Настройте температуру, длину контекста и другие параметры модели."
+    }
+  },
+  "chatSidebar": {
+    "title": "Чаты",
+    "newChat": "Новый чат",
+    "collapse": "Свернуть боковую панель",
+    "expand": "Развернуть боковую панель",
+    "search": "Поиск чатов...",
+    "ingest": "Загрузить страницу",
+    "media": "Медиа",
+    "notes": "Заметки",
+    "settings": "Настройки",
+    "loadError": "Не удалось загрузить чаты",
+    "localTab": "Локальные",
+    "serverTab": "Сервер",
+    "foldersTab": "Папки",
+    "tabs": {
+      "local": "Локальные",
+      "server": "Сервер",
+      "folders": "Папки"
+    },
+    "noServerChats": "Пока нет серверных чатов",
+    "foldersRequireConnection": "Для папок требуется подключение к серверу"
+  }
 }
