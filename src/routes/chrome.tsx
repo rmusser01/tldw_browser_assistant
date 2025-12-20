@@ -42,6 +42,7 @@ const OptionAdminLlamacpp = lazy(() => import("./option-admin-llamacpp"))
 const OptionAdminMlx = lazy(() => import("./option-admin-mlx"))
 const OptionChatSettings = lazy(() => import("./option-settings-chat"))
 const OptionQuickChatPopout = lazy(() => import("./option-quick-chat-popout"))
+const OptionContentReview = lazy(() => import("./option-content-review"))
 
 // Non-lazy imports for components needed immediately
 import OptionLayout from "~/components/Layouts/Layout"
@@ -90,6 +91,7 @@ export const OptionRoutingChrome = () => {
         <Route path="/flashcards" element={<OptionFlashcards />} />
         <Route path="/media" element={<OptionMedia />} />
         <Route path="/media-multi" element={<OptionMediaMulti />} />
+        <Route path="/content-review" element={<OptionContentReview />} />
         <Route path="/notes" element={<OptionNotes />} />
         <Route path="/knowledge" element={<OptionKnowledgeWorkspace />} />
         <Route path="/world-books" element={<OptionWorldBooksWorkspace />} />

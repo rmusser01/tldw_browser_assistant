@@ -26,6 +26,15 @@ export const saveMessageOnError = async ({
   isRegenerating,
   message_source = "web-ui",
   message_type,
+  userMessageType,
+  assistantMessageType,
+  clusterId,
+  modelId,
+  userModelId,
+  userMessageId,
+  assistantMessageId,
+  userParentMessageId,
+  assistantParentMessageId,
   prompt_content,
   prompt_id,
   isContinue,
@@ -43,6 +52,15 @@ export const saveMessageOnError = async ({
   isRegenerating: boolean
   message_source?: "copilot" | "web-ui"
   message_type?: string
+  userMessageType?: string
+  assistantMessageType?: string
+  clusterId?: string
+  modelId?: string
+  userModelId?: string
+  userMessageId?: string
+  assistantMessageId?: string
+  userParentMessageId?: string | null
+  assistantParentMessageId?: string | null
   prompt_id?: string
   prompt_content?: string
   isContinue?: boolean
@@ -79,13 +97,17 @@ export const saveMessageOnError = async ({
     if (historyId) {
       if (!isRegenerating && !isContinue) {
         await saveMessage({
+          id: userMessageId,
           history_id: historyId,
           name: selectedModel,
           role: "user",
           content: userMessage,
           images: [image],
           time: 1,
-          message_type,
+          message_type: userMessageType ?? message_type,
+          clusterId,
+          modelId: userModelId,
+          parent_message_id: userParentMessageId ?? null,
           documents
         })
       }
@@ -96,6 +118,7 @@ export const saveMessageOnError = async ({
         await updateMessage(historyId, lastMessage.id, botMessage)
       } else {
         await saveMessage({
+          id: assistantMessageId,
           history_id: historyId,
           name: selectedModel,
           role: "assistant",
@@ -103,7 +126,10 @@ export const saveMessageOnError = async ({
           images: [],
           source: [],
           time: 2,
-          message_type
+          message_type: assistantMessageType ?? message_type,
+          clusterId,
+          modelId,
+          parent_message_id: assistantParentMessageId ?? null
         })
       }
       await setLastUsedChatModel(historyId, selectedModel)
@@ -121,18 +147,23 @@ export const saveMessageOnError = async ({
       updatePageTitle(title)
       if (!isRegenerating) {
         await saveMessage({
+          id: userMessageId,
           history_id: newHistoryId.id,
           name: selectedModel,
           role: "user",
           content: userMessage,
           images: [image],
           time: 1,
-          message_type,
+          message_type: userMessageType ?? message_type,
+          clusterId,
+          modelId: userModelId,
+          parent_message_id: userParentMessageId ?? null,
           documents
         })
       }
 
       await saveMessage({
+        id: assistantMessageId,
         history_id: newHistoryId.id,
         name: selectedModel,
         role: "assistant",
@@ -140,7 +171,10 @@ export const saveMessageOnError = async ({
         images: [],
         source: [],
         time: 2,
-        message_type
+        message_type: assistantMessageType ?? message_type,
+        clusterId,
+        modelId,
+        parent_message_id: assistantParentMessageId ?? null
       })
       setHistoryId(newHistoryId.id)
       await setLastUsedChatModel(newHistoryId.id, selectedModel)
@@ -172,18 +206,25 @@ export const saveMessageOnError = async ({
   if (historyId) {
     try {
       // Save user message if not regenerating
-      await saveMessage({
-        history_id: historyId,
-        name: selectedModel,
-        role: "user",
-        content: userMessage,
-        images: [image],
-        time: 1,
-        message_type,
-        documents
-      })
+      if (!isRegenerating) {
+        await saveMessage({
+          id: userMessageId,
+          history_id: historyId,
+          name: selectedModel,
+          role: "user",
+          content: userMessage,
+          images: [image],
+          time: 1,
+          message_type: userMessageType ?? message_type,
+          clusterId,
+          modelId: userModelId,
+          parent_message_id: userParentMessageId ?? null,
+          documents
+        })
+      }
       // Save assistant error message
       await saveMessage({
+        id: assistantMessageId,
         history_id: historyId,
         name: selectedModel,
         role: "assistant",
@@ -191,7 +232,10 @@ export const saveMessageOnError = async ({
         images: [],
         source: [],
         time: 2,
-        message_type
+        message_type: assistantMessageType ?? message_type,
+        clusterId,
+        modelId,
+        parent_message_id: assistantParentMessageId ?? null
       })
     } catch {}
     return historyId
@@ -201,17 +245,24 @@ export const saveMessageOnError = async ({
     const newHistoryId = await saveHistory(title, false, message_source)
     updatePageTitle(title)
     try {
+      if (!isRegenerating) {
+        await saveMessage({
+          id: userMessageId,
+          history_id: newHistoryId.id,
+          name: selectedModel,
+          role: "user",
+          content: userMessage,
+          images: [image],
+          time: 1,
+          message_type: userMessageType ?? message_type,
+          clusterId,
+          modelId: userModelId,
+          parent_message_id: userParentMessageId ?? null,
+          documents
+        })
+      }
       await saveMessage({
-        history_id: newHistoryId.id,
-        name: selectedModel,
-        role: "user",
-        content: userMessage,
-        images: [image],
-        time: 1,
-        message_type,
-        documents
-      })
-      await saveMessage({
+        id: assistantMessageId,
         history_id: newHistoryId.id,
         name: selectedModel,
         role: "assistant",
@@ -219,7 +270,10 @@ export const saveMessageOnError = async ({
         images: [],
         source: [],
         time: 2,
-        message_type
+        message_type: assistantMessageType ?? message_type,
+        clusterId,
+        modelId,
+        parent_message_id: assistantParentMessageId ?? null
       })
     } catch {}
     setHistoryId(newHistoryId.id)
@@ -238,6 +292,15 @@ export const saveMessageOnSuccess = async ({
   source,
   message_source = "web-ui",
   message_type,
+  userMessageType,
+  assistantMessageType,
+  clusterId,
+  modelId,
+  userModelId,
+  userMessageId,
+  assistantMessageId,
+  userParentMessageId,
+  assistantParentMessageId,
   generationInfo,
   prompt_id,
   prompt_content,
@@ -255,6 +318,15 @@ export const saveMessageOnSuccess = async ({
   source: any[]
   message_source?: "copilot" | "web-ui"
   message_type?: string
+  userMessageType?: string
+  assistantMessageType?: string
+  clusterId?: string
+  modelId?: string
+  userModelId?: string
+  userMessageId?: string
+  assistantMessageId?: string
+  userParentMessageId?: string | null
+  assistantParentMessageId?: string | null
   generationInfo?: any
   prompt_id?: string
   prompt_content?: string
@@ -265,13 +337,17 @@ export const saveMessageOnSuccess = async ({
   if (historyId) {
     if (!isRegenerate && !isContinue) {
       await saveMessage({
+        id: userMessageId,
         history_id: historyId,
         name: selectedModel,
         role: "user",
         content: message,
         images: [image],
         time: 1,
-        message_type,
+        message_type: userMessageType ?? message_type,
+        clusterId,
+        modelId: userModelId,
+        parent_message_id: userParentMessageId ?? null,
         generationInfo,
         reasoning_time_taken,
         documents
@@ -286,6 +362,7 @@ export const saveMessageOnSuccess = async ({
     } else {
       await saveMessage(
         {
+          id: assistantMessageId,
           history_id: historyId,
           name: selectedModel,
           role: "assistant",
@@ -293,7 +370,10 @@ export const saveMessageOnSuccess = async ({
           images: [],
           source,
           time: 2,
-          message_type,
+          message_type: assistantMessageType ?? message_type,
+          clusterId,
+          modelId,
+          parent_message_id: assistantParentMessageId ?? null,
           generationInfo,
           reasoning_time_taken
         }
@@ -328,13 +408,17 @@ export const saveMessageOnSuccess = async ({
 
     await saveMessage(
       {
+        id: userMessageId,
         history_id: newHistoryId.id,
         name: selectedModel,
         role: "user",
         content: message,
         images: [image],
         time: 1,
-        message_type,
+        message_type: userMessageType ?? message_type,
+        clusterId,
+        modelId: userModelId,
+        parent_message_id: userParentMessageId ?? null,
         generationInfo,
         reasoning_time_taken,
         documents
@@ -353,6 +437,7 @@ export const saveMessageOnSuccess = async ({
 
     await saveMessage(
       {
+        id: assistantMessageId,
         history_id: newHistoryId.id,
         name: selectedModel,
         role: "assistant",
@@ -360,7 +445,10 @@ export const saveMessageOnSuccess = async ({
         images: [],
         source,
         time: 2,
-        message_type,
+        message_type: assistantMessageType ?? message_type,
+        clusterId,
+        modelId,
+        parent_message_id: assistantParentMessageId ?? null,
         generationInfo,
         reasoning_time_taken
       }

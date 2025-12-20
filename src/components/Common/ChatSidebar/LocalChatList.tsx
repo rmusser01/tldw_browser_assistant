@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useMemo, useState } from "react"
 import { useTranslation } from "react-i18next"
 import {
   useInfiniteQuery,
@@ -128,6 +128,7 @@ export function LocalChatList({
   const [openMenuFor, setOpenMenuFor] = useState<string | null>(null)
   const [renamingChat, setRenamingChat] = useState<string | null>(null)
   const [renameValue, setRenameValue] = useState("")
+  const [renameError, setRenameError] = useState<string | null>(null)
 
   // Local chat history query
   const {
@@ -226,21 +227,24 @@ export function LocalChatList({
     staleTime: 30_000
   })
 
-  const chatHistories =
-    chatHistoriesData?.pages.reduce(
-      (acc, page) => {
-        page.groups.forEach((group) => {
-          const existingGroup = acc.find((g) => g.label === group.label)
-          if (existingGroup) {
-            existingGroup.items.push(...group.items)
-          } else {
-            acc.push({ ...group })
-          }
-        })
-        return acc
-      },
-      [] as ChatGroup[]
-    ) || []
+  const chatHistories = useMemo(
+    () =>
+      chatHistoriesData?.pages.reduce(
+        (acc, page) => {
+          page.groups.forEach((group) => {
+            const existingGroup = acc.find((g) => g.label === group.label)
+            if (existingGroup) {
+              existingGroup.items.push(...group.items)
+            } else {
+              acc.push({ ...group })
+            }
+          })
+          return acc
+        },
+        [] as ChatGroup[]
+      ) || [],
+    [chatHistoriesData]
+  )
 
   const allHistoryIds = chatHistories.flatMap((group) =>
     group.items.map((item) => item.id)
@@ -297,13 +301,14 @@ export function LocalChatList({
     }
   })
 
-  const { mutate: editHistory } = useMutation({
+  const { mutate: editHistory, isPending: renameLoading } = useMutation({
     mutationKey: ["editHistory"],
     mutationFn: async (data: { id: string; title: string }) => {
       return await updateHistory(data.id, data.title)
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["fetchChatHistory"] })
+      message.success(t("common:updated", { defaultValue: "Updated" }))
     }
   })
 
@@ -374,7 +379,7 @@ export function LocalChatList({
   const effectiveSelectedChatId = selectedChatId ?? historyId ?? null
 
   // Loading state
-  if (status === "pending" || isLoading) {
+  if (isLoading) {
     return (
       <div className={cn("flex justify-center items-center py-8", className)}>
         <Skeleton active paragraph={{ rows: 6 }} />
@@ -417,12 +422,35 @@ export function LocalChatList({
   }
 
   const handleRenameSubmit = () => {
+    if (!renamingChat) return
+
     const newTitle = renameValue.trim()
-    if (renamingChat && newTitle) {
-      editHistory({ id: renamingChat, title: newTitle })
+    if (!newTitle) {
+      setRenameError(
+        t("common:renameChatEmptyError", {
+          defaultValue: "Title cannot be empty."
+        })
+      )
+      return
     }
-    setRenamingChat(null)
-    setRenameValue("")
+
+    setRenameError(null)
+    editHistory(
+      { id: renamingChat, title: newTitle },
+      {
+        onSuccess: () => {
+          setRenamingChat(null)
+          setRenameValue("")
+        },
+        onError: () => {
+          message.error(
+            t("common:renameChatError", {
+              defaultValue: "Failed to rename chat."
+            })
+          )
+        }
+      }
+    )
   }
 
   return (
@@ -435,15 +463,29 @@ export function LocalChatList({
         onCancel={() => {
           setRenamingChat(null)
           setRenameValue("")
+          setRenameError(null)
         }}
         onOk={handleRenameSubmit}
+        confirmLoading={renameLoading}
+        okButtonProps={{
+          disabled: !renameValue.trim()
+        }}
       >
         <Input
           autoFocus
           value={renameValue}
-          onChange={(e) => setRenameValue(e.target.value)}
+          onChange={(e) => {
+            setRenameValue(e.target.value)
+            if (renameError) {
+              setRenameError(null)
+            }
+          }}
           onPressEnter={handleRenameSubmit}
+          status={renameError ? "error" : undefined}
         />
+        {renameError && (
+          <div className="mt-1 text-xs text-red-500">{renameError}</div>
+        )}
       </Modal>
       {chatHistories.map((group, groupIndex) => (
         <div key={groupIndex}>

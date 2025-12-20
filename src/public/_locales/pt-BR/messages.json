@@ -1324,11 +1324,53 @@
   "specFallbackWarning": {
     "message": "Usando o fallback do esquema media.add incluído (v{{version}}); se os campos parecerem desatualizados, compare com o /openapi.json do seu tldw_server."
   },
+  "serverOffline": {
+    "message": "Servidor offline ou não configurado"
+  },
+  "serverChats": {
+    "message": "Chats do servidor"
+  },
+  "serverChatLoadError": {
+    "message": "Falha ao carregar o chat do servidor. Verifique sua conexão e tente novamente."
+  },
+  "serverChatSourceLabel": {
+    "message": "Origem do servidor"
+  },
   "serverChatsUnavailableNotConnected": {
     "message": "Os chats do servidor ficam disponíveis quando você se conecta ao seu servidor tldw."
   },
   "serverChatsUnavailableServerError": {
     "message": "Os chats do servidor não estão disponíveis no momento. Verifique os logs do servidor ou tente novamente."
+  },
+  "fileChanges": {
+    "message": "Alterações de arquivos"
+  },
+  "deletions": {
+    "message": "Exclusões"
+  },
+  "gitOperations": {
+    "message": "Operações Git"
+  },
+  "commands": {
+    "message": "Comandos"
+  },
+  "otherOperations": {
+    "message": "Outras operações"
+  },
+  "fileAccess": {
+    "message": "Acesso a arquivos"
+  },
+  "notebookEdits": {
+    "message": "Edições do caderno"
+  },
+  "applyPatch": {
+    "message": "Aplicar patch"
+  },
+  "recursive": {
+    "message": "(recursivo)"
+  },
+  "complexArguments": {
+    "message": "[Argumentos complexos]"
   },
   "noToolCalls": {
     "message": "Ainda não há chamadas de ferramentas"
@@ -1401,6 +1443,14 @@
   "tools_exec_run": {
     "message": "Executar comando",
     "description": "Label for the exec.run tool (run command)."
+  },
+  "serverChatForkedLabel": {
+    "message": "Chat ramificado",
+    "description": "Label shown on chats that were forked from another server chat."
+  },
+  "serverChatForkedTooltip": {
+    "message": "Ramificado do chat {{chatId}}",
+    "description": "Tooltip explaining which original server chat this chat was forked from."
   },
   "commandPalette_goToChat": {
     "message": "Ir para o chat",
@@ -1515,29 +1565,54 @@
   "markdown_showRawContent": {
     "message": "Show raw content"
   },
+  "status_pending": {
+    "message": "Pendente",
+    "description": "Status label for pending operations."
+  },
+  "status_running": {
+    "message": "Processando",
+    "description": "Status label for operations currently in progress."
+  },
+  "status_complete": {
+    "message": "Concluído",
+    "description": "Status label for completed operations."
+  },
+  "status_error": {
+    "message": "Erro",
+    "description": "Status label for failed operations."
+  },
   "notesSearch_exportNoteSuccess": {
-    "message": "Exported ({{size}})"
+    "message": "Exportado ({{size}})"
   },
   "notesSearch_exportSuccess": {
-    "message": "Exported {{count}} notes ({{size}})"
+    "message": "Exportadas {{count}} notas ({{size}})"
   },
   "notesSearch_exportCsvSuccess": {
-    "message": "Exported {{count}} notes as CSV ({{size}})"
+    "message": "Exportadas {{count}} notas como CSV ({{size}})"
   },
   "notesSearch_exportJsonSuccess": {
-    "message": "Exported {{count}} notes as JSON ({{size}})"
+    "message": "Exportadas {{count}} notas como JSON ({{size}})"
   },
   "exportNoteSuccess": {
-    "message": "Exported ({{size}})"
+    "message": "Exportado ({{size}})"
   },
   "exportSuccess": {
-    "message": "Exported {{count}} notes ({{size}})"
+    "message": "Exportadas {{count}} notas ({{size}})"
   },
   "exportCsvSuccess": {
-    "message": "Exported {{count}} notes as CSV ({{size}})"
+    "message": "Exportadas {{count}} notas como CSV ({{size}})"
   },
   "exportJsonSuccess": {
-    "message": "Exported {{count}} notes as JSON ({{size}})"
+    "message": "Exportadas {{count}} notas como JSON ({{size}})"
+  },
+  "ttsShort": {
+    "message": "Voz"
+  },
+  "copyShort": {
+    "message": "Copiar"
+  },
+  "branchShort": {
+    "message": "Ramo"
   },
   "infoShort": {
     "message": "Info"
@@ -1662,10 +1737,10 @@
   "chatSidebar_foldersRequireConnection": {
     "message": "As pastas exigem uma conexão com o servidor"
   },
-  "option.more.copy.canonicalMarkdown": {
+  "option_more_copy_canonicalMarkdown": {
     "message": "Copy canonical transcript"
   },
-  "option.more.download.canonicalMarkdown": {
+  "option_more_download_canonicalMarkdown": {
     "message": "Canonical transcript (Markdown)"
   }
 }

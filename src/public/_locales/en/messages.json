@@ -365,6 +365,18 @@
   "specFallbackWarning": {
     "message": "Using bundled media.add schema fallback (v{{version}}); please verify against your tldw_server /openapi.json if fields look outdated."
   },
+  "serverOffline": {
+    "message": "Server offline or not configured"
+  },
+  "serverChats": {
+    "message": "Server chats"
+  },
+  "serverChatLoadError": {
+    "message": "Failed to load server chat. Check your connection and try again."
+  },
+  "serverChatSourceLabel": {
+    "message": "Server"
+  },
   "serverChatsUnavailableNotConnected": {
     "message": "Server chats are available once you connect to your tldw server."
   },
@@ -391,6 +403,15 @@
   },
   "notebookEdits": {
     "message": "Notebook edits"
+  },
+  "applyPatch": {
+    "message": "Apply patch"
+  },
+  "recursive": {
+    "message": "(recursive)"
+  },
+  "complexArguments": {
+    "message": "[Complex arguments]"
   },
   "noToolCalls": {
     "message": "No tool calls yet"
@@ -597,6 +618,10 @@
     "message": "Complete",
     "description": "Status label for completed operations."
   },
+  "status_error": {
+    "message": "Error",
+    "description": "Status label for failed operations."
+  },
   "notesSearch_exportNoteSuccess": {
     "message": "Exported ({{size}})"
   },
@@ -621,6 +646,15 @@
   "exportJsonSuccess": {
     "message": "Exported {{count}} notes as JSON ({{size}})"
   },
+  "ttsShort": {
+    "message": "TTS"
+  },
+  "copyShort": {
+    "message": "Copy"
+  },
+  "branchShort": {
+    "message": "Branch"
+  },
   "infoShort": {
     "message": "Info"
   },
@@ -633,10 +667,10 @@
   "error_label": {
     "message": "Error"
   },
-  "option.more.copy.canonicalMarkdown": {
+  "option_more_copy_canonicalMarkdown": {
     "message": "Copy canonical transcript"
   },
-  "option.more.download.canonicalMarkdown": {
+  "option_more_download_canonicalMarkdown": {
     "message": "Canonical transcript (Markdown)"
   },
   "modelSelect_label": {

@@ -39,6 +39,14 @@ type RagModeParams = {
   ragEnableCitations: boolean
   ragSources: string[]
   actorSettings?: ActorSettings
+  clusterId?: string
+  userMessageType?: string
+  assistantMessageType?: string
+  modelIdOverride?: string
+  userMessageId?: string
+  assistantMessageId?: string
+  userParentMessageId?: string | null
+  assistantParentMessageId?: string | null
 }
 
 export const ragMode = async (
@@ -68,7 +76,15 @@ export const ragMode = async (
     ragEnableGeneration,
     ragEnableCitations,
     ragSources,
-    actorSettings
+    actorSettings,
+    clusterId,
+    userMessageType,
+    assistantMessageType,
+    modelIdOverride,
+    userMessageId,
+    assistantMessageId,
+    userParentMessageId,
+    assistantParentMessageId
   }: RagModeParams
 ) => {
   console.log("Using ragMode")
@@ -78,45 +94,65 @@ export const ragMode = async (
     baseUrl: url
   })
 
-  let newMessage: Message[] = []
-  let generateMessageId = generateID()
+  const resolvedAssistantMessageId = assistantMessageId ?? generateID()
+  const resolvedUserMessageId =
+    !isRegenerate ? userMessageId ?? generateID() : undefined
+  let generateMessageId = resolvedAssistantMessageId
   const modelInfo = await getModelNicknameByID(selectedModel)
 
-  if (!isRegenerate) {
-    newMessage = [
-      ...messages,
-      {
-        isBot: false,
-        name: "You",
-        message,
-        sources: [],
-        images: []
-      },
+  const isSharedCompareUser = userMessageType === "compare:user"
+  const resolvedModelId = modelIdOverride || selectedModel
+  const userModelId = isSharedCompareUser ? undefined : resolvedModelId
+
+  setMessages((prev) => {
+    if (!isRegenerate) {
+      return [
+        ...prev,
+        {
+          isBot: false,
+          name: "You",
+          message,
+          sources: [],
+          images: [],
+          id: resolvedUserMessageId,
+          messageType: userMessageType,
+          clusterId,
+          modelId: userModelId,
+          parentMessageId: userParentMessageId ?? null
+        },
+        {
+          isBot: true,
+          name: selectedModel,
+          message: "▋",
+          sources: [],
+          id: resolvedAssistantMessageId,
+          modelImage: modelInfo?.model_avatar,
+          modelName: modelInfo?.model_name || selectedModel,
+          messageType: assistantMessageType,
+          clusterId,
+          modelId: resolvedModelId,
+          parentMessageId: assistantParentMessageId ?? null
+        }
+      ]
+    }
+
+    return [
+      ...prev,
       {
         isBot: true,
         name: selectedModel,
         message: "▋",
         sources: [],
-        id: generateMessageId,
+        id: resolvedAssistantMessageId,
         modelImage: modelInfo?.model_avatar,
-        modelName: modelInfo?.model_name || selectedModel
+        modelName: modelInfo?.model_name || selectedModel,
+        messageType: assistantMessageType,
+        clusterId,
+        modelId: resolvedModelId,
+        parentMessageId: assistantParentMessageId ?? null
       }
     ]
-  } else {
-    newMessage = [
-      ...messages,
-      {
-        isBot: true,
-        name: selectedModel,
-        message: "▋",
-        sources: [],
-        id: generateMessageId,
-        modelImage: modelInfo?.model_avatar,
-        modelName: modelInfo?.model_name || selectedModel
-      }
-    ]
-  }
-  setMessages(newMessage)
+  })
   let fullText = ""
   let contentToSave = ""
 
@@ -126,8 +162,21 @@ export const ragMode = async (
     let query = message
     const { ragPrompt: systemPrompt, ragQuestionPrompt: questionPrompt } =
       await promptForRag()
-    if (newMessage.length > 2) {
-      const lastTenMessages = newMessage.slice(-10)
+    const contextMessages = isRegenerate
+      ? messages
+      : [
+          ...messages,
+          {
+            isBot: false,
+            name: "You",
+            message,
+            sources: [],
+            images: []
+          }
+        ]
+
+    if (contextMessages.length > 2) {
+      const lastTenMessages = contextMessages.slice(-10)
       lastTenMessages.pop()
       const chat_history = lastTenMessages
         .map((message) => {
@@ -337,6 +386,15 @@ export const ragMode = async (
       image,
       fullText,
       source,
+      userMessageType,
+      assistantMessageType,
+      clusterId,
+      modelId: resolvedModelId,
+      userModelId,
+      userMessageId: resolvedUserMessageId,
+      assistantMessageId: resolvedAssistantMessageId,
+      userParentMessageId: userParentMessageId ?? null,
+      assistantParentMessageId: assistantParentMessageId ?? null,
       generationInfo,
       reasoning_time_taken: timetaken
     })
@@ -355,7 +413,16 @@ export const ragMode = async (
       setHistory,
       setHistoryId,
       userMessage: message,
-      isRegenerating: isRegenerate
+      isRegenerating: isRegenerate,
+      userMessageType,
+      assistantMessageType,
+      clusterId,
+      modelId: resolvedModelId,
+      userModelId,
+      userMessageId: resolvedUserMessageId,
+      assistantMessageId: resolvedAssistantMessageId,
+      userParentMessageId: userParentMessageId ?? null,
+      assistantParentMessageId: assistantParentMessageId ?? null
     })
 
     if (!errorSave) {

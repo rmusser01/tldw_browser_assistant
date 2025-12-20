@@ -360,11 +360,61 @@
   "specFallbackWarning": {
     "message": "ബണ്ടിൽ ചെയ്ത media.add സ്കീമ ഫാൾബാക്ക് (v{{version}}) ഉപയോഗിക്കുന്നു; ഫീൽഡുകൾ പഴകിയതായി തോന്നിയാൽ നിങ്ങളുടെ tldw_server /openapi.json പ്രകാരം ദയവായി പരിശോധിക്കുക."
   },
+  "applyPatch": {
+    "message": "പാച്ച് പ്രയോഗിക്കുക"
+  },
+  "recursive": {
+    "message": "(recursive)"
+  },
+  "complexArguments": {
+    "message": "[Complex arguments]"
+  },
+  "serverChatForkedLabel": {
+    "message": "Forked chat",
+    "description": "Label shown on chats that were forked from another server chat."
+  },
+  "serverChatForkedTooltip": {
+    "message": "Forked from chat {{chatId}}",
+    "description": "Tooltip explaining which original server chat this chat was forked from."
+  },
+  "serverOffline": {
+    "message": "സെർവർ ഓഫ്ലൈനിലോ കോൺഫിഗർ ചെയ്തിട്ടില്ലയോ ആണ്"
+  },
+  "serverChats": {
+    "message": "സെർവർ ചാറ്റുകൾ"
+  },
+  "serverChatLoadError": {
+    "message": "സെർവർ ചാറ്റ് ലോഡ് ചെയ്യുന്നതിൽ പരാജയപ്പെട്ടു. നിങ്ങളുടെ കണക്ഷൻ പരിശോധന ചെയ്ത് വീണ്ടും ശ്രമിക്കുക."
+  },
+  "serverChatSourceLabel": {
+    "message": "സെർവർ"
+  },
   "serverChatsUnavailableNotConnected": {
     "message": "നിങ്ങളുടെ tldw സെർവറിലേക്ക് കണക്റ്റ് ചെയ്താൽ സെർവർ ചാറ്റുകൾ ലഭ്യമാകും."
   },
   "serverChatsUnavailableServerError": {
     "message": "സെർവർ ചാറ്റുകൾ ഇപ്പോൾ ലഭ്യമല്ല. സെർവർ ലോഗുകൾ പരിശോധിക്കുകയോ വീണ്ടും ശ്രമിക്കുകയോ ചെയ്യുക."
+  },
+  "fileChanges": {
+    "message": "ഫയൽ മാറ്റങ്ങൾ"
+  },
+  "deletions": {
+    "message": "ഇല്ലാതാക്കലുകൾ"
+  },
+  "gitOperations": {
+    "message": "Git പ്രവർത്തനങ്ങൾ"
+  },
+  "commands": {
+    "message": "കമാൻഡുകൾ"
+  },
+  "otherOperations": {
+    "message": "മറ്റ് പ്രവർത്തനങ്ങൾ"
+  },
+  "fileAccess": {
+    "message": "ഫയൽ പ്രവേശനം"
+  },
+  "notebookEdits": {
+    "message": "നോട്ട്ബുക്ക് തിരുത്തലുകൾ"
   },
   "noToolCalls": {
     "message": "ഇതുവരെ ടൂൾ കോൾ ഒന്നുമില്ല"
@@ -551,6 +601,22 @@
   "markdown_showRawContent": {
     "message": "അസംസ്കൃത ഉള്ളടക്കം കാണിക്കുക"
   },
+  "status_pending": {
+    "message": "തീരുമാനിക്കാനുണ്ട്",
+    "description": "Status label for pending operations."
+  },
+  "status_running": {
+    "message": "പ്രോസസ്സിംഗ്",
+    "description": "Status label for operations currently in progress."
+  },
+  "status_complete": {
+    "message": "പൂർത്തീകരിച്ചു",
+    "description": "Status label for completed operations."
+  },
+  "status_error": {
+    "message": "പിശക്",
+    "description": "Status label for failed operations."
+  },
   "notesSearch_exportNoteSuccess": {
     "message": "Exported ({{size}})"
   },
@@ -574,6 +640,15 @@
   },
   "exportJsonSuccess": {
     "message": "Exported {{count}} notes as JSON ({{size}})"
+  },
+  "ttsShort": {
+    "message": "ശബ്ദം"
+  },
+  "copyShort": {
+    "message": "പകർത്തുക"
+  },
+  "branchShort": {
+    "message": "ബ്രാഞ്ച്"
   },
   "infoShort": {
     "message": "വിവരം"
@@ -698,10 +773,10 @@
   "chatSidebar_foldersRequireConnection": {
     "message": "ഫോൾഡറുകൾക്ക് സർവർ കണക്ഷൻ ആവശ്യമുണ്ട്"
   },
-  "option.more.copy.canonicalMarkdown": {
+  "option_more_copy_canonicalMarkdown": {
     "message": "Copy canonical transcript"
   },
-  "option.more.download.canonicalMarkdown": {
+  "option_more_download_canonicalMarkdown": {
     "message": "Canonical transcript (Markdown)"
   }
 }

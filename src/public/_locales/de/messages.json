@@ -360,6 +360,81 @@
   "specFallbackWarning": {
     "message": "Verwende gebündelte media.add Schema-Fallback (v{{version}}); bitte überprüfe die /openapi.json deines tldw_server, falls Felder veraltet erscheinen."
   },
+  "serverOffline": {
+    "message": "Server offline oder nicht konfiguriert"
+  },
+  "serverChats": {
+    "message": "Server-Chats"
+  },
+  "serverChatLoadError": {
+    "message": "Server-Chat konnte nicht geladen werden. Überprüfen Sie Ihre Verbindung und versuchen Sie es erneut."
+  },
+  "serverChatSourceLabel": {
+    "message": "Serverquelle"
+  },
+  "serverChatForkedLabel": {
+    "message": "Abgezweigter Chat",
+    "description": "Label shown on chats that were forked from another server chat."
+  },
+  "serverChatForkedTooltip": {
+    "message": "Abgezweigt von Chat {{chatId}}",
+    "description": "Tooltip explaining which original server chat this chat was forked from."
+  },
+  "fileChanges": {
+    "message": "Dateiänderungen"
+  },
+  "deletions": {
+    "message": "Löschvorgänge"
+  },
+  "gitOperations": {
+    "message": "Git-Operationen"
+  },
+  "commands": {
+    "message": "Befehle"
+  },
+  "otherOperations": {
+    "message": "Andere Vorgänge"
+  },
+  "fileAccess": {
+    "message": "Dateizugriff"
+  },
+  "notebookEdits": {
+    "message": "Notizbuchänderungen"
+  },
+  "applyPatch": {
+    "message": "Patch anwenden"
+  },
+  "recursive": {
+    "message": "(rekursiv)"
+  },
+  "complexArguments": {
+    "message": "[Komplexe Argumente]"
+  },
+  "status_pending": {
+    "message": "Ausstehend",
+    "description": "Status label for pending operations."
+  },
+  "status_running": {
+    "message": "In Bearbeitung",
+    "description": "Status label for operations currently in progress."
+  },
+  "status_complete": {
+    "message": "Abgeschlossen",
+    "description": "Status label for completed operations."
+  },
+  "status_error": {
+    "message": "Fehler",
+    "description": "Status label for failed operations."
+  },
+  "ttsShort": {
+    "message": "Ton"
+  },
+  "copyShort": {
+    "message": "Kopieren"
+  },
+  "branchShort": {
+    "message": "Zweig"
+  },
   "serverChatsUnavailableNotConnected": {
     "message": "Server-Chats sind verfügbar, sobald Sie eine Verbindung zu Ihrem tldw-Server hergestellt haben."
   },
@@ -543,37 +618,37 @@
     "description": "Label for the Recent items category in the command palette."
   },
   "markdown_unableToRender": {
-    "message": "Unable to render content"
+    "message": "Inhalt kann nicht gerendert werden"
   },
   "markdown_couldNotDisplay": {
-    "message": "The message content could not be displayed. This may be due to invalid formatting."
+    "message": "Der Nachrichteninhalt konnte nicht angezeigt werden. Dies kann an ungültiger Formatierung liegen."
   },
   "markdown_showRawContent": {
-    "message": "Show raw content"
+    "message": "Rohinhalt anzeigen"
   },
   "notesSearch_exportNoteSuccess": {
-    "message": "Exported ({{size}})"
+    "message": "Exportiert ({{size}})"
   },
   "notesSearch_exportSuccess": {
-    "message": "Exported {{count}} notes ({{size}})"
+    "message": "Exportiert {{count}} Notizen ({{size}})"
   },
   "notesSearch_exportCsvSuccess": {
-    "message": "Exported {{count}} notes as CSV ({{size}})"
+    "message": "Exportiert {{count}} Notizen als CSV ({{size}})"
   },
   "notesSearch_exportJsonSuccess": {
-    "message": "Exported {{count}} notes as JSON ({{size}})"
+    "message": "Exportiert {{count}} Notizen als JSON ({{size}})"
   },
   "exportNoteSuccess": {
-    "message": "Exported ({{size}})"
+    "message": "Exportiert ({{size}})"
   },
   "exportSuccess": {
-    "message": "Exported {{count}} notes ({{size}})"
+    "message": "Exportiert {{count}} Notizen ({{size}})"
   },
   "exportCsvSuccess": {
-    "message": "Exported {{count}} notes as CSV ({{size}})"
+    "message": "Exportiert {{count}} Notizen als CSV ({{size}})"
   },
   "exportJsonSuccess": {
-    "message": "Exported {{count}} notes as JSON ({{size}})"
+    "message": "Exportiert {{count}} Notizen als JSON ({{size}})"
   },
   "infoShort": {
     "message": "Info"
@@ -698,10 +773,10 @@
   "chatSidebar_foldersRequireConnection": {
     "message": "Ordner erfordern eine Serververbindung"
   },
-  "option.more.copy.canonicalMarkdown": {
+  "option_more_copy_canonicalMarkdown": {
     "message": "Copy canonical transcript"
   },
-  "option.more.download.canonicalMarkdown": {
+  "option_more_download_canonicalMarkdown": {
     "message": "Canonical transcript (Markdown)"
   }
 }

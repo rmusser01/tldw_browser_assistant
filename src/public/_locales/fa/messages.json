@@ -360,11 +360,53 @@
   "specFallbackWarning": {
     "message": "در حال استفاده از طرحوارهٔ جایگزینِ بسته‌بندی‌شدهٔ media.add (v{{version}}); اگر فیلدها قدیمی به نظر می‌رسند، لطفاً با tldw_server /openapi.json بررسی کنید."
   },
+  "serverOffline": {
+    "message": "سرور آفلاین است یا پیکربندی نشده است"
+  },
+  "serverChats": {
+    "message": "گپ‌های سرور"
+  },
+  "serverChatLoadError": {
+    "message": "بارگذاری گپ سرور ناموفق بود. اتصال خود را بررسی کرده و دوباره تلاش کنید."
+  },
+  "serverChatSourceLabel": {
+    "message": "سرور"
+  },
   "serverChatsUnavailableNotConnected": {
     "message": "پس از اتصال به سرور tldw خود، گپ‌های سرور در دسترس خواهند بود."
   },
   "serverChatsUnavailableServerError": {
     "message": "گپ‌های سرور در حال حاضر در دسترس نیستند. لاگ‌های سرور را بررسی کنید یا دوباره تلاش کنید."
+  },
+  "fileChanges": {
+    "message": "تغییرات فایل"
+  },
+  "deletions": {
+    "message": "حذف‌ها"
+  },
+  "gitOperations": {
+    "message": "عملیات Git"
+  },
+  "commands": {
+    "message": "دستورها"
+  },
+  "otherOperations": {
+    "message": "سایر عملیات"
+  },
+  "fileAccess": {
+    "message": "دسترسی به فایل‌ها"
+  },
+  "notebookEdits": {
+    "message": "ویرایش‌های دفترچه یادداشت"
+  },
+  "applyPatch": {
+    "message": "اعمال وصله"
+  },
+  "recursive": {
+    "message": "(بازگشتی)"
+  },
+  "complexArguments": {
+    "message": "[آرگومان‌های پیچیده]"
   },
   "noToolCalls": {
     "message": "هنوز هیچ فراخوانی ابزاری انجام نشده است"
@@ -437,6 +479,14 @@
   "tools_exec_run": {
     "message": "اجرای دستور",
     "description": "Label for the exec.run tool (run command)."
+  },
+  "serverChatForkedLabel": {
+    "message": "گفتگوی منشعب",
+    "description": "Label shown on chats that were forked from another server chat."
+  },
+  "serverChatForkedTooltip": {
+    "message": "منشعب از گفتگوی {{chatId}}",
+    "description": "Tooltip explaining which original server chat this chat was forked from."
   },
   "commandPalette_goToChat": {
     "message": "رفتن به چت",
@@ -543,13 +593,29 @@
     "description": "Label for the Recent items category in the command palette."
   },
   "markdown_unableToRender": {
-    "message": "Unable to render content"
+    "message": "محتوا قابل نمایش نیست"
   },
   "markdown_couldNotDisplay": {
-    "message": "The message content could not be displayed. This may be due to invalid formatting."
+    "message": "محتوای پیام قابل نمایش نبود. این ممکن است به دلیل قالب‌بندی نامعتبر باشد."
   },
   "markdown_showRawContent": {
-    "message": "Show raw content"
+    "message": "نمایش محتوای خام"
+  },
+  "status_pending": {
+    "message": "انتظار",
+    "description": "Status label for pending operations."
+  },
+  "status_running": {
+    "message": "در حال پردازش",
+    "description": "Status label for operations currently in progress."
+  },
+  "status_complete": {
+    "message": "تمام",
+    "description": "Status label for completed operations."
+  },
+  "status_error": {
+    "message": "خطا",
+    "description": "Status label for failed operations."
   },
   "notesSearch_exportNoteSuccess": {
     "message": "خروجی گرفته شد ({{size}})"
@@ -574,6 +640,15 @@
   },
   "exportJsonSuccess": {
     "message": "از {{count}} یادداشت خروجی به صورت JSON گرفته شد ({{size}})"
+  },
+  "ttsShort": {
+    "message": "صدا"
+  },
+  "copyShort": {
+    "message": "کپی"
+  },
+  "branchShort": {
+    "message": "شاخه"
   },
   "infoShort": {
     "message": "اطلاعات"
@@ -698,10 +773,10 @@
   "chatSidebar_foldersRequireConnection": {
     "message": "پوشه‌ها به اتصال به سرور نیاز دارند"
   },
-  "option.more.copy.canonicalMarkdown": {
+  "option_more_copy_canonicalMarkdown": {
     "message": "Copy canonical transcript"
   },
-  "option.more.download.canonicalMarkdown": {
+  "option_more_download_canonicalMarkdown": {
     "message": "Canonical transcript (Markdown)"
   }
 }

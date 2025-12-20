@@ -68,7 +68,16 @@ export const documentChatMode = async (
     setHistoryId,
     fileRetrievalEnabled,
     setActionInfo,
-    actorSettings
+    actorSettings,
+    clusterId,
+    userMessageType,
+    assistantMessageType,
+    modelIdOverride,
+    userMessageId,
+    assistantMessageId,
+    userParentMessageId,
+    assistantParentMessageId,
+    historyForModel
   }: {
     selectedModel: string
     useOCR: boolean
@@ -87,6 +96,15 @@ export const documentChatMode = async (
     fileRetrievalEnabled: boolean
     setActionInfo: (actionInfo: string | null) => void
     actorSettings?: ActorSettings
+    clusterId?: string
+    userMessageType?: string
+    assistantMessageType?: string
+    modelIdOverride?: string
+    userMessageId?: string
+    assistantMessageId?: string
+    userParentMessageId?: string | null
+    assistantParentMessageId?: string | null
+    historyForModel?: ChatHistory
   }
 ) => {
   const userDefaultModelSettings = await getAllDefaultModelSettings()
@@ -105,50 +123,70 @@ export const documentChatMode = async (
   const allFiles = [...sessionFiles, ...newFiles]
   const ollama = await pageAssistModel({ model: selectedModel, baseUrl: "" })
 
-  let newMessage: Message[] = []
-  let generateMessageId = generateID()
+  const resolvedAssistantMessageId = assistantMessageId ?? generateID()
+  const resolvedUserMessageId =
+    !isRegenerate ? userMessageId ?? generateID() : undefined
+  let generateMessageId = resolvedAssistantMessageId
   const modelInfo = await getModelNicknameByID(selectedModel)
 
-  if (!isRegenerate) {
-    newMessage = [
-      ...messages,
-      {
-        isBot: false,
-        name: "You",
-        message,
-        sources: [],
-        images: image ? [image] : [],
-        documents: newFiles.map((f) => ({
-          type: "file",
-          filename: f.filename,
-          fileSize: f.size
-        }))
-      },
+  const isSharedCompareUser = userMessageType === "compare:user"
+  const resolvedModelId = modelIdOverride || selectedModel
+  const userModelId = isSharedCompareUser ? undefined : resolvedModelId
+
+  setMessages((prev) => {
+    if (!isRegenerate) {
+      return [
+        ...prev,
+        {
+          isBot: false,
+          name: "You",
+          message,
+          sources: [],
+          images: image ? [image] : [],
+          documents: newFiles.map((f) => ({
+            type: "file",
+            filename: f.filename,
+            fileSize: f.size
+          })),
+          id: resolvedUserMessageId,
+          messageType: userMessageType,
+          clusterId,
+          modelId: userModelId,
+          parentMessageId: userParentMessageId ?? null
+        },
+        {
+          isBot: true,
+          name: selectedModel,
+          message: "▋",
+          sources: [],
+          id: resolvedAssistantMessageId,
+          modelImage: modelInfo?.model_avatar,
+          modelName: modelInfo?.model_name || selectedModel,
+          messageType: assistantMessageType,
+          clusterId,
+          modelId: resolvedModelId,
+          parentMessageId: assistantParentMessageId ?? null
+        }
+      ]
+    }
+
+    return [
+      ...prev,
       {
         isBot: true,
         name: selectedModel,
         message: "▋",
         sources: [],
-        id: generateMessageId,
+        id: resolvedAssistantMessageId,
         modelImage: modelInfo?.model_avatar,
-        modelName: modelInfo?.model_name || selectedModel
+        modelName: modelInfo?.model_name || selectedModel,
+        messageType: assistantMessageType,
+        clusterId,
+        modelId: resolvedModelId,
+        parentMessageId: assistantParentMessageId ?? null
       }
     ]
-  } else {
-    newMessage = [
-      ...messages,
-      {
-        isBot: true,
-        name: selectedModel,
-        message: "▋",
-        sources: [],
-        id: generateMessageId,
-        modelImage: modelInfo?.model_avatar,
-        modelName: modelInfo?.model_name || selectedModel
-      }
-    ]
-  }
-  setMessages(newMessage)
+  })
   let fullText = ""
   let contentToSave = ""
 
@@ -159,13 +197,25 @@ export const documentChatMode = async (
     let query = message
     const { ragPrompt: systemPrompt, ragQuestionPrompt: questionPrompt } =
       await promptForRag()
+    const contextMessages = isRegenerate
+      ? messages
+      : [
+          ...messages,
+          {
+            isBot: false,
+            name: "You",
+            message,
+            sources: [],
+            images: image ? [image] : []
+          }
+        ]
 
     let context: string = ""
     let source: any[] = []
     const docSize = await getNoOfRetrievedDocs()
 
-    if (newMessage.length > 2) {
-      const lastTenMessages = newMessage.slice(-10)
+    if (contextMessages.length > 2) {
+      const lastTenMessages = contextMessages.slice(-10)
       lastTenMessages.pop()
       const chat_history = lastTenMessages
         .map((message) => {
@@ -281,7 +331,10 @@ export const documentChatMode = async (
       useOCR: useOCR
     })
 
-    let applicationChatHistory = generateHistory(history, selectedModel)
+    let applicationChatHistory = generateHistory(
+      historyForModel ?? history,
+      selectedModel
+    )
 
     const templatesActive = false
     applicationChatHistory = await maybeInjectActorMessage(
@@ -405,6 +458,15 @@ export const documentChatMode = async (
       image,
       fullText,
       source,
+      userMessageType,
+      assistantMessageType,
+      clusterId,
+      modelId: resolvedModelId,
+      userModelId,
+      userMessageId: resolvedUserMessageId,
+      assistantMessageId: resolvedAssistantMessageId,
+      userParentMessageId: userParentMessageId ?? null,
+      assistantParentMessageId: assistantParentMessageId ?? null,
       generationInfo,
       reasoning_time_taken: timetaken,
       documents: uploadedFiles.map((f) => ({
@@ -435,7 +497,16 @@ export const documentChatMode = async (
       setHistory,
       setHistoryId,
       userMessage: message,
-      isRegenerating: isRegenerate
+      isRegenerating: isRegenerate,
+      userMessageType,
+      assistantMessageType,
+      clusterId,
+      modelId: resolvedModelId,
+      userModelId,
+      userMessageId: resolvedUserMessageId,
+      assistantMessageId: resolvedAssistantMessageId,
+      userParentMessageId: userParentMessageId ?? null,
+      assistantParentMessageId: assistantParentMessageId ?? null
     })
 
     if (!errorSave) {

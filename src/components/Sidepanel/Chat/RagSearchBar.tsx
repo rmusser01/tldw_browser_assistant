@@ -1,5 +1,6 @@
 import React, { useState } from "react"
 import { Input, Select, Button, Tag, Space, Tooltip, Spin, List, InputNumber } from "antd"
+import type { InputRef } from "antd"
 import { X } from "lucide-react"
 import { useStorage } from "@plasmohq/storage/hook"
 import { tldwClient } from "@/services/tldw/TldwApiClient"
@@ -10,6 +11,11 @@ type Props = {
   onInsert: (text: string) => void
   onAsk: (text: string) => void
   isConnected?: boolean
+  open?: boolean
+  onOpenChange?: (nextOpen: boolean) => void
+  autoFocus?: boolean
+  showToggle?: boolean
+  variant?: "card" | "embedded"
 }
 
 type RagResult = {
@@ -35,9 +41,32 @@ const dateRanges = [
   { label: "Last 90 days", value: "90" }
 ]
 
-export const RagSearchBar: React.FC<Props> = ({ onInsert, onAsk, isConnected = true }) => {
+export const RagSearchBar: React.FC<Props> = ({
+  onInsert,
+  onAsk,
+  isConnected = true,
+  open,
+  onOpenChange,
+  autoFocus = true,
+  showToggle = true,
+  variant = "card"
+}) => {
   const { t } = useTranslation(['sidepanel'])
-  const [open, setOpen] = useState(false)
+  const [internalOpen, setInternalOpen] = useState(false)
+  const isControlled = typeof open === "boolean"
+  const isOpen = isControlled ? open : internalOpen
+  const setOpenState = React.useCallback(
+    (next: boolean) => {
+      if (isControlled) {
+        onOpenChange?.(next)
+        return
+      }
+      setInternalOpen(next)
+      onOpenChange?.(next)
+    },
+    [isControlled, onOpenChange]
+  )
+  const searchInputRef = React.useRef<InputRef | null>(null)
   const [ragHintSeen, setRagHintSeen] = useStorage<boolean>('ragSearchHintSeen', false)
   const [q, setQ] = useState("")
   const [type, setType] = useState("")
@@ -101,26 +130,40 @@ export const RagSearchBar: React.FC<Props> = ({ onInsert, onAsk, isConnected = t
 
   // Allow toolbar button to toggle this panel without prop drilling
   React.useEffect(() => {
-    const handler = () => setOpen((v) => !v)
+    const handler = () => setOpenState(!isOpen)
     window.addEventListener("tldw:toggle-rag", handler)
     return () => window.removeEventListener("tldw:toggle-rag", handler)
-  }, [])
+  }, [isOpen, setOpenState])
+
+  React.useEffect(() => {
+    if (!isOpen || !autoFocus) return
+    const id = requestAnimationFrame(() => searchInputRef.current?.focus())
+    return () => cancelAnimationFrame(id)
+  }, [isOpen, autoFocus])
+
+  const wrapperClassName = variant === "embedded" ? "w-full" : "w-full mb-2"
+  const panelClassName =
+    variant === "embedded"
+      ? "relative rounded-md"
+      : "p-2 rounded border border-gray-200 dark:border-gray-600 bg-white dark:bg-[#1f1f1f] mb-2 relative"
 
   return (
-    <div className="w-full mb-2">
-      <div className="flex items-center justify-between mb-1">
-        <button
-          type="button"
-          className="text-xs text-gray-600 dark:text-gray-300 underline md:hidden"
-          onClick={() => setOpen(!open)}
-        >
-          {open
-            ? t("sidepanel:rag.hide", "Hide RAG search")
-            : t("sidepanel:rag.show", "Show RAG search")}
-        </button>
-      </div>
-      {open && (
-        <div className="p-2 rounded border border-gray-200 dark:border-gray-600 bg-white dark:bg-[#1f1f1f] mb-2 relative">
+    <div className={wrapperClassName}>
+      {showToggle && (
+        <div className="flex items-center justify-between mb-1">
+          <button
+            type="button"
+            className="text-xs text-gray-600 dark:text-gray-300 underline md:hidden"
+            onClick={() => setOpenState(!isOpen)}
+          >
+            {isOpen
+              ? t("sidepanel:rag.hide", "Hide RAG search")
+              : t("sidepanel:rag.show", "Show RAG search")}
+          </button>
+        </div>
+      )}
+      {isOpen && (
+        <div className={panelClassName}>
           {/* Disconnected overlay */}
           {!isConnected && (
             <div className="absolute inset-0 z-10 bg-gray-100/90 dark:bg-gray-900/90 flex items-center justify-center rounded">
@@ -149,6 +192,7 @@ export const RagSearchBar: React.FC<Props> = ({ onInsert, onAsk, isConnected = t
           )}
           <div className="flex gap-2 items-center mb-2">
             <Input
+              ref={searchInputRef}
               placeholder={t('sidepanel:rag.searchPlaceholder')}
               value={q}
               onChange={(e) => setQ(e.target.value)}

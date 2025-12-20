@@ -1,5 +1,5 @@
 import React from "react"
-import { useMessageOption, MAX_COMPARE_MODELS } from "~/hooks/useMessageOption"
+import { useMessageOption } from "~/hooks/useMessageOption"
 import { PlaygroundEmpty } from "./PlaygroundEmpty"
 import { PlaygroundMessage } from "~/components/Common/Playground/Message"
 import { MessageSourcePopup } from "@/components/Common/Playground/MessageSourcePopup"
@@ -100,12 +100,15 @@ export const PlaygroundChat = () => {
     onSubmit,
     actionInfo,
     createChatBranch,
+    createCompareBranch,
     temporaryChat,
     serverChatId,
     stopStreamingRequest,
     isEmbedding,
     compareSelectionByCluster,
     setCompareSelectionForCluster,
+    compareActiveModelsByCluster,
+    setCompareActiveModelsForCluster,
     setCompareSelectedModels,
     historyId,
     setSelectedModel,
@@ -187,6 +190,54 @@ export const PlaygroundChat = () => {
             index: i,
             message: messages[i]
           }))
+          const clusterSelection =
+            compareSelectionByCluster[block.clusterId] || []
+          const clusterActiveModels =
+            compareActiveModelsByCluster[block.clusterId] || clusterSelection
+          const modelLabels = new Map<string, string>()
+          replies.forEach(({ message }) => {
+            const key =
+              (message as any).modelId || message.modelName || message.name
+            if (!modelLabels.has(key)) {
+              modelLabels.set(key, message?.modelName || message.name || key)
+            }
+          })
+          const getModelLabel = (modelKey: string) =>
+            modelLabels.get(modelKey) || modelKey
+          const handleContinueWithModel = (modelKey: string) => {
+            setCompareMode(false)
+            setSelectedModel(modelKey)
+            setCompareSelectedModels([modelKey])
+            setCompareActiveModelsForCluster(block.clusterId, [modelKey])
+          }
+
+          const handleBulkSplit = async () => {
+            const createdIds: string[] = []
+            for (const modelKey of clusterSelection) {
+              const newHistoryId = await createCompareBranch({
+                clusterId: block.clusterId,
+                modelId: modelKey,
+                open: false
+              })
+              if (newHistoryId && historyId) {
+                setCompareParentForHistory(newHistoryId, {
+                  parentHistoryId: historyId,
+                  clusterId: block.clusterId
+                })
+                setCompareSplitChat(block.clusterId, modelKey, newHistoryId)
+                createdIds.push(newHistoryId)
+              }
+            }
+            if (createdIds.length > 0) {
+              notification.success({
+                message: t(
+                  "playground:composer.compareBulkSplitSuccess",
+                  "Created {{count}} chats",
+                  { count: createdIds.length }
+                )
+              })
+            }
+          }
 
           return (
             <div
@@ -257,69 +308,27 @@ export const PlaygroundChat = () => {
                     )}
                   </span>
                 </div>
-                {(() => {
-                  const clusterSelection =
-                    compareSelectionByCluster[block.clusterId] || []
-                  if (clusterSelection.length > 1) {
-                    const clusterIndices = messages
-                      .map((m: any, idx) =>
-                        m.clusterId === block.clusterId ? idx : -1
-                      )
-                      .filter((i) => i >= 0)
-                    const lastClusterIndex =
-                      clusterIndices.length > 0
-                        ? clusterIndices[clusterIndices.length - 1]
-                        : block.userIndex
-
-                    const handleBulkSplit = async () => {
-                      // Open a branched chat for each selected model.
-                      for (const modelKey of clusterSelection) {
-                        const newHistoryId =
-                          await createChatBranch(lastClusterIndex)
-                        if (newHistoryId && historyId) {
-                          setCompareParentForHistory(newHistoryId, {
-                            parentHistoryId: historyId,
-                            clusterId: block.clusterId
-                          })
-                          setCompareSplitChat(
-                            block.clusterId,
-                            modelKey,
-                            newHistoryId
-                          )
-                        }
-                        if (modelKey) {
-                          setCompareMode(false)
-                          setSelectedModel(modelKey)
-                        }
-                      }
-                    }
-
-                    return (
-                      <div className="mb-2 flex items-center justify-between text-[11px] text-gray-500 dark:text-gray-400">
-                        <span>
-                          {t(
-                            "playground:composer.compareBulkSplitHint",
-                            "Selected models: {{count}}",
-                            { count: clusterSelection.length }
-                          )}
-                        </span>
-                        <button
-                          type="button"
-                          onClick={handleBulkSplit}
-                          className="rounded border border-gray-300 bg-white px-2 py-0.5 text-[10px] font-medium text-gray-700 hover:bg-gray-50 dark:border-gray-600 dark:bg-gray-900 dark:text-gray-100 dark:hover:bg-gray-800">
-                          {t(
-                            "playground:composer.compareBulkSplit",
-                            "Open each selected answer as its own chat"
-                          )}
-                        </button>
-                      </div>
-                    )
-                  }
-                  return null
-                })()}
+                {clusterSelection.length > 1 && (
+                  <div className="mb-2 flex items-center justify-between text-[11px] text-gray-500 dark:text-gray-400">
+                    <span>
+                      {t(
+                        "playground:composer.compareBulkSplitHint",
+                        "Selected models: {{count}}",
+                        { count: clusterSelection.length }
+                      )}
+                    </span>
+                    <button
+                      type="button"
+                      onClick={handleBulkSplit}
+                      className="rounded border border-gray-300 bg-white px-2 py-0.5 text-[10px] font-medium text-gray-700 hover:bg-gray-50 dark:border-gray-600 dark:bg-gray-900 dark:text-gray-100 dark:hover:bg-gray-800">
+                      {t(
+                        "playground:composer.compareBulkSplit",
+                        "Open each selected answer as its own chat"
+                      )}
+                    </button>
+                  </div>
+                )}
                 {replies.map(({ index, message }) => {
-                  const clusterSelection =
-                    compareSelectionByCluster[block.clusterId] || []
                   const modelKey =
                     (message as any).modelId || message.modelName || message.name
                   const isSelected = clusterSelection.includes(modelKey)
@@ -350,6 +359,7 @@ export const PlaygroundChat = () => {
                       return
                     }
                     setCompareSelectionForCluster(block.clusterId, next)
+                    setCompareActiveModelsForCluster(block.clusterId, next)
                     setCompareSelectedModels(next)
                   }
 
@@ -360,24 +370,18 @@ export const PlaygroundChat = () => {
                     .filter(
                       ({ m }) =>
                         m.clusterId === block.clusterId &&
-                        (((m as any).modelId || m.modelName || m.name) ===
-                          modelKey)
+                        (m.messageType === "compare:user" ||
+                          ((m as any).modelId || m.modelName || m.name) ===
+                            modelKey)
                     )
 
                   const threadPreviewItems = clusterMessagesForModel.slice(-4)
 
-                  const clusterIndices = messages
-                    .map((m: any, idx) =>
-                      m.clusterId === block.clusterId ? idx : -1
-                    )
-                    .filter((i) => i >= 0)
-                  const lastClusterIndex =
-                    clusterIndices.length > 0
-                      ? clusterIndices[clusterIndices.length - 1]
-                      : index
-
                   const handleOpenFullChat = async () => {
-                    const newHistoryId = await createChatBranch(lastClusterIndex)
+                    const newHistoryId = await createCompareBranch({
+                      clusterId: block.clusterId,
+                      modelId: modelKey
+                    })
                     if (newHistoryId && historyId) {
                       setCompareParentForHistory(newHistoryId, {
                         parentHistoryId: historyId,
@@ -392,6 +396,7 @@ export const PlaygroundChat = () => {
                     if (modelKey) {
                       setCompareMode(false)
                       setSelectedModel(modelKey)
+                      setCompareSelectedModels([modelKey])
                     }
                   }
 
@@ -476,10 +481,15 @@ export const PlaygroundChat = () => {
                               <span className="font-semibold">
                                 {m.isBot
                                   ? m.modelName || m.name
-                                  : t(
-                                      "playground:composer.compareThreadYou",
-                                      "You"
-                                    )}
+                                  : m.messageType === "compare:user"
+                                    ? t(
+                                        "playground:composer.compareThreadShared",
+                                        "You (shared)"
+                                      )
+                                    : t(
+                                        "playground:composer.compareThreadYou",
+                                        "You"
+                                      )}
                                 :
                               </span>
                               <span className="line-clamp-2">
@@ -555,6 +565,56 @@ export const PlaygroundChat = () => {
                     </div>
                   )
                 })}
+
+                {clusterSelection.length > 0 && (
+                  <div className="mt-2 rounded-md border border-gray-200 bg-gray-50 px-3 py-2 text-[11px] text-gray-600 dark:border-gray-700 dark:bg-gray-900/40 dark:text-gray-300">
+                    <div className="flex flex-wrap items-center gap-2">
+                      <span className="font-medium">
+                        {t(
+                          "playground:composer.compareSelectedLabel",
+                          "Selected as answer:"
+                        )}
+                      </span>
+                      <div className="flex flex-wrap gap-1">
+                        {clusterSelection.map((modelKey) => (
+                          <span
+                            key={`selected-${block.clusterId}-${modelKey}`}
+                            className="rounded-full bg-white px-2 py-0.5 text-[10px] font-medium text-gray-700 shadow-sm dark:bg-gray-800 dark:text-gray-200">
+                            {getModelLabel(modelKey)}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                    {clusterActiveModels.length === 1 ? (
+                      <div className="mt-2 flex items-center justify-between">
+                        <span className="text-[10px] text-gray-500 dark:text-gray-400">
+                          {t(
+                            "playground:composer.compareContinueHint",
+                            "Continue this chat with the selected model."
+                          )}
+                        </span>
+                        <button
+                          type="button"
+                          onClick={() =>
+                            handleContinueWithModel(clusterActiveModels[0])
+                          }
+                          className="rounded border border-blue-500 bg-blue-600 px-2 py-0.5 text-[10px] font-medium text-white hover:bg-blue-500">
+                          {t(
+                            "playground:composer.compareContinue",
+                            "Continue with this model"
+                          )}
+                        </button>
+                      </div>
+                    ) : (
+                      <div className="mt-2 text-[10px] text-gray-500 dark:text-gray-400">
+                        {t(
+                          "playground:composer.compareActiveModelsHint",
+                          "Your next message will be sent to each active model."
+                        )}
+                      </div>
+                    )}
+                  </div>
+                )}
 
                 {(() => {
                   const canonicalId =

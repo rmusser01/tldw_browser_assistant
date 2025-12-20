@@ -360,6 +360,81 @@
   "specFallbackWarning": {
     "message": "In uso lo schema di fallback media.add incluso (v{{version}}); verifica sul tuo tldw_server /openapi.json se i campi sembrano obsoleti."
   },
+  "serverOffline": {
+    "message": "Server offline o non configurato"
+  },
+  "serverChats": {
+    "message": "Chat del server"
+  },
+  "serverChatLoadError": {
+    "message": "Impossibile caricare la chat del server. Controlla la connessione e riprova."
+  },
+  "serverChatSourceLabel": {
+    "message": "Origine server"
+  },
+  "serverChatForkedLabel": {
+    "message": "Chat derivata",
+    "description": "Label shown on chats that were forked from another server chat."
+  },
+  "serverChatForkedTooltip": {
+    "message": "Derivata dalla chat {{chatId}}",
+    "description": "Tooltip explaining which original server chat this chat was forked from."
+  },
+  "fileChanges": {
+    "message": "Modifiche ai file"
+  },
+  "deletions": {
+    "message": "Eliminazioni"
+  },
+  "gitOperations": {
+    "message": "Operazioni Git"
+  },
+  "commands": {
+    "message": "Comandi"
+  },
+  "otherOperations": {
+    "message": "Altre operazioni"
+  },
+  "fileAccess": {
+    "message": "Accesso ai file"
+  },
+  "notebookEdits": {
+    "message": "Modifiche al taccuino"
+  },
+  "applyPatch": {
+    "message": "Applica patch"
+  },
+  "recursive": {
+    "message": "(ricorsivo)"
+  },
+  "complexArguments": {
+    "message": "[Argomenti complessi]"
+  },
+  "status_pending": {
+    "message": "In attesa",
+    "description": "Status label for pending operations."
+  },
+  "status_running": {
+    "message": "In corso",
+    "description": "Status label for operations currently in progress."
+  },
+  "status_complete": {
+    "message": "Completato",
+    "description": "Status label for completed operations."
+  },
+  "status_error": {
+    "message": "Errore",
+    "description": "Status label for failed operations."
+  },
+  "ttsShort": {
+    "message": "Voce"
+  },
+  "copyShort": {
+    "message": "Copia"
+  },
+  "branchShort": {
+    "message": "Ramo"
+  },
   "serverChatsUnavailableNotConnected": {
     "message": "Le chat del server saranno disponibili una volta connesso al tuo server tldw."
   },
@@ -698,10 +773,10 @@
   "chatSidebar_foldersRequireConnection": {
     "message": "Le cartelle richiedono una connessione al server"
   },
-  "option.more.copy.canonicalMarkdown": {
+  "option_more_copy_canonicalMarkdown": {
     "message": "Copy canonical transcript"
   },
-  "option.more.download.canonicalMarkdown": {
+  "option_more_download_canonicalMarkdown": {
     "message": "Canonical transcript (Markdown)"
   }
 }

@@ -38,6 +38,7 @@ export type Message = {
   // Compare/multi-model metadata (in-memory only)
   clusterId?: string
   modelId?: string
+  parentMessageId?: string | null
 }
 
 export type ChatHistory = {
@@ -151,6 +152,8 @@ type State = {
   setCompareSelectedModels: (models: string[]) => void
   compareSelectionByCluster: Record<string, string[]>
   setCompareSelectionForCluster: (clusterId: string, models: string[]) => void
+  compareActiveModelsByCluster: Record<string, string[]>
+  setCompareActiveModelsForCluster: (clusterId: string, models: string[]) => void
   // Compare breadcrumbs / canonical state
   compareParentByHistory: Record<
     string,
@@ -300,6 +303,14 @@ export const useStoreMessageOption = create<State>((set) => ({
     set((state) => ({
       compareSelectionByCluster: {
         ...state.compareSelectionByCluster,
+        [clusterId]: models
+      }
+    })),
+  compareActiveModelsByCluster: {},
+  setCompareActiveModelsForCluster: (clusterId, models) =>
+    set((state) => ({
+      compareActiveModelsByCluster: {
+        ...state.compareActiveModelsByCluster,
         [clusterId]: models
       }
     })),

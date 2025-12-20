@@ -87,6 +87,81 @@
     "message": "使用內建 media.add 綱要備用版本（v{{version}}）；若欄位似乎過時，請對照您的 tldw_server /openapi.json 進行驗證。",
     "description": "Warning shown when the Quick Ingest advanced schema falls back to the bundled schema; contains the bundled schema version."
   },
+  "serverOffline": {
+    "message": "伺服器離線或尚未設定"
+  },
+  "serverChats": {
+    "message": "伺服器聊天"
+  },
+  "serverChatLoadError": {
+    "message": "無法載入伺服器聊天。請檢查連線後再試一次。"
+  },
+  "serverChatSourceLabel": {
+    "message": "伺服器來源"
+  },
+  "serverChatForkedLabel": {
+    "message": "分叉聊天",
+    "description": "Label shown on chats that were forked from another server chat."
+  },
+  "serverChatForkedTooltip": {
+    "message": "從聊天 {{chatId}} 分叉",
+    "description": "Tooltip explaining which original server chat this chat was forked from."
+  },
+  "fileChanges": {
+    "message": "檔案變更"
+  },
+  "deletions": {
+    "message": "刪除作業"
+  },
+  "gitOperations": {
+    "message": "Git 操作"
+  },
+  "commands": {
+    "message": "指令"
+  },
+  "otherOperations": {
+    "message": "其他作業"
+  },
+  "fileAccess": {
+    "message": "檔案存取"
+  },
+  "notebookEdits": {
+    "message": "筆記本編輯"
+  },
+  "applyPatch": {
+    "message": "套用補丁"
+  },
+  "recursive": {
+    "message": "(遞迴)"
+  },
+  "complexArguments": {
+    "message": "[複雜參數]"
+  },
+  "status_pending": {
+    "message": "待處理",
+    "description": "Status label for pending operations."
+  },
+  "status_running": {
+    "message": "處理中",
+    "description": "Status label for operations currently in progress."
+  },
+  "status_complete": {
+    "message": "已完成",
+    "description": "Status label for completed operations."
+  },
+  "status_error": {
+    "message": "錯誤",
+    "description": "Status label for failed operations."
+  },
+  "ttsShort": {
+    "message": "語音"
+  },
+  "copyShort": {
+    "message": "複製"
+  },
+  "branchShort": {
+    "message": "分支"
+  },
   "serverChatsUnavailableNotConnected": {
     "message": "連線到 tldw 伺服器後即可使用伺服器聊天。"
   },
@@ -425,10 +500,10 @@
   "chatSidebar_foldersRequireConnection": {
     "message": "資料夾需要伺服器連線"
   },
-  "option.more.copy.canonicalMarkdown": {
+  "option_more_copy_canonicalMarkdown": {
     "message": "Copy canonical transcript"
   },
-  "option.more.download.canonicalMarkdown": {
+  "option_more_download_canonicalMarkdown": {
     "message": "Canonical transcript (Markdown)"
   }
 }

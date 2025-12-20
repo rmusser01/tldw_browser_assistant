@@ -35,6 +35,7 @@ const OptionSettingsEvaluations = lazy(() => import("./option-settings-evaluatio
 const OptionPromptStudio = lazy(() => import("./option-prompt-studio"))
 const OptionSettingsPromptStudio = lazy(() => import("./option-settings-prompt-studio"))
 const OptionChatSettings = lazy(() => import("./option-settings-chat"))
+const OptionContentReview = lazy(() => import("./option-content-review"))
 
 export const OptionRoutingFirefox = () => {
   return (
@@ -61,6 +62,7 @@ export const OptionRoutingFirefox = () => {
       <Route path="/flashcards" element={<OptionFlashcards />} />
       <Route path="/media" element={<OptionMedia />} />
       <Route path="/media-multi" element={<OptionMediaMulti />} />
+      <Route path="/content-review" element={<OptionContentReview />} />
       <Route path="/notes" element={<OptionNotes />} />
       <Route path="/knowledge" element={<OptionKnowledgeWorkspace />} />
       <Route path="/world-books" element={<OptionWorldBooksWorkspace />} />

@@ -408,11 +408,53 @@
     "message": "Используется встроенный резервный вариант схемы media.add (v{{version}}); проверьте tldw_server /openapi.json, если поля выглядят устаревшими.",
     "description": "Warning shown when the Quick Ingest advanced schema falls back to the bundled schema; contains the bundled schema version."
   },
+  "serverOffline": {
+    "message": "Сервер не работает или не настроен"
+  },
+  "serverChats": {
+    "message": "Серверные чаты"
+  },
+  "serverChatLoadError": {
+    "message": "Не удалось загрузить серверный чат. Проверьте соединение и попробуйте снова."
+  },
+  "serverChatSourceLabel": {
+    "message": "Источник сервера"
+  },
   "serverChatsUnavailableNotConnected": {
     "message": "Серверные чаты будут доступны после подключения к вашему серверу tldw."
   },
   "serverChatsUnavailableServerError": {
     "message": "Серверные чаты сейчас недоступны. Проверьте журналы сервера или попробуйте снова."
+  },
+  "fileChanges": {
+    "message": "Изменения файлов"
+  },
+  "deletions": {
+    "message": "Удаления"
+  },
+  "gitOperations": {
+    "message": "Операции Git"
+  },
+  "commands": {
+    "message": "Команды"
+  },
+  "otherOperations": {
+    "message": "Другие операции"
+  },
+  "fileAccess": {
+    "message": "Доступ к файлам"
+  },
+  "notebookEdits": {
+    "message": "Правки блокнота"
+  },
+  "applyPatch": {
+    "message": "Применить патч"
+  },
+  "recursive": {
+    "message": "(рекурсивно)"
+  },
+  "complexArguments": {
+    "message": "[Сложные аргументы]"
   },
   "noToolCalls": {
     "message": "Пока нет вызовов инструментов"
@@ -485,6 +527,14 @@
   "tools_exec_run": {
     "message": "Выполнить команду",
     "description": "Label for the exec.run tool (run command)."
+  },
+  "serverChatForkedLabel": {
+    "message": "Разветвлённый чат",
+    "description": "Label shown on chats that were forked from another server chat."
+  },
+  "serverChatForkedTooltip": {
+    "message": "Разветвлён от чата {{chatId}}",
+    "description": "Tooltip explaining which original server chat this chat was forked from."
   },
   "commandPalette_goToChat": {
     "message": "Перейти к чату",
@@ -591,37 +641,62 @@
     "description": "Label for the Recent items category in the command palette."
   },
   "markdown_unableToRender": {
-    "message": "Unable to render content"
+    "message": "Не удалось отобразить содержимое"
   },
   "markdown_couldNotDisplay": {
-    "message": "The message content could not be displayed. This may be due to invalid formatting."
+    "message": "Содержимое сообщения не удалось отобразить. Возможно, причина в неверном форматировании."
   },
   "markdown_showRawContent": {
-    "message": "Show raw content"
+    "message": "Показать исходный текст"
+  },
+  "status_pending": {
+    "message": "Ожидание",
+    "description": "Status label for pending operations."
+  },
+  "status_running": {
+    "message": "Обработка",
+    "description": "Status label for operations currently in progress."
+  },
+  "status_complete": {
+    "message": "Завершено",
+    "description": "Status label for completed operations."
+  },
+  "status_error": {
+    "message": "Ошибка",
+    "description": "Status label for failed operations."
   },
   "notesSearch_exportNoteSuccess": {
-    "message": "Exported ({{size}})"
+    "message": "Экспортировано ({{size}})"
   },
   "notesSearch_exportSuccess": {
-    "message": "Exported {{count}} notes ({{size}})"
+    "message": "Экспортировано {{count}} заметок ({{size}})"
   },
   "notesSearch_exportCsvSuccess": {
-    "message": "Exported {{count}} notes as CSV ({{size}})"
+    "message": "Экспортировано {{count}} заметок в CSV ({{size}})"
   },
   "notesSearch_exportJsonSuccess": {
-    "message": "Exported {{count}} notes as JSON ({{size}})"
+    "message": "Экспортировано {{count}} заметок в JSON ({{size}})"
   },
   "exportNoteSuccess": {
-    "message": "Exported ({{size}})"
+    "message": "Экспортировано ({{size}})"
   },
   "exportSuccess": {
-    "message": "Exported {{count}} notes ({{size}})"
+    "message": "Экспортировано {{count}} заметок ({{size}})"
   },
   "exportCsvSuccess": {
-    "message": "Exported {{count}} notes as CSV ({{size}})"
+    "message": "Экспортировано {{count}} заметок в CSV ({{size}})"
   },
   "exportJsonSuccess": {
-    "message": "Exported {{count}} notes as JSON ({{size}})"
+    "message": "Экспортировано {{count}} заметок в JSON ({{size}})"
+  },
+  "ttsShort": {
+    "message": "Голос"
+  },
+  "copyShort": {
+    "message": "Копировать"
+  },
+  "branchShort": {
+    "message": "Ветка"
   },
   "infoShort": {
     "message": "Инфо"
@@ -746,10 +821,10 @@
   "chatSidebar_foldersRequireConnection": {
     "message": "Папки требуют подключения к серверу"
   },
-  "option.more.copy.canonicalMarkdown": {
+  "option_more_copy_canonicalMarkdown": {
     "message": "Copy canonical transcript"
   },
-  "option.more.download.canonicalMarkdown": {
+  "option_more_download_canonicalMarkdown": {
     "message": "Canonical transcript (Markdown)"
   }
 }

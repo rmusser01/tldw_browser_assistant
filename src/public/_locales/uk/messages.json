@@ -234,6 +234,81 @@
   "specFallbackWarning": {
     "message": "Використовується вбудований резервний варіант схеми media.add (v{{version}}); перевірте tldw_server /openapi.json, якщо поля виглядають застарілими."
   },
+  "serverOffline": {
+    "message": "Сервер вимкнений або не налаштований"
+  },
+  "serverChats": {
+    "message": "Серверні чати"
+  },
+  "serverChatLoadError": {
+    "message": "Не вдалося завантажити серверний чат. Перевірте підключення та спробуйте ще раз."
+  },
+  "serverChatSourceLabel": {
+    "message": "Джерело сервера"
+  },
+  "serverChatForkedLabel": {
+    "message": "Розгалужений чат",
+    "description": "Label shown on chats that were forked from another server chat."
+  },
+  "serverChatForkedTooltip": {
+    "message": "Розгалужено від чату {{chatId}}",
+    "description": "Tooltip explaining which original server chat this chat was forked from."
+  },
+  "fileChanges": {
+    "message": "Зміни файлів"
+  },
+  "deletions": {
+    "message": "Видалення"
+  },
+  "gitOperations": {
+    "message": "Операції Git"
+  },
+  "commands": {
+    "message": "Команди"
+  },
+  "otherOperations": {
+    "message": "Інші операції"
+  },
+  "fileAccess": {
+    "message": "Доступ до файлів"
+  },
+  "notebookEdits": {
+    "message": "Редагування нотатника"
+  },
+  "applyPatch": {
+    "message": "Застосувати патч"
+  },
+  "recursive": {
+    "message": "(рекурсивно)"
+  },
+  "complexArguments": {
+    "message": "[Складні аргументи]"
+  },
+  "status_pending": {
+    "message": "Очікування",
+    "description": "Status label for pending operations."
+  },
+  "status_running": {
+    "message": "Обробка",
+    "description": "Status label for operations currently in progress."
+  },
+  "status_complete": {
+    "message": "Завершено",
+    "description": "Status label for completed operations."
+  },
+  "status_error": {
+    "message": "Помилка",
+    "description": "Status label for failed operations."
+  },
+  "ttsShort": {
+    "message": "Голос"
+  },
+  "copyShort": {
+    "message": "Копіювати"
+  },
+  "branchShort": {
+    "message": "Гілка"
+  },
   "serverChatsUnavailableNotConnected": {
     "message": "Серверні чати будуть доступні після підключення до вашого сервера tldw."
   },
@@ -672,11 +747,11 @@
     "message": "Закрити",
     "description": "Button label to dismiss the knowledge search hint."
   },
-  "option.more.copy.canonicalMarkdown": {
+  "option_more_copy_canonicalMarkdown": {
     "message": "Копіювати канонічну транскрипцію",
     "description": "Button label to copy the canonical transcript."
   },
-  "option.more.download.canonicalMarkdown": {
+  "option_more_download_canonicalMarkdown": {
     "message": "Канонічна транскрипція (Markdown)",
     "description": "Menu label to download the canonical transcript as Markdown."
   }

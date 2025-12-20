@@ -360,6 +360,81 @@
   "specFallbackWarning": {
     "message": "Bruker innebygd media.add-skjemafallback (v{{version}}); vennligst verifiser mot tldw_server /openapi.json hvis feltene ser utdaterte ut."
   },
+  "serverOffline": {
+    "message": "Server frakoblet eller ikke konfigurert"
+  },
+  "serverChats": {
+    "message": "Serverchatter"
+  },
+  "serverChatLoadError": {
+    "message": "Kunne ikke laste server-chat. Kontroller tilkoblingen og prøv igjen."
+  },
+  "serverChatSourceLabel": {
+    "message": "Serverkilde"
+  },
+  "serverChatForkedLabel": {
+    "message": "Forgrenet chat",
+    "description": "Label shown on chats that were forked from another server chat."
+  },
+  "serverChatForkedTooltip": {
+    "message": "Forgrenet fra chat {{chatId}}",
+    "description": "Tooltip explaining which original server chat this chat was forked from."
+  },
+  "fileChanges": {
+    "message": "Filendringer"
+  },
+  "deletions": {
+    "message": "Slettinger"
+  },
+  "gitOperations": {
+    "message": "Git-operasjoner"
+  },
+  "commands": {
+    "message": "Kommandoer"
+  },
+  "otherOperations": {
+    "message": "Andre operasjoner"
+  },
+  "fileAccess": {
+    "message": "Filtilgang"
+  },
+  "notebookEdits": {
+    "message": "Notatbokendringer"
+  },
+  "applyPatch": {
+    "message": "Bruk patch"
+  },
+  "recursive": {
+    "message": "(rekursiv)"
+  },
+  "complexArguments": {
+    "message": "[Komplekse argumenter]"
+  },
+  "status_pending": {
+    "message": "Venter",
+    "description": "Status label for pending operations."
+  },
+  "status_running": {
+    "message": "Behandler",
+    "description": "Status label for operations currently in progress."
+  },
+  "status_complete": {
+    "message": "Ferdig",
+    "description": "Status label for completed operations."
+  },
+  "status_error": {
+    "message": "Feil",
+    "description": "Status label for failed operations."
+  },
+  "ttsShort": {
+    "message": "Tale"
+  },
+  "copyShort": {
+    "message": "Kopier"
+  },
+  "branchShort": {
+    "message": "Gren"
+  },
   "serverChatsUnavailableNotConnected": {
     "message": "Serverchatter blir tilgjengelige når du kobler til tldw-serveren din."
   },

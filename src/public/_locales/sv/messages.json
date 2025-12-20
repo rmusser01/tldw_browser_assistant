@@ -361,6 +361,81 @@
   "specFallbackWarning": {
     "message": "Använder inbyggd reservschema för media.add (v{{version}}); verifiera mot din tldw_server /openapi.json om fälten verkar inaktuella."
   },
+  "serverOffline": {
+    "message": "Servern är offline eller inte konfigurerad"
+  },
+  "serverChats": {
+    "message": "Serverchattar"
+  },
+  "serverChatLoadError": {
+    "message": "Det gick inte att läsa in serverchatt. Kontrollera anslutningen och försök igen."
+  },
+  "serverChatSourceLabel": {
+    "message": "Serverkälla"
+  },
+  "serverChatForkedLabel": {
+    "message": "Förgrenad chatt",
+    "description": "Label shown on chats that were forked from another server chat."
+  },
+  "serverChatForkedTooltip": {
+    "message": "Förgrenad från chatten {{chatId}}",
+    "description": "Tooltip explaining which original server chat this chat was forked from."
+  },
+  "fileChanges": {
+    "message": "Filändringar"
+  },
+  "deletions": {
+    "message": "Raderingar"
+  },
+  "gitOperations": {
+    "message": "Git‑åtgärder"
+  },
+  "commands": {
+    "message": "Kommandon"
+  },
+  "otherOperations": {
+    "message": "Andra åtgärder"
+  },
+  "fileAccess": {
+    "message": "Filåtkomst"
+  },
+  "notebookEdits": {
+    "message": "Ändringar i anteckningsbok"
+  },
+  "applyPatch": {
+    "message": "Applicera patch"
+  },
+  "recursive": {
+    "message": "(rekursivt)"
+  },
+  "complexArguments": {
+    "message": "[Komplexa argument]"
+  },
+  "status_pending": {
+    "message": "Väntar",
+    "description": "Status label for pending operations."
+  },
+  "status_running": {
+    "message": "Bearbetar",
+    "description": "Status label for operations currently in progress."
+  },
+  "status_complete": {
+    "message": "Klar",
+    "description": "Status label for completed operations."
+  },
+  "status_error": {
+    "message": "Fel",
+    "description": "Status label for failed operations."
+  },
+  "ttsShort": {
+    "message": "Röst"
+  },
+  "copyShort": {
+    "message": "Kopiera"
+  },
+  "branchShort": {
+    "message": "Gren"
+  },
   "serverChatsUnavailableNotConnected": {
     "message": "Serverchattar blir tillgängliga när du ansluter till din tldw‑server."
   },
@@ -699,10 +774,10 @@
   "chatSidebar_foldersRequireConnection": {
     "message": "Mappar kräver en serveranslutning"
   },
-  "option.more.copy.canonicalMarkdown": {
+  "option_more_copy_canonicalMarkdown": {
     "message": "Copy canonical transcript"
   },
-  "option.more.download.canonicalMarkdown": {
+  "option_more_download_canonicalMarkdown": {
     "message": "Canonical transcript (Markdown)"
   }
 }

@@ -226,9 +226,9 @@
   "otherOperations": "Outras operações",
   "fileAccess": "Acesso a arquivos",
   "notebookEdits": "Edições do caderno",
-  "applyPatch": "Apply patch",
-  "recursive": "(recursive)",
-  "complexArguments": "[Complex arguments]",
+  "applyPatch": "Aplicar patch",
+  "recursive": "(recursivo)",
+  "complexArguments": "[Argumentos complexos]",
   "segmented": {
     "available": "Modelos do servidor",
     "custom": "Modelos personalizados"

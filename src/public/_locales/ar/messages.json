@@ -1,4 +1,106 @@
 {
+  "extName": {
+    "message": "tldw Assistant"
+  },
+  "extDescription": {
+    "message": "إضافة متصفح لـ tldw_server — مساعدك الموحد للذكاء الاصطناعي مع RAG ومعالجة الوسائط والمزيد."
+  },
+  "openSidePanelToChat": {
+    "message": "افتح الشريط الجانبي للدردشة"
+  },
+  "openOptionToChat": {
+    "message": "افتح واجهة الويب للدردشة"
+  },
+  "openQuickIngest": {
+    "message": "افتح الإدخال السريع"
+  },
+  "buttonOpenQuickIngest": {
+    "message": "افتح الإدخال السريع"
+  },
+  "buttonTryDemo": {
+    "message": "جرّب عرضًا تجريبيًا"
+  },
+  "learnMoreTldw": {
+    "message": "تعرّف على كيفية عمل خادم tldw"
+  },
+  "contextSummarize": {
+    "message": "تلخيص"
+  },
+  "contextExplain": {
+    "message": "شرح"
+  },
+  "contextRephrase": {
+    "message": "إعادة صياغة"
+  },
+  "contextTranslate": {
+    "message": "ترجمة"
+  },
+  "contextCustom": {
+    "message": "مخصص"
+  },
+  "contextSendToTldw": {
+    "message": "إرسال إلى tldw_server"
+  },
+  "contextProcessLocalTldw": {
+    "message": "المعالجة باستخدام tldw_server (دون حفظ)"
+  },
+  "contextTranscribeMedia": {
+    "message": "تفريغ الفيديو/الصوت"
+  },
+  "contextTranscribeAndSummarizeMedia": {
+    "message": "تفريغ + تلخيص الفيديو/الصوت"
+  },
+  "contextSaveToNotes": {
+    "message": "الحفظ في الملاحظات"
+  },
+  "contextSaveToNotesNoSelection": {
+    "message": "حدّد النص أولاً للحفظ في الملاحظات."
+  },
+  "contextSidebarOpening": {
+    "message": "جارٍ فتح الشريط الجانبي..."
+  },
+  "contextSaveToNotesOpeningSidebar": {
+    "message": "جارٍ فتح الشريط الجانبي لحفظ الملاحظة..."
+  },
+  "contextSaveToNotesDeliveryFailed": {
+    "message": "تعذّر فتح الشريط الجانبي لحفظ هذه الملاحظة. تحقّق من السماح للشريط الجانبي لـ tldw Assistant على هذا الموقع ثم حاول مرة أخرى."
+  },
+  "hfSendPageRejected": {
+    "message": "[tldw] تم رفض طلب إرسال الصفحة بواسطة tldw_server"
+  },
+  "hfSendPageErrorWithDetail": {
+    "message": "[tldw] تعذّر إرسال هذه الصفحة إلى tldw_server: $1. تحقّق من الإعدادات → خادم tldw ثم حاول مرة أخرى."
+  },
+  "hfSendPageError": {
+    "message": "[tldw] تعذّر إرسال هذه الصفحة إلى tldw_server. تحقّق من الإعدادات → خادم tldw ثم حاول مرة أخرى."
+  },
+  "hfSendPageSuccess": {
+    "message": "[tldw] تم إرسال الصفحة إلى tldw_server للمعالجة"
+  },
+  "hfSendPageException": {
+    "message": "[tldw] حدث خطأ أثناء إرسال هذه الصفحة إلى tldw_server. تحقّق من تشغيل tldw_server والإضافة ثم حاول مرة أخرى."
+  },
+  "hfPullInProgress": {
+    "message": "[tldw Assistant] يوجد بالفعل طلب لسحب نموذج قيد التنفيذ. يُرجى الانتظار حتى ينتهي قبل بدء طلب آخر."
+  },
+  "hfPullConfirm": {
+    "message": "[tldw Assistant] هل تريد إرسال طلب إلى خادم tldw الخاص بك لسحب نموذج \"$1\"؟ هذا مستقل عن موقع huggingface.co. سيبدأ خادمك بسحب النموذج بعد تأكيدك."
+  },
+  "hfPullSending": {
+    "message": "[tldw Assistant] جارٍ إرسال طلب إلى خادم tldw الخاص بك لسحب \"$1\". تحقّق من أيقونة الإضافة أو سجلات tldw_server لمعرفة التقدّم."
+  },
+  "hfPullErrorWithDetail": {
+    "message": "[tldw Assistant] تعذّر إرسال طلب سحب \"$1\": $2. تحقّق من الإعدادات → خادم tldw ثم حاول مرة أخرى."
+  },
+  "hfPullError": {
+    "message": "[tldw Assistant] تعذّر إرسال طلب سحب \"$1\". تحقّق من الإعدادات → خادم tldw ثم حاول مرة أخرى."
+  },
+  "hfPullSuccess": {
+    "message": "[tldw Assistant] تم إرسال طلب إلى خادم tldw الخاص بك لسحب \"$1\". راقب أيقونة الإضافة أو سجلات tldw_server لمعرفة الحالة."
+  },
+  "hfPullException": {
+    "message": "[tldw Assistant] حدث خطأ أثناء إرسال طلب سحب \"$1\" إلى خادم tldw الخاص بك. تحقّق من تشغيل tldw_server والإضافة ثم حاول مرة أخرى."
+  },
   "footerHelp": {
     "message": "بعد الاتصال، يمكنك العودة إلى هذه الإعدادات في أي وقت من قائمة الامتداد.",
     "description": "نص المساعدة في تذييل صفحة الإعداد أثناء الإعداد الأولي."
@@ -66,6 +168,78 @@
   "nextStepsMediaBody": {
     "message": "انتقل إلى «الوسائط» و«الملاحظات» في صفحة الخيارات لمعرفة ما هو مخزَّن وقابل للبحث.",
     "description": "وصف بطاقة الخطوة التالية لاستعراض الوسائط والملاحظات."
+  },
+  "notesEmpty_connectTitle": {
+    "message": "اتصل لاستخدام الملاحظات"
+  },
+  "notesEmpty_connectDescription": {
+    "message": "لاستخدام الملاحظات، اتصل أولاً بخادم tldw الخاص بك."
+  },
+  "notesEmpty_connectExample1": {
+    "message": "افتح الإعدادات → خادم tldw لإضافة عنوان URL لخادمك."
+  },
+  "notesEmpty_connectExample2": {
+    "message": "استخدم التشخيص إذا كان خادمك يعمل ولكنه غير قابل للوصول."
+  },
+  "notesEmpty_demoTitle": {
+    "message": "استكشف الملاحظات في وضع العرض التجريبي"
+  },
+  "notesEmpty_demoDescription": {
+    "message": "يعرض هذا العرض التجريبي كيف يمكن للملاحظات تنظيم رؤاك. يمكنك لاحقاً الاتصال بخادمك الخاص لإنشاء ملاحظات حقيقية وحفظها."
+  },
+  "notesEmpty_demoExample1": {
+    "message": "اطّلع على كيفية ظهور عناوين الملاحظات ومعايناتها والطوابع الزمنية في القائمة."
+  },
+  "notesEmpty_demoExample2": {
+    "message": "عند الاتصال، ستتمكن من إنشاء ملاحظات من الاجتماعات والمراجعات وغير ذلك."
+  },
+  "notesEmpty_demoExample3": {
+    "message": "استخدم الملاحظات جنباً إلى جنب مع الوسائط والمراجعة لتتبع نتائجك."
+  },
+  "notesEmpty_demoPreviewHeading": {
+    "message": "ملاحظات مثال (معاينة فقط)"
+  },
+  "notesEmpty_demoSample1Title": {
+    "message": "ملاحظة تجريبية: ملخص الاجتماع الأسبوعي"
+  },
+  "notesEmpty_demoSample1Preview": {
+    "message": "قرارات وعوائق ومتابعات من تزامن فريق حديث."
+  },
+  "notesEmpty_demoSample1Meta": {
+    "message": "اليوم · 9:32 ص"
+  },
+  "notesEmpty_demoSample2Title": {
+    "message": "ملاحظة تجريبية: أبرز نتائج البحث"
+  },
+  "notesEmpty_demoSample2Preview": {
+    "message": "رؤى أساسية مستخلصة من مقال أو ورقة طويلة."
+  },
+  "notesEmpty_demoSample2Meta": {
+    "message": "أمس · 4:10 م"
+  },
+  "notesEmpty_demoSample3Title": {
+    "message": "ملاحظة تجريبية: ملخص المكالمة"
+  },
+  "notesEmpty_demoSample3Preview": {
+    "message": "ملخص لمكالمة عميل مع الخطوات التالية والمسؤولين."
+  },
+  "notesEmpty_demoSample3Meta": {
+    "message": "هذا الأسبوع"
+  },
+  "notesEmpty_title": {
+    "message": "لا توجد ملاحظات بعد"
+  },
+  "notesEmpty_description": {
+    "message": "التقط ونظّم ملاحظات حرة مرتبطة برؤى tldw."
+  },
+  "notesEmpty_exampleCreate": {
+    "message": "أنشئ ملاحظة جديدة لاجتماع أو تفريغ حديث."
+  },
+  "notesEmpty_exampleLink": {
+    "message": "احفظ مخرجات المراجعة في الملاحظات لتتمكن من الرجوع إليها لاحقاً."
+  },
+  "notesEmpty_primaryCta": {
+    "message": "إنشاء ملاحظة"
   },
   "headerShortcuts": {
     "message": "إظهار الاختصارات السريعة في الشريط العلوي",
@@ -219,11 +393,53 @@
   "specFallbackWarning": {
     "message": "يتم استخدام مخطط media.add المضمّن كخيار احتياطي (v{{version}})؛ يُرجى التحقق من tldw_server /openapi.json إذا بدت الحقول قديمة."
   },
+  "serverOffline": {
+    "message": "الخادم غير متصل أو غير مُعد"
+  },
+  "serverChats": {
+    "message": "محادثات الخادم"
+  },
+  "serverChatLoadError": {
+    "message": "فشل تحميل محادثة الخادم. تحقق من الاتصال وحاول مرة أخرى."
+  },
+  "serverChatSourceLabel": {
+    "message": "الخادم"
+  },
   "serverChatsUnavailableNotConnected": {
     "message": "تتوفّر محادثات الخادم عند الاتصال بخادم tldw الخاص بك."
   },
   "serverChatsUnavailableServerError": {
     "message": "محادثات الخادم غير متاحة حالياً. تحقّق من سجلات الخادم أو حاول مرة أخرى."
+  },
+  "fileChanges": {
+    "message": "تغييرات الملفات"
+  },
+  "deletions": {
+    "message": "عمليات الحذف"
+  },
+  "gitOperations": {
+    "message": "عمليات Git"
+  },
+  "commands": {
+    "message": "الأوامر"
+  },
+  "otherOperations": {
+    "message": "عمليات أخرى"
+  },
+  "fileAccess": {
+    "message": "الوصول إلى الملفات"
+  },
+  "notebookEdits": {
+    "message": "تعديلات دفتر الملاحظات"
+  },
+  "applyPatch": {
+    "message": "تطبيق التصحيح"
+  },
+  "recursive": {
+    "message": "(تكراري)"
+  },
+  "complexArguments": {
+    "message": "[معاملات معقدة]"
   },
   "noToolCalls": {
     "message": "لا توجد استدعاءات أدوات بعد"
@@ -296,6 +512,14 @@
   "tools_exec_run": {
     "message": "تشغيل أمر",
     "description": "Label for the exec.run tool (run command)."
+  },
+  "serverChatForkedLabel": {
+    "message": "محادثة متفرعة",
+    "description": "Label shown on chats that were forked from another server chat."
+  },
+  "serverChatForkedTooltip": {
+    "message": "متفرعة من المحادثة {{chatId}}",
+    "description": "Tooltip explaining which original server chat this chat was forked from."
   },
   "commandPalette_goToChat": {
     "message": "الانتقال إلى الدردشة",
@@ -402,22 +626,38 @@
     "description": "Label for the Recent items category in the command palette."
   },
   "markdown_unableToRender": {
-    "message": "Unable to render content"
+    "message": "تعذّر عرض المحتوى"
   },
   "markdown_couldNotDisplay": {
-    "message": "The message content could not be displayed. This may be due to invalid formatting."
+    "message": "تعذّر عرض محتوى الرسالة. قد يكون ذلك بسبب تنسيق غير صالح."
   },
   "markdown_showRawContent": {
-    "message": "Show raw content"
+    "message": "إظهار المحتوى الخام"
+  },
+  "status_pending": {
+    "message": "قيد الانتظار",
+    "description": "Status label for pending operations."
+  },
+  "status_running": {
+    "message": "قيد المعالجة",
+    "description": "Status label for operations currently in progress."
+  },
+  "status_complete": {
+    "message": "مكتمل",
+    "description": "Status label for completed operations."
+  },
+  "status_error": {
+    "message": "خطأ",
+    "description": "Status label for failed operations."
   },
   "notesSearch_exportNoteSuccess": {
-    "message": "Exported ({{size}})"
+    "message": "تم التصدير ({{size}})"
   },
   "notesSearch_exportSuccess": {
-    "message": "Exported {{count}} notes ({{size}})"
+    "message": "تم تصدير {{count}} ملاحظة ({{size}})"
   },
   "notesSearch_exportCsvSuccess": {
-    "message": "Exported {{count}} notes as CSV ({{size}})"
+    "message": "تم تصدير {{count}} ملاحظة كملف CSV ({{size}})"
   },
   "notesSearch_exportJsonSuccess": {
     "message": "تم تصدير {{count}} ملاحظة كملف JSON ({{size}})"
@@ -433,6 +673,15 @@
   },
   "exportJsonSuccess": {
     "message": "تم تصدير {{count}} ملاحظة كملف JSON ({{size}})"
+  },
+  "ttsShort": {
+    "message": "صوت"
+  },
+  "copyShort": {
+    "message": "نسخ"
+  },
+  "branchShort": {
+    "message": "فرع"
   },
   "infoShort": {
     "message": "معلومات"
@@ -557,10 +806,10 @@
   "chatSidebar_foldersRequireConnection": {
     "message": "تتطلب المجلدات اتصالاً بالخادم"
   },
-  "option.more.copy.canonicalMarkdown": {
+  "option_more_copy_canonicalMarkdown": {
     "message": "Copy canonical transcript"
   },
-  "option.more.download.canonicalMarkdown": {
+  "option_more_download_canonicalMarkdown": {
     "message": "Canonical transcript (Markdown)"
   }
 }

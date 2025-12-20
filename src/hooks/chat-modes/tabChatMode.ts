@@ -38,7 +38,16 @@ export const tabChatMode = async (
     setAbortController,
     historyId,
     setHistoryId,
-    actorSettings
+    actorSettings,
+    clusterId,
+    userMessageType,
+    assistantMessageType,
+    modelIdOverride,
+    userMessageId,
+    assistantMessageId,
+    userParentMessageId,
+    assistantParentMessageId,
+    historyForModel
   }: {
     selectedModel: string
     useOCR: boolean
@@ -54,51 +63,80 @@ export const tabChatMode = async (
     historyId: string | null
     setHistoryId: (id: string) => void
     actorSettings?: ActorSettings
+    clusterId?: string
+    userMessageType?: string
+    assistantMessageType?: string
+    modelIdOverride?: string
+    userMessageId?: string
+    assistantMessageId?: string
+    userParentMessageId?: string | null
+    assistantParentMessageId?: string | null
+    historyForModel?: ChatHistory
   }
 ) => {
   console.log("Using tabChatMode")
   const ollama = await pageAssistModel({ model: selectedModel!, baseUrl: "" })
 
-  let newMessage: Message[] = []
-  let generateMessageId = generateID()
+  const resolvedAssistantMessageId = assistantMessageId ?? generateID()
+  const resolvedUserMessageId =
+    !isRegenerate ? userMessageId ?? generateID() : undefined
+  let generateMessageId = resolvedAssistantMessageId
   const modelInfo = await getModelNicknameByID(selectedModel)
 
-  if (!isRegenerate) {
-    newMessage = [
-      ...messages,
-      {
-        isBot: false,
-        name: "You",
-        message,
-        sources: [],
-        images: [image],
-        documents
-      },
+  const isSharedCompareUser = userMessageType === "compare:user"
+  const resolvedModelId = modelIdOverride || selectedModel
+  const userModelId = isSharedCompareUser ? undefined : resolvedModelId
+
+  setMessages((prev) => {
+    if (!isRegenerate) {
+      return [
+        ...prev,
+        {
+          isBot: false,
+          name: "You",
+          message,
+          sources: [],
+          images: [image],
+          documents,
+          id: resolvedUserMessageId,
+          messageType: userMessageType,
+          clusterId,
+          modelId: userModelId,
+          parentMessageId: userParentMessageId ?? null
+        },
+        {
+          isBot: true,
+          name: selectedModel,
+          message: "▋",
+          sources: [],
+          id: resolvedAssistantMessageId,
+          modelImage: modelInfo?.model_avatar,
+          modelName: modelInfo?.model_name || selectedModel,
+          messageType: assistantMessageType,
+          clusterId,
+          modelId: resolvedModelId,
+          parentMessageId: assistantParentMessageId ?? null
+        }
+      ]
+    }
+
+    return [
+      ...prev,
       {
         isBot: true,
         name: selectedModel,
         message: "▋",
         sources: [],
-        id: generateMessageId,
+        id: resolvedAssistantMessageId,
         modelImage: modelInfo?.model_avatar,
-        modelName: modelInfo?.model_name || selectedModel
+        modelName: modelInfo?.model_name || selectedModel,
+        messageType: assistantMessageType,
+        clusterId,
+        modelId: resolvedModelId,
+        parentMessageId: assistantParentMessageId ?? null
       }
     ]
-  } else {
-    newMessage = [
-      ...messages,
-      {
-        isBot: true,
-        name: selectedModel,
-        message: "▋",
-        sources: [],
-        id: generateMessageId,
-        modelImage: modelInfo?.model_avatar,
-        modelName: modelInfo?.model_name || selectedModel
-      }
-    ]
-  }
-  setMessages(newMessage)
+  })
   let fullText = ""
   let contentToSave = ""
 
@@ -139,7 +177,10 @@ export const tabChatMode = async (
     let source: any[] = []
 
 
-    let applicationChatHistory = generateHistory(history, selectedModel)
+    let applicationChatHistory = generateHistory(
+      historyForModel ?? history,
+      selectedModel
+    )
 
     const templatesActive = !!selectedSystemPrompt
     applicationChatHistory = await maybeInjectActorMessage(
@@ -263,6 +304,15 @@ export const tabChatMode = async (
       image,
       fullText,
       source,
+      userMessageType,
+      assistantMessageType,
+      clusterId,
+      modelId: resolvedModelId,
+      userModelId,
+      userMessageId: resolvedUserMessageId,
+      assistantMessageId: resolvedAssistantMessageId,
+      userParentMessageId: userParentMessageId ?? null,
+      assistantParentMessageId: assistantParentMessageId ?? null,
       generationInfo,
       reasoning_time_taken: timetaken,
       documents,
@@ -283,6 +333,15 @@ export const tabChatMode = async (
       setHistoryId,
       userMessage: message,
       isRegenerating: isRegenerate,
+      userMessageType,
+      assistantMessageType,
+      clusterId,
+      modelId: resolvedModelId,
+      userModelId,
+      userMessageId: resolvedUserMessageId,
+      assistantMessageId: resolvedAssistantMessageId,
+      userParentMessageId: userParentMessageId ?? null,
+      assistantParentMessageId: assistantParentMessageId ?? null,
       documents,
     })
 

@@ -360,11 +360,53 @@
   "specFallbackWarning": {
     "message": "Usando el respaldo incluido del esquema media.add (v{{version}}); verifica tu tldw_server /openapi.json si los campos parecen desactualizados."
   },
+  "serverOffline": {
+    "message": "Servidor sin conexión o no configurado"
+  },
+  "serverChats": {
+    "message": "Chats del servidor"
+  },
+  "serverChatLoadError": {
+    "message": "No se pudo cargar el chat del servidor. Comprueba la conexión e inténtalo de nuevo."
+  },
+  "serverChatSourceLabel": {
+    "message": "Servidor"
+  },
   "serverChatsUnavailableNotConnected": {
     "message": "Los chats del servidor estarán disponibles cuando te conectes a tu servidor tldw."
   },
   "serverChatsUnavailableServerError": {
     "message": "Los chats del servidor no están disponibles en este momento. Revisa los registros de tu servidor o inténtalo de nuevo."
+  },
+  "fileChanges": {
+    "message": "Cambios de archivos"
+  },
+  "deletions": {
+    "message": "Eliminaciones"
+  },
+  "gitOperations": {
+    "message": "Operaciones de Git"
+  },
+  "commands": {
+    "message": "Comandos"
+  },
+  "otherOperations": {
+    "message": "Otras operaciones"
+  },
+  "fileAccess": {
+    "message": "Acceso a archivos"
+  },
+  "notebookEdits": {
+    "message": "Ediciones del cuaderno"
+  },
+  "applyPatch": {
+    "message": "Aplicar parche"
+  },
+  "recursive": {
+    "message": "(recursivo)"
+  },
+  "complexArguments": {
+    "message": "[Argumentos complejos]"
   },
   "noToolCalls": {
     "message": "Aún no hay llamadas de herramientas"
@@ -437,6 +479,14 @@
   "tools_exec_run": {
     "message": "Ejecutar comando",
     "description": "Label for the exec.run tool (run command)."
+  },
+  "serverChatForkedLabel": {
+    "message": "Chat bifurcado",
+    "description": "Label shown on chats that were forked from another server chat."
+  },
+  "serverChatForkedTooltip": {
+    "message": "Bifurcado del chat {{chatId}}",
+    "description": "Tooltip explaining which original server chat this chat was forked from."
   },
   "commandPalette_goToChat": {
     "message": "Ir al chat",
@@ -543,13 +593,29 @@
     "description": "Label for the Recent items category in the command palette."
   },
   "markdown_unableToRender": {
-    "message": "Unable to render content"
+    "message": "No se puede renderizar el contenido"
   },
   "markdown_couldNotDisplay": {
-    "message": "The message content could not be displayed. This may be due to invalid formatting."
+    "message": "El contenido del mensaje no se pudo mostrar. Esto puede deberse a un formato inválido."
   },
   "markdown_showRawContent": {
-    "message": "Show raw content"
+    "message": "Mostrar contenido sin formato"
+  },
+  "status_pending": {
+    "message": "Pendiente",
+    "description": "Status label for pending operations."
+  },
+  "status_running": {
+    "message": "Procesando",
+    "description": "Status label for operations currently in progress."
+  },
+  "status_complete": {
+    "message": "Finalizado",
+    "description": "Status label for completed operations."
+  },
+  "status_error": {
+    "message": "Error",
+    "description": "Status label for failed operations."
   },
   "notesSearch_exportNoteSuccess": {
     "message": "Exportado ({{size}})"
@@ -574,6 +640,15 @@
   },
   "exportJsonSuccess": {
     "message": "Exportadas {{count}} notas como JSON ({{size}})"
+  },
+  "ttsShort": {
+    "message": "Voz"
+  },
+  "copyShort": {
+    "message": "Copiar"
+  },
+  "branchShort": {
+    "message": "Rama"
   },
   "infoShort": {
     "message": "Info"
@@ -698,10 +773,10 @@
   "chatSidebar_foldersRequireConnection": {
     "message": "Las carpetas requieren conexión al servidor"
   },
-  "option.more.copy.canonicalMarkdown": {
+  "option_more_copy_canonicalMarkdown": {
     "message": "Copy canonical transcript"
   },
-  "option.more.download.canonicalMarkdown": {
+  "option_more_download_canonicalMarkdown": {
     "message": "Canonical transcript (Markdown)"
   }
 }

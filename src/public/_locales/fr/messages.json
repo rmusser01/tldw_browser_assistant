@@ -345,6 +345,81 @@
   "specFallbackWarning": {
     "message": "Utilisation du schéma de secours media.add intégré (v{{version}}) ; vérifiez-le par rapport à votre tldw_server /openapi.json si certains champs semblent obsolètes."
   },
+  "serverOffline": {
+    "message": "Serveur hors ligne ou non configuré"
+  },
+  "serverChats": {
+    "message": "Chats serveur"
+  },
+  "serverChatLoadError": {
+    "message": "Échec du chargement du chat serveur. Vérifiez votre connexion et réessayez."
+  },
+  "serverChatSourceLabel": {
+    "message": "Serveur"
+  },
+  "serverChatForkedLabel": {
+    "message": "Chat forké",
+    "description": "Label shown on chats that were forked from another server chat."
+  },
+  "serverChatForkedTooltip": {
+    "message": "Forké depuis le chat {{chatId}}",
+    "description": "Tooltip explaining which original server chat this chat was forked from."
+  },
+  "fileChanges": {
+    "message": "Modifications de fichiers"
+  },
+  "deletions": {
+    "message": "Suppressions"
+  },
+  "gitOperations": {
+    "message": "Opérations Git"
+  },
+  "commands": {
+    "message": "Commandes"
+  },
+  "otherOperations": {
+    "message": "Autres opérations"
+  },
+  "fileAccess": {
+    "message": "Accès aux fichiers"
+  },
+  "notebookEdits": {
+    "message": "Modifications du carnet"
+  },
+  "applyPatch": {
+    "message": "Appliquer le patch"
+  },
+  "recursive": {
+    "message": "(récursif)"
+  },
+  "complexArguments": {
+    "message": "[Arguments complexes]"
+  },
+  "status_pending": {
+    "message": "En attente",
+    "description": "Status label for pending operations."
+  },
+  "status_running": {
+    "message": "En cours",
+    "description": "Status label for operations currently in progress."
+  },
+  "status_complete": {
+    "message": "Terminé",
+    "description": "Status label for completed operations."
+  },
+  "status_error": {
+    "message": "Erreur",
+    "description": "Status label for failed operations."
+  },
+  "ttsShort": {
+    "message": "Voix"
+  },
+  "copyShort": {
+    "message": "Copier"
+  },
+  "branchShort": {
+    "message": "Branche"
+  },
   "serverChatsUnavailableNotConnected": {
     "message": "Les chats serveur ne sont pas disponibles. Connectez-vous à votre serveur tldw pour y accéder."
   },
@@ -444,7 +519,7 @@
     "description": "Command palette action label to navigate to the Settings screen."
   },
   "commandPalette_goToHealth": {
-    "message": "Ouvrir Health & Diagnostics",
+    "message": "Ouvrir État et diagnostics",
     "description": "Command palette action label to open the Health & diagnostics screen."
   },
   "commandPalette_newChat": {
@@ -683,10 +758,10 @@
   "chatSidebar_foldersRequireConnection": {
     "message": "Les dossiers nécessitent une connexion au serveur"
   },
-  "option.more.copy.canonicalMarkdown": {
+  "option_more_copy_canonicalMarkdown": {
     "message": "Copier la transcription canonique"
   },
-  "option.more.download.canonicalMarkdown": {
+  "option_more_download_canonicalMarkdown": {
     "message": "Transcription canonique (Markdown)"
   }
 }

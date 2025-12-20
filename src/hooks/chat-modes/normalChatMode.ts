@@ -51,7 +51,12 @@ export const normalChatMode = async (
     clusterId,
     userMessageType,
     assistantMessageType,
-    modelIdOverride
+    modelIdOverride,
+    userMessageId,
+    assistantMessageId,
+    userParentMessageId,
+    assistantParentMessageId,
+    historyForModel
   }: {
     selectedModel: string
     useOCR: boolean
@@ -75,6 +80,11 @@ export const normalChatMode = async (
     userMessageType?: string
     assistantMessageType?: string
     modelIdOverride?: string
+    userMessageId?: string
+    assistantMessageId?: string
+    userParentMessageId?: string | null
+    assistantParentMessageId?: string | null
+    historyForModel?: ChatHistory
   }
 ) => {
   console.log("Using normalChatMode")
@@ -85,13 +95,18 @@ export const normalChatMode = async (
     image = `data:image/jpeg;base64,${image.split(",")[1]}`
   }
 
-  let generateMessageId = generateID()
+  const resolvedAssistantMessageId = assistantMessageId ?? generateID()
+  const resolvedUserMessageId =
+    !isRegenerate ? userMessageId ?? generateID() : undefined
+  let generateMessageId = resolvedAssistantMessageId
   const modelInfo = await getModelNicknameByID(selectedModel)
 
   setMessages((prev) => {
     const base = prev
+    const isSharedCompareUser = userMessageType === "compare:user"
     const clusterModelId =
       clusterId != null ? (modelIdOverride || selectedModel) : undefined
+    const userModelId = isSharedCompareUser ? undefined : clusterModelId
 
     if (!isRegenerate) {
       const userMessage: Message = {
@@ -100,6 +115,7 @@ export const normalChatMode = async (
         message,
         sources: [],
         images: image ? [image] : [],
+        id: resolvedUserMessageId,
         modelImage: modelInfo?.model_avatar,
         modelName: modelInfo?.model_name || selectedModel,
         documents:
@@ -111,19 +127,21 @@ export const normalChatMode = async (
           })) || [],
         messageType: userMessageType,
         clusterId,
-        modelId: clusterModelId
+        modelId: userModelId,
+        parentMessageId: userParentMessageId ?? null
       }
       const assistantStub: Message = {
         isBot: true,
         name: selectedModel,
         message: "▋",
         sources: [],
-        id: generateMessageId,
+        id: resolvedAssistantMessageId,
         modelImage: modelInfo?.model_avatar,
         modelName: modelInfo?.model_name || selectedModel,
         messageType: assistantMessageType,
         clusterId,
-        modelId: modelIdOverride || selectedModel
+        modelId: modelIdOverride || selectedModel,
+        parentMessageId: assistantParentMessageId ?? null
       }
       return [...base, userMessage, assistantStub]
     }
@@ -133,12 +151,13 @@ export const normalChatMode = async (
       name: selectedModel,
       message: "▋",
       sources: [],
-      id: generateMessageId,
+      id: resolvedAssistantMessageId,
       modelImage: modelInfo?.model_avatar,
       modelName: modelInfo?.model_name || selectedModel,
       messageType: assistantMessageType,
       clusterId,
-      modelId: modelIdOverride || selectedModel
+      modelId: modelIdOverride || selectedModel,
+      parentMessageId: assistantParentMessageId ?? null
     }
     return [...base, assistantStub]
   })
@@ -238,6 +257,18 @@ export const normalChatMode = async (
         image,
         fullText,
         source: [],
+        userMessageType,
+        assistantMessageType,
+        clusterId,
+        modelId: modelIdOverride || selectedModel,
+        userModelId:
+          userMessageType === "compare:user"
+            ? undefined
+            : modelIdOverride || selectedModel,
+        userMessageId: resolvedUserMessageId,
+        assistantMessageId: resolvedAssistantMessageId,
+        userParentMessageId: userParentMessageId ?? null,
+        assistantParentMessageId: assistantParentMessageId ?? null,
         generationInfo: undefined,
         prompt_content: undefined,
         prompt_id: undefined,
@@ -259,6 +290,18 @@ export const normalChatMode = async (
         setHistoryId,
         userMessage: message,
         isRegenerating: isRegenerate,
+        userMessageType,
+        assistantMessageType,
+        clusterId,
+        modelId: modelIdOverride || selectedModel,
+        userModelId:
+          userMessageType === "compare:user"
+            ? undefined
+            : modelIdOverride || selectedModel,
+        userMessageId: resolvedUserMessageId,
+        assistantMessageId: resolvedAssistantMessageId,
+        userParentMessageId: userParentMessageId ?? null,
+        assistantParentMessageId: assistantParentMessageId ?? null,
         prompt_content: undefined,
         prompt_id: undefined
       })
@@ -311,7 +354,10 @@ export const normalChatMode = async (
       })
     }
 
-    let applicationChatHistory = generateHistory(history, selectedModel)
+    let applicationChatHistory = generateHistory(
+      historyForModel ?? history,
+      selectedModel
+    )
 
     if (prompt && !selectedPrompt) {
       applicationChatHistory.unshift(
@@ -470,6 +516,18 @@ export const normalChatMode = async (
       image,
       fullText,
       source: [],
+      userMessageType,
+      assistantMessageType,
+      clusterId,
+      modelId: modelIdOverride || selectedModel,
+      userModelId:
+        userMessageType === "compare:user"
+          ? undefined
+          : modelIdOverride || selectedModel,
+      userMessageId: resolvedUserMessageId,
+      assistantMessageId: resolvedAssistantMessageId,
+      userParentMessageId: userParentMessageId ?? null,
+      assistantParentMessageId: assistantParentMessageId ?? null,
       generationInfo,
       prompt_content: promptContent,
       prompt_id: promptId,
@@ -492,6 +550,18 @@ export const normalChatMode = async (
       setHistoryId,
       userMessage: message,
       isRegenerating: isRegenerate,
+      userMessageType,
+      assistantMessageType,
+      clusterId,
+      modelId: modelIdOverride || selectedModel,
+      userModelId:
+        userMessageType === "compare:user"
+          ? undefined
+          : modelIdOverride || selectedModel,
+      userMessageId: resolvedUserMessageId,
+      assistantMessageId: resolvedAssistantMessageId,
+      userParentMessageId: userParentMessageId ?? null,
+      assistantParentMessageId: assistantParentMessageId ?? null,
       prompt_content: promptContent,
       prompt_id: promptId
     })

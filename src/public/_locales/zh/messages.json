@@ -232,6 +232,81 @@
   "specFallbackWarning": {
     "message": "使用捆绑的 media.add 架构备选方案（v{{version}}）；如果字段看起来已过期，请根据你的 tldw_server /openapi.json 进行验证。"
   },
+  "serverOffline": {
+    "message": "服务器离线或未配置"
+  },
+  "serverChats": {
+    "message": "服务器聊天"
+  },
+  "serverChatLoadError": {
+    "message": "无法加载服务器聊天。请检查连接后重试。"
+  },
+  "serverChatSourceLabel": {
+    "message": "服务器来源"
+  },
+  "serverChatForkedLabel": {
+    "message": "分叉聊天",
+    "description": "Label shown on chats that were forked from another server chat."
+  },
+  "serverChatForkedTooltip": {
+    "message": "从聊天 {{chatId}} 分叉",
+    "description": "Tooltip explaining which original server chat this chat was forked from."
+  },
+  "fileChanges": {
+    "message": "文件更改"
+  },
+  "deletions": {
+    "message": "删除操作"
+  },
+  "gitOperations": {
+    "message": "Git 操作"
+  },
+  "commands": {
+    "message": "命令"
+  },
+  "otherOperations": {
+    "message": "其他操作"
+  },
+  "fileAccess": {
+    "message": "文件访问"
+  },
+  "notebookEdits": {
+    "message": "笔记本编辑"
+  },
+  "applyPatch": {
+    "message": "应用补丁"
+  },
+  "recursive": {
+    "message": "(递归)"
+  },
+  "complexArguments": {
+    "message": "[复杂参数]"
+  },
+  "status_pending": {
+    "message": "待定",
+    "description": "Status label for pending operations."
+  },
+  "status_running": {
+    "message": "处理中",
+    "description": "Status label for operations currently in progress."
+  },
+  "status_complete": {
+    "message": "已完成",
+    "description": "Status label for completed operations."
+  },
+  "status_error": {
+    "message": "错误",
+    "description": "Status label for failed operations."
+  },
+  "ttsShort": {
+    "message": "语音"
+  },
+  "copyShort": {
+    "message": "复制"
+  },
+  "branchShort": {
+    "message": "分支"
+  },
   "serverChatsUnavailableNotConnected": {
     "message": "连接到 tldw 服务器后即可使用服务器聊天。"
   },
@@ -423,6 +498,18 @@
   "markdown_showRawContent": {
     "message": "显示原始内容"
   },
+  "notesSearch_exportMdTooltip": {
+    "message": "将符合条件的笔记导出为 Markdown (.md)",
+    "description": "Tooltip for exporting matching notes as Markdown (.md)."
+  },
+  "notesSearch_exportCsvTooltip": {
+    "message": "将符合条件的笔记导出为 CSV",
+    "description": "Tooltip for exporting matching notes as CSV."
+  },
+  "notesSearch_exportJsonTooltip": {
+    "message": "将符合条件的笔记导出为 JSON",
+    "description": "Tooltip for exporting matching notes as JSON."
+  },
   "notesSearch_exportNoteSuccess": {
     "message": "Exported ({{size}})"
   },
@@ -576,10 +663,10 @@
   "chatSidebar_foldersRequireConnection": {
     "message": "文件夹需要服务器连接"
   },
-  "option.more.copy.canonicalMarkdown": {
+  "option_more_copy_canonicalMarkdown": {
     "message": "Copy canonical transcript"
   },
-  "option.more.download.canonicalMarkdown": {
+  "option_more_download_canonicalMarkdown": {
     "message": "Canonical transcript (Markdown)"
   }
 }

@@ -524,10 +524,12 @@ export default defineBackground({
         const entries = Array.isArray(payload.entries) ? payload.entries : []
         const files = Array.isArray(payload.files) ? payload.files : []
         const storeRemote = Boolean(payload.storeRemote)
+        const processOnly = Boolean(payload.processOnly)
         const common = payload.common || {}
         const advancedValues = payload.advancedValues && typeof payload.advancedValues === 'object'
           ? payload.advancedValues
           : {}
+        const shouldStoreRemote = storeRemote && !processOnly
 
         const totalCount = entries.length + files.length
         let processedCount = 0
@@ -553,6 +555,79 @@ export default defineBackground({
             if (i === path.length - 1) cur[seg] = val
             else cur = (cur[seg] = cur[seg] || {})
           }
+        }
+
+        const normalizeMediaType = (rawType: string): string => {
+          if (!rawType) return rawType
+          const t = rawType.toLowerCase()
+          if (t === 'html') return 'document'
+          return t
+        }
+
+        const processPathForType = (rawType: string): string => {
+          const t = normalizeMediaType(rawType)
+          switch (t) {
+            case 'audio':
+              return '/api/v1/media/process-audios'
+            case 'video':
+              return '/api/v1/media/process-videos'
+            case 'pdf':
+              return '/api/v1/media/process-pdfs'
+            default:
+              return '/api/v1/media/process-documents'
+          }
+        }
+
+        const buildFields = (rawType: string, entry?: any) => {
+          const mediaType = normalizeMediaType(rawType)
+          const fields: Record<string, any> = {
+            media_type: mediaType,
+            perform_analysis: Boolean(common.perform_analysis),
+            perform_chunking: Boolean(common.perform_chunking),
+            overwrite_existing: Boolean(common.overwrite_existing)
+          }
+          const nested: Record<string, any> = {}
+          for (const [k, v] of Object.entries(advancedValues as Record<string, any>)) {
+            if (k.includes('.')) assignPath(nested, k.split('.'), v)
+            else fields[k] = v
+          }
+          for (const [k, v] of Object.entries(nested)) fields[k] = v
+          if (entry?.audio?.language) fields['transcription_language'] = entry.audio.language
+          if (typeof entry?.audio?.diarize === 'boolean') fields['diarize'] = entry.audio.diarize
+          if (typeof entry?.video?.captions === 'boolean') fields['timestamp_option'] = entry.video.captions
+          if (typeof entry?.document?.ocr === 'boolean') {
+            fields['pdf_parsing_engine'] = entry.document.ocr ? 'pymupdf4llm' : ''
+          }
+          return fields
+        }
+
+        const processWebScrape = async (url: string) => {
+          const nestedBody: Record<string, any> = {}
+          for (const [k, v] of Object.entries(advancedValues as Record<string, any>)) {
+            if (k.includes('.')) assignPath(nestedBody, k.split('.'), v)
+            else nestedBody[k] = v
+          }
+          const body: any = {
+            scrape_method: 'individual',
+            url_input: url,
+            mode: 'ephemeral',
+            summarize_checkbox: Boolean(common.perform_analysis),
+            ...nestedBody
+          }
+          const resp = await browser.runtime.sendMessage({
+            type: 'tldw:request',
+            payload: {
+              path: '/api/v1/media/process-web-scraping',
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body
+            }
+          }) as { ok: boolean; error?: string; status?: number; data?: any } | undefined
+          if (!resp?.ok) {
+            const msg = resp?.error || `Request failed: ${resp?.status}`
+            throw new Error(msg)
+          }
+          return resp.data
         }
 
         const out: any[] = []
@@ -604,28 +679,10 @@ export default defineBackground({
           const t = explicitType === 'auto' ? detectTypeFromUrl(url) : explicitType
           try {
             let data: any
-            if (storeRemote) {
+            if (shouldStoreRemote) {
               // Ingest & store via multipart form
-              const fields: Record<string, any> = {
-                urls: [url],
-                media_type: t,
-                perform_analysis: Boolean(common.perform_analysis),
-                perform_chunking: Boolean(common.perform_chunking),
-                overwrite_existing: Boolean(common.overwrite_existing)
-              }
-              // Merge advanced values; rebuild nested structure for dot-notation keys
-              const nested: Record<string, any> = {}
-              for (const [k, v] of Object.entries(advancedValues as Record<string, any>)) {
-                if (k.includes('.')) assignPath(nested, k.split('.'), v)
-                else fields[k] = v
-              }
-              for (const [k, v] of Object.entries(nested)) fields[k] = v
-              if (r?.audio?.language) fields['transcription_language'] = r.audio.language
-              if (typeof r?.audio?.diarize === 'boolean') fields['diarize'] = r.audio.diarize
-              if (typeof r?.video?.captions === 'boolean') fields['timestamp_option'] = r.video.captions
-              if (typeof r?.document?.ocr === 'boolean') {
-                fields['pdf_parsing_engine'] = r.document.ocr ? 'pymupdf4llm' : ''
-              }
+              const fields: Record<string, any> = buildFields(t, r)
+              fields.urls = [url]
               const resp = await handleUpload({ path: '/api/v1/media/add', method: 'POST', fields })
               if (!resp?.ok) {
                 const msg = resp?.error || `Upload failed: ${resp?.status}`
@@ -634,36 +691,22 @@ export default defineBackground({
               data = resp.data
             } else {
               // Process only (no store)
-              const nestedBody: Record<string, any> = {}
-              for (const [k, v] of Object.entries(advancedValues as Record<string, any>)) {
-                if (k.includes('.')) assignPath(nestedBody, k.split('.'), v)
-                else nestedBody[k] = v
-              }
-              const body: any = {
-                url,
-                type: t,
-                audio: r?.audio,
-                document: r?.document,
-                video: r?.video,
-                perform_analysis: Boolean(common.perform_analysis),
-                perform_chunking: Boolean(common.perform_chunking),
-                overwrite_existing: Boolean(common.overwrite_existing),
-                ...nestedBody
-              }
-              const resp = await browser.runtime.sendMessage({
-                type: 'tldw:request',
-                payload: {
-                  path: '/api/v1/media/add',
+              if (t === 'html') {
+                data = await processWebScrape(url)
+              } else {
+                const fields = buildFields(t, r)
+                fields.urls = [url]
+                const resp = await handleUpload({
+                  path: processPathForType(t),
                   method: 'POST',
-                  headers: { 'Content-Type': 'application/json' },
-                  body
+                  fields
+                })
+                if (!resp?.ok) {
+                  const msg = resp?.error || `Upload failed: ${resp?.status}`
+                  throw new Error(msg)
                 }
-              }) as { ok: boolean; error?: string; status?: number; data?: any } | undefined
-              if (!resp?.ok) {
-                const msg = resp?.error || `Request failed: ${resp?.status}`
-                throw new Error(msg)
+                data = resp.data
               }
-              data = resp.data
             }
             const result = { id: r.id, status: 'ok', url, type: t, data }
             out.push(result)
@@ -696,19 +739,8 @@ export default defineBackground({
                   : 'document'
           try {
             let data: any
-            if (storeRemote) {
-              const fields: Record<string, any> = {
-                media_type: mediaType,
-                perform_analysis: Boolean(common.perform_analysis),
-                perform_chunking: Boolean(common.perform_chunking),
-                overwrite_existing: Boolean(common.overwrite_existing)
-              }
-              const nested: Record<string, any> = {}
-              for (const [k, v] of Object.entries(advancedValues as Record<string, any>)) {
-                if (k.includes('.')) assignPath(nested, k.split('.'), v)
-                else fields[k] = v
-              }
-              for (const [k, v] of Object.entries(nested)) fields[k] = v
+            if (shouldStoreRemote) {
+              const fields: Record<string, any> = buildFields(mediaType)
               const resp = await handleUpload({
                 path: '/api/v1/media/add',
                 method: 'POST',
@@ -721,46 +753,18 @@ export default defineBackground({
               }
               data = resp.data
             } else {
-              if (fileType.startsWith('audio/')) {
-                // Process-only audio: call audio transcription endpoint
-                const resp = await handleUpload({
-                  path: '/api/v1/audio/transcriptions',
-                  method: 'POST',
-                  fields: {},
-                  file: { name, type: f?.type || 'application/octet-stream', data: f?.data }
-                })
-                if (!resp?.ok) {
-                  const msg = resp?.error || `Upload failed: ${resp?.status}`
-                  throw new Error(msg)
-                }
-                data = resp.data
-              } else {
-                // Process-only (non-audio) via media add with process_only flag
-                const fields: Record<string, any> = {
-                  media_type: mediaType,
-                  perform_analysis: Boolean(common.perform_analysis),
-                  perform_chunking: Boolean(common.perform_chunking),
-                  overwrite_existing: false,
-                  process_only: true
-                }
-                const nested: Record<string, any> = {}
-                for (const [k, v] of Object.entries(advancedValues as Record<string, any>)) {
-                  if (k.includes('.')) assignPath(nested, k.split('.'), v)
-                  else fields[k] = v
-                }
-                for (const [k, v] of Object.entries(nested)) fields[k] = v
-                const resp = await handleUpload({
-                  path: '/api/v1/media/add',
-                  method: 'POST',
-                  fields,
-                  file: { name, type: f?.type || 'application/octet-stream', data: f?.data }
-                })
-                if (!resp?.ok) {
-                  const msg = resp?.error || `Upload failed: ${resp?.status}`
-                  throw new Error(msg)
-                }
-                data = resp.data
+              const fields: Record<string, any> = buildFields(mediaType)
+              const resp = await handleUpload({
+                path: processPathForType(mediaType),
+                method: 'POST',
+                fields,
+                file: { name, type: f?.type || 'application/octet-stream', data: f?.data }
+              })
+              if (!resp?.ok) {
+                const msg = resp?.error || `Upload failed: ${resp?.status}`
+                throw new Error(msg)
               }
+              data = resp.data
             }
             const result = { id, status: 'ok', fileName: name, type: mediaType, data }
             out.push(result)

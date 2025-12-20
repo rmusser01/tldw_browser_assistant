@@ -430,6 +430,81 @@
     "message": "번들에 포함된 media.add 스키마 폴백(v{{version}})을 사용 중입니다. 필드가 오래되어 보이면 tldw_server /openapi.json과 비교해 확인하세요.",
     "description": "Warning shown when the Quick Ingest advanced schema falls back to the bundled schema; contains the bundled schema version."
   },
+  "serverOffline": {
+    "message": "서버가 오프라인이거나 구성되지 않았습니다"
+  },
+  "serverChats": {
+    "message": "서버 채팅"
+  },
+  "serverChatLoadError": {
+    "message": "서버 채팅을 불러오지 못했습니다. 연결을 확인하고 다시 시도하세요."
+  },
+  "serverChatSourceLabel": {
+    "message": "서버"
+  },
+  "serverChatForkedLabel": {
+    "message": "포크된 채팅",
+    "description": "Label shown on chats that were forked from another server chat."
+  },
+  "serverChatForkedTooltip": {
+    "message": "채팅 {{chatId}}에서 포크됨",
+    "description": "Tooltip explaining which original server chat this chat was forked from."
+  },
+  "fileChanges": {
+    "message": "파일 변경"
+  },
+  "deletions": {
+    "message": "삭제 작업"
+  },
+  "gitOperations": {
+    "message": "Git 작업"
+  },
+  "commands": {
+    "message": "명령"
+  },
+  "otherOperations": {
+    "message": "기타 작업"
+  },
+  "fileAccess": {
+    "message": "파일 접근"
+  },
+  "notebookEdits": {
+    "message": "노트북 편집"
+  },
+  "applyPatch": {
+    "message": "패치 적용"
+  },
+  "recursive": {
+    "message": "(재귀)"
+  },
+  "complexArguments": {
+    "message": "[복잡한 인수]"
+  },
+  "status_pending": {
+    "message": "대기 중",
+    "description": "Status label for pending operations."
+  },
+  "status_running": {
+    "message": "처리 중",
+    "description": "Status label for operations currently in progress."
+  },
+  "status_complete": {
+    "message": "완료",
+    "description": "Status label for completed operations."
+  },
+  "status_error": {
+    "message": "오류",
+    "description": "Status label for failed operations."
+  },
+  "ttsShort": {
+    "message": "음성"
+  },
+  "copyShort": {
+    "message": "복사"
+  },
+  "branchShort": {
+    "message": "브랜치"
+  },
   "serverChatsUnavailableNotConnected": {
     "message": "tldw 서버에 연결하면 서버 채팅을 사용할 수 있습니다."
   },
@@ -768,10 +843,10 @@
   "chatSidebar_foldersRequireConnection": {
     "message": "폴더를 사용하려면 서버 연결이 필요합니다"
   },
-  "option.more.copy.canonicalMarkdown": {
+  "option_more_copy_canonicalMarkdown": {
     "message": "Copy canonical transcript"
   },
-  "option.more.download.canonicalMarkdown": {
+  "option_more_download_canonicalMarkdown": {
     "message": "Canonical transcript (Markdown)"
   }
 }

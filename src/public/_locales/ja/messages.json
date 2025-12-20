@@ -400,6 +400,81 @@
   "specFallbackWarning": {
     "message": "同梱の media.add スキーマ（v{{version}}）をフォールバックとして使用しています。フィールドが古そうな場合は tldw_server の /openapi.json と照合して確認してください。"
   },
+  "serverOffline": {
+    "message": "サーバーがオフラインか、設定されていません"
+  },
+  "serverChats": {
+    "message": "サーバーチャット"
+  },
+  "serverChatLoadError": {
+    "message": "サーバーチャットの読み込みに失敗しました。接続を確認して再試行してください。"
+  },
+  "serverChatSourceLabel": {
+    "message": "サーバー"
+  },
+  "serverChatForkedLabel": {
+    "message": "フォークしたチャット",
+    "description": "Label shown on chats that were forked from another server chat."
+  },
+  "serverChatForkedTooltip": {
+    "message": "チャット {{chatId}} からフォーク",
+    "description": "Tooltip explaining which original server chat this chat was forked from."
+  },
+  "fileChanges": {
+    "message": "ファイルの変更"
+  },
+  "deletions": {
+    "message": "削除"
+  },
+  "gitOperations": {
+    "message": "Git 操作"
+  },
+  "commands": {
+    "message": "コマンド"
+  },
+  "otherOperations": {
+    "message": "その他の操作"
+  },
+  "fileAccess": {
+    "message": "ファイルアクセス"
+  },
+  "notebookEdits": {
+    "message": "ノートブック編集"
+  },
+  "applyPatch": {
+    "message": "パッチを適用"
+  },
+  "recursive": {
+    "message": "(再帰)"
+  },
+  "complexArguments": {
+    "message": "[複雑な引数]"
+  },
+  "status_pending": {
+    "message": "保留中",
+    "description": "Status label for pending operations."
+  },
+  "status_running": {
+    "message": "処理中",
+    "description": "Status label for operations currently in progress."
+  },
+  "status_complete": {
+    "message": "完了",
+    "description": "Status label for completed operations."
+  },
+  "status_error": {
+    "message": "エラー",
+    "description": "Status label for failed operations."
+  },
+  "ttsShort": {
+    "message": "音声"
+  },
+  "copyShort": {
+    "message": "コピー"
+  },
+  "branchShort": {
+    "message": "ブランチ"
+  },
   "searchKnowledge": {
     "message": "ナレッジとメモを検索"
   },
@@ -759,10 +834,10 @@
   "chatSidebar_foldersRequireConnection": {
     "message": "フォルダーにはサーバー接続が必要です"
   },
-  "option.more.copy.canonicalMarkdown": {
+  "option_more_copy_canonicalMarkdown": {
     "message": "Copy canonical transcript"
   },
-  "option.more.download.canonicalMarkdown": {
+  "option_more_download_canonicalMarkdown": {
     "message": "Canonical transcript (Markdown)"
   }
 }
