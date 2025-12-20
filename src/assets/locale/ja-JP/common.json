@@ -273,6 +273,12 @@
   "untitled": "無題",
   "moveToFolder": "フォルダーに移動",
   "noToolCalls": "ツール呼び出しはまだありません",
+  "status": {
+    "pending": "保留中",
+    "running": "処理中",
+    "complete": "完了",
+    "error": "エラー"
+  },
   "arguments": "引数",
   "invalidJson": "無効な JSON です。生の値を表示しています",
   "result": "結果",
@@ -304,7 +310,7 @@
     "goToNotes": "ノートへ移動",
     "goToFlashcards": "フラッシュカードへ移動",
     "goToSettings": "設定へ移動",
-    "goToHealth": "Health & Diagnostics を開く",
+    "goToHealth": "ヘルスと診断を開く",
     "newChat": "新しいチャット",
     "toggleKnowledgeSearch": "ナレッジ検索を切り替え",
     "toggleKnowledgeSearchDesc": "ナレッジベースを検索します",
@@ -325,5 +331,45 @@
     "categoryNavigation": "ナビゲーション",
     "categorySettings": "設定",
     "categoryRecent": "最近使用したもの"
+  },
+  "featureHints": {
+    "knowledge": {
+      "title": "Search your knowledge",
+      "description": "Open the knowledge search panel to find snippets and insert them into your chat."
+    },
+    "moreTools": {
+      "title": "More tools available",
+      "description": "Access vision mode, image upload, quick ingest, and the full app."
+    },
+    "commandPalette": {
+      "title": "Quick commands",
+      "description": "Press {{shortcut}} to search commands, settings, and more."
+    },
+    "modelSettings": {
+      "title": "Adjust model parameters",
+      "description": "Fine-tune temperature, context length, and other model settings."
+    }
+  },
+  "chatSidebar": {
+    "title": "Chats",
+    "newChat": "New Chat",
+    "collapse": "Collapse sidebar",
+    "expand": "Expand sidebar",
+    "search": "Search chats...",
+    "ingest": "Ingest Page",
+    "media": "Media",
+    "notes": "Notes",
+    "settings": "Settings",
+    "loadError": "Failed to load chats",
+    "localTab": "Local",
+    "serverTab": "Server",
+    "foldersTab": "Folders",
+    "tabs": {
+      "local": "Local",
+      "server": "Server",
+      "folders": "Folders"
+    },
+    "noServerChats": "No server chats yet",
+    "foldersRequireConnection": "Folders require a server connection"
   }
 }

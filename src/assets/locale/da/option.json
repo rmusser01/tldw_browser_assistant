@@ -100,12 +100,14 @@
       "group": "Kopier",
       "asText": "Kopier som tekst",
       "asMarkdown": "Kopier som Markdown",
+      "canonicalMarkdown": "Kopier kanonisk transkript",
       "success": "Kopieret til udklipsholder!"
     },
     "download": {
       "group": "Hent",
       "text": "Tekstfil (.txt)",
       "markdown": "Markdown-fil (.md)",
+      "canonicalMarkdown": "Kanonisk transkript (Markdown)",
       "json": "JSON-fil (.json)",
       "image": "Billede (.png)"
     },

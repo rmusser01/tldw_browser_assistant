@@ -303,6 +303,12 @@
     "zoomOut": "Zoom out"
   },
   "noToolCalls": "No tool calls yet",
+  "status": {
+    "pending": "Pending",
+    "running": "Running",
+    "complete": "Complete",
+    "error": "Error"
+  },
   "arguments": "Arguments",
   "invalidJson": "Invalid JSON; showing raw value",
   "result": "Result",

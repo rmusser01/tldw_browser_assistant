@@ -99,12 +99,14 @@
       "group": "Копировать",
       "asText": "Копировать как текст",
       "asMarkdown": "Копировать как Markdown",
+      "canonicalMarkdown": "Копировать каноническую транскрипцию",
       "success": "Скопировано в буфер обмена!"
     },
     "download": {
       "group": "Скачать",
       "text": "Текстовый файл (.txt)",
       "markdown": "Markdown (.md)",
+      "canonicalMarkdown": "Каноническая транскрипция (Markdown)",
       "json": "JSON файл (.json)",
       "image": "Image (.png)"
     },

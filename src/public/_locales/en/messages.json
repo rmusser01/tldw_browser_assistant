@@ -592,6 +592,12 @@
   "error_label": {
     "message": "Error"
   },
+  "option.more.copy.canonicalMarkdown": {
+    "message": "Copy canonical transcript"
+  },
+  "option.more.download.canonicalMarkdown": {
+    "message": "Canonical transcript (Markdown)"
+  },
   "modelSelect_label": {
     "message": "Model",
     "description": "Label for the model select dropdown."

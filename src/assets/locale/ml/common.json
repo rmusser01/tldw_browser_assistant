@@ -275,6 +275,12 @@
   "untitled": "പേരില്ലാത്തത്",
   "moveToFolder": "ഫോൾഡറിലേക്ക് നീക്കുക",
   "noToolCalls": "ഇതുവരെ ടൂൾ കോൾ ഒന്നുമില്ല",
+  "status": {
+    "pending": "തീരുമാനിക്കാനുണ്ട്",
+    "running": "പ്രോസസ്സിംഗ്",
+    "complete": "പൂർത്തീകരിച്ചു",
+    "error": "പിശക്"
+  },
   "arguments": "ആർഗ്യുമെന്റുകൾ",
   "invalidJson": "അസാധുവായ JSON; അസംസ്കൃത മൂല്യം കാണിക്കുന്നു",
   "result": "ഫലം",
@@ -306,7 +312,7 @@
     "goToNotes": "നോട്ടുകളിലേക്കു പോകുക",
     "goToFlashcards": "ഫ്ലാഷ്‌കാർഡുകളിലേക്കു പോകുക",
     "goToSettings": "സെറ്റിംഗ്സിലേക്കു പോകുക",
-    "goToHealth": "Health & Diagnostics തുറക്കുക",
+    "goToHealth": "ആരോഗ്യവും ഡയഗ്നോസ്റ്റിക്സും തുറക്കുക",
     "newChat": "പുതിയ ചാറ്റ്",
     "toggleKnowledgeSearch": "നോളെജ് തിരച്ചിൽ ടോഗിൾ ചെയ്യുക",
     "toggleKnowledgeSearchDesc": "നിങ്ങളുടെ നോളെജ് ബേസിൽ തിരയുക",
@@ -327,5 +333,45 @@
     "categoryNavigation": "നാവിഗേഷൻ",
     "categorySettings": "സെറ്റിംഗുകൾ",
     "categoryRecent": "സമീപകാലത്"
+  },
+  "featureHints": {
+    "knowledge": {
+      "title": "Search your knowledge",
+      "description": "Open the knowledge search panel to find snippets and insert them into your chat."
+    },
+    "moreTools": {
+      "title": "More tools available",
+      "description": "Access vision mode, image upload, quick ingest, and the full app."
+    },
+    "commandPalette": {
+      "title": "Quick commands",
+      "description": "Press {{shortcut}} to search commands, settings, and more."
+    },
+    "modelSettings": {
+      "title": "Adjust model parameters",
+      "description": "Fine-tune temperature, context length, and other model settings."
+    }
+  },
+  "chatSidebar": {
+    "title": "Chats",
+    "newChat": "New Chat",
+    "collapse": "Collapse sidebar",
+    "expand": "Expand sidebar",
+    "search": "Search chats...",
+    "ingest": "Ingest Page",
+    "media": "Media",
+    "notes": "Notes",
+    "settings": "Settings",
+    "loadError": "Failed to load chats",
+    "localTab": "Local",
+    "serverTab": "Server",
+    "foldersTab": "Folders",
+    "tabs": {
+      "local": "Local",
+      "server": "Server",
+      "folders": "Folders"
+    },
+    "noServerChats": "No server chats yet",
+    "foldersRequireConnection": "Folders require a server connection"
   }
 }

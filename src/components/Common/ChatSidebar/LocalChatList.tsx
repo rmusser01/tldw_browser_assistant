@@ -34,7 +34,7 @@ import {
 import { useUndoNotification } from "@/hooks/useUndoNotification"
 import { isDatabaseClosedError } from "@/utils/ff-error"
 import { updatePageTitle } from "@/utils/update-page-title"
-import { useConnectionState } from "@/hooks/useConnectionState"
+import { useIsConnected } from "@/hooks/useConnectionState"
 import { useConfirmDanger } from "@/components/Common/confirm-danger"
 import { IconButton } from "@/components/Common/IconButton"
 import { useMessageOption } from "@/hooks/useMessageOption"
@@ -105,7 +105,7 @@ export function LocalChatList({
   className
 }: LocalChatListProps) {
   const { t } = useTranslation(["common", "sidepanel", "option"])
-  const { isConnected } = useConnectionState()
+  const isConnected = useIsConnected()
   const queryClient = useQueryClient()
   const confirmDanger = useConfirmDanger()
   const { showUndoNotification, contextHolder } = useUndoNotification()
@@ -257,24 +257,18 @@ export function LocalChatList({
     refetchOnMount: false
   })
 
-  // State for storing deleted chat data for undo
-  const [deletedChatData, setDeletedChatData] = useState<{
-    historyInfo: HistoryInfo
-    messages: Message[]
-  } | null>(null)
-
   // Mutations
   const { mutate: deleteHistory } = useMutation({
     mutationKey: ["deleteHistory"],
-    mutationFn: async (history_id: string) => {
+    mutationFn: async (
+      history_id: string
+    ): Promise<{ deletedId: string; chatData: { historyInfo: HistoryInfo; messages: Message[] } | null }> => {
       // Capture the chat data before deletion for undo
       const chatData = await getFullChatData(history_id)
-      if (chatData) {
-        setDeletedChatData(chatData)
-      }
-      return deleteByHistoryId(history_id)
+      const deletedId = await deleteByHistoryId(history_id)
+      return { deletedId, chatData }
     },
-    onSuccess: (deletedId: string) => {
+    onSuccess: ({ deletedId, chatData }) => {
       queryClient.invalidateQueries({ queryKey: ["fetchChatHistory"] })
       const wasActive = historyId === deletedId
       if (wasActive) {
@@ -283,23 +277,20 @@ export function LocalChatList({
       }
 
       // Show undo notification
-      if (deletedChatData) {
-        const chatTitle = deletedChatData.historyInfo.title || t("common:untitledChat", "Untitled Chat")
+      if (chatData) {
+        const chatTitle = chatData.historyInfo.title || t("common:untitledChat", "Untitled Chat")
         showUndoNotification({
           title: t("common:undo.chatDeleted", "Chat deleted"),
           description: t("common:undo.chatDeletedDesc", "\"{{title}}\" was removed", { title: chatTitle }),
           onUndo: async () => {
-            if (deletedChatData) {
-              await restoreChat(deletedChatData)
+            if (chatData) {
+              await restoreChat(chatData)
               queryClient.invalidateQueries({ queryKey: ["fetchChatHistory"] })
               // If this was the active chat, reload it
               if (wasActive) {
-                loadLocalConversation(deletedChatData.historyInfo.id)
+                loadLocalConversation(chatData.historyInfo.id)
               }
             }
-          },
-          onDismiss: () => {
-            setDeletedChatData(null)
           }
         })
       }
@@ -324,7 +315,7 @@ export function LocalChatList({
     },
     onSuccess: (deletedIds: string[]) => {
       queryClient.invalidateQueries({ queryKey: ["fetchChatHistory"] })
-      if (deletedIds.includes(historyId as string)) {
+      if (historyId && deletedIds.includes(historyId)) {
         clearChat()
       }
       message.success(t("common:historiesDeleted", { count: deletedIds.length }))
@@ -579,7 +570,7 @@ export function LocalChatList({
                           onClick: async () => {
                             const ok = await confirmDanger({
                               title: t("common:confirmTitle"),
-                              content: t("option:deleteHistoryConfirmation"),
+                              content: t("common:deleteHistoryConfirmation"),
                               okText: t("common:delete"),
                               cancelText: t("common:cancel")
                             })

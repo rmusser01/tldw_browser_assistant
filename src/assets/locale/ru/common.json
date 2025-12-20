@@ -273,6 +273,12 @@
   "untitled": "Без названия",
   "moveToFolder": "Переместить в папку",
   "noToolCalls": "Пока нет вызовов инструментов",
+  "status": {
+    "pending": "Ожидание",
+    "running": "Обработка",
+    "complete": "Завершено",
+    "error": "Ошибка"
+  },
   "arguments": "Аргументы",
   "invalidJson": "Некорректный JSON; показывается исходное значение",
   "result": "Результат",
@@ -325,5 +331,45 @@
     "categoryNavigation": "Навигация",
     "categorySettings": "Настройки",
     "categoryRecent": "Недавние"
+  },
+  "featureHints": {
+    "knowledge": {
+      "title": "Search your knowledge",
+      "description": "Open the knowledge search panel to find snippets and insert them into your chat."
+    },
+    "moreTools": {
+      "title": "More tools available",
+      "description": "Access vision mode, image upload, quick ingest, and the full app."
+    },
+    "commandPalette": {
+      "title": "Quick commands",
+      "description": "Press {{shortcut}} to search commands, settings, and more."
+    },
+    "modelSettings": {
+      "title": "Adjust model parameters",
+      "description": "Fine-tune temperature, context length, and other model settings."
+    }
+  },
+  "chatSidebar": {
+    "title": "Chats",
+    "newChat": "New Chat",
+    "collapse": "Collapse sidebar",
+    "expand": "Expand sidebar",
+    "search": "Search chats...",
+    "ingest": "Ingest Page",
+    "media": "Media",
+    "notes": "Notes",
+    "settings": "Settings",
+    "loadError": "Failed to load chats",
+    "localTab": "Local",
+    "serverTab": "Server",
+    "foldersTab": "Folders",
+    "tabs": {
+      "local": "Local",
+      "server": "Server",
+      "folders": "Folders"
+    },
+    "noServerChats": "No server chats yet",
+    "foldersRequireConnection": "Folders require a server connection"
   }
 }

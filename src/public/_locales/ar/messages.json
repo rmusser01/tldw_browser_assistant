@@ -318,7 +318,7 @@
     "description": "Command palette action label to navigate to the Settings screen."
   },
   "commandPalette_goToHealth": {
-    "message": "الانتقال إلى Health & Diagnostics",
+    "message": "الانتقال إلى الصحة والتشخيص",
     "description": "Command palette action label to open the Health & diagnostics screen."
   },
   "commandPalette_newChat": {
@@ -556,5 +556,11 @@
   },
   "chatSidebar_foldersRequireConnection": {
     "message": "Folders require a server connection"
+  },
+  "option.more.copy.canonicalMarkdown": {
+    "message": "Copy canonical transcript"
+  },
+  "option.more.download.canonicalMarkdown": {
+    "message": "Canonical transcript (Markdown)"
   }
 }

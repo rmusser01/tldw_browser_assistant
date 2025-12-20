@@ -99,12 +99,14 @@
       "group": "Copiar",
       "asText": "Copiar como Texto",
       "asMarkdown": "Copiar como Markdown",
+      "canonicalMarkdown": "Copiar transcrição canônica",
       "success": "Copiado para área de transferência!"
     },
     "download": {
       "group": "Baixar",
       "text": "Arquivo de Texto (.txt)",
       "markdown": "Markdown (.md)",
+      "canonicalMarkdown": "Transcrição canônica (Markdown)",
       "json": "Arquivo JSON (.json)",
       "image": "Image (.png)"
     },

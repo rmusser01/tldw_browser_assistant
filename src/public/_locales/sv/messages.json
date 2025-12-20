@@ -698,5 +698,11 @@
   },
   "chatSidebar_foldersRequireConnection": {
     "message": "Folders require a server connection"
+  },
+  "option.more.copy.canonicalMarkdown": {
+    "message": "Copy canonical transcript"
+  },
+  "option.more.download.canonicalMarkdown": {
+    "message": "Canonical transcript (Markdown)"
   }
 }

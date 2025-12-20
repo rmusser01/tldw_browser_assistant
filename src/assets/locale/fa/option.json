@@ -99,12 +99,14 @@
       "group": "کپی",
       "asText": "کپی به صورت متن",
       "asMarkdown": "کپی به صورت مارک‌داون",
+      "canonicalMarkdown": "کپی رونوشت مرجع",
       "success": "در کلیپ‌بورد کپی شد!"
     },
     "download": {
       "group": "دانلود",
       "text": "فایل متنی (.txt)",
       "markdown": "مارک‌داون (.md)",
+      "canonicalMarkdown": "رونوشت مرجع (Markdown)",
       "json": "فایل JSON (.json)",
       "image": "Image (.png)"
     },

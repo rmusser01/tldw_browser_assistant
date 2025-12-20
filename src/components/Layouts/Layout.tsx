@@ -74,14 +74,22 @@ const OptionLayoutInner: React.FC<OptionLayoutProps> = ({
     temporaryChat,
     setSelectedSystemPrompt,
     setContextFiles,
-    useOCR
+    useOCR,
+    chatMode,
+    setChatMode,
+    webSearch,
+    setWebSearch
   } = useMessageOption()
   const queryClient = useQueryClient()
   const { setSystemPrompt } = useStoreChatModelSettings()
 
   // Create toggle function for sidebar
   const toggleSidebar = () => {
-    setSidebarOpen(prev => !prev)
+    if (showChatSidebar && !hideHeader) {
+      setChatSidebarCollapsed((prev) => !prev)
+      return
+    }
+    setSidebarOpen((prev) => !prev)
   }
 
   // Quick Chat Helper toggle
@@ -117,7 +125,14 @@ const OptionLayoutInner: React.FC<OptionLayoutProps> = ({
         <ChatSidebar
           collapsed={chatSidebarCollapsed}
           onToggleCollapse={() => setChatSidebarCollapsed((prev) => !prev)}
+          selectedChatId={historyId}
+          onSelectChat={(chatId) => setHistoryId(chatId)}
           onNewChat={clearChat}
+          onIngest={() => {
+            if (typeof window !== "undefined") {
+              window.dispatchEvent(new CustomEvent("tldw:open-quick-ingest"))
+            }
+          }}
           className="sticky top-0 shrink-0 border-r border-gray-200 dark:border-gray-800"
         />
       )}
@@ -249,6 +264,14 @@ const OptionLayoutInner: React.FC<OptionLayoutProps> = ({
           <Suspense fallback={null}>
             <CommandPalette
               onNewChat={clearChat}
+              onToggleRag={() => setChatMode(chatMode === "rag" ? "normal" : "rag")}
+              onToggleWebSearch={() => setWebSearch(!webSearch)}
+              onIngestPage={() => {
+                if (typeof window !== "undefined") {
+                  window.dispatchEvent(new CustomEvent("tldw:open-quick-ingest"))
+                }
+              }}
+              onSwitchModel={() => setOpenModelSettings(true)}
               onToggleSidebar={toggleSidebar}
             />
           </Suspense>

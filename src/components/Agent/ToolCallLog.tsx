@@ -3,6 +3,7 @@
  */
 
 import { FC, useRef, useEffect } from "react"
+import type { TFunction } from "i18next"
 import { useTranslation } from "react-i18next"
 import {
   FileText,
@@ -89,8 +90,10 @@ const getStatusColor = (status: ToolCallEntry["status"]): string => {
 }
 
 // Get accessible status label
-const getStatusLabel = (status: ToolCallEntry["status"]): string => {
-  return STATUS_INFO[status]?.label ?? "Unknown"
+const getStatusLabel = (status: ToolCallEntry["status"], t: TFunction): string => {
+  return t(`status.${status}`, {
+    defaultValue: STATUS_INFO[status]?.label ?? "Unknown"
+  })
 }
 
 const isErrorResult = (result: unknown): result is { ok: false; error?: string } => {
@@ -346,7 +349,7 @@ export const ToolCallLog: FC<ToolCallLogProps> = ({
             <button
               onClick={() => onToggleExpand?.(entry.id)}
               aria-expanded={onToggleExpand ? isExpanded : undefined}
-              aria-label={`${getToolDisplayName(entry.toolCall.function.name)} - ${getStatusLabel(entry.status)}`}
+              aria-label={`${getToolDisplayName(entry.toolCall.function.name)} - ${getStatusLabel(entry.status, t)}`}
               disabled={!onToggleExpand}
               className="w-full flex items-center gap-2 px-3 py-2 text-left hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors"
             >
@@ -358,10 +361,10 @@ export const ToolCallLog: FC<ToolCallLogProps> = ({
               )}
 
               {/* Status indicator with accessible label */}
-              <span className="flex items-center gap-1" aria-label={`Status: ${getStatusLabel(entry.status)}`}>
+              <span className="flex items-center gap-1" aria-label={`Status: ${getStatusLabel(entry.status, t)}`}>
                 <StatusIcon status={entry.status} />
                 <span className={`text-xs ${getStatusColor(entry.status)}`}>
-                  {getStatusLabel(entry.status)}
+                  {getStatusLabel(entry.status, t)}
                 </span>
               </span>
 

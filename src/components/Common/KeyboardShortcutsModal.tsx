@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react"
+import React, { useState, useEffect, useCallback, useRef } from "react"
 import { createPortal } from "react-dom"
 import { useTranslation } from "react-i18next"
 import { X, Keyboard, Command } from "lucide-react"
@@ -15,7 +15,12 @@ interface ShortcutGroup {
 
 export function KeyboardShortcutsModal() {
   const [open, setOpen] = useState(false)
+  const openRef = useRef(false)
   const { t } = useTranslation(["common", "playground"])
+
+  useEffect(() => {
+    openRef.current = open
+  }, [open])
 
   // Listen for ? key to open the modal
   useEffect(() => {
@@ -32,14 +37,14 @@ export function KeyboardShortcutsModal() {
         setOpen(true)
       }
 
-      if (e.key === "Escape" && open) {
+      if (e.key === "Escape" && openRef.current) {
         setOpen(false)
       }
     }
 
     document.addEventListener("keydown", handleKeyDown)
     return () => document.removeEventListener("keydown", handleKeyDown)
-  }, [open])
+  }, [])
 
   const modKey = isMac ? "⌘" : "Ctrl"
 

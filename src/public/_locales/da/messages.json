@@ -829,5 +829,111 @@
   },
   "chatSidebar_foldersRequireConnection": {
     "message": "Folders require a server connection"
+  },
+  "connectionBanner_connecting": {
+    "message": "Opretter forbindelse til din tldw-server...",
+    "description": "Connection banner status shown while connecting to the server."
+  },
+  "connectionBanner_authErrorTitle": {
+    "message": "API-nøglen kræver opmærksomhed",
+    "description": "Connection banner title shown when the API key is missing or invalid."
+  },
+  "connectionBanner_authErrorBody": {
+    "message": "Serveren er tilgængelig, men API-nøglen er forkert eller mangler.",
+    "description": "Connection banner body shown when the API key is missing or invalid."
+  },
+  "connectionBanner_unreachableTitle": {
+    "message": "Kan ikke nå din tldw-server",
+    "description": "Connection banner title shown when the server cannot be reached."
+  },
+  "connectionBanner_unreachableBody": {
+    "message": "Tjek at serveren kører og er tilgængelig.",
+    "description": "Connection banner body shown when the server cannot be reached."
+  },
+  "connectionBanner_noUrlBody": {
+    "message": "Tilføj serverens URL i Indstillinger for at komme i gang.",
+    "description": "Connection banner body shown when no server URL is configured."
+  },
+  "connectionBanner_disconnectedTitle": {
+    "message": "Ikke forbundet til tldw-serveren",
+    "description": "Connection banner title shown when not connected to the server."
+  },
+  "connectionBanner_disconnectedBody": {
+    "message": "Åbn Indstillinger for at konfigurere serverforbindelsen.",
+    "description": "Connection banner body shown when not connected to the server."
+  },
+  "connectionBanner_setupTitle": {
+    "message": "Fuldfør opsætningen for at begynde at chatte",
+    "description": "Connection banner title shown when setup is required."
+  },
+  "connectionBanner_setupBody": {
+    "message": "Fuldfør opsætningsguiden i Indstillinger for at oprette forbindelse.",
+    "description": "Connection banner body shown when setup is required."
+  },
+  "connectionBanner_openSettings": {
+    "message": "Åbn Indstillinger",
+    "description": "Connection banner button label to open Settings."
+  },
+  "temporaryBadge_title": {
+    "message": "Midlertidig chat",
+    "description": "Title for the temporary chat badge."
+  },
+  "temporaryBadge_label": {
+    "message": "Temp",
+    "description": "Short label shown for temporary chat."
+  },
+  "temporaryBadge_description": {
+    "message": "Denne chat gemmes ikke. Beskeder ryddes, når du lukker eller starter en ny chat.",
+    "description": "Description explaining that temporary chats are not saved."
+  },
+  "temporaryBadge_clickHint": {
+    "message": "Klik for at deaktivere",
+    "description": "Hint shown when the temporary chat badge can be clicked to disable."
+  },
+  "temporaryBadge_ariaLabel": {
+    "message": "Midlertidig chattilstand er aktiv. Klik for at skifte.",
+    "description": "ARIA label for the temporary chat toggle."
+  },
+  "temporaryBadge_indicatorTooltip": {
+    "message": "Beskeder i denne chat bliver ikke gemt",
+    "description": "Tooltip shown on the temporary chat indicator."
+  },
+  "temporaryBadge_indicatorAria": {
+    "message": "Midlertidig chat",
+    "description": "ARIA label for the temporary chat indicator."
+  },
+  "saveStatus_ephemeral": {
+    "message": "Midlertidig: ikke gemt, ryddes ved lukning",
+    "description": "Save status label for ephemeral chats."
+  },
+  "saveStatus_local": {
+    "message": "Gemt lokalt i denne browser",
+    "description": "Save status label for chats saved locally."
+  },
+  "saveStatus_server": {
+    "message": "Gemt på serveren",
+    "description": "Save status label for chats saved on the server."
+  },
+  "saveStatus_saveFailed": {
+    "message": "Kunne ikke gemme chatten på serveren",
+    "description": "Save status message shown when saving to the server fails."
+  },
+  "saveStatus_saveFailedDescription": {
+    "message": "Chatten gemmes nu kun lokalt. Tjek din forbindelse og prøv igen.",
+    "description": "Save status description shown when saving to the server fails."
+  },
+  "rag_hint_message": {
+    "message": "Søg i din vidensbase og indsæt resultater i din besked.",
+    "description": "Hint message encouraging the user to search knowledge and insert results into the chat."
+  },
+  "rag_hint_dismiss": {
+    "message": "Luk",
+    "description": "Button label to dismiss the knowledge search hint."
+  },
+  "option.more.copy.canonicalMarkdown": {
+    "message": "Copy canonical transcript"
+  },
+  "option.more.download.canonicalMarkdown": {
+    "message": "Canonical transcript (Markdown)"
   }
 }

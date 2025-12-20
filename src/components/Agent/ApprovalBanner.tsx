@@ -18,7 +18,6 @@ import {
   ChevronUp
 } from "lucide-react"
 import type { PendingApproval } from "@/services/agent/types"
-import { approvalCategoryLabels } from "@/styles/design-tokens"
 
 interface ApprovalBannerProps {
   approvals: PendingApproval[]
@@ -257,10 +256,12 @@ export const ApprovalBanner: FC<ApprovalBannerProps> = ({
             <div className="flex items-center gap-1.5">
               {categories.map((cat, idx) => {
                 const Icon = cat.icon
-                // Use user-friendly labels from design tokens
-                const friendlyLabel = approvalCategoryLabels[cat.key] || cat.label
+                const tooltipLabel =
+                  typeof cat.label === "string"
+                    ? cat.label.toLowerCase()
+                    : String(cat.label).toLowerCase()
                 return (
-                  <Tooltip key={idx} title={`${cat.approvals.length} ${friendlyLabel.toLowerCase()}`}>
+                  <Tooltip key={idx} title={`${cat.approvals.length} ${tooltipLabel}`}>
                     <span className={`flex items-center gap-1 px-2 py-0.5 rounded-full bg-white dark:bg-gray-800 text-xs ${cat.color}`}>
                       <Icon className="size-3" />
                       {cat.approvals.length}
@@ -415,7 +416,11 @@ function formatApprovalArgs(approval: PendingApproval): string {
     case "exec.run":
       return args.command_id || ""
     default:
-      return JSON.stringify(args).substring(0, 50)
+      try {
+        return JSON.stringify(args).substring(0, 50)
+      } catch {
+        return "[Complex arguments]"
+      }
   }
 }
 

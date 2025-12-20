@@ -17,7 +17,7 @@ import { removeModelSuffix } from "@/db/dexie/models"
 import { copyToClipboard } from "@/utils/clipboard"
 import { ImageExportWrapper } from "../Common/ImageExport"
 import { useAntdMessage } from "@/hooks/useAntdMessage"
-import { useStoreMessageOption } from "~/store/option"
+import { useStoreMessageOption } from "@/store/option"
 
 interface MoreOptionsProps {
   messages: Message[]
@@ -116,7 +116,7 @@ const buildCanonicalMessages = (
         }
       }
 
-      if (canonicalIndex == null && replyIndices.length > 0) {
+      if (canonicalIndex === null && replyIndices.length > 0) {
         canonicalIndex = replyIndices[0]
       }
 

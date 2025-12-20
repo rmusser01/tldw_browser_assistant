@@ -273,6 +273,12 @@
   "untitled": "Sem título",
   "moveToFolder": "Mover para pasta",
   "noToolCalls": "Ainda não há chamadas de ferramentas",
+  "status": {
+    "pending": "Pendente",
+    "running": "Processando",
+    "complete": "Concluído",
+    "error": "Erro"
+  },
   "arguments": "Argumentos",
   "invalidJson": "JSON inválido; mostrando valor bruto",
   "result": "Resultado",
@@ -325,5 +331,45 @@
     "categoryNavigation": "Navegação",
     "categorySettings": "Configurações",
     "categoryRecent": "Recentes"
+  },
+  "featureHints": {
+    "knowledge": {
+      "title": "Search your knowledge",
+      "description": "Open the knowledge search panel to find snippets and insert them into your chat."
+    },
+    "moreTools": {
+      "title": "More tools available",
+      "description": "Access vision mode, image upload, quick ingest, and the full app."
+    },
+    "commandPalette": {
+      "title": "Quick commands",
+      "description": "Press {{shortcut}} to search commands, settings, and more."
+    },
+    "modelSettings": {
+      "title": "Adjust model parameters",
+      "description": "Fine-tune temperature, context length, and other model settings."
+    }
+  },
+  "chatSidebar": {
+    "title": "Chats",
+    "newChat": "New Chat",
+    "collapse": "Collapse sidebar",
+    "expand": "Expand sidebar",
+    "search": "Search chats...",
+    "ingest": "Ingest Page",
+    "media": "Media",
+    "notes": "Notes",
+    "settings": "Settings",
+    "loadError": "Failed to load chats",
+    "localTab": "Local",
+    "serverTab": "Server",
+    "foldersTab": "Folders",
+    "tabs": {
+      "local": "Local",
+      "server": "Server",
+      "folders": "Folders"
+    },
+    "noServerChats": "No server chats yet",
+    "foldersRequireConnection": "Folders require a server connection"
   }
 }

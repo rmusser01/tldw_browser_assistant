@@ -99,12 +99,14 @@
       "group": "Kopieren",
       "asText": "Als Text kopieren",
       "asMarkdown": "Als Markdown kopieren",
+      "canonicalMarkdown": "Kanonische Mitschrift kopieren",
       "success": "In die Zwischenablage kopiert!"
     },
     "download": {
       "group": "Herunterladen",
       "text": "Textdatei (.txt)",
       "markdown": "Markdown (.md)",
+      "canonicalMarkdown": "Kanonische Mitschrift (Markdown)",
       "json": "JSON-Datei (.json)",
       "image": "Image (.png)"
     },
