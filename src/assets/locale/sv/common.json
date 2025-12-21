@@ -240,6 +240,8 @@
   "serverChats": "Serverchattar",
   "serverChatLoadError": "Det gick inte att läsa in serverchatt. Kontrollera anslutningen och försök igen.",
   "serverChatSourceLabel": "Serverkälla",
+  "serverChatForkedLabel": "Förgrenad chatt",
+  "serverChatForkedTooltip": "Förgrenad från chatten {{chatId}}",
   "serverChatsUnavailableNotConnected": "Serverchattar blir tillgängliga när du ansluter till din tldw‑server.",
   "serverChatsUnavailableServerError": "Serverchattar är inte tillgängliga just nu. Kontrollera serverloggarna eller försök igen.",
   "historiesDeleted": "{{count}} historiker borttagna",
@@ -273,10 +275,6 @@
   "untitled": "Utan titel",
   "moveToFolder": "Flytta till mapp",
   "noToolCalls": "Inga verktygsanrop ännu",
-  "status_pending": "Väntar",
-  "status_running": "Bearbetar",
-  "status_complete": "Klar",
-  "status_error": "Fel",
   "status": {
     "pending": "Väntar",
     "running": "Bearbetar",
@@ -379,5 +377,20 @@
     },
     "noServerChats": "Inga serverchattar ännu",
     "foldersRequireConnection": "Mappar kräver en serveranslutning"
-  }
+  },
+  "tools_fs_list": "Lista katalog",
+  "tools_fs_read": "Läs fil",
+  "tools_fs_write": "Skriv fil",
+  "tools_fs_apply_patch": "Applicera patch",
+  "tools_fs_mkdir": "Skapa katalog",
+  "tools_fs_delete": "Ta bort",
+  "tools_search_grep": "Sök i innehåll",
+  "tools_search_glob": "Hitta filer",
+  "tools_git_status": "Git-status",
+  "tools_git_diff": "Git-diff",
+  "tools_git_log": "Git-logg",
+  "tools_git_branch": "Git-gren",
+  "tools_git_add": "Stagea filer",
+  "tools_git_commit": "Commit",
+  "tools_exec_run": "Kör kommando"
 }

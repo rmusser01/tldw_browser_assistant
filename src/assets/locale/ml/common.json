@@ -242,6 +242,8 @@
   "serverChats": "സെർവർ ചാറ്റുകൾ",
   "serverChatLoadError": "സെർവർ ചാറ്റ് ലോഡ് ചെയ്യുന്നതിൽ പരാജയപ്പെട്ടു. നിങ്ങളുടെ കണക്ഷൻ പരിശോധന ചെയ്ത് വീണ്ടും ശ്രമിക്കുക.",
   "serverChatSourceLabel": "സെർവർ",
+  "serverChatForkedLabel": "ഫോർക്കുചെയ്ത ചാറ്റ്",
+  "serverChatForkedTooltip": "ചാറ്റ് {{chatId}} നിന്ന് ഫോർക്കുചെയ്തത്",
   "serverChatsUnavailableNotConnected": "നിങ്ങളുടെ tldw സെർവറിലേക്ക് കണക്റ്റ് ചെയ്താൽ സെർവർ ചാറ്റുകൾ ലഭ്യമാകും.",
   "serverChatsUnavailableServerError": "സെർവർ ചാറ്റുകൾ ഇപ്പോൾ ലഭ്യമല്ല. സെർവർ ലോഗുകൾ പരിശോധിക്കുകയോ വീണ്ടും ശ്രമിക്കുകയോ ചെയ്യുക.",
   "historiesDeleted": "{{count}} ചരിത്രങ്ങൾ ഇല്ലാതാക്കി",
@@ -275,10 +277,6 @@
   "untitled": "പേരില്ലാത്തത്",
   "moveToFolder": "ഫോൾഡറിലേക്ക് നീക്കുക",
   "noToolCalls": "ഇതുവരെ ടൂൾ കോൾ ഒന്നുമില്ല",
-  "status_pending": "തീരുമാനിക്കാനുണ്ട്",
-  "status_running": "പ്രോസസ്സിംഗ്",
-  "status_complete": "പൂർത്തീകരിച്ചു",
-  "status_error": "പിശക്",
   "status": {
     "pending": "തീരുമാനിക്കാനുണ്ട്",
     "running": "പ്രോസസ്സിംഗ്",
@@ -381,5 +379,20 @@
     },
     "noServerChats": "സർവർ ചാറ്റുകൾ ഇതുവരെ ഇല്ല",
     "foldersRequireConnection": "ഫോൾഡറുകൾക്ക് സർവർ കണക്ഷൻ ആവശ്യമുണ്ട്"
-  }
+  },
+  "tools_fs_list": "ഡയറക്ടറി പട്ടികപ്പെടുത്തുക",
+  "tools_fs_read": "ഫയൽ വായിക്കുക",
+  "tools_fs_write": "ഫയൽ എഴുതുക",
+  "tools_fs_apply_patch": "പാച്ച് പ്രയോഗിക്കുക",
+  "tools_fs_mkdir": "ഡയറക്ടറി സൃഷ്ടിക്കുക",
+  "tools_fs_delete": "ഇല്ലാതാക്കുക",
+  "tools_search_grep": "ഉള്ളടക്കം തിരയുക",
+  "tools_search_glob": "ഫയലുകൾ കണ്ടെത്തുക",
+  "tools_git_status": "Git നില",
+  "tools_git_diff": "Git വ്യത്യാസം",
+  "tools_git_log": "Git ലോഗ്",
+  "tools_git_branch": "Git ബ്രാഞ്ച്",
+  "tools_git_add": "ഫയലുകൾ സ്റ്റേജ് ചെയ്യുക",
+  "tools_git_commit": "കമ്മിറ്റ്",
+  "tools_exec_run": "കമാൻഡ് പ്രവർത്തിപ്പിക്കുക"
 }

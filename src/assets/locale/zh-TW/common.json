@@ -240,6 +240,8 @@
   "serverChats": "伺服器聊天",
   "serverChatLoadError": "無法載入伺服器聊天。請檢查連線後再試一次。",
   "serverChatSourceLabel": "伺服器來源",
+  "serverChatForkedLabel": "分叉聊天",
+  "serverChatForkedTooltip": "從聊天 {{chatId}} 分叉",
   "serverChatsUnavailableNotConnected": "連線到 tldw 伺服器後即可使用伺服器聊天。",
   "serverChatsUnavailableServerError": "目前無法使用伺服器聊天。請檢查伺服器記錄或稍後再試。",
   "mermaid": "Mermaid 圖表",
@@ -270,10 +272,6 @@
   "untitled": "未命名",
   "moveToFolder": "移至資料夾",
   "noToolCalls": "尚未有工具呼叫",
-  "status_pending": "待處理",
-  "status_running": "處理中",
-  "status_complete": "已完成",
-  "status_error": "錯誤",
   "status": {
     "pending": "待處理",
     "running": "處理中",
@@ -376,5 +374,20 @@
     },
     "noServerChats": "尚無伺服器聊天",
     "foldersRequireConnection": "資料夾需要伺服器連線"
-  }
+  },
+  "tools_fs_list": "列出目錄",
+  "tools_fs_read": "讀取檔案",
+  "tools_fs_write": "寫入檔案",
+  "tools_fs_apply_patch": "套用補丁",
+  "tools_fs_mkdir": "建立目錄",
+  "tools_fs_delete": "刪除",
+  "tools_search_grep": "搜尋內容",
+  "tools_search_glob": "尋找檔案",
+  "tools_git_status": "Git 狀態",
+  "tools_git_diff": "Git 差異",
+  "tools_git_log": "Git 日誌",
+  "tools_git_branch": "Git 分支",
+  "tools_git_add": "暫存檔案",
+  "tools_git_commit": "提交",
+  "tools_exec_run": "執行命令"
 }

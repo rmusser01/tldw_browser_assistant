@@ -791,6 +791,18 @@
   "chatSidebar_notes": {
     "message": "Заметки"
   },
+  "chatSidebar_flashcards": {
+    "message": "Карточки"
+  },
+  "chatSidebar_prompts": {
+    "message": "Промпты"
+  },
+  "chatSidebar_multiItem": {
+    "message": "Несколько элементов"
+  },
+  "chatSidebar_shortcuts": {
+    "message": "Ярлыки"
+  },
   "chatSidebar_settings": {
     "message": "Настройки"
   },

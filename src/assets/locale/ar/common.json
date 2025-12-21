@@ -240,6 +240,8 @@
   "serverChats": "محادثات الخادم",
   "serverChatLoadError": "فشل تحميل محادثة الخادم. تحقق من الاتصال وحاول مرة أخرى.",
   "serverChatSourceLabel": "الخادم",
+  "serverChatForkedLabel": "محادثة متفرعة",
+  "serverChatForkedTooltip": "متفرعة من المحادثة {{chatId}}",
   "serverChatsUnavailableNotConnected": "تتوفّر محادثات الخادم عند الاتصال بخادم tldw الخاص بك.",
   "serverChatsUnavailableServerError": "محادثات الخادم غير متاحة حالياً. تحقّق من سجلات الخادم أو حاول مرة أخرى.",
   "historiesDeleted": "تم حذف {{count}} من السجلات",
@@ -273,10 +275,6 @@
   "untitled": "بدون عنوان",
   "moveToFolder": "نقل إلى المجلد",
   "noToolCalls": "لا توجد استدعاءات أدوات بعد",
-  "status_pending": "قيد الانتظار",
-  "status_running": "قيد المعالجة",
-  "status_complete": "مكتمل",
-  "status_error": "خطأ",
   "status": {
     "pending": "قيد الانتظار",
     "running": "قيد المعالجة",
@@ -379,5 +377,20 @@
     },
     "noServerChats": "لا توجد محادثات خادم بعد",
     "foldersRequireConnection": "تتطلب المجلدات اتصالاً بالخادم"
-  }
+  },
+  "tools_fs_list": "سرد الدليل",
+  "tools_fs_read": "قراءة الملف",
+  "tools_fs_write": "كتابة الملف",
+  "tools_fs_apply_patch": "تطبيق التصحيح",
+  "tools_fs_mkdir": "إنشاء دليل",
+  "tools_fs_delete": "حذف",
+  "tools_search_grep": "بحث في المحتوى",
+  "tools_search_glob": "البحث عن الملفات",
+  "tools_git_status": "حالة Git",
+  "tools_git_diff": "فرق Git",
+  "tools_git_log": "سجل Git",
+  "tools_git_branch": "فرع Git",
+  "tools_git_add": "تهيئة الملفات",
+  "tools_git_commit": "Commit",
+  "tools_exec_run": "تشغيل أمر"
 }

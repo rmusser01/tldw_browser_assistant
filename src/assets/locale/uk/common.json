@@ -240,6 +240,8 @@
   "serverChats": "Серверні чати",
   "serverChatLoadError": "Не вдалося завантажити серверний чат. Перевірте підключення та спробуйте ще раз.",
   "serverChatSourceLabel": "Джерело сервера",
+  "serverChatForkedLabel": "Розгалужений чат",
+  "serverChatForkedTooltip": "Розгалужено від чату {{chatId}}",
   "serverChatsUnavailableNotConnected": "Серверні чати будуть доступні після підключення до вашого сервера tldw.",
   "serverChatsUnavailableServerError": "Серверні чати зараз недоступні. Перевірте журнали сервера або спробуйте ще раз.",
   "historiesDeleted": "{{count}} історій чату видалено",
@@ -273,10 +275,6 @@
   "untitled": "Без назви",
   "moveToFolder": "Перемістити в папку",
   "noToolCalls": "Ще немає викликів інструментів",
-  "status_pending": "Очікування",
-  "status_running": "Обробка",
-  "status_complete": "Завершено",
-  "status_error": "Помилка",
   "status": {
     "pending": "Очікування",
     "running": "Обробка",
@@ -379,5 +377,20 @@
     },
     "noServerChats": "Поки що немає чатів на сервері",
     "foldersRequireConnection": "Папки потребують підключення до сервера"
-  }
+  },
+  "tools_fs_list": "Список каталогу",
+  "tools_fs_read": "Прочитати файл",
+  "tools_fs_write": "Записати файл",
+  "tools_fs_apply_patch": "Застосувати патч",
+  "tools_fs_mkdir": "Створити каталог",
+  "tools_fs_delete": "Видалити",
+  "tools_search_grep": "Пошук у вмісті",
+  "tools_search_glob": "Знайти файли",
+  "tools_git_status": "Статус Git",
+  "tools_git_diff": "Git diff",
+  "tools_git_log": "Журнал Git",
+  "tools_git_branch": "Гілка Git",
+  "tools_git_add": "Підготувати файли",
+  "tools_git_commit": "Коміт",
+  "tools_exec_run": "Виконати команду"
 }

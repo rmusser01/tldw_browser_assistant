@@ -745,6 +745,22 @@
     "message": "Notes",
     "description": "Label for the Notes tab shortcut in the sidebar."
   },
+  "chatSidebar_flashcards": {
+    "message": "Flashcards",
+    "description": "Label for the Flashcards tab shortcut in the sidebar."
+  },
+  "chatSidebar_prompts": {
+    "message": "Prompts",
+    "description": "Label for the Prompts tab shortcut in the sidebar."
+  },
+  "chatSidebar_multiItem": {
+    "message": "Multi-Item",
+    "description": "Label for the multi-item tab shortcut in the sidebar."
+  },
+  "chatSidebar_shortcuts": {
+    "message": "Shortcuts",
+    "description": "Label for the Shortcuts tab shortcut in the sidebar."
+  },
   "chatSidebar_settings": {
     "message": "Settings",
     "description": "Label for the Settings shortcut in the sidebar."

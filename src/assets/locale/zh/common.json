@@ -241,6 +241,8 @@
   "serverChats": "服务器聊天",
   "serverChatLoadError": "无法加载服务器聊天。请检查连接后重试。",
   "serverChatSourceLabel": "服务器来源",
+  "serverChatForkedLabel": "分叉聊天",
+  "serverChatForkedTooltip": "从聊天 {{chatId}} 分叉",
   "serverChatsUnavailableNotConnected": "连接到 tldw 服务器后即可使用服务器聊天。",
   "serverChatsUnavailableServerError": "当前无法使用服务器聊天。请检查服务器日志或稍后再试。",
   "historiesDeleted": "{{count}} 条历史记录已删除",
@@ -273,10 +275,6 @@
   "untitled": "未命名",
   "moveToFolder": "移动到文件夹",
   "noToolCalls": "尚无工具调用",
-  "status_pending": "待定",
-  "status_running": "处理中",
-  "status_complete": "已完成",
-  "status_error": "错误",
   "status": {
     "pending": "待定",
     "running": "处理中",
@@ -379,5 +377,20 @@
     },
     "noServerChats": "暂无服务器聊天",
     "foldersRequireConnection": "文件夹需要服务器连接"
-  }
+  },
+  "tools_fs_list": "列出目录",
+  "tools_fs_read": "读取文件",
+  "tools_fs_write": "写入文件",
+  "tools_fs_apply_patch": "应用补丁",
+  "tools_fs_mkdir": "创建目录",
+  "tools_fs_delete": "删除",
+  "tools_search_grep": "搜索内容",
+  "tools_search_glob": "查找文件",
+  "tools_git_status": "Git 状态",
+  "tools_git_diff": "Git 差异",
+  "tools_git_log": "Git 日志",
+  "tools_git_branch": "Git 分支",
+  "tools_git_add": "暂存文件",
+  "tools_git_commit": "提交",
+  "tools_exec_run": "运行命令"
 }

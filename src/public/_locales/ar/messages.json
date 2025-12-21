@@ -776,6 +776,18 @@
   "chatSidebar_notes": {
     "message": "الملاحظات"
   },
+  "chatSidebar_flashcards": {
+    "message": "بطاقات تعليمية"
+  },
+  "chatSidebar_prompts": {
+    "message": "المطالبات"
+  },
+  "chatSidebar_multiItem": {
+    "message": "متعدد العناصر"
+  },
+  "chatSidebar_shortcuts": {
+    "message": "الاختصارات"
+  },
   "chatSidebar_settings": {
     "message": "الإعدادات"
   },

@@ -743,6 +743,18 @@
   "chatSidebar_notes": {
     "message": "Notizen"
   },
+  "chatSidebar_flashcards": {
+    "message": "Lernkarten"
+  },
+  "chatSidebar_prompts": {
+    "message": "Prompts"
+  },
+  "chatSidebar_multiItem": {
+    "message": "Mehrere Elemente"
+  },
+  "chatSidebar_shortcuts": {
+    "message": "Kurzbefehle"
+  },
   "chatSidebar_settings": {
     "message": "Einstellungen"
   },
@@ -774,9 +786,9 @@
     "message": "Ordner erfordern eine Serververbindung"
   },
   "option_more_copy_canonicalMarkdown": {
-    "message": "Kanonische Transkription kopieren"
+    "message": "Kanonisches Transkript kopieren"
   },
   "option_more_download_canonicalMarkdown": {
-    "message": "Kanonische Transkription (Markdown)"
+    "message": "Kanonisches Transkript (Markdown)"
   }
 }

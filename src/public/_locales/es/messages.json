@@ -743,6 +743,18 @@
   "chatSidebar_notes": {
     "message": "Notas"
   },
+  "chatSidebar_flashcards": {
+    "message": "Tarjetas de estudio"
+  },
+  "chatSidebar_prompts": {
+    "message": "Indicaciones"
+  },
+  "chatSidebar_multiItem": {
+    "message": "Múltiples elementos"
+  },
+  "chatSidebar_shortcuts": {
+    "message": "Accesos directos"
+  },
   "chatSidebar_settings": {
     "message": "Configuración"
   },

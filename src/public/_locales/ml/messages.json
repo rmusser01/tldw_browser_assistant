@@ -743,6 +743,18 @@
   "chatSidebar_notes": {
     "message": "നോട്ടുകൾ"
   },
+  "chatSidebar_flashcards": {
+    "message": "ഫ്ലാഷ്കാർഡുകൾ"
+  },
+  "chatSidebar_prompts": {
+    "message": "പ്രോംപ്റ്റുകൾ"
+  },
+  "chatSidebar_multiItem": {
+    "message": "പല ഇനങ്ങൾ"
+  },
+  "chatSidebar_shortcuts": {
+    "message": "ഷോർട്ട്കട്ടുകൾ"
+  },
   "chatSidebar_settings": {
     "message": "സെറ്റിംഗുകൾ"
   },

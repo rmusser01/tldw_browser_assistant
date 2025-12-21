@@ -240,6 +240,8 @@
   "serverChats": "サーバーチャット",
   "serverChatLoadError": "サーバーチャットの読み込みに失敗しました。接続を確認して再試行してください。",
   "serverChatSourceLabel": "サーバー",
+  "serverChatForkedLabel": "フォークしたチャット",
+  "serverChatForkedTooltip": "チャット {{chatId}} からフォーク",
   "serverChatsUnavailableNotConnected": "tldw サーバーに接続すると、サーバーチャットを利用できるようになります。",
   "serverChatsUnavailableServerError": "現在サーバーチャットを利用できません。サーバーログを確認するか、もう一度お試しください。",
   "historiesDeleted": "{{count}} 件の履歴を削除しました",
@@ -273,10 +275,6 @@
   "untitled": "無題",
   "moveToFolder": "フォルダーに移動",
   "noToolCalls": "ツール呼び出しはまだありません",
-  "status_pending": "保留中",
-  "status_running": "処理中",
-  "status_complete": "完了",
-  "status_error": "エラー",
   "status": {
     "pending": "保留中",
     "running": "処理中",
@@ -379,5 +377,20 @@
     },
     "noServerChats": "サーバーチャットはまだありません",
     "foldersRequireConnection": "フォルダーにはサーバー接続が必要です"
-  }
+  },
+  "tools_fs_list": "ディレクトリ一覧",
+  "tools_fs_read": "ファイルを読む",
+  "tools_fs_write": "ファイルを書く",
+  "tools_fs_apply_patch": "パッチを適用",
+  "tools_fs_mkdir": "ディレクトリを作成",
+  "tools_fs_delete": "削除",
+  "tools_search_grep": "内容を検索",
+  "tools_search_glob": "ファイルを検索",
+  "tools_git_status": "Git ステータス",
+  "tools_git_diff": "Git 差分",
+  "tools_git_log": "Git ログ",
+  "tools_git_branch": "Git ブランチ",
+  "tools_git_add": "ファイルをステージ",
+  "tools_git_commit": "コミット",
+  "tools_exec_run": "コマンドを実行"
 }

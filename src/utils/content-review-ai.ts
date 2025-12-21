@@ -136,7 +136,7 @@ export const stripCodeFences = (value: string) => {
   const text = String(value || "").trim()
   if (!text.startsWith("```")) return text
   const withoutStart = text.replace(/^```[a-zA-Z0-9_-]*\n?/, "")
-  return withoutStart.replace(/```$/, "").trim()
+  return withoutStart.replace(/\n?```\s*$/, "").trim()
 }
 
 type ChatChoice = {

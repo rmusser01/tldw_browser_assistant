@@ -945,37 +945,37 @@
     "description": "Label for the Recent items category in the command palette."
   },
   "markdown_unableToRender": {
-    "message": "Unable to render content"
+    "message": "无法呈现内容"
   },
   "markdown_couldNotDisplay": {
-    "message": "The message content could not be displayed. This may be due to invalid formatting."
+    "message": "消息内容无法显示。可能是格式无效所致。"
   },
   "markdown_showRawContent": {
-    "message": "Show raw content"
+    "message": "显示原始内容"
   },
   "notesSearch_exportNoteSuccess": {
-    "message": "Exported ({{size}})"
+    "message": "已导出（{{size}}）"
   },
   "notesSearch_exportSuccess": {
-    "message": "Exported {{count}} notes ({{size}})"
+    "message": "已导出 {{count}} 篇笔记（{{size}}）"
   },
   "notesSearch_exportCsvSuccess": {
-    "message": "Exported {{count}} notes as CSV ({{size}})"
+    "message": "已将 {{count}} 篇笔记导出为 CSV（{{size}}）"
   },
   "notesSearch_exportJsonSuccess": {
-    "message": "Exported {{count}} notes as JSON ({{size}})"
+    "message": "已将 {{count}} 篇笔记导出为 JSON（{{size}}）"
   },
   "exportNoteSuccess": {
-    "message": "Exported ({{size}})"
+    "message": "已导出（{{size}}）"
   },
   "exportSuccess": {
-    "message": "Exported {{count}} notes ({{size}})"
+    "message": "已导出 {{count}} 篇笔记（{{size}}）"
   },
   "exportCsvSuccess": {
-    "message": "Exported {{count}} notes as CSV ({{size}})"
+    "message": "已将 {{count}} 篇笔记导出为 CSV（{{size}}）"
   },
   "exportJsonSuccess": {
-    "message": "Exported {{count}} notes as JSON ({{size}})"
+    "message": "已将 {{count}} 篇笔记导出为 JSON（{{size}}）"
   },
   "infoShort": {
     "message": "信息"
@@ -1017,10 +1017,10 @@
     "message": "无法创建文件夹"
   },
   "modelSelect_label": {
-    "message": "Model"
+    "message": "模型"
   },
   "modelSelect_tooltip": {
-    "message": "Changes model for next message"
+    "message": "更改下一条消息使用的模型"
   },
   "featureHints_knowledge_title": {
     "message": "搜索你的知识库"
@@ -1069,6 +1069,18 @@
   },
   "chatSidebar_notes": {
     "message": "笔记"
+  },
+  "chatSidebar_flashcards": {
+    "message": "闪卡"
+  },
+  "chatSidebar_prompts": {
+    "message": "提示词"
+  },
+  "chatSidebar_multiItem": {
+    "message": "多项目"
+  },
+  "chatSidebar_shortcuts": {
+    "message": "快捷方式"
   },
   "chatSidebar_settings": {
     "message": "设置"

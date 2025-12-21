@@ -875,6 +875,18 @@
   "chatSidebar_notes": {
     "message": "Noter"
   },
+  "chatSidebar_flashcards": {
+    "message": "Huskekort"
+  },
+  "chatSidebar_prompts": {
+    "message": "Prompter"
+  },
+  "chatSidebar_multiItem": {
+    "message": "Flere elementer"
+  },
+  "chatSidebar_shortcuts": {
+    "message": "Genveje"
+  },
   "chatSidebar_settings": {
     "message": "Indstillinger"
   },

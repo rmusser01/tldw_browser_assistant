@@ -219,6 +219,7 @@
     "compareContinue": "Continue with this model",
     "compareThreadShared": "You (shared)",
     "compareBulkSplitSuccess": "Created {{count}} chats",
+    "compareBulkSplitPartialFail": "Failed to create {{count}} chats",
     "validationCompareSelectModelsInline": "Select at least one model for Compare mode."
   },
   "actor": {

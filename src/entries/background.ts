@@ -515,6 +515,9 @@ export default defineBackground({
       if (!cfg?.serverUrl && !isAbsolute) {
         return { ok: false, status: 400, error: 'tldw server not configured' }
       }
+      if (!path) {
+        return { ok: false, status: 400, error: 'Request path is required' }
+      }
       const baseUrl = cfg?.serverUrl ? String(cfg.serverUrl).replace(/\/$/, '') : ''
       const url = isAbsolute ? path : `${baseUrl}${path.startsWith('/') ? '' : '/'}${path}`
       const h: Record<string, string> = { ...(headers || {}) }
@@ -672,6 +675,8 @@ export default defineBackground({
               return '/api/v1/media/process-videos'
             case 'pdf':
               return '/api/v1/media/process-pdfs'
+            case 'ebook':
+              return '/api/v1/media/process-ebooks'
             default:
               return '/api/v1/media/process-documents'
           }

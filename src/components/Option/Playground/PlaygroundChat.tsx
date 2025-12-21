@@ -215,19 +215,27 @@ export const PlaygroundChat = () => {
 
           const handleBulkSplit = async () => {
             const createdIds: string[] = []
+            const failedModels: string[] = []
             for (const modelKey of clusterSelection) {
-              const newHistoryId = await createCompareBranch({
-                clusterId: block.clusterId,
-                modelId: modelKey,
-                open: false
-              })
-              if (newHistoryId && historyId) {
-                setCompareParentForHistory(newHistoryId, {
-                  parentHistoryId: historyId,
-                  clusterId: block.clusterId
+              try {
+                const newHistoryId = await createCompareBranch({
+                  clusterId: block.clusterId,
+                  modelId: modelKey,
+                  open: false
                 })
-                setCompareSplitChat(block.clusterId, modelKey, newHistoryId)
-                createdIds.push(newHistoryId)
+                if (newHistoryId && historyId) {
+                  setCompareParentForHistory(newHistoryId, {
+                    parentHistoryId: historyId,
+                    clusterId: block.clusterId
+                  })
+                  setCompareSplitChat(block.clusterId, modelKey, newHistoryId)
+                  createdIds.push(newHistoryId)
+                } else {
+                  failedModels.push(modelKey)
+                }
+              } catch (error) {
+                console.error(`Failed to create branch for ${modelKey}:`, error)
+                failedModels.push(modelKey)
               }
             }
             if (createdIds.length > 0) {
@@ -236,6 +244,15 @@ export const PlaygroundChat = () => {
                   "playground:composer.compareBulkSplitSuccess",
                   "Created {{count}} chats",
                   { count: createdIds.length }
+                )
+              })
+            }
+            if (failedModels.length > 0) {
+              notification.warning({
+                message: t(
+                  "playground:composer.compareBulkSplitPartialFail",
+                  "Failed to create {{count}} chats",
+                  { count: failedModels.length }
                 )
               })
             }

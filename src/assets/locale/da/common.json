@@ -240,6 +240,8 @@
   "serverChats": "Serverchats",
   "serverChatLoadError": "Kunne ikke indlæse serverchat. Kontroller din forbindelse og prøv igen.",
   "serverChatSourceLabel": "Serverkilde",
+  "serverChatForkedLabel": "Forgrenet chat",
+  "serverChatForkedTooltip": "Forgrenet fra chat {{chatId}}",
   "serverChatsUnavailableNotConnected": "Serverchats er tilgængelige, når du opretter forbindelse til din tldw-server.",
   "serverChatsUnavailableServerError": "Serverchats er ikke tilgængelige lige nu. Tjek serverloggene, eller prøv igen.",
   "historiesDeleted": "{{count}} historikker slettet",
@@ -273,10 +275,6 @@
   "untitled": "Unavngivet",
   "moveToFolder": "Flyt til mappe",
   "noToolCalls": "Ingen værktøjskald endnu",
-  "status_pending": "Venter",
-  "status_running": "Processerer",
-  "status_complete": "Færdig",
-  "status_error": "Fejl",
   "status": {
     "pending": "Venter",
     "running": "Processerer",
@@ -379,5 +377,20 @@
     },
     "noServerChats": "Ingen serverchats endnu",
     "foldersRequireConnection": "Mapper kræver en serverforbindelse"
-  }
+  },
+  "tools_fs_list": "List mappe",
+  "tools_fs_read": "Læs fil",
+  "tools_fs_write": "Skriv fil",
+  "tools_fs_apply_patch": "Anvend patch",
+  "tools_fs_mkdir": "Opret mappe",
+  "tools_fs_delete": "Slet",
+  "tools_search_grep": "Søg i indhold",
+  "tools_search_glob": "Find filer",
+  "tools_git_status": "Git-status",
+  "tools_git_diff": "Git-diff",
+  "tools_git_log": "Git-log",
+  "tools_git_branch": "Git-branch",
+  "tools_git_add": "Stage filer",
+  "tools_git_commit": "Commit",
+  "tools_exec_run": "Kør kommando"
 }

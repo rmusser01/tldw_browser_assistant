@@ -240,6 +240,8 @@
   "serverChats": "서버 채팅",
   "serverChatLoadError": "서버 채팅을 불러오지 못했습니다. 연결을 확인하고 다시 시도하세요.",
   "serverChatSourceLabel": "서버",
+  "serverChatForkedLabel": "포크된 채팅",
+  "serverChatForkedTooltip": "채팅 {{chatId}}에서 포크됨",
   "serverChatsUnavailableNotConnected": "tldw 서버에 연결하면 서버 채팅을 사용할 수 있습니다.",
   "serverChatsUnavailableServerError": "현재 서버 채팅을 사용할 수 없습니다. 서버 로그를 확인하거나 다시 시도하세요.",
   "historiesDeleted": "{{count}}개의 기록이 삭제되었습니다",
@@ -273,10 +275,6 @@
   "untitled": "제목 없음",
   "moveToFolder": "폴더로 이동",
   "noToolCalls": "아직 도구 호출이 없습니다",
-  "status_pending": "대기 중",
-  "status_running": "처리 중",
-  "status_complete": "완료",
-  "status_error": "오류",
   "status": {
     "pending": "대기 중",
     "running": "처리 중",
@@ -379,5 +377,20 @@
     },
     "noServerChats": "서버 채팅이 아직 없습니다",
     "foldersRequireConnection": "폴더를 사용하려면 서버 연결이 필요합니다"
-  }
+  },
+  "tools_fs_list": "디렉터리 목록",
+  "tools_fs_read": "파일 읽기",
+  "tools_fs_write": "파일 쓰기",
+  "tools_fs_apply_patch": "패치 적용",
+  "tools_fs_mkdir": "디렉터리 생성",
+  "tools_fs_delete": "삭제",
+  "tools_search_grep": "콘텐츠 검색",
+  "tools_search_glob": "파일 찾기",
+  "tools_git_status": "Git 상태",
+  "tools_git_diff": "Git 차이",
+  "tools_git_log": "Git 로그",
+  "tools_git_branch": "Git 브랜치",
+  "tools_git_add": "파일 스테이징",
+  "tools_git_commit": "커밋",
+  "tools_exec_run": "명령 실행"
 }

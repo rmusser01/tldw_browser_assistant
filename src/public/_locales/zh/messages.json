@@ -517,27 +517,27 @@
     "message": "Exported {{count}} notes ({{size}})"
   },
   "notesSearch_exportCsvSuccess": {
-    "message": "已將 {{count}} 筆筆記匯出為 CSV ({{size}})",
+    "message": "已将 {{count}} 笔笔记导出为 CSV ({{size}})",
     "description": "Export success message when matching notes are exported as CSV."
   },
   "notesSearch_exportJsonSuccess": {
-    "message": "已將 {{count}} 筆筆記匯出為 JSON ({{size}})",
+    "message": "已将 {{count}} 笔笔记导出为 JSON ({{size}})",
     "description": "Export success message when matching notes are exported as JSON."
   },
   "exportNoteSuccess": {
-    "message": "已匯出 ({{size}})",
+    "message": "已导出 ({{size}})",
     "description": "Export success message for a single note, showing the exported file size."
   },
   "exportSuccess": {
-    "message": "已匯出 {{count}} 筆筆記 ({{size}})",
+    "message": "已导出 {{count}} 笔笔记 ({{size}})",
     "description": "Export success message when multiple notes are exported, including count and size."
   },
   "exportCsvSuccess": {
-    "message": "已將 {{count}} 筆筆記匯出為 CSV ({{size}})",
+    "message": "已将 {{count}} 笔笔记导出为 CSV ({{size}})",
     "description": "Export success message when notes are exported as CSV."
   },
   "exportJsonSuccess": {
-    "message": "已將 {{count}} 筆筆記匯出為 JSON ({{size}})",
+    "message": "已将 {{count}} 笔笔记导出为 JSON ({{size}})",
     "description": "Export success message when notes are exported as JSON."
   },
   "infoShort": {
@@ -580,10 +580,10 @@
     "message": "无法创建文件夹"
   },
   "modelSelect_label": {
-    "message": "Model"
+    "message": "模型"
   },
   "modelSelect_tooltip": {
-    "message": "Changes model for next message"
+    "message": "更改下一条消息使用的模型"
   },
   "featureHints_knowledge_title": {
     "message": "搜索你的知识库"
@@ -632,6 +632,18 @@
   },
   "chatSidebar_notes": {
     "message": "笔记"
+  },
+  "chatSidebar_flashcards": {
+    "message": "闪卡"
+  },
+  "chatSidebar_prompts": {
+    "message": "提示词"
+  },
+  "chatSidebar_multiItem": {
+    "message": "多项目"
+  },
+  "chatSidebar_shortcuts": {
+    "message": "快捷方式"
   },
   "chatSidebar_settings": {
     "message": "设置"

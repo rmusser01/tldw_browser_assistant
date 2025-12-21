@@ -743,6 +743,18 @@
   "chatSidebar_notes": {
     "message": "Note"
   },
+  "chatSidebar_flashcards": {
+    "message": "Flashcard"
+  },
+  "chatSidebar_prompts": {
+    "message": "Prompt"
+  },
+  "chatSidebar_multiItem": {
+    "message": "Elementi multipli"
+  },
+  "chatSidebar_shortcuts": {
+    "message": "Scorciatoie"
+  },
   "chatSidebar_settings": {
     "message": "Impostazioni"
   },

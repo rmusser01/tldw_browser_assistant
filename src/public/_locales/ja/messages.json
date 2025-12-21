@@ -804,6 +804,18 @@
   "chatSidebar_notes": {
     "message": "ノート"
   },
+  "chatSidebar_flashcards": {
+    "message": "フラッシュカード"
+  },
+  "chatSidebar_prompts": {
+    "message": "プロンプト"
+  },
+  "chatSidebar_multiItem": {
+    "message": "複数アイテム"
+  },
+  "chatSidebar_shortcuts": {
+    "message": "ショートカット"
+  },
   "chatSidebar_settings": {
     "message": "設定"
   },

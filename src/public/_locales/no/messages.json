@@ -743,6 +743,18 @@
   "chatSidebar_notes": {
     "message": "Notater"
   },
+  "chatSidebar_flashcards": {
+    "message": "Huskekort"
+  },
+  "chatSidebar_prompts": {
+    "message": "Prompter"
+  },
+  "chatSidebar_multiItem": {
+    "message": "Flere elementer"
+  },
+  "chatSidebar_shortcuts": {
+    "message": "Snarveier"
+  },
   "chatSidebar_settings": {
     "message": "Innstillinger"
   },

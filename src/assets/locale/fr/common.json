@@ -241,6 +241,8 @@
   "serverChats": "Chats serveur",
   "serverChatLoadError": "Échec du chargement du chat serveur. Vérifiez votre connexion et réessayez.",
   "serverChatSourceLabel": "Serveur",
+  "serverChatForkedLabel": "Chat forké",
+  "serverChatForkedTooltip": "Forké depuis le chat {{chatId}}",
   "serverChatsUnavailableNotConnected": "Les chats serveur ne sont pas disponibles. Connectez-vous à votre serveur tldw pour y accéder.",
   "serverChatsUnavailableServerError": "Les chats serveur sont indisponibles pour le moment. Consultez les journaux du serveur ou réessayez.",
   "historiesDeleted": "{{count}} historiques supprimés",
@@ -273,10 +275,6 @@
   "untitled": "Sans titre",
   "moveToFolder": "Déplacer vers le dossier",
   "noToolCalls": "Aucun appel d’outil pour le moment",
-  "status_pending": "En attente",
-  "status_running": "En cours",
-  "status_complete": "Terminé",
-  "status_error": "Erreur",
   "status": {
     "pending": "En attente",
     "running": "En cours",
@@ -379,5 +377,20 @@
     },
     "noServerChats": "Aucun chat sur le serveur pour le moment",
     "foldersRequireConnection": "Les dossiers nécessitent une connexion au serveur"
-  }
+  },
+  "tools_fs_list": "Lister le répertoire",
+  "tools_fs_read": "Lire le fichier",
+  "tools_fs_write": "Écrire le fichier",
+  "tools_fs_apply_patch": "Appliquer le patch",
+  "tools_fs_mkdir": "Créer un répertoire",
+  "tools_fs_delete": "Supprimer",
+  "tools_search_grep": "Rechercher le contenu",
+  "tools_search_glob": "Rechercher des fichiers",
+  "tools_git_status": "Statut Git",
+  "tools_git_diff": "Diff Git",
+  "tools_git_log": "Journal Git",
+  "tools_git_branch": "Branche Git",
+  "tools_git_add": "Indexer les fichiers",
+  "tools_git_commit": "Commit",
+  "tools_exec_run": "Exécuter la commande"
 }

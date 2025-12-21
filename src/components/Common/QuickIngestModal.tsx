@@ -55,6 +55,13 @@ const RESULT_FILTERS = {
 
 type ResultsFilter = (typeof RESULT_FILTERS)[keyof typeof RESULT_FILTERS]
 
+const MEDIA_TYPE_MAP: Record<string, ContentDraft["mediaType"]> = {
+  html: "html",
+  pdf: "pdf",
+  audio: "audio",
+  video: "video"
+}
+
 const isLikelyUrl = (raw: string) => {
   const val = (raw || '').trim()
   if (!val) return false
@@ -182,15 +189,15 @@ const extractProcessingItems = (data: any): any[] => {
   return [data]
 }
 
-const cloneObject = <T extends Record<string, any>>(value: T): T => {
+const cloneObject = <T extends Record<string, any>>(value: T): T | null => {
   try {
     return structuredClone(value)
   } catch {
     try {
       return JSON.parse(JSON.stringify(value))
     } catch {
-      console.warn("[cloneObject] Failed to clone object, returning empty", value)
-      return {} as T
+      console.warn("[cloneObject] Failed to clone object, returning null", value)
+      return null
     }
   }
 }
@@ -434,6 +441,134 @@ export const QuickIngestModal: React.FC<Props> = ({
 
       await upsertDraftBatch(batch)
 
+      const createDraftFromProcessed = async ({
+        item,
+        processed,
+        sourceRow,
+        localFile
+      }: {
+        item: ResultItem
+        processed: any
+        sourceRow?: Entry
+        localFile?: File
+      }): Promise<{ draftId: string; skippedAssetsDelta: number } | null> => {
+        const statusLabel = String(processed?.status || "").toLowerCase()
+        if (statusLabel === "error" || statusLabel === "failed") {
+          return null
+        }
+
+        const draftId = crypto.randomUUID()
+        const content = resolveContent(processed)
+        const metadata =
+          processed?.metadata && typeof processed.metadata === "object"
+            ? processed.metadata
+            : {}
+        const metadataCopy = cloneObject(metadata)
+        const originalMetadata = cloneObject(metadata)
+        if (!metadataCopy || !originalMetadata) {
+          console.warn(
+            "[createDraftsFromResults] Unable to clone metadata, using empty metadata",
+            metadata
+          )
+        }
+        const keywords = normalizeKeywords(
+          processed?.keywords || metadata?.keywords
+        )
+        const mediaTypeRaw = String(
+          processed?.media_type || item.type || sourceRow?.type || "document"
+        ).toLowerCase()
+        const mediaType: ContentDraft["mediaType"] =
+          MEDIA_TYPE_MAP[mediaTypeRaw] ?? "document"
+
+        const sourceLabel =
+          sourceRow?.url ||
+          item.url ||
+          localFile?.name ||
+          item.fileName ||
+          processed?.input_ref ||
+          "Untitled source"
+        const title = resolveTitle(processed, sourceLabel)
+        const contentFormat = inferContentFormat(content)
+        const { sections, strategy } = detectSections(content, processed?.segments)
+        const processingSnapshot = {
+          ...processingOptions,
+          advancedValues: { ...(processingOptions.advancedValues || {}) }
+        }
+        const analysis = resolveAnalysis(processed)
+        const prompt = resolvePrompt(processed)
+
+        let sourceAssetId: string | undefined
+        let source: ContentDraft["source"] = {
+          kind: "url",
+          url:
+            sourceRow?.url ||
+            item.url ||
+            processed?.url ||
+            processed?.input_ref
+        }
+        let skippedAssetsDelta = 0
+        if (localFile) {
+          const stored = await storeDraftAsset(draftId, localFile)
+          if (stored.asset) {
+            sourceAssetId = stored.asset.id
+            source = {
+              kind: "file",
+              fileName: localFile.name,
+              mimeType: localFile.type,
+              sizeBytes: localFile.size,
+              lastModified: localFile.lastModified
+            }
+          } else {
+            skippedAssetsDelta += 1
+            source = {
+              kind: "file",
+              fileName: localFile.name,
+              mimeType: localFile.type,
+              sizeBytes: localFile.size,
+              lastModified: localFile.lastModified
+            }
+          }
+        } else if (item.fileName) {
+          source = {
+            kind: "file",
+            fileName: item.fileName
+          }
+        }
+
+        const draft: ContentDraft = {
+          id: draftId,
+          batchId,
+          source,
+          sourceAssetId,
+          mediaType,
+          title,
+          originalTitle: title,
+          content,
+          originalContent: content,
+          contentFormat,
+          originalContentFormat: contentFormat,
+          metadata: metadataCopy ?? {},
+          originalMetadata: originalMetadata ?? {},
+          keywords,
+          sections: sections.length > 0 ? sections : undefined,
+          excludedSectionIds: [],
+          sectionStrategy: strategy || undefined,
+          revisions: [],
+          processingOptions: processingSnapshot,
+          status: "pending",
+          createdAt: now,
+          updatedAt: now,
+          expiresAt,
+          analysis,
+          prompt,
+          originalAnalysis: analysis,
+          originalPrompt: prompt
+        }
+
+        await upsertContentDraft(draft)
+        return { draftId, skippedAssetsDelta }
+      }
+
       for (const item of okResults) {
         const sourceRow = rowMap.get(item.id)
         const localFile = fileLookup.get(item.id)
@@ -441,119 +576,15 @@ export const QuickIngestModal: React.FC<Props> = ({
         if (processingItems.length === 0) continue
 
         for (const processed of processingItems) {
-          const statusLabel = String(processed?.status || "").toLowerCase()
-          if (statusLabel === "error" || statusLabel === "failed") {
-            continue
-          }
-          const draftId = crypto.randomUUID()
-          const content = resolveContent(processed)
-          const metadata =
-            processed?.metadata && typeof processed.metadata === "object"
-              ? processed.metadata
-              : {}
-          const metadataCopy = cloneObject(metadata)
-          const originalMetadata = cloneObject(metadata)
-          const keywords = normalizeKeywords(
-            processed?.keywords || metadata?.keywords
-          )
-          const mediaTypeRaw = String(
-            processed?.media_type || item.type || sourceRow?.type || "document"
-          ).toLowerCase()
-          const mediaType: ContentDraft["mediaType"] =
-            mediaTypeRaw === "html"
-              ? "html"
-              : mediaTypeRaw === "pdf"
-                ? "pdf"
-                : mediaTypeRaw === "audio"
-                  ? "audio"
-                  : mediaTypeRaw === "video"
-                    ? "video"
-                    : "document"
-
-          const sourceLabel =
-            sourceRow?.url ||
-            item.url ||
-            localFile?.name ||
-            item.fileName ||
-            processed?.input_ref ||
-            "Untitled source"
-          const title = resolveTitle(processed, sourceLabel)
-          const contentFormat = inferContentFormat(content)
-          const { sections, strategy } = detectSections(content, processed?.segments)
-          const processingSnapshot = {
-            ...processingOptions,
-            advancedValues: { ...(processingOptions.advancedValues || {}) }
-          }
-
-          let sourceAssetId: string | undefined
-          let source: ContentDraft["source"] = {
-            kind: "url",
-            url:
-              sourceRow?.url ||
-              item.url ||
-              processed?.url ||
-              processed?.input_ref
-          }
-          if (localFile) {
-            const stored = await storeDraftAsset(draftId, localFile)
-            if (stored.asset) {
-              sourceAssetId = stored.asset.id
-              source = {
-                kind: "file",
-                fileName: localFile.name,
-                mimeType: localFile.type,
-                sizeBytes: localFile.size,
-                lastModified: localFile.lastModified
-              }
-            } else {
-              skippedAssets += 1
-              source = {
-                kind: "file",
-                fileName: localFile.name,
-                mimeType: localFile.type,
-                sizeBytes: localFile.size,
-                lastModified: localFile.lastModified
-              }
-            }
-          } else if (item.fileName) {
-            source = {
-              kind: "file",
-              fileName: item.fileName
-            }
-          }
-
-          const draft: ContentDraft = {
-            id: draftId,
-            batchId,
-            source,
-            sourceAssetId,
-            mediaType,
-            title,
-            originalTitle: title,
-            content,
-            originalContent: content,
-            contentFormat,
-            originalContentFormat: contentFormat,
-            metadata: metadataCopy,
-            originalMetadata,
-            keywords,
-            sections: sections.length > 0 ? sections : undefined,
-            excludedSectionIds: [],
-            sectionStrategy: strategy || undefined,
-            revisions: [],
-            processingOptions: processingSnapshot,
-            status: "pending",
-            createdAt: now,
-            updatedAt: now,
-            expiresAt,
-            analysis: resolveAnalysis(processed),
-            prompt: resolvePrompt(processed),
-            originalAnalysis: resolveAnalysis(processed),
-            originalPrompt: resolvePrompt(processed)
-          }
-
-          await upsertContentDraft(draft)
-          draftIds.push(draftId)
+          const created = await createDraftFromProcessed({
+            item,
+            processed,
+            sourceRow,
+            localFile
+          })
+          if (!created) continue
+          skippedAssets += created.skippedAssetsDelta
+          draftIds.push(created.draftId)
         }
       }
 
@@ -574,7 +605,8 @@ export const QuickIngestModal: React.FC<Props> = ({
         const url = browser.runtime.getURL(`/options.html${hash}`)
         await browser.tabs.create({ url })
       } catch {
-        window.open(`/options.html${hash}`, "_blank")
+        const fallbackUrl = browser.runtime.getURL(`/options.html${hash}`)
+        window.open(fallbackUrl, "_blank")
       }
     },
     [navigate]

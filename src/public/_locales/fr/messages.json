@@ -728,6 +728,18 @@
   "chatSidebar_notes": {
     "message": "Notes"
   },
+  "chatSidebar_flashcards": {
+    "message": "Cartes mémoire"
+  },
+  "chatSidebar_prompts": {
+    "message": "Prompts"
+  },
+  "chatSidebar_multiItem": {
+    "message": "Éléments multiples"
+  },
+  "chatSidebar_shortcuts": {
+    "message": "Raccourcis"
+  },
   "chatSidebar_settings": {
     "message": "Paramètres"
   },

@@ -116,10 +116,6 @@
   "tools_git_add": "Stage Files",
   "tools_git_commit": "Commit",
   "tools_exec_run": "Run Command",
-  "status_pending": "Pending",
-  "status_running": "Running",
-  "status_complete": "Complete",
-  "status_error": "Error",
   "currentChatModelSettings": "Current Chat Model Settings",
   "modelSettings": {
     "label": "Model Settings",

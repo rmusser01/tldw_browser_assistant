@@ -501,28 +501,28 @@
     "message": "Показати вихідний вміст"
   },
   "notesSearch_exportNoteSuccess": {
-    "message": "Exported ({{size}})"
+    "message": "Експортовано ({{size}})"
   },
   "notesSearch_exportSuccess": {
-    "message": "Exported {{count}} notes ({{size}})"
+    "message": "Експортовано {{count}} нотаток ({{size}})"
   },
   "notesSearch_exportCsvSuccess": {
-    "message": "Exported {{count}} notes as CSV ({{size}})"
+    "message": "Експортовано {{count}} нотаток у форматі CSV ({{size}})"
   },
   "notesSearch_exportJsonSuccess": {
-    "message": "Exported {{count}} notes as JSON ({{size}})"
+    "message": "Експортовано {{count}} нотаток у форматі JSON ({{size}})"
   },
   "exportNoteSuccess": {
-    "message": "Exported ({{size}})"
+    "message": "Експортовано ({{size}})"
   },
   "exportSuccess": {
-    "message": "Exported {{count}} notes ({{size}})"
+    "message": "Експортовано {{count}} нотаток ({{size}})"
   },
   "exportCsvSuccess": {
-    "message": "Exported {{count}} notes as CSV ({{size}})"
+    "message": "Експортовано {{count}} нотаток у форматі CSV ({{size}})"
   },
   "exportJsonSuccess": {
-    "message": "Exported {{count}} notes as JSON ({{size}})"
+    "message": "Експортовано {{count}} нотаток у форматі JSON ({{size}})"
   },
   "infoShort": {
     "message": "Інфо"
@@ -564,10 +564,10 @@
     "message": "Не вдалося створити папку"
   },
   "modelSelect_label": {
-    "message": "Model"
+    "message": "Модель"
   },
   "modelSelect_tooltip": {
-    "message": "Changes model for next message"
+    "message": "Змінює модель для наступного повідомлення"
   },
   "featureHints_knowledge_title": {
     "message": "Пошук у вашій базі знань"
@@ -616,6 +616,18 @@
   },
   "chatSidebar_notes": {
     "message": "Нотатки"
+  },
+  "chatSidebar_flashcards": {
+    "message": "Картки"
+  },
+  "chatSidebar_prompts": {
+    "message": "Промпти"
+  },
+  "chatSidebar_multiItem": {
+    "message": "Кілька елементів"
+  },
+  "chatSidebar_shortcuts": {
+    "message": "Ярлики"
   },
   "chatSidebar_settings": {
     "message": "Налаштування"

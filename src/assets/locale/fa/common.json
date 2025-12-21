@@ -240,6 +240,8 @@
   "serverChats": "گپ‌های سرور",
   "serverChatLoadError": "بارگذاری گپ سرور ناموفق بود. اتصال خود را بررسی کرده و دوباره تلاش کنید.",
   "serverChatSourceLabel": "سرور",
+  "serverChatForkedLabel": "گفتگوی منشعب",
+  "serverChatForkedTooltip": "منشعب از گفتگوی {{chatId}}",
   "serverChatsUnavailableNotConnected": "پس از اتصال به سرور tldw خود، گپ‌های سرور در دسترس خواهند بود.",
   "serverChatsUnavailableServerError": "گپ‌های سرور در حال حاضر در دسترس نیستند. لاگ‌های سرور را بررسی کنید یا دوباره تلاش کنید.",
   "historiesDeleted": "{{count}} تاریخچه حذف شد",
@@ -273,10 +275,6 @@
   "untitled": "بدون عنوان",
   "moveToFolder": "انتقال به پوشه",
   "noToolCalls": "هنوز هیچ فراخوانی ابزاری انجام نشده است",
-  "status_pending": "انتظار",
-  "status_running": "در حال پردازش",
-  "status_complete": "تمام",
-  "status_error": "خطا",
   "status": {
     "pending": "انتظار",
     "running": "در حال پردازش",
@@ -379,5 +377,20 @@
     },
     "noServerChats": "هنوز گفتگویی در سرور نیست",
     "foldersRequireConnection": "پوشه‌ها به اتصال به سرور نیاز دارند"
-  }
+  },
+  "tools_fs_list": "فهرست پوشه",
+  "tools_fs_read": "خواندن فایل",
+  "tools_fs_write": "نوشتن فایل",
+  "tools_fs_apply_patch": "اعمال وصله",
+  "tools_fs_mkdir": "ایجاد پوشه",
+  "tools_fs_delete": "حذف",
+  "tools_search_grep": "جستجوی محتوا",
+  "tools_search_glob": "یافتن فایل‌ها",
+  "tools_git_status": "وضعیت گیت",
+  "tools_git_diff": "تفاوت گیت",
+  "tools_git_log": "گزارش گیت",
+  "tools_git_branch": "شاخه گیت",
+  "tools_git_add": "مرحله‌بندی فایل‌ها",
+  "tools_git_commit": "کامیت",
+  "tools_exec_run": "اجرای دستور"
 }

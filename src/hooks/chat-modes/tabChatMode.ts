@@ -1,4 +1,3 @@
-import { cleanUrl } from "~/libs/clean-url"
 import { promptForRag } from "~/services/tldw-server"
 import { type ChatHistory, type Message } from "~/store/option"
 import { generateID } from "@/db/dexie/helpers"
@@ -52,7 +51,7 @@ export const tabChatMode = async (
     selectedModel: string
     useOCR: boolean
     selectedSystemPrompt: string
-    currentChatModelSettings: any
+    currentChatModelSettings: unknown
     setMessages: (messages: Message[] | ((prev: Message[]) => Message[])) => void
     saveMessageOnSuccess: (data: any) => Promise<string | null>
     saveMessageOnError: (data: any) => Promise<string | null>
@@ -75,7 +74,7 @@ export const tabChatMode = async (
   }
 ) => {
   console.log("Using tabChatMode")
-  const ollama = await pageAssistModel({ model: selectedModel!, baseUrl: "" })
+  const ollama = await pageAssistModel({ model: selectedModel, baseUrl: "" })
 
   const resolvedAssistantMessageId = assistantMessageId ?? generateID()
   const resolvedUserMessageId =

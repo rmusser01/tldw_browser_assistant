@@ -488,51 +488,55 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
     }
   }, [queuedMessages])
 
-  const onInputChange = async (
-    e: React.ChangeEvent<HTMLInputElement> | File
-  ) => {
-    if (e instanceof File) {
-      const isUnsupported = otherUnsupportedTypes.includes(e.type)
+  const onFileInputChange = React.useCallback(
+    async (e: React.ChangeEvent<HTMLInputElement>) => {
+      if (e.target.files && e.target.files[0]) {
+        const file = e.target.files[0]
 
-      if (isUnsupported) {
-        console.error("File type not supported:", e.type)
-        return
+        const isUnsupported = otherUnsupportedTypes.includes(file.type)
+
+        if (isUnsupported) {
+          console.error("File type not supported:", file.type)
+          return
+        }
+
+        const isImage = file.type.startsWith("image/")
+        if (isImage) {
+          const base64 = await toBase64(file)
+          form.setFieldValue("image", base64)
+        } else {
+          await handleFileUpload(file)
+        }
       }
+    },
+    [form, handleFileUpload, otherUnsupportedTypes, toBase64]
+  )
 
-      const isImage = e.type.startsWith("image/")
-      if (isImage) {
-        const base64 = await toBase64(e)
-        form.setFieldValue("image", base64)
+  const onInputChange = React.useCallback(
+    async (e: React.ChangeEvent<HTMLInputElement> | File) => {
+      if (e instanceof File) {
+        const isUnsupported = otherUnsupportedTypes.includes(e.type)
+
+        if (isUnsupported) {
+          console.error("File type not supported:", e.type)
+          return
+        }
+
+        const isImage = e.type.startsWith("image/")
+        if (isImage) {
+          const base64 = await toBase64(e)
+          form.setFieldValue("image", base64)
+        } else {
+          await handleFileUpload(e)
+        }
       } else {
-        await handleFileUpload(e)
+        if (e.target.files) {
+          onFileInputChange(e)
+        }
       }
-    } else {
-      if (e.target.files) {
-        onFileInputChange(e)
-      }
-    }
-  }
-
-  const onFileInputChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files && e.target.files[0]) {
-      const file = e.target.files[0]
-
-      const isUnsupported = otherUnsupportedTypes.includes(file.type)
-
-      if (isUnsupported) {
-        console.error("File type not supported:", file.type)
-        return
-      }
-
-      const isImage = file.type.startsWith("image/")
-      if (isImage) {
-        const base64 = await toBase64(file)
-        form.setFieldValue("image", base64)
-      } else {
-        await handleFileUpload(file)
-      }
-    }
-  }
+    },
+    [form, handleFileUpload, onFileInputChange, otherUnsupportedTypes, toBase64]
+  )
   const handlePaste = async (e: React.ClipboardEvent) => {
     if (e.clipboardData.files.length > 0) {
       onInputChange(e.clipboardData.files[0])
@@ -560,7 +564,7 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
     if (dropedFile) {
       onInputChange(dropedFile)
     }
-  }, [dropedFile])
+  }, [dropedFile, onInputChange])
 
   const handleDisconnectedFocus = () => {
     if (!isConnectionReady && !hasShownConnectBanner) {
@@ -1738,7 +1742,7 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
                                 const trimmed = text.trim()
                                 if (!trimmed) return
                                 form.setFieldValue("message", text)
-                                requestAnimationFrame(() => submitForm())
+                                setTimeout(() => submitForm(), 0)
                               }}
                               isConnected={isConnectionReady}
                               open={contextToolsOpen}

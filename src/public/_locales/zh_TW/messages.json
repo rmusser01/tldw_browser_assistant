@@ -354,16 +354,16 @@
     "message": "顯示原始內容"
   },
   "notesSearch_exportNoteSuccess": {
-    "message": "Exported ({{size}})"
+    "message": "已匯出（{{size}}）"
   },
   "notesSearch_exportSuccess": {
-    "message": "Exported {{count}} notes ({{size}})"
+    "message": "已匯出 {{count}} 篇筆記（{{size}}）"
   },
   "notesSearch_exportCsvSuccess": {
-    "message": "Exported {{count}} notes as CSV ({{size}})"
+    "message": "已將 {{count}} 篇筆記匯出為 CSV（{{size}}）"
   },
   "notesSearch_exportJsonSuccess": {
-    "message": "Exported {{count}} notes as JSON ({{size}})"
+    "message": "已將 {{count}} 篇筆記匯出為 JSON（{{size}}）"
   },
   "exportNoteSuccess": {
     "message": "已匯出（{{size}}）"
@@ -417,10 +417,10 @@
     "message": "無法建立資料夾"
   },
   "modelSelect_label": {
-    "message": "Model"
+    "message": "模型"
   },
   "modelSelect_tooltip": {
-    "message": "Changes model for next message"
+    "message": "變更下一則訊息使用的模型"
   },
   "featureHints_knowledge_title": {
     "message": "搜尋你的知識"
@@ -469,6 +469,18 @@
   },
   "chatSidebar_notes": {
     "message": "筆記"
+  },
+  "chatSidebar_flashcards": {
+    "message": "閃卡"
+  },
+  "chatSidebar_prompts": {
+    "message": "提示詞"
+  },
+  "chatSidebar_multiItem": {
+    "message": "多項目"
+  },
+  "chatSidebar_shortcuts": {
+    "message": "捷徑"
   },
   "chatSidebar_settings": {
     "message": "設定"

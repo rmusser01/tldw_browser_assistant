@@ -813,6 +813,18 @@
   "chatSidebar_notes": {
     "message": "노트"
   },
+  "chatSidebar_flashcards": {
+    "message": "플래시카드"
+  },
+  "chatSidebar_prompts": {
+    "message": "프롬프트"
+  },
+  "chatSidebar_multiItem": {
+    "message": "다중 항목"
+  },
+  "chatSidebar_shortcuts": {
+    "message": "바로가기"
+  },
   "chatSidebar_settings": {
     "message": "설정"
   },

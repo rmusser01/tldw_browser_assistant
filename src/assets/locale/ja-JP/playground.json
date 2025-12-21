@@ -255,6 +255,7 @@
     "compareContinue": "Continue with this model",
     "compareThreadShared": "You (shared)",
     "compareBulkSplitSuccess": "Created {{count}} chats",
+    "compareBulkSplitPartialFail": "チャットを{{count}}件作成できませんでした",
     "validationCompareSelectModelsInline": "Select at least one model for Compare mode."
   }
 }

@@ -744,6 +744,18 @@
   "chatSidebar_notes": {
     "message": "Anteckningar"
   },
+  "chatSidebar_flashcards": {
+    "message": "Minneskort"
+  },
+  "chatSidebar_prompts": {
+    "message": "Prompter"
+  },
+  "chatSidebar_multiItem": {
+    "message": "Flera objekt"
+  },
+  "chatSidebar_shortcuts": {
+    "message": "Genvägar"
+  },
   "chatSidebar_settings": {
     "message": "Inställningar"
   },
