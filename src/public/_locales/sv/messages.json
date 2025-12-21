@@ -688,7 +688,7 @@
     "message": "Dölj tekniska detaljer"
   },
   "error_createFolder": {
-    "message": "Failed to create folder"
+    "message": "Det gick inte att skapa mappen"
   },
   "modelSelect_label": {
     "message": "Model"
@@ -775,9 +775,9 @@
     "message": "Mappar kräver en serveranslutning"
   },
   "option_more_copy_canonicalMarkdown": {
-    "message": "Copy canonical transcript"
+    "message": "Kopiera kanonisk transkription"
   },
   "option_more_download_canonicalMarkdown": {
-    "message": "Canonical transcript (Markdown)"
+    "message": "Kanonisk transkription (Markdown)"
   }
 }

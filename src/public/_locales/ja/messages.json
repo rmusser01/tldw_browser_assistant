@@ -661,7 +661,7 @@
     "description": "Label for the Recent items category in the command palette."
   },
   "compareTag": {
-    "message": "Compare"
+    "message": "比較"
   },
   "compareMaxModelsTitle": {
     "message": "比較制限に達しました"
@@ -679,13 +679,13 @@
     "message": "選択済み: {{current}} / {{limit}}"
   },
   "markdown_unableToRender": {
-    "message": "Unable to render content"
+    "message": "コンテンツを表示できません"
   },
   "markdown_couldNotDisplay": {
-    "message": "The message content could not be displayed. This may be due to invalid formatting."
+    "message": "メッセージの内容を表示できませんでした。無効な書式が原因の可能性があります。"
   },
   "markdown_showRawContent": {
-    "message": "Show raw content"
+    "message": "生のコンテンツを表示"
   },
   "notesSearch_exportNoteSuccess": {
     "message": "エクスポートしました（{{size}}）"
@@ -748,13 +748,13 @@
     "message": "技術的な詳細を非表示"
   },
   "error_createFolder": {
-    "message": "Failed to create folder"
+    "message": "フォルダーの作成に失敗しました"
   },
   "modelSelect_label": {
-    "message": "Model"
+    "message": "モデル"
   },
   "modelSelect_tooltip": {
-    "message": "Changes model for next message"
+    "message": "次のメッセージのモデルを変更します"
   },
   "featureHints_knowledge_title": {
     "message": "ナレッジを検索"
@@ -835,9 +835,9 @@
     "message": "フォルダーにはサーバー接続が必要です"
   },
   "option_more_copy_canonicalMarkdown": {
-    "message": "Copy canonical transcript"
+    "message": "正規の文字起こしをコピー"
   },
   "option_more_download_canonicalMarkdown": {
-    "message": "Canonical transcript (Markdown)"
+    "message": "正規の文字起こし（Markdown）"
   }
 }

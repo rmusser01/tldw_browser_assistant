@@ -153,6 +153,8 @@ export const RagSearchBar: React.FC<Props> = ({
         <div className="flex items-center justify-between mb-1">
           <button
             type="button"
+            aria-expanded={isOpen}
+            aria-controls="rag-search-panel"
             className="text-xs text-gray-600 dark:text-gray-300 underline md:hidden"
             onClick={() => setOpenState(!isOpen)}
           >
@@ -163,7 +165,7 @@ export const RagSearchBar: React.FC<Props> = ({
         </div>
       )}
       {isOpen && (
-        <div className={panelClassName}>
+        <div id="rag-search-panel" className={panelClassName}>
           {/* Disconnected overlay */}
           {!isConnected && (
             <div className="absolute inset-0 z-10 bg-gray-100/90 dark:bg-gray-900/90 flex items-center justify-center rounded">

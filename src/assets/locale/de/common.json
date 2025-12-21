@@ -273,6 +273,10 @@
   "untitled": "Unbenannt",
   "moveToFolder": "In Ordner verschieben",
   "noToolCalls": "Noch keine Tool-Aufrufe",
+  "status_pending": "Ausstehend",
+  "status_running": "In Bearbeitung",
+  "status_complete": "Abgeschlossen",
+  "status_error": "Fehler",
   "status": {
     "pending": "Ausstehend",
     "running": "In Bearbeitung",

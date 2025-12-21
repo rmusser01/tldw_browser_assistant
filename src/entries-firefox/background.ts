@@ -676,12 +676,17 @@ export default defineBackground({
               }
               try { await refreshInFlight } catch {}
               const updated = await storage.get<any>('tldwConfig')
-              if (updated?.accessToken) headers['Authorization'] = `Bearer ${updated.accessToken}`
+              const retryHeaders = { ...headers }
+              for (const k of Object.keys(retryHeaders)) {
+                const kl = k.toLowerCase()
+                if (kl === 'authorization' || kl === 'x-api-key') delete retryHeaders[k]
+              }
+              if (updated?.accessToken) retryHeaders['Authorization'] = `Bearer ${updated.accessToken}`
               const retryController = new AbortController()
               abort = retryController
               resp = await fetch(url, {
                 method: msg.method || 'POST',
-                headers,
+                headers: retryHeaders,
                 body: typeof msg.body === 'string' ? msg.body : JSON.stringify(msg.body),
                 signal: retryController.signal
               })

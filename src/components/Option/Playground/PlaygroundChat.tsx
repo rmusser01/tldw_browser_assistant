@@ -1,7 +1,7 @@
 import React from "react"
-import { useMessageOption } from "~/hooks/useMessageOption"
+import { useMessageOption } from "@/hooks/useMessageOption"
 import { PlaygroundEmpty } from "./PlaygroundEmpty"
-import { PlaygroundMessage } from "~/components/Common/Playground/Message"
+import { PlaygroundMessage } from "@/components/Common/Playground/Message"
 import { MessageSourcePopup } from "@/components/Common/Playground/MessageSourcePopup"
 import { useStorage } from "@plasmohq/storage/hook"
 import { useTranslation } from "react-i18next"
@@ -21,6 +21,7 @@ const PerModelMiniComposer: React.FC<{
   disabled?: boolean
   onSend: (text: string) => Promise<void> | void
 }> = ({ placeholder, disabled = false, onSend }) => {
+  const { t } = useTranslation(["common"])
   const [value, setValue] = React.useState("")
 
   const handleSubmit = async (event: React.FormEvent) => {
@@ -49,7 +50,7 @@ const PerModelMiniComposer: React.FC<{
         type="submit"
         disabled={disabled || value.trim().length === 0}
         className="rounded bg-blue-600 px-2 py-1 text-[11px] font-medium text-white disabled:cursor-not-allowed disabled:opacity-60">
-        Send
+        {t("common:send", "Send")}
       </button>
     </form>
   )
@@ -88,7 +89,7 @@ const buildBlocks = (messages: { messageType?: string; clusterId?: string }[]): 
 }
 
 export const PlaygroundChat = () => {
-  const { t } = useTranslation(["playground"])
+  const { t } = useTranslation(["playground", "common"])
   const {
     messages,
     streaming,
@@ -124,6 +125,7 @@ export const PlaygroundChat = () => {
   const [isSourceOpen, setIsSourceOpen] = React.useState(false)
   const [source, setSource] = React.useState<any>(null)
   const [openReasoning] = useStorage("openReasoning", false)
+  const blocks = React.useMemo(() => buildBlocks(messages), [messages])
 
   return (
     <>
@@ -133,7 +135,7 @@ export const PlaygroundChat = () => {
             <PlaygroundEmpty />
           </div>
         )}
-        {buildBlocks(messages).map((block, blockIndex) => {
+        {blocks.map((block, blockIndex) => {
           if (block.kind === "single") {
             const message = messages[block.index]
             return (

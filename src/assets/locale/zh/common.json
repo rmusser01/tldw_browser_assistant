@@ -273,6 +273,10 @@
   "untitled": "未命名",
   "moveToFolder": "移动到文件夹",
   "noToolCalls": "尚无工具调用",
+  "status_pending": "待定",
+  "status_running": "处理中",
+  "status_complete": "已完成",
+  "status_error": "错误",
   "status": {
     "pending": "待定",
     "running": "处理中",

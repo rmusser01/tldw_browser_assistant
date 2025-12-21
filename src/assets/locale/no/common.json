@@ -226,6 +226,9 @@
   "otherOperations": "Andre operasjoner",
   "fileAccess": "Filtilgang",
   "notebookEdits": "Notatbokendringer",
+  "applyPatch": "Bruk patch",
+  "recursive": "(rekursiv)",
+  "complexArguments": "[Komplekse argumenter]",
   "segmented": {
     "available": "Servermodeller",
     "custom": "Egendefinerte modeller"
@@ -240,6 +243,8 @@
   "serverChats": "Serverchatter",
   "serverChatLoadError": "Kunne ikke laste server-chat. Kontroller tilkoblingen og prøv igjen.",
   "serverChatSourceLabel": "Serverkilde",
+  "serverChatForkedLabel": "Forgrenet chat",
+  "serverChatForkedTooltip": "Forgrenet fra chat {{chatId}}",
   "serverChatsUnavailableNotConnected": "Serverchatter blir tilgjengelige når du kobler til tldw-serveren din.",
   "serverChatsUnavailableServerError": "Serverchatter er utilgjengelige akkurat nå. Sjekk serverloggene eller prøv igjen.",
   "historiesDeleted": "{{count}} historikker slettet",
@@ -273,6 +278,10 @@
   "untitled": "Uten tittel",
   "moveToFolder": "Flytt til mappe",
   "noToolCalls": "Ingen verktøykall ennå",
+  "status_pending": "Venter",
+  "status_running": "Behandler",
+  "status_complete": "Ferdig",
+  "status_error": "Feil",
   "status": {
     "pending": "Venter",
     "running": "Behandler",

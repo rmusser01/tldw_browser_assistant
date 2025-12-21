@@ -189,6 +189,7 @@ const cloneObject = <T extends Record<string, any>>(value: T): T => {
     try {
       return JSON.parse(JSON.stringify(value))
     } catch {
+      console.warn("[cloneObject] Failed to clone object, returning empty", value)
       return {} as T
     }
   }
@@ -994,6 +995,7 @@ export const QuickIngestModal: React.FC<Props> = ({
         } catch (err: any) {
           const msg = err?.message || "Failed to create review drafts."
           messageApi.error(msg)
+          createdDraftBatch = null
         }
       }
 

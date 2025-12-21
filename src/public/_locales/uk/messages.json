@@ -561,7 +561,7 @@
     "message": "Приховати технічні деталі"
   },
   "error_createFolder": {
-    "message": "Failed to create folder"
+    "message": "Не вдалося створити папку"
   },
   "modelSelect_label": {
     "message": "Model"

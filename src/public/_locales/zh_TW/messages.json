@@ -414,7 +414,7 @@
     "message": "隱藏技術詳細資訊"
   },
   "error_createFolder": {
-    "message": "Failed to create folder"
+    "message": "無法建立資料夾"
   },
   "modelSelect_label": {
     "message": "Model"
@@ -501,9 +501,9 @@
     "message": "資料夾需要伺服器連線"
   },
   "option_more_copy_canonicalMarkdown": {
-    "message": "Copy canonical transcript"
+    "message": "複製標準逐字稿"
   },
   "option_more_download_canonicalMarkdown": {
-    "message": "Canonical transcript (Markdown)"
+    "message": "標準逐字稿 (Markdown)"
   }
 }

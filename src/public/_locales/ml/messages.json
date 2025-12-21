@@ -364,17 +364,17 @@
     "message": "പാച്ച് പ്രയോഗിക്കുക"
   },
   "recursive": {
-    "message": "(recursive)"
+    "message": "(ആവർത്തനപരമായ)"
   },
   "complexArguments": {
-    "message": "[Complex arguments]"
+    "message": "[സങ്കീർണ്ണ ആർഗ്യുമെന്റുകൾ]"
   },
   "serverChatForkedLabel": {
-    "message": "Forked chat",
+    "message": "ഫോർക്കുചെയ്ത ചാറ്റ്",
     "description": "Label shown on chats that were forked from another server chat."
   },
   "serverChatForkedTooltip": {
-    "message": "Forked from chat {{chatId}}",
+    "message": "ചാറ്റ് {{chatId}} നിന്ന് ഫോർക്കുചെയ്തത്",
     "description": "Tooltip explaining which original server chat this chat was forked from."
   },
   "serverOffline": {
@@ -687,7 +687,7 @@
     "message": "സാങ്കേതിക വിശദാംശങ്ങൾ മറയ്ക്കുക"
   },
   "error_createFolder": {
-    "message": "Failed to create folder"
+    "message": "ഫോൾഡർ സൃഷ്ടിക്കാൻ കഴിഞ്ഞില്ല"
   },
   "modelSelect_label": {
     "message": "Model"
@@ -774,9 +774,9 @@
     "message": "ഫോൾഡറുകൾക്ക് സർവർ കണക്ഷൻ ആവശ്യമുണ്ട്"
   },
   "option_more_copy_canonicalMarkdown": {
-    "message": "Copy canonical transcript"
+    "message": "കാനോണിക്കൽ ട്രാൻസ്ക്രിപ്റ്റ് പകർത്തുക"
   },
   "option_more_download_canonicalMarkdown": {
-    "message": "Canonical transcript (Markdown)"
+    "message": "കാനോണിക്കൽ ട്രാൻസ്ക്രിപ്റ്റ് (Markdown)"
   }
 }

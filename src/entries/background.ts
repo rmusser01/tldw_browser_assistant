@@ -501,6 +501,105 @@ export default defineBackground({
       }
     }
 
+    const handleTldwRequest = async (payload: any) => {
+      const {
+        path,
+        method = 'GET',
+        headers = {},
+        body,
+        noAuth = false,
+        timeoutMs: overrideTimeoutMs
+      } = payload || {}
+      const cfg = await storage.get<any>('tldwConfig')
+      const isAbsolute = typeof path === 'string' && /^https?:/i.test(path)
+      if (!cfg?.serverUrl && !isAbsolute) {
+        return { ok: false, status: 400, error: 'tldw server not configured' }
+      }
+      const baseUrl = cfg?.serverUrl ? String(cfg.serverUrl).replace(/\/$/, '') : ''
+      const url = isAbsolute ? path : `${baseUrl}${path.startsWith('/') ? '' : '/'}${path}`
+      const h: Record<string, string> = { ...(headers || {}) }
+      if (!noAuth) {
+        for (const k of Object.keys(h)) {
+          const kl = k.toLowerCase()
+          if (kl === 'x-api-key' || kl === 'authorization') delete h[k]
+        }
+        if (cfg?.authMode === 'single-user') {
+          const key = (cfg?.apiKey || '').trim()
+          if (!key) {
+            return {
+              ok: false,
+              status: 401,
+              error:
+                'Add or update your API key in Settings → tldw server, then try again.'
+            }
+          }
+          h['X-API-KEY'] = key
+        } else if (cfg?.authMode === 'multi-user') {
+          const token = (cfg?.accessToken || '').trim()
+          if (token) h['Authorization'] = `Bearer ${token}`
+          else return { ok: false, status: 401, error: 'Not authenticated. Please login under Settings > tldw.' }
+        }
+      }
+      try {
+        const controller = new AbortController()
+        const timeoutMs = deriveRequestTimeout(cfg, path, Number(overrideTimeoutMs))
+        const timeout = setTimeout(() => controller.abort(), timeoutMs)
+        let resp = await fetch(url, {
+          method,
+          headers: h,
+          body: body ? (typeof body === 'string' ? body : JSON.stringify(body)) : undefined,
+          signal: controller.signal
+        })
+        clearTimeout(timeout)
+        // Handle 401 with single-flight refresh (multi-user)
+        if (resp.status === 401 && cfg.authMode === 'multi-user' && cfg.refreshToken) {
+          if (!refreshInFlight) {
+            refreshInFlight = (async () => {
+              try { await tldwAuth.refreshToken() } finally { refreshInFlight = null }
+            })()
+          }
+          try { await refreshInFlight } catch {}
+          const updated = await storage.get<any>('tldwConfig')
+          const retryHeaders = { ...h }
+          for (const k of Object.keys(retryHeaders)) {
+            const kl = k.toLowerCase()
+            if (kl === 'authorization' || kl === 'x-api-key') delete retryHeaders[k]
+          }
+          if (updated?.accessToken) retryHeaders['Authorization'] = `Bearer ${updated.accessToken}`
+          const retryController = new AbortController()
+          const retryTimeout = setTimeout(() => retryController.abort(), timeoutMs)
+          resp = await fetch(url, {
+            method,
+            headers: retryHeaders,
+            body: body ? (typeof body === 'string' ? body : JSON.stringify(body)) : undefined,
+            signal: retryController.signal
+          })
+          clearTimeout(retryTimeout)
+        }
+        const headersOut: Record<string, string> = {}
+        try {
+          resp.headers.forEach((v, k) => {
+            headersOut[k] = v
+          })
+        } catch {}
+        const retryAfterMs = parseRetryAfter(resp.headers?.get?.('retry-after'))
+        const contentType = resp.headers.get('content-type') || ''
+        let data: any = null
+        if (contentType.includes('application/json')) {
+          data = await resp.json().catch(() => null)
+        } else {
+          data = await resp.text().catch(() => null)
+        }
+        if (!resp.ok) {
+          const detail = typeof data === 'object' && data && (data.detail || data.error || data.message)
+          return { ok: false, status: resp.status, error: detail || resp.statusText || `HTTP ${resp.status}`, data, headers: headersOut, retryAfterMs }
+        }
+        return { ok: true, status: resp.status, data, headers: headersOut, retryAfterMs }
+      } catch (e: any) {
+        return { ok: false, status: 0, error: e?.message || 'Network error' }
+      }
+    }
+
     browser.runtime.onMessage.addListener(async (message, sender) => {
       if (message.type === 'tldw:debug') {
         streamDebugEnabled = Boolean(message?.enable)
@@ -614,14 +713,11 @@ export default defineBackground({
             summarize_checkbox: Boolean(common.perform_analysis),
             ...nestedBody
           }
-          const resp = await browser.runtime.sendMessage({
-            type: 'tldw:request',
-            payload: {
-              path: '/api/v1/media/process-web-scraping',
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body
-            }
+          const resp = await handleTldwRequest({
+            path: '/api/v1/media/process-web-scraping',
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body
           }) as { ok: boolean; error?: string; status?: number; data?: any } | undefined
           if (!resp?.ok) {
             const msg = resp?.error || `Request failed: ${resp?.status}`
@@ -798,95 +894,7 @@ export default defineBackground({
       } else if (message.type === 'tldw:upload') {
         return handleUpload(message.payload || {})
       } else if (message.type === 'tldw:request') {
-        const { path, method = 'GET', headers = {}, body, noAuth = false, timeoutMs: overrideTimeoutMs } = message.payload || {}
-        const cfg = await storage.get<any>('tldwConfig')
-        const isAbsolute = typeof path === 'string' && /^https?:/i.test(path)
-        if (!cfg?.serverUrl && !isAbsolute) {
-          return { ok: false, status: 400, error: 'tldw server not configured' }
-        }
-        const baseUrl = cfg?.serverUrl ? String(cfg.serverUrl).replace(/\/$/, '') : ''
-        const url = isAbsolute ? path : `${baseUrl}${path.startsWith('/') ? '' : '/'}${path}`
-        const h: Record<string, string> = { ...(headers || {}) }
-        if (!noAuth) {
-          for (const k of Object.keys(h)) {
-            const kl = k.toLowerCase()
-            if (kl === 'x-api-key' || kl === 'authorization') delete h[k]
-          }
-          if (cfg?.authMode === 'single-user') {
-            const key = (cfg?.apiKey || '').trim()
-            if (!key) {
-              return {
-                ok: false,
-                status: 401,
-                error:
-                  'Add or update your API key in Settings → tldw server, then try again.'
-              }
-            }
-            h['X-API-KEY'] = key
-          } else if (cfg?.authMode === 'multi-user') {
-            const token = (cfg?.accessToken || '').trim()
-            if (token) h['Authorization'] = `Bearer ${token}`
-            else return { ok: false, status: 401, error: 'Not authenticated. Please login under Settings > tldw.' }
-          }
-        }
-        try {
-          const controller = new AbortController()
-          const timeoutMs = deriveRequestTimeout(cfg, path, Number(overrideTimeoutMs))
-          const timeout = setTimeout(() => controller.abort(), timeoutMs)
-          let resp = await fetch(url, {
-            method,
-            headers: h,
-            body: body ? (typeof body === 'string' ? body : JSON.stringify(body)) : undefined,
-            signal: controller.signal
-          })
-          clearTimeout(timeout)
-          // Handle 401 with single-flight refresh (multi-user)
-          if (resp.status === 401 && cfg.authMode === 'multi-user' && cfg.refreshToken) {
-            if (!refreshInFlight) {
-              refreshInFlight = (async () => {
-                try { await tldwAuth.refreshToken() } finally { refreshInFlight = null }
-              })()
-            }
-            try { await refreshInFlight } catch {}
-            const updated = await storage.get<any>('tldwConfig')
-            const retryHeaders = { ...h }
-            for (const k of Object.keys(retryHeaders)) {
-              const kl = k.toLowerCase()
-              if (kl === 'authorization' || kl === 'x-api-key') delete retryHeaders[k]
-            }
-            if (updated?.accessToken) retryHeaders['Authorization'] = `Bearer ${updated.accessToken}`
-            const retryController = new AbortController()
-            const retryTimeout = setTimeout(() => retryController.abort(), timeoutMs)
-            resp = await fetch(url, {
-              method,
-              headers: retryHeaders,
-              body: body ? (typeof body === 'string' ? body : JSON.stringify(body)) : undefined,
-              signal: retryController.signal
-            })
-            clearTimeout(retryTimeout)
-          }
-          const headersOut: Record<string, string> = {}
-          try {
-            resp.headers.forEach((v, k) => {
-              headersOut[k] = v
-            })
-          } catch {}
-          const retryAfterMs = parseRetryAfter(resp.headers?.get?.('retry-after'))
-          const contentType = resp.headers.get('content-type') || ''
-          let data: any = null
-          if (contentType.includes('application/json')) {
-            data = await resp.json().catch(() => null)
-          } else {
-            data = await resp.text().catch(() => null)
-          }
-          if (!resp.ok) {
-            const detail = typeof data === 'object' && data && (data.detail || data.error || data.message)
-            return { ok: false, status: resp.status, error: detail || resp.statusText || `HTTP ${resp.status}`, data, headers: headersOut, retryAfterMs }
-          }
-          return { ok: true, status: resp.status, data, headers: headersOut, retryAfterMs }
-        } catch (e: any) {
-          return { ok: false, status: 0, error: e?.message || 'Network error' }
-        }
+        return handleTldwRequest(message.payload || {})
       } else if (message.type === 'tldw:ingest') {
         try {
           const [tab] = await chrome.tabs.query({ active: true, currentWindow: true })

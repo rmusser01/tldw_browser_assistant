@@ -96,7 +96,7 @@ export const tabChatMode = async (
           name: "You",
           message,
           sources: [],
-          images: [image],
+          images: image ? [image] : [],
           documents,
           id: resolvedUserMessageId,
           messageType: userMessageType,

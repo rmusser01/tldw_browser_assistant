@@ -273,6 +273,10 @@
   "untitled": "Sans titre",
   "moveToFolder": "Déplacer vers le dossier",
   "noToolCalls": "Aucun appel d’outil pour le moment",
+  "status_pending": "En attente",
+  "status_running": "En cours",
+  "status_complete": "Terminé",
+  "status_error": "Erreur",
   "status": {
     "pending": "En attente",
     "running": "En cours",

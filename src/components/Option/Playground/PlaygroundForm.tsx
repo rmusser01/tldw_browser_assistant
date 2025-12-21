@@ -466,16 +466,13 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
 
   React.useEffect(() => {
     textAreaFocus()
-    if (defaultInternetSearchOn) {
-      setWebSearch(true)
-    }
-  }, [])
+  }, [textAreaFocus])
 
   React.useEffect(() => {
     if (defaultInternetSearchOn) {
       setWebSearch(true)
     }
-  }, [defaultInternetSearchOn])
+  }, [defaultInternetSearchOn, setWebSearch])
 
   React.useEffect(() => {
     if (isConnectionReady) {

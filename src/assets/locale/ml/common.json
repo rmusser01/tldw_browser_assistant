@@ -275,6 +275,10 @@
   "untitled": "പേരില്ലാത്തത്",
   "moveToFolder": "ഫോൾഡറിലേക്ക് നീക്കുക",
   "noToolCalls": "ഇതുവരെ ടൂൾ കോൾ ഒന്നുമില്ല",
+  "status_pending": "തീരുമാനിക്കാനുണ്ട്",
+  "status_running": "പ്രോസസ്സിംഗ്",
+  "status_complete": "പൂർത്തീകരിച്ചു",
+  "status_error": "പിശക്",
   "status": {
     "pending": "തീരുമാനിക്കാനുണ്ട്",
     "running": "പ്രോസസ്സിംഗ്",

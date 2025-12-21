@@ -270,6 +270,10 @@
   "untitled": "未命名",
   "moveToFolder": "移至資料夾",
   "noToolCalls": "尚未有工具呼叫",
+  "status_pending": "待處理",
+  "status_running": "處理中",
+  "status_complete": "已完成",
+  "status_error": "錯誤",
   "status": {
     "pending": "待處理",
     "running": "處理中",

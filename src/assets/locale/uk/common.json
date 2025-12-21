@@ -273,6 +273,10 @@
   "untitled": "Без назви",
   "moveToFolder": "Перемістити в папку",
   "noToolCalls": "Ще немає викликів інструментів",
+  "status_pending": "Очікування",
+  "status_running": "Обробка",
+  "status_complete": "Завершено",
+  "status_error": "Помилка",
   "status": {
     "pending": "Очікування",
     "running": "Обробка",

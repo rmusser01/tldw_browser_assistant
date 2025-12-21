@@ -720,7 +720,7 @@
     "message": "إخفاء التفاصيل التقنية"
   },
   "error_createFolder": {
-    "message": "Failed to create folder"
+    "message": "تعذّر إنشاء المجلد"
   },
   "modelSelect_label": {
     "message": "Model"
@@ -807,9 +807,9 @@
     "message": "تتطلب المجلدات اتصالاً بالخادم"
   },
   "option_more_copy_canonicalMarkdown": {
-    "message": "Copy canonical transcript"
+    "message": "نسخ التفريغ القياسي"
   },
   "option_more_download_canonicalMarkdown": {
-    "message": "Canonical transcript (Markdown)"
+    "message": "التفريغ القياسي (Markdown)"
   }
 }

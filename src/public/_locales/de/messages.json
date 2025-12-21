@@ -687,13 +687,13 @@
     "message": "Technische Details ausblenden"
   },
   "error_createFolder": {
-    "message": "Failed to create folder"
+    "message": "Ordner konnte nicht erstellt werden"
   },
   "modelSelect_label": {
-    "message": "Model"
+    "message": "Modell"
   },
   "modelSelect_tooltip": {
-    "message": "Changes model for next message"
+    "message": "Ändert das Modell für die nächste Nachricht"
   },
   "featureHints_knowledge_title": {
     "message": "Durchsuche dein Wissen"
@@ -774,9 +774,9 @@
     "message": "Ordner erfordern eine Serververbindung"
   },
   "option_more_copy_canonicalMarkdown": {
-    "message": "Copy canonical transcript"
+    "message": "Kanonische Transkription kopieren"
   },
   "option_more_download_canonicalMarkdown": {
-    "message": "Canonical transcript (Markdown)"
+    "message": "Kanonische Transkription (Markdown)"
   }
 }

@@ -273,6 +273,10 @@
   "untitled": "بدون عنوان",
   "moveToFolder": "انتقال به پوشه",
   "noToolCalls": "هنوز هیچ فراخوانی ابزاری انجام نشده است",
+  "status_pending": "انتظار",
+  "status_running": "در حال پردازش",
+  "status_complete": "تمام",
+  "status_error": "خطا",
   "status": {
     "pending": "انتظار",
     "running": "در حال پردازش",

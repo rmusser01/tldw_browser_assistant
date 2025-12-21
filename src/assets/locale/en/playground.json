@@ -193,7 +193,7 @@
     "saveSnippetEmpty": "Snippet cannot be empty",
     "connectToSend": "Connect to your tldw server in Settings to send messages and view media.",
     "compareTag": "Compare",
-    "compareLabel": "Compare models",
+    "compareLabel": "Compare mode",
     "compareButton": "Compare models",
     "compareButtonActive": "Compare: {{count}} models",
     "compareButtonOn": "Compare enabled",

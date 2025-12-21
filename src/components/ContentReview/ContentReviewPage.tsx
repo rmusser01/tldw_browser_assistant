@@ -65,8 +65,13 @@ const normalizeMediaType = (type?: string) => {
   return "document"
 }
 
-const extractMediaId = (data: any, visited?: WeakSet<object>): string | null => {
+const extractMediaId = (
+  data: any,
+  visited?: WeakSet<object>,
+  depth = 0
+): string | null => {
   if (!data || typeof data !== "object") return null
+  if (depth > 10) return null
   if (!visited) visited = new WeakSet<object>()
   if (visited.has(data as object)) return null
   visited.add(data as object)
@@ -80,13 +85,13 @@ const extractMediaId = (data: any, visited?: WeakSet<object>): string | null => 
     return String(direct)
   }
   if ((data as any).media && typeof (data as any).media === "object") {
-    return extractMediaId((data as any).media, visited)
+    return extractMediaId((data as any).media, visited, depth + 1)
   }
   if ((data as any).result) {
-    return extractMediaId((data as any).result, visited)
+    return extractMediaId((data as any).result, visited, depth + 1)
   }
   if (Array.isArray((data as any).results) && (data as any).results.length > 0) {
-    return extractMediaId((data as any).results[0], visited)
+    return extractMediaId((data as any).results[0], visited, depth + 1)
   }
   return null
 }
@@ -140,6 +145,102 @@ const buildSafeMetadata = (
     safeMetadata.original_media_type = draft.mediaType
   }
   return Object.keys(safeMetadata).length > 0 ? safeMetadata : null
+}
+
+const commitDraftToServer = async (
+  draft: ContentDraft
+): Promise<ContentDraft> => {
+  const fields = buildFields(draft)
+  let includeOriginalType = false
+  let uploadResp: any
+
+  if (draft.source.kind === "url" && draft.source.url) {
+    fields.urls = [draft.source.url]
+    uploadResp = await bgUpload({
+      path: "/api/v1/media/add",
+      method: "POST",
+      fields
+    })
+  } else if (draft.sourceAssetId) {
+    const asset = await getDraftAsset(draft.sourceAssetId)
+    if (!asset) {
+      throw new Error("Source file missing. Please reattach to commit.")
+    }
+    const data = await asset.blob.arrayBuffer()
+    uploadResp = await bgUpload({
+      path: "/api/v1/media/add",
+      method: "POST",
+      fields,
+      file: {
+        name: asset.fileName,
+        type: asset.mimeType,
+        data
+      }
+    })
+  } else if (draft.mediaType === "audio" || draft.mediaType === "video") {
+    throw new Error(
+      "Audio/video drafts require the original source file to commit."
+    )
+  } else {
+    includeOriginalType = true
+    const synthetic = buildSyntheticFile(draft)
+    uploadResp = await bgUpload({
+      path: "/api/v1/media/add",
+      method: "POST",
+      fields: {
+        ...fields,
+        media_type: "document"
+      },
+      file: {
+        name: synthetic.fileName,
+        type: synthetic.mimeType,
+        data: synthetic.data.buffer
+      }
+    })
+  }
+
+  const mediaId = extractMediaId(uploadResp)
+  if (!mediaId) {
+    throw new Error("Media ID not returned from server.")
+  }
+
+  const updatePayload: Record<string, any> = {}
+  if (draft.title) updatePayload.title = draft.title
+  if (draft.content) updatePayload.content = draft.content
+  if (draft.keywords) updatePayload.keywords = draft.keywords
+  if (draft.analysis) updatePayload.analysis = draft.analysis
+  if (draft.prompt) updatePayload.prompt = draft.prompt
+
+  if (Object.keys(updatePayload).length > 0) {
+    await bgRequest({
+      path: `/api/v1/media/${mediaId}`,
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: updatePayload
+    })
+  }
+
+  const safeMetadata = buildSafeMetadata(draft, includeOriginalType)
+  if (safeMetadata) {
+    await bgRequest({
+      path: `/api/v1/media/${mediaId}/metadata`,
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: {
+        safe_metadata: safeMetadata,
+        merge: true
+      }
+    })
+  }
+
+  const now = Date.now()
+  return {
+    ...draft,
+    status: "committed",
+    reviewedAt: draft.reviewedAt || now,
+    committedAt: now,
+    updatedAt: now
+  }
 }
 
 const formatTimestamp = (ts?: number) => {
@@ -249,7 +350,12 @@ export const ContentReviewPage: React.FC = () => {
       .then((caps) => {
         if (mounted) setHasChat(caps.hasChat)
       })
-      .catch(() => {})
+      .catch((err) => {
+        console.debug(
+          "[ContentReview] Failed to fetch server capabilities:",
+          err
+        )
+      })
     return () => {
       mounted = false
     }
@@ -271,7 +377,9 @@ export const ContentReviewPage: React.FC = () => {
         })
         setModelOptions(options)
       })
-      .catch(() => {})
+      .catch((err) => {
+        console.debug("[ContentReview] Failed to fetch chat models:", err)
+      })
       .finally(() => {
         if (mounted) setModelsLoading(false)
       })
@@ -353,7 +461,8 @@ export const ContentReviewPage: React.FC = () => {
       return
     }
     let mounted = true
-    getDraftById(activeDraftId).then((draft) => {
+    const loadDraft = async () => {
+      const draft = await getDraftById(activeDraftId)
       if (!mounted || !draft) return
       let resolved = draft
       if (draft.status === "pending") {
@@ -363,16 +472,19 @@ export const ContentReviewPage: React.FC = () => {
           status: "in_progress",
           updatedAt: now
         }
-        void upsertContentDraft(updated)
+        await upsertContentDraft(updated)
+        if (!mounted) return
         setDrafts((prev) =>
           prev.map((d) => (d.id === draft.id ? updated : d))
         )
         resolved = updated
       }
+      if (!mounted) return
       setDraftContent(cloneDraft(resolved))
       setIsDirty(false)
       setLastSavedAt(resolved.updatedAt)
-    })
+    }
+    void loadDraft()
     return () => {
       mounted = false
     }
@@ -759,105 +871,12 @@ export const ContentReviewPage: React.FC = () => {
     }
     setIsCommitting(true)
     try {
-      const fields = buildFields(draftContent)
-      let includeOriginalType = false
-      let uploadResp: any
-
-      if (draftContent.source.kind === "url" && draftContent.source.url) {
-        fields.urls = [draftContent.source.url]
-        uploadResp = await bgUpload({
-          path: "/api/v1/media/add",
-          method: "POST",
-          fields
-        })
-      } else if (draftContent.sourceAssetId) {
-        const asset = await getDraftAsset(draftContent.sourceAssetId)
-        if (!asset) {
-          throw new Error("Source file missing. Please reattach to commit.")
-        }
-        const data = await asset.blob.arrayBuffer()
-        uploadResp = await bgUpload({
-          path: "/api/v1/media/add",
-          method: "POST",
-          fields,
-          file: {
-            name: asset.fileName,
-            type: asset.mimeType,
-            data
-          }
-        })
-      } else if (
-        draftContent.mediaType === "audio" ||
-        draftContent.mediaType === "video"
-      ) {
-        throw new Error(
-          "Audio/video drafts require the original source file to commit."
-        )
-      } else {
-        includeOriginalType = true
-        const synthetic = buildSyntheticFile(draftContent)
-        uploadResp = await bgUpload({
-          path: "/api/v1/media/add",
-          method: "POST",
-          fields: {
-            ...fields,
-            media_type: "document"
-          },
-          file: {
-            name: synthetic.fileName,
-            type: synthetic.mimeType,
-            data: synthetic.data.buffer
-          }
-        })
-      }
-
-      const mediaId = extractMediaId(uploadResp)
-      if (!mediaId) {
-        throw new Error("Media ID not returned from server.")
-      }
-
-      const updatePayload: Record<string, any> = {}
-      if (draftContent.title) updatePayload.title = draftContent.title
-      if (draftContent.content) updatePayload.content = draftContent.content
-      if (draftContent.keywords) updatePayload.keywords = draftContent.keywords
-      if (draftContent.analysis) updatePayload.analysis = draftContent.analysis
-      if (draftContent.prompt) updatePayload.prompt = draftContent.prompt
-
-      if (Object.keys(updatePayload).length > 0) {
-        await bgRequest({
-          path: `/api/v1/media/${mediaId}`,
-          method: "PUT",
-          headers: { "Content-Type": "application/json" },
-          body: updatePayload
-        })
-      }
-
-      const safeMetadata = buildSafeMetadata(draftContent, includeOriginalType)
-      if (safeMetadata) {
-        await bgRequest({
-          path: `/api/v1/media/${mediaId}/metadata`,
-          method: "PATCH",
-          headers: { "Content-Type": "application/json" },
-          body: {
-            safe_metadata: safeMetadata,
-            merge: true
-          }
-        })
-      }
-
-      const now = Date.now()
-      const updated: ContentDraft = {
-        ...draftContent,
-        status: "committed",
-        reviewedAt: draftContent.reviewedAt || now,
-        committedAt: now,
-        updatedAt: now
-      }
+      const updated = await commitDraftToServer(draftContent)
       await upsertContentDraft(updated)
       setDrafts((prev) => prev.map((d) => (d.id === updated.id ? updated : d)))
       setDraftContent(updated)
       setIsDirty(false)
-      setLastSavedAt(now)
+      setLastSavedAt(updated.updatedAt)
       messageApi.success(
         t("contentReview.commitSuccess", "Draft committed.")
       )
@@ -870,103 +889,13 @@ export const ContentReviewPage: React.FC = () => {
   }
 
   const handleCommitSingle = async (draft: ContentDraft) => {
-    const fields = buildFields(draft)
-    let includeOriginalType = false
-    let uploadResp: any
-
-    if (draft.source.kind === "url" && draft.source.url) {
-      fields.urls = [draft.source.url]
-      uploadResp = await bgUpload({
-        path: "/api/v1/media/add",
-        method: "POST",
-        fields
-      })
-    } else if (draft.sourceAssetId) {
-      const asset = await getDraftAsset(draft.sourceAssetId)
-      if (!asset) {
-        throw new Error("Source file missing. Please reattach to commit.")
-      }
-      const data = await asset.blob.arrayBuffer()
-      uploadResp = await bgUpload({
-        path: "/api/v1/media/add",
-        method: "POST",
-        fields,
-        file: {
-          name: asset.fileName,
-          type: asset.mimeType,
-          data
-        }
-      })
-    } else if (draft.mediaType === "audio" || draft.mediaType === "video") {
-      throw new Error(
-        "Audio/video drafts require the original source file to commit."
-      )
-    } else {
-      includeOriginalType = true
-      const synthetic = buildSyntheticFile(draft)
-      uploadResp = await bgUpload({
-        path: "/api/v1/media/add",
-        method: "POST",
-        fields: {
-          ...fields,
-          media_type: "document"
-        },
-        file: {
-          name: synthetic.fileName,
-          type: synthetic.mimeType,
-          data: synthetic.data.buffer
-        }
-      })
-    }
-
-    const mediaId = extractMediaId(uploadResp)
-    if (!mediaId) {
-      throw new Error("Media ID not returned from server.")
-    }
-
-    const updatePayload: Record<string, any> = {}
-    if (draft.title) updatePayload.title = draft.title
-    if (draft.content) updatePayload.content = draft.content
-    if (draft.keywords) updatePayload.keywords = draft.keywords
-    if (draft.analysis) updatePayload.analysis = draft.analysis
-    if (draft.prompt) updatePayload.prompt = draft.prompt
-
-    if (Object.keys(updatePayload).length > 0) {
-      await bgRequest({
-        path: `/api/v1/media/${mediaId}`,
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: updatePayload
-      })
-    }
-
-    const safeMetadata = buildSafeMetadata(draft, includeOriginalType)
-    if (safeMetadata) {
-      await bgRequest({
-        path: `/api/v1/media/${mediaId}/metadata`,
-        method: "PATCH",
-        headers: { "Content-Type": "application/json" },
-        body: {
-          safe_metadata: safeMetadata,
-          merge: true
-        }
-      })
-    }
-
-    const now = Date.now()
-    const updated: ContentDraft = {
-      ...draft,
-      status: "committed",
-      reviewedAt: draft.reviewedAt || now,
-      committedAt: now,
-      updatedAt: now
-    }
+    const updated = await commitDraftToServer(draft)
     await upsertContentDraft(updated)
     setDrafts((prev) => prev.map((d) => (d.id === updated.id ? updated : d)))
     if (draftContent?.id === updated.id) {
       setDraftContent(updated)
       setIsDirty(false)
-      setLastSavedAt(now)
+      setLastSavedAt(updated.updatedAt)
     }
   }
 
@@ -993,15 +922,23 @@ export const ContentReviewPage: React.FC = () => {
     setIsCommitting(true)
     let successCount = 0
     let failCount = 0
+    const errors: Array<{ title: string; error: string }> = []
     for (const draft of reviewed) {
       try {
         await handleCommitSingle(draft)
         successCount += 1
-      } catch {
+      } catch (err: any) {
         failCount += 1
+        errors.push({
+          title: draft.title || draft.id,
+          error: err?.message || "Unknown error"
+        })
       }
     }
     setIsCommitting(false)
+    if (errors.length > 0) {
+      console.warn("[ContentReview] Bulk commit errors:", errors)
+    }
     messageApi.info(
       t(
         "contentReview.commitAllResult",

@@ -139,11 +139,26 @@ export const stripCodeFences = (value: string) => {
   return withoutStart.replace(/```$/, "").trim()
 }
 
-export const extractChatContent = (resp: any) => {
-  const raw =
-    resp?.choices?.[0]?.message?.content ||
-    resp?.choices?.[0]?.text ||
-    resp?.content ||
-    (typeof resp === "string" ? resp : "")
+type ChatChoice = {
+  message?: { content?: unknown } | null
+  text?: unknown
+}
+
+type ChatResponse = {
+  choices?: ChatChoice[] | null
+  content?: unknown
+}
+
+export const extractChatContent = (resp: unknown): string => {
+  if (typeof resp === "string") {
+    return stripCodeFences(resp.trim())
+  }
+
+  if (!resp || typeof resp !== "object") {
+    return ""
+  }
+
+  const { choices, content } = resp as ChatResponse
+  const raw = choices?.[0]?.message?.content ?? choices?.[0]?.text ?? content ?? ""
   return stripCodeFences(String(raw || "").trim())
 }

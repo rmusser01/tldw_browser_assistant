@@ -1557,13 +1557,13 @@
     "description": "Label for the Recent items category in the command palette."
   },
   "markdown_unableToRender": {
-    "message": "Unable to render content"
+    "message": "Não foi possível renderizar o conteúdo"
   },
   "markdown_couldNotDisplay": {
-    "message": "The message content could not be displayed. This may be due to invalid formatting."
+    "message": "O conteúdo da mensagem não pôde ser exibido. Isso pode ser devido a uma formatação inválida."
   },
   "markdown_showRawContent": {
-    "message": "Show raw content"
+    "message": "Mostrar conteúdo bruto"
   },
   "status_pending": {
     "message": "Pendente",
@@ -1651,13 +1651,13 @@
     "message": "Ocultar detalhes técnicos"
   },
   "error_createFolder": {
-    "message": "Failed to create folder"
+    "message": "Falha ao criar pasta"
   },
   "modelSelect_label": {
-    "message": "Model"
+    "message": "Modelo"
   },
   "modelSelect_tooltip": {
-    "message": "Changes model for next message"
+    "message": "Altera o modelo para a próxima mensagem"
   },
   "featureHints_knowledge_title": {
     "message": "Pesquise na sua base de conhecimento"
@@ -1738,9 +1738,9 @@
     "message": "As pastas exigem uma conexão com o servidor"
   },
   "option_more_copy_canonicalMarkdown": {
-    "message": "Copy canonical transcript"
+    "message": "Copiar transcrição canônica"
   },
   "option_more_download_canonicalMarkdown": {
-    "message": "Canonical transcript (Markdown)"
+    "message": "Transcrição canônica (Markdown)"
   }
 }

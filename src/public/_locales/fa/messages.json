@@ -687,7 +687,7 @@
     "message": "پنهان کردن جزئیات فنی"
   },
   "error_createFolder": {
-    "message": "Failed to create folder"
+    "message": "ایجاد پوشه ناموفق بود"
   },
   "modelSelect_label": {
     "message": "Model"
@@ -774,9 +774,9 @@
     "message": "پوشه‌ها به اتصال به سرور نیاز دارند"
   },
   "option_more_copy_canonicalMarkdown": {
-    "message": "Copy canonical transcript"
+    "message": "کپی رونوشت مرجع"
   },
   "option_more_download_canonicalMarkdown": {
-    "message": "Canonical transcript (Markdown)"
+    "message": "رونوشت مرجع (Markdown)"
   }
 }

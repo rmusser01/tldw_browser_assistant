@@ -735,13 +735,13 @@
     "message": "Скрыть технические сведения"
   },
   "error_createFolder": {
-    "message": "Failed to create folder"
+    "message": "Не удалось создать папку"
   },
   "modelSelect_label": {
-    "message": "Model"
+    "message": "Модель"
   },
   "modelSelect_tooltip": {
-    "message": "Changes model for next message"
+    "message": "Изменяет модель для следующего сообщения"
   },
   "featureHints_knowledge_title": {
     "message": "Искать в вашей базе знаний"
@@ -822,9 +822,9 @@
     "message": "Папки требуют подключения к серверу"
   },
   "option_more_copy_canonicalMarkdown": {
-    "message": "Copy canonical transcript"
+    "message": "Скопировать каноническую транскрипцию"
   },
   "option_more_download_canonicalMarkdown": {
-    "message": "Canonical transcript (Markdown)"
+    "message": "Каноническая транскрипция (Markdown)"
   }
 }

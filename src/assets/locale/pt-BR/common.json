@@ -276,6 +276,10 @@
   "untitled": "Sem título",
   "moveToFolder": "Mover para pasta",
   "noToolCalls": "Ainda não há chamadas de ferramentas",
+  "status_pending": "Pendente",
+  "status_running": "Processando",
+  "status_complete": "Concluído",
+  "status_error": "Erro",
   "status": {
     "pending": "Pendente",
     "running": "Processando",

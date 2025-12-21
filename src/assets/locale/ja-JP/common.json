@@ -273,6 +273,10 @@
   "untitled": "無題",
   "moveToFolder": "フォルダーに移動",
   "noToolCalls": "ツール呼び出しはまだありません",
+  "status_pending": "保留中",
+  "status_running": "処理中",
+  "status_complete": "完了",
+  "status_error": "エラー",
   "status": {
     "pending": "保留中",
     "running": "処理中",

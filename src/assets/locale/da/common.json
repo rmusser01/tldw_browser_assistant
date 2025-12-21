@@ -273,6 +273,10 @@
   "untitled": "Unavngivet",
   "moveToFolder": "Flyt til mappe",
   "noToolCalls": "Ingen værktøjskald endnu",
+  "status_pending": "Venter",
+  "status_running": "Processerer",
+  "status_complete": "Færdig",
+  "status_error": "Fejl",
   "status": {
     "pending": "Venter",
     "running": "Processerer",

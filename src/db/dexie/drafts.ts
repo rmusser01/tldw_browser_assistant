@@ -21,6 +21,26 @@ export async function deleteDraftBatch(id: string): Promise<void> {
   await db.draftBatches.delete(id)
 }
 
+export async function deleteDraftBatchWithContents(
+  batchId: string
+): Promise<void> {
+  await db.transaction(
+    "rw",
+    [db.draftBatches, db.contentDrafts, db.draftAssets],
+    async () => {
+      const drafts = await db.contentDrafts
+        .where("batchId")
+        .equals(batchId)
+        .toArray()
+      for (const draft of drafts) {
+        await db.draftAssets.where("draftId").equals(draft.id).delete()
+      }
+      await db.contentDrafts.where("batchId").equals(batchId).delete()
+      await db.draftBatches.delete(batchId)
+    }
+  )
+}
+
 export async function getDraftsByBatch(
   batchId: string
 ): Promise<ContentDraft[]> {

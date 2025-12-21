@@ -672,7 +672,7 @@
     "message": "Masquer les détails techniques"
   },
   "error_createFolder": {
-    "message": "Failed to create folder"
+    "message": "Échec de la création du dossier"
   },
   "modelSelect_label": {
     "message": "Model"

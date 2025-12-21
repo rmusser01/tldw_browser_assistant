@@ -577,7 +577,7 @@
     "message": "隐藏技术详情"
   },
   "error_createFolder": {
-    "message": "Failed to create folder"
+    "message": "无法创建文件夹"
   },
   "modelSelect_label": {
     "message": "Model"
@@ -664,9 +664,9 @@
     "message": "文件夹需要服务器连接"
   },
   "option_more_copy_canonicalMarkdown": {
-    "message": "Copy canonical transcript"
+    "message": "复制规范转录"
   },
   "option_more_download_canonicalMarkdown": {
-    "message": "Canonical transcript (Markdown)"
+    "message": "规范转录 (Markdown)"
   }
 }

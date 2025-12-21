@@ -273,6 +273,10 @@
   "untitled": "제목 없음",
   "moveToFolder": "폴더로 이동",
   "noToolCalls": "아직 도구 호출이 없습니다",
+  "status_pending": "대기 중",
+  "status_running": "처리 중",
+  "status_complete": "완료",
+  "status_error": "오류",
   "status": {
     "pending": "대기 중",
     "running": "처리 중",

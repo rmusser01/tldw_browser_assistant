@@ -687,7 +687,7 @@
     "message": "Ocultar detalles técnicos"
   },
   "error_createFolder": {
-    "message": "Failed to create folder"
+    "message": "No se pudo crear la carpeta"
   },
   "modelSelect_label": {
     "message": "Model"
@@ -774,9 +774,9 @@
     "message": "Las carpetas requieren conexión al servidor"
   },
   "option_more_copy_canonicalMarkdown": {
-    "message": "Copy canonical transcript"
+    "message": "Copiar transcripción canónica"
   },
   "option_more_download_canonicalMarkdown": {
-    "message": "Canonical transcript (Markdown)"
+    "message": "Transcripción canónica (Markdown)"
   }
 }

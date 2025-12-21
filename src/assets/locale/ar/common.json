@@ -273,6 +273,10 @@
   "untitled": "بدون عنوان",
   "moveToFolder": "نقل إلى المجلد",
   "noToolCalls": "لا توجد استدعاءات أدوات بعد",
+  "status_pending": "قيد الانتظار",
+  "status_running": "قيد المعالجة",
+  "status_complete": "مكتمل",
+  "status_error": "خطأ",
   "status": {
     "pending": "قيد الانتظار",
     "running": "قيد المعالجة",

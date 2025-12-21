@@ -687,7 +687,7 @@
     "message": "Nascondi dettagli tecnici"
   },
   "error_createFolder": {
-    "message": "Failed to create folder"
+    "message": "Impossibile creare la cartella"
   },
   "modelSelect_label": {
     "message": "Model"
@@ -774,9 +774,9 @@
     "message": "Le cartelle richiedono una connessione al server"
   },
   "option_more_copy_canonicalMarkdown": {
-    "message": "Copy canonical transcript"
+    "message": "Copia trascrizione canonica"
   },
   "option_more_download_canonicalMarkdown": {
-    "message": "Canonical transcript (Markdown)"
+    "message": "Trascrizione canonica (Markdown)"
   }
 }
