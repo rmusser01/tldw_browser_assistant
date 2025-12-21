@@ -335,7 +335,13 @@
     "healthAriaHint": "最近の実行に失敗しています — 詳細はヘッダーの「ヘルスと診断」を開いて確認してください。",
     "specReloadedToast": "サーバーから高度な仕様を再読み込みしました",
     "specReloadedToastDiff": "サーバーから高度な仕様を再読み込みしました（追加: {{added}}、削除: {{removed}}）",
-    "specFallbackWarning": "同梱の media.add スキーマ（v{{version}}）をフォールバックとして使用しています。フィールドが古そうな場合は tldw_server の /openapi.json と照合して確認してください。"
+    "specFallbackWarning": "同梱の media.add スキーマ（v{{version}}）をフォールバックとして使用しています。フィールドが古そうな場合は tldw_server の /openapi.json と照合して確認してください。",
+    "reviewDraftsFailedTitle": "レビュー用下書きを作成できませんでした。",
+    "reviewDraftsFailedFallback": "レビュー用下書きの作成に失敗しました。",
+    "reviewDraftsRetry": "下書き作成を再試行",
+    "reviewDraftsStoreWithoutReview": "レビューせずに保存",
+    "reviewNavigationFailed": "コンテンツレビューを開けませんでした。もう一度お試しください。",
+    "reviewNavigationRetry": "コンテンツレビューを再度開く"
   },
   "notesSearch": {
     "placeholder": "Search titles and contents",

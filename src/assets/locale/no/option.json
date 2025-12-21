@@ -99,14 +99,14 @@
       "group": "Kopier",
       "asText": "Kopier som tekst",
       "asMarkdown": "Kopier som Markdown",
-      "canonicalMarkdown": "Kopier kanonisk transkript",
+      "canonicalMarkdown": "Kopier kanonisk transkripsjon",
       "success": "Kopiert til utklippstavlen!"
     },
     "download": {
       "group": "Last ned",
       "text": "Tekstfil (.txt)",
       "markdown": "Markdown (.md)",
-      "canonicalMarkdown": "Kanonisk transkript (Markdown)",
+      "canonicalMarkdown": "Kanonisk transkripsjon (Markdown)",
       "json": "JSON-fil (.json)",
       "image": "Image (.png)"
     },
@@ -443,8 +443,7 @@
     "mapping": "Column mapping",
     "mappingPreview": "Preview of the first few mapped rows:",
     "exportHelp": "Filter by deck, tag, or search, then export as CSV/TSV for spreadsheets or Anki (.apkg) for Anki clients."
-  }
-,
+  },
   "omniSearch": {
     "filterScreen": "Skjermer",
     "filterChat": "Samtaler",

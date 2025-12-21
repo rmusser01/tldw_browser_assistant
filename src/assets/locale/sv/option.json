@@ -452,8 +452,7 @@
     "mapping": "Kolumnmappning",
     "mappingPreview": "Förhandsvisning av de första mappade raderna:",
     "exportHelp": "Filtrera efter lek, tagg eller sökning och exportera sedan som CSV/TSV för kalkylblad eller Anki (.apkg) för Anki-klienter."
-  }
-,
+  },
   "quickChatHelper": {
     "tooltip": "Snabbchatsassistent",
     "title": "Snabbchatsassistent",

@@ -93,43 +93,43 @@
     "message": "Ресурси OCR увімкнено та підготовлено"
   },
   "omniSearchPlaceholder": {
-    "message": "Search screens, chats, media, notes…",
+    "message": "Пошук екранів, чатів, медіа, нотаток…",
     "description": "Placeholder text for the omni-search input in the header."
   },
   "omniSearchNoResults": {
-    "message": "No matches for \"{{query}}\".",
+    "message": "Немає збігів для \"{{query}}\".",
     "description": "No-results text for omni-search when nothing matches the query."
   },
   "omniSearchCreateNote": {
-    "message": "Create note \"{{query}}\"",
+    "message": "Створити нотатку \"{{query}}\"",
     "description": "Omni-search action label to create a note from the current query."
   },
   "omniSearchCreateFlashcards": {
-    "message": "Create flashcard collection \"{{query}}\"",
+    "message": "Створити колекцію флешкарток \"{{query}}\"",
     "description": "Omni-search action label to create a flashcard collection from the current query."
   },
   "omniSearchStartChat": {
-    "message": "Start new chat \"{{query}}\"",
+    "message": "Почати новий чат \"{{query}}\"",
     "description": "Omni-search action label to start a new chat from the current query."
   },
   "connectionCard_connectedCaption": {
-    "message": "Chat and tools are now available in Options and the sidepanel.",
+    "message": "Чат і інструменти тепер доступні в Налаштуваннях і на бічній панелі.",
     "description": "Caption under the server connection card when the extension is connected."
   },
   "quickIngestQueuedAria": {
-    "message": "{{label}} — {{count}} items queued — click to review and process",
+    "message": "{{label}} — у черзі {{count}} елементів — натисніть, щоб переглянути й обробити",
     "description": "ARIA label template for the Quick ingest button when there are queued items."
   },
   "connectionCard_descriptionConnectedList_reviewMedia": {
-    "message": "Review media & transcripts",
+    "message": "Перегляд медіа та транскриптів",
     "description": "First bullet in the connected-state server connection card, highlighting media review."
   },
   "connectionCard_descriptionConnectedList_searchKnowledge": {
-    "message": "Search knowledge and notes",
+    "message": "Пошук у базі знань і нотатках",
     "description": "Second bullet in the connected-state server connection card, highlighting knowledge/notes search."
   },
   "connectionCard_descriptionConnectedList_useRag": {
-    "message": "Use RAG with your own documents",
+    "message": "Використання RAG із власними документами",
     "description": "Third bullet in the connected-state server connection card, highlighting retrieval-augmented generation usage."
   },
   "compareMaxModelsTitle": {
@@ -148,39 +148,39 @@
     "message": "Вибрано {{current}} / {{limit}}"
   },
   "omniSearch_filterScreen": {
-    "message": "Screens",
+    "message": "Екрани",
     "description": "Filter label for screens in omni-search."
   },
   "omniSearch_filterChat": {
-    "message": "Chats",
+    "message": "Чати",
     "description": "Filter label for chats in omni-search."
   },
   "omniSearch_filterMedia": {
-    "message": "Media",
+    "message": "Медіа",
     "description": "Filter label for media in omni-search."
   },
   "omniSearch_filterNote": {
-    "message": "Notes",
+    "message": "Нотатки",
     "description": "Filter label for notes in omni-search."
   },
   "omniSearch_filterFlashcards": {
-    "message": "Flashcard Collections",
+    "message": "Колекції флешкарток",
     "description": "Filter label for flashcard collections in omni-search."
   },
   "omniSearch_filterPrompt": {
-    "message": "Prompts",
+    "message": "Промпти",
     "description": "Filter label for prompts in omni-search."
   },
   "omniSearch_filteringBy": {
-    "message": "Filtering by:",
+    "message": "Фільтрування за:",
     "description": "Prefix label shown before the active omni-search filter type."
   },
   "omniSearchCreateNoteSuccess": {
-    "message": "Note \"{{query}}\" created",
+    "message": "Нотатку \"{{query}}\" створено",
     "description": "Confirmation toast message shown after creating a note from omni-search."
   },
   "omniSearchCreateFlashcardsSuccess": {
-    "message": "Flashcard collection \"{{query}}\" created",
+    "message": "Колекцію флешкарток \"{{query}}\" створено",
     "description": "Confirmation toast message shown after creating a flashcard collection from omni-search."
   },
   "folders": {
@@ -639,19 +639,19 @@
     "message": "Локально"
   },
   "chatSidebar_serverTab": {
-    "message": "Server"
+    "message": "Сервер"
   },
   "chatSidebar_foldersTab": {
-    "message": "Folders"
+    "message": "Папки"
   },
   "chatSidebar_tabs_local": {
     "message": "Локально"
   },
   "chatSidebar_tabs_server": {
-    "message": "Server"
+    "message": "Сервер"
   },
   "chatSidebar_tabs_folders": {
-    "message": "Folders"
+    "message": "Папки"
   },
   "chatSidebar_noServerChats": {
     "message": "Поки що немає чатів на сервері"

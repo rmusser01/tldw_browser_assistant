@@ -511,10 +511,10 @@
     "description": "Tooltip for exporting matching notes as JSON."
   },
   "notesSearch_exportNoteSuccess": {
-    "message": "Exported ({{size}})"
+    "message": "已导出（{{size}}）"
   },
   "notesSearch_exportSuccess": {
-    "message": "Exported {{count}} notes ({{size}})"
+    "message": "已导出 {{count}} 条笔记（{{size}}）"
   },
   "notesSearch_exportCsvSuccess": {
     "message": "已将 {{count}} 笔笔记导出为 CSV ({{size}})",

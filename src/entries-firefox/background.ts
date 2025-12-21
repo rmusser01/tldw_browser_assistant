@@ -270,6 +270,9 @@ export default defineBackground({
       const { path, method = 'POST', fields = {}, file } = payload || {}
       const cfg = await storage.get<any>('tldwConfig')
       const isAbsolute = typeof path === 'string' && /^https?:/i.test(path)
+      if (!path && !isAbsolute) {
+        return { ok: false, status: 400, error: 'Upload path missing' }
+      }
       if (!cfg?.serverUrl && !isAbsolute) {
         return { ok: false, status: 400, error: 'tldw server not configured' }
       }
@@ -338,13 +341,17 @@ export default defineBackground({
 
     const handleTldwRequest = async (payload: any) => {
       const { path, method = 'GET', headers = {}, body, noAuth = false, timeoutMs: overrideTimeoutMs } = payload || {}
+      if (typeof path !== 'string' || path.trim() === '') {
+        return { ok: false, status: 400, error: 'Invalid path' }
+      }
+      const pathStr = path.trim()
       const cfg = await storage.get<any>('tldwConfig')
-      const isAbsolute = typeof path === 'string' && /^https?:/i.test(path)
+      const isAbsolute = /^https?:/i.test(pathStr)
       if (!cfg?.serverUrl && !isAbsolute) {
         return { ok: false, status: 400, error: 'tldw server not configured' }
       }
       const baseUrl = cfg?.serverUrl ? String(cfg.serverUrl).replace(/\/$/, '') : ''
-      const url = isAbsolute ? path : `${baseUrl}${path.startsWith('/') ? '' : '/'}${path}`
+      const url = isAbsolute ? pathStr : `${baseUrl}${pathStr.startsWith('/') ? '' : '/'}${pathStr}`
       const h: Record<string, string> = { ...(headers || {}) }
       if (!noAuth) {
         for (const k of Object.keys(h)) {
@@ -582,9 +589,20 @@ export default defineBackground({
         }
 
         for (const r of entries) {
-          const url = String(r?.url || '').trim()
-          if (!url) continue
           const explicitType = r?.type && typeof r.type === 'string' ? r.type : 'auto'
+          const url = String(r?.url || '').trim()
+          if (!url) {
+            const result = {
+              id: r?.id,
+              status: 'error',
+              url: '',
+              type: explicitType === 'auto' ? 'auto' : explicitType,
+              error: 'Missing URL'
+            }
+            out.push(result)
+            emitProgress(result)
+            continue
+          }
           const t = explicitType === 'auto' ? detectTypeFromUrl(url) : explicitType
           try {
             let data: any

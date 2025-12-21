@@ -443,8 +443,7 @@
     "mapping": "Column mapping",
     "mappingPreview": "Preview of the first few mapped rows:",
     "exportHelp": "Filter by deck, tag, or search, then export as CSV/TSV for spreadsheets or Anki (.apkg) for Anki clients."
-  }
-,
+  },
   "omniSearch": {
     "filterScreen": "സ്ക്രീനുകൾ",
     "filterChat": "ചാറ്റുകൾ",

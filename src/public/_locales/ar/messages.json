@@ -723,10 +723,10 @@
     "message": "تعذّر إنشاء المجلد"
   },
   "modelSelect_label": {
-    "message": "Model"
+    "message": "النموذج"
   },
   "modelSelect_tooltip": {
-    "message": "Changes model for next message"
+    "message": "تغيير النموذج للرسالة التالية"
   },
   "featureHints_knowledge_title": {
     "message": "ابحث في معرفتك"

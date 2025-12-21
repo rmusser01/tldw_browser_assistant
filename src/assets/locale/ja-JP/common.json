@@ -226,6 +226,13 @@
   "otherOperations": "その他の操作",
   "fileAccess": "ファイルアクセス",
   "notebookEdits": "ノートブック編集",
+  "applyPatch": "パッチを適用",
+  "recursive": "(再帰)",
+  "complexArguments": "[複雑な引数]",
+  "status_pending": "保留中",
+  "status_running": "処理中",
+  "status_complete": "完了",
+  "status_error": "エラー",
   "segmented": {
     "available": "サーバーモデル",
     "custom": "カスタムモデル"
@@ -378,19 +385,4 @@
     "noServerChats": "サーバーチャットはまだありません",
     "foldersRequireConnection": "フォルダーにはサーバー接続が必要です"
   },
-  "tools_fs_list": "ディレクトリ一覧",
-  "tools_fs_read": "ファイルを読む",
-  "tools_fs_write": "ファイルを書く",
-  "tools_fs_apply_patch": "パッチを適用",
-  "tools_fs_mkdir": "ディレクトリを作成",
-  "tools_fs_delete": "削除",
-  "tools_search_grep": "内容を検索",
-  "tools_search_glob": "ファイルを検索",
-  "tools_git_status": "Git ステータス",
-  "tools_git_diff": "Git 差分",
-  "tools_git_log": "Git ログ",
-  "tools_git_branch": "Git ブランチ",
-  "tools_git_add": "ファイルをステージ",
-  "tools_git_commit": "コミット",
-  "tools_exec_run": "コマンドを実行"
 }

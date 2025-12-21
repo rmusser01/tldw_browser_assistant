@@ -234,79 +234,79 @@
     "message": "OCR ആസറ്റുകൾ പ്രവർത്തനക്ഷമമാക്കി തയ്യാറാക്കി"
   },
   "omniSearchPlaceholder": {
-    "message": "Search screens, chats, media, notes…",
+    "message": "സ്ക്രീനുകൾ, ചാറ്റുകൾ, മീഡിയ, നോട്ടുകൾ തിരയുക…",
     "description": "Placeholder text for the omni-search input in the header."
   },
   "omniSearchNoResults": {
-    "message": "No matches for \"{{query}}\".",
+    "message": "\"{{query}}\" ന് പൊരുത്തങ്ങളൊന്നും കണ്ടെത്തിയില്ല.",
     "description": "No-results text for omni-search when nothing matches the query."
   },
   "omniSearchCreateNote": {
-    "message": "Create note \"{{query}}\"",
+    "message": "നോട്ട് \"{{query}}\" സൃഷ്ടിക്കുക",
     "description": "Omni-search action label to create a note from the current query."
   },
   "omniSearchCreateFlashcards": {
-    "message": "Create flashcard collection \"{{query}}\"",
+    "message": "ഫ്ലാഷ്‌കാർഡ് ശേഖരം \"{{query}}\" സൃഷ്ടിക്കുക",
     "description": "Omni-search action label to create a flashcard collection from the current query."
   },
   "omniSearchStartChat": {
-    "message": "Start new chat \"{{query}}\"",
+    "message": "പുതിയ ചാറ്റ് \"{{query}}\" ആരംഭിക്കുക",
     "description": "Omni-search action label to start a new chat from the current query."
   },
   "connectionCard_connectedCaption": {
-    "message": "Chat and tools are now available in Options and the sidepanel.",
+    "message": "ഓപ്ഷനുകളിലും സൈഡ് പാനലിലും ഇനി ചാറ്റും ഉപകരണങ്ങളും ലഭ്യമാണ്.",
     "description": "Caption under the server connection card when the extension is connected."
   },
   "quickIngestQueuedAria": {
-    "message": "{{label}} — {{count}} items queued — click to review and process",
+    "message": "{{label}} — {{count}} ഇനങ്ങൾ ക്യൂ ചെയ്തിരിക്കുന്നു — അവലോകനം ചെയ്ത് പ്രോസസ്സ് ചെയ്യാൻ ക്ലിക്ക് ചെയ്യുക",
     "description": "ARIA label template for the Quick ingest button when there are queued items."
   },
   "connectionCard_descriptionConnectedList_reviewMedia": {
-    "message": "Review media & transcripts",
+    "message": "മീഡിയയും ട്രാൻസ്ക്രിപ്റ്റുകളും അവലോകനം ചെയ്യുക",
     "description": "First bullet in the connected-state server connection card, highlighting media review."
   },
   "connectionCard_descriptionConnectedList_searchKnowledge": {
-    "message": "Search knowledge and notes",
+    "message": "നോളെജും നോട്ടുകളും തിരയുക",
     "description": "Second bullet in the connected-state server connection card, highlighting knowledge/notes search."
   },
   "connectionCard_descriptionConnectedList_useRag": {
-    "message": "Use RAG with your own documents",
+    "message": "സ്വന്തം ഡോക്യുമെന്റുകളുമായി RAG ഉപയോഗിക്കുക",
     "description": "Third bullet in the connected-state server connection card, highlighting retrieval-augmented generation usage."
   },
   "omniSearch_filterScreen": {
-    "message": "Screens",
+    "message": "സ്ക്രീനുകൾ",
     "description": "Filter label for screens in omni-search."
   },
   "omniSearch_filterChat": {
-    "message": "Chats",
+    "message": "ചാറ്റുകൾ",
     "description": "Filter label for chats in omni-search."
   },
   "omniSearch_filterMedia": {
-    "message": "Media",
+    "message": "മീഡിയ",
     "description": "Filter label for media in omni-search."
   },
   "omniSearch_filterNote": {
-    "message": "Notes",
+    "message": "നോട്ടുകൾ",
     "description": "Filter label for notes in omni-search."
   },
   "omniSearch_filterFlashcards": {
-    "message": "Flashcard Collections",
+    "message": "ഫ്ലാഷ്‌കാർഡ് ശേഖരങ്ങൾ",
     "description": "Filter label for flashcard collections in omni-search."
   },
   "omniSearch_filterPrompt": {
-    "message": "Prompts",
+    "message": "പ്രോംപ്റ്റുകൾ",
     "description": "Filter label for prompts in omni-search."
   },
   "omniSearch_filteringBy": {
-    "message": "Filtering by:",
+    "message": "ഫിൽറ്റർ ചെയ്യുന്നത്:",
     "description": "Prefix label shown before the active omni-search filter type."
   },
   "omniSearchCreateNoteSuccess": {
-    "message": "Note \"{{query}}\" created",
+    "message": "നോട്ട് \"{{query}}\" സൃഷ്ടിച്ചു",
     "description": "Confirmation toast message shown after creating a note from omni-search."
   },
   "omniSearchCreateFlashcardsSuccess": {
-    "message": "Flashcard collection \"{{query}}\" created",
+    "message": "ഫ്ലാഷ്‌കാർഡ് ശേഖരം \"{{query}}\" സൃഷ്ടിച്ചു",
     "description": "Confirmation toast message shown after creating a flashcard collection from omni-search."
   },
   "folders": {
@@ -618,28 +618,28 @@
     "description": "Status label for failed operations."
   },
   "notesSearch_exportNoteSuccess": {
-    "message": "Exported ({{size}})"
+    "message": "എക്സ്പോർട്ട് ചെയ്തു ({{size}})"
   },
   "notesSearch_exportSuccess": {
-    "message": "Exported {{count}} notes ({{size}})"
+    "message": "{{count}} നോട്ടുകൾ എക്സ്പോർട്ട് ചെയ്തു ({{size}})"
   },
   "notesSearch_exportCsvSuccess": {
-    "message": "Exported {{count}} notes as CSV ({{size}})"
+    "message": "{{count}} നോട്ടുകൾ CSV ആയി എക്സ്പോർട്ട് ചെയ്തു ({{size}})"
   },
   "notesSearch_exportJsonSuccess": {
-    "message": "Exported {{count}} notes as JSON ({{size}})"
+    "message": "{{count}} നോട്ടുകൾ JSON ആയി എക്സ്പോർട്ട് ചെയ്തു ({{size}})"
   },
   "exportNoteSuccess": {
-    "message": "Exported ({{size}})"
+    "message": "എക്സ്പോർട്ട് ചെയ്തു ({{size}})"
   },
   "exportSuccess": {
-    "message": "Exported {{count}} notes ({{size}})"
+    "message": "{{count}} നോട്ടുകൾ എക്സ്പോർട്ട് ചെയ്തു ({{size}})"
   },
   "exportCsvSuccess": {
-    "message": "Exported {{count}} notes as CSV ({{size}})"
+    "message": "{{count}} നോട്ടുകൾ CSV ആയി എക്സ്പോർട്ട് ചെയ്തു ({{size}})"
   },
   "exportJsonSuccess": {
-    "message": "Exported {{count}} notes as JSON ({{size}})"
+    "message": "{{count}} നോട്ടുകൾ JSON ആയി എക്സ്പോർട്ട് ചെയ്തു ({{size}})"
   },
   "ttsShort": {
     "message": "ശബ്ദം"
@@ -690,10 +690,10 @@
     "message": "ഫോൾഡർ സൃഷ്ടിക്കാൻ കഴിഞ്ഞില്ല"
   },
   "modelSelect_label": {
-    "message": "Model"
+    "message": "മോഡൽ"
   },
   "modelSelect_tooltip": {
-    "message": "Changes model for next message"
+    "message": "അടുത്ത സന്ദേശത്തിനായി മോഡൽ മാറ്റുന്നു"
   },
   "featureHints_knowledge_title": {
     "message": "നിങ്ങളുടെ നോളെജ് തിരയുക"

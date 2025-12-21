@@ -37,6 +37,13 @@ type ResultItem = { id: string; status: 'ok' | 'error'; url?: string; fileName?:
 
 type OptionsHash = `#${string}`
 
+type ProcessingOptions = {
+  perform_analysis: boolean
+  perform_chunking: boolean
+  overwrite_existing: boolean
+  advancedValues: Record<string, any>
+}
+
 type Props = {
   open: boolean
   onClose: () => void
@@ -58,6 +65,7 @@ type ResultsFilter = (typeof RESULT_FILTERS)[keyof typeof RESULT_FILTERS]
 const MEDIA_TYPE_MAP: Record<string, ContentDraft["mediaType"]> = {
   html: "html",
   pdf: "pdf",
+  document: "document",
   audio: "audio",
   video: "video"
 }
@@ -322,6 +330,9 @@ export const QuickIngestModal: React.FC<Props> = ({
       clearFailure: s.clearFailure
     }))
   const [lastRunError, setLastRunError] = React.useState<string | null>(null)
+  const [draftCreationError, setDraftCreationError] = React.useState<string | null>(null)
+  const [draftCreationRetrying, setDraftCreationRetrying] = React.useState(false)
+  const [reviewNavigationError, setReviewNavigationError] = React.useState<string | null>(null)
   const [progressTick, setProgressTick] = React.useState<number>(0)
   const advancedHydratedRef = React.useRef(false)
   const uiPrefsHydratedRef = React.useRef(false)
@@ -332,6 +343,8 @@ export const QuickIngestModal: React.FC<Props> = ({
     false
   )
 
+  const lastFileLookupRef = React.useRef<Map<string, File> | null>(null)
+  const pendingStoreWithoutReviewRef = React.useRef(false)
   const unmountedRef = React.useRef(false)
   const processOnly = reviewBeforeStorage || !storeRemote
   const shouldStoreRemote = storeRemote && !processOnly
@@ -347,6 +360,13 @@ export const QuickIngestModal: React.FC<Props> = ({
       setStoreRemote(true)
     }
   }, [reviewBeforeStorage, storeRemote])
+
+  React.useEffect(() => {
+    if (!reviewBeforeStorage) {
+      if (draftCreationError) setDraftCreationError(null)
+      if (reviewNavigationError) setReviewNavigationError(null)
+    }
+  }, [draftCreationError, reviewBeforeStorage, reviewNavigationError])
 
   const formatBytes = React.useCallback((bytes?: number) => {
     if (!bytes || Number.isNaN(bytes)) return ''
@@ -403,18 +423,8 @@ export const QuickIngestModal: React.FC<Props> = ({
     ]
   )
 
-  const createDraftsFromResults = React.useCallback(
-    async (
-      out: ResultItem[],
-      fileLookup: Map<string, File>
-    ): Promise<{
-      batchId: string
-      draftIds: string[]
-      skippedAssets: number
-    } | null> => {
-      const okResults = out.filter((item) => item.status === "ok")
-      if (okResults.length === 0) return null
-
+  const createDraftBatchMetadata = React.useCallback(
+    (okResults: ResultItem[]) => {
       const now = Date.now()
       const batchId = crypto.randomUUID()
       const batch: DraftBatch = {
@@ -427,7 +437,7 @@ export const QuickIngestModal: React.FC<Props> = ({
         updatedAt: now
       }
 
-      const processingOptions = {
+      const processingOptions: ProcessingOptions = {
         perform_analysis: Boolean(common.perform_analysis),
         perform_chunking: Boolean(common.perform_chunking),
         overwrite_existing: Boolean(common.overwrite_existing),
@@ -436,138 +446,203 @@ export const QuickIngestModal: React.FC<Props> = ({
 
       const expiresAt = now + 30 * 24 * 60 * 60 * 1000
       const rowMap = new Map(rows.map((row) => [row.id, row]))
+
+      return { now, batchId, batch, processingOptions, expiresAt, rowMap }
+    },
+    [advancedValues, common, rows]
+  )
+
+  const extractMetadataForDraft = React.useCallback((processed: any) => {
+    const metadata =
+      processed?.metadata && typeof processed.metadata === "object"
+        ? processed.metadata
+        : {}
+    const metadataCopy = cloneObject(metadata)
+    const originalMetadata = cloneObject(metadata)
+    if (!metadataCopy || !originalMetadata) {
+      console.warn(
+        "[createDraftsFromResults] Unable to clone metadata, using empty metadata",
+        metadata
+      )
+    }
+    const keywords = normalizeKeywords(
+      processed?.keywords || metadata?.keywords
+    )
+    return {
+      metadataCopy: metadataCopy ?? {},
+      originalMetadata: originalMetadata ?? {},
+      keywords
+    }
+  }, [])
+
+  const storeDraftAssetIfPresent = React.useCallback(
+    async ({
+      draftId,
+      localFile,
+      item,
+      sourceRow,
+      processed
+    }: {
+      draftId: string
+      localFile?: File
+      item: ResultItem
+      sourceRow?: Entry
+      processed: any
+    }) => {
+      let sourceAssetId: string | undefined
+      let source: ContentDraft["source"] = {
+        kind: "url",
+        url:
+          sourceRow?.url ||
+          item.url ||
+          processed?.url ||
+          processed?.input_ref
+      }
+      let skippedAssetsDelta = 0
+      if (localFile) {
+        const stored = await storeDraftAsset(draftId, localFile)
+        const fileSource: ContentDraft["source"] = {
+          kind: "file",
+          fileName: localFile.name,
+          mimeType: localFile.type,
+          sizeBytes: localFile.size,
+          lastModified: localFile.lastModified
+        }
+        if (stored.asset) {
+          sourceAssetId = stored.asset.id
+        } else {
+          skippedAssetsDelta += 1
+        }
+        source = fileSource
+      } else if (item.fileName) {
+        source = {
+          kind: "file",
+          fileName: item.fileName
+        }
+      }
+      return { source, sourceAssetId, skippedAssetsDelta }
+    },
+    []
+  )
+
+  const buildDraftFromProcessedItem = React.useCallback(
+    async ({
+      item,
+      processed,
+      sourceRow,
+      localFile,
+      batchId,
+      now,
+      expiresAt,
+      processingOptions
+    }: {
+      item: ResultItem
+      processed: any
+      sourceRow?: Entry
+      localFile?: File
+      batchId: string
+      now: number
+      expiresAt: number
+      processingOptions: ProcessingOptions
+    }): Promise<{ draftId: string; skippedAssetsDelta: number } | null> => {
+      const statusLabel = String(processed?.status || "").toLowerCase()
+      if (statusLabel === "error" || statusLabel === "failed") {
+        return null
+      }
+
+      const draftId = crypto.randomUUID()
+      const content = resolveContent(processed)
+      const { metadataCopy, originalMetadata, keywords } =
+        extractMetadataForDraft(processed)
+      const mediaTypeRaw = String(
+        processed?.media_type || item.type || sourceRow?.type || "document"
+      ).toLowerCase()
+      const mediaType: ContentDraft["mediaType"] =
+        MEDIA_TYPE_MAP[mediaTypeRaw] ?? "document"
+
+      const sourceLabel =
+        sourceRow?.url ||
+        item.url ||
+        localFile?.name ||
+        item.fileName ||
+        processed?.input_ref ||
+        "Untitled source"
+      const title = resolveTitle(processed, sourceLabel)
+      const contentFormat = inferContentFormat(content)
+      const { sections, strategy } = detectSections(
+        content,
+        processed?.segments
+      )
+      const processingSnapshot = {
+        ...processingOptions,
+        advancedValues: { ...(processingOptions.advancedValues || {}) }
+      }
+      const analysis = resolveAnalysis(processed)
+      const prompt = resolvePrompt(processed)
+
+      const { source, sourceAssetId, skippedAssetsDelta } =
+        await storeDraftAssetIfPresent({
+          draftId,
+          localFile,
+          item,
+          sourceRow,
+          processed
+        })
+
+      const draft: ContentDraft = {
+        id: draftId,
+        batchId,
+        source,
+        sourceAssetId,
+        mediaType,
+        title,
+        originalTitle: title,
+        content,
+        originalContent: content,
+        contentFormat,
+        originalContentFormat: contentFormat,
+        metadata: metadataCopy,
+        originalMetadata,
+        keywords,
+        sections: sections.length > 0 ? sections : undefined,
+        excludedSectionIds: [],
+        sectionStrategy: strategy || undefined,
+        revisions: [],
+        processingOptions: processingSnapshot,
+        status: "pending",
+        createdAt: now,
+        updatedAt: now,
+        expiresAt,
+        analysis,
+        prompt,
+        originalAnalysis: analysis,
+        originalPrompt: prompt
+      }
+
+      await upsertContentDraft(draft)
+      return { draftId, skippedAssetsDelta }
+    },
+    [extractMetadataForDraft, storeDraftAssetIfPresent]
+  )
+
+  const createDraftsFromResults = React.useCallback(
+    async (
+      out: ResultItem[],
+      fileLookup: Map<string, File>
+    ): Promise<{
+      batchId: string
+      draftIds: string[]
+      skippedAssets: number
+    } | null> => {
+      const okResults = out.filter((item) => item.status === "ok")
+      if (okResults.length === 0) return null
+
+      const { now, batchId, batch, processingOptions, expiresAt, rowMap } =
+        createDraftBatchMetadata(okResults)
       const draftIds: string[] = []
       let skippedAssets = 0
 
       await upsertDraftBatch(batch)
-
-      const createDraftFromProcessed = async ({
-        item,
-        processed,
-        sourceRow,
-        localFile
-      }: {
-        item: ResultItem
-        processed: any
-        sourceRow?: Entry
-        localFile?: File
-      }): Promise<{ draftId: string; skippedAssetsDelta: number } | null> => {
-        const statusLabel = String(processed?.status || "").toLowerCase()
-        if (statusLabel === "error" || statusLabel === "failed") {
-          return null
-        }
-
-        const draftId = crypto.randomUUID()
-        const content = resolveContent(processed)
-        const metadata =
-          processed?.metadata && typeof processed.metadata === "object"
-            ? processed.metadata
-            : {}
-        const metadataCopy = cloneObject(metadata)
-        const originalMetadata = cloneObject(metadata)
-        if (!metadataCopy || !originalMetadata) {
-          console.warn(
-            "[createDraftsFromResults] Unable to clone metadata, using empty metadata",
-            metadata
-          )
-        }
-        const keywords = normalizeKeywords(
-          processed?.keywords || metadata?.keywords
-        )
-        const mediaTypeRaw = String(
-          processed?.media_type || item.type || sourceRow?.type || "document"
-        ).toLowerCase()
-        const mediaType: ContentDraft["mediaType"] =
-          MEDIA_TYPE_MAP[mediaTypeRaw] ?? "document"
-
-        const sourceLabel =
-          sourceRow?.url ||
-          item.url ||
-          localFile?.name ||
-          item.fileName ||
-          processed?.input_ref ||
-          "Untitled source"
-        const title = resolveTitle(processed, sourceLabel)
-        const contentFormat = inferContentFormat(content)
-        const { sections, strategy } = detectSections(content, processed?.segments)
-        const processingSnapshot = {
-          ...processingOptions,
-          advancedValues: { ...(processingOptions.advancedValues || {}) }
-        }
-        const analysis = resolveAnalysis(processed)
-        const prompt = resolvePrompt(processed)
-
-        let sourceAssetId: string | undefined
-        let source: ContentDraft["source"] = {
-          kind: "url",
-          url:
-            sourceRow?.url ||
-            item.url ||
-            processed?.url ||
-            processed?.input_ref
-        }
-        let skippedAssetsDelta = 0
-        if (localFile) {
-          const stored = await storeDraftAsset(draftId, localFile)
-          if (stored.asset) {
-            sourceAssetId = stored.asset.id
-            source = {
-              kind: "file",
-              fileName: localFile.name,
-              mimeType: localFile.type,
-              sizeBytes: localFile.size,
-              lastModified: localFile.lastModified
-            }
-          } else {
-            skippedAssetsDelta += 1
-            source = {
-              kind: "file",
-              fileName: localFile.name,
-              mimeType: localFile.type,
-              sizeBytes: localFile.size,
-              lastModified: localFile.lastModified
-            }
-          }
-        } else if (item.fileName) {
-          source = {
-            kind: "file",
-            fileName: item.fileName
-          }
-        }
-
-        const draft: ContentDraft = {
-          id: draftId,
-          batchId,
-          source,
-          sourceAssetId,
-          mediaType,
-          title,
-          originalTitle: title,
-          content,
-          originalContent: content,
-          contentFormat,
-          originalContentFormat: contentFormat,
-          metadata: metadataCopy ?? {},
-          originalMetadata: originalMetadata ?? {},
-          keywords,
-          sections: sections.length > 0 ? sections : undefined,
-          excludedSectionIds: [],
-          sectionStrategy: strategy || undefined,
-          revisions: [],
-          processingOptions: processingSnapshot,
-          status: "pending",
-          createdAt: now,
-          updatedAt: now,
-          expiresAt,
-          analysis,
-          prompt,
-          originalAnalysis: analysis,
-          originalPrompt: prompt
-        }
-
-        await upsertContentDraft(draft)
-        return { draftId, skippedAssetsDelta }
-      }
 
       for (const item of okResults) {
         const sourceRow = rowMap.get(item.id)
@@ -576,11 +651,15 @@ export const QuickIngestModal: React.FC<Props> = ({
         if (processingItems.length === 0) continue
 
         for (const processed of processingItems) {
-          const created = await createDraftFromProcessed({
+          const created = await buildDraftFromProcessedItem({
             item,
             processed,
             sourceRow,
-            localFile
+            localFile,
+            batchId,
+            now,
+            expiresAt,
+            processingOptions
           })
           if (!created) continue
           skippedAssets += created.skippedAssetsDelta
@@ -590,26 +669,115 @@ export const QuickIngestModal: React.FC<Props> = ({
 
       return { batchId, draftIds, skippedAssets }
     },
-    [advancedValues, common, rows]
+    [buildDraftFromProcessedItem, createDraftBatchMetadata]
   )
 
   const openContentReview = React.useCallback(
-    async (batchId: string) => {
+    async (batchId: string): Promise<boolean> => {
       const hash = `#/content-review?batch=${batchId}`
       const isOptionsContext = window.location.pathname.includes("options.html")
       if (isOptionsContext) {
-        navigate(`/content-review?batch=${batchId}`)
-        return
+        try {
+          navigate(`/content-review?batch=${batchId}`)
+          return true
+        } catch {
+          messageApi.error(
+            qi(
+              "reviewNavigationFailed",
+              "Couldn't open Content Review. Please try again."
+            )
+          )
+          return false
+        }
       }
       try {
         const url = browser.runtime.getURL(`/options.html${hash}`)
         await browser.tabs.create({ url })
+        return true
       } catch {
-        const fallbackUrl = browser.runtime.getURL(`/options.html${hash}`)
-        window.open(fallbackUrl, "_blank")
+        try {
+          const fallbackUrl = browser.runtime.getURL(`/options.html${hash}`)
+          const win = window.open(fallbackUrl, "_blank")
+          if (!win) {
+            messageApi.error(
+              qi(
+                "reviewNavigationFailed",
+                "Couldn't open Content Review. Please try again."
+              )
+            )
+            return false
+          }
+          return Boolean(win)
+        } catch {
+          messageApi.error(
+            qi(
+              "reviewNavigationFailed",
+              "Couldn't open Content Review. Please try again."
+            )
+          )
+          return false
+        }
       }
     },
-    [navigate]
+    [messageApi, navigate, qi]
+  )
+
+  const tryOpenContentReview = React.useCallback(
+    async (
+      batchId: string,
+      options?: { closeOnSuccess?: boolean; closeDelayMs?: number }
+    ) => {
+      setReviewNavigationError(null)
+      const ok = await openContentReview(batchId)
+      if (!ok) {
+        const msg = qi(
+          "reviewNavigationFailed",
+          "Couldn't open Content Review. Please try again."
+        )
+        setReviewNavigationError(msg)
+        return false
+      }
+      if (options?.closeOnSuccess) {
+        const delayMs =
+          typeof options.closeDelayMs === "number" ? options.closeDelayMs : 250
+        if (delayMs > 0) {
+          window.setTimeout(() => {
+            onClose()
+          }, delayMs)
+        } else {
+          onClose()
+        }
+      }
+      return true
+    },
+    [onClose, openContentReview, qi]
+  )
+
+  const handleReviewBatchReady = React.useCallback(
+    async (batch: { batchId: string; skippedAssets: number }) => {
+      if (!batch?.batchId) return
+      if (batch.skippedAssets > 0) {
+        messageApi.warning(
+          qi(
+            "reviewStorageCapWarning",
+            "{{count}} file(s) exceed the local draft cap ({{cap}}). Attach sources before committing audio/video.",
+            {
+              count: batch.skippedAssets,
+              cap: formatBytes(DRAFT_STORAGE_CAP_BYTES)
+            }
+          )
+        )
+      } else {
+        messageApi.success(
+          qi("reviewDraftsCreated", "Drafts ready for review.")
+        )
+      }
+      await tryOpenContentReview(batch.batchId, {
+        closeOnSuccess: true,
+        closeDelayMs: 250
+      })
+    },
+    [formatBytes, messageApi, qi, tryOpenContentReview]
   )
 
   const fileTypeFromName = React.useCallback((f: File): Entry['type'] => {
@@ -886,6 +1054,10 @@ export const QuickIngestModal: React.FC<Props> = ({
   const run = React.useCallback(async () => {
     // Reset any previous error state before a new attempt.
     setLastRunError(null)
+    setDraftCreationError(null)
+    setDraftCreationRetrying(false)
+    setReviewNavigationError(null)
+    lastFileLookupRef.current = null
     clearFailure()
 
     if (ingestBlocked) {
@@ -976,6 +1148,7 @@ export const QuickIngestModal: React.FC<Props> = ({
           }
         })
       )
+      lastFileLookupRef.current = fileLookup
 
       const resp = (await browser.runtime.sendMessage({
         type: "tldw:quick-ingest-batch",
@@ -1013,21 +1186,31 @@ export const QuickIngestModal: React.FC<Props> = ({
       setResults(out)
       setRunning(false)
       setRunStartedAt(null)
+      const hasOkResults = out.some((r) => r.status === "ok")
       let createdDraftBatch: {
         batchId: string
         draftIds: string[]
         skippedAssets: number
       } | null = null
-      if (reviewBeforeStorage) {
+      if (reviewBeforeStorage && hasOkResults) {
+        let draftErrorMessage: string | null = null
         try {
           createdDraftBatch = await createDraftsFromResults(out, fileLookup)
           if (createdDraftBatch?.batchId) {
             setReviewBatchId(createdDraftBatch.batchId)
           }
         } catch (err: any) {
-          const msg = err?.message || "Failed to create review drafts."
+          draftErrorMessage =
+            err?.message ||
+            qi("reviewDraftsFailedFallback", "Failed to create review drafts.")
+        }
+        if (!createdDraftBatch?.batchId) {
+          const msg =
+            draftErrorMessage ||
+            qi("reviewDraftsFailedFallback", "Failed to create review drafts.")
           messageApi.error(msg)
-          createdDraftBatch = null
+          setDraftCreationError(msg)
+          return
         }
       }
 
@@ -1042,24 +1225,7 @@ export const QuickIngestModal: React.FC<Props> = ({
         else messageApi.success(summary)
       }
       if (createdDraftBatch?.batchId) {
-        if (createdDraftBatch.skippedAssets > 0) {
-          messageApi.warning(
-            qi(
-              "reviewStorageCapWarning",
-              "{{count}} file(s) exceed the local draft cap ({{cap}}). Attach sources before committing audio/video.",
-              {
-                count: createdDraftBatch.skippedAssets,
-                cap: formatBytes(DRAFT_STORAGE_CAP_BYTES)
-              }
-            )
-          )
-        } else {
-          messageApi.success(
-            qi("reviewDraftsCreated", "Drafts ready for review.")
-          )
-        }
-        await openContentReview(createdDraftBatch.batchId)
-        onClose()
+        await handleReviewBatchReady(createdDraftBatch)
       }
       // Successful run (even with some item-level failures) clears the global failure flag.
       clearFailure()
@@ -1080,13 +1246,12 @@ export const QuickIngestModal: React.FC<Props> = ({
     clearFailure,
     common,
     createDraftsFromResults,
+    handleReviewBatchReady,
     ingestBlocked,
     ingestConnectionStatus,
     localFiles,
     formatBytes,
     messageApi,
-    onClose,
-    openContentReview,
     processOnly,
     qi,
     reviewBeforeStorage,
@@ -1095,10 +1260,63 @@ export const QuickIngestModal: React.FC<Props> = ({
     t
   ])
 
+  const retryDraftCreation = React.useCallback(async () => {
+    if (draftCreationRetrying || running || !hasReviewableResults) return
+    const fileLookup = lastFileLookupRef.current || new Map<string, File>()
+    setDraftCreationRetrying(true)
+    setDraftCreationError(null)
+    try {
+      const created = await createDraftsFromResults(results, fileLookup)
+      if (unmountedRef.current) return
+      if (!created?.batchId) {
+        const msg = qi("reviewDraftsFailedFallback", "Failed to create review drafts.")
+        messageApi.error(msg)
+        setDraftCreationError(msg)
+        return
+      }
+      setReviewBatchId(created.batchId)
+      await handleReviewBatchReady(created)
+    } catch (err: any) {
+      const msg =
+        err?.message ||
+        qi("reviewDraftsFailedFallback", "Failed to create review drafts.")
+      messageApi.error(msg)
+      if (!unmountedRef.current) {
+        setDraftCreationError(msg)
+      }
+    } finally {
+      if (!unmountedRef.current) {
+        setDraftCreationRetrying(false)
+      }
+    }
+  }, [
+    createDraftsFromResults,
+    draftCreationRetrying,
+    handleReviewBatchReady,
+    hasReviewableResults,
+    messageApi,
+    qi,
+    results,
+    running
+  ])
+
+  const proceedWithoutReview = React.useCallback(() => {
+    if (running) return
+    pendingStoreWithoutReviewRef.current = true
+    setDraftCreationError(null)
+    setReviewBeforeStorage(false)
+    setStoreRemote(true)
+  }, [running, setReviewBeforeStorage, setStoreRemote])
+
   React.useEffect(() => {
     if (!open) {
       autoProcessedRef.current = false
       setReviewBatchId(null)
+      setDraftCreationError(null)
+      setDraftCreationRetrying(false)
+      setReviewNavigationError(null)
+      lastFileLookupRef.current = null
+      pendingStoreWithoutReviewRef.current = false
       return
     }
     if (autoProcessedRef.current) return
@@ -1107,6 +1325,13 @@ export const QuickIngestModal: React.FC<Props> = ({
     autoProcessedRef.current = true
     void run()
   }, [autoProcessQueued, open, run, running, showProcessQueuedButton])
+
+  React.useEffect(() => {
+    if (!pendingStoreWithoutReviewRef.current) return
+    if (reviewBeforeStorage) return
+    pendingStoreWithoutReviewRef.current = false
+    void run()
+  }, [reviewBeforeStorage, run])
 
   const RECOMMENDED_FIELD_NAMES = new Set<string>([
     "cookies",
@@ -1531,6 +1756,16 @@ export const QuickIngestModal: React.FC<Props> = ({
     URL.revokeObjectURL(a.href)
   }
 
+  const downloadResultsJson = () => {
+    if (!results.length) return
+    const blob = new Blob([JSON.stringify(results, null, 2)], { type: 'application/json' })
+    const a = document.createElement('a')
+    a.href = URL.createObjectURL(blob)
+    a.download = 'quick-ingest-results.json'
+    a.click()
+    URL.revokeObjectURL(a.href)
+  }
+
   const openInMediaViewer = (item: ResultItem) => {
     try {
       const id = mediaIdFromPayload(item.data)
@@ -1685,6 +1920,21 @@ export const QuickIngestModal: React.FC<Props> = ({
     const failCount = results.length - successCount
     return { successCount, failCount }
   }, [results])
+
+  const hasReviewableResults = React.useMemo(
+    () => results.some((r) => r.status === "ok"),
+    [results]
+  )
+
+  const storageLabel = React.useMemo(() => {
+    if (!storeRemote) {
+      return t('quickIngest.process', 'Process locally') || 'Process locally'
+    }
+    if (reviewBeforeStorage) {
+      return qi("storeAfterReview", "Store after review")
+    }
+    return t('quickIngest.storeRemote', 'Store to remote DB') || 'Store to remote DB'
+  }, [qi, reviewBeforeStorage, storeRemote, t])
 
   const firstResultWithMedia = React.useMemo(
     () =>
@@ -2024,6 +2274,63 @@ export const QuickIngestModal: React.FC<Props> = ({
               <Typography.Text className="text-[11px] text-red-700 dark:text-red-200">
                 {lastRunError}
               </Typography.Text>
+            </div>
+          </div>
+        )}
+        {draftCreationError && (
+          <div className="mt-2 rounded-md border border-red-200 bg-red-50 px-3 py-2 text-xs text-red-800 dark:border-red-600 dark:bg-red-900/30 dark:text-red-100">
+            <div className="font-medium">
+              {qi(
+                "reviewDraftsFailedTitle",
+                "Review drafts couldn't be created."
+              )}
+            </div>
+            <div className="mt-1">{draftCreationError}</div>
+            <div className="mt-2 flex flex-wrap items-center gap-2">
+              <Button
+                size="small"
+                type="primary"
+                onClick={retryDraftCreation}
+                loading={draftCreationRetrying}
+                disabled={draftCreationRetrying || running || !hasReviewableResults}
+              >
+                {qi("reviewDraftsRetry", "Retry draft creation")}
+              </Button>
+              <Button
+                size="small"
+                onClick={downloadResultsJson}
+                disabled={results.length === 0}
+              >
+                {t("quickIngest.downloadJson") || "Download JSON"}
+              </Button>
+              <Button
+                size="small"
+                onClick={proceedWithoutReview}
+                disabled={running}
+              >
+                {qi("reviewDraftsStoreWithoutReview", "Store without review")}
+              </Button>
+            </div>
+          </div>
+        )}
+        {reviewNavigationError && (
+          <div className="mt-2 rounded-md border border-red-200 bg-red-50 px-3 py-2 text-xs text-red-800 dark:border-red-600 dark:bg-red-900/30 dark:text-red-100">
+            <div className="font-medium">{reviewNavigationError}</div>
+            <div className="mt-2 flex flex-wrap items-center gap-2">
+              <Button
+                size="small"
+                type="primary"
+                onClick={() => {
+                  if (!reviewBatchId) return
+                  void tryOpenContentReview(reviewBatchId, {
+                    closeOnSuccess: true,
+                    closeDelayMs: 250
+                  })
+                }}
+                disabled={!reviewBatchId}
+              >
+                {qi("reviewNavigationRetry", "Retry opening Content Review")}
+              </Button>
             </div>
           </div>
         )}
@@ -2661,21 +2968,7 @@ export const QuickIngestModal: React.FC<Props> = ({
                               disabled={running || reviewBeforeStorage}
                             />
                             <Typography.Text>
-                              {storeRemote
-                                ? (reviewBeforeStorage
-                                    ? qi(
-                                        "storeAfterReview",
-                                        "Store after review"
-                                      )
-                                    : t(
-                                        'quickIngest.storeRemote',
-                                        'Store to remote DB'
-                                      )) ||
-                                  'Store to remote DB'
-                                : (t(
-                                      'quickIngest.process',
-                                      'Process locally'
-                                    ) || 'Process locally')}
+                              {storageLabel}
                             </Typography.Text>
                           </Space>
                         </div>
@@ -3582,7 +3875,10 @@ export const QuickIngestModal: React.FC<Props> = ({
                     <Button
                       size="small"
                       type="primary"
-                      onClick={() => openContentReview(reviewBatchId)}
+                      onClick={() => {
+                        if (!reviewBatchId) return
+                        void tryOpenContentReview(reviewBatchId)
+                      }}
                     >
                       {qi("openContentReview", "Open Content Review")}
                     </Button>

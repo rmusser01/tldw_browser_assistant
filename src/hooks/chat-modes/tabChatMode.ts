@@ -15,6 +15,52 @@ import type { ActorSettings } from "@/types/actor"
 import { maybeInjectActorMessage } from "@/utils/actor"
 import { getTabContents } from "@/libs/get-tab-contents"
 
+interface SaveMessageData {
+  historyId: string | null
+  setHistoryId: (id: string) => void
+  isRegenerate: boolean
+  selectedModel: string
+  message: string
+  image: string
+  fullText: string
+  source: unknown[]
+  userMessageType?: string
+  assistantMessageType?: string
+  clusterId?: string
+  modelId: string
+  userModelId?: string
+  userMessageId?: string
+  assistantMessageId: string
+  userParentMessageId?: string | null
+  assistantParentMessageId?: string | null
+  generationInfo?: Record<string, unknown>
+  reasoning_time_taken: number
+  documents: ChatDocuments
+}
+
+interface SaveMessageErrorData {
+  e: unknown
+  botMessage: string
+  history: ChatHistory
+  historyId: string | null
+  image: string
+  selectedModel: string
+  setHistory: (history: ChatHistory) => void
+  setHistoryId: (id: string) => void
+  userMessage: string
+  isRegenerating: boolean
+  userMessageType?: string
+  assistantMessageType?: string
+  clusterId?: string
+  modelId: string
+  userModelId?: string
+  userMessageId?: string
+  assistantMessageId: string
+  userParentMessageId?: string | null
+  assistantParentMessageId?: string | null
+  documents: ChatDocuments
+}
+
 export const tabChatMode = async (
   message: string,
   image: string,
@@ -53,8 +99,8 @@ export const tabChatMode = async (
     selectedSystemPrompt: string
     currentChatModelSettings: unknown
     setMessages: (messages: Message[] | ((prev: Message[]) => Message[])) => void
-    saveMessageOnSuccess: (data: any) => Promise<string | null>
-    saveMessageOnError: (data: any) => Promise<string | null>
+    saveMessageOnSuccess: (data: SaveMessageData) => Promise<string | null>
+    saveMessageOnError: (data: SaveMessageErrorData) => Promise<string | null>
     setHistory: (history: ChatHistory) => void
     setIsProcessing: (value: boolean) => void
     setStreaming: (value: boolean) => void
@@ -173,7 +219,7 @@ export const tabChatMode = async (
         useOCR: useOCR
       })
     }
-    let source: any[] = []
+    let source: unknown[] = []
 
 
     let applicationChatHistory = generateHistory(
@@ -188,7 +234,7 @@ export const tabChatMode = async (
       templatesActive
     )
 
-    let generationInfo: any | undefined = undefined
+    let generationInfo: Record<string, unknown> | undefined = undefined
 
     const chunks = await ollama.stream(
       [...applicationChatHistory, humanMessage],
@@ -320,7 +366,7 @@ export const tabChatMode = async (
     setIsProcessing(false)
     setStreaming(false)
   } catch (e) {
-    console.log(e)
+    console.error("tabChatMode error:", e)
     const errorSave = await saveMessageOnError({
       e,
       botMessage: fullText,

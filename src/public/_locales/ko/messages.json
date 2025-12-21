@@ -856,9 +856,9 @@
     "message": "폴더를 사용하려면 서버 연결이 필요합니다"
   },
   "option_more_copy_canonicalMarkdown": {
-    "message": "정식 기록 복사"
+    "message": "정식 전사 복사"
   },
   "option_more_download_canonicalMarkdown": {
-    "message": "정식 기록 (Markdown) 다운로드"
+    "message": "정식 전사 (마크다운) 다운로드"
   }
 }

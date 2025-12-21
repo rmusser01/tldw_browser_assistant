@@ -226,6 +226,13 @@
   "otherOperations": "Andere Vorgänge",
   "fileAccess": "Dateizugriff",
   "notebookEdits": "Notizbuchänderungen",
+  "applyPatch": "Patch anwenden",
+  "recursive": "(rekursiv)",
+  "complexArguments": "[Komplexe Argumente]",
+  "status_pending": "Ausstehend",
+  "status_running": "In Bearbeitung",
+  "status_complete": "Abgeschlossen",
+  "status_error": "Fehler",
   "segmented": {
     "available": "Server-Modelle",
     "custom": "Benutzerdefinierte Modelle"
@@ -378,19 +385,4 @@
     "noServerChats": "Noch keine Server-Chats",
     "foldersRequireConnection": "Ordner erfordern eine Serververbindung"
   },
-  "tools_fs_list": "Verzeichnis auflisten",
-  "tools_fs_read": "Datei lesen",
-  "tools_fs_write": "Datei schreiben",
-  "tools_fs_apply_patch": "Patch anwenden",
-  "tools_fs_mkdir": "Verzeichnis erstellen",
-  "tools_fs_delete": "Löschen",
-  "tools_search_grep": "Inhalt durchsuchen",
-  "tools_search_glob": "Dateien finden",
-  "tools_git_status": "Git-Status",
-  "tools_git_diff": "Git-Diff",
-  "tools_git_log": "Git-Log",
-  "tools_git_branch": "Git-Branch",
-  "tools_git_add": "Dateien stagen",
-  "tools_git_commit": "Commit",
-  "tools_exec_run": "Befehl ausführen"
 }

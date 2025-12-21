@@ -226,6 +226,13 @@
   "otherOperations": "Другие операции",
   "fileAccess": "Доступ к файлам",
   "notebookEdits": "Правки блокнота",
+  "applyPatch": "Применить патч",
+  "recursive": "(рекурсивно)",
+  "complexArguments": "[Сложные аргументы]",
+  "status_pending": "Ожидание",
+  "status_running": "Обработка",
+  "status_complete": "Завершено",
+  "status_error": "Ошибка",
   "segmented": {
     "available": "Серверные модели",
     "custom": "Пользовательские модели"
@@ -378,19 +385,4 @@
     "noServerChats": "Пока нет серверных чатов",
     "foldersRequireConnection": "Для папок требуется подключение к серверу"
   },
-  "tools_fs_list": "Список каталога",
-  "tools_fs_read": "Прочитать файл",
-  "tools_fs_write": "Записать файл",
-  "tools_fs_apply_patch": "Применить патч",
-  "tools_fs_mkdir": "Создать каталог",
-  "tools_fs_delete": "Удалить",
-  "tools_search_grep": "Поиск по содержимому",
-  "tools_search_glob": "Найти файлы",
-  "tools_git_status": "Статус Git",
-  "tools_git_diff": "Git diff",
-  "tools_git_log": "Журнал Git",
-  "tools_git_branch": "Ветка Git",
-  "tools_git_add": "Подготовить файлы",
-  "tools_git_commit": "Коммит",
-  "tools_exec_run": "Выполнить команду"
 }

@@ -229,6 +229,10 @@
   "applyPatch": "Aplicar patch",
   "recursive": "(recursivo)",
   "complexArguments": "[Argumentos complexos]",
+  "status_pending": "Pendente",
+  "status_running": "Processando",
+  "status_complete": "Concluído",
+  "status_error": "Erro",
   "segmented": {
     "available": "Modelos do servidor",
     "custom": "Modelos personalizados"
@@ -381,19 +385,4 @@
     "noServerChats": "Ainda não há chats do servidor",
     "foldersRequireConnection": "Pastas requerem conexão com o servidor"
   },
-  "tools_fs_list": "Listar diretório",
-  "tools_fs_read": "Ler arquivo",
-  "tools_fs_write": "Escrever arquivo",
-  "tools_fs_apply_patch": "Aplicar patch",
-  "tools_fs_mkdir": "Criar diretório",
-  "tools_fs_delete": "Excluir",
-  "tools_search_grep": "Pesquisar conteúdo",
-  "tools_search_glob": "Encontrar arquivos",
-  "tools_git_status": "Status do Git",
-  "tools_git_diff": "Diff do Git",
-  "tools_git_log": "Log do Git",
-  "tools_git_branch": "Branch do Git",
-  "tools_git_add": "Preparar arquivos",
-  "tools_git_commit": "Commit",
-  "tools_exec_run": "Executar comando"
 }

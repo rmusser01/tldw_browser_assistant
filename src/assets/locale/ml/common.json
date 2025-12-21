@@ -228,6 +228,13 @@
   "otherOperations": "മറ്റ് പ്രവർത്തനങ്ങൾ",
   "fileAccess": "ഫയൽ പ്രവേശനം",
   "notebookEdits": "നോട്ട്ബുക്ക് തിരുത്തലുകൾ",
+  "applyPatch": "പാച്ച് പ്രയോഗിക്കുക",
+  "recursive": "(ആവർത്തനപരമായ)",
+  "complexArguments": "[സങ്കീർണ്ണ ആർഗ്യുമെന്റുകൾ]",
+  "status_pending": "തീരുമാനിക്കാനുണ്ട്",
+  "status_running": "പ്രോസസ്സിംഗ്",
+  "status_complete": "പൂർത്തീകരിച്ചു",
+  "status_error": "പിശക്",
   "segmented": {
     "available": "സെർവർ മോഡലുകൾ",
     "custom": "കസ്റ്റം മോഡലുകൾ"
@@ -380,19 +387,4 @@
     "noServerChats": "സർവർ ചാറ്റുകൾ ഇതുവരെ ഇല്ല",
     "foldersRequireConnection": "ഫോൾഡറുകൾക്ക് സർവർ കണക്ഷൻ ആവശ്യമുണ്ട്"
   },
-  "tools_fs_list": "ഡയറക്ടറി പട്ടികപ്പെടുത്തുക",
-  "tools_fs_read": "ഫയൽ വായിക്കുക",
-  "tools_fs_write": "ഫയൽ എഴുതുക",
-  "tools_fs_apply_patch": "പാച്ച് പ്രയോഗിക്കുക",
-  "tools_fs_mkdir": "ഡയറക്ടറി സൃഷ്ടിക്കുക",
-  "tools_fs_delete": "ഇല്ലാതാക്കുക",
-  "tools_search_grep": "ഉള്ളടക്കം തിരയുക",
-  "tools_search_glob": "ഫയലുകൾ കണ്ടെത്തുക",
-  "tools_git_status": "Git നില",
-  "tools_git_diff": "Git വ്യത്യാസം",
-  "tools_git_log": "Git ലോഗ്",
-  "tools_git_branch": "Git ബ്രാഞ്ച്",
-  "tools_git_add": "ഫയലുകൾ സ്റ്റേജ് ചെയ്യുക",
-  "tools_git_commit": "കമ്മിറ്റ്",
-  "tools_exec_run": "കമാൻഡ് പ്രവർത്തിപ്പിക്കുക"
 }

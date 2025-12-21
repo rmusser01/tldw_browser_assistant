@@ -149,6 +149,32 @@ type ChatResponse = {
   content?: unknown
 }
 
+const extractTextFromContent = (value: unknown): string => {
+  if (typeof value === "string") {
+    return value
+  }
+  if (Array.isArray(value)) {
+    return value.map(extractTextFromContent).filter(Boolean).join("")
+  }
+  if (value && typeof value === "object") {
+    const maybeText = (value as { text?: unknown }).text
+    if (typeof maybeText === "string") {
+      return maybeText
+    }
+    const maybeContent = (value as { content?: unknown }).content
+    if (typeof maybeContent === "string") {
+      return maybeContent
+    }
+    if (Array.isArray(maybeContent)) {
+      return maybeContent
+        .map(extractTextFromContent)
+        .filter(Boolean)
+        .join("")
+    }
+  }
+  return ""
+}
+
 export const extractChatContent = (resp: unknown): string => {
   if (typeof resp === "string") {
     return stripCodeFences(resp.trim())
@@ -160,5 +186,6 @@ export const extractChatContent = (resp: unknown): string => {
 
   const { choices, content } = resp as ChatResponse
   const raw = choices?.[0]?.message?.content ?? choices?.[0]?.text ?? content ?? ""
-  return stripCodeFences(String(raw || "").trim())
+  const text = extractTextFromContent(raw)
+  return stripCodeFences(String(text || "").trim())
 }

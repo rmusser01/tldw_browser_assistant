@@ -226,6 +226,13 @@
   "otherOperations": "기타 작업",
   "fileAccess": "파일 접근",
   "notebookEdits": "노트북 편집",
+  "applyPatch": "패치 적용",
+  "recursive": "(재귀)",
+  "complexArguments": "[복잡한 인수]",
+  "status_pending": "대기 중",
+  "status_running": "처리 중",
+  "status_complete": "완료",
+  "status_error": "오류",
   "segmented": {
     "available": "서버 모델",
     "custom": "사용자 정의 모델"
@@ -378,19 +385,4 @@
     "noServerChats": "서버 채팅이 아직 없습니다",
     "foldersRequireConnection": "폴더를 사용하려면 서버 연결이 필요합니다"
   },
-  "tools_fs_list": "디렉터리 목록",
-  "tools_fs_read": "파일 읽기",
-  "tools_fs_write": "파일 쓰기",
-  "tools_fs_apply_patch": "패치 적용",
-  "tools_fs_mkdir": "디렉터리 생성",
-  "tools_fs_delete": "삭제",
-  "tools_search_grep": "콘텐츠 검색",
-  "tools_search_glob": "파일 찾기",
-  "tools_git_status": "Git 상태",
-  "tools_git_diff": "Git 차이",
-  "tools_git_log": "Git 로그",
-  "tools_git_branch": "Git 브랜치",
-  "tools_git_add": "파일 스테이징",
-  "tools_git_commit": "커밋",
-  "tools_exec_run": "명령 실행"
 }

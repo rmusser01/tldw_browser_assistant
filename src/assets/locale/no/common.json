@@ -229,6 +229,10 @@
   "applyPatch": "Bruk patch",
   "recursive": "(rekursiv)",
   "complexArguments": "[Komplekse argumenter]",
+  "status_pending": "Venter",
+  "status_running": "Behandler",
+  "status_complete": "Ferdig",
+  "status_error": "Feil",
   "segmented": {
     "available": "Servermodeller",
     "custom": "Egendefinerte modeller"
@@ -381,19 +385,4 @@
     "noServerChats": "Ingen serverchatter ennå",
     "foldersRequireConnection": "Mapper krever en servertilkobling"
   },
-  "tools_fs_list": "List katalog",
-  "tools_fs_read": "Les fil",
-  "tools_fs_write": "Skriv fil",
-  "tools_fs_apply_patch": "Bruk patch",
-  "tools_fs_mkdir": "Opprett katalog",
-  "tools_fs_delete": "Slett",
-  "tools_search_grep": "Søk i innhold",
-  "tools_search_glob": "Finn filer",
-  "tools_git_status": "Git-status",
-  "tools_git_diff": "Git-diff",
-  "tools_git_log": "Git-logg",
-  "tools_git_branch": "Git-gren",
-  "tools_git_add": "Stage filer",
-  "tools_git_commit": "Commit",
-  "tools_exec_run": "Kjør kommando"
 }

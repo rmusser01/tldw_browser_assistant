@@ -627,28 +627,28 @@
     "message": "Mostra contenuto grezzo"
   },
   "notesSearch_exportNoteSuccess": {
-    "message": "Exported ({{size}})"
+    "message": "Esportata ({{size}})"
   },
   "notesSearch_exportSuccess": {
-    "message": "Exported {{count}} notes ({{size}})"
+    "message": "Esportate {{count}} note ({{size}})"
   },
   "notesSearch_exportCsvSuccess": {
-    "message": "Exported {{count}} notes as CSV ({{size}})"
+    "message": "Esportate {{count}} note come CSV ({{size}})"
   },
   "notesSearch_exportJsonSuccess": {
-    "message": "Exported {{count}} notes as JSON ({{size}})"
+    "message": "Esportate {{count}} note come JSON ({{size}})"
   },
   "exportNoteSuccess": {
-    "message": "Exported ({{size}})"
+    "message": "Esportata ({{size}})"
   },
   "exportSuccess": {
-    "message": "Exported {{count}} notes ({{size}})"
+    "message": "Esportate {{count}} note ({{size}})"
   },
   "exportCsvSuccess": {
-    "message": "Exported {{count}} notes as CSV ({{size}})"
+    "message": "Esportate {{count}} note come CSV ({{size}})"
   },
   "exportJsonSuccess": {
-    "message": "Exported {{count}} notes as JSON ({{size}})"
+    "message": "Esportate {{count}} note come JSON ({{size}})"
   },
   "infoShort": {
     "message": "Info"
@@ -690,10 +690,10 @@
     "message": "Impossibile creare la cartella"
   },
   "modelSelect_label": {
-    "message": "Model"
+    "message": "Modello"
   },
   "modelSelect_tooltip": {
-    "message": "Changes model for next message"
+    "message": "Cambia modello per il prossimo messaggio"
   },
   "featureHints_knowledge_title": {
     "message": "Cerca nelle tue conoscenze"

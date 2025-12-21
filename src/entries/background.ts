@@ -631,6 +631,7 @@ export default defineBackground({
         const advancedValues = payload.advancedValues && typeof payload.advancedValues === 'object'
           ? payload.advancedValues
           : {}
+        // processOnly=true forces local-only processing even if storeRemote was requested
         const shouldStoreRemote = storeRemote && !processOnly
 
         const totalCount = entries.length + files.length
