@@ -410,22 +410,6 @@
   "complexArguments": {
     "message": "[Argomenti complessi]"
   },
-  "status_pending": {
-    "message": "In attesa",
-    "description": "Status label for pending operations."
-  },
-  "status_running": {
-    "message": "In corso",
-    "description": "Status label for operations currently in progress."
-  },
-  "status_complete": {
-    "message": "Completato",
-    "description": "Status label for completed operations."
-  },
-  "status_error": {
-    "message": "Errore",
-    "description": "Status label for failed operations."
-  },
   "ttsShort": {
     "message": "Voce"
   },

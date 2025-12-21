@@ -14,6 +14,9 @@
   "mediaPage.saveFailed": {
     "message": "പതിപ്പ് സേവ് ചെയ്യാൻ കഴിഞ്ഞില്ല"
   },
+  "mediaPage.saveUnauthorized": {
+    "message": "സംരക്ഷിക്കാൻ അനുമതിയില്ല"
+  },
   "mediaPage.sendToChat": {
     "message": "ചാറ്റിലേക്ക് അയയ്ക്കുക"
   },
@@ -124,24 +127,6 @@
   },
   "contentReview.reviewDraftsCreated": {
     "message": "ഡ്രാഫ്റ്റുകൾ റിവ്യൂയ്ക്ക് തയ്യാറായി."
-  },
-  "contentReview.reviewDraftsFailedTitle": {
-    "message": "റിവ്യൂ ഡ്രാഫ്റ്റുകൾ സൃഷ്ടിക്കാനായില്ല."
-  },
-  "contentReview.reviewDraftsFailedFallback": {
-    "message": "റിവ്യൂ ഡ്രാഫ്റ്റുകൾ സൃഷ്ടിക്കാൻ പരാജയപ്പെട്ടു."
-  },
-  "contentReview.reviewDraftsRetry": {
-    "message": "ഡ്രാഫ്റ്റ് സൃഷ്ടിക്കൽ വീണ്ടും ശ്രമിക്കുക"
-  },
-  "contentReview.reviewDraftsStoreWithoutReview": {
-    "message": "റിവ്യൂ ഇല്ലാതെ സംഭരിക്കുക"
-  },
-  "contentReview.reviewNavigationFailed": {
-    "message": "ഉള്ളടക്കം റിവ്യൂ തുറക്കാനായില്ല. ദയവായി വീണ്ടും ശ്രമിക്കുക."
-  },
-  "contentReview.reviewNavigationRetry": {
-    "message": "ഉള്ളടക്കം റിവ്യൂ തുറക്കാൻ വീണ്ടും ശ്രമിക്കുക"
   },
   "contentReview.reviewStorageCapWarning": {
     "message": "{{count}} ഫയൽ(കൾ) ലോക്കൽ ഡ്രാഫ്റ്റ് പരിധി ({{cap}}) കവിയുന്നു. ഓഡിയോ/വീഡിയോ കമ്മിറ്റുചെയ്യുന്നതിന് മുമ്പ് സോഴ്‌സുകൾ അറ്റാച്ച് ചെയ്യുക."

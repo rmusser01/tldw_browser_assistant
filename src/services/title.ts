@@ -1,7 +1,5 @@
 import { pageAssistModel } from "@/models"
 import { Storage } from "@plasmohq/storage"
-import { getOllamaURL } from "./tldw-server"
-import { cleanUrl } from "@/libs/clean-url"
 import { HumanMessage } from "@/types/messages"
 import { removeReasoning } from "@/libs/reasoning"
 import { createSafeStorage } from "@/utils/safe-storage"
@@ -52,10 +50,7 @@ export const generateTitle = async (model: string, query: string, fallBackTitle:
     }
 
     try {
-        const url = await getOllamaURL()
-
         const titleModel = await pageAssistModel({
-            baseUrl: cleanUrl(url),
             model
         })
 

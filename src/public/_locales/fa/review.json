@@ -14,6 +14,9 @@
   "mediaPage.saveFailed": {
     "message": "ذخیره نسخه ناموفق بود"
   },
+  "mediaPage.saveUnauthorized": {
+    "message": "مجاز به ذخیره نیستید"
+  },
   "mediaPage.sendToChat": {
     "message": "ارسال به چت"
   },
@@ -88,6 +91,48 @@
   },
   "contentReview.openQuickIngest": {
     "message": "باز کردن Quick Ingest"
+  },
+  "contentReview.storeAfterReview": {
+    "message": "ذخیره پس از بازبینی"
+  },
+  "contentReview.reviewBeforeStorage": {
+    "message": "بازبینی پیش از ذخیره"
+  },
+  "contentReview.reviewBeforeStorageHint": {
+    "message": "اکنون پردازش کنید و سپس پیش‌نویس‌ها را به‌صورت محلی ویرایش کنید قبل از اینکه در سرور ثبت شوند."
+  },
+  "contentReview.reviewEnabled": {
+    "message": "حالت بازبینی"
+  },
+  "contentReview.reviewStorageCap": {
+    "message": "سقف پیش‌نویس‌های محلی {{cap}} است."
+  },
+  "contentReview.reviewWarningTitle": {
+    "message": "پیش‌نویس‌ها به‌صورت محلی ذخیره شوند؟"
+  },
+  "contentReview.reviewWarningBody": {
+    "message": "پیش‌نویس‌ها در این مرورگر ذخیره می‌شوند و ممکن است داده‌های حساس داشته باشند. می‌توانید هر زمان از صفحه «بازبینی محتوا» پیش‌نویس‌ها را پاک کنید."
+  },
+  "contentReview.reviewWarningBodySecondary": {
+    "message": "حالت بازبینی محتوا را تا زمان ثبت در سرور در سمت کاربر نگه می‌دارد."
+  },
+  "contentReview.reviewWarningConfirm": {
+    "message": "فعال‌کردن بازبینی"
+  },
+  "contentReview.reviewWarningCancel": {
+    "message": "لغو"
+  },
+  "contentReview.reviewRunLabel": {
+    "message": "بازبینی"
+  },
+  "contentReview.reviewDraftsCreated": {
+    "message": "پیش‌نویس‌ها برای بازبینی آماده‌اند."
+  },
+  "contentReview.reviewStorageCapWarning": {
+    "message": "{{count}} فایل از سقف پیش‌نویس محلی ({{cap}}) عبور می‌کند. قبل از ثبت صوت/ویدئو، منابع را پیوست کنید."
+  },
+  "contentReview.openContentReview": {
+    "message": "باز کردن بازبینی محتوا"
   },
   "contentReview.batchLabel": {
     "message": "دسته"

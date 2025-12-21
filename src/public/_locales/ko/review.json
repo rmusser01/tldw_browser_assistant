@@ -14,6 +14,9 @@
   "mediaPage.saveFailed": {
     "message": "버전을 저장하지 못했습니다"
   },
+  "mediaPage.saveUnauthorized": {
+    "message": "저장할 권한이 없습니다"
+  },
   "mediaPage.sendToChat": {
     "message": "채팅으로 보내기"
   },
@@ -88,6 +91,48 @@
   },
   "contentReview.openQuickIngest": {
     "message": "Quick Ingest 열기"
+  },
+  "contentReview.storeAfterReview": {
+    "message": "검토 후 저장"
+  },
+  "contentReview.reviewBeforeStorage": {
+    "message": "저장 전에 검토"
+  },
+  "contentReview.reviewBeforeStorageHint": {
+    "message": "지금 처리한 뒤 서버에 저장하기 전에 로컬에서 초안을 편집하세요."
+  },
+  "contentReview.reviewEnabled": {
+    "message": "검토 모드"
+  },
+  "contentReview.reviewStorageCap": {
+    "message": "로컬 초안은 {{cap}}개로 제한됩니다."
+  },
+  "contentReview.reviewWarningTitle": {
+    "message": "초안을 로컬에 저장할까요?"
+  },
+  "contentReview.reviewWarningBody": {
+    "message": "초안은 이 브라우저에 저장되며 민감한 데이터가 포함될 수 있습니다. 언제든지 콘텐츠 검토 페이지에서 초안을 삭제할 수 있습니다."
+  },
+  "contentReview.reviewWarningBodySecondary": {
+    "message": "검토 모드는 서버에 저장할 때까지 콘텐츠를 클라이언트 측에 유지합니다."
+  },
+  "contentReview.reviewWarningConfirm": {
+    "message": "검토 사용"
+  },
+  "contentReview.reviewWarningCancel": {
+    "message": "취소"
+  },
+  "contentReview.reviewRunLabel": {
+    "message": "검토"
+  },
+  "contentReview.reviewDraftsCreated": {
+    "message": "검토할 초안이 준비되었습니다."
+  },
+  "contentReview.reviewStorageCapWarning": {
+    "message": "{{count}}개 파일이 로컬 초안 한도 ({{cap}}) 를 초과했습니다. 오디오/비디오를 저장하기 전에 소스를 첨부하세요."
+  },
+  "contentReview.openContentReview": {
+    "message": "콘텐츠 검토 열기"
   },
   "contentReview.batchLabel": {
     "message": "배치"

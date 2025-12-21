@@ -14,6 +14,9 @@
   "mediaPage.saveFailed": {
     "message": "Falha ao salvar a versão"
   },
+  "mediaPage.saveUnauthorized": {
+    "message": "Não autorizado a salvar"
+  },
   "mediaPage.sendToChat": {
     "message": "Enviar para o chat"
   },
@@ -88,6 +91,48 @@
   },
   "contentReview.openQuickIngest": {
     "message": "Abrir Quick Ingest"
+  },
+  "contentReview.storeAfterReview": {
+    "message": "Salvar após revisão"
+  },
+  "contentReview.reviewBeforeStorage": {
+    "message": "Revisar antes de salvar"
+  },
+  "contentReview.reviewBeforeStorageHint": {
+    "message": "Processe agora e depois edite os rascunhos localmente antes de enviá-los ao servidor."
+  },
+  "contentReview.reviewEnabled": {
+    "message": "Modo de revisão"
+  },
+  "contentReview.reviewStorageCap": {
+    "message": "Rascunhos locais limitados a {{cap}}."
+  },
+  "contentReview.reviewWarningTitle": {
+    "message": "Salvar rascunhos localmente?"
+  },
+  "contentReview.reviewWarningBody": {
+    "message": "Os rascunhos são salvos neste navegador e podem conter dados sensíveis. Você pode limpar os rascunhos na página Revisão de Conteúdo a qualquer momento."
+  },
+  "contentReview.reviewWarningBodySecondary": {
+    "message": "O modo de revisão mantém o conteúdo no cliente até você confirmá-lo no servidor."
+  },
+  "contentReview.reviewWarningConfirm": {
+    "message": "Ativar revisão"
+  },
+  "contentReview.reviewWarningCancel": {
+    "message": "Cancelar"
+  },
+  "contentReview.reviewRunLabel": {
+    "message": "Revisão"
+  },
+  "contentReview.reviewDraftsCreated": {
+    "message": "Rascunhos prontos para revisão."
+  },
+  "contentReview.reviewStorageCapWarning": {
+    "message": "{{count}} arquivo(s) excedem o limite local de rascunhos ({{cap}}). Anexe as fontes antes de salvar áudio/vídeo."
+  },
+  "contentReview.openContentReview": {
+    "message": "Abrir Revisão de Conteúdo"
   },
   "contentReview.batchLabel": {
     "message": "Lote"

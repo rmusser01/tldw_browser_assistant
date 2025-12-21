@@ -92,6 +92,48 @@
   "contentReview.openQuickIngest": {
     "message": "打开 Quick Ingest"
   },
+  "contentReview.storeAfterReview": {
+    "message": "审阅后保存"
+  },
+  "contentReview.reviewBeforeStorage": {
+    "message": "保存前审阅"
+  },
+  "contentReview.reviewBeforeStorageHint": {
+    "message": "先处理，然后在提交到服务器前在本地编辑草稿。"
+  },
+  "contentReview.reviewEnabled": {
+    "message": "审阅模式"
+  },
+  "contentReview.reviewStorageCap": {
+    "message": "本地草稿上限为 {{cap}}。"
+  },
+  "contentReview.reviewWarningTitle": {
+    "message": "将草稿保存在本地？"
+  },
+  "contentReview.reviewWarningBody": {
+    "message": "草稿保存在此浏览器中，可能包含敏感数据。你可以随时在“内容审阅”页面清除草稿。"
+  },
+  "contentReview.reviewWarningBodySecondary": {
+    "message": "审阅模式会在提交到服务器前将内容保留在客户端。"
+  },
+  "contentReview.reviewWarningConfirm": {
+    "message": "启用审阅"
+  },
+  "contentReview.reviewWarningCancel": {
+    "message": "取消"
+  },
+  "contentReview.reviewRunLabel": {
+    "message": "审阅"
+  },
+  "contentReview.reviewDraftsCreated": {
+    "message": "草稿已准备好审阅。"
+  },
+  "contentReview.reviewStorageCapWarning": {
+    "message": "{{count}} 个文件超过本地草稿上限（{{cap}}）。请在提交音频/视频前附加来源。"
+  },
+  "contentReview.openContentReview": {
+    "message": "打开内容审阅"
+  },
   "contentReview.batchLabel": {
     "message": "批次"
   },

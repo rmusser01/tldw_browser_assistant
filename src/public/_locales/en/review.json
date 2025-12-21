@@ -92,6 +92,48 @@
   "contentReview.openQuickIngest": {
     "message": "Open Quick Ingest"
   },
+  "contentReview.storeAfterReview": {
+    "message": "Store after review"
+  },
+  "contentReview.reviewBeforeStorage": {
+    "message": "Review before saving"
+  },
+  "contentReview.reviewBeforeStorageHint": {
+    "message": "Process now, then edit drafts locally before committing to your server."
+  },
+  "contentReview.reviewEnabled": {
+    "message": "Review mode"
+  },
+  "contentReview.reviewStorageCap": {
+    "message": "Local drafts are capped at {{cap}}."
+  },
+  "contentReview.reviewWarningTitle": {
+    "message": "Store drafts locally?"
+  },
+  "contentReview.reviewWarningBody": {
+    "message": "Drafts are saved in this browser and may include sensitive data. You can clear drafts from the Content Review page at any time."
+  },
+  "contentReview.reviewWarningBodySecondary": {
+    "message": "Review mode keeps content client-side until you commit it to your server."
+  },
+  "contentReview.reviewWarningConfirm": {
+    "message": "Enable review"
+  },
+  "contentReview.reviewWarningCancel": {
+    "message": "Cancel"
+  },
+  "contentReview.reviewRunLabel": {
+    "message": "Review"
+  },
+  "contentReview.reviewDraftsCreated": {
+    "message": "Drafts ready for review."
+  },
+  "contentReview.reviewStorageCapWarning": {
+    "message": "{{count}} file(s) exceed the local draft cap ({{cap}}). Attach sources before committing audio/video."
+  },
+  "contentReview.openContentReview": {
+    "message": "Open Content Review"
+  },
   "contentReview.batchLabel": {
     "message": "Batch"
   },

@@ -480,22 +480,6 @@
   "complexArguments": {
     "message": "[복잡한 인수]"
   },
-  "status_pending": {
-    "message": "대기 중",
-    "description": "Status label for pending operations."
-  },
-  "status_running": {
-    "message": "처리 중",
-    "description": "Status label for operations currently in progress."
-  },
-  "status_complete": {
-    "message": "완료",
-    "description": "Status label for completed operations."
-  },
-  "status_error": {
-    "message": "오류",
-    "description": "Status label for failed operations."
-  },
   "ttsShort": {
     "message": "음성"
   },

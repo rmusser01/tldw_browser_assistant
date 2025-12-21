@@ -634,22 +634,6 @@
   "markdown_showRawContent": {
     "message": "إظهار المحتوى الخام"
   },
-  "status_pending": {
-    "message": "قيد الانتظار",
-    "description": "Status label for pending operations."
-  },
-  "status_running": {
-    "message": "قيد المعالجة",
-    "description": "Status label for operations currently in progress."
-  },
-  "status_complete": {
-    "message": "مكتمل",
-    "description": "Status label for completed operations."
-  },
-  "status_error": {
-    "message": "خطأ",
-    "description": "Status label for failed operations."
-  },
   "notesSearch_exportNoteSuccess": {
     "message": "تم التصدير ({{size}})"
   },

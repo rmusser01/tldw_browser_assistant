@@ -601,22 +601,6 @@
   "markdown_showRawContent": {
     "message": "അസംസ്കൃത ഉള്ളടക്കം കാണിക്കുക"
   },
-  "status_pending": {
-    "message": "തീരുമാനിക്കാനുണ്ട്",
-    "description": "Status label for pending operations."
-  },
-  "status_running": {
-    "message": "പ്രോസസ്സിംഗ്",
-    "description": "Status label for operations currently in progress."
-  },
-  "status_complete": {
-    "message": "പൂർത്തീകരിച്ചു",
-    "description": "Status label for completed operations."
-  },
-  "status_error": {
-    "message": "പിശക്",
-    "description": "Status label for failed operations."
-  },
   "notesSearch_exportNoteSuccess": {
     "message": "എക്സ്പോർട്ട് ചെയ്തു ({{size}})"
   },

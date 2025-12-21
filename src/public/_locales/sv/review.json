@@ -14,6 +14,9 @@
   "mediaPage.saveFailed": {
     "message": "Det gick inte att spara versionen"
   },
+  "mediaPage.saveUnauthorized": {
+    "message": "Inte behörig att spara"
+  },
   "mediaPage.sendToChat": {
     "message": "Skicka till chatten"
   },
@@ -88,6 +91,48 @@
   },
   "contentReview.openQuickIngest": {
     "message": "Öppna Quick Ingest"
+  },
+  "contentReview.storeAfterReview": {
+    "message": "Spara efter granskning"
+  },
+  "contentReview.reviewBeforeStorage": {
+    "message": "Granska före sparning"
+  },
+  "contentReview.reviewBeforeStorageHint": {
+    "message": "Bearbeta nu och redigera sedan utkast lokalt innan du sparar till servern."
+  },
+  "contentReview.reviewEnabled": {
+    "message": "Granskningsläge"
+  },
+  "contentReview.reviewStorageCap": {
+    "message": "Lokala utkast är begränsade till {{cap}}."
+  },
+  "contentReview.reviewWarningTitle": {
+    "message": "Spara utkast lokalt?"
+  },
+  "contentReview.reviewWarningBody": {
+    "message": "Utkast sparas i den här webbläsaren och kan innehålla känsliga data. Du kan rensa utkast från sidan Innehållsgranskning när som helst."
+  },
+  "contentReview.reviewWarningBodySecondary": {
+    "message": "Granskningsläget håller innehållet på klientsidan tills du sparar det på servern."
+  },
+  "contentReview.reviewWarningConfirm": {
+    "message": "Aktivera granskning"
+  },
+  "contentReview.reviewWarningCancel": {
+    "message": "Avbryt"
+  },
+  "contentReview.reviewRunLabel": {
+    "message": "Granska"
+  },
+  "contentReview.reviewDraftsCreated": {
+    "message": "Utkast redo för granskning."
+  },
+  "contentReview.reviewStorageCapWarning": {
+    "message": "{{count}} fil(er) överskrider den lokala utkastgränsen ({{cap}}). Bifoga källor innan du sparar ljud/video."
+  },
+  "contentReview.openContentReview": {
+    "message": "Öppna Innehållsgranskning"
   },
   "contentReview.batchLabel": {
     "message": "Batch"

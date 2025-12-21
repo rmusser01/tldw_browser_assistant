@@ -14,6 +14,9 @@
   "mediaPage.saveFailed": {
     "message": "Échec de l'enregistrement de la version"
   },
+  "mediaPage.saveUnauthorized": {
+    "message": "Non autorisé à enregistrer"
+  },
   "mediaPage.sendToChat": {
     "message": "Envoyer au chat"
   },
@@ -88,6 +91,48 @@
   },
   "contentReview.openQuickIngest": {
     "message": "Ouvrir Quick Ingest"
+  },
+  "contentReview.storeAfterReview": {
+    "message": "Enregistrer après révision"
+  },
+  "contentReview.reviewBeforeStorage": {
+    "message": "Réviser avant d’enregistrer"
+  },
+  "contentReview.reviewBeforeStorageHint": {
+    "message": "Traitez maintenant, puis modifiez les brouillons localement avant de les valider sur votre serveur."
+  },
+  "contentReview.reviewEnabled": {
+    "message": "Mode de révision"
+  },
+  "contentReview.reviewStorageCap": {
+    "message": "Les brouillons locaux sont limités à {{cap}}."
+  },
+  "contentReview.reviewWarningTitle": {
+    "message": "Enregistrer les brouillons localement ?"
+  },
+  "contentReview.reviewWarningBody": {
+    "message": "Les brouillons sont enregistrés dans ce navigateur et peuvent contenir des données sensibles. Vous pouvez les supprimer depuis la page Révision de contenu à tout moment."
+  },
+  "contentReview.reviewWarningBodySecondary": {
+    "message": "Le mode de révision conserve le contenu côté client jusqu’à validation sur votre serveur."
+  },
+  "contentReview.reviewWarningConfirm": {
+    "message": "Activer la révision"
+  },
+  "contentReview.reviewWarningCancel": {
+    "message": "Annuler"
+  },
+  "contentReview.reviewRunLabel": {
+    "message": "Révision"
+  },
+  "contentReview.reviewDraftsCreated": {
+    "message": "Brouillons prêts pour la révision."
+  },
+  "contentReview.reviewStorageCapWarning": {
+    "message": "{{count}} fichier(s) dépassent la limite locale de brouillons ({{cap}}). Joignez les sources avant de valider l’audio/vidéo."
+  },
+  "contentReview.openContentReview": {
+    "message": "Ouvrir la Révision de contenu"
   },
   "contentReview.batchLabel": {
     "message": "Lot"

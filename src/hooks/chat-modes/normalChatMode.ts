@@ -321,7 +321,7 @@ export const normalChatMode = async (
     return
   }
 
-  const ollama = await pageAssistModel({ model: selectedModel, baseUrl: "" })
+  const ollama = await pageAssistModel({ model: selectedModel })
 
   try {
     const prompt = await systemPromptForNonRagOption()

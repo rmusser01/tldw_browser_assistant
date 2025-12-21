@@ -14,6 +14,9 @@
   "mediaPage.saveFailed": {
     "message": "バージョンの保存に失敗しました"
   },
+  "mediaPage.saveUnauthorized": {
+    "message": "保存する権限がありません"
+  },
   "mediaPage.sendToChat": {
     "message": "チャットに送信"
   },
@@ -88,6 +91,48 @@
   },
   "contentReview.openQuickIngest": {
     "message": "Quick Ingest を開く"
+  },
+  "contentReview.storeAfterReview": {
+    "message": "レビュー後に保存"
+  },
+  "contentReview.reviewBeforeStorage": {
+    "message": "保存前にレビュー"
+  },
+  "contentReview.reviewBeforeStorageHint": {
+    "message": "今すぐ処理し、サーバーに保存する前にローカルで下書きを編集します。"
+  },
+  "contentReview.reviewEnabled": {
+    "message": "レビューモード"
+  },
+  "contentReview.reviewStorageCap": {
+    "message": "ローカル下書きは {{cap}} 件までです。"
+  },
+  "contentReview.reviewWarningTitle": {
+    "message": "下書きをローカルに保存しますか？"
+  },
+  "contentReview.reviewWarningBody": {
+    "message": "下書きはこのブラウザに保存され、機密データを含む可能性があります。コンテンツレビューのページからいつでも下書きを消去できます。"
+  },
+  "contentReview.reviewWarningBodySecondary": {
+    "message": "レビューモードでは、サーバーに保存するまで内容をクライアント側に保持します。"
+  },
+  "contentReview.reviewWarningConfirm": {
+    "message": "レビューを有効にする"
+  },
+  "contentReview.reviewWarningCancel": {
+    "message": "キャンセル"
+  },
+  "contentReview.reviewRunLabel": {
+    "message": "レビュー"
+  },
+  "contentReview.reviewDraftsCreated": {
+    "message": "レビュー用下書きの準備ができました。"
+  },
+  "contentReview.reviewStorageCapWarning": {
+    "message": "{{count}} 件のファイルがローカル下書き上限 ({{cap}}) を超えています。音声/動画を保存する前にソースを添付してください。"
+  },
+  "contentReview.openContentReview": {
+    "message": "コンテンツレビューを開く"
   },
   "contentReview.batchLabel": {
     "message": "バッチ"

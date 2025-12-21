@@ -14,6 +14,9 @@
   "mediaPage.saveFailed": {
     "message": "Не вдалося зберегти версію"
   },
+  "mediaPage.saveUnauthorized": {
+    "message": "Недостатньо прав для збереження"
+  },
   "mediaPage.sendToChat": {
     "message": "Надіслати в чат"
   },
@@ -88,6 +91,48 @@
   },
   "contentReview.openQuickIngest": {
     "message": "Відкрити Quick Ingest"
+  },
+  "contentReview.storeAfterReview": {
+    "message": "Зберігати після перевірки"
+  },
+  "contentReview.reviewBeforeStorage": {
+    "message": "Перевірити перед збереженням"
+  },
+  "contentReview.reviewBeforeStorageHint": {
+    "message": "Створювати чернетки та перевіряти їх перед збереженням"
+  },
+  "contentReview.reviewEnabled": {
+    "message": "Перевірка ввімкнена"
+  },
+  "contentReview.reviewStorageCap": {
+    "message": "Ліміт збереження перевірки"
+  },
+  "contentReview.reviewWarningTitle": {
+    "message": "Чи продовжити без перевірки?"
+  },
+  "contentReview.reviewWarningBody": {
+    "message": "Файли не будуть перевірені перед збереженням."
+  },
+  "contentReview.reviewWarningBodySecondary": {
+    "message": "Ви все ще можете переглянути їх у Перевірці контенту."
+  },
+  "contentReview.reviewWarningConfirm": {
+    "message": "Продовжити без перевірки"
+  },
+  "contentReview.reviewWarningCancel": {
+    "message": "Повернутися до перевірки"
+  },
+  "contentReview.reviewRunLabel": {
+    "message": "Запустити перевірку"
+  },
+  "contentReview.reviewDraftsCreated": {
+    "message": "Чернетки створено"
+  },
+  "contentReview.reviewStorageCapWarning": {
+    "message": "Цей файл перевищує ліміт збереження для перевірки ({{cap}})."
+  },
+  "contentReview.openContentReview": {
+    "message": "Відкрити Перевірку контенту"
   },
   "contentReview.batchLabel": {
     "message": "Пакет"

@@ -649,22 +649,6 @@
   "markdown_showRawContent": {
     "message": "Показать исходный текст"
   },
-  "status_pending": {
-    "message": "Ожидание",
-    "description": "Status label for pending operations."
-  },
-  "status_running": {
-    "message": "Обработка",
-    "description": "Status label for operations currently in progress."
-  },
-  "status_complete": {
-    "message": "Завершено",
-    "description": "Status label for completed operations."
-  },
-  "status_error": {
-    "message": "Ошибка",
-    "description": "Status label for failed operations."
-  },
   "notesSearch_exportNoteSuccess": {
     "message": "Экспортировано ({{size}})"
   },

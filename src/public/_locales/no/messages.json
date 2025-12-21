@@ -410,22 +410,6 @@
   "complexArguments": {
     "message": "[Komplekse argumenter]"
   },
-  "status_pending": {
-    "message": "Venter",
-    "description": "Status label for pending operations."
-  },
-  "status_running": {
-    "message": "Behandler",
-    "description": "Status label for operations currently in progress."
-  },
-  "status_complete": {
-    "message": "Ferdig",
-    "description": "Status label for completed operations."
-  },
-  "status_error": {
-    "message": "Feil",
-    "description": "Status label for failed operations."
-  },
   "ttsShort": {
     "message": "Tale"
   },

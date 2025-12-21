@@ -14,6 +14,9 @@
   "mediaPage.saveFailed": {
     "message": "Version konnte nicht gespeichert werden"
   },
+  "mediaPage.saveUnauthorized": {
+    "message": "Nicht zum Speichern berechtigt"
+  },
   "mediaPage.sendToChat": {
     "message": "An Chat senden"
   },
@@ -88,6 +91,48 @@
   },
   "contentReview.openQuickIngest": {
     "message": "Quick Ingest öffnen"
+  },
+  "contentReview.storeAfterReview": {
+    "message": "Nach Überprüfung speichern"
+  },
+  "contentReview.reviewBeforeStorage": {
+    "message": "Vor dem Speichern überprüfen"
+  },
+  "contentReview.reviewBeforeStorageHint": {
+    "message": "Jetzt verarbeiten und Entwürfe lokal bearbeiten, bevor du sie auf deinen Server überträgst."
+  },
+  "contentReview.reviewEnabled": {
+    "message": "Überprüfungsmodus"
+  },
+  "contentReview.reviewStorageCap": {
+    "message": "Lokale Entwürfe sind auf {{cap}} begrenzt."
+  },
+  "contentReview.reviewWarningTitle": {
+    "message": "Entwürfe lokal speichern?"
+  },
+  "contentReview.reviewWarningBody": {
+    "message": "Entwürfe werden in diesem Browser gespeichert und können sensible Daten enthalten. Du kannst Entwürfe jederzeit auf der Seite „Inhaltsprüfung“ löschen."
+  },
+  "contentReview.reviewWarningBodySecondary": {
+    "message": "Der Überprüfungsmodus hält Inhalte clientseitig, bis du sie auf deinen Server überträgst."
+  },
+  "contentReview.reviewWarningConfirm": {
+    "message": "Überprüfung aktivieren"
+  },
+  "contentReview.reviewWarningCancel": {
+    "message": "Abbrechen"
+  },
+  "contentReview.reviewRunLabel": {
+    "message": "Überprüfen"
+  },
+  "contentReview.reviewDraftsCreated": {
+    "message": "Entwürfe bereit zur Überprüfung."
+  },
+  "contentReview.reviewStorageCapWarning": {
+    "message": "{{count}} Datei(en) überschreiten das lokale Entwurfslimit ({{cap}}). Bitte Quellen vor dem Speichern von Audio/Video anhängen."
+  },
+  "contentReview.openContentReview": {
+    "message": "Inhaltsprüfung öffnen"
   },
   "contentReview.batchLabel": {
     "message": "Stapel"

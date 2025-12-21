@@ -4,6 +4,7 @@ import { generateID } from "@/db/dexie/helpers"
 import { generateHistory } from "@/utils/generate-history"
 import { pageAssistModel } from "@/models"
 import { humanMessageFormatter } from "@/utils/human-message"
+import { extractGenerationInfo } from "@/utils/llm-helpers"
 import {
   isReasoningEnded,
   isReasoningStarted,
@@ -107,7 +108,7 @@ export const tabChatMode = async (
   }
 ) => {
   console.log("Using tabChatMode")
-  const ollama = await pageAssistModel({ model: selectedModel, baseUrl: "" })
+  const ollama = await pageAssistModel({ model: selectedModel })
 
   const resolvedAssistantMessageId = assistantMessageId ?? generateID()
   const resolvedUserMessageId =
@@ -230,36 +231,9 @@ export const tabChatMode = async (
         callbacks: [
           {
             handleLLMEnd(output: unknown): void {
-              try {
-                if (typeof output !== "object" || output === null) {
-                  return
-                }
-                if (!("generations" in output)) {
-                  return
-                }
-                const generations = (output as { generations?: unknown }).generations
-                if (!Array.isArray(generations) || generations.length === 0) {
-                  return
-                }
-                const firstBatch = generations[0]
-                if (!Array.isArray(firstBatch) || firstBatch.length === 0) {
-                  return
-                }
-                const firstGeneration = firstBatch[0]
-                if (typeof firstGeneration !== "object" || firstGeneration === null) {
-                  return
-                }
-                if (!("generationInfo" in firstGeneration)) {
-                  return
-                }
-                const info = (firstGeneration as {
-                  generationInfo?: Record<string, unknown>
-                }).generationInfo
-                if (info) {
-                  generationInfo = info
-                }
-              } catch (e) {
-                console.error("handleLLMEnd error", e)
+              const info = extractGenerationInfo(output)
+              if (info) {
+                generationInfo = info
               }
             }
           }

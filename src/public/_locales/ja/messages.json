@@ -450,22 +450,6 @@
   "complexArguments": {
     "message": "[複雑な引数]"
   },
-  "status_pending": {
-    "message": "保留中",
-    "description": "Status label for pending operations."
-  },
-  "status_running": {
-    "message": "処理中",
-    "description": "Status label for operations currently in progress."
-  },
-  "status_complete": {
-    "message": "完了",
-    "description": "Status label for completed operations."
-  },
-  "status_error": {
-    "message": "エラー",
-    "description": "Status label for failed operations."
-  },
   "ttsShort": {
     "message": "音声"
   },

@@ -14,6 +14,9 @@
   "mediaPage.saveFailed": {
     "message": "فشل حفظ الإصدار"
   },
+  "mediaPage.saveUnauthorized": {
+    "message": "غير مصرح لك بالحفظ"
+  },
   "mediaPage.sendToChat": {
     "message": "إرسال إلى الدردشة"
   },
@@ -88,6 +91,48 @@
   },
   "contentReview.openQuickIngest": {
     "message": "فتح Quick Ingest"
+  },
+  "contentReview.storeAfterReview": {
+    "message": "الحفظ بعد المراجعة"
+  },
+  "contentReview.reviewBeforeStorage": {
+    "message": "المراجعة قبل الحفظ"
+  },
+  "contentReview.reviewBeforeStorageHint": {
+    "message": "قم بالمعالجة الآن ثم حرّر المسودات محليًا قبل اعتمادها على الخادم."
+  },
+  "contentReview.reviewEnabled": {
+    "message": "وضع المراجعة"
+  },
+  "contentReview.reviewStorageCap": {
+    "message": "الحد الأقصى للمسودات المحلية هو {{cap}}."
+  },
+  "contentReview.reviewWarningTitle": {
+    "message": "حفظ المسودات محليًا؟"
+  },
+  "contentReview.reviewWarningBody": {
+    "message": "تُحفظ المسودات في هذا المتصفح وقد تتضمن بيانات حساسة. يمكنك مسح المسودات من صفحة مراجعة المحتوى في أي وقت."
+  },
+  "contentReview.reviewWarningBodySecondary": {
+    "message": "يحفظ وضع المراجعة المحتوى على جانب العميل حتى تعتمدَه على الخادم."
+  },
+  "contentReview.reviewWarningConfirm": {
+    "message": "تفعيل المراجعة"
+  },
+  "contentReview.reviewWarningCancel": {
+    "message": "إلغاء"
+  },
+  "contentReview.reviewRunLabel": {
+    "message": "مراجعة"
+  },
+  "contentReview.reviewDraftsCreated": {
+    "message": "المسودات جاهزة للمراجعة."
+  },
+  "contentReview.reviewStorageCapWarning": {
+    "message": "{{count}} ملف/ملفات تتجاوز حد المسودات المحلية ({{cap}}). أرفق المصادر قبل اعتماد الصوت/الفيديو."
+  },
+  "contentReview.openContentReview": {
+    "message": "فتح مراجعة المحتوى"
   },
   "contentReview.batchLabel": {
     "message": "دفعة"

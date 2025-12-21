@@ -601,22 +601,6 @@
   "markdown_showRawContent": {
     "message": "Mostrar contenido sin formato"
   },
-  "status_pending": {
-    "message": "Pendiente",
-    "description": "Status label for pending operations."
-  },
-  "status_running": {
-    "message": "Procesando",
-    "description": "Status label for operations currently in progress."
-  },
-  "status_complete": {
-    "message": "Finalizado",
-    "description": "Status label for completed operations."
-  },
-  "status_error": {
-    "message": "Error",
-    "description": "Status label for failed operations."
-  },
   "notesSearch_exportNoteSuccess": {
     "message": "Exportado ({{size}})"
   },

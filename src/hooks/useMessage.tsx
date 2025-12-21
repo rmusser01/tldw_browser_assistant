@@ -238,8 +238,7 @@ export const useMessage = () => {
     const userDefaultModelSettings = await getAllDefaultModelSettings()
 
     const ollama = await pageAssistModel({
-      model: selectedModel!,
-      baseUrl: ""
+      model: selectedModel!
     })
 
     let newMessage: Message[] = []
@@ -321,7 +320,7 @@ export const useMessage = () => {
         const promptForQuestion = questionPrompt
           .replaceAll("{chat_history}", chat_history)
           .replaceAll("{question}", message)
-        const questionOllama = await pageAssistModel({ model: selectedModel!, baseUrl: "" })
+        const questionOllama = await pageAssistModel({ model: selectedModel! })
         const questionMessage = await humanMessageFormatter({
           content: [
             {
@@ -575,7 +574,7 @@ export const useMessage = () => {
     signal: AbortSignal
   ) => {
     setStreaming(true)
-    const ollama = await pageAssistModel({ model: selectedModel!, baseUrl: "" })
+    const ollama = await pageAssistModel({ model: selectedModel! })
 
     let newMessage: Message[] = []
     let generateMessageId = generateID()
@@ -1152,7 +1151,7 @@ export const useMessage = () => {
       }
     }
 
-    const ollama = await pageAssistModel({ model: selectedModel!, baseUrl: "" })
+    const ollama = await pageAssistModel({ model: selectedModel! })
 
     let newMessage: Message[] = []
     let generateMessageId = generateID()

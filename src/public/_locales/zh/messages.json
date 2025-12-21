@@ -282,22 +282,6 @@
   "complexArguments": {
     "message": "[复杂参数]"
   },
-  "status_pending": {
-    "message": "待定",
-    "description": "Status label for pending operations."
-  },
-  "status_running": {
-    "message": "处理中",
-    "description": "Status label for operations currently in progress."
-  },
-  "status_complete": {
-    "message": "已完成",
-    "description": "Status label for completed operations."
-  },
-  "status_error": {
-    "message": "错误",
-    "description": "Status label for failed operations."
-  },
   "ttsShort": {
     "message": "语音"
   },
@@ -634,7 +618,7 @@
     "message": "笔记"
   },
   "chatSidebar_flashcards": {
-    "message": "闪卡"
+    "message": "抽认卡"
   },
   "chatSidebar_prompts": {
     "message": "提示词"

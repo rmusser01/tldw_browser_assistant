@@ -1565,22 +1565,6 @@
   "markdown_showRawContent": {
     "message": "Mostrar conteúdo bruto"
   },
-  "status_pending": {
-    "message": "Pendente",
-    "description": "Status label for pending operations."
-  },
-  "status_running": {
-    "message": "Processando",
-    "description": "Status label for operations currently in progress."
-  },
-  "status_complete": {
-    "message": "Concluído",
-    "description": "Status label for completed operations."
-  },
-  "status_error": {
-    "message": "Erro",
-    "description": "Status label for failed operations."
-  },
   "notesSearch_exportNoteSuccess": {
     "message": "Exportado ({{size}})"
   },

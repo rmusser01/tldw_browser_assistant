@@ -51,7 +51,7 @@ export const continueChatMode = async (
   let promptId: string | undefined = selectedSystemPrompt
   let promptContent: string | undefined = undefined
 
-  const ollama = await pageAssistModel({ model: selectedModel!, baseUrl: "" })
+  const ollama = await pageAssistModel({ model: selectedModel! })
 
   let newMessage: Message[] = []
 

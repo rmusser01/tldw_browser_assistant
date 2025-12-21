@@ -137,22 +137,6 @@
   "complexArguments": {
     "message": "[複雜參數]"
   },
-  "status_pending": {
-    "message": "待處理",
-    "description": "Status label for pending operations."
-  },
-  "status_running": {
-    "message": "處理中",
-    "description": "Status label for operations currently in progress."
-  },
-  "status_complete": {
-    "message": "已完成",
-    "description": "Status label for completed operations."
-  },
-  "status_error": {
-    "message": "錯誤",
-    "description": "Status label for failed operations."
-  },
   "ttsShort": {
     "message": "語音"
   },

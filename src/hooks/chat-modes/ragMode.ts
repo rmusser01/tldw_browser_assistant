@@ -1,4 +1,3 @@
-import { cleanUrl } from "~/libs/clean-url"
 import { promptForRag } from "~/services/tldw-server" // Reuse prompts storage for now
 import { type ChatHistory, type Message } from "~/store/option"
 import { generateID } from "@/db/dexie/helpers"
@@ -88,10 +87,8 @@ export const ragMode = async (
   }: RagModeParams
 ) => {
   console.log("Using ragMode")
-  const url = cleanUrl((await (await new (await import("@plasmohq/storage")).Storage({ area: 'local' })).get("tldwConfig") as any)?.serverUrl || "")
   const ollama = await pageAssistModel({
-    model: selectedModel!,
-    baseUrl: url
+    model: selectedModel!
   })
 
   const resolvedAssistantMessageId = assistantMessageId ?? generateID()
@@ -187,8 +184,7 @@ export const ragMode = async (
         .replaceAll("{chat_history}", chat_history)
         .replaceAll("{question}", message)
       const questionOllama = await pageAssistModel({
-        model: selectedModel!,
-        baseUrl: cleanUrl(url)
+        model: selectedModel!
       })
       const questionMessage = await humanMessageFormatter({
         content: [

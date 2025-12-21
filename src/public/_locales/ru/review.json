@@ -14,6 +14,9 @@
   "mediaPage.saveFailed": {
     "message": "Не удалось сохранить версию"
   },
+  "mediaPage.saveUnauthorized": {
+    "message": "Недостаточно прав для сохранения"
+  },
   "mediaPage.sendToChat": {
     "message": "Отправить в чат"
   },
@@ -88,6 +91,48 @@
   },
   "contentReview.openQuickIngest": {
     "message": "Открыть Quick Ingest"
+  },
+  "contentReview.storeAfterReview": {
+    "message": "Сохранить после проверки"
+  },
+  "contentReview.reviewBeforeStorage": {
+    "message": "Проверить перед сохранением"
+  },
+  "contentReview.reviewBeforeStorageHint": {
+    "message": "Обработайте сейчас, затем отредактируйте черновики локально перед сохранением на сервер."
+  },
+  "contentReview.reviewEnabled": {
+    "message": "Режим проверки"
+  },
+  "contentReview.reviewStorageCap": {
+    "message": "Локальные черновики ограничены {{cap}}."
+  },
+  "contentReview.reviewWarningTitle": {
+    "message": "Сохранять черновики локально?"
+  },
+  "contentReview.reviewWarningBody": {
+    "message": "Черновики сохраняются в этом браузере и могут содержать конфиденциальные данные. Вы можете очистить черновики на странице «Проверка контента» в любое время."
+  },
+  "contentReview.reviewWarningBodySecondary": {
+    "message": "Режим проверки хранит контент на стороне клиента, пока вы не сохраните его на сервер."
+  },
+  "contentReview.reviewWarningConfirm": {
+    "message": "Включить проверку"
+  },
+  "contentReview.reviewWarningCancel": {
+    "message": "Отмена"
+  },
+  "contentReview.reviewRunLabel": {
+    "message": "Проверка"
+  },
+  "contentReview.reviewDraftsCreated": {
+    "message": "Черновики готовы к проверке."
+  },
+  "contentReview.reviewStorageCapWarning": {
+    "message": "{{count}} файл(ов) превышают лимит локальных черновиков ({{cap}}). Приложите источники перед сохранением аудио/видео."
+  },
+  "contentReview.openContentReview": {
+    "message": "Открыть проверку контента"
   },
   "contentReview.batchLabel": {
     "message": "Пакет"

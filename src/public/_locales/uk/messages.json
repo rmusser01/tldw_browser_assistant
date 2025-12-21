@@ -284,22 +284,6 @@
   "complexArguments": {
     "message": "[Складні аргументи]"
   },
-  "status_pending": {
-    "message": "Очікування",
-    "description": "Status label for pending operations."
-  },
-  "status_running": {
-    "message": "Обробка",
-    "description": "Status label for operations currently in progress."
-  },
-  "status_complete": {
-    "message": "Завершено",
-    "description": "Status label for completed operations."
-  },
-  "status_error": {
-    "message": "Помилка",
-    "description": "Status label for failed operations."
-  },
   "ttsShort": {
     "message": "Голос"
   },

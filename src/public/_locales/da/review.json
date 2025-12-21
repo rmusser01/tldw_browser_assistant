@@ -14,6 +14,9 @@
   "mediaPage.saveFailed": {
     "message": "Kunne ikke gemme versionen"
   },
+  "mediaPage.saveUnauthorized": {
+    "message": "Ikke autoriseret til at gemme"
+  },
   "mediaPage.sendToChat": {
     "message": "Send til chat"
   },
@@ -88,6 +91,48 @@
   },
   "contentReview.openQuickIngest": {
     "message": "Åbn Quick Ingest"
+  },
+  "contentReview.storeAfterReview": {
+    "message": "Gem efter gennemgang"
+  },
+  "contentReview.reviewBeforeStorage": {
+    "message": "Gennemgå før gem"
+  },
+  "contentReview.reviewBeforeStorageHint": {
+    "message": "Behandl nu, og redigér derefter kladder lokalt, før du gemmer på din server."
+  },
+  "contentReview.reviewEnabled": {
+    "message": "Gennemgangstilstand"
+  },
+  "contentReview.reviewStorageCap": {
+    "message": "Lokale kladder er begrænset til {{cap}}."
+  },
+  "contentReview.reviewWarningTitle": {
+    "message": "Gem kladder lokalt?"
+  },
+  "contentReview.reviewWarningBody": {
+    "message": "Kladder gemmes i denne browser og kan indeholde følsomme data. Du kan altid rydde kladder fra siden Indholdsgennemgang."
+  },
+  "contentReview.reviewWarningBodySecondary": {
+    "message": "Gennemgangstilstand holder indholdet på klientsiden, indtil du gemmer det på din server."
+  },
+  "contentReview.reviewWarningConfirm": {
+    "message": "Aktivér gennemgang"
+  },
+  "contentReview.reviewWarningCancel": {
+    "message": "Annuller"
+  },
+  "contentReview.reviewRunLabel": {
+    "message": "Gennemgå"
+  },
+  "contentReview.reviewDraftsCreated": {
+    "message": "Kladder klar til gennemgang."
+  },
+  "contentReview.reviewStorageCapWarning": {
+    "message": "{{count}} fil(er) overskrider den lokale kladdegrænse ({{cap}}). Vedhæft kilder før du gemmer lyd/video."
+  },
+  "contentReview.openContentReview": {
+    "message": "Åbn Indholdsgennemgang"
   },
   "contentReview.batchLabel": {
     "message": "Batch"

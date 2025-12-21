@@ -366,10 +366,10 @@ export const QuickIngestModal: React.FC<Props> = ({
 
   React.useEffect(() => {
     if (!reviewBeforeStorage) {
-      if (draftCreationError) setDraftCreationError(null)
-      if (reviewNavigationError) setReviewNavigationError(null)
+      setDraftCreationError(null)
+      setReviewNavigationError(null)
     }
-  }, [draftCreationError, reviewBeforeStorage, reviewNavigationError])
+  }, [reviewBeforeStorage])
 
   const formatBytes = React.useCallback((bytes?: number) => {
     if (!bytes || Number.isNaN(bytes)) return ''
@@ -1322,6 +1322,7 @@ export const QuickIngestModal: React.FC<Props> = ({
 
   const proceedWithoutReview = React.useCallback(() => {
     if (running) return
+    // Signal that we want to re-run with storage after disabling review mode.
     pendingStoreWithoutReviewRef.current = true
     setDraftCreationError(null)
     setReviewBeforeStorage(false)
@@ -1346,9 +1347,11 @@ export const QuickIngestModal: React.FC<Props> = ({
     void run()
   }, [autoProcessQueued, open, run, running, showProcessQueuedButton])
 
+  // Auto-run after "store without review" is triggered.
   React.useEffect(() => {
     if (!pendingStoreWithoutReviewRef.current) return
     if (reviewBeforeStorage) return
+    // reviewBeforeStorage is now false, so re-run with storage enabled.
     pendingStoreWithoutReviewRef.current = false
     void run()
   }, [reviewBeforeStorage, run])

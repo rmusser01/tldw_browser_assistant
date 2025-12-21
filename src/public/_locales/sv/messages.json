@@ -411,22 +411,6 @@
   "complexArguments": {
     "message": "[Komplexa argument]"
   },
-  "status_pending": {
-    "message": "Väntar",
-    "description": "Status label for pending operations."
-  },
-  "status_running": {
-    "message": "Bearbetar",
-    "description": "Status label for operations currently in progress."
-  },
-  "status_complete": {
-    "message": "Klar",
-    "description": "Status label for completed operations."
-  },
-  "status_error": {
-    "message": "Fel",
-    "description": "Status label for failed operations."
-  },
   "ttsShort": {
     "message": "Röst"
   },

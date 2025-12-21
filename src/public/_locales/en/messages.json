@@ -606,22 +606,6 @@
   "markdown_showRawContent": {
     "message": "Show raw content"
   },
-  "status_pending": {
-    "message": "Pending",
-    "description": "Status label for pending operations."
-  },
-  "status_running": {
-    "message": "Running",
-    "description": "Status label for operations currently in progress."
-  },
-  "status_complete": {
-    "message": "Complete",
-    "description": "Status label for completed operations."
-  },
-  "status_error": {
-    "message": "Error",
-    "description": "Status label for failed operations."
-  },
   "notesSearch_exportNoteSuccess": {
     "message": "Exported ({{size}})"
   },

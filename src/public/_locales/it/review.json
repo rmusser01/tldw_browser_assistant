@@ -14,6 +14,9 @@
   "mediaPage.saveFailed": {
     "message": "Impossibile salvare la versione"
   },
+  "mediaPage.saveUnauthorized": {
+    "message": "Non autorizzato a salvare"
+  },
   "mediaPage.sendToChat": {
     "message": "Invia alla chat"
   },
@@ -89,8 +92,50 @@
   "contentReview.openQuickIngest": {
     "message": "Apri Quick Ingest"
   },
+  "contentReview.storeAfterReview": {
+    "message": "Salva dopo la revisione"
+  },
+  "contentReview.reviewBeforeStorage": {
+    "message": "Rivedi prima di salvare"
+  },
+  "contentReview.reviewBeforeStorageHint": {
+    "message": "Elabora ora, poi modifica le bozze localmente prima di salvarle sul server."
+  },
+  "contentReview.reviewEnabled": {
+    "message": "Modalità revisione"
+  },
+  "contentReview.reviewStorageCap": {
+    "message": "Le bozze locali sono limitate a {{cap}}."
+  },
+  "contentReview.reviewWarningTitle": {
+    "message": "Salvare le bozze localmente?"
+  },
+  "contentReview.reviewWarningBody": {
+    "message": "Le bozze vengono salvate in questo browser e possono contenere dati sensibili. Puoi eliminarle dalla pagina Revisione contenuti in qualsiasi momento."
+  },
+  "contentReview.reviewWarningBodySecondary": {
+    "message": "La modalità revisione mantiene i contenuti lato client finché non li salvi sul server."
+  },
+  "contentReview.reviewWarningConfirm": {
+    "message": "Abilita revisione"
+  },
+  "contentReview.reviewWarningCancel": {
+    "message": "Annulla"
+  },
+  "contentReview.reviewRunLabel": {
+    "message": "Revisione"
+  },
+  "contentReview.reviewDraftsCreated": {
+    "message": "Bozze pronte per la revisione."
+  },
+  "contentReview.reviewStorageCapWarning": {
+    "message": "{{count}} file supera(no) il limite locale di bozze ({{cap}}). Allega le fonti prima di salvare audio/video."
+  },
+  "contentReview.openContentReview": {
+    "message": "Apri Revisione contenuti"
+  },
   "contentReview.batchLabel": {
-    "message": "Batch"
+    "message": "Lotto"
   },
   "contentReview.batchName": {
     "message": "Batch {{index}}"

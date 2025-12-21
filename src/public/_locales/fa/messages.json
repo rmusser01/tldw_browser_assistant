@@ -601,22 +601,6 @@
   "markdown_showRawContent": {
     "message": "نمایش محتوای خام"
   },
-  "status_pending": {
-    "message": "انتظار",
-    "description": "Status label for pending operations."
-  },
-  "status_running": {
-    "message": "در حال پردازش",
-    "description": "Status label for operations currently in progress."
-  },
-  "status_complete": {
-    "message": "تمام",
-    "description": "Status label for completed operations."
-  },
-  "status_error": {
-    "message": "خطا",
-    "description": "Status label for failed operations."
-  },
   "notesSearch_exportNoteSuccess": {
     "message": "خروجی گرفته شد ({{size}})"
   },

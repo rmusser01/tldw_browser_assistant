@@ -733,22 +733,6 @@
   "markdown_showRawContent": {
     "message": "Vis rå indhold"
   },
-  "status_pending": {
-    "message": "Venter",
-    "description": "Status label for pending operations."
-  },
-  "status_running": {
-    "message": "Processerer",
-    "description": "Status label for operations currently in progress."
-  },
-  "status_complete": {
-    "message": "Færdig",
-    "description": "Status label for completed operations."
-  },
-  "status_error": {
-    "message": "Fejl",
-    "description": "Status label for failed operations."
-  },
   "notesSearch_exportNoteSuccess": {
     "message": "Eksporteret ({{size}})"
   },

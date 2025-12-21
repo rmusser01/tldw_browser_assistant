@@ -121,7 +121,7 @@ export const documentChatMode = async (
   )
 
   const allFiles = [...sessionFiles, ...newFiles]
-  const ollama = await pageAssistModel({ model: selectedModel, baseUrl: "" })
+  const ollama = await pageAssistModel({ model: selectedModel })
 
   const resolvedAssistantMessageId = assistantMessageId ?? generateID()
   const resolvedUserMessageId =

@@ -14,6 +14,9 @@
   "mediaPage.saveFailed": {
     "message": "Error al guardar la versión"
   },
+  "mediaPage.saveUnauthorized": {
+    "message": "No autorizado para guardar"
+  },
   "mediaPage.sendToChat": {
     "message": "Enviar al chat"
   },
@@ -88,6 +91,48 @@
   },
   "contentReview.openQuickIngest": {
     "message": "Abrir Quick Ingest"
+  },
+  "contentReview.storeAfterReview": {
+    "message": "Guardar después de revisar"
+  },
+  "contentReview.reviewBeforeStorage": {
+    "message": "Revisar antes de guardar"
+  },
+  "contentReview.reviewBeforeStorageHint": {
+    "message": "Procesa ahora y luego edita los borradores localmente antes de confirmarlos en tu servidor."
+  },
+  "contentReview.reviewEnabled": {
+    "message": "Modo de revisión"
+  },
+  "contentReview.reviewStorageCap": {
+    "message": "Los borradores locales están limitados a {{cap}}."
+  },
+  "contentReview.reviewWarningTitle": {
+    "message": "¿Guardar borradores localmente?"
+  },
+  "contentReview.reviewWarningBody": {
+    "message": "Los borradores se guardan en este navegador y pueden incluir datos sensibles. Puedes borrar los borradores desde la página de Revisión de contenido en cualquier momento."
+  },
+  "contentReview.reviewWarningBodySecondary": {
+    "message": "El modo de revisión mantiene el contenido del lado del cliente hasta que lo confirmas en tu servidor."
+  },
+  "contentReview.reviewWarningConfirm": {
+    "message": "Habilitar revisión"
+  },
+  "contentReview.reviewWarningCancel": {
+    "message": "Cancelar"
+  },
+  "contentReview.reviewRunLabel": {
+    "message": "Revisar"
+  },
+  "contentReview.reviewDraftsCreated": {
+    "message": "Borradores listos para revisar."
+  },
+  "contentReview.reviewStorageCapWarning": {
+    "message": "{{count}} archivo(s) superan el límite local de borradores ({{cap}}). Adjunta las fuentes antes de confirmar audio/video."
+  },
+  "contentReview.openContentReview": {
+    "message": "Abrir Revisión de contenido"
   },
   "contentReview.batchLabel": {
     "message": "Lote"

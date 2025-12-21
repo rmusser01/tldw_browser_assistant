@@ -14,6 +14,9 @@
   "mediaPage.saveFailed": {
     "message": "儲存版本失敗"
   },
+  "mediaPage.saveUnauthorized": {
+    "message": "沒有權限儲存"
+  },
   "mediaPage.sendToChat": {
     "message": "傳送到聊天"
   },
@@ -88,6 +91,48 @@
   },
   "contentReview.openQuickIngest": {
     "message": "開啟 Quick Ingest"
+  },
+  "contentReview.storeAfterReview": {
+    "message": "審核後儲存"
+  },
+  "contentReview.reviewBeforeStorage": {
+    "message": "儲存前審核"
+  },
+  "contentReview.reviewBeforeStorageHint": {
+    "message": "先處理，然後在提交到伺服器前於本機編輯草稿。"
+  },
+  "contentReview.reviewEnabled": {
+    "message": "審核模式"
+  },
+  "contentReview.reviewStorageCap": {
+    "message": "本機草稿上限為 {{cap}}。"
+  },
+  "contentReview.reviewWarningTitle": {
+    "message": "要將草稿儲存在本機嗎？"
+  },
+  "contentReview.reviewWarningBody": {
+    "message": "草稿會儲存在此瀏覽器中，可能包含敏感資料。你可隨時在「內容審核」頁面清除草稿。"
+  },
+  "contentReview.reviewWarningBodySecondary": {
+    "message": "審核模式會在提交到伺服器前把內容保留在用戶端。"
+  },
+  "contentReview.reviewWarningConfirm": {
+    "message": "啟用審核"
+  },
+  "contentReview.reviewWarningCancel": {
+    "message": "取消"
+  },
+  "contentReview.reviewRunLabel": {
+    "message": "審核"
+  },
+  "contentReview.reviewDraftsCreated": {
+    "message": "草稿已準備好審核。"
+  },
+  "contentReview.reviewStorageCapWarning": {
+    "message": "{{count}} 個檔案超過本機草稿上限（{{cap}}）。請在提交音訊/影片前附加來源。"
+  },
+  "contentReview.openContentReview": {
+    "message": "開啟內容審核"
   },
   "contentReview.batchLabel": {
     "message": "批次"
