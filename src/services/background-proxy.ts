@@ -198,14 +198,30 @@ export async function* bgStream<
     }
   }
   port.onMessage.addListener(onMessage)
+  const onDisconnect = () => {
+    if (!done) {
+      if (!error) error = new Error('Stream disconnected')
+      done = true
+    }
+  }
+  port.onDisconnect.addListener(onDisconnect)
   const onAbort = () => {
+    if (!error) error = new Error('Aborted')
+    done = true
     try { port.disconnect() } catch {}
   }
   if (abortSignal) {
     if (abortSignal.aborted) onAbort()
     else abortSignal.addEventListener('abort', onAbort, { once: true })
   }
-  port.postMessage({ path, method, headers, body, streamIdleTimeoutMs })
+  if (!done) {
+    try {
+      port.postMessage({ path, method, headers, body, streamIdleTimeoutMs })
+    } catch (e) {
+      if (!error) error = e
+      done = true
+    }
+  }
 
   try {
     while (!done || queue.length > 0) {
@@ -218,6 +234,7 @@ export async function* bgStream<
     if (error) throw error
   } finally {
     try { port.onMessage.removeListener(onMessage); } catch {}
+    try { port.onDisconnect.removeListener(onDisconnect); } catch {}
     try { port.disconnect(); } catch {}
     if (abortSignal) {
       try { abortSignal.removeEventListener('abort', onAbort) } catch {}

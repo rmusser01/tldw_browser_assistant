@@ -51,7 +51,8 @@ export class TldwAuthService {
       path: '/api/v1/auth/login',
       method: 'POST',
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      body: formData.toString()
+      body: formData.toString(),
+      noAuth: true
     })
     const tokens = response as TokenResponse
     
@@ -155,7 +156,8 @@ export class TldwAuthService {
         path: '/api/v1/auth/register',
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: { username, password, email, registration_code: registrationCode }
+        body: { username, password, email, registration_code: registrationCode },
+        noAuth: true
       })
       return data
     } catch (e: any) {

@@ -325,7 +325,11 @@ export default defineBackground({
             }
             try { await refreshInFlight } catch {}
             const updated = await storage.get<any>('tldwConfig')
-            const retryHeaders = { ...headers }
+            const retryHeaders = { ...h }
+            for (const k of Object.keys(retryHeaders)) {
+              const kl = k.toLowerCase()
+              if (kl === 'authorization' || kl === 'x-api-key') delete retryHeaders[k]
+            }
             if (updated?.accessToken) retryHeaders['Authorization'] = `Bearer ${updated.accessToken}`
             const retryController = new AbortController()
             const retryTimeout = setTimeout(() => retryController.abort(), timeoutMs)
@@ -664,19 +668,6 @@ export default defineBackground({
               body: typeof msg.body === 'string' ? msg.body : JSON.stringify(msg.body),
               signal: abort.signal
             })
-            if (!resp.ok) {
-              const ct = resp.headers.get('content-type') || ''
-              let errMsg: any = resp.statusText
-              if (ct.includes('application/json')) {
-                const j = await resp.json().catch(() => null)
-                if (j && (j.detail || j.error || j.message)) errMsg = j.detail || j.error || j.message
-              } else {
-                const t = await resp.text().catch(() => null)
-                if (t) errMsg = t
-              }
-              safePost({ event: 'error', message: String(errMsg || `HTTP ${resp.status}`) })
-              return
-            }
             if (resp.status === 401 && cfg.authMode === 'multi-user' && cfg.refreshToken) {
               if (!refreshInFlight) {
                 refreshInFlight = (async () => {
@@ -694,6 +685,19 @@ export default defineBackground({
                 body: typeof msg.body === 'string' ? msg.body : JSON.stringify(msg.body),
                 signal: retryController.signal
               })
+            }
+            if (!resp.ok) {
+              const ct = resp.headers.get('content-type') || ''
+              let errMsg: any = resp.statusText
+              if (ct.includes('application/json')) {
+                const j = await resp.json().catch(() => null)
+                if (j && (j.detail || j.error || j.message)) errMsg = j.detail || j.error || j.message
+              } else {
+                const t = await resp.text().catch(() => null)
+                if (t) errMsg = t
+              }
+              safePost({ event: 'error', message: String(errMsg || `HTTP ${resp.status}`) })
+              return
             }
             if (!resp.body) throw new Error('No response body')
             const reader = resp.body.getReader()
