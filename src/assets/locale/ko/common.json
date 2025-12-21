@@ -229,10 +229,6 @@
   "applyPatch": "패치 적용",
   "recursive": "(재귀)",
   "complexArguments": "[복잡한 인수]",
-  "status_pending": "대기 중",
-  "status_running": "처리 중",
-  "status_complete": "완료",
-  "status_error": "오류",
   "segmented": {
     "available": "서버 모델",
     "custom": "사용자 정의 모델"

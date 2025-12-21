@@ -15,15 +15,11 @@ import type { ActorSettings } from "@/types/actor"
 import { maybeInjectActorMessage } from "@/utils/actor"
 import { getTabContents } from "@/libs/get-tab-contents"
 
-interface SaveMessageData {
+interface SaveMessageBase {
   historyId: string | null
   setHistoryId: (id: string) => void
-  isRegenerate: boolean
   selectedModel: string
-  message: string
   image: string
-  fullText: string
-  source: unknown[]
   userMessageType?: string
   assistantMessageType?: string
   clusterId?: string
@@ -33,32 +29,25 @@ interface SaveMessageData {
   assistantMessageId: string
   userParentMessageId?: string | null
   assistantParentMessageId?: string | null
-  generationInfo?: Record<string, unknown>
-  reasoning_time_taken: number
   documents: ChatDocuments
 }
 
-interface SaveMessageErrorData {
+interface SaveMessageData extends SaveMessageBase {
+  isRegenerate: boolean
+  message: string
+  fullText: string
+  source: unknown[]
+  generationInfo?: Record<string, unknown>
+  reasoning_time_taken: number
+}
+
+interface SaveMessageErrorData extends SaveMessageBase {
   e: unknown
   botMessage: string
   history: ChatHistory
-  historyId: string | null
-  image: string
-  selectedModel: string
   setHistory: (history: ChatHistory) => void
-  setHistoryId: (id: string) => void
   userMessage: string
   isRegenerating: boolean
-  userMessageType?: string
-  assistantMessageType?: string
-  clusterId?: string
-  modelId: string
-  userModelId?: string
-  userMessageId?: string
-  assistantMessageId: string
-  userParentMessageId?: string | null
-  assistantParentMessageId?: string | null
-  documents: ChatDocuments
 }
 
 export const tabChatMode = async (
@@ -73,7 +62,6 @@ export const tabChatMode = async (
     selectedModel,
     useOCR,
     selectedSystemPrompt,
-    currentChatModelSettings,
     setMessages,
     saveMessageOnSuccess,
     saveMessageOnError,
@@ -97,7 +85,6 @@ export const tabChatMode = async (
     selectedModel: string
     useOCR: boolean
     selectedSystemPrompt: string
-    currentChatModelSettings: unknown
     setMessages: (messages: Message[] | ((prev: Message[]) => Message[])) => void
     saveMessageOnSuccess: (data: SaveMessageData) => Promise<string | null>
     saveMessageOnError: (data: SaveMessageErrorData) => Promise<string | null>
@@ -242,9 +229,35 @@ export const tabChatMode = async (
         signal: signal,
         callbacks: [
           {
-            handleLLMEnd(output: any): any {
+            handleLLMEnd(output: unknown): void {
               try {
-                generationInfo = output?.generations?.[0][0]?.generationInfo
+                if (typeof output !== "object" || output === null) {
+                  return
+                }
+                if (!("generations" in output)) {
+                  return
+                }
+                const generations = (output as { generations?: unknown }).generations
+                if (!Array.isArray(generations) || generations.length === 0) {
+                  return
+                }
+                const firstBatch = generations[0]
+                if (!Array.isArray(firstBatch) || firstBatch.length === 0) {
+                  return
+                }
+                const firstGeneration = firstBatch[0]
+                if (typeof firstGeneration !== "object" || firstGeneration === null) {
+                  return
+                }
+                if (!("generationInfo" in firstGeneration)) {
+                  return
+                }
+                const info = (firstGeneration as {
+                  generationInfo?: Record<string, unknown>
+                }).generationInfo
+                if (info) {
+                  generationInfo = info
+                }
               } catch (e) {
                 console.error("handleLLMEnd error", e)
               }

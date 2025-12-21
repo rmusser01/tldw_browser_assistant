@@ -229,10 +229,6 @@
   "applyPatch": "Bruk patch",
   "recursive": "(rekursiv)",
   "complexArguments": "[Komplekse argumenter]",
-  "status_pending": "Venter",
-  "status_running": "Behandler",
-  "status_complete": "Ferdig",
-  "status_error": "Feil",
   "segmented": {
     "available": "Servermodeller",
     "custom": "Egendefinerte modeller"

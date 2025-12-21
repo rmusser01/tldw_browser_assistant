@@ -1,4 +1,4 @@
-export type ContentReviewTemplate = {
+export interface ContentReviewTemplate {
   id: string
   label: string
   description: string

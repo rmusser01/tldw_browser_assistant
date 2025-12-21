@@ -64,5 +64,257 @@
   },
   "reviewNavigationRetry": {
     "message": "تلاش دوباره برای باز کردن بازبینی محتوا"
+  },
+  "contentReview.title": {
+    "message": "بازبینی محتوا"
+  },
+  "contentReview.readyToSubmit": {
+    "message": "{{count}} آماده"
+  },
+  "contentReview.committedCount": {
+    "message": "{{count}} ثبت‌شده"
+  },
+  "contentReview.totalCount": {
+    "message": "{{count}} کل"
+  },
+  "contentReview.commitAll": {
+    "message": "ثبت همه"
+  },
+  "contentReview.clearDrafts": {
+    "message": "حذف پیش‌نویس‌ها"
+  },
+  "contentReview.emptyDescription": {
+    "message": "هنوز هیچ پیش‌نویسی ندارید. برای ساخت پیش‌نویس از Quick Ingest همراه با «بازبینی قبل از ذخیره» استفاده کنید."
+  },
+  "contentReview.openQuickIngest": {
+    "message": "باز کردن Quick Ingest"
+  },
+  "contentReview.batchLabel": {
+    "message": "دسته"
+  },
+  "contentReview.batchName": {
+    "message": "دسته {{index}}"
+  },
+  "contentReview.draftsLabel": {
+    "message": "پیش‌نویس‌ها"
+  },
+  "contentReview.selectDraft": {
+    "message": "برای شروع بازبینی یک پیش‌نویس را انتخاب کنید."
+  },
+  "contentReview.titlePlaceholder": {
+    "message": "عنوان پیش‌نویس"
+  },
+  "contentReview.lastSaved": {
+    "message": "ذخیره‌شده در {{time}}"
+  },
+  "contentReview.resetTitle": {
+    "message": "بازنشانی پیش‌نویس؟"
+  },
+  "contentReview.resetBody": {
+    "message": "این کار محتوای اولیه این پیش‌نویس را برمی‌گرداند."
+  },
+  "contentReview.resetConfirm": {
+    "message": "بازنشانی"
+  },
+  "contentReview.resetCancel": {
+    "message": "انصراف"
+  },
+  "contentReview.resetContent": {
+    "message": "بازنشانی"
+  },
+  "contentReview.diffView": {
+    "message": "نمای تفاوت‌ها"
+  },
+  "contentReview.saveDraft": {
+    "message": "ذخیره پیش‌نویس"
+  },
+  "contentReview.editorLabel": {
+    "message": "محتوا"
+  },
+  "contentReview.wordCount": {
+    "message": "{{words}} کلمه"
+  },
+  "contentReview.charCount": {
+    "message": "{{chars}} نویسه"
+  },
+  "contentReview.aiFix": {
+    "message": "اصلاح با هوش مصنوعی"
+  },
+  "contentReview.aiHint": {
+    "message": "محتوای پیش‌نویس را برای پردازش با هوش مصنوعی به سرور شما ارسال می‌کند."
+  },
+  "contentReview.modelPlaceholder": {
+    "message": "پیش‌فرض سرور"
+  },
+  "contentReview.aiConsentTitle": {
+    "message": "ارسال پیش‌نویس به سرور؟"
+  },
+  "contentReview.aiConsentBody": {
+    "message": "این کار محتوای پیش‌نویس را برای پردازش با هوش مصنوعی به سرور tldw شما ارسال می‌کند. پیش‌نویس‌ها تا زمانی که ثبت کنید، محلی باقی می‌مانند."
+  },
+  "contentReview.aiConsentConfirm": {
+    "message": "ادامه"
+  },
+  "contentReview.aiConsentCancel": {
+    "message": "انصراف"
+  },
+  "contentReview.aiApplied": {
+    "message": "اصلاحات هوش مصنوعی اعمال شد."
+  },
+  "contentReview.aiNoChange": {
+    "message": "هیچ تغییری برگردانده نشد."
+  },
+  "contentReview.aiEmpty": {
+    "message": "هوش مصنوعی هیچ محتوایی برنگرداند."
+  },
+  "contentReview.aiUnavailable": {
+    "message": "تکمیل چت در دسترس نیست."
+  },
+  "contentReview.templatePlaceholder": {
+    "message": "انتخاب الگو"
+  },
+  "contentReview.applyTemplate": {
+    "message": "اعمال الگو"
+  },
+  "contentReview.templateApplied": {
+    "message": "الگو اعمال شد."
+  },
+  "contentReview.templateMissing": {
+    "message": "ابتدا یک الگو انتخاب کنید."
+  },
+  "contentReview.detectSections": {
+    "message": "شناسایی بخش‌ها"
+  },
+  "contentReview.detectSectionsTitle": {
+    "message": "بخش‌ها دوباره شناسایی شوند؟"
+  },
+  "contentReview.detectSectionsBody": {
+    "message": "این کار بخش‌های موجود را جایگزین و انتخاب‌های شما را بازنشانی می‌کند."
+  },
+  "contentReview.detectSectionsConfirm": {
+    "message": "شناسایی دوباره"
+  },
+  "contentReview.detectSectionsCancel": {
+    "message": "انصراف"
+  },
+  "contentReview.detectSectionsEmpty": {
+    "message": "هیچ بخشی شناسایی نشد."
+  },
+  "contentReview.sectionsLabel": {
+    "message": "فیلتر بخش"
+  },
+  "contentReview.templates.transcript_clean.label": {
+    "message": "پاک‌سازی رونوشت"
+  },
+  "contentReview.templates.transcript_clean.description": {
+    "message": "علائم نگارشی و حروف بزرگ/کوچک را یکدست می‌کند و ساختار خطوط را حفظ می‌کند."
+  },
+  "contentReview.templates.speaker_turns.label": {
+    "message": "نوبت‌های سخن‌گو"
+  },
+  "contentReview.templates.speaker_turns.description": {
+    "message": "اطمینان می‌دهد هر نوبت سخن‌گو در خط جداگانه با برچسب‌های واضح قرار گیرد."
+  },
+  "contentReview.templates.chapter_headings.label": {
+    "message": "سرفصل‌های فصل"
+  },
+  "contentReview.templates.chapter_headings.description": {
+    "message": "سرتیترهای Markdown اضافه می‌کند تا موضوعات را گروه‌بندی کند بدون اینکه محتوا را حذف کند."
+  },
+  "contentReview.metadataLabel": {
+    "message": "فراداده"
+  },
+  "contentReview.mediaType": {
+    "message": "نوع رسانه"
+  },
+  "contentReview.keywords": {
+    "message": "کلیدواژه‌ها"
+  },
+  "contentReview.keywordsPlaceholder": {
+    "message": "افزودن کلیدواژه"
+  },
+  "contentReview.reviewNotes": {
+    "message": "یادداشت‌های بازبینی"
+  },
+  "contentReview.missingSource": {
+    "message": "فایل منبع پیدا نشد"
+  },
+  "contentReview.missingSourceBody": {
+    "message": "برای ثبت این پیش‌نویس، فایل اصلی را پیوست کنید."
+  },
+  "contentReview.attachSource": {
+    "message": "پیوست فایل"
+  },
+  "contentReview.actionsLabel": {
+    "message": "اقدامات"
+  },
+  "contentReview.commit": {
+    "message": "ثبت"
+  },
+  "contentReview.commitDisabled": {
+    "message": "قبل از ثبت، فایل صوتی/ویدئویی اصلی را پیوست کنید."
+  },
+  "contentReview.markReviewed": {
+    "message": "علامت‌گذاری به‌عنوان بازبینی‌شده"
+  },
+  "contentReview.skipNext": {
+    "message": "رد کردن"
+  },
+  "contentReview.discard": {
+    "message": "حذف"
+  },
+  "contentReview.discardTitle": {
+    "message": "حذف پیش‌نویس؟"
+  },
+  "contentReview.discardBody": {
+    "message": "این پیش‌نویس به‌عنوان حذف‌شده علامت‌گذاری و از فرایند بازبینی خارج می‌شود."
+  },
+  "contentReview.discardConfirm": {
+    "message": "حذف"
+  },
+  "contentReview.discardCancel": {
+    "message": "انصراف"
+  },
+  "contentReview.commitSuccess": {
+    "message": "پیش‌نویس ثبت شد."
+  },
+  "contentReview.commitAllTitle": {
+    "message": "ثبت پیش‌نویس‌های بازبینی‌شده؟"
+  },
+  "contentReview.commitAllBody": {
+    "message": "فقط پیش‌نویس‌هایی که به‌عنوان بازبینی‌شده علامت خورده‌اند ثبت می‌شوند."
+  },
+  "contentReview.commitAllConfirm": {
+    "message": "ثبت همه"
+  },
+  "contentReview.commitAllCancel": {
+    "message": "انصراف"
+  },
+  "contentReview.commitAllResult": {
+    "message": "{{success}} ثبت شد · {{failed}} ناموفق"
+  },
+  "contentReview.storageCapWarning": {
+    "message": "این فایل از سقف محلی پیش‌نویس‌ها ({{cap}}) فراتر می‌رود."
+  },
+  "contentReview.clearTitle": {
+    "message": "حذف تمام پیش‌نویس‌ها؟"
+  },
+  "contentReview.clearBody": {
+    "message": "این کار همه پیش‌نویس‌ها و فایل‌های محلی بازبینی محتوا را حذف می‌کند."
+  },
+  "contentReview.clearConfirm": {
+    "message": "حذف پیش‌نویس‌ها"
+  },
+  "contentReview.clearCancel": {
+    "message": "انصراف"
+  },
+  "contentReview.clearSuccess": {
+    "message": "پیش‌نویس‌ها حذف شدند."
+  },
+  "contentReview.originalLabel": {
+    "message": "نسخه اصلی"
+  },
+  "contentReview.editedLabel": {
+    "message": "نسخه ویرایش‌شده"
   }
 }

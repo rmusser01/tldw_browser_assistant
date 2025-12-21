@@ -229,10 +229,6 @@
   "applyPatch": "Anvend patch",
   "recursive": "(rekursiv)",
   "complexArguments": "[Komplekse argumenter]",
-  "status_pending": "Venter",
-  "status_running": "Processerer",
-  "status_complete": "Færdig",
-  "status_error": "Fejl",
   "segmented": {
     "available": "Servermodeller",
     "custom": "Brugertilpassede modeller"

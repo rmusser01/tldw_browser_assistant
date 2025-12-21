@@ -229,10 +229,6 @@
   "applyPatch": "Применить патч",
   "recursive": "(рекурсивно)",
   "complexArguments": "[Сложные аргументы]",
-  "status_pending": "Ожидание",
-  "status_running": "Обработка",
-  "status_complete": "Завершено",
-  "status_error": "Ошибка",
   "segmented": {
     "available": "Серверные модели",
     "custom": "Пользовательские модели"

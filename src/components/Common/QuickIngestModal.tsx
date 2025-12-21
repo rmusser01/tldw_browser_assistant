@@ -141,7 +141,10 @@ const normalizeKeywords = (value: any): string[] => {
 
 const resolveContent = (item: any): string => {
   if (Array.isArray(item?.content)) {
-    return item.content.map((v: any) => String(v || "")).join("\n")
+    return item.content
+      .filter((v: unknown) => typeof v === "string" || typeof v === "number")
+      .map((v: string | number) => String(v))
+      .join("\n")
   }
   const candidates = [
     item?.content,
@@ -644,27 +647,34 @@ export const QuickIngestModal: React.FC<Props> = ({
 
       await upsertDraftBatch(batch)
 
-      for (const item of okResults) {
+      const draftPromises = okResults.map(async (item) => {
         const sourceRow = rowMap.get(item.id)
         const localFile = fileLookup.get(item.id)
         const processingItems = extractProcessingItems(item.data)
-        if (processingItems.length === 0) continue
-
-        for (const processed of processingItems) {
-          const created = await buildDraftFromProcessedItem({
-            item,
-            processed,
-            sourceRow,
-            localFile,
-            batchId,
-            now,
-            expiresAt,
-            processingOptions
-          })
-          if (!created) continue
-          skippedAssets += created.skippedAssetsDelta
-          draftIds.push(created.draftId)
-        }
+        if (processingItems.length === 0) return []
+        const itemDrafts = await Promise.all(
+          processingItems.map(async (processed) =>
+            buildDraftFromProcessedItem({
+              item,
+              processed,
+              sourceRow,
+              localFile,
+              batchId,
+              now,
+              expiresAt,
+              processingOptions
+            })
+          )
+        )
+        return itemDrafts.filter(
+          (draft): draft is { draftId: string; skippedAssetsDelta: number } =>
+            Boolean(draft)
+        )
+      })
+      const allDrafts = (await Promise.all(draftPromises)).flat()
+      for (const draft of allDrafts) {
+        skippedAssets += draft.skippedAssetsDelta
+        draftIds.push(draft.draftId)
       }
 
       return { batchId, draftIds, skippedAssets }
@@ -1757,23 +1767,24 @@ export const QuickIngestModal: React.FC<Props> = ({
     openOptionsRoute("#/settings/model")
   }, [openOptionsRoute])
 
-  const downloadJson = (item: ResultItem) => {
-    const blob = new Blob([JSON.stringify(item.data ?? {}, null, 2)], { type: 'application/json' })
-    const a = document.createElement('a')
+  const downloadBlobAsJson = (data: unknown, filename: string) => {
+    const blob = new Blob([JSON.stringify(data, null, 2)], {
+      type: "application/json"
+    })
+    const a = document.createElement("a")
     a.href = URL.createObjectURL(blob)
-    a.download = 'processed.json'
+    a.download = filename
     a.click()
     URL.revokeObjectURL(a.href)
   }
 
+  const downloadJson = (item: ResultItem) => {
+    downloadBlobAsJson(item.data ?? {}, "processed.json")
+  }
+
   const downloadResultsJson = () => {
     if (!results.length) return
-    const blob = new Blob([JSON.stringify(results, null, 2)], { type: 'application/json' })
-    const a = document.createElement('a')
-    a.href = URL.createObjectURL(blob)
-    a.download = 'quick-ingest-results.json'
-    a.click()
-    URL.revokeObjectURL(a.href)
+    downloadBlobAsJson(results, "quick-ingest-results.json")
   }
 
   const openInMediaViewer = (item: ResultItem) => {

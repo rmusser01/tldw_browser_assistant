@@ -64,5 +64,257 @@
   },
   "reviewNavigationRetry": {
     "message": "Prøv å åpne Innholdsgjennomgang på nytt"
+  },
+  "contentReview.title": {
+    "message": "Innholdsgjennomgang"
+  },
+  "contentReview.readyToSubmit": {
+    "message": "{{count}} klar"
+  },
+  "contentReview.committedCount": {
+    "message": "{{count}} bekreftet"
+  },
+  "contentReview.totalCount": {
+    "message": "{{count}} totalt"
+  },
+  "contentReview.commitAll": {
+    "message": "Bekreft alle"
+  },
+  "contentReview.clearDrafts": {
+    "message": "Tøm utkast"
+  },
+  "contentReview.emptyDescription": {
+    "message": "Ingen utkast ennå. Bruk Quick Ingest med «Gjennomgå før lagring» for å opprette utkast."
+  },
+  "contentReview.openQuickIngest": {
+    "message": "Åpne Quick Ingest"
+  },
+  "contentReview.batchLabel": {
+    "message": "Batch"
+  },
+  "contentReview.batchName": {
+    "message": "Batch {{index}}"
+  },
+  "contentReview.draftsLabel": {
+    "message": "Utkast"
+  },
+  "contentReview.selectDraft": {
+    "message": "Velg et utkast for å starte gjennomgangen."
+  },
+  "contentReview.titlePlaceholder": {
+    "message": "Tittel på utkast"
+  },
+  "contentReview.lastSaved": {
+    "message": "Lagret {{time}}"
+  },
+  "contentReview.resetTitle": {
+    "message": "Tilbakestille utkast?"
+  },
+  "contentReview.resetBody": {
+    "message": "Dette gjenoppretter det opprinnelige innholdet for dette utkastet."
+  },
+  "contentReview.resetConfirm": {
+    "message": "Tilbakestill"
+  },
+  "contentReview.resetCancel": {
+    "message": "Avbryt"
+  },
+  "contentReview.resetContent": {
+    "message": "Tilbakestill"
+  },
+  "contentReview.diffView": {
+    "message": "Diff-visning"
+  },
+  "contentReview.saveDraft": {
+    "message": "Lagre utkast"
+  },
+  "contentReview.editorLabel": {
+    "message": "Innhold"
+  },
+  "contentReview.wordCount": {
+    "message": "{{words}} ord"
+  },
+  "contentReview.charCount": {
+    "message": "{{chars}} tegn"
+  },
+  "contentReview.aiFix": {
+    "message": "AI‑retting"
+  },
+  "contentReview.aiHint": {
+    "message": "Sender innholdet i utkastet til serveren din for AI‑behandling."
+  },
+  "contentReview.modelPlaceholder": {
+    "message": "Standard for server"
+  },
+  "contentReview.aiConsentTitle": {
+    "message": "Sende utkast til serveren?"
+  },
+  "contentReview.aiConsentBody": {
+    "message": "Dette sender utkastinnholdet til tldw‑serveren din for AI‑behandling. Utkast forblir lokale til du bekrefter dem."
+  },
+  "contentReview.aiConsentConfirm": {
+    "message": "Fortsett"
+  },
+  "contentReview.aiConsentCancel": {
+    "message": "Avbryt"
+  },
+  "contentReview.aiApplied": {
+    "message": "AI‑rettelser er brukt."
+  },
+  "contentReview.aiNoChange": {
+    "message": "Ingen endringer returnert."
+  },
+  "contentReview.aiEmpty": {
+    "message": "AI returnerte ikke noe innhold."
+  },
+  "contentReview.aiUnavailable": {
+    "message": "Chatfullføringer er ikke tilgjengelige."
+  },
+  "contentReview.templatePlaceholder": {
+    "message": "Velg mal"
+  },
+  "contentReview.applyTemplate": {
+    "message": "Bruk mal"
+  },
+  "contentReview.templateApplied": {
+    "message": "Mal brukt."
+  },
+  "contentReview.templateMissing": {
+    "message": "Velg en mal først."
+  },
+  "contentReview.detectSections": {
+    "message": "Oppdag seksjoner"
+  },
+  "contentReview.detectSectionsTitle": {
+    "message": "Oppdage seksjoner på nytt?"
+  },
+  "contentReview.detectSectionsBody": {
+    "message": "Dette erstatter eksisterende seksjoner og tilbakestiller valgene dine."
+  },
+  "contentReview.detectSectionsConfirm": {
+    "message": "Oppdag på nytt"
+  },
+  "contentReview.detectSectionsCancel": {
+    "message": "Avbryt"
+  },
+  "contentReview.detectSectionsEmpty": {
+    "message": "Ingen seksjoner funnet."
+  },
+  "contentReview.sectionsLabel": {
+    "message": "Seksjonsfilter"
+  },
+  "contentReview.templates.transcript_clean.label": {
+    "message": "Rens transkripsjon"
+  },
+  "contentReview.templates.transcript_clean.description": {
+    "message": "Normaliserer tegnsetting og store/små bokstaver, samtidig som linjestrukturen beholdes."
+  },
+  "contentReview.templates.speaker_turns.label": {
+    "message": "Taletur"
+  },
+  "contentReview.templates.speaker_turns.description": {
+    "message": "Sikrer at hver taletur står på sin egen linje med tydelige etiketter."
+  },
+  "contentReview.templates.chapter_headings.label": {
+    "message": "Kapitteloverskrifter"
+  },
+  "contentReview.templates.chapter_headings.description": {
+    "message": "Setter inn Markdown‑overskrifter for å gruppere emner uten å fjerne innhold."
+  },
+  "contentReview.metadataLabel": {
+    "message": "Metadata"
+  },
+  "contentReview.mediaType": {
+    "message": "Mediatype"
+  },
+  "contentReview.keywords": {
+    "message": "Nøkkelord"
+  },
+  "contentReview.keywordsPlaceholder": {
+    "message": "Legg til nøkkelord"
+  },
+  "contentReview.reviewNotes": {
+    "message": "Notater for gjennomgang"
+  },
+  "contentReview.missingSource": {
+    "message": "Kilde­fil mangler"
+  },
+  "contentReview.missingSourceBody": {
+    "message": "Legg ved originalfilen for å bekrefte dette utkastet."
+  },
+  "contentReview.attachSource": {
+    "message": "Legg ved fil"
+  },
+  "contentReview.actionsLabel": {
+    "message": "Handlinger"
+  },
+  "contentReview.commit": {
+    "message": "Bekreft"
+  },
+  "contentReview.commitDisabled": {
+    "message": "Legg ved den opprinnelige lyd-/videofilen før du bekrefter."
+  },
+  "contentReview.markReviewed": {
+    "message": "Merk som gjennomgått"
+  },
+  "contentReview.skipNext": {
+    "message": "Hopp over"
+  },
+  "contentReview.discard": {
+    "message": "Forkast"
+  },
+  "contentReview.discardTitle": {
+    "message": "Forkaste utkast?"
+  },
+  "contentReview.discardBody": {
+    "message": "Dette utkastet blir merket som forkastet og fjernet fra gjennomgangen."
+  },
+  "contentReview.discardConfirm": {
+    "message": "Forkast"
+  },
+  "contentReview.discardCancel": {
+    "message": "Avbryt"
+  },
+  "contentReview.commitSuccess": {
+    "message": "Utkast bekreftet."
+  },
+  "contentReview.commitAllTitle": {
+    "message": "Bekrefte gjennomgåtte utkast?"
+  },
+  "contentReview.commitAllBody": {
+    "message": "Bare utkast som er merket som gjennomgått blir bekreftet."
+  },
+  "contentReview.commitAllConfirm": {
+    "message": "Bekreft alle"
+  },
+  "contentReview.commitAllCancel": {
+    "message": "Avbryt"
+  },
+  "contentReview.commitAllResult": {
+    "message": "{{success}} bekreftet · {{failed}} mislyktes"
+  },
+  "contentReview.storageCapWarning": {
+    "message": "Denne filen overskrider den lokale grensen for utkast ({{cap}})."
+  },
+  "contentReview.clearTitle": {
+    "message": "Tømme alle utkast?"
+  },
+  "contentReview.clearBody": {
+    "message": "Dette fjerner alle lokale utkast og ressurser for innholdsgjennomgang."
+  },
+  "contentReview.clearConfirm": {
+    "message": "Tøm utkast"
+  },
+  "contentReview.clearCancel": {
+    "message": "Avbryt"
+  },
+  "contentReview.clearSuccess": {
+    "message": "Utkast tømt."
+  },
+  "contentReview.originalLabel": {
+    "message": "Original"
+  },
+  "contentReview.editedLabel": {
+    "message": "Redigert"
   }
 }

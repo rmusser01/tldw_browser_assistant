@@ -229,10 +229,6 @@
   "applyPatch": "Aplicar patch",
   "recursive": "(recursivo)",
   "complexArguments": "[Argumentos complexos]",
-  "status_pending": "Pendente",
-  "status_running": "Processando",
-  "status_complete": "Concluído",
-  "status_error": "Erro",
   "segmented": {
     "available": "Modelos do servidor",
     "custom": "Modelos personalizados"

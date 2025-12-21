@@ -229,10 +229,6 @@
   "applyPatch": "Patch anwenden",
   "recursive": "(rekursiv)",
   "complexArguments": "[Komplexe Argumente]",
-  "status_pending": "Ausstehend",
-  "status_running": "In Bearbeitung",
-  "status_complete": "Abgeschlossen",
-  "status_error": "Fehler",
   "segmented": {
     "available": "Server-Modelle",
     "custom": "Benutzerdefinierte Modelle"

@@ -67,5 +67,257 @@
   },
   "reviewNavigationRetry": {
     "message": "Retry opening Content Review"
+  },
+  "contentReview.title": {
+    "message": "Content Review"
+  },
+  "contentReview.readyToSubmit": {
+    "message": "{{count}} ready"
+  },
+  "contentReview.committedCount": {
+    "message": "{{count}} committed"
+  },
+  "contentReview.totalCount": {
+    "message": "{{count}} total"
+  },
+  "contentReview.commitAll": {
+    "message": "Commit All"
+  },
+  "contentReview.clearDrafts": {
+    "message": "Clear drafts"
+  },
+  "contentReview.emptyDescription": {
+    "message": "No drafts yet. Use Quick Ingest with Review before saving to create drafts."
+  },
+  "contentReview.openQuickIngest": {
+    "message": "Open Quick Ingest"
+  },
+  "contentReview.batchLabel": {
+    "message": "Batch"
+  },
+  "contentReview.batchName": {
+    "message": "Batch {{index}}"
+  },
+  "contentReview.draftsLabel": {
+    "message": "Drafts"
+  },
+  "contentReview.selectDraft": {
+    "message": "Select a draft to begin reviewing."
+  },
+  "contentReview.titlePlaceholder": {
+    "message": "Draft title"
+  },
+  "contentReview.lastSaved": {
+    "message": "Saved {{time}}"
+  },
+  "contentReview.resetTitle": {
+    "message": "Reset draft?"
+  },
+  "contentReview.resetBody": {
+    "message": "This will restore the original content for this draft."
+  },
+  "contentReview.resetConfirm": {
+    "message": "Reset"
+  },
+  "contentReview.resetCancel": {
+    "message": "Cancel"
+  },
+  "contentReview.resetContent": {
+    "message": "Reset"
+  },
+  "contentReview.diffView": {
+    "message": "Diff view"
+  },
+  "contentReview.saveDraft": {
+    "message": "Save draft"
+  },
+  "contentReview.editorLabel": {
+    "message": "Content"
+  },
+  "contentReview.wordCount": {
+    "message": "{{words}} words"
+  },
+  "contentReview.charCount": {
+    "message": "{{chars}} chars"
+  },
+  "contentReview.aiFix": {
+    "message": "AI fix"
+  },
+  "contentReview.aiHint": {
+    "message": "Sends draft content to your server for AI processing."
+  },
+  "contentReview.modelPlaceholder": {
+    "message": "Server default"
+  },
+  "contentReview.aiConsentTitle": {
+    "message": "Send draft to server?"
+  },
+  "contentReview.aiConsentBody": {
+    "message": "This will send the draft content to your tldw server for AI processing. Drafts stay local until you commit."
+  },
+  "contentReview.aiConsentConfirm": {
+    "message": "Continue"
+  },
+  "contentReview.aiConsentCancel": {
+    "message": "Cancel"
+  },
+  "contentReview.aiApplied": {
+    "message": "AI corrections applied."
+  },
+  "contentReview.aiNoChange": {
+    "message": "No changes returned."
+  },
+  "contentReview.aiEmpty": {
+    "message": "AI returned no content."
+  },
+  "contentReview.aiUnavailable": {
+    "message": "Chat completions unavailable."
+  },
+  "contentReview.templatePlaceholder": {
+    "message": "Choose template"
+  },
+  "contentReview.applyTemplate": {
+    "message": "Apply template"
+  },
+  "contentReview.templateApplied": {
+    "message": "Template applied."
+  },
+  "contentReview.templateMissing": {
+    "message": "Select a template first."
+  },
+  "contentReview.detectSections": {
+    "message": "Detect sections"
+  },
+  "contentReview.detectSectionsTitle": {
+    "message": "Re-detect sections?"
+  },
+  "contentReview.detectSectionsBody": {
+    "message": "This will replace existing sections and reset your selections."
+  },
+  "contentReview.detectSectionsConfirm": {
+    "message": "Re-detect"
+  },
+  "contentReview.detectSectionsCancel": {
+    "message": "Cancel"
+  },
+  "contentReview.detectSectionsEmpty": {
+    "message": "No sections detected."
+  },
+  "contentReview.sectionsLabel": {
+    "message": "Section filter"
+  },
+  "contentReview.templates.transcript_clean.label": {
+    "message": "Clean transcript"
+  },
+  "contentReview.templates.transcript_clean.description": {
+    "message": "Normalize punctuation and casing while preserving line structure."
+  },
+  "contentReview.templates.speaker_turns.label": {
+    "message": "Speaker turns"
+  },
+  "contentReview.templates.speaker_turns.description": {
+    "message": "Ensure each speaker turn is on its own line with clear labels."
+  },
+  "contentReview.templates.chapter_headings.label": {
+    "message": "Chapter headings"
+  },
+  "contentReview.templates.chapter_headings.description": {
+    "message": "Insert Markdown headings to group topics without removing content."
+  },
+  "contentReview.metadataLabel": {
+    "message": "Metadata"
+  },
+  "contentReview.mediaType": {
+    "message": "Media type"
+  },
+  "contentReview.keywords": {
+    "message": "Keywords"
+  },
+  "contentReview.keywordsPlaceholder": {
+    "message": "Add keywords"
+  },
+  "contentReview.reviewNotes": {
+    "message": "Review notes"
+  },
+  "contentReview.missingSource": {
+    "message": "Source file missing"
+  },
+  "contentReview.missingSourceBody": {
+    "message": "Attach the original file to commit this draft."
+  },
+  "contentReview.attachSource": {
+    "message": "Attach file"
+  },
+  "contentReview.actionsLabel": {
+    "message": "Actions"
+  },
+  "contentReview.commit": {
+    "message": "Commit"
+  },
+  "contentReview.commitDisabled": {
+    "message": "Attach the original audio/video file before committing."
+  },
+  "contentReview.markReviewed": {
+    "message": "Mark reviewed"
+  },
+  "contentReview.skipNext": {
+    "message": "Skip"
+  },
+  "contentReview.discard": {
+    "message": "Discard"
+  },
+  "contentReview.discardTitle": {
+    "message": "Discard draft?"
+  },
+  "contentReview.discardBody": {
+    "message": "This draft will be marked as discarded and removed from review."
+  },
+  "contentReview.discardConfirm": {
+    "message": "Discard"
+  },
+  "contentReview.discardCancel": {
+    "message": "Cancel"
+  },
+  "contentReview.commitSuccess": {
+    "message": "Draft committed."
+  },
+  "contentReview.commitAllTitle": {
+    "message": "Commit reviewed drafts?"
+  },
+  "contentReview.commitAllBody": {
+    "message": "Only drafts marked as reviewed will be committed."
+  },
+  "contentReview.commitAllConfirm": {
+    "message": "Commit all"
+  },
+  "contentReview.commitAllCancel": {
+    "message": "Cancel"
+  },
+  "contentReview.commitAllResult": {
+    "message": "{{success}} committed · {{failed}} failed"
+  },
+  "contentReview.storageCapWarning": {
+    "message": "This file exceeds the local draft cap ({{cap}})."
+  },
+  "contentReview.clearTitle": {
+    "message": "Clear all drafts?"
+  },
+  "contentReview.clearBody": {
+    "message": "This removes all local content review drafts and assets."
+  },
+  "contentReview.clearConfirm": {
+    "message": "Clear drafts"
+  },
+  "contentReview.clearCancel": {
+    "message": "Cancel"
+  },
+  "contentReview.clearSuccess": {
+    "message": "Drafts cleared."
+  },
+  "contentReview.originalLabel": {
+    "message": "Original"
+  },
+  "contentReview.editedLabel": {
+    "message": "Edited"
   }
 }

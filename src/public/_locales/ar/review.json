@@ -64,5 +64,257 @@
   },
   "reviewNavigationRetry": {
     "message": "أعد محاولة فتح مراجعة المحتوى"
+  },
+  "contentReview.title": {
+    "message": "مراجعة المحتوى"
+  },
+  "contentReview.readyToSubmit": {
+    "message": "{{count}} جاهزة"
+  },
+  "contentReview.committedCount": {
+    "message": "{{count}} تم اعتمادها"
+  },
+  "contentReview.totalCount": {
+    "message": "{{count}} إجمالي"
+  },
+  "contentReview.commitAll": {
+    "message": "اعتماد الكل"
+  },
+  "contentReview.clearDrafts": {
+    "message": "مسح المسودات"
+  },
+  "contentReview.emptyDescription": {
+    "message": "لا توجد مسودات بعد. استخدم Quick Ingest مع خيار المراجعة قبل الحفظ لإنشاء مسودات."
+  },
+  "contentReview.openQuickIngest": {
+    "message": "فتح Quick Ingest"
+  },
+  "contentReview.batchLabel": {
+    "message": "دفعة"
+  },
+  "contentReview.batchName": {
+    "message": "دفعة {{index}}"
+  },
+  "contentReview.draftsLabel": {
+    "message": "المسودات"
+  },
+  "contentReview.selectDraft": {
+    "message": "اختر مسودة لبدء المراجعة."
+  },
+  "contentReview.titlePlaceholder": {
+    "message": "عنوان المسودة"
+  },
+  "contentReview.lastSaved": {
+    "message": "تم الحفظ {{time}}"
+  },
+  "contentReview.resetTitle": {
+    "message": "إعادة تعيين المسودة؟"
+  },
+  "contentReview.resetBody": {
+    "message": "سيؤدي هذا إلى استعادة المحتوى الأصلي لهذه المسودة."
+  },
+  "contentReview.resetConfirm": {
+    "message": "إعادة تعيين"
+  },
+  "contentReview.resetCancel": {
+    "message": "إلغاء"
+  },
+  "contentReview.resetContent": {
+    "message": "إعادة تعيين"
+  },
+  "contentReview.diffView": {
+    "message": "عرض الفروقات"
+  },
+  "contentReview.saveDraft": {
+    "message": "حفظ المسودة"
+  },
+  "contentReview.editorLabel": {
+    "message": "المحتوى"
+  },
+  "contentReview.wordCount": {
+    "message": "{{words}} كلمة"
+  },
+  "contentReview.charCount": {
+    "message": "{{chars}} حرفاً"
+  },
+  "contentReview.aiFix": {
+    "message": "تصحيح بالذكاء الاصطناعي"
+  },
+  "contentReview.aiHint": {
+    "message": "يرسل محتوى المسودة إلى الخادم لديك لمعالجته بالذكاء الاصطناعي."
+  },
+  "contentReview.modelPlaceholder": {
+    "message": "الإعداد الافتراضي للخادم"
+  },
+  "contentReview.aiConsentTitle": {
+    "message": "إرسال المسودة إلى الخادم؟"
+  },
+  "contentReview.aiConsentBody": {
+    "message": "سيتم إرسال محتوى المسودة إلى خادم tldw لديك لمعالجته بالذكاء الاصطناعي. تظل المسودات محلية حتى تقوم باعتمادها."
+  },
+  "contentReview.aiConsentConfirm": {
+    "message": "متابعة"
+  },
+  "contentReview.aiConsentCancel": {
+    "message": "إلغاء"
+  },
+  "contentReview.aiApplied": {
+    "message": "تم تطبيق تصحيحات الذكاء الاصطناعي."
+  },
+  "contentReview.aiNoChange": {
+    "message": "لم يتم إرجاع أي تغييرات."
+  },
+  "contentReview.aiEmpty": {
+    "message": "لم يُرجع الذكاء الاصطناعي أي محتوى."
+  },
+  "contentReview.aiUnavailable": {
+    "message": "إكمالات الدردشة غير متاحة."
+  },
+  "contentReview.templatePlaceholder": {
+    "message": "اختر قالباً"
+  },
+  "contentReview.applyTemplate": {
+    "message": "تطبيق القالب"
+  },
+  "contentReview.templateApplied": {
+    "message": "تم تطبيق القالب."
+  },
+  "contentReview.templateMissing": {
+    "message": "يرجى اختيار قالب أولاً."
+  },
+  "contentReview.detectSections": {
+    "message": "اكتشاف الأقسام"
+  },
+  "contentReview.detectSectionsTitle": {
+    "message": "إعادة اكتشاف الأقسام؟"
+  },
+  "contentReview.detectSectionsBody": {
+    "message": "سيؤدي هذا إلى استبدال الأقسام الحالية وإعادة تعيين اختياراتك."
+  },
+  "contentReview.detectSectionsConfirm": {
+    "message": "إعادة الاكتشاف"
+  },
+  "contentReview.detectSectionsCancel": {
+    "message": "إلغاء"
+  },
+  "contentReview.detectSectionsEmpty": {
+    "message": "لم يتم اكتشاف أي أقسام."
+  },
+  "contentReview.sectionsLabel": {
+    "message": "فلتر الأقسام"
+  },
+  "contentReview.templates.transcript_clean.label": {
+    "message": "تنظيف النص المفرغ"
+  },
+  "contentReview.templates.transcript_clean.description": {
+    "message": "توحيد علامات الترقيم وحالة الأحرف مع الحفاظ على بنية الأسطر."
+  },
+  "contentReview.templates.speaker_turns.label": {
+    "message": "أدوار المتحدثين"
+  },
+  "contentReview.templates.speaker_turns.description": {
+    "message": "يضمن أن يكون كل دور للمتحدث في سطر منفصل مع تسميات واضحة."
+  },
+  "contentReview.templates.chapter_headings.label": {
+    "message": "عناوين الفصول"
+  },
+  "contentReview.templates.chapter_headings.description": {
+    "message": "يُدرج عناوين Markdown لتجميع المواضيع دون إزالة المحتوى."
+  },
+  "contentReview.metadataLabel": {
+    "message": "البيانات الوصفية"
+  },
+  "contentReview.mediaType": {
+    "message": "نوع الوسائط"
+  },
+  "contentReview.keywords": {
+    "message": "الكلمات المفتاحية"
+  },
+  "contentReview.keywordsPlaceholder": {
+    "message": "إضافة كلمات مفتاحية"
+  },
+  "contentReview.reviewNotes": {
+    "message": "ملاحظات المراجعة"
+  },
+  "contentReview.missingSource": {
+    "message": "ملف المصدر مفقود"
+  },
+  "contentReview.missingSourceBody": {
+    "message": "أرفق الملف الأصلي لاعتماد هذه المسودة."
+  },
+  "contentReview.attachSource": {
+    "message": "إرفاق ملف"
+  },
+  "contentReview.actionsLabel": {
+    "message": "الإجراءات"
+  },
+  "contentReview.commit": {
+    "message": "اعتماد"
+  },
+  "contentReview.commitDisabled": {
+    "message": "أرفق ملف الصوت/الفيديو الأصلي قبل الاعتماد."
+  },
+  "contentReview.markReviewed": {
+    "message": "وضع علامة تمت مراجعتها"
+  },
+  "contentReview.skipNext": {
+    "message": "تخطي"
+  },
+  "contentReview.discard": {
+    "message": "تجاهل"
+  },
+  "contentReview.discardTitle": {
+    "message": "تجاهل المسودة؟"
+  },
+  "contentReview.discardBody": {
+    "message": "سيتم وضع علامة على هذه المسودة كتجاهَل وإزالتها من المراجعة."
+  },
+  "contentReview.discardConfirm": {
+    "message": "تجاهل"
+  },
+  "contentReview.discardCancel": {
+    "message": "إلغاء"
+  },
+  "contentReview.commitSuccess": {
+    "message": "تم اعتماد المسودة."
+  },
+  "contentReview.commitAllTitle": {
+    "message": "اعتماد المسودات التي تمت مراجعتها؟"
+  },
+  "contentReview.commitAllBody": {
+    "message": "سيتم اعتماد المسودات المعلّمة كمراجَعة فقط."
+  },
+  "contentReview.commitAllConfirm": {
+    "message": "اعتماد الكل"
+  },
+  "contentReview.commitAllCancel": {
+    "message": "إلغاء"
+  },
+  "contentReview.commitAllResult": {
+    "message": "{{success}} تم اعتمادها · {{failed}} فشلت"
+  },
+  "contentReview.storageCapWarning": {
+    "message": "يتجاوز هذا الملف حد المسودات المحلي ({{cap}})."
+  },
+  "contentReview.clearTitle": {
+    "message": "مسح جميع المسودات؟"
+  },
+  "contentReview.clearBody": {
+    "message": "يؤدي هذا إلى إزالة جميع مسودات مراجعة المحتوى والملفات المحلية."
+  },
+  "contentReview.clearConfirm": {
+    "message": "مسح المسودات"
+  },
+  "contentReview.clearCancel": {
+    "message": "إلغاء"
+  },
+  "contentReview.clearSuccess": {
+    "message": "تم مسح المسودات."
+  },
+  "contentReview.originalLabel": {
+    "message": "الأصلي"
+  },
+  "contentReview.editedLabel": {
+    "message": "بعد التعديل"
   }
 }

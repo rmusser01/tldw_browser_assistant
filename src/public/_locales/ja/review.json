@@ -64,5 +64,257 @@
   },
   "reviewNavigationRetry": {
     "message": "コンテンツレビューを再度開く"
+  },
+  "contentReview.title": {
+    "message": "コンテンツレビュー"
+  },
+  "contentReview.readyToSubmit": {
+    "message": "{{count}} 件の下書きが準備完了"
+  },
+  "contentReview.committedCount": {
+    "message": "{{count}} 件を確定済み"
+  },
+  "contentReview.totalCount": {
+    "message": "合計 {{count}} 件"
+  },
+  "contentReview.commitAll": {
+    "message": "すべて確定"
+  },
+  "contentReview.clearDrafts": {
+    "message": "下書きをクリア"
+  },
+  "contentReview.emptyDescription": {
+    "message": "まだ下書きはありません。[保存前にレビュー] をオンにした Quick Ingest を使って下書きを作成できます。"
+  },
+  "contentReview.openQuickIngest": {
+    "message": "Quick Ingest を開く"
+  },
+  "contentReview.batchLabel": {
+    "message": "バッチ"
+  },
+  "contentReview.batchName": {
+    "message": "バッチ {{index}}"
+  },
+  "contentReview.draftsLabel": {
+    "message": "下書き"
+  },
+  "contentReview.selectDraft": {
+    "message": "レビューを始める下書きを選択してください。"
+  },
+  "contentReview.titlePlaceholder": {
+    "message": "下書きのタイトル"
+  },
+  "contentReview.lastSaved": {
+    "message": "{{time}} に保存"
+  },
+  "contentReview.resetTitle": {
+    "message": "下書きをリセットしますか？"
+  },
+  "contentReview.resetBody": {
+    "message": "この下書きの内容を元の状態に戻します。"
+  },
+  "contentReview.resetConfirm": {
+    "message": "リセット"
+  },
+  "contentReview.resetCancel": {
+    "message": "キャンセル"
+  },
+  "contentReview.resetContent": {
+    "message": "リセット"
+  },
+  "contentReview.diffView": {
+    "message": "差分ビュー"
+  },
+  "contentReview.saveDraft": {
+    "message": "下書きを保存"
+  },
+  "contentReview.editorLabel": {
+    "message": "コンテンツ"
+  },
+  "contentReview.wordCount": {
+    "message": "{{words}} 語"
+  },
+  "contentReview.charCount": {
+    "message": "{{chars}} 文字"
+  },
+  "contentReview.aiFix": {
+    "message": "AI で修正"
+  },
+  "contentReview.aiHint": {
+    "message": "下書きの内容をサーバーに送信し、AI で処理します。"
+  },
+  "contentReview.modelPlaceholder": {
+    "message": "サーバー既定"
+  },
+  "contentReview.aiConsentTitle": {
+    "message": "下書きをサーバーに送信しますか？"
+  },
+  "contentReview.aiConsentBody": {
+    "message": "下書きの内容が tldw サーバーに送信され、AI で処理されます。確定するまでは下書きはローカルにのみ保存されます。"
+  },
+  "contentReview.aiConsentConfirm": {
+    "message": "続行"
+  },
+  "contentReview.aiConsentCancel": {
+    "message": "キャンセル"
+  },
+  "contentReview.aiApplied": {
+    "message": "AI の修正を適用しました。"
+  },
+  "contentReview.aiNoChange": {
+    "message": "変更は返されませんでした。"
+  },
+  "contentReview.aiEmpty": {
+    "message": "AI からコンテンツが返されませんでした。"
+  },
+  "contentReview.aiUnavailable": {
+    "message": "チャット補完を利用できません。"
+  },
+  "contentReview.templatePlaceholder": {
+    "message": "テンプレートを選択"
+  },
+  "contentReview.applyTemplate": {
+    "message": "テンプレートを適用"
+  },
+  "contentReview.templateApplied": {
+    "message": "テンプレートを適用しました。"
+  },
+  "contentReview.templateMissing": {
+    "message": "先にテンプレートを選択してください。"
+  },
+  "contentReview.detectSections": {
+    "message": "セクションを検出"
+  },
+  "contentReview.detectSectionsTitle": {
+    "message": "セクションを再検出しますか？"
+  },
+  "contentReview.detectSectionsBody": {
+    "message": "既存のセクションを置き換え、選択内容をリセットします。"
+  },
+  "contentReview.detectSectionsConfirm": {
+    "message": "再検出"
+  },
+  "contentReview.detectSectionsCancel": {
+    "message": "キャンセル"
+  },
+  "contentReview.detectSectionsEmpty": {
+    "message": "セクションが検出されませんでした。"
+  },
+  "contentReview.sectionsLabel": {
+    "message": "セクションフィルター"
+  },
+  "contentReview.templates.transcript_clean.label": {
+    "message": "トランスクリプトを整形"
+  },
+  "contentReview.templates.transcript_clean.description": {
+    "message": "行構造を保ったまま、句読点と大文字・小文字を正規化します。"
+  },
+  "contentReview.templates.speaker_turns.label": {
+    "message": "話者ごとのターン"
+  },
+  "contentReview.templates.speaker_turns.description": {
+    "message": "各話者のターンが、わかりやすいラベル付きで 1 行ずつになるようにします。"
+  },
+  "contentReview.templates.chapter_headings.label": {
+    "message": "章見出し"
+  },
+  "contentReview.templates.chapter_headings.description": {
+    "message": "コンテンツを削除せずにトピックをまとめる Markdown 見出しを挿入します。"
+  },
+  "contentReview.metadataLabel": {
+    "message": "メタデータ"
+  },
+  "contentReview.mediaType": {
+    "message": "メディア種別"
+  },
+  "contentReview.keywords": {
+    "message": "キーワード"
+  },
+  "contentReview.keywordsPlaceholder": {
+    "message": "キーワードを追加"
+  },
+  "contentReview.reviewNotes": {
+    "message": "レビュー用メモ"
+  },
+  "contentReview.missingSource": {
+    "message": "元のファイルが見つかりません"
+  },
+  "contentReview.missingSourceBody": {
+    "message": "この下書きを確定するには元のファイルを添付してください。"
+  },
+  "contentReview.attachSource": {
+    "message": "ファイルを添付"
+  },
+  "contentReview.actionsLabel": {
+    "message": "アクション"
+  },
+  "contentReview.commit": {
+    "message": "確定"
+  },
+  "contentReview.commitDisabled": {
+    "message": "確定する前に元の音声/動画ファイルを添付してください。"
+  },
+  "contentReview.markReviewed": {
+    "message": "レビュー済みにする"
+  },
+  "contentReview.skipNext": {
+    "message": "スキップ"
+  },
+  "contentReview.discard": {
+    "message": "破棄"
+  },
+  "contentReview.discardTitle": {
+    "message": "下書きを破棄しますか？"
+  },
+  "contentReview.discardBody": {
+    "message": "この下書きは破棄済みとしてマークされ、レビュー一覧から削除されます。"
+  },
+  "contentReview.discardConfirm": {
+    "message": "破棄"
+  },
+  "contentReview.discardCancel": {
+    "message": "キャンセル"
+  },
+  "contentReview.commitSuccess": {
+    "message": "下書きを確定しました。"
+  },
+  "contentReview.commitAllTitle": {
+    "message": "レビュー済みの下書きをすべて確定しますか？"
+  },
+  "contentReview.commitAllBody": {
+    "message": "レビュー済みとマークされた下書きのみが確定されます。"
+  },
+  "contentReview.commitAllConfirm": {
+    "message": "すべて確定"
+  },
+  "contentReview.commitAllCancel": {
+    "message": "キャンセル"
+  },
+  "contentReview.commitAllResult": {
+    "message": "{{success}} 件を確定 · {{failed}} 件に失敗"
+  },
+  "contentReview.storageCapWarning": {
+    "message": "このファイルはローカルの下書き上限 ({{cap}}) を超えています。"
+  },
+  "contentReview.clearTitle": {
+    "message": "すべての下書きをクリアしますか？"
+  },
+  "contentReview.clearBody": {
+    "message": "ローカルのコンテンツレビュー用下書きと関連ファイルをすべて削除します。"
+  },
+  "contentReview.clearConfirm": {
+    "message": "下書きをクリア"
+  },
+  "contentReview.clearCancel": {
+    "message": "キャンセル"
+  },
+  "contentReview.clearSuccess": {
+    "message": "下書きを削除しました。"
+  },
+  "contentReview.originalLabel": {
+    "message": "元の内容"
+  },
+  "contentReview.editedLabel": {
+    "message": "編集済み"
   }
 }

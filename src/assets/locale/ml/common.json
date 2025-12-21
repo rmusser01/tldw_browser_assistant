@@ -231,10 +231,6 @@
   "applyPatch": "പാച്ച് പ്രയോഗിക്കുക",
   "recursive": "(ആവർത്തനപരമായ)",
   "complexArguments": "[സങ്കീർണ്ണ ആർഗ്യുമെന്റുകൾ]",
-  "status_pending": "തീരുമാനിക്കാനുണ്ട്",
-  "status_running": "പ്രോസസ്സിംഗ്",
-  "status_complete": "പൂർത്തീകരിച്ചു",
-  "status_error": "പിശക്",
   "segmented": {
     "available": "സെർവർ മോഡലുകൾ",
     "custom": "കസ്റ്റം മോഡലുകൾ"

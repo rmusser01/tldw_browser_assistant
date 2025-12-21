@@ -101,10 +101,6 @@
   "applyPatch": "Apply patch",
   "recursive": "(recursive)",
   "complexArguments": "[Complex arguments]",
-  "status_pending": "Pending",
-  "status_running": "Running",
-  "status_complete": "Complete",
-  "status_error": "Error",
   "currentChatModelSettings": "Current Chat Model Settings",
   "modelSettings": {
     "label": "Model Settings",

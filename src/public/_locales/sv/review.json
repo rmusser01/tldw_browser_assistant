@@ -64,5 +64,257 @@
   },
   "reviewNavigationRetry": {
     "message": "Försök öppna Innehållsgranskning igen"
+  },
+  "contentReview.title": {
+    "message": "Innehållsgranskning"
+  },
+  "contentReview.readyToSubmit": {
+    "message": "{{count}} klara"
+  },
+  "contentReview.committedCount": {
+    "message": "{{count}} sparade"
+  },
+  "contentReview.totalCount": {
+    "message": "{{count}} totalt"
+  },
+  "contentReview.commitAll": {
+    "message": "Spara alla"
+  },
+  "contentReview.clearDrafts": {
+    "message": "Rensa utkast"
+  },
+  "contentReview.emptyDescription": {
+    "message": "Inga utkast än. Använd Quick Ingest med Granska innan du sparar för att skapa utkast."
+  },
+  "contentReview.openQuickIngest": {
+    "message": "Öppna Quick Ingest"
+  },
+  "contentReview.batchLabel": {
+    "message": "Batch"
+  },
+  "contentReview.batchName": {
+    "message": "Batch {{index}}"
+  },
+  "contentReview.draftsLabel": {
+    "message": "Utkast"
+  },
+  "contentReview.selectDraft": {
+    "message": "Välj ett utkast för att börja granska."
+  },
+  "contentReview.titlePlaceholder": {
+    "message": "Utkasttitel"
+  },
+  "contentReview.lastSaved": {
+    "message": "Sparat {{time}}"
+  },
+  "contentReview.resetTitle": {
+    "message": "Återställa utkast?"
+  },
+  "contentReview.resetBody": {
+    "message": "Detta återställer ursprungligt innehåll för det här utkastet."
+  },
+  "contentReview.resetConfirm": {
+    "message": "Återställ"
+  },
+  "contentReview.resetCancel": {
+    "message": "Avbryt"
+  },
+  "contentReview.resetContent": {
+    "message": "Återställ"
+  },
+  "contentReview.diffView": {
+    "message": "Diff-vy"
+  },
+  "contentReview.saveDraft": {
+    "message": "Spara utkast"
+  },
+  "contentReview.editorLabel": {
+    "message": "Innehåll"
+  },
+  "contentReview.wordCount": {
+    "message": "{{words}} ord"
+  },
+  "contentReview.charCount": {
+    "message": "{{chars}} tecken"
+  },
+  "contentReview.aiFix": {
+    "message": "Korrigera med AI"
+  },
+  "contentReview.aiHint": {
+    "message": "Skickar utkastets innehåll till servern för AI-bearbetning."
+  },
+  "contentReview.modelPlaceholder": {
+    "message": "Serverstandard"
+  },
+  "contentReview.aiConsentTitle": {
+    "message": "Skicka utkast till servern?"
+  },
+  "contentReview.aiConsentBody": {
+    "message": "Detta skickar utkastets innehåll till din tldw-server för AI-bearbetning. Utkast ligger kvar lokalt tills du sparar dem."
+  },
+  "contentReview.aiConsentConfirm": {
+    "message": "Fortsätt"
+  },
+  "contentReview.aiConsentCancel": {
+    "message": "Avbryt"
+  },
+  "contentReview.aiApplied": {
+    "message": "AI-korrigeringar tillämpade."
+  },
+  "contentReview.aiNoChange": {
+    "message": "Inga ändringar returnerades."
+  },
+  "contentReview.aiEmpty": {
+    "message": "AI returnerade inget innehåll."
+  },
+  "contentReview.aiUnavailable": {
+    "message": "Chattsvar är inte tillgängliga."
+  },
+  "contentReview.templatePlaceholder": {
+    "message": "Välj mall"
+  },
+  "contentReview.applyTemplate": {
+    "message": "Tillämpa mall"
+  },
+  "contentReview.templateApplied": {
+    "message": "Mall tillämpad."
+  },
+  "contentReview.templateMissing": {
+    "message": "Välj en mall först."
+  },
+  "contentReview.detectSections": {
+    "message": "Identifiera avsnitt"
+  },
+  "contentReview.detectSectionsTitle": {
+    "message": "Identifiera avsnitt igen?"
+  },
+  "contentReview.detectSectionsBody": {
+    "message": "Detta ersätter befintliga avsnitt och återställer dina val."
+  },
+  "contentReview.detectSectionsConfirm": {
+    "message": "Identifiera igen"
+  },
+  "contentReview.detectSectionsCancel": {
+    "message": "Avbryt"
+  },
+  "contentReview.detectSectionsEmpty": {
+    "message": "Inga avsnitt hittades."
+  },
+  "contentReview.sectionsLabel": {
+    "message": "Avsnittsfilter"
+  },
+  "contentReview.templates.transcript_clean.label": {
+    "message": "Rensa transkript"
+  },
+  "contentReview.templates.transcript_clean.description": {
+    "message": "Normaliserar interpunktion och versaler/gemener samtidigt som radstrukturen bevaras."
+  },
+  "contentReview.templates.speaker_turns.label": {
+    "message": "Talarturer"
+  },
+  "contentReview.templates.speaker_turns.description": {
+    "message": "Säkerställer att varje talartur ligger på en egen rad med tydliga etiketter."
+  },
+  "contentReview.templates.chapter_headings.label": {
+    "message": "Kapitelfrubriker"
+  },
+  "contentReview.templates.chapter_headings.description": {
+    "message": "Infogar Markdown-rubriker för att gruppera ämnen utan att ta bort innehåll."
+  },
+  "contentReview.metadataLabel": {
+    "message": "Metadata"
+  },
+  "contentReview.mediaType": {
+    "message": "Mediatyp"
+  },
+  "contentReview.keywords": {
+    "message": "Nyckelord"
+  },
+  "contentReview.keywordsPlaceholder": {
+    "message": "Lägg till nyckelord"
+  },
+  "contentReview.reviewNotes": {
+    "message": "Granskningsanteckningar"
+  },
+  "contentReview.missingSource": {
+    "message": "Källfil saknas"
+  },
+  "contentReview.missingSourceBody": {
+    "message": "Bifoga originalfilen för att spara det här utkastet."
+  },
+  "contentReview.attachSource": {
+    "message": "Bifoga fil"
+  },
+  "contentReview.actionsLabel": {
+    "message": "Åtgärder"
+  },
+  "contentReview.commit": {
+    "message": "Spara"
+  },
+  "contentReview.commitDisabled": {
+    "message": "Bifoga originalets ljud-/videofil innan du sparar."
+  },
+  "contentReview.markReviewed": {
+    "message": "Markera som granskad"
+  },
+  "contentReview.skipNext": {
+    "message": "Hoppa över"
+  },
+  "contentReview.discard": {
+    "message": "Kassera"
+  },
+  "contentReview.discardTitle": {
+    "message": "Kassera utkast?"
+  },
+  "contentReview.discardBody": {
+    "message": "Detta utkast markeras som kasserat och tas bort från granskningslistan."
+  },
+  "contentReview.discardConfirm": {
+    "message": "Kassera"
+  },
+  "contentReview.discardCancel": {
+    "message": "Avbryt"
+  },
+  "contentReview.commitSuccess": {
+    "message": "Utkast sparat."
+  },
+  "contentReview.commitAllTitle": {
+    "message": "Spara granskade utkast?"
+  },
+  "contentReview.commitAllBody": {
+    "message": "Endast utkast markerade som granskade sparas."
+  },
+  "contentReview.commitAllConfirm": {
+    "message": "Spara alla"
+  },
+  "contentReview.commitAllCancel": {
+    "message": "Avbryt"
+  },
+  "contentReview.commitAllResult": {
+    "message": "{{success}} sparade · {{failed}} misslyckades"
+  },
+  "contentReview.storageCapWarning": {
+    "message": "Denna fil överskrider den lokala gränsen för utkast ({{cap}})."
+  },
+  "contentReview.clearTitle": {
+    "message": "Rensa alla utkast?"
+  },
+  "contentReview.clearBody": {
+    "message": "Tar bort alla lokala utkast och resurser för innehållsgranskning."
+  },
+  "contentReview.clearConfirm": {
+    "message": "Rensa utkast"
+  },
+  "contentReview.clearCancel": {
+    "message": "Avbryt"
+  },
+  "contentReview.clearSuccess": {
+    "message": "Utkast rensade."
+  },
+  "contentReview.originalLabel": {
+    "message": "Original"
+  },
+  "contentReview.editedLabel": {
+    "message": "Redigerad"
   }
 }

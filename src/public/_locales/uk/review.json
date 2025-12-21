@@ -64,5 +64,257 @@
   },
   "reviewNavigationRetry": {
     "message": "Повторити відкриття Перевірки вмісту"
+  },
+  "contentReview.title": {
+    "message": "Перевірка контенту"
+  },
+  "contentReview.readyToSubmit": {
+    "message": "{{count}} готові"
+  },
+  "contentReview.committedCount": {
+    "message": "{{count}} зафіксовано"
+  },
+  "contentReview.totalCount": {
+    "message": "Разом {{count}}"
+  },
+  "contentReview.commitAll": {
+    "message": "Зафіксувати все"
+  },
+  "contentReview.clearDrafts": {
+    "message": "Очистити чернетки"
+  },
+  "contentReview.emptyDescription": {
+    "message": "Чернеток ще немає. Використовуйте Quick Ingest з параметром \"Перевірити перед збереженням\", щоб створювати чернетки."
+  },
+  "contentReview.openQuickIngest": {
+    "message": "Відкрити Quick Ingest"
+  },
+  "contentReview.batchLabel": {
+    "message": "Пакет"
+  },
+  "contentReview.batchName": {
+    "message": "Пакет {{index}}"
+  },
+  "contentReview.draftsLabel": {
+    "message": "Чернетки"
+  },
+  "contentReview.selectDraft": {
+    "message": "Виберіть чернетку, щоб розпочати перевірку."
+  },
+  "contentReview.titlePlaceholder": {
+    "message": "Назва чернетки"
+  },
+  "contentReview.lastSaved": {
+    "message": "Збережено {{time}}"
+  },
+  "contentReview.resetTitle": {
+    "message": "Скинути чернетку?"
+  },
+  "contentReview.resetBody": {
+    "message": "Це відновить початковий вміст цієї чернетки."
+  },
+  "contentReview.resetConfirm": {
+    "message": "Скинути"
+  },
+  "contentReview.resetCancel": {
+    "message": "Скасувати"
+  },
+  "contentReview.resetContent": {
+    "message": "Скинути"
+  },
+  "contentReview.diffView": {
+    "message": "Перегляд diff"
+  },
+  "contentReview.saveDraft": {
+    "message": "Зберегти чернетку"
+  },
+  "contentReview.editorLabel": {
+    "message": "Вміст"
+  },
+  "contentReview.wordCount": {
+    "message": "{{words}} слів"
+  },
+  "contentReview.charCount": {
+    "message": "{{chars}} символів"
+  },
+  "contentReview.aiFix": {
+    "message": "Виправити за допомогою ШІ"
+  },
+  "contentReview.aiHint": {
+    "message": "Надсилає вміст чернетки на ваш сервер для обробки ШІ."
+  },
+  "contentReview.modelPlaceholder": {
+    "message": "Типове значення сервера"
+  },
+  "contentReview.aiConsentTitle": {
+    "message": "Надіслати чернетку на сервер?"
+  },
+  "contentReview.aiConsentBody": {
+    "message": "Вміст чернетки буде надіслано на ваш сервер tldw для обробки ШІ. Чернетки залишаються локальними, доки ви їх не зафіксуєте."
+  },
+  "contentReview.aiConsentConfirm": {
+    "message": "Продовжити"
+  },
+  "contentReview.aiConsentCancel": {
+    "message": "Скасувати"
+  },
+  "contentReview.aiApplied": {
+    "message": "Виправлення ШІ застосовано."
+  },
+  "contentReview.aiNoChange": {
+    "message": "Змін не отримано."
+  },
+  "contentReview.aiEmpty": {
+    "message": "ШІ не повернув вміст."
+  },
+  "contentReview.aiUnavailable": {
+    "message": "Доповнення чату недоступні."
+  },
+  "contentReview.templatePlaceholder": {
+    "message": "Виберіть шаблон"
+  },
+  "contentReview.applyTemplate": {
+    "message": "Застосувати шаблон"
+  },
+  "contentReview.templateApplied": {
+    "message": "Шаблон застосовано."
+  },
+  "contentReview.templateMissing": {
+    "message": "Спочатку виберіть шаблон."
+  },
+  "contentReview.detectSections": {
+    "message": "Визначити розділи"
+  },
+  "contentReview.detectSectionsTitle": {
+    "message": "Повторно визначити розділи?"
+  },
+  "contentReview.detectSectionsBody": {
+    "message": "Це замінить наявні розділи та скине ваш вибір."
+  },
+  "contentReview.detectSectionsConfirm": {
+    "message": "Визначити знову"
+  },
+  "contentReview.detectSectionsCancel": {
+    "message": "Скасувати"
+  },
+  "contentReview.detectSectionsEmpty": {
+    "message": "Розділів не виявлено."
+  },
+  "contentReview.sectionsLabel": {
+    "message": "Фільтр розділів"
+  },
+  "contentReview.templates.transcript_clean.label": {
+    "message": "Очистити транскрипт"
+  },
+  "contentReview.templates.transcript_clean.description": {
+    "message": "Нормалізує пунктуацію та регістр, зберігаючи структуру рядків."
+  },
+  "contentReview.templates.speaker_turns.label": {
+    "message": "Репліки спікерів"
+  },
+  "contentReview.templates.speaker_turns.description": {
+    "message": "Гарантує, що кожна репліка спікера знаходиться в окремому рядку з чіткими мітками."
+  },
+  "contentReview.templates.chapter_headings.label": {
+    "message": "Заголовки розділів"
+  },
+  "contentReview.templates.chapter_headings.description": {
+    "message": "Вставляє заголовки Markdown для групування тем без видалення вмісту."
+  },
+  "contentReview.metadataLabel": {
+    "message": "Метадані"
+  },
+  "contentReview.mediaType": {
+    "message": "Тип медіа"
+  },
+  "contentReview.keywords": {
+    "message": "Ключові слова"
+  },
+  "contentReview.keywordsPlaceholder": {
+    "message": "Додати ключові слова"
+  },
+  "contentReview.reviewNotes": {
+    "message": "Нотатки перевірки"
+  },
+  "contentReview.missingSource": {
+    "message": "Вихідний файл відсутній"
+  },
+  "contentReview.missingSourceBody": {
+    "message": "Прикріпіть вихідний файл, щоб зафіксувати цю чернетку."
+  },
+  "contentReview.attachSource": {
+    "message": "Прикріпити файл"
+  },
+  "contentReview.actionsLabel": {
+    "message": "Дії"
+  },
+  "contentReview.commit": {
+    "message": "Зафіксувати"
+  },
+  "contentReview.commitDisabled": {
+    "message": "Прикріпіть вихідний аудіо/відеофайл перед фіксацією."
+  },
+  "contentReview.markReviewed": {
+    "message": "Позначити як перевірену"
+  },
+  "contentReview.skipNext": {
+    "message": "Пропустити"
+  },
+  "contentReview.discard": {
+    "message": "Відхилити"
+  },
+  "contentReview.discardTitle": {
+    "message": "Відхилити чернетку?"
+  },
+  "contentReview.discardBody": {
+    "message": "Цю чернетку буде позначено як відхилену та вилучено з перевірки."
+  },
+  "contentReview.discardConfirm": {
+    "message": "Відхилити"
+  },
+  "contentReview.discardCancel": {
+    "message": "Скасувати"
+  },
+  "contentReview.commitSuccess": {
+    "message": "Чернетку зафіксовано."
+  },
+  "contentReview.commitAllTitle": {
+    "message": "Зафіксувати перевірені чернетки?"
+  },
+  "contentReview.commitAllBody": {
+    "message": "Буде зафіксовано лише чернетки, позначені як перевірені."
+  },
+  "contentReview.commitAllConfirm": {
+    "message": "Зафіксувати все"
+  },
+  "contentReview.commitAllCancel": {
+    "message": "Скасувати"
+  },
+  "contentReview.commitAllResult": {
+    "message": "{{success}} зафіксовано · {{failed}} з помилкою"
+  },
+  "contentReview.storageCapWarning": {
+    "message": "Цей файл перевищує локальний ліміт чернеток ({{cap}})."
+  },
+  "contentReview.clearTitle": {
+    "message": "Очистити всі чернетки?"
+  },
+  "contentReview.clearBody": {
+    "message": "Видаляє всі локальні чернетки та файли, що використовуються для перевірки контенту."
+  },
+  "contentReview.clearConfirm": {
+    "message": "Очистити чернетки"
+  },
+  "contentReview.clearCancel": {
+    "message": "Скасувати"
+  },
+  "contentReview.clearSuccess": {
+    "message": "Чернетки видалено."
+  },
+  "contentReview.originalLabel": {
+    "message": "Оригінал"
+  },
+  "contentReview.editedLabel": {
+    "message": "Змінено"
   }
 }

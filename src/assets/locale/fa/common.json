@@ -222,10 +222,6 @@
   "applyPatch": "اعمال وصله",
   "recursive": "(بازگشتی)",
   "complexArguments": "[آرگومان‌های پیچیده]",
-  "status_pending": "انتظار",
-  "status_running": "در حال پردازش",
-  "status_complete": "تمام",
-  "status_error": "خطا",
   "copilot": {
     "summary": "خلاصه کردن",
     "explain": "توضیح دادن",
