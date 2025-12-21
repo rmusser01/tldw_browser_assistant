@@ -46,5 +46,23 @@
   },
   "result": {
     "message": "Ergebnis"
+  },
+  "reviewDraftsFailedTitle": {
+    "message": "Review-Entwürfe konnten nicht erstellt werden."
+  },
+  "reviewDraftsFailedFallback": {
+    "message": "Erstellung der Review-Entwürfe fehlgeschlagen."
+  },
+  "reviewDraftsRetry": {
+    "message": "Entwurfserstellung erneut versuchen"
+  },
+  "reviewDraftsStoreWithoutReview": {
+    "message": "Ohne Review speichern"
+  },
+  "reviewNavigationFailed": {
+    "message": "Content Review konnte nicht geöffnet werden. Bitte versuche es erneut."
+  },
+  "reviewNavigationRetry": {
+    "message": "Content Review erneut öffnen"
   }
 }

@@ -46,5 +46,23 @@
   },
   "result": {
     "message": "結果"
+  },
+  "reviewDraftsFailedTitle": {
+    "message": "レビュー用下書きを作成できませんでした。"
+  },
+  "reviewDraftsFailedFallback": {
+    "message": "レビュー用下書きの作成に失敗しました。"
+  },
+  "reviewDraftsRetry": {
+    "message": "下書き作成を再試行"
+  },
+  "reviewDraftsStoreWithoutReview": {
+    "message": "レビューせずに保存"
+  },
+  "reviewNavigationFailed": {
+    "message": "コンテンツレビューを開けませんでした。もう一度お試しください。"
+  },
+  "reviewNavigationRetry": {
+    "message": "コンテンツレビューを再度開く"
   }
 }

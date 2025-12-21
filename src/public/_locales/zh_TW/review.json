@@ -46,5 +46,23 @@
   },
   "result": {
     "message": "結果"
+  },
+  "reviewDraftsFailedTitle": {
+    "message": "無法建立審閱草稿。"
+  },
+  "reviewDraftsFailedFallback": {
+    "message": "建立審閱草稿失敗。"
+  },
+  "reviewDraftsRetry": {
+    "message": "重新嘗試建立草稿"
+  },
+  "reviewDraftsStoreWithoutReview": {
+    "message": "不經審閱儲存"
+  },
+  "reviewNavigationFailed": {
+    "message": "無法開啟內容審閱。請再試一次。"
+  },
+  "reviewNavigationRetry": {
+    "message": "重新嘗試開啟內容審閱"
   }
 }

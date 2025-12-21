@@ -380,6 +380,7 @@
     "onLabel": "On",
     "offLabel": "Off",
     "resultsCount": "{{count}} item(s)",
+    "processingComplete": "Processing complete. You can download results as JSON.",
     "retryFailedUrls": "Retry failed URLs",
     "summaryAllSucceeded": "Quick ingest completed successfully.",
     "summarySomeFailed": "Quick ingest completed with some errors.",

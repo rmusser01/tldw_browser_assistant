@@ -46,5 +46,23 @@
   },
   "result": {
     "message": "Resultado"
+  },
+  "reviewDraftsFailedTitle": {
+    "message": "No se pudieron crear los borradores de revisión."
+  },
+  "reviewDraftsFailedFallback": {
+    "message": "Error al crear los borradores de revisión."
+  },
+  "reviewDraftsRetry": {
+    "message": "Reintentar la creación de borradores"
+  },
+  "reviewDraftsStoreWithoutReview": {
+    "message": "Guardar sin revisión"
+  },
+  "reviewNavigationFailed": {
+    "message": "No se pudo abrir la revisión de contenido. Inténtalo de nuevo."
+  },
+  "reviewNavigationRetry": {
+    "message": "Reintentar abrir la revisión de contenido"
   }
 }

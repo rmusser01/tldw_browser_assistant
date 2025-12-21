@@ -49,5 +49,23 @@
   },
   "result": {
     "message": "结果"
+  },
+  "reviewDraftsFailedTitle": {
+    "message": "无法创建审阅草稿。"
+  },
+  "reviewDraftsFailedFallback": {
+    "message": "创建审阅草稿失败。"
+  },
+  "reviewDraftsRetry": {
+    "message": "重试创建草稿"
+  },
+  "reviewDraftsStoreWithoutReview": {
+    "message": "不经审阅保存"
+  },
+  "reviewNavigationFailed": {
+    "message": "无法打开内容审阅。请重试。"
+  },
+  "reviewNavigationRetry": {
+    "message": "重试打开内容审阅"
   }
 }

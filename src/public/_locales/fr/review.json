@@ -46,5 +46,23 @@
   },
   "result": {
     "message": "Résultat"
+  },
+  "reviewDraftsFailedTitle": {
+    "message": "Impossible de créer les brouillons de revue."
+  },
+  "reviewDraftsFailedFallback": {
+    "message": "Échec de la création des brouillons de revue."
+  },
+  "reviewDraftsRetry": {
+    "message": "Réessayer la création des brouillons"
+  },
+  "reviewDraftsStoreWithoutReview": {
+    "message": "Enregistrer sans revue"
+  },
+  "reviewNavigationFailed": {
+    "message": "Impossible d’ouvrir la Revue de contenu. Veuillez réessayer."
+  },
+  "reviewNavigationRetry": {
+    "message": "Réessayer d’ouvrir la Revue de contenu"
   }
 }

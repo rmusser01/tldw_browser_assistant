@@ -750,7 +750,7 @@ export default defineBackground({
               if (!cfg?.serverUrl) throw new Error('tldw server not configured')
               const base = cfg.serverUrl.replace(/^http/, 'ws').replace(/\/$/, '')
               const rawToken = cfg.authMode === 'single-user' ? cfg.apiKey : cfg.accessToken
-              const token = String(rawToken || '').trim()
+              const token = (typeof rawToken === 'string' ? rawToken : '').trim()
               if (!token) {
                 throw new Error('Not authenticated. Configure tldw credentials in Settings > tldw.')
               }

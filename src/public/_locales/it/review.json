@@ -46,5 +46,23 @@
   },
   "result": {
     "message": "Risultato"
+  },
+  "reviewDraftsFailedTitle": {
+    "message": "Impossibile creare le bozze di revisione."
+  },
+  "reviewDraftsFailedFallback": {
+    "message": "Creazione delle bozze di revisione non riuscita."
+  },
+  "reviewDraftsRetry": {
+    "message": "Riprova a creare le bozze"
+  },
+  "reviewDraftsStoreWithoutReview": {
+    "message": "Salva senza revisione"
+  },
+  "reviewNavigationFailed": {
+    "message": "Impossibile aprire la Revisione contenuti. Riprova."
+  },
+  "reviewNavigationRetry": {
+    "message": "Riprova ad aprire la Revisione contenuti"
   }
 }

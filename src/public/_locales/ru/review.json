@@ -46,5 +46,23 @@
   },
   "result": {
     "message": "Результат"
+  },
+  "reviewDraftsFailedTitle": {
+    "message": "Не удалось создать черновики для проверки."
+  },
+  "reviewDraftsFailedFallback": {
+    "message": "Сбой при создании черновиков для проверки."
+  },
+  "reviewDraftsRetry": {
+    "message": "Повторить создание черновиков"
+  },
+  "reviewDraftsStoreWithoutReview": {
+    "message": "Сохранить без проверки"
+  },
+  "reviewNavigationFailed": {
+    "message": "Не удалось открыть Проверку контента. Попробуйте еще раз."
+  },
+  "reviewNavigationRetry": {
+    "message": "Повторить открытие Проверки контента"
   }
 }

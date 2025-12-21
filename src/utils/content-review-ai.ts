@@ -134,9 +134,10 @@ export const wrapDraftForPrompt = (content: string, instruction: string) => {
 
 export const stripCodeFences = (value: string) => {
   const text = String(value || "").trim()
-  if (!text.startsWith("```")) return text
-  const withoutStart = text.replace(/^```[a-zA-Z0-9_-]*\n?/, "")
-  return withoutStart.replace(/\n?```\s*$/, "").trim()
+  // Only strip if the entire string is wrapped in fences
+  const fencePattern = /^```[a-zA-Z0-9_-]*\n?([\s\S]*?)\n?```\s*$/
+  const match = text.match(fencePattern)
+  return match ? match[1].trim() : text
 }
 
 type ChatChoice = {

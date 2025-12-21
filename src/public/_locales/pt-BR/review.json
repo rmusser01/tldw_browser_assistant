@@ -46,5 +46,23 @@
   },
   "result": {
     "message": "Resultado"
+  },
+  "reviewDraftsFailedTitle": {
+    "message": "Não foi possível criar rascunhos de revisão."
+  },
+  "reviewDraftsFailedFallback": {
+    "message": "Falha ao criar rascunhos de revisão."
+  },
+  "reviewDraftsRetry": {
+    "message": "Tentar criar rascunhos novamente"
+  },
+  "reviewDraftsStoreWithoutReview": {
+    "message": "Salvar sem revisão"
+  },
+  "reviewNavigationFailed": {
+    "message": "Não foi possível abrir a Revisão de conteúdo. Tente novamente."
+  },
+  "reviewNavigationRetry": {
+    "message": "Tentar abrir a Revisão de conteúdo novamente"
   }
 }

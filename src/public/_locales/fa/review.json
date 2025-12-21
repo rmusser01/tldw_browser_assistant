@@ -9,7 +9,7 @@
     "message": "شناسه رسانه‌ای در دسترس نیست"
   },
   "mediaPage.versionSaved": {
-    "message": "به\u200cعنوان نسخه جدید ذخیره شد"
+    "message": "به‌عنوان نسخه جدید ذخیره شد"
   },
   "mediaPage.saveFailed": {
     "message": "ذخیره نسخه ناموفق بود"
@@ -18,7 +18,7 @@
     "message": "ارسال به چت"
   },
   "mediaPage.saveAsVersion": {
-    "message": "ذخیره به\u200cعنوان نسخه جدید"
+    "message": "ذخیره به‌عنوان نسخه جدید"
   },
   "mediaPage.analysisPlaceholder": {
     "message": "متن تحلیل را وارد کنید..."
@@ -46,5 +46,23 @@
   },
   "result": {
     "message": "نتیجه"
+  },
+  "reviewDraftsFailedTitle": {
+    "message": "پیش‌نویس‌های بازبینی ایجاد نشدند."
+  },
+  "reviewDraftsFailedFallback": {
+    "message": "ایجاد پیش‌نویس‌های بازبینی ناموفق بود."
+  },
+  "reviewDraftsRetry": {
+    "message": "تلاش دوباره برای ایجاد پیش‌نویس"
+  },
+  "reviewDraftsStoreWithoutReview": {
+    "message": "ذخیره بدون بازبینی"
+  },
+  "reviewNavigationFailed": {
+    "message": "باز کردن بازبینی محتوا ممکن نبود. دوباره تلاش کنید."
+  },
+  "reviewNavigationRetry": {
+    "message": "تلاش دوباره برای باز کردن بازبینی محتوا"
   }
 }

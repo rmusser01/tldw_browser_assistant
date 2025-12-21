@@ -46,5 +46,23 @@
   },
   "result": {
     "message": "ഫലം"
+  },
+  "reviewDraftsFailedTitle": {
+    "message": "റിവ്യൂ ഡ്രാഫ്റ്റുകൾ സൃഷ്ടിക്കാനായില്ല."
+  },
+  "reviewDraftsFailedFallback": {
+    "message": "റിവ്യൂ ഡ്രാഫ്റ്റുകൾ സൃഷ്ടിക്കൽ പരാജയപ്പെട്ടു."
+  },
+  "reviewDraftsRetry": {
+    "message": "ഡ്രാഫ്റ്റ് സൃഷ്ടിക്കൽ വീണ്ടും ശ്രമിക്കുക"
+  },
+  "reviewDraftsStoreWithoutReview": {
+    "message": "റിവ്യൂ ഇല്ലാതെ സംഭരിക്കുക"
+  },
+  "reviewNavigationFailed": {
+    "message": "ഉള്ളടക്ക റിവ്യൂ തുറക്കാനായില്ല. വീണ്ടും ശ്രമിക്കുക."
+  },
+  "reviewNavigationRetry": {
+    "message": "ഉള്ളടക്ക റിവ്യൂ വീണ്ടും തുറക്കുക"
   }
 }

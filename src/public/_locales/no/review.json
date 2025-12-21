@@ -46,5 +46,23 @@
   },
   "result": {
     "message": "Resultat"
+  },
+  "reviewDraftsFailedTitle": {
+    "message": "Kunne ikke opprette gjennomgangskladder."
+  },
+  "reviewDraftsFailedFallback": {
+    "message": "Oppretting av gjennomgangskladder mislyktes."
+  },
+  "reviewDraftsRetry": {
+    "message": "Prøv å opprette kladder på nytt"
+  },
+  "reviewDraftsStoreWithoutReview": {
+    "message": "Lagre uten gjennomgang"
+  },
+  "reviewNavigationFailed": {
+    "message": "Kunne ikke åpne Innholdsgjennomgang. Prøv igjen."
+  },
+  "reviewNavigationRetry": {
+    "message": "Prøv å åpne Innholdsgjennomgang på nytt"
   }
 }

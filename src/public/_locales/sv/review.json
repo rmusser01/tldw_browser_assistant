@@ -46,5 +46,23 @@
   },
   "result": {
     "message": "Resultat"
+  },
+  "reviewDraftsFailedTitle": {
+    "message": "Kunde inte skapa granskningsutkast."
+  },
+  "reviewDraftsFailedFallback": {
+    "message": "Det gick inte att skapa granskningsutkast."
+  },
+  "reviewDraftsRetry": {
+    "message": "Försök skapa utkast igen"
+  },
+  "reviewDraftsStoreWithoutReview": {
+    "message": "Spara utan granskning"
+  },
+  "reviewNavigationFailed": {
+    "message": "Det gick inte att öppna Innehållsgranskning. Försök igen."
+  },
+  "reviewNavigationRetry": {
+    "message": "Försök öppna Innehållsgranskning igen"
   }
 }

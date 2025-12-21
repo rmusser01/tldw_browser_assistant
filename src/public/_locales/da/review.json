@@ -46,5 +46,23 @@
   },
   "result": {
     "message": "Resultat"
+  },
+  "reviewDraftsFailedTitle": {
+    "message": "Gennemgangskladderne kunne ikke oprettes."
+  },
+  "reviewDraftsFailedFallback": {
+    "message": "Det lykkedes ikke at oprette gennemgangskladder."
+  },
+  "reviewDraftsRetry": {
+    "message": "Prøv at oprette kladder igen"
+  },
+  "reviewDraftsStoreWithoutReview": {
+    "message": "Gem uden gennemgang"
+  },
+  "reviewNavigationFailed": {
+    "message": "Kunne ikke åbne Indholdsgennemgang. Prøv igen."
+  },
+  "reviewNavigationRetry": {
+    "message": "Prøv at åbne Indholdsgennemgang igen"
   }
 }

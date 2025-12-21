@@ -1215,7 +1215,12 @@ export const QuickIngestModal: React.FC<Props> = ({
       }
 
       if (processOnly && !reviewBeforeStorage && out.length > 0) {
-        messageApi.info("Processing complete. You can download results as JSON.")
+        messageApi.info(
+          qi(
+            "processingComplete",
+            "Processing complete. You can download results as JSON."
+          )
+        )
       }
       if (out.length > 0) {
         const successCount = out.filter((r) => r.status === 'ok').length
@@ -1259,6 +1264,11 @@ export const QuickIngestModal: React.FC<Props> = ({
     storeRemote,
     t
   ])
+
+  const hasReviewableResults = React.useMemo(
+    () => results.some((r) => r.status === "ok"),
+    [results]
+  )
 
   const retryDraftCreation = React.useCallback(async () => {
     if (draftCreationRetrying || running || !hasReviewableResults) return
@@ -1920,11 +1930,6 @@ export const QuickIngestModal: React.FC<Props> = ({
     const failCount = results.length - successCount
     return { successCount, failCount }
   }, [results])
-
-  const hasReviewableResults = React.useMemo(
-    () => results.some((r) => r.status === "ok"),
-    [results]
-  )
 
   const storageLabel = React.useMemo(() => {
     if (!storeRemote) {

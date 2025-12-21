@@ -49,5 +49,23 @@
   },
   "result": {
     "message": "Result"
+  },
+  "reviewDraftsFailedTitle": {
+    "message": "Review drafts couldn't be created."
+  },
+  "reviewDraftsFailedFallback": {
+    "message": "Failed to create review drafts."
+  },
+  "reviewDraftsRetry": {
+    "message": "Retry draft creation"
+  },
+  "reviewDraftsStoreWithoutReview": {
+    "message": "Store without review"
+  },
+  "reviewNavigationFailed": {
+    "message": "Couldn't open Content Review. Please try again."
+  },
+  "reviewNavigationRetry": {
+    "message": "Retry opening Content Review"
   }
 }

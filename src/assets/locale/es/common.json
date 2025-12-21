@@ -384,5 +384,5 @@
     },
     "noServerChats": "Aún no hay chats del servidor",
     "foldersRequireConnection": "Las carpetas requieren conexión al servidor"
-  },
+  }
 }

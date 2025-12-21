@@ -219,7 +219,7 @@ export const tabChatMode = async (
         useOCR: useOCR
       })
     }
-    let source: unknown[] = []
+    const source: unknown[] = [] // Empty for tab chat mode; sources not applicable
 
 
     let applicationChatHistory = generateHistory(

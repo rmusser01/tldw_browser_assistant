@@ -511,17 +511,17 @@
     "description": "Tooltip for exporting matching notes as JSON."
   },
   "notesSearch_exportNoteSuccess": {
-    "message": "已导出（{{size}}）"
+    "message": "已导出 ({{size}})"
   },
   "notesSearch_exportSuccess": {
-    "message": "已导出 {{count}} 条笔记（{{size}}）"
+    "message": "已导出 {{count}} 条笔记 ({{size}})"
   },
   "notesSearch_exportCsvSuccess": {
-    "message": "已将 {{count}} 笔笔记导出为 CSV ({{size}})",
+    "message": "已将 {{count}} 条笔记导出为 CSV ({{size}})",
     "description": "Export success message when matching notes are exported as CSV."
   },
   "notesSearch_exportJsonSuccess": {
-    "message": "已将 {{count}} 笔笔记导出为 JSON ({{size}})",
+    "message": "已将 {{count}} 条笔记导出为 JSON ({{size}})",
     "description": "Export success message when matching notes are exported as JSON."
   },
   "exportNoteSuccess": {
@@ -529,15 +529,15 @@
     "description": "Export success message for a single note, showing the exported file size."
   },
   "exportSuccess": {
-    "message": "已导出 {{count}} 笔笔记 ({{size}})",
+    "message": "已导出 {{count}} 条笔记 ({{size}})",
     "description": "Export success message when multiple notes are exported, including count and size."
   },
   "exportCsvSuccess": {
-    "message": "已将 {{count}} 笔笔记导出为 CSV ({{size}})",
+    "message": "已将 {{count}} 条笔记导出为 CSV ({{size}})",
     "description": "Export success message when notes are exported as CSV."
   },
   "exportJsonSuccess": {
-    "message": "已将 {{count}} 笔笔记导出为 JSON ({{size}})",
+    "message": "已将 {{count}} 条笔记导出为 JSON ({{size}})",
     "description": "Export success message when notes are exported as JSON."
   },
   "infoShort": {

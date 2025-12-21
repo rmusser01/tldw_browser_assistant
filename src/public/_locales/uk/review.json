@@ -46,5 +46,23 @@
   },
   "result": {
     "message": "Результат"
+  },
+  "reviewDraftsFailedTitle": {
+    "message": "Не вдалося створити чернетки для перевірки."
+  },
+  "reviewDraftsFailedFallback": {
+    "message": "Помилка створення чернеток для перевірки."
+  },
+  "reviewDraftsRetry": {
+    "message": "Повторити створення чернеток"
+  },
+  "reviewDraftsStoreWithoutReview": {
+    "message": "Зберегти без перевірки"
+  },
+  "reviewNavigationFailed": {
+    "message": "Не вдалося відкрити Перевірку вмісту. Спробуйте ще раз."
+  },
+  "reviewNavigationRetry": {
+    "message": "Повторити відкриття Перевірки вмісту"
   }
 }

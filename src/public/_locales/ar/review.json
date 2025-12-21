@@ -46,5 +46,23 @@
   },
   "result": {
     "message": "النتيجة"
+  },
+  "reviewDraftsFailedTitle": {
+    "message": "تعذر إنشاء مسودات المراجعة."
+  },
+  "reviewDraftsFailedFallback": {
+    "message": "فشل إنشاء مسودات المراجعة."
+  },
+  "reviewDraftsRetry": {
+    "message": "أعد محاولة إنشاء المسودات"
+  },
+  "reviewDraftsStoreWithoutReview": {
+    "message": "احفظ دون مراجعة"
+  },
+  "reviewNavigationFailed": {
+    "message": "تعذر فتح مراجعة المحتوى. يرجى المحاولة مرة أخرى."
+  },
+  "reviewNavigationRetry": {
+    "message": "أعد محاولة فتح مراجعة المحتوى"
   }
 }
