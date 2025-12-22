@@ -307,7 +307,9 @@
     "clearCancel": "キャンセル",
     "clearSuccess": "下書きを削除しました。",
     "originalLabel": "元の内容",
-    "editedLabel": "編集済み"
+    "editedLabel": "編集済み",
+    "reviewStorageCapWarning_one": "{{count}} 件のファイルがローカル下書き上限 ({{cap}}) を超えています。音声/動画を保存する前にソースを添付してください。",
+    "reviewStorageCapWarning_other": "{{count}} 件のファイルがローカル下書き上限 ({{cap}}) を超えています。音声/動画を保存する前にソースを添付してください。"
   },
   "upload": {
     "fileTooLargeTitle": "ファイルサイズが大きすぎます",
@@ -402,7 +404,8 @@
     "reviewWarningCancel": "キャンセル",
     "reviewRunLabel": "レビュー",
     "reviewDraftsCreated": "レビュー用下書きの準備ができました。",
-    "reviewStorageCapWarning": "{{count}} 件のファイルがローカル下書き上限 ({{cap}}) を超えています。音声/動画を保存する前にソースを添付してください。",
+    "reviewStorageCapWarning_one": "{{count}} 件のファイルがローカル下書き上限 ({{cap}}) を超えています。音声/動画を保存する前にソースを添付してください。",
+    "reviewStorageCapWarning_other": "{{count}} 件のファイルがローカル下書き上限 ({{cap}}) を超えています。音声/動画を保存する前にソースを添付してください。",
     "openContentReview": "コンテンツレビューを開く",
     "storageDocsLink": "インジェストと保存について詳しく見る",
     "storageDocsUrl": "https://github.com/rmusser01/tldw_browser_assistant",

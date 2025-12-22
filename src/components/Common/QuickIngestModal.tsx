@@ -868,10 +868,14 @@ export const QuickIngestModal: React.FC<Props> = ({
     async (batch: { batchId: string; skippedAssets: number }) => {
       if (!batch?.batchId) return
       if (batch.skippedAssets > 0) {
+        const reviewStorageCapDefault =
+          batch.skippedAssets === 1
+            ? "{{count}} file exceeds the local draft cap ({{cap}}). Attach sources before committing audio/video."
+            : "{{count}} files exceed the local draft cap ({{cap}}). Attach sources before committing audio/video."
         messageApi.warning(
           qi(
             "reviewStorageCapWarning",
-            "{{count}} file(s) exceed the local draft cap ({{cap}}). Attach sources before committing audio/video.",
+            reviewStorageCapDefault,
             {
               count: batch.skippedAssets,
               cap: formatBytes(DRAFT_STORAGE_CAP_BYTES)

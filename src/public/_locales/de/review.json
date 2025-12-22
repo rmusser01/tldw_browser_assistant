@@ -1,41 +1,41 @@
 {
-  "mediaPage.nothingToSend": {
+  "mediaPage_nothingToSend": {
     "message": "Nichts zu senden"
   },
-  "mediaPage.emptyAnalysis": {
+  "mediaPage_emptyAnalysis": {
     "message": "Analyse darf nicht leer sein"
   },
-  "mediaPage.noMediaId": {
+  "mediaPage_noMediaId": {
     "message": "Keine Medien-ID verfügbar"
   },
-  "mediaPage.versionSaved": {
+  "mediaPage_versionSaved": {
     "message": "Als neue Version gespeichert"
   },
-  "mediaPage.saveFailed": {
+  "mediaPage_saveFailed": {
     "message": "Version konnte nicht gespeichert werden"
   },
-  "mediaPage.saveUnauthorized": {
+  "mediaPage_saveUnauthorized": {
     "message": "Nicht zum Speichern berechtigt"
   },
-  "mediaPage.sendToChat": {
+  "mediaPage_sendToChat": {
     "message": "An Chat senden"
   },
-  "mediaPage.saveAsVersion": {
+  "mediaPage_saveAsVersion": {
     "message": "Als neue Version speichern"
   },
-  "mediaPage.analysisPlaceholder": {
+  "mediaPage_analysisPlaceholder": {
     "message": "Analysentext eingeben..."
   },
-  "mediaPage.wordCount": {
+  "mediaPage_wordCount": {
     "message": "{{count}} Wörter"
   },
-  "mediaPage.charCount": {
+  "mediaPage_charCount": {
     "message": "{{count}} Zeichen"
   },
-  "mediaPage.pageRangeError": {
+  "mediaPage_pageRangeError": {
     "message": "Seite muss zwischen 1 und {{max}} liegen"
   },
-  "mediaPage.pageRangeClamped": {
+  "mediaPage_pageRangeClamped": {
     "message": "Navigation zu Seite {{page}}"
   },
   "noToolCalls": {
@@ -68,184 +68,183 @@
   "reviewNavigationRetry": {
     "message": "Content Review erneut öffnen"
   },
-  "contentReview.title": {
+  "contentReview_title": {
     "message": "Inhaltsprüfung"
   },
-  "contentReview.readyToSubmit": {
+  "contentReview_readyToSubmit": {
     "message": "{{count}} bereit"
   },
-  "contentReview.committedCount": {
+  "contentReview_committedCount": {
     "message": "{{count}} übernommen"
   },
-  "contentReview.totalCount": {
+  "contentReview_totalCount": {
     "message": "{{count}} gesamt"
   },
-  "contentReview.commitAll": {
+  "contentReview_commitAll": {
     "message": "Alle übernehmen"
   },
-  "contentReview.clearDrafts": {
+  "contentReview_clearDrafts": {
     "message": "Entwürfe löschen"
   },
-  "contentReview.emptyDescription": {
+  "contentReview_emptyDescription": {
     "message": "Noch keine Entwürfe. Verwende Quick Ingest mit Review vor dem Speichern, um Entwürfe zu erstellen."
   },
-  "contentReview.openQuickIngest": {
+  "contentReview_openQuickIngest": {
     "message": "Quick Ingest öffnen"
   },
-  "contentReview.storeAfterReview": {
+  "contentReview_storeAfterReview": {
     "message": "Nach Überprüfung speichern"
   },
-  "contentReview.reviewBeforeStorage": {
+  "contentReview_reviewBeforeStorage": {
     "message": "Vor dem Speichern überprüfen"
   },
-  "contentReview.reviewBeforeStorageHint": {
+  "contentReview_reviewBeforeStorageHint": {
     "message": "Jetzt verarbeiten und Entwürfe lokal bearbeiten, bevor du sie auf deinen Server überträgst."
   },
-  "contentReview.reviewEnabled": {
+  "contentReview_reviewEnabled": {
     "message": "Überprüfungsmodus"
   },
-  "contentReview.reviewStorageCap": {
+  "contentReview_reviewStorageCap": {
     "message": "Lokale Entwürfe sind auf {{cap}} begrenzt."
   },
-  "contentReview.reviewWarningTitle": {
+  "contentReview_reviewWarningTitle": {
     "message": "Entwürfe lokal speichern?"
   },
-  "contentReview.reviewWarningBody": {
+  "contentReview_reviewWarningBody": {
     "message": "Entwürfe werden in diesem Browser gespeichert und können sensible Daten enthalten. Du kannst Entwürfe jederzeit auf der Seite „Inhaltsprüfung“ löschen."
   },
-  "contentReview.reviewWarningBodySecondary": {
+  "contentReview_reviewWarningBodySecondary": {
     "message": "Der Überprüfungsmodus hält Inhalte clientseitig, bis du sie auf deinen Server überträgst."
   },
-  "contentReview.reviewWarningConfirm": {
+  "contentReview_reviewWarningConfirm": {
     "message": "Überprüfung aktivieren"
   },
-  "contentReview.reviewWarningCancel": {
+  "contentReview_reviewWarningCancel": {
     "message": "Abbrechen"
   },
-  "contentReview.reviewRunLabel": {
+  "contentReview_reviewRunLabel": {
     "message": "Überprüfen"
   },
-  "contentReview.reviewDraftsCreated": {
+  "contentReview_reviewDraftsCreated": {
     "message": "Entwürfe bereit zur Überprüfung."
   },
-  "contentReview.reviewStorageCapWarning": {
-    "message": "{{count}} Datei(en) überschreiten das lokale Entwurfslimit ({{cap}}). Bitte Quellen vor dem Speichern von Audio/Video anhängen."
-  },
-  "contentReview.openContentReview": {
+  "contentReview.reviewStorageCapWarning_one": "{{count}} Datei überschreitet das lokale Entwurfslimit ({{cap}}). Bitte Quellen vor dem Speichern von Audio/Video anhängen.",
+  "contentReview.reviewStorageCapWarning_other": "{{count}} Dateien überschreiten das lokale Entwurfslimit ({{cap}}). Bitte Quellen vor dem Speichern von Audio/Video anhängen.",
+  "contentReview_openContentReview": {
     "message": "Inhaltsprüfung öffnen"
   },
-  "contentReview.batchLabel": {
+  "contentReview_batchLabel": {
     "message": "Stapel"
   },
-  "contentReview.batchName": {
+  "contentReview_batchName": {
     "message": "Stapel {{index}}"
   },
-  "contentReview.draftsLabel": {
+  "contentReview_draftsLabel": {
     "message": "Entwürfe"
   },
-  "contentReview.selectDraft": {
+  "contentReview_selectDraft": {
     "message": "Wähle einen Entwurf aus, um mit der Prüfung zu beginnen."
   },
-  "contentReview.titlePlaceholder": {
+  "contentReview_titlePlaceholder": {
     "message": "Entwurfstitel"
   },
-  "contentReview.lastSaved": {
+  "contentReview_lastSaved": {
     "message": "Gespeichert {{time}}"
   },
-  "contentReview.resetTitle": {
+  "contentReview_resetTitle": {
     "message": "Entwurf zurücksetzen?"
   },
-  "contentReview.resetBody": {
+  "contentReview_resetBody": {
     "message": "Dadurch wird der ursprüngliche Inhalt für diesen Entwurf wiederhergestellt."
   },
-  "contentReview.resetConfirm": {
+  "contentReview_resetConfirm": {
     "message": "Zurücksetzen"
   },
-  "contentReview.resetCancel": {
+  "contentReview_resetCancel": {
     "message": "Abbrechen"
   },
-  "contentReview.resetContent": {
+  "contentReview_resetContent": {
     "message": "Zurücksetzen"
   },
-  "contentReview.diffView": {
+  "contentReview_diffView": {
     "message": "Diff-Ansicht"
   },
-  "contentReview.saveDraft": {
+  "contentReview_saveDraft": {
     "message": "Entwurf speichern"
   },
-  "contentReview.editorLabel": {
+  "contentReview_editorLabel": {
     "message": "Inhalt"
   },
-  "contentReview.wordCount": {
+  "contentReview_wordCount": {
     "message": "{{words}} Wörter"
   },
-  "contentReview.charCount": {
+  "contentReview_charCount": {
     "message": "{{chars}} Zeichen"
   },
-  "contentReview.aiFix": {
+  "contentReview_aiFix": {
     "message": "KI-Korrektur"
   },
-  "contentReview.aiHint": {
+  "contentReview_aiHint": {
     "message": "Sendet den Entwurfsinhalt an deinen Server zur KI-Verarbeitung."
   },
-  "contentReview.modelPlaceholder": {
+  "contentReview_modelPlaceholder": {
     "message": "Serverstandard"
   },
-  "contentReview.aiConsentTitle": {
+  "contentReview_aiConsentTitle": {
     "message": "Entwurf an Server senden?"
   },
-  "contentReview.aiConsentBody": {
+  "contentReview_aiConsentBody": {
     "message": "Dadurch wird der Entwurfsinhalt an deinen tldw-Server zur KI-Verarbeitung gesendet. Entwürfe bleiben lokal, bis du sie übernimmst."
   },
-  "contentReview.aiConsentConfirm": {
+  "contentReview_aiConsentConfirm": {
     "message": "Weiter"
   },
-  "contentReview.aiConsentCancel": {
+  "contentReview_aiConsentCancel": {
     "message": "Abbrechen"
   },
-  "contentReview.aiApplied": {
+  "contentReview_aiApplied": {
     "message": "KI-Korrekturen übernommen."
   },
-  "contentReview.aiNoChange": {
+  "contentReview_aiNoChange": {
     "message": "Keine Änderungen zurückgegeben."
   },
-  "contentReview.aiEmpty": {
+  "contentReview_aiEmpty": {
     "message": "KI hat keinen Inhalt zurückgegeben."
   },
-  "contentReview.aiUnavailable": {
+  "contentReview_aiUnavailable": {
     "message": "Chat-Vervollständigungen nicht verfügbar."
   },
-  "contentReview.templatePlaceholder": {
+  "contentReview_templatePlaceholder": {
     "message": "Vorlage auswählen"
   },
-  "contentReview.applyTemplate": {
+  "contentReview_applyTemplate": {
     "message": "Vorlage anwenden"
   },
-  "contentReview.templateApplied": {
+  "contentReview_templateApplied": {
     "message": "Vorlage angewendet."
   },
-  "contentReview.templateMissing": {
+  "contentReview_templateMissing": {
     "message": "Wähle zuerst eine Vorlage aus."
   },
-  "contentReview.detectSections": {
+  "contentReview_detectSections": {
     "message": "Abschnitte erkennen"
   },
-  "contentReview.detectSectionsTitle": {
+  "contentReview_detectSectionsTitle": {
     "message": "Abschnitte erneut erkennen?"
   },
-  "contentReview.detectSectionsBody": {
+  "contentReview_detectSectionsBody": {
     "message": "Dies ersetzt vorhandene Abschnitte und setzt deine Auswahl zurück."
   },
-  "contentReview.detectSectionsConfirm": {
+  "contentReview_detectSectionsConfirm": {
     "message": "Erneut erkennen"
   },
-  "contentReview.detectSectionsCancel": {
+  "contentReview_detectSectionsCancel": {
     "message": "Abbrechen"
   },
-  "contentReview.detectSectionsEmpty": {
+  "contentReview_detectSectionsEmpty": {
     "message": "Keine Abschnitte erkannt."
   },
-  "contentReview.sectionsLabel": {
+  "contentReview_sectionsLabel": {
     "message": "Abschnittsfilter"
   },
   "contentReview.templates.transcript_clean.label": {
@@ -266,100 +265,100 @@
   "contentReview.templates.chapter_headings.description": {
     "message": "Fügt Markdown-Überschriften ein, um Themen zu gruppieren, ohne Inhalt zu entfernen."
   },
-  "contentReview.metadataLabel": {
+  "contentReview_metadataLabel": {
     "message": "Metadaten"
   },
-  "contentReview.mediaType": {
+  "contentReview_mediaType": {
     "message": "Medientyp"
   },
-  "contentReview.keywords": {
+  "contentReview_keywords": {
     "message": "Schlagwörter"
   },
-  "contentReview.keywordsPlaceholder": {
+  "contentReview_keywordsPlaceholder": {
     "message": "Schlagwörter hinzufügen"
   },
-  "contentReview.reviewNotes": {
+  "contentReview_reviewNotes": {
     "message": "Review-Notizen"
   },
-  "contentReview.missingSource": {
+  "contentReview_missingSource": {
     "message": "Quelldatei fehlt"
   },
-  "contentReview.missingSourceBody": {
+  "contentReview_missingSourceBody": {
     "message": "Hänge die Originaldatei an, um diesen Entwurf zu übernehmen."
   },
-  "contentReview.attachSource": {
+  "contentReview_attachSource": {
     "message": "Datei anhängen"
   },
-  "contentReview.actionsLabel": {
+  "contentReview_actionsLabel": {
     "message": "Aktionen"
   },
-  "contentReview.commit": {
+  "contentReview_commit": {
     "message": "Übernehmen"
   },
-  "contentReview.commitDisabled": {
+  "contentReview_commitDisabled": {
     "message": "Hänge die ursprüngliche Audio-/Videodatei an, bevor du übernimmst."
   },
-  "contentReview.markReviewed": {
+  "contentReview_markReviewed": {
     "message": "Als geprüft markieren"
   },
-  "contentReview.skipNext": {
+  "contentReview_skipNext": {
     "message": "Überspringen"
   },
-  "contentReview.discard": {
+  "contentReview_discard": {
     "message": "Verwerfen"
   },
-  "contentReview.discardTitle": {
+  "contentReview_discardTitle": {
     "message": "Entwurf verwerfen?"
   },
-  "contentReview.discardBody": {
+  "contentReview_discardBody": {
     "message": "Dieser Entwurf wird als verworfen gekennzeichnet und aus der Prüfung entfernt."
   },
-  "contentReview.discardConfirm": {
+  "contentReview_discardConfirm": {
     "message": "Verwerfen"
   },
-  "contentReview.discardCancel": {
+  "contentReview_discardCancel": {
     "message": "Abbrechen"
   },
-  "contentReview.commitSuccess": {
+  "contentReview_commitSuccess": {
     "message": "Entwurf übernommen."
   },
-  "contentReview.commitAllTitle": {
+  "contentReview_commitAllTitle": {
     "message": "Geprüfte Entwürfe übernehmen?"
   },
-  "contentReview.commitAllBody": {
+  "contentReview_commitAllBody": {
     "message": "Nur als geprüft markierte Entwürfe werden übernommen."
   },
-  "contentReview.commitAllConfirm": {
+  "contentReview_commitAllConfirm": {
     "message": "Alle übernehmen"
   },
-  "contentReview.commitAllCancel": {
+  "contentReview_commitAllCancel": {
     "message": "Abbrechen"
   },
-  "contentReview.commitAllResult": {
+  "contentReview_commitAllResult": {
     "message": "{{success}} übernommen · {{failed}} fehlgeschlagen"
   },
-  "contentReview.storageCapWarning": {
+  "contentReview_storageCapWarning": {
     "message": "Diese Datei überschreitet das lokale Entwurfs-Limit ({{cap}})."
   },
-  "contentReview.clearTitle": {
+  "contentReview_clearTitle": {
     "message": "Alle Entwürfe löschen?"
   },
-  "contentReview.clearBody": {
+  "contentReview_clearBody": {
     "message": "Dadurch werden alle lokalen Entwürfe und Dateien für die Inhaltsprüfung entfernt."
   },
-  "contentReview.clearConfirm": {
+  "contentReview_clearConfirm": {
     "message": "Entwürfe löschen"
   },
-  "contentReview.clearCancel": {
+  "contentReview_clearCancel": {
     "message": "Abbrechen"
   },
-  "contentReview.clearSuccess": {
+  "contentReview_clearSuccess": {
     "message": "Entwürfe gelöscht."
   },
-  "contentReview.originalLabel": {
+  "contentReview_originalLabel": {
     "message": "Original"
   },
-  "contentReview.editedLabel": {
+  "contentReview_editedLabel": {
     "message": "Bearbeitet"
   }
 }

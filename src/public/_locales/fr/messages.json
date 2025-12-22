@@ -742,304 +742,301 @@
   "chatSidebar_foldersRequireConnection": {
     "message": "Les dossiers nécessitent une connexion au serveur"
   },
-  "more.copy.canonicalMarkdown": {
+  "more_copy_canonicalMarkdown": {
     "message": "Copier la transcription canonique"
   },
-  "more.download.canonicalMarkdown": {
+  "more_download_canonicalMarkdown": {
     "message": "Transcription canonique (Markdown)"
   },
-  "contentReview.title": {
+  "contentReview_title": {
     "message": "Revue de contenu"
   },
-  "contentReview.readyToSubmit": {
+  "contentReview_readyToSubmit": {
     "message": "{{count}} prêt(s)"
   },
-  "contentReview.committedCount": {
+  "contentReview_committedCount": {
     "message": "{{count}} validé(s)"
   },
-  "contentReview.totalCount": {
+  "contentReview_totalCount": {
     "message": "{{count}} au total"
   },
-  "contentReview.commitAll": {
+  "contentReview_commitAll": {
     "message": "Tout valider"
   },
-  "contentReview.clearDrafts": {
+  "contentReview_clearDrafts": {
     "message": "Effacer les brouillons"
   },
-  "contentReview.emptyDescription": {
+  "contentReview_emptyDescription": {
     "message": "Aucun brouillon pour le moment. Utilisez Quick Ingest avec Relecture avant enregistrement pour créer des brouillons."
   },
-  "contentReview.openQuickIngest": {
+  "contentReview_openQuickIngest": {
     "message": "Ouvrir Quick Ingest"
   },
-  "contentReview.storeAfterReview": {
+  "contentReview_storeAfterReview": {
     "message": "Enregistrer après révision"
   },
-  "contentReview.reviewBeforeStorage": {
+  "contentReview_reviewBeforeStorage": {
     "message": "Réviser avant d’enregistrer"
   },
-  "contentReview.reviewBeforeStorageHint": {
+  "contentReview_reviewBeforeStorageHint": {
     "message": "Traitez maintenant, puis modifiez les brouillons localement avant de les valider sur votre serveur."
   },
-  "contentReview.reviewEnabled": {
+  "contentReview_reviewEnabled": {
     "message": "Mode de révision"
   },
-  "contentReview.reviewStorageCap": {
+  "contentReview_reviewStorageCap": {
     "message": "Les brouillons locaux sont limités à {{cap}}."
   },
-  "contentReview.reviewWarningTitle": {
+  "contentReview_reviewWarningTitle": {
     "message": "Enregistrer les brouillons localement ?"
   },
-  "contentReview.reviewWarningBody": {
+  "contentReview_reviewWarningBody": {
     "message": "Les brouillons sont enregistrés dans ce navigateur et peuvent contenir des données sensibles. Vous pouvez les supprimer depuis la page Révision de contenu à tout moment."
   },
-  "contentReview.reviewWarningBodySecondary": {
+  "contentReview_reviewWarningBodySecondary": {
     "message": "Le mode de révision conserve le contenu côté client jusqu’à validation sur votre serveur."
   },
-  "contentReview.reviewWarningConfirm": {
+  "contentReview_reviewWarningConfirm": {
     "message": "Activer la révision"
   },
-  "contentReview.reviewWarningCancel": {
+  "contentReview_reviewWarningCancel": {
     "message": "Annuler"
   },
-  "contentReview.reviewRunLabel": {
+  "contentReview_reviewRunLabel": {
     "message": "Révision"
   },
-  "contentReview.reviewDraftsCreated": {
+  "contentReview_reviewDraftsCreated": {
     "message": "Brouillons prêts pour la révision."
   },
-  "contentReview.reviewStorageCapWarning": {
-    "message": "{{count}} fichier(s) dépassent la limite locale de brouillons ({{cap}}). Joignez les sources avant de valider l’audio/vidéo."
-  },
-  "contentReview.openContentReview": {
+  "contentReview_openContentReview": {
     "message": "Ouvrir la Révision de contenu"
   },
-  "contentReview.batchLabel": {
+  "contentReview_batchLabel": {
     "message": "Lot"
   },
-  "contentReview.batchName": {
+  "contentReview_batchName": {
     "message": "Lot {{index}}"
   },
-  "contentReview.draftsLabel": {
+  "contentReview_draftsLabel": {
     "message": "Brouillons"
   },
-  "contentReview.selectDraft": {
+  "contentReview_selectDraft": {
     "message": "Sélectionnez un brouillon pour commencer la revue."
   },
-  "contentReview.titlePlaceholder": {
+  "contentReview_titlePlaceholder": {
     "message": "Titre du brouillon"
   },
-  "contentReview.lastSaved": {
+  "contentReview_lastSaved": {
     "message": "Enregistré {{time}}"
   },
-  "contentReview.resetTitle": {
+  "contentReview_resetTitle": {
     "message": "Réinitialiser le brouillon ?"
   },
-  "contentReview.resetBody": {
+  "contentReview_resetBody": {
     "message": "Cela restaurera le contenu original de ce brouillon."
   },
-  "contentReview.resetConfirm": {
+  "contentReview_resetConfirm": {
     "message": "Réinitialiser"
   },
-  "contentReview.resetCancel": {
+  "contentReview_resetCancel": {
     "message": "Annuler"
   },
-  "contentReview.resetContent": {
+  "contentReview_resetContent": {
     "message": "Réinitialiser"
   },
-  "contentReview.diffView": {
+  "contentReview_diffView": {
     "message": "Vue diff"
   },
-  "contentReview.saveDraft": {
+  "contentReview_saveDraft": {
     "message": "Enregistrer le brouillon"
   },
-  "contentReview.editorLabel": {
+  "contentReview_editorLabel": {
     "message": "Contenu"
   },
-  "contentReview.wordCount": {
+  "contentReview_wordCount": {
     "message": "{{words}} mots"
   },
-  "contentReview.charCount": {
+  "contentReview_charCount": {
     "message": "{{chars}} caractères"
   },
-  "contentReview.aiFix": {
+  "contentReview_aiFix": {
     "message": "Correction IA"
   },
-  "contentReview.aiHint": {
+  "contentReview_aiHint": {
     "message": "Envoie le contenu du brouillon à votre serveur pour un traitement IA."
   },
-  "contentReview.modelPlaceholder": {
+  "contentReview_modelPlaceholder": {
     "message": "Valeur par défaut du serveur"
   },
-  "contentReview.aiConsentTitle": {
+  "contentReview_aiConsentTitle": {
     "message": "Envoyer le brouillon au serveur ?"
   },
-  "contentReview.aiConsentBody": {
+  "contentReview_aiConsentBody": {
     "message": "Cela enverra le contenu du brouillon à votre serveur tldw pour traitement IA. Les brouillons restent locaux tant que vous ne les validez pas."
   },
-  "contentReview.aiConsentConfirm": {
+  "contentReview_aiConsentConfirm": {
     "message": "Continuer"
   },
-  "contentReview.aiConsentCancel": {
+  "contentReview_aiConsentCancel": {
     "message": "Annuler"
   },
-  "contentReview.aiApplied": {
+  "contentReview_aiApplied": {
     "message": "Corrections IA appliquées."
   },
-  "contentReview.aiNoChange": {
+  "contentReview_aiNoChange": {
     "message": "Aucun changement retourné."
   },
-  "contentReview.aiEmpty": {
+  "contentReview_aiEmpty": {
     "message": "L’IA n’a renvoyé aucun contenu."
   },
-  "contentReview.aiUnavailable": {
+  "contentReview_aiUnavailable": {
     "message": "Complétions de chat indisponibles."
   },
-  "contentReview.templatePlaceholder": {
+  "contentReview_templatePlaceholder": {
     "message": "Choisir un modèle"
   },
-  "contentReview.applyTemplate": {
+  "contentReview_applyTemplate": {
     "message": "Appliquer le modèle"
   },
-  "contentReview.templateApplied": {
+  "contentReview_templateApplied": {
     "message": "Modèle appliqué."
   },
-  "contentReview.templateMissing": {
+  "contentReview_templateMissing": {
     "message": "Sélectionnez d’abord un modèle."
   },
-  "contentReview.detectSections": {
+  "contentReview_detectSections": {
     "message": "Détecter les sections"
   },
-  "contentReview.detectSectionsTitle": {
+  "contentReview_detectSectionsTitle": {
     "message": "Redétecter les sections ?"
   },
-  "contentReview.detectSectionsBody": {
+  "contentReview_detectSectionsBody": {
     "message": "Cela remplacera les sections existantes et réinitialisera vos sélections."
   },
-  "contentReview.detectSectionsConfirm": {
+  "contentReview_detectSectionsConfirm": {
     "message": "Redétecter"
   },
-  "contentReview.detectSectionsCancel": {
+  "contentReview_detectSectionsCancel": {
     "message": "Annuler"
   },
-  "contentReview.detectSectionsEmpty": {
+  "contentReview_detectSectionsEmpty": {
     "message": "Aucune section détectée."
   },
-  "contentReview.sectionsLabel": {
+  "contentReview_sectionsLabel": {
     "message": "Filtre de section"
   },
-  "contentReview.templates.transcript_clean.label": {
+  "contentReview_templates_transcript_clean_label": {
     "message": "Nettoyer la transcription"
   },
-  "contentReview.templates.transcript_clean.description": {
+  "contentReview_templates_transcript_clean_description": {
     "message": "Normalise la ponctuation et la casse tout en préservant la structure des lignes."
   },
-  "contentReview.templates.speaker_turns.label": {
+  "contentReview_templates_speaker_turns_label": {
     "message": "Tours de parole"
   },
-  "contentReview.templates.speaker_turns.description": {
+  "contentReview_templates_speaker_turns_description": {
     "message": "S’assure que chaque tour de parole se trouve sur sa propre ligne avec des libellés clairs."
   },
-  "contentReview.templates.chapter_headings.label": {
+  "contentReview_templates_chapter_headings_label": {
     "message": "Titres de chapitre"
   },
-  "contentReview.templates.chapter_headings.description": {
+  "contentReview_templates_chapter_headings_description": {
     "message": "Insère des titres Markdown pour regrouper les sujets sans supprimer de contenu."
   },
-  "contentReview.metadataLabel": {
+  "contentReview_metadataLabel": {
     "message": "Métadonnées"
   },
-  "contentReview.mediaType": {
+  "contentReview_mediaType": {
     "message": "Type de média"
   },
-  "contentReview.keywords": {
+  "contentReview_keywords": {
     "message": "Mots-clés"
   },
-  "contentReview.keywordsPlaceholder": {
+  "contentReview_keywordsPlaceholder": {
     "message": "Ajouter des mots-clés"
   },
-  "contentReview.reviewNotes": {
+  "contentReview_reviewNotes": {
     "message": "Notes de revue"
   },
-  "contentReview.missingSource": {
+  "contentReview_missingSource": {
     "message": "Fichier source manquant"
   },
-  "contentReview.missingSourceBody": {
+  "contentReview_missingSourceBody": {
     "message": "Joignez le fichier d’origine pour valider ce brouillon."
   },
-  "contentReview.attachSource": {
+  "contentReview_attachSource": {
     "message": "Joindre un fichier"
   },
-  "contentReview.actionsLabel": {
+  "contentReview_actionsLabel": {
     "message": "Actions"
   },
-  "contentReview.commit": {
+  "contentReview_commit": {
     "message": "Valider"
   },
-  "contentReview.commitDisabled": {
+  "contentReview_commitDisabled": {
     "message": "Joignez le fichier audio/vidéo original avant de valider."
   },
-  "contentReview.markReviewed": {
+  "contentReview_markReviewed": {
     "message": "Marquer comme relu"
   },
-  "contentReview.skipNext": {
+  "contentReview_skipNext": {
     "message": "Ignorer"
   },
-  "contentReview.discard": {
+  "contentReview_discard": {
     "message": "Ignorer le brouillon"
   },
-  "contentReview.discardTitle": {
+  "contentReview_discardTitle": {
     "message": "Ignorer ce brouillon ?"
   },
-  "contentReview.discardBody": {
+  "contentReview_discardBody": {
     "message": "Ce brouillon sera marqué comme ignoré et retiré de la revue."
   },
-  "contentReview.discardConfirm": {
+  "contentReview_discardConfirm": {
     "message": "Ignorer"
   },
-  "contentReview.discardCancel": {
+  "contentReview_discardCancel": {
     "message": "Annuler"
   },
-  "contentReview.commitSuccess": {
+  "contentReview_commitSuccess": {
     "message": "Brouillon validé."
   },
-  "contentReview.commitAllTitle": {
+  "contentReview_commitAllTitle": {
     "message": "Valider les brouillons relus ?"
   },
-  "contentReview.commitAllBody": {
+  "contentReview_commitAllBody": {
     "message": "Seuls les brouillons marqués comme relus seront validés."
   },
-  "contentReview.commitAllConfirm": {
+  "contentReview_commitAllConfirm": {
     "message": "Tout valider"
   },
-  "contentReview.commitAllCancel": {
+  "contentReview_commitAllCancel": {
     "message": "Annuler"
   },
-  "contentReview.commitAllResult": {
+  "contentReview_commitAllResult": {
     "message": "{{success}} validé(s) · {{failed}} en échec"
   },
-  "contentReview.storageCapWarning": {
+  "contentReview_storageCapWarning": {
     "message": "Ce fichier dépasse le plafond local de brouillons ({{cap}})."
   },
-  "contentReview.clearTitle": {
+  "contentReview_clearTitle": {
     "message": "Effacer tous les brouillons ?"
   },
-  "contentReview.clearBody": {
+  "contentReview_clearBody": {
     "message": "Cela supprime tous les brouillons et ressources locaux de revue de contenu."
   },
-  "contentReview.clearConfirm": {
+  "contentReview_clearConfirm": {
     "message": "Effacer les brouillons"
   },
-  "contentReview.clearCancel": {
+  "contentReview_clearCancel": {
     "message": "Annuler"
   },
-  "contentReview.clearSuccess": {
+  "contentReview_clearSuccess": {
     "message": "Brouillons effacés."
   },
-  "contentReview.originalLabel": {
+  "contentReview_originalLabel": {
     "message": "Original"
   },
-  "contentReview.editedLabel": {
+  "contentReview_editedLabel": {
     "message": "Modifié"
   },
   "reviewDraftsFailedTitle": {
@@ -1152,9 +1149,6 @@
   },
   "quickIngest_reviewNavigationRetry": {
     "message": "Réessayer d’ouvrir la Revue de contenu"
-  },
-  "quickIngest_reviewStorageCapWarning": {
-    "message": "{{count}} fichier(s) dépassent la limite locale de brouillons ({{cap}}). Joignez les sources avant de valider l’audio/vidéo."
   },
   "quickIngest_openContentReview": {
     "message": "Ouvrir la Révision de contenu"

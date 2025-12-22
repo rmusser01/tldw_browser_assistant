@@ -757,304 +757,301 @@
   "chatSidebar_foldersRequireConnection": {
     "message": "Le cartelle richiedono una connessione al server"
   },
-  "more.copy.canonicalMarkdown": {
+  "more_copy_canonicalMarkdown": {
     "message": "Copia trascrizione canonica"
   },
-  "more.download.canonicalMarkdown": {
+  "more_download_canonicalMarkdown": {
     "message": "Trascrizione canonica (Markdown)"
   },
-  "contentReview.title": {
+  "contentReview_title": {
     "message": "Revisione contenuti"
   },
-  "contentReview.readyToSubmit": {
+  "contentReview_readyToSubmit": {
     "message": "{{count}} pronti"
   },
-  "contentReview.committedCount": {
+  "contentReview_committedCount": {
     "message": "{{count}} confermati"
   },
-  "contentReview.totalCount": {
+  "contentReview_totalCount": {
     "message": "{{count}} totali"
   },
-  "contentReview.commitAll": {
+  "contentReview_commitAll": {
     "message": "Conferma tutto"
   },
-  "contentReview.clearDrafts": {
+  "contentReview_clearDrafts": {
     "message": "Pulisci bozze"
   },
-  "contentReview.emptyDescription": {
+  "contentReview_emptyDescription": {
     "message": "Non ci sono ancora bozze. Usa Quick Ingest con Revisiona prima di salvare per creare bozze."
   },
-  "contentReview.openQuickIngest": {
+  "contentReview_openQuickIngest": {
     "message": "Apri Quick Ingest"
   },
-  "contentReview.storeAfterReview": {
+  "contentReview_storeAfterReview": {
     "message": "Salva dopo la revisione"
   },
-  "contentReview.reviewBeforeStorage": {
+  "contentReview_reviewBeforeStorage": {
     "message": "Rivedi prima di salvare"
   },
-  "contentReview.reviewBeforeStorageHint": {
+  "contentReview_reviewBeforeStorageHint": {
     "message": "Elabora ora, poi modifica le bozze localmente prima di salvarle sul server."
   },
-  "contentReview.reviewEnabled": {
+  "contentReview_reviewEnabled": {
     "message": "Modalità revisione"
   },
-  "contentReview.reviewStorageCap": {
+  "contentReview_reviewStorageCap": {
     "message": "Le bozze locali sono limitate a {{cap}}."
   },
-  "contentReview.reviewWarningTitle": {
+  "contentReview_reviewWarningTitle": {
     "message": "Salvare le bozze localmente?"
   },
-  "contentReview.reviewWarningBody": {
+  "contentReview_reviewWarningBody": {
     "message": "Le bozze vengono salvate in questo browser e possono contenere dati sensibili. Puoi eliminarle dalla pagina Revisione contenuti in qualsiasi momento."
   },
-  "contentReview.reviewWarningBodySecondary": {
+  "contentReview_reviewWarningBodySecondary": {
     "message": "La modalità revisione mantiene i contenuti lato client finché non li salvi sul server."
   },
-  "contentReview.reviewWarningConfirm": {
+  "contentReview_reviewWarningConfirm": {
     "message": "Abilita revisione"
   },
-  "contentReview.reviewWarningCancel": {
+  "contentReview_reviewWarningCancel": {
     "message": "Annulla"
   },
-  "contentReview.reviewRunLabel": {
+  "contentReview_reviewRunLabel": {
     "message": "Revisione"
   },
-  "contentReview.reviewDraftsCreated": {
+  "contentReview_reviewDraftsCreated": {
     "message": "Bozze pronte per la revisione."
   },
-  "contentReview.reviewStorageCapWarning": {
-    "message": "{{count}} file supera(no) il limite locale di bozze ({{cap}}). Allega le fonti prima di salvare audio/video."
-  },
-  "contentReview.openContentReview": {
+  "contentReview_openContentReview": {
     "message": "Apri Revisione contenuti"
   },
-  "contentReview.batchLabel": {
+  "contentReview_batchLabel": {
     "message": "Lotto"
   },
-  "contentReview.batchName": {
+  "contentReview_batchName": {
     "message": "Batch {{index}}"
   },
-  "contentReview.draftsLabel": {
+  "contentReview_draftsLabel": {
     "message": "Bozze"
   },
-  "contentReview.selectDraft": {
+  "contentReview_selectDraft": {
     "message": "Seleziona una bozza per iniziare la revisione."
   },
-  "contentReview.titlePlaceholder": {
+  "contentReview_titlePlaceholder": {
     "message": "Titolo bozza"
   },
-  "contentReview.lastSaved": {
+  "contentReview_lastSaved": {
     "message": "Salvato {{time}}"
   },
-  "contentReview.resetTitle": {
+  "contentReview_resetTitle": {
     "message": "Reimpostare la bozza?"
   },
-  "contentReview.resetBody": {
+  "contentReview_resetBody": {
     "message": "Questo ripristinerà il contenuto originale di questa bozza."
   },
-  "contentReview.resetConfirm": {
+  "contentReview_resetConfirm": {
     "message": "Reimposta"
   },
-  "contentReview.resetCancel": {
+  "contentReview_resetCancel": {
     "message": "Annulla"
   },
-  "contentReview.resetContent": {
+  "contentReview_resetContent": {
     "message": "Reimposta"
   },
-  "contentReview.diffView": {
+  "contentReview_diffView": {
     "message": "Vista diff"
   },
-  "contentReview.saveDraft": {
+  "contentReview_saveDraft": {
     "message": "Salva bozza"
   },
-  "contentReview.editorLabel": {
+  "contentReview_editorLabel": {
     "message": "Contenuto"
   },
-  "contentReview.wordCount": {
+  "contentReview_wordCount": {
     "message": "{{words}} parole"
   },
-  "contentReview.charCount": {
+  "contentReview_charCount": {
     "message": "{{chars}} caratteri"
   },
-  "contentReview.aiFix": {
+  "contentReview_aiFix": {
     "message": "Correzione IA"
   },
-  "contentReview.aiHint": {
+  "contentReview_aiHint": {
     "message": "Invia il contenuto della bozza al server per l’elaborazione con IA."
   },
-  "contentReview.modelPlaceholder": {
+  "contentReview_modelPlaceholder": {
     "message": "Predefinito server"
   },
-  "contentReview.aiConsentTitle": {
+  "contentReview_aiConsentTitle": {
     "message": "Inviare la bozza al server?"
   },
-  "contentReview.aiConsentBody": {
+  "contentReview_aiConsentBody": {
     "message": "Questo invierà il contenuto della bozza al tuo server tldw per l’elaborazione con IA. Le bozze restano locali finché non le confermi."
   },
-  "contentReview.aiConsentConfirm": {
+  "contentReview_aiConsentConfirm": {
     "message": "Continua"
   },
-  "contentReview.aiConsentCancel": {
+  "contentReview_aiConsentCancel": {
     "message": "Annulla"
   },
-  "contentReview.aiApplied": {
+  "contentReview_aiApplied": {
     "message": "Correzioni IA applicate."
   },
-  "contentReview.aiNoChange": {
+  "contentReview_aiNoChange": {
     "message": "Nessuna modifica restituita."
   },
-  "contentReview.aiEmpty": {
+  "contentReview_aiEmpty": {
     "message": "L’IA non ha restituito contenuto."
   },
-  "contentReview.aiUnavailable": {
+  "contentReview_aiUnavailable": {
     "message": "Completamenti chat non disponibili."
   },
-  "contentReview.templatePlaceholder": {
+  "contentReview_templatePlaceholder": {
     "message": "Scegli modello"
   },
-  "contentReview.applyTemplate": {
+  "contentReview_applyTemplate": {
     "message": "Applica modello"
   },
-  "contentReview.templateApplied": {
+  "contentReview_templateApplied": {
     "message": "Modello applicato."
   },
-  "contentReview.templateMissing": {
+  "contentReview_templateMissing": {
     "message": "Seleziona prima un modello."
   },
-  "contentReview.detectSections": {
+  "contentReview_detectSections": {
     "message": "Rileva sezioni"
   },
-  "contentReview.detectSectionsTitle": {
+  "contentReview_detectSectionsTitle": {
     "message": "Rilevare di nuovo le sezioni?"
   },
-  "contentReview.detectSectionsBody": {
+  "contentReview_detectSectionsBody": {
     "message": "Questo sostituirà le sezioni esistenti e reimposterà le tue selezioni."
   },
-  "contentReview.detectSectionsConfirm": {
+  "contentReview_detectSectionsConfirm": {
     "message": "Rileva di nuovo"
   },
-  "contentReview.detectSectionsCancel": {
+  "contentReview_detectSectionsCancel": {
     "message": "Annulla"
   },
-  "contentReview.detectSectionsEmpty": {
+  "contentReview_detectSectionsEmpty": {
     "message": "Nessuna sezione rilevata."
   },
-  "contentReview.sectionsLabel": {
+  "contentReview_sectionsLabel": {
     "message": "Filtro sezione"
   },
-  "contentReview.templates.transcript_clean.label": {
+  "contentReview_templates_transcript_clean_label": {
     "message": "Pulisci trascrizione"
   },
-  "contentReview.templates.transcript_clean.description": {
+  "contentReview_templates_transcript_clean_description": {
     "message": "Normalizza punteggiatura e maiuscole/minuscole mantenendo la struttura delle righe."
   },
-  "contentReview.templates.speaker_turns.label": {
+  "contentReview_templates_speaker_turns_label": {
     "message": "Turni di parlato"
   },
-  "contentReview.templates.speaker_turns.description": {
+  "contentReview_templates_speaker_turns_description": {
     "message": "Assicura che ogni turno di parlato sia su una propria riga con etichette chiare."
   },
-  "contentReview.templates.chapter_headings.label": {
+  "contentReview_templates_chapter_headings_label": {
     "message": "Titoli di capitolo"
   },
-  "contentReview.templates.chapter_headings.description": {
+  "contentReview_templates_chapter_headings_description": {
     "message": "Inserisce intestazioni Markdown per raggruppare gli argomenti senza rimuovere contenuto."
   },
-  "contentReview.metadataLabel": {
+  "contentReview_metadataLabel": {
     "message": "Metadati"
   },
-  "contentReview.mediaType": {
+  "contentReview_mediaType": {
     "message": "Tipo di media"
   },
-  "contentReview.keywords": {
+  "contentReview_keywords": {
     "message": "Parole chiave"
   },
-  "contentReview.keywordsPlaceholder": {
+  "contentReview_keywordsPlaceholder": {
     "message": "Aggiungi parole chiave"
   },
-  "contentReview.reviewNotes": {
+  "contentReview_reviewNotes": {
     "message": "Note di revisione"
   },
-  "contentReview.missingSource": {
+  "contentReview_missingSource": {
     "message": "File sorgente mancante"
   },
-  "contentReview.missingSourceBody": {
+  "contentReview_missingSourceBody": {
     "message": "Allega il file originale per confermare questa bozza."
   },
-  "contentReview.attachSource": {
+  "contentReview_attachSource": {
     "message": "Allega file"
   },
-  "contentReview.actionsLabel": {
+  "contentReview_actionsLabel": {
     "message": "Azioni"
   },
-  "contentReview.commit": {
+  "contentReview_commit": {
     "message": "Conferma"
   },
-  "contentReview.commitDisabled": {
+  "contentReview_commitDisabled": {
     "message": "Allega il file audio/video originale prima di confermare."
   },
-  "contentReview.markReviewed": {
+  "contentReview_markReviewed": {
     "message": "Segna come revisionato"
   },
-  "contentReview.skipNext": {
+  "contentReview_skipNext": {
     "message": "Salta"
   },
-  "contentReview.discard": {
+  "contentReview_discard": {
     "message": "Scarta"
   },
-  "contentReview.discardTitle": {
+  "contentReview_discardTitle": {
     "message": "Scartare la bozza?"
   },
-  "contentReview.discardBody": {
+  "contentReview_discardBody": {
     "message": "Questa bozza verrà segnata come scartata e rimossa dalla revisione."
   },
-  "contentReview.discardConfirm": {
+  "contentReview_discardConfirm": {
     "message": "Scarta"
   },
-  "contentReview.discardCancel": {
+  "contentReview_discardCancel": {
     "message": "Annulla"
   },
-  "contentReview.commitSuccess": {
+  "contentReview_commitSuccess": {
     "message": "Bozza confermata."
   },
-  "contentReview.commitAllTitle": {
+  "contentReview_commitAllTitle": {
     "message": "Confermare le bozze revisionate?"
   },
-  "contentReview.commitAllBody": {
+  "contentReview_commitAllBody": {
     "message": "Verranno confermate solo le bozze contrassegnate come revisionate."
   },
-  "contentReview.commitAllConfirm": {
+  "contentReview_commitAllConfirm": {
     "message": "Conferma tutte"
   },
-  "contentReview.commitAllCancel": {
+  "contentReview_commitAllCancel": {
     "message": "Annulla"
   },
-  "contentReview.commitAllResult": {
+  "contentReview_commitAllResult": {
     "message": "{{success}} confermate · {{failed}} non riuscite"
   },
-  "contentReview.storageCapWarning": {
+  "contentReview_storageCapWarning": {
     "message": "Questo file supera il limite locale di bozze ({{cap}})."
   },
-  "contentReview.clearTitle": {
+  "contentReview_clearTitle": {
     "message": "Pulire tutte le bozze?"
   },
-  "contentReview.clearBody": {
+  "contentReview_clearBody": {
     "message": "Questo rimuove tutte le bozze e le risorse locali della revisione contenuti."
   },
-  "contentReview.clearConfirm": {
+  "contentReview_clearConfirm": {
     "message": "Pulisci bozze"
   },
-  "contentReview.clearCancel": {
+  "contentReview_clearCancel": {
     "message": "Annulla"
   },
-  "contentReview.clearSuccess": {
+  "contentReview_clearSuccess": {
     "message": "Bozze pulite."
   },
-  "contentReview.originalLabel": {
+  "contentReview_originalLabel": {
     "message": "Originale"
   },
-  "contentReview.editedLabel": {
+  "contentReview_editedLabel": {
     "message": "Modificato"
   },
   "reviewDraftsFailedTitle": {
@@ -1167,9 +1164,6 @@
   },
   "quickIngest_reviewNavigationRetry": {
     "message": "Riprova ad aprire la Revisione contenuti"
-  },
-  "quickIngest_reviewStorageCapWarning": {
-    "message": "{{count}} file supera(no) il limite locale di bozze ({{cap}}). Allega le fonti prima di salvare audio/video."
   },
   "quickIngest_openContentReview": {
     "message": "Apri Revisione contenuti"

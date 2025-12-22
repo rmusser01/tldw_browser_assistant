@@ -214,7 +214,8 @@
     "reviewDraftsStoreWithoutReview": "Lagre uten gjennomgang",
     "reviewNavigationFailed": "Kunne ikke åpne Innholdsgjennomgang. Prøv igjen.",
     "reviewNavigationRetry": "Prøv å åpne Innholdsgjennomgang på nytt",
-    "reviewStorageCapWarning": "{{count}} fil(er) overskrider den lokale kladdegrensen ({{cap}}). Legg ved kilder før du lagrer lyd/video.",
+    "reviewStorageCapWarning_one": "{{count}} fil overskrider den lokale kladdegrensen ({{cap}}). Legg ved kilder før du lagrer lyd/video.",
+    "reviewStorageCapWarning_other": "{{count}} filer overskrider den lokale kladdegrensen ({{cap}}). Legg ved kilder før du lagrer lyd/video.",
     "openContentReview": "Åpne Innholdsgjennomgang",
     "storageDocsLink": "Lær mer om ingest og lagring",
     "storageDocsUrl": "https://github.com/rmusser01/tldw_browser_assistant",
@@ -557,7 +558,9 @@
     "clearCancel": "Avbryt",
     "clearSuccess": "Utkast tømt.",
     "originalLabel": "Original",
-    "editedLabel": "Redigert"
+    "editedLabel": "Redigert",
+    "reviewStorageCapWarning_one": "{{count}} fil overskrider den lokale kladdegrensen ({{cap}}). Legg ved kilder før du lagrer lyd/video.",
+    "reviewStorageCapWarning_other": "{{count}} filer overskrider den lokale kladdegrensen ({{cap}}). Legg ved kilder før du lagrer lyd/video."
   },
   "omniSearch": {
     "filterScreen": "Skjermer",

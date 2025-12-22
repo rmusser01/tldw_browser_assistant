@@ -1,41 +1,41 @@
 {
-  "mediaPage.nothingToSend": {
+  "mediaPage_nothingToSend": {
     "message": "Intet at sende"
   },
-  "mediaPage.emptyAnalysis": {
+  "mediaPage_emptyAnalysis": {
     "message": "Analysen må ikke være tom"
   },
-  "mediaPage.noMediaId": {
+  "mediaPage_noMediaId": {
     "message": "Ingen medie-ID tilgængelig"
   },
-  "mediaPage.versionSaved": {
+  "mediaPage_versionSaved": {
     "message": "Gemt som ny version"
   },
-  "mediaPage.saveFailed": {
+  "mediaPage_saveFailed": {
     "message": "Kunne ikke gemme versionen"
   },
-  "mediaPage.saveUnauthorized": {
+  "mediaPage_saveUnauthorized": {
     "message": "Ikke autoriseret til at gemme"
   },
-  "mediaPage.sendToChat": {
+  "mediaPage_sendToChat": {
     "message": "Send til chat"
   },
-  "mediaPage.saveAsVersion": {
+  "mediaPage_saveAsVersion": {
     "message": "Gem som ny version"
   },
-  "mediaPage.analysisPlaceholder": {
+  "mediaPage_analysisPlaceholder": {
     "message": "Indtast analysetekst..."
   },
-  "mediaPage.wordCount": {
+  "mediaPage_wordCount": {
     "message": "{{count}} ord"
   },
-  "mediaPage.charCount": {
+  "mediaPage_charCount": {
     "message": "{{count}} tegn"
   },
-  "mediaPage.pageRangeError": {
+  "mediaPage_pageRangeError": {
     "message": "Side skal være 1-{{max}}"
   },
-  "mediaPage.pageRangeClamped": {
+  "mediaPage_pageRangeClamped": {
     "message": "Navigerer til side {{page}}"
   },
   "noToolCalls": {
@@ -68,184 +68,183 @@
   "reviewNavigationRetry": {
     "message": "Prøv at åbne Indholdsgennemgang igen"
   },
-  "contentReview.title": {
+  "contentReview_title": {
     "message": "Indholdsgennemgang"
   },
-  "contentReview.readyToSubmit": {
+  "contentReview_readyToSubmit": {
     "message": "{{count}} klar"
   },
-  "contentReview.committedCount": {
+  "contentReview_committedCount": {
     "message": "{{count}} bekræftet"
   },
-  "contentReview.totalCount": {
+  "contentReview_totalCount": {
     "message": "{{count}} i alt"
   },
-  "contentReview.commitAll": {
+  "contentReview_commitAll": {
     "message": "Bekræft alle"
   },
-  "contentReview.clearDrafts": {
+  "contentReview_clearDrafts": {
     "message": "Ryd kladder"
   },
-  "contentReview.emptyDescription": {
+  "contentReview_emptyDescription": {
     "message": "Ingen kladder endnu. Brug Quick Ingest med Gennemse før gem for at oprette kladder."
   },
-  "contentReview.openQuickIngest": {
+  "contentReview_openQuickIngest": {
     "message": "Åbn Quick Ingest"
   },
-  "contentReview.storeAfterReview": {
+  "contentReview_storeAfterReview": {
     "message": "Gem efter gennemgang"
   },
-  "contentReview.reviewBeforeStorage": {
+  "contentReview_reviewBeforeStorage": {
     "message": "Gennemgå før gem"
   },
-  "contentReview.reviewBeforeStorageHint": {
+  "contentReview_reviewBeforeStorageHint": {
     "message": "Behandl nu, og redigér derefter kladder lokalt, før du gemmer på din server."
   },
-  "contentReview.reviewEnabled": {
+  "contentReview_reviewEnabled": {
     "message": "Gennemgangstilstand"
   },
-  "contentReview.reviewStorageCap": {
+  "contentReview_reviewStorageCap": {
     "message": "Lokale kladder er begrænset til {{cap}}."
   },
-  "contentReview.reviewWarningTitle": {
+  "contentReview_reviewWarningTitle": {
     "message": "Gem kladder lokalt?"
   },
-  "contentReview.reviewWarningBody": {
+  "contentReview_reviewWarningBody": {
     "message": "Kladder gemmes i denne browser og kan indeholde følsomme data. Du kan altid rydde kladder fra siden Indholdsgennemgang."
   },
-  "contentReview.reviewWarningBodySecondary": {
+  "contentReview_reviewWarningBodySecondary": {
     "message": "Gennemgangstilstand holder indholdet på klientsiden, indtil du gemmer det på din server."
   },
-  "contentReview.reviewWarningConfirm": {
+  "contentReview_reviewWarningConfirm": {
     "message": "Aktivér gennemgang"
   },
-  "contentReview.reviewWarningCancel": {
+  "contentReview_reviewWarningCancel": {
     "message": "Annuller"
   },
-  "contentReview.reviewRunLabel": {
+  "contentReview_reviewRunLabel": {
     "message": "Gennemgå"
   },
-  "contentReview.reviewDraftsCreated": {
+  "contentReview_reviewDraftsCreated": {
     "message": "Kladder klar til gennemgang."
   },
-  "contentReview.reviewStorageCapWarning": {
-    "message": "{{count}} fil(er) overskrider den lokale kladdegrænse ({{cap}}). Vedhæft kilder før du gemmer lyd/video."
-  },
-  "contentReview.openContentReview": {
+  "contentReview.reviewStorageCapWarning_one": "{{count}} fil overskrider den lokale kladdegrænse ({{cap}}). Vedhæft kilder før du gemmer lyd/video.",
+  "contentReview.reviewStorageCapWarning_other": "{{count}} filer overskrider den lokale kladdegrænse ({{cap}}). Vedhæft kilder før du gemmer lyd/video.",
+  "contentReview_openContentReview": {
     "message": "Åbn Indholdsgennemgang"
   },
-  "contentReview.batchLabel": {
+  "contentReview_batchLabel": {
     "message": "Batch"
   },
-  "contentReview.batchName": {
+  "contentReview_batchName": {
     "message": "Batch {{index}}"
   },
-  "contentReview.draftsLabel": {
+  "contentReview_draftsLabel": {
     "message": "Kladder"
   },
-  "contentReview.selectDraft": {
+  "contentReview_selectDraft": {
     "message": "Vælg en kladde for at starte gennemgangen."
   },
-  "contentReview.titlePlaceholder": {
+  "contentReview_titlePlaceholder": {
     "message": "Kladde titel"
   },
-  "contentReview.lastSaved": {
+  "contentReview_lastSaved": {
     "message": "Gemt {{time}}"
   },
-  "contentReview.resetTitle": {
+  "contentReview_resetTitle": {
     "message": "Nulstil kladde?"
   },
-  "contentReview.resetBody": {
+  "contentReview_resetBody": {
     "message": "Dette gendanner det oprindelige indhold for denne kladde."
   },
-  "contentReview.resetConfirm": {
+  "contentReview_resetConfirm": {
     "message": "Nulstil"
   },
-  "contentReview.resetCancel": {
+  "contentReview_resetCancel": {
     "message": "Annuller"
   },
-  "contentReview.resetContent": {
+  "contentReview_resetContent": {
     "message": "Nulstil"
   },
-  "contentReview.diffView": {
+  "contentReview_diffView": {
     "message": "Diff-visning"
   },
-  "contentReview.saveDraft": {
+  "contentReview_saveDraft": {
     "message": "Gem kladde"
   },
-  "contentReview.editorLabel": {
+  "contentReview_editorLabel": {
     "message": "Indhold"
   },
-  "contentReview.wordCount": {
+  "contentReview_wordCount": {
     "message": "{{words}} ord"
   },
-  "contentReview.charCount": {
+  "contentReview_charCount": {
     "message": "{{chars}} tegn"
   },
-  "contentReview.aiFix": {
+  "contentReview_aiFix": {
     "message": "AI‑rettelse"
   },
-  "contentReview.aiHint": {
+  "contentReview_aiHint": {
     "message": "Sender kladdeindholdet til din server til AI‑behandling."
   },
-  "contentReview.modelPlaceholder": {
+  "contentReview_modelPlaceholder": {
     "message": "Serverstandard"
   },
-  "contentReview.aiConsentTitle": {
+  "contentReview_aiConsentTitle": {
     "message": "Send kladde til serveren?"
   },
-  "contentReview.aiConsentBody": {
+  "contentReview_aiConsentBody": {
     "message": "Dette sender kladdeindholdet til din tldw‑server til AI‑behandling. Kladder bliver på enheden, indtil du bekræfter dem."
   },
-  "contentReview.aiConsentConfirm": {
+  "contentReview_aiConsentConfirm": {
     "message": "Fortsæt"
   },
-  "contentReview.aiConsentCancel": {
+  "contentReview_aiConsentCancel": {
     "message": "Annuller"
   },
-  "contentReview.aiApplied": {
+  "contentReview_aiApplied": {
     "message": "AI‑rettelser anvendt."
   },
-  "contentReview.aiNoChange": {
+  "contentReview_aiNoChange": {
     "message": "Ingen ændringer retur."
   },
-  "contentReview.aiEmpty": {
+  "contentReview_aiEmpty": {
     "message": "AI returnerede intet indhold."
   },
-  "contentReview.aiUnavailable": {
+  "contentReview_aiUnavailable": {
     "message": "Chat‑fuldførelser er ikke tilgængelige."
   },
-  "contentReview.templatePlaceholder": {
+  "contentReview_templatePlaceholder": {
     "message": "Vælg skabelon"
   },
-  "contentReview.applyTemplate": {
+  "contentReview_applyTemplate": {
     "message": "Anvend skabelon"
   },
-  "contentReview.templateApplied": {
+  "contentReview_templateApplied": {
     "message": "Skabelon anvendt."
   },
-  "contentReview.templateMissing": {
+  "contentReview_templateMissing": {
     "message": "Vælg først en skabelon."
   },
-  "contentReview.detectSections": {
+  "contentReview_detectSections": {
     "message": "Registrer sektioner"
   },
-  "contentReview.detectSectionsTitle": {
+  "contentReview_detectSectionsTitle": {
     "message": "Registrer sektioner igen?"
   },
-  "contentReview.detectSectionsBody": {
+  "contentReview_detectSectionsBody": {
     "message": "Dette erstatter eksisterende sektioner og nulstiller dine valg."
   },
-  "contentReview.detectSectionsConfirm": {
+  "contentReview_detectSectionsConfirm": {
     "message": "Registrer igen"
   },
-  "contentReview.detectSectionsCancel": {
+  "contentReview_detectSectionsCancel": {
     "message": "Annuller"
   },
-  "contentReview.detectSectionsEmpty": {
+  "contentReview_detectSectionsEmpty": {
     "message": "Ingen sektioner registreret."
   },
-  "contentReview.sectionsLabel": {
+  "contentReview_sectionsLabel": {
     "message": "Sektionsfilter"
   },
   "contentReview.templates.transcript_clean.label": {
@@ -266,100 +265,100 @@
   "contentReview.templates.chapter_headings.description": {
     "message": "Indsætter Markdown‑overskrifter for at gruppere emner uden at fjerne indhold."
   },
-  "contentReview.metadataLabel": {
+  "contentReview_metadataLabel": {
     "message": "Metadata"
   },
-  "contentReview.mediaType": {
+  "contentReview_mediaType": {
     "message": "Medietype"
   },
-  "contentReview.keywords": {
+  "contentReview_keywords": {
     "message": "Nøgleord"
   },
-  "contentReview.keywordsPlaceholder": {
+  "contentReview_keywordsPlaceholder": {
     "message": "Tilføj nøgleord"
   },
-  "contentReview.reviewNotes": {
+  "contentReview_reviewNotes": {
     "message": "Gennemgangsnoter"
   },
-  "contentReview.missingSource": {
+  "contentReview_missingSource": {
     "message": "Kildefil mangler"
   },
-  "contentReview.missingSourceBody": {
+  "contentReview_missingSourceBody": {
     "message": "Vedhæft den originale fil for at bekræfte denne kladde."
   },
-  "contentReview.attachSource": {
+  "contentReview_attachSource": {
     "message": "Vedhæft fil"
   },
-  "contentReview.actionsLabel": {
+  "contentReview_actionsLabel": {
     "message": "Handlinger"
   },
-  "contentReview.commit": {
+  "contentReview_commit": {
     "message": "Bekræft"
   },
-  "contentReview.commitDisabled": {
+  "contentReview_commitDisabled": {
     "message": "Vedhæft den oprindelige lyd-/videofil, før du bekræfter."
   },
-  "contentReview.markReviewed": {
+  "contentReview_markReviewed": {
     "message": "Marker som gennemgået"
   },
-  "contentReview.skipNext": {
+  "contentReview_skipNext": {
     "message": "Spring over"
   },
-  "contentReview.discard": {
+  "contentReview_discard": {
     "message": "Kassér"
   },
-  "contentReview.discardTitle": {
+  "contentReview_discardTitle": {
     "message": "Kassér kladde?"
   },
-  "contentReview.discardBody": {
+  "contentReview_discardBody": {
     "message": "Denne kladde markeres som kasseret og fjernes fra gennemgangen."
   },
-  "contentReview.discardConfirm": {
+  "contentReview_discardConfirm": {
     "message": "Kassér"
   },
-  "contentReview.discardCancel": {
+  "contentReview_discardCancel": {
     "message": "Annuller"
   },
-  "contentReview.commitSuccess": {
+  "contentReview_commitSuccess": {
     "message": "Kladde bekræftet."
   },
-  "contentReview.commitAllTitle": {
+  "contentReview_commitAllTitle": {
     "message": "Bekræft gennemgåede kladder?"
   },
-  "contentReview.commitAllBody": {
+  "contentReview_commitAllBody": {
     "message": "Kun kladder markeret som gennemgået bliver bekræftet."
   },
-  "contentReview.commitAllConfirm": {
+  "contentReview_commitAllConfirm": {
     "message": "Bekræft alle"
   },
-  "contentReview.commitAllCancel": {
+  "contentReview_commitAllCancel": {
     "message": "Annuller"
   },
-  "contentReview.commitAllResult": {
+  "contentReview_commitAllResult": {
     "message": "{{success}} bekræftet · {{failed}} mislykkedes"
   },
-  "contentReview.storageCapWarning": {
+  "contentReview_storageCapWarning": {
     "message": "Denne fil overskrider den lokale kladdegrænse ({{cap}})."
   },
-  "contentReview.clearTitle": {
+  "contentReview_clearTitle": {
     "message": "Ryd alle kladder?"
   },
-  "contentReview.clearBody": {
+  "contentReview_clearBody": {
     "message": "Dette fjerner alle lokale indholdsgennemgangskladder og tilknyttede filer."
   },
-  "contentReview.clearConfirm": {
+  "contentReview_clearConfirm": {
     "message": "Ryd kladder"
   },
-  "contentReview.clearCancel": {
+  "contentReview_clearCancel": {
     "message": "Annuller"
   },
-  "contentReview.clearSuccess": {
+  "contentReview_clearSuccess": {
     "message": "Kladder ryddet."
   },
-  "contentReview.originalLabel": {
+  "contentReview_originalLabel": {
     "message": "Original"
   },
-  "contentReview.editedLabel": {
+  "contentReview_editedLabel": {
     "message": "Redigeret"
   }
 }

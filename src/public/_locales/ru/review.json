@@ -1,41 +1,41 @@
 {
-  "mediaPage.nothingToSend": {
+  "mediaPage_nothingToSend": {
     "message": "Нечего отправлять"
   },
-  "mediaPage.emptyAnalysis": {
+  "mediaPage_emptyAnalysis": {
     "message": "Анализ не может быть пустым"
   },
-  "mediaPage.noMediaId": {
+  "mediaPage_noMediaId": {
     "message": "Нет доступного идентификатора медиа"
   },
-  "mediaPage.versionSaved": {
+  "mediaPage_versionSaved": {
     "message": "Сохранено как новая версия"
   },
-  "mediaPage.saveFailed": {
+  "mediaPage_saveFailed": {
     "message": "Не удалось сохранить версию"
   },
-  "mediaPage.saveUnauthorized": {
+  "mediaPage_saveUnauthorized": {
     "message": "Недостаточно прав для сохранения"
   },
-  "mediaPage.sendToChat": {
+  "mediaPage_sendToChat": {
     "message": "Отправить в чат"
   },
-  "mediaPage.saveAsVersion": {
+  "mediaPage_saveAsVersion": {
     "message": "Сохранить как новую версию"
   },
-  "mediaPage.analysisPlaceholder": {
+  "mediaPage_analysisPlaceholder": {
     "message": "Введите текст анализа..."
   },
-  "mediaPage.wordCount": {
+  "mediaPage_wordCount": {
     "message": "{{count}} слов"
   },
-  "mediaPage.charCount": {
+  "mediaPage_charCount": {
     "message": "{{count}} символов"
   },
-  "mediaPage.pageRangeError": {
+  "mediaPage_pageRangeError": {
     "message": "Страница должна быть от 1 до {{max}}"
   },
-  "mediaPage.pageRangeClamped": {
+  "mediaPage_pageRangeClamped": {
     "message": "Переход к странице {{page}}"
   },
   "noToolCalls": {
@@ -68,184 +68,185 @@
   "reviewNavigationRetry": {
     "message": "Повторить открытие Проверки контента"
   },
-  "contentReview.title": {
+  "contentReview_title": {
     "message": "Проверка контента"
   },
-  "contentReview.readyToSubmit": {
+  "contentReview_readyToSubmit": {
     "message": "{{count}} готово"
   },
-  "contentReview.committedCount": {
+  "contentReview_committedCount": {
     "message": "{{count}} зафиксировано"
   },
-  "contentReview.totalCount": {
+  "contentReview_totalCount": {
     "message": "Всего {{count}}"
   },
-  "contentReview.commitAll": {
+  "contentReview_commitAll": {
     "message": "Зафиксировать всё"
   },
-  "contentReview.clearDrafts": {
+  "contentReview_clearDrafts": {
     "message": "Очистить черновики"
   },
-  "contentReview.emptyDescription": {
+  "contentReview_emptyDescription": {
     "message": "Черновиков пока нет. Используйте Quick Ingest с опцией «Проверить перед сохранением», чтобы создавать черновики."
   },
-  "contentReview.openQuickIngest": {
+  "contentReview_openQuickIngest": {
     "message": "Открыть Quick Ingest"
   },
-  "contentReview.storeAfterReview": {
+  "contentReview_storeAfterReview": {
     "message": "Сохранить после проверки"
   },
-  "contentReview.reviewBeforeStorage": {
+  "contentReview_reviewBeforeStorage": {
     "message": "Проверить перед сохранением"
   },
-  "contentReview.reviewBeforeStorageHint": {
+  "contentReview_reviewBeforeStorageHint": {
     "message": "Обработайте сейчас, затем отредактируйте черновики локально перед сохранением на сервер."
   },
-  "contentReview.reviewEnabled": {
+  "contentReview_reviewEnabled": {
     "message": "Режим проверки"
   },
-  "contentReview.reviewStorageCap": {
+  "contentReview_reviewStorageCap": {
     "message": "Локальные черновики ограничены {{cap}}."
   },
-  "contentReview.reviewWarningTitle": {
+  "contentReview_reviewWarningTitle": {
     "message": "Сохранять черновики локально?"
   },
-  "contentReview.reviewWarningBody": {
+  "contentReview_reviewWarningBody": {
     "message": "Черновики сохраняются в этом браузере и могут содержать конфиденциальные данные. Вы можете очистить черновики на странице «Проверка контента» в любое время."
   },
-  "contentReview.reviewWarningBodySecondary": {
+  "contentReview_reviewWarningBodySecondary": {
     "message": "Режим проверки хранит контент на стороне клиента, пока вы не сохраните его на сервер."
   },
-  "contentReview.reviewWarningConfirm": {
+  "contentReview_reviewWarningConfirm": {
     "message": "Включить проверку"
   },
-  "contentReview.reviewWarningCancel": {
+  "contentReview_reviewWarningCancel": {
     "message": "Отмена"
   },
-  "contentReview.reviewRunLabel": {
+  "contentReview_reviewRunLabel": {
     "message": "Проверка"
   },
-  "contentReview.reviewDraftsCreated": {
+  "contentReview_reviewDraftsCreated": {
     "message": "Черновики готовы к проверке."
   },
-  "contentReview.reviewStorageCapWarning": {
-    "message": "{{count}} файл(ов) превышают лимит локальных черновиков ({{cap}}). Приложите источники перед сохранением аудио/видео."
-  },
-  "contentReview.openContentReview": {
+  "contentReview.reviewStorageCapWarning_one": "{{count}} файл превышает лимит локальных черновиков ({{cap}}). Приложите источники перед сохранением аудио/видео.",
+  "contentReview.reviewStorageCapWarning_few": "{{count}} файла превышают лимит локальных черновиков ({{cap}}). Приложите источники перед сохранением аудио/видео.",
+  "contentReview.reviewStorageCapWarning_many": "{{count}} файлов превышают лимит локальных черновиков ({{cap}}). Приложите источники перед сохранением аудио/видео.",
+  "contentReview.reviewStorageCapWarning_other": "{{count}} файлов превышают лимит локальных черновиков ({{cap}}). Приложите источники перед сохранением аудио/видео.",
+  "contentReview_openContentReview": {
     "message": "Открыть проверку контента"
   },
-  "contentReview.batchLabel": {
+  "contentReview_batchLabel": {
     "message": "Пакет"
   },
-  "contentReview.batchName": {
+  "contentReview_batchName": {
     "message": "Пакет {{index}}"
   },
-  "contentReview.draftsLabel": {
+  "contentReview_draftsLabel": {
     "message": "Черновики"
   },
-  "contentReview.selectDraft": {
+  "contentReview_selectDraft": {
     "message": "Выберите черновик, чтобы начать проверку."
   },
-  "contentReview.titlePlaceholder": {
+  "contentReview_titlePlaceholder": {
     "message": "Название черновика"
   },
-  "contentReview.lastSaved": {
+  "contentReview_lastSaved": {
     "message": "Сохранено {{time}}"
   },
-  "contentReview.resetTitle": {
+  "contentReview_resetTitle": {
     "message": "Сбросить черновик?"
   },
-  "contentReview.resetBody": {
+  "contentReview_resetBody": {
     "message": "Это действие восстановит исходное содержимое этого черновика."
   },
-  "contentReview.resetConfirm": {
+  "contentReview_resetConfirm": {
     "message": "Сбросить"
   },
-  "contentReview.resetCancel": {
+  "contentReview_resetCancel": {
     "message": "Отмена"
   },
-  "contentReview.resetContent": {
+  "contentReview_resetContent": {
     "message": "Сбросить"
   },
-  "contentReview.diffView": {
+  "contentReview_diffView": {
     "message": "Просмотр diff"
   },
-  "contentReview.saveDraft": {
+  "contentReview_saveDraft": {
     "message": "Сохранить черновик"
   },
-  "contentReview.editorLabel": {
+  "contentReview_editorLabel": {
     "message": "Содержимое"
   },
-  "contentReview.wordCount": {
+  "contentReview_wordCount": {
     "message": "{{words}} слов"
   },
-  "contentReview.charCount": {
+  "contentReview_charCount": {
     "message": "{{chars}} символов"
   },
-  "contentReview.aiFix": {
+  "contentReview_aiFix": {
     "message": "Исправить с помощью ИИ"
   },
-  "contentReview.aiHint": {
+  "contentReview_aiHint": {
     "message": "Отправляет содержимое черновика на ваш сервер для обработки ИИ."
   },
-  "contentReview.modelPlaceholder": {
+  "contentReview_modelPlaceholder": {
     "message": "Значение по умолчанию сервера"
   },
-  "contentReview.aiConsentTitle": {
+  "contentReview_aiConsentTitle": {
     "message": "Отправить черновик на сервер?"
   },
-  "contentReview.aiConsentBody": {
+  "contentReview_aiConsentBody": {
     "message": "Содержимое черновика будет отправлено на ваш сервер tldw для обработки ИИ. Черновики остаются локальными, пока вы их не зафиксируете."
   },
-  "contentReview.aiConsentConfirm": {
+  "contentReview_aiConsentConfirm": {
     "message": "Продолжить"
   },
-  "contentReview.aiConsentCancel": {
+  "contentReview_aiConsentCancel": {
     "message": "Отмена"
   },
-  "contentReview.aiApplied": {
+  "contentReview_aiApplied": {
     "message": "Исправления ИИ применены."
   },
-  "contentReview.aiNoChange": {
+  "contentReview_aiNoChange": {
     "message": "Изменения не получены."
   },
-  "contentReview.aiEmpty": {
+  "contentReview_aiEmpty": {
     "message": "ИИ не вернул содержимое."
   },
-  "contentReview.aiUnavailable": {
+  "contentReview_aiUnavailable": {
     "message": "Дополнения чата недоступны."
   },
-  "contentReview.templatePlaceholder": {
+  "contentReview_templatePlaceholder": {
     "message": "Выберите шаблон"
   },
-  "contentReview.applyTemplate": {
+  "contentReview_applyTemplate": {
     "message": "Применить шаблон"
   },
-  "contentReview.templateApplied": {
+  "contentReview_templateApplied": {
     "message": "Шаблон применён."
   },
-  "contentReview.templateMissing": {
+  "contentReview_templateMissing": {
     "message": "Сначала выберите шаблон."
   },
-  "contentReview.detectSections": {
+  "contentReview_detectSections": {
     "message": "Определить разделы"
   },
-  "contentReview.detectSectionsTitle": {
+  "contentReview_detectSectionsTitle": {
     "message": "Определить разделы повторно?"
   },
-  "contentReview.detectSectionsBody": {
+  "contentReview_detectSectionsBody": {
     "message": "Существующие разделы будут заменены, а ваш выбор сброшен."
   },
-  "contentReview.detectSectionsConfirm": {
+  "contentReview_detectSectionsConfirm": {
     "message": "Определить снова"
   },
-  "contentReview.detectSectionsCancel": {
+  "contentReview_detectSectionsCancel": {
     "message": "Отмена"
   },
-  "contentReview.detectSectionsEmpty": {
+  "contentReview_detectSectionsEmpty": {
     "message": "Разделы не обнаружены."
   },
-  "contentReview.sectionsLabel": {
+  "contentReview_sectionsLabel": {
     "message": "Фильтр по разделам"
   },
   "contentReview.templates.transcript_clean.label": {
@@ -266,100 +267,100 @@
   "contentReview.templates.chapter_headings.description": {
     "message": "Вставляет заголовки Markdown для группировки тем без удаления содержимого."
   },
-  "contentReview.metadataLabel": {
+  "contentReview_metadataLabel": {
     "message": "Метаданные"
   },
-  "contentReview.mediaType": {
+  "contentReview_mediaType": {
     "message": "Тип медиа"
   },
-  "contentReview.keywords": {
+  "contentReview_keywords": {
     "message": "Ключевые слова"
   },
-  "contentReview.keywordsPlaceholder": {
+  "contentReview_keywordsPlaceholder": {
     "message": "Добавить ключевые слова"
   },
-  "contentReview.reviewNotes": {
+  "contentReview_reviewNotes": {
     "message": "Заметки по проверке"
   },
-  "contentReview.missingSource": {
+  "contentReview_missingSource": {
     "message": "Исходный файл отсутствует"
   },
-  "contentReview.missingSourceBody": {
+  "contentReview_missingSourceBody": {
     "message": "Прикрепите исходный файл, чтобы зафиксировать этот черновик."
   },
-  "contentReview.attachSource": {
+  "contentReview_attachSource": {
     "message": "Прикрепить файл"
   },
-  "contentReview.actionsLabel": {
+  "contentReview_actionsLabel": {
     "message": "Действия"
   },
-  "contentReview.commit": {
+  "contentReview_commit": {
     "message": "Зафиксировать"
   },
-  "contentReview.commitDisabled": {
+  "contentReview_commitDisabled": {
     "message": "Прикрепите исходный аудио-/видеофайл перед фиксацией."
   },
-  "contentReview.markReviewed": {
+  "contentReview_markReviewed": {
     "message": "Отметить как проверенный"
   },
-  "contentReview.skipNext": {
+  "contentReview_skipNext": {
     "message": "Пропустить"
   },
-  "contentReview.discard": {
+  "contentReview_discard": {
     "message": "Отклонить"
   },
-  "contentReview.discardTitle": {
+  "contentReview_discardTitle": {
     "message": "Отклонить черновик?"
   },
-  "contentReview.discardBody": {
+  "contentReview_discardBody": {
     "message": "Этот черновик будет помечен как отклонённый и удалён из списка на проверку."
   },
-  "contentReview.discardConfirm": {
+  "contentReview_discardConfirm": {
     "message": "Отклонить"
   },
-  "contentReview.discardCancel": {
+  "contentReview_discardCancel": {
     "message": "Отмена"
   },
-  "contentReview.commitSuccess": {
+  "contentReview_commitSuccess": {
     "message": "Черновик зафиксирован."
   },
-  "contentReview.commitAllTitle": {
+  "contentReview_commitAllTitle": {
     "message": "Зафиксировать проверенные черновики?"
   },
-  "contentReview.commitAllBody": {
+  "contentReview_commitAllBody": {
     "message": "Будут зафиксированы только черновики, помеченные как проверенные."
   },
-  "contentReview.commitAllConfirm": {
+  "contentReview_commitAllConfirm": {
     "message": "Зафиксировать всё"
   },
-  "contentReview.commitAllCancel": {
+  "contentReview_commitAllCancel": {
     "message": "Отмена"
   },
-  "contentReview.commitAllResult": {
+  "contentReview_commitAllResult": {
     "message": "{{success}} зафиксировано · {{failed}} с ошибкой"
   },
-  "contentReview.storageCapWarning": {
+  "contentReview_storageCapWarning": {
     "message": "Этот файл превышает локальный лимит черновиков ({{cap}})."
   },
-  "contentReview.clearTitle": {
+  "contentReview_clearTitle": {
     "message": "Очистить все черновики?"
   },
-  "contentReview.clearBody": {
+  "contentReview_clearBody": {
     "message": "Удаляет все локальные черновики и файлы, используемые для проверки контента."
   },
-  "contentReview.clearConfirm": {
+  "contentReview_clearConfirm": {
     "message": "Очистить черновики"
   },
-  "contentReview.clearCancel": {
+  "contentReview_clearCancel": {
     "message": "Отмена"
   },
-  "contentReview.clearSuccess": {
+  "contentReview_clearSuccess": {
     "message": "Черновики удалены."
   },
-  "contentReview.originalLabel": {
+  "contentReview_originalLabel": {
     "message": "Исходный"
   },
-  "contentReview.editedLabel": {
+  "contentReview_editedLabel": {
     "message": "Изменённый"
   }
 }

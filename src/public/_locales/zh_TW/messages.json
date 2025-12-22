@@ -748,304 +748,301 @@
   "error_createFolder": {
     "message": "無法建立資料夾"
   },
-  "more.copy.canonicalMarkdown": {
+  "more_copy_canonicalMarkdown": {
     "message": "複製標準逐字稿"
   },
-  "more.download.canonicalMarkdown": {
+  "more_download_canonicalMarkdown": {
     "message": "標準逐字稿 (Markdown)"
   },
-  "contentReview.title": {
+  "contentReview_title": {
     "message": "內容審查"
   },
-  "contentReview.readyToSubmit": {
+  "contentReview_readyToSubmit": {
     "message": "{{count}} 個已就緒"
   },
-  "contentReview.committedCount": {
+  "contentReview_committedCount": {
     "message": "{{count}} 個已提交"
   },
-  "contentReview.totalCount": {
+  "contentReview_totalCount": {
     "message": "共 {{count}} 個"
   },
-  "contentReview.commitAll": {
+  "contentReview_commitAll": {
     "message": "全部提交"
   },
-  "contentReview.clearDrafts": {
+  "contentReview_clearDrafts": {
     "message": "清除草稿"
   },
-  "contentReview.emptyDescription": {
+  "contentReview_emptyDescription": {
     "message": "目前尚無草稿。使用 Quick Ingest 並啟用「儲存前審查」即可建立草稿。"
   },
-  "contentReview.openQuickIngest": {
+  "contentReview_openQuickIngest": {
     "message": "開啟 Quick Ingest"
   },
-  "contentReview.storeAfterReview": {
+  "contentReview_storeAfterReview": {
     "message": "審核後儲存"
   },
-  "contentReview.reviewBeforeStorage": {
+  "contentReview_reviewBeforeStorage": {
     "message": "儲存前審核"
   },
-  "contentReview.reviewBeforeStorageHint": {
+  "contentReview_reviewBeforeStorageHint": {
     "message": "先處理，然後在提交到伺服器前於本機編輯草稿。"
   },
-  "contentReview.reviewEnabled": {
+  "contentReview_reviewEnabled": {
     "message": "審核模式"
   },
-  "contentReview.reviewStorageCap": {
+  "contentReview_reviewStorageCap": {
     "message": "本機草稿上限為 {{cap}}。"
   },
-  "contentReview.reviewWarningTitle": {
+  "contentReview_reviewWarningTitle": {
     "message": "要將草稿儲存在本機嗎？"
   },
-  "contentReview.reviewWarningBody": {
+  "contentReview_reviewWarningBody": {
     "message": "草稿會儲存在此瀏覽器中，可能包含敏感資料。你可隨時在「內容審核」頁面清除草稿。"
   },
-  "contentReview.reviewWarningBodySecondary": {
+  "contentReview_reviewWarningBodySecondary": {
     "message": "審核模式會在提交到伺服器前把內容保留在用戶端。"
   },
-  "contentReview.reviewWarningConfirm": {
+  "contentReview_reviewWarningConfirm": {
     "message": "啟用審核"
   },
-  "contentReview.reviewWarningCancel": {
+  "contentReview_reviewWarningCancel": {
     "message": "取消"
   },
-  "contentReview.reviewRunLabel": {
+  "contentReview_reviewRunLabel": {
     "message": "審核"
   },
-  "contentReview.reviewDraftsCreated": {
+  "contentReview_reviewDraftsCreated": {
     "message": "草稿已準備好審核。"
   },
-  "contentReview.reviewStorageCapWarning": {
-    "message": "{{count}} 個檔案超過本機草稿上限（{{cap}}）。請在提交音訊/影片前附加來源。"
-  },
-  "contentReview.openContentReview": {
+  "contentReview_openContentReview": {
     "message": "開啟內容審核"
   },
-  "contentReview.batchLabel": {
+  "contentReview_batchLabel": {
     "message": "批次"
   },
-  "contentReview.batchName": {
+  "contentReview_batchName": {
     "message": "批次 {{index}}"
   },
-  "contentReview.draftsLabel": {
+  "contentReview_draftsLabel": {
     "message": "草稿"
   },
-  "contentReview.selectDraft": {
+  "contentReview_selectDraft": {
     "message": "選取一個草稿開始審查。"
   },
-  "contentReview.titlePlaceholder": {
+  "contentReview_titlePlaceholder": {
     "message": "草稿標題"
   },
-  "contentReview.lastSaved": {
+  "contentReview_lastSaved": {
     "message": "已於 {{time}} 儲存"
   },
-  "contentReview.resetTitle": {
+  "contentReview_resetTitle": {
     "message": "要重設草稿嗎？"
   },
-  "contentReview.resetBody": {
+  "contentReview_resetBody": {
     "message": "這會還原此草稿的原始內容。"
   },
-  "contentReview.resetConfirm": {
+  "contentReview_resetConfirm": {
     "message": "重設"
   },
-  "contentReview.resetCancel": {
+  "contentReview_resetCancel": {
     "message": "取消"
   },
-  "contentReview.resetContent": {
+  "contentReview_resetContent": {
     "message": "重設"
   },
-  "contentReview.diffView": {
+  "contentReview_diffView": {
     "message": "差異檢視"
   },
-  "contentReview.saveDraft": {
+  "contentReview_saveDraft": {
     "message": "儲存草稿"
   },
-  "contentReview.editorLabel": {
+  "contentReview_editorLabel": {
     "message": "內容"
   },
-  "contentReview.wordCount": {
+  "contentReview_wordCount": {
     "message": "{{words}} 個字"
   },
-  "contentReview.charCount": {
+  "contentReview_charCount": {
     "message": "{{chars}} 個字元"
   },
-  "contentReview.aiFix": {
+  "contentReview_aiFix": {
     "message": "使用 AI 修正"
   },
-  "contentReview.aiHint": {
+  "contentReview_aiHint": {
     "message": "會將草稿內容傳送至伺服器，由 AI 進行處理。"
   },
-  "contentReview.modelPlaceholder": {
+  "contentReview_modelPlaceholder": {
     "message": "伺服器預設值"
   },
-  "contentReview.aiConsentTitle": {
+  "contentReview_aiConsentTitle": {
     "message": "將草稿傳送到伺服器？"
   },
-  "contentReview.aiConsentBody": {
+  "contentReview_aiConsentBody": {
     "message": "這會將草稿內容傳送到你的 tldw 伺服器進行 AI 處理。在你提交之前，草稿都只會保留在本機。"
   },
-  "contentReview.aiConsentConfirm": {
+  "contentReview_aiConsentConfirm": {
     "message": "繼續"
   },
-  "contentReview.aiConsentCancel": {
+  "contentReview_aiConsentCancel": {
     "message": "取消"
   },
-  "contentReview.aiApplied": {
+  "contentReview_aiApplied": {
     "message": "已套用 AI 修正。"
   },
-  "contentReview.aiNoChange": {
+  "contentReview_aiNoChange": {
     "message": "沒有收到任何變更。"
   },
-  "contentReview.aiEmpty": {
+  "contentReview_aiEmpty": {
     "message": "AI 未回傳任何內容。"
   },
-  "contentReview.aiUnavailable": {
+  "contentReview_aiUnavailable": {
     "message": "聊天補全功能目前無法使用。"
   },
-  "contentReview.templatePlaceholder": {
+  "contentReview_templatePlaceholder": {
     "message": "選擇範本"
   },
-  "contentReview.applyTemplate": {
+  "contentReview_applyTemplate": {
     "message": "套用範本"
   },
-  "contentReview.templateApplied": {
+  "contentReview_templateApplied": {
     "message": "已套用範本。"
   },
-  "contentReview.templateMissing": {
+  "contentReview_templateMissing": {
     "message": "請先選擇一個範本。"
   },
-  "contentReview.detectSections": {
+  "contentReview_detectSections": {
     "message": "偵測段落"
   },
-  "contentReview.detectSectionsTitle": {
+  "contentReview_detectSectionsTitle": {
     "message": "要重新偵測段落嗎？"
   },
-  "contentReview.detectSectionsBody": {
+  "contentReview_detectSectionsBody": {
     "message": "這會取代既有段落並重設你的選取項目。"
   },
-  "contentReview.detectSectionsConfirm": {
+  "contentReview_detectSectionsConfirm": {
     "message": "重新偵測"
   },
-  "contentReview.detectSectionsCancel": {
+  "contentReview_detectSectionsCancel": {
     "message": "取消"
   },
-  "contentReview.detectSectionsEmpty": {
+  "contentReview_detectSectionsEmpty": {
     "message": "沒有偵測到任何段落。"
   },
-  "contentReview.sectionsLabel": {
+  "contentReview_sectionsLabel": {
     "message": "段落篩選器"
   },
-  "contentReview.templates.transcript_clean.label": {
+  "contentReview_templates_transcript_clean_label": {
     "message": "清理逐字稿"
   },
-  "contentReview.templates.transcript_clean.description": {
+  "contentReview_templates_transcript_clean_description": {
     "message": "在保留行結構的前提下，統一標點符號與大小寫。"
   },
-  "contentReview.templates.speaker_turns.label": {
+  "contentReview_templates_speaker_turns_label": {
     "message": "說話輪次"
   },
-  "contentReview.templates.speaker_turns.description": {
+  "contentReview_templates_speaker_turns_description": {
     "message": "確保每位說話者的輪次各自位於一行，並帶有清楚的標籤。"
   },
-  "contentReview.templates.chapter_headings.label": {
+  "contentReview_templates_chapter_headings_label": {
     "message": "章節標題"
   },
-  "contentReview.templates.chapter_headings.description": {
+  "contentReview_templates_chapter_headings_description": {
     "message": "插入 Markdown 標題來分組主題，而不移除任何內容。"
   },
-  "contentReview.metadataLabel": {
+  "contentReview_metadataLabel": {
     "message": "中繼資料"
   },
-  "contentReview.mediaType": {
+  "contentReview_mediaType": {
     "message": "媒體類型"
   },
-  "contentReview.keywords": {
+  "contentReview_keywords": {
     "message": "關鍵字"
   },
-  "contentReview.keywordsPlaceholder": {
+  "contentReview_keywordsPlaceholder": {
     "message": "新增關鍵字"
   },
-  "contentReview.reviewNotes": {
+  "contentReview_reviewNotes": {
     "message": "審查筆記"
   },
-  "contentReview.missingSource": {
+  "contentReview_missingSource": {
     "message": "找不到來源檔案"
   },
-  "contentReview.missingSourceBody": {
+  "contentReview_missingSourceBody": {
     "message": "請附加原始檔案後再提交此草稿。"
   },
-  "contentReview.attachSource": {
+  "contentReview_attachSource": {
     "message": "附加檔案"
   },
-  "contentReview.actionsLabel": {
+  "contentReview_actionsLabel": {
     "message": "操作"
   },
-  "contentReview.commit": {
+  "contentReview_commit": {
     "message": "提交"
   },
-  "contentReview.commitDisabled": {
+  "contentReview_commitDisabled": {
     "message": "提交前請先附加原始的音訊／視訊檔案。"
   },
-  "contentReview.markReviewed": {
+  "contentReview_markReviewed": {
     "message": "標記為已審查"
   },
-  "contentReview.skipNext": {
+  "contentReview_skipNext": {
     "message": "略過"
   },
-  "contentReview.discard": {
+  "contentReview_discard": {
     "message": "捨棄"
   },
-  "contentReview.discardTitle": {
+  "contentReview_discardTitle": {
     "message": "要捨棄草稿嗎？"
   },
-  "contentReview.discardBody": {
+  "contentReview_discardBody": {
     "message": "此草稿會被標記為已捨棄，並從審查清單中移除。"
   },
-  "contentReview.discardConfirm": {
+  "contentReview_discardConfirm": {
     "message": "捨棄"
   },
-  "contentReview.discardCancel": {
+  "contentReview_discardCancel": {
     "message": "取消"
   },
-  "contentReview.commitSuccess": {
+  "contentReview_commitSuccess": {
     "message": "草稿已提交。"
   },
-  "contentReview.commitAllTitle": {
+  "contentReview_commitAllTitle": {
     "message": "提交所有已審查的草稿？"
   },
-  "contentReview.commitAllBody": {
+  "contentReview_commitAllBody": {
     "message": "只有標記為已審查的草稿會被提交。"
   },
-  "contentReview.commitAllConfirm": {
+  "contentReview_commitAllConfirm": {
     "message": "全部提交"
   },
-  "contentReview.commitAllCancel": {
+  "contentReview_commitAllCancel": {
     "message": "取消"
   },
-  "contentReview.commitAllResult": {
+  "contentReview_commitAllResult": {
     "message": "{{success}} 個已提交 · {{failed}} 個失敗"
   },
-  "contentReview.storageCapWarning": {
+  "contentReview_storageCapWarning": {
     "message": "此檔案超過本機草稿上限 ({{cap}})。"
   },
-  "contentReview.clearTitle": {
+  "contentReview_clearTitle": {
     "message": "清除所有草稿？"
   },
-  "contentReview.clearBody": {
+  "contentReview_clearBody": {
     "message": "這會移除所有本機內容審查草稿與相關資源。"
   },
-  "contentReview.clearConfirm": {
+  "contentReview_clearConfirm": {
     "message": "清除草稿"
   },
-  "contentReview.clearCancel": {
+  "contentReview_clearCancel": {
     "message": "取消"
   },
-  "contentReview.clearSuccess": {
+  "contentReview_clearSuccess": {
     "message": "草稿已清除。"
   },
-  "contentReview.originalLabel": {
+  "contentReview_originalLabel": {
     "message": "原始版本"
   },
-  "contentReview.editedLabel": {
+  "contentReview_editedLabel": {
     "message": "已編輯"
   },
   "reviewDraftsFailedTitle": {
@@ -1158,9 +1155,6 @@
   },
   "quickIngest_reviewNavigationRetry": {
     "message": "重新嘗試開啟內容審閱"
-  },
-  "quickIngest_reviewStorageCapWarning": {
-    "message": "{{count}} 個檔案超過本機草稿上限（{{cap}}）。請在提交音訊/影片前附加來源。"
   },
   "quickIngest_openContentReview": {
     "message": "開啟內容審核"

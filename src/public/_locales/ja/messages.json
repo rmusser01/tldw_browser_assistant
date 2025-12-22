@@ -818,304 +818,301 @@
   "chatSidebar_foldersRequireConnection": {
     "message": "フォルダーにはサーバー接続が必要です"
   },
-  "more.copy.canonicalMarkdown": {
+  "more_copy_canonicalMarkdown": {
     "message": "正規の文字起こしをコピー"
   },
-  "more.download.canonicalMarkdown": {
+  "more_download_canonicalMarkdown": {
     "message": "正規の文字起こし（Markdown）"
   },
-  "contentReview.title": {
+  "contentReview_title": {
     "message": "コンテンツレビュー"
   },
-  "contentReview.readyToSubmit": {
+  "contentReview_readyToSubmit": {
     "message": "{{count}} 件の下書きが準備完了"
   },
-  "contentReview.committedCount": {
+  "contentReview_committedCount": {
     "message": "{{count}} 件を確定済み"
   },
-  "contentReview.totalCount": {
+  "contentReview_totalCount": {
     "message": "合計 {{count}} 件"
   },
-  "contentReview.commitAll": {
+  "contentReview_commitAll": {
     "message": "すべて確定"
   },
-  "contentReview.clearDrafts": {
+  "contentReview_clearDrafts": {
     "message": "下書きをクリア"
   },
-  "contentReview.emptyDescription": {
+  "contentReview_emptyDescription": {
     "message": "まだ下書きはありません。[保存前にレビュー] をオンにした Quick Ingest を使って下書きを作成できます。"
   },
-  "contentReview.openQuickIngest": {
+  "contentReview_openQuickIngest": {
     "message": "Quick Ingest を開く"
   },
-  "contentReview.storeAfterReview": {
+  "contentReview_storeAfterReview": {
     "message": "レビュー後に保存"
   },
-  "contentReview.reviewBeforeStorage": {
+  "contentReview_reviewBeforeStorage": {
     "message": "保存前にレビュー"
   },
-  "contentReview.reviewBeforeStorageHint": {
+  "contentReview_reviewBeforeStorageHint": {
     "message": "今すぐ処理し、サーバーに保存する前にローカルで下書きを編集します。"
   },
-  "contentReview.reviewEnabled": {
+  "contentReview_reviewEnabled": {
     "message": "レビューモード"
   },
-  "contentReview.reviewStorageCap": {
+  "contentReview_reviewStorageCap": {
     "message": "ローカル下書きは {{cap}} 件までです。"
   },
-  "contentReview.reviewWarningTitle": {
+  "contentReview_reviewWarningTitle": {
     "message": "下書きをローカルに保存しますか？"
   },
-  "contentReview.reviewWarningBody": {
+  "contentReview_reviewWarningBody": {
     "message": "下書きはこのブラウザに保存され、機密データを含む可能性があります。コンテンツレビューのページからいつでも下書きを消去できます。"
   },
-  "contentReview.reviewWarningBodySecondary": {
+  "contentReview_reviewWarningBodySecondary": {
     "message": "レビューモードでは、サーバーに保存するまで内容をクライアント側に保持します。"
   },
-  "contentReview.reviewWarningConfirm": {
+  "contentReview_reviewWarningConfirm": {
     "message": "レビューを有効にする"
   },
-  "contentReview.reviewWarningCancel": {
+  "contentReview_reviewWarningCancel": {
     "message": "キャンセル"
   },
-  "contentReview.reviewRunLabel": {
+  "contentReview_reviewRunLabel": {
     "message": "レビュー"
   },
-  "contentReview.reviewDraftsCreated": {
+  "contentReview_reviewDraftsCreated": {
     "message": "レビュー用下書きの準備ができました。"
   },
-  "contentReview.reviewStorageCapWarning": {
-    "message": "{{count}} 件のファイルがローカル下書き上限 ({{cap}}) を超えています。音声/動画を保存する前にソースを添付してください。"
-  },
-  "contentReview.openContentReview": {
+  "contentReview_openContentReview": {
     "message": "コンテンツレビューを開く"
   },
-  "contentReview.batchLabel": {
+  "contentReview_batchLabel": {
     "message": "バッチ"
   },
-  "contentReview.batchName": {
+  "contentReview_batchName": {
     "message": "バッチ {{index}}"
   },
-  "contentReview.draftsLabel": {
+  "contentReview_draftsLabel": {
     "message": "下書き"
   },
-  "contentReview.selectDraft": {
+  "contentReview_selectDraft": {
     "message": "レビューを始める下書きを選択してください。"
   },
-  "contentReview.titlePlaceholder": {
+  "contentReview_titlePlaceholder": {
     "message": "下書きのタイトル"
   },
-  "contentReview.lastSaved": {
+  "contentReview_lastSaved": {
     "message": "{{time}} に保存"
   },
-  "contentReview.resetTitle": {
+  "contentReview_resetTitle": {
     "message": "下書きをリセットしますか？"
   },
-  "contentReview.resetBody": {
+  "contentReview_resetBody": {
     "message": "この下書きの内容を元の状態に戻します。"
   },
-  "contentReview.resetConfirm": {
+  "contentReview_resetConfirm": {
     "message": "リセット"
   },
-  "contentReview.resetCancel": {
+  "contentReview_resetCancel": {
     "message": "キャンセル"
   },
-  "contentReview.resetContent": {
+  "contentReview_resetContent": {
     "message": "リセット"
   },
-  "contentReview.diffView": {
+  "contentReview_diffView": {
     "message": "差分ビュー"
   },
-  "contentReview.saveDraft": {
+  "contentReview_saveDraft": {
     "message": "下書きを保存"
   },
-  "contentReview.editorLabel": {
+  "contentReview_editorLabel": {
     "message": "コンテンツ"
   },
-  "contentReview.wordCount": {
+  "contentReview_wordCount": {
     "message": "{{words}} 語"
   },
-  "contentReview.charCount": {
+  "contentReview_charCount": {
     "message": "{{chars}} 文字"
   },
-  "contentReview.aiFix": {
+  "contentReview_aiFix": {
     "message": "AI で修正"
   },
-  "contentReview.aiHint": {
+  "contentReview_aiHint": {
     "message": "下書きの内容をサーバーに送信し、AI で処理します。"
   },
-  "contentReview.modelPlaceholder": {
+  "contentReview_modelPlaceholder": {
     "message": "サーバー既定"
   },
-  "contentReview.aiConsentTitle": {
+  "contentReview_aiConsentTitle": {
     "message": "下書きをサーバーに送信しますか？"
   },
-  "contentReview.aiConsentBody": {
+  "contentReview_aiConsentBody": {
     "message": "下書きの内容が tldw サーバーに送信され、AI で処理されます。確定するまでは下書きはローカルにのみ保存されます。"
   },
-  "contentReview.aiConsentConfirm": {
+  "contentReview_aiConsentConfirm": {
     "message": "続行"
   },
-  "contentReview.aiConsentCancel": {
+  "contentReview_aiConsentCancel": {
     "message": "キャンセル"
   },
-  "contentReview.aiApplied": {
+  "contentReview_aiApplied": {
     "message": "AI の修正を適用しました。"
   },
-  "contentReview.aiNoChange": {
+  "contentReview_aiNoChange": {
     "message": "変更は返されませんでした。"
   },
-  "contentReview.aiEmpty": {
+  "contentReview_aiEmpty": {
     "message": "AI からコンテンツが返されませんでした。"
   },
-  "contentReview.aiUnavailable": {
+  "contentReview_aiUnavailable": {
     "message": "チャット補完を利用できません。"
   },
-  "contentReview.templatePlaceholder": {
+  "contentReview_templatePlaceholder": {
     "message": "テンプレートを選択"
   },
-  "contentReview.applyTemplate": {
+  "contentReview_applyTemplate": {
     "message": "テンプレートを適用"
   },
-  "contentReview.templateApplied": {
+  "contentReview_templateApplied": {
     "message": "テンプレートを適用しました。"
   },
-  "contentReview.templateMissing": {
+  "contentReview_templateMissing": {
     "message": "先にテンプレートを選択してください。"
   },
-  "contentReview.detectSections": {
+  "contentReview_detectSections": {
     "message": "セクションを検出"
   },
-  "contentReview.detectSectionsTitle": {
+  "contentReview_detectSectionsTitle": {
     "message": "セクションを再検出しますか？"
   },
-  "contentReview.detectSectionsBody": {
+  "contentReview_detectSectionsBody": {
     "message": "既存のセクションを置き換え、選択内容をリセットします。"
   },
-  "contentReview.detectSectionsConfirm": {
+  "contentReview_detectSectionsConfirm": {
     "message": "再検出"
   },
-  "contentReview.detectSectionsCancel": {
+  "contentReview_detectSectionsCancel": {
     "message": "キャンセル"
   },
-  "contentReview.detectSectionsEmpty": {
+  "contentReview_detectSectionsEmpty": {
     "message": "セクションが検出されませんでした。"
   },
-  "contentReview.sectionsLabel": {
+  "contentReview_sectionsLabel": {
     "message": "セクションフィルター"
   },
-  "contentReview.templates.transcript_clean.label": {
+  "contentReview_templates_transcript_clean_label": {
     "message": "トランスクリプトを整形"
   },
-  "contentReview.templates.transcript_clean.description": {
+  "contentReview_templates_transcript_clean_description": {
     "message": "行構造を保ったまま、句読点と大文字・小文字を正規化します。"
   },
-  "contentReview.templates.speaker_turns.label": {
+  "contentReview_templates_speaker_turns_label": {
     "message": "話者ごとのターン"
   },
-  "contentReview.templates.speaker_turns.description": {
+  "contentReview_templates_speaker_turns_description": {
     "message": "各話者のターンが、わかりやすいラベル付きで 1 行ずつになるようにします。"
   },
-  "contentReview.templates.chapter_headings.label": {
+  "contentReview_templates_chapter_headings_label": {
     "message": "章見出し"
   },
-  "contentReview.templates.chapter_headings.description": {
+  "contentReview_templates_chapter_headings_description": {
     "message": "コンテンツを削除せずにトピックをまとめる Markdown 見出しを挿入します。"
   },
-  "contentReview.metadataLabel": {
+  "contentReview_metadataLabel": {
     "message": "メタデータ"
   },
-  "contentReview.mediaType": {
+  "contentReview_mediaType": {
     "message": "メディア種別"
   },
-  "contentReview.keywords": {
+  "contentReview_keywords": {
     "message": "キーワード"
   },
-  "contentReview.keywordsPlaceholder": {
+  "contentReview_keywordsPlaceholder": {
     "message": "キーワードを追加"
   },
-  "contentReview.reviewNotes": {
+  "contentReview_reviewNotes": {
     "message": "レビュー用メモ"
   },
-  "contentReview.missingSource": {
+  "contentReview_missingSource": {
     "message": "元のファイルが見つかりません"
   },
-  "contentReview.missingSourceBody": {
+  "contentReview_missingSourceBody": {
     "message": "この下書きを確定するには元のファイルを添付してください。"
   },
-  "contentReview.attachSource": {
+  "contentReview_attachSource": {
     "message": "ファイルを添付"
   },
-  "contentReview.actionsLabel": {
+  "contentReview_actionsLabel": {
     "message": "アクション"
   },
-  "contentReview.commit": {
+  "contentReview_commit": {
     "message": "確定"
   },
-  "contentReview.commitDisabled": {
+  "contentReview_commitDisabled": {
     "message": "確定する前に元の音声/動画ファイルを添付してください。"
   },
-  "contentReview.markReviewed": {
+  "contentReview_markReviewed": {
     "message": "レビュー済みにする"
   },
-  "contentReview.skipNext": {
+  "contentReview_skipNext": {
     "message": "スキップ"
   },
-  "contentReview.discard": {
+  "contentReview_discard": {
     "message": "破棄"
   },
-  "contentReview.discardTitle": {
+  "contentReview_discardTitle": {
     "message": "下書きを破棄しますか？"
   },
-  "contentReview.discardBody": {
+  "contentReview_discardBody": {
     "message": "この下書きは破棄済みとしてマークされ、レビュー一覧から削除されます。"
   },
-  "contentReview.discardConfirm": {
+  "contentReview_discardConfirm": {
     "message": "破棄"
   },
-  "contentReview.discardCancel": {
+  "contentReview_discardCancel": {
     "message": "キャンセル"
   },
-  "contentReview.commitSuccess": {
+  "contentReview_commitSuccess": {
     "message": "下書きを確定しました。"
   },
-  "contentReview.commitAllTitle": {
+  "contentReview_commitAllTitle": {
     "message": "レビュー済みの下書きをすべて確定しますか？"
   },
-  "contentReview.commitAllBody": {
+  "contentReview_commitAllBody": {
     "message": "レビュー済みとマークされた下書きのみが確定されます。"
   },
-  "contentReview.commitAllConfirm": {
+  "contentReview_commitAllConfirm": {
     "message": "すべて確定"
   },
-  "contentReview.commitAllCancel": {
+  "contentReview_commitAllCancel": {
     "message": "キャンセル"
   },
-  "contentReview.commitAllResult": {
+  "contentReview_commitAllResult": {
     "message": "{{success}} 件を確定 · {{failed}} 件に失敗"
   },
-  "contentReview.storageCapWarning": {
+  "contentReview_storageCapWarning": {
     "message": "このファイルはローカルの下書き上限 ({{cap}}) を超えています。"
   },
-  "contentReview.clearTitle": {
+  "contentReview_clearTitle": {
     "message": "すべての下書きをクリアしますか？"
   },
-  "contentReview.clearBody": {
+  "contentReview_clearBody": {
     "message": "ローカルのコンテンツレビュー用下書きと関連ファイルをすべて削除します。"
   },
-  "contentReview.clearConfirm": {
+  "contentReview_clearConfirm": {
     "message": "下書きをクリア"
   },
-  "contentReview.clearCancel": {
+  "contentReview_clearCancel": {
     "message": "キャンセル"
   },
-  "contentReview.clearSuccess": {
+  "contentReview_clearSuccess": {
     "message": "下書きを削除しました。"
   },
-  "contentReview.originalLabel": {
+  "contentReview_originalLabel": {
     "message": "元の内容"
   },
-  "contentReview.editedLabel": {
+  "contentReview_editedLabel": {
     "message": "編集済み"
   },
   "reviewDraftsFailedTitle": {
@@ -1210,9 +1207,6 @@
   },
   "quickIngest_reviewDraftsCreated": {
     "message": "レビュー用下書きの準備ができました。"
-  },
-  "quickIngest_reviewStorageCapWarning": {
-    "message": "{{count}} 件のファイルがローカル下書き上限 ({{cap}}) を超えています。音声/動画を保存する前にソースを添付してください。"
   },
   "quickIngest_openContentReview": {
     "message": "コンテンツレビューを開く"

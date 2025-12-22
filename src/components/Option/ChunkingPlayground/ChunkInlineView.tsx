@@ -128,7 +128,14 @@ export const ChunkInlineView: React.FC<ChunkInlineViewProps> = ({
 
     const chunkInfo = segment.chunkIndices.map((chunkIdx) => {
       const chunk = chunks[chunkIdx]
-      return `Chunk ${chunkIdx + 1}: ${chunk.metadata.word_count} words`
+      return t(
+        "settings:chunkingPlayground.chunkInfo",
+        "Chunk {{index}}: {{words}} words",
+        {
+          index: chunkIdx + 1,
+          words: chunk.metadata.word_count
+        }
+      )
     })
 
     const isOverlap = segment.chunkIndices.length > 1
@@ -183,7 +190,11 @@ export const ChunkInlineView: React.FC<ChunkInlineViewProps> = ({
           </div>
         ))}
         {chunks.length > 8 && (
-          <span className="text-gray-500">+{chunks.length - 8} more</span>
+          <span className="text-gray-500">
+            {t("settings:chunkingPlayground.additionalChunks", "+{{count}} more", {
+              count: chunks.length - 8
+            })}
+          </span>
         )}
       </div>
 

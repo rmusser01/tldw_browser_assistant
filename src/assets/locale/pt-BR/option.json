@@ -214,7 +214,8 @@
     "reviewDraftsStoreWithoutReview": "Salvar sem revisão",
     "reviewNavigationFailed": "Não foi possível abrir a Revisão de conteúdo. Tente novamente.",
     "reviewNavigationRetry": "Tentar abrir a Revisão de conteúdo novamente",
-    "reviewStorageCapWarning": "{{count}} arquivo(s) excedem o limite local de rascunhos ({{cap}}). Anexe as fontes antes de salvar áudio/vídeo.",
+    "reviewStorageCapWarning_one": "{{count}} arquivo excede o limite local de rascunhos ({{cap}}). Anexe as fontes antes de salvar áudio/vídeo.",
+    "reviewStorageCapWarning_other": "{{count}} arquivos excedem o limite local de rascunhos ({{cap}}). Anexe as fontes antes de salvar áudio/vídeo.",
     "openContentReview": "Abrir Revisão de Conteúdo",
     "storageDocsLink": "Saiba mais sobre ingest e armazenamento",
     "storageDocsUrl": "https://github.com/rmusser01/tldw_browser_assistant",
@@ -568,7 +569,9 @@
     "clearCancel": "Cancelar",
     "clearSuccess": "Rascunhos limpos.",
     "originalLabel": "Original",
-    "editedLabel": "Editado"
+    "editedLabel": "Editado",
+    "reviewStorageCapWarning_one": "{{count}} arquivo excede o limite local de rascunhos ({{cap}}). Anexe as fontes antes de salvar áudio/vídeo.",
+    "reviewStorageCapWarning_other": "{{count}} arquivos excedem o limite local de rascunhos ({{cap}}). Anexe as fontes antes de salvar áudio/vídeo."
   },
   "omniSearch": {
     "filterScreen": "Telas",

@@ -36,6 +36,7 @@ import { ChunkInlineView } from "./ChunkInlineView"
 import { SampleTexts } from "./SampleTexts"
 import { MediaSelector } from "./MediaSelector"
 import { CompareView } from "./CompareView"
+import { getLanguageOptions } from "./constants"
 
 const { TextArea } = Input
 const { Text, Title } = Typography
@@ -98,18 +99,7 @@ export const ChunkingPlayground: React.FC<ChunkingPlaygroundProps> = ({
     }))
   }, [capabilities])
 
-  const languageOptions = [
-    { value: "auto", label: "Auto-detect" },
-    { value: "en", label: "English" },
-    { value: "es", label: "Spanish" },
-    { value: "fr", label: "French" },
-    { value: "de", label: "German" },
-    { value: "it", label: "Italian" },
-    { value: "pt", label: "Portuguese" },
-    { value: "zh", label: "Chinese" },
-    { value: "ja", label: "Japanese" },
-    { value: "ko", label: "Korean" }
-  ]
+  const languageOptions = React.useMemo(() => getLanguageOptions(t), [t])
 
   const handleChunk = useCallback(async () => {
     if (!inputText.trim() && !inputFile) {
@@ -138,8 +128,8 @@ export const ChunkingPlayground: React.FC<ChunkingPlaygroundProps> = ({
         response = await chunkText(inputText, options)
       }
       setChunks(response.chunks)
-    } catch (err: any) {
-      const errorMsg = err?.message || "Chunking failed"
+    } catch (err: unknown) {
+      const errorMsg = err instanceof Error ? err.message : "Chunking failed"
       setError(errorMsg)
       message.error(errorMsg)
     } finally {

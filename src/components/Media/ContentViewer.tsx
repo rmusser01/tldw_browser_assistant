@@ -15,7 +15,8 @@ import {
   Edit3,
   ExternalLink,
   Expand,
-  Minimize2
+  Minimize2,
+  Loader2
 } from 'lucide-react'
 import React, { useState, useEffect, Suspense, useMemo, useRef, useCallback } from 'react'
 import { Select, Dropdown, Tooltip, message, Spin } from 'antd'
@@ -43,6 +44,7 @@ interface ContentViewerProps {
   selectedMedia: MediaResultItem | null
   content: string
   mediaDetail?: any
+  isDetailLoading?: boolean
   onPrevious?: () => void
   onNext?: () => void
   hasPrevious?: boolean
@@ -106,6 +108,7 @@ export function ContentViewer({
   selectedMedia,
   content,
   mediaDetail,
+  isDetailLoading = false,
   onPrevious,
   onNext,
   hasPrevious = false,
@@ -426,8 +429,8 @@ export function ContentViewer({
       <div className="flex-1 flex items-center justify-center bg-gray-50 dark:bg-[#101010]">
         <div className="text-center max-w-md px-6">
           <div className="mb-6 flex justify-center">
-            <div className="w-48 h-48 bg-gray-200 dark:bg-gray-800 rounded-lg flex items-center justify-center">
-              <FileSearch className="w-24 h-24 text-gray-400 dark:text-gray-500" />
+            <div className="w-32 h-32 rounded-full bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-blue-900/20 dark:to-indigo-900/20 flex items-center justify-center">
+              <FileSearch className="w-16 h-16 text-blue-400 dark:text-blue-500" />
             </div>
           </div>
           <h2 className="text-gray-900 dark:text-gray-100 mb-2 text-xl font-semibold">
@@ -439,6 +442,11 @@ export function ContentViewer({
             {t('review:mediaPage.noSelectionDescription', {
               defaultValue:
                 'Select a media item from the left sidebar to view its content and analyses here.'
+            })}
+          </p>
+          <p className="text-xs text-gray-400 dark:text-gray-500 mt-4">
+            {t('review:mediaPage.keyboardHint', {
+              defaultValue: 'Tip: Use j/k to navigate items, arrow keys to change pages'
             })}
           </p>
         </div>
@@ -466,7 +474,7 @@ export function ContentViewer({
               </button>
             </Tooltip>
             <span className="text-xs text-gray-500 dark:text-gray-400 tabular-nums min-w-[40px] text-center">
-              {currentIndex + 1}/{totalResults}
+              {totalResults > 0 ? `${currentIndex + 1}/${totalResults}` : '0/0'}
             </span>
             <Tooltip
               title={t('review:reviewPage.nextItem', { defaultValue: 'Next' })}
@@ -489,26 +497,47 @@ export function ContentViewer({
             </h3>
           </Tooltip>
 
-          {/* Right: Actions Dropdown */}
-          <Dropdown
-            menu={{ items: actionMenuItems }}
-            trigger={['click']}
-            placement="bottomRight"
-          >
-            <button
-              className="p-1.5 text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-[#262626] rounded"
-              aria-label={t('review:mediaPage.actionsLabel', {
-                defaultValue: 'Actions'
-              })}
+          {/* Right: Chat Button + Actions Dropdown */}
+          <div className="flex items-center gap-1">
+            {!isNote && onChatWithMedia && (
+              <Tooltip title={t('review:reviewPage.chatWithMedia', { defaultValue: 'Chat with this media' })}>
+                <button
+                  onClick={onChatWithMedia}
+                  className="p-1.5 text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-[#262626] rounded"
+                  aria-label={t('review:reviewPage.chatWithMedia', { defaultValue: 'Chat with this media' })}
+                >
+                  <MessageSquare className="w-4 h-4" />
+                </button>
+              </Tooltip>
+            )}
+            <Dropdown
+              menu={{ items: actionMenuItems }}
+              trigger={['click']}
+              placement="bottomRight"
             >
-              <MoreHorizontal className="w-4 h-4" />
-            </button>
-          </Dropdown>
+              <button
+                className="p-1.5 text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-[#262626] rounded"
+                aria-label={t('review:mediaPage.actionsLabel', {
+                  defaultValue: 'Actions'
+                })}
+              >
+                <MoreHorizontal className="w-4 h-4" />
+              </button>
+            </Dropdown>
+          </div>
         </div>
       </div>
 
       {/* Content Area */}
       <div className="flex-1 overflow-y-auto p-4">
+        {isDetailLoading ? (
+          <div className="flex flex-col items-center justify-center h-64 text-gray-500 dark:text-gray-400">
+            <Loader2 className="w-8 h-8 animate-spin mb-3" />
+            <span className="text-sm">
+              {t('review:mediaPage.loadingContent', { defaultValue: 'Loading content...' })}
+            </span>
+          </div>
+        ) : (
         <div className="max-w-4xl mx-auto">
           {/* Meta Row */}
           <div className="flex items-center gap-3 flex-wrap text-xs text-gray-500 dark:text-gray-400 mb-3">
@@ -923,6 +952,7 @@ export function ContentViewer({
             label={t('review:mediaPage.developerTools', { defaultValue: 'Developer Tools' })}
           />
         </div>
+        )}
       </div>
 
       {/* Analysis Generation Modal - only for media */}

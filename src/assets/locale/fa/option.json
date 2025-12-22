@@ -214,7 +214,8 @@
     "reviewDraftsStoreWithoutReview": "ذخیره بدون بازبینی",
     "reviewNavigationFailed": "باز کردن بازبینی محتوا ممکن نبود. دوباره تلاش کنید.",
     "reviewNavigationRetry": "تلاش دوباره برای باز کردن بازبینی محتوا",
-    "reviewStorageCapWarning": "{{count}} فایل از سقف پیش‌نویس محلی ({{cap}}) عبور می‌کند. قبل از ثبت صوت/ویدئو، منابع را پیوست کنید.",
+    "reviewStorageCapWarning_one": "{{count}} فایل از سقف پیش‌نویس محلی ({{cap}}) عبور می‌کند. قبل از ثبت صوت/ویدئو، منابع را پیوست کنید.",
+    "reviewStorageCapWarning_other": "{{count}} فایل از سقف پیش‌نویس محلی ({{cap}}) عبور می‌کنند. قبل از ثبت صوت/ویدئو، منابع را پیوست کنید.",
     "openContentReview": "باز کردن بازبینی محتوا",
     "storageDocsLink": "درباره درون‌ریزی و ذخیره‌سازی بیشتر بدانید",
     "storageDocsUrl": "https://github.com/rmusser01/tldw_browser_assistant",
@@ -557,7 +558,9 @@
     "clearCancel": "انصراف",
     "clearSuccess": "پیش‌نویس‌ها حذف شدند.",
     "originalLabel": "نسخه اصلی",
-    "editedLabel": "نسخه ویرایش‌شده"
+    "editedLabel": "نسخه ویرایش‌شده",
+    "reviewStorageCapWarning_one": "{{count}} فایل از سقف پیش‌نویس محلی ({{cap}}) عبور می‌کند. قبل از ثبت صوت/ویدئو، منابع را پیوست کنید.",
+    "reviewStorageCapWarning_other": "{{count}} فایل از سقف پیش‌نویس محلی ({{cap}}) عبور می‌کنند. قبل از ثبت صوت/ویدئو، منابع را پیوست کنید."
   },
   "omniSearch": {
     "filterScreen": "Screens",

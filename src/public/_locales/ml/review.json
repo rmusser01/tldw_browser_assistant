@@ -1,41 +1,41 @@
 {
-  "mediaPage.nothingToSend": {
+  "mediaPage_nothingToSend": {
     "message": "അയയ്ക്കാൻ ഉള്ള ഉള്ളടക്കം ഒന്നുമില്ല"
   },
-  "mediaPage.emptyAnalysis": {
+  "mediaPage_emptyAnalysis": {
     "message": "വിശകലനം ഒഴിഞ്ഞതാകാൻ പാടില്ല"
   },
-  "mediaPage.noMediaId": {
+  "mediaPage_noMediaId": {
     "message": "ലഭ്യമായ മീഡിയ ID ഇല്ല"
   },
-  "mediaPage.versionSaved": {
+  "mediaPage_versionSaved": {
     "message": "പുതിയ പതിപ്പായി സേവ് ചെയ്തു"
   },
-  "mediaPage.saveFailed": {
+  "mediaPage_saveFailed": {
     "message": "പതിപ്പ് സേവ് ചെയ്യാൻ കഴിഞ്ഞില്ല"
   },
-  "mediaPage.saveUnauthorized": {
+  "mediaPage_saveUnauthorized": {
     "message": "സംരക്ഷിക്കാൻ അനുമതിയില്ല"
   },
-  "mediaPage.sendToChat": {
+  "mediaPage_sendToChat": {
     "message": "ചാറ്റിലേക്ക് അയയ്ക്കുക"
   },
-  "mediaPage.saveAsVersion": {
+  "mediaPage_saveAsVersion": {
     "message": "പുതിയ പതിപ്പായി സേവ് ചെയ്യുക"
   },
-  "mediaPage.analysisPlaceholder": {
+  "mediaPage_analysisPlaceholder": {
     "message": "വിശകലന ടെക്സ്റ്റ് നൽകുക..."
   },
-  "mediaPage.wordCount": {
+  "mediaPage_wordCount": {
     "message": "{{count}} വാക്കുകൾ"
   },
-  "mediaPage.charCount": {
+  "mediaPage_charCount": {
     "message": "{{count}} അക്ഷരങ്ങൾ"
   },
-  "mediaPage.pageRangeError": {
+  "mediaPage_pageRangeError": {
     "message": "താൾ 1 മുതൽ {{max}} വരെയായിരിക്കണം"
   },
-  "mediaPage.pageRangeClamped": {
+  "mediaPage_pageRangeClamped": {
     "message": "താൾ {{page}} ലേക്ക് പോകുന്നു"
   },
   "noToolCalls": {
@@ -68,184 +68,183 @@
   "reviewNavigationRetry": {
     "message": "ഉള്ളടക്ക റിവ്യൂ വീണ്ടും തുറക്കുക"
   },
-  "contentReview.title": {
+  "contentReview_title": {
     "message": "ഉള്ളടക്കം റിവ്യൂ"
   },
-  "contentReview.readyToSubmit": {
+  "contentReview_readyToSubmit": {
     "message": "{{count}} തയ്യാറായി"
   },
-  "contentReview.committedCount": {
+  "contentReview_committedCount": {
     "message": "{{count}} സംഭരിച്ചിരിക്കുന്നു"
   },
-  "contentReview.totalCount": {
+  "contentReview_totalCount": {
     "message": "മൊത്തം {{count}}"
   },
-  "contentReview.commitAll": {
+  "contentReview_commitAll": {
     "message": "എല്ലാം കമ്മിറ്റുചെയ്യുക"
   },
-  "contentReview.clearDrafts": {
+  "contentReview_clearDrafts": {
     "message": "ഡ്രാഫ്റ്റുകൾ മായ്ക്കുക"
   },
-  "contentReview.emptyDescription": {
+  "contentReview_emptyDescription": {
     "message": "ഇപ്പോഴും ഒരു ഡ്രാഫ്റ്റും ഇല്ല. സംരക്ഷിക്കുന്നതിന് മുമ്പ് റിവ്യൂ ചെയ്യൽ ഓപ്ഷൻ ഉപയോഗിച്ച് Quick Ingest വഴി ഡ്രാഫ്റ്റുകൾ സൃഷ്ടിക്കാം."
   },
-  "contentReview.openQuickIngest": {
+  "contentReview_openQuickIngest": {
     "message": "Quick Ingest തുറക്കുക"
   },
-  "contentReview.storeAfterReview": {
+  "contentReview_storeAfterReview": {
     "message": "റിവ്യൂ കഴിഞ്ഞ് സംഭരിക്കുക"
   },
-  "contentReview.reviewBeforeStorage": {
+  "contentReview_reviewBeforeStorage": {
     "message": "സംരക്ഷിക്കുന്നതിന് മുമ്പ് റിവ്യൂ ചെയ്യുക"
   },
-  "contentReview.reviewBeforeStorageHint": {
+  "contentReview_reviewBeforeStorageHint": {
     "message": "ഇപ്പോൾ പ്രോസസ്സ് ചെയ്യുക, തുടർന്ന് നിങ്ങളുടെ സെർവറിൽ കമ്മിറ്റുചെയ്യുന്നതിന് മുമ്പ് ഡ്രാഫ്റ്റുകൾ ലോക്കലായി എഡിറ്റ് ചെയ്യുക."
   },
-  "contentReview.reviewEnabled": {
+  "contentReview_reviewEnabled": {
     "message": "റിവ്യൂ മോഡ്"
   },
-  "contentReview.reviewStorageCap": {
+  "contentReview_reviewStorageCap": {
     "message": "ലോക്കൽ ഡ്രാഫ്റ്റുകൾ {{cap}} വരെ പരിമിതമാണ്."
   },
-  "contentReview.reviewWarningTitle": {
+  "contentReview_reviewWarningTitle": {
     "message": "ഡ്രാഫ്റ്റുകൾ ലോക്കലായി സംഭരിക്കണോ?"
   },
-  "contentReview.reviewWarningBody": {
+  "contentReview_reviewWarningBody": {
     "message": "ഡ്രാഫ്റ്റുകൾ ഈ ബ്രൗസറിൽ സംഭരിക്കപ്പെടുകയും സെൻസിറ്റീവ് ഡാറ്റ ഉൾക്കൊള്ളുകയും ചെയ്യാം. ഉള്ളടക്കം റിവ്യൂ പേജിൽ നിന്ന് നിങ്ങൾക്ക് ഏത് സമയത്തും ഡ്രാഫ്റ്റുകൾ മായ്ക്കാം."
   },
-  "contentReview.reviewWarningBodySecondary": {
+  "contentReview_reviewWarningBodySecondary": {
     "message": "നിങ്ങൾ സെർവറിലേക്ക് കമ്മിറ്റുചെയ്യുന്നതുവരെ റിവ്യൂ മോഡ് ഉള്ളടക്കം ക്ലയന്റ്-സൈഡിൽ നിലനിർത്തും."
   },
-  "contentReview.reviewWarningConfirm": {
+  "contentReview_reviewWarningConfirm": {
     "message": "റിവ്യൂ സജീവമാക്കുക"
   },
-  "contentReview.reviewWarningCancel": {
+  "contentReview_reviewWarningCancel": {
     "message": "റദ്ദാക്കുക"
   },
-  "contentReview.reviewRunLabel": {
+  "contentReview_reviewRunLabel": {
     "message": "റിവ്യൂ"
   },
-  "contentReview.reviewDraftsCreated": {
+  "contentReview_reviewDraftsCreated": {
     "message": "ഡ്രാഫ്റ്റുകൾ റിവ്യൂയ്ക്ക് തയ്യാറായി."
   },
-  "contentReview.reviewStorageCapWarning": {
-    "message": "{{count}} ഫയൽ(കൾ) ലോക്കൽ ഡ്രാഫ്റ്റ് പരിധി ({{cap}}) കവിയുന്നു. ഓഡിയോ/വീഡിയോ കമ്മിറ്റുചെയ്യുന്നതിന് മുമ്പ് സോഴ്‌സുകൾ അറ്റാച്ച് ചെയ്യുക."
-  },
-  "contentReview.openContentReview": {
+  "contentReview.reviewStorageCapWarning_one": "{{count}} ഫയൽ ലോക്കൽ ഡ്രാഫ്റ്റ് പരിധി ({{cap}}) കവിയുന്നു. ഓഡിയോ/വീഡിയോ കമ്മിറ്റുചെയ്യുന്നതിന് മുമ്പ് സോഴ്‌സുകൾ അറ്റാച്ച് ചെയ്യുക.",
+  "contentReview.reviewStorageCapWarning_other": "{{count}} ഫയലുകൾ ലോക്കൽ ഡ്രാഫ്റ്റ് പരിധി ({{cap}}) കവിയുന്നു. ഓഡിയോ/വീഡിയോ കമ്മിറ്റുചെയ്യുന്നതിന് മുമ്പ് സോഴ്‌സുകൾ അറ്റാച്ച് ചെയ്യുക.",
+  "contentReview_openContentReview": {
     "message": "ഉള്ളടക്കം റിവ്യൂ തുറക്കുക"
   },
-  "contentReview.batchLabel": {
+  "contentReview_batchLabel": {
     "message": "ബാച്ച്"
   },
-  "contentReview.batchName": {
+  "contentReview_batchName": {
     "message": "ബാച്ച് {{index}}"
   },
-  "contentReview.draftsLabel": {
+  "contentReview_draftsLabel": {
     "message": "ഡ്രാഫ്റ്റുകൾ"
   },
-  "contentReview.selectDraft": {
+  "contentReview_selectDraft": {
     "message": "റിവ്യൂ തുടങ്ങാൻ ഒരു ഡ്രാഫ്റ്റ് തിരഞ്ഞെടുക്കുക."
   },
-  "contentReview.titlePlaceholder": {
+  "contentReview_titlePlaceholder": {
     "message": "ഡ്രാഫ്റ്റിന്റെ ശീർഷകം"
   },
-  "contentReview.lastSaved": {
+  "contentReview_lastSaved": {
     "message": "{{time}} ന് സംരക്ഷിച്ചു"
   },
-  "contentReview.resetTitle": {
+  "contentReview_resetTitle": {
     "message": "ഡ്രാഫ്റ്റ് റീസെറ്റ് ചെയ്യണോ?"
   },
-  "contentReview.resetBody": {
+  "contentReview_resetBody": {
     "message": "ഈ ഡ്രാഫ്റ്റിന്റെ ആദ്യത്തെ ഉള്ളടക്കം തിരിച്ചെടുക്കും."
   },
-  "contentReview.resetConfirm": {
+  "contentReview_resetConfirm": {
     "message": "റീസെറ്റ്"
   },
-  "contentReview.resetCancel": {
+  "contentReview_resetCancel": {
     "message": "റദ്ദാക്കുക"
   },
-  "contentReview.resetContent": {
+  "contentReview_resetContent": {
     "message": "റീസെറ്റ്"
   },
-  "contentReview.diffView": {
+  "contentReview_diffView": {
     "message": "വ്യത്യാസങ്ങൾ കാണുക"
   },
-  "contentReview.saveDraft": {
+  "contentReview_saveDraft": {
     "message": "ഡ്രാഫ്റ്റ് സംരക്ഷിക്കുക"
   },
-  "contentReview.editorLabel": {
+  "contentReview_editorLabel": {
     "message": "ഉള്ളടക്കം"
   },
-  "contentReview.wordCount": {
+  "contentReview_wordCount": {
     "message": "{{words}} വാക്കുകൾ"
   },
-  "contentReview.charCount": {
+  "contentReview_charCount": {
     "message": "{{chars}} പ്രതീകങ്ങൾ"
   },
-  "contentReview.aiFix": {
+  "contentReview_aiFix": {
     "message": "AI വഴി തിരുത്തുക"
   },
-  "contentReview.aiHint": {
+  "contentReview_aiHint": {
     "message": "ഡ്രാഫ്റ്റിന്റെ ഉള്ളടക്കം AI പ്രോസസിംഗിന് നിങ്ങളുടെ സെർവറിലേക്ക് അയക്കും."
   },
-  "contentReview.modelPlaceholder": {
+  "contentReview_modelPlaceholder": {
     "message": "സെർവർ ഡീഫോൾട്ട്"
   },
-  "contentReview.aiConsentTitle": {
+  "contentReview_aiConsentTitle": {
     "message": "ഡ്രാഫ്റ്റ് സെർവറിലേക്ക് അയക്കണോ?"
   },
-  "contentReview.aiConsentBody": {
+  "contentReview_aiConsentBody": {
     "message": "ഡ്രാഫ്റ്റിന്റെ ഉള്ളടക്കം നിങ്ങളുടെ tldw സെർവറിലേക്ക് AI പ്രോസസിംഗിനായി അയക്കും. നിങ്ങൾ കമ്മിറ്റുചെയ്യുന്നതുവരെ ഡ്രാഫ്റ്റുകൾ ലോക്കലായി തന്നെ തുടരും."
   },
-  "contentReview.aiConsentConfirm": {
+  "contentReview_aiConsentConfirm": {
     "message": "തുടരുക"
   },
-  "contentReview.aiConsentCancel": {
+  "contentReview_aiConsentCancel": {
     "message": "റദ്ദാക്കുക"
   },
-  "contentReview.aiApplied": {
+  "contentReview_aiApplied": {
     "message": "AI തിരുത്തലുകൾ പ്രയോഗിച്ചു."
   },
-  "contentReview.aiNoChange": {
+  "contentReview_aiNoChange": {
     "message": "ഒരു മാറ്റവും വന്നില്ല."
   },
-  "contentReview.aiEmpty": {
+  "contentReview_aiEmpty": {
     "message": "AI യിൽ നിന്ന് ഉള്ളടക്കം ലഭിച്ചില്ല."
   },
-  "contentReview.aiUnavailable": {
+  "contentReview_aiUnavailable": {
     "message": "ചാറ്റ് പൂർത്തിയാക്കൽ ലഭ്യമല്ല."
   },
-  "contentReview.templatePlaceholder": {
+  "contentReview_templatePlaceholder": {
     "message": "ടെംപ്ലേറ്റ് തിരഞ്ഞെടുക്കുക"
   },
-  "contentReview.applyTemplate": {
+  "contentReview_applyTemplate": {
     "message": "ടെംപ്ലേറ്റ് പ്രയോഗിക്കുക"
   },
-  "contentReview.templateApplied": {
+  "contentReview_templateApplied": {
     "message": "ടെംപ്ലേറ്റ് പ്രയോഗിച്ചു."
   },
-  "contentReview.templateMissing": {
+  "contentReview_templateMissing": {
     "message": "ആദ്യം ഒരു ടെംപ്ലേറ്റ് തിരഞ്ഞെടുക്കുക."
   },
-  "contentReview.detectSections": {
+  "contentReview_detectSections": {
     "message": "വിഭാഗങ്ങൾ കണ്ടെത്തുക"
   },
-  "contentReview.detectSectionsTitle": {
+  "contentReview_detectSectionsTitle": {
     "message": "വിഭാഗങ്ങൾ വീണ്ടും കണ്ടെത്തണോ?"
   },
-  "contentReview.detectSectionsBody": {
+  "contentReview_detectSectionsBody": {
     "message": "ഇത് നിലവിലുള്ള വിഭാഗങ്ങളെ മാറ്റിസ്ഥാപിക്കുകയും നിങ്ങളുടെ തിരഞ്ഞെടുപ്പുകൾ റീസെറ്റ് ചെയ്യുകയും ചെയ്യും."
   },
-  "contentReview.detectSectionsConfirm": {
+  "contentReview_detectSectionsConfirm": {
     "message": "വീണ്ടും കണ്ടെത്തുക"
   },
-  "contentReview.detectSectionsCancel": {
+  "contentReview_detectSectionsCancel": {
     "message": "റദ്ദാക്കുക"
   },
-  "contentReview.detectSectionsEmpty": {
+  "contentReview_detectSectionsEmpty": {
     "message": "ഒരു വിഭാഗവും കണ്ടെത്തിയില്ല."
   },
-  "contentReview.sectionsLabel": {
+  "contentReview_sectionsLabel": {
     "message": "വിഭാഗ ഫിൽറ്റർ"
   },
   "contentReview.templates.transcript_clean.label": {
@@ -266,100 +265,100 @@
   "contentReview.templates.chapter_headings.description": {
     "message": "ഉള്ളടക്കം നീക്കം ചെയ്യാതെയായി വിഷയങ്ങൾ ഗ്രൂപ്പാക്കാൻ Markdown തലക്കെട്ടുകൾ ചേർക്കുന്നു."
   },
-  "contentReview.metadataLabel": {
+  "contentReview_metadataLabel": {
     "message": "മെറ്റാഡാറ്റ"
   },
-  "contentReview.mediaType": {
+  "contentReview_mediaType": {
     "message": "മീഡിയ ടൈപ്പ്"
   },
-  "contentReview.keywords": {
+  "contentReview_keywords": {
     "message": "കീവേഡുകൾ"
   },
-  "contentReview.keywordsPlaceholder": {
+  "contentReview_keywordsPlaceholder": {
     "message": "കീവേഡുകൾ ചേർക്കുക"
   },
-  "contentReview.reviewNotes": {
+  "contentReview_reviewNotes": {
     "message": "റിവ്യൂ നോട്ട്‌സ്"
   },
-  "contentReview.missingSource": {
+  "contentReview_missingSource": {
     "message": "സോഴ്‌സ് ഫയൽ കാണുന്നില്ല"
   },
-  "contentReview.missingSourceBody": {
+  "contentReview_missingSourceBody": {
     "message": "ഈ ഡ്രാഫ്റ്റ് കമ്മിറ്റുചെയ്യാൻ ഒറിജിനൽ ഫയൽ അറ്റാച്ച് ചെയ്യുക."
   },
-  "contentReview.attachSource": {
+  "contentReview_attachSource": {
     "message": "ഫയൽ അറ്റാച്ച് ചെയ്യുക"
   },
-  "contentReview.actionsLabel": {
+  "contentReview_actionsLabel": {
     "message": "ആക്ഷനുകൾ"
   },
-  "contentReview.commit": {
+  "contentReview_commit": {
     "message": "കമ്മിറ്റുചെയ്യുക"
   },
-  "contentReview.commitDisabled": {
+  "contentReview_commitDisabled": {
     "message": "കമ്മിറ്റുചെയ്യുന്നതിന് മുമ്പ് ഒറിജിനൽ ഓഡിയോ/വീഡിയോ ഫയൽ അറ്റാച്ച് ചെയ്യുക."
   },
-  "contentReview.markReviewed": {
+  "contentReview_markReviewed": {
     "message": "റിവ്യൂ ചെയ്‌തതായി മാർക്ക് ചെയ്യുക"
   },
-  "contentReview.skipNext": {
+  "contentReview_skipNext": {
     "message": "സ്കിപ്പ് ചെയ്യുക"
   },
-  "contentReview.discard": {
+  "contentReview_discard": {
     "message": "ഡിസ്‌കാർഡ്"
   },
-  "contentReview.discardTitle": {
+  "contentReview_discardTitle": {
     "message": "ഡ്രാഫ്റ്റ് ഡിസ്‌കാർഡ് ചെയ്യണോ?"
   },
-  "contentReview.discardBody": {
+  "contentReview_discardBody": {
     "message": "ഈ ഡ്രാഫ്റ്റ് ഡിസ്‌കാർഡ് ചെയ്‌തതായി മാർക്ക് ചെയ്യപ്പെടുകയും റിവ്യൂയിൽ നിന്ന് നീക്കം ചെയ്യപ്പെടുകയും ചെയ്യും."
   },
-  "contentReview.discardConfirm": {
+  "contentReview_discardConfirm": {
     "message": "ഡിസ്‌കാർഡ്"
   },
-  "contentReview.discardCancel": {
+  "contentReview_discardCancel": {
     "message": "റദ്ദാക്കുക"
   },
-  "contentReview.commitSuccess": {
+  "contentReview_commitSuccess": {
     "message": "ഡ്രാഫ്റ്റ് കമ്മിറ്റുചെയ്തു."
   },
-  "contentReview.commitAllTitle": {
+  "contentReview_commitAllTitle": {
     "message": "റിവ്യൂ ചെയ്‌ത ഡ്രാഫ്റ്റുകൾ എല്ലാം കമ്മിറ്റുചെയ്യണോ?"
   },
-  "contentReview.commitAllBody": {
+  "contentReview_commitAllBody": {
     "message": "റിവ്യൂ ചെയ്‌തതായി മാർക്ക് ചെയ്‌തിരിക്കുന്ന ഡ്രാഫ്റ്റുകൾ മാത്രമേ കമ്മിറ്റു ചെയ്യൂ."
   },
-  "contentReview.commitAllConfirm": {
+  "contentReview_commitAllConfirm": {
     "message": "എല്ലാം കമ്മിറ്റുചെയ്യുക"
   },
-  "contentReview.commitAllCancel": {
+  "contentReview_commitAllCancel": {
     "message": "റദ്ദാക്കുക"
   },
-  "contentReview.commitAllResult": {
+  "contentReview_commitAllResult": {
     "message": "{{success}} കമ്മിറ്റുചെയ്തു · {{failed}} പരാജയപ്പെട്ടു"
   },
-  "contentReview.storageCapWarning": {
+  "contentReview_storageCapWarning": {
     "message": "ഈ ഫയൽ ലോക്കൽ ഡ്രാഫ്റ്റ് പരിധി ({{cap}}) കവിയുന്നു."
   },
-  "contentReview.clearTitle": {
+  "contentReview_clearTitle": {
     "message": "എല്ലാ ഡ്രാഫ്റ്റുകളും മായ്ക്കണോ?"
   },
-  "contentReview.clearBody": {
+  "contentReview_clearBody": {
     "message": "ഇത് ലോക്കൽ ഉള്ളടക്കം റിവ്യൂ ഡ്രാഫ്റ്റുകളും അനുബന്ധ അസറ്റുകളും എല്ലാം നീക്കം ചെയ്യും."
   },
-  "contentReview.clearConfirm": {
+  "contentReview_clearConfirm": {
     "message": "ഡ്രാഫ്റ്റുകൾ മായ്ക്കുക"
   },
-  "contentReview.clearCancel": {
+  "contentReview_clearCancel": {
     "message": "റദ്ദാക്കുക"
   },
-  "contentReview.clearSuccess": {
+  "contentReview_clearSuccess": {
     "message": "ഡ്രാഫ്റ്റുകൾ മായ്ച്ചു."
   },
-  "contentReview.originalLabel": {
+  "contentReview_originalLabel": {
     "message": "ഒറിജിനൽ"
   },
-  "contentReview.editedLabel": {
+  "contentReview_editedLabel": {
     "message": "എഡിറ്റ് ചെയ്‌തത്"
   }
 }

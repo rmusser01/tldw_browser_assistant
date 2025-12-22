@@ -1,4 +1,4 @@
-import { ChevronDown, Filter } from 'lucide-react'
+import { ChevronDown, Filter, Star } from 'lucide-react'
 import { useState } from 'react'
 import { Select } from 'antd'
 import { useTranslation } from 'react-i18next'
@@ -11,6 +11,9 @@ interface FilterPanelProps {
   onKeywordsChange: (keywords: string[]) => void
   keywordOptions?: string[]
   onKeywordSearch?: (text: string) => void
+  showFavoritesOnly?: boolean
+  onShowFavoritesOnlyChange?: (show: boolean) => void
+  favoritesCount?: number
 }
 
 // Normalize media type to Title Case for consistent display
@@ -46,7 +49,10 @@ export function FilterPanel({
   selectedKeywords,
   onKeywordsChange,
   keywordOptions = [],
-  onKeywordSearch
+  onKeywordSearch,
+  showFavoritesOnly = false,
+  onShowFavoritesOnlyChange,
+  favoritesCount = 0
 }: FilterPanelProps) {
   const { t } = useTranslation(['review'])
   const [expandedSections, setExpandedSections] = useState({
@@ -81,12 +87,34 @@ export function FilterPanel({
           onClick={() => {
             onMediaTypesChange([])
             onKeywordsChange([])
+            onShowFavoritesOnlyChange?.(false)
           }}
           className="text-sm text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300"
         >
           {t('review:mediaPage.clearAll', { defaultValue: 'Clear all' })}
         </button>
       </div>
+
+      {/* Favorites Toggle */}
+      {onShowFavoritesOnlyChange && (
+        <label className="flex items-center gap-2 cursor-pointer py-1 px-1 rounded hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors">
+          <input
+            type="checkbox"
+            checked={showFavoritesOnly}
+            onChange={(e) => onShowFavoritesOnlyChange(e.target.checked)}
+            className="w-4 h-4 rounded border-gray-300 dark:border-gray-600 text-yellow-500 focus:ring-2 focus:ring-yellow-500 dark:focus:ring-yellow-600"
+          />
+          <Star className={`w-4 h-4 ${showFavoritesOnly ? 'text-yellow-500 fill-yellow-500' : 'text-yellow-500'}`} />
+          <span className="text-sm text-gray-700 dark:text-gray-300">
+            {t('review:mediaPage.favoritesOnly', { defaultValue: 'Favorites only' })}
+          </span>
+          {favoritesCount > 0 && (
+            <span className="text-xs px-1.5 py-0.5 rounded-full bg-yellow-100 dark:bg-yellow-900/40 text-yellow-700 dark:text-yellow-300 font-medium">
+              {favoritesCount}
+            </span>
+          )}
+        </label>
+      )}
 
       {/* Media Types */}
       <div className="space-y-2">

@@ -1,41 +1,41 @@
 {
-  "mediaPage.nothingToSend": {
+  "mediaPage_nothingToSend": {
     "message": "没有可发送的内容"
   },
-  "mediaPage.emptyAnalysis": {
+  "mediaPage_emptyAnalysis": {
     "message": "分析内容不能为空"
   },
-  "mediaPage.noMediaId": {
+  "mediaPage_noMediaId": {
     "message": "没有可用的媒体 ID"
   },
-  "mediaPage.versionSaved": {
+  "mediaPage_versionSaved": {
     "message": "已保存为新版本"
   },
-  "mediaPage.saveFailed": {
+  "mediaPage_saveFailed": {
     "message": "保存版本失败"
   },
-  "mediaPage.saveUnauthorized": {
+  "mediaPage_saveUnauthorized": {
     "message": "没有权限保存"
   },
-  "mediaPage.sendToChat": {
+  "mediaPage_sendToChat": {
     "message": "发送到聊天"
   },
-  "mediaPage.saveAsVersion": {
+  "mediaPage_saveAsVersion": {
     "message": "保存为新版本"
   },
-  "mediaPage.analysisPlaceholder": {
+  "mediaPage_analysisPlaceholder": {
     "message": "请输入分析文本..."
   },
-  "mediaPage.wordCount": {
+  "mediaPage_wordCount": {
     "message": "{{count}} 个单词"
   },
-  "mediaPage.charCount": {
+  "mediaPage_charCount": {
     "message": "{{count}} 个字符"
   },
-  "mediaPage.pageRangeError": {
+  "mediaPage_pageRangeError": {
     "message": "页码必须为 1-{{max}}"
   },
-  "mediaPage.pageRangeClamped": {
+  "mediaPage_pageRangeClamped": {
     "message": "正在导航至第 {{page}} 页"
   },
   "noToolCalls": {
@@ -68,184 +68,183 @@
   "reviewNavigationRetry": {
     "message": "重试打开内容审阅"
   },
-  "contentReview.title": {
+  "contentReview_title": {
     "message": "内容审阅"
   },
-  "contentReview.readyToSubmit": {
+  "contentReview_readyToSubmit": {
     "message": "{{count}} 个已就绪"
   },
-  "contentReview.committedCount": {
+  "contentReview_committedCount": {
     "message": "{{count}} 个已提交"
   },
-  "contentReview.totalCount": {
+  "contentReview_totalCount": {
     "message": "共 {{count}} 个"
   },
-  "contentReview.commitAll": {
+  "contentReview_commitAll": {
     "message": "全部提交"
   },
-  "contentReview.clearDrafts": {
+  "contentReview_clearDrafts": {
     "message": "清除草稿"
   },
-  "contentReview.emptyDescription": {
+  "contentReview_emptyDescription": {
     "message": "当前还没有草稿。使用 Quick Ingest 并启用“保存前审阅”即可创建草稿。"
   },
-  "contentReview.openQuickIngest": {
+  "contentReview_openQuickIngest": {
     "message": "打开 Quick Ingest"
   },
-  "contentReview.storeAfterReview": {
+  "contentReview_storeAfterReview": {
     "message": "审阅后保存"
   },
-  "contentReview.reviewBeforeStorage": {
+  "contentReview_reviewBeforeStorage": {
     "message": "保存前审阅"
   },
-  "contentReview.reviewBeforeStorageHint": {
+  "contentReview_reviewBeforeStorageHint": {
     "message": "先处理，然后在提交到服务器前在本地编辑草稿。"
   },
-  "contentReview.reviewEnabled": {
+  "contentReview_reviewEnabled": {
     "message": "审阅模式"
   },
-  "contentReview.reviewStorageCap": {
+  "contentReview_reviewStorageCap": {
     "message": "本地草稿上限为 {{cap}}。"
   },
-  "contentReview.reviewWarningTitle": {
+  "contentReview_reviewWarningTitle": {
     "message": "将草稿保存在本地？"
   },
-  "contentReview.reviewWarningBody": {
+  "contentReview_reviewWarningBody": {
     "message": "草稿保存在此浏览器中，可能包含敏感数据。你可以随时在“内容审阅”页面清除草稿。"
   },
-  "contentReview.reviewWarningBodySecondary": {
+  "contentReview_reviewWarningBodySecondary": {
     "message": "审阅模式会在提交到服务器前将内容保留在客户端。"
   },
-  "contentReview.reviewWarningConfirm": {
+  "contentReview_reviewWarningConfirm": {
     "message": "启用审阅"
   },
-  "contentReview.reviewWarningCancel": {
+  "contentReview_reviewWarningCancel": {
     "message": "取消"
   },
-  "contentReview.reviewRunLabel": {
+  "contentReview_reviewRunLabel": {
     "message": "审阅"
   },
-  "contentReview.reviewDraftsCreated": {
+  "contentReview_reviewDraftsCreated": {
     "message": "草稿已准备好审阅。"
   },
-  "contentReview.reviewStorageCapWarning": {
-    "message": "{{count}} 个文件超过本地草稿上限（{{cap}}）。请在提交音频/视频前附加来源。"
-  },
-  "contentReview.openContentReview": {
+  "contentReview.reviewStorageCapWarning_one": "{{count}} 个文件超过本地草稿上限（{{cap}}）。请在提交音频/视频前附加来源。",
+  "contentReview.reviewStorageCapWarning_other": "{{count}} 个文件超过本地草稿上限（{{cap}}）。请在提交音频/视频前附加来源。",
+  "contentReview_openContentReview": {
     "message": "打开内容审阅"
   },
-  "contentReview.batchLabel": {
+  "contentReview_batchLabel": {
     "message": "批次"
   },
-  "contentReview.batchName": {
+  "contentReview_batchName": {
     "message": "批次 {{index}}"
   },
-  "contentReview.draftsLabel": {
+  "contentReview_draftsLabel": {
     "message": "草稿"
   },
-  "contentReview.selectDraft": {
+  "contentReview_selectDraft": {
     "message": "选择一个草稿开始审阅。"
   },
-  "contentReview.titlePlaceholder": {
+  "contentReview_titlePlaceholder": {
     "message": "草稿标题"
   },
-  "contentReview.lastSaved": {
+  "contentReview_lastSaved": {
     "message": "已保存于 {{time}}"
   },
-  "contentReview.resetTitle": {
+  "contentReview_resetTitle": {
     "message": "重置草稿？"
   },
-  "contentReview.resetBody": {
+  "contentReview_resetBody": {
     "message": "这将恢复该草稿的原始内容。"
   },
-  "contentReview.resetConfirm": {
+  "contentReview_resetConfirm": {
     "message": "重置"
   },
-  "contentReview.resetCancel": {
+  "contentReview_resetCancel": {
     "message": "取消"
   },
-  "contentReview.resetContent": {
+  "contentReview_resetContent": {
     "message": "重置"
   },
-  "contentReview.diffView": {
+  "contentReview_diffView": {
     "message": "差异视图"
   },
-  "contentReview.saveDraft": {
+  "contentReview_saveDraft": {
     "message": "保存草稿"
   },
-  "contentReview.editorLabel": {
+  "contentReview_editorLabel": {
     "message": "内容"
   },
-  "contentReview.wordCount": {
+  "contentReview_wordCount": {
     "message": "{{words}} 个词"
   },
-  "contentReview.charCount": {
+  "contentReview_charCount": {
     "message": "{{chars}} 个字符"
   },
-  "contentReview.aiFix": {
+  "contentReview_aiFix": {
     "message": "使用 AI 修正"
   },
-  "contentReview.aiHint": {
+  "contentReview_aiHint": {
     "message": "将草稿内容发送到服务器，由 AI 进行处理。"
   },
-  "contentReview.modelPlaceholder": {
+  "contentReview_modelPlaceholder": {
     "message": "服务器默认"
   },
-  "contentReview.aiConsentTitle": {
+  "contentReview_aiConsentTitle": {
     "message": "将草稿发送到服务器？"
   },
-  "contentReview.aiConsentBody": {
+  "contentReview_aiConsentBody": {
     "message": "这会将草稿内容发送到你的 tldw 服务器进行 AI 处理。草稿会一直保留在本地，直到你提交。"
   },
-  "contentReview.aiConsentConfirm": {
+  "contentReview_aiConsentConfirm": {
     "message": "继续"
   },
-  "contentReview.aiConsentCancel": {
+  "contentReview_aiConsentCancel": {
     "message": "取消"
   },
-  "contentReview.aiApplied": {
+  "contentReview_aiApplied": {
     "message": "已应用 AI 修正。"
   },
-  "contentReview.aiNoChange": {
+  "contentReview_aiNoChange": {
     "message": "未返回任何更改。"
   },
-  "contentReview.aiEmpty": {
+  "contentReview_aiEmpty": {
     "message": "AI 未返回任何内容。"
   },
-  "contentReview.aiUnavailable": {
+  "contentReview_aiUnavailable": {
     "message": "聊天补全不可用。"
   },
-  "contentReview.templatePlaceholder": {
+  "contentReview_templatePlaceholder": {
     "message": "选择模板"
   },
-  "contentReview.applyTemplate": {
+  "contentReview_applyTemplate": {
     "message": "应用模板"
   },
-  "contentReview.templateApplied": {
+  "contentReview_templateApplied": {
     "message": "模板已应用。"
   },
-  "contentReview.templateMissing": {
+  "contentReview_templateMissing": {
     "message": "请先选择一个模板。"
   },
-  "contentReview.detectSections": {
+  "contentReview_detectSections": {
     "message": "检测章节"
   },
-  "contentReview.detectSectionsTitle": {
+  "contentReview_detectSectionsTitle": {
     "message": "重新检测章节？"
   },
-  "contentReview.detectSectionsBody": {
+  "contentReview_detectSectionsBody": {
     "message": "这将替换现有章节并重置你的选择。"
   },
-  "contentReview.detectSectionsConfirm": {
+  "contentReview_detectSectionsConfirm": {
     "message": "重新检测"
   },
-  "contentReview.detectSectionsCancel": {
+  "contentReview_detectSectionsCancel": {
     "message": "取消"
   },
-  "contentReview.detectSectionsEmpty": {
+  "contentReview_detectSectionsEmpty": {
     "message": "未检测到任何章节。"
   },
-  "contentReview.sectionsLabel": {
+  "contentReview_sectionsLabel": {
     "message": "章节筛选"
   },
   "contentReview.templates.transcript_clean.label": {
@@ -266,100 +265,100 @@
   "contentReview.templates.chapter_headings.description": {
     "message": "插入 Markdown 标题，以分组主题而不删除内容。"
   },
-  "contentReview.metadataLabel": {
+  "contentReview_metadataLabel": {
     "message": "元数据"
   },
-  "contentReview.mediaType": {
+  "contentReview_mediaType": {
     "message": "媒体类型"
   },
-  "contentReview.keywords": {
+  "contentReview_keywords": {
     "message": "关键词"
   },
-  "contentReview.keywordsPlaceholder": {
+  "contentReview_keywordsPlaceholder": {
     "message": "添加关键词"
   },
-  "contentReview.reviewNotes": {
+  "contentReview_reviewNotes": {
     "message": "审阅备注"
   },
-  "contentReview.missingSource": {
+  "contentReview_missingSource": {
     "message": "缺少源文件"
   },
-  "contentReview.missingSourceBody": {
+  "contentReview_missingSourceBody": {
     "message": "请附加原始文件以提交此草稿。"
   },
-  "contentReview.attachSource": {
+  "contentReview_attachSource": {
     "message": "附加文件"
   },
-  "contentReview.actionsLabel": {
+  "contentReview_actionsLabel": {
     "message": "操作"
   },
-  "contentReview.commit": {
+  "contentReview_commit": {
     "message": "提交"
   },
-  "contentReview.commitDisabled": {
+  "contentReview_commitDisabled": {
     "message": "在提交之前，请先附加原始音频/视频文件。"
   },
-  "contentReview.markReviewed": {
+  "contentReview_markReviewed": {
     "message": "标记为已审阅"
   },
-  "contentReview.skipNext": {
+  "contentReview_skipNext": {
     "message": "跳过"
   },
-  "contentReview.discard": {
+  "contentReview_discard": {
     "message": "丢弃"
   },
-  "contentReview.discardTitle": {
+  "contentReview_discardTitle": {
     "message": "丢弃草稿？"
   },
-  "contentReview.discardBody": {
+  "contentReview_discardBody": {
     "message": "此草稿将被标记为已丢弃，并从审阅列表中移除。"
   },
-  "contentReview.discardConfirm": {
+  "contentReview_discardConfirm": {
     "message": "丢弃"
   },
-  "contentReview.discardCancel": {
+  "contentReview_discardCancel": {
     "message": "取消"
   },
-  "contentReview.commitSuccess": {
+  "contentReview_commitSuccess": {
     "message": "草稿已提交。"
   },
-  "contentReview.commitAllTitle": {
+  "contentReview_commitAllTitle": {
     "message": "提交已审阅的草稿？"
   },
-  "contentReview.commitAllBody": {
+  "contentReview_commitAllBody": {
     "message": "只有标记为已审阅的草稿才会被提交。"
   },
-  "contentReview.commitAllConfirm": {
+  "contentReview_commitAllConfirm": {
     "message": "全部提交"
   },
-  "contentReview.commitAllCancel": {
+  "contentReview_commitAllCancel": {
     "message": "取消"
   },
-  "contentReview.commitAllResult": {
+  "contentReview_commitAllResult": {
     "message": "{{success}} 个已提交 · {{failed}} 个失败"
   },
-  "contentReview.storageCapWarning": {
+  "contentReview_storageCapWarning": {
     "message": "此文件超过本地草稿上限 ({{cap}})。"
   },
-  "contentReview.clearTitle": {
+  "contentReview_clearTitle": {
     "message": "清除所有草稿？"
   },
-  "contentReview.clearBody": {
+  "contentReview_clearBody": {
     "message": "这将删除所有本地内容审阅草稿及其关联资源."
   },
-  "contentReview.clearConfirm": {
+  "contentReview_clearConfirm": {
     "message": "清除草稿"
   },
-  "contentReview.clearCancel": {
+  "contentReview_clearCancel": {
     "message": "取消"
   },
-  "contentReview.clearSuccess": {
+  "contentReview_clearSuccess": {
     "message": "草稿已清除。"
   },
-  "contentReview.originalLabel": {
+  "contentReview_originalLabel": {
     "message": "原始"
   },
-  "contentReview.editedLabel": {
+  "contentReview_editedLabel": {
     "message": "已编辑"
   }
 }

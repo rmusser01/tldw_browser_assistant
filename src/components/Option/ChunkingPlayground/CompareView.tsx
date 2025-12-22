@@ -30,6 +30,7 @@ import {
 
 import { ChunkCardView } from "./ChunkCardView"
 import { ChunkInlineView } from "./ChunkInlineView"
+import { getLanguageOptions } from "./constants"
 
 const { TextArea } = Input
 const { Text, Title } = Typography
@@ -112,13 +113,7 @@ export const CompareView: React.FC<CompareViewProps> = ({
     }))
   }, [capabilities])
 
-  const languageOptions = [
-    { value: "auto", label: "Auto" },
-    { value: "en", label: "English" },
-    { value: "es", label: "Spanish" },
-    { value: "fr", label: "French" },
-    { value: "de", label: "German" }
-  ]
+  const languageOptions = React.useMemo(() => getLanguageOptions(t), [t])
 
   const handleChunk = useCallback(
     async (config: ConfigState, setResult: React.Dispatch<React.SetStateAction<ResultState>>) => {
@@ -150,8 +145,8 @@ export const CompareView: React.FC<CompareViewProps> = ({
           chunks: response.chunks,
           isLoading: false
         }))
-      } catch (err: any) {
-        const errorMsg = err?.message || "Chunking failed"
+      } catch (err: unknown) {
+        const errorMsg = err instanceof Error ? err.message : "Chunking failed"
         setResult((prev) => ({
           ...prev,
           error: errorMsg,

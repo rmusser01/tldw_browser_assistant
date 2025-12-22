@@ -18,7 +18,8 @@ import {
   Microscope,
   FlaskConical,
   MessageSquare,
-  Scissors
+  Scissors,
+  ClipboardList
 } from "lucide-react"
 
 export type SettingsNavItem = {
@@ -70,6 +71,7 @@ export const SETTINGS_NAV_GROUPS: SettingsNavGroup[] = [
       { to: "/content-review", icon: BookText, labelToken: "option:header.contentReview" },
       { to: "/notes", icon: StickyNote, labelToken: "option:header.notes" },
       { to: "/flashcards", icon: Layers, labelToken: "option:header.flashcards" },
+      { to: "/quiz", icon: ClipboardList, labelToken: "option:header.quiz", beta: true },
       { to: "/settings/prompt", icon: BookIcon, labelToken: "settings:managePrompts.title" },
       { to: "/settings/share", icon: ShareIcon, labelToken: "settings:manageShare.title" }
     ]

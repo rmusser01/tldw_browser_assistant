@@ -4,7 +4,7 @@ import { Card, Tag, Typography, Collapse } from "antd"
 import { useDarkMode } from "@/hooks/useDarkmode"
 import { getChunkColor, type Chunk } from "@/services/chunking"
 
-const { Text, Paragraph } = Typography
+const { Text } = Typography
 
 interface ChunkCardViewProps {
   chunks: Chunk[]

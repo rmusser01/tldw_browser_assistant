@@ -652,9 +652,11 @@ export const useMessage = () => {
         )
       }
       if (!selectedCharacter?.system_prompt && selectedPrompt) {
+        const selectedPromptContent =
+          selectedPrompt.system_prompt ?? selectedPrompt.content
         applicationChatHistory.unshift(
           await systemPromptFormatter({
-            content: selectedPrompt.content
+            content: selectedPromptContent
           })
         )
       }

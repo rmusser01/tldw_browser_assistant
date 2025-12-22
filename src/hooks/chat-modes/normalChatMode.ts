@@ -363,12 +363,14 @@ export const normalChatMode = async (
       currentChatModelSettings.systemPrompt?.trim().length > 0
 
     if (!isTempSystemprompt && selectedPrompt) {
+      const selectedPromptContent =
+        selectedPrompt.system_prompt ?? selectedPrompt.content
       applicationChatHistory.unshift(
         await systemPromptFormatter({
-          content: selectedPrompt.content
+          content: selectedPromptContent
         })
       )
-      promptContent = selectedPrompt.content
+      promptContent = selectedPromptContent
     }
 
     if (isTempSystemprompt) {

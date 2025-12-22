@@ -311,7 +311,9 @@
     "clearCancel": "إلغاء",
     "clearSuccess": "تم مسح المسودات.",
     "originalLabel": "الأصلي",
-    "editedLabel": "بعد التعديل"
+    "editedLabel": "بعد التعديل",
+    "reviewStorageCapWarning_one": "{{count}} ملف يتجاوز حد المسودات المحلية ({{cap}}). أرفق المصادر قبل اعتماد الصوت/الفيديو.",
+    "reviewStorageCapWarning_other": "{{count}} ملفات تتجاوز حد المسودات المحلية ({{cap}}). أرفق المصادر قبل اعتماد الصوت/الفيديو."
   },
   "upload": {
     "fileTooLargeTitle": "الملف كبير جدًا",
@@ -412,7 +414,8 @@
     "reviewDraftsStoreWithoutReview": "احفظ دون مراجعة",
     "reviewNavigationFailed": "تعذر فتح مراجعة المحتوى. يرجى المحاولة مرة أخرى.",
     "reviewNavigationRetry": "أعد محاولة فتح مراجعة المحتوى",
-    "reviewStorageCapWarning": "{{count}} ملف/ملفات تتجاوز حد المسودات المحلية ({{cap}}). أرفق المصادر قبل اعتماد الصوت/الفيديو.",
+    "reviewStorageCapWarning_one": "{{count}} ملف يتجاوز حد المسودات المحلية ({{cap}}). أرفق المصادر قبل اعتماد الصوت/الفيديو.",
+    "reviewStorageCapWarning_other": "{{count}} ملفات تتجاوز حد المسودات المحلية ({{cap}}). أرفق المصادر قبل اعتماد الصوت/الفيديو.",
     "openContentReview": "فتح مراجعة المحتوى",
     "storageDocsLink": "معرفة المزيد عن الاستيعاب والتخزين",
     "storageDocsUrl": "https://github.com/rmusser01/tldw_browser_assistant",

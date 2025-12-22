@@ -316,7 +316,9 @@
     "clearCancel": "取消",
     "clearSuccess": "草稿已清除。",
     "originalLabel": "原始",
-    "editedLabel": "已编辑"
+    "editedLabel": "已编辑",
+    "reviewStorageCapWarning_one": "{{count}} 个文件超过本地草稿上限（{{cap}}）。请在提交音频/视频前附加来源。",
+    "reviewStorageCapWarning_other": "{{count}} 个文件超过本地草稿上限（{{cap}}）。请在提交音频/视频前附加来源。"
   },
   "upload": {
     "fileTooLargeTitle": "文件过大",
@@ -417,7 +419,8 @@
     "reviewDraftsStoreWithoutReview": "不经审阅保存",
     "reviewNavigationFailed": "无法打开内容审阅。请重试。",
     "reviewNavigationRetry": "重试打开内容审阅",
-    "reviewStorageCapWarning": "{{count}} 个文件超过本地草稿上限（{{cap}}）。请在提交音频/视频前附加来源。",
+    "reviewStorageCapWarning_one": "{{count}} 个文件超过本地草稿上限（{{cap}}）。请在提交音频/视频前附加来源。",
+    "reviewStorageCapWarning_other": "{{count}} 个文件超过本地草稿上限（{{cap}}）。请在提交音频/视频前附加来源。",
     "openContentReview": "打开内容审阅",
     "storageDocsLink": "了解更多摄取与存储信息",
     "storageDocsUrl": "https://github.com/rmusser01/tldw_browser_assistant",

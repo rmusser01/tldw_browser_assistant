@@ -307,7 +307,9 @@
     "clearCancel": "취소",
     "clearSuccess": "임시 저장본을 삭제했습니다.",
     "originalLabel": "원본",
-    "editedLabel": "편집됨"
+    "editedLabel": "편집됨",
+    "reviewStorageCapWarning_one": "{{count}}개 파일이 로컬 초안 한도 ({{cap}}) 를 초과했습니다. 오디오/비디오를 저장하기 전에 소스를 첨부하세요.",
+    "reviewStorageCapWarning_other": "{{count}}개 파일이 로컬 초안 한도 ({{cap}}) 를 초과했습니다. 오디오/비디오를 저장하기 전에 소스를 첨부하세요."
   },
   "upload": {
     "fileTooLargeTitle": "파일이 너무 큽니다",
@@ -408,7 +410,8 @@
     "reviewDraftsStoreWithoutReview": "리뷰 없이 저장",
     "reviewNavigationFailed": "콘텐츠 리뷰를 열 수 없습니다. 다시 시도하세요.",
     "reviewNavigationRetry": "콘텐츠 리뷰 다시 열기",
-    "reviewStorageCapWarning": "{{count}}개 파일이 로컬 초안 한도 ({{cap}}) 를 초과했습니다. 오디오/비디오를 저장하기 전에 소스를 첨부하세요.",
+    "reviewStorageCapWarning_one": "{{count}}개 파일이 로컬 초안 한도 ({{cap}}) 를 초과했습니다. 오디오/비디오를 저장하기 전에 소스를 첨부하세요.",
+    "reviewStorageCapWarning_other": "{{count}}개 파일이 로컬 초안 한도 ({{cap}}) 를 초과했습니다. 오디오/비디오를 저장하기 전에 소스를 첨부하세요.",
     "openContentReview": "콘텐츠 검토 열기",
     "storageDocsLink": "인제스트와 저장소에 대해 자세히 알아보기",
     "storageDocsUrl": "https://github.com/rmusser01/tldw_browser_assistant",

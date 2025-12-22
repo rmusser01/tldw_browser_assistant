@@ -794,304 +794,301 @@
   "error_createFolder": {
     "message": "Failed to create folder"
   },
-  "more.copy.canonicalMarkdown": {
+  "more_copy_canonicalMarkdown": {
     "message": "Copy canonical transcript"
   },
-  "more.download.canonicalMarkdown": {
+  "more_download_canonicalMarkdown": {
     "message": "Canonical transcript (Markdown)"
   },
-  "contentReview.title": {
+  "contentReview_title": {
     "message": "Content Review"
   },
-  "contentReview.readyToSubmit": {
+  "contentReview_readyToSubmit": {
     "message": "{{count}} ready"
   },
-  "contentReview.committedCount": {
+  "contentReview_committedCount": {
     "message": "{{count}} committed"
   },
-  "contentReview.totalCount": {
+  "contentReview_totalCount": {
     "message": "{{count}} total"
   },
-  "contentReview.commitAll": {
+  "contentReview_commitAll": {
     "message": "Commit All"
   },
-  "contentReview.clearDrafts": {
+  "contentReview_clearDrafts": {
     "message": "Clear drafts"
   },
-  "contentReview.emptyDescription": {
+  "contentReview_emptyDescription": {
     "message": "No drafts yet. Use Quick Ingest with Review before saving to create drafts."
   },
-  "contentReview.openQuickIngest": {
+  "contentReview_openQuickIngest": {
     "message": "Open Quick Ingest"
   },
-  "contentReview.storeAfterReview": {
+  "contentReview_storeAfterReview": {
     "message": "Store after review"
   },
-  "contentReview.reviewBeforeStorage": {
+  "contentReview_reviewBeforeStorage": {
     "message": "Review before saving"
   },
-  "contentReview.reviewBeforeStorageHint": {
+  "contentReview_reviewBeforeStorageHint": {
     "message": "Process now, then edit drafts locally before committing to your server."
   },
-  "contentReview.reviewEnabled": {
+  "contentReview_reviewEnabled": {
     "message": "Review mode"
   },
-  "contentReview.reviewStorageCap": {
+  "contentReview_reviewStorageCap": {
     "message": "Local drafts are capped at {{cap}}."
   },
-  "contentReview.reviewWarningTitle": {
+  "contentReview_reviewWarningTitle": {
     "message": "Store drafts locally?"
   },
-  "contentReview.reviewWarningBody": {
+  "contentReview_reviewWarningBody": {
     "message": "Drafts are saved in this browser and may include sensitive data. You can clear drafts from the Content Review page at any time."
   },
-  "contentReview.reviewWarningBodySecondary": {
+  "contentReview_reviewWarningBodySecondary": {
     "message": "Review mode keeps content client-side until you commit it to your server."
   },
-  "contentReview.reviewWarningConfirm": {
+  "contentReview_reviewWarningConfirm": {
     "message": "Enable review"
   },
-  "contentReview.reviewWarningCancel": {
+  "contentReview_reviewWarningCancel": {
     "message": "Cancel"
   },
-  "contentReview.reviewRunLabel": {
+  "contentReview_reviewRunLabel": {
     "message": "Review"
   },
-  "contentReview.reviewDraftsCreated": {
+  "contentReview_reviewDraftsCreated": {
     "message": "Drafts ready for review."
   },
-  "contentReview.reviewStorageCapWarning": {
-    "message": "{{count}} file(s) exceed the local draft cap ({{cap}}). Attach sources before committing audio/video."
-  },
-  "contentReview.openContentReview": {
+  "contentReview_openContentReview": {
     "message": "Open Content Review"
   },
-  "contentReview.batchLabel": {
+  "contentReview_batchLabel": {
     "message": "Batch"
   },
-  "contentReview.batchName": {
+  "contentReview_batchName": {
     "message": "Batch {{index}}"
   },
-  "contentReview.draftsLabel": {
+  "contentReview_draftsLabel": {
     "message": "Drafts"
   },
-  "contentReview.selectDraft": {
+  "contentReview_selectDraft": {
     "message": "Select a draft to begin reviewing."
   },
-  "contentReview.titlePlaceholder": {
+  "contentReview_titlePlaceholder": {
     "message": "Draft title"
   },
-  "contentReview.lastSaved": {
+  "contentReview_lastSaved": {
     "message": "Saved {{time}}"
   },
-  "contentReview.resetTitle": {
+  "contentReview_resetTitle": {
     "message": "Reset draft?"
   },
-  "contentReview.resetBody": {
+  "contentReview_resetBody": {
     "message": "This will restore the original content for this draft."
   },
-  "contentReview.resetConfirm": {
+  "contentReview_resetConfirm": {
     "message": "Reset"
   },
-  "contentReview.resetCancel": {
+  "contentReview_resetCancel": {
     "message": "Cancel"
   },
-  "contentReview.resetContent": {
+  "contentReview_resetContent": {
     "message": "Reset"
   },
-  "contentReview.diffView": {
+  "contentReview_diffView": {
     "message": "Diff view"
   },
-  "contentReview.saveDraft": {
+  "contentReview_saveDraft": {
     "message": "Save draft"
   },
-  "contentReview.editorLabel": {
+  "contentReview_editorLabel": {
     "message": "Content"
   },
-  "contentReview.wordCount": {
+  "contentReview_wordCount": {
     "message": "{{words}} words"
   },
-  "contentReview.charCount": {
+  "contentReview_charCount": {
     "message": "{{chars}} chars"
   },
-  "contentReview.aiFix": {
+  "contentReview_aiFix": {
     "message": "AI fix"
   },
-  "contentReview.aiHint": {
+  "contentReview_aiHint": {
     "message": "Sends draft content to your server for AI processing."
   },
-  "contentReview.modelPlaceholder": {
+  "contentReview_modelPlaceholder": {
     "message": "Server default"
   },
-  "contentReview.aiConsentTitle": {
+  "contentReview_aiConsentTitle": {
     "message": "Send draft to server?"
   },
-  "contentReview.aiConsentBody": {
+  "contentReview_aiConsentBody": {
     "message": "This will send the draft content to your tldw server for AI processing. Drafts stay local until you commit."
   },
-  "contentReview.aiConsentConfirm": {
+  "contentReview_aiConsentConfirm": {
     "message": "Continue"
   },
-  "contentReview.aiConsentCancel": {
+  "contentReview_aiConsentCancel": {
     "message": "Cancel"
   },
-  "contentReview.aiApplied": {
+  "contentReview_aiApplied": {
     "message": "AI corrections applied."
   },
-  "contentReview.aiNoChange": {
+  "contentReview_aiNoChange": {
     "message": "No changes returned."
   },
-  "contentReview.aiEmpty": {
+  "contentReview_aiEmpty": {
     "message": "AI returned no content."
   },
-  "contentReview.aiUnavailable": {
+  "contentReview_aiUnavailable": {
     "message": "Chat completions unavailable."
   },
-  "contentReview.templatePlaceholder": {
+  "contentReview_templatePlaceholder": {
     "message": "Choose template"
   },
-  "contentReview.applyTemplate": {
+  "contentReview_applyTemplate": {
     "message": "Apply template"
   },
-  "contentReview.templateApplied": {
+  "contentReview_templateApplied": {
     "message": "Template applied."
   },
-  "contentReview.templateMissing": {
+  "contentReview_templateMissing": {
     "message": "Select a template first."
   },
-  "contentReview.detectSections": {
+  "contentReview_detectSections": {
     "message": "Detect sections"
   },
-  "contentReview.detectSectionsTitle": {
+  "contentReview_detectSectionsTitle": {
     "message": "Re-detect sections?"
   },
-  "contentReview.detectSectionsBody": {
+  "contentReview_detectSectionsBody": {
     "message": "This will replace existing sections and reset your selections."
   },
-  "contentReview.detectSectionsConfirm": {
+  "contentReview_detectSectionsConfirm": {
     "message": "Re-detect"
   },
-  "contentReview.detectSectionsCancel": {
+  "contentReview_detectSectionsCancel": {
     "message": "Cancel"
   },
-  "contentReview.detectSectionsEmpty": {
+  "contentReview_detectSectionsEmpty": {
     "message": "No sections detected."
   },
-  "contentReview.sectionsLabel": {
+  "contentReview_sectionsLabel": {
     "message": "Section filter"
   },
-  "contentReview.templates.transcript_clean.label": {
+  "contentReview_templates_transcript_clean_label": {
     "message": "Clean transcript"
   },
-  "contentReview.templates.transcript_clean.description": {
+  "contentReview_templates_transcript_clean_description": {
     "message": "Normalize punctuation and casing while preserving line structure."
   },
-  "contentReview.templates.speaker_turns.label": {
+  "contentReview_templates_speaker_turns_label": {
     "message": "Speaker turns"
   },
-  "contentReview.templates.speaker_turns.description": {
+  "contentReview_templates_speaker_turns_description": {
     "message": "Ensure each speaker turn is on its own line with clear labels."
   },
-  "contentReview.templates.chapter_headings.label": {
+  "contentReview_templates_chapter_headings_label": {
     "message": "Chapter headings"
   },
-  "contentReview.templates.chapter_headings.description": {
+  "contentReview_templates_chapter_headings_description": {
     "message": "Insert Markdown headings to group topics without removing content."
   },
-  "contentReview.metadataLabel": {
+  "contentReview_metadataLabel": {
     "message": "Metadata"
   },
-  "contentReview.mediaType": {
+  "contentReview_mediaType": {
     "message": "Media type"
   },
-  "contentReview.keywords": {
+  "contentReview_keywords": {
     "message": "Keywords"
   },
-  "contentReview.keywordsPlaceholder": {
+  "contentReview_keywordsPlaceholder": {
     "message": "Add keywords"
   },
-  "contentReview.reviewNotes": {
+  "contentReview_reviewNotes": {
     "message": "Review notes"
   },
-  "contentReview.missingSource": {
+  "contentReview_missingSource": {
     "message": "Source file missing"
   },
-  "contentReview.missingSourceBody": {
+  "contentReview_missingSourceBody": {
     "message": "Attach the original file to commit this draft."
   },
-  "contentReview.attachSource": {
+  "contentReview_attachSource": {
     "message": "Attach file"
   },
-  "contentReview.actionsLabel": {
+  "contentReview_actionsLabel": {
     "message": "Actions"
   },
-  "contentReview.commit": {
+  "contentReview_commit": {
     "message": "Commit"
   },
-  "contentReview.commitDisabled": {
+  "contentReview_commitDisabled": {
     "message": "Attach the original audio/video file before committing."
   },
-  "contentReview.markReviewed": {
+  "contentReview_markReviewed": {
     "message": "Mark reviewed"
   },
-  "contentReview.skipNext": {
+  "contentReview_skipNext": {
     "message": "Skip"
   },
-  "contentReview.discard": {
+  "contentReview_discard": {
     "message": "Discard"
   },
-  "contentReview.discardTitle": {
+  "contentReview_discardTitle": {
     "message": "Discard draft?"
   },
-  "contentReview.discardBody": {
+  "contentReview_discardBody": {
     "message": "This draft will be marked as discarded and removed from review."
   },
-  "contentReview.discardConfirm": {
+  "contentReview_discardConfirm": {
     "message": "Discard"
   },
-  "contentReview.discardCancel": {
+  "contentReview_discardCancel": {
     "message": "Cancel"
   },
-  "contentReview.commitSuccess": {
+  "contentReview_commitSuccess": {
     "message": "Draft committed."
   },
-  "contentReview.commitAllTitle": {
+  "contentReview_commitAllTitle": {
     "message": "Commit reviewed drafts?"
   },
-  "contentReview.commitAllBody": {
+  "contentReview_commitAllBody": {
     "message": "Only drafts marked as reviewed will be committed."
   },
-  "contentReview.commitAllConfirm": {
+  "contentReview_commitAllConfirm": {
     "message": "Commit all"
   },
-  "contentReview.commitAllCancel": {
+  "contentReview_commitAllCancel": {
     "message": "Cancel"
   },
-  "contentReview.commitAllResult": {
+  "contentReview_commitAllResult": {
     "message": "{{success}} committed · {{failed}} failed"
   },
-  "contentReview.storageCapWarning": {
+  "contentReview_storageCapWarning": {
     "message": "This file exceeds the local draft cap ({{cap}})."
   },
-  "contentReview.clearTitle": {
+  "contentReview_clearTitle": {
     "message": "Clear all drafts?"
   },
-  "contentReview.clearBody": {
+  "contentReview_clearBody": {
     "message": "This removes all local content review drafts and assets."
   },
-  "contentReview.clearConfirm": {
+  "contentReview_clearConfirm": {
     "message": "Clear drafts"
   },
-  "contentReview.clearCancel": {
+  "contentReview_clearCancel": {
     "message": "Cancel"
   },
-  "contentReview.clearSuccess": {
+  "contentReview_clearSuccess": {
     "message": "Drafts cleared."
   },
-  "contentReview.originalLabel": {
+  "contentReview_originalLabel": {
     "message": "Original"
   },
-  "contentReview.editedLabel": {
+  "contentReview_editedLabel": {
     "message": "Edited"
   },
   "reviewDraftsFailedTitle": {
@@ -1222,9 +1219,6 @@
   },
   "quickIngest_reviewNavigationRetry": {
     "message": "Retry opening Content Review"
-  },
-  "quickIngest_reviewStorageCapWarning": {
-    "message": "{{count}} file(s) exceed the local draft cap ({{cap}}). Attach sources before committing audio/video."
   },
   "quickIngest_openContentReview": {
     "message": "Open Content Review"

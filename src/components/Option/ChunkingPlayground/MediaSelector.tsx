@@ -79,9 +79,10 @@ export const MediaSelector: React.FC<MediaSelectorProps> = ({ onSelect }) => {
           )
         )
       }
-    } catch (err: any) {
+    } catch (err: unknown) {
+      const errorMessage = err instanceof Error ? err.message : String(err)
       setContentError(
-        err?.message ||
+        errorMessage ||
           t(
             "settings:chunkingPlayground.loadContentError",
             "Failed to load media content"

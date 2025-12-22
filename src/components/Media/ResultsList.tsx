@@ -1,4 +1,4 @@
-import { FileText, Loader2 } from 'lucide-react'
+import { FileText, Loader2, Star } from 'lucide-react'
 import { Tooltip, Button } from 'antd'
 import { useTranslation } from 'react-i18next'
 
@@ -25,6 +25,8 @@ interface ResultsListProps {
   isLoading?: boolean
   hasActiveFilters?: boolean
   onClearFilters?: () => void
+  favorites?: Set<string>
+  onToggleFavorite?: (id: string | number) => void
 }
 
 export function ResultsList({
@@ -35,7 +37,9 @@ export function ResultsList({
   loadedCount,
   isLoading = false,
   hasActiveFilters = false,
-  onClearFilters
+  onClearFilters,
+  favorites,
+  onToggleFavorite
 }: ResultsListProps) {
   const { t } = useTranslation(['review'])
   return (
@@ -52,7 +56,26 @@ export function ResultsList({
 
       {/* Results List */}
       <div className="divide-y divide-gray-200 dark:divide-gray-700">
-        {results.length === 0 && !isLoading ? (
+        {/* Skeleton loading */}
+        {isLoading && results.length === 0 ? (
+          <>
+            {[1, 2, 3, 4, 5].map((i) => (
+              <div key={i} className="px-4 py-2.5 animate-pulse">
+                <div className="flex items-start gap-2.5">
+                  <div className="w-4 h-4 bg-gray-200 dark:bg-gray-700 rounded mt-0.5" />
+                  <div className="flex-1">
+                    <div className="flex gap-1.5 mb-1">
+                      <div className="w-12 h-4 bg-gray-200 dark:bg-gray-700 rounded" />
+                      <div className="w-16 h-4 bg-gray-200 dark:bg-gray-700 rounded" />
+                    </div>
+                    <div className="w-3/4 h-4 bg-gray-200 dark:bg-gray-700 rounded mb-1" />
+                    <div className="w-1/2 h-3 bg-gray-200 dark:bg-gray-700 rounded" />
+                  </div>
+                </div>
+              </div>
+            ))}
+          </>
+        ) : results.length === 0 && !isLoading ? (
           <div className="px-4 py-6 text-center">
             {hasActiveFilters ? (
               <>
@@ -88,8 +111,26 @@ export function ResultsList({
               }`}
             >
               <div className="flex items-start gap-2.5">
-                <div className="mt-0.5">
+                <div className="mt-0.5 flex flex-col items-center gap-1">
                   <FileText className="w-4 h-4 text-gray-400 dark:text-gray-500" />
+                  {onToggleFavorite && (
+                    <Tooltip title={favorites?.has(String(result.id)) ? t('mediaPage.unfavorite', 'Remove from favorites') : t('mediaPage.favorite', 'Add to favorites')}>
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation()
+                          onToggleFavorite(result.id)
+                        }}
+                        className="p-0.5 hover:bg-gray-200 dark:hover:bg-gray-700 rounded transition-colors"
+                        aria-label={favorites?.has(String(result.id)) ? t('mediaPage.unfavorite', 'Remove from favorites') : t('mediaPage.favorite', 'Add to favorites')}
+                      >
+                        <Star className={`w-3.5 h-3.5 ${
+                          favorites?.has(String(result.id))
+                            ? 'text-yellow-500 fill-yellow-500'
+                            : 'text-gray-300 dark:text-gray-600'
+                        }`} />
+                      </button>
+                    </Tooltip>
+                  )}
                 </div>
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-1.5 mb-1">

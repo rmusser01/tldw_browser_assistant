@@ -214,7 +214,10 @@
     "reviewDraftsStoreWithoutReview": "Зберегти без перевірки",
     "reviewNavigationFailed": "Не вдалося відкрити Перевірку контенту",
     "reviewNavigationRetry": "Спробувати знову",
-    "reviewStorageCapWarning": "Цей файл перевищує ліміт збереження для перевірки ({{cap}}).",
+    "reviewStorageCapWarning_one": "{{count}} файл перевищує ліміт збереження для перевірки ({{cap}}).",
+    "reviewStorageCapWarning_few": "{{count}} файли перевищують ліміт збереження для перевірки ({{cap}}).",
+    "reviewStorageCapWarning_many": "{{count}} файлів перевищують ліміт збереження для перевірки ({{cap}}).",
+    "reviewStorageCapWarning_other": "{{count}} файлів перевищують ліміт збереження для перевірки ({{cap}}).",
     "openContentReview": "Відкрити Перевірку контенту",
     "storageDocsLink": "Дізнайтесь більше про інжест і зберігання",
     "storageDocsUrl": "https://github.com/rmusser01/tldw_browser_assistant",
@@ -557,7 +560,11 @@
     "clearCancel": "Скасувати",
     "clearSuccess": "Чернетки видалено.",
     "originalLabel": "Оригінал",
-    "editedLabel": "Змінено"
+    "editedLabel": "Змінено",
+    "reviewStorageCapWarning_one": "{{count}} файл перевищує ліміт збереження для перевірки ({{cap}}).",
+    "reviewStorageCapWarning_few": "{{count}} файли перевищують ліміт збереження для перевірки ({{cap}}).",
+    "reviewStorageCapWarning_many": "{{count}} файлів перевищують ліміт збереження для перевірки ({{cap}}).",
+    "reviewStorageCapWarning_other": "{{count}} файлів перевищують ліміт збереження для перевірки ({{cap}})."
   },
   "omniSearch": {
     "filterScreen": "Екрани",

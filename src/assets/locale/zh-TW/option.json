@@ -307,7 +307,9 @@
     "clearCancel": "取消",
     "clearSuccess": "草稿已清除。",
     "originalLabel": "原始版本",
-    "editedLabel": "已編輯"
+    "editedLabel": "已編輯",
+    "reviewStorageCapWarning_one": "{{count}} 個檔案超過本機草稿上限（{{cap}}）。請在提交音訊/影片前附加來源。",
+    "reviewStorageCapWarning_other": "{{count}} 個檔案超過本機草稿上限（{{cap}}）。請在提交音訊/影片前附加來源。"
   },
   "upload": {
     "fileTooLargeTitle": "檔案太大",
@@ -408,7 +410,8 @@
     "reviewDraftsStoreWithoutReview": "不經審閱儲存",
     "reviewNavigationFailed": "無法開啟內容審閱。請再試一次。",
     "reviewNavigationRetry": "重新嘗試開啟內容審閱",
-    "reviewStorageCapWarning": "{{count}} 個檔案超過本機草稿上限（{{cap}}）。請在提交音訊/影片前附加來源。",
+    "reviewStorageCapWarning_one": "{{count}} 個檔案超過本機草稿上限（{{cap}}）。請在提交音訊/影片前附加來源。",
+    "reviewStorageCapWarning_other": "{{count}} 個檔案超過本機草稿上限（{{cap}}）。請在提交音訊/影片前附加來源。",
     "openContentReview": "開啟內容審核",
     "storageDocsLink": "深入了解匯入與儲存",
     "storageDocsUrl": "https://github.com/rmusser01/tldw_browser_assistant",
