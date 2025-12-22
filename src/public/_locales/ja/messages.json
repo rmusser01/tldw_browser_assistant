@@ -818,12 +818,6 @@
   "chatSidebar_foldersRequireConnection": {
     "message": "フォルダーにはサーバー接続が必要です"
   },
-  "option_more_copy_canonicalMarkdown": {
-    "message": "正規の文字起こしをコピー"
-  },
-  "option_more_download_canonicalMarkdown": {
-    "message": "正規の文字起こし（Markdown）"
-  },
   "more.copy.canonicalMarkdown": {
     "message": "正規の文字起こしをコピー"
   },

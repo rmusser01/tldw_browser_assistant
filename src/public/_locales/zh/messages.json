@@ -643,12 +643,6 @@
   "chatSidebar_foldersRequireConnection": {
     "message": "文件夹需要服务器连接"
   },
-  "option_more_copy_canonicalMarkdown": {
-    "message": "复制规范转录"
-  },
-  "option_more_download_canonicalMarkdown": {
-    "message": "规范转录 (Markdown)"
-  },
   "more.copy.canonicalMarkdown": {
     "message": "复制规范转录"
   },

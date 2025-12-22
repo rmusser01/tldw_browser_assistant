@@ -989,12 +989,6 @@
     "message": "Luk",
     "description": "Button label to dismiss the knowledge search hint."
   },
-  "option_more_copy_canonicalMarkdown": {
-    "message": "Kopiér kanonisk transskript"
-  },
-  "option_more_download_canonicalMarkdown": {
-    "message": "Kanonisk transskript (Markdown)"
-  },
   "more.copy.canonicalMarkdown": {
     "message": "Kopiér kanonisk transskript"
   },

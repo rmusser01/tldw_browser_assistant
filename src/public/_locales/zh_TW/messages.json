@@ -625,12 +625,6 @@
   "error_label": {
     "message": "錯誤"
   },
-  "option_more_copy_canonicalMarkdown": {
-    "message": "複製標準逐字稿"
-  },
-  "option_more_download_canonicalMarkdown": {
-    "message": "標準逐字稿 (Markdown)"
-  },
   "modelSelect_label": {
     "message": "模型"
   },

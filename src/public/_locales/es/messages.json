@@ -757,12 +757,6 @@
   "chatSidebar_foldersRequireConnection": {
     "message": "Las carpetas requieren conexión al servidor"
   },
-  "option_more_copy_canonicalMarkdown": {
-    "message": "Copiar transcripción canónica"
-  },
-  "option_more_download_canonicalMarkdown": {
-    "message": "Transcripción canónica (Markdown)"
-  },
   "more.copy.canonicalMarkdown": {
     "message": "Copiar transcripción canónica"
   },

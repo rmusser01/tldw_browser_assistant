@@ -757,12 +757,6 @@
   "chatSidebar_foldersRequireConnection": {
     "message": "پوشه‌ها به اتصال به سرور نیاز دارند"
   },
-  "option_more_copy_canonicalMarkdown": {
-    "message": "کپی رونوشت مرجع"
-  },
-  "option_more_download_canonicalMarkdown": {
-    "message": "رونوشت مرجع (Markdown)"
-  },
   "more.copy.canonicalMarkdown": {
     "message": "کپی رونوشت مرجع"
   },

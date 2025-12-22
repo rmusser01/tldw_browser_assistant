@@ -758,12 +758,6 @@
   "chatSidebar_foldersRequireConnection": {
     "message": "Mappar kräver en serveranslutning"
   },
-  "option_more_copy_canonicalMarkdown": {
-    "message": "Kopiera kanonisk transkription"
-  },
-  "option_more_download_canonicalMarkdown": {
-    "message": "Kanonisk transkription (Markdown)"
-  },
   "more.copy.canonicalMarkdown": {
     "message": "Kopiera kanonisk transkription"
   },

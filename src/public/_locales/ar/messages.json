@@ -790,12 +790,6 @@
   "chatSidebar_foldersRequireConnection": {
     "message": "تتطلب المجلدات اتصالاً بالخادم"
   },
-  "option_more_copy_canonicalMarkdown": {
-    "message": "نسخ التفريغ القياسي"
-  },
-  "option_more_download_canonicalMarkdown": {
-    "message": "التفريغ القياسي (Markdown)"
-  },
   "more.copy.canonicalMarkdown": {
     "message": "نسخ التفريغ القياسي"
   },

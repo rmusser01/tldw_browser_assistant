@@ -1721,12 +1721,6 @@
   "chatSidebar_foldersRequireConnection": {
     "message": "As pastas exigem uma conexão com o servidor"
   },
-  "option_more_copy_canonicalMarkdown": {
-    "message": "Copiar transcrição canônica"
-  },
-  "option_more_download_canonicalMarkdown": {
-    "message": "Transcrição canônica (Markdown)"
-  },
   "more.copy.canonicalMarkdown": {
     "message": "Copiar transcrição canônica"
   },

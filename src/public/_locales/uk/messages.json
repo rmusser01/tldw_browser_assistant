@@ -731,14 +731,6 @@
     "message": "Закрити",
     "description": "Button label to dismiss the knowledge search hint."
   },
-  "option_more_copy_canonicalMarkdown": {
-    "message": "Копіювати канонічну транскрипцію",
-    "description": "Button label to copy the canonical transcript."
-  },
-  "option_more_download_canonicalMarkdown": {
-    "message": "Канонічна транскрипція (Markdown)",
-    "description": "Menu label to download the canonical transcript as Markdown."
-  },
   "more.copy.canonicalMarkdown": {
     "message": "Копіювати канонічну транскрипцію"
   },

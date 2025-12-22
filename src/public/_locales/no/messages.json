@@ -757,12 +757,6 @@
   "chatSidebar_foldersRequireConnection": {
     "message": "Mapper krever en servertilkobling"
   },
-  "option_more_copy_canonicalMarkdown": {
-    "message": "Kopier kanonisk transkripsjon"
-  },
-  "option_more_download_canonicalMarkdown": {
-    "message": "Kanonisk transkripsjon (Markdown)"
-  },
   "connectionBanner_connecting": {
     "message": "Kobler til tldw-serveren...",
     "description": "Connection banner status shown while connecting to the server."

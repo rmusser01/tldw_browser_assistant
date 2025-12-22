@@ -805,12 +805,6 @@
   "chatSidebar_foldersRequireConnection": {
     "message": "Папки требуют подключения к серверу"
   },
-  "option_more_copy_canonicalMarkdown": {
-    "message": "Скопировать каноническую транскрипцию"
-  },
-  "option_more_download_canonicalMarkdown": {
-    "message": "Каноническая транскрипция (Markdown)"
-  },
   "more.copy.canonicalMarkdown": {
     "message": "Скопировать каноническую транскрипцию"
   },

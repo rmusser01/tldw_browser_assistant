@@ -757,12 +757,6 @@
   "chatSidebar_foldersRequireConnection": {
     "message": "ഫോൾഡറുകൾക്ക് സർവർ കണക്ഷൻ ആവശ്യമുണ്ട്"
   },
-  "option_more_copy_canonicalMarkdown": {
-    "message": "കാനോണിക്കൽ ട്രാൻസ്ക്രിപ്റ്റ് പകർത്തുക"
-  },
-  "option_more_download_canonicalMarkdown": {
-    "message": "കാനോണിക്കൽ ട്രാൻസ്ക്രിപ്റ്റ് (Markdown)"
-  },
   "more.copy.canonicalMarkdown": {
     "message": "കാനോണിക്കൽ ട്രാൻസ്ക്രിപ്റ്റ് പകർത്തുക"
   },
