@@ -101,19 +101,19 @@
       "group": "Kopier",
       "asText": "Kopier som tekst",
       "asMarkdown": "Kopier som Markdown",
-      "canonicalMarkdown": "Kopier kanonisk transkript",
       "success": "Kopieret til udklipsholder!"
     },
     "download": {
       "group": "Hent",
       "text": "Tekstfil (.txt)",
       "markdown": "Markdown-fil (.md)",
-      "canonicalMarkdown": "Kanonisk transkript (Markdown)",
       "json": "JSON-fil (.json)",
       "image": "Billede (.png)"
     },
     "share": "Del"
   },
+  "option_more_copy_canonicalMarkdown": "Kopier kanonisk transkript",
+  "option_more_download_canonicalMarkdown": "Kanonisk transkript (Markdown)",
   "libraryView": "Biblioteksvisning",
   "notes": "Noter",
   "upload": {

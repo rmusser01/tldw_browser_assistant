@@ -104,19 +104,19 @@
       "group": "نسخ",
       "asText": "نسخ كنص",
       "asMarkdown": "نسخ كماركداون",
-      "canonicalMarkdown": "نسخ النص المعتمد",
       "success": "تم النسخ إلى الحافظة!"
     },
     "download": {
       "group": "تنزيل",
       "text": "ملف نصي (.txt)",
       "markdown": "ماركداون (.md)",
-      "canonicalMarkdown": "النص المعتمد (Markdown)",
       "json": "ملف JSON (.json)",
       "image": "صورة (.png)"
     },
     "share": "مشاركة"
   },
+  "option_more_copy_canonicalMarkdown": "نسخ النص المعتمد",
+  "option_more_download_canonicalMarkdown": "النص المعتمد (Markdown)",
   "libraryView": "عرض المكتبة",
   "notes": "ملاحظات",
   "flashcards": {

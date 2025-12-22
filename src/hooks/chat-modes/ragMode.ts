@@ -16,6 +16,7 @@ import { getNoOfRetrievedDocs } from "@/services/app"
 import { tldwClient } from "@/services/tldw/TldwApiClient"
 import type { ActorSettings } from "@/types/actor"
 import { maybeInjectActorMessage } from "@/utils/actor"
+import type { SaveMessageData, SaveMessageErrorData } from "@/types/chat-modes"
 
 type RagModeParams = {
   selectedModel: string
@@ -23,8 +24,8 @@ type RagModeParams = {
   selectedKnowledge: any
   currentChatModelSettings: any
   setMessages: (messages: Message[] | ((prev: Message[]) => Message[])) => void
-  saveMessageOnSuccess: (data: any) => Promise<string | null>
-  saveMessageOnError: (data: any) => Promise<string | null>
+  saveMessageOnSuccess: (data: SaveMessageData) => Promise<string | null>
+  saveMessageOnError: (data: SaveMessageErrorData) => Promise<string | null>
   setHistory: (history: ChatHistory) => void
   setIsProcessing: (value: boolean) => void
   setStreaming: (value: boolean) => void
@@ -88,7 +89,7 @@ export const ragMode = async (
 ) => {
   console.log("Using ragMode")
   const ollama = await pageAssistModel({
-    model: selectedModel!
+    model: selectedModel
   })
 
   const resolvedAssistantMessageId = assistantMessageId ?? generateID()
@@ -184,7 +185,7 @@ export const ragMode = async (
         .replaceAll("{chat_history}", chat_history)
         .replaceAll("{question}", message)
       const questionOllama = await pageAssistModel({
-        model: selectedModel!
+        model: selectedModel
       })
       const questionMessage = await humanMessageFormatter({
         content: [

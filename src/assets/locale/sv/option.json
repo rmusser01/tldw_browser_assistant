@@ -100,19 +100,19 @@
       "group": "Kopiera",
       "asText": "Kopiera som text",
       "asMarkdown": "Kopiera som Markdown",
-      "canonicalMarkdown": "Kopiera kanonisk transkription",
       "success": "Kopierat till urklipp!"
     },
     "download": {
       "group": "Ladda ner",
       "text": "Textfil (.txt)",
       "markdown": "Markdown (.md)",
-      "canonicalMarkdown": "Kanonisk transkription (Markdown)",
       "json": "JSON-fil (.json)",
       "image": "Image (.png)"
     },
     "share": "Dela"
   },
+  "option_more_copy_canonicalMarkdown": "Kopiera kanonisk transkription",
+  "option_more_download_canonicalMarkdown": "Kanonisk transkription (Markdown)",
   "libraryView": "Library View",
   "notes": "Notes",
   "omniSearch": {

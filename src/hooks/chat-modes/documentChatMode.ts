@@ -23,6 +23,8 @@ import type { ActorSettings } from "@/types/actor"
 import { maybeInjectActorMessage } from "@/utils/actor"
 import type { ChatModelSettings } from "@/store/model"
 import { extractTokenFromChunk } from "@/utils/extract-token-from-chunk"
+import { extractGenerationInfo } from "@/utils/llm-helpers"
+import type { SaveMessageData, SaveMessageErrorData } from "@/types/chat-modes"
 
 interface RagDocumentMetadata {
   filename?: string
@@ -85,8 +87,8 @@ export const documentChatMode = async (
     setMessages: (
       messages: Message[] | ((prev: Message[]) => Message[])
     ) => void
-    saveMessageOnSuccess: (data: any) => Promise<string | null>
-    saveMessageOnError: (data: any) => Promise<string | null>
+    saveMessageOnSuccess: (data: SaveMessageData) => Promise<string | null>
+    saveMessageOnError: (data: SaveMessageErrorData) => Promise<string | null>
     setHistory: (history: ChatHistory) => void
     setIsProcessing: (value: boolean) => void
     setStreaming: (value: boolean) => void
@@ -343,7 +345,7 @@ export const documentChatMode = async (
       templatesActive
     )
 
-    let generationInfo: any | undefined = undefined
+    let generationInfo: Record<string, unknown> | undefined = undefined
 
     const chunks = await ollama.stream(
       [...applicationChatHistory, humanMessage],
@@ -351,11 +353,10 @@ export const documentChatMode = async (
         signal: signal,
         callbacks: [
           {
-            handleLLMEnd(output: any): any {
-              try {
-                generationInfo = output?.generations?.[0][0]?.generationInfo
-              } catch (e) {
-                console.error("handleLLMEnd error", e)
+            handleLLMEnd(output: unknown): void {
+              const info = extractGenerationInfo(output)
+              if (info) {
+                generationInfo = info
               }
             }
           }

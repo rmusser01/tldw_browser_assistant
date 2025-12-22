@@ -1,4 +1,250 @@
 {
+  "extName": {
+    "message": "tldw Assistant"
+  },
+  "extDescription": {
+    "message": "Browser extension for tldw_server - your unified AI assistant with RAG, media processing, and more."
+  },
+  "openSidePanelToChat": {
+    "message": "Open Sidebar to chat"
+  },
+  "openOptionToChat": {
+    "message": "Open Web UI to Chat"
+  },
+  "openQuickIngest": {
+    "message": "開啟 Quick Ingest"
+  },
+  "buttonOpenQuickIngest": {
+    "message": "開啟快速匯入"
+  },
+  "buttonTryDemo": {
+    "message": "試試示範"
+  },
+  "learnMoreTldw": {
+    "message": "了解 tldw 伺服器的運作方式"
+  },
+  "contextSummarize": {
+    "message": "Summarize"
+  },
+  "contextExplain": {
+    "message": "Explain"
+  },
+  "contextRephrase": {
+    "message": "Rephrase"
+  },
+  "contextTranslate": {
+    "message": "Translate"
+  },
+  "contextCustom": {
+    "message": "Custom"
+  },
+  "contextSendToTldw": {
+    "message": "Send to tldw_server"
+  },
+  "contextProcessLocalTldw": {
+    "message": "Process with tldw_server (don’t store)"
+  },
+  "contextTranscribeMedia": {
+    "message": "Transcribe Video/Audio"
+  },
+  "contextTranscribeAndSummarizeMedia": {
+    "message": "Transcribe + Summarize Video/Audio"
+  },
+  "contextSaveToNotes": {
+    "message": "Save to Notes"
+  },
+  "contextSaveToNotesNoSelection": {
+    "message": "Select text first to save to Notes."
+  },
+  "contextSidebarOpening": {
+    "message": "Opening sidebar..."
+  },
+  "contextSaveToNotesOpeningSidebar": {
+    "message": "Opening sidebar to save note..."
+  },
+  "contextSaveToNotesDeliveryFailed": {
+    "message": "Could not open the sidebar to save this note. Check that the tldw Assistant sidebar is allowed on this site and try again."
+  },
+  "hfSendPageRejected": {
+    "message": "[tldw] Page send request rejected by tldw_server"
+  },
+  "hfSendPageErrorWithDetail": {
+    "message": "[tldw] Failed to send this page to tldw_server: $1. Check Settings → tldw server and try again."
+  },
+  "hfSendPageError": {
+    "message": "[tldw] Failed to send this page to tldw_server. Check Settings → tldw server and try again."
+  },
+  "hfSendPageSuccess": {
+    "message": "[tldw] Sent page to tldw_server for processing"
+  },
+  "hfSendPageException": {
+    "message": "[tldw] Something went wrong while sending this page to tldw_server. Check that your tldw_server and the extension are running, then try again."
+  },
+  "hfPullInProgress": {
+    "message": "[tldw Assistant] A model pull request is already in progress. Please wait for it to finish before starting another one."
+  },
+  "hfPullConfirm": {
+    "message": "[tldw Assistant] Do you want to send a request to your tldw_server to pull the \"$1\" model? This is independent of the huggingface.co website. Your server will start pulling the model after you confirm."
+  },
+  "hfPullSending": {
+    "message": "[tldw Assistant] Sending a request to your tldw_server to pull \"$1\". Check the extension icon or your tldw_server logs for progress."
+  },
+  "hfPullErrorWithDetail": {
+    "message": "[tldw Assistant] Failed to send a pull request for \"$1\": $2. Check Settings → tldw server and try again."
+  },
+  "hfPullError": {
+    "message": "[tldw Assistant] Failed to send a pull request for \"$1\". Check Settings → tldw server and try again."
+  },
+  "hfPullSuccess": {
+    "message": "[tldw Assistant] Request sent to your tldw_server to pull \"$1\". Monitor the extension icon or tldw_server logs for status."
+  },
+  "hfPullException": {
+    "message": "[tldw Assistant] Something went wrong while sending a pull request for \"$1\" to your tldw_server. Check that your tldw_server and the extension are running, then try again."
+  },
+  "footerHelp": {
+    "message": "連線完成後，你可以隨時從擴充功能選單回到這些設定。"
+  },
+  "progressAria": {
+    "message": "導覽設定進度"
+  },
+  "stepLabel": {
+    "message": "歡迎"
+  },
+  "path": {
+    "message": "你想要如何開始？"
+  },
+  "authModeHelp": {
+    "message": "Single User（API Key）適合個人或小型團隊的伺服器。Multi User（Login）適用於多人共用的部署，使用者以帳號或 SSO 登入。請選擇符合你 tldw_server 設定方式的模式。"
+  },
+  "apiKeyHelp": {
+    "message": "在 tldw_server → Settings → API Keys 中可以找到你的 API 金鑰。在那裡產生金鑰後，將其貼到這裡。"
+  },
+  "authStepAria": {
+    "message": "步驟 2 / 3 — 驗證設定"
+  },
+  "confirmStepAria": {
+    "message": "步驟 3 / 3 — 連線摘要與後續步驟"
+  },
+  "nextSteps": {
+    "message": "你已準備好了"
+  },
+  "notesEmpty_connectTitle": {
+    "message": "連線以使用筆記"
+  },
+  "notesEmpty_connectDescription": {
+    "message": "若要使用「筆記」，請先連線到你的 tldw 伺服器。"
+  },
+  "notesEmpty_connectExample1": {
+    "message": "開啟「設定」→「tldw server」，新增你的伺服器 URL。"
+  },
+  "notesEmpty_connectExample2": {
+    "message": "若伺服器正在執行但無法連線，請使用「診斷」。"
+  },
+  "notesEmpty_demoTitle": {
+    "message": "在示範模式中探索筆記"
+  },
+  "notesEmpty_demoDescription": {
+    "message": "此示範會說明「筆記」如何整理你的洞見。之後你可以連線自己的伺服器，建立並儲存真正的筆記。"
+  },
+  "notesEmpty_demoExample1": {
+    "message": "看看在清單中，筆記標題、預覽與時間戳記是如何顯示的。"
+  },
+  "notesEmpty_demoExample2": {
+    "message": "完成連線後，你可以從會議、複閱結果等內容建立筆記。"
+  },
+  "notesEmpty_demoExample3": {
+    "message": "將「筆記」搭配「媒體」與「複閱」一起使用，幫助你整理並追蹤重要的發現。"
+  },
+  "notesEmpty_demoPreviewHeading": {
+    "message": "範例筆記（僅供預覽）"
+  },
+  "notesEmpty_demoSample1Title": {
+    "message": "示範筆記：每週會議摘要"
+  },
+  "notesEmpty_demoSample1Preview": {
+    "message": "最近團隊同步中的決策、阻礙與後續追蹤事項。"
+  },
+  "notesEmpty_demoSample1Meta": {
+    "message": "今天 · 上午 9:32"
+  },
+  "notesEmpty_demoSample2Title": {
+    "message": "示範筆記：研究重點"
+  },
+  "notesEmpty_demoSample2Preview": {
+    "message": "從長篇文章或論文中整理出的關鍵洞見。"
+  },
+  "notesEmpty_demoSample2Meta": {
+    "message": "昨天 · 下午 4:10"
+  },
+  "notesEmpty_demoSample3Title": {
+    "message": "示範筆記：通話摘要"
+  },
+  "notesEmpty_demoSample3Preview": {
+    "message": "客戶通話的重點整理，以及下一步行動與負責人。"
+  },
+  "notesEmpty_demoSample3Meta": {
+    "message": "本週"
+  },
+  "notesEmpty_title": {
+    "message": "尚未有任何筆記"
+  },
+  "notesEmpty_description": {
+    "message": "建立並整理與 tldw 洞見相關的自由格式筆記。"
+  },
+  "notesEmpty_exampleCreate": {
+    "message": "為最近的一場會議或逐字稿建立一則新的筆記。"
+  },
+  "notesEmpty_exampleLink": {
+    "message": "將複閱產出儲存到「筆記」，方便日後回顧。"
+  },
+  "notesEmpty_primaryCta": {
+    "message": "建立筆記"
+  },
+  "headerShortcuts": {
+    "message": "在標頭顯示快速捷徑"
+  },
+  "restartOnboardingLabel": {
+    "message": "從頭重新開始引導設定"
+  },
+  "restartOnboardingButton": {
+    "message": "重新開始引導"
+  },
+  "restartOnboardingConfirmTitle": {
+    "message": "要重新開始引導嗎？"
+  },
+  "restartOnboardingConfirmMessage": {
+    "message": "這會重設你的引導狀態，並將你帶回設定流程的起始步驟。"
+  },
+  "enableOcrAssets_label": {
+    "message": "啟用 OCR（首次使用時下載約 5MB）"
+  },
+  "enableOcrAssets_downloadNotice": {
+    "message": "啟用 OCR 後，首次使用時將下載約 5MB 的語言資料。"
+  },
+  "enableOcrAssets_assetsEnabled": {
+    "message": "OCR 資源已啟用並可使用"
+  },
+  "omniSearchPlaceholder": {
+    "message": "搜尋頁面、聊天、媒體、筆記…"
+  },
+  "omniSearchNoResults": {
+    "message": "未找到與\"{{query}}\"匹配的結果。"
+  },
+  "omniSearchCreateNote": {
+    "message": "建立筆記\"{{query}}\""
+  },
+  "omniSearchCreateFlashcards": {
+    "message": "建立抽認卡集合\"{{query}}\""
+  },
+  "omniSearchStartChat": {
+    "message": "開始新的聊天\"{{query}}\""
+  },
+  "connectionCard_connectedCaption": {
+    "message": "現在可以在選項頁和側邊欄中使用聊天和工具。"
+  },
+  "quickIngestQueuedAria": {
+    "message": "{{label}} — 已排隊 {{count}} 個項目 — 按一下以檢視並處理"
+  },
   "connectionCard_descriptionConnectedList_reviewMedia": {
     "message": "查看媒體和轉錄內容",
     "description": "First bullet in the connected-state server connection card, highlighting media review."
@@ -10,6 +256,33 @@
   "connectionCard_descriptionConnectedList_useRag": {
     "message": "在自己的文件上使用 RAG",
     "description": "Third bullet in the connected-state server connection card, highlighting retrieval-augmented generation usage."
+  },
+  "omniSearch_filterScreen": {
+    "message": "界面"
+  },
+  "omniSearch_filterChat": {
+    "message": "聊天"
+  },
+  "omniSearch_filterMedia": {
+    "message": "媒體"
+  },
+  "omniSearch_filterNote": {
+    "message": "筆記"
+  },
+  "omniSearch_filterFlashcards": {
+    "message": "抽認卡集合"
+  },
+  "omniSearch_filterPrompt": {
+    "message": "提示詞"
+  },
+  "omniSearch_filteringBy": {
+    "message": "篩選條件："
+  },
+  "omniSearchCreateNoteSuccess": {
+    "message": "已建立筆記\"{{query}}\""
+  },
+  "omniSearchCreateFlashcardsSuccess": {
+    "message": "已建立抽認卡集合\"{{query}}\""
   },
   "folders": {
     "message": "資料夾",
@@ -63,15 +336,6 @@
     "message": "移至資料夾",
     "description": "Action label to move an item to a folder."
   },
-  "enableOcrAssets_label": {
-    "message": "啟用 OCR（首次使用時下載約 5MB）"
-  },
-  "enableOcrAssets_downloadNotice": {
-    "message": "啟用 OCR 後，首次使用時將下載約 5MB 的語言資料。"
-  },
-  "enableOcrAssets_assetsEnabled": {
-    "message": "OCR 資源已啟用並可使用"
-  },
   "quickIngest_ocrHelp": {
     "message": "OCR 可協助從掃描的 PDF 或圖片中擷取文字。"
   },
@@ -99,13 +363,11 @@
   "serverChatSourceLabel": {
     "message": "伺服器來源"
   },
-  "serverChatForkedLabel": {
-    "message": "分叉聊天",
-    "description": "Label shown on chats that were forked from another server chat."
+  "serverChatsUnavailableNotConnected": {
+    "message": "連線到 tldw 伺服器後即可使用伺服器聊天。"
   },
-  "serverChatForkedTooltip": {
-    "message": "從聊天 {{chatId}} 分叉",
-    "description": "Tooltip explaining which original server chat this chat was forked from."
+  "serverChatsUnavailableServerError": {
+    "message": "目前無法使用伺服器聊天。請檢查伺服器記錄或稍後再試。"
   },
   "fileChanges": {
     "message": "檔案變更"
@@ -136,21 +398,6 @@
   },
   "complexArguments": {
     "message": "[複雜參數]"
-  },
-  "ttsShort": {
-    "message": "語音"
-  },
-  "copyShort": {
-    "message": "複製"
-  },
-  "branchShort": {
-    "message": "分支"
-  },
-  "serverChatsUnavailableNotConnected": {
-    "message": "連線到 tldw 伺服器後即可使用伺服器聊天。"
-  },
-  "serverChatsUnavailableServerError": {
-    "message": "目前無法使用伺服器聊天。請檢查伺服器記錄或稍後再試。"
   },
   "noToolCalls": {
     "message": "尚未有工具呼叫"
@@ -224,6 +471,14 @@
     "message": "執行命令",
     "description": "Label for the exec.run tool (run command)."
   },
+  "serverChatForkedLabel": {
+    "message": "分叉聊天",
+    "description": "Label shown on chats that were forked from another server chat."
+  },
+  "serverChatForkedTooltip": {
+    "message": "從聊天 {{chatId}} 分叉",
+    "description": "Tooltip explaining which original server chat this chat was forked from."
+  },
   "commandPalette_goToChat": {
     "message": "前往聊天",
     "description": "Command palette action label to navigate to the Chat screen."
@@ -245,7 +500,7 @@
     "description": "Command palette action label to navigate to the Settings screen."
   },
   "commandPalette_goToHealth": {
-    "message": "前往 Health & diagnostics",
+    "message": "前往 健康狀況與診斷",
     "description": "Command palette action label to open the Health & diagnostics screen."
   },
   "commandPalette_newChat": {
@@ -361,6 +616,15 @@
   "exportJsonSuccess": {
     "message": "已將 {{count}} 篇筆記匯出為 JSON（{{size}}）"
   },
+  "ttsShort": {
+    "message": "語音"
+  },
+  "copyShort": {
+    "message": "複製"
+  },
+  "branchShort": {
+    "message": "分支"
+  },
   "infoShort": {
     "message": "資訊"
   },
@@ -373,32 +637,11 @@
   "error_label": {
     "message": "錯誤"
   },
-  "error_friendlyApiKeySummary": {
-    "message": "無法連線到您的 tldw 伺服器。"
+  "option_more_copy_canonicalMarkdown": {
+    "message": "複製標準逐字稿"
   },
-  "error_friendlyApiKeyHint": {
-    "message": "您的 API 金鑰可能無效。開啟「設定」→「tldw 伺服器」檢查 URL 與 API 金鑰，然後再試一次。"
-  },
-  "error_friendlyTimeoutSummary": {
-    "message": "您的聊天已逾時。"
-  },
-  "error_friendlyTimeoutHint": {
-    "message": "伺服器停止串流回應。請重試，或開啟 Health & diagnostics 查看伺服器狀態。"
-  },
-  "error_friendlyGenericSummary": {
-    "message": "與您的 tldw 伺服器通訊時發生問題。"
-  },
-  "error_friendlyGenericHint": {
-    "message": "請稍後再試，或開啟 Health & diagnostics 檢查伺服器狀態。"
-  },
-  "error_showDetails": {
-    "message": "顯示技術詳細資訊"
-  },
-  "error_hideDetails": {
-    "message": "隱藏技術詳細資訊"
-  },
-  "error_createFolder": {
-    "message": "無法建立資料夾"
+  "option_more_download_canonicalMarkdown": {
+    "message": "標準逐字稿 (Markdown)"
   },
   "modelSelect_label": {
     "message": "模型"
@@ -496,10 +739,31 @@
   "chatSidebar_foldersRequireConnection": {
     "message": "資料夾需要伺服器連線"
   },
-  "option_more_copy_canonicalMarkdown": {
-    "message": "複製標準逐字稿"
+  "error_friendlyApiKeySummary": {
+    "message": "無法連線到您的 tldw 伺服器。"
   },
-  "option_more_download_canonicalMarkdown": {
-    "message": "標準逐字稿 (Markdown)"
+  "error_friendlyApiKeyHint": {
+    "message": "您的 API 金鑰可能無效。開啟「設定」→「tldw 伺服器」檢查 URL 與 API 金鑰，然後再試一次。"
+  },
+  "error_friendlyTimeoutSummary": {
+    "message": "您的聊天已逾時。"
+  },
+  "error_friendlyTimeoutHint": {
+    "message": "伺服器停止串流回應。請重試，或開啟 Health & diagnostics 查看伺服器狀態。"
+  },
+  "error_friendlyGenericSummary": {
+    "message": "與您的 tldw 伺服器通訊時發生問題。"
+  },
+  "error_friendlyGenericHint": {
+    "message": "請稍後再試，或開啟 Health & diagnostics 檢查伺服器狀態。"
+  },
+  "error_showDetails": {
+    "message": "顯示技術詳細資訊"
+  },
+  "error_hideDetails": {
+    "message": "隱藏技術詳細資訊"
+  },
+  "error_createFolder": {
+    "message": "無法建立資料夾"
   }
 }

@@ -100,19 +100,19 @@
       "group": "Копіювати",
       "asText": "Копіювати як текст",
       "asMarkdown": "Копіювати як Markdown",
-      "canonicalMarkdown": "Копіювати канонічну транскрипцію",
       "success": "Скопійовано в буфер обміну!"
     },
     "download": {
       "group": "Завантажити",
       "text": "Текстовий файл (.txt)",
       "markdown": "Markdown (.md)",
-      "canonicalMarkdown": "Канонічна транскрипція (Markdown)",
       "json": "JSON файл (.json)",
       "image": "Image (.png)"
     },
     "share": "Поділитися"
   },
+  "option_more_copy_canonicalMarkdown": "Копіювати канонічну транскрипцію",
+  "option_more_download_canonicalMarkdown": "Канонічна транскрипція (Markdown)",
   "libraryView": "Library View",
   "notes": "Notes",
   "upload": {

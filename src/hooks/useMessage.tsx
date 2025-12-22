@@ -35,6 +35,7 @@ import { getModelNicknameByID } from "@/db/dexie/nickname"
 import { systemPromptFormatter } from "@/utils/system-message"
 import type { Character } from "@/types/character"
 import { createBranchMessage } from "./handlers/messageHandlers"
+import { consumeStreamingChunk } from "@/utils/streaming-chunks"
 import {
   createSaveMessageOnError,
   createSaveMessageOnSuccess
@@ -435,29 +436,13 @@ export const useMessage = () => {
       let timetaken = 0
       let apiReasoning = false
       for await (const chunk of chunks) {
-        const token = typeof chunk === 'string'
-          ? chunk
-          : (chunk?.content ?? (chunk?.choices?.[0]?.delta?.content ?? ''))
-        if (chunk?.additional_kwargs?.reasoning_content) {
-          const reasoningContent = mergeReasoningContent(
-            fullText,
-            chunk?.additional_kwargs?.reasoning_content || ""
-          )
-          contentToSave = reasoningContent
-          fullText = reasoningContent
-          apiReasoning = true
-        } else {
-          if (apiReasoning) {
-            fullText += "</think>"
-            contentToSave += "</think>"
-            apiReasoning = false
-          }
-        }
-
-        if (token) {
-          contentToSave += token
-          fullText += token
-        }
+        const chunkState = consumeStreamingChunk(
+          { fullText, contentToSave, apiReasoning },
+          chunk
+        )
+        fullText = chunkState.fullText
+        contentToSave = chunkState.contentToSave
+        apiReasoning = chunkState.apiReasoning
         if (count === 0) {
           setIsProcessing(true)
         }
@@ -696,29 +681,13 @@ export const useMessage = () => {
       let timetaken = 0
       let apiReasoning = false
       for await (const chunk of chunks) {
-        if (chunk?.additional_kwargs?.reasoning_content) {
-          const reasoningContent = mergeReasoningContent(
-            fullText,
-            chunk?.additional_kwargs?.reasoning_content || ""
-          )
-          contentToSave = reasoningContent
-          fullText = reasoningContent
-          apiReasoning = true
-        } else {
-          if (apiReasoning) {
-            fullText += "</think>"
-            contentToSave += "</think>"
-            apiReasoning = false
-          }
-        }
-
-        const token = typeof chunk === 'string'
-          ? chunk
-          : (chunk?.content ?? (chunk?.choices?.[0]?.delta?.content ?? ''))
-        if (token && token.length > 0) {
-          contentToSave += token
-          fullText += token
-        }
+        const chunkState = consumeStreamingChunk(
+          { fullText, contentToSave, apiReasoning },
+          chunk
+        )
+        fullText = chunkState.fullText
+        contentToSave = chunkState.contentToSave
+        apiReasoning = chunkState.apiReasoning
         if (count === 0) {
           setIsProcessing(true)
         }
@@ -1247,29 +1216,13 @@ export const useMessage = () => {
       let timetaken = 0
       let apiReasoning = false
       for await (const chunk of chunks) {
-        if (chunk?.additional_kwargs?.reasoning_content) {
-          const reasoningContent = mergeReasoningContent(
-            fullText,
-            chunk?.additional_kwargs?.reasoning_content || ""
-          )
-          contentToSave = reasoningContent
-          fullText = reasoningContent
-          apiReasoning = true
-        } else {
-          if (apiReasoning) {
-            fullText += "</think>"
-            contentToSave += "</think>"
-            apiReasoning = false
-          }
-        }
-
-        const token = typeof chunk === 'string'
-          ? chunk
-          : (chunk?.content ?? (chunk?.choices?.[0]?.delta?.content ?? ''))
-        if (token && token.length > 0) {
-          contentToSave += token
-          fullText += token
-        }
+        const chunkState = consumeStreamingChunk(
+          { fullText, contentToSave, apiReasoning },
+          chunk
+        )
+        fullText = chunkState.fullText
+        contentToSave = chunkState.contentToSave
+        apiReasoning = chunkState.apiReasoning
         if (count === 0) {
           setIsProcessing(true)
         }

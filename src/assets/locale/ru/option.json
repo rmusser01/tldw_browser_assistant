@@ -100,19 +100,19 @@
       "group": "Копировать",
       "asText": "Копировать как текст",
       "asMarkdown": "Копировать как Markdown",
-      "canonicalMarkdown": "Копировать каноническую транскрипцию",
       "success": "Скопировано в буфер обмена!"
     },
     "download": {
       "group": "Скачать",
       "text": "Текстовый файл (.txt)",
       "markdown": "Markdown (.md)",
-      "canonicalMarkdown": "Каноническая транскрипция (Markdown)",
       "json": "JSON файл (.json)",
       "image": "Image (.png)"
     },
     "share": "Поделиться"
   },
+  "option_more_copy_canonicalMarkdown": "Копировать каноническую транскрипцию",
+  "option_more_download_canonicalMarkdown": "Каноническая транскрипция (Markdown)",
   "libraryView": "Library View",
   "notes": "Notes",
   "omniSearch": {

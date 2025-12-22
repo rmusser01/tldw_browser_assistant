@@ -33,7 +33,51 @@ type Entry = {
   video?: { captions?: boolean }
 }
 
-type ResultItem = { id: string; status: 'ok' | 'error'; url?: string; fileName?: string; type: string; data?: any; error?: string }
+type ProcessingItem = {
+  id?: string | number
+  media_id?: string | number
+  pk?: string | number
+  uuid?: string | number
+  media?: ProcessingItem
+  status?: string
+  url?: string
+  input_ref?: string
+  media_type?: string
+  content?: string | Array<string | number>
+  text?: string
+  transcript?: string
+  transcription?: string
+  summary?: string
+  analysis_content?: string
+  analysis?: string
+  prompt?: string
+  custom_prompt?: string
+  title?: string
+  metadata?: Record<string, any>
+  keywords?: string[] | string
+  segments?: Record<string, any>[]
+}
+
+type ProcessingResultPayload =
+  | ProcessingItem[]
+  | ProcessingItem
+  | {
+      results?: ProcessingItem[]
+      articles?: ProcessingItem[]
+      result?: ProcessingItem | ProcessingItem[]
+    }
+  | null
+  | undefined
+
+type ResultItem = {
+  id: string
+  status: 'ok' | 'error'
+  url?: string
+  fileName?: string
+  type: string
+  data?: ProcessingResultPayload
+  error?: string
+}
 
 type OptionsHash = `#${string}`
 
@@ -97,7 +141,7 @@ function detectTypeFromUrl(url: string): Entry['type'] {
 }
 
 function mediaIdFromPayload(
-  data: any,
+  data: ProcessingItem | null | undefined,
   visited?: WeakSet<object>
 ): string | number | null {
   if (!data || typeof data !== "object") {
@@ -112,21 +156,17 @@ function mediaIdFromPayload(
   }
   visited.add(data as object)
 
-  const direct =
-    (data as any).id ??
-    (data as any).media_id ??
-    (data as any).pk ??
-    (data as any).uuid
+  const direct = data.id ?? data.media_id ?? data.pk ?? data.uuid
   if (direct !== undefined && direct !== null) {
     return direct
   }
-  if ((data as any).media && typeof (data as any).media === "object") {
-    return mediaIdFromPayload((data as any).media, visited)
+  if (data.media && typeof data.media === "object") {
+    return mediaIdFromPayload(data.media, visited)
   }
   return null
 }
 
-const normalizeKeywords = (value: any): string[] => {
+const normalizeKeywords = (value: ProcessingItem['keywords']): string[] => {
   if (Array.isArray(value)) {
     return value.map((v) => String(v || "").trim()).filter(Boolean)
   }
@@ -139,7 +179,7 @@ const normalizeKeywords = (value: any): string[] => {
   return []
 }
 
-const resolveContent = (item: any): string => {
+const resolveContent = (item: ProcessingItem): string => {
   if (Array.isArray(item?.content)) {
     return item.content
       .filter((v: unknown) => typeof v === "string" || typeof v === "number")
@@ -162,7 +202,7 @@ const resolveContent = (item: any): string => {
   return ""
 }
 
-const resolveTitle = (item: any, fallback: string): string => {
+const resolveTitle = (item: ProcessingItem, fallback: string): string => {
   const title =
     item?.title ||
     item?.metadata?.title ||
@@ -171,13 +211,13 @@ const resolveTitle = (item: any, fallback: string): string => {
   return String(title || "").trim() || fallback
 }
 
-const resolveAnalysis = (item: any): string | undefined => {
+const resolveAnalysis = (item: ProcessingItem): string | undefined => {
   if (typeof item?.analysis === "string") return item.analysis
   if (typeof item?.analysis_content === "string") return item.analysis_content
   return undefined
 }
 
-const resolvePrompt = (item: any): string | undefined => {
+const resolvePrompt = (item: ProcessingItem): string | undefined => {
   if (typeof item?.prompt === "string") return item.prompt
   if (typeof item?.custom_prompt === "string") return item.custom_prompt
   return undefined
@@ -191,7 +231,7 @@ const inferContentFormat = (content: string): "plain" | "markdown" => {
   return "plain"
 }
 
-const extractProcessingItems = (data: any): any[] => {
+const extractProcessingItems = (data: ProcessingResultPayload): ProcessingItem[] => {
   if (!data) return []
   if (Array.isArray(data)) return data
   if (Array.isArray(data.results)) return data.results
@@ -455,7 +495,7 @@ export const QuickIngestModal: React.FC<Props> = ({
     [advancedValues, common, rows]
   )
 
-  const extractMetadataForDraft = React.useCallback((processed: any) => {
+  const extractMetadataForDraft = React.useCallback((processed: ProcessingItem) => {
     const metadata =
       processed?.metadata && typeof processed.metadata === "object"
         ? processed.metadata
@@ -490,7 +530,7 @@ export const QuickIngestModal: React.FC<Props> = ({
       localFile?: File
       item: ResultItem
       sourceRow?: Entry
-      processed: any
+      processed: ProcessingItem
     }) => {
       let sourceAssetId: string | undefined
       let source: ContentDraft["source"] = {
@@ -540,7 +580,7 @@ export const QuickIngestModal: React.FC<Props> = ({
       processingOptions
     }: {
       item: ResultItem
-      processed: any
+      processed: ProcessingItem
       sourceRow?: Entry
       localFile?: File
       batchId: string

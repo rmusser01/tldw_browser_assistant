@@ -253,7 +253,7 @@ export const MoreOptions = ({
         },
         {
           key: "copy-canonical-markdown",
-          label: t("option:more.copy.canonicalMarkdown", {
+          label: t("option_more_copy_canonicalMarkdown", {
             defaultValue: "Copy canonical transcript"
           }),
           icon: <FileCode className="w-4 h-4" />,
@@ -296,7 +296,7 @@ export const MoreOptions = ({
         },
         {
           key: "download-canonical-md",
-          label: t("option:more.download.canonicalMarkdown", {
+          label: t("option_more_download_canonicalMarkdown", {
             defaultValue: "Canonical transcript (Markdown)"
           }),
           icon: <FileCode className="w-4 h-4" />,

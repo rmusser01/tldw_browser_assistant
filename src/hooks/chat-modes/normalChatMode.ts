@@ -4,17 +4,15 @@ import { generateID, getPromptById } from "@/db/dexie/helpers"
 import { generateHistory } from "@/utils/generate-history"
 import { pageAssistModel } from "@/models"
 import { humanMessageFormatter } from "@/utils/human-message"
-import {
-  isReasoningEnded,
-  isReasoningStarted,
-  mergeReasoningContent
-} from "@/libs/reasoning"
+import { isReasoningEnded, isReasoningStarted } from "@/libs/reasoning"
+import { consumeStreamingChunk } from "@/utils/streaming-chunks"
 import { getModelNicknameByID } from "@/db/dexie/nickname"
 import { systemPromptFormatter } from "@/utils/system-message"
 import type { ActorSettings } from "@/types/actor"
 import { maybeInjectActorMessage } from "@/utils/actor"
 import { tldwClient } from "@/services/tldw/TldwApiClient"
 import { getSearchSettings } from "@/services/search"
+import type { SaveMessageData, SaveMessageErrorData } from "@/types/chat-modes"
 
 interface WebSearchPayload {
   query: string
@@ -63,8 +61,8 @@ export const normalChatMode = async (
     selectedSystemPrompt: string
     currentChatModelSettings: any
     setMessages: (messages: Message[] | ((prev: Message[]) => Message[])) => void
-    saveMessageOnSuccess: (data: any) => Promise<string | null>
-    saveMessageOnError: (data: any) => Promise<string | null>
+    saveMessageOnSuccess: (data: SaveMessageData) => Promise<string | null>
+    saveMessageOnError: (data: SaveMessageErrorData) => Promise<string | null>
     setHistory: (history: ChatHistory) => void
     setIsProcessing: (value: boolean) => void
     setStreaming: (value: boolean) => void
@@ -100,13 +98,12 @@ export const normalChatMode = async (
     !isRegenerate ? userMessageId ?? generateID() : undefined
   let generateMessageId = resolvedAssistantMessageId
   const modelInfo = await getModelNicknameByID(selectedModel)
+  const isSharedCompareUser = userMessageType === "compare:user"
+  const resolvedModelId = modelIdOverride || selectedModel
+  const userModelId = isSharedCompareUser ? undefined : resolvedModelId
 
   setMessages((prev) => {
     const base = prev
-    const isSharedCompareUser = userMessageType === "compare:user"
-    const clusterModelId =
-      clusterId != null ? (modelIdOverride || selectedModel) : undefined
-    const userModelId = isSharedCompareUser ? undefined : clusterModelId
 
     if (!isRegenerate) {
       const userMessage: Message = {
@@ -140,7 +137,7 @@ export const normalChatMode = async (
         modelName: modelInfo?.model_name || selectedModel,
         messageType: assistantMessageType,
         clusterId,
-        modelId: modelIdOverride || selectedModel,
+        modelId: resolvedModelId,
         parentMessageId: assistantParentMessageId ?? null
       }
       return [...base, userMessage, assistantStub]
@@ -156,7 +153,7 @@ export const normalChatMode = async (
       modelName: modelInfo?.model_name || selectedModel,
       messageType: assistantMessageType,
       clusterId,
-      modelId: modelIdOverride || selectedModel,
+      modelId: resolvedModelId,
       parentMessageId: assistantParentMessageId ?? null
     }
     return [...base, assistantStub]
@@ -260,11 +257,8 @@ export const normalChatMode = async (
         userMessageType,
         assistantMessageType,
         clusterId,
-        modelId: modelIdOverride || selectedModel,
-        userModelId:
-          userMessageType === "compare:user"
-            ? undefined
-            : modelIdOverride || selectedModel,
+        modelId: resolvedModelId,
+        userModelId,
         userMessageId: resolvedUserMessageId,
         assistantMessageId: resolvedAssistantMessageId,
         userParentMessageId: userParentMessageId ?? null,
@@ -293,11 +287,8 @@ export const normalChatMode = async (
         userMessageType,
         assistantMessageType,
         clusterId,
-        modelId: modelIdOverride || selectedModel,
-        userModelId:
-          userMessageType === "compare:user"
-            ? undefined
-            : modelIdOverride || selectedModel,
+        modelId: resolvedModelId,
+        userModelId,
         userMessageId: resolvedUserMessageId,
         assistantMessageId: resolvedAssistantMessageId,
         userParentMessageId: userParentMessageId ?? null,
@@ -425,27 +416,13 @@ export const normalChatMode = async (
     let apiReasoning: boolean = false
 
     for await (const chunk of chunks) {
-      const token = typeof chunk === 'string' ? chunk : (chunk?.content ?? (chunk?.choices?.[0]?.delta?.content ?? ''))
-      if (chunk?.additional_kwargs?.reasoning_content) {
-        const reasoningContent = mergeReasoningContent(
-          fullText,
-          chunk?.additional_kwargs?.reasoning_content || ""
-        )
-        contentToSave = reasoningContent
-        fullText = reasoningContent
-        apiReasoning = true
-      } else {
-        if (apiReasoning) {
-          fullText += "</think>"
-          contentToSave += "</think>"
-          apiReasoning = false
-        }
-      }
-
-      if (token) {
-        contentToSave += token
-        fullText += token
-      }
+      const chunkState = consumeStreamingChunk(
+        { fullText, contentToSave, apiReasoning },
+        chunk
+      )
+      fullText = chunkState.fullText
+      contentToSave = chunkState.contentToSave
+      apiReasoning = chunkState.apiReasoning
 
       if (isReasoningStarted(fullText) && !reasoningStartTime) {
         reasoningStartTime = new Date()
@@ -519,11 +496,8 @@ export const normalChatMode = async (
       userMessageType,
       assistantMessageType,
       clusterId,
-      modelId: modelIdOverride || selectedModel,
-      userModelId:
-        userMessageType === "compare:user"
-          ? undefined
-          : modelIdOverride || selectedModel,
+      modelId: resolvedModelId,
+      userModelId,
       userMessageId: resolvedUserMessageId,
       assistantMessageId: resolvedAssistantMessageId,
       userParentMessageId: userParentMessageId ?? null,
@@ -553,11 +527,8 @@ export const normalChatMode = async (
       userMessageType,
       assistantMessageType,
       clusterId,
-      modelId: modelIdOverride || selectedModel,
-      userModelId:
-        userMessageType === "compare:user"
-          ? undefined
-          : modelIdOverride || selectedModel,
+      modelId: resolvedModelId,
+      userModelId,
       userMessageId: resolvedUserMessageId,
       assistantMessageId: resolvedAssistantMessageId,
       userParentMessageId: userParentMessageId ?? null,

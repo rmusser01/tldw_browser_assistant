@@ -15,41 +15,7 @@ import { ChatDocuments } from "@/models/ChatTypes"
 import type { ActorSettings } from "@/types/actor"
 import { maybeInjectActorMessage } from "@/utils/actor"
 import { getTabContents } from "@/libs/get-tab-contents"
-
-interface SaveMessageBase {
-  historyId: string | null
-  setHistoryId: (id: string) => void
-  selectedModel: string
-  image: string
-  userMessageType?: string
-  assistantMessageType?: string
-  clusterId?: string
-  modelId: string
-  userModelId?: string
-  userMessageId?: string
-  assistantMessageId: string
-  userParentMessageId?: string | null
-  assistantParentMessageId?: string | null
-  documents: ChatDocuments
-}
-
-interface SaveMessageData extends SaveMessageBase {
-  isRegenerate: boolean
-  message: string
-  fullText: string
-  source: unknown[]
-  generationInfo?: Record<string, unknown>
-  reasoning_time_taken: number
-}
-
-interface SaveMessageErrorData extends SaveMessageBase {
-  e: unknown
-  botMessage: string
-  history: ChatHistory
-  setHistory: (history: ChatHistory) => void
-  userMessage: string
-  isRegenerating: boolean
-}
+import type { SaveMessageData, SaveMessageErrorData } from "@/types/chat-modes"
 
 export const tabChatMode = async (
   message: string,

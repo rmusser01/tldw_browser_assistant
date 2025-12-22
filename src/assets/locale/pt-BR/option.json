@@ -100,19 +100,19 @@
       "group": "Copiar",
       "asText": "Copiar como Texto",
       "asMarkdown": "Copiar como Markdown",
-      "canonicalMarkdown": "Copiar transcrição canônica",
       "success": "Copiado para área de transferência!"
     },
     "download": {
       "group": "Baixar",
       "text": "Arquivo de Texto (.txt)",
       "markdown": "Markdown (.md)",
-      "canonicalMarkdown": "Transcrição canônica (Markdown)",
       "json": "Arquivo JSON (.json)",
       "image": "Image (.png)"
     },
     "share": "Compartilhar"
   },
+  "option_more_copy_canonicalMarkdown": "Copiar transcrição canônica",
+  "option_more_download_canonicalMarkdown": "Transcrição canônica (Markdown)",
   "libraryView": "Library View",
   "notes": "Notes",
   "upload": {
