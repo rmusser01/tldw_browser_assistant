@@ -1362,7 +1362,7 @@ export const useMessage = () => {
       return
     }
 
-    const model = selectedModel || ""
+    const model = selectedModel.trim()
     let signal: AbortSignal
     if (!controller) {
       const newController = new AbortController()

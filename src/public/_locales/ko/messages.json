@@ -832,5 +832,317 @@
   },
   "more.download.canonicalMarkdown": {
     "message": "정식 전사 (마크다운) 다운로드"
+  },
+  "contentReview.title": {
+    "message": "콘텐츠 검토"
+  },
+  "contentReview.readyToSubmit": {
+    "message": "{{count}}개 준비됨"
+  },
+  "contentReview.committedCount": {
+    "message": "{{count}}개 커밋됨"
+  },
+  "contentReview.totalCount": {
+    "message": "총 {{count}}개"
+  },
+  "contentReview.commitAll": {
+    "message": "모두 커밋"
+  },
+  "contentReview.clearDrafts": {
+    "message": "임시 저장본 지우기"
+  },
+  "contentReview.emptyDescription": {
+    "message": "아직 임시 저장본이 없습니다. 저장 전에 검토 옵션과 함께 Quick Ingest를 사용해 임시 저장본을 만들 수 있습니다."
+  },
+  "contentReview.openQuickIngest": {
+    "message": "Quick Ingest 열기"
+  },
+  "contentReview.storeAfterReview": {
+    "message": "검토 후 저장"
+  },
+  "contentReview.reviewBeforeStorage": {
+    "message": "저장 전에 검토"
+  },
+  "contentReview.reviewBeforeStorageHint": {
+    "message": "지금 처리한 뒤 서버에 저장하기 전에 로컬에서 초안을 편집하세요."
+  },
+  "contentReview.reviewEnabled": {
+    "message": "검토 모드"
+  },
+  "contentReview.reviewStorageCap": {
+    "message": "로컬 초안은 {{cap}}개로 제한됩니다."
+  },
+  "contentReview.reviewWarningTitle": {
+    "message": "초안을 로컬에 저장할까요?"
+  },
+  "contentReview.reviewWarningBody": {
+    "message": "초안은 이 브라우저에 저장되며 민감한 데이터가 포함될 수 있습니다. 언제든지 콘텐츠 검토 페이지에서 초안을 삭제할 수 있습니다."
+  },
+  "contentReview.reviewWarningBodySecondary": {
+    "message": "검토 모드는 서버에 저장할 때까지 콘텐츠를 클라이언트 측에 유지합니다."
+  },
+  "contentReview.reviewWarningConfirm": {
+    "message": "검토 사용"
+  },
+  "contentReview.reviewWarningCancel": {
+    "message": "취소"
+  },
+  "contentReview.reviewRunLabel": {
+    "message": "검토"
+  },
+  "contentReview.reviewDraftsCreated": {
+    "message": "검토할 초안이 준비되었습니다."
+  },
+  "contentReview.reviewStorageCapWarning": {
+    "message": "{{count}}개 파일이 로컬 초안 한도 ({{cap}}) 를 초과했습니다. 오디오/비디오를 저장하기 전에 소스를 첨부하세요."
+  },
+  "contentReview.openContentReview": {
+    "message": "콘텐츠 검토 열기"
+  },
+  "contentReview.batchLabel": {
+    "message": "배치"
+  },
+  "contentReview.batchName": {
+    "message": "배치 {{index}}"
+  },
+  "contentReview.draftsLabel": {
+    "message": "임시 저장본"
+  },
+  "contentReview.selectDraft": {
+    "message": "검토를 시작할 임시 저장본을 선택하세요."
+  },
+  "contentReview.titlePlaceholder": {
+    "message": "임시 저장본 제목"
+  },
+  "contentReview.lastSaved": {
+    "message": "{{time}}에 저장됨"
+  },
+  "contentReview.resetTitle": {
+    "message": "임시 저장본을 초기화할까요?"
+  },
+  "contentReview.resetBody": {
+    "message": "이 임시 저장본의 내용을 원래 상태로 되돌립니다."
+  },
+  "contentReview.resetConfirm": {
+    "message": "초기화"
+  },
+  "contentReview.resetCancel": {
+    "message": "취소"
+  },
+  "contentReview.resetContent": {
+    "message": "초기화"
+  },
+  "contentReview.diffView": {
+    "message": "변경 사항 보기"
+  },
+  "contentReview.saveDraft": {
+    "message": "임시 저장본 저장"
+  },
+  "contentReview.editorLabel": {
+    "message": "콘텐츠"
+  },
+  "contentReview.wordCount": {
+    "message": "단어 {{words}}개"
+  },
+  "contentReview.charCount": {
+    "message": "문자 {{chars}}개"
+  },
+  "contentReview.aiFix": {
+    "message": "AI로 수정"
+  },
+  "contentReview.aiHint": {
+    "message": "임시 저장본 내용을 서버로 보내 AI로 처리합니다."
+  },
+  "contentReview.modelPlaceholder": {
+    "message": "서버 기본값"
+  },
+  "contentReview.aiConsentTitle": {
+    "message": "임시 저장본을 서버로 보낼까요?"
+  },
+  "contentReview.aiConsentBody": {
+    "message": "임시 저장본 내용이 tldw 서버로 전송되어 AI로 처리됩니다. 커밋하기 전까지 임시 저장본은 로컬에만 유지됩니다."
+  },
+  "contentReview.aiConsentConfirm": {
+    "message": "계속"
+  },
+  "contentReview.aiConsentCancel": {
+    "message": "취소"
+  },
+  "contentReview.aiApplied": {
+    "message": "AI 수정 사항이 적용되었습니다."
+  },
+  "contentReview.aiNoChange": {
+    "message": "반환된 변경 사항이 없습니다."
+  },
+  "contentReview.aiEmpty": {
+    "message": "AI가 아무 콘텐츠도 반환하지 않았습니다."
+  },
+  "contentReview.aiUnavailable": {
+    "message": "채팅 완성이 사용 불가능합니다."
+  },
+  "contentReview.templatePlaceholder": {
+    "message": "템플릿 선택"
+  },
+  "contentReview.applyTemplate": {
+    "message": "템플릿 적용"
+  },
+  "contentReview.templateApplied": {
+    "message": "템플릿을 적용했습니다."
+  },
+  "contentReview.templateMissing": {
+    "message": "먼저 템플릿을 선택하세요."
+  },
+  "contentReview.detectSections": {
+    "message": "섹션 감지"
+  },
+  "contentReview.detectSectionsTitle": {
+    "message": "섹션을 다시 감지할까요?"
+  },
+  "contentReview.detectSectionsBody": {
+    "message": "기존 섹션이 대체되고 선택 항목이 초기화됩니다."
+  },
+  "contentReview.detectSectionsConfirm": {
+    "message": "다시 감지"
+  },
+  "contentReview.detectSectionsCancel": {
+    "message": "취소"
+  },
+  "contentReview.detectSectionsEmpty": {
+    "message": "감지된 섹션이 없습니다."
+  },
+  "contentReview.sectionsLabel": {
+    "message": "섹션 필터"
+  },
+  "contentReview.templates.transcript_clean.label": {
+    "message": "전사 정리"
+  },
+  "contentReview.templates.transcript_clean.description": {
+    "message": "줄 구조를 유지하면서 구두점과 대/소문자를 정규화합니다."
+  },
+  "contentReview.templates.speaker_turns.label": {
+    "message": "화자 턴"
+  },
+  "contentReview.templates.speaker_turns.description": {
+    "message": "각 화자의 턴이 명확한 레이블과 함께 한 줄씩 나타나도록 보장합니다."
+  },
+  "contentReview.templates.chapter_headings.label": {
+    "message": "챕터 제목"
+  },
+  "contentReview.templates.chapter_headings.description": {
+    "message": "콘텐츠를 삭제하지 않고 주제를 묶기 위해 Markdown 제목을 삽입합니다."
+  },
+  "contentReview.metadataLabel": {
+    "message": "메타데이터"
+  },
+  "contentReview.mediaType": {
+    "message": "미디어 유형"
+  },
+  "contentReview.keywords": {
+    "message": "키워드"
+  },
+  "contentReview.keywordsPlaceholder": {
+    "message": "키워드 추가"
+  },
+  "contentReview.reviewNotes": {
+    "message": "검토 메모"
+  },
+  "contentReview.missingSource": {
+    "message": "원본 파일이 없습니다"
+  },
+  "contentReview.missingSourceBody": {
+    "message": "이 임시 저장본을 커밋하려면 원본 파일을 첨부하세요."
+  },
+  "contentReview.attachSource": {
+    "message": "파일 첨부"
+  },
+  "contentReview.actionsLabel": {
+    "message": "작업"
+  },
+  "contentReview.commit": {
+    "message": "커밋"
+  },
+  "contentReview.commitDisabled": {
+    "message": "커밋하기 전에 원본 오디오/비디오 파일을 첨부하세요."
+  },
+  "contentReview.markReviewed": {
+    "message": "검토 완료로 표시"
+  },
+  "contentReview.skipNext": {
+    "message": "건너뛰기"
+  },
+  "contentReview.discard": {
+    "message": "폐기"
+  },
+  "contentReview.discardTitle": {
+    "message": "임시 저장본을 폐기할까요?"
+  },
+  "contentReview.discardBody": {
+    "message": "이 임시 저장본은 폐기된 것으로 표시되고 검토 목록에서 제거됩니다."
+  },
+  "contentReview.discardConfirm": {
+    "message": "폐기"
+  },
+  "contentReview.discardCancel": {
+    "message": "취소"
+  },
+  "contentReview.commitSuccess": {
+    "message": "임시 저장본을 커밋했습니다."
+  },
+  "contentReview.commitAllTitle": {
+    "message": "검토 완료된 임시 저장본을 모두 커밋할까요?"
+  },
+  "contentReview.commitAllBody": {
+    "message": "검토 완료로 표시된 임시 저장본만 커밋됩니다."
+  },
+  "contentReview.commitAllConfirm": {
+    "message": "모두 커밋"
+  },
+  "contentReview.commitAllCancel": {
+    "message": "취소"
+  },
+  "contentReview.commitAllResult": {
+    "message": "{{success}}개 커밋됨 · {{failed}}개 실패"
+  },
+  "contentReview.storageCapWarning": {
+    "message": "이 파일은 로컬 임시 저장본 한도({{cap}})를 초과합니다."
+  },
+  "contentReview.clearTitle": {
+    "message": "모든 임시 저장본을 삭제할까요?"
+  },
+  "contentReview.clearBody": {
+    "message": "로컬 콘텐츠 검토 임시 저장본과 연결된 리소스를 모두 삭제합니다."
+  },
+  "contentReview.clearConfirm": {
+    "message": "임시 저장본 삭제"
+  },
+  "contentReview.clearCancel": {
+    "message": "취소"
+  },
+  "contentReview.clearSuccess": {
+    "message": "임시 저장본을 삭제했습니다."
+  },
+  "contentReview.originalLabel": {
+    "message": "원본"
+  },
+  "contentReview.editedLabel": {
+    "message": "편집됨"
+  },
+  "reviewDraftsFailedTitle": {
+    "message": "리뷰 초안을 만들 수 없습니다."
+  },
+  "reviewDraftsFailedFallback": {
+    "message": "리뷰 초안 생성에 실패했습니다."
+  },
+  "reviewDraftsRetry": {
+    "message": "초안 생성 재시도"
+  },
+  "reviewDraftsStoreWithoutReview": {
+    "message": "리뷰 없이 저장"
+  },
+  "reviewNavigationFailed": {
+    "message": "콘텐츠 리뷰를 열 수 없습니다. 다시 시도하세요."
+  },
+  "reviewNavigationRetry": {
+    "message": "콘텐츠 리뷰 다시 열기"
   }
 }

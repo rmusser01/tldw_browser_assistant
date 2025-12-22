@@ -719,7 +719,7 @@
     "message": "Tarjetas de estudio"
   },
   "chatSidebar_prompts": {
-    "message": "Indicaciones"
+    "message": "Prompts"
   },
   "chatSidebar_multiItem": {
     "message": "Múltiples elementos"
@@ -762,5 +762,317 @@
   },
   "more.download.canonicalMarkdown": {
     "message": "Transcripción canónica (Markdown)"
+  },
+  "contentReview.title": {
+    "message": "Revisión de contenido"
+  },
+  "contentReview.readyToSubmit": {
+    "message": "{{count}} listas"
+  },
+  "contentReview.committedCount": {
+    "message": "{{count}} confirmadas"
+  },
+  "contentReview.totalCount": {
+    "message": "{{count}} en total"
+  },
+  "contentReview.commitAll": {
+    "message": "Confirmar todo"
+  },
+  "contentReview.clearDrafts": {
+    "message": "Borrar borradores"
+  },
+  "contentReview.emptyDescription": {
+    "message": "Aún no hay borradores. Usa Quick Ingest con Revisar antes de guardar para crear borradores."
+  },
+  "contentReview.openQuickIngest": {
+    "message": "Abrir Quick Ingest"
+  },
+  "contentReview.storeAfterReview": {
+    "message": "Guardar después de revisar"
+  },
+  "contentReview.reviewBeforeStorage": {
+    "message": "Revisar antes de guardar"
+  },
+  "contentReview.reviewBeforeStorageHint": {
+    "message": "Procesa ahora y luego edita los borradores localmente antes de confirmarlos en tu servidor."
+  },
+  "contentReview.reviewEnabled": {
+    "message": "Modo de revisión"
+  },
+  "contentReview.reviewStorageCap": {
+    "message": "Los borradores locales están limitados a {{cap}}."
+  },
+  "contentReview.reviewWarningTitle": {
+    "message": "¿Guardar borradores localmente?"
+  },
+  "contentReview.reviewWarningBody": {
+    "message": "Los borradores se guardan en este navegador y pueden incluir datos sensibles. Puedes borrar los borradores desde la página de Revisión de contenido en cualquier momento."
+  },
+  "contentReview.reviewWarningBodySecondary": {
+    "message": "El modo de revisión mantiene el contenido del lado del cliente hasta que lo confirmas en tu servidor."
+  },
+  "contentReview.reviewWarningConfirm": {
+    "message": "Habilitar revisión"
+  },
+  "contentReview.reviewWarningCancel": {
+    "message": "Cancelar"
+  },
+  "contentReview.reviewRunLabel": {
+    "message": "Revisar"
+  },
+  "contentReview.reviewDraftsCreated": {
+    "message": "Borradores listos para revisar."
+  },
+  "contentReview.reviewStorageCapWarning": {
+    "message": "{{count}} archivo(s) superan el límite local de borradores ({{cap}}). Adjunta las fuentes antes de confirmar audio/video."
+  },
+  "contentReview.openContentReview": {
+    "message": "Abrir Revisión de contenido"
+  },
+  "contentReview.batchLabel": {
+    "message": "Lote"
+  },
+  "contentReview.batchName": {
+    "message": "Lote {{index}}"
+  },
+  "contentReview.draftsLabel": {
+    "message": "Borradores"
+  },
+  "contentReview.selectDraft": {
+    "message": "Selecciona un borrador para empezar a revisar."
+  },
+  "contentReview.titlePlaceholder": {
+    "message": "Título del borrador"
+  },
+  "contentReview.lastSaved": {
+    "message": "Guardado {{time}}"
+  },
+  "contentReview.resetTitle": {
+    "message": "¿Restablecer borrador?"
+  },
+  "contentReview.resetBody": {
+    "message": "Esto restaurará el contenido original de este borrador."
+  },
+  "contentReview.resetConfirm": {
+    "message": "Restablecer"
+  },
+  "contentReview.resetCancel": {
+    "message": "Cancelar"
+  },
+  "contentReview.resetContent": {
+    "message": "Restablecer"
+  },
+  "contentReview.diffView": {
+    "message": "Vista de diferencias"
+  },
+  "contentReview.saveDraft": {
+    "message": "Guardar borrador"
+  },
+  "contentReview.editorLabel": {
+    "message": "Contenido"
+  },
+  "contentReview.wordCount": {
+    "message": "{{words}} palabras"
+  },
+  "contentReview.charCount": {
+    "message": "{{chars}} caracteres"
+  },
+  "contentReview.aiFix": {
+    "message": "Corrección con IA"
+  },
+  "contentReview.aiHint": {
+    "message": "Envía el contenido del borrador a tu servidor para procesarlo con IA."
+  },
+  "contentReview.modelPlaceholder": {
+    "message": "Predeterminado del servidor"
+  },
+  "contentReview.aiConsentTitle": {
+    "message": "¿Enviar borrador al servidor?"
+  },
+  "contentReview.aiConsentBody": {
+    "message": "Esto enviará el contenido del borrador a tu servidor tldw para procesarlo con IA. Los borradores permanecen locales hasta que los confirmes."
+  },
+  "contentReview.aiConsentConfirm": {
+    "message": "Continuar"
+  },
+  "contentReview.aiConsentCancel": {
+    "message": "Cancelar"
+  },
+  "contentReview.aiApplied": {
+    "message": "Se aplicaron las correcciones de IA."
+  },
+  "contentReview.aiNoChange": {
+    "message": "No se devolvieron cambios."
+  },
+  "contentReview.aiEmpty": {
+    "message": "La IA no devolvió contenido."
+  },
+  "contentReview.aiUnavailable": {
+    "message": "Las finalizaciones de chat no están disponibles."
+  },
+  "contentReview.templatePlaceholder": {
+    "message": "Elegir plantilla"
+  },
+  "contentReview.applyTemplate": {
+    "message": "Aplicar plantilla"
+  },
+  "contentReview.templateApplied": {
+    "message": "Plantilla aplicada."
+  },
+  "contentReview.templateMissing": {
+    "message": "Selecciona primero una plantilla."
+  },
+  "contentReview.detectSections": {
+    "message": "Detectar secciones"
+  },
+  "contentReview.detectSectionsTitle": {
+    "message": "¿Volver a detectar secciones?"
+  },
+  "contentReview.detectSectionsBody": {
+    "message": "Esto reemplazará las secciones existentes y restablecerá tus selecciones."
+  },
+  "contentReview.detectSectionsConfirm": {
+    "message": "Volver a detectar"
+  },
+  "contentReview.detectSectionsCancel": {
+    "message": "Cancelar"
+  },
+  "contentReview.detectSectionsEmpty": {
+    "message": "No se detectaron secciones."
+  },
+  "contentReview.sectionsLabel": {
+    "message": "Filtro por sección"
+  },
+  "contentReview.templates.transcript_clean.label": {
+    "message": "Limpiar transcripción"
+  },
+  "contentReview.templates.transcript_clean.description": {
+    "message": "Normaliza puntuación y mayúsculas manteniendo la estructura de líneas."
+  },
+  "contentReview.templates.speaker_turns.label": {
+    "message": "Turnos de hablante"
+  },
+  "contentReview.templates.speaker_turns.description": {
+    "message": "Garantiza que cada turno de hablante esté en su propia línea con etiquetas claras."
+  },
+  "contentReview.templates.chapter_headings.label": {
+    "message": "Encabezados de capítulo"
+  },
+  "contentReview.templates.chapter_headings.description": {
+    "message": "Inserta encabezados Markdown para agrupar temas sin eliminar contenido."
+  },
+  "contentReview.metadataLabel": {
+    "message": "Metadatos"
+  },
+  "contentReview.mediaType": {
+    "message": "Tipo de medio"
+  },
+  "contentReview.keywords": {
+    "message": "Palabras clave"
+  },
+  "contentReview.keywordsPlaceholder": {
+    "message": "Agregar palabras clave"
+  },
+  "contentReview.reviewNotes": {
+    "message": "Notas de revisión"
+  },
+  "contentReview.missingSource": {
+    "message": "Falta el archivo de origen"
+  },
+  "contentReview.missingSourceBody": {
+    "message": "Adjunta el archivo original para confirmar este borrador."
+  },
+  "contentReview.attachSource": {
+    "message": "Adjuntar archivo"
+  },
+  "contentReview.actionsLabel": {
+    "message": "Acciones"
+  },
+  "contentReview.commit": {
+    "message": "Confirmar"
+  },
+  "contentReview.commitDisabled": {
+    "message": "Adjunta el archivo de audio/vídeo original antes de confirmar."
+  },
+  "contentReview.markReviewed": {
+    "message": "Marcar como revisado"
+  },
+  "contentReview.skipNext": {
+    "message": "Omitir"
+  },
+  "contentReview.discard": {
+    "message": "Descartar"
+  },
+  "contentReview.discardTitle": {
+    "message": "¿Descartar borrador?"
+  },
+  "contentReview.discardBody": {
+    "message": "Este borrador se marcará como descartado y se quitará de la revisión."
+  },
+  "contentReview.discardConfirm": {
+    "message": "Descartar"
+  },
+  "contentReview.discardCancel": {
+    "message": "Cancelar"
+  },
+  "contentReview.commitSuccess": {
+    "message": "Borrador confirmado."
+  },
+  "contentReview.commitAllTitle": {
+    "message": "¿Confirmar borradores revisados?"
+  },
+  "contentReview.commitAllBody": {
+    "message": "Solo se confirmarán los borradores marcados como revisados."
+  },
+  "contentReview.commitAllConfirm": {
+    "message": "Confirmar todo"
+  },
+  "contentReview.commitAllCancel": {
+    "message": "Cancelar"
+  },
+  "contentReview.commitAllResult": {
+    "message": "{{success}} confirmados · {{failed}} con error"
+  },
+  "contentReview.storageCapWarning": {
+    "message": "Este archivo supera el límite local de borradores ({{cap}})."
+  },
+  "contentReview.clearTitle": {
+    "message": "¿Borrar todos los borradores?"
+  },
+  "contentReview.clearBody": {
+    "message": "Esto elimina todos los borradores y recursos locales de revisión de contenido."
+  },
+  "contentReview.clearConfirm": {
+    "message": "Borrar borradores"
+  },
+  "contentReview.clearCancel": {
+    "message": "Cancelar"
+  },
+  "contentReview.clearSuccess": {
+    "message": "Borradores borrados."
+  },
+  "contentReview.originalLabel": {
+    "message": "Original"
+  },
+  "contentReview.editedLabel": {
+    "message": "Editado"
+  },
+  "reviewDraftsFailedTitle": {
+    "message": "No se pudieron crear los borradores de revisión."
+  },
+  "reviewDraftsFailedFallback": {
+    "message": "Error al crear los borradores de revisión."
+  },
+  "reviewDraftsRetry": {
+    "message": "Reintentar la creación de borradores"
+  },
+  "reviewDraftsStoreWithoutReview": {
+    "message": "Guardar sin revisión"
+  },
+  "reviewNavigationFailed": {
+    "message": "No se pudo abrir la revisión de contenido. Inténtalo de nuevo."
+  },
+  "reviewNavigationRetry": {
+    "message": "Reintentar abrir la revisión de contenido"
   }
 }

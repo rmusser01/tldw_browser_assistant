@@ -1726,5 +1726,317 @@
   },
   "more.download.canonicalMarkdown": {
     "message": "Transcrição canônica (Markdown)"
+  },
+  "contentReview.title": {
+    "message": "Revisão de conteúdo"
+  },
+  "contentReview.readyToSubmit": {
+    "message": "{{count}} pronto(s)"
+  },
+  "contentReview.committedCount": {
+    "message": "{{count}} confirmado(s)"
+  },
+  "contentReview.totalCount": {
+    "message": "{{count}} no total"
+  },
+  "contentReview.commitAll": {
+    "message": "Confirmar todos"
+  },
+  "contentReview.clearDrafts": {
+    "message": "Limpar rascunhos"
+  },
+  "contentReview.emptyDescription": {
+    "message": "Ainda não há rascunhos. Use o Quick Ingest com Revisar antes de salvar para criar rascunhos."
+  },
+  "contentReview.openQuickIngest": {
+    "message": "Abrir Quick Ingest"
+  },
+  "contentReview.storeAfterReview": {
+    "message": "Salvar após revisão"
+  },
+  "contentReview.reviewBeforeStorage": {
+    "message": "Revisar antes de salvar"
+  },
+  "contentReview.reviewBeforeStorageHint": {
+    "message": "Processe agora e depois edite os rascunhos localmente antes de enviá-los ao servidor."
+  },
+  "contentReview.reviewEnabled": {
+    "message": "Modo de revisão"
+  },
+  "contentReview.reviewStorageCap": {
+    "message": "Rascunhos locais limitados a {{cap}}."
+  },
+  "contentReview.reviewWarningTitle": {
+    "message": "Salvar rascunhos localmente?"
+  },
+  "contentReview.reviewWarningBody": {
+    "message": "Os rascunhos são salvos neste navegador e podem conter dados sensíveis. Você pode limpar os rascunhos na página Revisão de Conteúdo a qualquer momento."
+  },
+  "contentReview.reviewWarningBodySecondary": {
+    "message": "O modo de revisão mantém o conteúdo no cliente até você confirmá-lo no servidor."
+  },
+  "contentReview.reviewWarningConfirm": {
+    "message": "Ativar revisão"
+  },
+  "contentReview.reviewWarningCancel": {
+    "message": "Cancelar"
+  },
+  "contentReview.reviewRunLabel": {
+    "message": "Revisão"
+  },
+  "contentReview.reviewDraftsCreated": {
+    "message": "Rascunhos prontos para revisão."
+  },
+  "contentReview.reviewStorageCapWarning": {
+    "message": "{{count}} arquivo(s) excedem o limite local de rascunhos ({{cap}}). Anexe as fontes antes de salvar áudio/vídeo."
+  },
+  "contentReview.openContentReview": {
+    "message": "Abrir Revisão de Conteúdo"
+  },
+  "contentReview.batchLabel": {
+    "message": "Lote"
+  },
+  "contentReview.batchName": {
+    "message": "Lote {{index}}"
+  },
+  "contentReview.draftsLabel": {
+    "message": "Rascunhos"
+  },
+  "contentReview.selectDraft": {
+    "message": "Selecione um rascunho para começar a revisão."
+  },
+  "contentReview.titlePlaceholder": {
+    "message": "Título do rascunho"
+  },
+  "contentReview.lastSaved": {
+    "message": "Salvo {{time}}"
+  },
+  "contentReview.resetTitle": {
+    "message": "Redefinir rascunho?"
+  },
+  "contentReview.resetBody": {
+    "message": "Isso restaurará o conteúdo original deste rascunho."
+  },
+  "contentReview.resetConfirm": {
+    "message": "Redefinir"
+  },
+  "contentReview.resetCancel": {
+    "message": "Cancelar"
+  },
+  "contentReview.resetContent": {
+    "message": "Redefinir"
+  },
+  "contentReview.diffView": {
+    "message": "Visualizar diff"
+  },
+  "contentReview.saveDraft": {
+    "message": "Salvar rascunho"
+  },
+  "contentReview.editorLabel": {
+    "message": "Conteúdo"
+  },
+  "contentReview.wordCount": {
+    "message": "{{words}} palavras"
+  },
+  "contentReview.charCount": {
+    "message": "{{chars}} caracteres"
+  },
+  "contentReview.aiFix": {
+    "message": "Correção com IA"
+  },
+  "contentReview.aiHint": {
+    "message": "Envia o conteúdo do rascunho para seu servidor para processamento com IA."
+  },
+  "contentReview.modelPlaceholder": {
+    "message": "Padrão do servidor"
+  },
+  "contentReview.aiConsentTitle": {
+    "message": "Enviar rascunho para o servidor?"
+  },
+  "contentReview.aiConsentBody": {
+    "message": "Isso enviará o conteúdo do rascunho para seu servidor tldw para processamento com IA. Os rascunhos permanecem locais até você confirmar."
+  },
+  "contentReview.aiConsentConfirm": {
+    "message": "Continuar"
+  },
+  "contentReview.aiConsentCancel": {
+    "message": "Cancelar"
+  },
+  "contentReview.aiApplied": {
+    "message": "Correções da IA aplicadas."
+  },
+  "contentReview.aiNoChange": {
+    "message": "Nenhuma alteração retornada."
+  },
+  "contentReview.aiEmpty": {
+    "message": "A IA não retornou conteúdo."
+  },
+  "contentReview.aiUnavailable": {
+    "message": "Conclusões de chat indisponíveis."
+  },
+  "contentReview.templatePlaceholder": {
+    "message": "Escolher modelo"
+  },
+  "contentReview.applyTemplate": {
+    "message": "Aplicar modelo"
+  },
+  "contentReview.templateApplied": {
+    "message": "Modelo aplicado."
+  },
+  "contentReview.templateMissing": {
+    "message": "Selecione um modelo primeiro."
+  },
+  "contentReview.detectSections": {
+    "message": "Detectar seções"
+  },
+  "contentReview.detectSectionsTitle": {
+    "message": "Detectar seções novamente?"
+  },
+  "contentReview.detectSectionsBody": {
+    "message": "Isso substituirá as seções existentes e redefinirá suas seleções."
+  },
+  "contentReview.detectSectionsConfirm": {
+    "message": "Detectar novamente"
+  },
+  "contentReview.detectSectionsCancel": {
+    "message": "Cancelar"
+  },
+  "contentReview.detectSectionsEmpty": {
+    "message": "Nenhuma seção detectada."
+  },
+  "contentReview.sectionsLabel": {
+    "message": "Filtro de seção"
+  },
+  "contentReview.templates.transcript_clean.label": {
+    "message": "Limpar transcrição"
+  },
+  "contentReview.templates.transcript_clean.description": {
+    "message": "Normaliza pontuação e maiúsculas/minúsculas preservando a estrutura das linhas."
+  },
+  "contentReview.templates.speaker_turns.label": {
+    "message": "Turnos de fala"
+  },
+  "contentReview.templates.speaker_turns.description": {
+    "message": "Garante que cada turno de fala fique em sua própria linha com rótulos claros."
+  },
+  "contentReview.templates.chapter_headings.label": {
+    "message": "Títulos de capítulo"
+  },
+  "contentReview.templates.chapter_headings.description": {
+    "message": "Insere títulos em Markdown para agrupar tópicos sem remover conteúdo."
+  },
+  "contentReview.metadataLabel": {
+    "message": "Metadados"
+  },
+  "contentReview.mediaType": {
+    "message": "Tipo de mídia"
+  },
+  "contentReview.keywords": {
+    "message": "Palavras‑chave"
+  },
+  "contentReview.keywordsPlaceholder": {
+    "message": "Adicionar palavras‑chave"
+  },
+  "contentReview.reviewNotes": {
+    "message": "Notas de revisão"
+  },
+  "contentReview.missingSource": {
+    "message": "Arquivo de origem ausente"
+  },
+  "contentReview.missingSourceBody": {
+    "message": "Anexe o arquivo original para confirmar este rascunho."
+  },
+  "contentReview.attachSource": {
+    "message": "Anexar arquivo"
+  },
+  "contentReview.actionsLabel": {
+    "message": "Ações"
+  },
+  "contentReview.commit": {
+    "message": "Confirmar"
+  },
+  "contentReview.commitDisabled": {
+    "message": "Anexe o arquivo de áudio/vídeo original antes de confirmar."
+  },
+  "contentReview.markReviewed": {
+    "message": "Marcar como revisado"
+  },
+  "contentReview.skipNext": {
+    "message": "Pular"
+  },
+  "contentReview.discard": {
+    "message": "Descartar"
+  },
+  "contentReview.discardTitle": {
+    "message": "Descartar rascunho?"
+  },
+  "contentReview.discardBody": {
+    "message": "Este rascunho será marcado como descartado e removido da revisão."
+  },
+  "contentReview.discardConfirm": {
+    "message": "Descartar"
+  },
+  "contentReview.discardCancel": {
+    "message": "Cancelar"
+  },
+  "contentReview.commitSuccess": {
+    "message": "Rascunho confirmado."
+  },
+  "contentReview.commitAllTitle": {
+    "message": "Confirmar rascunhos revisados?"
+  },
+  "contentReview.commitAllBody": {
+    "message": "Somente rascunhos marcados como revisados serão confirmados."
+  },
+  "contentReview.commitAllConfirm": {
+    "message": "Confirmar todos"
+  },
+  "contentReview.commitAllCancel": {
+    "message": "Cancelar"
+  },
+  "contentReview.commitAllResult": {
+    "message": "{{success}} confirmado(s) · {{failed}} com falha"
+  },
+  "contentReview.storageCapWarning": {
+    "message": "Este arquivo excede o limite local de rascunhos ({{cap}})."
+  },
+  "contentReview.clearTitle": {
+    "message": "Limpar todos os rascunhos?"
+  },
+  "contentReview.clearBody": {
+    "message": "Isso remove todos os rascunhos e ativos locais da revisão de conteúdo."
+  },
+  "contentReview.clearConfirm": {
+    "message": "Limpar rascunhos"
+  },
+  "contentReview.clearCancel": {
+    "message": "Cancelar"
+  },
+  "contentReview.clearSuccess": {
+    "message": "Rascunhos limpos."
+  },
+  "contentReview.originalLabel": {
+    "message": "Original"
+  },
+  "contentReview.editedLabel": {
+    "message": "Editado"
+  },
+  "reviewDraftsFailedTitle": {
+    "message": "Não foi possível criar rascunhos de revisão."
+  },
+  "reviewDraftsFailedFallback": {
+    "message": "Falha ao criar rascunhos de revisão."
+  },
+  "reviewDraftsRetry": {
+    "message": "Tentar criar rascunhos novamente"
+  },
+  "reviewDraftsStoreWithoutReview": {
+    "message": "Salvar sem revisão"
+  },
+  "reviewNavigationFailed": {
+    "message": "Não foi possível abrir a Revisão de conteúdo. Tente novamente."
+  },
+  "reviewNavigationRetry": {
+    "message": "Tentar abrir a Revisão de conteúdo novamente"
   }
 }
