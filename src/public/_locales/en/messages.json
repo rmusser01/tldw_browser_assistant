@@ -1111,5 +1111,620 @@
   },
   "reviewNavigationRetry": {
     "message": "Retry opening Content Review"
+  },
+  "quickIngest_title": {
+    "message": "Quick Ingest Media"
+  },
+  "quickIngest_subtitle": {
+    "message": "Enter one or more URLs. Force type per row if needed."
+  },
+  "quickIngest_offlineTitle": {
+    "message": "Server offline — staging only"
+  },
+  "quickIngest_offlineDescription": {
+    "message": "You can queue URLs and files here and inspect fields, but ingestion will not run until your tldw server is online. Reconnect to process pending items."
+  },
+  "quickIngest_unconfiguredTitle": {
+    "message": "Server not configured — queue only"
+  },
+  "quickIngest_unconfiguredDescription": {
+    "message": "You can queue URLs and files now; ingestion will run after you configure a server URL and API key under Settings → tldw server."
+  },
+  "quickIngest_offlineBypassTitle": {
+    "message": "Offline mode enabled — queue only"
+  },
+  "quickIngest_offlineBypassDescription": {
+    "message": "Items are staged here and will process once you disable offline mode or re-enable live server checks."
+  },
+  "quickIngest_checkingTitle": {
+    "message": "Checking server connection…"
+  },
+  "quickIngest_checkingDescription": {
+    "message": "We’re checking your tldw server before running ingest. You can start queuing items while we confirm reachability."
+  },
+  "quickIngest_sourceHeading": {
+    "message": "Source URLs or files"
+  },
+  "quickIngest_storeRemote": {
+    "message": "Store to remote DB"
+  },
+  "quickIngest_storeRemoteAria": {
+    "message": "Store ingest results on your tldw server"
+  },
+  "quickIngest_processOnlyAria": {
+    "message": "Process ingest results locally only"
+  },
+  "quickIngest_storeRemoteHelp": {
+    "message": "Uploads to your tldw server for indexing."
+  },
+  "quickIngest_processOnlyHelp": {
+    "message": "Process only and keep results local (download JSON)."
+  },
+  "quickIngest_storageHeading": {
+    "message": "Where ingest results are stored"
+  },
+  "quickIngest_storageServerDescription": {
+    "message": "Stored on your tldw server (recommended for RAG and shared workspaces)."
+  },
+  "quickIngest_storageLocalDescription": {
+    "message": "Kept in this browser only; no data written to your server."
+  },
+  "quickIngest_storeAfterReview": {
+    "message": "Store after review"
+  },
+  "quickIngest_reviewBeforeStorage": {
+    "message": "Review before saving"
+  },
+  "quickIngest_reviewBeforeStorageHint": {
+    "message": "Process now, then edit drafts locally before committing to your server."
+  },
+  "quickIngest_reviewEnabled": {
+    "message": "Review mode"
+  },
+  "quickIngest_reviewStorageCap": {
+    "message": "Local drafts are capped at {{cap}}."
+  },
+  "quickIngest_reviewWarningTitle": {
+    "message": "Store drafts locally?"
+  },
+  "quickIngest_reviewWarningBody": {
+    "message": "Drafts are saved in this browser and may include sensitive data. You can clear drafts from the Content Review page at any time."
+  },
+  "quickIngest_reviewWarningBodySecondary": {
+    "message": "Review mode keeps content client-side until you commit it to your server."
+  },
+  "quickIngest_reviewWarningConfirm": {
+    "message": "Enable review"
+  },
+  "quickIngest_reviewWarningCancel": {
+    "message": "Cancel"
+  },
+  "quickIngest_reviewRunLabel": {
+    "message": "Review"
+  },
+  "quickIngest_reviewDraftsCreated": {
+    "message": "Drafts ready for review."
+  },
+  "quickIngest_reviewDraftsFailedTitle": {
+    "message": "Review drafts couldn't be created."
+  },
+  "quickIngest_reviewDraftsFailedFallback": {
+    "message": "Failed to create review drafts."
+  },
+  "quickIngest_reviewDraftsRetry": {
+    "message": "Retry draft creation"
+  },
+  "quickIngest_reviewDraftsStoreWithoutReview": {
+    "message": "Store without review"
+  },
+  "quickIngest_reviewNavigationFailed": {
+    "message": "Couldn't open Content Review. Please try again."
+  },
+  "quickIngest_reviewNavigationRetry": {
+    "message": "Retry opening Content Review"
+  },
+  "quickIngest_reviewStorageCapWarning": {
+    "message": "{{count}} file(s) exceed the local draft cap ({{cap}}). Attach sources before committing audio/video."
+  },
+  "quickIngest_openContentReview": {
+    "message": "Open Content Review"
+  },
+  "quickIngest_storageDocsLink": {
+    "message": "Learn more about ingest & storage"
+  },
+  "quickIngest_storageDocsUrl": {
+    "message": "https://github.com/rmusser01/tldw_browser_assistant"
+  },
+  "quickIngest_bulkPlaceholder": {
+    "message": "Paste URLs (one per line)"
+  },
+  "quickIngest_or": {
+    "message": "or"
+  },
+  "quickIngest_remove": {
+    "message": "Remove"
+  },
+  "quickIngest_add": {
+    "message": "Add URL"
+  },
+  "quickIngest_commonOptions": {
+    "message": "Ingestion options"
+  },
+  "quickIngest_audioOptions": {
+    "message": "Audio options"
+  },
+  "quickIngest_audioLanguage": {
+    "message": "Language (e.g., en)"
+  },
+  "quickIngest_audioDiarizationHelp": {
+    "message": "Turn on to separate speakers in transcripts."
+  },
+  "quickIngest_documentOptions": {
+    "message": "Document options"
+  },
+  "quickIngest_videoOptions": {
+    "message": "Video options"
+  },
+  "quickIngest_captionsHelp": {
+    "message": "Include timestamps/captions when available."
+  },
+  "quickIngest_cancel": {
+    "message": "Cancel"
+  },
+  "quickIngest_ingest": {
+    "message": "Ingest"
+  },
+  "quickIngest_process": {
+    "message": "Process"
+  },
+  "quickIngest_queueOnlyOffline": {
+    "message": "Queue only — server offline"
+  },
+  "quickIngest_queueOnlyOfflineAria": {
+    "message": "Offline — queue items to process later"
+  },
+  "quickIngest_queueOnlyUnconfigured": {
+    "message": "Queue only — server not configured"
+  },
+  "quickIngest_queueOnlyUnconfiguredAria": {
+    "message": "Server not configured — queue items to process after you configure a server."
+  },
+  "quickIngest_queueOnlyOfflineBypass": {
+    "message": "Queue only — offline mode enabled"
+  },
+  "quickIngest_queueOnlyOfflineBypassAria": {
+    "message": "Offline mode enabled — queue items to process after you disable offline mode."
+  },
+  "quickIngest_offlineQueueToast": {
+    "message": "Offline mode: items are queued here until your server is back online."
+  },
+  "quickIngest_unconfiguredQueueToast": {
+    "message": "Server not configured: items are staged here and will not run until you configure a server under Settings → tldw server."
+  },
+  "quickIngest_offlineBypassQueueToast": {
+    "message": "Offline mode enabled: items are staged here and will process once you disable offline mode."
+  },
+  "quickIngest_offlineFooter": {
+    "message": "Can’t reach your server. Items are staged here and will process once your server reconnects."
+  },
+  "quickIngest_unconfiguredFooter": {
+    "message": "Can’t reach your server. Items are staged here and will process after you configure a server URL and API key under Settings → tldw server."
+  },
+  "quickIngest_offlineBypassFooter": {
+    "message": "Can’t reach your server. Items are staged here and will process once you disable offline mode."
+  },
+  "quickIngest_processQueuedItems": {
+    "message": "Process queued items"
+  },
+  "quickIngest_processQueuedItemsAria": {
+    "message": "Process queued Quick Ingest items"
+  },
+  "quickIngest_runAria": {
+    "message": "Run quick ingest"
+  },
+  "quickIngest_runLabel": {
+    "message": "Run quick ingest"
+  },
+  "quickIngest_results": {
+    "message": "Results"
+  },
+  "quickIngest_resultsFilterAria": {
+    "message": "Filter results by status"
+  },
+  "quickIngest_resultsFilterAll": {
+    "message": "All"
+  },
+  "quickIngest_resultsFilterFailed": {
+    "message": "Failed only"
+  },
+  "quickIngest_resultsFilterSucceeded": {
+    "message": "Succeeded only"
+  },
+  "quickIngest_downloadJson": {
+    "message": "Download JSON"
+  },
+  "quickIngest_advancedSummary": {
+    "message": "{{count}} advanced fields loaded"
+  },
+  "quickIngest_advancedEmpty": {
+    "message": "No advanced options detected — try reloading the spec."
+  },
+  "quickIngest_modifiedCount": {
+    "message": "{{count}} modified"
+  },
+  "quickIngest_progress": {
+    "message": "Running quick ingest — processing {{done}} / {{total}} items…"
+  },
+  "quickIngest_pendingLabel": {
+    "message": "Pending — will run when connected"
+  },
+  "quickIngest_pendingUnconfigured": {
+    "message": "Pending — will run after you configure a server."
+  },
+  "quickIngest_pendingOfflineBypass": {
+    "message": "Pending — will run when offline mode is disabled."
+  },
+  "quickIngest_readyToast": {
+    "message": "Server back online — ready to process {{count}} queued items."
+  },
+  "quickIngest_processQueuedItemsShort": {
+    "message": "Process queued items"
+  },
+  "quickIngest_errorSummary": {
+    "message": "We couldn’t process ingest items right now."
+  },
+  "quickIngest_errorHint": {
+    "message": "Try again after checking your tldw server. Health & diagnostics can help troubleshoot ingest issues."
+  },
+  "quickIngest_checkHealthLink": {
+    "message": "Check server health in Health & diagnostics"
+  },
+  "quickIngest_healthAriaHint": {
+    "message": "Recent runs failed — open Health & diagnostics from the header for more details."
+  },
+  "quickIngest_specSourceLive": {
+    "message": "Live server spec"
+  },
+  "quickIngest_specSourceCached": {
+    "message": "Cached server spec"
+  },
+  "quickIngest_specSourceBundled": {
+    "message": "Bundled spec"
+  },
+  "quickIngest_specSourceFallback": {
+    "message": "Fallback spec"
+  },
+  "quickIngest_noFailedUrlToRetry": {
+    "message": "No failed URL items to retry."
+  },
+  "quickIngest_queuedFailedUrls": {
+    "message": "Queued {{count}} failed URL(s) to retry."
+  },
+  "quickIngest_openInspectorIntro": {
+    "message": "Open Inspector intro"
+  },
+  "quickIngest_ragEmbeddingHintInline": {
+    "message": "Uses {{label}} for RAG search."
+  },
+  "quickIngest_recommendedGroup": {
+    "message": "Recommended fields"
+  },
+  "quickIngest_tipsTitle": {
+    "message": "Tips"
+  },
+  "quickIngest_tipsHybrid": {
+    "message": "Hybrid input: drop files or paste URLs (comma/newline separated) to build the queue."
+  },
+  "quickIngest_tipsPerType": {
+    "message": "Per-type settings (Audio/PDF/Video) apply to all items of that type."
+  },
+  "quickIngest_tipsInspector": {
+    "message": "Use the Inspector to see status, type, and quick checks before ingesting."
+  },
+  "quickIngest_supportedFormats": {
+    "message": "Supported: docs, PDFs, audio, video, and web URLs."
+  },
+  "quickIngest_itemsReady": {
+    "message": "{{count}} item(s) ready"
+  },
+  "quickIngest_itemsReadySr": {
+    "message": "{{count}} item(s) ready"
+  },
+  "quickIngest_dragAndDrop": {
+    "message": "Drag and drop files"
+  },
+  "quickIngest_dragAndDropHint": {
+    "message": "Docs, PDFs, audio, and video are all welcome."
+  },
+  "quickIngest_pasteFromClipboard": {
+    "message": "Paste URLs from clipboard"
+  },
+  "quickIngest_pasteUrlsTitle": {
+    "message": "Paste URLs"
+  },
+  "quickIngest_pasteUrlsHint": {
+    "message": "Separate with commas or new lines"
+  },
+  "quickIngest_urlsLabel": {
+    "message": "URLs to ingest"
+  },
+  "quickIngest_urlsPlaceholder": {
+    "message": "https://example.com, https://..."
+  },
+  "quickIngest_urlsInputAria": {
+    "message": "Paste URLs input"
+  },
+  "quickIngest_addUrlsAria": {
+    "message": "Add URLs to queue"
+  },
+  "quickIngest_addUrls": {
+    "message": "Add URLs"
+  },
+  "quickIngest_authRequiredHint": {
+    "message": "Authentication-required pages may need cookies set in Advanced."
+  },
+  "quickIngest_queueTitle": {
+    "message": "Queue"
+  },
+  "quickIngest_clearAllAria": {
+    "message": "Clear all queued items"
+  },
+  "quickIngest_clearAll": {
+    "message": "Clear all"
+  },
+  "quickIngest_addBlankRowAria": {
+    "message": "Add blank URL row"
+  },
+  "quickIngest_addBlankRow": {
+    "message": "Add blank row"
+  },
+  "quickIngest_openInspector": {
+    "message": "Open Inspector"
+  },
+  "quickIngest_queueDescription": {
+    "message": "Staged items appear here. Click a row to open the Inspector; badges show defaults, custom edits, or items needing attention."
+  },
+  "quickIngest_statusDone": {
+    "message": "Done"
+  },
+  "quickIngest_statusFailed": {
+    "message": "Failed"
+  },
+  "quickIngest_statusRunning": {
+    "message": "Running"
+  },
+  "quickIngest_untitledUrl": {
+    "message": "Untitled URL"
+  },
+  "quickIngest_defaultsApplied": {
+    "message": "Defaults will be applied."
+  },
+  "quickIngest_urlPlaceholder": {
+    "message": "https://..."
+  },
+  "quickIngest_sourceUrlAria": {
+    "message": "Source URL"
+  },
+  "quickIngest_forceMediaType": {
+    "message": "Force media type"
+  },
+  "quickIngest_typeAuto": {
+    "message": "Auto"
+  },
+  "quickIngest_typeHtml": {
+    "message": "HTML"
+  },
+  "quickIngest_typePdf": {
+    "message": "PDF"
+  },
+  "quickIngest_typeDocument": {
+    "message": "Document"
+  },
+  "quickIngest_typeAudio": {
+    "message": "Audio"
+  },
+  "quickIngest_typeVideo": {
+    "message": "Video"
+  },
+  "quickIngest_emptyQueue": {
+    "message": "No items queued yet. Drop files or add URLs to start."
+  },
+  "quickIngest_analysisLabel": {
+    "message": "Analysis"
+  },
+  "quickIngest_chunkingLabel": {
+    "message": "Chunking"
+  },
+  "quickIngest_overwriteLabel": {
+    "message": "Overwrite existing"
+  },
+  "quickIngest_audioDiarizationOff": {
+    "message": "Diarization: Off"
+  },
+  "quickIngest_audioDiarizationOn": {
+    "message": "Diarization: On"
+  },
+  "quickIngest_audioSettingsTitle": {
+    "message": "These audio settings apply to every audio item in this run."
+  },
+  "quickIngest_audioSettingsHint": {
+    "message": "These settings apply to every audio item in this run."
+  },
+  "quickIngest_ocrOff": {
+    "message": "OCR: Off"
+  },
+  "quickIngest_ocrOn": {
+    "message": "OCR: On"
+  },
+  "quickIngest_documentSettingsTitle": {
+    "message": "These document settings apply to every document/PDF in this run."
+  },
+  "quickIngest_documentSettingsHint": {
+    "message": "Applies to all document/PDF items in this batch."
+  },
+  "quickIngest_captionsOff": {
+    "message": "Captions: Off"
+  },
+  "quickIngest_captionsOn": {
+    "message": "Captions: On"
+  },
+  "quickIngest_videoSettingsTitle": {
+    "message": "These video settings apply to every video in this run."
+  },
+  "quickIngest_videoSettingsHint": {
+    "message": "Applies to all video items in this batch."
+  },
+  "quickIngest_ingestProgressTitle": {
+    "message": "Current ingest progress"
+  },
+  "quickIngest_itemsReadyTitle": {
+    "message": "Items ready to ingest"
+  },
+  "quickIngest_closeQuickIngest": {
+    "message": "Close quick ingest"
+  },
+  "quickIngest_processedCount": {
+    "message": "{{done}}/{{total}} processed"
+  },
+  "quickIngest_elapsedLabel": {
+    "message": "Elapsed {{time}}"
+  },
+  "quickIngest_inspectorTitle": {
+    "message": "Inspector"
+  },
+  "quickIngest_inspectorIntroTitle": {
+    "message": "How to use the Inspector"
+  },
+  "quickIngest_inspectorIntroItem1": {
+    "message": "Click a queued item to see its detected type, status, and warnings."
+  },
+  "quickIngest_inspectorIntroItem2": {
+    "message": "Use per-type controls on the main panel to set defaults; any per-row override marks it Custom."
+  },
+  "quickIngest_inspectorIntroItem3": {
+    "message": "For auth-required URLs, add cookies/headers in Advanced before ingesting."
+  },
+  "quickIngest_inspectorIntroDismiss": {
+    "message": "Dismiss Inspector intro and close"
+  },
+  "quickIngest_inspectorIntroDismissed": {
+    "message": "Intro dismissed. Reset anytime with “Reset Inspector Intro.”"
+  },
+  "quickIngest_gotIt": {
+    "message": "Got it"
+  },
+  "quickIngest_inspectorRowEditHint": {
+    "message": "Editing the URL or forcing a type marks this item as Custom."
+  },
+  "quickIngest_inspectorFileHint": {
+    "message": "File settings follow the per-type controls on the main panel."
+  },
+  "quickIngest_inspectorAdvancedHint": {
+    "message": "Use Advanced options to set cookies/auth if required. Errors or warnings appear on each row."
+  },
+  "quickIngest_inspectorEmpty": {
+    "message": "Select a queued item to view details."
+  },
+  "quickIngest_advancedOptionsTitle": {
+    "message": "Advanced options"
+  },
+  "quickIngest_specTooltipLive": {
+    "message": "Using live server OpenAPI spec"
+  },
+  "quickIngest_specTooltipCached": {
+    "message": "Using cached server OpenAPI spec"
+  },
+  "quickIngest_specTooltipBundled": {
+    "message": "Using bundled spec from extension"
+  },
+  "quickIngest_specTooltipFallback": {
+    "message": "No spec detected; using fallback fields"
+  },
+  "quickIngest_specReloadedToast": {
+    "message": "Advanced spec reloaded from server"
+  },
+  "quickIngest_specReloadedToastDiff": {
+    "message": "Advanced spec reloaded from server (fields added: {{added}}, removed: {{removed}})"
+  },
+  "quickIngest_specFallbackWarning": {
+    "message": "Using bundled media.add schema fallback (v{{version}}); please verify against your tldw_server /openapi.json if fields look outdated."
+  },
+  "quickIngest_resetInspectorIntro": {
+    "message": "Reset Inspector intro helper"
+  },
+  "quickIngest_preferServerLabel": {
+    "message": "Prefer server"
+  },
+  "quickIngest_preferServerAria": {
+    "message": "Advanced options – prefer server OpenAPI spec"
+  },
+  "quickIngest_preferServerTitle": {
+    "message": "Prefer server OpenAPI spec"
+  },
+  "quickIngest_reloadSpecAria": {
+    "message": "Reload advanced spec from server"
+  },
+  "quickIngest_reloadFromServer": {
+    "message": "Reload from server"
+  },
+  "quickIngest_resetAdvancedAria": {
+    "message": "Reset advanced options and UI state"
+  },
+  "quickIngest_confirmResetTitle": {
+    "message": "Please confirm"
+  },
+  "quickIngest_confirmResetContent": {
+    "message": "Reset all advanced options and UI state?"
+  },
+  "quickIngest_reset": {
+    "message": "Reset"
+  },
+  "quickIngest_advancedReset": {
+    "message": "Advanced options reset"
+  },
+  "quickIngest_resetAdvanced": {
+    "message": "Reset Advanced"
+  },
+  "quickIngest_searchAdvanced": {
+    "message": "Search advanced fields..."
+  },
+  "quickIngest_hideDetails": {
+    "message": "Hide details"
+  },
+  "quickIngest_showDetails": {
+    "message": "Show details"
+  },
+  "quickIngest_unset": {
+    "message": "Unset"
+  },
+  "quickIngest_unsetLabel": {
+    "message": "Currently unset (server defaults)"
+  },
+  "quickIngest_onLabel": {
+    "message": "On"
+  },
+  "quickIngest_offLabel": {
+    "message": "Off"
+  },
+  "quickIngest_resultsCount": {
+    "message": "{{count}} item(s)"
+  },
+  "quickIngest_processingComplete": {
+    "message": "Processing complete. You can download results as JSON."
+  },
+  "quickIngest_retryFailedUrls": {
+    "message": "Retry failed URLs"
+  },
+  "quickIngest_summaryAllSucceeded": {
+    "message": "Quick ingest completed successfully."
+  },
+  "quickIngest_summarySomeFailed": {
+    "message": "Quick ingest completed with some errors."
+  },
+  "quickIngest_summaryCounts": {
+    "message": "{{success}} succeeded · {{failed}} failed"
+  },
+  "storeAfterReview": {
+    "message": "Store after review"
   }
 }

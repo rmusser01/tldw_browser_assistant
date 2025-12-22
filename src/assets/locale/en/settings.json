@@ -784,6 +784,67 @@
       "webSearchFollowUpPromptPlaceholder": "Your Web Search Follow Up Prompt"
     }
   },
+  "chunkingPlayground": {
+    "nav": "Chunking Playground",
+    "title": "Chunking Playground",
+    "description": "Experiment with different chunking settings to see how text gets split into smaller pieces for processing.",
+    "inputLabel": "Text to chunk",
+    "inputPlaceholder": "Paste text here or select a sample...",
+    "uploadButton": "Upload File",
+    "chunkButton": "Chunk Text",
+    "methodLabel": "Chunking Method",
+    "maxSizeLabel": "Max Chunk Size",
+    "overlapLabel": "Overlap",
+    "languageLabel": "Language",
+    "viewCards": "Cards",
+    "viewInline": "Inline",
+    "stats": "{{count}} chunks, avg {{avgSize}} chars",
+    "chunkIndex": "Chunk {{index}}",
+    "charCount": "{{count}} characters",
+    "wordCount": "{{count}} words",
+    "noInput": "Please provide text to chunk",
+    "sharedInput": "Shared Input Text",
+    "compareButton": "Compare Both",
+    "comparison": "Comparison",
+    "fewerChunks": "Config A produces {{diff}} fewer chunks",
+    "moreChunks": "Config A produces {{diff}} more chunks",
+    "sameChunks": "Both configs produce the same number of chunks",
+    "clickToChunk": "Click 'Compare' to see results",
+    "overlapRegion": "Overlap Region",
+    "clickHint": "Click on a highlighted section to focus on that chunk",
+    "noContentFound": "No text content found for this media item",
+    "loadContentError": "Failed to load media content",
+    "loadMediaListError": "Failed to load media library",
+    "selectMedia": "Select media item...",
+    "loadingMedia": "Loading content...",
+    "noMediaFound": "No media found",
+    "mediaCount": "{{count}} media items available",
+    "inputSource": {
+      "paste": "Paste Text",
+      "upload": "Upload File",
+      "sample": "Sample Text",
+      "media": "From Media Library"
+    },
+    "samples": {
+      "article": "News Article",
+      "articleDesc": "Multi-paragraph article with headers",
+      "code": "Source Code",
+      "codeDesc": "Python code with classes and functions",
+      "transcript": "Transcript",
+      "transcriptDesc": "Timestamped podcast transcript",
+      "academic": "Academic Paper",
+      "academicDesc": "Technical writing with citations"
+    },
+    "compare": {
+      "title": "Compare Settings",
+      "configA": "Configuration A",
+      "configB": "Configuration B"
+    },
+    "mode": {
+      "single": "Single",
+      "compare": "Compare"
+    }
+  },
   "mermaid": "Mermaid",
   "switchToSidebar": "Switch to Sidebar",
   "healthPage": {

@@ -1166,5 +1166,194 @@
   },
   "reviewNavigationRetry": {
     "message": "Prøv å åpne Innholdsgjennomgang på nytt"
+  },
+  "quickIngest_title": {
+    "message": "Quick Ingest Media"
+  },
+  "quickIngest_subtitle": {
+    "message": "Enter one or more URLs. Force type per row if needed."
+  },
+  "quickIngest_offlineTitle": {
+    "message": "Server offline — staging only"
+  },
+  "quickIngest_offlineDescription": {
+    "message": "You can queue URLs and files here and inspect fields, but ingestion will not run until your tldw server is online. Reconnect to process pending items."
+  },
+  "quickIngest_sourceHeading": {
+    "message": "Source URLs or files"
+  },
+  "quickIngest_storeRemote": {
+    "message": "Store to remote DB"
+  },
+  "quickIngest_storeRemoteAria": {
+    "message": "Lagre ingest-resultater på tldw-serveren din"
+  },
+  "quickIngest_processOnlyAria": {
+    "message": "Behandle ingest-resultater kun lokalt"
+  },
+  "quickIngest_storeRemoteHelp": {
+    "message": "Laster opp til tldw-serveren din for indeksering."
+  },
+  "quickIngest_processOnlyHelp": {
+    "message": "Behandle bare og behold resultatene lokalt (last ned JSON)."
+  },
+  "quickIngest_storageHeading": {
+    "message": "Hvor ingest-resultatene lagres"
+  },
+  "quickIngest_storageServerDescription": {
+    "message": "Lagret på tldw-serveren din (anbefales for RAG og delte arbeidsområder)."
+  },
+  "quickIngest_storageLocalDescription": {
+    "message": "Beholdes kun i denne nettleseren; ingen data skrives til serveren."
+  },
+  "quickIngest_storeAfterReview": {
+    "message": "Lagre etter gjennomgang"
+  },
+  "quickIngest_reviewBeforeStorage": {
+    "message": "Gjennomgå før lagring"
+  },
+  "quickIngest_reviewBeforeStorageHint": {
+    "message": "Behandle nå, og rediger deretter kladder lokalt før du lagrer på serveren."
+  },
+  "quickIngest_reviewEnabled": {
+    "message": "Gjennomgangsmodus"
+  },
+  "quickIngest_reviewStorageCap": {
+    "message": "Lokale kladder er begrenset til {{cap}}."
+  },
+  "quickIngest_reviewWarningTitle": {
+    "message": "Lagre kladder lokalt?"
+  },
+  "quickIngest_reviewWarningBody": {
+    "message": "Kladder lagres i denne nettleseren og kan inneholde sensitive data. Du kan fjerne kladder fra siden Innholdsgjennomgang når som helst."
+  },
+  "quickIngest_reviewWarningBodySecondary": {
+    "message": "Gjennomgangsmodus holder innholdet på klientsiden til du lagrer det på serveren."
+  },
+  "quickIngest_reviewWarningConfirm": {
+    "message": "Aktiver gjennomgang"
+  },
+  "quickIngest_reviewWarningCancel": {
+    "message": "Avbryt"
+  },
+  "quickIngest_reviewRunLabel": {
+    "message": "Gjennomgang"
+  },
+  "quickIngest_reviewDraftsCreated": {
+    "message": "Kladder klare for gjennomgang."
+  },
+  "quickIngest_reviewDraftsFailedTitle": {
+    "message": "Kunne ikke opprette gjennomgangskladder."
+  },
+  "quickIngest_reviewDraftsFailedFallback": {
+    "message": "Oppretting av gjennomgangskladder mislyktes."
+  },
+  "quickIngest_reviewDraftsRetry": {
+    "message": "Prøv å opprette kladder på nytt"
+  },
+  "quickIngest_reviewDraftsStoreWithoutReview": {
+    "message": "Lagre uten gjennomgang"
+  },
+  "quickIngest_reviewNavigationFailed": {
+    "message": "Kunne ikke åpne Innholdsgjennomgang. Prøv igjen."
+  },
+  "quickIngest_reviewNavigationRetry": {
+    "message": "Prøv å åpne Innholdsgjennomgang på nytt"
+  },
+  "quickIngest_reviewStorageCapWarning": {
+    "message": "{{count}} fil(er) overskrider den lokale kladdegrensen ({{cap}}). Legg ved kilder før du lagrer lyd/video."
+  },
+  "quickIngest_openContentReview": {
+    "message": "Åpne Innholdsgjennomgang"
+  },
+  "quickIngest_storageDocsLink": {
+    "message": "Lær mer om ingest og lagring"
+  },
+  "quickIngest_storageDocsUrl": {
+    "message": "https://github.com/rmusser01/tldw_browser_assistant"
+  },
+  "quickIngest_bulkPlaceholder": {
+    "message": "Paste URLs (one per line)"
+  },
+  "quickIngest_or": {
+    "message": "or"
+  },
+  "quickIngest_remove": {
+    "message": "Remove"
+  },
+  "quickIngest_add": {
+    "message": "Add URL"
+  },
+  "quickIngest_commonOptions": {
+    "message": "Ingestion options"
+  },
+  "quickIngest_audioOptions": {
+    "message": "Audio options"
+  },
+  "quickIngest_audioLanguage": {
+    "message": "Language (e.g., en)"
+  },
+  "quickIngest_audioDiarizationHelp": {
+    "message": "Turn on to separate speakers in transcripts."
+  },
+  "quickIngest_documentOptions": {
+    "message": "Document options"
+  },
+  "quickIngest_videoOptions": {
+    "message": "Video options"
+  },
+  "quickIngest_captionsHelp": {
+    "message": "Include timestamps/captions when available."
+  },
+  "quickIngest_cancel": {
+    "message": "Cancel"
+  },
+  "quickIngest_ingest": {
+    "message": "Ingest"
+  },
+  "quickIngest_process": {
+    "message": "Process"
+  },
+  "quickIngest_results": {
+    "message": "Results"
+  },
+  "quickIngest_downloadJson": {
+    "message": "Download JSON"
+  },
+  "quickIngest_advancedSummary": {
+    "message": "{{count}} advanced fields loaded"
+  },
+  "quickIngest_advancedEmpty": {
+    "message": "No advanced options detected — try reloading the spec."
+  },
+  "quickIngest_modifiedCount": {
+    "message": "{{count}} modified"
+  },
+  "quickIngest_progress": {
+    "message": "Behandler {{done}} av {{total}} elementer…"
+  },
+  "quickIngest_errorSummary": {
+    "message": "Vi kunne ikke behandle ingest-elementene akkurat nå."
+  },
+  "quickIngest_errorHint": {
+    "message": "Prøv igjen etter at du har sjekket tldw-serveren din. Health & diagnostics kan hjelpe med å feilsøke ingest-problemer."
+  },
+  "quickIngest_checkHealthLink": {
+    "message": "Sjekk serverhelsen i Health & diagnostics"
+  },
+  "quickIngest_healthAriaHint": {
+    "message": "Nylige kjøringer mislyktes — åpne Health & diagnostics fra toppmenyen for flere detaljer."
+  },
+  "quickIngest_specReloadedToast": {
+    "message": "Avansert spesifikasjon lastet inn på nytt fra serveren"
+  },
+  "quickIngest_specReloadedToastDiff": {
+    "message": "Avansert spesifikasjon lastet inn på nytt fra serveren (felter lagt til: {{added}}, fjernet: {{removed}})"
+  },
+  "quickIngest_specFallbackWarning": {
+    "message": "Bruker medfølgende media.add-skjema som reserve (v{{version}}); verifiser mot tldw_server /openapi.json hvis feltene ser utdaterte ut."
+  },
+  "storeAfterReview": {
+    "message": "Lagre etter gjennomgang"
   }
 }

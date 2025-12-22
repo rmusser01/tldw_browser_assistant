@@ -483,6 +483,20 @@
     "clearDrafts": "Rensa utkast",
     "emptyDescription": "Inga utkast än. Använd Quick Ingest med Granska innan du sparar för att skapa utkast.",
     "openQuickIngest": "Öppna Quick Ingest",
+    "storeAfterReview": "Spara efter granskning",
+    "reviewBeforeStorage": "Granska före sparning",
+    "reviewBeforeStorageHint": "Bearbeta nu och redigera sedan utkast lokalt innan du sparar till servern.",
+    "reviewEnabled": "Granskningsläge",
+    "reviewStorageCap": "Lokala utkast är begränsade till {{cap}}.",
+    "reviewWarningTitle": "Spara utkast lokalt?",
+    "reviewWarningBody": "Utkast sparas i den här webbläsaren och kan innehålla känsliga data. Du kan rensa utkast från sidan Innehållsgranskning när som helst.",
+    "reviewWarningBodySecondary": "Granskningsläget håller innehållet på klientsidan tills du sparar det på servern.",
+    "reviewWarningConfirm": "Aktivera granskning",
+    "reviewWarningCancel": "Avbryt",
+    "reviewRunLabel": "Granska",
+    "reviewDraftsCreated": "Utkast redo för granskning.",
+    "reviewStorageCapWarning": "{{count}} fil(er) överskrider den lokala utkastgränsen ({{cap}}). Bifoga källor innan du sparar ljud/video.",
+    "openContentReview": "Öppna Innehållsgranskning",
     "batchLabel": "Batch",
     "batchName": "Batch {{index}}",
     "draftsLabel": "Utkast",
@@ -531,7 +545,7 @@
         "description": "Säkerställer att varje talartur ligger på en egen rad med tydliga etiketter."
       },
       "chapter_headings": {
-        "label": "Kapitelfrubriker",
+        "label": "Kapitelrubriker",
         "description": "Infogar Markdown-rubriker för att gruppera ämnen utan att ta bort innehåll."
       }
     },

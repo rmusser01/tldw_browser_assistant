@@ -1074,5 +1074,194 @@
   },
   "reviewNavigationRetry": {
     "message": "تلاش دوباره برای باز کردن بازبینی محتوا"
+  },
+  "quickIngest_title": {
+    "message": "Quick Ingest Media"
+  },
+  "quickIngest_subtitle": {
+    "message": "Enter one or more URLs. Force type per row if needed."
+  },
+  "quickIngest_offlineTitle": {
+    "message": "سرور آفلاین — فقط در staging"
+  },
+  "quickIngest_offlineDescription": {
+    "message": "می‌توانید URLها و فایل‌ها را اینجا صف کنید و فیلدها را بررسی کنید، اما واردسازی اجرا نخواهد شد تا وقتی سرور tldw شما آنلاین شود. برای پردازش موارد معلق دوباره متصل شوید."
+  },
+  "quickIngest_sourceHeading": {
+    "message": "Source URLs or files"
+  },
+  "quickIngest_storeRemote": {
+    "message": "Store to remote DB"
+  },
+  "quickIngest_storeRemoteAria": {
+    "message": "نتایج درون‌ریزی را روی سرور tldw خود ذخیره کنید"
+  },
+  "quickIngest_processOnlyAria": {
+    "message": "نتایج درون‌ریزی را فقط به‌صورت محلی پردازش کنید"
+  },
+  "quickIngest_storeRemoteHelp": {
+    "message": "برای نمایه‌سازی به سرور tldw شما بارگذاری می‌شود."
+  },
+  "quickIngest_processOnlyHelp": {
+    "message": "فقط پردازش کرده و نتایج را محلی نگه دارید (دانلود JSON)."
+  },
+  "quickIngest_storageHeading": {
+    "message": "محل ذخیره نتایج درون‌ریزی"
+  },
+  "quickIngest_storageServerDescription": {
+    "message": "روی سرور tldw شما ذخیره می‌شود (پیشنهادی برای RAG و محیط‌های کاری مشترک)."
+  },
+  "quickIngest_storageLocalDescription": {
+    "message": "فقط در این مرورگر نگه داشته می‌شود؛ هیچ داده‌ای روی سرورتان نوشته نمی‌شود."
+  },
+  "quickIngest_storeAfterReview": {
+    "message": "ذخیره پس از بازبینی"
+  },
+  "quickIngest_reviewBeforeStorage": {
+    "message": "بازبینی پیش از ذخیره"
+  },
+  "quickIngest_reviewBeforeStorageHint": {
+    "message": "اکنون پردازش کنید و سپس پیش‌نویس‌ها را به‌صورت محلی ویرایش کنید قبل از اینکه در سرور ثبت شوند."
+  },
+  "quickIngest_reviewEnabled": {
+    "message": "حالت بازبینی"
+  },
+  "quickIngest_reviewStorageCap": {
+    "message": "سقف پیش‌نویس‌های محلی {{cap}} است."
+  },
+  "quickIngest_reviewWarningTitle": {
+    "message": "پیش‌نویس‌ها به‌صورت محلی ذخیره شوند؟"
+  },
+  "quickIngest_reviewWarningBody": {
+    "message": "پیش‌نویس‌ها در این مرورگر ذخیره می‌شوند و ممکن است داده‌های حساس داشته باشند. می‌توانید هر زمان از صفحه «بازبینی محتوا» پیش‌نویس‌ها را پاک کنید."
+  },
+  "quickIngest_reviewWarningBodySecondary": {
+    "message": "حالت بازبینی محتوا را تا زمان ثبت در سرور در سمت کاربر نگه می‌دارد."
+  },
+  "quickIngest_reviewWarningConfirm": {
+    "message": "فعال‌کردن بازبینی"
+  },
+  "quickIngest_reviewWarningCancel": {
+    "message": "لغو"
+  },
+  "quickIngest_reviewRunLabel": {
+    "message": "بازبینی"
+  },
+  "quickIngest_reviewDraftsCreated": {
+    "message": "پیش‌نویس‌ها برای بازبینی آماده‌اند."
+  },
+  "quickIngest_reviewDraftsFailedTitle": {
+    "message": "پیش‌نویس‌های بازبینی ایجاد نشدند."
+  },
+  "quickIngest_reviewDraftsFailedFallback": {
+    "message": "ایجاد پیش‌نویس‌های بازبینی ناموفق بود."
+  },
+  "quickIngest_reviewDraftsRetry": {
+    "message": "تلاش دوباره برای ایجاد پیش‌نویس"
+  },
+  "quickIngest_reviewDraftsStoreWithoutReview": {
+    "message": "ذخیره بدون بازبینی"
+  },
+  "quickIngest_reviewNavigationFailed": {
+    "message": "باز کردن بازبینی محتوا ممکن نبود. دوباره تلاش کنید."
+  },
+  "quickIngest_reviewNavigationRetry": {
+    "message": "تلاش دوباره برای باز کردن بازبینی محتوا"
+  },
+  "quickIngest_reviewStorageCapWarning": {
+    "message": "{{count}} فایل از سقف پیش‌نویس محلی ({{cap}}) عبور می‌کند. قبل از ثبت صوت/ویدئو، منابع را پیوست کنید."
+  },
+  "quickIngest_openContentReview": {
+    "message": "باز کردن بازبینی محتوا"
+  },
+  "quickIngest_storageDocsLink": {
+    "message": "درباره درون‌ریزی و ذخیره‌سازی بیشتر بدانید"
+  },
+  "quickIngest_storageDocsUrl": {
+    "message": "https://github.com/rmusser01/tldw_browser_assistant"
+  },
+  "quickIngest_bulkPlaceholder": {
+    "message": "Paste URLs (one per line)"
+  },
+  "quickIngest_or": {
+    "message": "or"
+  },
+  "quickIngest_remove": {
+    "message": "Remove"
+  },
+  "quickIngest_add": {
+    "message": "Add URL"
+  },
+  "quickIngest_commonOptions": {
+    "message": "Ingestion options"
+  },
+  "quickIngest_audioOptions": {
+    "message": "Audio options"
+  },
+  "quickIngest_audioLanguage": {
+    "message": "Language (e.g., en)"
+  },
+  "quickIngest_audioDiarizationHelp": {
+    "message": "Turn on to separate speakers in transcripts."
+  },
+  "quickIngest_documentOptions": {
+    "message": "Document options"
+  },
+  "quickIngest_videoOptions": {
+    "message": "Video options"
+  },
+  "quickIngest_captionsHelp": {
+    "message": "Include timestamps/captions when available."
+  },
+  "quickIngest_cancel": {
+    "message": "Cancel"
+  },
+  "quickIngest_ingest": {
+    "message": "Ingest"
+  },
+  "quickIngest_process": {
+    "message": "Process"
+  },
+  "quickIngest_results": {
+    "message": "Results"
+  },
+  "quickIngest_downloadJson": {
+    "message": "Download JSON"
+  },
+  "quickIngest_advancedSummary": {
+    "message": "{{count}} advanced fields loaded"
+  },
+  "quickIngest_advancedEmpty": {
+    "message": "No advanced options detected — try reloading the spec."
+  },
+  "quickIngest_modifiedCount": {
+    "message": "{{count}} modified"
+  },
+  "quickIngest_progress": {
+    "message": "در حال پردازش {{done}} / {{total}} مورد…"
+  },
+  "quickIngest_errorSummary": {
+    "message": "در حال حاضر نتوانستیم موارد اینجست را پردازش کنیم."
+  },
+  "quickIngest_errorHint": {
+    "message": "پس از بررسی سرور tldw خود دوباره تلاش کنید. بخش Health & diagnostics می‌تواند در برطرف کردن مشکلات اینجست کمک کند."
+  },
+  "quickIngest_checkHealthLink": {
+    "message": "سلامت سرور را در Health & diagnostics بررسی کنید"
+  },
+  "quickIngest_healthAriaHint": {
+    "message": "اجرای اخیر ناموفق بود — برای جزئیات بیشتر از سربرگ Health & diagnostics را باز کنید."
+  },
+  "quickIngest_specReloadedToast": {
+    "message": "مشخصات پیشرفته از سرور دوباره بارگذاری شد"
+  },
+  "quickIngest_specReloadedToastDiff": {
+    "message": "مشخصات پیشرفته از سرور دوباره بارگذاری شد (فیلدهای اضافه‌شده: {{added}}, حذف‌شده: {{removed}})"
+  },
+  "quickIngest_specFallbackWarning": {
+    "message": "در حال استفاده از طرحوارهٔ جایگزینِ بسته‌بندی‌شدهٔ media.add (v{{version}}); اگر فیلدها قدیمی به نظر می‌رسند، لطفاً با tldw_server /openapi.json بررسی کنید."
+  },
+  "storeAfterReview": {
+    "message": "ذخیره پس از بازبینی"
   }
 }

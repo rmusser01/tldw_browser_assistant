@@ -1122,5 +1122,227 @@
   },
   "reviewNavigationRetry": {
     "message": "Повторить открытие Проверки контента"
+  },
+  "quickIngest_title": {
+    "message": "Быстрый импорт медиа"
+  },
+  "quickIngest_subtitle": {
+    "message": "Введите один или несколько URL. При необходимости задайте тип для каждой строки."
+  },
+  "quickIngest_offlineTitle": {
+    "message": "Сервер недоступен — только буфер"
+  },
+  "quickIngest_offlineDescription": {
+    "message": "Здесь вы можете поставить в очередь URL‑адреса и файлы и просмотреть поля, но обработка не запустится, пока ваш сервер tldw не будет онлайн. Подключитесь снова, чтобы обработать отложенные элементы."
+  },
+  "quickIngest_sourceHeading": {
+    "message": "Исходные URL или файлы"
+  },
+  "quickIngest_storeRemote": {
+    "message": "Сохранить в удалённой БД"
+  },
+  "quickIngest_storeRemoteAria": {
+    "message": "Сохранить результаты загрузки на ваш сервер tldw"
+  },
+  "quickIngest_processOnlyAria": {
+    "message": "Обрабатывать результаты загрузки только локально"
+  },
+  "quickIngest_storeRemoteHelp": {
+    "message": "Загружает на ваш сервер tldw для индексирования."
+  },
+  "quickIngest_processOnlyHelp": {
+    "message": "Только обрабатывает и хранит результаты локально (скачать JSON)."
+  },
+  "quickIngest_storageHeading": {
+    "message": "Где хранятся результаты загрузки"
+  },
+  "quickIngest_storageServerDescription": {
+    "message": "Хранятся на вашем сервере tldw (рекомендуется для RAG и общих рабочих пространств)."
+  },
+  "quickIngest_storageLocalDescription": {
+    "message": "Хранятся только в этом браузере; данные на сервер не записываются."
+  },
+  "quickIngest_storeAfterReview": {
+    "message": "Сохранить после проверки"
+  },
+  "quickIngest_reviewBeforeStorage": {
+    "message": "Проверить перед сохранением"
+  },
+  "quickIngest_reviewBeforeStorageHint": {
+    "message": "Обработайте сейчас, затем отредактируйте черновики локально перед сохранением на сервер."
+  },
+  "quickIngest_reviewEnabled": {
+    "message": "Режим проверки"
+  },
+  "quickIngest_reviewStorageCap": {
+    "message": "Локальные черновики ограничены {{cap}}."
+  },
+  "quickIngest_reviewWarningTitle": {
+    "message": "Сохранять черновики локально?"
+  },
+  "quickIngest_reviewWarningBody": {
+    "message": "Черновики сохраняются в этом браузере и могут содержать конфиденциальные данные. Вы можете очистить черновики на странице «Проверка контента» в любое время."
+  },
+  "quickIngest_reviewWarningBodySecondary": {
+    "message": "Режим проверки хранит контент на стороне клиента, пока вы не сохраните его на сервер."
+  },
+  "quickIngest_reviewWarningConfirm": {
+    "message": "Включить проверку"
+  },
+  "quickIngest_reviewWarningCancel": {
+    "message": "Отмена"
+  },
+  "quickIngest_reviewRunLabel": {
+    "message": "Проверка"
+  },
+  "quickIngest_reviewDraftsCreated": {
+    "message": "Черновики готовы к проверке."
+  },
+  "quickIngest_reviewDraftsFailedTitle": {
+    "message": "Не удалось создать черновики для проверки."
+  },
+  "quickIngest_reviewDraftsFailedFallback": {
+    "message": "Сбой при создании черновиков для проверки."
+  },
+  "quickIngest_reviewDraftsRetry": {
+    "message": "Повторить создание черновиков"
+  },
+  "quickIngest_reviewDraftsStoreWithoutReview": {
+    "message": "Сохранить без проверки"
+  },
+  "quickIngest_reviewNavigationFailed": {
+    "message": "Не удалось открыть Проверку контента. Попробуйте еще раз."
+  },
+  "quickIngest_reviewNavigationRetry": {
+    "message": "Повторить открытие Проверки контента"
+  },
+  "quickIngest_reviewStorageCapWarning": {
+    "message": "{{count}} файл(ов) превышают лимит локальных черновиков ({{cap}}). Приложите источники перед сохранением аудио/видео."
+  },
+  "quickIngest_openContentReview": {
+    "message": "Открыть проверку контента"
+  },
+  "quickIngest_storageDocsLink": {
+    "message": "Подробнее об импорте и хранении"
+  },
+  "quickIngest_storageDocsUrl": {
+    "message": "https://github.com/rmusser01/tldw_browser_assistant"
+  },
+  "quickIngest_bulkPlaceholder": {
+    "message": "Вставьте URL (по одному в строке)"
+  },
+  "quickIngest_or": {
+    "message": "или"
+  },
+  "quickIngest_remove": {
+    "message": "Удалить"
+  },
+  "quickIngest_add": {
+    "message": "Добавить URL"
+  },
+  "quickIngest_commonOptions": {
+    "message": "Параметры импорта"
+  },
+  "quickIngest_audioOptions": {
+    "message": "Параметры аудио"
+  },
+  "quickIngest_audioLanguage": {
+    "message": "Язык (например, en)"
+  },
+  "quickIngest_audioDiarizationHelp": {
+    "message": "Включите, чтобы разделять говорящих в расшифровке."
+  },
+  "quickIngest_documentOptions": {
+    "message": "Параметры документов"
+  },
+  "quickIngest_videoOptions": {
+    "message": "Параметры видео"
+  },
+  "quickIngest_captionsHelp": {
+    "message": "Включать временные метки/субтитры, если доступны."
+  },
+  "quickIngest_cancel": {
+    "message": "Отмена"
+  },
+  "quickIngest_ingest": {
+    "message": "Импортировать"
+  },
+  "quickIngest_process": {
+    "message": "Обработать"
+  },
+  "quickIngest_queueOnlyOffline": {
+    "message": "Только очередь — сервер офлайн"
+  },
+  "quickIngest_queueOnlyOfflineAria": {
+    "message": "Офлайн — поставить элементы в очередь для последующей обработки"
+  },
+  "quickIngest_offlineQueueToast": {
+    "message": "Офлайн‑режим: элементы ставятся в очередь здесь, пока ваш сервер не вернётся онлайн."
+  },
+  "quickIngest_offlineFooter": {
+    "message": "Офлайн‑режим: элементы подготавливаются здесь и будут обработаны после повторного подключения сервера."
+  },
+  "quickIngest_processQueuedItems": {
+    "message": "Обработать элементы в очереди"
+  },
+  "quickIngest_processQueuedItemsAria": {
+    "message": "Обработать элементы в очереди для «Быстрого импорта»"
+  },
+  "quickIngest_runAria": {
+    "message": "Запустить быстрый импорт"
+  },
+  "quickIngest_runLabel": {
+    "message": "Запустить быстрый импорт"
+  },
+  "quickIngest_results": {
+    "message": "Результаты"
+  },
+  "quickIngest_downloadJson": {
+    "message": "Скачать JSON"
+  },
+  "quickIngest_advancedSummary": {
+    "message": "Загружено {{count}} расширенных полей"
+  },
+  "quickIngest_advancedEmpty": {
+    "message": "Расширенные параметры не обнаружены — попробуйте заново загрузить спецификацию."
+  },
+  "quickIngest_modifiedCount": {
+    "message": "Изменено: {{count}}"
+  },
+  "quickIngest_progress": {
+    "message": "Обработка {{done}} / {{total}} элементов…"
+  },
+  "quickIngest_pendingLabel": {
+    "message": "В ожидании — будет выполнено при подключении"
+  },
+  "quickIngest_readyToast": {
+    "message": "Сервер снова онлайн — можно обработать {{count}} элементов в очереди."
+  },
+  "quickIngest_processQueuedItemsShort": {
+    "message": "Обработать элементы в очереди"
+  },
+  "quickIngest_errorSummary": {
+    "message": "Сейчас не удалось обработать элементы импорта."
+  },
+  "quickIngest_errorHint": {
+    "message": "Повторите попытку после проверки сервера tldw. Раздел «Health & diagnostics» поможет разобраться с проблемами импорта."
+  },
+  "quickIngest_checkHealthLink": {
+    "message": "Проверить состояние сервера в «Health & diagnostics»"
+  },
+  "quickIngest_healthAriaHint": {
+    "message": "Недавние запуски завершились с ошибкой — откройте «Health & diagnostics» в заголовке для подробностей."
+  },
+  "quickIngest_specReloadedToast": {
+    "message": "Расширенная спецификация перезагружена с сервера"
+  },
+  "quickIngest_specReloadedToastDiff": {
+    "message": "Расширенная спецификация перезагружена с сервера (добавлено полей: {{added}}, удалено: {{removed}})"
+  },
+  "quickIngest_specFallbackWarning": {
+    "message": "Используется встроенный резервный вариант схемы media.add (v{{version}}); проверьте tldw_server /openapi.json, если поля выглядят устаревшими."
+  },
+  "storeAfterReview": {
+    "message": "Сохранить после проверки"
   }
 }

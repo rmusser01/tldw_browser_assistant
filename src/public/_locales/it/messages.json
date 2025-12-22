@@ -1074,5 +1074,194 @@
   },
   "reviewNavigationRetry": {
     "message": "Riprova ad aprire la Revisione contenuti"
+  },
+  "quickIngest_title": {
+    "message": "Quick Ingest Media"
+  },
+  "quickIngest_subtitle": {
+    "message": "Enter one or more URLs. Force type per row if needed."
+  },
+  "quickIngest_offlineTitle": {
+    "message": "Server offline — staging only"
+  },
+  "quickIngest_offlineDescription": {
+    "message": "You can queue URLs and files here and inspect fields, but ingestion will not run until your tldw server is online. Reconnect to process pending items."
+  },
+  "quickIngest_sourceHeading": {
+    "message": "Source URLs or files"
+  },
+  "quickIngest_storeRemote": {
+    "message": "Store to remote DB"
+  },
+  "quickIngest_storeRemoteAria": {
+    "message": "Archivia i risultati di ingest sul tuo server tldw"
+  },
+  "quickIngest_processOnlyAria": {
+    "message": "Elabora i risultati di ingest solo in locale"
+  },
+  "quickIngest_storeRemoteHelp": {
+    "message": "Carica sul tuo server tldw per l'indicizzazione."
+  },
+  "quickIngest_processOnlyHelp": {
+    "message": "Elabora soltanto e mantieni i risultati in locale (scarica JSON)."
+  },
+  "quickIngest_storageHeading": {
+    "message": "Dove vengono archiviati i risultati di ingest"
+  },
+  "quickIngest_storageServerDescription": {
+    "message": "Archiviati sul tuo server tldw (consigliato per RAG e workspace condivisi)."
+  },
+  "quickIngest_storageLocalDescription": {
+    "message": "Conservati solo in questo browser; nessun dato scritto sul server."
+  },
+  "quickIngest_storeAfterReview": {
+    "message": "Salva dopo la revisione"
+  },
+  "quickIngest_reviewBeforeStorage": {
+    "message": "Rivedi prima di salvare"
+  },
+  "quickIngest_reviewBeforeStorageHint": {
+    "message": "Elabora ora, poi modifica le bozze localmente prima di salvarle sul server."
+  },
+  "quickIngest_reviewEnabled": {
+    "message": "Modalità revisione"
+  },
+  "quickIngest_reviewStorageCap": {
+    "message": "Le bozze locali sono limitate a {{cap}}."
+  },
+  "quickIngest_reviewWarningTitle": {
+    "message": "Salvare le bozze localmente?"
+  },
+  "quickIngest_reviewWarningBody": {
+    "message": "Le bozze vengono salvate in questo browser e possono contenere dati sensibili. Puoi eliminarle dalla pagina Revisione contenuti in qualsiasi momento."
+  },
+  "quickIngest_reviewWarningBodySecondary": {
+    "message": "La modalità revisione mantiene i contenuti lato client finché non li salvi sul server."
+  },
+  "quickIngest_reviewWarningConfirm": {
+    "message": "Abilita revisione"
+  },
+  "quickIngest_reviewWarningCancel": {
+    "message": "Annulla"
+  },
+  "quickIngest_reviewRunLabel": {
+    "message": "Revisione"
+  },
+  "quickIngest_reviewDraftsCreated": {
+    "message": "Bozze pronte per la revisione."
+  },
+  "quickIngest_reviewDraftsFailedTitle": {
+    "message": "Impossibile creare le bozze di revisione."
+  },
+  "quickIngest_reviewDraftsFailedFallback": {
+    "message": "Creazione delle bozze di revisione non riuscita."
+  },
+  "quickIngest_reviewDraftsRetry": {
+    "message": "Riprova a creare le bozze"
+  },
+  "quickIngest_reviewDraftsStoreWithoutReview": {
+    "message": "Salva senza revisione"
+  },
+  "quickIngest_reviewNavigationFailed": {
+    "message": "Impossibile aprire la Revisione contenuti. Riprova."
+  },
+  "quickIngest_reviewNavigationRetry": {
+    "message": "Riprova ad aprire la Revisione contenuti"
+  },
+  "quickIngest_reviewStorageCapWarning": {
+    "message": "{{count}} file supera(no) il limite locale di bozze ({{cap}}). Allega le fonti prima di salvare audio/video."
+  },
+  "quickIngest_openContentReview": {
+    "message": "Apri Revisione contenuti"
+  },
+  "quickIngest_storageDocsLink": {
+    "message": "Scopri di più su ingest e archiviazione"
+  },
+  "quickIngest_storageDocsUrl": {
+    "message": "https://github.com/rmusser01/tldw_browser_assistant"
+  },
+  "quickIngest_bulkPlaceholder": {
+    "message": "Paste URLs (one per line)"
+  },
+  "quickIngest_or": {
+    "message": "or"
+  },
+  "quickIngest_remove": {
+    "message": "Remove"
+  },
+  "quickIngest_add": {
+    "message": "Add URL"
+  },
+  "quickIngest_commonOptions": {
+    "message": "Ingestion options"
+  },
+  "quickIngest_audioOptions": {
+    "message": "Audio options"
+  },
+  "quickIngest_audioLanguage": {
+    "message": "Language (e.g., en)"
+  },
+  "quickIngest_audioDiarizationHelp": {
+    "message": "Turn on to separate speakers in transcripts."
+  },
+  "quickIngest_documentOptions": {
+    "message": "Document options"
+  },
+  "quickIngest_videoOptions": {
+    "message": "Video options"
+  },
+  "quickIngest_captionsHelp": {
+    "message": "Include timestamps/captions when available."
+  },
+  "quickIngest_cancel": {
+    "message": "Cancel"
+  },
+  "quickIngest_ingest": {
+    "message": "Ingest"
+  },
+  "quickIngest_process": {
+    "message": "Process"
+  },
+  "quickIngest_results": {
+    "message": "Results"
+  },
+  "quickIngest_downloadJson": {
+    "message": "Download JSON"
+  },
+  "quickIngest_advancedSummary": {
+    "message": "{{count}} advanced fields loaded"
+  },
+  "quickIngest_advancedEmpty": {
+    "message": "No advanced options detected — try reloading the spec."
+  },
+  "quickIngest_modifiedCount": {
+    "message": "{{count}} modified"
+  },
+  "quickIngest_progress": {
+    "message": "Elaborazione {{done}} / {{total}} elementi…"
+  },
+  "quickIngest_errorSummary": {
+    "message": "Al momento non siamo riusciti a elaborare gli elementi di ingest."
+  },
+  "quickIngest_errorHint": {
+    "message": "Riprova dopo aver controllato il tuo server tldw. La sezione Health & diagnostics può aiutarti a risolvere i problemi di ingest."
+  },
+  "quickIngest_checkHealthLink": {
+    "message": "Controlla lo stato del server in Health & diagnostics"
+  },
+  "quickIngest_healthAriaHint": {
+    "message": "Le esecuzioni recenti non sono riuscite — apri Health & diagnostics dall’intestazione per maggiori dettagli."
+  },
+  "quickIngest_specReloadedToast": {
+    "message": "Spec avanzata ricaricata dal server"
+  },
+  "quickIngest_specReloadedToastDiff": {
+    "message": "Spec avanzata ricaricata dal server (campi aggiunti: {{added}}, rimossi: {{removed}})"
+  },
+  "quickIngest_specFallbackWarning": {
+    "message": "In uso lo schema di fallback media.add incluso (v{{version}}); verifica sul tuo tldw_server /openapi.json se i campi sembrano obsoleti."
+  },
+  "storeAfterReview": {
+    "message": "Salva dopo la revisione"
   }
 }

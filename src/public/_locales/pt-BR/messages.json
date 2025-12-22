@@ -2038,5 +2038,77 @@
   },
   "reviewNavigationRetry": {
     "message": "Tentar abrir a Revisão de conteúdo novamente"
+  },
+  "quickIngest_storeAfterReview": {
+    "message": "Salvar após revisão"
+  },
+  "quickIngest_reviewBeforeStorage": {
+    "message": "Revisar antes de salvar"
+  },
+  "quickIngest_reviewBeforeStorageHint": {
+    "message": "Processe agora e depois edite os rascunhos localmente antes de enviá-los ao servidor."
+  },
+  "quickIngest_reviewEnabled": {
+    "message": "Modo de revisão"
+  },
+  "quickIngest_reviewStorageCap": {
+    "message": "Rascunhos locais limitados a {{cap}}."
+  },
+  "quickIngest_reviewWarningTitle": {
+    "message": "Salvar rascunhos localmente?"
+  },
+  "quickIngest_reviewWarningBody": {
+    "message": "Os rascunhos são salvos neste navegador e podem conter dados sensíveis. Você pode limpar os rascunhos na página Revisão de Conteúdo a qualquer momento."
+  },
+  "quickIngest_reviewWarningBodySecondary": {
+    "message": "O modo de revisão mantém o conteúdo no cliente até você confirmá-lo no servidor."
+  },
+  "quickIngest_reviewWarningConfirm": {
+    "message": "Ativar revisão"
+  },
+  "quickIngest_reviewWarningCancel": {
+    "message": "Cancelar"
+  },
+  "quickIngest_reviewRunLabel": {
+    "message": "Revisão"
+  },
+  "quickIngest_reviewDraftsCreated": {
+    "message": "Rascunhos prontos para revisão."
+  },
+  "quickIngest_reviewDraftsFailedTitle": {
+    "message": "Não foi possível criar rascunhos de revisão."
+  },
+  "quickIngest_reviewDraftsFailedFallback": {
+    "message": "Falha ao criar rascunhos de revisão."
+  },
+  "quickIngest_reviewDraftsRetry": {
+    "message": "Tentar criar rascunhos novamente"
+  },
+  "quickIngest_reviewDraftsStoreWithoutReview": {
+    "message": "Salvar sem revisão"
+  },
+  "quickIngest_reviewNavigationFailed": {
+    "message": "Não foi possível abrir a Revisão de conteúdo. Tente novamente."
+  },
+  "quickIngest_reviewNavigationRetry": {
+    "message": "Tentar abrir a Revisão de conteúdo novamente"
+  },
+  "quickIngest_reviewStorageCapWarning": {
+    "message": "{{count}} arquivo(s) excedem o limite local de rascunhos ({{cap}}). Anexe as fontes antes de salvar áudio/vídeo."
+  },
+  "quickIngest_openContentReview": {
+    "message": "Abrir Revisão de Conteúdo"
+  },
+  "quickIngest_specReloadedToast": {
+    "message": "Spec avançada recarregada do servidor"
+  },
+  "quickIngest_specReloadedToastDiff": {
+    "message": "Spec avançada recarregada do servidor (campos adicionados: {{added}}, removidos: {{removed}})"
+  },
+  "quickIngest_specFallbackWarning": {
+    "message": "Usando o fallback do esquema media.add incluído (v{{version}}); se os campos parecerem desatualizados, compare com o /openapi.json do seu tldw_server."
+  },
+  "storeAfterReview": {
+    "message": "Salvar após revisão"
   }
 }

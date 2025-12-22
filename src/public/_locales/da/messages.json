@@ -1306,5 +1306,227 @@
   },
   "reviewNavigationRetry": {
     "message": "Prøv at åbne Indholdsgennemgang igen"
+  },
+  "quickIngest_title": {
+    "message": "Hurtig ingestion af medier"
+  },
+  "quickIngest_subtitle": {
+    "message": "Indtast en eller flere URL’er. Angiv type pr. række om nødvendigt."
+  },
+  "quickIngest_offlineTitle": {
+    "message": "Server offline — kun staging"
+  },
+  "quickIngest_offlineDescription": {
+    "message": "Du kan sætte URL'er og filer i kø her og gennemgå felter, men ingestion kører først, når din tldw-server er online igen. Opret forbindelse for at behandle ventende elementer."
+  },
+  "quickIngest_sourceHeading": {
+    "message": "Kilde-URL’er eller filer"
+  },
+  "quickIngest_storeRemote": {
+    "message": "Gem i ekstern database"
+  },
+  "quickIngest_storeRemoteAria": {
+    "message": "Gem ingest-resultater på din tldw-server"
+  },
+  "quickIngest_processOnlyAria": {
+    "message": "Behandl kun ingest-resultater lokalt"
+  },
+  "quickIngest_storeRemoteHelp": {
+    "message": "Uploader til din tldw-server til indeksering."
+  },
+  "quickIngest_processOnlyHelp": {
+    "message": "Behandl kun og behold resultaterne lokalt (download JSON)."
+  },
+  "quickIngest_storageHeading": {
+    "message": "Hvor ingest-resultater gemmes"
+  },
+  "quickIngest_storageServerDescription": {
+    "message": "Gemt på din tldw-server (anbefales til RAG og delte arbejdsområder)."
+  },
+  "quickIngest_storageLocalDescription": {
+    "message": "Beholdes kun i denne browser; ingen data skrives til din server."
+  },
+  "quickIngest_storeAfterReview": {
+    "message": "Gem efter gennemgang"
+  },
+  "quickIngest_reviewBeforeStorage": {
+    "message": "Gennemgå før gem"
+  },
+  "quickIngest_reviewBeforeStorageHint": {
+    "message": "Behandl nu, og redigér derefter kladder lokalt, før du gemmer på din server."
+  },
+  "quickIngest_reviewEnabled": {
+    "message": "Gennemgangstilstand"
+  },
+  "quickIngest_reviewStorageCap": {
+    "message": "Lokale kladder er begrænset til {{cap}}."
+  },
+  "quickIngest_reviewWarningTitle": {
+    "message": "Gem kladder lokalt?"
+  },
+  "quickIngest_reviewWarningBody": {
+    "message": "Kladder gemmes i denne browser og kan indeholde følsomme data. Du kan altid rydde kladder fra siden Indholdsgennemgang."
+  },
+  "quickIngest_reviewWarningBodySecondary": {
+    "message": "Gennemgangstilstand holder indholdet på klientsiden, indtil du gemmer det på din server."
+  },
+  "quickIngest_reviewWarningConfirm": {
+    "message": "Aktivér gennemgang"
+  },
+  "quickIngest_reviewWarningCancel": {
+    "message": "Annuller"
+  },
+  "quickIngest_reviewRunLabel": {
+    "message": "Gennemgå"
+  },
+  "quickIngest_reviewDraftsCreated": {
+    "message": "Kladder klar til gennemgang."
+  },
+  "quickIngest_reviewDraftsFailedTitle": {
+    "message": "Gennemgangskladderne kunne ikke oprettes."
+  },
+  "quickIngest_reviewDraftsFailedFallback": {
+    "message": "Det lykkedes ikke at oprette gennemgangskladder."
+  },
+  "quickIngest_reviewDraftsRetry": {
+    "message": "Prøv at oprette kladder igen"
+  },
+  "quickIngest_reviewDraftsStoreWithoutReview": {
+    "message": "Gem uden gennemgang"
+  },
+  "quickIngest_reviewNavigationFailed": {
+    "message": "Kunne ikke åbne Indholdsgennemgang. Prøv igen."
+  },
+  "quickIngest_reviewNavigationRetry": {
+    "message": "Prøv at åbne Indholdsgennemgang igen"
+  },
+  "quickIngest_reviewStorageCapWarning": {
+    "message": "{{count}} fil(er) overskrider den lokale kladdegrænse ({{cap}}). Vedhæft kilder før du gemmer lyd/video."
+  },
+  "quickIngest_openContentReview": {
+    "message": "Åbn Indholdsgennemgang"
+  },
+  "quickIngest_storageDocsLink": {
+    "message": "Få mere at vide om ingest og lagring"
+  },
+  "quickIngest_storageDocsUrl": {
+    "message": "https://github.com/rmusser01/tldw_browser_assistant"
+  },
+  "quickIngest_bulkPlaceholder": {
+    "message": "Indsæt URL’er (én pr. linje)"
+  },
+  "quickIngest_or": {
+    "message": "eller"
+  },
+  "quickIngest_remove": {
+    "message": "Fjern"
+  },
+  "quickIngest_add": {
+    "message": "Tilføj URL"
+  },
+  "quickIngest_commonOptions": {
+    "message": "Ingestionsindstillinger"
+  },
+  "quickIngest_audioOptions": {
+    "message": "Lydindstillinger"
+  },
+  "quickIngest_audioLanguage": {
+    "message": "Sprog (f.eks. en)"
+  },
+  "quickIngest_audioDiarizationHelp": {
+    "message": "Aktivér for at adskille talere i transskriptioner."
+  },
+  "quickIngest_documentOptions": {
+    "message": "Dokumentindstillinger"
+  },
+  "quickIngest_videoOptions": {
+    "message": "Videoindstillinger"
+  },
+  "quickIngest_captionsHelp": {
+    "message": "Medtag tidsstempler/undertekster, når de er tilgængelige."
+  },
+  "quickIngest_cancel": {
+    "message": "Annuller"
+  },
+  "quickIngest_ingest": {
+    "message": "Ingerer"
+  },
+  "quickIngest_process": {
+    "message": "Behandl"
+  },
+  "quickIngest_queueOnlyOffline": {
+    "message": "Kø kun — serveren er offline"
+  },
+  "quickIngest_queueOnlyOfflineAria": {
+    "message": "Offline — sæt elementer i kø for senere behandling"
+  },
+  "quickIngest_offlineQueueToast": {
+    "message": "Offline-tilstand: elementer sættes i kø her, indtil din server er online igen."
+  },
+  "quickIngest_offlineFooter": {
+    "message": "Offline-tilstand: elementer forberedes her og behandles, når serveren genopretter forbindelsen."
+  },
+  "quickIngest_processQueuedItems": {
+    "message": "Behandl køede elementer"
+  },
+  "quickIngest_processQueuedItemsAria": {
+    "message": "Behandl køede Quick Ingest-elementer"
+  },
+  "quickIngest_runAria": {
+    "message": "Kør hurtig indlæsning"
+  },
+  "quickIngest_runLabel": {
+    "message": "Kør hurtig indlæsning"
+  },
+  "quickIngest_results": {
+    "message": "Resultater"
+  },
+  "quickIngest_downloadJson": {
+    "message": "Download JSON-fil"
+  },
+  "quickIngest_advancedSummary": {
+    "message": "{{count}} avancerede felter indlæst"
+  },
+  "quickIngest_advancedEmpty": {
+    "message": "Ingen avancerede indstillinger fundet — prøv at genindlæse specifikationen."
+  },
+  "quickIngest_modifiedCount": {
+    "message": "{{count}} ændret"
+  },
+  "quickIngest_progress": {
+    "message": "Behandler {{done}} / {{total}} elementer…"
+  },
+  "quickIngest_pendingLabel": {
+    "message": "Afventer — køres, når der er forbindelse"
+  },
+  "quickIngest_readyToast": {
+    "message": "Serveren er online igen — klar til at behandle {{count}} køede elementer."
+  },
+  "quickIngest_processQueuedItemsShort": {
+    "message": "Behandl køede elementer"
+  },
+  "quickIngest_errorSummary": {
+    "message": "Vi kunne ikke behandle ingest-elementerne lige nu."
+  },
+  "quickIngest_errorHint": {
+    "message": "Prøv igen efter at have kontrolleret din tldw-server. Health & diagnostics kan hjælpe med at fejlfinde ingest-problemer."
+  },
+  "quickIngest_checkHealthLink": {
+    "message": "Tjek serverens status i Health & diagnostics"
+  },
+  "quickIngest_healthAriaHint": {
+    "message": "Seneste kørsler mislykkedes — åbn Health & diagnostics fra headeren for flere detaljer."
+  },
+  "quickIngest_specReloadedToast": {
+    "message": "Avanceret specifikation genindlæst fra serveren"
+  },
+  "quickIngest_specReloadedToastDiff": {
+    "message": "Avanceret specifikation genindlæst fra serveren (tilføjede felter: {{added}}, fjernede felter: {{removed}})"
+  },
+  "quickIngest_specFallbackWarning": {
+    "message": "Bruger medfølgende media.add-skema som reserveløsning (v{{version}}); sammenlign venligst med din tldw_server /openapi.json, hvis felterne ser forældede ud."
+  },
+  "storeAfterReview": {
+    "message": "Gem efter gennemgang"
   }
 }

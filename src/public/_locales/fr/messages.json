@@ -1059,5 +1059,227 @@
   },
   "reviewNavigationRetry": {
     "message": "Réessayer d’ouvrir la Revue de contenu"
+  },
+  "quickIngest_title": {
+    "message": "Quick Ingest Media"
+  },
+  "quickIngest_subtitle": {
+    "message": "Saisissez une ou plusieurs URL. Forcer le type par ligne si nécessaire."
+  },
+  "quickIngest_offlineTitle": {
+    "message": "Serveur hors ligne — uniquement en staging."
+  },
+  "quickIngest_offlineDescription": {
+    "message": "You can queue URLs and files here and inspect fields, but ingestion will not run until your tldw server is online. Reconnect to process pending items."
+  },
+  "quickIngest_sourceHeading": {
+    "message": "Source URLs or files"
+  },
+  "quickIngest_storeRemote": {
+    "message": "Store to remote DB"
+  },
+  "quickIngest_storeRemoteAria": {
+    "message": "Stocker les résultats d'ingestion sur votre serveur tldw"
+  },
+  "quickIngest_processOnlyAria": {
+    "message": "Traiter les résultats d'ingestion localement uniquement"
+  },
+  "quickIngest_storeRemoteHelp": {
+    "message": "Téléverse sur votre serveur tldw pour l'indexation."
+  },
+  "quickIngest_processOnlyHelp": {
+    "message": "Traite seulement et conserve les résultats en local (télécharger le JSON)."
+  },
+  "quickIngest_storageHeading": {
+    "message": "Où sont stockés les résultats d'ingestion"
+  },
+  "quickIngest_storageServerDescription": {
+    "message": "Stockés sur votre serveur tldw (recommandé pour le RAG et les espaces de travail partagés)."
+  },
+  "quickIngest_storageLocalDescription": {
+    "message": "Conservés uniquement dans ce navigateur ; aucune donnée n'est écrite sur votre serveur."
+  },
+  "quickIngest_storeAfterReview": {
+    "message": "Enregistrer après révision"
+  },
+  "quickIngest_reviewBeforeStorage": {
+    "message": "Réviser avant d’enregistrer"
+  },
+  "quickIngest_reviewBeforeStorageHint": {
+    "message": "Traitez maintenant, puis modifiez les brouillons localement avant de les valider sur votre serveur."
+  },
+  "quickIngest_reviewEnabled": {
+    "message": "Mode de révision"
+  },
+  "quickIngest_reviewStorageCap": {
+    "message": "Les brouillons locaux sont limités à {{cap}}."
+  },
+  "quickIngest_reviewWarningTitle": {
+    "message": "Enregistrer les brouillons localement ?"
+  },
+  "quickIngest_reviewWarningBody": {
+    "message": "Les brouillons sont enregistrés dans ce navigateur et peuvent contenir des données sensibles. Vous pouvez les supprimer depuis la page Révision de contenu à tout moment."
+  },
+  "quickIngest_reviewWarningBodySecondary": {
+    "message": "Le mode de révision conserve le contenu côté client jusqu’à validation sur votre serveur."
+  },
+  "quickIngest_reviewWarningConfirm": {
+    "message": "Activer la révision"
+  },
+  "quickIngest_reviewWarningCancel": {
+    "message": "Annuler"
+  },
+  "quickIngest_reviewRunLabel": {
+    "message": "Révision"
+  },
+  "quickIngest_reviewDraftsCreated": {
+    "message": "Brouillons prêts pour la révision."
+  },
+  "quickIngest_reviewDraftsFailedTitle": {
+    "message": "Impossible de créer les brouillons de revue."
+  },
+  "quickIngest_reviewDraftsFailedFallback": {
+    "message": "Échec de la création des brouillons de revue."
+  },
+  "quickIngest_reviewDraftsRetry": {
+    "message": "Réessayer la création des brouillons"
+  },
+  "quickIngest_reviewDraftsStoreWithoutReview": {
+    "message": "Enregistrer sans revue"
+  },
+  "quickIngest_reviewNavigationFailed": {
+    "message": "Impossible d’ouvrir la Revue de contenu. Veuillez réessayer."
+  },
+  "quickIngest_reviewNavigationRetry": {
+    "message": "Réessayer d’ouvrir la Revue de contenu"
+  },
+  "quickIngest_reviewStorageCapWarning": {
+    "message": "{{count}} fichier(s) dépassent la limite locale de brouillons ({{cap}}). Joignez les sources avant de valider l’audio/vidéo."
+  },
+  "quickIngest_openContentReview": {
+    "message": "Ouvrir la Révision de contenu"
+  },
+  "quickIngest_storageDocsLink": {
+    "message": "En savoir plus sur l'ingestion et le stockage"
+  },
+  "quickIngest_storageDocsUrl": {
+    "message": "https://github.com/rmusser01/tldw_browser_assistant"
+  },
+  "quickIngest_bulkPlaceholder": {
+    "message": "Paste URLs (one per line)"
+  },
+  "quickIngest_or": {
+    "message": "or"
+  },
+  "quickIngest_remove": {
+    "message": "Remove"
+  },
+  "quickIngest_add": {
+    "message": "Add URL"
+  },
+  "quickIngest_commonOptions": {
+    "message": "Ingestion options"
+  },
+  "quickIngest_audioOptions": {
+    "message": "Audio options"
+  },
+  "quickIngest_audioLanguage": {
+    "message": "Language (e.g., en)"
+  },
+  "quickIngest_audioDiarizationHelp": {
+    "message": "Turn on to separate speakers in transcripts."
+  },
+  "quickIngest_documentOptions": {
+    "message": "Document options"
+  },
+  "quickIngest_videoOptions": {
+    "message": "Video options"
+  },
+  "quickIngest_captionsHelp": {
+    "message": "Include timestamps/captions when available."
+  },
+  "quickIngest_cancel": {
+    "message": "Cancel"
+  },
+  "quickIngest_ingest": {
+    "message": "Ingest"
+  },
+  "quickIngest_process": {
+    "message": "Process"
+  },
+  "quickIngest_queueOnlyOffline": {
+    "message": "Mettre en file d'attente uniquement — serveur hors ligne"
+  },
+  "quickIngest_queueOnlyOfflineAria": {
+    "message": "Hors ligne — mettre les éléments en file d'attente pour les traiter plus tard"
+  },
+  "quickIngest_offlineQueueToast": {
+    "message": "Mode hors ligne : les éléments sont mis en attente ici jusqu'à ce que votre serveur soit de nouveau en ligne."
+  },
+  "quickIngest_offlineFooter": {
+    "message": "Mode hors ligne : les éléments sont préparés ici et seront traités dès que votre serveur se reconnecte."
+  },
+  "quickIngest_processQueuedItems": {
+    "message": "Traiter les éléments en attente"
+  },
+  "quickIngest_processQueuedItemsAria": {
+    "message": "Traiter les éléments Quick Ingest en file d'attente"
+  },
+  "quickIngest_runAria": {
+    "message": "Lancer l'ingestion rapide"
+  },
+  "quickIngest_runLabel": {
+    "message": "Lancer l'ingestion rapide"
+  },
+  "quickIngest_results": {
+    "message": "Results"
+  },
+  "quickIngest_downloadJson": {
+    "message": "Download JSON"
+  },
+  "quickIngest_advancedSummary": {
+    "message": "{{count}} advanced fields loaded"
+  },
+  "quickIngest_advancedEmpty": {
+    "message": "No advanced options detected — try reloading the spec."
+  },
+  "quickIngest_modifiedCount": {
+    "message": "{{count}} modified"
+  },
+  "quickIngest_progress": {
+    "message": "Traitement de {{done}} sur {{total}} éléments…"
+  },
+  "quickIngest_pendingLabel": {
+    "message": "En attente — s'exécutera une fois connecté"
+  },
+  "quickIngest_readyToast": {
+    "message": "Serveur de nouveau en ligne — prêt à traiter {{count}} éléments en attente."
+  },
+  "quickIngest_processQueuedItemsShort": {
+    "message": "Traiter les éléments en attente"
+  },
+  "quickIngest_errorSummary": {
+    "message": "Nous n'avons pas pu traiter les éléments d'ingestion pour le moment."
+  },
+  "quickIngest_errorHint": {
+    "message": "Réessayez après avoir vérifié votre serveur tldw. Santé et diagnostics peut aider à résoudre les problèmes d'ingestion."
+  },
+  "quickIngest_checkHealthLink": {
+    "message": "Vérifier l'état du serveur dans Santé et diagnostics"
+  },
+  "quickIngest_healthAriaHint": {
+    "message": "Les dernières exécutions ont échoué — ouvrez Santé et diagnostics depuis l'en-tête pour plus de détails."
+  },
+  "quickIngest_specReloadedToast": {
+    "message": "Spécification avancée rechargée depuis le serveur"
+  },
+  "quickIngest_specReloadedToastDiff": {
+    "message": "Spécification avancée rechargée depuis le serveur (champs ajoutés : {{added}}, supprimés : {{removed}})"
+  },
+  "quickIngest_specFallbackWarning": {
+    "message": "Utilisation du schéma de secours media.add intégré (v{{version}}) ; vérifiez-le par rapport à votre tldw_server /openapi.json si certains champs semblent obsolètes."
+  },
+  "storeAfterReview": {
+    "message": "Enregistrer après révision"
   }
 }

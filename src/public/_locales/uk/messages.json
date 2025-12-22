@@ -1048,5 +1048,194 @@
   },
   "reviewNavigationRetry": {
     "message": "Повторити відкриття Перевірки вмісту"
+  },
+  "quickIngest_title": {
+    "message": "Quick Ingest Media"
+  },
+  "quickIngest_subtitle": {
+    "message": "Enter one or more URLs. Force type per row if needed."
+  },
+  "quickIngest_offlineTitle": {
+    "message": "Сервер офлайн — лише тестове середовище"
+  },
+  "quickIngest_offlineDescription": {
+    "message": "Ви можете додавати URL і файли в чергу та переглядати поля, але обробка не відбудеться, поки ваш сервер tldw не в мережі. Підключіться знову, щоб обробити очікувані елементи."
+  },
+  "quickIngest_sourceHeading": {
+    "message": "Source URLs or files"
+  },
+  "quickIngest_storeRemote": {
+    "message": "Store to remote DB"
+  },
+  "quickIngest_storeRemoteAria": {
+    "message": "Зберігати результати інжесту на вашому сервері tldw"
+  },
+  "quickIngest_processOnlyAria": {
+    "message": "Обробляти результати інжесту лише локально"
+  },
+  "quickIngest_storeRemoteHelp": {
+    "message": "Завантажує результати на ваш сервер tldw для індексації."
+  },
+  "quickIngest_processOnlyHelp": {
+    "message": "Лише обробляє та зберігає результати локально (експорт JSON)."
+  },
+  "quickIngest_storageHeading": {
+    "message": "Де зберігаються результати інжесту"
+  },
+  "quickIngest_storageServerDescription": {
+    "message": "Зберігаються на вашому сервері tldw (рекомендовано для RAG і спільних просторів)."
+  },
+  "quickIngest_storageLocalDescription": {
+    "message": "Зберігаються лише в цьому браузері; дані не надсилаються на сервер."
+  },
+  "quickIngest_storeAfterReview": {
+    "message": "Зберігати після перевірки"
+  },
+  "quickIngest_reviewBeforeStorage": {
+    "message": "Перевірити перед збереженням"
+  },
+  "quickIngest_reviewBeforeStorageHint": {
+    "message": "Створювати чернетки та перевіряти їх перед збереженням"
+  },
+  "quickIngest_reviewEnabled": {
+    "message": "Перевірка ввімкнена"
+  },
+  "quickIngest_reviewStorageCap": {
+    "message": "Ліміт збереження перевірки"
+  },
+  "quickIngest_reviewWarningTitle": {
+    "message": "Чи продовжити без перевірки?"
+  },
+  "quickIngest_reviewWarningBody": {
+    "message": "Файли не будуть перевірені перед збереженням."
+  },
+  "quickIngest_reviewWarningBodySecondary": {
+    "message": "Ви все ще можете переглянути їх у Перевірці контенту."
+  },
+  "quickIngest_reviewWarningConfirm": {
+    "message": "Продовжити без перевірки"
+  },
+  "quickIngest_reviewWarningCancel": {
+    "message": "Повернутися до перевірки"
+  },
+  "quickIngest_reviewRunLabel": {
+    "message": "Запустити перевірку"
+  },
+  "quickIngest_reviewDraftsCreated": {
+    "message": "Чернетки створено"
+  },
+  "quickIngest_reviewDraftsFailedTitle": {
+    "message": "Не вдалося створити чернетки"
+  },
+  "quickIngest_reviewDraftsFailedFallback": {
+    "message": "Створення чернеток не вдалося — збережено без перевірки"
+  },
+  "quickIngest_reviewDraftsRetry": {
+    "message": "Повторити створення чернеток"
+  },
+  "quickIngest_reviewDraftsStoreWithoutReview": {
+    "message": "Зберегти без перевірки"
+  },
+  "quickIngest_reviewNavigationFailed": {
+    "message": "Не вдалося відкрити Перевірку контенту"
+  },
+  "quickIngest_reviewNavigationRetry": {
+    "message": "Спробувати знову"
+  },
+  "quickIngest_reviewStorageCapWarning": {
+    "message": "Цей файл перевищує ліміт збереження для перевірки ({{cap}})."
+  },
+  "quickIngest_openContentReview": {
+    "message": "Відкрити Перевірку контенту"
+  },
+  "quickIngest_storageDocsLink": {
+    "message": "Дізнайтесь більше про інжест і зберігання"
+  },
+  "quickIngest_storageDocsUrl": {
+    "message": "https://github.com/rmusser01/tldw_browser_assistant"
+  },
+  "quickIngest_bulkPlaceholder": {
+    "message": "Paste URLs (one per line)"
+  },
+  "quickIngest_or": {
+    "message": "or"
+  },
+  "quickIngest_remove": {
+    "message": "Remove"
+  },
+  "quickIngest_add": {
+    "message": "Add URL"
+  },
+  "quickIngest_commonOptions": {
+    "message": "Ingestion options"
+  },
+  "quickIngest_audioOptions": {
+    "message": "Audio options"
+  },
+  "quickIngest_audioLanguage": {
+    "message": "Language (e.g., en)"
+  },
+  "quickIngest_audioDiarizationHelp": {
+    "message": "Turn on to separate speakers in transcripts."
+  },
+  "quickIngest_documentOptions": {
+    "message": "Document options"
+  },
+  "quickIngest_videoOptions": {
+    "message": "Video options"
+  },
+  "quickIngest_captionsHelp": {
+    "message": "Include timestamps/captions when available."
+  },
+  "quickIngest_cancel": {
+    "message": "Cancel"
+  },
+  "quickIngest_ingest": {
+    "message": "Ingest"
+  },
+  "quickIngest_process": {
+    "message": "Process"
+  },
+  "quickIngest_results": {
+    "message": "Results"
+  },
+  "quickIngest_downloadJson": {
+    "message": "Download JSON"
+  },
+  "quickIngest_advancedSummary": {
+    "message": "{{count}} advanced fields loaded"
+  },
+  "quickIngest_advancedEmpty": {
+    "message": "No advanced options detected — try reloading the spec."
+  },
+  "quickIngest_modifiedCount": {
+    "message": "{{count}} modified"
+  },
+  "quickIngest_progress": {
+    "message": "Оброблено {{done}} з {{total}} елементів…"
+  },
+  "quickIngest_errorSummary": {
+    "message": "Зараз нам не вдалося обробити елементи інжесту."
+  },
+  "quickIngest_errorHint": {
+    "message": "Спробуйте ще раз після перевірки свого сервера tldw. Розділ Health & diagnostics може допомогти усунути проблеми з інжестом."
+  },
+  "quickIngest_checkHealthLink": {
+    "message": "Перевірте стан сервера в Health & diagnostics"
+  },
+  "quickIngest_healthAriaHint": {
+    "message": "Останні запуски завершилися помилкою — відкрийте Health & diagnostics у верхньому меню, щоб дізнатися більше."
+  },
+  "quickIngest_specReloadedToast": {
+    "message": "Розширену специфікацію перезавантажено із сервера"
+  },
+  "quickIngest_specReloadedToastDiff": {
+    "message": "Розширену специфікацію перезавантажено із сервера (додано полів: {{added}}, видалено: {{removed}})"
+  },
+  "quickIngest_specFallbackWarning": {
+    "message": "Використовується вбудований резервний варіант схеми media.add (v{{version}}); перевірте tldw_server /openapi.json, якщо поля виглядають застарілими."
+  },
+  "storeAfterReview": {
+    "message": "Зберігати після перевірки"
   }
 }

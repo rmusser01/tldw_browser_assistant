@@ -758,10 +758,10 @@
     "message": "Ordner erfordern eine Serververbindung"
   },
   "more.copy.canonicalMarkdown": {
-    "message": "Kanonisches Transkript kopieren"
+    "message": "Kanonische Mitschrift kopieren"
   },
   "more.download.canonicalMarkdown": {
-    "message": "Kanonisches Transkript (Markdown)"
+    "message": "Kanonische Mitschrift (Markdown)"
   },
   "contentReview.title": {
     "message": "Inhaltsprüfung"
@@ -1074,5 +1074,227 @@
   },
   "reviewNavigationRetry": {
     "message": "Content Review erneut öffnen"
+  },
+  "quickIngest_title": {
+    "message": "Quick Ingest Media"
+  },
+  "quickIngest_subtitle": {
+    "message": "Enter one or more URLs. Force type per row if needed."
+  },
+  "quickIngest_offlineTitle": {
+    "message": "Server offline – nur Staging"
+  },
+  "quickIngest_offlineDescription": {
+    "message": "Sie können hier URLs und Dateien in die Warteschlange stellen und Felder prüfen, aber die Ingestion startet erst, wenn Ihr tldw-Server online ist. Stellen Sie die Verbindung wieder her, um ausstehende Elemente zu verarbeiten."
+  },
+  "quickIngest_sourceHeading": {
+    "message": "Source URLs or files"
+  },
+  "quickIngest_storeRemote": {
+    "message": "Store to remote DB"
+  },
+  "quickIngest_storeRemoteAria": {
+    "message": "Ingestion-Ergebnisse auf Ihrem tldw-Server speichern"
+  },
+  "quickIngest_processOnlyAria": {
+    "message": "Ingestion-Ergebnisse nur lokal verarbeiten"
+  },
+  "quickIngest_storeRemoteHelp": {
+    "message": "Lädt zur Indizierung auf Ihren tldw-Server hoch."
+  },
+  "quickIngest_processOnlyHelp": {
+    "message": "Nur verarbeiten und Ergebnisse lokal behalten (JSON herunterladen)."
+  },
+  "quickIngest_storageHeading": {
+    "message": "Wo Ingestion-Ergebnisse gespeichert werden"
+  },
+  "quickIngest_storageServerDescription": {
+    "message": "Auf Ihrem tldw-Server gespeichert (empfohlen für RAG und gemeinsame Arbeitsbereiche)."
+  },
+  "quickIngest_storageLocalDescription": {
+    "message": "Nur in diesem Browser gespeichert; keine Daten werden auf Ihren Server geschrieben."
+  },
+  "quickIngest_storeAfterReview": {
+    "message": "Nach Überprüfung speichern"
+  },
+  "quickIngest_reviewBeforeStorage": {
+    "message": "Vor dem Speichern überprüfen"
+  },
+  "quickIngest_reviewBeforeStorageHint": {
+    "message": "Jetzt verarbeiten und Entwürfe lokal bearbeiten, bevor du sie auf deinen Server überträgst."
+  },
+  "quickIngest_reviewEnabled": {
+    "message": "Überprüfungsmodus"
+  },
+  "quickIngest_reviewStorageCap": {
+    "message": "Lokale Entwürfe sind auf {{cap}} begrenzt."
+  },
+  "quickIngest_reviewWarningTitle": {
+    "message": "Entwürfe lokal speichern?"
+  },
+  "quickIngest_reviewWarningBody": {
+    "message": "Entwürfe werden in diesem Browser gespeichert und können sensible Daten enthalten. Du kannst Entwürfe jederzeit auf der Seite „Inhaltsprüfung“ löschen."
+  },
+  "quickIngest_reviewWarningBodySecondary": {
+    "message": "Der Überprüfungsmodus hält Inhalte clientseitig, bis du sie auf deinen Server überträgst."
+  },
+  "quickIngest_reviewWarningConfirm": {
+    "message": "Überprüfung aktivieren"
+  },
+  "quickIngest_reviewWarningCancel": {
+    "message": "Abbrechen"
+  },
+  "quickIngest_reviewRunLabel": {
+    "message": "Überprüfen"
+  },
+  "quickIngest_reviewDraftsCreated": {
+    "message": "Entwürfe bereit zur Überprüfung."
+  },
+  "quickIngest_reviewDraftsFailedTitle": {
+    "message": "Review-Entwürfe konnten nicht erstellt werden."
+  },
+  "quickIngest_reviewDraftsFailedFallback": {
+    "message": "Erstellung der Review-Entwürfe fehlgeschlagen."
+  },
+  "quickIngest_reviewDraftsRetry": {
+    "message": "Entwurfserstellung erneut versuchen"
+  },
+  "quickIngest_reviewDraftsStoreWithoutReview": {
+    "message": "Ohne Review speichern"
+  },
+  "quickIngest_reviewNavigationFailed": {
+    "message": "Content Review konnte nicht geöffnet werden. Bitte versuche es erneut."
+  },
+  "quickIngest_reviewNavigationRetry": {
+    "message": "Content Review erneut öffnen"
+  },
+  "quickIngest_reviewStorageCapWarning": {
+    "message": "{{count}} Datei(en) überschreiten das lokale Entwurfslimit ({{cap}}). Bitte Quellen vor dem Speichern von Audio/Video anhängen."
+  },
+  "quickIngest_openContentReview": {
+    "message": "Inhaltsprüfung öffnen"
+  },
+  "quickIngest_storageDocsLink": {
+    "message": "Erfahren Sie mehr über Ingestion und Speicherung"
+  },
+  "quickIngest_storageDocsUrl": {
+    "message": "https://github.com/rmusser01/tldw_browser_assistant"
+  },
+  "quickIngest_bulkPlaceholder": {
+    "message": "Paste URLs (one per line)"
+  },
+  "quickIngest_or": {
+    "message": "or"
+  },
+  "quickIngest_remove": {
+    "message": "Remove"
+  },
+  "quickIngest_add": {
+    "message": "Add URL"
+  },
+  "quickIngest_commonOptions": {
+    "message": "Ingestion options"
+  },
+  "quickIngest_audioOptions": {
+    "message": "Audio options"
+  },
+  "quickIngest_audioLanguage": {
+    "message": "Language (e.g., en)"
+  },
+  "quickIngest_audioDiarizationHelp": {
+    "message": "Turn on to separate speakers in transcripts."
+  },
+  "quickIngest_documentOptions": {
+    "message": "Document options"
+  },
+  "quickIngest_videoOptions": {
+    "message": "Video options"
+  },
+  "quickIngest_captionsHelp": {
+    "message": "Include timestamps/captions when available."
+  },
+  "quickIngest_cancel": {
+    "message": "Cancel"
+  },
+  "quickIngest_ingest": {
+    "message": "Ingest"
+  },
+  "quickIngest_process": {
+    "message": "Process"
+  },
+  "quickIngest_queueOnlyOffline": {
+    "message": "Nur Warteschlange — Server offline"
+  },
+  "quickIngest_queueOnlyOfflineAria": {
+    "message": "Offline — Elemente zur späteren Verarbeitung in die Warteschlange"
+  },
+  "quickIngest_offlineQueueToast": {
+    "message": "Offline-Modus: Elemente werden hier zwischengespeichert, bis Ihr Server wieder online ist."
+  },
+  "quickIngest_offlineFooter": {
+    "message": "Offline-Modus: Elemente sind hier abgelegt und werden verarbeitet, sobald Ihr Server die Verbindung wiederherstellt."
+  },
+  "quickIngest_processQueuedItems": {
+    "message": "Warteschlangen-Elemente verarbeiten"
+  },
+  "quickIngest_processQueuedItemsAria": {
+    "message": "Verarbeite zwischengespeicherte Quick‑Ingest‑Elemente"
+  },
+  "quickIngest_runAria": {
+    "message": "Quick Ingest ausführen"
+  },
+  "quickIngest_runLabel": {
+    "message": "Quick Ingest ausführen"
+  },
+  "quickIngest_results": {
+    "message": "Results"
+  },
+  "quickIngest_downloadJson": {
+    "message": "Download JSON"
+  },
+  "quickIngest_advancedSummary": {
+    "message": "{{count}} advanced fields loaded"
+  },
+  "quickIngest_advancedEmpty": {
+    "message": "No advanced options detected — try reloading the spec."
+  },
+  "quickIngest_modifiedCount": {
+    "message": "{{count}} modified"
+  },
+  "quickIngest_progress": {
+    "message": "Verarbeite {{done}} von {{total}} Elementen…"
+  },
+  "quickIngest_pendingLabel": {
+    "message": "Ausstehend"
+  },
+  "quickIngest_readyToast": {
+    "message": "Bereit zur Verarbeitung"
+  },
+  "quickIngest_processQueuedItemsShort": {
+    "message": "Warteschlange verarbeiten"
+  },
+  "quickIngest_errorSummary": {
+    "message": "Verarbeitungsfehler"
+  },
+  "quickIngest_errorHint": {
+    "message": "Überprüfen Sie die Details oder versuchen Sie es später erneut."
+  },
+  "quickIngest_checkHealthLink": {
+    "message": "Systemstatus prüfen"
+  },
+  "quickIngest_healthAriaHint": {
+    "message": "Öffnet die Systemstatusseite"
+  },
+  "quickIngest_specReloadedToast": {
+    "message": "Erweiterte Spezifikation vom Server neu geladen"
+  },
+  "quickIngest_specReloadedToastDiff": {
+    "message": "Erweiterte Spezifikation vom Server neu geladen (Felder hinzugefügt: {{added}}, entfernt: {{removed}})"
+  },
+  "quickIngest_specFallbackWarning": {
+    "message": "Verwende gebündelte media.add Schema-Fallback (v{{version}}); bitte überprüfe die /openapi.json deines tldw_server, falls Felder veraltet erscheinen."
+  },
+  "storeAfterReview": {
+    "message": "Nach Überprüfung speichern"
   }
 }

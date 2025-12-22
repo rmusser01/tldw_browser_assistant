@@ -1135,5 +1135,227 @@
   },
   "reviewNavigationRetry": {
     "message": "コンテンツレビューを再度開く"
+  },
+  "quickIngest_title": {
+    "message": "Quick Ingest Media"
+  },
+  "quickIngest_subtitle": {
+    "message": "Enter one or more URLs. Force type per row if needed."
+  },
+  "quickIngest_offlineTitle": {
+    "message": "サーバーがオフライン — ステージングのみ"
+  },
+  "quickIngest_offlineDescription": {
+    "message": "ここでURLやファイルをキューに入れ、フィールドを確認できますが、tldwサーバーがオンラインになるまで取り込みは実行されません。保留中の項目を処理するには再接続してください。"
+  },
+  "quickIngest_sourceHeading": {
+    "message": "Source URLs or files"
+  },
+  "quickIngest_storeRemote": {
+    "message": "Store to remote DB"
+  },
+  "quickIngest_storeRemoteAria": {
+    "message": "インジェスト結果を tldw サーバーに保存する"
+  },
+  "quickIngest_processOnlyAria": {
+    "message": "インジェスト結果をローカルのみで処理する"
+  },
+  "quickIngest_storeRemoteHelp": {
+    "message": "インデックス作成のために tldw サーバーへアップロードします。"
+  },
+  "quickIngest_processOnlyHelp": {
+    "message": "処理のみ行い、結果はローカルに保持します（JSON をダウンロード）。"
+  },
+  "quickIngest_storageHeading": {
+    "message": "インジェスト結果の保存先"
+  },
+  "quickIngest_storageServerDescription": {
+    "message": "tldw サーバーに保存（RAG や共有ワークスペースに推奨）。"
+  },
+  "quickIngest_storageLocalDescription": {
+    "message": "このブラウザーのみに保存され、サーバーには書き込みません。"
+  },
+  "quickIngest_storeAfterReview": {
+    "message": "レビュー後に保存"
+  },
+  "quickIngest_reviewBeforeStorage": {
+    "message": "保存前にレビュー"
+  },
+  "quickIngest_reviewBeforeStorageHint": {
+    "message": "今すぐ処理し、サーバーに保存する前にローカルで下書きを編集します。"
+  },
+  "quickIngest_reviewEnabled": {
+    "message": "レビューモード"
+  },
+  "quickIngest_reviewStorageCap": {
+    "message": "ローカル下書きは {{cap}} 件までです。"
+  },
+  "quickIngest_reviewWarningTitle": {
+    "message": "下書きをローカルに保存しますか？"
+  },
+  "quickIngest_reviewWarningBody": {
+    "message": "下書きはこのブラウザに保存され、機密データを含む可能性があります。コンテンツレビューのページからいつでも下書きを消去できます。"
+  },
+  "quickIngest_reviewWarningBodySecondary": {
+    "message": "レビューモードでは、サーバーに保存するまで内容をクライアント側に保持します。"
+  },
+  "quickIngest_reviewWarningConfirm": {
+    "message": "レビューを有効にする"
+  },
+  "quickIngest_reviewWarningCancel": {
+    "message": "キャンセル"
+  },
+  "quickIngest_reviewRunLabel": {
+    "message": "レビュー"
+  },
+  "quickIngest_reviewDraftsCreated": {
+    "message": "レビュー用下書きの準備ができました。"
+  },
+  "quickIngest_reviewStorageCapWarning": {
+    "message": "{{count}} 件のファイルがローカル下書き上限 ({{cap}}) を超えています。音声/動画を保存する前にソースを添付してください。"
+  },
+  "quickIngest_openContentReview": {
+    "message": "コンテンツレビューを開く"
+  },
+  "quickIngest_storageDocsLink": {
+    "message": "インジェストと保存について詳しく見る"
+  },
+  "quickIngest_storageDocsUrl": {
+    "message": "https://github.com/rmusser01/tldw_browser_assistant"
+  },
+  "quickIngest_bulkPlaceholder": {
+    "message": "Paste URLs (one per line)"
+  },
+  "quickIngest_or": {
+    "message": "or"
+  },
+  "quickIngest_remove": {
+    "message": "Remove"
+  },
+  "quickIngest_add": {
+    "message": "Add URL"
+  },
+  "quickIngest_commonOptions": {
+    "message": "Ingestion options"
+  },
+  "quickIngest_audioOptions": {
+    "message": "Audio options"
+  },
+  "quickIngest_audioLanguage": {
+    "message": "Language (e.g., en)"
+  },
+  "quickIngest_audioDiarizationHelp": {
+    "message": "Turn on to separate speakers in transcripts."
+  },
+  "quickIngest_documentOptions": {
+    "message": "Document options"
+  },
+  "quickIngest_videoOptions": {
+    "message": "Video options"
+  },
+  "quickIngest_captionsHelp": {
+    "message": "Include timestamps/captions when available."
+  },
+  "quickIngest_cancel": {
+    "message": "Cancel"
+  },
+  "quickIngest_ingest": {
+    "message": "Ingest"
+  },
+  "quickIngest_process": {
+    "message": "Process"
+  },
+  "quickIngest_queueOnlyOffline": {
+    "message": "キューのみ — サーバーがオフラインです"
+  },
+  "quickIngest_queueOnlyOfflineAria": {
+    "message": "オフライン — アイテムを後で処理するためにキューに追加"
+  },
+  "quickIngest_offlineQueueToast": {
+    "message": "オフラインモード：サーバーが復帰するまでアイテムはここにキューされます。"
+  },
+  "quickIngest_offlineFooter": {
+    "message": "オフラインモード：アイテムはここに一時保存され、サーバーが再接続すると処理されます。"
+  },
+  "quickIngest_processQueuedItems": {
+    "message": "キュー処理"
+  },
+  "quickIngest_processQueuedItemsAria": {
+    "message": "キューに溜まったクイックインジェスト項目を処理"
+  },
+  "quickIngest_runAria": {
+    "message": "クイックインジェストを実行"
+  },
+  "quickIngest_runLabel": {
+    "message": "クイックインジェスト実行"
+  },
+  "quickIngest_results": {
+    "message": "Results"
+  },
+  "quickIngest_downloadJson": {
+    "message": "Download JSON"
+  },
+  "quickIngest_advancedSummary": {
+    "message": "{{count}} advanced fields loaded"
+  },
+  "quickIngest_advancedEmpty": {
+    "message": "No advanced options detected — try reloading the spec."
+  },
+  "quickIngest_modifiedCount": {
+    "message": "{{count}} modified"
+  },
+  "quickIngest_progress": {
+    "message": "処理中 {{done}} / {{total}} 件…"
+  },
+  "quickIngest_pendingLabel": {
+    "message": "保留中 — 接続時に実行されます"
+  },
+  "quickIngest_readyToast": {
+    "message": "サーバーが復帰しました — {{count}} 件のキューを処理できます。"
+  },
+  "quickIngest_processQueuedItemsShort": {
+    "message": "キュー処理"
+  },
+  "quickIngest_errorSummary": {
+    "message": "現在、取り込みアイテムを処理できませんでした。"
+  },
+  "quickIngest_errorHint": {
+    "message": "tldw サーバーを確認してから再試行してください。問題の切り分けには「ヘルスと診断」をご利用ください。"
+  },
+  "quickIngest_checkHealthLink": {
+    "message": "「ヘルスと診断」でサーバーの状態を確認する"
+  },
+  "quickIngest_healthAriaHint": {
+    "message": "最近の実行に失敗しています — 詳細はヘッダーの「ヘルスと診断」を開いて確認してください。"
+  },
+  "quickIngest_specReloadedToast": {
+    "message": "サーバーから高度な仕様を再読み込みしました"
+  },
+  "quickIngest_specReloadedToastDiff": {
+    "message": "サーバーから高度な仕様を再読み込みしました（追加: {{added}}、削除: {{removed}}）"
+  },
+  "quickIngest_specFallbackWarning": {
+    "message": "同梱の media.add スキーマ（v{{version}}）をフォールバックとして使用しています。フィールドが古そうな場合は tldw_server の /openapi.json と照合して確認してください。"
+  },
+  "quickIngest_reviewDraftsFailedTitle": {
+    "message": "レビュー用下書きを作成できませんでした。"
+  },
+  "quickIngest_reviewDraftsFailedFallback": {
+    "message": "レビュー用下書きの作成に失敗しました。"
+  },
+  "quickIngest_reviewDraftsRetry": {
+    "message": "下書き作成を再試行"
+  },
+  "quickIngest_reviewDraftsStoreWithoutReview": {
+    "message": "レビューせずに保存"
+  },
+  "quickIngest_reviewNavigationFailed": {
+    "message": "コンテンツレビューを開けませんでした。もう一度お試しください。"
+  },
+  "quickIngest_reviewNavigationRetry": {
+    "message": "コンテンツレビューを再度開く"
+  },
+  "storeAfterReview": {
+    "message": "レビュー後に保存"
   }
 }

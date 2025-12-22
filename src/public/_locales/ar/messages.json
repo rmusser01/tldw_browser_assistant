@@ -506,7 +506,7 @@
     "description": "Label for the git.add tool (stage files)."
   },
   "tools_git_commit": {
-    "message": "Commit",
+    "message": "إيداع",
     "description": "Label for the git.commit tool."
   },
   "tools_exec_run": {
@@ -1107,5 +1107,194 @@
   },
   "reviewNavigationRetry": {
     "message": "أعد محاولة فتح مراجعة المحتوى"
+  },
+  "quickIngest_title": {
+    "message": "استيعاب سريع للوسائط"
+  },
+  "quickIngest_subtitle": {
+    "message": "أدخل عنوان URL واحداً أو أكثر. يمكنك فرض النوع لكل سطر إذا لزم الأمر."
+  },
+  "quickIngest_offlineTitle": {
+    "message": "الخادم غير متصل — للاختبار فقط"
+  },
+  "quickIngest_offlineDescription": {
+    "message": "يمكنك وضع روابط وملفات في قائمة الانتظار هنا وتفقد الحقول، لكن لن يتم الاستيعاب حتى يعود خادم tldw إلى العمل. أعد الاتصال لمعالجة العناصر المعلقة."
+  },
+  "quickIngest_sourceHeading": {
+    "message": "عناوين URL أو ملفات المصدر"
+  },
+  "quickIngest_storeRemote": {
+    "message": "التخزين في قاعدة بيانات بعيدة"
+  },
+  "quickIngest_storeRemoteAria": {
+    "message": "خزن نتائج الاستيعاب على خادم tldw الخاص بك"
+  },
+  "quickIngest_processOnlyAria": {
+    "message": "عالج نتائج الاستيعاب محليًا فقط"
+  },
+  "quickIngest_storeRemoteHelp": {
+    "message": "يحمّل إلى خادم tldw الخاص بك للفهرسة."
+  },
+  "quickIngest_processOnlyHelp": {
+    "message": "يعالج فقط ويحفظ النتائج محليًا (تنزيل JSON)."
+  },
+  "quickIngest_storageHeading": {
+    "message": "مكان تخزين نتائج الاستيعاب"
+  },
+  "quickIngest_storageServerDescription": {
+    "message": "مخزَّنة على خادم tldw الخاص بك (موصى به لـ RAG ومساحات العمل المشتركة)."
+  },
+  "quickIngest_storageLocalDescription": {
+    "message": "محفوظة في هذا المتصفح فقط؛ لا تُكتب بيانات على الخادم."
+  },
+  "quickIngest_storeAfterReview": {
+    "message": "الحفظ بعد المراجعة"
+  },
+  "quickIngest_reviewBeforeStorage": {
+    "message": "المراجعة قبل الحفظ"
+  },
+  "quickIngest_reviewBeforeStorageHint": {
+    "message": "قم بالمعالجة الآن ثم حرّر المسودات محليًا قبل اعتمادها على الخادم."
+  },
+  "quickIngest_reviewEnabled": {
+    "message": "وضع المراجعة"
+  },
+  "quickIngest_reviewStorageCap": {
+    "message": "الحد الأقصى للمسودات المحلية هو {{cap}}."
+  },
+  "quickIngest_reviewWarningTitle": {
+    "message": "حفظ المسودات محليًا؟"
+  },
+  "quickIngest_reviewWarningBody": {
+    "message": "تُحفظ المسودات في هذا المتصفح وقد تتضمن بيانات حساسة. يمكنك مسح المسودات من صفحة مراجعة المحتوى في أي وقت."
+  },
+  "quickIngest_reviewWarningBodySecondary": {
+    "message": "يحفظ وضع المراجعة المحتوى على جانب العميل حتى تعتمدَه على الخادم."
+  },
+  "quickIngest_reviewWarningConfirm": {
+    "message": "تفعيل المراجعة"
+  },
+  "quickIngest_reviewWarningCancel": {
+    "message": "إلغاء"
+  },
+  "quickIngest_reviewRunLabel": {
+    "message": "مراجعة"
+  },
+  "quickIngest_reviewDraftsCreated": {
+    "message": "المسودات جاهزة للمراجعة."
+  },
+  "quickIngest_reviewDraftsFailedTitle": {
+    "message": "تعذر إنشاء مسودات المراجعة."
+  },
+  "quickIngest_reviewDraftsFailedFallback": {
+    "message": "فشل إنشاء مسودات المراجعة."
+  },
+  "quickIngest_reviewDraftsRetry": {
+    "message": "أعد محاولة إنشاء المسودات"
+  },
+  "quickIngest_reviewDraftsStoreWithoutReview": {
+    "message": "احفظ دون مراجعة"
+  },
+  "quickIngest_reviewNavigationFailed": {
+    "message": "تعذر فتح مراجعة المحتوى. يرجى المحاولة مرة أخرى."
+  },
+  "quickIngest_reviewNavigationRetry": {
+    "message": "أعد محاولة فتح مراجعة المحتوى"
+  },
+  "quickIngest_reviewStorageCapWarning": {
+    "message": "{{count}} ملف/ملفات تتجاوز حد المسودات المحلية ({{cap}}). أرفق المصادر قبل اعتماد الصوت/الفيديو."
+  },
+  "quickIngest_openContentReview": {
+    "message": "فتح مراجعة المحتوى"
+  },
+  "quickIngest_storageDocsLink": {
+    "message": "معرفة المزيد عن الاستيعاب والتخزين"
+  },
+  "quickIngest_storageDocsUrl": {
+    "message": "https://github.com/rmusser01/tldw_browser_assistant"
+  },
+  "quickIngest_bulkPlaceholder": {
+    "message": "الصق عناوين URL (واحد في كل سطر)"
+  },
+  "quickIngest_or": {
+    "message": "أو"
+  },
+  "quickIngest_remove": {
+    "message": "إزالة"
+  },
+  "quickIngest_add": {
+    "message": "إضافة عنوان URL"
+  },
+  "quickIngest_commonOptions": {
+    "message": "خيارات الاستيعاب"
+  },
+  "quickIngest_audioOptions": {
+    "message": "خيارات الصوت"
+  },
+  "quickIngest_audioLanguage": {
+    "message": "اللغة (مثال: en)"
+  },
+  "quickIngest_audioDiarizationHelp": {
+    "message": "فعّل هذا الخيار لفصل المتحدّثين في النصوص."
+  },
+  "quickIngest_documentOptions": {
+    "message": "خيارات المستند"
+  },
+  "quickIngest_videoOptions": {
+    "message": "خيارات الفيديو"
+  },
+  "quickIngest_captionsHelp": {
+    "message": "تضمين الطوابع الزمنية/الترجمات عند توفرها."
+  },
+  "quickIngest_cancel": {
+    "message": "إلغاء"
+  },
+  "quickIngest_ingest": {
+    "message": "استيعاب"
+  },
+  "quickIngest_process": {
+    "message": "معالجة"
+  },
+  "quickIngest_results": {
+    "message": "النتائج"
+  },
+  "quickIngest_downloadJson": {
+    "message": "تنزيل JSON"
+  },
+  "quickIngest_advancedSummary": {
+    "message": "{{count}} من الحقول المتقدمة تم تحميلها"
+  },
+  "quickIngest_advancedEmpty": {
+    "message": "لم يتم اكتشاف خيارات متقدمة — جرّب إعادة تحميل المواصفات."
+  },
+  "quickIngest_modifiedCount": {
+    "message": "{{count}} تم تعديلها"
+  },
+  "quickIngest_progress": {
+    "message": "جارٍ معالجة {{done}} من {{total}} عنصراً…"
+  },
+  "quickIngest_errorSummary": {
+    "message": "تعذر علينا معالجة عناصر الاستيعاب الآن."
+  },
+  "quickIngest_errorHint": {
+    "message": "جرّب مرة أخرى بعد التحقق من خادم tldw الخاص بك. يمكن أن تساعد صفحة Health & diagnostics في استكشاف مشكلات الاستيعاب وإصلاحها."
+  },
+  "quickIngest_checkHealthLink": {
+    "message": "تحقق من حالة الخادم في Health & diagnostics"
+  },
+  "quickIngest_healthAriaHint": {
+    "message": "فشلت عمليات الاستيعاب الأخيرة — افتح Health & diagnostics من الشريط العلوي لمزيد من التفاصيل."
+  },
+  "quickIngest_specReloadedToast": {
+    "message": "تمت إعادة تحميل المواصفات المتقدمة من الخادم"
+  },
+  "quickIngest_specReloadedToastDiff": {
+    "message": "تمت إعادة تحميل المواصفات المتقدمة من الخادم (الحقول المضافة: {{added}}، المحذوفة: {{removed}})"
+  },
+  "quickIngest_specFallbackWarning": {
+    "message": "يتم استخدام مخطط media.add المضمّن كخيار احتياطي (v{{version}})؛ يُرجى التحقق من tldw_server /openapi.json إذا بدت الحقول قديمة."
+  },
+  "storeAfterReview": {
+    "message": "الحفظ بعد المراجعة"
   }
 }

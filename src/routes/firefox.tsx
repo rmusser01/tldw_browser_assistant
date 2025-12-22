@@ -36,6 +36,7 @@ const OptionPromptStudio = lazy(() => import("./option-prompt-studio"))
 const OptionSettingsPromptStudio = lazy(() => import("./option-settings-prompt-studio"))
 const OptionChatSettings = lazy(() => import("./option-settings-chat"))
 const OptionContentReview = lazy(() => import("./option-content-review"))
+const OptionChunkingPlayground = lazy(() => import("./option-chunking-playground"))
 
 export const OptionRoutingFirefox = () => {
   return (
@@ -58,6 +59,7 @@ export const OptionRoutingFirefox = () => {
       <Route path="/settings/prompt-studio" element={<OptionSettingsPromptStudio />} />
       <Route path="/settings/about" element={<OptionAbout />} />
       <Route path="/settings/rag" element={<OptionRagSettings />} />
+      <Route path="/chunking-playground" element={<OptionChunkingPlayground />} />
       <Route path="/review" element={<OptionMediaMulti />} />
       <Route path="/flashcards" element={<OptionFlashcards />} />
       <Route path="/media" element={<OptionMedia />} />

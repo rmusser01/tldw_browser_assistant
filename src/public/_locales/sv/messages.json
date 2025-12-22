@@ -1075,5 +1075,194 @@
   },
   "reviewNavigationRetry": {
     "message": "Försök öppna Innehållsgranskning igen"
+  },
+  "quickIngest_title": {
+    "message": "Quick Ingest Media"
+  },
+  "quickIngest_subtitle": {
+    "message": "Enter one or more URLs. Force type per row if needed."
+  },
+  "quickIngest_offlineTitle": {
+    "message": "Server offline — staging only"
+  },
+  "quickIngest_offlineDescription": {
+    "message": "You can queue URLs and files here and inspect fields, but ingestion will not run until your tldw server is online. Reconnect to process pending items."
+  },
+  "quickIngest_sourceHeading": {
+    "message": "Source URLs or files"
+  },
+  "quickIngest_storeRemote": {
+    "message": "Store to remote DB"
+  },
+  "quickIngest_storeRemoteAria": {
+    "message": "Lagra ingest-resultat på din tldw-server"
+  },
+  "quickIngest_processOnlyAria": {
+    "message": "Bearbeta ingest-resultat endast lokalt"
+  },
+  "quickIngest_storeRemoteHelp": {
+    "message": "Laddar upp till din tldw-server för indexering."
+  },
+  "quickIngest_processOnlyHelp": {
+    "message": "Bearbeta bara och behåll resultaten lokalt (ladda ner JSON)."
+  },
+  "quickIngest_storageHeading": {
+    "message": "Var ingest-resultaten lagras"
+  },
+  "quickIngest_storageServerDescription": {
+    "message": "Lagrade på din tldw-server (rekommenderas för RAG och delade arbetsytor)."
+  },
+  "quickIngest_storageLocalDescription": {
+    "message": "Behålls bara i denna webbläsare; inga data skrivs till servern."
+  },
+  "quickIngest_storeAfterReview": {
+    "message": "Spara efter granskning"
+  },
+  "quickIngest_reviewBeforeStorage": {
+    "message": "Granska före sparning"
+  },
+  "quickIngest_reviewBeforeStorageHint": {
+    "message": "Bearbeta nu och redigera sedan utkast lokalt innan du sparar till servern."
+  },
+  "quickIngest_reviewEnabled": {
+    "message": "Granskningsläge"
+  },
+  "quickIngest_reviewStorageCap": {
+    "message": "Lokala utkast är begränsade till {{cap}}."
+  },
+  "quickIngest_reviewWarningTitle": {
+    "message": "Spara utkast lokalt?"
+  },
+  "quickIngest_reviewWarningBody": {
+    "message": "Utkast sparas i den här webbläsaren och kan innehålla känsliga data. Du kan rensa utkast från sidan Innehållsgranskning när som helst."
+  },
+  "quickIngest_reviewWarningBodySecondary": {
+    "message": "Granskningsläget håller innehållet på klientsidan tills du sparar det på servern."
+  },
+  "quickIngest_reviewWarningConfirm": {
+    "message": "Aktivera granskning"
+  },
+  "quickIngest_reviewWarningCancel": {
+    "message": "Avbryt"
+  },
+  "quickIngest_reviewRunLabel": {
+    "message": "Granska"
+  },
+  "quickIngest_reviewDraftsCreated": {
+    "message": "Utkast redo för granskning."
+  },
+  "quickIngest_reviewDraftsFailedTitle": {
+    "message": "Kunde inte skapa granskningsutkast."
+  },
+  "quickIngest_reviewDraftsFailedFallback": {
+    "message": "Det gick inte att skapa granskningsutkast."
+  },
+  "quickIngest_reviewDraftsRetry": {
+    "message": "Försök skapa utkast igen"
+  },
+  "quickIngest_reviewDraftsStoreWithoutReview": {
+    "message": "Spara utan granskning"
+  },
+  "quickIngest_reviewNavigationFailed": {
+    "message": "Det gick inte att öppna Innehållsgranskning. Försök igen."
+  },
+  "quickIngest_reviewNavigationRetry": {
+    "message": "Försök öppna Innehållsgranskning igen"
+  },
+  "quickIngest_reviewStorageCapWarning": {
+    "message": "{{count}} fil(er) överskrider den lokala utkastgränsen ({{cap}}). Bifoga källor innan du sparar ljud/video."
+  },
+  "quickIngest_openContentReview": {
+    "message": "Öppna Innehållsgranskning"
+  },
+  "quickIngest_storageDocsLink": {
+    "message": "Läs mer om ingest och lagring"
+  },
+  "quickIngest_storageDocsUrl": {
+    "message": "https://github.com/rmusser01/tldw_browser_assistant"
+  },
+  "quickIngest_bulkPlaceholder": {
+    "message": "Paste URLs (one per line)"
+  },
+  "quickIngest_or": {
+    "message": "or"
+  },
+  "quickIngest_remove": {
+    "message": "Remove"
+  },
+  "quickIngest_add": {
+    "message": "Add URL"
+  },
+  "quickIngest_commonOptions": {
+    "message": "Ingestion options"
+  },
+  "quickIngest_audioOptions": {
+    "message": "Audio options"
+  },
+  "quickIngest_audioLanguage": {
+    "message": "Language (e.g., en)"
+  },
+  "quickIngest_audioDiarizationHelp": {
+    "message": "Turn on to separate speakers in transcripts."
+  },
+  "quickIngest_documentOptions": {
+    "message": "Document options"
+  },
+  "quickIngest_videoOptions": {
+    "message": "Video options"
+  },
+  "quickIngest_captionsHelp": {
+    "message": "Include timestamps/captions when available."
+  },
+  "quickIngest_cancel": {
+    "message": "Cancel"
+  },
+  "quickIngest_ingest": {
+    "message": "Ingest"
+  },
+  "quickIngest_process": {
+    "message": "Process"
+  },
+  "quickIngest_results": {
+    "message": "Results"
+  },
+  "quickIngest_downloadJson": {
+    "message": "Download JSON"
+  },
+  "quickIngest_advancedSummary": {
+    "message": "{{count}} advanced fields loaded"
+  },
+  "quickIngest_advancedEmpty": {
+    "message": "No advanced options detected — try reloading the spec."
+  },
+  "quickIngest_modifiedCount": {
+    "message": "{{count}} modified"
+  },
+  "quickIngest_progress": {
+    "message": "Bearbetar {{done}} av {{total}} objekt…"
+  },
+  "quickIngest_errorSummary": {
+    "message": "Vi kunde inte bearbeta ingest-objekten just nu."
+  },
+  "quickIngest_errorHint": {
+    "message": "Försök igen efter att du kontrollerat din tldw-server. Health & diagnostics kan hjälpa dig att felsöka ingest-problem."
+  },
+  "quickIngest_checkHealthLink": {
+    "message": "Kontrollera serverns status i Health & diagnostics"
+  },
+  "quickIngest_healthAriaHint": {
+    "message": "Senaste körningarna misslyckades — öppna Health & diagnostics från rubriken för mer information."
+  },
+  "quickIngest_specReloadedToast": {
+    "message": "Avancerad spec har laddats om från servern"
+  },
+  "quickIngest_specReloadedToastDiff": {
+    "message": "Avancerad spec har laddats om från servern (fält tillagda: {{added}}, borttagna: {{removed}})"
+  },
+  "quickIngest_specFallbackWarning": {
+    "message": "Använder inbyggd reservschema för media.add (v{{version}}); verifiera mot din tldw_server /openapi.json om fälten verkar inaktuella."
+  },
+  "storeAfterReview": {
+    "message": "Spara efter granskning"
   }
 }

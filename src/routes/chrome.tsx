@@ -43,6 +43,7 @@ const OptionAdminMlx = lazy(() => import("./option-admin-mlx"))
 const OptionChatSettings = lazy(() => import("./option-settings-chat"))
 const OptionQuickChatPopout = lazy(() => import("./option-quick-chat-popout"))
 const OptionContentReview = lazy(() => import("./option-content-review"))
+const OptionChunkingPlayground = lazy(() => import("./option-chunking-playground"))
 
 // Non-lazy imports for components needed immediately
 import OptionLayout from "~/components/Layouts/Layout"
@@ -86,6 +87,7 @@ export const OptionRoutingChrome = () => {
         <Route path="/settings/world-books" element={<OptionWorldBooks />} />
         <Route path="/settings/chat-dictionaries" element={<OptionDictionaries />} />
         <Route path="/settings/rag" element={<OptionRagSettings />} />
+        <Route path="/chunking-playground" element={<OptionChunkingPlayground />} />
         <Route path="/settings/about" element={<OptionAbout />} />
         <Route path="/review" element={<OptionMediaMulti />} />
         <Route path="/flashcards" element={<OptionFlashcards />} />

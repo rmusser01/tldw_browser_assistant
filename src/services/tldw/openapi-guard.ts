@@ -91,6 +91,9 @@ export type ClientPath =
   | "/api/v1/auth/me"
   | "/api/v1/auth/refresh"
   | "/api/v1/auth/register"
+  | "/api/v1/chunking/chunk_text"
+  | "/api/v1/chunking/chunk_file"
+  | "/api/v1/chunking/capabilities"
 
 type ReplacePathParams<Path extends string> =
   Path extends `${infer Head}{${string}}${infer Tail}`

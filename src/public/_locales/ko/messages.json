@@ -1144,5 +1144,227 @@
   },
   "reviewNavigationRetry": {
     "message": "콘텐츠 리뷰 다시 열기"
+  },
+  "quickIngest_title": {
+    "message": "퀵 인제스트 미디어"
+  },
+  "quickIngest_subtitle": {
+    "message": "하나 이상의 URL을 입력하세요. 필요한 경우 행마다 유형을 강제로 지정하세요."
+  },
+  "quickIngest_offlineTitle": {
+    "message": "서버 오프라인 — 스테이징 전용"
+  },
+  "quickIngest_offlineDescription": {
+    "message": "여기에서 URL과 파일을 대기열에 추가하고 필드를 검사할 수 있지만, tldw 서버가 온라인이 될 때까지 수집은 실행되지 않습니다. 대기 중인 항목을 처리하려면 서버에 다시 연결하세요."
+  },
+  "quickIngest_sourceHeading": {
+    "message": "원본 URL 또는 파일"
+  },
+  "quickIngest_storeRemote": {
+    "message": "원격 DB에 저장"
+  },
+  "quickIngest_storeRemoteAria": {
+    "message": "인제스트 결과를 tldw 서버에 저장"
+  },
+  "quickIngest_processOnlyAria": {
+    "message": "인제스트 결과를 로컬에서만 처리"
+  },
+  "quickIngest_storeRemoteHelp": {
+    "message": "색인을 위해 tldw 서버로 업로드합니다."
+  },
+  "quickIngest_processOnlyHelp": {
+    "message": "처리만 하고 결과를 로컬에 유지합니다(JSON 다운로드)."
+  },
+  "quickIngest_storageHeading": {
+    "message": "인제스트 결과 저장 위치"
+  },
+  "quickIngest_storageServerDescription": {
+    "message": "tldw 서버에 저장됩니다( RAG 및 공유 워크스페이스에 권장)."
+  },
+  "quickIngest_storageLocalDescription": {
+    "message": "이 브라우저에만 보관되며 서버에는 데이터가 기록되지 않습니다."
+  },
+  "quickIngest_storeAfterReview": {
+    "message": "검토 후 저장"
+  },
+  "quickIngest_reviewBeforeStorage": {
+    "message": "저장 전에 검토"
+  },
+  "quickIngest_reviewBeforeStorageHint": {
+    "message": "지금 처리한 뒤 서버에 저장하기 전에 로컬에서 초안을 편집하세요."
+  },
+  "quickIngest_reviewEnabled": {
+    "message": "검토 모드"
+  },
+  "quickIngest_reviewStorageCap": {
+    "message": "로컬 초안은 {{cap}}개로 제한됩니다."
+  },
+  "quickIngest_reviewWarningTitle": {
+    "message": "초안을 로컬에 저장할까요?"
+  },
+  "quickIngest_reviewWarningBody": {
+    "message": "초안은 이 브라우저에 저장되며 민감한 데이터가 포함될 수 있습니다. 언제든지 콘텐츠 검토 페이지에서 초안을 삭제할 수 있습니다."
+  },
+  "quickIngest_reviewWarningBodySecondary": {
+    "message": "검토 모드는 서버에 저장할 때까지 콘텐츠를 클라이언트 측에 유지합니다."
+  },
+  "quickIngest_reviewWarningConfirm": {
+    "message": "검토 사용"
+  },
+  "quickIngest_reviewWarningCancel": {
+    "message": "취소"
+  },
+  "quickIngest_reviewRunLabel": {
+    "message": "검토"
+  },
+  "quickIngest_reviewDraftsCreated": {
+    "message": "검토할 초안이 준비되었습니다."
+  },
+  "quickIngest_reviewDraftsFailedTitle": {
+    "message": "리뷰 초안을 만들 수 없습니다."
+  },
+  "quickIngest_reviewDraftsFailedFallback": {
+    "message": "리뷰 초안 생성에 실패했습니다."
+  },
+  "quickIngest_reviewDraftsRetry": {
+    "message": "초안 생성 재시도"
+  },
+  "quickIngest_reviewDraftsStoreWithoutReview": {
+    "message": "리뷰 없이 저장"
+  },
+  "quickIngest_reviewNavigationFailed": {
+    "message": "콘텐츠 리뷰를 열 수 없습니다. 다시 시도하세요."
+  },
+  "quickIngest_reviewNavigationRetry": {
+    "message": "콘텐츠 리뷰 다시 열기"
+  },
+  "quickIngest_reviewStorageCapWarning": {
+    "message": "{{count}}개 파일이 로컬 초안 한도 ({{cap}}) 를 초과했습니다. 오디오/비디오를 저장하기 전에 소스를 첨부하세요."
+  },
+  "quickIngest_openContentReview": {
+    "message": "콘텐츠 검토 열기"
+  },
+  "quickIngest_storageDocsLink": {
+    "message": "인제스트와 저장소에 대해 자세히 알아보기"
+  },
+  "quickIngest_storageDocsUrl": {
+    "message": "https://github.com/rmusser01/tldw_browser_assistant"
+  },
+  "quickIngest_bulkPlaceholder": {
+    "message": "URL을 붙여넣기 (줄당 하나)"
+  },
+  "quickIngest_or": {
+    "message": "또는"
+  },
+  "quickIngest_remove": {
+    "message": "제거"
+  },
+  "quickIngest_add": {
+    "message": "URL 추가"
+  },
+  "quickIngest_commonOptions": {
+    "message": "인제스트 옵션"
+  },
+  "quickIngest_audioOptions": {
+    "message": "오디오 옵션"
+  },
+  "quickIngest_audioLanguage": {
+    "message": "언어 (예: en)"
+  },
+  "quickIngest_audioDiarizationHelp": {
+    "message": "녹취록에서 화자를 분리하려면 켜세요."
+  },
+  "quickIngest_documentOptions": {
+    "message": "문서 옵션"
+  },
+  "quickIngest_videoOptions": {
+    "message": "비디오 옵션"
+  },
+  "quickIngest_captionsHelp": {
+    "message": "가능하면 타임스탬프/캡션을 포함합니다."
+  },
+  "quickIngest_cancel": {
+    "message": "취소"
+  },
+  "quickIngest_ingest": {
+    "message": "인제스트"
+  },
+  "quickIngest_process": {
+    "message": "처리"
+  },
+  "quickIngest_queueOnlyOffline": {
+    "message": "큐에만 추가 — 서버 오프라인"
+  },
+  "quickIngest_queueOnlyOfflineAria": {
+    "message": "오프라인 — 나중에 처리하도록 큐에 추가"
+  },
+  "quickIngest_offlineQueueToast": {
+    "message": "오프라인 모드: 서버가 다시 온라인이 될 때까지 항목이 여기에서 대기합니다."
+  },
+  "quickIngest_offlineFooter": {
+    "message": "오프라인 모드: 항목이 여기에서 스테이징되며 서버가 다시 연결되면 처리됩니다."
+  },
+  "quickIngest_processQueuedItems": {
+    "message": "대기 항목 처리"
+  },
+  "quickIngest_processQueuedItemsAria": {
+    "message": "대기 중인 퀵 인제스트 항목 처리"
+  },
+  "quickIngest_runAria": {
+    "message": "퀵 인제스트 실행"
+  },
+  "quickIngest_runLabel": {
+    "message": "퀵 인제스트 실행"
+  },
+  "quickIngest_results": {
+    "message": "결과"
+  },
+  "quickIngest_downloadJson": {
+    "message": "JSON 다운로드"
+  },
+  "quickIngest_advancedSummary": {
+    "message": "{{count}}개의 고급 필드가 로드되었습니다"
+  },
+  "quickIngest_advancedEmpty": {
+    "message": "고급 옵션이 감지되지 않았습니다 — 사양을 다시 로드해 보세요."
+  },
+  "quickIngest_modifiedCount": {
+    "message": "{{count}}개 수정됨"
+  },
+  "quickIngest_progress": {
+    "message": "{{done}} / {{total}}개 항목 처리 중…"
+  },
+  "quickIngest_pendingLabel": {
+    "message": "대기 중 — 연결되면 실행됩니다"
+  },
+  "quickIngest_readyToast": {
+    "message": "서버가 다시 온라인 상태입니다 — 대기 중인 {{count}}개 항목을 처리할 준비가 되었습니다."
+  },
+  "quickIngest_processQueuedItemsShort": {
+    "message": "대기 항목 처리"
+  },
+  "quickIngest_errorSummary": {
+    "message": "지금은 인제스트 항목을 처리할 수 없습니다."
+  },
+  "quickIngest_errorHint": {
+    "message": "tldw 서버를 확인한 후 다시 시도하세요. 상태 및 진단에서 인제스트 문제를 해결할 수 있습니다."
+  },
+  "quickIngest_checkHealthLink": {
+    "message": "상태 및 진단에서 서버 상태 확인"
+  },
+  "quickIngest_healthAriaHint": {
+    "message": "최근 실행이 실패했습니다 — 자세한 내용은 헤더의 상태 및 진단을 열어 확인하세요."
+  },
+  "quickIngest_specReloadedToast": {
+    "message": "서버에서 고급 스펙을 다시 로드했습니다"
+  },
+  "quickIngest_specReloadedToastDiff": {
+    "message": "서버에서 고급 스펙을 다시 로드했습니다 (추가된 필드: {{added}}, 제거된 필드: {{removed}})"
+  },
+  "quickIngest_specFallbackWarning": {
+    "message": "번들에 포함된 media.add 스키마 폴백(v{{version}})을 사용 중입니다. 필드가 오래되어 보이면 tldw_server /openapi.json과 비교해 확인하세요."
+  },
+  "storeAfterReview": {
+    "message": "검토 후 저장"
   }
 }

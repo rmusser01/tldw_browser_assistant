@@ -960,5 +960,194 @@
   },
   "reviewNavigationRetry": {
     "message": "重试打开内容审阅"
+  },
+  "quickIngest_title": {
+    "message": "Quick Ingest Media"
+  },
+  "quickIngest_subtitle": {
+    "message": "Enter one or more URLs. Force type per row if needed."
+  },
+  "quickIngest_offlineTitle": {
+    "message": "服务器离线 — 仅限暂存环境"
+  },
+  "quickIngest_offlineDescription": {
+    "message": "您可以在此处排队 URL 和文件并查看字段，但在您的 tldw 服务器上线之前不会进行摄取。请重新连接以处理待处理项。"
+  },
+  "quickIngest_sourceHeading": {
+    "message": "Source URLs or files"
+  },
+  "quickIngest_storeRemote": {
+    "message": "Store to remote DB"
+  },
+  "quickIngest_storeRemoteAria": {
+    "message": "将摄取结果存储到你的 tldw 服务器"
+  },
+  "quickIngest_processOnlyAria": {
+    "message": "仅在本地处理摄取结果"
+  },
+  "quickIngest_storeRemoteHelp": {
+    "message": "上传到你的 tldw 服务器以便索引。"
+  },
+  "quickIngest_processOnlyHelp": {
+    "message": "只处理并保留本地结果（下载 JSON）。"
+  },
+  "quickIngest_storageHeading": {
+    "message": "摄取结果的存储位置"
+  },
+  "quickIngest_storageServerDescription": {
+    "message": "存储在你的 tldw 服务器上（推荐用于 RAG 和共享工作区）。"
+  },
+  "quickIngest_storageLocalDescription": {
+    "message": "仅保存在此浏览器中；不会向服务器写入数据。"
+  },
+  "quickIngest_storeAfterReview": {
+    "message": "审阅后保存"
+  },
+  "quickIngest_reviewBeforeStorage": {
+    "message": "保存前审阅"
+  },
+  "quickIngest_reviewBeforeStorageHint": {
+    "message": "先处理，然后在提交到服务器前在本地编辑草稿。"
+  },
+  "quickIngest_reviewEnabled": {
+    "message": "审阅模式"
+  },
+  "quickIngest_reviewStorageCap": {
+    "message": "本地草稿上限为 {{cap}}。"
+  },
+  "quickIngest_reviewWarningTitle": {
+    "message": "将草稿保存在本地？"
+  },
+  "quickIngest_reviewWarningBody": {
+    "message": "草稿保存在此浏览器中，可能包含敏感数据。你可以随时在“内容审阅”页面清除草稿。"
+  },
+  "quickIngest_reviewWarningBodySecondary": {
+    "message": "审阅模式会在提交到服务器前将内容保留在客户端。"
+  },
+  "quickIngest_reviewWarningConfirm": {
+    "message": "启用审阅"
+  },
+  "quickIngest_reviewWarningCancel": {
+    "message": "取消"
+  },
+  "quickIngest_reviewRunLabel": {
+    "message": "审阅"
+  },
+  "quickIngest_reviewDraftsCreated": {
+    "message": "草稿已准备好审阅。"
+  },
+  "quickIngest_reviewDraftsFailedTitle": {
+    "message": "无法创建审阅草稿。"
+  },
+  "quickIngest_reviewDraftsFailedFallback": {
+    "message": "创建审阅草稿失败。"
+  },
+  "quickIngest_reviewDraftsRetry": {
+    "message": "重试创建草稿"
+  },
+  "quickIngest_reviewDraftsStoreWithoutReview": {
+    "message": "不经审阅保存"
+  },
+  "quickIngest_reviewNavigationFailed": {
+    "message": "无法打开内容审阅。请重试。"
+  },
+  "quickIngest_reviewNavigationRetry": {
+    "message": "重试打开内容审阅"
+  },
+  "quickIngest_reviewStorageCapWarning": {
+    "message": "{{count}} 个文件超过本地草稿上限（{{cap}}）。请在提交音频/视频前附加来源。"
+  },
+  "quickIngest_openContentReview": {
+    "message": "打开内容审阅"
+  },
+  "quickIngest_storageDocsLink": {
+    "message": "了解更多摄取与存储信息"
+  },
+  "quickIngest_storageDocsUrl": {
+    "message": "https://github.com/rmusser01/tldw_browser_assistant"
+  },
+  "quickIngest_bulkPlaceholder": {
+    "message": "Paste URLs (one per line)"
+  },
+  "quickIngest_or": {
+    "message": "or"
+  },
+  "quickIngest_remove": {
+    "message": "Remove"
+  },
+  "quickIngest_add": {
+    "message": "Add URL"
+  },
+  "quickIngest_commonOptions": {
+    "message": "Ingestion options"
+  },
+  "quickIngest_audioOptions": {
+    "message": "Audio options"
+  },
+  "quickIngest_audioLanguage": {
+    "message": "Language (e.g., en)"
+  },
+  "quickIngest_audioDiarizationHelp": {
+    "message": "Turn on to separate speakers in transcripts."
+  },
+  "quickIngest_documentOptions": {
+    "message": "Document options"
+  },
+  "quickIngest_videoOptions": {
+    "message": "Video options"
+  },
+  "quickIngest_captionsHelp": {
+    "message": "Include timestamps/captions when available."
+  },
+  "quickIngest_cancel": {
+    "message": "Cancel"
+  },
+  "quickIngest_ingest": {
+    "message": "Ingest"
+  },
+  "quickIngest_process": {
+    "message": "Process"
+  },
+  "quickIngest_results": {
+    "message": "Results"
+  },
+  "quickIngest_downloadJson": {
+    "message": "Download JSON"
+  },
+  "quickIngest_advancedSummary": {
+    "message": "{{count}} advanced fields loaded"
+  },
+  "quickIngest_advancedEmpty": {
+    "message": "No advanced options detected — try reloading the spec."
+  },
+  "quickIngest_modifiedCount": {
+    "message": "{{count}} modified"
+  },
+  "quickIngest_progress": {
+    "message": "正在处理 {{done}} / {{total}} 个项目…"
+  },
+  "quickIngest_errorSummary": {
+    "message": "当前无法处理这些摄取任务。"
+  },
+  "quickIngest_errorHint": {
+    "message": "检查你的 tldw 服务器后再试一次。Health & diagnostics 可以帮助排查摄取相关的问题。"
+  },
+  "quickIngest_checkHealthLink": {
+    "message": "在 Health & diagnostics 中检查服务器健康状态"
+  },
+  "quickIngest_healthAriaHint": {
+    "message": "最近的运行失败了——请从顶部打开 Health & diagnostics 查看详细信息。"
+  },
+  "quickIngest_specReloadedToast": {
+    "message": "高级规范已从服务器重新加载"
+  },
+  "quickIngest_specReloadedToastDiff": {
+    "message": "高级规范已从服务器重新加载（添加的字段：{{added}}，移除的字段：{{removed}}）"
+  },
+  "quickIngest_specFallbackWarning": {
+    "message": "使用捆绑的 media.add 架构备选方案（v{{version}}）；如果字段看起来已过期，请根据你的 tldw_server /openapi.json 进行验证。"
+  },
+  "storeAfterReview": {
+    "message": "审阅后保存"
   }
 }
