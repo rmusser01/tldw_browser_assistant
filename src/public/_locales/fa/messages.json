@@ -613,18 +613,6 @@
   "notesSearch_exportJsonSuccess": {
     "message": "از {{count}} یادداشت خروجی به صورت JSON گرفته شد ({{size}})"
   },
-  "exportNoteSuccess": {
-    "message": "خروجی گرفته شد ({{size}})"
-  },
-  "exportSuccess": {
-    "message": "از {{count}} یادداشت خروجی گرفته شد ({{size}})"
-  },
-  "exportCsvSuccess": {
-    "message": "از {{count}} یادداشت خروجی به صورت CSV گرفته شد ({{size}})"
-  },
-  "exportJsonSuccess": {
-    "message": "از {{count}} یادداشت خروجی به صورت JSON گرفته شد ({{size}})"
-  },
   "ttsShort": {
     "message": "صدا"
   },
@@ -773,6 +761,12 @@
     "message": "کپی رونوشت مرجع"
   },
   "option_more_download_canonicalMarkdown": {
+    "message": "رونوشت مرجع (Markdown)"
+  },
+  "more.copy.canonicalMarkdown": {
+    "message": "کپی رونوشت مرجع"
+  },
+  "more.download.canonicalMarkdown": {
     "message": "رونوشت مرجع (Markdown)"
   }
 }

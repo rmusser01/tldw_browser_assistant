@@ -1,4 +1,3 @@
-import { cleanUrl } from "~/libs/clean-url"
 import { systemPromptForNonRagOption } from "~/services/tldw-server"
 import { type ChatHistory, type Message } from "~/store/option"
 import { getPromptById } from "@/db/dexie/helpers"
@@ -51,7 +50,7 @@ export const continueChatMode = async (
   let promptId: string | undefined = selectedSystemPrompt
   let promptContent: string | undefined = undefined
 
-  const ollama = await pageAssistModel({ model: selectedModel! })
+  const ollama = await pageAssistModel({ model: selectedModel })
 
   let newMessage: Message[] = []
 

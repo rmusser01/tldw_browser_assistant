@@ -382,9 +382,9 @@
     "foldersRequireConnection": "Mapper krever en servertilkobling"
   },
   "extName": "tldw-assistenten",
-  "extDescription": "Bruk dine lokalt kjørende AI-modeller til at hjælpe dig med at surfe på nettet.",
+  "extDescription": "Bruk dine lokalt kjørende AI-modeller til å hjelpe deg med å surfe på nettet.",
   "openSidePanelToChat": "Åpne sidepanelet for å chatte",
-  "openOptionToChat": "Åben Web UI for at Chatte",
+  "openOptionToChat": "Åpne Web UI for å chatte",
   "contextSummarize": "Oppsummer",
   "contextExplain": "Forklar",
   "contextRephrase": "Omskrive",

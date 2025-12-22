@@ -100,12 +100,14 @@
       "group": "복사",
       "asText": "텍스트로 복사",
       "asMarkdown": "마크다운으로 복사",
+      "canonicalMarkdown": "정식 대화 기록 복사",
       "success": "클립보드에 복사되었습니다!"
     },
     "download": {
       "group": "다운로드",
       "text": "텍스트 파일 (.txt)",
       "markdown": "마크다운 (.md)",
+      "canonicalMarkdown": "정식 대화 기록 (Markdown)",
       "json": "JSON 파일 (.json)",
       "image": "Image (.png)"
     },

@@ -508,22 +508,6 @@
     "message": "已将 {{count}} 条笔记导出为 JSON ({{size}})",
     "description": "Export success message when matching notes are exported as JSON."
   },
-  "exportNoteSuccess": {
-    "message": "已导出 ({{size}})",
-    "description": "Export success message for a single note, showing the exported file size."
-  },
-  "exportSuccess": {
-    "message": "已导出 {{count}} 条笔记 ({{size}})",
-    "description": "Export success message when multiple notes are exported, including count and size."
-  },
-  "exportCsvSuccess": {
-    "message": "已将 {{count}} 条笔记导出为 CSV ({{size}})",
-    "description": "Export success message when notes are exported as CSV."
-  },
-  "exportJsonSuccess": {
-    "message": "已将 {{count}} 条笔记导出为 JSON ({{size}})",
-    "description": "Export success message when notes are exported as JSON."
-  },
   "infoShort": {
     "message": "信息"
   },
@@ -663,6 +647,12 @@
     "message": "复制规范转录"
   },
   "option_more_download_canonicalMarkdown": {
+    "message": "规范转录 (Markdown)"
+  },
+  "more.copy.canonicalMarkdown": {
+    "message": "复制规范转录"
+  },
+  "more.download.canonicalMarkdown": {
     "message": "规范转录 (Markdown)"
   }
 }

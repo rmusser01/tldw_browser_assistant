@@ -618,18 +618,6 @@
   "notesSearch_exportJsonSuccess": {
     "message": "Exported {{count}} notes as JSON ({{size}})"
   },
-  "exportNoteSuccess": {
-    "message": "Exported ({{size}})"
-  },
-  "exportSuccess": {
-    "message": "Exported {{count}} notes ({{size}})"
-  },
-  "exportCsvSuccess": {
-    "message": "Exported {{count}} notes as CSV ({{size}})"
-  },
-  "exportJsonSuccess": {
-    "message": "Exported {{count}} notes as JSON ({{size}})"
-  },
   "ttsShort": {
     "message": "TTS"
   },
@@ -811,5 +799,11 @@
   },
   "error_createFolder": {
     "message": "Failed to create folder"
+  },
+  "more.copy.canonicalMarkdown": {
+    "message": "Copy canonical transcript"
+  },
+  "more.download.canonicalMarkdown": {
+    "message": "Canonical transcript (Markdown)"
   }
 }

@@ -100,12 +100,14 @@
       "group": "複製",
       "asText": "複製為文字",
       "asMarkdown": "複製為Markdown",
+      "canonicalMarkdown": "複製標準逐字稿",
       "success": "已複製到剪貼簿！"
     },
     "download": {
       "group": "下載",
       "text": "文字檔 (.txt)",
       "markdown": "Markdown 文件 (.md)",
+      "canonicalMarkdown": "標準逐字稿 (Markdown)",
       "json": "JSON 文件 (.json)",
       "image": "圖片 (.png)"
     },

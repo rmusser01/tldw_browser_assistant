@@ -413,7 +413,7 @@
   "hfPullException": "[tldw Assistant] 「$1」モデルのプルリクエストを tldw_server に送信中に問題が発生しました。tldw_server と拡張機能が実行中であることを確認し、もう一度お試しください。",
   "stepLabel": "ようこそ",
   "path": "どのように始めますか？",
-  "nextSteps": "You’re ready to go",
+  "nextSteps": "準備ができました",
   "restartOnboardingLabel": "オンボーディングを最初からやり直す",
   "restartOnboardingButton": "オンボーディングをやり直す",
   "restartOnboardingConfirmTitle": "オンボーディングをやり直しますか？",

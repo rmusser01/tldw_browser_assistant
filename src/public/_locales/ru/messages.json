@@ -661,18 +661,6 @@
   "notesSearch_exportJsonSuccess": {
     "message": "Экспортировано {{count}} заметок в JSON ({{size}})"
   },
-  "exportNoteSuccess": {
-    "message": "Экспортировано ({{size}})"
-  },
-  "exportSuccess": {
-    "message": "Экспортировано {{count}} заметок ({{size}})"
-  },
-  "exportCsvSuccess": {
-    "message": "Экспортировано {{count}} заметок в CSV ({{size}})"
-  },
-  "exportJsonSuccess": {
-    "message": "Экспортировано {{count}} заметок в JSON ({{size}})"
-  },
   "ttsShort": {
     "message": "Голос"
   },
@@ -821,6 +809,12 @@
     "message": "Скопировать каноническую транскрипцию"
   },
   "option_more_download_canonicalMarkdown": {
+    "message": "Каноническая транскрипция (Markdown)"
+  },
+  "more.copy.canonicalMarkdown": {
+    "message": "Скопировать каноническую транскрипцию"
+  },
+  "more.download.canonicalMarkdown": {
     "message": "Каноническая транскрипция (Markdown)"
   }
 }

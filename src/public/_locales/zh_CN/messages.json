@@ -949,18 +949,6 @@
   "notesSearch_exportJsonSuccess": {
     "message": "已将 {{count}} 篇笔记导出为 JSON（{{size}}）"
   },
-  "exportNoteSuccess": {
-    "message": "已导出（{{size}}）"
-  },
-  "exportSuccess": {
-    "message": "已导出 {{count}} 篇笔记（{{size}}）"
-  },
-  "exportCsvSuccess": {
-    "message": "已将 {{count}} 篇笔记导出为 CSV（{{size}}）"
-  },
-  "exportJsonSuccess": {
-    "message": "已将 {{count}} 篇笔记导出为 JSON（{{size}}）"
-  },
   "infoShort": {
     "message": "信息"
   },
@@ -1100,6 +1088,12 @@
     "message": "复制规范转录"
   },
   "option_more_download_canonicalMarkdown": {
+    "message": "规范转录 (Markdown)"
+  },
+  "more.copy.canonicalMarkdown": {
+    "message": "复制规范转录"
+  },
+  "more.download.canonicalMarkdown": {
     "message": "规范转录 (Markdown)"
   }
 }

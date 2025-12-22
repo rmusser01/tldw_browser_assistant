@@ -622,18 +622,6 @@
   "notesSearch_exportJsonSuccess": {
     "message": "Eksporterte {{count}} notater som JSON ({{size}})"
   },
-  "exportNoteSuccess": {
-    "message": "Eksportert ({{size}})"
-  },
-  "exportSuccess": {
-    "message": "Eksporterte {{count}} notater ({{size}})"
-  },
-  "exportCsvSuccess": {
-    "message": "Eksporterte {{count}} notater som CSV ({{size}})"
-  },
-  "exportJsonSuccess": {
-    "message": "Eksporterte {{count}} notater som JSON ({{size}})"
-  },
   "infoShort": {
     "message": "Info"
   },
@@ -866,5 +854,11 @@
   "saveStatus_saveFailedDescription": {
     "message": "Chatten lagres nå kun lokalt. Sjekk tilkoblingen og prøv igjen.",
     "description": "Save status description shown when saving to the server fails."
+  },
+  "more.copy.canonicalMarkdown": {
+    "message": "Kopier kanonisk transkripsjon"
+  },
+  "more.download.canonicalMarkdown": {
+    "message": "Kanonisk transkripsjon (Markdown)"
   }
 }

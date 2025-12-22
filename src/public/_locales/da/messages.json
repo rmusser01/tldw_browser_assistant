@@ -745,18 +745,6 @@
   "notesSearch_exportJsonSuccess": {
     "message": "Eksporterede {{count}} noter som JSON ({{size}})"
   },
-  "exportNoteSuccess": {
-    "message": "Eksporteret ({{size}})"
-  },
-  "exportSuccess": {
-    "message": "Eksporterede {{count}} noter ({{size}})"
-  },
-  "exportCsvSuccess": {
-    "message": "Eksporterede {{count}} noter som CSV ({{size}})"
-  },
-  "exportJsonSuccess": {
-    "message": "Eksporterede {{count}} noter som JSON ({{size}})"
-  },
   "ttsShort": {
     "message": "Tale"
   },
@@ -1005,6 +993,12 @@
     "message": "Kopiér kanonisk transskript"
   },
   "option_more_download_canonicalMarkdown": {
+    "message": "Kanonisk transskript (Markdown)"
+  },
+  "more.copy.canonicalMarkdown": {
+    "message": "Kopiér kanonisk transskript"
+  },
+  "more.download.canonicalMarkdown": {
     "message": "Kanonisk transskript (Markdown)"
   }
 }

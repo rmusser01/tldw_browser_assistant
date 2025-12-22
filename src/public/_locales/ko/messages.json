@@ -692,18 +692,6 @@
   "notesSearch_exportJsonSuccess": {
     "message": "{{count}}개의 노트를 JSON으로 내보냈습니다 ({{size}})"
   },
-  "exportNoteSuccess": {
-    "message": "내보냈습니다 ({{size}})"
-  },
-  "exportSuccess": {
-    "message": "{{count}}개의 노트를 내보냈습니다 ({{size}})"
-  },
-  "exportCsvSuccess": {
-    "message": "{{count}}개의 노트를 CSV로 내보냈습니다 ({{size}})"
-  },
-  "exportJsonSuccess": {
-    "message": "{{count}}개의 노트를 JSON으로 내보냈습니다 ({{size}})"
-  },
   "infoShort": {
     "message": "정보"
   },
@@ -843,6 +831,12 @@
     "message": "정식 전사 복사"
   },
   "option_more_download_canonicalMarkdown": {
+    "message": "정식 전사 (마크다운) 다운로드"
+  },
+  "more.copy.canonicalMarkdown": {
+    "message": "정식 전사 복사"
+  },
+  "more.download.canonicalMarkdown": {
     "message": "정식 전사 (마크다운) 다운로드"
   }
 }

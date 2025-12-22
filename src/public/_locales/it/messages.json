@@ -622,18 +622,6 @@
   "notesSearch_exportJsonSuccess": {
     "message": "Esportate {{count}} note come JSON ({{size}})"
   },
-  "exportNoteSuccess": {
-    "message": "Esportata ({{size}})"
-  },
-  "exportSuccess": {
-    "message": "Esportate {{count}} note ({{size}})"
-  },
-  "exportCsvSuccess": {
-    "message": "Esportate {{count}} note come CSV ({{size}})"
-  },
-  "exportJsonSuccess": {
-    "message": "Esportate {{count}} note come JSON ({{size}})"
-  },
   "infoShort": {
     "message": "Info"
   },
@@ -773,6 +761,12 @@
     "message": "Copia trascrizione canonica"
   },
   "option_more_download_canonicalMarkdown": {
+    "message": "Trascrizione canonica (Markdown)"
+  },
+  "more.copy.canonicalMarkdown": {
+    "message": "Copia trascrizione canonica"
+  },
+  "more.download.canonicalMarkdown": {
     "message": "Trascrizione canonica (Markdown)"
   }
 }

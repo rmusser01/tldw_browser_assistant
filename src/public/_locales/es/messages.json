@@ -613,18 +613,6 @@
   "notesSearch_exportJsonSuccess": {
     "message": "Exportadas {{count}} notas como JSON ({{size}})"
   },
-  "exportNoteSuccess": {
-    "message": "Exportado ({{size}})"
-  },
-  "exportSuccess": {
-    "message": "Exportadas {{count}} notas ({{size}})"
-  },
-  "exportCsvSuccess": {
-    "message": "Exportadas {{count}} notas como CSV ({{size}})"
-  },
-  "exportJsonSuccess": {
-    "message": "Exportadas {{count}} notas como JSON ({{size}})"
-  },
   "ttsShort": {
     "message": "Voz"
   },
@@ -773,6 +761,12 @@
     "message": "Copiar transcripción canónica"
   },
   "option_more_download_canonicalMarkdown": {
+    "message": "Transcripción canónica (Markdown)"
+  },
+  "more.copy.canonicalMarkdown": {
+    "message": "Copiar transcripción canónica"
+  },
+  "more.download.canonicalMarkdown": {
     "message": "Transcripción canónica (Markdown)"
   }
 }

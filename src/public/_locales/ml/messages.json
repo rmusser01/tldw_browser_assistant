@@ -613,18 +613,6 @@
   "notesSearch_exportJsonSuccess": {
     "message": "{{count}} നോട്ടുകൾ JSON ആയി എക്സ്പോർട്ട് ചെയ്തു ({{size}})"
   },
-  "exportNoteSuccess": {
-    "message": "എക്സ്പോർട്ട് ചെയ്തു ({{size}})"
-  },
-  "exportSuccess": {
-    "message": "{{count}} നോട്ടുകൾ എക്സ്പോർട്ട് ചെയ്തു ({{size}})"
-  },
-  "exportCsvSuccess": {
-    "message": "{{count}} നോട്ടുകൾ CSV ആയി എക്സ്പോർട്ട് ചെയ്തു ({{size}})"
-  },
-  "exportJsonSuccess": {
-    "message": "{{count}} നോട്ടുകൾ JSON ആയി എക്സ്പോർട്ട് ചെയ്തു ({{size}})"
-  },
   "ttsShort": {
     "message": "ശബ്ദം"
   },
@@ -773,6 +761,12 @@
     "message": "കാനോണിക്കൽ ട്രാൻസ്ക്രിപ്റ്റ് പകർത്തുക"
   },
   "option_more_download_canonicalMarkdown": {
+    "message": "കാനോണിക്കൽ ട്രാൻസ്ക്രിപ്റ്റ് (Markdown)"
+  },
+  "more.copy.canonicalMarkdown": {
+    "message": "കാനോണിക്കൽ ട്രാൻസ്ക്രിപ്റ്റ് പകർത്തുക"
+  },
+  "more.download.canonicalMarkdown": {
     "message": "കാനോണിക്കൽ ട്രാൻസ്ക്രിപ്റ്റ് (Markdown)"
   }
 }

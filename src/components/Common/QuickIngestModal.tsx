@@ -141,11 +141,14 @@ function detectTypeFromUrl(url: string): Entry['type'] {
 }
 
 function mediaIdFromPayload(
-  data: ProcessingItem | null | undefined,
+  data: ProcessingResultPayload,
   visited?: WeakSet<object>
 ): string | number | null {
   if (!data || typeof data !== "object") {
     return null
+  }
+  if (Array.isArray(data)) {
+    return data.length > 0 ? mediaIdFromPayload(data[0], visited) : null
   }
   if (!visited) {
     visited = new WeakSet<object>()
@@ -156,12 +159,27 @@ function mediaIdFromPayload(
   }
   visited.add(data as object)
 
-  const direct = data.id ?? data.media_id ?? data.pk ?? data.uuid
-  if (direct !== undefined && direct !== null) {
-    return direct
+  if ("results" in data && Array.isArray(data.results) && data.results.length > 0) {
+    return mediaIdFromPayload(data.results[0], visited)
   }
-  if (data.media && typeof data.media === "object") {
-    return mediaIdFromPayload(data.media, visited)
+  if ("articles" in data && Array.isArray(data.articles) && data.articles.length > 0) {
+    return mediaIdFromPayload(data.articles[0], visited)
+  }
+  if ("result" in data && data.result) {
+    return mediaIdFromPayload(
+      Array.isArray(data.result) ? data.result[0] : data.result,
+      visited
+    )
+  }
+
+  if (isProcessingItem(data)) {
+    const direct = data.id ?? data.media_id ?? data.pk ?? data.uuid
+    if (direct !== undefined && direct !== null) {
+      return direct
+    }
+    if (data.media && typeof data.media === "object") {
+      return mediaIdFromPayload(data.media, visited)
+    }
   }
   return null
 }
@@ -231,13 +249,56 @@ const inferContentFormat = (content: string): "plain" | "markdown" => {
   return "plain"
 }
 
+const isResultsWrapper = (
+  value: unknown
+): value is { results: ProcessingItem[] } => {
+  if (!value || typeof value !== "object" || Array.isArray(value)) return false
+  return Array.isArray((value as { results?: unknown }).results)
+}
+
+const isArticlesWrapper = (
+  value: unknown
+): value is { articles: ProcessingItem[] } => {
+  if (!value || typeof value !== "object" || Array.isArray(value)) return false
+  return Array.isArray((value as { articles?: unknown }).articles)
+}
+
+const isResultWrapper = (
+  value: unknown
+): value is { result: ProcessingItem | ProcessingItem[] } => {
+  if (!value || typeof value !== "object" || Array.isArray(value)) return false
+  const result = (value as { result?: unknown }).result
+  return Array.isArray(result) || (typeof result === "object" && result !== null)
+}
+
+const isProcessingItem = (value: unknown): value is ProcessingItem => {
+  if (!value || typeof value !== "object" || Array.isArray(value)) return false
+  if (isResultsWrapper(value) || isArticlesWrapper(value) || isResultWrapper(value)) {
+    return false
+  }
+  return (
+    "id" in value ||
+    "media_id" in value ||
+    "pk" in value ||
+    "uuid" in value ||
+    "content" in value ||
+    "text" in value ||
+    "transcript" in value ||
+    "analysis" in value ||
+    "analysis_content" in value
+  )
+}
+
 const extractProcessingItems = (data: ProcessingResultPayload): ProcessingItem[] => {
   if (!data) return []
   if (Array.isArray(data)) return data
-  if (Array.isArray(data.results)) return data.results
-  if (Array.isArray(data.articles)) return data.articles
-  if (data.result) return Array.isArray(data.result) ? data.result : [data.result]
-  return [data]
+  if (isResultsWrapper(data)) return data.results
+  if (isArticlesWrapper(data)) return data.articles
+  if (isResultWrapper(data)) {
+    return Array.isArray(data.result) ? data.result : [data.result]
+  }
+  if (isProcessingItem(data)) return [data]
+  return []
 }
 
 const cloneObject = <T extends Record<string, any>>(value: T): T | null => {
@@ -1854,12 +1915,19 @@ export const QuickIngestModal: React.FC<Props> = ({
       if (id == null) {
         return
       }
+      let sourceUrl: string | undefined
+      if (item.data && typeof item.data === "object" && !Array.isArray(item.data)) {
+        const payload = item.data as Record<string, unknown>
+        sourceUrl =
+          typeof payload.url === "string"
+            ? payload.url
+            : typeof payload.source_url === "string"
+              ? payload.source_url
+              : undefined
+      }
       const payload = {
         mediaId: String(id),
-        url:
-          item.url ||
-          (item.data && (item.data.url || item.data.source_url)) ||
-          undefined
+        url: item.url || sourceUrl
       }
       try {
         localStorage.setItem(
@@ -1987,13 +2055,13 @@ export const QuickIngestModal: React.FC<Props> = ({
 
   const storageLabel = React.useMemo(() => {
     if (!storeRemote) {
-      return t('quickIngest.process', 'Process locally') || 'Process locally'
+      return qi('process', 'Process locally')
     }
     if (reviewBeforeStorage) {
       return qi("storeAfterReview", "Store after review")
     }
-    return t('quickIngest.storeRemote', 'Store to remote DB') || 'Store to remote DB'
-  }, [qi, reviewBeforeStorage, storeRemote, t])
+    return qi('storeRemote', 'Store to remote DB')
+  }, [qi, reviewBeforeStorage, storeRemote])
 
   const firstResultWithMedia = React.useMemo(
     () =>

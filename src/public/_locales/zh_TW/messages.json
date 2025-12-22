@@ -604,18 +604,6 @@
   "notesSearch_exportJsonSuccess": {
     "message": "已將 {{count}} 篇筆記匯出為 JSON（{{size}}）"
   },
-  "exportNoteSuccess": {
-    "message": "已匯出（{{size}}）"
-  },
-  "exportSuccess": {
-    "message": "已匯出 {{count}} 篇筆記（{{size}}）"
-  },
-  "exportCsvSuccess": {
-    "message": "已將 {{count}} 篇筆記匯出為 CSV（{{size}}）"
-  },
-  "exportJsonSuccess": {
-    "message": "已將 {{count}} 篇筆記匯出為 JSON（{{size}}）"
-  },
   "ttsShort": {
     "message": "語音"
   },
@@ -765,5 +753,11 @@
   },
   "error_createFolder": {
     "message": "無法建立資料夾"
+  },
+  "more.copy.canonicalMarkdown": {
+    "message": "複製標準逐字稿"
+  },
+  "more.download.canonicalMarkdown": {
+    "message": "標準逐字稿 (Markdown)"
   }
 }

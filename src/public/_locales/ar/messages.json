@@ -646,18 +646,6 @@
   "notesSearch_exportJsonSuccess": {
     "message": "تم تصدير {{count}} ملاحظة كملف JSON ({{size}})"
   },
-  "exportNoteSuccess": {
-    "message": "تم التصدير ({{size}})"
-  },
-  "exportSuccess": {
-    "message": "تم تصدير {{count}} ملاحظة ({{size}})"
-  },
-  "exportCsvSuccess": {
-    "message": "تم تصدير {{count}} ملاحظة كملف CSV ({{size}})"
-  },
-  "exportJsonSuccess": {
-    "message": "تم تصدير {{count}} ملاحظة كملف JSON ({{size}})"
-  },
   "ttsShort": {
     "message": "صوت"
   },
@@ -806,6 +794,12 @@
     "message": "نسخ التفريغ القياسي"
   },
   "option_more_download_canonicalMarkdown": {
+    "message": "التفريغ القياسي (Markdown)"
+  },
+  "more.copy.canonicalMarkdown": {
+    "message": "نسخ التفريغ القياسي"
+  },
+  "more.download.canonicalMarkdown": {
     "message": "التفريغ القياسي (Markdown)"
   }
 }

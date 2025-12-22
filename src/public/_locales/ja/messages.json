@@ -683,18 +683,6 @@
   "notesSearch_exportJsonSuccess": {
     "message": "{{count}} 件のノートをJSONとしてエクスポートしました（{{size}}）"
   },
-  "exportNoteSuccess": {
-    "message": "エクスポートしました（{{size}}）"
-  },
-  "exportSuccess": {
-    "message": "{{count}} 件のノートをエクスポートしました（{{size}}）"
-  },
-  "exportCsvSuccess": {
-    "message": "{{count}} 件のノートをCSVとしてエクスポートしました（{{size}}）"
-  },
-  "exportJsonSuccess": {
-    "message": "{{count}} 件のノートをJSONとしてエクスポートしました（{{size}}）"
-  },
   "infoShort": {
     "message": "情報"
   },
@@ -834,6 +822,12 @@
     "message": "正規の文字起こしをコピー"
   },
   "option_more_download_canonicalMarkdown": {
+    "message": "正規の文字起こし（Markdown）"
+  },
+  "more.copy.canonicalMarkdown": {
+    "message": "正規の文字起こしをコピー"
+  },
+  "more.download.canonicalMarkdown": {
     "message": "正規の文字起こし（Markdown）"
   }
 }

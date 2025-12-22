@@ -496,18 +496,6 @@
   "notesSearch_exportJsonSuccess": {
     "message": "Експортовано {{count}} нотаток у форматі JSON ({{size}})"
   },
-  "exportNoteSuccess": {
-    "message": "Експортовано ({{size}})"
-  },
-  "exportSuccess": {
-    "message": "Експортовано {{count}} нотаток ({{size}})"
-  },
-  "exportCsvSuccess": {
-    "message": "Експортовано {{count}} нотаток у форматі CSV ({{size}})"
-  },
-  "exportJsonSuccess": {
-    "message": "Експортовано {{count}} нотаток у форматі JSON ({{size}})"
-  },
   "infoShort": {
     "message": "Інфо"
   },
@@ -750,5 +738,11 @@
   "option_more_download_canonicalMarkdown": {
     "message": "Канонічна транскрипція (Markdown)",
     "description": "Menu label to download the canonical transcript as Markdown."
+  },
+  "more.copy.canonicalMarkdown": {
+    "message": "Копіювати канонічну транскрипцію"
+  },
+  "more.download.canonicalMarkdown": {
+    "message": "Канонічна транскрипція (Markdown)"
   }
 }
