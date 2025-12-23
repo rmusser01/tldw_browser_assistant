@@ -65,6 +65,7 @@ export async function launchWithExtension(
 
   const context = await chromium.launchPersistentContext(userDataDir, {
     headless: !!process.env.CI,
+    acceptDownloads: true,
     env: {
       ...process.env,
       HOME: homeDir

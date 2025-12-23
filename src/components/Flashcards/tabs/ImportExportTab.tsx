@@ -30,7 +30,7 @@ const ImportPanel: React.FC = () => {
 
   const [content, setContent] = React.useState("")
   const [delimiter, setDelimiter] = React.useState<string>("\t")
-  const [hasHeader, setHasHeader] = React.useState<boolean>(false)
+  const [hasHeader, setHasHeader] = React.useState<boolean>(true)
 
   const handleImport = async () => {
     try {
@@ -66,11 +66,13 @@ const ImportPanel: React.FC = () => {
         })}
         value={content}
         onChange={(e) => setContent(e.target.value)}
+        data-testid="flashcards-import-textarea"
       />
       <Space>
         <Select
           value={delimiter}
           onChange={setDelimiter}
+          data-testid="flashcards-import-delimiter"
           options={[
             {
               label: t("option:flashcards.tab", { defaultValue: "Tab" }),
@@ -96,7 +98,11 @@ const ImportPanel: React.FC = () => {
           <Text>
             {t("option:flashcards.hasHeader", { defaultValue: "Has header" })}
           </Text>
-          <Switch checked={hasHeader} onChange={setHasHeader} />
+          <Switch
+            checked={hasHeader}
+            onChange={setHasHeader}
+            data-testid="flashcards-import-has-header"
+          />
         </Space>
       </Space>
       {limitsQuery.data && (
@@ -114,6 +120,7 @@ const ImportPanel: React.FC = () => {
         onClick={handleImport}
         loading={importMutation.isPending}
         disabled={!content.trim()}
+        data-testid="flashcards-import-button"
       >
         {t("option:flashcards.importButton", { defaultValue: "Import" })}
       </Button>
@@ -188,6 +195,7 @@ const ExportPanel: React.FC = () => {
           loading={decksQuery.isLoading}
           value={exportDeckId as any}
           onChange={setExportDeckId}
+          data-testid="flashcards-export-deck"
           options={(decksQuery.data || []).map((d) => ({
             label: d.name,
             value: d.id
@@ -201,13 +209,19 @@ const ExportPanel: React.FC = () => {
         <Select
           value={exportFormat}
           onChange={setExportFormat}
+          data-testid="flashcards-export-format"
           options={[
             { label: "CSV", value: "csv" },
             { label: "APKG (Anki)", value: "apkg" }
           ]}
         />
       </Form.Item>
-      <Button type="primary" onClick={handleExport} loading={isExporting}>
+      <Button
+        type="primary"
+        onClick={handleExport}
+        loading={isExporting}
+        data-testid="flashcards-export-button"
+      >
         {t("option:flashcards.exportButton", { defaultValue: "Export" })}
       </Button>
     </div>

@@ -14,6 +14,7 @@ export const FlashcardsManager: React.FC = () => {
   return (
     <div className="mx-auto max-w-6xl p-4">
       <Tabs
+        data-testid="flashcards-tabs"
         activeKey={activeTab}
         onChange={setActiveTab}
         items={[

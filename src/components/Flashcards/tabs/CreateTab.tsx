@@ -72,6 +72,14 @@ export const CreateTab: React.FC = () => {
   // Create new deck
   const handleCreateDeck = async () => {
     try {
+      if (!newDeckName.trim()) {
+        message.error(
+          t("option:flashcards.newDeckNameRequired", {
+            defaultValue: "Enter a deck name."
+          })
+        )
+        return
+      }
       const deck = await createDeckMutation.mutateAsync({
         name: newDeckName.trim(),
         description: newDeckDesc.trim() || undefined
@@ -151,13 +159,17 @@ export const CreateTab: React.FC = () => {
               allowClear
               loading={decksQuery.isLoading}
               className="min-w-64"
+              data-testid="flashcards-create-deck-select"
               options={(decksQuery.data || []).map((d) => ({
                 label: d.name,
                 value: d.id
               }))}
             />
           </Form.Item>
-          <Button onClick={() => setNewDeckModalOpen(true)}>
+          <Button
+            onClick={() => setNewDeckModalOpen(true)}
+            data-testid="flashcards-create-new-deck"
+          >
             {t("option:flashcards.newDeck", { defaultValue: "New Deck" })}
           </Button>
         </Space>
@@ -207,7 +219,11 @@ export const CreateTab: React.FC = () => {
           label={t("option:flashcards.front", { defaultValue: "Front" })}
           rules={[{ required: true }]}
         >
-          <Input.TextArea rows={3} placeholder="Question or prompt..." />
+          <Input.TextArea
+            rows={3}
+            placeholder="Question or prompt..."
+            data-testid="flashcards-create-front"
+          />
           <Preview content={createFrontPreview} />
         </Form.Item>
 
@@ -217,7 +233,11 @@ export const CreateTab: React.FC = () => {
           label={t("option:flashcards.back", { defaultValue: "Back" })}
           rules={[{ required: true }]}
         >
-          <Input.TextArea rows={5} placeholder="Answer..." />
+          <Input.TextArea
+            rows={5}
+            placeholder="Answer..."
+            data-testid="flashcards-create-back"
+          />
           <Preview content={createBackPreview} />
         </Form.Item>
 
@@ -310,6 +330,7 @@ export const CreateTab: React.FC = () => {
             type="primary"
             onClick={handleCreateFlashcard}
             loading={createMutation.isPending}
+            data-testid="flashcards-create-submit"
           >
             {t("common:create", { defaultValue: "Create" })}
           </Button>
@@ -327,17 +348,23 @@ export const CreateTab: React.FC = () => {
         onOk={handleCreateDeck}
         okText={t("common:create", { defaultValue: "Create" })}
         confirmLoading={createDeckMutation.isPending}
+        okButtonProps={{
+          disabled: !newDeckName.trim(),
+          "data-testid": "flashcards-new-deck-submit"
+        }}
       >
         <Space direction="vertical" className="w-full">
           <Input
             placeholder="Name"
             value={newDeckName}
             onChange={(e) => setNewDeckName(e.target.value)}
+            data-testid="flashcards-new-deck-name"
           />
           <Input.TextArea
             placeholder="Description (optional)"
             value={newDeckDesc}
             onChange={(e) => setNewDeckDesc(e.target.value)}
+            data-testid="flashcards-new-deck-description"
           />
         </Space>
       </Modal>

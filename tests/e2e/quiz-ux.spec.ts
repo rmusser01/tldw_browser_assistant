@@ -547,6 +547,26 @@ test.describe("Quiz workspace UX", () => {
       await expect(page.getByRole("button", { name: /Retake Quiz/i })).toBeVisible()
       await expect(page.getByText(/Correct answer/i).first()).toBeVisible()
 
+      mark("wait for attempts api")
+      await expect
+        .poll(
+          async () =>
+            await page.evaluate(async ({ baseUrl, apiKey }) => {
+              const normalizedBase = baseUrl.replace(/\/$/, "")
+              const res = await fetch(`${normalizedBase}/api/v1/quizzes/attempts?limit=1&offset=0`, {
+                headers: { "x-api-key": apiKey }
+              })
+              if (!res.ok) return 0
+              const payload = await res.json().catch(() => null)
+              return payload?.items?.length ?? 0
+            }, {
+              baseUrl: normalizedServerUrl,
+              apiKey
+            }),
+          { timeout: 15000 }
+        )
+        .toBeGreaterThan(0)
+
       mark("results tab")
       const resultsTab = page.getByRole("tab", { name: /Results/i })
       await resultsTab.click()

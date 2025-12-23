@@ -132,6 +132,7 @@ export const ReviewTab: React.FC<ReviewTabProps> = ({
           value={reviewDeckId as any}
           className="min-w-64"
           onChange={(v) => setReviewDeckId(v)}
+          data-testid="flashcards-review-deck-select"
           options={(decksQuery.data || []).map((d) => ({
             label: d.name,
             value: d.id
@@ -144,6 +145,7 @@ export const ReviewTab: React.FC<ReviewTabProps> = ({
             })
           }
           loading={reviewQuery.isFetching}
+          data-testid="flashcards-review-next-due"
         >
           {t("option:flashcards.nextDue", { defaultValue: "Next due" })}
         </Button>
@@ -199,7 +201,11 @@ export const ReviewTab: React.FC<ReviewTabProps> = ({
             <div className="mt-2 flex flex-col gap-3">
               {!showAnswer ? (
                 <div className="flex flex-col gap-2">
-                  <Button type="primary" onClick={() => setShowAnswer(true)}>
+                  <Button
+                    type="primary"
+                    onClick={() => setShowAnswer(true)}
+                    data-testid="flashcards-review-show-answer"
+                  >
                     {t("option:flashcards.showAnswer", {
                       defaultValue: "Show Answer"
                     })}
@@ -233,6 +239,7 @@ export const ReviewTab: React.FC<ReviewTabProps> = ({
                               color: "white"
                             }}
                             className="hover:opacity-90"
+                            data-testid={`flashcards-review-rate-${opt.key}`}
                           >
                             <span className="font-medium">{opt.label}</span>
                             <span className="ml-1.5 opacity-70 text-xs">

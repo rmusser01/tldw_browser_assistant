@@ -99,6 +99,7 @@ export const ManageTab: React.FC<ManageTabProps> = ({
   // Filter state
   const [mDeckId, setMDeckId] = React.useState<number | null | undefined>(undefined)
   const [mQuery, setMQuery] = React.useState("")
+  const [mQueryInput, setMQueryInput] = React.useState("")
   const [mTag, setMTag] = React.useState<string | undefined>(undefined)
   const [mDue, setMDue] = React.useState<DueStatus>("all")
   const [page, setPage] = React.useState(1)
@@ -132,6 +133,15 @@ export const ManageTab: React.FC<ManageTabProps> = ({
     page,
     pageSize
   })
+
+  React.useEffect(() => {
+    const timer = window.setTimeout(() => {
+      if (mQueryInput === mQuery) return
+      setMQuery(mQueryInput)
+      setPage(1)
+    }, 300)
+    return () => window.clearTimeout(timer)
+  }, [mQueryInput, mQuery])
 
   const toggleSelect = (uuid: string, checked: boolean) => {
     if (selectAllAcross) {
@@ -568,12 +578,14 @@ export const ManageTab: React.FC<ManageTabProps> = ({
           <Input.Search
             placeholder={t("common:search", { defaultValue: "Search" })}
             allowClear
-            onSearch={() =>
-              qc.invalidateQueries({ queryKey: ["flashcards:list"] })
-            }
-            value={mQuery}
-            onChange={(e) => setMQuery(e.target.value)}
+            onSearch={() => {
+              setMQuery(mQueryInput)
+              setPage(1)
+            }}
+            value={mQueryInput}
+            onChange={(e) => setMQueryInput(e.target.value)}
             className="min-w-64"
+            data-testid="flashcards-manage-search"
           />
           <Select
             placeholder={t("option:flashcards.deck", { defaultValue: "Deck" })}
@@ -582,6 +594,7 @@ export const ManageTab: React.FC<ManageTabProps> = ({
             value={mDeckId as any}
             onChange={(v) => setMDeckId(v)}
             className="min-w-56"
+            data-testid="flashcards-manage-deck-select"
             options={(decksQuery.data || []).map((d) => ({
               label: d.name,
               value: d.id
@@ -593,11 +606,26 @@ export const ManageTab: React.FC<ManageTabProps> = ({
             })}
             value={mDue}
             onChange={(v: DueStatus) => setMDue(v)}
+            data-testid="flashcards-manage-due-status"
             options={[
-              { label: "all", value: "all" },
-              { label: "new", value: "new" },
-              { label: "learning", value: "learning" },
-              { label: "due", value: "due" }
+              {
+                label: t("option:flashcards.dueAll", { defaultValue: "All" }),
+                value: "all"
+              },
+              {
+                label: t("option:flashcards.dueNew", { defaultValue: "New" }),
+                value: "new"
+              },
+              {
+                label: t("option:flashcards.dueLearning", {
+                  defaultValue: "Learning"
+                }),
+                value: "learning"
+              },
+              {
+                label: t("option:flashcards.dueDue", { defaultValue: "Due" }),
+                value: "due"
+              }
             ]}
           />
           <Input
@@ -605,6 +633,7 @@ export const ManageTab: React.FC<ManageTabProps> = ({
             value={mTag}
             onChange={(e) => setMTag(e.target.value || undefined)}
             className="min-w-44"
+            data-testid="flashcards-manage-tag"
           />
         </Space>
 
@@ -721,6 +750,7 @@ export const ManageTab: React.FC<ManageTabProps> = ({
                       <Button
                         onClick={() => {
                           setMQuery("")
+                          setMQueryInput("")
                           setMTag(undefined)
                           setMDeckId(undefined)
                           setMDue("all")
@@ -751,6 +781,7 @@ export const ManageTab: React.FC<ManageTabProps> = ({
           }}
           renderItem={(item) => (
             <List.Item
+              data-testid={`flashcard-item-${item.uuid}`}
               actions={[
                 <Checkbox
                   key="sel"
@@ -761,11 +792,13 @@ export const ManageTab: React.FC<ManageTabProps> = ({
                   }
                   onChange={(e) => toggleSelect(item.uuid, e.target.checked)}
                   aria-label={`Select card: ${item.front.slice(0, 80)}`}
+                  data-testid={`flashcard-item-${item.uuid}-select`}
                 />,
                 <Button
                   key="preview"
                   size="small"
                   onClick={() => togglePreview(item.uuid)}
+                  data-testid={`flashcard-item-${item.uuid}-toggle-answer`}
                 >
                   {previewOpen.has(item.uuid)
                     ? t("option:flashcards.hideAnswer", {
@@ -779,6 +812,7 @@ export const ManageTab: React.FC<ManageTabProps> = ({
                   key="review"
                   size="small"
                   onClick={() => openQuickReview(item)}
+                  data-testid={`flashcard-item-${item.uuid}-review`}
                 >
                   {t("option:flashcards.review", { defaultValue: "Review" })}
                 </Button>,
@@ -786,6 +820,7 @@ export const ManageTab: React.FC<ManageTabProps> = ({
                   key="duplicate"
                   size="small"
                   onClick={() => duplicateCard(item)}
+                  data-testid={`flashcard-item-${item.uuid}-duplicate`}
                 >
                   {t("option:flashcards.duplicate", {
                     defaultValue: "Duplicate"
@@ -795,6 +830,7 @@ export const ManageTab: React.FC<ManageTabProps> = ({
                   key="move"
                   size="small"
                   onClick={() => openMove(item)}
+                  data-testid={`flashcard-item-${item.uuid}-move`}
                 >
                   {t("option:flashcards.move", { defaultValue: "Move" })}
                 </Button>,
@@ -802,6 +838,7 @@ export const ManageTab: React.FC<ManageTabProps> = ({
                   key="edit"
                   size="small"
                   onClick={() => openEdit(item)}
+                  data-testid={`flashcard-item-${item.uuid}-edit`}
                 >
                   {t("common:edit", { defaultValue: "Edit" })}
                 </Button>
