@@ -594,6 +594,29 @@
     "assistantMessageAria": "アシスタントのメッセージ"
   },
   "quiz": {
-    "itemsPerPage": "items/page"
+    "itemsPerPage": "items/page",
+    "editQuizTitle": "Edit Quiz",
+    "updateSuccess": "Quiz updated successfully",
+    "updateError": "Failed to update quiz",
+    "questionTextRequired": "Question text is required.",
+    "optionsRequired": "Please provide at least two options.",
+    "questionSaveSuccess": "Question created successfully.",
+    "questionUpdateSuccess": "Question updated successfully.",
+    "questionSaveError": "Failed to save question.",
+    "questionDeleteSuccess": "Question deleted successfully.",
+    "questionDeleteError": "Failed to delete question.",
+    "editQuestion": "Edit Question",
+    "points": "Points",
+    "orderIndex": "Order",
+    "startError": "Failed to start quiz",
+    "answerAll": "Please answer all questions before submitting.",
+    "submitError": "Failed to submit quiz",
+    "scoreSummary": "Score: {{score}} / {{total}} ({{percent}}%)",
+    "correct": "Correct",
+    "incorrect": "Incorrect",
+    "yourAnswer": "Your answer",
+    "correctAnswerLabel": "Correct answer",
+    "backToList": "Back to list",
+    "retake": "Retake Quiz"
   }
 }

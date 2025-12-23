@@ -10,6 +10,7 @@ import { TakeQuizTab, GenerateTab, CreateTab, ManageTab, ResultsTab } from "./ta
 export const QuizPlayground: React.FC = () => {
   const { t } = useTranslation(["option", "common"])
   const [activeTab, setActiveTab] = React.useState<string>("take")
+  const [startQuizId, setStartQuizId] = React.useState<number | null>(null)
 
   return (
     <div className="mx-auto max-w-6xl p-4">
@@ -22,6 +23,8 @@ export const QuizPlayground: React.FC = () => {
             label: t("option:quiz.take", { defaultValue: "Take Quiz" }),
             children: (
               <TakeQuizTab
+                startQuizId={startQuizId}
+                onStartHandled={() => setStartQuizId(null)}
                 onNavigateToGenerate={() => setActiveTab("generate")}
                 onNavigateToCreate={() => setActiveTab("create")}
               />
@@ -52,6 +55,10 @@ export const QuizPlayground: React.FC = () => {
               <ManageTab
                 onNavigateToCreate={() => setActiveTab("create")}
                 onNavigateToGenerate={() => setActiveTab("generate")}
+                onStartQuiz={(quizId) => {
+                  setStartQuizId(quizId)
+                  setActiveTab("take")
+                }}
               />
             )
           },
