@@ -581,5 +581,8 @@
     "noModelWarning": "لطفاً ابتدا یک مدل را در گفتگوی اصلی انتخاب کنید.",
     "userMessageAria": "پیام شما",
     "assistantMessageAria": "پیام دستیار"
+  },
+  "quiz": {
+    "itemsPerPage": "items/page"
   }
 }

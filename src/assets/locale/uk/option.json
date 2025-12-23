@@ -585,5 +585,8 @@
     "noModelWarning": "Спочатку виберіть модель в основному чаті.",
     "userMessageAria": "Ваше повідомлення",
     "assistantMessageAria": "Повідомлення асистента"
+  },
+  "quiz": {
+    "itemsPerPage": "items/page"
   }
 }

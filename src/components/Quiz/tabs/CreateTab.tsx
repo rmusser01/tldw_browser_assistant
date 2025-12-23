@@ -24,7 +24,7 @@ interface QuestionFormData {
   question_type: QuestionType
   question_text: string
   options: string[]
-  correct_answer: string
+  correct_answer: number | string
   explanation?: string
 }
 
@@ -43,7 +43,7 @@ export const CreateTab: React.FC<CreateTabProps> = ({ onNavigateToTake }) => {
       question_type: "multiple_choice",
       question_text: "",
       options: ["", "", "", ""],
-      correct_answer: "0",
+      correct_answer: 0,
       explanation: ""
     }
     setQuestions([...questions, newQuestion])
@@ -129,7 +129,20 @@ export const CreateTab: React.FC<CreateTabProps> = ({ onNavigateToTake }) => {
         <Space direction="vertical" className="w-full">
           <Select
             value={question.question_type}
-            onChange={(value) => updateQuestion(question.key, { question_type: value })}
+            onChange={(value) => {
+              const updates: Partial<QuestionFormData> = { question_type: value }
+              if (value === "multiple_choice") {
+                updates.correct_answer = 0
+                if (question.options.length === 0) {
+                  updates.options = ["", "", "", ""]
+                }
+              } else if (value === "true_false") {
+                updates.correct_answer = "true"
+              } else {
+                updates.correct_answer = ""
+              }
+              updateQuestion(question.key, updates)
+            }}
             options={[
               { label: t("option:quiz.multipleChoice", { defaultValue: "Multiple Choice" }), value: "multiple_choice" },
               { label: t("option:quiz.trueFalse", { defaultValue: "True/False" }), value: "true_false" },
@@ -155,8 +168,8 @@ export const CreateTab: React.FC<CreateTabProps> = ({ onNavigateToTake }) => {
                   <input
                     type="radio"
                     name={`correct-${question.key}`}
-                    checked={question.correct_answer === String(optIndex)}
-                    onChange={() => updateQuestion(question.key, { correct_answer: String(optIndex) })}
+                    checked={Number(question.correct_answer) === optIndex}
+                    onChange={() => updateQuestion(question.key, { correct_answer: optIndex })}
                   />
                   <Input
                     placeholder={`${t("option:quiz.option", { defaultValue: "Option" })} ${optIndex + 1}`}
@@ -192,7 +205,7 @@ export const CreateTab: React.FC<CreateTabProps> = ({ onNavigateToTake }) => {
               placeholder={t("option:quiz.correctAnswerPlaceholder", {
                 defaultValue: "Enter the correct answer..."
               })}
-              value={question.correct_answer}
+              value={typeof question.correct_answer === "string" ? question.correct_answer : ""}
               onChange={(e) => updateQuestion(question.key, { correct_answer: e.target.value })}
             />
           )}

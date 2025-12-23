@@ -596,5 +596,8 @@
     "noModelWarning": "Сначала выберите модель в основном чате.",
     "userMessageAria": "Ваше сообщение",
     "assistantMessageAria": "Сообщение ассистента"
+  },
+  "quiz": {
+    "itemsPerPage": "items/page"
   }
 }

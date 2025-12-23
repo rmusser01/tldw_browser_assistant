@@ -592,5 +592,8 @@
     "noModelWarning": "まずメインチャットでモデルを選択してください。",
     "userMessageAria": "あなたのメッセージ",
     "assistantMessageAria": "アシスタントのメッセージ"
+  },
+  "quiz": {
+    "itemsPerPage": "items/page"
   }
 }

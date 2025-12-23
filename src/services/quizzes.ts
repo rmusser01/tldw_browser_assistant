@@ -3,6 +3,7 @@ import type { AllowedPath } from "@/services/tldw/openapi-guard"
 
 // Question types
 export type QuestionType = "multiple_choice" | "true_false" | "fill_blank"
+export type AnswerValue = number | string
 
 // Quiz container
 export type Quiz = {
@@ -21,14 +22,12 @@ export type Quiz = {
 }
 
 // Individual question
-export type Question = {
+export type QuestionBase = {
   id: number
   quiz_id: number
   question_type: QuestionType
   question_text: string
   options?: string[] | null
-  correct_answer: string
-  explanation?: string | null
   points: number
   order_index: number
   tags?: string[] | null
@@ -39,11 +38,23 @@ export type Question = {
   last_modified?: string | null
 }
 
+export type QuestionPublic = QuestionBase
+
+export type QuestionAdmin = QuestionBase & {
+  correct_answer: AnswerValue
+  explanation?: string | null
+}
+
+export type Question = QuestionAdmin
+
 // Quiz attempt answer
 export type QuizAnswer = {
   question_id: number
-  user_answer: string
+  user_answer: AnswerValue
   is_correct: boolean
+  correct_answer?: AnswerValue
+  explanation?: string | null
+  points_awarded?: number | null
   time_spent_ms?: number | null
 }
 
@@ -57,6 +68,7 @@ export type QuizAttempt = {
   total_possible: number
   time_spent_seconds?: number | null
   answers: QuizAnswer[]
+  questions?: QuestionPublic[]
 }
 
 // Create types
@@ -71,6 +83,7 @@ export type QuizCreate = {
 export type QuizUpdate = {
   name?: string | null
   description?: string | null
+  media_id?: number | null
   time_limit_seconds?: number | null
   passing_score?: number | null
   expected_version?: number | null
@@ -80,7 +93,7 @@ export type QuestionCreate = {
   question_type: QuestionType
   question_text: string
   options?: string[] | null
-  correct_answer: string
+  correct_answer: AnswerValue
   explanation?: string | null
   points?: number
   order_index?: number
@@ -91,7 +104,7 @@ export type QuestionUpdate = {
   question_type?: QuestionType | null
   question_text?: string | null
   options?: string[] | null
-  correct_answer?: string | null
+  correct_answer?: AnswerValue | null
   explanation?: string | null
   points?: number | null
   order_index?: number | null
@@ -116,7 +129,7 @@ export type QuizListResponse = {
 }
 
 export type QuestionListResponse = {
-  items: Question[]
+  items: Array<QuestionPublic | QuestionAdmin>
   count: number
 }
 
@@ -133,10 +146,22 @@ export type QuizListParams = {
   offset?: number
 }
 
+export type QuestionListParams = {
+  include_answers?: boolean
+  q?: string | null
+  limit?: number
+  offset?: number
+}
+
 export type AttemptListParams = {
   quiz_id?: number | null
   limit?: number
   offset?: number
+}
+
+export type QuizGenerateResponse = {
+  quiz: Quiz
+  questions: QuestionAdmin[]
 }
 
 // --- Quizzes CRUD ---
@@ -186,9 +211,19 @@ export async function deleteQuiz(quizId: number, expectedVersion: number): Promi
 
 // --- Questions CRUD ---
 
-export async function listQuestions(quizId: number): Promise<QuestionListResponse> {
+export async function listQuestions(
+  quizId: number,
+  params: QuestionListParams = {}
+): Promise<QuestionListResponse> {
+  const search = new URLSearchParams()
+  if (params.include_answers) search.set("include_answers", "true")
+  if (params.q) search.set("q", params.q)
+  if (typeof params.limit === "number") search.set("limit", String(params.limit))
+  if (typeof params.offset === "number") search.set("offset", String(params.offset))
+  const qs = search.toString()
+  const path = `/api/v1/quizzes/${quizId}/questions${qs ? `?${qs}` : ""}` as AllowedPath
   return await bgRequest<QuestionListResponse, AllowedPath, "GET">({
-    path: `/api/v1/quizzes/${quizId}/questions` as AllowedPath,
+    path,
     method: "GET"
   })
 }
@@ -268,8 +303,8 @@ export async function getAttempt(attemptId: number): Promise<QuizAttempt> {
 
 // --- AI Generation ---
 
-export async function generateQuiz(request: QuizGenerateRequest): Promise<Quiz> {
-  return await bgRequest<Quiz, AllowedPath, "POST">({
+export async function generateQuiz(request: QuizGenerateRequest): Promise<QuizGenerateResponse> {
+  return await bgRequest<QuizGenerateResponse, AllowedPath, "POST">({
     path: "/api/v1/quizzes/generate",
     method: "POST",
     headers: { "Content-Type": "application/json" },

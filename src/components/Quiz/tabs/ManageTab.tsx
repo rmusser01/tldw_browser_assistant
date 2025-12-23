@@ -35,11 +35,23 @@ export const ManageTab: React.FC<ManageTabProps> = ({
   const { t } = useTranslation(["option", "common"])
   const [searchQuery, setSearchQuery] = React.useState("")
   const [messageApi, contextHolder] = message.useMessage()
+  const [page, setPage] = React.useState(1)
+  const [pageSize, setPageSize] = React.useState(10)
 
-  const { data, isLoading, refetch } = useQuizzesQuery({ q: searchQuery || undefined })
+  React.useEffect(() => {
+    setPage(1)
+  }, [searchQuery])
+
+  const offset = (page - 1) * pageSize
+  const { data, isLoading, refetch } = useQuizzesQuery({
+    q: searchQuery || undefined,
+    limit: pageSize,
+    offset
+  })
   const deleteMutation = useDeleteQuizMutation()
 
   const quizzes = data?.items ?? []
+  const total = data?.count ?? 0
 
   const handleDelete = async (quiz: Quiz) => {
     try {
@@ -108,6 +120,22 @@ export const ManageTab: React.FC<ManageTabProps> = ({
       ) : (
         <List
           dataSource={quizzes}
+          pagination={{
+            current: page,
+            pageSize,
+            total,
+            showSizeChanger: true,
+            locale: {
+              items_per_page: t("option:quiz.itemsPerPage", { defaultValue: "items/page" })
+            },
+            onChange: (nextPage, nextPageSize) => {
+              setPage(nextPage)
+              if (nextPageSize && nextPageSize !== pageSize) {
+                setPageSize(nextPageSize)
+                setPage(1)
+              }
+            }
+          }}
           renderItem={(quiz) => (
             <List.Item
               actions={[

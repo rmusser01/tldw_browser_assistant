@@ -581,5 +581,8 @@
     "noModelWarning": "請先在主要聊天中選擇模型。",
     "userMessageAria": "你的訊息",
     "assistantMessageAria": "助理的訊息"
+  },
+  "quiz": {
+    "itemsPerPage": "items/page"
   }
 }

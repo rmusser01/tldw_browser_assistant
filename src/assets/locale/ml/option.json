@@ -581,5 +581,8 @@
     "noModelWarning": "ദയവായി ആദ്യം മുഖ്യ ചാറ്റില്‍ ഒരു മോഡല്‍ തിരഞ്ഞെടുക്കുക.",
     "userMessageAria": "നിങ്ങളുടെ സന്ദേശം",
     "assistantMessageAria": "അസിസ്റ്റന്റിന്റെ സന്ദേശം"
+  },
+  "quiz": {
+    "itemsPerPage": "items/page"
   }
 }

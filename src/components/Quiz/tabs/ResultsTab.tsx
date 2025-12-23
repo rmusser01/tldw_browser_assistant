@@ -23,11 +23,22 @@ const { Text } = Typography
 export const ResultsTab: React.FC = () => {
   const { t } = useTranslation(["option", "common"])
 
-  const { data: attemptsData, isLoading: attemptsLoading } = useAttemptsQuery()
-  const { data: quizzesData, isLoading: quizzesLoading } = useQuizzesQuery()
+  const [page, setPage] = React.useState(1)
+  const [pageSize, setPageSize] = React.useState(10)
+  const offset = (page - 1) * pageSize
+
+  const { data: attemptsData, isLoading: attemptsLoading } = useAttemptsQuery({
+    limit: pageSize,
+    offset
+  })
+  const { data: quizzesData, isLoading: quizzesLoading } = useQuizzesQuery({
+    limit: 200,
+    offset: 0
+  })
 
   const attempts = attemptsData?.items ?? []
   const quizzes = quizzesData?.items ?? []
+  const totalAttempts = attemptsData?.count ?? 0
 
   const quizMap = React.useMemo(() => {
     const map = new Map<number, string>()
@@ -138,6 +149,22 @@ export const ResultsTab: React.FC = () => {
 
         <List
           dataSource={attempts}
+          pagination={{
+            current: page,
+            pageSize,
+            total: totalAttempts,
+            showSizeChanger: true,
+            locale: {
+              items_per_page: t("option:quiz.itemsPerPage", { defaultValue: "items/page" })
+            },
+            onChange: (nextPage, nextPageSize) => {
+              setPage(nextPage)
+              if (nextPageSize && nextPageSize !== pageSize) {
+                setPageSize(nextPageSize)
+                setPage(1)
+              }
+            }
+          }}
           renderItem={(attempt) => {
             const quizName = quizMap.get(attempt.quiz_id) || `Quiz #${attempt.quiz_id}`
             const score = attempt.score ?? 0

@@ -609,5 +609,8 @@
     "noModelWarning": "Veuillez d’abord sélectionner un modèle dans la discussion principale.",
     "userMessageAria": "Votre message",
     "assistantMessageAria": "Message de l’assistant"
+  },
+  "quiz": {
+    "itemsPerPage": "items/page"
   }
 }

@@ -594,5 +594,8 @@
     "noModelWarning": "Seleziona prima un modello nella chat principale.",
     "userMessageAria": "Il tuo messaggio",
     "assistantMessageAria": "Messaggio dell’assistente"
+  },
+  "quiz": {
+    "itemsPerPage": "items/page"
   }
 }

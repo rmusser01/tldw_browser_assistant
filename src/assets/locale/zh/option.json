@@ -581,5 +581,8 @@
     "noModelWarning": "请先在主聊天中选择一个模型。",
     "userMessageAria": "你的消息",
     "assistantMessageAria": "助手的消息"
+  },
+  "quiz": {
+    "itemsPerPage": "items/page"
   }
 }

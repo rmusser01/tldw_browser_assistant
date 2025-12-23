@@ -605,5 +605,8 @@
     "noModelWarning": "Bitte wähle zuerst ein Modell im Hauptchat aus.",
     "userMessageAria": "Deine Nachricht",
     "assistantMessageAria": "Nachricht des Assistenten"
+  },
+  "quiz": {
+    "itemsPerPage": "items/page"
   }
 }

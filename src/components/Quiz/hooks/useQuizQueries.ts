@@ -16,6 +16,7 @@ import {
   generateQuiz,
   type Quiz,
   type Question,
+  type QuestionListParams,
   type QuizCreate,
   type QuizUpdate,
   type QuestionCreate,
@@ -79,12 +80,16 @@ export function useQuizQuery(quizId: number | null | undefined, options?: UseQui
 /**
  * Hook for fetching questions for a quiz
  */
-export function useQuestionsQuery(quizId: number | null | undefined, options?: UseQuizQueriesOptions) {
+export function useQuestionsQuery(
+  quizId: number | null | undefined,
+  params: QuestionListParams = {},
+  options?: UseQuizQueriesOptions
+) {
   const { quizzesEnabled } = useQuizzesEnabled()
 
   return useQuery({
-    queryKey: ["quizzes:questions", quizId],
-    queryFn: () => listQuestions(quizId!),
+    queryKey: ["quizzes:questions", quizId, params],
+    queryFn: () => listQuestions(quizId!, params),
     enabled: (options?.enabled ?? quizzesEnabled) && quizId != null
   })
 }
@@ -268,4 +273,12 @@ export function useGenerateQuizMutation() {
 }
 
 // Re-export types
-export type { Quiz, Question, QuizCreate, QuizUpdate, QuestionCreate, QuestionUpdate, QuizGenerateRequest }
+export type {
+  Quiz,
+  Question,
+  QuizCreate,
+  QuizUpdate,
+  QuestionCreate,
+  QuestionUpdate,
+  QuizGenerateRequest
+}

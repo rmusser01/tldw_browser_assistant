@@ -585,5 +585,8 @@
     "noModelWarning": "يرجى اختيار نموذج في المحادثة الرئيسية أولاً.",
     "userMessageAria": "رسالتك",
     "assistantMessageAria": "رسالة المساعد"
+  },
+  "quiz": {
+    "itemsPerPage": "items/page"
   }
 }

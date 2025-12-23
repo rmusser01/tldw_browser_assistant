@@ -14,9 +14,14 @@ export const TakeQuizTab: React.FC<TakeQuizTabProps> = ({
   onNavigateToCreate
 }) => {
   const { t } = useTranslation(["option", "common"])
-  const { data, isLoading } = useQuizzesQuery()
+  const [page, setPage] = React.useState(1)
+  const [pageSize, setPageSize] = React.useState(12)
+  const offset = (page - 1) * pageSize
+
+  const { data, isLoading } = useQuizzesQuery({ limit: pageSize, offset })
 
   const quizzes = data?.items ?? []
+  const total = data?.count ?? 0
 
   if (isLoading) {
     return (
@@ -63,6 +68,22 @@ export const TakeQuizTab: React.FC<TakeQuizTabProps> = ({
       <List
         grid={{ gutter: 16, xs: 1, sm: 2, md: 2, lg: 3, xl: 3, xxl: 4 }}
         dataSource={quizzes}
+        pagination={{
+          current: page,
+          pageSize,
+          total,
+          showSizeChanger: true,
+          locale: {
+            items_per_page: t("option:quiz.itemsPerPage", { defaultValue: "items/page" })
+          },
+          onChange: (nextPage, nextPageSize) => {
+            setPage(nextPage)
+            if (nextPageSize && nextPageSize !== pageSize) {
+              setPageSize(nextPageSize)
+              setPage(1)
+            }
+          }
+        }}
         renderItem={(quiz) => (
           <List.Item>
             <Card

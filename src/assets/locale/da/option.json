@@ -604,5 +604,8 @@
     "noModelWarning": "Vælg først en model i hovedchatten.",
     "userMessageAria": "Din besked",
     "assistantMessageAria": "Assistentens besked"
+  },
+  "quiz": {
+    "itemsPerPage": "items/page"
   }
 }
