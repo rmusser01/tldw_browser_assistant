@@ -32,7 +32,6 @@ import {
   createDeck,
   createFlashcard,
   deleteFlashcard,
-  getFlashcard,
   getFlashcardsImportLimits,
   importFlashcards,
   listDecks,
@@ -511,7 +510,12 @@ export const FlashcardsPage: React.FC = () => {
   const [quickReviewOpen, setQuickReviewOpen] = React.useState(false)
   const [quickReviewCard, setQuickReviewCard] = React.useState<Flashcard | null>(null)
   const openQuickReview = async (card: Flashcard) => {
-    try { const full = await getFlashcard(card.uuid); setQuickReviewCard(full); setQuickReviewOpen(true) } catch (e: any) { message.error(e?.message || 'Failed to load card') }
+    try {
+      setQuickReviewCard(card)
+      setQuickReviewOpen(true)
+    } catch (e: any) {
+      message.error(e?.message || "Failed to load card")
+    }
   }
   const submitQuickRating = async (rating: number) => {
     try {
@@ -527,17 +531,16 @@ export const FlashcardsPage: React.FC = () => {
   // Quick actions: duplicate
   const duplicateCard = async (card: Flashcard) => {
     try {
-      const full = await getFlashcard(card.uuid)
       await createFlashcard({
-        deck_id: full.deck_id ?? undefined,
-        front: full.front,
-        back: full.back,
-        notes: full.notes || undefined,
-        extra: full.extra || undefined,
-        is_cloze: full.is_cloze,
-        tags: full.tags || undefined,
-        model_type: full.model_type,
-        reverse: full.reverse
+        deck_id: card.deck_id ?? undefined,
+        front: card.front,
+        back: card.back,
+        notes: card.notes || undefined,
+        extra: card.extra || undefined,
+        is_cloze: card.is_cloze,
+        tags: card.tags || undefined,
+        model_type: card.model_type,
+        reverse: card.reverse
       })
       await qc.invalidateQueries({ queryKey: ["flashcards:list"] })
       message.success(t("common:created", { defaultValue: "Created" }))
@@ -549,13 +552,21 @@ export const FlashcardsPage: React.FC = () => {
   const [moveCard, setMoveCard] = React.useState<Flashcard | null>(null)
   const [moveDeckId, setMoveDeckId] = React.useState<number | null>(null)
   const openMove = async (card: Flashcard) => {
-    try { const full = await getFlashcard(card.uuid); setMoveCard(full); setMoveDeckId(full.deck_id ?? null); setMoveOpen(true) } catch (e: any) { message.error(e?.message || 'Failed to load card') }
+    try {
+      setMoveCard(card)
+      setMoveDeckId(card.deck_id ?? null)
+      setMoveOpen(true)
+    } catch (e: any) {
+      message.error(e?.message || "Failed to load card")
+    }
   }
   const submitMove = async () => {
     try {
       if (moveCard) {
-        const full = await getFlashcard(moveCard.uuid)
-        await updateFlashcard(moveCard.uuid, { deck_id: moveDeckId ?? null, expected_version: full.version })
+        await updateFlashcard(moveCard.uuid, {
+          deck_id: moveDeckId ?? null,
+          expected_version: moveCard.version
+        })
       } else {
         // bulk move: require an explicit target deck and respect selectAllAcross/deselectedIds
         if (moveDeckId == null) {
@@ -590,19 +601,18 @@ export const FlashcardsPage: React.FC = () => {
 
   const openEdit = async (card: Flashcard) => {
     try {
-      const full = await getFlashcard(card.uuid)
-      setEditing(full)
+      setEditing(card)
       editForm.setFieldsValue({
-        deck_id: full.deck_id ?? undefined,
-        front: full.front,
-        back: full.back,
-        notes: full.notes || undefined,
-        extra: full.extra || undefined,
-        is_cloze: full.is_cloze,
-        tags: full.tags || undefined,
-        model_type: full.model_type,
-        reverse: full.reverse,
-        expected_version: full.version
+        deck_id: card.deck_id ?? undefined,
+        front: card.front,
+        back: card.back,
+        notes: card.notes || undefined,
+        extra: card.extra || undefined,
+        is_cloze: card.is_cloze,
+        tags: card.tags || undefined,
+        model_type: card.model_type,
+        reverse: card.reverse,
+        expected_version: card.version
       } as any)
       setEditOpen(true)
     } catch (e: any) {

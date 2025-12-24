@@ -263,6 +263,9 @@ export const PlaygroundMessage = (props: Props) => {
 
   return (
     <div
+      data-testid="chat-message"
+      data-role={props.isBot ? "assistant" : "user"}
+      data-index={props.currentMessageIndex}
       className={`group relative flex w-full max-w-3xl flex-col items-end justify-center pb-2 md:px-4 text-gray-800 dark:text-gray-100 ${checkWideMode ? "max-w-none" : ""}`}>
       {/* Inline stop button while streaming on the latest assistant message */}
       {props.isBot && (props.isStreaming || props.isProcessing) && isLastMessage && props.onStopStreaming && (
@@ -271,6 +274,7 @@ export const PlaygroundMessage = (props: Props) => {
             <button
               type="button"
               onClick={props.onStopStreaming}
+              data-testid="chat-message-stop-streaming"
               className="text-gray-800 dark:text-gray-300 border border-gray-300 dark:border-gray-600 rounded-md p-1 bg-white/70 dark:bg-[#1f1f1f]/70 backdrop-blur hover:bg-white dark:hover:bg-[#2a2a2a]">
               <StopCircleIcon className="w-5 h-5" />
               <span className="sr-only">{t("playground:composer.stopStreaming")}</span>

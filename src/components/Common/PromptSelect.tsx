@@ -185,6 +185,7 @@ export const PromptSelect: React.FC<Props> = ({
             <IconButton
               ariaLabel={t("selectAPrompt") as string}
               hasPopup="menu"
+              dataTestId="chat-prompt-select"
               className={className}>
               <BookIcon className={iconClassName} />
             </IconButton>

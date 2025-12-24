@@ -496,7 +496,8 @@
     "export": "Export",
     "importMode": {
       "merge": "Merge",
-      "replace": "Replace"
+      "replace": "Replace",
+      "replaceConfirm": "Replace will overwrite all current prompts with the imported file. Continue?"
     },
     "favorite": "Favorite",
     "unfavorite": "Unfavorite",

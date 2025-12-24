@@ -5,6 +5,7 @@ type IconButtonProps = {
   hasPopup?: boolean | "menu" | "listbox" | "tree" | "grid" | "dialog"
   ariaExpanded?: boolean
   ariaControls?: string
+  dataTestId?: string
   children: React.ReactNode
   className?: string
   title?: string
@@ -20,6 +21,7 @@ export const IconButton = React.forwardRef<HTMLButtonElement, IconButtonProps>(
       hasPopup,
       ariaExpanded,
       ariaControls,
+      dataTestId,
       children,
       className,
       title,
@@ -40,6 +42,7 @@ export const IconButton = React.forwardRef<HTMLButtonElement, IconButtonProps>(
         aria-haspopup={hasPopup as any}
         aria-expanded={ariaExpanded}
         aria-controls={ariaControls}
+        data-testid={dataTestId}
         title={title}
         disabled={disabled}
         onClick={onClick}>

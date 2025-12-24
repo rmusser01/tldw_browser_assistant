@@ -169,6 +169,7 @@ export const SidepanelHeaderSimple = ({
   return (
     <div
       data-istemporary-chat={temporaryChat}
+      data-testid="chat-header"
       className="px-3 justify-between bg-white dark:bg-[#171717] border-b border-gray-300 dark:border-gray-700 py-2 items-center absolute top-0 z-10 flex h-12 w-full data-[istemporary-chat='true']:bg-purple-50 data-[istemporary-chat='true']:dark:bg-purple-900/30"
     >
       {/* Left: Status dot + Logo + Title */}
@@ -200,6 +201,7 @@ export const SidepanelHeaderSimple = ({
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   placeholder={t("common:search", { defaultValue: "Search..." }) as string}
+                  data-testid="chat-search-input"
                   className="bg-transparent border-none outline-none text-sm w-24 sm:w-32 text-gray-800 dark:text-gray-200 placeholder-gray-400 dark:placeholder-gray-500"
                   aria-label={t("sidepanel:header.searchChatAria", "Search in chat") as string}
                 />
@@ -240,6 +242,7 @@ export const SidepanelHeaderSimple = ({
             <IconButton
               ariaLabel={t("sidepanel:header.newChatAria") as string}
               title={t("option:newChat") as string}
+              dataTestId="chat-new-chat"
               onClick={() => clearChat()}
               className="p-1.5 rounded hover:bg-gray-100 dark:hover:bg-gray-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-pink-700"
             >
@@ -253,6 +256,7 @@ export const SidepanelHeaderSimple = ({
           <Tooltip title={t("common:edit", { defaultValue: "Rename" })}>
             <IconButton
               ariaLabel={t("sidepanel:header.renameChatAria", "Rename chat") as string}
+              dataTestId="chat-rename-chat"
               onClick={handleRenameChat}
               className="p-1.5 rounded hover:bg-gray-100 dark:hover:bg-gray-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-pink-700"
             >
@@ -266,6 +270,7 @@ export const SidepanelHeaderSimple = ({
           <Tooltip title={t("common:delete", { defaultValue: "Delete" })}>
             <IconButton
               ariaLabel={t("sidepanel:header.deleteChatAria", "Delete chat") as string}
+              dataTestId="chat-delete-chat"
               onClick={handleDeleteChat}
               className="p-1.5 rounded hover:bg-gray-100 dark:hover:bg-gray-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-pink-700"
             >
@@ -279,6 +284,7 @@ export const SidepanelHeaderSimple = ({
           <Tooltip title={t("sidepanel:header.timeline", { defaultValue: "Timeline" })}>
             <IconButton
               ariaLabel={t("sidepanel:header.timelineAria", "View conversation timeline") as string}
+              dataTestId="chat-open-timeline"
               onClick={() => openTimeline(historyId)}
               className="p-1.5 rounded hover:bg-gray-100 dark:hover:bg-gray-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-pink-700"
             >
@@ -292,6 +298,7 @@ export const SidepanelHeaderSimple = ({
           <Tooltip title={t("sidepanel:header.history", { defaultValue: "Chat History" })}>
             <IconButton
               ariaLabel={t("sidepanel:header.historyAria", "Browse chat history") as string}
+              dataTestId="chat-open-history"
               onClick={() => handleSidebarOpenChange(true)}
               className="p-1.5 rounded hover:bg-gray-100 dark:hover:bg-gray-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-pink-700"
             >

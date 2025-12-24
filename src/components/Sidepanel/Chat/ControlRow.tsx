@@ -174,7 +174,9 @@ export const ControlRow: React.FC<ControlRowProps> = ({
           return false
         }}
       >
-        <button className="w-full text-left text-sm px-2 py-1.5 rounded flex items-center gap-2 hover:bg-gray-100 dark:hover:bg-gray-800">
+        <button
+          data-testid="chat-upload-image"
+          className="w-full text-left text-sm px-2 py-1.5 rounded flex items-center gap-2 hover:bg-gray-100 dark:hover:bg-gray-800">
           <ImageIcon className="size-4 text-gray-500" />
           {t("sidepanel:controlRow.uploadImage", "Upload Image")}
         </button>
@@ -188,6 +190,7 @@ export const ControlRow: React.FC<ControlRowProps> = ({
       <button
         type="button"
         onClick={openQuickIngest}
+        data-testid="chat-quick-ingest"
         className="w-full text-left text-sm px-2 py-1.5 rounded flex items-center gap-2 hover:bg-gray-100 dark:hover:bg-gray-800"
       >
         <UploadCloud className="size-4 text-gray-500" />
@@ -196,6 +199,7 @@ export const ControlRow: React.FC<ControlRowProps> = ({
       <button
         type="button"
         onClick={openFullApp}
+        data-testid="chat-open-full-app"
         className="w-full text-left text-sm px-2 py-1.5 rounded flex items-center gap-2 hover:bg-gray-100 dark:hover:bg-gray-800"
       >
         <ExternalLink className="size-4 text-gray-500" />
@@ -210,7 +214,9 @@ export const ControlRow: React.FC<ControlRowProps> = ({
         {/* Ephemeral mode indicator badge */}
         {temporaryChat && (
           <Tooltip title={t("sidepanel:controlRow.ephemeralModeActive", "Ephemeral mode: chat won't be saved")}>
-            <div className="flex items-center gap-1 px-1.5 py-0.5 rounded text-xs font-medium bg-purple-100 text-purple-700 dark:bg-purple-900/30 dark:text-purple-300 border border-purple-200 dark:border-purple-700">
+            <div
+              data-testid="chat-ephemeral-badge"
+              className="flex items-center gap-1 px-1.5 py-0.5 rounded text-xs font-medium bg-purple-100 text-purple-700 dark:bg-purple-900/30 dark:text-purple-300 border border-purple-200 dark:border-purple-700">
               <BsIncognito className="size-3" />
               <span>{t("sidepanel:controlRow.ephemeralBadge", "Ephemeral")}</span>
             </div>

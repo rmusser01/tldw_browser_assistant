@@ -31,6 +31,28 @@ export async function bgRequest<
 >(
   { path, method = 'GET' as UpperLower<M>, headers = {}, body, noAuth = false, timeoutMs, abortSignal }: BgRequestInit<P, M>
 ): Promise<T> {
+  const recordRequestError = async (entry: {
+    method: string
+    path: string
+    status?: number
+    error?: string
+    source: "background" | "direct"
+  }) => {
+    try {
+      const storage = createSafeStorage({ area: "local" })
+      const at = new Date().toISOString()
+      const payload = { ...entry, at }
+      const existing = (await storage.get<any[]>("__tldwRequestErrors").catch(() => [])) || []
+      const next = Array.isArray(existing) ? existing : []
+      next.unshift(payload)
+      if (next.length > 20) next.length = 20
+      await storage.set("__tldwRequestErrors", next)
+      await storage.set("__tldwLastRequestError", payload)
+    } catch {
+      // best-effort logging only
+    }
+  }
+
   // If extension messaging is available, use it (extension context)
   try {
     // @ts-ignore
@@ -44,7 +66,15 @@ export async function bgRequest<
         const resp = await browser.runtime.sendMessage(payload) as { ok: boolean; error?: string; status?: number; data: T } | undefined
         if (!resp?.ok) {
           const msg = resp?.error || `Request failed: ${resp?.status}`
-          throw new Error(msg)
+          console.warn("[tldw:request]", method, path, resp?.status, msg)
+          await recordRequestError({
+            method: String(method),
+            path: String(path),
+            status: resp?.status,
+            error: msg,
+            source: "background"
+          })
+          throw new Error(`${msg} (${method} ${path})`)
         }
         return resp.data as T
       }
@@ -77,7 +107,15 @@ export async function bgRequest<
 
       if (!resp?.ok) {
         const msg = resp?.error || `Request failed: ${resp?.status}`
-        throw new Error(msg)
+        console.warn("[tldw:request]", method, path, resp?.status, msg)
+        await recordRequestError({
+          method: String(method),
+          path: String(path),
+          status: resp?.status,
+          error: msg,
+          source: "background"
+        })
+        throw new Error(`${msg} (${method} ${path})`)
       }
       return resp.data as T
     }
@@ -146,7 +184,16 @@ export async function bgRequest<
       signal: controller.signal
     })
     if (!res.ok) {
-      throw new Error(`Request failed: ${res.status}`)
+      const msg = `Request failed: ${res.status}`
+      console.warn("[tldw:request]", method, path, res.status, msg)
+      await recordRequestError({
+        method: String(method),
+        path: String(path),
+        status: res.status,
+        error: msg,
+        source: "direct"
+      })
+      throw new Error(`${msg} (${method} ${path})`)
     }
     const contentType = res.headers.get('content-type') || ''
     if (contentType.includes('application/json')) {

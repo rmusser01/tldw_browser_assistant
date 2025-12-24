@@ -1299,6 +1299,7 @@ export const SidepanelForm = ({
                       <textarea
                         onKeyDown={(e) => handleKeyDown(e)}
                         ref={textareaRef}
+                        data-testid="chat-input"
                         className={`px-2 py-2 w-full resize-none focus-within:outline-none focus:ring-0 focus-visible:ring-0 ring-0 dark:ring-0 border-0 dark:text-gray-100 ${
                           !isConnectionReady
                             ? "cursor-not-allowed text-gray-400 placeholder:text-gray-400 dark:text-gray-500 dark:placeholder:text-gray-500 bg-transparent"
@@ -1419,6 +1420,7 @@ export const SidepanelForm = ({
                                   "playground:composer.submitAria",
                                   "Send message"
                                 )}
+                                data-testid="chat-send"
                                 title={
                                   !isConnectionReady
                                     ? (t(
@@ -1560,6 +1562,7 @@ export const SidepanelForm = ({
                                 <button
                                   type="button"
                                   onClick={stopStreamingRequest}
+                                  data-testid="chat-stop-streaming"
                                   className="text-gray-800 dark:text-gray-300 border border-gray-300 dark:border-gray-600 rounded-md p-1">
                                   <StopCircleIcon className="h-5 w-5" />
                                   <span className="sr-only">

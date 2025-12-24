@@ -209,7 +209,7 @@ export const EmptySidePanel = ({ inputRef }: EmptySidePanelProps) => {
       : "text-blue-500 dark:text-blue-400"
 
     return (
-      <div className="mt-4 flex w-full flex-col items-stretch gap-3 px-3">
+      <div className="mt-4 flex w-full flex-col items-stretch gap-3 px-3" data-testid="chat-empty-connection">
         {/* Main card with icon */}
         <div className="rounded-lg border border-gray-200 bg-white dark:border-gray-700 dark:bg-[#1a1a1a] overflow-hidden">
           {/* Header with icon */}
@@ -239,6 +239,7 @@ export const EmptySidePanel = ({ inputRef }: EmptySidePanelProps) => {
               type="button"
               onClick={openOnboarding}
               ref={primaryButtonRef}
+              data-testid="chat-connection-cta"
               className={`w-full flex items-center justify-center gap-2 rounded-md px-3 py-2 text-xs font-medium transition-colors ${
                 uxState === "error_auth" || uxState === "error_unreachable"
                   ? "bg-amber-500 hover:bg-amber-600 text-white"
@@ -276,7 +277,7 @@ export const EmptySidePanel = ({ inputRef }: EmptySidePanelProps) => {
 
   // Connected state: show welcoming empty chat guidance
   return (
-    <div className="mt-4 w-full px-4 flex flex-col items-center justify-center">
+    <div className="mt-4 w-full px-4 flex flex-col items-center justify-center" data-testid="chat-empty-connected">
       {/* Animated icon */}
       <div className="mb-3 relative">
         <div className="w-12 h-12 rounded-full bg-gradient-to-br from-green-100 to-emerald-100 dark:from-green-900/30 dark:to-emerald-900/30 flex items-center justify-center">
@@ -303,6 +304,7 @@ export const EmptySidePanel = ({ inputRef }: EmptySidePanelProps) => {
         </p>
         <button
           type="button"
+          data-testid="chat-suggestion-1"
           className="w-full flex items-center gap-2.5 px-3 py-2 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-[#1a1a1a] hover:border-blue-300 dark:hover:border-blue-600 hover:bg-blue-50/50 dark:hover:bg-blue-900/10 transition-colors text-left group"
           onClick={() =>
             insertPrompt(
@@ -320,6 +322,7 @@ export const EmptySidePanel = ({ inputRef }: EmptySidePanelProps) => {
         </button>
         <button
           type="button"
+          data-testid="chat-suggestion-2"
           className="w-full flex items-center gap-2.5 px-3 py-2 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-[#1a1a1a] hover:border-blue-300 dark:hover:border-blue-600 hover:bg-blue-50/50 dark:hover:bg-blue-900/10 transition-colors text-left group"
           onClick={() =>
             insertPrompt(
@@ -337,6 +340,7 @@ export const EmptySidePanel = ({ inputRef }: EmptySidePanelProps) => {
         </button>
         <button
           type="button"
+          data-testid="chat-suggestion-3"
           className="w-full flex items-center gap-2.5 px-3 py-2 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-[#1a1a1a] hover:border-blue-300 dark:hover:border-blue-600 hover:bg-blue-50/50 dark:hover:bg-blue-900/10 transition-colors text-left group"
           onClick={() =>
             insertPrompt(

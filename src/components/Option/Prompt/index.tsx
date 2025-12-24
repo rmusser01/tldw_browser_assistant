@@ -103,11 +103,30 @@ export const PromptBody = () => {
   const systemPromptLabel = t("managePrompts.systemPrompt")
   const quickPromptLabel = t("managePrompts.quickPrompt")
 
+  const guardPrivateMode = React.useCallback(() => {
+    if (!isFireFoxPrivateMode) return false
+    notification.error({
+      message: t(
+        "common:privateModeSaveErrorTitle",
+        "tldw Assistant can't save data"
+      ),
+      description: t(
+        "settings:prompts.privateModeDescription",
+        "Firefox Private Mode does not support saving data to IndexedDB. Please add prompts from a normal window."
+      )
+    })
+    return true
+  }, [isFireFoxPrivateMode, t])
+
   React.useEffect(() => {
     if (!isOnline && selectedSegment === "copilot") {
       setSelectedSegment("custom")
     }
   }, [isOnline, selectedSegment])
+
+  React.useEffect(() => {
+    setSelectedRowKeys([])
+  }, [searchText, typeFilter, tagFilter])
 
   const getPromptKeywords = React.useCallback(
     (prompt: any) => prompt?.keywords ?? prompt?.tags ?? [],
@@ -309,7 +328,12 @@ export const PromptBody = () => {
   const filteredData = useMemo(() => {
     let items = (data || []) as any[]
     if (typeFilter !== "all") {
-      items = items.filter((p) => getPromptType(p) === typeFilter)
+      items = items.filter((p) => {
+        const promptType = getPromptType(p)
+        if (typeFilter === "system") return promptType === "system" || promptType === "mixed"
+        if (typeFilter === "quick") return promptType === "quick" || promptType === "mixed"
+        return promptType === typeFilter
+      })
     }
     if (tagFilter.length > 0) {
       items = items.filter((p) =>
@@ -347,6 +371,7 @@ export const PromptBody = () => {
 
   const triggerExport = async () => {
     try {
+      if (guardPrivateMode()) return
       const items = await exportPrompts()
       const blob = new Blob([JSON.stringify(items, null, 2)], {
         type: "application/json"
@@ -354,7 +379,8 @@ export const PromptBody = () => {
       const url = URL.createObjectURL(blob)
       const a = document.createElement("a")
       a.href = url
-      a.download = `prompts_${new Date().toISOString()}.json`
+      const safeStamp = new Date().toISOString().replace(/[:]/g, "-")
+      a.download = `prompts_${safeStamp}.json`
       a.click()
       URL.revokeObjectURL(url)
     } catch (e) {
@@ -367,6 +393,7 @@ export const PromptBody = () => {
 
   const triggerBulkExport = async () => {
     try {
+      if (guardPrivateMode()) return
       const selectedItems = (data || []).filter((p: any) => selectedRowKeys.includes(p.id))
       const blob = new Blob([JSON.stringify(selectedItems, null, 2)], {
         type: "application/json"
@@ -388,9 +415,22 @@ export const PromptBody = () => {
 
   const handleImportFile = async (file: File) => {
     try {
+      if (guardPrivateMode()) return
       const text = await file.text()
       const json = JSON.parse(text)
       const prompts = Array.isArray(json) ? json : json?.prompts || []
+      if (importMode === "replace") {
+        const ok = await confirmDanger({
+          title: t("common:confirmTitle", { defaultValue: "Please confirm" }),
+          content: t("managePrompts.importMode.replaceConfirm", {
+            defaultValue:
+              "Replace will overwrite all current prompts with the imported file. Continue?"
+          }),
+          okText: t("common:continue", { defaultValue: "Continue" }),
+          cancelText: t("common:cancel", { defaultValue: "Cancel" })
+        })
+        if (!ok) return
+      }
       await importPromptsV2(prompts, {
         replaceExisting: importMode === "replace",
         mergeData: importMode === "merge"
@@ -428,7 +468,7 @@ export const PromptBody = () => {
 
   function customPrompts() {
     return (
-      <div>
+      <div data-testid="prompts-custom">
         <div className="mb-6 space-y-3">
           {/* Bulk action bar - shown when rows are selected */}
           {selectedRowKeys.length > 0 && (
@@ -441,11 +481,13 @@ export const PromptBody = () => {
               </span>
               <button
                 onClick={() => triggerBulkExport()}
+                data-testid="prompts-bulk-export"
                 className="inline-flex items-center gap-1 px-2 py-1 text-sm rounded border border-blue-300 dark:border-blue-700 text-blue-700 dark:text-blue-300 hover:bg-blue-100 dark:hover:bg-blue-800">
                 <Download className="size-3" /> {t("managePrompts.bulk.export", { defaultValue: "Export selected" })}
               </button>
               <button
                 onClick={async () => {
+                  if (guardPrivateMode()) return
                   const ok = await confirmDanger({
                     title: t("common:confirmTitle", { defaultValue: "Please confirm" }),
                     content: t("managePrompts.bulk.deleteConfirm", {
@@ -459,11 +501,13 @@ export const PromptBody = () => {
                   bulkDeletePrompts(selectedRowKeys as string[])
                 }}
                 disabled={isBulkDeleting}
+                data-testid="prompts-bulk-delete"
                 className="inline-flex items-center gap-1 px-2 py-1 text-sm rounded border border-red-300 dark:border-red-700 text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 disabled:opacity-50">
                 <Trash2 className="size-3" /> {t("managePrompts.bulk.delete", { defaultValue: "Delete selected" })}
               </button>
               <button
                 onClick={() => setSelectedRowKeys([])}
+                data-testid="prompts-clear-selection"
                 className="ml-auto text-sm text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200">
                 {t("common:clearSelection", { defaultValue: "Clear selection" })}
               </button>
@@ -474,39 +518,34 @@ export const PromptBody = () => {
             <div className="flex flex-wrap items-center gap-2">
               <button
                 onClick={() => {
-                  if (isFireFoxPrivateMode) {
-                    notification.error({
-                      message: t(
-                        "common:privateModeSaveErrorTitle",
-                        "tldw Assistant can't save data"
-                      ),
-                      description: t(
-                        "settings:prompts.privateModeDescription",
-                        "Firefox Private Mode does not support saving data to IndexedDB. Please add prompts from a normal window."
-                      )
-                    })
-                    return
-                  }
+                  if (guardPrivateMode()) return
                   setOpen(true)
                 }}
+                data-testid="prompts-add"
                 className="inline-flex items-center rounded-md border border-transparent bg-black px-2 py-2 text-md font-medium leading-4 text-white shadow-sm hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:bg-white dark:text-gray-800 dark:hover:bg-gray-100 dark:focus:ring-gray-500 dark:focus:ring-offset-gray-100 disabled:opacity-50">
                 {t("managePrompts.addBtn")}
               </button>
               <button
                 onClick={() => triggerExport()}
+                data-testid="prompts-export"
                 className="inline-flex items-center gap-2 rounded-md border border-gray-300 dark:border-gray-700 px-2 py-2 text-md font-medium leading-4 text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800">
                 <Download className="size-4" /> {t("managePrompts.export", { defaultValue: "Export" })}
               </button>
               {/* Import controls grouped together */}
               <div className="inline-flex items-center rounded-md border border-gray-300 dark:border-gray-700 overflow-hidden">
                 <button
-                  onClick={() => fileInputRef.current?.click()}
+                  onClick={() => {
+                    if (guardPrivateMode()) return
+                    fileInputRef.current?.click()
+                  }}
+                  data-testid="prompts-import"
                   className="inline-flex items-center gap-2 px-2 py-2 text-md font-medium leading-4 text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800">
                   <UploadCloud className="size-4" /> {t("managePrompts.import", { defaultValue: "Import" })}
                 </button>
                 <Select
                   value={importMode}
                   onChange={(v) => setImportMode(v as any)}
+                  data-testid="prompts-import-mode"
                   options={[
                     { label: t("managePrompts.importMode.merge", { defaultValue: "Merge" }), value: "merge" },
                     { label: t("managePrompts.importMode.replace", { defaultValue: "Replace" }), value: "replace" }
@@ -521,6 +560,7 @@ export const PromptBody = () => {
                 type="file"
                 accept="application/json"
                 className="hidden"
+                data-testid="prompts-import-file"
                 onChange={(e) => {
                   const file = e.target.files?.[0]
                   if (file) handleImportFile(file)
@@ -538,12 +578,14 @@ export const PromptBody = () => {
                   placeholder={t("managePrompts.search", { defaultValue: "Search prompts..." })}
                   value={searchText}
                   onChange={(e) => setSearchText(e.target.value)}
+                  data-testid="prompts-search"
                   style={{ width: 220 }}
                 />
               </Tooltip>
               <Segmented
                 value={typeFilter}
                 onChange={(v) => setTypeFilter(v as any)}
+                data-testid="prompts-type-filter"
                 options={[
                   { label: t("managePrompts.filter.all", { defaultValue: "All" }), value: "all" },
                   { label: t("managePrompts.filter.system", { defaultValue: "System" }), value: "system" },
@@ -557,6 +599,7 @@ export const PromptBody = () => {
                 style={{ minWidth: 180 }}
                 value={tagFilter}
                 onChange={(v) => setTagFilter(v)}
+                data-testid="prompts-tag-filter"
                 options={allTags.map((t) => ({ label: t, value: t }))}
               />
             </div>
@@ -593,6 +636,7 @@ export const PromptBody = () => {
 
         {status === "success" && Array.isArray(data) && data.length > 0 && (
           <Table
+            data-testid="prompts-table"
             columns={[
               {
                 title: "",
@@ -615,6 +659,7 @@ export const PromptBody = () => {
                     }
                     className="text-yellow-500"
                     title={record?.favorite ? t("managePrompts.unfavorite", { defaultValue: "Unfavorite" }) : t("managePrompts.favorite", { defaultValue: "Favorite" })}
+                    data-testid={`prompt-favorite-${record.id}`}
                   >
                     <Star className={`size-4 ${record?.favorite ? '' : 'opacity-30'}`} />
                   </button>
@@ -729,6 +774,7 @@ export const PromptBody = () => {
                       <button
                         type="button"
                         aria-label={t("managePrompts.tooltip.edit")}
+                        data-testid={`prompt-edit-${record.id}`}
                         onClick={() => {
                           setEditId(record.id)
                           const { systemText, userText } = getPromptTexts(record)
@@ -756,6 +802,7 @@ export const PromptBody = () => {
                         aria-label={t("managePrompts.tooltip.duplicate", {
                           defaultValue: "Duplicate Prompt"
                         })}
+                        data-testid={`prompt-duplicate-${record.id}`}
                         onClick={() => {
                           savePromptMutation({
                             title: `${record.title || record.name} (Copy)`,
@@ -788,6 +835,7 @@ export const PromptBody = () => {
                         aria-label={t("option:promptInsert.useInChat", {
                           defaultValue: "Use in chat"
                         })}
+                        data-testid={`prompt-use-${record.id}`}
                         onClick={() => {
                           const { systemText, userText } = getPromptTexts(record)
                           const hasSystem =
@@ -824,6 +872,7 @@ export const PromptBody = () => {
                       <button
                         type="button"
                         aria-label={t("managePrompts.tooltip.delete")}
+                        data-testid={`prompt-delete-${record.id}`}
                         onClick={async () => {
                           const ok = await confirmDanger({
                             title: t("common:confirmTitle", { defaultValue: "Please confirm" }),
@@ -847,6 +896,9 @@ export const PromptBody = () => {
             bordered
             dataSource={filteredData}
             rowKey={(record) => record.id}
+            onRow={(record) => ({
+              "data-testid": `prompt-row-${record.id}`
+            })}
             rowSelection={{
               selectedRowKeys,
               onChange: (keys) => setSelectedRowKeys(keys),
@@ -1008,6 +1060,7 @@ export const PromptBody = () => {
               disabled: !isOnline
             }
           ]}
+          data-testid="prompts-segmented"
           value={selectedSegment}
           onChange={(value) => {
             setSelectedSegment(value as "custom" | "copilot")
@@ -1047,13 +1100,19 @@ export const PromptBody = () => {
                 message: t("managePrompts.form.title.required")
               }
             ]}>
-            <Input placeholder={t("managePrompts.form.title.placeholder")} />
+            <Input
+              placeholder={t("managePrompts.form.title.placeholder")}
+              data-testid="prompt-create-title"
+            />
           </Form.Item>
 
           <Form.Item
             name="author"
             label={t("managePrompts.form.author.label", { defaultValue: "Author" })}>
-            <Input placeholder={t("managePrompts.form.author.placeholder", { defaultValue: "Optional author" })} />
+            <Input
+              placeholder={t("managePrompts.form.author.placeholder", { defaultValue: "Optional author" })}
+              data-testid="prompt-create-author"
+            />
           </Form.Item>
 
           <Form.Item
@@ -1062,6 +1121,7 @@ export const PromptBody = () => {
             <Input.TextArea
               placeholder={t("managePrompts.form.details.placeholder", { defaultValue: "Add context or usage notes" })}
               autoSize={{ minRows: 2, maxRows: 6 }}
+              data-testid="prompt-create-details"
             />
           </Form.Item>
 
@@ -1073,6 +1133,7 @@ export const PromptBody = () => {
             <Input.TextArea
               placeholder={t("managePrompts.form.systemPrompt.placeholder", { defaultValue: "Optional system prompt sent as the system message" })}
               autoSize={{ minRows: 3, maxRows: 10 }}
+              data-testid="prompt-create-system"
             />
           </Form.Item>
 
@@ -1083,6 +1144,7 @@ export const PromptBody = () => {
             <Input.TextArea
               placeholder={t("managePrompts.form.userPrompt.placeholder", { defaultValue: "Optional user prompt template" })}
               autoSize={{ minRows: 3, maxRows: 10 }}
+              data-testid="prompt-create-user"
             />
           </Form.Item>
 
@@ -1092,6 +1154,7 @@ export const PromptBody = () => {
               allowClear
               placeholder={t("managePrompts.tags.placeholder", { defaultValue: "Add keywords" })}
               options={allTags.map((t) => ({ label: t, value: t }))}
+              data-testid="prompt-create-keywords"
             />
           </Form.Item>
 
@@ -1102,12 +1165,13 @@ export const PromptBody = () => {
               defaultValue: "System prompts set AI behavior and appear in the system message. Quick prompts are inserted as user message templates."
             })}
             valuePropName="checked">
-            <Switch />
+            <Switch data-testid="prompt-create-is-system" />
           </Form.Item>
 
           <Form.Item>
             <button
               disabled={savePromptLoading}
+              data-testid="prompt-create-save"
               className="inline-flex justify-center w-full text-center mt-4 items-center rounded-md border border-transparent bg-black px-2 py-2 text-sm font-medium leading-4 text-white shadow-sm hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:bg-white dark:text-gray-800 dark:hover:bg-gray-100 dark:focus:ring-gray-500 dark:focus:ring-offset-gray-100 disabled:opacity-50 ">
               {savePromptLoading
                 ? t("managePrompts.form.btnSave.saving")
@@ -1136,13 +1200,19 @@ export const PromptBody = () => {
                 message: t("managePrompts.form.title.required")
               }
             ]}>
-            <Input placeholder={t("managePrompts.form.title.placeholder")} />
+            <Input
+              placeholder={t("managePrompts.form.title.placeholder")}
+              data-testid="prompt-edit-title"
+            />
           </Form.Item>
 
           <Form.Item
             name="author"
             label={t("managePrompts.form.author.label", { defaultValue: "Author" })}>
-            <Input placeholder={t("managePrompts.form.author.placeholder", { defaultValue: "Optional author" })} />
+            <Input
+              placeholder={t("managePrompts.form.author.placeholder", { defaultValue: "Optional author" })}
+              data-testid="prompt-edit-author"
+            />
           </Form.Item>
 
           <Form.Item
@@ -1151,6 +1221,7 @@ export const PromptBody = () => {
             <Input.TextArea
               placeholder={t("managePrompts.form.details.placeholder", { defaultValue: "Add context or usage notes" })}
               autoSize={{ minRows: 2, maxRows: 6 }}
+              data-testid="prompt-edit-details"
             />
           </Form.Item>
 
@@ -1162,6 +1233,7 @@ export const PromptBody = () => {
             <Input.TextArea
               placeholder={t("managePrompts.form.systemPrompt.placeholder", { defaultValue: "Optional system prompt sent as the system message" })}
               autoSize={{ minRows: 3, maxRows: 10 }}
+              data-testid="prompt-edit-system"
             />
           </Form.Item>
 
@@ -1172,6 +1244,7 @@ export const PromptBody = () => {
             <Input.TextArea
               placeholder={t("managePrompts.form.userPrompt.placeholder", { defaultValue: "Optional user prompt template" })}
               autoSize={{ minRows: 3, maxRows: 10 }}
+              data-testid="prompt-edit-user"
             />
           </Form.Item>
 
@@ -1181,6 +1254,7 @@ export const PromptBody = () => {
               allowClear
               placeholder={t("managePrompts.tags.placeholder", { defaultValue: "Add keywords" })}
               options={allTags.map((t) => ({ label: t, value: t }))}
+              data-testid="prompt-edit-keywords"
             />
           </Form.Item>
 
@@ -1191,12 +1265,13 @@ export const PromptBody = () => {
               defaultValue: "System prompts set AI behavior and appear in the system message. Quick prompts are inserted as user message templates."
             })}
             valuePropName="checked">
-            <Switch />
+            <Switch data-testid="prompt-edit-is-system" />
           </Form.Item>
 
           <Form.Item>
             <button
               disabled={isUpdatingPrompt}
+              data-testid="prompt-edit-save"
               className="inline-flex justify-center w-full text-center mt-4 items-center rounded-md border border-transparent bg-black px-2 py-2 text-sm font-medium leading-4 text-white shadow-sm hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:bg-white dark:text-gray-800 dark:hover:bg-gray-100 dark:focus:ring-gray-500 dark:focus:ring-offset-gray-100 disabled:opacity-50 ">
               {isUpdatingPrompt
                 ? t("managePrompts.form.btnEdit.saving")
@@ -1276,6 +1351,7 @@ export const PromptBody = () => {
           <button
             type="button"
             onClick={() => handleInsertChoice("system")}
+            data-testid="prompt-insert-system"
             className="inline-flex items-center justify-center gap-2 rounded-md border border-gray-300 px-3 py-2 text-sm font-medium text-gray-800 hover:bg-gray-50 dark:border-gray-700 dark:text-gray-100 dark:hover:bg-gray-800">
             <Computer className="size-4" />
             {systemPromptLabel}
@@ -1283,6 +1359,7 @@ export const PromptBody = () => {
           <button
             type="button"
             onClick={() => handleInsertChoice("quick")}
+            data-testid="prompt-insert-quick"
             className="inline-flex items-center justify-center gap-2 rounded-md border border-gray-300 px-3 py-2 text-sm font-medium text-gray-800 hover:bg-gray-50 dark:border-gray-700 dark:text-gray-100 dark:hover:bg-gray-800">
             <Zap className="size-4" />
             {quickPromptLabel}

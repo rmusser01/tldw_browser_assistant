@@ -165,7 +165,7 @@ export const RagSearchBar: React.FC<Props> = ({
         </div>
       )}
       {isOpen && (
-        <div id="rag-search-panel" className={panelClassName}>
+        <div id="rag-search-panel" data-testid="rag-search-panel" className={panelClassName}>
           {/* Disconnected overlay */}
           {!isConnected && (
             <div className="absolute inset-0 z-10 bg-gray-100/90 dark:bg-gray-900/90 flex items-center justify-center rounded">
