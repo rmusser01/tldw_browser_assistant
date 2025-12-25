@@ -49,6 +49,7 @@
     "promptLabel": "Prompt",
     "review": "Review",
     "flashcards": "Flashcards",
+    "quiz": "Quiz",
     "media": "Media",
     "libraryView": "Multi-Item Review",
     "notes": "Notes",
@@ -400,16 +401,16 @@
     "noDue": "No due cards",
     "deck": "Deck",
     "newDeck": "New Deck",
-    "newDeckNameRequired": "Enter a deck name.",
+    "newDeckNameRequired": "Skriv inn et kortstokknavn.",
     "modelType": "Card template",
     "reverse": "Also create reverse card",
     "isCloze": "Cloze deletion",
     "tags": "Tags",
     "dueStatus": "Due status",
-    "dueAll": "All",
-    "dueNew": "New",
-    "dueLearning": "Learning",
-    "dueDue": "Due",
+    "dueAll": "Alle",
+    "dueNew": "Nye",
+    "dueLearning": "Læring",
+    "dueDue": "Forfaller",
     "tag": "Tag",
     "noCards": "No cards",
     "due": "Due",
@@ -436,6 +437,7 @@
     "move": "Move",
     "bulkMove": "Bulk Move",
     "bulkDelete": "Bulk Delete",
+    "bulkLimitWarning": "Operation limited to first {{limit}} items.",
     "exportSelectedCsv": "Export selected (CSV/TSV)",
     "selectedCount": "Selected",
     "selectAllOnPage": "Select all on page",
@@ -565,7 +567,20 @@
     "originalLabel": "Original",
     "editedLabel": "Redigert",
     "reviewStorageCapWarning_one": "{{count}} fil overskrider den lokale kladdegrensen ({{cap}}). Legg ved kilder før du lagrer lyd/video.",
-    "reviewStorageCapWarning_other": "{{count}} filer overskrider den lokale kladdegrensen ({{cap}}). Legg ved kilder før du lagrer lyd/video."
+    "reviewStorageCapWarning_other": "{{count}} filer overskrider den lokale kladdegrensen ({{cap}}). Legg ved kilder før du lagrer lyd/video.",
+    "storeAfterReview": "Lagre etter gjennomgang",
+    "reviewBeforeStorage": "Gjennomgå før lagring",
+    "reviewBeforeStorageHint": "Behandle nå, og rediger deretter kladder lokalt før du lagrer på serveren.",
+    "reviewEnabled": "Gjennomgangsmodus",
+    "reviewStorageCap": "Lokale kladder er begrenset til {{cap}}.",
+    "reviewWarningTitle": "Lagre kladder lokalt?",
+    "reviewWarningBody": "Kladder lagres i denne nettleseren og kan inneholde sensitive data. Du kan fjerne kladder fra siden Innholdsgjennomgang når som helst.",
+    "reviewWarningBodySecondary": "Gjennomgangsmodus holder innholdet på klientsiden til du lagrer det på serveren.",
+    "reviewWarningConfirm": "Aktiver gjennomgang",
+    "reviewWarningCancel": "Avbryt",
+    "reviewRunLabel": "Gjennomgang",
+    "reviewDraftsCreated": "Kladder klare for gjennomgang.",
+    "openContentReview": "Åpne Innholdsgjennomgang"
   },
   "omniSearch": {
     "filterScreen": "Skjermer",
@@ -588,7 +603,7 @@
     "assistantMessageAria": "Assistentens melding"
   },
   "quiz": {
-    "itemsPerPage": "items/page",
+    "itemsPerPage": "elementer/side",
     "editQuizTitle": "Edit Quiz",
     "updateSuccess": "Quiz updated successfully",
     "updateError": "Failed to update quiz",
@@ -612,5 +627,12 @@
     "correctAnswerLabel": "Correct answer",
     "backToList": "Back to list",
     "retake": "Retake Quiz"
+  },
+  "searchPrompts": "Search prompts...",
+  "noMatchingPrompts": "No matching prompts",
+  "promptSelect": {
+    "favorites": "Favorites",
+    "system": "System prompts",
+    "quick": "Quick prompts"
   }
 }

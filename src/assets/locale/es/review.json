@@ -99,6 +99,7 @@
     "clear": "Limpiar",
     "types": "Tipos de medios",
     "keywords": "Palabras clave",
+    "moreTags": "+{{count}} more tags",
     "resetFilters": "Restablecer filtros",
     "clearAll": "Limpiar todo",
     "content": "Contenido",

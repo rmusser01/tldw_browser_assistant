@@ -26,6 +26,7 @@ import { useTranslation } from "react-i18next"
 import { useConfirmDanger } from "@/components/Common/confirm-danger"
 import { useAntdMessage } from "@/hooks/useAntdMessage"
 import { processInChunks } from "@/utils/chunk-processing"
+import { normalizeFlashcardTemplateFields } from "../utils/template-helpers"
 import {
   useDecksQuery,
   useManageQuery,
@@ -46,32 +47,6 @@ const BULK_MUTATION_CHUNK_SIZE = 50
 
 type FlashcardModelType = Flashcard["model_type"]
 
-const normalizeFlashcardTemplateFields = <
-  T extends {
-    model_type?: FlashcardModelType | null
-    reverse?: boolean | null
-    is_cloze?: boolean | null
-  }
->(
-  values: T
-): T => {
-  const isCloze = values.model_type === "cloze" || values.is_cloze === true
-  const isReverse =
-    values.model_type === "basic_reverse" || values.reverse === true
-  const model_type: FlashcardModelType = isCloze
-    ? "cloze"
-    : isReverse
-      ? "basic_reverse"
-      : "basic"
-
-  return {
-    ...values,
-    model_type,
-    reverse: model_type === "basic_reverse",
-    is_cloze: model_type === "cloze"
-  }
-}
-
 interface ManageTabProps {
   onNavigateToCreate: () => void
   onNavigateToImport: () => void
@@ -88,6 +63,16 @@ export const ManageTab: React.FC<ManageTabProps> = ({
   const qc = useQueryClient()
   const message = useAntdMessage()
   const confirmDanger = useConfirmDanger()
+  const previewLabel = t("option:flashcards.preview", { defaultValue: "Preview" })
+  const markdownSupportHint = t("option:flashcards.markdownSupportHint", {
+    defaultValue: "Supports Markdown and LaTeX."
+  })
+  const extraHint = t("option:flashcards.extraHint", {
+    defaultValue: "Optional hints/explanations (Markdown + LaTeX supported)."
+  })
+  const notesHint = t("option:flashcards.notesHint", {
+    defaultValue: "Internal notes (Markdown + LaTeX supported)."
+  })
 
   // Shared: decks
   const decksQuery = useDecksQuery()
@@ -202,8 +187,21 @@ export const ManageTab: React.FC<ManageTabProps> = ({
     const { listFlashcards } = await import("@/services/flashcards")
     const items: Flashcard[] = []
     const maxPerPage = 1000
+    const MAX_ITEMS_CAP = 10000
     const total = totalCount
-    for (let offset = 0; offset < total; offset += maxPerPage) {
+    if (total > MAX_ITEMS_CAP) {
+      message.warning(
+        t("option:flashcards.bulkLimitWarning", {
+          defaultValue: "Operation limited to first {{limit}} items.",
+          limit: MAX_ITEMS_CAP
+        })
+      )
+    }
+    for (
+      let offset = 0;
+      offset < Math.min(total, MAX_ITEMS_CAP);
+      offset += maxPerPage
+    ) {
       const res = await listFlashcards({
         deck_id: mDeckId ?? undefined,
         q: mQuery || undefined,
@@ -253,7 +251,13 @@ export const ManageTab: React.FC<ManageTabProps> = ({
     try {
       let processed = 0
       await processInChunks(items, BULK_MUTATION_CHUNK_SIZE, async (chunk) => {
-        await Promise.all(chunk.map((c) => deleteFlashcard(c.uuid, c.version)))
+        const results = await Promise.allSettled(
+          chunk.map((c) => deleteFlashcard(c.uuid, c.version))
+        )
+        const failures = results.filter((r) => r.status === "rejected")
+        if (failures.length > 0) {
+          console.warn(`${failures.length} deletions failed in chunk`)
+        }
         processed += chunk.length
         setBulkProgress((prev) =>
           prev ? { ...prev, current: Math.min(processed, total) } : null
@@ -427,12 +431,13 @@ export const ManageTab: React.FC<ManageTabProps> = ({
   }
 
   const submitMove = async () => {
-    const { updateFlashcard } = await import("@/services/flashcards")
+    const { updateFlashcard, getFlashcard } = await import("@/services/flashcards")
     try {
       if (moveCard) {
+        const full = await getFlashcard(moveCard.uuid)
         await updateFlashcard(moveCard.uuid, {
           deck_id: moveDeckId ?? null,
-          expected_version: moveCard.version
+          expected_version: full.version
         })
       } else {
         if (moveDeckId == null) {
@@ -449,14 +454,19 @@ export const ManageTab: React.FC<ManageTabProps> = ({
             toMove,
             BULK_MUTATION_CHUNK_SIZE,
             async (chunk) => {
-              await Promise.all(
-                chunk.map((c) =>
-                  updateFlashcard(c.uuid, {
+              const results = await Promise.allSettled(
+                chunk.map(async (c) => {
+                  const full = await getFlashcard(c.uuid)
+                  await updateFlashcard(c.uuid, {
                     deck_id: moveDeckId,
-                    expected_version: c.version
+                    expected_version: full.version
                   })
-                )
+                })
               )
+              const failures = results.filter((r) => r.status === "rejected")
+              if (failures.length > 0) {
+                console.warn(`${failures.length} move updates failed in chunk`)
+              }
             }
           )
         }
@@ -485,7 +495,7 @@ export const ManageTab: React.FC<ManageTabProps> = ({
         model_type: card.model_type,
         reverse: card.reverse,
         expected_version: card.version
-      } as any)
+      })
       setEditOpen(true)
     } catch (e: any) {
       message.error(e?.message || "Failed to load card")
@@ -1077,12 +1087,12 @@ export const ManageTab: React.FC<ManageTabProps> = ({
           >
             <Input.TextArea rows={3} />
             <Text type="secondary" className="block text-[11px] mt-1">
-              Supports Markdown and LaTeX.
+              {markdownSupportHint}
             </Text>
             {editFrontPreview && (
               <div className="mt-2 border rounded p-2 text-xs bg-white dark:bg-[#111]">
                 <Text type="secondary" className="block text-[11px] mb-1">
-                  Preview
+                  {previewLabel}
                 </Text>
                 <MarkdownWithBoundary content={editFrontPreview || ""} size="xs" />
               </div>
@@ -1095,12 +1105,12 @@ export const ManageTab: React.FC<ManageTabProps> = ({
           >
             <Input.TextArea rows={6} />
             <Text type="secondary" className="block text-[11px] mt-1">
-              Supports Markdown and LaTeX.
+              {markdownSupportHint}
             </Text>
             {editBackPreview && (
               <div className="mt-2 border rounded p-2 text-xs bg-white dark:bg-[#111]">
                 <Text type="secondary" className="block text-[11px] mb-1">
-                  Preview
+                  {previewLabel}
                 </Text>
                 <MarkdownWithBoundary content={editBackPreview || ""} size="xs" />
               </div>
@@ -1112,12 +1122,12 @@ export const ManageTab: React.FC<ManageTabProps> = ({
           >
             <Input.TextArea rows={3} />
             <Text type="secondary" className="block text-[11px] mt-1">
-              Optional hints/explanations (Markdown + LaTeX supported).
+              {extraHint}
             </Text>
             {editExtraPreview && (
               <div className="mt-2 border rounded p-2 text-xs bg-white dark:bg-[#111]">
                 <Text type="secondary" className="block text-[11px] mb-1">
-                  Preview
+                  {previewLabel}
                 </Text>
                 <MarkdownWithBoundary content={editExtraPreview || ""} size="xs" />
               </div>
@@ -1129,12 +1139,12 @@ export const ManageTab: React.FC<ManageTabProps> = ({
           >
             <Input.TextArea rows={2} />
             <Text type="secondary" className="block text-[11px] mt-1">
-              Internal notes (Markdown + LaTeX supported).
+              {notesHint}
             </Text>
             {editNotesPreview && (
               <div className="mt-2 border rounded p-2 text-xs bg-white dark:bg-[#111]">
                 <Text type="secondary" className="block text-[11px] mb-1">
-                  Preview
+                  {previewLabel}
                 </Text>
                 <MarkdownWithBoundary content={editNotesPreview || ""} size="xs" />
               </div>

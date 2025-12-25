@@ -99,6 +99,7 @@
     "clear": "Clear",
     "types": "Types",
     "keywords": "Keywords",
+    "moreTags": "+{{count}} more tags",
     "resetFilters": "Reset Filters",
     "clearAll": "Ryd alt",
     "content": "Content",

@@ -128,8 +128,12 @@
   "contentReview_reviewDraftsCreated": {
     "message": "پیش‌نویس‌ها برای بازبینی آماده‌اند."
   },
-  "contentReview.reviewStorageCapWarning_one": "{{count}} فایل از سقف پیش‌نویس محلی ({{cap}}) عبور می‌کند. قبل از ثبت صوت/ویدئو، منابع را پیوست کنید.",
-  "contentReview.reviewStorageCapWarning_other": "{{count}} فایل از سقف پیش‌نویس محلی ({{cap}}) عبور می‌کنند. قبل از ثبت صوت/ویدئو، منابع را پیوست کنید.",
+  "contentReview_reviewStorageCapWarning_one": {
+    "message": "{{count}} فایل از سقف پیش‌نویس محلی ({{cap}}) عبور می‌کند. قبل از ثبت صوت/ویدئو، منابع را پیوست کنید."
+  },
+  "contentReview_reviewStorageCapWarning_other": {
+    "message": "{{count}} فایل از سقف پیش‌نویس محلی ({{cap}}) عبور می‌کنند. قبل از ثبت صوت/ویدئو، منابع را پیوست کنید."
+  },
   "contentReview_openContentReview": {
     "message": "باز کردن بازبینی محتوا"
   },

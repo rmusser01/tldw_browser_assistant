@@ -754,296 +754,404 @@
   "more_download_canonicalMarkdown": {
     "message": "標準逐字稿 (Markdown)"
   },
-  "contentReview_title": {
+  "header_contentReview": {
     "message": "內容審查"
   },
+  "contentReview_title": {
+    "message": "內容審查",
+    "description": "Content review UI string."
+  },
   "contentReview_readyToSubmit": {
-    "message": "{{count}} 個已就緒"
+    "message": "{{count}} 個已就緒",
+    "description": "Content review UI string."
   },
   "contentReview_committedCount": {
-    "message": "{{count}} 個已提交"
+    "message": "{{count}} 個已提交",
+    "description": "Content review UI string."
   },
   "contentReview_totalCount": {
-    "message": "共 {{count}} 個"
+    "message": "共 {{count}} 個",
+    "description": "Content review UI string."
   },
   "contentReview_commitAll": {
-    "message": "全部提交"
+    "message": "全部提交",
+    "description": "Content review UI string."
   },
   "contentReview_clearDrafts": {
-    "message": "清除草稿"
+    "message": "清除草稿",
+    "description": "Content review UI string."
   },
   "contentReview_emptyDescription": {
-    "message": "目前尚無草稿。使用 Quick Ingest 並啟用「儲存前審查」即可建立草稿。"
+    "message": "目前尚無草稿。使用 Quick Ingest 並啟用「儲存前審查」即可建立草稿。",
+    "description": "Content review UI string."
   },
   "contentReview_openQuickIngest": {
-    "message": "開啟 Quick Ingest"
+    "message": "開啟 Quick Ingest",
+    "description": "Content review UI string."
   },
   "contentReview_storeAfterReview": {
-    "message": "審核後儲存"
+    "message": "審核後儲存",
+    "description": "Content review UI string."
   },
   "contentReview_reviewBeforeStorage": {
-    "message": "儲存前審核"
+    "message": "儲存前審核",
+    "description": "Content review UI string."
   },
   "contentReview_reviewBeforeStorageHint": {
-    "message": "先處理，然後在提交到伺服器前於本機編輯草稿。"
+    "message": "先處理，然後在提交到伺服器前於本機編輯草稿。",
+    "description": "Content review UI string."
   },
   "contentReview_reviewEnabled": {
-    "message": "審核模式"
+    "message": "審核模式",
+    "description": "Content review UI string."
   },
   "contentReview_reviewStorageCap": {
-    "message": "本機草稿上限為 {{cap}}。"
+    "message": "本機草稿上限為 {{cap}}。",
+    "description": "Content review UI string."
   },
   "contentReview_reviewWarningTitle": {
-    "message": "要將草稿儲存在本機嗎？"
+    "message": "要將草稿儲存在本機嗎？",
+    "description": "Content review UI string."
   },
   "contentReview_reviewWarningBody": {
-    "message": "草稿會儲存在此瀏覽器中，可能包含敏感資料。你可隨時在「內容審核」頁面清除草稿。"
+    "message": "草稿會儲存在此瀏覽器中，可能包含敏感資料。你可隨時在「內容審核」頁面清除草稿。",
+    "description": "Content review UI string."
   },
   "contentReview_reviewWarningBodySecondary": {
-    "message": "審核模式會在提交到伺服器前把內容保留在用戶端。"
+    "message": "審核模式會在提交到伺服器前把內容保留在用戶端。",
+    "description": "Content review UI string."
   },
   "contentReview_reviewWarningConfirm": {
-    "message": "啟用審核"
+    "message": "啟用審核",
+    "description": "Content review UI string."
   },
   "contentReview_reviewWarningCancel": {
-    "message": "取消"
+    "message": "取消",
+    "description": "Content review UI string."
   },
   "contentReview_reviewRunLabel": {
-    "message": "審核"
+    "message": "審核",
+    "description": "Content review UI string."
   },
   "contentReview_reviewDraftsCreated": {
-    "message": "草稿已準備好審核。"
+    "message": "草稿已準備好審核。",
+    "description": "Content review UI string."
+  },
+  "contentReview_reviewStorageCapWarning_one": {
+    "message": "{{count}} 個檔案超過本機草稿上限（{{cap}}）。請在提交音訊/影片前附加來源。",
+    "description": "Content review UI string."
+  },
+  "contentReview_reviewStorageCapWarning_other": {
+    "message": "{{count}} 個檔案超過本機草稿上限（{{cap}}）。請在提交音訊/影片前附加來源。",
+    "description": "Content review UI string."
   },
   "contentReview_openContentReview": {
-    "message": "開啟內容審核"
+    "message": "開啟內容審核",
+    "description": "Content review UI string."
   },
   "contentReview_batchLabel": {
-    "message": "批次"
+    "message": "批次",
+    "description": "Content review UI string."
   },
   "contentReview_batchName": {
-    "message": "批次 {{index}}"
+    "message": "批次 {{index}}",
+    "description": "Content review UI string."
   },
   "contentReview_draftsLabel": {
-    "message": "草稿"
+    "message": "草稿",
+    "description": "Content review UI string."
   },
   "contentReview_selectDraft": {
-    "message": "選取一個草稿開始審查。"
+    "message": "選取一個草稿開始審查。",
+    "description": "Content review UI string."
   },
   "contentReview_titlePlaceholder": {
-    "message": "草稿標題"
+    "message": "草稿標題",
+    "description": "Content review UI string."
   },
   "contentReview_lastSaved": {
-    "message": "已於 {{time}} 儲存"
+    "message": "已於 {{time}} 儲存",
+    "description": "Content review UI string."
   },
   "contentReview_resetTitle": {
-    "message": "要重設草稿嗎？"
+    "message": "要重設草稿嗎？",
+    "description": "Content review UI string."
   },
   "contentReview_resetBody": {
-    "message": "這會還原此草稿的原始內容。"
+    "message": "這會還原此草稿的原始內容。",
+    "description": "Content review UI string."
   },
   "contentReview_resetConfirm": {
-    "message": "重設"
+    "message": "重設",
+    "description": "Content review UI string."
   },
   "contentReview_resetCancel": {
-    "message": "取消"
+    "message": "取消",
+    "description": "Content review UI string."
   },
   "contentReview_resetContent": {
-    "message": "重設"
+    "message": "重設",
+    "description": "Content review UI string."
   },
   "contentReview_diffView": {
-    "message": "差異檢視"
+    "message": "差異檢視",
+    "description": "Content review UI string."
   },
   "contentReview_saveDraft": {
-    "message": "儲存草稿"
+    "message": "儲存草稿",
+    "description": "Content review UI string."
   },
   "contentReview_editorLabel": {
-    "message": "內容"
+    "message": "內容",
+    "description": "Content review UI string."
   },
   "contentReview_wordCount": {
-    "message": "{{words}} 個字"
+    "message": "{{words}} 個字",
+    "description": "Content review UI string."
   },
   "contentReview_charCount": {
-    "message": "{{chars}} 個字元"
+    "message": "{{chars}} 個字元",
+    "description": "Content review UI string."
   },
   "contentReview_aiFix": {
-    "message": "使用 AI 修正"
+    "message": "使用 AI 修正",
+    "description": "Content review UI string."
   },
   "contentReview_aiHint": {
-    "message": "會將草稿內容傳送至伺服器，由 AI 進行處理。"
+    "message": "會將草稿內容傳送至伺服器，由 AI 進行處理。",
+    "description": "Content review UI string."
   },
   "contentReview_modelPlaceholder": {
-    "message": "伺服器預設值"
+    "message": "伺服器預設值",
+    "description": "Content review UI string."
   },
   "contentReview_aiConsentTitle": {
-    "message": "將草稿傳送到伺服器？"
+    "message": "將草稿傳送到伺服器？",
+    "description": "Content review UI string."
   },
   "contentReview_aiConsentBody": {
-    "message": "這會將草稿內容傳送到你的 tldw 伺服器進行 AI 處理。在你提交之前，草稿都只會保留在本機。"
+    "message": "這會將草稿內容傳送到你的 tldw 伺服器進行 AI 處理。在你提交之前，草稿都只會保留在本機。",
+    "description": "Content review UI string."
   },
   "contentReview_aiConsentConfirm": {
-    "message": "繼續"
+    "message": "繼續",
+    "description": "Content review UI string."
   },
   "contentReview_aiConsentCancel": {
-    "message": "取消"
+    "message": "取消",
+    "description": "Content review UI string."
   },
   "contentReview_aiApplied": {
-    "message": "已套用 AI 修正。"
+    "message": "已套用 AI 修正。",
+    "description": "Content review UI string."
   },
   "contentReview_aiNoChange": {
-    "message": "沒有收到任何變更。"
+    "message": "沒有收到任何變更。",
+    "description": "Content review UI string."
   },
   "contentReview_aiEmpty": {
-    "message": "AI 未回傳任何內容。"
+    "message": "AI 未回傳任何內容。",
+    "description": "Content review UI string."
   },
   "contentReview_aiUnavailable": {
-    "message": "聊天補全功能目前無法使用。"
+    "message": "聊天補全功能目前無法使用。",
+    "description": "Content review UI string."
   },
   "contentReview_templatePlaceholder": {
-    "message": "選擇範本"
+    "message": "選擇範本",
+    "description": "Content review UI string."
   },
   "contentReview_applyTemplate": {
-    "message": "套用範本"
+    "message": "套用範本",
+    "description": "Content review UI string."
   },
   "contentReview_templateApplied": {
-    "message": "已套用範本。"
+    "message": "已套用範本。",
+    "description": "Content review UI string."
   },
   "contentReview_templateMissing": {
-    "message": "請先選擇一個範本。"
+    "message": "請先選擇一個範本。",
+    "description": "Content review UI string."
   },
   "contentReview_detectSections": {
-    "message": "偵測段落"
+    "message": "偵測段落",
+    "description": "Content review UI string."
   },
   "contentReview_detectSectionsTitle": {
-    "message": "要重新偵測段落嗎？"
+    "message": "要重新偵測段落嗎？",
+    "description": "Content review UI string."
   },
   "contentReview_detectSectionsBody": {
-    "message": "這會取代既有段落並重設你的選取項目。"
+    "message": "這會取代既有段落並重設你的選取項目。",
+    "description": "Content review UI string."
   },
   "contentReview_detectSectionsConfirm": {
-    "message": "重新偵測"
+    "message": "重新偵測",
+    "description": "Content review UI string."
   },
   "contentReview_detectSectionsCancel": {
-    "message": "取消"
+    "message": "取消",
+    "description": "Content review UI string."
   },
   "contentReview_detectSectionsEmpty": {
-    "message": "沒有偵測到任何段落。"
+    "message": "沒有偵測到任何段落。",
+    "description": "Content review UI string."
   },
   "contentReview_sectionsLabel": {
-    "message": "段落篩選器"
+    "message": "段落篩選器",
+    "description": "Content review UI string."
   },
   "contentReview_templates_transcript_clean_label": {
-    "message": "清理逐字稿"
+    "message": "清理逐字稿",
+    "description": "Content review UI string."
   },
   "contentReview_templates_transcript_clean_description": {
-    "message": "在保留行結構的前提下，統一標點符號與大小寫。"
+    "message": "在保留行結構的前提下，統一標點符號與大小寫。",
+    "description": "Content review UI string."
   },
   "contentReview_templates_speaker_turns_label": {
-    "message": "說話輪次"
+    "message": "說話輪次",
+    "description": "Content review UI string."
   },
   "contentReview_templates_speaker_turns_description": {
-    "message": "確保每位說話者的輪次各自位於一行，並帶有清楚的標籤。"
+    "message": "確保每位說話者的輪次各自位於一行，並帶有清楚的標籤。",
+    "description": "Content review UI string."
   },
   "contentReview_templates_chapter_headings_label": {
-    "message": "章節標題"
+    "message": "章節標題",
+    "description": "Content review UI string."
   },
   "contentReview_templates_chapter_headings_description": {
-    "message": "插入 Markdown 標題來分組主題，而不移除任何內容。"
+    "message": "插入 Markdown 標題來分組主題，而不移除任何內容。",
+    "description": "Content review UI string."
   },
   "contentReview_metadataLabel": {
-    "message": "中繼資料"
+    "message": "中繼資料",
+    "description": "Content review UI string."
   },
   "contentReview_mediaType": {
-    "message": "媒體類型"
+    "message": "媒體類型",
+    "description": "Content review UI string."
   },
   "contentReview_keywords": {
-    "message": "關鍵字"
+    "message": "關鍵字",
+    "description": "Content review UI string."
   },
   "contentReview_keywordsPlaceholder": {
-    "message": "新增關鍵字"
+    "message": "新增關鍵字",
+    "description": "Content review UI string."
   },
   "contentReview_reviewNotes": {
-    "message": "審查筆記"
+    "message": "審查筆記",
+    "description": "Content review UI string."
   },
   "contentReview_missingSource": {
-    "message": "找不到來源檔案"
+    "message": "找不到來源檔案",
+    "description": "Content review UI string."
   },
   "contentReview_missingSourceBody": {
-    "message": "請附加原始檔案後再提交此草稿。"
+    "message": "請附加原始檔案後再提交此草稿。",
+    "description": "Content review UI string."
   },
   "contentReview_attachSource": {
-    "message": "附加檔案"
+    "message": "附加檔案",
+    "description": "Content review UI string."
   },
   "contentReview_actionsLabel": {
-    "message": "操作"
+    "message": "操作",
+    "description": "Content review UI string."
   },
   "contentReview_commit": {
-    "message": "提交"
+    "message": "提交",
+    "description": "Content review UI string."
   },
   "contentReview_commitDisabled": {
-    "message": "提交前請先附加原始的音訊／視訊檔案。"
+    "message": "提交前請先附加原始的音訊／視訊檔案。",
+    "description": "Content review UI string."
   },
   "contentReview_markReviewed": {
-    "message": "標記為已審查"
+    "message": "標記為已審查",
+    "description": "Content review UI string."
   },
   "contentReview_skipNext": {
-    "message": "略過"
+    "message": "略過",
+    "description": "Content review UI string."
   },
   "contentReview_discard": {
-    "message": "捨棄"
+    "message": "捨棄",
+    "description": "Content review UI string."
   },
   "contentReview_discardTitle": {
-    "message": "要捨棄草稿嗎？"
+    "message": "要捨棄草稿嗎？",
+    "description": "Content review UI string."
   },
   "contentReview_discardBody": {
-    "message": "此草稿會被標記為已捨棄，並從審查清單中移除。"
+    "message": "此草稿會被標記為已捨棄，並從審查清單中移除。",
+    "description": "Content review UI string."
   },
   "contentReview_discardConfirm": {
-    "message": "捨棄"
+    "message": "捨棄",
+    "description": "Content review UI string."
   },
   "contentReview_discardCancel": {
-    "message": "取消"
+    "message": "取消",
+    "description": "Content review UI string."
   },
   "contentReview_commitSuccess": {
-    "message": "草稿已提交。"
+    "message": "草稿已提交。",
+    "description": "Content review UI string."
   },
   "contentReview_commitAllTitle": {
-    "message": "提交所有已審查的草稿？"
+    "message": "提交所有已審查的草稿？",
+    "description": "Content review UI string."
   },
   "contentReview_commitAllBody": {
-    "message": "只有標記為已審查的草稿會被提交。"
+    "message": "只有標記為已審查的草稿會被提交。",
+    "description": "Content review UI string."
   },
   "contentReview_commitAllConfirm": {
-    "message": "全部提交"
+    "message": "全部提交",
+    "description": "Content review UI string."
   },
   "contentReview_commitAllCancel": {
-    "message": "取消"
+    "message": "取消",
+    "description": "Content review UI string."
   },
   "contentReview_commitAllResult": {
-    "message": "{{success}} 個已提交 · {{failed}} 個失敗"
+    "message": "{{success}} 個已提交 · {{failed}} 個失敗",
+    "description": "Content review UI string."
   },
   "contentReview_storageCapWarning": {
-    "message": "此檔案超過本機草稿上限 ({{cap}})。"
+    "message": "此檔案超過本機草稿上限 ({{cap}})。",
+    "description": "Content review UI string."
   },
   "contentReview_clearTitle": {
-    "message": "清除所有草稿？"
+    "message": "清除所有草稿？",
+    "description": "Content review UI string."
   },
   "contentReview_clearBody": {
-    "message": "這會移除所有本機內容審查草稿與相關資源。"
+    "message": "這會移除所有本機內容審查草稿與相關資源。",
+    "description": "Content review UI string."
   },
   "contentReview_clearConfirm": {
-    "message": "清除草稿"
+    "message": "清除草稿",
+    "description": "Content review UI string."
   },
   "contentReview_clearCancel": {
-    "message": "取消"
+    "message": "取消",
+    "description": "Content review UI string."
   },
   "contentReview_clearSuccess": {
-    "message": "草稿已清除。"
+    "message": "草稿已清除。",
+    "description": "Content review UI string."
   },
   "contentReview_originalLabel": {
-    "message": "原始版本"
+    "message": "原始版本",
+    "description": "Content review UI string."
   },
   "contentReview_editedLabel": {
-    "message": "已編輯"
+    "message": "已編輯",
+    "description": "Content review UI string."
   },
   "reviewDraftsFailedTitle": {
     "message": "無法建立審閱草稿。"
@@ -1116,6 +1224,12 @@
   },
   "quickIngest_reviewStorageCap": {
     "message": "本機草稿上限為 {{cap}}。"
+  },
+  "quickIngest_reviewStorageCapWarning_one": {
+    "message": "{{count}} 個檔案超過本機草稿上限（{{cap}}）。請在提交音訊/影片前附加來源。"
+  },
+  "quickIngest_reviewStorageCapWarning_other": {
+    "message": "{{count}} 個檔案超過本機草稿上限（{{cap}}）。請在提交音訊/影片前附加來源。"
   },
   "quickIngest_reviewWarningTitle": {
     "message": "要將草稿儲存在本機嗎？"
@@ -1248,5 +1362,360 @@
   },
   "storeAfterReview": {
     "message": "審核後儲存"
+  },
+  "manageCharacters_actions_viewConversations": {
+    "message": "View conversations"
+  },
+  "manageCharacters_aria_viewConversations": {
+    "message": "View conversations for {{name}}"
+  },
+  "manageCharacters_aria_searchResults": {
+    "message": "{{count}} characters found"
+  },
+  "manageCharacters_conversations_title": {
+    "message": "Conversations for {{name}}"
+  },
+  "manageCharacters_conversations_titleGeneric": {
+    "message": "Character conversations"
+  },
+  "manageCharacters_conversations_subtitle": {
+    "message": "Select a conversation to continue as this character."
+  },
+  "manageCharacters_conversations_empty": {
+    "message": "No conversations found for this character yet."
+  },
+  "manageCharacters_conversations_error": {
+    "message": "Unable to load conversations for this character."
+  },
+  "manageCharacters_conversations_updated": {
+    "message": "Updated {{time}}"
+  },
+  "manageCharacters_conversations_unknownTime": {
+    "message": "Unknown"
+  },
+  "manageCharacters_conversations_resume": {
+    "message": "Continue chat"
+  },
+  "manageCharacters_conversations_untitled": {
+    "message": "Untitled"
+  },
+  "manageCharacters_conversations_mostRecent": {
+    "message": "Most recent"
+  },
+  "manageCharacters_conversations_resumeTooltip": {
+    "message": "Load chat history and continue this conversation"
+  },
+  "manageCharacters_preview_title": {
+    "message": "Preview"
+  },
+  "manageCharacters_preview_show": {
+    "message": "Show preview"
+  },
+  "manageCharacters_preview_hide": {
+    "message": "Hide preview"
+  },
+  "manageCharacters_preview_untitled": {
+    "message": "Untitled character"
+  },
+  "manageCharacters_preview_greeting": {
+    "message": "Greeting"
+  },
+  "manageCharacters_preview_behavior": {
+    "message": "Behavior"
+  },
+  "manageCharacters_preview_empty": {
+    "message": "Fill in the form to see a preview"
+  },
+  "manageCharacters_advanced_show": {
+    "message": "Show advanced fields"
+  },
+  "manageCharacters_advanced_hide": {
+    "message": "Hide advanced fields"
+  },
+  "chunkingPlayground_nav": {
+    "message": "Chunking Playground",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_title": {
+    "message": "Chunking Playground",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_description": {
+    "message": "Experiment with different chunking settings to see how text gets split into smaller pieces for processing.",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_inputLabel": {
+    "message": "Text to chunk",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_inputPlaceholder": {
+    "message": "Paste text here or select a sample...",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_uploadButton": {
+    "message": "Upload File",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_chunkButton": {
+    "message": "Chunk Text",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_methodLabel": {
+    "message": "Chunking Method",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_maxSizeLabel": {
+    "message": "Max Chunk Size",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_overlapLabel": {
+    "message": "Overlap",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_languageLabel": {
+    "message": "Language",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_languages_auto": {
+    "message": "Auto-detect",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_languages_en": {
+    "message": "English",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_languages_es": {
+    "message": "Spanish",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_languages_fr": {
+    "message": "French",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_languages_de": {
+    "message": "German",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_languages_it": {
+    "message": "Italian",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_languages_pt": {
+    "message": "Portuguese",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_languages_zh": {
+    "message": "Chinese",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_languages_ja": {
+    "message": "Japanese",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_languages_ko": {
+    "message": "Korean",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_viewCards": {
+    "message": "Cards",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_viewInline": {
+    "message": "Inline",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_stats": {
+    "message": "{{count}} chunks, avg {{avgSize}} chars"
+  },
+  "chunkingPlayground_textLoaded": {
+    "message": "Text loaded",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_characters": {
+    "message": "characters",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_tabSingle": {
+    "message": "Single",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_tabCompare": {
+    "message": "Compare",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_chunkIndex": {
+    "message": "Chunk {{index}}"
+  },
+  "chunkingPlayground_chunkInfo": {
+    "message": "Chunk {{index}}: {{words}} words"
+  },
+  "chunkingPlayground_position": {
+    "message": "Position: {{start}} - {{end}}"
+  },
+  "chunkingPlayground_additionalChunks": {
+    "message": "+{{count}} more"
+  },
+  "chunkingPlayground_charCount": {
+    "message": "{{count}} characters"
+  },
+  "chunkingPlayground_wordCount": {
+    "message": "{{count}} words"
+  },
+  "chunkingPlayground_noInput": {
+    "message": "Please provide text to chunk",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_sharedInput": {
+    "message": "Shared Input Text",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_compareButton": {
+    "message": "Compare Both",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_comparison": {
+    "message": "Comparison",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_fewerChunks": {
+    "message": "Config A produces {{diff}} fewer chunks"
+  },
+  "chunkingPlayground_moreChunks": {
+    "message": "Config A produces {{diff}} more chunks"
+  },
+  "chunkingPlayground_sameChunks": {
+    "message": "Both configs produce the same number of chunks",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_clickToChunk": {
+    "message": "Click 'Compare' to see results",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_overlapRegion": {
+    "message": "Overlap Region",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_clickHint": {
+    "message": "Click on a highlighted section to focus on that chunk",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_noContentFound": {
+    "message": "No text content found for this media item",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_loadContentError": {
+    "message": "Failed to load media content",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_loadMediaListError": {
+    "message": "Failed to load media library",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_selectMedia": {
+    "message": "Select media item...",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_loadingMedia": {
+    "message": "Loading content...",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_noMediaFound": {
+    "message": "No media found",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_mediaCount": {
+    "message": "{{count}} media items available"
+  },
+  "chunkingPlayground_inputSource_paste": {
+    "message": "Paste Text",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_inputSource_upload": {
+    "message": "Upload File",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_inputSource_sample": {
+    "message": "Sample Text",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_inputSource_media": {
+    "message": "From Media Library",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_samples_article": {
+    "message": "News Article",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_samples_articleDesc": {
+    "message": "Multi-paragraph article with headers",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_samples_code": {
+    "message": "Source Code",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_samples_codeDesc": {
+    "message": "Python code with classes and functions",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_samples_transcript": {
+    "message": "Transcript",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_samples_transcriptDesc": {
+    "message": "Timestamped podcast transcript",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_samples_academic": {
+    "message": "Academic Paper",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_samples_academicDesc": {
+    "message": "Technical writing with citations",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_compare_title": {
+    "message": "Compare Settings",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_compare_configA": {
+    "message": "Configuration A",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_compare_configB": {
+    "message": "Configuration B",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_mode_single": {
+    "message": "Single",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_mode_compare": {
+    "message": "Compare",
+    "description": "TODO: translate (copied from en)"
+  },
+  "managePrompts_importMode_merge": {
+    "message": "Merge"
+  },
+  "managePrompts_importMode_replace": {
+    "message": "Replace"
+  },
+  "managePrompts_importMode_replaceConfirm": {
+    "message": "Replace will overwrite all current prompts with the imported file. Continue?"
+  },
+  "flashcards_newDeckNameRequired": {
+    "message": "請輸入牌組名稱。"
+  },
+  "flashcards_dueAll": {
+    "message": "全部"
+  },
+  "flashcards_dueNew": {
+    "message": "新卡"
+  },
+  "flashcards_dueLearning": {
+    "message": "學習中"
+  },
+  "flashcards_dueDue": {
+    "message": "待複習"
   }
 }

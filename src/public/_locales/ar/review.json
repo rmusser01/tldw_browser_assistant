@@ -128,8 +128,12 @@
   "contentReview_reviewDraftsCreated": {
     "message": "المسودات جاهزة للمراجعة."
   },
-  "contentReview.reviewStorageCapWarning_one": "{{count}} ملف يتجاوز حد المسودات المحلية ({{cap}}). أرفق المصادر قبل اعتماد الصوت/الفيديو.",
-  "contentReview.reviewStorageCapWarning_other": "{{count}} ملفات تتجاوز حد المسودات المحلية ({{cap}}). أرفق المصادر قبل اعتماد الصوت/الفيديو.",
+  "contentReview_reviewStorageCapWarning_one": {
+    "message": "{{count}} ملف يتجاوز حد المسودات المحلية ({{cap}}). أرفق المصادر قبل اعتماد الصوت/الفيديو."
+  },
+  "contentReview_reviewStorageCapWarning_other": {
+    "message": "{{count}} ملفات تتجاوز حد المسودات المحلية ({{cap}}). أرفق المصادر قبل اعتماد الصوت/الفيديو."
+  },
   "contentReview_openContentReview": {
     "message": "فتح مراجعة المحتوى"
   },

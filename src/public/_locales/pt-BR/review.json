@@ -128,8 +128,12 @@
   "contentReview_reviewDraftsCreated": {
     "message": "Rascunhos prontos para revisão."
   },
-  "contentReview.reviewStorageCapWarning_one": "{{count}} arquivo excede o limite local de rascunhos ({{cap}}). Anexe as fontes antes de salvar áudio/vídeo.",
-  "contentReview.reviewStorageCapWarning_other": "{{count}} arquivos excedem o limite local de rascunhos ({{cap}}). Anexe as fontes antes de salvar áudio/vídeo.",
+  "contentReview_reviewStorageCapWarning_one": {
+    "message": "{{count}} arquivo excede o limite local de rascunhos ({{cap}}). Anexe as fontes antes de salvar áudio/vídeo."
+  },
+  "contentReview_reviewStorageCapWarning_other": {
+    "message": "{{count}} arquivos excedem o limite local de rascunhos ({{cap}}). Anexe as fontes antes de salvar áudio/vídeo."
+  },
   "contentReview_openContentReview": {
     "message": "Abrir Revisão de Conteúdo"
   },
@@ -272,10 +276,10 @@
     "message": "Tipo de mídia"
   },
   "contentReview_keywords": {
-    "message": "Palavras‑chave"
+    "message": "Palavras-chave"
   },
   "contentReview_keywordsPlaceholder": {
-    "message": "Adicionar palavras‑chave"
+    "message": "Adicionar palavras-chave"
   },
   "contentReview_reviewNotes": {
     "message": "Notas de revisão"

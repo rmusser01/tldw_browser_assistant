@@ -833,296 +833,404 @@
   "more_download_canonicalMarkdown": {
     "message": "정식 전사 (마크다운) 다운로드"
   },
-  "contentReview_title": {
+  "header_contentReview": {
     "message": "콘텐츠 검토"
   },
+  "contentReview_title": {
+    "message": "콘텐츠 검토",
+    "description": "Content review UI string."
+  },
   "contentReview_readyToSubmit": {
-    "message": "{{count}}개 준비됨"
+    "message": "{{count}}개 준비됨",
+    "description": "Content review UI string."
   },
   "contentReview_committedCount": {
-    "message": "{{count}}개 커밋됨"
+    "message": "{{count}}개 커밋됨",
+    "description": "Content review UI string."
   },
   "contentReview_totalCount": {
-    "message": "총 {{count}}개"
+    "message": "총 {{count}}개",
+    "description": "Content review UI string."
   },
   "contentReview_commitAll": {
-    "message": "모두 커밋"
+    "message": "모두 커밋",
+    "description": "Content review UI string."
   },
   "contentReview_clearDrafts": {
-    "message": "임시 저장본 지우기"
+    "message": "임시 저장본 지우기",
+    "description": "Content review UI string."
   },
   "contentReview_emptyDescription": {
-    "message": "아직 임시 저장본이 없습니다. 저장 전에 검토 옵션과 함께 Quick Ingest를 사용해 임시 저장본을 만들 수 있습니다."
+    "message": "아직 임시 저장본이 없습니다. 저장 전에 검토 옵션과 함께 Quick Ingest를 사용해 임시 저장본을 만들 수 있습니다.",
+    "description": "Content review UI string."
   },
   "contentReview_openQuickIngest": {
-    "message": "Quick Ingest 열기"
+    "message": "Quick Ingest 열기",
+    "description": "Content review UI string."
   },
   "contentReview_storeAfterReview": {
-    "message": "검토 후 저장"
+    "message": "검토 후 저장",
+    "description": "Content review UI string."
   },
   "contentReview_reviewBeforeStorage": {
-    "message": "저장 전에 검토"
+    "message": "저장 전에 검토",
+    "description": "Content review UI string."
   },
   "contentReview_reviewBeforeStorageHint": {
-    "message": "지금 처리한 뒤 서버에 저장하기 전에 로컬에서 초안을 편집하세요."
+    "message": "지금 처리한 뒤 서버에 저장하기 전에 로컬에서 초안을 편집하세요.",
+    "description": "Content review UI string."
   },
   "contentReview_reviewEnabled": {
-    "message": "검토 모드"
+    "message": "검토 모드",
+    "description": "Content review UI string."
   },
   "contentReview_reviewStorageCap": {
-    "message": "로컬 초안은 {{cap}}개로 제한됩니다."
+    "message": "로컬 초안은 {{cap}}개로 제한됩니다.",
+    "description": "Content review UI string."
   },
   "contentReview_reviewWarningTitle": {
-    "message": "초안을 로컬에 저장할까요?"
+    "message": "초안을 로컬에 저장할까요?",
+    "description": "Content review UI string."
   },
   "contentReview_reviewWarningBody": {
-    "message": "초안은 이 브라우저에 저장되며 민감한 데이터가 포함될 수 있습니다. 언제든지 콘텐츠 검토 페이지에서 초안을 삭제할 수 있습니다."
+    "message": "초안은 이 브라우저에 저장되며 민감한 데이터가 포함될 수 있습니다. 언제든지 콘텐츠 검토 페이지에서 초안을 삭제할 수 있습니다.",
+    "description": "Content review UI string."
   },
   "contentReview_reviewWarningBodySecondary": {
-    "message": "검토 모드는 서버에 저장할 때까지 콘텐츠를 클라이언트 측에 유지합니다."
+    "message": "검토 모드는 서버에 저장할 때까지 콘텐츠를 클라이언트 측에 유지합니다.",
+    "description": "Content review UI string."
   },
   "contentReview_reviewWarningConfirm": {
-    "message": "검토 사용"
+    "message": "검토 사용",
+    "description": "Content review UI string."
   },
   "contentReview_reviewWarningCancel": {
-    "message": "취소"
+    "message": "취소",
+    "description": "Content review UI string."
   },
   "contentReview_reviewRunLabel": {
-    "message": "검토"
+    "message": "검토",
+    "description": "Content review UI string."
   },
   "contentReview_reviewDraftsCreated": {
-    "message": "검토할 초안이 준비되었습니다."
+    "message": "검토할 초안이 준비되었습니다.",
+    "description": "Content review UI string."
+  },
+  "contentReview_reviewStorageCapWarning_one": {
+    "message": "{{count}}개 파일이 로컬 초안 한도({{cap}})를 초과했습니다. 오디오/비디오를 저장하기 전에 소스를 첨부하세요.",
+    "description": "Content review UI string."
+  },
+  "contentReview_reviewStorageCapWarning_other": {
+    "message": "{{count}}개 파일이 로컬 초안 한도({{cap}})를 초과했습니다. 오디오/비디오를 저장하기 전에 소스를 첨부하세요.",
+    "description": "Content review UI string."
   },
   "contentReview_openContentReview": {
-    "message": "콘텐츠 검토 열기"
+    "message": "콘텐츠 검토 열기",
+    "description": "Content review UI string."
   },
   "contentReview_batchLabel": {
-    "message": "배치"
+    "message": "배치",
+    "description": "Content review UI string."
   },
   "contentReview_batchName": {
-    "message": "배치 {{index}}"
+    "message": "배치 {{index}}",
+    "description": "Content review UI string."
   },
   "contentReview_draftsLabel": {
-    "message": "임시 저장본"
+    "message": "임시 저장본",
+    "description": "Content review UI string."
   },
   "contentReview_selectDraft": {
-    "message": "검토를 시작할 임시 저장본을 선택하세요."
+    "message": "검토를 시작할 임시 저장본을 선택하세요.",
+    "description": "Content review UI string."
   },
   "contentReview_titlePlaceholder": {
-    "message": "임시 저장본 제목"
+    "message": "임시 저장본 제목",
+    "description": "Content review UI string."
   },
   "contentReview_lastSaved": {
-    "message": "{{time}}에 저장됨"
+    "message": "{{time}}에 저장됨",
+    "description": "Content review UI string."
   },
   "contentReview_resetTitle": {
-    "message": "임시 저장본을 초기화할까요?"
+    "message": "임시 저장본을 초기화할까요?",
+    "description": "Content review UI string."
   },
   "contentReview_resetBody": {
-    "message": "이 임시 저장본의 내용을 원래 상태로 되돌립니다."
+    "message": "이 임시 저장본의 내용을 원래 상태로 되돌립니다.",
+    "description": "Content review UI string."
   },
   "contentReview_resetConfirm": {
-    "message": "초기화"
+    "message": "초기화",
+    "description": "Content review UI string."
   },
   "contentReview_resetCancel": {
-    "message": "취소"
+    "message": "취소",
+    "description": "Content review UI string."
   },
   "contentReview_resetContent": {
-    "message": "초기화"
+    "message": "초기화",
+    "description": "Content review UI string."
   },
   "contentReview_diffView": {
-    "message": "변경 사항 보기"
+    "message": "변경 사항 보기",
+    "description": "Content review UI string."
   },
   "contentReview_saveDraft": {
-    "message": "임시 저장본 저장"
+    "message": "임시 저장본 저장",
+    "description": "Content review UI string."
   },
   "contentReview_editorLabel": {
-    "message": "콘텐츠"
+    "message": "콘텐츠",
+    "description": "Content review UI string."
   },
   "contentReview_wordCount": {
-    "message": "단어 {{words}}개"
+    "message": "단어 {{words}}개",
+    "description": "Content review UI string."
   },
   "contentReview_charCount": {
-    "message": "문자 {{chars}}개"
+    "message": "문자 {{chars}}개",
+    "description": "Content review UI string."
   },
   "contentReview_aiFix": {
-    "message": "AI로 수정"
+    "message": "AI로 수정",
+    "description": "Content review UI string."
   },
   "contentReview_aiHint": {
-    "message": "임시 저장본 내용을 서버로 보내 AI로 처리합니다."
+    "message": "임시 저장본 내용을 서버로 보내 AI로 처리합니다.",
+    "description": "Content review UI string."
   },
   "contentReview_modelPlaceholder": {
-    "message": "서버 기본값"
+    "message": "서버 기본값",
+    "description": "Content review UI string."
   },
   "contentReview_aiConsentTitle": {
-    "message": "임시 저장본을 서버로 보낼까요?"
+    "message": "임시 저장본을 서버로 보낼까요?",
+    "description": "Content review UI string."
   },
   "contentReview_aiConsentBody": {
-    "message": "임시 저장본 내용이 tldw 서버로 전송되어 AI로 처리됩니다. 커밋하기 전까지 임시 저장본은 로컬에만 유지됩니다."
+    "message": "임시 저장본 내용이 tldw 서버로 전송되어 AI로 처리됩니다. 커밋하기 전까지 임시 저장본은 로컬에만 유지됩니다.",
+    "description": "Content review UI string."
   },
   "contentReview_aiConsentConfirm": {
-    "message": "계속"
+    "message": "계속",
+    "description": "Content review UI string."
   },
   "contentReview_aiConsentCancel": {
-    "message": "취소"
+    "message": "취소",
+    "description": "Content review UI string."
   },
   "contentReview_aiApplied": {
-    "message": "AI 수정 사항이 적용되었습니다."
+    "message": "AI 수정 사항이 적용되었습니다.",
+    "description": "Content review UI string."
   },
   "contentReview_aiNoChange": {
-    "message": "반환된 변경 사항이 없습니다."
+    "message": "반환된 변경 사항이 없습니다.",
+    "description": "Content review UI string."
   },
   "contentReview_aiEmpty": {
-    "message": "AI가 아무 콘텐츠도 반환하지 않았습니다."
+    "message": "AI가 아무 콘텐츠도 반환하지 않았습니다.",
+    "description": "Content review UI string."
   },
   "contentReview_aiUnavailable": {
-    "message": "채팅 완성이 사용 불가능합니다."
+    "message": "채팅 완성이 사용 불가능합니다.",
+    "description": "Content review UI string."
   },
   "contentReview_templatePlaceholder": {
-    "message": "템플릿 선택"
+    "message": "템플릿 선택",
+    "description": "Content review UI string."
   },
   "contentReview_applyTemplate": {
-    "message": "템플릿 적용"
+    "message": "템플릿 적용",
+    "description": "Content review UI string."
   },
   "contentReview_templateApplied": {
-    "message": "템플릿을 적용했습니다."
+    "message": "템플릿을 적용했습니다.",
+    "description": "Content review UI string."
   },
   "contentReview_templateMissing": {
-    "message": "먼저 템플릿을 선택하세요."
+    "message": "먼저 템플릿을 선택하세요.",
+    "description": "Content review UI string."
   },
   "contentReview_detectSections": {
-    "message": "섹션 감지"
+    "message": "섹션 감지",
+    "description": "Content review UI string."
   },
   "contentReview_detectSectionsTitle": {
-    "message": "섹션을 다시 감지할까요?"
+    "message": "섹션을 다시 감지할까요?",
+    "description": "Content review UI string."
   },
   "contentReview_detectSectionsBody": {
-    "message": "기존 섹션이 대체되고 선택 항목이 초기화됩니다."
+    "message": "기존 섹션이 대체되고 선택 항목이 초기화됩니다.",
+    "description": "Content review UI string."
   },
   "contentReview_detectSectionsConfirm": {
-    "message": "다시 감지"
+    "message": "다시 감지",
+    "description": "Content review UI string."
   },
   "contentReview_detectSectionsCancel": {
-    "message": "취소"
+    "message": "취소",
+    "description": "Content review UI string."
   },
   "contentReview_detectSectionsEmpty": {
-    "message": "감지된 섹션이 없습니다."
+    "message": "감지된 섹션이 없습니다.",
+    "description": "Content review UI string."
   },
   "contentReview_sectionsLabel": {
-    "message": "섹션 필터"
+    "message": "섹션 필터",
+    "description": "Content review UI string."
   },
   "contentReview_templates_transcript_clean_label": {
-    "message": "전사 정리"
+    "message": "전사 정리",
+    "description": "Content review UI string."
   },
   "contentReview_templates_transcript_clean_description": {
-    "message": "줄 구조를 유지하면서 구두점과 대/소문자를 정규화합니다."
+    "message": "줄 구조를 유지하면서 구두점과 대/소문자를 정규화합니다.",
+    "description": "Content review UI string."
   },
   "contentReview_templates_speaker_turns_label": {
-    "message": "화자 턴"
+    "message": "화자 턴",
+    "description": "Content review UI string."
   },
   "contentReview_templates_speaker_turns_description": {
-    "message": "각 화자의 턴이 명확한 레이블과 함께 한 줄씩 나타나도록 보장합니다."
+    "message": "각 화자의 턴이 명확한 레이블과 함께 한 줄씩 나타나도록 보장합니다.",
+    "description": "Content review UI string."
   },
   "contentReview_templates_chapter_headings_label": {
-    "message": "챕터 제목"
+    "message": "챕터 제목",
+    "description": "Content review UI string."
   },
   "contentReview_templates_chapter_headings_description": {
-    "message": "콘텐츠를 삭제하지 않고 주제를 묶기 위해 Markdown 제목을 삽입합니다."
+    "message": "콘텐츠를 삭제하지 않고 주제를 묶기 위해 Markdown 제목을 삽입합니다.",
+    "description": "Content review UI string."
   },
   "contentReview_metadataLabel": {
-    "message": "메타데이터"
+    "message": "메타데이터",
+    "description": "Content review UI string."
   },
   "contentReview_mediaType": {
-    "message": "미디어 유형"
+    "message": "미디어 유형",
+    "description": "Content review UI string."
   },
   "contentReview_keywords": {
-    "message": "키워드"
+    "message": "키워드",
+    "description": "Content review UI string."
   },
   "contentReview_keywordsPlaceholder": {
-    "message": "키워드 추가"
+    "message": "키워드 추가",
+    "description": "Content review UI string."
   },
   "contentReview_reviewNotes": {
-    "message": "검토 메모"
+    "message": "검토 메모",
+    "description": "Content review UI string."
   },
   "contentReview_missingSource": {
-    "message": "원본 파일이 없습니다"
+    "message": "원본 파일이 없습니다",
+    "description": "Content review UI string."
   },
   "contentReview_missingSourceBody": {
-    "message": "이 임시 저장본을 커밋하려면 원본 파일을 첨부하세요."
+    "message": "이 임시 저장본을 커밋하려면 원본 파일을 첨부하세요.",
+    "description": "Content review UI string."
   },
   "contentReview_attachSource": {
-    "message": "파일 첨부"
+    "message": "파일 첨부",
+    "description": "Content review UI string."
   },
   "contentReview_actionsLabel": {
-    "message": "작업"
+    "message": "작업",
+    "description": "Content review UI string."
   },
   "contentReview_commit": {
-    "message": "커밋"
+    "message": "커밋",
+    "description": "Content review UI string."
   },
   "contentReview_commitDisabled": {
-    "message": "커밋하기 전에 원본 오디오/비디오 파일을 첨부하세요."
+    "message": "커밋하기 전에 원본 오디오/비디오 파일을 첨부하세요.",
+    "description": "Content review UI string."
   },
   "contentReview_markReviewed": {
-    "message": "검토 완료로 표시"
+    "message": "검토 완료로 표시",
+    "description": "Content review UI string."
   },
   "contentReview_skipNext": {
-    "message": "건너뛰기"
+    "message": "건너뛰기",
+    "description": "Content review UI string."
   },
   "contentReview_discard": {
-    "message": "폐기"
+    "message": "폐기",
+    "description": "Content review UI string."
   },
   "contentReview_discardTitle": {
-    "message": "임시 저장본을 폐기할까요?"
+    "message": "임시 저장본을 폐기할까요?",
+    "description": "Content review UI string."
   },
   "contentReview_discardBody": {
-    "message": "이 임시 저장본은 폐기된 것으로 표시되고 검토 목록에서 제거됩니다."
+    "message": "이 임시 저장본은 폐기된 것으로 표시되고 검토 목록에서 제거됩니다.",
+    "description": "Content review UI string."
   },
   "contentReview_discardConfirm": {
-    "message": "폐기"
+    "message": "폐기",
+    "description": "Content review UI string."
   },
   "contentReview_discardCancel": {
-    "message": "취소"
+    "message": "취소",
+    "description": "Content review UI string."
   },
   "contentReview_commitSuccess": {
-    "message": "임시 저장본을 커밋했습니다."
+    "message": "임시 저장본을 커밋했습니다.",
+    "description": "Content review UI string."
   },
   "contentReview_commitAllTitle": {
-    "message": "검토 완료된 임시 저장본을 모두 커밋할까요?"
+    "message": "검토 완료된 임시 저장본을 모두 커밋할까요?",
+    "description": "Content review UI string."
   },
   "contentReview_commitAllBody": {
-    "message": "검토 완료로 표시된 임시 저장본만 커밋됩니다."
+    "message": "검토 완료로 표시된 임시 저장본만 커밋됩니다.",
+    "description": "Content review UI string."
   },
   "contentReview_commitAllConfirm": {
-    "message": "모두 커밋"
+    "message": "모두 커밋",
+    "description": "Content review UI string."
   },
   "contentReview_commitAllCancel": {
-    "message": "취소"
+    "message": "취소",
+    "description": "Content review UI string."
   },
   "contentReview_commitAllResult": {
-    "message": "{{success}}개 커밋됨 · {{failed}}개 실패"
+    "message": "{{success}}개 커밋됨 · {{failed}}개 실패",
+    "description": "Content review UI string."
   },
   "contentReview_storageCapWarning": {
-    "message": "이 파일은 로컬 임시 저장본 한도({{cap}})를 초과합니다."
+    "message": "이 파일은 로컬 임시 저장본 한도({{cap}})를 초과합니다.",
+    "description": "Content review UI string."
   },
   "contentReview_clearTitle": {
-    "message": "모든 임시 저장본을 삭제할까요?"
+    "message": "모든 임시 저장본을 삭제할까요?",
+    "description": "Content review UI string."
   },
   "contentReview_clearBody": {
-    "message": "로컬 콘텐츠 검토 임시 저장본과 연결된 리소스를 모두 삭제합니다."
+    "message": "로컬 콘텐츠 검토 임시 저장본과 연결된 리소스를 모두 삭제합니다.",
+    "description": "Content review UI string."
   },
   "contentReview_clearConfirm": {
-    "message": "임시 저장본 삭제"
+    "message": "임시 저장본 삭제",
+    "description": "Content review UI string."
   },
   "contentReview_clearCancel": {
-    "message": "취소"
+    "message": "취소",
+    "description": "Content review UI string."
   },
   "contentReview_clearSuccess": {
-    "message": "임시 저장본을 삭제했습니다."
+    "message": "임시 저장본을 삭제했습니다.",
+    "description": "Content review UI string."
   },
   "contentReview_originalLabel": {
-    "message": "원본"
+    "message": "원본",
+    "description": "Content review UI string."
   },
   "contentReview_editedLabel": {
-    "message": "편집됨"
+    "message": "편집됨",
+    "description": "Content review UI string."
   },
   "reviewDraftsFailedTitle": {
     "message": "리뷰 초안을 만들 수 없습니다."
@@ -1195,6 +1303,12 @@
   },
   "quickIngest_reviewStorageCap": {
     "message": "로컬 초안은 {{cap}}개로 제한됩니다."
+  },
+  "quickIngest_reviewStorageCapWarning_one": {
+    "message": "{{count}}개 파일이 로컬 초안 한도({{cap}})를 초과했습니다. 오디오/비디오를 저장하기 전에 소스를 첨부하세요."
+  },
+  "quickIngest_reviewStorageCapWarning_other": {
+    "message": "{{count}}개 파일이 로컬 초안 한도({{cap}})를 초과했습니다. 오디오/비디오를 저장하기 전에 소스를 첨부하세요."
   },
   "quickIngest_reviewWarningTitle": {
     "message": "초안을 로컬에 저장할까요?"
@@ -1360,5 +1474,360 @@
   },
   "storeAfterReview": {
     "message": "검토 후 저장"
+  },
+  "manageCharacters_actions_viewConversations": {
+    "message": "View conversations"
+  },
+  "manageCharacters_aria_viewConversations": {
+    "message": "View conversations for {{name}}"
+  },
+  "manageCharacters_aria_searchResults": {
+    "message": "{{count}} characters found"
+  },
+  "manageCharacters_conversations_title": {
+    "message": "Conversations for {{name}}"
+  },
+  "manageCharacters_conversations_titleGeneric": {
+    "message": "Character conversations"
+  },
+  "manageCharacters_conversations_subtitle": {
+    "message": "Select a conversation to continue as this character."
+  },
+  "manageCharacters_conversations_empty": {
+    "message": "No conversations found for this character yet."
+  },
+  "manageCharacters_conversations_error": {
+    "message": "Unable to load conversations for this character."
+  },
+  "manageCharacters_conversations_updated": {
+    "message": "Updated {{time}}"
+  },
+  "manageCharacters_conversations_unknownTime": {
+    "message": "Unknown"
+  },
+  "manageCharacters_conversations_resume": {
+    "message": "Continue chat"
+  },
+  "manageCharacters_conversations_untitled": {
+    "message": "Untitled"
+  },
+  "manageCharacters_conversations_mostRecent": {
+    "message": "Most recent"
+  },
+  "manageCharacters_conversations_resumeTooltip": {
+    "message": "Load chat history and continue this conversation"
+  },
+  "manageCharacters_preview_title": {
+    "message": "Preview"
+  },
+  "manageCharacters_preview_show": {
+    "message": "Show preview"
+  },
+  "manageCharacters_preview_hide": {
+    "message": "Hide preview"
+  },
+  "manageCharacters_preview_untitled": {
+    "message": "Untitled character"
+  },
+  "manageCharacters_preview_greeting": {
+    "message": "Greeting"
+  },
+  "manageCharacters_preview_behavior": {
+    "message": "Behavior"
+  },
+  "manageCharacters_preview_empty": {
+    "message": "Fill in the form to see a preview"
+  },
+  "manageCharacters_advanced_show": {
+    "message": "Show advanced fields"
+  },
+  "manageCharacters_advanced_hide": {
+    "message": "Hide advanced fields"
+  },
+  "chunkingPlayground_nav": {
+    "message": "Chunking Playground",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_title": {
+    "message": "Chunking Playground",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_description": {
+    "message": "Experiment with different chunking settings to see how text gets split into smaller pieces for processing.",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_inputLabel": {
+    "message": "Text to chunk",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_inputPlaceholder": {
+    "message": "Paste text here or select a sample...",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_uploadButton": {
+    "message": "Upload File",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_chunkButton": {
+    "message": "Chunk Text",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_methodLabel": {
+    "message": "Chunking Method",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_maxSizeLabel": {
+    "message": "Max Chunk Size",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_overlapLabel": {
+    "message": "Overlap",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_languageLabel": {
+    "message": "Language",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_languages_auto": {
+    "message": "Auto-detect",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_languages_en": {
+    "message": "English",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_languages_es": {
+    "message": "Spanish",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_languages_fr": {
+    "message": "French",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_languages_de": {
+    "message": "German",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_languages_it": {
+    "message": "Italian",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_languages_pt": {
+    "message": "Portuguese",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_languages_zh": {
+    "message": "Chinese",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_languages_ja": {
+    "message": "Japanese",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_languages_ko": {
+    "message": "Korean",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_viewCards": {
+    "message": "Cards",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_viewInline": {
+    "message": "Inline",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_stats": {
+    "message": "{{count}} chunks, avg {{avgSize}} chars"
+  },
+  "chunkingPlayground_textLoaded": {
+    "message": "Text loaded",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_characters": {
+    "message": "characters",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_tabSingle": {
+    "message": "Single",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_tabCompare": {
+    "message": "Compare",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_chunkIndex": {
+    "message": "Chunk {{index}}"
+  },
+  "chunkingPlayground_chunkInfo": {
+    "message": "Chunk {{index}}: {{words}} words"
+  },
+  "chunkingPlayground_position": {
+    "message": "Position: {{start}} - {{end}}"
+  },
+  "chunkingPlayground_additionalChunks": {
+    "message": "+{{count}} more"
+  },
+  "chunkingPlayground_charCount": {
+    "message": "{{count}} characters"
+  },
+  "chunkingPlayground_wordCount": {
+    "message": "{{count}} words"
+  },
+  "chunkingPlayground_noInput": {
+    "message": "Please provide text to chunk",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_sharedInput": {
+    "message": "Shared Input Text",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_compareButton": {
+    "message": "Compare Both",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_comparison": {
+    "message": "Comparison",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_fewerChunks": {
+    "message": "Config A produces {{diff}} fewer chunks"
+  },
+  "chunkingPlayground_moreChunks": {
+    "message": "Config A produces {{diff}} more chunks"
+  },
+  "chunkingPlayground_sameChunks": {
+    "message": "Both configs produce the same number of chunks",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_clickToChunk": {
+    "message": "Click 'Compare' to see results",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_overlapRegion": {
+    "message": "Overlap Region",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_clickHint": {
+    "message": "Click on a highlighted section to focus on that chunk",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_noContentFound": {
+    "message": "No text content found for this media item",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_loadContentError": {
+    "message": "Failed to load media content",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_loadMediaListError": {
+    "message": "Failed to load media library",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_selectMedia": {
+    "message": "Select media item...",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_loadingMedia": {
+    "message": "Loading content...",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_noMediaFound": {
+    "message": "No media found",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_mediaCount": {
+    "message": "{{count}} media items available"
+  },
+  "chunkingPlayground_inputSource_paste": {
+    "message": "Paste Text",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_inputSource_upload": {
+    "message": "Upload File",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_inputSource_sample": {
+    "message": "Sample Text",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_inputSource_media": {
+    "message": "From Media Library",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_samples_article": {
+    "message": "News Article",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_samples_articleDesc": {
+    "message": "Multi-paragraph article with headers",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_samples_code": {
+    "message": "Source Code",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_samples_codeDesc": {
+    "message": "Python code with classes and functions",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_samples_transcript": {
+    "message": "Transcript",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_samples_transcriptDesc": {
+    "message": "Timestamped podcast transcript",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_samples_academic": {
+    "message": "Academic Paper",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_samples_academicDesc": {
+    "message": "Technical writing with citations",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_compare_title": {
+    "message": "Compare Settings",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_compare_configA": {
+    "message": "Configuration A",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_compare_configB": {
+    "message": "Configuration B",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_mode_single": {
+    "message": "Single",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_mode_compare": {
+    "message": "Compare",
+    "description": "TODO: translate (copied from en)"
+  },
+  "managePrompts_importMode_merge": {
+    "message": "Merge"
+  },
+  "managePrompts_importMode_replace": {
+    "message": "덮어쓰기"
+  },
+  "managePrompts_importMode_replaceConfirm": {
+    "message": "덮어쓰기는 현재의 모든 프롬프트를 가져온 파일로 덮어씁니다. 계속하시겠습니까?"
+  },
+  "flashcards_newDeckNameRequired": {
+    "message": "덱 이름을 입력하세요."
+  },
+  "flashcards_dueAll": {
+    "message": "전체"
+  },
+  "flashcards_dueNew": {
+    "message": "새 카드"
+  },
+  "flashcards_dueLearning": {
+    "message": "학습 중"
+  },
+  "flashcards_dueDue": {
+    "message": "복습 예정"
   }
 }

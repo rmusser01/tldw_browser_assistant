@@ -84,6 +84,7 @@ export function FilterPanel({
           </span>
         </div>
         <button
+          type="button"
           onClick={() => {
             onMediaTypesChange([])
             onKeywordsChange([])
@@ -104,7 +105,7 @@ export function FilterPanel({
             onChange={(e) => onShowFavoritesOnlyChange(e.target.checked)}
             className="w-4 h-4 rounded border-gray-300 dark:border-gray-600 text-yellow-500 focus:ring-2 focus:ring-yellow-500 dark:focus:ring-yellow-600"
           />
-          <Star className={`w-4 h-4 ${showFavoritesOnly ? 'text-yellow-500 fill-yellow-500' : 'text-yellow-500'}`} />
+          <Star className={`w-4 h-4 text-yellow-500 ${showFavoritesOnly ? 'fill-yellow-500' : ''}`} />
           <span className="text-sm text-gray-700 dark:text-gray-300">
             {t('review:mediaPage.favoritesOnly', { defaultValue: 'Favorites only' })}
           </span>
@@ -119,6 +120,7 @@ export function FilterPanel({
       {/* Media Types */}
       <div className="space-y-2">
         <button
+          type="button"
           onClick={() => toggleSection('mediaTypes')}
           className="flex items-center justify-between w-full text-sm text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100"
         >

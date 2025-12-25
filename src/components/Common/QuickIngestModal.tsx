@@ -1314,10 +1314,12 @@ export const QuickIngestModal: React.FC<Props> = ({
           if (createdDraftBatch?.batchId) {
             setReviewBatchId(createdDraftBatch.batchId)
           }
-        } catch (err: any) {
-          draftErrorMessage =
-            err?.message ||
-            qi("reviewDraftsFailedFallback", "Failed to create review drafts.")
+        } catch (err) {
+          console.error("[quickIngest] Failed to create review drafts", err)
+          draftErrorMessage = qi(
+            "reviewDraftsFailedFallback",
+            "Failed to create review drafts."
+          )
         }
         if (!createdDraftBatch?.batchId) {
           const msg =
@@ -1401,10 +1403,12 @@ export const QuickIngestModal: React.FC<Props> = ({
       }
       setReviewBatchId(created.batchId)
       await handleReviewBatchReady(created)
-    } catch (err: any) {
-      const msg =
-        err?.message ||
-        qi("reviewDraftsFailedFallback", "Failed to create review drafts.")
+    } catch (err) {
+      console.error("[quickIngest] Failed to retry review draft creation", err)
+      const msg = qi(
+        "reviewDraftsFailedFallback",
+        "Failed to create review drafts."
+      )
       messageApi.error(msg)
       if (!unmountedRef.current) {
         setDraftCreationError(msg)

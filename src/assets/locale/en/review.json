@@ -173,6 +173,7 @@
     "clear": "Clear",
     "types": "Media types",
     "keywords": "Keywords",
+    "moreTags": "+{{count}} more tags",
     "resetFilters": "Clear filters",
     "clearAll": "Clear all",
     "content": "Content",

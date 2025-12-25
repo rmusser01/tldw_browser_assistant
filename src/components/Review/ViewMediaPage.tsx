@@ -243,7 +243,7 @@ const MediaPageContent: React.FC = () => {
   // Favorites helpers
   const favoritesSet = useMemo(() => new Set(favorites || []), [favorites])
 
-  const toggleFavorite = useCallback((id: string | number) => {
+  const toggleFavorite = useCallback((id: string) => {
     const idStr = String(id)
     setFavorites((prev: string[] | undefined) => {
       const currentFavorites = prev || []
@@ -257,7 +257,7 @@ const MediaPageContent: React.FC = () => {
     })
   }, [setFavorites])
 
-  const isFavorite = useCallback((id: string | number) => {
+  const isFavorite = useCallback((id: string) => {
     return favoritesSet.has(String(id))
   }, [favoritesSet])
 

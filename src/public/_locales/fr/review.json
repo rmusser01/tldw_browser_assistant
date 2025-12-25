@@ -128,8 +128,12 @@
   "contentReview_reviewDraftsCreated": {
     "message": "Brouillons prêts pour la révision."
   },
-  "contentReview.reviewStorageCapWarning_one": "{{count}} fichier dépasse la limite locale de brouillons ({{cap}}). Joignez les sources avant de valider l’audio/vidéo.",
-  "contentReview.reviewStorageCapWarning_other": "{{count}} fichiers dépassent la limite locale de brouillons ({{cap}}). Joignez les sources avant de valider l’audio/vidéo.",
+  "contentReview_reviewStorageCapWarning_one": {
+    "message": "{{count}} fichier dépasse la limite locale de brouillons ({{cap}}). Joignez les sources avant de valider l’audio/vidéo."
+  },
+  "contentReview_reviewStorageCapWarning_other": {
+    "message": "{{count}} fichiers dépassent la limite locale de brouillons ({{cap}}). Joignez les sources avant de valider l’audio/vidéo."
+  },
   "contentReview_openContentReview": {
     "message": "Ouvrir la Révision de contenu"
   },

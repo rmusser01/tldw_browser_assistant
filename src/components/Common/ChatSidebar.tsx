@@ -12,6 +12,7 @@ import {
   Layers,
   NotebookPen,
   Microscope,
+  Scissors,
   Settings,
   ChevronDown,
   ChevronLeft,
@@ -405,6 +406,18 @@ export function ChatSidebar({
           >
             <NotebookPen className="size-4" />
             <span>{t("common:chatSidebar.prompts", "Prompts")}</span>
+          </button>
+          <button
+            onClick={() => navigate("/chunking-playground")}
+            className="flex items-center gap-2 w-full px-2 py-1.5 rounded text-sm text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-800"
+          >
+            <Scissors className="size-4" />
+            <span>
+              {t(
+                "settings:chunkingPlayground.nav",
+                "Chunking Playground"
+              )}
+            </span>
           </button>
           <button
             onClick={() => navigate("/media-multi")}

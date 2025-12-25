@@ -764,296 +764,404 @@
   "more_download_canonicalMarkdown": {
     "message": "Kanonisk transkription (Markdown)"
   },
-  "contentReview_title": {
+  "header_contentReview": {
     "message": "Innehållsgranskning"
   },
+  "contentReview_title": {
+    "message": "Innehållsgranskning",
+    "description": "Content review UI string."
+  },
   "contentReview_readyToSubmit": {
-    "message": "{{count}} klara"
+    "message": "{{count}} klara",
+    "description": "Content review UI string."
   },
   "contentReview_committedCount": {
-    "message": "{{count}} sparade"
+    "message": "{{count}} sparade",
+    "description": "Content review UI string."
   },
   "contentReview_totalCount": {
-    "message": "{{count}} totalt"
+    "message": "{{count}} totalt",
+    "description": "Content review UI string."
   },
   "contentReview_commitAll": {
-    "message": "Spara alla"
+    "message": "Spara alla",
+    "description": "Content review UI string."
   },
   "contentReview_clearDrafts": {
-    "message": "Rensa utkast"
+    "message": "Rensa utkast",
+    "description": "Content review UI string."
   },
   "contentReview_emptyDescription": {
-    "message": "Inga utkast än. Använd Quick Ingest med Granska innan du sparar för att skapa utkast."
+    "message": "Inga utkast än. Använd Quick Ingest med Granska innan du sparar för att skapa utkast.",
+    "description": "Content review UI string."
   },
   "contentReview_openQuickIngest": {
-    "message": "Öppna Quick Ingest"
+    "message": "Öppna Quick Ingest",
+    "description": "Content review UI string."
   },
   "contentReview_storeAfterReview": {
-    "message": "Spara efter granskning"
+    "message": "Spara efter granskning",
+    "description": "Content review UI string."
   },
   "contentReview_reviewBeforeStorage": {
-    "message": "Granska före sparning"
+    "message": "Granska före sparning",
+    "description": "Content review UI string."
   },
   "contentReview_reviewBeforeStorageHint": {
-    "message": "Bearbeta nu och redigera sedan utkast lokalt innan du sparar till servern."
+    "message": "Bearbeta nu och redigera sedan utkast lokalt innan du sparar till servern.",
+    "description": "Content review UI string."
   },
   "contentReview_reviewEnabled": {
-    "message": "Granskningsläge"
+    "message": "Granskningsläge",
+    "description": "Content review UI string."
   },
   "contentReview_reviewStorageCap": {
-    "message": "Lokala utkast är begränsade till {{cap}}."
+    "message": "Lokala utkast är begränsade till {{cap}}.",
+    "description": "Content review UI string."
   },
   "contentReview_reviewWarningTitle": {
-    "message": "Spara utkast lokalt?"
+    "message": "Spara utkast lokalt?",
+    "description": "Content review UI string."
   },
   "contentReview_reviewWarningBody": {
-    "message": "Utkast sparas i den här webbläsaren och kan innehålla känsliga data. Du kan rensa utkast från sidan Innehållsgranskning när som helst."
+    "message": "Utkast sparas i den här webbläsaren och kan innehålla känsliga data. Du kan rensa utkast från sidan Innehållsgranskning när som helst.",
+    "description": "Content review UI string."
   },
   "contentReview_reviewWarningBodySecondary": {
-    "message": "Granskningsläget håller innehållet på klientsidan tills du sparar det på servern."
+    "message": "Granskningsläget håller innehållet på klientsidan tills du sparar det på servern.",
+    "description": "Content review UI string."
   },
   "contentReview_reviewWarningConfirm": {
-    "message": "Aktivera granskning"
+    "message": "Aktivera granskning",
+    "description": "Content review UI string."
   },
   "contentReview_reviewWarningCancel": {
-    "message": "Avbryt"
+    "message": "Avbryt",
+    "description": "Content review UI string."
   },
   "contentReview_reviewRunLabel": {
-    "message": "Granska"
+    "message": "Granska",
+    "description": "Content review UI string."
   },
   "contentReview_reviewDraftsCreated": {
-    "message": "Utkast redo för granskning."
+    "message": "Utkast redo för granskning.",
+    "description": "Content review UI string."
+  },
+  "contentReview_reviewStorageCapWarning_one": {
+    "message": "{{count}} fil överskrider den lokala utkastgränsen ({{cap}}). Bifoga källor innan du sparar ljud/video.",
+    "description": "Content review UI string."
+  },
+  "contentReview_reviewStorageCapWarning_other": {
+    "message": "{{count}} filer överskrider den lokala utkastgränsen ({{cap}}). Bifoga källor innan du sparar ljud/video.",
+    "description": "Content review UI string."
   },
   "contentReview_openContentReview": {
-    "message": "Öppna Innehållsgranskning"
+    "message": "Öppna Innehållsgranskning",
+    "description": "Content review UI string."
   },
   "contentReview_batchLabel": {
-    "message": "Batch"
+    "message": "Batch",
+    "description": "Content review UI string."
   },
   "contentReview_batchName": {
-    "message": "Batch {{index}}"
+    "message": "Batch {{index}}",
+    "description": "Content review UI string."
   },
   "contentReview_draftsLabel": {
-    "message": "Utkast"
+    "message": "Utkast",
+    "description": "Content review UI string."
   },
   "contentReview_selectDraft": {
-    "message": "Välj ett utkast för att börja granska."
+    "message": "Välj ett utkast för att börja granska.",
+    "description": "Content review UI string."
   },
   "contentReview_titlePlaceholder": {
-    "message": "Utkasttitel"
+    "message": "Utkasttitel",
+    "description": "Content review UI string."
   },
   "contentReview_lastSaved": {
-    "message": "Sparat {{time}}"
+    "message": "Sparat {{time}}",
+    "description": "Content review UI string."
   },
   "contentReview_resetTitle": {
-    "message": "Återställa utkast?"
+    "message": "Återställa utkast?",
+    "description": "Content review UI string."
   },
   "contentReview_resetBody": {
-    "message": "Detta återställer ursprungligt innehåll för det här utkastet."
+    "message": "Detta återställer ursprungligt innehåll för det här utkastet.",
+    "description": "Content review UI string."
   },
   "contentReview_resetConfirm": {
-    "message": "Återställ"
+    "message": "Återställ",
+    "description": "Content review UI string."
   },
   "contentReview_resetCancel": {
-    "message": "Avbryt"
+    "message": "Avbryt",
+    "description": "Content review UI string."
   },
   "contentReview_resetContent": {
-    "message": "Återställ"
+    "message": "Återställ",
+    "description": "Content review UI string."
   },
   "contentReview_diffView": {
-    "message": "Diff-vy"
+    "message": "Diff-vy",
+    "description": "Content review UI string."
   },
   "contentReview_saveDraft": {
-    "message": "Spara utkast"
+    "message": "Spara utkast",
+    "description": "Content review UI string."
   },
   "contentReview_editorLabel": {
-    "message": "Innehåll"
+    "message": "Innehåll",
+    "description": "Content review UI string."
   },
   "contentReview_wordCount": {
-    "message": "{{words}} ord"
+    "message": "{{words}} ord",
+    "description": "Content review UI string."
   },
   "contentReview_charCount": {
-    "message": "{{chars}} tecken"
+    "message": "{{chars}} tecken",
+    "description": "Content review UI string."
   },
   "contentReview_aiFix": {
-    "message": "Korrigera med AI"
+    "message": "Korrigera med AI",
+    "description": "Content review UI string."
   },
   "contentReview_aiHint": {
-    "message": "Skickar utkastets innehåll till servern för AI-bearbetning."
+    "message": "Skickar utkastets innehåll till servern för AI-bearbetning.",
+    "description": "Content review UI string."
   },
   "contentReview_modelPlaceholder": {
-    "message": "Serverstandard"
+    "message": "Serverstandard",
+    "description": "Content review UI string."
   },
   "contentReview_aiConsentTitle": {
-    "message": "Skicka utkast till servern?"
+    "message": "Skicka utkast till servern?",
+    "description": "Content review UI string."
   },
   "contentReview_aiConsentBody": {
-    "message": "Detta skickar utkastets innehåll till din tldw-server för AI-bearbetning. Utkast ligger kvar lokalt tills du sparar dem."
+    "message": "Detta skickar utkastets innehåll till din tldw-server för AI-bearbetning. Utkast ligger kvar lokalt tills du sparar dem.",
+    "description": "Content review UI string."
   },
   "contentReview_aiConsentConfirm": {
-    "message": "Fortsätt"
+    "message": "Fortsätt",
+    "description": "Content review UI string."
   },
   "contentReview_aiConsentCancel": {
-    "message": "Avbryt"
+    "message": "Avbryt",
+    "description": "Content review UI string."
   },
   "contentReview_aiApplied": {
-    "message": "AI-korrigeringar tillämpade."
+    "message": "AI-korrigeringar tillämpade.",
+    "description": "Content review UI string."
   },
   "contentReview_aiNoChange": {
-    "message": "Inga ändringar returnerades."
+    "message": "Inga ändringar returnerades.",
+    "description": "Content review UI string."
   },
   "contentReview_aiEmpty": {
-    "message": "AI returnerade inget innehåll."
+    "message": "AI returnerade inget innehåll.",
+    "description": "Content review UI string."
   },
   "contentReview_aiUnavailable": {
-    "message": "Chattsvar är inte tillgängliga."
+    "message": "Chattsvar är inte tillgängliga.",
+    "description": "Content review UI string."
   },
   "contentReview_templatePlaceholder": {
-    "message": "Välj mall"
+    "message": "Välj mall",
+    "description": "Content review UI string."
   },
   "contentReview_applyTemplate": {
-    "message": "Tillämpa mall"
+    "message": "Tillämpa mall",
+    "description": "Content review UI string."
   },
   "contentReview_templateApplied": {
-    "message": "Mall tillämpad."
+    "message": "Mall tillämpad.",
+    "description": "Content review UI string."
   },
   "contentReview_templateMissing": {
-    "message": "Välj en mall först."
+    "message": "Välj en mall först.",
+    "description": "Content review UI string."
   },
   "contentReview_detectSections": {
-    "message": "Identifiera avsnitt"
+    "message": "Identifiera avsnitt",
+    "description": "Content review UI string."
   },
   "contentReview_detectSectionsTitle": {
-    "message": "Identifiera avsnitt igen?"
+    "message": "Identifiera avsnitt igen?",
+    "description": "Content review UI string."
   },
   "contentReview_detectSectionsBody": {
-    "message": "Detta ersätter befintliga avsnitt och återställer dina val."
+    "message": "Detta ersätter befintliga avsnitt och återställer dina val.",
+    "description": "Content review UI string."
   },
   "contentReview_detectSectionsConfirm": {
-    "message": "Identifiera igen"
+    "message": "Identifiera igen",
+    "description": "Content review UI string."
   },
   "contentReview_detectSectionsCancel": {
-    "message": "Avbryt"
+    "message": "Avbryt",
+    "description": "Content review UI string."
   },
   "contentReview_detectSectionsEmpty": {
-    "message": "Inga avsnitt hittades."
+    "message": "Inga avsnitt hittades.",
+    "description": "Content review UI string."
   },
   "contentReview_sectionsLabel": {
-    "message": "Avsnittsfilter"
+    "message": "Avsnittsfilter",
+    "description": "Content review UI string."
   },
   "contentReview_templates_transcript_clean_label": {
-    "message": "Rensa transkript"
+    "message": "Rensa transkript",
+    "description": "Content review UI string."
   },
   "contentReview_templates_transcript_clean_description": {
-    "message": "Normaliserar interpunktion och versaler/gemener samtidigt som radstrukturen bevaras."
+    "message": "Normaliserar interpunktion och versaler/gemener samtidigt som radstrukturen bevaras.",
+    "description": "Content review UI string."
   },
   "contentReview_templates_speaker_turns_label": {
-    "message": "Talarturer"
+    "message": "Talarturer",
+    "description": "Content review UI string."
   },
   "contentReview_templates_speaker_turns_description": {
-    "message": "Säkerställer att varje talartur ligger på en egen rad med tydliga etiketter."
+    "message": "Säkerställer att varje talartur ligger på en egen rad med tydliga etiketter.",
+    "description": "Content review UI string."
   },
   "contentReview_templates_chapter_headings_label": {
-    "message": "Kapitelfrubriker"
+    "message": "Kapitelfrubriker",
+    "description": "Content review UI string."
   },
   "contentReview_templates_chapter_headings_description": {
-    "message": "Infogar Markdown-rubriker för att gruppera ämnen utan att ta bort innehåll."
+    "message": "Infogar Markdown-rubriker för att gruppera ämnen utan att ta bort innehåll.",
+    "description": "Content review UI string."
   },
   "contentReview_metadataLabel": {
-    "message": "Metadata"
+    "message": "Metadata",
+    "description": "Content review UI string."
   },
   "contentReview_mediaType": {
-    "message": "Mediatyp"
+    "message": "Mediatyp",
+    "description": "Content review UI string."
   },
   "contentReview_keywords": {
-    "message": "Nyckelord"
+    "message": "Nyckelord",
+    "description": "Content review UI string."
   },
   "contentReview_keywordsPlaceholder": {
-    "message": "Lägg till nyckelord"
+    "message": "Lägg till nyckelord",
+    "description": "Content review UI string."
   },
   "contentReview_reviewNotes": {
-    "message": "Granskningsanteckningar"
+    "message": "Granskningsanteckningar",
+    "description": "Content review UI string."
   },
   "contentReview_missingSource": {
-    "message": "Källfil saknas"
+    "message": "Källfil saknas",
+    "description": "Content review UI string."
   },
   "contentReview_missingSourceBody": {
-    "message": "Bifoga originalfilen för att spara det här utkastet."
+    "message": "Bifoga originalfilen för att spara det här utkastet.",
+    "description": "Content review UI string."
   },
   "contentReview_attachSource": {
-    "message": "Bifoga fil"
+    "message": "Bifoga fil",
+    "description": "Content review UI string."
   },
   "contentReview_actionsLabel": {
-    "message": "Åtgärder"
+    "message": "Åtgärder",
+    "description": "Content review UI string."
   },
   "contentReview_commit": {
-    "message": "Spara"
+    "message": "Spara",
+    "description": "Content review UI string."
   },
   "contentReview_commitDisabled": {
-    "message": "Bifoga originalets ljud-/videofil innan du sparar."
+    "message": "Bifoga originalets ljud-/videofil innan du sparar.",
+    "description": "Content review UI string."
   },
   "contentReview_markReviewed": {
-    "message": "Markera som granskad"
+    "message": "Markera som granskad",
+    "description": "Content review UI string."
   },
   "contentReview_skipNext": {
-    "message": "Hoppa över"
+    "message": "Hoppa över",
+    "description": "Content review UI string."
   },
   "contentReview_discard": {
-    "message": "Kassera"
+    "message": "Kassera",
+    "description": "Content review UI string."
   },
   "contentReview_discardTitle": {
-    "message": "Kassera utkast?"
+    "message": "Kassera utkast?",
+    "description": "Content review UI string."
   },
   "contentReview_discardBody": {
-    "message": "Detta utkast markeras som kasserat och tas bort från granskningslistan."
+    "message": "Detta utkast markeras som kasserat och tas bort från granskningslistan.",
+    "description": "Content review UI string."
   },
   "contentReview_discardConfirm": {
-    "message": "Kassera"
+    "message": "Kassera",
+    "description": "Content review UI string."
   },
   "contentReview_discardCancel": {
-    "message": "Avbryt"
+    "message": "Avbryt",
+    "description": "Content review UI string."
   },
   "contentReview_commitSuccess": {
-    "message": "Utkast sparat."
+    "message": "Utkast sparat.",
+    "description": "Content review UI string."
   },
   "contentReview_commitAllTitle": {
-    "message": "Spara granskade utkast?"
+    "message": "Spara granskade utkast?",
+    "description": "Content review UI string."
   },
   "contentReview_commitAllBody": {
-    "message": "Endast utkast markerade som granskade sparas."
+    "message": "Endast utkast markerade som granskade sparas.",
+    "description": "Content review UI string."
   },
   "contentReview_commitAllConfirm": {
-    "message": "Spara alla"
+    "message": "Spara alla",
+    "description": "Content review UI string."
   },
   "contentReview_commitAllCancel": {
-    "message": "Avbryt"
+    "message": "Avbryt",
+    "description": "Content review UI string."
   },
   "contentReview_commitAllResult": {
-    "message": "{{success}} sparade · {{failed}} misslyckades"
+    "message": "{{success}} sparade · {{failed}} misslyckades",
+    "description": "Content review UI string."
   },
   "contentReview_storageCapWarning": {
-    "message": "Denna fil överskrider den lokala gränsen för utkast ({{cap}})."
+    "message": "Denna fil överskrider den lokala gränsen för utkast ({{cap}}).",
+    "description": "Content review UI string."
   },
   "contentReview_clearTitle": {
-    "message": "Rensa alla utkast?"
+    "message": "Rensa alla utkast?",
+    "description": "Content review UI string."
   },
   "contentReview_clearBody": {
-    "message": "Tar bort alla lokala utkast och resurser för innehållsgranskning."
+    "message": "Tar bort alla lokala utkast och resurser för innehållsgranskning.",
+    "description": "Content review UI string."
   },
   "contentReview_clearConfirm": {
-    "message": "Rensa utkast"
+    "message": "Rensa utkast",
+    "description": "Content review UI string."
   },
   "contentReview_clearCancel": {
-    "message": "Avbryt"
+    "message": "Avbryt",
+    "description": "Content review UI string."
   },
   "contentReview_clearSuccess": {
-    "message": "Utkast rensade."
+    "message": "Utkast rensade.",
+    "description": "Content review UI string."
   },
   "contentReview_originalLabel": {
-    "message": "Original"
+    "message": "Original",
+    "description": "Content review UI string."
   },
   "contentReview_editedLabel": {
-    "message": "Redigerad"
+    "message": "Redigerad",
+    "description": "Content review UI string."
   },
   "reviewDraftsFailedTitle": {
     "message": "Kunde inte skapa granskningsutkast."
@@ -1126,6 +1234,12 @@
   },
   "quickIngest_reviewStorageCap": {
     "message": "Lokala utkast är begränsade till {{cap}}."
+  },
+  "quickIngest_reviewStorageCapWarning_one": {
+    "message": "{{count}} fil överskrider den lokala utkastgränsen ({{cap}}). Bifoga källor innan du sparar ljud/video."
+  },
+  "quickIngest_reviewStorageCapWarning_other": {
+    "message": "{{count}} filer överskrider den lokala utkastgränsen ({{cap}}). Bifoga källor innan du sparar ljud/video."
   },
   "quickIngest_reviewWarningTitle": {
     "message": "Spara utkast lokalt?"
@@ -1258,5 +1372,360 @@
   },
   "storeAfterReview": {
     "message": "Spara efter granskning"
+  },
+  "manageCharacters_actions_viewConversations": {
+    "message": "View conversations"
+  },
+  "manageCharacters_aria_viewConversations": {
+    "message": "View conversations for {{name}}"
+  },
+  "manageCharacters_aria_searchResults": {
+    "message": "{{count}} characters found"
+  },
+  "manageCharacters_conversations_title": {
+    "message": "Conversations for {{name}}"
+  },
+  "manageCharacters_conversations_titleGeneric": {
+    "message": "Character conversations"
+  },
+  "manageCharacters_conversations_subtitle": {
+    "message": "Select a conversation to continue as this character."
+  },
+  "manageCharacters_conversations_empty": {
+    "message": "No conversations found for this character yet."
+  },
+  "manageCharacters_conversations_error": {
+    "message": "Unable to load conversations for this character."
+  },
+  "manageCharacters_conversations_updated": {
+    "message": "Updated {{time}}"
+  },
+  "manageCharacters_conversations_unknownTime": {
+    "message": "Unknown"
+  },
+  "manageCharacters_conversations_resume": {
+    "message": "Continue chat"
+  },
+  "manageCharacters_conversations_untitled": {
+    "message": "Untitled"
+  },
+  "manageCharacters_conversations_mostRecent": {
+    "message": "Most recent"
+  },
+  "manageCharacters_conversations_resumeTooltip": {
+    "message": "Load chat history and continue this conversation"
+  },
+  "manageCharacters_preview_title": {
+    "message": "Preview"
+  },
+  "manageCharacters_preview_show": {
+    "message": "Show preview"
+  },
+  "manageCharacters_preview_hide": {
+    "message": "Hide preview"
+  },
+  "manageCharacters_preview_untitled": {
+    "message": "Untitled character"
+  },
+  "manageCharacters_preview_greeting": {
+    "message": "Greeting"
+  },
+  "manageCharacters_preview_behavior": {
+    "message": "Behavior"
+  },
+  "manageCharacters_preview_empty": {
+    "message": "Fill in the form to see a preview"
+  },
+  "manageCharacters_advanced_show": {
+    "message": "Show advanced fields"
+  },
+  "manageCharacters_advanced_hide": {
+    "message": "Hide advanced fields"
+  },
+  "chunkingPlayground_nav": {
+    "message": "Chunking Playground",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_title": {
+    "message": "Chunking Playground",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_description": {
+    "message": "Experiment with different chunking settings to see how text gets split into smaller pieces for processing.",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_inputLabel": {
+    "message": "Text to chunk",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_inputPlaceholder": {
+    "message": "Paste text here or select a sample...",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_uploadButton": {
+    "message": "Upload File",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_chunkButton": {
+    "message": "Chunk Text",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_methodLabel": {
+    "message": "Chunking Method",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_maxSizeLabel": {
+    "message": "Max Chunk Size",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_overlapLabel": {
+    "message": "Overlap",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_languageLabel": {
+    "message": "Language",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_languages_auto": {
+    "message": "Auto-detect",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_languages_en": {
+    "message": "English",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_languages_es": {
+    "message": "Spanish",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_languages_fr": {
+    "message": "French",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_languages_de": {
+    "message": "German",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_languages_it": {
+    "message": "Italian",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_languages_pt": {
+    "message": "Portuguese",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_languages_zh": {
+    "message": "Chinese",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_languages_ja": {
+    "message": "Japanese",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_languages_ko": {
+    "message": "Korean",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_viewCards": {
+    "message": "Cards",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_viewInline": {
+    "message": "Inline",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_stats": {
+    "message": "{{count}} chunks, avg {{avgSize}} chars"
+  },
+  "chunkingPlayground_textLoaded": {
+    "message": "Text loaded",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_characters": {
+    "message": "characters",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_tabSingle": {
+    "message": "Single",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_tabCompare": {
+    "message": "Compare",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_chunkIndex": {
+    "message": "Chunk {{index}}"
+  },
+  "chunkingPlayground_chunkInfo": {
+    "message": "Chunk {{index}}: {{words}} words"
+  },
+  "chunkingPlayground_position": {
+    "message": "Position: {{start}} - {{end}}"
+  },
+  "chunkingPlayground_additionalChunks": {
+    "message": "+{{count}} more"
+  },
+  "chunkingPlayground_charCount": {
+    "message": "{{count}} characters"
+  },
+  "chunkingPlayground_wordCount": {
+    "message": "{{count}} words"
+  },
+  "chunkingPlayground_noInput": {
+    "message": "Please provide text to chunk",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_sharedInput": {
+    "message": "Shared Input Text",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_compareButton": {
+    "message": "Compare Both",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_comparison": {
+    "message": "Comparison",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_fewerChunks": {
+    "message": "Config A produces {{diff}} fewer chunks"
+  },
+  "chunkingPlayground_moreChunks": {
+    "message": "Config A produces {{diff}} more chunks"
+  },
+  "chunkingPlayground_sameChunks": {
+    "message": "Both configs produce the same number of chunks",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_clickToChunk": {
+    "message": "Click 'Compare' to see results",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_overlapRegion": {
+    "message": "Overlap Region",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_clickHint": {
+    "message": "Click on a highlighted section to focus on that chunk",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_noContentFound": {
+    "message": "No text content found for this media item",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_loadContentError": {
+    "message": "Failed to load media content",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_loadMediaListError": {
+    "message": "Failed to load media library",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_selectMedia": {
+    "message": "Select media item...",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_loadingMedia": {
+    "message": "Loading content...",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_noMediaFound": {
+    "message": "No media found",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_mediaCount": {
+    "message": "{{count}} media items available"
+  },
+  "chunkingPlayground_inputSource_paste": {
+    "message": "Paste Text",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_inputSource_upload": {
+    "message": "Upload File",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_inputSource_sample": {
+    "message": "Sample Text",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_inputSource_media": {
+    "message": "From Media Library",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_samples_article": {
+    "message": "News Article",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_samples_articleDesc": {
+    "message": "Multi-paragraph article with headers",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_samples_code": {
+    "message": "Source Code",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_samples_codeDesc": {
+    "message": "Python code with classes and functions",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_samples_transcript": {
+    "message": "Transcript",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_samples_transcriptDesc": {
+    "message": "Timestamped podcast transcript",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_samples_academic": {
+    "message": "Academic Paper",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_samples_academicDesc": {
+    "message": "Technical writing with citations",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_compare_title": {
+    "message": "Compare Settings",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_compare_configA": {
+    "message": "Configuration A",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_compare_configB": {
+    "message": "Configuration B",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_mode_single": {
+    "message": "Single",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_mode_compare": {
+    "message": "Compare",
+    "description": "TODO: translate (copied from en)"
+  },
+  "managePrompts_importMode_merge": {
+    "message": "Merge"
+  },
+  "managePrompts_importMode_replace": {
+    "message": "Replace"
+  },
+  "managePrompts_importMode_replaceConfirm": {
+    "message": "Replace will overwrite all current prompts with the imported file. Continue?"
+  },
+  "flashcards_newDeckNameRequired": {
+    "message": "Enter a deck name."
+  },
+  "flashcards_dueAll": {
+    "message": "All"
+  },
+  "flashcards_dueNew": {
+    "message": "New"
+  },
+  "flashcards_dueLearning": {
+    "message": "Learning"
+  },
+  "flashcards_dueDue": {
+    "message": "Due"
   }
 }

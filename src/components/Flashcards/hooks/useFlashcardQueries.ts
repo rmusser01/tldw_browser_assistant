@@ -26,14 +26,19 @@ export interface UseFlashcardQueriesOptions {
   enabled?: boolean
 }
 
+const invalidateFlashcardsQueries = (qc: ReturnType<typeof useQueryClient>) =>
+  qc.invalidateQueries({
+    predicate: (query) =>
+      Array.isArray(query.queryKey) &&
+      typeof query.queryKey[0] === "string" &&
+      query.queryKey[0].startsWith("flashcards:")
+  })
+
 /**
  * Hook for fetching flashcard decks
  */
 export function useDecksQuery(options?: UseFlashcardQueriesOptions) {
-  const isOnline = useServerOnline()
-  const { capabilities, loading: capsLoading } = useServerCapabilities()
-  const flashcardsUnsupported = !capsLoading && !!capabilities && !capabilities.hasFlashcards
-  const flashcardsEnabled = isOnline && !flashcardsUnsupported
+  const { flashcardsEnabled } = useFlashcardsEnabled()
 
   return useQuery({
     queryKey: ["flashcards:decks"],
@@ -46,10 +51,7 @@ export function useDecksQuery(options?: UseFlashcardQueriesOptions) {
  * Hook for fetching next due card for review
  */
 export function useReviewQuery(deckId: number | null | undefined, options?: UseFlashcardQueriesOptions) {
-  const isOnline = useServerOnline()
-  const { capabilities, loading: capsLoading } = useServerCapabilities()
-  const flashcardsUnsupported = !capsLoading && !!capabilities && !capabilities.hasFlashcards
-  const flashcardsEnabled = isOnline && !flashcardsUnsupported
+  const { flashcardsEnabled } = useFlashcardsEnabled()
 
   return useQuery({
     queryKey: ["flashcards:review:next", deckId],
@@ -100,10 +102,7 @@ export interface ManageQueryParams {
 }
 
 export function useManageQuery(params: ManageQueryParams, options?: UseFlashcardQueriesOptions) {
-  const isOnline = useServerOnline()
-  const { capabilities, loading: capsLoading } = useServerCapabilities()
-  const flashcardsUnsupported = !capsLoading && !!capabilities && !capabilities.hasFlashcards
-  const flashcardsEnabled = isOnline && !flashcardsUnsupported
+  const { flashcardsEnabled } = useFlashcardsEnabled()
 
   const { deckId, query, tag, dueStatus = "all", page = 1, pageSize = 20 } = params
 
@@ -127,12 +126,12 @@ export function useManageQuery(params: ManageQueryParams, options?: UseFlashcard
  * Hook for fetching import limits
  */
 export function useImportLimitsQuery(options?: UseFlashcardQueriesOptions) {
-  const isOnline = useServerOnline()
+  const { flashcardsEnabled } = useFlashcardsEnabled()
 
   return useQuery({
     queryKey: ["flashcards:import:limits"],
     queryFn: getFlashcardsImportLimits,
-    enabled: options?.enabled ?? isOnline
+    enabled: options?.enabled ?? flashcardsEnabled
   })
 }
 
@@ -146,7 +145,10 @@ export function useCreateFlashcardMutation() {
     mutationKey: ["flashcards:create"],
     mutationFn: (payload: FlashcardCreate) => createFlashcard(payload),
     onSuccess: () => {
-      qc.invalidateQueries({ queryKey: ["flashcards:list"] })
+      invalidateFlashcardsQueries(qc)
+    },
+    onError: (error) => {
+      console.error("Failed to create flashcard:", error)
     }
   })
 }
@@ -162,7 +164,10 @@ export function useCreateDeckMutation() {
     mutationFn: (params: { name: string; description?: string }) =>
       createDeck({ name: params.name.trim(), description: params.description?.trim() || undefined }),
     onSuccess: () => {
-      qc.invalidateQueries({ queryKey: ["flashcards:decks"] })
+      invalidateFlashcardsQueries(qc)
+    },
+    onError: (error) => {
+      console.error("Failed to create deck:", error)
     }
   })
 }
@@ -178,7 +183,10 @@ export function useUpdateFlashcardMutation() {
     mutationFn: (params: { uuid: string; update: FlashcardUpdate }) =>
       updateFlashcard(params.uuid, params.update),
     onSuccess: () => {
-      qc.invalidateQueries({ queryKey: ["flashcards:list"] })
+      invalidateFlashcardsQueries(qc)
+    },
+    onError: (error) => {
+      console.error("Failed to update flashcard:", error)
     }
   })
 }
@@ -194,7 +202,10 @@ export function useDeleteFlashcardMutation() {
     mutationFn: (params: { uuid: string; version: number }) =>
       deleteFlashcard(params.uuid, params.version),
     onSuccess: () => {
-      qc.invalidateQueries({ queryKey: ["flashcards:list"] })
+      invalidateFlashcardsQueries(qc)
+    },
+    onError: (error) => {
+      console.error("Failed to delete flashcard:", error)
     }
   })
 }
@@ -214,8 +225,10 @@ export function useReviewFlashcardMutation() {
         answer_time_ms: params.answerTimeMs
       }),
     onSuccess: () => {
-      qc.invalidateQueries({ queryKey: ["flashcards:review:next"] })
-      qc.invalidateQueries({ queryKey: ["flashcards:list"] })
+      invalidateFlashcardsQueries(qc)
+    },
+    onError: (error) => {
+      console.error("Failed to submit flashcard review:", error)
     }
   })
 }
@@ -235,8 +248,10 @@ export function useImportFlashcardsMutation() {
         has_header: params.hasHeader
       }),
     onSuccess: () => {
-      qc.invalidateQueries({ queryKey: ["flashcards:list"] })
-      qc.invalidateQueries({ queryKey: ["flashcards:decks"] })
+      invalidateFlashcardsQueries(qc)
+    },
+    onError: (error) => {
+      console.error("Failed to import flashcards:", error)
     }
   })
 }

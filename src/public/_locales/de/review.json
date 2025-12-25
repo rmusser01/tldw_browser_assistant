@@ -128,8 +128,12 @@
   "contentReview_reviewDraftsCreated": {
     "message": "Entwürfe bereit zur Überprüfung."
   },
-  "contentReview.reviewStorageCapWarning_one": "{{count}} Datei überschreitet das lokale Entwurfslimit ({{cap}}). Bitte Quellen vor dem Speichern von Audio/Video anhängen.",
-  "contentReview.reviewStorageCapWarning_other": "{{count}} Dateien überschreiten das lokale Entwurfslimit ({{cap}}). Bitte Quellen vor dem Speichern von Audio/Video anhängen.",
+  "contentReview_reviewStorageCapWarning_one": {
+    "message": "{{count}} Datei überschreitet das lokale Entwurfslimit ({{cap}}). Bitte Quellen vor dem Speichern von Audio/Video anhängen."
+  },
+  "contentReview_reviewStorageCapWarning_other": {
+    "message": "{{count}} Dateien überschreiten das lokale Entwurfslimit ({{cap}}). Bitte Quellen vor dem Speichern von Audio/Video anhängen."
+  },
   "contentReview_openContentReview": {
     "message": "Inhaltsprüfung öffnen"
   },

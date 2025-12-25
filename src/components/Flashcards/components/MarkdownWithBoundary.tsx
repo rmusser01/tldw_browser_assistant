@@ -3,7 +3,7 @@ import { MarkdownErrorBoundary } from "@/components/Common/MarkdownErrorBoundary
 
 const Markdown = React.lazy(() => import("@/components/Common/Markdown"))
 
-type SafeMarkdownProps = {
+interface SafeMarkdownProps {
   content: string
   className?: string
   size?: "xs" | "sm" | "base"

@@ -128,8 +128,12 @@
   "contentReview_reviewDraftsCreated": {
     "message": "검토할 초안이 준비되었습니다."
   },
-  "contentReview.reviewStorageCapWarning_one": "{{count}}개 파일이 로컬 초안 한도 ({{cap}}) 를 초과했습니다. 오디오/비디오를 저장하기 전에 소스를 첨부하세요.",
-  "contentReview.reviewStorageCapWarning_other": "{{count}}개 파일이 로컬 초안 한도 ({{cap}}) 를 초과했습니다. 오디오/비디오를 저장하기 전에 소스를 첨부하세요.",
+  "contentReview_reviewStorageCapWarning_one": {
+    "message": "{{count}}개 파일이 로컬 초안 한도 ({{cap}}) 를 초과했습니다. 오디오/비디오를 저장하기 전에 소스를 첨부하세요."
+  },
+  "contentReview_reviewStorageCapWarning_other": {
+    "message": "{{count}}개 파일이 로컬 초안 한도 ({{cap}}) 를 초과했습니다. 오디오/비디오를 저장하기 전에 소스를 첨부하세요."
+  },
   "contentReview_openContentReview": {
     "message": "콘텐츠 검토 열기"
   },

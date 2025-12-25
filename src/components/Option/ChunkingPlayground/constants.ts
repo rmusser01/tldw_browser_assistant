@@ -1,4 +1,4 @@
-type TranslationFn = (key: string, defaultValue: string) => string
+export type TranslationFn = (key: string, defaultValue: string) => string
 
 const LANGUAGE_OPTIONS = [
   {

@@ -128,8 +128,12 @@
   "contentReview_reviewDraftsCreated": {
     "message": "Kladder klare for gjennomgang."
   },
-  "contentReview.reviewStorageCapWarning_one": "{{count}} fil overskrider den lokale kladdegrensen ({{cap}}). Legg ved kilder før du lagrer lyd/video.",
-  "contentReview.reviewStorageCapWarning_other": "{{count}} filer overskrider den lokale kladdegrensen ({{cap}}). Legg ved kilder før du lagrer lyd/video.",
+  "contentReview_reviewStorageCapWarning_one": {
+    "message": "{{count}} fil overskrider den lokale kladdegrensen ({{cap}}). Legg ved kilder før du lagrer lyd/video."
+  },
+  "contentReview_reviewStorageCapWarning_other": {
+    "message": "{{count}} filer overskrider den lokale kladdegrensen ({{cap}}). Legg ved kilder før du lagrer lyd/video."
+  },
   "contentReview_openContentReview": {
     "message": "Åpne Innholdsgjennomgang"
   },
@@ -281,7 +285,7 @@
     "message": "Notater for gjennomgang"
   },
   "contentReview_missingSource": {
-    "message": "Kilde­fil mangler"
+    "message": "Kildefil mangler"
   },
   "contentReview_missingSourceBody": {
     "message": "Legg ved originalfilen for å bekrefte dette utkastet."

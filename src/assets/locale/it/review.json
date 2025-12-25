@@ -99,6 +99,7 @@
     "clear": "Cancella",
     "types": "Tipi di media",
     "keywords": "Parole chiave",
+    "moreTags": "+{{count}} more tags",
     "resetFilters": "Reimposta filtri",
     "clearAll": "Cancella tutto",
     "content": "Contenuto",

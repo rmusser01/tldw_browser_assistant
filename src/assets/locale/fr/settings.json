@@ -131,7 +131,7 @@
       "restartOnboarding": {
         "label": "Redémarrer le parcours d’accueil depuis le début",
         "button": "Redémarrer le parcours d’accueil",
-        "confirmTitle": "Redémarrer le parcours d’accueil\u00a0?",
+        "confirmTitle": "Redémarrer le parcours d’accueil ?",
         "confirmMessage": "Cela réinitialisera votre état de parcours d’accueil et vous ramènera au flux de configuration.",
         "toast": "Le parcours d’accueil a été réinitialisé",
         "toastBody": "Nous vous ramènerons à l’étape de bienvenue pour que vous puissiez vérifier l’URL de votre serveur et votre clé API."
@@ -492,9 +492,9 @@
     "import": "Import",
     "export": "Export",
     "importMode": {
-      "merge": "Merge",
-      "replace": "Replace",
-      "replaceConfirm": "Replace will overwrite all current prompts with the imported file. Continue?"
+      "merge": "Fusionner",
+      "replace": "Remplacer",
+      "replaceConfirm": "Le remplacement écrasera tous les prompts actuels avec le fichier importé. Continuer ?"
     },
     "favorite": "Favorite",
     "unfavorite": "Unfavorite",
@@ -946,7 +946,8 @@
     "actions": {
       "chat": "Discuter",
       "edit": "Modifier",
-      "delete": "Supprimer"
+      "delete": "Supprimer",
+      "viewConversations": "View conversations"
     },
     "tags": {
       "label": "Étiquettes",
@@ -960,7 +961,9 @@
     "aria": {
       "chatWith": "Discuter en tant que {{name}}",
       "edit": "Modifier le personnage {{name}}",
-      "delete": "Supprimer le personnage {{name}}"
+      "delete": "Supprimer le personnage {{name}}",
+      "viewConversations": "View conversations for {{name}}",
+      "searchResults": "{{count}} characters found"
     },
     "confirm": {
       "delete": "Voulez-vous vraiment supprimer ce personnage ? Cette action est irréversible."
@@ -1013,7 +1016,33 @@
     "emptyExample2": "Donne à chaque personnage une description et un comportement clairs pour des réponses cohérentes.",
     "emptyPrimaryCta": "Créer un personnage",
     "avatarAltWithName": "Avatar of {{name}}",
-    "avatarAlt": "User avatar"
+    "avatarAlt": "User avatar",
+    "conversations": {
+      "title": "Conversations for {{name}}",
+      "titleGeneric": "Character conversations",
+      "subtitle": "Select a conversation to continue as this character.",
+      "empty": "No conversations found for this character yet.",
+      "error": "Unable to load conversations for this character.",
+      "updated": "Updated {{time}}",
+      "unknownTime": "Unknown",
+      "resume": "Continue chat",
+      "untitled": "Untitled",
+      "mostRecent": "Most recent",
+      "resumeTooltip": "Load chat history and continue this conversation"
+    },
+    "preview": {
+      "title": "Preview",
+      "show": "Show preview",
+      "hide": "Hide preview",
+      "untitled": "Untitled character",
+      "greeting": "Greeting",
+      "behavior": "Behavior",
+      "empty": "Fill in the form to see a preview"
+    },
+    "advanced": {
+      "show": "Show advanced fields",
+      "hide": "Hide advanced fields"
+    }
   },
   "systemNotifications": {
     "importSuccess": "Importation des données réussie",
@@ -1214,5 +1243,86 @@
     "testCta": "Test Evaluations API",
     "testOk": "Evaluations API reachable",
     "testFail": "Unable to reach Evaluations API"
+  },
+  "chunkingPlayground": {
+    "_todo": "TODO: translate chunkingPlayground strings (copied from en)",
+    "nav": "Chunking Playground",
+    "title": "Chunking Playground",
+    "description": "Experiment with different chunking settings to see how text gets split into smaller pieces for processing.",
+    "inputLabel": "Text to chunk",
+    "inputPlaceholder": "Paste text here or select a sample...",
+    "uploadButton": "Upload File",
+    "chunkButton": "Chunk Text",
+    "methodLabel": "Chunking Method",
+    "maxSizeLabel": "Max Chunk Size",
+    "overlapLabel": "Overlap",
+    "languageLabel": "Language",
+    "languages": {
+      "auto": "Auto-detect",
+      "en": "English",
+      "es": "Spanish",
+      "fr": "French",
+      "de": "German",
+      "it": "Italian",
+      "pt": "Portuguese",
+      "zh": "Chinese",
+      "ja": "Japanese",
+      "ko": "Korean"
+    },
+    "viewCards": "Cards",
+    "viewInline": "Inline",
+    "stats": "{{count}} chunks, avg {{avgSize}} chars",
+    "textLoaded": "Text loaded",
+    "characters": "characters",
+    "tabSingle": "Single",
+    "tabCompare": "Compare",
+    "chunkIndex": "Chunk {{index}}",
+    "chunkInfo": "Chunk {{index}}: {{words}} words",
+    "position": "Position: {{start}} - {{end}}",
+    "additionalChunks": "+{{count}} more",
+    "charCount": "{{count}} characters",
+    "wordCount": "{{count}} words",
+    "noInput": "Please provide text to chunk",
+    "sharedInput": "Shared Input Text",
+    "compareButton": "Compare Both",
+    "comparison": "Comparison",
+    "fewerChunks": "Config A produces {{diff}} fewer chunks",
+    "moreChunks": "Config A produces {{diff}} more chunks",
+    "sameChunks": "Both configs produce the same number of chunks",
+    "clickToChunk": "Click 'Compare' to see results",
+    "overlapRegion": "Overlap Region",
+    "clickHint": "Click on a highlighted section to focus on that chunk",
+    "noContentFound": "No text content found for this media item",
+    "loadContentError": "Failed to load media content",
+    "loadMediaListError": "Failed to load media library",
+    "selectMedia": "Select media item...",
+    "loadingMedia": "Loading content...",
+    "noMediaFound": "No media found",
+    "mediaCount": "{{count}} media items available",
+    "inputSource": {
+      "paste": "Paste Text",
+      "upload": "Upload File",
+      "sample": "Sample Text",
+      "media": "From Media Library"
+    },
+    "samples": {
+      "article": "News Article",
+      "articleDesc": "Multi-paragraph article with headers",
+      "code": "Source Code",
+      "codeDesc": "Python code with classes and functions",
+      "transcript": "Transcript",
+      "transcriptDesc": "Timestamped podcast transcript",
+      "academic": "Academic Paper",
+      "academicDesc": "Technical writing with citations"
+    },
+    "compare": {
+      "title": "Compare Settings",
+      "configA": "Configuration A",
+      "configB": "Configuration B"
+    },
+    "mode": {
+      "single": "Single",
+      "compare": "Compare"
+    }
   }
 }

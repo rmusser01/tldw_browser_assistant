@@ -531,7 +531,11 @@ export function ContentViewer({
       {/* Content Area */}
       <div className="flex-1 overflow-y-auto p-4">
         {isDetailLoading ? (
-          <div className="flex flex-col items-center justify-center h-64 text-gray-500 dark:text-gray-400">
+          <div
+            className="flex flex-col items-center justify-center h-64 text-gray-500 dark:text-gray-400"
+            role="status"
+            aria-live="polite"
+          >
             <Loader2 className="w-8 h-8 animate-spin mb-3" />
             <span className="text-sm">
               {t('review:mediaPage.loadingContent', { defaultValue: 'Loading content...' })}

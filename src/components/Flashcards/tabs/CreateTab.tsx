@@ -9,36 +9,27 @@ import {
   useDebouncedFormField
 } from "../hooks"
 import { MarkdownWithBoundary } from "../components"
-import type { Flashcard, FlashcardCreate } from "@/services/flashcards"
+import { normalizeFlashcardTemplateFields } from "../utils/template-helpers"
+import type { FlashcardCreate } from "@/services/flashcards"
 
 const { Text, Title } = Typography
 
-type FlashcardModelType = Flashcard["model_type"]
+interface PreviewProps {
+  content?: string
+  showPreview: boolean
+}
 
-const normalizeFlashcardTemplateFields = <
-  T extends {
-    model_type?: FlashcardModelType | null
-    reverse?: boolean | null
-    is_cloze?: boolean | null
-  }
->(
-  values: T
-): T => {
-  const isCloze = values.model_type === "cloze" || values.is_cloze === true
-  const isReverse =
-    values.model_type === "basic_reverse" || values.reverse === true
-  const model_type: FlashcardModelType = isCloze
-    ? "cloze"
-    : isReverse
-      ? "basic_reverse"
-      : "basic"
-
-  return {
-    ...values,
-    model_type,
-    reverse: model_type === "basic_reverse",
-    is_cloze: model_type === "cloze"
-  }
+const Preview: React.FC<PreviewProps> = ({ content, showPreview }) => {
+  const { t } = useTranslation(["option"])
+  if (!showPreview || !content) return null
+  return (
+    <div className="mt-2 border rounded p-2 text-xs bg-white dark:bg-[#111]">
+      <Text type="secondary" className="block text-[11px] mb-1">
+        {t("flashcards.preview", { defaultValue: "Preview" })}
+      </Text>
+      <MarkdownWithBoundary content={content} size="xs" />
+    </div>
+  )
 }
 
 /**
@@ -89,8 +80,10 @@ export const CreateTab: React.FC = () => {
       setNewDeckName("")
       setNewDeckDesc("")
       createForm.setFieldsValue({ deck_id: deck.id })
-    } catch (e: any) {
-      message.error(e?.message || "Failed to create deck")
+    } catch (e: unknown) {
+      const errorMessage =
+        e instanceof Error ? e.message : "Failed to create deck"
+      message.error(errorMessage)
     }
   }
 
@@ -101,23 +94,11 @@ export const CreateTab: React.FC = () => {
       await createMutation.mutateAsync(normalizeFlashcardTemplateFields(values))
       message.success(t("common:created", { defaultValue: "Created" }))
       createForm.resetFields()
-    } catch (e: any) {
-      if (e?.errorFields) return // form validation
-      message.error(e?.message || "Create failed")
+    } catch (e: unknown) {
+      if (e && typeof e === "object" && "errorFields" in e) return // form validation
+      const errorMessage = e instanceof Error ? e.message : "Create failed"
+      message.error(errorMessage)
     }
-  }
-
-  // Preview component
-  const Preview: React.FC<{ content: string | undefined }> = ({ content }) => {
-    if (!showPreview || !content) return null
-    return (
-      <div className="mt-2 border rounded p-2 text-xs bg-white dark:bg-[#111]">
-        <Text type="secondary" className="block text-[11px] mb-1">
-          Preview
-        </Text>
-        <MarkdownWithBoundary content={content} size="xs" />
-      </div>
-    )
   }
 
   return (
@@ -221,10 +202,12 @@ export const CreateTab: React.FC = () => {
         >
           <Input.TextArea
             rows={3}
-            placeholder="Question or prompt..."
+            placeholder={t("option:flashcards.frontPlaceholder", {
+              defaultValue: "Question or prompt..."
+            })}
             data-testid="flashcards-create-front"
           />
-          <Preview content={createFrontPreview} />
+          <Preview content={createFrontPreview} showPreview={showPreview} />
         </Form.Item>
 
         {/* Back - required */}
@@ -235,10 +218,12 @@ export const CreateTab: React.FC = () => {
         >
           <Input.TextArea
             rows={5}
-            placeholder="Answer..."
+            placeholder={t("option:flashcards.backPlaceholder", {
+              defaultValue: "Answer..."
+            })}
             data-testid="flashcards-create-back"
           />
-          <Preview content={createBackPreview} />
+          <Preview content={createBackPreview} showPreview={showPreview} />
         </Form.Item>
 
         {/* Preview toggle and help text */}
@@ -287,7 +272,9 @@ export const CreateTab: React.FC = () => {
                   >
                     <Select
                       mode="tags"
-                      placeholder="tag1, tag2"
+                      placeholder={t("option:flashcards.tagsPlaceholder", {
+                        defaultValue: "tag1, tag2"
+                      })}
                       open={false}
                       allowClear
                     />
@@ -301,9 +288,11 @@ export const CreateTab: React.FC = () => {
                   >
                     <Input.TextArea
                       rows={2}
-                      placeholder="Optional hints or explanations..."
+                      placeholder={t("option:flashcards.extraPlaceholder", {
+                        defaultValue: "Optional hints or explanations..."
+                      })}
                     />
-                    <Preview content={createExtraPreview} />
+                    <Preview content={createExtraPreview} showPreview={showPreview} />
                   </Form.Item>
 
                   {/* Notes */}
@@ -314,9 +303,11 @@ export const CreateTab: React.FC = () => {
                   >
                     <Input.TextArea
                       rows={2}
-                      placeholder="Internal notes (not shown during review)..."
+                      placeholder={t("option:flashcards.notesPlaceholder", {
+                        defaultValue: "Internal notes (not shown during review)..."
+                      })}
                     />
-                    <Preview content={createNotesPreview} />
+                    <Preview content={createNotesPreview} showPreview={showPreview} />
                   </Form.Item>
                 </div>
               )
@@ -355,13 +346,17 @@ export const CreateTab: React.FC = () => {
       >
         <Space direction="vertical" className="w-full">
           <Input
-            placeholder="Name"
+            placeholder={t("option:flashcards.deckNamePlaceholder", {
+              defaultValue: "Name"
+            })}
             value={newDeckName}
             onChange={(e) => setNewDeckName(e.target.value)}
             data-testid="flashcards-new-deck-name"
           />
           <Input.TextArea
-            placeholder="Description (optional)"
+            placeholder={t("option:flashcards.deckDescriptionPlaceholder", {
+              defaultValue: "Description (optional)"
+            })}
             value={newDeckDesc}
             onChange={(e) => setNewDeckDesc(e.target.value)}
             data-testid="flashcards-new-deck-description"

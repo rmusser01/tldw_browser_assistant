@@ -128,8 +128,12 @@
   "contentReview_reviewDraftsCreated": {
     "message": "草稿已準備好審核。"
   },
-  "contentReview.reviewStorageCapWarning_one": "{{count}} 個檔案超過本機草稿上限（{{cap}}）。請在提交音訊/影片前附加來源。",
-  "contentReview.reviewStorageCapWarning_other": "{{count}} 個檔案超過本機草稿上限（{{cap}}）。請在提交音訊/影片前附加來源。",
+  "contentReview_reviewStorageCapWarning_one": {
+    "message": "{{count}} 個檔案超過本機草稿上限（{{cap}}）。請在提交音訊/影片前附加來源。"
+  },
+  "contentReview_reviewStorageCapWarning_other": {
+    "message": "{{count}} 個檔案超過本機草稿上限（{{cap}}）。請在提交音訊/影片前附加來源。"
+  },
   "contentReview_openContentReview": {
     "message": "開啟內容審核"
   },

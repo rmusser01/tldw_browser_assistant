@@ -128,8 +128,12 @@
   "contentReview_reviewDraftsCreated": {
     "message": "Drafts ready for review."
   },
-  "contentReview.reviewStorageCapWarning_one": "{{count}} file exceeds the local draft cap ({{cap}}). Attach sources before committing audio/video.",
-  "contentReview.reviewStorageCapWarning_other": "{{count}} files exceed the local draft cap ({{cap}}). Attach sources before committing audio/video.",
+  "contentReview_reviewStorageCapWarning_one": {
+    "message": "{{count}} file exceeds the local draft cap ({{cap}}). Attach sources before committing audio/video."
+  },
+  "contentReview_reviewStorageCapWarning_other": {
+    "message": "{{count}} files exceed the local draft cap ({{cap}}). Attach sources before committing audio/video."
+  },
   "contentReview_openContentReview": {
     "message": "Open Content Review"
   },

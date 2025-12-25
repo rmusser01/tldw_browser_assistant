@@ -99,6 +99,7 @@
     "clear": "지우기",
     "types": "미디어 유형",
     "keywords": "키워드",
+    "moreTags": "+{{count}} more tags",
     "resetFilters": "필터 초기화",
     "clearAll": "모두 지우기",
     "content": "콘텐츠",

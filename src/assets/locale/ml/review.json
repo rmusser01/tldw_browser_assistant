@@ -99,6 +99,7 @@
     "clear": "Clear",
     "types": "Types",
     "keywords": "Keywords",
+    "moreTags": "+{{count}} more tags",
     "resetFilters": "Reset Filters",
     "clearAll": "എല്ലാം മായ്ക്കുക",
     "content": "Content",

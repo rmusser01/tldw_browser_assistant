@@ -800,296 +800,404 @@
   "more_download_canonicalMarkdown": {
     "message": "Canonical transcript (Markdown)"
   },
-  "contentReview_title": {
+  "header_contentReview": {
     "message": "Content Review"
   },
+  "contentReview_title": {
+    "message": "Content Review",
+    "description": "Content review UI string."
+  },
   "contentReview_readyToSubmit": {
-    "message": "{{count}} ready"
+    "message": "{{count}} ready",
+    "description": "Content review UI string."
   },
   "contentReview_committedCount": {
-    "message": "{{count}} committed"
+    "message": "{{count}} committed",
+    "description": "Content review UI string."
   },
   "contentReview_totalCount": {
-    "message": "{{count}} total"
+    "message": "{{count}} total",
+    "description": "Content review UI string."
   },
   "contentReview_commitAll": {
-    "message": "Commit All"
+    "message": "Commit All",
+    "description": "Content review UI string."
   },
   "contentReview_clearDrafts": {
-    "message": "Clear drafts"
+    "message": "Clear drafts",
+    "description": "Content review UI string."
   },
   "contentReview_emptyDescription": {
-    "message": "No drafts yet. Use Quick Ingest with Review before saving to create drafts."
+    "message": "No drafts yet. Use Quick Ingest with Review before saving to create drafts.",
+    "description": "Content review UI string."
   },
   "contentReview_openQuickIngest": {
-    "message": "Open Quick Ingest"
+    "message": "Open Quick Ingest",
+    "description": "Content review UI string."
   },
   "contentReview_storeAfterReview": {
-    "message": "Store after review"
+    "message": "Store after review",
+    "description": "Content review UI string."
   },
   "contentReview_reviewBeforeStorage": {
-    "message": "Review before saving"
+    "message": "Review before saving",
+    "description": "Content review UI string."
   },
   "contentReview_reviewBeforeStorageHint": {
-    "message": "Process now, then edit drafts locally before committing to your server."
+    "message": "Process now, then edit drafts locally before committing to your server.",
+    "description": "Content review UI string."
   },
   "contentReview_reviewEnabled": {
-    "message": "Review mode"
+    "message": "Review mode",
+    "description": "Content review UI string."
   },
   "contentReview_reviewStorageCap": {
-    "message": "Local drafts are capped at {{cap}}."
+    "message": "Local drafts are capped at {{cap}}.",
+    "description": "Content review UI string."
   },
   "contentReview_reviewWarningTitle": {
-    "message": "Store drafts locally?"
+    "message": "Store drafts locally?",
+    "description": "Content review UI string."
   },
   "contentReview_reviewWarningBody": {
-    "message": "Drafts are saved in this browser and may include sensitive data. You can clear drafts from the Content Review page at any time."
+    "message": "Drafts are saved in this browser and may include sensitive data. You can clear drafts from the Content Review page at any time.",
+    "description": "Content review UI string."
   },
   "contentReview_reviewWarningBodySecondary": {
-    "message": "Review mode keeps content client-side until you commit it to your server."
+    "message": "Review mode keeps content client-side until you commit it to your server.",
+    "description": "Content review UI string."
   },
   "contentReview_reviewWarningConfirm": {
-    "message": "Enable review"
+    "message": "Enable review",
+    "description": "Content review UI string."
   },
   "contentReview_reviewWarningCancel": {
-    "message": "Cancel"
+    "message": "Cancel",
+    "description": "Content review UI string."
   },
   "contentReview_reviewRunLabel": {
-    "message": "Review"
+    "message": "Review",
+    "description": "Content review UI string."
   },
   "contentReview_reviewDraftsCreated": {
-    "message": "Drafts ready for review."
+    "message": "Drafts ready for review.",
+    "description": "Content review UI string."
+  },
+  "contentReview_reviewStorageCapWarning_one": {
+    "message": "{{count}} file exceeds the local draft cap ({{cap}}). Attach sources before committing audio/video.",
+    "description": "Content review UI string."
+  },
+  "contentReview_reviewStorageCapWarning_other": {
+    "message": "{{count}} files exceed the local draft cap ({{cap}}). Attach sources before committing audio/video.",
+    "description": "Content review UI string."
   },
   "contentReview_openContentReview": {
-    "message": "Open Content Review"
+    "message": "Open Content Review",
+    "description": "Content review UI string."
   },
   "contentReview_batchLabel": {
-    "message": "Batch"
+    "message": "Batch",
+    "description": "Content review UI string."
   },
   "contentReview_batchName": {
-    "message": "Batch {{index}}"
+    "message": "Batch {{index}}",
+    "description": "Content review UI string."
   },
   "contentReview_draftsLabel": {
-    "message": "Drafts"
+    "message": "Drafts",
+    "description": "Content review UI string."
   },
   "contentReview_selectDraft": {
-    "message": "Select a draft to begin reviewing."
+    "message": "Select a draft to begin reviewing.",
+    "description": "Content review UI string."
   },
   "contentReview_titlePlaceholder": {
-    "message": "Draft title"
+    "message": "Draft title",
+    "description": "Content review UI string."
   },
   "contentReview_lastSaved": {
-    "message": "Saved {{time}}"
+    "message": "Saved {{time}}",
+    "description": "Content review UI string."
   },
   "contentReview_resetTitle": {
-    "message": "Reset draft?"
+    "message": "Reset draft?",
+    "description": "Content review UI string."
   },
   "contentReview_resetBody": {
-    "message": "This will restore the original content for this draft."
+    "message": "This will restore the original content for this draft.",
+    "description": "Content review UI string."
   },
   "contentReview_resetConfirm": {
-    "message": "Reset"
+    "message": "Reset",
+    "description": "Content review UI string."
   },
   "contentReview_resetCancel": {
-    "message": "Cancel"
+    "message": "Cancel",
+    "description": "Content review UI string."
   },
   "contentReview_resetContent": {
-    "message": "Reset"
+    "message": "Reset",
+    "description": "Content review UI string."
   },
   "contentReview_diffView": {
-    "message": "Diff view"
+    "message": "Diff view",
+    "description": "Content review UI string."
   },
   "contentReview_saveDraft": {
-    "message": "Save draft"
+    "message": "Save draft",
+    "description": "Content review UI string."
   },
   "contentReview_editorLabel": {
-    "message": "Content"
+    "message": "Content",
+    "description": "Content review UI string."
   },
   "contentReview_wordCount": {
-    "message": "{{words}} words"
+    "message": "{{words}} words",
+    "description": "Content review UI string."
   },
   "contentReview_charCount": {
-    "message": "{{chars}} chars"
+    "message": "{{chars}} chars",
+    "description": "Content review UI string."
   },
   "contentReview_aiFix": {
-    "message": "AI fix"
+    "message": "AI fix",
+    "description": "Content review UI string."
   },
   "contentReview_aiHint": {
-    "message": "Sends draft content to your server for AI processing."
+    "message": "Sends draft content to your server for AI processing.",
+    "description": "Content review UI string."
   },
   "contentReview_modelPlaceholder": {
-    "message": "Server default"
+    "message": "Server default",
+    "description": "Content review UI string."
   },
   "contentReview_aiConsentTitle": {
-    "message": "Send draft to server?"
+    "message": "Send draft to server?",
+    "description": "Content review UI string."
   },
   "contentReview_aiConsentBody": {
-    "message": "This will send the draft content to your tldw server for AI processing. Drafts stay local until you commit."
+    "message": "This will send the draft content to your tldw server for AI processing. Drafts stay local until you commit.",
+    "description": "Content review UI string."
   },
   "contentReview_aiConsentConfirm": {
-    "message": "Continue"
+    "message": "Continue",
+    "description": "Content review UI string."
   },
   "contentReview_aiConsentCancel": {
-    "message": "Cancel"
+    "message": "Cancel",
+    "description": "Content review UI string."
   },
   "contentReview_aiApplied": {
-    "message": "AI corrections applied."
+    "message": "AI corrections applied.",
+    "description": "Content review UI string."
   },
   "contentReview_aiNoChange": {
-    "message": "No changes returned."
+    "message": "No changes returned.",
+    "description": "Content review UI string."
   },
   "contentReview_aiEmpty": {
-    "message": "AI returned no content."
+    "message": "AI returned no content.",
+    "description": "Content review UI string."
   },
   "contentReview_aiUnavailable": {
-    "message": "Chat completions unavailable."
+    "message": "Chat completions unavailable.",
+    "description": "Content review UI string."
   },
   "contentReview_templatePlaceholder": {
-    "message": "Choose template"
+    "message": "Choose template",
+    "description": "Content review UI string."
   },
   "contentReview_applyTemplate": {
-    "message": "Apply template"
+    "message": "Apply template",
+    "description": "Content review UI string."
   },
   "contentReview_templateApplied": {
-    "message": "Template applied."
+    "message": "Template applied.",
+    "description": "Content review UI string."
   },
   "contentReview_templateMissing": {
-    "message": "Select a template first."
+    "message": "Select a template first.",
+    "description": "Content review UI string."
   },
   "contentReview_detectSections": {
-    "message": "Detect sections"
+    "message": "Detect sections",
+    "description": "Content review UI string."
   },
   "contentReview_detectSectionsTitle": {
-    "message": "Re-detect sections?"
+    "message": "Re-detect sections?",
+    "description": "Content review UI string."
   },
   "contentReview_detectSectionsBody": {
-    "message": "This will replace existing sections and reset your selections."
+    "message": "This will replace existing sections and reset your selections.",
+    "description": "Content review UI string."
   },
   "contentReview_detectSectionsConfirm": {
-    "message": "Re-detect"
+    "message": "Re-detect",
+    "description": "Content review UI string."
   },
   "contentReview_detectSectionsCancel": {
-    "message": "Cancel"
+    "message": "Cancel",
+    "description": "Content review UI string."
   },
   "contentReview_detectSectionsEmpty": {
-    "message": "No sections detected."
+    "message": "No sections detected.",
+    "description": "Content review UI string."
   },
   "contentReview_sectionsLabel": {
-    "message": "Section filter"
+    "message": "Section filter",
+    "description": "Content review UI string."
   },
   "contentReview_templates_transcript_clean_label": {
-    "message": "Clean transcript"
+    "message": "Clean transcript",
+    "description": "Content review UI string."
   },
   "contentReview_templates_transcript_clean_description": {
-    "message": "Normalize punctuation and casing while preserving line structure."
+    "message": "Normalize punctuation and casing while preserving line structure.",
+    "description": "Content review UI string."
   },
   "contentReview_templates_speaker_turns_label": {
-    "message": "Speaker turns"
+    "message": "Speaker turns",
+    "description": "Content review UI string."
   },
   "contentReview_templates_speaker_turns_description": {
-    "message": "Ensure each speaker turn is on its own line with clear labels."
+    "message": "Ensure each speaker turn is on its own line with clear labels.",
+    "description": "Content review UI string."
   },
   "contentReview_templates_chapter_headings_label": {
-    "message": "Chapter headings"
+    "message": "Chapter headings",
+    "description": "Content review UI string."
   },
   "contentReview_templates_chapter_headings_description": {
-    "message": "Insert Markdown headings to group topics without removing content."
+    "message": "Insert Markdown headings to group topics without removing content.",
+    "description": "Content review UI string."
   },
   "contentReview_metadataLabel": {
-    "message": "Metadata"
+    "message": "Metadata",
+    "description": "Content review UI string."
   },
   "contentReview_mediaType": {
-    "message": "Media type"
+    "message": "Media type",
+    "description": "Content review UI string."
   },
   "contentReview_keywords": {
-    "message": "Keywords"
+    "message": "Keywords",
+    "description": "Content review UI string."
   },
   "contentReview_keywordsPlaceholder": {
-    "message": "Add keywords"
+    "message": "Add keywords",
+    "description": "Content review UI string."
   },
   "contentReview_reviewNotes": {
-    "message": "Review notes"
+    "message": "Review notes",
+    "description": "Content review UI string."
   },
   "contentReview_missingSource": {
-    "message": "Source file missing"
+    "message": "Source file missing",
+    "description": "Content review UI string."
   },
   "contentReview_missingSourceBody": {
-    "message": "Attach the original file to commit this draft."
+    "message": "Attach the original file to commit this draft.",
+    "description": "Content review UI string."
   },
   "contentReview_attachSource": {
-    "message": "Attach file"
+    "message": "Attach file",
+    "description": "Content review UI string."
   },
   "contentReview_actionsLabel": {
-    "message": "Actions"
+    "message": "Actions",
+    "description": "Content review UI string."
   },
   "contentReview_commit": {
-    "message": "Commit"
+    "message": "Commit",
+    "description": "Content review UI string."
   },
   "contentReview_commitDisabled": {
-    "message": "Attach the original audio/video file before committing."
+    "message": "Attach the original audio/video file before committing.",
+    "description": "Content review UI string."
   },
   "contentReview_markReviewed": {
-    "message": "Mark reviewed"
+    "message": "Mark reviewed",
+    "description": "Content review UI string."
   },
   "contentReview_skipNext": {
-    "message": "Skip"
+    "message": "Skip",
+    "description": "Content review UI string."
   },
   "contentReview_discard": {
-    "message": "Discard"
+    "message": "Discard",
+    "description": "Content review UI string."
   },
   "contentReview_discardTitle": {
-    "message": "Discard draft?"
+    "message": "Discard draft?",
+    "description": "Content review UI string."
   },
   "contentReview_discardBody": {
-    "message": "This draft will be marked as discarded and removed from review."
+    "message": "This draft will be marked as discarded and removed from review.",
+    "description": "Content review UI string."
   },
   "contentReview_discardConfirm": {
-    "message": "Discard"
+    "message": "Discard",
+    "description": "Content review UI string."
   },
   "contentReview_discardCancel": {
-    "message": "Cancel"
+    "message": "Cancel",
+    "description": "Content review UI string."
   },
   "contentReview_commitSuccess": {
-    "message": "Draft committed."
+    "message": "Draft committed.",
+    "description": "Content review UI string."
   },
   "contentReview_commitAllTitle": {
-    "message": "Commit reviewed drafts?"
+    "message": "Commit reviewed drafts?",
+    "description": "Content review UI string."
   },
   "contentReview_commitAllBody": {
-    "message": "Only drafts marked as reviewed will be committed."
+    "message": "Only drafts marked as reviewed will be committed.",
+    "description": "Content review UI string."
   },
   "contentReview_commitAllConfirm": {
-    "message": "Commit all"
+    "message": "Commit all",
+    "description": "Content review UI string."
   },
   "contentReview_commitAllCancel": {
-    "message": "Cancel"
+    "message": "Cancel",
+    "description": "Content review UI string."
   },
   "contentReview_commitAllResult": {
-    "message": "{{success}} committed · {{failed}} failed"
+    "message": "{{success}} committed · {{failed}} failed",
+    "description": "Content review UI string."
   },
   "contentReview_storageCapWarning": {
-    "message": "This file exceeds the local draft cap ({{cap}})."
+    "message": "This file exceeds the local draft cap ({{cap}}).",
+    "description": "Content review UI string."
   },
   "contentReview_clearTitle": {
-    "message": "Clear all drafts?"
+    "message": "Clear all drafts?",
+    "description": "Content review UI string."
   },
   "contentReview_clearBody": {
-    "message": "This removes all local content review drafts and assets."
+    "message": "This removes all local content review drafts and assets.",
+    "description": "Content review UI string."
   },
   "contentReview_clearConfirm": {
-    "message": "Clear drafts"
+    "message": "Clear drafts",
+    "description": "Content review UI string."
   },
   "contentReview_clearCancel": {
-    "message": "Cancel"
+    "message": "Cancel",
+    "description": "Content review UI string."
   },
   "contentReview_clearSuccess": {
-    "message": "Drafts cleared."
+    "message": "Drafts cleared.",
+    "description": "Content review UI string."
   },
   "contentReview_originalLabel": {
-    "message": "Original"
+    "message": "Original",
+    "description": "Content review UI string."
   },
   "contentReview_editedLabel": {
-    "message": "Edited"
+    "message": "Edited",
+    "description": "Content review UI string."
   },
   "reviewDraftsFailedTitle": {
     "message": "Review drafts couldn't be created."
@@ -1201,6 +1309,12 @@
   },
   "quickIngest_reviewDraftsCreated": {
     "message": "Drafts ready for review."
+  },
+  "quickIngest_reviewStorageCapWarning_one": {
+    "message": "{{count}} file exceeds the local draft cap ({{cap}}). Attach sources before committing audio/video."
+  },
+  "quickIngest_reviewStorageCapWarning_other": {
+    "message": "{{count}} files exceed the local draft cap ({{cap}}). Attach sources before committing audio/video."
   },
   "quickIngest_reviewDraftsFailedTitle": {
     "message": "Review drafts couldn't be created."
@@ -1720,5 +1834,302 @@
   },
   "storeAfterReview": {
     "message": "Store after review"
+  },
+  "manageCharacters_actions_viewConversations": {
+    "message": "View conversations"
+  },
+  "manageCharacters_aria_viewConversations": {
+    "message": "View conversations for {{name}}"
+  },
+  "manageCharacters_aria_searchResults": {
+    "message": "{{count}} characters found"
+  },
+  "manageCharacters_conversations_title": {
+    "message": "Conversations for {{name}}"
+  },
+  "manageCharacters_conversations_titleGeneric": {
+    "message": "Character conversations"
+  },
+  "manageCharacters_conversations_subtitle": {
+    "message": "Select a conversation to continue as this character."
+  },
+  "manageCharacters_conversations_empty": {
+    "message": "No conversations found for this character yet."
+  },
+  "manageCharacters_conversations_error": {
+    "message": "Unable to load conversations for this character."
+  },
+  "manageCharacters_conversations_updated": {
+    "message": "Updated {{time}}"
+  },
+  "manageCharacters_conversations_unknownTime": {
+    "message": "Unknown"
+  },
+  "manageCharacters_conversations_resume": {
+    "message": "Continue chat"
+  },
+  "manageCharacters_conversations_untitled": {
+    "message": "Untitled"
+  },
+  "manageCharacters_conversations_mostRecent": {
+    "message": "Most recent"
+  },
+  "manageCharacters_conversations_resumeTooltip": {
+    "message": "Load chat history and continue this conversation"
+  },
+  "manageCharacters_preview_title": {
+    "message": "Preview"
+  },
+  "manageCharacters_preview_show": {
+    "message": "Show preview"
+  },
+  "manageCharacters_preview_hide": {
+    "message": "Hide preview"
+  },
+  "manageCharacters_preview_untitled": {
+    "message": "Untitled character"
+  },
+  "manageCharacters_preview_greeting": {
+    "message": "Greeting"
+  },
+  "manageCharacters_preview_behavior": {
+    "message": "Behavior"
+  },
+  "manageCharacters_preview_empty": {
+    "message": "Fill in the form to see a preview"
+  },
+  "manageCharacters_advanced_show": {
+    "message": "Show advanced fields"
+  },
+  "manageCharacters_advanced_hide": {
+    "message": "Hide advanced fields"
+  },
+  "chunkingPlayground_nav": {
+    "message": "Chunking Playground"
+  },
+  "chunkingPlayground_title": {
+    "message": "Chunking Playground"
+  },
+  "chunkingPlayground_description": {
+    "message": "Experiment with different chunking settings to see how text gets split into smaller pieces for processing."
+  },
+  "chunkingPlayground_inputLabel": {
+    "message": "Text to chunk"
+  },
+  "chunkingPlayground_inputPlaceholder": {
+    "message": "Paste text here or select a sample..."
+  },
+  "chunkingPlayground_uploadButton": {
+    "message": "Upload File"
+  },
+  "chunkingPlayground_chunkButton": {
+    "message": "Chunk Text"
+  },
+  "chunkingPlayground_methodLabel": {
+    "message": "Chunking Method"
+  },
+  "chunkingPlayground_maxSizeLabel": {
+    "message": "Max Chunk Size"
+  },
+  "chunkingPlayground_overlapLabel": {
+    "message": "Overlap"
+  },
+  "chunkingPlayground_languageLabel": {
+    "message": "Language"
+  },
+  "chunkingPlayground_languages_auto": {
+    "message": "Auto-detect"
+  },
+  "chunkingPlayground_languages_en": {
+    "message": "English"
+  },
+  "chunkingPlayground_languages_es": {
+    "message": "Spanish"
+  },
+  "chunkingPlayground_languages_fr": {
+    "message": "French"
+  },
+  "chunkingPlayground_languages_de": {
+    "message": "German"
+  },
+  "chunkingPlayground_languages_it": {
+    "message": "Italian"
+  },
+  "chunkingPlayground_languages_pt": {
+    "message": "Portuguese"
+  },
+  "chunkingPlayground_languages_zh": {
+    "message": "Chinese"
+  },
+  "chunkingPlayground_languages_ja": {
+    "message": "Japanese"
+  },
+  "chunkingPlayground_languages_ko": {
+    "message": "Korean"
+  },
+  "chunkingPlayground_viewCards": {
+    "message": "Cards"
+  },
+  "chunkingPlayground_viewInline": {
+    "message": "Inline"
+  },
+  "chunkingPlayground_stats": {
+    "message": "{{count}} chunks, avg {{avgSize}} chars"
+  },
+  "chunkingPlayground_textLoaded": {
+    "message": "Text loaded"
+  },
+  "chunkingPlayground_characters": {
+    "message": "characters"
+  },
+  "chunkingPlayground_tabSingle": {
+    "message": "Single"
+  },
+  "chunkingPlayground_tabCompare": {
+    "message": "Compare"
+  },
+  "chunkingPlayground_chunkIndex": {
+    "message": "Chunk {{index}}"
+  },
+  "chunkingPlayground_chunkInfo": {
+    "message": "Chunk {{index}}: {{words}} words"
+  },
+  "chunkingPlayground_position": {
+    "message": "Position: {{start}} - {{end}}"
+  },
+  "chunkingPlayground_additionalChunks": {
+    "message": "+{{count}} more"
+  },
+  "chunkingPlayground_charCount": {
+    "message": "{{count}} characters"
+  },
+  "chunkingPlayground_wordCount": {
+    "message": "{{count}} words"
+  },
+  "chunkingPlayground_noInput": {
+    "message": "Please provide text to chunk"
+  },
+  "chunkingPlayground_sharedInput": {
+    "message": "Shared Input Text"
+  },
+  "chunkingPlayground_compareButton": {
+    "message": "Compare Both"
+  },
+  "chunkingPlayground_comparison": {
+    "message": "Comparison"
+  },
+  "chunkingPlayground_fewerChunks": {
+    "message": "Config A produces {{diff}} fewer chunks"
+  },
+  "chunkingPlayground_moreChunks": {
+    "message": "Config A produces {{diff}} more chunks"
+  },
+  "chunkingPlayground_sameChunks": {
+    "message": "Both configs produce the same number of chunks"
+  },
+  "chunkingPlayground_clickToChunk": {
+    "message": "Click 'Compare' to see results"
+  },
+  "chunkingPlayground_overlapRegion": {
+    "message": "Overlap Region"
+  },
+  "chunkingPlayground_clickHint": {
+    "message": "Click on a highlighted section to focus on that chunk"
+  },
+  "chunkingPlayground_noContentFound": {
+    "message": "No text content found for this media item"
+  },
+  "chunkingPlayground_loadContentError": {
+    "message": "Failed to load media content"
+  },
+  "chunkingPlayground_loadMediaListError": {
+    "message": "Failed to load media library"
+  },
+  "chunkingPlayground_selectMedia": {
+    "message": "Select media item..."
+  },
+  "chunkingPlayground_loadingMedia": {
+    "message": "Loading content..."
+  },
+  "chunkingPlayground_noMediaFound": {
+    "message": "No media found"
+  },
+  "chunkingPlayground_mediaCount": {
+    "message": "{{count}} media items available"
+  },
+  "chunkingPlayground_inputSource_paste": {
+    "message": "Paste Text"
+  },
+  "chunkingPlayground_inputSource_upload": {
+    "message": "Upload File"
+  },
+  "chunkingPlayground_inputSource_sample": {
+    "message": "Sample Text"
+  },
+  "chunkingPlayground_inputSource_media": {
+    "message": "From Media Library"
+  },
+  "chunkingPlayground_samples_article": {
+    "message": "News Article"
+  },
+  "chunkingPlayground_samples_articleDesc": {
+    "message": "Multi-paragraph article with headers"
+  },
+  "chunkingPlayground_samples_code": {
+    "message": "Source Code"
+  },
+  "chunkingPlayground_samples_codeDesc": {
+    "message": "Python code with classes and functions"
+  },
+  "chunkingPlayground_samples_transcript": {
+    "message": "Transcript"
+  },
+  "chunkingPlayground_samples_transcriptDesc": {
+    "message": "Timestamped podcast transcript"
+  },
+  "chunkingPlayground_samples_academic": {
+    "message": "Academic Paper"
+  },
+  "chunkingPlayground_samples_academicDesc": {
+    "message": "Technical writing with citations"
+  },
+  "chunkingPlayground_compare_title": {
+    "message": "Compare Settings"
+  },
+  "chunkingPlayground_compare_configA": {
+    "message": "Configuration A"
+  },
+  "chunkingPlayground_compare_configB": {
+    "message": "Configuration B"
+  },
+  "chunkingPlayground_mode_single": {
+    "message": "Single"
+  },
+  "chunkingPlayground_mode_compare": {
+    "message": "Compare"
+  },
+  "managePrompts_importMode_merge": {
+    "message": "Merge"
+  },
+  "managePrompts_importMode_replace": {
+    "message": "Replace"
+  },
+  "managePrompts_importMode_replaceConfirm": {
+    "message": "Replace will overwrite all current prompts with the imported file. Continue?"
+  },
+  "flashcards_newDeckNameRequired": {
+    "message": "Enter a deck name."
+  },
+  "flashcards_dueAll": {
+    "message": "All"
+  },
+  "flashcards_dueNew": {
+    "message": "New"
+  },
+  "flashcards_dueLearning": {
+    "message": "Learning"
+  },
+  "flashcards_dueDue": {
+    "message": "Due"
   }
 }

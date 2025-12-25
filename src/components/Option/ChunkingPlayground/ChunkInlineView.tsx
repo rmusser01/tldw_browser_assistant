@@ -18,6 +18,18 @@ interface TextSegment {
   end: number
 }
 
+const adjustColorOpacity = (color: string, delta: number): string => {
+  const match = color.match(
+    /rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*([\d.]+))?\)/
+  )
+  if (!match) return color
+  const [, r, g, b, a = "1"] = match
+  const alpha = Number.parseFloat(a)
+  if (Number.isNaN(alpha)) return color
+  const newAlpha = Math.min(1, Math.max(0, alpha + delta))
+  return `rgba(${r}, ${g}, ${b}, ${newAlpha})`
+}
+
 export const ChunkInlineView: React.FC<ChunkInlineViewProps> = ({
   originalText,
   chunks,
@@ -86,7 +98,7 @@ export const ChunkInlineView: React.FC<ChunkInlineViewProps> = ({
       const color = getChunkColor(segment.chunkIndices[0], isDark)
       return {
         backgroundColor: isHighlighted
-          ? color.replace("0.3", "0.6").replace("0.4", "0.7")
+          ? adjustColorOpacity(color, 0.3)
           : color,
         cursor: "pointer",
         transition: "background-color 0.2s"

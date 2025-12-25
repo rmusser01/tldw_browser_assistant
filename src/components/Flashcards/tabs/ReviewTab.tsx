@@ -1,5 +1,4 @@
 import React from "react"
-import { useQueryClient } from "@tanstack/react-query"
 import { Button, Card, Empty, Input, Select, Space, Tag, Tooltip, Typography } from "antd"
 import { useTranslation } from "react-i18next"
 import { useAntdMessage } from "@/hooks/useAntdMessage"
@@ -26,7 +25,6 @@ export const ReviewTab: React.FC<ReviewTabProps> = ({
   onNavigateToImport
 }) => {
   const { t } = useTranslation(["option", "common"])
-  const qc = useQueryClient()
   const message = useAntdMessage()
 
   // State
@@ -50,7 +48,6 @@ export const ReviewTab: React.FC<ReviewTabProps> = ({
         description: t("option:flashcards.ratingAgainHelp", {
           defaultValue: "I didn't remember this card."
         }),
-        color: "#f5222d", // red
         bgClass: "bg-red-500 hover:bg-red-600 border-red-500"
       },
       {
@@ -60,7 +57,6 @@ export const ReviewTab: React.FC<ReviewTabProps> = ({
         description: t("option:flashcards.ratingHardHelp", {
           defaultValue: "I barely remembered; it felt difficult."
         }),
-        color: "#fa8c16", // orange
         bgClass: "bg-orange-500 hover:bg-orange-600 border-orange-500"
       },
       {
@@ -70,7 +66,6 @@ export const ReviewTab: React.FC<ReviewTabProps> = ({
         description: t("option:flashcards.ratingGoodHelp", {
           defaultValue: "I remembered with a bit of effort."
         }),
-        color: "#52c41a", // green
         bgClass: "bg-green-500 hover:bg-green-600 border-green-500"
       },
       {
@@ -80,7 +75,6 @@ export const ReviewTab: React.FC<ReviewTabProps> = ({
         description: t("option:flashcards.ratingEasyHelp", {
           defaultValue: "I remembered easily; no problem."
         }),
-        color: "#1890ff", // blue
         bgClass: "bg-blue-500 hover:bg-blue-600 border-blue-500"
       }
     ],
@@ -105,8 +99,10 @@ export const ReviewTab: React.FC<ReviewTabProps> = ({
         setAnswerMs(undefined)
         setShowAdvancedTiming(false)
         message.success(t("common:success", { defaultValue: "Success" }))
-      } catch (e: any) {
-        message.error(e?.message || "Failed to submit review")
+      } catch (e: unknown) {
+        const errorMessage =
+          e instanceof Error ? e.message : "Failed to submit review"
+        message.error(errorMessage)
       }
     },
     [reviewQuery.data, answerMs, reviewMutation, message, t]
@@ -129,7 +125,7 @@ export const ReviewTab: React.FC<ReviewTabProps> = ({
           })}
           allowClear
           loading={decksQuery.isLoading}
-          value={reviewDeckId as any}
+          value={reviewDeckId ?? undefined}
           className="min-w-64"
           onChange={(v) => setReviewDeckId(v)}
           data-testid="flashcards-review-deck-select"
@@ -139,11 +135,7 @@ export const ReviewTab: React.FC<ReviewTabProps> = ({
           }))}
         />
         <Button
-          onClick={() =>
-            qc.invalidateQueries({
-              queryKey: ["flashcards:review:next"]
-            })
-          }
+          onClick={() => reviewQuery.refetch()}
           loading={reviewQuery.isFetching}
           data-testid="flashcards-review-next-due"
         >
@@ -233,12 +225,7 @@ export const ReviewTab: React.FC<ReviewTabProps> = ({
                           <Button
                             onClick={() => onSubmitReview(opt.value)}
                             aria-label={`${opt.label} (${opt.key})`}
-                            style={{
-                              backgroundColor: opt.color,
-                              borderColor: opt.color,
-                              color: "white"
-                            }}
-                            className="hover:opacity-90"
+                            className={`!text-white ${opt.bgClass}`}
                             data-testid={`flashcards-review-rate-${opt.key}`}
                           >
                             <span className="font-medium">{opt.label}</span>

@@ -17,6 +17,7 @@ import {
   BookMarked,
   BookOpen,
   ChevronDown,
+  Scissors,
 } from "lucide-react"
 
 const classNames = (...classes: (string | false | null | undefined)[]) =>
@@ -184,6 +185,12 @@ export function HeaderShortcuts({
             to: "/tts",
             icon: Gauge,
             label: t("option:tts.playground", "TTS Playground"),
+          },
+          {
+            type: "link" as const,
+            to: "/chunking-playground",
+            icon: Scissors,
+            label: t("settings:chunkingPlayground.nav", "Chunking Playground"),
           },
           {
             type: "link" as const,

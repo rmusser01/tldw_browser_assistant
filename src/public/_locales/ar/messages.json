@@ -796,296 +796,404 @@
   "more_download_canonicalMarkdown": {
     "message": "التفريغ القياسي (Markdown)"
   },
-  "contentReview_title": {
+  "header_contentReview": {
     "message": "مراجعة المحتوى"
   },
+  "contentReview_title": {
+    "message": "مراجعة المحتوى",
+    "description": "Content review UI string."
+  },
   "contentReview_readyToSubmit": {
-    "message": "{{count}} جاهزة"
+    "message": "{{count}} جاهزة",
+    "description": "Content review UI string."
   },
   "contentReview_committedCount": {
-    "message": "{{count}} تم اعتمادها"
+    "message": "{{count}} تم اعتمادها",
+    "description": "Content review UI string."
   },
   "contentReview_totalCount": {
-    "message": "{{count}} إجمالي"
+    "message": "{{count}} إجمالي",
+    "description": "Content review UI string."
   },
   "contentReview_commitAll": {
-    "message": "اعتماد الكل"
+    "message": "اعتماد الكل",
+    "description": "Content review UI string."
   },
   "contentReview_clearDrafts": {
-    "message": "مسح المسودات"
+    "message": "مسح المسودات",
+    "description": "Content review UI string."
   },
   "contentReview_emptyDescription": {
-    "message": "لا توجد مسودات بعد. استخدم Quick Ingest مع خيار المراجعة قبل الحفظ لإنشاء مسودات."
+    "message": "لا توجد مسودات بعد. استخدم Quick Ingest مع خيار المراجعة قبل الحفظ لإنشاء مسودات.",
+    "description": "Content review UI string."
   },
   "contentReview_openQuickIngest": {
-    "message": "فتح Quick Ingest"
+    "message": "فتح Quick Ingest",
+    "description": "Content review UI string."
   },
   "contentReview_storeAfterReview": {
-    "message": "الحفظ بعد المراجعة"
+    "message": "الحفظ بعد المراجعة",
+    "description": "Content review UI string."
   },
   "contentReview_reviewBeforeStorage": {
-    "message": "المراجعة قبل الحفظ"
+    "message": "المراجعة قبل الحفظ",
+    "description": "Content review UI string."
   },
   "contentReview_reviewBeforeStorageHint": {
-    "message": "قم بالمعالجة الآن ثم حرّر المسودات محليًا قبل اعتمادها على الخادم."
+    "message": "قم بالمعالجة الآن ثم حرّر المسودات محليًا قبل اعتمادها على الخادم.",
+    "description": "Content review UI string."
   },
   "contentReview_reviewEnabled": {
-    "message": "وضع المراجعة"
+    "message": "وضع المراجعة",
+    "description": "Content review UI string."
   },
   "contentReview_reviewStorageCap": {
-    "message": "الحد الأقصى للمسودات المحلية هو {{cap}}."
+    "message": "الحد الأقصى للمسودات المحلية هو {{cap}}.",
+    "description": "Content review UI string."
   },
   "contentReview_reviewWarningTitle": {
-    "message": "حفظ المسودات محليًا؟"
+    "message": "حفظ المسودات محليًا؟",
+    "description": "Content review UI string."
   },
   "contentReview_reviewWarningBody": {
-    "message": "تُحفظ المسودات في هذا المتصفح وقد تتضمن بيانات حساسة. يمكنك مسح المسودات من صفحة مراجعة المحتوى في أي وقت."
+    "message": "تُحفظ المسودات في هذا المتصفح وقد تتضمن بيانات حساسة. يمكنك مسح المسودات من صفحة مراجعة المحتوى في أي وقت.",
+    "description": "Content review UI string."
   },
   "contentReview_reviewWarningBodySecondary": {
-    "message": "يحفظ وضع المراجعة المحتوى على جانب العميل حتى تعتمدَه على الخادم."
+    "message": "يحفظ وضع المراجعة المحتوى على جانب العميل حتى تعتمدَه على الخادم.",
+    "description": "Content review UI string."
   },
   "contentReview_reviewWarningConfirm": {
-    "message": "تفعيل المراجعة"
+    "message": "تفعيل المراجعة",
+    "description": "Content review UI string."
   },
   "contentReview_reviewWarningCancel": {
-    "message": "إلغاء"
+    "message": "إلغاء",
+    "description": "Content review UI string."
   },
   "contentReview_reviewRunLabel": {
-    "message": "مراجعة"
+    "message": "مراجعة",
+    "description": "Content review UI string."
   },
   "contentReview_reviewDraftsCreated": {
-    "message": "المسودات جاهزة للمراجعة."
+    "message": "المسودات جاهزة للمراجعة.",
+    "description": "Content review UI string."
+  },
+  "contentReview_reviewStorageCapWarning_one": {
+    "message": "{{count}} ملف يتجاوز حد المسودات المحلية ({{cap}}). أرفق المصادر قبل اعتماد الصوت/الفيديو.",
+    "description": "Content review UI string."
+  },
+  "contentReview_reviewStorageCapWarning_other": {
+    "message": "{{count}} ملفات تتجاوز حد المسودات المحلية ({{cap}}). أرفق المصادر قبل اعتماد الصوت/الفيديو.",
+    "description": "Content review UI string."
   },
   "contentReview_openContentReview": {
-    "message": "فتح مراجعة المحتوى"
+    "message": "فتح مراجعة المحتوى",
+    "description": "Content review UI string."
   },
   "contentReview_batchLabel": {
-    "message": "دفعة"
+    "message": "دفعة",
+    "description": "Content review UI string."
   },
   "contentReview_batchName": {
-    "message": "دفعة {{index}}"
+    "message": "دفعة {{index}}",
+    "description": "Content review UI string."
   },
   "contentReview_draftsLabel": {
-    "message": "المسودات"
+    "message": "المسودات",
+    "description": "Content review UI string."
   },
   "contentReview_selectDraft": {
-    "message": "اختر مسودة لبدء المراجعة."
+    "message": "اختر مسودة لبدء المراجعة.",
+    "description": "Content review UI string."
   },
   "contentReview_titlePlaceholder": {
-    "message": "عنوان المسودة"
+    "message": "عنوان المسودة",
+    "description": "Content review UI string."
   },
   "contentReview_lastSaved": {
-    "message": "تم الحفظ {{time}}"
+    "message": "تم الحفظ {{time}}",
+    "description": "Content review UI string."
   },
   "contentReview_resetTitle": {
-    "message": "إعادة تعيين المسودة؟"
+    "message": "إعادة تعيين المسودة؟",
+    "description": "Content review UI string."
   },
   "contentReview_resetBody": {
-    "message": "سيؤدي هذا إلى استعادة المحتوى الأصلي لهذه المسودة."
+    "message": "سيؤدي هذا إلى استعادة المحتوى الأصلي لهذه المسودة.",
+    "description": "Content review UI string."
   },
   "contentReview_resetConfirm": {
-    "message": "إعادة تعيين"
+    "message": "إعادة تعيين",
+    "description": "Content review UI string."
   },
   "contentReview_resetCancel": {
-    "message": "إلغاء"
+    "message": "إلغاء",
+    "description": "Content review UI string."
   },
   "contentReview_resetContent": {
-    "message": "إعادة تعيين"
+    "message": "إعادة تعيين",
+    "description": "Content review UI string."
   },
   "contentReview_diffView": {
-    "message": "عرض الفروقات"
+    "message": "عرض الفروقات",
+    "description": "Content review UI string."
   },
   "contentReview_saveDraft": {
-    "message": "حفظ المسودة"
+    "message": "حفظ المسودة",
+    "description": "Content review UI string."
   },
   "contentReview_editorLabel": {
-    "message": "المحتوى"
+    "message": "المحتوى",
+    "description": "Content review UI string."
   },
   "contentReview_wordCount": {
-    "message": "{{words}} كلمة"
+    "message": "{{words}} كلمة",
+    "description": "Content review UI string."
   },
   "contentReview_charCount": {
-    "message": "{{chars}} حرفاً"
+    "message": "{{chars}} حرفاً",
+    "description": "Content review UI string."
   },
   "contentReview_aiFix": {
-    "message": "تصحيح بالذكاء الاصطناعي"
+    "message": "تصحيح بالذكاء الاصطناعي",
+    "description": "Content review UI string."
   },
   "contentReview_aiHint": {
-    "message": "يرسل محتوى المسودة إلى الخادم لديك لمعالجته بالذكاء الاصطناعي."
+    "message": "يرسل محتوى المسودة إلى الخادم لديك لمعالجته بالذكاء الاصطناعي.",
+    "description": "Content review UI string."
   },
   "contentReview_modelPlaceholder": {
-    "message": "الإعداد الافتراضي للخادم"
+    "message": "الإعداد الافتراضي للخادم",
+    "description": "Content review UI string."
   },
   "contentReview_aiConsentTitle": {
-    "message": "إرسال المسودة إلى الخادم؟"
+    "message": "إرسال المسودة إلى الخادم؟",
+    "description": "Content review UI string."
   },
   "contentReview_aiConsentBody": {
-    "message": "سيتم إرسال محتوى المسودة إلى خادم tldw لديك لمعالجته بالذكاء الاصطناعي. تظل المسودات محلية حتى تقوم باعتمادها."
+    "message": "سيتم إرسال محتوى المسودة إلى خادم tldw لديك لمعالجته بالذكاء الاصطناعي. تظل المسودات محلية حتى تقوم باعتمادها.",
+    "description": "Content review UI string."
   },
   "contentReview_aiConsentConfirm": {
-    "message": "متابعة"
+    "message": "متابعة",
+    "description": "Content review UI string."
   },
   "contentReview_aiConsentCancel": {
-    "message": "إلغاء"
+    "message": "إلغاء",
+    "description": "Content review UI string."
   },
   "contentReview_aiApplied": {
-    "message": "تم تطبيق تصحيحات الذكاء الاصطناعي."
+    "message": "تم تطبيق تصحيحات الذكاء الاصطناعي.",
+    "description": "Content review UI string."
   },
   "contentReview_aiNoChange": {
-    "message": "لم يتم إرجاع أي تغييرات."
+    "message": "لم يتم إرجاع أي تغييرات.",
+    "description": "Content review UI string."
   },
   "contentReview_aiEmpty": {
-    "message": "لم يُرجع الذكاء الاصطناعي أي محتوى."
+    "message": "لم يُرجع الذكاء الاصطناعي أي محتوى.",
+    "description": "Content review UI string."
   },
   "contentReview_aiUnavailable": {
-    "message": "إكمالات الدردشة غير متاحة."
+    "message": "إكمالات الدردشة غير متاحة.",
+    "description": "Content review UI string."
   },
   "contentReview_templatePlaceholder": {
-    "message": "اختر قالباً"
+    "message": "اختر قالباً",
+    "description": "Content review UI string."
   },
   "contentReview_applyTemplate": {
-    "message": "تطبيق القالب"
+    "message": "تطبيق القالب",
+    "description": "Content review UI string."
   },
   "contentReview_templateApplied": {
-    "message": "تم تطبيق القالب."
+    "message": "تم تطبيق القالب.",
+    "description": "Content review UI string."
   },
   "contentReview_templateMissing": {
-    "message": "يرجى اختيار قالب أولاً."
+    "message": "يرجى اختيار قالب أولاً.",
+    "description": "Content review UI string."
   },
   "contentReview_detectSections": {
-    "message": "اكتشاف الأقسام"
+    "message": "اكتشاف الأقسام",
+    "description": "Content review UI string."
   },
   "contentReview_detectSectionsTitle": {
-    "message": "إعادة اكتشاف الأقسام؟"
+    "message": "إعادة اكتشاف الأقسام؟",
+    "description": "Content review UI string."
   },
   "contentReview_detectSectionsBody": {
-    "message": "سيؤدي هذا إلى استبدال الأقسام الحالية وإعادة تعيين اختياراتك."
+    "message": "سيؤدي هذا إلى استبدال الأقسام الحالية وإعادة تعيين اختياراتك.",
+    "description": "Content review UI string."
   },
   "contentReview_detectSectionsConfirm": {
-    "message": "إعادة الاكتشاف"
+    "message": "إعادة الاكتشاف",
+    "description": "Content review UI string."
   },
   "contentReview_detectSectionsCancel": {
-    "message": "إلغاء"
+    "message": "إلغاء",
+    "description": "Content review UI string."
   },
   "contentReview_detectSectionsEmpty": {
-    "message": "لم يتم اكتشاف أي أقسام."
+    "message": "لم يتم اكتشاف أي أقسام.",
+    "description": "Content review UI string."
   },
   "contentReview_sectionsLabel": {
-    "message": "فلتر الأقسام"
+    "message": "فلتر الأقسام",
+    "description": "Content review UI string."
   },
   "contentReview_templates_transcript_clean_label": {
-    "message": "تنظيف النص المفرغ"
+    "message": "تنظيف النص المفرغ",
+    "description": "Content review UI string."
   },
   "contentReview_templates_transcript_clean_description": {
-    "message": "توحيد علامات الترقيم وحالة الأحرف مع الحفاظ على بنية الأسطر."
+    "message": "توحيد علامات الترقيم وحالة الأحرف مع الحفاظ على بنية الأسطر.",
+    "description": "Content review UI string."
   },
   "contentReview_templates_speaker_turns_label": {
-    "message": "أدوار المتحدثين"
+    "message": "أدوار المتحدثين",
+    "description": "Content review UI string."
   },
   "contentReview_templates_speaker_turns_description": {
-    "message": "يضمن أن يكون كل دور للمتحدث في سطر منفصل مع تسميات واضحة."
+    "message": "يضمن أن يكون كل دور للمتحدث في سطر منفصل مع تسميات واضحة.",
+    "description": "Content review UI string."
   },
   "contentReview_templates_chapter_headings_label": {
-    "message": "عناوين الفصول"
+    "message": "عناوين الفصول",
+    "description": "Content review UI string."
   },
   "contentReview_templates_chapter_headings_description": {
-    "message": "يُدرج عناوين Markdown لتجميع المواضيع دون إزالة المحتوى."
+    "message": "يُدرج عناوين Markdown لتجميع المواضيع دون إزالة المحتوى.",
+    "description": "Content review UI string."
   },
   "contentReview_metadataLabel": {
-    "message": "البيانات الوصفية"
+    "message": "البيانات الوصفية",
+    "description": "Content review UI string."
   },
   "contentReview_mediaType": {
-    "message": "نوع الوسائط"
+    "message": "نوع الوسائط",
+    "description": "Content review UI string."
   },
   "contentReview_keywords": {
-    "message": "الكلمات المفتاحية"
+    "message": "الكلمات المفتاحية",
+    "description": "Content review UI string."
   },
   "contentReview_keywordsPlaceholder": {
-    "message": "إضافة كلمات مفتاحية"
+    "message": "إضافة كلمات مفتاحية",
+    "description": "Content review UI string."
   },
   "contentReview_reviewNotes": {
-    "message": "ملاحظات المراجعة"
+    "message": "ملاحظات المراجعة",
+    "description": "Content review UI string."
   },
   "contentReview_missingSource": {
-    "message": "ملف المصدر مفقود"
+    "message": "ملف المصدر مفقود",
+    "description": "Content review UI string."
   },
   "contentReview_missingSourceBody": {
-    "message": "أرفق الملف الأصلي لاعتماد هذه المسودة."
+    "message": "أرفق الملف الأصلي لاعتماد هذه المسودة.",
+    "description": "Content review UI string."
   },
   "contentReview_attachSource": {
-    "message": "إرفاق ملف"
+    "message": "إرفاق ملف",
+    "description": "Content review UI string."
   },
   "contentReview_actionsLabel": {
-    "message": "الإجراءات"
+    "message": "الإجراءات",
+    "description": "Content review UI string."
   },
   "contentReview_commit": {
-    "message": "اعتماد"
+    "message": "اعتماد",
+    "description": "Content review UI string."
   },
   "contentReview_commitDisabled": {
-    "message": "أرفق ملف الصوت/الفيديو الأصلي قبل الاعتماد."
+    "message": "أرفق ملف الصوت/الفيديو الأصلي قبل الاعتماد.",
+    "description": "Content review UI string."
   },
   "contentReview_markReviewed": {
-    "message": "وضع علامة تمت مراجعتها"
+    "message": "وضع علامة تمت مراجعتها",
+    "description": "Content review UI string."
   },
   "contentReview_skipNext": {
-    "message": "تخطي"
+    "message": "تخطي",
+    "description": "Content review UI string."
   },
   "contentReview_discard": {
-    "message": "تجاهل"
+    "message": "تجاهل",
+    "description": "Content review UI string."
   },
   "contentReview_discardTitle": {
-    "message": "تجاهل المسودة؟"
+    "message": "تجاهل المسودة؟",
+    "description": "Content review UI string."
   },
   "contentReview_discardBody": {
-    "message": "سيتم وضع علامة على هذه المسودة كتجاهَل وإزالتها من المراجعة."
+    "message": "سيتم وضع علامة على هذه المسودة كتجاهَل وإزالتها من المراجعة.",
+    "description": "Content review UI string."
   },
   "contentReview_discardConfirm": {
-    "message": "تجاهل"
+    "message": "تجاهل",
+    "description": "Content review UI string."
   },
   "contentReview_discardCancel": {
-    "message": "إلغاء"
+    "message": "إلغاء",
+    "description": "Content review UI string."
   },
   "contentReview_commitSuccess": {
-    "message": "تم اعتماد المسودة."
+    "message": "تم اعتماد المسودة.",
+    "description": "Content review UI string."
   },
   "contentReview_commitAllTitle": {
-    "message": "اعتماد المسودات التي تمت مراجعتها؟"
+    "message": "اعتماد المسودات التي تمت مراجعتها؟",
+    "description": "Content review UI string."
   },
   "contentReview_commitAllBody": {
-    "message": "سيتم اعتماد المسودات المعلّمة كمراجَعة فقط."
+    "message": "سيتم اعتماد المسودات المعلّمة كمراجَعة فقط.",
+    "description": "Content review UI string."
   },
   "contentReview_commitAllConfirm": {
-    "message": "اعتماد الكل"
+    "message": "اعتماد الكل",
+    "description": "Content review UI string."
   },
   "contentReview_commitAllCancel": {
-    "message": "إلغاء"
+    "message": "إلغاء",
+    "description": "Content review UI string."
   },
   "contentReview_commitAllResult": {
-    "message": "{{success}} تم اعتمادها · {{failed}} فشلت"
+    "message": "{{success}} تم اعتمادها · {{failed}} فشلت",
+    "description": "Content review UI string."
   },
   "contentReview_storageCapWarning": {
-    "message": "يتجاوز هذا الملف حد المسودات المحلي ({{cap}})."
+    "message": "يتجاوز هذا الملف حد المسودات المحلي ({{cap}}).",
+    "description": "Content review UI string."
   },
   "contentReview_clearTitle": {
-    "message": "مسح جميع المسودات؟"
+    "message": "مسح جميع المسودات؟",
+    "description": "Content review UI string."
   },
   "contentReview_clearBody": {
-    "message": "يؤدي هذا إلى إزالة جميع مسودات مراجعة المحتوى والملفات المحلية."
+    "message": "يؤدي هذا إلى إزالة جميع مسودات مراجعة المحتوى والملفات المحلية.",
+    "description": "Content review UI string."
   },
   "contentReview_clearConfirm": {
-    "message": "مسح المسودات"
+    "message": "مسح المسودات",
+    "description": "Content review UI string."
   },
   "contentReview_clearCancel": {
-    "message": "إلغاء"
+    "message": "إلغاء",
+    "description": "Content review UI string."
   },
   "contentReview_clearSuccess": {
-    "message": "تم مسح المسودات."
+    "message": "تم مسح المسودات.",
+    "description": "Content review UI string."
   },
   "contentReview_originalLabel": {
-    "message": "الأصلي"
+    "message": "الأصلي",
+    "description": "Content review UI string."
   },
   "contentReview_editedLabel": {
-    "message": "بعد التعديل"
+    "message": "بعد التعديل",
+    "description": "Content review UI string."
   },
   "reviewDraftsFailedTitle": {
     "message": "تعذر إنشاء مسودات المراجعة."
@@ -1158,6 +1266,12 @@
   },
   "quickIngest_reviewStorageCap": {
     "message": "الحد الأقصى للمسودات المحلية هو {{cap}}."
+  },
+  "quickIngest_reviewStorageCapWarning_one": {
+    "message": "{{count}} ملف يتجاوز حد المسودات المحلية ({{cap}}). أرفق المصادر قبل اعتماد الصوت/الفيديو."
+  },
+  "quickIngest_reviewStorageCapWarning_other": {
+    "message": "{{count}} ملفات تتجاوز حد المسودات المحلية ({{cap}}). أرفق المصادر قبل اعتماد الصوت/الفيديو."
   },
   "quickIngest_reviewWarningTitle": {
     "message": "حفظ المسودات محليًا؟"
@@ -1290,5 +1404,360 @@
   },
   "storeAfterReview": {
     "message": "الحفظ بعد المراجعة"
+  },
+  "manageCharacters_actions_viewConversations": {
+    "message": "View conversations"
+  },
+  "manageCharacters_aria_viewConversations": {
+    "message": "View conversations for {{name}}"
+  },
+  "manageCharacters_aria_searchResults": {
+    "message": "{{count}} characters found"
+  },
+  "manageCharacters_conversations_title": {
+    "message": "Conversations for {{name}}"
+  },
+  "manageCharacters_conversations_titleGeneric": {
+    "message": "Character conversations"
+  },
+  "manageCharacters_conversations_subtitle": {
+    "message": "Select a conversation to continue as this character."
+  },
+  "manageCharacters_conversations_empty": {
+    "message": "No conversations found for this character yet."
+  },
+  "manageCharacters_conversations_error": {
+    "message": "Unable to load conversations for this character."
+  },
+  "manageCharacters_conversations_updated": {
+    "message": "Updated {{time}}"
+  },
+  "manageCharacters_conversations_unknownTime": {
+    "message": "Unknown"
+  },
+  "manageCharacters_conversations_resume": {
+    "message": "Continue chat"
+  },
+  "manageCharacters_conversations_untitled": {
+    "message": "Untitled"
+  },
+  "manageCharacters_conversations_mostRecent": {
+    "message": "Most recent"
+  },
+  "manageCharacters_conversations_resumeTooltip": {
+    "message": "Load chat history and continue this conversation"
+  },
+  "manageCharacters_preview_title": {
+    "message": "Preview"
+  },
+  "manageCharacters_preview_show": {
+    "message": "Show preview"
+  },
+  "manageCharacters_preview_hide": {
+    "message": "Hide preview"
+  },
+  "manageCharacters_preview_untitled": {
+    "message": "Untitled character"
+  },
+  "manageCharacters_preview_greeting": {
+    "message": "Greeting"
+  },
+  "manageCharacters_preview_behavior": {
+    "message": "Behavior"
+  },
+  "manageCharacters_preview_empty": {
+    "message": "Fill in the form to see a preview"
+  },
+  "manageCharacters_advanced_show": {
+    "message": "Show advanced fields"
+  },
+  "manageCharacters_advanced_hide": {
+    "message": "Hide advanced fields"
+  },
+  "chunkingPlayground_nav": {
+    "message": "Chunking Playground",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_title": {
+    "message": "Chunking Playground",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_description": {
+    "message": "Experiment with different chunking settings to see how text gets split into smaller pieces for processing.",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_inputLabel": {
+    "message": "Text to chunk",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_inputPlaceholder": {
+    "message": "Paste text here or select a sample...",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_uploadButton": {
+    "message": "Upload File",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_chunkButton": {
+    "message": "Chunk Text",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_methodLabel": {
+    "message": "Chunking Method",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_maxSizeLabel": {
+    "message": "Max Chunk Size",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_overlapLabel": {
+    "message": "Overlap",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_languageLabel": {
+    "message": "Language",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_languages_auto": {
+    "message": "Auto-detect",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_languages_en": {
+    "message": "English",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_languages_es": {
+    "message": "Spanish",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_languages_fr": {
+    "message": "French",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_languages_de": {
+    "message": "German",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_languages_it": {
+    "message": "Italian",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_languages_pt": {
+    "message": "Portuguese",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_languages_zh": {
+    "message": "Chinese",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_languages_ja": {
+    "message": "Japanese",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_languages_ko": {
+    "message": "Korean",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_viewCards": {
+    "message": "Cards",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_viewInline": {
+    "message": "Inline",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_stats": {
+    "message": "{{count}} chunks, avg {{avgSize}} chars"
+  },
+  "chunkingPlayground_textLoaded": {
+    "message": "Text loaded",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_characters": {
+    "message": "characters",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_tabSingle": {
+    "message": "Single",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_tabCompare": {
+    "message": "Compare",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_chunkIndex": {
+    "message": "Chunk {{index}}"
+  },
+  "chunkingPlayground_chunkInfo": {
+    "message": "Chunk {{index}}: {{words}} words"
+  },
+  "chunkingPlayground_position": {
+    "message": "Position: {{start}} - {{end}}"
+  },
+  "chunkingPlayground_additionalChunks": {
+    "message": "+{{count}} more"
+  },
+  "chunkingPlayground_charCount": {
+    "message": "{{count}} characters"
+  },
+  "chunkingPlayground_wordCount": {
+    "message": "{{count}} words"
+  },
+  "chunkingPlayground_noInput": {
+    "message": "Please provide text to chunk",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_sharedInput": {
+    "message": "Shared Input Text",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_compareButton": {
+    "message": "Compare Both",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_comparison": {
+    "message": "Comparison",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_fewerChunks": {
+    "message": "Config A produces {{diff}} fewer chunks"
+  },
+  "chunkingPlayground_moreChunks": {
+    "message": "Config A produces {{diff}} more chunks"
+  },
+  "chunkingPlayground_sameChunks": {
+    "message": "Both configs produce the same number of chunks",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_clickToChunk": {
+    "message": "Click 'Compare' to see results",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_overlapRegion": {
+    "message": "Overlap Region",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_clickHint": {
+    "message": "Click on a highlighted section to focus on that chunk",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_noContentFound": {
+    "message": "No text content found for this media item",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_loadContentError": {
+    "message": "Failed to load media content",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_loadMediaListError": {
+    "message": "Failed to load media library",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_selectMedia": {
+    "message": "Select media item...",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_loadingMedia": {
+    "message": "Loading content...",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_noMediaFound": {
+    "message": "No media found",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_mediaCount": {
+    "message": "{{count}} media items available"
+  },
+  "chunkingPlayground_inputSource_paste": {
+    "message": "Paste Text",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_inputSource_upload": {
+    "message": "Upload File",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_inputSource_sample": {
+    "message": "Sample Text",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_inputSource_media": {
+    "message": "From Media Library",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_samples_article": {
+    "message": "News Article",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_samples_articleDesc": {
+    "message": "Multi-paragraph article with headers",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_samples_code": {
+    "message": "Source Code",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_samples_codeDesc": {
+    "message": "Python code with classes and functions",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_samples_transcript": {
+    "message": "Transcript",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_samples_transcriptDesc": {
+    "message": "Timestamped podcast transcript",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_samples_academic": {
+    "message": "Academic Paper",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_samples_academicDesc": {
+    "message": "Technical writing with citations",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_compare_title": {
+    "message": "Compare Settings",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_compare_configA": {
+    "message": "Configuration A",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_compare_configB": {
+    "message": "Configuration B",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_mode_single": {
+    "message": "Single",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_mode_compare": {
+    "message": "Compare",
+    "description": "TODO: translate (copied from en)"
+  },
+  "managePrompts_importMode_merge": {
+    "message": "دمج"
+  },
+  "managePrompts_importMode_replace": {
+    "message": "استبدال"
+  },
+  "managePrompts_importMode_replaceConfirm": {
+    "message": "سيؤدي الاستبدال إلى الكتابة فوق جميع المطالبات الحالية بالملف المستورد. هل تريد المتابعة؟"
+  },
+  "flashcards_newDeckNameRequired": {
+    "message": "أدخل اسم المجموعة."
+  },
+  "flashcards_dueAll": {
+    "message": "الكل"
+  },
+  "flashcards_dueNew": {
+    "message": "جديدة"
+  },
+  "flashcards_dueLearning": {
+    "message": "قيد التعلّم"
+  },
+  "flashcards_dueDue": {
+    "message": "مستحقة"
   }
 }

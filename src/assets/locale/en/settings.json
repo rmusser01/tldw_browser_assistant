@@ -724,8 +724,8 @@
         "label": "Behavior / instructions",
         "placeholder": "E.g., You are a patient math teacher who explains concepts step by step and checks understanding with short examples.",
         "help": "Explain the character's role, tone, and constraints. For example: \"You are a patient math tutor who explains concepts step by step.\"",
-        "required": "Please add instructions for how the character should respond.",
-        "min": "Add a short description so the character knows how to respond.",
+        "required": "Please add instructions to guide responses.",
+        "min": "Provide instructions so the character responds appropriately.",
         "max": "System prompt must be 2000 characters or less."
       },
       "avatarUrl": {
@@ -824,6 +824,7 @@
     }
   },
   "chunkingPlayground": {
+    "_todo": "TODO: translate chunkingPlayground strings (copied from en)",
     "nav": "Chunking Playground",
     "title": "Chunking Playground",
     "description": "Experiment with different chunking settings to see how text gets split into smaller pieces for processing.",

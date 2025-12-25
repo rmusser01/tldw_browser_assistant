@@ -270,6 +270,17 @@ export const FlashcardsPage: React.FC = () => {
     },
     onError: (e: any) => message.error(e?.message || "Failed to create deck")
   })
+  const handleCreateDeck = () => {
+    if (!newDeckName.trim()) {
+      message.error(
+        t("option:flashcards.newDeckNameRequired", {
+          defaultValue: "Enter a deck name."
+        })
+      )
+      return
+    }
+    createDeckMutation.mutate()
+  }
 
   // MANAGE TAB STATE
   const [mDeckId, setMDeckId] = React.useState<number | null | undefined>(undefined)
@@ -509,13 +520,9 @@ export const FlashcardsPage: React.FC = () => {
   // Quick actions: review
   const [quickReviewOpen, setQuickReviewOpen] = React.useState(false)
   const [quickReviewCard, setQuickReviewCard] = React.useState<Flashcard | null>(null)
-  const openQuickReview = async (card: Flashcard) => {
-    try {
-      setQuickReviewCard(card)
-      setQuickReviewOpen(true)
-    } catch (e: any) {
-      message.error(e?.message || "Failed to load card")
-    }
+  const openQuickReview = (card: Flashcard) => {
+    setQuickReviewCard(card)
+    setQuickReviewOpen(true)
   }
   const submitQuickRating = async (rating: number) => {
     try {
@@ -544,21 +551,24 @@ export const FlashcardsPage: React.FC = () => {
       })
       await qc.invalidateQueries({ queryKey: ["flashcards:list"] })
       message.success(t("common:created", { defaultValue: "Created" }))
-    } catch (e: any) { message.error(e?.message || 'Duplicate failed') }
+    } catch (e: any) {
+      message.error(
+        e?.message ||
+          t("option:flashcards.duplicateFailed", {
+            defaultValue: "Duplicate failed"
+          })
+      )
+    }
   }
 
   // Quick actions: move (change deck)
   const [moveOpen, setMoveOpen] = React.useState(false)
   const [moveCard, setMoveCard] = React.useState<Flashcard | null>(null)
   const [moveDeckId, setMoveDeckId] = React.useState<number | null>(null)
-  const openMove = async (card: Flashcard) => {
-    try {
-      setMoveCard(card)
-      setMoveDeckId(card.deck_id ?? null)
-      setMoveOpen(true)
-    } catch (e: any) {
-      message.error(e?.message || "Failed to load card")
-    }
+  const openMove = (card: Flashcard) => {
+    setMoveCard(card)
+    setMoveDeckId(card.deck_id ?? null)
+    setMoveOpen(true)
   }
   const submitMove = async () => {
     try {
@@ -596,10 +606,15 @@ export const FlashcardsPage: React.FC = () => {
       setMoveCard(null)
       await qc.invalidateQueries({ queryKey: ["flashcards:list"] })
       message.success(t("common:updated", { defaultValue: "Updated" }))
-    } catch (e: any) { message.error(e?.message || 'Move failed') }
+    } catch (e: any) {
+      message.error(
+        e?.message ||
+          t("option:flashcards.moveFailed", { defaultValue: "Move failed" })
+      )
+    }
   }
 
-  const openEdit = async (card: Flashcard) => {
+  const openEdit = (card: Flashcard) => {
     try {
       setEditing(card)
       editForm.setFieldsValue({
@@ -616,7 +631,12 @@ export const FlashcardsPage: React.FC = () => {
       } as any)
       setEditOpen(true)
     } catch (e: any) {
-      message.error(e?.message || "Failed to load card")
+      message.error(
+        e?.message ||
+          t("option:flashcards.loadCardFailed", {
+            defaultValue: "Failed to load card"
+          })
+      )
     }
   }
 
@@ -1240,7 +1260,7 @@ export const FlashcardsPage: React.FC = () => {
                   title={t("option:flashcards.newDeck", { defaultValue: "New Deck" })}
                   open={newDeckModalOpen}
                   onCancel={() => setNewDeckModalOpen(false)}
-                  onOk={() => createDeckMutation.mutate()}
+                  onOk={handleCreateDeck}
                   okText={t("common:create", { defaultValue: "Create" })}
                   confirmLoading={createDeckMutation.isPending}
                 >
@@ -1280,10 +1300,24 @@ export const FlashcardsPage: React.FC = () => {
                     value={mDue}
                     onChange={(v: DueStatus) => setMDue(v)}
                     options={[
-                      { label: "all", value: "all" },
-                      { label: "new", value: "new" },
-                      { label: "learning", value: "learning" },
-                      { label: "due", value: "due" }
+                      {
+                        label: t("option:flashcards.dueAll", { defaultValue: "All" }),
+                        value: "all"
+                      },
+                      {
+                        label: t("option:flashcards.dueNew", { defaultValue: "New" }),
+                        value: "new"
+                      },
+                      {
+                        label: t("option:flashcards.dueLearning", {
+                          defaultValue: "Learning"
+                        }),
+                        value: "learning"
+                      },
+                      {
+                        label: t("option:flashcards.dueDue", { defaultValue: "Due" }),
+                        value: "due"
+                      }
                     ]}
                   />
                   <Input

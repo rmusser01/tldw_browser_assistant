@@ -10,16 +10,15 @@ import {
   Tooltip,
   Select,
   Alert,
-  Checkbox,
-  Upload,
-  message
+  Checkbox
 } from "antd"
 import type { InputRef } from "antd"
 import React from "react"
 import { tldwClient, type ServerChatSummary } from "@/services/tldw/TldwApiClient"
-import { History, Pen, Trash2, UserCircle2, MessageCircle, ImageIcon, X, Copy, ChevronDown, ChevronUp } from "lucide-react"
+import { History, Pen, Trash2, UserCircle2, MessageCircle, Copy, ChevronDown, ChevronUp } from "lucide-react"
 import { CharacterPreview } from "./CharacterPreview"
 import { AvatarField, extractAvatarValues, createAvatarValue } from "./AvatarField"
+import { validateAndCreateImageDataUrl } from "@/utils/image-utils"
 import { useTranslation } from "react-i18next"
 import { useConfirmDanger } from "@/components/Common/confirm-danger"
 import { useNavigate } from "react-router-dom"
@@ -34,209 +33,11 @@ const MAX_NAME_LENGTH = 75
 const MAX_DESCRIPTION_LENGTH = 65
 const MAX_TAG_LENGTH = 20
 const MAX_TAGS_DISPLAYED = 6
-const BASE64_IMAGE_PATTERN =
-  /^(?:[A-Za-z0-9+/_-]{4})*(?:[A-Za-z0-9+/_-]{2}==|[A-Za-z0-9+/_-]{3}=)?$/
-const ALLOWED_IMAGE_MIME_TYPES = new Set(["image/png", "image/jpeg", "image/gif"])
 
 const truncateText = (value?: string, max?: number) => {
   if (!value) return ""
   if (!max || value.length <= max) return value
   return `${value.slice(0, max)}...`
-}
-
-const detectImageMime = (bytes: Uint8Array): string | null => {
-  const isPng =
-    bytes.length >= 4 &&
-    bytes[0] === 0x89 &&
-    bytes[1] === 0x50 &&
-    bytes[2] === 0x4e &&
-    bytes[3] === 0x47
-  if (isPng) return "image/png"
-
-  const isJpeg =
-    bytes.length >= 3 &&
-    bytes[0] === 0xff &&
-    bytes[1] === 0xd8 &&
-    bytes[2] === 0xff
-  if (isJpeg) return "image/jpeg"
-
-  const isGif =
-    bytes.length >= 6 &&
-    bytes[0] === 0x47 &&
-    bytes[1] === 0x49 &&
-    bytes[2] === 0x46 &&
-    bytes[3] === 0x38 &&
-    (bytes[4] === 0x39 || bytes[4] === 0x37) &&
-    bytes[5] === 0x61
-  if (isGif) return "image/gif"
-
-  return null
-}
-
-const decodeBase64Header = (value: string): Uint8Array | null => {
-  if (typeof atob !== "function") return null
-
-  try {
-    const decoded = atob(value.slice(0, Math.min(value.length, 128)))
-    const headerBytes = new Uint8Array(Math.min(decoded.length, 32))
-    for (let i = 0; i < headerBytes.length; i += 1) {
-      headerBytes[i] = decoded.charCodeAt(i)
-    }
-    return headerBytes
-  } catch {
-    return null
-  }
-}
-
-/**
- * Lightweight client-side guard: only allows rendering known raster formats.
- * Server-side validation should enforce allowable avatar uploads.
- */
-const validateAndCreateImageDataUrl = (value: unknown): string => {
-  if (typeof value !== "string") return ""
-  const trimmed = value.trim()
-  if (!trimmed || trimmed.toLowerCase().startsWith("data:")) return ""
-  if (!BASE64_IMAGE_PATTERN.test(trimmed)) return ""
-
-  const headerBytes = decodeBase64Header(trimmed)
-  if (!headerBytes) return ""
-
-  const mime = detectImageMime(headerBytes)
-  if (!mime || !ALLOWED_IMAGE_MIME_TYPES.has(mime)) return ""
-
-  return `data:${mime};base64,${trimmed}`
-}
-
-/**
- * ImageUploadField - Form field component for uploading character avatar images
- * Converts uploaded images to base64 and validates format (PNG/JPEG/GIF only)
- */
-interface ImageUploadFieldProps {
-  value?: string  // raw base64 string (without data: prefix)
-  onChange?: (value: string | undefined) => void
-}
-
-const ImageUploadField = ({ value, onChange }: ImageUploadFieldProps) => {
-  const { t } = useTranslation(["settings", "common"])
-  const [loading, setLoading] = React.useState(false)
-
-  // Convert raw base64 to data URL for preview
-  const previewUrl = React.useMemo(() => {
-    if (!value) return null
-    return validateAndCreateImageDataUrl(value)
-  }, [value])
-
-  const handleUpload = async (file: File) => {
-    // Validate file type
-    if (!file.type.startsWith('image/')) {
-      message.error(t("settings:manageCharacters.form.image.selectImageError", "Please select an image file"))
-      return false
-    }
-
-    setLoading(true)
-    try {
-      const reader = new FileReader()
-      reader.onload = (e) => {
-        const result = e.target?.result as string
-        if (result) {
-          // Remove the data:image/...;base64, prefix
-          const base64Match = result.match(/^data:image\/[^;]+;base64,(.+)$/)
-          if (base64Match) {
-            const rawBase64 = base64Match[1]
-            // Validate the image format using existing utility
-            const headerBytes = decodeBase64Header(rawBase64)
-            if (headerBytes) {
-              const mime = detectImageMime(headerBytes)
-              if (mime && ALLOWED_IMAGE_MIME_TYPES.has(mime)) {
-                onChange?.(rawBase64)
-              } else {
-                message.error(t("settings:manageCharacters.form.image.formatError", "Only PNG, JPEG, and GIF images are supported"))
-              }
-            } else {
-              message.error(t("settings:manageCharacters.form.image.invalidError", "Invalid image file"))
-            }
-          } else {
-            message.error(t("settings:manageCharacters.form.image.processError", "Failed to process image"))
-          }
-        }
-        setLoading(false)
-      }
-      reader.onerror = () => {
-        message.error(t("settings:manageCharacters.form.image.readError", "Failed to read image file"))
-        setLoading(false)
-      }
-      reader.readAsDataURL(file)
-    } catch {
-      message.error(t("settings:manageCharacters.form.image.processError", "Failed to process image"))
-      setLoading(false)
-    }
-    return false // Prevent default upload behavior
-  }
-
-  const handleClear = () => {
-    onChange?.(undefined)
-  }
-
-  const uploadLabel = t("settings:manageCharacters.form.image.uploadBtn", "Upload Image")
-  const clearLabel = t("settings:manageCharacters.form.image.clearBtn", "Clear")
-  const formatHint = t("settings:manageCharacters.form.image.formatHint", "PNG, JPEG, or GIF")
-
-  return (
-    <div className="flex items-start gap-3">
-      {/* Preview */}
-      <div className="flex-shrink-0 relative">
-        {loading ? (
-          <div className="w-16 h-16 rounded-lg border border-gray-300 dark:border-gray-600 flex items-center justify-center bg-gray-50 dark:bg-gray-800">
-            <span className="animate-spin w-5 h-5 border-2 border-gray-400 border-t-transparent rounded-full" />
-          </div>
-        ) : previewUrl ? (
-          <img
-            src={previewUrl}
-            alt={t("settings:manageCharacters.form.image.previewAlt", "Avatar preview")}
-            className="w-16 h-16 rounded-lg object-cover border border-gray-200 dark:border-gray-700"
-          />
-        ) : (
-          <div className="w-16 h-16 rounded-lg border border-dashed border-gray-300 dark:border-gray-600 flex items-center justify-center bg-gray-50 dark:bg-gray-800">
-            <ImageIcon className="w-6 h-6 text-gray-400" />
-          </div>
-        )}
-      </div>
-
-      {/* Actions */}
-      <div className="flex flex-col gap-2">
-        <div className="flex gap-2">
-          <Upload
-            accept="image/png,image/jpeg,image/gif"
-            showUploadList={false}
-            beforeUpload={handleUpload}
-            disabled={loading}
-          >
-            <Button
-              size="small"
-              icon={<ImageIcon className="w-4 h-4" />}
-              loading={loading}
-            >
-              {uploadLabel}
-            </Button>
-          </Upload>
-          {value && (
-            <Button
-              size="small"
-              icon={<X className="w-4 h-4" />}
-              onClick={handleClear}
-              danger
-              aria-label={clearLabel}
-            >
-              {clearLabel}
-            </Button>
-          )}
-        </div>
-        <span className="text-xs text-gray-500 dark:text-gray-400">
-          {formatHint}
-        </span>
-      </div>
-    </div>
-  )
 }
 
 const normalizeAlternateGreetings = (value: any): string[] => {
@@ -260,6 +61,19 @@ const normalizeAlternateGreetings = (value: any): string[] => {
   }
   return []
 }
+
+const hasAdvancedData = (record: any, extensionsValue: string): boolean =>
+  !!(
+    record.personality ||
+    record.scenario ||
+    record.post_history_instructions ||
+    record.message_example ||
+    record.creator_notes ||
+    (record.alternate_greetings && record.alternate_greetings.length > 0) ||
+    record.creator ||
+    record.character_version ||
+    extensionsValue
+  )
 
 const buildCharacterPayload = (values: any): Record<string, any> => {
   const payload: Record<string, any> = {
@@ -1098,18 +912,7 @@ export const CharactersManager: React.FC<CharactersManagerProps> = ({
                             extensions: extensionsValue
                           })
                           // Auto-expand advanced section if character has advanced field data
-                          const hasAdvancedData = !!(
-                            record.personality ||
-                            record.scenario ||
-                            record.post_history_instructions ||
-                            record.message_example ||
-                            record.creator_notes ||
-                            (record.alternate_greetings && record.alternate_greetings.length > 0) ||
-                            record.creator ||
-                            record.character_version ||
-                            extensionsValue
-                          )
-                          setShowEditAdvanced(hasAdvancedData)
+                          setShowEditAdvanced(hasAdvancedData(record, extensionsValue))
                           setOpenEdit(true)
                         }}>
                         <Pen className="w-4 h-4" />
@@ -1160,18 +963,7 @@ export const CharactersManager: React.FC<CharactersManagerProps> = ({
                             extensions: extensionsValue
                           })
                           // Auto-expand advanced section if source character has advanced data
-                          const hasAdvancedData = !!(
-                            record.personality ||
-                            record.scenario ||
-                            record.post_history_instructions ||
-                            record.message_example ||
-                            record.creator_notes ||
-                            (record.alternate_greetings && record.alternate_greetings.length > 0) ||
-                            record.creator ||
-                            record.character_version ||
-                            extensionsValue
-                          )
-                          setShowCreateAdvanced(hasAdvancedData)
+                          setShowCreateAdvanced(hasAdvancedData(record, extensionsValue))
                           setOpen(true)
                         }}>
                         <Copy className="w-4 h-4" />

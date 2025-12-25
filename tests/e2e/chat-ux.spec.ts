@@ -3,7 +3,11 @@ import path from "path"
 import { launchWithExtension } from "./utils/extension"
 import { grantHostPermission } from "./utils/permissions"
 import { requireRealServerConfig } from "./utils/real-server"
-import { waitForConnectionStore, forceUnconfigured } from "./utils/connection"
+import {
+  waitForConnectionStore,
+  forceUnconfigured,
+  setSelectedModel
+} from "./utils/connection"
 
 test.describe("Chat workspace UX", () => {
   test("shows first-run connection CTA when unconfigured", async () => {
@@ -65,6 +69,33 @@ test.describe("Chat workspace UX", () => {
     let context: BrowserContext | null = null
 
     try {
+      const modelsResponse = await fetch(
+        `${normalizedServerUrl}/api/v1/llm/models/metadata`,
+        {
+          headers: { "x-api-key": apiKey }
+        }
+      )
+      if (!modelsResponse.ok) {
+        const body = await modelsResponse.text().catch(() => "")
+        test.skip(
+          true,
+          `Chat models preflight failed: ${modelsResponse.status} ${modelsResponse.statusText} ${body}`
+        )
+      }
+      const modelsPayload = await modelsResponse.json().catch(() => [])
+      const modelsList = Array.isArray(modelsPayload)
+        ? modelsPayload
+        : Array.isArray((modelsPayload as any)?.models)
+          ? (modelsPayload as any).models
+          : []
+      const modelId =
+        modelsList.find((m: any) => m?.id || m?.model || m?.name)?.id ||
+        modelsList.find((m: any) => m?.id || m?.model || m?.name)?.model ||
+        modelsList.find((m: any) => m?.id || m?.model || m?.name)?.name
+      if (!modelId) {
+        test.skip(true, "No chat models returned from tldw_server.")
+      }
+
       mark("launch extension")
       const launchResult = await launchWithExtension(extPath, {
         seedConfig: {
@@ -104,6 +135,23 @@ test.describe("Chat workspace UX", () => {
         window.dispatchEvent(new CustomEvent("tldw:check-connection"))
       })
 
+      await chatPage.evaluate(() => {
+        if (typeof chrome === "undefined" || !chrome.storage) return
+        try {
+          chrome.storage.local?.set?.({
+            "tldw:seenHints": {
+              "knowledge-search": true,
+              "more-tools": true
+            }
+          })
+          chrome.storage.sync?.set?.({
+            ragSearchHintSeen: true
+          })
+        } catch {
+          // ignore storage errors in test seed
+        }
+      })
+
       let input = chatPage.getByTestId("chat-input")
       if ((await input.count()) === 0) {
         input = chatPage.getByPlaceholder(/Type a message/i)
@@ -112,17 +160,7 @@ test.describe("Chat workspace UX", () => {
       await expect(input).toBeEditable({ timeout: 15000 })
 
       mark("select model")
-      let modelSelect = chatPage.getByTestId("chat-model-select")
-      if ((await modelSelect.count()) === 0) {
-        modelSelect = chatPage.getByRole("button", { name: /Select a model/i })
-      }
-      if (await modelSelect.isVisible()) {
-        await modelSelect.click()
-        const menuItems = chatPage.locator('[role="menuitem"]')
-        if ((await menuItems.count()) > 0) {
-          await menuItems.first().click()
-        }
-      }
+      await setSelectedModel(chatPage, String(modelId))
 
       mark("toggle rag panel")
       const ragToggle = chatPage.getByTestId("control-rag-toggle")

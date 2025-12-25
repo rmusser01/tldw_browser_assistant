@@ -995,296 +995,404 @@
   "more_download_canonicalMarkdown": {
     "message": "Kanonisk transskript (Markdown)"
   },
-  "contentReview_title": {
+  "header_contentReview": {
     "message": "Indholdsgennemgang"
   },
+  "contentReview_title": {
+    "message": "Indholdsgennemgang",
+    "description": "Content review UI string."
+  },
   "contentReview_readyToSubmit": {
-    "message": "{{count}} klar"
+    "message": "{{count}} klar",
+    "description": "Content review UI string."
   },
   "contentReview_committedCount": {
-    "message": "{{count}} bekræftet"
+    "message": "{{count}} bekræftet",
+    "description": "Content review UI string."
   },
   "contentReview_totalCount": {
-    "message": "{{count}} i alt"
+    "message": "{{count}} i alt",
+    "description": "Content review UI string."
   },
   "contentReview_commitAll": {
-    "message": "Bekræft alle"
+    "message": "Bekræft alle",
+    "description": "Content review UI string."
   },
   "contentReview_clearDrafts": {
-    "message": "Ryd kladder"
+    "message": "Ryd kladder",
+    "description": "Content review UI string."
   },
   "contentReview_emptyDescription": {
-    "message": "Ingen kladder endnu. Brug Quick Ingest med Gennemse før gem for at oprette kladder."
+    "message": "Ingen kladder endnu. Brug Quick Ingest med Gennemse før gem for at oprette kladder.",
+    "description": "Content review UI string."
   },
   "contentReview_openQuickIngest": {
-    "message": "Åbn Quick Ingest"
+    "message": "Åbn Quick Ingest",
+    "description": "Content review UI string."
   },
   "contentReview_storeAfterReview": {
-    "message": "Gem efter gennemgang"
+    "message": "Gem efter gennemgang",
+    "description": "Content review UI string."
   },
   "contentReview_reviewBeforeStorage": {
-    "message": "Gennemgå før gem"
+    "message": "Gennemgå før gem",
+    "description": "Content review UI string."
   },
   "contentReview_reviewBeforeStorageHint": {
-    "message": "Behandl nu, og redigér derefter kladder lokalt, før du gemmer på din server."
+    "message": "Behandl nu, og redigér derefter kladder lokalt, før du gemmer på din server.",
+    "description": "Content review UI string."
   },
   "contentReview_reviewEnabled": {
-    "message": "Gennemgangstilstand"
+    "message": "Gennemgangstilstand",
+    "description": "Content review UI string."
   },
   "contentReview_reviewStorageCap": {
-    "message": "Lokale kladder er begrænset til {{cap}}."
+    "message": "Lokale kladder er begrænset til {{cap}}.",
+    "description": "Content review UI string."
   },
   "contentReview_reviewWarningTitle": {
-    "message": "Gem kladder lokalt?"
+    "message": "Gem kladder lokalt?",
+    "description": "Content review UI string."
   },
   "contentReview_reviewWarningBody": {
-    "message": "Kladder gemmes i denne browser og kan indeholde følsomme data. Du kan altid rydde kladder fra siden Indholdsgennemgang."
+    "message": "Kladder gemmes i denne browser og kan indeholde følsomme data. Du kan altid rydde kladder fra siden Indholdsgennemgang.",
+    "description": "Content review UI string."
   },
   "contentReview_reviewWarningBodySecondary": {
-    "message": "Gennemgangstilstand holder indholdet på klientsiden, indtil du gemmer det på din server."
+    "message": "Gennemgangstilstand holder indholdet på klientsiden, indtil du gemmer det på din server.",
+    "description": "Content review UI string."
   },
   "contentReview_reviewWarningConfirm": {
-    "message": "Aktivér gennemgang"
+    "message": "Aktivér gennemgang",
+    "description": "Content review UI string."
   },
   "contentReview_reviewWarningCancel": {
-    "message": "Annuller"
+    "message": "Annuller",
+    "description": "Content review UI string."
   },
   "contentReview_reviewRunLabel": {
-    "message": "Gennemgå"
+    "message": "Gennemgå",
+    "description": "Content review UI string."
   },
   "contentReview_reviewDraftsCreated": {
-    "message": "Kladder klar til gennemgang."
+    "message": "Kladder klar til gennemgang.",
+    "description": "Content review UI string."
+  },
+  "contentReview_reviewStorageCapWarning_one": {
+    "message": "{{count}} fil overskrider den lokale kladdegrænse ({{cap}}). Vedhæft kilder før du gemmer lyd/video.",
+    "description": "Content review UI string."
+  },
+  "contentReview_reviewStorageCapWarning_other": {
+    "message": "{{count}} filer overskrider den lokale kladdegrænse ({{cap}}). Vedhæft kilder før du gemmer lyd/video.",
+    "description": "Content review UI string."
   },
   "contentReview_openContentReview": {
-    "message": "Åbn Indholdsgennemgang"
+    "message": "Åbn Indholdsgennemgang",
+    "description": "Content review UI string."
   },
   "contentReview_batchLabel": {
-    "message": "Batch"
+    "message": "Batch",
+    "description": "Content review UI string."
   },
   "contentReview_batchName": {
-    "message": "Batch {{index}}"
+    "message": "Batch {{index}}",
+    "description": "Content review UI string."
   },
   "contentReview_draftsLabel": {
-    "message": "Kladder"
+    "message": "Kladder",
+    "description": "Content review UI string."
   },
   "contentReview_selectDraft": {
-    "message": "Vælg en kladde for at starte gennemgangen."
+    "message": "Vælg en kladde for at starte gennemgangen.",
+    "description": "Content review UI string."
   },
   "contentReview_titlePlaceholder": {
-    "message": "Kladde titel"
+    "message": "Kladde titel",
+    "description": "Content review UI string."
   },
   "contentReview_lastSaved": {
-    "message": "Gemt {{time}}"
+    "message": "Gemt {{time}}",
+    "description": "Content review UI string."
   },
   "contentReview_resetTitle": {
-    "message": "Nulstil kladde?"
+    "message": "Nulstil kladde?",
+    "description": "Content review UI string."
   },
   "contentReview_resetBody": {
-    "message": "Dette gendanner det oprindelige indhold for denne kladde."
+    "message": "Dette gendanner det oprindelige indhold for denne kladde.",
+    "description": "Content review UI string."
   },
   "contentReview_resetConfirm": {
-    "message": "Nulstil"
+    "message": "Nulstil",
+    "description": "Content review UI string."
   },
   "contentReview_resetCancel": {
-    "message": "Annuller"
+    "message": "Annuller",
+    "description": "Content review UI string."
   },
   "contentReview_resetContent": {
-    "message": "Nulstil"
+    "message": "Nulstil",
+    "description": "Content review UI string."
   },
   "contentReview_diffView": {
-    "message": "Diff-visning"
+    "message": "Diff-visning",
+    "description": "Content review UI string."
   },
   "contentReview_saveDraft": {
-    "message": "Gem kladde"
+    "message": "Gem kladde",
+    "description": "Content review UI string."
   },
   "contentReview_editorLabel": {
-    "message": "Indhold"
+    "message": "Indhold",
+    "description": "Content review UI string."
   },
   "contentReview_wordCount": {
-    "message": "{{words}} ord"
+    "message": "{{words}} ord",
+    "description": "Content review UI string."
   },
   "contentReview_charCount": {
-    "message": "{{chars}} tegn"
+    "message": "{{chars}} tegn",
+    "description": "Content review UI string."
   },
   "contentReview_aiFix": {
-    "message": "AI‑rettelse"
+    "message": "AI‑rettelse",
+    "description": "Content review UI string."
   },
   "contentReview_aiHint": {
-    "message": "Sender kladdeindholdet til din server til AI‑behandling."
+    "message": "Sender kladdeindholdet til din server til AI‑behandling.",
+    "description": "Content review UI string."
   },
   "contentReview_modelPlaceholder": {
-    "message": "Serverstandard"
+    "message": "Serverstandard",
+    "description": "Content review UI string."
   },
   "contentReview_aiConsentTitle": {
-    "message": "Send kladde til serveren?"
+    "message": "Send kladde til serveren?",
+    "description": "Content review UI string."
   },
   "contentReview_aiConsentBody": {
-    "message": "Dette sender kladdeindholdet til din tldw‑server til AI‑behandling. Kladder bliver på enheden, indtil du bekræfter dem."
+    "message": "Dette sender kladdeindholdet til din tldw‑server til AI‑behandling. Kladder bliver på enheden, indtil du bekræfter dem.",
+    "description": "Content review UI string."
   },
   "contentReview_aiConsentConfirm": {
-    "message": "Fortsæt"
+    "message": "Fortsæt",
+    "description": "Content review UI string."
   },
   "contentReview_aiConsentCancel": {
-    "message": "Annuller"
+    "message": "Annuller",
+    "description": "Content review UI string."
   },
   "contentReview_aiApplied": {
-    "message": "AI‑rettelser anvendt."
+    "message": "AI‑rettelser anvendt.",
+    "description": "Content review UI string."
   },
   "contentReview_aiNoChange": {
-    "message": "Ingen ændringer retur."
+    "message": "Ingen ændringer retur.",
+    "description": "Content review UI string."
   },
   "contentReview_aiEmpty": {
-    "message": "AI returnerede intet indhold."
+    "message": "AI returnerede intet indhold.",
+    "description": "Content review UI string."
   },
   "contentReview_aiUnavailable": {
-    "message": "Chat‑fuldførelser er ikke tilgængelige."
+    "message": "Chat‑fuldførelser er ikke tilgængelige.",
+    "description": "Content review UI string."
   },
   "contentReview_templatePlaceholder": {
-    "message": "Vælg skabelon"
+    "message": "Vælg skabelon",
+    "description": "Content review UI string."
   },
   "contentReview_applyTemplate": {
-    "message": "Anvend skabelon"
+    "message": "Anvend skabelon",
+    "description": "Content review UI string."
   },
   "contentReview_templateApplied": {
-    "message": "Skabelon anvendt."
+    "message": "Skabelon anvendt.",
+    "description": "Content review UI string."
   },
   "contentReview_templateMissing": {
-    "message": "Vælg først en skabelon."
+    "message": "Vælg først en skabelon.",
+    "description": "Content review UI string."
   },
   "contentReview_detectSections": {
-    "message": "Registrer sektioner"
+    "message": "Registrer sektioner",
+    "description": "Content review UI string."
   },
   "contentReview_detectSectionsTitle": {
-    "message": "Registrer sektioner igen?"
+    "message": "Registrer sektioner igen?",
+    "description": "Content review UI string."
   },
   "contentReview_detectSectionsBody": {
-    "message": "Dette erstatter eksisterende sektioner og nulstiller dine valg."
+    "message": "Dette erstatter eksisterende sektioner og nulstiller dine valg.",
+    "description": "Content review UI string."
   },
   "contentReview_detectSectionsConfirm": {
-    "message": "Registrer igen"
+    "message": "Registrer igen",
+    "description": "Content review UI string."
   },
   "contentReview_detectSectionsCancel": {
-    "message": "Annuller"
+    "message": "Annuller",
+    "description": "Content review UI string."
   },
   "contentReview_detectSectionsEmpty": {
-    "message": "Ingen sektioner registreret."
+    "message": "Ingen sektioner registreret.",
+    "description": "Content review UI string."
   },
   "contentReview_sectionsLabel": {
-    "message": "Sektionsfilter"
+    "message": "Sektionsfilter",
+    "description": "Content review UI string."
   },
   "contentReview_templates_transcript_clean_label": {
-    "message": "Rens transskription"
+    "message": "Rens transskription",
+    "description": "Content review UI string."
   },
   "contentReview_templates_transcript_clean_description": {
-    "message": "Normaliserer tegnsætning og store/små bogstaver, mens linjestrukturen bevares."
+    "message": "Normaliserer tegnsætning og store/små bogstaver, mens linjestrukturen bevares.",
+    "description": "Content review UI string."
   },
   "contentReview_templates_speaker_turns_label": {
-    "message": "Taletur"
+    "message": "Taletur",
+    "description": "Content review UI string."
   },
   "contentReview_templates_speaker_turns_description": {
-    "message": "Sikrer, at hver taletur står på sin egen linje med tydelige etiketter."
+    "message": "Sikrer, at hver taletur står på sin egen linje med tydelige etiketter.",
+    "description": "Content review UI string."
   },
   "contentReview_templates_chapter_headings_label": {
-    "message": "Kapiteloverskrifter"
+    "message": "Kapiteloverskrifter",
+    "description": "Content review UI string."
   },
   "contentReview_templates_chapter_headings_description": {
-    "message": "Indsætter Markdown‑overskrifter for at gruppere emner uden at fjerne indhold."
+    "message": "Indsætter Markdown‑overskrifter for at gruppere emner uden at fjerne indhold.",
+    "description": "Content review UI string."
   },
   "contentReview_metadataLabel": {
-    "message": "Metadata"
+    "message": "Metadata",
+    "description": "Content review UI string."
   },
   "contentReview_mediaType": {
-    "message": "Medietype"
+    "message": "Medietype",
+    "description": "Content review UI string."
   },
   "contentReview_keywords": {
-    "message": "Nøgleord"
+    "message": "Nøgleord",
+    "description": "Content review UI string."
   },
   "contentReview_keywordsPlaceholder": {
-    "message": "Tilføj nøgleord"
+    "message": "Tilføj nøgleord",
+    "description": "Content review UI string."
   },
   "contentReview_reviewNotes": {
-    "message": "Gennemgangsnoter"
+    "message": "Gennemgangsnoter",
+    "description": "Content review UI string."
   },
   "contentReview_missingSource": {
-    "message": "Kildefil mangler"
+    "message": "Kildefil mangler",
+    "description": "Content review UI string."
   },
   "contentReview_missingSourceBody": {
-    "message": "Vedhæft den originale fil for at bekræfte denne kladde."
+    "message": "Vedhæft den originale fil for at bekræfte denne kladde.",
+    "description": "Content review UI string."
   },
   "contentReview_attachSource": {
-    "message": "Vedhæft fil"
+    "message": "Vedhæft fil",
+    "description": "Content review UI string."
   },
   "contentReview_actionsLabel": {
-    "message": "Handlinger"
+    "message": "Handlinger",
+    "description": "Content review UI string."
   },
   "contentReview_commit": {
-    "message": "Bekræft"
+    "message": "Bekræft",
+    "description": "Content review UI string."
   },
   "contentReview_commitDisabled": {
-    "message": "Vedhæft den oprindelige lyd-/videofil, før du bekræfter."
+    "message": "Vedhæft den oprindelige lyd-/videofil, før du bekræfter.",
+    "description": "Content review UI string."
   },
   "contentReview_markReviewed": {
-    "message": "Marker som gennemgået"
+    "message": "Marker som gennemgået",
+    "description": "Content review UI string."
   },
   "contentReview_skipNext": {
-    "message": "Spring over"
+    "message": "Spring over",
+    "description": "Content review UI string."
   },
   "contentReview_discard": {
-    "message": "Kassér"
+    "message": "Kassér",
+    "description": "Content review UI string."
   },
   "contentReview_discardTitle": {
-    "message": "Kassér kladde?"
+    "message": "Kassér kladde?",
+    "description": "Content review UI string."
   },
   "contentReview_discardBody": {
-    "message": "Denne kladde markeres som kasseret og fjernes fra gennemgangen."
+    "message": "Denne kladde markeres som kasseret og fjernes fra gennemgangen.",
+    "description": "Content review UI string."
   },
   "contentReview_discardConfirm": {
-    "message": "Kassér"
+    "message": "Kassér",
+    "description": "Content review UI string."
   },
   "contentReview_discardCancel": {
-    "message": "Annuller"
+    "message": "Annuller",
+    "description": "Content review UI string."
   },
   "contentReview_commitSuccess": {
-    "message": "Kladde bekræftet."
+    "message": "Kladde bekræftet.",
+    "description": "Content review UI string."
   },
   "contentReview_commitAllTitle": {
-    "message": "Bekræft gennemgåede kladder?"
+    "message": "Bekræft gennemgåede kladder?",
+    "description": "Content review UI string."
   },
   "contentReview_commitAllBody": {
-    "message": "Kun kladder markeret som gennemgået bliver bekræftet."
+    "message": "Kun kladder markeret som gennemgået bliver bekræftet.",
+    "description": "Content review UI string."
   },
   "contentReview_commitAllConfirm": {
-    "message": "Bekræft alle"
+    "message": "Bekræft alle",
+    "description": "Content review UI string."
   },
   "contentReview_commitAllCancel": {
-    "message": "Annuller"
+    "message": "Annuller",
+    "description": "Content review UI string."
   },
   "contentReview_commitAllResult": {
-    "message": "{{success}} bekræftet · {{failed}} mislykkedes"
+    "message": "{{success}} bekræftet · {{failed}} mislykkedes",
+    "description": "Content review UI string."
   },
   "contentReview_storageCapWarning": {
-    "message": "Denne fil overskrider den lokale kladdegrænse ({{cap}})."
+    "message": "Denne fil overskrider den lokale kladdegrænse ({{cap}}).",
+    "description": "Content review UI string."
   },
   "contentReview_clearTitle": {
-    "message": "Ryd alle kladder?"
+    "message": "Ryd alle kladder?",
+    "description": "Content review UI string."
   },
   "contentReview_clearBody": {
-    "message": "Dette fjerner alle lokale indholdsgennemgangskladder og tilknyttede filer."
+    "message": "Dette fjerner alle lokale indholdsgennemgangskladder og tilknyttede filer.",
+    "description": "Content review UI string."
   },
   "contentReview_clearConfirm": {
-    "message": "Ryd kladder"
+    "message": "Ryd kladder",
+    "description": "Content review UI string."
   },
   "contentReview_clearCancel": {
-    "message": "Annuller"
+    "message": "Annuller",
+    "description": "Content review UI string."
   },
   "contentReview_clearSuccess": {
-    "message": "Kladder ryddet."
+    "message": "Kladder ryddet.",
+    "description": "Content review UI string."
   },
   "contentReview_originalLabel": {
-    "message": "Original"
+    "message": "Original",
+    "description": "Content review UI string."
   },
   "contentReview_editedLabel": {
-    "message": "Redigeret"
+    "message": "Redigeret",
+    "description": "Content review UI string."
   },
   "reviewDraftsFailedTitle": {
     "message": "Gennemgangskladderne kunne ikke oprettes."
@@ -1378,6 +1486,12 @@
   },
   "quickIngest_reviewDraftsCreated": {
     "message": "Kladder klar til gennemgang."
+  },
+  "quickIngest_reviewStorageCapWarning_one": {
+    "message": "{{count}} fil overskrider den lokale kladdegrænse ({{cap}}). Vedhæft kilder før du gemmer lyd/video."
+  },
+  "quickIngest_reviewStorageCapWarning_other": {
+    "message": "{{count}} filer overskrider den lokale kladdegrænse ({{cap}}). Vedhæft kilder før du gemmer lyd/video."
   },
   "quickIngest_reviewDraftsFailedTitle": {
     "message": "Gennemgangskladderne kunne ikke oprettes."
@@ -1522,5 +1636,360 @@
   },
   "storeAfterReview": {
     "message": "Gem efter gennemgang"
+  },
+  "manageCharacters_actions_viewConversations": {
+    "message": "View conversations"
+  },
+  "manageCharacters_aria_viewConversations": {
+    "message": "View conversations for {{name}}"
+  },
+  "manageCharacters_aria_searchResults": {
+    "message": "{{count}} characters found"
+  },
+  "manageCharacters_conversations_title": {
+    "message": "Conversations for {{name}}"
+  },
+  "manageCharacters_conversations_titleGeneric": {
+    "message": "Character conversations"
+  },
+  "manageCharacters_conversations_subtitle": {
+    "message": "Select a conversation to continue as this character."
+  },
+  "manageCharacters_conversations_empty": {
+    "message": "No conversations found for this character yet."
+  },
+  "manageCharacters_conversations_error": {
+    "message": "Unable to load conversations for this character."
+  },
+  "manageCharacters_conversations_updated": {
+    "message": "Updated {{time}}"
+  },
+  "manageCharacters_conversations_unknownTime": {
+    "message": "Unknown"
+  },
+  "manageCharacters_conversations_resume": {
+    "message": "Continue chat"
+  },
+  "manageCharacters_conversations_untitled": {
+    "message": "Untitled"
+  },
+  "manageCharacters_conversations_mostRecent": {
+    "message": "Most recent"
+  },
+  "manageCharacters_conversations_resumeTooltip": {
+    "message": "Load chat history and continue this conversation"
+  },
+  "manageCharacters_preview_title": {
+    "message": "Preview"
+  },
+  "manageCharacters_preview_show": {
+    "message": "Show preview"
+  },
+  "manageCharacters_preview_hide": {
+    "message": "Hide preview"
+  },
+  "manageCharacters_preview_untitled": {
+    "message": "Untitled character"
+  },
+  "manageCharacters_preview_greeting": {
+    "message": "Greeting"
+  },
+  "manageCharacters_preview_behavior": {
+    "message": "Behavior"
+  },
+  "manageCharacters_preview_empty": {
+    "message": "Fill in the form to see a preview"
+  },
+  "manageCharacters_advanced_show": {
+    "message": "Show advanced fields"
+  },
+  "manageCharacters_advanced_hide": {
+    "message": "Hide advanced fields"
+  },
+  "chunkingPlayground_nav": {
+    "message": "Chunking Playground",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_title": {
+    "message": "Chunking Playground",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_description": {
+    "message": "Experiment with different chunking settings to see how text gets split into smaller pieces for processing.",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_inputLabel": {
+    "message": "Text to chunk",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_inputPlaceholder": {
+    "message": "Paste text here or select a sample...",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_uploadButton": {
+    "message": "Upload File",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_chunkButton": {
+    "message": "Chunk Text",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_methodLabel": {
+    "message": "Chunking Method",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_maxSizeLabel": {
+    "message": "Max Chunk Size",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_overlapLabel": {
+    "message": "Overlap",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_languageLabel": {
+    "message": "Language",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_languages_auto": {
+    "message": "Auto-detect",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_languages_en": {
+    "message": "English",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_languages_es": {
+    "message": "Spanish",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_languages_fr": {
+    "message": "French",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_languages_de": {
+    "message": "German",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_languages_it": {
+    "message": "Italian",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_languages_pt": {
+    "message": "Portuguese",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_languages_zh": {
+    "message": "Chinese",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_languages_ja": {
+    "message": "Japanese",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_languages_ko": {
+    "message": "Korean",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_viewCards": {
+    "message": "Cards",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_viewInline": {
+    "message": "Inline",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_stats": {
+    "message": "{{count}} chunks, avg {{avgSize}} chars"
+  },
+  "chunkingPlayground_textLoaded": {
+    "message": "Text loaded",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_characters": {
+    "message": "characters",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_tabSingle": {
+    "message": "Single",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_tabCompare": {
+    "message": "Compare",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_chunkIndex": {
+    "message": "Chunk {{index}}"
+  },
+  "chunkingPlayground_chunkInfo": {
+    "message": "Chunk {{index}}: {{words}} words"
+  },
+  "chunkingPlayground_position": {
+    "message": "Position: {{start}} - {{end}}"
+  },
+  "chunkingPlayground_additionalChunks": {
+    "message": "+{{count}} more"
+  },
+  "chunkingPlayground_charCount": {
+    "message": "{{count}} characters"
+  },
+  "chunkingPlayground_wordCount": {
+    "message": "{{count}} words"
+  },
+  "chunkingPlayground_noInput": {
+    "message": "Please provide text to chunk",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_sharedInput": {
+    "message": "Shared Input Text",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_compareButton": {
+    "message": "Compare Both",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_comparison": {
+    "message": "Comparison",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_fewerChunks": {
+    "message": "Config A produces {{diff}} fewer chunks"
+  },
+  "chunkingPlayground_moreChunks": {
+    "message": "Config A produces {{diff}} more chunks"
+  },
+  "chunkingPlayground_sameChunks": {
+    "message": "Both configs produce the same number of chunks",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_clickToChunk": {
+    "message": "Click 'Compare' to see results",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_overlapRegion": {
+    "message": "Overlap Region",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_clickHint": {
+    "message": "Click on a highlighted section to focus on that chunk",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_noContentFound": {
+    "message": "No text content found for this media item",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_loadContentError": {
+    "message": "Failed to load media content",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_loadMediaListError": {
+    "message": "Failed to load media library",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_selectMedia": {
+    "message": "Select media item...",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_loadingMedia": {
+    "message": "Loading content...",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_noMediaFound": {
+    "message": "No media found",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_mediaCount": {
+    "message": "{{count}} media items available"
+  },
+  "chunkingPlayground_inputSource_paste": {
+    "message": "Paste Text",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_inputSource_upload": {
+    "message": "Upload File",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_inputSource_sample": {
+    "message": "Sample Text",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_inputSource_media": {
+    "message": "From Media Library",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_samples_article": {
+    "message": "News Article",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_samples_articleDesc": {
+    "message": "Multi-paragraph article with headers",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_samples_code": {
+    "message": "Source Code",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_samples_codeDesc": {
+    "message": "Python code with classes and functions",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_samples_transcript": {
+    "message": "Transcript",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_samples_transcriptDesc": {
+    "message": "Timestamped podcast transcript",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_samples_academic": {
+    "message": "Academic Paper",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_samples_academicDesc": {
+    "message": "Technical writing with citations",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_compare_title": {
+    "message": "Compare Settings",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_compare_configA": {
+    "message": "Configuration A",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_compare_configB": {
+    "message": "Configuration B",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_mode_single": {
+    "message": "Single",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_mode_compare": {
+    "message": "Compare",
+    "description": "TODO: translate (copied from en)"
+  },
+  "managePrompts_importMode_merge": {
+    "message": "Merge"
+  },
+  "managePrompts_importMode_replace": {
+    "message": "Erstat"
+  },
+  "managePrompts_importMode_replaceConfirm": {
+    "message": "Erstat vil overskrive alle nuværende prompts med den importerede fil. Fortsæt?"
+  },
+  "flashcards_newDeckNameRequired": {
+    "message": "Angiv et sætnavn."
+  },
+  "flashcards_dueAll": {
+    "message": "Alle"
+  },
+  "flashcards_dueNew": {
+    "message": "Nye"
+  },
+  "flashcards_dueLearning": {
+    "message": "Under indlæring"
+  },
+  "flashcards_dueDue": {
+    "message": "Forfaldne"
   }
 }

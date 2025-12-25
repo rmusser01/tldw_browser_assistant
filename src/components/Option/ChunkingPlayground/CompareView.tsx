@@ -17,7 +17,7 @@ import {
   Col
 } from "antd"
 import { ScissorOutlined } from "@ant-design/icons"
-import { message } from "antd"
+import { useAntdMessage } from "@/hooks/useAntdMessage"
 
 import {
   chunkText,
@@ -64,6 +64,7 @@ export const CompareView: React.FC<CompareViewProps> = ({
   capabilities
 }) => {
   const { t } = useTranslation(["settings"])
+  const message = useAntdMessage()
 
   // Config A state
   const [configA, setConfigA] = useState<ConfigState>({

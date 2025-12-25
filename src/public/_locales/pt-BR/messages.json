@@ -1727,296 +1727,404 @@
   "more_download_canonicalMarkdown": {
     "message": "Transcrição canônica (Markdown)"
   },
-  "contentReview_title": {
+  "header_contentReview": {
     "message": "Revisão de conteúdo"
   },
+  "contentReview_title": {
+    "message": "Revisão de conteúdo",
+    "description": "Content review UI string."
+  },
   "contentReview_readyToSubmit": {
-    "message": "{{count}} pronto(s)"
+    "message": "{{count}} pronto(s)",
+    "description": "Content review UI string."
   },
   "contentReview_committedCount": {
-    "message": "{{count}} confirmado(s)"
+    "message": "{{count}} confirmado(s)",
+    "description": "Content review UI string."
   },
   "contentReview_totalCount": {
-    "message": "{{count}} no total"
+    "message": "{{count}} no total",
+    "description": "Content review UI string."
   },
   "contentReview_commitAll": {
-    "message": "Confirmar todos"
+    "message": "Confirmar todos",
+    "description": "Content review UI string."
   },
   "contentReview_clearDrafts": {
-    "message": "Limpar rascunhos"
+    "message": "Limpar rascunhos",
+    "description": "Content review UI string."
   },
   "contentReview_emptyDescription": {
-    "message": "Ainda não há rascunhos. Use o Quick Ingest com Revisar antes de salvar para criar rascunhos."
+    "message": "Ainda não há rascunhos. Use o Quick Ingest com Revisar antes de salvar para criar rascunhos.",
+    "description": "Content review UI string."
   },
   "contentReview_openQuickIngest": {
-    "message": "Abrir Quick Ingest"
+    "message": "Abrir Quick Ingest",
+    "description": "Content review UI string."
   },
   "contentReview_storeAfterReview": {
-    "message": "Salvar após revisão"
+    "message": "Salvar após revisão",
+    "description": "Content review UI string."
   },
   "contentReview_reviewBeforeStorage": {
-    "message": "Revisar antes de salvar"
+    "message": "Revisar antes de salvar",
+    "description": "Content review UI string."
   },
   "contentReview_reviewBeforeStorageHint": {
-    "message": "Processe agora e depois edite os rascunhos localmente antes de enviá-los ao servidor."
+    "message": "Processe agora e depois edite os rascunhos localmente antes de enviá-los ao servidor.",
+    "description": "Content review UI string."
   },
   "contentReview_reviewEnabled": {
-    "message": "Modo de revisão"
+    "message": "Modo de revisão",
+    "description": "Content review UI string."
   },
   "contentReview_reviewStorageCap": {
-    "message": "Rascunhos locais limitados a {{cap}}."
+    "message": "Rascunhos locais limitados a {{cap}}.",
+    "description": "Content review UI string."
   },
   "contentReview_reviewWarningTitle": {
-    "message": "Salvar rascunhos localmente?"
+    "message": "Salvar rascunhos localmente?",
+    "description": "Content review UI string."
   },
   "contentReview_reviewWarningBody": {
-    "message": "Os rascunhos são salvos neste navegador e podem conter dados sensíveis. Você pode limpar os rascunhos na página Revisão de Conteúdo a qualquer momento."
+    "message": "Os rascunhos são salvos neste navegador e podem conter dados sensíveis. Você pode limpar os rascunhos na página Revisão de Conteúdo a qualquer momento.",
+    "description": "Content review UI string."
   },
   "contentReview_reviewWarningBodySecondary": {
-    "message": "O modo de revisão mantém o conteúdo no cliente até você confirmá-lo no servidor."
+    "message": "O modo de revisão mantém o conteúdo no cliente até você confirmá-lo no servidor.",
+    "description": "Content review UI string."
   },
   "contentReview_reviewWarningConfirm": {
-    "message": "Ativar revisão"
+    "message": "Ativar revisão",
+    "description": "Content review UI string."
   },
   "contentReview_reviewWarningCancel": {
-    "message": "Cancelar"
+    "message": "Cancelar",
+    "description": "Content review UI string."
   },
   "contentReview_reviewRunLabel": {
-    "message": "Revisão"
+    "message": "Revisão",
+    "description": "Content review UI string."
   },
   "contentReview_reviewDraftsCreated": {
-    "message": "Rascunhos prontos para revisão."
+    "message": "Rascunhos prontos para revisão.",
+    "description": "Content review UI string."
+  },
+  "contentReview_reviewStorageCapWarning_one": {
+    "message": "{{count}} arquivo excede o limite local de rascunhos ({{cap}}). Anexe as fontes antes de salvar áudio/vídeo.",
+    "description": "Content review UI string."
+  },
+  "contentReview_reviewStorageCapWarning_other": {
+    "message": "{{count}} arquivos excedem o limite local de rascunhos ({{cap}}). Anexe as fontes antes de salvar áudio/vídeo.",
+    "description": "Content review UI string."
   },
   "contentReview_openContentReview": {
-    "message": "Abrir Revisão de Conteúdo"
+    "message": "Abrir Revisão de Conteúdo",
+    "description": "Content review UI string."
   },
   "contentReview_batchLabel": {
-    "message": "Lote"
+    "message": "Lote",
+    "description": "Content review UI string."
   },
   "contentReview_batchName": {
-    "message": "Lote {{index}}"
+    "message": "Lote {{index}}",
+    "description": "Content review UI string."
   },
   "contentReview_draftsLabel": {
-    "message": "Rascunhos"
+    "message": "Rascunhos",
+    "description": "Content review UI string."
   },
   "contentReview_selectDraft": {
-    "message": "Selecione um rascunho para começar a revisão."
+    "message": "Selecione um rascunho para começar a revisão.",
+    "description": "Content review UI string."
   },
   "contentReview_titlePlaceholder": {
-    "message": "Título do rascunho"
+    "message": "Título do rascunho",
+    "description": "Content review UI string."
   },
   "contentReview_lastSaved": {
-    "message": "Salvo {{time}}"
+    "message": "Salvo {{time}}",
+    "description": "Content review UI string."
   },
   "contentReview_resetTitle": {
-    "message": "Redefinir rascunho?"
+    "message": "Redefinir rascunho?",
+    "description": "Content review UI string."
   },
   "contentReview_resetBody": {
-    "message": "Isso restaurará o conteúdo original deste rascunho."
+    "message": "Isso restaurará o conteúdo original deste rascunho.",
+    "description": "Content review UI string."
   },
   "contentReview_resetConfirm": {
-    "message": "Redefinir"
+    "message": "Redefinir",
+    "description": "Content review UI string."
   },
   "contentReview_resetCancel": {
-    "message": "Cancelar"
+    "message": "Cancelar",
+    "description": "Content review UI string."
   },
   "contentReview_resetContent": {
-    "message": "Redefinir"
+    "message": "Redefinir",
+    "description": "Content review UI string."
   },
   "contentReview_diffView": {
-    "message": "Visualizar diff"
+    "message": "Visualizar diff",
+    "description": "Content review UI string."
   },
   "contentReview_saveDraft": {
-    "message": "Salvar rascunho"
+    "message": "Salvar rascunho",
+    "description": "Content review UI string."
   },
   "contentReview_editorLabel": {
-    "message": "Conteúdo"
+    "message": "Conteúdo",
+    "description": "Content review UI string."
   },
   "contentReview_wordCount": {
-    "message": "{{words}} palavras"
+    "message": "{{words}} palavras",
+    "description": "Content review UI string."
   },
   "contentReview_charCount": {
-    "message": "{{chars}} caracteres"
+    "message": "{{chars}} caracteres",
+    "description": "Content review UI string."
   },
   "contentReview_aiFix": {
-    "message": "Correção com IA"
+    "message": "Correção com IA",
+    "description": "Content review UI string."
   },
   "contentReview_aiHint": {
-    "message": "Envia o conteúdo do rascunho para seu servidor para processamento com IA."
+    "message": "Envia o conteúdo do rascunho para seu servidor para processamento com IA.",
+    "description": "Content review UI string."
   },
   "contentReview_modelPlaceholder": {
-    "message": "Padrão do servidor"
+    "message": "Padrão do servidor",
+    "description": "Content review UI string."
   },
   "contentReview_aiConsentTitle": {
-    "message": "Enviar rascunho para o servidor?"
+    "message": "Enviar rascunho para o servidor?",
+    "description": "Content review UI string."
   },
   "contentReview_aiConsentBody": {
-    "message": "Isso enviará o conteúdo do rascunho para seu servidor tldw para processamento com IA. Os rascunhos permanecem locais até você confirmar."
+    "message": "Isso enviará o conteúdo do rascunho para seu servidor tldw para processamento com IA. Os rascunhos permanecem locais até você confirmar.",
+    "description": "Content review UI string."
   },
   "contentReview_aiConsentConfirm": {
-    "message": "Continuar"
+    "message": "Continuar",
+    "description": "Content review UI string."
   },
   "contentReview_aiConsentCancel": {
-    "message": "Cancelar"
+    "message": "Cancelar",
+    "description": "Content review UI string."
   },
   "contentReview_aiApplied": {
-    "message": "Correções da IA aplicadas."
+    "message": "Correções da IA aplicadas.",
+    "description": "Content review UI string."
   },
   "contentReview_aiNoChange": {
-    "message": "Nenhuma alteração retornada."
+    "message": "Nenhuma alteração retornada.",
+    "description": "Content review UI string."
   },
   "contentReview_aiEmpty": {
-    "message": "A IA não retornou conteúdo."
+    "message": "A IA não retornou conteúdo.",
+    "description": "Content review UI string."
   },
   "contentReview_aiUnavailable": {
-    "message": "Conclusões de chat indisponíveis."
+    "message": "Conclusões de chat indisponíveis.",
+    "description": "Content review UI string."
   },
   "contentReview_templatePlaceholder": {
-    "message": "Escolher modelo"
+    "message": "Escolher modelo",
+    "description": "Content review UI string."
   },
   "contentReview_applyTemplate": {
-    "message": "Aplicar modelo"
+    "message": "Aplicar modelo",
+    "description": "Content review UI string."
   },
   "contentReview_templateApplied": {
-    "message": "Modelo aplicado."
+    "message": "Modelo aplicado.",
+    "description": "Content review UI string."
   },
   "contentReview_templateMissing": {
-    "message": "Selecione um modelo primeiro."
+    "message": "Selecione um modelo primeiro.",
+    "description": "Content review UI string."
   },
   "contentReview_detectSections": {
-    "message": "Detectar seções"
+    "message": "Detectar seções",
+    "description": "Content review UI string."
   },
   "contentReview_detectSectionsTitle": {
-    "message": "Detectar seções novamente?"
+    "message": "Detectar seções novamente?",
+    "description": "Content review UI string."
   },
   "contentReview_detectSectionsBody": {
-    "message": "Isso substituirá as seções existentes e redefinirá suas seleções."
+    "message": "Isso substituirá as seções existentes e redefinirá suas seleções.",
+    "description": "Content review UI string."
   },
   "contentReview_detectSectionsConfirm": {
-    "message": "Detectar novamente"
+    "message": "Detectar novamente",
+    "description": "Content review UI string."
   },
   "contentReview_detectSectionsCancel": {
-    "message": "Cancelar"
+    "message": "Cancelar",
+    "description": "Content review UI string."
   },
   "contentReview_detectSectionsEmpty": {
-    "message": "Nenhuma seção detectada."
+    "message": "Nenhuma seção detectada.",
+    "description": "Content review UI string."
   },
   "contentReview_sectionsLabel": {
-    "message": "Filtro de seção"
+    "message": "Filtro de seção",
+    "description": "Content review UI string."
   },
   "contentReview_templates_transcript_clean_label": {
-    "message": "Limpar transcrição"
+    "message": "Limpar transcrição",
+    "description": "Content review UI string."
   },
   "contentReview_templates_transcript_clean_description": {
-    "message": "Normaliza pontuação e maiúsculas/minúsculas preservando a estrutura das linhas."
+    "message": "Normaliza pontuação e maiúsculas/minúsculas preservando a estrutura das linhas.",
+    "description": "Content review UI string."
   },
   "contentReview_templates_speaker_turns_label": {
-    "message": "Turnos de fala"
+    "message": "Turnos de fala",
+    "description": "Content review UI string."
   },
   "contentReview_templates_speaker_turns_description": {
-    "message": "Garante que cada turno de fala fique em sua própria linha com rótulos claros."
+    "message": "Garante que cada turno de fala fique em sua própria linha com rótulos claros.",
+    "description": "Content review UI string."
   },
   "contentReview_templates_chapter_headings_label": {
-    "message": "Títulos de capítulo"
+    "message": "Títulos de capítulo",
+    "description": "Content review UI string."
   },
   "contentReview_templates_chapter_headings_description": {
-    "message": "Insere títulos em Markdown para agrupar tópicos sem remover conteúdo."
+    "message": "Insere títulos em Markdown para agrupar tópicos sem remover conteúdo.",
+    "description": "Content review UI string."
   },
   "contentReview_metadataLabel": {
-    "message": "Metadados"
+    "message": "Metadados",
+    "description": "Content review UI string."
   },
   "contentReview_mediaType": {
-    "message": "Tipo de mídia"
+    "message": "Tipo de mídia",
+    "description": "Content review UI string."
   },
   "contentReview_keywords": {
-    "message": "Palavras‑chave"
+    "message": "Palavras-chave",
+    "description": "Content review UI string."
   },
   "contentReview_keywordsPlaceholder": {
-    "message": "Adicionar palavras‑chave"
+    "message": "Adicionar palavras-chave",
+    "description": "Content review UI string."
   },
   "contentReview_reviewNotes": {
-    "message": "Notas de revisão"
+    "message": "Notas de revisão",
+    "description": "Content review UI string."
   },
   "contentReview_missingSource": {
-    "message": "Arquivo de origem ausente"
+    "message": "Arquivo de origem ausente",
+    "description": "Content review UI string."
   },
   "contentReview_missingSourceBody": {
-    "message": "Anexe o arquivo original para confirmar este rascunho."
+    "message": "Anexe o arquivo original para confirmar este rascunho.",
+    "description": "Content review UI string."
   },
   "contentReview_attachSource": {
-    "message": "Anexar arquivo"
+    "message": "Anexar arquivo",
+    "description": "Content review UI string."
   },
   "contentReview_actionsLabel": {
-    "message": "Ações"
+    "message": "Ações",
+    "description": "Content review UI string."
   },
   "contentReview_commit": {
-    "message": "Confirmar"
+    "message": "Confirmar",
+    "description": "Content review UI string."
   },
   "contentReview_commitDisabled": {
-    "message": "Anexe o arquivo de áudio/vídeo original antes de confirmar."
+    "message": "Anexe o arquivo de áudio/vídeo original antes de confirmar.",
+    "description": "Content review UI string."
   },
   "contentReview_markReviewed": {
-    "message": "Marcar como revisado"
+    "message": "Marcar como revisado",
+    "description": "Content review UI string."
   },
   "contentReview_skipNext": {
-    "message": "Pular"
+    "message": "Pular",
+    "description": "Content review UI string."
   },
   "contentReview_discard": {
-    "message": "Descartar"
+    "message": "Descartar",
+    "description": "Content review UI string."
   },
   "contentReview_discardTitle": {
-    "message": "Descartar rascunho?"
+    "message": "Descartar rascunho?",
+    "description": "Content review UI string."
   },
   "contentReview_discardBody": {
-    "message": "Este rascunho será marcado como descartado e removido da revisão."
+    "message": "Este rascunho será marcado como descartado e removido da revisão.",
+    "description": "Content review UI string."
   },
   "contentReview_discardConfirm": {
-    "message": "Descartar"
+    "message": "Descartar",
+    "description": "Content review UI string."
   },
   "contentReview_discardCancel": {
-    "message": "Cancelar"
+    "message": "Cancelar",
+    "description": "Content review UI string."
   },
   "contentReview_commitSuccess": {
-    "message": "Rascunho confirmado."
+    "message": "Rascunho confirmado.",
+    "description": "Content review UI string."
   },
   "contentReview_commitAllTitle": {
-    "message": "Confirmar rascunhos revisados?"
+    "message": "Confirmar rascunhos revisados?",
+    "description": "Content review UI string."
   },
   "contentReview_commitAllBody": {
-    "message": "Somente rascunhos marcados como revisados serão confirmados."
+    "message": "Somente rascunhos marcados como revisados serão confirmados.",
+    "description": "Content review UI string."
   },
   "contentReview_commitAllConfirm": {
-    "message": "Confirmar todos"
+    "message": "Confirmar todos",
+    "description": "Content review UI string."
   },
   "contentReview_commitAllCancel": {
-    "message": "Cancelar"
+    "message": "Cancelar",
+    "description": "Content review UI string."
   },
   "contentReview_commitAllResult": {
-    "message": "{{success}} confirmado(s) · {{failed}} com falha"
+    "message": "{{success}} confirmado(s) · {{failed}} com falha",
+    "description": "Content review UI string."
   },
   "contentReview_storageCapWarning": {
-    "message": "Este arquivo excede o limite local de rascunhos ({{cap}})."
+    "message": "Este arquivo excede o limite local de rascunhos ({{cap}}).",
+    "description": "Content review UI string."
   },
   "contentReview_clearTitle": {
-    "message": "Limpar todos os rascunhos?"
+    "message": "Limpar todos os rascunhos?",
+    "description": "Content review UI string."
   },
   "contentReview_clearBody": {
-    "message": "Isso remove todos os rascunhos e ativos locais da revisão de conteúdo."
+    "message": "Isso remove todos os rascunhos e ativos locais da revisão de conteúdo.",
+    "description": "Content review UI string."
   },
   "contentReview_clearConfirm": {
-    "message": "Limpar rascunhos"
+    "message": "Limpar rascunhos",
+    "description": "Content review UI string."
   },
   "contentReview_clearCancel": {
-    "message": "Cancelar"
+    "message": "Cancelar",
+    "description": "Content review UI string."
   },
   "contentReview_clearSuccess": {
-    "message": "Rascunhos limpos."
+    "message": "Rascunhos limpos.",
+    "description": "Content review UI string."
   },
   "contentReview_originalLabel": {
-    "message": "Original"
+    "message": "Original",
+    "description": "Content review UI string."
   },
   "contentReview_editedLabel": {
-    "message": "Editado"
+    "message": "Editado",
+    "description": "Content review UI string."
   },
   "reviewDraftsFailedTitle": {
     "message": "Não foi possível criar rascunhos de revisão."
@@ -2050,6 +2158,12 @@
   },
   "quickIngest_reviewStorageCap": {
     "message": "Rascunhos locais limitados a {{cap}}."
+  },
+  "quickIngest_reviewStorageCapWarning_one": {
+    "message": "{{count}} arquivo excede o limite local de rascunhos ({{cap}}). Anexe as fontes antes de salvar áudio/vídeo."
+  },
+  "quickIngest_reviewStorageCapWarning_other": {
+    "message": "{{count}} arquivos excedem o limite local de rascunhos ({{cap}}). Anexe as fontes antes de salvar áudio/vídeo."
   },
   "quickIngest_reviewWarningTitle": {
     "message": "Salvar rascunhos localmente?"
@@ -2104,5 +2218,360 @@
   },
   "storeAfterReview": {
     "message": "Salvar após revisão"
+  },
+  "manageCharacters_actions_viewConversations": {
+    "message": "View conversations"
+  },
+  "manageCharacters_aria_viewConversations": {
+    "message": "View conversations for {{name}}"
+  },
+  "manageCharacters_aria_searchResults": {
+    "message": "{{count}} characters found"
+  },
+  "manageCharacters_conversations_title": {
+    "message": "Conversations for {{name}}"
+  },
+  "manageCharacters_conversations_titleGeneric": {
+    "message": "Character conversations"
+  },
+  "manageCharacters_conversations_subtitle": {
+    "message": "Select a conversation to continue as this character."
+  },
+  "manageCharacters_conversations_empty": {
+    "message": "No conversations found for this character yet."
+  },
+  "manageCharacters_conversations_error": {
+    "message": "Unable to load conversations for this character."
+  },
+  "manageCharacters_conversations_updated": {
+    "message": "Updated {{time}}"
+  },
+  "manageCharacters_conversations_unknownTime": {
+    "message": "Unknown"
+  },
+  "manageCharacters_conversations_resume": {
+    "message": "Continue chat"
+  },
+  "manageCharacters_conversations_untitled": {
+    "message": "Untitled"
+  },
+  "manageCharacters_conversations_mostRecent": {
+    "message": "Most recent"
+  },
+  "manageCharacters_conversations_resumeTooltip": {
+    "message": "Load chat history and continue this conversation"
+  },
+  "manageCharacters_preview_title": {
+    "message": "Preview"
+  },
+  "manageCharacters_preview_show": {
+    "message": "Show preview"
+  },
+  "manageCharacters_preview_hide": {
+    "message": "Hide preview"
+  },
+  "manageCharacters_preview_untitled": {
+    "message": "Untitled character"
+  },
+  "manageCharacters_preview_greeting": {
+    "message": "Greeting"
+  },
+  "manageCharacters_preview_behavior": {
+    "message": "Behavior"
+  },
+  "manageCharacters_preview_empty": {
+    "message": "Fill in the form to see a preview"
+  },
+  "manageCharacters_advanced_show": {
+    "message": "Show advanced fields"
+  },
+  "manageCharacters_advanced_hide": {
+    "message": "Hide advanced fields"
+  },
+  "chunkingPlayground_nav": {
+    "message": "Chunking Playground",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_title": {
+    "message": "Chunking Playground",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_description": {
+    "message": "Experiment with different chunking settings to see how text gets split into smaller pieces for processing.",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_inputLabel": {
+    "message": "Text to chunk",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_inputPlaceholder": {
+    "message": "Paste text here or select a sample...",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_uploadButton": {
+    "message": "Upload File",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_chunkButton": {
+    "message": "Chunk Text",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_methodLabel": {
+    "message": "Chunking Method",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_maxSizeLabel": {
+    "message": "Max Chunk Size",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_overlapLabel": {
+    "message": "Overlap",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_languageLabel": {
+    "message": "Language",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_languages_auto": {
+    "message": "Auto-detect",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_languages_en": {
+    "message": "English",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_languages_es": {
+    "message": "Spanish",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_languages_fr": {
+    "message": "French",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_languages_de": {
+    "message": "German",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_languages_it": {
+    "message": "Italian",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_languages_pt": {
+    "message": "Portuguese",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_languages_zh": {
+    "message": "Chinese",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_languages_ja": {
+    "message": "Japanese",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_languages_ko": {
+    "message": "Korean",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_viewCards": {
+    "message": "Cards",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_viewInline": {
+    "message": "Inline",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_stats": {
+    "message": "{{count}} chunks, avg {{avgSize}} chars"
+  },
+  "chunkingPlayground_textLoaded": {
+    "message": "Text loaded",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_characters": {
+    "message": "characters",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_tabSingle": {
+    "message": "Single",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_tabCompare": {
+    "message": "Compare",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_chunkIndex": {
+    "message": "Chunk {{index}}"
+  },
+  "chunkingPlayground_chunkInfo": {
+    "message": "Chunk {{index}}: {{words}} words"
+  },
+  "chunkingPlayground_position": {
+    "message": "Position: {{start}} - {{end}}"
+  },
+  "chunkingPlayground_additionalChunks": {
+    "message": "+{{count}} more"
+  },
+  "chunkingPlayground_charCount": {
+    "message": "{{count}} characters"
+  },
+  "chunkingPlayground_wordCount": {
+    "message": "{{count}} words"
+  },
+  "chunkingPlayground_noInput": {
+    "message": "Please provide text to chunk",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_sharedInput": {
+    "message": "Shared Input Text",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_compareButton": {
+    "message": "Compare Both",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_comparison": {
+    "message": "Comparison",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_fewerChunks": {
+    "message": "Config A produces {{diff}} fewer chunks"
+  },
+  "chunkingPlayground_moreChunks": {
+    "message": "Config A produces {{diff}} more chunks"
+  },
+  "chunkingPlayground_sameChunks": {
+    "message": "Both configs produce the same number of chunks",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_clickToChunk": {
+    "message": "Click 'Compare' to see results",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_overlapRegion": {
+    "message": "Overlap Region",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_clickHint": {
+    "message": "Click on a highlighted section to focus on that chunk",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_noContentFound": {
+    "message": "No text content found for this media item",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_loadContentError": {
+    "message": "Failed to load media content",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_loadMediaListError": {
+    "message": "Failed to load media library",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_selectMedia": {
+    "message": "Select media item...",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_loadingMedia": {
+    "message": "Loading content...",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_noMediaFound": {
+    "message": "No media found",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_mediaCount": {
+    "message": "{{count}} media items available"
+  },
+  "chunkingPlayground_inputSource_paste": {
+    "message": "Paste Text",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_inputSource_upload": {
+    "message": "Upload File",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_inputSource_sample": {
+    "message": "Sample Text",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_inputSource_media": {
+    "message": "From Media Library",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_samples_article": {
+    "message": "News Article",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_samples_articleDesc": {
+    "message": "Multi-paragraph article with headers",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_samples_code": {
+    "message": "Source Code",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_samples_codeDesc": {
+    "message": "Python code with classes and functions",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_samples_transcript": {
+    "message": "Transcript",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_samples_transcriptDesc": {
+    "message": "Timestamped podcast transcript",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_samples_academic": {
+    "message": "Academic Paper",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_samples_academicDesc": {
+    "message": "Technical writing with citations",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_compare_title": {
+    "message": "Compare Settings",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_compare_configA": {
+    "message": "Configuration A",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_compare_configB": {
+    "message": "Configuration B",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_mode_single": {
+    "message": "Single",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_mode_compare": {
+    "message": "Compare",
+    "description": "TODO: translate (copied from en)"
+  },
+  "managePrompts_importMode_merge": {
+    "message": "Mesclar"
+  },
+  "managePrompts_importMode_replace": {
+    "message": "Substituir"
+  },
+  "managePrompts_importMode_replaceConfirm": {
+    "message": "Substituir sobrescreverá todos os prompts atuais com o arquivo importado. Continuar?"
+  },
+  "flashcards_newDeckNameRequired": {
+    "message": "Digite o nome do baralho."
+  },
+  "flashcards_dueAll": {
+    "message": "Todos"
+  },
+  "flashcards_dueNew": {
+    "message": "Novas"
+  },
+  "flashcards_dueLearning": {
+    "message": "Aprendendo"
+  },
+  "flashcards_dueDue": {
+    "message": "Para revisar"
   }
 }

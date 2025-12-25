@@ -63,10 +63,10 @@
     "message": "Зберегти без перевірки"
   },
   "reviewNavigationFailed": {
-    "message": "Не вдалося відкрити Перевірку вмісту. Спробуйте ще раз."
+    "message": "Не вдалося відкрити Перевірку контенту. Спробуйте ще раз."
   },
   "reviewNavigationRetry": {
-    "message": "Повторити відкриття Перевірки вмісту"
+    "message": "Повторити відкриття Перевірки контенту"
   },
   "contentReview_title": {
     "message": "Перевірка контенту"
@@ -108,19 +108,19 @@
     "message": "Ліміт збереження перевірки"
   },
   "contentReview_reviewWarningTitle": {
-    "message": "Чи продовжити без перевірки?"
+    "message": "Зберегти чернетки локально?"
   },
   "contentReview_reviewWarningBody": {
-    "message": "Файли не будуть перевірені перед збереженням."
+    "message": "Чернетки зберігаються у цьому браузері й можуть містити конфіденційні дані. Ви можете очистити чернетки на сторінці «Перевірка контенту» в будь-який час."
   },
   "contentReview_reviewWarningBodySecondary": {
-    "message": "Ви все ще можете переглянути їх у Перевірці контенту."
+    "message": "Режим перевірки зберігає контент локально, доки ви не зафіксуєте його на сервері."
   },
   "contentReview_reviewWarningConfirm": {
-    "message": "Продовжити без перевірки"
+    "message": "Увімкнути перевірку"
   },
   "contentReview_reviewWarningCancel": {
-    "message": "Повернутися до перевірки"
+    "message": "Скасувати"
   },
   "contentReview_reviewRunLabel": {
     "message": "Запустити перевірку"
@@ -128,10 +128,18 @@
   "contentReview_reviewDraftsCreated": {
     "message": "Чернетки створено"
   },
-  "contentReview.reviewStorageCapWarning_one": "{{count}} файл перевищує ліміт збереження для перевірки ({{cap}}).",
-  "contentReview.reviewStorageCapWarning_few": "{{count}} файли перевищують ліміт збереження для перевірки ({{cap}}).",
-  "contentReview.reviewStorageCapWarning_many": "{{count}} файлів перевищують ліміт збереження для перевірки ({{cap}}).",
-  "contentReview.reviewStorageCapWarning_other": "{{count}} файлів перевищують ліміт збереження для перевірки ({{cap}}).",
+  "contentReview_reviewStorageCapWarning_one": {
+    "message": "{{count}} файл перевищує ліміт збереження для перевірки ({{cap}})."
+  },
+  "contentReview_reviewStorageCapWarning_few": {
+    "message": "{{count}} файли перевищують ліміт збереження для перевірки ({{cap}})."
+  },
+  "contentReview_reviewStorageCapWarning_many": {
+    "message": "{{count}} файлів перевищують ліміт збереження для перевірки ({{cap}})."
+  },
+  "contentReview_reviewStorageCapWarning_other": {
+    "message": "{{count}} файлів перевищують ліміт збереження для перевірки ({{cap}})."
+  },
   "contentReview_openContentReview": {
     "message": "Відкрити Перевірку контенту"
   },

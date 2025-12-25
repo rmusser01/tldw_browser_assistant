@@ -128,8 +128,12 @@
   "contentReview_reviewDraftsCreated": {
     "message": "ഡ്രാഫ്റ്റുകൾ റിവ്യൂയ്ക്ക് തയ്യാറായി."
   },
-  "contentReview.reviewStorageCapWarning_one": "{{count}} ഫയൽ ലോക്കൽ ഡ്രാഫ്റ്റ് പരിധി ({{cap}}) കവിയുന്നു. ഓഡിയോ/വീഡിയോ കമ്മിറ്റുചെയ്യുന്നതിന് മുമ്പ് സോഴ്‌സുകൾ അറ്റാച്ച് ചെയ്യുക.",
-  "contentReview.reviewStorageCapWarning_other": "{{count}} ഫയലുകൾ ലോക്കൽ ഡ്രാഫ്റ്റ് പരിധി ({{cap}}) കവിയുന്നു. ഓഡിയോ/വീഡിയോ കമ്മിറ്റുചെയ്യുന്നതിന് മുമ്പ് സോഴ്‌സുകൾ അറ്റാച്ച് ചെയ്യുക.",
+  "contentReview_reviewStorageCapWarning_one": {
+    "message": "{{count}} ഫയൽ ലോക്കൽ ഡ്രാഫ്റ്റ് പരിധി ({{cap}}) കവിയുന്നു. ഓഡിയോ/വീഡിയോ കമ്മിറ്റുചെയ്യുന്നതിന് മുമ്പ് സോഴ്‌സുകൾ അറ്റാച്ച് ചെയ്യുക."
+  },
+  "contentReview_reviewStorageCapWarning_other": {
+    "message": "{{count}} ഫയലുകൾ ലോക്കൽ ഡ്രാഫ്റ്റ് പരിധി ({{cap}}) കവിയുന്നു. ഓഡിയോ/വീഡിയോ കമ്മിറ്റുചെയ്യുന്നതിന് മുമ്പ് സോഴ്‌സുകൾ അറ്റാച്ച് ചെയ്യുക."
+  },
   "contentReview_openContentReview": {
     "message": "ഉള്ളടക്കം റിവ്യൂ തുറക്കുക"
   },

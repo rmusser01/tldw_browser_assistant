@@ -128,8 +128,12 @@
   "contentReview_reviewDraftsCreated": {
     "message": "レビュー用下書きの準備ができました。"
   },
-  "contentReview.reviewStorageCapWarning_one": "{{count}} 件のファイルがローカル下書き上限 ({{cap}}) を超えています。音声/動画を保存する前にソースを添付してください。",
-  "contentReview.reviewStorageCapWarning_other": "{{count}} 件のファイルがローカル下書き上限 ({{cap}}) を超えています。音声/動画を保存する前にソースを添付してください。",
+  "contentReview_reviewStorageCapWarning_one": {
+    "message": "{{count}} 件のファイルがローカル下書き上限 ({{cap}}) を超えています。音声/動画を保存する前にソースを添付してください。"
+  },
+  "contentReview_reviewStorageCapWarning_other": {
+    "message": "{{count}} 件のファイルがローカル下書き上限 ({{cap}}) を超えています。音声/動画を保存する前にソースを添付してください。"
+  },
   "contentReview_openContentReview": {
     "message": "コンテンツレビューを開く"
   },

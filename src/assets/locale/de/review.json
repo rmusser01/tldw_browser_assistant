@@ -99,6 +99,7 @@
     "clear": "Löschen",
     "types": "Medientypen",
     "keywords": "Schlüsselwörter",
+    "moreTags": "+{{count}} more tags",
     "resetFilters": "Filter zurücksetzen",
     "clearAll": "Alles löschen",
     "content": "Inhalt",

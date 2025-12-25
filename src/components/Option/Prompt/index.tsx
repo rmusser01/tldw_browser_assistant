@@ -896,9 +896,11 @@ export const PromptBody = () => {
             bordered
             dataSource={filteredData}
             rowKey={(record) => record.id}
-            onRow={(record) => ({
-              "data-testid": `prompt-row-${record.id}`
-            })}
+            onRow={(record) =>
+              ({
+                "data-testid": `prompt-row-${record.id}`
+              } as React.HTMLAttributes<HTMLTableRowElement>)
+            }
             rowSelection={{
               selectedRowKeys,
               onChange: (keys) => setSelectedRowKeys(keys),

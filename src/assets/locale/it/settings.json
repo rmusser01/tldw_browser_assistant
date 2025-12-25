@@ -383,7 +383,7 @@
       "parameterSize": "Numero di Parametri",
       "quantizationLevel": "Livello di Quantizzazione"
     },
-      "tooltip": {
+    "tooltip": {
       "delete": "Elimina Modello",
       "repull": "Ri-Scarica Modello",
       "editNickname": "Modifica soprannome"
@@ -493,8 +493,8 @@
     "export": "Export",
     "importMode": {
       "merge": "Merge",
-      "replace": "Replace",
-      "replaceConfirm": "Replace will overwrite all current prompts with the imported file. Continue?"
+      "replace": "Sostituisci",
+      "replaceConfirm": "Questa operazione sovrascriverà tutti i prompt correnti con il file importato. Continuare?"
     },
     "favorite": "Favorite",
     "unfavorite": "Unfavorite",
@@ -955,7 +955,8 @@
     "actions": {
       "chat": "Chat",
       "edit": "Modifica",
-      "delete": "Elimina"
+      "delete": "Elimina",
+      "viewConversations": "View conversations"
     },
     "tags": {
       "label": "Tag",
@@ -969,7 +970,9 @@
     "aria": {
       "chatWith": "Chatta come {{name}}",
       "edit": "Modifica personaggio {{name}}",
-      "delete": "Elimina personaggio {{name}}"
+      "delete": "Elimina personaggio {{name}}",
+      "viewConversations": "View conversations for {{name}}",
+      "searchResults": "{{count}} characters found"
     },
     "confirm": {
       "delete": "Sei sicuro di voler eliminare questo personaggio? Questa azione non può essere annullata."
@@ -1022,7 +1025,33 @@
     "emptyExample2": "Dai a ogni personaggio una descrizione chiara e un comportamento definito così le sue risposte resteranno coerenti.",
     "emptyPrimaryCta": "Crea personaggio",
     "avatarAltWithName": "Avatar di {{name}}",
-    "avatarAlt": "Avatar utente"
+    "avatarAlt": "Avatar utente",
+    "conversations": {
+      "title": "Conversations for {{name}}",
+      "titleGeneric": "Character conversations",
+      "subtitle": "Select a conversation to continue as this character.",
+      "empty": "No conversations found for this character yet.",
+      "error": "Unable to load conversations for this character.",
+      "updated": "Updated {{time}}",
+      "unknownTime": "Unknown",
+      "resume": "Continue chat",
+      "untitled": "Untitled",
+      "mostRecent": "Most recent",
+      "resumeTooltip": "Load chat history and continue this conversation"
+    },
+    "preview": {
+      "title": "Preview",
+      "show": "Show preview",
+      "hide": "Hide preview",
+      "untitled": "Untitled character",
+      "greeting": "Greeting",
+      "behavior": "Behavior",
+      "empty": "Fill in the form to see a preview"
+    },
+    "advanced": {
+      "show": "Show advanced fields",
+      "hide": "Hide advanced fields"
+    }
   },
   "systemNotifications": {
     "importSuccess": "Dati importati correttamente",
@@ -1224,5 +1253,86 @@
     "testCta": "Test Evaluations API",
     "testOk": "Evaluations API reachable",
     "testFail": "Unable to reach Evaluations API"
+  },
+  "chunkingPlayground": {
+    "_todo": "TODO: translate chunkingPlayground strings (copied from en)",
+    "nav": "Chunking Playground",
+    "title": "Chunking Playground",
+    "description": "Experiment with different chunking settings to see how text gets split into smaller pieces for processing.",
+    "inputLabel": "Text to chunk",
+    "inputPlaceholder": "Paste text here or select a sample...",
+    "uploadButton": "Upload File",
+    "chunkButton": "Chunk Text",
+    "methodLabel": "Chunking Method",
+    "maxSizeLabel": "Max Chunk Size",
+    "overlapLabel": "Overlap",
+    "languageLabel": "Language",
+    "languages": {
+      "auto": "Auto-detect",
+      "en": "English",
+      "es": "Spanish",
+      "fr": "French",
+      "de": "German",
+      "it": "Italian",
+      "pt": "Portuguese",
+      "zh": "Chinese",
+      "ja": "Japanese",
+      "ko": "Korean"
+    },
+    "viewCards": "Cards",
+    "viewInline": "Inline",
+    "stats": "{{count}} chunks, avg {{avgSize}} chars",
+    "textLoaded": "Text loaded",
+    "characters": "characters",
+    "tabSingle": "Single",
+    "tabCompare": "Compare",
+    "chunkIndex": "Chunk {{index}}",
+    "chunkInfo": "Chunk {{index}}: {{words}} words",
+    "position": "Position: {{start}} - {{end}}",
+    "additionalChunks": "+{{count}} more",
+    "charCount": "{{count}} characters",
+    "wordCount": "{{count}} words",
+    "noInput": "Please provide text to chunk",
+    "sharedInput": "Shared Input Text",
+    "compareButton": "Compare Both",
+    "comparison": "Comparison",
+    "fewerChunks": "Config A produces {{diff}} fewer chunks",
+    "moreChunks": "Config A produces {{diff}} more chunks",
+    "sameChunks": "Both configs produce the same number of chunks",
+    "clickToChunk": "Click 'Compare' to see results",
+    "overlapRegion": "Overlap Region",
+    "clickHint": "Click on a highlighted section to focus on that chunk",
+    "noContentFound": "No text content found for this media item",
+    "loadContentError": "Failed to load media content",
+    "loadMediaListError": "Failed to load media library",
+    "selectMedia": "Select media item...",
+    "loadingMedia": "Loading content...",
+    "noMediaFound": "No media found",
+    "mediaCount": "{{count}} media items available",
+    "inputSource": {
+      "paste": "Paste Text",
+      "upload": "Upload File",
+      "sample": "Sample Text",
+      "media": "From Media Library"
+    },
+    "samples": {
+      "article": "News Article",
+      "articleDesc": "Multi-paragraph article with headers",
+      "code": "Source Code",
+      "codeDesc": "Python code with classes and functions",
+      "transcript": "Transcript",
+      "transcriptDesc": "Timestamped podcast transcript",
+      "academic": "Academic Paper",
+      "academicDesc": "Technical writing with citations"
+    },
+    "compare": {
+      "title": "Compare Settings",
+      "configA": "Configuration A",
+      "configB": "Configuration B"
+    },
+    "mode": {
+      "single": "Single",
+      "compare": "Compare"
+    }
   }
 }

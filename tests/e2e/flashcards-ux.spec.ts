@@ -23,10 +23,22 @@ test.describe("Flashcards workspace UX", () => {
     throw new Error("Flashcards workspace did not render manager or offline state.")
   }
 
+  const waitForConnectionReady = async (page: import("@playwright/test").Page) => {
+    await page.waitForFunction(
+      () =>
+        typeof (window as any).__tldw_enableOfflineBypass === "function" &&
+        typeof (window as any).__tldw_disableOfflineBypass === "function" &&
+        typeof (window as any).__tldw_forceUnconfigured === "function"
+    )
+  }
+
   test("shows connection-focused empty state when server is offline", async () => {
     const extPath = path.resolve("build/chrome-mv3")
     const { context, page, extensionId } = (await launchWithExtension(extPath)) as any
     const optionsUrl = `chrome-extension://${extensionId}/options.html`
+
+    await waitForConnectionReady(page)
+    await page.evaluate(() => (window as any).__tldw_forceUnconfigured?.())
 
     await page.goto(`${optionsUrl}#/flashcards`)
 
@@ -65,6 +77,45 @@ test.describe("Flashcards workspace UX", () => {
       await expect(fallbackButton.first()).toBeVisible()
       await fallbackButton.first().click()
     }
+
+    await context.close()
+  })
+
+  test("logs create mutation errors when server is unreachable", async () => {
+    const extPath = path.resolve("build/chrome-mv3")
+    const { context, page, optionsUrl } = (await launchWithExtension(extPath)) as any
+
+    await waitForConnectionReady(page)
+    await page.evaluate(async () => {
+      await (window as any).__tldw_enableOfflineBypass?.()
+    })
+
+    await page.goto(`${optionsUrl}#/flashcards`)
+    await expect(page.getByTestId("flashcards-tabs")).toBeVisible()
+
+    await page.evaluate(async () => {
+      await (window as any).__tldw_disableOfflineBypass?.()
+      await (window as any).__tldw_forceUnconfigured?.()
+    })
+
+    await page.getByRole("tab", { name: /Create/i }).click()
+
+    const consoleErrors: string[] = []
+    page.on("console", (msg) => {
+      if (msg.type() === "error") {
+        consoleErrors.push(msg.text())
+      }
+    })
+
+    await page.getByTestId("flashcards-create-front").fill("What is 2+2?")
+    await page.getByTestId("flashcards-create-back").fill("4")
+    await page.getByTestId("flashcards-create-submit").click()
+
+    await expect
+      .poll(() =>
+        consoleErrors.some((text) => text.includes("Failed to create flashcard"))
+      )
+      .toBeTruthy()
 
     await context.close()
   })

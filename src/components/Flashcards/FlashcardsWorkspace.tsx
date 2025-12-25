@@ -1,4 +1,5 @@
 import React from "react"
+import { Spin } from "antd"
 import { useTranslation } from "react-i18next"
 import { useNavigate } from "react-router-dom"
 import { useServerOnline } from "@/hooks/useServerOnline"
@@ -10,7 +11,9 @@ import FeatureEmptyState from "@/components/Common/FeatureEmptyState"
 import ConnectionProblemBanner from "@/components/Common/ConnectionProblemBanner"
 import { StatusBadge } from "@/components/Common/StatusBadge"
 import { getDemoFlashcardDecks } from "@/utils/demo-content"
-import { FlashcardsManager } from "./FlashcardsManager"
+const FlashcardsManager = React.lazy(() =>
+  import("./FlashcardsManager").then((m) => ({ default: m.FlashcardsManager }))
+)
 
 /**
  * FlashcardsWorkspace handles connection state, demo mode, and feature availability.
@@ -164,7 +167,17 @@ export const FlashcardsWorkspace: React.FC = () => {
   }
 
   // Online and feature supported - render main manager
-  return <FlashcardsManager />
+  return (
+    <React.Suspense
+      fallback={
+        <div className="flex justify-center py-8">
+          <Spin />
+        </div>
+      }
+    >
+      <FlashcardsManager />
+    </React.Suspense>
+  )
 }
 
 export default FlashcardsWorkspace

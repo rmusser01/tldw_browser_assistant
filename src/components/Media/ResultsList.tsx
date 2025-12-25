@@ -26,7 +26,7 @@ interface ResultsListProps {
   hasActiveFilters?: boolean
   onClearFilters?: () => void
   favorites?: Set<string>
-  onToggleFavorite?: (id: string | number) => void
+  onToggleFavorite?: (id: string) => void
 }
 
 export function ResultsList({
@@ -96,15 +96,23 @@ export function ResultsList({
           </div>
         ) : (
           results.map((result) => (
-            <button
+            <div
+              role="button"
+              tabIndex={0}
               key={result.id}
               onClick={() => onSelect(result.id)}
+              onKeyDown={(event) => {
+                if (event.key === 'Enter' || event.key === ' ') {
+                  event.preventDefault()
+                  onSelect(result.id)
+                }
+              }}
               aria-label={t('mediaPage.selectResult', 'Select {{type}}: {{title}}', {
                 type: result.kind,
                 title: result.title || `${result.kind} ${result.id}`
               })}
-              aria-pressed={selectedId === result.id}
-              className={`w-full py-2.5 text-left hover:bg-gray-50 dark:hover:bg-[#262626] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-inset ${
+              aria-selected={selectedId === result.id}
+              className={`w-full py-2.5 text-left hover:bg-gray-50 dark:hover:bg-[#262626] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-inset cursor-pointer ${
                 selectedId === result.id
                   ? 'bg-blue-50 dark:bg-blue-900/40 border-l-4 border-l-blue-600 dark:border-l-blue-500 px-3'
                   : 'px-4'
@@ -118,7 +126,7 @@ export function ResultsList({
                       <button
                         onClick={(e) => {
                           e.stopPropagation()
-                          onToggleFavorite(result.id)
+                          onToggleFavorite(String(result.id))
                         }}
                         className="p-0.5 hover:bg-gray-200 dark:hover:bg-gray-700 rounded transition-colors"
                         aria-label={favorites?.has(String(result.id)) ? t('mediaPage.unfavorite', 'Remove from favorites') : t('mediaPage.favorite', 'Add to favorites')}
@@ -164,7 +172,7 @@ export function ResultsList({
                       ))}
                       {result.keywords.length > 5 && (
                         <Tooltip
-                          title={`+${result.keywords.length - 5} more tags`}
+                          title={t('mediaPage.moreTags', '+{{count}} more tags', { count: result.keywords.length - 5 })}
                         >
                           <span className="inline-flex items-center px-2 py-0.5 text-xs text-gray-500 dark:text-gray-400">
                             +{result.keywords.length - 5}
@@ -180,7 +188,7 @@ export function ResultsList({
                   )}
                 </div>
               </div>
-            </button>
+            </div>
           ))
         )}
         {/* Loading indicator */}

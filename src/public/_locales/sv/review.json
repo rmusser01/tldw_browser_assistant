@@ -128,8 +128,12 @@
   "contentReview_reviewDraftsCreated": {
     "message": "Utkast redo för granskning."
   },
-  "contentReview.reviewStorageCapWarning_one": "{{count}} fil överskrider den lokala utkastgränsen ({{cap}}). Bifoga källor innan du sparar ljud/video.",
-  "contentReview.reviewStorageCapWarning_other": "{{count}} filer överskrider den lokala utkastgränsen ({{cap}}). Bifoga källor innan du sparar ljud/video.",
+  "contentReview_reviewStorageCapWarning_one": {
+    "message": "{{count}} fil överskrider den lokala utkastgränsen ({{cap}}). Bifoga källor innan du sparar ljud/video."
+  },
+  "contentReview_reviewStorageCapWarning_other": {
+    "message": "{{count}} filer överskrider den lokala utkastgränsen ({{cap}}). Bifoga källor innan du sparar ljud/video."
+  },
   "contentReview_openContentReview": {
     "message": "Öppna Innehållsgranskning"
   },

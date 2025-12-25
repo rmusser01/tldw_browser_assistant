@@ -1,5 +1,12 @@
 import { useEffect, useCallback } from "react"
 
+const RATING_MAP: Record<string, number> = {
+  "1": 0, // Again
+  "2": 2, // Hard
+  "3": 3, // Good
+  "4": 5 // Easy
+}
+
 interface FlashcardShortcutsOptions {
   /** Whether shortcuts are enabled */
   enabled?: boolean
@@ -40,7 +47,7 @@ export function useFlashcardShortcuts({
       }
 
       // Space to flip
-      if (e.key === " " || e.code === "Space") {
+      if (e.key === " ") {
         e.preventDefault()
         if (!showingAnswer) {
           onFlip()
@@ -50,16 +57,9 @@ export function useFlashcardShortcuts({
 
       // Number keys for rating (only when answer is shown)
       if (showingAnswer) {
-        const ratingMap: Record<string, number> = {
-          "1": 0, // Again
-          "2": 2, // Hard
-          "3": 3, // Good
-          "4": 5 // Easy
-        }
-
-        if (e.key in ratingMap) {
+        if (e.key in RATING_MAP) {
           e.preventDefault()
-          onRate(ratingMap[e.key])
+          onRate(RATING_MAP[e.key])
         }
       }
     },

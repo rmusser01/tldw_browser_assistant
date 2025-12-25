@@ -563,6 +563,9 @@
     "newDeck": "New Deck",
     "newDeckNameRequired": "Enter a deck name.",
     "modelType": "Card template",
+    "templateBasic": "Basic (Question - Answer)",
+    "templateReverse": "Basic + Reverse (Both directions)",
+    "templateCloze": "Cloze (Fill in the blank)",
     "reverse": "Also create reverse card",
     "isCloze": "Cloze deletion",
     "tags": "Tags",
@@ -595,9 +598,13 @@
     "download": "Download",
     "duplicate": "Duplicate",
     "move": "Move",
+    "loadCardFailed": "Failed to load card",
+    "duplicateFailed": "Duplicate failed",
+    "moveFailed": "Move failed",
     "bulkMove": "Bulk Move",
     "bulkMoveSelectDeck": "Select a target deck before moving cards.",
     "bulkDelete": "Bulk Delete",
+    "bulkLimitWarning": "Operation limited to first {{limit}} items.",
     "exportSelectedCsv": "Export selected (CSV/TSV)",
     "selectedCount": "Selected",
     "selectAllOnPage": "Select all on page",
@@ -619,6 +626,11 @@
     "noDueImportCta": "Import a deck",
     "createTitle": "Create flashcards from your notes",
     "createDescription": "Use the front for the question and the back for the answer. You can group cards into decks and add tags for faster search.",
+    "createDescriptionSimple": "Fill in the front (question) and back (answer). Markdown and LaTeX are supported.",
+    "showPreview": "Show preview",
+    "hidePreview": "Hide preview",
+    "markdownHint": "Supports Markdown and LaTeX ($x^2$, $$\\sum_{i=1}^n$$)",
+    "advancedOptions": "Advanced options (tags, extra, notes)",
     "modelTypeHelp": "Basic shows a question on the front and answer on the back. Reverse also creates the opposite card. Cloze hides parts of the text using {{...}}.",
     "reverseHelp": "Also create a card where the back becomes the question.",
     "isClozeHelp": "Use for fill‑in‑the‑blank cards. Wrap hidden text in {{...}} on the front.",
@@ -785,5 +797,12 @@
     "correctAnswerLabel": "Correct answer",
     "backToList": "Back to list",
     "retake": "Retake Quiz"
+  },
+  "searchPrompts": "Search prompts...",
+  "noMatchingPrompts": "No matching prompts",
+  "promptSelect": {
+    "favorites": "Favorites",
+    "system": "System prompts",
+    "quick": "Quick prompts"
   }
 }

@@ -128,10 +128,18 @@
   "contentReview_reviewDraftsCreated": {
     "message": "Черновики готовы к проверке."
   },
-  "contentReview.reviewStorageCapWarning_one": "{{count}} файл превышает лимит локальных черновиков ({{cap}}). Приложите источники перед сохранением аудио/видео.",
-  "contentReview.reviewStorageCapWarning_few": "{{count}} файла превышают лимит локальных черновиков ({{cap}}). Приложите источники перед сохранением аудио/видео.",
-  "contentReview.reviewStorageCapWarning_many": "{{count}} файлов превышают лимит локальных черновиков ({{cap}}). Приложите источники перед сохранением аудио/видео.",
-  "contentReview.reviewStorageCapWarning_other": "{{count}} файлов превышают лимит локальных черновиков ({{cap}}). Приложите источники перед сохранением аудио/видео.",
+  "contentReview_reviewStorageCapWarning_one": {
+    "message": "{{count}} файл превышает лимит локальных черновиков ({{cap}}). Приложите источники перед сохранением аудио/видео."
+  },
+  "contentReview_reviewStorageCapWarning_few": {
+    "message": "{{count}} файла превышают лимит локальных черновиков ({{cap}}). Приложите источники перед сохранением аудио/видео."
+  },
+  "contentReview_reviewStorageCapWarning_many": {
+    "message": "{{count}} файлов превышают лимит локальных черновиков ({{cap}}). Приложите источники перед сохранением аудио/видео."
+  },
+  "contentReview_reviewStorageCapWarning_other": {
+    "message": "{{count}} файлов превышают лимит локальных черновиков ({{cap}}). Приложите источники перед сохранением аудио/видео."
+  },
   "contentReview_openContentReview": {
     "message": "Открыть проверку контента"
   },

@@ -128,8 +128,12 @@
   "contentReview_reviewDraftsCreated": {
     "message": "Borradores listos para revisar."
   },
-  "contentReview.reviewStorageCapWarning_one": "{{count}} archivo supera el límite local de borradores ({{cap}}). Adjunta las fuentes antes de confirmar audio/video.",
-  "contentReview.reviewStorageCapWarning_other": "{{count}} archivos superan el límite local de borradores ({{cap}}). Adjunta las fuentes antes de confirmar audio/video.",
+  "contentReview_reviewStorageCapWarning_one": {
+    "message": "{{count}} archivo supera el límite local de borradores ({{cap}}). Adjunta las fuentes antes de confirmar audio/video."
+  },
+  "contentReview_reviewStorageCapWarning_other": {
+    "message": "{{count}} archivos superan el límite local de borradores ({{cap}}). Adjunta las fuentes antes de confirmar audio/video."
+  },
   "contentReview_openContentReview": {
     "message": "Abrir Revisión de contenido"
   },

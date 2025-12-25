@@ -41,8 +41,9 @@ const ImportPanel: React.FC = () => {
       })
       message.success(t("option:flashcards.imported", { defaultValue: "Imported" }))
       setContent("")
-    } catch (e: any) {
-      message.error(e?.message || "Import failed")
+    } catch (e: unknown) {
+      const errorMessage = e instanceof Error ? e.message : "Import failed"
+      message.error(errorMessage)
     }
   }
 
@@ -166,8 +167,9 @@ const ExportPanel: React.FC = () => {
       a.click()
       a.remove()
       URL.revokeObjectURL(url)
-    } catch (e: any) {
-      message.error(e?.message || "Export failed")
+    } catch (e: unknown) {
+      const errorMessage = e instanceof Error ? e.message : "Export failed"
+      message.error(errorMessage)
     } finally {
       setIsExporting(false)
     }
@@ -193,7 +195,7 @@ const ExportPanel: React.FC = () => {
           })}
           allowClear
           loading={decksQuery.isLoading}
-          value={exportDeckId as any}
+          value={exportDeckId ?? undefined}
           onChange={setExportDeckId}
           data-testid="flashcards-export-deck"
           options={(decksQuery.data || []).map((d) => ({

@@ -128,8 +128,12 @@
   "contentReview_reviewDraftsCreated": {
     "message": "Kladder klar til gennemgang."
   },
-  "contentReview.reviewStorageCapWarning_one": "{{count}} fil overskrider den lokale kladdegrænse ({{cap}}). Vedhæft kilder før du gemmer lyd/video.",
-  "contentReview.reviewStorageCapWarning_other": "{{count}} filer overskrider den lokale kladdegrænse ({{cap}}). Vedhæft kilder før du gemmer lyd/video.",
+  "contentReview_reviewStorageCapWarning_one": {
+    "message": "{{count}} fil overskrider den lokale kladdegrænse ({{cap}}). Vedhæft kilder før du gemmer lyd/video."
+  },
+  "contentReview_reviewStorageCapWarning_other": {
+    "message": "{{count}} filer overskrider den lokale kladdegrænse ({{cap}}). Vedhæft kilder før du gemmer lyd/video."
+  },
   "contentReview_openContentReview": {
     "message": "Åbn Indholdsgennemgang"
   },

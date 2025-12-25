@@ -1,6 +1,7 @@
 import { UserCircle2 } from "lucide-react"
 import { useTranslation } from "react-i18next"
-import { useMemo } from "react"
+import { useEffect, useMemo, useState } from "react"
+import { createImageDataUrl } from "@/utils/image-utils"
 
 interface CharacterPreviewProps {
   name?: string
@@ -12,43 +13,6 @@ interface CharacterPreviewProps {
   tags?: string[]
 }
 
-/**
- * Validates and creates a data URL from base64 image data.
- * Returns null if the base64 data is invalid or not a supported image type.
- */
-function validateAndCreateImageDataUrl(base64: string | null | undefined): string | null {
-  if (!base64 || typeof base64 !== "string") return null
-  // If already a data URL, validate and return
-  if (base64.startsWith("data:image/")) {
-    return base64
-  }
-  // Check for valid base64 pattern
-  const base64Pattern = /^[A-Za-z0-9+/=]+$/
-  if (!base64Pattern.test(base64)) return null
-  // Decode first few bytes to detect image type
-  try {
-    const decoded = atob(base64.slice(0, 16))
-    const bytes = new Uint8Array(decoded.length)
-    for (let i = 0; i < decoded.length; i++) {
-      bytes[i] = decoded.charCodeAt(i)
-    }
-    // PNG signature: 89 50 4E 47
-    if (bytes[0] === 0x89 && bytes[1] === 0x50 && bytes[2] === 0x4e && bytes[3] === 0x47) {
-      return `data:image/png;base64,${base64}`
-    }
-    // JPEG signature: FF D8 FF
-    if (bytes[0] === 0xff && bytes[1] === 0xd8 && bytes[2] === 0xff) {
-      return `data:image/jpeg;base64,${base64}`
-    }
-    // GIF signature: 47 49 46 38
-    if (bytes[0] === 0x47 && bytes[1] === 0x49 && bytes[2] === 0x46 && bytes[3] === 0x38) {
-      return `data:image/gif;base64,${base64}`
-    }
-  } catch {
-    return null
-  }
-  return null
-}
 
 export function CharacterPreview({
   name,
@@ -60,12 +24,17 @@ export function CharacterPreview({
   tags
 }: CharacterPreviewProps) {
   const { t } = useTranslation(["settings", "common"])
+  const [avatarImgError, setAvatarImgError] = useState(false)
 
   const avatarSrc = useMemo(() => {
     if (avatar_url) return avatar_url
-    if (image_base64) return validateAndCreateImageDataUrl(image_base64)
+    if (image_base64) return createImageDataUrl(image_base64)
     return null
   }, [avatar_url, image_base64])
+
+  useEffect(() => {
+    setAvatarImgError(false)
+  }, [avatarSrc])
 
   const displayName = name || t("settings:manageCharacters.preview.untitled", {
     defaultValue: "Untitled character"
@@ -83,13 +52,13 @@ export function CharacterPreview({
       <div className="flex items-start gap-3">
         {/* Avatar */}
         <div className="flex-shrink-0">
-          {avatarSrc ? (
+          {avatarSrc && !avatarImgError ? (
             <img
               src={avatarSrc}
               alt={displayName}
               className="h-12 w-12 rounded-full object-cover ring-2 ring-gray-200 dark:ring-gray-700"
-              onError={(e) => {
-                (e.target as HTMLImageElement).style.display = "none"
+              onError={() => {
+                setAvatarImgError(true)
               }}
             />
           ) : (
@@ -111,9 +80,9 @@ export function CharacterPreview({
           )}
           {tags && tags.length > 0 && (
             <div className="flex flex-wrap gap-1">
-              {tags.slice(0, 4).map((tag) => (
+              {tags.slice(0, 4).map((tag, i) => (
                 <span
-                  key={tag}
+                  key={`${tag}-${i}`}
                   className="inline-flex items-center rounded-full bg-gray-200 px-2 py-0.5 text-xs text-gray-700 dark:bg-gray-700 dark:text-gray-300">
                   {tag}
                 </span>

@@ -128,8 +128,12 @@
   "contentReview_reviewDraftsCreated": {
     "message": "Bozze pronte per la revisione."
   },
-  "contentReview.reviewStorageCapWarning_one": "{{count}} file supera il limite locale di bozze ({{cap}}). Allega le fonti prima di salvare audio/video.",
-  "contentReview.reviewStorageCapWarning_other": "{{count}} file superano il limite locale di bozze ({{cap}}). Allega le fonti prima di salvare audio/video.",
+  "contentReview_reviewStorageCapWarning_one": {
+    "message": "{{count}} file supera il limite locale di bozze ({{cap}}). Allega le fonti prima di salvare audio/video."
+  },
+  "contentReview_reviewStorageCapWarning_other": {
+    "message": "{{count}} file superano il limite locale di bozze ({{cap}}). Allega le fonti prima di salvare audio/video."
+  },
   "contentReview_openContentReview": {
     "message": "Apri Revisione contenuti"
   },
