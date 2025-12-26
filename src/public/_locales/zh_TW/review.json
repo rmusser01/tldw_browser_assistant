@@ -27,7 +27,7 @@
     "message": "請輸入分析文字..."
   },
   "mediaPage_wordCount": {
-    "message": "{{count}} 個單字"
+    "message": "{{count}} 個單詞"
   },
   "mediaPage_charCount": {
     "message": "{{count}} 個字元"
@@ -37,6 +37,309 @@
   },
   "mediaPage_pageRangeClamped": {
     "message": "正在導航至第 {{page}} 頁"
+  },
+  "mediaPage_searchPlaceholder": {
+    "message": "Search media (title/content)"
+  },
+  "mediaPage_search": {
+    "message": "Search"
+  },
+  "mediaPage_clear": {
+    "message": "Clear"
+  },
+  "mediaPage_types": {
+    "message": "Types"
+  },
+  "mediaPage_keywords": {
+    "message": "Keywords"
+  },
+  "mediaPage_moreTags": {
+    "message": "+{{count}} 個其他標籤"
+  },
+  "mediaPage_resetFilters": {
+    "message": "Reset Filters"
+  },
+  "mediaPage_clearAll": {
+    "message": "清除全部"
+  },
+  "mediaPage_content": {
+    "message": "Content"
+  },
+  "mediaPage_vertical": {
+    "message": "Vertical"
+  },
+  "mediaPage_horizontal": {
+    "message": "Horizontal"
+  },
+  "mediaPage_results": {
+    "message": "Results"
+  },
+  "mediaPage_noResults": {
+    "message": "No results"
+  },
+  "mediaPage_showSidebar": {
+    "message": "Show sidebar"
+  },
+  "mediaPage_hideSidebar": {
+    "message": "Hide sidebar"
+  },
+  "mediaPage_viewer": {
+    "message": "Viewer"
+  },
+  "mediaPage_selectItemsHint": {
+    "message": "Select items on the left to view here."
+  },
+  "mediaPage_mediaContent": {
+    "message": "Media Content"
+  },
+  "mediaPage_copyContent": {
+    "message": "Copy content"
+  },
+  "mediaPage_contentCopied": {
+    "message": "Content copied"
+  },
+  "mediaPage_metadataCopied": {
+    "message": "中繼資料已複製"
+  },
+  "mediaPage_analysisCopied": {
+    "message": "分析已複製"
+  },
+  "mediaPage_copyFailed": {
+    "message": "Copy failed"
+  },
+  "mediaPage_noContent": {
+    "message": "No content available"
+  },
+  "mediaPage_collapse": {
+    "message": "Collapse"
+  },
+  "mediaPage_expand": {
+    "message": "Expand"
+  },
+  "mediaPage_media": {
+    "message": "Media"
+  },
+  "mediaPage_searchingBanner": {
+    "message": "Searching media…"
+  },
+  "mediaPage_filterHelp": {
+    "message": "Search matches title and content; Types and Keywords further narrow the results."
+  },
+  "mediaPage_noMediaTypes": {
+    "message": "沒有可用的媒體類型"
+  },
+  "mediaPage_resultsCount": {
+    "message": "{{selected}} selected · {{open}} open"
+  },
+  "mediaPage_clearSelection": {
+    "message": "Deselect all"
+  },
+  "mediaPage_itemsLabel": {
+    "message": "Items"
+  },
+  "mediaPage_contentLabel": {
+    "message": "Content view"
+  },
+  "mediaPage_filterByKeyword": {
+    "message": "按關鍵字篩選"
+  },
+  "mediaPage_keywordHelper": {
+    "message": "關鍵字可幫助你使用左側的關鍵字篩選器找到此媒體"
+  },
+  "mediaPage_modeHint": {
+    "message": "搜尋並堆疊多個媒體項目，在右側檢視器中進行比較。"
+  },
+  "mediaPage_viewerHelp": {
+    "message": "鍵盤：按 Tab 進入結果清單，使用 Enter 或空白鍵將媒體項目加入或移出堆疊，然後利用上一個/下一個與版面配置控制在檢視器中的各項之間移動。"
+  },
+  "mediaPage_viewerHelpLabel": {
+    "message": "多項檢視的鍵盤快速鍵"
+  },
+  "mediaPage_mediaInspector": {
+    "message": "媒體檢查器"
+  },
+  "mediaPage_actionsLabel": {
+    "message": "操作"
+  },
+  "mediaPage_keywordsPlaceholder": {
+    "message": "新增關鍵字..."
+  },
+  "mediaPage_noSelectionTitle": {
+    "message": "尚未選取任何媒體項目"
+  },
+  "mediaPage_noSelectionDescription": {
+    "message": "請從左側側邊欄選取一個媒體項目，在此查看其內容與分析。"
+  },
+  "mediaPage_generateAnalysis": {
+    "message": "產生分析"
+  },
+  "mediaPage_generateAnalysisHint": {
+    "message": "產生新的分析"
+  },
+  "mediaPage_editAnalysis": {
+    "message": "編輯分析"
+  },
+  "mediaPage_createNoteWithContent": {
+    "message": "使用內容建立筆記"
+  },
+  "mediaPage_createNoteWithContentAnalysis": {
+    "message": "使用內容 + 分析建立筆記"
+  },
+  "mediaPage_untitled": {
+    "message": "未命名"
+  },
+  "mediaPage_copyMetadata": {
+    "message": "複製中繼資料"
+  },
+  "mediaPage_statistics": {
+    "message": "統計"
+  },
+  "mediaPage_words": {
+    "message": "字詞數"
+  },
+  "mediaPage_characters": {
+    "message": "字元數"
+  },
+  "mediaPage_paragraphs": {
+    "message": "段落數"
+  },
+  "mediaPage_metadata": {
+    "message": "中繼資料"
+  },
+  "mediaPage_idLabel": {
+    "message": "ID"
+  },
+  "mediaPage_typeLabel": {
+    "message": "類型"
+  },
+  "mediaPage_titleLabel": {
+    "message": "標題"
+  },
+  "mediaPage_source": {
+    "message": "來源"
+  },
+  "mediaPage_notAvailable": {
+    "message": "無"
+  },
+  "mediaPage_developerTools": {
+    "message": "開發人員工具"
+  },
+  "mediaPage_spreadMode": {
+    "message": "Compare"
+  },
+  "mediaPage_listMode": {
+    "message": "Focus"
+  },
+  "mediaPage_allMode": {
+    "message": "Stack"
+  },
+  "mediaPage_spreadModeTooltip": {
+    "message": "View selected items side-by-side for comparison"
+  },
+  "mediaPage_listModeTooltip": {
+    "message": "View one item at a time with navigation"
+  },
+  "mediaPage_allModeTooltip": {
+    "message": "View all selected items in a scrollable list"
+  },
+  "mediaPage_copyContentLabel": {
+    "message": "Copy Content"
+  },
+  "mediaPage_copyAnalysisLabel": {
+    "message": "Copy Analysis"
+  },
+  "mediaPage_copyContentTooltip": {
+    "message": "Copy content to clipboard"
+  },
+  "mediaPage_copyAnalysisTooltip": {
+    "message": "Copy analysis to clipboard"
+  },
+  "mediaPage_prevItemTooltip": {
+    "message": "Previous item (←)"
+  },
+  "mediaPage_nextItemTooltip": {
+    "message": "Next item (→)"
+  },
+  "mediaPage_viewerOptions": {
+    "message": "Options"
+  },
+  "mediaPage_expandAllDropdown": {
+    "message": "Expand/Collapse"
+  },
+  "mediaPage_itemPosition": {
+    "message": "Item {{current}} of {{total}}"
+  },
+  "mediaPage_noItemSelected": {
+    "message": "No item selected"
+  },
+  "mediaPage_firstUseTitle": {
+    "message": "Quick Guide: Multi-Item Review"
+  },
+  "mediaPage_firstUseStep1": {
+    "message": "Select items"
+  },
+  "mediaPage_firstUseStep1Desc": {
+    "message": "Click items in the left panel to add them to your viewer."
+  },
+  "mediaPage_firstUseStep2": {
+    "message": "Choose a view"
+  },
+  "mediaPage_firstUseStep2DescUpdated": {
+    "message": "Use \"Compare\" for side-by-side, \"Focus\" for one at a time, or \"Stack\" to see all."
+  },
+  "mediaPage_firstUseStep3": {
+    "message": "Navigate"
+  },
+  "mediaPage_firstUseStep3Desc": {
+    "message": "Use Prev/Next buttons or keyboard (Tab + Enter) to move through items."
+  },
+  "mediaPage_gotIt": {
+    "message": "Got it"
+  },
+  "mediaPage_model": {
+    "message": "Model"
+  },
+  "mediaPage_selectModel": {
+    "message": "Select a model"
+  },
+  "mediaPage_noModelsAvailable": {
+    "message": "No models available"
+  },
+  "mediaPage_promptPresets": {
+    "message": "Prompt presets"
+  },
+  "mediaPage_showPresets": {
+    "message": "Show presets"
+  },
+  "mediaPage_hidePresets": {
+    "message": "Hide presets"
+  },
+  "mediaPage_systemPromptLabel": {
+    "message": "System prompt"
+  },
+  "mediaPage_systemPromptPlaceholder": {
+    "message": "Enter system prompt..."
+  },
+  "mediaPage_userPromptPrefixLabel": {
+    "message": "User prompt prefix"
+  },
+  "mediaPage_prependedBeforeContent": {
+    "message": "(prepended before content)"
+  },
+  "mediaPage_userPrefixPlaceholder": {
+    "message": "Optional: Enter text to prepend before the media content..."
+  },
+  "mediaPage_presetComprehensiveAnalysis": {
+    "message": "Comprehensive analysis"
+  },
+  "mediaPage_presetExecutiveSummary": {
+    "message": "Executive summary"
+  },
+  "mediaPage_presetCriticalReview": {
+    "message": "Critical review"
+  },
+  "mediaPage_presetQAAnalysis": {
+    "message": "Q&A analysis"
   },
   "noToolCalls": {
     "message": "尚未有工具呼叫"
@@ -364,5 +667,23 @@
   },
   "contentReview_editedLabel": {
     "message": "已編輯"
+  },
+  "contentReview_templates_transcript_clean_label": {
+    "message": "清理逐字稿"
+  },
+  "contentReview_templates_transcript_clean_description": {
+    "message": "在保留行結構的前提下，統一標點符號與大小寫。"
+  },
+  "contentReview_templates_speaker_turns_label": {
+    "message": "說話輪次"
+  },
+  "contentReview_templates_speaker_turns_description": {
+    "message": "確保每位說話者的輪次各自位於一行，並帶有清楚的標籤。"
+  },
+  "contentReview_templates_chapter_headings_label": {
+    "message": "章節標題"
+  },
+  "contentReview_templates_chapter_headings_description": {
+    "message": "插入 Markdown 標題來分組主題，而不移除任何內容。"
   }
 }

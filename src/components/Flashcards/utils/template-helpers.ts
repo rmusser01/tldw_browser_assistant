@@ -10,7 +10,11 @@ export const normalizeFlashcardTemplateFields = <
   }
 >(
   values: T
-): T => {
+): T & {
+  model_type: FlashcardModelType
+  reverse: boolean
+  is_cloze: boolean
+} => {
   const isCloze = values.model_type === "cloze" || values.is_cloze === true
   const isReverse = values.model_type === "basic_reverse" || values.reverse === true
   const model_type: FlashcardModelType = isCloze

@@ -1364,73 +1364,73 @@
     "message": "審核後儲存"
   },
   "manageCharacters_actions_viewConversations": {
-    "message": "View conversations"
+    "message": "查看對話"
   },
   "manageCharacters_aria_viewConversations": {
-    "message": "View conversations for {{name}}"
+    "message": "查看 {{name}} 的對話"
   },
   "manageCharacters_aria_searchResults": {
-    "message": "{{count}} characters found"
+    "message": "找到 {{count}} 個角色"
   },
   "manageCharacters_conversations_title": {
-    "message": "Conversations for {{name}}"
+    "message": "{{name}} 的對話"
   },
   "manageCharacters_conversations_titleGeneric": {
-    "message": "Character conversations"
+    "message": "角色對話"
   },
   "manageCharacters_conversations_subtitle": {
-    "message": "Select a conversation to continue as this character."
+    "message": "選擇一個對話以此角色繼續。"
   },
   "manageCharacters_conversations_empty": {
-    "message": "No conversations found for this character yet."
+    "message": "尚無此角色的對話。"
   },
   "manageCharacters_conversations_error": {
-    "message": "Unable to load conversations for this character."
+    "message": "無法載入此角色的對話。"
   },
   "manageCharacters_conversations_updated": {
-    "message": "Updated {{time}}"
+    "message": "已更新 {{time}}"
   },
   "manageCharacters_conversations_unknownTime": {
-    "message": "Unknown"
+    "message": "未知"
   },
   "manageCharacters_conversations_resume": {
-    "message": "Continue chat"
+    "message": "繼續聊天"
   },
   "manageCharacters_conversations_untitled": {
-    "message": "Untitled"
+    "message": "未命名"
   },
   "manageCharacters_conversations_mostRecent": {
-    "message": "Most recent"
+    "message": "最近"
   },
   "manageCharacters_conversations_resumeTooltip": {
-    "message": "Load chat history and continue this conversation"
+    "message": "載入聊天紀錄並繼續此對話"
   },
   "manageCharacters_preview_title": {
-    "message": "Preview"
+    "message": "預覽"
   },
   "manageCharacters_preview_show": {
-    "message": "Show preview"
+    "message": "顯示預覽"
   },
   "manageCharacters_preview_hide": {
-    "message": "Hide preview"
+    "message": "隱藏預覽"
   },
   "manageCharacters_preview_untitled": {
-    "message": "Untitled character"
+    "message": "未命名角色"
   },
   "manageCharacters_preview_greeting": {
-    "message": "Greeting"
+    "message": "問候語"
   },
   "manageCharacters_preview_behavior": {
-    "message": "Behavior"
+    "message": "行為"
   },
   "manageCharacters_preview_empty": {
-    "message": "Fill in the form to see a preview"
+    "message": "填寫表單以查看預覽"
   },
   "manageCharacters_advanced_show": {
-    "message": "Show advanced fields"
+    "message": "顯示進階欄位"
   },
   "manageCharacters_advanced_hide": {
-    "message": "Hide advanced fields"
+    "message": "隱藏進階欄位"
   },
   "chunkingPlayground_nav": {
     "message": "Chunking Playground",
@@ -1695,13 +1695,13 @@
     "description": "TODO: translate (copied from en)"
   },
   "managePrompts_importMode_merge": {
-    "message": "Merge"
+    "message": "合併"
   },
   "managePrompts_importMode_replace": {
-    "message": "Replace"
+    "message": "取代"
   },
   "managePrompts_importMode_replaceConfirm": {
-    "message": "Replace will overwrite all current prompts with the imported file. Continue?"
+    "message": "取代會用匯入檔案覆寫目前所有提示詞。要繼續嗎？"
   },
   "flashcards_newDeckNameRequired": {
     "message": "請輸入牌組名稱。"
@@ -1717,5 +1717,368 @@
   },
   "flashcards_dueDue": {
     "message": "待複習"
+  },
+  "flashcards_reviewFailed": {
+    "message": "複習失敗"
+  },
+  "flashcards_updateFailed": {
+    "message": "更新失敗"
+  },
+  "flashcards_deleteFailed": {
+    "message": "刪除失敗"
+  },
+  "flashcards_missingVersion": {
+    "message": "缺少版本資訊；請重新載入後再試"
+  },
+  "flashcards_bulkDeleteResult": {
+    "message": "{{success}} deleted · {{failed}} failed"
+  },
+  "mediaPage_searchPlaceholder": {
+    "message": "Search media (title/content)"
+  },
+  "mediaPage_search": {
+    "message": "Search"
+  },
+  "mediaPage_clear": {
+    "message": "Clear"
+  },
+  "mediaPage_types": {
+    "message": "Types"
+  },
+  "mediaPage_keywords": {
+    "message": "Keywords"
+  },
+  "mediaPage_moreTags": {
+    "message": "+{{count}} more tags"
+  },
+  "mediaPage_resetFilters": {
+    "message": "Reset Filters"
+  },
+  "mediaPage_clearAll": {
+    "message": "清除全部"
+  },
+  "mediaPage_content": {
+    "message": "Content"
+  },
+  "mediaPage_vertical": {
+    "message": "Vertical"
+  },
+  "mediaPage_horizontal": {
+    "message": "Horizontal"
+  },
+  "mediaPage_results": {
+    "message": "Results"
+  },
+  "mediaPage_noResults": {
+    "message": "No results"
+  },
+  "mediaPage_showSidebar": {
+    "message": "Show sidebar"
+  },
+  "mediaPage_hideSidebar": {
+    "message": "Hide sidebar"
+  },
+  "mediaPage_viewer": {
+    "message": "Viewer"
+  },
+  "mediaPage_selectItemsHint": {
+    "message": "Select items on the left to view here."
+  },
+  "mediaPage_mediaContent": {
+    "message": "Media Content"
+  },
+  "mediaPage_copyContent": {
+    "message": "Copy content"
+  },
+  "mediaPage_contentCopied": {
+    "message": "Content copied"
+  },
+  "mediaPage_metadataCopied": {
+    "message": "中繼資料已複製"
+  },
+  "mediaPage_analysisCopied": {
+    "message": "分析已複製"
+  },
+  "mediaPage_copyFailed": {
+    "message": "Copy failed"
+  },
+  "mediaPage_noContent": {
+    "message": "No content available"
+  },
+  "mediaPage_collapse": {
+    "message": "Collapse"
+  },
+  "mediaPage_expand": {
+    "message": "Expand"
+  },
+  "mediaPage_media": {
+    "message": "Media"
+  },
+  "mediaPage_searchingBanner": {
+    "message": "Searching media…"
+  },
+  "mediaPage_filterHelp": {
+    "message": "Search matches title and content; Types and Keywords further narrow the results."
+  },
+  "mediaPage_noMediaTypes": {
+    "message": "沒有可用的媒體類型"
+  },
+  "mediaPage_resultsCount": {
+    "message": "{{selected}} selected · {{open}} open"
+  },
+  "mediaPage_clearSelection": {
+    "message": "Deselect all"
+  },
+  "mediaPage_itemsLabel": {
+    "message": "Items"
+  },
+  "mediaPage_contentLabel": {
+    "message": "Content view"
+  },
+  "mediaPage_filterByKeyword": {
+    "message": "按關鍵字篩選"
+  },
+  "mediaPage_keywordHelper": {
+    "message": "關鍵字可幫助你使用左側的關鍵字篩選器找到此媒體"
+  },
+  "mediaPage_modeHint": {
+    "message": "搜尋並堆疊多個媒體項目，在右側檢視器中進行比較。"
+  },
+  "mediaPage_viewerHelp": {
+    "message": "鍵盤：按 Tab 進入結果清單，使用 Enter 或空白鍵將媒體項目加入或移出堆疊，然後利用上一個/下一個與版面配置控制在檢視器中的各項之間移動。"
+  },
+  "mediaPage_viewerHelpLabel": {
+    "message": "多項檢視的鍵盤快速鍵"
+  },
+  "mediaPage_mediaInspector": {
+    "message": "媒體檢查器"
+  },
+  "mediaPage_actionsLabel": {
+    "message": "操作"
+  },
+  "mediaPage_keywordsPlaceholder": {
+    "message": "新增關鍵字..."
+  },
+  "mediaPage_noSelectionTitle": {
+    "message": "尚未選取任何媒體項目"
+  },
+  "mediaPage_noSelectionDescription": {
+    "message": "請從左側側邊欄選取一個媒體項目，在此查看其內容與分析。"
+  },
+  "mediaPage_generateAnalysis": {
+    "message": "產生分析"
+  },
+  "mediaPage_generateAnalysisHint": {
+    "message": "產生新的分析"
+  },
+  "mediaPage_editAnalysis": {
+    "message": "編輯分析"
+  },
+  "mediaPage_createNoteWithContent": {
+    "message": "使用內容建立筆記"
+  },
+  "mediaPage_createNoteWithContentAnalysis": {
+    "message": "使用內容 + 分析建立筆記"
+  },
+  "mediaPage_untitled": {
+    "message": "未命名"
+  },
+  "mediaPage_copyMetadata": {
+    "message": "複製中繼資料"
+  },
+  "mediaPage_statistics": {
+    "message": "統計"
+  },
+  "mediaPage_words": {
+    "message": "字詞數"
+  },
+  "mediaPage_characters": {
+    "message": "字元數"
+  },
+  "mediaPage_paragraphs": {
+    "message": "段落數"
+  },
+  "mediaPage_metadata": {
+    "message": "中繼資料"
+  },
+  "mediaPage_idLabel": {
+    "message": "ID"
+  },
+  "mediaPage_typeLabel": {
+    "message": "類型"
+  },
+  "mediaPage_titleLabel": {
+    "message": "標題"
+  },
+  "mediaPage_source": {
+    "message": "來源"
+  },
+  "mediaPage_notAvailable": {
+    "message": "無"
+  },
+  "mediaPage_developerTools": {
+    "message": "開發人員工具"
+  },
+  "mediaPage_nothingToSend": {
+    "message": "沒有可傳送的內容"
+  },
+  "mediaPage_emptyAnalysis": {
+    "message": "分析內容不能為空"
+  },
+  "mediaPage_noMediaId": {
+    "message": "沒有可用的媒體 ID"
+  },
+  "mediaPage_versionSaved": {
+    "message": "已儲存為新版本"
+  },
+  "mediaPage_saveFailed": {
+    "message": "儲存版本失敗"
+  },
+  "mediaPage_sendToChat": {
+    "message": "傳送到聊天"
+  },
+  "mediaPage_saveAsVersion": {
+    "message": "儲存為新版本"
+  },
+  "mediaPage_analysisPlaceholder": {
+    "message": "請輸入分析文字..."
+  },
+  "mediaPage_wordCount": {
+    "message": "{{count}} 個單詞"
+  },
+  "mediaPage_charCount": {
+    "message": "{{count}} 個字元"
+  },
+  "mediaPage_pageRangeError": {
+    "message": "頁碼必須為 1-{{max}}"
+  },
+  "mediaPage_pageRangeClamped": {
+    "message": "正在導航至第 {{page}} 頁"
+  },
+  "mediaPage_saveUnauthorized": {
+    "message": "沒有權限儲存"
+  },
+  "flashcards_markdownSupportHint": {
+    "message": "支援 Markdown 和 LaTeX。"
+  },
+  "flashcards_extraHint": {
+    "message": "可選提示/說明（支援 Markdown + LaTeX）。"
+  },
+  "flashcards_notesHint": {
+    "message": "內部備註（支援 Markdown + LaTeX）。"
+  },
+  "header_modeSpeech": {
+    "message": "語音"
+  },
+  "playground_speech_title": {
+    "message": "語音遊樂場"
+  },
+  "playground_speech_subtitle": {
+    "message": "在同一處錄音、編輯轉寫並合成語音。"
+  },
+  "playground_speech_modeLabel": {
+    "message": "模式"
+  },
+  "playground_speech_modeRoundTrip": {
+    "message": "往返"
+  },
+  "playground_speech_modeSpeak": {
+    "message": "說話"
+  },
+  "playground_speech_modeListen": {
+    "message": "聆聽"
+  },
+  "playground_speech_modeHint": {
+    "message": "會記住此裝置上的最後模式。"
+  },
+  "playground_speech_recordingWaveform": {
+    "message": "即時錄音波形"
+  },
+  "playground_speech_playbackWaveform": {
+    "message": "播放波形"
+  },
+  "playground_speech_sendToTts": {
+    "message": "送到 TTS"
+  },
+  "playground_speech_sendHint": {
+    "message": "使用最新轉寫作為 TTS 草稿。"
+  },
+  "playground_speech_download": {
+    "message": "下載"
+  },
+  "playground_speech_downloadCurrent": {
+    "message": "下載目前片段"
+  },
+  "playground_speech_downloadAll": {
+    "message": "下載所有片段"
+  },
+  "playground_speech_segmentFormat": {
+    "message": "格式"
+  },
+  "playground_speech_historyTitle": {
+    "message": "語音歷史"
+  },
+  "playground_speech_historyAll": {
+    "message": "全部"
+  },
+  "playground_speech_historyStt": {
+    "message": "STT"
+  },
+  "playground_speech_historyTts": {
+    "message": "TTS"
+  },
+  "playground_speech_historySearch": {
+    "message": "搜尋轉寫"
+  },
+  "playground_speech_historyRetentionHint": {
+    "message": "保留最新{{count}}筆紀錄。使用「全部清除」刪除所有內容。"
+  },
+  "playground_speech_useInTts": {
+    "message": "用於 TTS"
+  },
+  "playground_speech_copy": {
+    "message": "複製"
+  },
+  "playground_speech_copySuccess": {
+    "message": "已複製到剪貼簿"
+  },
+  "playground_speech_copyError": {
+    "message": "複製轉寫失敗。"
+  },
+  "playground_speech_providerTag": {
+    "message": "提供者"
+  },
+  "playground_speech_voiceTag": {
+    "message": "聲音"
+  },
+  "playground_speech_emptyHistory": {
+    "message": "開始錄音或產生音訊即可在此查看歷史。"
+  },
+  "playground_speech_downloadDisabledBrowser": {
+    "message": "瀏覽器 TTS 不會產生可下載的音訊。"
+  },
+  "playground_speech_downloadDisabledEmpty": {
+    "message": "產生音訊以啟用下載。"
+  },
+  "playground_speech_transcriptLock": {
+    "message": "鎖定"
+  },
+  "playground_speech_transcriptUnlock": {
+    "message": "解鎖"
+  },
+  "playground_speech_transcriptEditHint": {
+    "message": "此轉寫已啟用編輯。"
+  },
+  "playground_speech_transcriptLockedHint": {
+    "message": "已鎖定為即時轉寫更新。"
+  },
+  "playground_speech_transcriptRecordingHint": {
+    "message": "錄音進行中；轉寫已鎖定。"
+  },
+  "playground_tts_unsupportedFormatTitle": {
+    "message": "不支援的音訊格式"
+  },
+  "playground_tts_unsupportedFormatDescription": {
+    "message": "回應格式「{{format}}」不受支援，將回退為 MP3。"
   }
 }

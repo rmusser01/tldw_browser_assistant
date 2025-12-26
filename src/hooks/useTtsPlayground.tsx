@@ -6,7 +6,9 @@ import {
   getRemoveReasoningTagTTS,
   getSpeechPlaybackSpeed,
   getTTSProvider,
+  isSupportedTldwTtsResponseFormat,
   getTldwTTSModel,
+  normalizeTldwTtsResponseFormat,
   getTldwTTSVoice,
   getTldwTTSResponseFormat,
   getTldwTTSSpeed,
@@ -26,7 +28,11 @@ export type TtsPlaygroundSegment = {
   id: string
   index: number
   text: string
-  url: string
+  url?: string
+  blob?: Blob
+  format?: string
+  mimeType?: string
+  source?: "browser" | "generated"
 }
 
 export type TtsPlaygroundOverrides = {
@@ -41,9 +47,34 @@ export type TtsPlaygroundOverrides = {
   openAiVoice?: string
 }
 
-const createObjectUrl = (data: ArrayBuffer): string => {
-  const blob = new Blob([data], { type: "audio/mpeg" })
-  return URL.createObjectURL(blob)
+const normalizeFormat = (format?: string | null): string => {
+  const value = (format || "").toLowerCase()
+  if (value === "wav" || value === "wave") return "wav"
+  if (value === "ogg" || value === "oga") return "ogg"
+  if (value === "mp3" || value === "mpeg") return "mp3"
+  return "mp3"
+}
+
+const formatToMimeType = (format: string): string => {
+  switch (format) {
+    case "wav":
+      return "audio/wav"
+    case "ogg":
+      return "audio/ogg"
+    case "mp3":
+    default:
+      return "audio/mpeg"
+  }
+}
+
+const createObjectUrl = (
+  data: ArrayBuffer,
+  format?: string | null
+): { url: string; blob: Blob; format: string; mimeType: string } => {
+  const normalized = normalizeFormat(format)
+  const mimeType = formatToMimeType(normalized)
+  const blob = new Blob([data], { type: mimeType })
+  return { url: URL.createObjectURL(blob), blob, format: normalized, mimeType }
 }
 
 export const useTtsPlayground = () => {
@@ -52,10 +83,10 @@ export const useTtsPlayground = () => {
   const notification = useAntdNotification()
   const { t } = useTranslation("playground")
 
-  const revokeAll = (urls: string[]) => {
-    urls.forEach((u) => {
+  const revokeAll = (urls: (string | undefined)[]) => {
+    urls.filter(Boolean).forEach((u) => {
       try {
-        URL.revokeObjectURL(u)
+        URL.revokeObjectURL(u as string)
       } catch {
         // ignore
       }
@@ -65,10 +96,10 @@ export const useTtsPlayground = () => {
   const generateSegments = async (
     text: string,
     overrides?: TtsPlaygroundOverrides
-  ) => {
+  ): Promise<TtsPlaygroundSegment[]> => {
     if (!text.trim()) {
       setSegments([])
-      return
+      return []
     }
 
     setIsGenerating(true)
@@ -103,11 +134,17 @@ export const useTtsPlayground = () => {
           ),
           description: t(
             "tts.browserInfoDescription",
-            "Browser TTS plays using your system synthesizer and does not expose an audio file. Use ElevenLabs, OpenAI TTS, or tldw to see a track list and player."
+            "Browser TTS plays using your system synthesizer and does not expose a downloadable audio file. Use the segment controls below, or switch providers for a track list and player."
           )
         })
-        setSegments([])
-        return
+        const browserSegments = sentences.map((sentence, i) => ({
+          id: `browser-${i}`,
+          index: i,
+          text: sentence,
+          source: "browser" as const
+        }))
+        setSegments(browserSegments)
+        return browserSegments
       }
 
       if (provider === "elevenlabs") {
@@ -123,13 +160,17 @@ export const useTtsPlayground = () => {
 
         for (let i = 0; i < sentences.length; i++) {
           const buf = await generateSpeech(apiKey, sentences[i], voiceId, modelId)
-          const url = createObjectUrl(buf)
-          createdUrls.push(url)
+          const created = createObjectUrl(buf, "mp3")
+          createdUrls.push(created.url)
           outSegments.push({
             id: `eleven-${i}`,
             index: i,
             text: sentences[i],
-            url
+            url: created.url,
+            blob: created.blob,
+            format: created.format,
+            mimeType: created.mimeType,
+            source: "generated"
           })
         }
       } else if (provider === "openai") {
@@ -139,13 +180,17 @@ export const useTtsPlayground = () => {
             model: overrides?.openAiModel,
             voice: overrides?.openAiVoice
           })
-          const url = createObjectUrl(buf)
-          createdUrls.push(url)
+          const created = createObjectUrl(buf, "mp3")
+          createdUrls.push(created.url)
           outSegments.push({
             id: `openai-${i}`,
             index: i,
             text: sentences[i],
-            url
+            url: created.url,
+            blob: created.blob,
+            format: created.format,
+            mimeType: created.mimeType,
+            source: "generated"
           })
         }
       } else if (provider === "tldw") {
@@ -156,7 +201,21 @@ export const useTtsPlayground = () => {
 
         const model = overrides?.tldwModel || baseModel
         const voice = overrides?.tldwVoice || baseVoice
-        const responseFormat = overrides?.tldwResponseFormat || baseFmt
+        const rawResponseFormat = overrides?.tldwResponseFormat || baseFmt
+        const responseFormat = normalizeTldwTtsResponseFormat(rawResponseFormat)
+        if (rawResponseFormat && !isSupportedTldwTtsResponseFormat(rawResponseFormat)) {
+          notification.warning({
+            message: t(
+              "tts.unsupportedFormatTitle",
+              "Unsupported audio format"
+            ),
+            description: t(
+              "tts.unsupportedFormatDescription",
+              'The response format "{{format}}" is not supported. Falling back to MP3.',
+              { format: rawResponseFormat }
+            )
+          })
+        }
         const speed =
           overrides?.tldwSpeed != null ? overrides.tldwSpeed : baseSpeed
 
@@ -167,13 +226,17 @@ export const useTtsPlayground = () => {
             responseFormat,
             speed
           })
-          const url = createObjectUrl(buf)
-          createdUrls.push(url)
+          const created = createObjectUrl(buf, responseFormat)
+          createdUrls.push(created.url)
           outSegments.push({
             id: `tldw-${i}`,
             index: i,
             text: sentences[i],
-            url
+            url: created.url,
+            blob: created.blob,
+            format: created.format,
+            mimeType: created.mimeType,
+            source: "generated"
           })
         }
       } else {
@@ -189,11 +252,12 @@ export const useTtsPlayground = () => {
           )
         })
         setSegments([])
-        return
+        return []
       }
 
       // We do not apply playbackSpeed here because <audio> controls can be used directly.
       setSegments(outSegments)
+      return outSegments
     } catch (error) {
       revokeAll(createdUrls)
       setSegments([])
@@ -207,6 +271,7 @@ export const useTtsPlayground = () => {
                 "Something went wrong while generating TTS audio."
               )
       })
+      return []
     } finally {
       setIsGenerating(false)
     }

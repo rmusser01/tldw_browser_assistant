@@ -1612,5 +1612,368 @@
   },
   "flashcards_dueDue": {
     "message": "Due"
+  },
+  "flashcards_reviewFailed": {
+    "message": "Review failed"
+  },
+  "flashcards_updateFailed": {
+    "message": "Update failed"
+  },
+  "flashcards_deleteFailed": {
+    "message": "Delete failed"
+  },
+  "flashcards_missingVersion": {
+    "message": "Missing version; reload and try again"
+  },
+  "flashcards_bulkDeleteResult": {
+    "message": "{{success}} deleted · {{failed}} failed"
+  },
+  "mediaPage_searchPlaceholder": {
+    "message": "Search media (title/content)"
+  },
+  "mediaPage_search": {
+    "message": "Search"
+  },
+  "mediaPage_clear": {
+    "message": "Clear"
+  },
+  "mediaPage_types": {
+    "message": "Types"
+  },
+  "mediaPage_keywords": {
+    "message": "Keywords"
+  },
+  "mediaPage_moreTags": {
+    "message": "+{{count}} more tags"
+  },
+  "mediaPage_resetFilters": {
+    "message": "Reset Filters"
+  },
+  "mediaPage_clearAll": {
+    "message": "清除全部"
+  },
+  "mediaPage_content": {
+    "message": "Content"
+  },
+  "mediaPage_vertical": {
+    "message": "Vertical"
+  },
+  "mediaPage_horizontal": {
+    "message": "Horizontal"
+  },
+  "mediaPage_results": {
+    "message": "Results"
+  },
+  "mediaPage_noResults": {
+    "message": "No results"
+  },
+  "mediaPage_showSidebar": {
+    "message": "Show sidebar"
+  },
+  "mediaPage_hideSidebar": {
+    "message": "Hide sidebar"
+  },
+  "mediaPage_viewer": {
+    "message": "Viewer"
+  },
+  "mediaPage_selectItemsHint": {
+    "message": "Select items on the left to view here."
+  },
+  "mediaPage_mediaContent": {
+    "message": "Media Content"
+  },
+  "mediaPage_copyContent": {
+    "message": "Copy content"
+  },
+  "mediaPage_contentCopied": {
+    "message": "Content copied"
+  },
+  "mediaPage_metadataCopied": {
+    "message": "元数据已复制"
+  },
+  "mediaPage_analysisCopied": {
+    "message": "分析已复制"
+  },
+  "mediaPage_copyFailed": {
+    "message": "Copy failed"
+  },
+  "mediaPage_noContent": {
+    "message": "No content available"
+  },
+  "mediaPage_collapse": {
+    "message": "Collapse"
+  },
+  "mediaPage_expand": {
+    "message": "Expand"
+  },
+  "mediaPage_media": {
+    "message": "Media"
+  },
+  "mediaPage_searchingBanner": {
+    "message": "Searching media…"
+  },
+  "mediaPage_filterHelp": {
+    "message": "Search matches title and content; Types and Keywords further narrow the results."
+  },
+  "mediaPage_noMediaTypes": {
+    "message": "没有可用的媒体类型"
+  },
+  "mediaPage_resultsCount": {
+    "message": "{{selected}} selected · {{open}} open"
+  },
+  "mediaPage_clearSelection": {
+    "message": "Deselect all"
+  },
+  "mediaPage_itemsLabel": {
+    "message": "Items"
+  },
+  "mediaPage_contentLabel": {
+    "message": "Content view"
+  },
+  "mediaPage_filterByKeyword": {
+    "message": "按关键字筛选"
+  },
+  "mediaPage_keywordHelper": {
+    "message": "关键字可以帮助你使用左侧的关键字筛选器找到此媒体"
+  },
+  "mediaPage_modeHint": {
+    "message": "搜索并堆叠多个媒体项，在右侧查看器中进行比较。"
+  },
+  "mediaPage_viewerHelp": {
+    "message": "键盘：按 Tab 进入结果列表，使用 Enter 或空格键将媒体项加入/移出堆栈，然后使用上一条/下一条和布局控件在查看器中的各项之间移动。"
+  },
+  "mediaPage_viewerHelpLabel": {
+    "message": "多项审阅的键盘快捷键"
+  },
+  "mediaPage_mediaInspector": {
+    "message": "媒体检查器"
+  },
+  "mediaPage_actionsLabel": {
+    "message": "操作"
+  },
+  "mediaPage_keywordsPlaceholder": {
+    "message": "添加关键字..."
+  },
+  "mediaPage_noSelectionTitle": {
+    "message": "未选择任何媒体项"
+  },
+  "mediaPage_noSelectionDescription": {
+    "message": "在左侧侧边栏选择一个媒体项，在此查看其内容和分析。"
+  },
+  "mediaPage_generateAnalysis": {
+    "message": "生成分析"
+  },
+  "mediaPage_generateAnalysisHint": {
+    "message": "生成新的分析"
+  },
+  "mediaPage_editAnalysis": {
+    "message": "编辑分析"
+  },
+  "mediaPage_createNoteWithContent": {
+    "message": "使用内容创建笔记"
+  },
+  "mediaPage_createNoteWithContentAnalysis": {
+    "message": "使用内容 + 分析创建笔记"
+  },
+  "mediaPage_untitled": {
+    "message": "未命名"
+  },
+  "mediaPage_copyMetadata": {
+    "message": "复制元数据"
+  },
+  "mediaPage_statistics": {
+    "message": "统计"
+  },
+  "mediaPage_words": {
+    "message": "单词数"
+  },
+  "mediaPage_characters": {
+    "message": "字符数"
+  },
+  "mediaPage_paragraphs": {
+    "message": "段落数"
+  },
+  "mediaPage_metadata": {
+    "message": "元数据"
+  },
+  "mediaPage_idLabel": {
+    "message": "ID"
+  },
+  "mediaPage_typeLabel": {
+    "message": "类型"
+  },
+  "mediaPage_titleLabel": {
+    "message": "标题"
+  },
+  "mediaPage_source": {
+    "message": "来源"
+  },
+  "mediaPage_notAvailable": {
+    "message": "不可用"
+  },
+  "mediaPage_developerTools": {
+    "message": "开发者工具"
+  },
+  "mediaPage_nothingToSend": {
+    "message": "没有可发送的内容"
+  },
+  "mediaPage_emptyAnalysis": {
+    "message": "分析内容不能为空"
+  },
+  "mediaPage_noMediaId": {
+    "message": "没有可用的媒体 ID"
+  },
+  "mediaPage_versionSaved": {
+    "message": "已保存为新版本"
+  },
+  "mediaPage_saveFailed": {
+    "message": "保存版本失败"
+  },
+  "mediaPage_saveUnauthorized": {
+    "message": "没有权限保存"
+  },
+  "mediaPage_sendToChat": {
+    "message": "发送到聊天"
+  },
+  "mediaPage_saveAsVersion": {
+    "message": "保存为新版本"
+  },
+  "mediaPage_analysisPlaceholder": {
+    "message": "请输入分析文本..."
+  },
+  "mediaPage_wordCount": {
+    "message": "{{count}} 个单词"
+  },
+  "mediaPage_charCount": {
+    "message": "{{count}} 个字符"
+  },
+  "mediaPage_pageRangeError": {
+    "message": "页码必须在 1 到 {{max}} 之间"
+  },
+  "mediaPage_pageRangeClamped": {
+    "message": "正在导航至第 {{page}} 页"
+  },
+  "flashcards_markdownSupportHint": {
+    "message": "支持 Markdown 和 LaTeX。"
+  },
+  "flashcards_extraHint": {
+    "message": "可选提示/说明（支持 Markdown + LaTeX）。"
+  },
+  "flashcards_notesHint": {
+    "message": "内部备注（支持 Markdown + LaTeX）。"
+  },
+  "header_modeSpeech": {
+    "message": "语音"
+  },
+  "playground_speech_title": {
+    "message": "语音游乐场"
+  },
+  "playground_speech_subtitle": {
+    "message": "在一个地方录音、编辑转写并合成语音。"
+  },
+  "playground_speech_modeLabel": {
+    "message": "模式"
+  },
+  "playground_speech_modeRoundTrip": {
+    "message": "往返"
+  },
+  "playground_speech_modeSpeak": {
+    "message": "说话"
+  },
+  "playground_speech_modeListen": {
+    "message": "聆听"
+  },
+  "playground_speech_modeHint": {
+    "message": "会记住你在此设备上的上次模式。"
+  },
+  "playground_speech_recordingWaveform": {
+    "message": "实时录音波形"
+  },
+  "playground_speech_playbackWaveform": {
+    "message": "播放波形"
+  },
+  "playground_speech_sendToTts": {
+    "message": "发送到 TTS"
+  },
+  "playground_speech_sendHint": {
+    "message": "使用最新转写作为 TTS 草稿。"
+  },
+  "playground_speech_download": {
+    "message": "下载"
+  },
+  "playground_speech_downloadCurrent": {
+    "message": "下载当前片段"
+  },
+  "playground_speech_downloadAll": {
+    "message": "下载所有片段"
+  },
+  "playground_speech_segmentFormat": {
+    "message": "格式"
+  },
+  "playground_speech_historyTitle": {
+    "message": "语音历史"
+  },
+  "playground_speech_historyAll": {
+    "message": "全部"
+  },
+  "playground_speech_historyStt": {
+    "message": "STT"
+  },
+  "playground_speech_historyTts": {
+    "message": "TTS"
+  },
+  "playground_speech_historySearch": {
+    "message": "搜索转写"
+  },
+  "playground_speech_historyRetentionHint": {
+    "message": "保留最近{{count}}条记录。使用“清除全部”删除所有内容。"
+  },
+  "playground_speech_useInTts": {
+    "message": "用于 TTS"
+  },
+  "playground_speech_copy": {
+    "message": "复制"
+  },
+  "playground_speech_copySuccess": {
+    "message": "已复制到剪贴板"
+  },
+  "playground_speech_copyError": {
+    "message": "复制转写失败。"
+  },
+  "playground_speech_providerTag": {
+    "message": "提供方"
+  },
+  "playground_speech_voiceTag": {
+    "message": "音色"
+  },
+  "playground_speech_emptyHistory": {
+    "message": "开始录音或生成音频以在此查看历史记录。"
+  },
+  "playground_speech_downloadDisabledBrowser": {
+    "message": "浏览器 TTS 无法生成可下载的音频。"
+  },
+  "playground_speech_downloadDisabledEmpty": {
+    "message": "生成音频以启用下载。"
+  },
+  "playground_speech_transcriptLock": {
+    "message": "锁定"
+  },
+  "playground_speech_transcriptUnlock": {
+    "message": "解锁"
+  },
+  "playground_speech_transcriptEditHint": {
+    "message": "此转写已开启编辑。"
+  },
+  "playground_speech_transcriptLockedHint": {
+    "message": "已锁定为实时转写更新。"
+  },
+  "playground_speech_transcriptRecordingHint": {
+    "message": "正在录音；转写已锁定。"
+  },
+  "playground_tts_unsupportedFormatTitle": {
+    "message": "不支持的音频格式"
+  },
+  "playground_tts_unsupportedFormatDescription": {
+    "message": "返回格式“{{format}}”不受支持，将回退为 MP3。"
   }
 }

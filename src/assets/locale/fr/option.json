@@ -87,7 +87,8 @@
     "omniSearchCreateFlashcardsSuccess": "Collection de Flashcards « {{query}} » créée",
     "omniSearchStartChat": "Démarrer un nouveau chat « {{query}} »",
     "connectionCard.connectedCaption": "Le chat et les outils sont maintenant disponibles dans les Paramètres et la barre latérale.",
-    "quickIngestQueuedAria": "{{label}} — {{count}} éléments en file d’attente — cliquez pour revoir et traiter"
+    "quickIngestQueuedAria": "{{label}} — {{count}} éléments en file d’attente — cliquez pour revoir et traiter",
+    "modeSpeech": "Vocal"
   },
   "sidebarTitle": "Historique de chat",
   "error": "Erreur",
@@ -166,9 +167,14 @@
     "download": "Télécharger",
     "duplicate": "Dupliquer",
     "move": "Déplacer",
+    "reviewFailed": "Review failed",
+    "updateFailed": "Update failed",
+    "deleteFailed": "Delete failed",
+    "missingVersion": "Missing version; reload and try again",
     "bulkMove": "Déplacement en masse",
     "bulkDelete": "Suppression en masse",
-    "bulkLimitWarning": "Operation limited to first {{limit}} items.",
+    "bulkDeleteResult": "{{success}} deleted · {{failed}} failed",
+    "bulkLimitWarning": "Opération limitée aux {{limit}} premiers éléments.",
     "exportSelectedCsv": "Exporter la sélection (CSV/TSV)",
     "selectedCount": "Sélectionné(s)",
     "selectAllOnPage": "Tout sélectionner sur la page",
@@ -215,6 +221,9 @@
     "modelTypeHelp": "Basic affiche une question au recto et la réponse au verso. Inversé crée aussi la carte opposée. Cloze masque des parties du texte avec {{...}}.",
     "reverseHelp": "Créer aussi une carte où le verso devient la question.",
     "isClozeHelp": "À utiliser pour les cartes à texte à trous. Entourez le texte masqué de {{...}} sur le recto.",
+    "markdownSupportHint": "Prend en charge Markdown et LaTeX.",
+    "extraHint": "Astuces/explications facultatives (Markdown + LaTeX pris en charge).",
+    "notesHint": "Notes internes (Markdown + LaTeX pris en charge).",
     "bulkActions": "Actions en masse",
     "selectionHelp": "« Tout sélectionner dans les résultats » applique les actions à chaque carte correspondant à vos filtres, pas seulement à cette page.",
     "noCardsTitle": "Aucune flashcard pour le moment",
@@ -643,11 +652,11 @@
     "backToList": "Retour à la liste",
     "retake": "Refaire le quiz"
   },
-  "searchPrompts": "Search prompts...",
-  "noMatchingPrompts": "No matching prompts",
+  "searchPrompts": "Rechercher des prompts...",
+  "noMatchingPrompts": "Aucun prompt correspondant",
   "promptSelect": {
-    "favorites": "Favorites",
-    "system": "System prompts",
-    "quick": "Quick prompts"
+    "favorites": "Favoris",
+    "system": "Prompts système",
+    "quick": "Prompts rapides"
   }
 }

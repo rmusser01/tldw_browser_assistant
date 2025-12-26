@@ -126,5 +126,10 @@
       "message": "در پایگاه دانش خود جستجو کنید و نتایج را در پیام خود درج کنید.",
       "dismiss": "بستن"
     }
+  },
+  "tabs": {
+    "newChat": "New chat",
+    "newTabAria": "New chat tab",
+    "closeTabAria": "Close chat tab"
   }
 }

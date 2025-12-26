@@ -126,5 +126,10 @@
       "message": "搜索你的知识库，并将结果插入到消息中。",
       "dismiss": "关闭"
     }
+  },
+  "tabs": {
+    "newChat": "New chat",
+    "newTabAria": "New chat tab",
+    "closeTabAria": "Close chat tab"
   }
 }

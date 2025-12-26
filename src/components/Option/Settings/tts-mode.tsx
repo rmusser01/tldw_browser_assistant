@@ -29,6 +29,7 @@ export const TTSModeSettings = ({ hideBorder }: { hideBorder?: boolean }) => {
     ttsAutoPlay: "tts-auto-play-toggle",
     ttsProvider: "tts-provider-select",
     browserVoice: "browser-voice-select",
+    elevenApiKey: "elevenlabs-api-key",
     elevenVoice: "elevenlabs-voice-select",
     elevenModel: "elevenlabs-model-select",
     tldwModel: "tldw-model-select",
@@ -311,6 +312,7 @@ export const TTSModeSettings = ({ hideBorder }: { hideBorder?: boolean }) => {
               </span>
               <Space.Compact className="mt-4 sm:mt-0">
                 <Input.Password
+                  id={ids.elevenApiKey}
                   placeholder="sk_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
                   className="!w-[220px]"
                   required
@@ -530,10 +532,8 @@ export const TTSModeSettings = ({ hideBorder }: { hideBorder?: boolean }) => {
                 className="w-full mt-4 sm:mt-0 sm:w-[200px] focus-ring"
                 options={[
                   { label: "mp3", value: "mp3" },
-                  { label: "opus", value: "opus" },
-                  { label: "flac", value: "flac" },
-                  { label: "wav", value: "wav" },
-                  { label: "pcm", value: "pcm" }
+                  { label: "ogg", value: "ogg" },
+                  { label: "wav", value: "wav" }
                 ]}
                 {...form.getInputProps("tldwTtsResponseFormat")}
               />

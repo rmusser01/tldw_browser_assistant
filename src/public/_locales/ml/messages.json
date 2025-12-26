@@ -1442,266 +1442,208 @@
     "message": "Hide advanced fields"
   },
   "chunkingPlayground_nav": {
-    "message": "Chunking Playground",
-    "description": "TODO: translate (copied from en)"
+    "message": "ചങ്കിംഗ് പ്ലേഗ്രൗണ്ട്"
   },
   "chunkingPlayground_title": {
-    "message": "Chunking Playground",
-    "description": "TODO: translate (copied from en)"
+    "message": "ചങ്കിംഗ് പ്ലേഗ്രൗണ്ട്"
   },
   "chunkingPlayground_description": {
-    "message": "Experiment with different chunking settings to see how text gets split into smaller pieces for processing.",
-    "description": "TODO: translate (copied from en)"
+    "message": "പ്രോസസ്സിംഗിനായി ടെക്സ്റ്റ് ചെറുഭാഗങ്ങളായി വിഭജിക്കുന്നത് കാണാൻ വ്യത്യസ്ത ചങ്കിംഗ് ക്രമീകരണങ്ങൾ പരീക്ഷിക്കുക."
   },
   "chunkingPlayground_inputLabel": {
-    "message": "Text to chunk",
-    "description": "TODO: translate (copied from en)"
+    "message": "ചങ്ക് ചെയ്യാനുള്ള ടെക്സ്റ്റ്"
   },
   "chunkingPlayground_inputPlaceholder": {
-    "message": "Paste text here or select a sample...",
-    "description": "TODO: translate (copied from en)"
+    "message": "ഇവിടെ ടെക്സ്റ്റ് പേസ്റ്റ് ചെയ്യുക അല്ലെങ്കിൽ ഒരു സാമ്പിൾ തിരഞ്ഞെടുക്കുക..."
   },
   "chunkingPlayground_uploadButton": {
-    "message": "Upload File",
-    "description": "TODO: translate (copied from en)"
+    "message": "ഫയൽ അപ്‌ലോഡ് ചെയ്യുക"
   },
   "chunkingPlayground_chunkButton": {
-    "message": "Chunk Text",
-    "description": "TODO: translate (copied from en)"
+    "message": "ടെക്സ്റ്റ് ചങ്ക് ചെയ്യുക"
   },
   "chunkingPlayground_methodLabel": {
-    "message": "Chunking Method",
-    "description": "TODO: translate (copied from en)"
+    "message": "ചങ്കിംഗ് രീതി"
   },
   "chunkingPlayground_maxSizeLabel": {
-    "message": "Max Chunk Size",
-    "description": "TODO: translate (copied from en)"
+    "message": "പരമാവധി ചങ്ക് വലുപ്പം"
   },
   "chunkingPlayground_overlapLabel": {
-    "message": "Overlap",
-    "description": "TODO: translate (copied from en)"
+    "message": "ഓവർലാപ്പ്"
   },
   "chunkingPlayground_languageLabel": {
-    "message": "Language",
-    "description": "TODO: translate (copied from en)"
+    "message": "ഭാഷ"
   },
   "chunkingPlayground_languages_auto": {
-    "message": "Auto-detect",
-    "description": "TODO: translate (copied from en)"
+    "message": "സ്വയം കണ്ടെത്തുക"
   },
   "chunkingPlayground_languages_en": {
-    "message": "English",
-    "description": "TODO: translate (copied from en)"
+    "message": "ഇംഗ്ലീഷ്"
   },
   "chunkingPlayground_languages_es": {
-    "message": "Spanish",
-    "description": "TODO: translate (copied from en)"
+    "message": "സ്പാനിഷ്"
   },
   "chunkingPlayground_languages_fr": {
-    "message": "French",
-    "description": "TODO: translate (copied from en)"
+    "message": "ഫ്രെഞ്ച്"
   },
   "chunkingPlayground_languages_de": {
-    "message": "German",
-    "description": "TODO: translate (copied from en)"
+    "message": "ജർമ്മൻ"
   },
   "chunkingPlayground_languages_it": {
-    "message": "Italian",
-    "description": "TODO: translate (copied from en)"
+    "message": "ഇറ്റാലിയൻ"
   },
   "chunkingPlayground_languages_pt": {
-    "message": "Portuguese",
-    "description": "TODO: translate (copied from en)"
+    "message": "പോർച്ചുഗീസ്"
   },
   "chunkingPlayground_languages_zh": {
-    "message": "Chinese",
-    "description": "TODO: translate (copied from en)"
+    "message": "ചൈനീസ്"
   },
   "chunkingPlayground_languages_ja": {
-    "message": "Japanese",
-    "description": "TODO: translate (copied from en)"
+    "message": "ജാപ്പനീസ്"
   },
   "chunkingPlayground_languages_ko": {
-    "message": "Korean",
-    "description": "TODO: translate (copied from en)"
+    "message": "കൊറിയൻ"
   },
   "chunkingPlayground_viewCards": {
-    "message": "Cards",
-    "description": "TODO: translate (copied from en)"
+    "message": "കാർഡുകൾ"
   },
   "chunkingPlayground_viewInline": {
-    "message": "Inline",
-    "description": "TODO: translate (copied from en)"
+    "message": "ഇൻലൈൻ"
   },
   "chunkingPlayground_stats": {
-    "message": "{{count}} chunks, avg {{avgSize}} chars"
+    "message": "{{count}} ചങ്കുകൾ, ശരാശരി {{avgSize}} അക്ഷരങ്ങൾ"
   },
   "chunkingPlayground_textLoaded": {
-    "message": "Text loaded",
-    "description": "TODO: translate (copied from en)"
+    "message": "ടെക്സ്റ്റ് ലോഡ് ചെയ്തു"
   },
   "chunkingPlayground_characters": {
-    "message": "characters",
-    "description": "TODO: translate (copied from en)"
+    "message": "അക്ഷരങ്ങൾ"
   },
   "chunkingPlayground_tabSingle": {
-    "message": "Single",
-    "description": "TODO: translate (copied from en)"
+    "message": "ഒറ്റ"
   },
   "chunkingPlayground_tabCompare": {
-    "message": "Compare",
-    "description": "TODO: translate (copied from en)"
+    "message": "താരതമ്യം"
   },
   "chunkingPlayground_chunkIndex": {
-    "message": "Chunk {{index}}"
+    "message": "ചങ്ക് {{index}}"
   },
   "chunkingPlayground_chunkInfo": {
-    "message": "Chunk {{index}}: {{words}} words"
+    "message": "ചങ്ക് {{index}}: {{words}} വാക്കുകൾ"
   },
   "chunkingPlayground_position": {
-    "message": "Position: {{start}} - {{end}}"
+    "message": "സ്ഥാനം: {{start}} - {{end}}"
   },
   "chunkingPlayground_additionalChunks": {
-    "message": "+{{count}} more"
+    "message": "+{{count}} കൂടി"
   },
   "chunkingPlayground_charCount": {
-    "message": "{{count}} characters"
+    "message": "{{count}} അക്ഷരങ്ങൾ"
   },
   "chunkingPlayground_wordCount": {
-    "message": "{{count}} words"
+    "message": "{{count}} വാക്കുകൾ"
   },
   "chunkingPlayground_noInput": {
-    "message": "Please provide text to chunk",
-    "description": "TODO: translate (copied from en)"
+    "message": "ചങ്ക് ചെയ്യാൻ ടെക്സ്റ്റ് നൽകുക"
   },
   "chunkingPlayground_sharedInput": {
-    "message": "Shared Input Text",
-    "description": "TODO: translate (copied from en)"
+    "message": "പങ്കിട്ട ഇൻപുട്ട് ടെക്സ്റ്റ്"
   },
   "chunkingPlayground_compareButton": {
-    "message": "Compare Both",
-    "description": "TODO: translate (copied from en)"
+    "message": "ഇരുവരും താരതമ്യം ചെയ്യുക"
   },
   "chunkingPlayground_comparison": {
-    "message": "Comparison",
-    "description": "TODO: translate (copied from en)"
+    "message": "താരതമ്യം"
   },
   "chunkingPlayground_fewerChunks": {
-    "message": "Config A produces {{diff}} fewer chunks"
+    "message": "കോൺഫിഗ് A {{diff}} കുറവ് ചങ്കുകൾ സൃഷ്ടിക്കുന്നു"
   },
   "chunkingPlayground_moreChunks": {
-    "message": "Config A produces {{diff}} more chunks"
+    "message": "കോൺഫിഗ് A {{diff}} കൂടുതൽ ചങ്കുകൾ സൃഷ്ടിക്കുന്നു"
   },
   "chunkingPlayground_sameChunks": {
-    "message": "Both configs produce the same number of chunks",
-    "description": "TODO: translate (copied from en)"
+    "message": "ഇരു കോൺഫിഗുകളും ഒരേ എണ്ണം ചങ്കുകൾ സൃഷ്ടിക്കുന്നു"
   },
   "chunkingPlayground_clickToChunk": {
-    "message": "Click 'Compare' to see results",
-    "description": "TODO: translate (copied from en)"
+    "message": "ഫലങ്ങൾ കാണാൻ 'താരതമ്യം' ക്ലിക്കുചെയ്യുക"
   },
   "chunkingPlayground_overlapRegion": {
-    "message": "Overlap Region",
-    "description": "TODO: translate (copied from en)"
+    "message": "ഓവർലാപ്പ് മേഖല"
   },
   "chunkingPlayground_clickHint": {
-    "message": "Click on a highlighted section to focus on that chunk",
-    "description": "TODO: translate (copied from en)"
+    "message": "ആ ചങ്കിൽ ശ്രദ്ധിക്കാൻ ഹൈലൈറ്റ് ചെയ്ത വിഭാഗത്തിൽ ക്ലിക്കുചെയ്യുക"
   },
   "chunkingPlayground_noContentFound": {
-    "message": "No text content found for this media item",
-    "description": "TODO: translate (copied from en)"
+    "message": "ഈ മീഡിയ ഇനത്തിന് ടെക്സ്റ്റ് ഉള്ളടക്കം കണ്ടെത്തിയില്ല"
   },
   "chunkingPlayground_loadContentError": {
-    "message": "Failed to load media content",
-    "description": "TODO: translate (copied from en)"
+    "message": "മീഡിയ ഉള്ളടക്കം ലോഡ് ചെയ്യുന്നതിൽ പരാജയപ്പെട്ടു"
   },
   "chunkingPlayground_loadMediaListError": {
-    "message": "Failed to load media library",
-    "description": "TODO: translate (copied from en)"
+    "message": "മീഡിയ ലൈബ്രറി ലോഡ് ചെയ്യുന്നതിൽ പരാജയപ്പെട്ടു"
   },
   "chunkingPlayground_selectMedia": {
-    "message": "Select media item...",
-    "description": "TODO: translate (copied from en)"
+    "message": "മീഡിയ ഇനം തിരഞ്ഞെടുക്കുക..."
   },
   "chunkingPlayground_loadingMedia": {
-    "message": "Loading content...",
-    "description": "TODO: translate (copied from en)"
+    "message": "ഉള്ളടക്കം ലോഡ് ചെയ്യുന്നു..."
   },
   "chunkingPlayground_noMediaFound": {
-    "message": "No media found",
-    "description": "TODO: translate (copied from en)"
+    "message": "മീഡിയ കണ്ടെത്തിയില്ല"
   },
   "chunkingPlayground_mediaCount": {
-    "message": "{{count}} media items available"
+    "message": "{{count}} മീഡിയ ഇനങ്ങൾ ലഭ്യമാണ്"
   },
   "chunkingPlayground_inputSource_paste": {
-    "message": "Paste Text",
-    "description": "TODO: translate (copied from en)"
+    "message": "ടെക്സ്റ്റ് പേസ്റ്റ് ചെയ്യുക"
   },
   "chunkingPlayground_inputSource_upload": {
-    "message": "Upload File",
-    "description": "TODO: translate (copied from en)"
+    "message": "ഫയൽ അപ്‌ലോഡ് ചെയ്യുക"
   },
   "chunkingPlayground_inputSource_sample": {
-    "message": "Sample Text",
-    "description": "TODO: translate (copied from en)"
+    "message": "സാമ്പിൾ ടെക്സ്റ്റ്"
   },
   "chunkingPlayground_inputSource_media": {
-    "message": "From Media Library",
-    "description": "TODO: translate (copied from en)"
+    "message": "മീഡിയ ലൈബ്രറിയിൽ നിന്ന്"
   },
   "chunkingPlayground_samples_article": {
-    "message": "News Article",
-    "description": "TODO: translate (copied from en)"
+    "message": "വാർത്ത ലേഖനം"
   },
   "chunkingPlayground_samples_articleDesc": {
-    "message": "Multi-paragraph article with headers",
-    "description": "TODO: translate (copied from en)"
+    "message": "ശീർഷകങ്ങളോടെയുള്ള പല പാരഗ്രാഫുകളുള്ള ലേഖനം"
   },
   "chunkingPlayground_samples_code": {
-    "message": "Source Code",
-    "description": "TODO: translate (copied from en)"
+    "message": "സോഴ്‌സ് കോഡ്"
   },
   "chunkingPlayground_samples_codeDesc": {
-    "message": "Python code with classes and functions",
-    "description": "TODO: translate (copied from en)"
+    "message": "ക്ലാസുകളും ഫംഗ്ഷനുകളും ഉള്ള Python കോഡ്"
   },
   "chunkingPlayground_samples_transcript": {
-    "message": "Transcript",
-    "description": "TODO: translate (copied from en)"
+    "message": "ട്രാൻസ്ക്രിപ്റ്റ്"
   },
   "chunkingPlayground_samples_transcriptDesc": {
-    "message": "Timestamped podcast transcript",
-    "description": "TODO: translate (copied from en)"
+    "message": "ടൈംസ്റ്റാംപ് ചെയ്ത പോഡ്കാസ്റ്റ് ട്രാൻസ്ക്രിപ്റ്റ്"
   },
   "chunkingPlayground_samples_academic": {
-    "message": "Academic Paper",
-    "description": "TODO: translate (copied from en)"
+    "message": "അക്കാദമിക് പ്രബന്ധം"
   },
   "chunkingPlayground_samples_academicDesc": {
-    "message": "Technical writing with citations",
-    "description": "TODO: translate (copied from en)"
+    "message": "ഉദ്ധരണികളുള്ള സാങ്കേതിക എഴുത്ത്"
   },
   "chunkingPlayground_compare_title": {
-    "message": "Compare Settings",
-    "description": "TODO: translate (copied from en)"
+    "message": "ക്രമീകരണങ്ങൾ താരതമ്യം ചെയ്യുക"
   },
   "chunkingPlayground_compare_configA": {
-    "message": "Configuration A",
-    "description": "TODO: translate (copied from en)"
+    "message": "ക്രമീകരണം A"
   },
   "chunkingPlayground_compare_configB": {
-    "message": "Configuration B",
-    "description": "TODO: translate (copied from en)"
+    "message": "ക്രമീകരണം B"
   },
   "chunkingPlayground_mode_single": {
-    "message": "Single",
-    "description": "TODO: translate (copied from en)"
+    "message": "ഒറ്റ"
   },
   "chunkingPlayground_mode_compare": {
-    "message": "Compare",
-    "description": "TODO: translate (copied from en)"
+    "message": "താരതമ്യം"
   },
   "managePrompts_importMode_merge": {
     "message": "ലയിപ്പിക്കുക"
@@ -1726,5 +1668,368 @@
   },
   "flashcards_dueDue": {
     "message": "Due"
+  },
+  "flashcards_reviewFailed": {
+    "message": "Review failed"
+  },
+  "flashcards_updateFailed": {
+    "message": "Update failed"
+  },
+  "flashcards_deleteFailed": {
+    "message": "Delete failed"
+  },
+  "flashcards_missingVersion": {
+    "message": "Missing version; reload and try again"
+  },
+  "flashcards_bulkDeleteResult": {
+    "message": "{{success}} deleted · {{failed}} failed"
+  },
+  "mediaPage_searchPlaceholder": {
+    "message": "Search media (title/content)"
+  },
+  "mediaPage_search": {
+    "message": "Search"
+  },
+  "mediaPage_clear": {
+    "message": "Clear"
+  },
+  "mediaPage_types": {
+    "message": "Types"
+  },
+  "mediaPage_keywords": {
+    "message": "Keywords"
+  },
+  "mediaPage_moreTags": {
+    "message": "+{{count}} more tags"
+  },
+  "mediaPage_resetFilters": {
+    "message": "Reset Filters"
+  },
+  "mediaPage_clearAll": {
+    "message": "എല്ലാം മായ്ക്കുക"
+  },
+  "mediaPage_content": {
+    "message": "Content"
+  },
+  "mediaPage_vertical": {
+    "message": "Vertical"
+  },
+  "mediaPage_horizontal": {
+    "message": "Horizontal"
+  },
+  "mediaPage_results": {
+    "message": "Results"
+  },
+  "mediaPage_noResults": {
+    "message": "No results"
+  },
+  "mediaPage_showSidebar": {
+    "message": "Show sidebar"
+  },
+  "mediaPage_hideSidebar": {
+    "message": "Hide sidebar"
+  },
+  "mediaPage_viewer": {
+    "message": "Viewer"
+  },
+  "mediaPage_selectItemsHint": {
+    "message": "Select items on the left to view here."
+  },
+  "mediaPage_mediaContent": {
+    "message": "Media Content"
+  },
+  "mediaPage_copyContent": {
+    "message": "Copy content"
+  },
+  "mediaPage_contentCopied": {
+    "message": "Content copied"
+  },
+  "mediaPage_metadataCopied": {
+    "message": "മീറ്റാഡാറ്റ പകർത്തി"
+  },
+  "mediaPage_analysisCopied": {
+    "message": "വിശകലനം പകർത്തി"
+  },
+  "mediaPage_copyFailed": {
+    "message": "Copy failed"
+  },
+  "mediaPage_noContent": {
+    "message": "No content available"
+  },
+  "mediaPage_collapse": {
+    "message": "Collapse"
+  },
+  "mediaPage_expand": {
+    "message": "Expand"
+  },
+  "mediaPage_media": {
+    "message": "Media"
+  },
+  "mediaPage_searchingBanner": {
+    "message": "Searching media…"
+  },
+  "mediaPage_filterHelp": {
+    "message": "Search matches title and content; Types and Keywords further narrow the results."
+  },
+  "mediaPage_noMediaTypes": {
+    "message": "മീഡിയ തരം ഒന്നും ലഭ്യമല്ല"
+  },
+  "mediaPage_resultsCount": {
+    "message": "{{selected}} selected · {{open}} open"
+  },
+  "mediaPage_clearSelection": {
+    "message": "Deselect all"
+  },
+  "mediaPage_itemsLabel": {
+    "message": "Items"
+  },
+  "mediaPage_contentLabel": {
+    "message": "Content view"
+  },
+  "mediaPage_filterByKeyword": {
+    "message": "കീവേഡ് പ്രകാരം ഫിൽട്ടർ ചെയ്യുക"
+  },
+  "mediaPage_keywordHelper": {
+    "message": "കീവേഡുകൾ ഇടത്തെ കീവേഡ് ഫിൽട്ടർ ഉപയോഗിച്ച് ഈ മീഡിയ കണ്ടെത്താൻ നിങ്ങളെ സഹായിക്കുന്നു"
+  },
+  "mediaPage_modeHint": {
+    "message": "വലത് വശത്തെ വ്യൂവറിൽ താരതമ്യം ചെയ്യാൻ ഒന്നിലധികം മീഡിയ ഇനങ്ങൾ തിരയുകയും സ്റ്റാക്ക് ചെയ്യുകയും ചെയ്യുക."
+  },
+  "mediaPage_viewerHelp": {
+    "message": "കീയ്ബോർഡ്: Tab അമർത്തി ഫലങ്ങളുടെ പട്ടികയിലേക്ക് പോകുക, Enter അല്ലെങ്കിൽ Space ഉപയോഗിച്ച് മീഡിയ ഇനങ്ങൾ സ്റ്റാക്ക് ചെയ്യുകയോ നീക്കുകയോ ചെയ്യുക, შემდეგ Prev/Next, ലേഔട്ട് നിയന്ത്രണങ്ങൾ എന്നിവ ഉപയോഗിച്ച് വ്യൂവറിൽ ഇനങ്ങൾക്കിടയിൽ സഞ്ചരിക്കുക."
+  },
+  "mediaPage_viewerHelpLabel": {
+    "message": "മൾട്ടി-ഐറ്റം റിവ്യൂയുടെ കീബോർഡ് ഷോർട്‌കട്ടുകൾ"
+  },
+  "mediaPage_mediaInspector": {
+    "message": "മീഡിയ ഇൻസ്പെക്ടർ"
+  },
+  "mediaPage_actionsLabel": {
+    "message": "പ്രവർത്തനങ്ങൾ"
+  },
+  "mediaPage_keywordsPlaceholder": {
+    "message": "കീവേഡുകൾ ചേർക്കുക..."
+  },
+  "mediaPage_noSelectionTitle": {
+    "message": "ഒരു മീഡിയ ഇനവും തിരഞ്ഞെടുത്തിട്ടില്ല"
+  },
+  "mediaPage_noSelectionDescription": {
+    "message": "ഇവിടെ ഉള്ളടക്കും വിശകലനവും കാണാൻ ഇടത് സൈഡ്ബാറിൽ നിന്ന് ഒരു മീഡിയ ഇനം തിരഞ്ഞെടുക്കുക."
+  },
+  "mediaPage_generateAnalysis": {
+    "message": "വിശകലനം സൃഷ്ടിക്കുക"
+  },
+  "mediaPage_generateAnalysisHint": {
+    "message": "പുതിയ വിശകലനം സൃഷ്ടിക്കുക"
+  },
+  "mediaPage_editAnalysis": {
+    "message": "വിശകലനം തിരുത്തുക"
+  },
+  "mediaPage_createNoteWithContent": {
+    "message": "ഉള്ളടക്കം ഉപയോഗിച്ച് കുറിപ്പ് സൃഷ്ടിക്കുക"
+  },
+  "mediaPage_createNoteWithContentAnalysis": {
+    "message": "ഉള്ളടക്കം + വിശകലനം ഉപയോഗിച്ച് കുറിപ്പ് സൃഷ്ടിക്കുക"
+  },
+  "mediaPage_untitled": {
+    "message": "ശീർഷകമില്ലാത്തത്"
+  },
+  "mediaPage_copyMetadata": {
+    "message": "മെറ്റാഡേറ്റ പകർത്തുക"
+  },
+  "mediaPage_statistics": {
+    "message": "സ്ഥിതിവിവരക്കണക്ക്"
+  },
+  "mediaPage_words": {
+    "message": "വാക്കുകൾ"
+  },
+  "mediaPage_characters": {
+    "message": "അക്ഷരങ്ങൾ"
+  },
+  "mediaPage_paragraphs": {
+    "message": "അവതരണങ്ങൾ"
+  },
+  "mediaPage_metadata": {
+    "message": "മെറ്റാഡേറ്റ"
+  },
+  "mediaPage_idLabel": {
+    "message": "ID"
+  },
+  "mediaPage_typeLabel": {
+    "message": "തരം"
+  },
+  "mediaPage_titleLabel": {
+    "message": "ശീർഷകം"
+  },
+  "mediaPage_source": {
+    "message": "ഉറവ്"
+  },
+  "mediaPage_notAvailable": {
+    "message": "ലഭ്യമല്ല"
+  },
+  "mediaPage_developerTools": {
+    "message": "ഡെവലപ്പർ ഉപകരണങ്ങൾ"
+  },
+  "mediaPage_nothingToSend": {
+    "message": "അയയ്ക്കാൻ ഉള്ള ഉള്ളടക്കം ഒന്നുമില്ല"
+  },
+  "mediaPage_emptyAnalysis": {
+    "message": "വിശകലനം ഒഴിഞ്ഞതാകാൻ പാടില്ല"
+  },
+  "mediaPage_noMediaId": {
+    "message": "ലഭ്യമായ മീഡിയ ID ഇല്ല"
+  },
+  "mediaPage_versionSaved": {
+    "message": "പുതിയ പതിപ്പായി സേവ് ചെയ്തു"
+  },
+  "mediaPage_saveFailed": {
+    "message": "പതിപ്പ് സേവ് ചെയ്യാൻ കഴിഞ്ഞില്ല"
+  },
+  "mediaPage_sendToChat": {
+    "message": "ചാറ്റിലേക്ക് അയയ്ക്കുക"
+  },
+  "mediaPage_saveAsVersion": {
+    "message": "പുതിയ പതിപ്പായി സേവ് ചെയ്യുക"
+  },
+  "mediaPage_analysisPlaceholder": {
+    "message": "വിശകലന ടെക്സ്റ്റ് നൽകുക..."
+  },
+  "mediaPage_wordCount": {
+    "message": "{{count}} വാക്കുകൾ"
+  },
+  "mediaPage_charCount": {
+    "message": "{{count}} അക്ഷരങ്ങൾ"
+  },
+  "mediaPage_pageRangeError": {
+    "message": "പേജ് 1-{{max}} ആയിരിക്കണം"
+  },
+  "mediaPage_pageRangeClamped": {
+    "message": "പേജ് {{page}} ലേക്ക് നാവിഗേറ്റ് ചെയ്യുന്നു"
+  },
+  "mediaPage_saveUnauthorized": {
+    "message": "സംരക്ഷിക്കാൻ അനുമതിയില്ല"
+  },
+  "flashcards_markdownSupportHint": {
+    "message": "Markdownയും LaTeXയും പിന്തുണയ്ക്കുന്നു."
+  },
+  "flashcards_extraHint": {
+    "message": "ഓപ്ഷണൽ സൂചനകൾ/വിവരണങ്ങൾ (Markdown + LaTeX പിന്തുണ)."
+  },
+  "flashcards_notesHint": {
+    "message": "ആന്തരിക കുറിപ്പുകൾ (Markdown + LaTeX പിന്തുണ)."
+  },
+  "header_modeSpeech": {
+    "message": "സ്പീച്ച്"
+  },
+  "playground_speech_title": {
+    "message": "സ്പീച്ച് പ്ലേഗ്രൗണ്ട്"
+  },
+  "playground_speech_subtitle": {
+    "message": "വോയ്സ് റെക്കോർഡ് ചെയ്ത് ട്രാൻസ്ക്രിപ്റ്റുകൾ തിരുത്തി ഒരിടത്ത് ഓഡിയോ സിന്തസൈസ് ചെയ്യുക."
+  },
+  "playground_speech_modeLabel": {
+    "message": "മോഡ്"
+  },
+  "playground_speech_modeRoundTrip": {
+    "message": "റൗണ്ട്-ട്രിപ്പ്"
+  },
+  "playground_speech_modeSpeak": {
+    "message": "സംസാരിക്കുക"
+  },
+  "playground_speech_modeListen": {
+    "message": "കേൾക്കുക"
+  },
+  "playground_speech_modeHint": {
+    "message": "ഈ ഉപകരണത്തിൽ അവസാന മോഡ് ഓർമ്മിക്കും."
+  },
+  "playground_speech_recordingWaveform": {
+    "message": "ലൈവ് റെക്കോർഡിംഗിന്റെ തരംഗരൂപം"
+  },
+  "playground_speech_playbackWaveform": {
+    "message": "പ്ലേബാക്ക് തരംഗരൂപം"
+  },
+  "playground_speech_sendToTts": {
+    "message": "TTS ലേക്ക് അയയ്ക്കുക"
+  },
+  "playground_speech_sendHint": {
+    "message": "അവസാന ട്രാൻസ്ക്രിപ്റ്റ് TTS ഡ്രാഫ്റ്റായി ഉപയോഗിക്കുക."
+  },
+  "playground_speech_download": {
+    "message": "ഡൗൺലോഡ്"
+  },
+  "playground_speech_downloadCurrent": {
+    "message": "ഇപ്പോഴത്തെ സെഗ്മെന്റ് ഡൗൺലോഡ് ചെയ്യുക"
+  },
+  "playground_speech_downloadAll": {
+    "message": "എല്ലാ സെഗ്മെന്റുകളും ഡൗൺലോഡ് ചെയ്യുക"
+  },
+  "playground_speech_segmentFormat": {
+    "message": "ഫോർമാറ്റ്"
+  },
+  "playground_speech_historyTitle": {
+    "message": "സ്പീച്ച് ചരിത്രം"
+  },
+  "playground_speech_historyAll": {
+    "message": "എല്ലാം"
+  },
+  "playground_speech_historyStt": {
+    "message": "STT"
+  },
+  "playground_speech_historyTts": {
+    "message": "TTS"
+  },
+  "playground_speech_historySearch": {
+    "message": "ട്രാൻസ്ക്രിപ്റ്റുകൾ തിരയുക"
+  },
+  "playground_speech_historyRetentionHint": {
+    "message": "ഏറ്റവും പുതിയ {{count}} ഇനങ്ങൾ നിലനിർത്തുന്നു. എല്ലാം നീക്കാൻ \"എല്ലാം മായ്ക്കുക\" ഉപയോഗിക്കുക."
+  },
+  "playground_speech_useInTts": {
+    "message": "TTS ൽ ഉപയോഗിക്കുക"
+  },
+  "playground_speech_copy": {
+    "message": "പകർത്തുക"
+  },
+  "playground_speech_copySuccess": {
+    "message": "ക്ലിപ്പ്ബോർഡിലേക്ക് പകർത്തി"
+  },
+  "playground_speech_copyError": {
+    "message": "ട്രാൻസ്ക്രിപ്റ്റ് പകർത്താനായില്ല."
+  },
+  "playground_speech_providerTag": {
+    "message": "പ്രൊവൈഡർ"
+  },
+  "playground_speech_voiceTag": {
+    "message": "ശബ്ദം"
+  },
+  "playground_speech_emptyHistory": {
+    "message": "റെക്കോർഡിംഗ് ആരംഭിക്കുക അല്ലെങ്കിൽ ഓഡിയോ നിർമ്മിക്കുക; ഇവിടെ ചരിത്രം കാണാം."
+  },
+  "playground_speech_downloadDisabledBrowser": {
+    "message": "ബ്രൗസർ TTS ഡൗൺലോഡ് ചെയ്യാവുന്ന ഓഡിയോ സൃഷ്ടിക്കില്ല."
+  },
+  "playground_speech_downloadDisabledEmpty": {
+    "message": "ഡൗൺലോഡുകൾ സജീവമാക്കാൻ ഓഡിയോ നിർമ്മിക്കുക."
+  },
+  "playground_speech_transcriptLock": {
+    "message": "ലോക്ക് ചെയ്യുക"
+  },
+  "playground_speech_transcriptUnlock": {
+    "message": "അൺലോക്ക് ചെയ്യുക"
+  },
+  "playground_speech_transcriptEditHint": {
+    "message": "ഈ ട്രാൻസ്ക്രിപ്റ്റിന് എഡിറ്റിംഗ് സജ്ജമാണ്."
+  },
+  "playground_speech_transcriptLockedHint": {
+    "message": "ലൈവ് ട്രാൻസ്ക്രിപ്ഷൻ അപ്ഡേറ്റുകൾക്ക് ലോക്കാണ്."
+  },
+  "playground_speech_transcriptRecordingHint": {
+    "message": "റെക്കോർഡിംഗ് പുരോഗമിക്കുന്നു; ട്രാൻസ്ക്രിപ്റ്റ് ലോക്കാണ്."
+  },
+  "playground_tts_unsupportedFormatTitle": {
+    "message": "പിന്തുണയില്ലാത്ത ഓഡിയോ ഫോർമാറ്റ്"
+  },
+  "playground_tts_unsupportedFormatDescription": {
+    "message": "പ്രതികരണ ഫോർമാറ്റ് \"{{format}}\" പിന്തുണയില്ല. MP3 ആയി മടങ്ങും."
   }
 }

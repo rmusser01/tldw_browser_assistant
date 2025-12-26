@@ -29,7 +29,10 @@ import {
   type TldwTtsVoiceInfo,
   type TldwTtsProvidersInfo
 } from "@/services/tldw/audio-providers"
-import { useTtsPlayground } from "@/hooks/useTtsPlayground"
+import {
+  useTtsPlayground,
+  type TtsPlaygroundSegment
+} from "@/hooks/useTtsPlayground"
 import { PageShell } from "@/components/Common/PageShell"
 import { getModels, getVoices } from "@/services/elevenlabs"
 
@@ -100,7 +103,7 @@ const TtsPlaygroundPage: React.FC = () => {
     enabled: hasAudio
   })
 
-  const { data: elevenLabsData } = useQuery({
+  const { data: elevenLabsData, isLoading: elevenLabsLoading } = useQuery({
     queryKey: [
       "tts-playground-elevenlabs",
       ttsSettings?.ttsProvider,
@@ -138,6 +141,16 @@ const TtsPlaygroundPage: React.FC = () => {
   const audioRef = React.useRef<HTMLAudioElement | null>(null)
   const [currentTime, setCurrentTime] = React.useState(0)
   const [duration, setDuration] = React.useState(0)
+  const [browserActiveIndex, setBrowserActiveIndex] = React.useState<
+    number | null
+  >(null)
+  const [browserIsSpeaking, setBrowserIsSpeaking] = React.useState(false)
+  const [browserIsPaused, setBrowserIsPaused] = React.useState(false)
+  const browserQueueRef = React.useRef<number[]>([])
+  const browserSegmentsRef = React.useRef<TtsPlaygroundSegment[]>([])
+  const browserUtteranceRef = React.useRef<SpeechSynthesisUtterance | null>(
+    null
+  )
 
   const provider = ttsSettings?.ttsProvider || "browser"
 
@@ -179,6 +192,117 @@ const TtsPlaygroundPage: React.FC = () => {
     setOpenAiVoice(ttsSettings.openAITTSVoice || undefined)
   }, [ttsSettings])
 
+  React.useEffect(() => {
+    browserSegmentsRef.current = segments
+  }, [segments])
+
+  const clampPlaybackRate = (value: number) => {
+    if (!Number.isFinite(value)) return 1
+    return Math.min(2, Math.max(0.5, value))
+  }
+
+  const resolveBrowserVoice = React.useCallback(() => {
+    if (typeof window === "undefined" || !window.speechSynthesis) return null
+    const target = ttsSettings?.voice
+    if (!target) return null
+    const voices = window.speechSynthesis.getVoices()
+    return voices.find((voice) => voice.name === target) || null
+  }, [ttsSettings?.voice])
+
+  const stopBrowserSpeech = React.useCallback(() => {
+    if (typeof window === "undefined" || !window.speechSynthesis) return
+    try {
+      window.speechSynthesis.cancel()
+    } catch {}
+    browserQueueRef.current = []
+    browserUtteranceRef.current = null
+    setBrowserIsSpeaking(false)
+    setBrowserIsPaused(false)
+    setBrowserActiveIndex(null)
+  }, [])
+
+  const speakBrowserSegment = React.useCallback(
+    (
+      index: number,
+      queue: number[] = [],
+      nextSegments?: TtsPlaygroundSegment[]
+    ) => {
+      if (typeof window === "undefined" || !window.speechSynthesis) return
+      const list = nextSegments || browserSegmentsRef.current
+      const segment = list[index]
+      if (!segment?.text) return
+
+      window.speechSynthesis.cancel()
+      browserQueueRef.current = queue
+      setBrowserActiveIndex(index)
+      setBrowserIsSpeaking(true)
+      setBrowserIsPaused(false)
+
+      const utterance = new SpeechSynthesisUtterance(segment.text)
+      const voice = resolveBrowserVoice()
+      if (voice) utterance.voice = voice
+      utterance.rate = clampPlaybackRate(ttsSettings?.playbackSpeed ?? 1)
+      utterance.onend = () => {
+        const next = browserQueueRef.current.shift()
+        if (typeof next === "number") {
+          speakBrowserSegment(next, browserQueueRef.current, list)
+          return
+        }
+        setBrowserIsSpeaking(false)
+        setBrowserActiveIndex(null)
+      }
+      utterance.onerror = () => {
+        setBrowserIsSpeaking(false)
+        setBrowserIsPaused(false)
+        setBrowserActiveIndex(null)
+      }
+      browserUtteranceRef.current = utterance
+      window.speechSynthesis.speak(utterance)
+    },
+    [resolveBrowserVoice, ttsSettings?.playbackSpeed]
+  )
+
+  const queueBrowserSegments = React.useCallback(
+    (startIndex: number, nextSegments?: TtsPlaygroundSegment[]) => {
+      const list = nextSegments || browserSegmentsRef.current
+      if (!list.length || startIndex < 0 || startIndex >= list.length) return
+      const queue: number[] = []
+      for (let i = startIndex + 1; i < list.length; i += 1) {
+        queue.push(i)
+      }
+      speakBrowserSegment(startIndex, queue, list)
+    },
+    [speakBrowserSegment]
+  )
+
+  const pauseBrowserSpeech = React.useCallback(() => {
+    if (typeof window === "undefined" || !window.speechSynthesis) return
+    if (!window.speechSynthesis.speaking || window.speechSynthesis.paused) {
+      return
+    }
+    window.speechSynthesis.pause()
+    setBrowserIsPaused(true)
+  }, [])
+
+  const resumeBrowserSpeech = React.useCallback(() => {
+    if (typeof window === "undefined" || !window.speechSynthesis) return
+    if (!window.speechSynthesis.paused) return
+    window.speechSynthesis.resume()
+    setBrowserIsPaused(false)
+  }, [])
+
+  React.useEffect(() => {
+    if (provider !== "browser") {
+      stopBrowserSpeech()
+    }
+  }, [provider, stopBrowserSpeech])
+
+  React.useEffect(() => {
+    return () => {
+      stopBrowserSpeech()
+    }
+  }, [stopBrowserSpeech])
+
   const handleAudioTimeUpdate = () => {
     const el = audioRef.current
     if (!el) return
@@ -195,6 +319,7 @@ const TtsPlaygroundPage: React.FC = () => {
   const isTtsDisabled = ttsSettings?.ttsEnabled === false
   const handlePlay = async () => {
     if (!text.trim() || isTtsDisabled) return
+    stopBrowserSpeech()
     clearSegments()
     setActiveSegmentIndex(null)
     setCurrentTime(0)
@@ -202,7 +327,7 @@ const TtsPlaygroundPage: React.FC = () => {
 
     const effectiveProvider = ttsSettings?.ttsProvider || (await getTTSProvider())
 
-    await generateSegments(text, {
+    const nextSegments = await generateSegments(text, {
       provider: effectiveProvider,
       elevenLabsModel: elevenModelId,
       elevenLabsVoiceId: elevenVoiceId,
@@ -238,10 +363,15 @@ const TtsPlaygroundPage: React.FC = () => {
       })
     }
 
-    setActiveSegmentIndex(0)
+    if (effectiveProvider === "browser") {
+      queueBrowserSegments(0, nextSegments)
+    } else if (nextSegments.length > 0) {
+      setActiveSegmentIndex(0)
+    }
   }
 
   const handleStop = () => {
+    stopBrowserSpeech()
     const el = audioRef.current
     if (el) {
       el.pause()
@@ -351,6 +481,15 @@ const TtsPlaygroundPage: React.FC = () => {
     return OPENAI_TTS_VOICES[openAiModel] || []
   }, [openAiModel])
 
+  const effectiveElevenVoice =
+    elevenVoiceId ?? ttsSettings?.elevenLabsVoiceId
+  const effectiveElevenModel =
+    elevenModelId ?? ttsSettings?.elevenLabsModel
+  const isElevenLabsConfigured = Boolean(
+    ttsSettings?.elevenLabsApiKey &&
+      effectiveElevenVoice &&
+      effectiveElevenModel
+  )
   const playDisabledReason = isTtsDisabled
     ? t(
         "playground:tts.playDisabledTtsOff",
@@ -358,15 +497,56 @@ const TtsPlaygroundPage: React.FC = () => {
       )
     : !text.trim()
       ? t("playground:tts.playDisabledNoText", "Enter text to enable Play.")
-      : null
+      : ttsSettings?.ttsProvider === "elevenlabs" &&
+          !isElevenLabsConfigured
+        ? t(
+            "playground:tts.playDisabledElevenLabs",
+            "Add an ElevenLabs API key, voice, and model to enable Play."
+          )
+        : null
   const isPlayDisabled = isGenerating || Boolean(playDisabledReason)
-  const canStop = Boolean(segments.length || audioRef.current)
+  const canStop =
+    provider === "browser"
+      ? browserIsSpeaking || browserIsPaused
+      : Boolean(segments.length || audioRef.current)
   const stopDisabledReason =
     !canStop &&
     t(
       "playground:tts.stopDisabled",
       "Stop activates after audio starts."
     )
+  const hasElevenLabsKey = Boolean(ttsSettings?.elevenLabsApiKey)
+  const showElevenLabsHint =
+    ttsSettings?.ttsProvider === "elevenlabs" &&
+    !elevenLabsData &&
+    !elevenLabsLoading
+  const elevenLabsHintTitle = hasElevenLabsKey
+    ? t(
+        "playground:tts.elevenLabsUnavailableTitle",
+        "ElevenLabs voices unavailable"
+      )
+    : t(
+        "playground:tts.elevenLabsMissingTitle",
+        "ElevenLabs needs an API key"
+      )
+  const elevenLabsHintBody = hasElevenLabsKey
+    ? t(
+        "playground:tts.elevenLabsUnavailableBody",
+        "We couldn't load voices or models. Check your API key and try again."
+      )
+    : t(
+        "playground:tts.elevenLabsMissingBody",
+        "Add your ElevenLabs API key in Settings to load voices and models."
+      )
+
+  const handleElevenLabsApiKeyFocus = () => {
+    const el = document.getElementById("elevenlabs-api-key")
+    if (!el) return
+    try {
+      el.scrollIntoView({ block: "center" })
+    } catch {}
+    ;(el as HTMLElement).focus()
+  }
 
   return (
     <PageShell maxWidthClassName="max-w-3xl" className="py-6">
@@ -393,7 +573,7 @@ const TtsPlaygroundPage: React.FC = () => {
                   <Tooltip
                     title={t(
                       "playground:tts.providerChangeHelper",
-                      "Open the provider selector above to switch between Browser, tldw, OpenAI, or Supersonic."
+                      "Open the provider selector below to switch between Browser, tldw, OpenAI, or Supersonic."
                     ) as string}
                   >
                     <Button
@@ -606,6 +786,29 @@ const TtsPlaygroundPage: React.FC = () => {
               />
             </div>
 
+            {showElevenLabsHint && (
+              <Alert
+                type={hasElevenLabsKey ? "warning" : "info"}
+                showIcon
+                message={elevenLabsHintTitle}
+                description={
+                  <div className="flex flex-wrap items-center gap-2">
+                    <span>{elevenLabsHintBody}</span>
+                    <Button
+                      size="small"
+                      type="link"
+                      onClick={handleElevenLabsApiKeyFocus}
+                    >
+                      {t(
+                        "playground:tts.elevenLabsMissingCta",
+                        "Set API key in Settings"
+                      )}
+                    </Button>
+                  </div>
+                }
+              />
+            )}
+
             {ttsSettings?.ttsProvider === "elevenlabs" && elevenLabsData && (
               <div className="flex flex-col gap-2">
                 <Text type="secondary">
@@ -810,7 +1013,134 @@ const TtsPlaygroundPage: React.FC = () => {
               {!canStop && stopDisabledReason ? ` ${stopDisabledReason}` : ""}
             </Text>
 
-            {segments.length > 0 && (
+            {provider === "browser" && segments.length > 0 && (
+              <div className="mt-4 space-y-2 w-full">
+                <div>
+                  <Text strong>
+                    {t(
+                      "playground:tts.browserSegmentsTitle",
+                      "Browser TTS segments"
+                    )}
+                  </Text>
+                  <Paragraph className="!mb-1 text-xs text-gray-500 dark:text-gray-400">
+                    {t(
+                      "playground:tts.browserSegmentsHelp",
+                      "Queue segments or play an individual segment using system audio."
+                    )}
+                  </Paragraph>
+                </div>
+                <div className="border border-gray-200 dark:border-gray-700 rounded-md p-3 space-y-3">
+                  <div className="flex flex-wrap items-center gap-2">
+                    <Button
+                      size="small"
+                      type="primary"
+                      onClick={() => queueBrowserSegments(0)}
+                    >
+                      {t("playground:tts.browserQueueAll", "Queue all")}
+                    </Button>
+                    <Button
+                      size="small"
+                      onClick={pauseBrowserSpeech}
+                      disabled={!browserIsSpeaking || browserIsPaused}
+                    >
+                      {t("playground:tts.browserPause", "Pause")}
+                    </Button>
+                    <Button
+                      size="small"
+                      onClick={resumeBrowserSpeech}
+                      disabled={!browserIsPaused}
+                    >
+                      {t("playground:tts.browserResume", "Resume")}
+                    </Button>
+                    <Button
+                      size="small"
+                      onClick={stopBrowserSpeech}
+                      disabled={!browserIsSpeaking && !browserIsPaused}
+                    >
+                      {t("playground:tts.stop", "Stop")}
+                    </Button>
+                    {browserActiveIndex != null && (
+                      <Text type="secondary" className="text-xs">
+                        {browserIsPaused
+                          ? `${t(
+                              "playground:tts.browserStatusPaused",
+                              "Paused"
+                            )} · `
+                          : ""}
+                        {t(
+                          "playground:tts.browserStatusSpeaking",
+                          "Speaking segment {{current}}/{{total}}",
+                          {
+                            current: browserActiveIndex + 1,
+                            total: segments.length
+                          }
+                        )}
+                      </Text>
+                    )}
+                  </div>
+                  <div className="space-y-2">
+                    {segments.map((seg, idx) => (
+                      <div
+                        key={seg.id}
+                        className="rounded border border-gray-200 dark:border-gray-700 p-2 space-y-2"
+                      >
+                        <div className="flex items-center justify-between gap-2">
+                          <Text strong>
+                            {t("playground:tts.segmentLabel", "Part")}{" "}
+                            {idx + 1}
+                          </Text>
+                          {browserActiveIndex === idx && (
+                            <Tag
+                              color={browserIsPaused ? "gold" : "green"}
+                              bordered
+                            >
+                              {browserIsPaused
+                                ? t(
+                                    "playground:tts.browserStatusPaused",
+                                    "Paused"
+                                  )
+                                : t(
+                                    "playground:tts.playing",
+                                    "Playing…"
+                                  )}
+                            </Tag>
+                          )}
+                        </div>
+                        <Paragraph
+                          className="!mb-0 text-xs text-gray-600 dark:text-gray-300"
+                          ellipsis={{ rows: 2 }}
+                        >
+                          {seg.text}
+                        </Paragraph>
+                        <Space size="small" wrap>
+                          <Button
+                            size="small"
+                            type="primary"
+                            onClick={() => speakBrowserSegment(idx)}
+                          >
+                            {t(
+                              "playground:tts.browserSegmentPlay",
+                              "Play segment"
+                            )}
+                          </Button>
+                          <Button
+                            size="small"
+                            onClick={() => queueBrowserSegments(idx)}
+                          >
+                            {t(
+                              "playground:tts.browserQueueFromHere",
+                              "Queue from here"
+                            )}
+                          </Button>
+                        </Space>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {provider !== "browser" && segments.length > 0 && (
               <div className="mt-4 space-y-2 w-full">
                 <div>
                   <Text strong>

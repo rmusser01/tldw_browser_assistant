@@ -30,6 +30,7 @@ const OptionPromptsWorkspace = lazy(() => import("./option-prompts"))
 const OptionKnowledgeWorkspace = lazy(() => import("./option-knowledge"))
 const OptionTts = lazy(() => import("./option-tts"))
 const OptionStt = lazy(() => import("./option-stt"))
+const OptionSpeech = lazy(() => import("./option-speech"))
 const OptionEvaluations = lazy(() => import("./option-evaluations"))
 const OptionSettingsEvaluations = lazy(() => import("./option-settings-evaluations"))
 const OptionPromptStudio = lazy(() => import("./option-prompt-studio"))
@@ -74,6 +75,7 @@ export const OptionRoutingFirefox = () => {
       <Route path="/prompt-studio" element={<OptionPromptStudio />} />
       <Route path="/tts" element={<OptionTts />} />
       <Route path="/stt" element={<OptionStt />} />
+      <Route path="/speech" element={<OptionSpeech />} />
       <Route path="/evaluations" element={<OptionEvaluations />} />
     </Routes>
   )

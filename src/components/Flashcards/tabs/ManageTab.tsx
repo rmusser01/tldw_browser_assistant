@@ -94,6 +94,7 @@ export const ManageTab: React.FC<ManageTabProps> = ({
   const [previewOpen, setPreviewOpen] = React.useState<Set<string>>(new Set())
   const [selectAllAcross, setSelectAllAcross] = React.useState<boolean>(false)
   const [deselectedIds, setDeselectedIds] = React.useState<Set<string>>(new Set())
+  const selectAllAcrossRef = React.useRef(selectAllAcross)
 
   // Bulk operation progress state
   const [bulkProgress, setBulkProgress] = React.useState<{
@@ -126,6 +127,16 @@ export const ManageTab: React.FC<ManageTabProps> = ({
     }, 300)
     return () => window.clearTimeout(timer)
   }, [mQueryInput, mQuery])
+
+  React.useEffect(() => {
+    selectAllAcrossRef.current = selectAllAcross
+  }, [selectAllAcross])
+
+  React.useEffect(() => {
+    if (selectAllAcrossRef.current) return
+    setSelectedIds(new Set())
+    setDeselectedIds(new Set())
+  }, [page, pageSize, mDeckId, mQuery, mTag, mDue])
 
   const toggleSelect = (uuid: string, checked: boolean) => {
     if (selectAllAcross) {
@@ -250,24 +261,47 @@ export const ManageTab: React.FC<ManageTabProps> = ({
     })
     try {
       let processed = 0
+      const failedIds = new Set<string>()
       await processInChunks(items, BULK_MUTATION_CHUNK_SIZE, async (chunk) => {
         const results = await Promise.allSettled(
           chunk.map((c) => deleteFlashcard(c.uuid, c.version))
         )
-        const failures = results.filter((r) => r.status === "rejected")
-        if (failures.length > 0) {
-          console.warn(`${failures.length} deletions failed in chunk`)
+        let chunkFailures = 0
+        results.forEach((result, index) => {
+          if (result.status === "rejected") {
+            failedIds.add(chunk[index].uuid)
+            chunkFailures += 1
+          }
+        })
+        if (chunkFailures > 0) {
+          console.warn(`${chunkFailures} deletions failed in chunk`)
         }
         processed += chunk.length
         setBulkProgress((prev) =>
           prev ? { ...prev, current: Math.min(processed, total) } : null
         )
       })
-      message.success(t("common:deleted", { defaultValue: "Deleted" }))
-      clearSelection()
+      const failedCount = failedIds.size
+      const successCount = Math.max(0, total - failedCount)
+      if (failedCount > 0) {
+        message.warning(
+          t("option:flashcards.bulkDeleteResult", {
+            defaultValue: "{{success}} deleted · {{failed}} failed",
+            success: successCount,
+            failed: failedCount
+          })
+        )
+        setSelectAllAcross(false)
+        setDeselectedIds(new Set())
+        setSelectedIds(new Set(failedIds))
+      } else {
+        message.success(t("common:deleted", { defaultValue: "Deleted" }))
+        clearSelection()
+      }
       await qc.invalidateQueries({ queryKey: ["flashcards:list"] })
-    } catch (e: any) {
-      message.error(e?.message || "Bulk delete failed")
+    } catch (e: unknown) {
+      const errorMessage = e instanceof Error ? e.message : "Bulk delete failed"
+      message.error(errorMessage)
     } finally {
       setBulkProgress(null)
     }

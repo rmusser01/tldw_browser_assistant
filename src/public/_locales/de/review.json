@@ -33,10 +33,10 @@
     "message": "{{count}} Zeichen"
   },
   "mediaPage_pageRangeError": {
-    "message": "Seite muss zwischen 1 und {{max}} liegen"
+    "message": "Seite muss 1-{{max}} sein"
   },
   "mediaPage_pageRangeClamped": {
-    "message": "Navigation zu Seite {{page}}"
+    "message": "Navigiere zu Seite {{page}}"
   },
   "noToolCalls": {
     "message": "Noch keine Tool-Aufrufe"

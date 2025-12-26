@@ -1406,334 +1406,334 @@
     "message": "الحفظ بعد المراجعة"
   },
   "manageCharacters_actions_viewConversations": {
-    "message": "View conversations"
+    "message": "عرض المحادثات"
   },
   "manageCharacters_aria_viewConversations": {
-    "message": "View conversations for {{name}}"
+    "message": "عرض المحادثات لـ {{name}}"
   },
   "manageCharacters_aria_searchResults": {
-    "message": "{{count}} characters found"
+    "message": "تم العثور على {{count}} شخصية"
   },
   "manageCharacters_conversations_title": {
-    "message": "Conversations for {{name}}"
+    "message": "محادثات {{name}}"
   },
   "manageCharacters_conversations_titleGeneric": {
-    "message": "Character conversations"
+    "message": "محادثات الشخصية"
   },
   "manageCharacters_conversations_subtitle": {
-    "message": "Select a conversation to continue as this character."
+    "message": "اختر محادثة للمتابعة بهذه الشخصية."
   },
   "manageCharacters_conversations_empty": {
-    "message": "No conversations found for this character yet."
+    "message": "لا توجد محادثات لهذه الشخصية حتى الآن."
   },
   "manageCharacters_conversations_error": {
-    "message": "Unable to load conversations for this character."
+    "message": "تعذر تحميل المحادثات لهذه الشخصية."
   },
   "manageCharacters_conversations_updated": {
-    "message": "Updated {{time}}"
+    "message": "تم التحديث {{time}}"
   },
   "manageCharacters_conversations_unknownTime": {
-    "message": "Unknown"
+    "message": "غير معروف"
   },
   "manageCharacters_conversations_resume": {
-    "message": "Continue chat"
+    "message": "متابعة الدردشة"
   },
   "manageCharacters_conversations_untitled": {
-    "message": "Untitled"
+    "message": "بدون عنوان"
   },
   "manageCharacters_conversations_mostRecent": {
-    "message": "Most recent"
+    "message": "الأحدث"
   },
   "manageCharacters_conversations_resumeTooltip": {
-    "message": "Load chat history and continue this conversation"
+    "message": "تحميل سجل الدردشة ومتابعة هذه المحادثة"
   },
   "manageCharacters_preview_title": {
-    "message": "Preview"
+    "message": "معاينة"
   },
   "manageCharacters_preview_show": {
-    "message": "Show preview"
+    "message": "إظهار المعاينة"
   },
   "manageCharacters_preview_hide": {
-    "message": "Hide preview"
+    "message": "إخفاء المعاينة"
   },
   "manageCharacters_preview_untitled": {
-    "message": "Untitled character"
+    "message": "شخصية بدون عنوان"
   },
   "manageCharacters_preview_greeting": {
-    "message": "Greeting"
+    "message": "رسالة الترحيب"
   },
   "manageCharacters_preview_behavior": {
-    "message": "Behavior"
+    "message": "السلوك"
   },
   "manageCharacters_preview_empty": {
-    "message": "Fill in the form to see a preview"
+    "message": "املأ النموذج لرؤية المعاينة"
   },
   "manageCharacters_advanced_show": {
-    "message": "Show advanced fields"
+    "message": "إظهار الحقول المتقدمة"
   },
   "manageCharacters_advanced_hide": {
-    "message": "Hide advanced fields"
+    "message": "إخفاء الحقول المتقدمة"
   },
   "chunkingPlayground_nav": {
-    "message": "Chunking Playground",
+    "message": "ساحة تجزئة النص",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_title": {
-    "message": "Chunking Playground",
+    "message": "ساحة تجزئة النص",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_description": {
-    "message": "Experiment with different chunking settings to see how text gets split into smaller pieces for processing.",
+    "message": "جرّب إعدادات تجزئة مختلفة لمعرفة كيف يُقسَّم النص إلى أجزاء أصغر للمعالجة.",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_inputLabel": {
-    "message": "Text to chunk",
+    "message": "النص المراد تجزئته",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_inputPlaceholder": {
-    "message": "Paste text here or select a sample...",
+    "message": "الصق النص هنا أو اختر نموذجًا...",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_uploadButton": {
-    "message": "Upload File",
+    "message": "رفع ملف",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_chunkButton": {
-    "message": "Chunk Text",
+    "message": "جزّئ النص",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_methodLabel": {
-    "message": "Chunking Method",
+    "message": "طريقة التجزئة",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_maxSizeLabel": {
-    "message": "Max Chunk Size",
+    "message": "الحد الأقصى لحجم الجزء",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_overlapLabel": {
-    "message": "Overlap",
+    "message": "التداخل",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_languageLabel": {
-    "message": "Language",
+    "message": "اللغة",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_languages_auto": {
-    "message": "Auto-detect",
+    "message": "الكشف التلقائي",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_languages_en": {
-    "message": "English",
+    "message": "الإنجليزية",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_languages_es": {
-    "message": "Spanish",
+    "message": "الإسبانية",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_languages_fr": {
-    "message": "French",
+    "message": "الفرنسية",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_languages_de": {
-    "message": "German",
+    "message": "الألمانية",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_languages_it": {
-    "message": "Italian",
+    "message": "الإيطالية",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_languages_pt": {
-    "message": "Portuguese",
+    "message": "البرتغالية",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_languages_zh": {
-    "message": "Chinese",
+    "message": "الصينية",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_languages_ja": {
-    "message": "Japanese",
+    "message": "اليابانية",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_languages_ko": {
-    "message": "Korean",
+    "message": "الكورية",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_viewCards": {
-    "message": "Cards",
+    "message": "بطاقات",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_viewInline": {
-    "message": "Inline",
+    "message": "مضمّن",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_stats": {
-    "message": "{{count}} chunks, avg {{avgSize}} chars"
+    "message": "{{count}} أجزاء، متوسط {{avgSize}} حرفًا"
   },
   "chunkingPlayground_textLoaded": {
-    "message": "Text loaded",
+    "message": "تم تحميل النص",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_characters": {
-    "message": "characters",
+    "message": "أحرف",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_tabSingle": {
-    "message": "Single",
+    "message": "مفرد",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_tabCompare": {
-    "message": "Compare",
+    "message": "مقارنة",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_chunkIndex": {
-    "message": "Chunk {{index}}"
+    "message": "جزء {{index}}"
   },
   "chunkingPlayground_chunkInfo": {
-    "message": "Chunk {{index}}: {{words}} words"
+    "message": "جزء {{index}}: {{words}} كلمة"
   },
   "chunkingPlayground_position": {
-    "message": "Position: {{start}} - {{end}}"
+    "message": "الموضع: {{start}} - {{end}}"
   },
   "chunkingPlayground_additionalChunks": {
-    "message": "+{{count}} more"
+    "message": "+{{count}} أخرى"
   },
   "chunkingPlayground_charCount": {
-    "message": "{{count}} characters"
+    "message": "{{count}} حرفًا"
   },
   "chunkingPlayground_wordCount": {
-    "message": "{{count}} words"
+    "message": "{{count}} كلمة"
   },
   "chunkingPlayground_noInput": {
-    "message": "Please provide text to chunk",
+    "message": "يرجى إدخال نص لتجزئته",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_sharedInput": {
-    "message": "Shared Input Text",
+    "message": "نص الإدخال المشترك",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_compareButton": {
-    "message": "Compare Both",
+    "message": "قارن الاثنين",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_comparison": {
-    "message": "Comparison",
+    "message": "مقارنة",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_fewerChunks": {
-    "message": "Config A produces {{diff}} fewer chunks"
+    "message": "الإعداد أ ينتج {{diff}} جزءًا أقل"
   },
   "chunkingPlayground_moreChunks": {
-    "message": "Config A produces {{diff}} more chunks"
+    "message": "الإعداد أ ينتج {{diff}} جزءًا أكثر"
   },
   "chunkingPlayground_sameChunks": {
-    "message": "Both configs produce the same number of chunks",
+    "message": "كلا الإعدادين ينتج العدد نفسه من الأجزاء",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_clickToChunk": {
-    "message": "Click 'Compare' to see results",
+    "message": "انقر «مقارنة» لرؤية النتائج",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_overlapRegion": {
-    "message": "Overlap Region",
+    "message": "منطقة التداخل",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_clickHint": {
-    "message": "Click on a highlighted section to focus on that chunk",
+    "message": "انقر على القسم المميَّز للتركيز على ذلك الجزء",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_noContentFound": {
-    "message": "No text content found for this media item",
+    "message": "لم يتم العثور على محتوى نصي لهذا العنصر",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_loadContentError": {
-    "message": "Failed to load media content",
+    "message": "فشل تحميل محتوى الوسائط",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_loadMediaListError": {
-    "message": "Failed to load media library",
+    "message": "فشل تحميل مكتبة الوسائط",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_selectMedia": {
-    "message": "Select media item...",
+    "message": "اختر عنصر وسائط...",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_loadingMedia": {
-    "message": "Loading content...",
+    "message": "جارٍ تحميل المحتوى...",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_noMediaFound": {
-    "message": "No media found",
+    "message": "لم يتم العثور على وسائط",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_mediaCount": {
-    "message": "{{count}} media items available"
+    "message": "{{count}} عنصر وسائط متاح"
   },
   "chunkingPlayground_inputSource_paste": {
-    "message": "Paste Text",
+    "message": "لصق النص",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_inputSource_upload": {
-    "message": "Upload File",
+    "message": "رفع ملف",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_inputSource_sample": {
-    "message": "Sample Text",
+    "message": "نص نموذجي",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_inputSource_media": {
-    "message": "From Media Library",
+    "message": "من مكتبة الوسائط",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_samples_article": {
-    "message": "News Article",
+    "message": "مقال إخباري",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_samples_articleDesc": {
-    "message": "Multi-paragraph article with headers",
+    "message": "مقال متعدد الفقرات مع عناوين",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_samples_code": {
-    "message": "Source Code",
+    "message": "شفرة المصدر",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_samples_codeDesc": {
-    "message": "Python code with classes and functions",
+    "message": "شفرة بايثون مع أصناف ودوال",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_samples_transcript": {
-    "message": "Transcript",
+    "message": "تفريغ",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_samples_transcriptDesc": {
-    "message": "Timestamped podcast transcript",
+    "message": "تفريغ بودكاست مُؤقّت",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_samples_academic": {
-    "message": "Academic Paper",
+    "message": "ورقة أكاديمية",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_samples_academicDesc": {
-    "message": "Technical writing with citations",
+    "message": "كتابة تقنية مع مراجع",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_compare_title": {
-    "message": "Compare Settings",
+    "message": "مقارنة الإعدادات",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_compare_configA": {
-    "message": "Configuration A",
+    "message": "الإعداد أ",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_compare_configB": {
-    "message": "Configuration B",
+    "message": "الإعداد ب",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_mode_single": {
-    "message": "Single",
+    "message": "مفرد",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_mode_compare": {
-    "message": "Compare",
+    "message": "مقارنة",
     "description": "TODO: translate (copied from en)"
   },
   "managePrompts_importMode_merge": {
@@ -1759,5 +1759,368 @@
   },
   "flashcards_dueDue": {
     "message": "مستحقة"
+  },
+  "flashcards_reviewFailed": {
+    "message": "Review failed"
+  },
+  "flashcards_updateFailed": {
+    "message": "Update failed"
+  },
+  "flashcards_deleteFailed": {
+    "message": "Delete failed"
+  },
+  "flashcards_missingVersion": {
+    "message": "Missing version; reload and try again"
+  },
+  "flashcards_bulkDeleteResult": {
+    "message": "{{success}} deleted · {{failed}} failed"
+  },
+  "mediaPage_searchPlaceholder": {
+    "message": "Search media (title/content)"
+  },
+  "mediaPage_search": {
+    "message": "Search"
+  },
+  "mediaPage_clear": {
+    "message": "Clear"
+  },
+  "mediaPage_types": {
+    "message": "Types"
+  },
+  "mediaPage_keywords": {
+    "message": "Keywords"
+  },
+  "mediaPage_moreTags": {
+    "message": "+{{count}} more tags"
+  },
+  "mediaPage_resetFilters": {
+    "message": "Reset Filters"
+  },
+  "mediaPage_clearAll": {
+    "message": "مسح الكل"
+  },
+  "mediaPage_content": {
+    "message": "Content"
+  },
+  "mediaPage_vertical": {
+    "message": "Vertical"
+  },
+  "mediaPage_horizontal": {
+    "message": "Horizontal"
+  },
+  "mediaPage_results": {
+    "message": "Results"
+  },
+  "mediaPage_noResults": {
+    "message": "No results"
+  },
+  "mediaPage_showSidebar": {
+    "message": "Show sidebar"
+  },
+  "mediaPage_hideSidebar": {
+    "message": "Hide sidebar"
+  },
+  "mediaPage_viewer": {
+    "message": "Viewer"
+  },
+  "mediaPage_selectItemsHint": {
+    "message": "Select items on the left to view here."
+  },
+  "mediaPage_mediaContent": {
+    "message": "Media Content"
+  },
+  "mediaPage_copyContent": {
+    "message": "Copy content"
+  },
+  "mediaPage_contentCopied": {
+    "message": "Content copied"
+  },
+  "mediaPage_metadataCopied": {
+    "message": "تم نسخ البيانات الوصفية"
+  },
+  "mediaPage_analysisCopied": {
+    "message": "تم نسخ التحليل"
+  },
+  "mediaPage_copyFailed": {
+    "message": "Copy failed"
+  },
+  "mediaPage_noContent": {
+    "message": "No content available"
+  },
+  "mediaPage_collapse": {
+    "message": "Collapse"
+  },
+  "mediaPage_expand": {
+    "message": "Expand"
+  },
+  "mediaPage_media": {
+    "message": "Media"
+  },
+  "mediaPage_searchingBanner": {
+    "message": "Searching media…"
+  },
+  "mediaPage_filterHelp": {
+    "message": "Search matches title and content; Types and Keywords further narrow the results."
+  },
+  "mediaPage_noMediaTypes": {
+    "message": "لا توجد أنواع وسائط متاحة"
+  },
+  "mediaPage_resultsCount": {
+    "message": "{{selected}} selected · {{open}} open"
+  },
+  "mediaPage_clearSelection": {
+    "message": "Deselect all"
+  },
+  "mediaPage_itemsLabel": {
+    "message": "Items"
+  },
+  "mediaPage_contentLabel": {
+    "message": "Content view"
+  },
+  "mediaPage_filterByKeyword": {
+    "message": "تصفية حسب الكلمة المفتاحية"
+  },
+  "mediaPage_keywordHelper": {
+    "message": "تساعدك الكلمات المفتاحية في العثور على هذه الوسائط باستخدام عامل تصفية الكلمات المفتاحية على اليسار"
+  },
+  "mediaPage_modeHint": {
+    "message": "ابحث عن عناصر وسائط متعددة وراكمها لمقارنتها في العارض الموجود على اليمين."
+  },
+  "mediaPage_viewerHelp": {
+    "message": "لوحة المفاتيح: انتقل إلى قائمة النتائج باستخدام Tab، واستخدم Enter أو Space لتكديس عنصر الوسائط أو إزالته، ثم استخدم عناصر التحكم السابق/التالي والتخطيطات للتنقل بين العناصر في العارض."
+  },
+  "mediaPage_viewerHelpLabel": {
+    "message": "اختصارات لوحة المفاتيح لمراجعة عناصر متعددة"
+  },
+  "mediaPage_mediaInspector": {
+    "message": "أداة فحص الوسائط"
+  },
+  "mediaPage_actionsLabel": {
+    "message": "إجراءات"
+  },
+  "mediaPage_keywordsPlaceholder": {
+    "message": "إضافة كلمات مفتاحية..."
+  },
+  "mediaPage_noSelectionTitle": {
+    "message": "لم يتم تحديد أي عنصر وسائط"
+  },
+  "mediaPage_noSelectionDescription": {
+    "message": "حدد عنصراً وسائطياً من الشريط الجانبي الأيسر لعرض محتواه وتحليلاته هنا."
+  },
+  "mediaPage_generateAnalysis": {
+    "message": "إنشاء تحليل"
+  },
+  "mediaPage_generateAnalysisHint": {
+    "message": "إنشاء تحليل جديد"
+  },
+  "mediaPage_editAnalysis": {
+    "message": "تعديل التحليل"
+  },
+  "mediaPage_createNoteWithContent": {
+    "message": "إنشاء ملاحظة بالمحتوى"
+  },
+  "mediaPage_createNoteWithContentAnalysis": {
+    "message": "إنشاء ملاحظة بالمحتوى + التحليل"
+  },
+  "mediaPage_untitled": {
+    "message": "بدون عنوان"
+  },
+  "mediaPage_copyMetadata": {
+    "message": "نسخ البيانات الوصفية"
+  },
+  "mediaPage_statistics": {
+    "message": "إحصاءات"
+  },
+  "mediaPage_words": {
+    "message": "الكلمات"
+  },
+  "mediaPage_characters": {
+    "message": "الأحرف"
+  },
+  "mediaPage_paragraphs": {
+    "message": "الفقرات"
+  },
+  "mediaPage_metadata": {
+    "message": "البيانات الوصفية"
+  },
+  "mediaPage_idLabel": {
+    "message": "المعرّف"
+  },
+  "mediaPage_typeLabel": {
+    "message": "النوع"
+  },
+  "mediaPage_titleLabel": {
+    "message": "العنوان"
+  },
+  "mediaPage_source": {
+    "message": "المصدر"
+  },
+  "mediaPage_notAvailable": {
+    "message": "غير متوفر"
+  },
+  "mediaPage_developerTools": {
+    "message": "أدوات المطوّر"
+  },
+  "mediaPage_nothingToSend": {
+    "message": "لا يوجد ما يتم إرساله"
+  },
+  "mediaPage_emptyAnalysis": {
+    "message": "لا يمكن أن يكون التحليل فارغاً"
+  },
+  "mediaPage_noMediaId": {
+    "message": "لا تتوفر هوية وسائط"
+  },
+  "mediaPage_versionSaved": {
+    "message": "تم الحفظ كإصدار جديد"
+  },
+  "mediaPage_saveFailed": {
+    "message": "فشل حفظ الإصدار"
+  },
+  "mediaPage_sendToChat": {
+    "message": "إرسال إلى الدردشة"
+  },
+  "mediaPage_saveAsVersion": {
+    "message": "حفظ كإصدار جديد"
+  },
+  "mediaPage_analysisPlaceholder": {
+    "message": "أدخل نص التحليل..."
+  },
+  "mediaPage_wordCount": {
+    "message": "{{count}} كلمة"
+  },
+  "mediaPage_charCount": {
+    "message": "{{count}} حرف"
+  },
+  "mediaPage_pageRangeError": {
+    "message": "يجب أن تكون الصفحة بين 1 و {{max}}"
+  },
+  "mediaPage_pageRangeClamped": {
+    "message": "الانتقال إلى الصفحة {{page}}"
+  },
+  "mediaPage_saveUnauthorized": {
+    "message": "غير مصرح لك بالحفظ"
+  },
+  "flashcards_markdownSupportHint": {
+    "message": "يدعم Markdown و LaTeX."
+  },
+  "flashcards_extraHint": {
+    "message": "تلميحات/توضيحات اختيارية (يدعم Markdown و LaTeX)."
+  },
+  "flashcards_notesHint": {
+    "message": "ملاحظات داخلية (يدعم Markdown و LaTeX)."
+  },
+  "header_modeSpeech": {
+    "message": "الصوت"
+  },
+  "playground_speech_title": {
+    "message": "ساحة تجربة الصوت"
+  },
+  "playground_speech_subtitle": {
+    "message": "سجّل الكلام وحرّر التفريغ النصي وولّد الصوت في مكان واحد."
+  },
+  "playground_speech_modeLabel": {
+    "message": "الوضع"
+  },
+  "playground_speech_modeRoundTrip": {
+    "message": "ذهاب وإياب"
+  },
+  "playground_speech_modeSpeak": {
+    "message": "تحدّث"
+  },
+  "playground_speech_modeListen": {
+    "message": "استمع"
+  },
+  "playground_speech_modeHint": {
+    "message": "يتم تذكّر آخر وضع على هذا الجهاز."
+  },
+  "playground_speech_recordingWaveform": {
+    "message": "شكل موجي للتسجيل المباشر"
+  },
+  "playground_speech_playbackWaveform": {
+    "message": "شكل موجي للتشغيل"
+  },
+  "playground_speech_sendToTts": {
+    "message": "إرسال إلى TTS"
+  },
+  "playground_speech_sendHint": {
+    "message": "استخدم آخر تفريغ نصي كمسودة TTS."
+  },
+  "playground_speech_download": {
+    "message": "تنزيل"
+  },
+  "playground_speech_downloadCurrent": {
+    "message": "تنزيل المقطع الحالي"
+  },
+  "playground_speech_downloadAll": {
+    "message": "تنزيل كل المقاطع"
+  },
+  "playground_speech_segmentFormat": {
+    "message": "التنسيق"
+  },
+  "playground_speech_historyTitle": {
+    "message": "سجل الصوت"
+  },
+  "playground_speech_historyAll": {
+    "message": "الكل"
+  },
+  "playground_speech_historyStt": {
+    "message": "STT"
+  },
+  "playground_speech_historyTts": {
+    "message": "TTS"
+  },
+  "playground_speech_historySearch": {
+    "message": "ابحث في التفريغات النصية"
+  },
+  "playground_speech_historyRetentionHint": {
+    "message": "يحتفظ بآخر {{count}} عنصرًا. استخدم \"مسح الكل\" لإزالة كل شيء."
+  },
+  "playground_speech_useInTts": {
+    "message": "استخدم في TTS"
+  },
+  "playground_speech_copy": {
+    "message": "نسخ"
+  },
+  "playground_speech_copySuccess": {
+    "message": "تم النسخ إلى الحافظة"
+  },
+  "playground_speech_copyError": {
+    "message": "تعذر نسخ التفريغ النصي."
+  },
+  "playground_speech_providerTag": {
+    "message": "المزوّد"
+  },
+  "playground_speech_voiceTag": {
+    "message": "الصوت"
+  },
+  "playground_speech_emptyHistory": {
+    "message": "ابدأ تسجيلًا أو أنشئ صوتًا لعرض السجل هنا."
+  },
+  "playground_speech_downloadDisabledBrowser": {
+    "message": "TTS في المتصفح لا ينشئ صوتًا قابلاً للتنزيل."
+  },
+  "playground_speech_downloadDisabledEmpty": {
+    "message": "أنشئ صوتًا لتمكين التنزيلات."
+  },
+  "playground_speech_transcriptLock": {
+    "message": "قفل"
+  },
+  "playground_speech_transcriptUnlock": {
+    "message": "إلغاء القفل"
+  },
+  "playground_speech_transcriptEditHint": {
+    "message": "تم تفعيل التعديل لهذا التفريغ النصي."
+  },
+  "playground_speech_transcriptLockedHint": {
+    "message": "مقفل لتحديثات التفريغ المباشر."
+  },
+  "playground_speech_transcriptRecordingHint": {
+    "message": "جارٍ التسجيل؛ التفريغ النصي مقفل."
+  },
+  "playground_tts_unsupportedFormatTitle": {
+    "message": "تنسيق صوت غير مدعوم"
+  },
+  "playground_tts_unsupportedFormatDescription": {
+    "message": "تنسيق الاستجابة \"{{format}}\" غير مدعوم. سيتم الرجوع إلى MP3."
   }
 }

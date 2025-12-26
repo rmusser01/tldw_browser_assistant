@@ -95,6 +95,71 @@ test.describe('TTS Playground UX', () => {
     await context.close()
   })
 
+  test('shows browser TTS segment controls', async () => {
+    const extPath = path.resolve('build/chrome-mv3')
+    const { context, page, optionsUrl } = await launchWithExtension(extPath)
+
+    await page.goto(optionsUrl + '#/tts', {
+      waitUntil: 'domcontentloaded'
+    })
+
+    await page.getByText('Text to speech').scrollIntoViewIfNeeded()
+    const providerSelect = page.getByText('Browser TTS', { exact: false })
+    await providerSelect.click()
+    await page.getByRole('option', { name: /Browser TTS/i }).click()
+
+    await page
+      .getByPlaceholder(/Type or paste text here, then use Play to listen./i)
+      .fill('Browser TTS test sentence one. Sentence two.')
+
+    await page.getByRole('button', { name: /^Play$/i }).click()
+
+    await expect(
+      page.getByText(/Browser TTS segments/i)
+    ).toBeVisible()
+    await expect(
+      page.getByRole('button', { name: /Queue all/i })
+    ).toBeVisible()
+    await expect(
+      page.getByRole('button', { name: /Play segment/i })
+    ).toBeVisible()
+
+    await context.close()
+  })
+
+  test('disables Play when ElevenLabs config is incomplete', async () => {
+    const extPath = path.resolve('build/chrome-mv3')
+    const { context, page, optionsUrl } = await launchWithExtension(extPath)
+
+    await page.goto(optionsUrl + '#/tts', {
+      waitUntil: 'domcontentloaded'
+    })
+
+    await page.getByText('Text to speech').scrollIntoViewIfNeeded()
+    const providerSelect = page.getByText('Browser TTS', { exact: false })
+    await providerSelect.click()
+    await page.getByRole('option', { name: /ElevenLabs/i }).click()
+    await page.getByRole('button', { name: /^Save$/i }).click()
+    await expect(
+      page.getByText(/ElevenLabs needs an API key/i)
+    ).toBeVisible()
+
+    await page
+      .getByPlaceholder(/Type or paste text here, then use Play to listen./i)
+      .fill('Hello from the ElevenLabs config test')
+
+    const playButton = page.getByRole('button', { name: /^Play$/i })
+    await expect(playButton).toBeDisabled()
+    await expect(
+      page.getByText(/Add an ElevenLabs API key, voice, and model/i)
+    ).toBeVisible()
+    await expect(
+      page.getByText(/ElevenLabs needs an API key/i)
+    ).toBeVisible()
+
+    await context.close()
+  })
+
   test('shows tldw provider capabilities and voices preview from /audio/providers', async () => {
     const extPath = path.resolve('build/chrome-mv3')
     const { context, page, optionsUrl } = await launchWithExtension(extPath)

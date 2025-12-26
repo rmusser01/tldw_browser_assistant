@@ -47,12 +47,14 @@ type Props = {
   dropedFile: File | undefined
   inputRef?: React.RefObject<HTMLTextAreaElement>
   onHeightChange?: (height: number) => void
+  draftKey?: string
 }
 
 export const SidepanelForm = ({
   dropedFile,
   inputRef,
-  onHeightChange
+  onHeightChange,
+  draftKey
 }: Props) => {
   const formContainerRef = React.useRef<HTMLDivElement>(null)
   const localTextareaRef = React.useRef<HTMLTextAreaElement>(null)
@@ -87,6 +89,7 @@ export const SidepanelForm = ({
   const [sttSegEmbeddingsModel] = useStorage("sttSegEmbeddingsModel", "")
   const queuedQuickIngestCount = useQuickIngestStore((s) => s.queuedCount)
   const quickIngestHadFailure = useQuickIngestStore((s) => s.hadRecentFailure)
+  const storageKey = draftKey || "tldw:sidepanelChatDraft"
   const form = useForm({
     initialValues: {
       message: "",
@@ -112,7 +115,7 @@ export const SidepanelForm = ({
   React.useEffect(() => {
     try {
       if (typeof window === "undefined") return
-      const draft = window.localStorage.getItem("tldw:sidepanelChatDraft")
+      const draft = window.localStorage.getItem(storageKey)
       if (draft && draft.length > 0) {
         form.setFieldValue("message", draft)
       }
@@ -120,7 +123,7 @@ export const SidepanelForm = ({
       // ignore draft restore errors
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [storageKey])
 
   // Warn Firefox private mode users on mount that data won't persist
   React.useEffect(() => {
@@ -150,10 +153,10 @@ export const SidepanelForm = ({
       const value = form.values.message
       if (typeof value !== "string") return
       if (value.trim().length === 0) {
-        window.localStorage.removeItem("tldw:sidepanelChatDraft")
+        window.localStorage.removeItem(storageKey)
         setDraftSaved(false)
       } else {
-        window.localStorage.setItem("tldw:sidepanelChatDraft", value)
+        window.localStorage.setItem(storageKey, value)
         // Show "Draft saved" briefly
         setDraftSaved(true)
         if (draftSavedTimeoutRef.current) {
@@ -166,7 +169,7 @@ export const SidepanelForm = ({
     } catch {
       // ignore persistence errors
     }
-  }, [form.values.message])
+  }, [form.values.message, storageKey])
 
   // Cleanup timeout on unmount
   React.useEffect(() => {

@@ -87,7 +87,8 @@
     "omniSearchCreateFlashcardsSuccess": "플래시카드 모음 \"{{query}}\"을(를) 만들었습니다.",
     "omniSearchStartChat": "새 채팅 \"{{query}}\" 시작",
     "connectionCard.connectedCaption": "이제 옵션과 사이드패널에서 채팅과 도구를 사용할 수 있습니다.",
-    "quickIngestQueuedAria": "{{label}} — {{count}}개 항목이 대기 중 — 검토 및 처리하려면 클릭하세요"
+    "quickIngestQueuedAria": "{{label}} — {{count}}개 항목이 대기 중 — 검토 및 처리하려면 클릭하세요",
+    "modeSpeech": "음성"
   },
   "sidebarTitle": "채팅 기록",
   "error": "오류",
@@ -168,8 +169,13 @@
     "download": "Download",
     "duplicate": "Duplicate",
     "move": "Move",
+    "reviewFailed": "Review failed",
+    "updateFailed": "Update failed",
+    "deleteFailed": "Delete failed",
+    "missingVersion": "Missing version; reload and try again",
     "bulkMove": "Bulk Move",
     "bulkDelete": "Bulk Delete",
+    "bulkDeleteResult": "{{success}}개 삭제 · {{failed}}개 실패",
     "bulkLimitWarning": "Operation limited to first {{limit}} items.",
     "exportSelectedCsv": "Export selected (CSV/TSV)",
     "selectedCount": "Selected",
@@ -211,6 +217,9 @@
     "modelTypeHelp": "Basic shows a question on the front and answer on the back. Reverse also creates the opposite card. Cloze hides parts of the text using {{...}}.",
     "reverseHelp": "Also create a card where the back becomes the question.",
     "isClozeHelp": "Use for fill‑in‑the‑blank cards. Wrap hidden text in {{...}} on the front.",
+    "markdownSupportHint": "Markdown 및 LaTeX를 지원합니다.",
+    "extraHint": "선택적 힌트/설명 (Markdown + LaTeX 지원).",
+    "notesHint": "내부 메모 (Markdown + LaTeX 지원).",
     "bulkActions": "Bulk actions",
     "selectionHelp": "“Select all across results” applies actions to every card that matches your filters, not just this page.",
     "noCardsTitle": "No flashcards yet",
@@ -639,11 +648,11 @@
     "backToList": "목록으로 돌아가기",
     "retake": "퀴즈 다시 풀기"
   },
-  "searchPrompts": "Search prompts...",
-  "noMatchingPrompts": "No matching prompts",
+  "searchPrompts": "프롬프트 검색...",
+  "noMatchingPrompts": "일치하는 프롬프트 없음",
   "promptSelect": {
-    "favorites": "Favorites",
-    "system": "System prompts",
-    "quick": "Quick prompts"
+    "favorites": "즐겨찾기",
+    "system": "시스템 프롬프트",
+    "quick": "빠른 프롬프트"
   }
 }

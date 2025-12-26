@@ -126,5 +126,10 @@
       "message": "ابحث في قاعدة معرفتك وأدرِج النتائج في رسالتك.",
       "dismiss": "إغلاق"
     }
+  },
+  "tabs": {
+    "newChat": "New chat",
+    "newTabAria": "New chat tab",
+    "closeTabAria": "Close chat tab"
   }
 }

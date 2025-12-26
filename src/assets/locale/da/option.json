@@ -88,7 +88,8 @@
     "omniSearchCreateFlashcardsSuccess": "Flashcard collection \"{{query}}\" created",
     "omniSearchStartChat": "Start new chat \"{{query}}\"",
     "connectionCard.connectedCaption": "Chat and tools are now available in Options and the sidepanel.",
-    "quickIngestQueuedAria": "{{label}} — {{count}} elementer i kø — klik for at gennemgå og behandle"
+    "quickIngestQueuedAria": "{{label}} — {{count}} elementer i kø — klik for at gennemgå og behandle",
+    "modeSpeech": "Tale"
   },
   "sidebarTitle": "Chathistorik",
   "error": "Fejl",
@@ -445,8 +446,13 @@
     "download": "Download fil",
     "duplicate": "Duplikér",
     "move": "Flyt",
+    "reviewFailed": "Review failed",
+    "updateFailed": "Update failed",
+    "deleteFailed": "Delete failed",
+    "missingVersion": "Missing version; reload and try again",
     "bulkMove": "Masseflyt",
     "bulkDelete": "Masse-slet",
+    "bulkDeleteResult": "{{success}} deleted · {{failed}} failed",
     "bulkLimitWarning": "Operation limited to first {{limit}} items.",
     "exportSelectedCsv": "Eksportér valgte (CSV/TSV)",
     "selectedCount": "Valgt",
@@ -472,6 +478,9 @@
     "modelTypeHelp": "Basis viser et spørgsmål på forsiden og svar på bagsiden. Omvendt opretter også det modsatte kort. Cloze skjuler dele af teksten med {{...}}.",
     "reverseHelp": "Opret også et kort, hvor bagsiden bliver spørgsmålet.",
     "isClozeHelp": "Bruges til \"utfyld det tomme felt\"-kort. Indram den skjulte tekst i {{...}} på forsiden.",
+    "markdownSupportHint": "Understøtter Markdown og LaTeX.",
+    "extraHint": "Valgfrie hints/forklaringer (Markdown + LaTeX understøttes).",
+    "notesHint": "Interne noter (Markdown + LaTeX understøttes).",
     "bulkActions": "Massehandlinger",
     "selectionHelp": "\"Vælg alle på tværs af resultater\" anvender handlinger på alle kort, der matcher dine filtre, ikke kun denne side.",
     "noCardsTitle": "Ingen flashcards endnu",
@@ -638,11 +647,11 @@
     "backToList": "Tilbage til listen",
     "retake": "Tag quizzen igen"
   },
-  "searchPrompts": "Search prompts...",
-  "noMatchingPrompts": "No matching prompts",
+  "searchPrompts": "Søg i prompts...",
+  "noMatchingPrompts": "Ingen matchende prompts",
   "promptSelect": {
-    "favorites": "Favorites",
-    "system": "System prompts",
-    "quick": "Quick prompts"
+    "favorites": "Favoritter",
+    "system": "Systemprompts",
+    "quick": "Hurtige prompts"
   }
 }

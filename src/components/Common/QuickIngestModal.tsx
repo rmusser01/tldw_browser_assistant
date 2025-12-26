@@ -1335,7 +1335,7 @@ export const QuickIngestModal: React.FC<Props> = ({
         messageApi.info(
           qi(
             "processingComplete",
-            "Processing complete. You can download results as JSON."
+            "Processing complete. Use \"Download JSON\" below to save results locally."
           )
         )
       }

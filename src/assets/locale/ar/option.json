@@ -91,7 +91,8 @@
     "omniSearchCreateFlashcardsSuccess": "تم إنشاء مجموعة البطاقات \"{{query}}\"",
     "omniSearchStartChat": "بدء محادثة جديدة \"{{query}}\"",
     "connectionCard.connectedCaption": "أصبحت الدردشة والأدوات متاحة الآن في صفحة الخيارات وفي اللوحة الجانبية.",
-    "quickIngestQueuedAria": "{{label}} — {{count}} عناصر في الطابور — انقر للمراجعة والمعالجة"
+    "quickIngestQueuedAria": "{{label}} — {{count}} عناصر في الطابور — انقر للمراجعة والمعالجة",
+    "modeSpeech": "الصوت"
   },
   "sidebarTitle": "سجل المحادثات",
   "error": "خطأ",
@@ -172,9 +173,14 @@
     "download": "تنزيل",
     "duplicate": "تكرار",
     "move": "نقل",
+    "reviewFailed": "Review failed",
+    "updateFailed": "Update failed",
+    "deleteFailed": "Delete failed",
+    "missingVersion": "Missing version; reload and try again",
     "bulkMove": "نقل جماعي",
     "bulkDelete": "حذف جماعي",
-    "bulkLimitWarning": "Operation limited to first {{limit}} items.",
+    "bulkDeleteResult": "{{success}} deleted · {{failed}} failed",
+    "bulkLimitWarning": "تقتصر العملية على أول {{limit}} عنصر.",
     "exportSelectedCsv": "تصدير المحدد (CSV/TSV)",
     "selectedCount": "محدد",
     "selectAllOnPage": "تحديد الكل في هذه الصفحة",
@@ -215,6 +221,9 @@
     "modelTypeHelp": "يعرض النمط الأساسي سؤالاً على الوجه الأمامي وإجابة على الوجه الخلفي. النمط العكسي ينشئ أيضاً بطاقة معكوسة. يخفي نمط Cloze أجزاء من النص باستخدام {{...}}.",
     "reverseHelp": "أنشئ أيضاً بطاقة يكون فيها الوجه الخلفي هو السؤال.",
     "isClozeHelp": "استخدمه لبطاقات \"املأ الفراغ\". ضع النص المخفي بين {{...}} في الوجه الأمامي.",
+    "markdownSupportHint": "يدعم Markdown و LaTeX.",
+    "extraHint": "تلميحات/توضيحات اختيارية (يدعم Markdown و LaTeX).",
+    "notesHint": "ملاحظات داخلية (يدعم Markdown و LaTeX).",
     "bulkActions": "إجراءات جماعية",
     "selectionHelp": "‏\"تحديد الكل عبر النتائج\" يطبّق الإجراءات على كل بطاقة تطابق عوامل التصفية، وليس هذه الصفحة فقط.",
     "noCardsTitle": "لا توجد بطاقات تعليمية بعد",
@@ -632,11 +641,11 @@
     "backToList": "العودة إلى القائمة",
     "retake": "إعادة الاختبار"
   },
-  "searchPrompts": "Search prompts...",
-  "noMatchingPrompts": "No matching prompts",
+  "searchPrompts": "ابحث في المطالبات...",
+  "noMatchingPrompts": "لا توجد مطالبات مطابقة",
   "promptSelect": {
-    "favorites": "Favorites",
-    "system": "System prompts",
-    "quick": "Quick prompts"
+    "favorites": "المفضلة",
+    "system": "مطالبات النظام",
+    "quick": "مطالبات سريعة"
   }
 }

@@ -18,7 +18,6 @@ import {
   Microscope,
   FlaskConical,
   MessageSquare,
-  Scissors,
   ClipboardList
 } from "lucide-react"
 
@@ -44,7 +43,6 @@ export const SETTINGS_NAV_GROUPS: SettingsNavGroup[] = [
       { to: "/settings", icon: OrbitIcon, labelToken: "settings:generalSettings.title" },
       { to: "/settings/chat", icon: MessageSquare, labelToken: "settings:chatSettingsNav" },
       { to: "/settings/rag", icon: CombineIcon, labelToken: "settings:rag.title" },
-      { to: "/chunking-playground", icon: Scissors, labelToken: "settings:chunkingPlayground.nav", beta: true },
       // Chrome AI and OpenAI/custom provider settings removed; extension is tldw_server-only
       { to: "/settings/model", icon: BrainCircuitIcon, labelToken: "settings:manageModels.title" },
       { to: "/settings/evaluations", icon: FlaskConical, labelToken: "settings:evaluationsSettings.title", beta: true },

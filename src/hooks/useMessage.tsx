@@ -84,6 +84,7 @@ export const useMessage = () => {
     setTemporaryChat,
     queuedMessages,
     addQueuedMessage,
+    setQueuedMessages,
     clearQueuedMessages
   } = useStoreMessageOption()
   const [defaultInternetSearchOn] = useStorage("defaultInternetSearchOn", false)
@@ -1604,6 +1605,7 @@ export const useMessage = () => {
     isLoading,
     setIsLoading,
     isProcessing,
+    setIsProcessing,
     stopStreamingRequest,
     clearChat,
     selectedModel,
@@ -1611,10 +1613,12 @@ export const useMessage = () => {
     chatMode,
     setChatMode,
     isEmbedding,
+    setIsEmbedding,
     regenerateLastMessage,
     webSearch,
     setWebSearch,
     isSearchingInternet,
+    setIsSearchingInternet,
     selectedQuickPrompt,
     setSelectedQuickPrompt,
     selectedSystemPrompt,
@@ -1644,6 +1648,7 @@ export const useMessage = () => {
     sidepanelTemporaryChat,
     queuedMessages,
     addQueuedMessage,
+    setQueuedMessages,
     clearQueuedMessages
   }
 }

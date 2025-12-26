@@ -38,6 +38,9 @@
   "mediaPage_pageRangeClamped": {
     "message": "페이지 {{page}}로 이동 중"
   },
+  "mediaPage_moreTags": {
+    "message": "+{{count}}개의 추가 태그"
+  },
   "noToolCalls": {
     "message": "아직 도구 호출이 없습니다"
   },

@@ -34,6 +34,7 @@ const OptionFlashcards = lazy(() => import("./option-flashcards"))
 const OptionTts = lazy(() => import("./option-tts"))
 const OptionEvaluations = lazy(() => import("./option-evaluations"))
 const OptionStt = lazy(() => import("./option-stt"))
+const OptionSpeech = lazy(() => import("./option-speech"))
 const OptionSettingsEvaluations = lazy(() => import("./option-settings-evaluations"))
 const OptionPromptStudio = lazy(() => import("./option-prompt-studio"))
 const OptionSettingsPromptStudio = lazy(() => import("./option-settings-prompt-studio"))
@@ -105,6 +106,7 @@ export const OptionRoutingChrome = () => {
         <Route path="/prompt-studio" element={<OptionPromptStudio />} />
         <Route path="/tts" element={<OptionTts />} />
         <Route path="/stt" element={<OptionStt />} />
+        <Route path="/speech" element={<OptionSpeech />} />
         <Route path="/evaluations" element={<OptionEvaluations />} />
         <Route path="/admin/server" element={<OptionAdminServer />} />
         <Route path="/admin/llamacpp" element={<OptionAdminLlamacpp />} />

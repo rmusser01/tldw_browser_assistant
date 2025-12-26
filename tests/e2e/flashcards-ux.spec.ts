@@ -93,9 +93,12 @@ test.describe("Flashcards workspace UX", () => {
     await page.goto(`${optionsUrl}#/flashcards`)
     await expect(page.getByTestId("flashcards-tabs")).toBeVisible()
 
-    await page.evaluate(async () => {
-      await (window as any).__tldw_disableOfflineBypass?.()
-      await (window as any).__tldw_forceUnconfigured?.()
+    await context.route("**/api/v1/flashcards**", async (route) => {
+      await route.fulfill({
+        status: 500,
+        contentType: "application/json",
+        body: JSON.stringify({ detail: "Simulated flashcards failure" })
+      })
     })
 
     await page.getByRole("tab", { name: /Create/i }).click()

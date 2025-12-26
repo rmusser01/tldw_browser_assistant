@@ -532,7 +532,15 @@ export const FlashcardsPage: React.FC = () => {
       setQuickReviewCard(null)
       await qc.invalidateQueries({ queryKey: ["flashcards:list"] })
       message.success(t("common:success", { defaultValue: "Success" }))
-    } catch (e: any) { message.error(e?.message || 'Review failed') }
+    } catch (e: unknown) {
+      const errorMessage =
+        e instanceof Error
+          ? e.message
+          : t("option:flashcards.reviewFailed", {
+              defaultValue: "Review failed"
+            })
+      message.error(errorMessage)
+    }
   }
 
   // Quick actions: duplicate
@@ -551,13 +559,14 @@ export const FlashcardsPage: React.FC = () => {
       })
       await qc.invalidateQueries({ queryKey: ["flashcards:list"] })
       message.success(t("common:created", { defaultValue: "Created" }))
-    } catch (e: any) {
-      message.error(
-        e?.message ||
-          t("option:flashcards.duplicateFailed", {
-            defaultValue: "Duplicate failed"
-          })
-      )
+    } catch (e: unknown) {
+      const errorMessage =
+        e instanceof Error
+          ? e.message
+          : t("option:flashcards.duplicateFailed", {
+              defaultValue: "Duplicate failed"
+            })
+      message.error(errorMessage)
     }
   }
 
@@ -606,11 +615,14 @@ export const FlashcardsPage: React.FC = () => {
       setMoveCard(null)
       await qc.invalidateQueries({ queryKey: ["flashcards:list"] })
       message.success(t("common:updated", { defaultValue: "Updated" }))
-    } catch (e: any) {
-      message.error(
-        e?.message ||
-          t("option:flashcards.moveFailed", { defaultValue: "Move failed" })
-      )
+    } catch (e: unknown) {
+      const errorMessage =
+        e instanceof Error
+          ? e.message
+          : t("option:flashcards.moveFailed", {
+              defaultValue: "Move failed"
+            })
+      message.error(errorMessage)
     }
   }
 
@@ -630,13 +642,14 @@ export const FlashcardsPage: React.FC = () => {
         expected_version: card.version
       } as any)
       setEditOpen(true)
-    } catch (e: any) {
-      message.error(
-        e?.message ||
-          t("option:flashcards.loadCardFailed", {
-            defaultValue: "Failed to load card"
-          })
-      )
+    } catch (e: unknown) {
+      const errorMessage =
+        e instanceof Error
+          ? e.message
+          : t("option:flashcards.loadCardFailed", {
+              defaultValue: "Failed to load card"
+            })
+      message.error(errorMessage)
     }
   }
 
@@ -651,9 +664,15 @@ export const FlashcardsPage: React.FC = () => {
       setEditOpen(false)
       setEditing(null)
       await qc.invalidateQueries({ queryKey: ["flashcards:list"] })
-    } catch (e: any) {
-      if (e?.errorFields) return // form validation error
-      message.error(e?.message || "Update failed")
+    } catch (e: unknown) {
+      if (e && typeof e === "object" && "errorFields" in e) return
+      const errorMessage =
+        e instanceof Error
+          ? e.message
+          : t("option:flashcards.updateFailed", {
+              defaultValue: "Update failed"
+            })
+      message.error(errorMessage)
     }
   }
 
@@ -662,7 +681,11 @@ export const FlashcardsPage: React.FC = () => {
       if (!editing) return
       const expected = editForm.getFieldValue("expected_version") as number | undefined
       if (typeof expected !== "number") {
-        message.error("Missing version; reload and try again")
+        message.error(
+          t("option:flashcards.missingVersion", {
+            defaultValue: "Missing version; reload and try again"
+          })
+        )
         return
       }
       await deleteFlashcard(editing.uuid, expected)
@@ -670,8 +693,14 @@ export const FlashcardsPage: React.FC = () => {
       setEditOpen(false)
       setEditing(null)
       await qc.invalidateQueries({ queryKey: ["flashcards:list"] })
-    } catch (e: any) {
-      message.error(e?.message || "Delete failed")
+    } catch (e: unknown) {
+      const errorMessage =
+        e instanceof Error
+          ? e.message
+          : t("option:flashcards.deleteFailed", {
+              defaultValue: "Delete failed"
+            })
+      message.error(errorMessage)
     }
   }
 

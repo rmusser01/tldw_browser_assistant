@@ -126,5 +126,10 @@
       "message": "Шукайте у своїй базі знань і вставляйте результати у повідомлення.",
       "dismiss": "Закрити"
     }
+  },
+  "tabs": {
+    "newChat": "New chat",
+    "newTabAria": "New chat tab",
+    "closeTabAria": "Close chat tab"
   }
 }

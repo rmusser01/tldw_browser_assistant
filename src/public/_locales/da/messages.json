@@ -1638,108 +1638,108 @@
     "message": "Gem efter gennemgang"
   },
   "manageCharacters_actions_viewConversations": {
-    "message": "View conversations"
+    "message": "Vis samtaler"
   },
   "manageCharacters_aria_viewConversations": {
-    "message": "View conversations for {{name}}"
+    "message": "Vis samtaler for {{name}}"
   },
   "manageCharacters_aria_searchResults": {
-    "message": "{{count}} characters found"
+    "message": "{{count}} karakterer fundet"
   },
   "manageCharacters_conversations_title": {
-    "message": "Conversations for {{name}}"
+    "message": "Samtaler for {{name}}"
   },
   "manageCharacters_conversations_titleGeneric": {
-    "message": "Character conversations"
+    "message": "Karaktersamtaler"
   },
   "manageCharacters_conversations_subtitle": {
-    "message": "Select a conversation to continue as this character."
+    "message": "Vælg en samtale for at fortsætte som denne karakter."
   },
   "manageCharacters_conversations_empty": {
-    "message": "No conversations found for this character yet."
+    "message": "Ingen samtaler fundet for denne karakter endnu."
   },
   "manageCharacters_conversations_error": {
-    "message": "Unable to load conversations for this character."
+    "message": "Kunne ikke indlæse samtaler for denne karakter."
   },
   "manageCharacters_conversations_updated": {
-    "message": "Updated {{time}}"
+    "message": "Opdateret {{time}}"
   },
   "manageCharacters_conversations_unknownTime": {
-    "message": "Unknown"
+    "message": "Ukendt"
   },
   "manageCharacters_conversations_resume": {
-    "message": "Continue chat"
+    "message": "Fortsæt chat"
   },
   "manageCharacters_conversations_untitled": {
-    "message": "Untitled"
+    "message": "Uden titel"
   },
   "manageCharacters_conversations_mostRecent": {
-    "message": "Most recent"
+    "message": "Seneste"
   },
   "manageCharacters_conversations_resumeTooltip": {
-    "message": "Load chat history and continue this conversation"
+    "message": "Indlæs chathistorik og fortsæt denne samtale"
   },
   "manageCharacters_preview_title": {
-    "message": "Preview"
+    "message": "Forhåndsvisning"
   },
   "manageCharacters_preview_show": {
-    "message": "Show preview"
+    "message": "Vis forhåndsvisning"
   },
   "manageCharacters_preview_hide": {
-    "message": "Hide preview"
+    "message": "Skjul forhåndsvisning"
   },
   "manageCharacters_preview_untitled": {
-    "message": "Untitled character"
+    "message": "Karakter uden titel"
   },
   "manageCharacters_preview_greeting": {
-    "message": "Greeting"
+    "message": "Hilsen"
   },
   "manageCharacters_preview_behavior": {
-    "message": "Behavior"
+    "message": "Adfærd"
   },
   "manageCharacters_preview_empty": {
-    "message": "Fill in the form to see a preview"
+    "message": "Udfyld formularen for at se en forhåndsvisning"
   },
   "manageCharacters_advanced_show": {
-    "message": "Show advanced fields"
+    "message": "Vis avancerede felter"
   },
   "manageCharacters_advanced_hide": {
-    "message": "Hide advanced fields"
+    "message": "Skjul avancerede felter"
   },
   "chunkingPlayground_nav": {
-    "message": "Chunking Playground",
+    "message": "Chunking-legeplads",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_title": {
-    "message": "Chunking Playground",
+    "message": "Chunking-legeplads",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_description": {
-    "message": "Experiment with different chunking settings to see how text gets split into smaller pieces for processing.",
+    "message": "Eksperimentér med forskellige chunking-indstillinger for at se, hvordan tekst opdeles i mindre stykker til behandling.",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_inputLabel": {
-    "message": "Text to chunk",
+    "message": "Tekst til chunking",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_inputPlaceholder": {
-    "message": "Paste text here or select a sample...",
+    "message": "Indsæt tekst her eller vælg en prøve...",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_uploadButton": {
-    "message": "Upload File",
+    "message": "Upload fil",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_chunkButton": {
-    "message": "Chunk Text",
+    "message": "Opdel tekst",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_methodLabel": {
-    "message": "Chunking Method",
+    "message": "Chunking-metode",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_maxSizeLabel": {
-    "message": "Max Chunk Size",
+    "message": "Maks. chunkstørrelse",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_overlapLabel": {
@@ -1747,51 +1747,51 @@
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_languageLabel": {
-    "message": "Language",
+    "message": "Sprog",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_languages_auto": {
-    "message": "Auto-detect",
+    "message": "Registrer automatisk",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_languages_en": {
-    "message": "English",
+    "message": "Engelsk",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_languages_es": {
-    "message": "Spanish",
+    "message": "Spansk",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_languages_fr": {
-    "message": "French",
+    "message": "Fransk",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_languages_de": {
-    "message": "German",
+    "message": "Tysk",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_languages_it": {
-    "message": "Italian",
+    "message": "Italiensk",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_languages_pt": {
-    "message": "Portuguese",
+    "message": "Portugisisk",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_languages_zh": {
-    "message": "Chinese",
+    "message": "Kinesisk",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_languages_ja": {
-    "message": "Japanese",
+    "message": "Japansk",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_languages_ko": {
-    "message": "Korean",
+    "message": "Koreansk",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_viewCards": {
-    "message": "Cards",
+    "message": "Kort",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_viewInline": {
@@ -1799,173 +1799,173 @@
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_stats": {
-    "message": "{{count}} chunks, avg {{avgSize}} chars"
+    "message": "{{count}} chunks, gns. {{avgSize}} tegn"
   },
   "chunkingPlayground_textLoaded": {
-    "message": "Text loaded",
+    "message": "Tekst indlæst",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_characters": {
-    "message": "characters",
+    "message": "tegn",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_tabSingle": {
-    "message": "Single",
+    "message": "Enkelt",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_tabCompare": {
-    "message": "Compare",
+    "message": "Sammenlign",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_chunkIndex": {
     "message": "Chunk {{index}}"
   },
   "chunkingPlayground_chunkInfo": {
-    "message": "Chunk {{index}}: {{words}} words"
+    "message": "Chunk {{index}}: {{words}} ord"
   },
   "chunkingPlayground_position": {
     "message": "Position: {{start}} - {{end}}"
   },
   "chunkingPlayground_additionalChunks": {
-    "message": "+{{count}} more"
+    "message": "+{{count}} flere"
   },
   "chunkingPlayground_charCount": {
-    "message": "{{count}} characters"
+    "message": "{{count}} tegn"
   },
   "chunkingPlayground_wordCount": {
-    "message": "{{count}} words"
+    "message": "{{count}} ord"
   },
   "chunkingPlayground_noInput": {
-    "message": "Please provide text to chunk",
+    "message": "Angiv venligst tekst til chunking",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_sharedInput": {
-    "message": "Shared Input Text",
+    "message": "Delt inputtekst",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_compareButton": {
-    "message": "Compare Both",
+    "message": "Sammenlign begge",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_comparison": {
-    "message": "Comparison",
+    "message": "Sammenligning",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_fewerChunks": {
-    "message": "Config A produces {{diff}} fewer chunks"
+    "message": "Konfiguration A giver {{diff}} færre chunks"
   },
   "chunkingPlayground_moreChunks": {
-    "message": "Config A produces {{diff}} more chunks"
+    "message": "Konfiguration A giver {{diff}} flere chunks"
   },
   "chunkingPlayground_sameChunks": {
-    "message": "Both configs produce the same number of chunks",
+    "message": "Begge konfigurationer giver samme antal chunks",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_clickToChunk": {
-    "message": "Click 'Compare' to see results",
+    "message": "Klik på 'Sammenlign' for at se resultater",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_overlapRegion": {
-    "message": "Overlap Region",
+    "message": "Overlap-område",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_clickHint": {
-    "message": "Click on a highlighted section to focus on that chunk",
+    "message": "Klik på et fremhævet afsnit for at fokusere på den chunk",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_noContentFound": {
-    "message": "No text content found for this media item",
+    "message": "Intet tekstindhold fundet for dette medieelement",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_loadContentError": {
-    "message": "Failed to load media content",
+    "message": "Kunne ikke indlæse medieindhold",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_loadMediaListError": {
-    "message": "Failed to load media library",
+    "message": "Kunne ikke indlæse mediebiblioteket",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_selectMedia": {
-    "message": "Select media item...",
+    "message": "Vælg medieelement...",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_loadingMedia": {
-    "message": "Loading content...",
+    "message": "Indlæser indhold...",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_noMediaFound": {
-    "message": "No media found",
+    "message": "Ingen medier fundet",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_mediaCount": {
-    "message": "{{count}} media items available"
+    "message": "{{count}} medieelementer tilgængelige"
   },
   "chunkingPlayground_inputSource_paste": {
-    "message": "Paste Text",
+    "message": "Indsæt tekst",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_inputSource_upload": {
-    "message": "Upload File",
+    "message": "Upload fil",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_inputSource_sample": {
-    "message": "Sample Text",
+    "message": "Eksempeltekst",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_inputSource_media": {
-    "message": "From Media Library",
+    "message": "Fra mediebiblioteket",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_samples_article": {
-    "message": "News Article",
+    "message": "Nyhedsartikel",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_samples_articleDesc": {
-    "message": "Multi-paragraph article with headers",
+    "message": "Artikel med flere afsnit og overskrifter",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_samples_code": {
-    "message": "Source Code",
+    "message": "Kildekode",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_samples_codeDesc": {
-    "message": "Python code with classes and functions",
+    "message": "Python-kode med klasser og funktioner",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_samples_transcript": {
-    "message": "Transcript",
+    "message": "Transkript",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_samples_transcriptDesc": {
-    "message": "Timestamped podcast transcript",
+    "message": "Podcast-transskription med tidsstempler",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_samples_academic": {
-    "message": "Academic Paper",
+    "message": "Akademisk artikel",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_samples_academicDesc": {
-    "message": "Technical writing with citations",
+    "message": "Teknisk skrivning med henvisninger",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_compare_title": {
-    "message": "Compare Settings",
+    "message": "Sammenlign indstillinger",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_compare_configA": {
-    "message": "Configuration A",
+    "message": "Konfiguration A",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_compare_configB": {
-    "message": "Configuration B",
+    "message": "Konfiguration B",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_mode_single": {
-    "message": "Single",
+    "message": "Enkelt",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_mode_compare": {
-    "message": "Compare",
+    "message": "Sammenlign",
     "description": "TODO: translate (copied from en)"
   },
   "managePrompts_importMode_merge": {
@@ -1991,5 +1991,371 @@
   },
   "flashcards_dueDue": {
     "message": "Forfaldne"
+  },
+  "flashcards_reviewFailed": {
+    "message": "Review failed"
+  },
+  "flashcards_updateFailed": {
+    "message": "Update failed"
+  },
+  "flashcards_deleteFailed": {
+    "message": "Delete failed"
+  },
+  "flashcards_missingVersion": {
+    "message": "Missing version; reload and try again"
+  },
+  "flashcards_bulkDeleteResult": {
+    "message": "{{success}} deleted · {{failed}} failed"
+  },
+  "mediaPage_searchPlaceholder": {
+    "message": "Search media (title/content)"
+  },
+  "mediaPage_search": {
+    "message": "Search"
+  },
+  "mediaPage_clear": {
+    "message": "Clear"
+  },
+  "mediaPage_types": {
+    "message": "Types"
+  },
+  "mediaPage_keywords": {
+    "message": "Keywords"
+  },
+  "mediaPage_moreTags": {
+    "message": "+{{count}} more tags"
+  },
+  "mediaPage_resetFilters": {
+    "message": "Reset Filters"
+  },
+  "mediaPage_clearAll": {
+    "message": "Ryd alt"
+  },
+  "mediaPage_content": {
+    "message": "Content"
+  },
+  "mediaPage_vertical": {
+    "message": "Vertical"
+  },
+  "mediaPage_horizontal": {
+    "message": "Horizontal"
+  },
+  "mediaPage_results": {
+    "message": "Results"
+  },
+  "mediaPage_noResults": {
+    "message": "No results"
+  },
+  "mediaPage_showSidebar": {
+    "message": "Show sidebar"
+  },
+  "mediaPage_hideSidebar": {
+    "message": "Hide sidebar"
+  },
+  "mediaPage_viewer": {
+    "message": "Viewer"
+  },
+  "mediaPage_selectItemsHint": {
+    "message": "Select items on the left to view here."
+  },
+  "mediaPage_mediaContent": {
+    "message": "Media Content"
+  },
+  "mediaPage_copyContent": {
+    "message": "Copy content"
+  },
+  "mediaPage_contentCopied": {
+    "message": "Content copied"
+  },
+  "mediaPage_metadataCopied": {
+    "message": "Metadata kopieret"
+  },
+  "mediaPage_analysisCopied": {
+    "message": "Analyse kopieret"
+  },
+  "mediaPage_copyFailed": {
+    "message": "Copy failed"
+  },
+  "mediaPage_noContent": {
+    "message": "No content available"
+  },
+  "mediaPage_collapse": {
+    "message": "Collapse"
+  },
+  "mediaPage_expand": {
+    "message": "Expand"
+  },
+  "mediaPage_media": {
+    "message": "Media"
+  },
+  "mediaPage_searchingBanner": {
+    "message": "Searching media…"
+  },
+  "mediaPage_filterHelp": {
+    "message": "Search matches title and content; Types and Keywords further narrow the results."
+  },
+  "mediaPage_noMediaTypes": {
+    "message": "Ingen medietyper tilgængelige"
+  },
+  "mediaPage_resultsCount": {
+    "message": "{{selected}} selected · {{open}} open"
+  },
+  "mediaPage_clearSelection": {
+    "message": "Deselect all"
+  },
+  "mediaPage_itemsLabel": {
+    "message": "Items"
+  },
+  "mediaPage_contentLabel": {
+    "message": "Content view"
+  },
+  "mediaPage_filterByKeyword": {
+    "message": "Filtrér efter nøgleord"
+  },
+  "mediaPage_keywordHelper": {
+    "message": "Nøgleord hjælper dig med at finde dette medie ved hjælp af nøgleordsfilteret til venstre"
+  },
+  "mediaPage_modeHint": {
+    "message": "Søg og stabl flere medieelementer for at sammenligne dem i visningen til højre."
+  },
+  "mediaPage_viewerHelp": {
+    "message": "Tastatur: Brug Tab for at gå til resultatlisten, Enter eller Mellemrum for at stable eller fjerne et medieelement og knapperne Forrige/Næste og layoutkontrollerne for at navigere mellem elementerne i visningen."
+  },
+  "mediaPage_viewerHelpLabel": {
+    "message": "Tastaturgenveje til gennemgang af flere elementer"
+  },
+  "mediaPage_mediaInspector": {
+    "message": "Medieinspektør"
+  },
+  "mediaPage_actionsLabel": {
+    "message": "Handlinger"
+  },
+  "mediaPage_keywordsPlaceholder": {
+    "message": "Tilføj nøgleord..."
+  },
+  "mediaPage_noSelectionTitle": {
+    "message": "Intet medieelement valgt"
+  },
+  "mediaPage_noSelectionDescription": {
+    "message": "Vælg et medieelement i venstre sidepanel for at se dets indhold og analyser her."
+  },
+  "mediaPage_generateAnalysis": {
+    "message": "Opret analyse"
+  },
+  "mediaPage_generateAnalysisHint": {
+    "message": "Opret en ny analyse"
+  },
+  "mediaPage_editAnalysis": {
+    "message": "Redigér analyse"
+  },
+  "mediaPage_createNoteWithContent": {
+    "message": "Opret note med indhold"
+  },
+  "mediaPage_createNoteWithContentAnalysis": {
+    "message": "Opret note med indhold + analyse"
+  },
+  "mediaPage_untitled": {
+    "message": "Uden titel"
+  },
+  "mediaPage_copyMetadata": {
+    "message": "Kopiér metadata"
+  },
+  "mediaPage_statistics": {
+    "message": "Statistik"
+  },
+  "mediaPage_words": {
+    "message": "Ord"
+  },
+  "mediaPage_characters": {
+    "message": "Tegn"
+  },
+  "mediaPage_paragraphs": {
+    "message": "Afsnit"
+  },
+  "mediaPage_metadata": {
+    "message": "Metadata"
+  },
+  "mediaPage_idLabel": {
+    "message": "ID"
+  },
+  "mediaPage_typeLabel": {
+    "message": "Type"
+  },
+  "mediaPage_titleLabel": {
+    "message": "Titel"
+  },
+  "mediaPage_source": {
+    "message": "Kilde"
+  },
+  "mediaPage_notAvailable": {
+    "message": "Ikke tilgængelig"
+  },
+  "mediaPage_developerTools": {
+    "message": "Udviklerværktøjer"
+  },
+  "mediaPage_nothingToSend": {
+    "message": "Intet at sende"
+  },
+  "mediaPage_emptyAnalysis": {
+    "message": "Analysen må ikke være tom"
+  },
+  "mediaPage_noMediaId": {
+    "message": "Ingen medie-ID tilgængelig"
+  },
+  "mediaPage_versionSaved": {
+    "message": "Gemt som ny version"
+  },
+  "mediaPage_saveFailed": {
+    "message": "Kunne ikke gemme versionen"
+  },
+  "mediaPage_sendToChat": {
+    "message": "Send til chat"
+  },
+  "mediaPage_saveAsVersion": {
+    "message": "Gem som ny version"
+  },
+  "mediaPage_analysisPlaceholder": {
+    "message": "Indtast analysetekst..."
+  },
+  "mediaPage_wordCount": {
+    "message": "{{count}} ord"
+  },
+  "mediaPage_charCount": {
+    "message": "{{count}} tegn"
+  },
+  "mediaPage_pageRangeError": {
+    "message": "Side skal være 1-{{max}}"
+  },
+  "mediaPage_pageRangeClamped": {
+    "message": "Navigerer til side {{page}}"
+  },
+  "mediaPage_saveUnauthorized": {
+    "message": "Ikke autoriseret til at gemme"
+  },
+  "chunkingPlayground__todo": {
+    "message": "TODO: oversæt chunkingPlayground-strenge (kopieret fra en)"
+  },
+  "flashcards_markdownSupportHint": {
+    "message": "Understøtter Markdown og LaTeX."
+  },
+  "flashcards_extraHint": {
+    "message": "Valgfrie hints/forklaringer (Markdown + LaTeX understøttes)."
+  },
+  "flashcards_notesHint": {
+    "message": "Interne noter (Markdown + LaTeX understøttes)."
+  },
+  "header_modeSpeech": {
+    "message": "Tale"
+  },
+  "playground_speech_title": {
+    "message": "Tale-legeplads"
+  },
+  "playground_speech_subtitle": {
+    "message": "Optag tale, rediger transskriptioner og syntetiser lyd ét sted."
+  },
+  "playground_speech_modeLabel": {
+    "message": "Tilstand"
+  },
+  "playground_speech_modeRoundTrip": {
+    "message": "Tur-retur"
+  },
+  "playground_speech_modeSpeak": {
+    "message": "Tal"
+  },
+  "playground_speech_modeListen": {
+    "message": "Lyt"
+  },
+  "playground_speech_modeHint": {
+    "message": "Din seneste tilstand huskes på denne enhed."
+  },
+  "playground_speech_recordingWaveform": {
+    "message": "Waveform for liveoptagelse"
+  },
+  "playground_speech_playbackWaveform": {
+    "message": "Waveform for afspilning"
+  },
+  "playground_speech_sendToTts": {
+    "message": "Send til TTS"
+  },
+  "playground_speech_sendHint": {
+    "message": "Brug den seneste transskription som TTS-kladde."
+  },
+  "playground_speech_download": {
+    "message": "Download"
+  },
+  "playground_speech_downloadCurrent": {
+    "message": "Download aktuelt segment"
+  },
+  "playground_speech_downloadAll": {
+    "message": "Download alle segmenter"
+  },
+  "playground_speech_segmentFormat": {
+    "message": "Format"
+  },
+  "playground_speech_historyTitle": {
+    "message": "Talehistorik"
+  },
+  "playground_speech_historyAll": {
+    "message": "Alle"
+  },
+  "playground_speech_historyStt": {
+    "message": "STT"
+  },
+  "playground_speech_historyTts": {
+    "message": "TTS"
+  },
+  "playground_speech_historySearch": {
+    "message": "Søg i transskriptioner"
+  },
+  "playground_speech_historyRetentionHint": {
+    "message": "Beholder de seneste {{count}} elementer. Brug \"Ryd alle\" for at fjerne alt."
+  },
+  "playground_speech_useInTts": {
+    "message": "Brug i TTS"
+  },
+  "playground_speech_copy": {
+    "message": "Kopiér"
+  },
+  "playground_speech_copySuccess": {
+    "message": "Kopieret til udklipsholder"
+  },
+  "playground_speech_copyError": {
+    "message": "Kunne ikke kopiere transskriptionen."
+  },
+  "playground_speech_providerTag": {
+    "message": "Udbyder"
+  },
+  "playground_speech_voiceTag": {
+    "message": "Stemme"
+  },
+  "playground_speech_emptyHistory": {
+    "message": "Start en optagelse eller generer lyd for at se historik her."
+  },
+  "playground_speech_downloadDisabledBrowser": {
+    "message": "Browser-TTS laver ikke lyd, der kan downloades."
+  },
+  "playground_speech_downloadDisabledEmpty": {
+    "message": "Generer lyd for at aktivere downloads."
+  },
+  "playground_speech_transcriptLock": {
+    "message": "Lås"
+  },
+  "playground_speech_transcriptUnlock": {
+    "message": "Lås op"
+  },
+  "playground_speech_transcriptEditHint": {
+    "message": "Redigering aktiveret for denne transskription."
+  },
+  "playground_speech_transcriptLockedHint": {
+    "message": "Låst til live transskriptionsopdateringer."
+  },
+  "playground_speech_transcriptRecordingHint": {
+    "message": "Optagelse i gang; transskriptionen er låst."
+  },
+  "playground_tts_unsupportedFormatTitle": {
+    "message": "Ikke-understøttet lydformat"
+  },
+  "playground_tts_unsupportedFormatDescription": {
+    "message": "Svarformatet \"{{format}}\" understøttes ikke. Fald tilbage til MP3."
   }
 }

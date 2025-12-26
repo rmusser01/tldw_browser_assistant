@@ -1545,266 +1545,266 @@
     "message": "Hide advanced fields"
   },
   "chunkingPlayground_nav": {
-    "message": "Chunking Playground",
-    "description": "TODO: translate (copied from en)"
+    "message": "청킹 플레이그라운드",
+    "description": "Korean translation"
   },
   "chunkingPlayground_title": {
-    "message": "Chunking Playground",
-    "description": "TODO: translate (copied from en)"
+    "message": "청킹 플레이그라운드",
+    "description": "Korean translation"
   },
   "chunkingPlayground_description": {
-    "message": "Experiment with different chunking settings to see how text gets split into smaller pieces for processing.",
-    "description": "TODO: translate (copied from en)"
+    "message": "다양한 청킹 설정을 실험하여 텍스트가 처리용으로 작은 조각으로 분할되는 방식을 확인하세요.",
+    "description": "Korean translation"
   },
   "chunkingPlayground_inputLabel": {
-    "message": "Text to chunk",
-    "description": "TODO: translate (copied from en)"
+    "message": "분할할 텍스트",
+    "description": "Korean translation"
   },
   "chunkingPlayground_inputPlaceholder": {
-    "message": "Paste text here or select a sample...",
-    "description": "TODO: translate (copied from en)"
+    "message": "여기에 텍스트를 붙여넣거나 샘플을 선택하세요...",
+    "description": "Korean translation"
   },
   "chunkingPlayground_uploadButton": {
-    "message": "Upload File",
-    "description": "TODO: translate (copied from en)"
+    "message": "파일 업로드",
+    "description": "Korean translation"
   },
   "chunkingPlayground_chunkButton": {
-    "message": "Chunk Text",
-    "description": "TODO: translate (copied from en)"
+    "message": "텍스트 분할",
+    "description": "Korean translation"
   },
   "chunkingPlayground_methodLabel": {
-    "message": "Chunking Method",
-    "description": "TODO: translate (copied from en)"
+    "message": "청킹 방법",
+    "description": "Korean translation"
   },
   "chunkingPlayground_maxSizeLabel": {
-    "message": "Max Chunk Size",
-    "description": "TODO: translate (copied from en)"
+    "message": "최대 청크 크기",
+    "description": "Korean translation"
   },
   "chunkingPlayground_overlapLabel": {
-    "message": "Overlap",
-    "description": "TODO: translate (copied from en)"
+    "message": "겹침",
+    "description": "Korean translation"
   },
   "chunkingPlayground_languageLabel": {
-    "message": "Language",
-    "description": "TODO: translate (copied from en)"
+    "message": "언어",
+    "description": "Korean translation"
   },
   "chunkingPlayground_languages_auto": {
-    "message": "Auto-detect",
-    "description": "TODO: translate (copied from en)"
+    "message": "자동 감지",
+    "description": "Korean translation"
   },
   "chunkingPlayground_languages_en": {
-    "message": "English",
-    "description": "TODO: translate (copied from en)"
+    "message": "영어",
+    "description": "Korean translation"
   },
   "chunkingPlayground_languages_es": {
-    "message": "Spanish",
-    "description": "TODO: translate (copied from en)"
+    "message": "스페인어",
+    "description": "Korean translation"
   },
   "chunkingPlayground_languages_fr": {
-    "message": "French",
-    "description": "TODO: translate (copied from en)"
+    "message": "프랑스어",
+    "description": "Korean translation"
   },
   "chunkingPlayground_languages_de": {
-    "message": "German",
-    "description": "TODO: translate (copied from en)"
+    "message": "독일어",
+    "description": "Korean translation"
   },
   "chunkingPlayground_languages_it": {
-    "message": "Italian",
-    "description": "TODO: translate (copied from en)"
+    "message": "이탈리아어",
+    "description": "Korean translation"
   },
   "chunkingPlayground_languages_pt": {
-    "message": "Portuguese",
-    "description": "TODO: translate (copied from en)"
+    "message": "포르투갈어",
+    "description": "Korean translation"
   },
   "chunkingPlayground_languages_zh": {
-    "message": "Chinese",
-    "description": "TODO: translate (copied from en)"
+    "message": "중국어",
+    "description": "Korean translation"
   },
   "chunkingPlayground_languages_ja": {
-    "message": "Japanese",
-    "description": "TODO: translate (copied from en)"
+    "message": "일본어",
+    "description": "Korean translation"
   },
   "chunkingPlayground_languages_ko": {
-    "message": "Korean",
-    "description": "TODO: translate (copied from en)"
+    "message": "한국어",
+    "description": "Korean translation"
   },
   "chunkingPlayground_viewCards": {
-    "message": "Cards",
-    "description": "TODO: translate (copied from en)"
+    "message": "카드",
+    "description": "Korean translation"
   },
   "chunkingPlayground_viewInline": {
-    "message": "Inline",
-    "description": "TODO: translate (copied from en)"
+    "message": "인라인",
+    "description": "Korean translation"
   },
   "chunkingPlayground_stats": {
-    "message": "{{count}} chunks, avg {{avgSize}} chars"
+    "message": "{{count}}개 청크 · 평균 {{avgSize}}자"
   },
   "chunkingPlayground_textLoaded": {
-    "message": "Text loaded",
-    "description": "TODO: translate (copied from en)"
+    "message": "텍스트를 불러왔습니다",
+    "description": "Korean translation"
   },
   "chunkingPlayground_characters": {
-    "message": "characters",
-    "description": "TODO: translate (copied from en)"
+    "message": "자",
+    "description": "Korean translation"
   },
   "chunkingPlayground_tabSingle": {
-    "message": "Single",
-    "description": "TODO: translate (copied from en)"
+    "message": "단일",
+    "description": "Korean translation"
   },
   "chunkingPlayground_tabCompare": {
-    "message": "Compare",
-    "description": "TODO: translate (copied from en)"
+    "message": "비교",
+    "description": "Korean translation"
   },
   "chunkingPlayground_chunkIndex": {
-    "message": "Chunk {{index}}"
+    "message": "청크 {{index}}"
   },
   "chunkingPlayground_chunkInfo": {
-    "message": "Chunk {{index}}: {{words}} words"
+    "message": "청크 {{index}}: {{words}}단어"
   },
   "chunkingPlayground_position": {
-    "message": "Position: {{start}} - {{end}}"
+    "message": "위치: {{start}} - {{end}}"
   },
   "chunkingPlayground_additionalChunks": {
-    "message": "+{{count}} more"
+    "message": "+{{count}}개 더"
   },
   "chunkingPlayground_charCount": {
-    "message": "{{count}} characters"
+    "message": "{{count}}자"
   },
   "chunkingPlayground_wordCount": {
-    "message": "{{count}} words"
+    "message": "{{count}}단어"
   },
   "chunkingPlayground_noInput": {
-    "message": "Please provide text to chunk",
-    "description": "TODO: translate (copied from en)"
+    "message": "분할할 텍스트를 입력하세요",
+    "description": "Korean translation"
   },
   "chunkingPlayground_sharedInput": {
-    "message": "Shared Input Text",
-    "description": "TODO: translate (copied from en)"
+    "message": "공유 입력 텍스트",
+    "description": "Korean translation"
   },
   "chunkingPlayground_compareButton": {
-    "message": "Compare Both",
-    "description": "TODO: translate (copied from en)"
+    "message": "둘 다 비교",
+    "description": "Korean translation"
   },
   "chunkingPlayground_comparison": {
-    "message": "Comparison",
-    "description": "TODO: translate (copied from en)"
+    "message": "비교",
+    "description": "Korean translation"
   },
   "chunkingPlayground_fewerChunks": {
-    "message": "Config A produces {{diff}} fewer chunks"
+    "message": "구성 A는 {{diff}}개 적은 청크를 생성합니다"
   },
   "chunkingPlayground_moreChunks": {
-    "message": "Config A produces {{diff}} more chunks"
+    "message": "구성 A는 {{diff}}개 더 많은 청크를 생성합니다"
   },
   "chunkingPlayground_sameChunks": {
-    "message": "Both configs produce the same number of chunks",
-    "description": "TODO: translate (copied from en)"
+    "message": "두 구성 모두 동일한 수의 청크를 생성합니다",
+    "description": "Korean translation"
   },
   "chunkingPlayground_clickToChunk": {
-    "message": "Click 'Compare' to see results",
-    "description": "TODO: translate (copied from en)"
+    "message": "\"비교\"를 클릭하여 결과를 확인하세요",
+    "description": "Korean translation"
   },
   "chunkingPlayground_overlapRegion": {
-    "message": "Overlap Region",
-    "description": "TODO: translate (copied from en)"
+    "message": "겹침 영역",
+    "description": "Korean translation"
   },
   "chunkingPlayground_clickHint": {
-    "message": "Click on a highlighted section to focus on that chunk",
-    "description": "TODO: translate (copied from en)"
+    "message": "강조 표시된 영역을 클릭하여 해당 청크에 집중하세요",
+    "description": "Korean translation"
   },
   "chunkingPlayground_noContentFound": {
-    "message": "No text content found for this media item",
-    "description": "TODO: translate (copied from en)"
+    "message": "이 미디어 항목에서 텍스트 콘텐츠를 찾을 수 없습니다",
+    "description": "Korean translation"
   },
   "chunkingPlayground_loadContentError": {
-    "message": "Failed to load media content",
-    "description": "TODO: translate (copied from en)"
+    "message": "미디어 콘텐츠를 불러오지 못했습니다",
+    "description": "Korean translation"
   },
   "chunkingPlayground_loadMediaListError": {
-    "message": "Failed to load media library",
-    "description": "TODO: translate (copied from en)"
+    "message": "미디어 라이브러리를 불러오지 못했습니다",
+    "description": "Korean translation"
   },
   "chunkingPlayground_selectMedia": {
-    "message": "Select media item...",
-    "description": "TODO: translate (copied from en)"
+    "message": "미디어 항목 선택...",
+    "description": "Korean translation"
   },
   "chunkingPlayground_loadingMedia": {
-    "message": "Loading content...",
-    "description": "TODO: translate (copied from en)"
+    "message": "콘텐츠를 불러오는 중...",
+    "description": "Korean translation"
   },
   "chunkingPlayground_noMediaFound": {
-    "message": "No media found",
-    "description": "TODO: translate (copied from en)"
+    "message": "미디어가 없습니다",
+    "description": "Korean translation"
   },
   "chunkingPlayground_mediaCount": {
-    "message": "{{count}} media items available"
+    "message": "{{count}}개의 미디어 항목 사용 가능"
   },
   "chunkingPlayground_inputSource_paste": {
-    "message": "Paste Text",
-    "description": "TODO: translate (copied from en)"
+    "message": "텍스트 붙여넣기",
+    "description": "Korean translation"
   },
   "chunkingPlayground_inputSource_upload": {
-    "message": "Upload File",
-    "description": "TODO: translate (copied from en)"
+    "message": "파일 업로드",
+    "description": "Korean translation"
   },
   "chunkingPlayground_inputSource_sample": {
-    "message": "Sample Text",
-    "description": "TODO: translate (copied from en)"
+    "message": "샘플 텍스트",
+    "description": "Korean translation"
   },
   "chunkingPlayground_inputSource_media": {
-    "message": "From Media Library",
-    "description": "TODO: translate (copied from en)"
+    "message": "미디어 라이브러리에서",
+    "description": "Korean translation"
   },
   "chunkingPlayground_samples_article": {
-    "message": "News Article",
-    "description": "TODO: translate (copied from en)"
+    "message": "뉴스 기사",
+    "description": "Korean translation"
   },
   "chunkingPlayground_samples_articleDesc": {
-    "message": "Multi-paragraph article with headers",
-    "description": "TODO: translate (copied from en)"
+    "message": "헤더가 있는 여러 단락의 기사",
+    "description": "Korean translation"
   },
   "chunkingPlayground_samples_code": {
-    "message": "Source Code",
-    "description": "TODO: translate (copied from en)"
+    "message": "소스 코드",
+    "description": "Korean translation"
   },
   "chunkingPlayground_samples_codeDesc": {
-    "message": "Python code with classes and functions",
-    "description": "TODO: translate (copied from en)"
+    "message": "클래스와 함수가 있는 파이썬 코드",
+    "description": "Korean translation"
   },
   "chunkingPlayground_samples_transcript": {
-    "message": "Transcript",
-    "description": "TODO: translate (copied from en)"
+    "message": "전사",
+    "description": "Korean translation"
   },
   "chunkingPlayground_samples_transcriptDesc": {
-    "message": "Timestamped podcast transcript",
-    "description": "TODO: translate (copied from en)"
+    "message": "타임스탬프가 포함된 팟캐스트 전사",
+    "description": "Korean translation"
   },
   "chunkingPlayground_samples_academic": {
-    "message": "Academic Paper",
-    "description": "TODO: translate (copied from en)"
+    "message": "학술 논문",
+    "description": "Korean translation"
   },
   "chunkingPlayground_samples_academicDesc": {
-    "message": "Technical writing with citations",
-    "description": "TODO: translate (copied from en)"
+    "message": "인용이 포함된 기술 문서",
+    "description": "Korean translation"
   },
   "chunkingPlayground_compare_title": {
-    "message": "Compare Settings",
-    "description": "TODO: translate (copied from en)"
+    "message": "설정 비교",
+    "description": "Korean translation"
   },
   "chunkingPlayground_compare_configA": {
-    "message": "Configuration A",
-    "description": "TODO: translate (copied from en)"
+    "message": "구성 A",
+    "description": "Korean translation"
   },
   "chunkingPlayground_compare_configB": {
-    "message": "Configuration B",
-    "description": "TODO: translate (copied from en)"
+    "message": "구성 B",
+    "description": "Korean translation"
   },
   "chunkingPlayground_mode_single": {
-    "message": "Single",
-    "description": "TODO: translate (copied from en)"
+    "message": "단일",
+    "description": "Korean translation"
   },
   "chunkingPlayground_mode_compare": {
-    "message": "Compare",
-    "description": "TODO: translate (copied from en)"
+    "message": "비교",
+    "description": "Korean translation"
   },
   "managePrompts_importMode_merge": {
     "message": "Merge"
@@ -1829,5 +1829,383 @@
   },
   "flashcards_dueDue": {
     "message": "복습 예정"
+  },
+  "flashcards_reviewFailed": {
+    "message": "Review failed"
+  },
+  "flashcards_updateFailed": {
+    "message": "Update failed"
+  },
+  "flashcards_deleteFailed": {
+    "message": "Delete failed"
+  },
+  "flashcards_missingVersion": {
+    "message": "Missing version; reload and try again"
+  },
+  "flashcards_bulkDeleteResult": {
+    "message": "{{success}}개 삭제 · {{failed}}개 실패"
+  },
+  "mediaPage_searchPlaceholder": {
+    "message": "미디어 검색 (제목/내용)"
+  },
+  "mediaPage_search": {
+    "message": "검색"
+  },
+  "mediaPage_clear": {
+    "message": "지우기"
+  },
+  "mediaPage_types": {
+    "message": "미디어 유형"
+  },
+  "mediaPage_keywords": {
+    "message": "키워드"
+  },
+  "mediaPage_moreTags": {
+    "message": "+{{count}} more tags"
+  },
+  "mediaPage_resetFilters": {
+    "message": "필터 초기화"
+  },
+  "mediaPage_clearAll": {
+    "message": "모두 지우기"
+  },
+  "mediaPage_content": {
+    "message": "콘텐츠"
+  },
+  "mediaPage_vertical": {
+    "message": "세로"
+  },
+  "mediaPage_horizontal": {
+    "message": "가로"
+  },
+  "mediaPage_results": {
+    "message": "결과"
+  },
+  "mediaPage_noResults": {
+    "message": "미디어를 찾을 수 없습니다. 상단의 빠른 가져오기를 사용해 녹음 및 파일에서 미디어를 추가하세요."
+  },
+  "mediaPage_showSidebar": {
+    "message": "결과 사이드바 표시"
+  },
+  "mediaPage_hideSidebar": {
+    "message": "결과 사이드바 숨기기"
+  },
+  "mediaPage_viewer": {
+    "message": "뷰어"
+  },
+  "mediaPage_selectItemsHint": {
+    "message": "왼쪽에서 항목을 선택하면 이곳에서 볼 수 있습니다."
+  },
+  "mediaPage_mediaContent": {
+    "message": "미디어 콘텐츠"
+  },
+  "mediaPage_copyContent": {
+    "message": "콘텐츠 복사"
+  },
+  "mediaPage_contentCopied": {
+    "message": "콘텐츠가 복사되었습니다"
+  },
+  "mediaPage_metadataCopied": {
+    "message": "메타데이터가 복사되었습니다"
+  },
+  "mediaPage_analysisCopied": {
+    "message": "분석이 복사되었습니다"
+  },
+  "mediaPage_copyFailed": {
+    "message": "복사에 실패했습니다"
+  },
+  "mediaPage_noContent": {
+    "message": "사용할 수 있는 콘텐츠가 없습니다"
+  },
+  "mediaPage_collapse": {
+    "message": "접기"
+  },
+  "mediaPage_expand": {
+    "message": "펼치기"
+  },
+  "mediaPage_media": {
+    "message": "미디어"
+  },
+  "mediaPage_searchingBanner": {
+    "message": "미디어를 검색하는 중…"
+  },
+  "mediaPage_filterHelp": {
+    "message": "검색은 제목과 내용을 기준으로 하며, 유형과 키워드는 결과를 더 좁혀 줍니다."
+  },
+  "mediaPage_noMediaTypes": {
+    "message": "사용 가능한 미디어 유형이 없습니다"
+  },
+  "mediaPage_resultsCount": {
+    "message": "{{selected}}개 선택됨 · {{open}}개 열림"
+  },
+  "mediaPage_clearSelection": {
+    "message": "선택 해제"
+  },
+  "mediaPage_itemsLabel": {
+    "message": "항목"
+  },
+  "mediaPage_contentLabel": {
+    "message": "콘텐츠 보기"
+  },
+  "mediaPage_filterByKeyword": {
+    "message": "키워드로 필터링"
+  },
+  "mediaPage_keywordHelper": {
+    "message": "키워드는 왼쪽의 키워드 필터를 사용해 이 미디어를 찾는 데 도움이 됩니다"
+  },
+  "mediaPage_modeHint": {
+    "message": "여러 미디어 항목을 검색해 오른쪽 뷰어에서 비교할 수 있도록 쌓으세요."
+  },
+  "mediaPage_viewerHelp": {
+    "message": "키보드: Tab으로 결과 목록으로 이동한 뒤 Enter 또는 Space로 미디어 항목을 쌓거나 제거하고, 이전/다음 및 레이아웃 컨트롤로 뷰어의 항목을 이동합니다."
+  },
+  "mediaPage_viewerHelpLabel": {
+    "message": "멀티 항목 검토용 키보드 단축키"
+  },
+  "mediaPage_mediaInspector": {
+    "message": "미디어 인스펙터"
+  },
+  "mediaPage_actionsLabel": {
+    "message": "작업"
+  },
+  "mediaPage_keywordsPlaceholder": {
+    "message": "키워드 추가..."
+  },
+  "mediaPage_noSelectionTitle": {
+    "message": "선택된 미디어 항목이 없습니다"
+  },
+  "mediaPage_noSelectionDescription": {
+    "message": "왼쪽 사이드바에서 미디어 항목을 선택하면 이곳에서 해당 콘텐츠와 분석을 볼 수 있습니다."
+  },
+  "mediaPage_generateAnalysis": {
+    "message": "생성"
+  },
+  "mediaPage_generateAnalysisHint": {
+    "message": "새 분석 생성"
+  },
+  "mediaPage_editAnalysis": {
+    "message": "분석 편집"
+  },
+  "mediaPage_createNoteWithContent": {
+    "message": "콘텐츠로 노트 만들기"
+  },
+  "mediaPage_createNoteWithContentAnalysis": {
+    "message": "콘텐츠 + 분석으로 노트 만들기"
+  },
+  "mediaPage_untitled": {
+    "message": "제목 없음"
+  },
+  "mediaPage_copyMetadata": {
+    "message": "메타데이터 복사"
+  },
+  "mediaPage_statistics": {
+    "message": "통계"
+  },
+  "mediaPage_words": {
+    "message": "단어"
+  },
+  "mediaPage_characters": {
+    "message": "문자"
+  },
+  "mediaPage_paragraphs": {
+    "message": "단락"
+  },
+  "mediaPage_metadata": {
+    "message": "메타데이터"
+  },
+  "mediaPage_idLabel": {
+    "message": "ID"
+  },
+  "mediaPage_typeLabel": {
+    "message": "유형"
+  },
+  "mediaPage_titleLabel": {
+    "message": "제목"
+  },
+  "mediaPage_source": {
+    "message": "소스"
+  },
+  "mediaPage_notAvailable": {
+    "message": "해당 없음"
+  },
+  "mediaPage_developerTools": {
+    "message": "개발자 도구"
+  },
+  "mediaPage_nothingToSend": {
+    "message": "보낼 내용이 없습니다"
+  },
+  "mediaPage_emptyAnalysis": {
+    "message": "분석 내용은 비워둘 수 없습니다"
+  },
+  "mediaPage_noMediaId": {
+    "message": "미디어 ID가 없습니다"
+  },
+  "mediaPage_versionSaved": {
+    "message": "새 버전으로 저장되었습니다"
+  },
+  "mediaPage_saveFailed": {
+    "message": "버전을 저장하지 못했습니다"
+  },
+  "mediaPage_saveUnauthorized": {
+    "message": "저장할 권한이 없습니다"
+  },
+  "mediaPage_sendToChat": {
+    "message": "채팅으로 보내기"
+  },
+  "mediaPage_saveAsVersion": {
+    "message": "새 버전으로 저장"
+  },
+  "mediaPage_analysisPlaceholder": {
+    "message": "분석 내용을 입력하세요..."
+  },
+  "mediaPage_wordCount": {
+    "message": "{{count}} 단어"
+  },
+  "mediaPage_charCount": {
+    "message": "{{count}}자"
+  },
+  "mediaPage_pageRangeError": {
+    "message": "페이지는 1-{{max}} 범위여야 합니다"
+  },
+  "mediaPage_pageRangeClamped": {
+    "message": "페이지 {{page}}로 이동 중"
+  },
+  "flashcards_markdownSupportHint": {
+    "message": "Markdown 및 LaTeX를 지원합니다."
+  },
+  "flashcards_extraHint": {
+    "message": "선택적 힌트/설명 (Markdown + LaTeX 지원)."
+  },
+  "flashcards_notesHint": {
+    "message": "내부 메모 (Markdown + LaTeX 지원)."
+  },
+  "searchPrompts": {
+    "message": "프롬프트 검색..."
+  },
+  "noMatchingPrompts": {
+    "message": "일치하는 프롬프트 없음"
+  },
+  "promptSelect_favorites": {
+    "message": "즐겨찾기"
+  },
+  "promptSelect_system": {
+    "message": "시스템 프롬프트"
+  },
+  "promptSelect_quick": {
+    "message": "빠른 프롬프트"
+  },
+  "header_modeSpeech": {
+    "message": "음성"
+  },
+  "playground_speech_title": {
+    "message": "음성 플레이그라운드"
+  },
+  "playground_speech_subtitle": {
+    "message": "음성을 녹음하고 전사를 편집한 뒤 한곳에서 음성을 합성합니다."
+  },
+  "playground_speech_modeLabel": {
+    "message": "모드"
+  },
+  "playground_speech_modeRoundTrip": {
+    "message": "왕복"
+  },
+  "playground_speech_modeSpeak": {
+    "message": "말하기"
+  },
+  "playground_speech_modeListen": {
+    "message": "듣기"
+  },
+  "playground_speech_modeHint": {
+    "message": "마지막 모드는 이 기기에 저장됩니다."
+  },
+  "playground_speech_recordingWaveform": {
+    "message": "실시간 녹음 파형"
+  },
+  "playground_speech_playbackWaveform": {
+    "message": "재생 파형"
+  },
+  "playground_speech_sendToTts": {
+    "message": "TTS로 보내기"
+  },
+  "playground_speech_sendHint": {
+    "message": "최신 전사를 TTS 초안으로 사용합니다."
+  },
+  "playground_speech_download": {
+    "message": "다운로드"
+  },
+  "playground_speech_downloadCurrent": {
+    "message": "현재 세그먼트 다운로드"
+  },
+  "playground_speech_downloadAll": {
+    "message": "모든 세그먼트 다운로드"
+  },
+  "playground_speech_segmentFormat": {
+    "message": "형식"
+  },
+  "playground_speech_historyTitle": {
+    "message": "음성 기록"
+  },
+  "playground_speech_historyAll": {
+    "message": "전체"
+  },
+  "playground_speech_historyStt": {
+    "message": "STT"
+  },
+  "playground_speech_historyTts": {
+    "message": "TTS"
+  },
+  "playground_speech_historySearch": {
+    "message": "전사 검색"
+  },
+  "playground_speech_historyRetentionHint": {
+    "message": "최근 {{count}}개 항목을 보관합니다. 모두 지우기를 사용해 전체를 삭제하세요."
+  },
+  "playground_speech_useInTts": {
+    "message": "TTS에 사용"
+  },
+  "playground_speech_copy": {
+    "message": "복사"
+  },
+  "playground_speech_copySuccess": {
+    "message": "클립보드에 복사했습니다"
+  },
+  "playground_speech_copyError": {
+    "message": "전사를 복사하지 못했습니다."
+  },
+  "playground_speech_providerTag": {
+    "message": "공급자"
+  },
+  "playground_speech_voiceTag": {
+    "message": "음성"
+  },
+  "playground_speech_emptyHistory": {
+    "message": "녹음을 시작하거나 오디오를 생성하면 여기에 기록이 표시됩니다."
+  },
+  "playground_speech_downloadDisabledBrowser": {
+    "message": "브라우저 TTS는 다운로드 가능한 오디오를 만들지 않습니다."
+  },
+  "playground_speech_downloadDisabledEmpty": {
+    "message": "다운로드를 사용하려면 오디오를 생성하세요."
+  },
+  "playground_speech_transcriptLock": {
+    "message": "잠금"
+  },
+  "playground_speech_transcriptUnlock": {
+    "message": "잠금 해제"
+  },
+  "playground_speech_transcriptEditHint": {
+    "message": "이 전사는 편집 가능합니다."
+  },
+  "playground_speech_transcriptLockedHint": {
+    "message": "실시간 전사 업데이트에 잠겨 있습니다."
+  },
+  "playground_speech_transcriptRecordingHint": {
+    "message": "녹음 중이므로 전사가 잠겨 있습니다."
+  },
+  "playground_tts_unsupportedFormatTitle": {
+    "message": "지원되지 않는 오디오 형식"
+  },
+  "playground_tts_unsupportedFormatDescription": {
+    "message": "응답 형식 \"{{format}}\"은(는) 지원되지 않습니다. MP3로 대체합니다."
   }
 }

@@ -142,5 +142,10 @@
     "ariaLabel": "Temporary chat mode is active. Click to toggle.",
     "indicatorTooltip": "Messages in this chat won't be saved",
     "indicatorAria": "Temporary chat"
+  },
+  "tabs": {
+    "newChat": "New chat",
+    "newTabAria": "New chat tab",
+    "closeTabAria": "Close chat tab"
   }
 }

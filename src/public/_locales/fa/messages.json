@@ -1729,5 +1729,368 @@
   },
   "flashcards_dueDue": {
     "message": "Due"
+  },
+  "flashcards_reviewFailed": {
+    "message": "Review failed"
+  },
+  "flashcards_updateFailed": {
+    "message": "Update failed"
+  },
+  "flashcards_deleteFailed": {
+    "message": "Delete failed"
+  },
+  "flashcards_missingVersion": {
+    "message": "Missing version; reload and try again"
+  },
+  "flashcards_bulkDeleteResult": {
+    "message": "{{success}} deleted · {{failed}} failed"
+  },
+  "mediaPage_searchPlaceholder": {
+    "message": "Search media (title/content)"
+  },
+  "mediaPage_search": {
+    "message": "Search"
+  },
+  "mediaPage_clear": {
+    "message": "Clear"
+  },
+  "mediaPage_types": {
+    "message": "Types"
+  },
+  "mediaPage_keywords": {
+    "message": "Keywords"
+  },
+  "mediaPage_moreTags": {
+    "message": "+{{count}} more tags"
+  },
+  "mediaPage_resetFilters": {
+    "message": "Reset Filters"
+  },
+  "mediaPage_clearAll": {
+    "message": "پاک کردن همه"
+  },
+  "mediaPage_content": {
+    "message": "Content"
+  },
+  "mediaPage_vertical": {
+    "message": "Vertical"
+  },
+  "mediaPage_horizontal": {
+    "message": "Horizontal"
+  },
+  "mediaPage_results": {
+    "message": "Results"
+  },
+  "mediaPage_noResults": {
+    "message": "No results"
+  },
+  "mediaPage_showSidebar": {
+    "message": "Show sidebar"
+  },
+  "mediaPage_hideSidebar": {
+    "message": "Hide sidebar"
+  },
+  "mediaPage_viewer": {
+    "message": "Viewer"
+  },
+  "mediaPage_selectItemsHint": {
+    "message": "Select items on the left to view here."
+  },
+  "mediaPage_mediaContent": {
+    "message": "Media Content"
+  },
+  "mediaPage_copyContent": {
+    "message": "Copy content"
+  },
+  "mediaPage_contentCopied": {
+    "message": "Content copied"
+  },
+  "mediaPage_metadataCopied": {
+    "message": "فراداده کپی شد"
+  },
+  "mediaPage_analysisCopied": {
+    "message": "تحلیل کپی شد"
+  },
+  "mediaPage_copyFailed": {
+    "message": "Copy failed"
+  },
+  "mediaPage_noContent": {
+    "message": "No content available"
+  },
+  "mediaPage_collapse": {
+    "message": "Collapse"
+  },
+  "mediaPage_expand": {
+    "message": "Expand"
+  },
+  "mediaPage_media": {
+    "message": "Media"
+  },
+  "mediaPage_searchingBanner": {
+    "message": "Searching media…"
+  },
+  "mediaPage_filterHelp": {
+    "message": "Search matches title and content; Types and Keywords further narrow the results."
+  },
+  "mediaPage_noMediaTypes": {
+    "message": "هیچ نوع رسانه‌ای در دسترس نیست"
+  },
+  "mediaPage_resultsCount": {
+    "message": "{{selected}} selected · {{open}} open"
+  },
+  "mediaPage_clearSelection": {
+    "message": "Deselect all"
+  },
+  "mediaPage_itemsLabel": {
+    "message": "Items"
+  },
+  "mediaPage_contentLabel": {
+    "message": "Content view"
+  },
+  "mediaPage_filterByKeyword": {
+    "message": "فیلتر بر اساس کلمه کلیدی"
+  },
+  "mediaPage_keywordHelper": {
+    "message": "کلمات کلیدی به شما کمک می‌کنند این رسانه را با استفاده از فیلتر کلمات کلیدی در سمت چپ پیدا کنید"
+  },
+  "mediaPage_modeHint": {
+    "message": "برای مقایسه، چند مورد رسانه‌ای را جستجو کرده و در نماگر سمت راست روی هم قرار دهید."
+  },
+  "mediaPage_viewerHelp": {
+    "message": "صفحه‌کلید: با Tab وارد فهرست نتایج شوید، با Enter یا Space یک مورد رسانه‌ای را روی هم بگذارید یا بردارید، سپس با دکمه‌های قبلی/بعدی و کنترل‌های چیدمان بین موارد در نماگر جابه‌جا شوید."
+  },
+  "mediaPage_viewerHelpLabel": {
+    "message": "میان‌برهای صفحه‌کلید برای بررسی چند موردی"
+  },
+  "mediaPage_mediaInspector": {
+    "message": "بازبین رسانه"
+  },
+  "mediaPage_actionsLabel": {
+    "message": "اقدام‌ها"
+  },
+  "mediaPage_keywordsPlaceholder": {
+    "message": "افزودن کلمهٔ کلیدی..."
+  },
+  "mediaPage_noSelectionTitle": {
+    "message": "هیچ مورد رسانه‌ای انتخاب نشده است"
+  },
+  "mediaPage_noSelectionDescription": {
+    "message": "برای دیدن محتوا و تحلیل‌ها در اینجا، یک مورد رسانه‌ای را از نوار کناری سمت چپ انتخاب کنید."
+  },
+  "mediaPage_generateAnalysis": {
+    "message": "تولید تحلیل"
+  },
+  "mediaPage_generateAnalysisHint": {
+    "message": "تولید یک تحلیل جدید"
+  },
+  "mediaPage_editAnalysis": {
+    "message": "ویرایش تحلیل"
+  },
+  "mediaPage_createNoteWithContent": {
+    "message": "ایجاد یادداشت با محتوا"
+  },
+  "mediaPage_createNoteWithContentAnalysis": {
+    "message": "ایجاد یادداشت با محتوا + تحلیل"
+  },
+  "mediaPage_untitled": {
+    "message": "بدون عنوان"
+  },
+  "mediaPage_copyMetadata": {
+    "message": "کپی فراداده"
+  },
+  "mediaPage_statistics": {
+    "message": "آمار"
+  },
+  "mediaPage_words": {
+    "message": "کلمات"
+  },
+  "mediaPage_characters": {
+    "message": "کاراکترها"
+  },
+  "mediaPage_paragraphs": {
+    "message": "پاراگراف‌ها"
+  },
+  "mediaPage_metadata": {
+    "message": "فراداده"
+  },
+  "mediaPage_idLabel": {
+    "message": "شناسه"
+  },
+  "mediaPage_typeLabel": {
+    "message": "نوع"
+  },
+  "mediaPage_titleLabel": {
+    "message": "عنوان"
+  },
+  "mediaPage_source": {
+    "message": "منبع"
+  },
+  "mediaPage_notAvailable": {
+    "message": "ناموجود"
+  },
+  "mediaPage_developerTools": {
+    "message": "ابزارهای توسعه‌دهنده"
+  },
+  "mediaPage_nothingToSend": {
+    "message": "موردی برای ارسال وجود ندارد"
+  },
+  "mediaPage_emptyAnalysis": {
+    "message": "تحلیل نمی‌تواند خالی باشد"
+  },
+  "mediaPage_noMediaId": {
+    "message": "شناسه رسانه‌ای در دسترس نیست"
+  },
+  "mediaPage_versionSaved": {
+    "message": "به‌عنوان نسخه جدید ذخیره شد"
+  },
+  "mediaPage_saveFailed": {
+    "message": "ذخیره نسخه ناموفق بود"
+  },
+  "mediaPage_sendToChat": {
+    "message": "ارسال به چت"
+  },
+  "mediaPage_saveAsVersion": {
+    "message": "ذخیره به‌عنوان نسخه جدید"
+  },
+  "mediaPage_analysisPlaceholder": {
+    "message": "متن تحلیل را وارد کنید..."
+  },
+  "mediaPage_wordCount": {
+    "message": "{{count}} کلمه"
+  },
+  "mediaPage_charCount": {
+    "message": "{{count}} نویسه"
+  },
+  "mediaPage_pageRangeError": {
+    "message": "صفحه باید بین ۱ تا {{max}} باشد"
+  },
+  "mediaPage_pageRangeClamped": {
+    "message": "در حال انتقال به صفحهٔ {{page}}"
+  },
+  "mediaPage_saveUnauthorized": {
+    "message": "مجاز به ذخیره نیستید"
+  },
+  "flashcards_markdownSupportHint": {
+    "message": "از Markdown و LaTeX پشتیبانی می‌کند."
+  },
+  "flashcards_extraHint": {
+    "message": "راهنماها/توضیحات اختیاری (پشتیبانی از Markdown و LaTeX)."
+  },
+  "flashcards_notesHint": {
+    "message": "یادداشت‌های داخلی (پشتیبانی از Markdown و LaTeX)."
+  },
+  "header_modeSpeech": {
+    "message": "گفتار"
+  },
+  "playground_speech_title": {
+    "message": "زمین بازی گفتار"
+  },
+  "playground_speech_subtitle": {
+    "message": "گفتار را ضبط کنید، رونوشت‌ها را ویرایش کنید و صدا را در یکجا تولید کنید."
+  },
+  "playground_speech_modeLabel": {
+    "message": "حالت"
+  },
+  "playground_speech_modeRoundTrip": {
+    "message": "رفت‌وبرگشت"
+  },
+  "playground_speech_modeSpeak": {
+    "message": "صحبت"
+  },
+  "playground_speech_modeListen": {
+    "message": "گوش‌دادن"
+  },
+  "playground_speech_modeHint": {
+    "message": "آخرین حالت روی این دستگاه به خاطر سپرده می‌شود."
+  },
+  "playground_speech_recordingWaveform": {
+    "message": "موج‌نگار ضبط زنده"
+  },
+  "playground_speech_playbackWaveform": {
+    "message": "موج‌نگار پخش"
+  },
+  "playground_speech_sendToTts": {
+    "message": "ارسال به TTS"
+  },
+  "playground_speech_sendHint": {
+    "message": "از آخرین رونوشت به عنوان پیش‌نویس TTS استفاده کنید."
+  },
+  "playground_speech_download": {
+    "message": "دانلود"
+  },
+  "playground_speech_downloadCurrent": {
+    "message": "دانلود بخش فعلی"
+  },
+  "playground_speech_downloadAll": {
+    "message": "دانلود همه بخش‌ها"
+  },
+  "playground_speech_segmentFormat": {
+    "message": "قالب"
+  },
+  "playground_speech_historyTitle": {
+    "message": "تاریخچه گفتار"
+  },
+  "playground_speech_historyAll": {
+    "message": "همه"
+  },
+  "playground_speech_historyStt": {
+    "message": "STT"
+  },
+  "playground_speech_historyTts": {
+    "message": "TTS"
+  },
+  "playground_speech_historySearch": {
+    "message": "جست‌وجوی رونوشت‌ها"
+  },
+  "playground_speech_historyRetentionHint": {
+    "message": "آخرین {{count}} مورد را نگه می‌دارد. برای حذف همه، از «پاک کردن همه» استفاده کنید."
+  },
+  "playground_speech_useInTts": {
+    "message": "استفاده در TTS"
+  },
+  "playground_speech_copy": {
+    "message": "کپی"
+  },
+  "playground_speech_copySuccess": {
+    "message": "به کلیپ‌بورد کپی شد"
+  },
+  "playground_speech_copyError": {
+    "message": "کپی کردن رونوشت ناموفق بود."
+  },
+  "playground_speech_providerTag": {
+    "message": "ارائه‌دهنده"
+  },
+  "playground_speech_voiceTag": {
+    "message": "صدا"
+  },
+  "playground_speech_emptyHistory": {
+    "message": "یک ضبط را شروع کنید یا صدا تولید کنید تا تاریخچه را اینجا ببینید."
+  },
+  "playground_speech_downloadDisabledBrowser": {
+    "message": "TTS مرورگر فایل قابل دانلود ایجاد نمی‌کند."
+  },
+  "playground_speech_downloadDisabledEmpty": {
+    "message": "برای فعال شدن دانلود، صدا تولید کنید."
+  },
+  "playground_speech_transcriptLock": {
+    "message": "قفل"
+  },
+  "playground_speech_transcriptUnlock": {
+    "message": "باز کردن قفل"
+  },
+  "playground_speech_transcriptEditHint": {
+    "message": "ویرایش برای این رونوشت فعال است."
+  },
+  "playground_speech_transcriptLockedHint": {
+    "message": "برای به‌روزرسانی‌های رونوشت زنده قفل شده است."
+  },
+  "playground_speech_transcriptRecordingHint": {
+    "message": "ضبط در حال انجام است؛ رونوشت قفل است."
+  },
+  "playground_tts_unsupportedFormatTitle": {
+    "message": "قالب صوتی پشتیبانی‌نشده"
+  },
+  "playground_tts_unsupportedFormatDescription": {
+    "message": "قالب پاسخ «{{format}}» پشتیبانی نمی‌شود. به MP3 برمی‌گردد."
   }
 }

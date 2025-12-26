@@ -493,8 +493,8 @@
     "export": "Export",
     "importMode": {
       "merge": "Merge",
-      "replace": "Replace",
-      "replaceConfirm": "Replace will overwrite all current prompts with the imported file. Continue?"
+      "replace": "Ersätt",
+      "replaceConfirm": "Ersätt kommer att skriva över alla nuvarande prompts med den importerade filen. Fortsätt?"
     },
     "favorite": "Favorite",
     "unfavorite": "Unfavorite",
@@ -944,8 +944,8 @@
     "actions": {
       "chat": "Chat",
       "edit": "Edit",
-      "delete": "Delete",
-      "viewConversations": "View conversations"
+      "delete": "Ta bort",
+      "viewConversations": "Visa konversationer"
     },
     "tags": {
       "label": "Tags",
@@ -959,9 +959,9 @@
     "aria": {
       "chatWith": "Chat as {{name}}",
       "edit": "Edit character {{name}}",
-      "delete": "Delete character {{name}}",
-      "viewConversations": "View conversations for {{name}}",
-      "searchResults": "{{count}} characters found"
+      "delete": "Ta bort karaktären {{name}}",
+      "viewConversations": "Visa konversationer för {{name}}",
+      "searchResults": "{{count}} karaktärer hittades"
     },
     "confirm": {
       "delete": "Are you sure you want to delete this character? This action cannot be undone."
@@ -1013,33 +1013,33 @@
     "emptyExample1": "Define a writing coach, lore expert, or coding assistant you can reuse across chats.",
     "emptyExample2": "Give each character a clear description and behavior so their responses stay consistent.",
     "emptyPrimaryCta": "Create character",
-    "avatarAltWithName": "Avatar of {{name}}",
-    "avatarAlt": "User avatar",
+    "avatarAltWithName": "Avatar för {{name}}",
+    "avatarAlt": "Användaravatar",
     "conversations": {
-      "title": "Conversations for {{name}}",
-      "titleGeneric": "Character conversations",
-      "subtitle": "Select a conversation to continue as this character.",
-      "empty": "No conversations found for this character yet.",
-      "error": "Unable to load conversations for this character.",
-      "updated": "Updated {{time}}",
-      "unknownTime": "Unknown",
-      "resume": "Continue chat",
-      "untitled": "Untitled",
-      "mostRecent": "Most recent",
-      "resumeTooltip": "Load chat history and continue this conversation"
+      "title": "Konversationer för {{name}}",
+      "titleGeneric": "Karaktärskonversationer",
+      "subtitle": "Välj en konversation för att fortsätta som den här karaktären.",
+      "empty": "Inga konversationer hittades för den här karaktären ännu.",
+      "error": "Det gick inte att läsa in konversationer för den här karaktären.",
+      "updated": "Uppdaterad {{time}}",
+      "unknownTime": "Okänt",
+      "resume": "Fortsätt chatten",
+      "untitled": "Namnlös",
+      "mostRecent": "Senaste",
+      "resumeTooltip": "Läs in chatthistorik och fortsätt den här konversationen"
     },
     "preview": {
-      "title": "Preview",
-      "show": "Show preview",
-      "hide": "Hide preview",
-      "untitled": "Untitled character",
-      "greeting": "Greeting",
-      "behavior": "Behavior",
-      "empty": "Fill in the form to see a preview"
+      "title": "Förhandsvisning",
+      "show": "Visa förhandsvisning",
+      "hide": "Dölj förhandsvisning",
+      "untitled": "Namnlös karaktär",
+      "greeting": "Hälsning",
+      "behavior": "Beteende",
+      "empty": "Fyll i formuläret för att se en förhandsvisning"
     },
     "advanced": {
-      "show": "Show advanced fields",
-      "hide": "Hide advanced fields"
+      "show": "Visa avancerade fält",
+      "hide": "Dölj avancerade fält"
     }
   },
   "systemNotifications": {
@@ -1244,84 +1244,83 @@
     "testFail": "Unable to reach Evaluations API"
   },
   "chunkingPlayground": {
-    "_todo": "TODO: translate chunkingPlayground strings (copied from en)",
-    "nav": "Chunking Playground",
-    "title": "Chunking Playground",
-    "description": "Experiment with different chunking settings to see how text gets split into smaller pieces for processing.",
-    "inputLabel": "Text to chunk",
-    "inputPlaceholder": "Paste text here or select a sample...",
-    "uploadButton": "Upload File",
-    "chunkButton": "Chunk Text",
-    "methodLabel": "Chunking Method",
-    "maxSizeLabel": "Max Chunk Size",
-    "overlapLabel": "Overlap",
-    "languageLabel": "Language",
+    "nav": "Uppdelningslekplats",
+    "title": "Uppdelningslekplats",
+    "description": "Experimentera med olika uppdelningsinställningar för att se hur text delas upp i mindre delar för behandling.",
+    "inputLabel": "Text att dela upp",
+    "inputPlaceholder": "Klistra in text här eller välj ett exempel...",
+    "uploadButton": "Ladda upp fil",
+    "chunkButton": "Dela upp text",
+    "methodLabel": "Uppdelningsmetod",
+    "maxSizeLabel": "Maximal delstorlek",
+    "overlapLabel": "Överlappning",
+    "languageLabel": "Språk",
     "languages": {
-      "auto": "Auto-detect",
-      "en": "English",
-      "es": "Spanish",
-      "fr": "French",
-      "de": "German",
-      "it": "Italian",
-      "pt": "Portuguese",
-      "zh": "Chinese",
-      "ja": "Japanese",
-      "ko": "Korean"
+      "auto": "Identifiera automatiskt",
+      "en": "Engelska",
+      "es": "Spanska",
+      "fr": "Franska",
+      "de": "Tyska",
+      "it": "Italienska",
+      "pt": "Portugisiska",
+      "zh": "Kinesiska",
+      "ja": "Japanska",
+      "ko": "Koreanska"
     },
-    "viewCards": "Cards",
+    "viewCards": "Kort",
     "viewInline": "Inline",
-    "stats": "{{count}} chunks, avg {{avgSize}} chars",
-    "textLoaded": "Text loaded",
-    "characters": "characters",
-    "tabSingle": "Single",
-    "tabCompare": "Compare",
-    "chunkIndex": "Chunk {{index}}",
-    "chunkInfo": "Chunk {{index}}: {{words}} words",
+    "stats": "{{count}} delar, snitt {{avgSize}} tecken",
+    "textLoaded": "Text laddad",
+    "characters": "tecken",
+    "tabSingle": "Enkel",
+    "tabCompare": "Jämför",
+    "chunkIndex": "Del {{index}}",
+    "chunkInfo": "Del {{index}}: {{words}} ord",
     "position": "Position: {{start}} - {{end}}",
-    "additionalChunks": "+{{count}} more",
-    "charCount": "{{count}} characters",
-    "wordCount": "{{count}} words",
-    "noInput": "Please provide text to chunk",
-    "sharedInput": "Shared Input Text",
-    "compareButton": "Compare Both",
-    "comparison": "Comparison",
-    "fewerChunks": "Config A produces {{diff}} fewer chunks",
-    "moreChunks": "Config A produces {{diff}} more chunks",
-    "sameChunks": "Both configs produce the same number of chunks",
-    "clickToChunk": "Click 'Compare' to see results",
-    "overlapRegion": "Overlap Region",
-    "clickHint": "Click on a highlighted section to focus on that chunk",
-    "noContentFound": "No text content found for this media item",
-    "loadContentError": "Failed to load media content",
-    "loadMediaListError": "Failed to load media library",
-    "selectMedia": "Select media item...",
-    "loadingMedia": "Loading content...",
-    "noMediaFound": "No media found",
-    "mediaCount": "{{count}} media items available",
+    "additionalChunks": "+{{count}} till",
+    "charCount": "{{count}} tecken",
+    "wordCount": "{{count}} ord",
+    "noInput": "Ange text att dela upp",
+    "sharedInput": "Delad inmatningstext",
+    "compareButton": "Jämför båda",
+    "comparison": "Jämförelse",
+    "fewerChunks": "Konfiguration A ger {{diff}} färre delar",
+    "moreChunks": "Konfiguration A ger {{diff}} fler delar",
+    "sameChunks": "Båda konfigurationerna ger samma antal delar",
+    "clickToChunk": "Klicka på \"Jämför\" för att se resultat",
+    "overlapRegion": "Överlappande område",
+    "clickHint": "Klicka på ett markerat avsnitt för att fokusera på den delen",
+    "noContentFound": "Ingen text hittades för detta medieobjekt",
+    "loadContentError": "Kunde inte läsa in mediainnehåll",
+    "loadMediaListError": "Kunde inte läsa in mediebiblioteket",
+    "selectMedia": "Välj medieobjekt...",
+    "loadingMedia": "Läser in innehåll...",
+    "noMediaFound": "Inga medier hittades",
+    "mediaCount": "{{count}} medieobjekt tillgängliga",
     "inputSource": {
-      "paste": "Paste Text",
-      "upload": "Upload File",
-      "sample": "Sample Text",
-      "media": "From Media Library"
+      "paste": "Klistra in text",
+      "upload": "Ladda upp fil",
+      "sample": "Exempeltext",
+      "media": "Från mediebiblioteket"
     },
     "samples": {
-      "article": "News Article",
-      "articleDesc": "Multi-paragraph article with headers",
-      "code": "Source Code",
-      "codeDesc": "Python code with classes and functions",
-      "transcript": "Transcript",
-      "transcriptDesc": "Timestamped podcast transcript",
-      "academic": "Academic Paper",
-      "academicDesc": "Technical writing with citations"
+      "article": "Nyhetsartikel",
+      "articleDesc": "Artikel med flera stycken och rubriker",
+      "code": "Källkod",
+      "codeDesc": "Python-kod med klasser och funktioner",
+      "transcript": "Transkript",
+      "transcriptDesc": "Tidsstämplat podkasttranskript",
+      "academic": "Akademisk artikel",
+      "academicDesc": "Teknisk text med referenser"
     },
     "compare": {
-      "title": "Compare Settings",
-      "configA": "Configuration A",
-      "configB": "Configuration B"
+      "title": "Jämför inställningar",
+      "configA": "Konfiguration A",
+      "configB": "Konfiguration B"
     },
     "mode": {
-      "single": "Single",
-      "compare": "Compare"
+      "single": "Enkel",
+      "compare": "Jämför"
     }
   }
 }

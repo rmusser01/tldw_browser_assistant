@@ -87,7 +87,8 @@
     "omniSearchCreateFlashcardsSuccess": "Raccolta di flashcard \"{{query}}\" creata",
     "omniSearchStartChat": "Avvia nuova chat \"{{query}}\"",
     "connectionCard.connectedCaption": "Chat e strumenti sono ora disponibili in Opzioni e nel pannello laterale.",
-    "quickIngestQueuedAria": "{{label}} — {{count}} elementi in coda — fai clic per rivedere ed elaborare"
+    "quickIngestQueuedAria": "{{label}} — {{count}} elementi in coda — fai clic per rivedere ed elaborare",
+    "modeSpeech": "Voce"
   },
   "sidebarTitle": "Cronologia Chat",
   "error": "Errore",
@@ -168,9 +169,14 @@
     "download": "Download",
     "duplicate": "Duplicate",
     "move": "Move",
+    "reviewFailed": "Review failed",
+    "updateFailed": "Update failed",
+    "deleteFailed": "Delete failed",
+    "missingVersion": "Missing version; reload and try again",
     "bulkMove": "Bulk Move",
     "bulkDelete": "Bulk Delete",
-    "bulkLimitWarning": "Operation limited to first {{limit}} items.",
+    "bulkDeleteResult": "{{success}} deleted · {{failed}} failed",
+    "bulkLimitWarning": "Operazione limitata ai primi {{limit}} elementi.",
     "exportSelectedCsv": "Export selected (CSV/TSV)",
     "selectedCount": "Selected",
     "selectAllOnPage": "Select all on page",
@@ -211,6 +217,9 @@
     "modelTypeHelp": "Basic shows a question on the front and answer on the back. Reverse also creates the opposite card. Cloze hides parts of the text using {{...}}.",
     "reverseHelp": "Also create a card where the back becomes the question.",
     "isClozeHelp": "Use for fill‑in‑the‑blank cards. Wrap hidden text in {{...}} on the front.",
+    "markdownSupportHint": "Supporta Markdown e LaTeX.",
+    "extraHint": "Suggerimenti/spiegazioni opzionali (Markdown + LaTeX supportati).",
+    "notesHint": "Note interne (Markdown + LaTeX supportati).",
     "bulkActions": "Bulk actions",
     "selectionHelp": "“Select all across results” applies actions to every card that matches your filters, not just this page.",
     "noCardsTitle": "No flashcards yet",
@@ -628,11 +637,11 @@
     "backToList": "Torna alla lista",
     "retake": "Riprova il quiz"
   },
-  "searchPrompts": "Search prompts...",
-  "noMatchingPrompts": "No matching prompts",
+  "searchPrompts": "Cerca prompt...",
+  "noMatchingPrompts": "Nessun prompt corrispondente",
   "promptSelect": {
-    "favorites": "Favorites",
-    "system": "System prompts",
-    "quick": "Quick prompts"
+    "favorites": "Preferiti",
+    "system": "Prompt di sistema",
+    "quick": "Prompt rapidi"
   }
 }

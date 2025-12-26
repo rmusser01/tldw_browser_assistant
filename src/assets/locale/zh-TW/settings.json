@@ -507,9 +507,9 @@
     "import": "Import",
     "export": "Export",
     "importMode": {
-      "merge": "Merge",
-      "replace": "Replace",
-      "replaceConfirm": "Replace will overwrite all current prompts with the imported file. Continue?"
+      "merge": "合併",
+      "replace": "取代",
+      "replaceConfirm": "取代會用匯入檔案覆寫目前所有提示詞。要繼續嗎？"
     },
     "favorite": "Favorite",
     "unfavorite": "Unfavorite",
@@ -954,13 +954,13 @@
       "name": "名稱",
       "description": "描述",
       "actions": "操作",
-      "avatar": "Avatar"
+      "avatar": "頭像"
     },
     "actions": {
       "chat": "聊天",
       "edit": "編輯",
       "delete": "刪除",
-      "viewConversations": "View conversations"
+      "viewConversations": "查看對話"
     },
     "tags": {
       "label": "標籤",
@@ -975,8 +975,8 @@
       "chatWith": "以 {{name}} 身分聊天",
       "edit": "編輯角色 {{name}}",
       "delete": "刪除角色 {{name}}",
-      "viewConversations": "View conversations for {{name}}",
-      "searchResults": "{{count}} characters found"
+      "viewConversations": "查看 {{name}} 的對話",
+      "searchResults": "找到 {{count}} 個角色"
     },
     "confirm": {
       "delete": "確定要刪除這個角色嗎？此動作無法復原。"
@@ -1028,33 +1028,33 @@
     "emptyExample1": "定義可重複使用的寫作教練、背景專家或程式助理。",
     "emptyExample2": "為每個角色提供清楚的描述與行為，使回應保持一致。",
     "emptyPrimaryCta": "建立角色",
-    "avatarAltWithName": "Avatar of {{name}}",
-    "avatarAlt": "User avatar",
+    "avatarAltWithName": "{{name}} 的頭像",
+    "avatarAlt": "使用者頭像",
     "conversations": {
-      "title": "Conversations for {{name}}",
-      "titleGeneric": "Character conversations",
-      "subtitle": "Select a conversation to continue as this character.",
-      "empty": "No conversations found for this character yet.",
-      "error": "Unable to load conversations for this character.",
-      "updated": "Updated {{time}}",
-      "unknownTime": "Unknown",
-      "resume": "Continue chat",
-      "untitled": "Untitled",
-      "mostRecent": "Most recent",
-      "resumeTooltip": "Load chat history and continue this conversation"
+      "title": "{{name}} 的對話",
+      "titleGeneric": "角色對話",
+      "subtitle": "選擇一個對話以此角色繼續。",
+      "empty": "尚無此角色的對話。",
+      "error": "無法載入此角色的對話。",
+      "updated": "已更新 {{time}}",
+      "unknownTime": "未知",
+      "resume": "繼續聊天",
+      "untitled": "未命名",
+      "mostRecent": "最近",
+      "resumeTooltip": "載入聊天紀錄並繼續此對話"
     },
     "preview": {
-      "title": "Preview",
-      "show": "Show preview",
-      "hide": "Hide preview",
-      "untitled": "Untitled character",
-      "greeting": "Greeting",
-      "behavior": "Behavior",
-      "empty": "Fill in the form to see a preview"
+      "title": "預覽",
+      "show": "顯示預覽",
+      "hide": "隱藏預覽",
+      "untitled": "未命名角色",
+      "greeting": "問候語",
+      "behavior": "行為",
+      "empty": "填寫表單以查看預覽"
     },
     "advanced": {
-      "show": "Show advanced fields",
-      "hide": "Hide advanced fields"
+      "show": "顯示進階欄位",
+      "hide": "隱藏進階欄位"
     }
   },
   "systemNotifications": {
@@ -1259,84 +1259,83 @@
     "testFail": "Unable to reach Evaluations API"
   },
   "chunkingPlayground": {
-    "_todo": "TODO: translate chunkingPlayground strings (copied from en)",
-    "nav": "Chunking Playground",
-    "title": "Chunking Playground",
-    "description": "Experiment with different chunking settings to see how text gets split into smaller pieces for processing.",
-    "inputLabel": "Text to chunk",
-    "inputPlaceholder": "Paste text here or select a sample...",
-    "uploadButton": "Upload File",
-    "chunkButton": "Chunk Text",
-    "methodLabel": "Chunking Method",
-    "maxSizeLabel": "Max Chunk Size",
-    "overlapLabel": "Overlap",
-    "languageLabel": "Language",
+    "nav": "分塊實驗場",
+    "title": "分塊實驗場",
+    "description": "試用不同的分塊設定，看看文字如何被切分成較小的片段以便處理。",
+    "inputLabel": "要分塊的文字",
+    "inputPlaceholder": "在此貼上文字或選擇範例...",
+    "uploadButton": "上傳檔案",
+    "chunkButton": "分塊文字",
+    "methodLabel": "分塊方式",
+    "maxSizeLabel": "最大分塊大小",
+    "overlapLabel": "重疊量",
+    "languageLabel": "語言",
     "languages": {
-      "auto": "Auto-detect",
-      "en": "English",
-      "es": "Spanish",
-      "fr": "French",
-      "de": "German",
-      "it": "Italian",
-      "pt": "Portuguese",
-      "zh": "Chinese",
-      "ja": "Japanese",
-      "ko": "Korean"
+      "auto": "自動偵測",
+      "en": "英文",
+      "es": "西班牙文",
+      "fr": "法文",
+      "de": "德文",
+      "it": "義大利文",
+      "pt": "葡萄牙文",
+      "zh": "中文",
+      "ja": "日文",
+      "ko": "韓文"
     },
-    "viewCards": "Cards",
-    "viewInline": "Inline",
-    "stats": "{{count}} chunks, avg {{avgSize}} chars",
-    "textLoaded": "Text loaded",
-    "characters": "characters",
-    "tabSingle": "Single",
-    "tabCompare": "Compare",
-    "chunkIndex": "Chunk {{index}}",
-    "chunkInfo": "Chunk {{index}}: {{words}} words",
-    "position": "Position: {{start}} - {{end}}",
-    "additionalChunks": "+{{count}} more",
-    "charCount": "{{count}} characters",
-    "wordCount": "{{count}} words",
-    "noInput": "Please provide text to chunk",
-    "sharedInput": "Shared Input Text",
-    "compareButton": "Compare Both",
-    "comparison": "Comparison",
-    "fewerChunks": "Config A produces {{diff}} fewer chunks",
-    "moreChunks": "Config A produces {{diff}} more chunks",
-    "sameChunks": "Both configs produce the same number of chunks",
-    "clickToChunk": "Click 'Compare' to see results",
-    "overlapRegion": "Overlap Region",
-    "clickHint": "Click on a highlighted section to focus on that chunk",
-    "noContentFound": "No text content found for this media item",
-    "loadContentError": "Failed to load media content",
-    "loadMediaListError": "Failed to load media library",
-    "selectMedia": "Select media item...",
-    "loadingMedia": "Loading content...",
-    "noMediaFound": "No media found",
-    "mediaCount": "{{count}} media items available",
+    "viewCards": "卡片",
+    "viewInline": "行內",
+    "stats": "{{count}} 個分塊，平均 {{avgSize}} 字元",
+    "textLoaded": "文字已載入",
+    "characters": "字元",
+    "tabSingle": "單一",
+    "tabCompare": "比較",
+    "chunkIndex": "分塊 {{index}}",
+    "chunkInfo": "分塊 {{index}}：{{words}} 個詞",
+    "position": "位置：{{start}} - {{end}}",
+    "additionalChunks": "+{{count}} 個",
+    "charCount": "{{count}} 字元",
+    "wordCount": "{{count}} 個詞",
+    "noInput": "請提供要分塊的文字",
+    "sharedInput": "共用輸入文字",
+    "compareButton": "比較兩者",
+    "comparison": "比較",
+    "fewerChunks": "設定 A 產生的分塊少 {{diff}} 個",
+    "moreChunks": "設定 A 產生的分塊多 {{diff}} 個",
+    "sameChunks": "兩個設定產生的分塊數量相同",
+    "clickToChunk": "點擊「比較」以查看結果",
+    "overlapRegion": "重疊區域",
+    "clickHint": "點擊高亮的區段以聚焦該分塊",
+    "noContentFound": "此媒體項目找不到文字內容",
+    "loadContentError": "載入媒體內容失敗",
+    "loadMediaListError": "載入媒體資料庫失敗",
+    "selectMedia": "選擇媒體項目...",
+    "loadingMedia": "正在載入內容...",
+    "noMediaFound": "找不到媒體",
+    "mediaCount": "可用的媒體項目 {{count}} 個",
     "inputSource": {
-      "paste": "Paste Text",
-      "upload": "Upload File",
-      "sample": "Sample Text",
-      "media": "From Media Library"
+      "paste": "貼上文字",
+      "upload": "上傳檔案",
+      "sample": "範例文字",
+      "media": "來自媒體資料庫"
     },
     "samples": {
-      "article": "News Article",
-      "articleDesc": "Multi-paragraph article with headers",
-      "code": "Source Code",
-      "codeDesc": "Python code with classes and functions",
-      "transcript": "Transcript",
-      "transcriptDesc": "Timestamped podcast transcript",
-      "academic": "Academic Paper",
-      "academicDesc": "Technical writing with citations"
+      "article": "新聞文章",
+      "articleDesc": "含標題的多段落文章",
+      "code": "原始碼",
+      "codeDesc": "包含類別與函式的 Python 程式碼",
+      "transcript": "逐字稿",
+      "transcriptDesc": "含時間戳的 Podcast 逐字稿",
+      "academic": "學術論文",
+      "academicDesc": "含引用的技術寫作"
     },
     "compare": {
-      "title": "Compare Settings",
-      "configA": "Configuration A",
-      "configB": "Configuration B"
+      "title": "比較設定",
+      "configA": "設定 A",
+      "configB": "設定 B"
     },
     "mode": {
-      "single": "Single",
-      "compare": "Compare"
+      "single": "單一",
+      "compare": "比較"
     }
   }
 }

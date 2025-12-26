@@ -50,6 +50,7 @@ export const SttPlaygroundPage: React.FC = () => {
   const [serverModelsLoading, setServerModelsLoading] = React.useState(false)
   const [activeModel, setActiveModel] = React.useState<string | undefined>()
   const [isRecording, setIsRecording] = React.useState(false)
+  const [isTranscribing, setIsTranscribing] = React.useState(false)
   const [useLongRunning, setUseLongRunning] = React.useState(false)
   const [liveText, setLiveText] = React.useState("")
   const [items, setItems] = React.useState<RecordedItem[]>([])
@@ -99,6 +100,8 @@ export const SttPlaygroundPage: React.FC = () => {
     if (!recorder) return
     try {
       recorder.stop()
+      setIsRecording(false)
+      setIsTranscribing(true)
     } catch {}
   }, [])
 
@@ -196,6 +199,9 @@ export const SttPlaygroundPage: React.FC = () => {
   )
 
   const handleStartRecording = async () => {
+    if (isTranscribing) {
+      return
+    }
     if (isRecording) {
       await handleStopRecording()
       return
@@ -237,6 +243,7 @@ export const SttPlaygroundPage: React.FC = () => {
           )
         })
         setIsRecording(false)
+        setIsTranscribing(false)
       }
 
       recorder.onstop = async () => {
@@ -282,6 +289,8 @@ export const SttPlaygroundPage: React.FC = () => {
               })
               return
             }
+            setLiveText(text)
+            liveTextRef.current = text
             const nowIso = new Date().toISOString()
             const durationMs =
               startedAt != null ? Date.now() - startedAt : undefined
@@ -313,6 +322,7 @@ export const SttPlaygroundPage: React.FC = () => {
             stream.getTracks().forEach((trk) => trk.stop())
           } catch {}
           setIsRecording(false)
+          setIsTranscribing(false)
         }
       }
 
@@ -362,6 +372,16 @@ export const SttPlaygroundPage: React.FC = () => {
   const handleDeleteItem = (id: string) => {
     setItems((prev) => prev.filter((i) => i.id !== id))
   }
+
+  const transcriptPlaceholder = isTranscribing
+    ? t(
+        "playground:stt.transcribingPlaceholder",
+        "Transcribing audio..."
+      )
+    : t(
+        "playground:stt.currentTranscriptPlaceholder",
+        "Live transcript will appear here while recording."
+      )
 
   return (
     <PageShell maxWidthClassName="max-w-4xl" className="py-6">
@@ -486,7 +506,12 @@ export const SttPlaygroundPage: React.FC = () => {
                 <Tooltip
                   placement="left"
                   title={
-                    isRecording
+                    isTranscribing
+                      ? (t(
+                          "playground:stt.transcribingTooltip",
+                          "Transcribing audio..."
+                        ) as string)
+                      : isRecording
                       ? (t(
                           "playground:stt.stopTooltip",
                           "Stop and send to server"
@@ -497,19 +522,26 @@ export const SttPlaygroundPage: React.FC = () => {
                         ) as string)
                   }>
                   <Button
-                    type={isRecording ? "default" : "primary"}
+                    type={isRecording || isTranscribing ? "default" : "primary"}
                     danger={isRecording}
+                    loading={isTranscribing}
+                    disabled={isTranscribing}
                     icon={
                       isRecording ? (
                         <Pause className="h-4 w-4" />
-                      ) : (
+                      ) : !isTranscribing ? (
                         <Mic className="h-4 w-4" />
-                      )
+                      ) : undefined
                     }
                     onClick={handleStartRecording}
                   >
                     {isRecording
                       ? t("playground:stt.stopButton", "Stop")
+                      : isTranscribing
+                        ? t(
+                            "playground:stt.transcribingButton",
+                            "Transcribing..."
+                          )
                       : t("playground:stt.recordButton", "Record")}
                   </Button>
                 </Tooltip>
@@ -526,7 +558,7 @@ export const SttPlaygroundPage: React.FC = () => {
                 } as any
               ) as string}
             </div>
-            {(liveText || isRecording) && (
+            {(liveText || isRecording || isTranscribing) && (
               <div className="pt-3">
                 <Text strong className="text-xs block mb-1">
                   {t(
@@ -538,10 +570,7 @@ export const SttPlaygroundPage: React.FC = () => {
                   value={liveText}
                   readOnly
                   autoSize={{ minRows: 3, maxRows: 8 }}
-                  placeholder={t(
-                    "playground:stt.currentTranscriptPlaceholder",
-                    "Live transcript will appear here while recording."
-                  )}
+                  placeholder={transcriptPlaceholder as string}
                 />
               </div>
             )}

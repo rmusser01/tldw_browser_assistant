@@ -139,8 +139,14 @@ export const Header: React.FC<Props> = ({
     )
       return "characters"
     if (pathname.startsWith("/flashcards")) return "flashcards"
-    if (pathname.startsWith("/stt")) return "stt"
-    if (pathname.startsWith("/tts")) return "tts"
+    if (pathname.startsWith("/chunking-playground")) return "chunkingPlayground"
+    if (
+      pathname.startsWith("/speech") ||
+      pathname.startsWith("/stt") ||
+      pathname.startsWith("/tts")
+    ) {
+      return "speech"
+    }
     return "playground"
   }, [pathname])
 
@@ -195,6 +201,9 @@ export const Header: React.FC<Props> = ({
       case "flashcards":
         navigate("/flashcards")
         break
+      case "chunkingPlayground":
+        navigate("/chunking-playground")
+        break
       case "worldBooks":
         navigate("/world-books")
         break
@@ -204,11 +213,8 @@ export const Header: React.FC<Props> = ({
       case "characters":
         navigate("/characters")
         break
-      case "tts":
-        navigate("/tts")
-        break
-      case "stt":
-        navigate("/stt")
+      case "speech":
+        navigate("/speech")
         break
     }
   }

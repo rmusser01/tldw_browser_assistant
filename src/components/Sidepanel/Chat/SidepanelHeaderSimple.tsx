@@ -21,12 +21,14 @@ type SidepanelHeaderSimpleProps =
       setSidebarOpen: (open: boolean) => void
       searchQuery?: string
       setSearchQuery?: (query: string) => void
+      onNewTab?: () => void
     }
   | {
       sidebarOpen?: undefined
       setSidebarOpen?: undefined
       searchQuery?: string
       setSearchQuery?: (query: string) => void
+      onNewTab?: () => void
     }
 
 /**
@@ -42,7 +44,8 @@ export const SidepanelHeaderSimple = ({
   sidebarOpen: propSidebarOpen,
   setSidebarOpen: propSetSidebarOpen,
   searchQuery: propSearchQuery,
-  setSearchQuery: propSetSearchQuery
+  setSearchQuery: propSetSearchQuery,
+  onNewTab
 }: SidepanelHeaderSimpleProps = {}) => {
   const {
     clearChat,
@@ -243,7 +246,13 @@ export const SidepanelHeaderSimple = ({
               ariaLabel={t("sidepanel:header.newChatAria") as string}
               title={t("option:newChat") as string}
               dataTestId="chat-new-chat"
-              onClick={() => clearChat()}
+              onClick={() => {
+                if (onNewTab) {
+                  onNewTab()
+                  return
+                }
+                clearChat()
+              }}
               className="p-1.5 rounded hover:bg-gray-100 dark:hover:bg-gray-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-pink-700"
             >
               <PlusSquare className="size-4 text-gray-500 dark:text-gray-400" />

@@ -202,13 +202,33 @@ export const setTldwTTSVoice = async (voice: string) => {
   await storage.set("tldwTtsVoice", voice)
 }
 
+export const SUPPORTED_TLDW_TTS_FORMATS = ["mp3", "ogg", "wav"] as const
+type SupportedTldwTtsFormat = (typeof SUPPORTED_TLDW_TTS_FORMATS)[number]
+const SUPPORTED_TLDW_TTS_FORMAT_SET = new Set(SUPPORTED_TLDW_TTS_FORMATS)
+
+export const isSupportedTldwTtsResponseFormat = (
+  format?: string | null
+): format is SupportedTldwTtsFormat => {
+  const normalized = (format || "").trim().toLowerCase()
+  return SUPPORTED_TLDW_TTS_FORMAT_SET.has(normalized as SupportedTldwTtsFormat)
+}
+
+export const normalizeTldwTtsResponseFormat = (
+  format?: string | null
+): SupportedTldwTtsFormat => {
+  const normalized = (format || "").trim().toLowerCase()
+  return SUPPORTED_TLDW_TTS_FORMAT_SET.has(normalized as SupportedTldwTtsFormat)
+    ? (normalized as SupportedTldwTtsFormat)
+    : "mp3"
+}
+
 export const getTldwTTSResponseFormat = async () => {
   const data = await storage.get<string | undefined>("tldwTtsResponseFormat")
-  return data && data.length > 0 ? data : "mp3"
+  return normalizeTldwTtsResponseFormat(data)
 }
 
 export const setTldwTTSResponseFormat = async (fmt: string) => {
-  await storage.set("tldwTtsResponseFormat", fmt)
+  await storage.set("tldwTtsResponseFormat", normalizeTldwTtsResponseFormat(fmt))
 }
 
 export const getTldwTTSSpeed = async () => {

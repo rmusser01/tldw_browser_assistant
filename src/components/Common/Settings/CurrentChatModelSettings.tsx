@@ -86,6 +86,7 @@ export const CurrentChatModelSettings = ({
     tokenCount: actorTokenCount,
     setPreviewAndTokens
   } = useActorStore()
+  const [resolvedSystemPrompt, setResolvedSystemPrompt] = React.useState("")
   const [newAspectTarget, setNewAspectTarget] =
     React.useState<ActorTarget>("user")
   const [newAspectName, setNewAspectName] = React.useState<string>("")
@@ -187,7 +188,32 @@ export const CurrentChatModelSettings = ({
     [actorSettings, cUserSettings, historyId, serverChatId]
   )
 
-  const { isPending: isLoading } = useQuery({
+  const buildBaseValues = useCallback(
+    (data: any, promptFallback?: string) => ({
+      temperature: cUserSettings.temperature ?? data?.temperature,
+      topK: cUserSettings.topK ?? data?.topK,
+      topP: cUserSettings.topP ?? data?.topP,
+      keepAlive: cUserSettings.keepAlive ?? data?.keepAlive,
+      numCtx: cUserSettings.numCtx ?? data?.numCtx,
+      seed: cUserSettings.seed,
+      numGpu: cUserSettings.numGpu ?? data?.numGpu,
+      numPredict: cUserSettings.numPredict ?? data?.numPredict,
+      systemPrompt: cUserSettings.systemPrompt ?? promptFallback ?? "",
+      useMMap: cUserSettings.useMMap ?? data?.useMMap,
+      minP: cUserSettings.minP ?? data?.minP,
+      repeatLastN: cUserSettings.repeatLastN ?? data?.repeatLastN,
+      repeatPenalty: cUserSettings.repeatPenalty ?? data?.repeatPenalty,
+      useMlock: cUserSettings.useMlock ?? data?.useMlock,
+      tfsZ: cUserSettings.tfsZ ?? data?.tfsZ,
+      numKeep: cUserSettings.numKeep ?? data?.numKeep,
+      numThread: cUserSettings.numThread ?? data?.numThread,
+      reasoningEffort: cUserSettings?.reasoningEffort,
+      thinking: cUserSettings?.thinking
+    }),
+    [cUserSettings]
+  )
+
+  const { data: modelConfig, isPending: isLoading } = useQuery({
     queryKey: ["fetchModelConfig2", open],
     queryFn: async () => {
       const data = await getAllModelSettings()
@@ -204,28 +230,9 @@ export const CurrentChatModelSettings = ({
         const prompt = await getPromptById(selectedSystemPrompt)
         tempSystemPrompt = prompt?.content ?? ""
       }
+      setResolvedSystemPrompt(tempSystemPrompt)
 
-      const baseValues: Record<string, any> = {
-        temperature: cUserSettings.temperature ?? data.temperature,
-        topK: cUserSettings.topK ?? data.topK,
-        topP: cUserSettings.topP ?? data.topP,
-        keepAlive: cUserSettings.keepAlive ?? data.keepAlive,
-        numCtx: cUserSettings.numCtx ?? data.numCtx,
-        seed: cUserSettings.seed,
-        numGpu: cUserSettings.numGpu ?? data.numGpu,
-        numPredict: cUserSettings.numPredict ?? data.numPredict,
-        systemPrompt: cUserSettings.systemPrompt ?? tempSystemPrompt,
-        useMMap: cUserSettings.useMMap ?? data.useMMap,
-        minP: cUserSettings.minP ?? data.minP,
-        repeatLastN: cUserSettings.repeatLastN ?? data.repeatLastN,
-        repeatPenalty: cUserSettings.repeatPenalty ?? data.repeatPenalty,
-        useMlock: cUserSettings.useMlock ?? data.useMlock,
-        tfsZ: cUserSettings.tfsZ ?? data.tfsZ,
-        numKeep: cUserSettings.numKeep ?? data.numKeep,
-        numThread: cUserSettings.numThread ?? data.numThread,
-        reasoningEffort: cUserSettings?.reasoningEffort,
-        thinking: cUserSettings?.thinking
-      }
+      const baseValues = buildBaseValues(data, tempSystemPrompt)
 
       const actor =
         actorSettings ??
@@ -263,6 +270,13 @@ export const CurrentChatModelSettings = ({
     refetchOnMount: false,
     refetchOnWindowFocus: false
   })
+
+  React.useEffect(() => {
+    if (!open || isLoading) return
+    form.setFieldsValue(
+      buildBaseValues(modelConfig || {}, resolvedSystemPrompt)
+    )
+  }, [buildBaseValues, form, isLoading, modelConfig, open, resolvedSystemPrompt])
 
   const { data: composerModels, isLoading: modelsLoading } = useQuery({
     queryKey: ["playground:chatModels", open],

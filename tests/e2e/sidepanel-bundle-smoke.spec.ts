@@ -12,9 +12,9 @@ test.describe('Packaged sidepanel bundle', () => {
     await page.waitForTimeout(2500)
 
     await expect(
-      page.getByRole('button', {
-        name: /Open tldw server settings|Open server settings/i
-      })
+      page
+        .getByRole('alert')
+        .getByRole('button', { name: /Open Settings/i })
     ).toBeVisible({ timeout: 8000 })
 
     await context.close()

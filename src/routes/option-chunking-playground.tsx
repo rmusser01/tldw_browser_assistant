@@ -1,13 +1,13 @@
-import { SettingsLayout } from "~/components/Layouts/SettingsOptionLayout"
 import OptionLayout from "~/components/Layouts/Layout"
+import { PageShell } from "@/components/Common/PageShell"
 import { ChunkingPlayground } from "@/components/Option/ChunkingPlayground"
 
 const OptionChunkingPlayground = () => {
   return (
-    <OptionLayout hideHeader>
-      <SettingsLayout>
+    <OptionLayout>
+      <PageShell className="py-6" maxWidthClassName="max-w-4xl">
         <ChunkingPlayground />
-      </SettingsLayout>
+      </PageShell>
     </OptionLayout>
   )
 }

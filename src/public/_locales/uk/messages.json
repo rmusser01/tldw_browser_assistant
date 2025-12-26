@@ -1714,5 +1714,383 @@
   },
   "flashcards_dueDue": {
     "message": "До повторення"
+  },
+  "flashcards_reviewFailed": {
+    "message": "Review failed"
+  },
+  "flashcards_updateFailed": {
+    "message": "Update failed"
+  },
+  "flashcards_deleteFailed": {
+    "message": "Delete failed"
+  },
+  "flashcards_missingVersion": {
+    "message": "Missing version; reload and try again"
+  },
+  "flashcards_bulkDeleteResult": {
+    "message": "{{success}} видалено · {{failed}} не вдалося"
+  },
+  "mediaPage_searchPlaceholder": {
+    "message": "Search media (title/content)"
+  },
+  "mediaPage_search": {
+    "message": "Search"
+  },
+  "mediaPage_clear": {
+    "message": "Clear"
+  },
+  "mediaPage_types": {
+    "message": "Types"
+  },
+  "mediaPage_keywords": {
+    "message": "Keywords"
+  },
+  "mediaPage_moreTags": {
+    "message": "+{{count}} more tags"
+  },
+  "mediaPage_resetFilters": {
+    "message": "Reset Filters"
+  },
+  "mediaPage_clearAll": {
+    "message": "Очистити все"
+  },
+  "mediaPage_content": {
+    "message": "Content"
+  },
+  "mediaPage_vertical": {
+    "message": "Vertical"
+  },
+  "mediaPage_horizontal": {
+    "message": "Horizontal"
+  },
+  "mediaPage_results": {
+    "message": "Results"
+  },
+  "mediaPage_noResults": {
+    "message": "No results"
+  },
+  "mediaPage_showSidebar": {
+    "message": "Show sidebar"
+  },
+  "mediaPage_hideSidebar": {
+    "message": "Hide sidebar"
+  },
+  "mediaPage_viewer": {
+    "message": "Viewer"
+  },
+  "mediaPage_selectItemsHint": {
+    "message": "Select items on the left to view here."
+  },
+  "mediaPage_mediaContent": {
+    "message": "Media Content"
+  },
+  "mediaPage_copyContent": {
+    "message": "Copy content"
+  },
+  "mediaPage_contentCopied": {
+    "message": "Content copied"
+  },
+  "mediaPage_metadataCopied": {
+    "message": "Метадані скопійовано"
+  },
+  "mediaPage_analysisCopied": {
+    "message": "Аналіз скопійовано"
+  },
+  "mediaPage_copyFailed": {
+    "message": "Copy failed"
+  },
+  "mediaPage_noContent": {
+    "message": "No content available"
+  },
+  "mediaPage_collapse": {
+    "message": "Collapse"
+  },
+  "mediaPage_expand": {
+    "message": "Expand"
+  },
+  "mediaPage_media": {
+    "message": "Media"
+  },
+  "mediaPage_searchingBanner": {
+    "message": "Searching media…"
+  },
+  "mediaPage_filterHelp": {
+    "message": "Search matches title and content; Types and Keywords further narrow the results."
+  },
+  "mediaPage_noMediaTypes": {
+    "message": "Немає доступних типів медіа"
+  },
+  "mediaPage_resultsCount": {
+    "message": "{{selected}} selected · {{open}} open"
+  },
+  "mediaPage_clearSelection": {
+    "message": "Deselect all"
+  },
+  "mediaPage_itemsLabel": {
+    "message": "Items"
+  },
+  "mediaPage_contentLabel": {
+    "message": "Content view"
+  },
+  "mediaPage_filterByKeyword": {
+    "message": "Фільтрувати за ключовим словом"
+  },
+  "mediaPage_keywordHelper": {
+    "message": "Ключові слова допомагають знайти цей медіаоб’єкт за допомогою фільтра ключових слів ліворуч"
+  },
+  "mediaPage_modeHint": {
+    "message": "Шукайте й групуйте кілька медіаоб’єктів, щоб порівнювати їх у вікні перегляду праворуч."
+  },
+  "mediaPage_viewerHelp": {
+    "message": "Клавіатура: перейдіть до списку результатів за допомогою Tab, використовуйте Enter або пробіл, щоб додати медіаоб’єкт до стека або прибрати його, а також кнопки «Попередній» / «Наступний» і керування макетом, щоб переходити між елементами у вікні перегляду."
+  },
+  "mediaPage_viewerHelpLabel": {
+    "message": "Комбінації клавіш для перегляду кількох елементів"
+  },
+  "mediaPage_mediaInspector": {
+    "message": "Інспектор медіа"
+  },
+  "mediaPage_actionsLabel": {
+    "message": "Дії"
+  },
+  "mediaPage_keywordsPlaceholder": {
+    "message": "Додати ключові слова..."
+  },
+  "mediaPage_noSelectionTitle": {
+    "message": "Медіаоб’єкт не вибрано"
+  },
+  "mediaPage_noSelectionDescription": {
+    "message": "Виберіть медіаоб’єкт у лівій бічній панелі, щоб переглянути його вміст і аналізи тут."
+  },
+  "mediaPage_generateAnalysis": {
+    "message": "Створити аналіз"
+  },
+  "mediaPage_generateAnalysisHint": {
+    "message": "Створити новий аналіз"
+  },
+  "mediaPage_editAnalysis": {
+    "message": "Редагувати аналіз"
+  },
+  "mediaPage_createNoteWithContent": {
+    "message": "Створити нотатку з вмістом"
+  },
+  "mediaPage_createNoteWithContentAnalysis": {
+    "message": "Створити нотатку з вмістом і аналізом"
+  },
+  "mediaPage_untitled": {
+    "message": "Без назви"
+  },
+  "mediaPage_copyMetadata": {
+    "message": "Копіювати метадані"
+  },
+  "mediaPage_statistics": {
+    "message": "Статистика"
+  },
+  "mediaPage_words": {
+    "message": "Слова"
+  },
+  "mediaPage_characters": {
+    "message": "Символи"
+  },
+  "mediaPage_paragraphs": {
+    "message": "Абзаци"
+  },
+  "mediaPage_metadata": {
+    "message": "Метадані"
+  },
+  "mediaPage_idLabel": {
+    "message": "ID"
+  },
+  "mediaPage_typeLabel": {
+    "message": "Тип"
+  },
+  "mediaPage_titleLabel": {
+    "message": "Заголовок"
+  },
+  "mediaPage_source": {
+    "message": "Джерело"
+  },
+  "mediaPage_notAvailable": {
+    "message": "Немає"
+  },
+  "mediaPage_developerTools": {
+    "message": "Засоби розробника"
+  },
+  "mediaPage_nothingToSend": {
+    "message": "Нічого надсилати"
+  },
+  "mediaPage_emptyAnalysis": {
+    "message": "Аналіз не може бути порожнім"
+  },
+  "mediaPage_noMediaId": {
+    "message": "Немає доступного ID медіа"
+  },
+  "mediaPage_versionSaved": {
+    "message": "Збережено як нову версію"
+  },
+  "mediaPage_saveFailed": {
+    "message": "Не вдалося зберегти версію"
+  },
+  "mediaPage_sendToChat": {
+    "message": "Надіслати в чат"
+  },
+  "mediaPage_saveAsVersion": {
+    "message": "Зберегти як нову версію"
+  },
+  "mediaPage_analysisPlaceholder": {
+    "message": "Введіть текст аналізу..."
+  },
+  "mediaPage_wordCount": {
+    "message": "{{count}} слів"
+  },
+  "mediaPage_charCount": {
+    "message": "{{count}} символів"
+  },
+  "mediaPage_pageRangeError": {
+    "message": "Сторінка має бути 1-{{max}}"
+  },
+  "mediaPage_pageRangeClamped": {
+    "message": "Перехід до сторінки {{page}}"
+  },
+  "mediaPage_saveUnauthorized": {
+    "message": "Недостатньо прав для збереження"
+  },
+  "flashcards_markdownSupportHint": {
+    "message": "Підтримує Markdown і LaTeX."
+  },
+  "flashcards_extraHint": {
+    "message": "Необов’язкові підказки/пояснення (підтримуються Markdown і LaTeX)."
+  },
+  "flashcards_notesHint": {
+    "message": "Внутрішні нотатки (підтримуються Markdown і LaTeX)."
+  },
+  "searchPrompts": {
+    "message": "Пошук промптів..."
+  },
+  "noMatchingPrompts": {
+    "message": "Немає відповідних промптів"
+  },
+  "promptSelect_favorites": {
+    "message": "Улюблені"
+  },
+  "promptSelect_system": {
+    "message": "Системні промпти"
+  },
+  "promptSelect_quick": {
+    "message": "Швидкі промпти"
+  },
+  "header_modeSpeech": {
+    "message": "Мовлення"
+  },
+  "playground_speech_title": {
+    "message": "Мовний майданчик"
+  },
+  "playground_speech_subtitle": {
+    "message": "Записуйте мову, редагуйте транскрипти та синтезуйте аудіо в одному місці."
+  },
+  "playground_speech_modeLabel": {
+    "message": "Режим"
+  },
+  "playground_speech_modeRoundTrip": {
+    "message": "Туди-й-назад"
+  },
+  "playground_speech_modeSpeak": {
+    "message": "Говорити"
+  },
+  "playground_speech_modeListen": {
+    "message": "Слухати"
+  },
+  "playground_speech_modeHint": {
+    "message": "Останній режим запам’ятовується на цьому пристрої."
+  },
+  "playground_speech_recordingWaveform": {
+    "message": "Хвильова форма запису в реальному часі"
+  },
+  "playground_speech_playbackWaveform": {
+    "message": "Хвильова форма відтворення"
+  },
+  "playground_speech_sendToTts": {
+    "message": "Надіслати до TTS"
+  },
+  "playground_speech_sendHint": {
+    "message": "Використовуйте останню транскрипцію як чернетку TTS."
+  },
+  "playground_speech_download": {
+    "message": "Завантажити"
+  },
+  "playground_speech_downloadCurrent": {
+    "message": "Завантажити поточний сегмент"
+  },
+  "playground_speech_downloadAll": {
+    "message": "Завантажити всі сегменти"
+  },
+  "playground_speech_segmentFormat": {
+    "message": "Формат"
+  },
+  "playground_speech_historyTitle": {
+    "message": "Історія мовлення"
+  },
+  "playground_speech_historyAll": {
+    "message": "Усі"
+  },
+  "playground_speech_historyStt": {
+    "message": "STT"
+  },
+  "playground_speech_historyTts": {
+    "message": "TTS"
+  },
+  "playground_speech_historySearch": {
+    "message": "Пошук транскриптів"
+  },
+  "playground_speech_historyRetentionHint": {
+    "message": "Зберігає останні {{count}} елементів. Натисніть «Очистити все», щоб видалити все."
+  },
+  "playground_speech_useInTts": {
+    "message": "Використати в TTS"
+  },
+  "playground_speech_copy": {
+    "message": "Копіювати"
+  },
+  "playground_speech_copySuccess": {
+    "message": "Скопійовано в буфер обміну"
+  },
+  "playground_speech_copyError": {
+    "message": "Не вдалося скопіювати транскрипт."
+  },
+  "playground_speech_providerTag": {
+    "message": "Провайдер"
+  },
+  "playground_speech_voiceTag": {
+    "message": "Голос"
+  },
+  "playground_speech_emptyHistory": {
+    "message": "Почніть запис або згенеруйте аудіо, щоб побачити історію."
+  },
+  "playground_speech_downloadDisabledBrowser": {
+    "message": "TTS браузера не створює аудіо для завантаження."
+  },
+  "playground_speech_downloadDisabledEmpty": {
+    "message": "Згенеруйте аудіо, щоб увімкнути завантаження."
+  },
+  "playground_speech_transcriptLock": {
+    "message": "Заблокувати"
+  },
+  "playground_speech_transcriptUnlock": {
+    "message": "Розблокувати"
+  },
+  "playground_speech_transcriptEditHint": {
+    "message": "Редагування увімкнено для цього транскрипту."
+  },
+  "playground_speech_transcriptLockedHint": {
+    "message": "Заблоковано для оновлень живої транскрипції."
+  },
+  "playground_speech_transcriptRecordingHint": {
+    "message": "Запис триває; транскрипт заблоковано."
+  },
+  "playground_tts_unsupportedFormatTitle": {
+    "message": "Непідтримуваний формат аудіо"
+  },
+  "playground_tts_unsupportedFormatDescription": {
+    "message": "Формат відповіді «{{format}}» не підтримується. Використовується MP3."
   }
 }

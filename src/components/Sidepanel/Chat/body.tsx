@@ -74,7 +74,7 @@ export const SidePanelBody = ({
 
   return (
     <>
-      <div className="relative flex w-full flex-col items-center pt-16 pb-4">
+      <div className="relative flex w-full flex-col items-center pt-24 pb-4">
         {messages.length === 0 && <EmptySidePanel inputRef={inputRef} />}
         <div style={{ height: rowVirtualizer.getTotalSize(), width: '100%', position: 'relative' }}>
           {rowVirtualizer.getVirtualItems().map((vr) => {

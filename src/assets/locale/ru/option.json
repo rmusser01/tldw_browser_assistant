@@ -48,7 +48,7 @@
     "promptLabel": "Prompt",
     "review": "Review",
     "flashcards": "Flashcards",
-    "quiz": "Quiz",
+    "quiz": "Викторина",
     "media": "Media",
     "libraryView": "Multi-Item Review",
     "notes": "Notes",
@@ -87,7 +87,8 @@
     "omniSearchCreateFlashcardsSuccess": "Коллекция карточек «{{query}}» создана",
     "omniSearchStartChat": "Начать новый чат «{{query}}»",
     "connectionCard.connectedCaption": "Чат и инструменты теперь доступны на странице настроек и в боковой панели.",
-    "quickIngestQueuedAria": "{{label}} — в очереди {{count}} элементов — нажмите, чтобы просмотреть и обработать"
+    "quickIngestQueuedAria": "{{label}} — в очереди {{count}} элементов — нажмите, чтобы просмотреть и обработать",
+    "modeSpeech": "Речь"
   },
   "sidebarTitle": "История чата",
   "error": "Ошибка",
@@ -177,9 +178,14 @@
     "download": "Download",
     "duplicate": "Duplicate",
     "move": "Move",
+    "reviewFailed": "Review failed",
+    "updateFailed": "Update failed",
+    "deleteFailed": "Delete failed",
+    "missingVersion": "Missing version; reload and try again",
     "bulkMove": "Bulk Move",
     "bulkDelete": "Bulk Delete",
-    "bulkLimitWarning": "Operation limited to first {{limit}} items.",
+    "bulkDeleteResult": "{{success}} deleted · {{failed}} failed",
+    "bulkLimitWarning": "Операция ограничена первыми {{limit}} элементами.",
     "exportSelectedCsv": "Export selected (CSV/TSV)",
     "selectedCount": "Selected",
     "selectAllOnPage": "Select all on page",
@@ -220,6 +226,9 @@
     "modelTypeHelp": "Basic shows a question on the front and answer on the back. Reverse also creates the opposite card. Cloze hides parts of the text using {{...}}.",
     "reverseHelp": "Also create a card where the back becomes the question.",
     "isClozeHelp": "Use for fill‑in‑the‑blank cards. Wrap hidden text in {{...}} on the front.",
+    "markdownSupportHint": "Поддерживает Markdown и LaTeX.",
+    "extraHint": "Необязательные подсказки/пояснения (поддерживаются Markdown и LaTeX).",
+    "notesHint": "Внутренние заметки (поддерживаются Markdown и LaTeX).",
     "bulkActions": "Bulk actions",
     "selectionHelp": "“Select all across results” applies actions to every card that matches your filters, not just this page.",
     "noCardsTitle": "No flashcards yet",
@@ -643,11 +652,11 @@
     "backToList": "Вернуться к списку",
     "retake": "Пройти снова"
   },
-  "searchPrompts": "Search prompts...",
-  "noMatchingPrompts": "No matching prompts",
+  "searchPrompts": "Поиск подсказок...",
+  "noMatchingPrompts": "Нет подходящих подсказок",
   "promptSelect": {
-    "favorites": "Favorites",
-    "system": "System prompts",
-    "quick": "Quick prompts"
+    "favorites": "Избранное",
+    "system": "Системные подсказки",
+    "quick": "Быстрые подсказки"
   }
 }

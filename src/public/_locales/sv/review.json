@@ -264,7 +264,7 @@
     "message": "Säkerställer att varje talartur ligger på en egen rad med tydliga etiketter."
   },
   "contentReview.templates.chapter_headings.label": {
-    "message": "Kapitelfrubriker"
+    "message": "Kapitelrubriker"
   },
   "contentReview.templates.chapter_headings.description": {
     "message": "Infogar Markdown-rubriker för att gruppera ämnen utan att ta bort innehåll."

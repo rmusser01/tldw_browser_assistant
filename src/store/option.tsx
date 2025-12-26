@@ -82,6 +82,7 @@ type State = {
 
   queuedMessages: { message: string; image: string }[]
   addQueuedMessage: (payload: { message: string; image: string }) => void
+  setQueuedMessages: (messages: { message: string; image: string }[]) => void
   clearQueuedMessages: () => void
 
   selectedKnowledge: Knowledge | null
@@ -222,6 +223,7 @@ export const useStoreMessageOption = create<State>((set) => ({
     set((state) => ({
       queuedMessages: [...state.queuedMessages, payload]
     })),
+  setQueuedMessages: (queuedMessages) => set({ queuedMessages }),
   clearQueuedMessages: () => set({ queuedMessages: [] }),
 
   selectedKnowledge: null,

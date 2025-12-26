@@ -87,7 +87,8 @@
     "omniSearchCreateFlashcardsSuccess": "Coleção de flashcards \"{{query}}\" criada",
     "omniSearchStartChat": "Iniciar novo chat \"{{query}}\"",
     "connectionCard.connectedCaption": "Chat e ferramentas agora estão disponíveis em Opções e na barra lateral.",
-    "quickIngestQueuedAria": "{{label}} — {{count}} itens em fila — clique para revisar e processar"
+    "quickIngestQueuedAria": "{{label}} — {{count}} itens em fila — clique para revisar e processar",
+    "modeSpeech": "Fala"
   },
   "sidebarTitle": "Histórico de Chat",
   "error": "Erro",
@@ -446,9 +447,14 @@
     "download": "Download",
     "duplicate": "Duplicate",
     "move": "Move",
+    "reviewFailed": "Review failed",
+    "updateFailed": "Update failed",
+    "deleteFailed": "Delete failed",
+    "missingVersion": "Missing version; reload and try again",
     "bulkMove": "Bulk Move",
     "bulkDelete": "Bulk Delete",
-    "bulkLimitWarning": "Operation limited to first {{limit}} items.",
+    "bulkDeleteResult": "{{success}} deleted · {{failed}} failed",
+    "bulkLimitWarning": "Operação limitada aos primeiros {{limit}} itens.",
     "exportSelectedCsv": "Export selected (CSV/TSV)",
     "selectedCount": "Selected",
     "selectAllOnPage": "Select all on page",
@@ -473,6 +479,9 @@
     "modelTypeHelp": "Basic shows a question on the front and answer on the back. Reverse also creates the opposite card. Cloze hides parts of the text using {{...}}.",
     "reverseHelp": "Also create a card where the back becomes the question.",
     "isClozeHelp": "Use for fill‑in‑the‑blank cards. Wrap hidden text in {{...}} on the front.",
+    "markdownSupportHint": "Compatível com Markdown e LaTeX.",
+    "extraHint": "Dicas/explicações opcionais (Markdown + LaTeX compatíveis).",
+    "notesHint": "Notas internas (Markdown + LaTeX compatíveis).",
     "bulkActions": "Bulk actions",
     "selectionHelp": "“Select all across results” applies actions to every card that matches your filters, not just this page.",
     "noCardsTitle": "No flashcards yet",
@@ -639,11 +648,11 @@
     "backToList": "Voltar à lista",
     "retake": "Refazer o quiz"
   },
-  "searchPrompts": "Search prompts...",
-  "noMatchingPrompts": "No matching prompts",
+  "searchPrompts": "Pesquisar prompts...",
+  "noMatchingPrompts": "Nenhum prompt correspondente",
   "promptSelect": {
-    "favorites": "Favorites",
-    "system": "System prompts",
-    "quick": "Quick prompts"
+    "favorites": "Favoritos",
+    "system": "Prompts do sistema",
+    "quick": "Prompts rápidos"
   }
 }

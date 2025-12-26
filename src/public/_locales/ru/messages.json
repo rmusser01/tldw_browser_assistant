@@ -1809,5 +1809,368 @@
   },
   "flashcards_dueDue": {
     "message": "К повторению"
+  },
+  "flashcards_reviewFailed": {
+    "message": "Review failed"
+  },
+  "flashcards_updateFailed": {
+    "message": "Update failed"
+  },
+  "flashcards_deleteFailed": {
+    "message": "Delete failed"
+  },
+  "flashcards_missingVersion": {
+    "message": "Missing version; reload and try again"
+  },
+  "flashcards_bulkDeleteResult": {
+    "message": "{{success}} deleted · {{failed}} failed"
+  },
+  "mediaPage_searchPlaceholder": {
+    "message": "Search media (title/content)"
+  },
+  "mediaPage_search": {
+    "message": "Search"
+  },
+  "mediaPage_clear": {
+    "message": "Clear"
+  },
+  "mediaPage_types": {
+    "message": "Types"
+  },
+  "mediaPage_keywords": {
+    "message": "Keywords"
+  },
+  "mediaPage_moreTags": {
+    "message": "+{{count}} more tags"
+  },
+  "mediaPage_resetFilters": {
+    "message": "Reset Filters"
+  },
+  "mediaPage_clearAll": {
+    "message": "Очистить всё"
+  },
+  "mediaPage_content": {
+    "message": "Content"
+  },
+  "mediaPage_vertical": {
+    "message": "Vertical"
+  },
+  "mediaPage_horizontal": {
+    "message": "Horizontal"
+  },
+  "mediaPage_results": {
+    "message": "Results"
+  },
+  "mediaPage_noResults": {
+    "message": "No results"
+  },
+  "mediaPage_showSidebar": {
+    "message": "Show sidebar"
+  },
+  "mediaPage_hideSidebar": {
+    "message": "Hide sidebar"
+  },
+  "mediaPage_viewer": {
+    "message": "Viewer"
+  },
+  "mediaPage_selectItemsHint": {
+    "message": "Select items on the left to view here."
+  },
+  "mediaPage_mediaContent": {
+    "message": "Media Content"
+  },
+  "mediaPage_copyContent": {
+    "message": "Copy content"
+  },
+  "mediaPage_contentCopied": {
+    "message": "Content copied"
+  },
+  "mediaPage_metadataCopied": {
+    "message": "Метаданные скопированы"
+  },
+  "mediaPage_analysisCopied": {
+    "message": "Анализ скопирован"
+  },
+  "mediaPage_copyFailed": {
+    "message": "Copy failed"
+  },
+  "mediaPage_noContent": {
+    "message": "No content available"
+  },
+  "mediaPage_collapse": {
+    "message": "Collapse"
+  },
+  "mediaPage_expand": {
+    "message": "Expand"
+  },
+  "mediaPage_media": {
+    "message": "Media"
+  },
+  "mediaPage_searchingBanner": {
+    "message": "Searching media…"
+  },
+  "mediaPage_filterHelp": {
+    "message": "Search matches title and content; Types and Keywords further narrow the results."
+  },
+  "mediaPage_noMediaTypes": {
+    "message": "Нет доступных типов медиа"
+  },
+  "mediaPage_resultsCount": {
+    "message": "{{selected}} selected · {{open}} open"
+  },
+  "mediaPage_clearSelection": {
+    "message": "Deselect all"
+  },
+  "mediaPage_itemsLabel": {
+    "message": "Items"
+  },
+  "mediaPage_contentLabel": {
+    "message": "Content view"
+  },
+  "mediaPage_filterByKeyword": {
+    "message": "Фильтровать по ключевому слову"
+  },
+  "mediaPage_keywordHelper": {
+    "message": "Ключевые слова помогают найти этот медиа-объект с помощью фильтра ключевых слов слева"
+  },
+  "mediaPage_modeHint": {
+    "message": "Ищите и группируйте несколько медиаобъектов, чтобы сравнивать их в просмотрщике справа."
+  },
+  "mediaPage_viewerHelp": {
+    "message": "Клавиатура: перейдите к списку результатов с помощью Tab, используйте Enter или пробел, чтобы добавить медиаобъект в стопку или убрать его, затем кнопки «Предыдущий»/«Следующий» и элементы управления макетом, чтобы перемещаться между элементами в просмотрщике."
+  },
+  "mediaPage_viewerHelpLabel": {
+    "message": "Комбинации клавиш для просмотра нескольких элементов"
+  },
+  "mediaPage_mediaInspector": {
+    "message": "Инспектор медиа"
+  },
+  "mediaPage_actionsLabel": {
+    "message": "Действия"
+  },
+  "mediaPage_keywordsPlaceholder": {
+    "message": "Добавить ключевые слова..."
+  },
+  "mediaPage_noSelectionTitle": {
+    "message": "Медиаобъект не выбран"
+  },
+  "mediaPage_noSelectionDescription": {
+    "message": "Выберите медиаобъект в левой боковой панели, чтобы увидеть его содержимое и анализ здесь."
+  },
+  "mediaPage_generateAnalysis": {
+    "message": "Создать анализ"
+  },
+  "mediaPage_generateAnalysisHint": {
+    "message": "Создать новый анализ"
+  },
+  "mediaPage_editAnalysis": {
+    "message": "Редактировать анализ"
+  },
+  "mediaPage_createNoteWithContent": {
+    "message": "Создать заметку с содержимым"
+  },
+  "mediaPage_createNoteWithContentAnalysis": {
+    "message": "Создать заметку с содержимым и анализом"
+  },
+  "mediaPage_untitled": {
+    "message": "Без названия"
+  },
+  "mediaPage_copyMetadata": {
+    "message": "Копировать метаданные"
+  },
+  "mediaPage_statistics": {
+    "message": "Статистика"
+  },
+  "mediaPage_words": {
+    "message": "Слова"
+  },
+  "mediaPage_characters": {
+    "message": "Символы"
+  },
+  "mediaPage_paragraphs": {
+    "message": "Параграфы"
+  },
+  "mediaPage_metadata": {
+    "message": "Метаданные"
+  },
+  "mediaPage_idLabel": {
+    "message": "ID"
+  },
+  "mediaPage_typeLabel": {
+    "message": "Тип"
+  },
+  "mediaPage_titleLabel": {
+    "message": "Заголовок"
+  },
+  "mediaPage_source": {
+    "message": "Источник"
+  },
+  "mediaPage_notAvailable": {
+    "message": "Н/Д"
+  },
+  "mediaPage_developerTools": {
+    "message": "Инструменты разработчика"
+  },
+  "mediaPage_nothingToSend": {
+    "message": "Нечего отправлять"
+  },
+  "mediaPage_emptyAnalysis": {
+    "message": "Анализ не может быть пустым"
+  },
+  "mediaPage_noMediaId": {
+    "message": "Нет доступного идентификатора медиа"
+  },
+  "mediaPage_versionSaved": {
+    "message": "Сохранено как новая версия"
+  },
+  "mediaPage_saveFailed": {
+    "message": "Не удалось сохранить версию"
+  },
+  "mediaPage_sendToChat": {
+    "message": "Отправить в чат"
+  },
+  "mediaPage_saveAsVersion": {
+    "message": "Сохранить как новую версию"
+  },
+  "mediaPage_analysisPlaceholder": {
+    "message": "Введите текст анализа..."
+  },
+  "mediaPage_wordCount": {
+    "message": "{{count}} слов"
+  },
+  "mediaPage_charCount": {
+    "message": "{{count}} символов"
+  },
+  "mediaPage_pageRangeError": {
+    "message": "Страница должна быть от 1 до {{max}}"
+  },
+  "mediaPage_pageRangeClamped": {
+    "message": "Переход к странице {{page}}"
+  },
+  "mediaPage_saveUnauthorized": {
+    "message": "Недостаточно прав для сохранения"
+  },
+  "flashcards_markdownSupportHint": {
+    "message": "Поддерживает Markdown и LaTeX."
+  },
+  "flashcards_extraHint": {
+    "message": "Необязательные подсказки/пояснения (поддерживаются Markdown и LaTeX)."
+  },
+  "flashcards_notesHint": {
+    "message": "Внутренние заметки (поддерживаются Markdown и LaTeX)."
+  },
+  "header_modeSpeech": {
+    "message": "Речь"
+  },
+  "playground_speech_title": {
+    "message": "Площадка речи"
+  },
+  "playground_speech_subtitle": {
+    "message": "Записывайте речь, редактируйте расшифровки и синтезируйте аудио в одном месте."
+  },
+  "playground_speech_modeLabel": {
+    "message": "Режим"
+  },
+  "playground_speech_modeRoundTrip": {
+    "message": "Туда-обратно"
+  },
+  "playground_speech_modeSpeak": {
+    "message": "Говорить"
+  },
+  "playground_speech_modeListen": {
+    "message": "Слушать"
+  },
+  "playground_speech_modeHint": {
+    "message": "Последний режим запоминается на этом устройстве."
+  },
+  "playground_speech_recordingWaveform": {
+    "message": "Волновая форма записи в реальном времени"
+  },
+  "playground_speech_playbackWaveform": {
+    "message": "Волновая форма воспроизведения"
+  },
+  "playground_speech_sendToTts": {
+    "message": "Отправить в TTS"
+  },
+  "playground_speech_sendHint": {
+    "message": "Используйте последнюю расшифровку как черновик TTS."
+  },
+  "playground_speech_download": {
+    "message": "Скачать"
+  },
+  "playground_speech_downloadCurrent": {
+    "message": "Скачать текущий сегмент"
+  },
+  "playground_speech_downloadAll": {
+    "message": "Скачать все сегменты"
+  },
+  "playground_speech_segmentFormat": {
+    "message": "Формат"
+  },
+  "playground_speech_historyTitle": {
+    "message": "История речи"
+  },
+  "playground_speech_historyAll": {
+    "message": "Все"
+  },
+  "playground_speech_historyStt": {
+    "message": "STT"
+  },
+  "playground_speech_historyTts": {
+    "message": "TTS"
+  },
+  "playground_speech_historySearch": {
+    "message": "Поиск по расшифровкам"
+  },
+  "playground_speech_historyRetentionHint": {
+    "message": "Хранит последние {{count}} записей. Нажмите «Очистить всё», чтобы удалить всё."
+  },
+  "playground_speech_useInTts": {
+    "message": "Использовать в TTS"
+  },
+  "playground_speech_copy": {
+    "message": "Копировать"
+  },
+  "playground_speech_copySuccess": {
+    "message": "Скопировано в буфер обмена"
+  },
+  "playground_speech_copyError": {
+    "message": "Не удалось скопировать расшифровку."
+  },
+  "playground_speech_providerTag": {
+    "message": "Провайдер"
+  },
+  "playground_speech_voiceTag": {
+    "message": "Голос"
+  },
+  "playground_speech_emptyHistory": {
+    "message": "Начните запись или сгенерируйте аудио, чтобы увидеть историю."
+  },
+  "playground_speech_downloadDisabledBrowser": {
+    "message": "TTS браузера не создаёт загружаемый звук."
+  },
+  "playground_speech_downloadDisabledEmpty": {
+    "message": "Сгенерируйте аудио, чтобы включить загрузки."
+  },
+  "playground_speech_transcriptLock": {
+    "message": "Заблокировать"
+  },
+  "playground_speech_transcriptUnlock": {
+    "message": "Разблокировать"
+  },
+  "playground_speech_transcriptEditHint": {
+    "message": "Редактирование включено для этой расшифровки."
+  },
+  "playground_speech_transcriptLockedHint": {
+    "message": "Заблокировано для обновлений живой расшифровки."
+  },
+  "playground_speech_transcriptRecordingHint": {
+    "message": "Идет запись; расшифровка заблокирована."
+  },
+  "playground_tts_unsupportedFormatTitle": {
+    "message": "Неподдерживаемый аудиоформат"
+  },
+  "playground_tts_unsupportedFormatDescription": {
+    "message": "Формат ответа «{{format}}» не поддерживается. Используется MP3."
   }
 }

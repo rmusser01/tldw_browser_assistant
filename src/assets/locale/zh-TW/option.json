@@ -87,7 +87,8 @@
     "omniSearchCreateFlashcardsSuccess": "已建立抽認卡集合\"{{query}}\"",
     "omniSearchStartChat": "開始新的聊天\"{{query}}\"",
     "connectionCard.connectedCaption": "現在可以在選項頁和側邊欄中使用聊天和工具。",
-    "quickIngestQueuedAria": "{{label}} — 已排隊 {{count}} 個項目 — 按一下以檢視並處理"
+    "quickIngestQueuedAria": "{{label}} — 已排隊 {{count}} 個項目 — 按一下以檢視並處理",
+    "modeSpeech": "語音"
   },
   "sidebarTitle": "聊天紀錄",
   "error": "錯誤",
@@ -168,9 +169,14 @@
     "download": "下載",
     "duplicate": "重複",
     "move": "移動",
+    "reviewFailed": "複習失敗",
+    "updateFailed": "更新失敗",
+    "deleteFailed": "刪除失敗",
+    "missingVersion": "缺少版本資訊；請重新載入後再試",
     "bulkMove": "批次移動",
     "bulkDelete": "批次刪除",
-    "bulkLimitWarning": "Operation limited to first {{limit}} items.",
+    "bulkDeleteResult": "{{success}} deleted · {{failed}} failed",
+    "bulkLimitWarning": "此操作僅套用於前 {{limit}} 個項目。",
     "exportSelectedCsv": "匯出所選項目（CSV/TSV）",
     "selectedCount": "已選取",
     "selectAllOnPage": "選取此頁全部",
@@ -211,6 +217,9 @@
     "modelTypeHelp": "「基本」會在正面顯示問題、背面顯示答案。「反向」也會建立一張相反方向的卡片。「完形填空」會使用 {{...}} 隱藏部分文字。",
     "reverseHelp": "同時建立一張將背面內容當作問題的卡片。",
     "isClozeHelp": "適合填空題型。請在正面用 {{...}} 包住要隱藏的文字。",
+    "markdownSupportHint": "支援 Markdown 和 LaTeX。",
+    "extraHint": "可選提示/說明（支援 Markdown + LaTeX）。",
+    "notesHint": "內部備註（支援 Markdown + LaTeX）。",
     "bulkActions": "批次操作",
     "selectionHelp": "「選取所有符合結果的卡片」會將操作套用到所有符合篩選條件的卡片，而不只這一頁。",
     "noCardsTitle": "尚未有任何抽認卡",
@@ -628,11 +637,11 @@
     "backToList": "返回清單",
     "retake": "重新測驗"
   },
-  "searchPrompts": "Search prompts...",
-  "noMatchingPrompts": "No matching prompts",
+  "searchPrompts": "搜尋提示詞…",
+  "noMatchingPrompts": "沒有符合的提示詞",
   "promptSelect": {
-    "favorites": "Favorites",
-    "system": "System prompts",
-    "quick": "Quick prompts"
+    "favorites": "收藏",
+    "system": "系統提示詞",
+    "quick": "快速提示詞"
   }
 }

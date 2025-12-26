@@ -126,5 +126,10 @@
       "message": "Søg i din vidensbase og indsæt resultater i din besked.",
       "dismiss": "Luk"
     }
+  },
+  "tabs": {
+    "newChat": "New chat",
+    "newTabAria": "New chat tab",
+    "closeTabAria": "Close chat tab"
   }
 }

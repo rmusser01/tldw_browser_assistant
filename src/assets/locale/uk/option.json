@@ -87,7 +87,8 @@
     "omniSearchCreateFlashcardsSuccess": "Колекцію флеш-карток \"{{query}}\" створено",
     "omniSearchStartChat": "Почати новий чат \"{{query}}\"",
     "connectionCard.connectedCaption": "Чат та інструменти тепер доступні в Налаштуваннях і бічній панелі.",
-    "quickIngestQueuedAria": "{{label}} — {{count}} елементів у черзі — натисніть, щоб переглянути та обробити"
+    "quickIngestQueuedAria": "{{label}} — {{count}} елементів у черзі — натисніть, щоб переглянути та обробити",
+    "modeSpeech": "Мовлення"
   },
   "sidebarTitle": "Історія чату",
   "error": "Збій",
@@ -437,8 +438,13 @@
     "download": "Завантажити",
     "duplicate": "Дублювати",
     "move": "Перемістити",
+    "reviewFailed": "Review failed",
+    "updateFailed": "Update failed",
+    "deleteFailed": "Delete failed",
+    "missingVersion": "Missing version; reload and try again",
     "bulkMove": "Масове переміщення",
     "bulkDelete": "Масове видалення",
+    "bulkDeleteResult": "{{success}} видалено · {{failed}} не вдалося",
     "bulkLimitWarning": "Operation limited to first {{limit}} items.",
     "exportSelectedCsv": "Експортувати вибране (CSV/TSV)",
     "selectedCount": "Вибрано",
@@ -464,6 +470,9 @@
     "modelTypeHelp": "Тип «Basic» показує запитання спереду й відповідь ззаду. «Reverse» також створює зворотну картку. «Cloze» приховує частини тексту, обгорнуті в {{...}}.",
     "reverseHelp": "Також створює картку, де зворотний бік стає запитанням.",
     "isClozeHelp": "Використовуйте для карток із пропусками. Обгорніть прихований текст на лицьовому боці в {{...}}.",
+    "markdownSupportHint": "Підтримує Markdown і LaTeX.",
+    "extraHint": "Необов’язкові підказки/пояснення (підтримуються Markdown і LaTeX).",
+    "notesHint": "Внутрішні нотатки (підтримуються Markdown і LaTeX).",
     "bulkActions": "Масові дії",
     "selectionHelp": "«Вибрати все в результатах» застосовує дії до кожної картки, що відповідає вашим фільтрам, а не лише до цієї сторінки.",
     "noCardsTitle": "Ще немає флешкарт",
@@ -632,11 +641,11 @@
     "backToList": "Повернутися до списку",
     "retake": "Повторити вікторину"
   },
-  "searchPrompts": "Search prompts...",
-  "noMatchingPrompts": "No matching prompts",
+  "searchPrompts": "Пошук промптів...",
+  "noMatchingPrompts": "Немає відповідних промптів",
   "promptSelect": {
-    "favorites": "Favorites",
-    "system": "System prompts",
-    "quick": "Quick prompts"
+    "favorites": "Улюблені",
+    "system": "Системні промпти",
+    "quick": "Швидкі промпти"
   }
 }

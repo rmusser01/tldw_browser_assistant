@@ -1028,7 +1028,7 @@
     "description": "Content review UI string."
   },
   "contentReview_templates_chapter_headings_label": {
-    "message": "Kapitelfrubriker",
+    "message": "Kapitelrubriker",
     "description": "Content review UI string."
   },
   "contentReview_templates_chapter_headings_description": {
@@ -1374,335 +1374,335 @@
     "message": "Spara efter granskning"
   },
   "manageCharacters_actions_viewConversations": {
-    "message": "View conversations"
+    "message": "Visa konversationer"
   },
   "manageCharacters_aria_viewConversations": {
-    "message": "View conversations for {{name}}"
+    "message": "Visa konversationer för {{name}}"
   },
   "manageCharacters_aria_searchResults": {
-    "message": "{{count}} characters found"
+    "message": "{{count}} karaktärer hittades"
   },
   "manageCharacters_conversations_title": {
-    "message": "Conversations for {{name}}"
+    "message": "Konversationer för {{name}}"
   },
   "manageCharacters_conversations_titleGeneric": {
-    "message": "Character conversations"
+    "message": "Karaktärskonversationer"
   },
   "manageCharacters_conversations_subtitle": {
-    "message": "Select a conversation to continue as this character."
+    "message": "Välj en konversation för att fortsätta som den här karaktären."
   },
   "manageCharacters_conversations_empty": {
-    "message": "No conversations found for this character yet."
+    "message": "Inga konversationer hittades för den här karaktären ännu."
   },
   "manageCharacters_conversations_error": {
-    "message": "Unable to load conversations for this character."
+    "message": "Det gick inte att läsa in konversationer för den här karaktären."
   },
   "manageCharacters_conversations_updated": {
-    "message": "Updated {{time}}"
+    "message": "Uppdaterad {{time}}"
   },
   "manageCharacters_conversations_unknownTime": {
-    "message": "Unknown"
+    "message": "Okänt"
   },
   "manageCharacters_conversations_resume": {
-    "message": "Continue chat"
+    "message": "Fortsätt chatten"
   },
   "manageCharacters_conversations_untitled": {
-    "message": "Untitled"
+    "message": "Namnlös"
   },
   "manageCharacters_conversations_mostRecent": {
-    "message": "Most recent"
+    "message": "Senaste"
   },
   "manageCharacters_conversations_resumeTooltip": {
-    "message": "Load chat history and continue this conversation"
+    "message": "Läs in chatthistorik och fortsätt den här konversationen"
   },
   "manageCharacters_preview_title": {
-    "message": "Preview"
+    "message": "Förhandsvisning"
   },
   "manageCharacters_preview_show": {
-    "message": "Show preview"
+    "message": "Visa förhandsvisning"
   },
   "manageCharacters_preview_hide": {
-    "message": "Hide preview"
+    "message": "Dölj förhandsvisning"
   },
   "manageCharacters_preview_untitled": {
-    "message": "Untitled character"
+    "message": "Namnlös karaktär"
   },
   "manageCharacters_preview_greeting": {
-    "message": "Greeting"
+    "message": "Hälsning"
   },
   "manageCharacters_preview_behavior": {
-    "message": "Behavior"
+    "message": "Beteende"
   },
   "manageCharacters_preview_empty": {
-    "message": "Fill in the form to see a preview"
+    "message": "Fyll i formuläret för att se en förhandsvisning"
   },
   "manageCharacters_advanced_show": {
-    "message": "Show advanced fields"
+    "message": "Visa avancerade fält"
   },
   "manageCharacters_advanced_hide": {
-    "message": "Hide advanced fields"
+    "message": "Dölj avancerade fält"
   },
   "chunkingPlayground_nav": {
-    "message": "Chunking Playground",
-    "description": "TODO: translate (copied from en)"
+    "message": "Uppdelningslekplats",
+    "description": "Swedish translation"
   },
   "chunkingPlayground_title": {
-    "message": "Chunking Playground",
-    "description": "TODO: translate (copied from en)"
+    "message": "Uppdelningslekplats",
+    "description": "Swedish translation"
   },
   "chunkingPlayground_description": {
-    "message": "Experiment with different chunking settings to see how text gets split into smaller pieces for processing.",
-    "description": "TODO: translate (copied from en)"
+    "message": "Experimentera med olika uppdelningsinställningar för att se hur text delas upp i mindre delar för behandling.",
+    "description": "Swedish translation"
   },
   "chunkingPlayground_inputLabel": {
-    "message": "Text to chunk",
-    "description": "TODO: translate (copied from en)"
+    "message": "Text att dela upp",
+    "description": "Swedish translation"
   },
   "chunkingPlayground_inputPlaceholder": {
-    "message": "Paste text here or select a sample...",
-    "description": "TODO: translate (copied from en)"
+    "message": "Klistra in text här eller välj ett exempel...",
+    "description": "Swedish translation"
   },
   "chunkingPlayground_uploadButton": {
-    "message": "Upload File",
-    "description": "TODO: translate (copied from en)"
+    "message": "Ladda upp fil",
+    "description": "Swedish translation"
   },
   "chunkingPlayground_chunkButton": {
-    "message": "Chunk Text",
-    "description": "TODO: translate (copied from en)"
+    "message": "Dela upp text",
+    "description": "Swedish translation"
   },
   "chunkingPlayground_methodLabel": {
-    "message": "Chunking Method",
-    "description": "TODO: translate (copied from en)"
+    "message": "Uppdelningsmetod",
+    "description": "Swedish translation"
   },
   "chunkingPlayground_maxSizeLabel": {
-    "message": "Max Chunk Size",
-    "description": "TODO: translate (copied from en)"
+    "message": "Maximal delstorlek",
+    "description": "Swedish translation"
   },
   "chunkingPlayground_overlapLabel": {
-    "message": "Overlap",
-    "description": "TODO: translate (copied from en)"
+    "message": "Överlappning",
+    "description": "Swedish translation"
   },
   "chunkingPlayground_languageLabel": {
-    "message": "Language",
-    "description": "TODO: translate (copied from en)"
+    "message": "Språk",
+    "description": "Swedish translation"
   },
   "chunkingPlayground_languages_auto": {
-    "message": "Auto-detect",
-    "description": "TODO: translate (copied from en)"
+    "message": "Identifiera automatiskt",
+    "description": "Swedish translation"
   },
   "chunkingPlayground_languages_en": {
-    "message": "English",
-    "description": "TODO: translate (copied from en)"
+    "message": "Engelska",
+    "description": "Swedish translation"
   },
   "chunkingPlayground_languages_es": {
-    "message": "Spanish",
-    "description": "TODO: translate (copied from en)"
+    "message": "Spanska",
+    "description": "Swedish translation"
   },
   "chunkingPlayground_languages_fr": {
-    "message": "French",
-    "description": "TODO: translate (copied from en)"
+    "message": "Franska",
+    "description": "Swedish translation"
   },
   "chunkingPlayground_languages_de": {
-    "message": "German",
-    "description": "TODO: translate (copied from en)"
+    "message": "Tyska",
+    "description": "Swedish translation"
   },
   "chunkingPlayground_languages_it": {
-    "message": "Italian",
-    "description": "TODO: translate (copied from en)"
+    "message": "Italienska",
+    "description": "Swedish translation"
   },
   "chunkingPlayground_languages_pt": {
-    "message": "Portuguese",
-    "description": "TODO: translate (copied from en)"
+    "message": "Portugisiska",
+    "description": "Swedish translation"
   },
   "chunkingPlayground_languages_zh": {
-    "message": "Chinese",
-    "description": "TODO: translate (copied from en)"
+    "message": "Kinesiska",
+    "description": "Swedish translation"
   },
   "chunkingPlayground_languages_ja": {
-    "message": "Japanese",
-    "description": "TODO: translate (copied from en)"
+    "message": "Japanska",
+    "description": "Swedish translation"
   },
   "chunkingPlayground_languages_ko": {
-    "message": "Korean",
-    "description": "TODO: translate (copied from en)"
+    "message": "Koreanska",
+    "description": "Swedish translation"
   },
   "chunkingPlayground_viewCards": {
-    "message": "Cards",
-    "description": "TODO: translate (copied from en)"
+    "message": "Kort",
+    "description": "Swedish translation"
   },
   "chunkingPlayground_viewInline": {
     "message": "Inline",
-    "description": "TODO: translate (copied from en)"
+    "description": "Swedish translation"
   },
   "chunkingPlayground_stats": {
-    "message": "{{count}} chunks, avg {{avgSize}} chars"
+    "message": "{{count}} delar, snitt {{avgSize}} tecken"
   },
   "chunkingPlayground_textLoaded": {
-    "message": "Text loaded",
-    "description": "TODO: translate (copied from en)"
+    "message": "Text laddad",
+    "description": "Swedish translation"
   },
   "chunkingPlayground_characters": {
-    "message": "characters",
-    "description": "TODO: translate (copied from en)"
+    "message": "tecken",
+    "description": "Swedish translation"
   },
   "chunkingPlayground_tabSingle": {
-    "message": "Single",
-    "description": "TODO: translate (copied from en)"
+    "message": "Enkel",
+    "description": "Swedish translation"
   },
   "chunkingPlayground_tabCompare": {
-    "message": "Compare",
-    "description": "TODO: translate (copied from en)"
+    "message": "Jämför",
+    "description": "Swedish translation"
   },
   "chunkingPlayground_chunkIndex": {
-    "message": "Chunk {{index}}"
+    "message": "Del {{index}}"
   },
   "chunkingPlayground_chunkInfo": {
-    "message": "Chunk {{index}}: {{words}} words"
+    "message": "Del {{index}}: {{words}} ord"
   },
   "chunkingPlayground_position": {
     "message": "Position: {{start}} - {{end}}"
   },
   "chunkingPlayground_additionalChunks": {
-    "message": "+{{count}} more"
+    "message": "+{{count}} till"
   },
   "chunkingPlayground_charCount": {
-    "message": "{{count}} characters"
+    "message": "{{count}} tecken"
   },
   "chunkingPlayground_wordCount": {
-    "message": "{{count}} words"
+    "message": "{{count}} ord"
   },
   "chunkingPlayground_noInput": {
-    "message": "Please provide text to chunk",
-    "description": "TODO: translate (copied from en)"
+    "message": "Ange text att dela upp",
+    "description": "Swedish translation"
   },
   "chunkingPlayground_sharedInput": {
-    "message": "Shared Input Text",
-    "description": "TODO: translate (copied from en)"
+    "message": "Delad inmatningstext",
+    "description": "Swedish translation"
   },
   "chunkingPlayground_compareButton": {
-    "message": "Compare Both",
-    "description": "TODO: translate (copied from en)"
+    "message": "Jämför båda",
+    "description": "Swedish translation"
   },
   "chunkingPlayground_comparison": {
-    "message": "Comparison",
-    "description": "TODO: translate (copied from en)"
+    "message": "Jämförelse",
+    "description": "Swedish translation"
   },
   "chunkingPlayground_fewerChunks": {
-    "message": "Config A produces {{diff}} fewer chunks"
+    "message": "Konfiguration A ger {{diff}} färre delar"
   },
   "chunkingPlayground_moreChunks": {
-    "message": "Config A produces {{diff}} more chunks"
+    "message": "Konfiguration A ger {{diff}} fler delar"
   },
   "chunkingPlayground_sameChunks": {
-    "message": "Both configs produce the same number of chunks",
-    "description": "TODO: translate (copied from en)"
+    "message": "Båda konfigurationerna ger samma antal delar",
+    "description": "Swedish translation"
   },
   "chunkingPlayground_clickToChunk": {
-    "message": "Click 'Compare' to see results",
-    "description": "TODO: translate (copied from en)"
+    "message": "Klicka på \"Jämför\" för att se resultat",
+    "description": "Swedish translation"
   },
   "chunkingPlayground_overlapRegion": {
-    "message": "Overlap Region",
-    "description": "TODO: translate (copied from en)"
+    "message": "Överlappande område",
+    "description": "Swedish translation"
   },
   "chunkingPlayground_clickHint": {
-    "message": "Click on a highlighted section to focus on that chunk",
-    "description": "TODO: translate (copied from en)"
+    "message": "Klicka på ett markerat avsnitt för att fokusera på den delen",
+    "description": "Swedish translation"
   },
   "chunkingPlayground_noContentFound": {
-    "message": "No text content found for this media item",
-    "description": "TODO: translate (copied from en)"
+    "message": "Ingen text hittades för detta medieobjekt",
+    "description": "Swedish translation"
   },
   "chunkingPlayground_loadContentError": {
-    "message": "Failed to load media content",
-    "description": "TODO: translate (copied from en)"
+    "message": "Kunde inte läsa in mediainnehåll",
+    "description": "Swedish translation"
   },
   "chunkingPlayground_loadMediaListError": {
-    "message": "Failed to load media library",
-    "description": "TODO: translate (copied from en)"
+    "message": "Kunde inte läsa in mediebiblioteket",
+    "description": "Swedish translation"
   },
   "chunkingPlayground_selectMedia": {
-    "message": "Select media item...",
-    "description": "TODO: translate (copied from en)"
+    "message": "Välj medieobjekt...",
+    "description": "Swedish translation"
   },
   "chunkingPlayground_loadingMedia": {
-    "message": "Loading content...",
-    "description": "TODO: translate (copied from en)"
+    "message": "Läser in innehåll...",
+    "description": "Swedish translation"
   },
   "chunkingPlayground_noMediaFound": {
-    "message": "No media found",
-    "description": "TODO: translate (copied from en)"
+    "message": "Inga medier hittades",
+    "description": "Swedish translation"
   },
   "chunkingPlayground_mediaCount": {
-    "message": "{{count}} media items available"
+    "message": "{{count}} medieobjekt tillgängliga"
   },
   "chunkingPlayground_inputSource_paste": {
-    "message": "Paste Text",
-    "description": "TODO: translate (copied from en)"
+    "message": "Klistra in text",
+    "description": "Swedish translation"
   },
   "chunkingPlayground_inputSource_upload": {
-    "message": "Upload File",
-    "description": "TODO: translate (copied from en)"
+    "message": "Ladda upp fil",
+    "description": "Swedish translation"
   },
   "chunkingPlayground_inputSource_sample": {
-    "message": "Sample Text",
-    "description": "TODO: translate (copied from en)"
+    "message": "Exempeltext",
+    "description": "Swedish translation"
   },
   "chunkingPlayground_inputSource_media": {
-    "message": "From Media Library",
-    "description": "TODO: translate (copied from en)"
+    "message": "Från mediebiblioteket",
+    "description": "Swedish translation"
   },
   "chunkingPlayground_samples_article": {
-    "message": "News Article",
-    "description": "TODO: translate (copied from en)"
+    "message": "Nyhetsartikel",
+    "description": "Swedish translation"
   },
   "chunkingPlayground_samples_articleDesc": {
-    "message": "Multi-paragraph article with headers",
-    "description": "TODO: translate (copied from en)"
+    "message": "Artikel med flera stycken och rubriker",
+    "description": "Swedish translation"
   },
   "chunkingPlayground_samples_code": {
-    "message": "Source Code",
-    "description": "TODO: translate (copied from en)"
+    "message": "Källkod",
+    "description": "Swedish translation"
   },
   "chunkingPlayground_samples_codeDesc": {
-    "message": "Python code with classes and functions",
-    "description": "TODO: translate (copied from en)"
+    "message": "Python-kod med klasser och funktioner",
+    "description": "Swedish translation"
   },
   "chunkingPlayground_samples_transcript": {
-    "message": "Transcript",
-    "description": "TODO: translate (copied from en)"
+    "message": "Transkript",
+    "description": "Swedish translation"
   },
   "chunkingPlayground_samples_transcriptDesc": {
-    "message": "Timestamped podcast transcript",
-    "description": "TODO: translate (copied from en)"
+    "message": "Tidsstämplat podkasttranskript",
+    "description": "Swedish translation"
   },
   "chunkingPlayground_samples_academic": {
-    "message": "Academic Paper",
-    "description": "TODO: translate (copied from en)"
+    "message": "Akademisk artikel",
+    "description": "Swedish translation"
   },
   "chunkingPlayground_samples_academicDesc": {
-    "message": "Technical writing with citations",
-    "description": "TODO: translate (copied from en)"
+    "message": "Teknisk text med referenser",
+    "description": "Swedish translation"
   },
   "chunkingPlayground_compare_title": {
-    "message": "Compare Settings",
-    "description": "TODO: translate (copied from en)"
+    "message": "Jämför inställningar",
+    "description": "Swedish translation"
   },
   "chunkingPlayground_compare_configA": {
-    "message": "Configuration A",
-    "description": "TODO: translate (copied from en)"
+    "message": "Konfiguration A",
+    "description": "Swedish translation"
   },
   "chunkingPlayground_compare_configB": {
-    "message": "Configuration B",
-    "description": "TODO: translate (copied from en)"
+    "message": "Konfiguration B",
+    "description": "Swedish translation"
   },
   "chunkingPlayground_mode_single": {
-    "message": "Single",
-    "description": "TODO: translate (copied from en)"
+    "message": "Enkel",
+    "description": "Swedish translation"
   },
   "chunkingPlayground_mode_compare": {
-    "message": "Compare",
-    "description": "TODO: translate (copied from en)"
+    "message": "Jämför",
+    "description": "Swedish translation"
   },
   "managePrompts_importMode_merge": {
     "message": "Merge"
@@ -1727,5 +1727,515 @@
   },
   "flashcards_dueDue": {
     "message": "Due"
+  },
+  "flashcards_reviewFailed": {
+    "message": "Review failed"
+  },
+  "flashcards_updateFailed": {
+    "message": "Update failed"
+  },
+  "flashcards_deleteFailed": {
+    "message": "Delete failed"
+  },
+  "flashcards_missingVersion": {
+    "message": "Missing version; reload and try again"
+  },
+  "flashcards_bulkDeleteResult": {
+    "message": "{{success}} deleted · {{failed}} failed"
+  },
+  "mediaPage_searchPlaceholder": {
+    "message": "Search media (title/content)"
+  },
+  "mediaPage_search": {
+    "message": "Search"
+  },
+  "mediaPage_clear": {
+    "message": "Clear"
+  },
+  "mediaPage_types": {
+    "message": "Types"
+  },
+  "mediaPage_keywords": {
+    "message": "Keywords"
+  },
+  "mediaPage_moreTags": {
+    "message": "+{{count}} more tags"
+  },
+  "mediaPage_resetFilters": {
+    "message": "Reset Filters"
+  },
+  "mediaPage_clearAll": {
+    "message": "Rensa allt"
+  },
+  "mediaPage_content": {
+    "message": "Content"
+  },
+  "mediaPage_vertical": {
+    "message": "Vertical"
+  },
+  "mediaPage_horizontal": {
+    "message": "Horizontal"
+  },
+  "mediaPage_results": {
+    "message": "Results"
+  },
+  "mediaPage_noResults": {
+    "message": "No results"
+  },
+  "mediaPage_showSidebar": {
+    "message": "Show sidebar"
+  },
+  "mediaPage_hideSidebar": {
+    "message": "Hide sidebar"
+  },
+  "mediaPage_viewer": {
+    "message": "Viewer"
+  },
+  "mediaPage_selectItemsHint": {
+    "message": "Select items on the left to view here."
+  },
+  "mediaPage_mediaContent": {
+    "message": "Media Content"
+  },
+  "mediaPage_copyContent": {
+    "message": "Copy content"
+  },
+  "mediaPage_contentCopied": {
+    "message": "Content copied"
+  },
+  "mediaPage_metadataCopied": {
+    "message": "Metadata har kopierats"
+  },
+  "mediaPage_analysisCopied": {
+    "message": "Analys har kopierats"
+  },
+  "mediaPage_copyFailed": {
+    "message": "Copy failed"
+  },
+  "mediaPage_noContent": {
+    "message": "No content available"
+  },
+  "mediaPage_collapse": {
+    "message": "Collapse"
+  },
+  "mediaPage_expand": {
+    "message": "Expand"
+  },
+  "mediaPage_media": {
+    "message": "Media"
+  },
+  "mediaPage_searchingBanner": {
+    "message": "Searching media…"
+  },
+  "mediaPage_filterHelp": {
+    "message": "Search matches title and content; Types and Keywords further narrow the results."
+  },
+  "mediaPage_noMediaTypes": {
+    "message": "Inga medietyper tillgängliga"
+  },
+  "mediaPage_resultsCount": {
+    "message": "{{selected}} selected · {{open}} open"
+  },
+  "mediaPage_clearSelection": {
+    "message": "Deselect all"
+  },
+  "mediaPage_itemsLabel": {
+    "message": "Items"
+  },
+  "mediaPage_contentLabel": {
+    "message": "Content view"
+  },
+  "mediaPage_filterByKeyword": {
+    "message": "Filtrera efter nyckelord"
+  },
+  "mediaPage_keywordHelper": {
+    "message": "Nyckelord hjälper dig att hitta det här mediet med hjälp av nyckelordsfiltret till vänster"
+  },
+  "mediaPage_modeHint": {
+    "message": "Sök efter och stapla flera mediaobjekt för att jämföra dem i visaren till höger."
+  },
+  "mediaPage_viewerHelp": {
+    "message": "Tangentbord: använd Tab för att gå till resultatlistan, Enter eller Mellanslag för att stapla eller ta bort ett mediaobjekt, och föregående/nästa- samt layoutkontrollerna för att förflytta dig mellan objekten i visaren."
+  },
+  "mediaPage_viewerHelpLabel": {
+    "message": "Tangentbordsgenvägar för granskning av flera objekt"
+  },
+  "mediaPage_mediaInspector": {
+    "message": "Mediainspektör"
+  },
+  "mediaPage_actionsLabel": {
+    "message": "Åtgärder"
+  },
+  "mediaPage_keywordsPlaceholder": {
+    "message": "Lägg till nyckelord..."
+  },
+  "mediaPage_noSelectionTitle": {
+    "message": "Inget mediaobjekt valt"
+  },
+  "mediaPage_noSelectionDescription": {
+    "message": "Välj ett mediaobjekt i den vänstra sidopanelen för att visa dess innehåll och analyser här."
+  },
+  "mediaPage_generateAnalysis": {
+    "message": "Skapa analys"
+  },
+  "mediaPage_generateAnalysisHint": {
+    "message": "Skapa en ny analys"
+  },
+  "mediaPage_editAnalysis": {
+    "message": "Redigera analys"
+  },
+  "mediaPage_createNoteWithContent": {
+    "message": "Skapa anteckning med innehåll"
+  },
+  "mediaPage_createNoteWithContentAnalysis": {
+    "message": "Skapa anteckning med innehåll + analys"
+  },
+  "mediaPage_untitled": {
+    "message": "Utan titel"
+  },
+  "mediaPage_copyMetadata": {
+    "message": "Kopiera metadata"
+  },
+  "mediaPage_statistics": {
+    "message": "Statistik"
+  },
+  "mediaPage_words": {
+    "message": "Ord"
+  },
+  "mediaPage_characters": {
+    "message": "Tecken"
+  },
+  "mediaPage_paragraphs": {
+    "message": "Stycken"
+  },
+  "mediaPage_metadata": {
+    "message": "Metadata"
+  },
+  "mediaPage_idLabel": {
+    "message": "ID"
+  },
+  "mediaPage_typeLabel": {
+    "message": "Typ"
+  },
+  "mediaPage_titleLabel": {
+    "message": "Titel"
+  },
+  "mediaPage_source": {
+    "message": "Källa"
+  },
+  "mediaPage_notAvailable": {
+    "message": "Inte tillgänglig"
+  },
+  "mediaPage_developerTools": {
+    "message": "Utvecklingsverktyg"
+  },
+  "mediaPage_nothingToSend": {
+    "message": "Inget att skicka"
+  },
+  "mediaPage_emptyAnalysis": {
+    "message": "Analysen kan inte vara tom"
+  },
+  "mediaPage_noMediaId": {
+    "message": "Inget media-ID tillgängligt"
+  },
+  "mediaPage_versionSaved": {
+    "message": "Sparad som ny version"
+  },
+  "mediaPage_saveFailed": {
+    "message": "Det gick inte att spara versionen"
+  },
+  "mediaPage_sendToChat": {
+    "message": "Skicka till chatten"
+  },
+  "mediaPage_saveAsVersion": {
+    "message": "Spara som ny version"
+  },
+  "mediaPage_analysisPlaceholder": {
+    "message": "Ange analys-text..."
+  },
+  "mediaPage_wordCount": {
+    "message": "{{count}} ord"
+  },
+  "mediaPage_charCount": {
+    "message": "{{count}} tecken"
+  },
+  "mediaPage_pageRangeError": {
+    "message": "Sidan måste vara mellan 1 och {{max}}"
+  },
+  "mediaPage_pageRangeClamped": {
+    "message": "Navigerar till sida {{page}}"
+  },
+  "mediaPage_saveUnauthorized": {
+    "message": "Inte behörig att spara"
+  },
+  "flashcards_markdownSupportHint": {
+    "message": "Stöder Markdown och LaTeX."
+  },
+  "flashcards_extraHint": {
+    "message": "Valfria tips/förklaringar (Markdown + LaTeX stöds)."
+  },
+  "flashcards_notesHint": {
+    "message": "Interna anteckningar (Markdown + LaTeX stöds)."
+  },
+  "manageCharacters_title": {
+    "message": "Manage Characters"
+  },
+  "manageCharacters_addBtn": {
+    "message": "New character"
+  },
+  "manageCharacters_columns_name": {
+    "message": "Name"
+  },
+  "manageCharacters_columns_description": {
+    "message": "Description"
+  },
+  "manageCharacters_columns_actions": {
+    "message": "Actions"
+  },
+  "manageCharacters_columns_avatar": {
+    "message": "Avatar"
+  },
+  "manageCharacters_actions_chat": {
+    "message": "Chat"
+  },
+  "manageCharacters_actions_edit": {
+    "message": "Edit"
+  },
+  "manageCharacters_actions_delete": {
+    "message": "Ta bort"
+  },
+  "manageCharacters_tags_label": {
+    "message": "Tags"
+  },
+  "manageCharacters_tags_placeholder": {
+    "message": "Add tags"
+  },
+  "manageCharacters_tags_help": {
+    "message": "Use tags to group characters by use case (e.g., “writing”, “teaching”)."
+  },
+  "manageCharacters_tooltip_edit": {
+    "message": "Edit character"
+  },
+  "manageCharacters_tooltip_delete": {
+    "message": "Delete character"
+  },
+  "manageCharacters_aria_chatWith": {
+    "message": "Chat as {{name}}"
+  },
+  "manageCharacters_aria_edit": {
+    "message": "Edit character {{name}}"
+  },
+  "manageCharacters_aria_delete": {
+    "message": "Ta bort karaktären {{name}}"
+  },
+  "manageCharacters_confirm_delete": {
+    "message": "Are you sure you want to delete this character? This action cannot be undone."
+  },
+  "manageCharacters_form_name_label": {
+    "message": "Name"
+  },
+  "manageCharacters_form_name_placeholder": {
+    "message": "e.g. Writing coach"
+  },
+  "manageCharacters_form_name_required": {
+    "message": "Please enter a name"
+  },
+  "manageCharacters_form_description": {
+    "message": "Define a reusable character you can chat with in the sidebar."
+  },
+  "manageCharacters_form_systemPrompt_label": {
+    "message": "Behavior / instructions"
+  },
+  "manageCharacters_form_systemPrompt_placeholder": {
+    "message": "E.g., You are a patient math teacher who explains concepts step by step and checks understanding with short examples."
+  },
+  "manageCharacters_form_systemPrompt_help": {
+    "message": "Explain the character's role, tone, and constraints. For example: \"You are a patient math tutor who explains concepts step by step.\""
+  },
+  "manageCharacters_form_systemPrompt_min": {
+    "message": "Add a short description so the character knows how to respond."
+  },
+  "manageCharacters_form_avatarUrl_label": {
+    "message": "Avatar URL (optional)"
+  },
+  "manageCharacters_form_avatarUrl_placeholder": {
+    "message": "https://example.com/avatar.png"
+  },
+  "manageCharacters_form_greeting_label": {
+    "message": "Greeting message (optional)"
+  },
+  "manageCharacters_form_greeting_placeholder": {
+    "message": "Hi there! I’m your writing coach. Paste your draft and I’ll help you tighten it up."
+  },
+  "manageCharacters_form_greeting_help": {
+    "message": "Optional first message the character will send when you start a chat."
+  },
+  "manageCharacters_form_btnSave_saving": {
+    "message": "Creating character..."
+  },
+  "manageCharacters_form_btnSave_save": {
+    "message": "Create character"
+  },
+  "manageCharacters_form_btnEdit_saving": {
+    "message": "Saving changes..."
+  },
+  "manageCharacters_form_btnEdit_save": {
+    "message": "Save changes"
+  },
+  "manageCharacters_notification_addSuccess": {
+    "message": "Character created"
+  },
+  "manageCharacters_notification_error": {
+    "message": "Error"
+  },
+  "manageCharacters_notification_someError": {
+    "message": "Something went wrong. Please try again later"
+  },
+  "manageCharacters_notification_updatedSuccess": {
+    "message": "Character updated"
+  },
+  "manageCharacters_notification_deletedSuccess": {
+    "message": "Character deleted"
+  },
+  "manageCharacters_loadError_title": {
+    "message": "Couldn't load characters"
+  },
+  "manageCharacters_loadError_description": {
+    "message": "Check your connection and try again."
+  },
+  "manageCharacters_emptyTitle": {
+    "message": "No characters yet"
+  },
+  "manageCharacters_emptyDescription": {
+    "message": "Create a reusable character with a name, description, and system prompt you can chat with."
+  },
+  "manageCharacters_emptyExample1": {
+    "message": "Define a writing coach, lore expert, or coding assistant you can reuse across chats."
+  },
+  "manageCharacters_emptyExample2": {
+    "message": "Give each character a clear description and behavior so their responses stay consistent."
+  },
+  "manageCharacters_emptyPrimaryCta": {
+    "message": "Create character"
+  },
+  "manageCharacters_avatarAltWithName": {
+    "message": "Avatar för {{name}}"
+  },
+  "manageCharacters_avatarAlt": {
+    "message": "Användaravatar"
+  },
+  "header_modeSpeech": {
+    "message": "Tal"
+  },
+  "playground_speech_title": {
+    "message": "Tal-lekplats"
+  },
+  "playground_speech_subtitle": {
+    "message": "Spela in tal, redigera transkript och syntetisera ljud på ett ställe."
+  },
+  "playground_speech_modeLabel": {
+    "message": "Läge"
+  },
+  "playground_speech_modeRoundTrip": {
+    "message": "Tur och retur"
+  },
+  "playground_speech_modeSpeak": {
+    "message": "Tala"
+  },
+  "playground_speech_modeListen": {
+    "message": "Lyssna"
+  },
+  "playground_speech_modeHint": {
+    "message": "Ditt senaste läge sparas på den här enheten."
+  },
+  "playground_speech_recordingWaveform": {
+    "message": "Vågform för liveinspelning"
+  },
+  "playground_speech_playbackWaveform": {
+    "message": "Vågform för uppspelning"
+  },
+  "playground_speech_sendToTts": {
+    "message": "Skicka till TTS"
+  },
+  "playground_speech_sendHint": {
+    "message": "Använd den senaste transkriptionen som TTS-utkast."
+  },
+  "playground_speech_download": {
+    "message": "Ladda ner"
+  },
+  "playground_speech_downloadCurrent": {
+    "message": "Ladda ner aktuellt segment"
+  },
+  "playground_speech_downloadAll": {
+    "message": "Ladda ner alla segment"
+  },
+  "playground_speech_segmentFormat": {
+    "message": "Format"
+  },
+  "playground_speech_historyTitle": {
+    "message": "Talhistorik"
+  },
+  "playground_speech_historyAll": {
+    "message": "Alla"
+  },
+  "playground_speech_historyStt": {
+    "message": "STT"
+  },
+  "playground_speech_historyTts": {
+    "message": "TTS"
+  },
+  "playground_speech_historySearch": {
+    "message": "Sök transkript"
+  },
+  "playground_speech_historyRetentionHint": {
+    "message": "Behåller de senaste {{count}} objekten. Använd \"Rensa alla\" för att ta bort allt."
+  },
+  "playground_speech_useInTts": {
+    "message": "Använd i TTS"
+  },
+  "playground_speech_copy": {
+    "message": "Kopiera"
+  },
+  "playground_speech_copySuccess": {
+    "message": "Kopierat till urklipp"
+  },
+  "playground_speech_copyError": {
+    "message": "Det gick inte att kopiera transkriptet."
+  },
+  "playground_speech_providerTag": {
+    "message": "Leverantör"
+  },
+  "playground_speech_voiceTag": {
+    "message": "Röst"
+  },
+  "playground_speech_emptyHistory": {
+    "message": "Starta en inspelning eller generera ljud för att se historik här."
+  },
+  "playground_speech_downloadDisabledBrowser": {
+    "message": "Webbläsar-TTS skapar inte nedladdningsbart ljud."
+  },
+  "playground_speech_downloadDisabledEmpty": {
+    "message": "Generera ljud för att aktivera nedladdningar."
+  },
+  "playground_speech_transcriptLock": {
+    "message": "Lås"
+  },
+  "playground_speech_transcriptUnlock": {
+    "message": "Lås upp"
+  },
+  "playground_speech_transcriptEditHint": {
+    "message": "Redigering aktiverad för detta transkript."
+  },
+  "playground_speech_transcriptLockedHint": {
+    "message": "Låst till live-transkriptionsuppdateringar."
+  },
+  "playground_speech_transcriptRecordingHint": {
+    "message": "Inspelning pågår; transkriptet är låst."
+  },
+  "playground_tts_unsupportedFormatTitle": {
+    "message": "Ljudformat stöds inte"
+  },
+  "playground_tts_unsupportedFormatDescription": {
+    "message": "Svarformatet \"{{format}}\" stöds inte. Faller tillbaka till MP3."
   }
 }

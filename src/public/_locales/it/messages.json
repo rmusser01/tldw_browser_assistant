@@ -1373,325 +1373,325 @@
     "message": "{{count}} characters found"
   },
   "manageCharacters_conversations_title": {
-    "message": "Conversations for {{name}}"
+    "message": "Conversazioni per {{name}}"
   },
   "manageCharacters_conversations_titleGeneric": {
-    "message": "Character conversations"
+    "message": "Conversazioni del personaggio"
   },
   "manageCharacters_conversations_subtitle": {
-    "message": "Select a conversation to continue as this character."
+    "message": "Seleziona una conversazione per continuare come questo personaggio."
   },
   "manageCharacters_conversations_empty": {
-    "message": "No conversations found for this character yet."
+    "message": "Ancora nessuna conversazione trovata per questo personaggio."
   },
   "manageCharacters_conversations_error": {
-    "message": "Unable to load conversations for this character."
+    "message": "Impossibile caricare le conversazioni per questo personaggio."
   },
   "manageCharacters_conversations_updated": {
-    "message": "Updated {{time}}"
+    "message": "Aggiornato {{time}}"
   },
   "manageCharacters_conversations_unknownTime": {
-    "message": "Unknown"
+    "message": "Sconosciuto"
   },
   "manageCharacters_conversations_resume": {
-    "message": "Continue chat"
+    "message": "Continua chat"
   },
   "manageCharacters_conversations_untitled": {
-    "message": "Untitled"
+    "message": "Senza titolo"
   },
   "manageCharacters_conversations_mostRecent": {
-    "message": "Most recent"
+    "message": "Più recente"
   },
   "manageCharacters_conversations_resumeTooltip": {
-    "message": "Load chat history and continue this conversation"
+    "message": "Carica la cronologia chat e continua questa conversazione"
   },
   "manageCharacters_preview_title": {
-    "message": "Preview"
+    "message": "Anteprima"
   },
   "manageCharacters_preview_show": {
-    "message": "Show preview"
+    "message": "Mostra anteprima"
   },
   "manageCharacters_preview_hide": {
-    "message": "Hide preview"
+    "message": "Nascondi anteprima"
   },
   "manageCharacters_preview_untitled": {
-    "message": "Untitled character"
+    "message": "Personaggio senza titolo"
   },
   "manageCharacters_preview_greeting": {
-    "message": "Greeting"
+    "message": "Saluto"
   },
   "manageCharacters_preview_behavior": {
-    "message": "Behavior"
+    "message": "Comportamento"
   },
   "manageCharacters_preview_empty": {
-    "message": "Fill in the form to see a preview"
+    "message": "Compila il modulo per vedere un'anteprima"
   },
   "manageCharacters_advanced_show": {
-    "message": "Show advanced fields"
+    "message": "Mostra campi avanzati"
   },
   "manageCharacters_advanced_hide": {
-    "message": "Hide advanced fields"
+    "message": "Nascondi campi avanzati"
   },
   "chunkingPlayground_nav": {
-    "message": "Chunking Playground",
+    "message": "Playground di segmentazione",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_title": {
-    "message": "Chunking Playground",
+    "message": "Playground di segmentazione",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_description": {
-    "message": "Experiment with different chunking settings to see how text gets split into smaller pieces for processing.",
+    "message": "Sperimenta diverse impostazioni di segmentazione per vedere come il testo viene suddiviso in parti più piccole per l'elaborazione.",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_inputLabel": {
-    "message": "Text to chunk",
+    "message": "Testo da segmentare",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_inputPlaceholder": {
-    "message": "Paste text here or select a sample...",
+    "message": "Incolla il testo qui o seleziona un esempio...",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_uploadButton": {
-    "message": "Upload File",
+    "message": "Carica file",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_chunkButton": {
-    "message": "Chunk Text",
+    "message": "Segmenta il testo",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_methodLabel": {
-    "message": "Chunking Method",
+    "message": "Metodo di segmentazione",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_maxSizeLabel": {
-    "message": "Max Chunk Size",
+    "message": "Dimensione massima del segmento",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_overlapLabel": {
-    "message": "Overlap",
+    "message": "Sovrapposizione",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_languageLabel": {
-    "message": "Language",
+    "message": "Lingua",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_languages_auto": {
-    "message": "Auto-detect",
+    "message": "Rilevamento automatico",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_languages_en": {
-    "message": "English",
+    "message": "Inglese",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_languages_es": {
-    "message": "Spanish",
+    "message": "Spagnolo",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_languages_fr": {
-    "message": "French",
+    "message": "Francese",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_languages_de": {
-    "message": "German",
+    "message": "Tedesco",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_languages_it": {
-    "message": "Italian",
+    "message": "Italiano",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_languages_pt": {
-    "message": "Portuguese",
+    "message": "Portoghese",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_languages_zh": {
-    "message": "Chinese",
+    "message": "Cinese",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_languages_ja": {
-    "message": "Japanese",
+    "message": "Giapponese",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_languages_ko": {
-    "message": "Korean",
+    "message": "Coreano",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_viewCards": {
-    "message": "Cards",
+    "message": "Carte",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_viewInline": {
-    "message": "Inline",
+    "message": "In linea",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_stats": {
-    "message": "{{count}} chunks, avg {{avgSize}} chars"
+    "message": "{{count}} segmenti, media {{avgSize}} caratteri"
   },
   "chunkingPlayground_textLoaded": {
-    "message": "Text loaded",
+    "message": "Testo caricato",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_characters": {
-    "message": "characters",
+    "message": "caratteri",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_tabSingle": {
-    "message": "Single",
+    "message": "Singolo",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_tabCompare": {
-    "message": "Compare",
+    "message": "Confronta",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_chunkIndex": {
-    "message": "Chunk {{index}}"
+    "message": "Segmento {{index}}"
   },
   "chunkingPlayground_chunkInfo": {
-    "message": "Chunk {{index}}: {{words}} words"
+    "message": "Segmento {{index}}: {{words}} parole"
   },
   "chunkingPlayground_position": {
-    "message": "Position: {{start}} - {{end}}"
+    "message": "Posizione: {{start}} - {{end}}"
   },
   "chunkingPlayground_additionalChunks": {
-    "message": "+{{count}} more"
+    "message": "+{{count}} altri"
   },
   "chunkingPlayground_charCount": {
-    "message": "{{count}} characters"
+    "message": "{{count}} caratteri"
   },
   "chunkingPlayground_wordCount": {
-    "message": "{{count}} words"
+    "message": "{{count}} parole"
   },
   "chunkingPlayground_noInput": {
-    "message": "Please provide text to chunk",
+    "message": "Inserisci un testo da segmentare",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_sharedInput": {
-    "message": "Shared Input Text",
+    "message": "Testo di input condiviso",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_compareButton": {
-    "message": "Compare Both",
+    "message": "Confronta entrambi",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_comparison": {
-    "message": "Comparison",
+    "message": "Confronto",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_fewerChunks": {
-    "message": "Config A produces {{diff}} fewer chunks"
+    "message": "Config A produce {{diff}} segmenti in meno"
   },
   "chunkingPlayground_moreChunks": {
-    "message": "Config A produces {{diff}} more chunks"
+    "message": "Config A produce {{diff}} segmenti in più"
   },
   "chunkingPlayground_sameChunks": {
-    "message": "Both configs produce the same number of chunks",
+    "message": "Entrambe le configurazioni producono lo stesso numero di segmenti",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_clickToChunk": {
-    "message": "Click 'Compare' to see results",
+    "message": "Fai clic su \"Confronta\" per vedere i risultati",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_overlapRegion": {
-    "message": "Overlap Region",
+    "message": "Area di sovrapposizione",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_clickHint": {
-    "message": "Click on a highlighted section to focus on that chunk",
+    "message": "Fai clic su una sezione evidenziata per mettere a fuoco quel segmento",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_noContentFound": {
-    "message": "No text content found for this media item",
+    "message": "Nessun contenuto testuale trovato per questo elemento multimediale",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_loadContentError": {
-    "message": "Failed to load media content",
+    "message": "Impossibile caricare il contenuto multimediale",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_loadMediaListError": {
-    "message": "Failed to load media library",
+    "message": "Impossibile caricare la libreria multimediale",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_selectMedia": {
-    "message": "Select media item...",
+    "message": "Seleziona elemento multimediale...",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_loadingMedia": {
-    "message": "Loading content...",
+    "message": "Caricamento contenuto...",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_noMediaFound": {
-    "message": "No media found",
+    "message": "Nessun contenuto multimediale trovato",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_mediaCount": {
-    "message": "{{count}} media items available"
+    "message": "{{count}} elementi multimediali disponibili"
   },
   "chunkingPlayground_inputSource_paste": {
-    "message": "Paste Text",
+    "message": "Incolla testo",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_inputSource_upload": {
-    "message": "Upload File",
+    "message": "Carica file",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_inputSource_sample": {
-    "message": "Sample Text",
+    "message": "Testo di esempio",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_inputSource_media": {
-    "message": "From Media Library",
+    "message": "Dalla libreria multimediale",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_samples_article": {
-    "message": "News Article",
+    "message": "Articolo di notizie",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_samples_articleDesc": {
-    "message": "Multi-paragraph article with headers",
+    "message": "Articolo multi-paragrafo con intestazioni",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_samples_code": {
-    "message": "Source Code",
+    "message": "Codice sorgente",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_samples_codeDesc": {
-    "message": "Python code with classes and functions",
+    "message": "Codice Python con classi e funzioni",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_samples_transcript": {
-    "message": "Transcript",
+    "message": "Trascrizione",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_samples_transcriptDesc": {
-    "message": "Timestamped podcast transcript",
+    "message": "Trascrizione di podcast con timestamp",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_samples_academic": {
-    "message": "Academic Paper",
+    "message": "Articolo accademico",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_samples_academicDesc": {
-    "message": "Technical writing with citations",
+    "message": "Testo tecnico con citazioni",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_compare_title": {
-    "message": "Compare Settings",
+    "message": "Confronta impostazioni",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_compare_configA": {
-    "message": "Configuration A",
+    "message": "Configurazione A",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_compare_configB": {
-    "message": "Configuration B",
+    "message": "Configurazione B",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_mode_single": {
-    "message": "Single",
+    "message": "Singolo",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_mode_compare": {
-    "message": "Compare",
+    "message": "Confronta",
     "description": "TODO: translate (copied from en)"
   },
   "managePrompts_importMode_replace": {
@@ -1720,5 +1720,371 @@
   },
   "flashcards_dueDue": {
     "message": "Da ripetere"
+  },
+  "flashcards_reviewFailed": {
+    "message": "Review failed"
+  },
+  "flashcards_updateFailed": {
+    "message": "Update failed"
+  },
+  "flashcards_deleteFailed": {
+    "message": "Delete failed"
+  },
+  "flashcards_missingVersion": {
+    "message": "Missing version; reload and try again"
+  },
+  "flashcards_bulkDeleteResult": {
+    "message": "{{success}} deleted · {{failed}} failed"
+  },
+  "mediaPage_searchPlaceholder": {
+    "message": "Cerca media (titolo/contenuto)"
+  },
+  "mediaPage_search": {
+    "message": "Cerca"
+  },
+  "mediaPage_clear": {
+    "message": "Cancella"
+  },
+  "mediaPage_types": {
+    "message": "Tipi di media"
+  },
+  "mediaPage_keywords": {
+    "message": "Parole chiave"
+  },
+  "mediaPage_moreTags": {
+    "message": "+{{count}} more tags"
+  },
+  "mediaPage_resetFilters": {
+    "message": "Reimposta filtri"
+  },
+  "mediaPage_clearAll": {
+    "message": "Cancella tutto"
+  },
+  "mediaPage_content": {
+    "message": "Contenuto"
+  },
+  "mediaPage_vertical": {
+    "message": "Verticale"
+  },
+  "mediaPage_horizontal": {
+    "message": "Orizzontale"
+  },
+  "mediaPage_results": {
+    "message": "Risultati"
+  },
+  "mediaPage_showSidebar": {
+    "message": "Mostra barra laterale"
+  },
+  "mediaPage_hideSidebar": {
+    "message": "Nascondi barra laterale"
+  },
+  "mediaPage_viewer": {
+    "message": "Visualizzatore"
+  },
+  "mediaPage_selectItemsHint": {
+    "message": "Seleziona elementi a sinistra per visualizzarli qui."
+  },
+  "mediaPage_mediaContent": {
+    "message": "Contenuto multimediale"
+  },
+  "mediaPage_copyContent": {
+    "message": "Copia contenuto"
+  },
+  "mediaPage_contentCopied": {
+    "message": "Contenuto copiato"
+  },
+  "mediaPage_metadataCopied": {
+    "message": "Metadati copiati"
+  },
+  "mediaPage_analysisCopied": {
+    "message": "Analisi copiata"
+  },
+  "mediaPage_copyFailed": {
+    "message": "Copia non riuscita"
+  },
+  "mediaPage_noContent": {
+    "message": "Nessun contenuto disponibile"
+  },
+  "mediaPage_collapse": {
+    "message": "Comprimi"
+  },
+  "mediaPage_expand": {
+    "message": "Espandi"
+  },
+  "mediaPage_media": {
+    "message": "Media"
+  },
+  "mediaPage_searchingBanner": {
+    "message": "Ricerca dei media in corso…"
+  },
+  "mediaPage_filterHelp": {
+    "message": "La ricerca confronta titolo e contenuto; tipi e parole chiave restringono ulteriormente i risultati."
+  },
+  "mediaPage_noMediaTypes": {
+    "message": "Nessun tipo di media disponibile"
+  },
+  "mediaPage_noResults": {
+    "message": "Nessun media trovato. Usa Ingestione rapida nell'intestazione per aggiungere media dalle tue registrazioni e dai tuoi file."
+  },
+  "mediaPage_resultsCount": {
+    "message": "{{selected}} selezionati · {{open}} aperti"
+  },
+  "mediaPage_clearSelection": {
+    "message": "Deseleziona tutto"
+  },
+  "mediaPage_itemsLabel": {
+    "message": "Elementi"
+  },
+  "mediaPage_contentLabel": {
+    "message": "Vista contenuto"
+  },
+  "mediaPage_filterByKeyword": {
+    "message": "Filtra per parola chiave"
+  },
+  "mediaPage_keywordHelper": {
+    "message": "Le parole chiave ti aiutano a trovare questo media usando il filtro parole chiave a sinistra"
+  },
+  "mediaPage_modeHint": {
+    "message": "Cerca e impila più elementi multimediali per confrontarli nel visualizzatore a destra."
+  },
+  "mediaPage_viewerHelp": {
+    "message": "Tastiera: usa Tab per entrare nell'elenco dei risultati, Invio o Spazio per aggiungere o rimuovere un elemento multimediale dalla pila e i controlli Precedente/Successivo e di layout per scorrere gli elementi nel visualizzatore."
+  },
+  "mediaPage_viewerHelpLabel": {
+    "message": "Scorciatoie da tastiera per la revisione multi-elemento"
+  },
+  "mediaPage_mediaInspector": {
+    "message": "Ispettore media"
+  },
+  "mediaPage_actionsLabel": {
+    "message": "Azioni"
+  },
+  "mediaPage_keywordsPlaceholder": {
+    "message": "Aggiungi parole chiave..."
+  },
+  "mediaPage_noSelectionTitle": {
+    "message": "Nessun elemento multimediale selezionato"
+  },
+  "mediaPage_noSelectionDescription": {
+    "message": "Seleziona un elemento multimediale nella barra laterale sinistra per visualizzarne qui contenuto e analisi."
+  },
+  "mediaPage_generateAnalysis": {
+    "message": "Genera"
+  },
+  "mediaPage_generateAnalysisHint": {
+    "message": "Genera una nuova analisi"
+  },
+  "mediaPage_editAnalysis": {
+    "message": "Modifica analisi"
+  },
+  "mediaPage_createNoteWithContent": {
+    "message": "Crea nota con il contenuto"
+  },
+  "mediaPage_createNoteWithContentAnalysis": {
+    "message": "Crea nota con contenuto + analisi"
+  },
+  "mediaPage_untitled": {
+    "message": "Senza titolo"
+  },
+  "mediaPage_copyMetadata": {
+    "message": "Copia metadati"
+  },
+  "mediaPage_statistics": {
+    "message": "Statistiche"
+  },
+  "mediaPage_words": {
+    "message": "Parole"
+  },
+  "mediaPage_characters": {
+    "message": "Caratteri"
+  },
+  "mediaPage_paragraphs": {
+    "message": "Paragrafi"
+  },
+  "mediaPage_metadata": {
+    "message": "Metadati"
+  },
+  "mediaPage_idLabel": {
+    "message": "ID"
+  },
+  "mediaPage_typeLabel": {
+    "message": "Tipo"
+  },
+  "mediaPage_titleLabel": {
+    "message": "Titolo"
+  },
+  "mediaPage_source": {
+    "message": "Fonte"
+  },
+  "mediaPage_notAvailable": {
+    "message": "N/D"
+  },
+  "mediaPage_developerTools": {
+    "message": "Strumenti per sviluppatori"
+  },
+  "mediaPage_nothingToSend": {
+    "message": "Niente da inviare"
+  },
+  "mediaPage_emptyAnalysis": {
+    "message": "L'analisi non può essere vuota"
+  },
+  "mediaPage_noMediaId": {
+    "message": "Nessun ID media disponibile"
+  },
+  "mediaPage_versionSaved": {
+    "message": "Salvato come nuova versione"
+  },
+  "mediaPage_saveFailed": {
+    "message": "Impossibile salvare la versione"
+  },
+  "mediaPage_sendToChat": {
+    "message": "Invia alla chat"
+  },
+  "mediaPage_saveAsVersion": {
+    "message": "Salva come nuova versione"
+  },
+  "mediaPage_analysisPlaceholder": {
+    "message": "Inserisci il testo dell'analisi..."
+  },
+  "mediaPage_wordCount": {
+    "message": "{{count}} parole"
+  },
+  "mediaPage_charCount": {
+    "message": "{{count}} caratteri"
+  },
+  "mediaPage_pageRangeError": {
+    "message": "La pagina deve essere compresa tra 1 e {{max}}"
+  },
+  "mediaPage_pageRangeClamped": {
+    "message": "Navigazione alla pagina {{page}}"
+  },
+  "mediaPage_saveUnauthorized": {
+    "message": "Non autorizzato a salvare"
+  },
+  "flashcards_markdownSupportHint": {
+    "message": "Supporta Markdown e LaTeX."
+  },
+  "flashcards_extraHint": {
+    "message": "Suggerimenti/spiegazioni opzionali (Markdown + LaTeX supportati)."
+  },
+  "flashcards_notesHint": {
+    "message": "Note interne (Markdown + LaTeX supportati)."
+  },
+  "flashcards_bulkLimitWarning": {
+    "message": "Operazione limitata ai primi {{limit}} elementi."
+  },
+  "header_modeSpeech": {
+    "message": "Voce"
+  },
+  "playground_speech_title": {
+    "message": "Playground vocale"
+  },
+  "playground_speech_subtitle": {
+    "message": "Registra voce, modifica trascrizioni e sintetizza audio in un unico posto."
+  },
+  "playground_speech_modeLabel": {
+    "message": "Modalità"
+  },
+  "playground_speech_modeRoundTrip": {
+    "message": "Andata e ritorno"
+  },
+  "playground_speech_modeSpeak": {
+    "message": "Parla"
+  },
+  "playground_speech_modeListen": {
+    "message": "Ascolta"
+  },
+  "playground_speech_modeHint": {
+    "message": "L’ultima modalità viene ricordata su questo dispositivo."
+  },
+  "playground_speech_recordingWaveform": {
+    "message": "Forma d’onda di registrazione live"
+  },
+  "playground_speech_playbackWaveform": {
+    "message": "Forma d’onda di riproduzione"
+  },
+  "playground_speech_sendToTts": {
+    "message": "Invia a TTS"
+  },
+  "playground_speech_sendHint": {
+    "message": "Usa l’ultima trascrizione come bozza TTS."
+  },
+  "playground_speech_download": {
+    "message": "Scarica"
+  },
+  "playground_speech_downloadCurrent": {
+    "message": "Scarica il segmento corrente"
+  },
+  "playground_speech_downloadAll": {
+    "message": "Scarica tutti i segmenti"
+  },
+  "playground_speech_segmentFormat": {
+    "message": "Formato"
+  },
+  "playground_speech_historyTitle": {
+    "message": "Cronologia vocale"
+  },
+  "playground_speech_historyAll": {
+    "message": "Tutte"
+  },
+  "playground_speech_historyStt": {
+    "message": "STT"
+  },
+  "playground_speech_historyTts": {
+    "message": "TTS"
+  },
+  "playground_speech_historySearch": {
+    "message": "Cerca trascrizioni"
+  },
+  "playground_speech_historyRetentionHint": {
+    "message": "Conserva gli ultimi {{count}} elementi. Usa \"Cancella tutto\" per rimuovere tutto."
+  },
+  "playground_speech_useInTts": {
+    "message": "Usa in TTS"
+  },
+  "playground_speech_copy": {
+    "message": "Copia"
+  },
+  "playground_speech_copySuccess": {
+    "message": "Copiato negli appunti"
+  },
+  "playground_speech_copyError": {
+    "message": "Impossibile copiare la trascrizione."
+  },
+  "playground_speech_providerTag": {
+    "message": "Provider"
+  },
+  "playground_speech_voiceTag": {
+    "message": "Voce"
+  },
+  "playground_speech_emptyHistory": {
+    "message": "Avvia una registrazione o genera audio per vedere la cronologia qui."
+  },
+  "playground_speech_downloadDisabledBrowser": {
+    "message": "Il TTS del browser non crea audio scaricabile."
+  },
+  "playground_speech_downloadDisabledEmpty": {
+    "message": "Genera audio per abilitare i download."
+  },
+  "playground_speech_transcriptLock": {
+    "message": "Blocca"
+  },
+  "playground_speech_transcriptUnlock": {
+    "message": "Sblocca"
+  },
+  "playground_speech_transcriptEditHint": {
+    "message": "Modifica abilitata per questa trascrizione."
+  },
+  "playground_speech_transcriptLockedHint": {
+    "message": "Bloccato agli aggiornamenti di trascrizione in tempo reale."
+  },
+  "playground_speech_transcriptRecordingHint": {
+    "message": "Registrazione in corso; la trascrizione è bloccata."
+  },
+  "playground_tts_unsupportedFormatTitle": {
+    "message": "Formato audio non supportato"
+  },
+  "playground_tts_unsupportedFormatDescription": {
+    "message": "Il formato di risposta \"{{format}}\" non è supportato. Ripiego su MP3."
   }
 }
