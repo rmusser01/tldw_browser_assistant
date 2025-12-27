@@ -128,8 +128,8 @@
     }
   },
   "tabs": {
-    "newChat": "New chat",
-    "newTabAria": "New chat tab",
-    "closeTabAria": "Close chat tab"
+    "newChat": "دردشة جديدة",
+    "newTabAria": "علامة تبويب دردشة جديدة",
+    "closeTabAria": "إغلاق علامة تبويب الدردشة"
   }
 }

@@ -225,121 +225,121 @@
     "message": "開發人員工具"
   },
   "mediaPage_spreadMode": {
-    "message": "Compare"
+    "message": "比較"
   },
   "mediaPage_listMode": {
-    "message": "Focus"
+    "message": "聚焦"
   },
   "mediaPage_allMode": {
-    "message": "Stack"
+    "message": "堆疊"
   },
   "mediaPage_spreadModeTooltip": {
-    "message": "View selected items side-by-side for comparison"
+    "message": "並排顯示所選項目以便比較"
   },
   "mediaPage_listModeTooltip": {
-    "message": "View one item at a time with navigation"
+    "message": "一次顯示一個項目並可導覽"
   },
   "mediaPage_allModeTooltip": {
-    "message": "View all selected items in a scrollable list"
+    "message": "在可捲動清單中顯示所有所選項目"
   },
   "mediaPage_copyContentLabel": {
-    "message": "Copy Content"
+    "message": "複製內容"
   },
   "mediaPage_copyAnalysisLabel": {
-    "message": "Copy Analysis"
+    "message": "複製分析"
   },
   "mediaPage_copyContentTooltip": {
-    "message": "Copy content to clipboard"
+    "message": "將內容複製到剪貼簿"
   },
   "mediaPage_copyAnalysisTooltip": {
-    "message": "Copy analysis to clipboard"
+    "message": "將分析複製到剪貼簿"
   },
   "mediaPage_prevItemTooltip": {
-    "message": "Previous item (←)"
+    "message": "上一個項目 (←)"
   },
   "mediaPage_nextItemTooltip": {
-    "message": "Next item (→)"
+    "message": "下一個項目 (→)"
   },
   "mediaPage_viewerOptions": {
-    "message": "Options"
+    "message": "選項"
   },
   "mediaPage_expandAllDropdown": {
-    "message": "Expand/Collapse"
+    "message": "展開/摺疊"
   },
   "mediaPage_itemPosition": {
-    "message": "Item {{current}} of {{total}}"
+    "message": "項目 {{current}} / {{total}}"
   },
   "mediaPage_noItemSelected": {
-    "message": "No item selected"
+    "message": "未選取任何項目"
   },
   "mediaPage_firstUseTitle": {
-    "message": "Quick Guide: Multi-Item Review"
+    "message": "快速指南：多項檢視"
   },
   "mediaPage_firstUseStep1": {
-    "message": "Select items"
+    "message": "選取項目"
   },
   "mediaPage_firstUseStep1Desc": {
-    "message": "Click items in the left panel to add them to your viewer."
+    "message": "點擊左側面板中的項目以加入檢視器。"
   },
   "mediaPage_firstUseStep2": {
-    "message": "Choose a view"
+    "message": "選擇檢視"
   },
   "mediaPage_firstUseStep2DescUpdated": {
-    "message": "Use \"Compare\" for side-by-side, \"Focus\" for one at a time, or \"Stack\" to see all."
+    "message": "使用「比較」進行並排，「聚焦」一次一個，或用「堆疊」查看全部。"
   },
   "mediaPage_firstUseStep3": {
-    "message": "Navigate"
+    "message": "導覽"
   },
   "mediaPage_firstUseStep3Desc": {
-    "message": "Use Prev/Next buttons or keyboard (Tab + Enter) to move through items."
+    "message": "使用上一個/下一個按鈕或鍵盤 (Tab + Enter) 在項目間移動。"
   },
   "mediaPage_gotIt": {
-    "message": "Got it"
+    "message": "知道了"
   },
   "mediaPage_model": {
-    "message": "Model"
+    "message": "模型"
   },
   "mediaPage_selectModel": {
-    "message": "Select a model"
+    "message": "選擇模型"
   },
   "mediaPage_noModelsAvailable": {
-    "message": "No models available"
+    "message": "沒有可用模型"
   },
   "mediaPage_promptPresets": {
-    "message": "Prompt presets"
+    "message": "提示預設"
   },
   "mediaPage_showPresets": {
-    "message": "Show presets"
+    "message": "顯示預設"
   },
   "mediaPage_hidePresets": {
-    "message": "Hide presets"
+    "message": "隱藏預設"
   },
   "mediaPage_systemPromptLabel": {
-    "message": "System prompt"
+    "message": "系統提示"
   },
   "mediaPage_systemPromptPlaceholder": {
-    "message": "Enter system prompt..."
+    "message": "輸入系統提示..."
   },
   "mediaPage_userPromptPrefixLabel": {
-    "message": "User prompt prefix"
+    "message": "使用者提示前綴"
   },
   "mediaPage_prependedBeforeContent": {
-    "message": "(prepended before content)"
+    "message": "（在內容前加入）"
   },
   "mediaPage_userPrefixPlaceholder": {
-    "message": "Optional: Enter text to prepend before the media content..."
+    "message": "選填：輸入要加在媒體內容前的文字..."
   },
   "mediaPage_presetComprehensiveAnalysis": {
-    "message": "Comprehensive analysis"
+    "message": "全面分析"
   },
   "mediaPage_presetExecutiveSummary": {
-    "message": "Executive summary"
+    "message": "高階摘要"
   },
   "mediaPage_presetCriticalReview": {
-    "message": "Critical review"
+    "message": "批判性檢視"
   },
   "mediaPage_presetQAAnalysis": {
-    "message": "Q&A analysis"
+    "message": "問答分析"
   },
   "noToolCalls": {
     "message": "尚未有工具呼叫"
@@ -685,5 +685,80 @@
   },
   "contentReview_templates_chapter_headings_description": {
     "message": "插入 Markdown 標題來分組主題，而不移除任何內容。"
+  },
+  "reviewPage_prevItem": {
+    "message": "上一個"
+  },
+  "reviewPage_nextItem": {
+    "message": "下一個"
+  },
+  "reviewPage_noContent": {
+    "message": "沒有可用內容"
+  },
+  "reviewPage_showMore": {
+    "message": "顯示更多"
+  },
+  "reviewPage_showLess": {
+    "message": "顯示較少"
+  },
+  "reviewPage_showRaw": {
+    "message": "顯示原始內容"
+  },
+  "reviewPage_hideRaw": {
+    "message": "隱藏原始內容"
+  },
+  "reviewPage_noAnalysis": {
+    "message": "尚無分析"
+  },
+  "reviewPage_mediaContent": {
+    "message": "媒體內容"
+  },
+  "reviewPage_copyContent": {
+    "message": "複製內容"
+  },
+  "reviewPage_analysisTitle": {
+    "message": "分析"
+  },
+  "reviewPage_copyAnalysis": {
+    "message": "複製分析"
+  },
+  "reviewPage_sendAnalysisToChat": {
+    "message": "將分析傳送到聊天"
+  },
+  "reviewPage_copyAllPlain": {
+    "message": "全部複製為純文字"
+  },
+  "reviewPage_copyAllMarkdown": {
+    "message": "全部複製為 Markdown"
+  },
+  "reviewPage_openInMulti": {
+    "message": "在多項檢視中開啟"
+  },
+  "mediaEmpty_demoExample3": {
+    "message": "使用媒體搭配審查來摘要或分析錄音。"
+  },
+  "mediaEmpty_demoPreviewHeading": {
+    "message": "範例媒體項目（僅供預覽）"
+  },
+  "mediaEmpty_demoSample1Title": {
+    "message": "示範媒體：團隊通話錄音"
+  },
+  "mediaEmpty_demoSample1Meta": {
+    "message": "影片 · 25 分鐘 · 關鍵字：standup、規劃"
+  },
+  "mediaEmpty_demoSample2Title": {
+    "message": "示範媒體：產品導覽"
+  },
+  "mediaEmpty_demoSample2Meta": {
+    "message": "螢幕錄影 · 12 分鐘 · 關鍵字：onboarding"
+  },
+  "mediaEmpty_demoSample3Title": {
+    "message": "示範媒體：研究論文 PDF"
+  },
+  "mediaEmpty_demoSample3Meta": {
+    "message": "PDF · 6 頁 · 關鍵字：摘要"
+  },
+  "mediaEmpty_offlineTechnicalDetails": {
+    "message": "技術細節：此 tldw 伺服器未公開媒體端點（例如 /api/v1/media 與 /api/v1/media/search）。"
   }
 }

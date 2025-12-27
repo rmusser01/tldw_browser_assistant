@@ -364,5 +364,197 @@
   },
   "contentReview_editedLabel": {
     "message": "Editado"
+  },
+  "reviewPage_prevItem": {
+    "message": "Anterior"
+  },
+  "reviewPage_nextItem": {
+    "message": "Próximo"
+  },
+  "reviewPage_noContent": {
+    "message": "Nenhum conteúdo disponível"
+  },
+  "reviewPage_showMore": {
+    "message": "Mostrar mais"
+  },
+  "reviewPage_showLess": {
+    "message": "Mostrar menos"
+  },
+  "reviewPage_showRaw": {
+    "message": "Mostrar bruto"
+  },
+  "reviewPage_hideRaw": {
+    "message": "Ocultar bruto"
+  },
+  "reviewPage_noAnalysis": {
+    "message": "Sem análise ainda"
+  },
+  "reviewPage_mediaContent": {
+    "message": "Conteúdo da mídia"
+  },
+  "reviewPage_copyContent": {
+    "message": "Copiar conteúdo"
+  },
+  "reviewPage_analysisTitle": {
+    "message": "Análise"
+  },
+  "reviewPage_copyAnalysis": {
+    "message": "Copiar análise"
+  },
+  "reviewPage_sendAnalysisToChat": {
+    "message": "Enviar análise para o chat"
+  },
+  "reviewPage_copyAllPlain": {
+    "message": "Copiar tudo como texto simples"
+  },
+  "reviewPage_copyAllMarkdown": {
+    "message": "Copiar tudo como Markdown"
+  },
+  "reviewPage_openInMulti": {
+    "message": "Abrir em Revisão de vários itens"
+  },
+  "mediaPage_spreadMode": {
+    "message": "Comparar"
+  },
+  "mediaPage_listMode": {
+    "message": "Foco"
+  },
+  "mediaPage_allMode": {
+    "message": "Pilha"
+  },
+  "mediaPage_spreadModeTooltip": {
+    "message": "Ver itens selecionados lado a lado para comparação"
+  },
+  "mediaPage_listModeTooltip": {
+    "message": "Ver um item por vez com navegação"
+  },
+  "mediaPage_allModeTooltip": {
+    "message": "Ver todos os itens selecionados em uma lista rolável"
+  },
+  "mediaPage_copyContentLabel": {
+    "message": "Copiar conteúdo"
+  },
+  "mediaPage_copyAnalysisLabel": {
+    "message": "Copiar análise"
+  },
+  "mediaPage_copyContentTooltip": {
+    "message": "Copiar conteúdo para a área de transferência"
+  },
+  "mediaPage_copyAnalysisTooltip": {
+    "message": "Copiar análise para a área de transferência"
+  },
+  "mediaPage_prevItemTooltip": {
+    "message": "Item anterior (←)"
+  },
+  "mediaPage_nextItemTooltip": {
+    "message": "Próximo item (→)"
+  },
+  "mediaPage_viewerOptions": {
+    "message": "Opções"
+  },
+  "mediaPage_expandAllDropdown": {
+    "message": "Expandir/Recolher"
+  },
+  "mediaPage_itemPosition": {
+    "message": "Item {{current}} de {{total}}"
+  },
+  "mediaPage_noItemSelected": {
+    "message": "Nenhum item selecionado"
+  },
+  "mediaPage_firstUseTitle": {
+    "message": "Guia rápido: Revisão de vários itens"
+  },
+  "mediaPage_firstUseStep1": {
+    "message": "Selecionar itens"
+  },
+  "mediaPage_firstUseStep1Desc": {
+    "message": "Clique nos itens no painel à esquerda para adicioná-los ao visualizador."
+  },
+  "mediaPage_firstUseStep2": {
+    "message": "Escolher uma visualização"
+  },
+  "mediaPage_firstUseStep2DescUpdated": {
+    "message": "Use \"Comparar\" para lado a lado, \"Foco\" para um por vez ou \"Pilha\" para ver tudo."
+  },
+  "mediaPage_firstUseStep3": {
+    "message": "Navegar"
+  },
+  "mediaPage_firstUseStep3Desc": {
+    "message": "Use os botões Anterior/Próximo ou o teclado (Tab + Enter) para percorrer os itens."
+  },
+  "mediaPage_gotIt": {
+    "message": "Entendi"
+  },
+  "mediaPage_model": {
+    "message": "Modelo"
+  },
+  "mediaPage_selectModel": {
+    "message": "Selecionar um modelo"
+  },
+  "mediaPage_noModelsAvailable": {
+    "message": "Nenhum modelo disponível"
+  },
+  "mediaPage_promptPresets": {
+    "message": "Predefinições de prompt"
+  },
+  "mediaPage_showPresets": {
+    "message": "Mostrar predefinições"
+  },
+  "mediaPage_hidePresets": {
+    "message": "Ocultar predefinições"
+  },
+  "mediaPage_systemPromptLabel": {
+    "message": "Prompt do sistema"
+  },
+  "mediaPage_systemPromptPlaceholder": {
+    "message": "Digite o prompt do sistema..."
+  },
+  "mediaPage_userPromptPrefixLabel": {
+    "message": "Prefixo do prompt do usuário"
+  },
+  "mediaPage_prependedBeforeContent": {
+    "message": "(adicionado antes do conteúdo)"
+  },
+  "mediaPage_userPrefixPlaceholder": {
+    "message": "Opcional: digite um texto para adicionar antes do conteúdo da mídia..."
+  },
+  "mediaPage_presetComprehensiveAnalysis": {
+    "message": "Análise abrangente"
+  },
+  "mediaPage_presetExecutiveSummary": {
+    "message": "Resumo executivo"
+  },
+  "mediaPage_presetCriticalReview": {
+    "message": "Revisão crítica"
+  },
+  "mediaPage_presetQAAnalysis": {
+    "message": "Análise de perguntas e respostas"
+  },
+  "mediaEmpty_demoExample3": {
+    "message": "Use Mídia junto com Revisão para resumir ou analisar gravações."
+  },
+  "mediaEmpty_demoPreviewHeading": {
+    "message": "Exemplos de itens de mídia (somente pré-visualização)"
+  },
+  "mediaEmpty_demoSample1Title": {
+    "message": "Mídia de demo: gravação de chamada da equipe"
+  },
+  "mediaEmpty_demoSample1Meta": {
+    "message": "Vídeo · 25 min · Palavras-chave: standup, planejamento"
+  },
+  "mediaEmpty_demoSample2Title": {
+    "message": "Mídia de demo: demonstração do produto"
+  },
+  "mediaEmpty_demoSample2Meta": {
+    "message": "Gravação de tela · 12 min · Palavras-chave: onboarding"
+  },
+  "mediaEmpty_demoSample3Title": {
+    "message": "Mídia de demo: PDF de artigo de pesquisa"
+  },
+  "mediaEmpty_demoSample3Meta": {
+    "message": "PDF · 6 páginas · Palavras-chave: resumo"
+  },
+  "mediaEmpty_offlineTechnicalDetails": {
+    "message": "Detalhes técnicos: este servidor tldw não anuncia os endpoints de Mídia (por exemplo, /api/v1/media e /api/v1/media/search)."
   }
 }

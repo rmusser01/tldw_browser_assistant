@@ -648,11 +648,11 @@
     "backToList": "Zurück zur Liste",
     "retake": "Quiz erneut starten"
   },
-  "searchPrompts": "Search prompts...",
-  "noMatchingPrompts": "No matching prompts",
+  "searchPrompts": "Prompts durchsuchen...",
+  "noMatchingPrompts": "Keine passenden Prompts",
   "promptSelect": {
-    "favorites": "Favorites",
-    "system": "System prompts",
-    "quick": "Quick prompts"
+    "favorites": "Favoriten",
+    "system": "System-Prompts",
+    "quick": "Schnell-Prompts"
   }
 }

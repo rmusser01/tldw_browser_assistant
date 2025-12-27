@@ -367,5 +367,713 @@
   },
   "contentReview_editedLabel": {
     "message": "Modificato"
+  },
+  "reviewPage_searchPlaceholder": {
+    "message": "Search media, notes..."
+  },
+  "reviewPage_search": {
+    "message": "Search"
+  },
+  "reviewPage_filters": {
+    "message": "Filters"
+  },
+  "reviewPage_media": {
+    "message": "Media"
+  },
+  "reviewPage_notes": {
+    "message": "Notes"
+  },
+  "reviewPage_useReview": {
+    "message": "Use Review"
+  },
+  "reviewPage_useSummary": {
+    "message": "Use Summary"
+  },
+  "reviewPage_mediaTypes": {
+    "message": "Media types"
+  },
+  "reviewPage_keywords": {
+    "message": "Keywords"
+  },
+  "reviewPage_clear": {
+    "message": "Clear"
+  },
+  "reviewPage_resetFilters": {
+    "message": "Reset filters"
+  },
+  "reviewPage_results": {
+    "message": "Results"
+  },
+  "reviewPage_noResults": {
+    "message": "No results"
+  },
+  "reviewPage_analyze_none": {
+    "message": "No content available to analyze"
+  },
+  "reviewPage_analyze_saved": {
+    "message": "Analysis saved as note"
+  },
+  "reviewPage_analyze_failed": {
+    "message": "Failed to analyze & save note"
+  },
+  "reviewPage_searchPrompts": {
+    "message": "Search prompts"
+  },
+  "reviewPage_includeLocal": {
+    "message": "Local"
+  },
+  "reviewPage_includeServer": {
+    "message": "Server"
+  },
+  "reviewPage_presets": {
+    "message": "Presets"
+  },
+  "reviewPage_presetsCritical": {
+    "message": "Critical"
+  },
+  "reviewPage_presetsQaAudit": {
+    "message": "QA Audit"
+  },
+  "reviewPage_presetsBulletReview": {
+    "message": "Bullet Review"
+  },
+  "reviewPage_reviewSystemPrompt": {
+    "message": "Review: System prompt"
+  },
+  "reviewPage_reviewUserPrefix": {
+    "message": "Review: User prompt prefix"
+  },
+  "reviewPage_saveAsDefault": {
+    "message": "Save as default"
+  },
+  "reviewPage_reviewPrompt": {
+    "message": "Review prompt"
+  },
+  "reviewPage_summarySystemPrompt": {
+    "message": "Summary: System prompt"
+  },
+  "reviewPage_summaryUserPrefix": {
+    "message": "Summary: User prompt prefix"
+  },
+  "reviewPage_summaryPrompt": {
+    "message": "Summary prompt"
+  },
+  "reviewPage_customizePrompts": {
+    "message": "Customize prompts"
+  },
+  "reviewPage_showRawJson": {
+    "message": "Show raw JSON"
+  },
+  "reviewPage_noDetailLoaded": {
+    "message": "No detail loaded"
+  },
+  "reviewPage_resetToDefaults": {
+    "message": "Reset to defaults"
+  },
+  "reviewPage_usingReviewPrompts": {
+    "message": "Using Review prompts"
+  },
+  "reviewPage_usingSummaryPrompts": {
+    "message": "Using Summary prompts"
+  },
+  "reviewPage_selectItemFirst": {
+    "message": "Select an item first"
+  },
+  "reviewPage_selectMediaFirst": {
+    "message": "Select a media item first"
+  },
+  "reviewPage_selectItemEmpty": {
+    "message": "Select an item to review and analyze"
+  },
+  "reviewPage_selectMediaEmpty": {
+    "message": "Select a media item to view analyses"
+  },
+  "reviewPage_generationMode": {
+    "message": "Generation mode"
+  },
+  "reviewPage_resultTypes": {
+    "message": "Result types"
+  },
+  "reviewPage_advancedTools": {
+    "message": "Advanced tools"
+  },
+  "reviewPage_moreActions": {
+    "message": "More actions"
+  },
+  "reviewPage_toggleSidebar": {
+    "message": "Toggle results sidebar"
+  },
+  "reviewPage_autoReviewLabel": {
+    "message": "Automatically generate a review when you select an item"
+  },
+  "reviewPage_demoMode": {
+    "message": "Demo mode"
+  },
+  "reviewPage_mediaOnlySearchPlaceholder": {
+    "message": "Search media (title/content)"
+  },
+  "reviewPage_showSidebar": {
+    "message": "Show results sidebar"
+  },
+  "reviewPage_hideSidebar": {
+    "message": "Hide results sidebar"
+  },
+  "reviewPage_selectedBadge": {
+    "message": "Selected"
+  },
+  "reviewPage_bulkToolbar": {
+    "message": "Bulk view toolbar"
+  },
+  "reviewPage_loadedCount": {
+    "message": "{{count}} loaded"
+  },
+  "reviewPage_viewLabel": {
+    "message": "Content view"
+  },
+  "reviewPage_navigateLabel": {
+    "message": "Items"
+  },
+  "reviewPage_mediaModeHint": {
+    "message": "Search and inspect one media item at a time. Select a result to view its content and analyses on the right."
+  },
+  "reviewPage_resultsHelp": {
+    "message": "Keyboard: Tab into the results list, use Enter or Space to select the focused row, then use the Prev/Next buttons in the analysis toolbar to move between items."
+  },
+  "reviewPage_resultsHelpLabel": {
+    "message": "Review results keyboard shortcuts"
+  },
+  "reviewPage_review": {
+    "message": "Get review"
+  },
+  "reviewPage_reviewHint": {
+    "message": "Ask the assistant to review this item."
+  },
+  "reviewPage_summary": {
+    "message": "Get summary"
+  },
+  "reviewPage_summaryHint": {
+    "message": "Ask for a shorter summary."
+  },
+  "reviewPage_attachGeneratedHint": {
+    "message": "Run the assistant and attach the result to this media item."
+  },
+  "reviewPage_attachReview": {
+    "message": "Attach review to media"
+  },
+  "reviewPage_attachSummary": {
+    "message": "Attach summary to media"
+  },
+  "reviewPage_saveGeneratedNoteHint": {
+    "message": "Run the assistant and save the result as a note."
+  },
+  "reviewPage_saveReviewNote": {
+    "message": "Save review as note"
+  },
+  "reviewPage_saveSummaryNote": {
+    "message": "Save summary as note"
+  },
+  "reviewPage_saveToMediaHint": {
+    "message": "Attach the current text in the editor to this media item."
+  },
+  "reviewPage_saveToMedia": {
+    "message": "Attach current text to media"
+  },
+  "reviewPage_saveAnalysisHint": {
+    "message": "Create a note from the current analysis."
+  },
+  "reviewPage_saveAnalysis": {
+    "message": "Save to notes"
+  },
+  "reviewPage_askAssistantLabel": {
+    "message": "Ask the assistant"
+  },
+  "reviewPage_saveResultsLabel": {
+    "message": "Save results"
+  },
+  "reviewPage_moreSaveNewVersion": {
+    "message": "Save as new version"
+  },
+  "reviewPage_moreDuplicateVersion": {
+    "message": "Duplicate version"
+  },
+  "reviewPage_moreRestoreVersion": {
+    "message": "Restore selected version"
+  },
+  "reviewPage_modeReview": {
+    "message": "Use review"
+  },
+  "reviewPage_modeSummary": {
+    "message": "Use summary"
+  },
+  "reviewPage_resultsHint": {
+    "message": "Click a result to load its content and analyses on the right."
+  },
+  "reviewPage_paginationHint": {
+    "message": "Use filters or pagination to refine the results if many items are loaded."
+  },
+  "reviewPage_offlineHint": {
+    "message": "Connect to your tldw server in Settings to send messages and view media. Then you can search media from this page."
+  },
+  "reviewPage_chatWithMedia": {
+    "message": "Chat with this media"
+  },
+  "reviewPage_chatWithMediaHint": {
+    "message": "Open Chat and prefill the composer with this media’s content."
+  },
+  "reviewPage_chatPrepared": {
+    "message": "Prepared chat with this media in the composer."
+  },
+  "reviewPage_chatAboutMediaHint": {
+    "message": "Open RAG chat scoped to this media only."
+  },
+  "reviewPage_chatAboutMediaRagSent": {
+    "message": "Opened media-scoped RAG chat."
+  },
+  "reviewPage_chatAboutMediaInvalidId": {
+    "message": "Questo elemento multimediale non ha ancora un ID numerico."
+  },
+  "reviewPage_demoBadge": {
+    "message": "Demo"
+  },
+  "reviewPage_notConnectedBadge": {
+    "message": "Non connesso"
+  },
+  "reviewPage_prevItem": {
+    "message": "Previous"
+  },
+  "reviewPage_nextItem": {
+    "message": "Next"
+  },
+  "reviewPage_noContent": {
+    "message": "No content available"
+  },
+  "reviewPage_showMore": {
+    "message": "Show more"
+  },
+  "reviewPage_showLess": {
+    "message": "Show less"
+  },
+  "reviewPage_showRaw": {
+    "message": "Show raw"
+  },
+  "reviewPage_hideRaw": {
+    "message": "Hide raw"
+  },
+  "reviewPage_noAnalysis": {
+    "message": "No analysis yet"
+  },
+  "reviewPage_mediaContent": {
+    "message": "Media Content"
+  },
+  "reviewPage_copyContent": {
+    "message": "Copy content"
+  },
+  "reviewPage_analysisTitle": {
+    "message": "Analysis"
+  },
+  "reviewPage_copyAnalysis": {
+    "message": "Copy analysis"
+  },
+  "reviewPage_sendAnalysisToChat": {
+    "message": "Send analysis to chat"
+  },
+  "reviewPage_copyAllPlain": {
+    "message": "Copy all as plain text"
+  },
+  "reviewPage_copyAllMarkdown": {
+    "message": "Copy all as Markdown"
+  },
+  "reviewPage_openInMulti": {
+    "message": "Open in Multi-Item Review"
+  },
+  "mediaPage_searchPlaceholder": {
+    "message": "Cerca media (titolo/contenuto)"
+  },
+  "mediaPage_search": {
+    "message": "Cerca"
+  },
+  "mediaPage_clear": {
+    "message": "Cancella"
+  },
+  "mediaPage_types": {
+    "message": "Tipi di media"
+  },
+  "mediaPage_keywords": {
+    "message": "Parole chiave"
+  },
+  "mediaPage_resetFilters": {
+    "message": "Reimposta filtri"
+  },
+  "mediaPage_clearAll": {
+    "message": "Cancella tutto"
+  },
+  "mediaPage_content": {
+    "message": "Contenuto"
+  },
+  "mediaPage_vertical": {
+    "message": "Verticale"
+  },
+  "mediaPage_horizontal": {
+    "message": "Orizzontale"
+  },
+  "mediaPage_results": {
+    "message": "Risultati"
+  },
+  "mediaPage_showSidebar": {
+    "message": "Mostra barra laterale"
+  },
+  "mediaPage_hideSidebar": {
+    "message": "Nascondi barra laterale"
+  },
+  "mediaPage_viewer": {
+    "message": "Visualizzatore"
+  },
+  "mediaPage_selectItemsHint": {
+    "message": "Seleziona elementi a sinistra per visualizzarli qui."
+  },
+  "mediaPage_mediaContent": {
+    "message": "Contenuto multimediale"
+  },
+  "mediaPage_copyContent": {
+    "message": "Copia contenuto"
+  },
+  "mediaPage_contentCopied": {
+    "message": "Contenuto copiato"
+  },
+  "mediaPage_metadataCopied": {
+    "message": "Metadati copiati"
+  },
+  "mediaPage_analysisCopied": {
+    "message": "Analisi copiata"
+  },
+  "mediaPage_copyFailed": {
+    "message": "Copia non riuscita"
+  },
+  "mediaPage_noContent": {
+    "message": "Nessun contenuto disponibile"
+  },
+  "mediaPage_collapse": {
+    "message": "Comprimi"
+  },
+  "mediaPage_expand": {
+    "message": "Espandi"
+  },
+  "mediaPage_media": {
+    "message": "Media"
+  },
+  "mediaPage_searchingBanner": {
+    "message": "Ricerca dei media in corso…"
+  },
+  "mediaPage_filterHelp": {
+    "message": "La ricerca confronta titolo e contenuto; tipi e parole chiave restringono ulteriormente i risultati."
+  },
+  "mediaPage_noMediaTypes": {
+    "message": "Nessun tipo di media disponibile"
+  },
+  "mediaPage_noResults": {
+    "message": "Nessun media trovato. Usa Ingestione rapida nell'intestazione per aggiungere media dalle tue registrazioni e dai tuoi file."
+  },
+  "mediaPage_resultsCount": {
+    "message": "{{selected}} selezionati · {{open}} aperti"
+  },
+  "mediaPage_clearSelection": {
+    "message": "Deseleziona tutto"
+  },
+  "mediaPage_itemsLabel": {
+    "message": "Elementi"
+  },
+  "mediaPage_contentLabel": {
+    "message": "Vista contenuto"
+  },
+  "mediaPage_filterByKeyword": {
+    "message": "Filtra per parola chiave"
+  },
+  "mediaPage_keywordHelper": {
+    "message": "Le parole chiave ti aiutano a trovare questo media usando il filtro parole chiave a sinistra"
+  },
+  "mediaPage_modeHint": {
+    "message": "Cerca e impila più elementi multimediali per confrontarli nel visualizzatore a destra."
+  },
+  "mediaPage_viewerHelp": {
+    "message": "Tastiera: usa Tab per entrare nell'elenco dei risultati, Invio o Spazio per aggiungere o rimuovere un elemento multimediale dalla pila e i controlli Precedente/Successivo e di layout per scorrere gli elementi nel visualizzatore."
+  },
+  "mediaPage_viewerHelpLabel": {
+    "message": "Scorciatoie da tastiera per la revisione multi-elemento"
+  },
+  "mediaPage_mediaInspector": {
+    "message": "Ispettore media"
+  },
+  "mediaPage_actionsLabel": {
+    "message": "Azioni"
+  },
+  "mediaPage_keywordsPlaceholder": {
+    "message": "Aggiungi parole chiave..."
+  },
+  "mediaPage_noSelectionTitle": {
+    "message": "Nessun elemento multimediale selezionato"
+  },
+  "mediaPage_noSelectionDescription": {
+    "message": "Seleziona un elemento multimediale nella barra laterale sinistra per visualizzarne qui contenuto e analisi."
+  },
+  "mediaPage_generateAnalysis": {
+    "message": "Genera"
+  },
+  "mediaPage_generateAnalysisHint": {
+    "message": "Genera una nuova analisi"
+  },
+  "mediaPage_editAnalysis": {
+    "message": "Modifica analisi"
+  },
+  "mediaPage_createNoteWithContent": {
+    "message": "Crea nota con il contenuto"
+  },
+  "mediaPage_createNoteWithContentAnalysis": {
+    "message": "Crea nota con contenuto + analisi"
+  },
+  "mediaPage_untitled": {
+    "message": "Senza titolo"
+  },
+  "mediaPage_copyMetadata": {
+    "message": "Copia metadati"
+  },
+  "mediaPage_statistics": {
+    "message": "Statistiche"
+  },
+  "mediaPage_words": {
+    "message": "Parole"
+  },
+  "mediaPage_characters": {
+    "message": "Caratteri"
+  },
+  "mediaPage_paragraphs": {
+    "message": "Paragrafi"
+  },
+  "mediaPage_metadata": {
+    "message": "Metadati"
+  },
+  "mediaPage_idLabel": {
+    "message": "ID"
+  },
+  "mediaPage_typeLabel": {
+    "message": "Tipo"
+  },
+  "mediaPage_titleLabel": {
+    "message": "Titolo"
+  },
+  "mediaPage_source": {
+    "message": "Fonte"
+  },
+  "mediaPage_notAvailable": {
+    "message": "N/D"
+  },
+  "mediaPage_developerTools": {
+    "message": "Strumenti per sviluppatori"
+  },
+  "mediaPage_spreadMode": {
+    "message": "Compare"
+  },
+  "mediaPage_listMode": {
+    "message": "Focus"
+  },
+  "mediaPage_allMode": {
+    "message": "Stack"
+  },
+  "mediaPage_spreadModeTooltip": {
+    "message": "View selected items side-by-side for comparison"
+  },
+  "mediaPage_listModeTooltip": {
+    "message": "View one item at a time with navigation"
+  },
+  "mediaPage_allModeTooltip": {
+    "message": "View all selected items in a scrollable list"
+  },
+  "mediaPage_copyContentLabel": {
+    "message": "Copy Content"
+  },
+  "mediaPage_copyAnalysisLabel": {
+    "message": "Copy Analysis"
+  },
+  "mediaPage_copyContentTooltip": {
+    "message": "Copy content to clipboard"
+  },
+  "mediaPage_copyAnalysisTooltip": {
+    "message": "Copy analysis to clipboard"
+  },
+  "mediaPage_prevItemTooltip": {
+    "message": "Previous item (←)"
+  },
+  "mediaPage_nextItemTooltip": {
+    "message": "Next item (→)"
+  },
+  "mediaPage_viewerOptions": {
+    "message": "Options"
+  },
+  "mediaPage_expandAllDropdown": {
+    "message": "Expand/Collapse"
+  },
+  "mediaPage_itemPosition": {
+    "message": "Item {{current}} of {{total}}"
+  },
+  "mediaPage_noItemSelected": {
+    "message": "No item selected"
+  },
+  "mediaPage_firstUseTitle": {
+    "message": "Quick Guide: Multi-Item Review"
+  },
+  "mediaPage_firstUseStep1": {
+    "message": "Select items"
+  },
+  "mediaPage_firstUseStep1Desc": {
+    "message": "Click items in the left panel to add them to your viewer."
+  },
+  "mediaPage_firstUseStep2": {
+    "message": "Choose a view"
+  },
+  "mediaPage_firstUseStep2DescUpdated": {
+    "message": "Use \"Compare\" for side-by-side, \"Focus\" for one at a time, or \"Stack\" to see all."
+  },
+  "mediaPage_firstUseStep3": {
+    "message": "Navigate"
+  },
+  "mediaPage_firstUseStep3Desc": {
+    "message": "Use Prev/Next buttons or keyboard (Tab + Enter) to move through items."
+  },
+  "mediaPage_gotIt": {
+    "message": "Got it"
+  },
+  "mediaPage_model": {
+    "message": "Model"
+  },
+  "mediaPage_selectModel": {
+    "message": "Select a model"
+  },
+  "mediaPage_noModelsAvailable": {
+    "message": "No models available"
+  },
+  "mediaPage_promptPresets": {
+    "message": "Prompt presets"
+  },
+  "mediaPage_showPresets": {
+    "message": "Show presets"
+  },
+  "mediaPage_hidePresets": {
+    "message": "Hide presets"
+  },
+  "mediaPage_systemPromptLabel": {
+    "message": "System prompt"
+  },
+  "mediaPage_systemPromptPlaceholder": {
+    "message": "Enter system prompt..."
+  },
+  "mediaPage_userPromptPrefixLabel": {
+    "message": "User prompt prefix"
+  },
+  "mediaPage_prependedBeforeContent": {
+    "message": "(prepended before content)"
+  },
+  "mediaPage_userPrefixPlaceholder": {
+    "message": "Optional: Enter text to prepend before the media content..."
+  },
+  "mediaPage_presetComprehensiveAnalysis": {
+    "message": "Comprehensive analysis"
+  },
+  "mediaPage_presetExecutiveSummary": {
+    "message": "Executive summary"
+  },
+  "mediaPage_presetCriticalReview": {
+    "message": "Critical review"
+  },
+  "mediaPage_presetQAAnalysis": {
+    "message": "Q&A analysis"
+  },
+  "empty_connectTitle": {
+    "message": "Connect to use Review"
+  },
+  "empty_connectDescription": {
+    "message": "Connect to your tldw server in Settings to send messages and view media. After connecting, you can review media and notes here."
+  },
+  "empty_connectExample1": {
+    "message": "Open Settings → tldw server to add your server URL."
+  },
+  "empty_connectExample2": {
+    "message": "Once connected, browse media and notes, then generate structured reviews and summaries."
+  },
+  "empty_demoTitle": {
+    "message": "Explore Review in demo mode"
+  },
+  "empty_demoDescription": {
+    "message": "This demo shows how tldw Assistant can turn media and notes into structured reviews. Connect your own server later to analyze your own content."
+  },
+  "empty_demoExample1": {
+    "message": "See how selected media and notes appear in the review workspace."
+  },
+  "empty_demoExample2": {
+    "message": "When you connect, you’ll be able to generate summaries and action items from your own recordings and notes."
+  },
+  "mediaEmpty_demoTitle": {
+    "message": "Esplora Media in modalità demo"
+  },
+  "mediaEmpty_demoDescription": {
+    "message": "Questa demo mostra come tldw Assistant può visualizzare e ispezionare i media elaborati. Collega il tuo server in seguito per sfogliare le tue registrazioni e i tuoi documenti."
+  },
+  "mediaEmpty_demoExample1": {
+    "message": "Guarda come gli elementi media elaborati appaiono nel visualizzatore Media."
+  },
+  "mediaEmpty_demoExample2": {
+    "message": "Quando ti colleghi, potrai sfogliare e ispezionare i media acquisiti dalle tue registrazioni e dai tuoi file."
+  },
+  "mediaEmpty_connectTitle": {
+    "message": "Collegati per usare Media"
+  },
+  "mediaEmpty_connectDescription": {
+    "message": "Collegati al tuo server tldw in Impostazioni per inviare messaggi e visualizzare i media. Dopo la connessione, le registrazioni e i documenti elaborati saranno elencati qui."
+  },
+  "mediaEmpty_connectExample1": {
+    "message": "Apri Impostazioni → server tldw per aggiungere l'URL del server."
+  },
+  "mediaEmpty_connectExample2": {
+    "message": "Una volta connesso, usa Quick Ingest nell'intestazione per aggiungere media dalle tue registrazioni e dai tuoi file."
+  },
+  "mediaEmpty_offlineTitle": {
+    "message": "API Media non disponibile su questo server"
+  },
+  "mediaEmpty_offlineDescription": {
+    "message": "Questo server tldw non pubblicizza gli endpoint Media (ad esempio /api/v1/media e /api/v1/media/search). Aggiorna il server a una versione che includa Media per usare questo workspace."
+  },
+  "mediaEmpty_offlineExample1": {
+    "message": "Apri Diagnostics per confermare la versione del server e le API disponibili."
+  },
+  "mediaEmpty_offlineExample2": {
+    "message": "Dopo l'aggiornamento, ricarica l'estensione e torna a Media."
+  },
+  "mediaEmpty_featureUnavailableBadge": {
+    "message": "Funzionalità non disponibile"
+  },
+  "mediaEmpty_demoExample3": {
+    "message": "Usa Media insieme a Review per riassumere o analizzare le registrazioni."
+  },
+  "mediaEmpty_demoPreviewHeading": {
+    "message": "Esempi di elementi media (solo anteprima)"
+  },
+  "mediaEmpty_demoSample1Title": {
+    "message": "Media demo: registrazione chiamata di team"
+  },
+  "mediaEmpty_demoSample1Meta": {
+    "message": "Video · 25 min · Parole chiave: standup, pianificazione"
+  },
+  "mediaEmpty_demoSample2Title": {
+    "message": "Media demo: walkthrough del prodotto"
+  },
+  "mediaEmpty_demoSample2Meta": {
+    "message": "Registrazione schermo · 12 min · Parole chiave: onboarding"
+  },
+  "mediaEmpty_demoSample3Title": {
+    "message": "Media demo: PDF di articolo di ricerca"
+  },
+  "mediaEmpty_demoSample3Meta": {
+    "message": "PDF · 6 pagine · Parole chiave: sintesi"
+  },
+  "mediaEmpty_offlineTechnicalDetails": {
+    "message": "Dettagli tecnici: questo server tldw non pubblicizza gli endpoint Media (ad esempio /api/v1/media e /api/v1/media/search)."
   }
 }

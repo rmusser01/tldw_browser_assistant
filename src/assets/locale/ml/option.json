@@ -408,10 +408,10 @@
     "isCloze": "Cloze deletion",
     "tags": "Tags",
     "dueStatus": "Due status",
-    "dueAll": "All",
-    "dueNew": "New",
-    "dueLearning": "Learning",
-    "dueDue": "Due",
+    "dueAll": "എല്ലാം",
+    "dueNew": "പുതിയത്",
+    "dueLearning": "പഠിക്കുന്നു",
+    "dueDue": "കാലാവധി",
     "tag": "Tag",
     "noCards": "No cards",
     "due": "Due",
@@ -625,8 +625,8 @@
   "searchPrompts": "പ്രോംപ്റ്റുകൾ തിരയുക...",
   "noMatchingPrompts": "പൊരുത്തമുള്ള പ്രോംപ്റ്റുകൾ ഇല്ല",
   "promptSelect": {
-    "favorites": "Favorites",
-    "system": "System prompts",
-    "quick": "Quick prompts"
+    "favorites": "പ്രിയപ്പെട്ടവ",
+    "system": "സിസ്റ്റം പ്രോംപ്റ്റുകൾ",
+    "quick": "ദ്രുത പ്രോംപ്റ്റുകൾ"
   }
 }

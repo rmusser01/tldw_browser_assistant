@@ -1245,7 +1245,6 @@
     "testFail": "Unable to reach Evaluations API"
   },
   "chunkingPlayground": {
-    "_todo": "TODO: oversæt chunkingPlayground-strenge (kopieret fra en)",
     "nav": "Chunking-legeplads",
     "title": "Chunking-legeplads",
     "description": "Eksperimentér med forskellige chunking-indstillinger for at se, hvordan tekst opdeles i mindre stykker til behandling.",

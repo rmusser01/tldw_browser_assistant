@@ -49,6 +49,24 @@ type Props = {
   isOCREnabled?: boolean
 }
 
+type ModelConfigData = {
+  temperature?: number
+  topK?: number
+  topP?: number
+  keepAlive?: string
+  numCtx?: number
+  numGpu?: number
+  numPredict?: number
+  useMMap?: boolean
+  minP?: number
+  repeatLastN?: number
+  repeatPenalty?: number
+  useMlock?: boolean
+  tfsZ?: number
+  numKeep?: number
+  numThread?: number
+}
+
 export const CurrentChatModelSettings = ({
   open,
   setOpen,
@@ -189,7 +207,7 @@ export const CurrentChatModelSettings = ({
   )
 
   const buildBaseValues = useCallback(
-    (data: any, promptFallback?: string) => ({
+    (data?: ModelConfigData | null, promptFallback?: string) => ({
       temperature: cUserSettings.temperature ?? data?.temperature,
       topK: cUserSettings.topK ?? data?.topK,
       topP: cUserSettings.topP ?? data?.topP,
@@ -270,13 +288,6 @@ export const CurrentChatModelSettings = ({
     refetchOnMount: false,
     refetchOnWindowFocus: false
   })
-
-  React.useEffect(() => {
-    if (!open || isLoading) return
-    form.setFieldsValue(
-      buildBaseValues(modelConfig || {}, resolvedSystemPrompt)
-    )
-  }, [buildBaseValues, form, isLoading, modelConfig, open, resolvedSystemPrompt])
 
   const { data: composerModels, isLoading: modelsLoading } = useQuery({
     queryKey: ["playground:chatModels", open],

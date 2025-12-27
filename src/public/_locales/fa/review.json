@@ -36,7 +36,7 @@
     "message": "صفحه باید بین ۱ تا {{max}} باشد"
   },
   "mediaPage_pageRangeClamped": {
-    "message": "در حال رفتن به صفحه {{page}}"
+    "message": "در حال انتقال به صفحهٔ {{page}}"
   },
   "noToolCalls": {
     "message": "هنوز هیچ فراخوانی ابزاری انجام نشده است"
@@ -364,5 +364,716 @@
   },
   "contentReview_editedLabel": {
     "message": "نسخه ویرایش‌شده"
+  },
+  "reviewPage_searchPlaceholder": {
+    "message": "Search media, notes..."
+  },
+  "reviewPage_search": {
+    "message": "Search"
+  },
+  "reviewPage_filters": {
+    "message": "Filters"
+  },
+  "reviewPage_media": {
+    "message": "Media"
+  },
+  "reviewPage_notes": {
+    "message": "Notes"
+  },
+  "reviewPage_useReview": {
+    "message": "Use Review"
+  },
+  "reviewPage_useSummary": {
+    "message": "Use Summary"
+  },
+  "reviewPage_mediaTypes": {
+    "message": "Media types"
+  },
+  "reviewPage_keywords": {
+    "message": "Keywords"
+  },
+  "reviewPage_clear": {
+    "message": "Clear"
+  },
+  "reviewPage_resetFilters": {
+    "message": "Reset filters"
+  },
+  "reviewPage_results": {
+    "message": "Results"
+  },
+  "reviewPage_noResults": {
+    "message": "No results"
+  },
+  "reviewPage_analyze_none": {
+    "message": "No content available to analyze"
+  },
+  "reviewPage_analyze_saved": {
+    "message": "Analysis saved as note"
+  },
+  "reviewPage_analyze_failed": {
+    "message": "Failed to analyze & save note"
+  },
+  "reviewPage_searchPrompts": {
+    "message": "Search prompts"
+  },
+  "reviewPage_includeLocal": {
+    "message": "Local"
+  },
+  "reviewPage_includeServer": {
+    "message": "Server"
+  },
+  "reviewPage_presets": {
+    "message": "Presets"
+  },
+  "reviewPage_presetsCritical": {
+    "message": "Critical"
+  },
+  "reviewPage_presetsQaAudit": {
+    "message": "QA Audit"
+  },
+  "reviewPage_presetsBulletReview": {
+    "message": "Bullet Review"
+  },
+  "reviewPage_reviewSystemPrompt": {
+    "message": "Review: System prompt"
+  },
+  "reviewPage_reviewUserPrefix": {
+    "message": "Review: User prompt prefix"
+  },
+  "reviewPage_saveAsDefault": {
+    "message": "Save as default"
+  },
+  "reviewPage_reviewPrompt": {
+    "message": "Review prompt"
+  },
+  "reviewPage_summarySystemPrompt": {
+    "message": "Summary: System prompt"
+  },
+  "reviewPage_summaryUserPrefix": {
+    "message": "Summary: User prompt prefix"
+  },
+  "reviewPage_summaryPrompt": {
+    "message": "Summary prompt"
+  },
+  "reviewPage_customizePrompts": {
+    "message": "Customize prompts"
+  },
+  "reviewPage_showRawJson": {
+    "message": "Show raw JSON"
+  },
+  "reviewPage_noDetailLoaded": {
+    "message": "No detail loaded"
+  },
+  "reviewPage_resetToDefaults": {
+    "message": "Reset to defaults"
+  },
+  "reviewPage_usingReviewPrompts": {
+    "message": "Using Review prompts"
+  },
+  "reviewPage_usingSummaryPrompts": {
+    "message": "Using Summary prompts"
+  },
+  "reviewPage_selectItemFirst": {
+    "message": "Select an item first"
+  },
+  "reviewPage_selectMediaFirst": {
+    "message": "Select a media item first"
+  },
+  "reviewPage_selectItemEmpty": {
+    "message": "Select an item to review and analyze"
+  },
+  "reviewPage_selectMediaEmpty": {
+    "message": "Select a media item to view analyses"
+  },
+  "reviewPage_generationMode": {
+    "message": "Generation mode"
+  },
+  "reviewPage_resultTypes": {
+    "message": "Result types"
+  },
+  "reviewPage_advancedTools": {
+    "message": "Advanced tools"
+  },
+  "reviewPage_moreActions": {
+    "message": "More actions"
+  },
+  "reviewPage_toggleSidebar": {
+    "message": "Toggle results sidebar"
+  },
+  "reviewPage_autoReviewLabel": {
+    "message": "Automatically generate a review when you select an item"
+  },
+  "reviewPage_demoMode": {
+    "message": "Demo mode"
+  },
+  "reviewPage_mediaOnlySearchPlaceholder": {
+    "message": "Search media (title/content)"
+  },
+  "reviewPage_showSidebar": {
+    "message": "Show results sidebar"
+  },
+  "reviewPage_hideSidebar": {
+    "message": "Hide results sidebar"
+  },
+  "reviewPage_selectedBadge": {
+    "message": "Selected"
+  },
+  "reviewPage_bulkToolbar": {
+    "message": "Bulk view toolbar"
+  },
+  "reviewPage_loadedCount": {
+    "message": "{{count}} loaded"
+  },
+  "reviewPage_viewLabel": {
+    "message": "Content view"
+  },
+  "reviewPage_navigateLabel": {
+    "message": "Items"
+  },
+  "reviewPage_mediaModeHint": {
+    "message": "Search and inspect one media item at a time. Select a result to view its content and analyses on the right."
+  },
+  "reviewPage_resultsHelp": {
+    "message": "Keyboard: Tab into the results list, use Enter or Space to select the focused row, then use the Prev/Next buttons in the analysis toolbar to move between items."
+  },
+  "reviewPage_resultsHelpLabel": {
+    "message": "Review results keyboard shortcuts"
+  },
+  "reviewPage_review": {
+    "message": "Get review"
+  },
+  "reviewPage_reviewHint": {
+    "message": "Ask the assistant to review this item."
+  },
+  "reviewPage_summary": {
+    "message": "Get summary"
+  },
+  "reviewPage_summaryHint": {
+    "message": "Ask for a shorter summary."
+  },
+  "reviewPage_attachGeneratedHint": {
+    "message": "Run the assistant and attach the result to this media item."
+  },
+  "reviewPage_attachReview": {
+    "message": "Attach review to media"
+  },
+  "reviewPage_attachSummary": {
+    "message": "Attach summary to media"
+  },
+  "reviewPage_saveGeneratedNoteHint": {
+    "message": "Run the assistant and save the result as a note."
+  },
+  "reviewPage_saveReviewNote": {
+    "message": "Save review as note"
+  },
+  "reviewPage_saveSummaryNote": {
+    "message": "Save summary as note"
+  },
+  "reviewPage_saveToMediaHint": {
+    "message": "Attach the current text in the editor to this media item."
+  },
+  "reviewPage_saveToMedia": {
+    "message": "Attach current text to media"
+  },
+  "reviewPage_saveAnalysisHint": {
+    "message": "Create a note from the current analysis."
+  },
+  "reviewPage_saveAnalysis": {
+    "message": "Save to notes"
+  },
+  "reviewPage_askAssistantLabel": {
+    "message": "Ask the assistant"
+  },
+  "reviewPage_saveResultsLabel": {
+    "message": "Save results"
+  },
+  "reviewPage_moreSaveNewVersion": {
+    "message": "Save as new version"
+  },
+  "reviewPage_moreDuplicateVersion": {
+    "message": "Duplicate version"
+  },
+  "reviewPage_moreRestoreVersion": {
+    "message": "Restore selected version"
+  },
+  "reviewPage_modeReview": {
+    "message": "Use review"
+  },
+  "reviewPage_modeSummary": {
+    "message": "Use summary"
+  },
+  "reviewPage_resultsHint": {
+    "message": "Click a result to load its content and analyses on the right."
+  },
+  "reviewPage_paginationHint": {
+    "message": "Use filters or pagination to refine the results if many items are loaded."
+  },
+  "reviewPage_offlineHint": {
+    "message": "Connect to your tldw server in Settings to send messages and view media. Then you can search media from this page."
+  },
+  "reviewPage_chatWithMedia": {
+    "message": "Chat with this media"
+  },
+  "reviewPage_chatWithMediaHint": {
+    "message": "Open Chat and prefill the composer with this media’s content."
+  },
+  "reviewPage_chatPrepared": {
+    "message": "Prepared chat with this media in the composer."
+  },
+  "reviewPage_chatAboutMediaHint": {
+    "message": "Open RAG chat scoped to this media only."
+  },
+  "reviewPage_chatAboutMediaRagSent": {
+    "message": "Opened media-scoped RAG chat."
+  },
+  "reviewPage_chatAboutMediaInvalidId": {
+    "message": "این مورد رسانه‌ای هنوز شناسه عددی ندارد."
+  },
+  "reviewPage_demoBadge": {
+    "message": "نسخه نمایشی"
+  },
+  "reviewPage_notConnectedBadge": {
+    "message": "بدون اتصال"
+  },
+  "reviewPage_prevItem": {
+    "message": "قبلی"
+  },
+  "reviewPage_nextItem": {
+    "message": "بعدی"
+  },
+  "reviewPage_noContent": {
+    "message": "هیچ محتوایی موجود نیست"
+  },
+  "reviewPage_showMore": {
+    "message": "نمایش بیشتر"
+  },
+  "reviewPage_showLess": {
+    "message": "نمایش کمتر"
+  },
+  "reviewPage_showRaw": {
+    "message": "نمایش خام"
+  },
+  "reviewPage_hideRaw": {
+    "message": "پنهان کردن خام"
+  },
+  "reviewPage_noAnalysis": {
+    "message": "هنوز تحلیلی وجود ندارد"
+  },
+  "reviewPage_mediaContent": {
+    "message": "محتوای رسانه"
+  },
+  "reviewPage_copyContent": {
+    "message": "کپی محتوا"
+  },
+  "reviewPage_analysisTitle": {
+    "message": "تحلیل"
+  },
+  "reviewPage_copyAnalysis": {
+    "message": "کپی تحلیل"
+  },
+  "reviewPage_sendAnalysisToChat": {
+    "message": "ارسال تحلیل به چت"
+  },
+  "reviewPage_copyAllPlain": {
+    "message": "کپی همه به‌صورت متن ساده"
+  },
+  "reviewPage_copyAllMarkdown": {
+    "message": "کپی همه به‌صورت Markdown"
+  },
+  "reviewPage_openInMulti": {
+    "message": "باز کردن در بررسی چندموردی"
+  },
+  "mediaPage_searchPlaceholder": {
+    "message": "جستجوی رسانه (عنوان/محتوا)"
+  },
+  "mediaPage_search": {
+    "message": "جستجو"
+  },
+  "mediaPage_clear": {
+    "message": "پاک کردن"
+  },
+  "mediaPage_types": {
+    "message": "انواع"
+  },
+  "mediaPage_keywords": {
+    "message": "کلیدواژه‌ها"
+  },
+  "mediaPage_moreTags": {
+    "message": "+{{count}} برچسب دیگر"
+  },
+  "mediaPage_resetFilters": {
+    "message": "بازنشانی فیلترها"
+  },
+  "mediaPage_clearAll": {
+    "message": "پاک کردن همه"
+  },
+  "mediaPage_content": {
+    "message": "محتوا"
+  },
+  "mediaPage_vertical": {
+    "message": "عمودی"
+  },
+  "mediaPage_horizontal": {
+    "message": "افقی"
+  },
+  "mediaPage_results": {
+    "message": "نتایج"
+  },
+  "mediaPage_noResults": {
+    "message": "نتیجه‌ای یافت نشد"
+  },
+  "mediaPage_showSidebar": {
+    "message": "نمایش نوار کناری"
+  },
+  "mediaPage_hideSidebar": {
+    "message": "پنهان کردن نوار کناری"
+  },
+  "mediaPage_viewer": {
+    "message": "نمایشگر"
+  },
+  "mediaPage_selectItemsHint": {
+    "message": "برای نمایش در اینجا، موارد را از سمت چپ انتخاب کنید."
+  },
+  "mediaPage_mediaContent": {
+    "message": "محتوای رسانه"
+  },
+  "mediaPage_copyContent": {
+    "message": "کپی محتوا"
+  },
+  "mediaPage_contentCopied": {
+    "message": "محتوا کپی شد"
+  },
+  "mediaPage_metadataCopied": {
+    "message": "فراداده کپی شد"
+  },
+  "mediaPage_analysisCopied": {
+    "message": "تحلیل کپی شد"
+  },
+  "mediaPage_copyFailed": {
+    "message": "کپی ناموفق بود"
+  },
+  "mediaPage_noContent": {
+    "message": "هیچ محتوایی موجود نیست"
+  },
+  "mediaPage_collapse": {
+    "message": "جمع کردن"
+  },
+  "mediaPage_expand": {
+    "message": "باز کردن"
+  },
+  "mediaPage_media": {
+    "message": "رسانه"
+  },
+  "mediaPage_searchingBanner": {
+    "message": "در حال جستجوی رسانه…"
+  },
+  "mediaPage_filterHelp": {
+    "message": "جستجو عنوان و محتوا را تطبیق می‌دهد؛ انواع و کلیدواژه‌ها نتایج را محدودتر می‌کنند."
+  },
+  "mediaPage_noMediaTypes": {
+    "message": "هیچ نوع رسانه‌ای در دسترس نیست"
+  },
+  "mediaPage_resultsCount": {
+    "message": "{{selected}} انتخاب‌شده · {{open}} باز"
+  },
+  "mediaPage_clearSelection": {
+    "message": "لغو انتخاب همه"
+  },
+  "mediaPage_itemsLabel": {
+    "message": "موارد"
+  },
+  "mediaPage_contentLabel": {
+    "message": "نمای محتوا"
+  },
+  "mediaPage_filterByKeyword": {
+    "message": "فیلتر بر اساس کلمه کلیدی"
+  },
+  "mediaPage_keywordHelper": {
+    "message": "کلمات کلیدی به شما کمک می‌کنند این رسانه را با استفاده از فیلتر کلمات کلیدی در سمت چپ پیدا کنید"
+  },
+  "mediaPage_modeHint": {
+    "message": "برای مقایسه، چند مورد رسانه‌ای را جستجو کرده و در نماگر سمت راست روی هم قرار دهید."
+  },
+  "mediaPage_viewerHelp": {
+    "message": "صفحه‌کلید: با Tab وارد فهرست نتایج شوید، با Enter یا Space یک مورد رسانه‌ای را روی هم بگذارید یا بردارید، سپس با دکمه‌های قبلی/بعدی و کنترل‌های چیدمان بین موارد در نماگر جابه‌جا شوید."
+  },
+  "mediaPage_viewerHelpLabel": {
+    "message": "میان‌برهای صفحه‌کلید برای بررسی چند موردی"
+  },
+  "mediaPage_mediaInspector": {
+    "message": "بازبین رسانه"
+  },
+  "mediaPage_actionsLabel": {
+    "message": "اقدام‌ها"
+  },
+  "mediaPage_keywordsPlaceholder": {
+    "message": "افزودن کلمهٔ کلیدی..."
+  },
+  "mediaPage_noSelectionTitle": {
+    "message": "هیچ مورد رسانه‌ای انتخاب نشده است"
+  },
+  "mediaPage_noSelectionDescription": {
+    "message": "برای دیدن محتوا و تحلیل‌ها در اینجا، یک مورد رسانه‌ای را از نوار کناری سمت چپ انتخاب کنید."
+  },
+  "mediaPage_generateAnalysis": {
+    "message": "تولید تحلیل"
+  },
+  "mediaPage_generateAnalysisHint": {
+    "message": "تولید یک تحلیل جدید"
+  },
+  "mediaPage_editAnalysis": {
+    "message": "ویرایش تحلیل"
+  },
+  "mediaPage_createNoteWithContent": {
+    "message": "ایجاد یادداشت با محتوا"
+  },
+  "mediaPage_createNoteWithContentAnalysis": {
+    "message": "ایجاد یادداشت با محتوا + تحلیل"
+  },
+  "mediaPage_untitled": {
+    "message": "بدون عنوان"
+  },
+  "mediaPage_copyMetadata": {
+    "message": "کپی فراداده"
+  },
+  "mediaPage_statistics": {
+    "message": "آمار"
+  },
+  "mediaPage_words": {
+    "message": "کلمات"
+  },
+  "mediaPage_characters": {
+    "message": "کاراکترها"
+  },
+  "mediaPage_paragraphs": {
+    "message": "پاراگراف‌ها"
+  },
+  "mediaPage_metadata": {
+    "message": "فراداده"
+  },
+  "mediaPage_idLabel": {
+    "message": "شناسه"
+  },
+  "mediaPage_typeLabel": {
+    "message": "نوع"
+  },
+  "mediaPage_titleLabel": {
+    "message": "عنوان"
+  },
+  "mediaPage_source": {
+    "message": "منبع"
+  },
+  "mediaPage_notAvailable": {
+    "message": "ناموجود"
+  },
+  "mediaPage_developerTools": {
+    "message": "ابزارهای توسعه‌دهنده"
+  },
+  "mediaPage_spreadMode": {
+    "message": "مقایسه"
+  },
+  "mediaPage_listMode": {
+    "message": "تمرکز"
+  },
+  "mediaPage_allMode": {
+    "message": "پشته"
+  },
+  "mediaPage_spreadModeTooltip": {
+    "message": "نمایش موارد انتخاب‌شده کنار هم برای مقایسه"
+  },
+  "mediaPage_listModeTooltip": {
+    "message": "نمایش تک‌به‌تک همراه با ناوبری"
+  },
+  "mediaPage_allModeTooltip": {
+    "message": "نمایش همه موارد انتخاب‌شده در یک فهرست قابل پیمایش"
+  },
+  "mediaPage_copyContentLabel": {
+    "message": "کپی محتوا"
+  },
+  "mediaPage_copyAnalysisLabel": {
+    "message": "کپی تحلیل"
+  },
+  "mediaPage_copyContentTooltip": {
+    "message": "کپی محتوا در کلیپ‌بورد"
+  },
+  "mediaPage_copyAnalysisTooltip": {
+    "message": "کپی تحلیل در کلیپ‌بورد"
+  },
+  "mediaPage_prevItemTooltip": {
+    "message": "مورد قبلی (←)"
+  },
+  "mediaPage_nextItemTooltip": {
+    "message": "مورد بعدی (→)"
+  },
+  "mediaPage_viewerOptions": {
+    "message": "گزینه‌ها"
+  },
+  "mediaPage_expandAllDropdown": {
+    "message": "باز/بسته کردن"
+  },
+  "mediaPage_itemPosition": {
+    "message": "مورد {{current}} از {{total}}"
+  },
+  "mediaPage_noItemSelected": {
+    "message": "هیچ موردی انتخاب نشده است"
+  },
+  "mediaPage_firstUseTitle": {
+    "message": "راهنمای سریع: بازبینی چندموردی"
+  },
+  "mediaPage_firstUseStep1": {
+    "message": "انتخاب موارد"
+  },
+  "mediaPage_firstUseStep1Desc": {
+    "message": "برای افزودن به نمایشگر، روی موارد در پنل سمت چپ کلیک کنید."
+  },
+  "mediaPage_firstUseStep2": {
+    "message": "انتخاب نما"
+  },
+  "mediaPage_firstUseStep2DescUpdated": {
+    "message": "برای نمایش کنار هم «مقایسه»، برای تک‌به‌تک «تمرکز»، یا برای دیدن همه «پشته» را انتخاب کنید."
+  },
+  "mediaPage_firstUseStep3": {
+    "message": "ناوبری"
+  },
+  "mediaPage_firstUseStep3Desc": {
+    "message": "با دکمه‌های قبلی/بعدی یا صفحه‌کلید (Tab + Enter) بین موارد جابه‌جا شوید."
+  },
+  "mediaPage_gotIt": {
+    "message": "متوجه شدم"
+  },
+  "mediaPage_model": {
+    "message": "مدل"
+  },
+  "mediaPage_selectModel": {
+    "message": "انتخاب مدل"
+  },
+  "mediaPage_noModelsAvailable": {
+    "message": "هیچ مدلی در دسترس نیست"
+  },
+  "mediaPage_promptPresets": {
+    "message": "پیش‌تنظیم‌های پرامپت"
+  },
+  "mediaPage_showPresets": {
+    "message": "نمایش پیش‌تنظیم‌ها"
+  },
+  "mediaPage_hidePresets": {
+    "message": "پنهان کردن پیش‌تنظیم‌ها"
+  },
+  "mediaPage_systemPromptLabel": {
+    "message": "پرامپت سیستم"
+  },
+  "mediaPage_systemPromptPlaceholder": {
+    "message": "پرامپت سیستم را وارد کنید..."
+  },
+  "mediaPage_userPromptPrefixLabel": {
+    "message": "پیشوند پرامپت کاربر"
+  },
+  "mediaPage_prependedBeforeContent": {
+    "message": "(پیش از محتوا افزوده می‌شود)"
+  },
+  "mediaPage_userPrefixPlaceholder": {
+    "message": "اختیاری: متنی برای افزودن قبل از محتوای رسانه وارد کنید..."
+  },
+  "mediaPage_presetComprehensiveAnalysis": {
+    "message": "تحلیل جامع"
+  },
+  "mediaPage_presetExecutiveSummary": {
+    "message": "خلاصه اجرایی"
+  },
+  "mediaPage_presetCriticalReview": {
+    "message": "بازبینی انتقادی"
+  },
+  "mediaPage_presetQAAnalysis": {
+    "message": "تحلیل پرسش‌وپاسخ"
+  },
+  "empty_connectTitle": {
+    "message": "برای استفاده از بازبینی متصل شوید"
+  },
+  "empty_connectDescription": {
+    "message": "برای ارسال پیام و مشاهده رسانه‌ها، در تنظیمات به سرور tldw خود متصل شوید. پس از اتصال می‌توانید رسانه‌ها و یادداشت‌ها را اینجا بازبینی کنید."
+  },
+  "empty_connectExample1": {
+    "message": "برای افزودن نشانی سرور خود، «Settings → tldw server» را باز کنید."
+  },
+  "empty_connectExample2": {
+    "message": "پس از اتصال، رسانه‌ها و یادداشت‌ها را مرور کنید و بازبینی‌ها و خلاصه‌های ساختارمند بسازید."
+  },
+  "empty_demoTitle": {
+    "message": "بازبینی را در حالت دمو کاوش کنید"
+  },
+  "empty_demoDescription": {
+    "message": "این دمو نشان می‌دهد دستیار tldw چگونه می‌تواند رسانه‌ها و یادداشت‌ها را به بازبینی‌های ساختارمند تبدیل کند. بعداً می‌توانید سرور خود را متصل کنید تا محتوای خودتان را تحلیل کنید."
+  },
+  "empty_demoExample1": {
+    "message": "ببینید رسانه‌ها و یادداشت‌های انتخاب‌شده چگونه در فضای کاری بازبینی نمایش داده می‌شوند."
+  },
+  "empty_demoExample2": {
+    "message": "وقتی متصل شوید، می‌توانید از ضبط‌ها و یادداشت‌های خودتان خلاصه‌ها و موارد اقدام تولید کنید."
+  },
+  "mediaEmpty_demoTitle": {
+    "message": "رسانه‌ها را در حالت دمو کاوش کنید"
+  },
+  "mediaEmpty_demoDescription": {
+    "message": "این دمو نشان می‌دهد دستیار tldw چگونه می‌تواند رسانه‌های پردازش‌شده را نمایش دهد و بررسی کند. بعداً سرور خود را متصل کنید تا ضبط‌ها و اسناد خود را مرور کنید."
+  },
+  "mediaEmpty_demoExample1": {
+    "message": "ببینید آیتم‌های رسانه‌ای پردازش‌شده چگونه در نمایشگر Media ظاهر می‌شوند."
+  },
+  "mediaEmpty_demoExample2": {
+    "message": "وقتی متصل شوید، می‌توانید رسانه‌های واردشده از ضبط‌ها و فایل‌های خودتان را مرور و بررسی کنید."
+  },
+  "mediaEmpty_connectTitle": {
+    "message": "برای استفاده از Media متصل شوید"
+  },
+  "mediaEmpty_connectDescription": {
+    "message": "برای ارسال پیام و مشاهده رسانه‌ها، در تنظیمات به سرور tldw خود متصل شوید. پس از اتصال، ضبط‌ها و اسناد پردازش‌شده اینجا فهرست می‌شوند."
+  },
+  "mediaEmpty_connectExample1": {
+    "message": "برای افزودن نشانی سرور خود، «Settings → tldw server» را باز کنید."
+  },
+  "mediaEmpty_connectExample2": {
+    "message": "پس از اتصال، از «Quick ingest» در سربرگ استفاده کنید تا رسانه‌ها را از ضبط‌ها و فایل‌های خود اضافه کنید."
+  },
+  "mediaEmpty_offlineTitle": {
+    "message": "بازبینی رسانه هنوز در این سرور فعال نیست"
+  },
+  "mediaEmpty_offlineDescription": {
+    "message": "این فضای کاری به پشتیبانی بازبینی رسانه در سرور tldw شما وابسته است. می‌توانید در حین ارتقا به نسخه‌ای که رسانه را شامل می‌شود، از چت، یادداشت‌ها و سایر ابزارها استفاده کنید."
+  },
+  "mediaEmpty_offlineExample1": {
+    "message": "پس از ارتقا، افزونه را دوباره بارگذاری کنید و به رسانه برگردید."
+  },
+  "mediaEmpty_offlineExample2": {
+    "message": "برای فعال شدن بازبینی رسانه، سرور شما باید نسخه‌ای را اجرا کند که قابلیت رسانه را پشتیبانی می‌کند."
+  },
+  "mediaEmpty_offlineTechnicalDetails": {
+    "message": "برای فعال شدن بازبینی رسانه، سرور شما باید نسخه‌ای را اجرا کند که قابلیت رسانه را پشتیبانی می‌کند؛ لطفاً سرور را به‌روز کنید یا با تیم زیرساخت تماس بگیرید."
+  },
+  "mediaEmpty_featureUnavailableBadge": {
+    "message": "قابلیت در دسترس نیست"
+  },
+  "mediaEmpty_demoExample3": {
+    "message": "از Media همراه با Review برای خلاصه‌سازی یا تحلیل ضبط‌ها استفاده کنید."
+  },
+  "mediaEmpty_demoPreviewHeading": {
+    "message": "آیتم‌های رسانه‌ای نمونه (فقط پیش‌نمایش)"
+  },
+  "mediaEmpty_demoSample1Title": {
+    "message": "رسانهٔ دمو: ضبط تماس تیم"
+  },
+  "mediaEmpty_demoSample1Meta": {
+    "message": "ویدیو · ۲۵ دقیقه · کلیدواژه‌ها: استندآپ، برنامه‌ریزی"
+  },
+  "mediaEmpty_demoSample2Title": {
+    "message": "رسانهٔ دمو: مرور محصول"
+  },
+  "mediaEmpty_demoSample2Meta": {
+    "message": "ضبط صفحه · ۱۲ دقیقه · کلیدواژه‌ها: onboarding"
+  },
+  "mediaEmpty_demoSample3Title": {
+    "message": "رسانهٔ دمو: PDF مقالهٔ پژوهشی"
+  },
+  "mediaEmpty_demoSample3Meta": {
+    "message": "PDF · ۶ صفحه · کلیدواژه‌ها: خلاصه‌سازی"
   }
 }

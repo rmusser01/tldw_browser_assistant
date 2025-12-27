@@ -128,8 +128,8 @@
     }
   },
   "tabs": {
-    "newChat": "New chat",
-    "newTabAria": "New chat tab",
-    "closeTabAria": "Close chat tab"
+    "newChat": "Новый чат",
+    "newTabAria": "Новая вкладка чата",
+    "closeTabAria": "Закрыть вкладку чата"
   }
 }

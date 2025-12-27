@@ -364,5 +364,173 @@
   },
   "contentReview_editedLabel": {
     "message": "Redigerad"
+  },
+  "reviewPage_prevItem": {
+    "message": "Föregående"
+  },
+  "reviewPage_nextItem": {
+    "message": "Nästa"
+  },
+  "reviewPage_noContent": {
+    "message": "Inget innehåll tillgängligt"
+  },
+  "reviewPage_showMore": {
+    "message": "Visa mer"
+  },
+  "reviewPage_showLess": {
+    "message": "Visa mindre"
+  },
+  "reviewPage_showRaw": {
+    "message": "Visa rådata"
+  },
+  "reviewPage_hideRaw": {
+    "message": "Dölj rådata"
+  },
+  "reviewPage_noAnalysis": {
+    "message": "Ingen analys ännu"
+  },
+  "reviewPage_mediaContent": {
+    "message": "Mediainnehåll"
+  },
+  "reviewPage_copyContent": {
+    "message": "Kopiera innehåll"
+  },
+  "reviewPage_analysisTitle": {
+    "message": "Analys"
+  },
+  "reviewPage_copyAnalysis": {
+    "message": "Kopiera analys"
+  },
+  "reviewPage_sendAnalysisToChat": {
+    "message": "Skicka analys till chatten"
+  },
+  "reviewPage_copyAllPlain": {
+    "message": "Kopiera allt som oformaterad text"
+  },
+  "reviewPage_copyAllMarkdown": {
+    "message": "Kopiera allt som Markdown"
+  },
+  "reviewPage_openInMulti": {
+    "message": "Öppna i granskning av flera objekt"
+  },
+  "mediaPage_moreTags": {
+    "message": "+{{count}} fler taggar"
+  },
+  "mediaPage_spreadMode": {
+    "message": "Jämför"
+  },
+  "mediaPage_listMode": {
+    "message": "Fokus"
+  },
+  "mediaPage_allMode": {
+    "message": "Stapla"
+  },
+  "mediaPage_spreadModeTooltip": {
+    "message": "Visa markerade objekt sida vid sida för jämförelse"
+  },
+  "mediaPage_listModeTooltip": {
+    "message": "Visa ett objekt i taget med navigering"
+  },
+  "mediaPage_allModeTooltip": {
+    "message": "Visa alla markerade objekt i en rullbar lista"
+  },
+  "mediaPage_copyContentLabel": {
+    "message": "Kopiera innehåll"
+  },
+  "mediaPage_copyAnalysisLabel": {
+    "message": "Kopiera analys"
+  },
+  "mediaPage_copyContentTooltip": {
+    "message": "Kopiera innehåll till urklipp"
+  },
+  "mediaPage_copyAnalysisTooltip": {
+    "message": "Kopiera analys till urklipp"
+  },
+  "mediaPage_prevItemTooltip": {
+    "message": "Föregående objekt (←)"
+  },
+  "mediaPage_nextItemTooltip": {
+    "message": "Nästa objekt (→)"
+  },
+  "mediaPage_viewerOptions": {
+    "message": "Alternativ"
+  },
+  "mediaPage_expandAllDropdown": {
+    "message": "Expandera/komprimera"
+  },
+  "mediaPage_itemPosition": {
+    "message": "Objekt {{current}} av {{total}}"
+  },
+  "mediaPage_noItemSelected": {
+    "message": "Inget objekt valt"
+  },
+  "mediaPage_firstUseTitle": {
+    "message": "Snabbguide: Granskning av flera objekt"
+  },
+  "mediaPage_firstUseStep1": {
+    "message": "Välj objekt"
+  },
+  "mediaPage_firstUseStep1Desc": {
+    "message": "Klicka på objekt i vänsterpanelen för att lägga till dem i din visare."
+  },
+  "mediaPage_firstUseStep2": {
+    "message": "Välj vy"
+  },
+  "mediaPage_firstUseStep2DescUpdated": {
+    "message": "Använd \"Jämför\" för sida vid sida, \"Fokus\" för ett i taget eller \"Stapla\" för att se alla."
+  },
+  "mediaPage_firstUseStep3": {
+    "message": "Navigera"
+  },
+  "mediaPage_firstUseStep3Desc": {
+    "message": "Använd knapparna Föregående/Nästa eller tangentbordet (Tab + Enter) för att flytta mellan objekt."
+  },
+  "mediaPage_gotIt": {
+    "message": "Jag förstår"
+  },
+  "mediaPage_model": {
+    "message": "Modell"
+  },
+  "mediaPage_selectModel": {
+    "message": "Välj en modell"
+  },
+  "mediaPage_noModelsAvailable": {
+    "message": "Inga modeller tillgängliga"
+  },
+  "mediaPage_promptPresets": {
+    "message": "Promptförinställningar"
+  },
+  "mediaPage_showPresets": {
+    "message": "Visa förinställningar"
+  },
+  "mediaPage_hidePresets": {
+    "message": "Dölj förinställningar"
+  },
+  "mediaPage_systemPromptLabel": {
+    "message": "Systemprompt"
+  },
+  "mediaPage_systemPromptPlaceholder": {
+    "message": "Ange systemprompt..."
+  },
+  "mediaPage_userPromptPrefixLabel": {
+    "message": "Prefix för användarprompt"
+  },
+  "mediaPage_prependedBeforeContent": {
+    "message": "(infogas före innehållet)"
+  },
+  "mediaPage_userPrefixPlaceholder": {
+    "message": "Valfritt: Ange text som ska läggas till före mediainnehållet..."
+  },
+  "mediaPage_presetComprehensiveAnalysis": {
+    "message": "Omfattande analys"
+  },
+  "mediaPage_presetExecutiveSummary": {
+    "message": "Sammanfattning för ledningen"
+  },
+  "mediaPage_presetCriticalReview": {
+    "message": "Kritisk granskning"
+  },
+  "mediaPage_presetQAAnalysis": {
+    "message": "Frågor och svar-analys"
   }
 }

@@ -2183,5 +2183,737 @@
   },
   "playground_tts_unsupportedFormatDescription": {
     "message": "応答形式「{{format}}」はサポートされていません。MP3にフォールバックします。"
+  },
+  "playground_formError_noModel": {
+    "message": "モデルを選択してください"
+  },
+  "playground_formError_noEmbeddingModel": {
+    "message": "設定 > RAGページでembeddingモデルを設定してください"
+  },
+  "playground_form_textarea_placeholder": {
+    "message": "メッセージを入力..."
+  },
+  "playground_form_webSearch_on": {
+    "message": "オン"
+  },
+  "playground_form_webSearch_off": {
+    "message": "オフ"
+  },
+  "playground_tooltip_searchInternet": {
+    "message": "インターネットを検索"
+  },
+  "playground_tooltip_speechToText": {
+    "message": "音声入力"
+  },
+  "playground_tooltip_uploadImage": {
+    "message": "画像をアップロード"
+  },
+  "playground_tooltip_stopStreaming": {
+    "message": "ストリーミングを停止"
+  },
+  "playground_tooltip_knowledge": {
+    "message": "知識"
+  },
+  "playground_tooltip_clearContext": {
+    "message": "コンテキストをクリア"
+  },
+  "playground_tooltip_speechToTextServer": {
+    "message": "Dictation via your tldw server"
+  },
+  "playground_tooltip_speechToTextBrowser": {
+    "message": "Dictation via browser speech recognition"
+  },
+  "playground_tooltip_speechToTextDetails": {
+    "message": "Uses {{model}} · {{task}} · {{format}}. Configure in Settings → General → Speech-to-Text."
+  },
+  "playground_tooltip_vision": {
+    "message": "[Experimental] Vision Chat"
+  },
+  "playground_tooltip_uploadDocuments": {
+    "message": "Upload Documents (beta)"
+  },
+  "playground_sendWhenEnter": {
+    "message": "Enterキーを押すと送信"
+  },
+  "playground_welcome": {
+    "message": "こんにちは！本日はどのようなお手伝いができますか？"
+  },
+  "playground_useOCR": {
+    "message": "画像からテキストを抽出（OCR）"
+  },
+  "playground_tips_title": {
+    "message": "Tips"
+  },
+  "playground_tips_quickIngest": {
+    "message": "Use Quick ingest to add documents and web pages."
+  },
+  "playground_tips_pickModelPrompt": {
+    "message": "Pick a Model and a Prompt from the header."
+  },
+  "playground_tips_startChatFocus": {
+    "message": "When connected, “Start chatting” focuses the composer."
+  },
+  "playground_tldwState_searching": {
+    "message": "tldw server を検索中"
+  },
+  "playground_tldwState_running": {
+    "message": "tldw が実行中"
+  },
+  "playground_tldwState_notRunning": {
+    "message": "tldw server に接続できません"
+  },
+  "playground_tldwState_connectionError": {
+    "message": "接続エラーが発生しているようです。トラブルシューティングについては<anchor>ドキュメント</anchor>をご覧ください。"
+  },
+  "playground_tldwState_openTldwSettings": {
+    "message": "Open tldw Settings"
+  },
+  "playground_tldwState_cancelSearch": {
+    "message": "Cancel search"
+  },
+  "playground_tldwState_connectionFailedWithCode": {
+    "message": "Connection failed (HTTP {{code}})"
+  },
+  "playground_tldwState_connectionFailed": {
+    "message": "Connection failed"
+  },
+  "playground_tldwState_errorDetailsLabel": {
+    "message": "Details:"
+  },
+  "playground_tldwState_title": {
+    "message": "Waiting for your tldw server"
+  },
+  "playground_tldwState_subtitle": {
+    "message": "We’re pinging {{host}} to verify the connection."
+  },
+  "playground_tldwState_missing": {
+    "message": "Server URL not configured"
+  },
+  "playground_tldwState_noServer": {
+    "message": "Add your tldw server to start chatting."
+  },
+  "playground_tldwState_connectedSubtitle": {
+    "message": "Connected to {{host}}. Start chatting when you’re ready."
+  },
+  "playground_tldwState_errorSubtitle": {
+    "message": "We couldn’t reach {{host}} yet. Retry or update your server settings."
+  },
+  "playground_tldwState_openSettings": {
+    "message": "Open settings"
+  },
+  "playground_tldwState_changeServer": {
+    "message": "Change server"
+  },
+  "playground_tldwState_elapsed": {
+    "message": "Checking… {{seconds}}s"
+  },
+  "playground_tldwState_connectedHint": {
+    "message": "Connected to {{host}}."
+  },
+  "playground_tldwState_lastChecked": {
+    "message": "Checked {{seconds}}s ago"
+  },
+  "playground_tldwState_recheck": {
+    "message": "Check again"
+  },
+  "playground_tldwState_errorToast": {
+    "message": "We couldn’t reach {{host}}"
+  },
+  "playground_tldwState_missingHelp": {
+    "message": "Open Settings → tldw Server to add your URL or connect to the Options page."
+  },
+  "playground_tldwState_troubleshoot": {
+    "message": "Confirm your server is running and that the browser is allowed to reach it, then retry from the Options page."
+  },
+  "playground_errors_privateModeDescription": {
+    "message": "Firefox のプライベートモードではチャットの保存はできません。デフォルトで一時チャットが有効です。今後改善予定です。"
+  },
+  "playground_tts_playErrorTitle": {
+    "message": "エラー"
+  },
+  "playground_tts_playErrorDescription": {
+    "message": "音声の再生中にエラーが発生しました"
+  },
+  "playground_tts_browserInfoTitle": {
+    "message": "ブラウザーTTSはシステム音声を使用します"
+  },
+  "playground_tts_browserInfoDescription": {
+    "message": "ブラウザーTTSはシステムの音声合成で再生され、ダウンロード可能な音声ファイルは提供されません。下のセグメント操作を使うか、トラック一覧とプレーヤーを使うにはプロバイダーを切り替えてください。"
+  },
+  "playground_tts_unsupportedProviderTitle": {
+    "message": "未対応のTTSプロバイダー"
+  },
+  "playground_tts_unsupportedProviderDescription": {
+    "message": "プロバイダー \"{{provider}}\" はまだプレイグラウンドのプレーヤーでサポートされていません。"
+  },
+  "playground_tts_elevenLabsMissingTitle": {
+    "message": "ElevenLabs には API キーが必要です"
+  },
+  "playground_tts_elevenLabsMissingBody": {
+    "message": "設定で ElevenLabs の API キーを追加して、ボイスとモデルを読み込んでください。"
+  },
+  "playground_tts_elevenLabsUnavailableTitle": {
+    "message": "ElevenLabs のボイスが利用できません"
+  },
+  "playground_tts_elevenLabsUnavailableBody": {
+    "message": "ボイスまたはモデルを読み込めませんでした。API キーを確認して再試行してください。"
+  },
+  "playground_tts_elevenLabsMissingCta": {
+    "message": "設定で API キーを設定"
+  },
+  "playground_tts_generateErrorTitle": {
+    "message": "音声生成エラー"
+  },
+  "playground_tts_generateErrorDescription": {
+    "message": "TTS音声の生成中に問題が発生しました。"
+  },
+  "playground_tts_sampleText": {
+    "message": "サンプルテキストを挿入"
+  },
+  "playground_tts_playHelper": {
+    "message": "再生は選択したプロバイダー、ボイス、速度を使用します。"
+  },
+  "playground_tts_playDisabledNoText": {
+    "message": "テキストを入力すると再生が有効になります。"
+  },
+  "playground_tts_playDisabledTtsOff": {
+    "message": "音声を再生するには上でテキスト読み上げを有効にしてください。"
+  },
+  "playground_tts_playDisabledElevenLabs": {
+    "message": "再生を有効にするには ElevenLabs の API キー、ボイス、モデルを追加してください。"
+  },
+  "playground_tts_stopDisabled": {
+    "message": "停止は音声再生が始まってから有効になります。"
+  },
+  "playground_tts_providerChangeHelper": {
+    "message": "下のプロバイダー選択から Browser、tldw、OpenAI、Supersonic を切り替えられます。"
+  },
+  "playground_tts_changeProvider": {
+    "message": "プロバイダーを変更"
+  },
+  "playground_tts_title": {
+    "message": "TTS プレイグラウンド"
+  },
+  "playground_tts_subtitle": {
+    "message": "テキスト読み上げを試して、プロバイダー、モデル、ボイスを調整できます。"
+  },
+  "playground_tts_currentProvider": {
+    "message": "現在のプロバイダー"
+  },
+  "playground_tts_settingsIntro": {
+    "message": "TTS のプロバイダー、モデル、ボイスを調整します。これらの設定はチャットやメディアから音声を再生するときに再利用されます。"
+  },
+  "playground_tts_providerCapabilities": {
+    "message": "プロバイダーの対応機能"
+  },
+  "playground_tts_voicesPreview": {
+    "message": "サーバーのボイス"
+  },
+  "playground_tts_providerDetails": {
+    "message": "プロバイダー設定の詳細を表示"
+  },
+  "playground_tts_providerDetailsTitle": {
+    "message": "プロバイダーの詳細"
+  },
+  "playground_tts_inputLabel": {
+    "message": "読み上げたいテキストを入力してください。"
+  },
+  "playground_tts_inputPlaceholder": {
+    "message": "ここにテキストを入力または貼り付けて、再生で確認します。"
+  },
+  "playground_tts_play": {
+    "message": "再生"
+  },
+  "playground_tts_playing": {
+    "message": "再生中…"
+  },
+  "playground_tts_stop": {
+    "message": "停止"
+  },
+  "playground_tts_browserSegmentsTitle": {
+    "message": "ブラウザー TTS セグメント"
+  },
+  "playground_tts_browserSegmentsHelp": {
+    "message": "セグメントをキューに入れるか、システム音声で個別に再生できます。"
+  },
+  "playground_tts_browserQueueAll": {
+    "message": "すべてキューに追加"
+  },
+  "playground_tts_browserQueueFromHere": {
+    "message": "ここからキューに追加"
+  },
+  "playground_tts_browserSegmentPlay": {
+    "message": "セグメントを再生"
+  },
+  "playground_tts_browserStatusSpeaking": {
+    "message": "セグメント {{current}}/{{total}} を再生中"
+  },
+  "playground_tts_browserStatusPaused": {
+    "message": "一時停止中"
+  },
+  "playground_tts_browserPause": {
+    "message": "一時停止"
+  },
+  "playground_tts_browserResume": {
+    "message": "再開"
+  },
+  "playground_tts_tldwStatusOnline": {
+    "message": "tldw サーバーの音声 API を検出しました（audio/speech）"
+  },
+  "playground_tts_tldwStatusOffline": {
+    "message": "音声 API が検出されません。tldw サーバーのバージョンを確認してください。"
+  },
+  "playground_tts_tldwWarningTitle": {
+    "message": "tldw の audio/speech API が検出されません"
+  },
+  "playground_tts_tldwWarningBody": {
+    "message": "tldw_server のバージョンに /api/v1/audio/speech が含まれていることと、拡張機能が有効な API キーで接続されていることを確認してください。"
+  },
+  "playground_tts_speechErrorTitle": {
+    "message": "音声入力に失敗しました"
+  },
+  "playground_tts_speechErrorBody": {
+    "message": "文字起こしのリクエストに失敗しました。tldw サーバーの状態を確認してください。"
+  },
+  "playground_tts_speechNoText": {
+    "message": "文字起こし結果にテキストがありませんでした。"
+  },
+  "playground_tts_speechMicError": {
+    "message": "マイクにアクセスできません。ブラウザーの権限を確認して再試行してください。"
+  },
+  "playground_tts_savedToNotes": {
+    "message": "文字起こしをメモとして保存しました。"
+  },
+  "playground_empty_title": {
+    "message": "Start a new chat"
+  },
+  "playground_empty_description": {
+    "message": "Experiment with different models, prompts, and knowledge sources here."
+  },
+  "playground_empty_demoDescription": {
+    "message": "You’re in demo mode — try asking a question to see how the assistant responds. You can connect your own tldw server later."
+  },
+  "playground_empty_example1": {
+    "message": "Ask a question, then drag in documents or web pages you want to discuss."
+  },
+  "playground_empty_example2": {
+    "message": "Use Quick ingest to add transcripts or notes, then reference them in chat."
+  },
+  "playground_empty_example3": {
+    "message": "Try different prompts or models from the header to compare answers."
+  },
+  "playground_empty_primaryCta": {
+    "message": "Start chatting"
+  },
+  "playground_empty_secondaryCta": {
+    "message": "Open server settings"
+  },
+  "playground_drop_hint": {
+    "message": "Drop files to attach them to your message"
+  },
+  "playground_drop_readySingle": {
+    "message": "{{name}} ready to send"
+  },
+  "playground_drop_readyMultiple": {
+    "message": "{{count}} files ready to send"
+  },
+  "playground_drop_unsupported": {
+    "message": "That file type isn’t supported. Try images or text-based files."
+  },
+  "playground_drop_defaultFileName": {
+    "message": "File"
+  },
+  "playground_drop_imageOnly": {
+    "message": "Only images can be dropped here right now."
+  },
+  "playground_drop_imageHint": {
+    "message": "Drop an image to include it in your message"
+  },
+  "playground_drop_overlayInstruction": {
+    "message": "Drop the image to attach it to your next reply"
+  },
+  "playground_aria_chatTranscript": {
+    "message": "Chat messages"
+  },
+  "playground_more_history": {
+    "message": "Chat saving"
+  },
+  "playground_more_searchKnowledge": {
+    "message": "Search & RAG"
+  },
+  "playground_more_voice": {
+    "message": "More voice options"
+  },
+  "playground_more_uploads": {
+    "message": "Uploads & ingest"
+  },
+  "playground_fileRetrievalEnabled": {
+    "message": "Enable RAG for Documents"
+  },
+  "playground_stt_title": {
+    "message": "STT Playground"
+  },
+  "playground_stt_subtitle": {
+    "message": "Try out transcription models, run longer dictation sessions, and save transcripts into Notes."
+  },
+  "playground_stt_currentModelLabel": {
+    "message": "Current transcription model"
+  },
+  "playground_stt_defaultModel": {
+    "message": "Default from Settings"
+  },
+  "playground_stt_settingsNotice": {
+    "message": "Language, task, response format, segmentation, and prompt reuse your Speech-to-Text defaults from Settings."
+  },
+  "playground_stt_sessionMode": {
+    "message": "Session mode"
+  },
+  "playground_stt_modeLong": {
+    "message": "Long-running (chunked recording)"
+  },
+  "playground_stt_modeShort": {
+    "message": "Short dictation (single clip)"
+  },
+  "playground_stt_languageTag": {
+    "message": "Language"
+  },
+  "playground_stt_taskTag": {
+    "message": "Task"
+  },
+  "playground_stt_formatTag": {
+    "message": "Format"
+  },
+  "playground_stt_segmentationEnabled": {
+    "message": "Segmentation enabled"
+  },
+  "playground_stt_recordButton": {
+    "message": "Record"
+  },
+  "playground_stt_stopButton": {
+    "message": "Stop"
+  },
+  "playground_stt_startTooltip": {
+    "message": "Start recording audio for transcription"
+  },
+  "playground_stt_stopTooltip": {
+    "message": "Stop and send to server"
+  },
+  "playground_stt_transcribingButton": {
+    "message": "Transcribing..."
+  },
+  "playground_stt_transcribingTooltip": {
+    "message": "Transcribing audio..."
+  },
+  "playground_stt_transcribingPlaceholder": {
+    "message": "Transcribing audio..."
+  },
+  "playground_stt_historyTitle": {
+    "message": "Transcription history"
+  },
+  "playground_stt_clearAll": {
+    "message": "Clear all"
+  },
+  "playground_stt_emptyHistory": {
+    "message": "Start a recording to see transcripts here. You can save any item into Notes."
+  },
+  "playground_stt_saveToNotes": {
+    "message": "Save to Notes"
+  },
+  "playground_stt_delete": {
+    "message": "Delete"
+  },
+  "playground_stt_durationTag": {
+    "message": "Duration"
+  },
+  "playground_stt_modelTag": {
+    "message": "Model"
+  },
+  "playground_stt_currentTranscriptTitle": {
+    "message": "Current session transcript"
+  },
+  "playground_stt_currentTranscriptPlaceholder": {
+    "message": "Live transcript will appear here while recording."
+  },
+  "playground_actions_temporaryOn": {
+    "message": "Temporary chat (not saved)"
+  },
+  "playground_actions_temporaryOff": {
+    "message": "Save chat to history"
+  },
+  "playground_actions_webSearchOn": {
+    "message": "Web search on"
+  },
+  "playground_actions_webSearchOff": {
+    "message": "Web search off"
+  },
+  "playground_actions_speechStart": {
+    "message": "Start dictation"
+  },
+  "playground_actions_speechStop": {
+    "message": "Stop dictation"
+  },
+  "playground_actions_streamStart": {
+    "message": "Live captions"
+  },
+  "playground_actions_streamStop": {
+    "message": "Stop captions"
+  },
+  "playground_actions_visionOn": {
+    "message": "Vision on"
+  },
+  "playground_actions_visionOff": {
+    "message": "Vision off"
+  },
+  "playground_actions_upload": {
+    "message": "Attach image"
+  },
+  "playground_actions_ingest": {
+    "message": "Quick ingest"
+  },
+  "playground_actions_ingestDisabled": {
+    "message": "Connect to your tldw server to ingest."
+  },
+  "playground_actions_ingestHint": {
+    "message": "Upload URLs or files with advanced options."
+  },
+  "playground_actions_ingestSub": {
+    "message": "Use URLs/files; download or store."
+  },
+  "playground_actions_streamErrorTitle": {
+    "message": "Live captions unavailable"
+  },
+  "playground_composer_toolsButton": {
+    "message": "+Tools"
+  },
+  "playground_composer_queuedBanner_title": {
+    "message": "Queued while offline"
+  },
+  "playground_composer_queuedBanner_body": {
+    "message": "We’ll hold these messages and send them once your tldw server is connected."
+  },
+  "playground_composer_queuedBanner_sendNow": {
+    "message": "Send queued messages"
+  },
+  "playground_composer_queuedBanner_clear": {
+    "message": "Clear queue"
+  },
+  "playground_composer_coreTools": {
+    "message": "Conversation options"
+  },
+  "playground_composer_captureTools": {
+    "message": "Capture and assist tools"
+  },
+  "playground_composer_actions": {
+    "message": "Send options"
+  },
+  "playground_composer_moreTools": {
+    "message": "More tools"
+  },
+  "playground_composer_scrollToLatest": {
+    "message": "Scroll to latest messages"
+  },
+  "playground_composer_submitAria": {
+    "message": "Send message"
+  },
+  "playground_composer_openModelSettings": {
+    "message": "Open current chat settings"
+  },
+  "playground_composer_stopStreaming": {
+    "message": "Stop streaming response"
+  },
+  "playground_composer_connectionPlaceholder": {
+    "message": "Connect to your tldw server in Settings to send messages and view media."
+  },
+  "playground_composer_connectNotice": {
+    "message": "Connect to your tldw server in Settings to send messages and view media."
+  },
+  "playground_composer_connectionChipDisconnected": {
+    "message": "Server: Not connected"
+  },
+  "playground_composer_contextLabel": {
+    "message": "Context:"
+  },
+  "playground_composer_contextKnowledgeEmpty": {
+    "message": "No knowledge selected"
+  },
+  "playground_composer_contextTabs": {
+    "message": "{{count}} tabs"
+  },
+  "playground_composer_contextFiles": {
+    "message": "{{count}} files"
+  },
+  "playground_composer_contextMedia": {
+    "message": "Media & Notes"
+  },
+  "playground_composer_contextMediaHint": {
+    "message": "Attach Media & Notes that should steer the response."
+  },
+  "playground_composer_contextMediaSelected": {
+    "message": "Media or note"
+  },
+  "playground_composer_contextMediaEmpty": {
+    "message": "No Media & Notes selected yet."
+  },
+  "playground_composer_addKnowledge": {
+    "message": "Add Media & Notes"
+  },
+  "playground_composer_contextTabsTitle": {
+    "message": "Tabs in context"
+  },
+  "playground_composer_contextTabsHint": {
+    "message": "Review or remove referenced tabs, or add more from your open browser tabs."
+  },
+  "playground_composer_contextManager": {
+    "message": "Context Management"
+  },
+  "playground_composer_contextManagerTitle": {
+    "message": "Context Management"
+  },
+  "playground_composer_contextKnowledge": {
+    "message": "コンテキストとナレッジ"
+  },
+  "playground_composer_contextKnowledgeClose": {
+    "message": "コンテキストとナレッジを閉じる"
+  },
+  "playground_composer_knowledgeSearch": {
+    "message": "ナレッジ検索"
+  },
+  "playground_composer_knowledgeSearchClose": {
+    "message": "ナレッジ検索を閉じる"
+  },
+  "playground_composer_persistence_ephemeral": {
+    "message": "Not saved in history; clears when you close this tab."
+  },
+  "playground_composer_persistence_local": {
+    "message": "Saved in this browser only."
+  },
+  "playground_composer_persistence_server": {
+    "message": "Saved Locally+Server"
+  },
+  "playground_composer_persistence_ephemeralPill": {
+    "message": "Temporary"
+  },
+  "playground_composer_persistence_localPill": {
+    "message": "Local only"
+  },
+  "playground_composer_persistence_serverPill": {
+    "message": "Locally + Server"
+  },
+  "playground_composer_persistence_saveToServer": {
+    "message": "Also save this chat to server"
+  },
+  "playground_composer_persistence_connectToSave": {
+    "message": "Connect your server to save chats there."
+  },
+  "playground_composer_persistence_serverDefaultTitle": {
+    "message": "Extension chat"
+  },
+  "playground_composer_persistence_serverSavedTitle": {
+    "message": "Chat now saved on server"
+  },
+  "playground_composer_persistence_serverSaved": {
+    "message": "Future messages in this chat will sync to your tldw server."
+  },
+  "playground_composer_persistence_serverCharacterRequired": {
+    "message": "Unable to find or create a default assistant character on the server. Try again from the Characters page."
+  },
+  "playground_composer_connectToSend": {
+    "message": "設定でtldwサーバーに接続してメッセージを送信したりメディアを表示したりします。"
+  },
+  "playground_composer_compareTag": {
+    "message": "Compare"
+  },
+  "playground_composer_compareLabel": {
+    "message": "比較モード"
+  },
+  "playground_composer_compareButton": {
+    "message": "モデルを比較"
+  },
+  "playground_composer_compareButtonActive": {
+    "message": "比較: {{count}} 件のモデル"
+  },
+  "playground_composer_compareButtonOn": {
+    "message": "比較が有効"
+  },
+  "playground_composer_compareSettingsTitle": {
+    "message": "比較設定"
+  },
+  "playground_composer_compareSettingsToggle": {
+    "message": "比較モードを有効にする"
+  },
+  "playground_composer_compareSettingsToggleHint": {
+    "message": "次のメッセージを複数のモデルに送信します。"
+  },
+  "playground_composer_compareNoneSelected": {
+    "message": "比較するモデルが選択されていません"
+  },
+  "playground_composer_compareSingle": {
+    "message": "1件のモデルを比較中"
+  },
+  "playground_composer_compareMany": {
+    "message": "{{count}} 件のモデルを比較中"
+  },
+  "playground_composer_compareActiveSummary": {
+    "message": "次のターンで有効なモデル: {{label}}"
+  },
+  "playground_composer_compareModelPickerLabel": {
+    "message": "モデルを選択"
+  },
+  "playground_composer_compareModelPickerPlaceholder": {
+    "message": "比較するモデルを選んでください"
+  },
+  "playground_composer_compareActiveModelsLabel": {
+    "message": "有効なモデル"
+  },
+  "playground_composer_compareActiveModelsHint": {
+    "message": "次のメッセージは各有効モデルに送信されます。"
+  },
+  "playground_composer_compareSendToModels": {
+    "message": "{{count}} 件のモデルに送信"
+  },
+  "playground_composer_compareMaxModelsTitle": {
+    "message": "比較制限に達しました"
+  },
+  "playground_composer_compareMaxModels": {
+    "message": "ターンあたり最大{{limit}}個のモデルを比較できます。"
+  },
+  "playground_composer_compareMaxModelsTrimmed": {
+    "message": "比較はターンあたり{{limit}}個のモデルに制限されています。選択した最初の{{limit}}個のモデルを使用します。"
+  },
+  "playground_composer_compareMaxLabel": {
+    "message": "ターンあたりの最大モデル数"
+  },
+  "playground_composer_compareMaxHelper": {
+    "message": "選択済み: {{current}} / {{limit}}"
+  },
+  "playground_composer_compareSelectedLabel": {
+    "message": "選択済みの回答:"
+  },
+  "playground_composer_compareContinueHint": {
+    "message": "選択したモデルでこのチャットを続ける。"
+  },
+  "playground_composer_compareContinue": {
+    "message": "このモデルで続行"
+  },
+  "playground_composer_compareThreadShared": {
+    "message": "あなた（共有）"
+  },
+  "playground_composer_compareBulkSplitSuccess": {
+    "message": "チャットを{{count}}件作成しました"
+  },
+  "playground_composer_compareBulkSplitPartialFail": {
+    "message": "チャットを{{count}}件作成できませんでした"
+  },
+  "playground_composer_validationCompareSelectModelsInline": {
+    "message": "Compareモードでは少なくとも1つのモデルを選択してください。"
+  },
+  "tabs_newChat": {
+    "message": "新しいチャット"
+  },
+  "tabs_newTabAria": {
+    "message": "新しいチャットタブ"
+  },
+  "tabs_closeTabAria": {
+    "message": "チャットタブを閉じる"
   }
 }

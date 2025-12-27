@@ -128,8 +128,8 @@
     }
   },
   "tabs": {
-    "newChat": "New chat",
-    "newTabAria": "New chat tab",
-    "closeTabAria": "Close chat tab"
+    "newChat": "새 채팅",
+    "newTabAria": "새 채팅 탭",
+    "closeTabAria": "채팅 탭 닫기"
   }
 }

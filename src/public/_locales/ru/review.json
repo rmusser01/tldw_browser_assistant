@@ -370,5 +370,35 @@
   },
   "contentReview_editedLabel": {
     "message": "Изменённый"
+  },
+  "mediaEmpty_demoExample3": {
+    "message": "Используйте Медиа вместе с Обзором для резюмирования или анализа записей."
+  },
+  "mediaEmpty_demoPreviewHeading": {
+    "message": "Примерные медиаобъекты (только просмотр)"
+  },
+  "mediaEmpty_demoSample1Title": {
+    "message": "Демо-медиа: Запись командного созвона"
+  },
+  "mediaEmpty_demoSample1Meta": {
+    "message": "Видео · 25 мин · Ключевые слова: standup, планирование"
+  },
+  "mediaEmpty_demoSample2Title": {
+    "message": "Демо-медиа: Обзор продукта"
+  },
+  "mediaEmpty_demoSample2Meta": {
+    "message": "Запись экрана · 12 мин · Ключевые слова: онбординг"
+  },
+  "mediaEmpty_demoSample3Title": {
+    "message": "Демо-медиа: Исследовательская статья PDF"
+  },
+  "mediaEmpty_demoSample3Meta": {
+    "message": "PDF · 6 страниц · Ключевые слова: резюмирование"
+  },
+  "mediaEmpty_offlineTechnicalDetails": {
+    "message": "Технические детали: этот сервер tldw не объявляет конечные точки Медиа (например, /api/v1/media и /api/v1/media/search)."
+  },
+  "mediaEmpty_featureUnavailableBadge": {
+    "message": "Функция недоступна"
   }
 }

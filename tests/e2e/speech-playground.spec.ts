@@ -17,9 +17,13 @@ test.describe('Speech Playground UX', () => {
     })
 
     await context.addInitScript(() => {
+      window.__e2eMicStub = true
       const fakeStream = { getTracks: () => [] }
       const mediaDevices = navigator.mediaDevices || {}
-      mediaDevices.getUserMedia = async () => fakeStream
+      Object.defineProperty(mediaDevices, 'getUserMedia', {
+        value: async () => fakeStream,
+        configurable: true
+      })
       Object.defineProperty(navigator, 'mediaDevices', {
         value: mediaDevices,
         configurable: true
@@ -107,28 +111,30 @@ test.describe('Speech Playground UX', () => {
       }
     })
 
-    await page.goto(optionsUrl + '?e2e=1#/tts', { waitUntil: 'domcontentloaded' })
+    const testPage = await context.newPage()
+    await testPage.goto(optionsUrl + '?e2e=1#/tts', { waitUntil: 'domcontentloaded' })
+    await testPage.waitForFunction(() => window.__e2eMicStub === true)
 
-    const ttsInput = page.getByPlaceholder('Type or paste text here, then use Play to listen.')
-    const recordButton = page.getByRole('button', { name: 'Record' })
+    const ttsInput = testPage.getByPlaceholder('Type or paste text here, then use Play to listen.')
+    const recordButton = testPage.getByRole('button', { name: 'Record' })
 
     await expect(ttsInput).toBeVisible()
     await expect(recordButton).toHaveCount(0)
 
-    await page.goto(optionsUrl + '?e2e=1#/speech', { waitUntil: 'domcontentloaded' })
+    await testPage.goto(optionsUrl + '?e2e=1#/speech', { waitUntil: 'domcontentloaded' })
     await expect(ttsInput).toBeVisible()
     await expect(recordButton).toHaveCount(0)
 
-    const roundTripToggle = page.locator('.ant-segmented-item').filter({ hasText: 'Round-trip' })
+    const roundTripToggle = testPage.locator('.ant-segmented-item').filter({ hasText: 'Round-trip' })
     await roundTripToggle.click()
     await expect(recordButton).toBeVisible()
-    await page.keyboard.press('Escape')
+    await testPage.keyboard.press('Escape')
 
-    const sttCard = page.locator('.ant-card').filter({ hasText: 'Current transcription model' })
+    const sttCard = testPage.locator('.ant-card').filter({ hasText: 'Current transcription model' })
     const sttRecordButton = sttCard.getByRole('button', { name: 'Record' })
     await sttRecordButton.click({ force: true })
 
-    await page.waitForFunction(() => {
+    await testPage.waitForFunction(() => {
       return window.__lastRecorder?.state === 'recording'
     })
 
@@ -139,7 +145,7 @@ test.describe('Speech Playground UX', () => {
     ).toBeVisible()
     await expect(sttCard.getByRole('button', { name: 'Unlock' })).toBeDisabled()
 
-    await page.evaluate(() => {
+    await testPage.evaluate(() => {
       window.__lastRecorder?.stop?.()
     })
     await transcriptArea.scrollIntoViewIfNeeded()
@@ -155,16 +161,17 @@ test.describe('Speech Playground UX', () => {
     await lockButton.click()
     await expect(transcriptArea).not.toBeEditable()
 
-    const copyButton = page.getByRole('button', { name: 'Copy' }).first()
+    const copyButton = testPage.getByRole('button', { name: 'Copy' }).first()
     await copyButton.click()
-    await expect(page.getByText('Copied to clipboard')).toBeVisible()
+    await expect(testPage.getByText('Copied to clipboard')).toBeVisible()
 
-    const downloadButton = page.getByRole('button', { name: 'Download' })
+    const downloadButton = testPage.getByRole('button', { name: 'Download' })
     await downloadButton.hover()
     await expect(
-      page.getByText('Browser TTS does not create downloadable audio.')
+      testPage.getByText('Browser TTS does not create downloadable audio.')
     ).toBeVisible()
 
+    await testPage.close()
     await context.close()
   })
 })

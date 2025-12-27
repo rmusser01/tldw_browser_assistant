@@ -128,8 +128,8 @@
     }
   },
   "tabs": {
-    "newChat": "New chat",
-    "newTabAria": "New chat tab",
-    "closeTabAria": "Close chat tab"
+    "newChat": "新しいチャット",
+    "newTabAria": "新しいチャットタブ",
+    "closeTabAria": "チャットタブを閉じる"
   }
 }

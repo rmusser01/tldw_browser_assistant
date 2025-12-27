@@ -2122,5 +2122,737 @@
   },
   "playground_tts_unsupportedFormatDescription": {
     "message": "تنسيق الاستجابة \"{{format}}\" غير مدعوم. سيتم الرجوع إلى MP3."
+  },
+  "playground_formError_noModel": {
+    "message": "الرجاء اختيار نموذج"
+  },
+  "playground_formError_noEmbeddingModel": {
+    "message": "الرجاء تعيين نموذج التضمين في صفحة الإعدادات > RAG"
+  },
+  "playground_form_textarea_placeholder": {
+    "message": "اكتب رسالة..."
+  },
+  "playground_form_webSearch_on": {
+    "message": "تشغيل"
+  },
+  "playground_form_webSearch_off": {
+    "message": "إيقاف"
+  },
+  "playground_tooltip_searchInternet": {
+    "message": "البحث في الإنترنت"
+  },
+  "playground_tooltip_speechToText": {
+    "message": "تحويل الكلام إلى نص"
+  },
+  "playground_tooltip_uploadImage": {
+    "message": "تحميل صورة"
+  },
+  "playground_tooltip_stopStreaming": {
+    "message": "إيقاف البث"
+  },
+  "playground_tooltip_knowledge": {
+    "message": "المعرفة"
+  },
+  "playground_tooltip_vision": {
+    "message": "[تجريبي] محادثة الرؤية"
+  },
+  "playground_tooltip_clearContext": {
+    "message": "مسح السياق"
+  },
+  "playground_tooltip_speechToTextServer": {
+    "message": "الإملاء عبر خادم tldw الخاص بك"
+  },
+  "playground_tooltip_speechToTextBrowser": {
+    "message": "الإملاء عبر التعرف على الكلام في المتصفح"
+  },
+  "playground_tooltip_speechToTextDetails": {
+    "message": "يستخدم {{model}} · {{task}} · {{format}}. يمكنك ضبطه من الإعدادات → عام → تحويل الكلام إلى نص."
+  },
+  "playground_tooltip_uploadDocuments": {
+    "message": "تحميل المستندات (تجريبي)"
+  },
+  "playground_sendWhenEnter": {
+    "message": "إرسال عند الضغط على Enter"
+  },
+  "playground_welcome": {
+    "message": "مرحباً! كيف يمكنني مساعدتك اليوم؟"
+  },
+  "playground_useOCR": {
+    "message": "استخراج النص من الصورة (OCR)"
+  },
+  "playground_tips_title": {
+    "message": "نصائح"
+  },
+  "playground_tips_quickIngest": {
+    "message": "استخدم الإدخال السريع (Quick ingest) لإضافة المستندات وصفحات الويب."
+  },
+  "playground_tips_pickModelPrompt": {
+    "message": "اختر نموذجاً وموجهاً من الترويسة."
+  },
+  "playground_tips_startChatFocus": {
+    "message": "عند الاتصال، يقوم \"بدء الدردشة\" بتركيز مؤشر الكتابة في مربع الرسالة."
+  },
+  "playground_tldwState_searching": {
+    "message": "جارٍ البحث عن tldw server الخاص بك"
+  },
+  "playground_tldwState_running": {
+    "message": "tldw يعمل"
+  },
+  "playground_tldwState_notRunning": {
+    "message": "تعذر الاتصال بـ tldw server"
+  },
+  "playground_tldwState_connectionError": {
+    "message": "يبدو أنك تواجه خطأ في الاتصال. يرجى الرجوع إلى هذا <anchor>الدليل</anchor> لاستكشاف الأخطاء وإصلاحها."
+  },
+  "playground_tldwState_openTldwSettings": {
+    "message": "فتح إعدادات tldw"
+  },
+  "playground_tldwState_cancelSearch": {
+    "message": "إلغاء البحث"
+  },
+  "playground_tldwState_connectionFailedWithCode": {
+    "message": "فشل الاتصال (HTTP {{code}})"
+  },
+  "playground_tldwState_connectionFailed": {
+    "message": "فشل الاتصال"
+  },
+  "playground_tldwState_errorDetailsLabel": {
+    "message": "التفاصيل:"
+  },
+  "playground_tldwState_title": {
+    "message": "في انتظار خادم tldw الخاص بك"
+  },
+  "playground_tldwState_subtitle": {
+    "message": "نقوم بإرسال طلبات ping إلى {{host}} للتحقق من الاتصال."
+  },
+  "playground_tldwState_missing": {
+    "message": "لم يتم ضبط عنوان الخادم"
+  },
+  "playground_tldwState_noServer": {
+    "message": "أضف خادم tldw الخاص بك لبدء الدردشة."
+  },
+  "playground_tldwState_connectedSubtitle": {
+    "message": "متصل بـ {{host}}. ابدأ الدردشة عندما تكون جاهزاً."
+  },
+  "playground_tldwState_errorSubtitle": {
+    "message": "تعذّر الوصول إلى {{host}} حتى الآن. أعد المحاولة أو حدّث إعدادات الخادم."
+  },
+  "playground_tldwState_openSettings": {
+    "message": "فتح الإعدادات"
+  },
+  "playground_tldwState_changeServer": {
+    "message": "تغيير الخادم"
+  },
+  "playground_tldwState_elapsed": {
+    "message": "جارٍ الفحص… ‏{{seconds}} ثانية"
+  },
+  "playground_tldwState_connectedHint": {
+    "message": "متصل بـ {{host}}."
+  },
+  "playground_tldwState_lastChecked": {
+    "message": "تم الفحص قبل {{seconds}} ثانية"
+  },
+  "playground_tldwState_recheck": {
+    "message": "إعادة الفحص"
+  },
+  "playground_tldwState_errorToast": {
+    "message": "تعذّر الوصول إلى {{host}}"
+  },
+  "playground_tldwState_missingHelp": {
+    "message": "افتح الإعدادات → خادم tldw لإضافة عنوان URL الخاص بك أو الاتصال بصفحة الخيارات."
+  },
+  "playground_tldwState_troubleshoot": {
+    "message": "تأكد من أن الخادم يعمل وأن المتصفح مسموح له بالوصول إليه، ثم أعد المحاولة من صفحة الخيارات."
+  },
+  "playground_errors_privateModeDescription": {
+    "message": "لا يدعم وضع التصفح الخاص في فايرفوكس حفظ الدردشة. يتم تفعيل الدردشة المؤقتة افتراضيًا. تحسينات قادمة قريبًا."
+  },
+  "playground_tts_playErrorTitle": {
+    "message": "خطأ"
+  },
+  "playground_tts_playErrorDescription": {
+    "message": "حدث خطأ أثناء تشغيل الصوت"
+  },
+  "playground_tts_browserInfoTitle": {
+    "message": "تحويل النص إلى كلام في المتصفح يستخدم صوت النظام"
+  },
+  "playground_tts_browserInfoDescription": {
+    "message": "Browser TTS plays using your system synthesizer and does not expose a downloadable audio file. Use the segment controls below, or switch providers for a track list and player."
+  },
+  "playground_tts_unsupportedProviderTitle": {
+    "message": "موفّر TTS غير مدعوم"
+  },
+  "playground_tts_unsupportedProviderDescription": {
+    "message": "الموفّر \"{{provider}}\" غير مدعوم بعد في مشغل ساحة اللعب."
+  },
+  "playground_tts_elevenLabsMissingTitle": {
+    "message": "ElevenLabs needs an API key"
+  },
+  "playground_tts_elevenLabsMissingBody": {
+    "message": "Add your ElevenLabs API key in Settings to load voices and models."
+  },
+  "playground_tts_elevenLabsUnavailableTitle": {
+    "message": "ElevenLabs voices unavailable"
+  },
+  "playground_tts_elevenLabsUnavailableBody": {
+    "message": "We couldn't load voices or models. Check your API key and try again."
+  },
+  "playground_tts_elevenLabsMissingCta": {
+    "message": "Set API key in Settings"
+  },
+  "playground_tts_generateErrorTitle": {
+    "message": "خطأ في إنشاء الصوت"
+  },
+  "playground_tts_generateErrorDescription": {
+    "message": "حدث خطأ أثناء إنشاء صوت TTS."
+  },
+  "playground_tts_sampleText": {
+    "message": "أدخل نصاً تجريبياً"
+  },
+  "playground_tts_playHelper": {
+    "message": "يستخدم التشغيل الموفّر والصوت والسرعة التي اخترتها."
+  },
+  "playground_tts_playDisabledNoText": {
+    "message": "أدخل نصاً لتفعيل زر التشغيل."
+  },
+  "playground_tts_playDisabledTtsOff": {
+    "message": "فعّل تحويل النص إلى كلام في الأعلى لتشغيل الصوت."
+  },
+  "playground_tts_playDisabledElevenLabs": {
+    "message": "Add an ElevenLabs API key, voice, and model to enable Play."
+  },
+  "playground_tts_stopDisabled": {
+    "message": "يصبح زر الإيقاف متاحاً بعد بدء تشغيل الصوت."
+  },
+  "playground_tts_providerChangeHelper": {
+    "message": "افتح محدّد الموفّر في الأسفل للتبديل بين المتصفح و tldw و OpenAI و Supersonic."
+  },
+  "playground_tts_changeProvider": {
+    "message": "تغيير الموفّر"
+  },
+  "playground_tts_title": {
+    "message": "ساحة لعب تحويل النص إلى كلام"
+  },
+  "playground_tts_subtitle": {
+    "message": "جرّب تحويل النص إلى كلام وقم بضبط الموفّرين والنماذج والأصوات."
+  },
+  "playground_tts_currentProvider": {
+    "message": "الموفّر الحالي"
+  },
+  "playground_tts_settingsIntro": {
+    "message": "عدّل موفّر تحويل النص إلى كلام والنموذج والصوت. يُعاد استخدام هذه الإعدادات عند تشغيل الصوت من الدردشة أو الوسائط."
+  },
+  "playground_tts_providerCapabilities": {
+    "message": "قدرات الموفّر"
+  },
+  "playground_tts_voicesPreview": {
+    "message": "أصوات الخادم"
+  },
+  "playground_tts_providerDetails": {
+    "message": "عرض إعدادات الموفّر الخام"
+  },
+  "playground_tts_providerDetailsTitle": {
+    "message": "تفاصيل الموفّر"
+  },
+  "playground_tts_inputLabel": {
+    "message": "أدخل بعض النص لسماع نطقه."
+  },
+  "playground_tts_inputPlaceholder": {
+    "message": "اكتب أو الصق النص هنا، ثم استخدم \"تشغيل\" للاستماع."
+  },
+  "playground_tts_play": {
+    "message": "تشغيل"
+  },
+  "playground_tts_playing": {
+    "message": "جارٍ التشغيل…"
+  },
+  "playground_tts_stop": {
+    "message": "إيقاف"
+  },
+  "playground_tts_browserSegmentsTitle": {
+    "message": "Browser TTS segments"
+  },
+  "playground_tts_browserSegmentsHelp": {
+    "message": "Queue segments or play an individual segment using system audio."
+  },
+  "playground_tts_browserQueueAll": {
+    "message": "Queue all"
+  },
+  "playground_tts_browserQueueFromHere": {
+    "message": "Queue from here"
+  },
+  "playground_tts_browserSegmentPlay": {
+    "message": "Play segment"
+  },
+  "playground_tts_browserStatusSpeaking": {
+    "message": "Speaking segment {{current}}/{{total}}"
+  },
+  "playground_tts_browserStatusPaused": {
+    "message": "Paused"
+  },
+  "playground_tts_browserPause": {
+    "message": "Pause"
+  },
+  "playground_tts_browserResume": {
+    "message": "Resume"
+  },
+  "playground_tts_tldwStatusOnline": {
+    "message": "تم اكتشاف واجهة برمجة تطبيقات الصوت في خادم tldw (audio/speech)"
+  },
+  "playground_tts_tldwStatusOffline": {
+    "message": "لم يتم اكتشاف واجهة برمجة تطبيقات الصوت؛ تحقّق من إصدار خادم tldw."
+  },
+  "playground_tts_tldwWarningTitle": {
+    "message": "لم يتم اكتشاف واجهة برمجة تطبيقات tldw للصوت/الكلام"
+  },
+  "playground_tts_tldwWarningBody": {
+    "message": "تأكد من أن إصدار tldw_server لديك يتضمّن ‎/api/v1/audio/speech‎ وأن الإضافة متصلة بمفتاح API صالح."
+  },
+  "playground_tts_speechErrorTitle": {
+    "message": "فشل الإملاء"
+  },
+  "playground_tts_speechErrorBody": {
+    "message": "فشل طلب التفريغ الصوتي. تحقّق من حالة خادم tldw."
+  },
+  "playground_tts_speechNoText": {
+    "message": "لم تُرجِع عملية التفريغ أي نص."
+  },
+  "playground_tts_speechMicError": {
+    "message": "تعذّر الوصول إلى الميكروفون. تحقّق من أذونات المتصفح وحاول مرة أخرى."
+  },
+  "playground_tts_savedToNotes": {
+    "message": "تم حفظ التفريغ كملاحظة."
+  },
+  "playground_empty_title": {
+    "message": "ابدأ محادثة جديدة"
+  },
+  "playground_empty_description": {
+    "message": "جرّب نماذج وموجّهات ومصادر معرفة مختلفة هنا."
+  },
+  "playground_empty_demoDescription": {
+    "message": "أنت في وضع العرض التوضيحي — جرّب طرح سؤال لترى كيف يرد المساعد. يمكنك لاحقاً توصيل خادم tldw الخاص بك."
+  },
+  "playground_empty_example1": {
+    "message": "اطرح سؤالاً، ثم اسحب المستندات أو صفحات الويب التي تريد مناقشتها."
+  },
+  "playground_empty_example2": {
+    "message": "استخدم الإدخال السريع (Quick ingest) لإضافة التفريغات أو الملاحظات، ثم أشِر إليها في الدردشة."
+  },
+  "playground_empty_example3": {
+    "message": "جرّب موجّهات أو نماذج مختلفة من الترويسة لمقارنة الإجابات."
+  },
+  "playground_empty_primaryCta": {
+    "message": "ابدأ الدردشة"
+  },
+  "playground_empty_secondaryCta": {
+    "message": "فتح إعدادات الخادم"
+  },
+  "playground_drop_hint": {
+    "message": "أسقط الملفات هنا لإرفاقها برسالتك."
+  },
+  "playground_drop_readySingle": {
+    "message": "{{name}} جاهز للإرسال"
+  },
+  "playground_drop_readyMultiple": {
+    "message": "{{count}} ملف/ملفات جاهزة للإرسال"
+  },
+  "playground_drop_unsupported": {
+    "message": "نوع الملف هذا غير مدعوم. جرّب الصور أو الملفات النصية."
+  },
+  "playground_drop_defaultFileName": {
+    "message": "ملف"
+  },
+  "playground_drop_imageOnly": {
+    "message": "يمكن إسقاط الصور فقط هنا حالياً."
+  },
+  "playground_drop_imageHint": {
+    "message": "أسقط صورة لإضافتها إلى رسالتك."
+  },
+  "playground_drop_overlayInstruction": {
+    "message": "أسقط الصورة لإرفاقها بردّك التالي"
+  },
+  "playground_aria_chatTranscript": {
+    "message": "رسائل الدردشة"
+  },
+  "playground_more_history": {
+    "message": "حفظ الدردشة"
+  },
+  "playground_more_searchKnowledge": {
+    "message": "البحث و RAG"
+  },
+  "playground_more_voice": {
+    "message": "مزيد من خيارات الصوت"
+  },
+  "playground_more_uploads": {
+    "message": "التحميل والإدخال"
+  },
+  "playground_fileRetrievalEnabled": {
+    "message": "تفعيل RAG للمستندات"
+  },
+  "playground_stt_title": {
+    "message": "ساحة لعب تحويل الكلام إلى نص"
+  },
+  "playground_stt_subtitle": {
+    "message": "جرّب نماذج التفريغ الصوتي، وشغّل جلسات إملاء أطول، واحفظ التفريغات في الملاحظات."
+  },
+  "playground_stt_currentModelLabel": {
+    "message": "نموذج التفريغ الحالي"
+  },
+  "playground_stt_defaultModel": {
+    "message": "الافتراضي من الإعدادات"
+  },
+  "playground_stt_settingsNotice": {
+    "message": "اللغة، والمهمة، وتنسيق الاستجابة، والتجزئة، والموجّه تستخدم الإعدادات الافتراضية لتحويل الكلام إلى نص من صفحة الإعدادات."
+  },
+  "playground_stt_sessionMode": {
+    "message": "وضع الجلسة"
+  },
+  "playground_stt_modeLong": {
+    "message": "طويل المدى (تسجيل مجزأ)"
+  },
+  "playground_stt_modeShort": {
+    "message": "إملاء قصير (مقطع واحد)"
+  },
+  "playground_stt_languageTag": {
+    "message": "اللغة"
+  },
+  "playground_stt_taskTag": {
+    "message": "المهمة"
+  },
+  "playground_stt_formatTag": {
+    "message": "التنسيق"
+  },
+  "playground_stt_segmentationEnabled": {
+    "message": "تم تفعيل التجزئة"
+  },
+  "playground_stt_recordButton": {
+    "message": "تسجيل"
+  },
+  "playground_stt_stopButton": {
+    "message": "إيقاف"
+  },
+  "playground_stt_startTooltip": {
+    "message": "ابدأ تسجيل الصوت للتفريغ."
+  },
+  "playground_stt_stopTooltip": {
+    "message": "أوقف التسجيل وأرسله إلى الخادم."
+  },
+  "playground_stt_transcribingButton": {
+    "message": "جارٍ التفريغ..."
+  },
+  "playground_stt_transcribingTooltip": {
+    "message": "جارٍ تفريغ الصوت..."
+  },
+  "playground_stt_transcribingPlaceholder": {
+    "message": "Transcribing audio..."
+  },
+  "playground_stt_historyTitle": {
+    "message": "سجل التفريغات"
+  },
+  "playground_stt_clearAll": {
+    "message": "مسح الكل"
+  },
+  "playground_stt_emptyHistory": {
+    "message": "ابدأ تسجيلاً لعرض التفريغات هنا. يمكنك حفظ أي عنصر في الملاحظات."
+  },
+  "playground_stt_saveToNotes": {
+    "message": "الحفظ في الملاحظات"
+  },
+  "playground_stt_delete": {
+    "message": "حذف"
+  },
+  "playground_stt_durationTag": {
+    "message": "المدة"
+  },
+  "playground_stt_modelTag": {
+    "message": "النموذج"
+  },
+  "playground_stt_currentTranscriptTitle": {
+    "message": "تفريغ الجلسة الحالية"
+  },
+  "playground_stt_currentTranscriptPlaceholder": {
+    "message": "سيظهر التفريغ المباشر هنا أثناء التسجيل."
+  },
+  "playground_actions_temporaryOn": {
+    "message": "دردشة مؤقتة (غير محفوظة)"
+  },
+  "playground_actions_temporaryOff": {
+    "message": "حفظ الدردشة في السجل"
+  },
+  "playground_actions_webSearchOn": {
+    "message": "البحث في الويب مفعّل"
+  },
+  "playground_actions_webSearchOff": {
+    "message": "البحث في الويب متوقف"
+  },
+  "playground_actions_speechStart": {
+    "message": "بدء الإملاء"
+  },
+  "playground_actions_speechStop": {
+    "message": "إيقاف الإملاء"
+  },
+  "playground_actions_streamStart": {
+    "message": "تعليقات مباشرة"
+  },
+  "playground_actions_streamStop": {
+    "message": "إيقاف التعليقات"
+  },
+  "playground_actions_visionOn": {
+    "message": "وضع الرؤية مفعّل"
+  },
+  "playground_actions_visionOff": {
+    "message": "وضع الرؤية متوقف"
+  },
+  "playground_actions_upload": {
+    "message": "إرفاق صورة"
+  },
+  "playground_actions_ingest": {
+    "message": "إدخال سريع"
+  },
+  "playground_actions_ingestDisabled": {
+    "message": "اتصل بخادم tldw الخاص بك لاستخدام الإدخال."
+  },
+  "playground_actions_ingestHint": {
+    "message": "حمّل عناوين URL أو ملفات مع خيارات متقدمة."
+  },
+  "playground_actions_ingestSub": {
+    "message": "استخدم عناوين URL/الملفات؛ للتنزيل أو الحفظ."
+  },
+  "playground_actions_streamErrorTitle": {
+    "message": "التعليقات المباشرة غير متاحة"
+  },
+  "playground_composer_toolsButton": {
+    "message": "+أدوات"
+  },
+  "playground_composer_queuedBanner_title": {
+    "message": "في قائمة الانتظار أثناء عدم الاتصال"
+  },
+  "playground_composer_queuedBanner_body": {
+    "message": "سنحتفظ بهذه الرسائل ونرسلها عند اتصال خادم tldw الخاص بك."
+  },
+  "playground_composer_queuedBanner_sendNow": {
+    "message": "إرسال الرسائل في قائمة الانتظار"
+  },
+  "playground_composer_queuedBanner_clear": {
+    "message": "مسح قائمة الانتظار"
+  },
+  "playground_composer_coreTools": {
+    "message": "خيارات المحادثة"
+  },
+  "playground_composer_captureTools": {
+    "message": "أدوات الالتقاط والمساعدة"
+  },
+  "playground_composer_actions": {
+    "message": "خيارات الإرسال"
+  },
+  "playground_composer_moreTools": {
+    "message": "مزيد من الأدوات"
+  },
+  "playground_composer_scrollToLatest": {
+    "message": "التمرير إلى أحدث الرسائل"
+  },
+  "playground_composer_submitAria": {
+    "message": "إرسال الرسالة"
+  },
+  "playground_composer_openModelSettings": {
+    "message": "فتح إعدادات المحادثة الحالية"
+  },
+  "playground_composer_stopStreaming": {
+    "message": "إيقاف الاستجابة المتدفقة"
+  },
+  "playground_composer_connectionPlaceholder": {
+    "message": "اتصل بخادم tldw الخاص بك من صفحة الإعدادات لإرسال الرسائل وعرض الوسائط."
+  },
+  "playground_composer_connectNotice": {
+    "message": "اتصل بخادم tldw الخاص بك من صفحة الإعدادات لإرسال الرسائل وعرض الوسائط."
+  },
+  "playground_composer_connectionChipDisconnected": {
+    "message": "الخادم: غير متصل"
+  },
+  "playground_composer_contextLabel": {
+    "message": "السياق:"
+  },
+  "playground_composer_contextKnowledgeEmpty": {
+    "message": "لم يتم اختيار أي معرفة"
+  },
+  "playground_composer_contextTabs": {
+    "message": "{{count}} لسان/ألسنة"
+  },
+  "playground_composer_contextFiles": {
+    "message": "{{count}} ملف/ملفات"
+  },
+  "playground_composer_contextMedia": {
+    "message": "الوسائط والملاحظات"
+  },
+  "playground_composer_contextMediaHint": {
+    "message": "أرفق وسائط وملاحظات يجب أن تؤثر في الاستجابة."
+  },
+  "playground_composer_contextMediaSelected": {
+    "message": "وسيط أو ملاحظة"
+  },
+  "playground_composer_contextMediaEmpty": {
+    "message": "لم يتم اختيار أي وسائط أو ملاحظات بعد."
+  },
+  "playground_composer_addKnowledge": {
+    "message": "إضافة وسائط وملاحظات"
+  },
+  "playground_composer_contextTabsTitle": {
+    "message": "الألسنة في السياق"
+  },
+  "playground_composer_contextTabsHint": {
+    "message": "راجع الألسنة المشار إليها أو أزلها، أو أضف المزيد من ألسنة المتصفح المفتوحة."
+  },
+  "playground_composer_contextManager": {
+    "message": "إدارة السياق"
+  },
+  "playground_composer_contextManagerTitle": {
+    "message": "إدارة السياق"
+  },
+  "playground_composer_contextKnowledge": {
+    "message": "Context & Knowledge"
+  },
+  "playground_composer_contextKnowledgeClose": {
+    "message": "Close Context & Knowledge"
+  },
+  "playground_composer_knowledgeSearch": {
+    "message": "Knowledge search"
+  },
+  "playground_composer_knowledgeSearchClose": {
+    "message": "Close Knowledge search"
+  },
+  "playground_composer_persistence_ephemeral": {
+    "message": "لا تُحفظ في السجل؛ تُمسح عند إغلاق هذا اللسان."
+  },
+  "playground_composer_persistence_local": {
+    "message": "محفوظة في هذا المتصفح فقط."
+  },
+  "playground_composer_persistence_server": {
+    "message": "محفوظة محلياً وعلى الخادم"
+  },
+  "playground_composer_persistence_ephemeralPill": {
+    "message": "مؤقتة"
+  },
+  "playground_composer_persistence_localPill": {
+    "message": "محلي فقط"
+  },
+  "playground_composer_persistence_serverPill": {
+    "message": "محلياً + على الخادم"
+  },
+  "playground_composer_persistence_saveToServer": {
+    "message": "حفظ هذه المحادثة أيضاً على الخادم"
+  },
+  "playground_composer_persistence_connectToSave": {
+    "message": "اتصل بخادمك لحفظ المحادثات عليه."
+  },
+  "playground_composer_persistence_serverDefaultTitle": {
+    "message": "دردشة الإضافة"
+  },
+  "playground_composer_persistence_serverSavedTitle": {
+    "message": "تم الآن حفظ المحادثة على الخادم"
+  },
+  "playground_composer_persistence_serverSaved": {
+    "message": "سيتم مزامنة الرسائل المستقبلية في هذه المحادثة مع خادم tldw الخاص بك."
+  },
+  "playground_composer_persistence_serverCharacterRequired": {
+    "message": "تعذّر العثور على شخصية مساعد افتراضية على الخادم أو إنشاؤها. حاول مرة أخرى من صفحة الشخصيات."
+  },
+  "playground_composer_connectToSend": {
+    "message": "اتصل بخادم tldw الخاص بك من صفحة الإعدادات لإرسال الرسائل وعرض الوسائط."
+  },
+  "playground_composer_compareTag": {
+    "message": "Compare"
+  },
+  "playground_composer_compareLabel": {
+    "message": "Compare mode"
+  },
+  "playground_composer_compareButton": {
+    "message": "Compare models"
+  },
+  "playground_composer_compareButtonActive": {
+    "message": "Compare: {{count}} models"
+  },
+  "playground_composer_compareButtonOn": {
+    "message": "Compare enabled"
+  },
+  "playground_composer_compareSettingsTitle": {
+    "message": "Compare settings"
+  },
+  "playground_composer_compareSettingsToggle": {
+    "message": "Enable Compare mode"
+  },
+  "playground_composer_compareSettingsToggleHint": {
+    "message": "Send your next message to multiple models."
+  },
+  "playground_composer_compareNoneSelected": {
+    "message": "No models selected for compare"
+  },
+  "playground_composer_compareSingle": {
+    "message": "Comparing 1 model"
+  },
+  "playground_composer_compareMany": {
+    "message": "Comparing {{count}} models"
+  },
+  "playground_composer_compareActiveSummary": {
+    "message": "Active models next turn: {{label}}"
+  },
+  "playground_composer_compareModelPickerLabel": {
+    "message": "Select models"
+  },
+  "playground_composer_compareModelPickerPlaceholder": {
+    "message": "Choose models to compare"
+  },
+  "playground_composer_compareActiveModelsLabel": {
+    "message": "Active models"
+  },
+  "playground_composer_compareActiveModelsHint": {
+    "message": "Your next message will be sent to each active model."
+  },
+  "playground_composer_compareSendToModels": {
+    "message": "Send to {{count}} models"
+  },
+  "playground_composer_compareMaxModelsTitle": {
+    "message": "تم بلوغ حد المقارنة"
+  },
+  "playground_composer_compareMaxModels": {
+    "message": "يمكنك مقارنة ما يصل إلى {{limit}} نموذج/نماذج لكل دور."
+  },
+  "playground_composer_compareMaxModelsTrimmed": {
+    "message": "المقارنة محدودة بـ {{limit}} نموذج/نماذج لكل دور. يتم استخدام أول {{limit}} نموذج/نماذج محددة."
+  },
+  "playground_composer_compareMaxLabel": {
+    "message": "الحد الأقصى للنماذج لكل دور"
+  },
+  "playground_composer_compareMaxHelper": {
+    "message": "المحدد: {{current}} / {{limit}}"
+  },
+  "playground_composer_compareSelectedLabel": {
+    "message": "Selected as answer:"
+  },
+  "playground_composer_compareContinueHint": {
+    "message": "Continue this chat with the selected model."
+  },
+  "playground_composer_compareContinue": {
+    "message": "Continue with this model"
+  },
+  "playground_composer_compareThreadShared": {
+    "message": "You (shared)"
+  },
+  "playground_composer_compareBulkSplitSuccess": {
+    "message": "Created {{count}} chats"
+  },
+  "playground_composer_compareBulkSplitPartialFail": {
+    "message": "تعذر إنشاء {{count}} دردشات"
+  },
+  "playground_composer_validationCompareSelectModelsInline": {
+    "message": "Select at least one model for Compare mode."
+  },
+  "tabs_newChat": {
+    "message": "دردشة جديدة"
+  },
+  "tabs_newTabAria": {
+    "message": "علامة تبويب دردشة جديدة"
+  },
+  "tabs_closeTabAria": {
+    "message": "إغلاق علامة تبويب الدردشة"
   }
 }
