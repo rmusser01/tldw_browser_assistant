@@ -6,7 +6,7 @@
     "about": "정보"
   },
   "healthNav": "상태",
-  "worldBooksNav": "World Books",
+  "worldBooksNav": "월드북",
   "chatDictionariesNav": "채팅 사전",
   "charactersNav": "캐릭터",
   "mediaNav": "미디어",
@@ -122,14 +122,14 @@
         "assetsEnabled": "OCR 리소스가 활성화되어 준비되었습니다"
       },
       "ocrLanguage": {
-        "label": "Default OCR Language",
-        "placeholder": "Select an OCR language"
+        "label": "기본 OCR 언어",
+        "placeholder": "OCR 언어 선택"
       },
       "removeReasoningTagFromCopy": {
-        "label": "Remove Reasoning Tag from Copied Text"
+        "label": "복사한 텍스트에서 추론 태그 제거"
       },
       "promptSearchIncludeServer": {
-        "label": "Include server prompts in prompt search"
+        "label": "프롬프트 검색에 서버 프롬프트 포함"
       },
       "restartOnboarding": {
         "label": "온보딩을 처음부터 다시 시작",
@@ -168,7 +168,7 @@
       },
       "searxng": {
         "url": {
-          "label": "SearXNG URL"
+          "label": "SearXNG URL 주소"
         }
       },
       "braveApi": {
@@ -179,19 +179,19 @@
         "label": "기본적으로 인터넷 검색 켜기"
       },
       "tavilyApi": {
-        "label": "Tavily API Key ",
-        "placeholder": "Enter your Tavily API key"
+        "label": "Tavily API 키",
+        "placeholder": "Tavily API 키를 입력하세요"
       },
       "exa": {
-        "label": "Exa API Key",
-        "placeholder": "Enter your Exa API key"
+        "label": "Exa API 키",
+        "placeholder": "Exa API 키를 입력하세요"
       },
       "googleDomain": {
-        "label": "Google Domain"
+        "label": "Google 도메인"
       },
       "firecrawlAPIKey": {
-        "label": "Firecrawl API Key",
-        "placeholder": "Enter your Firecrawl API key"
+        "label": "Firecrawl API 키",
+        "placeholder": "Firecrawl API 키를 입력하세요"
       }
     },
     "system": {
@@ -243,7 +243,7 @@
         "label": "TTS에서 추론 태그 제거"
       },
       "responseSplitting": {
-        "label": "Response Splitting"
+        "label": "응답 분할"
       }
     },
     "stt": {
@@ -255,117 +255,117 @@
       "autoSubmitVoiceMessage": {
         "label": "음성 메시지 자동 전송"
       },
-      "usedByChat": "These Speech-to-Text defaults are used by the chat dictation button in the Playground and Sidebar.",
+      "usedByChat": "이 음성-텍스트 기본값은 플레이그라운드와 사이드바의 채팅 음성 입력 버튼에서 사용됩니다.",
       "model": {
-        "label": "Transcription model (tldw_server)"
+        "label": "전사 모델 (tldw_server)"
       },
       "useSegmentation": {
-        "label": "Run segmentation for transcripts (TreeSeg)"
+        "label": "전사에 세그먼트 분할 실행 (TreeSeg)"
       },
       "timestampGranularities": {
-        "label": "Timestamp granularity",
-        "segment": "Per segment",
-        "word": "Per word",
-        "segmentWord": "Segment + word"
+        "label": "타임스탬프 세분화",
+        "segment": "세그먼트당",
+        "word": "단어당",
+        "segmentWord": "세그먼트 + 단어"
       },
       "task": {
-        "label": "Transcription task",
-        "transcribe": "Transcribe (same language)",
-        "translate": "Translate to English"
+        "label": "전사 작업",
+        "transcribe": "전사(같은 언어)",
+        "translate": "영어로 번역"
       },
       "responseFormat": {
-        "label": "Response format",
-        "json": "JSON (text + segments)",
-        "verboseJson": "Verbose JSON",
-        "text": "Plain text",
-        "srt": "SRT subtitles",
-        "vtt": "VTT subtitles"
+        "label": "응답 형식",
+        "json": "JSON (텍스트 + 세그먼트)",
+        "verboseJson": "자세한 JSON",
+        "text": "일반 텍스트",
+        "srt": "SRT 자막",
+        "vtt": "VTT 자막"
       },
       "temperature": {
-        "label": "Sampling temperature"
+        "label": "샘플링 온도"
       },
       "prompt": {
-        "label": "Default transcription prompt",
-        "placeholder": "Optional text to guide style"
+        "label": "기본 전사 프롬프트",
+        "placeholder": "스타일을 안내할 선택적 텍스트"
       },
       "segK": {
-        "label": "Max segments (TreeSeg K)"
+        "label": "최대 세그먼트 수 (TreeSeg K)"
       },
       "segMinSegmentSize": {
-        "label": "Minimum items per segment"
+        "label": "세그먼트당 최소 항목 수"
       },
       "segLambdaBalance": {
-        "label": "Balance penalty (TreeSeg λ)"
+        "label": "균형 페널티 (TreeSeg λ)"
       },
       "segUtteranceExpansionWidth": {
-        "label": "Utterance expansion width"
+        "label": "발화 확장 폭"
       },
       "segEmbeddingsProvider": {
-        "label": "Segmentation embeddings provider"
+        "label": "세그먼트 임베딩 제공자"
       },
       "segEmbeddingsModel": {
-        "label": "Segmentation embeddings model"
+        "label": "세그먼트 임베딩 모델"
       }
     },
     "systemBasics": {
-      "heading": "System",
+      "heading": "시스템",
       "uiMode": {
-        "label": "Default UI Mode",
+        "label": "기본 UI 모드",
         "options": {
-          "webui": "Full Screen (Web UI)",
-          "sidePanel": "Sidebar"
+          "webui": "전체 화면 (웹 UI)",
+          "sidePanel": "사이드바"
         }
       },
       "actionIcon": {
-        "label": "Browser Action Button"
+        "label": "브라우저 액션 버튼"
       },
       "contextMenu": {
-        "label": "Context Menu Action"
+        "label": "컨텍스트 메뉴 동작"
       },
       "webuiBtnSidePanel": {
-        "label": "Show Web UI button in Sidebar"
+        "label": "사이드바에 웹 UI 버튼 표시"
       },
       "chatBackgroundImage": {
-        "label": "Chat Background Image"
+        "label": "채팅 배경 이미지"
       },
       "fontSize": {
-        "label": "Font Size"
+        "label": "글꼴 크기"
       }
     },
     "systemData": {
-      "heading": "Data",
+      "heading": "데이터",
       "firefoxPrivateModeSync": {
-        "label": "Firefox Private Mode Sync",
-        "button": "Sync Data"
+        "label": "Firefox 사생활 모드 동기화",
+        "button": "데이터 동기화"
       },
       "deleteChatHistory": {
-        "label": "System Reset",
-        "button": "Reset All",
-        "confirm": "Are you sure you want to perform a system reset? This will clear all data and cannot be undone."
+        "label": "시스템 초기화",
+        "button": "모두 초기화",
+        "confirm": "시스템을 초기화하시겠습니까? 모든 데이터가 삭제되며 되돌릴 수 없습니다."
       },
       "export": {
-        "label": "Export Chat History, Knowledge Base, and Prompts",
-        "button": "Export Data",
-        "success": "Export Success"
+        "label": "채팅 기록, 지식 베이스, 프롬프트 내보내기",
+        "button": "데이터 내보내기",
+        "success": "내보내기 성공"
       },
       "import": {
-        "label": "Import Chat History, Knowledge Base, and Prompts",
-        "button": "Import Data",
-        "success": "Import Success",
-        "error": "Import Error"
+        "label": "채팅 기록, 지식 베이스, 프롬프트 가져오기",
+        "button": "데이터 가져오기",
+        "success": "가져오기 성공",
+        "error": "가져오기 오류"
       }
     },
     "empty": {
-      "connectTitle": "Connect tldw Assistant to your server",
-      "connectDescription": "Some settings only take effect when your tldw server is reachable. Connect your server to get the full experience.",
-      "connectExample1": "Open Settings → tldw server to add your server URL and API key.",
-      "connectExample2": "Use Diagnostics to confirm your server is healthy before trying advanced tools.",
-      "title": "Tune how tldw Assistant behaves",
-      "description": "Adjust defaults for the Web UI, sidepanel, speech, search, and data handling from one place.",
-      "example1": "Choose your default language, theme, and chat resume behavior.",
-      "example2": "Control whether chats are temporary, how large pastes are handled, and how reasoning is displayed.",
-      "primaryCta": "Configure server & auth",
-      "secondaryCta": "Dismiss"
+      "connectTitle": "tldw Assistant를 서버에 연결",
+      "connectDescription": "일부 설정은 tldw 서버에 연결되어야 적용됩니다. 서버를 연결해 전체 기능을 사용하세요.",
+      "connectExample1": "설정 → tldw 서버에서 서버 URL과 API 키를 추가하세요.",
+      "connectExample2": "고급 도구를 사용하기 전에 Diagnostics로 서버 상태를 확인하세요.",
+      "title": "tldw Assistant 동작 설정",
+      "description": "웹 UI, 사이드패널, 음성, 검색, 데이터 처리를 한 곳에서 조정하세요.",
+      "example1": "기본 언어, 테마, 채팅 재개 동작을 선택하세요.",
+      "example2": "임시 채팅 여부, 큰 붙여넣기 처리, 추론 표시 방식을 제어하세요.",
+      "primaryCta": "서버 및 인증 설정",
+      "secondaryCta": "닫기"
     }
   },
   "manageModels": {
@@ -408,15 +408,15 @@
       "successDescription": "모델 가져오기가 완료되었습니다",
       "successDeleteDescription": "모델 삭제가 완료되었습니다",
       "someError": "문제가 발생했습니다. 나중에 다시 시도해 주세요.",
-      "cancellingDownload": "Cancelling Download",
-      "cancellingDownloadDescription": "Model download is being cancelled..."
+      "cancellingDownload": "다운로드 취소 중",
+      "cancellingDownloadDescription": "모델 다운로드를 취소하는 중입니다..."
     }
   },
   "managePrompts": {
     "title": "프롬프트 관리",
     "addBtn": "새 프롬프트 추가",
     "option1": "일반",
-    "option2": "RAG",
+    "option2": "RAG (검색 증강)",
     "questionPrompt": "질문 프롬프트",
     "columns": {
       "title": "제목",
@@ -429,7 +429,7 @@
     "tooltip": {
       "delete": "프롬프트 삭제",
       "edit": "프롬프트 수정",
-      "duplicate": "Duplicate Prompt"
+      "duplicate": "프롬프트 복제"
     },
     "confirm": {
       "delete": "이 프롬프트를 정말 삭제하시겠습니까? 이 작업은 되돌릴 수 없습니다."
@@ -441,8 +441,8 @@
     "segmented": {
       "custom": "커스텀 프롬프트",
       "copilot": "Copilot 프롬프트",
-      "helpCustom": "Create and manage reusable prompts you can insert into chat.",
-      "helpCopilot": "View and tweak predefined Copilot prompts provided by your server."
+      "helpCustom": "채팅에 삽입할 수 있는 재사용 프롬프트를 만들고 관리합니다.",
+      "helpCopilot": "서버에서 제공하는 Copilot 기본 프롬프트를 확인하고 조정합니다."
     },
     "form": {
       "title": {
@@ -479,45 +479,45 @@
       "deletedSuccess": "프롬프트가 삭제되었습니다",
       "deletedSuccessDesc": "프롬프트가 정상적으로 삭제되었습니다"
     },
-    "workspaceTitle": "Prompts workspace",
-    "workspaceDescription": "Reusable prompts are managed from the Prompts workspace. Use the button below to open it.",
-    "openWorkspace": "Open Prompts workspace",
-    "search": "Search titles and contents",
+    "workspaceTitle": "프롬프트 작업 공간",
+    "workspaceDescription": "재사용 프롬프트는 프롬프트 작업 공간에서 관리됩니다. 아래 버튼을 눌러 열 수 있습니다.",
+    "openWorkspace": "프롬프트 작업 공간 열기",
+    "search": "제목과 내용 검색",
     "filter": {
-      "all": "All",
-      "system": "System",
-      "quick": "Quick"
+      "all": "전체",
+      "system": "시스템",
+      "quick": "퀵"
     },
     "tags": {
-      "label": "Tags",
-      "placeholder": "Add tags"
+      "label": "태그",
+      "placeholder": "태그 추가"
     },
-    "import": "Import",
-    "export": "Export",
+    "import": "가져오기",
+    "export": "내보내기",
     "importMode": {
-      "merge": "Merge",
+      "merge": "병합",
       "replace": "덮어쓰기",
       "replaceConfirm": "덮어쓰기는 현재의 모든 프롬프트를 가져온 파일로 덮어씁니다. 계속하시겠습니까?"
     },
-    "favorite": "Favorite",
-    "unfavorite": "Unfavorite",
-    "partialLoad": "Some prompt data isn’t available",
-    "loadErrorHelp": "Check your server connection and refresh to try again.",
-    "emptyConnectTitle": "Connect to use Prompts",
-    "emptyConnectDescription": "To manage reusable prompts, first connect to your tldw server.",
-    "emptyConnectExample1": "Open Settings → tldw server to add your server URL.",
-    "emptyConnectExample2": "Once connected, create custom prompts you can reuse across chats.",
-    "emptyTitle": "No custom prompts yet",
-    "emptyDescription": "Create reusable prompts for recurring tasks, workflows, and team conventions.",
-    "emptyExample1": "Save your favorite system prompt for summaries, explanations, or translations.",
-    "emptyExample2": "Create quick prompts for common actions like drafting emails or refining notes.",
-    "emptyPrimaryCta": "Create prompt",
-    "filterHelp": "Search matches title and prompt content. Use type and tags to narrow the list.",
-    "copilotEmptyTitle": "No Copilot prompts available",
-    "copilotEmptyDescription": "Copilot prompts are predefined templates provided by your tldw server.",
-    "copilotEmptyExample1": "Check your server version or configuration if you expect Copilot prompts to be available.",
-    "copilotEmptyExample2": "After updating your server, reload the extension and return to this tab.",
-    "copilotEmptyCta": "Open Diagnostics"
+    "favorite": "즐겨찾기",
+    "unfavorite": "즐겨찾기 해제",
+    "partialLoad": "일부 프롬프트 데이터를 사용할 수 없습니다",
+    "loadErrorHelp": "서버 연결을 확인하고 새로고침해 다시 시도하세요.",
+    "emptyConnectTitle": "프롬프트를 사용하려면 연결하세요",
+    "emptyConnectDescription": "재사용 프롬프트를 관리하려면 먼저 tldw 서버에 연결하세요.",
+    "emptyConnectExample1": "설정 → tldw 서버에서 서버 URL을 추가하세요.",
+    "emptyConnectExample2": "연결 후에는 채팅에서 재사용할 커스텀 프롬프트를 만들 수 있습니다.",
+    "emptyTitle": "커스텀 프롬프트가 없습니다",
+    "emptyDescription": "반복 작업, 워크플로, 팀 규칙을 위한 재사용 프롬프트를 만들어 보세요.",
+    "emptyExample1": "요약, 설명, 번역에 사용할 시스템 프롬프트를 저장하세요.",
+    "emptyExample2": "이메일 작성이나 노트 다듬기 같은 작업을 위한 퀵 프롬프트를 만드세요.",
+    "emptyPrimaryCta": "프롬프트 만들기",
+    "filterHelp": "제목과 프롬프트 내용에서 검색합니다. 유형과 태그로 목록을 좁히세요.",
+    "copilotEmptyTitle": "Copilot 프롬프트가 없습니다",
+    "copilotEmptyDescription": "Copilot 프롬프트는 tldw 서버에서 제공하는 미리 정의된 템플릿입니다.",
+    "copilotEmptyExample1": "Copilot 프롬프트가 있어야 한다면 서버 버전 또는 구성을 확인하세요.",
+    "copilotEmptyExample2": "서버를 업데이트한 뒤 확장 프로그램을 새로고침하고 이 탭으로 돌아오세요.",
+    "copilotEmptyCta": "진단 열기"
   },
   "manageShare": {
     "title": "공유 관리",
@@ -534,7 +534,7 @@
       "heading": "웹 공유",
       "columns": {
         "title": "제목",
-        "url": "URL",
+        "url": "URL 주소",
         "actions": "동작"
       },
       "tooltip": {
@@ -606,35 +606,35 @@
     "githubSponsor": "GitHub에서 후원하기",
     "githubRepo": "GitHub 저장소"
   },
-  "switchToSidebar": "Switch to Sidebar",
+  "switchToSidebar": "사이드바로 전환",
   "healthPage": {
-    "title": "Health Status",
-    "subtitle": "Quick overview of subsystem health endpoints exposed by the server.",
-    "backToChat": "Back to chat",
-    "openSettings": "Open tldw Settings",
-    "recheckAll": "Recheck All",
-    "copyDiagnostics": "Copy diagnostics",
-    "serverNotConfigured": "Server is not configured.",
-    "unableToReachCore": "Unable to reach server core health endpoint.",
-    "triedGet": "Tried GET {{url}}",
-    "configureHint": "Please configure a server URL under tldw settings.",
-    "configureCta": "Configure",
-    "connectedTo": "Connected to {{host}}",
-    "autoRefresh": "Auto-refresh",
-    "intervalLabel": "Interval (s):",
-    "checking": "Checking…",
-    "recheck": "Recheck",
-    "healthy": "Healthy",
-    "unhealthy": "Unhealthy",
-    "unknown": "Unknown",
+    "title": "상태",
+    "subtitle": "서버에서 제공하는 하위 시스템 상태 엔드포인트의 빠른 개요입니다.",
+    "backToChat": "채팅으로 돌아가기",
+    "openSettings": "tldw 설정 열기",
+    "recheckAll": "전체 다시 확인",
+    "copyDiagnostics": "진단 복사",
+    "serverNotConfigured": "서버가 설정되지 않았습니다.",
+    "unableToReachCore": "서버 코어 상태 엔드포인트에 접근할 수 없습니다.",
+    "triedGet": "GET {{url}} 시도함",
+    "configureHint": "tldw 설정에서 서버 URL을 설정하세요.",
+    "configureCta": "설정",
+    "connectedTo": "{{host}}에 연결됨",
+    "autoRefresh": "자동 새로고침",
+    "intervalLabel": "간격(초):",
+    "checking": "확인 중…",
+    "recheck": "다시 확인",
+    "healthy": "정상",
+    "unhealthy": "비정상",
+    "unknown": "알 수 없음",
     "checks": {
-      "core": "Core API",
-      "rag": "RAG",
-      "audio": "Audio",
-      "embeddings": "Embeddings",
-      "metrics": "Metrics Health",
-      "chatMetrics": "Chat Metrics",
-      "mcp": "MCP",
+      "core": "코어 API",
+      "rag": "RAG (검색 증강)",
+      "audio": "오디오",
+      "embeddings": "임베딩",
+      "metrics": "메트릭 상태",
+      "chatMetrics": "채팅 메트릭",
+      "mcp": "MCP (모델 컨텍스트 프로토콜)",
       "coreDocsUrl": "https://github.com/rmusser01/tldw_browser_assistant",
       "ragDocsUrl": "https://github.com/rmusser01/tldw_browser_assistant",
       "audioDocsUrl": "https://github.com/rmusser01/tldw_browser_assistant",
@@ -643,16 +643,16 @@
       "chatMetricsDocsUrl": "https://github.com/rmusser01/tldw_browser_assistant",
       "mcpDocsUrl": "https://github.com/rmusser01/tldw_browser_assistant"
     },
-    "copyDiagnosticsHelp": "Copies JSON diagnostics to clipboard",
-    "statusHealthy": "Healthy",
-    "statusUnhealthy": "Unhealthy",
-    "statusUnknown": "Unknown",
-    "updatedJustNow": "Updated just now",
-    "updatedSecondsAgo": "Updated {{seconds}}s ago"
+    "copyDiagnosticsHelp": "JSON 진단 정보를 클립보드에 복사합니다",
+    "statusHealthy": "정상",
+    "statusUnhealthy": "비정상",
+    "statusUnknown": "알 수 없음",
+    "updatedJustNow": "방금 업데이트됨",
+    "updatedSecondsAgo": "{{seconds}}초 전 업데이트됨"
   },
-  "savedSuccessfully": "Settings saved",
-  "saveFailed": "Failed to save settings",
-  "siteAccessGranted": "Host permission granted for {{origin}}",
+  "savedSuccessfully": "설정이 저장되었습니다",
+  "saveFailed": "설정을 저장하지 못했습니다",
+  "siteAccessGranted": "{{origin}}에 대한 호스트 권한이 허용되었습니다",
   "tldw": {
     "advancedTimeouts": "고급 타임아웃",
     "requestTimeout": "요청 타임아웃(초)",
@@ -757,14 +757,14 @@
     }
   },
   "manageKnowledge": {
-    "title": "Knowledge QA",
-    "heading": "Knowledge QA",
-    "worldBooksSettingsTitle": "World Books workspace",
-    "worldBooksSettingsDescription": "World Books are managed from the World Books workspace. Use the button below to open it.",
-    "worldBooksOpenWorkspace": "Open World Books workspace",
-    "dictionariesSettingsTitle": "Chat dictionaries workspace",
-    "dictionariesSettingsDescription": "Chat dictionaries are managed from the Chat dictionaries workspace. Use the button below to open it.",
-    "dictionariesOpenWorkspace": "Open Chat dictionaries workspace"
+    "title": "지식 QA",
+    "heading": "지식 QA",
+    "worldBooksSettingsTitle": "월드북 작업 공간",
+    "worldBooksSettingsDescription": "월드북은 월드북 작업 공간에서 관리됩니다. 아래 버튼으로 열 수 있습니다.",
+    "worldBooksOpenWorkspace": "월드북 작업 공간 열기",
+    "dictionariesSettingsTitle": "채팅 사전 작업 공간",
+    "dictionariesSettingsDescription": "채팅 사전은 채팅 사전 작업 공간에서 관리됩니다. 아래 버튼으로 열 수 있습니다.",
+    "dictionariesOpenWorkspace": "채팅 사전 작업 공간 열기"
   },
   "rag": {
     "title": "RAG 설정",
@@ -775,8 +775,8 @@
         "required": "모델을 선택해주세요",
         "help": "`nomic-embed-text`와 같은 임베딩 모델 사용을 강력히 권장합니다.",
         "placeholder": "모델 선택",
-        "helpRecommended": "Recommended: {{model}} (from server config)",
-        "helpMissing": "Previously saved embedding model is no longer available on the server. Please choose another model."
+        "helpRecommended": "추천: {{model}} (서버 설정 기준)",
+        "helpMissing": "이전에 저장된 임베딩 모델이 서버에 더 이상 없습니다. 다른 모델을 선택하세요."
       },
       "chunkSize": {
         "label": "청크 크기",
@@ -825,62 +825,62 @@
     }
   },
   "onboarding": {
-    "title": "Welcome — Let’s get you connected",
-    "description": "Configure your server and authentication. We’ll verify the connection and RAG health inline.",
+    "title": "환영합니다 — 연결을 시작해볼까요",
+    "description": "서버와 인증을 설정합니다. 연결과 RAG 상태를 바로 확인합니다.",
     "learnMoreTldw": "tldw 서버가 어떻게 작동하는지 알아보기",
     "serverDocsUrl": "https://github.com/rmusser01/tldw_browser_assistant",
     "serverUrl": {
-      "placeholder": "http://127.0.0.1:8000",
+      "placeholder": "예: http://127.0.0.1:8000",
       "help": "예: http://127.0.0.1:8000",
       "invalid": "http://127.0.0.1:8000 과 같은 전체 URL을 입력하세요.",
       "invalidProtocol": "http 또는 https URL을 사용하세요(예: http://127.0.0.1:8000).",
-      "label": "Server URL",
-      "emptyHint": "Enter your tldw server URL to enable Next.",
-      "ready": "We’ll enable Next once we can reach this address.",
-      "checking": "Checking reachability…",
-      "reachable": "Server responded successfully. You can continue.",
-      "unreachable": "We couldn’t reach this address yet. Double-check the URL or try again."
+      "label": "서버 URL",
+      "emptyHint": "다음으로 진행하려면 tldw 서버 URL을 입력하세요.",
+      "ready": "이 주소에 접속할 수 있으면 다음을 활성화합니다.",
+      "checking": "연결 확인 중…",
+      "reachable": "서버가 응답했습니다. 계속할 수 있습니다.",
+      "unreachable": "아직 이 주소에 접속할 수 없습니다. URL을 확인하거나 다시 시도하세요."
     },
     "buttons": {
-      "next": "Next",
-      "back": "Back",
-      "continue": "Continue",
-      "recheck": "Recheck",
-      "finish": "Finish",
-      "finishAnyway": "Finish without connecting",
-      "skip": "Skip for now"
+      "next": "다음",
+      "back": "뒤로",
+      "continue": "계속",
+      "recheck": "다시 확인",
+      "finish": "완료",
+      "finishAnyway": "연결 없이 완료",
+      "skip": "지금은 건너뛰기"
     },
     "authMode": {
-      "label": "Authentication Mode",
-      "single": "Single User (API Key)",
-      "multi": "Multi User (Login)"
+      "label": "인증 모드",
+      "single": "단일 사용자(API 키)",
+      "multi": "다중 사용자(로그인)"
     },
     "apiKey": {
-      "label": "API Key",
-      "placeholder": "Enter your API key (or use the default demo key THIS-IS-A-SECURE-KEY-123-REPLACE-ME for local single-user setups)"
+      "label": "API 키",
+      "placeholder": "API 키를 입력하세요 (또는 로컬 단일 사용자용 기본 데모 키 THIS-IS-A-SECURE-KEY-123-REPLACE-ME 사용)"
     },
     "username": {
-      "label": "Username",
-      "placeholder": "Username"
+      "label": "사용자 이름",
+      "placeholder": "사용자 이름"
     },
     "password": {
-      "label": "Password",
-      "placeholder": "Password"
+      "label": "비밀번호",
+      "placeholder": "비밀번호"
     },
     "connection": {
-      "label": "Connection:",
-      "unknown": "Unknown",
-      "connected": "Connected",
-      "failed": "Failed",
-      "continueAnyway": "You can continue and complete setup now. You’ll be able to verify the connection later from Settings."
+      "label": "연결:",
+      "unknown": "알 수 없음",
+      "connected": "연결됨",
+      "failed": "실패",
+      "continueAnyway": "지금 계속해서 설정을 마칠 수 있습니다. 나중에 설정에서 연결을 확인할 수 있습니다."
     },
     "rag": {
       "label": "RAG:",
-      "healthy": "Healthy",
-      "unhealthy": "Unhealthy",
-      "unknown": "Unknown"
+      "healthy": "정상",
+      "unhealthy": "비정상",
+      "unknown": "알 수 없음"
     },
-    "connectionFailed": "Connection failed",
+    "connectionFailed": "연결 실패",
     "footerHelp": "연결이 완료되면 확장 프로그램 메뉴에서 언제든지 이 설정으로 다시 돌아올 수 있습니다.",
     "progressAria": "온보딩 진행 상황",
     "stepLabel": {
@@ -936,86 +936,86 @@
     "headerShortcuts": "헤더에 빠른 바로가기를 표시하기"
   },
   "manageCharacters": {
-    "title": "Manage Characters",
-    "addBtn": "New character",
+    "title": "캐릭터 관리",
+    "addBtn": "새 캐릭터",
     "columns": {
-      "name": "Name",
-      "description": "Description",
-      "actions": "Actions",
-      "avatar": "Avatar"
+      "name": "이름",
+      "description": "설명",
+      "actions": "동작",
+      "avatar": "아바타"
     },
     "actions": {
-      "chat": "Chat",
-      "edit": "Edit",
+      "chat": "채팅",
+      "edit": "편집",
       "delete": "삭제",
       "viewConversations": "대화 목록 보기"
     },
     "tags": {
-      "label": "Tags",
-      "placeholder": "Add tags",
-      "help": "Use tags to group characters by use case (e.g., “writing”, “teaching”)."
+      "label": "태그",
+      "placeholder": "태그 추가",
+      "help": "태그로 캐릭터를 용도별로 묶을 수 있습니다(예: “글쓰기”, “교육”)."
     },
     "tooltip": {
-      "edit": "Edit character",
-      "delete": "Delete character"
+      "edit": "캐릭터 편집",
+      "delete": "캐릭터 삭제"
     },
     "aria": {
-      "chatWith": "Chat as {{name}}",
-      "edit": "Edit character {{name}}",
+      "chatWith": "{{name}}로 채팅하기",
+      "edit": "캐릭터 {{name}} 편집",
       "delete": "캐릭터 {{name}} 삭제",
       "viewConversations": "{{name}}의 대화 목록 보기",
       "searchResults": "{{count}}개의 캐릭터를 찾았습니다"
     },
     "confirm": {
-      "delete": "Are you sure you want to delete this character? This action cannot be undone."
+      "delete": "이 캐릭터를 삭제할까요? 이 작업은 되돌릴 수 없습니다."
     },
     "form": {
       "name": {
-        "label": "Name",
-        "placeholder": "e.g. Writing coach",
-        "required": "Please enter a name"
+        "label": "이름",
+        "placeholder": "예: 글쓰기 코치",
+        "required": "이름을 입력하세요"
       },
-      "description": "Define a reusable character you can chat with in the sidebar.",
+      "description": "사이드바에서 대화할 수 있는 재사용 캐릭터를 정의하세요.",
       "systemPrompt": {
-        "label": "Behavior / instructions",
-        "placeholder": "E.g., You are a patient math teacher who explains concepts step by step and checks understanding with short examples.",
-        "help": "Explain the character's role, tone, and constraints. For example: \"You are a patient math tutor who explains concepts step by step.\"",
-        "min": "Add a short description so the character knows how to respond."
+        "label": "행동 / 지침",
+        "placeholder": "예: 단계별로 개념을 설명하고 짧은 예시로 이해도를 확인하는 인내심 있는 수학 교사입니다.",
+        "help": "캐릭터의 역할, 톤, 제약을 설명하세요. 예: \"단계별로 개념을 설명하는 인내심 있는 수학 튜터입니다.\"",
+        "min": "캐릭터가 적절히 응답할 수 있도록 짧은 설명을 추가하세요."
       },
       "avatarUrl": {
-        "label": "Avatar URL (optional)",
-        "placeholder": "https://example.com/avatar.png"
+        "label": "아바타 URL(선택)",
+        "placeholder": "예: https://example.com/avatar.png"
       },
       "greeting": {
-        "label": "Greeting message (optional)",
-        "placeholder": "Hi there! I’m your writing coach. Paste your draft and I’ll help you tighten it up.",
-        "help": "Optional first message the character will send when you start a chat."
+        "label": "인사말(선택)",
+        "placeholder": "안녕하세요! 저는 글쓰기 코치예요. 초안을 붙여 넣으면 다듬어 드릴게요.",
+        "help": "채팅을 시작할 때 캐릭터가 보내는 선택적 첫 메시지입니다."
       },
       "btnSave": {
-        "saving": "Creating character...",
-        "save": "Create character"
+        "saving": "캐릭터 생성 중...",
+        "save": "캐릭터 생성"
       },
       "btnEdit": {
-        "saving": "Saving changes...",
-        "save": "Save changes"
+        "saving": "변경 사항 저장 중...",
+        "save": "변경 사항 저장"
       }
     },
     "notification": {
-      "addSuccess": "Character created",
-      "error": "Error",
-      "someError": "Something went wrong. Please try again later",
-      "updatedSuccess": "Character updated",
-      "deletedSuccess": "Character deleted"
+      "addSuccess": "캐릭터가 생성되었습니다",
+      "error": "오류",
+      "someError": "문제가 발생했습니다. 나중에 다시 시도하세요.",
+      "updatedSuccess": "캐릭터가 업데이트되었습니다",
+      "deletedSuccess": "캐릭터가 삭제되었습니다"
     },
     "loadError": {
-      "title": "Couldn't load characters",
-      "description": "Check your connection and try again."
+      "title": "캐릭터를 불러올 수 없습니다",
+      "description": "연결을 확인하고 다시 시도하세요."
     },
-    "emptyTitle": "No characters yet",
-    "emptyDescription": "Create a reusable character with a name, description, and system prompt you can chat with.",
-    "emptyExample1": "Define a writing coach, lore expert, or coding assistant you can reuse across chats.",
-    "emptyExample2": "Give each character a clear description and behavior so their responses stay consistent.",
-    "emptyPrimaryCta": "Create character",
+    "emptyTitle": "캐릭터가 없습니다",
+    "emptyDescription": "이름, 설명, 시스템 프롬프트가 있는 재사용 캐릭터를 만들어 보세요.",
+    "emptyExample1": "글쓰기 코치, 세계관 전문가, 코딩 도우미 등 재사용할 캐릭터를 정의하세요.",
+    "emptyExample2": "각 캐릭터에 명확한 설명과 행동을 추가해 응답이 일관되게 유지되도록 하세요.",
+    "emptyPrimaryCta": "캐릭터 만들기",
     "avatarAltWithName": "{{name}}의 아바타",
     "avatarAlt": "사용자 아바타",
     "conversations": {
@@ -1062,189 +1062,189 @@
   "models": {
     "privateModeDescription": "Firefox 사생활 모드는 IndexedDB 저장을 지원하지 않습니다. 일반 창에서 사용자 지정 모델을 추가하세요."
   },
-  "evaluationsSettingsNav": "Evaluations",
-  "promptStudioNav": "Prompt Studio",
+  "evaluationsSettingsNav": "평가",
+  "promptStudioNav": "프롬프트 스튜디오",
   "promptStudio": {
-    "nav": "Prompt Studio",
-    "title": "Prompt Studio",
-    "subtitle": "Configure defaults and monitor Prompt Studio health. Connection and auth reuse the main server settings.",
-    "probeError": "Unable to reach Prompt Studio",
-    "statusCard": "Status",
-    "statusHint": "Button calls /prompt-studio/status with warn_seconds.",
-    "statusError": "Status endpoint unavailable",
-    "warnSeconds": "Warn seconds",
-    "testButton": "Test Prompt Studio",
-    "defaultsCard": "Defaults",
-    "defaultsHint": "Store default project, model configs, and list page size.",
-    "defaultsPlaceholder": "Persist defaults using existing settings storage (TBD) for initial project selection, execute/evaluation model presets, and pagination.",
-    "defaultProject": "Default project ID",
-    "pageSize": "Page size",
-    "executeDefaults": "Execute defaults",
-    "executeProvider": "Provider",
-    "executeModel": "Model",
-    "executeTemperature": "Temperature",
-    "executeMaxTokens": "Max tokens",
-    "evalDefaults": "Evaluation defaults",
-    "evalModel": "Model",
-    "evalTemperature": "Temperature",
-    "evalMaxTokens": "Max tokens",
-    "unavailable": "Prompt Studio isn’t available on the server yet.",
-    "unavailableBody": "Once enabled, you can monitor queue health and set defaults here."
+    "nav": "프롬프트 스튜디오",
+    "title": "프롬프트 스튜디오",
+    "subtitle": "기본값을 설정하고 프롬프트 스튜디오 상태를 모니터링합니다. 연결과 인증은 메인 서버 설정을 재사용합니다.",
+    "probeError": "프롬프트 스튜디오에 연결할 수 없습니다",
+    "statusCard": "상태",
+    "statusHint": "버튼은 warn_seconds를 포함한 /prompt-studio/status를 호출합니다.",
+    "statusError": "상태 엔드포인트를 사용할 수 없습니다",
+    "warnSeconds": "경고 시간(초)",
+    "testButton": "프롬프트 스튜디오 테스트",
+    "defaultsCard": "기본값",
+    "defaultsHint": "기본 프로젝트, 모델 구성, 목록 페이지 크기를 저장합니다.",
+    "defaultsPlaceholder": "초기 프로젝트 선택, 실행/평가 모델 프리셋, 페이지네이션을 위해 기존 설정 저장소(TBD)에 기본값을 저장합니다.",
+    "defaultProject": "기본 프로젝트 ID",
+    "pageSize": "페이지 크기",
+    "executeDefaults": "실행 기본값",
+    "executeProvider": "공급자",
+    "executeModel": "모델",
+    "executeTemperature": "온도",
+    "executeMaxTokens": "최대 토큰",
+    "evalDefaults": "평가 기본값",
+    "evalModel": "모델",
+    "evalTemperature": "온도",
+    "evalMaxTokens": "최대 토큰",
+    "unavailable": "서버에서 아직 프롬프트 스튜디오를 사용할 수 없습니다.",
+    "unavailableBody": "활성화되면 큐 상태를 모니터링하고 여기서 기본값을 설정할 수 있습니다."
   },
-  "charactersSettingsTitle": "Characters workspace",
-  "charactersSettingsDescription": "Characters are managed from the Characters workspace. Use the button below to open it.",
-  "charactersOpenWorkspace": "Open Characters workspace",
-  "mermaid": "Mermaid",
+  "charactersSettingsTitle": "캐릭터 작업 공간",
+  "charactersSettingsDescription": "캐릭터는 캐릭터 작업 공간에서 관리됩니다. 아래 버튼을 눌러 열 수 있습니다.",
+  "charactersOpenWorkspace": "캐릭터 작업 공간 열기",
+  "mermaid": "Mermaid 다이어그램",
   "healthSummary": {
-    "diagnostics": "Diagnostics",
-    "diagnosticsTooltip": "Open detailed diagnostics to troubleshoot or inspect health checks.",
-    "core": "Server",
-    "rag": "Knowledge",
-    "coreAria": "Server: server/API health",
-    "ragAria": "Knowledge: knowledge index health",
-    "coreOnline": "Server: Online",
-    "coreOffline": "Server: Offline",
-    "coreChecking": "Server: Checking…",
-    "ragReady": "Knowledge: Ready",
-    "ragOffline": "Knowledge: Offline",
-    "ragChecking": "Knowledge: Checking…",
-    "footerInfo": "These checks summarize the last successful ping to your tldw server and knowledge index."
+    "diagnostics": "진단",
+    "diagnosticsTooltip": "상세 진단을 열어 상태 점검을 확인하거나 문제를 해결합니다.",
+    "core": "서버",
+    "rag": "지식",
+    "coreAria": "서버: 서버/API 상태",
+    "ragAria": "지식: 지식 인덱스 상태",
+    "coreOnline": "서버: 온라인",
+    "coreOffline": "서버: 오프라인",
+    "coreChecking": "서버: 확인 중…",
+    "ragReady": "지식: 준비됨",
+    "ragOffline": "지식: 오프라인",
+    "ragChecking": "지식: 확인 중…",
+    "footerInfo": "이 점검은 tldw 서버와 지식 인덱스에 대한 마지막 성공 핑을 요약합니다."
   },
   "storage": {
-    "quotaFriendlyMessage": "Too many settings writes in a short period; please wait a few seconds and try again.",
-    "quotaTitle": "Storage limit reached",
-    "writeError": "Could not save settings",
-    "writeErrorDescription": "We couldn't save your settings. Please try again shortly."
+    "quotaFriendlyMessage": "짧은 시간에 설정 저장을 너무 많이 요청했습니다. 몇 초 기다린 후 다시 시도하세요.",
+    "quotaTitle": "저장소 한도 도달",
+    "writeError": "설정을 저장할 수 없습니다",
+    "writeErrorDescription": "설정을 저장하지 못했습니다. 잠시 후 다시 시도하세요."
   },
   "evaluations": {
-    "title": "Evaluations playground",
-    "subtitle": "Define evaluations against your tldw server and inspect recent runs.",
-    "listTitle": "Recent evaluations",
-    "newEvaluationCta": "New evaluation",
-    "startRunCta": "Start run",
-    "loadErrorTitle": "Unable to load evaluations",
-    "loadErrorDescription": "Check your tldw server connection and API credentials, then try again.",
-    "emptyList": "No evaluations yet. Once you create one, it will appear here.",
-    "selectedTag": "Selected",
-    "rateLimitsTitle": "Evaluation limits",
-    "rateLimitsErrorTitle": "Unable to fetch rate limits",
-    "rateLimitsErrorDescription": "We could not retrieve evaluation quotas from the server.",
-    "rateLimitsNoData": "Rate limit information is not available for this server.",
-    "tierLabel": "Tier",
-    "dailyLimitLabel": "Daily evaluations",
-    "tokensTodayLabel": "Tokens today",
-    "perMinuteLabel": "Per-minute limit",
-    "resetAtLabel": "Resets at",
-    "runsTitle": "Runs",
-    "noEvalSelectedRuns": "Select an evaluation to see its recent runs.",
-    "runsErrorTitle": "Unable to load runs",
-    "runsEmpty": "No runs yet for this evaluation.",
-    "runDetailTitle": "Run details",
-    "noRunSelected": "Select a run to see details.",
-    "runDetailErrorTitle": "Unable to load run details",
-    "runStatusLabel": "Status",
-    "runModelLabelShort": "Target model",
-    "runEvalIdLabel": "Evaluation",
-    "runErrorLabel": "Error",
-    "runResultsLabel": "Results (snippet)",
-    "runProgressLabel": "Progress",
-    "runUsageLabel": "Usage",
-    "datasetsTitle": "Datasets",
-    "newDatasetCta": "New dataset",
-    "datasetsErrorTitle": "Unable to load datasets",
-    "datasetsEmpty": "No datasets yet. Create one to attach to evaluations.",
-    "datasetSampleCount": "{{count}} samples",
-    "datasetNameLabel": "Name",
-    "datasetNamePlaceholder": "my_dataset",
-    "datasetDescriptionLabel": "Description",
-    "datasetMetadataLabel": "Metadata (JSON, optional)",
-    "sampleInputLabel": "Sample input",
-    "sampleExpectedLabel": "Expected output (optional)",
-    "samplesJsonLabel": "Samples JSON (optional, overrides fields)",
-    "datasetLabel": "Dataset (optional)",
-    "datasetPlaceholder": "Select dataset",
-    "datasetCreateSuccessTitle": "Dataset created",
-    "datasetCreateSuccessDescription": "Your dataset is ready to use in evaluations.",
-    "datasetCreateErrorTitle": "Failed to create dataset",
-    "datasetCreateErrorDescription": "The server rejected this dataset. Check the fields and try again.",
-    "datasetDeleteSuccessTitle": "Dataset deleted",
-    "datasetDeleteErrorTitle": "Failed to delete dataset",
-    "datasetLoadErrorTitle": "Failed to load dataset",
-    "datasetDetailTitle": "Dataset details",
-    "datasetParseErrorTitle": "Invalid samples JSON",
-    "createEvalModalTitle": "New evaluation",
-    "editEvalModalTitle": "Edit evaluation",
-    "evalNameLabel": "Name",
-    "evalNamePlaceholder": "my_eval_run",
-    "evalNameValidation": "Use only letters, numbers, hyphens, and underscores.",
-    "evalTypeLabel": "Evaluation type",
-    "evalSpecLabel": "Evaluation spec (JSON)",
-    "evalSpecParseError": "Evaluation spec must be valid JSON.",
-    "evalMetadataLabel": "Metadata (JSON, optional)",
-    "inlineDatasetCheckbox": "Attach inline dataset instead of referencing dataset_id",
-    "inlineDatasetErrorTitle": "Invalid inline dataset",
-    "runModelLabel": "Run model (used for quick runs)",
-    "createSuccessTitle": "Evaluation created",
-    "createErrorTitle": "Failed to create evaluation",
-    "createErrorDescription": "The server rejected this evaluation. Ensure name, type, and spec are valid.",
-    "updateSuccessTitle": "Evaluation updated",
-    "updateErrorTitle": "Failed to update evaluation",
-    "deleteErrorTitle": "Failed to delete evaluation",
-    "deleteConfirmTitle": "Delete this evaluation?",
-    "deleteConfirmDescription": "This will remove the evaluation definition. Runs already created remain in history.",
-    "detailTitle": "Evaluation details",
-    "detailErrorTitle": "Unable to load evaluation details",
-    "descriptionLabel": "Description",
-    "noEvalSelectedDetails": "Select an evaluation to inspect its spec.",
-    "runCreateSuccessTitle": "Run started",
-    "runCreateSuccessDescription": "Your evaluation run has started. You can monitor it from the server UI.",
-    "runCreateErrorTitle": "Failed to start run",
-    "runCreateErrorDescription": "The server rejected this run request. Check the model and try again.",
-    "runConfigLabel": "Config (JSON)",
-    "datasetOverrideLabel": "Dataset override (JSON array of samples)",
-    "runConfigParseError": "Invalid config JSON",
-    "runCancelSuccessTitle": "Run cancellation requested",
-    "runCancelErrorTitle": "Failed to cancel run",
-    "cancelRunCta": "Cancel run",
-    "historyTitle": "History",
-    "historyTypeLabel": "Type",
-    "historyUserLabel": "User ID",
-    "historyStartLabel": "Start date (ISO)",
-    "historyEndLabel": "End date (ISO)",
-    "historyFetchCta": "Fetch history",
-    "historyEmpty": "Run a query to see recent activity.",
-    "historyErrorTitle": "Failed to fetch history",
-    "webhooksTitle": "Webhooks",
-    "webhookUrlLabel": "URL",
-    "webhookEventsLabel": "Events",
-    "webhookCreateCta": "Register webhook",
-    "webhookCreateSuccessTitle": "Webhook registered",
-    "webhookCreateErrorTitle": "Failed to register webhook",
-    "webhookDeleteErrorTitle": "Failed to delete webhook",
-    "webhookListErrorTitle": "Unable to load webhooks",
-    "webhooksEmpty": "No webhooks registered yet.",
-    "webhookSecretTitle": "Secret",
-    "idempotencyKeyLabel": "Idempotency key",
-    "emptyConnectTitle": "Connect to use Evaluations",
-    "emptyConnectDescription": "To create and run evaluations, first connect to your tldw server.",
-    "emptyConnectExample1": "Open Settings → tldw server to add your server URL and API key.",
-    "emptyConnectExample2": "Once connected, you can define evaluations and inspect metrics here.",
-    "datasetSamplesLabel": "Samples",
-    "datasetSamplesEmpty": "No samples returned for this page.",
-    "metricsLabel": "Metrics"
+    "title": "평가 플레이그라운드",
+    "subtitle": "tldw 서버에 대한 평가를 정의하고 최근 실행을 확인합니다.",
+    "listTitle": "최근 평가",
+    "newEvaluationCta": "새 평가",
+    "startRunCta": "실행 시작",
+    "loadErrorTitle": "평가를 불러올 수 없습니다",
+    "loadErrorDescription": "tldw 서버 연결과 API 자격 증명을 확인한 뒤 다시 시도하세요.",
+    "emptyList": "아직 평가가 없습니다. 생성하면 여기에 표시됩니다.",
+    "selectedTag": "선택됨",
+    "rateLimitsTitle": "평가 제한",
+    "rateLimitsErrorTitle": "제한 정보를 가져올 수 없습니다",
+    "rateLimitsErrorDescription": "서버에서 평가 할당량을 가져오지 못했습니다.",
+    "rateLimitsNoData": "이 서버에는 제한 정보가 없습니다.",
+    "tierLabel": "티어",
+    "dailyLimitLabel": "일일 평가",
+    "tokensTodayLabel": "오늘 토큰",
+    "perMinuteLabel": "분당 제한",
+    "resetAtLabel": "리셋 시간",
+    "runsTitle": "실행",
+    "noEvalSelectedRuns": "최근 실행을 보려면 평가를 선택하세요.",
+    "runsErrorTitle": "실행을 불러올 수 없습니다",
+    "runsEmpty": "이 평가의 실행 기록이 없습니다.",
+    "runDetailTitle": "실행 상세",
+    "noRunSelected": "상세를 보려면 실행을 선택하세요.",
+    "runDetailErrorTitle": "실행 상세를 불러올 수 없습니다",
+    "runStatusLabel": "상태",
+    "runModelLabelShort": "대상 모델",
+    "runEvalIdLabel": "평가",
+    "runErrorLabel": "오류",
+    "runResultsLabel": "결과(일부)",
+    "runProgressLabel": "진행",
+    "runUsageLabel": "사용량",
+    "datasetsTitle": "데이터셋",
+    "newDatasetCta": "새 데이터셋",
+    "datasetsErrorTitle": "데이터셋을 불러올 수 없습니다",
+    "datasetsEmpty": "아직 데이터셋이 없습니다. 평가에 연결할 데이터셋을 만들어 보세요.",
+    "datasetSampleCount": "{{count}}개 샘플",
+    "datasetNameLabel": "이름",
+    "datasetNamePlaceholder": "예: my_dataset",
+    "datasetDescriptionLabel": "설명",
+    "datasetMetadataLabel": "메타데이터(JSON, 선택)",
+    "sampleInputLabel": "샘플 입력",
+    "sampleExpectedLabel": "예상 출력(선택)",
+    "samplesJsonLabel": "샘플 JSON(선택, 필드 재정의)",
+    "datasetLabel": "데이터셋(선택)",
+    "datasetPlaceholder": "데이터셋 선택",
+    "datasetCreateSuccessTitle": "데이터셋이 생성되었습니다",
+    "datasetCreateSuccessDescription": "데이터셋을 평가에 사용할 수 있습니다.",
+    "datasetCreateErrorTitle": "데이터셋 생성 실패",
+    "datasetCreateErrorDescription": "서버가 이 데이터셋을 거부했습니다. 필드를 확인하고 다시 시도하세요.",
+    "datasetDeleteSuccessTitle": "데이터셋이 삭제되었습니다",
+    "datasetDeleteErrorTitle": "데이터셋 삭제 실패",
+    "datasetLoadErrorTitle": "데이터셋 로드 실패",
+    "datasetDetailTitle": "데이터셋 상세",
+    "datasetParseErrorTitle": "샘플 JSON이 올바르지 않습니다",
+    "createEvalModalTitle": "새 평가",
+    "editEvalModalTitle": "평가 편집",
+    "evalNameLabel": "이름",
+    "evalNamePlaceholder": "예: my_eval_run",
+    "evalNameValidation": "문자, 숫자, 하이픈, 밑줄만 사용할 수 있습니다.",
+    "evalTypeLabel": "평가 유형",
+    "evalSpecLabel": "평가 스펙(JSON)",
+    "evalSpecParseError": "평가 스펙은 유효한 JSON이어야 합니다.",
+    "evalMetadataLabel": "메타데이터(JSON, 선택)",
+    "inlineDatasetCheckbox": "dataset_id 대신 인라인 데이터셋 첨부",
+    "inlineDatasetErrorTitle": "인라인 데이터셋이 올바르지 않습니다",
+    "runModelLabel": "실행 모델(퀵 런에 사용)",
+    "createSuccessTitle": "평가가 생성되었습니다",
+    "createErrorTitle": "평가 생성 실패",
+    "createErrorDescription": "서버가 이 평가를 거부했습니다. 이름, 유형, 스펙을 확인하세요.",
+    "updateSuccessTitle": "평가가 업데이트되었습니다",
+    "updateErrorTitle": "평가 업데이트 실패",
+    "deleteErrorTitle": "평가 삭제 실패",
+    "deleteConfirmTitle": "이 평가를 삭제할까요?",
+    "deleteConfirmDescription": "평가 정의가 삭제됩니다. 이미 생성된 실행 기록은 유지됩니다.",
+    "detailTitle": "평가 상세",
+    "detailErrorTitle": "평가 상세를 불러올 수 없습니다",
+    "descriptionLabel": "설명",
+    "noEvalSelectedDetails": "스펙을 보려면 평가를 선택하세요.",
+    "runCreateSuccessTitle": "실행이 시작되었습니다",
+    "runCreateSuccessDescription": "평가 실행이 시작되었습니다. 서버 UI에서 모니터링할 수 있습니다.",
+    "runCreateErrorTitle": "실행 시작 실패",
+    "runCreateErrorDescription": "서버가 이 실행 요청을 거부했습니다. 모델을 확인하고 다시 시도하세요.",
+    "runConfigLabel": "구성(JSON)",
+    "datasetOverrideLabel": "데이터셋 오버라이드(JSON 샘플 배열)",
+    "runConfigParseError": "구성 JSON이 올바르지 않습니다",
+    "runCancelSuccessTitle": "실행 취소 요청됨",
+    "runCancelErrorTitle": "실행 취소 실패",
+    "cancelRunCta": "실행 취소",
+    "historyTitle": "히스토리",
+    "historyTypeLabel": "유형",
+    "historyUserLabel": "사용자 ID",
+    "historyStartLabel": "시작 날짜(ISO)",
+    "historyEndLabel": "종료 날짜(ISO)",
+    "historyFetchCta": "히스토리 가져오기",
+    "historyEmpty": "쿼리를 실행하면 최근 활동이 표시됩니다.",
+    "historyErrorTitle": "히스토리를 가져오지 못했습니다",
+    "webhooksTitle": "웹훅",
+    "webhookUrlLabel": "URL 주소",
+    "webhookEventsLabel": "이벤트",
+    "webhookCreateCta": "웹훅 등록",
+    "webhookCreateSuccessTitle": "웹훅이 등록되었습니다",
+    "webhookCreateErrorTitle": "웹훅 등록 실패",
+    "webhookDeleteErrorTitle": "웹훅 삭제 실패",
+    "webhookListErrorTitle": "웹훅을 불러올 수 없습니다",
+    "webhooksEmpty": "등록된 웹훅이 없습니다.",
+    "webhookSecretTitle": "시크릿",
+    "idempotencyKeyLabel": "멱등성 키",
+    "emptyConnectTitle": "평가를 사용하려면 연결하세요",
+    "emptyConnectDescription": "평가를 만들고 실행하려면 먼저 tldw 서버에 연결하세요.",
+    "emptyConnectExample1": "설정 → tldw 서버에서 서버 URL과 API 키를 추가하세요.",
+    "emptyConnectExample2": "연결 후에는 여기에서 평가를 정의하고 메트릭을 확인할 수 있습니다.",
+    "datasetSamplesLabel": "샘플",
+    "datasetSamplesEmpty": "이 페이지에 대한 샘플이 없습니다.",
+    "metricsLabel": "메트릭"
   },
   "evaluationsSettings": {
-    "title": "Evaluations",
-    "subtitle": "Configure defaults used by the Evaluations playground.",
-    "offline": "Connect to your tldw server to test Evaluations.",
-    "defaultType": "Default evaluation type",
-    "defaultModel": "Default target model",
-    "defaultRunConfig": "Default run config (JSON)",
-    "defaultDataset": "Default dataset id (optional)",
-    "specForType": "Spec preset for selected type",
-    "testCta": "Test Evaluations API",
-    "testOk": "Evaluations API reachable",
-    "testFail": "Unable to reach Evaluations API"
+    "title": "평가",
+    "subtitle": "평가 플레이그라운드에서 사용할 기본값을 설정합니다.",
+    "offline": "평가를 테스트하려면 tldw 서버에 연결하세요.",
+    "defaultType": "기본 평가 유형",
+    "defaultModel": "기본 대상 모델",
+    "defaultRunConfig": "기본 실행 구성(JSON)",
+    "defaultDataset": "기본 데이터셋 ID(선택)",
+    "specForType": "선택한 유형의 스펙 프리셋",
+    "testCta": "평가 API 테스트",
+    "testOk": "평가 API에 연결되었습니다",
+    "testFail": "평가 API에 연결할 수 없습니다"
   },
   "chunkingPlayground": {
     "nav": "청킹 플레이그라운드",

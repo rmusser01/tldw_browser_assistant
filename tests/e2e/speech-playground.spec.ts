@@ -12,11 +12,13 @@ test.describe('Speech Playground UX', () => {
           authMode: 'single-user',
           apiKey: 'test-key'
         },
-        speechPlaygroundMode: 'roundtrip'
+        speechPlaygroundMode: 'roundtrip',
+        __tldw_first_run_complete: true,
+        __tldw_allow_offline: true
       }
     })
 
-    await context.addInitScript(() => {
+    await page.addInitScript(() => {
       window.__e2eMicStub = true
       const fakeStream = { getTracks: () => [] }
       const mediaDevices = navigator.mediaDevices || {}
@@ -111,32 +113,40 @@ test.describe('Speech Playground UX', () => {
       }
     })
 
-    const testPage = await context.newPage()
-    await testPage.goto(optionsUrl + '?e2e=1#/tts', { waitUntil: 'domcontentloaded' })
-    await testPage.waitForFunction(() => window.__e2eMicStub === true)
+    const baseUrl = `${optionsUrl}?e2e=1`
+    await page.goto(baseUrl + '#/tts', { waitUntil: 'domcontentloaded' })
+    await page.waitForFunction(() => window.__e2eMicStub === true)
 
-    const ttsInput = testPage.getByPlaceholder('Type or paste text here, then use Play to listen.')
-    const recordButton = testPage.getByRole('button', { name: 'Record' })
+    const ttsInput = page.getByPlaceholder('Type or paste text here, then use Play to listen.')
+    const recordButton = page.getByRole('button', { name: 'Record' })
 
     await expect(ttsInput).toBeVisible()
     await expect(recordButton).toHaveCount(0)
 
-    await testPage.goto(optionsUrl + '?e2e=1#/speech', { waitUntil: 'domcontentloaded' })
+    await page.goto(baseUrl + '#/speech', { waitUntil: 'domcontentloaded' })
     await expect(ttsInput).toBeVisible()
     await expect(recordButton).toHaveCount(0)
 
-    const roundTripToggle = testPage.locator('.ant-segmented-item').filter({ hasText: 'Round-trip' })
+    const listenSelected = page.locator('.ant-segmented-item-selected').filter({ hasText: 'Listen' })
+    await expect(listenSelected).toBeVisible()
+
+    const roundTripToggle = page.locator('.ant-segmented-item').filter({ hasText: 'Round-trip' })
     await roundTripToggle.click()
-    await expect(recordButton).toBeVisible()
-    await testPage.keyboard.press('Escape')
+    await expect(page.locator('.ant-segmented-item-selected').filter({ hasText: 'Round-trip' })).toBeVisible()
+    await page.keyboard.press('Escape')
 
-    const sttCard = testPage.locator('.ant-card').filter({ hasText: 'Current transcription model' })
+    const sttCard = page.locator('.ant-card').filter({ hasText: 'Current transcription model' })
+    await expect(sttCard).toBeVisible()
     const sttRecordButton = sttCard.getByRole('button', { name: 'Record' })
     await sttRecordButton.click({ force: true })
 
-    await testPage.waitForFunction(() => {
-      return window.__lastRecorder?.state === 'recording'
-    })
+    await page.waitForFunction(
+      () => {
+        return window.__lastRecorder?.state === 'recording'
+      },
+      null,
+      { timeout: 5000 }
+    )
 
     const transcriptArea = sttCard.getByPlaceholder('Live transcript will appear here while recording.')
     await transcriptArea.scrollIntoViewIfNeeded()
@@ -145,7 +155,7 @@ test.describe('Speech Playground UX', () => {
     ).toBeVisible()
     await expect(sttCard.getByRole('button', { name: 'Unlock' })).toBeDisabled()
 
-    await testPage.evaluate(() => {
+    await page.evaluate(() => {
       window.__lastRecorder?.stop?.()
     })
     await transcriptArea.scrollIntoViewIfNeeded()
@@ -161,17 +171,15 @@ test.describe('Speech Playground UX', () => {
     await lockButton.click()
     await expect(transcriptArea).not.toBeEditable()
 
-    const copyButton = testPage.getByRole('button', { name: 'Copy' }).first()
+    const copyButton = page.getByRole('button', { name: 'Copy' }).first()
     await copyButton.click()
-    await expect(testPage.getByText('Copied to clipboard')).toBeVisible()
+    await expect(page.getByText('Copied to clipboard')).toBeVisible()
 
-    const downloadButton = testPage.getByRole('button', { name: 'Download' })
+    const downloadButton = page.getByRole('button', { name: 'Download' })
     await downloadButton.hover()
     await expect(
-      testPage.getByText('Browser TTS does not create downloadable audio.')
+      page.getByText('Browser TTS does not create downloadable audio.')
     ).toBeVisible()
-
-    await testPage.close()
     await context.close()
   })
 })

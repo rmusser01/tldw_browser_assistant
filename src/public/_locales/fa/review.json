@@ -366,31 +366,31 @@
     "message": "نسخه ویرایش‌شده"
   },
   "reviewPage_searchPlaceholder": {
-    "message": "Search media, notes..."
+    "message": "جستجوی رسانه‌ها، یادداشت‌ها..."
   },
   "reviewPage_search": {
-    "message": "Search"
+    "message": "جستجو"
   },
   "reviewPage_filters": {
-    "message": "Filters"
+    "message": "فیلترها"
   },
   "reviewPage_media": {
-    "message": "Media"
+    "message": "رسانه"
   },
   "reviewPage_notes": {
-    "message": "Notes"
+    "message": "یادداشت‌ها"
   },
   "reviewPage_useReview": {
-    "message": "Use Review"
+    "message": "استفاده از بازبینی"
   },
   "reviewPage_useSummary": {
-    "message": "Use Summary"
+    "message": "استفاده از خلاصه"
   },
   "reviewPage_mediaTypes": {
-    "message": "Media types"
+    "message": "انواع رسانه"
   },
   "reviewPage_keywords": {
-    "message": "Keywords"
+    "message": "کلیدواژه‌ها"
   },
   "reviewPage_clear": {
     "message": "Clear"
@@ -399,232 +399,232 @@
     "message": "Reset filters"
   },
   "reviewPage_results": {
-    "message": "Results"
+    "message": "نتایج"
   },
   "reviewPage_noResults": {
-    "message": "No results"
+    "message": "نتیجه‌ای یافت نشد"
   },
   "reviewPage_analyze_none": {
-    "message": "No content available to analyze"
+    "message": "محتوایی برای تحلیل در دسترس نیست"
   },
   "reviewPage_analyze_saved": {
-    "message": "Analysis saved as note"
+    "message": "تحلیل به‌عنوان یادداشت ذخیره شد"
   },
   "reviewPage_analyze_failed": {
-    "message": "Failed to analyze & save note"
+    "message": "تحلیل و ذخیره یادداشت ناموفق بود"
   },
   "reviewPage_searchPrompts": {
-    "message": "Search prompts"
+    "message": "جستجوی پرامپت‌ها"
   },
   "reviewPage_includeLocal": {
-    "message": "Local"
+    "message": "محلی"
   },
   "reviewPage_includeServer": {
-    "message": "Server"
+    "message": "سرور"
   },
   "reviewPage_presets": {
-    "message": "Presets"
+    "message": "پیش‌تنظیم‌ها"
   },
   "reviewPage_presetsCritical": {
-    "message": "Critical"
+    "message": "انتقادی"
   },
   "reviewPage_presetsQaAudit": {
-    "message": "QA Audit"
+    "message": "بازرسی QA"
   },
   "reviewPage_presetsBulletReview": {
-    "message": "Bullet Review"
+    "message": "بازبینی بولت"
   },
   "reviewPage_reviewSystemPrompt": {
-    "message": "Review: System prompt"
+    "message": "بازبینی: پرامپت سیستم"
   },
   "reviewPage_reviewUserPrefix": {
-    "message": "Review: User prompt prefix"
+    "message": "بازبینی: پیشوند پرامپت کاربر"
   },
   "reviewPage_saveAsDefault": {
-    "message": "Save as default"
+    "message": "ذخیره به‌عنوان پیش‌فرض"
   },
   "reviewPage_reviewPrompt": {
-    "message": "Review prompt"
+    "message": "پرامپت بازبینی"
   },
   "reviewPage_summarySystemPrompt": {
-    "message": "Summary: System prompt"
+    "message": "خلاصه: پرامپت سیستم"
   },
   "reviewPage_summaryUserPrefix": {
-    "message": "Summary: User prompt prefix"
+    "message": "خلاصه: پیشوند پرامپت کاربر"
   },
   "reviewPage_summaryPrompt": {
-    "message": "Summary prompt"
+    "message": "پرامپت خلاصه"
   },
   "reviewPage_customizePrompts": {
-    "message": "Customize prompts"
+    "message": "شخصی‌سازی پرامپت‌ها"
   },
   "reviewPage_showRawJson": {
-    "message": "Show raw JSON"
+    "message": "نمایش JSON خام"
   },
   "reviewPage_noDetailLoaded": {
-    "message": "No detail loaded"
+    "message": "هیچ جزئیاتی بارگذاری نشده است"
   },
   "reviewPage_resetToDefaults": {
-    "message": "Reset to defaults"
+    "message": "بازنشانی به پیش‌فرض‌ها"
   },
   "reviewPage_usingReviewPrompts": {
-    "message": "Using Review prompts"
+    "message": "در حال استفاده از پرامپت‌های بازبینی"
   },
   "reviewPage_usingSummaryPrompts": {
-    "message": "Using Summary prompts"
+    "message": "در حال استفاده از پرامپت‌های خلاصه"
   },
   "reviewPage_selectItemFirst": {
-    "message": "Select an item first"
+    "message": "ابتدا یک مورد را انتخاب کنید"
   },
   "reviewPage_selectMediaFirst": {
-    "message": "Select a media item first"
+    "message": "ابتدا یک مورد رسانه‌ای را انتخاب کنید"
   },
   "reviewPage_selectItemEmpty": {
-    "message": "Select an item to review and analyze"
+    "message": "برای بازبینی و تحلیل یک مورد را انتخاب کنید"
   },
   "reviewPage_selectMediaEmpty": {
-    "message": "Select a media item to view analyses"
+    "message": "برای مشاهده تحلیل‌ها یک مورد رسانه‌ای انتخاب کنید"
   },
   "reviewPage_generationMode": {
-    "message": "Generation mode"
+    "message": "حالت تولید"
   },
   "reviewPage_resultTypes": {
-    "message": "Result types"
+    "message": "انواع نتیجه"
   },
   "reviewPage_advancedTools": {
-    "message": "Advanced tools"
+    "message": "ابزارهای پیشرفته"
   },
   "reviewPage_moreActions": {
-    "message": "More actions"
+    "message": "اقدامات بیشتر"
   },
   "reviewPage_toggleSidebar": {
-    "message": "Toggle results sidebar"
+    "message": "نمایش/پنهان کردن نوار نتایج"
   },
   "reviewPage_autoReviewLabel": {
-    "message": "Automatically generate a review when you select an item"
+    "message": "با انتخاب هر مورد، بازبینی به‌صورت خودکار ایجاد شود"
   },
   "reviewPage_demoMode": {
-    "message": "Demo mode"
+    "message": "حالت دمو"
   },
   "reviewPage_mediaOnlySearchPlaceholder": {
-    "message": "Search media (title/content)"
+    "message": "جستجوی رسانه (عنوان/محتوا)"
   },
   "reviewPage_showSidebar": {
-    "message": "Show results sidebar"
+    "message": "نمایش نوار نتایج"
   },
   "reviewPage_hideSidebar": {
-    "message": "Hide results sidebar"
+    "message": "پنهان کردن نوار نتایج"
   },
   "reviewPage_selectedBadge": {
-    "message": "Selected"
+    "message": "انتخاب‌شده"
   },
   "reviewPage_bulkToolbar": {
-    "message": "Bulk view toolbar"
+    "message": "نوار ابزار نمای گروهی"
   },
   "reviewPage_loadedCount": {
-    "message": "{{count}} loaded"
+    "message": "{{count}} مورد بارگذاری شد"
   },
   "reviewPage_viewLabel": {
-    "message": "Content view"
+    "message": "نمایش محتوا"
   },
   "reviewPage_navigateLabel": {
-    "message": "Items"
+    "message": "موارد"
   },
   "reviewPage_mediaModeHint": {
-    "message": "Search and inspect one media item at a time. Select a result to view its content and analyses on the right."
+    "message": "هر بار یک مورد رسانه‌ای را جستجو و بررسی کنید. یک نتیجه را انتخاب کنید تا محتوا و تحلیل‌های آن در سمت راست نمایش داده شود."
   },
   "reviewPage_resultsHelp": {
-    "message": "Keyboard: Tab into the results list, use Enter or Space to select the focused row, then use the Prev/Next buttons in the analysis toolbar to move between items."
+    "message": "صفحه‌کلید: با Tab وارد فهرست نتایج شوید، با Enter یا Space ردیف فعال را انتخاب کنید، سپس با دکمه‌های قبلی/بعدی در نوار ابزار تحلیل بین موارد جابه‌جا شوید."
   },
   "reviewPage_resultsHelpLabel": {
-    "message": "Review results keyboard shortcuts"
+    "message": "میان‌برهای صفحه‌کلید نتایج بازبینی"
   },
   "reviewPage_review": {
-    "message": "Get review"
+    "message": "دریافت بازبینی"
   },
   "reviewPage_reviewHint": {
-    "message": "Ask the assistant to review this item."
+    "message": "از دستیار بخواهید این مورد را بازبینی کند."
   },
   "reviewPage_summary": {
-    "message": "Get summary"
+    "message": "دریافت خلاصه"
   },
   "reviewPage_summaryHint": {
-    "message": "Ask for a shorter summary."
+    "message": "درخواست خلاصه کوتاه‌تر."
   },
   "reviewPage_attachGeneratedHint": {
-    "message": "Run the assistant and attach the result to this media item."
+    "message": "دستیار را اجرا کنید و نتیجه را به این مورد رسانه‌ای پیوست کنید."
   },
   "reviewPage_attachReview": {
-    "message": "Attach review to media"
+    "message": "پیوست بازبینی به رسانه"
   },
   "reviewPage_attachSummary": {
-    "message": "Attach summary to media"
+    "message": "پیوست خلاصه به رسانه"
   },
   "reviewPage_saveGeneratedNoteHint": {
-    "message": "Run the assistant and save the result as a note."
+    "message": "دستیار را اجرا کنید و نتیجه را به‌صورت یادداشت ذخیره کنید."
   },
   "reviewPage_saveReviewNote": {
-    "message": "Save review as note"
+    "message": "ذخیره بازبینی به‌صورت یادداشت"
   },
   "reviewPage_saveSummaryNote": {
-    "message": "Save summary as note"
+    "message": "ذخیره خلاصه به‌صورت یادداشت"
   },
   "reviewPage_saveToMediaHint": {
-    "message": "Attach the current text in the editor to this media item."
+    "message": "متن فعلی ویرایشگر را به این مورد رسانه‌ای پیوست کنید."
   },
   "reviewPage_saveToMedia": {
-    "message": "Attach current text to media"
+    "message": "پیوست متن فعلی به رسانه"
   },
   "reviewPage_saveAnalysisHint": {
-    "message": "Create a note from the current analysis."
+    "message": "از تحلیل فعلی یادداشت بسازید."
   },
   "reviewPage_saveAnalysis": {
-    "message": "Save to notes"
+    "message": "ذخیره در یادداشت‌ها"
   },
   "reviewPage_askAssistantLabel": {
-    "message": "Ask the assistant"
+    "message": "از دستیار بپرسید"
   },
   "reviewPage_saveResultsLabel": {
-    "message": "Save results"
+    "message": "ذخیره نتایج"
   },
   "reviewPage_moreSaveNewVersion": {
-    "message": "Save as new version"
+    "message": "ذخیره به‌عنوان نسخه جدید"
   },
   "reviewPage_moreDuplicateVersion": {
-    "message": "Duplicate version"
+    "message": "تکثیر نسخه"
   },
   "reviewPage_moreRestoreVersion": {
-    "message": "Restore selected version"
+    "message": "بازگردانی نسخه انتخاب‌شده"
   },
   "reviewPage_modeReview": {
-    "message": "Use review"
+    "message": "استفاده از بازبینی"
   },
   "reviewPage_modeSummary": {
-    "message": "Use summary"
+    "message": "استفاده از خلاصه"
   },
   "reviewPage_resultsHint": {
-    "message": "Click a result to load its content and analyses on the right."
+    "message": "برای بارگذاری محتوا و تحلیل‌ها در سمت راست، روی نتیجه کلیک کنید."
   },
   "reviewPage_paginationHint": {
-    "message": "Use filters or pagination to refine the results if many items are loaded."
+    "message": "اگر موارد زیادی بارگذاری شده‌اند، از فیلترها یا صفحه‌بندی برای محدود کردن نتایج استفاده کنید."
   },
   "reviewPage_offlineHint": {
-    "message": "Connect to your tldw server in Settings to send messages and view media. Then you can search media from this page."
+    "message": "برای ارسال پیام و مشاهده رسانه، در تنظیمات به سرور tldw خود متصل شوید. سپس می‌توانید از این صفحه رسانه‌ها را جستجو کنید."
   },
   "reviewPage_chatWithMedia": {
-    "message": "Chat with this media"
+    "message": "گفتگو درباره این رسانه"
   },
   "reviewPage_chatWithMediaHint": {
-    "message": "Open Chat and prefill the composer with this media’s content."
+    "message": "چت را باز کنید و کادر نوشتن را با محتوای این رسانه از پیش پر کنید."
   },
   "reviewPage_chatPrepared": {
-    "message": "Prepared chat with this media in the composer."
+    "message": "گفتگو با این رسانه در کادر نوشتن آماده شد."
   },
   "reviewPage_chatAboutMediaHint": {
-    "message": "Open RAG chat scoped to this media only."
+    "message": "چت RAG را فقط برای این رسانه باز کنید."
   },
   "reviewPage_chatAboutMediaRagSent": {
-    "message": "Opened media-scoped RAG chat."
+    "message": "چت RAG با محدوده رسانه باز شد."
   },
   "reviewPage_chatAboutMediaInvalidId": {
     "message": "این مورد رسانه‌ای هنوز شناسه عددی ندارد."

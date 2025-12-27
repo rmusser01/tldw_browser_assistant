@@ -6,7 +6,7 @@
     "about": "О нас"
   },
   "healthNav": "Состояние",
-  "worldBooksNav": "World Books",
+  "worldBooksNav": "Книги мира",
   "chatDictionariesNav": "Словари чата",
   "charactersNav": "Персонажи",
   "mediaNav": "Медиа",
@@ -119,14 +119,14 @@
         "assetsEnabled": "Ресурсы OCR включены и готовы к использованию"
       },
       "ocrLanguage": {
-        "label": "Default OCR Language",
-        "placeholder": "Select an OCR language"
+        "label": "Язык OCR по умолчанию",
+        "placeholder": "Выберите язык OCR"
       },
       "removeReasoningTagFromCopy": {
-        "label": "Remove Reasoning Tag from Copied Text"
+        "label": "Удалять тег рассуждений из скопированного текста"
       },
       "promptSearchIncludeServer": {
-        "label": "Include server prompts in prompt search"
+        "label": "Включать серверные промпты в поиск"
       },
       "restartOnboarding": {
         "label": "Снова пройти мастер настройки с самого начала",
@@ -176,19 +176,19 @@
         "label": "Поиск в интернете включен по умолчанию"
       },
       "tavilyApi": {
-        "label": "Tavily API Key ",
-        "placeholder": "Enter your Tavily API key"
+        "label": "API‑ключ Tavily",
+        "placeholder": "Введите ваш API‑ключ Tavily"
       },
       "exa": {
-        "label": "Exa API Key",
-        "placeholder": "Enter your Exa API key"
+        "label": "API‑ключ Exa",
+        "placeholder": "Введите ваш API‑ключ Exa"
       },
       "googleDomain": {
-        "label": "Google Domain"
+        "label": "Домен Google"
       },
       "firecrawlAPIKey": {
-        "label": "Firecrawl API Key",
-        "placeholder": "Enter your Firecrawl API key"
+        "label": "API‑ключ Firecrawl",
+        "placeholder": "Введите ваш API‑ключ Firecrawl"
       }
     },
     "system": {
@@ -240,7 +240,7 @@
         "label": "Удалить тег рассуждения из TTS"
       },
       "responseSplitting": {
-        "label": "Response Splitting"
+        "label": "Разбиение ответа"
       }
     },
     "stt": {
@@ -252,117 +252,117 @@
       "autoSubmitVoiceMessage": {
         "label": "Автоматическая отправка голосового сообщения"
       },
-      "usedByChat": "These Speech-to-Text defaults are used by the chat dictation button in the Playground and Sidebar.",
+      "usedByChat": "Эти настройки Speech‑to‑Text по умолчанию используются кнопкой диктовки в Playground и боковой панели.",
       "model": {
-        "label": "Transcription model (tldw_server)"
+        "label": "Модель транскрибации (tldw_server)"
       },
       "useSegmentation": {
-        "label": "Run segmentation for transcripts (TreeSeg)"
+        "label": "Сегментировать транскрипты (TreeSeg)"
       },
       "timestampGranularities": {
-        "label": "Timestamp granularity",
-        "segment": "Per segment",
-        "word": "Per word",
-        "segmentWord": "Segment + word"
+        "label": "Гранулярность временных меток",
+        "segment": "По сегментам",
+        "word": "По словам",
+        "segmentWord": "Сегмент + слово"
       },
       "task": {
-        "label": "Transcription task",
-        "transcribe": "Transcribe (same language)",
-        "translate": "Translate to English"
+        "label": "Задача транскрибации",
+        "transcribe": "Транскрибировать (тот же язык)",
+        "translate": "Перевести на английский"
       },
       "responseFormat": {
-        "label": "Response format",
-        "json": "JSON (text + segments)",
-        "verboseJson": "Verbose JSON",
-        "text": "Plain text",
-        "srt": "SRT subtitles",
-        "vtt": "VTT subtitles"
+        "label": "Формат ответа",
+        "json": "JSON (текст + сегменты)",
+        "verboseJson": "Подробный JSON",
+        "text": "Обычный текст",
+        "srt": "Субтитры SRT",
+        "vtt": "Субтитры VTT"
       },
       "temperature": {
-        "label": "Sampling temperature"
+        "label": "Температура сэмплирования"
       },
       "prompt": {
-        "label": "Default transcription prompt",
-        "placeholder": "Optional text to guide style"
+        "label": "Промпт транскрибации по умолчанию",
+        "placeholder": "Необязательный текст для задания стиля"
       },
       "segK": {
-        "label": "Max segments (TreeSeg K)"
+        "label": "Макс. сегментов (TreeSeg K)"
       },
       "segMinSegmentSize": {
-        "label": "Minimum items per segment"
+        "label": "Минимум элементов на сегмент"
       },
       "segLambdaBalance": {
-        "label": "Balance penalty (TreeSeg λ)"
+        "label": "Штраф баланса (TreeSeg λ)"
       },
       "segUtteranceExpansionWidth": {
-        "label": "Utterance expansion width"
+        "label": "Ширина расширения высказывания"
       },
       "segEmbeddingsProvider": {
-        "label": "Segmentation embeddings provider"
+        "label": "Провайдер эмбеддингов для сегментации"
       },
       "segEmbeddingsModel": {
-        "label": "Segmentation embeddings model"
+        "label": "Модель эмбеддингов для сегментации"
       }
     },
     "systemBasics": {
-      "heading": "System",
+      "heading": "Система",
       "uiMode": {
-        "label": "Default UI Mode",
+        "label": "Режим интерфейса по умолчанию",
         "options": {
-          "webui": "Full Screen (Web UI)",
-          "sidePanel": "Sidebar"
+          "webui": "На весь экран (Web UI)",
+          "sidePanel": "Боковая панель"
         }
       },
       "actionIcon": {
-        "label": "Browser Action Button"
+        "label": "Кнопка расширения"
       },
       "contextMenu": {
-        "label": "Context Menu Action"
+        "label": "Действие контекстного меню"
       },
       "webuiBtnSidePanel": {
-        "label": "Show Web UI button in Sidebar"
+        "label": "Показывать кнопку Web UI в боковой панели"
       },
       "chatBackgroundImage": {
-        "label": "Chat Background Image"
+        "label": "Фоновое изображение чата"
       },
       "fontSize": {
-        "label": "Font Size"
+        "label": "Размер шрифта"
       }
     },
     "systemData": {
-      "heading": "Data",
+      "heading": "Данные",
       "firefoxPrivateModeSync": {
-        "label": "Firefox Private Mode Sync",
-        "button": "Sync Data"
+        "label": "Синхронизация в приватном режиме Firefox",
+        "button": "Синхронизировать данные"
       },
       "deleteChatHistory": {
-        "label": "System Reset",
-        "button": "Reset All",
-        "confirm": "Are you sure you want to perform a system reset? This will clear all data and cannot be undone."
+        "label": "Сброс системы",
+        "button": "Сбросить всё",
+        "confirm": "Вы уверены, что хотите выполнить сброс системы? Все данные будут удалены, и это нельзя отменить."
       },
       "export": {
-        "label": "Export Chat History, Knowledge Base, and Prompts",
-        "button": "Export Data",
-        "success": "Export Success"
+        "label": "Экспортировать историю чатов, базу знаний и промпты",
+        "button": "Экспортировать данные",
+        "success": "Экспорт выполнен"
       },
       "import": {
-        "label": "Import Chat History, Knowledge Base, and Prompts",
-        "button": "Import Data",
-        "success": "Import Success",
-        "error": "Import Error"
+        "label": "Импортировать историю чатов, базу знаний и промпты",
+        "button": "Импортировать данные",
+        "success": "Импорт выполнен",
+        "error": "Ошибка импорта"
       }
     },
     "empty": {
-      "connectTitle": "Connect tldw Assistant to your server",
-      "connectDescription": "Some settings only take effect when your tldw server is reachable. Connect your server to get the full experience.",
-      "connectExample1": "Open Settings → tldw server to add your server URL and API key.",
-      "connectExample2": "Use Diagnostics to confirm your server is healthy before trying advanced tools.",
-      "title": "Tune how tldw Assistant behaves",
-      "description": "Adjust defaults for the Web UI, sidepanel, speech, search, and data handling from one place.",
-      "example1": "Choose your default language, theme, and chat resume behavior.",
-      "example2": "Control whether chats are temporary, how large pastes are handled, and how reasoning is displayed.",
-      "primaryCta": "Configure server & auth",
-      "secondaryCta": "Dismiss"
+      "connectTitle": "Подключите tldw Assistant к вашему серверу",
+      "connectDescription": "Некоторые настройки применяются только при доступности tldw сервера. Подключите сервер, чтобы получить полный функционал.",
+      "connectExample1": "Откройте Settings → tldw server, чтобы добавить URL сервера и API‑ключ.",
+      "connectExample2": "Используйте диагностику, чтобы убедиться, что сервер исправен, прежде чем использовать расширенные инструменты.",
+      "title": "Настройте поведение tldw Assistant",
+      "description": "Настройте параметры по умолчанию для Web UI, боковой панели, речи, поиска и работы с данными в одном месте.",
+      "example1": "Выберите язык, тему и поведение возобновления чатов по умолчанию.",
+      "example2": "Управляйте тем, являются ли чаты временными, как обрабатываются большие вставки и как показывается рассуждение.",
+      "primaryCta": "Настроить сервер и авторизацию",
+      "secondaryCta": "Закрыть"
     }
   },
   "manageModels": {
@@ -405,15 +405,15 @@
       "successDescription": "Модель успешно получена",
       "successDeleteDescription": "Модель успешно удалена",
       "someError": "Что-то пошло не так. Пожалуйста, попробуйте позже",
-      "cancellingDownload": "Cancelling Download",
-      "cancellingDownloadDescription": "Model download is being cancelled..."
+      "cancellingDownload": "Отмена загрузки",
+      "cancellingDownloadDescription": "Загрузка модели отменяется..."
     }
   },
   "managePrompts": {
     "title": "Управление подсказками",
     "addBtn": "Добавить новую подсказку",
     "option1": "Обычная",
-    "option2": "RAG",
+    "option2": "RAG (по знаниям)",
     "questionPrompt": "Вопросная подсказка",
     "columns": {
       "title": "Название",
@@ -426,7 +426,7 @@
     "tooltip": {
       "delete": "Удалить подсказку",
       "edit": "Редактировать подсказку",
-      "duplicate": "Duplicate Prompt"
+      "duplicate": "Дублировать промпт"
     },
     "confirm": {
       "delete": "Вы уверены, что хотите удалить эту подсказку? Это действие нельзя отменить."
@@ -438,8 +438,8 @@
     "segmented": {
       "custom": "Пользовательские подсказки",
       "copilot": "Подсказки Copilot",
-      "helpCustom": "Create and manage reusable prompts you can insert into chat.",
-      "helpCopilot": "View and tweak predefined Copilot prompts provided by your server."
+      "helpCustom": "Создавайте и управляйте повторно используемыми промптами, которые можно вставлять в чат.",
+      "helpCopilot": "Просматривайте и настраивайте предустановленные промпты Copilot, предоставленные сервером."
     },
     "form": {
       "title": {
@@ -476,45 +476,45 @@
       "deletedSuccess": "Подсказка удалена",
       "deletedSuccessDesc": "Подсказка успешно удалена"
     },
-    "workspaceTitle": "Prompts workspace",
-    "workspaceDescription": "Reusable prompts are managed from the Prompts workspace. Use the button below to open it.",
-    "openWorkspace": "Open Prompts workspace",
-    "search": "Search titles and contents",
+    "workspaceTitle": "Рабочее пространство промптов",
+    "workspaceDescription": "Повторно используемые промпты управляются из рабочего пространства промптов. Используйте кнопку ниже, чтобы открыть его.",
+    "openWorkspace": "Открыть рабочее пространство промптов",
+    "search": "Искать по заголовкам и содержимому",
     "filter": {
-      "all": "All",
-      "system": "System",
-      "quick": "Quick"
+      "all": "Все",
+      "system": "Системные",
+      "quick": "Быстрые"
     },
     "tags": {
-      "label": "Tags",
-      "placeholder": "Add tags"
+      "label": "Теги",
+      "placeholder": "Добавить теги"
     },
-    "import": "Import",
-    "export": "Export",
+    "import": "Импорт",
+    "export": "Экспорт",
     "importMode": {
       "merge": "Объединить",
       "replace": "Заменить",
       "replaceConfirm": "Замена перезапишет все текущие подсказки импортируемым файлом. Продолжить?"
     },
-    "favorite": "Favorite",
-    "unfavorite": "Unfavorite",
-    "partialLoad": "Some prompt data isn’t available",
-    "loadErrorHelp": "Check your server connection and refresh to try again.",
-    "emptyConnectTitle": "Connect to use Prompts",
-    "emptyConnectDescription": "To manage reusable prompts, first connect to your tldw server.",
-    "emptyConnectExample1": "Open Settings → tldw server to add your server URL.",
-    "emptyConnectExample2": "Once connected, create custom prompts you can reuse across chats.",
-    "emptyTitle": "No custom prompts yet",
-    "emptyDescription": "Create reusable prompts for recurring tasks, workflows, and team conventions.",
-    "emptyExample1": "Save your favorite system prompt for summaries, explanations, or translations.",
-    "emptyExample2": "Create quick prompts for common actions like drafting emails or refining notes.",
-    "emptyPrimaryCta": "Create prompt",
-    "filterHelp": "Search matches title and prompt content. Use type and tags to narrow the list.",
-    "copilotEmptyTitle": "No Copilot prompts available",
-    "copilotEmptyDescription": "Copilot prompts are predefined templates provided by your tldw server.",
-    "copilotEmptyExample1": "Check your server version or configuration if you expect Copilot prompts to be available.",
-    "copilotEmptyExample2": "After updating your server, reload the extension and return to this tab.",
-    "copilotEmptyCta": "Open Diagnostics"
+    "favorite": "Избранное",
+    "unfavorite": "Убрать из избранного",
+    "partialLoad": "Часть данных промптов недоступна",
+    "loadErrorHelp": "Проверьте подключение к серверу и обновите страницу, чтобы попробовать снова.",
+    "emptyConnectTitle": "Подключитесь для использования промптов",
+    "emptyConnectDescription": "Чтобы управлять повторно используемыми промптами, сначала подключитесь к вашему tldw серверу.",
+    "emptyConnectExample1": "Откройте Settings → tldw server, чтобы добавить URL сервера.",
+    "emptyConnectExample2": "После подключения создайте свои промпты, которые можно использовать в разных чатах.",
+    "emptyTitle": "Пока нет пользовательских промптов",
+    "emptyDescription": "Создавайте повторно используемые промпты для типовых задач, процессов и командных соглашений.",
+    "emptyExample1": "Сохраните любимый системный промпт для суммаризации, объяснений или переводов.",
+    "emptyExample2": "Создайте быстрые промпты для частых действий, например написания писем или улучшения заметок.",
+    "emptyPrimaryCta": "Создать промпт",
+    "filterHelp": "Поиск совпадает с заголовком и содержимым промпта. Используйте тип и теги для сужения списка.",
+    "copilotEmptyTitle": "Промпты Copilot недоступны",
+    "copilotEmptyDescription": "Промпты Copilot — это заранее заданные шаблоны, предоставляемые вашим tldw сервером.",
+    "copilotEmptyExample1": "Проверьте версию или конфигурацию сервера, если ожидаете наличие промптов Copilot.",
+    "copilotEmptyExample2": "После обновления сервера перезагрузите расширение и вернитесь на эту вкладку.",
+    "copilotEmptyCta": "Открыть диагностику"
   },
   "manageShare": {
     "title": "Управление обменом",
@@ -531,7 +531,7 @@
       "heading": "Веб-обмен",
       "columns": {
         "title": "Название",
-        "url": "URL",
+        "url": "URL-адрес",
         "actions": "Действия"
       },
       "tooltip": {
@@ -603,35 +603,35 @@
     "githubSponsor": "Стать спонсором на GitHub",
     "githubRepo": "Репозиторий GitHub"
   },
-  "switchToSidebar": "Switch to Sidebar",
+  "switchToSidebar": "Переключиться на боковую панель",
   "healthPage": {
-    "title": "Health Status",
+    "title": "Состояние",
     "subtitle": "Quick overview of subsystem health endpoints exposed by the server.",
-    "backToChat": "Back to chat",
-    "openSettings": "Open tldw Settings",
-    "recheckAll": "Recheck All",
-    "copyDiagnostics": "Copy diagnostics",
-    "serverNotConfigured": "Server is not configured.",
-    "unableToReachCore": "Unable to reach server core health endpoint.",
-    "triedGet": "Tried GET {{url}}",
-    "configureHint": "Please configure a server URL under tldw settings.",
-    "configureCta": "Configure",
-    "connectedTo": "Connected to {{host}}",
-    "autoRefresh": "Auto-refresh",
-    "intervalLabel": "Interval (s):",
-    "checking": "Checking…",
-    "recheck": "Recheck",
-    "healthy": "Healthy",
-    "unhealthy": "Unhealthy",
-    "unknown": "Unknown",
+    "backToChat": "Вернуться в чат",
+    "openSettings": "Открыть настройки tldw",
+    "recheckAll": "Проверить всё",
+    "copyDiagnostics": "Скопировать диагностику",
+    "serverNotConfigured": "Сервер не настроен.",
+    "unableToReachCore": "Не удалось достичь эндпоинта состояния ядра сервера.",
+    "triedGet": "Пытались GET {{url}}",
+    "configureHint": "Пожалуйста, укажите URL сервера в настройках tldw.",
+    "configureCta": "Настроить",
+    "connectedTo": "Подключено к {{host}}",
+    "autoRefresh": "Автообновление",
+    "intervalLabel": "Интервал (с):",
+    "checking": "Проверка…",
+    "recheck": "Проверить снова",
+    "healthy": "В норме",
+    "unhealthy": "Нездоров",
+    "unknown": "Неизвестно",
     "checks": {
-      "core": "Core API",
-      "rag": "RAG",
-      "audio": "Audio",
-      "embeddings": "Embeddings",
-      "metrics": "Metrics Health",
-      "chatMetrics": "Chat Metrics",
-      "mcp": "MCP",
+      "core": "Основной API",
+      "rag": "RAG (знания)",
+      "audio": "Аудио",
+      "embeddings": "Эмбеддинги",
+      "metrics": "Состояние метрик",
+      "chatMetrics": "Метрики чата",
+      "mcp": "Протокол MCP",
       "coreDocsUrl": "https://github.com/rmusser01/tldw_browser_assistant",
       "ragDocsUrl": "https://github.com/rmusser01/tldw_browser_assistant",
       "audioDocsUrl": "https://github.com/rmusser01/tldw_browser_assistant",
@@ -641,15 +641,15 @@
       "mcpDocsUrl": "https://github.com/rmusser01/tldw_browser_assistant"
     },
     "copyDiagnosticsHelp": "Copies JSON diagnostics to clipboard",
-    "statusHealthy": "Healthy",
-    "statusUnhealthy": "Unhealthy",
-    "statusUnknown": "Unknown",
-    "updatedJustNow": "Updated just now",
-    "updatedSecondsAgo": "Updated {{seconds}}s ago"
+    "statusHealthy": "В норме",
+    "statusUnhealthy": "Проблемы",
+    "statusUnknown": "Неизвестно",
+    "updatedJustNow": "Обновлено только что",
+    "updatedSecondsAgo": "Обновлено {{seconds}}с назад"
   },
-  "savedSuccessfully": "Settings saved",
-  "saveFailed": "Failed to save settings",
-  "siteAccessGranted": "Host permission granted for {{origin}}",
+  "savedSuccessfully": "Настройки сохранены",
+  "saveFailed": "Не удалось сохранить настройки",
+  "siteAccessGranted": "Разрешение на доступ к сайту предоставлено для {{origin}}",
   "tldw": {
     "advancedTimeouts": "Расширенные тайм-ауты",
     "requestTimeout": "Тайм-аут запроса (секунды)",
@@ -754,14 +754,14 @@
     }
   },
   "manageKnowledge": {
-    "title": "Knowledge QA",
-    "heading": "Knowledge QA",
-    "worldBooksSettingsTitle": "World Books workspace",
-    "worldBooksSettingsDescription": "World Books are managed from the World Books workspace. Use the button below to open it.",
-    "worldBooksOpenWorkspace": "Open World Books workspace",
-    "dictionariesSettingsTitle": "Chat dictionaries workspace",
-    "dictionariesSettingsDescription": "Chat dictionaries are managed from the Chat dictionaries workspace. Use the button below to open it.",
-    "dictionariesOpenWorkspace": "Open Chat dictionaries workspace"
+    "title": "QA знаний",
+    "heading": "QA знаний",
+    "worldBooksSettingsTitle": "Рабочее пространство «Книги мира»",
+    "worldBooksSettingsDescription": "Книги мира управляются в соответствующем рабочем пространстве. Используйте кнопку ниже, чтобы открыть его.",
+    "worldBooksOpenWorkspace": "Открыть рабочее пространство «Книги мира»",
+    "dictionariesSettingsTitle": "Рабочее пространство словарей чата",
+    "dictionariesSettingsDescription": "Словари чата управляются из рабочего пространства словарей чата. Используйте кнопку ниже, чтобы открыть его.",
+    "dictionariesOpenWorkspace": "Открыть рабочее пространство словарей чата"
   },
   "rag": {
     "title": "Настройки RAG",
@@ -772,8 +772,8 @@
         "required": "Пожалуйста, выберите модель",
         "help": "Настоятельно рекомендуется использовать модели вложения, например, `nomic-embed-text`.",
         "placeholder": "Выберите модель",
-        "helpRecommended": "Recommended: {{model}} (from server config)",
-        "helpMissing": "Previously saved embedding model is no longer available on the server. Please choose another model."
+        "helpRecommended": "Рекомендуется: {{model}} (из конфигурации сервера)",
+        "helpMissing": "Ранее сохранённая модель эмбеддингов больше недоступна на сервере. Пожалуйста, выберите другую модель."
       },
       "chunkSize": {
         "label": "Размер фрагмента",
@@ -831,53 +831,53 @@
       "help": "Пример: http://127.0.0.1:8000",
       "invalid": "Введите полный URL, например http://127.0.0.1:8000.",
       "invalidProtocol": "Используйте URL вида http или https, например http://127.0.0.1:8000.",
-      "label": "Server URL",
-      "emptyHint": "Enter your tldw server URL to enable Next.",
-      "ready": "We’ll enable Next once we can reach this address.",
-      "checking": "Checking reachability…",
-      "reachable": "Server responded successfully. You can continue.",
-      "unreachable": "We couldn’t reach this address yet. Double-check the URL or try again."
+      "label": "URL сервера",
+      "emptyHint": "Введите URL tldw сервера, чтобы включить «Далее».",
+      "ready": "Мы включим «Далее», когда сможем достичь этого адреса.",
+      "checking": "Проверяем доступность…",
+      "reachable": "Сервер ответил успешно. Можно продолжать.",
+      "unreachable": "Пока не удалось достичь этого адреса. Проверьте URL или попробуйте снова."
     },
     "buttons": {
-      "next": "Next",
-      "back": "Back",
-      "continue": "Continue",
-      "recheck": "Recheck",
-      "finish": "Finish",
-      "finishAnyway": "Finish without connecting",
-      "skip": "Skip for now"
+      "next": "Далее",
+      "back": "Назад",
+      "continue": "Продолжить",
+      "recheck": "Проверить снова",
+      "finish": "Завершить",
+      "finishAnyway": "Завершить без подключения",
+      "skip": "Пропустить"
     },
     "authMode": {
-      "label": "Authentication Mode",
-      "single": "Single User (API Key)",
-      "multi": "Multi User (Login)"
+      "label": "Режим авторизации",
+      "single": "Одиночный (API‑ключ)",
+      "multi": "Многопользовательский (вход)"
     },
     "apiKey": {
-      "label": "API Key",
-      "placeholder": "Enter your API key (or use the default demo key THIS-IS-A-SECURE-KEY-123-REPLACE-ME for local single-user setups)"
+      "label": "API‑ключ",
+      "placeholder": "Введите API‑ключ (или используйте демо‑ключ THIS-IS-A-SECURE-KEY-123-REPLACE-ME для локальных одиночных установок)"
     },
     "username": {
-      "label": "Username",
-      "placeholder": "Username"
+      "label": "Имя пользователя",
+      "placeholder": "Имя пользователя"
     },
     "password": {
-      "label": "Password",
-      "placeholder": "Password"
+      "label": "Пароль",
+      "placeholder": "Пароль"
     },
     "connection": {
-      "label": "Connection:",
-      "unknown": "Unknown",
-      "connected": "Connected",
-      "failed": "Failed",
+      "label": "Подключение:",
+      "unknown": "Неизвестно",
+      "connected": "Подключено",
+      "failed": "Ошибка",
       "continueAnyway": "You can continue and complete setup now. You’ll be able to verify the connection later from Settings."
     },
     "rag": {
       "label": "RAG:",
-      "healthy": "Healthy",
-      "unhealthy": "Unhealthy",
-      "unknown": "Unknown"
+      "healthy": "В норме",
+      "unhealthy": "Проблемы",
+      "unknown": "Неизвестно"
     },
-    "connectionFailed": "Connection failed",
+    "connectionFailed": "Подключение не удалось",
     "footerHelp": "После подключения вы можете в любое время вернуться к этим настройкам через меню расширения.",
     "progressAria": "Ход первоначальной настройки",
     "stepLabel": {
@@ -939,13 +939,13 @@
       "name": "Имя",
       "description": "Описание",
       "actions": "Действия",
-      "avatar": "Avatar"
+      "avatar": "Аватар"
     },
     "actions": {
       "chat": "Чат",
       "edit": "Редактировать",
       "delete": "Удалить",
-      "viewConversations": "View conversations"
+      "viewConversations": "Просмотр диалогов"
     },
     "tags": {
       "label": "Теги",
@@ -960,8 +960,8 @@
       "chatWith": "Чат от имени {{name}}",
       "edit": "Редактировать персонажа {{name}}",
       "delete": "Удалить персонажа {{name}}",
-      "viewConversations": "View conversations for {{name}}",
-      "searchResults": "{{count}} characters found"
+      "viewConversations": "Просмотреть диалоги для {{name}}",
+      "searchResults": "Найдено персонажей: {{count}}"
     },
     "confirm": {
       "delete": "Вы уверены, что хотите удалить этого персонажа? Действие необратимо."
@@ -1013,33 +1013,33 @@
     "emptyExample1": "Определите наставника по письму, эксперта по лору или помощника по коду для повторного использования.",
     "emptyExample2": "Дайте каждому персонажу четкое описание и поведение для стабильных ответов.",
     "emptyPrimaryCta": "Создать персонажа",
-    "avatarAltWithName": "Avatar of {{name}}",
-    "avatarAlt": "User avatar",
+    "avatarAltWithName": "Аватар {{name}}",
+    "avatarAlt": "Аватар пользователя",
     "conversations": {
-      "title": "Conversations for {{name}}",
-      "titleGeneric": "Character conversations",
-      "subtitle": "Select a conversation to continue as this character.",
-      "empty": "No conversations found for this character yet.",
-      "error": "Unable to load conversations for this character.",
-      "updated": "Updated {{time}}",
-      "unknownTime": "Unknown",
-      "resume": "Continue chat",
-      "untitled": "Untitled",
-      "mostRecent": "Most recent",
-      "resumeTooltip": "Load chat history and continue this conversation"
+      "title": "Диалоги для {{name}}",
+      "titleGeneric": "Диалоги персонажа",
+      "subtitle": "Выберите диалог, чтобы продолжить от лица этого персонажа.",
+      "empty": "Пока нет диалогов для этого персонажа.",
+      "error": "Не удалось загрузить диалоги для этого персонажа.",
+      "updated": "Обновлено {{time}}",
+      "unknownTime": "Неизвестно",
+      "resume": "Продолжить чат",
+      "untitled": "Без названия",
+      "mostRecent": "Самый недавний",
+      "resumeTooltip": "Загрузить историю чата и продолжить этот диалог"
     },
     "preview": {
-      "title": "Preview",
-      "show": "Show preview",
-      "hide": "Hide preview",
-      "untitled": "Untitled character",
-      "greeting": "Greeting",
-      "behavior": "Behavior",
-      "empty": "Fill in the form to see a preview"
+      "title": "Предпросмотр",
+      "show": "Показать предпросмотр",
+      "hide": "Скрыть предпросмотр",
+      "untitled": "Персонаж без названия",
+      "greeting": "Приветствие",
+      "behavior": "Поведение",
+      "empty": "Заполните форму, чтобы увидеть предпросмотр"
     },
     "advanced": {
-      "show": "Show advanced fields",
-      "hide": "Hide advanced fields"
+      "show": "Показать расширенные поля",
+      "hide": "Скрыть расширенные поля"
     }
   },
   "systemNotifications": {
@@ -1059,269 +1059,269 @@
   "models": {
     "privateModeDescription": "Режим приватного просмотра Firefox не поддерживает сохранение в IndexedDB. Добавьте пользовательскую модель в обычном окне."
   },
-  "evaluationsSettingsNav": "Evaluations",
-  "promptStudioNav": "Prompt Studio",
+  "evaluationsSettingsNav": "Оценки",
+  "promptStudioNav": "Студия промптов",
   "promptStudio": {
-    "nav": "Prompt Studio",
-    "title": "Prompt Studio",
-    "subtitle": "Configure defaults and monitor Prompt Studio health. Connection and auth reuse the main server settings.",
-    "probeError": "Unable to reach Prompt Studio",
-    "statusCard": "Status",
-    "statusHint": "Button calls /prompt-studio/status with warn_seconds.",
-    "statusError": "Status endpoint unavailable",
-    "warnSeconds": "Warn seconds",
-    "testButton": "Test Prompt Studio",
-    "defaultsCard": "Defaults",
-    "defaultsHint": "Store default project, model configs, and list page size.",
-    "defaultsPlaceholder": "Persist defaults using existing settings storage (TBD) for initial project selection, execute/evaluation model presets, and pagination.",
-    "defaultProject": "Default project ID",
-    "pageSize": "Page size",
-    "executeDefaults": "Execute defaults",
-    "executeProvider": "Provider",
-    "executeModel": "Model",
-    "executeTemperature": "Temperature",
-    "executeMaxTokens": "Max tokens",
-    "evalDefaults": "Evaluation defaults",
-    "evalModel": "Model",
-    "evalTemperature": "Temperature",
-    "evalMaxTokens": "Max tokens",
-    "unavailable": "Prompt Studio isn’t available on the server yet.",
-    "unavailableBody": "Once enabled, you can monitor queue health and set defaults here."
+    "nav": "Студия промптов",
+    "title": "Студия промптов",
+    "subtitle": "Настройте значения по умолчанию и следите за состоянием Prompt Studio. Подключение и авторизация используют основные настройки сервера.",
+    "probeError": "Не удалось подключиться к Prompt Studio",
+    "statusCard": "Статус",
+    "statusHint": "Кнопка вызывает /prompt-studio/status с warn_seconds.",
+    "statusError": "Эндпоинт статуса недоступен",
+    "warnSeconds": "Секунды предупреждения",
+    "testButton": "Проверить Prompt Studio",
+    "defaultsCard": "Значения по умолчанию",
+    "defaultsHint": "Сохраняйте проект по умолчанию, конфигурации моделей и размер страницы.",
+    "defaultsPlaceholder": "Сохранение значений по умолчанию через текущее хранилище настроек (будет позже) для выбора начального проекта, пресетов моделей execute/evaluation и пагинации.",
+    "defaultProject": "ID проекта по умолчанию",
+    "pageSize": "Размер страницы",
+    "executeDefaults": "Параметры execute по умолчанию",
+    "executeProvider": "Провайдер",
+    "executeModel": "Модель",
+    "executeTemperature": "Температура",
+    "executeMaxTokens": "Макс. токены",
+    "evalDefaults": "Параметры оценки по умолчанию",
+    "evalModel": "Модель",
+    "evalTemperature": "Температура",
+    "evalMaxTokens": "Макс. токены",
+    "unavailable": "Prompt Studio пока недоступен на сервере.",
+    "unavailableBody": "После включения здесь можно будет следить за состоянием очереди и задавать значения по умолчанию."
   },
-  "charactersSettingsTitle": "Characters workspace",
-  "charactersSettingsDescription": "Characters are managed from the Characters workspace. Use the button below to open it.",
-  "charactersOpenWorkspace": "Open Characters workspace",
-  "mermaid": "Mermaid",
+  "charactersSettingsTitle": "Рабочее пространство персонажей",
+  "charactersSettingsDescription": "Персонажи управляются из рабочего пространства персонажей. Используйте кнопку ниже, чтобы открыть его.",
+  "charactersOpenWorkspace": "Открыть рабочее пространство персонажей",
+  "mermaid": "Диаграммы Mermaid",
   "healthSummary": {
     "diagnostics": "Diagnostics",
-    "diagnosticsTooltip": "Open detailed diagnostics to troubleshoot or inspect health checks.",
-    "core": "Server",
-    "rag": "Knowledge",
-    "coreAria": "Server: server/API health",
-    "ragAria": "Knowledge: knowledge index health",
-    "coreOnline": "Server: Online",
-    "coreOffline": "Server: Offline",
-    "coreChecking": "Server: Checking…",
-    "ragReady": "Knowledge: Ready",
-    "ragOffline": "Knowledge: Offline",
-    "ragChecking": "Knowledge: Checking…",
-    "footerInfo": "These checks summarize the last successful ping to your tldw server and knowledge index."
+    "diagnosticsTooltip": "Откройте подробную диагностику, чтобы устранить неполадки или проверить состояние.",
+    "core": "Сервер",
+    "rag": "Знания",
+    "coreAria": "Сервер: состояние сервера/API",
+    "ragAria": "Знания: состояние индекса знаний",
+    "coreOnline": "Сервер: в сети",
+    "coreOffline": "Сервер: недоступен",
+    "coreChecking": "Сервер: проверка…",
+    "ragReady": "Знания: готовы",
+    "ragOffline": "Знания: недоступны",
+    "ragChecking": "Знания: проверка…",
+    "footerInfo": "Эти проверки отражают последнюю успешную проверку доступности tldw сервера и индекса знаний."
   },
   "storage": {
-    "quotaFriendlyMessage": "Too many settings writes in a short period; please wait a few seconds and try again.",
-    "quotaTitle": "Storage limit reached",
-    "writeError": "Could not save settings",
-    "writeErrorDescription": "We couldn't save your settings. Please try again shortly."
+    "quotaFriendlyMessage": "Слишком много записей настроек за короткое время; подождите несколько секунд и попробуйте снова.",
+    "quotaTitle": "Достигнут лимит хранилища",
+    "writeError": "Не удалось сохранить настройки",
+    "writeErrorDescription": "Мы не смогли сохранить ваши настройки. Пожалуйста, попробуйте снова через некоторое время."
   },
   "evaluations": {
-    "title": "Evaluations playground",
-    "subtitle": "Define evaluations against your tldw server and inspect recent runs.",
-    "listTitle": "Recent evaluations",
-    "newEvaluationCta": "New evaluation",
-    "startRunCta": "Start run",
-    "loadErrorTitle": "Unable to load evaluations",
-    "loadErrorDescription": "Check your tldw server connection and API credentials, then try again.",
-    "emptyList": "No evaluations yet. Once you create one, it will appear here.",
-    "selectedTag": "Selected",
-    "rateLimitsTitle": "Evaluation limits",
-    "rateLimitsErrorTitle": "Unable to fetch rate limits",
-    "rateLimitsErrorDescription": "We could not retrieve evaluation quotas from the server.",
-    "rateLimitsNoData": "Rate limit information is not available for this server.",
-    "tierLabel": "Tier",
-    "dailyLimitLabel": "Daily evaluations",
-    "tokensTodayLabel": "Tokens today",
-    "perMinuteLabel": "Per-minute limit",
-    "resetAtLabel": "Resets at",
-    "runsTitle": "Runs",
-    "noEvalSelectedRuns": "Select an evaluation to see its recent runs.",
-    "runsErrorTitle": "Unable to load runs",
-    "runsEmpty": "No runs yet for this evaluation.",
-    "runDetailTitle": "Run details",
-    "noRunSelected": "Select a run to see details.",
-    "runDetailErrorTitle": "Unable to load run details",
-    "runStatusLabel": "Status",
-    "runModelLabelShort": "Target model",
-    "runEvalIdLabel": "Evaluation",
-    "runErrorLabel": "Error",
-    "runResultsLabel": "Results (snippet)",
-    "runProgressLabel": "Progress",
-    "runUsageLabel": "Usage",
-    "datasetsTitle": "Datasets",
-    "newDatasetCta": "New dataset",
-    "datasetsErrorTitle": "Unable to load datasets",
-    "datasetsEmpty": "No datasets yet. Create one to attach to evaluations.",
-    "datasetSampleCount": "{{count}} samples",
-    "datasetNameLabel": "Name",
+    "title": "Песочница оценок",
+    "subtitle": "Определяйте оценки для вашего tldw сервера и просматривайте недавние запуски.",
+    "listTitle": "Недавние оценки",
+    "newEvaluationCta": "Новая оценка",
+    "startRunCta": "Запустить",
+    "loadErrorTitle": "Не удалось загрузить оценки",
+    "loadErrorDescription": "Проверьте подключение к tldw серверу и учетные данные API, затем попробуйте снова.",
+    "emptyList": "Пока нет оценок. Как только вы создадите одну, она появится здесь.",
+    "selectedTag": "Выбрано",
+    "rateLimitsTitle": "Лимиты оценок",
+    "rateLimitsErrorTitle": "Не удалось получить лимиты",
+    "rateLimitsErrorDescription": "Не удалось получить квоты оценок с сервера.",
+    "rateLimitsNoData": "Информация о лимитах недоступна для этого сервера.",
+    "tierLabel": "Тариф",
+    "dailyLimitLabel": "Оценок в день",
+    "tokensTodayLabel": "Токены сегодня",
+    "perMinuteLabel": "Лимит в минуту",
+    "resetAtLabel": "Сброс в",
+    "runsTitle": "Запуски",
+    "noEvalSelectedRuns": "Выберите оценку, чтобы увидеть её недавние запуски.",
+    "runsErrorTitle": "Не удалось загрузить запуски",
+    "runsEmpty": "Для этой оценки запусков пока нет.",
+    "runDetailTitle": "Детали запуска",
+    "noRunSelected": "Выберите запуск, чтобы увидеть детали.",
+    "runDetailErrorTitle": "Не удалось загрузить детали запуска",
+    "runStatusLabel": "Статус",
+    "runModelLabelShort": "Целевая модель",
+    "runEvalIdLabel": "Оценка",
+    "runErrorLabel": "Ошибка",
+    "runResultsLabel": "Результаты (фрагмент)",
+    "runProgressLabel": "Прогресс",
+    "runUsageLabel": "Использование",
+    "datasetsTitle": "Датасеты",
+    "newDatasetCta": "Новый датасет",
+    "datasetsErrorTitle": "Не удалось загрузить датасеты",
+    "datasetsEmpty": "Пока нет датасетов. Создайте его, чтобы привязать к оценкам.",
+    "datasetSampleCount": "{{count}} образцов",
+    "datasetNameLabel": "Название",
     "datasetNamePlaceholder": "my_dataset",
-    "datasetDescriptionLabel": "Description",
-    "datasetMetadataLabel": "Metadata (JSON, optional)",
-    "sampleInputLabel": "Sample input",
-    "sampleExpectedLabel": "Expected output (optional)",
-    "samplesJsonLabel": "Samples JSON (optional, overrides fields)",
-    "datasetLabel": "Dataset (optional)",
-    "datasetPlaceholder": "Select dataset",
-    "datasetCreateSuccessTitle": "Dataset created",
-    "datasetCreateSuccessDescription": "Your dataset is ready to use in evaluations.",
-    "datasetCreateErrorTitle": "Failed to create dataset",
-    "datasetCreateErrorDescription": "The server rejected this dataset. Check the fields and try again.",
-    "datasetDeleteSuccessTitle": "Dataset deleted",
-    "datasetDeleteErrorTitle": "Failed to delete dataset",
-    "datasetLoadErrorTitle": "Failed to load dataset",
-    "datasetDetailTitle": "Dataset details",
-    "datasetParseErrorTitle": "Invalid samples JSON",
-    "createEvalModalTitle": "New evaluation",
-    "editEvalModalTitle": "Edit evaluation",
-    "evalNameLabel": "Name",
+    "datasetDescriptionLabel": "Описание",
+    "datasetMetadataLabel": "Метаданные (JSON, необязательно)",
+    "sampleInputLabel": "Входной пример",
+    "sampleExpectedLabel": "Ожидаемый вывод (необязательно)",
+    "samplesJsonLabel": "JSON образцов (необязательно, переопределяет поля)",
+    "datasetLabel": "Датасет (необязательно)",
+    "datasetPlaceholder": "Выберите датасет",
+    "datasetCreateSuccessTitle": "Датасет создан",
+    "datasetCreateSuccessDescription": "Ваш датасет готов для использования в оценках.",
+    "datasetCreateErrorTitle": "Не удалось создать датасет",
+    "datasetCreateErrorDescription": "Сервер отклонил этот датасет. Проверьте поля и попробуйте снова.",
+    "datasetDeleteSuccessTitle": "Датасет удалён",
+    "datasetDeleteErrorTitle": "Не удалось удалить датасет",
+    "datasetLoadErrorTitle": "Не удалось загрузить датасет",
+    "datasetDetailTitle": "Детали датасета",
+    "datasetParseErrorTitle": "Неверный JSON образцов",
+    "createEvalModalTitle": "Новая оценка",
+    "editEvalModalTitle": "Редактировать оценку",
+    "evalNameLabel": "Название",
     "evalNamePlaceholder": "my_eval_run",
-    "evalNameValidation": "Use only letters, numbers, hyphens, and underscores.",
-    "evalTypeLabel": "Evaluation type",
-    "evalSpecLabel": "Evaluation spec (JSON)",
-    "evalSpecParseError": "Evaluation spec must be valid JSON.",
-    "evalMetadataLabel": "Metadata (JSON, optional)",
-    "inlineDatasetCheckbox": "Attach inline dataset instead of referencing dataset_id",
-    "inlineDatasetErrorTitle": "Invalid inline dataset",
-    "runModelLabel": "Run model (used for quick runs)",
-    "createSuccessTitle": "Evaluation created",
-    "createErrorTitle": "Failed to create evaluation",
-    "createErrorDescription": "The server rejected this evaluation. Ensure name, type, and spec are valid.",
-    "updateSuccessTitle": "Evaluation updated",
-    "updateErrorTitle": "Failed to update evaluation",
-    "deleteErrorTitle": "Failed to delete evaluation",
-    "deleteConfirmTitle": "Delete this evaluation?",
-    "deleteConfirmDescription": "This will remove the evaluation definition. Runs already created remain in history.",
-    "detailTitle": "Evaluation details",
-    "detailErrorTitle": "Unable to load evaluation details",
-    "descriptionLabel": "Description",
-    "noEvalSelectedDetails": "Select an evaluation to inspect its spec.",
-    "runCreateSuccessTitle": "Run started",
-    "runCreateSuccessDescription": "Your evaluation run has started. You can monitor it from the server UI.",
-    "runCreateErrorTitle": "Failed to start run",
-    "runCreateErrorDescription": "The server rejected this run request. Check the model and try again.",
-    "runConfigLabel": "Config (JSON)",
-    "datasetOverrideLabel": "Dataset override (JSON array of samples)",
-    "runConfigParseError": "Invalid config JSON",
-    "runCancelSuccessTitle": "Run cancellation requested",
-    "runCancelErrorTitle": "Failed to cancel run",
-    "cancelRunCta": "Cancel run",
-    "historyTitle": "History",
-    "historyTypeLabel": "Type",
-    "historyUserLabel": "User ID",
-    "historyStartLabel": "Start date (ISO)",
-    "historyEndLabel": "End date (ISO)",
-    "historyFetchCta": "Fetch history",
-    "historyEmpty": "Run a query to see recent activity.",
-    "historyErrorTitle": "Failed to fetch history",
-    "webhooksTitle": "Webhooks",
-    "webhookUrlLabel": "URL",
-    "webhookEventsLabel": "Events",
-    "webhookCreateCta": "Register webhook",
-    "webhookCreateSuccessTitle": "Webhook registered",
-    "webhookCreateErrorTitle": "Failed to register webhook",
-    "webhookDeleteErrorTitle": "Failed to delete webhook",
-    "webhookListErrorTitle": "Unable to load webhooks",
-    "webhooksEmpty": "No webhooks registered yet.",
-    "webhookSecretTitle": "Secret",
-    "idempotencyKeyLabel": "Idempotency key",
-    "emptyConnectTitle": "Connect to use Evaluations",
-    "emptyConnectDescription": "To create and run evaluations, first connect to your tldw server.",
-    "emptyConnectExample1": "Open Settings → tldw server to add your server URL and API key.",
-    "emptyConnectExample2": "Once connected, you can define evaluations and inspect metrics here.",
-    "datasetSamplesLabel": "Samples",
-    "datasetSamplesEmpty": "No samples returned for this page.",
-    "metricsLabel": "Metrics"
+    "evalNameValidation": "Используйте только буквы, цифры, дефисы и подчёркивания.",
+    "evalTypeLabel": "Тип оценки",
+    "evalSpecLabel": "Спецификация оценки (JSON)",
+    "evalSpecParseError": "Спецификация оценки должна быть корректным JSON.",
+    "evalMetadataLabel": "Метаданные (JSON, необязательно)",
+    "inlineDatasetCheckbox": "Прикрепить встроенный датасет вместо ссылки на dataset_id",
+    "inlineDatasetErrorTitle": "Некорректный встроенный датасет",
+    "runModelLabel": "Модель запуска (для быстрых запусков)",
+    "createSuccessTitle": "Оценка создана",
+    "createErrorTitle": "Не удалось создать оценку",
+    "createErrorDescription": "Сервер отклонил эту оценку. Убедитесь, что имя, тип и спецификация корректны.",
+    "updateSuccessTitle": "Оценка обновлена",
+    "updateErrorTitle": "Не удалось обновить оценку",
+    "deleteErrorTitle": "Не удалось удалить оценку",
+    "deleteConfirmTitle": "Удалить эту оценку?",
+    "deleteConfirmDescription": "Это удалит определение оценки. Уже созданные запуски останутся в истории.",
+    "detailTitle": "Детали оценки",
+    "detailErrorTitle": "Не удалось загрузить детали оценки",
+    "descriptionLabel": "Описание",
+    "noEvalSelectedDetails": "Выберите оценку, чтобы просмотреть её спецификацию.",
+    "runCreateSuccessTitle": "Запуск начат",
+    "runCreateSuccessDescription": "Запуск оценки начат. Вы можете следить за ним в интерфейсе сервера.",
+    "runCreateErrorTitle": "Не удалось начать запуск",
+    "runCreateErrorDescription": "Сервер отклонил запрос запуска. Проверьте модель и попробуйте снова.",
+    "runConfigLabel": "Конфигурация (JSON)",
+    "datasetOverrideLabel": "Переопределение датасета (JSON‑массив образцов)",
+    "runConfigParseError": "Некорректный JSON конфигурации",
+    "runCancelSuccessTitle": "Запрошена отмена запуска",
+    "runCancelErrorTitle": "Не удалось отменить запуск",
+    "cancelRunCta": "Отменить запуск",
+    "historyTitle": "История",
+    "historyTypeLabel": "Тип",
+    "historyUserLabel": "ID пользователя",
+    "historyStartLabel": "Дата начала (ISO)",
+    "historyEndLabel": "Дата окончания (ISO)",
+    "historyFetchCta": "Получить историю",
+    "historyEmpty": "Выполните запрос, чтобы увидеть недавнюю активность.",
+    "historyErrorTitle": "Не удалось получить историю",
+    "webhooksTitle": "Вебхуки",
+    "webhookUrlLabel": "URL-адрес",
+    "webhookEventsLabel": "События",
+    "webhookCreateCta": "Зарегистрировать вебхук",
+    "webhookCreateSuccessTitle": "Вебхук зарегистрирован",
+    "webhookCreateErrorTitle": "Не удалось зарегистрировать вебхук",
+    "webhookDeleteErrorTitle": "Не удалось удалить вебхук",
+    "webhookListErrorTitle": "Не удалось загрузить вебхуки",
+    "webhooksEmpty": "Пока нет зарегистрированных вебхуков.",
+    "webhookSecretTitle": "Секрет",
+    "idempotencyKeyLabel": "Ключ идемпотентности",
+    "emptyConnectTitle": "Подключитесь для использования оценок",
+    "emptyConnectDescription": "Чтобы создавать и запускать оценки, сначала подключитесь к вашему tldw серверу.",
+    "emptyConnectExample1": "Откройте Settings → tldw server, чтобы добавить URL сервера и API‑ключ.",
+    "emptyConnectExample2": "После подключения вы сможете определять оценки и просматривать метрики здесь.",
+    "datasetSamplesLabel": "Образцы",
+    "datasetSamplesEmpty": "Для этой страницы образцы не возвращены.",
+    "metricsLabel": "Метрики"
   },
   "evaluationsSettings": {
-    "title": "Evaluations",
-    "subtitle": "Configure defaults used by the Evaluations playground.",
-    "offline": "Connect to your tldw server to test Evaluations.",
-    "defaultType": "Default evaluation type",
-    "defaultModel": "Default target model",
-    "defaultRunConfig": "Default run config (JSON)",
-    "defaultDataset": "Default dataset id (optional)",
-    "specForType": "Spec preset for selected type",
-    "testCta": "Test Evaluations API",
-    "testOk": "Evaluations API reachable",
-    "testFail": "Unable to reach Evaluations API"
+    "title": "Оценки",
+    "subtitle": "Настройте значения по умолчанию для песочницы оценок.",
+    "offline": "Подключитесь к tldw серверу, чтобы протестировать оценки.",
+    "defaultType": "Тип оценки по умолчанию",
+    "defaultModel": "Целевая модель по умолчанию",
+    "defaultRunConfig": "Конфигурация запуска по умолчанию (JSON)",
+    "defaultDataset": "ID датасета по умолчанию (необязательно)",
+    "specForType": "Шаблон спецификации для выбранного типа",
+    "testCta": "Проверить API оценок",
+    "testOk": "API оценок доступен",
+    "testFail": "Не удалось достичь API оценок"
   },
   "chunkingPlayground": {
-    "_todo": "TODO: translate chunkingPlayground strings (copied from en)",
-    "nav": "Chunking Playground",
-    "title": "Chunking Playground",
-    "description": "Experiment with different chunking settings to see how text gets split into smaller pieces for processing.",
-    "inputLabel": "Text to chunk",
-    "inputPlaceholder": "Paste text here or select a sample...",
-    "uploadButton": "Upload File",
-    "chunkButton": "Chunk Text",
-    "methodLabel": "Chunking Method",
-    "maxSizeLabel": "Max Chunk Size",
-    "overlapLabel": "Overlap",
-    "languageLabel": "Language",
+    "_todo": "TODO: перевести строки chunkingPlayground (скопировано из en)",
+    "nav": "Песочница разбиения",
+    "title": "Песочница разбиения",
+    "description": "Экспериментируйте с настройками разбиения, чтобы увидеть, как текст делится на меньшие части для обработки.",
+    "inputLabel": "Текст для разбиения",
+    "inputPlaceholder": "Вставьте текст сюда или выберите образец...",
+    "uploadButton": "Загрузить файл",
+    "chunkButton": "Разбить текст",
+    "methodLabel": "Метод разбиения",
+    "maxSizeLabel": "Макс. размер фрагмента",
+    "overlapLabel": "Перекрытие",
+    "languageLabel": "Язык",
     "languages": {
-      "auto": "Auto-detect",
-      "en": "English",
-      "es": "Spanish",
-      "fr": "French",
-      "de": "German",
-      "it": "Italian",
-      "pt": "Portuguese",
-      "zh": "Chinese",
-      "ja": "Japanese",
-      "ko": "Korean"
+      "auto": "Автоопределение",
+      "en": "Английский",
+      "es": "Испанский",
+      "fr": "Французский",
+      "de": "Немецкий",
+      "it": "Итальянский",
+      "pt": "Португальский",
+      "zh": "Китайский",
+      "ja": "Японский",
+      "ko": "Корейский"
     },
-    "viewCards": "Cards",
-    "viewInline": "Inline",
-    "stats": "{{count}} chunks, avg {{avgSize}} chars",
-    "textLoaded": "Text loaded",
-    "characters": "characters",
-    "tabSingle": "Single",
-    "tabCompare": "Compare",
-    "chunkIndex": "Chunk {{index}}",
-    "chunkInfo": "Chunk {{index}}: {{words}} words",
-    "position": "Position: {{start}} - {{end}}",
-    "additionalChunks": "+{{count}} more",
-    "charCount": "{{count}} characters",
-    "wordCount": "{{count}} words",
-    "noInput": "Please provide text to chunk",
-    "sharedInput": "Shared Input Text",
-    "compareButton": "Compare Both",
-    "comparison": "Comparison",
-    "fewerChunks": "Config A produces {{diff}} fewer chunks",
-    "moreChunks": "Config A produces {{diff}} more chunks",
-    "sameChunks": "Both configs produce the same number of chunks",
-    "clickToChunk": "Click 'Compare' to see results",
-    "overlapRegion": "Overlap Region",
-    "clickHint": "Click on a highlighted section to focus on that chunk",
-    "noContentFound": "No text content found for this media item",
-    "loadContentError": "Failed to load media content",
-    "loadMediaListError": "Failed to load media library",
-    "selectMedia": "Select media item...",
-    "loadingMedia": "Loading content...",
-    "noMediaFound": "No media found",
-    "mediaCount": "{{count}} media items available",
+    "viewCards": "Карточки",
+    "viewInline": "Встроенный",
+    "stats": "{{count}} фрагментов, средн. {{avgSize}} символов",
+    "textLoaded": "Текст загружен",
+    "characters": "символы",
+    "tabSingle": "Один",
+    "tabCompare": "Сравнить",
+    "chunkIndex": "Фрагмент {{index}}",
+    "chunkInfo": "Фрагмент {{index}}: {{words}} слов",
+    "position": "Позиция: {{start}} - {{end}}",
+    "additionalChunks": "+{{count}} ещё",
+    "charCount": "{{count}} символов",
+    "wordCount": "{{count}} слов",
+    "noInput": "Введите текст для разбиения",
+    "sharedInput": "Общий входной текст",
+    "compareButton": "Сравнить оба",
+    "comparison": "Сравнение",
+    "fewerChunks": "Конфигурация A дает на {{diff}} фрагментов меньше",
+    "moreChunks": "Конфигурация A дает на {{diff}} фрагментов больше",
+    "sameChunks": "Обе конфигурации дают одинаковое количество фрагментов",
+    "clickToChunk": "Нажмите «Сравнить», чтобы увидеть результат",
+    "overlapRegion": "Область перекрытия",
+    "clickHint": "Щёлкните по выделенному фрагменту, чтобы сфокусироваться на нём",
+    "noContentFound": "Для этого медиаэлемента текст не найден",
+    "loadContentError": "Не удалось загрузить содержимое медиа",
+    "loadMediaListError": "Не удалось загрузить медиатеку",
+    "selectMedia": "Выберите медиаэлемент...",
+    "loadingMedia": "Загрузка содержимого...",
+    "noMediaFound": "Медиа не найдено",
+    "mediaCount": "{{count}} медиаэлементов доступно",
     "inputSource": {
-      "paste": "Paste Text",
-      "upload": "Upload File",
-      "sample": "Sample Text",
-      "media": "From Media Library"
+      "paste": "Вставить текст",
+      "upload": "Загрузить файл",
+      "sample": "Текст‑образец",
+      "media": "Из медиатеки"
     },
     "samples": {
-      "article": "News Article",
-      "articleDesc": "Multi-paragraph article with headers",
-      "code": "Source Code",
-      "codeDesc": "Python code with classes and functions",
-      "transcript": "Transcript",
-      "transcriptDesc": "Timestamped podcast transcript",
-      "academic": "Academic Paper",
-      "academicDesc": "Technical writing with citations"
+      "article": "Новостная статья",
+      "articleDesc": "Многоабзацная статья с заголовками",
+      "code": "Исходный код",
+      "codeDesc": "Код Python с классами и функциями",
+      "transcript": "Транскрипт",
+      "transcriptDesc": "Транскрипт подкаста с таймкодами",
+      "academic": "Научная статья",
+      "academicDesc": "Технический текст с цитатами"
     },
     "compare": {
-      "title": "Compare Settings",
-      "configA": "Configuration A",
-      "configB": "Configuration B"
+      "title": "Сравнение настроек",
+      "configA": "Конфигурация A",
+      "configB": "Конфигурация B"
     },
     "mode": {
-      "single": "Single",
-      "compare": "Compare"
+      "single": "Один",
+      "compare": "Сравнить"
     }
   }
 }

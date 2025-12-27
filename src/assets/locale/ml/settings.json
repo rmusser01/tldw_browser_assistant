@@ -6,41 +6,41 @@
     "about": "അറിയുക"
   },
   "healthNav": "ഹെൽത്ത്",
-  "worldBooksNav": "World Books",
+  "worldBooksNav": "വേൾഡ് ബുക്കുകൾ",
   "chatDictionariesNav": "ചാറ്റ് നിഘണ്ടു",
   "charactersNav": "ക്യാരക്ടേഴ്സ്",
   "mediaNav": "മീഡിയ",
   "chatAppearance": {
-    "title": "Chat appearance",
-    "description": "Customize colors, fonts, and text sizes for chat messages.",
-    "behaviorNote": "Looking for chat behavior settings (wide mode, reasoning, copy options)?",
-    "goToGeneral": "Go to General Settings",
-    "userHeading": "User messages",
-    "assistantHeading": "Assistant messages",
-    "userColor": "User text color",
-    "assistantColor": "Assistant text color",
-    "userFont": "User font",
-    "assistantFont": "Assistant font",
-    "userSize": "User text size",
-    "assistantSize": "Assistant text size",
+    "title": "ചാറ്റ് രൂപഭാവം",
+    "description": "ചാറ്റ് സന്ദേശങ്ങളിലെ നിറങ്ങൾ, ഫോണ്ടുകൾ, ടെക്സ്റ്റ് വലുപ്പങ്ങൾ ഇഷ്ടാനുസരണം ക്രമീകരിക്കുക.",
+    "behaviorNote": "ചാറ്റ് പെരുമാറ്റ ക്രമീകരണങ്ങൾ (വൈഡ് മോഡ്, റീസണിംഗ്, കോപ്പി ഓപ്ഷനുകൾ) തേടുകയാണോ?",
+    "goToGeneral": "പൊതുവായ സെറ്റിംഗുകൾക്ക് പോകുക",
+    "userHeading": "ഉപയോക്തൃ സന്ദേശങ്ങൾ",
+    "assistantHeading": "അസിസ്റ്റന്റ് സന്ദേശങ്ങൾ",
+    "userColor": "ഉപയോക്തൃ ടെക്സ്റ്റ് നിറം",
+    "assistantColor": "അസിസ്റ്റന്റ് ടെക്സ്റ്റ് നിറം",
+    "userFont": "ഉപയോക്തൃ ഫോണ്ട്",
+    "assistantFont": "അസിസ്റ്റന്റ് ഫോണ്ട്",
+    "userSize": "ഉപയോക്തൃ ടെക്സ്റ്റ് വലുപ്പം",
+    "assistantSize": "അസിസ്റ്റന്റ് ടെക്സ്റ്റ് വലുപ്പം",
     "color": {
-      "default": "Default",
-      "blue": "Blue",
-      "green": "Green",
-      "purple": "Purple",
-      "orange": "Orange",
-      "red": "Red"
+      "default": "സ്ഥിരസ്ഥിതി",
+      "blue": "നീല",
+      "green": "പച്ച",
+      "purple": "പർപ്പിൾ",
+      "orange": "ഓറഞ്ച്",
+      "red": "ചുവപ്പ്"
     },
     "font": {
-      "default": "Default",
-      "sans": "Sans serif",
-      "serif": "Serif",
-      "mono": "Monospace"
+      "default": "സ്ഥിരസ്ഥിതി",
+      "sans": "സാൻസ് സെറിഫ്",
+      "serif": "സെറിഫ്",
+      "mono": "മോണോസ്പേസ്"
     },
     "size": {
-      "sm": "Small",
-      "md": "Medium",
-      "lg": "Large"
+      "sm": "ചെറുത്",
+      "md": "ഇടത്തരം",
+      "lg": "വലിയത്"
     }
   },
   "generalSettings": {
@@ -122,14 +122,14 @@
         "assetsEnabled": "OCR ആസറ്റുകൾ പ്രവർത്തനക്ഷമമാക്കി തയ്യാറാക്കി"
       },
       "ocrLanguage": {
-        "label": "Default OCR Language",
-        "placeholder": "Select an OCR language"
+        "label": "സ്ഥിരസ്ഥിതി OCR ഭാഷ",
+        "placeholder": "ഒരു OCR ഭാഷ തിരഞ്ഞെടുക്കുക"
       },
       "removeReasoningTagFromCopy": {
-        "label": "Remove Reasoning Tag from Copied Text"
+        "label": "പകർത്തിയ ടെക്സ്റ്റിൽ നിന്നുള്ള റീസണിംഗ് ടാഗ് നീക്കം ചെയ്യുക"
       },
       "promptSearchIncludeServer": {
-        "label": "Include server prompts in prompt search"
+        "label": "പ്രോംപ്റ്റ് തിരച്ചിലിൽ സെർവർ പ്രോംപ്റ്റുകളും ഉൾപ്പെടുത്തുക"
       },
       "restartOnboarding": {
         "label": "ഓൺബോർഡിംഗ് തുടക്കം മുതൽ വീണ്ടും ആരംഭിക്കുക",
@@ -168,7 +168,7 @@
       },
       "searxng": {
         "url": {
-          "label": "SearXNG URL"
+          "label": "SearXNG യുആർഎൽ"
         }
       },
       "braveApi": {
@@ -179,28 +179,28 @@
         "label": "സ്ഥിരസ്ഥിതിയായി ഇന്റർനെറ്റ് തിരച്ചിൽ പ്രവർത്തനക്ഷമമാക്കുക"
       },
       "tavilyApi": {
-        "label": "Tavily API Key ",
-        "placeholder": "Enter your Tavily API key"
+        "label": "ടാവിലി API കീ",
+        "placeholder": "നിങ്ങളുടെ ടാവിലി API കീ നൽകുക"
       },
       "exa": {
-        "label": "Exa API Key",
-        "placeholder": "Enter your Exa API key"
+        "label": "എക്സാ API കീ",
+        "placeholder": "നിങ്ങളുടെ എക്സാ API കീ നൽകുക"
       },
       "googleDomain": {
-        "label": "Google Domain"
+        "label": "ഗൂഗിൾ ഡൊമെയ്ൻ"
       },
       "firecrawlAPIKey": {
-        "label": "Firecrawl API Key",
-        "placeholder": "Enter your Firecrawl API key"
+        "label": "ഫയർക്രോൾ API കീ",
+        "placeholder": "നിങ്ങളുടെ ഫയർക്രോൾ API കീ നൽകുക"
       }
     },
     "system": {
       "heading": "സിസ്റ്റം ക്രമീകരണങ്ങൾ",
       "uiMode": {
-        "label": "Default UI Mode",
+        "label": "സ്ഥിരസ്ഥിതി UI മോഡ്",
         "options": {
-          "webui": "Full Screen (Web UI)",
-          "sidePanel": "Sidebar"
+          "webui": "പൂർണ്ണ സ്ക്രീൻ (വെബ് UI)",
+          "sidePanel": "സൈഡ്പാനൽ"
         }
       },
       "deleteChatHistory": {
@@ -243,7 +243,7 @@
         "label": "ടിടിഎസിൽ നിന്ന് റീസണിംഗ് ടാഗ് നീക്കം ചെയ്യുക"
       },
       "responseSplitting": {
-        "label": "Response Splitting"
+        "label": "പ്രതികരണം വിഭജിക്കൽ"
       }
     },
     "stt": {
@@ -255,117 +255,117 @@
       "autoSubmitVoiceMessage": {
         "label": "വോയ്സ് സന്ദേശം സ്വയമേവ സമർപ്പിക്കുക"
       },
-      "usedByChat": "These Speech-to-Text defaults are used by the chat dictation button in the Playground and Sidebar.",
+      "usedByChat": "പ്ലേഗ്രൗണ്ടിലും സൈഡ്പാനലിലും ഉള്ള ചാറ്റ് ഡിക്റ്റേഷൻ ബട്ടൺ ഈ സ്പീച്ച്-ടു-ടെക്സ്റ്റ് ഡിഫോൾട്ടുകൾ ഉപയോഗിക്കുന്നു.",
       "model": {
-        "label": "Transcription model (tldw_server)"
+        "label": "ട്രാൻസ്‌ക്രിപ്ഷൻ മോഡൽ (tldw_server)"
       },
       "useSegmentation": {
-        "label": "Run segmentation for transcripts (TreeSeg)"
+        "label": "ട്രാൻസ്‌ക്രിപ്റ്റുകൾക്കായി സെഗ്മെന്റേഷൻ പ്രവർത്തിപ്പിക്കുക (TreeSeg)"
       },
       "timestampGranularities": {
-        "label": "Timestamp granularity",
-        "segment": "Per segment",
-        "word": "Per word",
-        "segmentWord": "Segment + word"
+        "label": "ടൈംസ്റ്റാമ്പ് വിശദത",
+        "segment": "ഓരോ സെഗ്മെന്റിന്",
+        "word": "ഓരോ വാക്കിന്",
+        "segmentWord": "സെഗ്മെന്റ് + വാക്ക്"
       },
       "task": {
-        "label": "Transcription task",
-        "transcribe": "Transcribe (same language)",
-        "translate": "Translate to English"
+        "label": "ട്രാൻസ്‌ക്രിപ്ഷൻ ജോലി",
+        "transcribe": "ട്രാൻസ്‌ക്രൈബ് (അതേ ഭാഷ)",
+        "translate": "ഇംഗ്ലീഷിലേക്ക് വിവർത്തനം"
       },
       "responseFormat": {
-        "label": "Response format",
-        "json": "JSON (text + segments)",
-        "verboseJson": "Verbose JSON",
-        "text": "Plain text",
-        "srt": "SRT subtitles",
-        "vtt": "VTT subtitles"
+        "label": "പ്രതികരണ ഫോർമാറ്റ്",
+        "json": "JSON (ടെക്സ്റ്റ് + സെഗ്മെന്റുകൾ)",
+        "verboseJson": "വിശദമായ JSON",
+        "text": "സാധാരണ ടെക്സ്റ്റ്",
+        "srt": "SRT ഉപശീർഷകങ്ങൾ",
+        "vtt": "VTT ഉപശീർഷകങ്ങൾ"
       },
       "temperature": {
-        "label": "Sampling temperature"
+        "label": "സാമ്പ്ലിംഗ് താപനില"
       },
       "prompt": {
-        "label": "Default transcription prompt",
-        "placeholder": "Optional text to guide style"
+        "label": "സ്ഥിരസ്ഥിതി ട്രാൻസ്‌ക്രിപ്ഷൻ പ്രോംപ്റ്റ്",
+        "placeholder": "സ്റ്റൈൽ നിർദ്ദേശിക്കാൻ ഐച്ഛിക ടെക്സ്റ്റ്"
       },
       "segK": {
-        "label": "Max segments (TreeSeg K)"
+        "label": "പരമാവധി സെഗ്മെന്റുകൾ (TreeSeg K)"
       },
       "segMinSegmentSize": {
-        "label": "Minimum items per segment"
+        "label": "ഒരു സെഗ്മെന്റിലെ കുറഞ്ഞ ഇനങ്ങൾ"
       },
       "segLambdaBalance": {
-        "label": "Balance penalty (TreeSeg λ)"
+        "label": "ബാലൻസ് പിഴ (TreeSeg λ)"
       },
       "segUtteranceExpansionWidth": {
-        "label": "Utterance expansion width"
+        "label": "ഉച്ചാരണ വിപുലീകരണ വീതി"
       },
       "segEmbeddingsProvider": {
-        "label": "Segmentation embeddings provider"
+        "label": "സെഗ്മെന്റേഷൻ എംബെഡിംഗ്സ് പ്രൊവൈഡർ"
       },
       "segEmbeddingsModel": {
-        "label": "Segmentation embeddings model"
+        "label": "സെഗ്മെന്റേഷൻ എംബെഡിംഗ്സ് മോഡൽ"
       }
     },
     "systemBasics": {
-      "heading": "System",
+      "heading": "സിസ്റ്റം",
       "uiMode": {
-        "label": "Default UI Mode",
+        "label": "സ്ഥിരസ്ഥിതി UI മോഡ്",
         "options": {
-          "webui": "Full Screen (Web UI)",
-          "sidePanel": "Sidebar"
+          "webui": "പൂർണ്ണ സ്ക്രീൻ (വെബ് UI)",
+          "sidePanel": "സൈഡ്പാനൽ"
         }
       },
       "actionIcon": {
-        "label": "Browser Action Button"
+        "label": "ബ്രൗസർ ആക്ഷൻ ബട്ടൺ"
       },
       "contextMenu": {
-        "label": "Context Menu Action"
+        "label": "സന്ദർഭ മെനു ആക്ഷൻ"
       },
       "webuiBtnSidePanel": {
-        "label": "Show Web UI button in Sidebar"
+        "label": "സൈഡ്ബാറിൽ വെബ് UI ബട്ടൺ കാണിക്കുക"
       },
       "chatBackgroundImage": {
-        "label": "Chat Background Image"
+        "label": "ചാറ്റ് പശ്ചാത്തല ചിത്രം"
       },
       "fontSize": {
-        "label": "Font Size"
+        "label": "ഫോണ്ട് വലുപ്പം"
       }
     },
     "systemData": {
-      "heading": "Data",
+      "heading": "ഡാറ്റ",
       "firefoxPrivateModeSync": {
-        "label": "Firefox Private Mode Sync",
-        "button": "Sync Data"
+        "label": "ഫയർഫോക്സ് സ്വകാര്യ മോഡ് സിങ്ക്",
+        "button": "ഡാറ്റ സിങ്ക് ചെയ്യുക"
       },
       "deleteChatHistory": {
-        "label": "System Reset",
-        "button": "Reset All",
-        "confirm": "Are you sure you want to perform a system reset? This will clear all data and cannot be undone."
+        "label": "സിസ്റ്റം റീസെറ്റ്",
+        "button": "എല്ലാം റീസെറ്റ് ചെയ്യുക",
+        "confirm": "നിങ്ങൾക്ക് സിസ്റ്റം റീസെറ്റ് നടത്താൻ തീർച്ചയാണോ? ഇത് എല്ലാ ഡാറ്റയും മായ്ക്കും, പിന്നെ പുനഃസ്ഥാപിക്കാൻ കഴിയില്ല."
       },
       "export": {
-        "label": "Export Chat History, Knowledge Base, and Prompts",
-        "button": "Export Data",
-        "success": "Export Success"
+        "label": "ചാറ്റ് ചരിത്രം, നോളജ് ബേസ്, പ്രോംപ്റ്റുകൾ എക്സ്പോർട്ട് ചെയ്യുക",
+        "button": "ഡാറ്റ എക്സ്പോർട്ട് ചെയ്യുക",
+        "success": "എക്സ്പോർട്ട് വിജയം"
       },
       "import": {
-        "label": "Import Chat History, Knowledge Base, and Prompts",
-        "button": "Import Data",
-        "success": "Import Success",
-        "error": "Import Error"
+        "label": "ചാറ്റ് ചരിത്രം, നോളജ് ബേസ്, പ്രോംപ്റ്റുകൾ ഇമ്പോർട്ട് ചെയ്യുക",
+        "button": "ഡാറ്റ ഇമ്പോർട്ട് ചെയ്യുക",
+        "success": "ഇമ്പോർട്ട് വിജയം",
+        "error": "ഇമ്പോർട്ട് പിശക്"
       }
     },
     "empty": {
-      "connectTitle": "Connect tldw Assistant to your server",
-      "connectDescription": "Some settings only take effect when your tldw server is reachable. Connect your server to get the full experience.",
-      "connectExample1": "Open Settings → tldw server to add your server URL and API key.",
-      "connectExample2": "Use Diagnostics to confirm your server is healthy before trying advanced tools.",
-      "title": "Tune how tldw Assistant behaves",
-      "description": "Adjust defaults for the Web UI, sidepanel, speech, search, and data handling from one place.",
-      "example1": "Choose your default language, theme, and chat resume behavior.",
-      "example2": "Control whether chats are temporary, how large pastes are handled, and how reasoning is displayed.",
-      "primaryCta": "Configure server & auth",
-      "secondaryCta": "Dismiss"
+      "connectTitle": "tldw അസിസ്റ്റന്റിനെ നിങ്ങളുടെ സെർവറുമായി ബന്ധിപ്പിക്കുക",
+      "connectDescription": "ചില ക്രമീകരണങ്ങൾ നിങ്ങളുടെ tldw സെർവർ എത്തിച്ചേരുമ്പോഴേ പ്രാബല്യത്തിൽ വരൂ. മുഴുവൻ അനുഭവത്തിനായി സെർവർ കണക്റ്റ് ചെയ്യുക.",
+      "connectExample1": "Settings → tldw server തുറന്ന് നിങ്ങളുടെ സെർവർ URLയും API കീയുമെല്ലാം ചേർക്കുക.",
+      "connectExample2": "ഉന്നത ടൂളുകൾ പരീക്ഷിക്കുന്നതിന് മുമ്പ് Diagnostics ഉപയോഗിച്ച് സെർവർ ആരോഗ്യകരമാണെന്ന് സ്ഥിരീകരിക്കുക.",
+      "title": "tldw അസിസ്റ്റന്റ് എങ്ങനെ പ്രവർത്തിക്കണമെന്ന് ക്രമീകരിക്കുക",
+      "description": "വെബ് UI, സൈഡ്പാനൽ, സ്പീച്ച്, തിരച്ചിൽ, ഡാറ്റ കൈകാര്യം ചെയ്യൽ എന്നിവയുടെ ഡിഫോൾട്ടുകൾ ഒരിടത്ത് ക്രമീകരിക്കുക.",
+      "example1": "നിങ്ങളുടെ സ്ഥിരസ്ഥിതി ഭാഷ, തീം, ചാറ്റ് പുനരാരംഭ പെരുമാറ്റം തിരഞ്ഞെടുക്കുക.",
+      "example2": "ചാറ്റുകൾ താൽക്കാലികമാണോ, വലിയ പേസ്റ്റ് എങ്ങനെ കൈകാര്യം ചെയ്യണം, റീസണിംഗ് എങ്ങനെ കാണിക്കണം എന്നിവ നിയന്ത്രിക്കുക.",
+      "primaryCta": "സെർവർ & ഓത് ക്രമീകരിക്കുക",
+      "secondaryCta": "ഉപേക്ഷിക്കുക"
     }
   },
   "manageModels": {
@@ -408,8 +408,8 @@
       "successDescription": "മോഡല്‍ വിജയകരമായി ലഭ്യമാക്കി",
       "successDeleteDescription": "മോഡല്‍ വിജയകരമായി ഇല്ലാതാക്കി",
       "someError": "എന്തോ തെറ്റായി. ദയവായി പിന്നീട് വീണ്ടും ശ്രമിക്കുക",
-      "cancellingDownload": "Cancelling Download",
-      "cancellingDownloadDescription": "Model download is being cancelled..."
+      "cancellingDownload": "ഡൗൺലോഡ് റദ്ദാക്കുന്നു",
+      "cancellingDownloadDescription": "മോഡൽ ഡൗൺലോഡ് റദ്ദാക്കുകയാണ്..."
     }
   },
   "managePrompts": {
@@ -422,14 +422,14 @@
       "actions": "പ്രവർത്തനങ്ങൾ"
     },
     "option1": "സാധാരണ",
-    "option2": "RAG",
+    "option2": "ആർഎജി",
     "questionPrompt": "ചോദ്യ പ്രോംപ്റ്റ്",
     "systemPrompt": "സിസ്റ്റം പ്രോംപ്റ്റ്",
     "quickPrompt": "വേഗത്തിലുള്ള പ്രോംപ്റ്റ്",
     "tooltip": {
       "delete": "പ്രോംപ്റ്റ് ഇല്ലാതാക്കുക",
       "edit": "പ്രോംപ്റ്റ് എഡിറ്റുചെയ്യുക",
-      "duplicate": "Duplicate Prompt"
+      "duplicate": "പ്രോംപ്റ്റ് പകർത്തുക"
     },
     "confirm": {
       "delete": "ഈ പ്രോംപ്റ്റ് ഇല്ലാതാക്കണമെന്ന് തീർച്ചയാണോ? ഈ പ്രവർത്തനം പിന്നീട് പിൻവലിക്കാനാകില്ല."
@@ -441,8 +441,8 @@
     "segmented": {
       "custom": "കസ്റ്റം പ്രോംപ്റ്റുകൾ",
       "copilot": "കോപൈലറ്റ് പ്രോംപ്റ്റുകൾ",
-      "helpCustom": "Create and manage reusable prompts you can insert into chat.",
-      "helpCopilot": "View and tweak predefined Copilot prompts provided by your server."
+      "helpCustom": "ചാറ്റിലേക്ക് ചേർക്കാൻ കഴിയുന്ന പുനരുപയോഗിക്കാവുന്ന പ്രോംപ്റ്റുകൾ സൃഷ്ടിക്കുകയും നിയന്ത്രിക്കുകയും ചെയ്യുക.",
+      "helpCopilot": "നിങ്ങളുടെ സെർവർ നൽകുന്ന മുൻകൂട്ടി നിർവ്വചിച്ച കോപൈലറ്റ് പ്രോംപ്റ്റുകൾ കാണുകയും ക്രമീകരിക്കുകയും ചെയ്യുക."
     },
     "form": {
       "title": {
@@ -479,45 +479,45 @@
       "deletedSuccess": "പ്രോംപ്റ്റ് ഇല്ലാതാക്കി",
       "deletedSuccessDesc": "പ്രോംപ്റ്റ് വിജയകരമായി ഇല്ലാതാക്കി"
     },
-    "workspaceTitle": "Prompts workspace",
-    "workspaceDescription": "Reusable prompts are managed from the Prompts workspace. Use the button below to open it.",
-    "openWorkspace": "Open Prompts workspace",
-    "search": "Search titles and contents",
+    "workspaceTitle": "പ്രോംപ്റ്റുകൾ വർക്ക്സ്പേസ്",
+    "workspaceDescription": "പുനരുപയോഗിക്കാവുന്ന പ്രോംപ്റ്റുകൾ പ്രോംപ്റ്റുകൾ വർക്ക്സ്പേസിൽ നിന്നാണ് നിയന്ത്രിക്കുന്നത്. അത് തുറക്കാൻ താഴെയുള്ള ബട്ടൺ ഉപയോഗിക്കുക.",
+    "openWorkspace": "പ്രോംപ്റ്റുകൾ വർക്ക്സ്പേസ് തുറക്കുക",
+    "search": "തലക്കെട്ടുകളും ഉള്ളടക്കവും തിരയുക",
     "filter": {
-      "all": "All",
-      "system": "System",
-      "quick": "Quick"
+      "all": "എല്ലാം",
+      "system": "സിസ്റ്റം",
+      "quick": "ക്വിക്ക്"
     },
     "tags": {
-      "label": "Tags",
-      "placeholder": "Add tags"
+      "label": "ടാഗുകൾ",
+      "placeholder": "ടാഗുകൾ ചേർക്കുക"
     },
-    "import": "Import",
-    "export": "Export",
+    "import": "ഇമ്പോർട്ട്",
+    "export": "എക്സ്പോർട്ട്",
     "importMode": {
       "merge": "ലയിപ്പിക്കുക",
       "replace": "മാറ്റിസ്ഥാപിക്കുക",
       "replaceConfirm": "മാറ്റിസ്ഥാപിക്കൽ ഇമ്പോർട്ട് ചെയ്ത ഫയലോടെ നിലവിലുള്ള എല്ലാ പ്രോംപ്റ്റുകളും മേൽ എഴുതി മാറ്റും. തുടരണമോ?"
     },
-    "favorite": "Favorite",
-    "unfavorite": "Unfavorite",
-    "partialLoad": "Some prompt data isn’t available",
-    "loadErrorHelp": "Check your server connection and refresh to try again.",
-    "emptyConnectTitle": "Connect to use Prompts",
-    "emptyConnectDescription": "To manage reusable prompts, first connect to your tldw server.",
-    "emptyConnectExample1": "Open Settings → tldw server to add your server URL.",
-    "emptyConnectExample2": "Once connected, create custom prompts you can reuse across chats.",
-    "emptyTitle": "No custom prompts yet",
-    "emptyDescription": "Create reusable prompts for recurring tasks, workflows, and team conventions.",
-    "emptyExample1": "Save your favorite system prompt for summaries, explanations, or translations.",
-    "emptyExample2": "Create quick prompts for common actions like drafting emails or refining notes.",
-    "emptyPrimaryCta": "Create prompt",
-    "filterHelp": "Search matches title and prompt content. Use type and tags to narrow the list.",
-    "copilotEmptyTitle": "No Copilot prompts available",
-    "copilotEmptyDescription": "Copilot prompts are predefined templates provided by your tldw server.",
-    "copilotEmptyExample1": "Check your server version or configuration if you expect Copilot prompts to be available.",
-    "copilotEmptyExample2": "After updating your server, reload the extension and return to this tab.",
-    "copilotEmptyCta": "Open Diagnostics"
+    "favorite": "ഇഷ്ടപ്പെട്ടത്",
+    "unfavorite": "ഇഷ്ടത്തിൽ നിന്ന് ഒഴിവാക്കുക",
+    "partialLoad": "ചില പ്രോംപ്റ്റ് ഡാറ്റ ലഭ്യമല്ല",
+    "loadErrorHelp": "സെർവർ കണക്ഷൻ പരിശോധിച്ച് വീണ്ടും ശ്രമിക്കാൻ പേജ് റിഫ്രെഷ് ചെയ്യുക.",
+    "emptyConnectTitle": "പ്രോംപ്റ്റുകൾ ഉപയോഗിക്കാൻ കണക്റ്റ് ചെയ്യുക",
+    "emptyConnectDescription": "പുനരുപയോഗിക്കാവുന്ന പ്രോംപ്റ്റുകൾ നിയന്ത്രിക്കാൻ ആദ്യം നിങ്ങളുടെ tldw സെർവറുമായി ബന്ധിപ്പിക്കുക.",
+    "emptyConnectExample1": "Settings → tldw server തുറന്ന് നിങ്ങളുടെ സെർവർ URL ചേർക്കുക.",
+    "emptyConnectExample2": "കണക്റ്റ് ചെയ്ത ശേഷം, ചാറ്റുകളിൽ പുനരുപയോഗിക്കാവുന്ന കസ്റ്റം പ്രോംപ്റ്റുകൾ സൃഷ്ടിക്കുക.",
+    "emptyTitle": "ഇതുവരെ കസ്റ്റം പ്രോംപ്റ്റുകൾ ഒന്നുമില്ല",
+    "emptyDescription": "പുനരാവൃത ജോലികൾക്കും വർക്ക്‌ഫ്ലോകൾക്കും ടീമിലെ രീതികൾക്കും പുനരുപയോഗിക്കാവുന്ന പ്രോംപ്റ്റുകൾ സൃഷ്ടിക്കുക.",
+    "emptyExample1": "സമ്മറികൾ, വിശദീകരണം, വിവർത്തനം എന്നിവക്ക് ഇഷ്ടപ്പെട്ട സിസ്റ്റം പ്രോംപ്റ്റ് സംരക്ഷിക്കുക.",
+    "emptyExample2": "ഇമെയിലുകൾ ഡ്രാഫ്റ്റ് ചെയ്യൽ പോലുള്ള പൊതുവായ പ്രവർത്തനങ്ങൾക്ക് ക്വിക് പ്രോംപ്റ്റുകൾ സൃഷ്ടിക്കുക.",
+    "emptyPrimaryCta": "പ്രോംപ്റ്റ് സൃഷ്ടിക്കുക",
+    "filterHelp": "തിരച്ചിൽ ശീർഷകവും പ്രോംപ്റ്റ് ഉള്ളടക്കവും പൊരുത്തപ്പെടുത്തുന്നു. പട്ടിക ചുരുക്കാൻ തരംയും ടാഗുകളും ഉപയോഗിക്കുക.",
+    "copilotEmptyTitle": "കോപൈലറ്റ് പ്രോംപ്റ്റുകൾ ലഭ്യമല്ല",
+    "copilotEmptyDescription": "കോപൈലറ്റ് പ്രോംപ്റ്റുകൾ നിങ്ങളുടെ tldw സെർവർ നൽകുന്ന മുൻകൂട്ടി നിർവ്വചിച്ച ടെംപ്ലേറ്റുകളാണ്.",
+    "copilotEmptyExample1": "കോപൈലറ്റ് പ്രോംപ്റ്റുകൾ ലഭ്യമാകുമെന്ന് നിങ്ങൾ പ്രതീക്ഷിക്കുന്നുവെങ്കിൽ, സെർവർ പതിപ്പ് അല്ലെങ്കിൽ കോൺഫിഗറേഷൻ പരിശോധിക്കുക.",
+    "copilotEmptyExample2": "സെർവർ അപ്ഡേറ്റ് ചെയ്ത ശേഷം, എക്സ്റ്റൻഷൻ റീലോഡ് ചെയ്ത് ഈ ടാബിലേക്ക് മടങ്ങുക.",
+    "copilotEmptyCta": "Diagnostics തുറക്കുക"
   },
   "manageShare": {
     "title": "പങ്കിടുന്നത് കൈകാര്യം ചെയ്യുക",
@@ -534,7 +534,7 @@
       "heading": "വെബ് പങ്കിടല്‍",
       "columns": {
         "title": "തലക്കെട്ട്",
-        "url": "URL",
+        "url": "യുആർഎൽ",
         "actions": "പ്രവർത്തനങ്ങൾ"
       },
       "tooltip": {
@@ -565,13 +565,13 @@
         "warning": "ഓളാമ ഇന്റഗ്രേഷൻ ആഗോളമായി നിർജ്ജീവമാക്കുന്നതിലൂടെ, പേജ് അസിസ്റ്റ് ഓളാമയിൽ നിന്ന് മോഡലുകൾ ലഭ്യമാക്കില്ല. നിങ്ങൾക്ക് <anchor>OpenAI അനുയോജ്യമായ API</anchor> വിഭാഗത്തിൽ നിന്ന് ഓളാമ ഇൻസ്റ്റൻസ് ചേർക്കാൻ കഴിയും, അത് നന്നായി പ്രവർത്തിക്കും."
       },
       "advanced": {
-        "label": "Advanced Server URL Configuration",
+        "label": "പുരോഗമന സെർവർ URL കോൺഫിഗറേഷൻ",
         "urlRewriteEnabled": {
-          "label": "Enable or Disable Custom Origin URL"
+          "label": "ഇഷ്ടാനുസൃത ഒറിജിൻ URL പ്രവർത്തനക്ഷമമാക്കുക അല്ലെങ്കിൽ അപ്രാപ്തമാക്കുക"
         },
         "rewriteUrl": {
-          "label": "Custom Origin URL",
-          "placeholder": "Enter Custom Origin URL"
+          "label": "ഇഷ്ടാനുസൃത ഒറിജിൻ URL",
+          "placeholder": "ഇഷ്ടാനുസൃത ഒറിജിൻ URL നൽകുക"
         },
         "autoCORSFix": {
           "label": "സ്വയമേവ CORS പരിഹാരം പ്രവർത്തനക്ഷമമാക്കുക അല്ലെങ്കിൽ നിർജ്ജീവമാക്കുക"
@@ -606,7 +606,7 @@
     "githubSponsor": "ഗിറ്റ്ഹബ്ബിൽ സ്പോൺസർ ചെയ്യുക",
     "githubRepo": "ഗിറ്റ്ഹബ്ബ് റെപ്പോസിറ്ററി"
   },
-  "switchToSidebar": "Switch to Sidebar",
+"switchToSidebar": "സൈഡ്ബാറിലേക്ക് മാറുക",
   "healthPage": {
     "title": "ആരോഗ്യ സ്ഥിതി",
     "subtitle": "സെർവർ പുറത്തു വിടുന്ന ഉപസിസ്റ്റങ്ങളുടെ ആരോഗ്യ നിലയുടെ ദ്രുത അവലോകനം.",
@@ -629,12 +629,12 @@
     "unknown": "അജ്ഞാതം",
     "checks": {
       "core": "കോർ API",
-      "rag": "RAG",
+      "rag": "ആർഎജി",
       "audio": "ഓഡിയോ",
       "embeddings": "എംബെഡ്ഡിംഗുകൾ",
       "metrics": "മെട്രിക്‌സ് ഹെൽത്ത്",
       "chatMetrics": "ചാറ്റ് മെട്രിക്‌സ്",
-      "mcp": "MCP",
+      "mcp": "എംസി.പി",
       "coreDocsUrl": "https://github.com/rmusser01/tldw_browser_assistant",
       "ragDocsUrl": "https://github.com/rmusser01/tldw_browser_assistant",
       "audioDocsUrl": "https://github.com/rmusser01/tldw_browser_assistant",
@@ -650,9 +650,9 @@
     "updatedJustNow": "ഇപ്പോള്‍ തന്നെ അപ്ഡേറ്റ് ചെയ്തു",
     "updatedSecondsAgo": "അപ്ഡേറ്റ് ചെയ്തത് {{seconds}} സെക്കൻഡ് മുമ്പ്"
   },
-  "savedSuccessfully": "Settings saved",
-  "saveFailed": "Failed to save settings",
-  "siteAccessGranted": "Host permission granted for {{origin}}",
+  "savedSuccessfully": "സെറ്റിംഗുകൾ സേവ് ചെയ്തു",
+  "saveFailed": "സെറ്റിംഗുകൾ സേവ് ചെയ്യാനായില്ല",
+  "siteAccessGranted": "{{origin}} ന് ഹോസ്റ്റ് അനുമതി നൽകിയിരിക്കുന്നു",
   "tldw": {
     "advancedTimeouts": "ഉന്നത ടൈംഔട്ടുകൾ",
     "requestTimeout": "അഭ്യർത്ഥന ടൈംഔട്ട് (സെക്കൻഡ്)",
@@ -757,14 +757,14 @@
     }
   },
   "manageKnowledge": {
-    "title": "Knowledge QA",
-    "heading": "Knowledge QA",
-    "worldBooksSettingsTitle": "World Books workspace",
-    "worldBooksSettingsDescription": "World Books are managed from the World Books workspace. Use the button below to open it.",
-    "worldBooksOpenWorkspace": "Open World Books workspace",
-    "dictionariesSettingsTitle": "Chat dictionaries workspace",
-    "dictionariesSettingsDescription": "Chat dictionaries are managed from the Chat dictionaries workspace. Use the button below to open it.",
-    "dictionariesOpenWorkspace": "Open Chat dictionaries workspace"
+    "title": "അറിവ് QA",
+    "heading": "അറിവ് QA",
+    "worldBooksSettingsTitle": "വേൾഡ് ബുക്കുകൾ വർക്ക്സ്പേസ്",
+    "worldBooksSettingsDescription": "വേൾഡ് ബുക്കുകൾ വേൾഡ് ബുക്കുകൾ വർക്ക്സ്പേസിൽ നിന്നാണ് നിയന്ത്രിക്കുന്നത്. അത് തുറക്കാൻ താഴെയുള്ള ബട്ടൺ ഉപയോഗിക്കുക.",
+    "worldBooksOpenWorkspace": "വേൾഡ് ബുക്കുകൾ വർക്ക്സ്പേസ് തുറക്കുക",
+    "dictionariesSettingsTitle": "ചാറ്റ് നിഘണ്ടു വർക്ക്സ്പേസ്",
+    "dictionariesSettingsDescription": "ചാറ്റ് നിഘണ്ടുകൾ ചാറ്റ് നിഘണ്ടു വർക്ക്സ്പേസിൽ നിന്നാണ് നിയന്ത്രിക്കുന്നത്. അത് തുറക്കാൻ താഴെയുള്ള ബട്ടൺ ഉപയോഗിക്കുക.",
+    "dictionariesOpenWorkspace": "ചാറ്റ് നിഘണ്ടു വർക്ക്സ്പേസ് തുറക്കുക"
   },
   "rag": {
     "title": "RAG സെറ്റിംഗുകൾ",
@@ -775,8 +775,8 @@
         "required": "ദയവായി ഒരു മോഡല്‍ തിരഞ്ഞെടുക്കുക",
         "help": "`nomic-embed-text` പോലുള്ള എംബെഡിംഗ് മോഡലുകള്‍ ഉപയോഗിക്കുന്നത് വളരെ നന്നായിരിക്കും.",
         "placeholder": "ഒരു മോഡല്‍ തിരഞ്ഞെടുക്കുക",
-        "helpRecommended": "Recommended: {{model}} (from server config)",
-        "helpMissing": "Previously saved embedding model is no longer available on the server. Please choose another model."
+        "helpRecommended": "ശുപാർശ ചെയ്യുന്നത്: {{model}} (സർവർ കോൺഫിഗിൽ നിന്ന്)",
+        "helpMissing": "മുമ്പ് സംരക്ഷിച്ച എംബെഡിംഗ് മോഡൽ ഇനി സെർവറിൽ ലഭ്യമല്ല. മറ്റൊരു മോഡൽ തിരഞ്ഞെടുക്കുക."
       },
       "chunkSize": {
         "label": "ചങ്ക് വലുപ്പം",
@@ -984,7 +984,7 @@
       },
       "avatarUrl": {
         "label": "അവതാർ URL (ഐച്ഛികം)",
-        "placeholder": "https://example.com/avatar.png"
+        "placeholder": "ഉദാ: https://example.com/avatar.png"
       },
       "greeting": {
         "label": "ആശംസ സന്ദേശം (ഐച്ഛികം)",
@@ -1062,189 +1062,189 @@
   "models": {
     "privateModeDescription": "Firefox സ്വകാര്യ മോഡ് IndexedDB-ൽ സംരക്ഷണം പിന്തുണയ്ക്കുന്നില്ല. സാധാരണ വിൻഡോയിലൂടെ കസ്റ്റം മോഡൽ ചേർക്കുക."
   },
-  "evaluationsSettingsNav": "Evaluations",
-  "promptStudioNav": "Prompt Studio",
+"evaluationsSettingsNav": "മൂല്യനിർണ്ണയങ്ങൾ",
+"promptStudioNav": "പ്രോംപ്റ്റ് സ്റ്റുഡിയോ",
   "promptStudio": {
-    "nav": "Prompt Studio",
-    "title": "Prompt Studio",
-    "subtitle": "Configure defaults and monitor Prompt Studio health. Connection and auth reuse the main server settings.",
-    "probeError": "Unable to reach Prompt Studio",
-    "statusCard": "Status",
-    "statusHint": "Button calls /prompt-studio/status with warn_seconds.",
-    "statusError": "Status endpoint unavailable",
-    "warnSeconds": "Warn seconds",
-    "testButton": "Test Prompt Studio",
-    "defaultsCard": "Defaults",
-    "defaultsHint": "Store default project, model configs, and list page size.",
-    "defaultsPlaceholder": "Persist defaults using existing settings storage (TBD) for initial project selection, execute/evaluation model presets, and pagination.",
-    "defaultProject": "Default project ID",
-    "pageSize": "Page size",
-    "executeDefaults": "Execute defaults",
-    "executeProvider": "Provider",
-    "executeModel": "Model",
-    "executeTemperature": "Temperature",
-    "executeMaxTokens": "Max tokens",
-    "evalDefaults": "Evaluation defaults",
-    "evalModel": "Model",
-    "evalTemperature": "Temperature",
-    "evalMaxTokens": "Max tokens",
-    "unavailable": "Prompt Studio isn’t available on the server yet.",
-    "unavailableBody": "Once enabled, you can monitor queue health and set defaults here."
+    "nav": "പ്രോംപ്റ്റ് സ്റ്റുഡിയോ",
+    "title": "പ്രോംപ്റ്റ് സ്റ്റുഡിയോ",
+    "subtitle": "ഡിഫോൾട്ടുകൾ ക്രമീകരിച്ച് പ്രോംപ്റ്റ് സ്റ്റുഡിയോ ആരോഗ്യസ്ഥിതി നിരീക്ഷിക്കുക. കണക്ഷനും ഓത്തും പ്രധാന സെർവർ സെറ്റിംഗുകൾ പുനരുപയോഗിക്കുന്നു.",
+    "probeError": "പ്രോംപ്റ്റ് സ്റ്റുഡിയോ എത്തിച്ചേരാനായില്ല",
+    "statusCard": "സ്ഥിതി",
+    "statusHint": "ബട്ടൺ /prompt-studio/status നെ warn_seconds സഹിതം വിളിക്കുന്നു.",
+    "statusError": "സ്റ്റാറ്റസ് എൻഡ്പോയിന്റ് ലഭ്യമല്ല",
+    "warnSeconds": "മുന്നറിയിപ്പ് സെക്കൻഡുകൾ",
+    "testButton": "പ്രോംപ്റ്റ് സ്റ്റുഡിയോ ടെസ്റ്റ് ചെയ്യുക",
+    "defaultsCard": "ഡിഫോൾട്ടുകൾ",
+    "defaultsHint": "സ്ഥിരസ്ഥിതി പ്രോജക്ട്, മോഡൽ കോൺഫിഗുകൾ, ലിസ്റ്റ് പേജ് വലുപ്പം സംഭരിക്കുക.",
+    "defaultsPlaceholder": "പ്രാരംഭ പ്രോജക്ട് തിരഞ്ഞെടുപ്പ്, എക്സിക്യൂട്ട്/മൂല്യനിർണ്ണയ മോഡൽ പ്രീസെറ്റുകൾ, പേജിനേഷൻ എന്നിവയ്ക്കായി നിലവിലെ സെറ്റിംഗ്സ് സ്റ്റോറേജ് (TBD) ഉപയോഗിച്ച് ഡിഫോൾട്ടുകൾ നിലനിർത്തുക.",
+    "defaultProject": "സ്ഥിരസ്ഥിതി പ്രോജക്ട് ഐഡി",
+    "pageSize": "പേജ് വലുപ്പം",
+    "executeDefaults": "എക്സിക്യൂട്ട് ഡിഫോൾട്ടുകൾ",
+    "executeProvider": "പ്രൊവൈഡർ",
+    "executeModel": "മോഡൽ",
+    "executeTemperature": "താപനില",
+    "executeMaxTokens": "പരമാവധി ടോക്കൺ",
+    "evalDefaults": "മൂല്യനിർണ്ണയ ഡിഫോൾട്ടുകൾ",
+    "evalModel": "മോഡൽ",
+    "evalTemperature": "താപനില",
+    "evalMaxTokens": "പരമാവധി ടോക്കൺ",
+    "unavailable": "സെർവറിൽ ഇനിയും പ്രോംപ്റ്റ് സ്റ്റുഡിയോ ലഭ്യമല്ല.",
+    "unavailableBody": "എനേബിൾ ചെയ്താൽ, ക്യൂ ആരോഗ്യസ്ഥിതി നിരീക്ഷിച്ച് ഇവിടെ ഡിഫോൾട്ടുകൾ സെറ്റ് ചെയ്യാം."
   },
-  "charactersSettingsTitle": "Characters workspace",
-  "charactersSettingsDescription": "Characters are managed from the Characters workspace. Use the button below to open it.",
-  "charactersOpenWorkspace": "Open Characters workspace",
-  "mermaid": "Mermaid",
+  "charactersSettingsTitle": "ക്യാരക്ടേഴ്സ് വർക്ക്സ്പേസ്",
+  "charactersSettingsDescription": "ക്യാരക്ടേഴ്സ് ക്യാരക്ടേഴ്സ് വർക്ക്സ്പേസിൽ നിന്നാണ് നിയന്ത്രിക്കുന്നത്. അത് തുറക്കാൻ താഴെയുള്ള ബട്ടൺ ഉപയോഗിക്കുക.",
+  "charactersOpenWorkspace": "ക്യാരക്ടേഴ്സ് വർക്ക്സ്പേസ് തുറക്കുക",
+  "mermaid": "മെർമെയ്ഡ്",
   "healthSummary": {
-    "diagnostics": "Diagnostics",
-    "diagnosticsTooltip": "Open detailed diagnostics to troubleshoot or inspect health checks.",
-    "core": "Server",
-    "rag": "Knowledge",
-    "coreAria": "Server: server/API health",
-    "ragAria": "Knowledge: knowledge index health",
-    "coreOnline": "Server: Online",
-    "coreOffline": "Server: Offline",
-    "coreChecking": "Server: Checking…",
-    "ragReady": "Knowledge: Ready",
-    "ragOffline": "Knowledge: Offline",
-    "ragChecking": "Knowledge: Checking…",
-    "footerInfo": "These checks summarize the last successful ping to your tldw server and knowledge index."
+    "diagnostics": "ഡയഗ്നോസ്റ്റിക്സ്",
+    "diagnosticsTooltip": "പ്രശ്നപരിഹാരത്തിനോ ഹെൽത്ത് ചെക്കുകൾ പരിശോധിക്കാനോ വിശദമായ ഡയഗ്നോസ്റ്റിക്സ് തുറക്കുക.",
+    "core": "സെർവർ",
+    "rag": "അറിവ്",
+    "coreAria": "സെർവർ: സെർവർ/API ആരോഗ്യസ്ഥിതി",
+    "ragAria": "അറിവ്: നോളജ് ഇൻഡെക്സ് ആരോഗ്യസ്ഥിതി",
+    "coreOnline": "സെർവർ: ഓൺലൈൻ",
+    "coreOffline": "സെർവർ: ഓഫ്‌ലൈൻ",
+    "coreChecking": "സെർവർ: പരിശോധിക്കുന്നു…",
+    "ragReady": "അറിവ്: തയ്യാറാണ്",
+    "ragOffline": "അറിവ്: ഓഫ്‌ലൈൻ",
+    "ragChecking": "അറിവ്: പരിശോധിക്കുന്നു…",
+    "footerInfo": "ഈ ചെക്കുകൾ നിങ്ങളുടെ tldw സെർവർയും നോളജ് ഇൻഡെക്സും അവസാനമായി വിജയകരമായി പിംഗ് ചെയ്തതിന്റെ സംഗ്രഹമാണ്."
   },
   "storage": {
-    "quotaFriendlyMessage": "Too many settings writes in a short period; please wait a few seconds and try again.",
-    "quotaTitle": "Storage limit reached",
-    "writeError": "Could not save settings",
-    "writeErrorDescription": "We couldn't save your settings. Please try again shortly."
+    "quotaFriendlyMessage": "കുറഞ്ഞ സമയത്ത് വളരെ കൂടുതൽ സെറ്റിംഗുകൾ എഴുതപ്പെട്ടു; കുറച്ച് സെക്കൻഡ് കാത്ത് വീണ്ടും ശ്രമിക്കുക.",
+    "quotaTitle": "സ്റ്റോറേജ് പരിധി എത്തി",
+    "writeError": "സെറ്റിംഗുകൾ സേവ് ചെയ്യാനായില്ല",
+    "writeErrorDescription": "നിങ്ങളുടെ സെറ്റിംഗുകൾ സേവ് ചെയ്യാനായില്ല. കുറച്ച് കഴിഞ്ഞ് വീണ്ടും ശ്രമിക്കുക."
   },
   "evaluations": {
-    "title": "Evaluations playground",
-    "subtitle": "Define evaluations against your tldw server and inspect recent runs.",
-    "listTitle": "Recent evaluations",
-    "newEvaluationCta": "New evaluation",
-    "startRunCta": "Start run",
-    "loadErrorTitle": "Unable to load evaluations",
-    "loadErrorDescription": "Check your tldw server connection and API credentials, then try again.",
-    "emptyList": "No evaluations yet. Once you create one, it will appear here.",
-    "selectedTag": "Selected",
-    "rateLimitsTitle": "Evaluation limits",
-    "rateLimitsErrorTitle": "Unable to fetch rate limits",
-    "rateLimitsErrorDescription": "We could not retrieve evaluation quotas from the server.",
-    "rateLimitsNoData": "Rate limit information is not available for this server.",
-    "tierLabel": "Tier",
-    "dailyLimitLabel": "Daily evaluations",
-    "tokensTodayLabel": "Tokens today",
-    "perMinuteLabel": "Per-minute limit",
-    "resetAtLabel": "Resets at",
-    "runsTitle": "Runs",
-    "noEvalSelectedRuns": "Select an evaluation to see its recent runs.",
-    "runsErrorTitle": "Unable to load runs",
-    "runsEmpty": "No runs yet for this evaluation.",
-    "runDetailTitle": "Run details",
-    "noRunSelected": "Select a run to see details.",
-    "runDetailErrorTitle": "Unable to load run details",
-    "runStatusLabel": "Status",
-    "runModelLabelShort": "Target model",
-    "runEvalIdLabel": "Evaluation",
-    "runErrorLabel": "Error",
-    "runResultsLabel": "Results (snippet)",
-    "runProgressLabel": "Progress",
-    "runUsageLabel": "Usage",
-    "datasetsTitle": "Datasets",
-    "newDatasetCta": "New dataset",
-    "datasetsErrorTitle": "Unable to load datasets",
-    "datasetsEmpty": "No datasets yet. Create one to attach to evaluations.",
-    "datasetSampleCount": "{{count}} samples",
-    "datasetNameLabel": "Name",
-    "datasetNamePlaceholder": "my_dataset",
-    "datasetDescriptionLabel": "Description",
-    "datasetMetadataLabel": "Metadata (JSON, optional)",
-    "sampleInputLabel": "Sample input",
-    "sampleExpectedLabel": "Expected output (optional)",
-    "samplesJsonLabel": "Samples JSON (optional, overrides fields)",
-    "datasetLabel": "Dataset (optional)",
-    "datasetPlaceholder": "Select dataset",
-    "datasetCreateSuccessTitle": "Dataset created",
-    "datasetCreateSuccessDescription": "Your dataset is ready to use in evaluations.",
-    "datasetCreateErrorTitle": "Failed to create dataset",
-    "datasetCreateErrorDescription": "The server rejected this dataset. Check the fields and try again.",
-    "datasetDeleteSuccessTitle": "Dataset deleted",
-    "datasetDeleteErrorTitle": "Failed to delete dataset",
-    "datasetLoadErrorTitle": "Failed to load dataset",
-    "datasetDetailTitle": "Dataset details",
-    "datasetParseErrorTitle": "Invalid samples JSON",
-    "createEvalModalTitle": "New evaluation",
-    "editEvalModalTitle": "Edit evaluation",
-    "evalNameLabel": "Name",
-    "evalNamePlaceholder": "my_eval_run",
-    "evalNameValidation": "Use only letters, numbers, hyphens, and underscores.",
-    "evalTypeLabel": "Evaluation type",
-    "evalSpecLabel": "Evaluation spec (JSON)",
-    "evalSpecParseError": "Evaluation spec must be valid JSON.",
-    "evalMetadataLabel": "Metadata (JSON, optional)",
-    "inlineDatasetCheckbox": "Attach inline dataset instead of referencing dataset_id",
-    "inlineDatasetErrorTitle": "Invalid inline dataset",
-    "runModelLabel": "Run model (used for quick runs)",
-    "createSuccessTitle": "Evaluation created",
-    "createErrorTitle": "Failed to create evaluation",
-    "createErrorDescription": "The server rejected this evaluation. Ensure name, type, and spec are valid.",
-    "updateSuccessTitle": "Evaluation updated",
-    "updateErrorTitle": "Failed to update evaluation",
-    "deleteErrorTitle": "Failed to delete evaluation",
-    "deleteConfirmTitle": "Delete this evaluation?",
-    "deleteConfirmDescription": "This will remove the evaluation definition. Runs already created remain in history.",
-    "detailTitle": "Evaluation details",
-    "detailErrorTitle": "Unable to load evaluation details",
-    "descriptionLabel": "Description",
-    "noEvalSelectedDetails": "Select an evaluation to inspect its spec.",
-    "runCreateSuccessTitle": "Run started",
-    "runCreateSuccessDescription": "Your evaluation run has started. You can monitor it from the server UI.",
-    "runCreateErrorTitle": "Failed to start run",
-    "runCreateErrorDescription": "The server rejected this run request. Check the model and try again.",
-    "runConfigLabel": "Config (JSON)",
-    "datasetOverrideLabel": "Dataset override (JSON array of samples)",
-    "runConfigParseError": "Invalid config JSON",
-    "runCancelSuccessTitle": "Run cancellation requested",
-    "runCancelErrorTitle": "Failed to cancel run",
-    "cancelRunCta": "Cancel run",
-    "historyTitle": "History",
-    "historyTypeLabel": "Type",
-    "historyUserLabel": "User ID",
-    "historyStartLabel": "Start date (ISO)",
-    "historyEndLabel": "End date (ISO)",
-    "historyFetchCta": "Fetch history",
-    "historyEmpty": "Run a query to see recent activity.",
-    "historyErrorTitle": "Failed to fetch history",
-    "webhooksTitle": "Webhooks",
-    "webhookUrlLabel": "URL",
-    "webhookEventsLabel": "Events",
-    "webhookCreateCta": "Register webhook",
-    "webhookCreateSuccessTitle": "Webhook registered",
-    "webhookCreateErrorTitle": "Failed to register webhook",
-    "webhookDeleteErrorTitle": "Failed to delete webhook",
-    "webhookListErrorTitle": "Unable to load webhooks",
-    "webhooksEmpty": "No webhooks registered yet.",
-    "webhookSecretTitle": "Secret",
-    "idempotencyKeyLabel": "Idempotency key",
-    "emptyConnectTitle": "Connect to use Evaluations",
-    "emptyConnectDescription": "To create and run evaluations, first connect to your tldw server.",
-    "emptyConnectExample1": "Open Settings → tldw server to add your server URL and API key.",
-    "emptyConnectExample2": "Once connected, you can define evaluations and inspect metrics here.",
-    "datasetSamplesLabel": "Samples",
-    "datasetSamplesEmpty": "No samples returned for this page.",
-    "metricsLabel": "Metrics"
+    "title": "മൂല്യനിർണ്ണയ പ്ലേഗ്രൗണ്ട്",
+    "subtitle": "നിങ്ങളുടെ tldw സെർവറിനെതിരെ മൂല്യനിർണ്ണയങ്ങൾ നിർവ്വചിച്ച് പുതിയ റൺസ് പരിശോധിക്കുക.",
+    "listTitle": "ഒടുത്തത്തെ മൂല്യനിർണ്ണയങ്ങൾ",
+    "newEvaluationCta": "പുതിയ മൂല്യനിർണ്ണയം",
+    "startRunCta": "റൺ ആരംഭിക്കുക",
+    "loadErrorTitle": "മൂല്യനിർണ്ണയങ്ങൾ ലോഡ് ചെയ്യാനായില്ല",
+    "loadErrorDescription": "നിങ്ങളുടെ tldw സെർവർ കണക്ഷനും API ക്രെഡൻഷ്യലുകളും പരിശോധിച്ച് വീണ്ടും ശ്രമിക്കുക.",
+    "emptyList": "ഇതുവരെ മൂല്യനിർണ്ണയങ്ങൾ ഒന്നുമില്ല. നിങ്ങൾ ഒന്നൊരുങ്ങിയാൽ അത് ഇവിടെ പ്രത്യക്ഷപ്പെടും.",
+    "selectedTag": "തിരഞ്ഞെടുത്തത്",
+    "rateLimitsTitle": "മൂല്യനിർണ്ണയ പരിധികൾ",
+    "rateLimitsErrorTitle": "പരിധികൾ നേടാനായില്ല",
+    "rateLimitsErrorDescription": "സെർവർയിൽ നിന്ന് മൂല്യനിർണ്ണയ ക്വോട്ടകൾ ലഭ്യമാക്കാനായില്ല.",
+    "rateLimitsNoData": "ഈ സെർവറിനായി പരിധി വിവരങ്ങൾ ലഭ്യമല്ല.",
+    "tierLabel": "ടിയർ",
+    "dailyLimitLabel": "ദൈനംദിന മൂല്യനിർണ്ണയങ്ങൾ",
+    "tokensTodayLabel": "ഇന്നത്തെ ടോക്കണുകൾ",
+    "perMinuteLabel": "മിനിറ്റിന് പരിധി",
+    "resetAtLabel": "റീസെറ്റ് സമയം",
+    "runsTitle": "റൺസ്",
+    "noEvalSelectedRuns": "പുതിയ റൺസ് കാണാൻ ഒരു മൂല്യനിർണ്ണയം തിരഞ്ഞെടുക്കുക.",
+    "runsErrorTitle": "റൺസ് ലോഡ് ചെയ്യാനായില്ല",
+    "runsEmpty": "ഈ മൂല്യനിർണ്ണയത്തിനായി ഇനിയും റൺസ് ഒന്നുമില്ല.",
+    "runDetailTitle": "റൺ വിശദാംശങ്ങൾ",
+    "noRunSelected": "വിശദാംശങ്ങൾ കാണാൻ ഒരു റൺ തിരഞ്ഞെടുക്കുക.",
+    "runDetailErrorTitle": "റൺ വിശദാംശങ്ങൾ ലോഡ് ചെയ്യാനായില്ല",
+    "runStatusLabel": "സ്ഥിതി",
+    "runModelLabelShort": "ലക്ഷ്യ മോഡൽ",
+    "runEvalIdLabel": "മൂല്യനിർണ്ണയം",
+    "runErrorLabel": "പിശക്",
+    "runResultsLabel": "ഫലങ്ങൾ (ചുരുക്കം)",
+    "runProgressLabel": "പുരോഗതി",
+    "runUsageLabel": "ഉപയോഗം",
+    "datasetsTitle": "ഡാറ്റാസെറ്റുകൾ",
+    "newDatasetCta": "പുതിയ ഡാറ്റാസെറ്റ്",
+    "datasetsErrorTitle": "ഡാറ്റാസെറ്റുകൾ ലോഡ് ചെയ്യാനായില്ല",
+    "datasetsEmpty": "ഇതുവരെ ഡാറ്റാസെറ്റ് ഒന്നുമില്ല. മൂല്യനിർണ്ണയങ്ങൾക്ക് ചേർക്കാൻ ഒന്ന് സൃഷ്ടിക്കുക.",
+    "datasetSampleCount": "{{count}} സാമ്പിളുകൾ",
+    "datasetNameLabel": "പേര്",
+    "datasetNamePlaceholder": "ഉദാ: my_dataset",
+    "datasetDescriptionLabel": "വിവരണം",
+    "datasetMetadataLabel": "മെറ്റാഡേറ്റ (JSON, ഐച്ഛികം)",
+    "sampleInputLabel": "സാമ്പിൾ ഇൻപുട്ട്",
+    "sampleExpectedLabel": "പ്രതീക്ഷിക്കുന്ന ഔട്ട്പുട്ട് (ഐച്ഛികം)",
+    "samplesJsonLabel": "സാമ്പിളുകൾ JSON (ഐച്ഛികം, ഫീൽഡുകൾ മറികടക്കുന്നു)",
+    "datasetLabel": "ഡാറ്റാസെറ്റ് (ഐച്ഛികം)",
+    "datasetPlaceholder": "ഡാറ്റാസെറ്റ് തിരഞ്ഞെടുക്കുക",
+    "datasetCreateSuccessTitle": "ഡാറ്റാസെറ്റ് സൃഷ്ടിച്ചു",
+    "datasetCreateSuccessDescription": "നിങ്ങളുടെ ഡാറ്റാസെറ്റ് മൂല്യനിർണ്ണയങ്ങളിൽ ഉപയോഗിക്കാൻ തയ്യാറാണ്.",
+    "datasetCreateErrorTitle": "ഡാറ്റാസെറ്റ് സൃഷ്ടിക്കാനായില്ല",
+    "datasetCreateErrorDescription": "സെർവർ ഈ ഡാറ്റാസെറ്റ് നിരസിച്ചു. ഫീൽഡുകൾ പരിശോധിച്ച് വീണ്ടും ശ്രമിക്കുക.",
+    "datasetDeleteSuccessTitle": "ഡാറ്റാസെറ്റ് ഇല്ലാതാക്കി",
+    "datasetDeleteErrorTitle": "ഡാറ്റാസെറ്റ് ഇല്ലാതാക്കാനായില്ല",
+    "datasetLoadErrorTitle": "ഡാറ്റാസെറ്റ് ലോഡ് ചെയ്യാനായില്ല",
+    "datasetDetailTitle": "ഡാറ്റാസെറ്റ് വിശദാംശങ്ങൾ",
+    "datasetParseErrorTitle": "അസാധുവായ സാമ്പിളുകൾ JSON",
+    "createEvalModalTitle": "പുതിയ മൂല്യനിർണ്ണയം",
+    "editEvalModalTitle": "മൂല്യനിർണ്ണയം തിരുത്തുക",
+    "evalNameLabel": "പേര്",
+    "evalNamePlaceholder": "ഉദാ: my_eval_run",
+    "evalNameValidation": "അക്ഷരങ്ങൾ, അക്കങ്ങൾ, ഹൈഫൻ, അണ്ടർസ്കോർ മാത്രം ഉപയോഗിക്കുക.",
+    "evalTypeLabel": "മൂല്യനിർണ്ണയ തരം",
+    "evalSpecLabel": "മൂല്യനിർണ്ണയ സ്പെക്ക് (JSON)",
+    "evalSpecParseError": "മൂല്യനിർണ്ണയ സ്പെക്ക് ശരിയായ JSON ആകണം.",
+    "evalMetadataLabel": "മെറ്റാഡേറ്റ (JSON, ഐച്ഛികം)",
+    "inlineDatasetCheckbox": "dataset_id റഫറൻസ് ചെയ്യുന്നതിനുപകരം ഇൻലൈൻ ഡാറ്റാസെറ്റ് ചേർക്കുക",
+    "inlineDatasetErrorTitle": "അസാധുവായ ഇൻലൈൻ ഡാറ്റാസെറ്റ്",
+    "runModelLabel": "റൺ മോഡൽ (ക്വിക്ക് റൺസിനായി)",
+    "createSuccessTitle": "മൂല്യനിർണ്ണയം സൃഷ്ടിച്ചു",
+    "createErrorTitle": "മൂല്യനിർണ്ണയം സൃഷ്ടിക്കാനായില്ല",
+    "createErrorDescription": "സെർവർ ഈ മൂല്യനിർണ്ണയം നിരസിച്ചു. പേര്, തരം, സ്പെക്ക് എന്നിവ ശരിയാണെന്ന് ഉറപ്പാക്കുക.",
+    "updateSuccessTitle": "മൂല്യനിർണ്ണയം അപ്ഡേറ്റ് ചെയ്തു",
+    "updateErrorTitle": "മൂല്യനിർണ്ണയം അപ്ഡേറ്റ് ചെയ്യാനായില്ല",
+    "deleteErrorTitle": "മൂല്യനിർണ്ണയം ഇല്ലാതാക്കാനായില്ല",
+    "deleteConfirmTitle": "ഈ മൂല്യനിർണ്ണയം ഇല്ലാതാക്കണോ?",
+    "deleteConfirmDescription": "ഇത് മൂല്യനിർണ്ണയ നിർവചനം നീക്കം ചെയ്യും. ഇതിനകം സൃഷ്ടിച്ച റൺസ് ചരിത്രത്തിൽ തുടരും.",
+    "detailTitle": "മൂല്യനിർണ്ണയം വിശദാംശങ്ങൾ",
+    "detailErrorTitle": "മൂല്യനിർണ്ണയം വിശദാംശങ്ങൾ ലോഡ് ചെയ്യാനായില്ല",
+    "descriptionLabel": "വിവരണം",
+    "noEvalSelectedDetails": "സ്പെക് പരിശോധിക്കാൻ ഒരു മൂല്യനിർണ്ണയം തിരഞ്ഞെടുക്കുക.",
+    "runCreateSuccessTitle": "റൺ ആരംഭിച്ചു",
+    "runCreateSuccessDescription": "നിങ്ങളുടെ മൂല്യനിർണ്ണയ റൺ ആരംഭിച്ചു. സർവർ UIയിൽ നിന്ന് നിരീക്ഷിക്കാം.",
+    "runCreateErrorTitle": "റൺ ആരംഭിക്കാനായില്ല",
+    "runCreateErrorDescription": "സെർവർ ഈ റൺ അഭ്യർത്ഥന നിരസിച്ചു. മോഡൽ പരിശോധിച്ച് വീണ്ടും ശ്രമിക്കുക.",
+    "runConfigLabel": "കോൺഫിഗ് (JSON)",
+    "datasetOverrideLabel": "ഡാറ്റാസെറ്റ് ഓവർറൈഡ് (സാമ്പിളുകളുടെ JSON അറേ)",
+    "runConfigParseError": "അസാധുവായ കോൺഫിഗ് JSON",
+    "runCancelSuccessTitle": "റൺ റദ്ദാക്കൽ അഭ്യർത്ഥിച്ചു",
+    "runCancelErrorTitle": "റൺ റദ്ദാക്കാനായില്ല",
+    "cancelRunCta": "റൺ റദ്ദാക്കുക",
+    "historyTitle": "ചരിത്രം",
+    "historyTypeLabel": "തരം",
+    "historyUserLabel": "ഉപയോക്തൃ ഐഡി",
+    "historyStartLabel": "തുടക്ക തീയതി (ISO)",
+    "historyEndLabel": "അവസാന തീയതി (ISO)",
+    "historyFetchCta": "ചരിത്രം നേടുക",
+    "historyEmpty": "പുതിയ പ്രവർത്തനം കാണാൻ ഒരു ക്വറി പ്രവർത്തിപ്പിക്കുക.",
+    "historyErrorTitle": "ചരിത്രം ലഭ്യമാക്കാനായില്ല",
+    "webhooksTitle": "വെബ്ഹുക്കുകൾ",
+    "webhookUrlLabel": "യുആർഎൽ",
+    "webhookEventsLabel": "ഇവെന്റുകൾ",
+    "webhookCreateCta": "വെബ്ഹുക്ക് രജിസ്റ്റർ ചെയ്യുക",
+    "webhookCreateSuccessTitle": "വെബ്ഹുക്ക് രജിസ്റ്റർ ചെയ്തു",
+    "webhookCreateErrorTitle": "വെബ്ഹുക്ക് രജിസ്റ്റർ ചെയ്യാനായില്ല",
+    "webhookDeleteErrorTitle": "വെബ്ഹുക്ക് ഇല്ലാതാക്കാനായില്ല",
+    "webhookListErrorTitle": "വെബ്ഹുക്കുകൾ ലോഡ് ചെയ്യാനായില്ല",
+    "webhooksEmpty": "ഇതുവരെ വെബ്ഹുക്കുകൾ രജിസ്റ്റർ ചെയ്തിട്ടില്ല.",
+    "webhookSecretTitle": "സീക്രറ്റ്",
+    "idempotencyKeyLabel": "ഐഡെംപൊട്ടൻസി കീ",
+    "emptyConnectTitle": "മൂല്യനിർണ്ണയങ്ങൾ ഉപയോഗിക്കാൻ കണക്റ്റ് ചെയ്യുക",
+    "emptyConnectDescription": "മൂല്യനിർണ്ണയങ്ങൾ സൃഷ്ടിക്കുകയും റൺ ചെയ്യുകയും ചെയ്യാൻ ആദ്യം നിങ്ങളുടെ tldw സെർവറുമായി ബന്ധിപ്പിക്കുക.",
+    "emptyConnectExample1": "Settings → tldw server തുറന്ന് നിങ്ങളുടെ സെർവർ URLയും API കീയുമെല്ലാം ചേർക്കുക.",
+    "emptyConnectExample2": "കണക്റ്റ് ചെയ്താൽ, ഇവിടെ മൂല്യനിർണ്ണയങ്ങൾ നിർവ്വചിച്ച് മീട്രിക്‌സ് പരിശോധിക്കാം.",
+    "datasetSamplesLabel": "സാമ്പിളുകൾ",
+    "datasetSamplesEmpty": "ഈ പേജിന് വേണ്ടി സാമ്പിളുകൾ ഒന്നും ലഭ്യമല്ല.",
+    "metricsLabel": "മെട്രിക്‌സ്"
   },
   "evaluationsSettings": {
-    "title": "Evaluations",
-    "subtitle": "Configure defaults used by the Evaluations playground.",
-    "offline": "Connect to your tldw server to test Evaluations.",
-    "defaultType": "Default evaluation type",
-    "defaultModel": "Default target model",
-    "defaultRunConfig": "Default run config (JSON)",
-    "defaultDataset": "Default dataset id (optional)",
-    "specForType": "Spec preset for selected type",
-    "testCta": "Test Evaluations API",
-    "testOk": "Evaluations API reachable",
-    "testFail": "Unable to reach Evaluations API"
+    "title": "മൂല്യനിർണ്ണയങ്ങൾ",
+    "subtitle": "മൂല്യനിർണ്ണയ പ്ലേഗ്രൗണ്ടിൽ ഉപയോഗിക്കുന്ന ഡിഫോൾട്ടുകൾ ക്രമീകരിക്കുക.",
+    "offline": "മൂല്യനിർണ്ണയങ്ങൾ ടെസ്റ്റ് ചെയ്യാൻ നിങ്ങളുടെ tldw സെർവറുമായി കണക്റ്റ് ചെയ്യുക.",
+    "defaultType": "സ്ഥിരസ്ഥിതി മൂല്യനിർണ്ണയ തരം",
+    "defaultModel": "സ്ഥിരസ്ഥിതി ലക്ഷ്യ മോഡൽ",
+    "defaultRunConfig": "സ്ഥിരസ്ഥിതി റൺ കോൺഫിഗ് (JSON)",
+    "defaultDataset": "സ്ഥിരസ്ഥിതി ഡാറ്റാസെറ്റ് ഐഡി (ഐച്ഛികം)",
+    "specForType": "തിരഞ്ഞെടുത്ത തരത്തിനുള്ള സ്പെക്ക് പ്രീസെറ്റ്",
+    "testCta": "മൂല്യനിർണ്ണയ API ടെസ്റ്റ് ചെയ്യുക",
+    "testOk": "മൂല്യനിർണ്ണയ API ലഭ്യമാണ്",
+    "testFail": "മൂല്യനിർണ്ണയ API എത്തിച്ചേരാനായില്ല"
   },
   "chunkingPlayground": {
     "nav": "ചങ്കിംഗ് പ്ലേഗ്രൗണ്ട്",

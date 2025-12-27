@@ -6,7 +6,7 @@
     "openwebui": "باز کردن رابط کاربری وب"
   },
   "toolbar": {
-    "ragSearch": "RAG Search"
+    "ragSearch": "جستجوی RAG"
   },
   "errors": {
     "privateModeTitle": "tldw Assistant نمی‌تواند داده‌ها را ذخیره کند",
@@ -27,7 +27,7 @@
   },
   "temporaryBadge": {
     "title": "گفتگوی موقت",
-    "label": "Temp",
+    "label": "موقت",
     "description": "این گفتگو ذخیره نمی شود. پیام ها هنگام بستن یا شروع گفتگوی جدید پاک می شوند.",
     "clickHint": "برای غیرفعال کردن کلیک کنید",
     "ariaLabel": "حالت گفتگوی موقت فعال است. برای تغییر کلیک کنید.",
@@ -35,33 +35,33 @@
     "indicatorAria": "گفتگوی موقت"
   },
   "header": {
-    "ingest": "Ingest",
-    "saveCurrent": "Save current page on server",
-    "processLocal": "Process current page locally",
-    "viewProcessed": "View processed",
-    "timeoutLabel": "Timeout (s)",
-    "toggleSidebar": "Toggle Sidebar / Full Screen",
-    "shortcuts": "Shortcuts",
-    "showDebug": "Show Stream Debug",
-    "hideDebug": "Hide Stream Debug",
-    "moreOptionsAria": "More options",
-    "moreOptionsTitle": "Ingest and more",
-    "openWebuiAria": "Open Web UI",
-    "newChatAria": "New chat",
-    "tempChatAria": "Toggle temporary chat",
-    "clearHistoryAria": "Clear history",
-    "openHistoryAria": "Open history",
-    "openModelSettingsAria": "Open model settings",
-    "openSettingsAria": "Open settings",
-    "tempPill": "Temp",
-    "modesLabel": "Open modes in Web UI",
-    "modePlayground": "Chat",
-    "modeReview": "Multi-Item Review",
-    "modeMedia": "Media",
-    "modeKnowledge": "Knowledge",
-    "modeNotes": "Notes",
-    "modePrompts": "Prompts",
-    "modeFlashcards": "Flashcards"
+    "ingest": "درون‌ریزی",
+    "saveCurrent": "ذخیره صفحه فعلی روی سرور",
+    "processLocal": "پردازش صفحه فعلی به‌صورت محلی",
+    "viewProcessed": "مشاهده پردازش‌شده‌ها",
+    "timeoutLabel": "زمان انتظار (ثانیه)",
+    "toggleSidebar": "نمایش/تمام‌صفحه کردن نوار کناری",
+    "shortcuts": "میانبرها",
+    "showDebug": "نمایش اشکال‌زدایی استریم",
+    "hideDebug": "پنهان کردن اشکال‌زدایی استریم",
+    "moreOptionsAria": "گزینه‌های بیشتر",
+    "moreOptionsTitle": "درون‌ریزی و بیشتر",
+    "openWebuiAria": "باز کردن رابط وب",
+    "newChatAria": "گفتگوی جدید",
+    "tempChatAria": "تغییر حالت گفتگوی موقت",
+    "clearHistoryAria": "پاک کردن تاریخچه",
+    "openHistoryAria": "باز کردن تاریخچه",
+    "openModelSettingsAria": "باز کردن تنظیمات مدل",
+    "openSettingsAria": "باز کردن تنظیمات",
+    "tempPill": "موقت",
+    "modesLabel": "باز کردن حالت‌ها در رابط وب",
+    "modePlayground": "چت",
+    "modeReview": "بازبینی چندموردی",
+    "modeMedia": "رسانه",
+    "modeKnowledge": "دانش",
+    "modeNotes": "یادداشت‌ها",
+    "modePrompts": "پرامپت‌ها",
+    "modeFlashcards": "فلش‌کارت‌ها"
   },
   "controlRow": {
     "saveMode": "حالت ذخیره‌سازی",
@@ -80,21 +80,21 @@
     "moreTools": "ابزارهای بیشتر"
   },
   "composer": {
-    "connectHint": "Connect to your tldw server in Settings to send messages.",
+    "connectHint": "برای ارسال پیام، در تنظیمات به سرور tldw خود متصل شوید.",
     "connectingPlaceholder": "در حال اتصال...",
     "disconnectedPlaceholder": "برای ارسال پیام و مشاهده رسانه‌ها، در تنظیمات به سرور tldw خود متصل شوید."
   },
   "notification": {
-    "ingestSent": "Sent to tldw server",
-    "ingestSentDesc": "Current page has been submitted for ingestion.",
-    "processedLocal": "Processed locally",
-    "processedLocalDesc": "Processed content stored locally under Settings > Processed.",
-    "transcriptionTitle": "Transcription",
-    "transcriptionSummaryTitle": "Transcription + summary",
-    "transcriptionFallback": "Transcription completed. Open Media in the Web UI to view it.",
-    "sourceLabel": "Source",
-    "transcriptLabel": "Transcript",
-    "summaryLabel": "Summary"
+    "ingestSent": "به سرور tldw ارسال شد",
+    "ingestSentDesc": "صفحه فعلی برای درون‌ریزی ارسال شد.",
+    "processedLocal": "به‌صورت محلی پردازش شد",
+    "processedLocalDesc": "محتوای پردازش‌شده به‌صورت محلی در تنظیمات > پردازش‌شده ذخیره شد.",
+    "transcriptionTitle": "رونویسی",
+    "transcriptionSummaryTitle": "رونویسی + خلاصه",
+    "transcriptionFallback": "رونویسی کامل شد. برای مشاهده، Media را در رابط وب باز کنید.",
+    "sourceLabel": "منبع",
+    "transcriptLabel": "رونویسی",
+    "summaryLabel": "خلاصه"
   },
   "saveStatus": {
     "ephemeral": "موقتی: ذخیره نمی شود، با بستن پاک می شود",
@@ -104,23 +104,23 @@
     "saveFailedDescription": "اکنون گفتگو فقط به صورت محلی ذخیره می شود. اتصال خود را بررسی کرده و دوباره تلاش کنید."
   },
   "rag": {
-    "searchPlaceholder": "Search your knowledge…",
-    "search": "Search",
+    "searchPlaceholder": "جستجوی دانش شما…",
+    "search": "جستجو",
     "show": "Show RAG search",
     "hide": "Hide RAG search",
-    "addTagPlaceholder": "Add tag (Enter)",
-    "add": "Add",
-    "noResults": "No results",
+    "addTagPlaceholder": "افزودن برچسب (Enter)",
+    "add": "افزودن",
+    "noResults": "نتیجه‌ای یافت نشد",
     "timeout": {
-      "message": "Request timed out.",
-      "increase": "Increase timeout",
-      "checkHealth": "Check server health"
+      "message": "درخواست زمان‌بر شد.",
+      "increase": "افزایش زمان انتظار",
+      "checkHealth": "بررسی سلامت سرور"
     },
     "actions": {
-      "insert": "Insert",
-      "ask": "Ask",
-      "open": "Open",
-      "copy": "Copy"
+      "insert": "درج",
+      "ask": "پرسش",
+      "open": "باز کردن",
+      "copy": "کپی"
     },
     "hint": {
       "message": "در پایگاه دانش خود جستجو کنید و نتایج را در پیام خود درج کنید.",

@@ -1242,10 +1242,10 @@
     "message": "コンテンツレビューを再度開く"
   },
   "quickIngest_title": {
-    "message": "Quick Ingest Media"
+    "message": "クイックインジェスト（メディア）"
   },
   "quickIngest_subtitle": {
-    "message": "Enter one or more URLs. Force type per row if needed."
+    "message": "URL を 1 件以上入力してください。必要なら行ごとにタイプを指定できます。"
   },
   "quickIngest_offlineTitle": {
     "message": "サーバーがオフライン — ステージングのみ"
@@ -1254,10 +1254,10 @@
     "message": "ここでURLやファイルをキューに入れ、フィールドを確認できますが、tldwサーバーがオンラインになるまで取り込みは実行されません。保留中の項目を処理するには再接続してください。"
   },
   "quickIngest_sourceHeading": {
-    "message": "Source URLs or files"
+    "message": "ソース URL またはファイル"
   },
   "quickIngest_storeRemote": {
-    "message": "Store to remote DB"
+    "message": "リモート DB に保存"
   },
   "quickIngest_storeRemoteAria": {
     "message": "インジェスト結果を tldw サーバーに保存する"
@@ -1332,46 +1332,46 @@
     "message": "https://github.com/rmusser01/tldw_browser_assistant"
   },
   "quickIngest_bulkPlaceholder": {
-    "message": "Paste URLs (one per line)"
+    "message": "URL を貼り付け（1 行 1 件）"
   },
   "quickIngest_or": {
-    "message": "or"
+    "message": "または"
   },
   "quickIngest_remove": {
-    "message": "Remove"
+    "message": "削除"
   },
   "quickIngest_add": {
-    "message": "Add URL"
+    "message": "URL を追加"
   },
   "quickIngest_commonOptions": {
-    "message": "Ingestion options"
+    "message": "取り込みオプション"
   },
   "quickIngest_audioOptions": {
-    "message": "Audio options"
+    "message": "音声オプション"
   },
   "quickIngest_audioLanguage": {
-    "message": "Language (e.g., en)"
+    "message": "言語（例: en）"
   },
   "quickIngest_audioDiarizationHelp": {
-    "message": "Turn on to separate speakers in transcripts."
+    "message": "有効にすると文字起こしで話者を分離します。"
   },
   "quickIngest_documentOptions": {
-    "message": "Document options"
+    "message": "ドキュメントオプション"
   },
   "quickIngest_videoOptions": {
-    "message": "Video options"
+    "message": "動画オプション"
   },
   "quickIngest_captionsHelp": {
-    "message": "Include timestamps/captions when available."
+    "message": "利用可能な場合はタイムスタンプ/字幕を含めます。"
   },
   "quickIngest_cancel": {
-    "message": "Cancel"
+    "message": "キャンセル"
   },
   "quickIngest_ingest": {
-    "message": "Ingest"
+    "message": "取り込み"
   },
   "quickIngest_process": {
-    "message": "Process"
+    "message": "処理"
   },
   "quickIngest_queueOnlyOffline": {
     "message": "キューのみ — サーバーがオフラインです"
@@ -1398,19 +1398,19 @@
     "message": "クイックインジェスト実行"
   },
   "quickIngest_results": {
-    "message": "Results"
+    "message": "結果"
   },
   "quickIngest_downloadJson": {
-    "message": "Download JSON"
+    "message": "JSON をダウンロード"
   },
   "quickIngest_advancedSummary": {
-    "message": "{{count}} advanced fields loaded"
+    "message": "{{count}} 件の高度なフィールドを読み込みました"
   },
   "quickIngest_advancedEmpty": {
-    "message": "No advanced options detected — try reloading the spec."
+    "message": "高度なオプションが検出されません — 仕様を再読み込みしてください。"
   },
   "quickIngest_modifiedCount": {
-    "message": "{{count}} modified"
+    "message": "{{count}} 件変更"
   },
   "quickIngest_progress": {
     "message": "処理中 {{done}} / {{total}} 件…"
@@ -1467,335 +1467,277 @@
     "message": "レビュー後に保存"
   },
   "manageCharacters_actions_viewConversations": {
-    "message": "View conversations"
+    "message": "会話を表示"
   },
   "manageCharacters_aria_viewConversations": {
-    "message": "View conversations for {{name}}"
+    "message": "{{name}} の会話を表示"
   },
   "manageCharacters_aria_searchResults": {
-    "message": "{{count}} characters found"
+    "message": "{{count}} 件のキャラクターが見つかりました"
   },
   "manageCharacters_conversations_title": {
-    "message": "Conversations for {{name}}"
+    "message": "{{name}} の会話"
   },
   "manageCharacters_conversations_titleGeneric": {
-    "message": "Character conversations"
+    "message": "キャラクターの会話"
   },
   "manageCharacters_conversations_subtitle": {
-    "message": "Select a conversation to continue as this character."
+    "message": "このキャラクターとして続ける会話を選択してください。"
   },
   "manageCharacters_conversations_empty": {
-    "message": "No conversations found for this character yet."
+    "message": "このキャラクターの会話はまだありません。"
   },
   "manageCharacters_conversations_error": {
-    "message": "Unable to load conversations for this character."
+    "message": "このキャラクターの会話を読み込めません。"
   },
   "manageCharacters_conversations_updated": {
-    "message": "Updated {{time}}"
+    "message": "{{time}} に更新"
   },
   "manageCharacters_conversations_unknownTime": {
-    "message": "Unknown"
+    "message": "不明"
   },
   "manageCharacters_conversations_resume": {
-    "message": "Continue chat"
+    "message": "チャットを続ける"
   },
   "manageCharacters_conversations_untitled": {
-    "message": "Untitled"
+    "message": "無題"
   },
   "manageCharacters_conversations_mostRecent": {
-    "message": "Most recent"
+    "message": "最新"
   },
   "manageCharacters_conversations_resumeTooltip": {
-    "message": "Load chat history and continue this conversation"
+    "message": "チャット履歴を読み込んでこの会話を続けます"
   },
   "manageCharacters_preview_title": {
-    "message": "Preview"
+    "message": "プレビュー"
   },
   "manageCharacters_preview_show": {
-    "message": "Show preview"
+    "message": "プレビューを表示"
   },
   "manageCharacters_preview_hide": {
-    "message": "Hide preview"
+    "message": "プレビューを非表示"
   },
   "manageCharacters_preview_untitled": {
-    "message": "Untitled character"
+    "message": "無題のキャラクター"
   },
   "manageCharacters_preview_greeting": {
-    "message": "Greeting"
+    "message": "挨拶"
   },
   "manageCharacters_preview_behavior": {
-    "message": "Behavior"
+    "message": "振る舞い"
   },
   "manageCharacters_preview_empty": {
-    "message": "Fill in the form to see a preview"
+    "message": "フォームを入力するとプレビューが表示されます"
   },
   "manageCharacters_advanced_show": {
-    "message": "Show advanced fields"
+    "message": "詳細フィールドを表示"
   },
   "manageCharacters_advanced_hide": {
-    "message": "Hide advanced fields"
+    "message": "詳細フィールドを非表示"
   },
   "chunkingPlayground_nav": {
-    "message": "Chunking Playground",
-    "description": "TODO: translate (copied from en)"
+    "message": "チャンク分割プレイグラウンド"
   },
   "chunkingPlayground_title": {
-    "message": "Chunking Playground",
-    "description": "TODO: translate (copied from en)"
+    "message": "チャンク分割プレイグラウンド"
   },
   "chunkingPlayground_description": {
-    "message": "Experiment with different chunking settings to see how text gets split into smaller pieces for processing.",
-    "description": "TODO: translate (copied from en)"
+    "message": "さまざまなチャンク設定を試して、テキストが処理用の小さな塊に分割される様子を確認できます。"
   },
   "chunkingPlayground_inputLabel": {
-    "message": "Text to chunk",
-    "description": "TODO: translate (copied from en)"
+    "message": "分割するテキスト"
   },
   "chunkingPlayground_inputPlaceholder": {
-    "message": "Paste text here or select a sample...",
-    "description": "TODO: translate (copied from en)"
+    "message": "ここにテキストを貼り付けるか、サンプルを選択..."
   },
   "chunkingPlayground_uploadButton": {
-    "message": "Upload File",
-    "description": "TODO: translate (copied from en)"
+    "message": "ファイルをアップロード"
   },
   "chunkingPlayground_chunkButton": {
-    "message": "Chunk Text",
-    "description": "TODO: translate (copied from en)"
+    "message": "テキストを分割"
   },
   "chunkingPlayground_methodLabel": {
-    "message": "Chunking Method",
-    "description": "TODO: translate (copied from en)"
+    "message": "チャンク方式"
   },
   "chunkingPlayground_maxSizeLabel": {
-    "message": "Max Chunk Size",
-    "description": "TODO: translate (copied from en)"
+    "message": "最大チャンクサイズ"
   },
   "chunkingPlayground_overlapLabel": {
-    "message": "Overlap",
-    "description": "TODO: translate (copied from en)"
+    "message": "重なり"
   },
   "chunkingPlayground_languageLabel": {
-    "message": "Language",
-    "description": "TODO: translate (copied from en)"
+    "message": "言語"
   },
   "chunkingPlayground_languages_auto": {
-    "message": "Auto-detect",
-    "description": "TODO: translate (copied from en)"
+    "message": "自動検出"
   },
   "chunkingPlayground_languages_en": {
-    "message": "English",
-    "description": "TODO: translate (copied from en)"
+    "message": "英語"
   },
   "chunkingPlayground_languages_es": {
-    "message": "Spanish",
-    "description": "TODO: translate (copied from en)"
+    "message": "スペイン語"
   },
   "chunkingPlayground_languages_fr": {
-    "message": "French",
-    "description": "TODO: translate (copied from en)"
+    "message": "フランス語"
   },
   "chunkingPlayground_languages_de": {
-    "message": "German",
-    "description": "TODO: translate (copied from en)"
+    "message": "ドイツ語"
   },
   "chunkingPlayground_languages_it": {
-    "message": "Italian",
-    "description": "TODO: translate (copied from en)"
+    "message": "イタリア語"
   },
   "chunkingPlayground_languages_pt": {
-    "message": "Portuguese",
-    "description": "TODO: translate (copied from en)"
+    "message": "ポルトガル語"
   },
   "chunkingPlayground_languages_zh": {
-    "message": "Chinese",
-    "description": "TODO: translate (copied from en)"
+    "message": "中国語"
   },
   "chunkingPlayground_languages_ja": {
-    "message": "Japanese",
-    "description": "TODO: translate (copied from en)"
+    "message": "日本語"
   },
   "chunkingPlayground_languages_ko": {
-    "message": "Korean",
-    "description": "TODO: translate (copied from en)"
+    "message": "韓国語"
   },
   "chunkingPlayground_viewCards": {
-    "message": "Cards",
-    "description": "TODO: translate (copied from en)"
+    "message": "カード"
   },
   "chunkingPlayground_viewInline": {
-    "message": "Inline",
-    "description": "TODO: translate (copied from en)"
+    "message": "インライン"
   },
   "chunkingPlayground_stats": {
-    "message": "{{count}} chunks, avg {{avgSize}} chars"
+    "message": "{{count}} 個のチャンク、平均 {{avgSize}} 文字"
   },
   "chunkingPlayground_textLoaded": {
-    "message": "Text loaded",
-    "description": "TODO: translate (copied from en)"
+    "message": "テキストを読み込みました"
   },
   "chunkingPlayground_characters": {
-    "message": "characters",
-    "description": "TODO: translate (copied from en)"
+    "message": "文字"
   },
   "chunkingPlayground_tabSingle": {
-    "message": "Single",
-    "description": "TODO: translate (copied from en)"
+    "message": "単一"
   },
   "chunkingPlayground_tabCompare": {
-    "message": "Compare",
-    "description": "TODO: translate (copied from en)"
+    "message": "比較"
   },
   "chunkingPlayground_chunkIndex": {
-    "message": "Chunk {{index}}"
+    "message": "チャンク {{index}}"
   },
   "chunkingPlayground_chunkInfo": {
-    "message": "Chunk {{index}}: {{words}} words"
+    "message": "チャンク {{index}}: {{words}} 語"
   },
   "chunkingPlayground_position": {
-    "message": "Position: {{start}} - {{end}}"
+    "message": "位置: {{start}} - {{end}}"
   },
   "chunkingPlayground_additionalChunks": {
-    "message": "+{{count}} more"
+    "message": "+{{count}} 件の追加"
   },
   "chunkingPlayground_charCount": {
-    "message": "{{count}} characters"
+    "message": "{{count}} 文字"
   },
   "chunkingPlayground_wordCount": {
-    "message": "{{count}} words"
+    "message": "{{count}} 語"
   },
   "chunkingPlayground_noInput": {
-    "message": "Please provide text to chunk",
-    "description": "TODO: translate (copied from en)"
+    "message": "分割するテキストを入力してください"
   },
   "chunkingPlayground_sharedInput": {
-    "message": "Shared Input Text",
-    "description": "TODO: translate (copied from en)"
+    "message": "共有入力テキスト"
   },
   "chunkingPlayground_compareButton": {
-    "message": "Compare Both",
-    "description": "TODO: translate (copied from en)"
+    "message": "両方を比較"
   },
   "chunkingPlayground_comparison": {
-    "message": "Comparison",
-    "description": "TODO: translate (copied from en)"
+    "message": "比較"
   },
   "chunkingPlayground_fewerChunks": {
-    "message": "Config A produces {{diff}} fewer chunks"
+    "message": "設定 A は {{diff}} 個少ないチャンクになります"
   },
   "chunkingPlayground_moreChunks": {
-    "message": "Config A produces {{diff}} more chunks"
+    "message": "設定 A は {{diff}} 個多いチャンクになります"
   },
   "chunkingPlayground_sameChunks": {
-    "message": "Both configs produce the same number of chunks",
-    "description": "TODO: translate (copied from en)"
+    "message": "両設定は同じ数のチャンクになります"
   },
   "chunkingPlayground_clickToChunk": {
-    "message": "Click 'Compare' to see results",
-    "description": "TODO: translate (copied from en)"
+    "message": "「比較」をクリックして結果を表示"
   },
   "chunkingPlayground_overlapRegion": {
-    "message": "Overlap Region",
-    "description": "TODO: translate (copied from en)"
+    "message": "重なり領域"
   },
   "chunkingPlayground_clickHint": {
-    "message": "Click on a highlighted section to focus on that chunk",
-    "description": "TODO: translate (copied from en)"
+    "message": "ハイライトされたセクションをクリックすると、そのチャンクにフォーカスします"
   },
   "chunkingPlayground_noContentFound": {
-    "message": "No text content found for this media item",
-    "description": "TODO: translate (copied from en)"
+    "message": "このメディア項目のテキストが見つかりません"
   },
   "chunkingPlayground_loadContentError": {
-    "message": "Failed to load media content",
-    "description": "TODO: translate (copied from en)"
+    "message": "メディア内容の読み込みに失敗しました"
   },
   "chunkingPlayground_loadMediaListError": {
-    "message": "Failed to load media library",
-    "description": "TODO: translate (copied from en)"
+    "message": "メディアライブラリの読み込みに失敗しました"
   },
   "chunkingPlayground_selectMedia": {
-    "message": "Select media item...",
-    "description": "TODO: translate (copied from en)"
+    "message": "メディア項目を選択..."
   },
   "chunkingPlayground_loadingMedia": {
-    "message": "Loading content...",
-    "description": "TODO: translate (copied from en)"
+    "message": "内容を読み込み中..."
   },
   "chunkingPlayground_noMediaFound": {
-    "message": "No media found",
-    "description": "TODO: translate (copied from en)"
+    "message": "メディアが見つかりません"
   },
   "chunkingPlayground_mediaCount": {
-    "message": "{{count}} media items available"
+    "message": "{{count}} 件のメディア項目があります"
   },
   "chunkingPlayground_inputSource_paste": {
-    "message": "Paste Text",
-    "description": "TODO: translate (copied from en)"
+    "message": "テキストを貼り付け"
   },
   "chunkingPlayground_inputSource_upload": {
-    "message": "Upload File",
-    "description": "TODO: translate (copied from en)"
+    "message": "ファイルをアップロード"
   },
   "chunkingPlayground_inputSource_sample": {
-    "message": "Sample Text",
-    "description": "TODO: translate (copied from en)"
+    "message": "サンプルテキスト"
   },
   "chunkingPlayground_inputSource_media": {
-    "message": "From Media Library",
-    "description": "TODO: translate (copied from en)"
+    "message": "メディアライブラリから"
   },
   "chunkingPlayground_samples_article": {
-    "message": "News Article",
-    "description": "TODO: translate (copied from en)"
+    "message": "ニュース記事"
   },
   "chunkingPlayground_samples_articleDesc": {
-    "message": "Multi-paragraph article with headers",
-    "description": "TODO: translate (copied from en)"
+    "message": "見出し付きの複数段落記事"
   },
   "chunkingPlayground_samples_code": {
-    "message": "Source Code",
-    "description": "TODO: translate (copied from en)"
+    "message": "ソースコード"
   },
   "chunkingPlayground_samples_codeDesc": {
-    "message": "Python code with classes and functions",
-    "description": "TODO: translate (copied from en)"
+    "message": "クラスと関数を含む Python コード"
   },
   "chunkingPlayground_samples_transcript": {
-    "message": "Transcript",
-    "description": "TODO: translate (copied from en)"
+    "message": "書き起こし"
   },
   "chunkingPlayground_samples_transcriptDesc": {
-    "message": "Timestamped podcast transcript",
-    "description": "TODO: translate (copied from en)"
+    "message": "タイムスタンプ付きポッドキャスト書き起こし"
   },
   "chunkingPlayground_samples_academic": {
-    "message": "Academic Paper",
-    "description": "TODO: translate (copied from en)"
+    "message": "学術論文"
   },
   "chunkingPlayground_samples_academicDesc": {
-    "message": "Technical writing with citations",
-    "description": "TODO: translate (copied from en)"
+    "message": "引用付きの技術文書"
   },
   "chunkingPlayground_compare_title": {
-    "message": "Compare Settings",
-    "description": "TODO: translate (copied from en)"
+    "message": "設定を比較"
   },
   "chunkingPlayground_compare_configA": {
-    "message": "Configuration A",
-    "description": "TODO: translate (copied from en)"
+    "message": "設定 A"
   },
   "chunkingPlayground_compare_configB": {
-    "message": "Configuration B",
-    "description": "TODO: translate (copied from en)"
+    "message": "設定 B"
   },
   "chunkingPlayground_mode_single": {
-    "message": "Single",
-    "description": "TODO: translate (copied from en)"
+    "message": "単一"
   },
   "chunkingPlayground_mode_compare": {
-    "message": "Compare",
-    "description": "TODO: translate (copied from en)"
+    "message": "比較"
   },
   "managePrompts_importMode_merge": {
     "message": "マージ"
@@ -1807,34 +1749,34 @@
     "message": "置換すると、インポートしたファイルで現在のプロンプトがすべて上書きされます。続行しますか？"
   },
   "flashcards_newDeckNameRequired": {
-    "message": "Enter a deck name."
+    "message": "デッキ名を入力してください。"
   },
   "flashcards_dueAll": {
-    "message": "All"
+    "message": "すべて"
   },
   "flashcards_dueNew": {
-    "message": "New"
+    "message": "新規"
   },
   "flashcards_dueLearning": {
-    "message": "Learning"
+    "message": "学習中"
   },
   "flashcards_dueDue": {
-    "message": "Due"
+    "message": "期限"
   },
   "flashcards_reviewFailed": {
-    "message": "Review failed"
+    "message": "レビューに失敗しました"
   },
   "flashcards_updateFailed": {
-    "message": "Update failed"
+    "message": "更新に失敗しました"
   },
   "flashcards_deleteFailed": {
-    "message": "Delete failed"
+    "message": "削除に失敗しました"
   },
   "flashcards_missingVersion": {
-    "message": "Missing version; reload and try again"
+    "message": "バージョン情報がありません。再読み込みして再試行してください"
   },
   "flashcards_bulkDeleteResult": {
-    "message": "{{success}} deleted · {{failed}} failed"
+    "message": "{{success}} 件削除 · {{failed}} 件失敗"
   },
   "mediaPage_searchPlaceholder": {
     "message": "Search media (title/content)"

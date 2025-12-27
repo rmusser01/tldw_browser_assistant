@@ -1,15 +1,15 @@
 {
   "navigation": {
-    "serverAndAuth": "Server & Auth",
+    "serverAndAuth": "Server och autentisering",
     "knowledgeTools": "Kunskapsverktyg",
     "workspace": "Arbetsyta",
     "about": "Om"
   },
   "healthNav": "Hälsa",
-  "worldBooksNav": "World Books",
+  "worldBooksNav": "Världböcker",
   "chatDictionariesNav": "Chatordböcker",
   "charactersNav": "Tecken",
-  "mediaNav": "Media",
+  "mediaNav": "Medier",
   "chatAppearance": {
     "title": "Chattutseende",
     "description": "Anpassa färger, typsnitt och textstorlekar för chattmeddelanden.",
@@ -34,8 +34,8 @@
     "font": {
       "default": "Standard",
       "sans": "Sans",
-      "serif": "Serif",
-      "mono": "Monospace"
+      "serif": "Antikva",
+      "mono": "Fast bredd"
     },
     "size": {
       "sm": "Liten",
@@ -119,14 +119,14 @@
         "assetsEnabled": "OCR-resurserna är aktiverade och klara"
       },
       "ocrLanguage": {
-        "label": "Default OCR Language",
-        "placeholder": "Select an OCR language"
+        "label": "Standard OCR‑språk",
+        "placeholder": "Välj ett OCR‑språk"
       },
       "removeReasoningTagFromCopy": {
-        "label": "Remove Reasoning Tag from Copied Text"
+        "label": "Ta bort resonemangstaggen från kopierad text"
       },
       "promptSearchIncludeServer": {
-        "label": "Include server prompts in prompt search"
+        "label": "Inkludera serverprompter i promptsökning"
       },
       "restartOnboarding": {
         "label": "Starta om onboarding från början",
@@ -165,7 +165,7 @@
       },
       "searxng": {
         "url": {
-          "label": "SearXNG URL"
+          "label": "SearXNG‑URL"
         }
       },
       "braveApi": {
@@ -176,19 +176,19 @@
         "label": "Internetsökning PÅ som standard"
       },
       "tavilyApi": {
-        "label": "Tavily API Key ",
-        "placeholder": "Enter your Tavily API key"
+        "label": "Tavily API‑nyckel",
+        "placeholder": "Ange din Tavily API‑nyckel"
       },
       "exa": {
-        "label": "Exa API Key",
-        "placeholder": "Enter your Exa API key"
+        "label": "Exa API‑nyckel",
+        "placeholder": "Ange din Exa API‑nyckel"
       },
       "googleDomain": {
-        "label": "Google Domain"
+        "label": "Google‑domän"
       },
       "firecrawlAPIKey": {
-        "label": "Firecrawl API Key",
-        "placeholder": "Enter your Firecrawl API key"
+        "label": "Firecrawl API‑nyckel",
+        "placeholder": "Ange din Firecrawl API‑nyckel"
       }
     },
     "system": {
@@ -240,7 +240,7 @@
         "label": "Ta bort resonemangstagg från Text till Tal"
       },
       "responseSplitting": {
-        "label": "Response Splitting"
+        "label": "Uppdelning av svar"
       }
     },
     "stt": {
@@ -252,117 +252,117 @@
       "autoSubmitVoiceMessage": {
         "label": "Skicka Röstmeddelande Automatiskt"
       },
-      "usedByChat": "These Speech-to-Text defaults are used by the chat dictation button in the Playground and Sidebar.",
+      "usedByChat": "Dessa standarder för tal‑till‑text används av dikteringsknappen i Playground och sidopanelen.",
       "model": {
-        "label": "Transcription model (tldw_server)"
+        "label": "Transkriptionsmodell (tldw_server)"
       },
       "useSegmentation": {
-        "label": "Run segmentation for transcripts (TreeSeg)"
+        "label": "Kör segmentering för transkript (TreeSeg)"
       },
       "timestampGranularities": {
-        "label": "Timestamp granularity",
+        "label": "Granularitet för tidsstämplar",
         "segment": "Per segment",
-        "word": "Per word",
-        "segmentWord": "Segment + word"
+        "word": "Per ord",
+        "segmentWord": "Segment + ord"
       },
       "task": {
-        "label": "Transcription task",
-        "transcribe": "Transcribe (same language)",
-        "translate": "Translate to English"
+        "label": "Transkriptionsuppgift",
+        "transcribe": "Transkribera (samma språk)",
+        "translate": "Översätt till engelska"
       },
       "responseFormat": {
-        "label": "Response format",
-        "json": "JSON (text + segments)",
-        "verboseJson": "Verbose JSON",
-        "text": "Plain text",
-        "srt": "SRT subtitles",
-        "vtt": "VTT subtitles"
+        "label": "Svarformat",
+        "json": "JSON (text + segment)",
+        "verboseJson": "Utförlig JSON",
+        "text": "Vanlig text",
+        "srt": "SRT‑undertexter",
+        "vtt": "VTT‑undertexter"
       },
       "temperature": {
-        "label": "Sampling temperature"
+        "label": "Samplingtemperatur"
       },
       "prompt": {
-        "label": "Default transcription prompt",
-        "placeholder": "Optional text to guide style"
+        "label": "Standardtranskriptionsprompt",
+        "placeholder": "Valfri text för att styra stil"
       },
       "segK": {
-        "label": "Max segments (TreeSeg K)"
+        "label": "Max segment (TreeSeg K)"
       },
       "segMinSegmentSize": {
-        "label": "Minimum items per segment"
+        "label": "Minsta antal objekt per segment"
       },
       "segLambdaBalance": {
-        "label": "Balance penalty (TreeSeg λ)"
+        "label": "Balansstraff (TreeSeg λ)"
       },
       "segUtteranceExpansionWidth": {
-        "label": "Utterance expansion width"
+        "label": "Bredd för yttrandeutvidgning"
       },
       "segEmbeddingsProvider": {
-        "label": "Segmentation embeddings provider"
+        "label": "Embeddingsleverantör för segmentering"
       },
       "segEmbeddingsModel": {
-        "label": "Segmentation embeddings model"
+        "label": "Embeddingsmodell för segmentering"
       }
     },
     "systemBasics": {
-      "heading": "System",
+      "heading": "Systeminställningar",
       "uiMode": {
-        "label": "Default UI Mode",
+        "label": "Standardläge för gränssnitt",
         "options": {
-          "webui": "Full Screen (Web UI)",
-          "sidePanel": "Sidebar"
+          "webui": "Helskärm (Web UI)",
+          "sidePanel": "Sidofält"
         }
       },
       "actionIcon": {
-        "label": "Browser Action Button"
+        "label": "Knapp för webbläsaråtgärd"
       },
       "contextMenu": {
-        "label": "Context Menu Action"
+        "label": "Åtgärd i snabbmenyn"
       },
       "webuiBtnSidePanel": {
-        "label": "Show Web UI button in Sidebar"
+        "label": "Visa Web UI‑knapp i sidofältet"
       },
       "chatBackgroundImage": {
-        "label": "Chat Background Image"
+        "label": "Bakgrundsbild för chatten"
       },
       "fontSize": {
-        "label": "Font Size"
+        "label": "Teckenstorlek"
       }
     },
     "systemData": {
-      "heading": "Data",
+      "heading": "Datahantering",
       "firefoxPrivateModeSync": {
-        "label": "Firefox Private Mode Sync",
-        "button": "Sync Data"
+        "label": "Synkronisering i Firefox privat läge",
+        "button": "Synkronisera data"
       },
       "deleteChatHistory": {
-        "label": "System Reset",
-        "button": "Reset All",
-        "confirm": "Are you sure you want to perform a system reset? This will clear all data and cannot be undone."
+        "label": "Systemåterställning",
+        "button": "Nollställ allt",
+        "confirm": "Är du säker på att du vill göra en systemåterställning? Detta rensar all data och kan inte ångras."
       },
       "export": {
-        "label": "Export Chat History, Knowledge Base, and Prompts",
-        "button": "Export Data",
-        "success": "Export Success"
+        "label": "Exportera chathistorik, kunskapsbas och prompter",
+        "button": "Exportera data",
+        "success": "Export lyckades"
       },
       "import": {
-        "label": "Import Chat History, Knowledge Base, and Prompts",
-        "button": "Import Data",
-        "success": "Import Success",
-        "error": "Import Error"
+        "label": "Importera chathistorik, kunskapsbas och prompter",
+        "button": "Importera data",
+        "success": "Import lyckades",
+        "error": "Importfel"
       }
     },
     "empty": {
-      "connectTitle": "Connect tldw Assistant to your server",
-      "connectDescription": "Some settings only take effect when your tldw server is reachable. Connect your server to get the full experience.",
-      "connectExample1": "Open Settings → tldw server to add your server URL and API key.",
-      "connectExample2": "Use Diagnostics to confirm your server is healthy before trying advanced tools.",
-      "title": "Tune how tldw Assistant behaves",
-      "description": "Adjust defaults for the Web UI, sidepanel, speech, search, and data handling from one place.",
-      "example1": "Choose your default language, theme, and chat resume behavior.",
-      "example2": "Control whether chats are temporary, how large pastes are handled, and how reasoning is displayed.",
-      "primaryCta": "Configure server & auth",
-      "secondaryCta": "Dismiss"
+      "connectTitle": "Anslut tldw Assistant till din server",
+      "connectDescription": "Vissa inställningar gäller bara när din tldw‑server kan nås. Anslut din server för att få hela upplevelsen.",
+      "connectExample1": "Öppna Inställningar → tldw‑server för att lägga till din server‑URL och API‑nyckel.",
+      "connectExample2": "Använd Diagnostik för att bekräfta att servern är frisk innan du provar avancerade verktyg.",
+      "title": "Finjustera hur tldw Assistant beter sig",
+      "description": "Justera standarder för Web UI, sidopanel, tal, sökning och datahantering på ett ställe.",
+      "example1": "Välj ditt standardspråk, tema och beteende för att återuppta chattar.",
+      "example2": "Styr om chattar är tillfälliga, hur stora inklistringar hanteras och hur resonemang visas.",
+      "primaryCta": "Konfigurera server och autentisering",
+      "secondaryCta": "Stäng"
     }
   },
   "manageModels": {
@@ -378,7 +378,7 @@
     },
     "expandedColumns": {
       "parentModel": "Föräldramodell",
-      "format": "Format",
+      "format": "Filformat",
       "family": "Familj",
       "parameterSize": "Parameterstorlek",
       "quantizationLevel": "Kvantifieringsnivå"
@@ -405,21 +405,21 @@
       "successDescription": "Modellen hämtades framgångsrikt",
       "successDeleteDescription": "Modellen raderades framgångsrikt",
       "someError": "Något gick fel. Försök igen senare",
-      "cancellingDownload": "Cancelling Download",
-      "cancellingDownloadDescription": "Model download is being cancelled..."
+      "cancellingDownload": "Avbryter nedladdning",
+      "cancellingDownloadDescription": "Nedladdning av modellen avbryts..."
     }
   },
   "managePrompts": {
     "title": "Hantera instruktioner",
     "addBtn": "Lägg till ny instruktion",
-    "option1": "Normal",
+    "option1": "Standard",
     "option2": "RAG",
     "questionPrompt": "Frågeinstruktion",
     "segmented": {
       "custom": "Custom instruktion",
       "copilot": "Copilot instruktion",
-      "helpCustom": "Create and manage reusable prompts you can insert into chat.",
-      "helpCopilot": "View and tweak predefined Copilot prompts provided by your server."
+      "helpCustom": "Skapa och hantera återanvändbara prompter som du kan infoga i chatten.",
+      "helpCopilot": "Visa och justera fördefinierade Copilot‑prompter från din server."
     },
     "columns": {
       "title": "Titel",
@@ -432,7 +432,7 @@
     "tooltip": {
       "delete": "Radera instruktion",
       "edit": "Redigera instruktion",
-      "duplicate": "Duplicate Prompt"
+      "duplicate": "Duplicera prompt"
     },
     "confirm": {
       "delete": "Är du säker på att du vill radera denna instruktion? Denna åtgärd kan inte ångras."
@@ -476,45 +476,45 @@
       "deletedSuccess": "Instruktion Raderad",
       "deletedSuccessDesc": "Instruktionen har raderats framgångsrikt"
     },
-    "workspaceTitle": "Prompts workspace",
-    "workspaceDescription": "Reusable prompts are managed from the Prompts workspace. Use the button below to open it.",
-    "openWorkspace": "Open Prompts workspace",
-    "search": "Search titles and contents",
+    "workspaceTitle": "Prompts‑arbetsyta",
+    "workspaceDescription": "Återanvändbara prompter hanteras i Prompts‑arbetsytan. Använd knappen nedan för att öppna den.",
+    "openWorkspace": "Öppna Prompts‑arbetsyta",
+    "search": "Sök titlar och innehåll",
     "filter": {
-      "all": "All",
+      "all": "Alla",
       "system": "System",
-      "quick": "Quick"
+      "quick": "Snabba"
     },
     "tags": {
-      "label": "Tags",
-      "placeholder": "Add tags"
+      "label": "Taggar",
+      "placeholder": "Lägg till taggar"
     },
-    "import": "Import",
-    "export": "Export",
+    "import": "Importera",
+    "export": "Exportera",
     "importMode": {
-      "merge": "Merge",
+      "merge": "Sammanfoga",
       "replace": "Ersätt",
       "replaceConfirm": "Ersätt kommer att skriva över alla nuvarande prompts med den importerade filen. Fortsätt?"
     },
-    "favorite": "Favorite",
-    "unfavorite": "Unfavorite",
-    "partialLoad": "Some prompt data isn’t available",
-    "loadErrorHelp": "Check your server connection and refresh to try again.",
-    "emptyConnectTitle": "Connect to use Prompts",
-    "emptyConnectDescription": "To manage reusable prompts, first connect to your tldw server.",
-    "emptyConnectExample1": "Open Settings → tldw server to add your server URL.",
-    "emptyConnectExample2": "Once connected, create custom prompts you can reuse across chats.",
-    "emptyTitle": "No custom prompts yet",
-    "emptyDescription": "Create reusable prompts for recurring tasks, workflows, and team conventions.",
-    "emptyExample1": "Save your favorite system prompt for summaries, explanations, or translations.",
-    "emptyExample2": "Create quick prompts for common actions like drafting emails or refining notes.",
-    "emptyPrimaryCta": "Create prompt",
-    "filterHelp": "Search matches title and prompt content. Use type and tags to narrow the list.",
-    "copilotEmptyTitle": "No Copilot prompts available",
-    "copilotEmptyDescription": "Copilot prompts are predefined templates provided by your tldw server.",
-    "copilotEmptyExample1": "Check your server version or configuration if you expect Copilot prompts to be available.",
-    "copilotEmptyExample2": "After updating your server, reload the extension and return to this tab.",
-    "copilotEmptyCta": "Open Diagnostics"
+    "favorite": "Favorit",
+    "unfavorite": "Ta bort favorit",
+    "partialLoad": "Viss promptdata är inte tillgänglig",
+    "loadErrorHelp": "Kontrollera serveranslutningen och uppdatera för att försöka igen.",
+    "emptyConnectTitle": "Anslut för att använda prompter",
+    "emptyConnectDescription": "För att hantera återanvändbara prompter måste du först ansluta till din tldw‑server.",
+    "emptyConnectExample1": "Öppna Inställningar → tldw‑server för att lägga till din server‑URL.",
+    "emptyConnectExample2": "När du är ansluten kan du skapa egna prompter som du kan återanvända i chattar.",
+    "emptyTitle": "Inga anpassade prompter ännu",
+    "emptyDescription": "Skapa återanvändbara prompter för återkommande uppgifter, arbetsflöden och teamkonventioner.",
+    "emptyExample1": "Spara din favorit‑systemprompt för sammanfattningar, förklaringar eller översättningar.",
+    "emptyExample2": "Skapa snabba prompter för vanliga åtgärder som att skriva e‑post eller förfina anteckningar.",
+    "emptyPrimaryCta": "Skapa prompt",
+    "filterHelp": "Sökning matchar titel och promptinnehåll. Använd typ och taggar för att begränsa listan.",
+    "copilotEmptyTitle": "Inga Copilot‑prompter tillgängliga",
+    "copilotEmptyDescription": "Copilot‑prompter är fördefinierade mallar som tillhandahålls av din tldw‑server.",
+    "copilotEmptyExample1": "Kontrollera serverversionen eller konfigurationen om du förväntar dig Copilot‑prompter.",
+    "copilotEmptyExample2": "Efter att du uppdaterat servern, ladda om tillägget och återvänd till den här fliken.",
+    "copilotEmptyCta": "Öppna diagnostik"
   },
   "manageShare": {
     "title": "Hantera Delningar",
@@ -531,7 +531,7 @@
       "heading": "Webbdelning",
       "columns": {
         "title": "Titel",
-        "url": "URL",
+        "url": "URL‑adress",
         "actions": "Åtgärder"
       },
       "tooltip": {
@@ -574,7 +574,7 @@
           "label": "Aktivera eller inaktivera automatisk CORS-korrigering"
         },
         "headers": {
-          "label": "Custom Headers",
+          "label": "Anpassade HTTP‑headers",
           "add": "Lägg till Header",
           "key": {
             "label": "Headernyckel",
@@ -596,41 +596,41 @@
   "about": {
     "title": "Om",
     "heading": "Om",
-    "chromeVersion": "tldw Browser_Assistant Version",
+    "chromeVersion": "tldw Browser_Assistant‑version",
     "ollamaVersion": "Serverversion",
     "support": "Du kan stödja tldw Browser_Assistant genom att donera eller sponsra via följande plattformar:",
     "koFi": "Stöd på Ko-fi",
     "githubSponsor": "Sponsra på GitHub",
     "githubRepo": "GitHub repository"
   },
-  "switchToSidebar": "Switch to Sidebar",
+  "switchToSidebar": "Byt till sidofält",
   "healthPage": {
-    "title": "Health Status",
+    "title": "Hälsostatus",
     "subtitle": "Quick overview of subsystem health endpoints exposed by the server.",
-    "backToChat": "Back to chat",
-    "openSettings": "Open tldw Settings",
-    "recheckAll": "Recheck All",
-    "copyDiagnostics": "Copy diagnostics",
-    "serverNotConfigured": "Server is not configured.",
-    "unableToReachCore": "Unable to reach server core health endpoint.",
-    "triedGet": "Tried GET {{url}}",
-    "configureHint": "Please configure a server URL under tldw settings.",
-    "configureCta": "Configure",
-    "connectedTo": "Connected to {{host}}",
-    "autoRefresh": "Auto-refresh",
-    "intervalLabel": "Interval (s):",
-    "checking": "Checking…",
-    "recheck": "Recheck",
-    "healthy": "Healthy",
-    "unhealthy": "Unhealthy",
-    "unknown": "Unknown",
+    "backToChat": "Tillbaka till chatten",
+    "openSettings": "Öppna tldw‑inställningar",
+    "recheckAll": "Kontrollera alla igen",
+    "copyDiagnostics": "Kopiera diagnostik",
+    "serverNotConfigured": "Servern är inte konfigurerad.",
+    "unableToReachCore": "Kunde inte nå serverns kärn‑hälsoendpoint.",
+    "triedGet": "Försökte GET {{url}}",
+    "configureHint": "Konfigurera en server‑URL under tldw‑inställningar.",
+    "configureCta": "Konfigurera",
+    "connectedTo": "Ansluten till {{host}}",
+    "autoRefresh": "Autouppdatera",
+    "intervalLabel": "Intervall (s):",
+    "checking": "Kontrollerar…",
+    "recheck": "Kontrollera igen",
+    "healthy": "Frisk",
+    "unhealthy": "Ohälsosam",
+    "unknown": "Okänd",
     "checks": {
-      "core": "Core API",
+      "core": "Kärn‑API",
       "rag": "RAG",
-      "audio": "Audio",
-      "embeddings": "Embeddings",
-      "metrics": "Metrics Health",
-      "chatMetrics": "Chat Metrics",
+      "audio": "Ljud",
+      "embeddings": "Inbäddningar",
+      "metrics": "Metrikhälsa",
+      "chatMetrics": "Chattmetrik",
       "mcp": "MCP",
       "coreDocsUrl": "https://github.com/rmusser01/tldw_browser_assistant",
       "ragDocsUrl": "https://github.com/rmusser01/tldw_browser_assistant",
@@ -641,15 +641,15 @@
       "mcpDocsUrl": "https://github.com/rmusser01/tldw_browser_assistant"
     },
     "copyDiagnosticsHelp": "Copies JSON diagnostics to clipboard",
-    "statusHealthy": "Healthy",
-    "statusUnhealthy": "Unhealthy",
-    "statusUnknown": "Unknown",
-    "updatedJustNow": "Updated just now",
-    "updatedSecondsAgo": "Updated {{seconds}}s ago"
+    "statusHealthy": "Frisk",
+    "statusUnhealthy": "Ohälsosam",
+    "statusUnknown": "Okänd",
+    "updatedJustNow": "Uppdaterad nyss",
+    "updatedSecondsAgo": "Uppdaterad för {{seconds}} s sedan"
   },
-  "savedSuccessfully": "Settings saved",
-  "saveFailed": "Failed to save settings",
-  "siteAccessGranted": "Host permission granted for {{origin}}",
+  "savedSuccessfully": "Inställningar sparade",
+  "saveFailed": "Kunde inte spara inställningar",
+  "siteAccessGranted": "Värdbehörighet beviljad för {{origin}}",
   "tldw": {
     "advancedTimeouts": "Avancerade tidsgränser",
     "requestTimeout": "Begärans timeout (sekunder)",
@@ -754,14 +754,14 @@
     }
   },
   "manageKnowledge": {
-    "title": "Knowledge QA",
-    "heading": "Knowledge QA",
-    "worldBooksSettingsTitle": "World Books workspace",
-    "worldBooksSettingsDescription": "World Books are managed from the World Books workspace. Use the button below to open it.",
-    "worldBooksOpenWorkspace": "Open World Books workspace",
-    "dictionariesSettingsTitle": "Chat dictionaries workspace",
-    "dictionariesSettingsDescription": "Chat dictionaries are managed from the Chat dictionaries workspace. Use the button below to open it.",
-    "dictionariesOpenWorkspace": "Open Chat dictionaries workspace"
+    "title": "Kunskaps‑QA",
+    "heading": "Kunskaps‑QA",
+    "worldBooksSettingsTitle": "World Books‑arbetsyta",
+    "worldBooksSettingsDescription": "World Books hanteras från World Books‑arbetsytan. Använd knappen nedan för att öppna den.",
+    "worldBooksOpenWorkspace": "Öppna World Books‑arbetsyta",
+    "dictionariesSettingsTitle": "Arbetsyta för chatordböcker",
+    "dictionariesSettingsDescription": "Chatordböcker hanteras från arbetsytan för chatordböcker. Använd knappen nedan för att öppna den.",
+    "dictionariesOpenWorkspace": "Öppna arbetsyta för chatordböcker"
   },
   "rag": {
     "title": "RAG-inställningar",
@@ -772,8 +772,8 @@
         "required": "Vänligen välj en modell",
         "help": "Det rekommenderas starkt att använda inbäddningsmodeller som 'nomic-embed-text'.",
         "placeholder": "Välj en modell",
-        "helpRecommended": "Recommended: {{model}} (from server config)",
-        "helpMissing": "Previously saved embedding model is no longer available on the server. Please choose another model."
+        "helpRecommended": "Rekommenderad: {{model}} (från serverkonfiguration)",
+        "helpMissing": "Den tidigare sparade embeddingsmodellen är inte längre tillgänglig på servern. Välj en annan modell."
       },
       "chunkSize": {
         "label": "Chunkstorlek",
@@ -796,7 +796,7 @@
         "required": "Vänligen ange antal hämtade dokument"
       },
       "splittingSeparator": {
-        "label": "Separator",
+        "label": "Avgränsare",
         "placeholder": "Ange separator (t.ex. \\n\\n)",
         "required": "Vänligen ange en separator"
       },
@@ -806,7 +806,7 @@
     },
     "prompt": {
       "label": "Konfigurera RAG-instruktion",
-      "option1": "Normal",
+      "option1": "Standard",
       "option2": "Webb",
       "alert": "Att konfigurera systeminstruktionen här är föråldrat. Använd Hantera instruktioner-sektionen för att lägga till eller redigera instruktionar. Denna sektion kommer att tas bort i en framtida version",
       "systemPrompt": "Systeminstruktion",
@@ -831,53 +831,53 @@
       "help": "Exempel: http://127.0.0.1:8000",
       "invalid": "Ange en fullständig URL som http://127.0.0.1:8000.",
       "invalidProtocol": "Använd http- eller https‑URL:er, t.ex. http://127.0.0.1:8000.",
-      "label": "Server URL",
-      "emptyHint": "Enter your tldw server URL to enable Next.",
-      "ready": "We’ll enable Next once we can reach this address.",
-      "checking": "Checking reachability…",
-      "reachable": "Server responded successfully. You can continue.",
-      "unreachable": "We couldn’t reach this address yet. Double-check the URL or try again."
+      "label": "Server‑URL",
+      "emptyHint": "Ange din tldw‑server‑URL för att aktivera Nästa.",
+      "ready": "Vi aktiverar Nästa när vi kan nå den här adressen.",
+      "checking": "Kontrollerar åtkomlighet…",
+      "reachable": "Servern svarade. Du kan fortsätta.",
+      "unreachable": "Vi kunde inte nå den här adressen än. Kontrollera URL:en eller försök igen."
     },
     "buttons": {
-      "next": "Next",
-      "back": "Back",
-      "continue": "Continue",
-      "recheck": "Recheck",
-      "finish": "Finish",
-      "finishAnyway": "Finish without connecting",
-      "skip": "Skip for now"
+      "next": "Nästa",
+      "back": "Tillbaka",
+      "continue": "Fortsätt",
+      "recheck": "Kontrollera igen",
+      "finish": "Slutför",
+      "finishAnyway": "Slutför utan att ansluta",
+      "skip": "Hoppa över för tillfället"
     },
     "authMode": {
-      "label": "Authentication Mode",
-      "single": "Single User (API Key)",
-      "multi": "Multi User (Login)"
+      "label": "Autentiseringsläge",
+      "single": "En användare (API‑nyckel)",
+      "multi": "Fleranvändare (inloggning)"
     },
     "apiKey": {
-      "label": "API Key",
-      "placeholder": "Enter your API key (or use the default demo key THIS-IS-A-SECURE-KEY-123-REPLACE-ME for local single-user setups)"
+      "label": "API‑nyckel",
+      "placeholder": "Ange din API‑nyckel (eller använd standarddemo‑nyckeln THIS-IS-A-SECURE-KEY-123-REPLACE-ME för lokala enanvändarinstallationer)"
     },
     "username": {
-      "label": "Username",
-      "placeholder": "Username"
+      "label": "Användarnamn",
+      "placeholder": "Användarnamn"
     },
     "password": {
-      "label": "Password",
-      "placeholder": "Password"
+      "label": "Lösenord",
+      "placeholder": "Lösenord"
     },
     "connection": {
-      "label": "Connection:",
-      "unknown": "Unknown",
-      "connected": "Connected",
-      "failed": "Failed",
+      "label": "Anslutning:",
+      "unknown": "Okänd",
+      "connected": "Ansluten",
+      "failed": "Misslyckades",
       "continueAnyway": "You can continue and complete setup now. You’ll be able to verify the connection later from Settings."
     },
     "rag": {
       "label": "RAG:",
-      "healthy": "Healthy",
-      "unhealthy": "Unhealthy",
-      "unknown": "Unknown"
+      "healthy": "Frisk",
+      "unhealthy": "Ohälsosam",
+      "unknown": "Okänd"
     },
-    "connectionFailed": "Connection failed",
+    "connectionFailed": "Anslutningen misslyckades",
     "footerHelp": "När du är ansluten kan du när som helst gå tillbaka till dessa inställningar via tilläggsmenyn.",
     "progressAria": "Förloppsindikator för onboarding",
     "stepLabel": {
@@ -933,86 +933,86 @@
     "headerShortcuts": "Visa snabba genvägar i sidhuvudet"
   },
   "manageCharacters": {
-    "title": "Manage Characters",
-    "addBtn": "New character",
+    "title": "Hantera karaktärer",
+    "addBtn": "Ny karaktär",
     "columns": {
-      "name": "Name",
-      "description": "Description",
-      "actions": "Actions",
-      "avatar": "Avatar"
+      "name": "Namn",
+      "description": "Beskrivning",
+      "actions": "Åtgärder",
+      "avatar": "Profilbild"
     },
     "actions": {
-      "chat": "Chat",
-      "edit": "Edit",
+      "chat": "Chatta",
+      "edit": "Redigera",
       "delete": "Ta bort",
       "viewConversations": "Visa konversationer"
     },
     "tags": {
-      "label": "Tags",
-      "placeholder": "Add tags",
-      "help": "Use tags to group characters by use case (e.g., “writing”, “teaching”)."
+      "label": "Taggar",
+      "placeholder": "Lägg till taggar",
+      "help": "Använd taggar för att gruppera karaktärer efter användningsfall (t.ex. “skrivande”, “undervisning”)."
     },
     "tooltip": {
-      "edit": "Edit character",
-      "delete": "Delete character"
+      "edit": "Redigera karaktär",
+      "delete": "Ta bort karaktär"
     },
     "aria": {
-      "chatWith": "Chat as {{name}}",
-      "edit": "Edit character {{name}}",
+      "chatWith": "Chatta som {{name}}",
+      "edit": "Redigera karaktär {{name}}",
       "delete": "Ta bort karaktären {{name}}",
       "viewConversations": "Visa konversationer för {{name}}",
       "searchResults": "{{count}} karaktärer hittades"
     },
     "confirm": {
-      "delete": "Are you sure you want to delete this character? This action cannot be undone."
+      "delete": "Är du säker på att du vill ta bort den här karaktären? Den här åtgärden kan inte ångras."
     },
     "form": {
       "name": {
-        "label": "Name",
-        "placeholder": "e.g. Writing coach",
-        "required": "Please enter a name"
+        "label": "Namn",
+        "placeholder": "t.ex. Skrivcoach",
+        "required": "Ange ett namn"
       },
-      "description": "Define a reusable character you can chat with in the sidebar.",
+      "description": "Definiera en återanvändbar karaktär som du kan chatta med i sidopanelen.",
       "systemPrompt": {
-        "label": "Behavior / instructions",
-        "placeholder": "E.g., You are a patient math teacher who explains concepts step by step and checks understanding with short examples.",
-        "help": "Explain the character's role, tone, and constraints. For example: \"You are a patient math tutor who explains concepts step by step.\"",
+        "label": "Beteende / instruktioner",
+        "placeholder": "T.ex. Du är en tålmodig mattelärare som förklarar begrepp steg för steg och kontrollerar förståelsen med korta exempel.",
+        "help": "Förklara karaktärens roll, ton och begränsningar. Till exempel: \"Du är en tålmodig mattelärare som förklarar steg för steg.\"",
         "min": "Add a short description so the character knows how to respond."
       },
       "avatarUrl": {
-        "label": "Avatar URL (optional)",
+        "label": "Avatar‑URL (valfritt)",
         "placeholder": "https://example.com/avatar.png"
       },
       "greeting": {
-        "label": "Greeting message (optional)",
-        "placeholder": "Hi there! I’m your writing coach. Paste your draft and I’ll help you tighten it up.",
-        "help": "Optional first message the character will send when you start a chat."
+        "label": "Hälsningsmeddelande (valfritt)",
+        "placeholder": "Hej! Jag är din skrivcoach. Klistra in ditt utkast så hjälper jag dig att tajta till det.",
+        "help": "Valfritt första meddelande som karaktären skickar när du startar en chatt."
       },
       "btnSave": {
-        "saving": "Creating character...",
-        "save": "Create character"
+        "saving": "Skapar karaktär...",
+        "save": "Skapa karaktär"
       },
       "btnEdit": {
-        "saving": "Saving changes...",
-        "save": "Save changes"
+        "saving": "Sparar ändringar...",
+        "save": "Spara ändringar"
       }
     },
     "notification": {
-      "addSuccess": "Character created",
-      "error": "Error",
-      "someError": "Something went wrong. Please try again later",
-      "updatedSuccess": "Character updated",
-      "deletedSuccess": "Character deleted"
+      "addSuccess": "Karaktär skapad",
+      "error": "Fel",
+      "someError": "Något gick fel. Försök igen senare.",
+      "updatedSuccess": "Karaktär uppdaterad",
+      "deletedSuccess": "Karaktär borttagen"
     },
     "loadError": {
-      "title": "Couldn't load characters",
-      "description": "Check your connection and try again."
+      "title": "Kunde inte läsa in karaktärer",
+      "description": "Kontrollera anslutningen och försök igen."
     },
-    "emptyTitle": "No characters yet",
-    "emptyDescription": "Create a reusable character with a name, description, and system prompt you can chat with.",
-    "emptyExample1": "Define a writing coach, lore expert, or coding assistant you can reuse across chats.",
-    "emptyExample2": "Give each character a clear description and behavior so their responses stay consistent.",
-    "emptyPrimaryCta": "Create character",
+    "emptyTitle": "Inga karaktärer ännu",
+    "emptyDescription": "Skapa en återanvändbar karaktär med namn, beskrivning och systemprompt som du kan chatta med.",
+    "emptyExample1": "Definiera en skrivcoach, lore‑expert eller kodassistent som du kan återanvända i chattar.",
+    "emptyExample2": "Ge varje karaktär en tydlig beskrivning och beteende så att svaren blir konsekventa.",
+    "emptyPrimaryCta": "Skapa karaktär",
     "avatarAltWithName": "Avatar för {{name}}",
     "avatarAlt": "Användaravatar",
     "conversations": {
@@ -1059,189 +1059,189 @@
   "models": {
     "privateModeDescription": "Firefox privat läge stöder inte lagring i IndexedDB. Lägg till en anpassad modell från ett vanligt fönster."
   },
-  "evaluationsSettingsNav": "Evaluations",
-  "promptStudioNav": "Prompt Studio",
+  "evaluationsSettingsNav": "Utvärderingar",
+  "promptStudioNav": "Prompt‑studio",
   "promptStudio": {
-    "nav": "Prompt Studio",
-    "title": "Prompt Studio",
-    "subtitle": "Configure defaults and monitor Prompt Studio health. Connection and auth reuse the main server settings.",
-    "probeError": "Unable to reach Prompt Studio",
-    "statusCard": "Status",
-    "statusHint": "Button calls /prompt-studio/status with warn_seconds.",
-    "statusError": "Status endpoint unavailable",
-    "warnSeconds": "Warn seconds",
-    "testButton": "Test Prompt Studio",
-    "defaultsCard": "Defaults",
-    "defaultsHint": "Store default project, model configs, and list page size.",
-    "defaultsPlaceholder": "Persist defaults using existing settings storage (TBD) for initial project selection, execute/evaluation model presets, and pagination.",
-    "defaultProject": "Default project ID",
-    "pageSize": "Page size",
-    "executeDefaults": "Execute defaults",
-    "executeProvider": "Provider",
-    "executeModel": "Model",
-    "executeTemperature": "Temperature",
-    "executeMaxTokens": "Max tokens",
-    "evalDefaults": "Evaluation defaults",
-    "evalModel": "Model",
-    "evalTemperature": "Temperature",
-    "evalMaxTokens": "Max tokens",
-    "unavailable": "Prompt Studio isn’t available on the server yet.",
-    "unavailableBody": "Once enabled, you can monitor queue health and set defaults here."
+    "nav": "Prompt‑studio",
+    "title": "Prompt‑studio",
+    "subtitle": "Konfigurera standarder och övervaka Prompt‑studios hälsa. Anslutning och autentisering återanvänder huvudserverns inställningar.",
+    "probeError": "Kunde inte nå Prompt‑studio",
+    "statusCard": "Statusläge",
+    "statusHint": "Knappen anropar /prompt-studio/status med warn_seconds.",
+    "statusError": "Status‑endpoint otillgänglig",
+    "warnSeconds": "Varningssekunder",
+    "testButton": "Testa Prompt‑studio",
+    "defaultsCard": "Standarder",
+    "defaultsHint": "Spara standardprojekt, modellkonfigurationer och sidstorlek.",
+    "defaultsPlaceholder": "Spara standarder via befintlig inställningslagring (TBD) för initialt projektval, execute/evaluation‑modellpresets och paginering.",
+    "defaultProject": "Standardprojekt‑ID",
+    "pageSize": "Sidstorlek",
+    "executeDefaults": "Standarder för execute",
+    "executeProvider": "Leverantör",
+    "executeModel": "Modell",
+    "executeTemperature": "Temperatur",
+    "executeMaxTokens": "Max antal tokens",
+    "evalDefaults": "Standarder för utvärdering",
+    "evalModel": "Modell",
+    "evalTemperature": "Temperatur",
+    "evalMaxTokens": "Max antal tokens",
+    "unavailable": "Prompt‑studio är ännu inte tillgängligt på servern.",
+    "unavailableBody": "När det är aktiverat kan du övervaka köhälsa och ange standarder här."
   },
-  "charactersSettingsTitle": "Characters workspace",
-  "charactersSettingsDescription": "Characters are managed from the Characters workspace. Use the button below to open it.",
-  "charactersOpenWorkspace": "Open Characters workspace",
-  "mermaid": "Mermaid",
+  "charactersSettingsTitle": "Karaktärsarbetsyta",
+  "charactersSettingsDescription": "Karaktärer hanteras i Karaktärsarbetsytan. Använd knappen nedan för att öppna den.",
+  "charactersOpenWorkspace": "Öppna karaktärsarbetsyta",
+  "mermaid": "Mermaid-diagram",
   "healthSummary": {
     "diagnostics": "Diagnostics",
-    "diagnosticsTooltip": "Open detailed diagnostics to troubleshoot or inspect health checks.",
-    "core": "Server",
-    "rag": "Knowledge",
-    "coreAria": "Server: server/API health",
-    "ragAria": "Knowledge: knowledge index health",
-    "coreOnline": "Server: Online",
-    "coreOffline": "Server: Offline",
-    "coreChecking": "Server: Checking…",
-    "ragReady": "Knowledge: Ready",
-    "ragOffline": "Knowledge: Offline",
-    "ragChecking": "Knowledge: Checking…",
-    "footerInfo": "These checks summarize the last successful ping to your tldw server and knowledge index."
+    "diagnosticsTooltip": "Öppna detaljerad diagnostik för att felsöka eller granska hälsokontroller.",
+    "core": "Servern",
+    "rag": "Kunskap",
+    "coreAria": "Server: server/API‑hälsa",
+    "ragAria": "Kunskap: hälsa för kunskapsindex",
+    "coreOnline": "Server: online",
+    "coreOffline": "Server: offline",
+    "coreChecking": "Server: kontrollerar…",
+    "ragReady": "Kunskap: redo",
+    "ragOffline": "Kunskap: offline",
+    "ragChecking": "Kunskap: kontrollerar…",
+    "footerInfo": "Dessa kontroller sammanfattar den senaste lyckade pingningen av din tldw‑server och kunskapsindex."
   },
   "storage": {
-    "quotaFriendlyMessage": "Too many settings writes in a short period; please wait a few seconds and try again.",
-    "quotaTitle": "Storage limit reached",
-    "writeError": "Could not save settings",
-    "writeErrorDescription": "We couldn't save your settings. Please try again shortly."
+    "quotaFriendlyMessage": "För många inställningsskrivningar på kort tid; vänta några sekunder och försök igen.",
+    "quotaTitle": "Lagringsgräns nådd",
+    "writeError": "Kunde inte spara inställningar",
+    "writeErrorDescription": "Vi kunde inte spara dina inställningar. Försök igen om en stund."
   },
   "evaluations": {
-    "title": "Evaluations playground",
-    "subtitle": "Define evaluations against your tldw server and inspect recent runs.",
-    "listTitle": "Recent evaluations",
-    "newEvaluationCta": "New evaluation",
-    "startRunCta": "Start run",
-    "loadErrorTitle": "Unable to load evaluations",
-    "loadErrorDescription": "Check your tldw server connection and API credentials, then try again.",
-    "emptyList": "No evaluations yet. Once you create one, it will appear here.",
-    "selectedTag": "Selected",
-    "rateLimitsTitle": "Evaluation limits",
-    "rateLimitsErrorTitle": "Unable to fetch rate limits",
-    "rateLimitsErrorDescription": "We could not retrieve evaluation quotas from the server.",
-    "rateLimitsNoData": "Rate limit information is not available for this server.",
-    "tierLabel": "Tier",
-    "dailyLimitLabel": "Daily evaluations",
-    "tokensTodayLabel": "Tokens today",
-    "perMinuteLabel": "Per-minute limit",
-    "resetAtLabel": "Resets at",
-    "runsTitle": "Runs",
-    "noEvalSelectedRuns": "Select an evaluation to see its recent runs.",
-    "runsErrorTitle": "Unable to load runs",
-    "runsEmpty": "No runs yet for this evaluation.",
-    "runDetailTitle": "Run details",
-    "noRunSelected": "Select a run to see details.",
-    "runDetailErrorTitle": "Unable to load run details",
-    "runStatusLabel": "Status",
-    "runModelLabelShort": "Target model",
-    "runEvalIdLabel": "Evaluation",
-    "runErrorLabel": "Error",
-    "runResultsLabel": "Results (snippet)",
-    "runProgressLabel": "Progress",
-    "runUsageLabel": "Usage",
-    "datasetsTitle": "Datasets",
-    "newDatasetCta": "New dataset",
-    "datasetsErrorTitle": "Unable to load datasets",
-    "datasetsEmpty": "No datasets yet. Create one to attach to evaluations.",
-    "datasetSampleCount": "{{count}} samples",
-    "datasetNameLabel": "Name",
-    "datasetNamePlaceholder": "my_dataset",
-    "datasetDescriptionLabel": "Description",
-    "datasetMetadataLabel": "Metadata (JSON, optional)",
-    "sampleInputLabel": "Sample input",
-    "sampleExpectedLabel": "Expected output (optional)",
-    "samplesJsonLabel": "Samples JSON (optional, overrides fields)",
-    "datasetLabel": "Dataset (optional)",
-    "datasetPlaceholder": "Select dataset",
-    "datasetCreateSuccessTitle": "Dataset created",
-    "datasetCreateSuccessDescription": "Your dataset is ready to use in evaluations.",
-    "datasetCreateErrorTitle": "Failed to create dataset",
-    "datasetCreateErrorDescription": "The server rejected this dataset. Check the fields and try again.",
-    "datasetDeleteSuccessTitle": "Dataset deleted",
-    "datasetDeleteErrorTitle": "Failed to delete dataset",
-    "datasetLoadErrorTitle": "Failed to load dataset",
-    "datasetDetailTitle": "Dataset details",
-    "datasetParseErrorTitle": "Invalid samples JSON",
-    "createEvalModalTitle": "New evaluation",
-    "editEvalModalTitle": "Edit evaluation",
-    "evalNameLabel": "Name",
-    "evalNamePlaceholder": "my_eval_run",
-    "evalNameValidation": "Use only letters, numbers, hyphens, and underscores.",
-    "evalTypeLabel": "Evaluation type",
-    "evalSpecLabel": "Evaluation spec (JSON)",
-    "evalSpecParseError": "Evaluation spec must be valid JSON.",
-    "evalMetadataLabel": "Metadata (JSON, optional)",
-    "inlineDatasetCheckbox": "Attach inline dataset instead of referencing dataset_id",
-    "inlineDatasetErrorTitle": "Invalid inline dataset",
-    "runModelLabel": "Run model (used for quick runs)",
-    "createSuccessTitle": "Evaluation created",
-    "createErrorTitle": "Failed to create evaluation",
-    "createErrorDescription": "The server rejected this evaluation. Ensure name, type, and spec are valid.",
-    "updateSuccessTitle": "Evaluation updated",
-    "updateErrorTitle": "Failed to update evaluation",
-    "deleteErrorTitle": "Failed to delete evaluation",
-    "deleteConfirmTitle": "Delete this evaluation?",
-    "deleteConfirmDescription": "This will remove the evaluation definition. Runs already created remain in history.",
-    "detailTitle": "Evaluation details",
-    "detailErrorTitle": "Unable to load evaluation details",
-    "descriptionLabel": "Description",
-    "noEvalSelectedDetails": "Select an evaluation to inspect its spec.",
-    "runCreateSuccessTitle": "Run started",
-    "runCreateSuccessDescription": "Your evaluation run has started. You can monitor it from the server UI.",
-    "runCreateErrorTitle": "Failed to start run",
-    "runCreateErrorDescription": "The server rejected this run request. Check the model and try again.",
-    "runConfigLabel": "Config (JSON)",
-    "datasetOverrideLabel": "Dataset override (JSON array of samples)",
-    "runConfigParseError": "Invalid config JSON",
-    "runCancelSuccessTitle": "Run cancellation requested",
-    "runCancelErrorTitle": "Failed to cancel run",
-    "cancelRunCta": "Cancel run",
-    "historyTitle": "History",
-    "historyTypeLabel": "Type",
-    "historyUserLabel": "User ID",
-    "historyStartLabel": "Start date (ISO)",
-    "historyEndLabel": "End date (ISO)",
-    "historyFetchCta": "Fetch history",
-    "historyEmpty": "Run a query to see recent activity.",
-    "historyErrorTitle": "Failed to fetch history",
-    "webhooksTitle": "Webhooks",
-    "webhookUrlLabel": "URL",
-    "webhookEventsLabel": "Events",
-    "webhookCreateCta": "Register webhook",
-    "webhookCreateSuccessTitle": "Webhook registered",
-    "webhookCreateErrorTitle": "Failed to register webhook",
-    "webhookDeleteErrorTitle": "Failed to delete webhook",
-    "webhookListErrorTitle": "Unable to load webhooks",
-    "webhooksEmpty": "No webhooks registered yet.",
-    "webhookSecretTitle": "Secret",
-    "idempotencyKeyLabel": "Idempotency key",
-    "emptyConnectTitle": "Connect to use Evaluations",
-    "emptyConnectDescription": "To create and run evaluations, first connect to your tldw server.",
-    "emptyConnectExample1": "Open Settings → tldw server to add your server URL and API key.",
-    "emptyConnectExample2": "Once connected, you can define evaluations and inspect metrics here.",
-    "datasetSamplesLabel": "Samples",
-    "datasetSamplesEmpty": "No samples returned for this page.",
-    "metricsLabel": "Metrics"
+    "title": "Utvärderingsverkstad",
+    "subtitle": "Definiera utvärderingar mot din tldw‑server och granska senaste körningar.",
+    "listTitle": "Senaste utvärderingar",
+    "newEvaluationCta": "Ny utvärdering",
+    "startRunCta": "Starta körning",
+    "loadErrorTitle": "Kunde inte läsa in utvärderingar",
+    "loadErrorDescription": "Kontrollera anslutningen till tldw‑servern och API‑uppgifterna och försök igen.",
+    "emptyList": "Inga utvärderingar ännu. När du skapar en visas den här.",
+    "selectedTag": "Vald",
+    "rateLimitsTitle": "Utvärderingsgränser",
+    "rateLimitsErrorTitle": "Kunde inte hämta gränser",
+    "rateLimitsErrorDescription": "Vi kunde inte hämta utvärderingskvoter från servern.",
+    "rateLimitsNoData": "Information om gränser är inte tillgänglig för den här servern.",
+    "tierLabel": "Nivå",
+    "dailyLimitLabel": "Dagliga utvärderingar",
+    "tokensTodayLabel": "Tokens i dag",
+    "perMinuteLabel": "Gräns per minut",
+    "resetAtLabel": "Återställs",
+    "runsTitle": "Körningar",
+    "noEvalSelectedRuns": "Välj en utvärdering för att se dess senaste körningar.",
+    "runsErrorTitle": "Kunde inte läsa in körningar",
+    "runsEmpty": "Inga körningar ännu för den här utvärderingen.",
+    "runDetailTitle": "Körningsdetaljer",
+    "noRunSelected": "Välj en körning för att se detaljer.",
+    "runDetailErrorTitle": "Kunde inte läsa in körningsdetaljer",
+    "runStatusLabel": "Körstatus",
+    "runModelLabelShort": "Målmodell",
+    "runEvalIdLabel": "Utvärdering",
+    "runErrorLabel": "Fel",
+    "runResultsLabel": "Resultat (utdrag)",
+    "runProgressLabel": "Förlopp",
+    "runUsageLabel": "Användning",
+    "datasetsTitle": "Dataset",
+    "newDatasetCta": "Nytt dataset",
+    "datasetsErrorTitle": "Kunde inte läsa in dataset",
+    "datasetsEmpty": "Inga dataset ännu. Skapa ett för att koppla till utvärderingar.",
+    "datasetSampleCount": "{{count}} prover",
+    "datasetNameLabel": "Namn",
+    "datasetNamePlaceholder": "mitt_dataset",
+    "datasetDescriptionLabel": "Beskrivning",
+    "datasetMetadataLabel": "Metadata (JSON, valfritt)",
+    "sampleInputLabel": "Exempelindata",
+    "sampleExpectedLabel": "Förväntat utdata (valfritt)",
+    "samplesJsonLabel": "Exempel‑JSON (valfritt, åsidosätter fält)",
+    "datasetLabel": "Dataset (valfritt)",
+    "datasetPlaceholder": "Välj dataset",
+    "datasetCreateSuccessTitle": "Dataset skapat",
+    "datasetCreateSuccessDescription": "Ditt dataset är klart att användas i utvärderingar.",
+    "datasetCreateErrorTitle": "Kunde inte skapa dataset",
+    "datasetCreateErrorDescription": "Servern avvisade detta dataset. Kontrollera fälten och försök igen.",
+    "datasetDeleteSuccessTitle": "Dataset borttaget",
+    "datasetDeleteErrorTitle": "Kunde inte ta bort dataset",
+    "datasetLoadErrorTitle": "Kunde inte läsa in dataset",
+    "datasetDetailTitle": "Datasetdetaljer",
+    "datasetParseErrorTitle": "Ogiltig exempel‑JSON",
+    "createEvalModalTitle": "Ny utvärdering",
+    "editEvalModalTitle": "Redigera utvärdering",
+    "evalNameLabel": "Namn",
+    "evalNamePlaceholder": "min_eval_körning",
+    "evalNameValidation": "Använd endast bokstäver, siffror, bindestreck och understreck.",
+    "evalTypeLabel": "Utvärderingstyp",
+    "evalSpecLabel": "Utvärderingsspecifikation (JSON)",
+    "evalSpecParseError": "Utvärderingsspecifikationen måste vara giltig JSON.",
+    "evalMetadataLabel": "Metadata (JSON, valfritt)",
+    "inlineDatasetCheckbox": "Bifoga inline‑dataset i stället för att referera till dataset_id",
+    "inlineDatasetErrorTitle": "Ogiltigt inline‑dataset",
+    "runModelLabel": "Körningsmodell (för snabba körningar)",
+    "createSuccessTitle": "Utvärdering skapad",
+    "createErrorTitle": "Kunde inte skapa utvärdering",
+    "createErrorDescription": "Servern avvisade denna utvärdering. Säkerställ att namn, typ och specifikation är giltiga.",
+    "updateSuccessTitle": "Utvärdering uppdaterad",
+    "updateErrorTitle": "Kunde inte uppdatera utvärdering",
+    "deleteErrorTitle": "Kunde inte ta bort utvärdering",
+    "deleteConfirmTitle": "Ta bort denna utvärdering?",
+    "deleteConfirmDescription": "Detta tar bort utvärderingsdefinitionen. Körningar som redan skapats finns kvar i historiken.",
+    "detailTitle": "Utvärderingsdetaljer",
+    "detailErrorTitle": "Kunde inte läsa in utvärderingsdetaljer",
+    "descriptionLabel": "Beskrivning",
+    "noEvalSelectedDetails": "Välj en utvärdering för att granska dess specifikation.",
+    "runCreateSuccessTitle": "Körning startad",
+    "runCreateSuccessDescription": "Din utvärderingskörning har startat. Du kan följa den i serverns UI.",
+    "runCreateErrorTitle": "Kunde inte starta körning",
+    "runCreateErrorDescription": "Servern avvisade denna körningsbegäran. Kontrollera modellen och försök igen.",
+    "runConfigLabel": "Konfiguration (JSON)",
+    "datasetOverrideLabel": "Dataset‑överskrivning (JSON‑array av exempel)",
+    "runConfigParseError": "Ogiltig konfigurations‑JSON",
+    "runCancelSuccessTitle": "Begäran om annullering av körning skickad",
+    "runCancelErrorTitle": "Kunde inte annullera körning",
+    "cancelRunCta": "Avbryt körning",
+    "historyTitle": "Historik",
+    "historyTypeLabel": "Typ",
+    "historyUserLabel": "Användar‑ID",
+    "historyStartLabel": "Startdatum (ISO)",
+    "historyEndLabel": "Slutdatum (ISO)",
+    "historyFetchCta": "Hämta historik",
+    "historyEmpty": "Kör en fråga för att se nylig aktivitet.",
+    "historyErrorTitle": "Kunde inte hämta historik",
+    "webhooksTitle": "Webhookar",
+    "webhookUrlLabel": "URL‑adress",
+    "webhookEventsLabel": "Händelser",
+    "webhookCreateCta": "Registrera webhook",
+    "webhookCreateSuccessTitle": "Webhook registrerad",
+    "webhookCreateErrorTitle": "Kunde inte registrera webhook",
+    "webhookDeleteErrorTitle": "Kunde inte ta bort webhook",
+    "webhookListErrorTitle": "Kunde inte läsa in webhooks",
+    "webhooksEmpty": "Inga webhooks registrerade ännu.",
+    "webhookSecretTitle": "Hemlighet",
+    "idempotencyKeyLabel": "Idempotensnyckel",
+    "emptyConnectTitle": "Anslut för att använda utvärderingar",
+    "emptyConnectDescription": "För att skapa och köra utvärderingar måste du först ansluta till din tldw‑server.",
+    "emptyConnectExample1": "Öppna Inställningar → tldw‑server för att lägga till din server‑URL och API‑nyckel.",
+    "emptyConnectExample2": "När du är ansluten kan du definiera utvärderingar och granska mätvärden här.",
+    "datasetSamplesLabel": "Exempel",
+    "datasetSamplesEmpty": "Inga exempel returnerades för den här sidan.",
+    "metricsLabel": "Mätvärden"
   },
   "evaluationsSettings": {
-    "title": "Evaluations",
-    "subtitle": "Configure defaults used by the Evaluations playground.",
-    "offline": "Connect to your tldw server to test Evaluations.",
-    "defaultType": "Default evaluation type",
-    "defaultModel": "Default target model",
-    "defaultRunConfig": "Default run config (JSON)",
-    "defaultDataset": "Default dataset id (optional)",
-    "specForType": "Spec preset for selected type",
-    "testCta": "Test Evaluations API",
-    "testOk": "Evaluations API reachable",
-    "testFail": "Unable to reach Evaluations API"
+    "title": "Utvärderingar",
+    "subtitle": "Konfigurera standarder som används av utvärderingsverkstaden.",
+    "offline": "Anslut till din tldw‑server för att testa utvärderingar.",
+    "defaultType": "Standardutvärderingstyp",
+    "defaultModel": "Standardmålsmodell",
+    "defaultRunConfig": "Standardkörningskonfiguration (JSON)",
+    "defaultDataset": "Standard‑dataset‑id (valfritt)",
+    "specForType": "Spec‑förval för vald typ",
+    "testCta": "Testa utvärderings‑API",
+    "testOk": "Utvärderings‑API är nåbart",
+    "testFail": "Kunde inte nå utvärderings‑API"
   },
   "chunkingPlayground": {
     "nav": "Uppdelningslekplats",
@@ -1268,7 +1268,7 @@
       "ko": "Koreanska"
     },
     "viewCards": "Kort",
-    "viewInline": "Inline",
+    "viewInline": "Inbäddat",
     "stats": "{{count}} delar, snitt {{avgSize}} tecken",
     "textLoaded": "Text laddad",
     "characters": "tecken",
@@ -1276,7 +1276,7 @@
     "tabCompare": "Jämför",
     "chunkIndex": "Del {{index}}",
     "chunkInfo": "Del {{index}}: {{words}} ord",
-    "position": "Position: {{start}} - {{end}}",
+    "position": "Placering: {{start}} - {{end}}",
     "additionalChunks": "+{{count}} till",
     "charCount": "{{count}} tecken",
     "wordCount": "{{count}} ord",

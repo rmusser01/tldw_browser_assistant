@@ -2,8 +2,8 @@
   "tooltip": {
     "embed": "പേജ് പ്രോസസ്സ് ചെയ്യുന്നതിന് കുറച്ച് മിനിറ്റുകൾ എടുത്തേക്കാം. കാത്തിരിക്കൂ..",
     "openwebui": "വെബ് യുഐ തുറക്കുക",
-    "clear": "Erase chat history",
-    "history": "Chat history"
+    "clear": "ചാറ്റ് ചരിത്രം മായ്ക്കുക",
+    "history": "ചാറ്റ് ചരിത്രം"
   },
   "toolbar": {
     "ragSearch": "RAG Search"
@@ -27,7 +27,7 @@
   },
   "temporaryBadge": {
     "title": "താൽക്കാലിക ചാറ്റ്",
-    "label": "Temp",
+    "label": "താൽക്കാലികം",
     "description": "ഈ ചാറ്റ് സേവ് ചെയ്യില്ല. നിങ്ങൾ അടയ്ക്കുകയോ പുതിയ ചാറ്റ് തുടങ്ങുകയോ ചെയ്താൽ സന്ദേശങ്ങൾ മായ്ക്കപ്പെടും.",
     "clickHint": "അപ്രാപ്തമാക്കാൻ ക്ലിക്ക് ചെയ്യുക",
     "ariaLabel": "താൽക്കാലിക ചാറ്റ് മോഡ് സജീവമാണ്. മാറാൻ ക്ലിക്ക് ചെയ്യുക.",
@@ -35,33 +35,33 @@
     "indicatorAria": "താൽക്കാലിക ചാറ്റ്"
   },
   "header": {
-    "ingest": "Ingest",
-    "saveCurrent": "Save current page on server",
-    "processLocal": "Process current page locally",
-    "viewProcessed": "View processed",
-    "timeoutLabel": "Timeout (s)",
-    "toggleSidebar": "Toggle Sidebar / Full Screen",
-    "shortcuts": "Shortcuts",
-    "showDebug": "Show Stream Debug",
-    "hideDebug": "Hide Stream Debug",
-    "moreOptionsAria": "More options",
-    "moreOptionsTitle": "Ingest and more",
-    "openWebuiAria": "Open Web UI",
-    "newChatAria": "New chat",
-    "tempChatAria": "Toggle temporary chat",
-    "clearHistoryAria": "Clear history",
-    "openHistoryAria": "Open history",
-    "openModelSettingsAria": "Open model settings",
-    "openSettingsAria": "Open settings",
-    "tempPill": "Temp",
-    "modesLabel": "Open modes in Web UI",
-    "modePlayground": "Chat",
-    "modeReview": "Multi-Item Review",
-    "modeMedia": "Media",
-    "modeKnowledge": "Knowledge",
-    "modeNotes": "Notes",
-    "modePrompts": "Prompts",
-    "modeFlashcards": "Flashcards"
+    "ingest": "ഇൻജെസ്റ്റ്",
+    "saveCurrent": "നിലവിലെ പേജ് സർവറിൽ സംരക്ഷിക്കുക",
+    "processLocal": "നിലവിലെ പേജ് ലോകലായി പ്രോസസ്സ് ചെയ്യുക",
+    "viewProcessed": "പ്രോസസ്സ് ചെയ്തത് കാണുക",
+    "timeoutLabel": "ടൈംഔട്ട് (സെ)",
+    "toggleSidebar": "സൈഡ്ബാർ / ഫുൾ സ്ക്രീൻ ടോഗിൾ ചെയ്യുക",
+    "shortcuts": "ഷോർട്‌കട്ടുകൾ",
+    "showDebug": "സ്റ്റ്രീം ഡീബഗ് കാണിക്കുക",
+    "hideDebug": "സ്റ്റ്രീം ഡീബഗ് മറയ്ക്കുക",
+    "moreOptionsAria": "കൂടുതൽ ഓപ്ഷനുകൾ",
+    "moreOptionsTitle": "ഇൻജെസ്റ്റ്‌വും മറ്റും",
+    "openWebuiAria": "Web UI തുറക്കുക",
+    "newChatAria": "പുതിയ ചാറ്റ്",
+    "tempChatAria": "താൽക്കാലിക ചാറ്റ് ടോഗിൾ ചെയ്യുക",
+    "clearHistoryAria": "ചരിത്രം മായ്ക്കുക",
+    "openHistoryAria": "ചരിത്രം തുറക്കുക",
+    "openModelSettingsAria": "മോഡൽ ക്രമീകരണങ്ങൾ തുറക്കുക",
+    "openSettingsAria": "ക്രമീകരണങ്ങൾ തുറക്കുക",
+    "tempPill": "താൽക്കാലികം",
+    "modesLabel": "Web UIയിൽ മോഡുകൾ തുറക്കുക",
+    "modePlayground": "ചാറ്റ്",
+    "modeReview": "മൾട്ടി-ഐറ്റം റിവ്യൂ",
+    "modeMedia": "മീഡിയ",
+    "modeKnowledge": "അറിവ്",
+    "modeNotes": "കുറിപ്പുകൾ",
+    "modePrompts": "പ്രോംപ്റ്റുകൾ",
+    "modeFlashcards": "ഫ്ലാഷ്കാർഡുകൾ"
   },
   "controlRow": {
     "saveMode": "സംരക്ഷണ മോഡ്",
@@ -80,21 +80,21 @@
     "moreTools": "കൂടുതൽ ഉപകരണങ്ങൾ"
   },
   "composer": {
-    "connectHint": "Connect to your tldw server in Settings to send messages.",
-    "connectingPlaceholder": "Connecting...",
-    "disconnectedPlaceholder": "Connect to your tldw server in Settings to send messages and view media."
+    "connectHint": "സന്ദേശങ്ങൾ അയയ്ക്കാൻ സെറ്റിംഗുകളിൽ നിങ്ങളുടെ tldw സർവറുമായി ബന്ധിപ്പിക്കുക.",
+    "connectingPlaceholder": "ബന്ധിപ്പിക്കുന്നു...",
+    "disconnectedPlaceholder": "സന്ദേശങ്ങൾ അയയ്ക്കാനും മീഡിയ കാണാനുമായി സെറ്റിംഗുകളിൽ നിങ്ങളുടെ tldw സർവറുമായി ബന്ധിപ്പിക്കുക."
   },
   "notification": {
-    "ingestSent": "Sent to tldw server",
-    "ingestSentDesc": "Current page has been submitted for ingestion.",
-    "processedLocal": "Processed locally",
-    "processedLocalDesc": "Processed content stored locally under Settings > Processed.",
-    "transcriptionTitle": "Transcription",
-    "transcriptionSummaryTitle": "Transcription + summary",
-    "transcriptionFallback": "Transcription completed. Open Media in the Web UI to view it.",
-    "sourceLabel": "Source",
-    "transcriptLabel": "Transcript",
-    "summaryLabel": "Summary"
+    "ingestSent": "tldw സർവറിലേക്ക് അയച്ചു",
+    "ingestSentDesc": "നിലവിലെ പേജ് ഇൻജെസ്റ്റ് ചെയ്യാൻ സമർപ്പിച്ചു.",
+    "processedLocal": "ലോകലായി പ്രോസസ്സ് ചെയ്തു",
+    "processedLocalDesc": "പ്രോസസ്സ് ചെയ്ത ഉള്ളടക്കം Settings > Processed ൽ ലോകലായി സംഭരിച്ചു.",
+    "transcriptionTitle": "ട്രാൻസ്ക്രിപ്ഷൻ",
+    "transcriptionSummaryTitle": "ട്രാൻസ്ക്രിപ്ഷൻ + സംഗ്രഹം",
+    "transcriptionFallback": "ട്രാൻസ്ക്രിപ്ഷൻ പൂർത്തിയായി. Web UIയിൽ Media തുറന്ന് അത് കാണുക.",
+    "sourceLabel": "ഉറവ്",
+    "transcriptLabel": "ട്രാൻസ്ക്രിപ്റ്റ്",
+    "summaryLabel": "സംഗ്രഹം"
   },
   "saveStatus": {
     "ephemeral": "താൽക്കാലികം: സേവ് ചെയ്യില്ല, അടയ്ക്കുമ്പോൾ മായ്ക്കപ്പെടും",
@@ -104,23 +104,23 @@
     "saveFailedDescription": "ഇപ്പോൾ ചാറ്റ് പ്രാദേശികമായി മാത്രമാണ് സേവ് ചെയ്യുന്നത്. ബന്ധം പരിശോധിച്ച് വീണ്ടും ശ്രമിക്കുക."
   },
   "rag": {
-    "searchPlaceholder": "Search your knowledge…",
-    "search": "Search",
+    "searchPlaceholder": "നിങ്ങളുടെ അറിവ് തിരയുക…",
+    "search": "തിരയുക",
     "show": "Show RAG search",
     "hide": "Hide RAG search",
-    "addTagPlaceholder": "Add tag (Enter)",
-    "add": "Add",
-    "noResults": "No results",
+    "addTagPlaceholder": "ടാഗ് ചേർക്കുക (Enter)",
+    "add": "ചേർക്കുക",
+    "noResults": "ഫലങ്ങളില്ല",
     "timeout": {
-      "message": "Request timed out.",
-      "increase": "Increase timeout",
-      "checkHealth": "Check server health"
+      "message": "അഭ്യർത്ഥനയുടെ സമയപരിധി കഴിഞ്ഞു.",
+      "increase": "ടൈംഔട്ട് വർധിപ്പിക്കുക",
+      "checkHealth": "സർവർ ഹെൽത്ത് പരിശോധിക്കുക"
     },
     "actions": {
-      "insert": "Insert",
-      "ask": "Ask",
-      "open": "Open",
-      "copy": "Copy"
+      "insert": "ചേർക്കുക",
+      "ask": "ചോദിക്കുക",
+      "open": "തുറക്കുക",
+      "copy": "പകർത്തുക"
     },
     "hint": {
       "message": "നിങ്ങളുടെ അറിവ് ശേഖരത്തിൽ തിരയുകയും ഫലങ്ങൾ നിങ്ങളുടെ സന്ദേശത്തിൽ ചേർക്കുകയും ചെയ്യുക.",
