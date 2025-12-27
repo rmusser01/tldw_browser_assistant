@@ -115,7 +115,7 @@
     "clear": "Limpar",
     "types": "Tipos de mídia",
     "keywords": "Palavras-chave",
-    "moreTags": "+{{count}} tags a mais",
+    "moreTags": "+{{count}} tags adicionais",
     "resetFilters": "Redefinir filtros",
     "clearAll": "Limpar tudo",
     "content": "Conteúdo",

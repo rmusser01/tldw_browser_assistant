@@ -760,5 +760,338 @@
   },
   "mediaEmpty_offlineTechnicalDetails": {
     "message": "技術細節：此 tldw 伺服器未公開媒體端點（例如 /api/v1/media 與 /api/v1/media/search）。"
+  },
+  "empty_connectDescription": {
+    "message": "Connect to your tldw server in Settings to send messages and view media. After connecting, you can review media and notes here."
+  },
+  "empty_connectExample1": {
+    "message": "Open Settings → tldw server to add your server URL."
+  },
+  "empty_connectExample2": {
+    "message": "Once connected, browse media and notes, then generate structured reviews and summaries."
+  },
+  "empty_connectTitle": {
+    "message": "Connect to use Review"
+  },
+  "empty_demoDescription": {
+    "message": "This demo shows how tldw Assistant can turn media and notes into structured reviews. Connect your own server later to analyze your own content."
+  },
+  "empty_demoExample1": {
+    "message": "See how selected media and notes appear in the review workspace."
+  },
+  "empty_demoExample2": {
+    "message": "When you connect, you’ll be able to generate summaries and action items from your own recordings and notes."
+  },
+  "empty_demoTitle": {
+    "message": "Explore Review in demo mode"
+  },
+  "mediaEmpty_connectDescription": {
+    "message": "Connect to your tldw server in Settings to send messages and view media. After connecting, processed recordings and documents will be listed here."
+  },
+  "mediaEmpty_connectExample1": {
+    "message": "Open Settings → tldw server to add your server URL."
+  },
+  "mediaEmpty_connectExample2": {
+    "message": "Once connected, use Quick ingest in the header to add media from your own recordings and files."
+  },
+  "mediaEmpty_connectTitle": {
+    "message": "Connect to use Media"
+  },
+  "mediaEmpty_demoDescription": {
+    "message": "This demo shows how tldw Assistant can display and inspect processed media. Connect your own server later to browse your own recordings and documents."
+  },
+  "mediaEmpty_demoExample1": {
+    "message": "See how processed media items appear in the Media viewer."
+  },
+  "mediaEmpty_demoExample2": {
+    "message": "When you connect, you’ll be able to browse and inspect media ingested from your own recordings and files."
+  },
+  "mediaEmpty_demoTitle": {
+    "message": "Explore Media in demo mode"
+  },
+  "mediaEmpty_featureUnavailableBadge": {
+    "message": "功能無法使用"
+  },
+  "mediaEmpty_offlineDescription": {
+    "message": "This workspace depends on Media Review support in your tldw server. You can continue using chat, notes, and other tools while you upgrade to a version that includes Media."
+  },
+  "mediaEmpty_offlineExample1": {
+    "message": "Open Diagnostics to confirm your server version and available APIs."
+  },
+  "mediaEmpty_offlineExample2": {
+    "message": "升級後，請重新載入擴充功能並返回媒體。"
+  },
+  "mediaEmpty_offlineTitle": {
+    "message": "Media Review isn’t available on this server yet"
+  },
+  "reviewPage_advancedTools": {
+    "message": "Advanced tools"
+  },
+  "reviewPage_analyze_failed": {
+    "message": "Failed to analyze & save note"
+  },
+  "reviewPage_analyze_none": {
+    "message": "No content available to analyze"
+  },
+  "reviewPage_analyze_saved": {
+    "message": "Analysis saved as note"
+  },
+  "reviewPage_askAssistantLabel": {
+    "message": "Ask the assistant"
+  },
+  "reviewPage_attachGeneratedHint": {
+    "message": "Run the assistant and attach the result to this media item."
+  },
+  "reviewPage_attachReview": {
+    "message": "Attach review to media"
+  },
+  "reviewPage_attachSummary": {
+    "message": "Attach summary to media"
+  },
+  "reviewPage_autoReviewLabel": {
+    "message": "Automatically generate a review when you select an item"
+  },
+  "reviewPage_bulkToolbar": {
+    "message": "Bulk view toolbar"
+  },
+  "reviewPage_chatAboutMediaHint": {
+    "message": "Open RAG chat scoped to this media only."
+  },
+  "reviewPage_chatAboutMediaInvalidId": {
+    "message": "此媒體項目尚未有數值 ID。"
+  },
+  "reviewPage_chatAboutMediaRagSent": {
+    "message": "Opened media-scoped RAG chat."
+  },
+  "reviewPage_chatPrepared": {
+    "message": "Prepared chat with this media in the composer."
+  },
+  "reviewPage_chatWithMedia": {
+    "message": "Chat with this media"
+  },
+  "reviewPage_chatWithMediaHint": {
+    "message": "Open Chat and prefill the composer with this media’s content."
+  },
+  "reviewPage_clear": {
+    "message": "Clear"
+  },
+  "reviewPage_customizePrompts": {
+    "message": "Customize prompts"
+  },
+  "reviewPage_demoBadge": {
+    "message": "示範"
+  },
+  "reviewPage_demoMode": {
+    "message": "Demo mode"
+  },
+  "reviewPage_filters": {
+    "message": "Filters"
+  },
+  "reviewPage_generationMode": {
+    "message": "Generation mode"
+  },
+  "reviewPage_hideSidebar": {
+    "message": "Hide results sidebar"
+  },
+  "reviewPage_includeLocal": {
+    "message": "Local"
+  },
+  "reviewPage_includeServer": {
+    "message": "Server"
+  },
+  "reviewPage_keywords": {
+    "message": "Keywords"
+  },
+  "reviewPage_loadedCount": {
+    "message": "{{count}} loaded"
+  },
+  "reviewPage_media": {
+    "message": "Media"
+  },
+  "reviewPage_mediaModeHint": {
+    "message": "Search and inspect one media item at a time. Select a result to view its content and analyses on the right."
+  },
+  "reviewPage_mediaOnlySearchPlaceholder": {
+    "message": "Search media (title/content)"
+  },
+  "reviewPage_mediaTypes": {
+    "message": "Media types"
+  },
+  "reviewPage_modeReview": {
+    "message": "Use review"
+  },
+  "reviewPage_modeSummary": {
+    "message": "Use summary"
+  },
+  "reviewPage_moreActions": {
+    "message": "More actions"
+  },
+  "reviewPage_moreDuplicateVersion": {
+    "message": "Duplicate version"
+  },
+  "reviewPage_moreRestoreVersion": {
+    "message": "Restore selected version"
+  },
+  "reviewPage_moreSaveNewVersion": {
+    "message": "Save as new version"
+  },
+  "reviewPage_navigateLabel": {
+    "message": "Items"
+  },
+  "reviewPage_noDetailLoaded": {
+    "message": "No detail loaded"
+  },
+  "reviewPage_noResults": {
+    "message": "No results"
+  },
+  "reviewPage_notConnectedBadge": {
+    "message": "未連線"
+  },
+  "reviewPage_notes": {
+    "message": "Notes"
+  },
+  "reviewPage_offlineHint": {
+    "message": "Connect to your tldw server in Settings to send messages and view media. Then you can search media from this page."
+  },
+  "reviewPage_paginationHint": {
+    "message": "Use filters or pagination to refine the results if many items are loaded."
+  },
+  "reviewPage_presets": {
+    "message": "Presets"
+  },
+  "reviewPage_presetsBulletReview": {
+    "message": "Bullet Review"
+  },
+  "reviewPage_presetsCritical": {
+    "message": "Critical"
+  },
+  "reviewPage_presetsQaAudit": {
+    "message": "QA Audit"
+  },
+  "reviewPage_resetFilters": {
+    "message": "Reset filters"
+  },
+  "reviewPage_resetToDefaults": {
+    "message": "Reset to defaults"
+  },
+  "reviewPage_resultTypes": {
+    "message": "Result types"
+  },
+  "reviewPage_results": {
+    "message": "Results"
+  },
+  "reviewPage_resultsHelp": {
+    "message": "Keyboard: Tab into the results list, use Enter or Space to select the focused row, then use the Prev/Next buttons in the analysis toolbar to move between items."
+  },
+  "reviewPage_resultsHelpLabel": {
+    "message": "Review results keyboard shortcuts"
+  },
+  "reviewPage_resultsHint": {
+    "message": "Click a result to load its content and analyses on the right."
+  },
+  "reviewPage_review": {
+    "message": "Get review"
+  },
+  "reviewPage_reviewHint": {
+    "message": "Ask the assistant to review this item."
+  },
+  "reviewPage_reviewPrompt": {
+    "message": "Review prompt"
+  },
+  "reviewPage_reviewSystemPrompt": {
+    "message": "Review: System prompt"
+  },
+  "reviewPage_reviewUserPrefix": {
+    "message": "Review: User prompt prefix"
+  },
+  "reviewPage_saveAnalysis": {
+    "message": "Save to notes"
+  },
+  "reviewPage_saveAnalysisHint": {
+    "message": "Create a note from the current analysis."
+  },
+  "reviewPage_saveAsDefault": {
+    "message": "Save as default"
+  },
+  "reviewPage_saveGeneratedNoteHint": {
+    "message": "Run the assistant and save the result as a note."
+  },
+  "reviewPage_saveResultsLabel": {
+    "message": "Save results"
+  },
+  "reviewPage_saveReviewNote": {
+    "message": "Save review as note"
+  },
+  "reviewPage_saveSummaryNote": {
+    "message": "Save summary as note"
+  },
+  "reviewPage_saveToMedia": {
+    "message": "Attach current text to media"
+  },
+  "reviewPage_saveToMediaHint": {
+    "message": "Attach the current text in the editor to this media item."
+  },
+  "reviewPage_search": {
+    "message": "Search"
+  },
+  "reviewPage_searchPlaceholder": {
+    "message": "Search media, notes..."
+  },
+  "reviewPage_searchPrompts": {
+    "message": "Search prompts"
+  },
+  "reviewPage_selectItemEmpty": {
+    "message": "Select an item to review and analyze"
+  },
+  "reviewPage_selectItemFirst": {
+    "message": "Select an item first"
+  },
+  "reviewPage_selectMediaEmpty": {
+    "message": "Select a media item to view analyses"
+  },
+  "reviewPage_selectMediaFirst": {
+    "message": "Select a media item first"
+  },
+  "reviewPage_selectedBadge": {
+    "message": "Selected"
+  },
+  "reviewPage_showRawJson": {
+    "message": "Show raw JSON"
+  },
+  "reviewPage_showSidebar": {
+    "message": "Show results sidebar"
+  },
+  "reviewPage_summary": {
+    "message": "Get summary"
+  },
+  "reviewPage_summaryHint": {
+    "message": "Ask for a shorter summary."
+  },
+  "reviewPage_summaryPrompt": {
+    "message": "Summary prompt"
+  },
+  "reviewPage_summarySystemPrompt": {
+    "message": "Summary: System prompt"
+  },
+  "reviewPage_summaryUserPrefix": {
+    "message": "Summary: User prompt prefix"
+  },
+  "reviewPage_toggleSidebar": {
+    "message": "Toggle results sidebar"
+  },
+  "reviewPage_useReview": {
+    "message": "Use Review"
+  },
+  "reviewPage_useSummary": {
+    "message": "Use Summary"
+  },
+  "reviewPage_usingReviewPrompts": {
+    "message": "Using Review prompts"
+  },
+  "reviewPage_usingSummaryPrompts": {
+    "message": "Using Summary prompts"
+  },
+  "reviewPage_viewLabel": {
+    "message": "Content view"
   }
 }

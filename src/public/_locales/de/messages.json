@@ -1755,19 +1755,19 @@
     "message": "Fällig"
   },
   "flashcards_reviewFailed": {
-    "message": "Review failed"
+    "message": "Überprüfung fehlgeschlagen"
   },
   "flashcards_updateFailed": {
-    "message": "Update failed"
+    "message": "Aktualisierung fehlgeschlagen"
   },
   "flashcards_deleteFailed": {
-    "message": "Delete failed"
+    "message": "Löschen fehlgeschlagen"
   },
   "flashcards_missingVersion": {
-    "message": "Missing version; reload and try again"
+    "message": "Version fehlt; bitte neu laden und erneut versuchen"
   },
   "flashcards_bulkDeleteResult": {
-    "message": "{{success}} deleted · {{failed}} failed"
+    "message": "{{success}} gelöscht · {{failed}} fehlgeschlagen"
   },
   "mediaPage_searchPlaceholder": {
     "message": "Medien durchsuchen (Titel/Inhalt)"

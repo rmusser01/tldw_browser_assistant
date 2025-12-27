@@ -115,7 +115,7 @@
     "clear": "Clear",
     "types": "Types",
     "keywords": "Keywords",
-    "moreTags": "+{{count}} more tags",
+    "moreTags": "+{{count}} тегов",
     "resetFilters": "Reset Filters",
     "clearAll": "Очистить всё",
     "content": "Content",

@@ -1655,7 +1655,7 @@
     "message": "മാറ്റിസ്ഥാപിക്കൽ ഇമ്പോർട്ട് ചെയ്ത ഫയലോടെ നിലവിലുള്ള എല്ലാ പ്രോംപ്റ്റുകളും മേൽ എഴുതി മാറ്റും. തുടരണമോ?"
   },
   "flashcards_newDeckNameRequired": {
-    "message": "Enter a deck name."
+    "message": "ഡെക്കിന്റെ പേര് നൽകുക."
   },
   "flashcards_dueAll": {
     "message": "എല്ലാം"
@@ -1670,19 +1670,19 @@
     "message": "കാലാവധി"
   },
   "flashcards_reviewFailed": {
-    "message": "Review failed"
+    "message": "റിവ്യൂ പരാജയപ്പെട്ടു."
   },
   "flashcards_updateFailed": {
-    "message": "Update failed"
+    "message": "അപ്ഡേറ്റ് ചെയ്യുന്നത് പരാജയപ്പെട്ടു."
   },
   "flashcards_deleteFailed": {
-    "message": "Delete failed"
+    "message": "ഇല്ലാതാക്കുന്നത് പരാജയപ്പെട്ടു."
   },
   "flashcards_missingVersion": {
-    "message": "Missing version; reload and try again"
+    "message": "പതിപ്പ് കാണുന്നില്ല; വീണ്ടും ലോഡ് ചെയ്ത് വീണ്ടും ശ്രമിക്കുക."
   },
   "flashcards_bulkDeleteResult": {
-    "message": "{{success}} deleted · {{failed}} failed"
+    "message": "{{success}} നീക്കം ചെയ്തു · {{failed}} പരാജയപ്പെട്ടു"
   },
   "mediaPage_searchPlaceholder": {
     "message": "Search media (title/content)"

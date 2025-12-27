@@ -184,7 +184,7 @@
     "missingVersion": "Отсутствует версия; перезагрузите и попробуйте снова",
     "bulkMove": "Bulk Move",
     "bulkDelete": "Bulk Delete",
-    "bulkDeleteResult": "{{success}} deleted · {{failed}} failed",
+    "bulkDeleteResult": "{{success}} удалено · {{failed}} не удалось",
     "bulkLimitWarning": "Операция ограничена первыми {{limit}} элементами.",
     "exportSelectedCsv": "Export selected (CSV/TSV)",
     "selectedCount": "Selected",

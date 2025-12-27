@@ -128,8 +128,8 @@
     }
   },
   "tabs": {
-    "newChat": "New chat",
-    "newTabAria": "New chat tab",
-    "closeTabAria": "Close chat tab"
+    "newChat": "新的對話",
+    "newTabAria": "開啟新的對話分頁",
+    "closeTabAria": "關閉對話分頁"
   }
 }

@@ -1731,7 +1731,7 @@
     "message": "缺少版本資訊；請重新載入後再試"
   },
   "flashcards_bulkDeleteResult": {
-    "message": "{{success}} deleted · {{failed}} failed"
+    "message": "{{success}} 個已刪除 · {{failed}} 個失敗"
   },
   "mediaPage_searchPlaceholder": {
     "message": "Search media (title/content)"

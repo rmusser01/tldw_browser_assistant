@@ -128,8 +128,8 @@
     }
   },
   "tabs": {
-    "newChat": "New chat",
-    "newTabAria": "New chat tab",
-    "closeTabAria": "Close chat tab"
+    "newChat": "Nouveau chat",
+    "newTabAria": "Nouvel onglet de chat",
+    "closeTabAria": "Fermer l'onglet de chat"
   }
 }

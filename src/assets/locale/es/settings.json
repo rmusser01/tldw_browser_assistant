@@ -1245,7 +1245,6 @@
     "testFail": "Unable to reach Evaluations API"
   },
   "chunkingPlayground": {
-    "_todo": "TODO: traducir cadenas de chunkingPlayground (copiadas de en)",
     "nav": "Laboratorio de chunking",
     "title": "Laboratorio de chunking",
     "description": "Experimenta con distintas configuraciones de chunking para ver cómo se divide el texto en piezas más pequeñas para su procesamiento.",

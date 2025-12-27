@@ -2599,13 +2599,13 @@
     "message": "Stop and send to server"
   },
   "playground_stt_transcribingButton": {
-    "message": "Transcribing..."
+    "message": "文字起こし中…"
   },
   "playground_stt_transcribingTooltip": {
-    "message": "Transcribing audio..."
+    "message": "音声を文字起こししています…"
   },
   "playground_stt_transcribingPlaceholder": {
-    "message": "Transcribing audio..."
+    "message": "音声を文字起こし中…"
   },
   "playground_stt_historyTitle": {
     "message": "Transcription history"

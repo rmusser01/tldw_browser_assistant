@@ -1153,7 +1153,7 @@
     "description": "Content review UI string."
   },
   "contentReview_missingSource": {
-    "message": "Kilde­fil mangler",
+    "message": "Kildefil mangler",
     "description": "Content review UI string."
   },
   "contentReview_missingSourceBody": {

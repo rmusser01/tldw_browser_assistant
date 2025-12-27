@@ -2830,5 +2830,14 @@
   },
   "playground_composer_validationCompareSelectModelsInline": {
     "message": "Sélectionnez au moins un modèle pour le mode de comparaison."
+  },
+  "tabs_newChat": {
+    "message": "Nouveau chat"
+  },
+  "tabs_newTabAria": {
+    "message": "Nouvel onglet de chat"
+  },
+  "tabs_closeTabAria": {
+    "message": "Fermer l'onglet de chat"
   }
 }

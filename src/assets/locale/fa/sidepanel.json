@@ -128,8 +128,8 @@
     }
   },
   "tabs": {
-    "newChat": "New chat",
-    "newTabAria": "New chat tab",
-    "closeTabAria": "Close chat tab"
+    "newChat": "چت جدید",
+    "newTabAria": "زبانه چت جدید",
+    "closeTabAria": "بستن زبانه چت"
   }
 }

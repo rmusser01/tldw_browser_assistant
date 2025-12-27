@@ -1254,7 +1254,6 @@
     "testFail": "Unable to reach Evaluations API"
   },
   "chunkingPlayground": {
-    "_todo": "TODO: translate chunkingPlayground strings (copied from en)",
     "nav": "Chunking-Playground",
     "title": "Chunking-Playground",
     "description": "Experimentiere mit verschiedenen Chunking-Einstellungen, um zu sehen, wie Text in kleinere Stücke für die Verarbeitung aufgeteilt wird.",

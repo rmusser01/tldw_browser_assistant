@@ -956,7 +956,7 @@
       "chat": "Chat",
       "edit": "Modifica",
       "delete": "Elimina",
-      "viewConversations": "View conversations"
+      "viewConversations": "Visualizza conversazioni"
     },
     "tags": {
       "label": "Tag",
@@ -971,8 +971,8 @@
       "chatWith": "Chatta come {{name}}",
       "edit": "Modifica personaggio {{name}}",
       "delete": "Elimina personaggio {{name}}",
-      "viewConversations": "View conversations for {{name}}",
-      "searchResults": "{{count}} characters found"
+      "viewConversations": "Visualizza conversazioni per {{name}}",
+      "searchResults": "{{count}} personaggi trovati"
     },
     "confirm": {
       "delete": "Sei sicuro di voler eliminare questo personaggio? Questa azione non può essere annullata."

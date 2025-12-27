@@ -1823,7 +1823,7 @@
     "message": "Отсутствует версия; перезагрузите и попробуйте снова"
   },
   "flashcards_bulkDeleteResult": {
-    "message": "{{success}} deleted · {{failed}} failed"
+    "message": "{{success}} удалено · {{failed}} не удалось"
   },
   "mediaPage_searchPlaceholder": {
     "message": "Search media (title/content)"
@@ -1841,7 +1841,7 @@
     "message": "Keywords"
   },
   "mediaPage_moreTags": {
-    "message": "+{{count}} more tags"
+    "message": "+{{count}} тегов"
   },
   "mediaPage_resetFilters": {
     "message": "Reset Filters"

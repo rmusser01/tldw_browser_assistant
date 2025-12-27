@@ -175,7 +175,7 @@
     "missingVersion": "缺少版本資訊；請重新載入後再試",
     "bulkMove": "批次移動",
     "bulkDelete": "批次刪除",
-    "bulkDeleteResult": "{{success}} deleted · {{failed}} failed",
+    "bulkDeleteResult": "{{success}} 個已刪除 · {{failed}} 個失敗",
     "bulkLimitWarning": "此操作僅套用於前 {{limit}} 個項目。",
     "exportSelectedCsv": "匯出所選項目（CSV/TSV）",
     "selectedCount": "已選取",

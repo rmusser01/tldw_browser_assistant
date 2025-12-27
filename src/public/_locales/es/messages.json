@@ -1791,7 +1791,7 @@
     "message": "Palabras clave"
   },
   "mediaPage_moreTags": {
-    "message": "+{{count}} more tags"
+    "message": "+{{count}} más etiquetas"
   },
   "mediaPage_resetFilters": {
     "message": "Restablecer filtros"
@@ -2851,5 +2851,14 @@
   },
   "playground_composer_validationCompareSelectModelsInline": {
     "message": "Seleccione al menos un modelo para el modo de comparación."
+  },
+  "tabs_newChat": {
+    "message": "Nuevo chat"
+  },
+  "tabs_newTabAria": {
+    "message": "Nueva pestaña de chat"
+  },
+  "tabs_closeTabAria": {
+    "message": "Cerrar pestaña de chat"
   }
 }

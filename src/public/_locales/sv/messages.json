@@ -1729,19 +1729,19 @@
     "message": "Due"
   },
   "flashcards_reviewFailed": {
-    "message": "Review failed"
+    "message": "Repetition misslyckades"
   },
   "flashcards_updateFailed": {
-    "message": "Update failed"
+    "message": "Uppdateringen misslyckades"
   },
   "flashcards_deleteFailed": {
-    "message": "Delete failed"
+    "message": "Borttagningen misslyckades"
   },
   "flashcards_missingVersion": {
-    "message": "Missing version; reload and try again"
+    "message": "Version saknas; ladda om och försök igen"
   },
   "flashcards_bulkDeleteResult": {
-    "message": "{{success}} deleted · {{failed}} failed"
+    "message": "{{success}} borttagna · {{failed}} misslyckades"
   },
   "quiz_itemsPerPage": {
     "message": "objekt/sida"
@@ -2464,7 +2464,7 @@
     "message": "Webbläsarens TTS använder systemljud"
   },
   "playground_tts_browserInfoDescription": {
-    "message": "Browser TTS plays using your system synthesizer and does not expose a downloadable audio file. Use the segment controls below, or switch providers for a track list and player."
+    "message": "Webbläsar-TTS spelar upp med din systemsyntetiserare och skapar inte en nedladdningsbar ljudfil. Använd segmentkontrollerna nedan eller byt leverantör för en spårlista och spelare."
   },
   "playground_tts_unsupportedProviderTitle": {
     "message": "Ej stödd TTS-leverantör"
@@ -2473,19 +2473,19 @@
     "message": "Leverantören \"{{provider}}\" stöds ännu inte i playground-spelaren."
   },
   "playground_tts_elevenLabsMissingTitle": {
-    "message": "ElevenLabs needs an API key"
+    "message": "ElevenLabs behöver en API-nyckel"
   },
   "playground_tts_elevenLabsMissingBody": {
-    "message": "Add your ElevenLabs API key in Settings to load voices and models."
+    "message": "Lägg till din ElevenLabs API-nyckel i Inställningar för att ladda röster och modeller."
   },
   "playground_tts_elevenLabsUnavailableTitle": {
-    "message": "ElevenLabs voices unavailable"
+    "message": "ElevenLabs-röster ej tillgängliga"
   },
   "playground_tts_elevenLabsUnavailableBody": {
-    "message": "We couldn't load voices or models. Check your API key and try again."
+    "message": "Vi kunde inte ladda röster eller modeller. Kontrollera din API-nyckel och försök igen."
   },
   "playground_tts_elevenLabsMissingCta": {
-    "message": "Set API key in Settings"
+    "message": "Ställ in API-nyckel i Inställningar"
   },
   "playground_tts_generateErrorTitle": {
     "message": "Fel vid generering av ljud"
@@ -2506,13 +2506,13 @@
     "message": "Enable text-to-speech above to play audio."
   },
   "playground_tts_playDisabledElevenLabs": {
-    "message": "Add an ElevenLabs API key, voice, and model to enable Play."
+    "message": "Lägg till en ElevenLabs API-nyckel, röst och modell för att aktivera Spela upp."
   },
   "playground_tts_stopDisabled": {
     "message": "Stop activates after audio starts."
   },
   "playground_tts_providerChangeHelper": {
-    "message": "Open the provider selector below to switch between Browser, tldw, OpenAI, or Supersonic."
+    "message": "Öppna leverantörsväljaren nedan för att växla mellan Webbläsare, tldw, OpenAI eller Supersonic."
   },
   "playground_tts_changeProvider": {
     "message": "Change provider"

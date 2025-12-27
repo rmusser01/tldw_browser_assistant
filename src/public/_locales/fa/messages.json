@@ -1715,6 +1715,21 @@
   "managePrompts_importMode_replaceConfirm": {
     "message": "جایگزینی همه پرامپت‌های فعلی را با فایل واردشده بازنویسی می‌کند. ادامه می‌دهید؟"
   },
+  "searchPrompts": {
+    "message": "جستجوی پرامپت‌ها..."
+  },
+  "noMatchingPrompts": {
+    "message": "هیچ پرامپتی مطابقت ندارد"
+  },
+  "promptSelect_favorites": {
+    "message": "موارد مورد علاقه"
+  },
+  "promptSelect_system": {
+    "message": "پرامپت‌های سیستم"
+  },
+  "promptSelect_quick": {
+    "message": "پرامپت‌های سریع"
+  },
   "flashcards_newDeckNameRequired": {
     "message": "Enter a deck name."
   },
@@ -2816,76 +2831,109 @@
   "playground_composer_validationCompareSelectModelsInline": {
     "message": "Select at least one model for Compare mode."
   },
+  "tabs_newChat": {
+    "message": "چت جدید"
+  },
+  "tabs_newTabAria": {
+    "message": "زبانه چت جدید"
+  },
+  "tabs_closeTabAria": {
+    "message": "بستن زبانه چت"
+  },
   "quiz_itemsPerPage": {
-    "message": "آیتم/صفحه"
+    "message": "آیتم/صفحه",
+    "description": "Quiz UI text for Persian."
   },
   "quiz_editQuizTitle": {
-    "message": "ویرایش آزمون"
+    "message": "ویرایش آزمون",
+    "description": "Quiz UI text for Persian."
   },
   "quiz_updateSuccess": {
-    "message": "آزمون با موفقیت به‌روزرسانی شد."
+    "message": "آزمون با موفقیت به‌روزرسانی شد.",
+    "description": "Quiz UI text for Persian."
   },
   "quiz_updateError": {
-    "message": "به‌روزرسانی آزمون ناموفق بود."
+    "message": "به‌روزرسانی آزمون ناموفق بود.",
+    "description": "Quiz UI text for Persian."
   },
   "quiz_questionTextRequired": {
-    "message": "متن سؤال الزامی است."
+    "message": "متن سؤال الزامی است.",
+    "description": "Quiz UI text for Persian."
   },
   "quiz_optionsRequired": {
-    "message": "لطفا دست‌کم دو گزینه ارائه کنید."
+    "message": "لطفا دست‌کم دو گزینه ارائه کنید.",
+    "description": "Quiz UI text for Persian."
   },
   "quiz_questionSaveSuccess": {
-    "message": "سؤال با موفقیت ایجاد شد."
+    "message": "سؤال با موفقیت ایجاد شد.",
+    "description": "Quiz UI text for Persian."
   },
   "quiz_questionUpdateSuccess": {
-    "message": "سؤال با موفقیت به‌روزرسانی شد."
+    "message": "سؤال با موفقیت به‌روزرسانی شد.",
+    "description": "Quiz UI text for Persian."
   },
   "quiz_questionSaveError": {
-    "message": "ذخیره سؤال ناموفق بود."
+    "message": "ذخیره سؤال ناموفق بود.",
+    "description": "Quiz UI text for Persian."
   },
   "quiz_questionDeleteSuccess": {
-    "message": "سؤال حذف شد."
+    "message": "سؤال حذف شد.",
+    "description": "Quiz UI text for Persian."
   },
   "quiz_questionDeleteError": {
-    "message": "حذف سؤال ناموفق بود."
+    "message": "حذف سؤال ناموفق بود.",
+    "description": "Quiz UI text for Persian."
   },
   "quiz_editQuestion": {
-    "message": "ویرایش سؤال"
+    "message": "ویرایش سؤال",
+    "description": "Quiz UI text for Persian."
   },
   "quiz_points": {
-    "message": "امتیاز"
+    "message": "امتیاز",
+    "description": "Quiz UI text for Persian."
   },
   "quiz_orderIndex": {
-    "message": "ترتیب"
+    "message": "ترتیب",
+    "description": "Quiz UI text for Persian."
   },
   "quiz_startError": {
-    "message": "شروع آزمون ناموفق بود."
+    "message": "شروع آزمون ناموفق بود.",
+    "description": "Quiz UI text for Persian."
   },
   "quiz_answerAll": {
-    "message": "لطفا پیش از ارسال، به همه سؤالات پاسخ دهید."
+    "message": "لطفا پیش از ارسال، به همه سؤالات پاسخ دهید.",
+    "description": "Quiz UI text for Persian."
   },
   "quiz_submitError": {
-    "message": "ارسال آزمون ناموفق بود."
+    "message": "ارسال آزمون ناموفق بود.",
+    "description": "Quiz UI text for Persian."
   },
   "quiz_scoreSummary": {
-    "message": "امتیاز: {{score}} / {{total}} ({{percent}}%)"
+    "message": "امتیاز: {{score}} / {{total}} ({{percent}}%)",
+    "description": "Quiz UI text for Persian."
   },
   "quiz_correct": {
-    "message": "درست"
+    "message": "درست",
+    "description": "Quiz UI text for Persian."
   },
   "quiz_incorrect": {
-    "message": "نادرست"
+    "message": "نادرست",
+    "description": "Quiz UI text for Persian."
   },
   "quiz_yourAnswer": {
-    "message": "پاسخ شما"
+    "message": "پاسخ شما",
+    "description": "Quiz UI text for Persian."
   },
   "quiz_correctAnswerLabel": {
-    "message": "پاسخ درست"
+    "message": "پاسخ درست",
+    "description": "Quiz UI text for Persian."
   },
   "quiz_backToList": {
-    "message": "بازگشت به فهرست"
+    "message": "بازگشت به فهرست",
+    "description": "Quiz UI text for Persian."
   },
   "quiz_retake": {
-    "message": "تکرار آزمون"
+    "message": "تکرار آزمون",
+    "description": "Quiz UI text for Persian."
   }
 }

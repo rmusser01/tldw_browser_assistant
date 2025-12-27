@@ -936,113 +936,113 @@
     "headerShortcuts": "തലക്കെട്ടിൽ ദ്രുത ഷോർട്ട്‌കട്ടുകൾ കാണിക്കുക"
   },
   "manageCharacters": {
-    "title": "Manage Characters",
-    "addBtn": "New character",
+    "title": "കഥാപാത്രങ്ങൾ നിയന്ത്രിക്കുക",
+    "addBtn": "പുതിയ കഥാപാത്രം",
     "columns": {
-      "name": "Name",
-      "description": "Description",
-      "actions": "Actions",
-      "avatar": "Avatar"
+      "name": "പേര്",
+      "description": "വിവരണം",
+      "actions": "പ്രവർത്തനങ്ങൾ",
+      "avatar": "അവതാർ"
     },
     "actions": {
-      "chat": "Chat",
-      "edit": "Edit",
-      "delete": "Delete",
-      "viewConversations": "View conversations"
+      "chat": "ചാറ്റ്",
+      "edit": "തിരുത്തുക",
+      "delete": "ഇല്ലാതാക്കുക",
+      "viewConversations": "സംഭാഷണങ്ങൾ കാണുക"
     },
     "tags": {
-      "label": "Tags",
-      "placeholder": "Add tags",
-      "help": "Use tags to group characters by use case (e.g., “writing”, “teaching”)."
+      "label": "ടാഗുകൾ",
+      "placeholder": "ടാഗുകൾ ചേർക്കുക",
+      "help": "ഉപയോഗകേസ് പ്രകാരം കഥാപാത്രങ്ങളെ ഗ്രൂപ്പ് ചെയ്യാൻ ടാഗുകൾ ഉപയോഗിക്കുക (ഉദാ., “എഴുത്ത്”, “പഠനം”)."
     },
     "tooltip": {
-      "edit": "Edit character",
-      "delete": "Delete character"
+      "edit": "കഥാപാത്രം തിരുത്തുക",
+      "delete": "കഥാപാത്രം ഇല്ലാതാക്കുക"
     },
     "aria": {
-      "chatWith": "Chat as {{name}}",
-      "edit": "Edit character {{name}}",
-      "delete": "Delete character {{name}}",
-      "viewConversations": "View conversations for {{name}}",
-      "searchResults": "{{count}} characters found"
+      "chatWith": "{{name}} ആയി ചാറ്റ് ചെയ്യുക",
+      "edit": "കഥാപാത്രം തിരുത്തുക {{name}}",
+      "delete": "കഥാപാത്രം ഇല്ലാതാക്കുക {{name}}",
+      "viewConversations": "{{name}} എന്ന കഥാപാത്രത്തിനുള്ള സംഭാഷണങ്ങൾ കാണുക",
+      "searchResults": "{{count}} കഥാപാത്രങ്ങൾ കണ്ടെത്തി"
     },
     "confirm": {
-      "delete": "Are you sure you want to delete this character? This action cannot be undone."
+      "delete": "ഈ കഥാപാത്രം ഇല്ലാതാക്കണമെന്ന് നിങ്ങൾക്ക് ഉറപ്പാണോ? ഈ പ്രവർത്തനം പിൻവലിക്കാനാവില്ല."
     },
     "form": {
       "name": {
-        "label": "Name",
-        "placeholder": "e.g. Writing coach",
-        "required": "Please enter a name"
+        "label": "പേര്",
+        "placeholder": "ഉദാ. എഴുത്ത് പരിശീലകൻ",
+        "required": "ദയവായി ഒരു പേര് നൽകുക"
       },
-      "description": "Define a reusable character you can chat with in the sidebar.",
+      "description": "സൈഡ്ബാറിൽ ചാറ്റ് ചെയ്യാൻ കഴിയുന്ന പുനരുപയോഗിക്കാവുന്ന കഥാപാത്രം നിർവചിക്കുക.",
       "systemPrompt": {
-        "label": "Behavior / instructions",
-        "placeholder": "E.g., You are a patient math teacher who explains concepts step by step and checks understanding with short examples.",
-        "help": "Explain the character's role, tone, and constraints. For example: \"You are a patient math tutor who explains concepts step by step.\"",
-        "min": "Add a short description so the character knows how to respond."
+        "label": "പെരുമാറ്റം / നിർദ്ദേശങ്ങൾ",
+        "placeholder": "ഉദാ., നിങ്ങൾ ക്ഷമയുള്ള ഗണിത അധ്യാപകനാണ്; ഘട്ടം ഘട്ടമായി ആശയങ്ങൾ വിശദീകരിച്ച് ചെറു ഉദാഹരണങ്ങളിലൂടെ ബോധ്യപ്പെടുത്തുന്നു.",
+        "help": "കഥാപാത്രത്തിന്റെ റോളും ടോണും നിയന്ത്രണങ്ങളും വിശദീകരിക്കുക. ഉദാഹരണത്തിന്: \"നിങ്ങൾ ഘട്ടം ഘട്ടമായി ആശയങ്ങൾ വിശദീകരിക്കുന്ന ക്ഷമയുള്ള ഗണിത ട്യൂട്ടറാണ്.\"",
+        "min": "കഥാപാത്രം എങ്ങനെ മറുപടി നൽകണമെന്ന് അറിയാൻ ഒരു ചെറിയ വിവരണം ചേർക്കുക."
       },
       "avatarUrl": {
-        "label": "Avatar URL (optional)",
+        "label": "അവതാർ URL (ഐച്ഛികം)",
         "placeholder": "https://example.com/avatar.png"
       },
       "greeting": {
-        "label": "Greeting message (optional)",
-        "placeholder": "Hi there! I’m your writing coach. Paste your draft and I’ll help you tighten it up.",
-        "help": "Optional first message the character will send when you start a chat."
+        "label": "ആശംസ സന്ദേശം (ഐച്ഛികം)",
+        "placeholder": "ഹായ്! ഞാൻ നിങ്ങളുടെ എഴുത്ത് പരിശീലകനാണ്. നിങ്ങളുടെ ഡ്രാഫ്റ്റ് പേസ്റ്റ് ചെയ്യൂ, അതിനെ മെച്ചപ്പെടുത്താൻ ഞാൻ സഹായിക്കും.",
+        "help": "ചാറ്റ് ആരംഭിക്കുമ്പോൾ കഥാപാത്രം അയക്കുന്ന ആദ്യ സന്ദേശം (ഐച്ഛികം)."
       },
       "btnSave": {
-        "saving": "Creating character...",
-        "save": "Create character"
+        "saving": "കഥാപാത്രം സൃഷ്ടിക്കുന്നു...",
+        "save": "കഥാപാത്രം സൃഷ്ടിക്കുക"
       },
       "btnEdit": {
-        "saving": "Saving changes...",
-        "save": "Save changes"
+        "saving": "മാറ്റങ്ങൾ സേവ് ചെയ്യുന്നു...",
+        "save": "മാറ്റങ്ങൾ സേവ് ചെയ്യുക"
       }
     },
     "notification": {
-      "addSuccess": "Character created",
-      "error": "Error",
-      "someError": "Something went wrong. Please try again later",
-      "updatedSuccess": "Character updated",
-      "deletedSuccess": "Character deleted"
+      "addSuccess": "കഥാപാത്രം സൃഷ്ടിച്ചു",
+      "error": "പിശക്",
+      "someError": "എന്തോ പിശക് സംഭവിച്ചു. ദയവായി പിന്നീട് വീണ്ടും ശ്രമിക്കുക",
+      "updatedSuccess": "കഥാപാത്രം പുതുക്കി",
+      "deletedSuccess": "കഥാപാത്രം ഇല്ലാതാക്കി"
     },
     "loadError": {
-      "title": "Couldn't load characters",
-      "description": "Check your connection and try again."
+      "title": "കഥാപാത്രങ്ങൾ ലോഡുചെയ്യാൻ കഴിഞ്ഞില്ല",
+      "description": "കണക്ഷൻ പരിശോധിച്ച് വീണ്ടും ശ്രമിക്കുക."
     },
-    "emptyTitle": "No characters yet",
-    "emptyDescription": "Create a reusable character with a name, description, and system prompt you can chat with.",
-    "emptyExample1": "Define a writing coach, lore expert, or coding assistant you can reuse across chats.",
-    "emptyExample2": "Give each character a clear description and behavior so their responses stay consistent.",
-    "emptyPrimaryCta": "Create character",
-    "avatarAltWithName": "Avatar of {{name}}",
-    "avatarAlt": "User avatar",
+    "emptyTitle": "ഇതുവരെ കഥാപാത്രങ്ങളില്ല",
+    "emptyDescription": "പേര്, വിവരണം, സിസ്റ്റം പ്രോംപ്റ്റ് എന്നിവയോടെ ചാറ്റ് ചെയ്യാൻ കഴിയുന്ന പുനരുപയോഗിക്കാവുന്ന കഥാപാത്രം സൃഷ്ടിക്കുക.",
+    "emptyExample1": "ചാറ്റുകളിൽ പുനരുപയോഗിക്കാനാവുന്ന എഴുത്ത് പരിശീലകൻ, ലോർ വിദഗ്‌ധൻ, അല്ലെങ്കിൽ കോഡിംഗ് സഹായി എന്നിവ നിർവചിക്കുക.",
+    "emptyExample2": "മറുപടികൾ സ്ഥിരതയോടെ നിലനിർത്താൻ ഓരോ കഥാപാത്രത്തിനും വ്യക്തമായ വിവരണവും പെരുമാറ്റവും നൽകുക.",
+    "emptyPrimaryCta": "കഥാപാത്രം സൃഷ്ടിക്കുക",
+    "avatarAltWithName": "{{name}}യുടെ അവതാർ",
+    "avatarAlt": "ഉപയോക്താവിന്റെ അവതാർ",
     "conversations": {
-      "title": "Conversations for {{name}}",
-      "titleGeneric": "Character conversations",
-      "subtitle": "Select a conversation to continue as this character.",
-      "empty": "No conversations found for this character yet.",
-      "error": "Unable to load conversations for this character.",
-      "updated": "Updated {{time}}",
-      "unknownTime": "Unknown",
-      "resume": "Continue chat",
-      "untitled": "Untitled",
-      "mostRecent": "Most recent",
-      "resumeTooltip": "Load chat history and continue this conversation"
+      "title": "{{name}} കഥാപാത്രത്തിനുള്ള സംഭാഷണങ്ങൾ",
+      "titleGeneric": "കഥാപാത്ര സംഭാഷണങ്ങൾ",
+      "subtitle": "ഈ കഥാപാത്രമായി തുടരാൻ ഒരു സംഭാഷണം തിരഞ്ഞെടുക്കുക.",
+      "empty": "ഈ കഥാപാത്രത്തിനായി ഇനിയും സംഭാഷണങ്ങൾ കണ്ടെത്തിയിട്ടില്ല.",
+      "error": "ഈ കഥാപാത്രത്തിനുള്ള സംഭാഷണങ്ങൾ ലോഡുചെയ്യാൻ കഴിഞ്ഞില്ല.",
+      "updated": "പുതുക്കിയത് {{time}}",
+      "unknownTime": "അറിയില്ല",
+      "resume": "ചാറ്റ് തുടരുക",
+      "untitled": "ശീർഷകമില്ല",
+      "mostRecent": "ഏറ്റവും പുതിയത്",
+      "resumeTooltip": "ചാറ്റ് ചരിത്രം ലോഡ് ചെയ്ത് ഈ സംഭാഷണം തുടരുക"
     },
     "preview": {
-      "title": "Preview",
-      "show": "Show preview",
-      "hide": "Hide preview",
-      "untitled": "Untitled character",
-      "greeting": "Greeting",
-      "behavior": "Behavior",
-      "empty": "Fill in the form to see a preview"
+      "title": "പ്രിവ്യൂ",
+      "show": "പ്രിവ്യൂ കാണിക്കുക",
+      "hide": "പ്രിവ്യൂ മറയ്ക്കുക",
+      "untitled": "ശീർഷകമില്ലാത്ത കഥാപാത്രം",
+      "greeting": "ആശംസ",
+      "behavior": "പെരുമാറ്റം",
+      "empty": "പ്രിവ്യൂ കാണാൻ ഫോം പൂരിപ്പിക്കുക"
     },
     "advanced": {
-      "show": "Show advanced fields",
-      "hide": "Hide advanced fields"
+      "show": "അഡ്വാൻസ്ഡ് ഫീൽഡുകൾ കാണിക്കുക",
+      "hide": "അഡ്വാൻസ്ഡ് ഫീൽഡുകൾ മറയ്ക്കുക"
     }
   },
   "systemNotifications": {

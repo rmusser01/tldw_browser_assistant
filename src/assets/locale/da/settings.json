@@ -1242,7 +1242,7 @@
     "specForType": "Spec preset for selected type",
     "testCta": "Test Evaluations API",
     "testOk": "Evaluations API reachable",
-    "testFail": "Unable to reach Evaluations API"
+    "testFail": "Kan ikke nå Evaluations API"
   },
   "chunkingPlayground": {
     "nav": "Chunking-legeplads",

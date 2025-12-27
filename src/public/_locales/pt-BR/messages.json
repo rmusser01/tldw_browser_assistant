@@ -2605,7 +2605,7 @@
     "message": "Palavras-chave"
   },
   "mediaPage_moreTags": {
-    "message": "+{{count}} more tags"
+    "message": "+{{count}} tags adicionais"
   },
   "mediaPage_resetFilters": {
     "message": "Redefinir filtros"

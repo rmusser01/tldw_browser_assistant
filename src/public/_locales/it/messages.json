@@ -1364,13 +1364,13 @@
     "message": "Salva dopo la revisione"
   },
   "manageCharacters_actions_viewConversations": {
-    "message": "View conversations"
+    "message": "Visualizza conversazioni"
   },
   "manageCharacters_aria_viewConversations": {
-    "message": "View conversations for {{name}}"
+    "message": "Visualizza conversazioni per {{name}}"
   },
   "manageCharacters_aria_searchResults": {
-    "message": "{{count}} characters found"
+    "message": "{{count}} personaggi trovati"
   },
   "manageCharacters_conversations_title": {
     "message": "Conversazioni per {{name}}"
@@ -1722,19 +1722,19 @@
     "message": "Da ripetere"
   },
   "flashcards_reviewFailed": {
-    "message": "Review failed"
+    "message": "Revisione non riuscita"
   },
   "flashcards_updateFailed": {
-    "message": "Update failed"
+    "message": "Aggiornamento non riuscito"
   },
   "flashcards_deleteFailed": {
-    "message": "Delete failed"
+    "message": "Eliminazione non riuscita"
   },
   "flashcards_missingVersion": {
-    "message": "Missing version; reload and try again"
+    "message": "Versione mancante; ricarica e riprova"
   },
   "flashcards_bulkDeleteResult": {
-    "message": "{{success}} deleted · {{failed}} failed"
+    "message": "{{success}} eliminati · {{failed}} non riusciti"
   },
   "mediaPage_searchPlaceholder": {
     "message": "Cerca media (titolo/contenuto)"
@@ -2809,5 +2809,14 @@
   },
   "playground_composer_validationCompareSelectModelsInline": {
     "message": "Seleziona almeno un modello per la modalità Confronto."
+  },
+  "tabs_newChat": {
+    "message": "Nuova chat"
+  },
+  "tabs_newTabAria": {
+    "message": "Nuova scheda chat"
+  },
+  "tabs_closeTabAria": {
+    "message": "Chiudi scheda chat"
   }
 }
