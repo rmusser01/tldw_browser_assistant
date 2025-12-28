@@ -6,41 +6,41 @@
     "about": "Sobre"
   },
   "healthNav": "Saúde",
-  "worldBooksNav": "World Books",
+  "worldBooksNav": "Livros do mundo",
   "chatDictionariesNav": "Dicionários de chat",
   "charactersNav": "Personagens",
   "mediaNav": "Mídia",
   "chatAppearance": {
-    "title": "Chat appearance",
-    "description": "Customize colors, fonts, and text sizes for chat messages.",
-    "behaviorNote": "Looking for chat behavior settings (wide mode, reasoning, copy options)?",
-    "goToGeneral": "Go to General Settings",
-    "userHeading": "User messages",
-    "assistantHeading": "Assistant messages",
-    "userColor": "User text color",
-    "assistantColor": "Assistant text color",
-    "userFont": "User font",
-    "assistantFont": "Assistant font",
-    "userSize": "User text size",
-    "assistantSize": "Assistant text size",
+    "title": "Aparência do chat",
+    "description": "Personalize cores, fontes e tamanhos do texto das mensagens.",
+    "behaviorNote": "Procurando as opções de comportamento do chat (modo amplo, raciocínio, opções de cópia)?",
+    "goToGeneral": "Ir para configurações gerais",
+    "userHeading": "Mensagens do usuário",
+    "assistantHeading": "Mensagens do assistente",
+    "userColor": "Cor do texto do usuário",
+    "assistantColor": "Cor do texto do assistente",
+    "userFont": "Fonte do usuário",
+    "assistantFont": "Fonte do assistente",
+    "userSize": "Tamanho do texto do usuário",
+    "assistantSize": "Tamanho do texto do assistente",
     "color": {
-      "default": "Default",
-      "blue": "Blue",
-      "green": "Green",
-      "purple": "Purple",
-      "orange": "Orange",
-      "red": "Red"
+      "default": "Padrão",
+      "blue": "Azul",
+      "green": "Verde",
+      "purple": "Roxo",
+      "orange": "Laranja",
+      "red": "Vermelho"
     },
     "font": {
-      "default": "Default",
-      "sans": "Sans serif",
-      "serif": "Serif",
-      "mono": "Monospace"
+      "default": "Padrão",
+      "sans": "Sem serifa",
+      "serif": "Com serifa",
+      "mono": "Monoespaçada"
     },
     "size": {
-      "sm": "Small",
-      "md": "Medium",
-      "lg": "Large"
+      "sm": "Pequeno",
+      "md": "Médio",
+      "lg": "Grande"
     }
   },
   "generalSettings": {
@@ -119,14 +119,14 @@
         "assetsEnabled": "Os recursos de OCR foram ativados e estão prontos"
       },
       "ocrLanguage": {
-        "label": "Default OCR Language",
-        "placeholder": "Select an OCR language"
+        "label": "Idioma de OCR padrão",
+        "placeholder": "Selecione o idioma de OCR"
       },
       "removeReasoningTagFromCopy": {
-        "label": "Remove Reasoning Tag from Copied Text"
+        "label": "Remover tag de raciocínio do texto copiado"
       },
       "promptSearchIncludeServer": {
-        "label": "Include server prompts in prompt search"
+        "label": "Incluir prompts do servidor na busca de prompts"
       },
       "restartOnboarding": {
         "label": "Reiniciar o onboarding desde o início",
@@ -180,15 +180,15 @@
         "label": "Pesquisa na Internet ativada por padrão"
       },
       "exa": {
-        "label": "Exa API Key",
-        "placeholder": "Enter your Exa API key"
+        "label": "Chave de API Exa",
+        "placeholder": "Insira sua chave de API Exa"
       },
       "googleDomain": {
-        "label": "Google Domain"
+        "label": "Domínio do Google"
       },
       "firecrawlAPIKey": {
-        "label": "Firecrawl API Key",
-        "placeholder": "Enter your Firecrawl API key"
+        "label": "Chave de API Firecrawl",
+        "placeholder": "Insira sua chave de API Firecrawl"
       }
     },
     "system": {
@@ -240,7 +240,7 @@
         "label": "Remover Tag de Raciocínio do TTS"
       },
       "responseSplitting": {
-        "label": "Response Splitting"
+        "label": "Divisão de resposta"
       }
     },
     "stt": {
@@ -252,117 +252,117 @@
       "autoSubmitVoiceMessage": {
         "label": "Envio Automático de Mensagem de Voz"
       },
-      "usedByChat": "These Speech-to-Text defaults are used by the chat dictation button in the Playground and Sidebar.",
+      "usedByChat": "Esses padrões de Speech-to-Text são usados pelo botão de ditado no Playground e na barra lateral.",
       "model": {
-        "label": "Transcription model (tldw_server)"
+        "label": "Modelo de transcrição (tldw_server)"
       },
       "useSegmentation": {
-        "label": "Run segmentation for transcripts (TreeSeg)"
+        "label": "Executar segmentação para transcrições (TreeSeg)"
       },
       "timestampGranularities": {
-        "label": "Timestamp granularity",
-        "segment": "Per segment",
-        "word": "Per word",
-        "segmentWord": "Segment + word"
+        "label": "Granularidade do timestamp",
+        "segment": "Por segmento",
+        "word": "Por palavra",
+        "segmentWord": "Segmento + palavra"
       },
       "task": {
-        "label": "Transcription task",
-        "transcribe": "Transcribe (same language)",
-        "translate": "Translate to English"
+        "label": "Tarefa de transcrição",
+        "transcribe": "Transcrever (mesmo idioma)",
+        "translate": "Traduzir para inglês"
       },
       "responseFormat": {
-        "label": "Response format",
-        "json": "JSON (text + segments)",
-        "verboseJson": "Verbose JSON",
-        "text": "Plain text",
-        "srt": "SRT subtitles",
-        "vtt": "VTT subtitles"
+        "label": "Formato da resposta",
+        "json": "JSON (texto + segmentos)",
+        "verboseJson": "JSON detalhado",
+        "text": "Texto simples",
+        "srt": "Legendas SRT",
+        "vtt": "Legendas VTT"
       },
       "temperature": {
-        "label": "Sampling temperature"
+        "label": "Temperatura de amostragem"
       },
       "prompt": {
-        "label": "Default transcription prompt",
-        "placeholder": "Optional text to guide style"
+        "label": "Prompt de transcrição padrão",
+        "placeholder": "Texto opcional para orientar o estilo"
       },
       "segK": {
-        "label": "Max segments (TreeSeg K)"
+        "label": "Máx. de segmentos (TreeSeg K)"
       },
       "segMinSegmentSize": {
-        "label": "Minimum items per segment"
+        "label": "Mínimo de itens por segmento"
       },
       "segLambdaBalance": {
-        "label": "Balance penalty (TreeSeg λ)"
+        "label": "Penalidade de balanceamento (TreeSeg λ)"
       },
       "segUtteranceExpansionWidth": {
-        "label": "Utterance expansion width"
+        "label": "Largura de expansão de enunciados"
       },
       "segEmbeddingsProvider": {
-        "label": "Segmentation embeddings provider"
+        "label": "Fornecedor de embeddings de segmentação"
       },
       "segEmbeddingsModel": {
-        "label": "Segmentation embeddings model"
+        "label": "Modelo de embeddings de segmentação"
       }
     },
     "systemBasics": {
-      "heading": "System",
+      "heading": "Sistema",
       "uiMode": {
-        "label": "Default UI Mode",
+        "label": "Modo de interface padrão",
         "options": {
-          "webui": "Full Screen (Web UI)",
-          "sidePanel": "Sidebar"
+          "webui": "Tela cheia (Web UI)",
+          "sidePanel": "Barra lateral"
         }
       },
       "actionIcon": {
-        "label": "Browser Action Button"
+        "label": "Botão de ação do navegador"
       },
       "contextMenu": {
-        "label": "Context Menu Action"
+        "label": "Ação do menu de contexto"
       },
       "webuiBtnSidePanel": {
-        "label": "Show Web UI button in Sidebar"
+        "label": "Mostrar botão da Web UI na barra lateral"
       },
       "chatBackgroundImage": {
-        "label": "Chat Background Image"
+        "label": "Imagem de fundo do chat"
       },
       "fontSize": {
-        "label": "Font Size"
+        "label": "Tamanho da fonte"
       }
     },
     "systemData": {
-      "heading": "Data",
+      "heading": "Dados",
       "firefoxPrivateModeSync": {
-        "label": "Firefox Private Mode Sync",
-        "button": "Sync Data"
+        "label": "Sincronização no modo privado do Firefox",
+        "button": "Sincronizar dados"
       },
       "deleteChatHistory": {
-        "label": "System Reset",
-        "button": "Reset All",
-        "confirm": "Are you sure you want to perform a system reset? This will clear all data and cannot be undone."
+        "label": "Redefinição do sistema",
+        "button": "Redefinir tudo",
+        "confirm": "Tem certeza de que deseja redefinir o sistema? Isso apagará todos os dados e não poderá ser desfeito."
       },
       "export": {
-        "label": "Export Chat History, Knowledge Base, and Prompts",
-        "button": "Export Data",
-        "success": "Export Success"
+        "label": "Exportar histórico de chat, base de conhecimento e prompts",
+        "button": "Exportar dados",
+        "success": "Exportação bem-sucedida"
       },
       "import": {
-        "label": "Import Chat History, Knowledge Base, and Prompts",
-        "button": "Import Data",
-        "success": "Import Success",
-        "error": "Import Error"
+        "label": "Importar histórico de chat, base de conhecimento e prompts",
+        "button": "Importar dados",
+        "success": "Importação bem-sucedida",
+        "error": "Erro de importação"
       }
     },
     "empty": {
-      "connectTitle": "Connect tldw Assistant to your server",
-      "connectDescription": "Some settings only take effect when your tldw server is reachable. Connect your server to get the full experience.",
-      "connectExample1": "Open Settings → tldw server to add your server URL and API key.",
-      "connectExample2": "Use Diagnostics to confirm your server is healthy before trying advanced tools.",
-      "title": "Tune how tldw Assistant behaves",
-      "description": "Adjust defaults for the Web UI, sidepanel, speech, search, and data handling from one place.",
-      "example1": "Choose your default language, theme, and chat resume behavior.",
-      "example2": "Control whether chats are temporary, how large pastes are handled, and how reasoning is displayed.",
-      "primaryCta": "Configure server & auth",
-      "secondaryCta": "Dismiss"
+      "connectTitle": "Conecte o tldw Assistant ao seu servidor",
+      "connectDescription": "Algumas configurações só funcionam quando o servidor tldw está acessível. Conecte seu servidor para ter a experiência completa.",
+      "connectExample1": "Abra Configurações → servidor tldw para adicionar o URL do servidor e a chave de API.",
+      "connectExample2": "Use Diagnósticos para confirmar a saúde do servidor antes de usar ferramentas avançadas.",
+      "title": "Ajuste como o tldw Assistant se comporta",
+      "description": "Ajuste padrões para Web UI, barra lateral, voz, pesquisa e dados em um só lugar.",
+      "example1": "Escolha idioma padrão, tema e comportamento de retomada do chat.",
+      "example2": "Controle se os chats são temporários, como colagens grandes são tratadas e como o raciocínio é exibido.",
+      "primaryCta": "Configurar servidor e autenticação",
+      "secondaryCta": "Dispensar"
     }
   },
   "manageModels": {
@@ -405,19 +405,19 @@
       "successDescription": "Modelo baixado com sucesso",
       "successDeleteDescription": "Modelo excluído com sucesso",
       "someError": "Algo deu errado. Por favor, tente novamente mais tarde",
-      "cancellingDownload": "Cancelling Download",
-      "cancellingDownloadDescription": "Model download is being cancelled..."
+      "cancellingDownload": "Cancelando download",
+      "cancellingDownloadDescription": "O download do modelo está sendo cancelado…"
     }
   },
   "managePrompts": {
     "title": "Gerenciar Prompts",
     "addBtn": "Adicionar Novo Prompt",
-    "option1": "Normal",
-    "option2": "RAG",
+    "option1": "Padrão",
+    "option2": "RAG (busca)",
     "questionPrompt": "Prompt de Pergunta",
     "columns": {
       "title": "Título",
-      "prompt": "Prompt",
+      "prompt": "Texto do prompt",
       "type": "Tipo de Prompt",
       "actions": "Ações"
     },
@@ -426,7 +426,7 @@
     "tooltip": {
       "delete": "Excluir Prompt",
       "edit": "Editar Prompt",
-      "duplicate": "Duplicate Prompt"
+      "duplicate": "Duplicar prompt"
     },
     "confirm": {
       "delete": "Tem certeza que deseja excluir este prompt? Esta ação não pode ser desfeita."
@@ -438,8 +438,8 @@
     "segmented": {
       "custom": "Prompts personalizados",
       "copilot": "Prompts do Copilot",
-      "helpCustom": "Create and manage reusable prompts you can insert into chat.",
-      "helpCopilot": "View and tweak predefined Copilot prompts provided by your server."
+      "helpCustom": "Crie e gerencie prompts reutilizáveis para inserir no chat.",
+      "helpCopilot": "Veja e ajuste prompts Copilot predefinidos fornecidos pelo servidor."
     },
     "form": {
       "title": {
@@ -448,7 +448,7 @@
         "required": "Por favor, insira um título"
       },
       "prompt": {
-        "label": "Prompt",
+        "label": "Texto do prompt",
         "placeholder": "Digite o Prompt",
         "required": "Por favor, insira um prompt",
         "help": "Você pode usar {key} como variável em seu prompt.",
@@ -476,45 +476,45 @@
       "deletedSuccess": "Prompt Excluído",
       "deletedSuccessDesc": "O prompt foi excluído com sucesso"
     },
-    "workspaceTitle": "Prompts workspace",
-    "workspaceDescription": "Reusable prompts are managed from the Prompts workspace. Use the button below to open it.",
-    "openWorkspace": "Open Prompts workspace",
-    "search": "Search titles and contents",
+    "workspaceTitle": "Workspace de prompts",
+    "workspaceDescription": "Os prompts reutilizáveis são gerenciados no workspace de prompts. Use o botão abaixo para abri-lo.",
+    "openWorkspace": "Abrir workspace de prompts",
+    "search": "Pesquisar títulos e conteúdos",
     "filter": {
-      "all": "All",
-      "system": "System",
-      "quick": "Quick"
+      "all": "Todos",
+      "system": "Sistema",
+      "quick": "Rápido"
     },
     "tags": {
-      "label": "Tags",
-      "placeholder": "Add tags"
+      "label": "Etiquetas",
+      "placeholder": "Adicionar tags"
     },
-    "import": "Import",
-    "export": "Export",
+    "import": "Importar",
+    "export": "Exportar",
     "importMode": {
       "merge": "Mesclar",
       "replace": "Substituir",
       "replaceConfirm": "Substituir sobrescreverá todos os prompts atuais com o arquivo importado. Continuar?"
     },
-    "favorite": "Favorite",
-    "unfavorite": "Unfavorite",
-    "partialLoad": "Some prompt data isn’t available",
-    "loadErrorHelp": "Check your server connection and refresh to try again.",
-    "emptyConnectTitle": "Connect to use Prompts",
-    "emptyConnectDescription": "To manage reusable prompts, first connect to your tldw server.",
-    "emptyConnectExample1": "Open Settings → tldw server to add your server URL.",
-    "emptyConnectExample2": "Once connected, create custom prompts you can reuse across chats.",
-    "emptyTitle": "No custom prompts yet",
-    "emptyDescription": "Create reusable prompts for recurring tasks, workflows, and team conventions.",
-    "emptyExample1": "Save your favorite system prompt for summaries, explanations, or translations.",
-    "emptyExample2": "Create quick prompts for common actions like drafting emails or refining notes.",
-    "emptyPrimaryCta": "Create prompt",
-    "filterHelp": "Search matches title and prompt content. Use type and tags to narrow the list.",
-    "copilotEmptyTitle": "No Copilot prompts available",
-    "copilotEmptyDescription": "Copilot prompts are predefined templates provided by your tldw server.",
-    "copilotEmptyExample1": "Check your server version or configuration if you expect Copilot prompts to be available.",
-    "copilotEmptyExample2": "After updating your server, reload the extension and return to this tab.",
-    "copilotEmptyCta": "Open Diagnostics"
+    "favorite": "Favorito",
+    "unfavorite": "Remover favorito",
+    "partialLoad": "Alguns dados de prompt não estão disponíveis",
+    "loadErrorHelp": "Verifique a conexão com o servidor e atualize para tentar novamente.",
+    "emptyConnectTitle": "Conecte-se para usar prompts",
+    "emptyConnectDescription": "Para gerenciar prompts reutilizáveis, conecte-se primeiro ao seu servidor tldw.",
+    "emptyConnectExample1": "Abra Configurações → servidor tldw para adicionar o URL do servidor.",
+    "emptyConnectExample2": "Após conectar, crie prompts personalizados que poderá reutilizar nos chats.",
+    "emptyTitle": "Nenhum prompt personalizado",
+    "emptyDescription": "Crie prompts reutilizáveis para tarefas recorrentes, fluxos de trabalho e padrões de equipe.",
+    "emptyExample1": "Salve seu prompt de sistema favorito para resumos, explicações ou traduções.",
+    "emptyExample2": "Crie prompts rápidos para ações comuns como rascunhar e-mails ou refinar notas.",
+    "emptyPrimaryCta": "Criar prompt",
+    "filterHelp": "A busca corresponde ao título e ao conteúdo do prompt. Use tipo e tags para restringir a lista.",
+    "copilotEmptyTitle": "Nenhum prompt Copilot disponível",
+    "copilotEmptyDescription": "Prompts Copilot são modelos predefinidos fornecidos pelo seu servidor tldw.",
+    "copilotEmptyExample1": "Verifique a versão ou configuração do servidor se espera prompts Copilot.",
+    "copilotEmptyExample2": "Após atualizar o servidor, recarregue a extensão e volte a esta aba.",
+    "copilotEmptyCta": "Abrir diagnósticos"
   },
   "manageShare": {
     "title": "Gerenciar Compartilhamento",
@@ -531,7 +531,7 @@
       "heading": "Compartilhamento Web",
       "columns": {
         "title": "Título",
-        "url": "URL",
+        "url": "Endereço URL",
         "actions": "Ações"
       },
       "tooltip": {
@@ -626,12 +626,12 @@
     "unknown": "Desconhecido",
     "checks": {
       "core": "API principal",
-      "rag": "RAG",
+      "rag": "RAG (busca)",
       "audio": "Áudio",
       "embeddings": "Incorporações",
       "metrics": "Saúde das métricas",
       "chatMetrics": "Métricas de chat",
-      "mcp": "MCP",
+      "mcp": "MCP (protocolo de contexto de modelo)",
       "coreDocsUrl": "https://github.com/rmusser01/tldw_browser_assistant",
       "ragDocsUrl": "https://github.com/rmusser01/tldw_browser_assistant",
       "audioDocsUrl": "https://github.com/rmusser01/tldw_browser_assistant",
@@ -641,11 +641,11 @@
       "mcpDocsUrl": "https://github.com/rmusser01/tldw_browser_assistant"
     },
     "copyDiagnosticsHelp": "Copies JSON diagnostics to clipboard",
-    "statusHealthy": "Healthy",
-    "statusUnhealthy": "Unhealthy",
-    "statusUnknown": "Unknown",
-    "updatedJustNow": "Updated just now",
-    "updatedSecondsAgo": "Updated {{seconds}}s ago"
+    "statusHealthy": "Saudável",
+    "statusUnhealthy": "Não saudável",
+    "statusUnknown": "Desconhecido",
+    "updatedJustNow": "Atualizado agora",
+    "updatedSecondsAgo": "Atualizado há {{seconds}} s"
   },
   "savedSuccessfully": "Configurações salvas",
   "saveFailed": "Falha ao salvar configurações",
@@ -754,14 +754,14 @@
     }
   },
   "manageKnowledge": {
-    "title": "Knowledge QA",
-    "heading": "Knowledge QA",
-    "worldBooksSettingsTitle": "World Books workspace",
-    "worldBooksSettingsDescription": "World Books are managed from the World Books workspace. Use the button below to open it.",
-    "worldBooksOpenWorkspace": "Open World Books workspace",
-    "dictionariesSettingsTitle": "Chat dictionaries workspace",
-    "dictionariesSettingsDescription": "Chat dictionaries are managed from the Chat dictionaries workspace. Use the button below to open it.",
-    "dictionariesOpenWorkspace": "Open Chat dictionaries workspace"
+    "title": "Perguntas e respostas do conhecimento",
+    "heading": "Perguntas e respostas do conhecimento",
+    "worldBooksSettingsTitle": "Workspace de livros do mundo",
+    "worldBooksSettingsDescription": "Os livros do mundo são gerenciados no workspace de livros do mundo. Use o botão abaixo para abri-lo.",
+    "worldBooksOpenWorkspace": "Abrir workspace de livros do mundo",
+    "dictionariesSettingsTitle": "Workspace de dicionários de chat",
+    "dictionariesSettingsDescription": "Os dicionários de chat são gerenciados no workspace de dicionários de chat. Use o botão abaixo para abri-lo.",
+    "dictionariesOpenWorkspace": "Abrir workspace de dicionários de chat"
   },
   "rag": {
     "title": "Configurações RAG",
@@ -772,8 +772,8 @@
         "required": "Por favor, selecione um modelo",
         "help": "Altamente recomendado o uso de modelos de incorporação como `nomic-embed-text`.",
         "placeholder": "Selecione um modelo",
-        "helpRecommended": "Recommended: {{model}} (from server config)",
-        "helpMissing": "Previously saved embedding model is no longer available on the server. Please choose another model."
+        "helpRecommended": "Recomendado: {{model}} (da configuração do servidor)",
+        "helpMissing": "O modelo de embeddings salvo anteriormente não está mais disponível no servidor. Escolha outro modelo."
       },
       "chunkSize": {
         "label": "Tamanho do Pedaço",
@@ -806,8 +806,8 @@
     },
     "prompt": {
       "label": "Configurar Prompt RAG",
-      "option1": "Normal",
-      "option2": "Web",
+      "option1": "Geral",
+      "option2": "Web (internet)",
       "alert": "A configuração do prompt do sistema aqui está obsoleta. Por favor, use a seção Gerenciar Prompts para adicionar ou editar prompts. Esta seção será removida em uma versão futura",
       "systemPrompt": "Prompt do Sistema",
       "systemPromptPlaceholder": "Digite o Prompt do Sistema",
@@ -830,7 +830,7 @@
     "learnMoreTldw": "Saiba como o servidor tldw funciona",
     "serverUrl": {
       "label": "URL do servidor",
-      "placeholder": "http://127.0.0.1:8000",
+      "placeholder": "ex.: http://127.0.0.1:8000",
       "help": "Exemplo: http://127.0.0.1:8000",
       "emptyHint": "Digite a URL do seu servidor tldw para ativar o Próximo.",
       "invalid": "Insira uma URL completa como http://127.0.0.1:8000.",
@@ -901,11 +901,11 @@
     "path": {
       "heading": "Como você quer começar?",
       "hasServer": "Já estou executando o tldw_server",
-      "hasServerHelp": "Connect to an existing tldw_server you already run.",
+      "hasServerHelp": "Conecte-se a um tldw_server já em execução.",
       "noServer": "Ainda não tenho um servidor",
-      "noServerHelp": "Follow a setup guide for tldw_server, or start in demo mode.",
+      "noServerHelp": "Siga o guia de configuração do tldw_server ou comece no modo de demonstração.",
       "demo": "Apenas explorar com uma demonstração local",
-      "demoHelp": "Try the workspace with sample data; connect your own server later.",
+      "demoHelp": "Teste o workspace com dados de exemplo; conecte seu servidor depois.",
       "noServerTitle": "Ainda sem servidor? Você ainda pode explorar.",
       "noServerBody": "tldw_server é um aplicativo separado, auto-hospedado. Você pode seguir o guia de configuração agora ou voltar depois e continuar no modo de demonstração.",
       "noServerOptionLocal": "Execute localmente com Docker ou Python na sua própria máquina.",
@@ -952,16 +952,17 @@
       "name": "Nome",
       "description": "Descrição",
       "actions": "Ações",
-      "avatar": "Avatar"
+      "avatar": "Foto do perfil"
     },
     "actions": {
       "chat": "Conversar",
       "edit": "Editar",
       "delete": "Excluir",
-      "viewConversations": "Ver conversas"
+      "viewConversations": "Ver conversas",
+      "duplicate": "Duplicar"
     },
     "tags": {
-      "label": "Tags",
+      "label": "Etiquetas",
       "placeholder": "Adicionar tags",
       "help": "Use tags para agrupar personagens por caso de uso (por exemplo, “escrita”, “ensino”)."
     },
@@ -974,7 +975,8 @@
       "edit": "Editar personagem {{name}}",
       "delete": "Excluir personagem {{name}}",
       "viewConversations": "Ver conversas de {{name}}",
-      "searchResults": "{{count}} personagens encontrados"
+      "searchResults": "{{count}} personagens encontrados",
+      "duplicate": "Duplicar personagem {{name}}"
     },
     "confirm": {
       "delete": "Tem certeza de que deseja excluir este personagem? Essa ação não pode ser desfeita."
@@ -990,11 +992,13 @@
         "label": "Comportamento / instruções",
         "placeholder": "Por exemplo: Você é um professor de matemática paciente que explica conceitos passo a passo e verifica a compreensão com exemplos curtos.",
         "help": "Explique o papel, o tom e as limitações do personagem. Por exemplo: \"Você é um tutor de matemática paciente que explica conceitos passo a passo.\"",
-        "min": "Adicione uma breve descrição para que o personagem saiba como responder."
+        "min": "Adicione uma breve descrição para que o personagem saiba como responder.",
+        "required": "Adicione instruções para orientar as respostas.",
+        "max": "O prompt do sistema deve ter no máximo 2000 caracteres."
       },
       "avatarUrl": {
         "label": "URL do avatar (opcional)",
-        "placeholder": "https://example.com/avatar.png"
+        "placeholder": "ex.: https://example.com/avatar.png"
       },
       "greeting": {
         "label": "Mensagem de saudação (opcional)",
@@ -1053,6 +1057,24 @@
     "advanced": {
       "show": "Mostrar campos avançados",
       "hide": "Ocultar campos avançados"
+    },
+    "table": {
+      "noDescription": "Sem descrição"
+    },
+    "filter": {
+      "matchAll": "Corresponder todas as tags"
+    },
+    "avatar": {
+      "label": "Foto do perfil (opcional)",
+      "tabUrl": "Endereço URL",
+      "tabUpload": "Carregar",
+      "selectImageError": "Selecione um arquivo de imagem",
+      "formatError": "Apenas imagens PNG, JPEG e GIF são suportadas",
+      "invalidError": "Arquivo de imagem inválido",
+      "processError": "Falha ao processar a imagem",
+      "dropzone": "Clique ou arraste a imagem para carregar",
+      "formats": "PNG, JPEG ou GIF",
+      "preview": "Pré-visualização"
     }
   },
   "systemNotifications": {
@@ -1072,189 +1094,189 @@
   "models": {
     "privateModeDescription": "O modo privativo do Firefox não suporta salvar no IndexedDB. Adicione um modelo personalizado em uma janela normal."
   },
-  "evaluationsSettingsNav": "Evaluations",
-  "promptStudioNav": "Prompt Studio",
+  "evaluationsSettingsNav": "Avaliações",
+  "promptStudioNav": "Estúdio de prompts",
   "promptStudio": {
-    "nav": "Prompt Studio",
-    "title": "Prompt Studio",
-    "subtitle": "Configure defaults and monitor Prompt Studio health. Connection and auth reuse the main server settings.",
-    "probeError": "Unable to reach Prompt Studio",
-    "statusCard": "Status",
-    "statusHint": "Button calls /prompt-studio/status with warn_seconds.",
-    "statusError": "Status endpoint unavailable",
-    "warnSeconds": "Warn seconds",
-    "testButton": "Test Prompt Studio",
-    "defaultsCard": "Defaults",
-    "defaultsHint": "Store default project, model configs, and list page size.",
-    "defaultsPlaceholder": "Persist defaults using existing settings storage (TBD) for initial project selection, execute/evaluation model presets, and pagination.",
-    "defaultProject": "Default project ID",
-    "pageSize": "Page size",
-    "executeDefaults": "Execute defaults",
-    "executeProvider": "Provider",
-    "executeModel": "Model",
-    "executeTemperature": "Temperature",
-    "executeMaxTokens": "Max tokens",
-    "evalDefaults": "Evaluation defaults",
-    "evalModel": "Model",
-    "evalTemperature": "Temperature",
-    "evalMaxTokens": "Max tokens",
-    "unavailable": "Prompt Studio isn’t available on the server yet.",
-    "unavailableBody": "Once enabled, you can monitor queue health and set defaults here."
+    "nav": "Estúdio de prompts",
+    "title": "Estúdio de prompts",
+    "subtitle": "Configure padrões e monitore a saúde do Prompt Studio. Conexão e autenticação reutilizam as configurações principais do servidor.",
+    "probeError": "Não foi possível alcançar o Prompt Studio",
+    "statusCard": "Cartão de status",
+    "statusHint": "O botão chama /prompt-studio/status com warn_seconds.",
+    "statusError": "Endpoint de status indisponível",
+    "warnSeconds": "Segundos de aviso",
+    "testButton": "Testar Prompt Studio",
+    "defaultsCard": "Padrões",
+    "defaultsHint": "Armazene projeto padrão, configurações de modelo e tamanho da página.",
+    "defaultsPlaceholder": "Salve padrões usando o armazenamento existente (TBD) para seleção inicial de projeto, presets de modelos de execução/avaliação e paginação.",
+    "defaultProject": "ID do projeto padrão",
+    "pageSize": "Tamanho da página",
+    "executeDefaults": "Padrões de execução",
+    "executeProvider": "Provedor",
+    "executeModel": "Modelo",
+    "executeTemperature": "Temperatura",
+    "executeMaxTokens": "Máximo de tokens",
+    "evalDefaults": "Padrões de avaliação",
+    "evalModel": "Modelo",
+    "evalTemperature": "Temperatura",
+    "evalMaxTokens": "Máximo de tokens",
+    "unavailable": "O Prompt Studio ainda não está disponível no servidor.",
+    "unavailableBody": "Quando habilitado, você poderá monitorar a saúde da fila e definir padrões aqui."
   },
-  "charactersSettingsTitle": "Characters workspace",
-  "charactersSettingsDescription": "Characters are managed from the Characters workspace. Use the button below to open it.",
-  "charactersOpenWorkspace": "Open Characters workspace",
-  "mermaid": "Mermaid",
+  "charactersSettingsTitle": "Workspace de personagens",
+  "charactersSettingsDescription": "Os personagens são gerenciados no workspace de personagens. Use o botão abaixo para abri-lo.",
+  "charactersOpenWorkspace": "Abrir workspace de personagens",
+  "mermaid": "Diagramas Mermaid",
   "healthSummary": {
     "diagnostics": "Diagnostics",
-    "diagnosticsTooltip": "Open detailed diagnostics to troubleshoot or inspect health checks.",
-    "core": "Server",
-    "rag": "Knowledge",
-    "coreAria": "Server: server/API health",
-    "ragAria": "Knowledge: knowledge index health",
-    "coreOnline": "Server: Online",
-    "coreOffline": "Server: Offline",
-    "coreChecking": "Server: Checking…",
-    "ragReady": "Knowledge: Ready",
-    "ragOffline": "Knowledge: Offline",
-    "ragChecking": "Knowledge: Checking…",
-    "footerInfo": "These checks summarize the last successful ping to your tldw server and knowledge index."
+    "diagnosticsTooltip": "Abra diagnósticos detalhados para solucionar problemas ou inspecionar verificações de saúde.",
+    "core": "Servidor",
+    "rag": "Conhecimento",
+    "coreAria": "Servidor: saúde do servidor/API",
+    "ragAria": "Conhecimento: saúde do índice de conhecimento",
+    "coreOnline": "Servidor: Online",
+    "coreOffline": "Servidor: Offline",
+    "coreChecking": "Servidor: Verificando…",
+    "ragReady": "Conhecimento: Pronto",
+    "ragOffline": "Conhecimento: Offline",
+    "ragChecking": "Conhecimento: Verificando…",
+    "footerInfo": "Essas verificações resumem o último ping bem-sucedido ao seu servidor tldw e ao índice de conhecimento."
   },
   "storage": {
-    "quotaFriendlyMessage": "Too many settings writes in a short period; please wait a few seconds and try again.",
-    "quotaTitle": "Storage limit reached",
-    "writeError": "Could not save settings",
-    "writeErrorDescription": "We couldn't save your settings. Please try again shortly."
+    "quotaFriendlyMessage": "Muitas gravações de configurações em pouco tempo; aguarde alguns segundos e tente novamente.",
+    "quotaTitle": "Limite de armazenamento atingido",
+    "writeError": "Não foi possível salvar as configurações",
+    "writeErrorDescription": "Não foi possível salvar suas configurações. Tente novamente em instantes."
   },
   "evaluations": {
-    "title": "Evaluations playground",
-    "subtitle": "Define evaluations against your tldw server and inspect recent runs.",
-    "listTitle": "Recent evaluations",
-    "newEvaluationCta": "New evaluation",
-    "startRunCta": "Start run",
-    "loadErrorTitle": "Unable to load evaluations",
-    "loadErrorDescription": "Check your tldw server connection and API credentials, then try again.",
-    "emptyList": "No evaluations yet. Once you create one, it will appear here.",
-    "selectedTag": "Selected",
-    "rateLimitsTitle": "Evaluation limits",
-    "rateLimitsErrorTitle": "Unable to fetch rate limits",
-    "rateLimitsErrorDescription": "We could not retrieve evaluation quotas from the server.",
-    "rateLimitsNoData": "Rate limit information is not available for this server.",
-    "tierLabel": "Tier",
-    "dailyLimitLabel": "Daily evaluations",
-    "tokensTodayLabel": "Tokens today",
-    "perMinuteLabel": "Per-minute limit",
-    "resetAtLabel": "Resets at",
-    "runsTitle": "Runs",
-    "noEvalSelectedRuns": "Select an evaluation to see its recent runs.",
-    "runsErrorTitle": "Unable to load runs",
-    "runsEmpty": "No runs yet for this evaluation.",
-    "runDetailTitle": "Run details",
-    "noRunSelected": "Select a run to see details.",
-    "runDetailErrorTitle": "Unable to load run details",
-    "runStatusLabel": "Status",
-    "runModelLabelShort": "Target model",
-    "runEvalIdLabel": "Evaluation",
-    "runErrorLabel": "Error",
-    "runResultsLabel": "Results (snippet)",
-    "runProgressLabel": "Progress",
-    "runUsageLabel": "Usage",
-    "datasetsTitle": "Datasets",
-    "newDatasetCta": "New dataset",
-    "datasetsErrorTitle": "Unable to load datasets",
-    "datasetsEmpty": "No datasets yet. Create one to attach to evaluations.",
-    "datasetSampleCount": "{{count}} samples",
-    "datasetNameLabel": "Name",
-    "datasetNamePlaceholder": "my_dataset",
-    "datasetDescriptionLabel": "Description",
-    "datasetMetadataLabel": "Metadata (JSON, optional)",
-    "sampleInputLabel": "Sample input",
-    "sampleExpectedLabel": "Expected output (optional)",
-    "samplesJsonLabel": "Samples JSON (optional, overrides fields)",
-    "datasetLabel": "Dataset (optional)",
-    "datasetPlaceholder": "Select dataset",
-    "datasetCreateSuccessTitle": "Dataset created",
-    "datasetCreateSuccessDescription": "Your dataset is ready to use in evaluations.",
-    "datasetCreateErrorTitle": "Failed to create dataset",
-    "datasetCreateErrorDescription": "The server rejected this dataset. Check the fields and try again.",
-    "datasetDeleteSuccessTitle": "Dataset deleted",
-    "datasetDeleteErrorTitle": "Failed to delete dataset",
-    "datasetLoadErrorTitle": "Failed to load dataset",
-    "datasetDetailTitle": "Dataset details",
-    "datasetParseErrorTitle": "Invalid samples JSON",
-    "createEvalModalTitle": "New evaluation",
-    "editEvalModalTitle": "Edit evaluation",
-    "evalNameLabel": "Name",
-    "evalNamePlaceholder": "my_eval_run",
-    "evalNameValidation": "Use only letters, numbers, hyphens, and underscores.",
-    "evalTypeLabel": "Evaluation type",
-    "evalSpecLabel": "Evaluation spec (JSON)",
-    "evalSpecParseError": "Evaluation spec must be valid JSON.",
-    "evalMetadataLabel": "Metadata (JSON, optional)",
-    "inlineDatasetCheckbox": "Attach inline dataset instead of referencing dataset_id",
-    "inlineDatasetErrorTitle": "Invalid inline dataset",
-    "runModelLabel": "Run model (used for quick runs)",
-    "createSuccessTitle": "Evaluation created",
-    "createErrorTitle": "Failed to create evaluation",
-    "createErrorDescription": "The server rejected this evaluation. Ensure name, type, and spec are valid.",
-    "updateSuccessTitle": "Evaluation updated",
-    "updateErrorTitle": "Failed to update evaluation",
-    "deleteErrorTitle": "Failed to delete evaluation",
-    "deleteConfirmTitle": "Delete this evaluation?",
-    "deleteConfirmDescription": "This will remove the evaluation definition. Runs already created remain in history.",
-    "detailTitle": "Evaluation details",
-    "detailErrorTitle": "Unable to load evaluation details",
-    "descriptionLabel": "Description",
-    "noEvalSelectedDetails": "Select an evaluation to inspect its spec.",
-    "runCreateSuccessTitle": "Run started",
-    "runCreateSuccessDescription": "Your evaluation run has started. You can monitor it from the server UI.",
-    "runCreateErrorTitle": "Failed to start run",
-    "runCreateErrorDescription": "The server rejected this run request. Check the model and try again.",
-    "runConfigLabel": "Config (JSON)",
-    "datasetOverrideLabel": "Dataset override (JSON array of samples)",
-    "runConfigParseError": "Invalid config JSON",
-    "runCancelSuccessTitle": "Run cancellation requested",
-    "runCancelErrorTitle": "Failed to cancel run",
-    "cancelRunCta": "Cancel run",
-    "historyTitle": "History",
-    "historyTypeLabel": "Type",
-    "historyUserLabel": "User ID",
-    "historyStartLabel": "Start date (ISO)",
-    "historyEndLabel": "End date (ISO)",
-    "historyFetchCta": "Fetch history",
-    "historyEmpty": "Run a query to see recent activity.",
-    "historyErrorTitle": "Failed to fetch history",
-    "webhooksTitle": "Webhooks",
-    "webhookUrlLabel": "URL",
-    "webhookEventsLabel": "Events",
-    "webhookCreateCta": "Register webhook",
-    "webhookCreateSuccessTitle": "Webhook registered",
-    "webhookCreateErrorTitle": "Failed to register webhook",
-    "webhookDeleteErrorTitle": "Failed to delete webhook",
-    "webhookListErrorTitle": "Unable to load webhooks",
-    "webhooksEmpty": "No webhooks registered yet.",
-    "webhookSecretTitle": "Secret",
-    "idempotencyKeyLabel": "Idempotency key",
-    "emptyConnectTitle": "Connect to use Evaluations",
-    "emptyConnectDescription": "To create and run evaluations, first connect to your tldw server.",
-    "emptyConnectExample1": "Open Settings → tldw server to add your server URL and API key.",
-    "emptyConnectExample2": "Once connected, you can define evaluations and inspect metrics here.",
-    "datasetSamplesLabel": "Samples",
-    "datasetSamplesEmpty": "No samples returned for this page.",
-    "metricsLabel": "Metrics"
+    "title": "Playground de avaliações",
+    "subtitle": "Defina avaliações no seu servidor tldw e inspecione execuções recentes.",
+    "listTitle": "Avaliações recentes",
+    "newEvaluationCta": "Nova avaliação",
+    "startRunCta": "Iniciar execução",
+    "loadErrorTitle": "Não foi possível carregar as avaliações",
+    "loadErrorDescription": "Verifique a conexão com o servidor tldw e as credenciais da API, então tente novamente.",
+    "emptyList": "Ainda não há avaliações. Quando criar uma, ela aparecerá aqui.",
+    "selectedTag": "Selecionado",
+    "rateLimitsTitle": "Limites de avaliação",
+    "rateLimitsErrorTitle": "Não foi possível obter limites",
+    "rateLimitsErrorDescription": "Não foi possível obter as cotas de avaliação do servidor.",
+    "rateLimitsNoData": "Informações de limite não estão disponíveis para este servidor.",
+    "tierLabel": "Nível",
+    "dailyLimitLabel": "Avaliações diárias",
+    "tokensTodayLabel": "Tokens hoje",
+    "perMinuteLabel": "Limite por minuto",
+    "resetAtLabel": "Reinicia em",
+    "runsTitle": "Execuções",
+    "noEvalSelectedRuns": "Selecione uma avaliação para ver suas execuções recentes.",
+    "runsErrorTitle": "Não foi possível carregar as execuções",
+    "runsEmpty": "Ainda não há execuções para esta avaliação.",
+    "runDetailTitle": "Detalhes da execução",
+    "noRunSelected": "Selecione uma execução para ver detalhes.",
+    "runDetailErrorTitle": "Não foi possível carregar os detalhes da execução",
+    "runStatusLabel": "Status da execução",
+    "runModelLabelShort": "Modelo alvo",
+    "runEvalIdLabel": "Avaliação",
+    "runErrorLabel": "Erro",
+    "runResultsLabel": "Resultados (trecho)",
+    "runProgressLabel": "Progresso",
+    "runUsageLabel": "Uso",
+    "datasetsTitle": "Conjuntos de dados",
+    "newDatasetCta": "Novo conjunto de dados",
+    "datasetsErrorTitle": "Não foi possível carregar os conjuntos de dados",
+    "datasetsEmpty": "Ainda não há conjuntos de dados. Crie um para anexar às avaliações.",
+    "datasetSampleCount": "{{count}} amostras",
+    "datasetNameLabel": "Nome",
+    "datasetNamePlaceholder": "ex.: my_dataset",
+    "datasetDescriptionLabel": "Descrição",
+    "datasetMetadataLabel": "Metadados (JSON, opcional)",
+    "sampleInputLabel": "Entrada da amostra",
+    "sampleExpectedLabel": "Saída esperada (opcional)",
+    "samplesJsonLabel": "JSON de amostras (opcional, substitui campos)",
+    "datasetLabel": "Conjunto de dados (opcional)",
+    "datasetPlaceholder": "Selecionar conjunto de dados",
+    "datasetCreateSuccessTitle": "Conjunto de dados criado",
+    "datasetCreateSuccessDescription": "Seu conjunto de dados está pronto para uso nas avaliações.",
+    "datasetCreateErrorTitle": "Não foi possível criar o conjunto de dados",
+    "datasetCreateErrorDescription": "O servidor rejeitou este conjunto de dados. Verifique os campos e tente novamente.",
+    "datasetDeleteSuccessTitle": "Conjunto de dados excluído",
+    "datasetDeleteErrorTitle": "Não foi possível excluir o conjunto de dados",
+    "datasetLoadErrorTitle": "Não foi possível carregar o conjunto de dados",
+    "datasetDetailTitle": "Detalhes do conjunto de dados",
+    "datasetParseErrorTitle": "JSON de amostras inválido",
+    "createEvalModalTitle": "Nova avaliação",
+    "editEvalModalTitle": "Editar avaliação",
+    "evalNameLabel": "Nome",
+    "evalNamePlaceholder": "ex.: my_eval_run",
+    "evalNameValidation": "Use apenas letras, números, hífens e sublinhados.",
+    "evalTypeLabel": "Tipo de avaliação",
+    "evalSpecLabel": "Especificação da avaliação (JSON)",
+    "evalSpecParseError": "A especificação da avaliação deve ser um JSON válido.",
+    "evalMetadataLabel": "Metadados (JSON, opcional)",
+    "inlineDatasetCheckbox": "Anexar conjunto de dados inline em vez de referenciar dataset_id",
+    "inlineDatasetErrorTitle": "Conjunto de dados inline inválido",
+    "runModelLabel": "Modelo de execução (usado para execuções rápidas)",
+    "createSuccessTitle": "Avaliação criada",
+    "createErrorTitle": "Não foi possível criar a avaliação",
+    "createErrorDescription": "O servidor rejeitou esta avaliação. Garanta que nome, tipo e especificação estejam válidos.",
+    "updateSuccessTitle": "Avaliação atualizada",
+    "updateErrorTitle": "Não foi possível atualizar a avaliação",
+    "deleteErrorTitle": "Não foi possível excluir a avaliação",
+    "deleteConfirmTitle": "Excluir esta avaliação?",
+    "deleteConfirmDescription": "Isso removerá a definição da avaliação. Execuções já criadas permanecerão no histórico.",
+    "detailTitle": "Detalhes da avaliação",
+    "detailErrorTitle": "Não foi possível carregar os detalhes da avaliação",
+    "descriptionLabel": "Descrição",
+    "noEvalSelectedDetails": "Selecione uma avaliação para inspecionar a especificação.",
+    "runCreateSuccessTitle": "Execução iniciada",
+    "runCreateSuccessDescription": "Sua execução de avaliação foi iniciada. Você pode monitorá-la na UI do servidor.",
+    "runCreateErrorTitle": "Não foi possível iniciar a execução",
+    "runCreateErrorDescription": "O servidor rejeitou esta solicitação de execução. Verifique o modelo e tente novamente.",
+    "runConfigLabel": "Configuração (JSON)",
+    "datasetOverrideLabel": "Substituição do conjunto de dados (array JSON de amostras)",
+    "runConfigParseError": "JSON de configuração inválido",
+    "runCancelSuccessTitle": "Solicitação de cancelamento enviada",
+    "runCancelErrorTitle": "Não foi possível cancelar a execução",
+    "cancelRunCta": "Cancelar execução",
+    "historyTitle": "Histórico",
+    "historyTypeLabel": "Tipo",
+    "historyUserLabel": "ID do usuário",
+    "historyStartLabel": "Data inicial (ISO)",
+    "historyEndLabel": "Data final (ISO)",
+    "historyFetchCta": "Buscar histórico",
+    "historyEmpty": "Execute uma consulta para ver atividades recentes.",
+    "historyErrorTitle": "Não foi possível obter o histórico",
+    "webhooksTitle": "Webhooks (gerenciamento)",
+    "webhookUrlLabel": "URL do webhook",
+    "webhookEventsLabel": "Eventos",
+    "webhookCreateCta": "Registrar webhook",
+    "webhookCreateSuccessTitle": "Webhook registrado",
+    "webhookCreateErrorTitle": "Não foi possível registrar o webhook",
+    "webhookDeleteErrorTitle": "Não foi possível excluir o webhook",
+    "webhookListErrorTitle": "Não foi possível carregar os webhooks",
+    "webhooksEmpty": "Nenhum webhook registrado ainda.",
+    "webhookSecretTitle": "Segredo",
+    "idempotencyKeyLabel": "Chave de idempotência",
+    "emptyConnectTitle": "Conecte-se para usar avaliações",
+    "emptyConnectDescription": "Para criar e executar avaliações, conecte-se primeiro ao seu servidor tldw.",
+    "emptyConnectExample1": "Abra Configurações → servidor tldw para adicionar o URL do servidor e a chave de API.",
+    "emptyConnectExample2": "Após conectar, você pode definir avaliações e inspecionar métricas aqui.",
+    "datasetSamplesLabel": "Amostras",
+    "datasetSamplesEmpty": "Nenhuma amostra retornada para esta página.",
+    "metricsLabel": "Métricas"
   },
   "evaluationsSettings": {
-    "title": "Evaluations",
-    "subtitle": "Configure defaults used by the Evaluations playground.",
-    "offline": "Connect to your tldw server to test Evaluations.",
-    "defaultType": "Default evaluation type",
-    "defaultModel": "Default target model",
-    "defaultRunConfig": "Default run config (JSON)",
-    "defaultDataset": "Default dataset id (optional)",
-    "specForType": "Spec preset for selected type",
-    "testCta": "Test Evaluations API",
-    "testOk": "Evaluations API reachable",
-    "testFail": "Unable to reach Evaluations API"
+    "title": "Avaliações",
+    "subtitle": "Configure padrões usados pelo playground de avaliações.",
+    "offline": "Conecte-se ao seu servidor tldw para testar avaliações.",
+    "defaultType": "Tipo de avaliação padrão",
+    "defaultModel": "Modelo alvo padrão",
+    "defaultRunConfig": "Configuração de execução padrão (JSON)",
+    "defaultDataset": "ID de conjunto de dados padrão (opcional)",
+    "specForType": "Preset de especificação para o tipo selecionado",
+    "testCta": "Testar API de avaliações",
+    "testOk": "API de avaliações acessível",
+    "testFail": "Não foi possível acessar a API de avaliações"
   },
   "chunkingPlayground": {
     "nav": "Playground de segmentação",

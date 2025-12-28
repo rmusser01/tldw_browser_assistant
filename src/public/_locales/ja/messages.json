@@ -1224,22 +1224,28 @@
     "description": "Content review UI string."
   },
   "reviewDraftsFailedTitle": {
-    "message": "レビュー用下書きを作成できませんでした。"
+    "message": "レビュー用下書きを作成できませんでした。",
+    "description": "Error title when review drafts creation fails."
   },
   "reviewDraftsFailedFallback": {
-    "message": "レビュー用下書きの作成に失敗しました。"
+    "message": "レビュー用下書きの作成に失敗しました。",
+    "description": "Fallback error message for review drafts failure."
   },
   "reviewDraftsRetry": {
-    "message": "下書き作成を再試行"
+    "message": "下書き作成を再試行",
+    "description": "Button label to retry creating review drafts."
   },
   "reviewDraftsStoreWithoutReview": {
-    "message": "レビューせずに保存"
+    "message": "レビューせずに保存",
+    "description": "Action to store without review."
   },
   "reviewNavigationFailed": {
-    "message": "コンテンツレビューを開けませんでした。もう一度お試しください。"
+    "message": "コンテンツレビューを開けませんでした。もう一度お試しください。",
+    "description": "Error message when navigation to Content Review fails."
   },
   "reviewNavigationRetry": {
-    "message": "コンテンツレビューを再度開く"
+    "message": "コンテンツレビューを再度開く",
+    "description": "Button label to retry opening Content Review."
   },
   "quickIngest_title": {
     "message": "クイックインジェスト（メディア）"
@@ -2857,5 +2863,272 @@
   },
   "tabs_closeTabAria": {
     "message": "チャットタブを閉じる"
+  },
+  "manageCharacters_title": {
+    "message": "キャラクター管理"
+  },
+  "manageCharacters_addBtn": {
+    "message": "新しいキャラクター"
+  },
+  "manageCharacters_columns_name": {
+    "message": "名前"
+  },
+  "manageCharacters_columns_description": {
+    "message": "説明"
+  },
+  "manageCharacters_columns_actions": {
+    "message": "操作"
+  },
+  "manageCharacters_columns_avatar": {
+    "message": "アバター"
+  },
+  "manageCharacters_actions_chat": {
+    "message": "チャット"
+  },
+  "manageCharacters_actions_edit": {
+    "message": "編集"
+  },
+  "manageCharacters_actions_delete": {
+    "message": "削除"
+  },
+  "manageCharacters_actions_duplicate": {
+    "message": "複製"
+  },
+  "manageCharacters_table_noDescription": {
+    "message": "説明なし"
+  },
+  "manageCharacters_filter_matchAll": {
+    "message": "すべてのタグに一致"
+  },
+  "manageCharacters_tags_label": {
+    "message": "タグ"
+  },
+  "manageCharacters_tags_placeholder": {
+    "message": "タグを追加"
+  },
+  "manageCharacters_tags_help": {
+    "message": "タグを使って用途別にキャラクターをまとめます（例:「ライティング」「指導」）。"
+  },
+  "manageCharacters_tooltip_edit": {
+    "message": "キャラクターを編集"
+  },
+  "manageCharacters_tooltip_delete": {
+    "message": "キャラクターを削除"
+  },
+  "manageCharacters_aria_chatWith": {
+    "message": "{{name}} としてチャット"
+  },
+  "manageCharacters_aria_edit": {
+    "message": "キャラクター {{name}} を編集"
+  },
+  "manageCharacters_aria_delete": {
+    "message": "キャラクター {{name}} を削除"
+  },
+  "manageCharacters_aria_duplicate": {
+    "message": "キャラクター「{{name}}」を複製"
+  },
+  "manageCharacters_confirm_delete": {
+    "message": "このキャラクターを削除してもよろしいですか？この操作は元に戻せません。"
+  },
+  "manageCharacters_avatar_label": {
+    "message": "アバター（任意）"
+  },
+  "manageCharacters_avatar_tabUrl": {
+    "message": "URLアドレス"
+  },
+  "manageCharacters_avatar_tabUpload": {
+    "message": "アップロード"
+  },
+  "manageCharacters_avatar_selectImageError": {
+    "message": "画像ファイルを選択してください"
+  },
+  "manageCharacters_avatar_formatError": {
+    "message": "PNG、JPEG、GIF の画像のみ対応しています"
+  },
+  "manageCharacters_avatar_invalidError": {
+    "message": "無効な画像ファイルです"
+  },
+  "manageCharacters_avatar_processError": {
+    "message": "画像の処理に失敗しました"
+  },
+  "manageCharacters_avatar_dropzone": {
+    "message": "クリックまたはドラッグして画像をアップロード"
+  },
+  "manageCharacters_avatar_formats": {
+    "message": "PNG、JPEG または GIF"
+  },
+  "manageCharacters_avatar_preview": {
+    "message": "プレビュー"
+  },
+  "manageCharacters_form_name_label": {
+    "message": "名前"
+  },
+  "manageCharacters_form_name_placeholder": {
+    "message": "例: ライティングコーチ"
+  },
+  "manageCharacters_form_name_required": {
+    "message": "名前を入力してください"
+  },
+  "manageCharacters_form_description": {
+    "message": "サイドバーでチャットできる再利用可能なキャラクターを定義します。"
+  },
+  "manageCharacters_form_systemPrompt_label": {
+    "message": "振る舞い / 指示"
+  },
+  "manageCharacters_form_systemPrompt_placeholder": {
+    "message": "例: あなたは忍耐強い数学教師で、概念を段階的に説明し、短い例で理解を確認します。"
+  },
+  "manageCharacters_form_systemPrompt_help": {
+    "message": "キャラクターの役割、口調、制約を説明します。例: 「あなたは忍耐強い数学チューターで、概念を段階的に説明します。」"
+  },
+  "manageCharacters_form_systemPrompt_required": {
+    "message": "回答を導く指示を追加してください。"
+  },
+  "manageCharacters_form_systemPrompt_min": {
+    "message": "キャラクターが応答方法を理解できるよう、短い説明を追加してください。"
+  },
+  "manageCharacters_form_systemPrompt_max": {
+    "message": "システムプロンプトは2000文字以内である必要があります。"
+  },
+  "manageCharacters_form_avatarUrl_label": {
+    "message": "アバター URL（任意）"
+  },
+  "manageCharacters_form_avatarUrl_placeholder": {
+    "message": "例: https://example.com/avatar.png"
+  },
+  "manageCharacters_form_greeting_label": {
+    "message": "挨拶メッセージ（任意）"
+  },
+  "manageCharacters_form_greeting_placeholder": {
+    "message": "こんにちは！あなたのライティングコーチです。下書きを貼り付けていただければ整えます。"
+  },
+  "manageCharacters_form_greeting_help": {
+    "message": "チャット開始時にキャラクターが送る任意の最初のメッセージ。"
+  },
+  "manageCharacters_form_btnSave_saving": {
+    "message": "キャラクターを作成中..."
+  },
+  "manageCharacters_form_btnSave_save": {
+    "message": "キャラクターを作成"
+  },
+  "manageCharacters_form_btnEdit_saving": {
+    "message": "変更を保存中..."
+  },
+  "manageCharacters_form_btnEdit_save": {
+    "message": "変更を保存"
+  },
+  "manageCharacters_notification_addSuccess": {
+    "message": "キャラクターを作成しました"
+  },
+  "manageCharacters_notification_error": {
+    "message": "エラー"
+  },
+  "manageCharacters_notification_someError": {
+    "message": "問題が発生しました。後でもう一度お試しください。"
+  },
+  "manageCharacters_notification_updatedSuccess": {
+    "message": "キャラクターを更新しました"
+  },
+  "manageCharacters_notification_deletedSuccess": {
+    "message": "キャラクターを削除しました"
+  },
+  "manageCharacters_loadError_title": {
+    "message": "キャラクターを読み込めません"
+  },
+  "manageCharacters_loadError_description": {
+    "message": "接続状況を確認してから、もう一度お試しください。"
+  },
+  "manageCharacters_emptyTitle": {
+    "message": "キャラクターはまだありません"
+  },
+  "manageCharacters_emptyDescription": {
+    "message": "名前、説明、システムプロンプトを設定して、再利用できるキャラクターを作成しましょう。"
+  },
+  "manageCharacters_emptyExample1": {
+    "message": "ライティングコーチ、設定の専門家、コーディングアシスタントなどを定義して、チャット間で再利用できます。"
+  },
+  "manageCharacters_emptyExample2": {
+    "message": "各キャラクターに明確な説明と振る舞いを与えて、回答を一貫させましょう。"
+  },
+  "manageCharacters_emptyPrimaryCta": {
+    "message": "キャラクターを作成"
+  },
+  "manageCharacters_avatarAltWithName": {
+    "message": "{{name}} のアバター"
+  },
+  "manageCharacters_avatarAlt": {
+    "message": "ユーザーアバター"
+  },
+  "quiz_itemsPerPage": {
+    "message": "件/ページ"
+  },
+  "quiz_editQuizTitle": {
+    "message": "クイズを編集"
+  },
+  "quiz_updateSuccess": {
+    "message": "クイズを更新しました"
+  },
+  "quiz_updateError": {
+    "message": "クイズの更新に失敗しました"
+  },
+  "quiz_questionTextRequired": {
+    "message": "問題文は必須です。"
+  },
+  "quiz_optionsRequired": {
+    "message": "選択肢を少なくとも2つ入力してください。"
+  },
+  "quiz_questionSaveSuccess": {
+    "message": "問題を作成しました。"
+  },
+  "quiz_questionUpdateSuccess": {
+    "message": "問題を更新しました。"
+  },
+  "quiz_questionSaveError": {
+    "message": "問題の保存に失敗しました。"
+  },
+  "quiz_questionDeleteSuccess": {
+    "message": "問題を削除しました。"
+  },
+  "quiz_questionDeleteError": {
+    "message": "問題の削除に失敗しました。"
+  },
+  "quiz_editQuestion": {
+    "message": "問題を編集"
+  },
+  "quiz_points": {
+    "message": "ポイント"
+  },
+  "quiz_orderIndex": {
+    "message": "順序"
+  },
+  "quiz_startError": {
+    "message": "クイズの開始に失敗しました"
+  },
+  "quiz_answerAll": {
+    "message": "送信する前にすべての問題に回答してください。"
+  },
+  "quiz_submitError": {
+    "message": "クイズの送信に失敗しました"
+  },
+  "quiz_scoreSummary": {
+    "message": "スコア: {{score}} / {{total}} ({{percent}}%)"
+  },
+  "quiz_correct": {
+    "message": "正解"
+  },
+  "quiz_incorrect": {
+    "message": "不正解"
+  },
+  "quiz_yourAnswer": {
+    "message": "あなたの回答"
+  },
+  "quiz_correctAnswerLabel": {
+    "message": "正解"
+  },
+  "quiz_backToList": {
+    "message": "一覧に戻る"
+  },
+  "quiz_retake": {
+    "message": "再挑戦"
   }
 }

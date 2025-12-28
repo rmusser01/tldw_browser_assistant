@@ -1154,22 +1154,28 @@
     "description": "Content review UI string."
   },
   "reviewDraftsFailedTitle": {
-    "message": "無法建立審閱草稿。"
+    "message": "無法建立審閱草稿。",
+    "description": "Error title when review drafts creation fails."
   },
   "reviewDraftsFailedFallback": {
-    "message": "建立審閱草稿失敗。"
+    "message": "建立審閱草稿失敗。",
+    "description": "Fallback error message for review drafts failure."
   },
   "reviewDraftsRetry": {
-    "message": "重新嘗試建立草稿"
+    "message": "重新嘗試建立草稿",
+    "description": "Button label to retry creating review drafts."
   },
   "reviewDraftsStoreWithoutReview": {
-    "message": "不經審閱儲存"
+    "message": "不經審閱儲存",
+    "description": "Action to store without review."
   },
   "reviewNavigationFailed": {
-    "message": "無法開啟內容審閱。請再試一次。"
+    "message": "無法開啟內容審閱。請再試一次。",
+    "description": "Error message when navigation to Content Review fails."
   },
   "reviewNavigationRetry": {
-    "message": "重新嘗試開啟內容審閱"
+    "message": "重新嘗試開啟內容審閱",
+    "description": "Button label to retry opening Content Review."
   },
   "quickIngest_title": {
     "message": "Quick Ingest Media"
@@ -1433,265 +1439,265 @@
     "message": "隱藏進階欄位"
   },
   "chunkingPlayground_nav": {
-    "message": "Chunking Playground",
+    "message": "分塊實驗場",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_title": {
-    "message": "Chunking Playground",
+    "message": "分塊實驗場",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_description": {
-    "message": "Experiment with different chunking settings to see how text gets split into smaller pieces for processing.",
+    "message": "試用不同的分塊設定，看看文字如何被切分成較小的片段以便處理。",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_inputLabel": {
-    "message": "Text to chunk",
+    "message": "要分塊的文字",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_inputPlaceholder": {
-    "message": "Paste text here or select a sample...",
+    "message": "在此貼上文字或選擇範例...",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_uploadButton": {
-    "message": "Upload File",
+    "message": "上傳檔案",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_chunkButton": {
-    "message": "Chunk Text",
+    "message": "分塊文字",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_methodLabel": {
-    "message": "Chunking Method",
+    "message": "分塊方式",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_maxSizeLabel": {
-    "message": "Max Chunk Size",
+    "message": "最大分塊大小",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_overlapLabel": {
-    "message": "Overlap",
+    "message": "重疊量",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_languageLabel": {
-    "message": "Language",
+    "message": "語言",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_languages_auto": {
-    "message": "Auto-detect",
+    "message": "自動偵測",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_languages_en": {
-    "message": "English",
+    "message": "英文",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_languages_es": {
-    "message": "Spanish",
+    "message": "西班牙文",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_languages_fr": {
-    "message": "French",
+    "message": "法文",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_languages_de": {
-    "message": "German",
+    "message": "德文",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_languages_it": {
-    "message": "Italian",
+    "message": "義大利文",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_languages_pt": {
-    "message": "Portuguese",
+    "message": "葡萄牙文",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_languages_zh": {
-    "message": "Chinese",
+    "message": "中文",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_languages_ja": {
-    "message": "Japanese",
+    "message": "日文",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_languages_ko": {
-    "message": "Korean",
+    "message": "韓文",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_viewCards": {
-    "message": "Cards",
+    "message": "卡片",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_viewInline": {
-    "message": "Inline",
+    "message": "行內",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_stats": {
-    "message": "{{count}} chunks, avg {{avgSize}} chars"
+    "message": "{{count}} 個分塊，平均 {{avgSize}} 字元"
   },
   "chunkingPlayground_textLoaded": {
-    "message": "Text loaded",
+    "message": "文字已載入",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_characters": {
-    "message": "characters",
+    "message": "字元",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_tabSingle": {
-    "message": "Single",
+    "message": "單一",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_tabCompare": {
-    "message": "Compare",
+    "message": "比較",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_chunkIndex": {
-    "message": "Chunk {{index}}"
+    "message": "分塊 {{index}}"
   },
   "chunkingPlayground_chunkInfo": {
-    "message": "Chunk {{index}}: {{words}} words"
+    "message": "分塊 {{index}}：{{words}} 個詞"
   },
   "chunkingPlayground_position": {
-    "message": "Position: {{start}} - {{end}}"
+    "message": "位置：{{start}} - {{end}}"
   },
   "chunkingPlayground_additionalChunks": {
-    "message": "+{{count}} more"
+    "message": "+{{count}} 個"
   },
   "chunkingPlayground_charCount": {
-    "message": "{{count}} characters"
+    "message": "{{count}} 字元"
   },
   "chunkingPlayground_wordCount": {
-    "message": "{{count}} words"
+    "message": "{{count}} 個詞"
   },
   "chunkingPlayground_noInput": {
-    "message": "Please provide text to chunk",
+    "message": "請提供要分塊的文字",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_sharedInput": {
-    "message": "Shared Input Text",
+    "message": "共用輸入文字",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_compareButton": {
-    "message": "Compare Both",
+    "message": "比較兩者",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_comparison": {
-    "message": "Comparison",
+    "message": "比較",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_fewerChunks": {
-    "message": "Config A produces {{diff}} fewer chunks"
+    "message": "設定 A 產生的分塊少 {{diff}} 個"
   },
   "chunkingPlayground_moreChunks": {
-    "message": "Config A produces {{diff}} more chunks"
+    "message": "設定 A 產生的分塊多 {{diff}} 個"
   },
   "chunkingPlayground_sameChunks": {
-    "message": "Both configs produce the same number of chunks",
+    "message": "兩個設定產生的分塊數量相同",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_clickToChunk": {
-    "message": "Click 'Compare' to see results",
+    "message": "點擊「比較」以查看結果",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_overlapRegion": {
-    "message": "Overlap Region",
+    "message": "重疊區域",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_clickHint": {
-    "message": "Click on a highlighted section to focus on that chunk",
+    "message": "點擊高亮的區段以聚焦該分塊",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_noContentFound": {
-    "message": "No text content found for this media item",
+    "message": "此媒體項目找不到文字內容",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_loadContentError": {
-    "message": "Failed to load media content",
+    "message": "載入媒體內容失敗",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_loadMediaListError": {
-    "message": "Failed to load media library",
+    "message": "載入媒體資料庫失敗",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_selectMedia": {
-    "message": "Select media item...",
+    "message": "選擇媒體項目...",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_loadingMedia": {
-    "message": "Loading content...",
+    "message": "正在載入內容...",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_noMediaFound": {
-    "message": "No media found",
+    "message": "找不到媒體",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_mediaCount": {
-    "message": "{{count}} media items available"
+    "message": "可用的媒體項目 {{count}} 個"
   },
   "chunkingPlayground_inputSource_paste": {
-    "message": "Paste Text",
+    "message": "貼上文字",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_inputSource_upload": {
-    "message": "Upload File",
+    "message": "上傳檔案",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_inputSource_sample": {
-    "message": "Sample Text",
+    "message": "範例文字",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_inputSource_media": {
-    "message": "From Media Library",
+    "message": "來自媒體資料庫",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_samples_article": {
-    "message": "News Article",
+    "message": "新聞文章",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_samples_articleDesc": {
-    "message": "Multi-paragraph article with headers",
+    "message": "含標題的多段落文章",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_samples_code": {
-    "message": "Source Code",
+    "message": "原始碼",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_samples_codeDesc": {
-    "message": "Python code with classes and functions",
+    "message": "包含類別與函式的 Python 程式碼",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_samples_transcript": {
-    "message": "Transcript",
+    "message": "逐字稿",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_samples_transcriptDesc": {
-    "message": "Timestamped podcast transcript",
+    "message": "含時間戳的 Podcast 逐字稿",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_samples_academic": {
-    "message": "Academic Paper",
+    "message": "學術論文",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_samples_academicDesc": {
-    "message": "Technical writing with citations",
+    "message": "含引用的技術寫作",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_compare_title": {
-    "message": "Compare Settings",
+    "message": "比較設定",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_compare_configA": {
-    "message": "Configuration A",
+    "message": "設定 A",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_compare_configB": {
-    "message": "Configuration B",
+    "message": "設定 B",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_mode_single": {
-    "message": "Single",
+    "message": "單一",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_mode_compare": {
-    "message": "Compare",
+    "message": "比較",
     "description": "TODO: translate (copied from en)"
   },
   "managePrompts_importMode_merge": {
@@ -2803,5 +2809,272 @@
   },
   "playground_composer_validationCompareSelectModelsInline": {
     "message": "請至少選擇一個模型以使用比較模式。"
+  },
+  "manageCharacters_title": {
+    "message": "管理角色"
+  },
+  "manageCharacters_addBtn": {
+    "message": "新增角色"
+  },
+  "manageCharacters_columns_name": {
+    "message": "名稱"
+  },
+  "manageCharacters_columns_description": {
+    "message": "描述"
+  },
+  "manageCharacters_columns_actions": {
+    "message": "操作"
+  },
+  "manageCharacters_columns_avatar": {
+    "message": "頭像"
+  },
+  "manageCharacters_actions_chat": {
+    "message": "聊天"
+  },
+  "manageCharacters_actions_edit": {
+    "message": "編輯"
+  },
+  "manageCharacters_actions_delete": {
+    "message": "刪除"
+  },
+  "manageCharacters_actions_duplicate": {
+    "message": "複製"
+  },
+  "manageCharacters_table_noDescription": {
+    "message": "無描述"
+  },
+  "manageCharacters_filter_matchAll": {
+    "message": "符合所有標籤"
+  },
+  "manageCharacters_tags_label": {
+    "message": "標籤"
+  },
+  "manageCharacters_tags_placeholder": {
+    "message": "新增標籤"
+  },
+  "manageCharacters_tags_help": {
+    "message": "使用標籤依用途分類角色（例如「寫作」、「教學」）。"
+  },
+  "manageCharacters_tooltip_edit": {
+    "message": "編輯角色"
+  },
+  "manageCharacters_tooltip_delete": {
+    "message": "刪除角色"
+  },
+  "manageCharacters_aria_chatWith": {
+    "message": "以 {{name}} 身分聊天"
+  },
+  "manageCharacters_aria_edit": {
+    "message": "編輯角色 {{name}}"
+  },
+  "manageCharacters_aria_delete": {
+    "message": "刪除角色 {{name}}"
+  },
+  "manageCharacters_aria_duplicate": {
+    "message": "複製角色 {{name}}"
+  },
+  "manageCharacters_confirm_delete": {
+    "message": "確定要刪除這個角色嗎？此動作無法復原。"
+  },
+  "manageCharacters_avatar_label": {
+    "message": "頭像（選用）"
+  },
+  "manageCharacters_avatar_tabUrl": {
+    "message": "URL 位址"
+  },
+  "manageCharacters_avatar_tabUpload": {
+    "message": "上傳"
+  },
+  "manageCharacters_avatar_selectImageError": {
+    "message": "請選擇圖片檔案"
+  },
+  "manageCharacters_avatar_formatError": {
+    "message": "僅支援 PNG、JPEG 和 GIF 圖片"
+  },
+  "manageCharacters_avatar_invalidError": {
+    "message": "無效的圖片檔案"
+  },
+  "manageCharacters_avatar_processError": {
+    "message": "處理圖片失敗"
+  },
+  "manageCharacters_avatar_dropzone": {
+    "message": "點擊或拖曳圖片以進行上傳"
+  },
+  "manageCharacters_avatar_formats": {
+    "message": "PNG、JPEG 或 GIF"
+  },
+  "manageCharacters_avatar_preview": {
+    "message": "預覽"
+  },
+  "manageCharacters_form_name_label": {
+    "message": "名稱"
+  },
+  "manageCharacters_form_name_placeholder": {
+    "message": "例如：寫作教練"
+  },
+  "manageCharacters_form_name_required": {
+    "message": "請輸入名稱"
+  },
+  "manageCharacters_form_description": {
+    "message": "定義可重複使用的角色，可在側邊欄與其聊天。"
+  },
+  "manageCharacters_form_systemPrompt_label": {
+    "message": "行為／指示"
+  },
+  "manageCharacters_form_systemPrompt_placeholder": {
+    "message": "例如：你是一位有耐心的數學老師，循序解說並用短例子確認理解。"
+  },
+  "manageCharacters_form_systemPrompt_help": {
+    "message": "說明角色的定位、語氣與限制。例如：「你是一位有耐心的數學家教，會一步步解釋概念。」"
+  },
+  "manageCharacters_form_systemPrompt_required": {
+    "message": "請新增指示以引導回應。"
+  },
+  "manageCharacters_form_systemPrompt_min": {
+    "message": "添加簡短描述，讓角色知道如何回應。"
+  },
+  "manageCharacters_form_systemPrompt_max": {
+    "message": "系統提示詞必須少於或等於 2000 個字元。"
+  },
+  "manageCharacters_form_avatarUrl_label": {
+    "message": "頭像網址（可選）"
+  },
+  "manageCharacters_form_avatarUrl_placeholder": {
+    "message": "例如 https://example.com/avatar.png"
+  },
+  "manageCharacters_form_greeting_label": {
+    "message": "歡迎訊息（可選）"
+  },
+  "manageCharacters_form_greeting_placeholder": {
+    "message": "嗨！我是你的寫作教練。貼上草稿，我會幫你潤飾。"
+  },
+  "manageCharacters_form_greeting_help": {
+    "message": "開始聊天時角色會傳送的第一則訊息（可選）。"
+  },
+  "manageCharacters_form_btnSave_saving": {
+    "message": "正在建立角色..."
+  },
+  "manageCharacters_form_btnSave_save": {
+    "message": "建立角色"
+  },
+  "manageCharacters_form_btnEdit_saving": {
+    "message": "正在儲存變更..."
+  },
+  "manageCharacters_form_btnEdit_save": {
+    "message": "儲存變更"
+  },
+  "manageCharacters_notification_addSuccess": {
+    "message": "角色已建立"
+  },
+  "manageCharacters_notification_error": {
+    "message": "錯誤"
+  },
+  "manageCharacters_notification_someError": {
+    "message": "發生錯誤，請稍後再試"
+  },
+  "manageCharacters_notification_updatedSuccess": {
+    "message": "角色已更新"
+  },
+  "manageCharacters_notification_deletedSuccess": {
+    "message": "角色已刪除"
+  },
+  "manageCharacters_loadError_title": {
+    "message": "無法載入角色"
+  },
+  "manageCharacters_loadError_description": {
+    "message": "請檢查連線後再試。"
+  },
+  "manageCharacters_emptyTitle": {
+    "message": "尚無角色"
+  },
+  "manageCharacters_emptyDescription": {
+    "message": "建立具備名稱、描述與系統提示的可重複使用角色，方便聊天。"
+  },
+  "manageCharacters_emptyExample1": {
+    "message": "定義可重複使用的寫作教練、背景專家或程式助理。"
+  },
+  "manageCharacters_emptyExample2": {
+    "message": "為每個角色提供清楚的描述與行為，使回應保持一致。"
+  },
+  "manageCharacters_emptyPrimaryCta": {
+    "message": "建立角色"
+  },
+  "manageCharacters_avatarAltWithName": {
+    "message": "{{name}} 的頭像"
+  },
+  "manageCharacters_avatarAlt": {
+    "message": "使用者頭像"
+  },
+  "quiz_itemsPerPage": {
+    "message": "項目/頁"
+  },
+  "quiz_editQuizTitle": {
+    "message": "編輯測驗"
+  },
+  "quiz_updateSuccess": {
+    "message": "測驗更新成功。"
+  },
+  "quiz_updateError": {
+    "message": "測驗更新失敗。"
+  },
+  "quiz_questionTextRequired": {
+    "message": "題目文字為必填。"
+  },
+  "quiz_optionsRequired": {
+    "message": "請至少提供兩個選項。"
+  },
+  "quiz_questionSaveSuccess": {
+    "message": "題目建立成功。"
+  },
+  "quiz_questionUpdateSuccess": {
+    "message": "題目更新成功。"
+  },
+  "quiz_questionSaveError": {
+    "message": "題目儲存失敗。"
+  },
+  "quiz_questionDeleteSuccess": {
+    "message": "題目刪除成功。"
+  },
+  "quiz_questionDeleteError": {
+    "message": "題目刪除失敗。"
+  },
+  "quiz_editQuestion": {
+    "message": "編輯題目"
+  },
+  "quiz_points": {
+    "message": "分數"
+  },
+  "quiz_orderIndex": {
+    "message": "順序"
+  },
+  "quiz_startError": {
+    "message": "測驗開始失敗。"
+  },
+  "quiz_answerAll": {
+    "message": "提交前請回答所有題目。"
+  },
+  "quiz_submitError": {
+    "message": "測驗提交失敗。"
+  },
+  "quiz_scoreSummary": {
+    "message": "得分：{{score}} / {{total}} ({{percent}}%)"
+  },
+  "quiz_correct": {
+    "message": "正確"
+  },
+  "quiz_incorrect": {
+    "message": "錯誤"
+  },
+  "quiz_yourAnswer": {
+    "message": "你的答案"
+  },
+  "quiz_correctAnswerLabel": {
+    "message": "正確答案"
+  },
+  "quiz_backToList": {
+    "message": "返回清單"
+  },
+  "quiz_retake": {
+    "message": "重新測驗"
   }
 }

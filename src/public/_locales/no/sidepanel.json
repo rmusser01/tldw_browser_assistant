@@ -1,0 +1,311 @@
+{
+  "tooltip_embed": {
+    "message": "Det kan ta noen minutter å bygge din siden. Vennligst vent..."
+  },
+  "tooltip_clear": {
+    "message": "Slett chathistorikken"
+  },
+  "tooltip_history": {
+    "message": "Chathistorikk"
+  },
+  "tooltip_openwebui": {
+    "message": "Åpne WebUI"
+  },
+  "toolbar_ragSearch": {
+    "message": "RAG Search"
+  },
+  "errors_privateModeTitle": {
+    "message": "tldw Assistant kan ikke lagre data"
+  },
+  "errors_privateModeDescription": {
+    "message": "Firefox privatmodus støtter ikke lagring av chathistorikk. Midlertidig chat er aktivert som standard. Flere forbedringer kommer snart."
+  },
+  "connectionBanner_connecting": {
+    "message": "Kobler til tldw-serveren..."
+  },
+  "connectionBanner_authErrorTitle": {
+    "message": "API-nøkkelen trenger oppmerksomhet"
+  },
+  "connectionBanner_authErrorBody": {
+    "message": "Serveren er tilgjengelig, men API-nøkkelen er feil eller mangler."
+  },
+  "connectionBanner_unreachableTitle": {
+    "message": "Kan ikke nå tldw-serveren"
+  },
+  "connectionBanner_unreachableBody": {
+    "message": "Sjekk at serveren kjører og er tilgjengelig."
+  },
+  "connectionBanner_noUrlBody": {
+    "message": "Legg til server-URL i Innstillinger for å komme i gang."
+  },
+  "connectionBanner_disconnectedTitle": {
+    "message": "Ikke koblet til tldw-serveren"
+  },
+  "connectionBanner_disconnectedBody": {
+    "message": "Åpne Innstillinger for å konfigurere servertilkoblingen."
+  },
+  "connectionBanner_setupTitle": {
+    "message": "Fullfør oppsettet for å starte å chatte"
+  },
+  "connectionBanner_setupBody": {
+    "message": "Fullfør oppsettsveiviseren i Innstillinger for å koble til."
+  },
+  "connectionBanner_openSettings": {
+    "message": "Åpne Innstillinger"
+  },
+  "temporaryBadge_title": {
+    "message": "Midlertidig chat"
+  },
+  "temporaryBadge_label": {
+    "message": "Temp"
+  },
+  "temporaryBadge_description": {
+    "message": "Denne chatten blir ikke lagret. Meldinger slettes når du lukker eller starter en ny chat."
+  },
+  "temporaryBadge_clickHint": {
+    "message": "Klikk for å deaktivere"
+  },
+  "temporaryBadge_ariaLabel": {
+    "message": "Midlertidig chatmodus er aktiv. Klikk for å bytte."
+  },
+  "temporaryBadge_indicatorTooltip": {
+    "message": "Meldinger i denne chatten blir ikke lagret"
+  },
+  "temporaryBadge_indicatorAria": {
+    "message": "Midlertidig chat"
+  },
+  "header_ingest": {
+    "message": "Ingest"
+  },
+  "header_saveCurrent": {
+    "message": "Save current page on server"
+  },
+  "header_processLocal": {
+    "message": "Process current page locally"
+  },
+  "header_viewProcessed": {
+    "message": "View processed"
+  },
+  "header_timeoutLabel": {
+    "message": "Timeout (s)"
+  },
+  "header_toggleSidebar": {
+    "message": "Toggle Sidebar / Full Screen"
+  },
+  "header_shortcuts": {
+    "message": "Shortcuts"
+  },
+  "header_showDebug": {
+    "message": "Show Stream Debug"
+  },
+  "header_hideDebug": {
+    "message": "Hide Stream Debug"
+  },
+  "header_moreOptionsAria": {
+    "message": "More options"
+  },
+  "header_moreOptionsTitle": {
+    "message": "Ingest and more"
+  },
+  "header_openWebuiAria": {
+    "message": "Open Web UI"
+  },
+  "header_newChatAria": {
+    "message": "New chat"
+  },
+  "header_tempChatAria": {
+    "message": "Toggle temporary chat"
+  },
+  "header_clearHistoryAria": {
+    "message": "Clear history"
+  },
+  "header_openHistoryAria": {
+    "message": "Open history"
+  },
+  "header_openModelSettingsAria": {
+    "message": "Open model settings"
+  },
+  "header_openSettingsAria": {
+    "message": "Open settings"
+  },
+  "header_tempPill": {
+    "message": "Temp"
+  },
+  "header_modesLabel": {
+    "message": "Open modes in Web UI"
+  },
+  "header_modePlayground": {
+    "message": "Chat"
+  },
+  "header_modeReview": {
+    "message": "Multi-Item Review"
+  },
+  "header_modeMedia": {
+    "message": "Media"
+  },
+  "header_modeKnowledge": {
+    "message": "Knowledge"
+  },
+  "header_modeNotes": {
+    "message": "Notes"
+  },
+  "header_modePrompts": {
+    "message": "Prompts"
+  },
+  "header_modeFlashcards": {
+    "message": "Flashcards"
+  },
+  "controlRow_saveMode": {
+    "message": "Lagringsmodus"
+  },
+  "controlRow_ephemeral": {
+    "message": "Midlertidig"
+  },
+  "controlRow_searchSection": {
+    "message": "Søk og visjon"
+  },
+  "controlRow_webSearch": {
+    "message": "Nettsøk"
+  },
+  "controlRow_vision": {
+    "message": "Visjon"
+  },
+  "controlRow_uploadImage": {
+    "message": "Last opp bilde"
+  },
+  "controlRow_quickIngest": {
+    "message": "Hurtiginnlasting av side"
+  },
+  "controlRow_openInFullUI": {
+    "message": "Åpne i fullverdig grensesnitt"
+  },
+  "controlRow_modeChat": {
+    "message": "Chat"
+  },
+  "controlRow_modeMedia": {
+    "message": "Media"
+  },
+  "controlRow_modeNotes": {
+    "message": "Notater"
+  },
+  "controlRow_modeFlashcards": {
+    "message": "Læringskort"
+  },
+  "controlRow_ragSearch": {
+    "message": "RAG-søk"
+  },
+  "controlRow_moreTools": {
+    "message": "Flere verktøy"
+  },
+  "composer_connectHint": {
+    "message": "Connect to your tldw server in Settings to send messages."
+  },
+  "composer_connectingPlaceholder": {
+    "message": "Connecting..."
+  },
+  "composer_disconnectedPlaceholder": {
+    "message": "Connect to your tldw server in Settings to send messages and view media."
+  },
+  "notification_ingestSent": {
+    "message": "Sent to tldw server"
+  },
+  "notification_ingestSentDesc": {
+    "message": "Current page has been submitted for ingestion."
+  },
+  "notification_processedLocal": {
+    "message": "Processed locally"
+  },
+  "notification_processedLocalDesc": {
+    "message": "Processed content stored locally under Settings > Processed."
+  },
+  "notification_transcriptionTitle": {
+    "message": "Transcription"
+  },
+  "notification_transcriptionSummaryTitle": {
+    "message": "Transcription + summary"
+  },
+  "notification_transcriptionFallback": {
+    "message": "Transcription completed. Open Media in the Web UI to view it."
+  },
+  "notification_sourceLabel": {
+    "message": "Source"
+  },
+  "notification_transcriptLabel": {
+    "message": "Transcript"
+  },
+  "notification_summaryLabel": {
+    "message": "Summary"
+  },
+  "saveStatus_ephemeral": {
+    "message": "Midlertidig: ikke lagret, slettes ved lukking"
+  },
+  "saveStatus_local": {
+    "message": "Lagret lokalt i denne nettleseren"
+  },
+  "saveStatus_server": {
+    "message": "Lagret på serveren"
+  },
+  "saveStatus_saveFailed": {
+    "message": "Kunne ikke lagre chatten på serveren"
+  },
+  "saveStatus_saveFailedDescription": {
+    "message": "Chatten lagres nå kun lokalt. Sjekk tilkoblingen og prøv igjen."
+  },
+  "rag_searchPlaceholder": {
+    "message": "Search your knowledge…"
+  },
+  "rag_search": {
+    "message": "Search"
+  },
+  "rag_show": {
+    "message": "Show RAG search"
+  },
+  "rag_hide": {
+    "message": "Hide RAG search"
+  },
+  "rag_addTagPlaceholder": {
+    "message": "Add tag (Enter)"
+  },
+  "rag_add": {
+    "message": "Add"
+  },
+  "rag_noResults": {
+    "message": "No results"
+  },
+  "rag_timeout_message": {
+    "message": "Request timed out."
+  },
+  "rag_timeout_increase": {
+    "message": "Increase timeout"
+  },
+  "rag_timeout_checkHealth": {
+    "message": "Check server health"
+  },
+  "rag_actions_insert": {
+    "message": "Insert"
+  },
+  "rag_actions_ask": {
+    "message": "Ask"
+  },
+  "rag_actions_open": {
+    "message": "Open"
+  },
+  "rag_actions_copy": {
+    "message": "Copy"
+  },
+  "rag_hint_message": {
+    "message": "Søk i kunnskapsbasen din og sett inn resultater i meldingen din."
+  },
+  "rag_hint_dismiss": {
+    "message": "Lukk"
+  },
+  "tabs_newChat": {
+    "message": "Ny chat"
+  },
+  "tabs_newTabAria": {
+    "message": "Ny chattefane"
+  },
+  "tabs_closeTabAria": {
+    "message": "Lukk chattefane"
+  }
+}

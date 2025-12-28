@@ -1261,22 +1261,28 @@
     "description": "Content review UI string."
   },
   "reviewDraftsFailedTitle": {
-    "message": "Kunne ikke opprette gjennomgangskladder."
+    "message": "Kunne ikke opprette gjennomgangskladder.",
+    "description": "Error title when review drafts creation fails."
   },
   "reviewDraftsFailedFallback": {
-    "message": "Oppretting av gjennomgangskladder mislyktes."
+    "message": "Oppretting av gjennomgangskladder mislyktes.",
+    "description": "Fallback error message for review drafts failure."
   },
   "reviewDraftsRetry": {
-    "message": "Prøv å opprette kladder på nytt"
+    "message": "Prøv å opprette kladder på nytt",
+    "description": "Button label to retry creating review drafts."
   },
   "reviewDraftsStoreWithoutReview": {
-    "message": "Lagre uten gjennomgang"
+    "message": "Lagre uten gjennomgang",
+    "description": "Action to store without review."
   },
   "reviewNavigationFailed": {
-    "message": "Kunne ikke åpne Innholdsgjennomgang. Prøv igjen."
+    "message": "Kunne ikke åpne Innholdsgjennomgang. Prøv igjen.",
+    "description": "Error message when navigation to Content Review fails."
   },
   "reviewNavigationRetry": {
-    "message": "Prøv å åpne Innholdsgjennomgang på nytt"
+    "message": "Prøv å åpne Innholdsgjennomgang på nytt",
+    "description": "Button label to retry opening Content Review."
   },
   "quickIngest_title": {
     "message": "Quick Ingest Media"
@@ -1820,16 +1826,16 @@
     "message": "Forfaller"
   },
   "flashcards_reviewFailed": {
-    "message": "Review failed"
+    "message": "Repetisjon mislyktes"
   },
   "flashcards_updateFailed": {
-    "message": "Update failed"
+    "message": "Oppdatering mislyktes"
   },
   "flashcards_deleteFailed": {
-    "message": "Delete failed"
+    "message": "Sletting mislyktes"
   },
   "flashcards_missingVersion": {
-    "message": "Missing version; reload and try again"
+    "message": "Versjon mangler; last inn på nytt og prøv igjen"
   },
   "flashcards_bulkDeleteResult": {
     "message": "{{success}} deleted · {{failed}} failed"
@@ -3006,5 +3012,200 @@
   },
   "tabs_closeTabAria": {
     "message": "Lukk chattefane"
+  },
+  "manageCharacters_title": {
+    "message": "Administrer karakterer"
+  },
+  "manageCharacters_addBtn": {
+    "message": "Ny karakter"
+  },
+  "manageCharacters_columns_name": {
+    "message": "Navn"
+  },
+  "manageCharacters_columns_description": {
+    "message": "Beskrivelse"
+  },
+  "manageCharacters_columns_actions": {
+    "message": "Handlinger"
+  },
+  "manageCharacters_columns_avatar": {
+    "message": "Profilbilde"
+  },
+  "manageCharacters_actions_chat": {
+    "message": "Samtale"
+  },
+  "manageCharacters_actions_edit": {
+    "message": "Rediger"
+  },
+  "manageCharacters_actions_delete": {
+    "message": "Slett"
+  },
+  "manageCharacters_actions_duplicate": {
+    "message": "Dupliser"
+  },
+  "manageCharacters_table_noDescription": {
+    "message": "Ingen beskrivelse"
+  },
+  "manageCharacters_filter_matchAll": {
+    "message": "Match alle tagger"
+  },
+  "manageCharacters_tags_label": {
+    "message": "Tagger"
+  },
+  "manageCharacters_tags_placeholder": {
+    "message": "Legg til tagger"
+  },
+  "manageCharacters_tags_help": {
+    "message": "Bruk tagger for å gruppere karakterer etter brukstilfelle (f.eks. «skriving», «undervisning»)."
+  },
+  "manageCharacters_tooltip_edit": {
+    "message": "Rediger karakter"
+  },
+  "manageCharacters_tooltip_delete": {
+    "message": "Slett karakter"
+  },
+  "manageCharacters_aria_chatWith": {
+    "message": "Chat som {{name}}"
+  },
+  "manageCharacters_aria_edit": {
+    "message": "Rediger karakter {{name}}"
+  },
+  "manageCharacters_aria_delete": {
+    "message": "Slett karakter {{name}}"
+  },
+  "manageCharacters_aria_duplicate": {
+    "message": "Dupliser karakter {{name}}"
+  },
+  "manageCharacters_confirm_delete": {
+    "message": "Er du sikker på at du vil slette denne karakteren? Denne handlingen kan ikke angres."
+  },
+  "manageCharacters_avatar_label": {
+    "message": "Profilbilde (valgfritt)"
+  },
+  "manageCharacters_avatar_tabUrl": {
+    "message": "URL-adresse"
+  },
+  "manageCharacters_avatar_tabUpload": {
+    "message": "Last opp"
+  },
+  "manageCharacters_avatar_selectImageError": {
+    "message": "Velg en bildefil"
+  },
+  "manageCharacters_avatar_formatError": {
+    "message": "Bare PNG-, JPEG- og GIF-bilder støttes"
+  },
+  "manageCharacters_avatar_invalidError": {
+    "message": "Ugyldig bildefil"
+  },
+  "manageCharacters_avatar_processError": {
+    "message": "Kunne ikke behandle bildet"
+  },
+  "manageCharacters_avatar_dropzone": {
+    "message": "Klikk eller dra bilde for å laste opp"
+  },
+  "manageCharacters_avatar_formats": {
+    "message": "PNG, JPEG eller GIF"
+  },
+  "manageCharacters_avatar_preview": {
+    "message": "Forhåndsvisning"
+  },
+  "manageCharacters_form_name_label": {
+    "message": "Navn"
+  },
+  "manageCharacters_form_name_placeholder": {
+    "message": "f.eks. Skrivecoach"
+  },
+  "manageCharacters_form_name_required": {
+    "message": "Vennligst skriv inn et navn"
+  },
+  "manageCharacters_form_description": {
+    "message": "Definer en gjenbrukbar karakter du kan chatte med i sidepanelet."
+  },
+  "manageCharacters_form_systemPrompt_label": {
+    "message": "Atferd / instruksjoner"
+  },
+  "manageCharacters_form_systemPrompt_placeholder": {
+    "message": "F.eks. Du er en tålmodig mattelærer som forklarer konsepter trinn for trinn og sjekker forståelse med korte eksempler."
+  },
+  "manageCharacters_form_systemPrompt_help": {
+    "message": "Forklar karakterens rolle, tone og begrensninger. For eksempel: \"Du er en tålmodig mattetutor som forklarer konsepter trinn for trinn.\""
+  },
+  "manageCharacters_form_systemPrompt_required": {
+    "message": "Legg til instruksjoner for å styre svarene."
+  },
+  "manageCharacters_form_systemPrompt_min": {
+    "message": "Legg til en kort beskrivelse slik at karakteren vet hvordan den skal svare."
+  },
+  "manageCharacters_form_systemPrompt_max": {
+    "message": "Systemprompten må være på 2000 tegn eller mindre."
+  },
+  "manageCharacters_form_avatarUrl_label": {
+    "message": "Avatar-URL (valgfritt)"
+  },
+  "manageCharacters_form_avatarUrl_placeholder": {
+    "message": "f.eks. https://example.com/avatar.png"
+  },
+  "manageCharacters_form_greeting_label": {
+    "message": "Hilsen (valgfritt)"
+  },
+  "manageCharacters_form_greeting_placeholder": {
+    "message": "Hei! Jeg er skrivecoachen din. Lim inn utkastet ditt, så hjelper jeg deg å stramme det inn."
+  },
+  "manageCharacters_form_greeting_help": {
+    "message": "Valgfri første melding karakteren sender når du starter en chat."
+  },
+  "manageCharacters_form_btnSave_saving": {
+    "message": "Oppretter karakter..."
+  },
+  "manageCharacters_form_btnSave_save": {
+    "message": "Opprett karakter"
+  },
+  "manageCharacters_form_btnEdit_saving": {
+    "message": "Lagrer endringer..."
+  },
+  "manageCharacters_form_btnEdit_save": {
+    "message": "Lagre endringer"
+  },
+  "manageCharacters_notification_addSuccess": {
+    "message": "Karakter opprettet"
+  },
+  "manageCharacters_notification_error": {
+    "message": "Feil"
+  },
+  "manageCharacters_notification_someError": {
+    "message": "Noe gikk galt. Prøv igjen senere"
+  },
+  "manageCharacters_notification_updatedSuccess": {
+    "message": "Karakter oppdatert"
+  },
+  "manageCharacters_notification_deletedSuccess": {
+    "message": "Karakter slettet"
+  },
+  "manageCharacters_loadError_title": {
+    "message": "Kunne ikke laste inn karakterer"
+  },
+  "manageCharacters_loadError_description": {
+    "message": "Sjekk tilkoblingen og prøv igjen."
+  },
+  "manageCharacters_emptyTitle": {
+    "message": "Ingen karakterer ennå"
+  },
+  "manageCharacters_emptyDescription": {
+    "message": "Opprett en gjenbrukbar karakter med navn, beskrivelse og systemprompt du kan chatte med."
+  },
+  "manageCharacters_emptyExample1": {
+    "message": "Definer en skrivecoach, lore-ekspert eller kodeassistent du kan gjenbruke i chatter."
+  },
+  "manageCharacters_emptyExample2": {
+    "message": "Gi hver karakter en tydelig beskrivelse og atferd slik at svarene forblir konsistente."
+  },
+  "manageCharacters_emptyPrimaryCta": {
+    "message": "Opprett karakter"
+  },
+  "manageCharacters_avatarAltWithName": {
+    "message": "Avatar for {{name}}"
+  },
+  "manageCharacters_avatarAlt": {
+    "message": "Brukeravatar"
   }
 }

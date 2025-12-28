@@ -1,12 +1,12 @@
 {
   "mediaPage_nothingToSend": {
-    "message": "Немає що надсилати"
+    "message": "Нічого надсилати"
   },
   "mediaPage_emptyAnalysis": {
     "message": "Аналіз не може бути порожнім"
   },
   "mediaPage_noMediaId": {
-    "message": "Ідентифікатор медіа недоступний"
+    "message": "Немає доступного ID медіа"
   },
   "mediaPage_versionSaved": {
     "message": "Збережено як нову версію"
@@ -33,7 +33,7 @@
     "message": "{{count}} символів"
   },
   "mediaPage_pageRangeError": {
-    "message": "Сторінка має бути від 1 до {{max}}"
+    "message": "Сторінка має бути 1-{{max}}"
   },
   "mediaPage_pageRangeClamped": {
     "message": "Перехід до сторінки {{page}}"
@@ -370,5 +370,326 @@
   },
   "contentReview_editedLabel": {
     "message": "Змінено"
+  },
+  "mediaPage_spreadMode": {
+    "message": "Порівняння"
+  },
+  "mediaPage_listMode": {
+    "message": "Фокус"
+  },
+  "mediaPage_allMode": {
+    "message": "Стек"
+  },
+  "mediaPage_spreadModeTooltip": {
+    "message": "Перегляд вибраних елементів поруч для порівняння"
+  },
+  "mediaPage_listModeTooltip": {
+    "message": "Перегляд по одному елементу з навігацією"
+  },
+  "mediaPage_allModeTooltip": {
+    "message": "Перегляд усіх вибраних елементів у прокручуваному списку"
+  },
+  "mediaPage_copyContentLabel": {
+    "message": "Копіювати вміст"
+  },
+  "mediaPage_copyAnalysisLabel": {
+    "message": "Копіювати аналіз"
+  },
+  "mediaPage_copyContentTooltip": {
+    "message": "Копіювати вміст у буфер обміну"
+  },
+  "mediaPage_copyAnalysisTooltip": {
+    "message": "Копіювати аналіз у буфер обміну"
+  },
+  "mediaPage_prevItemTooltip": {
+    "message": "Попередній елемент (←)"
+  },
+  "mediaPage_nextItemTooltip": {
+    "message": "Наступний елемент (→)"
+  },
+  "mediaPage_viewerOptions": {
+    "message": "Параметри"
+  },
+  "mediaPage_expandAllDropdown": {
+    "message": "Розгорнути/Згорнути"
+  },
+  "mediaPage_itemPosition": {
+    "message": "Елемент {{current}} з {{total}}"
+  },
+  "mediaPage_noItemSelected": {
+    "message": "Елемент не вибрано"
+  },
+  "mediaPage_firstUseTitle": {
+    "message": "Швидкий гайд: Перегляд кількох елементів"
+  },
+  "mediaPage_firstUseStep1": {
+    "message": "Виберіть елементи"
+  },
+  "mediaPage_firstUseStep1Desc": {
+    "message": "Клацніть елементи в лівій панелі, щоб додати їх до перегляду."
+  },
+  "mediaPage_firstUseStep2": {
+    "message": "Виберіть вигляд"
+  },
+  "mediaPage_firstUseStep2DescUpdated": {
+    "message": "Використовуйте \"Порівняння\" для поруч, \"Фокус\" для по одному або \"Стек\", щоб бачити всі."
+  },
+  "mediaPage_firstUseStep3": {
+    "message": "Навігація"
+  },
+  "mediaPage_firstUseStep3Desc": {
+    "message": "Використовуйте кнопки Попередній/Наступний або клавіатуру (Tab + Enter), щоб переходити між елементами."
+  },
+  "mediaPage_gotIt": {
+    "message": "Зрозуміло"
+  },
+  "mediaPage_mediaInspector": {
+    "message": "Інспектор медіа"
+  },
+  "mediaPage_searchPlaceholder": {
+    "message": "Search media (title/content)"
+  },
+  "mediaPage_search": {
+    "message": "Search"
+  },
+  "mediaPage_clear": {
+    "message": "Clear"
+  },
+  "mediaPage_types": {
+    "message": "Types"
+  },
+  "mediaPage_keywords": {
+    "message": "Keywords"
+  },
+  "mediaPage_moreTags": {
+    "message": "+{{count}} додаткових тегів"
+  },
+  "mediaPage_resetFilters": {
+    "message": "Reset Filters"
+  },
+  "mediaPage_clearAll": {
+    "message": "Очистити все"
+  },
+  "mediaPage_content": {
+    "message": "Content"
+  },
+  "mediaPage_vertical": {
+    "message": "Vertical"
+  },
+  "mediaPage_horizontal": {
+    "message": "Horizontal"
+  },
+  "mediaPage_results": {
+    "message": "Results"
+  },
+  "mediaPage_showSidebar": {
+    "message": "Show sidebar"
+  },
+  "mediaPage_hideSidebar": {
+    "message": "Hide sidebar"
+  },
+  "mediaPage_viewer": {
+    "message": "Viewer"
+  },
+  "mediaPage_selectItemsHint": {
+    "message": "Select items on the left to view here."
+  },
+  "mediaPage_mediaContent": {
+    "message": "Media Content"
+  },
+  "mediaPage_copyContent": {
+    "message": "Copy content"
+  },
+  "mediaPage_contentCopied": {
+    "message": "Content copied"
+  },
+  "mediaPage_metadataCopied": {
+    "message": "Метадані скопійовано"
+  },
+  "mediaPage_analysisCopied": {
+    "message": "Аналіз скопійовано"
+  },
+  "mediaPage_copyFailed": {
+    "message": "Copy failed"
+  },
+  "mediaPage_noContent": {
+    "message": "No content available"
+  },
+  "mediaPage_collapse": {
+    "message": "Collapse"
+  },
+  "mediaPage_expand": {
+    "message": "Expand"
+  },
+  "mediaPage_media": {
+    "message": "Media"
+  },
+  "mediaPage_searchingBanner": {
+    "message": "Searching media…"
+  },
+  "mediaPage_filterHelp": {
+    "message": "Search matches title and content; Types and Keywords further narrow the results."
+  },
+  "mediaPage_noMediaTypes": {
+    "message": "Немає доступних типів медіа"
+  },
+  "mediaPage_noResults": {
+    "message": "No results"
+  },
+  "mediaPage_resultsCount": {
+    "message": "{{selected}} selected · {{open}} open"
+  },
+  "mediaPage_clearSelection": {
+    "message": "Deselect all"
+  },
+  "mediaPage_itemsLabel": {
+    "message": "Items"
+  },
+  "mediaPage_contentLabel": {
+    "message": "Content view"
+  },
+  "mediaPage_filterByKeyword": {
+    "message": "Фільтрувати за ключовим словом"
+  },
+  "mediaPage_keywordHelper": {
+    "message": "Ключові слова допомагають знайти цей медіаоб’єкт за допомогою фільтра ключових слів ліворуч"
+  },
+  "mediaPage_modeHint": {
+    "message": "Шукайте й групуйте кілька медіаоб’єктів, щоб порівнювати їх у вікні перегляду праворуч."
+  },
+  "mediaPage_viewerHelp": {
+    "message": "Клавіатура: перейдіть до списку результатів за допомогою Tab, використовуйте Enter або пробіл, щоб додати медіаоб’єкт до стека або прибрати його, а також кнопки «Попередній» / «Наступний» і керування макетом, щоб переходити між елементами у вікні перегляду."
+  },
+  "mediaPage_viewerHelpLabel": {
+    "message": "Комбінації клавіш для перегляду кількох елементів"
+  },
+  "mediaPage_actionsLabel": {
+    "message": "Дії"
+  },
+  "mediaPage_keywordsPlaceholder": {
+    "message": "Додати ключові слова..."
+  },
+  "mediaPage_noSelectionTitle": {
+    "message": "Медіаоб’єкт не вибрано"
+  },
+  "mediaPage_noSelectionDescription": {
+    "message": "Виберіть медіаоб’єкт у лівій бічній панелі, щоб переглянути його вміст і аналізи тут."
+  },
+  "mediaPage_generateAnalysis": {
+    "message": "Створити аналіз"
+  },
+  "mediaPage_generateAnalysisHint": {
+    "message": "Створити новий аналіз"
+  },
+  "mediaPage_editAnalysis": {
+    "message": "Редагувати аналіз"
+  },
+  "mediaPage_createNoteWithContent": {
+    "message": "Створити нотатку з вмістом"
+  },
+  "mediaPage_createNoteWithContentAnalysis": {
+    "message": "Створити нотатку з вмістом і аналізом"
+  },
+  "mediaPage_untitled": {
+    "message": "Без назви"
+  },
+  "mediaPage_copyMetadata": {
+    "message": "Копіювати метадані"
+  },
+  "mediaPage_statistics": {
+    "message": "Статистика"
+  },
+  "mediaPage_words": {
+    "message": "Слова"
+  },
+  "mediaPage_characters": {
+    "message": "Символи"
+  },
+  "mediaPage_paragraphs": {
+    "message": "Абзаци"
+  },
+  "mediaPage_metadata": {
+    "message": "Метадані"
+  },
+  "mediaPage_idLabel": {
+    "message": "ID"
+  },
+  "mediaPage_typeLabel": {
+    "message": "Тип"
+  },
+  "mediaPage_titleLabel": {
+    "message": "Заголовок"
+  },
+  "mediaPage_source": {
+    "message": "Джерело"
+  },
+  "mediaPage_notAvailable": {
+    "message": "Немає"
+  },
+  "mediaPage_developerTools": {
+    "message": "Засоби розробника"
+  },
+  "mediaPage_model": {
+    "message": "Модель"
+  },
+  "mediaPage_selectModel": {
+    "message": "Виберіть модель"
+  },
+  "mediaPage_noModelsAvailable": {
+    "message": "Немає доступних моделей"
+  },
+  "mediaPage_promptPresets": {
+    "message": "Пресети промптів"
+  },
+  "mediaPage_showPresets": {
+    "message": "Показати пресети"
+  },
+  "mediaPage_hidePresets": {
+    "message": "Приховати пресети"
+  },
+  "mediaPage_systemPromptLabel": {
+    "message": "Системний промпт"
+  },
+  "mediaPage_systemPromptPlaceholder": {
+    "message": "Введіть системний промпт..."
+  },
+  "mediaPage_userPromptPrefixLabel": {
+    "message": "Префікс користувацького промпта"
+  },
+  "mediaPage_prependedBeforeContent": {
+    "message": "(додається перед вмістом)"
+  },
+  "mediaPage_userPrefixPlaceholder": {
+    "message": "Необов'язково: введіть текст, який буде додано перед вмістом медіа..."
+  },
+  "mediaPage_presetComprehensiveAnalysis": {
+    "message": "Комплексний аналіз"
+  },
+  "mediaPage_presetExecutiveSummary": {
+    "message": "Резюме для керівництва"
+  },
+  "mediaPage_presetCriticalReview": {
+    "message": "Критичний огляд"
+  },
+  "mediaPage_presetQAAnalysis": {
+    "message": "Аналіз запитань і відповідей"
+  },
+  "contentReview_templates_transcript_clean_label": {
+    "message": "Очистити транскрипт"
+  },
+  "contentReview_templates_transcript_clean_description": {
+    "message": "Нормалізує пунктуацію та регістр, зберігаючи структуру рядків."
+  },
+  "contentReview_templates_speaker_turns_label": {
+    "message": "Репліки спікерів"
+  },
+  "contentReview_templates_speaker_turns_description": {
+    "message": "Гарантує, що кожна репліка спікера знаходиться в окремому рядку з чіткими мітками."
+  },
+  "contentReview_templates_chapter_headings_label": {
+    "message": "Заголовки розділів"
+  },
+  "contentReview_templates_chapter_headings_description": {
+    "message": "Вставляє заголовки Markdown для групування тем без видалення вмісту."
   }
 }

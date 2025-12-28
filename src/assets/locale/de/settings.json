@@ -955,7 +955,8 @@
       "chat": "Chat starten",
       "edit": "Bearbeiten",
       "delete": "Löschen",
-      "viewConversations": "Unterhaltungen anzeigen"
+      "viewConversations": "Unterhaltungen anzeigen",
+      "duplicate": "Duplizieren"
     },
     "tags": {
       "label": "Stichwörter",
@@ -971,7 +972,8 @@
       "edit": "Charakter {{name}} bearbeiten",
       "delete": "Charakter {{name}} löschen",
       "viewConversations": "Unterhaltungen für {{name}} anzeigen",
-      "searchResults": "{{count}} Charaktere gefunden"
+      "searchResults": "{{count}} Charaktere gefunden",
+      "duplicate": "Charakter {{name}} duplizieren"
     },
     "confirm": {
       "delete": "Möchten Sie diesen Charakter wirklich löschen? Diese Aktion kann nicht rückgängig gemacht werden."
@@ -987,7 +989,9 @@
         "label": "Verhalten / Anweisungen",
         "placeholder": "z. B. Du bist ein geduldiger Mathelehrer, der Konzepte Schritt für Schritt erklärt und das Verständnis mit kurzen Beispielen prüft.",
         "help": "Beschreiben Sie die Rolle, den Ton und die Einschränkungen des Charakters. Zum Beispiel: \"Du bist ein geduldiger Mathe-Tutor, der Konzepte Schritt für Schritt erklärt.\"",
-        "min": "Fügen Sie eine kurze Beschreibung hinzu, damit der Charakter weiß, wie er antworten soll."
+        "min": "Fügen Sie eine kurze Beschreibung hinzu, damit der Charakter weiß, wie er antworten soll.",
+        "required": "Bitte füge Anweisungen hinzu, um die Antworten zu steuern.",
+        "max": "Der System-Prompt darf höchstens 2000 Zeichen lang sein."
       },
       "avatarUrl": {
         "label": "Avatar-URL (optional)",
@@ -1050,6 +1054,24 @@
     "advanced": {
       "show": "Erweiterte Felder anzeigen",
       "hide": "Erweiterte Felder ausblenden"
+    },
+    "table": {
+      "noDescription": "Keine Beschreibung"
+    },
+    "filter": {
+      "matchAll": "Alle Tags müssen übereinstimmen"
+    },
+    "avatar": {
+      "label": "Profilbild (optional)",
+      "tabUrl": "URL-Adresse",
+      "tabUpload": "Hochladen",
+      "selectImageError": "Bitte wähle eine Bilddatei aus",
+      "formatError": "Nur PNG-, JPEG- und GIF-Bilder werden unterstützt",
+      "invalidError": "Ungültige Bilddatei",
+      "processError": "Bild konnte nicht verarbeitet werden",
+      "dropzone": "Klicken oder Bild hierher ziehen, um es hochzuladen",
+      "formats": "PNG, JPEG oder GIF",
+      "preview": "Vorschau"
     }
   },
   "systemNotifications": {

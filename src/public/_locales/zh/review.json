@@ -364,5 +364,326 @@
   },
   "contentReview_editedLabel": {
     "message": "已编辑"
+  },
+  "mediaPage_spreadMode": {
+    "message": "对比"
+  },
+  "mediaPage_listMode": {
+    "message": "聚焦"
+  },
+  "mediaPage_allMode": {
+    "message": "堆叠"
+  },
+  "mediaPage_spreadModeTooltip": {
+    "message": "并排显示所选项目以便对比"
+  },
+  "mediaPage_listModeTooltip": {
+    "message": "使用导航一次查看一个项目"
+  },
+  "mediaPage_allModeTooltip": {
+    "message": "在可滚动列表中查看所有选中项目"
+  },
+  "mediaPage_copyContentLabel": {
+    "message": "复制内容"
+  },
+  "mediaPage_copyAnalysisLabel": {
+    "message": "复制分析"
+  },
+  "mediaPage_copyContentTooltip": {
+    "message": "将内容复制到剪贴板"
+  },
+  "mediaPage_copyAnalysisTooltip": {
+    "message": "将分析复制到剪贴板"
+  },
+  "mediaPage_prevItemTooltip": {
+    "message": "上一个项目 (←)"
+  },
+  "mediaPage_nextItemTooltip": {
+    "message": "下一个项目 (→)"
+  },
+  "mediaPage_viewerOptions": {
+    "message": "选项"
+  },
+  "mediaPage_expandAllDropdown": {
+    "message": "展开/折叠"
+  },
+  "mediaPage_itemPosition": {
+    "message": "第 {{current}} 项，共 {{total}} 项"
+  },
+  "mediaPage_noItemSelected": {
+    "message": "未选择任何项目"
+  },
+  "mediaPage_firstUseTitle": {
+    "message": "快速指南：多项审阅"
+  },
+  "mediaPage_firstUseStep1": {
+    "message": "选择项目"
+  },
+  "mediaPage_firstUseStep1Desc": {
+    "message": "点击左侧面板中的项目，将其添加到查看器。"
+  },
+  "mediaPage_firstUseStep2": {
+    "message": "选择视图"
+  },
+  "mediaPage_firstUseStep2DescUpdated": {
+    "message": "使用“对比”进行并排查看，“聚焦”一次查看一个项目，或使用“堆叠”查看全部。"
+  },
+  "mediaPage_firstUseStep3": {
+    "message": "导航"
+  },
+  "mediaPage_firstUseStep3Desc": {
+    "message": "使用上一项/下一项按钮或键盘（Tab + Enter）在项目间移动。"
+  },
+  "mediaPage_gotIt": {
+    "message": "知道了"
+  },
+  "mediaPage_mediaInspector": {
+    "message": "媒体检查器"
+  },
+  "mediaPage_searchPlaceholder": {
+    "message": "Search media (title/content)"
+  },
+  "mediaPage_search": {
+    "message": "Search"
+  },
+  "mediaPage_clear": {
+    "message": "Clear"
+  },
+  "mediaPage_types": {
+    "message": "Types"
+  },
+  "mediaPage_keywords": {
+    "message": "Keywords"
+  },
+  "mediaPage_moreTags": {
+    "message": "+还有{{count}}个标签"
+  },
+  "mediaPage_resetFilters": {
+    "message": "Reset Filters"
+  },
+  "mediaPage_clearAll": {
+    "message": "清除全部"
+  },
+  "mediaPage_content": {
+    "message": "Content"
+  },
+  "mediaPage_vertical": {
+    "message": "Vertical"
+  },
+  "mediaPage_horizontal": {
+    "message": "Horizontal"
+  },
+  "mediaPage_results": {
+    "message": "Results"
+  },
+  "mediaPage_showSidebar": {
+    "message": "Show sidebar"
+  },
+  "mediaPage_hideSidebar": {
+    "message": "Hide sidebar"
+  },
+  "mediaPage_viewer": {
+    "message": "Viewer"
+  },
+  "mediaPage_selectItemsHint": {
+    "message": "Select items on the left to view here."
+  },
+  "mediaPage_mediaContent": {
+    "message": "Media Content"
+  },
+  "mediaPage_copyContent": {
+    "message": "Copy content"
+  },
+  "mediaPage_contentCopied": {
+    "message": "Content copied"
+  },
+  "mediaPage_metadataCopied": {
+    "message": "元数据已复制"
+  },
+  "mediaPage_analysisCopied": {
+    "message": "分析已复制"
+  },
+  "mediaPage_copyFailed": {
+    "message": "Copy failed"
+  },
+  "mediaPage_noContent": {
+    "message": "No content available"
+  },
+  "mediaPage_collapse": {
+    "message": "Collapse"
+  },
+  "mediaPage_expand": {
+    "message": "Expand"
+  },
+  "mediaPage_media": {
+    "message": "Media"
+  },
+  "mediaPage_searchingBanner": {
+    "message": "Searching media…"
+  },
+  "mediaPage_filterHelp": {
+    "message": "Search matches title and content; Types and Keywords further narrow the results."
+  },
+  "mediaPage_noMediaTypes": {
+    "message": "没有可用的媒体类型"
+  },
+  "mediaPage_noResults": {
+    "message": "No results"
+  },
+  "mediaPage_resultsCount": {
+    "message": "{{selected}} selected · {{open}} open"
+  },
+  "mediaPage_clearSelection": {
+    "message": "Deselect all"
+  },
+  "mediaPage_itemsLabel": {
+    "message": "Items"
+  },
+  "mediaPage_contentLabel": {
+    "message": "Content view"
+  },
+  "mediaPage_filterByKeyword": {
+    "message": "按关键字筛选"
+  },
+  "mediaPage_keywordHelper": {
+    "message": "关键字可以帮助你使用左侧的关键字筛选器找到此媒体"
+  },
+  "mediaPage_modeHint": {
+    "message": "搜索并堆叠多个媒体项，在右侧查看器中进行比较。"
+  },
+  "mediaPage_viewerHelp": {
+    "message": "键盘：按 Tab 进入结果列表，使用 Enter 或空格键将媒体项加入/移出堆栈，然后使用上一条/下一条和布局控件在查看器中的各项之间移动。"
+  },
+  "mediaPage_viewerHelpLabel": {
+    "message": "多项审阅的键盘快捷键"
+  },
+  "mediaPage_actionsLabel": {
+    "message": "操作"
+  },
+  "mediaPage_keywordsPlaceholder": {
+    "message": "添加关键字..."
+  },
+  "mediaPage_noSelectionTitle": {
+    "message": "未选择任何媒体项"
+  },
+  "mediaPage_noSelectionDescription": {
+    "message": "在左侧侧边栏选择一个媒体项，在此查看其内容和分析。"
+  },
+  "mediaPage_generateAnalysis": {
+    "message": "生成分析"
+  },
+  "mediaPage_generateAnalysisHint": {
+    "message": "生成新的分析"
+  },
+  "mediaPage_editAnalysis": {
+    "message": "编辑分析"
+  },
+  "mediaPage_createNoteWithContent": {
+    "message": "使用内容创建笔记"
+  },
+  "mediaPage_createNoteWithContentAnalysis": {
+    "message": "使用内容 + 分析创建笔记"
+  },
+  "mediaPage_untitled": {
+    "message": "未命名"
+  },
+  "mediaPage_copyMetadata": {
+    "message": "复制元数据"
+  },
+  "mediaPage_statistics": {
+    "message": "统计"
+  },
+  "mediaPage_words": {
+    "message": "单词数"
+  },
+  "mediaPage_characters": {
+    "message": "字符数"
+  },
+  "mediaPage_paragraphs": {
+    "message": "段落数"
+  },
+  "mediaPage_metadata": {
+    "message": "元数据"
+  },
+  "mediaPage_idLabel": {
+    "message": "ID"
+  },
+  "mediaPage_typeLabel": {
+    "message": "类型"
+  },
+  "mediaPage_titleLabel": {
+    "message": "标题"
+  },
+  "mediaPage_source": {
+    "message": "来源"
+  },
+  "mediaPage_notAvailable": {
+    "message": "不可用"
+  },
+  "mediaPage_developerTools": {
+    "message": "开发者工具"
+  },
+  "mediaPage_model": {
+    "message": "模型"
+  },
+  "mediaPage_selectModel": {
+    "message": "选择模型"
+  },
+  "mediaPage_noModelsAvailable": {
+    "message": "没有可用模型"
+  },
+  "mediaPage_promptPresets": {
+    "message": "提示词预设"
+  },
+  "mediaPage_showPresets": {
+    "message": "显示预设"
+  },
+  "mediaPage_hidePresets": {
+    "message": "隐藏预设"
+  },
+  "mediaPage_systemPromptLabel": {
+    "message": "系统提示词"
+  },
+  "mediaPage_systemPromptPlaceholder": {
+    "message": "输入系统提示词..."
+  },
+  "mediaPage_userPromptPrefixLabel": {
+    "message": "用户提示词前缀"
+  },
+  "mediaPage_prependedBeforeContent": {
+    "message": "（添加在内容之前）"
+  },
+  "mediaPage_userPrefixPlaceholder": {
+    "message": "可选：输入要在媒体内容之前添加的文本..."
+  },
+  "mediaPage_presetComprehensiveAnalysis": {
+    "message": "全面分析"
+  },
+  "mediaPage_presetExecutiveSummary": {
+    "message": "执行摘要"
+  },
+  "mediaPage_presetCriticalReview": {
+    "message": "批判性审阅"
+  },
+  "mediaPage_presetQAAnalysis": {
+    "message": "问答分析"
+  },
+  "contentReview_templates_transcript_clean_label": {
+    "message": "清理转录文本"
+  },
+  "contentReview_templates_transcript_clean_description": {
+    "message": "在保留行结构的前提下，规范标点和大小写。"
+  },
+  "contentReview_templates_speaker_turns_label": {
+    "message": "说话轮次"
+  },
+  "contentReview_templates_speaker_turns_description": {
+    "message": "确保每个说话人轮次都在独立的一行，并带有清晰的标签。"
+  },
+  "contentReview_templates_chapter_headings_label": {
+    "message": "章节标题"
+  },
+  "contentReview_templates_chapter_headings_description": {
+    "message": "插入 Markdown 标题，以分组主题而不删除内容。"
   }
 }

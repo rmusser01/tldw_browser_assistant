@@ -1163,22 +1163,28 @@
     "description": "Content review UI string."
   },
   "reviewDraftsFailedTitle": {
-    "message": "റിവ്യൂ ഡ്രാഫ്റ്റുകൾ സൃഷ്ടിക്കാനായില്ല."
+    "message": "റിവ്യൂ ഡ്രാഫ്റ്റുകൾ സൃഷ്ടിക്കാനായില്ല.",
+    "description": "Error title when review drafts creation fails."
   },
   "reviewDraftsFailedFallback": {
-    "message": "റിവ്യൂ ഡ്രാഫ്റ്റുകൾ സൃഷ്ടിക്കൽ പരാജയപ്പെട്ടു."
+    "message": "റിവ്യൂ ഡ്രാഫ്റ്റുകൾ സൃഷ്ടിക്കൽ പരാജയപ്പെട്ടു.",
+    "description": "Fallback error message for review drafts failure."
   },
   "reviewDraftsRetry": {
-    "message": "ഡ്രാഫ്റ്റ് സൃഷ്ടിക്കൽ വീണ്ടും ശ്രമിക്കുക"
+    "message": "ഡ്രാഫ്റ്റ് സൃഷ്ടിക്കൽ വീണ്ടും ശ്രമിക്കുക",
+    "description": "Button label to retry creating review drafts."
   },
   "reviewDraftsStoreWithoutReview": {
-    "message": "റിവ്യൂ ഇല്ലാതെ സംഭരിക്കുക"
+    "message": "റിവ്യൂ ഇല്ലാതെ സംഭരിക്കുക",
+    "description": "Action to store without review."
   },
   "reviewNavigationFailed": {
-    "message": "ഉള്ളടക്ക റിവ്യൂ തുറക്കാനായില്ല. വീണ്ടും ശ്രമിക്കുക."
+    "message": "ഉള്ളടക്ക റിവ്യൂ തുറക്കാനായില്ല. വീണ്ടും ശ്രമിക്കുക.",
+    "description": "Error message when navigation to Content Review fails."
   },
   "reviewNavigationRetry": {
-    "message": "ഉള്ളടക്ക റിവ്യൂ വീണ്ടും തുറക്കുക"
+    "message": "ഉള്ളടക്ക റിവ്യൂ വീണ്ടും തുറക്കുക",
+    "description": "Button label to retry opening Content Review."
   },
   "quickIngest_title": {
     "message": "ക്വിക് ഇൻജെസ്റ്റ് മീഡിയ"
@@ -2772,5 +2778,272 @@
   },
   "tabs_closeTabAria": {
     "message": "ചാറ്റ് ടാബ് അടയ്ക്കുക"
+  },
+  "manageCharacters_title": {
+    "message": "കഥാപാത്രങ്ങൾ നിയന്ത്രിക്കുക"
+  },
+  "manageCharacters_addBtn": {
+    "message": "പുതിയ കഥാപാത്രം"
+  },
+  "manageCharacters_columns_name": {
+    "message": "പേര്"
+  },
+  "manageCharacters_columns_description": {
+    "message": "വിവരണം"
+  },
+  "manageCharacters_columns_actions": {
+    "message": "പ്രവർത്തനങ്ങൾ"
+  },
+  "manageCharacters_columns_avatar": {
+    "message": "അവതാർ"
+  },
+  "manageCharacters_actions_chat": {
+    "message": "ചാറ്റ്"
+  },
+  "manageCharacters_actions_edit": {
+    "message": "തിരുത്തുക"
+  },
+  "manageCharacters_actions_delete": {
+    "message": "ഇല്ലാതാക്കുക"
+  },
+  "manageCharacters_actions_duplicate": {
+    "message": "പകർത്തുക"
+  },
+  "manageCharacters_table_noDescription": {
+    "message": "വിവരണം ഇല്ല"
+  },
+  "manageCharacters_filter_matchAll": {
+    "message": "എല്ലാ ടാഗുകളും പൊരുത്തപ്പെടുത്തുക"
+  },
+  "manageCharacters_tags_label": {
+    "message": "ടാഗുകൾ"
+  },
+  "manageCharacters_tags_placeholder": {
+    "message": "ടാഗുകൾ ചേർക്കുക"
+  },
+  "manageCharacters_tags_help": {
+    "message": "ഉപയോഗകേസ് പ്രകാരം കഥാപാത്രങ്ങളെ ഗ്രൂപ്പ് ചെയ്യാൻ ടാഗുകൾ ഉപയോഗിക്കുക (ഉദാ., “എഴുത്ത്”, “പഠനം”)."
+  },
+  "manageCharacters_tooltip_edit": {
+    "message": "കഥാപാത്രം തിരുത്തുക"
+  },
+  "manageCharacters_tooltip_delete": {
+    "message": "കഥാപാത്രം ഇല്ലാതാക്കുക"
+  },
+  "manageCharacters_aria_chatWith": {
+    "message": "{{name}} ആയി ചാറ്റ് ചെയ്യുക"
+  },
+  "manageCharacters_aria_edit": {
+    "message": "കഥാപാത്രം തിരുത്തുക {{name}}"
+  },
+  "manageCharacters_aria_delete": {
+    "message": "കഥാപാത്രം ഇല്ലാതാക്കുക {{name}}"
+  },
+  "manageCharacters_aria_duplicate": {
+    "message": "{{name}} കഥാപാത്രം പകർത്തുക"
+  },
+  "manageCharacters_confirm_delete": {
+    "message": "ഈ കഥാപാത്രം ഇല്ലാതാക്കണമെന്ന് നിങ്ങൾക്ക് ഉറപ്പാണോ? ഈ പ്രവർത്തനം പിൻവലിക്കാനാവില്ല."
+  },
+  "manageCharacters_avatar_label": {
+    "message": "അവതാർ (ഐച്ഛികം)"
+  },
+  "manageCharacters_avatar_tabUrl": {
+    "message": "യുആർഎൽ"
+  },
+  "manageCharacters_avatar_tabUpload": {
+    "message": "അപ്‌ലോഡ്"
+  },
+  "manageCharacters_avatar_selectImageError": {
+    "message": "ഒരു ചിത്ര ഫയൽ തിരഞ്ഞെടുക്കുക"
+  },
+  "manageCharacters_avatar_formatError": {
+    "message": "PNG, JPEG, GIF ചിത്രങ്ങൾ മാത്രമേ പിന്തുണയ്ക്കൂ"
+  },
+  "manageCharacters_avatar_invalidError": {
+    "message": "അസാധുവായ ചിത്ര ഫയൽ"
+  },
+  "manageCharacters_avatar_processError": {
+    "message": "ചിത്രം പ്രോസസ്സ് ചെയ്യാൻ കഴിഞ്ഞില്ല"
+  },
+  "manageCharacters_avatar_dropzone": {
+    "message": "അപ്‌ലോഡ് ചെയ്യാൻ ക്ലിക്കുചെയ്യുക അല്ലെങ്കിൽ ചിത്രം വലിച്ചിടുക"
+  },
+  "manageCharacters_avatar_formats": {
+    "message": "PNG, JPEG അല്ലെങ്കിൽ GIF"
+  },
+  "manageCharacters_avatar_preview": {
+    "message": "പ്രിവ്യൂ"
+  },
+  "manageCharacters_form_name_label": {
+    "message": "പേര്"
+  },
+  "manageCharacters_form_name_placeholder": {
+    "message": "ഉദാ. എഴുത്ത് പരിശീലകൻ"
+  },
+  "manageCharacters_form_name_required": {
+    "message": "ദയവായി ഒരു പേര് നൽകുക"
+  },
+  "manageCharacters_form_description": {
+    "message": "സൈഡ്ബാറിൽ ചാറ്റ് ചെയ്യാൻ കഴിയുന്ന പുനരുപയോഗിക്കാവുന്ന കഥാപാത്രം നിർവചിക്കുക."
+  },
+  "manageCharacters_form_systemPrompt_label": {
+    "message": "പെരുമാറ്റം / നിർദ്ദേശങ്ങൾ"
+  },
+  "manageCharacters_form_systemPrompt_placeholder": {
+    "message": "ഉദാ., നിങ്ങൾ ക്ഷമയുള്ള ഗണിത അധ്യാപകനാണ്; ഘട്ടം ഘട്ടമായി ആശയങ്ങൾ വിശദീകരിച്ച് ചെറു ഉദാഹരണങ്ങളിലൂടെ ബോധ്യപ്പെടുത്തുന്നു."
+  },
+  "manageCharacters_form_systemPrompt_help": {
+    "message": "കഥാപാത്രത്തിന്റെ റോളും ടോണും നിയന്ത്രണങ്ങളും വിശദീകരിക്കുക. ഉദാഹരണത്തിന്: \"നിങ്ങൾ ഘട്ടം ഘട്ടമായി ആശയങ്ങൾ വിശദീകരിക്കുന്ന ക്ഷമയുള്ള ഗണിത ട്യൂട്ടറാണ്.\""
+  },
+  "manageCharacters_form_systemPrompt_required": {
+    "message": "പ്രതികരണങ്ങൾ നയിക്കാൻ നിർദ്ദേശങ്ങൾ ചേർക്കുക."
+  },
+  "manageCharacters_form_systemPrompt_min": {
+    "message": "കഥാപാത്രം എങ്ങനെ മറുപടി നൽകണമെന്ന് അറിയാൻ ഒരു ചെറിയ വിവരണം ചേർക്കുക."
+  },
+  "manageCharacters_form_systemPrompt_max": {
+    "message": "സിസ്റ്റം പ്രോംപ്റ്റ് 2000 പ്രതീകങ്ങൾ അല്ലെങ്കിൽ കുറവായിരിക്കണം."
+  },
+  "manageCharacters_form_avatarUrl_label": {
+    "message": "അവതാർ URL (ഐച്ഛികം)"
+  },
+  "manageCharacters_form_avatarUrl_placeholder": {
+    "message": "ഉദാ: https://example.com/avatar.png"
+  },
+  "manageCharacters_form_greeting_label": {
+    "message": "ആശംസ സന്ദേശം (ഐച്ഛികം)"
+  },
+  "manageCharacters_form_greeting_placeholder": {
+    "message": "ഹായ്! ഞാൻ നിങ്ങളുടെ എഴുത്ത് പരിശീലകനാണ്. നിങ്ങളുടെ ഡ്രാഫ്റ്റ് പേസ്റ്റ് ചെയ്യൂ, അതിനെ മെച്ചപ്പെടുത്താൻ ഞാൻ സഹായിക്കും."
+  },
+  "manageCharacters_form_greeting_help": {
+    "message": "ചാറ്റ് ആരംഭിക്കുമ്പോൾ കഥാപാത്രം അയക്കുന്ന ആദ്യ സന്ദേശം (ഐച്ഛികം)."
+  },
+  "manageCharacters_form_btnSave_saving": {
+    "message": "കഥാപാത്രം സൃഷ്ടിക്കുന്നു..."
+  },
+  "manageCharacters_form_btnSave_save": {
+    "message": "കഥാപാത്രം സൃഷ്ടിക്കുക"
+  },
+  "manageCharacters_form_btnEdit_saving": {
+    "message": "മാറ്റങ്ങൾ സേവ് ചെയ്യുന്നു..."
+  },
+  "manageCharacters_form_btnEdit_save": {
+    "message": "മാറ്റങ്ങൾ സേവ് ചെയ്യുക"
+  },
+  "manageCharacters_notification_addSuccess": {
+    "message": "കഥാപാത്രം സൃഷ്ടിച്ചു"
+  },
+  "manageCharacters_notification_error": {
+    "message": "പിശക്"
+  },
+  "manageCharacters_notification_someError": {
+    "message": "എന്തോ പിശക് സംഭവിച്ചു. ദയവായി പിന്നീട് വീണ്ടും ശ്രമിക്കുക"
+  },
+  "manageCharacters_notification_updatedSuccess": {
+    "message": "കഥാപാത്രം പുതുക്കി"
+  },
+  "manageCharacters_notification_deletedSuccess": {
+    "message": "കഥാപാത്രം ഇല്ലാതാക്കി"
+  },
+  "manageCharacters_loadError_title": {
+    "message": "കഥാപാത്രങ്ങൾ ലോഡുചെയ്യാൻ കഴിഞ്ഞില്ല"
+  },
+  "manageCharacters_loadError_description": {
+    "message": "കണക്ഷൻ പരിശോധിച്ച് വീണ്ടും ശ്രമിക്കുക."
+  },
+  "manageCharacters_emptyTitle": {
+    "message": "ഇതുവരെ കഥാപാത്രങ്ങളില്ല"
+  },
+  "manageCharacters_emptyDescription": {
+    "message": "പേര്, വിവരണം, സിസ്റ്റം പ്രോംപ്റ്റ് എന്നിവയോടെ ചാറ്റ് ചെയ്യാൻ കഴിയുന്ന പുനരുപയോഗിക്കാവുന്ന കഥാപാത്രം സൃഷ്ടിക്കുക."
+  },
+  "manageCharacters_emptyExample1": {
+    "message": "ചാറ്റുകളിൽ പുനരുപയോഗിക്കാനാവുന്ന എഴുത്ത് പരിശീലകൻ, ലോർ വിദഗ്‌ധൻ, അല്ലെങ്കിൽ കോഡിംഗ് സഹായി എന്നിവ നിർവചിക്കുക."
+  },
+  "manageCharacters_emptyExample2": {
+    "message": "മറുപടികൾ സ്ഥിരതയോടെ നിലനിർത്താൻ ഓരോ കഥാപാത്രത്തിനും വ്യക്തമായ വിവരണവും പെരുമാറ്റവും നൽകുക."
+  },
+  "manageCharacters_emptyPrimaryCta": {
+    "message": "കഥാപാത്രം സൃഷ്ടിക്കുക"
+  },
+  "manageCharacters_avatarAltWithName": {
+    "message": "{{name}}യുടെ അവതാർ"
+  },
+  "manageCharacters_avatarAlt": {
+    "message": "ഉപയോക്താവിന്റെ അവതാർ"
+  },
+  "quiz_itemsPerPage": {
+    "message": "ഇനങ്ങൾ/പേജ്"
+  },
+  "quiz_editQuizTitle": {
+    "message": "ക്വിസ് തിരുത്തുക"
+  },
+  "quiz_updateSuccess": {
+    "message": "ക്വിസ് വിജയകരമായി അപ്ഡേറ്റ് ചെയ്തു."
+  },
+  "quiz_updateError": {
+    "message": "ക്വിസ് അപ്ഡേറ്റ് ചെയ്യുന്നത് പരാജയപ്പെട്ടു."
+  },
+  "quiz_questionTextRequired": {
+    "message": "ചോദ്യവാചകം ആവശ്യമാണ്."
+  },
+  "quiz_optionsRequired": {
+    "message": "കുറഞ്ഞത് രണ്ട് ഓപ്ഷനുകൾ നൽകുക."
+  },
+  "quiz_questionSaveSuccess": {
+    "message": "ചോദ്യം വിജയകരമായി സൃഷ്ടിച്ചു."
+  },
+  "quiz_questionUpdateSuccess": {
+    "message": "ചോദ്യം വിജയകരമായി അപ്ഡേറ്റ് ചെയ്തു."
+  },
+  "quiz_questionSaveError": {
+    "message": "ചോദ്യം സേവ് ചെയ്യുന്നത് പരാജയപ്പെട്ടു."
+  },
+  "quiz_questionDeleteSuccess": {
+    "message": "ചോദ്യം വിജയകരമായി ഇല്ലാതാക്കി."
+  },
+  "quiz_questionDeleteError": {
+    "message": "ചോദ്യം ഇല്ലാതാക്കുന്നത് പരാജയപ്പെട്ടു."
+  },
+  "quiz_editQuestion": {
+    "message": "ചോദ്യം തിരുത്തുക"
+  },
+  "quiz_points": {
+    "message": "പോയിന്റുകൾ"
+  },
+  "quiz_orderIndex": {
+    "message": "ക്രമം"
+  },
+  "quiz_startError": {
+    "message": "ക്വിസ് ആരംഭിക്കുന്നത് പരാജയപ്പെട്ടു."
+  },
+  "quiz_answerAll": {
+    "message": "സമർപ്പിക്കുന്നതിന് മുമ്പ് എല്ലാ ചോദ്യങ്ങൾക്കും മറുപടി നൽകുക."
+  },
+  "quiz_submitError": {
+    "message": "ക്വിസ് സമർപ്പിക്കുന്നത് പരാജയപ്പെട്ടു."
+  },
+  "quiz_scoreSummary": {
+    "message": "സ്കോർ: {{score}} / {{total}} ({{percent}}%)"
+  },
+  "quiz_correct": {
+    "message": "ശരി"
+  },
+  "quiz_incorrect": {
+    "message": "തെറ്റ്"
+  },
+  "quiz_yourAnswer": {
+    "message": "നിങ്ങളുടെ ഉത്തരം"
+  },
+  "quiz_correctAnswerLabel": {
+    "message": "ശരി ഉത്തരം"
+  },
+  "quiz_backToList": {
+    "message": "പട്ടികയിലേക്ക് മടങ്ങുക"
+  },
+  "quiz_retake": {
+    "message": "ക്വിസ് വീണ്ടും ശ്രമിക്കുക"
   }
 }

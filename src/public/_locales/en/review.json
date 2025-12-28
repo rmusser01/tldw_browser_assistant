@@ -364,5 +364,326 @@
   },
   "contentReview_editedLabel": {
     "message": "Edited"
+  },
+  "mediaPage_spreadMode": {
+    "message": "Compare"
+  },
+  "mediaPage_listMode": {
+    "message": "Focus"
+  },
+  "mediaPage_allMode": {
+    "message": "Stack"
+  },
+  "mediaPage_spreadModeTooltip": {
+    "message": "View selected items side-by-side for comparison"
+  },
+  "mediaPage_listModeTooltip": {
+    "message": "View one item at a time with navigation"
+  },
+  "mediaPage_allModeTooltip": {
+    "message": "View all selected items in a scrollable list"
+  },
+  "mediaPage_copyContentLabel": {
+    "message": "Copy Content"
+  },
+  "mediaPage_copyAnalysisLabel": {
+    "message": "Copy Analysis"
+  },
+  "mediaPage_copyContentTooltip": {
+    "message": "Copy content to clipboard"
+  },
+  "mediaPage_copyAnalysisTooltip": {
+    "message": "Copy analysis to clipboard"
+  },
+  "mediaPage_prevItemTooltip": {
+    "message": "Previous item (←)"
+  },
+  "mediaPage_nextItemTooltip": {
+    "message": "Next item (→)"
+  },
+  "mediaPage_viewerOptions": {
+    "message": "Options"
+  },
+  "mediaPage_expandAllDropdown": {
+    "message": "Expand/Collapse"
+  },
+  "mediaPage_itemPosition": {
+    "message": "Item {{current}} of {{total}}"
+  },
+  "mediaPage_noItemSelected": {
+    "message": "No item selected"
+  },
+  "mediaPage_firstUseTitle": {
+    "message": "Quick Guide: Multi-Item Review"
+  },
+  "mediaPage_firstUseStep1": {
+    "message": "Select items"
+  },
+  "mediaPage_firstUseStep1Desc": {
+    "message": "Click items in the left panel to add them to your viewer."
+  },
+  "mediaPage_firstUseStep2": {
+    "message": "Choose a view"
+  },
+  "mediaPage_firstUseStep2DescUpdated": {
+    "message": "Use \"Compare\" for side-by-side, \"Focus\" for one at a time, or \"Stack\" to see all."
+  },
+  "mediaPage_firstUseStep3": {
+    "message": "Navigate"
+  },
+  "mediaPage_firstUseStep3Desc": {
+    "message": "Use Prev/Next buttons or keyboard (Tab + Enter) to move through items."
+  },
+  "mediaPage_gotIt": {
+    "message": "Got it"
+  },
+  "mediaPage_mediaInspector": {
+    "message": "Media Inspector"
+  },
+  "mediaPage_searchPlaceholder": {
+    "message": "Search media (title/content)"
+  },
+  "mediaPage_search": {
+    "message": "Search"
+  },
+  "mediaPage_clear": {
+    "message": "Clear"
+  },
+  "mediaPage_types": {
+    "message": "Media types"
+  },
+  "mediaPage_keywords": {
+    "message": "Keywords"
+  },
+  "mediaPage_moreTags": {
+    "message": "+{{count}} more tags"
+  },
+  "mediaPage_resetFilters": {
+    "message": "Clear filters"
+  },
+  "mediaPage_clearAll": {
+    "message": "Clear all"
+  },
+  "mediaPage_content": {
+    "message": "Content"
+  },
+  "mediaPage_vertical": {
+    "message": "Vertical"
+  },
+  "mediaPage_horizontal": {
+    "message": "Horizontal"
+  },
+  "mediaPage_results": {
+    "message": "Results"
+  },
+  "mediaPage_showSidebar": {
+    "message": "Show results sidebar"
+  },
+  "mediaPage_hideSidebar": {
+    "message": "Hide results sidebar"
+  },
+  "mediaPage_viewer": {
+    "message": "Viewer"
+  },
+  "mediaPage_selectItemsHint": {
+    "message": "Select items on the left to view here."
+  },
+  "mediaPage_mediaContent": {
+    "message": "Media Content"
+  },
+  "mediaPage_copyContent": {
+    "message": "Copy content"
+  },
+  "mediaPage_contentCopied": {
+    "message": "Content copied"
+  },
+  "mediaPage_metadataCopied": {
+    "message": "Metadata copied"
+  },
+  "mediaPage_analysisCopied": {
+    "message": "Analysis copied"
+  },
+  "mediaPage_copyFailed": {
+    "message": "Copy failed"
+  },
+  "mediaPage_noContent": {
+    "message": "No content available"
+  },
+  "mediaPage_collapse": {
+    "message": "Collapse"
+  },
+  "mediaPage_expand": {
+    "message": "Expand"
+  },
+  "mediaPage_media": {
+    "message": "Media"
+  },
+  "mediaPage_searchingBanner": {
+    "message": "Searching media…"
+  },
+  "mediaPage_filterHelp": {
+    "message": "Search matches title and content; Types and Keywords further narrow the results."
+  },
+  "mediaPage_noMediaTypes": {
+    "message": "No media types available"
+  },
+  "mediaPage_noResults": {
+    "message": "No media found. Use Quick ingest in the header to add media from your recordings and files."
+  },
+  "mediaPage_resultsCount": {
+    "message": "{{selected}} selected · {{open}} open"
+  },
+  "mediaPage_clearSelection": {
+    "message": "Deselect all"
+  },
+  "mediaPage_itemsLabel": {
+    "message": "Items"
+  },
+  "mediaPage_contentLabel": {
+    "message": "Content view"
+  },
+  "mediaPage_filterByKeyword": {
+    "message": "Filter by keyword"
+  },
+  "mediaPage_keywordHelper": {
+    "message": "Keywords help you find this media using the keyword filter on the left."
+  },
+  "mediaPage_modeHint": {
+    "message": "Search and stack multiple media items to compare them in the viewer on the right."
+  },
+  "mediaPage_viewerHelp": {
+    "message": "Keyboard: Tab into the results list, use Enter or Space to stack or unstack a media item, then use Prev/Next and layout controls to move through items in the viewer."
+  },
+  "mediaPage_viewerHelpLabel": {
+    "message": "Multi-Item Review keyboard shortcuts"
+  },
+  "mediaPage_actionsLabel": {
+    "message": "Actions"
+  },
+  "mediaPage_keywordsPlaceholder": {
+    "message": "Add keywords..."
+  },
+  "mediaPage_noSelectionTitle": {
+    "message": "No media item selected"
+  },
+  "mediaPage_noSelectionDescription": {
+    "message": "Select a media item from the left sidebar to view its content and analyses here."
+  },
+  "mediaPage_generateAnalysis": {
+    "message": "Generate"
+  },
+  "mediaPage_generateAnalysisHint": {
+    "message": "Generate new analysis"
+  },
+  "mediaPage_editAnalysis": {
+    "message": "Edit analysis"
+  },
+  "mediaPage_createNoteWithContent": {
+    "message": "Create note with content"
+  },
+  "mediaPage_createNoteWithContentAnalysis": {
+    "message": "Create note with content + analysis"
+  },
+  "mediaPage_untitled": {
+    "message": "Untitled"
+  },
+  "mediaPage_copyMetadata": {
+    "message": "Copy metadata"
+  },
+  "mediaPage_statistics": {
+    "message": "Statistics"
+  },
+  "mediaPage_words": {
+    "message": "Words"
+  },
+  "mediaPage_characters": {
+    "message": "Characters"
+  },
+  "mediaPage_paragraphs": {
+    "message": "Paragraphs"
+  },
+  "mediaPage_metadata": {
+    "message": "Metadata"
+  },
+  "mediaPage_idLabel": {
+    "message": "ID"
+  },
+  "mediaPage_typeLabel": {
+    "message": "Type"
+  },
+  "mediaPage_titleLabel": {
+    "message": "Title"
+  },
+  "mediaPage_source": {
+    "message": "Source"
+  },
+  "mediaPage_notAvailable": {
+    "message": "N/A"
+  },
+  "mediaPage_developerTools": {
+    "message": "Developer Tools"
+  },
+  "mediaPage_model": {
+    "message": "Model"
+  },
+  "mediaPage_selectModel": {
+    "message": "Select a model"
+  },
+  "mediaPage_noModelsAvailable": {
+    "message": "No models available"
+  },
+  "mediaPage_promptPresets": {
+    "message": "Prompt presets"
+  },
+  "mediaPage_showPresets": {
+    "message": "Show presets"
+  },
+  "mediaPage_hidePresets": {
+    "message": "Hide presets"
+  },
+  "mediaPage_systemPromptLabel": {
+    "message": "System prompt"
+  },
+  "mediaPage_systemPromptPlaceholder": {
+    "message": "Enter system prompt..."
+  },
+  "mediaPage_userPromptPrefixLabel": {
+    "message": "User prompt prefix"
+  },
+  "mediaPage_prependedBeforeContent": {
+    "message": "(prepended before content)"
+  },
+  "mediaPage_userPrefixPlaceholder": {
+    "message": "Optional: Enter text to prepend before the media content..."
+  },
+  "mediaPage_presetComprehensiveAnalysis": {
+    "message": "Comprehensive analysis"
+  },
+  "mediaPage_presetExecutiveSummary": {
+    "message": "Executive summary"
+  },
+  "mediaPage_presetCriticalReview": {
+    "message": "Critical review"
+  },
+  "mediaPage_presetQAAnalysis": {
+    "message": "Q&A analysis"
+  },
+  "contentReview_templates_transcript_clean_label": {
+    "message": "Clean transcript"
+  },
+  "contentReview_templates_transcript_clean_description": {
+    "message": "Normalize punctuation and casing while preserving line structure."
+  },
+  "contentReview_templates_speaker_turns_label": {
+    "message": "Speaker turns"
+  },
+  "contentReview_templates_speaker_turns_description": {
+    "message": "Ensure each speaker turn is on its own line with clear labels."
+  },
+  "contentReview_templates_chapter_headings_label": {
+    "message": "Chapter headings"
+  },
+  "contentReview_templates_chapter_headings_description": {
+    "message": "Insert Markdown headings to group topics without removing content."
   }
 }

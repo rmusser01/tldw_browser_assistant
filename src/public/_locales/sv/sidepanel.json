@@ -1,0 +1,311 @@
+{
+  "tooltip_embed": {
+    "message": "Det kan ta några minuter att bädda in sidan. Vänta..."
+  },
+  "tooltip_clear": {
+    "message": "Radera chatthistorik"
+  },
+  "tooltip_history": {
+    "message": "Chatthistorik"
+  },
+  "tooltip_openwebui": {
+    "message": "Öppna WebUI"
+  },
+  "toolbar_ragSearch": {
+    "message": "RAG Search"
+  },
+  "errors_privateModeTitle": {
+    "message": "tldw Assistant kan inte spara data"
+  },
+  "errors_privateModeDescription": {
+    "message": "Firefox privat läge stöder inte att spara chatt-historik. Tillfällig chatt är aktiverat som standard. Fler förbättringar kommer snart."
+  },
+  "connectionBanner_connecting": {
+    "message": "Ansluter till din tldw-server..."
+  },
+  "connectionBanner_authErrorTitle": {
+    "message": "API-nyckeln behöver uppmärksamhet"
+  },
+  "connectionBanner_authErrorBody": {
+    "message": "Servern är nåbar men API-nyckeln är felaktig eller saknas."
+  },
+  "connectionBanner_unreachableTitle": {
+    "message": "Kan inte nå din tldw-server"
+  },
+  "connectionBanner_unreachableBody": {
+    "message": "Kontrollera att servern körs och är tillgänglig."
+  },
+  "connectionBanner_noUrlBody": {
+    "message": "Lägg till serverns URL i Inställningar för att komma igång."
+  },
+  "connectionBanner_disconnectedTitle": {
+    "message": "Inte ansluten till tldw-servern"
+  },
+  "connectionBanner_disconnectedBody": {
+    "message": "Öppna Inställningar för att konfigurera serveranslutningen."
+  },
+  "connectionBanner_setupTitle": {
+    "message": "Slutför konfigurationen för att börja chatta"
+  },
+  "connectionBanner_setupBody": {
+    "message": "Slutför installationsguiden i Inställningar för att ansluta."
+  },
+  "connectionBanner_openSettings": {
+    "message": "Öppna Inställningar"
+  },
+  "temporaryBadge_title": {
+    "message": "Tillfällig chatt"
+  },
+  "temporaryBadge_label": {
+    "message": "Temp"
+  },
+  "temporaryBadge_description": {
+    "message": "Den här chatten sparas inte. Meddelanden rensas när du stänger eller startar en ny chatt."
+  },
+  "temporaryBadge_clickHint": {
+    "message": "Klicka för att inaktivera"
+  },
+  "temporaryBadge_ariaLabel": {
+    "message": "Tillfälligt chattläge är aktivt. Klicka för att växla."
+  },
+  "temporaryBadge_indicatorTooltip": {
+    "message": "Meddelanden i denna chatt sparas inte"
+  },
+  "temporaryBadge_indicatorAria": {
+    "message": "Tillfällig chatt"
+  },
+  "header_ingest": {
+    "message": "Ingest"
+  },
+  "header_saveCurrent": {
+    "message": "Save current page on server"
+  },
+  "header_processLocal": {
+    "message": "Process current page locally"
+  },
+  "header_viewProcessed": {
+    "message": "View processed"
+  },
+  "header_timeoutLabel": {
+    "message": "Timeout (s)"
+  },
+  "header_toggleSidebar": {
+    "message": "Toggle Sidebar / Full Screen"
+  },
+  "header_shortcuts": {
+    "message": "Shortcuts"
+  },
+  "header_showDebug": {
+    "message": "Show Stream Debug"
+  },
+  "header_hideDebug": {
+    "message": "Hide Stream Debug"
+  },
+  "header_moreOptionsAria": {
+    "message": "More options"
+  },
+  "header_moreOptionsTitle": {
+    "message": "Ingest and more"
+  },
+  "header_openWebuiAria": {
+    "message": "Open Web UI"
+  },
+  "header_newChatAria": {
+    "message": "New chat"
+  },
+  "header_tempChatAria": {
+    "message": "Toggle temporary chat"
+  },
+  "header_clearHistoryAria": {
+    "message": "Clear history"
+  },
+  "header_openHistoryAria": {
+    "message": "Open history"
+  },
+  "header_openModelSettingsAria": {
+    "message": "Open model settings"
+  },
+  "header_openSettingsAria": {
+    "message": "Open settings"
+  },
+  "header_tempPill": {
+    "message": "Temp"
+  },
+  "header_modesLabel": {
+    "message": "Open modes in Web UI"
+  },
+  "header_modePlayground": {
+    "message": "Chat"
+  },
+  "header_modeReview": {
+    "message": "Multi-Item Review"
+  },
+  "header_modeMedia": {
+    "message": "Media"
+  },
+  "header_modeKnowledge": {
+    "message": "Knowledge"
+  },
+  "header_modeNotes": {
+    "message": "Notes"
+  },
+  "header_modePrompts": {
+    "message": "Prompts"
+  },
+  "header_modeFlashcards": {
+    "message": "Flashcards"
+  },
+  "controlRow_saveMode": {
+    "message": "Lagringsläge"
+  },
+  "controlRow_ephemeral": {
+    "message": "Temporär"
+  },
+  "controlRow_searchSection": {
+    "message": "Sök & Vision"
+  },
+  "controlRow_webSearch": {
+    "message": "Webbsök"
+  },
+  "controlRow_vision": {
+    "message": "Vision"
+  },
+  "controlRow_uploadImage": {
+    "message": "Ladda upp bild"
+  },
+  "controlRow_quickIngest": {
+    "message": "Snabbimportera sidan"
+  },
+  "controlRow_openInFullUI": {
+    "message": "Öppna i fullständigt gränssnitt"
+  },
+  "controlRow_modeChat": {
+    "message": "Chatt"
+  },
+  "controlRow_modeMedia": {
+    "message": "Media"
+  },
+  "controlRow_modeNotes": {
+    "message": "Anteckningar"
+  },
+  "controlRow_modeFlashcards": {
+    "message": "Flashcards"
+  },
+  "controlRow_ragSearch": {
+    "message": "RAG-sökning"
+  },
+  "controlRow_moreTools": {
+    "message": "Fler verktyg"
+  },
+  "composer_connectHint": {
+    "message": "Anslut till din tldw-server i Inställningar för att kunna skicka meddelanden."
+  },
+  "composer_connectingPlaceholder": {
+    "message": "Ansluter..."
+  },
+  "composer_disconnectedPlaceholder": {
+    "message": "Anslut till din tldw-server i Inställningar för att skicka meddelanden och visa media."
+  },
+  "notification_ingestSent": {
+    "message": "Sent to tldw server"
+  },
+  "notification_ingestSentDesc": {
+    "message": "Current page has been submitted for ingestion."
+  },
+  "notification_processedLocal": {
+    "message": "Processed locally"
+  },
+  "notification_processedLocalDesc": {
+    "message": "Processed content stored locally under Settings > Processed."
+  },
+  "notification_transcriptionTitle": {
+    "message": "Transcription"
+  },
+  "notification_transcriptionSummaryTitle": {
+    "message": "Transcription + summary"
+  },
+  "notification_transcriptionFallback": {
+    "message": "Transcription completed. Open Media in the Web UI to view it."
+  },
+  "notification_sourceLabel": {
+    "message": "Source"
+  },
+  "notification_transcriptLabel": {
+    "message": "Transcript"
+  },
+  "notification_summaryLabel": {
+    "message": "Summary"
+  },
+  "saveStatus_ephemeral": {
+    "message": "Tillfällig: inte sparad, rensas vid stängning"
+  },
+  "saveStatus_local": {
+    "message": "Sparad lokalt i den här webbläsaren"
+  },
+  "saveStatus_server": {
+    "message": "Sparad på servern"
+  },
+  "saveStatus_saveFailed": {
+    "message": "Det gick inte att spara chatten på servern"
+  },
+  "saveStatus_saveFailedDescription": {
+    "message": "Chatten sparas nu bara lokalt. Kontrollera anslutningen och försök igen."
+  },
+  "rag_searchPlaceholder": {
+    "message": "Search your knowledge…"
+  },
+  "rag_search": {
+    "message": "Search"
+  },
+  "rag_show": {
+    "message": "Show RAG search"
+  },
+  "rag_hide": {
+    "message": "Hide RAG search"
+  },
+  "rag_addTagPlaceholder": {
+    "message": "Add tag (Enter)"
+  },
+  "rag_add": {
+    "message": "Add"
+  },
+  "rag_noResults": {
+    "message": "No results"
+  },
+  "rag_timeout_message": {
+    "message": "Request timed out."
+  },
+  "rag_timeout_increase": {
+    "message": "Increase timeout"
+  },
+  "rag_timeout_checkHealth": {
+    "message": "Check server health"
+  },
+  "rag_actions_insert": {
+    "message": "Insert"
+  },
+  "rag_actions_ask": {
+    "message": "Ask"
+  },
+  "rag_actions_open": {
+    "message": "Open"
+  },
+  "rag_actions_copy": {
+    "message": "Copy"
+  },
+  "rag_hint_message": {
+    "message": "Sök i din kunskapsbas och infoga resultat i ditt meddelande."
+  },
+  "rag_hint_dismiss": {
+    "message": "Stäng"
+  },
+  "tabs_newChat": {
+    "message": "Nytt samtal"
+  },
+  "tabs_newTabAria": {
+    "message": "Ny flik för samtal"
+  },
+  "tabs_closeTabAria": {
+    "message": "Stäng flik för samtal"
+  }
+}

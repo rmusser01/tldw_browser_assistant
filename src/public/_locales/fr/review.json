@@ -1075,5 +1075,23 @@
   },
   "mediaEmpty_demoSample3Meta": {
     "message": "PDF · 6 pages · Mots-clés : résumé"
+  },
+  "contentReview_templates_transcript_clean_label": {
+    "message": "Nettoyer la transcription"
+  },
+  "contentReview_templates_transcript_clean_description": {
+    "message": "Normalise la ponctuation et la casse tout en préservant la structure des lignes."
+  },
+  "contentReview_templates_speaker_turns_label": {
+    "message": "Tours de parole"
+  },
+  "contentReview_templates_speaker_turns_description": {
+    "message": "S’assure que chaque tour de parole se trouve sur sa propre ligne avec des libellés clairs."
+  },
+  "contentReview_templates_chapter_headings_label": {
+    "message": "Titres de chapitre"
+  },
+  "contentReview_templates_chapter_headings_description": {
+    "message": "Insère des titres Markdown pour regrouper les sujets sans supprimer de contenu."
   }
 }

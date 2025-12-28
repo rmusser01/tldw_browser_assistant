@@ -1160,22 +1160,28 @@
     "description": "Content review UI string."
   },
   "reviewDraftsFailedTitle": {
-    "message": "Impossibile creare le bozze di revisione."
+    "message": "Impossibile creare le bozze di revisione.",
+    "description": "Error title when review drafts creation fails."
   },
   "reviewDraftsFailedFallback": {
-    "message": "Creazione delle bozze di revisione non riuscita."
+    "message": "Creazione delle bozze di revisione non riuscita.",
+    "description": "Fallback error message for review drafts failure."
   },
   "reviewDraftsRetry": {
-    "message": "Riprova a creare le bozze"
+    "message": "Riprova a creare le bozze",
+    "description": "Button label to retry creating review drafts."
   },
   "reviewDraftsStoreWithoutReview": {
-    "message": "Salva senza revisione"
+    "message": "Salva senza revisione",
+    "description": "Action to store without review."
   },
   "reviewNavigationFailed": {
-    "message": "Impossibile aprire la Revisione contenuti. Riprova."
+    "message": "Impossibile aprire la Revisione contenuti. Riprova.",
+    "description": "Error message when navigation to Content Review fails."
   },
   "reviewNavigationRetry": {
-    "message": "Riprova ad aprire la Revisione contenuti"
+    "message": "Riprova ad aprire la Revisione contenuti",
+    "description": "Button label to retry opening Content Review."
   },
   "quickIngest_title": {
     "message": "Quick Ingest Media"
@@ -2818,5 +2824,272 @@
   },
   "tabs_closeTabAria": {
     "message": "Chiudi scheda chat"
+  },
+  "manageCharacters_title": {
+    "message": "Gestisci personaggi"
+  },
+  "manageCharacters_addBtn": {
+    "message": "Nuovo personaggio"
+  },
+  "manageCharacters_columns_name": {
+    "message": "Nome"
+  },
+  "manageCharacters_columns_description": {
+    "message": "Descrizione"
+  },
+  "manageCharacters_columns_actions": {
+    "message": "Azioni"
+  },
+  "manageCharacters_columns_avatar": {
+    "message": "Immagine profilo"
+  },
+  "manageCharacters_actions_chat": {
+    "message": "Chatta"
+  },
+  "manageCharacters_actions_edit": {
+    "message": "Modifica"
+  },
+  "manageCharacters_actions_delete": {
+    "message": "Elimina"
+  },
+  "manageCharacters_actions_duplicate": {
+    "message": "Duplica"
+  },
+  "manageCharacters_table_noDescription": {
+    "message": "Nessuna descrizione"
+  },
+  "manageCharacters_filter_matchAll": {
+    "message": "Abbina tutti i tag"
+  },
+  "manageCharacters_tags_label": {
+    "message": "Tag"
+  },
+  "manageCharacters_tags_placeholder": {
+    "message": "Aggiungi tag"
+  },
+  "manageCharacters_tags_help": {
+    "message": "Usa i tag per raggruppare i personaggi per caso d'uso (ad es. \"scrittura\", \"insegnamento\")."
+  },
+  "manageCharacters_tooltip_edit": {
+    "message": "Modifica personaggio"
+  },
+  "manageCharacters_tooltip_delete": {
+    "message": "Elimina personaggio"
+  },
+  "manageCharacters_aria_chatWith": {
+    "message": "Chatta come {{name}}"
+  },
+  "manageCharacters_aria_edit": {
+    "message": "Modifica personaggio {{name}}"
+  },
+  "manageCharacters_aria_delete": {
+    "message": "Elimina personaggio {{name}}"
+  },
+  "manageCharacters_aria_duplicate": {
+    "message": "Duplica il personaggio {{name}}"
+  },
+  "manageCharacters_confirm_delete": {
+    "message": "Sei sicuro di voler eliminare questo personaggio? Questa azione non può essere annullata."
+  },
+  "manageCharacters_avatar_label": {
+    "message": "Immagine profilo (opzionale)"
+  },
+  "manageCharacters_avatar_tabUrl": {
+    "message": "Indirizzo URL"
+  },
+  "manageCharacters_avatar_tabUpload": {
+    "message": "Carica"
+  },
+  "manageCharacters_avatar_selectImageError": {
+    "message": "Seleziona un file immagine"
+  },
+  "manageCharacters_avatar_formatError": {
+    "message": "Sono supportate solo immagini PNG, JPEG e GIF"
+  },
+  "manageCharacters_avatar_invalidError": {
+    "message": "File immagine non valido"
+  },
+  "manageCharacters_avatar_processError": {
+    "message": "Impossibile elaborare l'immagine"
+  },
+  "manageCharacters_avatar_dropzone": {
+    "message": "Fai clic o trascina un'immagine per caricarla"
+  },
+  "manageCharacters_avatar_formats": {
+    "message": "PNG, JPEG o GIF"
+  },
+  "manageCharacters_avatar_preview": {
+    "message": "Anteprima"
+  },
+  "manageCharacters_form_name_label": {
+    "message": "Nome"
+  },
+  "manageCharacters_form_name_placeholder": {
+    "message": "es. Coach di scrittura"
+  },
+  "manageCharacters_form_name_required": {
+    "message": "Inserisci un nome"
+  },
+  "manageCharacters_form_description": {
+    "message": "Definisci un personaggio riutilizzabile con cui puoi chattare nella barra laterale."
+  },
+  "manageCharacters_form_systemPrompt_label": {
+    "message": "Comportamento / istruzioni"
+  },
+  "manageCharacters_form_systemPrompt_placeholder": {
+    "message": "Ad es.: Sei un insegnante di matematica paziente che spiega i concetti passo dopo passo e verifica la comprensione con brevi esempi."
+  },
+  "manageCharacters_form_systemPrompt_help": {
+    "message": "Spiega il ruolo, il tono e i vincoli del personaggio. Ad esempio: \"Sei un tutor di matematica paziente che spiega i concetti passo dopo passo.\""
+  },
+  "manageCharacters_form_systemPrompt_required": {
+    "message": "Aggiungi istruzioni per guidare le risposte."
+  },
+  "manageCharacters_form_systemPrompt_min": {
+    "message": "Aggiungi una breve descrizione così il personaggio saprà come rispondere."
+  },
+  "manageCharacters_form_systemPrompt_max": {
+    "message": "Il prompt di sistema deve essere lungo al massimo 2000 caratteri."
+  },
+  "manageCharacters_form_avatarUrl_label": {
+    "message": "URL avatar (opzionale)"
+  },
+  "manageCharacters_form_avatarUrl_placeholder": {
+    "message": "es. https://example.com/avatar.png"
+  },
+  "manageCharacters_form_greeting_label": {
+    "message": "Messaggio di benvenuto (opzionale)"
+  },
+  "manageCharacters_form_greeting_placeholder": {
+    "message": "Ciao! Sono il tuo coach di scrittura. Incolla la tua bozza e ti aiuterò a migliorarla."
+  },
+  "manageCharacters_form_greeting_help": {
+    "message": "Primo messaggio facoltativo che il personaggio invierà quando inizi una chat."
+  },
+  "manageCharacters_form_btnSave_saving": {
+    "message": "Creazione del personaggio in corso..."
+  },
+  "manageCharacters_form_btnSave_save": {
+    "message": "Crea personaggio"
+  },
+  "manageCharacters_form_btnEdit_saving": {
+    "message": "Salvataggio delle modifiche in corso..."
+  },
+  "manageCharacters_form_btnEdit_save": {
+    "message": "Salva modifiche"
+  },
+  "manageCharacters_notification_addSuccess": {
+    "message": "Personaggio creato"
+  },
+  "manageCharacters_notification_error": {
+    "message": "Errore"
+  },
+  "manageCharacters_notification_someError": {
+    "message": "Qualcosa è andato storto. Riprova più tardi"
+  },
+  "manageCharacters_notification_updatedSuccess": {
+    "message": "Personaggio aggiornato"
+  },
+  "manageCharacters_notification_deletedSuccess": {
+    "message": "Personaggio eliminato"
+  },
+  "manageCharacters_loadError_title": {
+    "message": "Impossibile caricare i personaggi"
+  },
+  "manageCharacters_loadError_description": {
+    "message": "Controlla la connessione e riprova."
+  },
+  "manageCharacters_emptyTitle": {
+    "message": "Ancora nessun personaggio"
+  },
+  "manageCharacters_emptyDescription": {
+    "message": "Crea un personaggio riutilizzabile con nome, descrizione e prompt di sistema con cui puoi chattare."
+  },
+  "manageCharacters_emptyExample1": {
+    "message": "Definisci un coach di scrittura, un esperto di lore o un assistente di programmazione che puoi riutilizzare tra le chat."
+  },
+  "manageCharacters_emptyExample2": {
+    "message": "Dai a ogni personaggio una descrizione chiara e un comportamento definito così le sue risposte resteranno coerenti."
+  },
+  "manageCharacters_emptyPrimaryCta": {
+    "message": "Crea personaggio"
+  },
+  "manageCharacters_avatarAltWithName": {
+    "message": "Avatar di {{name}}"
+  },
+  "manageCharacters_avatarAlt": {
+    "message": "Avatar utente"
+  },
+  "quiz_itemsPerPage": {
+    "message": "elementi/pagina"
+  },
+  "quiz_editQuizTitle": {
+    "message": "Modifica quiz"
+  },
+  "quiz_updateSuccess": {
+    "message": "Quiz aggiornato con successo"
+  },
+  "quiz_updateError": {
+    "message": "Impossibile aggiornare il quiz"
+  },
+  "quiz_questionTextRequired": {
+    "message": "Il testo della domanda è obbligatorio."
+  },
+  "quiz_optionsRequired": {
+    "message": "Fornisci almeno due opzioni."
+  },
+  "quiz_questionSaveSuccess": {
+    "message": "Domanda creata con successo."
+  },
+  "quiz_questionUpdateSuccess": {
+    "message": "Domanda aggiornata con successo."
+  },
+  "quiz_questionSaveError": {
+    "message": "Impossibile salvare la domanda."
+  },
+  "quiz_questionDeleteSuccess": {
+    "message": "Domanda eliminata con successo."
+  },
+  "quiz_questionDeleteError": {
+    "message": "Impossibile eliminare la domanda."
+  },
+  "quiz_editQuestion": {
+    "message": "Modifica domanda"
+  },
+  "quiz_points": {
+    "message": "Punti"
+  },
+  "quiz_orderIndex": {
+    "message": "Ordine"
+  },
+  "quiz_startError": {
+    "message": "Impossibile avviare il quiz"
+  },
+  "quiz_answerAll": {
+    "message": "Rispondi a tutte le domande prima di inviare."
+  },
+  "quiz_submitError": {
+    "message": "Invio del quiz non riuscito"
+  },
+  "quiz_scoreSummary": {
+    "message": "Punteggio: {{score}} / {{total}} ({{percent}}%)"
+  },
+  "quiz_correct": {
+    "message": "Corretto"
+  },
+  "quiz_incorrect": {
+    "message": "Errato"
+  },
+  "quiz_yourAnswer": {
+    "message": "La tua risposta"
+  },
+  "quiz_correctAnswerLabel": {
+    "message": "Risposta corretta"
+  },
+  "quiz_backToList": {
+    "message": "Torna alla lista"
+  },
+  "quiz_retake": {
+    "message": "Riprova il quiz"
   }
 }

@@ -1,0 +1,311 @@
+{
+  "tooltip_embed": {
+    "message": "可能需要几分钟才能嵌入搜索结果。请稍候..."
+  },
+  "tooltip_clear": {
+    "message": "清除对话历史"
+  },
+  "tooltip_history": {
+    "message": "对话历史"
+  },
+  "tooltip_openwebui": {
+    "message": "打开网页界面"
+  },
+  "toolbar_ragSearch": {
+    "message": "RAG Search"
+  },
+  "errors_privateModeTitle": {
+    "message": "tldw Assistant 无法保存数据"
+  },
+  "errors_privateModeDescription": {
+    "message": "Firefox 隐私模式不支持保存聊天记录。临时聊天默认开启。后续会改进。"
+  },
+  "connectionBanner_connecting": {
+    "message": "正在连接到你的 tldw 服务器..."
+  },
+  "connectionBanner_authErrorTitle": {
+    "message": "API 密钥需要处理"
+  },
+  "connectionBanner_authErrorBody": {
+    "message": "服务器可访问，但 API 密钥错误或缺失。"
+  },
+  "connectionBanner_unreachableTitle": {
+    "message": "无法连接到你的 tldw 服务器"
+  },
+  "connectionBanner_unreachableBody": {
+    "message": "请检查服务器是否在运行且可访问。"
+  },
+  "connectionBanner_noUrlBody": {
+    "message": "在设置中添加服务器 URL 以开始使用。"
+  },
+  "connectionBanner_disconnectedTitle": {
+    "message": "未连接到 tldw 服务器"
+  },
+  "connectionBanner_disconnectedBody": {
+    "message": "打开设置以配置服务器连接。"
+  },
+  "connectionBanner_setupTitle": {
+    "message": "完成设置以开始聊天"
+  },
+  "connectionBanner_setupBody": {
+    "message": "在设置中完成设置向导以连接。"
+  },
+  "connectionBanner_openSettings": {
+    "message": "打开设置"
+  },
+  "temporaryBadge_title": {
+    "message": "临时聊天"
+  },
+  "temporaryBadge_label": {
+    "message": "Temp"
+  },
+  "temporaryBadge_description": {
+    "message": "此聊天不会被保存。关闭或开始新聊天时消息将被清除。"
+  },
+  "temporaryBadge_clickHint": {
+    "message": "点击以禁用"
+  },
+  "temporaryBadge_ariaLabel": {
+    "message": "临时聊天模式已启用。点击切换。"
+  },
+  "temporaryBadge_indicatorTooltip": {
+    "message": "此聊天中的消息不会被保存"
+  },
+  "temporaryBadge_indicatorAria": {
+    "message": "临时聊天"
+  },
+  "header_ingest": {
+    "message": "Ingest"
+  },
+  "header_saveCurrent": {
+    "message": "Save current page on server"
+  },
+  "header_processLocal": {
+    "message": "Process current page locally"
+  },
+  "header_viewProcessed": {
+    "message": "View processed"
+  },
+  "header_timeoutLabel": {
+    "message": "Timeout (s)"
+  },
+  "header_toggleSidebar": {
+    "message": "Toggle Sidebar / Full Screen"
+  },
+  "header_shortcuts": {
+    "message": "Shortcuts"
+  },
+  "header_showDebug": {
+    "message": "Show Stream Debug"
+  },
+  "header_hideDebug": {
+    "message": "Hide Stream Debug"
+  },
+  "header_moreOptionsAria": {
+    "message": "More options"
+  },
+  "header_moreOptionsTitle": {
+    "message": "Ingest and more"
+  },
+  "header_openWebuiAria": {
+    "message": "Open Web UI"
+  },
+  "header_newChatAria": {
+    "message": "New chat"
+  },
+  "header_tempChatAria": {
+    "message": "Toggle temporary chat"
+  },
+  "header_clearHistoryAria": {
+    "message": "Clear history"
+  },
+  "header_openHistoryAria": {
+    "message": "Open history"
+  },
+  "header_openModelSettingsAria": {
+    "message": "Open model settings"
+  },
+  "header_openSettingsAria": {
+    "message": "Open settings"
+  },
+  "header_tempPill": {
+    "message": "Temp"
+  },
+  "header_modesLabel": {
+    "message": "Open modes in Web UI"
+  },
+  "header_modePlayground": {
+    "message": "Chat"
+  },
+  "header_modeReview": {
+    "message": "Multi-Item Review"
+  },
+  "header_modeMedia": {
+    "message": "Media"
+  },
+  "header_modeKnowledge": {
+    "message": "Knowledge"
+  },
+  "header_modeNotes": {
+    "message": "Notes"
+  },
+  "header_modePrompts": {
+    "message": "Prompts"
+  },
+  "header_modeFlashcards": {
+    "message": "Flashcards"
+  },
+  "controlRow_saveMode": {
+    "message": "保存模式"
+  },
+  "controlRow_ephemeral": {
+    "message": "临时会话"
+  },
+  "controlRow_searchSection": {
+    "message": "搜索与视觉"
+  },
+  "controlRow_webSearch": {
+    "message": "网页搜索"
+  },
+  "controlRow_vision": {
+    "message": "视觉"
+  },
+  "controlRow_uploadImage": {
+    "message": "上传图片"
+  },
+  "controlRow_quickIngest": {
+    "message": "快速抓取页面"
+  },
+  "controlRow_openInFullUI": {
+    "message": "在完整界面中打开"
+  },
+  "controlRow_modeChat": {
+    "message": "聊天"
+  },
+  "controlRow_modeMedia": {
+    "message": "媒体"
+  },
+  "controlRow_modeNotes": {
+    "message": "笔记"
+  },
+  "controlRow_modeFlashcards": {
+    "message": "抽认卡"
+  },
+  "controlRow_ragSearch": {
+    "message": "RAG 搜索"
+  },
+  "controlRow_moreTools": {
+    "message": "更多工具"
+  },
+  "composer_connectHint": {
+    "message": "Connect to your tldw server in Settings to send messages."
+  },
+  "composer_connectingPlaceholder": {
+    "message": "Connecting..."
+  },
+  "composer_disconnectedPlaceholder": {
+    "message": "Connect to your tldw server in Settings to send messages and view media."
+  },
+  "notification_ingestSent": {
+    "message": "Sent to tldw server"
+  },
+  "notification_ingestSentDesc": {
+    "message": "Current page has been submitted for ingestion."
+  },
+  "notification_processedLocal": {
+    "message": "Processed locally"
+  },
+  "notification_processedLocalDesc": {
+    "message": "Processed content stored locally under Settings > Processed."
+  },
+  "notification_transcriptionTitle": {
+    "message": "Transcription"
+  },
+  "notification_transcriptionSummaryTitle": {
+    "message": "Transcription + summary"
+  },
+  "notification_transcriptionFallback": {
+    "message": "Transcription completed. Open Media in the Web UI to view it."
+  },
+  "notification_sourceLabel": {
+    "message": "Source"
+  },
+  "notification_transcriptLabel": {
+    "message": "Transcript"
+  },
+  "notification_summaryLabel": {
+    "message": "Summary"
+  },
+  "saveStatus_ephemeral": {
+    "message": "临时：不保存，关闭时清除"
+  },
+  "saveStatus_local": {
+    "message": "已在此浏览器本地保存"
+  },
+  "saveStatus_server": {
+    "message": "已保存到服务器"
+  },
+  "saveStatus_saveFailed": {
+    "message": "无法将聊天保存到服务器"
+  },
+  "saveStatus_saveFailedDescription": {
+    "message": "聊天现在仅保存在本地。请检查连接并重试。"
+  },
+  "rag_searchPlaceholder": {
+    "message": "Search your knowledge…"
+  },
+  "rag_search": {
+    "message": "Search"
+  },
+  "rag_show": {
+    "message": "Show RAG search"
+  },
+  "rag_hide": {
+    "message": "Hide RAG search"
+  },
+  "rag_addTagPlaceholder": {
+    "message": "Add tag (Enter)"
+  },
+  "rag_add": {
+    "message": "Add"
+  },
+  "rag_noResults": {
+    "message": "No results"
+  },
+  "rag_timeout_message": {
+    "message": "Request timed out."
+  },
+  "rag_timeout_increase": {
+    "message": "Increase timeout"
+  },
+  "rag_timeout_checkHealth": {
+    "message": "Check server health"
+  },
+  "rag_actions_insert": {
+    "message": "Insert"
+  },
+  "rag_actions_ask": {
+    "message": "Ask"
+  },
+  "rag_actions_open": {
+    "message": "Open"
+  },
+  "rag_actions_copy": {
+    "message": "Copy"
+  },
+  "rag_hint_message": {
+    "message": "搜索你的知识库，并将结果插入到消息中。"
+  },
+  "rag_hint_dismiss": {
+    "message": "关闭"
+  },
+  "tabs_newChat": {
+    "message": "新聊天"
+  },
+  "tabs_newTabAria": {
+    "message": "新建对话标签页"
+  },
+  "tabs_closeTabAria": {
+    "message": "关闭对话标签页"
+  }
+}

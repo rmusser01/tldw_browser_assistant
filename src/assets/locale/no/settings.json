@@ -946,7 +946,8 @@
       "chat": "Samtale",
       "edit": "Rediger",
       "delete": "Slett",
-      "viewConversations": "Vis samtaler"
+      "viewConversations": "Vis samtaler",
+      "duplicate": "Dupliser"
     },
     "tags": {
       "label": "Tagger",
@@ -962,7 +963,8 @@
       "edit": "Rediger karakter {{name}}",
       "delete": "Slett karakter {{name}}",
       "viewConversations": "Vis samtaler for {{name}}",
-      "searchResults": "{{count}} karakterer funnet"
+      "searchResults": "{{count}} karakterer funnet",
+      "duplicate": "Dupliser karakter {{name}}"
     },
     "confirm": {
       "delete": "Er du sikker på at du vil slette denne karakteren? Denne handlingen kan ikke angres."
@@ -978,7 +980,9 @@
         "label": "Atferd / instruksjoner",
         "placeholder": "F.eks. Du er en tålmodig mattelærer som forklarer konsepter trinn for trinn og sjekker forståelse med korte eksempler.",
         "help": "Forklar karakterens rolle, tone og begrensninger. For eksempel: \"Du er en tålmodig mattetutor som forklarer konsepter trinn for trinn.\"",
-        "min": "Legg til en kort beskrivelse slik at karakteren vet hvordan den skal svare."
+        "min": "Legg til en kort beskrivelse slik at karakteren vet hvordan den skal svare.",
+        "required": "Legg til instruksjoner for å styre svarene.",
+        "max": "Systemprompten må være på 2000 tegn eller mindre."
       },
       "avatarUrl": {
         "label": "Avatar-URL (valgfritt)",
@@ -1041,6 +1045,24 @@
     "advanced": {
       "show": "Vis avanserte felt",
       "hide": "Skjul avanserte felt"
+    },
+    "table": {
+      "noDescription": "Ingen beskrivelse"
+    },
+    "filter": {
+      "matchAll": "Match alle tagger"
+    },
+    "avatar": {
+      "label": "Profilbilde (valgfritt)",
+      "tabUrl": "URL-adresse",
+      "tabUpload": "Last opp",
+      "selectImageError": "Velg en bildefil",
+      "formatError": "Bare PNG-, JPEG- og GIF-bilder støttes",
+      "invalidError": "Ugyldig bildefil",
+      "processError": "Kunne ikke behandle bildet",
+      "dropzone": "Klikk eller dra bilde for å laste opp",
+      "formats": "PNG, JPEG eller GIF",
+      "preview": "Forhåndsvisning"
     }
   },
   "systemNotifications": {

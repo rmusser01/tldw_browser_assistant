@@ -6,7 +6,7 @@
     "about": "关于"
   },
   "healthNav": "健康",
-  "worldBooksNav": "World Books",
+  "worldBooksNav": "世界书籍",
   "chatDictionariesNav": "聊天词典",
   "charactersNav": "角色",
   "mediaNav": "媒体",
@@ -408,8 +408,8 @@
       "successDescription": "成功拉取了模型",
       "successDeleteDescription": "成功删除了模型",
       "someError": "出现了问题。请稍后再试。",
-      "cancellingDownload": "Cancelling Download",
-      "cancellingDownloadDescription": "Model download is being cancelled..."
+      "cancellingDownload": "正在取消下载",
+      "cancellingDownloadDescription": "正在取消模型下载..."
     }
   },
   "managePrompts": {
@@ -429,7 +429,7 @@
     "tooltip": {
       "delete": "删除提示词",
       "edit": "编辑提示词",
-      "duplicate": "Duplicate Prompt"
+      "duplicate": "复制提示词"
     },
     "confirm": {
       "delete": "您确定要删除此提示词吗？这个操作不能撤销。"
@@ -441,8 +441,8 @@
     "segmented": {
       "custom": "自定义提示",
       "copilot": "Copilot 提示",
-      "helpCustom": "Create and manage reusable prompts you can insert into chat.",
-      "helpCopilot": "View and tweak predefined Copilot prompts provided by your server."
+      "helpCustom": "创建并管理可复用的提示词，可在聊天中插入。",
+      "helpCopilot": "查看并调整服务器提供的预设 Copilot 提示词。"
     },
     "form": {
       "title": {
@@ -480,45 +480,45 @@
       "deletedSuccess": "提示词已删除",
       "deletedSuccessDesc": "提示词已成功删除"
     },
-    "workspaceTitle": "Prompts workspace",
-    "workspaceDescription": "Reusable prompts are managed from the Prompts workspace. Use the button below to open it.",
-    "openWorkspace": "Open Prompts workspace",
-    "search": "Search titles and contents",
+    "workspaceTitle": "提示词工作区",
+    "workspaceDescription": "可复用提示词在提示词工作区中管理。使用下面的按钮打开。",
+    "openWorkspace": "打开提示词工作区",
+    "search": "搜索标题和内容",
     "filter": {
-      "all": "All",
-      "system": "System",
-      "quick": "Quick"
+      "all": "全部",
+      "system": "系统",
+      "quick": "快捷"
     },
     "tags": {
-      "label": "Tags",
-      "placeholder": "Add tags"
+      "label": "标签",
+      "placeholder": "添加标签"
     },
-    "import": "Import",
-    "export": "Export",
+    "import": "导入",
+    "export": "导出",
     "importMode": {
-      "merge": "Merge",
-      "replace": "Replace",
-      "replaceConfirm": "Replace will overwrite all current prompts with the imported file. Continue?"
+      "merge": "合并",
+      "replace": "替换",
+      "replaceConfirm": "替换将用导入文件覆盖当前所有提示词。继续？"
     },
-    "favorite": "Favorite",
-    "unfavorite": "Unfavorite",
-    "partialLoad": "Some prompt data isn’t available",
-    "loadErrorHelp": "Check your server connection and refresh to try again.",
-    "emptyConnectTitle": "Connect to use Prompts",
-    "emptyConnectDescription": "To manage reusable prompts, first connect to your tldw server.",
-    "emptyConnectExample1": "Open Settings → tldw server to add your server URL.",
-    "emptyConnectExample2": "Once connected, create custom prompts you can reuse across chats.",
-    "emptyTitle": "No custom prompts yet",
-    "emptyDescription": "Create reusable prompts for recurring tasks, workflows, and team conventions.",
-    "emptyExample1": "Save your favorite system prompt for summaries, explanations, or translations.",
-    "emptyExample2": "Create quick prompts for common actions like drafting emails or refining notes.",
-    "emptyPrimaryCta": "Create prompt",
-    "filterHelp": "Search matches title and prompt content. Use type and tags to narrow the list.",
-    "copilotEmptyTitle": "No Copilot prompts available",
-    "copilotEmptyDescription": "Copilot prompts are predefined templates provided by your tldw server.",
-    "copilotEmptyExample1": "Check your server version or configuration if you expect Copilot prompts to be available.",
-    "copilotEmptyExample2": "After updating your server, reload the extension and return to this tab.",
-    "copilotEmptyCta": "Open Diagnostics"
+    "favorite": "收藏",
+    "unfavorite": "取消收藏",
+    "partialLoad": "部分提示词数据不可用",
+    "loadErrorHelp": "检查服务器连接并刷新后重试。",
+    "emptyConnectTitle": "连接后使用提示词",
+    "emptyConnectDescription": "要管理可复用提示词，请先连接你的 tldw 服务器。",
+    "emptyConnectExample1": "打开 设置 → tldw 服务器 添加服务器 URL。",
+    "emptyConnectExample2": "连接后，创建可在聊天间复用的自定义提示词。",
+    "emptyTitle": "暂无自定义提示词",
+    "emptyDescription": "创建可复用提示词，适用于重复任务、工作流和团队规范。",
+    "emptyExample1": "保存你常用的系统提示词，用于摘要、解释或翻译。",
+    "emptyExample2": "创建快捷提示词，用于撰写邮件或润色笔记等常见操作。",
+    "emptyPrimaryCta": "创建提示词",
+    "filterHelp": "搜索匹配标题和提示词内容。使用类型与标签缩小范围。",
+    "copilotEmptyTitle": "没有可用的 Copilot 提示词",
+    "copilotEmptyDescription": "Copilot 提示词是由你的 tldw 服务器提供的预设模板。",
+    "copilotEmptyExample1": "如果你预计有 Copilot 提示词，请检查服务器版本或配置。",
+    "copilotEmptyExample2": "更新服务器后，重新加载扩展并返回此标签页。",
+    "copilotEmptyCta": "打开诊断"
   },
   "manageShare": {
     "title": "管理共享",
@@ -535,7 +535,7 @@
       "heading": "对话共享",
       "columns": {
         "title": "标题",
-        "url": "URL",
+        "url": "URL 地址",
         "actions": "操作"
       },
       "tooltip": {
@@ -629,12 +629,12 @@
     "unhealthy": "不健康",
     "unknown": "未知",
     "checks": {
-      "core": "Core API",
+      "core": "核心 API",
       "rag": "RAG",
-      "audio": "Audio",
-      "embeddings": "Embeddings",
-      "metrics": "Metrics Health",
-      "chatMetrics": "Chat Metrics",
+      "audio": "音频",
+      "embeddings": "向量嵌入",
+      "metrics": "指标健康",
+      "chatMetrics": "聊天指标",
       "mcp": "MCP",
       "coreDocsUrl": "https://github.com/rmusser01/tldw_browser_assistant",
       "ragDocsUrl": "https://github.com/rmusser01/tldw_browser_assistant",
@@ -758,14 +758,14 @@
     }
   },
   "manageKnowledge": {
-    "title": "Knowledge QA",
-    "heading": "Knowledge QA",
-    "worldBooksSettingsTitle": "World Books workspace",
-    "worldBooksSettingsDescription": "World Books are managed from the World Books workspace. Use the button below to open it.",
-    "worldBooksOpenWorkspace": "Open World Books workspace",
-    "dictionariesSettingsTitle": "Chat dictionaries workspace",
-    "dictionariesSettingsDescription": "Chat dictionaries are managed from the Chat dictionaries workspace. Use the button below to open it.",
-    "dictionariesOpenWorkspace": "Open Chat dictionaries workspace"
+    "title": "知识问答",
+    "heading": "知识问答",
+    "worldBooksSettingsTitle": "世界书籍工作区",
+    "worldBooksSettingsDescription": "世界书籍在世界书籍工作区中管理。使用下面的按钮打开。",
+    "worldBooksOpenWorkspace": "打开世界书籍工作区",
+    "dictionariesSettingsTitle": "聊天词典工作区",
+    "dictionariesSettingsDescription": "聊天词典在聊天词典工作区中管理。使用下面的按钮打开。",
+    "dictionariesOpenWorkspace": "打开聊天词典工作区"
   },
   "rag": {
     "title": "RAG 设置",
@@ -776,8 +776,8 @@
         "required": "请选择一个模型",
         "help": "建议使用文本嵌入模型，如 `nomic-embed-text`。",
         "placeholder": "选择一个模型",
-        "helpRecommended": "Recommended: {{model}} (from server config)",
-        "helpMissing": "Previously saved embedding model is no longer available on the server. Please choose another model."
+        "helpRecommended": "推荐：{{model}}（来自服务器配置）",
+        "helpMissing": "之前保存的嵌入模型已不在服务器上。请选择其他模型。"
       },
       "chunkSize": {
         "label": "嵌入大小",
@@ -949,7 +949,8 @@
       "chat": "开始聊天",
       "edit": "编辑",
       "delete": "删除",
-      "viewConversations": "View conversations"
+      "viewConversations": "查看对话",
+      "duplicate": "复制"
     },
     "tags": {
       "label": "标签",
@@ -964,8 +965,9 @@
       "chatWith": "以 {{name}} 的身份聊天",
       "edit": "编辑角色 {{name}}",
       "delete": "删除角色 {{name}}",
-      "viewConversations": "View conversations for {{name}}",
-      "searchResults": "{{count}} characters found"
+      "viewConversations": "查看 {{name}} 的对话",
+      "searchResults": "找到 {{count}} 个角色",
+      "duplicate": "复制角色 {{name}}"
     },
     "confirm": {
       "delete": "确定要删除此角色吗？此操作无法撤销。"
@@ -981,11 +983,13 @@
         "label": "行为 / 指令",
         "placeholder": "例如：你是一位耐心的数学老师，会循序渐进地讲解概念，并用简短示例检查理解程度。",
         "help": "说明角色的角色定位、语气和限制。例如：“你是一位耐心的数学导师，会一步步解释概念。”",
-        "min": "添加简短说明，让角色知道该如何回复。"
+        "min": "添加简短说明，让角色知道该如何回复。",
+        "required": "请添加指令以引导回复。",
+        "max": "系统提示词不得超过 2000 个字符。"
       },
       "avatarUrl": {
         "label": "头像 URL（可选）",
-        "placeholder": "https://example.com/avatar.png"
+        "placeholder": "例如：https://example.com/avatar.png"
       },
       "greeting": {
         "label": "问候消息（可选）",
@@ -1020,30 +1024,48 @@
     "avatarAltWithName": "{{name}} 的头像",
     "avatarAlt": "用户头像",
     "conversations": {
-      "title": "Conversations for {{name}}",
-      "titleGeneric": "Character conversations",
-      "subtitle": "Select a conversation to continue as this character.",
-      "empty": "No conversations found for this character yet.",
-      "error": "Unable to load conversations for this character.",
-      "updated": "Updated {{time}}",
-      "unknownTime": "Unknown",
-      "resume": "Continue chat",
-      "untitled": "Untitled",
-      "mostRecent": "Most recent",
-      "resumeTooltip": "Load chat history and continue this conversation"
+      "title": "{{name}} 的对话",
+      "titleGeneric": "角色对话",
+      "subtitle": "选择一个对话以该角色继续。",
+      "empty": "此角色尚无对话。",
+      "error": "无法加载该角色的对话。",
+      "updated": "更新于 {{time}}",
+      "unknownTime": "未知",
+      "resume": "继续聊天",
+      "untitled": "未命名",
+      "mostRecent": "最近",
+      "resumeTooltip": "加载聊天记录并继续此对话"
     },
     "preview": {
-      "title": "Preview",
-      "show": "Show preview",
-      "hide": "Hide preview",
-      "untitled": "Untitled character",
-      "greeting": "Greeting",
-      "behavior": "Behavior",
-      "empty": "Fill in the form to see a preview"
+      "title": "预览",
+      "show": "显示预览",
+      "hide": "隐藏预览",
+      "untitled": "未命名角色",
+      "greeting": "问候语",
+      "behavior": "行为",
+      "empty": "填写表单以查看预览"
     },
     "advanced": {
-      "show": "Show advanced fields",
-      "hide": "Hide advanced fields"
+      "show": "显示高级字段",
+      "hide": "隐藏高级字段"
+    },
+    "table": {
+      "noDescription": "无描述"
+    },
+    "filter": {
+      "matchAll": "匹配所有标签"
+    },
+    "avatar": {
+      "label": "头像（可选）",
+      "tabUrl": "URL 地址",
+      "tabUpload": "上传",
+      "selectImageError": "请选择图片文件",
+      "formatError": "仅支持 PNG、JPEG 和 GIF 图片",
+      "invalidError": "无效的图片文件",
+      "processError": "处理图片失败",
+      "dropzone": "点击或拖拽图片上传",
+      "formats": "PNG、JPEG 或 GIF",
+      "preview": "预览"
     }
   },
   "systemNotifications": {
@@ -1095,27 +1117,27 @@
   "charactersSettingsTitle": "角色工作区",
   "charactersSettingsDescription": "角色在角色工作区中管理。使用下面的按钮打开。",
   "charactersOpenWorkspace": "打开角色工作区",
-  "mermaid": "Mermaid",
+  "mermaid": "Mermaid 图表",
   "healthSummary": {
     "diagnostics": "Diagnostics",
-    "diagnosticsTooltip": "Open detailed diagnostics to troubleshoot or inspect health checks.",
-    "core": "Server",
-    "rag": "Knowledge",
-    "coreAria": "Server: server/API health",
-    "ragAria": "Knowledge: knowledge index health",
-    "coreOnline": "Server: Online",
-    "coreOffline": "Server: Offline",
-    "coreChecking": "Server: Checking…",
-    "ragReady": "Knowledge: Ready",
-    "ragOffline": "Knowledge: Offline",
-    "ragChecking": "Knowledge: Checking…",
-    "footerInfo": "These checks summarize the last successful ping to your tldw server and knowledge index."
+    "diagnosticsTooltip": "打开详细诊断以排查问题或查看健康检查。",
+    "core": "服务器",
+    "rag": "知识",
+    "coreAria": "服务器：服务器/API 健康",
+    "ragAria": "知识：知识索引健康",
+    "coreOnline": "服务器：在线",
+    "coreOffline": "服务器：离线",
+    "coreChecking": "服务器：检查中…",
+    "ragReady": "知识：就绪",
+    "ragOffline": "知识：离线",
+    "ragChecking": "知识：检查中…",
+    "footerInfo": "这些检查总结了最近一次成功访问 tldw 服务器和知识索引的情况。"
   },
   "storage": {
-    "quotaFriendlyMessage": "Too many settings writes in a short period; please wait a few seconds and try again.",
-    "quotaTitle": "Storage limit reached",
-    "writeError": "Could not save settings",
-    "writeErrorDescription": "We couldn't save your settings. Please try again shortly."
+    "quotaFriendlyMessage": "短时间内写入设置过多；请稍等几秒后再试。",
+    "quotaTitle": "已达到存储限制",
+    "writeError": "无法保存设置",
+    "writeErrorDescription": "无法保存你的设置，请稍后再试。"
   },
   "evaluations": {
     "title": "评估试验场",
@@ -1215,8 +1237,8 @@
     "historyFetchCta": "获取历史记录",
     "historyEmpty": "运行查询以查看最近的活动。",
     "historyErrorTitle": "获取历史记录失败",
-    "webhooksTitle": "Webhooks",
-    "webhookUrlLabel": "URL",
+    "webhooksTitle": "Webhook",
+    "webhookUrlLabel": "URL 地址",
     "webhookEventsLabel": "事件",
     "webhookCreateCta": "注册 Webhook",
     "webhookCreateSuccessTitle": "Webhook 已注册",
@@ -1248,84 +1270,83 @@
     "testFail": "无法连接到 Evaluations API"
   },
   "chunkingPlayground": {
-    "_todo": "TODO: translate chunkingPlayground strings (copied from en)",
-    "nav": "Chunking Playground",
-    "title": "Chunking Playground",
-    "description": "Experiment with different chunking settings to see how text gets split into smaller pieces for processing.",
-    "inputLabel": "Text to chunk",
-    "inputPlaceholder": "Paste text here or select a sample...",
-    "uploadButton": "Upload File",
-    "chunkButton": "Chunk Text",
-    "methodLabel": "Chunking Method",
-    "maxSizeLabel": "Max Chunk Size",
-    "overlapLabel": "Overlap",
-    "languageLabel": "Language",
+    "nav": "分块实验室",
+    "title": "分块实验室",
+    "description": "尝试不同的分块设置，看看文本如何被拆分成更小的片段以便处理。",
+    "inputLabel": "待分块文本",
+    "inputPlaceholder": "在此粘贴文本或选择示例...",
+    "uploadButton": "上传文件",
+    "chunkButton": "分块文本",
+    "methodLabel": "分块方法",
+    "maxSizeLabel": "最大分块大小",
+    "overlapLabel": "重叠",
+    "languageLabel": "语言",
     "languages": {
-      "auto": "Auto-detect",
-      "en": "English",
-      "es": "Spanish",
-      "fr": "French",
-      "de": "German",
-      "it": "Italian",
-      "pt": "Portuguese",
-      "zh": "Chinese",
-      "ja": "Japanese",
-      "ko": "Korean"
+      "auto": "自动检测",
+      "en": "英语",
+      "es": "西班牙语",
+      "fr": "法语",
+      "de": "德语",
+      "it": "意大利语",
+      "pt": "葡萄牙语",
+      "zh": "中文",
+      "ja": "日语",
+      "ko": "韩语"
     },
-    "viewCards": "Cards",
-    "viewInline": "Inline",
-    "stats": "{{count}} chunks, avg {{avgSize}} chars",
-    "textLoaded": "Text loaded",
-    "characters": "characters",
-    "tabSingle": "Single",
-    "tabCompare": "Compare",
-    "chunkIndex": "Chunk {{index}}",
-    "chunkInfo": "Chunk {{index}}: {{words}} words",
-    "position": "Position: {{start}} - {{end}}",
-    "additionalChunks": "+{{count}} more",
-    "charCount": "{{count}} characters",
-    "wordCount": "{{count}} words",
-    "noInput": "Please provide text to chunk",
-    "sharedInput": "Shared Input Text",
-    "compareButton": "Compare Both",
-    "comparison": "Comparison",
-    "fewerChunks": "Config A produces {{diff}} fewer chunks",
-    "moreChunks": "Config A produces {{diff}} more chunks",
-    "sameChunks": "Both configs produce the same number of chunks",
-    "clickToChunk": "Click 'Compare' to see results",
-    "overlapRegion": "Overlap Region",
-    "clickHint": "Click on a highlighted section to focus on that chunk",
-    "noContentFound": "No text content found for this media item",
-    "loadContentError": "Failed to load media content",
-    "loadMediaListError": "Failed to load media library",
-    "selectMedia": "Select media item...",
-    "loadingMedia": "Loading content...",
-    "noMediaFound": "No media found",
-    "mediaCount": "{{count}} media items available",
+    "viewCards": "卡片",
+    "viewInline": "行内",
+    "stats": "{{count}} 个分块，平均 {{avgSize}} 个字符",
+    "textLoaded": "文本已加载",
+    "characters": "字符",
+    "tabSingle": "单一",
+    "tabCompare": "对比",
+    "chunkIndex": "分块 {{index}}",
+    "chunkInfo": "分块 {{index}}：{{words}} 个词",
+    "position": "位置：{{start}} - {{end}}",
+    "additionalChunks": "还有 {{count}} 个",
+    "charCount": "{{count}} 个字符",
+    "wordCount": "{{count}} 个词",
+    "noInput": "请提供要分块的文本",
+    "sharedInput": "共享输入文本",
+    "compareButton": "比较两者",
+    "comparison": "对比",
+    "fewerChunks": "配置 A 产生 {{diff}} 个更少的分块",
+    "moreChunks": "配置 A 产生 {{diff}} 个更多的分块",
+    "sameChunks": "两个配置产生相同数量的分块",
+    "clickToChunk": "点击“比较”查看结果",
+    "overlapRegion": "重叠区域",
+    "clickHint": "点击高亮区域以聚焦该分块",
+    "noContentFound": "未找到此媒体项的文本内容",
+    "loadContentError": "加载媒体内容失败",
+    "loadMediaListError": "加载媒体库失败",
+    "selectMedia": "选择媒体项...",
+    "loadingMedia": "正在加载内容...",
+    "noMediaFound": "未找到媒体",
+    "mediaCount": "可用媒体项 {{count}} 个",
     "inputSource": {
-      "paste": "Paste Text",
-      "upload": "Upload File",
-      "sample": "Sample Text",
-      "media": "From Media Library"
+      "paste": "粘贴文本",
+      "upload": "上传文件",
+      "sample": "示例文本",
+      "media": "来自媒体库"
     },
     "samples": {
-      "article": "News Article",
-      "articleDesc": "Multi-paragraph article with headers",
-      "code": "Source Code",
-      "codeDesc": "Python code with classes and functions",
-      "transcript": "Transcript",
-      "transcriptDesc": "Timestamped podcast transcript",
-      "academic": "Academic Paper",
-      "academicDesc": "Technical writing with citations"
+      "article": "新闻文章",
+      "articleDesc": "带标题的多段文章",
+      "code": "源代码",
+      "codeDesc": "包含类和函数的 Python 代码",
+      "transcript": "转录稿",
+      "transcriptDesc": "带时间戳的播客转录稿",
+      "academic": "学术论文",
+      "academicDesc": "包含引用的技术写作"
     },
     "compare": {
-      "title": "Compare Settings",
-      "configA": "Configuration A",
-      "configB": "Configuration B"
+      "title": "对比设置",
+      "configA": "配置 A",
+      "configB": "配置 B"
     },
     "mode": {
-      "single": "Single",
-      "compare": "Compare"
+      "single": "单一",
+      "compare": "对比"
     }
   }
 }

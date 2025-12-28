@@ -33,10 +33,10 @@
     "message": "{{count}} അക്ഷരങ്ങൾ"
   },
   "mediaPage_pageRangeError": {
-    "message": "താൾ 1 മുതൽ {{max}} വരെയായിരിക്കണം"
+    "message": "പേജ് 1-{{max}} ആയിരിക്കണം"
   },
   "mediaPage_pageRangeClamped": {
-    "message": "താൾ {{page}} ലേക്ക് പോകുന്നു"
+    "message": "പേജ് {{page}} ലേക്ക് നാവിഗേറ്റ് ചെയ്യുന്നു"
   },
   "noToolCalls": {
     "message": "ഇതുവരെ ടൂൾ കോൾ ഒന്നുമില്ല"
@@ -364,5 +364,326 @@
   },
   "contentReview_editedLabel": {
     "message": "എഡിറ്റ് ചെയ്‌തത്"
+  },
+  "mediaPage_spreadMode": {
+    "message": "താരതമ്യം"
+  },
+  "mediaPage_listMode": {
+    "message": "ഫോകസ്"
+  },
+  "mediaPage_allMode": {
+    "message": "സ്റ്റാക്ക്"
+  },
+  "mediaPage_spreadModeTooltip": {
+    "message": "താരതമ്യം ചെയ്യാൻ തിരഞ്ഞെടുത്ത ഇനങ്ങളെ സൈഡ്-ബൈ-സൈഡ് ആയി കാണുക"
+  },
+  "mediaPage_listModeTooltip": {
+    "message": "നാവിഗേഷൻ ഉപയോഗിച്ച് ഒരൊറ്റ ഇനം വീതം കാണുക"
+  },
+  "mediaPage_allModeTooltip": {
+    "message": "തിരഞ്ഞെടുത്ത എല്ലായ്‌റ്റവും സ്ക്രോൾ ചെയ്യാവുന്ന പട്ടികയിൽ കാണുക"
+  },
+  "mediaPage_copyContentLabel": {
+    "message": "ഉള്ളടക്കം പകർത്തുക"
+  },
+  "mediaPage_copyAnalysisLabel": {
+    "message": "വിശകലനം പകർത്തുക"
+  },
+  "mediaPage_copyContentTooltip": {
+    "message": "ഉള്ളടക്കം ക്ലിപ്പ്ബോർഡിലേക്ക് പകർത്തുക"
+  },
+  "mediaPage_copyAnalysisTooltip": {
+    "message": "വിശകലനം ക്ലിപ്പ്ബോർഡിലേക്ക് പകർത്തുക"
+  },
+  "mediaPage_prevItemTooltip": {
+    "message": "മുൻപത്തെ ഇനം (←)"
+  },
+  "mediaPage_nextItemTooltip": {
+    "message": "അടുത്ത ഇനം (→)"
+  },
+  "mediaPage_viewerOptions": {
+    "message": "ഓപ്ഷനുകൾ"
+  },
+  "mediaPage_expandAllDropdown": {
+    "message": "വികസിപ്പിക്കുക/ചുരുക്കുക"
+  },
+  "mediaPage_itemPosition": {
+    "message": "ഇനം {{current}} / {{total}}"
+  },
+  "mediaPage_noItemSelected": {
+    "message": "ഇനം ഒന്നും തിരഞ്ഞെടുക്കപ്പെട്ടിട്ടില്ല"
+  },
+  "mediaPage_firstUseTitle": {
+    "message": "ദ്രുത ഗൈഡ്: മൾട്ടി-ഐറ്റം റിവ്യൂ"
+  },
+  "mediaPage_firstUseStep1": {
+    "message": "ഇനങ്ങൾ തിരഞ്ഞെടുക്കുക"
+  },
+  "mediaPage_firstUseStep1Desc": {
+    "message": "ഇടത് പാനലിലെ ഇനങ്ങൾ ക്ലിക്കുചെയ്ത് വ്യൂവറിൽ ചേർക്കുക."
+  },
+  "mediaPage_firstUseStep2": {
+    "message": "ഒരു വ്യൂ തിരഞ്ഞെടുക്കുക"
+  },
+  "mediaPage_firstUseStep2DescUpdated": {
+    "message": "\"താരതമ്യം\" സൈഡ്-ബൈ-സൈഡിന്, \"ഫോകസ്\" ഒരൊറ്റ ഇനത്തിനും, അല്ലെങ്കിൽ എല്ലാം കാണാൻ \"സ്റ്റാക്ക്\" ഉപയോഗിക്കുക."
+  },
+  "mediaPage_firstUseStep3": {
+    "message": "നാവിഗേറ്റ് ചെയ്യുക"
+  },
+  "mediaPage_firstUseStep3Desc": {
+    "message": "മുൻപത്തെ/അടുത്തത് ബട്ടണുകളോ കീബോർഡോ (Tab + Enter) ഉപയോഗിച്ച് ഇനങ്ങൾക്കിടയിൽ നീങ്ങുക."
+  },
+  "mediaPage_gotIt": {
+    "message": "ശരി"
+  },
+  "mediaPage_mediaInspector": {
+    "message": "മീഡിയ ഇൻസ്പെക്ടർ"
+  },
+  "mediaPage_searchPlaceholder": {
+    "message": "മീഡിയ തിരയുക (ശീർഷകം/ഉള്ളടക്കം)"
+  },
+  "mediaPage_search": {
+    "message": "തിരയുക"
+  },
+  "mediaPage_clear": {
+    "message": "മായ്ക്കുക"
+  },
+  "mediaPage_types": {
+    "message": "Types"
+  },
+  "mediaPage_keywords": {
+    "message": "കീവേഡുകൾ"
+  },
+  "mediaPage_moreTags": {
+    "message": "+{{count}} കൂടുതൽ ടാഗുകൾ"
+  },
+  "mediaPage_resetFilters": {
+    "message": "Reset Filters"
+  },
+  "mediaPage_clearAll": {
+    "message": "എല്ലാം മായ്ക്കുക"
+  },
+  "mediaPage_content": {
+    "message": "ഉള്ളടക്കം"
+  },
+  "mediaPage_vertical": {
+    "message": "ലംബ"
+  },
+  "mediaPage_horizontal": {
+    "message": "തിരശ്ചീന"
+  },
+  "mediaPage_results": {
+    "message": "ഫലങ്ങൾ"
+  },
+  "mediaPage_showSidebar": {
+    "message": "Show sidebar"
+  },
+  "mediaPage_hideSidebar": {
+    "message": "Hide sidebar"
+  },
+  "mediaPage_viewer": {
+    "message": "വ്യൂവർ"
+  },
+  "mediaPage_selectItemsHint": {
+    "message": "ഇവിടെ കാണാൻ ഇടത് വശത്ത് നിന്ന് ഇനങ്ങൾ തിരഞ്ഞെടുക്കുക."
+  },
+  "mediaPage_mediaContent": {
+    "message": "മീഡിയ ഉള്ളടക്കം"
+  },
+  "mediaPage_copyContent": {
+    "message": "ഉള്ളടക്കം പകർത്തുക"
+  },
+  "mediaPage_contentCopied": {
+    "message": "ഉള്ളടക്കം പകർത്തി"
+  },
+  "mediaPage_metadataCopied": {
+    "message": "മീറ്റാഡാറ്റ പകർത്തി"
+  },
+  "mediaPage_analysisCopied": {
+    "message": "വിശകലനം പകർത്തി"
+  },
+  "mediaPage_copyFailed": {
+    "message": "പകർത്തൽ പരാജയപ്പെട്ടു"
+  },
+  "mediaPage_noContent": {
+    "message": "ലഭ്യമായ ഉള്ളടക്കം ഇല്ല"
+  },
+  "mediaPage_collapse": {
+    "message": "ചുരുക്കുക"
+  },
+  "mediaPage_expand": {
+    "message": "വികസിപ്പിക്കുക"
+  },
+  "mediaPage_media": {
+    "message": "മീഡിയ"
+  },
+  "mediaPage_searchingBanner": {
+    "message": "മീഡിയ തിരയുന്നു…"
+  },
+  "mediaPage_filterHelp": {
+    "message": "തിരയൽ ശീർഷകവും ഉള്ളടക്കവും പൊരുത്തപ്പെടുന്നതാണ്; തരം, കീവേഡുകൾ ഫലങ്ങൾ കൂടുതൽ ചുരുക്കുന്നു."
+  },
+  "mediaPage_noMediaTypes": {
+    "message": "മീഡിയ തരം ഒന്നും ലഭ്യമല്ല"
+  },
+  "mediaPage_noResults": {
+    "message": "No results"
+  },
+  "mediaPage_resultsCount": {
+    "message": "{{selected}} തിരഞ്ഞെടുക്കപ്പെട്ടത് · {{open}} തുറന്നത്"
+  },
+  "mediaPage_clearSelection": {
+    "message": "എല്ലാം തിരഞ്ഞെടുക്കൽ നീക്കുക"
+  },
+  "mediaPage_itemsLabel": {
+    "message": "ഇനങ്ങൾ"
+  },
+  "mediaPage_contentLabel": {
+    "message": "ഉള്ളടക്ക വ്യൂ"
+  },
+  "mediaPage_filterByKeyword": {
+    "message": "കീവേഡ് പ്രകാരം ഫിൽട്ടർ ചെയ്യുക"
+  },
+  "mediaPage_keywordHelper": {
+    "message": "കീവേഡുകൾ ഇടത്തെ കീവേഡ് ഫിൽട്ടർ ഉപയോഗിച്ച് ഈ മീഡിയ കണ്ടെത്താൻ നിങ്ങളെ സഹായിക്കുന്നു"
+  },
+  "mediaPage_modeHint": {
+    "message": "വലത് വശത്തെ വ്യൂവറിൽ താരതമ്യം ചെയ്യാൻ ഒന്നിലധികം മീഡിയ ഇനങ്ങൾ തിരയുകയും സ്റ്റാക്ക് ചെയ്യുകയും ചെയ്യുക."
+  },
+  "mediaPage_viewerHelp": {
+    "message": "കീയ്ബോർഡ്: Tab അമർത്തി ഫലങ്ങളുടെ പട്ടികയിലേക്ക് പോകുക, Enter അല്ലെങ്കിൽ Space ഉപയോഗിച്ച് മീഡിയ ഇനങ്ങൾ സ്റ്റാക്ക് ചെയ്യുകയോ നീക്കുകയോ ചെയ്യുക, შემდეგ Prev/Next, ലേഔട്ട് നിയന്ത്രണങ്ങൾ എന്നിവ ഉപയോഗിച്ച് വ്യൂവറിൽ ഇനങ്ങൾക്കിടയിൽ സഞ്ചരിക്കുക."
+  },
+  "mediaPage_viewerHelpLabel": {
+    "message": "മൾട്ടി-ഐറ്റം റിവ്യൂയുടെ കീബോർഡ് ഷോർട്‌കട്ടുകൾ"
+  },
+  "mediaPage_actionsLabel": {
+    "message": "പ്രവർത്തനങ്ങൾ"
+  },
+  "mediaPage_keywordsPlaceholder": {
+    "message": "കീവേഡുകൾ ചേർക്കുക..."
+  },
+  "mediaPage_noSelectionTitle": {
+    "message": "ഒരു മീഡിയ ഇനവും തിരഞ്ഞെടുത്തിട്ടില്ല"
+  },
+  "mediaPage_noSelectionDescription": {
+    "message": "ഇവിടെ ഉള്ളടക്കും വിശകലനവും കാണാൻ ഇടത് സൈഡ്ബാറിൽ നിന്ന് ഒരു മീഡിയ ഇനം തിരഞ്ഞെടുക്കുക."
+  },
+  "mediaPage_generateAnalysis": {
+    "message": "വിശകലനം സൃഷ്ടിക്കുക"
+  },
+  "mediaPage_generateAnalysisHint": {
+    "message": "പുതിയ വിശകലനം സൃഷ്ടിക്കുക"
+  },
+  "mediaPage_editAnalysis": {
+    "message": "വിശകലനം തിരുത്തുക"
+  },
+  "mediaPage_createNoteWithContent": {
+    "message": "ഉള്ളടക്കം ഉപയോഗിച്ച് കുറിപ്പ് സൃഷ്ടിക്കുക"
+  },
+  "mediaPage_createNoteWithContentAnalysis": {
+    "message": "ഉള്ളടക്കം + വിശകലനം ഉപയോഗിച്ച് കുറിപ്പ് സൃഷ്ടിക്കുക"
+  },
+  "mediaPage_untitled": {
+    "message": "ശീർഷകമില്ലാത്തത്"
+  },
+  "mediaPage_copyMetadata": {
+    "message": "മെറ്റാഡേറ്റ പകർത്തുക"
+  },
+  "mediaPage_statistics": {
+    "message": "സ്ഥിതിവിവരക്കണക്ക്"
+  },
+  "mediaPage_words": {
+    "message": "വാക്കുകൾ"
+  },
+  "mediaPage_characters": {
+    "message": "അക്ഷരങ്ങൾ"
+  },
+  "mediaPage_paragraphs": {
+    "message": "അവതരണങ്ങൾ"
+  },
+  "mediaPage_metadata": {
+    "message": "മെറ്റാഡേറ്റ"
+  },
+  "mediaPage_idLabel": {
+    "message": "ഐഡി"
+  },
+  "mediaPage_typeLabel": {
+    "message": "തരം"
+  },
+  "mediaPage_titleLabel": {
+    "message": "ശീർഷകം"
+  },
+  "mediaPage_source": {
+    "message": "ഉറവ്"
+  },
+  "mediaPage_notAvailable": {
+    "message": "ലഭ്യമല്ല"
+  },
+  "mediaPage_developerTools": {
+    "message": "ഡെവലപ്പർ ഉപകരണങ്ങൾ"
+  },
+  "mediaPage_model": {
+    "message": "മോഡൽ"
+  },
+  "mediaPage_selectModel": {
+    "message": "ഒരു മോഡൽ തിരഞ്ഞെടുക്കുക"
+  },
+  "mediaPage_noModelsAvailable": {
+    "message": "ലഭ്യമായ മോഡലുകൾ ഇല്ല"
+  },
+  "mediaPage_promptPresets": {
+    "message": "പ്രോംപ്റ്റ് പ്രീസെറ്റുകൾ"
+  },
+  "mediaPage_showPresets": {
+    "message": "പ്രീസെറ്റുകൾ കാണിക്കുക"
+  },
+  "mediaPage_hidePresets": {
+    "message": "പ്രീസെറ്റുകൾ മറയ്ക്കുക"
+  },
+  "mediaPage_systemPromptLabel": {
+    "message": "സിസ്റ്റം പ്രോംപ്റ്റ്"
+  },
+  "mediaPage_systemPromptPlaceholder": {
+    "message": "സിസ്റ്റം പ്രോംപ്റ്റ് നൽകുക..."
+  },
+  "mediaPage_userPromptPrefixLabel": {
+    "message": "ഉപയോക്തൃ പ്രോംപ്റ്റ് പ്രിഫിക്സ്"
+  },
+  "mediaPage_prependedBeforeContent": {
+    "message": "(ഉള്ളടക്കത്തിന് മുമ്പായി ചേർക്കുന്നു)"
+  },
+  "mediaPage_userPrefixPlaceholder": {
+    "message": "ഐച്ഛികം: മീഡിയ ഉള്ളടക്കത്തിന് മുമ്പായി ചേർക്കാനുള്ള ടെക്സ്റ്റ് നൽകുക..."
+  },
+  "mediaPage_presetComprehensiveAnalysis": {
+    "message": "സമഗ്ര വിശകലനം"
+  },
+  "mediaPage_presetExecutiveSummary": {
+    "message": "എക്സിക്യൂട്ടീവ് സംഗ്രഹം"
+  },
+  "mediaPage_presetCriticalReview": {
+    "message": "വിമർശനപരമായ റിവ്യൂ"
+  },
+  "mediaPage_presetQAAnalysis": {
+    "message": "Q&A വിശകലനം"
+  },
+  "contentReview_templates_transcript_clean_label": {
+    "message": "ട്രാൻസ്ക്രിപ്റ്റ് ശുദ്ധമാക്കുക"
+  },
+  "contentReview_templates_transcript_clean_description": {
+    "message": "ലൈൻ ഘടന നിലനിർത്തിക്കൊണ്ട് ചിന്നങ്ങളും വലിയ/ചെറിയ അക്ഷരങ്ങളും നോർമലൈസ് ചെയ്യുന്നു."
+  },
+  "contentReview_templates_speaker_turns_label": {
+    "message": "സ്പീക്കർ ടേൺസ്"
+  },
+  "contentReview_templates_speaker_turns_description": {
+    "message": "ഓരോ സംസാരിക്കുന്നവരുടെ ടേണും വ്യക്തമായ ലേബലുകളോടെ വേറിട്ട വരിയിൽ വരുമെന്ന് ഉറപ്പാക്കുന്നു."
+  },
+  "contentReview_templates_chapter_headings_label": {
+    "message": "അദ്ധ്യായ തലക്കെട്ടുകൾ"
+  },
+  "contentReview_templates_chapter_headings_description": {
+    "message": "ഉള്ളടക്കം നീക്കം ചെയ്യാതെയായി വിഷയങ്ങൾ ഗ്രൂപ്പാക്കാൻ Markdown തലക്കെട്ടുകൾ ചേർക്കുന്നു."
   }
 }

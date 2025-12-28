@@ -1148,22 +1148,28 @@
     "description": "Content review UI string."
   },
   "reviewDraftsFailedTitle": {
-    "message": "Impossible de créer les brouillons de revue."
+    "message": "Impossible de créer les brouillons de revue.",
+    "description": "Error title when review drafts creation fails."
   },
   "reviewDraftsFailedFallback": {
-    "message": "Échec de la création des brouillons de revue."
+    "message": "Échec de la création des brouillons de revue.",
+    "description": "Fallback error message for review drafts failure."
   },
   "reviewDraftsRetry": {
-    "message": "Réessayer la création des brouillons"
+    "message": "Réessayer la création des brouillons",
+    "description": "Button label to retry creating review drafts."
   },
   "reviewDraftsStoreWithoutReview": {
-    "message": "Enregistrer sans revue"
+    "message": "Enregistrer sans revue",
+    "description": "Action to store without review."
   },
   "reviewNavigationFailed": {
-    "message": "Impossible d’ouvrir la Revue de contenu. Veuillez réessayer."
+    "message": "Impossible d’ouvrir la Revue de contenu. Veuillez réessayer.",
+    "description": "Error message when navigation to Content Review fails."
   },
   "reviewNavigationRetry": {
-    "message": "Réessayer d’ouvrir la Revue de contenu"
+    "message": "Réessayer d’ouvrir la Revue de contenu",
+    "description": "Button label to retry opening Content Review."
   },
   "quickIngest_title": {
     "message": "Quick Ingest Media"
@@ -1706,11 +1712,11 @@
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_compare_configA": {
-    "message": "Configuration A",
+    "message": "Réglage A",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_compare_configB": {
-    "message": "Configuration B",
+    "message": "Réglage B",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_mode_single": {
@@ -2839,5 +2845,272 @@
   },
   "tabs_closeTabAria": {
     "message": "Fermer l'onglet de chat"
+  },
+  "manageCharacters_title": {
+    "message": "Gérer les personnages"
+  },
+  "manageCharacters_addBtn": {
+    "message": "Nouveau personnage"
+  },
+  "manageCharacters_columns_name": {
+    "message": "Nom"
+  },
+  "manageCharacters_columns_description": {
+    "message": "Description détaillée"
+  },
+  "manageCharacters_columns_actions": {
+    "message": "Actions rapides"
+  },
+  "manageCharacters_columns_avatar": {
+    "message": "Photo de profil"
+  },
+  "manageCharacters_actions_chat": {
+    "message": "Discuter"
+  },
+  "manageCharacters_actions_edit": {
+    "message": "Modifier"
+  },
+  "manageCharacters_actions_delete": {
+    "message": "Supprimer"
+  },
+  "manageCharacters_actions_duplicate": {
+    "message": "Dupliquer"
+  },
+  "manageCharacters_table_noDescription": {
+    "message": "Aucune description"
+  },
+  "manageCharacters_filter_matchAll": {
+    "message": "Faire correspondre toutes les étiquettes"
+  },
+  "manageCharacters_tags_label": {
+    "message": "Étiquettes"
+  },
+  "manageCharacters_tags_placeholder": {
+    "message": "Ajouter des étiquettes"
+  },
+  "manageCharacters_tags_help": {
+    "message": "Utilisez des étiquettes pour regrouper les personnages par usage (ex. « écriture », « enseignement »)."
+  },
+  "manageCharacters_tooltip_edit": {
+    "message": "Modifier le personnage"
+  },
+  "manageCharacters_tooltip_delete": {
+    "message": "Supprimer le personnage"
+  },
+  "manageCharacters_aria_chatWith": {
+    "message": "Discuter en tant que {{name}}"
+  },
+  "manageCharacters_aria_edit": {
+    "message": "Modifier le personnage {{name}}"
+  },
+  "manageCharacters_aria_delete": {
+    "message": "Supprimer le personnage {{name}}"
+  },
+  "manageCharacters_aria_duplicate": {
+    "message": "Dupliquer le personnage {{name}}"
+  },
+  "manageCharacters_confirm_delete": {
+    "message": "Voulez-vous vraiment supprimer ce personnage ? Cette action est irréversible."
+  },
+  "manageCharacters_avatar_label": {
+    "message": "Photo de profil (facultatif)"
+  },
+  "manageCharacters_avatar_tabUrl": {
+    "message": "Adresse URL"
+  },
+  "manageCharacters_avatar_tabUpload": {
+    "message": "Importer"
+  },
+  "manageCharacters_avatar_selectImageError": {
+    "message": "Veuillez sélectionner un fichier image"
+  },
+  "manageCharacters_avatar_formatError": {
+    "message": "Seules les images PNG, JPEG et GIF sont prises en charge"
+  },
+  "manageCharacters_avatar_invalidError": {
+    "message": "Fichier image invalide"
+  },
+  "manageCharacters_avatar_processError": {
+    "message": "Échec du traitement de l'image"
+  },
+  "manageCharacters_avatar_dropzone": {
+    "message": "Cliquez ou faites glisser une image pour l'importer"
+  },
+  "manageCharacters_avatar_formats": {
+    "message": "PNG, JPEG ou GIF"
+  },
+  "manageCharacters_avatar_preview": {
+    "message": "Aperçu"
+  },
+  "manageCharacters_form_name_label": {
+    "message": "Nom"
+  },
+  "manageCharacters_form_name_placeholder": {
+    "message": "ex. coach en écriture"
+  },
+  "manageCharacters_form_name_required": {
+    "message": "Veuillez saisir un nom"
+  },
+  "manageCharacters_form_description": {
+    "message": "Définissez un personnage réutilisable avec lequel discuter dans la barre latérale."
+  },
+  "manageCharacters_form_systemPrompt_label": {
+    "message": "Comportement / instructions"
+  },
+  "manageCharacters_form_systemPrompt_placeholder": {
+    "message": "Ex. Vous êtes un professeur de mathématiques patient qui explique étape par étape et vérifie la compréhension avec de courts exemples."
+  },
+  "manageCharacters_form_systemPrompt_help": {
+    "message": "Décrivez le rôle, le ton et les contraintes du personnage. Exemple : « Vous êtes un tuteur patient qui explique les concepts étape par étape. »"
+  },
+  "manageCharacters_form_systemPrompt_required": {
+    "message": "Veuillez ajouter des instructions pour guider les réponses."
+  },
+  "manageCharacters_form_systemPrompt_min": {
+    "message": "Ajoutez une brève description pour guider les réponses du personnage."
+  },
+  "manageCharacters_form_systemPrompt_max": {
+    "message": "Le prompt système doit contenir 2000 caractères ou moins."
+  },
+  "manageCharacters_form_avatarUrl_label": {
+    "message": "URL de l’avatar (optionnel)"
+  },
+  "manageCharacters_form_avatarUrl_placeholder": {
+    "message": "ex. https://example.com/avatar.png"
+  },
+  "manageCharacters_form_greeting_label": {
+    "message": "Message d’accueil (optionnel)"
+  },
+  "manageCharacters_form_greeting_placeholder": {
+    "message": "Bonjour ! Je suis ton coach en écriture. Colle ton brouillon et je t’aiderai à l’améliorer."
+  },
+  "manageCharacters_form_greeting_help": {
+    "message": "Premier message optionnel envoyé au début du chat."
+  },
+  "manageCharacters_form_btnSave_saving": {
+    "message": "Création du personnage..."
+  },
+  "manageCharacters_form_btnSave_save": {
+    "message": "Créer un personnage"
+  },
+  "manageCharacters_form_btnEdit_saving": {
+    "message": "Enregistrement des modifications..."
+  },
+  "manageCharacters_form_btnEdit_save": {
+    "message": "Enregistrer les modifications"
+  },
+  "manageCharacters_notification_addSuccess": {
+    "message": "Personnage créé"
+  },
+  "manageCharacters_notification_error": {
+    "message": "Erreur"
+  },
+  "manageCharacters_notification_someError": {
+    "message": "Une erreur est survenue. Réessaie plus tard"
+  },
+  "manageCharacters_notification_updatedSuccess": {
+    "message": "Personnage mis à jour"
+  },
+  "manageCharacters_notification_deletedSuccess": {
+    "message": "Personnage supprimé"
+  },
+  "manageCharacters_loadError_title": {
+    "message": "Impossible de charger les personnages"
+  },
+  "manageCharacters_loadError_description": {
+    "message": "Vérifie ta connexion et réessaie."
+  },
+  "manageCharacters_emptyTitle": {
+    "message": "Aucun personnage pour le moment"
+  },
+  "manageCharacters_emptyDescription": {
+    "message": "Crée un personnage réutilisable avec nom, description et prompt système pour discuter."
+  },
+  "manageCharacters_emptyExample1": {
+    "message": "Définis un coach en écriture, un expert en lore ou un assistant de code réutilisable."
+  },
+  "manageCharacters_emptyExample2": {
+    "message": "Donne à chaque personnage une description et un comportement clairs pour des réponses cohérentes."
+  },
+  "manageCharacters_emptyPrimaryCta": {
+    "message": "Créer un personnage"
+  },
+  "manageCharacters_avatarAltWithName": {
+    "message": "Avatar de {{name}}"
+  },
+  "manageCharacters_avatarAlt": {
+    "message": "Avatar de l'utilisateur"
+  },
+  "quiz_itemsPerPage": {
+    "message": "éléments/page"
+  },
+  "quiz_editQuizTitle": {
+    "message": "Modifier le quiz"
+  },
+  "quiz_updateSuccess": {
+    "message": "Quiz mis à jour avec succès."
+  },
+  "quiz_updateError": {
+    "message": "Échec de la mise à jour du quiz."
+  },
+  "quiz_questionTextRequired": {
+    "message": "Le texte de la question est obligatoire."
+  },
+  "quiz_optionsRequired": {
+    "message": "Veuillez fournir au moins deux options."
+  },
+  "quiz_questionSaveSuccess": {
+    "message": "Question créée avec succès."
+  },
+  "quiz_questionUpdateSuccess": {
+    "message": "Question mise à jour avec succès."
+  },
+  "quiz_questionSaveError": {
+    "message": "Échec de l’enregistrement de la question."
+  },
+  "quiz_questionDeleteSuccess": {
+    "message": "Question supprimée avec succès."
+  },
+  "quiz_questionDeleteError": {
+    "message": "Échec de la suppression de la question."
+  },
+  "quiz_editQuestion": {
+    "message": "Modifier la question"
+  },
+  "quiz_points": {
+    "message": "Points"
+  },
+  "quiz_orderIndex": {
+    "message": "Ordre"
+  },
+  "quiz_startError": {
+    "message": "Échec du démarrage du quiz."
+  },
+  "quiz_answerAll": {
+    "message": "Veuillez répondre à toutes les questions avant d’envoyer."
+  },
+  "quiz_submitError": {
+    "message": "Échec de l’envoi du quiz."
+  },
+  "quiz_scoreSummary": {
+    "message": "Score : {{score}} / {{total}} ({{percent}}%)"
+  },
+  "quiz_correct": {
+    "message": "Correct"
+  },
+  "quiz_incorrect": {
+    "message": "Incorrect"
+  },
+  "quiz_yourAnswer": {
+    "message": "Votre réponse"
+  },
+  "quiz_correctAnswerLabel": {
+    "message": "Bonne réponse"
+  },
+  "quiz_backToList": {
+    "message": "Retour à la liste"
+  },
+  "quiz_retake": {
+    "message": "Refaire le quiz"
   }
 }

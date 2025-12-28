@@ -123,7 +123,7 @@
   "empty": {
     "title": "Neuen Chat starten",
     "description": "Experimentieren Sie hier mit verschiedenen Modellen, Prompts und Wissensquellen.",
-    "demoDescription": "You’re in demo mode — try asking a question to see how the assistant responds. You can connect your own tldw server later.",
+    "demoDescription": "Sie befinden sich im Demo-Modus — stellen Sie eine Frage, um zu sehen, wie der Assistent antwortet. Sie können später Ihren eigenen tldw-Server verbinden.",
     "example1": "Stellen Sie eine Frage und ziehen Sie dann Dokumente oder Webseiten hinein, die Sie besprechen möchten.",
     "example2": "Verwenden Sie Quick Ingest, um Transkripte oder Notizen hinzuzufügen, und referenzieren Sie sie im Chat.",
     "example3": "Probieren Sie verschiedene Prompts oder Modelle aus der Kopfzeile, um Antworten zu vergleichen.",

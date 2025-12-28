@@ -1,0 +1,311 @@
+{
+  "tooltip_embed": {
+    "message": "嵌入頁面可能需要幾分鐘，請稍候..."
+  },
+  "tooltip_clear": {
+    "message": "刪除聊天紀錄"
+  },
+  "tooltip_history": {
+    "message": "聊天紀錄"
+  },
+  "tooltip_openwebui": {
+    "message": "開啟網頁介面"
+  },
+  "toolbar_ragSearch": {
+    "message": "RAG Search"
+  },
+  "errors_privateModeTitle": {
+    "message": "tldw Assistant 無法儲存資料"
+  },
+  "errors_privateModeDescription": {
+    "message": "Firefox 隱私模式不支援儲存聊天記錄。暫存聊天預設為開啟。後續會改進。"
+  },
+  "connectionBanner_connecting": {
+    "message": "正在連線到你的 tldw 伺服器..."
+  },
+  "connectionBanner_authErrorTitle": {
+    "message": "API 金鑰需要處理"
+  },
+  "connectionBanner_authErrorBody": {
+    "message": "伺服器可連線，但 API 金鑰錯誤或缺失。"
+  },
+  "connectionBanner_unreachableTitle": {
+    "message": "無法連線到你的 tldw 伺服器"
+  },
+  "connectionBanner_unreachableBody": {
+    "message": "請確認伺服器正在執行且可連線。"
+  },
+  "connectionBanner_noUrlBody": {
+    "message": "在設定中加入伺服器 URL 以開始使用。"
+  },
+  "connectionBanner_disconnectedTitle": {
+    "message": "未連線到 tldw 伺服器"
+  },
+  "connectionBanner_disconnectedBody": {
+    "message": "開啟設定以設定伺服器連線。"
+  },
+  "connectionBanner_setupTitle": {
+    "message": "完成設定以開始聊天"
+  },
+  "connectionBanner_setupBody": {
+    "message": "在設定中完成設定精靈以連線。"
+  },
+  "connectionBanner_openSettings": {
+    "message": "開啟設定"
+  },
+  "temporaryBadge_title": {
+    "message": "臨時聊天"
+  },
+  "temporaryBadge_label": {
+    "message": "Temp"
+  },
+  "temporaryBadge_description": {
+    "message": "此聊天不會被儲存。關閉或開始新聊天時訊息將被清除。"
+  },
+  "temporaryBadge_clickHint": {
+    "message": "點擊以停用"
+  },
+  "temporaryBadge_ariaLabel": {
+    "message": "臨時聊天模式已啟用。點擊切換。"
+  },
+  "temporaryBadge_indicatorTooltip": {
+    "message": "此聊天中的訊息不會被儲存"
+  },
+  "temporaryBadge_indicatorAria": {
+    "message": "臨時聊天"
+  },
+  "header_ingest": {
+    "message": "Ingest"
+  },
+  "header_saveCurrent": {
+    "message": "Save current page on server"
+  },
+  "header_processLocal": {
+    "message": "Process current page locally"
+  },
+  "header_viewProcessed": {
+    "message": "View processed"
+  },
+  "header_timeoutLabel": {
+    "message": "Timeout (s)"
+  },
+  "header_toggleSidebar": {
+    "message": "Toggle Sidebar / Full Screen"
+  },
+  "header_shortcuts": {
+    "message": "Shortcuts"
+  },
+  "header_showDebug": {
+    "message": "Show Stream Debug"
+  },
+  "header_hideDebug": {
+    "message": "Hide Stream Debug"
+  },
+  "header_moreOptionsAria": {
+    "message": "More options"
+  },
+  "header_moreOptionsTitle": {
+    "message": "Ingest and more"
+  },
+  "header_openWebuiAria": {
+    "message": "Open Web UI"
+  },
+  "header_newChatAria": {
+    "message": "New chat"
+  },
+  "header_tempChatAria": {
+    "message": "Toggle temporary chat"
+  },
+  "header_clearHistoryAria": {
+    "message": "Clear history"
+  },
+  "header_openHistoryAria": {
+    "message": "Open history"
+  },
+  "header_openModelSettingsAria": {
+    "message": "Open model settings"
+  },
+  "header_openSettingsAria": {
+    "message": "Open settings"
+  },
+  "header_tempPill": {
+    "message": "Temp"
+  },
+  "header_modesLabel": {
+    "message": "Open modes in Web UI"
+  },
+  "header_modePlayground": {
+    "message": "Chat"
+  },
+  "header_modeReview": {
+    "message": "Multi-Item Review"
+  },
+  "header_modeMedia": {
+    "message": "Media"
+  },
+  "header_modeKnowledge": {
+    "message": "Knowledge"
+  },
+  "header_modeNotes": {
+    "message": "Notes"
+  },
+  "header_modePrompts": {
+    "message": "Prompts"
+  },
+  "header_modeFlashcards": {
+    "message": "Flashcards"
+  },
+  "controlRow_saveMode": {
+    "message": "儲存模式"
+  },
+  "controlRow_ephemeral": {
+    "message": "暫時會話"
+  },
+  "controlRow_searchSection": {
+    "message": "搜尋與視覺"
+  },
+  "controlRow_webSearch": {
+    "message": "網頁搜尋"
+  },
+  "controlRow_vision": {
+    "message": "視覺"
+  },
+  "controlRow_uploadImage": {
+    "message": "上傳圖片"
+  },
+  "controlRow_quickIngest": {
+    "message": "快速擷取頁面"
+  },
+  "controlRow_openInFullUI": {
+    "message": "在完整介面中開啟"
+  },
+  "controlRow_modeChat": {
+    "message": "聊天"
+  },
+  "controlRow_modeMedia": {
+    "message": "媒體"
+  },
+  "controlRow_modeNotes": {
+    "message": "筆記"
+  },
+  "controlRow_modeFlashcards": {
+    "message": "抽認卡"
+  },
+  "controlRow_ragSearch": {
+    "message": "RAG 搜尋"
+  },
+  "controlRow_moreTools": {
+    "message": "更多工具"
+  },
+  "composer_connectHint": {
+    "message": "請在「設定」中連線到您的 tldw 伺服器以傳送訊息。"
+  },
+  "composer_connectingPlaceholder": {
+    "message": "正在連線…"
+  },
+  "composer_disconnectedPlaceholder": {
+    "message": "請在「設定」中連線到您的 tldw 伺服器以傳送訊息並檢視媒體。"
+  },
+  "notification_ingestSent": {
+    "message": "Sent to tldw server"
+  },
+  "notification_ingestSentDesc": {
+    "message": "Current page has been submitted for ingestion."
+  },
+  "notification_processedLocal": {
+    "message": "Processed locally"
+  },
+  "notification_processedLocalDesc": {
+    "message": "Processed content stored locally under Settings > Processed."
+  },
+  "notification_transcriptionTitle": {
+    "message": "Transcription"
+  },
+  "notification_transcriptionSummaryTitle": {
+    "message": "Transcription + summary"
+  },
+  "notification_transcriptionFallback": {
+    "message": "Transcription completed. Open Media in the Web UI to view it."
+  },
+  "notification_sourceLabel": {
+    "message": "Source"
+  },
+  "notification_transcriptLabel": {
+    "message": "Transcript"
+  },
+  "notification_summaryLabel": {
+    "message": "Summary"
+  },
+  "saveStatus_ephemeral": {
+    "message": "臨時：不儲存，關閉時清除"
+  },
+  "saveStatus_local": {
+    "message": "已在此瀏覽器本機儲存"
+  },
+  "saveStatus_server": {
+    "message": "已儲存到伺服器"
+  },
+  "saveStatus_saveFailed": {
+    "message": "無法將聊天儲存到伺服器"
+  },
+  "saveStatus_saveFailedDescription": {
+    "message": "聊天目前只會儲存在本機。請檢查連線後再試。"
+  },
+  "rag_searchPlaceholder": {
+    "message": "Search your knowledge…"
+  },
+  "rag_search": {
+    "message": "Search"
+  },
+  "rag_show": {
+    "message": "Show RAG search"
+  },
+  "rag_hide": {
+    "message": "Hide RAG search"
+  },
+  "rag_addTagPlaceholder": {
+    "message": "Add tag (Enter)"
+  },
+  "rag_add": {
+    "message": "Add"
+  },
+  "rag_noResults": {
+    "message": "No results"
+  },
+  "rag_timeout_message": {
+    "message": "Request timed out."
+  },
+  "rag_timeout_increase": {
+    "message": "Increase timeout"
+  },
+  "rag_timeout_checkHealth": {
+    "message": "Check server health"
+  },
+  "rag_actions_insert": {
+    "message": "Insert"
+  },
+  "rag_actions_ask": {
+    "message": "Ask"
+  },
+  "rag_actions_open": {
+    "message": "Open"
+  },
+  "rag_actions_copy": {
+    "message": "Copy"
+  },
+  "rag_hint_message": {
+    "message": "搜尋你的知識庫，並將結果插入到訊息中。"
+  },
+  "rag_hint_dismiss": {
+    "message": "關閉"
+  },
+  "tabs_newChat": {
+    "message": "新的對話"
+  },
+  "tabs_newTabAria": {
+    "message": "開啟新的對話分頁"
+  },
+  "tabs_closeTabAria": {
+    "message": "關閉對話分頁"
+  }
+}

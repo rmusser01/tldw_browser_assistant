@@ -948,7 +948,8 @@
       "chat": "チャット",
       "edit": "編集",
       "delete": "削除",
-      "viewConversations": "会話を表示"
+      "viewConversations": "会話を表示",
+      "duplicate": "複製"
     },
     "tags": {
       "label": "タグ",
@@ -964,7 +965,8 @@
       "edit": "キャラクター {{name}} を編集",
       "delete": "キャラクター {{name}} を削除",
       "viewConversations": "{{name}} の会話を表示",
-      "searchResults": "{{count}} 件のキャラクターが見つかりました"
+      "searchResults": "{{count}} 件のキャラクターが見つかりました",
+      "duplicate": "キャラクター「{{name}}」を複製"
     },
     "confirm": {
       "delete": "このキャラクターを削除してもよろしいですか？この操作は元に戻せません。"
@@ -980,7 +982,9 @@
         "label": "振る舞い / 指示",
         "placeholder": "例: あなたは忍耐強い数学教師で、概念を段階的に説明し、短い例で理解を確認します。",
         "help": "キャラクターの役割、口調、制約を説明します。例: 「あなたは忍耐強い数学チューターで、概念を段階的に説明します。」",
-        "min": "キャラクターが応答方法を理解できるよう、短い説明を追加してください。"
+        "min": "キャラクターが応答方法を理解できるよう、短い説明を追加してください。",
+        "required": "回答を導く指示を追加してください。",
+        "max": "システムプロンプトは2000文字以内である必要があります。"
       },
       "avatarUrl": {
         "label": "アバター URL（任意）",
@@ -1043,6 +1047,24 @@
     "advanced": {
       "show": "詳細フィールドを表示",
       "hide": "詳細フィールドを非表示"
+    },
+    "table": {
+      "noDescription": "説明なし"
+    },
+    "filter": {
+      "matchAll": "すべてのタグに一致"
+    },
+    "avatar": {
+      "label": "アバター（任意）",
+      "tabUrl": "URLアドレス",
+      "tabUpload": "アップロード",
+      "selectImageError": "画像ファイルを選択してください",
+      "formatError": "PNG、JPEG、GIF の画像のみ対応しています",
+      "invalidError": "無効な画像ファイルです",
+      "processError": "画像の処理に失敗しました",
+      "dropzone": "クリックまたはドラッグして画像をアップロード",
+      "formats": "PNG、JPEG または GIF",
+      "preview": "プレビュー"
     }
   },
   "systemNotifications": {

@@ -1091,313 +1091,416 @@
     "message": "规范转录 (Markdown)"
   },
   "contentReview_title": {
-    "message": "内容审阅"
+    "message": "内容审阅",
+    "description": "Content review UI string."
   },
   "contentReview_readyToSubmit": {
-    "message": "{{count}} 个已就绪"
+    "message": "{{count}} 个已就绪",
+    "description": "Content review UI string."
   },
   "contentReview_committedCount": {
-    "message": "{{count}} 个已提交"
+    "message": "{{count}} 个已提交",
+    "description": "Content review UI string."
   },
   "contentReview_totalCount": {
-    "message": "共 {{count}} 个"
+    "message": "共 {{count}} 个",
+    "description": "Content review UI string."
   },
   "contentReview_commitAll": {
-    "message": "全部提交"
+    "message": "全部提交",
+    "description": "Content review UI string."
   },
   "contentReview_clearDrafts": {
-    "message": "清除草稿"
+    "message": "清除草稿",
+    "description": "Content review UI string."
   },
   "contentReview_emptyDescription": {
-    "message": "当前还没有草稿。使用 Quick Ingest 并启用“保存前审阅”即可创建草稿。"
+    "message": "当前还没有草稿。使用 Quick Ingest 并启用“保存前审阅”即可创建草稿。",
+    "description": "Content review UI string."
   },
   "contentReview_openQuickIngest": {
-    "message": "打开 Quick Ingest"
+    "message": "打开 Quick Ingest",
+    "description": "Content review UI string."
   },
   "contentReview_storeAfterReview": {
-    "message": "审阅后保存"
+    "message": "审阅后保存",
+    "description": "Content review UI string."
   },
   "contentReview_reviewBeforeStorage": {
-    "message": "保存前审阅"
+    "message": "保存前审阅",
+    "description": "Content review UI string."
   },
   "contentReview_reviewBeforeStorageHint": {
-    "message": "先处理，然后在提交到服务器前在本地编辑草稿。"
+    "message": "先处理，然后在提交到服务器前在本地编辑草稿。",
+    "description": "Content review UI string."
   },
   "contentReview_reviewEnabled": {
-    "message": "审阅模式"
+    "message": "审阅模式",
+    "description": "Content review UI string."
   },
   "contentReview_reviewStorageCap": {
-    "message": "本地草稿上限为 {{cap}}。"
+    "message": "本地草稿上限为 {{cap}}。",
+    "description": "Content review UI string."
   },
   "contentReview_reviewWarningTitle": {
-    "message": "将草稿保存在本地？"
+    "message": "将草稿保存在本地？",
+    "description": "Content review UI string."
   },
   "contentReview_reviewWarningBody": {
-    "message": "草稿保存在此浏览器中，可能包含敏感数据。你可以随时在“内容审阅”页面清除草稿。"
+    "message": "草稿保存在此浏览器中，可能包含敏感数据。你可以随时在“内容审阅”页面清除草稿。",
+    "description": "Content review UI string."
   },
   "contentReview_reviewWarningBodySecondary": {
-    "message": "审阅模式会在提交到服务器前将内容保留在客户端。"
+    "message": "审阅模式会在提交到服务器前将内容保留在客户端。",
+    "description": "Content review UI string."
   },
   "contentReview_reviewWarningConfirm": {
-    "message": "启用审阅"
+    "message": "启用审阅",
+    "description": "Content review UI string."
   },
   "contentReview_reviewWarningCancel": {
-    "message": "取消"
+    "message": "取消",
+    "description": "Content review UI string."
   },
   "contentReview_reviewRunLabel": {
-    "message": "审阅"
+    "message": "审阅",
+    "description": "Content review UI string."
   },
   "contentReview_reviewDraftsCreated": {
-    "message": "草稿已准备好审阅。"
+    "message": "草稿已准备好审阅。",
+    "description": "Content review UI string."
   },
   "contentReview_openContentReview": {
-    "message": "打开内容审阅"
+    "message": "打开内容审阅",
+    "description": "Content review UI string."
   },
   "contentReview_batchLabel": {
-    "message": "批次"
+    "message": "批次",
+    "description": "Content review UI string."
   },
   "contentReview_batchName": {
-    "message": "批次 {{index}}"
+    "message": "批次 {{index}}",
+    "description": "Content review UI string."
   },
   "contentReview_draftsLabel": {
-    "message": "草稿"
+    "message": "草稿",
+    "description": "Content review UI string."
   },
   "contentReview_selectDraft": {
-    "message": "选择一个草稿开始审阅。"
+    "message": "选择一个草稿开始审阅。",
+    "description": "Content review UI string."
   },
   "contentReview_titlePlaceholder": {
-    "message": "草稿标题"
+    "message": "草稿标题",
+    "description": "Content review UI string."
   },
   "contentReview_lastSaved": {
-    "message": "已保存于 {{time}}"
+    "message": "已保存于 {{time}}",
+    "description": "Content review UI string."
   },
   "contentReview_resetTitle": {
-    "message": "重置草稿？"
+    "message": "重置草稿？",
+    "description": "Content review UI string."
   },
   "contentReview_resetBody": {
-    "message": "这将恢复该草稿的原始内容。"
+    "message": "这将恢复该草稿的原始内容。",
+    "description": "Content review UI string."
   },
   "contentReview_resetConfirm": {
-    "message": "重置"
+    "message": "重置",
+    "description": "Content review UI string."
   },
   "contentReview_resetCancel": {
-    "message": "取消"
+    "message": "取消",
+    "description": "Content review UI string."
   },
   "contentReview_resetContent": {
-    "message": "重置"
+    "message": "重置",
+    "description": "Content review UI string."
   },
   "contentReview_diffView": {
-    "message": "差异视图"
+    "message": "差异视图",
+    "description": "Content review UI string."
   },
   "contentReview_saveDraft": {
-    "message": "保存草稿"
+    "message": "保存草稿",
+    "description": "Content review UI string."
   },
   "contentReview_editorLabel": {
-    "message": "内容"
+    "message": "内容",
+    "description": "Content review UI string."
   },
   "contentReview_wordCount": {
-    "message": "{{words}} 个词"
+    "message": "{{words}} 个词",
+    "description": "Content review UI string."
   },
   "contentReview_charCount": {
-    "message": "{{chars}} 个字符"
+    "message": "{{chars}} 个字符",
+    "description": "Content review UI string."
   },
   "contentReview_aiFix": {
-    "message": "使用 AI 修正"
+    "message": "使用 AI 修正",
+    "description": "Content review UI string."
   },
   "contentReview_aiHint": {
-    "message": "将草稿内容发送到服务器，由 AI 进行处理。"
+    "message": "将草稿内容发送到服务器，由 AI 进行处理。",
+    "description": "Content review UI string."
   },
   "contentReview_modelPlaceholder": {
-    "message": "服务器默认"
+    "message": "服务器默认",
+    "description": "Content review UI string."
   },
   "contentReview_aiConsentTitle": {
-    "message": "将草稿发送到服务器？"
+    "message": "将草稿发送到服务器？",
+    "description": "Content review UI string."
   },
   "contentReview_aiConsentBody": {
-    "message": "这会将草稿内容发送到你的 tldw 服务器进行 AI 处理。草稿会一直保留在本地，直到你提交。"
+    "message": "这会将草稿内容发送到你的 tldw 服务器进行 AI 处理。草稿会一直保留在本地，直到你提交。",
+    "description": "Content review UI string."
   },
   "contentReview_aiConsentConfirm": {
-    "message": "继续"
+    "message": "继续",
+    "description": "Content review UI string."
   },
   "contentReview_aiConsentCancel": {
-    "message": "取消"
+    "message": "取消",
+    "description": "Content review UI string."
   },
   "contentReview_aiApplied": {
-    "message": "已应用 AI 修正。"
+    "message": "已应用 AI 修正。",
+    "description": "Content review UI string."
   },
   "contentReview_aiNoChange": {
-    "message": "未返回任何更改。"
+    "message": "未返回任何更改。",
+    "description": "Content review UI string."
   },
   "contentReview_aiEmpty": {
-    "message": "AI 未返回任何内容。"
+    "message": "AI 未返回任何内容。",
+    "description": "Content review UI string."
   },
   "contentReview_aiUnavailable": {
-    "message": "聊天补全不可用。"
+    "message": "聊天补全不可用。",
+    "description": "Content review UI string."
   },
   "contentReview_templatePlaceholder": {
-    "message": "选择模板"
+    "message": "选择模板",
+    "description": "Content review UI string."
   },
   "contentReview_applyTemplate": {
-    "message": "应用模板"
+    "message": "应用模板",
+    "description": "Content review UI string."
   },
   "contentReview_templateApplied": {
-    "message": "模板已应用。"
+    "message": "模板已应用。",
+    "description": "Content review UI string."
   },
   "contentReview_templateMissing": {
-    "message": "请先选择一个模板。"
+    "message": "请先选择一个模板。",
+    "description": "Content review UI string."
   },
   "contentReview_detectSections": {
-    "message": "检测章节"
+    "message": "检测章节",
+    "description": "Content review UI string."
   },
   "contentReview_detectSectionsTitle": {
-    "message": "重新检测章节？"
+    "message": "重新检测章节？",
+    "description": "Content review UI string."
   },
   "contentReview_detectSectionsBody": {
-    "message": "这将替换现有章节并重置你的选择。"
+    "message": "这将替换现有章节并重置你的选择。",
+    "description": "Content review UI string."
   },
   "contentReview_detectSectionsConfirm": {
-    "message": "重新检测"
+    "message": "重新检测",
+    "description": "Content review UI string."
   },
   "contentReview_detectSectionsCancel": {
-    "message": "取消"
+    "message": "取消",
+    "description": "Content review UI string."
   },
   "contentReview_detectSectionsEmpty": {
-    "message": "未检测到任何章节。"
+    "message": "未检测到任何章节。",
+    "description": "Content review UI string."
   },
   "contentReview_sectionsLabel": {
-    "message": "章节筛选"
+    "message": "章节筛选",
+    "description": "Content review UI string."
   },
   "contentReview_templates_transcript_clean_label": {
-    "message": "清理转录文本"
+    "message": "清理转录文本",
+    "description": "Content review UI string."
   },
   "contentReview_templates_transcript_clean_description": {
-    "message": "在保留行结构的前提下，规范标点和大小写。"
+    "message": "在保留行结构的前提下，规范标点和大小写。",
+    "description": "Content review UI string."
   },
   "contentReview_templates_speaker_turns_label": {
-    "message": "说话轮次"
+    "message": "说话轮次",
+    "description": "Content review UI string."
   },
   "contentReview_templates_speaker_turns_description": {
-    "message": "确保每个说话人轮次都在独立的一行，并带有清晰的标签。"
+    "message": "确保每个说话人轮次都在独立的一行，并带有清晰的标签。",
+    "description": "Content review UI string."
   },
   "contentReview_templates_chapter_headings_label": {
-    "message": "章节标题"
+    "message": "章节标题",
+    "description": "Content review UI string."
   },
   "contentReview_templates_chapter_headings_description": {
-    "message": "插入 Markdown 标题，以分组主题而不删除内容。"
+    "message": "插入 Markdown 标题，以分组主题而不删除内容。",
+    "description": "Content review UI string."
   },
   "contentReview_metadataLabel": {
-    "message": "元数据"
+    "message": "元数据",
+    "description": "Content review UI string."
   },
   "contentReview_mediaType": {
-    "message": "媒体类型"
+    "message": "媒体类型",
+    "description": "Content review UI string."
   },
   "contentReview_keywords": {
-    "message": "关键词"
+    "message": "关键词",
+    "description": "Content review UI string."
   },
   "contentReview_keywordsPlaceholder": {
-    "message": "添加关键词"
+    "message": "添加关键词",
+    "description": "Content review UI string."
   },
   "contentReview_reviewNotes": {
-    "message": "审阅备注"
+    "message": "审阅备注",
+    "description": "Content review UI string."
   },
   "contentReview_missingSource": {
-    "message": "缺少源文件"
+    "message": "缺少源文件",
+    "description": "Content review UI string."
   },
   "contentReview_missingSourceBody": {
-    "message": "请附加原始文件以提交此草稿。"
+    "message": "请附加原始文件以提交此草稿。",
+    "description": "Content review UI string."
   },
   "contentReview_attachSource": {
-    "message": "附加文件"
+    "message": "附加文件",
+    "description": "Content review UI string."
   },
   "contentReview_actionsLabel": {
-    "message": "操作"
+    "message": "操作",
+    "description": "Content review UI string."
   },
   "contentReview_commit": {
-    "message": "提交"
+    "message": "提交",
+    "description": "Content review UI string."
   },
   "contentReview_commitDisabled": {
-    "message": "在提交之前，请先附加原始音频/视频文件。"
+    "message": "在提交之前，请先附加原始音频/视频文件。",
+    "description": "Content review UI string."
   },
   "contentReview_markReviewed": {
-    "message": "标记为已审阅"
+    "message": "标记为已审阅",
+    "description": "Content review UI string."
   },
   "contentReview_skipNext": {
-    "message": "跳过"
+    "message": "跳过",
+    "description": "Content review UI string."
   },
   "contentReview_discard": {
-    "message": "丢弃"
+    "message": "丢弃",
+    "description": "Content review UI string."
   },
   "contentReview_discardTitle": {
-    "message": "丢弃草稿？"
+    "message": "丢弃草稿？",
+    "description": "Content review UI string."
   },
   "contentReview_discardBody": {
-    "message": "此草稿将被标记为已丢弃，并从审阅列表中移除。"
+    "message": "此草稿将被标记为已丢弃，并从审阅列表中移除。",
+    "description": "Content review UI string."
   },
   "contentReview_discardConfirm": {
-    "message": "丢弃"
+    "message": "丢弃",
+    "description": "Content review UI string."
   },
   "contentReview_discardCancel": {
-    "message": "取消"
+    "message": "取消",
+    "description": "Content review UI string."
   },
   "contentReview_commitSuccess": {
-    "message": "草稿已提交。"
+    "message": "草稿已提交。",
+    "description": "Content review UI string."
   },
   "contentReview_commitAllTitle": {
-    "message": "提交已审阅的草稿？"
+    "message": "提交已审阅的草稿？",
+    "description": "Content review UI string."
   },
   "contentReview_commitAllBody": {
-    "message": "只有标记为已审阅的草稿才会被提交。"
+    "message": "只有标记为已审阅的草稿才会被提交。",
+    "description": "Content review UI string."
   },
   "contentReview_commitAllConfirm": {
-    "message": "全部提交"
+    "message": "全部提交",
+    "description": "Content review UI string."
   },
   "contentReview_commitAllCancel": {
-    "message": "取消"
+    "message": "取消",
+    "description": "Content review UI string."
   },
   "contentReview_commitAllResult": {
-    "message": "{{success}} 个已提交 · {{failed}} 个失败"
+    "message": "{{success}} 个已提交 · {{failed}} 个失败",
+    "description": "Content review UI string."
   },
   "contentReview_storageCapWarning": {
-    "message": "此文件超过本地草稿上限 ({{cap}})。"
+    "message": "此文件超过本地草稿上限 ({{cap}})。",
+    "description": "Content review UI string."
   },
   "contentReview_clearTitle": {
-    "message": "清除所有草稿？"
+    "message": "清除所有草稿？",
+    "description": "Content review UI string."
   },
   "contentReview_clearBody": {
-    "message": "这将删除所有本地内容审阅草稿及其关联资源."
+    "message": "这将删除所有本地内容审阅草稿及其关联资源.",
+    "description": "Content review UI string."
   },
   "contentReview_clearConfirm": {
-    "message": "清除草稿"
+    "message": "清除草稿",
+    "description": "Content review UI string."
   },
   "contentReview_clearCancel": {
-    "message": "取消"
+    "message": "取消",
+    "description": "Content review UI string."
   },
   "contentReview_clearSuccess": {
-    "message": "草稿已清除。"
+    "message": "草稿已清除。",
+    "description": "Content review UI string."
   },
   "contentReview_originalLabel": {
-    "message": "原始"
+    "message": "原始",
+    "description": "Content review UI string."
   },
   "contentReview_editedLabel": {
-    "message": "已编辑"
+    "message": "已编辑",
+    "description": "Content review UI string."
   },
   "reviewDraftsFailedTitle": {
-    "message": "无法创建审阅草稿。"
+    "message": "无法创建审阅草稿。",
+    "description": "Error title when review drafts creation fails."
   },
   "reviewDraftsFailedFallback": {
-    "message": "创建审阅草稿失败。"
+    "message": "创建审阅草稿失败。",
+    "description": "Fallback error message for review drafts failure."
   },
   "reviewDraftsRetry": {
-    "message": "重试创建草稿"
+    "message": "重试创建草稿",
+    "description": "Button label to retry creating review drafts."
   },
   "reviewDraftsStoreWithoutReview": {
-    "message": "不经审阅保存"
+    "message": "不经审阅保存",
+    "description": "Action to store without review."
   },
   "reviewNavigationFailed": {
-    "message": "无法打开内容审阅。请重试。"
+    "message": "无法打开内容审阅。请重试。",
+    "description": "Error message when navigation to Content Review fails."
   },
   "reviewNavigationRetry": {
-    "message": "重试打开内容审阅"
+    "message": "重试打开内容审阅",
+    "description": "Button label to retry opening Content Review."
   },
   "quickIngest_title": {
     "message": "Quick Ingest Media"

@@ -6,7 +6,7 @@
     "about": "نبذة"
   },
   "healthNav": "الحالة",
-  "worldBooksNav": "World Books",
+  "worldBooksNav": "كتب العالم",
   "chatDictionariesNav": "قواميس الدردشة",
   "charactersNav": "الشخصيات",
   "mediaNav": "الوسائط",
@@ -119,14 +119,14 @@
         "assetsEnabled": "تم تمكين حزم OCR وهي جاهزة للاستخدام"
       },
       "ocrLanguage": {
-        "label": "Default OCR Language",
-        "placeholder": "Select an OCR language"
+        "label": "لغة OCR الافتراضية",
+        "placeholder": "اختر لغة OCR"
       },
       "removeReasoningTagFromCopy": {
-        "label": "Remove Reasoning Tag from Copied Text"
+        "label": "إزالة وسم التفكير من النص المنسوخ"
       },
       "promptSearchIncludeServer": {
-        "label": "Include server prompts in prompt search"
+        "label": "تضمين إرشادات الخادم في البحث عن الإرشادات"
       },
       "restartOnboarding": {
         "label": "إعادة بدء عملية الإعداد من البداية",
@@ -179,16 +179,16 @@
         "label": "تفعيل البحث على الإنترنت بشكل افتراضي"
       },
       "tavilyApi": {
-        "label": "Tavily API Key ",
-        "placeholder": "Enter your Tavily API key"
+        "label": "مفتاح واجهة برمجة تطبيقات Tavily",
+        "placeholder": "أدخل مفتاح واجهة برمجة تطبيقات Tavily"
       },
       "exa": {
-        "label": "Exa API Key",
-        "placeholder": "Enter your Exa API key"
+        "label": "مفتاح واجهة برمجة تطبيقات Exa",
+        "placeholder": "أدخل مفتاح واجهة برمجة تطبيقات Exa"
       },
       "firecrawlAPIKey": {
-        "label": "Firecrawl API Key",
-        "placeholder": "Enter your Firecrawl API key"
+        "label": "مفتاح واجهة برمجة تطبيقات Firecrawl",
+        "placeholder": "أدخل مفتاح واجهة برمجة تطبيقات Firecrawl"
       }
     },
     "system": {
@@ -240,7 +240,7 @@
         "label": "إزالة علامة التفكير من تحويل النص إلى كلام"
       },
       "responseSplitting": {
-        "label": "Response Splitting"
+        "label": "تقسيم الرد"
       }
     },
     "stt": {
@@ -252,117 +252,117 @@
       "autoSubmitVoiceMessage": {
         "label": "إرسال الرسالة الصوتية تلقائياً"
       },
-      "usedByChat": "These Speech-to-Text defaults are used by the chat dictation button in the Playground and Sidebar.",
+      "usedByChat": "تُستخدم إعدادات تحويل الكلام إلى نص هذه بواسطة زر الإملاء في ساحة التجربة والشريط الجانبي.",
       "model": {
-        "label": "Transcription model (tldw_server)"
+        "label": "نموذج النسخ (tldw_server)"
       },
       "useSegmentation": {
-        "label": "Run segmentation for transcripts (TreeSeg)"
+        "label": "تشغيل التقسيم للنصوص (TreeSeg)"
       },
       "timestampGranularities": {
-        "label": "Timestamp granularity",
-        "segment": "Per segment",
-        "word": "Per word",
-        "segmentWord": "Segment + word"
+        "label": "درجة دقة الطابع الزمني",
+        "segment": "لكل مقطع",
+        "word": "لكل كلمة",
+        "segmentWord": "مقطع + كلمة"
       },
       "task": {
-        "label": "Transcription task",
-        "transcribe": "Transcribe (same language)",
-        "translate": "Translate to English"
+        "label": "مهمة النسخ",
+        "transcribe": "نسخ (نفس اللغة)",
+        "translate": "ترجمة إلى الإنجليزية"
       },
       "responseFormat": {
-        "label": "Response format",
-        "json": "JSON (text + segments)",
-        "verboseJson": "Verbose JSON",
-        "text": "Plain text",
-        "srt": "SRT subtitles",
-        "vtt": "VTT subtitles"
+        "label": "تنسيق الاستجابة",
+        "json": "JSON (النص + المقاطع)",
+        "verboseJson": "JSON تفصيلي",
+        "text": "نص عادي",
+        "srt": "ترجمات SRT",
+        "vtt": "ترجمات VTT"
       },
       "temperature": {
-        "label": "Sampling temperature"
+        "label": "درجة حرارة أخذ العينات"
       },
       "prompt": {
-        "label": "Default transcription prompt",
-        "placeholder": "Optional text to guide style"
+        "label": "إرشاد النسخ الافتراضي",
+        "placeholder": "نص اختياري لتوجيه الأسلوب"
       },
       "segK": {
-        "label": "Max segments (TreeSeg K)"
+        "label": "الحد الأقصى للمقاطع (TreeSeg K)"
       },
       "segMinSegmentSize": {
-        "label": "Minimum items per segment"
+        "label": "الحد الأدنى للعناصر لكل مقطع"
       },
       "segLambdaBalance": {
-        "label": "Balance penalty (TreeSeg λ)"
+        "label": "موازنة العقوبة (TreeSeg λ)"
       },
       "segUtteranceExpansionWidth": {
-        "label": "Utterance expansion width"
+        "label": "عرض توسيع المقطع المنطوق"
       },
       "segEmbeddingsProvider": {
-        "label": "Segmentation embeddings provider"
+        "label": "مزود تضمينات التقسيم"
       },
       "segEmbeddingsModel": {
-        "label": "Segmentation embeddings model"
+        "label": "نموذج تضمينات التقسيم"
       }
     },
     "systemBasics": {
-      "heading": "System",
+      "heading": "إعدادات النظام",
       "uiMode": {
-        "label": "Default UI Mode",
+        "label": "الوضع الافتراضي للواجهة",
         "options": {
-          "webui": "Full Screen (Web UI)",
-          "sidePanel": "Sidebar"
+          "webui": "ملء الشاشة (واجهة الويب)",
+          "sidePanel": "الشريط الجانبي"
         }
       },
       "actionIcon": {
-        "label": "Browser Action Button"
+        "label": "زر إجراء المتصفح"
       },
       "contextMenu": {
-        "label": "Context Menu Action"
+        "label": "إجراء قائمة السياق"
       },
       "webuiBtnSidePanel": {
-        "label": "Show Web UI button in Sidebar"
+        "label": "إظهار زر واجهة الويب في الشريط الجانبي"
       },
       "chatBackgroundImage": {
-        "label": "Chat Background Image"
+        "label": "صورة خلفية الدردشة"
       },
       "fontSize": {
-        "label": "Font Size"
+        "label": "حجم الخط"
       }
     },
     "systemData": {
-      "heading": "Data",
+      "heading": "البيانات",
       "firefoxPrivateModeSync": {
-        "label": "Firefox Private Mode Sync",
-        "button": "Sync Data"
+        "label": "مزامنة الوضع الخاص في Firefox",
+        "button": "مزامنة البيانات"
       },
       "deleteChatHistory": {
-        "label": "System Reset",
-        "button": "Reset All",
-        "confirm": "Are you sure you want to perform a system reset? This will clear all data and cannot be undone."
+        "label": "إعادة تعيين النظام",
+        "button": "إعادة تعيين الكل",
+        "confirm": "هل أنت متأكد أنك تريد إجراء إعادة تعيين النظام؟ سيؤدي هذا إلى مسح جميع البيانات ولا يمكن التراجع عنه."
       },
       "export": {
-        "label": "Export Chat History, Knowledge Base, and Prompts",
-        "button": "Export Data",
-        "success": "Export Success"
+        "label": "تصدير سجل المحادثات وقاعدة المعرفة والإرشادات",
+        "button": "تصدير البيانات",
+        "success": "تم التصدير بنجاح"
       },
       "import": {
-        "label": "Import Chat History, Knowledge Base, and Prompts",
-        "button": "Import Data",
-        "success": "Import Success",
-        "error": "Import Error"
+        "label": "استيراد سجل المحادثات وقاعدة المعرفة والإرشادات",
+        "button": "استيراد البيانات",
+        "success": "تم الاستيراد بنجاح",
+        "error": "خطأ في الاستيراد"
       }
     },
     "empty": {
-      "connectTitle": "Connect tldw Assistant to your server",
-      "connectDescription": "Some settings only take effect when your tldw server is reachable. Connect your server to get the full experience.",
-      "connectExample1": "Open Settings → tldw server to add your server URL and API key.",
-      "connectExample2": "Use Diagnostics to confirm your server is healthy before trying advanced tools.",
-      "title": "Tune how tldw Assistant behaves",
-      "description": "Adjust defaults for the Web UI, sidepanel, speech, search, and data handling from one place.",
-      "example1": "Choose your default language, theme, and chat resume behavior.",
-      "example2": "Control whether chats are temporary, how large pastes are handled, and how reasoning is displayed.",
-      "primaryCta": "Configure server & auth",
-      "secondaryCta": "Dismiss"
+      "connectTitle": "ربط مساعد tldw بخادمك",
+      "connectDescription": "بعض الإعدادات لا تسري إلا عندما يكون خادم tldw متاحاً. قم بربط خادمك للحصول على التجربة الكاملة.",
+      "connectExample1": "افتح الإعدادات → خادم tldw لإضافة عنوان الخادم ومفتاح API.",
+      "connectExample2": "استخدم التشخيصات للتأكد من سلامة الخادم قبل تجربة الأدوات المتقدمة.",
+      "title": "اضبط طريقة عمل مساعد tldw",
+      "description": "اضبط الإعدادات الافتراضية لواجهة الويب والشريط الجانبي والكلام والبحث ومعالجة البيانات من مكان واحد.",
+      "example1": "اختر لغتك وسمتك وسلوك استئناف المحادثة الافتراضي.",
+      "example2": "تحكم فيما إذا كانت الدردشات مؤقتة وكيفية التعامل مع اللصق الكبير وكيفية عرض التفكير.",
+      "primaryCta": "تهيئة الخادم والمصادقة",
+      "secondaryCta": "تجاهل"
     }
   },
   "manageModels": {
@@ -405,8 +405,8 @@
       "successDescription": "تم سحب النموذج بنجاح",
       "successDeleteDescription": "تم حذف النموذج بنجاح",
       "someError": "حدث خطأ ما. يرجى المحاولة مرة أخرى لاحقاً",
-      "cancellingDownload": "Cancelling Download",
-      "cancellingDownloadDescription": "Model download is being cancelled..."
+      "cancellingDownload": "جارٍ إلغاء التنزيل",
+      "cancellingDownloadDescription": "جارٍ إلغاء تنزيل النموذج..."
     }
   },
   "managePrompts": {
@@ -418,8 +418,8 @@
     "segmented": {
       "custom": "إرشادات مخصصة",
       "copilot": "إرشادات كوبيلوت",
-      "helpCustom": "Create and manage reusable prompts you can insert into chat.",
-      "helpCopilot": "View and tweak predefined Copilot prompts provided by your server."
+      "helpCustom": "أنشئ وأدر الإرشادات القابلة لإعادة الاستخدام التي يمكنك إدراجها في الدردشة.",
+      "helpCopilot": "اعرض وعدّل إرشادات Copilot المعرّفة مسبقاً التي يوفرها خادمك."
     },
     "columns": {
       "title": "العنوان",
@@ -432,7 +432,7 @@
     "tooltip": {
       "delete": "حذف الإرشاد",
       "edit": "تعديل الإرشاد",
-      "duplicate": "Duplicate Prompt"
+      "duplicate": "تكرار الإرشاد"
     },
     "confirm": {
       "delete": "هل أنت متأكد أنك تريد حذف هذا الإرشاد؟ لا يمكن التراجع عن هذا الإجراء."
@@ -476,45 +476,45 @@
       "deletedSuccess": "تم حذف الإرشاد",
       "deletedSuccessDesc": "تم حذف الإرشاد بنجاح"
     },
-    "workspaceTitle": "Prompts workspace",
-    "workspaceDescription": "Reusable prompts are managed from the Prompts workspace. Use the button below to open it.",
-    "openWorkspace": "Open Prompts workspace",
-    "search": "Search titles and contents",
+    "workspaceTitle": "مساحة عمل الإرشادات",
+    "workspaceDescription": "تُدار الإرشادات القابلة لإعادة الاستخدام من مساحة عمل الإرشادات. استخدم الزر أدناه لفتحها.",
+    "openWorkspace": "فتح مساحة عمل الإرشادات",
+    "search": "ابحث في العناوين والمحتوى",
     "filter": {
-      "all": "All",
-      "system": "System",
-      "quick": "Quick"
+      "all": "الكل",
+      "system": "النظام",
+      "quick": "سريع"
     },
     "tags": {
-      "label": "Tags",
-      "placeholder": "Add tags"
+      "label": "الوسوم",
+      "placeholder": "أضف وسوماً"
     },
-    "import": "Import",
-    "export": "Export",
+    "import": "استيراد",
+    "export": "تصدير",
     "importMode": {
       "merge": "دمج",
       "replace": "استبدال",
       "replaceConfirm": "سيؤدي الاستبدال إلى الكتابة فوق جميع المطالبات الحالية بالملف المستورد. هل تريد المتابعة؟"
     },
-    "favorite": "Favorite",
-    "unfavorite": "Unfavorite",
-    "partialLoad": "Some prompt data isn’t available",
-    "loadErrorHelp": "Check your server connection and refresh to try again.",
-    "emptyConnectTitle": "Connect to use Prompts",
-    "emptyConnectDescription": "To manage reusable prompts, first connect to your tldw server.",
-    "emptyConnectExample1": "Open Settings → tldw server to add your server URL.",
-    "emptyConnectExample2": "Once connected, create custom prompts you can reuse across chats.",
-    "emptyTitle": "No custom prompts yet",
-    "emptyDescription": "Create reusable prompts for recurring tasks, workflows, and team conventions.",
-    "emptyExample1": "Save your favorite system prompt for summaries, explanations, or translations.",
-    "emptyExample2": "Create quick prompts for common actions like drafting emails or refining notes.",
-    "emptyPrimaryCta": "Create prompt",
-    "filterHelp": "Search matches title and prompt content. Use type and tags to narrow the list.",
-    "copilotEmptyTitle": "No Copilot prompts available",
-    "copilotEmptyDescription": "Copilot prompts are predefined templates provided by your tldw server.",
-    "copilotEmptyExample1": "Check your server version or configuration if you expect Copilot prompts to be available.",
-    "copilotEmptyExample2": "After updating your server, reload the extension and return to this tab.",
-    "copilotEmptyCta": "Open Diagnostics"
+    "favorite": "مفضلة",
+    "unfavorite": "إزالة من المفضلة",
+    "partialLoad": "بعض بيانات الإرشادات غير متاحة",
+    "loadErrorHelp": "تحقق من اتصال خادمك ثم حدّث للمحاولة مرة أخرى.",
+    "emptyConnectTitle": "اتصل لاستخدام الإرشادات",
+    "emptyConnectDescription": "لإدارة الإرشادات القابلة لإعادة الاستخدام، اتصل أولاً بخادم tldw.",
+    "emptyConnectExample1": "افتح الإعدادات → خادم tldw لإضافة عنوان الخادم.",
+    "emptyConnectExample2": "بعد الاتصال، أنشئ إرشادات مخصصة يمكنك إعادة استخدامها عبر الدردشات.",
+    "emptyTitle": "لا توجد إرشادات مخصصة بعد",
+    "emptyDescription": "أنشئ إرشادات قابلة لإعادة الاستخدام للمهام المتكررة وسير العمل ومعايير الفريق.",
+    "emptyExample1": "احفظ إرشاد النظام المفضل لديك للملخصات أو الشروحات أو الترجمات.",
+    "emptyExample2": "أنشئ إرشادات سريعة للمهام الشائعة مثل صياغة الرسائل أو تحسين الملاحظات.",
+    "emptyPrimaryCta": "إنشاء إرشاد",
+    "filterHelp": "تطابق نتائج البحث العنوان ومحتوى الإرشاد. استخدم النوع والوسوم لتضييق القائمة.",
+    "copilotEmptyTitle": "لا توجد إرشادات Copilot متاحة",
+    "copilotEmptyDescription": "إرشادات Copilot هي قوالب محددة مسبقاً يوفرها خادم tldw.",
+    "copilotEmptyExample1": "تحقق من إصدار الخادم أو إعداداته إذا كنت تتوقع توفر إرشادات Copilot.",
+    "copilotEmptyExample2": "بعد تحديث الخادم، أعد تحميل الإضافة وارجع إلى هذا التبويب.",
+    "copilotEmptyCta": "فتح التشخيصات"
   },
   "manageShare": {
     "title": "إدارة المشاركة",
@@ -603,7 +603,7 @@
     "githubSponsor": "كن راعياً على GitHub",
     "githubRepo": "مستودع GitHub"
   },
-  "switchToSidebar": "Switch to Sidebar",
+  "switchToSidebar": "التبديل إلى الشريط الجانبي",
   "healthPage": {
     "title": "حالة الصحة",
     "subtitle": "نظرة سريعة على نقاط صحة الأنظمة الفرعية التي يعرضها الخادم.",
@@ -641,15 +641,15 @@
       "mcpDocsUrl": "https://github.com/rmusser01/tldw_browser_assistant"
     },
     "copyDiagnosticsHelp": "Copies JSON diagnostics to clipboard",
-    "statusHealthy": "Healthy",
-    "statusUnhealthy": "Unhealthy",
-    "statusUnknown": "Unknown",
-    "updatedJustNow": "Updated just now",
-    "updatedSecondsAgo": "Updated {{seconds}}s ago"
+    "statusHealthy": "سليم",
+    "statusUnhealthy": "غير سليم",
+    "statusUnknown": "غير معروف",
+    "updatedJustNow": "تم التحديث الآن",
+    "updatedSecondsAgo": "تم التحديث قبل {{seconds}} ثانية"
   },
-  "savedSuccessfully": "Settings saved",
-  "saveFailed": "Failed to save settings",
-  "siteAccessGranted": "Host permission granted for {{origin}}",
+  "savedSuccessfully": "تم حفظ الإعدادات",
+  "saveFailed": "فشل حفظ الإعدادات",
+  "siteAccessGranted": "تم منح إذن المضيف لـ {{origin}}",
   "tldw": {
     "advancedTimeouts": "مهلات متقدمة",
     "requestTimeout": "مهلة الطلب (ثوانٍ)",
@@ -754,14 +754,14 @@
     }
   },
   "manageKnowledge": {
-    "title": "Knowledge QA",
-    "heading": "Knowledge QA",
-    "worldBooksSettingsTitle": "World Books workspace",
-    "worldBooksSettingsDescription": "World Books are managed from the World Books workspace. Use the button below to open it.",
-    "worldBooksOpenWorkspace": "Open World Books workspace",
-    "dictionariesSettingsTitle": "Chat dictionaries workspace",
-    "dictionariesSettingsDescription": "Chat dictionaries are managed from the Chat dictionaries workspace. Use the button below to open it.",
-    "dictionariesOpenWorkspace": "Open Chat dictionaries workspace"
+    "title": "أسئلة وأجوبة المعرفة",
+    "heading": "أسئلة وأجوبة المعرفة",
+    "worldBooksSettingsTitle": "مساحة عمل كتب العالم",
+    "worldBooksSettingsDescription": "تُدار كتب العالم من مساحة عمل كتب العالم. استخدم الزر أدناه لفتحها.",
+    "worldBooksOpenWorkspace": "فتح مساحة عمل كتب العالم",
+    "dictionariesSettingsTitle": "مساحة عمل قواميس الدردشة",
+    "dictionariesSettingsDescription": "تُدار قواميس الدردشة من مساحة عمل قواميس الدردشة. استخدم الزر أدناه لفتحها.",
+    "dictionariesOpenWorkspace": "فتح مساحة عمل قواميس الدردشة"
   },
   "rag": {
     "title": "إعدادات RAG",
@@ -772,8 +772,8 @@
         "required": "الرجاء اختيار نموذج",
         "help": "يوصى بشدة باستخدام نماذج التضمين مثل `nomic-embed-text`.",
         "placeholder": "اختر نموذجاً",
-        "helpRecommended": "Recommended: {{model}} (from server config)",
-        "helpMissing": "Previously saved embedding model is no longer available on the server. Please choose another model."
+        "helpRecommended": "موصى به: {{model}} (من إعدادات الخادم)",
+        "helpMissing": "نموذج التضمين المحفوظ سابقاً لم يعد متاحاً على الخادم. الرجاء اختيار نموذج آخر."
       },
       "chunkSize": {
         "label": "حجم القطعة",
@@ -945,7 +945,8 @@
       "chat": "دردشة",
       "edit": "تعديل",
       "delete": "حذف",
-      "viewConversations": "عرض المحادثات"
+      "viewConversations": "عرض المحادثات",
+      "duplicate": "تكرار"
     },
     "tags": {
       "label": "الوسوم",
@@ -961,7 +962,8 @@
       "edit": "تعديل الشخصية {{name}}",
       "delete": "حذف الشخصية {{name}}",
       "viewConversations": "عرض المحادثات لـ {{name}}",
-      "searchResults": "تم العثور على {{count}} شخصية"
+      "searchResults": "تم العثور على {{count}} شخصية",
+      "duplicate": "تكرار الشخصية {{name}}"
     },
     "confirm": {
       "delete": "هل أنت متأكد أنك تريد حذف هذه الشخصية؟ لا يمكن التراجع عن هذا الإجراء."
@@ -977,11 +979,13 @@
         "label": "السلوك / التعليمات",
         "placeholder": "مثال: أنت معلم رياضيات صبور تشرح المفاهيم خطوة بخطوة وتتحقق من الفهم بأمثلة قصيرة.",
         "help": "اشرح دور الشخصية ونبرتها والقيود. مثال: \"أنت معلم رياضيات صبور تشرح المفاهيم خطوة بخطوة.\"",
-        "min": "أضف وصفًا قصيرًا حتى تعرف الشخصية كيف ترد."
+        "min": "أضف وصفًا قصيرًا حتى تعرف الشخصية كيف ترد.",
+        "required": "يرجى إضافة تعليمات لتوجيه الردود.",
+        "max": "يجب ألا يزيد إرشاد النظام عن 2000 حرف."
       },
       "avatarUrl": {
         "label": "رابط الصورة الرمزية (اختياري)",
-        "placeholder": "https://example.com/avatar.png"
+        "placeholder": "مثال: https://example.com/avatar.png"
       },
       "greeting": {
         "label": "رسالة ترحيبية (اختياري)",
@@ -1040,6 +1044,24 @@
     "advanced": {
       "show": "إظهار الحقول المتقدمة",
       "hide": "إخفاء الحقول المتقدمة"
+    },
+    "table": {
+      "noDescription": "بدون وصف"
+    },
+    "filter": {
+      "matchAll": "مطابقة جميع الوسوم"
+    },
+    "avatar": {
+      "label": "الصورة الرمزية (اختياري)",
+      "tabUrl": "الرابط",
+      "tabUpload": "رفع",
+      "selectImageError": "يرجى اختيار ملف صورة",
+      "formatError": "يتم دعم صور PNG وJPEG وGIF فقط",
+      "invalidError": "ملف صورة غير صالح",
+      "processError": "فشل معالجة الصورة",
+      "dropzone": "انقر أو اسحب الصورة للرفع",
+      "formats": "PNG أو JPEG أو GIF",
+      "preview": "معاينة"
     }
   },
   "systemNotifications": {
@@ -1059,189 +1081,189 @@
   "models": {
     "privateModeDescription": "وضع التصفح الخاص في فايرفوكس لا يدعم حفظ البيانات في IndexedDB. الرجاء إضافة نموذج مخصص من نافذة عادية."
   },
-  "evaluationsSettingsNav": "Evaluations",
-  "promptStudioNav": "Prompt Studio",
+  "evaluationsSettingsNav": "التقييمات",
+  "promptStudioNav": "استوديو الإرشادات",
   "promptStudio": {
-    "nav": "Prompt Studio",
-    "title": "Prompt Studio",
-    "subtitle": "Configure defaults and monitor Prompt Studio health. Connection and auth reuse the main server settings.",
-    "probeError": "Unable to reach Prompt Studio",
-    "statusCard": "Status",
-    "statusHint": "Button calls /prompt-studio/status with warn_seconds.",
-    "statusError": "Status endpoint unavailable",
-    "warnSeconds": "Warn seconds",
-    "testButton": "Test Prompt Studio",
-    "defaultsCard": "Defaults",
-    "defaultsHint": "Store default project, model configs, and list page size.",
-    "defaultsPlaceholder": "Persist defaults using existing settings storage (TBD) for initial project selection, execute/evaluation model presets, and pagination.",
-    "defaultProject": "Default project ID",
-    "pageSize": "Page size",
-    "executeDefaults": "Execute defaults",
-    "executeProvider": "Provider",
-    "executeModel": "Model",
-    "executeTemperature": "Temperature",
-    "executeMaxTokens": "Max tokens",
-    "evalDefaults": "Evaluation defaults",
-    "evalModel": "Model",
-    "evalTemperature": "Temperature",
-    "evalMaxTokens": "Max tokens",
-    "unavailable": "Prompt Studio isn’t available on the server yet.",
-    "unavailableBody": "Once enabled, you can monitor queue health and set defaults here."
+    "nav": "استوديو الإرشادات",
+    "title": "استوديو الإرشادات",
+    "subtitle": "قم بتكوين الإعدادات الافتراضية ومراقبة صحة استوديو الإرشادات. يعيد الاتصال والمصادقة استخدام إعدادات الخادم الرئيسية.",
+    "probeError": "تعذر الوصول إلى استوديو الإرشادات",
+    "statusCard": "الحالة",
+    "statusHint": "يستدعي الزر ‎/prompt-studio/status‎ مع warn_seconds.",
+    "statusError": "نقطة نهاية الحالة غير متاحة",
+    "warnSeconds": "ثواني التحذير",
+    "testButton": "اختبار استوديو الإرشادات",
+    "defaultsCard": "الإعدادات الافتراضية",
+    "defaultsHint": "احفظ المشروع الافتراضي وتكوينات النموذج وحجم صفحة القائمة.",
+    "defaultsPlaceholder": "حفظ القيم الافتراضية باستخدام تخزين الإعدادات الحالي (قيد التنفيذ) لاختيار المشروع الأولي وإعدادات نماذج التنفيذ/التقييم والترقيم.",
+    "defaultProject": "معرّف المشروع الافتراضي",
+    "pageSize": "حجم الصفحة",
+    "executeDefaults": "الإعدادات الافتراضية للتنفيذ",
+    "executeProvider": "المزوّد",
+    "executeModel": "النموذج",
+    "executeTemperature": "درجة الحرارة",
+    "executeMaxTokens": "الحد الأقصى للرموز",
+    "evalDefaults": "الإعدادات الافتراضية للتقييم",
+    "evalModel": "النموذج",
+    "evalTemperature": "درجة الحرارة",
+    "evalMaxTokens": "الحد الأقصى للرموز",
+    "unavailable": "استوديو الإرشادات غير متاح على الخادم بعد.",
+    "unavailableBody": "بعد تمكينه، يمكنك مراقبة صحة قائمة الانتظار وضبط الإعدادات الافتراضية هنا."
   },
-  "charactersSettingsTitle": "Characters workspace",
-  "charactersSettingsDescription": "Characters are managed from the Characters workspace. Use the button below to open it.",
-  "charactersOpenWorkspace": "Open Characters workspace",
-  "mermaid": "Mermaid",
+  "charactersSettingsTitle": "مساحة عمل الشخصيات",
+  "charactersSettingsDescription": "تُدار الشخصيات من مساحة عمل الشخصيات. استخدم الزر أدناه لفتحها.",
+  "charactersOpenWorkspace": "فتح مساحة عمل الشخصيات",
+  "mermaid": "مخططات Mermaid",
   "healthSummary": {
     "diagnostics": "Diagnostics",
-    "diagnosticsTooltip": "Open detailed diagnostics to troubleshoot or inspect health checks.",
-    "core": "Server",
-    "rag": "Knowledge",
-    "coreAria": "Server: server/API health",
-    "ragAria": "Knowledge: knowledge index health",
-    "coreOnline": "Server: Online",
-    "coreOffline": "Server: Offline",
-    "coreChecking": "Server: Checking…",
-    "ragReady": "Knowledge: Ready",
-    "ragOffline": "Knowledge: Offline",
-    "ragChecking": "Knowledge: Checking…",
-    "footerInfo": "These checks summarize the last successful ping to your tldw server and knowledge index."
+    "diagnosticsTooltip": "افتح التشخيصات التفصيلية لاستكشاف الأخطاء أو فحص فحوصات الصحة.",
+    "core": "الخادم",
+    "rag": "المعرفة",
+    "coreAria": "الخادم: صحة الخادم/واجهة برمجة التطبيقات",
+    "ragAria": "المعرفة: صحة فهرس المعرفة",
+    "coreOnline": "الخادم: متصل",
+    "coreOffline": "الخادم: غير متصل",
+    "coreChecking": "الخادم: جارٍ الفحص...",
+    "ragReady": "المعرفة: جاهزة",
+    "ragOffline": "المعرفة: غير متصلة",
+    "ragChecking": "المعرفة: جارٍ الفحص...",
+    "footerInfo": "تلخص هذه الفحوصات آخر اتصال ناجح بخادم tldw وفهرس المعرفة."
   },
   "storage": {
-    "quotaFriendlyMessage": "Too many settings writes in a short period; please wait a few seconds and try again.",
-    "quotaTitle": "Storage limit reached",
-    "writeError": "Could not save settings",
-    "writeErrorDescription": "We couldn't save your settings. Please try again shortly."
+    "quotaFriendlyMessage": "هناك الكثير من عمليات كتابة الإعدادات خلال فترة قصيرة؛ يرجى الانتظار لبضع ثوانٍ ثم المحاولة مرة أخرى.",
+    "quotaTitle": "تم بلوغ حد التخزين",
+    "writeError": "تعذر حفظ الإعدادات",
+    "writeErrorDescription": "لم نتمكن من حفظ إعداداتك. يرجى المحاولة مرة أخرى قريباً."
   },
   "evaluations": {
-    "title": "Evaluations playground",
-    "subtitle": "Define evaluations against your tldw server and inspect recent runs.",
-    "listTitle": "Recent evaluations",
-    "newEvaluationCta": "New evaluation",
-    "startRunCta": "Start run",
-    "loadErrorTitle": "Unable to load evaluations",
-    "loadErrorDescription": "Check your tldw server connection and API credentials, then try again.",
-    "emptyList": "No evaluations yet. Once you create one, it will appear here.",
-    "selectedTag": "Selected",
-    "rateLimitsTitle": "Evaluation limits",
-    "rateLimitsErrorTitle": "Unable to fetch rate limits",
-    "rateLimitsErrorDescription": "We could not retrieve evaluation quotas from the server.",
-    "rateLimitsNoData": "Rate limit information is not available for this server.",
-    "tierLabel": "Tier",
-    "dailyLimitLabel": "Daily evaluations",
-    "tokensTodayLabel": "Tokens today",
-    "perMinuteLabel": "Per-minute limit",
-    "resetAtLabel": "Resets at",
-    "runsTitle": "Runs",
-    "noEvalSelectedRuns": "Select an evaluation to see its recent runs.",
-    "runsErrorTitle": "Unable to load runs",
-    "runsEmpty": "No runs yet for this evaluation.",
-    "runDetailTitle": "Run details",
-    "noRunSelected": "Select a run to see details.",
-    "runDetailErrorTitle": "Unable to load run details",
-    "runStatusLabel": "Status",
-    "runModelLabelShort": "Target model",
-    "runEvalIdLabel": "Evaluation",
-    "runErrorLabel": "Error",
-    "runResultsLabel": "Results (snippet)",
-    "runProgressLabel": "Progress",
-    "runUsageLabel": "Usage",
-    "datasetsTitle": "Datasets",
-    "newDatasetCta": "New dataset",
-    "datasetsErrorTitle": "Unable to load datasets",
-    "datasetsEmpty": "No datasets yet. Create one to attach to evaluations.",
-    "datasetSampleCount": "{{count}} samples",
-    "datasetNameLabel": "Name",
+    "title": "ساحة التقييمات",
+    "subtitle": "عرّف التقييمات مقابل خادم tldw وافحص أحدث التشغيلات.",
+    "listTitle": "أحدث التقييمات",
+    "newEvaluationCta": "تقييم جديد",
+    "startRunCta": "بدء تشغيل",
+    "loadErrorTitle": "تعذر تحميل التقييمات",
+    "loadErrorDescription": "تحقق من اتصال خادم tldw وبيانات اعتماد API ثم حاول مرة أخرى.",
+    "emptyList": "لا توجد تقييمات بعد. عندما تنشئ واحداً سيظهر هنا.",
+    "selectedTag": "محدد",
+    "rateLimitsTitle": "حدود التقييم",
+    "rateLimitsErrorTitle": "تعذر جلب حدود المعدل",
+    "rateLimitsErrorDescription": "تعذر علينا استرداد حصص التقييم من الخادم.",
+    "rateLimitsNoData": "معلومات حدود المعدل غير متاحة لهذا الخادم.",
+    "tierLabel": "الفئة",
+    "dailyLimitLabel": "التقييمات اليومية",
+    "tokensTodayLabel": "الرموز اليوم",
+    "perMinuteLabel": "الحد لكل دقيقة",
+    "resetAtLabel": "يُعاد التعيين في",
+    "runsTitle": "التشغيلات",
+    "noEvalSelectedRuns": "اختر تقييماً لعرض تشغيلاته الأخيرة.",
+    "runsErrorTitle": "تعذر تحميل التشغيلات",
+    "runsEmpty": "لا توجد تشغيلات بعد لهذا التقييم.",
+    "runDetailTitle": "تفاصيل التشغيل",
+    "noRunSelected": "اختر تشغيلًا لعرض التفاصيل.",
+    "runDetailErrorTitle": "تعذر تحميل تفاصيل التشغيل",
+    "runStatusLabel": "الحالة",
+    "runModelLabelShort": "النموذج المستهدف",
+    "runEvalIdLabel": "التقييم",
+    "runErrorLabel": "خطأ",
+    "runResultsLabel": "النتائج (مقتطف)",
+    "runProgressLabel": "التقدم",
+    "runUsageLabel": "الاستخدام",
+    "datasetsTitle": "مجموعات البيانات",
+    "newDatasetCta": "مجموعة بيانات جديدة",
+    "datasetsErrorTitle": "تعذر تحميل مجموعات البيانات",
+    "datasetsEmpty": "لا توجد مجموعات بيانات بعد. أنشئ واحدة لإرفاقها بالتقييمات.",
+    "datasetSampleCount": "{{count}} عينة",
+    "datasetNameLabel": "الاسم",
     "datasetNamePlaceholder": "my_dataset",
-    "datasetDescriptionLabel": "Description",
-    "datasetMetadataLabel": "Metadata (JSON, optional)",
-    "sampleInputLabel": "Sample input",
-    "sampleExpectedLabel": "Expected output (optional)",
-    "samplesJsonLabel": "Samples JSON (optional, overrides fields)",
-    "datasetLabel": "Dataset (optional)",
-    "datasetPlaceholder": "Select dataset",
-    "datasetCreateSuccessTitle": "Dataset created",
-    "datasetCreateSuccessDescription": "Your dataset is ready to use in evaluations.",
-    "datasetCreateErrorTitle": "Failed to create dataset",
-    "datasetCreateErrorDescription": "The server rejected this dataset. Check the fields and try again.",
-    "datasetDeleteSuccessTitle": "Dataset deleted",
-    "datasetDeleteErrorTitle": "Failed to delete dataset",
-    "datasetLoadErrorTitle": "Failed to load dataset",
-    "datasetDetailTitle": "Dataset details",
-    "datasetParseErrorTitle": "Invalid samples JSON",
-    "createEvalModalTitle": "New evaluation",
-    "editEvalModalTitle": "Edit evaluation",
-    "evalNameLabel": "Name",
+    "datasetDescriptionLabel": "الوصف",
+    "datasetMetadataLabel": "البيانات الوصفية (JSON، اختياري)",
+    "sampleInputLabel": "مدخل العينة",
+    "sampleExpectedLabel": "المخرجات المتوقعة (اختياري)",
+    "samplesJsonLabel": "JSON للعينات (اختياري، يتجاوز الحقول)",
+    "datasetLabel": "مجموعة البيانات (اختياري)",
+    "datasetPlaceholder": "اختر مجموعة بيانات",
+    "datasetCreateSuccessTitle": "تم إنشاء مجموعة البيانات",
+    "datasetCreateSuccessDescription": "مجموعة البيانات جاهزة للاستخدام في التقييمات.",
+    "datasetCreateErrorTitle": "فشل إنشاء مجموعة البيانات",
+    "datasetCreateErrorDescription": "رفض الخادم مجموعة البيانات هذه. تحقق من الحقول ثم حاول مرة أخرى.",
+    "datasetDeleteSuccessTitle": "تم حذف مجموعة البيانات",
+    "datasetDeleteErrorTitle": "فشل حذف مجموعة البيانات",
+    "datasetLoadErrorTitle": "فشل تحميل مجموعة البيانات",
+    "datasetDetailTitle": "تفاصيل مجموعة البيانات",
+    "datasetParseErrorTitle": "JSON العينات غير صالح",
+    "createEvalModalTitle": "تقييم جديد",
+    "editEvalModalTitle": "تعديل التقييم",
+    "evalNameLabel": "الاسم",
     "evalNamePlaceholder": "my_eval_run",
-    "evalNameValidation": "Use only letters, numbers, hyphens, and underscores.",
-    "evalTypeLabel": "Evaluation type",
-    "evalSpecLabel": "Evaluation spec (JSON)",
-    "evalSpecParseError": "Evaluation spec must be valid JSON.",
-    "evalMetadataLabel": "Metadata (JSON, optional)",
-    "inlineDatasetCheckbox": "Attach inline dataset instead of referencing dataset_id",
-    "inlineDatasetErrorTitle": "Invalid inline dataset",
-    "runModelLabel": "Run model (used for quick runs)",
-    "createSuccessTitle": "Evaluation created",
-    "createErrorTitle": "Failed to create evaluation",
-    "createErrorDescription": "The server rejected this evaluation. Ensure name, type, and spec are valid.",
-    "updateSuccessTitle": "Evaluation updated",
-    "updateErrorTitle": "Failed to update evaluation",
-    "deleteErrorTitle": "Failed to delete evaluation",
-    "deleteConfirmTitle": "Delete this evaluation?",
-    "deleteConfirmDescription": "This will remove the evaluation definition. Runs already created remain in history.",
-    "detailTitle": "Evaluation details",
-    "detailErrorTitle": "Unable to load evaluation details",
-    "descriptionLabel": "Description",
-    "noEvalSelectedDetails": "Select an evaluation to inspect its spec.",
-    "runCreateSuccessTitle": "Run started",
-    "runCreateSuccessDescription": "Your evaluation run has started. You can monitor it from the server UI.",
-    "runCreateErrorTitle": "Failed to start run",
-    "runCreateErrorDescription": "The server rejected this run request. Check the model and try again.",
-    "runConfigLabel": "Config (JSON)",
-    "datasetOverrideLabel": "Dataset override (JSON array of samples)",
-    "runConfigParseError": "Invalid config JSON",
-    "runCancelSuccessTitle": "Run cancellation requested",
-    "runCancelErrorTitle": "Failed to cancel run",
-    "cancelRunCta": "Cancel run",
-    "historyTitle": "History",
-    "historyTypeLabel": "Type",
-    "historyUserLabel": "User ID",
-    "historyStartLabel": "Start date (ISO)",
-    "historyEndLabel": "End date (ISO)",
-    "historyFetchCta": "Fetch history",
-    "historyEmpty": "Run a query to see recent activity.",
-    "historyErrorTitle": "Failed to fetch history",
-    "webhooksTitle": "Webhooks",
-    "webhookUrlLabel": "URL",
-    "webhookEventsLabel": "Events",
-    "webhookCreateCta": "Register webhook",
-    "webhookCreateSuccessTitle": "Webhook registered",
-    "webhookCreateErrorTitle": "Failed to register webhook",
-    "webhookDeleteErrorTitle": "Failed to delete webhook",
-    "webhookListErrorTitle": "Unable to load webhooks",
-    "webhooksEmpty": "No webhooks registered yet.",
-    "webhookSecretTitle": "Secret",
-    "idempotencyKeyLabel": "Idempotency key",
-    "emptyConnectTitle": "Connect to use Evaluations",
-    "emptyConnectDescription": "To create and run evaluations, first connect to your tldw server.",
-    "emptyConnectExample1": "Open Settings → tldw server to add your server URL and API key.",
-    "emptyConnectExample2": "Once connected, you can define evaluations and inspect metrics here.",
-    "datasetSamplesLabel": "Samples",
-    "datasetSamplesEmpty": "No samples returned for this page.",
-    "metricsLabel": "Metrics"
+    "evalNameValidation": "استخدم الحروف والأرقام والشرطات والشرطات السفلية فقط.",
+    "evalTypeLabel": "نوع التقييم",
+    "evalSpecLabel": "مواصفات التقييم (JSON)",
+    "evalSpecParseError": "يجب أن تكون مواصفات التقييم JSON صالحاً.",
+    "evalMetadataLabel": "البيانات الوصفية (JSON، اختياري)",
+    "inlineDatasetCheckbox": "إرفاق مجموعة بيانات مضمنة بدلاً من الإشارة إلى dataset_id",
+    "inlineDatasetErrorTitle": "مجموعة البيانات المضمنة غير صالحة",
+    "runModelLabel": "نموذج التشغيل (يُستخدم للتشغيلات السريعة)",
+    "createSuccessTitle": "تم إنشاء التقييم",
+    "createErrorTitle": "فشل إنشاء التقييم",
+    "createErrorDescription": "رفض الخادم هذا التقييم. تأكد من صحة الاسم والنوع والمواصفات.",
+    "updateSuccessTitle": "تم تحديث التقييم",
+    "updateErrorTitle": "فشل تحديث التقييم",
+    "deleteErrorTitle": "فشل حذف التقييم",
+    "deleteConfirmTitle": "حذف هذا التقييم؟",
+    "deleteConfirmDescription": "سيؤدي ذلك إلى إزالة تعريف التقييم. ستظل التشغيلات التي أُنشئت مسبقاً في السجل.",
+    "detailTitle": "تفاصيل التقييم",
+    "detailErrorTitle": "تعذر تحميل تفاصيل التقييم",
+    "descriptionLabel": "الوصف",
+    "noEvalSelectedDetails": "اختر تقييماً لعرض مواصفاته.",
+    "runCreateSuccessTitle": "تم بدء التشغيل",
+    "runCreateSuccessDescription": "بدأ تشغيل التقييم. يمكنك مراقبته من واجهة الخادم.",
+    "runCreateErrorTitle": "فشل بدء التشغيل",
+    "runCreateErrorDescription": "رفض الخادم طلب التشغيل هذا. تحقق من النموذج ثم حاول مرة أخرى.",
+    "runConfigLabel": "الإعدادات (JSON)",
+    "datasetOverrideLabel": "تجاوز مجموعة البيانات (مصفوفة JSON للعينات)",
+    "runConfigParseError": "إعدادات JSON غير صالحة",
+    "runCancelSuccessTitle": "تم طلب إلغاء التشغيل",
+    "runCancelErrorTitle": "فشل إلغاء التشغيل",
+    "cancelRunCta": "إلغاء التشغيل",
+    "historyTitle": "السجل",
+    "historyTypeLabel": "النوع",
+    "historyUserLabel": "معرّف المستخدم",
+    "historyStartLabel": "تاريخ البدء (ISO)",
+    "historyEndLabel": "تاريخ الانتهاء (ISO)",
+    "historyFetchCta": "جلب السجل",
+    "historyEmpty": "قم بتشغيل استعلام لعرض النشاط الأخير.",
+    "historyErrorTitle": "فشل جلب السجل",
+    "webhooksTitle": "ويب هوكس",
+    "webhookUrlLabel": "الرابط",
+    "webhookEventsLabel": "الأحداث",
+    "webhookCreateCta": "تسجيل ويب هوك",
+    "webhookCreateSuccessTitle": "تم تسجيل ويب هوك",
+    "webhookCreateErrorTitle": "فشل تسجيل ويب هوك",
+    "webhookDeleteErrorTitle": "فشل حذف ويب هوك",
+    "webhookListErrorTitle": "تعذر تحميل الويب هوكس",
+    "webhooksEmpty": "لا توجد ويب هوكس مسجلة بعد.",
+    "webhookSecretTitle": "السر",
+    "idempotencyKeyLabel": "مفتاح عدم التكرار",
+    "emptyConnectTitle": "اتصل لاستخدام التقييمات",
+    "emptyConnectDescription": "لإنشاء التقييمات وتشغيلها، اتصل أولاً بخادم tldw.",
+    "emptyConnectExample1": "افتح الإعدادات → خادم tldw لإضافة عنوان الخادم ومفتاح API.",
+    "emptyConnectExample2": "بعد الاتصال، يمكنك تعريف التقييمات وفحص المقاييس هنا.",
+    "datasetSamplesLabel": "العينات",
+    "datasetSamplesEmpty": "لم يتم إرجاع عينات لهذه الصفحة.",
+    "metricsLabel": "المقاييس"
   },
   "evaluationsSettings": {
-    "title": "Evaluations",
-    "subtitle": "Configure defaults used by the Evaluations playground.",
-    "offline": "Connect to your tldw server to test Evaluations.",
-    "defaultType": "Default evaluation type",
-    "defaultModel": "Default target model",
-    "defaultRunConfig": "Default run config (JSON)",
-    "defaultDataset": "Default dataset id (optional)",
-    "specForType": "Spec preset for selected type",
-    "testCta": "Test Evaluations API",
-    "testOk": "Evaluations API reachable",
-    "testFail": "Unable to reach Evaluations API"
+    "title": "التقييمات",
+    "subtitle": "قم بتكوين الإعدادات الافتراضية المستخدمة في ساحة التقييمات.",
+    "offline": "اتصل بخادم tldw لاختبار التقييمات.",
+    "defaultType": "نوع التقييم الافتراضي",
+    "defaultModel": "النموذج المستهدف الافتراضي",
+    "defaultRunConfig": "إعداد التشغيل الافتراضي (JSON)",
+    "defaultDataset": "معرّف مجموعة البيانات الافتراضي (اختياري)",
+    "specForType": "قالب المواصفات للنوع المحدد",
+    "testCta": "اختبار واجهة برمجة التقييمات",
+    "testOk": "واجهة برمجة التقييمات متاحة",
+    "testFail": "تعذر الوصول إلى واجهة برمجة التقييمات"
   },
   "chunkingPlayground": {
     "nav": "ساحة تجزئة النص",

@@ -956,7 +956,8 @@
       "chat": "Chatta",
       "edit": "Modifica",
       "delete": "Elimina",
-      "viewConversations": "Visualizza conversazioni"
+      "viewConversations": "Visualizza conversazioni",
+      "duplicate": "Duplica"
     },
     "tags": {
       "label": "Tag",
@@ -972,7 +973,8 @@
       "edit": "Modifica personaggio {{name}}",
       "delete": "Elimina personaggio {{name}}",
       "viewConversations": "Visualizza conversazioni per {{name}}",
-      "searchResults": "{{count}} personaggi trovati"
+      "searchResults": "{{count}} personaggi trovati",
+      "duplicate": "Duplica il personaggio {{name}}"
     },
     "confirm": {
       "delete": "Sei sicuro di voler eliminare questo personaggio? Questa azione non può essere annullata."
@@ -988,7 +990,9 @@
         "label": "Comportamento / istruzioni",
         "placeholder": "Ad es.: Sei un insegnante di matematica paziente che spiega i concetti passo dopo passo e verifica la comprensione con brevi esempi.",
         "help": "Spiega il ruolo, il tono e i vincoli del personaggio. Ad esempio: \"Sei un tutor di matematica paziente che spiega i concetti passo dopo passo.\"",
-        "min": "Aggiungi una breve descrizione così il personaggio saprà come rispondere."
+        "min": "Aggiungi una breve descrizione così il personaggio saprà come rispondere.",
+        "required": "Aggiungi istruzioni per guidare le risposte.",
+        "max": "Il prompt di sistema deve essere lungo al massimo 2000 caratteri."
       },
       "avatarUrl": {
         "label": "URL avatar (opzionale)",
@@ -1051,6 +1055,24 @@
     "advanced": {
       "show": "Mostra campi avanzati",
       "hide": "Nascondi campi avanzati"
+    },
+    "table": {
+      "noDescription": "Nessuna descrizione"
+    },
+    "filter": {
+      "matchAll": "Abbina tutti i tag"
+    },
+    "avatar": {
+      "label": "Immagine profilo (opzionale)",
+      "tabUrl": "Indirizzo URL",
+      "tabUpload": "Carica",
+      "selectImageError": "Seleziona un file immagine",
+      "formatError": "Sono supportate solo immagini PNG, JPEG e GIF",
+      "invalidError": "File immagine non valido",
+      "processError": "Impossibile elaborare l'immagine",
+      "dropzone": "Fai clic o trascina un'immagine per caricarla",
+      "formats": "PNG, JPEG o GIF",
+      "preview": "Anteprima"
     }
   },
   "systemNotifications": {

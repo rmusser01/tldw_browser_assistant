@@ -870,121 +870,121 @@
     "message": "Strumenti per sviluppatori"
   },
   "mediaPage_spreadMode": {
-    "message": "Compare"
+    "message": "Confronta"
   },
   "mediaPage_listMode": {
     "message": "Focus"
   },
   "mediaPage_allMode": {
-    "message": "Stack"
+    "message": "Pila"
   },
   "mediaPage_spreadModeTooltip": {
-    "message": "View selected items side-by-side for comparison"
+    "message": "Visualizza gli elementi selezionati affiancati per confronto"
   },
   "mediaPage_listModeTooltip": {
-    "message": "View one item at a time with navigation"
+    "message": "Visualizza un elemento alla volta con navigazione"
   },
   "mediaPage_allModeTooltip": {
-    "message": "View all selected items in a scrollable list"
+    "message": "Visualizza tutti gli elementi selezionati in un elenco scorrevole"
   },
   "mediaPage_copyContentLabel": {
-    "message": "Copy Content"
+    "message": "Copia contenuto"
   },
   "mediaPage_copyAnalysisLabel": {
-    "message": "Copy Analysis"
+    "message": "Copia analisi"
   },
   "mediaPage_copyContentTooltip": {
-    "message": "Copy content to clipboard"
+    "message": "Copia il contenuto negli appunti"
   },
   "mediaPage_copyAnalysisTooltip": {
-    "message": "Copy analysis to clipboard"
+    "message": "Copia l'analisi negli appunti"
   },
   "mediaPage_prevItemTooltip": {
-    "message": "Previous item (←)"
+    "message": "Elemento precedente (←)"
   },
   "mediaPage_nextItemTooltip": {
-    "message": "Next item (→)"
+    "message": "Elemento successivo (→)"
   },
   "mediaPage_viewerOptions": {
-    "message": "Options"
+    "message": "Opzioni"
   },
   "mediaPage_expandAllDropdown": {
-    "message": "Expand/Collapse"
+    "message": "Espandi/Comprimi"
   },
   "mediaPage_itemPosition": {
-    "message": "Item {{current}} of {{total}}"
+    "message": "Elemento {{current}} di {{total}}"
   },
   "mediaPage_noItemSelected": {
-    "message": "No item selected"
+    "message": "Nessun elemento selezionato"
   },
   "mediaPage_firstUseTitle": {
-    "message": "Quick Guide: Multi-Item Review"
+    "message": "Guida rapida: Revisione multi-elemento"
   },
   "mediaPage_firstUseStep1": {
-    "message": "Select items"
+    "message": "Seleziona elementi"
   },
   "mediaPage_firstUseStep1Desc": {
-    "message": "Click items in the left panel to add them to your viewer."
+    "message": "Clicca sugli elementi nel pannello sinistro per aggiungerli al visualizzatore."
   },
   "mediaPage_firstUseStep2": {
-    "message": "Choose a view"
+    "message": "Scegli una vista"
   },
   "mediaPage_firstUseStep2DescUpdated": {
-    "message": "Use \"Compare\" for side-by-side, \"Focus\" for one at a time, or \"Stack\" to see all."
+    "message": "Usa \"Confronta\" per affiancarli, \"Focus\" per uno alla volta, o \"Pila\" per vederli tutti."
   },
   "mediaPage_firstUseStep3": {
-    "message": "Navigate"
+    "message": "Naviga"
   },
   "mediaPage_firstUseStep3Desc": {
-    "message": "Use Prev/Next buttons or keyboard (Tab + Enter) to move through items."
+    "message": "Usa i pulsanti Prec/Succ o la tastiera (Tab + Invio) per muoverti tra gli elementi."
   },
   "mediaPage_gotIt": {
-    "message": "Got it"
+    "message": "Capito"
   },
   "mediaPage_model": {
-    "message": "Model"
+    "message": "Modello"
   },
   "mediaPage_selectModel": {
-    "message": "Select a model"
+    "message": "Seleziona un modello"
   },
   "mediaPage_noModelsAvailable": {
-    "message": "No models available"
+    "message": "Nessun modello disponibile"
   },
   "mediaPage_promptPresets": {
-    "message": "Prompt presets"
+    "message": "Preset di prompt"
   },
   "mediaPage_showPresets": {
-    "message": "Show presets"
+    "message": "Mostra preset"
   },
   "mediaPage_hidePresets": {
-    "message": "Hide presets"
+    "message": "Nascondi preset"
   },
   "mediaPage_systemPromptLabel": {
-    "message": "System prompt"
+    "message": "Prompt di sistema"
   },
   "mediaPage_systemPromptPlaceholder": {
-    "message": "Enter system prompt..."
+    "message": "Inserisci prompt di sistema..."
   },
   "mediaPage_userPromptPrefixLabel": {
-    "message": "User prompt prefix"
+    "message": "Prefisso prompt utente"
   },
   "mediaPage_prependedBeforeContent": {
-    "message": "(prepended before content)"
+    "message": "(anteposto prima del contenuto)"
   },
   "mediaPage_userPrefixPlaceholder": {
-    "message": "Optional: Enter text to prepend before the media content..."
+    "message": "Opzionale: Inserisci testo da anteporre prima del contenuto multimediale..."
   },
   "mediaPage_presetComprehensiveAnalysis": {
-    "message": "Comprehensive analysis"
+    "message": "Analisi completa"
   },
   "mediaPage_presetExecutiveSummary": {
-    "message": "Executive summary"
+    "message": "Riepilogo esecutivo"
   },
   "mediaPage_presetCriticalReview": {
-    "message": "Critical review"
+    "message": "Revisione critica"
   },
   "mediaPage_presetQAAnalysis": {
-    "message": "Q&A analysis"
+    "message": "Analisi Q&A"
   },
   "empty_connectTitle": {
     "message": "Connect to use Review"
@@ -1075,5 +1075,23 @@
   },
   "mediaEmpty_offlineTechnicalDetails": {
     "message": "Dettagli tecnici: questo server tldw non pubblicizza gli endpoint Media (ad esempio /api/v1/media e /api/v1/media/search)."
+  },
+  "contentReview_templates_transcript_clean_label": {
+    "message": "Pulisci trascrizione"
+  },
+  "contentReview_templates_transcript_clean_description": {
+    "message": "Normalizza punteggiatura e maiuscole/minuscole mantenendo la struttura delle righe."
+  },
+  "contentReview_templates_speaker_turns_label": {
+    "message": "Turni di parlato"
+  },
+  "contentReview_templates_speaker_turns_description": {
+    "message": "Assicura che ogni turno di parlato sia su una propria riga con etichette chiare."
+  },
+  "contentReview_templates_chapter_headings_label": {
+    "message": "Titoli di capitolo"
+  },
+  "contentReview_templates_chapter_headings_description": {
+    "message": "Inserisce intestazioni Markdown per raggruppare gli argomenti senza rimuovere contenuto."
   }
 }

@@ -960,7 +960,8 @@
       "chat": "聊天",
       "edit": "編輯",
       "delete": "刪除",
-      "viewConversations": "查看對話"
+      "viewConversations": "查看對話",
+      "duplicate": "複製"
     },
     "tags": {
       "label": "標籤",
@@ -976,7 +977,8 @@
       "edit": "編輯角色 {{name}}",
       "delete": "刪除角色 {{name}}",
       "viewConversations": "查看 {{name}} 的對話",
-      "searchResults": "找到 {{count}} 個角色"
+      "searchResults": "找到 {{count}} 個角色",
+      "duplicate": "複製角色 {{name}}"
     },
     "confirm": {
       "delete": "確定要刪除這個角色嗎？此動作無法復原。"
@@ -992,7 +994,9 @@
         "label": "行為／指示",
         "placeholder": "例如：你是一位有耐心的數學老師，循序解說並用短例子確認理解。",
         "help": "說明角色的定位、語氣與限制。例如：「你是一位有耐心的數學家教，會一步步解釋概念。」",
-        "min": "添加簡短描述，讓角色知道如何回應。"
+        "min": "添加簡短描述，讓角色知道如何回應。",
+        "required": "請新增指示以引導回應。",
+        "max": "系統提示詞必須少於或等於 2000 個字元。"
       },
       "avatarUrl": {
         "label": "頭像網址（可選）",
@@ -1055,6 +1059,24 @@
     "advanced": {
       "show": "顯示進階欄位",
       "hide": "隱藏進階欄位"
+    },
+    "table": {
+      "noDescription": "無描述"
+    },
+    "filter": {
+      "matchAll": "符合所有標籤"
+    },
+    "avatar": {
+      "label": "頭像（選用）",
+      "tabUrl": "URL 位址",
+      "tabUpload": "上傳",
+      "selectImageError": "請選擇圖片檔案",
+      "formatError": "僅支援 PNG、JPEG 和 GIF 圖片",
+      "invalidError": "無效的圖片檔案",
+      "processError": "處理圖片失敗",
+      "dropzone": "點擊或拖曳圖片以進行上傳",
+      "formats": "PNG、JPEG 或 GIF",
+      "preview": "預覽"
     }
   },
   "systemNotifications": {

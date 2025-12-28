@@ -1,0 +1,311 @@
+{
+  "tooltip_embed": {
+    "message": "പേജ് പ്രോസസ്സ് ചെയ്യുന്നതിന് കുറച്ച് മിനിറ്റുകൾ എടുത്തേക്കാം. കാത്തിരിക്കൂ.."
+  },
+  "tooltip_openwebui": {
+    "message": "വെബ് യുഐ തുറക്കുക"
+  },
+  "tooltip_clear": {
+    "message": "ചാറ്റ് ചരിത്രം മായ്ക്കുക"
+  },
+  "tooltip_history": {
+    "message": "ചാറ്റ് ചരിത്രം"
+  },
+  "toolbar_ragSearch": {
+    "message": "RAG Search"
+  },
+  "errors_privateModeTitle": {
+    "message": "tldw Assistant ന് ഡാറ്റ സംരക്ഷിക്കാൻ സാധിക്കുന്നില്ല"
+  },
+  "errors_privateModeDescription": {
+    "message": "Firefox സ്വകാര്യ മോഡിൽ ചാറ്റ് ചരിത്രം സംരക്ഷിക്കാൻ കഴിയില്ല. താൽക്കാലിക ചാറ്റ് സ്വതവേ ഓണാണ്. കൂടുതൽ പരിഹാരങ്ങൾ ഉടൻ വരുന്നു."
+  },
+  "connectionBanner_connecting": {
+    "message": "നിങ്ങളുടെ tldw സർവറിലേക്ക് കണക്റ്റ് ചെയ്യുന്നു..."
+  },
+  "connectionBanner_authErrorTitle": {
+    "message": "API കീ ശ്രദ്ധിക്കേണ്ടതാണ്"
+  },
+  "connectionBanner_authErrorBody": {
+    "message": "സർവർ ലഭ്യമാണ്, പക്ഷേ API കീ തെറ്റായതോ കാണാതെയോ ആണ്."
+  },
+  "connectionBanner_unreachableTitle": {
+    "message": "tldw സർവറിലെത്താൻ കഴിയില്ല"
+  },
+  "connectionBanner_unreachableBody": {
+    "message": "സർവർ പ്രവർത്തിക്കുന്നുവെന്നും ലഭ്യമാണെന്നും പരിശോധിക്കുക."
+  },
+  "connectionBanner_noUrlBody": {
+    "message": "തുടങ്ങാൻ ക്രമീകരണങ്ങളിൽ സർവർ URL ചേർക്കുക."
+  },
+  "connectionBanner_disconnectedTitle": {
+    "message": "tldw സർവറുമായി കണക്റ്റ് ചെയ്തിട്ടില്ല"
+  },
+  "connectionBanner_disconnectedBody": {
+    "message": "സർവർ കണക്ഷൻ ക്രമീകരിക്കാൻ ക്രമീകരണങ്ങൾ തുറക്കുക."
+  },
+  "connectionBanner_setupTitle": {
+    "message": "ചാറ്റ് തുടങ്ങാൻ സെറ്റപ്പ് പൂർത്തിയാക്കുക"
+  },
+  "connectionBanner_setupBody": {
+    "message": "കണക്റ്റ് ചെയ്യാൻ ക്രമീകരണങ്ങളിലെ സെറ്റപ്പ് വിസാർഡ് പൂർത്തിയാക്കുക."
+  },
+  "connectionBanner_openSettings": {
+    "message": "ക്രമീകരണങ്ങൾ തുറക്കുക"
+  },
+  "temporaryBadge_title": {
+    "message": "താൽക്കാലിക ചാറ്റ്"
+  },
+  "temporaryBadge_label": {
+    "message": "താൽക്കാലികം"
+  },
+  "temporaryBadge_description": {
+    "message": "ഈ ചാറ്റ് സേവ് ചെയ്യില്ല. നിങ്ങൾ അടയ്ക്കുകയോ പുതിയ ചാറ്റ് തുടങ്ങുകയോ ചെയ്താൽ സന്ദേശങ്ങൾ മായ്ക്കപ്പെടും."
+  },
+  "temporaryBadge_clickHint": {
+    "message": "അപ്രാപ്തമാക്കാൻ ക്ലിക്ക് ചെയ്യുക"
+  },
+  "temporaryBadge_ariaLabel": {
+    "message": "താൽക്കാലിക ചാറ്റ് മോഡ് സജീവമാണ്. മാറാൻ ക്ലിക്ക് ചെയ്യുക."
+  },
+  "temporaryBadge_indicatorTooltip": {
+    "message": "ഈ ചാറ്റിലെ സന്ദേശങ്ങൾ സേവ് ചെയ്യില്ല"
+  },
+  "temporaryBadge_indicatorAria": {
+    "message": "താൽക്കാലിക ചാറ്റ്"
+  },
+  "header_ingest": {
+    "message": "ഇൻജെസ്റ്റ്"
+  },
+  "header_saveCurrent": {
+    "message": "നിലവിലെ പേജ് സർവറിൽ സംരക്ഷിക്കുക"
+  },
+  "header_processLocal": {
+    "message": "നിലവിലെ പേജ് ലോകലായി പ്രോസസ്സ് ചെയ്യുക"
+  },
+  "header_viewProcessed": {
+    "message": "പ്രോസസ്സ് ചെയ്തത് കാണുക"
+  },
+  "header_timeoutLabel": {
+    "message": "ടൈംഔട്ട് (സെ)"
+  },
+  "header_toggleSidebar": {
+    "message": "സൈഡ്ബാർ / ഫുൾ സ്ക്രീൻ ടോഗിൾ ചെയ്യുക"
+  },
+  "header_shortcuts": {
+    "message": "ഷോർട്‌കട്ടുകൾ"
+  },
+  "header_showDebug": {
+    "message": "സ്റ്റ്രീം ഡീബഗ് കാണിക്കുക"
+  },
+  "header_hideDebug": {
+    "message": "സ്റ്റ്രീം ഡീബഗ് മറയ്ക്കുക"
+  },
+  "header_moreOptionsAria": {
+    "message": "കൂടുതൽ ഓപ്ഷനുകൾ"
+  },
+  "header_moreOptionsTitle": {
+    "message": "ഇൻജെസ്റ്റ്‌വും മറ്റും"
+  },
+  "header_openWebuiAria": {
+    "message": "Web UI തുറക്കുക"
+  },
+  "header_newChatAria": {
+    "message": "പുതിയ ചാറ്റ്"
+  },
+  "header_tempChatAria": {
+    "message": "താൽക്കാലിക ചാറ്റ് ടോഗിൾ ചെയ്യുക"
+  },
+  "header_clearHistoryAria": {
+    "message": "ചരിത്രം മായ്ക്കുക"
+  },
+  "header_openHistoryAria": {
+    "message": "ചരിത്രം തുറക്കുക"
+  },
+  "header_openModelSettingsAria": {
+    "message": "മോഡൽ ക്രമീകരണങ്ങൾ തുറക്കുക"
+  },
+  "header_openSettingsAria": {
+    "message": "ക്രമീകരണങ്ങൾ തുറക്കുക"
+  },
+  "header_tempPill": {
+    "message": "താൽക്കാലികം"
+  },
+  "header_modesLabel": {
+    "message": "Web UIയിൽ മോഡുകൾ തുറക്കുക"
+  },
+  "header_modePlayground": {
+    "message": "ചാറ്റ്"
+  },
+  "header_modeReview": {
+    "message": "മൾട്ടി-ഐറ്റം റിവ്യൂ"
+  },
+  "header_modeMedia": {
+    "message": "മീഡിയ"
+  },
+  "header_modeKnowledge": {
+    "message": "അറിവ്"
+  },
+  "header_modeNotes": {
+    "message": "കുറിപ്പുകൾ"
+  },
+  "header_modePrompts": {
+    "message": "പ്രോംപ്റ്റുകൾ"
+  },
+  "header_modeFlashcards": {
+    "message": "ഫ്ലാഷ്കാർഡുകൾ"
+  },
+  "controlRow_saveMode": {
+    "message": "സംരക്ഷണ മോഡ്"
+  },
+  "controlRow_ephemeral": {
+    "message": "താൽക്കാലികം"
+  },
+  "controlRow_searchSection": {
+    "message": "തിരച്ചിലും വിഷനും"
+  },
+  "controlRow_webSearch": {
+    "message": "വെബ് തിരച്ചിൽ"
+  },
+  "controlRow_vision": {
+    "message": "വിഷൻ"
+  },
+  "controlRow_uploadImage": {
+    "message": "ചിത്രം അപ്‌ലോഡ് ചെയ്യുക"
+  },
+  "controlRow_quickIngest": {
+    "message": "പേജ് പെട്ടെന്ന് പ്രോസസ്സ് ചെയ്യുക"
+  },
+  "controlRow_openInFullUI": {
+    "message": "പൂർണ്ണ UI-ൽ തുറക്കുക"
+  },
+  "controlRow_modeChat": {
+    "message": "ചാറ്റ്"
+  },
+  "controlRow_modeMedia": {
+    "message": "മീഡിയ"
+  },
+  "controlRow_modeNotes": {
+    "message": "കുറിപ്പുകൾ"
+  },
+  "controlRow_modeFlashcards": {
+    "message": "ഫ്ലാഷ് കാർഡുകൾ"
+  },
+  "controlRow_ragSearch": {
+    "message": "RAG തിരച്ചിൽ"
+  },
+  "controlRow_moreTools": {
+    "message": "കൂടുതൽ ഉപകരണങ്ങൾ"
+  },
+  "composer_connectHint": {
+    "message": "സന്ദേശങ്ങൾ അയയ്ക്കാൻ സെറ്റിംഗുകളിൽ നിങ്ങളുടെ tldw സർവറുമായി ബന്ധിപ്പിക്കുക."
+  },
+  "composer_connectingPlaceholder": {
+    "message": "ബന്ധിപ്പിക്കുന്നു..."
+  },
+  "composer_disconnectedPlaceholder": {
+    "message": "സന്ദേശങ്ങൾ അയയ്ക്കാനും മീഡിയ കാണാനുമായി സെറ്റിംഗുകളിൽ നിങ്ങളുടെ tldw സർവറുമായി ബന്ധിപ്പിക്കുക."
+  },
+  "notification_ingestSent": {
+    "message": "tldw സർവറിലേക്ക് അയച്ചു"
+  },
+  "notification_ingestSentDesc": {
+    "message": "നിലവിലെ പേജ് ഇൻജെസ്റ്റ് ചെയ്യാൻ സമർപ്പിച്ചു."
+  },
+  "notification_processedLocal": {
+    "message": "ലോകലായി പ്രോസസ്സ് ചെയ്തു"
+  },
+  "notification_processedLocalDesc": {
+    "message": "പ്രോസസ്സ് ചെയ്ത ഉള്ളടക്കം Settings > Processed ൽ ലോകലായി സംഭരിച്ചു."
+  },
+  "notification_transcriptionTitle": {
+    "message": "ട്രാൻസ്ക്രിപ്ഷൻ"
+  },
+  "notification_transcriptionSummaryTitle": {
+    "message": "ട്രാൻസ്ക്രിപ്ഷൻ + സംഗ്രഹം"
+  },
+  "notification_transcriptionFallback": {
+    "message": "ട്രാൻസ്ക്രിപ്ഷൻ പൂർത്തിയായി. Web UIയിൽ Media തുറന്ന് അത് കാണുക."
+  },
+  "notification_sourceLabel": {
+    "message": "ഉറവ്"
+  },
+  "notification_transcriptLabel": {
+    "message": "ട്രാൻസ്ക്രിപ്റ്റ്"
+  },
+  "notification_summaryLabel": {
+    "message": "സംഗ്രഹം"
+  },
+  "saveStatus_ephemeral": {
+    "message": "താൽക്കാലികം: സേവ് ചെയ്യില്ല, അടയ്ക്കുമ്പോൾ മായ്ക്കപ്പെടും"
+  },
+  "saveStatus_local": {
+    "message": "ഈ ബ്രൗസറിൽ പ്രാദേശികമായി സേവ് ചെയ്തു"
+  },
+  "saveStatus_server": {
+    "message": "സർവറിൽ സേവ് ചെയ്തു"
+  },
+  "saveStatus_saveFailed": {
+    "message": "ചാറ്റ് സർവറിൽ സേവ് ചെയ്യാനായില്ല"
+  },
+  "saveStatus_saveFailedDescription": {
+    "message": "ഇപ്പോൾ ചാറ്റ് പ്രാദേശികമായി മാത്രമാണ് സേവ് ചെയ്യുന്നത്. ബന്ധം പരിശോധിച്ച് വീണ്ടും ശ്രമിക്കുക."
+  },
+  "rag_searchPlaceholder": {
+    "message": "നിങ്ങളുടെ അറിവ് തിരയുക…"
+  },
+  "rag_search": {
+    "message": "തിരയുക"
+  },
+  "rag_show": {
+    "message": "Show RAG search"
+  },
+  "rag_hide": {
+    "message": "Hide RAG search"
+  },
+  "rag_addTagPlaceholder": {
+    "message": "ടാഗ് ചേർക്കുക (Enter)"
+  },
+  "rag_add": {
+    "message": "ചേർക്കുക"
+  },
+  "rag_noResults": {
+    "message": "ഫലങ്ങളില്ല"
+  },
+  "rag_timeout_message": {
+    "message": "അഭ്യർത്ഥനയുടെ സമയപരിധി കഴിഞ്ഞു."
+  },
+  "rag_timeout_increase": {
+    "message": "ടൈംഔട്ട് വർധിപ്പിക്കുക"
+  },
+  "rag_timeout_checkHealth": {
+    "message": "സർവർ ഹെൽത്ത് പരിശോധിക്കുക"
+  },
+  "rag_actions_insert": {
+    "message": "ചേർക്കുക"
+  },
+  "rag_actions_ask": {
+    "message": "ചോദിക്കുക"
+  },
+  "rag_actions_open": {
+    "message": "തുറക്കുക"
+  },
+  "rag_actions_copy": {
+    "message": "പകർത്തുക"
+  },
+  "rag_hint_message": {
+    "message": "നിങ്ങളുടെ അറിവ് ശേഖരത്തിൽ തിരയുകയും ഫലങ്ങൾ നിങ്ങളുടെ സന്ദേശത്തിൽ ചേർക്കുകയും ചെയ്യുക."
+  },
+  "rag_hint_dismiss": {
+    "message": "അടയ്ക്കുക"
+  },
+  "tabs_newChat": {
+    "message": "പുതിയ ചാറ്റ്"
+  },
+  "tabs_newTabAria": {
+    "message": "പുതിയ ചാറ്റ് ടാബ്"
+  },
+  "tabs_closeTabAria": {
+    "message": "ചാറ്റ് ടാബ് അടയ്ക്കുക"
+  }
+}

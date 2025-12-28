@@ -824,7 +824,6 @@
     }
   },
   "chunkingPlayground": {
-    "_todo": "TODO: translate chunkingPlayground strings (copied from en)",
     "nav": "Chunking Playground",
     "title": "Chunking Playground",
     "description": "Experiment with different chunking settings to see how text gets split into smaller pieces for processing.",

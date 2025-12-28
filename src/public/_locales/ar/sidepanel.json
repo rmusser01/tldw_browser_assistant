@@ -1,0 +1,311 @@
+{
+  "tooltip_embed": {
+    "message": "قد يستغرق تضمين الصفحة بضع دقائق. يرجى الانتظار..."
+  },
+  "tooltip_clear": {
+    "message": "مسح سجل المحادثة"
+  },
+  "tooltip_history": {
+    "message": "سجل المحادثة"
+  },
+  "tooltip_openwebui": {
+    "message": "فتح واجهة الويب"
+  },
+  "toolbar_ragSearch": {
+    "message": "RAG Search"
+  },
+  "errors_privateModeTitle": {
+    "message": "يتعذر على tldw Assistant حفظ البيانات"
+  },
+  "errors_privateModeDescription": {
+    "message": "لا يدعم وضع التصفح الخاص في فايرفوكس حفظ سجل الدردشة. يتم تفعيل الدردشة المؤقتة افتراضيًا. تحسينات قادمة قريبًا."
+  },
+  "connectionBanner_connecting": {
+    "message": "جارٍ الاتصال بخادم tldw الخاص بك..."
+  },
+  "connectionBanner_authErrorTitle": {
+    "message": "مفتاح API يحتاج إلى انتباه"
+  },
+  "connectionBanner_authErrorBody": {
+    "message": "الخادم قابل للوصول، لكن مفتاح API غير صحيح أو مفقود."
+  },
+  "connectionBanner_unreachableTitle": {
+    "message": "تعذر الوصول إلى خادم tldw"
+  },
+  "connectionBanner_unreachableBody": {
+    "message": "تحقق من أن الخادم يعمل ويمكن الوصول إليه."
+  },
+  "connectionBanner_noUrlBody": {
+    "message": "أضف عنوان URL للخادم في الإعدادات للبدء."
+  },
+  "connectionBanner_disconnectedTitle": {
+    "message": "غير متصل بخادم tldw"
+  },
+  "connectionBanner_disconnectedBody": {
+    "message": "افتح الإعدادات لتهيئة اتصال الخادم."
+  },
+  "connectionBanner_setupTitle": {
+    "message": "أكمل الإعداد لبدء الدردشة"
+  },
+  "connectionBanner_setupBody": {
+    "message": "أكمل معالج الإعداد في الإعدادات للاتصال."
+  },
+  "connectionBanner_openSettings": {
+    "message": "افتح الإعدادات"
+  },
+  "temporaryBadge_title": {
+    "message": "دردشة مؤقتة"
+  },
+  "temporaryBadge_label": {
+    "message": "Temp"
+  },
+  "temporaryBadge_description": {
+    "message": "لن يتم حفظ هذه الدردشة. ستُمسح الرسائل عند الإغلاق أو بدء دردشة جديدة."
+  },
+  "temporaryBadge_clickHint": {
+    "message": "انقر للتعطيل"
+  },
+  "temporaryBadge_ariaLabel": {
+    "message": "وضع الدردشة المؤقتة نشط. انقر للتبديل."
+  },
+  "temporaryBadge_indicatorTooltip": {
+    "message": "رسائل هذه الدردشة لن تُحفظ"
+  },
+  "temporaryBadge_indicatorAria": {
+    "message": "دردشة مؤقتة"
+  },
+  "header_ingest": {
+    "message": "Ingest"
+  },
+  "header_saveCurrent": {
+    "message": "Save current page on server"
+  },
+  "header_processLocal": {
+    "message": "Process current page locally"
+  },
+  "header_viewProcessed": {
+    "message": "View processed"
+  },
+  "header_timeoutLabel": {
+    "message": "Timeout (s)"
+  },
+  "header_toggleSidebar": {
+    "message": "Toggle Sidebar / Full Screen"
+  },
+  "header_shortcuts": {
+    "message": "Shortcuts"
+  },
+  "header_showDebug": {
+    "message": "Show Stream Debug"
+  },
+  "header_hideDebug": {
+    "message": "Hide Stream Debug"
+  },
+  "header_moreOptionsAria": {
+    "message": "More options"
+  },
+  "header_moreOptionsTitle": {
+    "message": "Ingest and more"
+  },
+  "header_openWebuiAria": {
+    "message": "Open Web UI"
+  },
+  "header_newChatAria": {
+    "message": "New chat"
+  },
+  "header_tempChatAria": {
+    "message": "Toggle temporary chat"
+  },
+  "header_clearHistoryAria": {
+    "message": "Clear history"
+  },
+  "header_openHistoryAria": {
+    "message": "Open history"
+  },
+  "header_openModelSettingsAria": {
+    "message": "Open model settings"
+  },
+  "header_openSettingsAria": {
+    "message": "Open settings"
+  },
+  "header_tempPill": {
+    "message": "Temp"
+  },
+  "header_modesLabel": {
+    "message": "Open modes in Web UI"
+  },
+  "header_modePlayground": {
+    "message": "Chat"
+  },
+  "header_modeReview": {
+    "message": "Multi-Item Review"
+  },
+  "header_modeMedia": {
+    "message": "Media"
+  },
+  "header_modeKnowledge": {
+    "message": "Knowledge"
+  },
+  "header_modeNotes": {
+    "message": "Notes"
+  },
+  "header_modePrompts": {
+    "message": "Prompts"
+  },
+  "header_modeFlashcards": {
+    "message": "Flashcards"
+  },
+  "controlRow_saveMode": {
+    "message": "وضع الحفظ"
+  },
+  "controlRow_ephemeral": {
+    "message": "مؤقت"
+  },
+  "controlRow_searchSection": {
+    "message": "البحث والرؤية"
+  },
+  "controlRow_webSearch": {
+    "message": "بحث الويب"
+  },
+  "controlRow_vision": {
+    "message": "الرؤية"
+  },
+  "controlRow_uploadImage": {
+    "message": "تحميل صورة"
+  },
+  "controlRow_quickIngest": {
+    "message": "إدخال سريع للصفحة"
+  },
+  "controlRow_openInFullUI": {
+    "message": "فتح في الواجهة الكاملة"
+  },
+  "controlRow_modeChat": {
+    "message": "الدردشة"
+  },
+  "controlRow_modeMedia": {
+    "message": "الوسائط"
+  },
+  "controlRow_modeNotes": {
+    "message": "الملاحظات"
+  },
+  "controlRow_modeFlashcards": {
+    "message": "البطاقات التعليمية"
+  },
+  "controlRow_ragSearch": {
+    "message": "بحث RAG"
+  },
+  "controlRow_moreTools": {
+    "message": "المزيد من الأدوات"
+  },
+  "composer_connectHint": {
+    "message": "Connect to your tldw server in Settings to send messages."
+  },
+  "composer_connectingPlaceholder": {
+    "message": "Connecting..."
+  },
+  "composer_disconnectedPlaceholder": {
+    "message": "Connect to your tldw server in Settings to send messages and view media."
+  },
+  "notification_ingestSent": {
+    "message": "Sent to tldw server"
+  },
+  "notification_ingestSentDesc": {
+    "message": "Current page has been submitted for ingestion."
+  },
+  "notification_processedLocal": {
+    "message": "Processed locally"
+  },
+  "notification_processedLocalDesc": {
+    "message": "Processed content stored locally under Settings > Processed."
+  },
+  "notification_transcriptionTitle": {
+    "message": "Transcription"
+  },
+  "notification_transcriptionSummaryTitle": {
+    "message": "Transcription + summary"
+  },
+  "notification_transcriptionFallback": {
+    "message": "Transcription completed. Open Media in the Web UI to view it."
+  },
+  "notification_sourceLabel": {
+    "message": "Source"
+  },
+  "notification_transcriptLabel": {
+    "message": "Transcript"
+  },
+  "notification_summaryLabel": {
+    "message": "Summary"
+  },
+  "saveStatus_ephemeral": {
+    "message": "مؤقت: غير محفوظ، يمسح عند الإغلاق"
+  },
+  "saveStatus_local": {
+    "message": "محفوظ محليًا في هذا المتصفح"
+  },
+  "saveStatus_server": {
+    "message": "محفوظ على الخادم"
+  },
+  "saveStatus_saveFailed": {
+    "message": "تعذر حفظ الدردشة على الخادم"
+  },
+  "saveStatus_saveFailedDescription": {
+    "message": "يتم الآن حفظ الدردشة محليًا فقط. تحقق من الاتصال وحاول مرة أخرى."
+  },
+  "rag_searchPlaceholder": {
+    "message": "Search your knowledge…"
+  },
+  "rag_search": {
+    "message": "Search"
+  },
+  "rag_show": {
+    "message": "Show RAG search"
+  },
+  "rag_hide": {
+    "message": "Hide RAG search"
+  },
+  "rag_addTagPlaceholder": {
+    "message": "Add tag (Enter)"
+  },
+  "rag_add": {
+    "message": "Add"
+  },
+  "rag_noResults": {
+    "message": "No results"
+  },
+  "rag_timeout_message": {
+    "message": "Request timed out."
+  },
+  "rag_timeout_increase": {
+    "message": "Increase timeout"
+  },
+  "rag_timeout_checkHealth": {
+    "message": "Check server health"
+  },
+  "rag_actions_insert": {
+    "message": "Insert"
+  },
+  "rag_actions_ask": {
+    "message": "Ask"
+  },
+  "rag_actions_open": {
+    "message": "Open"
+  },
+  "rag_actions_copy": {
+    "message": "Copy"
+  },
+  "rag_hint_message": {
+    "message": "ابحث في قاعدة معرفتك وأدرِج النتائج في رسالتك."
+  },
+  "rag_hint_dismiss": {
+    "message": "إغلاق"
+  },
+  "tabs_newChat": {
+    "message": "دردشة جديدة"
+  },
+  "tabs_newTabAria": {
+    "message": "علامة تبويب دردشة جديدة"
+  },
+  "tabs_closeTabAria": {
+    "message": "إغلاق علامة تبويب الدردشة"
+  }
+}

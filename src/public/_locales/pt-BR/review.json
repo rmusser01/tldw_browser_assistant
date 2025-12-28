@@ -556,5 +556,209 @@
   },
   "mediaEmpty_offlineTechnicalDetails": {
     "message": "Detalhes técnicos: este servidor tldw não anuncia os endpoints de Mídia (por exemplo, /api/v1/media e /api/v1/media/search)."
+  },
+  "mediaPage_mediaInspector": {
+    "message": "Inspetor de mídia"
+  },
+  "mediaPage_searchPlaceholder": {
+    "message": "Buscar mídia (título/conteúdo)"
+  },
+  "mediaPage_search": {
+    "message": "Buscar"
+  },
+  "mediaPage_clear": {
+    "message": "Limpar"
+  },
+  "mediaPage_types": {
+    "message": "Tipos de mídia"
+  },
+  "mediaPage_keywords": {
+    "message": "Palavras-chave"
+  },
+  "mediaPage_moreTags": {
+    "message": "+{{count}} tags adicionais"
+  },
+  "mediaPage_resetFilters": {
+    "message": "Redefinir filtros"
+  },
+  "mediaPage_clearAll": {
+    "message": "Limpar tudo"
+  },
+  "mediaPage_content": {
+    "message": "Conteúdo"
+  },
+  "mediaPage_vertical": {
+    "message": "Vertical"
+  },
+  "mediaPage_horizontal": {
+    "message": "Horizontal"
+  },
+  "mediaPage_results": {
+    "message": "Resultados"
+  },
+  "mediaPage_showSidebar": {
+    "message": "Mostrar barra lateral"
+  },
+  "mediaPage_hideSidebar": {
+    "message": "Ocultar barra lateral"
+  },
+  "mediaPage_viewer": {
+    "message": "Visualizador"
+  },
+  "mediaPage_selectItemsHint": {
+    "message": "Selecione itens à esquerda para visualizá-los aqui."
+  },
+  "mediaPage_mediaContent": {
+    "message": "Conteúdo da mídia"
+  },
+  "mediaPage_copyContent": {
+    "message": "Copiar conteúdo"
+  },
+  "mediaPage_contentCopied": {
+    "message": "Conteúdo copiado"
+  },
+  "mediaPage_metadataCopied": {
+    "message": "Metadados copiados"
+  },
+  "mediaPage_analysisCopied": {
+    "message": "Análise copiada"
+  },
+  "mediaPage_copyFailed": {
+    "message": "Falha ao copiar"
+  },
+  "mediaPage_noContent": {
+    "message": "Nenhum conteúdo disponível"
+  },
+  "mediaPage_collapse": {
+    "message": "Recolher"
+  },
+  "mediaPage_expand": {
+    "message": "Expandir"
+  },
+  "mediaPage_media": {
+    "message": "Mídia"
+  },
+  "mediaPage_searchingBanner": {
+    "message": "Pesquisando mídias…"
+  },
+  "mediaPage_filterHelp": {
+    "message": "A pesquisa corresponde ao título e ao conteúdo; tipos e palavras-chave refinam ainda mais os resultados."
+  },
+  "mediaPage_noMediaTypes": {
+    "message": "Nenhum tipo de mídia disponível"
+  },
+  "mediaPage_noResults": {
+    "message": "Nenhum resultado"
+  },
+  "mediaPage_resultsCount": {
+    "message": "{{selected}} selecionados · {{open}} abertos"
+  },
+  "mediaPage_clearSelection": {
+    "message": "Limpar seleção"
+  },
+  "mediaPage_itemsLabel": {
+    "message": "Itens"
+  },
+  "mediaPage_contentLabel": {
+    "message": "Visualização de conteúdo"
+  },
+  "mediaPage_filterByKeyword": {
+    "message": "Filtrar por palavra-chave"
+  },
+  "mediaPage_keywordHelper": {
+    "message": "Palavras-chave ajudam você a encontrar esta mídia usando o filtro de palavras-chave à esquerda."
+  },
+  "mediaPage_modeHint": {
+    "message": "Pesquise e empilhe vários itens de mídia para compará-los no visualizador à direita."
+  },
+  "mediaPage_viewerHelp": {
+    "message": "Teclado: use Tab para entrar na lista de resultados, Enter ou Espaço para empilhar ou desempilhar um item de mídia e os controles Anterior/Próximo e de layout para navegar pelos itens no visualizador."
+  },
+  "mediaPage_viewerHelpLabel": {
+    "message": "Atalhos de teclado para revisão multi-itens"
+  },
+  "mediaPage_actionsLabel": {
+    "message": "Ações"
+  },
+  "mediaPage_keywordsPlaceholder": {
+    "message": "Adicionar palavras-chave..."
+  },
+  "mediaPage_noSelectionTitle": {
+    "message": "Nenhum item de mídia selecionado"
+  },
+  "mediaPage_noSelectionDescription": {
+    "message": "Selecione um item de mídia na barra lateral esquerda para ver aqui seu conteúdo e suas análises."
+  },
+  "mediaPage_generateAnalysis": {
+    "message": "Gerar"
+  },
+  "mediaPage_generateAnalysisHint": {
+    "message": "Gerar uma nova análise"
+  },
+  "mediaPage_editAnalysis": {
+    "message": "Editar análise"
+  },
+  "mediaPage_createNoteWithContent": {
+    "message": "Criar nota com o conteúdo"
+  },
+  "mediaPage_createNoteWithContentAnalysis": {
+    "message": "Criar nota com conteúdo + análise"
+  },
+  "mediaPage_untitled": {
+    "message": "Sem título"
+  },
+  "mediaPage_copyMetadata": {
+    "message": "Copiar metadados"
+  },
+  "mediaPage_statistics": {
+    "message": "Estatísticas"
+  },
+  "mediaPage_words": {
+    "message": "Palavras"
+  },
+  "mediaPage_characters": {
+    "message": "Caracteres"
+  },
+  "mediaPage_paragraphs": {
+    "message": "Parágrafos"
+  },
+  "mediaPage_metadata": {
+    "message": "Metadados"
+  },
+  "mediaPage_idLabel": {
+    "message": "ID"
+  },
+  "mediaPage_typeLabel": {
+    "message": "Tipo"
+  },
+  "mediaPage_titleLabel": {
+    "message": "Título"
+  },
+  "mediaPage_source": {
+    "message": "Fonte"
+  },
+  "mediaPage_notAvailable": {
+    "message": "N/D"
+  },
+  "mediaPage_developerTools": {
+    "message": "Ferramentas de desenvolvedor"
+  },
+  "contentReview_templates_transcript_clean_label": {
+    "message": "Limpar transcrição"
+  },
+  "contentReview_templates_transcript_clean_description": {
+    "message": "Normaliza pontuação e maiúsculas/minúsculas preservando a estrutura das linhas."
+  },
+  "contentReview_templates_speaker_turns_label": {
+    "message": "Turnos de fala"
+  },
+  "contentReview_templates_speaker_turns_description": {
+    "message": "Garante que cada turno de fala fique em sua própria linha com rótulos claros."
+  },
+  "contentReview_templates_chapter_headings_label": {
+    "message": "Títulos de capítulo"
+  },
+  "contentReview_templates_chapter_headings_description": {
+    "message": "Insere títulos em Markdown para agrupar tópicos sem remover conteúdo."
   }
 }

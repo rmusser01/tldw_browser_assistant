@@ -1,0 +1,311 @@
+{
+  "tooltip_embed": {
+    "message": "Внедрение страницы может занять несколько минут. Пожалуйста, подождите..."
+  },
+  "tooltip_clear": {
+    "message": "Очистить историю чата"
+  },
+  "tooltip_history": {
+    "message": "История чата"
+  },
+  "tooltip_openwebui": {
+    "message": "Открыть веб-интерфейс"
+  },
+  "toolbar_ragSearch": {
+    "message": "RAG Search"
+  },
+  "errors_privateModeTitle": {
+    "message": "tldw Assistant не может сохранить данные"
+  },
+  "errors_privateModeDescription": {
+    "message": "Режим приватного просмотра Firefox не поддерживает сохранение истории чатов. Временный чат включен по умолчанию. Улучшения скоро будут."
+  },
+  "connectionBanner_connecting": {
+    "message": "Подключение к вашему серверу tldw..."
+  },
+  "connectionBanner_authErrorTitle": {
+    "message": "Требуется внимание к API-ключу"
+  },
+  "connectionBanner_authErrorBody": {
+    "message": "Сервер доступен, но API-ключ неверный или отсутствует."
+  },
+  "connectionBanner_unreachableTitle": {
+    "message": "Не удается подключиться к серверу tldw"
+  },
+  "connectionBanner_unreachableBody": {
+    "message": "Проверьте, что сервер запущен и доступен."
+  },
+  "connectionBanner_noUrlBody": {
+    "message": "Добавьте URL сервера в настройках, чтобы начать."
+  },
+  "connectionBanner_disconnectedTitle": {
+    "message": "Нет подключения к серверу tldw"
+  },
+  "connectionBanner_disconnectedBody": {
+    "message": "Откройте настройки, чтобы настроить подключение к серверу."
+  },
+  "connectionBanner_setupTitle": {
+    "message": "Завершите настройку, чтобы начать чат"
+  },
+  "connectionBanner_setupBody": {
+    "message": "Завершите мастер настройки в настройках, чтобы подключиться."
+  },
+  "connectionBanner_openSettings": {
+    "message": "Открыть настройки"
+  },
+  "temporaryBadge_title": {
+    "message": "Временный чат"
+  },
+  "temporaryBadge_label": {
+    "message": "Temp"
+  },
+  "temporaryBadge_description": {
+    "message": "Этот чат не будет сохранен. Сообщения будут удалены при закрытии или начале нового чата."
+  },
+  "temporaryBadge_clickHint": {
+    "message": "Нажмите, чтобы отключить"
+  },
+  "temporaryBadge_ariaLabel": {
+    "message": "Режим временного чата активен. Нажмите, чтобы переключить."
+  },
+  "temporaryBadge_indicatorTooltip": {
+    "message": "Сообщения в этом чате не будут сохранены"
+  },
+  "temporaryBadge_indicatorAria": {
+    "message": "Временный чат"
+  },
+  "header_ingest": {
+    "message": "Ingest"
+  },
+  "header_saveCurrent": {
+    "message": "Save current page on server"
+  },
+  "header_processLocal": {
+    "message": "Process current page locally"
+  },
+  "header_viewProcessed": {
+    "message": "View processed"
+  },
+  "header_timeoutLabel": {
+    "message": "Timeout (s)"
+  },
+  "header_toggleSidebar": {
+    "message": "Toggle Sidebar / Full Screen"
+  },
+  "header_shortcuts": {
+    "message": "Shortcuts"
+  },
+  "header_showDebug": {
+    "message": "Show Stream Debug"
+  },
+  "header_hideDebug": {
+    "message": "Hide Stream Debug"
+  },
+  "header_moreOptionsAria": {
+    "message": "More options"
+  },
+  "header_moreOptionsTitle": {
+    "message": "Ingest and more"
+  },
+  "header_openWebuiAria": {
+    "message": "Open Web UI"
+  },
+  "header_newChatAria": {
+    "message": "New chat"
+  },
+  "header_tempChatAria": {
+    "message": "Toggle temporary chat"
+  },
+  "header_clearHistoryAria": {
+    "message": "Clear history"
+  },
+  "header_openHistoryAria": {
+    "message": "Open history"
+  },
+  "header_openModelSettingsAria": {
+    "message": "Open model settings"
+  },
+  "header_openSettingsAria": {
+    "message": "Open settings"
+  },
+  "header_tempPill": {
+    "message": "Temp"
+  },
+  "header_modesLabel": {
+    "message": "Open modes in Web UI"
+  },
+  "header_modePlayground": {
+    "message": "Chat"
+  },
+  "header_modeReview": {
+    "message": "Multi-Item Review"
+  },
+  "header_modeMedia": {
+    "message": "Media"
+  },
+  "header_modeKnowledge": {
+    "message": "Knowledge"
+  },
+  "header_modeNotes": {
+    "message": "Notes"
+  },
+  "header_modePrompts": {
+    "message": "Prompts"
+  },
+  "header_modeFlashcards": {
+    "message": "Flashcards"
+  },
+  "controlRow_saveMode": {
+    "message": "Режим сохранения"
+  },
+  "controlRow_ephemeral": {
+    "message": "Временный чат"
+  },
+  "controlRow_searchSection": {
+    "message": "Поиск и визуальный анализ"
+  },
+  "controlRow_webSearch": {
+    "message": "Веб-поиск"
+  },
+  "controlRow_vision": {
+    "message": "Визуальный анализ"
+  },
+  "controlRow_uploadImage": {
+    "message": "Загрузить изображение"
+  },
+  "controlRow_quickIngest": {
+    "message": "Быстрая обработка страницы"
+  },
+  "controlRow_openInFullUI": {
+    "message": "Открыть в полном интерфейсе"
+  },
+  "controlRow_modeChat": {
+    "message": "Чат"
+  },
+  "controlRow_modeMedia": {
+    "message": "Медиа"
+  },
+  "controlRow_modeNotes": {
+    "message": "Заметки"
+  },
+  "controlRow_modeFlashcards": {
+    "message": "Флеш-карточки"
+  },
+  "controlRow_ragSearch": {
+    "message": "Поиск RAG"
+  },
+  "controlRow_moreTools": {
+    "message": "Больше инструментов"
+  },
+  "composer_connectHint": {
+    "message": "Connect to your tldw server in Settings to send messages."
+  },
+  "composer_connectingPlaceholder": {
+    "message": "Connecting..."
+  },
+  "composer_disconnectedPlaceholder": {
+    "message": "Connect to your tldw server in Settings to send messages and view media."
+  },
+  "notification_ingestSent": {
+    "message": "Sent to tldw server"
+  },
+  "notification_ingestSentDesc": {
+    "message": "Current page has been submitted for ingestion."
+  },
+  "notification_processedLocal": {
+    "message": "Processed locally"
+  },
+  "notification_processedLocalDesc": {
+    "message": "Processed content stored locally under Settings > Processed."
+  },
+  "notification_transcriptionTitle": {
+    "message": "Transcription"
+  },
+  "notification_transcriptionSummaryTitle": {
+    "message": "Transcription + summary"
+  },
+  "notification_transcriptionFallback": {
+    "message": "Transcription completed. Open Media in the Web UI to view it."
+  },
+  "notification_sourceLabel": {
+    "message": "Source"
+  },
+  "notification_transcriptLabel": {
+    "message": "Transcript"
+  },
+  "notification_summaryLabel": {
+    "message": "Summary"
+  },
+  "saveStatus_ephemeral": {
+    "message": "Временный: не сохраняется, очищается при закрытии"
+  },
+  "saveStatus_local": {
+    "message": "Сохранено локально в этом браузере"
+  },
+  "saveStatus_server": {
+    "message": "Сохранено на сервере"
+  },
+  "saveStatus_saveFailed": {
+    "message": "Не удалось сохранить чат на сервере"
+  },
+  "saveStatus_saveFailedDescription": {
+    "message": "Теперь чат сохраняется только локально. Проверьте соединение и попробуйте снова."
+  },
+  "rag_searchPlaceholder": {
+    "message": "Search your knowledge…"
+  },
+  "rag_search": {
+    "message": "Search"
+  },
+  "rag_show": {
+    "message": "Show RAG search"
+  },
+  "rag_hide": {
+    "message": "Hide RAG search"
+  },
+  "rag_addTagPlaceholder": {
+    "message": "Add tag (Enter)"
+  },
+  "rag_add": {
+    "message": "Add"
+  },
+  "rag_noResults": {
+    "message": "No results"
+  },
+  "rag_timeout_message": {
+    "message": "Request timed out."
+  },
+  "rag_timeout_increase": {
+    "message": "Increase timeout"
+  },
+  "rag_timeout_checkHealth": {
+    "message": "Check server health"
+  },
+  "rag_actions_insert": {
+    "message": "Insert"
+  },
+  "rag_actions_ask": {
+    "message": "Ask"
+  },
+  "rag_actions_open": {
+    "message": "Open"
+  },
+  "rag_actions_copy": {
+    "message": "Copy"
+  },
+  "rag_hint_message": {
+    "message": "Ищите в своей базе знаний и вставляйте результаты в сообщение."
+  },
+  "rag_hint_dismiss": {
+    "message": "Закрыть"
+  },
+  "tabs_newChat": {
+    "message": "Новый чат"
+  },
+  "tabs_newTabAria": {
+    "message": "Новая вкладка чата"
+  },
+  "tabs_closeTabAria": {
+    "message": "Закрыть вкладку чата"
+  }
+}

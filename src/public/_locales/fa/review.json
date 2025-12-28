@@ -1075,5 +1075,23 @@
   },
   "mediaEmpty_demoSample3Meta": {
     "message": "PDF · ۶ صفحه · کلیدواژه‌ها: خلاصه‌سازی"
+  },
+  "contentReview_templates_transcript_clean_label": {
+    "message": "پاک‌سازی رونوشت"
+  },
+  "contentReview_templates_transcript_clean_description": {
+    "message": "علائم نگارشی و حروف بزرگ/کوچک را یکدست می‌کند و ساختار خطوط را حفظ می‌کند."
+  },
+  "contentReview_templates_speaker_turns_label": {
+    "message": "نوبت‌های سخن‌گو"
+  },
+  "contentReview_templates_speaker_turns_description": {
+    "message": "اطمینان می‌دهد هر نوبت سخن‌گو در خط جداگانه با برچسب‌های واضح قرار گیرد."
+  },
+  "contentReview_templates_chapter_headings_label": {
+    "message": "سرفصل‌های فصل"
+  },
+  "contentReview_templates_chapter_headings_description": {
+    "message": "سرتیترهای Markdown اضافه می‌کند تا موضوعات را گروه‌بندی کند بدون اینکه محتوا را حذف کند."
   }
 }

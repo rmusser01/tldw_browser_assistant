@@ -1200,22 +1200,28 @@
     "description": "Content review UI string."
   },
   "reviewDraftsFailedTitle": {
-    "message": "Review drafts couldn't be created."
+    "message": "Review drafts couldn't be created.",
+    "description": "Error title when review drafts creation fails."
   },
   "reviewDraftsFailedFallback": {
-    "message": "Failed to create review drafts."
+    "message": "Failed to create review drafts.",
+    "description": "Fallback error message for review drafts failure."
   },
   "reviewDraftsRetry": {
-    "message": "Retry draft creation"
+    "message": "Retry draft creation",
+    "description": "Button label to retry creating review drafts."
   },
   "reviewDraftsStoreWithoutReview": {
-    "message": "Store without review"
+    "message": "Store without review",
+    "description": "Action to store without review."
   },
   "reviewNavigationFailed": {
-    "message": "Couldn't open Content Review. Please try again."
+    "message": "Couldn't open Content Review. Please try again.",
+    "description": "Error message when navigation to Content Review fails."
   },
   "reviewNavigationRetry": {
-    "message": "Retry opening Content Review"
+    "message": "Retry opening Content Review",
+    "description": "Button label to retry opening Content Review."
   },
   "quickIngest_title": {
     "message": "Quick Ingest Media"
@@ -3745,5 +3751,200 @@
   },
   "quiz_retake": {
     "message": "Retake Quiz"
+  },
+  "manageCharacters_title": {
+    "message": "Manage Characters"
+  },
+  "manageCharacters_addBtn": {
+    "message": "New character"
+  },
+  "manageCharacters_columns_name": {
+    "message": "Name"
+  },
+  "manageCharacters_columns_description": {
+    "message": "Description"
+  },
+  "manageCharacters_columns_actions": {
+    "message": "Actions"
+  },
+  "manageCharacters_columns_avatar": {
+    "message": "Avatar"
+  },
+  "manageCharacters_actions_chat": {
+    "message": "Chat"
+  },
+  "manageCharacters_actions_edit": {
+    "message": "Edit"
+  },
+  "manageCharacters_actions_delete": {
+    "message": "Delete"
+  },
+  "manageCharacters_actions_duplicate": {
+    "message": "Duplicate"
+  },
+  "manageCharacters_table_noDescription": {
+    "message": "—"
+  },
+  "manageCharacters_filter_matchAll": {
+    "message": "Match all tags"
+  },
+  "manageCharacters_tags_label": {
+    "message": "Tags"
+  },
+  "manageCharacters_tags_placeholder": {
+    "message": "Add tags"
+  },
+  "manageCharacters_tags_help": {
+    "message": "Use tags to group characters by use case (e.g., “writing”, “teaching”)."
+  },
+  "manageCharacters_tooltip_edit": {
+    "message": "Edit character"
+  },
+  "manageCharacters_tooltip_delete": {
+    "message": "Delete character"
+  },
+  "manageCharacters_aria_chatWith": {
+    "message": "Chat as {{name}}"
+  },
+  "manageCharacters_aria_edit": {
+    "message": "Edit character {{name}}"
+  },
+  "manageCharacters_aria_delete": {
+    "message": "Delete character {{name}}"
+  },
+  "manageCharacters_aria_duplicate": {
+    "message": "Duplicate character {{name}}"
+  },
+  "manageCharacters_confirm_delete": {
+    "message": "Are you sure you want to delete this character? This action cannot be undone."
+  },
+  "manageCharacters_avatar_label": {
+    "message": "Avatar (optional)"
+  },
+  "manageCharacters_avatar_tabUrl": {
+    "message": "URL"
+  },
+  "manageCharacters_avatar_tabUpload": {
+    "message": "Upload"
+  },
+  "manageCharacters_avatar_selectImageError": {
+    "message": "Please select an image file"
+  },
+  "manageCharacters_avatar_formatError": {
+    "message": "Only PNG, JPEG, and GIF images are supported"
+  },
+  "manageCharacters_avatar_invalidError": {
+    "message": "Invalid image file"
+  },
+  "manageCharacters_avatar_processError": {
+    "message": "Failed to process image"
+  },
+  "manageCharacters_avatar_dropzone": {
+    "message": "Click or drag image to upload"
+  },
+  "manageCharacters_avatar_formats": {
+    "message": "PNG, JPEG, or GIF"
+  },
+  "manageCharacters_avatar_preview": {
+    "message": "Preview"
+  },
+  "manageCharacters_form_name_label": {
+    "message": "Name"
+  },
+  "manageCharacters_form_name_placeholder": {
+    "message": "e.g. Writing coach"
+  },
+  "manageCharacters_form_name_required": {
+    "message": "Please enter a name"
+  },
+  "manageCharacters_form_description": {
+    "message": "Define a reusable character you can chat with in the sidebar."
+  },
+  "manageCharacters_form_systemPrompt_label": {
+    "message": "Behavior / instructions"
+  },
+  "manageCharacters_form_systemPrompt_placeholder": {
+    "message": "E.g., You are a patient math teacher who explains concepts step by step and checks understanding with short examples."
+  },
+  "manageCharacters_form_systemPrompt_help": {
+    "message": "Explain the character's role, tone, and constraints. For example: \"You are a patient math tutor who explains concepts step by step.\""
+  },
+  "manageCharacters_form_systemPrompt_required": {
+    "message": "Please add instructions to guide responses."
+  },
+  "manageCharacters_form_systemPrompt_min": {
+    "message": "Provide instructions so the character responds appropriately."
+  },
+  "manageCharacters_form_systemPrompt_max": {
+    "message": "System prompt must be 2000 characters or less."
+  },
+  "manageCharacters_form_avatarUrl_label": {
+    "message": "Avatar URL (optional)"
+  },
+  "manageCharacters_form_avatarUrl_placeholder": {
+    "message": "https://example.com/avatar.png"
+  },
+  "manageCharacters_form_greeting_label": {
+    "message": "Greeting message (optional)"
+  },
+  "manageCharacters_form_greeting_placeholder": {
+    "message": "Hi there! I’m your writing coach. Paste your draft and I’ll help you tighten it up."
+  },
+  "manageCharacters_form_greeting_help": {
+    "message": "Optional first message the character will send when you start a chat."
+  },
+  "manageCharacters_form_btnSave_saving": {
+    "message": "Creating character..."
+  },
+  "manageCharacters_form_btnSave_save": {
+    "message": "Create character"
+  },
+  "manageCharacters_form_btnEdit_saving": {
+    "message": "Saving changes..."
+  },
+  "manageCharacters_form_btnEdit_save": {
+    "message": "Save changes"
+  },
+  "manageCharacters_notification_addSuccess": {
+    "message": "Character created"
+  },
+  "manageCharacters_notification_error": {
+    "message": "Error"
+  },
+  "manageCharacters_notification_someError": {
+    "message": "Something went wrong. Please try again later"
+  },
+  "manageCharacters_notification_updatedSuccess": {
+    "message": "Character updated"
+  },
+  "manageCharacters_notification_deletedSuccess": {
+    "message": "Character deleted"
+  },
+  "manageCharacters_loadError_title": {
+    "message": "Couldn't load characters"
+  },
+  "manageCharacters_loadError_description": {
+    "message": "Check your connection and try again."
+  },
+  "manageCharacters_emptyTitle": {
+    "message": "No characters yet"
+  },
+  "manageCharacters_emptyDescription": {
+    "message": "Create a reusable character with a name, description, and system prompt you can chat with."
+  },
+  "manageCharacters_emptyExample1": {
+    "message": "Define a writing coach, lore expert, or coding assistant you can reuse across chats."
+  },
+  "manageCharacters_emptyExample2": {
+    "message": "Give each character a clear description and behavior so their responses stay consistent."
+  },
+  "manageCharacters_emptyPrimaryCta": {
+    "message": "Create character"
+  },
+  "manageCharacters_avatarAltWithName": {
+    "message": "Avatar of {{name}}"
+  },
+  "manageCharacters_avatarAlt": {
+    "message": "User avatar"
   }
 }

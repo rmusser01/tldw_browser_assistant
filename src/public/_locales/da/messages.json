@@ -1395,22 +1395,28 @@
     "description": "Content review UI string."
   },
   "reviewDraftsFailedTitle": {
-    "message": "Gennemgangskladderne kunne ikke oprettes."
+    "message": "Gennemgangskladderne kunne ikke oprettes.",
+    "description": "Error title when review drafts creation fails."
   },
   "reviewDraftsFailedFallback": {
-    "message": "Det lykkedes ikke at oprette gennemgangskladder."
+    "message": "Det lykkedes ikke at oprette gennemgangskladder.",
+    "description": "Fallback error message for review drafts failure."
   },
   "reviewDraftsRetry": {
-    "message": "Prøv at oprette kladder igen"
+    "message": "Prøv at oprette kladder igen",
+    "description": "Button label to retry creating review drafts."
   },
   "reviewDraftsStoreWithoutReview": {
-    "message": "Gem uden gennemgang"
+    "message": "Gem uden gennemgang",
+    "description": "Action to store without review."
   },
   "reviewNavigationFailed": {
-    "message": "Kunne ikke åbne Indholdsgennemgang. Prøv igen."
+    "message": "Kunne ikke åbne Indholdsgennemgang. Prøv igen.",
+    "description": "Error message when navigation to Content Review fails."
   },
   "reviewNavigationRetry": {
-    "message": "Prøv at åbne Indholdsgennemgang igen"
+    "message": "Prøv at åbne Indholdsgennemgang igen",
+    "description": "Button label to retry opening Content Review."
   },
   "quickIngest_title": {
     "message": "Hurtig ingestion af medier"
@@ -1743,7 +1749,7 @@
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_overlapLabel": {
-    "message": "Overlap",
+    "message": "Overlapning",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_languageLabel": {
@@ -1795,7 +1801,7 @@
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_viewInline": {
-    "message": "Inline",
+    "message": "Indlejret",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_stats": {
@@ -1818,13 +1824,13 @@
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_chunkIndex": {
-    "message": "Chunk {{index}}"
+    "message": "Segment {{index}}"
   },
   "chunkingPlayground_chunkInfo": {
     "message": "Chunk {{index}}: {{words}} ord"
   },
   "chunkingPlayground_position": {
-    "message": "Position: {{start}} - {{end}}"
+    "message": "Placering: {{start}} - {{end}}"
   },
   "chunkingPlayground_additionalChunks": {
     "message": "+{{count}} flere"
@@ -3089,5 +3095,272 @@
   },
   "tabs_closeTabAria": {
     "message": "Luk samtale-fanen"
+  },
+  "manageCharacters_title": {
+    "message": "Administrer karakterer"
+  },
+  "manageCharacters_addBtn": {
+    "message": "Ny karakter"
+  },
+  "manageCharacters_columns_name": {
+    "message": "Navn"
+  },
+  "manageCharacters_columns_description": {
+    "message": "Beskrivelse"
+  },
+  "manageCharacters_columns_actions": {
+    "message": "Handlinger"
+  },
+  "manageCharacters_columns_avatar": {
+    "message": "Profilbillede"
+  },
+  "manageCharacters_actions_chat": {
+    "message": "Chatte"
+  },
+  "manageCharacters_actions_edit": {
+    "message": "Rediger"
+  },
+  "manageCharacters_actions_delete": {
+    "message": "Slet"
+  },
+  "manageCharacters_actions_duplicate": {
+    "message": "Dupliker"
+  },
+  "manageCharacters_table_noDescription": {
+    "message": "Ingen beskrivelse"
+  },
+  "manageCharacters_filter_matchAll": {
+    "message": "Match alle mærkater"
+  },
+  "manageCharacters_tags_label": {
+    "message": "Mærkater"
+  },
+  "manageCharacters_tags_placeholder": {
+    "message": "Tilføj tags"
+  },
+  "manageCharacters_tags_help": {
+    "message": "Brug tags til at gruppere karakterer efter use case (f.eks. \"skrivning\", \"undervisning\")."
+  },
+  "manageCharacters_tooltip_edit": {
+    "message": "Rediger karakter"
+  },
+  "manageCharacters_tooltip_delete": {
+    "message": "Slet karakter"
+  },
+  "manageCharacters_aria_chatWith": {
+    "message": "Chat som {{name}}"
+  },
+  "manageCharacters_aria_edit": {
+    "message": "Rediger karakter {{name}}"
+  },
+  "manageCharacters_aria_delete": {
+    "message": "Slet karakter {{name}}"
+  },
+  "manageCharacters_aria_duplicate": {
+    "message": "Dupliker karakter {{name}}"
+  },
+  "manageCharacters_confirm_delete": {
+    "message": "Er du sikker på, at du vil slette denne karakter? Denne handling kan ikke fortrydes."
+  },
+  "manageCharacters_avatar_label": {
+    "message": "Profilbillede (valgfrit)"
+  },
+  "manageCharacters_avatar_tabUrl": {
+    "message": "URL-adresse"
+  },
+  "manageCharacters_avatar_tabUpload": {
+    "message": "Upload fil"
+  },
+  "manageCharacters_avatar_selectImageError": {
+    "message": "Vælg en billedfil"
+  },
+  "manageCharacters_avatar_formatError": {
+    "message": "Kun PNG-, JPEG- og GIF-billeder understøttes"
+  },
+  "manageCharacters_avatar_invalidError": {
+    "message": "Ugyldig billedfil"
+  },
+  "manageCharacters_avatar_processError": {
+    "message": "Kunne ikke behandle billedet"
+  },
+  "manageCharacters_avatar_dropzone": {
+    "message": "Klik eller træk billede for at uploade"
+  },
+  "manageCharacters_avatar_formats": {
+    "message": "PNG, JPEG eller GIF"
+  },
+  "manageCharacters_avatar_preview": {
+    "message": "Forhåndsvisning"
+  },
+  "manageCharacters_form_name_label": {
+    "message": "Navn"
+  },
+  "manageCharacters_form_name_placeholder": {
+    "message": "f.eks. Skrivecoach"
+  },
+  "manageCharacters_form_name_required": {
+    "message": "Indtast venligst et navn"
+  },
+  "manageCharacters_form_description": {
+    "message": "Definér en genanvendelig karakter, du kan chatte med i sidepanelet."
+  },
+  "manageCharacters_form_systemPrompt_label": {
+    "message": "Adfærd / instruktioner"
+  },
+  "manageCharacters_form_systemPrompt_placeholder": {
+    "message": "F.eks. Du er en tålmodig matematiklærer, der forklarer begreber trin for trin og tjekker forståelsen med korte eksempler."
+  },
+  "manageCharacters_form_systemPrompt_help": {
+    "message": "Forklar karakterens rolle, tone og begrænsninger. For eksempel: \"Du er en tålmodig matematiklærer, der forklarer begreber trin for trin.\""
+  },
+  "manageCharacters_form_systemPrompt_required": {
+    "message": "Tilføj instruktioner for at styre svarene."
+  },
+  "manageCharacters_form_systemPrompt_min": {
+    "message": "Add a short description so the character knows how to respond."
+  },
+  "manageCharacters_form_systemPrompt_max": {
+    "message": "Systemprompten skal være på 2000 tegn eller mindre."
+  },
+  "manageCharacters_form_avatarUrl_label": {
+    "message": "Avatar-URL (valgfrit)"
+  },
+  "manageCharacters_form_avatarUrl_placeholder": {
+    "message": "fx. https://example.com/avatar.png"
+  },
+  "manageCharacters_form_greeting_label": {
+    "message": "Hilsenbesked (valgfrit)"
+  },
+  "manageCharacters_form_greeting_placeholder": {
+    "message": "Hej! Jeg er din skrivecoach. Indsæt dit udkast, så hjælper jeg med at stramme det op."
+  },
+  "manageCharacters_form_greeting_help": {
+    "message": "Valgfri første besked, som karakteren sender, når du starter en chat."
+  },
+  "manageCharacters_form_btnSave_saving": {
+    "message": "Opretter karakter..."
+  },
+  "manageCharacters_form_btnSave_save": {
+    "message": "Opret karakter"
+  },
+  "manageCharacters_form_btnEdit_saving": {
+    "message": "Gemmer ændringer..."
+  },
+  "manageCharacters_form_btnEdit_save": {
+    "message": "Gem ændringer"
+  },
+  "manageCharacters_notification_addSuccess": {
+    "message": "Karakter oprettet"
+  },
+  "manageCharacters_notification_error": {
+    "message": "Fejl"
+  },
+  "manageCharacters_notification_someError": {
+    "message": "Noget gik galt. Prøv igen senere."
+  },
+  "manageCharacters_notification_updatedSuccess": {
+    "message": "Karakter opdateret"
+  },
+  "manageCharacters_notification_deletedSuccess": {
+    "message": "Karakter slettet"
+  },
+  "manageCharacters_loadError_title": {
+    "message": "Kunne ikke indlæse karakterer"
+  },
+  "manageCharacters_loadError_description": {
+    "message": "Tjek din forbindelse og prøv igen."
+  },
+  "manageCharacters_emptyTitle": {
+    "message": "Ingen karakterer endnu"
+  },
+  "manageCharacters_emptyDescription": {
+    "message": "Opret en genanvendelig karakter med navn, beskrivelse og systemprompt, som du kan chatte med."
+  },
+  "manageCharacters_emptyExample1": {
+    "message": "Definér en skrivecoach, lore-ekspert eller kodeassistent, som du kan genbruge på tværs af chats."
+  },
+  "manageCharacters_emptyExample2": {
+    "message": "Giv hver karakter en tydelig beskrivelse og adfærd, så deres svar forbliver konsistente."
+  },
+  "manageCharacters_emptyPrimaryCta": {
+    "message": "Opret karakter"
+  },
+  "manageCharacters_avatarAltWithName": {
+    "message": "Avatar af {{name}}"
+  },
+  "manageCharacters_avatarAlt": {
+    "message": "Brugeravatar"
+  },
+  "quiz_itemsPerPage": {
+    "message": "elementer/side"
+  },
+  "quiz_editQuizTitle": {
+    "message": "Redigér quiz"
+  },
+  "quiz_updateSuccess": {
+    "message": "Quizzen blev opdateret."
+  },
+  "quiz_updateError": {
+    "message": "Kunne ikke opdatere quizzen."
+  },
+  "quiz_questionTextRequired": {
+    "message": "Spørgsmålstekst er påkrævet."
+  },
+  "quiz_optionsRequired": {
+    "message": "Angiv mindst to svarmuligheder."
+  },
+  "quiz_questionSaveSuccess": {
+    "message": "Spørgsmålet blev oprettet."
+  },
+  "quiz_questionUpdateSuccess": {
+    "message": "Spørgsmålet blev opdateret."
+  },
+  "quiz_questionSaveError": {
+    "message": "Kunne ikke gemme spørgsmålet."
+  },
+  "quiz_questionDeleteSuccess": {
+    "message": "Spørgsmålet blev slettet."
+  },
+  "quiz_questionDeleteError": {
+    "message": "Kunne ikke slette spørgsmålet."
+  },
+  "quiz_editQuestion": {
+    "message": "Redigér spørgsmål"
+  },
+  "quiz_points": {
+    "message": "Point"
+  },
+  "quiz_orderIndex": {
+    "message": "Rækkefølge"
+  },
+  "quiz_startError": {
+    "message": "Kunne ikke starte quizzen."
+  },
+  "quiz_answerAll": {
+    "message": "Besvar alle spørgsmål, før du indsender."
+  },
+  "quiz_submitError": {
+    "message": "Kunne ikke indsende quizzen."
+  },
+  "quiz_scoreSummary": {
+    "message": "Score: {{score}} / {{total}} ({{percent}}%)"
+  },
+  "quiz_correct": {
+    "message": "Korrekt"
+  },
+  "quiz_incorrect": {
+    "message": "Forkert"
+  },
+  "quiz_yourAnswer": {
+    "message": "Dit svar"
+  },
+  "quiz_correctAnswerLabel": {
+    "message": "Korrekt svar"
+  },
+  "quiz_backToList": {
+    "message": "Tilbage til listen"
+  },
+  "quiz_retake": {
+    "message": "Tag quizzen igen"
   }
 }

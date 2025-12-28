@@ -948,7 +948,8 @@
       "chat": "채팅",
       "edit": "편집",
       "delete": "삭제",
-      "viewConversations": "대화 목록 보기"
+      "viewConversations": "대화 목록 보기",
+      "duplicate": "복제"
     },
     "tags": {
       "label": "태그",
@@ -964,7 +965,8 @@
       "edit": "캐릭터 {{name}} 편집",
       "delete": "캐릭터 {{name}} 삭제",
       "viewConversations": "{{name}}의 대화 목록 보기",
-      "searchResults": "{{count}}개의 캐릭터를 찾았습니다"
+      "searchResults": "{{count}}개의 캐릭터를 찾았습니다",
+      "duplicate": "{{name}} 캐릭터 복제"
     },
     "confirm": {
       "delete": "이 캐릭터를 삭제할까요? 이 작업은 되돌릴 수 없습니다."
@@ -980,7 +982,9 @@
         "label": "행동 / 지침",
         "placeholder": "예: 단계별로 개념을 설명하고 짧은 예시로 이해도를 확인하는 인내심 있는 수학 교사입니다.",
         "help": "캐릭터의 역할, 톤, 제약을 설명하세요. 예: \"단계별로 개념을 설명하는 인내심 있는 수학 튜터입니다.\"",
-        "min": "캐릭터가 적절히 응답할 수 있도록 짧은 설명을 추가하세요."
+        "min": "캐릭터가 적절히 응답할 수 있도록 짧은 설명을 추가하세요.",
+        "required": "응답을 안내할 지침을 추가해 주세요.",
+        "max": "시스템 프롬프트는 2000자 이하여야 합니다."
       },
       "avatarUrl": {
         "label": "아바타 URL(선택)",
@@ -1043,6 +1047,24 @@
     "advanced": {
       "show": "고급 필드 표시",
       "hide": "고급 필드 숨기기"
+    },
+    "table": {
+      "noDescription": "설명 없음"
+    },
+    "filter": {
+      "matchAll": "모든 태그 일치"
+    },
+    "avatar": {
+      "label": "아바타(선택 사항)",
+      "tabUrl": "URL 주소",
+      "tabUpload": "업로드",
+      "selectImageError": "이미지 파일을 선택해 주세요",
+      "formatError": "PNG, JPEG, GIF 이미지만 지원됩니다",
+      "invalidError": "유효하지 않은 이미지 파일",
+      "processError": "이미지 처리 실패",
+      "dropzone": "클릭하거나 드래그하여 이미지를 업로드",
+      "formats": "PNG, JPEG 또는 GIF",
+      "preview": "미리보기"
     }
   },
   "systemNotifications": {

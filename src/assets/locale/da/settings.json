@@ -6,7 +6,7 @@
     "about": "Om"
   },
   "healthNav": "Sundhed",
-  "worldBooksNav": "World Books",
+  "worldBooksNav": "Verdensbøger",
   "chatDictionariesNav": "Chatordbøger",
   "charactersNav": "Karakterer",
   "mediaNav": "Medier",
@@ -28,7 +28,7 @@
       "blue": "Blå",
       "green": "Grøn",
       "purple": "Lilla",
-      "orange": "Orange",
+      "orange": "Orangefarvet",
       "red": "Rød"
     },
     "font": {
@@ -305,7 +305,7 @@
       }
     },
     "systemBasics": {
-      "heading": "System",
+      "heading": "Systemindstillinger",
       "uiMode": {
         "label": "Standard UI-tilstand",
         "options": {
@@ -330,7 +330,7 @@
       }
     },
     "systemData": {
-      "heading": "Data",
+      "heading": "Datahåndtering",
       "firefoxPrivateModeSync": {
         "label": "Synkronisering i Firefox privat tilstand",
         "button": "Synkronisér data"
@@ -482,11 +482,11 @@
     "search": "Søg i titler og indhold",
     "filter": {
       "all": "Alle",
-      "system": "System",
+      "system": "Systemprompter",
       "quick": "Hurtig"
     },
     "tags": {
-      "label": "Tags",
+      "label": "Mærkater",
       "placeholder": "Tilføj tags"
     },
     "import": "Importér",
@@ -669,7 +669,7 @@
     "resetDone": "Nulstil til anbefalede standarder",
     "serverNav": "tldw-server",
     "serverConfigTitle": "tldw-serverkonfiguration",
-    "serverLabel": "Server:",
+    "serverLabel": "Serveradresse:",
     "notConfigured": "Ikke konfigureret",
     "buttons": {
       "health": "Status",
@@ -808,7 +808,7 @@
     "prompt": {
       "label": "Konfigurer RAG Prompt",
       "option1": "Standard",
-      "option2": "Web",
+      "option2": "Internet",
       "alert": "Konfigurering af systemprompt her er forældet. Venligst brug Administrer Prompts sektionen til, at tilføje eller ændre prompts. Denne sektion vil blive fjernet i fremtidige versioner.",
       "systemPrompt": "Systemprompt",
       "systemPromptPlaceholder": "Indtast System Prompt",
@@ -940,16 +940,17 @@
       "name": "Navn",
       "description": "Beskrivelse",
       "actions": "Handlinger",
-      "avatar": "Avatar"
+      "avatar": "Profilbillede"
     },
     "actions": {
-      "chat": "Chat",
+      "chat": "Chatte",
       "edit": "Rediger",
       "delete": "Slet",
-      "viewConversations": "Vis samtaler"
+      "viewConversations": "Vis samtaler",
+      "duplicate": "Dupliker"
     },
     "tags": {
-      "label": "Tags",
+      "label": "Mærkater",
       "placeholder": "Tilføj tags",
       "help": "Brug tags til at gruppere karakterer efter use case (f.eks. \"skrivning\", \"undervisning\")."
     },
@@ -962,7 +963,8 @@
       "edit": "Rediger karakter {{name}}",
       "delete": "Slet karakter {{name}}",
       "viewConversations": "Vis samtaler for {{name}}",
-      "searchResults": "{{count}} karakterer fundet"
+      "searchResults": "{{count}} karakterer fundet",
+      "duplicate": "Dupliker karakter {{name}}"
     },
     "confirm": {
       "delete": "Er du sikker på, at du vil slette denne karakter? Denne handling kan ikke fortrydes."
@@ -978,11 +980,13 @@
         "label": "Adfærd / instruktioner",
         "placeholder": "F.eks. Du er en tålmodig matematiklærer, der forklarer begreber trin for trin og tjekker forståelsen med korte eksempler.",
         "help": "Forklar karakterens rolle, tone og begrænsninger. For eksempel: \"Du er en tålmodig matematiklærer, der forklarer begreber trin for trin.\"",
-        "min": "Add a short description so the character knows how to respond."
+        "min": "Add a short description so the character knows how to respond.",
+        "required": "Tilføj instruktioner for at styre svarene.",
+        "max": "Systemprompten skal være på 2000 tegn eller mindre."
       },
       "avatarUrl": {
         "label": "Avatar-URL (valgfrit)",
-        "placeholder": "https://example.com/avatar.png"
+        "placeholder": "fx. https://example.com/avatar.png"
       },
       "greeting": {
         "label": "Hilsenbesked (valgfrit)",
@@ -1041,6 +1045,24 @@
     "advanced": {
       "show": "Vis avancerede felter",
       "hide": "Skjul avancerede felter"
+    },
+    "table": {
+      "noDescription": "Ingen beskrivelse"
+    },
+    "filter": {
+      "matchAll": "Match alle mærkater"
+    },
+    "avatar": {
+      "label": "Profilbillede (valgfrit)",
+      "tabUrl": "URL-adresse",
+      "tabUpload": "Upload fil",
+      "selectImageError": "Vælg en billedfil",
+      "formatError": "Kun PNG-, JPEG- og GIF-billeder understøttes",
+      "invalidError": "Ugyldig billedfil",
+      "processError": "Kunne ikke behandle billedet",
+      "dropzone": "Klik eller træk billede for at uploade",
+      "formats": "PNG, JPEG eller GIF",
+      "preview": "Forhåndsvisning"
     }
   },
   "systemNotifications": {
@@ -1061,17 +1083,17 @@
     "privateModeDescription": "Firefox privat tilstand understøtter ikke lagring i IndexedDB. Tilføj en brugerdefineret model fra et normalt vindue."
   },
   "evaluationsSettingsNav": "Evalueringer",
-  "promptStudioNav": "Prompt Studio",
+  "promptStudioNav": "Promptstudie",
   "promptStudio": {
-    "nav": "Prompt Studio",
-    "title": "Prompt Studio",
+    "nav": "Promptstudie",
+    "title": "Promptstudie",
     "subtitle": "Konfigurer standarder og overvåg Prompt Studios helbred. Forbindelse og godkendelse genbruger de primære serverindstillinger.",
     "probeError": "Kunne ikke nå Prompt Studio",
-    "statusCard": "Status",
+    "statusCard": "Tilstand",
     "statusHint": "Knappen kalder /prompt-studio/status med warn_seconds.",
     "statusError": "Status-endpoint utilgængeligt",
     "warnSeconds": "Advarselssekunder",
-    "testButton": "Test Prompt Studio",
+    "testButton": "Test Promptstudie",
     "defaultsCard": "Standarder",
     "defaultsHint": "Gem standardprojekt, modelkonfigurationer og sidestørrelse.",
     "defaultsPlaceholder": "Gem standarder via eksisterende indstillingslager (TBD) til valg af startprojekt, execute/evaluation-modelpresets og paginering.",
@@ -1079,11 +1101,11 @@
     "pageSize": "Sidestørrelse",
     "executeDefaults": "Standarder for execute",
     "executeProvider": "Udbyder",
-    "executeModel": "Model",
+    "executeModel": "Modelvalg",
     "executeTemperature": "Temperatur",
     "executeMaxTokens": "Maks. tokens",
     "evalDefaults": "Standarder for evaluering",
-    "evalModel": "Model",
+    "evalModel": "Modelvalg",
     "evalTemperature": "Temperatur",
     "evalMaxTokens": "Maks. tokens",
     "unavailable": "Prompt Studio er endnu ikke tilgængelig på serveren.",
@@ -1092,11 +1114,11 @@
   "charactersSettingsTitle": "Karakter-arbejdsområde",
   "charactersSettingsDescription": "Karakterer administreres i Karakter-arbejdsområdet. Brug knappen nedenfor til at åbne det.",
   "charactersOpenWorkspace": "Åbn arbejdsområde for karakterer",
-  "mermaid": "Mermaid",
+  "mermaid": "Mermaid-diagrammer",
   "healthSummary": {
     "diagnostics": "Diagnostics",
     "diagnosticsTooltip": "Åbn detaljeret diagnostik for at fejlfinde eller inspicere sundhedstjek.",
-    "core": "Server",
+    "core": "Serveren",
     "rag": "Viden",
     "coreAria": "Server: server/API-sundhed",
     "ragAria": "Viden: vidensindeks-sundhed",
@@ -1140,7 +1162,7 @@
     "runDetailTitle": "Kørselsdetaljer",
     "noRunSelected": "Vælg en kørsel for at se detaljer.",
     "runDetailErrorTitle": "Kunne ikke indlæse kørselsdetaljer",
-    "runStatusLabel": "Status",
+    "runStatusLabel": "Tilstand",
     "runModelLabelShort": "Målmodel",
     "runEvalIdLabel": "Evaluering",
     "runErrorLabel": "Fejl",
@@ -1205,14 +1227,14 @@
     "runCancelErrorTitle": "Kunne ikke annullere kørsel",
     "cancelRunCta": "Annullér kørsel",
     "historyTitle": "Historik",
-    "historyTypeLabel": "Type",
+    "historyTypeLabel": "Kategori",
     "historyUserLabel": "Bruger-id",
     "historyStartLabel": "Startdato (ISO)",
     "historyEndLabel": "Slutdato (ISO)",
     "historyFetchCta": "Hent historik",
     "historyEmpty": "Kør en forespørgsel for at se nylig aktivitet.",
     "historyErrorTitle": "Kunne ikke hente historik",
-    "webhooksTitle": "Webhooks",
+    "webhooksTitle": "Webhook-administration",
     "webhookUrlLabel": "URL-adresse",
     "webhookEventsLabel": "Hændelser",
     "webhookCreateCta": "Registrér webhook",

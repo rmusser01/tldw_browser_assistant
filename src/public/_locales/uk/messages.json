@@ -1145,22 +1145,28 @@
     "description": "Content review UI string."
   },
   "reviewDraftsFailedTitle": {
-    "message": "Не вдалося створити чернетки для перевірки."
+    "message": "Не вдалося створити чернетки для перевірки.",
+    "description": "Error title when review drafts creation fails."
   },
   "reviewDraftsFailedFallback": {
-    "message": "Помилка створення чернеток для перевірки."
+    "message": "Помилка створення чернеток для перевірки.",
+    "description": "Fallback error message for review drafts failure."
   },
   "reviewDraftsRetry": {
-    "message": "Повторити створення чернеток"
+    "message": "Повторити створення чернеток",
+    "description": "Button label to retry creating review drafts."
   },
   "reviewDraftsStoreWithoutReview": {
-    "message": "Зберегти без перевірки"
+    "message": "Зберегти без перевірки",
+    "description": "Action to store without review."
   },
   "reviewNavigationFailed": {
-    "message": "Не вдалося відкрити Перевірку вмісту. Спробуйте ще раз."
+    "message": "Не вдалося відкрити Перевірку контенту. Спробуйте ще раз.",
+    "description": "Error message when navigation to Content Review fails."
   },
   "reviewNavigationRetry": {
-    "message": "Повторити відкриття Перевірки вмісту"
+    "message": "Повторити відкриття Перевірки контенту",
+    "description": "Button label to retry opening Content Review."
   },
   "quickIngest_title": {
     "message": "Quick Ingest Media"
@@ -1361,334 +1367,334 @@
     "message": "Зберігати після перевірки"
   },
   "manageCharacters_actions_viewConversations": {
-    "message": "View conversations"
+    "message": "Переглянути розмови"
   },
   "manageCharacters_aria_viewConversations": {
-    "message": "View conversations for {{name}}"
+    "message": "Переглянути розмови для {{name}}"
   },
   "manageCharacters_aria_searchResults": {
-    "message": "{{count}} characters found"
+    "message": "Знайдено персонажів: {{count}}"
   },
   "manageCharacters_conversations_title": {
-    "message": "Conversations for {{name}}"
+    "message": "Розмови для {{name}}"
   },
   "manageCharacters_conversations_titleGeneric": {
-    "message": "Character conversations"
+    "message": "Розмови персонажа"
   },
   "manageCharacters_conversations_subtitle": {
-    "message": "Select a conversation to continue as this character."
+    "message": "Виберіть розмову, щоб продовжити спілкування цим персонажем."
   },
   "manageCharacters_conversations_empty": {
-    "message": "No conversations found for this character yet."
+    "message": "Для цього персонажа ще немає розмов."
   },
   "manageCharacters_conversations_error": {
-    "message": "Unable to load conversations for this character."
+    "message": "Не вдалося завантажити розмови для цього персонажа."
   },
   "manageCharacters_conversations_updated": {
-    "message": "Updated {{time}}"
+    "message": "Оновлено {{time}}"
   },
   "manageCharacters_conversations_unknownTime": {
-    "message": "Unknown"
+    "message": "Невідомо"
   },
   "manageCharacters_conversations_resume": {
-    "message": "Continue chat"
+    "message": "Продовжити чат"
   },
   "manageCharacters_conversations_untitled": {
-    "message": "Untitled"
+    "message": "Без назви"
   },
   "manageCharacters_conversations_mostRecent": {
-    "message": "Most recent"
+    "message": "Найновіше"
   },
   "manageCharacters_conversations_resumeTooltip": {
-    "message": "Load chat history and continue this conversation"
+    "message": "Завантажити історію чату та продовжити цю розмову"
   },
   "manageCharacters_preview_title": {
-    "message": "Preview"
+    "message": "Попередній перегляд"
   },
   "manageCharacters_preview_show": {
-    "message": "Show preview"
+    "message": "Показати попередній перегляд"
   },
   "manageCharacters_preview_hide": {
-    "message": "Hide preview"
+    "message": "Приховати попередній перегляд"
   },
   "manageCharacters_preview_untitled": {
-    "message": "Untitled character"
+    "message": "Персонаж без назви"
   },
   "manageCharacters_preview_greeting": {
-    "message": "Greeting"
+    "message": "Привітання"
   },
   "manageCharacters_preview_behavior": {
-    "message": "Behavior"
+    "message": "Поведінка"
   },
   "manageCharacters_preview_empty": {
-    "message": "Fill in the form to see a preview"
+    "message": "Заповніть форму, щоб побачити попередній перегляд"
   },
   "manageCharacters_advanced_show": {
-    "message": "Show advanced fields"
+    "message": "Показати розширені поля"
   },
   "manageCharacters_advanced_hide": {
-    "message": "Hide advanced fields"
+    "message": "Приховати розширені поля"
   },
   "chunkingPlayground_nav": {
-    "message": "Chunking Playground",
+    "message": "Пісочниця чанкування",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_title": {
-    "message": "Chunking Playground",
+    "message": "Пісочниця чанкування",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_description": {
-    "message": "Experiment with different chunking settings to see how text gets split into smaller pieces for processing.",
+    "message": "Експериментуйте з різними налаштуваннями чанкування, щоб побачити, як текст розбивається на менші частини для обробки.",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_inputLabel": {
-    "message": "Text to chunk",
+    "message": "Текст для чанкування",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_inputPlaceholder": {
-    "message": "Paste text here or select a sample...",
+    "message": "Вставте текст тут або виберіть зразок...",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_uploadButton": {
-    "message": "Upload File",
+    "message": "Завантажити файл",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_chunkButton": {
-    "message": "Chunk Text",
+    "message": "Розбити текст",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_methodLabel": {
-    "message": "Chunking Method",
+    "message": "Метод чанкування",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_maxSizeLabel": {
-    "message": "Max Chunk Size",
+    "message": "Максимальний розмір чанка",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_overlapLabel": {
-    "message": "Overlap",
+    "message": "Перекриття",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_languageLabel": {
-    "message": "Language",
+    "message": "Мова",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_languages_auto": {
-    "message": "Auto-detect",
+    "message": "Автовизначення",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_languages_en": {
-    "message": "English",
+    "message": "Англійська",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_languages_es": {
-    "message": "Spanish",
+    "message": "Іспанська",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_languages_fr": {
-    "message": "French",
+    "message": "Французька",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_languages_de": {
-    "message": "German",
+    "message": "Німецька",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_languages_it": {
-    "message": "Italian",
+    "message": "Італійська",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_languages_pt": {
-    "message": "Portuguese",
+    "message": "Португальська",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_languages_zh": {
-    "message": "Chinese",
+    "message": "Китайська",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_languages_ja": {
-    "message": "Japanese",
+    "message": "Японська",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_languages_ko": {
-    "message": "Korean",
+    "message": "Корейська",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_viewCards": {
-    "message": "Cards",
+    "message": "Картки",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_viewInline": {
-    "message": "Inline",
+    "message": "Вбудовано",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_stats": {
-    "message": "{{count}} chunks, avg {{avgSize}} chars"
+    "message": "{{count}} чанків, середній розмір {{avgSize}} символів"
   },
   "chunkingPlayground_textLoaded": {
-    "message": "Text loaded",
+    "message": "Текст завантажено",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_characters": {
-    "message": "characters",
+    "message": "символів",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_tabSingle": {
-    "message": "Single",
+    "message": "Один",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_tabCompare": {
-    "message": "Compare",
+    "message": "Порівняння",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_chunkIndex": {
-    "message": "Chunk {{index}}"
+    "message": "Чанк {{index}}"
   },
   "chunkingPlayground_chunkInfo": {
-    "message": "Chunk {{index}}: {{words}} words"
+    "message": "Чанк {{index}}: {{words}} слів"
   },
   "chunkingPlayground_position": {
-    "message": "Position: {{start}} - {{end}}"
+    "message": "Позиція: {{start}} - {{end}}"
   },
   "chunkingPlayground_additionalChunks": {
-    "message": "+{{count}} more"
+    "message": "+{{count}} ще"
   },
   "chunkingPlayground_charCount": {
-    "message": "{{count}} characters"
+    "message": "{{count}} символів"
   },
   "chunkingPlayground_wordCount": {
-    "message": "{{count}} words"
+    "message": "{{count}} слів"
   },
   "chunkingPlayground_noInput": {
-    "message": "Please provide text to chunk",
+    "message": "Будь ласка, надайте текст для чанкування",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_sharedInput": {
-    "message": "Shared Input Text",
+    "message": "Спільний вхідний текст",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_compareButton": {
-    "message": "Compare Both",
+    "message": "Порівняти обидва",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_comparison": {
-    "message": "Comparison",
+    "message": "Порівняння",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_fewerChunks": {
-    "message": "Config A produces {{diff}} fewer chunks"
+    "message": "Конфігурація A створює на {{diff}} менше чанків"
   },
   "chunkingPlayground_moreChunks": {
-    "message": "Config A produces {{diff}} more chunks"
+    "message": "Конфігурація A створює на {{diff}} більше чанків"
   },
   "chunkingPlayground_sameChunks": {
-    "message": "Both configs produce the same number of chunks",
+    "message": "Обидві конфігурації створюють однакову кількість чанків",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_clickToChunk": {
-    "message": "Click 'Compare' to see results",
+    "message": "Натисніть «Порівняти», щоб побачити результати",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_overlapRegion": {
-    "message": "Overlap Region",
+    "message": "Область перекриття",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_clickHint": {
-    "message": "Click on a highlighted section to focus on that chunk",
+    "message": "Клацніть підсвічений фрагмент, щоб сфокусуватися на цьому чанку",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_noContentFound": {
-    "message": "No text content found for this media item",
+    "message": "Не знайдено текстового вмісту для цього медіа-елемента",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_loadContentError": {
-    "message": "Failed to load media content",
+    "message": "Не вдалося завантажити вміст медіа",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_loadMediaListError": {
-    "message": "Failed to load media library",
+    "message": "Не вдалося завантажити медіатеку",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_selectMedia": {
-    "message": "Select media item...",
+    "message": "Виберіть медіа-елемент...",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_loadingMedia": {
-    "message": "Loading content...",
+    "message": "Завантаження вмісту...",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_noMediaFound": {
-    "message": "No media found",
+    "message": "Медіа не знайдено",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_mediaCount": {
-    "message": "{{count}} media items available"
+    "message": "Доступно {{count}} медіа-елементів"
   },
   "chunkingPlayground_inputSource_paste": {
-    "message": "Paste Text",
+    "message": "Вставити текст",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_inputSource_upload": {
-    "message": "Upload File",
+    "message": "Завантажити файл",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_inputSource_sample": {
-    "message": "Sample Text",
+    "message": "Зразок тексту",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_inputSource_media": {
-    "message": "From Media Library",
+    "message": "З медіатеки",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_samples_article": {
-    "message": "News Article",
+    "message": "Новинна стаття",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_samples_articleDesc": {
-    "message": "Multi-paragraph article with headers",
+    "message": "Багатоабзацна стаття із заголовками",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_samples_code": {
-    "message": "Source Code",
+    "message": "Вихідний код",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_samples_codeDesc": {
-    "message": "Python code with classes and functions",
+    "message": "Код Python із класами та функціями",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_samples_transcript": {
-    "message": "Transcript",
+    "message": "Транскрипт",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_samples_transcriptDesc": {
-    "message": "Timestamped podcast transcript",
+    "message": "Транскрипт подкасту з мітками часу",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_samples_academic": {
-    "message": "Academic Paper",
+    "message": "Наукова стаття",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_samples_academicDesc": {
-    "message": "Technical writing with citations",
+    "message": "Технічний текст із посиланнями",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_compare_title": {
-    "message": "Compare Settings",
+    "message": "Порівняти налаштування",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_compare_configA": {
-    "message": "Configuration A",
+    "message": "Конфігурація A",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_compare_configB": {
-    "message": "Configuration B",
+    "message": "Конфігурація B",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_mode_single": {
-    "message": "Single",
+    "message": "Один",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_mode_compare": {
-    "message": "Compare",
+    "message": "Порівняння",
     "description": "TODO: translate (copied from en)"
   },
   "managePrompts_importMode_merge": {
@@ -2824,5 +2830,272 @@
   },
   "tabs_closeTabAria": {
     "message": "Закрити вкладку чату"
+  },
+  "manageCharacters_title": {
+    "message": "Керування персонажами"
+  },
+  "manageCharacters_addBtn": {
+    "message": "Новий персонаж"
+  },
+  "manageCharacters_columns_name": {
+    "message": "Назва"
+  },
+  "manageCharacters_columns_description": {
+    "message": "Опис"
+  },
+  "manageCharacters_columns_actions": {
+    "message": "Дії"
+  },
+  "manageCharacters_columns_avatar": {
+    "message": "Аватар"
+  },
+  "manageCharacters_actions_chat": {
+    "message": "Чат"
+  },
+  "manageCharacters_actions_edit": {
+    "message": "Редагувати"
+  },
+  "manageCharacters_actions_delete": {
+    "message": "Видалити"
+  },
+  "manageCharacters_actions_duplicate": {
+    "message": "Дублювати"
+  },
+  "manageCharacters_table_noDescription": {
+    "message": "Немає опису"
+  },
+  "manageCharacters_filter_matchAll": {
+    "message": "Збіг усіх тегів"
+  },
+  "manageCharacters_tags_label": {
+    "message": "Теги"
+  },
+  "manageCharacters_tags_placeholder": {
+    "message": "Додати теги"
+  },
+  "manageCharacters_tags_help": {
+    "message": "Використовуйте теги, щоб групувати персонажів за сценаріями (наприклад, «письмо», «викладання»)."
+  },
+  "manageCharacters_tooltip_edit": {
+    "message": "Редагувати персонажа"
+  },
+  "manageCharacters_tooltip_delete": {
+    "message": "Видалити персонажа"
+  },
+  "manageCharacters_aria_chatWith": {
+    "message": "Чат як {{name}}"
+  },
+  "manageCharacters_aria_edit": {
+    "message": "Редагувати персонажа {{name}}"
+  },
+  "manageCharacters_aria_delete": {
+    "message": "Видалити персонажа {{name}}"
+  },
+  "manageCharacters_aria_duplicate": {
+    "message": "Дублювати персонажа {{name}}"
+  },
+  "manageCharacters_confirm_delete": {
+    "message": "Ви впевнені, що хочете видалити цього персонажа? Цю дію неможливо скасувати."
+  },
+  "manageCharacters_avatar_label": {
+    "message": "Аватар (необов'язково)"
+  },
+  "manageCharacters_avatar_tabUrl": {
+    "message": "URL-адреса"
+  },
+  "manageCharacters_avatar_tabUpload": {
+    "message": "Завантажити"
+  },
+  "manageCharacters_avatar_selectImageError": {
+    "message": "Виберіть файл зображення"
+  },
+  "manageCharacters_avatar_formatError": {
+    "message": "Підтримуються лише зображення PNG, JPEG і GIF"
+  },
+  "manageCharacters_avatar_invalidError": {
+    "message": "Недійсний файл зображення"
+  },
+  "manageCharacters_avatar_processError": {
+    "message": "Не вдалося обробити зображення"
+  },
+  "manageCharacters_avatar_dropzone": {
+    "message": "Клацніть або перетягніть зображення для завантаження"
+  },
+  "manageCharacters_avatar_formats": {
+    "message": "PNG, JPEG або GIF"
+  },
+  "manageCharacters_avatar_preview": {
+    "message": "Попередній перегляд"
+  },
+  "manageCharacters_form_name_label": {
+    "message": "Назва"
+  },
+  "manageCharacters_form_name_placeholder": {
+    "message": "наприклад, тренер з письма"
+  },
+  "manageCharacters_form_name_required": {
+    "message": "Будь ласка, введіть назву"
+  },
+  "manageCharacters_form_description": {
+    "message": "Створіть багаторазового персонажа, з яким можна чатити на бічній панелі."
+  },
+  "manageCharacters_form_systemPrompt_label": {
+    "message": "Поведінка / інструкції"
+  },
+  "manageCharacters_form_systemPrompt_placeholder": {
+    "message": "Напр., ви терплячий вчитель математики, який пояснює концепції крок за кроком і перевіряє розуміння короткими прикладами."
+  },
+  "manageCharacters_form_systemPrompt_help": {
+    "message": "Опишіть роль персонажа, тон і обмеження. Наприклад: \"Ви терплячий репетитор з математики, який пояснює крок за кроком.\""
+  },
+  "manageCharacters_form_systemPrompt_required": {
+    "message": "Додайте інструкції, щоб спрямовувати відповіді."
+  },
+  "manageCharacters_form_systemPrompt_min": {
+    "message": "Додайте короткий опис, щоб персонаж знав, як відповідати."
+  },
+  "manageCharacters_form_systemPrompt_max": {
+    "message": "Системний промпт має бути не довший за 2000 символів."
+  },
+  "manageCharacters_form_avatarUrl_label": {
+    "message": "URL аватара (необов’язково)"
+  },
+  "manageCharacters_form_avatarUrl_placeholder": {
+    "message": "наприклад https://example.com/avatar.png"
+  },
+  "manageCharacters_form_greeting_label": {
+    "message": "Привітальне повідомлення (необов’язково)"
+  },
+  "manageCharacters_form_greeting_placeholder": {
+    "message": "Привіт! Я ваш тренер з письма. Вставте чернетку, і я допоможу зробити текст більш чітким."
+  },
+  "manageCharacters_form_greeting_help": {
+    "message": "Необов’язкове перше повідомлення, яке персонаж надішле при старті чату."
+  },
+  "manageCharacters_form_btnSave_saving": {
+    "message": "Створення персонажа..."
+  },
+  "manageCharacters_form_btnSave_save": {
+    "message": "Створити персонажа"
+  },
+  "manageCharacters_form_btnEdit_saving": {
+    "message": "Збереження змін..."
+  },
+  "manageCharacters_form_btnEdit_save": {
+    "message": "Зберегти зміни"
+  },
+  "manageCharacters_notification_addSuccess": {
+    "message": "Персонажа створено"
+  },
+  "manageCharacters_notification_error": {
+    "message": "Помилка"
+  },
+  "manageCharacters_notification_someError": {
+    "message": "Щось пішло не так. Спробуйте пізніше"
+  },
+  "manageCharacters_notification_updatedSuccess": {
+    "message": "Персонажа оновлено"
+  },
+  "manageCharacters_notification_deletedSuccess": {
+    "message": "Персонажа видалено"
+  },
+  "manageCharacters_loadError_title": {
+    "message": "Не вдалося завантажити персонажів"
+  },
+  "manageCharacters_loadError_description": {
+    "message": "Перевірте підключення та спробуйте ще раз."
+  },
+  "manageCharacters_emptyTitle": {
+    "message": "Персонажів поки немає"
+  },
+  "manageCharacters_emptyDescription": {
+    "message": "Створіть багаторазового персонажа з іменем, описом і системною підказкою, з яким можна чатити."
+  },
+  "manageCharacters_emptyExample1": {
+    "message": "Визначте тренера з письма, знавця лору або помічника з коду, якого можна використовувати в різних чатах."
+  },
+  "manageCharacters_emptyExample2": {
+    "message": "Дайте кожному персонажу чіткий опис і поведінку, щоб відповіді були послідовними."
+  },
+  "manageCharacters_emptyPrimaryCta": {
+    "message": "Створити персонажа"
+  },
+  "manageCharacters_avatarAltWithName": {
+    "message": "Аватар {{name}}"
+  },
+  "manageCharacters_avatarAlt": {
+    "message": "Аватар користувача"
+  },
+  "quiz_itemsPerPage": {
+    "message": "елементів/сторінка"
+  },
+  "quiz_editQuizTitle": {
+    "message": "Редагувати вікторину"
+  },
+  "quiz_updateSuccess": {
+    "message": "Вікторину успішно оновлено."
+  },
+  "quiz_updateError": {
+    "message": "Не вдалося оновити вікторину."
+  },
+  "quiz_questionTextRequired": {
+    "message": "Текст запитання є обов’язковим."
+  },
+  "quiz_optionsRequired": {
+    "message": "Будь ласка, додайте щонайменше два варіанти."
+  },
+  "quiz_questionSaveSuccess": {
+    "message": "Запитання створено успішно."
+  },
+  "quiz_questionUpdateSuccess": {
+    "message": "Запитання оновлено успішно."
+  },
+  "quiz_questionSaveError": {
+    "message": "Не вдалося зберегти запитання."
+  },
+  "quiz_questionDeleteSuccess": {
+    "message": "Запитання видалено успішно."
+  },
+  "quiz_questionDeleteError": {
+    "message": "Не вдалося видалити запитання."
+  },
+  "quiz_editQuestion": {
+    "message": "Редагувати запитання"
+  },
+  "quiz_points": {
+    "message": "Бали"
+  },
+  "quiz_orderIndex": {
+    "message": "Порядок"
+  },
+  "quiz_startError": {
+    "message": "Не вдалося розпочати вікторину."
+  },
+  "quiz_answerAll": {
+    "message": "Будь ласка, дайте відповідь на всі запитання перед надсиланням."
+  },
+  "quiz_submitError": {
+    "message": "Не вдалося надіслати вікторину."
+  },
+  "quiz_scoreSummary": {
+    "message": "Результат: {{score}} / {{total}} ({{percent}}%)"
+  },
+  "quiz_correct": {
+    "message": "Правильно"
+  },
+  "quiz_incorrect": {
+    "message": "Неправильно"
+  },
+  "quiz_yourAnswer": {
+    "message": "Ваша відповідь"
+  },
+  "quiz_correctAnswerLabel": {
+    "message": "Правильна відповідь"
+  },
+  "quiz_backToList": {
+    "message": "Повернутися до списку"
+  },
+  "quiz_retake": {
+    "message": "Повторити вікторину"
   }
 }

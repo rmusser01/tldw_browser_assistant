@@ -364,5 +364,326 @@
   },
   "contentReview_editedLabel": {
     "message": "Redigeret"
+  },
+  "mediaPage_spreadMode": {
+    "message": "Sammenlign"
+  },
+  "mediaPage_listMode": {
+    "message": "Fokus"
+  },
+  "mediaPage_allMode": {
+    "message": "Stak"
+  },
+  "mediaPage_spreadModeTooltip": {
+    "message": "Se valgte elementer side om side for sammenligning"
+  },
+  "mediaPage_listModeTooltip": {
+    "message": "Se ét element ad gangen med navigation"
+  },
+  "mediaPage_allModeTooltip": {
+    "message": "Se alle valgte elementer i en rulleliste"
+  },
+  "mediaPage_copyContentLabel": {
+    "message": "Kopiér indhold"
+  },
+  "mediaPage_copyAnalysisLabel": {
+    "message": "Kopiér analyse"
+  },
+  "mediaPage_copyContentTooltip": {
+    "message": "Kopiér indhold til udklipsholderen"
+  },
+  "mediaPage_copyAnalysisTooltip": {
+    "message": "Kopiér analyse til udklipsholderen"
+  },
+  "mediaPage_prevItemTooltip": {
+    "message": "Forrige element (←)"
+  },
+  "mediaPage_nextItemTooltip": {
+    "message": "Næste element (→)"
+  },
+  "mediaPage_viewerOptions": {
+    "message": "Indstillinger"
+  },
+  "mediaPage_expandAllDropdown": {
+    "message": "Udvid/Sammenfold"
+  },
+  "mediaPage_itemPosition": {
+    "message": "Element {{current}} af {{total}}"
+  },
+  "mediaPage_noItemSelected": {
+    "message": "Intet element valgt"
+  },
+  "mediaPage_firstUseTitle": {
+    "message": "Hurtig guide: Gennemgang af flere elementer"
+  },
+  "mediaPage_firstUseStep1": {
+    "message": "Vælg elementer"
+  },
+  "mediaPage_firstUseStep1Desc": {
+    "message": "Klik på elementer i venstre panel for at tilføje dem til visningen."
+  },
+  "mediaPage_firstUseStep2": {
+    "message": "Vælg en visning"
+  },
+  "mediaPage_firstUseStep2DescUpdated": {
+    "message": "Brug \"Sammenlign\" for side om side, \"Fokus\" for ét ad gangen, eller \"Stak\" for at se alle."
+  },
+  "mediaPage_firstUseStep3": {
+    "message": "Naviger"
+  },
+  "mediaPage_firstUseStep3Desc": {
+    "message": "Brug Forrige/Næste-knapperne eller tastaturet (Tab + Enter) til at gå gennem elementer."
+  },
+  "mediaPage_gotIt": {
+    "message": "Forstået"
+  },
+  "mediaPage_mediaInspector": {
+    "message": "Medieinspektør"
+  },
+  "mediaPage_searchPlaceholder": {
+    "message": "Search media (title/content)"
+  },
+  "mediaPage_search": {
+    "message": "Search"
+  },
+  "mediaPage_clear": {
+    "message": "Clear"
+  },
+  "mediaPage_types": {
+    "message": "Types"
+  },
+  "mediaPage_keywords": {
+    "message": "Keywords"
+  },
+  "mediaPage_moreTags": {
+    "message": "+{{count}} flere tags"
+  },
+  "mediaPage_resetFilters": {
+    "message": "Reset Filters"
+  },
+  "mediaPage_clearAll": {
+    "message": "Ryd alt"
+  },
+  "mediaPage_content": {
+    "message": "Content"
+  },
+  "mediaPage_vertical": {
+    "message": "Vertical"
+  },
+  "mediaPage_horizontal": {
+    "message": "Horizontal"
+  },
+  "mediaPage_results": {
+    "message": "Results"
+  },
+  "mediaPage_showSidebar": {
+    "message": "Show sidebar"
+  },
+  "mediaPage_hideSidebar": {
+    "message": "Hide sidebar"
+  },
+  "mediaPage_viewer": {
+    "message": "Viewer"
+  },
+  "mediaPage_selectItemsHint": {
+    "message": "Select items on the left to view here."
+  },
+  "mediaPage_mediaContent": {
+    "message": "Media Content"
+  },
+  "mediaPage_copyContent": {
+    "message": "Copy content"
+  },
+  "mediaPage_contentCopied": {
+    "message": "Content copied"
+  },
+  "mediaPage_metadataCopied": {
+    "message": "Metadata kopieret"
+  },
+  "mediaPage_analysisCopied": {
+    "message": "Analyse kopieret"
+  },
+  "mediaPage_copyFailed": {
+    "message": "Copy failed"
+  },
+  "mediaPage_noContent": {
+    "message": "No content available"
+  },
+  "mediaPage_collapse": {
+    "message": "Collapse"
+  },
+  "mediaPage_expand": {
+    "message": "Expand"
+  },
+  "mediaPage_media": {
+    "message": "Media"
+  },
+  "mediaPage_searchingBanner": {
+    "message": "Searching media…"
+  },
+  "mediaPage_filterHelp": {
+    "message": "Search matches title and content; Types and Keywords further narrow the results."
+  },
+  "mediaPage_noMediaTypes": {
+    "message": "Ingen medietyper tilgængelige"
+  },
+  "mediaPage_noResults": {
+    "message": "No results"
+  },
+  "mediaPage_resultsCount": {
+    "message": "{{selected}} selected · {{open}} open"
+  },
+  "mediaPage_clearSelection": {
+    "message": "Deselect all"
+  },
+  "mediaPage_itemsLabel": {
+    "message": "Items"
+  },
+  "mediaPage_contentLabel": {
+    "message": "Content view"
+  },
+  "mediaPage_filterByKeyword": {
+    "message": "Filtrér efter nøgleord"
+  },
+  "mediaPage_keywordHelper": {
+    "message": "Nøgleord hjælper dig med at finde dette medie ved hjælp af nøgleordsfilteret til venstre"
+  },
+  "mediaPage_modeHint": {
+    "message": "Søg og stabl flere medieelementer for at sammenligne dem i visningen til højre."
+  },
+  "mediaPage_viewerHelp": {
+    "message": "Tastatur: Brug Tab for at gå til resultatlisten, Enter eller Mellemrum for at stable eller fjerne et medieelement og knapperne Forrige/Næste og layoutkontrollerne for at navigere mellem elementerne i visningen."
+  },
+  "mediaPage_viewerHelpLabel": {
+    "message": "Tastaturgenveje til gennemgang af flere elementer"
+  },
+  "mediaPage_actionsLabel": {
+    "message": "Handlinger"
+  },
+  "mediaPage_keywordsPlaceholder": {
+    "message": "Tilføj nøgleord..."
+  },
+  "mediaPage_noSelectionTitle": {
+    "message": "Intet medieelement valgt"
+  },
+  "mediaPage_noSelectionDescription": {
+    "message": "Vælg et medieelement i venstre sidepanel for at se dets indhold og analyser her."
+  },
+  "mediaPage_generateAnalysis": {
+    "message": "Opret analyse"
+  },
+  "mediaPage_generateAnalysisHint": {
+    "message": "Opret en ny analyse"
+  },
+  "mediaPage_editAnalysis": {
+    "message": "Redigér analyse"
+  },
+  "mediaPage_createNoteWithContent": {
+    "message": "Opret note med indhold"
+  },
+  "mediaPage_createNoteWithContentAnalysis": {
+    "message": "Opret note med indhold + analyse"
+  },
+  "mediaPage_untitled": {
+    "message": "Uden titel"
+  },
+  "mediaPage_copyMetadata": {
+    "message": "Kopiér metadata"
+  },
+  "mediaPage_statistics": {
+    "message": "Statistik"
+  },
+  "mediaPage_words": {
+    "message": "Ord"
+  },
+  "mediaPage_characters": {
+    "message": "Tegn"
+  },
+  "mediaPage_paragraphs": {
+    "message": "Afsnit"
+  },
+  "mediaPage_metadata": {
+    "message": "Metadata"
+  },
+  "mediaPage_idLabel": {
+    "message": "ID"
+  },
+  "mediaPage_typeLabel": {
+    "message": "Type"
+  },
+  "mediaPage_titleLabel": {
+    "message": "Titel"
+  },
+  "mediaPage_source": {
+    "message": "Kilde"
+  },
+  "mediaPage_notAvailable": {
+    "message": "Ikke tilgængelig"
+  },
+  "mediaPage_developerTools": {
+    "message": "Udviklerværktøjer"
+  },
+  "mediaPage_model": {
+    "message": "Model"
+  },
+  "mediaPage_selectModel": {
+    "message": "Vælg en model"
+  },
+  "mediaPage_noModelsAvailable": {
+    "message": "Ingen modeller tilgængelige"
+  },
+  "mediaPage_promptPresets": {
+    "message": "Prompt-forudindstillinger"
+  },
+  "mediaPage_showPresets": {
+    "message": "Vis forudindstillinger"
+  },
+  "mediaPage_hidePresets": {
+    "message": "Skjul forudindstillinger"
+  },
+  "mediaPage_systemPromptLabel": {
+    "message": "Systemprompt"
+  },
+  "mediaPage_systemPromptPlaceholder": {
+    "message": "Indtast systemprompt..."
+  },
+  "mediaPage_userPromptPrefixLabel": {
+    "message": "Brugerprompt-præfiks"
+  },
+  "mediaPage_prependedBeforeContent": {
+    "message": "(føjet foran indholdet)"
+  },
+  "mediaPage_userPrefixPlaceholder": {
+    "message": "Valgfrit: Indtast tekst, der skal føjes foran medieindholdet..."
+  },
+  "mediaPage_presetComprehensiveAnalysis": {
+    "message": "Omfattende analyse"
+  },
+  "mediaPage_presetExecutiveSummary": {
+    "message": "Ledelsesresumé"
+  },
+  "mediaPage_presetCriticalReview": {
+    "message": "Kritisk gennemgang"
+  },
+  "mediaPage_presetQAAnalysis": {
+    "message": "Spørgsmål og svar-analyse"
+  },
+  "contentReview_templates_transcript_clean_label": {
+    "message": "Rens transskription"
+  },
+  "contentReview_templates_transcript_clean_description": {
+    "message": "Normaliserer tegnsætning og store/små bogstaver, mens linjestrukturen bevares."
+  },
+  "contentReview_templates_speaker_turns_label": {
+    "message": "Taletur"
+  },
+  "contentReview_templates_speaker_turns_description": {
+    "message": "Sikrer, at hver taletur står på sin egen linje med tydelige etiketter."
+  },
+  "contentReview_templates_chapter_headings_label": {
+    "message": "Kapiteloverskrifter"
+  },
+  "contentReview_templates_chapter_headings_description": {
+    "message": "Indsætter Markdown‑overskrifter for at gruppere emner uden at fjerne indhold."
   }
 }

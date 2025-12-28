@@ -1160,22 +1160,28 @@
     "description": "Content review UI string."
   },
   "reviewDraftsFailedTitle": {
-    "message": "Review-Entwürfe konnten nicht erstellt werden."
+    "message": "Review-Entwürfe konnten nicht erstellt werden.",
+    "description": "Error title when review drafts creation fails."
   },
   "reviewDraftsFailedFallback": {
-    "message": "Erstellung der Review-Entwürfe fehlgeschlagen."
+    "message": "Erstellung der Review-Entwürfe fehlgeschlagen.",
+    "description": "Fallback error message for review drafts failure."
   },
   "reviewDraftsRetry": {
-    "message": "Entwurfserstellung erneut versuchen"
+    "message": "Entwurfserstellung erneut versuchen",
+    "description": "Button label to retry creating review drafts."
   },
   "reviewDraftsStoreWithoutReview": {
-    "message": "Ohne Review speichern"
+    "message": "Ohne Review speichern",
+    "description": "Action to store without review."
   },
   "reviewNavigationFailed": {
-    "message": "Content Review konnte nicht geöffnet werden. Bitte versuche es erneut."
+    "message": "Content Review konnte nicht geöffnet werden. Bitte versuche es erneut.",
+    "description": "Error message when navigation to Content Review fails."
   },
   "reviewNavigationRetry": {
-    "message": "Content Review erneut öffnen"
+    "message": "Content Review erneut öffnen",
+    "description": "Button label to retry opening Content Review."
   },
   "quickIngest_title": {
     "message": "Quick Ingest Media"
@@ -1554,7 +1560,7 @@
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_viewInline": {
-    "message": "Inline",
+    "message": "Inline-Ansicht",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_stats": {
@@ -1577,13 +1583,13 @@
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_chunkIndex": {
-    "message": "Chunk {{index}}"
+    "message": "Abschnitt {{index}}"
   },
   "chunkingPlayground_chunkInfo": {
     "message": "Chunk {{index}}: {{words}} Wörter"
   },
   "chunkingPlayground_position": {
-    "message": "Position: {{start}} - {{end}}"
+    "message": "Position: {{start}}–{{end}}"
   },
   "chunkingPlayground_additionalChunks": {
     "message": "+{{count}} weitere"
@@ -2430,7 +2436,7 @@
     "message": "Experiment with different models, prompts, and knowledge sources here."
   },
   "playground_empty_demoDescription": {
-    "message": "You’re in demo mode — try asking a question to see how the assistant responds. You can connect your own tldw server later."
+    "message": "Sie befinden sich im Demo-Modus — stellen Sie eine Frage, um zu sehen, wie der Assistent antwortet. Sie können später Ihren eigenen tldw-Server verbinden."
   },
   "playground_empty_example1": {
     "message": "Ask a question, then drag in documents or web pages you want to discuss."
@@ -2869,5 +2875,272 @@
   },
   "tabs_closeTabAria": {
     "message": "Chat-Tab schließen"
+  },
+  "manageCharacters_title": {
+    "message": "Charaktere verwalten"
+  },
+  "manageCharacters_addBtn": {
+    "message": "Neuer Charakter"
+  },
+  "manageCharacters_columns_name": {
+    "message": "Bezeichnung"
+  },
+  "manageCharacters_columns_description": {
+    "message": "Beschreibung"
+  },
+  "manageCharacters_columns_actions": {
+    "message": "Aktionen"
+  },
+  "manageCharacters_columns_avatar": {
+    "message": "Profilbild"
+  },
+  "manageCharacters_actions_chat": {
+    "message": "Chat starten"
+  },
+  "manageCharacters_actions_edit": {
+    "message": "Bearbeiten"
+  },
+  "manageCharacters_actions_delete": {
+    "message": "Löschen"
+  },
+  "manageCharacters_actions_duplicate": {
+    "message": "Duplizieren"
+  },
+  "manageCharacters_table_noDescription": {
+    "message": "Keine Beschreibung"
+  },
+  "manageCharacters_filter_matchAll": {
+    "message": "Alle Tags müssen übereinstimmen"
+  },
+  "manageCharacters_tags_label": {
+    "message": "Stichwörter"
+  },
+  "manageCharacters_tags_placeholder": {
+    "message": "Stichwörter hinzufügen"
+  },
+  "manageCharacters_tags_help": {
+    "message": "Verwenden Sie Stichwörter, um Charaktere nach Anwendungsfall zu gruppieren (z. B. „Schreiben“, „Unterrichten“)."
+  },
+  "manageCharacters_tooltip_edit": {
+    "message": "Charakter bearbeiten"
+  },
+  "manageCharacters_tooltip_delete": {
+    "message": "Charakter löschen"
+  },
+  "manageCharacters_aria_chatWith": {
+    "message": "Chat als {{name}}"
+  },
+  "manageCharacters_aria_edit": {
+    "message": "Charakter {{name}} bearbeiten"
+  },
+  "manageCharacters_aria_delete": {
+    "message": "Charakter {{name}} löschen"
+  },
+  "manageCharacters_aria_duplicate": {
+    "message": "Charakter {{name}} duplizieren"
+  },
+  "manageCharacters_confirm_delete": {
+    "message": "Möchten Sie diesen Charakter wirklich löschen? Diese Aktion kann nicht rückgängig gemacht werden."
+  },
+  "manageCharacters_avatar_label": {
+    "message": "Profilbild (optional)"
+  },
+  "manageCharacters_avatar_tabUrl": {
+    "message": "URL-Adresse"
+  },
+  "manageCharacters_avatar_tabUpload": {
+    "message": "Hochladen"
+  },
+  "manageCharacters_avatar_selectImageError": {
+    "message": "Bitte wähle eine Bilddatei aus"
+  },
+  "manageCharacters_avatar_formatError": {
+    "message": "Nur PNG-, JPEG- und GIF-Bilder werden unterstützt"
+  },
+  "manageCharacters_avatar_invalidError": {
+    "message": "Ungültige Bilddatei"
+  },
+  "manageCharacters_avatar_processError": {
+    "message": "Bild konnte nicht verarbeitet werden"
+  },
+  "manageCharacters_avatar_dropzone": {
+    "message": "Klicken oder Bild hierher ziehen, um es hochzuladen"
+  },
+  "manageCharacters_avatar_formats": {
+    "message": "PNG, JPEG oder GIF"
+  },
+  "manageCharacters_avatar_preview": {
+    "message": "Vorschau"
+  },
+  "manageCharacters_form_name_label": {
+    "message": "Name des Charakters"
+  },
+  "manageCharacters_form_name_placeholder": {
+    "message": "z. B. Schreibcoach"
+  },
+  "manageCharacters_form_name_required": {
+    "message": "Bitte geben Sie einen Namen ein"
+  },
+  "manageCharacters_form_description": {
+    "message": "Definieren Sie einen wiederverwendbaren Charakter, mit dem Sie in der Seitenleiste chatten können."
+  },
+  "manageCharacters_form_systemPrompt_label": {
+    "message": "Verhalten / Anweisungen"
+  },
+  "manageCharacters_form_systemPrompt_placeholder": {
+    "message": "z. B. Du bist ein geduldiger Mathelehrer, der Konzepte Schritt für Schritt erklärt und das Verständnis mit kurzen Beispielen prüft."
+  },
+  "manageCharacters_form_systemPrompt_help": {
+    "message": "Beschreiben Sie die Rolle, den Ton und die Einschränkungen des Charakters. Zum Beispiel: \"Du bist ein geduldiger Mathe-Tutor, der Konzepte Schritt für Schritt erklärt.\""
+  },
+  "manageCharacters_form_systemPrompt_required": {
+    "message": "Bitte füge Anweisungen hinzu, um die Antworten zu steuern."
+  },
+  "manageCharacters_form_systemPrompt_min": {
+    "message": "Fügen Sie eine kurze Beschreibung hinzu, damit der Charakter weiß, wie er antworten soll."
+  },
+  "manageCharacters_form_systemPrompt_max": {
+    "message": "Der System-Prompt darf höchstens 2000 Zeichen lang sein."
+  },
+  "manageCharacters_form_avatarUrl_label": {
+    "message": "Avatar-URL (optional)"
+  },
+  "manageCharacters_form_avatarUrl_placeholder": {
+    "message": "z. B. https://example.com/avatar.png"
+  },
+  "manageCharacters_form_greeting_label": {
+    "message": "Begrüßungsnachricht (optional)"
+  },
+  "manageCharacters_form_greeting_placeholder": {
+    "message": "Hallo! Ich bin dein Schreibcoach. Füge deinen Entwurf ein, und ich helfe dir beim Feinschliff."
+  },
+  "manageCharacters_form_greeting_help": {
+    "message": "Optionale erste Nachricht, die der Charakter sendet, wenn Sie einen Chat starten."
+  },
+  "manageCharacters_form_btnSave_saving": {
+    "message": "Charakter wird erstellt..."
+  },
+  "manageCharacters_form_btnSave_save": {
+    "message": "Charakter erstellen"
+  },
+  "manageCharacters_form_btnEdit_saving": {
+    "message": "Änderungen werden gespeichert..."
+  },
+  "manageCharacters_form_btnEdit_save": {
+    "message": "Änderungen speichern"
+  },
+  "manageCharacters_notification_addSuccess": {
+    "message": "Charakter erstellt"
+  },
+  "manageCharacters_notification_error": {
+    "message": "Fehler"
+  },
+  "manageCharacters_notification_someError": {
+    "message": "Etwas ist schiefgelaufen. Bitte versuchen Sie es später erneut."
+  },
+  "manageCharacters_notification_updatedSuccess": {
+    "message": "Charakter aktualisiert"
+  },
+  "manageCharacters_notification_deletedSuccess": {
+    "message": "Charakter gelöscht"
+  },
+  "manageCharacters_loadError_title": {
+    "message": "Charaktere konnten nicht geladen werden"
+  },
+  "manageCharacters_loadError_description": {
+    "message": "Überprüfen Sie Ihre Verbindung und versuchen Sie es erneut."
+  },
+  "manageCharacters_emptyTitle": {
+    "message": "Noch keine Charaktere"
+  },
+  "manageCharacters_emptyDescription": {
+    "message": "Erstellen Sie einen wiederverwendbaren Charakter mit Name, Beschreibung und System-Prompt, mit dem Sie chatten können."
+  },
+  "manageCharacters_emptyExample1": {
+    "message": "Definieren Sie einen Schreibcoach, Lore-Experten oder Coding-Assistenten, den Sie in Chats wiederverwenden können."
+  },
+  "manageCharacters_emptyExample2": {
+    "message": "Geben Sie jedem Charakter eine klare Beschreibung und ein Verhalten, damit die Antworten konsistent bleiben."
+  },
+  "manageCharacters_emptyPrimaryCta": {
+    "message": "Charakter erstellen"
+  },
+  "manageCharacters_avatarAltWithName": {
+    "message": "Avatar von {{name}}"
+  },
+  "manageCharacters_avatarAlt": {
+    "message": "Benutzeravatar"
+  },
+  "quiz_itemsPerPage": {
+    "message": "Elemente/Seite"
+  },
+  "quiz_editQuizTitle": {
+    "message": "Quiz bearbeiten"
+  },
+  "quiz_updateSuccess": {
+    "message": "Quiz erfolgreich aktualisiert."
+  },
+  "quiz_updateError": {
+    "message": "Quiz konnte nicht aktualisiert werden."
+  },
+  "quiz_questionTextRequired": {
+    "message": "Der Fragetext ist erforderlich."
+  },
+  "quiz_optionsRequired": {
+    "message": "Bitte gib mindestens zwei Optionen an."
+  },
+  "quiz_questionSaveSuccess": {
+    "message": "Frage erfolgreich erstellt."
+  },
+  "quiz_questionUpdateSuccess": {
+    "message": "Frage erfolgreich aktualisiert."
+  },
+  "quiz_questionSaveError": {
+    "message": "Frage konnte nicht gespeichert werden."
+  },
+  "quiz_questionDeleteSuccess": {
+    "message": "Frage erfolgreich gelöscht."
+  },
+  "quiz_questionDeleteError": {
+    "message": "Frage konnte nicht gelöscht werden."
+  },
+  "quiz_editQuestion": {
+    "message": "Frage bearbeiten"
+  },
+  "quiz_points": {
+    "message": "Punkte"
+  },
+  "quiz_orderIndex": {
+    "message": "Reihenfolge"
+  },
+  "quiz_startError": {
+    "message": "Quiz konnte nicht gestartet werden."
+  },
+  "quiz_answerAll": {
+    "message": "Bitte beantworte alle Fragen, bevor du sendest."
+  },
+  "quiz_submitError": {
+    "message": "Quiz konnte nicht gesendet werden."
+  },
+  "quiz_scoreSummary": {
+    "message": "Punktzahl: {{score}} / {{total}} ({{percent}}%)"
+  },
+  "quiz_correct": {
+    "message": "Richtig"
+  },
+  "quiz_incorrect": {
+    "message": "Falsch"
+  },
+  "quiz_yourAnswer": {
+    "message": "Deine Antwort"
+  },
+  "quiz_correctAnswerLabel": {
+    "message": "Richtige Antwort"
+  },
+  "quiz_backToList": {
+    "message": "Zurück zur Liste"
+  },
+  "quiz_retake": {
+    "message": "Quiz erneut starten"
   }
 }

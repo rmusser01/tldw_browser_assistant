@@ -1164,22 +1164,28 @@
     "description": "Content review UI string."
   },
   "reviewDraftsFailedTitle": {
-    "message": "Kunde inte skapa granskningsutkast."
+    "message": "Kunde inte skapa granskningsutkast.",
+    "description": "Error title when review drafts creation fails."
   },
   "reviewDraftsFailedFallback": {
-    "message": "Det gick inte att skapa granskningsutkast."
+    "message": "Det gick inte att skapa granskningsutkast.",
+    "description": "Fallback error message for review drafts failure."
   },
   "reviewDraftsRetry": {
-    "message": "Försök skapa utkast igen"
+    "message": "Försök skapa utkast igen",
+    "description": "Button label to retry creating review drafts."
   },
   "reviewDraftsStoreWithoutReview": {
-    "message": "Spara utan granskning"
+    "message": "Spara utan granskning",
+    "description": "Action to store without review."
   },
   "reviewNavigationFailed": {
-    "message": "Det gick inte att öppna Innehållsgranskning. Försök igen."
+    "message": "Det gick inte att öppna Innehållsgranskning. Försök igen.",
+    "description": "Error message when navigation to Content Review fails."
   },
   "reviewNavigationRetry": {
-    "message": "Försök öppna Innehållsgranskning igen"
+    "message": "Försök öppna Innehållsgranskning igen",
+    "description": "Button label to retry opening Content Review."
   },
   "quickIngest_title": {
     "message": "Quick Ingest Media"
@@ -1531,7 +1537,7 @@
     "description": "Swedish translation"
   },
   "chunkingPlayground_viewInline": {
-    "message": "Inline",
+    "message": "Inbäddat",
     "description": "Swedish translation"
   },
   "chunkingPlayground_stats": {
@@ -1560,7 +1566,7 @@
     "message": "Del {{index}}: {{words}} ord"
   },
   "chunkingPlayground_position": {
-    "message": "Position: {{start}} - {{end}}"
+    "message": "Placering: {{start}} - {{end}}"
   },
   "chunkingPlayground_additionalChunks": {
     "message": "+{{count}} till"
@@ -2050,145 +2056,145 @@
     "message": "Interna anteckningar (Markdown + LaTeX stöds)."
   },
   "manageCharacters_title": {
-    "message": "Manage Characters"
+    "message": "Hantera karaktärer"
   },
   "manageCharacters_addBtn": {
-    "message": "New character"
+    "message": "Ny karaktär"
   },
   "manageCharacters_columns_name": {
-    "message": "Name"
+    "message": "Namn"
   },
   "manageCharacters_columns_description": {
-    "message": "Description"
+    "message": "Beskrivning"
   },
   "manageCharacters_columns_actions": {
-    "message": "Actions"
+    "message": "Åtgärder"
   },
   "manageCharacters_columns_avatar": {
-    "message": "Avatar"
+    "message": "Profilbild"
   },
   "manageCharacters_actions_chat": {
-    "message": "Chat"
+    "message": "Chatta"
   },
   "manageCharacters_actions_edit": {
-    "message": "Edit"
+    "message": "Redigera"
   },
   "manageCharacters_actions_delete": {
     "message": "Ta bort"
   },
   "manageCharacters_tags_label": {
-    "message": "Tags"
+    "message": "Taggar"
   },
   "manageCharacters_tags_placeholder": {
-    "message": "Add tags"
+    "message": "Lägg till taggar"
   },
   "manageCharacters_tags_help": {
-    "message": "Use tags to group characters by use case (e.g., “writing”, “teaching”)."
+    "message": "Använd taggar för att gruppera karaktärer efter användningsfall (t.ex. “skrivande”, “undervisning”)."
   },
   "manageCharacters_tooltip_edit": {
-    "message": "Edit character"
+    "message": "Redigera karaktär"
   },
   "manageCharacters_tooltip_delete": {
-    "message": "Delete character"
+    "message": "Ta bort karaktär"
   },
   "manageCharacters_aria_chatWith": {
-    "message": "Chat as {{name}}"
+    "message": "Chatta som {{name}}"
   },
   "manageCharacters_aria_edit": {
-    "message": "Edit character {{name}}"
+    "message": "Redigera karaktär {{name}}"
   },
   "manageCharacters_aria_delete": {
     "message": "Ta bort karaktären {{name}}"
   },
   "manageCharacters_confirm_delete": {
-    "message": "Are you sure you want to delete this character? This action cannot be undone."
+    "message": "Är du säker på att du vill ta bort den här karaktären? Den här åtgärden kan inte ångras."
   },
   "manageCharacters_form_name_label": {
-    "message": "Name"
+    "message": "Namn"
   },
   "manageCharacters_form_name_placeholder": {
-    "message": "e.g. Writing coach"
+    "message": "t.ex. Skrivcoach"
   },
   "manageCharacters_form_name_required": {
-    "message": "Please enter a name"
+    "message": "Ange ett namn"
   },
   "manageCharacters_form_description": {
-    "message": "Define a reusable character you can chat with in the sidebar."
+    "message": "Definiera en återanvändbar karaktär som du kan chatta med i sidopanelen."
   },
   "manageCharacters_form_systemPrompt_label": {
-    "message": "Behavior / instructions"
+    "message": "Beteende / instruktioner"
   },
   "manageCharacters_form_systemPrompt_placeholder": {
-    "message": "E.g., You are a patient math teacher who explains concepts step by step and checks understanding with short examples."
+    "message": "T.ex. Du är en tålmodig mattelärare som förklarar begrepp steg för steg och kontrollerar förståelsen med korta exempel."
   },
   "manageCharacters_form_systemPrompt_help": {
-    "message": "Explain the character's role, tone, and constraints. For example: \"You are a patient math tutor who explains concepts step by step.\""
+    "message": "Förklara karaktärens roll, ton och begränsningar. Till exempel: \"Du är en tålmodig mattelärare som förklarar steg för steg.\""
   },
   "manageCharacters_form_systemPrompt_min": {
     "message": "Add a short description so the character knows how to respond."
   },
   "manageCharacters_form_avatarUrl_label": {
-    "message": "Avatar URL (optional)"
+    "message": "Avatar‑URL (valfritt)"
   },
   "manageCharacters_form_avatarUrl_placeholder": {
-    "message": "https://example.com/avatar.png"
+    "message": "t.ex. https://example.com/avatar.png"
   },
   "manageCharacters_form_greeting_label": {
-    "message": "Greeting message (optional)"
+    "message": "Hälsningsmeddelande (valfritt)"
   },
   "manageCharacters_form_greeting_placeholder": {
-    "message": "Hi there! I’m your writing coach. Paste your draft and I’ll help you tighten it up."
+    "message": "Hej! Jag är din skrivcoach. Klistra in ditt utkast så hjälper jag dig att tajta till det."
   },
   "manageCharacters_form_greeting_help": {
-    "message": "Optional first message the character will send when you start a chat."
+    "message": "Valfritt första meddelande som karaktären skickar när du startar en chatt."
   },
   "manageCharacters_form_btnSave_saving": {
-    "message": "Creating character..."
+    "message": "Skapar karaktär..."
   },
   "manageCharacters_form_btnSave_save": {
-    "message": "Create character"
+    "message": "Skapa karaktär"
   },
   "manageCharacters_form_btnEdit_saving": {
-    "message": "Saving changes..."
+    "message": "Sparar ändringar..."
   },
   "manageCharacters_form_btnEdit_save": {
-    "message": "Save changes"
+    "message": "Spara ändringar"
   },
   "manageCharacters_notification_addSuccess": {
-    "message": "Character created"
+    "message": "Karaktär skapad"
   },
   "manageCharacters_notification_error": {
-    "message": "Error"
+    "message": "Fel"
   },
   "manageCharacters_notification_someError": {
-    "message": "Something went wrong. Please try again later"
+    "message": "Något gick fel. Försök igen senare."
   },
   "manageCharacters_notification_updatedSuccess": {
-    "message": "Character updated"
+    "message": "Karaktär uppdaterad"
   },
   "manageCharacters_notification_deletedSuccess": {
-    "message": "Character deleted"
+    "message": "Karaktär borttagen"
   },
   "manageCharacters_loadError_title": {
-    "message": "Couldn't load characters"
+    "message": "Kunde inte läsa in karaktärer"
   },
   "manageCharacters_loadError_description": {
-    "message": "Check your connection and try again."
+    "message": "Kontrollera anslutningen och försök igen."
   },
   "manageCharacters_emptyTitle": {
-    "message": "No characters yet"
+    "message": "Inga karaktärer ännu"
   },
   "manageCharacters_emptyDescription": {
-    "message": "Create a reusable character with a name, description, and system prompt you can chat with."
+    "message": "Skapa en återanvändbar karaktär med namn, beskrivning och systemprompt som du kan chatta med."
   },
   "manageCharacters_emptyExample1": {
-    "message": "Define a writing coach, lore expert, or coding assistant you can reuse across chats."
+    "message": "Definiera en skrivcoach, lore‑expert eller kodassistent som du kan återanvända i chattar."
   },
   "manageCharacters_emptyExample2": {
-    "message": "Give each character a clear description and behavior so their responses stay consistent."
+    "message": "Ge varje karaktär en tydlig beskrivning och beteende så att svaren blir konsekventa."
   },
   "manageCharacters_emptyPrimaryCta": {
-    "message": "Create character"
+    "message": "Skapa karaktär"
   },
   "manageCharacters_avatarAltWithName": {
     "message": "Avatar för {{name}}"
@@ -3032,5 +3038,53 @@
   },
   "playground_composer_validationCompareSelectModelsInline": {
     "message": "Välj minst en modell för jämförelseläge."
+  },
+  "manageCharacters_actions_duplicate": {
+    "message": "Duplicera"
+  },
+  "manageCharacters_table_noDescription": {
+    "message": "Ingen beskrivning"
+  },
+  "manageCharacters_filter_matchAll": {
+    "message": "Matcha alla taggar"
+  },
+  "manageCharacters_aria_duplicate": {
+    "message": "Duplicera karaktär {{name}}"
+  },
+  "manageCharacters_avatar_label": {
+    "message": "Profilbild (valfritt)"
+  },
+  "manageCharacters_avatar_tabUrl": {
+    "message": "URL‑adress"
+  },
+  "manageCharacters_avatar_tabUpload": {
+    "message": "Ladda upp"
+  },
+  "manageCharacters_avatar_selectImageError": {
+    "message": "Välj en bildfil"
+  },
+  "manageCharacters_avatar_formatError": {
+    "message": "Endast PNG-, JPEG- och GIF-bilder stöds"
+  },
+  "manageCharacters_avatar_invalidError": {
+    "message": "Ogiltig bildfil"
+  },
+  "manageCharacters_avatar_processError": {
+    "message": "Misslyckades med att bearbeta bilden"
+  },
+  "manageCharacters_avatar_dropzone": {
+    "message": "Klicka eller dra en bild för att ladda upp"
+  },
+  "manageCharacters_avatar_formats": {
+    "message": "PNG, JPEG eller GIF"
+  },
+  "manageCharacters_avatar_preview": {
+    "message": "Förhandsgranskning"
+  },
+  "manageCharacters_form_systemPrompt_required": {
+    "message": "Lägg till instruktioner för att styra svaren."
+  },
+  "manageCharacters_form_systemPrompt_max": {
+    "message": "Systemprompten får vara högst 2000 tecken."
   }
 }

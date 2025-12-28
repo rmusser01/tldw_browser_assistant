@@ -1196,22 +1196,28 @@
     "description": "Content review UI string."
   },
   "reviewDraftsFailedTitle": {
-    "message": "تعذر إنشاء مسودات المراجعة."
+    "message": "تعذر إنشاء مسودات المراجعة.",
+    "description": "Error title when review drafts creation fails."
   },
   "reviewDraftsFailedFallback": {
-    "message": "فشل إنشاء مسودات المراجعة."
+    "message": "فشل إنشاء مسودات المراجعة.",
+    "description": "Fallback error message for review drafts failure."
   },
   "reviewDraftsRetry": {
-    "message": "أعد محاولة إنشاء المسودات"
+    "message": "أعد محاولة إنشاء المسودات",
+    "description": "Button label to retry creating review drafts."
   },
   "reviewDraftsStoreWithoutReview": {
-    "message": "احفظ دون مراجعة"
+    "message": "احفظ دون مراجعة",
+    "description": "Action to store without review."
   },
   "reviewNavigationFailed": {
-    "message": "تعذر فتح مراجعة المحتوى. يرجى المحاولة مرة أخرى."
+    "message": "تعذر فتح مراجعة المحتوى. يرجى المحاولة مرة أخرى.",
+    "description": "Error message when navigation to Content Review fails."
   },
   "reviewNavigationRetry": {
-    "message": "أعد محاولة فتح مراجعة المحتوى"
+    "message": "أعد محاولة فتح مراجعة المحتوى",
+    "description": "Button label to retry opening Content Review."
   },
   "quickIngest_title": {
     "message": "استيعاب سريع للوسائط"
@@ -2854,5 +2860,272 @@
   },
   "tabs_closeTabAria": {
     "message": "إغلاق علامة تبويب الدردشة"
+  },
+  "manageCharacters_title": {
+    "message": "إدارة الشخصيات"
+  },
+  "manageCharacters_addBtn": {
+    "message": "شخصية جديدة"
+  },
+  "manageCharacters_columns_name": {
+    "message": "الاسم"
+  },
+  "manageCharacters_columns_description": {
+    "message": "الوصف"
+  },
+  "manageCharacters_columns_actions": {
+    "message": "الإجراءات"
+  },
+  "manageCharacters_columns_avatar": {
+    "message": "الصورة الرمزية"
+  },
+  "manageCharacters_actions_chat": {
+    "message": "دردشة"
+  },
+  "manageCharacters_actions_edit": {
+    "message": "تعديل"
+  },
+  "manageCharacters_actions_delete": {
+    "message": "حذف"
+  },
+  "manageCharacters_actions_duplicate": {
+    "message": "تكرار"
+  },
+  "manageCharacters_table_noDescription": {
+    "message": "بدون وصف"
+  },
+  "manageCharacters_filter_matchAll": {
+    "message": "مطابقة جميع الوسوم"
+  },
+  "manageCharacters_tags_label": {
+    "message": "الوسوم"
+  },
+  "manageCharacters_tags_placeholder": {
+    "message": "أضف وسومًا"
+  },
+  "manageCharacters_tags_help": {
+    "message": "استخدم الوسوم لتجميع الشخصيات حسب الاستخدام (مثل \"الكتابة\"، \"التدريس\")."
+  },
+  "manageCharacters_tooltip_edit": {
+    "message": "تعديل الشخصية"
+  },
+  "manageCharacters_tooltip_delete": {
+    "message": "حذف الشخصية"
+  },
+  "manageCharacters_aria_chatWith": {
+    "message": "الدردشة كشخصية {{name}}"
+  },
+  "manageCharacters_aria_edit": {
+    "message": "تعديل الشخصية {{name}}"
+  },
+  "manageCharacters_aria_delete": {
+    "message": "حذف الشخصية {{name}}"
+  },
+  "manageCharacters_aria_duplicate": {
+    "message": "تكرار الشخصية {{name}}"
+  },
+  "manageCharacters_confirm_delete": {
+    "message": "هل أنت متأكد أنك تريد حذف هذه الشخصية؟ لا يمكن التراجع عن هذا الإجراء."
+  },
+  "manageCharacters_avatar_label": {
+    "message": "الصورة الرمزية (اختياري)"
+  },
+  "manageCharacters_avatar_tabUrl": {
+    "message": "الرابط"
+  },
+  "manageCharacters_avatar_tabUpload": {
+    "message": "رفع"
+  },
+  "manageCharacters_avatar_selectImageError": {
+    "message": "يرجى اختيار ملف صورة"
+  },
+  "manageCharacters_avatar_formatError": {
+    "message": "يتم دعم صور PNG وJPEG وGIF فقط"
+  },
+  "manageCharacters_avatar_invalidError": {
+    "message": "ملف صورة غير صالح"
+  },
+  "manageCharacters_avatar_processError": {
+    "message": "فشل معالجة الصورة"
+  },
+  "manageCharacters_avatar_dropzone": {
+    "message": "انقر أو اسحب الصورة للرفع"
+  },
+  "manageCharacters_avatar_formats": {
+    "message": "PNG أو JPEG أو GIF"
+  },
+  "manageCharacters_avatar_preview": {
+    "message": "معاينة"
+  },
+  "manageCharacters_form_name_label": {
+    "message": "الاسم"
+  },
+  "manageCharacters_form_name_placeholder": {
+    "message": "مثال: مدرب كتابة"
+  },
+  "manageCharacters_form_name_required": {
+    "message": "يرجى إدخال اسم"
+  },
+  "manageCharacters_form_description": {
+    "message": "عرّف شخصية قابلة لإعادة الاستخدام يمكنك الدردشة معها في الشريط الجانبي."
+  },
+  "manageCharacters_form_systemPrompt_label": {
+    "message": "السلوك / التعليمات"
+  },
+  "manageCharacters_form_systemPrompt_placeholder": {
+    "message": "مثال: أنت معلم رياضيات صبور تشرح المفاهيم خطوة بخطوة وتتحقق من الفهم بأمثلة قصيرة."
+  },
+  "manageCharacters_form_systemPrompt_help": {
+    "message": "اشرح دور الشخصية ونبرتها والقيود. مثال: \"أنت معلم رياضيات صبور تشرح المفاهيم خطوة بخطوة.\""
+  },
+  "manageCharacters_form_systemPrompt_required": {
+    "message": "يرجى إضافة تعليمات لتوجيه الردود."
+  },
+  "manageCharacters_form_systemPrompt_min": {
+    "message": "أضف وصفًا قصيرًا حتى تعرف الشخصية كيف ترد."
+  },
+  "manageCharacters_form_systemPrompt_max": {
+    "message": "يجب ألا يزيد إرشاد النظام عن 2000 حرف."
+  },
+  "manageCharacters_form_avatarUrl_label": {
+    "message": "رابط الصورة الرمزية (اختياري)"
+  },
+  "manageCharacters_form_avatarUrl_placeholder": {
+    "message": "مثال: https://example.com/avatar.png"
+  },
+  "manageCharacters_form_greeting_label": {
+    "message": "رسالة ترحيبية (اختياري)"
+  },
+  "manageCharacters_form_greeting_placeholder": {
+    "message": "مرحبًا! أنا مدرب الكتابة الخاص بك. ضع مسودتك وسأساعدك على تحسينها."
+  },
+  "manageCharacters_form_greeting_help": {
+    "message": "رسالة أولى اختيارية ترسلها الشخصية عند بدء الدردشة."
+  },
+  "manageCharacters_form_btnSave_saving": {
+    "message": "جارٍ إنشاء الشخصية..."
+  },
+  "manageCharacters_form_btnSave_save": {
+    "message": "إنشاء شخصية"
+  },
+  "manageCharacters_form_btnEdit_saving": {
+    "message": "جارٍ حفظ التغييرات..."
+  },
+  "manageCharacters_form_btnEdit_save": {
+    "message": "حفظ التغييرات"
+  },
+  "manageCharacters_notification_addSuccess": {
+    "message": "تم إنشاء الشخصية"
+  },
+  "manageCharacters_notification_error": {
+    "message": "خطأ"
+  },
+  "manageCharacters_notification_someError": {
+    "message": "حدث خطأ ما. يرجى المحاولة لاحقًا"
+  },
+  "manageCharacters_notification_updatedSuccess": {
+    "message": "تم تحديث الشخصية"
+  },
+  "manageCharacters_notification_deletedSuccess": {
+    "message": "تم حذف الشخصية"
+  },
+  "manageCharacters_loadError_title": {
+    "message": "تعذر تحميل الشخصيات"
+  },
+  "manageCharacters_loadError_description": {
+    "message": "تحقق من الاتصال وحاول مرة أخرى."
+  },
+  "manageCharacters_emptyTitle": {
+    "message": "لا توجد شخصيات بعد"
+  },
+  "manageCharacters_emptyDescription": {
+    "message": "أنشئ شخصية قابلة لإعادة الاستخدام بالاسم والوصف وإرشادات النظام للدردشة."
+  },
+  "manageCharacters_emptyExample1": {
+    "message": "عرّف مدرب كتابة أو خبير قصص أو مساعد برمجة يمكن إعادة استخدامه عبر الدردشات."
+  },
+  "manageCharacters_emptyExample2": {
+    "message": "امنح كل شخصية وصفًا وسلوكًا واضحين لتحافظ على استجابات متسقة."
+  },
+  "manageCharacters_emptyPrimaryCta": {
+    "message": "إنشاء شخصية"
+  },
+  "manageCharacters_avatarAltWithName": {
+    "message": "الصورة الرمزية لـ {{name}}"
+  },
+  "manageCharacters_avatarAlt": {
+    "message": "الصورة الرمزية للمستخدم"
+  },
+  "quiz_itemsPerPage": {
+    "message": "عناصر/صفحة"
+  },
+  "quiz_editQuizTitle": {
+    "message": "تحرير الاختبار"
+  },
+  "quiz_updateSuccess": {
+    "message": "تم تحديث الاختبار بنجاح."
+  },
+  "quiz_updateError": {
+    "message": "فشل تحديث الاختبار."
+  },
+  "quiz_questionTextRequired": {
+    "message": "نص السؤال مطلوب."
+  },
+  "quiz_optionsRequired": {
+    "message": "يرجى تقديم خيارين على الأقل."
+  },
+  "quiz_questionSaveSuccess": {
+    "message": "تم إنشاء السؤال بنجاح."
+  },
+  "quiz_questionUpdateSuccess": {
+    "message": "تم تحديث السؤال بنجاح."
+  },
+  "quiz_questionSaveError": {
+    "message": "فشل حفظ السؤال."
+  },
+  "quiz_questionDeleteSuccess": {
+    "message": "تم حذف السؤال بنجاح."
+  },
+  "quiz_questionDeleteError": {
+    "message": "فشل حذف السؤال."
+  },
+  "quiz_editQuestion": {
+    "message": "تحرير السؤال"
+  },
+  "quiz_points": {
+    "message": "النقاط"
+  },
+  "quiz_orderIndex": {
+    "message": "الترتيب"
+  },
+  "quiz_startError": {
+    "message": "فشل بدء الاختبار."
+  },
+  "quiz_answerAll": {
+    "message": "يرجى الإجابة عن جميع الأسئلة قبل الإرسال."
+  },
+  "quiz_submitError": {
+    "message": "فشل إرسال الاختبار."
+  },
+  "quiz_scoreSummary": {
+    "message": "النتيجة: {{score}} / {{total}} ({{percent}}%)"
+  },
+  "quiz_correct": {
+    "message": "صحيح"
+  },
+  "quiz_incorrect": {
+    "message": "غير صحيح"
+  },
+  "quiz_yourAnswer": {
+    "message": "إجابتك"
+  },
+  "quiz_correctAnswerLabel": {
+    "message": "الإجابة الصحيحة"
+  },
+  "quiz_backToList": {
+    "message": "العودة إلى القائمة"
+  },
+  "quiz_retake": {
+    "message": "إعادة الاختبار"
   }
 }

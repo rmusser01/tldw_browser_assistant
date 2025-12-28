@@ -2127,22 +2127,28 @@
     "description": "Content review UI string."
   },
   "reviewDraftsFailedTitle": {
-    "message": "Não foi possível criar rascunhos de revisão."
+    "message": "Não foi possível criar rascunhos de revisão.",
+    "description": "Error title when review drafts creation fails."
   },
   "reviewDraftsFailedFallback": {
-    "message": "Falha ao criar rascunhos de revisão."
+    "message": "Falha ao criar rascunhos de revisão.",
+    "description": "Fallback error message for review drafts failure."
   },
   "reviewDraftsRetry": {
-    "message": "Tentar criar rascunhos novamente"
+    "message": "Tentar criar rascunhos novamente",
+    "description": "Button label to retry creating review drafts."
   },
   "reviewDraftsStoreWithoutReview": {
-    "message": "Salvar sem revisão"
+    "message": "Salvar sem revisão",
+    "description": "Action to store without review."
   },
   "reviewNavigationFailed": {
-    "message": "Não foi possível abrir a Revisão de conteúdo. Tente novamente."
+    "message": "Não foi possível abrir a Revisão de conteúdo. Tente novamente.",
+    "description": "Error message when navigation to Content Review fails."
   },
   "reviewNavigationRetry": {
-    "message": "Tentar abrir a Revisão de conteúdo novamente"
+    "message": "Tentar abrir a Revisão de conteúdo novamente",
+    "description": "Button label to retry opening Content Review."
   },
   "quickIngest_storeAfterReview": {
     "message": "Salvar após revisão"
@@ -3668,5 +3674,272 @@
   },
   "tabs_closeTabAria": {
     "message": "Fechar aba de conversa"
+  },
+  "manageCharacters_title": {
+    "message": "Gerenciar personagens"
+  },
+  "manageCharacters_addBtn": {
+    "message": "Novo personagem"
+  },
+  "manageCharacters_columns_name": {
+    "message": "Nome"
+  },
+  "manageCharacters_columns_description": {
+    "message": "Descrição"
+  },
+  "manageCharacters_columns_actions": {
+    "message": "Ações"
+  },
+  "manageCharacters_columns_avatar": {
+    "message": "Foto do perfil"
+  },
+  "manageCharacters_actions_chat": {
+    "message": "Conversar"
+  },
+  "manageCharacters_actions_edit": {
+    "message": "Editar"
+  },
+  "manageCharacters_actions_delete": {
+    "message": "Excluir"
+  },
+  "manageCharacters_actions_duplicate": {
+    "message": "Duplicar"
+  },
+  "manageCharacters_table_noDescription": {
+    "message": "Sem descrição"
+  },
+  "manageCharacters_filter_matchAll": {
+    "message": "Corresponder todas as tags"
+  },
+  "manageCharacters_tags_label": {
+    "message": "Etiquetas"
+  },
+  "manageCharacters_tags_placeholder": {
+    "message": "Adicionar tags"
+  },
+  "manageCharacters_tags_help": {
+    "message": "Use tags para agrupar personagens por caso de uso (por exemplo, “escrita”, “ensino”)."
+  },
+  "manageCharacters_tooltip_edit": {
+    "message": "Editar personagem"
+  },
+  "manageCharacters_tooltip_delete": {
+    "message": "Excluir personagem"
+  },
+  "manageCharacters_aria_chatWith": {
+    "message": "Conversar como {{name}}"
+  },
+  "manageCharacters_aria_edit": {
+    "message": "Editar personagem {{name}}"
+  },
+  "manageCharacters_aria_delete": {
+    "message": "Excluir personagem {{name}}"
+  },
+  "manageCharacters_aria_duplicate": {
+    "message": "Duplicar personagem {{name}}"
+  },
+  "manageCharacters_confirm_delete": {
+    "message": "Tem certeza de que deseja excluir este personagem? Essa ação não pode ser desfeita."
+  },
+  "manageCharacters_avatar_label": {
+    "message": "Foto do perfil (opcional)"
+  },
+  "manageCharacters_avatar_tabUrl": {
+    "message": "Endereço URL"
+  },
+  "manageCharacters_avatar_tabUpload": {
+    "message": "Carregar"
+  },
+  "manageCharacters_avatar_selectImageError": {
+    "message": "Selecione um arquivo de imagem"
+  },
+  "manageCharacters_avatar_formatError": {
+    "message": "Apenas imagens PNG, JPEG e GIF são suportadas"
+  },
+  "manageCharacters_avatar_invalidError": {
+    "message": "Arquivo de imagem inválido"
+  },
+  "manageCharacters_avatar_processError": {
+    "message": "Falha ao processar a imagem"
+  },
+  "manageCharacters_avatar_dropzone": {
+    "message": "Clique ou arraste a imagem para carregar"
+  },
+  "manageCharacters_avatar_formats": {
+    "message": "PNG, JPEG ou GIF"
+  },
+  "manageCharacters_avatar_preview": {
+    "message": "Pré-visualização"
+  },
+  "manageCharacters_form_name_label": {
+    "message": "Nome"
+  },
+  "manageCharacters_form_name_placeholder": {
+    "message": "por exemplo, Consultor de escrita"
+  },
+  "manageCharacters_form_name_required": {
+    "message": "Por favor, insira um nome"
+  },
+  "manageCharacters_form_description": {
+    "message": "Defina um personagem reutilizável com quem você pode conversar na barra lateral."
+  },
+  "manageCharacters_form_systemPrompt_label": {
+    "message": "Comportamento / instruções"
+  },
+  "manageCharacters_form_systemPrompt_placeholder": {
+    "message": "Por exemplo: Você é um professor de matemática paciente que explica conceitos passo a passo e verifica a compreensão com exemplos curtos."
+  },
+  "manageCharacters_form_systemPrompt_help": {
+    "message": "Explique o papel, o tom e as limitações do personagem. Por exemplo: \"Você é um tutor de matemática paciente que explica conceitos passo a passo.\""
+  },
+  "manageCharacters_form_systemPrompt_required": {
+    "message": "Adicione instruções para orientar as respostas."
+  },
+  "manageCharacters_form_systemPrompt_min": {
+    "message": "Adicione uma breve descrição para que o personagem saiba como responder."
+  },
+  "manageCharacters_form_systemPrompt_max": {
+    "message": "O prompt do sistema deve ter no máximo 2000 caracteres."
+  },
+  "manageCharacters_form_avatarUrl_label": {
+    "message": "URL do avatar (opcional)"
+  },
+  "manageCharacters_form_avatarUrl_placeholder": {
+    "message": "ex.: https://example.com/avatar.png"
+  },
+  "manageCharacters_form_greeting_label": {
+    "message": "Mensagem de saudação (opcional)"
+  },
+  "manageCharacters_form_greeting_placeholder": {
+    "message": "Olá! Eu sou seu consultor de escrita. Cole seu rascunho e vou ajudar você a aprimorá-lo."
+  },
+  "manageCharacters_form_greeting_help": {
+    "message": "Primeira mensagem opcional que o personagem enviará quando você iniciar uma conversa."
+  },
+  "manageCharacters_form_btnSave_saving": {
+    "message": "Criando personagem..."
+  },
+  "manageCharacters_form_btnSave_save": {
+    "message": "Criar personagem"
+  },
+  "manageCharacters_form_btnEdit_saving": {
+    "message": "Salvando alterações..."
+  },
+  "manageCharacters_form_btnEdit_save": {
+    "message": "Salvar alterações"
+  },
+  "manageCharacters_notification_addSuccess": {
+    "message": "Personagem criado"
+  },
+  "manageCharacters_notification_error": {
+    "message": "Erro"
+  },
+  "manageCharacters_notification_someError": {
+    "message": "Algo deu errado. Tente novamente mais tarde"
+  },
+  "manageCharacters_notification_updatedSuccess": {
+    "message": "Personagem atualizado"
+  },
+  "manageCharacters_notification_deletedSuccess": {
+    "message": "Personagem excluído"
+  },
+  "manageCharacters_loadError_title": {
+    "message": "Não foi possível carregar os personagens"
+  },
+  "manageCharacters_loadError_description": {
+    "message": "Verifique sua conexão e tente novamente."
+  },
+  "manageCharacters_emptyTitle": {
+    "message": "Nenhum personagem ainda"
+  },
+  "manageCharacters_emptyDescription": {
+    "message": "Crie um personagem reutilizável com nome, descrição e prompt de sistema com o qual você possa conversar."
+  },
+  "manageCharacters_emptyExample1": {
+    "message": "Defina um consultor de escrita, especialista em lore ou assistente de código que você possa reutilizar em várias conversas."
+  },
+  "manageCharacters_emptyExample2": {
+    "message": "Dê a cada personagem uma descrição e um comportamento claros para que as respostas permaneçam consistentes."
+  },
+  "manageCharacters_emptyPrimaryCta": {
+    "message": "Criar personagem"
+  },
+  "manageCharacters_avatarAltWithName": {
+    "message": "Avatar de {{name}}"
+  },
+  "manageCharacters_avatarAlt": {
+    "message": "Avatar do usuário"
+  },
+  "quiz_itemsPerPage": {
+    "message": "itens/página"
+  },
+  "quiz_editQuizTitle": {
+    "message": "Editar quiz"
+  },
+  "quiz_updateSuccess": {
+    "message": "Quiz atualizado com sucesso."
+  },
+  "quiz_updateError": {
+    "message": "Falha ao atualizar o quiz."
+  },
+  "quiz_questionTextRequired": {
+    "message": "O texto da pergunta é obrigatório."
+  },
+  "quiz_optionsRequired": {
+    "message": "Forneça pelo menos duas opções."
+  },
+  "quiz_questionSaveSuccess": {
+    "message": "Pergunta criada com sucesso."
+  },
+  "quiz_questionUpdateSuccess": {
+    "message": "Pergunta atualizada com sucesso."
+  },
+  "quiz_questionSaveError": {
+    "message": "Falha ao salvar a pergunta."
+  },
+  "quiz_questionDeleteSuccess": {
+    "message": "Pergunta excluída com sucesso."
+  },
+  "quiz_questionDeleteError": {
+    "message": "Falha ao excluir a pergunta."
+  },
+  "quiz_editQuestion": {
+    "message": "Editar pergunta"
+  },
+  "quiz_points": {
+    "message": "Pontos"
+  },
+  "quiz_orderIndex": {
+    "message": "Ordem"
+  },
+  "quiz_startError": {
+    "message": "Falha ao iniciar o quiz"
+  },
+  "quiz_answerAll": {
+    "message": "Responda todas as perguntas antes de enviar."
+  },
+  "quiz_submitError": {
+    "message": "Falha ao enviar o quiz"
+  },
+  "quiz_scoreSummary": {
+    "message": "Pontuação: {{score}} / {{total}} ({{percent}}%)"
+  },
+  "quiz_correct": {
+    "message": "Correta"
+  },
+  "quiz_incorrect": {
+    "message": "Incorreta"
+  },
+  "quiz_yourAnswer": {
+    "message": "Sua resposta"
+  },
+  "quiz_correctAnswerLabel": {
+    "message": "Resposta correta"
+  },
+  "quiz_backToList": {
+    "message": "Voltar à lista"
+  },
+  "quiz_retake": {
+    "message": "Refazer o quiz"
   }
 }

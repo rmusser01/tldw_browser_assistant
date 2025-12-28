@@ -987,28 +987,28 @@
     "message": "Q&A 분석"
   },
   "empty_connectTitle": {
-    "message": "Connect to use Review"
+    "message": "리뷰를 사용하려면 연결하세요"
   },
   "empty_connectDescription": {
-    "message": "Connect to your tldw server in Settings to send messages and view media. After connecting, you can review media and notes here."
+    "message": "설정에서 tldw 서버에 연결해 메시지를 보내고 미디어를 볼 수 있습니다. 연결되면 여기에서 미디어와 노트를 리뷰할 수 있습니다."
   },
   "empty_connectExample1": {
-    "message": "Open Settings → tldw server to add your server URL."
+    "message": "설정 → tldw 서버를 열어 서버 URL을 추가하세요."
   },
   "empty_connectExample2": {
-    "message": "Once connected, browse media and notes, then generate structured reviews and summaries."
+    "message": "연결되면 미디어와 노트를 찾아보고 구조화된 리뷰와 요약을 생성할 수 있습니다."
   },
   "empty_demoTitle": {
-    "message": "Explore Review in demo mode"
+    "message": "데모 모드에서 리뷰 둘러보기"
   },
   "empty_demoDescription": {
-    "message": "This demo shows how tldw Assistant can turn media and notes into structured reviews. Connect your own server later to analyze your own content."
+    "message": "이 데모는 tldw Assistant가 미디어와 노트를 구조화된 리뷰로 만드는 방법을 보여줍니다. 나중에 내 서버를 연결해 내 콘텐츠를 분석할 수 있습니다."
   },
   "empty_demoExample1": {
-    "message": "See how selected media and notes appear in the review workspace."
+    "message": "선택한 미디어와 노트가 리뷰 작업 공간에 어떻게 표시되는지 확인하세요."
   },
   "empty_demoExample2": {
-    "message": "When you connect, you’ll be able to generate summaries and action items from your own recordings and notes."
+    "message": "연결하면 내 녹음과 노트에서 요약과 액션 아이템을 생성할 수 있습니다."
   },
   "mediaEmpty_demoTitle": {
     "message": "데모 모드에서 미디어 둘러보기"
@@ -1075,5 +1075,23 @@
   },
   "mediaEmpty_offlineTechnicalDetails": {
     "message": "기술 상세: 이 tldw 서버는 Media 엔드포인트(/api/v1/media 및 /api/v1/media/search 등)를 제공하지 않습니다."
+  },
+  "contentReview_templates_transcript_clean_label": {
+    "message": "전사 정리"
+  },
+  "contentReview_templates_transcript_clean_description": {
+    "message": "줄 구조를 유지하면서 구두점과 대/소문자를 정규화합니다."
+  },
+  "contentReview_templates_speaker_turns_label": {
+    "message": "화자 턴"
+  },
+  "contentReview_templates_speaker_turns_description": {
+    "message": "각 화자의 턴이 명확한 레이블과 함께 한 줄씩 나타나도록 보장합니다."
+  },
+  "contentReview_templates_chapter_headings_label": {
+    "message": "챕터 제목"
+  },
+  "contentReview_templates_chapter_headings_description": {
+    "message": "콘텐츠를 삭제하지 않고 주제를 묶기 위해 Markdown 제목을 삽입합니다."
   }
 }

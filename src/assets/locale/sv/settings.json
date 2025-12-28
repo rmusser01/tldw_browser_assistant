@@ -28,7 +28,7 @@
       "blue": "Blå",
       "green": "Grön",
       "purple": "Lila",
-      "orange": "Orange",
+      "orange": "Orangefärgad",
       "red": "Röd"
     },
     "font": {
@@ -261,7 +261,7 @@
       },
       "timestampGranularities": {
         "label": "Granularitet för tidsstämplar",
-        "segment": "Per segment",
+        "segment": "Per avsnitt",
         "word": "Per ord",
         "segmentWord": "Segment + ord"
       },
@@ -482,7 +482,7 @@
     "search": "Sök titlar och innehåll",
     "filter": {
       "all": "Alla",
-      "system": "System",
+      "system": "Systeminstruktioner",
       "quick": "Snabba"
     },
     "tags": {
@@ -668,7 +668,7 @@
     "resetDone": "Återställt till rekommenderade standarder",
     "serverNav": "tldw-server",
     "serverConfigTitle": "Konfiguration av tldw-server",
-    "serverLabel": "Server:",
+    "serverLabel": "Serveradress:",
     "notConfigured": "Inte konfigurerad",
     "buttons": {
       "health": "Status",
@@ -945,7 +945,8 @@
       "chat": "Chatta",
       "edit": "Redigera",
       "delete": "Ta bort",
-      "viewConversations": "Visa konversationer"
+      "viewConversations": "Visa konversationer",
+      "duplicate": "Duplicera"
     },
     "tags": {
       "label": "Taggar",
@@ -961,7 +962,8 @@
       "edit": "Redigera karaktär {{name}}",
       "delete": "Ta bort karaktären {{name}}",
       "viewConversations": "Visa konversationer för {{name}}",
-      "searchResults": "{{count}} karaktärer hittades"
+      "searchResults": "{{count}} karaktärer hittades",
+      "duplicate": "Duplicera karaktär {{name}}"
     },
     "confirm": {
       "delete": "Är du säker på att du vill ta bort den här karaktären? Den här åtgärden kan inte ångras."
@@ -977,11 +979,13 @@
         "label": "Beteende / instruktioner",
         "placeholder": "T.ex. Du är en tålmodig mattelärare som förklarar begrepp steg för steg och kontrollerar förståelsen med korta exempel.",
         "help": "Förklara karaktärens roll, ton och begränsningar. Till exempel: \"Du är en tålmodig mattelärare som förklarar steg för steg.\"",
-        "min": "Add a short description so the character knows how to respond."
+        "min": "Add a short description so the character knows how to respond.",
+        "required": "Lägg till instruktioner för att styra svaren.",
+        "max": "Systemprompten får vara högst 2000 tecken."
       },
       "avatarUrl": {
         "label": "Avatar‑URL (valfritt)",
-        "placeholder": "https://example.com/avatar.png"
+        "placeholder": "t.ex. https://example.com/avatar.png"
       },
       "greeting": {
         "label": "Hälsningsmeddelande (valfritt)",
@@ -1040,6 +1044,24 @@
     "advanced": {
       "show": "Visa avancerade fält",
       "hide": "Dölj avancerade fält"
+    },
+    "table": {
+      "noDescription": "Ingen beskrivning"
+    },
+    "filter": {
+      "matchAll": "Matcha alla taggar"
+    },
+    "avatar": {
+      "label": "Profilbild (valfritt)",
+      "tabUrl": "URL‑adress",
+      "tabUpload": "Ladda upp",
+      "selectImageError": "Välj en bildfil",
+      "formatError": "Endast PNG-, JPEG- och GIF-bilder stöds",
+      "invalidError": "Ogiltig bildfil",
+      "processError": "Misslyckades med att bearbeta bilden",
+      "dropzone": "Klicka eller dra en bild för att ladda upp",
+      "formats": "PNG, JPEG eller GIF",
+      "preview": "Förhandsgranskning"
     }
   },
   "systemNotifications": {

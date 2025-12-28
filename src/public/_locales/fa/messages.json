@@ -1166,22 +1166,28 @@
     "description": "Content review UI string."
   },
   "reviewDraftsFailedTitle": {
-    "message": "پیش‌نویس‌های بازبینی ایجاد نشدند."
+    "message": "پیش‌نویس‌های بازبینی ایجاد نشدند.",
+    "description": "Error title when review drafts creation fails."
   },
   "reviewDraftsFailedFallback": {
-    "message": "ایجاد پیش‌نویس‌های بازبینی ناموفق بود."
+    "message": "ایجاد پیش‌نویس‌های بازبینی ناموفق بود.",
+    "description": "Fallback error message for review drafts failure."
   },
   "reviewDraftsRetry": {
-    "message": "تلاش دوباره برای ایجاد پیش‌نویس"
+    "message": "تلاش دوباره برای ایجاد پیش‌نویس",
+    "description": "Button label to retry creating review drafts."
   },
   "reviewDraftsStoreWithoutReview": {
-    "message": "ذخیره بدون بازبینی"
+    "message": "ذخیره بدون بازبینی",
+    "description": "Action to store without review."
   },
   "reviewNavigationFailed": {
-    "message": "باز کردن بازبینی محتوا ممکن نبود. دوباره تلاش کنید."
+    "message": "باز کردن بازبینی محتوا ممکن نبود. دوباره تلاش کنید.",
+    "description": "Error message when navigation to Content Review fails."
   },
   "reviewNavigationRetry": {
-    "message": "تلاش دوباره برای باز کردن بازبینی محتوا"
+    "message": "تلاش دوباره برای باز کردن بازبینی محتوا",
+    "description": "Button label to retry opening Content Review."
   },
   "quickIngest_title": {
     "message": "درون‌ریزی سریع رسانه"
@@ -1590,10 +1596,10 @@
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_fewerChunks": {
-    "message": "پیکربندی A {{diff}} بخش کمتر تولید می‌کند"
+    "message": "پیکربندی الف {{diff}} بخش کمتر تولید می‌کند"
   },
   "chunkingPlayground_moreChunks": {
-    "message": "پیکربندی A {{diff}} بخش بیشتر تولید می‌کند"
+    "message": "پیکربندی الف {{diff}} بخش بیشتر تولید می‌کند"
   },
   "chunkingPlayground_sameChunks": {
     "message": "هر دو پیکربندی تعداد بخش یکسانی تولید می‌کنند",
@@ -1691,11 +1697,11 @@
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_compare_configA": {
-    "message": "پیکربندی A",
+    "message": "پیکربندی الف",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_compare_configB": {
-    "message": "پیکربندی B",
+    "message": "پیکربندی ب",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_mode_single": {
@@ -2178,13 +2184,13 @@
     "message": "پس از اتصال، «شروع گفتگو» کادر نوشتن را فعال می‌کند."
   },
   "playground_tldwState_searching": {
-    "message": "در حال جستجوی tldw server شما"
+    "message": "در حال جستجوی سرور tldw شما"
   },
   "playground_tldwState_running": {
     "message": "tldw در حال اجرا است"
   },
   "playground_tldwState_notRunning": {
-    "message": "امکان اتصال به tldw server وجود ندارد"
+    "message": "امکان اتصال به سرور tldw وجود ندارد"
   },
   "playground_tldwState_connectionError": {
     "message": "به نظر می رسد که خطای اتصال دارید. لطفا برای عیب یابی به این <anchor>مستندات</anchor> مراجعه کنید."
@@ -2193,7 +2199,7 @@
     "message": "نتوانستیم به {{host}} دسترسی پیدا کنیم"
   },
   "playground_tldwState_missingHelp": {
-    "message": "برای افزودن URL خود «Settings → tldw Server» را باز کنید یا به صفحه گزینه‌ها متصل شوید."
+    "message": "برای افزودن آدرس خود «تنظیمات → سرور tldw» را باز کنید یا به صفحه گزینه‌ها متصل شوید."
   },
   "playground_tldwState_troubleshoot": {
     "message": "اطمینان حاصل کنید سرور در حال اجراست و مرورگر اجازه دسترسی دارد، سپس از صفحه گزینه‌ها دوباره تلاش کنید."
@@ -2310,7 +2316,7 @@
     "message": "دکمه توقف پس از شروع صدا فعال می‌شود."
   },
   "playground_tts_providerChangeHelper": {
-    "message": "از انتخاب‌گر ارائه‌دهنده در پایین برای جابه‌جایی بین Browser، tldw، OpenAI یا Supersonic استفاده کنید."
+    "message": "از انتخاب‌گر ارائه‌دهنده در پایین برای جابه‌جایی بین مرورگر، tldw، OpenAI یا Supersonic استفاده کنید."
   },
   "playground_tts_changeProvider": {
     "message": "تغییر ارائه‌دهنده"
@@ -2523,13 +2529,13 @@
     "message": "توقف و ارسال به سرور"
   },
   "playground_stt_transcribingButton": {
-    "message": "در حال رونویسی..."
+    "message": "در حال تبدیل گفتار..."
   },
   "playground_stt_transcribingTooltip": {
-    "message": "در حال رونویسی صدا..."
+    "message": "در حال تبدیل صوت به متن..."
   },
   "playground_stt_transcribingPlaceholder": {
-    "message": "در حال رونویسی صدا..."
+    "message": "در حال تبدیل صوت به متن..."
   },
   "playground_stt_historyTitle": {
     "message": "تاریخچه رونویسی"
@@ -2598,10 +2604,10 @@
     "message": "برای درون‌ریزی به سرور tldw خود متصل شوید."
   },
   "playground_actions_ingestHint": {
-    "message": "URLها یا فایل‌ها را با گزینه‌های پیشرفته بارگذاری کنید."
+    "message": "آدرس‌ها یا فایل‌ها را با گزینه‌های پیشرفته بارگذاری کنید."
   },
   "playground_actions_ingestSub": {
-    "message": "از URL/فایل استفاده کنید؛ دانلود یا ذخیره کنید."
+    "message": "از آدرس/فایل استفاده کنید؛ دانلود یا ذخیره کنید."
   },
   "playground_actions_streamErrorTitle": {
     "message": "زیرنویس زنده در دسترس نیست"
@@ -2840,6 +2846,18 @@
   "tabs_closeTabAria": {
     "message": "بستن زبانه چت"
   },
+  "newChat": {
+    "message": "چت جدید",
+    "description": "label for new chat tab"
+  },
+  "newTabAria": {
+    "message": "زبانه چت جدید",
+    "description": "aria label for adding a new chat tab"
+  },
+  "closeTabAria": {
+    "message": "بستن زبانه چت",
+    "description": "aria label for closing a chat tab"
+  },
   "quiz_itemsPerPage": {
     "message": "آیتم/صفحه",
     "description": "Quiz UI text for Persian."
@@ -2935,5 +2953,200 @@
   "quiz_retake": {
     "message": "تکرار آزمون",
     "description": "Quiz UI text for Persian."
+  },
+  "manageCharacters_title": {
+    "message": "مدیریت شخصیت‌ها"
+  },
+  "manageCharacters_addBtn": {
+    "message": "شخصیت جدید"
+  },
+  "manageCharacters_columns_name": {
+    "message": "نام"
+  },
+  "manageCharacters_columns_description": {
+    "message": "توضیحات"
+  },
+  "manageCharacters_columns_actions": {
+    "message": "اقدامات"
+  },
+  "manageCharacters_columns_avatar": {
+    "message": "آواتار"
+  },
+  "manageCharacters_actions_chat": {
+    "message": "گفتگو"
+  },
+  "manageCharacters_actions_edit": {
+    "message": "ویرایش"
+  },
+  "manageCharacters_actions_delete": {
+    "message": "حذف"
+  },
+  "manageCharacters_actions_duplicate": {
+    "message": "تکرار"
+  },
+  "manageCharacters_table_noDescription": {
+    "message": "بدون توضیح"
+  },
+  "manageCharacters_filter_matchAll": {
+    "message": "مطابقت با همه برچسب‌ها"
+  },
+  "manageCharacters_tags_label": {
+    "message": "برچسب‌ها"
+  },
+  "manageCharacters_tags_placeholder": {
+    "message": "افزودن برچسب"
+  },
+  "manageCharacters_tags_help": {
+    "message": "از برچسب‌ها برای گروه‌بندی شخصیت‌ها بر اساس کاربرد استفاده کنید (مثلاً «نویسندگی»، «تدریس»)."
+  },
+  "manageCharacters_tooltip_edit": {
+    "message": "ویرایش شخصیت"
+  },
+  "manageCharacters_tooltip_delete": {
+    "message": "حذف شخصیت"
+  },
+  "manageCharacters_aria_chatWith": {
+    "message": "گفتگو به‌عنوان {{name}}"
+  },
+  "manageCharacters_aria_edit": {
+    "message": "ویرایش شخصیت {{name}}"
+  },
+  "manageCharacters_aria_delete": {
+    "message": "حذف شخصیت {{name}}"
+  },
+  "manageCharacters_aria_duplicate": {
+    "message": "تکرار شخصیت {{name}}"
+  },
+  "manageCharacters_confirm_delete": {
+    "message": "آیا مطمئن هستید که می‌خواهید این شخصیت را حذف کنید؟ این کار قابل بازگشت نیست."
+  },
+  "manageCharacters_avatar_label": {
+    "message": "آواتار (اختیاری)"
+  },
+  "manageCharacters_avatar_tabUrl": {
+    "message": "نشانی"
+  },
+  "manageCharacters_avatar_tabUpload": {
+    "message": "آپلود"
+  },
+  "manageCharacters_avatar_selectImageError": {
+    "message": "لطفاً یک فایل تصویر انتخاب کنید"
+  },
+  "manageCharacters_avatar_formatError": {
+    "message": "فقط تصاویر PNG، JPEG و GIF پشتیبانی می‌شوند"
+  },
+  "manageCharacters_avatar_invalidError": {
+    "message": "فایل تصویر نامعتبر است"
+  },
+  "manageCharacters_avatar_processError": {
+    "message": "پردازش تصویر ناموفق بود"
+  },
+  "manageCharacters_avatar_dropzone": {
+    "message": "برای آپلود کلیک کنید یا تصویر را بکشید"
+  },
+  "manageCharacters_avatar_formats": {
+    "message": "PNG، JPEG یا GIF"
+  },
+  "manageCharacters_avatar_preview": {
+    "message": "پیش‌نمایش"
+  },
+  "manageCharacters_form_name_label": {
+    "message": "نام"
+  },
+  "manageCharacters_form_name_placeholder": {
+    "message": "مثلاً مربی نوشتن"
+  },
+  "manageCharacters_form_name_required": {
+    "message": "لطفاً نام را وارد کنید"
+  },
+  "manageCharacters_form_description": {
+    "message": "یک شخصیت قابل‌استفاده مجدد تعریف کنید تا در نوار کناری با آن گفتگو کنید."
+  },
+  "manageCharacters_form_systemPrompt_label": {
+    "message": "رفتار / دستورالعمل‌ها"
+  },
+  "manageCharacters_form_systemPrompt_placeholder": {
+    "message": "مثلاً: شما معلم ریاضی صبوری هستید که مفاهیم را مرحله‌به‌مرحله توضیح می‌دهید و با مثال‌های کوتاه فهم را می‌سنجید."
+  },
+  "manageCharacters_form_systemPrompt_help": {
+    "message": "نقش، لحن و محدودیت‌های شخصیت را توضیح دهید. مثال: «شما معلم صبوری هستید که مفاهیم را مرحله‌به‌مرحله توضیح می‌دهید.»"
+  },
+  "manageCharacters_form_systemPrompt_required": {
+    "message": "لطفاً برای هدایت پاسخ‌ها دستورالعمل اضافه کنید."
+  },
+  "manageCharacters_form_systemPrompt_min": {
+    "message": "یک توضیح کوتاه اضافه کنید تا شخصیت بداند چگونه پاسخ دهد."
+  },
+  "manageCharacters_form_systemPrompt_max": {
+    "message": "پرامپت سیستم باید حداکثر ۲۰۰۰ کاراکتر باشد."
+  },
+  "manageCharacters_form_avatarUrl_label": {
+    "message": "آدرس تصویر آواتار (اختیاری)"
+  },
+  "manageCharacters_form_avatarUrl_placeholder": {
+    "message": "مثلاً نشانی تصویر آواتار"
+  },
+  "manageCharacters_form_greeting_label": {
+    "message": "پیام خوشامد (اختیاری)"
+  },
+  "manageCharacters_form_greeting_placeholder": {
+    "message": "سلام! من مربی نوشتن شما هستم. پیش‌نویس‌تان را بفرستید تا به بهتر شدنش کمک کنم."
+  },
+  "manageCharacters_form_greeting_help": {
+    "message": "پیام اولیه اختیاری که شخصیت هنگام شروع گفتگو می‌فرستد."
+  },
+  "manageCharacters_form_btnSave_saving": {
+    "message": "در حال ایجاد شخصیت..."
+  },
+  "manageCharacters_form_btnSave_save": {
+    "message": "ایجاد شخصیت"
+  },
+  "manageCharacters_form_btnEdit_saving": {
+    "message": "در حال ذخیره تغییرات..."
+  },
+  "manageCharacters_form_btnEdit_save": {
+    "message": "ذخیره تغییرات"
+  },
+  "manageCharacters_notification_addSuccess": {
+    "message": "شخصیت ایجاد شد"
+  },
+  "manageCharacters_notification_error": {
+    "message": "خطا"
+  },
+  "manageCharacters_notification_someError": {
+    "message": "مشکلی پیش آمد. لطفاً بعداً دوباره تلاش کنید"
+  },
+  "manageCharacters_notification_updatedSuccess": {
+    "message": "شخصیت به‌روزرسانی شد"
+  },
+  "manageCharacters_notification_deletedSuccess": {
+    "message": "شخصیت حذف شد"
+  },
+  "manageCharacters_loadError_title": {
+    "message": "بارگذاری شخصیت‌ها ممکن نشد"
+  },
+  "manageCharacters_loadError_description": {
+    "message": "اتصال خود را بررسی کرده و دوباره تلاش کنید."
+  },
+  "manageCharacters_emptyTitle": {
+    "message": "هنوز شخصیتی وجود ندارد"
+  },
+  "manageCharacters_emptyDescription": {
+    "message": "یک شخصیت قابل استفاده مجدد با نام، توضیح و پرامپت سیستم بسازید تا با آن گفتگو کنید."
+  },
+  "manageCharacters_emptyExample1": {
+    "message": "یک مربی نوشتن، کارشناس داستان یا دستیار کدنویسی تعریف کنید که بتوانید در چت‌ها دوباره استفاده کنید."
+  },
+  "manageCharacters_emptyExample2": {
+    "message": "به هر شخصیت توضیح و رفتار واضحی بدهید تا پاسخ‌هایش منسجم بماند."
+  },
+  "manageCharacters_emptyPrimaryCta": {
+    "message": "ایجاد شخصیت"
+  },
+  "manageCharacters_avatarAltWithName": {
+    "message": "آواتار {{name}}"
+  },
+  "manageCharacters_avatarAlt": {
+    "message": "آواتار کاربر"
   }
 }

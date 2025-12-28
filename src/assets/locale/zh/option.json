@@ -637,11 +637,11 @@
     "backToList": "返回列表",
     "retake": "重新测验"
   },
-  "searchPrompts": "Search prompts...",
-  "noMatchingPrompts": "No matching prompts",
+  "searchPrompts": "搜索提示词...",
+  "noMatchingPrompts": "没有匹配的提示词",
   "promptSelect": {
-    "favorites": "Favorites",
-    "system": "System prompts",
-    "quick": "Quick prompts"
+    "favorites": "收藏",
+    "system": "系统提示词",
+    "quick": "快捷提示词"
   }
 }

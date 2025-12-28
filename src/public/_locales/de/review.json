@@ -1075,5 +1075,23 @@
   },
   "mediaEmpty_demoSample3Meta": {
     "message": "PDF · 6 Seiten · Schlüsselwörter: Zusammenfassung"
+  },
+  "contentReview_templates_transcript_clean_label": {
+    "message": "Transkript bereinigen"
+  },
+  "contentReview_templates_transcript_clean_description": {
+    "message": "Normalisiert Zeichensetzung und Groß-/Kleinschreibung bei Beibehaltung der Zeilenstruktur."
+  },
+  "contentReview_templates_speaker_turns_label": {
+    "message": "Sprecherwechsel"
+  },
+  "contentReview_templates_speaker_turns_description": {
+    "message": "Stellt sicher, dass jede Sprecherrolle in einer eigenen Zeile mit klaren Bezeichnungen steht."
+  },
+  "contentReview_templates_chapter_headings_label": {
+    "message": "Kapitelüberschriften"
+  },
+  "contentReview_templates_chapter_headings_description": {
+    "message": "Fügt Markdown-Überschriften ein, um Themen zu gruppieren, ohne Inhalt zu entfernen."
   }
 }

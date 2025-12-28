@@ -33,10 +33,10 @@
     "message": "{{count}}文字"
   },
   "mediaPage_pageRangeError": {
-    "message": "ページは1〜{{max}}の範囲内である必要があります"
+    "message": "ページは1〜{{max}}でなければなりません"
   },
   "mediaPage_pageRangeClamped": {
-    "message": "ページ{{page}}に移動しています"
+    "message": "ページ{{page}}へ移動しています"
   },
   "noToolCalls": {
     "message": "ツール呼び出しはまだありません"
@@ -364,5 +364,326 @@
   },
   "contentReview_editedLabel": {
     "message": "編集済み"
+  },
+  "mediaPage_spreadMode": {
+    "message": "比較"
+  },
+  "mediaPage_listMode": {
+    "message": "フォーカス"
+  },
+  "mediaPage_allMode": {
+    "message": "スタック"
+  },
+  "mediaPage_spreadModeTooltip": {
+    "message": "選択した項目を並べて比較表示"
+  },
+  "mediaPage_listModeTooltip": {
+    "message": "ナビゲーションで1件ずつ表示"
+  },
+  "mediaPage_allModeTooltip": {
+    "message": "選択した項目をスクロール可能な一覧で表示"
+  },
+  "mediaPage_copyContentLabel": {
+    "message": "コンテンツをコピー"
+  },
+  "mediaPage_copyAnalysisLabel": {
+    "message": "分析をコピー"
+  },
+  "mediaPage_copyContentTooltip": {
+    "message": "コンテンツをクリップボードにコピー"
+  },
+  "mediaPage_copyAnalysisTooltip": {
+    "message": "分析をクリップボードにコピー"
+  },
+  "mediaPage_prevItemTooltip": {
+    "message": "前の項目 (←)"
+  },
+  "mediaPage_nextItemTooltip": {
+    "message": "次の項目 (→)"
+  },
+  "mediaPage_viewerOptions": {
+    "message": "オプション"
+  },
+  "mediaPage_expandAllDropdown": {
+    "message": "展開/折りたたみ"
+  },
+  "mediaPage_itemPosition": {
+    "message": "{{total}} 件中 {{current}} 件目"
+  },
+  "mediaPage_noItemSelected": {
+    "message": "項目が選択されていません"
+  },
+  "mediaPage_firstUseTitle": {
+    "message": "クイックガイド: 複数アイテムレビュー"
+  },
+  "mediaPage_firstUseStep1": {
+    "message": "項目を選択"
+  },
+  "mediaPage_firstUseStep1Desc": {
+    "message": "左側のパネルで項目をクリックしてビューアに追加します。"
+  },
+  "mediaPage_firstUseStep2": {
+    "message": "表示を選択"
+  },
+  "mediaPage_firstUseStep2DescUpdated": {
+    "message": "「比較」は並べて表示、「フォーカス」は1件ずつ、「スタック」はすべて表示します。"
+  },
+  "mediaPage_firstUseStep3": {
+    "message": "移動"
+  },
+  "mediaPage_firstUseStep3Desc": {
+    "message": "前へ/次へボタンまたはキーボード (Tab + Enter) で項目を移動します。"
+  },
+  "mediaPage_gotIt": {
+    "message": "了解"
+  },
+  "mediaPage_mediaInspector": {
+    "message": "メディアインスペクター"
+  },
+  "mediaPage_searchPlaceholder": {
+    "message": "Search media (title/content)"
+  },
+  "mediaPage_search": {
+    "message": "Search"
+  },
+  "mediaPage_clear": {
+    "message": "Clear"
+  },
+  "mediaPage_types": {
+    "message": "Types"
+  },
+  "mediaPage_keywords": {
+    "message": "Keywords"
+  },
+  "mediaPage_moreTags": {
+    "message": "+{{count}} 件のタグ"
+  },
+  "mediaPage_resetFilters": {
+    "message": "Reset Filters"
+  },
+  "mediaPage_clearAll": {
+    "message": "すべてクリア"
+  },
+  "mediaPage_content": {
+    "message": "Content"
+  },
+  "mediaPage_vertical": {
+    "message": "Vertical"
+  },
+  "mediaPage_horizontal": {
+    "message": "Horizontal"
+  },
+  "mediaPage_results": {
+    "message": "Results"
+  },
+  "mediaPage_showSidebar": {
+    "message": "Show sidebar"
+  },
+  "mediaPage_hideSidebar": {
+    "message": "Hide sidebar"
+  },
+  "mediaPage_viewer": {
+    "message": "Viewer"
+  },
+  "mediaPage_selectItemsHint": {
+    "message": "Select items on the left to view here."
+  },
+  "mediaPage_mediaContent": {
+    "message": "Media Content"
+  },
+  "mediaPage_copyContent": {
+    "message": "Copy content"
+  },
+  "mediaPage_contentCopied": {
+    "message": "Content copied"
+  },
+  "mediaPage_metadataCopied": {
+    "message": "メタデータをコピーしました"
+  },
+  "mediaPage_analysisCopied": {
+    "message": "分析をコピーしました"
+  },
+  "mediaPage_copyFailed": {
+    "message": "Copy failed"
+  },
+  "mediaPage_noContent": {
+    "message": "No content available"
+  },
+  "mediaPage_collapse": {
+    "message": "Collapse"
+  },
+  "mediaPage_expand": {
+    "message": "Expand"
+  },
+  "mediaPage_media": {
+    "message": "Media"
+  },
+  "mediaPage_searchingBanner": {
+    "message": "Searching media…"
+  },
+  "mediaPage_filterHelp": {
+    "message": "Search matches title and content; Types and Keywords further narrow the results."
+  },
+  "mediaPage_noMediaTypes": {
+    "message": "利用可能なメディアタイプはありません"
+  },
+  "mediaPage_noResults": {
+    "message": "No results"
+  },
+  "mediaPage_resultsCount": {
+    "message": "{{selected}} selected · {{open}} open"
+  },
+  "mediaPage_clearSelection": {
+    "message": "Deselect all"
+  },
+  "mediaPage_itemsLabel": {
+    "message": "Items"
+  },
+  "mediaPage_contentLabel": {
+    "message": "Content view"
+  },
+  "mediaPage_filterByKeyword": {
+    "message": "キーワードで絞り込む"
+  },
+  "mediaPage_keywordHelper": {
+    "message": "左側のキーワードフィルターを使うと、このメディアを見つけやすくなります"
+  },
+  "mediaPage_modeHint": {
+    "message": "複数のメディア項目を検索してスタックし、右側のビューアで比較します。"
+  },
+  "mediaPage_viewerHelp": {
+    "message": "キーボード: Tab で結果リストに移動し、Enter または Space でメディア項目をスタック／解除し、前へ／次へボタンやレイアウトコントロールでビューア内の項目を移動します。"
+  },
+  "mediaPage_viewerHelpLabel": {
+    "message": "複数アイテムレビューのキーボードショートカット"
+  },
+  "mediaPage_actionsLabel": {
+    "message": "アクション"
+  },
+  "mediaPage_keywordsPlaceholder": {
+    "message": "キーワードを追加..."
+  },
+  "mediaPage_noSelectionTitle": {
+    "message": "メディア項目が選択されていません"
+  },
+  "mediaPage_noSelectionDescription": {
+    "message": "左側のサイドバーからメディア項目を選択すると、その内容と分析がここに表示されます。"
+  },
+  "mediaPage_generateAnalysis": {
+    "message": "分析を生成"
+  },
+  "mediaPage_generateAnalysisHint": {
+    "message": "新しい分析を生成"
+  },
+  "mediaPage_editAnalysis": {
+    "message": "分析を編集"
+  },
+  "mediaPage_createNoteWithContent": {
+    "message": "コンテンツからノートを作成"
+  },
+  "mediaPage_createNoteWithContentAnalysis": {
+    "message": "コンテンツ + 分析からノートを作成"
+  },
+  "mediaPage_untitled": {
+    "message": "無題"
+  },
+  "mediaPage_copyMetadata": {
+    "message": "メタデータをコピー"
+  },
+  "mediaPage_statistics": {
+    "message": "統計"
+  },
+  "mediaPage_words": {
+    "message": "単語数"
+  },
+  "mediaPage_characters": {
+    "message": "文字数"
+  },
+  "mediaPage_paragraphs": {
+    "message": "段落数"
+  },
+  "mediaPage_metadata": {
+    "message": "メタデータ"
+  },
+  "mediaPage_idLabel": {
+    "message": "ID"
+  },
+  "mediaPage_typeLabel": {
+    "message": "タイプ"
+  },
+  "mediaPage_titleLabel": {
+    "message": "タイトル"
+  },
+  "mediaPage_source": {
+    "message": "ソース"
+  },
+  "mediaPage_notAvailable": {
+    "message": "該当なし"
+  },
+  "mediaPage_developerTools": {
+    "message": "開発者ツール"
+  },
+  "mediaPage_model": {
+    "message": "モデル"
+  },
+  "mediaPage_selectModel": {
+    "message": "モデルを選択"
+  },
+  "mediaPage_noModelsAvailable": {
+    "message": "利用可能なモデルがありません"
+  },
+  "mediaPage_promptPresets": {
+    "message": "プロンプトプリセット"
+  },
+  "mediaPage_showPresets": {
+    "message": "プリセットを表示"
+  },
+  "mediaPage_hidePresets": {
+    "message": "プリセットを非表示"
+  },
+  "mediaPage_systemPromptLabel": {
+    "message": "システムプロンプト"
+  },
+  "mediaPage_systemPromptPlaceholder": {
+    "message": "システムプロンプトを入力..."
+  },
+  "mediaPage_userPromptPrefixLabel": {
+    "message": "ユーザープロンプトのプレフィックス"
+  },
+  "mediaPage_prependedBeforeContent": {
+    "message": "(コンテンツの前に追加)"
+  },
+  "mediaPage_userPrefixPlaceholder": {
+    "message": "任意: メディアコンテンツの前に追加するテキストを入力..."
+  },
+  "mediaPage_presetComprehensiveAnalysis": {
+    "message": "包括的な分析"
+  },
+  "mediaPage_presetExecutiveSummary": {
+    "message": "エグゼクティブサマリー"
+  },
+  "mediaPage_presetCriticalReview": {
+    "message": "批判的レビュー"
+  },
+  "mediaPage_presetQAAnalysis": {
+    "message": "Q&A 分析"
+  },
+  "contentReview_templates_transcript_clean_label": {
+    "message": "トランスクリプトを整形"
+  },
+  "contentReview_templates_transcript_clean_description": {
+    "message": "行構造を保ったまま、句読点と大文字・小文字を正規化します。"
+  },
+  "contentReview_templates_speaker_turns_label": {
+    "message": "話者ごとのターン"
+  },
+  "contentReview_templates_speaker_turns_description": {
+    "message": "各話者のターンが、わかりやすいラベル付きで 1 行ずつになるようにします。"
+  },
+  "contentReview_templates_chapter_headings_label": {
+    "message": "章見出し"
+  },
+  "contentReview_templates_chapter_headings_description": {
+    "message": "コンテンツを削除せずにトピックをまとめる Markdown 見出しを挿入します。"
   }
 }

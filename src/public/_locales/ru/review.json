@@ -400,5 +400,326 @@
   },
   "mediaEmpty_featureUnavailableBadge": {
     "message": "Функция недоступна"
+  },
+  "mediaPage_spreadMode": {
+    "message": "Сравнение"
+  },
+  "mediaPage_listMode": {
+    "message": "Фокус"
+  },
+  "mediaPage_allMode": {
+    "message": "Стопка"
+  },
+  "mediaPage_spreadModeTooltip": {
+    "message": "Показать выбранные элементы рядом для сравнения"
+  },
+  "mediaPage_listModeTooltip": {
+    "message": "Показывать по одному элементу с навигацией"
+  },
+  "mediaPage_allModeTooltip": {
+    "message": "Показать все выбранные элементы в прокручиваемом списке"
+  },
+  "mediaPage_copyContentLabel": {
+    "message": "Копировать содержимое"
+  },
+  "mediaPage_copyAnalysisLabel": {
+    "message": "Копировать анализ"
+  },
+  "mediaPage_copyContentTooltip": {
+    "message": "Копировать содержимое в буфер обмена"
+  },
+  "mediaPage_copyAnalysisTooltip": {
+    "message": "Копировать анализ в буфер обмена"
+  },
+  "mediaPage_prevItemTooltip": {
+    "message": "Предыдущий элемент (←)"
+  },
+  "mediaPage_nextItemTooltip": {
+    "message": "Следующий элемент (→)"
+  },
+  "mediaPage_viewerOptions": {
+    "message": "Параметры"
+  },
+  "mediaPage_expandAllDropdown": {
+    "message": "Развернуть/свернуть"
+  },
+  "mediaPage_itemPosition": {
+    "message": "Элемент {{current}} из {{total}}"
+  },
+  "mediaPage_noItemSelected": {
+    "message": "Элемент не выбран"
+  },
+  "mediaPage_firstUseTitle": {
+    "message": "Краткое руководство: обзор нескольких элементов"
+  },
+  "mediaPage_firstUseStep1": {
+    "message": "Выберите элементы"
+  },
+  "mediaPage_firstUseStep1Desc": {
+    "message": "Нажмите элементы на левой панели, чтобы добавить их в просмотр."
+  },
+  "mediaPage_firstUseStep2": {
+    "message": "Выберите вид"
+  },
+  "mediaPage_firstUseStep2DescUpdated": {
+    "message": "Используйте «Сравнение» для бокового вида, «Фокус» для одного элемента или «Стопка», чтобы видеть все."
+  },
+  "mediaPage_firstUseStep3": {
+    "message": "Навигация"
+  },
+  "mediaPage_firstUseStep3Desc": {
+    "message": "Используйте кнопки «Предыдущий»/«Следующий» или клавиатуру (Tab + Enter), чтобы перемещаться между элементами."
+  },
+  "mediaPage_gotIt": {
+    "message": "Понятно"
+  },
+  "mediaPage_mediaInspector": {
+    "message": "Инспектор медиа"
+  },
+  "mediaPage_searchPlaceholder": {
+    "message": "Search media (title/content)"
+  },
+  "mediaPage_search": {
+    "message": "Search"
+  },
+  "mediaPage_clear": {
+    "message": "Clear"
+  },
+  "mediaPage_types": {
+    "message": "Types"
+  },
+  "mediaPage_keywords": {
+    "message": "Keywords"
+  },
+  "mediaPage_moreTags": {
+    "message": "+{{count}} тегов"
+  },
+  "mediaPage_resetFilters": {
+    "message": "Reset Filters"
+  },
+  "mediaPage_clearAll": {
+    "message": "Очистить всё"
+  },
+  "mediaPage_content": {
+    "message": "Content"
+  },
+  "mediaPage_vertical": {
+    "message": "Vertical"
+  },
+  "mediaPage_horizontal": {
+    "message": "Horizontal"
+  },
+  "mediaPage_results": {
+    "message": "Results"
+  },
+  "mediaPage_showSidebar": {
+    "message": "Show sidebar"
+  },
+  "mediaPage_hideSidebar": {
+    "message": "Hide sidebar"
+  },
+  "mediaPage_viewer": {
+    "message": "Viewer"
+  },
+  "mediaPage_selectItemsHint": {
+    "message": "Select items on the left to view here."
+  },
+  "mediaPage_mediaContent": {
+    "message": "Media Content"
+  },
+  "mediaPage_copyContent": {
+    "message": "Copy content"
+  },
+  "mediaPage_contentCopied": {
+    "message": "Content copied"
+  },
+  "mediaPage_metadataCopied": {
+    "message": "Метаданные скопированы"
+  },
+  "mediaPage_analysisCopied": {
+    "message": "Анализ скопирован"
+  },
+  "mediaPage_copyFailed": {
+    "message": "Copy failed"
+  },
+  "mediaPage_noContent": {
+    "message": "No content available"
+  },
+  "mediaPage_collapse": {
+    "message": "Collapse"
+  },
+  "mediaPage_expand": {
+    "message": "Expand"
+  },
+  "mediaPage_media": {
+    "message": "Media"
+  },
+  "mediaPage_searchingBanner": {
+    "message": "Searching media…"
+  },
+  "mediaPage_filterHelp": {
+    "message": "Search matches title and content; Types and Keywords further narrow the results."
+  },
+  "mediaPage_noMediaTypes": {
+    "message": "Нет доступных типов медиа"
+  },
+  "mediaPage_noResults": {
+    "message": "No results"
+  },
+  "mediaPage_resultsCount": {
+    "message": "{{selected}} selected · {{open}} open"
+  },
+  "mediaPage_clearSelection": {
+    "message": "Deselect all"
+  },
+  "mediaPage_itemsLabel": {
+    "message": "Items"
+  },
+  "mediaPage_contentLabel": {
+    "message": "Content view"
+  },
+  "mediaPage_filterByKeyword": {
+    "message": "Фильтровать по ключевому слову"
+  },
+  "mediaPage_keywordHelper": {
+    "message": "Ключевые слова помогают найти этот медиа-объект с помощью фильтра ключевых слов слева"
+  },
+  "mediaPage_modeHint": {
+    "message": "Ищите и группируйте несколько медиаобъектов, чтобы сравнивать их в просмотрщике справа."
+  },
+  "mediaPage_viewerHelp": {
+    "message": "Клавиатура: перейдите к списку результатов с помощью Tab, используйте Enter или пробел, чтобы добавить медиаобъект в стопку или убрать его, затем кнопки «Предыдущий»/«Следующий» и элементы управления макетом, чтобы перемещаться между элементами в просмотрщике."
+  },
+  "mediaPage_viewerHelpLabel": {
+    "message": "Комбинации клавиш для просмотра нескольких элементов"
+  },
+  "mediaPage_actionsLabel": {
+    "message": "Действия"
+  },
+  "mediaPage_keywordsPlaceholder": {
+    "message": "Добавить ключевые слова..."
+  },
+  "mediaPage_noSelectionTitle": {
+    "message": "Медиаобъект не выбран"
+  },
+  "mediaPage_noSelectionDescription": {
+    "message": "Выберите медиаобъект в левой боковой панели, чтобы увидеть его содержимое и анализ здесь."
+  },
+  "mediaPage_generateAnalysis": {
+    "message": "Создать анализ"
+  },
+  "mediaPage_generateAnalysisHint": {
+    "message": "Создать новый анализ"
+  },
+  "mediaPage_editAnalysis": {
+    "message": "Редактировать анализ"
+  },
+  "mediaPage_createNoteWithContent": {
+    "message": "Создать заметку с содержимым"
+  },
+  "mediaPage_createNoteWithContentAnalysis": {
+    "message": "Создать заметку с содержимым и анализом"
+  },
+  "mediaPage_untitled": {
+    "message": "Без названия"
+  },
+  "mediaPage_copyMetadata": {
+    "message": "Копировать метаданные"
+  },
+  "mediaPage_statistics": {
+    "message": "Статистика"
+  },
+  "mediaPage_words": {
+    "message": "Слова"
+  },
+  "mediaPage_characters": {
+    "message": "Символы"
+  },
+  "mediaPage_paragraphs": {
+    "message": "Параграфы"
+  },
+  "mediaPage_metadata": {
+    "message": "Метаданные"
+  },
+  "mediaPage_idLabel": {
+    "message": "ID"
+  },
+  "mediaPage_typeLabel": {
+    "message": "Тип"
+  },
+  "mediaPage_titleLabel": {
+    "message": "Заголовок"
+  },
+  "mediaPage_source": {
+    "message": "Источник"
+  },
+  "mediaPage_notAvailable": {
+    "message": "Н/Д"
+  },
+  "mediaPage_developerTools": {
+    "message": "Инструменты разработчика"
+  },
+  "mediaPage_model": {
+    "message": "Модель"
+  },
+  "mediaPage_selectModel": {
+    "message": "Выберите модель"
+  },
+  "mediaPage_noModelsAvailable": {
+    "message": "Нет доступных моделей"
+  },
+  "mediaPage_promptPresets": {
+    "message": "Пресеты промптов"
+  },
+  "mediaPage_showPresets": {
+    "message": "Показать пресеты"
+  },
+  "mediaPage_hidePresets": {
+    "message": "Скрыть пресеты"
+  },
+  "mediaPage_systemPromptLabel": {
+    "message": "Системный промпт"
+  },
+  "mediaPage_systemPromptPlaceholder": {
+    "message": "Введите системный промпт..."
+  },
+  "mediaPage_userPromptPrefixLabel": {
+    "message": "Префикс пользовательского промпта"
+  },
+  "mediaPage_prependedBeforeContent": {
+    "message": "(добавляется перед содержимым)"
+  },
+  "mediaPage_userPrefixPlaceholder": {
+    "message": "Необязательно: введите текст, который будет добавлен перед содержимым медиа..."
+  },
+  "mediaPage_presetComprehensiveAnalysis": {
+    "message": "Полный анализ"
+  },
+  "mediaPage_presetExecutiveSummary": {
+    "message": "Краткое резюме"
+  },
+  "mediaPage_presetCriticalReview": {
+    "message": "Критический обзор"
+  },
+  "mediaPage_presetQAAnalysis": {
+    "message": "Анализ вопросов и ответов"
+  },
+  "contentReview_templates_transcript_clean_label": {
+    "message": "Очистить транскрипт"
+  },
+  "contentReview_templates_transcript_clean_description": {
+    "message": "Нормализует пунктуацию и регистр, сохраняя структуру строк."
+  },
+  "contentReview_templates_speaker_turns_label": {
+    "message": "Реплики спикеров"
+  },
+  "contentReview_templates_speaker_turns_description": {
+    "message": "Гарантирует, что каждая реплика спикера находится на отдельной строке с понятными метками."
+  },
+  "contentReview_templates_chapter_headings_label": {
+    "message": "Заголовки разделов"
+  },
+  "contentReview_templates_chapter_headings_description": {
+    "message": "Вставляет заголовки Markdown для группировки тем без удаления содержимого."
   }
 }

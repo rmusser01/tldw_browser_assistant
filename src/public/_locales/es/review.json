@@ -364,5 +364,326 @@
   },
   "contentReview_editedLabel": {
     "message": "Editado"
+  },
+  "mediaPage_spreadMode": {
+    "message": "Comparar"
+  },
+  "mediaPage_listMode": {
+    "message": "Enfoque"
+  },
+  "mediaPage_allMode": {
+    "message": "Pila"
+  },
+  "mediaPage_spreadModeTooltip": {
+    "message": "Ver los elementos seleccionados lado a lado para comparar"
+  },
+  "mediaPage_listModeTooltip": {
+    "message": "Ver un elemento a la vez con navegación"
+  },
+  "mediaPage_allModeTooltip": {
+    "message": "Ver todos los elementos seleccionados en una lista desplazable"
+  },
+  "mediaPage_copyContentLabel": {
+    "message": "Copiar contenido"
+  },
+  "mediaPage_copyAnalysisLabel": {
+    "message": "Copiar análisis"
+  },
+  "mediaPage_copyContentTooltip": {
+    "message": "Copiar contenido al portapapeles"
+  },
+  "mediaPage_copyAnalysisTooltip": {
+    "message": "Copiar análisis al portapapeles"
+  },
+  "mediaPage_prevItemTooltip": {
+    "message": "Elemento anterior (←)"
+  },
+  "mediaPage_nextItemTooltip": {
+    "message": "Elemento siguiente (→)"
+  },
+  "mediaPage_viewerOptions": {
+    "message": "Opciones"
+  },
+  "mediaPage_expandAllDropdown": {
+    "message": "Expandir/Contraer"
+  },
+  "mediaPage_itemPosition": {
+    "message": "Elemento {{current}} de {{total}}"
+  },
+  "mediaPage_noItemSelected": {
+    "message": "Ningún elemento seleccionado"
+  },
+  "mediaPage_firstUseTitle": {
+    "message": "Guía rápida: Revisión de varios elementos"
+  },
+  "mediaPage_firstUseStep1": {
+    "message": "Selecciona elementos"
+  },
+  "mediaPage_firstUseStep1Desc": {
+    "message": "Haz clic en los elementos del panel izquierdo para añadirlos al visor."
+  },
+  "mediaPage_firstUseStep2": {
+    "message": "Elige una vista"
+  },
+  "mediaPage_firstUseStep2DescUpdated": {
+    "message": "Usa \"Comparar\" para ver en paralelo, \"Enfoque\" para ver uno a la vez, o \"Pila\" para ver todos."
+  },
+  "mediaPage_firstUseStep3": {
+    "message": "Navega"
+  },
+  "mediaPage_firstUseStep3Desc": {
+    "message": "Usa los botones Anterior/Siguiente o el teclado (Tab + Enter) para moverte entre los elementos."
+  },
+  "mediaPage_gotIt": {
+    "message": "Entendido"
+  },
+  "mediaPage_mediaInspector": {
+    "message": "Inspector de medios"
+  },
+  "mediaPage_searchPlaceholder": {
+    "message": "Buscar medios (título/contenido)"
+  },
+  "mediaPage_search": {
+    "message": "Buscar"
+  },
+  "mediaPage_clear": {
+    "message": "Limpiar"
+  },
+  "mediaPage_types": {
+    "message": "Tipos de medios"
+  },
+  "mediaPage_keywords": {
+    "message": "Palabras clave"
+  },
+  "mediaPage_moreTags": {
+    "message": "+{{count}} más etiquetas"
+  },
+  "mediaPage_resetFilters": {
+    "message": "Restablecer filtros"
+  },
+  "mediaPage_clearAll": {
+    "message": "Limpiar todo"
+  },
+  "mediaPage_content": {
+    "message": "Contenido"
+  },
+  "mediaPage_vertical": {
+    "message": "Vertical"
+  },
+  "mediaPage_horizontal": {
+    "message": "Horizontal"
+  },
+  "mediaPage_results": {
+    "message": "Resultados"
+  },
+  "mediaPage_showSidebar": {
+    "message": "Mostrar barra lateral"
+  },
+  "mediaPage_hideSidebar": {
+    "message": "Ocultar barra lateral"
+  },
+  "mediaPage_viewer": {
+    "message": "Visor"
+  },
+  "mediaPage_selectItemsHint": {
+    "message": "Selecciona elementos en la izquierda para verlos aquí."
+  },
+  "mediaPage_mediaContent": {
+    "message": "Contenido multimedia"
+  },
+  "mediaPage_copyContent": {
+    "message": "Copiar contenido"
+  },
+  "mediaPage_contentCopied": {
+    "message": "Contenido copiado"
+  },
+  "mediaPage_metadataCopied": {
+    "message": "Metadatos copiados"
+  },
+  "mediaPage_analysisCopied": {
+    "message": "Análisis copiado"
+  },
+  "mediaPage_copyFailed": {
+    "message": "Error al copiar"
+  },
+  "mediaPage_noContent": {
+    "message": "No hay contenido disponible"
+  },
+  "mediaPage_collapse": {
+    "message": "Contraer"
+  },
+  "mediaPage_expand": {
+    "message": "Expandir"
+  },
+  "mediaPage_media": {
+    "message": "Medios"
+  },
+  "mediaPage_searchingBanner": {
+    "message": "Buscando medios…"
+  },
+  "mediaPage_filterHelp": {
+    "message": "La búsqueda coincide con el título y el contenido; los tipos y las palabras clave afinan aún más los resultados."
+  },
+  "mediaPage_noMediaTypes": {
+    "message": "No hay tipos de medios disponibles"
+  },
+  "mediaPage_noResults": {
+    "message": "Sin resultados"
+  },
+  "mediaPage_resultsCount": {
+    "message": "{{selected}} seleccionados · {{open}} abiertos"
+  },
+  "mediaPage_clearSelection": {
+    "message": "Deseleccionar todo"
+  },
+  "mediaPage_itemsLabel": {
+    "message": "Elementos"
+  },
+  "mediaPage_contentLabel": {
+    "message": "Vista de contenido"
+  },
+  "mediaPage_filterByKeyword": {
+    "message": "Filtrar por palabra clave"
+  },
+  "mediaPage_keywordHelper": {
+    "message": "Las palabras clave te ayudan a encontrar este medio usando el filtro de palabras clave de la izquierda"
+  },
+  "mediaPage_modeHint": {
+    "message": "Busca y apila varios elementos multimedia para compararlos en el visor de la derecha."
+  },
+  "mediaPage_viewerHelp": {
+    "message": "Teclado: entra en la lista de resultados con Tab, usa Enter o Espacio para apilar o desapilar un elemento multimedia y usa los controles Anterior/Siguiente y de diseño para moverte por los elementos en el visor."
+  },
+  "mediaPage_viewerHelpLabel": {
+    "message": "Atajos de teclado de revisión de múltiples elementos"
+  },
+  "mediaPage_actionsLabel": {
+    "message": "Acciones"
+  },
+  "mediaPage_keywordsPlaceholder": {
+    "message": "Añadir palabras clave..."
+  },
+  "mediaPage_noSelectionTitle": {
+    "message": "Ningún elemento multimedia seleccionado"
+  },
+  "mediaPage_noSelectionDescription": {
+    "message": "Selecciona un elemento multimedia en la barra lateral izquierda para ver aquí su contenido y análisis."
+  },
+  "mediaPage_generateAnalysis": {
+    "message": "Generar"
+  },
+  "mediaPage_generateAnalysisHint": {
+    "message": "Generar un nuevo análisis"
+  },
+  "mediaPage_editAnalysis": {
+    "message": "Editar análisis"
+  },
+  "mediaPage_createNoteWithContent": {
+    "message": "Crear nota con contenido"
+  },
+  "mediaPage_createNoteWithContentAnalysis": {
+    "message": "Crear nota con contenido + análisis"
+  },
+  "mediaPage_untitled": {
+    "message": "Sin título"
+  },
+  "mediaPage_copyMetadata": {
+    "message": "Copiar metadatos"
+  },
+  "mediaPage_statistics": {
+    "message": "Estadísticas"
+  },
+  "mediaPage_words": {
+    "message": "Palabras"
+  },
+  "mediaPage_characters": {
+    "message": "Caracteres"
+  },
+  "mediaPage_paragraphs": {
+    "message": "Párrafos"
+  },
+  "mediaPage_metadata": {
+    "message": "Metadatos"
+  },
+  "mediaPage_idLabel": {
+    "message": "ID"
+  },
+  "mediaPage_typeLabel": {
+    "message": "Tipo"
+  },
+  "mediaPage_titleLabel": {
+    "message": "Título"
+  },
+  "mediaPage_source": {
+    "message": "Fuente"
+  },
+  "mediaPage_notAvailable": {
+    "message": "N/D"
+  },
+  "mediaPage_developerTools": {
+    "message": "Herramientas para desarrolladores"
+  },
+  "mediaPage_model": {
+    "message": "Modelo"
+  },
+  "mediaPage_selectModel": {
+    "message": "Selecciona un modelo"
+  },
+  "mediaPage_noModelsAvailable": {
+    "message": "No hay modelos disponibles"
+  },
+  "mediaPage_promptPresets": {
+    "message": "Preajustes de prompt"
+  },
+  "mediaPage_showPresets": {
+    "message": "Mostrar preajustes"
+  },
+  "mediaPage_hidePresets": {
+    "message": "Ocultar preajustes"
+  },
+  "mediaPage_systemPromptLabel": {
+    "message": "Prompt del sistema"
+  },
+  "mediaPage_systemPromptPlaceholder": {
+    "message": "Introduce el prompt del sistema..."
+  },
+  "mediaPage_userPromptPrefixLabel": {
+    "message": "Prefijo de prompt del usuario"
+  },
+  "mediaPage_prependedBeforeContent": {
+    "message": "(antepuesto al contenido)"
+  },
+  "mediaPage_userPrefixPlaceholder": {
+    "message": "Opcional: Introduce texto para anteponer al contenido del medio..."
+  },
+  "mediaPage_presetComprehensiveAnalysis": {
+    "message": "Análisis exhaustivo"
+  },
+  "mediaPage_presetExecutiveSummary": {
+    "message": "Resumen ejecutivo"
+  },
+  "mediaPage_presetCriticalReview": {
+    "message": "Revisión crítica"
+  },
+  "mediaPage_presetQAAnalysis": {
+    "message": "Análisis de preguntas y respuestas"
+  },
+  "contentReview_templates_transcript_clean_label": {
+    "message": "Limpiar transcripción"
+  },
+  "contentReview_templates_transcript_clean_description": {
+    "message": "Normaliza puntuación y mayúsculas manteniendo la estructura de líneas."
+  },
+  "contentReview_templates_speaker_turns_label": {
+    "message": "Turnos de hablante"
+  },
+  "contentReview_templates_speaker_turns_description": {
+    "message": "Garantiza que cada turno de hablante esté en su propia línea con etiquetas claras."
+  },
+  "contentReview_templates_chapter_headings_label": {
+    "message": "Encabezados de capítulo"
+  },
+  "contentReview_templates_chapter_headings_description": {
+    "message": "Inserta encabezados Markdown para agrupar temas sin eliminar contenido."
   }
 }
