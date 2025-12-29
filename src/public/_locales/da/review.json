@@ -564,7 +564,7 @@
     "message": "Ryd"
   },
   "mediaPage_types": {
-    "message": "Types"
+    "message": "Typer"
   },
   "mediaPage_keywords": {
     "message": "Nøgleord"
@@ -573,7 +573,7 @@
     "message": "+{{count}} flere tags"
   },
   "mediaPage_resetFilters": {
-    "message": "Reset Filters"
+    "message": "Nulstil filtre"
   },
   "mediaPage_clearAll": {
     "message": "Ryd alt"
@@ -591,13 +591,13 @@
     "message": "Resultater"
   },
   "mediaPage_noResults": {
-    "message": "No results"
+    "message": "Ingen resultater"
   },
   "mediaPage_showSidebar": {
-    "message": "Show sidebar"
+    "message": "Vis sidepanel"
   },
   "mediaPage_hideSidebar": {
-    "message": "Hide sidebar"
+    "message": "Skjul sidepanel"
   },
   "mediaPage_viewer": {
     "message": "Viser"
@@ -945,10 +945,10 @@
     "message": "Når du er forbundet, kan du bruge Quick ingest i topbjælken til at tilføje medier fra dine egne optagelser og filer."
   },
   "mediaEmpty_offlineTitle": {
-    "message": "Media API not available on this server"
+    "message": "Media-API er ikke tilgængelig på denne server"
   },
   "mediaEmpty_offlineDescription": {
-    "message": "This tldw server does not advertise the Media endpoints (for example, /api/v1/media and /api/v1/media/search). Upgrade your server to a version that includes Media to use this workspace."
+    "message": "Denne tldw-server annoncerer ikke Media-endepunkterne (f.eks. /api/v1/media og /api/v1/media/search). Opgrader din server til en version, der inkluderer Media, for at bruge dette arbejdsområde."
   },
   "mediaEmpty_offlineExample1": {
     "message": "Åbn Diagnostics for at bekræfte din serverversion og tilgængelige API'er."

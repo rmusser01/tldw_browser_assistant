@@ -771,11 +771,11 @@
     "description": "Content review UI string."
   },
   "contentReview_readyToSubmit": {
-    "message": "{{count}} listas",
+    "message": "{{count}} listos",
     "description": "Content review UI string."
   },
   "contentReview_committedCount": {
-    "message": "{{count}} confirmadas",
+    "message": "{{count}} confirmados",
     "description": "Content review UI string."
   },
   "contentReview_totalCount": {

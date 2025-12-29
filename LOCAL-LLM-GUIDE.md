@@ -12,8 +12,9 @@ Run AI models on your own computer with complete privacy. No cloud services, no 
 4. [Downloading Your First Model](#downloading-your-first-model)
 5. [Running the Server](#running-the-server)
 6. [Connecting to tldw Extension](#connecting-to-tldw-extension)
-7. [Troubleshooting](#troubleshooting)
-8. [Next Steps](#next-steps)
+7. [Security and Privacy](#security-and-privacy)
+8. [Troubleshooting](#troubleshooting)
+9. [Next Steps](#next-steps)
 
 ---
 
@@ -229,6 +230,101 @@ If you're running tldw_server, you can route your local LLM through it for addit
 - RAG integration with your knowledge base
 - Model switching without reconfiguring the extension
 - Additional processing features
+
+---
+
+## Security and Privacy
+
+Running LLMs locally improves privacy, but there are still security considerations to be aware of.
+
+### Localhost-Only by Default
+
+By default, llama-server binds to `127.0.0.1` (localhost), meaning **only your computer can connect**. This is the safest configuration for personal use.
+
+> **Important**: Never expose your LLM server to the internet or untrusted networks without proper security measures.
+
+### Network Security Risks
+
+If you change the server to listen on all interfaces (`0.0.0.0`) or open firewall ports, you expose yourself to:
+
+- **Unauthorized access** - Anyone on the network can use your LLM
+- **Data leakage** - Conversation history and prompts could be intercepted
+- **Resource abuse** - Others could consume your CPU/GPU/memory
+- **Potential exploits** - Unpatched software could be targeted
+
+### Traffic Is Unencrypted (HTTP)
+
+Communication between the tldw extension and llama-server uses **plaintext HTTP** by default (e.g., `http://localhost:8080`). This is fine for localhost but problematic for remote access:
+
+- All prompts and responses travel unencrypted
+- Anyone on the network path can read your conversations
+
+**For remote access, use one of these approaches:**
+
+| Method | Complexity | Description |
+|--------|------------|-------------|
+| SSH Tunnel | Easy | `ssh -L 8080:localhost:8080 your-server` then connect to `localhost:8080` |
+| Reverse Proxy | Medium | Use nginx/Caddy with HTTPS certificates |
+| VPN | Medium | Connect via WireGuard/OpenVPN, then use private IP |
+
+### Authentication
+
+For **local-only use**, leaving the API key empty is acceptable since only your machine can connect.
+
+For **non-local deployments**, always enable authentication:
+
+```bash
+# Start server with API key requirement
+llama-server -hf ggml-org/gemma-3-1b-it-GGUF --api-key "your-secret-key"
+```
+
+Then configure the extension with the same API key in Settings → Providers.
+
+### Privacy When Downloading Models
+
+When you download models from Hugging Face:
+
+- **Your IP address** is logged by Hugging Face servers
+- **Download activity** may be tracked for analytics
+- **Model files** are cached locally (check `~/.cache/huggingface/` or `~/.cache/llama.cpp/`)
+- **Model licenses** vary - some restrict commercial use or require attribution
+
+For maximum privacy:
+- Download models once, then use local files (`-m model.gguf` instead of `-hf`)
+- Review model licenses on Hugging Face before use
+- Clear the cache if you want to remove downloaded models
+
+### Security Checklist
+
+Before deploying beyond localhost, verify these mitigations:
+
+- [ ] **Bind to localhost** - Server listens on `127.0.0.1` only (default)
+- [ ] **Firewall rules** - Block ports 8080/8000 from external access
+- [ ] **API key enabled** - Use `--api-key` flag for any non-local access
+- [ ] **HTTPS/Encryption** - Use SSH tunnel, reverse proxy, or VPN for remote access
+- [ ] **Network segmentation** - Keep LLM server on trusted network only
+- [ ] **Monitor access** - Check server logs periodically for unexpected requests
+
+### Platform-Specific Firewall Commands
+
+**macOS:**
+```bash
+# Block port 8080 from external access (allows localhost)
+sudo /usr/libexec/ApplicationFirewall/socketfilterfw --add /path/to/llama-server --blockapp
+```
+
+**Windows (PowerShell as Admin):**
+```powershell
+# Block inbound connections to port 8080
+New-NetFirewallRule -DisplayName "Block LLM Server External" -Direction Inbound -LocalPort 8080 -Protocol TCP -Action Block -RemoteAddress Any
+```
+
+**Linux (ufw):**
+```bash
+# Deny external access to port 8080
+sudo ufw deny from any to any port 8080
+sudo ufw allow from 127.0.0.1 to any port 8080
+```
 
 ---
 

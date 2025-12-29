@@ -1020,10 +1020,10 @@
     "message": "Revisión de contenido"
   },
   "contentReview_readyToSubmit": {
-    "message": "{{count}} listas"
+    "message": "{{count}} listos"
   },
   "contentReview_committedCount": {
-    "message": "{{count}} confirmadas"
+    "message": "{{count}} confirmados"
   },
   "contentReview_totalCount": {
     "message": "{{count}} en total"

@@ -3,7 +3,7 @@ import { useStorage } from "@plasmohq/storage/hook"
 
 /**
  * Feature flags for gradual UX redesign rollout.
- * All flags default to true (new UX) and can be disabled per-user.
+ * Most flags default to true (new UX); specific flags may default off.
  */
 
 // Flag keys
@@ -14,9 +14,14 @@ export const FEATURE_FLAGS = {
   COMMAND_PALETTE: "ff_commandPalette",
   COMPACT_MESSAGES: "ff_compactMessages",
   CHAT_SIDEBAR: "ff_chatSidebar",
+  COMPARE_MODE: "ff_compareMode"
 } as const
 
 export type FeatureFlagKey = (typeof FEATURE_FLAGS)[keyof typeof FEATURE_FLAGS]
+
+const FEATURE_FLAG_DEFAULTS: Partial<Record<FeatureFlagKey, boolean>> = {
+  [FEATURE_FLAGS.COMPARE_MODE]: false
+}
 
 /**
  * Hook to check if a feature flag is enabled.
@@ -25,7 +30,7 @@ export type FeatureFlagKey = (typeof FEATURE_FLAGS)[keyof typeof FEATURE_FLAGS]
  */
 export function useFeatureFlag(flag: FeatureFlagKey) {
   // Default to true to enable new UX features by default
-  return useStorage(flag, true)
+  return useStorage(flag, FEATURE_FLAG_DEFAULTS[flag] ?? true)
 }
 
 /**
@@ -54,6 +59,10 @@ export function useAllFeatureFlags() {
     FEATURE_FLAGS.CHAT_SIDEBAR,
     true
   )
+  const [compareMode, setCompareMode] = useStorage(
+    FEATURE_FLAGS.COMPARE_MODE,
+    FEATURE_FLAG_DEFAULTS[FEATURE_FLAGS.COMPARE_MODE] ?? true
+  )
 
   return {
     flags: {
@@ -63,6 +72,7 @@ export function useAllFeatureFlags() {
       commandPalette,
       compactMessages,
       chatSidebar,
+      compareMode
     },
     setters: {
       setNewOnboarding,
@@ -71,6 +81,7 @@ export function useAllFeatureFlags() {
       setCommandPalette,
       setCompactMessages,
       setChatSidebar,
+      setCompareMode
     },
     // Enable all new UX features
     enableAll: useCallback(() => {
@@ -80,13 +91,15 @@ export function useAllFeatureFlags() {
       setCommandPalette(true)
       setCompactMessages(true)
       setChatSidebar(true)
+      setCompareMode(true)
     }, [
       setNewOnboarding,
       setNewChat,
       setNewSettings,
       setCommandPalette,
       setCompactMessages,
-      setChatSidebar
+      setChatSidebar,
+      setCompareMode
     ]),
     // Disable all new UX features (revert to old)
     disableAll: useCallback(() => {
@@ -96,13 +109,15 @@ export function useAllFeatureFlags() {
       setCommandPalette(false)
       setCompactMessages(false)
       setChatSidebar(false)
+      setCompareMode(false)
     }, [
       setNewOnboarding,
       setNewChat,
       setNewSettings,
       setCommandPalette,
       setCompactMessages,
-      setChatSidebar
+      setChatSidebar,
+      setCompareMode
     ])
   }
 }

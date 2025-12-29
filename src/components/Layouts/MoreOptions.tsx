@@ -18,6 +18,7 @@ import { copyToClipboard } from "@/utils/clipboard"
 import { ImageExportWrapper } from "../Common/ImageExport"
 import { useAntdMessage } from "@/hooks/useAntdMessage"
 import { useStoreMessageOption } from "@/store/option"
+import { trackCompareMetric } from "@/utils/compare-metrics"
 
 interface MoreOptionsProps {
   messages: Message[]
@@ -266,6 +267,7 @@ export const MoreOptions = ({
               text: formatAsMarkdown(canonicalMessages),
               formatted: false
             })
+            void trackCompareMetric({ type: "export_canonical" })
             message.success(t("more.copy.success"))
           }
         }
@@ -309,6 +311,7 @@ export const MoreOptions = ({
               formatAsMarkdown(canonicalMessages),
               "chat_canonical.md"
             )
+            void trackCompareMetric({ type: "export_canonical" })
           }
         },
         {

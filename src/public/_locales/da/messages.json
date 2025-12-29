@@ -2023,7 +2023,7 @@
     "message": "Ryd"
   },
   "mediaPage_types": {
-    "message": "Types"
+    "message": "Typer"
   },
   "mediaPage_keywords": {
     "message": "Nøgleord"
@@ -2032,7 +2032,7 @@
     "message": "+{{count}} flere tags"
   },
   "mediaPage_resetFilters": {
-    "message": "Reset Filters"
+    "message": "Nulstil filtre"
   },
   "mediaPage_clearAll": {
     "message": "Ryd alt"
@@ -2050,13 +2050,13 @@
     "message": "Resultater"
   },
   "mediaPage_noResults": {
-    "message": "No results"
+    "message": "Ingen resultater"
   },
   "mediaPage_showSidebar": {
-    "message": "Show sidebar"
+    "message": "Vis sidepanel"
   },
   "mediaPage_hideSidebar": {
-    "message": "Hide sidebar"
+    "message": "Skjul sidepanel"
   },
   "mediaPage_viewer": {
     "message": "Viser"

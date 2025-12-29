@@ -6,6 +6,10 @@ import { MessageSourcePopup } from "@/components/Common/Playground/MessageSource
 import { useStorage } from "@plasmohq/storage/hook"
 import { useTranslation } from "react-i18next"
 import { notification } from "antd"
+import { Clock } from "lucide-react"
+import { decodeChatErrorPayload } from "@/utils/chat-error-message"
+import { humanizeMilliseconds } from "@/utils/humanize-milliseconds"
+import { trackCompareMetric } from "@/utils/compare-metrics"
 
 type TimelineBlock =
   | { kind: "single"; index: number }
@@ -19,8 +23,9 @@ type TimelineBlock =
 const PerModelMiniComposer: React.FC<{
   placeholder: string
   disabled?: boolean
+  helperText?: string | null
   onSend: (text: string) => Promise<void> | void
-}> = ({ placeholder, disabled = false, onSend }) => {
+}> = ({ placeholder, disabled = false, helperText, onSend }) => {
   const { t } = useTranslation(["common"])
   const [value, setValue] = React.useState("")
 
@@ -35,24 +40,29 @@ const PerModelMiniComposer: React.FC<{
   }
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      className="mt-2 flex items-center gap-2 text-[11px]">
-      <input
-        className="flex-1 rounded border border-gray-200 bg-white px-2 py-1 text-[11px] text-gray-800 placeholder:text-gray-400 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100 dark:placeholder:text-gray-500"
-        type="text"
-        value={value}
-        onChange={(e) => setValue(e.target.value)}
-        placeholder={placeholder}
-        disabled={disabled}
-      />
-      <button
-        type="submit"
-        disabled={disabled || value.trim().length === 0}
-        className="rounded bg-blue-600 px-2 py-1 text-[11px] font-medium text-white disabled:cursor-not-allowed disabled:opacity-60">
-        {t("common:send", "Send")}
-      </button>
-    </form>
+    <div className="mt-2 space-y-1 text-[11px]">
+      <form onSubmit={handleSubmit} className="flex items-center gap-2">
+        <input
+          className="flex-1 rounded border border-gray-200 bg-white px-2 py-1 text-[11px] text-gray-800 placeholder:text-gray-400 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100 dark:placeholder:text-gray-500"
+          type="text"
+          value={value}
+          onChange={(e) => setValue(e.target.value)}
+          placeholder={placeholder}
+          disabled={disabled}
+        />
+        <button
+          type="submit"
+          disabled={disabled || value.trim().length === 0}
+          className="rounded bg-blue-600 px-2 py-1 text-[11px] font-medium text-white disabled:cursor-not-allowed disabled:opacity-60">
+          {t("common:send", "Send")}
+        </button>
+      </form>
+      {helperText && (
+        <div className="text-[10px] text-gray-400 dark:text-gray-500">
+          {helperText}
+        </div>
+      )}
+    </div>
   )
 }
 
@@ -106,6 +116,8 @@ export const PlaygroundChat = () => {
     serverChatId,
     stopStreamingRequest,
     isEmbedding,
+    compareMode,
+    compareFeatureEnabled,
     compareSelectionByCluster,
     setCompareSelectionForCluster,
     compareActiveModelsByCluster,
@@ -120,11 +132,18 @@ export const PlaygroundChat = () => {
     setCompareParentForHistory,
     compareSplitChats,
     setCompareSplitChat,
-    compareMaxModels
+    compareMaxModels,
+    contextFiles,
+    documentContext,
+    selectedKnowledge
   } = useMessageOption()
   const [isSourceOpen, setIsSourceOpen] = React.useState(false)
   const [source, setSource] = React.useState<any>(null)
   const [openReasoning] = useStorage("openReasoning", false)
+  const [collapsedClusters, setCollapsedClusters] = React.useState<
+    Record<string, boolean>
+  >({})
+  const compareModeActive = compareFeatureEnabled && compareMode
   const blocks = React.useMemo(() => buildBlocks(messages), [messages])
 
   return (
@@ -188,32 +207,81 @@ export const PlaygroundChat = () => {
           }
 
           const userMessage = messages[block.userIndex]
-          const replies = block.assistantIndices.map((i) => ({
-            index: i,
-            message: messages[i]
-          }))
+          const replyItems = block.assistantIndices.map((i) => {
+            const message = messages[i]
+            const modelKey =
+              (message as any).modelId || message.modelName || message.name
+            return {
+              index: i,
+              message,
+              modelKey
+            }
+          })
           const clusterSelection =
             compareSelectionByCluster[block.clusterId] || []
           const clusterActiveModels =
             compareActiveModelsByCluster[block.clusterId] || clusterSelection
           const modelLabels = new Map<string, string>()
-          replies.forEach(({ message }) => {
-            const key =
-              (message as any).modelId || message.modelName || message.name
-            if (!modelLabels.has(key)) {
-              modelLabels.set(key, message?.modelName || message.name || key)
+          replyItems.forEach(({ message, modelKey }) => {
+            if (!modelLabels.has(modelKey)) {
+              modelLabels.set(
+                modelKey,
+                message?.modelName || message.name || modelKey
+              )
             }
           })
           const getModelLabel = (modelKey: string) =>
             modelLabels.get(modelKey) || modelKey
+          const clusterModelKeys = Array.from(
+            new Set(replyItems.map((item) => item.modelKey))
+          )
+          const selectedModelKey =
+            clusterSelection.length === 1 ? clusterSelection[0] : null
+          const isChosenState = !compareModeActive && !!selectedModelKey
+          const isCollapsed = isChosenState
+            ? collapsedClusters[block.clusterId] ?? true
+            : false
+          const visibleReplyItems =
+            isCollapsed && isChosenState && selectedModelKey
+              ? replyItems.filter((item) => item.modelKey === selectedModelKey)
+              : replyItems
+          const alternativeCount = selectedModelKey
+            ? Math.max(replyItems.length - 1, 0)
+            : 0
+          const perModelReplyBlocked =
+            (contextFiles?.length ?? 0) > 0 ||
+            (documentContext?.length ?? 0) > 0 ||
+            Boolean(selectedKnowledge)
+          const setClusterCollapsed = (next: boolean) => {
+            setCollapsedClusters((prev) => ({
+              ...prev,
+              [block.clusterId]: next
+            }))
+          }
           const handleContinueWithModel = (modelKey: string) => {
             setCompareMode(false)
             setSelectedModel(modelKey)
             setCompareSelectedModels([modelKey])
             setCompareActiveModelsForCluster(block.clusterId, [modelKey])
+            setClusterCollapsed(true)
+          }
+          const handleCompareAgain = () => {
+            if (!compareFeatureEnabled) {
+              return
+            }
+            const maxModels =
+              typeof compareMaxModels === "number" && compareMaxModels > 0
+                ? compareMaxModels
+                : clusterModelKeys.length
+            setCompareSelectedModels(clusterModelKeys.slice(0, maxModels))
+            setCompareMode(true)
+            setClusterCollapsed(false)
           }
 
           const handleBulkSplit = async () => {
+            if (!compareFeatureEnabled) {
+              return
+            }
             const createdIds: string[] = []
             const failedModels: string[] = []
             for (const modelKey of clusterSelection) {
@@ -239,6 +307,10 @@ export const PlaygroundChat = () => {
               }
             }
             if (createdIds.length > 0) {
+              void trackCompareMetric({
+                type: "split_bulk",
+                count: createdIds.length
+              })
               notification.success({
                 message: t(
                   "playground:composer.compareBulkSplitSuccess",
@@ -312,22 +384,41 @@ export const PlaygroundChat = () => {
                 message_type={userMessage.messageType}
               />
               <div className="ml-10 space-y-2 border-l border-dashed border-gray-200 pl-4 dark:border-gray-700">
-                <div className="mb-1 flex items-center gap-2 text-[11px] text-gray-500 dark:text-gray-400">
-                  <span className="inline-flex items-center rounded-full bg-gray-100 px-2 py-0.5 text-[10px] font-medium text-gray-700 dark:bg-gray-800 dark:text-gray-200">
-                    {t(
-                      "playground:composer.compareClusterLabel",
-                      "Multi-model answers"
-                    )}
-                  </span>
-                  <span className="text-[10px] text-gray-400 dark:text-gray-500">
-                    {t(
-                      "playground:composer.compareClusterCount",
-                      "{{count}} models",
-                      { count: replies.length }
-                    )}
-                  </span>
+                <div className="mb-1 flex items-center justify-between text-[11px] text-gray-500 dark:text-gray-400">
+                  <div className="flex items-center gap-2">
+                    <span className="inline-flex items-center rounded-full bg-gray-100 px-2 py-0.5 text-[10px] font-medium text-gray-700 dark:bg-gray-800 dark:text-gray-200">
+                      {t(
+                        "playground:composer.compareClusterLabel",
+                        "Multi-model answers"
+                      )}
+                    </span>
+                    <span className="text-[10px] text-gray-400 dark:text-gray-500">
+                      {t(
+                        "playground:composer.compareClusterCount",
+                        "{{count}} models",
+                        { count: replyItems.length }
+                      )}
+                    </span>
+                  </div>
+                  {isChosenState && alternativeCount > 0 && (
+                    <button
+                      type="button"
+                      onClick={() => setClusterCollapsed(!isCollapsed)}
+                      className="text-[10px] font-medium text-blue-600 hover:underline dark:text-blue-400">
+                      {isCollapsed
+                        ? t(
+                            "common:timeline.expandAllAlternatives",
+                            "Expand all alternatives"
+                          )
+                        : t(
+                            "common:timeline.collapseAllAlternatives",
+                            "Collapse all alternatives"
+                          )}{" "}
+                      ({alternativeCount})
+                    </button>
+                  )}
                 </div>
-                {clusterSelection.length > 1 && (
+                {compareFeatureEnabled && clusterSelection.length > 1 && (
                   <div className="mb-2 flex items-center justify-between text-[11px] text-gray-500 dark:text-gray-400">
                     <span>
                       {t(
@@ -339,7 +430,12 @@ export const PlaygroundChat = () => {
                     <button
                       type="button"
                       onClick={handleBulkSplit}
-                      className="rounded border border-gray-300 bg-white px-2 py-0.5 text-[10px] font-medium text-gray-700 hover:bg-gray-50 dark:border-gray-600 dark:bg-gray-900 dark:text-gray-100 dark:hover:bg-gray-800">
+                      disabled={!compareFeatureEnabled}
+                      className={`rounded border border-gray-300 bg-white px-2 py-0.5 text-[10px] font-medium text-gray-700 hover:bg-gray-50 dark:border-gray-600 dark:bg-gray-900 dark:text-gray-100 dark:hover:bg-gray-800 ${
+                        !compareFeatureEnabled
+                          ? "cursor-not-allowed opacity-50 hover:bg-white dark:hover:bg-gray-900"
+                          : ""
+                      }`}>
                       {t(
                         "playground:composer.compareBulkSplit",
                         "Open each selected answer as its own chat"
@@ -347,14 +443,25 @@ export const PlaygroundChat = () => {
                     </button>
                   </div>
                 )}
-                {replies.map(({ index, message }) => {
-                  const modelKey =
-                    (message as any).modelId || message.modelName || message.name
+                {visibleReplyItems.map(({ index, message, modelKey }) => {
                   const isSelected = clusterSelection.includes(modelKey)
+                  const errorPayload = decodeChatErrorPayload(message.message)
+                  const hasError = Boolean(errorPayload)
+                  const isSelectable = compareFeatureEnabled && !hasError
+                  const isChosenCard =
+                    isChosenState && selectedModelKey === modelKey
+                  const latencyLabel =
+                    typeof message?.reasoning_time_taken === "number" &&
+                    message.reasoning_time_taken > 0
+                      ? humanizeMilliseconds(message.reasoning_time_taken)
+                      : null
                   const splitMap = compareSplitChats[block.clusterId] || {}
                   const spawnedHistoryId = splitMap[modelKey]
 
                   const handleToggle = () => {
+                    if (!isSelectable) {
+                      return
+                    }
                     const next = isSelected
                       ? clusterSelection.filter((id) => id !== modelKey)
                       : [...clusterSelection, modelKey]
@@ -372,7 +479,7 @@ export const PlaygroundChat = () => {
                         description: t(
                           "playground:composer.compareMaxModels",
                           "You can compare up to {{limit}} models per turn.",
-                          { limit: compareMaxModels }
+                          { count: compareMaxModels, limit: compareMaxModels }
                         )
                       })
                       return
@@ -380,6 +487,10 @@ export const PlaygroundChat = () => {
                     setCompareSelectionForCluster(block.clusterId, next)
                     setCompareActiveModelsForCluster(block.clusterId, next)
                     setCompareSelectedModels(next)
+                    void trackCompareMetric({
+                      type: "selection",
+                      count: next.length
+                    })
                   }
 
                   const displayName = message?.modelName || message.name
@@ -397,6 +508,9 @@ export const PlaygroundChat = () => {
                   const threadPreviewItems = clusterMessagesForModel.slice(-4)
 
                   const handleOpenFullChat = async () => {
+                    if (!compareFeatureEnabled) {
+                      return
+                    }
                     const newHistoryId = await createCompareBranch({
                       clusterId: block.clusterId,
                       modelId: modelKey
@@ -424,6 +538,19 @@ export const PlaygroundChat = () => {
                     "Reply only to {{model}}",
                     { model: displayName }
                   )
+                  const perModelDisabledReason = !compareFeatureEnabled
+                    ? t(
+                        "playground:composer.compareDisabled",
+                        "Compare mode is disabled in settings."
+                      )
+                    : perModelReplyBlocked
+                      ? t(
+                          "playground:composer.comparePerModelUnsupported",
+                          "Per-model replies are not yet supported when documents or knowledge mode are active."
+                        )
+                      : null
+                  const perModelDisabled =
+                    isProcessing || streaming || Boolean(perModelDisabledReason)
 
                   const handlePerModelSend = async (text: string) => {
                     await sendPerModelReply({
@@ -436,7 +563,11 @@ export const PlaygroundChat = () => {
                   return (
                     <div
                       key={`c-${blockIndex}-${index}`}
-                      className="rounded-md bg-white/60 p-2 shadow-sm dark:bg-gray-900/40">
+                      className={`rounded-md bg-white/60 p-2 shadow-sm dark:bg-gray-900/40 ${
+                        isChosenCard
+                          ? "ring-1 ring-emerald-300 dark:ring-emerald-600"
+                          : ""
+                      }`}>
                       <PlaygroundMessage
                         isBot={message.isBot}
                         message={message.message}
@@ -480,9 +611,11 @@ export const PlaygroundChat = () => {
                         serverMessageId={message.serverMessageId}
                         isEmbedding={isEmbedding}
                         message_type={message.messageType}
-                        compareSelectable
+                        compareSelectable={isSelectable}
                         compareSelected={isSelected}
                         onToggleCompareSelect={handleToggle}
+                        compareError={hasError}
+                        compareChosen={isChosenCard}
                       />
 
                       {threadPreviewItems.length > 1 && (
@@ -521,65 +654,86 @@ export const PlaygroundChat = () => {
 
                       <PerModelMiniComposer
                         placeholder={placeholder}
-                        disabled={isProcessing || streaming}
+                        disabled={perModelDisabled}
+                        helperText={perModelDisabledReason}
                         onSend={handlePerModelSend}
                       />
 
                       <div className="mt-1 flex items-center justify-between text-[11px] text-gray-500 dark:text-gray-400">
-                        <button
-                          type="button"
-                          onClick={handleOpenFullChat}
-                          className="text-blue-600 hover:underline dark:text-blue-400">
-                          {t(
-                            "playground:composer.compareOpenFullChat",
-                            "Open as full chat"
-                          )}
-                        </button>
-                        {spawnedHistoryId && (
+                        <div className="flex items-center gap-2">
                           <button
                             type="button"
-                            onClick={() => {
-                              window.dispatchEvent(
-                                new CustomEvent("tldw:open-history", {
-                                  detail: { historyId: spawnedHistoryId }
-                                })
-                              )
-                            }}
-                            className="text-[10px] text-gray-500 hover:text-gray-700 underline dark:text-gray-300 dark:hover:text-gray-100">
+                            onClick={handleOpenFullChat}
+                            disabled={!compareFeatureEnabled}
+                            className={`text-blue-600 hover:underline dark:text-blue-400 ${
+                              !compareFeatureEnabled
+                                ? "cursor-not-allowed opacity-50 no-underline"
+                                : ""
+                            }`}>
                             {t(
-                              "playground:composer.compareSpawnedChat",
-                              "Open split chat"
+                              "playground:composer.compareOpenFullChat",
+                              "Open as full chat"
                             )}
                           </button>
-                        )}
-                        {message.id && (
-                          <button
-                            type="button"
-                            onClick={() => {
-                              const currentCanonical =
-                                compareCanonicalByCluster[block.clusterId] || null
-                              const next =
-                                currentCanonical === message.id ? null : message.id
-                              setCompareCanonicalForCluster(block.clusterId, next)
-                            }}
-                            className={`ml-2 rounded px-2 py-0.5 text-[10px] font-medium border transition ${
-                              compareCanonicalByCluster[block.clusterId] ===
-                              message.id
-                                ? "bg-emerald-600 text-white border-emerald-600"
-                                : "bg-emerald-50 text-emerald-700 border-emerald-200 dark:bg-emerald-900/30 dark:text-emerald-300 dark:border-emerald-700"
-                            }`}>
-                            {compareCanonicalByCluster[block.clusterId] ===
-                            message.id
-                              ? t(
-                                  "playground:composer.compareCanonicalOn",
-                                  "Canonical"
+                          {latencyLabel && (
+                            <span
+                              className="inline-flex items-center gap-1 text-[10px] text-gray-400 dark:text-gray-500"
+                              aria-label={t(
+                                "playground:composer.compareLatency",
+                                "Latency"
+                              )}>
+                              <Clock className="h-3 w-3" aria-hidden="true" />
+                              {latencyLabel}
+                            </span>
+                          )}
+                        </div>
+                        <div className="flex items-center gap-2">
+                          {spawnedHistoryId && (
+                            <button
+                              type="button"
+                              onClick={() => {
+                                window.dispatchEvent(
+                                  new CustomEvent("tldw:open-history", {
+                                    detail: { historyId: spawnedHistoryId }
+                                  })
                                 )
-                              : t(
-                                  "playground:composer.compareCanonicalOff",
-                                  "Pin as canonical"
-                                )}
-                          </button>
-                        )}
+                              }}
+                              className="text-[10px] text-gray-500 hover:text-gray-700 underline dark:text-gray-300 dark:hover:text-gray-100">
+                              {t(
+                                "playground:composer.compareSpawnedChat",
+                                "Open split chat"
+                              )}
+                            </button>
+                          )}
+                          {message.id && (
+                            <button
+                              type="button"
+                              onClick={() => {
+                                const currentCanonical =
+                                  compareCanonicalByCluster[block.clusterId] || null
+                                const next =
+                                  currentCanonical === message.id ? null : message.id
+                                setCompareCanonicalForCluster(block.clusterId, next)
+                              }}
+                              className={`rounded px-2 py-0.5 text-[10px] font-medium border transition ${
+                                compareCanonicalByCluster[block.clusterId] ===
+                                message.id
+                                  ? "bg-emerald-600 text-white border-emerald-600"
+                                  : "bg-emerald-50 text-emerald-700 border-emerald-200 dark:bg-emerald-900/30 dark:text-emerald-300 dark:border-emerald-700"
+                              }`}>
+                              {compareCanonicalByCluster[block.clusterId] ===
+                              message.id
+                                ? t(
+                                    "playground:composer.compareCanonicalOn",
+                                    "Canonical"
+                                  )
+                                : t(
+                                    "playground:composer.compareCanonicalOff",
+                                    "Pin as canonical"
+                                  )}
+                            </button>
+                          )}
+                        </div>
                       </div>
                     </div>
                   )
@@ -605,24 +759,46 @@ export const PlaygroundChat = () => {
                       </div>
                     </div>
                     {clusterActiveModels.length === 1 ? (
-                      <div className="mt-2 flex items-center justify-between">
+                      <div className="mt-2 flex items-center justify-between gap-2">
                         <span className="text-[10px] text-gray-500 dark:text-gray-400">
-                          {t(
-                            "playground:composer.compareContinueHint",
-                            "Continue this chat with the selected model."
-                          )}
+                          {compareModeActive
+                            ? t(
+                                "playground:composer.compareContinueHint",
+                                "Continue this chat with the selected model."
+                              )
+                            : t(
+                                "playground:composer.compareChosenHint",
+                                "Continue with the chosen answer or compare again."
+                              )}
                         </span>
-                        <button
-                          type="button"
-                          onClick={() =>
-                            handleContinueWithModel(clusterActiveModels[0])
-                          }
-                          className="rounded border border-blue-500 bg-blue-600 px-2 py-0.5 text-[10px] font-medium text-white hover:bg-blue-500">
-                          {t(
-                            "playground:composer.compareContinue",
-                            "Continue with this model"
-                          )}
-                        </button>
+                        {compareModeActive ? (
+                          <button
+                            type="button"
+                            onClick={() =>
+                              handleContinueWithModel(clusterActiveModels[0])
+                            }
+                            className="rounded border border-blue-500 bg-blue-600 px-2 py-0.5 text-[10px] font-medium text-white hover:bg-blue-500">
+                            {t(
+                              "playground:composer.compareContinue",
+                              "Continue with this model"
+                            )}
+                          </button>
+                        ) : (
+                          <button
+                            type="button"
+                            onClick={handleCompareAgain}
+                            disabled={!compareFeatureEnabled}
+                            className={`rounded border border-blue-500 px-2 py-0.5 text-[10px] font-medium ${
+                              compareFeatureEnabled
+                                ? "bg-white text-blue-600 hover:bg-blue-50"
+                                : "cursor-not-allowed bg-white/60 text-blue-300"
+                            }`}>
+                            {t(
+                              "playground:composer.compareButton",
+                              "Compare models"
+                            )}
+                          </button>
+                        )}
                       </div>
                     ) : (
                       <div className="mt-2 text-[10px] text-gray-500 dark:text-gray-400">

@@ -8,6 +8,7 @@ import {
   saveCompareState,
   saveHistory,
   saveMessage,
+  updateHistory,
   formatToChatHistory,
   formatToMessage,
   getSessionFiles,
@@ -44,6 +45,8 @@ import { useAntdNotification } from "./useAntdNotification"
 import { tldwClient } from "@/services/tldw/TldwApiClient"
 import { getActorSettingsForChat } from "@/services/actor-settings"
 import { generateTitle } from "@/services/title"
+import { FEATURE_FLAGS, useFeatureFlag } from "@/hooks/useFeatureFlags"
+import { trackCompareMetric } from "@/utils/compare-metrics"
 
 // Default max models per compare turn (Phase 3 polish)
 export const MAX_COMPARE_MODELS = 3
@@ -153,6 +156,9 @@ export const useMessageOption = () => {
     "compareMaxModels",
     MAX_COMPARE_MODELS
   )
+  const [compareFeatureEnabled, setCompareFeatureEnabled] = useFeatureFlag(
+    FEATURE_FLAGS.COMPARE_MODE
+  )
   const { ttsEnabled } = useWebUI()
 
   const { t } = useTranslation("option")
@@ -166,6 +172,9 @@ export const useMessageOption = () => {
     null
   )
   const compareNewHistoryIdsRef = React.useRef<Set<string>>(new Set())
+  const compareModeActive = compareFeatureEnabled && compareMode
+  const compareModeActiveRef = React.useRef(compareModeActive)
+  const compareFeatureEnabledRef = React.useRef(compareFeatureEnabled)
 
   React.useEffect(() => {
     messagesRef.current = messages
@@ -235,6 +244,38 @@ export const useMessageOption = () => {
   const compareParentForHistory = historyId
     ? compareParentByHistory?.[historyId]
     : undefined
+
+  React.useEffect(() => {
+    if (!compareFeatureEnabled && compareMode) {
+      setCompareMode(false)
+      setCompareSelectedModels([])
+    }
+  }, [
+    compareFeatureEnabled,
+    compareMode,
+    setCompareMode,
+    setCompareSelectedModels
+  ])
+
+  React.useEffect(() => {
+    if (compareModeActiveRef.current === compareModeActive) {
+      return
+    }
+    compareModeActiveRef.current = compareModeActive
+    void trackCompareMetric({
+      type: compareModeActive ? "compare_mode_enabled" : "compare_mode_disabled"
+    })
+  }, [compareModeActive])
+
+  React.useEffect(() => {
+    if (compareFeatureEnabledRef.current === compareFeatureEnabled) {
+      return
+    }
+    compareFeatureEnabledRef.current = compareFeatureEnabled
+    void trackCompareMetric({
+      type: compareFeatureEnabled ? "feature_enabled" : "feature_disabled"
+    })
+  }, [compareFeatureEnabled])
 
   const resetCompareState = React.useCallback(() => {
     setCompareMode(false)
@@ -532,6 +573,37 @@ export const useMessageOption = () => {
     }
   }
 
+  const buildCompareHistoryTitle = React.useCallback(
+    (title: string) => {
+      const trimmed =
+        title?.trim() ||
+        t("common:untitled", { defaultValue: "Untitled" })
+      return t(
+        "playground:composer.compareHistoryPrefix",
+        "Compare: {{title}}",
+        { title: trimmed }
+      )
+    },
+    [t]
+  )
+
+  const buildCompareSplitTitle = React.useCallback(
+    (title: string) => {
+      const trimmed =
+        title?.trim() ||
+        t("common:untitled", { defaultValue: "Untitled" })
+      const suffix = t(
+        "playground:composer.compareHistorySuffix",
+        "(from compare)"
+      )
+      if (trimmed.includes(suffix)) {
+        return trimmed
+      }
+      return `${trimmed} ${suffix}`.trim()
+    },
+    [t]
+  )
+
   const getMessageModelKey = (message: Message) =>
     message.modelId || message.modelName || message.name
 
@@ -638,7 +710,7 @@ export const useMessageOption = () => {
   }
 
   const validateBeforeSubmitFn = () => {
-    if (compareMode) {
+    if (compareModeActive) {
       const maxModels =
         typeof compareMaxModels === "number" && compareMaxModels > 0
           ? compareMaxModels
@@ -770,7 +842,7 @@ export const useMessageOption = () => {
         const baseMessages = chatHistory || messages
         const baseHistory = memory || history
 
-        if (!compareMode) {
+        if (!compareModeActive) {
           await normalChatMode(
             message,
             image,
@@ -807,7 +879,7 @@ export const useMessageOption = () => {
               description: t(
                 "playground:composer.compareMaxModelsTrimmed",
                 "Compare is limited to {{limit}} models per turn. Using the first {{limit}} selected models.",
-                { limit: maxModels }
+                { count: maxModels, limit: maxModels }
               )
             })
           }
@@ -852,8 +924,9 @@ export const useMessageOption = () => {
               message,
               message
             )
-            const newHistory = await saveHistory(title, false, "web-ui")
-            updatePageTitle(title)
+            const compareTitle = buildCompareHistoryTitle(title)
+            const newHistory = await saveHistory(compareTitle, false, "web-ui")
+            updatePageTitle(compareTitle)
             activeHistoryId = newHistory.id
             setHistoryId(newHistory.id)
             compareNewHistoryIdsRef.current.add(newHistory.id)
@@ -949,6 +1022,17 @@ export const useMessageOption = () => {
   }) => {
     const trimmed = message.trim()
     if (!trimmed) {
+      return
+    }
+
+    if (!compareFeatureEnabled) {
+      notification.error({
+        message: t("error"),
+        description: t(
+          "playground:composer.compareDisabled",
+          "Compare mode is disabled in settings."
+        )
+      })
       return
     }
 
@@ -1098,6 +1182,11 @@ export const useMessageOption = () => {
         return null
       }
 
+      const splitTitle = buildCompareSplitTitle(newBranch.history.title || "")
+      await updateHistory(newBranch.history.id, splitTitle)
+
+      void trackCompareMetric({ type: "split_single" })
+
       if (open) {
         setHistory(formatToChatHistory(newBranch.messages))
         setMessages(formatToMessage(newBranch.messages))
@@ -1171,6 +1260,7 @@ export const useMessageOption = () => {
     defaultInternetSearchOn,
     history,
     uploadedFiles,
+    contextFiles,
     fileRetrievalEnabled,
     setFileRetrievalEnabled: handleSetFileRetrievalEnabled,
     handleFileUpload,
@@ -1207,8 +1297,11 @@ export const useMessageOption = () => {
     setRagEnableCitations,
     ragSources,
     setRagSources,
+    documentContext,
     compareMode,
     setCompareMode,
+    compareFeatureEnabled,
+    setCompareFeatureEnabled,
     compareSelectedModels,
     setCompareSelectedModels,
     compareSelectionByCluster,

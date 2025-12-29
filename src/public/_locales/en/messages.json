@@ -3146,6 +3146,15 @@
   "playground_composer_compareSettingsToggleHint": {
     "message": "Send your next message to multiple models."
   },
+  "playground_composer_compareFeatureToggle": {
+    "message": "Enable Compare mode"
+  },
+  "playground_composer_compareFeatureToggleHint": {
+    "message": "Unlock experimental multi-model compare features."
+  },
+  "playground_composer_compareDisabled": {
+    "message": "Compare mode is disabled in settings."
+  },
   "playground_composer_compareNoneSelected": {
     "message": "No models selected for compare"
   },
@@ -3196,6 +3205,21 @@
   },
   "playground_composer_compareContinue": {
     "message": "Continue with this model"
+  },
+  "playground_composer_compareChosenHint": {
+    "message": "Continue with the chosen answer or compare again."
+  },
+  "playground_composer_compareChosenLabel": {
+    "message": "Chosen"
+  },
+  "playground_composer_compareLatency": {
+    "message": "Latency"
+  },
+  "playground_composer_compareHistoryPrefix": {
+    "message": "Compare: {{title}}"
+  },
+  "playground_composer_compareHistorySuffix": {
+    "message": "(from compare)"
   },
   "playground_composer_compareThreadShared": {
     "message": "You (shared)"

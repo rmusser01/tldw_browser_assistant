@@ -18,12 +18,20 @@ const defaultFiles = fs
   .filter((file) => file.endsWith('.json'))
   .sort();
 
-const targetFiles = process.argv.slice(2);
+const args = process.argv.slice(2);
+const dryRun = args.includes('--dry-run');
+const backup = args.includes('--backup');
+const targetFiles = args.filter((arg) => arg !== '--dry-run' && arg !== '--backup');
 const files = targetFiles.length ? targetFiles : defaultFiles;
 
 function normalizeMessage(value, key, invalid) {
   if (typeof value === 'string') {
     return value;
+  }
+  if (Array.isArray(value)) {
+    console.error(`[sync-public-locales] Arrays are not supported: ${key}`);
+    invalid.push(key);
+    return null;
   }
   if (typeof value === 'number' || typeof value === 'boolean') {
     console.warn(`[sync-public-locales] Coercing ${key} to string.`);
@@ -79,8 +87,10 @@ for (const locale of locales) {
     const outPath = path.join(publicBase, locale, filename);
     // NOTE: This rewrites public locale files. Asset-derived keys overwrite existing values.
     let merged = output;
+    let existingRaw = null;
     if (fs.existsSync(outPath)) {
-      const existing = JSON.parse(fs.readFileSync(outPath, 'utf8'));
+      existingRaw = fs.readFileSync(outPath, 'utf8');
+      const existing = JSON.parse(existingRaw);
       const publicOnlyKeys = Object.keys(existing).filter((key) => !(key in output));
       if (publicOnlyKeys.length) {
         console.warn(
@@ -89,6 +99,17 @@ for (const locale of locales) {
       }
       merged = { ...existing, ...output };
     }
-    fs.writeFileSync(outPath, JSON.stringify(merged, null, 2) + '\n');
+    const nextJson = JSON.stringify(merged, null, 2) + '\n';
+    if (existingRaw !== null && existingRaw === nextJson) {
+      continue;
+    }
+    if (dryRun) {
+      console.log(`[sync-public-locales] DRY RUN: would write ${outPath}`);
+      continue;
+    }
+    if (backup && existingRaw !== null) {
+      fs.writeFileSync(`${outPath}.bak`, existingRaw);
+    }
+    fs.writeFileSync(outPath, nextJson);
   }
 }

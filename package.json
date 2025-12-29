@@ -57,6 +57,7 @@
     "html2canvas": "^1.4.1",
     "i18next": "^23.10.1",
     "i18next-browser-languagedetector": "^7.2.0",
+    "i18next-icu": "^2.4.1",
     "lucide-react": "^0.561.0",
     "marked": "^15.0.12",
     "pa-tesseract.js": "^5.1.1",

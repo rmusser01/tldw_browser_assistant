@@ -130,6 +130,8 @@ type Props = {
   compareSelectable?: boolean
   compareSelected?: boolean
   onToggleCompareSelect?: () => void
+  compareError?: boolean
+  compareChosen?: boolean
 }
 
 const ACTION_BUTTON_CLASS =
@@ -152,7 +154,7 @@ export const PlaygroundMessage = (props: Props) => {
   const [assistantTextFont] = useStorage("chatAssistantTextFont", "default")
   const [userTextSize] = useStorage("chatUserTextSize", "md")
   const [assistantTextSize] = useStorage("chatAssistantTextSize", "md")
-  const { t } = useTranslation("common")
+  const { t } = useTranslation(["common", "playground"])
   const { cancel, isSpeaking, speak } = useTTS()
   const isLastMessage: boolean =
     props.currentMessageIndex === props.totalMessages - 1
@@ -318,25 +320,40 @@ export const PlaygroundMessage = (props: Props) => {
                 : "You"}
             </span>
             {props.isBot && props.message_type === "compare:reply" && (
-              props.compareSelectable && props.onToggleCompareSelect ? (
-                <button
-                  type="button"
-                  onClick={props.onToggleCompareSelect}
-                  aria-label={compareLabel}
-                  aria-pressed={props.compareSelected}
-                  className={`rounded-full px-2 py-0.5 text-[10px] font-medium border transition ${
-                    props.compareSelected
-                      ? "bg-blue-600 text-white border-blue-600"
-                      : "bg-blue-50 text-blue-700 border-blue-200 dark:bg-blue-900/30 dark:text-blue-300 dark:border-blue-700"
-                  }`}
-                >
-                  {compareLabel}
-                </button>
-              ) : (
-                <span className="rounded-full bg-blue-50 px-2 py-0.5 text-[10px] font-medium text-blue-700 dark:bg-blue-900/30 dark:text-blue-300">
-                  {compareLabel}
-                </span>
-              )
+              <div className="flex items-center gap-1.5">
+                {props.compareSelectable && props.onToggleCompareSelect ? (
+                  <button
+                    type="button"
+                    onClick={props.onToggleCompareSelect}
+                    aria-label={compareLabel}
+                    aria-pressed={props.compareSelected}
+                    className={`rounded-full px-2 py-0.5 text-[10px] font-medium border transition ${
+                      props.compareSelected
+                        ? "bg-blue-600 text-white border-blue-600"
+                        : "bg-blue-50 text-blue-700 border-blue-200 dark:bg-blue-900/30 dark:text-blue-300 dark:border-blue-700"
+                    }`}
+                  >
+                    {compareLabel}
+                  </button>
+                ) : (
+                  <span className="rounded-full bg-blue-50 px-2 py-0.5 text-[10px] font-medium text-blue-700 dark:bg-blue-900/30 dark:text-blue-300">
+                    {compareLabel}
+                  </span>
+                )}
+                {props.compareError && (
+                  <span className="rounded-full bg-red-50 px-2 py-0.5 text-[10px] font-medium text-red-700 dark:bg-red-900/40 dark:text-red-200">
+                    {t("error.label", "Error")}
+                  </span>
+                )}
+                {props.compareChosen && (
+                  <span className="rounded-full bg-emerald-50 px-2 py-0.5 text-[10px] font-medium text-emerald-700 dark:bg-emerald-900/40 dark:text-emerald-200">
+                    {t(
+                      "playground:composer.compareChosenLabel",
+                      "Chosen"
+                    )}
+                  </span>
+                )}
+              </div>
             )}
           </div>
 

@@ -350,8 +350,8 @@
   "reviewNavigationRetry": "Reintentar abrir la revisión de contenido",
   "contentReview": {
     "title": "Revisión de contenido",
-    "readyToSubmit": "{{count}} listas",
-    "committedCount": "{{count}} confirmadas",
+    "readyToSubmit": "{{count}} listos",
+    "committedCount": "{{count}} confirmados",
     "totalCount": "{{count}} en total",
     "commitAll": "Confirmar todo",
     "clearDrafts": "Borrar borradores",

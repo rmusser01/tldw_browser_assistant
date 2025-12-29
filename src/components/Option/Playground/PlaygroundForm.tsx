@@ -56,6 +56,7 @@ import { CharacterSelect } from "@/components/Common/CharacterSelect"
 import { ProviderIcons } from "@/components/Common/ProviderIcon"
 import type { Character } from "@/types/character"
 import { RagSearchBar } from "@/components/Sidepanel/Chat/RagSearchBar"
+import { BetaTag } from "@/components/Common/Beta"
 
 const getPersistenceModeLabel = (
   t: (...args: any[]) => any,
@@ -98,6 +99,8 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
     chatMode,
     compareMode,
     setCompareMode,
+    compareFeatureEnabled,
+    setCompareFeatureEnabled,
     compareSelectedModels,
     setCompareSelectedModels,
     compareMaxModels,
@@ -219,10 +222,29 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
 
   // Ensure compare selection has a sensible default when enabling compare mode
   React.useEffect(() => {
-    if (compareMode && compareSelectedModels.length === 0 && selectedModel) {
+    if (
+      compareFeatureEnabled &&
+      compareMode &&
+      compareSelectedModels.length === 0 &&
+      selectedModel
+    ) {
       setCompareSelectedModels([selectedModel])
     }
-  }, [compareMode, compareSelectedModels.length, selectedModel, setCompareSelectedModels])
+  }, [
+    compareFeatureEnabled,
+    compareMode,
+    compareSelectedModels.length,
+    selectedModel,
+    setCompareSelectedModels
+  ])
+
+  React.useEffect(() => {
+    if (!compareFeatureEnabled && compareMode) {
+      setCompareMode(false)
+    }
+  }, [compareFeatureEnabled, compareMode, setCompareMode])
+
+  const compareModeActive = compareFeatureEnabled && compareMode
 
   const modelSummaryLabel = React.useMemo(() => {
     if (!selectedModel) {
@@ -241,7 +263,7 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
   }, [composerModels, selectedModel, t])
 
   const compareSummaryLabel = React.useMemo(() => {
-    if (!compareMode) {
+    if (!compareModeActive) {
       return null
     }
     const count = compareSelectedModels.length
@@ -252,7 +274,7 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
       return t("playground:composer.compareSingle", "Comparing 1 model")
     }
     return t("playground:composer.compareMany", "Comparing {{count}} models", { count })
-  }, [compareMode, compareSelectedModels.length, t])
+  }, [compareModeActive, compareSelectedModels.length, t])
 
   const compareModelLabelById = React.useMemo(() => {
     const map = new Map<string, string>()
@@ -267,7 +289,7 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
   }, [composerModels])
 
   const compareActiveSummary = React.useMemo(() => {
-    if (!compareMode || compareSelectedModels.length === 0) {
+    if (!compareModeActive || compareSelectedModels.length === 0) {
       return null
     }
     const maxNames = 2
@@ -281,10 +303,10 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
       "Active models next turn: {{label}}",
       { label }
     )
-  }, [compareMode, compareModelLabelById, compareSelectedModels, t])
+  }, [compareModeActive, compareModelLabelById, compareSelectedModels, t])
 
   const compareButtonLabel = React.useMemo(() => {
-    if (!compareMode) {
+    if (!compareModeActive) {
       return t("playground:composer.compareButton", "Compare models")
     }
     if (compareSelectedModels.length > 0) {
@@ -295,7 +317,7 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
       )
     }
     return t("playground:composer.compareButtonOn", "Compare enabled")
-  }, [compareMode, compareSelectedModels.length, t])
+  }, [compareModeActive, compareSelectedModels.length, t])
 
   const compareModelOptions = React.useMemo(() => {
     const models = (composerModels as any[]) || []
@@ -313,6 +335,9 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
   }, [composerModels])
 
   const handleCompareModelChange = (values: string[]) => {
+    if (!compareFeatureEnabled) {
+      return
+    }
     const max =
       typeof compareMaxModels === "number" && compareMaxModels > 0
         ? compareMaxModels
@@ -324,7 +349,7 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
         description: t(
           "playground:composer.compareMaxModels",
           "You can compare up to {{limit}} models per turn.",
-          { limit: max }
+          { count: max, limit: max }
         )
       })
     }
@@ -332,18 +357,21 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
   }
 
   const removeCompareModel = (modelId: string) => {
+    if (!compareFeatureEnabled) {
+      return
+    }
     const next = compareSelectedModels.filter((id) => id !== modelId)
     setCompareSelectedModels(next)
   }
 
   const sendLabel = React.useMemo(() => {
-    if (compareMode && compareSelectedModels.length > 1) {
+    if (compareModeActive && compareSelectedModels.length > 1) {
       return t("playground:composer.compareSendToModels", "Send to {{count}} models", {
         count: compareSelectedModels.length
       })
     }
     return t("common:send", "Send")
-  }, [compareMode, compareSelectedModels.length, t])
+  }, [compareModeActive, compareSelectedModels.length, t])
 
   const promptSummaryLabel = React.useMemo(() => {
     if (selectedSystemPrompt) {
@@ -699,7 +727,7 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
         return
       }
       const defaultEM = await defaultEmbeddingModelForRag()
-      if (!compareMode) {
+      if (!compareModeActive) {
         if (!selectedModel || selectedModel.length === 0) {
           form.setFieldError("message", t("formError.noModel"))
           return
@@ -746,7 +774,7 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
     }
     form.onSubmit(async () => {
       const defaultEM = await defaultEmbeddingModelForRag()
-      if (!compareMode) {
+      if (!compareModeActive) {
         if (!selectedModel || selectedModel.length === 0) {
           form.setFieldError("message", t("formError.noModel"))
           return
@@ -1483,7 +1511,7 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
                 </div>
               </div>
             )}
-            {compareMode && compareSelectedModels.length > 1 && (
+            {compareModeActive && compareSelectedModels.length > 1 && (
               <div className="px-3 pb-2">
                 <div className="flex flex-wrap items-center gap-2 rounded-md border border-blue-200 bg-blue-50 px-3 py-2 text-[11px] text-blue-900 dark:border-blue-800 dark:bg-blue-900/30 dark:text-blue-100">
                   <span className="text-[10px] font-semibold uppercase tracking-wide">
@@ -1524,6 +1552,27 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
               <div className="space-y-4 text-sm">
                 <div className="flex items-center justify-between gap-4">
                   <div>
+                    <div className="flex items-center gap-2 text-sm font-medium text-gray-900 dark:text-gray-100">
+                      {t(
+                        "playground:composer.compareFeatureToggle",
+                        "Enable Compare mode"
+                      )}
+                      <BetaTag className="!m-0" />
+                    </div>
+                    <div className="text-xs text-gray-500 dark:text-gray-400">
+                      {t(
+                        "playground:composer.compareFeatureToggleHint",
+                        "Unlock experimental multi-model compare features."
+                      )}
+                    </div>
+                  </div>
+                  <Switch
+                    checked={compareFeatureEnabled}
+                    onChange={setCompareFeatureEnabled}
+                  />
+                </div>
+                <div className="flex items-center justify-between gap-4">
+                  <div>
                     <div className="text-sm font-medium text-gray-900 dark:text-gray-100">
                       {t(
                         "playground:composer.compareSettingsToggle",
@@ -1537,12 +1586,16 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
                       )}
                     </div>
                   </div>
-                  <Switch checked={compareMode} onChange={setCompareMode} />
+                  <Switch
+                    checked={compareMode}
+                    onChange={setCompareMode}
+                    disabled={!compareFeatureEnabled}
+                  />
                 </div>
 
                 <div
                   className={
-                    compareMode
+                    compareModeActive
                       ? "space-y-2"
                       : "space-y-2 opacity-50 pointer-events-none"
                   }
@@ -1579,7 +1632,7 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
 
                 <div
                   className={
-                    compareMode
+                    compareModeActive
                       ? "flex items-center gap-2 text-xs text-gray-500 dark:text-gray-400"
                       : "flex items-center gap-2 text-xs text-gray-500 dark:text-gray-400 opacity-50 pointer-events-none"
                   }
@@ -1637,7 +1690,7 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
                 <form
                   onSubmit={form.onSubmit(async (value) => {
                     stopListening()
-                    if (!compareMode) {
+                    if (!compareModeActive) {
                       if (!selectedModel || selectedModel.length === 0) {
                         form.setFieldError("message", t("formError.noModel"))
                         return
@@ -2256,7 +2309,7 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
                             <div className="flex flex-col items-end text-[11px] text-gray-500 dark:text-gray-400 mr-2">
                               <Button
                                 size="small"
-                                type={compareMode ? "primary" : "default"}
+                                type={compareModeActive ? "primary" : "default"}
                                 onClick={() => setCompareSettingsOpen(true)}>
                                 {compareButtonLabel}
                               </Button>

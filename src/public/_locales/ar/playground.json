@@ -650,8 +650,20 @@
   "composer_compareButton": {
     "message": "مقارنة النماذج"
   },
-  "composer_compareButtonActive": {
-    "message": "مقارنة: {{count}} نموذج/نماذج"
+  "composer_compareButtonActive_one": {
+    "message": "مقارنة: {{count}} نموذج"
+  },
+  "composer_compareButtonActive_two": {
+    "message": "مقارنة: {{count}} نموذجين"
+  },
+  "composer_compareButtonActive_few": {
+    "message": "مقارنة: {{count}} نماذج"
+  },
+  "composer_compareButtonActive_many": {
+    "message": "مقارنة: {{count}} نموذجًا"
+  },
+  "composer_compareButtonActive_other": {
+    "message": "مقارنة: {{count}} نموذج"
   },
   "composer_compareButtonOn": {
     "message": "تم تفعيل المقارنة"
@@ -671,8 +683,20 @@
   "composer_compareSingle": {
     "message": "جارٍ مقارنة نموذج واحد"
   },
-  "composer_compareMany": {
-    "message": "جارٍ مقارنة {{count}} نموذج/نماذج"
+  "composer_compareMany_one": {
+    "message": "جارٍ مقارنة {{count}} نموذج"
+  },
+  "composer_compareMany_two": {
+    "message": "جارٍ مقارنة {{count}} نموذجين"
+  },
+  "composer_compareMany_few": {
+    "message": "جارٍ مقارنة {{count}} نماذج"
+  },
+  "composer_compareMany_many": {
+    "message": "جارٍ مقارنة {{count}} نموذجًا"
+  },
+  "composer_compareMany_other": {
+    "message": "جارٍ مقارنة {{count}} نموذج"
   },
   "composer_compareActiveSummary": {
     "message": "النماذج النشطة في الدور التالي: {{label}}"
@@ -689,17 +713,53 @@
   "composer_compareActiveModelsHint": {
     "message": "ستُرسل رسالتك التالية إلى كل نموذج نشط."
   },
-  "composer_compareSendToModels": {
-    "message": "إرسال إلى {{count}} نموذج/نماذج"
+  "composer_compareSendToModels_one": {
+    "message": "إرسال إلى {{count}} نموذج"
+  },
+  "composer_compareSendToModels_two": {
+    "message": "إرسال إلى {{count}} نموذجين"
+  },
+  "composer_compareSendToModels_few": {
+    "message": "إرسال إلى {{count}} نماذج"
+  },
+  "composer_compareSendToModels_many": {
+    "message": "إرسال إلى {{count}} نموذجًا"
+  },
+  "composer_compareSendToModels_other": {
+    "message": "إرسال إلى {{count}} نموذج"
   },
   "composer_compareMaxModelsTitle": {
     "message": "تم بلوغ حد المقارنة"
   },
-  "composer_compareMaxModels": {
-    "message": "يمكنك مقارنة ما يصل إلى {{limit}} نموذج/نماذج لكل دور."
+  "composer_compareMaxModels_one": {
+    "message": "يمكنك مقارنة ما يصل إلى {{limit}} نموذج لكل دور."
   },
-  "composer_compareMaxModelsTrimmed": {
-    "message": "المقارنة محدودة بـ {{limit}} نموذج/نماذج لكل دور. يتم استخدام أول {{limit}} نموذج/نماذج محددة."
+  "composer_compareMaxModels_two": {
+    "message": "يمكنك مقارنة ما يصل إلى {{limit}} نموذجين لكل دور."
+  },
+  "composer_compareMaxModels_few": {
+    "message": "يمكنك مقارنة ما يصل إلى {{limit}} نماذج لكل دور."
+  },
+  "composer_compareMaxModels_many": {
+    "message": "يمكنك مقارنة ما يصل إلى {{limit}} نموذجًا لكل دور."
+  },
+  "composer_compareMaxModels_other": {
+    "message": "يمكنك مقارنة ما يصل إلى {{limit}} نموذج لكل دور."
+  },
+  "composer_compareMaxModelsTrimmed_one": {
+    "message": "المقارنة محدودة بـ {{limit}} نموذج لكل دور. يتم استخدام أول {{limit}} نموذج محدد."
+  },
+  "composer_compareMaxModelsTrimmed_two": {
+    "message": "المقارنة محدودة بـ {{limit}} نموذجين لكل دور. يتم استخدام أول {{limit}} نموذجين محددين."
+  },
+  "composer_compareMaxModelsTrimmed_few": {
+    "message": "المقارنة محدودة بـ {{limit}} نماذج لكل دور. يتم استخدام أول {{limit}} نماذج محددة."
+  },
+  "composer_compareMaxModelsTrimmed_many": {
+    "message": "المقارنة محدودة بـ {{limit}} نموذجًا لكل دور. يتم استخدام أول {{limit}} نموذجًا محددًا."
+  },
+  "composer_compareMaxModelsTrimmed_other": {
+    "message": "المقارنة محدودة بـ {{limit}} نموذج لكل دور. يتم استخدام أول {{limit}} نموذج محدد."
   },
   "composer_compareMaxLabel": {
     "message": "الحد الأقصى للنماذج لكل دور"
@@ -719,11 +779,35 @@
   "composer_compareThreadShared": {
     "message": "أنت (مشترك)"
   },
-  "composer_compareBulkSplitSuccess": {
+  "composer_compareBulkSplitSuccess_one": {
+    "message": "تم إنشاء {{count}} دردشة"
+  },
+  "composer_compareBulkSplitSuccess_two": {
+    "message": "تم إنشاء {{count}} دردشتين"
+  },
+  "composer_compareBulkSplitSuccess_few": {
     "message": "تم إنشاء {{count}} دردشات"
   },
-  "composer_compareBulkSplitPartialFail": {
+  "composer_compareBulkSplitSuccess_many": {
+    "message": "تم إنشاء {{count}} دردشة"
+  },
+  "composer_compareBulkSplitSuccess_other": {
+    "message": "تم إنشاء {{count}} دردشة"
+  },
+  "composer_compareBulkSplitPartialFail_one": {
+    "message": "تعذر إنشاء {{count}} دردشة"
+  },
+  "composer_compareBulkSplitPartialFail_two": {
+    "message": "تعذر إنشاء {{count}} دردشتين"
+  },
+  "composer_compareBulkSplitPartialFail_few": {
     "message": "تعذر إنشاء {{count}} دردشات"
+  },
+  "composer_compareBulkSplitPartialFail_many": {
+    "message": "تعذر إنشاء {{count}} دردشة"
+  },
+  "composer_compareBulkSplitPartialFail_other": {
+    "message": "تعذر إنشاء {{count}} دردشة"
   },
   "composer_validationCompareSelectModelsInline": {
     "message": "اختر نموذجًا واحدًا على الأقل لوضع المقارنة."
