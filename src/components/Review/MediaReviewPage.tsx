@@ -1003,7 +1003,7 @@ export const MediaReviewPage: React.FC = () => {
                         <li className="flex gap-2">
                           <span className="font-semibold text-blue-600 dark:text-blue-400">2.</span>
                           <span>
-                            <strong>{t('mediaPage.firstUseStep2', 'Choose a view')}</strong> — {t('mediaPage.firstUseStep2DescUpdated', 'Use "Compare" for side-by-side, "Focus" for one at a time, or "Stack" to see all.')}
+                            <strong>{t('mediaPage.firstUseStep2', 'Choose a view')}</strong> — {t('mediaPage.firstUseStep2Desc', 'Use "Compare" for side-by-side, "Focus" for one at a time, or "Stack" to see all.')}
                           </span>
                         </li>
                         <li className="flex gap-2">

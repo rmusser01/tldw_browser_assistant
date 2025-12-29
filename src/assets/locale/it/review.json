@@ -284,7 +284,7 @@
     "firstUseStep1": "Seleziona elementi",
     "firstUseStep1Desc": "Clicca sugli elementi nel pannello sinistro per aggiungerli al visualizzatore.",
     "firstUseStep2": "Scegli una vista",
-    "firstUseStep2DescUpdated": "Usa \"Confronta\" per affiancarli, \"Focus\" per uno alla volta, o \"Pila\" per vederli tutti.",
+    "firstUseStep2Desc": "Usa \"Confronta\" per affiancarli, \"Focus\" per uno alla volta, o \"Pila\" per vederli tutti.",
     "firstUseStep3": "Naviga",
     "firstUseStep3Desc": "Usa i pulsanti Prec/Succ o la tastiera (Tab + Invio) per muoverti tra gli elementi.",
     "gotIt": "Capito",

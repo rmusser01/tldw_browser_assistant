@@ -839,7 +839,7 @@
   "mediaPage_firstUseStep2": {
     "message": "اختر عرضًا"
   },
-  "mediaPage_firstUseStep2DescUpdated": {
+  "mediaPage_firstUseStep2Desc": {
     "message": "استخدم \"مقارنة\" لعرض جنبًا إلى جنب، أو \"تركيز\" لعرض عنصر واحد في كل مرة، أو \"تكديس\" لعرض الكل."
   },
   "mediaPage_firstUseStep3": {

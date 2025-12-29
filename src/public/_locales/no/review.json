@@ -842,7 +842,7 @@
   "mediaPage_firstUseStep2": {
     "message": "Velg en visning"
   },
-  "mediaPage_firstUseStep2DescUpdated": {
+  "mediaPage_firstUseStep2Desc": {
     "message": "Bruk \"Sammenlign\" for side om side, \"Fokus\" for ett om gangen, eller \"Stabel\" for å se alle."
   },
   "mediaPage_firstUseStep3": {

@@ -256,10 +256,10 @@ All routes render the same `SpeechPlaygroundPage` component with different initi
 ## 8. Implementation Files
 
 ### Core Component
-- `src/components/Option/Speech/SpeechPlaygroundPage.tsx` (1648 lines)
+- `src/components/Option/Speech/SpeechPlaygroundPage.tsx`
 
 ### Supporting Components
-- `src/components/Common/WaveformCanvas.tsx` (187 lines)
+- `src/components/Common/WaveformCanvas.tsx`
 - `src/components/Option/Settings/tts-mode.tsx` (TTSModeSettings)
 
 ### Routes

@@ -3441,7 +3441,7 @@
   "mediaPage_firstUseStep2": {
     "message": "Vælg en visning"
   },
-  "mediaPage_firstUseStep2DescUpdated": {
+  "mediaPage_firstUseStep2Desc": {
     "message": "Brug \"Sammenlign\" for side om side, \"Fokus\" for ét ad gangen, eller \"Stak\" for at se alle."
   },
   "mediaPage_firstUseStep3": {

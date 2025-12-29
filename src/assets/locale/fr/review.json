@@ -284,7 +284,7 @@
     "firstUseStep1": "Sélectionner des éléments",
     "firstUseStep1Desc": "Cliquez sur les éléments dans le panneau de gauche pour les ajouter à votre visionneuse.",
     "firstUseStep2": "Choisir une vue",
-    "firstUseStep2DescUpdated": "Utilisez « Comparer » pour côte à côte, « Focus » pour un à la fois, ou « Empiler » pour tout voir.",
+    "firstUseStep2Desc": "Utilisez « Comparer » pour côte à côte, « Focus » pour un à la fois, ou « Empiler » pour tout voir.",
     "firstUseStep3": "Naviguer",
     "firstUseStep3Desc": "Utilisez les boutons Précédent/Suivant ou le clavier (Tab + Entrée) pour parcourir les éléments.",
     "gotIt": "Compris",

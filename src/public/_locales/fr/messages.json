@@ -3191,7 +3191,7 @@
   "mediaPage_firstUseStep2": {
     "message": "Choisir une vue"
   },
-  "mediaPage_firstUseStep2DescUpdated": {
+  "mediaPage_firstUseStep2Desc": {
     "message": "Utilisez « Comparer » pour côte à côte, « Focus » pour un à la fois, ou « Empiler » pour tout voir."
   },
   "mediaPage_firstUseStep3": {

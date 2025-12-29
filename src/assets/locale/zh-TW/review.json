@@ -284,7 +284,7 @@
     "firstUseStep1": "選取項目",
     "firstUseStep1Desc": "點擊左側面板中的項目以加入檢視器。",
     "firstUseStep2": "選擇檢視",
-    "firstUseStep2DescUpdated": "使用「比較」進行並排，「聚焦」一次一個，或用「堆疊」查看全部。",
+    "firstUseStep2Desc": "使用「比較」進行並排，「聚焦」一次一個，或用「堆疊」查看全部。",
     "firstUseStep3": "導覽",
     "firstUseStep3Desc": "使用上一個/下一個按鈕或鍵盤 (Tab + Enter) 在項目間移動。",
     "gotIt": "知道了",

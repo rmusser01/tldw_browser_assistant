@@ -284,7 +284,7 @@
     "firstUseStep1": "항목 선택",
     "firstUseStep1Desc": "왼쪽 패널에서 항목을 클릭해 뷰어에 추가하세요.",
     "firstUseStep2": "보기 선택",
-    "firstUseStep2DescUpdated": "\"비교\"는 나란히, \"집중\"은 한 번에 하나, \"스택\"은 모두 보기입니다.",
+    "firstUseStep2Desc": "\"비교\"는 나란히, \"집중\"은 한 번에 하나, \"스택\"은 모두 보기입니다.",
     "firstUseStep3": "탐색",
     "firstUseStep3Desc": "이전/다음 버튼 또는 키보드(Tab + Enter)로 항목을 이동하세요.",
     "gotIt": "확인",

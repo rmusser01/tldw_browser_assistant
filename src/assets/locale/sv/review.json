@@ -284,7 +284,7 @@
     "firstUseStep1": "Välj objekt",
     "firstUseStep1Desc": "Klicka på objekt i vänsterpanelen för att lägga till dem i din visare.",
     "firstUseStep2": "Välj vy",
-    "firstUseStep2DescUpdated": "Använd \"Jämför\" för sida vid sida, \"Fokus\" för ett i taget eller \"Stapla\" för att se alla.",
+    "firstUseStep2Desc": "Använd \"Jämför\" för sida vid sida, \"Fokus\" för ett i taget eller \"Stapla\" för att se alla.",
     "firstUseStep3": "Navigera",
     "firstUseStep3Desc": "Använd knapparna Föregående/Nästa eller tangentbordet (Tab + Enter) för att flytta mellan objekt.",
     "gotIt": "Jag förstår",

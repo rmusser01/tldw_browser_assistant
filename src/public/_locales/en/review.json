@@ -701,7 +701,7 @@
   "mediaPage_firstUseStep2": {
     "message": "Choose a view"
   },
-  "mediaPage_firstUseStep2DescUpdated": {
+  "mediaPage_firstUseStep2Desc": {
     "message": "Use \"Compare\" for side-by-side, \"Focus\" for one at a time, or \"Stack\" to see all."
   },
   "mediaPage_firstUseStep3": {

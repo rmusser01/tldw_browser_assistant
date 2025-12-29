@@ -3212,7 +3212,7 @@
   "mediaPage_firstUseStep2": {
     "message": "Elige una vista"
   },
-  "mediaPage_firstUseStep2DescUpdated": {
+  "mediaPage_firstUseStep2Desc": {
     "message": "Usa \"Comparar\" para ver en paralelo, \"Enfoque\" para ver uno a la vez, o \"Pila\" para ver todos."
   },
   "mediaPage_firstUseStep3": {

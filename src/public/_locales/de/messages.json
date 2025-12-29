@@ -8,6 +8,15 @@
   "openSidePanelToChat": {
     "message": "Seitenleiste zum Chatten öffnen"
   },
+  "sidepanel_tabs_newChat": {
+    "message": "Neuer Chat"
+  },
+  "sidepanel_tabs_newTabAria": {
+    "message": "Neuer Chat-Tab"
+  },
+  "sidepanel_tabs_closeTabAria": {
+    "message": "Chat-Tab schließen"
+  },
   "openOptionToChat": {
     "message": "Weboberfläche zum Chatten öffnen"
   },
@@ -3206,7 +3215,7 @@
   "mediaPage_firstUseStep2": {
     "message": "Ansicht wählen"
   },
-  "mediaPage_firstUseStep2DescUpdated": {
+  "mediaPage_firstUseStep2Desc": {
     "message": "Nutze \"Vergleich\" für nebeneinander, \"Fokus\" für jeweils ein Element oder \"Stapel\" für alle."
   },
   "mediaPage_firstUseStep3": {

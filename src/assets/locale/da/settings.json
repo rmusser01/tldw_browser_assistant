@@ -607,7 +607,7 @@
   "switchToSidebar": "Skift til sidepanel",
   "healthPage": {
     "title": "Sundhedsstatus",
-    "subtitle": "Quick overview of subsystem health endpoints exposed by the server.",
+    "subtitle": "Kort overblik over subsystemernes sundhedsendpoints, som serveren udstiller.",
     "backToChat": "Tilbage til chat",
     "openSettings": "Åbn tldw-indstillinger",
     "recheckAll": "Tjek alle igen",
@@ -641,7 +641,7 @@
       "chatMetricsDocsUrl": "https://github.com/rmusser01/tldw_browser_assistant",
       "mcpDocsUrl": "https://github.com/rmusser01/tldw_browser_assistant"
     },
-    "copyDiagnosticsHelp": "Copies JSON diagnostics to clipboard",
+    "copyDiagnosticsHelp": "Kopierer JSON-diagnostik til udklipsholderen",
     "statusHealthy": "Sund",
     "statusUnhealthy": "Usund",
     "statusUnknown": "Ukendt",

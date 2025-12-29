@@ -36,16 +36,16 @@
     "message": "Effacer le contexte"
   },
   "tooltip_speechToTextServer": {
-    "message": "Dictation via your tldw server"
+    "message": "Dictée via votre serveur tldw"
   },
   "tooltip_speechToTextBrowser": {
-    "message": "Dictation via browser speech recognition"
+    "message": "Dictée via la reconnaissance vocale du navigateur"
   },
   "tooltip_speechToTextDetails": {
-    "message": "Uses {{model}} · {{task}} · {{format}}. Configure in Settings → General → Speech-to-Text."
+    "message": "Utilise {{model}} · {{task}} · {{format}}. Configurez dans Paramètres → Général → Reconnaissance vocale."
   },
   "tooltip_uploadDocuments": {
-    "message": "Upload Documents (beta)"
+    "message": "Téléverser des documents (bêta)"
   },
   "sendWhenEnter": {
     "message": "Envoyer en appuyant sur Entrée"
@@ -57,88 +57,88 @@
     "message": "Extraire le texte de l'image (OCR)"
   },
   "tips_title": {
-    "message": "Tips"
+    "message": "Conseils"
   },
   "tips_quickIngest": {
-    "message": "Use Quick ingest to add documents and web pages."
+    "message": "Utilisez Quick ingest pour ajouter des documents et des pages web."
   },
   "tips_pickModelPrompt": {
-    "message": "Pick a Model and a Prompt from the header."
+    "message": "Choisissez un modèle et une invite dans l'en-tête."
   },
   "tips_startChatFocus": {
-    "message": "When connected, “Start chatting” focuses the composer."
+    "message": "Lorsque vous êtes connecté, « Démarrer la discussion » place le focus dans le composeur."
   },
   "tldwState_searching": {
-    "message": "Recherche de votre tldw server"
+    "message": "Recherche de votre serveur tldw"
   },
   "tldwState_running": {
     "message": "tldw est en cours d'exécution"
   },
   "tldwState_notRunning": {
-    "message": "Impossible de se connecter à tldw server"
+    "message": "Impossible de se connecter au serveur tldw"
   },
   "tldwState_connectionError": {
     "message": "Il semble que vous rencontriez une erreur de connexion. Veuillez consulter cette <anchor>documentation</anchor> pour résoudre le problème."
   },
   "tldwState_errorToast": {
-    "message": "We couldn’t reach {{host}}"
+    "message": "Nous n’avons pas pu atteindre {{host}}"
   },
   "tldwState_missingHelp": {
-    "message": "Open Settings → tldw Server to add your URL or connect to the Options page."
+    "message": "Ouvrez Paramètres → serveur tldw pour ajouter votre URL ou ouvrir la page Options."
   },
   "tldwState_troubleshoot": {
-    "message": "Confirm your server is running and that the browser is allowed to reach it, then retry from the Options page."
+    "message": "Vérifiez que votre serveur fonctionne et que le navigateur est autorisé à l’atteindre, puis réessayez depuis la page Options."
   },
   "tldwState_openTldwSettings": {
-    "message": "Open tldw Settings"
+    "message": "Ouvrir les paramètres tldw"
   },
   "tldwState_cancelSearch": {
-    "message": "Cancel search"
+    "message": "Annuler la recherche"
   },
   "tldwState_connectionFailedWithCode": {
-    "message": "Connection failed (HTTP {{code}})"
+    "message": "Échec de la connexion (HTTP {{code}})"
   },
   "tldwState_connectionFailed": {
-    "message": "Connection failed"
+    "message": "Échec de la connexion"
   },
   "tldwState_errorDetailsLabel": {
-    "message": "Details:"
+    "message": "Détails :"
   },
   "tldwState_title": {
-    "message": "Waiting for your tldw server"
+    "message": "En attente de votre serveur tldw"
   },
   "tldwState_subtitle": {
-    "message": "We’re pinging {{host}} to verify the connection."
+    "message": "Nous envoyons un ping à {{host}} pour vérifier la connexion."
   },
   "tldwState_missing": {
-    "message": "Server URL not configured"
+    "message": "URL du serveur non configurée"
   },
   "tldwState_noServer": {
-    "message": "Add your tldw server to start chatting."
+    "message": "Ajoutez votre serveur tldw pour commencer à discuter."
   },
   "tldwState_connectedSubtitle": {
-    "message": "Connected to {{host}}. Start chatting when you’re ready."
+    "message": "Connecté à {{host}}. Commencez à discuter lorsque vous êtes prêt."
   },
   "tldwState_errorSubtitle": {
-    "message": "We couldn’t reach {{host}} yet. Retry or update your server settings."
+    "message": "Nous n’avons pas encore pu atteindre {{host}}. Réessayez ou mettez à jour les paramètres du serveur."
   },
   "tldwState_openSettings": {
-    "message": "Open settings"
+    "message": "Ouvrir les paramètres"
   },
   "tldwState_changeServer": {
-    "message": "Change server"
+    "message": "Changer de serveur"
   },
   "tldwState_elapsed": {
-    "message": "Checking… {{seconds}}s"
+    "message": "Vérification… {{seconds}} s"
   },
   "tldwState_connectedHint": {
-    "message": "Connected to {{host}}."
+    "message": "Connecté à {{host}}."
   },
   "tldwState_lastChecked": {
-    "message": "Checked {{seconds}}s ago"
+    "message": "Vérifié il y a {{seconds}} s"
   },
   "tldwState_recheck": {
-    "message": "Check again"
+    "message": "Vérifier à nouveau"
   },
   "errors_privateModeDescription": {
     "message": "Le mode privé de Firefox ne permet pas d’enregistrer les discussions. Le chat temporaire est activé par défaut. D’autres améliorations arrivent."
@@ -306,52 +306,52 @@
     "message": "Transcription enregistrée comme note."
   },
   "empty_title": {
-    "message": "Start a new chat"
+    "message": "Démarrer une nouvelle discussion"
   },
   "empty_description": {
-    "message": "Experiment with different models, prompts, and knowledge sources here."
+    "message": "Expérimentez ici différents modèles, invites et sources de connaissances."
   },
   "empty_demoDescription": {
-    "message": "You’re in demo mode — try asking a question to see how the assistant responds. You can connect your own tldw server later."
+    "message": "Vous êtes en mode démo — essayez de poser une question pour voir comment l’assistant répond. Vous pourrez connecter votre serveur tldw plus tard."
   },
   "empty_example1": {
-    "message": "Ask a question, then drag in documents or web pages you want to discuss."
+    "message": "Posez une question, puis faites glisser des documents ou des pages web que vous souhaitez aborder."
   },
   "empty_example2": {
-    "message": "Use Quick ingest to add transcripts or notes, then reference them in chat."
+    "message": "Utilisez Quick ingest pour ajouter des transcriptions ou des notes, puis référencez-les dans le chat."
   },
   "empty_example3": {
-    "message": "Try different prompts or models from the header to compare answers."
+    "message": "Essayez différentes invites ou différents modèles depuis l'en-tête pour comparer les réponses."
   },
   "empty_primaryCta": {
-    "message": "Start chatting"
+    "message": "Commencer à discuter"
   },
   "empty_secondaryCta": {
-    "message": "Open server settings"
+    "message": "Ouvrir les paramètres du serveur"
   },
   "drop_hint": {
-    "message": "Drop files to attach them to your message"
+    "message": "Déposez des fichiers pour les joindre à votre message"
   },
   "drop_readySingle": {
-    "message": "{{name}} ready to send"
+    "message": "{{name}} prêt à envoyer"
   },
   "drop_readyMultiple": {
-    "message": "{{count}} files ready to send"
+    "message": "{{count}} fichiers prêts à envoyer"
   },
   "drop_unsupported": {
-    "message": "That file type isn’t supported. Try images or text-based files."
+    "message": "Ce type de fichier n’est pas pris en charge. Essayez des images ou des fichiers texte."
   },
   "drop_defaultFileName": {
-    "message": "File"
+    "message": "Fichier"
   },
   "drop_imageOnly": {
-    "message": "Only images can be dropped here right now."
+    "message": "Seules les images peuvent être déposées ici pour le moment."
   },
   "drop_imageHint": {
-    "message": "Drop an image to include it in your message"
+    "message": "Déposez une image pour l’inclure dans votre message"
   },
   "drop_overlayInstruction": {
-    "message": "Drop the image to attach it to your next reply"
+    "message": "Déposez l’image pour l’ajouter à votre prochaine réponse"
   },
   "aria_chatTranscript": {
     "message": "Chat messages"
@@ -504,91 +504,91 @@
     "message": "Sous-titres en direct indisponibles"
   },
   "composer_toolsButton": {
-    "message": "+Tools"
+    "message": "+Outils"
   },
   "composer_queuedBanner_title": {
-    "message": "Queued while offline"
+    "message": "En file d’attente hors ligne"
   },
   "composer_queuedBanner_body": {
-    "message": "We’ll hold these messages and send them once your tldw server is connected."
+    "message": "Nous conserverons ces messages et les enverrons une fois votre serveur tldw connecté."
   },
   "composer_queuedBanner_sendNow": {
-    "message": "Send queued messages"
+    "message": "Envoyer les messages en attente"
   },
   "composer_queuedBanner_clear": {
-    "message": "Clear queue"
+    "message": "Vider la file d’attente"
   },
   "composer_coreTools": {
-    "message": "Conversation options"
+    "message": "Options de conversation"
   },
   "composer_captureTools": {
-    "message": "Capture and assist tools"
+    "message": "Outils de capture et d’assistance"
   },
   "composer_actions": {
-    "message": "Send options"
+    "message": "Options d’envoi"
   },
   "composer_moreTools": {
-    "message": "More tools"
+    "message": "Plus d’outils"
   },
   "composer_scrollToLatest": {
-    "message": "Scroll to latest messages"
+    "message": "Aller aux derniers messages"
   },
   "composer_submitAria": {
-    "message": "Send message"
+    "message": "Envoyer le message"
   },
   "composer_openModelSettings": {
-    "message": "Open current chat settings"
+    "message": "Ouvrir les paramètres du chat actuel"
   },
   "composer_stopStreaming": {
-    "message": "Stop streaming response"
+    "message": "Arrêter la réponse en streaming"
   },
   "composer_connectionPlaceholder": {
-    "message": "Connect to your tldw server in Settings to send messages and view media."
+    "message": "Connectez votre serveur tldw dans Paramètres pour envoyer des messages et voir les médias."
   },
   "composer_connectNotice": {
-    "message": "Connect to your tldw server in Settings to send messages and view media."
+    "message": "Connectez votre serveur tldw dans Paramètres pour envoyer des messages et voir les médias."
   },
   "composer_connectionChipDisconnected": {
-    "message": "Server: Not connected"
+    "message": "Serveur : non connecté"
   },
   "composer_contextLabel": {
-    "message": "Context:"
+    "message": "Contexte :"
   },
   "composer_contextKnowledgeEmpty": {
-    "message": "No knowledge selected"
+    "message": "Aucune connaissance sélectionnée"
   },
   "composer_contextTabs": {
-    "message": "{{count}} tabs"
+    "message": "{{count}} onglets"
   },
   "composer_contextFiles": {
-    "message": "{{count}} files"
+    "message": "{{count}} fichiers"
   },
   "composer_contextMedia": {
-    "message": "Media & Notes"
+    "message": "Médias et notes"
   },
   "composer_contextMediaHint": {
-    "message": "Attach Media & Notes that should steer the response."
+    "message": "Joignez les médias et notes qui doivent orienter la réponse."
   },
   "composer_contextMediaSelected": {
-    "message": "Media or note"
+    "message": "Média ou note"
   },
   "composer_contextMediaEmpty": {
-    "message": "No Media & Notes selected yet."
+    "message": "Aucun média ni note sélectionné pour le moment."
   },
   "composer_addKnowledge": {
-    "message": "Add Media & Notes"
+    "message": "Ajouter des médias et notes"
   },
   "composer_contextTabsTitle": {
-    "message": "Tabs in context"
+    "message": "Onglets dans le contexte"
   },
   "composer_contextTabsHint": {
-    "message": "Review or remove referenced tabs, or add more from your open browser tabs."
+    "message": "Passez en revue ou retirez les onglets référencés, ou ajoutez-en depuis vos onglets ouverts."
   },
   "composer_contextManager": {
-    "message": "Context Management"
+    "message": "Gestion du contexte"
   },
   "composer_contextManagerTitle": {
-    "message": "Context Management"
+    "message": "Gestion du contexte"
   },
   "composer_contextKnowledge": {
     "message": "Contexte et connaissances"
@@ -603,46 +603,46 @@
     "message": "Fermer la recherche de connaissances"
   },
   "composer_persistence_ephemeral": {
-    "message": "Not saved in history; clears when you close this tab."
+    "message": "Non enregistré dans l’historique ; effacé lorsque vous fermez cet onglet."
   },
   "composer_persistence_local": {
-    "message": "Saved in this browser only."
+    "message": "Enregistré uniquement dans ce navigateur."
   },
   "composer_persistence_server": {
-    "message": "Saved Locally+Server"
+    "message": "Enregistré en local + serveur"
   },
   "composer_persistence_ephemeralPill": {
-    "message": "Temporary"
+    "message": "Temporaire"
   },
   "composer_persistence_localPill": {
-    "message": "Local only"
+    "message": "Local uniquement"
   },
   "composer_persistence_serverPill": {
-    "message": "Locally + Server"
+    "message": "Local + serveur"
   },
   "composer_persistence_saveToServer": {
-    "message": "Also save this chat to server"
+    "message": "Enregistrer aussi ce chat sur le serveur"
   },
   "composer_persistence_connectToSave": {
-    "message": "Connect your server to save chats there."
+    "message": "Connectez votre serveur pour y enregistrer les chats."
   },
   "composer_persistence_serverDefaultTitle": {
-    "message": "Extension chat"
+    "message": "Chat de l’extension"
   },
   "composer_persistence_serverSavedTitle": {
-    "message": "Chat now saved on server"
+    "message": "Chat désormais enregistré sur le serveur"
   },
   "composer_persistence_serverSaved": {
-    "message": "Future messages in this chat will sync to your tldw server."
+    "message": "Les prochains messages de ce chat seront synchronisés sur votre serveur tldw."
   },
   "composer_persistence_serverCharacterRequired": {
-    "message": "Unable to find or create a default assistant character on the server. Try again from the Characters page."
+    "message": "Impossible de trouver ou de créer un personnage assistant par défaut sur le serveur. Réessayez depuis la page Personnages."
   },
   "composer_connectToSend": {
-    "message": "Connect to your tldw server in Settings to send messages and view media."
+    "message": "Connectez votre serveur tldw dans Paramètres pour envoyer des messages et voir les médias."
   },
   "composer_compareTag": {
-    "message": "Compare"
+    "message": "Comparer"
   },
   "composer_compareLabel": {
     "message": "Mode de comparaison"

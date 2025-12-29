@@ -8,6 +8,15 @@
   "openSidePanelToChat": {
     "message": "Open Sidebar to chat"
   },
+  "sidepanel_tabs_newChat": {
+    "message": "New chat"
+  },
+  "sidepanel_tabs_newTabAria": {
+    "message": "New chat tab"
+  },
+  "sidepanel_tabs_closeTabAria": {
+    "message": "Close chat tab"
+  },
   "openOptionToChat": {
     "message": "Open Web UI to Chat"
   },
@@ -2213,7 +2222,7 @@
   "mediaPage_firstUseStep2": {
     "message": "Choose a view"
   },
-  "mediaPage_firstUseStep2DescUpdated": {
+  "mediaPage_firstUseStep2Desc": {
     "message": "Use \"Compare\" for side-by-side, \"Focus\" for one at a time, or \"Stack\" to see all."
   },
   "mediaPage_firstUseStep3": {

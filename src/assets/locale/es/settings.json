@@ -422,8 +422,8 @@
       "actions": "Acciones"
     },
     "segmented": {
-      "custom": "Invites personnalisées",
-      "copilot": "Invites Copilot",
+      "custom": "Invitaciones personalizadas",
+      "copilot": "Invitaciones Copilot",
       "helpCustom": "Cree y gestione prompts reutilizables que puede insertar en el chat.",
       "helpCopilot": "Vea y ajuste los prompts predefinidos de Copilot proporcionados por su servidor."
     },
@@ -606,7 +606,7 @@
   "switchToSidebar": "Cambiar a la barra lateral",
   "healthPage": {
     "title": "Estado de salud",
-    "subtitle": "Quick overview of subsystem health endpoints exposed by the server.",
+    "subtitle": "Resumen rápido de los endpoints de estado de los subsistemas expuestos por el servidor.",
     "backToChat": "Volver al chat",
     "openSettings": "Abrir configuración de tldw",
     "recheckAll": "Revisar todo",
@@ -640,7 +640,7 @@
       "chatMetricsDocsUrl": "https://github.com/rmusser01/tldw_browser_assistant",
       "mcpDocsUrl": "https://github.com/rmusser01/tldw_browser_assistant"
     },
-    "copyDiagnosticsHelp": "Copies JSON diagnostics to clipboard",
+    "copyDiagnosticsHelp": "Copia los diagnósticos JSON al portapapeles",
     "statusHealthy": "Saludable",
     "statusUnhealthy": "No saludable",
     "statusUnknown": "Desconocido",
@@ -1116,7 +1116,7 @@
   "charactersOpenWorkspace": "Abrir espacio de trabajo de Personajes",
   "mermaid": "Diagramas Mermaid",
   "healthSummary": {
-    "diagnostics": "Diagnostics",
+    "diagnostics": "Diagnósticos",
     "diagnosticsTooltip": "Abrir diagnósticos detallados para solucionar problemas o inspeccionar las comprobaciones de salud.",
     "core": "Servidor",
     "rag": "Conocimiento",

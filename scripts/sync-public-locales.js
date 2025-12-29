@@ -3,24 +3,49 @@ const path = require('path');
 
 const assetsBase = path.join('src', 'assets', 'locale');
 const publicBase = path.join('src', 'public', '_locales');
+// Map public locale folder -> assets locale folder.
+// Expected keys: folder names under src/public/_locales.
+// Expected values: folder names under src/assets/locale.
 const localeMap = {
   ja: 'ja-JP',
   zh_TW: 'zh-TW',
   zh_CN: 'zh',
 };
-const defaultFiles = ['playground.json', 'sidepanel.json'];
+const defaultLocaleForFiles = 'en';
+// Default to all JSON locale files from assets; pass filenames as args to limit scope.
+const defaultFiles = fs
+  .readdirSync(path.join(assetsBase, defaultLocaleForFiles))
+  .filter((file) => file.endsWith('.json'))
+  .sort();
 
 const targetFiles = process.argv.slice(2);
 const files = targetFiles.length ? targetFiles : defaultFiles;
 
-function flatten(obj, prefix = '', out = {}) {
+function normalizeMessage(value, key, invalid) {
+  if (typeof value === 'string') {
+    return value;
+  }
+  if (typeof value === 'number' || typeof value === 'boolean') {
+    console.warn(`[sync-public-locales] Coercing ${key} to string.`);
+    return String(value);
+  }
+  invalid.push(key);
+  return null;
+}
+
+// Flatten nested assets locales into Chrome i18n keys: section.subkey -> section_subkey.
+// Only string-ish leaves are written as { message: string } entries.
+function flatten(obj, prefix = '', out = {}, invalid = []) {
   if (obj && typeof obj === 'object' && !Array.isArray(obj)) {
     for (const [key, value] of Object.entries(obj)) {
       const next = prefix ? `${prefix}_${key}` : key;
-      flatten(value, next, out);
+      flatten(value, next, out, invalid);
     }
   } else {
-    out[prefix] = obj;
+    const normalized = normalizeMessage(obj, prefix, invalid);
+    if (normalized !== null) {
+      out[prefix] = normalized;
+    }
   }
   return out;
 }
@@ -38,12 +63,32 @@ for (const locale of locales) {
       continue;
     }
     const assets = JSON.parse(fs.readFileSync(assetPath, 'utf8'));
-    const flat = flatten(assets);
-    const output = {};
-    for (const [key, value] of Object.entries(flat)) {
-      output[key] = { message: value };
+    const invalidLeaves = [];
+    const flat = flatten(assets, '', {}, invalidLeaves);
+    if (invalidLeaves.length) {
+      console.warn(
+        `[sync-public-locales] Skipped non-string values in ${assetPath}: ${invalidLeaves.join(
+          ', '
+        )}`
+      );
+      process.exitCode = 1;
     }
+    const output = Object.fromEntries(
+      Object.entries(flat).map(([key, value]) => [key, { message: value }])
+    );
     const outPath = path.join(publicBase, locale, filename);
-    fs.writeFileSync(outPath, JSON.stringify(output, null, 2) + '\n');
+    // NOTE: This rewrites public locale files. Asset-derived keys overwrite existing values.
+    let merged = output;
+    if (fs.existsSync(outPath)) {
+      const existing = JSON.parse(fs.readFileSync(outPath, 'utf8'));
+      const publicOnlyKeys = Object.keys(existing).filter((key) => !(key in output));
+      if (publicOnlyKeys.length) {
+        console.warn(
+          `[sync-public-locales] Preserving ${publicOnlyKeys.length} public-only keys in ${outPath}.`
+        );
+      }
+      merged = { ...existing, ...output };
+    }
+    fs.writeFileSync(outPath, JSON.stringify(merged, null, 2) + '\n');
   }
 }

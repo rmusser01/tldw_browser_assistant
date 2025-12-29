@@ -3256,7 +3256,7 @@
   "mediaPage_firstUseStep2": {
     "message": "Выберите вид"
   },
-  "mediaPage_firstUseStep2DescUpdated": {
+  "mediaPage_firstUseStep2Desc": {
     "message": "Используйте «Сравнение» для бокового вида, «Фокус» для одного элемента или «Стопка», чтобы видеть все."
   },
   "mediaPage_firstUseStep3": {

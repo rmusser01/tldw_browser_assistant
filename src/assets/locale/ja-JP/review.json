@@ -284,7 +284,7 @@
     "firstUseStep1": "項目を選択",
     "firstUseStep1Desc": "左側のパネルで項目をクリックしてビューアに追加します。",
     "firstUseStep2": "表示を選択",
-    "firstUseStep2DescUpdated": "「比較」は並べて表示、「フォーカス」は1件ずつ、「スタック」はすべて表示します。",
+    "firstUseStep2Desc": "「比較」は並べて表示、「フォーカス」は1件ずつ、「スタック」はすべて表示します。",
     "firstUseStep3": "移動",
     "firstUseStep3Desc": "前へ/次へボタンまたはキーボード (Tab + Enter) で項目を移動します。",
     "gotIt": "了解",

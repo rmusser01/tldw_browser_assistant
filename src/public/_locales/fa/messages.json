@@ -8,6 +8,15 @@
   "openSidePanelToChat": {
     "message": "باز کردن نوار کناری برای گفتگو"
   },
+  "sidepanel_tabs_newChat": {
+    "message": "چت جدید"
+  },
+  "sidepanel_tabs_newTabAria": {
+    "message": "زبانه چت جدید"
+  },
+  "sidepanel_tabs_closeTabAria": {
+    "message": "بستن زبانه چت"
+  },
   "openOptionToChat": {
     "message": "باز کردن رابط کاربری وب برای گفتگو"
   },
@@ -3212,7 +3221,7 @@
   "mediaPage_firstUseStep2": {
     "message": "انتخاب نما"
   },
-  "mediaPage_firstUseStep2DescUpdated": {
+  "mediaPage_firstUseStep2Desc": {
     "message": "برای نمایش کنار هم «مقایسه»، برای تک‌به‌تک «تمرکز»، یا برای دیدن همه «پشته» را انتخاب کنید."
   },
   "mediaPage_firstUseStep3": {

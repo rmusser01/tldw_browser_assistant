@@ -839,7 +839,7 @@
   "mediaPage_firstUseStep2": {
     "message": "보기 선택"
   },
-  "mediaPage_firstUseStep2DescUpdated": {
+  "mediaPage_firstUseStep2Desc": {
     "message": "\"비교\"는 나란히, \"집중\"은 한 번에 하나, \"스택\"은 모두 보기입니다."
   },
   "mediaPage_firstUseStep3": {

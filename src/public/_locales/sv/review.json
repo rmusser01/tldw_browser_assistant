@@ -839,7 +839,7 @@
   "mediaPage_firstUseStep2": {
     "message": "Välj vy"
   },
-  "mediaPage_firstUseStep2DescUpdated": {
+  "mediaPage_firstUseStep2Desc": {
     "message": "Använd \"Jämför\" för sida vid sida, \"Fokus\" för ett i taget eller \"Stapla\" för att se alla."
   },
   "mediaPage_firstUseStep3": {

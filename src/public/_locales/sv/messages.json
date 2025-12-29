@@ -3040,13 +3040,13 @@
     "message": "Välj minst en modell för jämförelseläge."
   },
   "tabs_newChat": {
-    "message": "Ny chatt"
+    "message": "Nytt samtal"
   },
   "tabs_newTabAria": {
-    "message": "Ny chattflik"
+    "message": "Ny flik för samtal"
   },
   "tabs_closeTabAria": {
-    "message": "Stäng chattflik"
+    "message": "Stäng flik för samtal"
   },
   "manageCharacters_actions_duplicate": {
     "message": "Duplicera"
@@ -3174,7 +3174,7 @@
   "mediaPage_firstUseStep2": {
     "message": "Välj vy"
   },
-  "mediaPage_firstUseStep2DescUpdated": {
+  "mediaPage_firstUseStep2Desc": {
     "message": "Använd \"Jämför\" för sida vid sida, \"Fokus\" för ett i taget eller \"Stapla\" för att se alla."
   },
   "mediaPage_firstUseStep3": {

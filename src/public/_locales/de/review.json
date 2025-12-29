@@ -839,7 +839,7 @@
   "mediaPage_firstUseStep2": {
     "message": "Ansicht wählen"
   },
-  "mediaPage_firstUseStep2DescUpdated": {
+  "mediaPage_firstUseStep2Desc": {
     "message": "Nutze \"Vergleich\" für nebeneinander, \"Fokus\" für jeweils ein Element oder \"Stapel\" für alle."
   },
   "mediaPage_firstUseStep3": {

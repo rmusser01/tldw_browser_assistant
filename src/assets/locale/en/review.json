@@ -242,7 +242,7 @@
     "firstUseStep1": "Select items",
     "firstUseStep1Desc": "Click items in the left panel to add them to your viewer.",
     "firstUseStep2": "Choose a view",
-    "firstUseStep2DescUpdated": "Use \"Compare\" for side-by-side, \"Focus\" for one at a time, or \"Stack\" to see all.",
+    "firstUseStep2Desc": "Use \"Compare\" for side-by-side, \"Focus\" for one at a time, or \"Stack\" to see all.",
     "firstUseStep3": "Navigate",
     "firstUseStep3Desc": "Use Prev/Next buttons or keyboard (Tab + Enter) to move through items.",
     "gotIt": "Got it",

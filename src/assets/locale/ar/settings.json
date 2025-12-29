@@ -6,7 +6,7 @@
     "about": "نبذة"
   },
   "healthNav": "الحالة",
-  "worldBooksNav": "كتب العالم",
+  "worldBooksNav": "كتب العوالم",
   "chatDictionariesNav": "قواميس الدردشة",
   "charactersNav": "الشخصيات",
   "mediaNav": "الوسائط",
@@ -123,10 +123,10 @@
         "placeholder": "اختر لغة OCR"
       },
       "removeReasoningTagFromCopy": {
-        "label": "إزالة وسم التفكير من النص المنسوخ"
+        "label": "إزالة علامة التفكير من النص المنسوخ"
       },
       "promptSearchIncludeServer": {
-        "label": "تضمين إرشادات الخادم في البحث عن الإرشادات"
+        "label": "تضمين موجّهات الخادم في البحث"
       },
       "restartOnboarding": {
         "label": "إعادة بدء عملية الإعداد من البداية",
@@ -192,7 +192,7 @@
       }
     },
     "system": {
-      "heading": "إعدادات النظام",
+      "heading": "النظام",
       "uiMode": {
         "label": "الوضع الافتراضي للواجهة",
         "options": {
@@ -640,7 +640,7 @@
       "chatMetricsDocsUrl": "https://github.com/rmusser01/tldw_browser_assistant",
       "mcpDocsUrl": "https://github.com/rmusser01/tldw_browser_assistant"
     },
-    "copyDiagnosticsHelp": "Copies JSON diagnostics to clipboard",
+    "copyDiagnosticsHelp": "ينسخ تشخيصات JSON إلى الحافظة",
     "statusHealthy": "سليم",
     "statusUnhealthy": "غير سليم",
     "statusUnknown": "غير معروف",
@@ -1115,7 +1115,7 @@
   "charactersOpenWorkspace": "فتح مساحة عمل الشخصيات",
   "mermaid": "مخططات Mermaid",
   "healthSummary": {
-    "diagnostics": "Diagnostics",
+    "diagnostics": "التشخيصات",
     "diagnosticsTooltip": "افتح التشخيصات التفصيلية لاستكشاف الأخطاء أو فحص فحوصات الصحة.",
     "core": "الخادم",
     "rag": "المعرفة",

@@ -284,7 +284,7 @@
     "firstUseStep1": "Vælg elementer",
     "firstUseStep1Desc": "Klik på elementer i venstre panel for at tilføje dem til visningen.",
     "firstUseStep2": "Vælg en visning",
-    "firstUseStep2DescUpdated": "Brug \"Sammenlign\" for side om side, \"Fokus\" for ét ad gangen, eller \"Stak\" for at se alle.",
+    "firstUseStep2Desc": "Brug \"Sammenlign\" for side om side, \"Fokus\" for ét ad gangen, eller \"Stak\" for at se alle.",
     "firstUseStep3": "Naviger",
     "firstUseStep3Desc": "Brug Forrige/Næste-knapperne eller tastaturet (Tab + Enter) til at gå gennem elementer.",
     "gotIt": "Forstået",

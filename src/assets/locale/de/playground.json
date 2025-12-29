@@ -149,7 +149,7 @@
     "voice": "Weitere Sprachoptionen",
     "uploads": "Uploads & Import"
   },
-  "fileRetrievalEnabled": "Enable RAG for Documents",
+  "fileRetrievalEnabled": "RAG für Dokumente aktivieren",
   "stt": {
     "title": "STT-Playground",
     "subtitle": "Transkriptionsmodelle ausprobieren, längere Diktatsitzungen durchführen und Transkripte in Notizen speichern.",
@@ -201,8 +201,8 @@
   "composer": {
     "toolsButton": "+Werkzeuge",
     "queuedBanner": {
-      "title": "Queued while offline",
-      "body": "We’ll hold these messages and send them once your tldw server is connected.",
+      "title": "In Warteschlange gestellt (offline)",
+      "body": "Wir speichern diese Nachrichten und senden sie, sobald Ihr tldw‑Server verbunden ist.",
       "sendNow": "Wartende Nachrichten senden",
       "clear": "Warteschlange leeren"
     },
@@ -235,8 +235,8 @@
     "knowledgeSearch": "Wissenssuche",
     "knowledgeSearchClose": "Wissenssuche schließen",
     "persistence": {
-      "ephemeral": "Not saved in history; clears when you close this tab.",
-      "local": "Saved in this browser only.",
+      "ephemeral": "Nicht in der Historie gespeichert; wird beim Schließen dieses Tabs gelöscht.",
+      "local": "Nur in diesem Browser gespeichert.",
       "server": "Lokal+Server gespeichert",
       "ephemeralPill": "Temporär",
       "localPill": "Nur lokal",
@@ -371,7 +371,7 @@
     "modeRoundTrip": "Hin und zurück",
     "modeSpeak": "Sprechen",
     "modeListen": "Zuhören",
-    "modeHint": "Dein letzter Modus wird auf diesem Gerät gespeichert.",
+    "modeHint": "Ihr letzter Modus wird auf diesem Gerät gespeichert.",
     "recordingWaveform": "Live-Aufnahme-Wellenform",
     "playbackWaveform": "Wiedergabe-Wellenform",
     "sendToTts": "An TTS senden",
@@ -385,14 +385,14 @@
     "historyStt": "STT",
     "historyTts": "TTS",
     "historySearch": "Transkripte durchsuchen",
-    "historyRetentionHint": "Behält die neuesten {{count}} Einträge. Verwende \"Alles löschen\", um alles zu entfernen.",
+    "historyRetentionHint": "Behält die neuesten {{count}} Einträge. Verwenden Sie \"Alles löschen\", um alles zu entfernen.",
     "useInTts": "In TTS verwenden",
     "copy": "Kopieren",
     "copySuccess": "In die Zwischenablage kopiert",
     "copyError": "Transkript konnte nicht kopiert werden.",
     "providerTag": "Anbieter",
     "voiceTag": "Stimme",
-    "emptyHistory": "Starte eine Aufnahme oder generiere Audio, um hier Verlauf zu sehen.",
+    "emptyHistory": "Starten Sie eine Aufnahme oder generieren Sie Audio, um hier den Verlauf zu sehen.",
     "downloadDisabledBrowser": "Browser-TTS erstellt kein herunterladbares Audio.",
     "downloadDisabledEmpty": "Generiere Audio, um Downloads zu aktivieren.",
     "transcriptLock": "Sperren",

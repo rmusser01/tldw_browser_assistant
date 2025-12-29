@@ -839,7 +839,7 @@
   "mediaPage_firstUseStep2": {
     "message": "选择视图"
   },
-  "mediaPage_firstUseStep2DescUpdated": {
+  "mediaPage_firstUseStep2Desc": {
     "message": "使用“对比”进行并排查看，“聚焦”一次查看一个项目，或使用“堆叠”查看全部。"
   },
   "mediaPage_firstUseStep3": {

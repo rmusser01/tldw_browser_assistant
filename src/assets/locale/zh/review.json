@@ -284,7 +284,7 @@
     "firstUseStep1": "选择项目",
     "firstUseStep1Desc": "点击左侧面板中的项目，将其添加到查看器。",
     "firstUseStep2": "选择视图",
-    "firstUseStep2DescUpdated": "使用“对比”进行并排查看，“聚焦”一次查看一个项目，或使用“堆叠”查看全部。",
+    "firstUseStep2Desc": "使用“对比”进行并排查看，“聚焦”一次查看一个项目，或使用“堆叠”查看全部。",
     "firstUseStep3": "导航",
     "firstUseStep3Desc": "使用上一项/下一项按钮或键盘（Tab + Enter）在项目间移动。",
     "gotIt": "知道了",

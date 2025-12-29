@@ -77,7 +77,7 @@ If you don't have Homebrew installed, visit [brew.sh](https://brew.sh) first.
 
 ### Linux
 
-**Option 1: Build from source (recommended)**
+#### Option 1: Build from source (recommended)
 
 ```bash
 # Install dependencies
@@ -93,7 +93,7 @@ cmake --build build --config Release
 # The executables will be in ./build/bin/
 ```
 
-**Option 2: Pre-built binaries**
+#### Option 2: Pre-built binaries
 
 Download from the [Releases page](https://github.com/ggml-org/llama.cpp/releases) and extract.
 
@@ -153,7 +153,7 @@ llama-server -hf ggml-org/gemma-3-1b-it-GGUF
 
 You should see output like:
 
-```
+```text
 main: server listening on http://127.0.0.1:8080
 ```
 
@@ -169,7 +169,7 @@ curl http://localhost:8080/health
 
 You should see `{"status":"ok"}` or similar.
 
-Or simply open http://localhost:8080 in your browser - you'll see a simple chat interface.
+Or simply open `http://localhost:8080` in your browser - you'll see a simple chat interface.
 
 ### Server Options
 
@@ -358,13 +358,13 @@ curl http://localhost:8080/health
 
 | Service | Port | URL |
 |---------|------|-----|
-| Llama.cpp | 8080 | http://localhost:8080 |
-| tldw_server | 8000 | http://localhost:8000 |
+| Llama.cpp | 8080 | `http://localhost:8080` |
+| tldw_server | 8000 | `http://localhost:8000` |
 
 ### Extension Settings
 
 | Setting | Value |
 |---------|-------|
 | Provider Type | Llama.cpp / OpenAI-compatible |
-| Base URL | http://localhost:8080/v1 |
+| Base URL | `http://localhost:8080/v1` |
 | API Key | (leave empty) |

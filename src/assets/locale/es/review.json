@@ -284,7 +284,7 @@
     "firstUseStep1": "Selecciona elementos",
     "firstUseStep1Desc": "Haz clic en los elementos del panel izquierdo para añadirlos al visor.",
     "firstUseStep2": "Elige una vista",
-    "firstUseStep2DescUpdated": "Usa \"Comparar\" para ver en paralelo, \"Enfoque\" para ver uno a la vez, o \"Pila\" para ver todos.",
+    "firstUseStep2Desc": "Usa \"Comparar\" para ver en paralelo, \"Enfoque\" para ver uno a la vez, o \"Pila\" para ver todos.",
     "firstUseStep3": "Navega",
     "firstUseStep3Desc": "Usa los botones Anterior/Siguiente o el teclado (Tab + Enter) para moverte entre los elementos.",
     "gotIt": "Entendido",

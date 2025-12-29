@@ -3191,7 +3191,7 @@
   "mediaPage_firstUseStep2": {
     "message": "表示を選択"
   },
-  "mediaPage_firstUseStep2DescUpdated": {
+  "mediaPage_firstUseStep2Desc": {
     "message": "「比較」は並べて表示、「フォーカス」は1件ずつ、「スタック」はすべて表示します。"
   },
   "mediaPage_firstUseStep3": {
