@@ -12,6 +12,7 @@ export const ALL_FEATURE_FLAGS_ENABLED = {
   ff_commandPalette: true,
   ff_compactMessages: true,
   ff_chatSidebar: true,
+  ff_compareMode: true
 }
 
 /**
@@ -24,6 +25,7 @@ export const ALL_FEATURE_FLAGS_DISABLED = {
   ff_commandPalette: false,
   ff_compactMessages: false,
   ff_chatSidebar: false,
+  ff_compareMode: false
 }
 
 /**
@@ -36,6 +38,7 @@ export const FEATURE_FLAG_KEYS = {
   COMMAND_PALETTE: 'ff_commandPalette',
   COMPACT_MESSAGES: 'ff_compactMessages',
   CHAT_SIDEBAR: 'ff_chatSidebar',
+  COMPARE_MODE: 'ff_compareMode'
 } as const
 
 /**
