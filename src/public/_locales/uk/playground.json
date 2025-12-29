@@ -832,5 +832,254 @@
   },
   "speech_transcriptRecordingHint": {
     "message": "Запис триває; транскрипт заблоковано."
+  },
+  "actor_title": {
+    "message": "Режисер сцени (Actor)"
+  },
+  "actor_help": {
+    "message": "Налаштуйте контекст сцени для кожного чату: ролі, настрій, світ, цілі та нотатки."
+  },
+  "actor_addLabel": {
+    "message": "Додавайте або видаляйте аспекти, щоб сфокусувати сцену."
+  },
+  "actor_user": {
+    "message": "Користувач"
+  },
+  "actor_char": {
+    "message": "Персонаж"
+  },
+  "actor_world": {
+    "message": "Світ"
+  },
+  "actor_newAspectPlaceholder": {
+    "message": "Назва аспекту (наприклад, Настрій, Роль, Локація)"
+  },
+  "actor_addButton": {
+    "message": "Додати аспект"
+  },
+  "actor_aspectPlaceholder": {
+    "message": "Коротко опишіть (необов'язково)"
+  },
+  "actor_notes": {
+    "message": "Нотатки сцени"
+  },
+  "actor_notesHelp": {
+    "message": "Необов'язкові нотатки, що надсилаються моделі. Підтримує Markdown і LaTeX."
+  },
+  "actor_position": {
+    "message": "Позиція промпта Actor"
+  },
+  "actor_before": {
+    "message": "Перед основним промптом/історією"
+  },
+  "actor_after": {
+    "message": "Після основного промпта/історії"
+  },
+  "actor_depth": {
+    "message": "У чаті на глибині"
+  },
+  "actor_depthLabel": {
+    "message": "Глибина (несистемні повідомлення)"
+  },
+  "actor_depthPlaceholder": {
+    "message": "0 = початок чату"
+  },
+  "actor_depthHelp": {
+    "message": "Використовується лише коли позиція \"У чаті на глибині\". Рахує несистемні повідомлення від початку чату."
+  },
+  "actor_roleLabel": {
+    "message": "Роль повідомлення Actor"
+  },
+  "actor_roleSystem": {
+    "message": "Система"
+  },
+  "actor_roleUser": {
+    "message": "Користувач"
+  },
+  "actor_roleAssistant": {
+    "message": "Асистент"
+  },
+  "actor_positionHelp": {
+    "message": "Глибина використовується лише коли позиція \"У чаті на глибині\". Роль визначає, чи Actor з'являється як система, користувач або асистент."
+  },
+  "actor_preview": {
+    "message": "Попередній перегляд промпта Actor"
+  },
+  "actor_tokens": {
+    "message": "Токени: {{count}}"
+  },
+  "actor_previewEmpty": {
+    "message": "Поки що нічого надсилати."
+  },
+  "actor_offlineHintTitle": {
+    "message": "World Books недоступні для Actor"
+  },
+  "actor_offlineHintBody": {
+    "message": "Підключіть сервер tldw у налаштуваннях, щоб використовувати World Books для аспектів Actor, або продовжуйте використовувати вільний текст."
+  },
+  "actor_loreWorldBookMissing": {
+    "message": "Попереднє прив'язування World Book не знайдено; використовується вільний текст."
+  },
+  "actor_loreEntryMissing": {
+    "message": "Попередній запис World Book не знайдено; використовується вільний текст."
+  },
+  "actor_sourceFree": {
+    "message": "Вільний текст"
+  },
+  "actor_sourceLore": {
+    "message": "World Book"
+  },
+  "actor_worldBookPlaceholder": {
+    "message": "World Book"
+  },
+  "actor_entryPlaceholder": {
+    "message": "Запис"
+  },
+  "actor_loreValuePlaceholder": {
+    "message": "Виберіть варіант (необов'язково)"
+  },
+  "actor_tokenLabel": {
+    "message": "Токен"
+  },
+  "actor_tokensTitle": {
+    "message": "Токени словника Actor"
+  },
+  "actor_tokensHelp": {
+    "message": "Використовуйте ці токени в промптах і системних повідомленнях."
+  },
+  "actor_keyChangeTitle": {
+    "message": "Змінити ключ токена Actor?"
+  },
+  "actor_keyChangeBody": {
+    "message": "Це змінить токен з {{old}} на {{next}}. Промпти, що використовують старий токен, не оновляться автоматично."
+  },
+  "actor_keyCollisionTitle": {
+    "message": "Ключ Actor вже використовується"
+  },
+  "actor_keyCollisionBody": {
+    "message": "Інший аспект уже використовує цей ключ. Ключі мають бути унікальними для кожного чату."
+  },
+  "actor_copy": {
+    "message": "Копіювати"
+  },
+  "actor_copied": {
+    "message": "Скопійовано"
+  },
+  "actor_copySuccess": {
+    "message": "Токен скопійовано в буфер обміну"
+  },
+  "actor_copyError": {
+    "message": "Не вдалося скопіювати токен"
+  },
+  "actor_notesPreviewTitle": {
+    "message": "Попередній перегляд нотаток сцени"
+  },
+  "actor_notesPreviewToggle": {
+    "message": "Показати попередній перегляд Markdown + LaTeX"
+  },
+  "actor_aspectLimitWarningTitle": {
+    "message": "Для цього чату налаштовано багато аспектів"
+  },
+  "actor_aspectLimitWarningBody": {
+    "message": "У вас {{count}} аспектів (м'який ліміт {{limit}}). Розгляньте можливість скоротити їх, щоб сфокусувати сцену та зекономити токени."
+  },
+  "actor_tokenWarning": {
+    "message": "Промпт Actor занадто довгий ({{count}} токенів; м'який ліміт {{limit}}). Розгляньте можливість скоротити аспекти або нотатки, щоб зекономити контекст."
+  },
+  "actor_depthRangeHelp": {
+    "message": "Глибина має бути між 0 і 999; значення за межами довжини історії обмежуються."
+  },
+  "actor_presetLabel": {
+    "message": "Пресети"
+  },
+  "actor_presetPlaceholder": {
+    "message": "Виберіть пресет"
+  },
+  "actor_preset.sliceOfLife": {
+    "message": "Повсякденність"
+  },
+  "actor_preset.dungeonCrawl": {
+    "message": "Похід у підземелля"
+  },
+  "actor_preset.romance": {
+    "message": "Романтика"
+  },
+  "actor_preset.workSession": {
+    "message": "Робоча сесія"
+  },
+  "actor_applyPreset": {
+    "message": "Застосувати"
+  },
+  "actor_resetChat": {
+    "message": "Скинути для цього чату"
+  },
+  "actor_saveAsCharacterDefault": {
+    "message": "Зберегти як стандарт для {{name}}"
+  },
+  "actor_applyCharacterDefault": {
+    "message": "Застосувати стандарт {{name}}"
+  },
+  "actor_notesGmOnly": {
+    "message": "Лише GM: не надсилати нотатки моделі"
+  },
+  "actor_templateModeLabel": {
+    "message": "Взаємодія з шаблонами сцен"
+  },
+  "actor_templateModeHelp": {
+    "message": "Керує тим, як Actor взаємодіє з активними шаблонами сцен. Об'єднання зберігає обидва; Перевизначення дозволяє Actor замінювати перекривані поля; Ігнорування пропускає Actor, коли шаблони активні."
+  },
+  "actor_templateMode.merge": {
+    "message": "Об'єднати з шаблонами"
+  },
+  "actor_templateMode.override": {
+    "message": "Перевизначити шаблони"
+  },
+  "actor_templateMode.ignore": {
+    "message": "Ігнорувати, коли шаблони активні"
+  },
+  "actor_bladeAspectsTitle": {
+    "message": "Аспекти"
+  },
+  "actor_bladeNotesTitle": {
+    "message": "Нотатки сцени"
+  },
+  "actor_bladePlacementTitle": {
+    "message": "Розміщення й шаблони"
+  },
+  "actor_bladeTokensTitle": {
+    "message": "Токени та перегляд"
+  },
+  "actor_summaryAspectsEmpty": {
+    "message": "Аспекти ще не налаштовані."
+  },
+  "actor_summaryAspectsCount": {
+    "message": "Налаштовано {{count}} аспектів."
+  },
+  "actor_summaryNotesEmpty": {
+    "message": "Ще немає нотаток сцени."
+  },
+  "actor_summaryNotes": {
+    "message": "{{chars}} символів{{gmSuffix}}."
+  },
+  "actor_summaryNotesGmOnly": {
+    "message": " · Лише GM"
+  },
+  "actor_summaryPlacementBefore": {
+    "message": "Перед основним промптом/історією."
+  },
+  "actor_summaryPlacementAfter": {
+    "message": "Після основного промпта/історії."
+  },
+  "actor_summaryPlacementDepth": {
+    "message": "Глибина {{depth}} · Роль: {{role}}."
+  },
+  "actor_summaryTokensEmpty": {
+    "message": "Ще не визначено токенів; задайте значення аспектів."
+  },
+  "actor_summaryTokensCount": {
+    "message": "{{tokens}} токенів · ~{{estimate}} токенів у промпті."
+  },
+  "actor_sceneTemplateActive": {
+    "message": "Шаблон сцени активний: Actor дотримується налаштувань взаємодії з шаблонами."
   }
 }

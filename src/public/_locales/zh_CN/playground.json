@@ -832,5 +832,254 @@
   },
   "speech_transcriptRecordingHint": {
     "message": "正在录音；转写已锁定。"
+  },
+  "actor_title": {
+    "message": "场景导演（Actor）"
+  },
+  "actor_help": {
+    "message": "为每个聊天配置场景上下文：角色、情绪、世界、目标和备注。"
+  },
+  "actor_addLabel": {
+    "message": "添加或移除要素以聚焦场景。"
+  },
+  "actor_user": {
+    "message": "用户"
+  },
+  "actor_char": {
+    "message": "角色"
+  },
+  "actor_world": {
+    "message": "世界"
+  },
+  "actor_newAspectPlaceholder": {
+    "message": "要素名称（例如：情绪、角色、地点）"
+  },
+  "actor_addButton": {
+    "message": "添加要素"
+  },
+  "actor_aspectPlaceholder": {
+    "message": "简要描述（可选）"
+  },
+  "actor_notes": {
+    "message": "场景备注"
+  },
+  "actor_notesHelp": {
+    "message": "发送给模型的可选备注。支持 Markdown 和 LaTeX。"
+  },
+  "actor_position": {
+    "message": "Actor 提示位置"
+  },
+  "actor_before": {
+    "message": "在主提示/故事之前"
+  },
+  "actor_after": {
+    "message": "在主提示/故事之后"
+  },
+  "actor_depth": {
+    "message": "在聊天中按深度"
+  },
+  "actor_depthLabel": {
+    "message": "深度（非系统消息）"
+  },
+  "actor_depthPlaceholder": {
+    "message": "0 = 聊天顶部"
+  },
+  "actor_depthHelp": {
+    "message": "仅当位置为“在聊天中按深度”时使用。从聊天顶部开始统计非系统消息。"
+  },
+  "actor_roleLabel": {
+    "message": "Actor 消息角色"
+  },
+  "actor_roleSystem": {
+    "message": "系统"
+  },
+  "actor_roleUser": {
+    "message": "用户"
+  },
+  "actor_roleAssistant": {
+    "message": "助手"
+  },
+  "actor_positionHelp": {
+    "message": "深度仅在位置为“在聊天中按深度”时使用。角色决定 Actor 以系统、用户或助手身份出现。"
+  },
+  "actor_preview": {
+    "message": "Actor 提示预览"
+  },
+  "actor_tokens": {
+    "message": "令牌：{{count}}"
+  },
+  "actor_previewEmpty": {
+    "message": "暂时没有可发送内容。"
+  },
+  "actor_offlineHintTitle": {
+    "message": "Actor 无法使用 World Books"
+  },
+  "actor_offlineHintBody": {
+    "message": "在设置中连接你的 tldw 服务器以在 Actor 要素中使用 World Books，或继续使用自由文本值。"
+  },
+  "actor_loreWorldBookMissing": {
+    "message": "未找到先前的 World Book 绑定；改用自由文本。"
+  },
+  "actor_loreEntryMissing": {
+    "message": "未找到先前的 World Book 条目；改用自由文本。"
+  },
+  "actor_sourceFree": {
+    "message": "自由文本"
+  },
+  "actor_sourceLore": {
+    "message": "World Book"
+  },
+  "actor_worldBookPlaceholder": {
+    "message": "World Book"
+  },
+  "actor_entryPlaceholder": {
+    "message": "条目"
+  },
+  "actor_loreValuePlaceholder": {
+    "message": "选择一个选项（可选）"
+  },
+  "actor_tokenLabel": {
+    "message": "令牌"
+  },
+  "actor_tokensTitle": {
+    "message": "Actor 词典令牌"
+  },
+  "actor_tokensHelp": {
+    "message": "在提示和系统消息中使用这些令牌。"
+  },
+  "actor_keyChangeTitle": {
+    "message": "更改 Actor 令牌键？"
+  },
+  "actor_keyChangeBody": {
+    "message": "这将把令牌从 {{old}} 更改为 {{next}}。使用旧令牌的提示不会自动更新。"
+  },
+  "actor_keyCollisionTitle": {
+    "message": "Actor 键已被使用"
+  },
+  "actor_keyCollisionBody": {
+    "message": "另一个要素已使用此键。键必须在每个聊天中唯一。"
+  },
+  "actor_copy": {
+    "message": "复制"
+  },
+  "actor_copied": {
+    "message": "已复制"
+  },
+  "actor_copySuccess": {
+    "message": "令牌已复制到剪贴板"
+  },
+  "actor_copyError": {
+    "message": "复制令牌失败"
+  },
+  "actor_notesPreviewTitle": {
+    "message": "场景备注预览"
+  },
+  "actor_notesPreviewToggle": {
+    "message": "显示 Markdown + LaTeX 预览"
+  },
+  "actor_aspectLimitWarningTitle": {
+    "message": "此聊天配置了许多要素"
+  },
+  "actor_aspectLimitWarningBody": {
+    "message": "你有 {{count}} 个要素（软限制 {{limit}}）。考虑精简以聚焦场景并节省令牌。"
+  },
+  "actor_tokenWarning": {
+    "message": "Actor 提示较长（{{count}} 令牌；软限制 {{limit}}）。考虑精简要素或备注以节省上下文。"
+  },
+  "actor_depthRangeHelp": {
+    "message": "深度必须在 0 到 999 之间；超过历史长度的值会被限制。"
+  },
+  "actor_presetLabel": {
+    "message": "预设"
+  },
+  "actor_presetPlaceholder": {
+    "message": "选择预设"
+  },
+  "actor_preset.sliceOfLife": {
+    "message": "日常"
+  },
+  "actor_preset.dungeonCrawl": {
+    "message": "地下城探索"
+  },
+  "actor_preset.romance": {
+    "message": "浪漫"
+  },
+  "actor_preset.workSession": {
+    "message": "工作会话"
+  },
+  "actor_applyPreset": {
+    "message": "应用"
+  },
+  "actor_resetChat": {
+    "message": "为此聊天重置"
+  },
+  "actor_saveAsCharacterDefault": {
+    "message": "保存为 {{name}} 的默认值"
+  },
+  "actor_applyCharacterDefault": {
+    "message": "应用 {{name}} 的默认值"
+  },
+  "actor_notesGmOnly": {
+    "message": "仅 GM：不要将备注发送给模型"
+  },
+  "actor_templateModeLabel": {
+    "message": "场景模板交互"
+  },
+  "actor_templateModeHelp": {
+    "message": "控制 Actor 与活动场景模板的交互方式。合并会保留两者；覆盖允许 Actor 替换重叠字段；忽略会在模板激活时跳过 Actor。"
+  },
+  "actor_templateMode.merge": {
+    "message": "与模板合并"
+  },
+  "actor_templateMode.override": {
+    "message": "覆盖模板"
+  },
+  "actor_templateMode.ignore": {
+    "message": "模板激活时忽略"
+  },
+  "actor_bladeAspectsTitle": {
+    "message": "要素"
+  },
+  "actor_bladeNotesTitle": {
+    "message": "场景备注"
+  },
+  "actor_bladePlacementTitle": {
+    "message": "位置与模板"
+  },
+  "actor_bladeTokensTitle": {
+    "message": "令牌与预览"
+  },
+  "actor_summaryAspectsEmpty": {
+    "message": "尚未配置要素。"
+  },
+  "actor_summaryAspectsCount": {
+    "message": "已配置 {{count}} 个要素。"
+  },
+  "actor_summaryNotesEmpty": {
+    "message": "尚无场景备注。"
+  },
+  "actor_summaryNotes": {
+    "message": "{{chars}} 个字符{{gmSuffix}}。"
+  },
+  "actor_summaryNotesGmOnly": {
+    "message": " · 仅 GM"
+  },
+  "actor_summaryPlacementBefore": {
+    "message": "在主提示/故事之前。"
+  },
+  "actor_summaryPlacementAfter": {
+    "message": "在主提示/故事之后。"
+  },
+  "actor_summaryPlacementDepth": {
+    "message": "深度 {{depth}} · 角色：{{role}}。"
+  },
+  "actor_summaryTokensEmpty": {
+    "message": "尚未定义令牌；请设置要素值。"
+  },
+  "actor_summaryTokensCount": {
+    "message": "{{tokens}} 个令牌 · 提示中约 {{estimate}} 个令牌。"
+  },
+  "actor_sceneTemplateActive": {
+    "message": "场景模板已激活：Actor 遵循模板交互设置。"
   }
 }

@@ -1169,10 +1169,10 @@
     "description": "Button label to retry opening Content Review."
   },
   "quickIngest_title": {
-    "message": "Quick Ingest Media"
+    "message": "Швидкий імпорт медіа"
   },
   "quickIngest_subtitle": {
-    "message": "Enter one or more URLs. Force type per row if needed."
+    "message": "Введіть один або кілька URL. За потреби задайте тип для кожного рядка."
   },
   "quickIngest_offlineTitle": {
     "message": "Сервер офлайн — лише тестове середовище"
@@ -1181,10 +1181,10 @@
     "message": "Ви можете додавати URL і файли в чергу та переглядати поля, але обробка не відбудеться, поки ваш сервер tldw не в мережі. Підключіться знову, щоб обробити очікувані елементи."
   },
   "quickIngest_sourceHeading": {
-    "message": "Source URLs or files"
+    "message": "Джерельні URL або файли"
   },
   "quickIngest_storeRemote": {
-    "message": "Store to remote DB"
+    "message": "Зберегти у віддаленій БД"
   },
   "quickIngest_storeRemoteAria": {
     "message": "Зберігати результати інжесту на вашому сервері tldw"
@@ -1283,61 +1283,61 @@
     "message": "https://github.com/rmusser01/tldw_browser_assistant"
   },
   "quickIngest_bulkPlaceholder": {
-    "message": "Paste URLs (one per line)"
+    "message": "Вставте URL (по одному в рядку)"
   },
   "quickIngest_or": {
-    "message": "or"
+    "message": "або"
   },
   "quickIngest_remove": {
-    "message": "Remove"
+    "message": "Видалити"
   },
   "quickIngest_add": {
-    "message": "Add URL"
+    "message": "Додати URL"
   },
   "quickIngest_commonOptions": {
-    "message": "Ingestion options"
+    "message": "Параметри імпорту"
   },
   "quickIngest_audioOptions": {
-    "message": "Audio options"
+    "message": "Параметри аудіо"
   },
   "quickIngest_audioLanguage": {
-    "message": "Language (e.g., en)"
+    "message": "Мова (наприклад, en)"
   },
   "quickIngest_audioDiarizationHelp": {
-    "message": "Turn on to separate speakers in transcripts."
+    "message": "Увімкніть, щоб розділяти мовців у транскриптах."
   },
   "quickIngest_documentOptions": {
-    "message": "Document options"
+    "message": "Параметри документів"
   },
   "quickIngest_videoOptions": {
-    "message": "Video options"
+    "message": "Параметри відео"
   },
   "quickIngest_captionsHelp": {
-    "message": "Include timestamps/captions when available."
+    "message": "Додавати часові мітки/субтитри, якщо доступні."
   },
   "quickIngest_cancel": {
-    "message": "Cancel"
+    "message": "Скасувати"
   },
   "quickIngest_ingest": {
-    "message": "Ingest"
+    "message": "Імпортувати"
   },
   "quickIngest_process": {
-    "message": "Process"
+    "message": "Обробити"
   },
   "quickIngest_results": {
-    "message": "Results"
+    "message": "Результати"
   },
   "quickIngest_downloadJson": {
-    "message": "Download JSON"
+    "message": "Завантажити JSON"
   },
   "quickIngest_advancedSummary": {
-    "message": "{{count}} advanced fields loaded"
+    "message": "Завантажено {{count}} розширених полів"
   },
   "quickIngest_advancedEmpty": {
-    "message": "No advanced options detected — try reloading the spec."
+    "message": "Розширені параметри не знайдено — спробуйте перезавантажити специфікацію."
   },
   "quickIngest_modifiedCount": {
-    "message": "{{count}} modified"
+    "message": "Змінено: {{count}}"
   },
   "quickIngest_progress": {
     "message": "Оброблено {{done}} з {{total}} елементів…"
@@ -1737,64 +1737,64 @@
     "message": "{{success}} видалено · {{failed}} не вдалося"
   },
   "mediaPage_searchPlaceholder": {
-    "message": "Search media (title/content)"
+    "message": "Пошук медіа (заголовок/вміст)"
   },
   "mediaPage_search": {
-    "message": "Search"
+    "message": "Пошук"
   },
   "mediaPage_clear": {
-    "message": "Clear"
+    "message": "Очистити"
   },
   "mediaPage_types": {
-    "message": "Types"
+    "message": "Типи"
   },
   "mediaPage_keywords": {
-    "message": "Keywords"
+    "message": "Ключові слова"
   },
   "mediaPage_moreTags": {
-    "message": "+{{count}} more tags"
+    "message": "+{{count}} додаткових тегів"
   },
   "mediaPage_resetFilters": {
-    "message": "Reset Filters"
+    "message": "Скинути фільтри"
   },
   "mediaPage_clearAll": {
     "message": "Очистити все"
   },
   "mediaPage_content": {
-    "message": "Content"
+    "message": "Вміст"
   },
   "mediaPage_vertical": {
-    "message": "Vertical"
+    "message": "Вертикально"
   },
   "mediaPage_horizontal": {
-    "message": "Horizontal"
+    "message": "Горизонтально"
   },
   "mediaPage_results": {
-    "message": "Results"
+    "message": "Результати"
   },
   "mediaPage_noResults": {
-    "message": "No results"
+    "message": "Немає результатів"
   },
   "mediaPage_showSidebar": {
-    "message": "Show sidebar"
+    "message": "Показати бічну панель"
   },
   "mediaPage_hideSidebar": {
-    "message": "Hide sidebar"
+    "message": "Приховати бічну панель"
   },
   "mediaPage_viewer": {
-    "message": "Viewer"
+    "message": "Переглядач"
   },
   "mediaPage_selectItemsHint": {
-    "message": "Select items on the left to view here."
+    "message": "Виберіть елементи ліворуч, щоб переглянути їх тут."
   },
   "mediaPage_mediaContent": {
-    "message": "Media Content"
+    "message": "Вміст медіа"
   },
   "mediaPage_copyContent": {
-    "message": "Copy content"
+    "message": "Копіювати вміст"
   },
   "mediaPage_contentCopied": {
-    "message": "Content copied"
+    "message": "Вміст скопійовано"
   },
   "mediaPage_metadataCopied": {
     "message": "Метадані скопійовано"
@@ -1803,40 +1803,40 @@
     "message": "Аналіз скопійовано"
   },
   "mediaPage_copyFailed": {
-    "message": "Copy failed"
+    "message": "Не вдалося скопіювати"
   },
   "mediaPage_noContent": {
-    "message": "No content available"
+    "message": "Немає доступного вмісту"
   },
   "mediaPage_collapse": {
-    "message": "Collapse"
+    "message": "Згорнути"
   },
   "mediaPage_expand": {
-    "message": "Expand"
+    "message": "Розгорнути"
   },
   "mediaPage_media": {
-    "message": "Media"
+    "message": "Медіа"
   },
   "mediaPage_searchingBanner": {
-    "message": "Searching media…"
+    "message": "Пошук медіа…"
   },
   "mediaPage_filterHelp": {
-    "message": "Search matches title and content; Types and Keywords further narrow the results."
+    "message": "Пошук збігається із заголовком і вмістом; типи та ключові слова додатково звужують результати."
   },
   "mediaPage_noMediaTypes": {
     "message": "Немає доступних типів медіа"
   },
   "mediaPage_resultsCount": {
-    "message": "{{selected}} selected · {{open}} open"
+    "message": "{{selected}} вибрано · {{open}} відкрито"
   },
   "mediaPage_clearSelection": {
-    "message": "Deselect all"
+    "message": "Зняти вибір"
   },
   "mediaPage_itemsLabel": {
-    "message": "Items"
+    "message": "Елементи"
   },
   "mediaPage_contentLabel": {
-    "message": "Content view"
+    "message": "Перегляд вмісту"
   },
   "mediaPage_filterByKeyword": {
     "message": "Фільтрувати за ключовим словом"
@@ -1905,7 +1905,7 @@
     "message": "Метадані"
   },
   "mediaPage_idLabel": {
-    "message": "ID"
+    "message": "Ідентифікатор"
   },
   "mediaPage_typeLabel": {
     "message": "Тип"
@@ -3097,5 +3097,125 @@
   },
   "quiz_retake": {
     "message": "Повторити вікторину"
+  },
+  "flashcards_bulkLimitWarning": {
+    "message": "Операцію обмежено першими {{limit}} елементами."
+  },
+  "mediaPage_spreadMode": {
+    "message": "Порівняння"
+  },
+  "mediaPage_listMode": {
+    "message": "Фокус"
+  },
+  "mediaPage_allMode": {
+    "message": "Стек"
+  },
+  "mediaPage_spreadModeTooltip": {
+    "message": "Перегляд вибраних елементів поруч для порівняння"
+  },
+  "mediaPage_listModeTooltip": {
+    "message": "Перегляд по одному елементу з навігацією"
+  },
+  "mediaPage_allModeTooltip": {
+    "message": "Перегляд усіх вибраних елементів у прокручуваному списку"
+  },
+  "mediaPage_copyContentLabel": {
+    "message": "Копіювати вміст"
+  },
+  "mediaPage_copyAnalysisLabel": {
+    "message": "Копіювати аналіз"
+  },
+  "mediaPage_copyContentTooltip": {
+    "message": "Копіювати вміст у буфер обміну"
+  },
+  "mediaPage_copyAnalysisTooltip": {
+    "message": "Копіювати аналіз у буфер обміну"
+  },
+  "mediaPage_prevItemTooltip": {
+    "message": "Попередній елемент (←)"
+  },
+  "mediaPage_nextItemTooltip": {
+    "message": "Наступний елемент (→)"
+  },
+  "mediaPage_viewerOptions": {
+    "message": "Параметри"
+  },
+  "mediaPage_expandAllDropdown": {
+    "message": "Розгорнути/Згорнути"
+  },
+  "mediaPage_itemPosition": {
+    "message": "Елемент {{current}} з {{total}}"
+  },
+  "mediaPage_noItemSelected": {
+    "message": "Елемент не вибрано"
+  },
+  "mediaPage_firstUseTitle": {
+    "message": "Швидкий гайд: Перегляд кількох елементів"
+  },
+  "mediaPage_firstUseStep1": {
+    "message": "Виберіть елементи"
+  },
+  "mediaPage_firstUseStep1Desc": {
+    "message": "Клацніть елементи в лівій панелі, щоб додати їх до перегляду."
+  },
+  "mediaPage_firstUseStep2": {
+    "message": "Виберіть вигляд"
+  },
+  "mediaPage_firstUseStep2DescUpdated": {
+    "message": "Використовуйте \"Порівняння\" для поруч, \"Фокус\" для по одному або \"Стек\", щоб бачити всі."
+  },
+  "mediaPage_firstUseStep3": {
+    "message": "Навігація"
+  },
+  "mediaPage_firstUseStep3Desc": {
+    "message": "Використовуйте кнопки Попередній/Наступний або клавіатуру (Tab + Enter), щоб переходити між елементами."
+  },
+  "mediaPage_gotIt": {
+    "message": "Зрозуміло"
+  },
+  "mediaPage_model": {
+    "message": "Модель"
+  },
+  "mediaPage_selectModel": {
+    "message": "Виберіть модель"
+  },
+  "mediaPage_noModelsAvailable": {
+    "message": "Немає доступних моделей"
+  },
+  "mediaPage_promptPresets": {
+    "message": "Пресети промптів"
+  },
+  "mediaPage_showPresets": {
+    "message": "Показати пресети"
+  },
+  "mediaPage_hidePresets": {
+    "message": "Приховати пресети"
+  },
+  "mediaPage_systemPromptLabel": {
+    "message": "Системний промпт"
+  },
+  "mediaPage_systemPromptPlaceholder": {
+    "message": "Введіть системний промпт..."
+  },
+  "mediaPage_userPromptPrefixLabel": {
+    "message": "Префікс користувацького промпта"
+  },
+  "mediaPage_prependedBeforeContent": {
+    "message": "(додається перед вмістом)"
+  },
+  "mediaPage_userPrefixPlaceholder": {
+    "message": "Необов'язково: введіть текст, який буде додано перед вмістом медіа..."
+  },
+  "mediaPage_presetComprehensiveAnalysis": {
+    "message": "Комплексний аналіз"
+  },
+  "mediaPage_presetExecutiveSummary": {
+    "message": "Резюме для керівництва"
+  },
+  "mediaPage_presetCriticalReview": {
+    "message": "Критичний огляд"
+  },
+  "mediaPage_presetQAAnalysis": {
+    "message": "Аналіз запитань і відповідей"
   }
 }

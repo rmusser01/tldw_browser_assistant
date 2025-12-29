@@ -832,5 +832,254 @@
   },
   "speech_transcriptRecordingHint": {
     "message": "녹음 중이므로 전사가 잠겨 있습니다."
+  },
+  "actor_title": {
+    "message": "장면 디렉터(Actor)"
+  },
+  "actor_help": {
+    "message": "채팅별 장면 컨텍스트를 설정하세요: 역할, 분위기, 세계, 목표, 메모."
+  },
+  "actor_addLabel": {
+    "message": "장면에 집중할 수 있도록 요소를 추가하거나 제거하세요."
+  },
+  "actor_user": {
+    "message": "사용자"
+  },
+  "actor_char": {
+    "message": "캐릭터"
+  },
+  "actor_world": {
+    "message": "세계"
+  },
+  "actor_newAspectPlaceholder": {
+    "message": "요소 이름(예: 분위기, 역할, 위치)"
+  },
+  "actor_addButton": {
+    "message": "요소 추가"
+  },
+  "actor_aspectPlaceholder": {
+    "message": "간단히 설명(선택 사항)"
+  },
+  "actor_notes": {
+    "message": "장면 메모"
+  },
+  "actor_notesHelp": {
+    "message": "모델에 전송되는 선택적 메모. Markdown과 LaTeX 지원."
+  },
+  "actor_position": {
+    "message": "Actor 프롬프트 위치"
+  },
+  "actor_before": {
+    "message": "메인 프롬프트/스토리 앞"
+  },
+  "actor_after": {
+    "message": "메인 프롬프트/스토리 뒤"
+  },
+  "actor_depth": {
+    "message": "채팅 내 깊이"
+  },
+  "actor_depthLabel": {
+    "message": "깊이(비시스템 메시지)"
+  },
+  "actor_depthPlaceholder": {
+    "message": "0 = 채팅 상단"
+  },
+  "actor_depthHelp": {
+    "message": "위치가 \"채팅 내 깊이\"일 때만 사용합니다. 채팅 상단부터 비시스템 메시지를 셉니다."
+  },
+  "actor_roleLabel": {
+    "message": "Actor 메시지 역할"
+  },
+  "actor_roleSystem": {
+    "message": "시스템"
+  },
+  "actor_roleUser": {
+    "message": "사용자"
+  },
+  "actor_roleAssistant": {
+    "message": "어시스턴트"
+  },
+  "actor_positionHelp": {
+    "message": "깊이는 위치가 \"채팅 내 깊이\"일 때만 사용합니다. 역할은 Actor가 시스템/사용자/어시스턴트로 표시되는지를 제어합니다."
+  },
+  "actor_preview": {
+    "message": "Actor 프롬프트 미리보기"
+  },
+  "actor_tokens": {
+    "message": "토큰: {{count}}"
+  },
+  "actor_previewEmpty": {
+    "message": "아직 보낼 내용이 없습니다."
+  },
+  "actor_offlineHintTitle": {
+    "message": "Actor에 World Books를 사용할 수 없음"
+  },
+  "actor_offlineHintBody": {
+    "message": "설정에서 tldw 서버에 연결해 Actor 요소에 World Books를 사용하거나, 자유 입력 값을 계속 사용하세요."
+  },
+  "actor_loreWorldBookMissing": {
+    "message": "이전 World Book 바인딩을 찾을 수 없어 자유 입력을 사용합니다."
+  },
+  "actor_loreEntryMissing": {
+    "message": "이전 World Book 항목을 찾을 수 없어 자유 입력을 사용합니다."
+  },
+  "actor_sourceFree": {
+    "message": "자유 입력"
+  },
+  "actor_sourceLore": {
+    "message": "World Book"
+  },
+  "actor_worldBookPlaceholder": {
+    "message": "World Book"
+  },
+  "actor_entryPlaceholder": {
+    "message": "항목"
+  },
+  "actor_loreValuePlaceholder": {
+    "message": "옵션 선택(선택 사항)"
+  },
+  "actor_tokenLabel": {
+    "message": "토큰"
+  },
+  "actor_tokensTitle": {
+    "message": "Actor 사전 토큰"
+  },
+  "actor_tokensHelp": {
+    "message": "이 토큰을 프롬프트와 시스템 메시지에 사용하세요."
+  },
+  "actor_keyChangeTitle": {
+    "message": "Actor 토큰 키를 변경할까요?"
+  },
+  "actor_keyChangeBody": {
+    "message": "토큰이 {{old}}에서 {{next}}로 변경됩니다. 기존 토큰을 사용하는 프롬프트는 자동으로 업데이트되지 않습니다."
+  },
+  "actor_keyCollisionTitle": {
+    "message": "Actor 키가 이미 사용 중입니다"
+  },
+  "actor_keyCollisionBody": {
+    "message": "다른 요소가 이 키를 이미 사용 중입니다. 키는 채팅별로 고유해야 합니다."
+  },
+  "actor_copy": {
+    "message": "복사"
+  },
+  "actor_copied": {
+    "message": "복사됨"
+  },
+  "actor_copySuccess": {
+    "message": "토큰이 클립보드에 복사되었습니다"
+  },
+  "actor_copyError": {
+    "message": "토큰 복사에 실패했습니다"
+  },
+  "actor_notesPreviewTitle": {
+    "message": "장면 메모 미리보기"
+  },
+  "actor_notesPreviewToggle": {
+    "message": "Markdown + LaTeX 미리보기 표시"
+  },
+  "actor_aspectLimitWarningTitle": {
+    "message": "이 채팅에 많은 요소가 설정됨"
+  },
+  "actor_aspectLimitWarningBody": {
+    "message": "{{count}}개의 요소가 있습니다(소프트 한도 {{limit}}). 장면에 집중하고 토큰을 절약하려면 줄이는 것을 고려하세요."
+  },
+  "actor_tokenWarning": {
+    "message": "Actor 프롬프트가 깁니다({{count}} 토큰; 소프트 한도 {{limit}}). 컨텍스트를 절약하려면 요소나 메모를 줄이세요."
+  },
+  "actor_depthRangeHelp": {
+    "message": "깊이는 0~999 사이여야 하며, 기록 길이를 넘는 값은 제한됩니다."
+  },
+  "actor_presetLabel": {
+    "message": "프리셋"
+  },
+  "actor_presetPlaceholder": {
+    "message": "프리셋 선택"
+  },
+  "actor_preset.sliceOfLife": {
+    "message": "일상"
+  },
+  "actor_preset.dungeonCrawl": {
+    "message": "던전 크롤"
+  },
+  "actor_preset.romance": {
+    "message": "로맨스"
+  },
+  "actor_preset.workSession": {
+    "message": "업무 세션"
+  },
+  "actor_applyPreset": {
+    "message": "적용"
+  },
+  "actor_resetChat": {
+    "message": "이 채팅 초기화"
+  },
+  "actor_saveAsCharacterDefault": {
+    "message": "{{name}}의 기본값으로 저장"
+  },
+  "actor_applyCharacterDefault": {
+    "message": "{{name}}의 기본값 적용"
+  },
+  "actor_notesGmOnly": {
+    "message": "GM 전용: 메모를 모델에 보내지 않음"
+  },
+  "actor_templateModeLabel": {
+    "message": "장면 템플릿 상호작용"
+  },
+  "actor_templateModeHelp": {
+    "message": "Actor가 활성 장면 템플릿과 상호작용하는 방식을 제어합니다. 병합은 둘 다 유지, 덮어쓰기는 Actor가 겹치는 필드를 대체, 무시는 템플릿이 활성일 때 Actor를 건너뜁니다."
+  },
+  "actor_templateMode.merge": {
+    "message": "템플릿과 병합"
+  },
+  "actor_templateMode.override": {
+    "message": "템플릿 덮어쓰기"
+  },
+  "actor_templateMode.ignore": {
+    "message": "템플릿이 활성일 때 무시"
+  },
+  "actor_bladeAspectsTitle": {
+    "message": "요소"
+  },
+  "actor_bladeNotesTitle": {
+    "message": "장면 메모"
+  },
+  "actor_bladePlacementTitle": {
+    "message": "배치 및 템플릿"
+  },
+  "actor_bladeTokensTitle": {
+    "message": "토큰 및 미리보기"
+  },
+  "actor_summaryAspectsEmpty": {
+    "message": "아직 설정된 요소가 없습니다."
+  },
+  "actor_summaryAspectsCount": {
+    "message": "{{count}}개의 요소가 설정되었습니다."
+  },
+  "actor_summaryNotesEmpty": {
+    "message": "아직 장면 메모가 없습니다."
+  },
+  "actor_summaryNotes": {
+    "message": "{{chars}}자{{gmSuffix}}."
+  },
+  "actor_summaryNotesGmOnly": {
+    "message": " · GM 전용"
+  },
+  "actor_summaryPlacementBefore": {
+    "message": "메인 프롬프트/스토리 앞."
+  },
+  "actor_summaryPlacementAfter": {
+    "message": "메인 프롬프트/스토리 뒤."
+  },
+  "actor_summaryPlacementDepth": {
+    "message": "깊이 {{depth}} · 역할: {{role}}."
+  },
+  "actor_summaryTokensEmpty": {
+    "message": "아직 정의된 토큰이 없습니다; 요소 값을 설정하세요."
+  },
+  "actor_summaryTokensCount": {
+    "message": "{{tokens}} 토큰 · 프롬프트에 ~{{estimate}} 토큰."
+  },
+  "actor_sceneTemplateActive": {
+    "message": "장면 템플릿 활성: Actor가 템플릿 상호작용 설정을 존중합니다."
   }
 }

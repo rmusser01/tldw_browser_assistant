@@ -1,0 +1,1235 @@
+{
+  "searchPrompts": {
+    "message": "搜尋提示詞…"
+  },
+  "noMatchingPrompts": {
+    "message": "沒有符合的提示詞"
+  },
+  "promptSelect_favorites": {
+    "message": "收藏"
+  },
+  "promptSelect_system": {
+    "message": "系統提示詞"
+  },
+  "promptSelect_quick": {
+    "message": "快速提示詞"
+  },
+  "flashcards_bulkLimitWarning": {
+    "message": "此操作僅套用於前 {{limit}} 個項目。"
+  },
+  "tabs_newChat": {
+    "message": "新的對話"
+  },
+  "tabs_newTabAria": {
+    "message": "開啟新的對話分頁"
+  },
+  "tabs_closeTabAria": {
+    "message": "關閉對話分頁"
+  },
+  "mediaPage_searchPlaceholder": {
+    "message": "搜尋媒體（標題/內容）"
+  },
+  "mediaPage_search": {
+    "message": "搜尋"
+  },
+  "mediaPage_clear": {
+    "message": "清除"
+  },
+  "mediaPage_types": {
+    "message": "類型"
+  },
+  "mediaPage_keywords": {
+    "message": "關鍵字"
+  },
+  "mediaPage_moreTags": {
+    "message": "+{{count}} 個其他標籤"
+  },
+  "mediaPage_resetFilters": {
+    "message": "重設篩選"
+  },
+  "mediaPage_clearAll": {
+    "message": "清除全部"
+  },
+  "mediaPage_content": {
+    "message": "內容"
+  },
+  "mediaPage_vertical": {
+    "message": "垂直"
+  },
+  "mediaPage_horizontal": {
+    "message": "水平"
+  },
+  "mediaPage_results": {
+    "message": "結果"
+  },
+  "mediaPage_noResults": {
+    "message": "無結果"
+  },
+  "mediaPage_showSidebar": {
+    "message": "顯示側邊欄"
+  },
+  "mediaPage_hideSidebar": {
+    "message": "隱藏側邊欄"
+  },
+  "mediaPage_viewer": {
+    "message": "檢視器"
+  },
+  "mediaPage_selectItemsHint": {
+    "message": "在左側選取項目以在此查看。"
+  },
+  "mediaPage_mediaContent": {
+    "message": "媒體內容"
+  },
+  "mediaPage_copyContent": {
+    "message": "複製內容"
+  },
+  "mediaPage_contentCopied": {
+    "message": "內容已複製"
+  },
+  "mediaPage_metadataCopied": {
+    "message": "中繼資料已複製"
+  },
+  "mediaPage_analysisCopied": {
+    "message": "分析已複製"
+  },
+  "mediaPage_copyFailed": {
+    "message": "複製失敗"
+  },
+  "mediaPage_noContent": {
+    "message": "沒有可用內容"
+  },
+  "mediaPage_collapse": {
+    "message": "收合"
+  },
+  "mediaPage_expand": {
+    "message": "展開"
+  },
+  "mediaPage_media": {
+    "message": "媒體"
+  },
+  "mediaPage_searchingBanner": {
+    "message": "正在搜尋媒體…"
+  },
+  "mediaPage_filterHelp": {
+    "message": "搜尋會比對標題與內容；類型與關鍵字會進一步縮小結果。"
+  },
+  "mediaPage_noMediaTypes": {
+    "message": "沒有可用的媒體類型"
+  },
+  "mediaPage_resultsCount": {
+    "message": "{{selected}} 已選取 · {{open}} 已開啟"
+  },
+  "mediaPage_clearSelection": {
+    "message": "取消全選"
+  },
+  "mediaPage_itemsLabel": {
+    "message": "項目"
+  },
+  "mediaPage_contentLabel": {
+    "message": "內容檢視"
+  },
+  "mediaPage_filterByKeyword": {
+    "message": "按關鍵字篩選"
+  },
+  "mediaPage_keywordHelper": {
+    "message": "關鍵字可幫助你使用左側的關鍵字篩選器找到此媒體"
+  },
+  "mediaPage_modeHint": {
+    "message": "搜尋並堆疊多個媒體項目，在右側檢視器中進行比較。"
+  },
+  "mediaPage_viewerHelp": {
+    "message": "鍵盤：按 Tab 進入結果清單，使用 Enter 或空白鍵將媒體項目加入或移出堆疊，然後利用上一個/下一個與版面配置控制在檢視器中的各項之間移動。"
+  },
+  "mediaPage_viewerHelpLabel": {
+    "message": "多項檢視的鍵盤快速鍵"
+  },
+  "mediaPage_mediaInspector": {
+    "message": "媒體檢查器"
+  },
+  "mediaPage_actionsLabel": {
+    "message": "操作"
+  },
+  "mediaPage_keywordsPlaceholder": {
+    "message": "新增關鍵字..."
+  },
+  "mediaPage_noSelectionTitle": {
+    "message": "尚未選取任何媒體項目"
+  },
+  "mediaPage_noSelectionDescription": {
+    "message": "請從左側側邊欄選取一個媒體項目，在此查看其內容與分析。"
+  },
+  "mediaPage_generateAnalysis": {
+    "message": "產生分析"
+  },
+  "mediaPage_generateAnalysisHint": {
+    "message": "產生新的分析"
+  },
+  "mediaPage_editAnalysis": {
+    "message": "編輯分析"
+  },
+  "mediaPage_createNoteWithContent": {
+    "message": "使用內容建立筆記"
+  },
+  "mediaPage_createNoteWithContentAnalysis": {
+    "message": "使用內容 + 分析建立筆記"
+  },
+  "mediaPage_untitled": {
+    "message": "未命名"
+  },
+  "mediaPage_copyMetadata": {
+    "message": "複製中繼資料"
+  },
+  "mediaPage_statistics": {
+    "message": "統計"
+  },
+  "mediaPage_words": {
+    "message": "字詞數"
+  },
+  "mediaPage_characters": {
+    "message": "字元數"
+  },
+  "mediaPage_paragraphs": {
+    "message": "段落數"
+  },
+  "mediaPage_metadata": {
+    "message": "中繼資料"
+  },
+  "mediaPage_idLabel": {
+    "message": "識別碼"
+  },
+  "mediaPage_typeLabel": {
+    "message": "類型"
+  },
+  "mediaPage_titleLabel": {
+    "message": "標題"
+  },
+  "mediaPage_source": {
+    "message": "來源"
+  },
+  "mediaPage_notAvailable": {
+    "message": "無"
+  },
+  "mediaPage_developerTools": {
+    "message": "開發人員工具"
+  },
+  "mediaPage_nothingToSend": {
+    "message": "沒有可傳送的內容"
+  },
+  "mediaPage_emptyAnalysis": {
+    "message": "分析內容不能為空"
+  },
+  "mediaPage_noMediaId": {
+    "message": "沒有可用的媒體 ID"
+  },
+  "mediaPage_versionSaved": {
+    "message": "已儲存為新版本"
+  },
+  "mediaPage_saveFailed": {
+    "message": "儲存版本失敗"
+  },
+  "mediaPage_sendToChat": {
+    "message": "傳送到聊天"
+  },
+  "mediaPage_saveAsVersion": {
+    "message": "儲存為新版本"
+  },
+  "mediaPage_analysisPlaceholder": {
+    "message": "請輸入分析文字..."
+  },
+  "mediaPage_wordCount": {
+    "message": "{{count}} 個單詞"
+  },
+  "mediaPage_charCount": {
+    "message": "{{count}} 個字元"
+  },
+  "mediaPage_pageRangeError": {
+    "message": "頁碼必須為 1-{{max}}"
+  },
+  "mediaPage_pageRangeClamped": {
+    "message": "正在導航至第 {{page}} 頁"
+  },
+  "mediaPage_saveUnauthorized": {
+    "message": "沒有權限儲存"
+  },
+  "mediaPage_spreadMode": {
+    "message": "比較"
+  },
+  "mediaPage_listMode": {
+    "message": "聚焦"
+  },
+  "mediaPage_allMode": {
+    "message": "堆疊"
+  },
+  "mediaPage_spreadModeTooltip": {
+    "message": "並排顯示所選項目以便比較"
+  },
+  "mediaPage_listModeTooltip": {
+    "message": "一次顯示一個項目並可導覽"
+  },
+  "mediaPage_allModeTooltip": {
+    "message": "在可捲動清單中顯示所有所選項目"
+  },
+  "mediaPage_copyContentLabel": {
+    "message": "複製內容"
+  },
+  "mediaPage_copyAnalysisLabel": {
+    "message": "複製分析"
+  },
+  "mediaPage_copyContentTooltip": {
+    "message": "將內容複製到剪貼簿"
+  },
+  "mediaPage_copyAnalysisTooltip": {
+    "message": "將分析複製到剪貼簿"
+  },
+  "mediaPage_prevItemTooltip": {
+    "message": "上一個項目 (←)"
+  },
+  "mediaPage_nextItemTooltip": {
+    "message": "下一個項目 (→)"
+  },
+  "mediaPage_viewerOptions": {
+    "message": "選項"
+  },
+  "mediaPage_expandAllDropdown": {
+    "message": "展開/摺疊"
+  },
+  "mediaPage_itemPosition": {
+    "message": "項目 {{current}} / {{total}}"
+  },
+  "mediaPage_noItemSelected": {
+    "message": "未選取任何項目"
+  },
+  "mediaPage_firstUseTitle": {
+    "message": "快速指南：多項檢視"
+  },
+  "mediaPage_firstUseStep1": {
+    "message": "選取項目"
+  },
+  "mediaPage_firstUseStep1Desc": {
+    "message": "點擊左側面板中的項目以加入檢視器。"
+  },
+  "mediaPage_firstUseStep2": {
+    "message": "選擇檢視"
+  },
+  "mediaPage_firstUseStep2DescUpdated": {
+    "message": "使用「比較」進行並排，「聚焦」一次一個，或用「堆疊」查看全部。"
+  },
+  "mediaPage_firstUseStep3": {
+    "message": "導覽"
+  },
+  "mediaPage_firstUseStep3Desc": {
+    "message": "使用上一個/下一個按鈕或鍵盤 (Tab + Enter) 在項目間移動。"
+  },
+  "mediaPage_gotIt": {
+    "message": "知道了"
+  },
+  "mediaPage_model": {
+    "message": "模型"
+  },
+  "mediaPage_selectModel": {
+    "message": "選擇模型"
+  },
+  "mediaPage_noModelsAvailable": {
+    "message": "沒有可用模型"
+  },
+  "mediaPage_promptPresets": {
+    "message": "提示預設"
+  },
+  "mediaPage_showPresets": {
+    "message": "顯示預設"
+  },
+  "mediaPage_hidePresets": {
+    "message": "隱藏預設"
+  },
+  "mediaPage_systemPromptLabel": {
+    "message": "系統提示"
+  },
+  "mediaPage_systemPromptPlaceholder": {
+    "message": "輸入系統提示..."
+  },
+  "mediaPage_userPromptPrefixLabel": {
+    "message": "使用者提示前綴"
+  },
+  "mediaPage_prependedBeforeContent": {
+    "message": "（在內容前加入）"
+  },
+  "mediaPage_userPrefixPlaceholder": {
+    "message": "選填：輸入要加在媒體內容前的文字..."
+  },
+  "mediaPage_presetComprehensiveAnalysis": {
+    "message": "全面分析"
+  },
+  "mediaPage_presetExecutiveSummary": {
+    "message": "高階摘要"
+  },
+  "mediaPage_presetCriticalReview": {
+    "message": "批判性檢視"
+  },
+  "mediaPage_presetQAAnalysis": {
+    "message": "問答分析"
+  },
+  "manageCharacters_title": {
+    "message": "管理角色"
+  },
+  "manageCharacters_addBtn": {
+    "message": "新增角色"
+  },
+  "manageCharacters_columns_name": {
+    "message": "名稱"
+  },
+  "manageCharacters_columns_description": {
+    "message": "描述"
+  },
+  "manageCharacters_columns_actions": {
+    "message": "操作"
+  },
+  "manageCharacters_columns_avatar": {
+    "message": "頭像"
+  },
+  "manageCharacters_actions_chat": {
+    "message": "聊天"
+  },
+  "manageCharacters_actions_edit": {
+    "message": "編輯"
+  },
+  "manageCharacters_actions_delete": {
+    "message": "刪除"
+  },
+  "manageCharacters_actions_viewConversations": {
+    "message": "查看對話"
+  },
+  "manageCharacters_actions_duplicate": {
+    "message": "複製"
+  },
+  "manageCharacters_tags_label": {
+    "message": "標籤"
+  },
+  "manageCharacters_tags_placeholder": {
+    "message": "新增標籤"
+  },
+  "manageCharacters_tags_help": {
+    "message": "使用標籤依用途分類角色（例如「寫作」、「教學」）。"
+  },
+  "manageCharacters_tooltip_edit": {
+    "message": "編輯角色"
+  },
+  "manageCharacters_tooltip_delete": {
+    "message": "刪除角色"
+  },
+  "manageCharacters_aria_chatWith": {
+    "message": "以 {{name}} 身分聊天"
+  },
+  "manageCharacters_aria_edit": {
+    "message": "編輯角色 {{name}}"
+  },
+  "manageCharacters_aria_delete": {
+    "message": "刪除角色 {{name}}"
+  },
+  "manageCharacters_aria_viewConversations": {
+    "message": "查看 {{name}} 的對話"
+  },
+  "manageCharacters_aria_searchResults": {
+    "message": "找到 {{count}} 個角色"
+  },
+  "manageCharacters_aria_duplicate": {
+    "message": "複製角色 {{name}}"
+  },
+  "manageCharacters_confirm_delete": {
+    "message": "確定要刪除這個角色嗎？此動作無法復原。"
+  },
+  "manageCharacters_form_name_label": {
+    "message": "名稱"
+  },
+  "manageCharacters_form_name_placeholder": {
+    "message": "例如：寫作教練"
+  },
+  "manageCharacters_form_name_required": {
+    "message": "請輸入名稱"
+  },
+  "manageCharacters_form_description": {
+    "message": "定義可重複使用的角色，可在側邊欄與其聊天。"
+  },
+  "manageCharacters_form_systemPrompt_label": {
+    "message": "行為／指示"
+  },
+  "manageCharacters_form_systemPrompt_placeholder": {
+    "message": "例如：你是一位有耐心的數學老師，循序解說並用短例子確認理解。"
+  },
+  "manageCharacters_form_systemPrompt_help": {
+    "message": "說明角色的定位、語氣與限制。例如：「你是一位有耐心的數學家教，會一步步解釋概念。」"
+  },
+  "manageCharacters_form_systemPrompt_min": {
+    "message": "添加簡短描述，讓角色知道如何回應。"
+  },
+  "manageCharacters_form_systemPrompt_required": {
+    "message": "請新增指示以引導回應。"
+  },
+  "manageCharacters_form_systemPrompt_max": {
+    "message": "系統提示詞必須少於或等於 2000 個字元。"
+  },
+  "manageCharacters_form_avatarUrl_label": {
+    "message": "頭像網址（可選）"
+  },
+  "manageCharacters_form_avatarUrl_placeholder": {
+    "message": "例如 https://example.com/avatar.png"
+  },
+  "manageCharacters_form_greeting_label": {
+    "message": "歡迎訊息（可選）"
+  },
+  "manageCharacters_form_greeting_placeholder": {
+    "message": "嗨！我是你的寫作教練。貼上草稿，我會幫你潤飾。"
+  },
+  "manageCharacters_form_greeting_help": {
+    "message": "開始聊天時角色會傳送的第一則訊息（可選）。"
+  },
+  "manageCharacters_form_btnSave_saving": {
+    "message": "正在建立角色..."
+  },
+  "manageCharacters_form_btnSave_save": {
+    "message": "建立角色"
+  },
+  "manageCharacters_form_btnEdit_saving": {
+    "message": "正在儲存變更..."
+  },
+  "manageCharacters_form_btnEdit_save": {
+    "message": "儲存變更"
+  },
+  "manageCharacters_notification_addSuccess": {
+    "message": "角色已建立"
+  },
+  "manageCharacters_notification_error": {
+    "message": "錯誤"
+  },
+  "manageCharacters_notification_someError": {
+    "message": "發生錯誤，請稍後再試"
+  },
+  "manageCharacters_notification_updatedSuccess": {
+    "message": "角色已更新"
+  },
+  "manageCharacters_notification_deletedSuccess": {
+    "message": "角色已刪除"
+  },
+  "manageCharacters_loadError_title": {
+    "message": "無法載入角色"
+  },
+  "manageCharacters_loadError_description": {
+    "message": "請檢查連線後再試。"
+  },
+  "manageCharacters_emptyTitle": {
+    "message": "尚無角色"
+  },
+  "manageCharacters_emptyDescription": {
+    "message": "建立具備名稱、描述與系統提示的可重複使用角色，方便聊天。"
+  },
+  "manageCharacters_emptyExample1": {
+    "message": "定義可重複使用的寫作教練、背景專家或程式助理。"
+  },
+  "manageCharacters_emptyExample2": {
+    "message": "為每個角色提供清楚的描述與行為，使回應保持一致。"
+  },
+  "manageCharacters_emptyPrimaryCta": {
+    "message": "建立角色"
+  },
+  "manageCharacters_avatarAltWithName": {
+    "message": "{{name}} 的頭像"
+  },
+  "manageCharacters_avatarAlt": {
+    "message": "使用者頭像"
+  },
+  "manageCharacters_conversations_title": {
+    "message": "{{name}} 的對話"
+  },
+  "manageCharacters_conversations_titleGeneric": {
+    "message": "角色對話"
+  },
+  "manageCharacters_conversations_subtitle": {
+    "message": "選擇一個對話以此角色繼續。"
+  },
+  "manageCharacters_conversations_empty": {
+    "message": "尚無此角色的對話。"
+  },
+  "manageCharacters_conversations_error": {
+    "message": "無法載入此角色的對話。"
+  },
+  "manageCharacters_conversations_updated": {
+    "message": "已更新 {{time}}"
+  },
+  "manageCharacters_conversations_unknownTime": {
+    "message": "未知"
+  },
+  "manageCharacters_conversations_resume": {
+    "message": "繼續聊天"
+  },
+  "manageCharacters_conversations_untitled": {
+    "message": "未命名"
+  },
+  "manageCharacters_conversations_mostRecent": {
+    "message": "最近"
+  },
+  "manageCharacters_conversations_resumeTooltip": {
+    "message": "載入聊天紀錄並繼續此對話"
+  },
+  "manageCharacters_preview_title": {
+    "message": "預覽"
+  },
+  "manageCharacters_preview_show": {
+    "message": "顯示預覽"
+  },
+  "manageCharacters_preview_hide": {
+    "message": "隱藏預覽"
+  },
+  "manageCharacters_preview_untitled": {
+    "message": "未命名角色"
+  },
+  "manageCharacters_preview_greeting": {
+    "message": "問候語"
+  },
+  "manageCharacters_preview_behavior": {
+    "message": "行為"
+  },
+  "manageCharacters_preview_empty": {
+    "message": "填寫表單以查看預覽"
+  },
+  "manageCharacters_advanced_show": {
+    "message": "顯示進階欄位"
+  },
+  "manageCharacters_advanced_hide": {
+    "message": "隱藏進階欄位"
+  },
+  "manageCharacters_table_noDescription": {
+    "message": "無描述"
+  },
+  "manageCharacters_filter_matchAll": {
+    "message": "符合所有標籤"
+  },
+  "manageCharacters_avatar_label": {
+    "message": "頭像（選用）"
+  },
+  "manageCharacters_avatar_tabUrl": {
+    "message": "URL 位址"
+  },
+  "manageCharacters_avatar_tabUpload": {
+    "message": "上傳"
+  },
+  "manageCharacters_avatar_selectImageError": {
+    "message": "請選擇圖片檔案"
+  },
+  "manageCharacters_avatar_formatError": {
+    "message": "僅支援 PNG、JPEG 和 GIF 圖片"
+  },
+  "manageCharacters_avatar_invalidError": {
+    "message": "無效的圖片檔案"
+  },
+  "manageCharacters_avatar_processError": {
+    "message": "處理圖片失敗"
+  },
+  "manageCharacters_avatar_dropzone": {
+    "message": "點擊或拖曳圖片以進行上傳"
+  },
+  "manageCharacters_avatar_formats": {
+    "message": "PNG、JPEG 或 GIF"
+  },
+  "manageCharacters_avatar_preview": {
+    "message": "預覽"
+  },
+  "chunkingPlayground_nav": {
+    "message": "分塊實驗場"
+  },
+  "chunkingPlayground_title": {
+    "message": "分塊實驗場"
+  },
+  "chunkingPlayground_description": {
+    "message": "試用不同的分塊設定，看看文字如何被切分成較小的片段以便處理。"
+  },
+  "chunkingPlayground_inputLabel": {
+    "message": "要分塊的文字"
+  },
+  "chunkingPlayground_inputPlaceholder": {
+    "message": "在此貼上文字或選擇範例..."
+  },
+  "chunkingPlayground_uploadButton": {
+    "message": "上傳檔案"
+  },
+  "chunkingPlayground_chunkButton": {
+    "message": "分塊文字"
+  },
+  "chunkingPlayground_methodLabel": {
+    "message": "分塊方式"
+  },
+  "chunkingPlayground_maxSizeLabel": {
+    "message": "最大分塊大小"
+  },
+  "chunkingPlayground_overlapLabel": {
+    "message": "重疊量"
+  },
+  "chunkingPlayground_languageLabel": {
+    "message": "語言"
+  },
+  "chunkingPlayground_languages_auto": {
+    "message": "自動偵測"
+  },
+  "chunkingPlayground_languages_en": {
+    "message": "英文"
+  },
+  "chunkingPlayground_languages_es": {
+    "message": "西班牙文"
+  },
+  "chunkingPlayground_languages_fr": {
+    "message": "法文"
+  },
+  "chunkingPlayground_languages_de": {
+    "message": "德文"
+  },
+  "chunkingPlayground_languages_it": {
+    "message": "義大利文"
+  },
+  "chunkingPlayground_languages_pt": {
+    "message": "葡萄牙文"
+  },
+  "chunkingPlayground_languages_zh": {
+    "message": "中文"
+  },
+  "chunkingPlayground_languages_ja": {
+    "message": "日文"
+  },
+  "chunkingPlayground_languages_ko": {
+    "message": "韓文"
+  },
+  "chunkingPlayground_viewCards": {
+    "message": "卡片"
+  },
+  "chunkingPlayground_viewInline": {
+    "message": "行內"
+  },
+  "chunkingPlayground_stats": {
+    "message": "{{count}} 個分塊，平均 {{avgSize}} 字元"
+  },
+  "chunkingPlayground_textLoaded": {
+    "message": "文字已載入"
+  },
+  "chunkingPlayground_characters": {
+    "message": "字元"
+  },
+  "chunkingPlayground_tabSingle": {
+    "message": "單一"
+  },
+  "chunkingPlayground_tabCompare": {
+    "message": "比較"
+  },
+  "chunkingPlayground_chunkIndex": {
+    "message": "分塊 {{index}}"
+  },
+  "chunkingPlayground_chunkInfo": {
+    "message": "分塊 {{index}}：{{words}} 個詞"
+  },
+  "chunkingPlayground_position": {
+    "message": "位置：{{start}} - {{end}}"
+  },
+  "chunkingPlayground_additionalChunks": {
+    "message": "+{{count}} 個"
+  },
+  "chunkingPlayground_charCount": {
+    "message": "{{count}} 字元"
+  },
+  "chunkingPlayground_wordCount": {
+    "message": "{{count}} 個詞"
+  },
+  "chunkingPlayground_noInput": {
+    "message": "請提供要分塊的文字"
+  },
+  "chunkingPlayground_sharedInput": {
+    "message": "共用輸入文字"
+  },
+  "chunkingPlayground_compareButton": {
+    "message": "比較兩者"
+  },
+  "chunkingPlayground_comparison": {
+    "message": "比較"
+  },
+  "chunkingPlayground_fewerChunks": {
+    "message": "設定 A 產生的分塊少 {{diff}} 個"
+  },
+  "chunkingPlayground_moreChunks": {
+    "message": "設定 A 產生的分塊多 {{diff}} 個"
+  },
+  "chunkingPlayground_sameChunks": {
+    "message": "兩個設定產生的分塊數量相同"
+  },
+  "chunkingPlayground_clickToChunk": {
+    "message": "點擊「比較」以查看結果"
+  },
+  "chunkingPlayground_overlapRegion": {
+    "message": "重疊區域"
+  },
+  "chunkingPlayground_clickHint": {
+    "message": "點擊高亮的區段以聚焦該分塊"
+  },
+  "chunkingPlayground_noContentFound": {
+    "message": "此媒體項目找不到文字內容"
+  },
+  "chunkingPlayground_loadContentError": {
+    "message": "載入媒體內容失敗"
+  },
+  "chunkingPlayground_loadMediaListError": {
+    "message": "載入媒體資料庫失敗"
+  },
+  "chunkingPlayground_selectMedia": {
+    "message": "選擇媒體項目..."
+  },
+  "chunkingPlayground_loadingMedia": {
+    "message": "正在載入內容..."
+  },
+  "chunkingPlayground_noMediaFound": {
+    "message": "找不到媒體"
+  },
+  "chunkingPlayground_mediaCount": {
+    "message": "可用的媒體項目 {{count}} 個"
+  },
+  "chunkingPlayground_inputSource_paste": {
+    "message": "貼上文字"
+  },
+  "chunkingPlayground_inputSource_upload": {
+    "message": "上傳檔案"
+  },
+  "chunkingPlayground_inputSource_sample": {
+    "message": "範例文字"
+  },
+  "chunkingPlayground_inputSource_media": {
+    "message": "來自媒體資料庫"
+  },
+  "chunkingPlayground_samples_article": {
+    "message": "新聞文章"
+  },
+  "chunkingPlayground_samples_articleDesc": {
+    "message": "含標題的多段落文章"
+  },
+  "chunkingPlayground_samples_code": {
+    "message": "原始碼"
+  },
+  "chunkingPlayground_samples_codeDesc": {
+    "message": "包含類別與函式的 Python 程式碼"
+  },
+  "chunkingPlayground_samples_transcript": {
+    "message": "逐字稿"
+  },
+  "chunkingPlayground_samples_transcriptDesc": {
+    "message": "含時間戳的 Podcast 逐字稿"
+  },
+  "chunkingPlayground_samples_academic": {
+    "message": "學術論文"
+  },
+  "chunkingPlayground_samples_academicDesc": {
+    "message": "含引用的技術寫作"
+  },
+  "chunkingPlayground_compare_title": {
+    "message": "比較設定"
+  },
+  "chunkingPlayground_compare_configA": {
+    "message": "設定 A"
+  },
+  "chunkingPlayground_compare_configB": {
+    "message": "設定 B"
+  },
+  "chunkingPlayground_mode_single": {
+    "message": "單一"
+  },
+  "chunkingPlayground_mode_compare": {
+    "message": "比較"
+  },
+  "contentReview_title": {
+    "message": "內容審查",
+    "description": "Content review UI string."
+  },
+  "contentReview_readyToSubmit": {
+    "message": "{{count}} 個已就緒",
+    "description": "Content review UI string."
+  },
+  "contentReview_committedCount": {
+    "message": "{{count}} 個已提交",
+    "description": "Content review UI string."
+  },
+  "contentReview_totalCount": {
+    "message": "共 {{count}} 個",
+    "description": "Content review UI string."
+  },
+  "contentReview_commitAll": {
+    "message": "全部提交",
+    "description": "Content review UI string."
+  },
+  "contentReview_clearDrafts": {
+    "message": "清除草稿",
+    "description": "Content review UI string."
+  },
+  "contentReview_emptyDescription": {
+    "message": "目前尚無草稿。使用 Quick Ingest 並啟用「儲存前審查」即可建立草稿。",
+    "description": "Content review UI string."
+  },
+  "contentReview_openQuickIngest": {
+    "message": "開啟 Quick Ingest",
+    "description": "Content review UI string."
+  },
+  "contentReview_batchLabel": {
+    "message": "批次",
+    "description": "Content review UI string."
+  },
+  "contentReview_batchName": {
+    "message": "批次 {{index}}",
+    "description": "Content review UI string."
+  },
+  "contentReview_draftsLabel": {
+    "message": "草稿",
+    "description": "Content review UI string."
+  },
+  "contentReview_selectDraft": {
+    "message": "選取一個草稿開始審查。",
+    "description": "Content review UI string."
+  },
+  "contentReview_titlePlaceholder": {
+    "message": "草稿標題",
+    "description": "Content review UI string."
+  },
+  "contentReview_lastSaved": {
+    "message": "已於 {{time}} 儲存",
+    "description": "Content review UI string."
+  },
+  "contentReview_resetTitle": {
+    "message": "要重設草稿嗎？",
+    "description": "Content review UI string."
+  },
+  "contentReview_resetBody": {
+    "message": "這會還原此草稿的原始內容。",
+    "description": "Content review UI string."
+  },
+  "contentReview_resetConfirm": {
+    "message": "重設",
+    "description": "Content review UI string."
+  },
+  "contentReview_resetCancel": {
+    "message": "取消",
+    "description": "Content review UI string."
+  },
+  "contentReview_resetContent": {
+    "message": "重設",
+    "description": "Content review UI string."
+  },
+  "contentReview_diffView": {
+    "message": "差異檢視",
+    "description": "Content review UI string."
+  },
+  "contentReview_saveDraft": {
+    "message": "儲存草稿",
+    "description": "Content review UI string."
+  },
+  "contentReview_editorLabel": {
+    "message": "內容",
+    "description": "Content review UI string."
+  },
+  "contentReview_wordCount": {
+    "message": "{{words}} 個字",
+    "description": "Content review UI string."
+  },
+  "contentReview_charCount": {
+    "message": "{{chars}} 個字元",
+    "description": "Content review UI string."
+  },
+  "contentReview_aiFix": {
+    "message": "使用 AI 修正",
+    "description": "Content review UI string."
+  },
+  "contentReview_aiHint": {
+    "message": "會將草稿內容傳送至伺服器，由 AI 進行處理。",
+    "description": "Content review UI string."
+  },
+  "contentReview_modelPlaceholder": {
+    "message": "伺服器預設值",
+    "description": "Content review UI string."
+  },
+  "contentReview_aiConsentTitle": {
+    "message": "將草稿傳送到伺服器？",
+    "description": "Content review UI string."
+  },
+  "contentReview_aiConsentBody": {
+    "message": "這會將草稿內容傳送到你的 tldw 伺服器進行 AI 處理。在你提交之前，草稿都只會保留在本機。",
+    "description": "Content review UI string."
+  },
+  "contentReview_aiConsentConfirm": {
+    "message": "繼續",
+    "description": "Content review UI string."
+  },
+  "contentReview_aiConsentCancel": {
+    "message": "取消",
+    "description": "Content review UI string."
+  },
+  "contentReview_aiApplied": {
+    "message": "已套用 AI 修正。",
+    "description": "Content review UI string."
+  },
+  "contentReview_aiNoChange": {
+    "message": "沒有收到任何變更。",
+    "description": "Content review UI string."
+  },
+  "contentReview_aiEmpty": {
+    "message": "AI 未回傳任何內容。",
+    "description": "Content review UI string."
+  },
+  "contentReview_aiUnavailable": {
+    "message": "聊天補全功能目前無法使用。",
+    "description": "Content review UI string."
+  },
+  "contentReview_templatePlaceholder": {
+    "message": "選擇範本",
+    "description": "Content review UI string."
+  },
+  "contentReview_applyTemplate": {
+    "message": "套用範本",
+    "description": "Content review UI string."
+  },
+  "contentReview_templateApplied": {
+    "message": "已套用範本。",
+    "description": "Content review UI string."
+  },
+  "contentReview_templateMissing": {
+    "message": "請先選擇一個範本。",
+    "description": "Content review UI string."
+  },
+  "contentReview_detectSections": {
+    "message": "偵測段落",
+    "description": "Content review UI string."
+  },
+  "contentReview_detectSectionsTitle": {
+    "message": "要重新偵測段落嗎？",
+    "description": "Content review UI string."
+  },
+  "contentReview_detectSectionsBody": {
+    "message": "這會取代既有段落並重設你的選取項目。",
+    "description": "Content review UI string."
+  },
+  "contentReview_detectSectionsConfirm": {
+    "message": "重新偵測",
+    "description": "Content review UI string."
+  },
+  "contentReview_detectSectionsCancel": {
+    "message": "取消",
+    "description": "Content review UI string."
+  },
+  "contentReview_detectSectionsEmpty": {
+    "message": "沒有偵測到任何段落。",
+    "description": "Content review UI string."
+  },
+  "contentReview_sectionsLabel": {
+    "message": "段落篩選器",
+    "description": "Content review UI string."
+  },
+  "contentReview_templates_transcript_clean_label": {
+    "message": "清理逐字稿",
+    "description": "Content review UI string."
+  },
+  "contentReview_templates_transcript_clean_description": {
+    "message": "在保留行結構的前提下，統一標點符號與大小寫。",
+    "description": "Content review UI string."
+  },
+  "contentReview_templates_speaker_turns_label": {
+    "message": "說話輪次",
+    "description": "Content review UI string."
+  },
+  "contentReview_templates_speaker_turns_description": {
+    "message": "確保每位說話者的輪次各自位於一行，並帶有清楚的標籤。",
+    "description": "Content review UI string."
+  },
+  "contentReview_templates_chapter_headings_label": {
+    "message": "章節標題",
+    "description": "Content review UI string."
+  },
+  "contentReview_templates_chapter_headings_description": {
+    "message": "插入 Markdown 標題來分組主題，而不移除任何內容。",
+    "description": "Content review UI string."
+  },
+  "contentReview_metadataLabel": {
+    "message": "中繼資料",
+    "description": "Content review UI string."
+  },
+  "contentReview_mediaType": {
+    "message": "媒體類型",
+    "description": "Content review UI string."
+  },
+  "contentReview_keywords": {
+    "message": "關鍵字",
+    "description": "Content review UI string."
+  },
+  "contentReview_keywordsPlaceholder": {
+    "message": "新增關鍵字",
+    "description": "Content review UI string."
+  },
+  "contentReview_reviewNotes": {
+    "message": "審查筆記",
+    "description": "Content review UI string."
+  },
+  "contentReview_missingSource": {
+    "message": "找不到來源檔案",
+    "description": "Content review UI string."
+  },
+  "contentReview_missingSourceBody": {
+    "message": "請附加原始檔案後再提交此草稿。",
+    "description": "Content review UI string."
+  },
+  "contentReview_attachSource": {
+    "message": "附加檔案",
+    "description": "Content review UI string."
+  },
+  "contentReview_actionsLabel": {
+    "message": "操作",
+    "description": "Content review UI string."
+  },
+  "contentReview_commit": {
+    "message": "提交",
+    "description": "Content review UI string."
+  },
+  "contentReview_commitDisabled": {
+    "message": "提交前請先附加原始的音訊／視訊檔案。",
+    "description": "Content review UI string."
+  },
+  "contentReview_markReviewed": {
+    "message": "標記為已審查",
+    "description": "Content review UI string."
+  },
+  "contentReview_skipNext": {
+    "message": "略過",
+    "description": "Content review UI string."
+  },
+  "contentReview_discard": {
+    "message": "捨棄",
+    "description": "Content review UI string."
+  },
+  "contentReview_discardTitle": {
+    "message": "要捨棄草稿嗎？",
+    "description": "Content review UI string."
+  },
+  "contentReview_discardBody": {
+    "message": "此草稿會被標記為已捨棄，並從審查清單中移除。",
+    "description": "Content review UI string."
+  },
+  "contentReview_discardConfirm": {
+    "message": "捨棄",
+    "description": "Content review UI string."
+  },
+  "contentReview_discardCancel": {
+    "message": "取消",
+    "description": "Content review UI string."
+  },
+  "contentReview_commitSuccess": {
+    "message": "草稿已提交。",
+    "description": "Content review UI string."
+  },
+  "contentReview_commitAllTitle": {
+    "message": "提交所有已審查的草稿？",
+    "description": "Content review UI string."
+  },
+  "contentReview_commitAllBody": {
+    "message": "只有標記為已審查的草稿會被提交。",
+    "description": "Content review UI string."
+  },
+  "contentReview_commitAllConfirm": {
+    "message": "全部提交",
+    "description": "Content review UI string."
+  },
+  "contentReview_commitAllCancel": {
+    "message": "取消",
+    "description": "Content review UI string."
+  },
+  "contentReview_commitAllResult": {
+    "message": "{{success}} 個已提交 · {{failed}} 個失敗",
+    "description": "Content review UI string."
+  },
+  "contentReview_storageCapWarning": {
+    "message": "此檔案超過本機草稿上限 ({{cap}})。",
+    "description": "Content review UI string."
+  },
+  "contentReview_clearTitle": {
+    "message": "清除所有草稿？",
+    "description": "Content review UI string."
+  },
+  "contentReview_clearBody": {
+    "message": "這會移除所有本機內容審查草稿與相關資源。",
+    "description": "Content review UI string."
+  },
+  "contentReview_clearConfirm": {
+    "message": "清除草稿",
+    "description": "Content review UI string."
+  },
+  "contentReview_clearCancel": {
+    "message": "取消",
+    "description": "Content review UI string."
+  },
+  "contentReview_clearSuccess": {
+    "message": "草稿已清除。",
+    "description": "Content review UI string."
+  },
+  "contentReview_originalLabel": {
+    "message": "原始版本",
+    "description": "Content review UI string."
+  },
+  "contentReview_editedLabel": {
+    "message": "已編輯",
+    "description": "Content review UI string."
+  },
+  "contentReview_reviewStorageCapWarning_one": {
+    "message": "{{count}} 個檔案超過本機草稿上限（{{cap}}）。請在提交音訊/影片前附加來源。",
+    "description": "Content review UI string."
+  },
+  "contentReview_reviewStorageCapWarning_other": {
+    "message": "{{count}} 個檔案超過本機草稿上限（{{cap}}）。請在提交音訊/影片前附加來源。",
+    "description": "Content review UI string."
+  },
+  "contentReview_storeAfterReview": {
+    "message": "審核後儲存",
+    "description": "Content review UI string."
+  },
+  "contentReview_reviewBeforeStorage": {
+    "message": "儲存前審核",
+    "description": "Content review UI string."
+  },
+  "contentReview_reviewBeforeStorageHint": {
+    "message": "先處理，然後在提交到伺服器前於本機編輯草稿。",
+    "description": "Content review UI string."
+  },
+  "contentReview_reviewEnabled": {
+    "message": "審核模式",
+    "description": "Content review UI string."
+  },
+  "contentReview_reviewStorageCap": {
+    "message": "本機草稿上限為 {{cap}}。",
+    "description": "Content review UI string."
+  },
+  "contentReview_reviewWarningTitle": {
+    "message": "要將草稿儲存在本機嗎？",
+    "description": "Content review UI string."
+  },
+  "contentReview_reviewWarningBody": {
+    "message": "草稿會儲存在此瀏覽器中，可能包含敏感資料。你可隨時在「內容審核」頁面清除草稿。",
+    "description": "Content review UI string."
+  },
+  "contentReview_reviewWarningBodySecondary": {
+    "message": "審核模式會在提交到伺服器前把內容保留在用戶端。",
+    "description": "Content review UI string."
+  },
+  "contentReview_reviewWarningConfirm": {
+    "message": "啟用審核",
+    "description": "Content review UI string."
+  },
+  "contentReview_reviewWarningCancel": {
+    "message": "取消",
+    "description": "Content review UI string."
+  },
+  "contentReview_reviewRunLabel": {
+    "message": "審核",
+    "description": "Content review UI string."
+  },
+  "contentReview_reviewDraftsCreated": {
+    "message": "草稿已準備好審核。",
+    "description": "Content review UI string."
+  },
+  "contentReview_openContentReview": {
+    "message": "開啟內容審核",
+    "description": "Content review UI string."
+  }
+}

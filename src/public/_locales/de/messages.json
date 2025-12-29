@@ -1152,7 +1152,7 @@
     "description": "Content review UI string."
   },
   "contentReview_originalLabel": {
-    "message": "Original",
+    "message": "Originaltext",
     "description": "Content review UI string."
   },
   "contentReview_editedLabel": {
@@ -1791,7 +1791,7 @@
     "message": "Schlüsselwörter"
   },
   "mediaPage_moreTags": {
-    "message": "+{{count}} more tags"
+    "message": "+{{count}} weitere Tags"
   },
   "mediaPage_resetFilters": {
     "message": "Filter zurücksetzen"
@@ -1806,7 +1806,7 @@
     "message": "Vertikal"
   },
   "mediaPage_horizontal": {
-    "message": "Horizontal"
+    "message": "Waagerecht"
   },
   "mediaPage_results": {
     "message": "Ergebnisse"
@@ -1821,7 +1821,7 @@
     "message": "Seitenleiste ausblenden"
   },
   "mediaPage_viewer": {
-    "message": "Viewer"
+    "message": "Ansicht"
   },
   "mediaPage_selectItemsHint": {
     "message": "Wähle links Elemente aus, um sie hier anzuzeigen."
@@ -1944,7 +1944,7 @@
     "message": "Metadaten"
   },
   "mediaPage_idLabel": {
-    "message": "ID"
+    "message": "Kennung"
   },
   "mediaPage_typeLabel": {
     "message": "Typ"
@@ -3142,5 +3142,125 @@
   },
   "quiz_retake": {
     "message": "Quiz erneut starten"
+  },
+  "flashcards_bulkLimitWarning": {
+    "message": "Operation begrenzt auf die ersten {{limit}} Elemente."
+  },
+  "mediaPage_spreadMode": {
+    "message": "Vergleich"
+  },
+  "mediaPage_listMode": {
+    "message": "Fokus"
+  },
+  "mediaPage_allMode": {
+    "message": "Stapel"
+  },
+  "mediaPage_spreadModeTooltip": {
+    "message": "Ausgewählte Elemente nebeneinander zum Vergleichen anzeigen"
+  },
+  "mediaPage_listModeTooltip": {
+    "message": "Ein Element nach dem anderen mit Navigation anzeigen"
+  },
+  "mediaPage_allModeTooltip": {
+    "message": "Alle ausgewählten Elemente in einer scrollbaren Liste anzeigen"
+  },
+  "mediaPage_copyContentLabel": {
+    "message": "Inhalt kopieren"
+  },
+  "mediaPage_copyAnalysisLabel": {
+    "message": "Analyse kopieren"
+  },
+  "mediaPage_copyContentTooltip": {
+    "message": "Inhalt in die Zwischenablage kopieren"
+  },
+  "mediaPage_copyAnalysisTooltip": {
+    "message": "Analyse in die Zwischenablage kopieren"
+  },
+  "mediaPage_prevItemTooltip": {
+    "message": "Vorheriges Element (←)"
+  },
+  "mediaPage_nextItemTooltip": {
+    "message": "Nächstes Element (→)"
+  },
+  "mediaPage_viewerOptions": {
+    "message": "Optionen"
+  },
+  "mediaPage_expandAllDropdown": {
+    "message": "Ein-/Ausklappen"
+  },
+  "mediaPage_itemPosition": {
+    "message": "Element {{current}} von {{total}}"
+  },
+  "mediaPage_noItemSelected": {
+    "message": "Kein Element ausgewählt"
+  },
+  "mediaPage_firstUseTitle": {
+    "message": "Kurzanleitung: Multi-Item Review"
+  },
+  "mediaPage_firstUseStep1": {
+    "message": "Elemente auswählen"
+  },
+  "mediaPage_firstUseStep1Desc": {
+    "message": "Klicke links in der Seitenleiste auf Elemente, um sie zur Ansicht hinzuzufügen."
+  },
+  "mediaPage_firstUseStep2": {
+    "message": "Ansicht wählen"
+  },
+  "mediaPage_firstUseStep2DescUpdated": {
+    "message": "Nutze \"Vergleich\" für nebeneinander, \"Fokus\" für jeweils ein Element oder \"Stapel\" für alle."
+  },
+  "mediaPage_firstUseStep3": {
+    "message": "Navigieren"
+  },
+  "mediaPage_firstUseStep3Desc": {
+    "message": "Nutze die Zurück/Weiter-Schaltflächen oder die Tastatur (Tab + Enter), um durch die Elemente zu blättern."
+  },
+  "mediaPage_gotIt": {
+    "message": "Alles klar"
+  },
+  "mediaPage_model": {
+    "message": "Modell"
+  },
+  "mediaPage_selectModel": {
+    "message": "Modell auswählen"
+  },
+  "mediaPage_noModelsAvailable": {
+    "message": "Keine Modelle verfügbar"
+  },
+  "mediaPage_promptPresets": {
+    "message": "Prompt-Voreinstellungen"
+  },
+  "mediaPage_showPresets": {
+    "message": "Voreinstellungen anzeigen"
+  },
+  "mediaPage_hidePresets": {
+    "message": "Voreinstellungen ausblenden"
+  },
+  "mediaPage_systemPromptLabel": {
+    "message": "System-Prompt"
+  },
+  "mediaPage_systemPromptPlaceholder": {
+    "message": "System-Prompt eingeben..."
+  },
+  "mediaPage_userPromptPrefixLabel": {
+    "message": "Benutzer-Prompt-Präfix"
+  },
+  "mediaPage_prependedBeforeContent": {
+    "message": "(vor dem Inhalt vorangestellt)"
+  },
+  "mediaPage_userPrefixPlaceholder": {
+    "message": "Optional: Text eingeben, der vor den Medieninhalt gesetzt wird..."
+  },
+  "mediaPage_presetComprehensiveAnalysis": {
+    "message": "Umfassende Analyse"
+  },
+  "mediaPage_presetExecutiveSummary": {
+    "message": "Management-Zusammenfassung"
+  },
+  "mediaPage_presetCriticalReview": {
+    "message": "Kritische Bewertung"
+  },
+  "mediaPage_presetQAAnalysis": {
+    "message": "Q&A-Analyse"
   }
 }

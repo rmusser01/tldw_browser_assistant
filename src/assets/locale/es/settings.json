@@ -1292,7 +1292,7 @@
     },
     "viewCards": "Tarjetas",
     "viewInline": "En línea",
-    "stats": "{{count}} chunks, prom. {{avgSize}} caracteres",
+    "stats": "{{count}} fragmentos, prom. {{avgSize}} caracteres",
     "textLoaded": "Texto cargado",
     "characters": "caracteres",
     "tabSingle": "Individual",

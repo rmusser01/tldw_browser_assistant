@@ -121,11 +121,11 @@
     "description": "ARIA label template for the Quick ingest button when there are queued items."
   },
   "connectionCard_descriptionConnectedList_reviewMedia": {
-    "message": "查看媒体和转录内容",
+    "message": "查看媒体与转录",
     "description": "First bullet in the connected-state server connection card, highlighting media review."
   },
   "connectionCard_descriptionConnectedList_searchKnowledge": {
-    "message": "搜索知识库和笔记",
+    "message": "搜索知识与笔记",
     "description": "Second bullet in the connected-state server connection card, highlighting knowledge/notes search."
   },
   "connectionCard_descriptionConnectedList_useRag": {
@@ -133,7 +133,7 @@
     "description": "Third bullet in the connected-state server connection card, highlighting retrieval-augmented generation usage."
   },
   "omniSearch_filterScreen": {
-    "message": "界面",
+    "message": "屏幕",
     "description": "Filter label for screens in omni-search."
   },
   "omniSearch_filterChat": {
@@ -153,7 +153,7 @@
     "description": "Filter label for flashcard collections in omni-search."
   },
   "omniSearch_filterPrompt": {
-    "message": "提示词",
+    "message": "提示",
     "description": "Filter label for prompts in omni-search."
   },
   "omniSearch_filteringBy": {
@@ -1073,10 +1073,10 @@
     "description": "Button label to retry opening Content Review."
   },
   "quickIngest_title": {
-    "message": "Quick Ingest Media"
+    "message": "快速导入媒体"
   },
   "quickIngest_subtitle": {
-    "message": "Enter one or more URLs. Force type per row if needed."
+    "message": "输入一个或多个 URL。必要时可为每行指定类型。"
   },
   "quickIngest_offlineTitle": {
     "message": "服务器离线 — 仅限暂存环境"
@@ -1085,10 +1085,10 @@
     "message": "您可以在此处排队 URL 和文件并查看字段，但在您的 tldw 服务器上线之前不会进行摄取。请重新连接以处理待处理项。"
   },
   "quickIngest_sourceHeading": {
-    "message": "Source URLs or files"
+    "message": "来源 URL 或文件"
   },
   "quickIngest_storeRemote": {
-    "message": "Store to remote DB"
+    "message": "保存到远程数据库"
   },
   "quickIngest_storeRemoteAria": {
     "message": "将摄取结果存储到你的 tldw 服务器"
@@ -1181,61 +1181,61 @@
     "message": "https://github.com/rmusser01/tldw_browser_assistant"
   },
   "quickIngest_bulkPlaceholder": {
-    "message": "Paste URLs (one per line)"
+    "message": "粘贴 URL（每行一个）"
   },
   "quickIngest_or": {
-    "message": "or"
+    "message": "或"
   },
   "quickIngest_remove": {
-    "message": "Remove"
+    "message": "移除"
   },
   "quickIngest_add": {
-    "message": "Add URL"
+    "message": "添加 URL"
   },
   "quickIngest_commonOptions": {
-    "message": "Ingestion options"
+    "message": "摄取选项"
   },
   "quickIngest_audioOptions": {
-    "message": "Audio options"
+    "message": "音频选项"
   },
   "quickIngest_audioLanguage": {
-    "message": "Language (e.g., en)"
+    "message": "语言（例如 en）"
   },
   "quickIngest_audioDiarizationHelp": {
-    "message": "Turn on to separate speakers in transcripts."
+    "message": "启用以在转录中区分说话人。"
   },
   "quickIngest_documentOptions": {
-    "message": "Document options"
+    "message": "文档选项"
   },
   "quickIngest_videoOptions": {
-    "message": "Video options"
+    "message": "视频选项"
   },
   "quickIngest_captionsHelp": {
-    "message": "Include timestamps/captions when available."
+    "message": "可用时包含时间戳/字幕。"
   },
   "quickIngest_cancel": {
-    "message": "Cancel"
+    "message": "取消"
   },
   "quickIngest_ingest": {
-    "message": "Ingest"
+    "message": "摄取"
   },
   "quickIngest_process": {
-    "message": "Process"
+    "message": "处理"
   },
   "quickIngest_results": {
-    "message": "Results"
+    "message": "结果"
   },
   "quickIngest_downloadJson": {
-    "message": "Download JSON"
+    "message": "下载 JSON"
   },
   "quickIngest_advancedSummary": {
-    "message": "{{count}} advanced fields loaded"
+    "message": "已加载 {{count}} 个高级字段"
   },
   "quickIngest_advancedEmpty": {
-    "message": "No advanced options detected — try reloading the spec."
+    "message": "未检测到高级选项——请尝试重新加载规范。"
   },
   "quickIngest_modifiedCount": {
-    "message": "{{count}} modified"
+    "message": "{{count}} 处已修改"
   },
   "quickIngest_progress": {
     "message": "正在处理 {{done}} / {{total}} 个项目…"
@@ -1605,52 +1605,52 @@
     "message": "Replace will overwrite all current prompts with the imported file. Continue?"
   },
   "flashcards_newDeckNameRequired": {
-    "message": "Enter a deck name."
+    "message": "请输入卡组名称。"
   },
   "flashcards_dueAll": {
-    "message": "All"
+    "message": "全部"
   },
   "flashcards_dueNew": {
-    "message": "New"
+    "message": "新卡"
   },
   "flashcards_dueLearning": {
-    "message": "Learning"
+    "message": "学习中"
   },
   "flashcards_dueDue": {
-    "message": "Due"
+    "message": "到期"
   },
   "flashcards_reviewFailed": {
-    "message": "Review failed"
+    "message": "复习失败"
   },
   "flashcards_updateFailed": {
-    "message": "Update failed"
+    "message": "更新失败"
   },
   "flashcards_deleteFailed": {
-    "message": "Delete failed"
+    "message": "删除失败"
   },
   "flashcards_missingVersion": {
-    "message": "Missing version; reload and try again"
+    "message": "缺少版本信息；请重新加载后再试"
   },
   "flashcards_bulkDeleteResult": {
-    "message": "{{success}} deleted · {{failed}} failed"
+    "message": "{{success}} 个已删除 · {{failed}} 个失败"
   },
   "mediaPage_searchPlaceholder": {
-    "message": "Search media (title/content)"
+    "message": "搜索媒体（标题/内容）"
   },
   "mediaPage_search": {
-    "message": "Search"
+    "message": "搜索"
   },
   "mediaPage_clear": {
-    "message": "Clear"
+    "message": "清除"
   },
   "mediaPage_types": {
     "message": "Types"
   },
   "mediaPage_keywords": {
-    "message": "Keywords"
+    "message": "关键词"
   },
   "mediaPage_moreTags": {
-    "message": "+{{count}} more tags"
+    "message": "+还有{{count}}个标签"
   },
   "mediaPage_resetFilters": {
     "message": "Reset Filters"
@@ -1659,16 +1659,16 @@
     "message": "清除全部"
   },
   "mediaPage_content": {
-    "message": "Content"
+    "message": "内容"
   },
   "mediaPage_vertical": {
-    "message": "Vertical"
+    "message": "垂直"
   },
   "mediaPage_horizontal": {
-    "message": "Horizontal"
+    "message": "水平"
   },
   "mediaPage_results": {
-    "message": "Results"
+    "message": "结果"
   },
   "mediaPage_noResults": {
     "message": "No results"
@@ -1680,19 +1680,19 @@
     "message": "Hide sidebar"
   },
   "mediaPage_viewer": {
-    "message": "Viewer"
+    "message": "查看器"
   },
   "mediaPage_selectItemsHint": {
-    "message": "Select items on the left to view here."
+    "message": "在左侧选择条目以在此查看。"
   },
   "mediaPage_mediaContent": {
-    "message": "Media Content"
+    "message": "媒体内容"
   },
   "mediaPage_copyContent": {
-    "message": "Copy content"
+    "message": "复制内容"
   },
   "mediaPage_contentCopied": {
-    "message": "Content copied"
+    "message": "内容已复制"
   },
   "mediaPage_metadataCopied": {
     "message": "元数据已复制"
@@ -1701,40 +1701,40 @@
     "message": "分析已复制"
   },
   "mediaPage_copyFailed": {
-    "message": "Copy failed"
+    "message": "复制失败"
   },
   "mediaPage_noContent": {
-    "message": "No content available"
+    "message": "没有可用内容"
   },
   "mediaPage_collapse": {
-    "message": "Collapse"
+    "message": "折叠"
   },
   "mediaPage_expand": {
-    "message": "Expand"
+    "message": "展开"
   },
   "mediaPage_media": {
-    "message": "Media"
+    "message": "媒体"
   },
   "mediaPage_searchingBanner": {
-    "message": "Searching media…"
+    "message": "正在搜索媒体…"
   },
   "mediaPage_filterHelp": {
-    "message": "Search matches title and content; Types and Keywords further narrow the results."
+    "message": "搜索匹配标题和内容；类型和关键词会进一步缩小结果。"
   },
   "mediaPage_noMediaTypes": {
     "message": "没有可用的媒体类型"
   },
   "mediaPage_resultsCount": {
-    "message": "{{selected}} selected · {{open}} open"
+    "message": "{{selected}} 已选 · {{open}} 打开"
   },
   "mediaPage_clearSelection": {
-    "message": "Deselect all"
+    "message": "取消全选"
   },
   "mediaPage_itemsLabel": {
-    "message": "Items"
+    "message": "条目"
   },
   "mediaPage_contentLabel": {
-    "message": "Content view"
+    "message": "内容视图"
   },
   "mediaPage_filterByKeyword": {
     "message": "按关键字筛选"
@@ -1803,7 +1803,7 @@
     "message": "元数据"
   },
   "mediaPage_idLabel": {
-    "message": "ID"
+    "message": "标识符"
   },
   "mediaPage_typeLabel": {
     "message": "类型"
@@ -2980,5 +2980,140 @@
   },
   "quiz_retake": {
     "message": "重新测验"
+  },
+  "searchPrompts": {
+    "message": "搜索提示词..."
+  },
+  "noMatchingPrompts": {
+    "message": "没有匹配的提示词"
+  },
+  "promptSelect_favorites": {
+    "message": "收藏"
+  },
+  "promptSelect_system": {
+    "message": "系统提示词"
+  },
+  "promptSelect_quick": {
+    "message": "快捷提示词"
+  },
+  "flashcards_bulkLimitWarning": {
+    "message": "操作仅限前 {{limit}} 个项目。"
+  },
+  "mediaPage_spreadMode": {
+    "message": "对比"
+  },
+  "mediaPage_listMode": {
+    "message": "聚焦"
+  },
+  "mediaPage_allMode": {
+    "message": "堆叠"
+  },
+  "mediaPage_spreadModeTooltip": {
+    "message": "并排显示所选项目以便对比"
+  },
+  "mediaPage_listModeTooltip": {
+    "message": "使用导航一次查看一个项目"
+  },
+  "mediaPage_allModeTooltip": {
+    "message": "在可滚动列表中查看所有选中项目"
+  },
+  "mediaPage_copyContentLabel": {
+    "message": "复制内容"
+  },
+  "mediaPage_copyAnalysisLabel": {
+    "message": "复制分析"
+  },
+  "mediaPage_copyContentTooltip": {
+    "message": "将内容复制到剪贴板"
+  },
+  "mediaPage_copyAnalysisTooltip": {
+    "message": "将分析复制到剪贴板"
+  },
+  "mediaPage_prevItemTooltip": {
+    "message": "上一个项目 (←)"
+  },
+  "mediaPage_nextItemTooltip": {
+    "message": "下一个项目 (→)"
+  },
+  "mediaPage_viewerOptions": {
+    "message": "选项"
+  },
+  "mediaPage_expandAllDropdown": {
+    "message": "展开/折叠"
+  },
+  "mediaPage_itemPosition": {
+    "message": "第 {{current}} 项，共 {{total}} 项"
+  },
+  "mediaPage_noItemSelected": {
+    "message": "未选择任何项目"
+  },
+  "mediaPage_firstUseTitle": {
+    "message": "快速指南：多项审阅"
+  },
+  "mediaPage_firstUseStep1": {
+    "message": "选择项目"
+  },
+  "mediaPage_firstUseStep1Desc": {
+    "message": "点击左侧面板中的项目，将其添加到查看器。"
+  },
+  "mediaPage_firstUseStep2": {
+    "message": "选择视图"
+  },
+  "mediaPage_firstUseStep2DescUpdated": {
+    "message": "使用“对比”进行并排查看，“聚焦”一次查看一个项目，或使用“堆叠”查看全部。"
+  },
+  "mediaPage_firstUseStep3": {
+    "message": "导航"
+  },
+  "mediaPage_firstUseStep3Desc": {
+    "message": "使用上一项/下一项按钮或键盘（Tab + Enter）在项目间移动。"
+  },
+  "mediaPage_gotIt": {
+    "message": "知道了"
+  },
+  "mediaPage_model": {
+    "message": "模型"
+  },
+  "mediaPage_selectModel": {
+    "message": "选择模型"
+  },
+  "mediaPage_noModelsAvailable": {
+    "message": "没有可用模型"
+  },
+  "mediaPage_promptPresets": {
+    "message": "提示词预设"
+  },
+  "mediaPage_showPresets": {
+    "message": "显示预设"
+  },
+  "mediaPage_hidePresets": {
+    "message": "隐藏预设"
+  },
+  "mediaPage_systemPromptLabel": {
+    "message": "系统提示词"
+  },
+  "mediaPage_systemPromptPlaceholder": {
+    "message": "输入系统提示词..."
+  },
+  "mediaPage_userPromptPrefixLabel": {
+    "message": "用户提示词前缀"
+  },
+  "mediaPage_prependedBeforeContent": {
+    "message": "（添加在内容之前）"
+  },
+  "mediaPage_userPrefixPlaceholder": {
+    "message": "可选：输入要在媒体内容之前添加的文本..."
+  },
+  "mediaPage_presetComprehensiveAnalysis": {
+    "message": "全面分析"
+  },
+  "mediaPage_presetExecutiveSummary": {
+    "message": "执行摘要"
+  },
+  "mediaPage_presetCriticalReview": {
+    "message": "批判性审阅"
+  },
+  "mediaPage_presetQAAnalysis": {
+    "message": "问答分析"
   }
 }

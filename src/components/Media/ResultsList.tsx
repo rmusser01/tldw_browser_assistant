@@ -47,7 +47,9 @@ export function ResultsList({
       {/* Results Header */}
       <div className="px-4 py-2 bg-gray-50 dark:bg-[#0c0c0c] border-b border-gray-200 dark:border-gray-700 flex items-center justify-between sticky top-0">
         <div className="flex items-center gap-2">
-          <span className="text-xs text-gray-600 dark:text-gray-400 font-medium">RESULTS</span>
+          <span className="text-xs text-gray-600 dark:text-gray-400 font-medium uppercase">
+            {t('mediaPage.results', 'Results')}
+          </span>
           <span className="text-xs text-gray-900 dark:text-gray-100">
             {loadedCount} / {totalCount}
           </span>

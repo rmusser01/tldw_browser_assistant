@@ -1815,7 +1815,7 @@
     "message": "نمایشگر"
   },
   "mediaPage_selectItemsHint": {
-    "message": "برای مشاهده اینجا، آیتم‌ها را از سمت چپ انتخاب کنید."
+    "message": "برای نمایش در اینجا، موارد را از سمت چپ انتخاب کنید."
   },
   "mediaPage_mediaContent": {
     "message": "محتوای رسانه"
@@ -1836,13 +1836,13 @@
     "message": "کپی ناموفق بود"
   },
   "mediaPage_noContent": {
-    "message": "محتوایی در دسترس نیست"
+    "message": "هیچ محتوایی موجود نیست"
   },
   "mediaPage_collapse": {
     "message": "جمع کردن"
   },
   "mediaPage_expand": {
-    "message": "گسترش"
+    "message": "باز کردن"
   },
   "mediaPage_media": {
     "message": "رسانه"
@@ -1851,7 +1851,7 @@
     "message": "در حال جستجوی رسانه…"
   },
   "mediaPage_filterHelp": {
-    "message": "جستجو عنوان و محتوا را تطبیق می‌دهد؛ نوع‌ها و کلیدواژه‌ها نتایج را محدودتر می‌کنند."
+    "message": "جستجو عنوان و محتوا را تطبیق می‌دهد؛ انواع و کلیدواژه‌ها نتایج را محدودتر می‌کنند."
   },
   "mediaPage_noMediaTypes": {
     "message": "هیچ نوع رسانه‌ای در دسترس نیست"
@@ -1866,7 +1866,7 @@
     "message": "موارد"
   },
   "mediaPage_contentLabel": {
-    "message": "نمایش محتوا"
+    "message": "نمای محتوا"
   },
   "mediaPage_filterByKeyword": {
     "message": "فیلتر بر اساس کلمه کلیدی"
@@ -3148,5 +3148,125 @@
   },
   "manageCharacters_avatarAlt": {
     "message": "آواتار کاربر"
+  },
+  "flashcards_bulkLimitWarning": {
+    "message": "عملیات محدود به {{limit}} مورد اول است."
+  },
+  "mediaPage_spreadMode": {
+    "message": "مقایسه"
+  },
+  "mediaPage_listMode": {
+    "message": "تمرکز"
+  },
+  "mediaPage_allMode": {
+    "message": "پشته"
+  },
+  "mediaPage_spreadModeTooltip": {
+    "message": "نمایش موارد انتخاب‌شده کنار هم برای مقایسه"
+  },
+  "mediaPage_listModeTooltip": {
+    "message": "نمایش تک‌به‌تک همراه با ناوبری"
+  },
+  "mediaPage_allModeTooltip": {
+    "message": "نمایش همه موارد انتخاب‌شده در یک فهرست قابل پیمایش"
+  },
+  "mediaPage_copyContentLabel": {
+    "message": "کپی محتوا"
+  },
+  "mediaPage_copyAnalysisLabel": {
+    "message": "کپی تحلیل"
+  },
+  "mediaPage_copyContentTooltip": {
+    "message": "کپی محتوا در کلیپ‌بورد"
+  },
+  "mediaPage_copyAnalysisTooltip": {
+    "message": "کپی تحلیل در کلیپ‌بورد"
+  },
+  "mediaPage_prevItemTooltip": {
+    "message": "مورد قبلی (←)"
+  },
+  "mediaPage_nextItemTooltip": {
+    "message": "مورد بعدی (→)"
+  },
+  "mediaPage_viewerOptions": {
+    "message": "گزینه‌ها"
+  },
+  "mediaPage_expandAllDropdown": {
+    "message": "باز/بسته کردن"
+  },
+  "mediaPage_itemPosition": {
+    "message": "مورد {{current}} از {{total}}"
+  },
+  "mediaPage_noItemSelected": {
+    "message": "هیچ موردی انتخاب نشده است"
+  },
+  "mediaPage_firstUseTitle": {
+    "message": "راهنمای سریع: بازبینی چندموردی"
+  },
+  "mediaPage_firstUseStep1": {
+    "message": "انتخاب موارد"
+  },
+  "mediaPage_firstUseStep1Desc": {
+    "message": "برای افزودن به نمایشگر، روی موارد در پنل سمت چپ کلیک کنید."
+  },
+  "mediaPage_firstUseStep2": {
+    "message": "انتخاب نما"
+  },
+  "mediaPage_firstUseStep2DescUpdated": {
+    "message": "برای نمایش کنار هم «مقایسه»، برای تک‌به‌تک «تمرکز»، یا برای دیدن همه «پشته» را انتخاب کنید."
+  },
+  "mediaPage_firstUseStep3": {
+    "message": "ناوبری"
+  },
+  "mediaPage_firstUseStep3Desc": {
+    "message": "با دکمه‌های قبلی/بعدی یا صفحه‌کلید (Tab + Enter) بین موارد جابه‌جا شوید."
+  },
+  "mediaPage_gotIt": {
+    "message": "متوجه شدم"
+  },
+  "mediaPage_model": {
+    "message": "مدل"
+  },
+  "mediaPage_selectModel": {
+    "message": "انتخاب مدل"
+  },
+  "mediaPage_noModelsAvailable": {
+    "message": "هیچ مدلی در دسترس نیست"
+  },
+  "mediaPage_promptPresets": {
+    "message": "پیش‌تنظیم‌های پرامپت"
+  },
+  "mediaPage_showPresets": {
+    "message": "نمایش پیش‌تنظیم‌ها"
+  },
+  "mediaPage_hidePresets": {
+    "message": "پنهان کردن پیش‌تنظیم‌ها"
+  },
+  "mediaPage_systemPromptLabel": {
+    "message": "پرامپت سیستم"
+  },
+  "mediaPage_systemPromptPlaceholder": {
+    "message": "پرامپت سیستم را وارد کنید..."
+  },
+  "mediaPage_userPromptPrefixLabel": {
+    "message": "پیشوند پرامپت کاربر"
+  },
+  "mediaPage_prependedBeforeContent": {
+    "message": "(پیش از محتوا افزوده می‌شود)"
+  },
+  "mediaPage_userPrefixPlaceholder": {
+    "message": "اختیاری: متنی برای افزودن قبل از محتوای رسانه وارد کنید..."
+  },
+  "mediaPage_presetComprehensiveAnalysis": {
+    "message": "تحلیل جامع"
+  },
+  "mediaPage_presetExecutiveSummary": {
+    "message": "خلاصه اجرایی"
+  },
+  "mediaPage_presetCriticalReview": {
+    "message": "بازبینی انتقادی"
+  },
+  "mediaPage_presetQAAnalysis": {
+    "message": "تحلیل پرسش‌وپاسخ"
   }
 }

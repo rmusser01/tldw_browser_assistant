@@ -36,7 +36,7 @@ This document provides a comprehensive UX review of the TTS and STT playground p
 
 ### Implemented Layout: Tabbed Interface with Shared Context
 
-```
+```text
 ┌─────────────────────────────────────────────────────────────┐
 │  Speech Playground                     [STT: whisper-1 ▼]   │
 │                                        [TTS: kokoro   ▼]    │

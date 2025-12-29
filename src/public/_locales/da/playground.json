@@ -832,5 +832,254 @@
   },
   "speech_transcriptRecordingHint": {
     "message": "Optagelse i gang; transskriptionen er låst."
+  },
+  "actor_title": {
+    "message": "Sceneinstruktør (Actor)"
+  },
+  "actor_help": {
+    "message": "Konfigurer scenekontekst pr. chat: roller, stemning, verden, mål og noter."
+  },
+  "actor_addLabel": {
+    "message": "Tilføj eller fjern aspekter for at fokusere scenen."
+  },
+  "actor_user": {
+    "message": "Bruger"
+  },
+  "actor_char": {
+    "message": "Karakter"
+  },
+  "actor_world": {
+    "message": "Verden"
+  },
+  "actor_newAspectPlaceholder": {
+    "message": "Aspektnavn (f.eks. Stemning, Rolle, Sted)"
+  },
+  "actor_addButton": {
+    "message": "Tilføj aspekt"
+  },
+  "actor_aspectPlaceholder": {
+    "message": "Beskriv kort (valgfrit)"
+  },
+  "actor_notes": {
+    "message": "Scenenoter"
+  },
+  "actor_notesHelp": {
+    "message": "Valgfrie noter sendt til modellen. Understøtter Markdown og LaTeX."
+  },
+  "actor_position": {
+    "message": "Placering af Actor-prompt"
+  },
+  "actor_before": {
+    "message": "Før hovedprompten/historien"
+  },
+  "actor_after": {
+    "message": "Efter hovedprompten/historien"
+  },
+  "actor_depth": {
+    "message": "I chatten på dybde"
+  },
+  "actor_depthLabel": {
+    "message": "Dybde (ikke-systembeskeder)"
+  },
+  "actor_depthPlaceholder": {
+    "message": "0 = toppen af chatten"
+  },
+  "actor_depthHelp": {
+    "message": "Bruges kun når placeringen er \"I chatten på dybde\". Tæller ikke-systembeskeder fra toppen af chatten."
+  },
+  "actor_roleLabel": {
+    "message": "Rolle for Actor-besked"
+  },
+  "actor_roleSystem": {
+    "message": "System"
+  },
+  "actor_roleUser": {
+    "message": "Bruger"
+  },
+  "actor_roleAssistant": {
+    "message": "Assistent"
+  },
+  "actor_positionHelp": {
+    "message": "Dybde bruges kun når placeringen er \"I chatten på dybde\". Rollen styrer om Actor vises som system, bruger eller assistent."
+  },
+  "actor_preview": {
+    "message": "Forhåndsvisning af Actor-prompt"
+  },
+  "actor_tokens": {
+    "message": "Tokens: {{count}}"
+  },
+  "actor_previewEmpty": {
+    "message": "Intet at sende endnu."
+  },
+  "actor_offlineHintTitle": {
+    "message": "World Books ikke tilgængelige for Actor"
+  },
+  "actor_offlineHintBody": {
+    "message": "Forbind til din tldw-server i Indstillinger for at bruge World Books til Actor-aspekter, eller fortsæt med fritekstværdier."
+  },
+  "actor_loreWorldBookMissing": {
+    "message": "Den tidligere World Book-binding blev ikke fundet; bruger fritekst i stedet."
+  },
+  "actor_loreEntryMissing": {
+    "message": "Den tidligere World Book-post blev ikke fundet; bruger fritekst i stedet."
+  },
+  "actor_sourceFree": {
+    "message": "Fritekst"
+  },
+  "actor_sourceLore": {
+    "message": "World Book"
+  },
+  "actor_worldBookPlaceholder": {
+    "message": "World Book"
+  },
+  "actor_entryPlaceholder": {
+    "message": "Post"
+  },
+  "actor_loreValuePlaceholder": {
+    "message": "Vælg en mulighed (valgfrit)"
+  },
+  "actor_tokenLabel": {
+    "message": "Token"
+  },
+  "actor_tokensTitle": {
+    "message": "Actor-ordbogstokens"
+  },
+  "actor_tokensHelp": {
+    "message": "Brug disse tokens i prompts og systembeskeder."
+  },
+  "actor_keyChangeTitle": {
+    "message": "Skift Actor-token-nøgle?"
+  },
+  "actor_keyChangeBody": {
+    "message": "Dette ændrer tokenet fra {{old}} til {{next}}. Prompts der bruger det gamle token opdateres ikke automatisk."
+  },
+  "actor_keyCollisionTitle": {
+    "message": "Actor-nøgle er allerede i brug"
+  },
+  "actor_keyCollisionBody": {
+    "message": "En anden aspekt bruger allerede denne nøgle. Nøgler skal være unikke pr. chat."
+  },
+  "actor_copy": {
+    "message": "Kopiér"
+  },
+  "actor_copied": {
+    "message": "Kopieret"
+  },
+  "actor_copySuccess": {
+    "message": "Token kopieret til udklipsholderen"
+  },
+  "actor_copyError": {
+    "message": "Kunne ikke kopiere token"
+  },
+  "actor_notesPreviewTitle": {
+    "message": "Forhåndsvisning af scenenoter"
+  },
+  "actor_notesPreviewToggle": {
+    "message": "Vis Markdown + LaTeX-forhåndsvisning"
+  },
+  "actor_aspectLimitWarningTitle": {
+    "message": "Mange aspekter konfigureret for denne chat"
+  },
+  "actor_aspectLimitWarningBody": {
+    "message": "Du har {{count}} aspekter (blødt loft {{limit}}). Overvej at trimme for at fokusere scenen og spare tokens."
+  },
+  "actor_tokenWarning": {
+    "message": "Actor-prompten er lang ({{count}} tokens; blødt loft {{limit}}). Overvej at trimme aspekter eller noter for at spare kontekst."
+  },
+  "actor_depthRangeHelp": {
+    "message": "Dybden skal være mellem 0 og 999; værdier ud over historiklængden afgrænses."
+  },
+  "actor_presetLabel": {
+    "message": "Forudindstillinger"
+  },
+  "actor_presetPlaceholder": {
+    "message": "Vælg en forudindstilling"
+  },
+  "actor_preset.sliceOfLife": {
+    "message": "Hverdagsliv"
+  },
+  "actor_preset.dungeonCrawl": {
+    "message": "Dungeon-crawl"
+  },
+  "actor_preset.romance": {
+    "message": "Romantik"
+  },
+  "actor_preset.workSession": {
+    "message": "Arbejdssession"
+  },
+  "actor_applyPreset": {
+    "message": "Anvend"
+  },
+  "actor_resetChat": {
+    "message": "Nulstil for denne chat"
+  },
+  "actor_saveAsCharacterDefault": {
+    "message": "Gem som standard for {{name}}"
+  },
+  "actor_applyCharacterDefault": {
+    "message": "Anvend standard for {{name}}"
+  },
+  "actor_notesGmOnly": {
+    "message": "Kun GM: send ikke noter til modellen"
+  },
+  "actor_templateModeLabel": {
+    "message": "Interaktion med sceneskabeloner"
+  },
+  "actor_templateModeHelp": {
+    "message": "Styrer hvordan Actor interagerer med aktive sceneskabeloner. Flet bevarer begge; Tilsidesæt lader Actor erstatte overlappende felter; Ignorer springer Actor over når skabeloner er aktive."
+  },
+  "actor_templateMode.merge": {
+    "message": "Flet med skabeloner"
+  },
+  "actor_templateMode.override": {
+    "message": "Tilsidesæt skabeloner"
+  },
+  "actor_templateMode.ignore": {
+    "message": "Ignorer når skabeloner er aktive"
+  },
+  "actor_bladeAspectsTitle": {
+    "message": "Aspekter"
+  },
+  "actor_bladeNotesTitle": {
+    "message": "Scenenoter"
+  },
+  "actor_bladePlacementTitle": {
+    "message": "Placering og skabeloner"
+  },
+  "actor_bladeTokensTitle": {
+    "message": "Tokens og forhåndsvisning"
+  },
+  "actor_summaryAspectsEmpty": {
+    "message": "Ingen aspekter konfigureret endnu."
+  },
+  "actor_summaryAspectsCount": {
+    "message": "{{count}} aspekter konfigureret."
+  },
+  "actor_summaryNotesEmpty": {
+    "message": "Ingen scenenoter endnu."
+  },
+  "actor_summaryNotes": {
+    "message": "{{chars}} tegn{{gmSuffix}}."
+  },
+  "actor_summaryNotesGmOnly": {
+    "message": " · Kun GM"
+  },
+  "actor_summaryPlacementBefore": {
+    "message": "Før hovedprompten/historien."
+  },
+  "actor_summaryPlacementAfter": {
+    "message": "Efter hovedprompten/historien."
+  },
+  "actor_summaryPlacementDepth": {
+    "message": "Dybde {{depth}} · Rolle: {{role}}."
+  },
+  "actor_summaryTokensEmpty": {
+    "message": "Ingen tokens defineret endnu; angiv aspektværdier."
+  },
+  "actor_summaryTokensCount": {
+    "message": "{{tokens}} tokens · ~{{estimate}} tokens i prompten."
+  },
+  "actor_sceneTemplateActive": {
+    "message": "Aktiv sceneskabelon: Actor respekterer indstillingerne for skabeloninteraktion."
   }
 }

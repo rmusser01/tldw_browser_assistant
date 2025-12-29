@@ -832,5 +832,254 @@
   },
   "speech_transcriptRecordingHint": {
     "message": "Inspelning pågår; transkriptet är låst."
+  },
+  "actor_title": {
+    "message": "Scenregissör (Actor)"
+  },
+  "actor_help": {
+    "message": "Konfigurera scenkontext per chatt: roller, stämning, värld, mål och anteckningar."
+  },
+  "actor_addLabel": {
+    "message": "Lägg till eller ta bort aspekter för att fokusera scenen."
+  },
+  "actor_user": {
+    "message": "Användare"
+  },
+  "actor_char": {
+    "message": "Karaktär"
+  },
+  "actor_world": {
+    "message": "Värld"
+  },
+  "actor_newAspectPlaceholder": {
+    "message": "Aspektnamn (t.ex. Stämning, Roll, Plats)"
+  },
+  "actor_addButton": {
+    "message": "Lägg till aspekt"
+  },
+  "actor_aspectPlaceholder": {
+    "message": "Beskriv kort (valfritt)"
+  },
+  "actor_notes": {
+    "message": "Scenanteckningar"
+  },
+  "actor_notesHelp": {
+    "message": "Valfria anteckningar som skickas till modellen. Stöder Markdown och LaTeX."
+  },
+  "actor_position": {
+    "message": "Position för Actor-prompt"
+  },
+  "actor_before": {
+    "message": "Före huvudprompten/berättelsen"
+  },
+  "actor_after": {
+    "message": "Efter huvudprompten/berättelsen"
+  },
+  "actor_depth": {
+    "message": "I chatten på djup"
+  },
+  "actor_depthLabel": {
+    "message": "Djup (icke-systemmeddelanden)"
+  },
+  "actor_depthPlaceholder": {
+    "message": "0 = början av chatten"
+  },
+  "actor_depthHelp": {
+    "message": "Används endast när positionen är \"I chatten på djup\". Räknar icke-systemmeddelanden från toppen av chatten."
+  },
+  "actor_roleLabel": {
+    "message": "Roll för Actor-meddelande"
+  },
+  "actor_roleSystem": {
+    "message": "System"
+  },
+  "actor_roleUser": {
+    "message": "Användare"
+  },
+  "actor_roleAssistant": {
+    "message": "Assistent"
+  },
+  "actor_positionHelp": {
+    "message": "Djup används bara när positionen är \"I chatten på djup\". Rollen styr om Actor visas som system, användare eller assistent."
+  },
+  "actor_preview": {
+    "message": "Förhandsvisning av Actor-prompt"
+  },
+  "actor_tokens": {
+    "message": "Tokens: {{count}}"
+  },
+  "actor_previewEmpty": {
+    "message": "Inget att skicka än."
+  },
+  "actor_offlineHintTitle": {
+    "message": "World Books inte tillgängliga för Actor"
+  },
+  "actor_offlineHintBody": {
+    "message": "Anslut din tldw-server i Inställningar för att använda World Books för Actor-aspekter, eller fortsätt använda fritextvärden."
+  },
+  "actor_loreWorldBookMissing": {
+    "message": "Tidigare World Book-koppling hittades inte; använder fritext istället."
+  },
+  "actor_loreEntryMissing": {
+    "message": "Tidigare World Book-post hittades inte; använder fritext istället."
+  },
+  "actor_sourceFree": {
+    "message": "Fritext"
+  },
+  "actor_sourceLore": {
+    "message": "World Book"
+  },
+  "actor_worldBookPlaceholder": {
+    "message": "World Book"
+  },
+  "actor_entryPlaceholder": {
+    "message": "Post"
+  },
+  "actor_loreValuePlaceholder": {
+    "message": "Välj ett alternativ (valfritt)"
+  },
+  "actor_tokenLabel": {
+    "message": "Token"
+  },
+  "actor_tokensTitle": {
+    "message": "Actor-ordboks-tokens"
+  },
+  "actor_tokensHelp": {
+    "message": "Använd dessa tokens i prompter och systemmeddelanden."
+  },
+  "actor_keyChangeTitle": {
+    "message": "Ändra Actor-tokennyckel?"
+  },
+  "actor_keyChangeBody": {
+    "message": "Detta ändrar token från {{old}} till {{next}}. Prompter som använder den gamla token uppdateras inte automatiskt."
+  },
+  "actor_keyCollisionTitle": {
+    "message": "Actor-nyckel används redan"
+  },
+  "actor_keyCollisionBody": {
+    "message": "En annan aspekt använder redan denna nyckel. Nycklar måste vara unika per chatt."
+  },
+  "actor_copy": {
+    "message": "Kopiera"
+  },
+  "actor_copied": {
+    "message": "Kopierad"
+  },
+  "actor_copySuccess": {
+    "message": "Token kopierad till urklipp"
+  },
+  "actor_copyError": {
+    "message": "Det gick inte att kopiera token"
+  },
+  "actor_notesPreviewTitle": {
+    "message": "Förhandsvisning av scenanteckningar"
+  },
+  "actor_notesPreviewToggle": {
+    "message": "Visa Markdown + LaTeX-förhandsvisning"
+  },
+  "actor_aspectLimitWarningTitle": {
+    "message": "Många aspekter konfigurerade för denna chatt"
+  },
+  "actor_aspectLimitWarningBody": {
+    "message": "Du har {{count}} aspekter (mjuk gräns {{limit}}). Överväg att trimma för att fokusera scenen och spara tokens."
+  },
+  "actor_tokenWarning": {
+    "message": "Actor-prompten är lång ({{count}} tokens; mjuk gräns {{limit}}). Överväg att trimma aspekter eller anteckningar för att spara kontext."
+  },
+  "actor_depthRangeHelp": {
+    "message": "Djupet måste vara mellan 0 och 999; värden över historiklängden begränsas."
+  },
+  "actor_presetLabel": {
+    "message": "Förinställningar"
+  },
+  "actor_presetPlaceholder": {
+    "message": "Välj en förinställning"
+  },
+  "actor_preset.sliceOfLife": {
+    "message": "Vardagsliv"
+  },
+  "actor_preset.dungeonCrawl": {
+    "message": "Dungeon crawl"
+  },
+  "actor_preset.romance": {
+    "message": "Romantik"
+  },
+  "actor_preset.workSession": {
+    "message": "Arbetspass"
+  },
+  "actor_applyPreset": {
+    "message": "Använd"
+  },
+  "actor_resetChat": {
+    "message": "Återställ för denna chatt"
+  },
+  "actor_saveAsCharacterDefault": {
+    "message": "Spara som standard för {{name}}"
+  },
+  "actor_applyCharacterDefault": {
+    "message": "Använd standard för {{name}}"
+  },
+  "actor_notesGmOnly": {
+    "message": "Endast GM: skicka inte anteckningar till modellen"
+  },
+  "actor_templateModeLabel": {
+    "message": "Interaktion med scenmallar"
+  },
+  "actor_templateModeHelp": {
+    "message": "Styr hur Actor interagerar med aktiva scenmallar. Sammanfoga behåller båda; Åsidosätt låter Actor ersätta överlappande fält; Ignorera hoppar över Actor när mallar är aktiva."
+  },
+  "actor_templateMode.merge": {
+    "message": "Sammanfoga med mallar"
+  },
+  "actor_templateMode.override": {
+    "message": "Åsidosätt mallar"
+  },
+  "actor_templateMode.ignore": {
+    "message": "Ignorera när mallar är aktiva"
+  },
+  "actor_bladeAspectsTitle": {
+    "message": "Aspekter"
+  },
+  "actor_bladeNotesTitle": {
+    "message": "Scenanteckningar"
+  },
+  "actor_bladePlacementTitle": {
+    "message": "Placering och mallar"
+  },
+  "actor_bladeTokensTitle": {
+    "message": "Tokens och förhandsvisning"
+  },
+  "actor_summaryAspectsEmpty": {
+    "message": "Inga aspekter konfigurerade än."
+  },
+  "actor_summaryAspectsCount": {
+    "message": "{{count}} aspekter konfigurerade."
+  },
+  "actor_summaryNotesEmpty": {
+    "message": "Inga scenanteckningar än."
+  },
+  "actor_summaryNotes": {
+    "message": "{{chars}} tecken{{gmSuffix}}."
+  },
+  "actor_summaryNotesGmOnly": {
+    "message": " · Endast GM"
+  },
+  "actor_summaryPlacementBefore": {
+    "message": "Före huvudprompten/berättelsen."
+  },
+  "actor_summaryPlacementAfter": {
+    "message": "Efter huvudprompten/berättelsen."
+  },
+  "actor_summaryPlacementDepth": {
+    "message": "Djup {{depth}} · Roll: {{role}}."
+  },
+  "actor_summaryTokensEmpty": {
+    "message": "Inga tokens definierade än; ange aspektvärden."
+  },
+  "actor_summaryTokensCount": {
+    "message": "{{tokens}} tokens · ~{{estimate}} tokens i prompten."
+  },
+  "actor_sceneTemplateActive": {
+    "message": "Scenmall aktiv: Actor respekterar inställningar för mallinteraktion."
   }
 }

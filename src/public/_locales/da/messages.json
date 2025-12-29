@@ -234,7 +234,7 @@
     "message": "OCR-ressourcer er aktiveret og klar"
   },
   "omniSearchPlaceholder": {
-    "message": "Søg i skærme, chats, medier, noter…",
+    "message": "Søg efter skærme, samtaler, medier, noter…",
     "description": "Placeholder text for the omni-search input in the header."
   },
   "omniSearchNoResults": {
@@ -262,7 +262,7 @@
     "description": "ARIA label template for the Quick ingest button when there are queued items."
   },
   "connectionCard_descriptionConnectedList_reviewMedia": {
-    "message": "Gennemse medier og transkriptioner",
+    "message": "Gennemgå medier og transskriptioner",
     "description": "First bullet in the connected-state server connection card, highlighting media review."
   },
   "connectionCard_descriptionConnectedList_searchKnowledge": {
@@ -278,7 +278,7 @@
     "description": "Filter label for screens in omni-search."
   },
   "omniSearch_filterChat": {
-    "message": "Chats",
+    "message": "Samtaler",
     "description": "Filter label for chats in omni-search."
   },
   "omniSearch_filterMedia": {
@@ -294,7 +294,7 @@
     "description": "Filter label for flashcard collections in omni-search."
   },
   "omniSearch_filterPrompt": {
-    "message": "Prompter",
+    "message": "Prompts",
     "description": "Filter label for prompts in omni-search."
   },
   "omniSearch_filteringBy": {
@@ -2014,22 +2014,22 @@
     "message": "{{success}} deleted · {{failed}} failed"
   },
   "mediaPage_searchPlaceholder": {
-    "message": "Search media (title/content)"
+    "message": "Søg i medier (titel/indhold)"
   },
   "mediaPage_search": {
-    "message": "Search"
+    "message": "Søg"
   },
   "mediaPage_clear": {
-    "message": "Clear"
+    "message": "Ryd"
   },
   "mediaPage_types": {
     "message": "Types"
   },
   "mediaPage_keywords": {
-    "message": "Keywords"
+    "message": "Nøgleord"
   },
   "mediaPage_moreTags": {
-    "message": "+{{count}} more tags"
+    "message": "+{{count}} flere tags"
   },
   "mediaPage_resetFilters": {
     "message": "Reset Filters"
@@ -2038,16 +2038,16 @@
     "message": "Ryd alt"
   },
   "mediaPage_content": {
-    "message": "Content"
+    "message": "Indhold"
   },
   "mediaPage_vertical": {
-    "message": "Vertical"
+    "message": "Lodret"
   },
   "mediaPage_horizontal": {
-    "message": "Horizontal"
+    "message": "Vandret"
   },
   "mediaPage_results": {
-    "message": "Results"
+    "message": "Resultater"
   },
   "mediaPage_noResults": {
     "message": "No results"
@@ -2059,19 +2059,19 @@
     "message": "Hide sidebar"
   },
   "mediaPage_viewer": {
-    "message": "Viewer"
+    "message": "Viser"
   },
   "mediaPage_selectItemsHint": {
-    "message": "Select items on the left to view here."
+    "message": "Vælg elementer til venstre for at se dem her."
   },
   "mediaPage_mediaContent": {
-    "message": "Media Content"
+    "message": "Medieindhold"
   },
   "mediaPage_copyContent": {
-    "message": "Copy content"
+    "message": "Kopiér indhold"
   },
   "mediaPage_contentCopied": {
-    "message": "Content copied"
+    "message": "Indhold kopieret"
   },
   "mediaPage_metadataCopied": {
     "message": "Metadata kopieret"
@@ -2080,40 +2080,40 @@
     "message": "Analyse kopieret"
   },
   "mediaPage_copyFailed": {
-    "message": "Copy failed"
+    "message": "Kopiering mislykkedes"
   },
   "mediaPage_noContent": {
-    "message": "No content available"
+    "message": "Intet indhold tilgængeligt"
   },
   "mediaPage_collapse": {
-    "message": "Collapse"
+    "message": "Fold sammen"
   },
   "mediaPage_expand": {
-    "message": "Expand"
+    "message": "Fold ud"
   },
   "mediaPage_media": {
-    "message": "Media"
+    "message": "Medie"
   },
   "mediaPage_searchingBanner": {
-    "message": "Searching media…"
+    "message": "Søger i medier…"
   },
   "mediaPage_filterHelp": {
-    "message": "Search matches title and content; Types and Keywords further narrow the results."
+    "message": "Søgning matcher titel og indhold; typer og nøgleord indsnævrer resultaterne yderligere."
   },
   "mediaPage_noMediaTypes": {
     "message": "Ingen medietyper tilgængelige"
   },
   "mediaPage_resultsCount": {
-    "message": "{{selected}} selected · {{open}} open"
+    "message": "{{selected}} valgt · {{open}} åbne"
   },
   "mediaPage_clearSelection": {
-    "message": "Deselect all"
+    "message": "Fravælg alle"
   },
   "mediaPage_itemsLabel": {
-    "message": "Items"
+    "message": "Elementer"
   },
   "mediaPage_contentLabel": {
-    "message": "Content view"
+    "message": "Indholdsvisning"
   },
   "mediaPage_filterByKeyword": {
     "message": "Filtrér efter nøgleord"
@@ -2179,13 +2179,13 @@
     "message": "Afsnit"
   },
   "mediaPage_metadata": {
-    "message": "Metadata"
+    "message": "metadata"
   },
   "mediaPage_idLabel": {
-    "message": "ID"
+    "message": "Id"
   },
   "mediaPage_typeLabel": {
-    "message": "Type"
+    "message": "Kategori"
   },
   "mediaPage_titleLabel": {
     "message": "Titel"
@@ -3343,7 +3343,7 @@
     "message": "Kunne ikke indsende quizzen."
   },
   "quiz_scoreSummary": {
-    "message": "Score: {{score}} / {{total}} ({{percent}}%)"
+    "message": "Resultat: {{score}} / {{total}} ({{percent}}%)"
   },
   "quiz_correct": {
     "message": "Korrekt"
@@ -3362,5 +3362,140 @@
   },
   "quiz_retake": {
     "message": "Tag quizzen igen"
+  },
+  "searchPrompts": {
+    "message": "Søg i prompts..."
+  },
+  "noMatchingPrompts": {
+    "message": "Ingen matchende prompts"
+  },
+  "promptSelect_favorites": {
+    "message": "Favoritter"
+  },
+  "promptSelect_system": {
+    "message": "Systemprompts"
+  },
+  "promptSelect_quick": {
+    "message": "Hurtige prompts"
+  },
+  "flashcards_bulkLimitWarning": {
+    "message": "Operationen er begrænset til de første {{limit}} elementer."
+  },
+  "mediaPage_spreadMode": {
+    "message": "Sammenlign"
+  },
+  "mediaPage_listMode": {
+    "message": "Fokus"
+  },
+  "mediaPage_allMode": {
+    "message": "Stak"
+  },
+  "mediaPage_spreadModeTooltip": {
+    "message": "Se valgte elementer side om side for sammenligning"
+  },
+  "mediaPage_listModeTooltip": {
+    "message": "Se ét element ad gangen med navigation"
+  },
+  "mediaPage_allModeTooltip": {
+    "message": "Se alle valgte elementer i en rulleliste"
+  },
+  "mediaPage_copyContentLabel": {
+    "message": "Kopiér indhold"
+  },
+  "mediaPage_copyAnalysisLabel": {
+    "message": "Kopiér analyse"
+  },
+  "mediaPage_copyContentTooltip": {
+    "message": "Kopiér indhold til udklipsholderen"
+  },
+  "mediaPage_copyAnalysisTooltip": {
+    "message": "Kopiér analyse til udklipsholderen"
+  },
+  "mediaPage_prevItemTooltip": {
+    "message": "Forrige element (←)"
+  },
+  "mediaPage_nextItemTooltip": {
+    "message": "Næste element (→)"
+  },
+  "mediaPage_viewerOptions": {
+    "message": "Indstillinger"
+  },
+  "mediaPage_expandAllDropdown": {
+    "message": "Udvid/Sammenfold"
+  },
+  "mediaPage_itemPosition": {
+    "message": "Element {{current}} af {{total}}"
+  },
+  "mediaPage_noItemSelected": {
+    "message": "Intet element valgt"
+  },
+  "mediaPage_firstUseTitle": {
+    "message": "Hurtig guide: Gennemgang af flere elementer"
+  },
+  "mediaPage_firstUseStep1": {
+    "message": "Vælg elementer"
+  },
+  "mediaPage_firstUseStep1Desc": {
+    "message": "Klik på elementer i venstre panel for at tilføje dem til visningen."
+  },
+  "mediaPage_firstUseStep2": {
+    "message": "Vælg en visning"
+  },
+  "mediaPage_firstUseStep2DescUpdated": {
+    "message": "Brug \"Sammenlign\" for side om side, \"Fokus\" for ét ad gangen, eller \"Stak\" for at se alle."
+  },
+  "mediaPage_firstUseStep3": {
+    "message": "Naviger"
+  },
+  "mediaPage_firstUseStep3Desc": {
+    "message": "Brug Forrige/Næste-knapperne eller tastaturet (Tab + Enter) til at gå gennem elementer."
+  },
+  "mediaPage_gotIt": {
+    "message": "Forstået"
+  },
+  "mediaPage_model": {
+    "message": "AI-model"
+  },
+  "mediaPage_selectModel": {
+    "message": "Vælg en model"
+  },
+  "mediaPage_noModelsAvailable": {
+    "message": "Ingen modeller tilgængelige"
+  },
+  "mediaPage_promptPresets": {
+    "message": "Prompt-forudindstillinger"
+  },
+  "mediaPage_showPresets": {
+    "message": "Vis forudindstillinger"
+  },
+  "mediaPage_hidePresets": {
+    "message": "Skjul forudindstillinger"
+  },
+  "mediaPage_systemPromptLabel": {
+    "message": "Systemprompt"
+  },
+  "mediaPage_systemPromptPlaceholder": {
+    "message": "Indtast systemprompt..."
+  },
+  "mediaPage_userPromptPrefixLabel": {
+    "message": "Brugerprompt-præfiks"
+  },
+  "mediaPage_prependedBeforeContent": {
+    "message": "(føjet foran indholdet)"
+  },
+  "mediaPage_userPrefixPlaceholder": {
+    "message": "Valgfrit: Indtast tekst, der skal føjes foran medieindholdet..."
+  },
+  "mediaPage_presetComprehensiveAnalysis": {
+    "message": "Omfattende analyse"
+  },
+  "mediaPage_presetExecutiveSummary": {
+    "message": "Ledelsesresumé"
+  },
+  "mediaPage_presetCriticalReview": {
+    "message": "Kritisk gennemgang"
+  },
+  "mediaPage_presetQAAnalysis": {
+    "message": "Spørgsmål og svar-analyse"
   }
 }

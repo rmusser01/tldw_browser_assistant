@@ -832,5 +832,254 @@
   },
   "speech_transcriptRecordingHint": {
     "message": "ضبط در حال انجام است؛ رونوشت قفل است."
+  },
+  "actor_title": {
+    "message": "کارگردان صحنه (اکتور)"
+  },
+  "actor_help": {
+    "message": "زمینهٔ صحنه را برای هر چت تنظیم کنید: نقش‌ها، حال‌وهوا، دنیا، اهداف و یادداشت‌ها."
+  },
+  "actor_addLabel": {
+    "message": "جنبه‌ها را اضافه یا حذف کنید تا صحنه متمرکز شود."
+  },
+  "actor_user": {
+    "message": "کاربر"
+  },
+  "actor_char": {
+    "message": "شخصیت"
+  },
+  "actor_world": {
+    "message": "دنیا"
+  },
+  "actor_newAspectPlaceholder": {
+    "message": "نام جنبه (مثلاً حال‌وهوا، نقش، مکان)"
+  },
+  "actor_addButton": {
+    "message": "افزودن جنبه"
+  },
+  "actor_aspectPlaceholder": {
+    "message": "مختصر توصیف کنید (اختیاری)"
+  },
+  "actor_notes": {
+    "message": "یادداشت‌های صحنه"
+  },
+  "actor_notesHelp": {
+    "message": "یادداشت‌های اختیاری که به مدل ارسال می‌شوند. از مارک‌داون و لاتک پشتیبانی می‌کند."
+  },
+  "actor_position": {
+    "message": "موقعیت پرامپت اکتور"
+  },
+  "actor_before": {
+    "message": "قبل از پرامپت/داستان اصلی"
+  },
+  "actor_after": {
+    "message": "بعد از پرامپت/داستان اصلی"
+  },
+  "actor_depth": {
+    "message": "در چت با عمق"
+  },
+  "actor_depthLabel": {
+    "message": "عمق (پیام‌های غیرسیستمی)"
+  },
+  "actor_depthPlaceholder": {
+    "message": "0 = ابتدای چت"
+  },
+  "actor_depthHelp": {
+    "message": "فقط زمانی استفاده می‌شود که موقعیت «در چت با عمق» باشد. پیام‌های غیرسیستمی را از ابتدای چت می‌شمارد."
+  },
+  "actor_roleLabel": {
+    "message": "نقش پیام اکتور"
+  },
+  "actor_roleSystem": {
+    "message": "سیستم"
+  },
+  "actor_roleUser": {
+    "message": "کاربر"
+  },
+  "actor_roleAssistant": {
+    "message": "دستیار"
+  },
+  "actor_positionHelp": {
+    "message": "عمق فقط زمانی استفاده می‌شود که موقعیت «در چت با عمق» باشد. نقش تعیین می‌کند اکتور به‌صورت سیستم، کاربر یا دستیار نمایش داده شود."
+  },
+  "actor_preview": {
+    "message": "پیش‌نمایش پرامپت اکتور"
+  },
+  "actor_tokens": {
+    "message": "توکن‌ها: {{count}}"
+  },
+  "actor_previewEmpty": {
+    "message": "هنوز چیزی برای ارسال نیست."
+  },
+  "actor_offlineHintTitle": {
+    "message": "کتاب‌های جهان برای اکتور در دسترس نیست"
+  },
+  "actor_offlineHintBody": {
+    "message": "از بخش تنظیمات به سرور tldw متصل شوید تا از کتاب‌های جهان برای جنبه‌های اکتور استفاده کنید یا همچنان از متن آزاد استفاده کنید."
+  },
+  "actor_loreWorldBookMissing": {
+    "message": "اتصال قبلی کتاب جهان پیدا نشد؛ از متن آزاد استفاده می‌شود."
+  },
+  "actor_loreEntryMissing": {
+    "message": "ورودی قبلی کتاب جهان پیدا نشد؛ از متن آزاد استفاده می‌شود."
+  },
+  "actor_sourceFree": {
+    "message": "متن آزاد"
+  },
+  "actor_sourceLore": {
+    "message": "کتاب جهان"
+  },
+  "actor_worldBookPlaceholder": {
+    "message": "کتاب جهان"
+  },
+  "actor_entryPlaceholder": {
+    "message": "ورودی"
+  },
+  "actor_loreValuePlaceholder": {
+    "message": "یک گزینه را انتخاب کنید (اختیاری)"
+  },
+  "actor_tokenLabel": {
+    "message": "توکن"
+  },
+  "actor_tokensTitle": {
+    "message": "توکن‌های واژه‌نامه اکتور"
+  },
+  "actor_tokensHelp": {
+    "message": "از این توکن‌ها در پرامپت‌ها و پیام‌های سیستمی استفاده کنید."
+  },
+  "actor_keyChangeTitle": {
+    "message": "کلید توکن اکتور تغییر کند؟"
+  },
+  "actor_keyChangeBody": {
+    "message": "این کار توکن را از {{old}} به {{next}} تغییر می‌دهد. پرامپت‌هایی که از توکن قدیمی استفاده می‌کنند به‌طور خودکار به‌روزرسانی نمی‌شوند."
+  },
+  "actor_keyCollisionTitle": {
+    "message": "کلید اکتور قبلاً استفاده شده است"
+  },
+  "actor_keyCollisionBody": {
+    "message": "یک جنبهٔ دیگر از این کلید استفاده می‌کند. کلیدها باید در هر چت یکتا باشند."
+  },
+  "actor_copy": {
+    "message": "کپی"
+  },
+  "actor_copied": {
+    "message": "کپی شد"
+  },
+  "actor_copySuccess": {
+    "message": "توکن در کلیپ‌بورد کپی شد"
+  },
+  "actor_copyError": {
+    "message": "کپی توکن ناموفق بود"
+  },
+  "actor_notesPreviewTitle": {
+    "message": "پیش‌نمایش یادداشت‌های صحنه"
+  },
+  "actor_notesPreviewToggle": {
+    "message": "نمایش پیش‌نمایش مارک‌داون + لاتک"
+  },
+  "actor_aspectLimitWarningTitle": {
+    "message": "جنبه‌های زیادی برای این چت تنظیم شده است"
+  },
+  "actor_aspectLimitWarningBody": {
+    "message": "شما {{count}} جنبه دارید (حد نرم {{limit}}). برای تمرکز صحنه و صرفه‌جویی در توکن‌ها، آن‌ها را کاهش دهید."
+  },
+  "actor_tokenWarning": {
+    "message": "پرامپت اکتور طولانی است ({{count}} توکن؛ حد نرم {{limit}}). برای صرفه‌جویی در کانتکست، جنبه‌ها یا یادداشت‌ها را کاهش دهید."
+  },
+  "actor_depthRangeHelp": {
+    "message": "عمق باید بین 0 تا 999 باشد؛ مقادیر فراتر از طول تاریخچه محدود می‌شوند."
+  },
+  "actor_presetLabel": {
+    "message": "پیش‌تنظیم‌ها"
+  },
+  "actor_presetPlaceholder": {
+    "message": "یک پیش‌تنظیم انتخاب کنید"
+  },
+  "actor_preset.sliceOfLife": {
+    "message": "زندگی روزمره"
+  },
+  "actor_preset.dungeonCrawl": {
+    "message": "سیاه‌چال‌گردی"
+  },
+  "actor_preset.romance": {
+    "message": "رمانتیک"
+  },
+  "actor_preset.workSession": {
+    "message": "جلسه کاری"
+  },
+  "actor_applyPreset": {
+    "message": "اعمال"
+  },
+  "actor_resetChat": {
+    "message": "بازنشانی برای این چت"
+  },
+  "actor_saveAsCharacterDefault": {
+    "message": "ذخیره به‌عنوان پیش‌فرض {{name}}"
+  },
+  "actor_applyCharacterDefault": {
+    "message": "اعمال پیش‌فرض {{name}}"
+  },
+  "actor_notesGmOnly": {
+    "message": "فقط مدیر بازی: یادداشت‌ها را به مدل ارسال نکنید"
+  },
+  "actor_templateModeLabel": {
+    "message": "تعامل با الگوهای صحنه"
+  },
+  "actor_templateModeHelp": {
+    "message": "نحوه تعامل اکتور با الگوهای فعال صحنه را کنترل می‌کند. ادغام هر دو را نگه می‌دارد؛ جایگزینی اجازه می‌دهد اکتور فیلدهای هم‌پوشان را جایگزین کند؛ نادیده‌گرفتن وقتی الگوها فعال هستند اکتور را رد می‌کند."
+  },
+  "actor_templateMode.merge": {
+    "message": "ادغام با الگوها"
+  },
+  "actor_templateMode.override": {
+    "message": "جایگزینی الگوها"
+  },
+  "actor_templateMode.ignore": {
+    "message": "نادیده‌گرفتن هنگام فعال بودن الگوها"
+  },
+  "actor_bladeAspectsTitle": {
+    "message": "جنبه‌ها"
+  },
+  "actor_bladeNotesTitle": {
+    "message": "یادداشت‌های صحنه"
+  },
+  "actor_bladePlacementTitle": {
+    "message": "جای‌گذاری و الگوها"
+  },
+  "actor_bladeTokensTitle": {
+    "message": "توکن‌ها و پیش‌نمایش"
+  },
+  "actor_summaryAspectsEmpty": {
+    "message": "هنوز جنبه‌ای تنظیم نشده است."
+  },
+  "actor_summaryAspectsCount": {
+    "message": "{{count}} جنبه تنظیم شده است."
+  },
+  "actor_summaryNotesEmpty": {
+    "message": "هنوز یادداشت صحنه‌ای وجود ندارد."
+  },
+  "actor_summaryNotes": {
+    "message": "{{chars}} نویسه{{gmSuffix}}."
+  },
+  "actor_summaryNotesGmOnly": {
+    "message": " · فقط مدیر بازی"
+  },
+  "actor_summaryPlacementBefore": {
+    "message": "قبل از پرامپت/داستان اصلی."
+  },
+  "actor_summaryPlacementAfter": {
+    "message": "بعد از پرامپت/داستان اصلی."
+  },
+  "actor_summaryPlacementDepth": {
+    "message": "عمق {{depth}} · نقش: {{role}}."
+  },
+  "actor_summaryTokensEmpty": {
+    "message": "هنوز توکنی تعریف نشده است؛ مقادیر جنبه را تنظیم کنید."
+  },
+  "actor_summaryTokensCount": {
+    "message": "{{tokens}} توکن · حدود {{estimate}} توکن در پرامپت."
+  },
+  "actor_sceneTemplateActive": {
+    "message": "الگوی صحنه فعال است: اکتور به تنظیمات تعامل با الگوها پایبند است."
   }
 }

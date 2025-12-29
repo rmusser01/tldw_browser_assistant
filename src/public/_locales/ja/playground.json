@@ -832,5 +832,254 @@
   },
   "speech_transcriptRecordingHint": {
     "message": "録音中のため、文字起こしはロックされています。"
+  },
+  "actor_title": {
+    "message": "シーンディレクター (Actor)"
+  },
+  "actor_help": {
+    "message": "チャットごとのシーンコンテキスト（役割、ムード、世界、目標、ノート）を設定します。"
+  },
+  "actor_addLabel": {
+    "message": "シーンに集中できるよう、要素を追加または削除します。"
+  },
+  "actor_user": {
+    "message": "ユーザー"
+  },
+  "actor_char": {
+    "message": "キャラクター"
+  },
+  "actor_world": {
+    "message": "世界"
+  },
+  "actor_newAspectPlaceholder": {
+    "message": "要素名（例: ムード、役割、場所）"
+  },
+  "actor_addButton": {
+    "message": "要素を追加"
+  },
+  "actor_aspectPlaceholder": {
+    "message": "簡単に説明（任意）"
+  },
+  "actor_notes": {
+    "message": "シーンノート"
+  },
+  "actor_notesHelp": {
+    "message": "モデルに送信される任意のノート。Markdown と LaTeX に対応。"
+  },
+  "actor_position": {
+    "message": "Actor プロンプトの位置"
+  },
+  "actor_before": {
+    "message": "メインプロンプト/ストーリーの前"
+  },
+  "actor_after": {
+    "message": "メインプロンプト/ストーリーの後"
+  },
+  "actor_depth": {
+    "message": "チャット内の深さ"
+  },
+  "actor_depthLabel": {
+    "message": "深さ（システム以外のメッセージ）"
+  },
+  "actor_depthPlaceholder": {
+    "message": "0 = チャットの先頭"
+  },
+  "actor_depthHelp": {
+    "message": "位置が「チャット内の深さ」の場合のみ使用します。チャットの先頭からシステム以外のメッセージを数えます。"
+  },
+  "actor_roleLabel": {
+    "message": "Actor メッセージの役割"
+  },
+  "actor_roleSystem": {
+    "message": "システム"
+  },
+  "actor_roleUser": {
+    "message": "ユーザー"
+  },
+  "actor_roleAssistant": {
+    "message": "アシスタント"
+  },
+  "actor_positionHelp": {
+    "message": "深さは位置が「チャット内の深さ」の場合のみ使用します。役割で Actor がシステム/ユーザー/アシスタントとして表示されます。"
+  },
+  "actor_preview": {
+    "message": "Actor プロンプトのプレビュー"
+  },
+  "actor_tokens": {
+    "message": "トークン: {{count}}"
+  },
+  "actor_previewEmpty": {
+    "message": "まだ送信するものがありません。"
+  },
+  "actor_offlineHintTitle": {
+    "message": "Actor で World Books を利用できません"
+  },
+  "actor_offlineHintBody": {
+    "message": "設定から tldw サーバーに接続して Actor の要素に World Books を使用するか、自由入力の値を使い続けてください。"
+  },
+  "actor_loreWorldBookMissing": {
+    "message": "以前の World Book 連携が見つかりませんでした。代わりに自由入力を使用します。"
+  },
+  "actor_loreEntryMissing": {
+    "message": "以前の World Book エントリが見つかりませんでした。代わりに自由入力を使用します。"
+  },
+  "actor_sourceFree": {
+    "message": "自由入力"
+  },
+  "actor_sourceLore": {
+    "message": "World Book"
+  },
+  "actor_worldBookPlaceholder": {
+    "message": "World Book"
+  },
+  "actor_entryPlaceholder": {
+    "message": "エントリ"
+  },
+  "actor_loreValuePlaceholder": {
+    "message": "オプションを選択（任意）"
+  },
+  "actor_tokenLabel": {
+    "message": "トークン"
+  },
+  "actor_tokensTitle": {
+    "message": "Actor 辞書トークン"
+  },
+  "actor_tokensHelp": {
+    "message": "これらのトークンをプロンプトやシステムメッセージで使用します。"
+  },
+  "actor_keyChangeTitle": {
+    "message": "Actor のトークンキーを変更しますか？"
+  },
+  "actor_keyChangeBody": {
+    "message": "トークンを {{old}} から {{next}} に変更します。古いトークンを使っているプロンプトは自動更新されません。"
+  },
+  "actor_keyCollisionTitle": {
+    "message": "Actor キーは既に使用されています"
+  },
+  "actor_keyCollisionBody": {
+    "message": "別の要素がこのキーを使用しています。キーはチャットごとに一意である必要があります。"
+  },
+  "actor_copy": {
+    "message": "コピー"
+  },
+  "actor_copied": {
+    "message": "コピーしました"
+  },
+  "actor_copySuccess": {
+    "message": "トークンをクリップボードにコピーしました"
+  },
+  "actor_copyError": {
+    "message": "トークンのコピーに失敗しました"
+  },
+  "actor_notesPreviewTitle": {
+    "message": "シーンノートのプレビュー"
+  },
+  "actor_notesPreviewToggle": {
+    "message": "Markdown + LaTeX のプレビューを表示"
+  },
+  "actor_aspectLimitWarningTitle": {
+    "message": "このチャットで多くの要素が設定されています"
+  },
+  "actor_aspectLimitWarningBody": {
+    "message": "{{count}} 個の要素があります（ソフト上限 {{limit}}）。シーンを絞り、トークンを節約するために削減を検討してください。"
+  },
+  "actor_tokenWarning": {
+    "message": "Actor プロンプトが長いです（{{count}} トークン、ソフト上限 {{limit}}）。要素やノートを削減してコンテキストを節約してください。"
+  },
+  "actor_depthRangeHelp": {
+    "message": "深さは 0〜999 の範囲です。履歴長を超える値は切り詰められます。"
+  },
+  "actor_presetLabel": {
+    "message": "プリセット"
+  },
+  "actor_presetPlaceholder": {
+    "message": "プリセットを選択"
+  },
+  "actor_preset.sliceOfLife": {
+    "message": "日常系"
+  },
+  "actor_preset.dungeonCrawl": {
+    "message": "ダンジョン探索"
+  },
+  "actor_preset.romance": {
+    "message": "ロマンス"
+  },
+  "actor_preset.workSession": {
+    "message": "作業セッション"
+  },
+  "actor_applyPreset": {
+    "message": "適用"
+  },
+  "actor_resetChat": {
+    "message": "このチャットをリセット"
+  },
+  "actor_saveAsCharacterDefault": {
+    "message": "{{name}} のデフォルトとして保存"
+  },
+  "actor_applyCharacterDefault": {
+    "message": "{{name}} のデフォルトを適用"
+  },
+  "actor_notesGmOnly": {
+    "message": "GMのみ: ノートをモデルに送信しない"
+  },
+  "actor_templateModeLabel": {
+    "message": "シーンテンプレートの連携"
+  },
+  "actor_templateModeHelp": {
+    "message": "Actor がアクティブなシーンテンプレートとどう連携するかを制御します。マージは両方を維持、上書きは Actor が重複フィールドを置き換え、無視はテンプレートが有効なとき Actor をスキップします。"
+  },
+  "actor_templateMode.merge": {
+    "message": "テンプレートとマージ"
+  },
+  "actor_templateMode.override": {
+    "message": "テンプレートを上書き"
+  },
+  "actor_templateMode.ignore": {
+    "message": "テンプレートが有効なとき無視"
+  },
+  "actor_bladeAspectsTitle": {
+    "message": "要素"
+  },
+  "actor_bladeNotesTitle": {
+    "message": "シーンノート"
+  },
+  "actor_bladePlacementTitle": {
+    "message": "配置とテンプレート"
+  },
+  "actor_bladeTokensTitle": {
+    "message": "トークンとプレビュー"
+  },
+  "actor_summaryAspectsEmpty": {
+    "message": "要素はまだ設定されていません。"
+  },
+  "actor_summaryAspectsCount": {
+    "message": "{{count}} 個の要素が設定されています。"
+  },
+  "actor_summaryNotesEmpty": {
+    "message": "シーンノートはまだありません。"
+  },
+  "actor_summaryNotes": {
+    "message": "{{chars}} 文字{{gmSuffix}}。"
+  },
+  "actor_summaryNotesGmOnly": {
+    "message": " · GMのみ"
+  },
+  "actor_summaryPlacementBefore": {
+    "message": "メインプロンプト/ストーリーの前。"
+  },
+  "actor_summaryPlacementAfter": {
+    "message": "メインプロンプト/ストーリーの後。"
+  },
+  "actor_summaryPlacementDepth": {
+    "message": "深さ {{depth}} · 役割: {{role}}。"
+  },
+  "actor_summaryTokensEmpty": {
+    "message": "トークンはまだ定義されていません。要素の値を設定してください。"
+  },
+  "actor_summaryTokensCount": {
+    "message": "{{tokens}} トークン · プロンプト内 ~{{estimate}} トークン。"
+  },
+  "actor_sceneTemplateActive": {
+    "message": "シーンテンプレートが有効です。Actor はテンプレート連携設定を尊重します。"
   }
 }

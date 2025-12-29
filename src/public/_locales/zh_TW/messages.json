@@ -1178,10 +1178,10 @@
     "description": "Button label to retry opening Content Review."
   },
   "quickIngest_title": {
-    "message": "Quick Ingest Media"
+    "message": "快速匯入媒體"
   },
   "quickIngest_subtitle": {
-    "message": "Enter one or more URLs. Force type per row if needed."
+    "message": "輸入一或多個 URL。必要時可為每行指定類型。"
   },
   "quickIngest_offlineTitle": {
     "message": "伺服器離線 — 僅限測試環境"
@@ -1190,10 +1190,10 @@
     "message": "您可以在此排程 URL 與檔案並檢視欄位，但在 tldw 伺服器恢復線上前不會進行匯入，請重新連線以處理待辦項目。"
   },
   "quickIngest_sourceHeading": {
-    "message": "Source URLs or files"
+    "message": "來源 URL 或檔案"
   },
   "quickIngest_storeRemote": {
-    "message": "Store to remote DB"
+    "message": "儲存到遠端資料庫"
   },
   "quickIngest_storeRemoteAria": {
     "message": "將匯入結果儲存到你的 tldw 伺服器"
@@ -1286,61 +1286,61 @@
     "message": "https://github.com/rmusser01/tldw_browser_assistant"
   },
   "quickIngest_bulkPlaceholder": {
-    "message": "Paste URLs (one per line)"
+    "message": "貼上 URL（每行一個）"
   },
   "quickIngest_or": {
-    "message": "or"
+    "message": "或"
   },
   "quickIngest_remove": {
-    "message": "Remove"
+    "message": "移除"
   },
   "quickIngest_add": {
-    "message": "Add URL"
+    "message": "新增 URL"
   },
   "quickIngest_commonOptions": {
-    "message": "Ingestion options"
+    "message": "匯入選項"
   },
   "quickIngest_audioOptions": {
-    "message": "Audio options"
+    "message": "音訊選項"
   },
   "quickIngest_audioLanguage": {
-    "message": "Language (e.g., en)"
+    "message": "語言（例如 en）"
   },
   "quickIngest_audioDiarizationHelp": {
-    "message": "Turn on to separate speakers in transcripts."
+    "message": "啟用以在轉錄中區分說話者。"
   },
   "quickIngest_documentOptions": {
-    "message": "Document options"
+    "message": "文件選項"
   },
   "quickIngest_videoOptions": {
-    "message": "Video options"
+    "message": "影片選項"
   },
   "quickIngest_captionsHelp": {
-    "message": "Include timestamps/captions when available."
+    "message": "可用時包含時間戳記/字幕。"
   },
   "quickIngest_cancel": {
-    "message": "Cancel"
+    "message": "取消"
   },
   "quickIngest_ingest": {
-    "message": "Ingest"
+    "message": "匯入"
   },
   "quickIngest_process": {
-    "message": "Process"
+    "message": "處理"
   },
   "quickIngest_results": {
-    "message": "Results"
+    "message": "結果"
   },
   "quickIngest_downloadJson": {
-    "message": "Download JSON"
+    "message": "下載 JSON"
   },
   "quickIngest_advancedSummary": {
-    "message": "{{count}} advanced fields loaded"
+    "message": "已載入 {{count}} 個進階欄位"
   },
   "quickIngest_advancedEmpty": {
-    "message": "No advanced options detected — try reloading the spec."
+    "message": "未偵測到進階選項 — 請嘗試重新載入規格。"
   },
   "quickIngest_modifiedCount": {
-    "message": "{{count}} modified"
+    "message": "{{count}} 項已修改"
   },
   "quickIngest_progress": {
     "message": "正在處理 {{done}} / {{total}} 項目…"
@@ -1740,64 +1740,64 @@
     "message": "{{success}} 個已刪除 · {{failed}} 個失敗"
   },
   "mediaPage_searchPlaceholder": {
-    "message": "Search media (title/content)"
+    "message": "搜尋媒體（標題/內容）"
   },
   "mediaPage_search": {
-    "message": "Search"
+    "message": "搜尋"
   },
   "mediaPage_clear": {
-    "message": "Clear"
+    "message": "清除"
   },
   "mediaPage_types": {
-    "message": "Types"
+    "message": "類型"
   },
   "mediaPage_keywords": {
-    "message": "Keywords"
+    "message": "關鍵字"
   },
   "mediaPage_moreTags": {
-    "message": "+{{count}} more tags"
+    "message": "+{{count}} 個其他標籤"
   },
   "mediaPage_resetFilters": {
-    "message": "Reset Filters"
+    "message": "重設篩選"
   },
   "mediaPage_clearAll": {
     "message": "清除全部"
   },
   "mediaPage_content": {
-    "message": "Content"
+    "message": "內容"
   },
   "mediaPage_vertical": {
-    "message": "Vertical"
+    "message": "垂直"
   },
   "mediaPage_horizontal": {
-    "message": "Horizontal"
+    "message": "水平"
   },
   "mediaPage_results": {
-    "message": "Results"
+    "message": "結果"
   },
   "mediaPage_noResults": {
-    "message": "No results"
+    "message": "無結果"
   },
   "mediaPage_showSidebar": {
-    "message": "Show sidebar"
+    "message": "顯示側邊欄"
   },
   "mediaPage_hideSidebar": {
-    "message": "Hide sidebar"
+    "message": "隱藏側邊欄"
   },
   "mediaPage_viewer": {
-    "message": "Viewer"
+    "message": "檢視器"
   },
   "mediaPage_selectItemsHint": {
-    "message": "Select items on the left to view here."
+    "message": "在左側選取項目以在此查看。"
   },
   "mediaPage_mediaContent": {
-    "message": "Media Content"
+    "message": "媒體內容"
   },
   "mediaPage_copyContent": {
-    "message": "Copy content"
+    "message": "複製內容"
   },
   "mediaPage_contentCopied": {
-    "message": "Content copied"
+    "message": "內容已複製"
   },
   "mediaPage_metadataCopied": {
     "message": "中繼資料已複製"
@@ -1806,40 +1806,40 @@
     "message": "分析已複製"
   },
   "mediaPage_copyFailed": {
-    "message": "Copy failed"
+    "message": "複製失敗"
   },
   "mediaPage_noContent": {
-    "message": "No content available"
+    "message": "沒有可用內容"
   },
   "mediaPage_collapse": {
-    "message": "Collapse"
+    "message": "收合"
   },
   "mediaPage_expand": {
-    "message": "Expand"
+    "message": "展開"
   },
   "mediaPage_media": {
-    "message": "Media"
+    "message": "媒體"
   },
   "mediaPage_searchingBanner": {
-    "message": "Searching media…"
+    "message": "正在搜尋媒體…"
   },
   "mediaPage_filterHelp": {
-    "message": "Search matches title and content; Types and Keywords further narrow the results."
+    "message": "搜尋會比對標題與內容；類型與關鍵字會進一步縮小結果。"
   },
   "mediaPage_noMediaTypes": {
     "message": "沒有可用的媒體類型"
   },
   "mediaPage_resultsCount": {
-    "message": "{{selected}} selected · {{open}} open"
+    "message": "{{selected}} 已選取 · {{open}} 已開啟"
   },
   "mediaPage_clearSelection": {
-    "message": "Deselect all"
+    "message": "取消全選"
   },
   "mediaPage_itemsLabel": {
-    "message": "Items"
+    "message": "項目"
   },
   "mediaPage_contentLabel": {
-    "message": "Content view"
+    "message": "內容檢視"
   },
   "mediaPage_filterByKeyword": {
     "message": "按關鍵字篩選"
@@ -1908,7 +1908,7 @@
     "message": "中繼資料"
   },
   "mediaPage_idLabel": {
-    "message": "ID"
+    "message": "識別碼"
   },
   "mediaPage_typeLabel": {
     "message": "類型"
@@ -2810,6 +2810,15 @@
   "playground_composer_validationCompareSelectModelsInline": {
     "message": "請至少選擇一個模型以使用比較模式。"
   },
+  "tabs_newChat": {
+    "message": "新對話"
+  },
+  "tabs_newTabAria": {
+    "message": "新的對話分頁"
+  },
+  "tabs_closeTabAria": {
+    "message": "關閉對話分頁"
+  },
   "manageCharacters_title": {
     "message": "管理角色"
   },
@@ -3076,5 +3085,140 @@
   },
   "quiz_retake": {
     "message": "重新測驗"
+  },
+  "mediaPage_spreadMode": {
+    "message": "比較"
+  },
+  "mediaPage_listMode": {
+    "message": "聚焦"
+  },
+  "mediaPage_allMode": {
+    "message": "堆疊"
+  },
+  "mediaPage_spreadModeTooltip": {
+    "message": "並排顯示所選項目以便比較"
+  },
+  "mediaPage_listModeTooltip": {
+    "message": "一次顯示一個項目並可導覽"
+  },
+  "mediaPage_allModeTooltip": {
+    "message": "在可捲動清單中顯示所有所選項目"
+  },
+  "mediaPage_copyContentLabel": {
+    "message": "複製內容"
+  },
+  "mediaPage_copyAnalysisLabel": {
+    "message": "複製分析"
+  },
+  "mediaPage_copyContentTooltip": {
+    "message": "將內容複製到剪貼簿"
+  },
+  "mediaPage_copyAnalysisTooltip": {
+    "message": "將分析複製到剪貼簿"
+  },
+  "mediaPage_prevItemTooltip": {
+    "message": "上一個項目 (←)"
+  },
+  "mediaPage_nextItemTooltip": {
+    "message": "下一個項目 (→)"
+  },
+  "mediaPage_viewerOptions": {
+    "message": "選項"
+  },
+  "mediaPage_expandAllDropdown": {
+    "message": "展開/摺疊"
+  },
+  "mediaPage_itemPosition": {
+    "message": "項目 {{current}} / {{total}}"
+  },
+  "mediaPage_noItemSelected": {
+    "message": "未選取任何項目"
+  },
+  "mediaPage_firstUseTitle": {
+    "message": "快速指南：多項檢視"
+  },
+  "mediaPage_firstUseStep1": {
+    "message": "選取項目"
+  },
+  "mediaPage_firstUseStep1Desc": {
+    "message": "點擊左側面板中的項目以加入檢視器。"
+  },
+  "mediaPage_firstUseStep2": {
+    "message": "選擇檢視"
+  },
+  "mediaPage_firstUseStep2DescUpdated": {
+    "message": "使用「比較」進行並排，「聚焦」一次一個，或用「堆疊」查看全部。"
+  },
+  "mediaPage_firstUseStep3": {
+    "message": "導覽"
+  },
+  "mediaPage_firstUseStep3Desc": {
+    "message": "使用上一個/下一個按鈕或鍵盤 (Tab + Enter) 在項目間移動。"
+  },
+  "mediaPage_gotIt": {
+    "message": "知道了"
+  },
+  "mediaPage_model": {
+    "message": "模型"
+  },
+  "mediaPage_selectModel": {
+    "message": "選擇模型"
+  },
+  "mediaPage_noModelsAvailable": {
+    "message": "沒有可用模型"
+  },
+  "mediaPage_promptPresets": {
+    "message": "提示預設"
+  },
+  "mediaPage_showPresets": {
+    "message": "顯示預設"
+  },
+  "mediaPage_hidePresets": {
+    "message": "隱藏預設"
+  },
+  "mediaPage_systemPromptLabel": {
+    "message": "系統提示"
+  },
+  "mediaPage_systemPromptPlaceholder": {
+    "message": "輸入系統提示..."
+  },
+  "mediaPage_userPromptPrefixLabel": {
+    "message": "使用者提示前綴"
+  },
+  "mediaPage_prependedBeforeContent": {
+    "message": "（在內容前加入）"
+  },
+  "mediaPage_userPrefixPlaceholder": {
+    "message": "選填：輸入要加在媒體內容前的文字..."
+  },
+  "mediaPage_presetComprehensiveAnalysis": {
+    "message": "全面分析"
+  },
+  "mediaPage_presetExecutiveSummary": {
+    "message": "高階摘要"
+  },
+  "mediaPage_presetCriticalReview": {
+    "message": "批判性檢視"
+  },
+  "mediaPage_presetQAAnalysis": {
+    "message": "問答分析"
+  },
+  "searchPrompts": {
+    "message": "搜尋提示詞…"
+  },
+  "noMatchingPrompts": {
+    "message": "沒有符合的提示詞"
+  },
+  "promptSelect_favorites": {
+    "message": "收藏"
+  },
+  "promptSelect_system": {
+    "message": "系統提示詞"
+  },
+  "promptSelect_quick": {
+    "message": "快速提示詞"
+  },
+  "flashcards_bulkLimitWarning": {
+    "message": "此操作僅套用於前 {{limit}} 個項目。"
   }
 }

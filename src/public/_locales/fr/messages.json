@@ -254,7 +254,7 @@
     "description": "Filter label for screens in omni-search."
   },
   "omniSearch_filterChat": {
-    "message": "Chats",
+    "message": "Discussions",
     "description": "Filter label for chats in omni-search."
   },
   "omniSearch_filterMedia": {
@@ -262,7 +262,7 @@
     "description": "Filter label for media in omni-search."
   },
   "omniSearch_filterNote": {
-    "message": "Notes",
+    "message": "Bloc-notes",
     "description": "Filter label for notes in omni-search."
   },
   "omniSearch_filterFlashcards": {
@@ -270,7 +270,7 @@
     "description": "Filter label for flashcard collections in omni-search."
   },
   "omniSearch_filterPrompt": {
-    "message": "Prompts",
+    "message": "Invites",
     "description": "Filter label for prompts in omni-search."
   },
   "omniSearch_filteringBy": {
@@ -596,16 +596,16 @@
     "message": "Afficher le contenu brut"
   },
   "notesSearch_exportNoteSuccess": {
-    "message": "Exported ({{size}})"
+    "message": "Exporté ({{size}})"
   },
   "notesSearch_exportSuccess": {
-    "message": "Exported {{count}} notes ({{size}})"
+    "message": "{{count}} notes exportées ({{size}})"
   },
   "notesSearch_exportCsvSuccess": {
-    "message": "Exported {{count}} notes as CSV ({{size}})"
+    "message": "{{count}} notes exportées en CSV ({{size}})"
   },
   "notesSearch_exportJsonSuccess": {
-    "message": "Exported {{count}} notes as JSON ({{size}})"
+    "message": "{{count}} notes exportées en JSON ({{size}})"
   },
   "infoShort": {
     "message": "Infos"
@@ -1052,7 +1052,7 @@
     "description": "Content review UI string."
   },
   "contentReview_actionsLabel": {
-    "message": "Actions",
+    "message": "Actions disponibles",
     "description": "Content review UI string."
   },
   "contentReview_commit": {
@@ -1140,7 +1140,7 @@
     "description": "Content review UI string."
   },
   "contentReview_originalLabel": {
-    "message": "Original",
+    "message": "Texte original",
     "description": "Content review UI string."
   },
   "contentReview_editedLabel": {
@@ -1172,22 +1172,22 @@
     "description": "Button label to retry opening Content Review."
   },
   "quickIngest_title": {
-    "message": "Quick Ingest Media"
+    "message": "Ingestion rapide des médias"
   },
   "quickIngest_subtitle": {
-    "message": "Saisissez une ou plusieurs URL. Forcer le type par ligne si nécessaire."
+    "message": "Saisissez une ou plusieurs URL. Forcez le type par ligne si besoin."
   },
   "quickIngest_offlineTitle": {
-    "message": "Serveur hors ligne — uniquement en staging."
+    "message": "Serveur hors ligne — staging uniquement"
   },
   "quickIngest_offlineDescription": {
-    "message": "You can queue URLs and files here and inspect fields, but ingestion will not run until your tldw server is online. Reconnect to process pending items."
+    "message": "Vous pouvez mettre en file d’attente des URL et des fichiers ici et vérifier les champs, mais l’ingestion ne démarrera pas tant que votre serveur tldw n’est pas en ligne. Reconnectez-vous pour traiter les éléments en attente."
   },
   "quickIngest_sourceHeading": {
-    "message": "Source URLs or files"
+    "message": "URL ou fichiers source"
   },
   "quickIngest_storeRemote": {
-    "message": "Store to remote DB"
+    "message": "Enregistrer dans la base distante"
   },
   "quickIngest_storeRemoteAria": {
     "message": "Stocker les résultats d'ingestion sur votre serveur tldw"
@@ -1280,46 +1280,46 @@
     "message": "https://github.com/rmusser01/tldw_browser_assistant"
   },
   "quickIngest_bulkPlaceholder": {
-    "message": "Paste URLs (one per line)"
+    "message": "Collez des URL (une par ligne)"
   },
   "quickIngest_or": {
-    "message": "or"
+    "message": "ou"
   },
   "quickIngest_remove": {
-    "message": "Remove"
+    "message": "Supprimer"
   },
   "quickIngest_add": {
-    "message": "Add URL"
+    "message": "Ajouter une URL"
   },
   "quickIngest_commonOptions": {
-    "message": "Ingestion options"
+    "message": "Options d’ingestion"
   },
   "quickIngest_audioOptions": {
-    "message": "Audio options"
+    "message": "Options audio"
   },
   "quickIngest_audioLanguage": {
-    "message": "Language (e.g., en)"
+    "message": "Langue (ex. en)"
   },
   "quickIngest_audioDiarizationHelp": {
-    "message": "Turn on to separate speakers in transcripts."
+    "message": "Activez pour séparer les intervenants dans les transcriptions."
   },
   "quickIngest_documentOptions": {
-    "message": "Document options"
+    "message": "Options document"
   },
   "quickIngest_videoOptions": {
-    "message": "Video options"
+    "message": "Options vidéo"
   },
   "quickIngest_captionsHelp": {
-    "message": "Include timestamps/captions when available."
+    "message": "Inclure les horodatages/sous-titres lorsque disponibles."
   },
   "quickIngest_cancel": {
-    "message": "Cancel"
+    "message": "Annuler"
   },
   "quickIngest_ingest": {
-    "message": "Ingest"
+    "message": "Ingérer"
   },
   "quickIngest_process": {
-    "message": "Process"
+    "message": "Traiter"
   },
   "quickIngest_queueOnlyOffline": {
     "message": "Mettre en file d'attente uniquement — serveur hors ligne"
@@ -1346,19 +1346,19 @@
     "message": "Lancer l'ingestion rapide"
   },
   "quickIngest_results": {
-    "message": "Results"
+    "message": "Résultats"
   },
   "quickIngest_downloadJson": {
-    "message": "Download JSON"
+    "message": "Télécharger le JSON"
   },
   "quickIngest_advancedSummary": {
-    "message": "{{count}} advanced fields loaded"
+    "message": "{{count}} champs avancés chargés"
   },
   "quickIngest_advancedEmpty": {
-    "message": "No advanced options detected — try reloading the spec."
+    "message": "Aucune option avancée détectée — essayez de recharger la spécification."
   },
   "quickIngest_modifiedCount": {
-    "message": "{{count}} modified"
+    "message": "{{count}} modifiés"
   },
   "quickIngest_progress": {
     "message": "Traitement de {{done}} sur {{total}} éléments…"
@@ -1767,64 +1767,64 @@
     "message": "{{success}} deleted · {{failed}} failed"
   },
   "mediaPage_searchPlaceholder": {
-    "message": "Search media (title/content)"
+    "message": "Rechercher des médias (titre/contenu)"
   },
   "mediaPage_search": {
-    "message": "Search"
+    "message": "Rechercher"
   },
   "mediaPage_clear": {
-    "message": "Clear"
+    "message": "Effacer"
   },
   "mediaPage_types": {
     "message": "Types"
   },
   "mediaPage_keywords": {
-    "message": "Keywords"
+    "message": "Mots-clés"
   },
   "mediaPage_moreTags": {
-    "message": "+{{count}} more tags"
+    "message": "+{{count}} autres tags"
   },
   "mediaPage_resetFilters": {
-    "message": "Reset Filters"
+    "message": "Réinitialiser les filtres"
   },
   "mediaPage_clearAll": {
     "message": "Tout effacer"
   },
   "mediaPage_content": {
-    "message": "Content"
+    "message": "Contenu"
   },
   "mediaPage_vertical": {
-    "message": "Vertical"
+    "message": "Verticale"
   },
   "mediaPage_horizontal": {
-    "message": "Horizontal"
+    "message": "Horizontale"
   },
   "mediaPage_results": {
-    "message": "Results"
+    "message": "Résultats"
   },
   "mediaPage_noResults": {
-    "message": "No results"
+    "message": "Aucun résultat"
   },
   "mediaPage_showSidebar": {
-    "message": "Show sidebar"
+    "message": "Afficher la barre latérale"
   },
   "mediaPage_hideSidebar": {
-    "message": "Hide sidebar"
+    "message": "Masquer la barre latérale"
   },
   "mediaPage_viewer": {
-    "message": "Viewer"
+    "message": "Visionneuse"
   },
   "mediaPage_selectItemsHint": {
-    "message": "Select items on the left to view here."
+    "message": "Sélectionnez des éléments à gauche pour les voir ici."
   },
   "mediaPage_mediaContent": {
-    "message": "Media Content"
+    "message": "Contenu média"
   },
   "mediaPage_copyContent": {
-    "message": "Copy content"
+    "message": "Copier le contenu"
   },
   "mediaPage_contentCopied": {
-    "message": "Content copied"
+    "message": "Contenu copié"
   },
   "mediaPage_metadataCopied": {
     "message": "Métadonnées copiées"
@@ -1833,40 +1833,40 @@
     "message": "Analyse copiée"
   },
   "mediaPage_copyFailed": {
-    "message": "Copy failed"
+    "message": "Échec de la copie"
   },
   "mediaPage_noContent": {
-    "message": "No content available"
+    "message": "Aucun contenu disponible"
   },
   "mediaPage_collapse": {
-    "message": "Collapse"
+    "message": "Réduire"
   },
   "mediaPage_expand": {
-    "message": "Expand"
+    "message": "Développer"
   },
   "mediaPage_media": {
-    "message": "Media"
+    "message": "Médias"
   },
   "mediaPage_searchingBanner": {
-    "message": "Searching media…"
+    "message": "Recherche des médias…"
   },
   "mediaPage_filterHelp": {
-    "message": "Search matches title and content; Types and Keywords further narrow the results."
+    "message": "La recherche correspond au titre et au contenu ; les types et mots-clés affinent les résultats."
   },
   "mediaPage_noMediaTypes": {
     "message": "Aucun type de média disponible"
   },
   "mediaPage_resultsCount": {
-    "message": "{{selected}} selected · {{open}} open"
+    "message": "{{selected}} sélectionné(s) · {{open}} ouvert(s)"
   },
   "mediaPage_clearSelection": {
-    "message": "Deselect all"
+    "message": "Tout désélectionner"
   },
   "mediaPage_itemsLabel": {
-    "message": "Items"
+    "message": "Éléments"
   },
   "mediaPage_contentLabel": {
-    "message": "Content view"
+    "message": "Vue du contenu"
   },
   "mediaPage_filterByKeyword": {
     "message": "Filtrer par mot-clé"
@@ -1875,10 +1875,10 @@
     "message": "Les mots-clés vous aident à retrouver ce média en utilisant le filtre par mot-clé à gauche."
   },
   "mediaPage_modeHint": {
-    "message": "Search and stack multiple media items to compare them in the viewer on the right."
+    "message": "Recherchez et empilez plusieurs médias pour les comparer dans la visionneuse de droite."
   },
   "mediaPage_viewerHelp": {
-    "message": "Keyboard: Tab into the results list, use Enter or Space to stack or unstack a media item, then use Prev/Next and layout controls to move through items in the viewer."
+    "message": "Clavier : Tab dans la liste des résultats, Entrée ou Espace pour empiler/dés-empiler un média, puis utilisez Précédent/Suivant et les contrôles de mise en page pour naviguer entre les éléments."
   },
   "mediaPage_viewerHelpLabel": {
     "message": "Raccourcis clavier pour la revue multi-éléments"
@@ -1887,7 +1887,7 @@
     "message": "Inspecteur de médias"
   },
   "mediaPage_actionsLabel": {
-    "message": "Actions"
+    "message": "Commandes"
   },
   "mediaPage_keywordsPlaceholder": {
     "message": "Ajouter des mots-clés…"
@@ -1935,16 +1935,16 @@
     "message": "Métadonnées"
   },
   "mediaPage_idLabel": {
-    "message": "ID"
+    "message": "Identifiant"
   },
   "mediaPage_typeLabel": {
-    "message": "Type"
+    "message": "Catégorie"
   },
   "mediaPage_titleLabel": {
     "message": "Titre"
   },
   "mediaPage_source": {
-    "message": "Source"
+    "message": "Origine"
   },
   "mediaPage_notAvailable": {
     "message": "N/D"
@@ -3078,7 +3078,7 @@
     "message": "Modifier la question"
   },
   "quiz_points": {
-    "message": "Points"
+    "message": "Score"
   },
   "quiz_orderIndex": {
     "message": "Ordre"
@@ -3096,10 +3096,10 @@
     "message": "Score : {{score}} / {{total}} ({{percent}}%)"
   },
   "quiz_correct": {
-    "message": "Correct"
+    "message": "Correcte"
   },
   "quiz_incorrect": {
-    "message": "Incorrect"
+    "message": "Incorrecte"
   },
   "quiz_yourAnswer": {
     "message": "Votre réponse"
@@ -3112,5 +3112,140 @@
   },
   "quiz_retake": {
     "message": "Refaire le quiz"
+  },
+  "searchPrompts": {
+    "message": "Rechercher des prompts..."
+  },
+  "noMatchingPrompts": {
+    "message": "Aucun prompt correspondant"
+  },
+  "promptSelect_favorites": {
+    "message": "Favoris"
+  },
+  "promptSelect_system": {
+    "message": "Prompts système"
+  },
+  "promptSelect_quick": {
+    "message": "Prompts rapides"
+  },
+  "flashcards_bulkLimitWarning": {
+    "message": "Opération limitée aux {{limit}} premiers éléments."
+  },
+  "mediaPage_spreadMode": {
+    "message": "Comparer"
+  },
+  "mediaPage_listMode": {
+    "message": "Focalisation"
+  },
+  "mediaPage_allMode": {
+    "message": "Empiler"
+  },
+  "mediaPage_spreadModeTooltip": {
+    "message": "Afficher les éléments sélectionnés côte à côte pour comparer"
+  },
+  "mediaPage_listModeTooltip": {
+    "message": "Afficher un élément à la fois avec la navigation"
+  },
+  "mediaPage_allModeTooltip": {
+    "message": "Afficher tous les éléments sélectionnés dans une liste déroulante"
+  },
+  "mediaPage_copyContentLabel": {
+    "message": "Copier le contenu"
+  },
+  "mediaPage_copyAnalysisLabel": {
+    "message": "Copier l’analyse"
+  },
+  "mediaPage_copyContentTooltip": {
+    "message": "Copier le contenu dans le presse-papiers"
+  },
+  "mediaPage_copyAnalysisTooltip": {
+    "message": "Copier l’analyse dans le presse-papiers"
+  },
+  "mediaPage_prevItemTooltip": {
+    "message": "Élément précédent (←)"
+  },
+  "mediaPage_nextItemTooltip": {
+    "message": "Élément suivant (→)"
+  },
+  "mediaPage_viewerOptions": {
+    "message": "Options d’affichage"
+  },
+  "mediaPage_expandAllDropdown": {
+    "message": "Développer/Réduire"
+  },
+  "mediaPage_itemPosition": {
+    "message": "Élément {{current}} sur {{total}}"
+  },
+  "mediaPage_noItemSelected": {
+    "message": "Aucun élément sélectionné"
+  },
+  "mediaPage_firstUseTitle": {
+    "message": "Guide rapide : revue multi-éléments"
+  },
+  "mediaPage_firstUseStep1": {
+    "message": "Sélectionner des éléments"
+  },
+  "mediaPage_firstUseStep1Desc": {
+    "message": "Cliquez sur les éléments dans le panneau de gauche pour les ajouter à votre visionneuse."
+  },
+  "mediaPage_firstUseStep2": {
+    "message": "Choisir une vue"
+  },
+  "mediaPage_firstUseStep2DescUpdated": {
+    "message": "Utilisez « Comparer » pour côte à côte, « Focus » pour un à la fois, ou « Empiler » pour tout voir."
+  },
+  "mediaPage_firstUseStep3": {
+    "message": "Naviguer"
+  },
+  "mediaPage_firstUseStep3Desc": {
+    "message": "Utilisez les boutons Précédent/Suivant ou le clavier (Tab + Entrée) pour parcourir les éléments."
+  },
+  "mediaPage_gotIt": {
+    "message": "Compris"
+  },
+  "mediaPage_model": {
+    "message": "Modèle"
+  },
+  "mediaPage_selectModel": {
+    "message": "Sélectionner un modèle"
+  },
+  "mediaPage_noModelsAvailable": {
+    "message": "Aucun modèle disponible"
+  },
+  "mediaPage_promptPresets": {
+    "message": "Préréglages de prompt"
+  },
+  "mediaPage_showPresets": {
+    "message": "Afficher les préréglages"
+  },
+  "mediaPage_hidePresets": {
+    "message": "Masquer les préréglages"
+  },
+  "mediaPage_systemPromptLabel": {
+    "message": "Prompt système"
+  },
+  "mediaPage_systemPromptPlaceholder": {
+    "message": "Saisissez le prompt système..."
+  },
+  "mediaPage_userPromptPrefixLabel": {
+    "message": "Préfixe du prompt utilisateur"
+  },
+  "mediaPage_prependedBeforeContent": {
+    "message": "(ajouté avant le contenu)"
+  },
+  "mediaPage_userPrefixPlaceholder": {
+    "message": "Optionnel : saisissez un texte à ajouter avant le contenu média..."
+  },
+  "mediaPage_presetComprehensiveAnalysis": {
+    "message": "Analyse complète"
+  },
+  "mediaPage_presetExecutiveSummary": {
+    "message": "Résumé exécutif"
+  },
+  "mediaPage_presetCriticalReview": {
+    "message": "Revue critique"
+  },
+  "mediaPage_presetQAAnalysis": {
+    "message": "Analyse Q&R"
   }
 }

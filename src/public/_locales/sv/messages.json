@@ -283,7 +283,7 @@
     "description": "Filter label for chats in omni-search."
   },
   "omniSearch_filterMedia": {
-    "message": "Media",
+    "message": "Medier",
     "description": "Filter label for media in omni-search."
   },
   "omniSearch_filterNote": {
@@ -860,11 +860,11 @@
     "description": "Content review UI string."
   },
   "contentReview_batchLabel": {
-    "message": "Batch",
+    "message": "Omgång",
     "description": "Content review UI string."
   },
   "contentReview_batchName": {
-    "message": "Batch {{index}}",
+    "message": "Omgång {{index}}",
     "description": "Content review UI string."
   },
   "contentReview_draftsLabel": {
@@ -1156,7 +1156,7 @@
     "description": "Content review UI string."
   },
   "contentReview_originalLabel": {
-    "message": "Original",
+    "message": "Originaltext",
     "description": "Content review UI string."
   },
   "contentReview_editedLabel": {
@@ -1188,22 +1188,22 @@
     "description": "Button label to retry opening Content Review."
   },
   "quickIngest_title": {
-    "message": "Quick Ingest Media"
+    "message": "Quick Ingest‑media"
   },
   "quickIngest_subtitle": {
-    "message": "Enter one or more URLs. Force type per row if needed."
+    "message": "Ange en eller flera URL:er. Ange typ per rad vid behov."
   },
   "quickIngest_offlineTitle": {
-    "message": "Server offline — staging only"
+    "message": "Server offline — endast staging"
   },
   "quickIngest_offlineDescription": {
-    "message": "You can queue URLs and files here and inspect fields, but ingestion will not run until your tldw server is online. Reconnect to process pending items."
+    "message": "Du kan köa URL:er och filer här och granska fält, men ingest körs inte förrän din tldw-server är online. Återanslut för att bearbeta väntande objekt."
   },
   "quickIngest_sourceHeading": {
-    "message": "Source URLs or files"
+    "message": "Käll‑URL:er eller filer"
   },
   "quickIngest_storeRemote": {
-    "message": "Store to remote DB"
+    "message": "Lagra i fjärrdatabas"
   },
   "quickIngest_storeRemoteAria": {
     "message": "Lagra ingest-resultat på din tldw-server"
@@ -1296,61 +1296,61 @@
     "message": "https://github.com/rmusser01/tldw_browser_assistant"
   },
   "quickIngest_bulkPlaceholder": {
-    "message": "Paste URLs (one per line)"
+    "message": "Klistra in URL:er (en per rad)"
   },
   "quickIngest_or": {
-    "message": "or"
+    "message": "eller"
   },
   "quickIngest_remove": {
-    "message": "Remove"
+    "message": "Ta bort"
   },
   "quickIngest_add": {
-    "message": "Add URL"
+    "message": "Lägg till URL"
   },
   "quickIngest_commonOptions": {
-    "message": "Ingestion options"
+    "message": "Ingest‑alternativ"
   },
   "quickIngest_audioOptions": {
-    "message": "Audio options"
+    "message": "Ljudalternativ"
   },
   "quickIngest_audioLanguage": {
-    "message": "Language (e.g., en)"
+    "message": "Språk (t.ex. en)"
   },
   "quickIngest_audioDiarizationHelp": {
-    "message": "Turn on to separate speakers in transcripts."
+    "message": "Aktivera för att skilja talare i transkriptioner."
   },
   "quickIngest_documentOptions": {
-    "message": "Document options"
+    "message": "Dokumentalternativ"
   },
   "quickIngest_videoOptions": {
-    "message": "Video options"
+    "message": "Videoalternativ"
   },
   "quickIngest_captionsHelp": {
-    "message": "Include timestamps/captions when available."
+    "message": "Inkludera tidsstämplar/undertexter när det finns."
   },
   "quickIngest_cancel": {
-    "message": "Cancel"
+    "message": "Avbryt"
   },
   "quickIngest_ingest": {
-    "message": "Ingest"
+    "message": "Importera"
   },
   "quickIngest_process": {
-    "message": "Process"
+    "message": "Bearbeta"
   },
   "quickIngest_results": {
-    "message": "Results"
+    "message": "Resultat"
   },
   "quickIngest_downloadJson": {
-    "message": "Download JSON"
+    "message": "Ladda ner JSON"
   },
   "quickIngest_advancedSummary": {
-    "message": "{{count}} advanced fields loaded"
+    "message": "{{count}} avancerade fält inlästa"
   },
   "quickIngest_advancedEmpty": {
-    "message": "No advanced options detected — try reloading the spec."
+    "message": "Inga avancerade alternativ hittades — försök ladda om specifikationen."
   },
   "quickIngest_modifiedCount": {
-    "message": "{{count}} modified"
+    "message": "{{count}} ändrade"
   },
   "quickIngest_progress": {
     "message": "Bearbetar {{done}} av {{total}} objekt…"
@@ -1822,22 +1822,22 @@
     "message": "Gör om quizet"
   },
   "mediaPage_searchPlaceholder": {
-    "message": "Search media (title/content)"
+    "message": "Sök media (titel/innehåll)"
   },
   "mediaPage_search": {
-    "message": "Search"
+    "message": "Sök"
   },
   "mediaPage_clear": {
-    "message": "Clear"
+    "message": "Rensa"
   },
   "mediaPage_types": {
     "message": "Types"
   },
   "mediaPage_keywords": {
-    "message": "Keywords"
+    "message": "Nyckelord"
   },
   "mediaPage_moreTags": {
-    "message": "+{{count}} more tags"
+    "message": "+{{count}} fler taggar"
   },
   "mediaPage_resetFilters": {
     "message": "Reset Filters"
@@ -1846,16 +1846,16 @@
     "message": "Rensa allt"
   },
   "mediaPage_content": {
-    "message": "Content"
+    "message": "Innehåll"
   },
   "mediaPage_vertical": {
-    "message": "Vertical"
+    "message": "Vertikal"
   },
   "mediaPage_horizontal": {
-    "message": "Horizontal"
+    "message": "Horisontell"
   },
   "mediaPage_results": {
-    "message": "Results"
+    "message": "Resultat"
   },
   "mediaPage_noResults": {
     "message": "No results"
@@ -1867,19 +1867,19 @@
     "message": "Hide sidebar"
   },
   "mediaPage_viewer": {
-    "message": "Viewer"
+    "message": "Visare"
   },
   "mediaPage_selectItemsHint": {
-    "message": "Select items on the left to view here."
+    "message": "Välj objekt till vänster för att visa dem här."
   },
   "mediaPage_mediaContent": {
-    "message": "Media Content"
+    "message": "Mediainnehåll"
   },
   "mediaPage_copyContent": {
-    "message": "Copy content"
+    "message": "Kopiera innehåll"
   },
   "mediaPage_contentCopied": {
-    "message": "Content copied"
+    "message": "Innehåll kopierat"
   },
   "mediaPage_metadataCopied": {
     "message": "Metadata har kopierats"
@@ -1888,40 +1888,40 @@
     "message": "Analys har kopierats"
   },
   "mediaPage_copyFailed": {
-    "message": "Copy failed"
+    "message": "Kopiering misslyckades"
   },
   "mediaPage_noContent": {
-    "message": "No content available"
+    "message": "Inget innehåll tillgängligt"
   },
   "mediaPage_collapse": {
-    "message": "Collapse"
+    "message": "Fäll ihop"
   },
   "mediaPage_expand": {
-    "message": "Expand"
+    "message": "Fäll ut"
   },
   "mediaPage_media": {
-    "message": "Media"
+    "message": "Medier"
   },
   "mediaPage_searchingBanner": {
-    "message": "Searching media…"
+    "message": "Söker media…"
   },
   "mediaPage_filterHelp": {
-    "message": "Search matches title and content; Types and Keywords further narrow the results."
+    "message": "Sökningen matchar titel och innehåll; typer och nyckelord snävar in resultaten ytterligare."
   },
   "mediaPage_noMediaTypes": {
     "message": "Inga medietyper tillgängliga"
   },
   "mediaPage_resultsCount": {
-    "message": "{{selected}} selected · {{open}} open"
+    "message": "{{selected}} valda · {{open}} öppna"
   },
   "mediaPage_clearSelection": {
-    "message": "Deselect all"
+    "message": "Avmarkera alla"
   },
   "mediaPage_itemsLabel": {
-    "message": "Items"
+    "message": "Objekt"
   },
   "mediaPage_contentLabel": {
-    "message": "Content view"
+    "message": "Innehållsvy"
   },
   "mediaPage_filterByKeyword": {
     "message": "Filtrera efter nyckelord"
@@ -1987,10 +1987,10 @@
     "message": "Stycken"
   },
   "mediaPage_metadata": {
-    "message": "Metadata"
+    "message": "metadata"
   },
   "mediaPage_idLabel": {
-    "message": "ID"
+    "message": "Id"
   },
   "mediaPage_typeLabel": {
     "message": "Typ"
@@ -3039,6 +3039,15 @@
   "playground_composer_validationCompareSelectModelsInline": {
     "message": "Välj minst en modell för jämförelseläge."
   },
+  "tabs_newChat": {
+    "message": "Ny chatt"
+  },
+  "tabs_newTabAria": {
+    "message": "Ny chattflik"
+  },
+  "tabs_closeTabAria": {
+    "message": "Stäng chattflik"
+  },
   "manageCharacters_actions_duplicate": {
     "message": "Duplicera"
   },
@@ -3086,5 +3095,140 @@
   },
   "manageCharacters_form_systemPrompt_max": {
     "message": "Systemprompten får vara högst 2000 tecken."
+  },
+  "searchPrompts": {
+    "message": "Sök frågor..."
+  },
+  "noMatchingPrompts": {
+    "message": "Inga matchande frågor"
+  },
+  "promptSelect_favorites": {
+    "message": "Favoriter"
+  },
+  "promptSelect_system": {
+    "message": "Systemfrågor"
+  },
+  "promptSelect_quick": {
+    "message": "Snabbfrågor"
+  },
+  "flashcards_bulkLimitWarning": {
+    "message": "Åtgärden är begränsad till de första {{limit}} objekten."
+  },
+  "mediaPage_spreadMode": {
+    "message": "Jämför"
+  },
+  "mediaPage_listMode": {
+    "message": "Fokus"
+  },
+  "mediaPage_allMode": {
+    "message": "Stapla"
+  },
+  "mediaPage_spreadModeTooltip": {
+    "message": "Visa markerade objekt sida vid sida för jämförelse"
+  },
+  "mediaPage_listModeTooltip": {
+    "message": "Visa ett objekt i taget med navigering"
+  },
+  "mediaPage_allModeTooltip": {
+    "message": "Visa alla markerade objekt i en rullbar lista"
+  },
+  "mediaPage_copyContentLabel": {
+    "message": "Kopiera innehåll"
+  },
+  "mediaPage_copyAnalysisLabel": {
+    "message": "Kopiera analys"
+  },
+  "mediaPage_copyContentTooltip": {
+    "message": "Kopiera innehåll till urklipp"
+  },
+  "mediaPage_copyAnalysisTooltip": {
+    "message": "Kopiera analys till urklipp"
+  },
+  "mediaPage_prevItemTooltip": {
+    "message": "Föregående objekt (←)"
+  },
+  "mediaPage_nextItemTooltip": {
+    "message": "Nästa objekt (→)"
+  },
+  "mediaPage_viewerOptions": {
+    "message": "Alternativ"
+  },
+  "mediaPage_expandAllDropdown": {
+    "message": "Expandera/komprimera"
+  },
+  "mediaPage_itemPosition": {
+    "message": "Objekt {{current}} av {{total}}"
+  },
+  "mediaPage_noItemSelected": {
+    "message": "Inget objekt valt"
+  },
+  "mediaPage_firstUseTitle": {
+    "message": "Snabbguide: Granskning av flera objekt"
+  },
+  "mediaPage_firstUseStep1": {
+    "message": "Välj objekt"
+  },
+  "mediaPage_firstUseStep1Desc": {
+    "message": "Klicka på objekt i vänsterpanelen för att lägga till dem i din visare."
+  },
+  "mediaPage_firstUseStep2": {
+    "message": "Välj vy"
+  },
+  "mediaPage_firstUseStep2DescUpdated": {
+    "message": "Använd \"Jämför\" för sida vid sida, \"Fokus\" för ett i taget eller \"Stapla\" för att se alla."
+  },
+  "mediaPage_firstUseStep3": {
+    "message": "Navigera"
+  },
+  "mediaPage_firstUseStep3Desc": {
+    "message": "Använd knapparna Föregående/Nästa eller tangentbordet (Tab + Enter) för att flytta mellan objekt."
+  },
+  "mediaPage_gotIt": {
+    "message": "Jag förstår"
+  },
+  "mediaPage_model": {
+    "message": "Modell"
+  },
+  "mediaPage_selectModel": {
+    "message": "Välj en modell"
+  },
+  "mediaPage_noModelsAvailable": {
+    "message": "Inga modeller tillgängliga"
+  },
+  "mediaPage_promptPresets": {
+    "message": "Promptförinställningar"
+  },
+  "mediaPage_showPresets": {
+    "message": "Visa förinställningar"
+  },
+  "mediaPage_hidePresets": {
+    "message": "Dölj förinställningar"
+  },
+  "mediaPage_systemPromptLabel": {
+    "message": "Systemprompt"
+  },
+  "mediaPage_systemPromptPlaceholder": {
+    "message": "Ange systemprompt..."
+  },
+  "mediaPage_userPromptPrefixLabel": {
+    "message": "Prefix för användarprompt"
+  },
+  "mediaPage_prependedBeforeContent": {
+    "message": "(infogas före innehållet)"
+  },
+  "mediaPage_userPrefixPlaceholder": {
+    "message": "Valfritt: Ange text som ska läggas till före mediainnehållet..."
+  },
+  "mediaPage_presetComprehensiveAnalysis": {
+    "message": "Omfattande analys"
+  },
+  "mediaPage_presetExecutiveSummary": {
+    "message": "Sammanfattning för ledningen"
+  },
+  "mediaPage_presetCriticalReview": {
+    "message": "Kritisk granskning"
+  },
+  "mediaPage_presetQAAnalysis": {
+    "message": "Frågor och svar-analys"
   }
 }

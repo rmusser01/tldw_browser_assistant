@@ -1785,19 +1785,19 @@
     "message": "{{success}} 件削除 · {{failed}} 件失敗"
   },
   "mediaPage_searchPlaceholder": {
-    "message": "Search media (title/content)"
+    "message": "メディアを検索（タイトル/内容）"
   },
   "mediaPage_search": {
-    "message": "Search"
+    "message": "検索"
   },
   "mediaPage_clear": {
-    "message": "Clear"
+    "message": "クリア"
   },
   "mediaPage_types": {
     "message": "Types"
   },
   "mediaPage_keywords": {
-    "message": "Keywords"
+    "message": "キーワード"
   },
   "mediaPage_moreTags": {
     "message": "+{{count}} 件のタグ"
@@ -1809,16 +1809,16 @@
     "message": "すべてクリア"
   },
   "mediaPage_content": {
-    "message": "Content"
+    "message": "内容"
   },
   "mediaPage_vertical": {
-    "message": "Vertical"
+    "message": "垂直"
   },
   "mediaPage_horizontal": {
-    "message": "Horizontal"
+    "message": "水平"
   },
   "mediaPage_results": {
-    "message": "Results"
+    "message": "結果"
   },
   "mediaPage_noResults": {
     "message": "No results"
@@ -1830,19 +1830,19 @@
     "message": "Hide sidebar"
   },
   "mediaPage_viewer": {
-    "message": "Viewer"
+    "message": "ビューア"
   },
   "mediaPage_selectItemsHint": {
-    "message": "Select items on the left to view here."
+    "message": "左側で項目を選択するとここに表示されます。"
   },
   "mediaPage_mediaContent": {
-    "message": "Media Content"
+    "message": "メディア内容"
   },
   "mediaPage_copyContent": {
-    "message": "Copy content"
+    "message": "内容をコピー"
   },
   "mediaPage_contentCopied": {
-    "message": "Content copied"
+    "message": "内容をコピーしました"
   },
   "mediaPage_metadataCopied": {
     "message": "メタデータをコピーしました"
@@ -1851,40 +1851,40 @@
     "message": "分析をコピーしました"
   },
   "mediaPage_copyFailed": {
-    "message": "Copy failed"
+    "message": "コピーに失敗しました"
   },
   "mediaPage_noContent": {
-    "message": "No content available"
+    "message": "利用可能な内容がありません"
   },
   "mediaPage_collapse": {
-    "message": "Collapse"
+    "message": "折りたたむ"
   },
   "mediaPage_expand": {
-    "message": "Expand"
+    "message": "展開"
   },
   "mediaPage_media": {
-    "message": "Media"
+    "message": "メディア"
   },
   "mediaPage_searchingBanner": {
-    "message": "Searching media…"
+    "message": "メディアを検索中…"
   },
   "mediaPage_filterHelp": {
-    "message": "Search matches title and content; Types and Keywords further narrow the results."
+    "message": "検索はタイトルと内容に一致します。タイプとキーワードで結果をさらに絞り込みます。"
   },
   "mediaPage_noMediaTypes": {
     "message": "利用可能なメディアタイプはありません"
   },
   "mediaPage_resultsCount": {
-    "message": "{{selected}} selected · {{open}} open"
+    "message": "{{selected}} 件選択 · {{open}} 件表示"
   },
   "mediaPage_clearSelection": {
-    "message": "Deselect all"
+    "message": "全選択解除"
   },
   "mediaPage_itemsLabel": {
-    "message": "Items"
+    "message": "項目"
   },
   "mediaPage_contentLabel": {
-    "message": "Content view"
+    "message": "内容ビュー"
   },
   "mediaPage_filterByKeyword": {
     "message": "キーワードで絞り込む"
@@ -1953,7 +1953,7 @@
     "message": "メタデータ"
   },
   "mediaPage_idLabel": {
-    "message": "ID"
+    "message": "識別子"
   },
   "mediaPage_typeLabel": {
     "message": "タイプ"
@@ -3130,5 +3130,140 @@
   },
   "quiz_retake": {
     "message": "再挑戦"
+  },
+  "mediaPage_spreadMode": {
+    "message": "比較"
+  },
+  "mediaPage_listMode": {
+    "message": "フォーカス"
+  },
+  "mediaPage_allMode": {
+    "message": "スタック"
+  },
+  "mediaPage_spreadModeTooltip": {
+    "message": "選択した項目を並べて比較表示"
+  },
+  "mediaPage_listModeTooltip": {
+    "message": "ナビゲーションで1件ずつ表示"
+  },
+  "mediaPage_allModeTooltip": {
+    "message": "選択した項目をスクロール可能な一覧で表示"
+  },
+  "mediaPage_copyContentLabel": {
+    "message": "コンテンツをコピー"
+  },
+  "mediaPage_copyAnalysisLabel": {
+    "message": "分析をコピー"
+  },
+  "mediaPage_copyContentTooltip": {
+    "message": "コンテンツをクリップボードにコピー"
+  },
+  "mediaPage_copyAnalysisTooltip": {
+    "message": "分析をクリップボードにコピー"
+  },
+  "mediaPage_prevItemTooltip": {
+    "message": "前の項目 (←)"
+  },
+  "mediaPage_nextItemTooltip": {
+    "message": "次の項目 (→)"
+  },
+  "mediaPage_viewerOptions": {
+    "message": "オプション"
+  },
+  "mediaPage_expandAllDropdown": {
+    "message": "展開/折りたたみ"
+  },
+  "mediaPage_itemPosition": {
+    "message": "{{total}} 件中 {{current}} 件目"
+  },
+  "mediaPage_noItemSelected": {
+    "message": "項目が選択されていません"
+  },
+  "mediaPage_firstUseTitle": {
+    "message": "クイックガイド: 複数アイテムレビュー"
+  },
+  "mediaPage_firstUseStep1": {
+    "message": "項目を選択"
+  },
+  "mediaPage_firstUseStep1Desc": {
+    "message": "左側のパネルで項目をクリックしてビューアに追加します。"
+  },
+  "mediaPage_firstUseStep2": {
+    "message": "表示を選択"
+  },
+  "mediaPage_firstUseStep2DescUpdated": {
+    "message": "「比較」は並べて表示、「フォーカス」は1件ずつ、「スタック」はすべて表示します。"
+  },
+  "mediaPage_firstUseStep3": {
+    "message": "移動"
+  },
+  "mediaPage_firstUseStep3Desc": {
+    "message": "前へ/次へボタンまたはキーボード (Tab + Enter) で項目を移動します。"
+  },
+  "mediaPage_gotIt": {
+    "message": "了解"
+  },
+  "mediaPage_model": {
+    "message": "モデル"
+  },
+  "mediaPage_selectModel": {
+    "message": "モデルを選択"
+  },
+  "mediaPage_noModelsAvailable": {
+    "message": "利用可能なモデルがありません"
+  },
+  "mediaPage_promptPresets": {
+    "message": "プロンプトプリセット"
+  },
+  "mediaPage_showPresets": {
+    "message": "プリセットを表示"
+  },
+  "mediaPage_hidePresets": {
+    "message": "プリセットを非表示"
+  },
+  "mediaPage_systemPromptLabel": {
+    "message": "システムプロンプト"
+  },
+  "mediaPage_systemPromptPlaceholder": {
+    "message": "システムプロンプトを入力..."
+  },
+  "mediaPage_userPromptPrefixLabel": {
+    "message": "ユーザープロンプトのプレフィックス"
+  },
+  "mediaPage_prependedBeforeContent": {
+    "message": "(コンテンツの前に追加)"
+  },
+  "mediaPage_userPrefixPlaceholder": {
+    "message": "任意: メディアコンテンツの前に追加するテキストを入力..."
+  },
+  "mediaPage_presetComprehensiveAnalysis": {
+    "message": "包括的な分析"
+  },
+  "mediaPage_presetExecutiveSummary": {
+    "message": "エグゼクティブサマリー"
+  },
+  "mediaPage_presetCriticalReview": {
+    "message": "批判的レビュー"
+  },
+  "mediaPage_presetQAAnalysis": {
+    "message": "Q&A 分析"
+  },
+  "searchPrompts": {
+    "message": "プロンプトを検索..."
+  },
+  "noMatchingPrompts": {
+    "message": "一致するプロンプトがありません"
+  },
+  "promptSelect_favorites": {
+    "message": "お気に入り"
+  },
+  "promptSelect_system": {
+    "message": "システムプロンプト"
+  },
+  "promptSelect_quick": {
+    "message": "クイックプロンプト"
+  },
+  "flashcards_bulkLimitWarning": {
+    "message": "操作は最初の {{limit}} 件に限定されます。"
   }
 }

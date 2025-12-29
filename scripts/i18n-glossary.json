@@ -1,0 +1,35 @@
+{
+  "version": 1,
+  "terms": [
+    {
+      "id": "tabs_newChat",
+      "source": "New chat",
+      "match": "exact",
+      "paths": ["sidepanel.tabs.newChat"],
+      "translations": {
+        "sv": ["Nytt samtal"],
+        "zh-TW": ["新的對話"]
+      }
+    },
+    {
+      "id": "tabs_newTabAria",
+      "source": "New chat tab",
+      "match": "exact",
+      "paths": ["sidepanel.tabs.newTabAria"],
+      "translations": {
+        "sv": ["Ny flik för samtal"],
+        "zh-TW": ["開啟新的對話分頁"]
+      }
+    },
+    {
+      "id": "tabs_closeTabAria",
+      "source": "Close chat tab",
+      "match": "exact",
+      "paths": ["sidepanel.tabs.closeTabAria"],
+      "translations": {
+        "sv": ["Stäng flik för samtal"],
+        "zh-TW": ["關閉對話分頁"]
+      }
+    }
+  ]
+}

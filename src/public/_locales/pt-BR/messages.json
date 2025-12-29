@@ -108,13 +108,13 @@
     "message": "Modelo"
   },
   "header_promptLabel": {
-    "message": "Prompt"
+    "message": "Instrução"
   },
   "header_review": {
     "message": "Revisão"
   },
   "header_flashcards": {
-    "message": "Flashcards"
+    "message": "Cartões de estudo"
   },
   "header_media": {
     "message": "Mídia"
@@ -129,7 +129,7 @@
     "message": "Modos"
   },
   "header_modePlayground": {
-    "message": "Chat"
+    "message": "Bate-papo"
   },
   "header_modeReview": {
     "message": "Revisão"
@@ -144,22 +144,22 @@
     "message": "Notas"
   },
   "header_modePrompts": {
-    "message": "Prompts"
+    "message": "Instruções"
   },
   "header_modePromptsPlayground": {
-    "message": "Prompts"
+    "message": "Instruções"
   },
   "header_modeStt": {
-    "message": "STT Playground"
+    "message": "Playground de STT"
   },
   "header_modePromptStudio": {
-    "message": "Prompt Studio"
+    "message": "Estúdio de Prompts"
   },
   "header_modeFlashcards": {
-    "message": "Flashcards"
+    "message": "Cartões de estudo"
   },
   "header_modeWorldBooks": {
-    "message": "World Books"
+    "message": "Livros de Mundo"
   },
   "header_modeDictionaries": {
     "message": "Dicionários de chat"
@@ -240,13 +240,13 @@
     "message": "Arquivo de Texto (.txt)"
   },
   "more_download_markdown": {
-    "message": "Markdown (.md)"
+    "message": "Arquivo Markdown (.md)"
   },
   "more_download_json": {
     "message": "Arquivo JSON (.json)"
   },
   "more_download_image": {
-    "message": "Image (.png)"
+    "message": "Imagem (.png)"
   },
   "more_share": {
     "message": "Compartilhar"
@@ -912,7 +912,7 @@
     "message": "Verso"
   },
   "flashcards_extra": {
-    "message": "Extra"
+    "message": "Extras"
   },
   "flashcards_showAnswer": {
     "message": "Mostrar resposta"
@@ -948,13 +948,13 @@
     "message": "Exclusão cloze"
   },
   "flashcards_tags": {
-    "message": "Tags"
+    "message": "Etiquetas"
   },
   "flashcards_dueStatus": {
     "message": "Status de revisão"
   },
   "flashcards_tag": {
-    "message": "Tag"
+    "message": "Etiqueta"
   },
   "flashcards_noCards": {
     "message": "Nenhum cartão"
@@ -1002,10 +1002,10 @@
     "message": "Limites de importação"
   },
   "flashcards_csv": {
-    "message": "CSV/TSV"
+    "message": "Arquivo CSV/TSV"
   },
   "flashcards_apkg": {
-    "message": "Anki (.apkg)"
+    "message": "Arquivo Anki (.apkg)"
   },
   "flashcards_includeReverse": {
     "message": "Incluir invertido"
@@ -1017,7 +1017,7 @@
     "message": "Cabeçalho estendido (metadados técnicos)"
   },
   "flashcards_download": {
-    "message": "Download"
+    "message": "Baixar"
   },
   "flashcards_duplicate": {
     "message": "Duplicar"
@@ -1239,7 +1239,7 @@
     "description": "Filter label for screens in omni-search."
   },
   "omniSearch_filterChat": {
-    "message": "Chats",
+    "message": "Conversas",
     "description": "Filter label for chats in omni-search."
   },
   "omniSearch_filterMedia": {
@@ -1255,7 +1255,7 @@
     "description": "Filter label for flashcard collections in omni-search."
   },
   "omniSearch_filterPrompt": {
-    "message": "Prompts",
+    "message": "Instruções",
     "description": "Filter label for prompts in omni-search."
   },
   "omniSearch_filteringBy": {
@@ -2007,11 +2007,11 @@
     "description": "Content review UI string."
   },
   "contentReview_keywords": {
-    "message": "Palavras-chave",
+    "message": "Palavras‑chave",
     "description": "Content review UI string."
   },
   "contentReview_keywordsPlaceholder": {
-    "message": "Adicionar palavras-chave",
+    "message": "Adicionar palavras‑chave",
     "description": "Content review UI string."
   },
   "contentReview_reviewNotes": {
@@ -2119,7 +2119,7 @@
     "description": "Content review UI string."
   },
   "contentReview_originalLabel": {
-    "message": "Original",
+    "message": "Texto original",
     "description": "Content review UI string."
   },
   "contentReview_editedLabel": {
@@ -2581,19 +2581,19 @@
     "message": "Para revisar"
   },
   "flashcards_reviewFailed": {
-    "message": "Review failed"
+    "message": "Falha na revisão"
   },
   "flashcards_updateFailed": {
-    "message": "Update failed"
+    "message": "Falha ao atualizar"
   },
   "flashcards_deleteFailed": {
-    "message": "Delete failed"
+    "message": "Falha ao excluir"
   },
   "flashcards_missingVersion": {
-    "message": "Missing version; reload and try again"
+    "message": "Versão ausente; recarregue e tente novamente"
   },
   "flashcards_bulkDeleteResult": {
-    "message": "{{success}} deleted · {{failed}} failed"
+    "message": "{{success}} excluídos · {{failed}} com falha"
   },
   "mediaPage_searchPlaceholder": {
     "message": "Buscar mídia (título/conteúdo)"
@@ -2623,10 +2623,10 @@
     "message": "Conteúdo"
   },
   "mediaPage_vertical": {
-    "message": "Vertical"
+    "message": "Retrato"
   },
   "mediaPage_horizontal": {
-    "message": "Horizontal"
+    "message": "Paisagem"
   },
   "mediaPage_results": {
     "message": "Resultados"
@@ -2764,7 +2764,7 @@
     "message": "Metadados"
   },
   "mediaPage_idLabel": {
-    "message": "ID"
+    "message": "Identificador"
   },
   "mediaPage_typeLabel": {
     "message": "Tipo"
@@ -3941,5 +3941,140 @@
   },
   "quiz_retake": {
     "message": "Refazer o quiz"
+  },
+  "searchPrompts": {
+    "message": "Pesquisar prompts..."
+  },
+  "noMatchingPrompts": {
+    "message": "Nenhum prompt correspondente"
+  },
+  "promptSelect_favorites": {
+    "message": "Favoritos"
+  },
+  "promptSelect_system": {
+    "message": "Prompts do sistema"
+  },
+  "promptSelect_quick": {
+    "message": "Prompts rápidos"
+  },
+  "flashcards_bulkLimitWarning": {
+    "message": "Operação limitada aos primeiros {{limit}} itens."
+  },
+  "mediaPage_spreadMode": {
+    "message": "Comparar"
+  },
+  "mediaPage_listMode": {
+    "message": "Foco"
+  },
+  "mediaPage_allMode": {
+    "message": "Pilha"
+  },
+  "mediaPage_spreadModeTooltip": {
+    "message": "Ver itens selecionados lado a lado para comparação"
+  },
+  "mediaPage_listModeTooltip": {
+    "message": "Ver um item por vez com navegação"
+  },
+  "mediaPage_allModeTooltip": {
+    "message": "Ver todos os itens selecionados em uma lista rolável"
+  },
+  "mediaPage_copyContentLabel": {
+    "message": "Copiar conteúdo"
+  },
+  "mediaPage_copyAnalysisLabel": {
+    "message": "Copiar análise"
+  },
+  "mediaPage_copyContentTooltip": {
+    "message": "Copiar conteúdo para a área de transferência"
+  },
+  "mediaPage_copyAnalysisTooltip": {
+    "message": "Copiar análise para a área de transferência"
+  },
+  "mediaPage_prevItemTooltip": {
+    "message": "Item anterior (←)"
+  },
+  "mediaPage_nextItemTooltip": {
+    "message": "Próximo item (→)"
+  },
+  "mediaPage_viewerOptions": {
+    "message": "Opções"
+  },
+  "mediaPage_expandAllDropdown": {
+    "message": "Expandir/Recolher"
+  },
+  "mediaPage_itemPosition": {
+    "message": "Item {{current}} de {{total}}"
+  },
+  "mediaPage_noItemSelected": {
+    "message": "Nenhum item selecionado"
+  },
+  "mediaPage_firstUseTitle": {
+    "message": "Guia rápido: Revisão de vários itens"
+  },
+  "mediaPage_firstUseStep1": {
+    "message": "Selecionar itens"
+  },
+  "mediaPage_firstUseStep1Desc": {
+    "message": "Clique nos itens no painel à esquerda para adicioná-los ao visualizador."
+  },
+  "mediaPage_firstUseStep2": {
+    "message": "Escolher uma visualização"
+  },
+  "mediaPage_firstUseStep2DescUpdated": {
+    "message": "Use \"Comparar\" para lado a lado, \"Foco\" para um por vez ou \"Pilha\" para ver tudo."
+  },
+  "mediaPage_firstUseStep3": {
+    "message": "Navegar"
+  },
+  "mediaPage_firstUseStep3Desc": {
+    "message": "Use os botões Anterior/Próximo ou o teclado (Tab + Enter) para percorrer os itens."
+  },
+  "mediaPage_gotIt": {
+    "message": "Entendi"
+  },
+  "mediaPage_model": {
+    "message": "Modelo"
+  },
+  "mediaPage_selectModel": {
+    "message": "Selecionar um modelo"
+  },
+  "mediaPage_noModelsAvailable": {
+    "message": "Nenhum modelo disponível"
+  },
+  "mediaPage_promptPresets": {
+    "message": "Predefinições de prompt"
+  },
+  "mediaPage_showPresets": {
+    "message": "Mostrar predefinições"
+  },
+  "mediaPage_hidePresets": {
+    "message": "Ocultar predefinições"
+  },
+  "mediaPage_systemPromptLabel": {
+    "message": "Prompt do sistema"
+  },
+  "mediaPage_systemPromptPlaceholder": {
+    "message": "Digite o prompt do sistema..."
+  },
+  "mediaPage_userPromptPrefixLabel": {
+    "message": "Prefixo do prompt do usuário"
+  },
+  "mediaPage_prependedBeforeContent": {
+    "message": "(adicionado antes do conteúdo)"
+  },
+  "mediaPage_userPrefixPlaceholder": {
+    "message": "Opcional: digite um texto para adicionar antes do conteúdo da mídia..."
+  },
+  "mediaPage_presetComprehensiveAnalysis": {
+    "message": "Análise abrangente"
+  },
+  "mediaPage_presetExecutiveSummary": {
+    "message": "Resumo executivo"
+  },
+  "mediaPage_presetCriticalReview": {
+    "message": "Revisão crítica"
+  },
+  "mediaPage_presetQAAnalysis": {
+    "message": "Análise de perguntas e respostas"
   }
 }

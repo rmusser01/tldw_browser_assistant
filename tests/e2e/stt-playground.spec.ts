@@ -8,13 +8,47 @@ test.describe('STT Playground UX', () => {
     const { context, page, optionsUrl } = await launchWithExtension(extPath)
 
     await context.addInitScript(() => {
-      const fakeStream = { getTracks: () => [] }
+      const AudioCtx = (window as any).AudioContext || (window as any).webkitAudioContext
+      let fakeStream = null
+
+      if (AudioCtx) {
+        try {
+          const ctx = new AudioCtx()
+          const oscillator = ctx.createOscillator()
+          const destination = ctx.createMediaStreamDestination()
+          oscillator.connect(destination)
+          oscillator.start()
+          fakeStream = destination.stream
+          ctx.resume().catch(() => {})
+        } catch {
+          fakeStream = null
+        }
+      }
+
+      if (!fakeStream && typeof MediaStream !== 'undefined') {
+        fakeStream = new MediaStream()
+      }
+
+      if (!fakeStream) {
+        fakeStream = { getTracks: () => [], getAudioTracks: () => [] }
+      }
+
       const mediaDevices = navigator.mediaDevices || {}
-      mediaDevices.getUserMedia = async () => fakeStream
-      Object.defineProperty(navigator, 'mediaDevices', {
-        value: mediaDevices,
-        configurable: true
-      })
+      try {
+        mediaDevices.getUserMedia = async () => fakeStream
+      } catch {}
+      try {
+        Object.defineProperty(mediaDevices, 'getUserMedia', {
+          value: async () => fakeStream,
+          configurable: true
+        })
+      } catch {}
+      try {
+        Object.defineProperty(navigator, 'mediaDevices', {
+          value: mediaDevices,
+          configurable: true
+        })
+      } catch {}
 
       class FakeMediaRecorder {
         static isTypeSupported() {
@@ -44,10 +78,15 @@ test.describe('STT Playground UX', () => {
         }
       }
 
-      Object.defineProperty(window, 'MediaRecorder', {
-        value: FakeMediaRecorder,
-        configurable: true
-      })
+      try {
+        window.MediaRecorder = FakeMediaRecorder
+      } catch {
+        Object.defineProperty(window, 'MediaRecorder', {
+          value: FakeMediaRecorder,
+          configurable: true,
+          writable: true
+        })
+      }
     })
 
     await page.goto(optionsUrl + '#/stt', { waitUntil: 'domcontentloaded' })

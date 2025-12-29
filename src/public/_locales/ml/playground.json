@@ -832,5 +832,254 @@
   },
   "speech_transcriptRecordingHint": {
     "message": "റെക്കോർഡിംഗ് പുരോഗമിക്കുന്നു; ട്രാൻസ്ക്രിപ്റ്റ് ലോക്കാണ്."
+  },
+  "actor_title": {
+    "message": "സീൻ ഡയറക്ടർ (Actor)"
+  },
+  "actor_help": {
+    "message": "ഓരോ ചാറ്റിനും സീനിന്റെ സാഹചര്യങ്ങൾ ക്രമീകരിക്കുക: പാത്രങ്ങൾ, മൂഡ്, ലോകം, ലക്ഷ്യങ്ങൾ, കുറിപ്പുകൾ."
+  },
+  "actor_addLabel": {
+    "message": "സീനെ കേന്ദ്രീകരിക്കാൻ ഘടകങ്ങൾ ചേർക്കുക അല്ലെങ്കിൽ നീക്കം ചെയ്യുക."
+  },
+  "actor_user": {
+    "message": "ഉപയോക്താവ്"
+  },
+  "actor_char": {
+    "message": "പാത്രം"
+  },
+  "actor_world": {
+    "message": "ലോകം"
+  },
+  "actor_newAspectPlaceholder": {
+    "message": "ഘടകത്തിന്റെ പേര് (ഉദാ: മൂഡ്, റോൾ, സ്ഥലം)"
+  },
+  "actor_addButton": {
+    "message": "ഘടകം ചേർക്കുക"
+  },
+  "actor_aspectPlaceholder": {
+    "message": "ചുരുക്കമായി വിവരണം (ഐച്ഛികം)"
+  },
+  "actor_notes": {
+    "message": "സീൻ കുറിപ്പുകൾ"
+  },
+  "actor_notesHelp": {
+    "message": "മോഡലിലേക്ക് അയക്കുന്ന ഐച്ഛിക കുറിപ്പുകൾ. Markdown, LaTeX എന്നിവ പിന്തുണയ്ക്കുന്നു."
+  },
+  "actor_position": {
+    "message": "Actor പ്രോംപ്റ്റിന്റെ സ്ഥാനമിടൽ"
+  },
+  "actor_before": {
+    "message": "പ്രധാന പ്രോംപ്റ്റ്/കഥയ്‌ക്ക് മുമ്പ്"
+  },
+  "actor_after": {
+    "message": "പ്രധാന പ്രോംപ്റ്റ്/കഥയ്‌ക്ക് ശേഷം"
+  },
+  "actor_depth": {
+    "message": "ചാറ്റിൽ ആഴത്തിൽ"
+  },
+  "actor_depthLabel": {
+    "message": "ആഴം (സിസ്റ്റം അല്ലാത്ത സന്ദേശങ്ങൾ)"
+  },
+  "actor_depthPlaceholder": {
+    "message": "0 = ചാറ്റിന്റെ മുകളിൽ"
+  },
+  "actor_depthHelp": {
+    "message": "സ്ഥാനം \"ചാറ്റിൽ ആഴത്തിൽ\" ആണെങ്കിൽ മാത്രമേ ഉപയോഗിക്കൂ. ചാറ്റിന്റെ മുകളിൽ നിന്ന് സിസ്റ്റം അല്ലാത്ത സന്ദേശങ്ങൾ എണ്ണം കണക്കാക്കുന്നു."
+  },
+  "actor_roleLabel": {
+    "message": "Actor സന്ദേശത്തിന്റെ റോൾ"
+  },
+  "actor_roleSystem": {
+    "message": "സിസ്റ്റം"
+  },
+  "actor_roleUser": {
+    "message": "ഉപയോക്താവ്"
+  },
+  "actor_roleAssistant": {
+    "message": "അസിസ്റ്റന്റ്"
+  },
+  "actor_positionHelp": {
+    "message": "സ്ഥാനം \"ചാറ്റിൽ ആഴത്തിൽ\" ആണെങ്കിൽ മാത്രമാണ് ആഴം ഉപയോഗിക്കുന്നത്. റോൾ Actor സിസ്റ്റം/ഉപയോക്താവ്/അസിസ്റ്റന്റ് ആയി പ്രത്യക്ഷപ്പെടുന്നതാണ് നിയന്ത്രിക്കുന്നത്."
+  },
+  "actor_preview": {
+    "message": "Actor പ്രോംപ്റ്റ് പ്രിവ്യൂ"
+  },
+  "actor_tokens": {
+    "message": "ടോകൺസ്: {{count}}"
+  },
+  "actor_previewEmpty": {
+    "message": "ഇപ്പോൾ അയയ്ക്കാൻ ഒന്നുമില്ല."
+  },
+  "actor_offlineHintTitle": {
+    "message": "Actorക്ക് World Books ലഭ്യമല്ല"
+  },
+  "actor_offlineHintBody": {
+    "message": "Actor ഘടകങ്ങൾക്ക് World Books ഉപയോഗിക്കാൻ സെറ്റിംഗ്സിൽ നിന്ന് tldw സർവറുമായി ബന്ധിപ്പിക്കൂ, അല്ലെങ്കിൽ സ്വതന്ത്ര ടെക്സ്റ്റ് മൂല്യങ്ങൾ തുടരുക."
+  },
+  "actor_loreWorldBookMissing": {
+    "message": "മുമ്പത്തെ World Book ബൈൻഡിംഗ് കണ്ടെത്തിയില്ല; പകരം സ്വതന്ത്ര ടെക്സ്റ്റ് ഉപയോഗിക്കുന്നു."
+  },
+  "actor_loreEntryMissing": {
+    "message": "മുമ്പത്തെ World Book എൻട്രി കണ്ടെത്തിയില്ല; പകരം സ്വതന്ത്ര ടെക്സ്റ്റ് ഉപയോഗിക്കുന്നു."
+  },
+  "actor_sourceFree": {
+    "message": "സ്വതന്ത്ര ടെക്സ്റ്റ്"
+  },
+  "actor_sourceLore": {
+    "message": "World Book"
+  },
+  "actor_worldBookPlaceholder": {
+    "message": "World Book"
+  },
+  "actor_entryPlaceholder": {
+    "message": "എൻട്രി"
+  },
+  "actor_loreValuePlaceholder": {
+    "message": "ഒരു ഓപ്ഷൻ തിരഞ്ഞെടുക്കുക (ഐച്ഛികം)"
+  },
+  "actor_tokenLabel": {
+    "message": "ടോകൺ"
+  },
+  "actor_tokensTitle": {
+    "message": "Actor നിഘണ്ടു ടോകൺസ്"
+  },
+  "actor_tokensHelp": {
+    "message": "ഈ ടോകൺസ് പ്രോംപ്റ്റുകളിലും സിസ്റ്റം സന്ദേശങ്ങളിലും ഉപയോഗിക്കുക."
+  },
+  "actor_keyChangeTitle": {
+    "message": "Actor ടോകൺ കീ മാറ്റണോ?"
+  },
+  "actor_keyChangeBody": {
+    "message": "ഇത് ടോകൺ {{old}} മുതൽ {{next}} ആയി മാറ്റും. പഴയ ടോകൺ ഉപയോഗിക്കുന്ന പ്രോംപ്റ്റുകൾ സ്വയമേവ അപ്ഡേറ്റ് ആകില്ല."
+  },
+  "actor_keyCollisionTitle": {
+    "message": "Actor കീ ഇതിനകം ഉപയോഗത്തിലാണ്"
+  },
+  "actor_keyCollisionBody": {
+    "message": "മറ്റൊരു ഘടകം ഇതിനകം ഈ കീ ഉപയോഗിക്കുന്നു. ഓരോ ചാറ്റിലും കീകൾ ഏകദൈത്യമാകണം."
+  },
+  "actor_copy": {
+    "message": "പകർത്തുക"
+  },
+  "actor_copied": {
+    "message": "പകർത്തി"
+  },
+  "actor_copySuccess": {
+    "message": "ടോകൺ ക്ലിപ്പ്ബോർഡിലേക്ക് പകർത്തി"
+  },
+  "actor_copyError": {
+    "message": "ടോകൺ പകർത്താൻ കഴിഞ്ഞില്ല"
+  },
+  "actor_notesPreviewTitle": {
+    "message": "സീൻ കുറിപ്പുകളുടെ പ്രിവ്യൂ"
+  },
+  "actor_notesPreviewToggle": {
+    "message": "Markdown + LaTeX പ്രിവ്യൂ കാണിക്കുക"
+  },
+  "actor_aspectLimitWarningTitle": {
+    "message": "ഈ ചാറ്റിൽ പല ഘടകങ്ങളും ക്രമീകരിച്ചിട്ടുണ്ട്"
+  },
+  "actor_aspectLimitWarningBody": {
+    "message": "{{count}} ഘടകങ്ങൾ ഉണ്ട് (സോഫ്റ്റ് പരിധി {{limit}}). സീൻ കേന്ദ്രീകരിക്കാനും ടോകൺസ് ലാഭിക്കാനും കുറയ്ക്കുന്നത് പരിഗണിക്കുക."
+  },
+  "actor_tokenWarning": {
+    "message": "Actor പ്രോംപ്റ്റ് ദൈർഘ്യമേറിയതാണ് ({{count}} ടോകൺസ്; സോഫ്റ്റ് പരിധി {{limit}}). കോൺടെക്സ്റ്റ് ലാഭിക്കാൻ ഘടകങ്ങളോ കുറിപ്പുകളോ കുറയ്ക്കുക."
+  },
+  "actor_depthRangeHelp": {
+    "message": "ആഴം 0 മുതൽ 999 വരെ ആയിരിക്കണം; ചരിത്ര നീളം കവിയുന്ന മൂല്യങ്ങൾ ക്ലാംപ് ചെയ്യപ്പെടും."
+  },
+  "actor_presetLabel": {
+    "message": "പ്രിസെറ്റുകൾ"
+  },
+  "actor_presetPlaceholder": {
+    "message": "ഒരു പ്രിസെറ്റ് തിരഞ്ഞെടുക്കുക"
+  },
+  "actor_preset.sliceOfLife": {
+    "message": "ദൈനംദിന ജീവിതം"
+  },
+  "actor_preset.dungeonCrawl": {
+    "message": "ഡഞ്ചൻ ക്രാൾ"
+  },
+  "actor_preset.romance": {
+    "message": "റൊമാൻസ്"
+  },
+  "actor_preset.workSession": {
+    "message": "ജോലി സെഷൻ"
+  },
+  "actor_applyPreset": {
+    "message": "പ്രയോഗിക്കുക"
+  },
+  "actor_resetChat": {
+    "message": "ഈ ചാറ്റിനായി റീസെറ്റ് ചെയ്യുക"
+  },
+  "actor_saveAsCharacterDefault": {
+    "message": "{{name}} ന്റെ ഡീഫോൾട്ടായി സംരക്ഷിക്കുക"
+  },
+  "actor_applyCharacterDefault": {
+    "message": "{{name}} ന്റെ ഡീഫോൾട്ട് പ്രയോഗിക്കുക"
+  },
+  "actor_notesGmOnly": {
+    "message": "GM മാത്രം: കുറിപ്പുകൾ മോഡലിലേക്ക് അയക്കരുത്"
+  },
+  "actor_templateModeLabel": {
+    "message": "സീൻ ടെംപ്ലേറ്റ് ഇടപെടൽ"
+  },
+  "actor_templateModeHelp": {
+    "message": "Actor സജീവ സീൻ ടെംപ്ലേറ്റുകളുമായി എങ്ങനെ ഇടപെടണമെന്ന് നിയന്ത്രിക്കുന്നു. മർജ് ഇരട്ടെയും നിലനിർത്തും; ഓവർറൈഡ് Actor ഒവർലാപ്പ് ചെയ്യുന്ന ഫീൽഡുകൾ മാറ്റാൻ അനുവദിക്കും; ഇഗ്നോർ ടെംപ്ലേറ്റുകൾ സജീവമായാൽ Actor ഒഴിവാക്കും."
+  },
+  "actor_templateMode.merge": {
+    "message": "ടെംപ്ലേറ്റുകളുമായി മർജ് ചെയ്യുക"
+  },
+  "actor_templateMode.override": {
+    "message": "ടെംപ്ലേറ്റുകൾ ഓവർറൈഡ് ചെയ്യുക"
+  },
+  "actor_templateMode.ignore": {
+    "message": "ടെംപ്ലേറ്റുകൾ സജീവമാകുമ്പോൾ ഇഗ്നോർ ചെയ്യുക"
+  },
+  "actor_bladeAspectsTitle": {
+    "message": "ഘടകങ്ങൾ"
+  },
+  "actor_bladeNotesTitle": {
+    "message": "സീൻ കുറിപ്പുകൾ"
+  },
+  "actor_bladePlacementTitle": {
+    "message": "സ്ഥാനം & ടെംപ്ലേറ്റുകൾ"
+  },
+  "actor_bladeTokensTitle": {
+    "message": "ടോകൺസ് & പ്രിവ്യൂ"
+  },
+  "actor_summaryAspectsEmpty": {
+    "message": "ഇതുവരെ ഘടകങ്ങൾ ക്രമീകരിച്ചിട്ടില്ല."
+  },
+  "actor_summaryAspectsCount": {
+    "message": "{{count}} ഘടകങ്ങൾ ക്രമീകരിച്ചിട്ടുണ്ട്."
+  },
+  "actor_summaryNotesEmpty": {
+    "message": "ഇതുവരെ സീൻ കുറിപ്പുകളില്ല."
+  },
+  "actor_summaryNotes": {
+    "message": "{{chars}} അക്ഷരങ്ങൾ{{gmSuffix}}."
+  },
+  "actor_summaryNotesGmOnly": {
+    "message": " · GM മാത്രം"
+  },
+  "actor_summaryPlacementBefore": {
+    "message": "പ്രധാന പ്രോംപ്റ്റ്/കഥയ്ക്ക് മുമ്പ്."
+  },
+  "actor_summaryPlacementAfter": {
+    "message": "പ്രധാന പ്രോംപ്റ്റ്/കഥയ്ക്ക് ശേഷം."
+  },
+  "actor_summaryPlacementDepth": {
+    "message": "ആഴം {{depth}} · റോൾ: {{role}}."
+  },
+  "actor_summaryTokensEmpty": {
+    "message": "ഇതുവരെ ടോകൺസ് നിർവചിച്ചിട്ടില്ല; ഘടക മൂല്യങ്ങൾ സജ്ജമാക്കുക."
+  },
+  "actor_summaryTokensCount": {
+    "message": "{{tokens}} ടോകൺസ് · പ്രോംപ്റ്റിൽ ഏകദേശം {{estimate}} ടോകൺസ്."
+  },
+  "actor_sceneTemplateActive": {
+    "message": "സീൻ ടെംപ്ലേറ്റ് സജീവമാണ്: Actor ടെംപ്ലേറ്റ് ഇടപെടൽ ക്രമീകരണങ്ങളെ മാനിക്കുന്നു."
   }
 }

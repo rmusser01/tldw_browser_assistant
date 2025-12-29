@@ -832,5 +832,254 @@
   },
   "speech_transcriptRecordingHint": {
     "message": "جارٍ التسجيل؛ التفريغ النصي مقفل."
+  },
+  "actor_title": {
+    "message": "مدير المشهد (Actor)"
+  },
+  "actor_help": {
+    "message": "اضبط سياق المشهد لكل محادثة: الأدوار، الحالة المزاجية، العالم، الأهداف، والملاحظات."
+  },
+  "actor_addLabel": {
+    "message": "أضف أو أزل الجوانب لتركيز المشهد."
+  },
+  "actor_user": {
+    "message": "المستخدم"
+  },
+  "actor_char": {
+    "message": "الشخصية"
+  },
+  "actor_world": {
+    "message": "العالم"
+  },
+  "actor_newAspectPlaceholder": {
+    "message": "اسم الجانب (مثال: المزاج، الدور، الموقع)"
+  },
+  "actor_addButton": {
+    "message": "إضافة جانب"
+  },
+  "actor_aspectPlaceholder": {
+    "message": "صف بإيجاز (اختياري)"
+  },
+  "actor_notes": {
+    "message": "ملاحظات المشهد"
+  },
+  "actor_notesHelp": {
+    "message": "ملاحظات اختيارية تُرسل إلى النموذج. تدعم Markdown وLaTeX."
+  },
+  "actor_position": {
+    "message": "موضع موجه Actor"
+  },
+  "actor_before": {
+    "message": "قبل الموجه/القصة الرئيسية"
+  },
+  "actor_after": {
+    "message": "بعد الموجه/القصة الرئيسية"
+  },
+  "actor_depth": {
+    "message": "داخل المحادثة على عمق"
+  },
+  "actor_depthLabel": {
+    "message": "العمق (رسائل غير النظام)"
+  },
+  "actor_depthPlaceholder": {
+    "message": "0 = أعلى المحادثة"
+  },
+  "actor_depthHelp": {
+    "message": "يُستخدم فقط عندما يكون الموضع \"داخل المحادثة على عمق\". يحسب رسائل غير النظام من أعلى المحادثة."
+  },
+  "actor_roleLabel": {
+    "message": "دور رسالة Actor"
+  },
+  "actor_roleSystem": {
+    "message": "النظام"
+  },
+  "actor_roleUser": {
+    "message": "المستخدم"
+  },
+  "actor_roleAssistant": {
+    "message": "المساعد"
+  },
+  "actor_positionHelp": {
+    "message": "يُستخدم العمق فقط عندما يكون الموضع \"داخل المحادثة على عمق\". يحدد الدور ما إذا كان Actor يظهر كنظام أو مستخدم أو مساعد."
+  },
+  "actor_preview": {
+    "message": "معاينة موجه Actor"
+  },
+  "actor_tokens": {
+    "message": "الرموز: {{count}}"
+  },
+  "actor_previewEmpty": {
+    "message": "لا شيء لإرساله بعد."
+  },
+  "actor_offlineHintTitle": {
+    "message": "World Books غير متاحة لـ Actor"
+  },
+  "actor_offlineHintBody": {
+    "message": "اتصل بخادم tldw من الإعدادات لاستخدام World Books لجوانب Actor، أو استمر باستخدام قيم نصية حرة."
+  },
+  "actor_loreWorldBookMissing": {
+    "message": "تعذر العثور على ربط World Book السابق؛ سيتم استخدام نص حر بدلا من ذلك."
+  },
+  "actor_loreEntryMissing": {
+    "message": "تعذر العثور على إدخال World Book السابق؛ سيتم استخدام نص حر بدلا من ذلك."
+  },
+  "actor_sourceFree": {
+    "message": "نص حر"
+  },
+  "actor_sourceLore": {
+    "message": "World Book"
+  },
+  "actor_worldBookPlaceholder": {
+    "message": "World Book"
+  },
+  "actor_entryPlaceholder": {
+    "message": "إدخال"
+  },
+  "actor_loreValuePlaceholder": {
+    "message": "اختر خيارا (اختياري)"
+  },
+  "actor_tokenLabel": {
+    "message": "رمز"
+  },
+  "actor_tokensTitle": {
+    "message": "رموز قاموس Actor"
+  },
+  "actor_tokensHelp": {
+    "message": "استخدم هذه الرموز في الموجهات ورسائل النظام."
+  },
+  "actor_keyChangeTitle": {
+    "message": "تغيير مفتاح رمز Actor؟"
+  },
+  "actor_keyChangeBody": {
+    "message": "سيؤدي ذلك إلى تغيير الرمز من {{old}} إلى {{next}}. لن تُحدَّث الموجهات التي تستخدم الرمز القديم تلقائيا."
+  },
+  "actor_keyCollisionTitle": {
+    "message": "مفتاح Actor مستخدم بالفعل"
+  },
+  "actor_keyCollisionBody": {
+    "message": "هناك جانب آخر يستخدم هذا المفتاح بالفعل. يجب أن تكون المفاتيح فريدة لكل محادثة."
+  },
+  "actor_copy": {
+    "message": "نسخ"
+  },
+  "actor_copied": {
+    "message": "تم النسخ"
+  },
+  "actor_copySuccess": {
+    "message": "تم نسخ الرمز إلى الحافظة"
+  },
+  "actor_copyError": {
+    "message": "فشل نسخ الرمز"
+  },
+  "actor_notesPreviewTitle": {
+    "message": "معاينة ملاحظات المشهد"
+  },
+  "actor_notesPreviewToggle": {
+    "message": "عرض معاينة Markdown + LaTeX"
+  },
+  "actor_aspectLimitWarningTitle": {
+    "message": "جوانب كثيرة مضبوطة لهذه المحادثة"
+  },
+  "actor_aspectLimitWarningBody": {
+    "message": "لديك {{count}} جوانب (حد مرن {{limit}}). فكّر في تقليصها لتركيز المشهد وتوفير الرموز."
+  },
+  "actor_tokenWarning": {
+    "message": "موجه Actor طويل ({{count}} رموز؛ حد مرن {{limit}}). فكّر في تقليص الجوانب أو الملاحظات لتوفير السياق."
+  },
+  "actor_depthRangeHelp": {
+    "message": "يجب أن يكون العمق بين 0 و999؛ القيم التي تتجاوز طول السجل يتم تقييدها."
+  },
+  "actor_presetLabel": {
+    "message": "الإعدادات المسبقة"
+  },
+  "actor_presetPlaceholder": {
+    "message": "اختر إعدادا مسبقا"
+  },
+  "actor_preset.sliceOfLife": {
+    "message": "لقطة من الحياة"
+  },
+  "actor_preset.dungeonCrawl": {
+    "message": "استكشاف زنزانة"
+  },
+  "actor_preset.romance": {
+    "message": "رومانسية"
+  },
+  "actor_preset.workSession": {
+    "message": "جلسة عمل"
+  },
+  "actor_applyPreset": {
+    "message": "تطبيق"
+  },
+  "actor_resetChat": {
+    "message": "إعادة ضبط لهذه المحادثة"
+  },
+  "actor_saveAsCharacterDefault": {
+    "message": "حفظ كافتراضي لـ {{name}}"
+  },
+  "actor_applyCharacterDefault": {
+    "message": "تطبيق افتراضي {{name}}"
+  },
+  "actor_notesGmOnly": {
+    "message": "لـ GM فقط: لا ترسل الملاحظات إلى النموذج"
+  },
+  "actor_templateModeLabel": {
+    "message": "تفاعل قوالب المشهد"
+  },
+  "actor_templateModeHelp": {
+    "message": "يتحكم بكيفية تفاعل Actor مع قوالب المشهد النشطة. الدمج يبقي الاثنين؛ الاستبدال يسمح لـ Actor باستبدال الحقول المتداخلة؛ التجاهل يتجاوز Actor عندما تكون القوالب نشطة."
+  },
+  "actor_templateMode.merge": {
+    "message": "دمج مع القوالب"
+  },
+  "actor_templateMode.override": {
+    "message": "استبدال القوالب"
+  },
+  "actor_templateMode.ignore": {
+    "message": "تجاهل عند نشاط القوالب"
+  },
+  "actor_bladeAspectsTitle": {
+    "message": "الجوانب"
+  },
+  "actor_bladeNotesTitle": {
+    "message": "ملاحظات المشهد"
+  },
+  "actor_bladePlacementTitle": {
+    "message": "الموضع والقوالب"
+  },
+  "actor_bladeTokensTitle": {
+    "message": "الرموز والمعاينة"
+  },
+  "actor_summaryAspectsEmpty": {
+    "message": "لم يتم إعداد أي جوانب بعد."
+  },
+  "actor_summaryAspectsCount": {
+    "message": "تم إعداد {{count}} جوانب."
+  },
+  "actor_summaryNotesEmpty": {
+    "message": "لا توجد ملاحظات للمشهد بعد."
+  },
+  "actor_summaryNotes": {
+    "message": "{{chars}} حرفا{{gmSuffix}}."
+  },
+  "actor_summaryNotesGmOnly": {
+    "message": " · لـ GM فقط"
+  },
+  "actor_summaryPlacementBefore": {
+    "message": "قبل الموجه/القصة الرئيسية."
+  },
+  "actor_summaryPlacementAfter": {
+    "message": "بعد الموجه/القصة الرئيسية."
+  },
+  "actor_summaryPlacementDepth": {
+    "message": "عمق {{depth}} · الدور: {{role}}."
+  },
+  "actor_summaryTokensEmpty": {
+    "message": "لا توجد رموز معرفة بعد؛ عيّن قيم الجوانب."
+  },
+  "actor_summaryTokensCount": {
+    "message": "{{tokens}} رموز · ~{{estimate}} رموز في الموجه."
+  },
+  "actor_sceneTemplateActive": {
+    "message": "قالب مشهد نشط: Actor يحترم إعدادات التفاعل مع القوالب."
   }
 }

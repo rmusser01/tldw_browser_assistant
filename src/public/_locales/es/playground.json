@@ -835,5 +835,254 @@
   },
   "speech_transcriptRecordingHint": {
     "message": "Grabación en curso; la transcripción está bloqueada."
+  },
+  "actor_title": {
+    "message": "Director de escena (Actor)"
+  },
+  "actor_help": {
+    "message": "Configura el contexto de la escena por chat: roles, estado de ánimo, mundo, objetivos y notas."
+  },
+  "actor_addLabel": {
+    "message": "Agrega o elimina aspectos para enfocar la escena."
+  },
+  "actor_user": {
+    "message": "Usuario"
+  },
+  "actor_char": {
+    "message": "Personaje"
+  },
+  "actor_world": {
+    "message": "Mundo"
+  },
+  "actor_newAspectPlaceholder": {
+    "message": "Nombre del aspecto (p. ej., Estado de ánimo, Rol, Ubicación)"
+  },
+  "actor_addButton": {
+    "message": "Agregar aspecto"
+  },
+  "actor_aspectPlaceholder": {
+    "message": "Describe brevemente (opcional)"
+  },
+  "actor_notes": {
+    "message": "Notas de la escena"
+  },
+  "actor_notesHelp": {
+    "message": "Notas opcionales enviadas al modelo. Soporta Markdown y LaTeX."
+  },
+  "actor_position": {
+    "message": "Posición del prompt de Actor"
+  },
+  "actor_before": {
+    "message": "Antes del prompt/historia principal"
+  },
+  "actor_after": {
+    "message": "Después del prompt/historia principal"
+  },
+  "actor_depth": {
+    "message": "En el chat en profundidad"
+  },
+  "actor_depthLabel": {
+    "message": "Profundidad (mensajes no del sistema)"
+  },
+  "actor_depthPlaceholder": {
+    "message": "0 = parte superior del chat"
+  },
+  "actor_depthHelp": {
+    "message": "Se usa solo cuando la posición es \"En el chat en profundidad\". Cuenta los mensajes no del sistema desde la parte superior del chat."
+  },
+  "actor_roleLabel": {
+    "message": "Rol del mensaje de Actor"
+  },
+  "actor_roleSystem": {
+    "message": "Sistema"
+  },
+  "actor_roleUser": {
+    "message": "Usuario"
+  },
+  "actor_roleAssistant": {
+    "message": "Asistente"
+  },
+  "actor_positionHelp": {
+    "message": "La profundidad solo se usa cuando la posición es \"En el chat en profundidad\". El rol controla si Actor aparece como sistema, usuario o asistente."
+  },
+  "actor_preview": {
+    "message": "Vista previa del prompt de Actor"
+  },
+  "actor_tokens": {
+    "message": "Tokens: {{count}}"
+  },
+  "actor_previewEmpty": {
+    "message": "Aún no hay nada para enviar."
+  },
+  "actor_offlineHintTitle": {
+    "message": "World Books no disponibles para Actor"
+  },
+  "actor_offlineHintBody": {
+    "message": "Conecta tu servidor tldw desde Configuración para usar World Books en los aspectos de Actor, o sigue usando valores de texto libre."
+  },
+  "actor_loreWorldBookMissing": {
+    "message": "No se encontró el vínculo anterior del World Book; se usará texto libre."
+  },
+  "actor_loreEntryMissing": {
+    "message": "No se encontró la entrada anterior del World Book; se usará texto libre."
+  },
+  "actor_sourceFree": {
+    "message": "Texto libre"
+  },
+  "actor_sourceLore": {
+    "message": "World Book"
+  },
+  "actor_worldBookPlaceholder": {
+    "message": "World Book"
+  },
+  "actor_entryPlaceholder": {
+    "message": "Entrada"
+  },
+  "actor_loreValuePlaceholder": {
+    "message": "Selecciona una opción (opcional)"
+  },
+  "actor_tokenLabel": {
+    "message": "Token"
+  },
+  "actor_tokensTitle": {
+    "message": "Tokens del diccionario de Actor"
+  },
+  "actor_tokensHelp": {
+    "message": "Usa estos tokens en prompts y mensajes del sistema."
+  },
+  "actor_keyChangeTitle": {
+    "message": "¿Cambiar la clave del token de Actor?"
+  },
+  "actor_keyChangeBody": {
+    "message": "Esto cambiará el token de {{old}} a {{next}}. Los prompts que usan el token anterior no se actualizarán automáticamente."
+  },
+  "actor_keyCollisionTitle": {
+    "message": "Clave de Actor ya en uso"
+  },
+  "actor_keyCollisionBody": {
+    "message": "Otro aspecto ya usa esta clave. Las claves deben ser únicas por chat."
+  },
+  "actor_copy": {
+    "message": "Copiar"
+  },
+  "actor_copied": {
+    "message": "Copiado"
+  },
+  "actor_copySuccess": {
+    "message": "Token copiado al portapapeles"
+  },
+  "actor_copyError": {
+    "message": "No se pudo copiar el token"
+  },
+  "actor_notesPreviewTitle": {
+    "message": "Vista previa de notas de la escena"
+  },
+  "actor_notesPreviewToggle": {
+    "message": "Mostrar vista previa de Markdown + LaTeX"
+  },
+  "actor_aspectLimitWarningTitle": {
+    "message": "Muchos aspectos configurados para este chat"
+  },
+  "actor_aspectLimitWarningBody": {
+    "message": "Tienes {{count}} aspectos (límite suave {{limit}}). Considera reducirlos para enfocar la escena y ahorrar tokens."
+  },
+  "actor_tokenWarning": {
+    "message": "El prompt de Actor es largo ({{count}} tokens; límite suave {{limit}}). Considera reducir aspectos o notas para ahorrar contexto."
+  },
+  "actor_depthRangeHelp": {
+    "message": "La profundidad debe estar entre 0 y 999; los valores más allá de la longitud del historial se ajustan."
+  },
+  "actor_presetLabel": {
+    "message": "Preajustes"
+  },
+  "actor_presetPlaceholder": {
+    "message": "Elige un preajuste"
+  },
+  "actor_preset.sliceOfLife": {
+    "message": "Vida cotidiana"
+  },
+  "actor_preset.dungeonCrawl": {
+    "message": "Aventura de mazmorra"
+  },
+  "actor_preset.romance": {
+    "message": "Romance"
+  },
+  "actor_preset.workSession": {
+    "message": "Sesión de trabajo"
+  },
+  "actor_applyPreset": {
+    "message": "Aplicar"
+  },
+  "actor_resetChat": {
+    "message": "Restablecer para este chat"
+  },
+  "actor_saveAsCharacterDefault": {
+    "message": "Guardar como predeterminado de {{name}}"
+  },
+  "actor_applyCharacterDefault": {
+    "message": "Aplicar el predeterminado de {{name}}"
+  },
+  "actor_notesGmOnly": {
+    "message": "Solo GM: no enviar notas al modelo"
+  },
+  "actor_templateModeLabel": {
+    "message": "Interacción con plantillas de escena"
+  },
+  "actor_templateModeHelp": {
+    "message": "Controla cómo Actor interactúa con plantillas de escena activas. Combinar mantiene ambos; Reemplazar permite que Actor sustituya campos superpuestos; Ignorar omite Actor cuando las plantillas están activas."
+  },
+  "actor_templateMode.merge": {
+    "message": "Combinar con plantillas"
+  },
+  "actor_templateMode.override": {
+    "message": "Reemplazar plantillas"
+  },
+  "actor_templateMode.ignore": {
+    "message": "Ignorar cuando las plantillas estén activas"
+  },
+  "actor_bladeAspectsTitle": {
+    "message": "Aspectos"
+  },
+  "actor_bladeNotesTitle": {
+    "message": "Notas de la escena"
+  },
+  "actor_bladePlacementTitle": {
+    "message": "Ubicación y plantillas"
+  },
+  "actor_bladeTokensTitle": {
+    "message": "Tokens y vista previa"
+  },
+  "actor_summaryAspectsEmpty": {
+    "message": "Aún no hay aspectos configurados."
+  },
+  "actor_summaryAspectsCount": {
+    "message": "{{count}} aspectos configurados."
+  },
+  "actor_summaryNotesEmpty": {
+    "message": "Aún no hay notas de la escena."
+  },
+  "actor_summaryNotes": {
+    "message": "{{chars}} caracteres{{gmSuffix}}."
+  },
+  "actor_summaryNotesGmOnly": {
+    "message": " · Solo GM"
+  },
+  "actor_summaryPlacementBefore": {
+    "message": "Antes del prompt/historia principal."
+  },
+  "actor_summaryPlacementAfter": {
+    "message": "Después del prompt/historia principal."
+  },
+  "actor_summaryPlacementDepth": {
+    "message": "Profundidad {{depth}} · Rol: {{role}}."
+  },
+  "actor_summaryTokensEmpty": {
+    "message": "Aún no hay tokens definidos; establece valores de aspecto."
+  },
+  "actor_summaryTokensCount": {
+    "message": "{{tokens}} tokens · ~{{estimate}} tokens en el prompt."
+  },
+  "actor_sceneTemplateActive": {
+    "message": "Plantilla de escena activa: Actor respeta la configuración de interacción con plantillas."
   }
 }

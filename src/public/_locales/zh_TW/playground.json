@@ -832,5 +832,254 @@
   },
   "speech_transcriptRecordingHint": {
     "message": "錄音進行中；轉寫已鎖定。"
+  },
+  "actor_title": {
+    "message": "場景導演（Actor）"
+  },
+  "actor_help": {
+    "message": "為每個聊天配置場景脈絡：角色、情緒、世界、目標與備註。"
+  },
+  "actor_addLabel": {
+    "message": "新增或移除要素以聚焦場景。"
+  },
+  "actor_user": {
+    "message": "使用者"
+  },
+  "actor_char": {
+    "message": "角色"
+  },
+  "actor_world": {
+    "message": "世界"
+  },
+  "actor_newAspectPlaceholder": {
+    "message": "要素名稱（例如：情緒、角色、地點）"
+  },
+  "actor_addButton": {
+    "message": "新增要素"
+  },
+  "actor_aspectPlaceholder": {
+    "message": "簡要描述（選填）"
+  },
+  "actor_notes": {
+    "message": "場景備註"
+  },
+  "actor_notesHelp": {
+    "message": "傳送給模型的選用備註。支援 Markdown 與 LaTeX。"
+  },
+  "actor_position": {
+    "message": "Actor 提示位置"
+  },
+  "actor_before": {
+    "message": "在主要提示/故事之前"
+  },
+  "actor_after": {
+    "message": "在主要提示/故事之後"
+  },
+  "actor_depth": {
+    "message": "在聊天中按深度"
+  },
+  "actor_depthLabel": {
+    "message": "深度（非系統訊息）"
+  },
+  "actor_depthPlaceholder": {
+    "message": "0 = 聊天頂端"
+  },
+  "actor_depthHelp": {
+    "message": "僅在位置為「在聊天中按深度」時使用。從聊天頂端開始計算非系統訊息。"
+  },
+  "actor_roleLabel": {
+    "message": "Actor 訊息角色"
+  },
+  "actor_roleSystem": {
+    "message": "系統"
+  },
+  "actor_roleUser": {
+    "message": "使用者"
+  },
+  "actor_roleAssistant": {
+    "message": "助理"
+  },
+  "actor_positionHelp": {
+    "message": "深度僅在位置為「在聊天中按深度」時使用。角色決定 Actor 以系統、使用者或助理身分出現。"
+  },
+  "actor_preview": {
+    "message": "Actor 提示預覽"
+  },
+  "actor_tokens": {
+    "message": "權杖：{{count}}"
+  },
+  "actor_previewEmpty": {
+    "message": "目前沒有內容可送出。"
+  },
+  "actor_offlineHintTitle": {
+    "message": "Actor 無法使用 World Books"
+  },
+  "actor_offlineHintBody": {
+    "message": "在設定中連線 tldw 伺服器以在 Actor 要素中使用 World Books，或繼續使用自由文字值。"
+  },
+  "actor_loreWorldBookMissing": {
+    "message": "找不到先前的 World Book 綁定；改用自由文字。"
+  },
+  "actor_loreEntryMissing": {
+    "message": "找不到先前的 World Book 項目；改用自由文字。"
+  },
+  "actor_sourceFree": {
+    "message": "自由文字"
+  },
+  "actor_sourceLore": {
+    "message": "World Book"
+  },
+  "actor_worldBookPlaceholder": {
+    "message": "World Book"
+  },
+  "actor_entryPlaceholder": {
+    "message": "項目"
+  },
+  "actor_loreValuePlaceholder": {
+    "message": "選擇一個選項（選填）"
+  },
+  "actor_tokenLabel": {
+    "message": "權杖"
+  },
+  "actor_tokensTitle": {
+    "message": "Actor 字典權杖"
+  },
+  "actor_tokensHelp": {
+    "message": "在提示和系統訊息中使用這些權杖。"
+  },
+  "actor_keyChangeTitle": {
+    "message": "變更 Actor 權杖鍵？"
+  },
+  "actor_keyChangeBody": {
+    "message": "這會將權杖從 {{old}} 變更為 {{next}}。使用舊權杖的提示不會自動更新。"
+  },
+  "actor_keyCollisionTitle": {
+    "message": "Actor 鍵已被使用"
+  },
+  "actor_keyCollisionBody": {
+    "message": "另一個要素已使用此鍵。鍵必須在每個聊天中唯一。"
+  },
+  "actor_copy": {
+    "message": "複製"
+  },
+  "actor_copied": {
+    "message": "已複製"
+  },
+  "actor_copySuccess": {
+    "message": "權杖已複製到剪貼簿"
+  },
+  "actor_copyError": {
+    "message": "無法複製權杖"
+  },
+  "actor_notesPreviewTitle": {
+    "message": "場景備註預覽"
+  },
+  "actor_notesPreviewToggle": {
+    "message": "顯示 Markdown + LaTeX 預覽"
+  },
+  "actor_aspectLimitWarningTitle": {
+    "message": "此聊天設定了許多要素"
+  },
+  "actor_aspectLimitWarningBody": {
+    "message": "你有 {{count}} 個要素（軟性上限 {{limit}}）。建議精簡以聚焦場景並節省權杖。"
+  },
+  "actor_tokenWarning": {
+    "message": "Actor 提示過長（{{count}} 權杖；軟性上限 {{limit}}）。請考慮精簡要素或備註以節省脈絡。"
+  },
+  "actor_depthRangeHelp": {
+    "message": "深度必須在 0 到 999 之間；超過歷史長度的值會被限制。"
+  },
+  "actor_presetLabel": {
+    "message": "預設"
+  },
+  "actor_presetPlaceholder": {
+    "message": "選擇預設"
+  },
+  "actor_preset.sliceOfLife": {
+    "message": "日常"
+  },
+  "actor_preset.dungeonCrawl": {
+    "message": "地城探險"
+  },
+  "actor_preset.romance": {
+    "message": "浪漫"
+  },
+  "actor_preset.workSession": {
+    "message": "工作時段"
+  },
+  "actor_applyPreset": {
+    "message": "套用"
+  },
+  "actor_resetChat": {
+    "message": "重設此聊天"
+  },
+  "actor_saveAsCharacterDefault": {
+    "message": "儲存為 {{name}} 的預設"
+  },
+  "actor_applyCharacterDefault": {
+    "message": "套用 {{name}} 的預設"
+  },
+  "actor_notesGmOnly": {
+    "message": "僅 GM：不要將備註送給模型"
+  },
+  "actor_templateModeLabel": {
+    "message": "場景模板互動"
+  },
+  "actor_templateModeHelp": {
+    "message": "控制 Actor 與啟用中的場景模板如何互動。合併會保留兩者；覆蓋讓 Actor 取代重疊欄位；忽略會在模板啟用時略過 Actor。"
+  },
+  "actor_templateMode.merge": {
+    "message": "與模板合併"
+  },
+  "actor_templateMode.override": {
+    "message": "覆蓋模板"
+  },
+  "actor_templateMode.ignore": {
+    "message": "模板啟用時忽略"
+  },
+  "actor_bladeAspectsTitle": {
+    "message": "要素"
+  },
+  "actor_bladeNotesTitle": {
+    "message": "場景備註"
+  },
+  "actor_bladePlacementTitle": {
+    "message": "位置與模板"
+  },
+  "actor_bladeTokensTitle": {
+    "message": "權杖與預覽"
+  },
+  "actor_summaryAspectsEmpty": {
+    "message": "尚未設定要素。"
+  },
+  "actor_summaryAspectsCount": {
+    "message": "已設定 {{count}} 個要素。"
+  },
+  "actor_summaryNotesEmpty": {
+    "message": "尚無場景備註。"
+  },
+  "actor_summaryNotes": {
+    "message": "{{chars}} 個字元{{gmSuffix}}。"
+  },
+  "actor_summaryNotesGmOnly": {
+    "message": " · 僅 GM"
+  },
+  "actor_summaryPlacementBefore": {
+    "message": "在主要提示/故事之前。"
+  },
+  "actor_summaryPlacementAfter": {
+    "message": "在主要提示/故事之後。"
+  },
+  "actor_summaryPlacementDepth": {
+    "message": "深度 {{depth}} · 角色：{{role}}。"
+  },
+  "actor_summaryTokensEmpty": {
+    "message": "尚未定義權杖；請設定要素值。"
+  },
+  "actor_summaryTokensCount": {
+    "message": "{{tokens}} 個權杖 · 提示約 {{estimate}} 個權杖。"
+  },
+  "actor_sceneTemplateActive": {
+    "message": "場景模板啟用中：Actor 會遵循模板互動設定。"
   }
 }

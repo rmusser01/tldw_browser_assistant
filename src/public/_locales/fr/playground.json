@@ -832,5 +832,254 @@
   },
   "speech_transcriptRecordingHint": {
     "message": "Enregistrement en cours ; la transcription est verrouillée."
+  },
+  "actor_title": {
+    "message": "Directeur de scène (Actor)"
+  },
+  "actor_help": {
+    "message": "Configurez le contexte de scène par chat : rôles, humeur, monde, objectifs et notes."
+  },
+  "actor_addLabel": {
+    "message": "Ajoutez ou supprimez des aspects pour focaliser la scène."
+  },
+  "actor_user": {
+    "message": "Utilisateur"
+  },
+  "actor_char": {
+    "message": "Personnage"
+  },
+  "actor_world": {
+    "message": "Monde"
+  },
+  "actor_newAspectPlaceholder": {
+    "message": "Nom de l'aspect (ex. Humeur, Rôle, Lieu)"
+  },
+  "actor_addButton": {
+    "message": "Ajouter un aspect"
+  },
+  "actor_aspectPlaceholder": {
+    "message": "Décrire brièvement (facultatif)"
+  },
+  "actor_notes": {
+    "message": "Notes de scène"
+  },
+  "actor_notesHelp": {
+    "message": "Notes optionnelles envoyées au modèle. Prend en charge Markdown et LaTeX."
+  },
+  "actor_position": {
+    "message": "Position de l'invite Actor"
+  },
+  "actor_before": {
+    "message": "Avant l'invite/histoire principale"
+  },
+  "actor_after": {
+    "message": "Après l'invite/histoire principale"
+  },
+  "actor_depth": {
+    "message": "Dans le chat à une profondeur"
+  },
+  "actor_depthLabel": {
+    "message": "Profondeur (messages non système)"
+  },
+  "actor_depthPlaceholder": {
+    "message": "0 = haut du chat"
+  },
+  "actor_depthHelp": {
+    "message": "Utilisé uniquement lorsque la position est \"Dans le chat à une profondeur\". Compte les messages non système depuis le haut du chat."
+  },
+  "actor_roleLabel": {
+    "message": "Rôle du message Actor"
+  },
+  "actor_roleSystem": {
+    "message": "Système"
+  },
+  "actor_roleUser": {
+    "message": "Utilisateur"
+  },
+  "actor_roleAssistant": {
+    "message": "Assistant"
+  },
+  "actor_positionHelp": {
+    "message": "La profondeur n'est utilisée que lorsque la position est \"Dans le chat à une profondeur\". Le rôle détermine si Actor apparaît comme système, utilisateur ou assistant."
+  },
+  "actor_preview": {
+    "message": "Aperçu de l'invite Actor"
+  },
+  "actor_tokens": {
+    "message": "Jetons : {{count}}"
+  },
+  "actor_previewEmpty": {
+    "message": "Rien à envoyer pour l'instant."
+  },
+  "actor_offlineHintTitle": {
+    "message": "World Books indisponibles pour Actor"
+  },
+  "actor_offlineHintBody": {
+    "message": "Connectez votre serveur tldw depuis Paramètres pour utiliser World Books pour les aspects Actor, ou continuez à utiliser des valeurs en texte libre."
+  },
+  "actor_loreWorldBookMissing": {
+    "message": "La liaison World Book précédente est introuvable ; utilisation du texte libre."
+  },
+  "actor_loreEntryMissing": {
+    "message": "L'entrée World Book précédente est introuvable ; utilisation du texte libre."
+  },
+  "actor_sourceFree": {
+    "message": "Texte libre"
+  },
+  "actor_sourceLore": {
+    "message": "World Book"
+  },
+  "actor_worldBookPlaceholder": {
+    "message": "World Book"
+  },
+  "actor_entryPlaceholder": {
+    "message": "Entrée"
+  },
+  "actor_loreValuePlaceholder": {
+    "message": "Sélectionnez une option (facultatif)"
+  },
+  "actor_tokenLabel": {
+    "message": "Jeton"
+  },
+  "actor_tokensTitle": {
+    "message": "Jetons du dictionnaire Actor"
+  },
+  "actor_tokensHelp": {
+    "message": "Utilisez ces jetons dans les invites et messages système."
+  },
+  "actor_keyChangeTitle": {
+    "message": "Changer la clé de jeton Actor ?"
+  },
+  "actor_keyChangeBody": {
+    "message": "Cela changera le jeton de {{old}} à {{next}}. Les invites utilisant l'ancien jeton ne seront pas mises à jour automatiquement."
+  },
+  "actor_keyCollisionTitle": {
+    "message": "Clé Actor déjà utilisée"
+  },
+  "actor_keyCollisionBody": {
+    "message": "Un autre aspect utilise déjà cette clé. Les clés doivent être uniques par chat."
+  },
+  "actor_copy": {
+    "message": "Copier"
+  },
+  "actor_copied": {
+    "message": "Copié"
+  },
+  "actor_copySuccess": {
+    "message": "Jeton copié dans le presse-papiers"
+  },
+  "actor_copyError": {
+    "message": "Échec de la copie du jeton"
+  },
+  "actor_notesPreviewTitle": {
+    "message": "Aperçu des notes de scène"
+  },
+  "actor_notesPreviewToggle": {
+    "message": "Afficher l'aperçu Markdown + LaTeX"
+  },
+  "actor_aspectLimitWarningTitle": {
+    "message": "Beaucoup d'aspects configurés pour ce chat"
+  },
+  "actor_aspectLimitWarningBody": {
+    "message": "Vous avez {{count}} aspects (limite souple {{limit}}). Envisagez de réduire pour focaliser la scène et économiser des jetons."
+  },
+  "actor_tokenWarning": {
+    "message": "L'invite Actor est longue ({{count}} jetons ; limite souple {{limit}}). Envisagez de réduire les aspects ou les notes pour économiser le contexte."
+  },
+  "actor_depthRangeHelp": {
+    "message": "La profondeur doit être comprise entre 0 et 999 ; les valeurs au-delà de l'historique sont plafonnées."
+  },
+  "actor_presetLabel": {
+    "message": "Préréglages"
+  },
+  "actor_presetPlaceholder": {
+    "message": "Choisir un préréglage"
+  },
+  "actor_preset.sliceOfLife": {
+    "message": "Tranche de vie"
+  },
+  "actor_preset.dungeonCrawl": {
+    "message": "Exploration de donjon"
+  },
+  "actor_preset.romance": {
+    "message": "Romance"
+  },
+  "actor_preset.workSession": {
+    "message": "Session de travail"
+  },
+  "actor_applyPreset": {
+    "message": "Appliquer"
+  },
+  "actor_resetChat": {
+    "message": "Réinitialiser pour ce chat"
+  },
+  "actor_saveAsCharacterDefault": {
+    "message": "Enregistrer comme valeur par défaut de {{name}}"
+  },
+  "actor_applyCharacterDefault": {
+    "message": "Appliquer la valeur par défaut de {{name}}"
+  },
+  "actor_notesGmOnly": {
+    "message": "MJ uniquement : ne pas envoyer les notes au modèle"
+  },
+  "actor_templateModeLabel": {
+    "message": "Interaction avec les templates de scène"
+  },
+  "actor_templateModeHelp": {
+    "message": "Contrôle la façon dont Actor interagit avec les templates de scène actifs. Fusionner conserve les deux ; Remplacer permet à Actor de remplacer les champs qui se chevauchent ; Ignorer saute Actor quand les templates sont actifs."
+  },
+  "actor_templateMode.merge": {
+    "message": "Fusionner avec les templates"
+  },
+  "actor_templateMode.override": {
+    "message": "Remplacer les templates"
+  },
+  "actor_templateMode.ignore": {
+    "message": "Ignorer quand les templates sont actifs"
+  },
+  "actor_bladeAspectsTitle": {
+    "message": "Aspects"
+  },
+  "actor_bladeNotesTitle": {
+    "message": "Notes de scène"
+  },
+  "actor_bladePlacementTitle": {
+    "message": "Placement et templates"
+  },
+  "actor_bladeTokensTitle": {
+    "message": "Jetons et aperçu"
+  },
+  "actor_summaryAspectsEmpty": {
+    "message": "Aucun aspect configuré pour le moment."
+  },
+  "actor_summaryAspectsCount": {
+    "message": "{{count}} aspects configurés."
+  },
+  "actor_summaryNotesEmpty": {
+    "message": "Aucune note de scène pour le moment."
+  },
+  "actor_summaryNotes": {
+    "message": "{{chars}} caractères{{gmSuffix}}."
+  },
+  "actor_summaryNotesGmOnly": {
+    "message": " · MJ uniquement"
+  },
+  "actor_summaryPlacementBefore": {
+    "message": "Avant l'invite/histoire principale."
+  },
+  "actor_summaryPlacementAfter": {
+    "message": "Après l'invite/histoire principale."
+  },
+  "actor_summaryPlacementDepth": {
+    "message": "Profondeur {{depth}} · Rôle : {{role}}."
+  },
+  "actor_summaryTokensEmpty": {
+    "message": "Aucun jeton défini pour l'instant ; définissez des valeurs d'aspect."
+  },
+  "actor_summaryTokensCount": {
+    "message": "{{tokens}} jetons · ~{{estimate}} jetons dans l'invite."
+  },
+  "actor_sceneTemplateActive": {
+    "message": "Template de scène actif : Actor respecte les paramètres d'interaction avec les templates."
   }
 }

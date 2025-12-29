@@ -1,0 +1,1235 @@
+{
+  "searchPrompts": {
+    "message": "プロンプトを検索..."
+  },
+  "noMatchingPrompts": {
+    "message": "一致するプロンプトがありません"
+  },
+  "promptSelect_favorites": {
+    "message": "お気に入り"
+  },
+  "promptSelect_system": {
+    "message": "システムプロンプト"
+  },
+  "promptSelect_quick": {
+    "message": "クイックプロンプト"
+  },
+  "flashcards_bulkLimitWarning": {
+    "message": "操作は最初の {{limit}} 件に限定されます。"
+  },
+  "tabs_newChat": {
+    "message": "新しいチャット"
+  },
+  "tabs_newTabAria": {
+    "message": "新しいチャットタブ"
+  },
+  "tabs_closeTabAria": {
+    "message": "チャットタブを閉じる"
+  },
+  "mediaPage_searchPlaceholder": {
+    "message": "メディアを検索（タイトル/内容）"
+  },
+  "mediaPage_search": {
+    "message": "検索"
+  },
+  "mediaPage_clear": {
+    "message": "クリア"
+  },
+  "mediaPage_types": {
+    "message": "Types"
+  },
+  "mediaPage_keywords": {
+    "message": "キーワード"
+  },
+  "mediaPage_moreTags": {
+    "message": "+{{count}} 件のタグ"
+  },
+  "mediaPage_resetFilters": {
+    "message": "Reset Filters"
+  },
+  "mediaPage_clearAll": {
+    "message": "すべてクリア"
+  },
+  "mediaPage_content": {
+    "message": "内容"
+  },
+  "mediaPage_vertical": {
+    "message": "垂直"
+  },
+  "mediaPage_horizontal": {
+    "message": "水平"
+  },
+  "mediaPage_results": {
+    "message": "結果"
+  },
+  "mediaPage_noResults": {
+    "message": "No results"
+  },
+  "mediaPage_showSidebar": {
+    "message": "Show sidebar"
+  },
+  "mediaPage_hideSidebar": {
+    "message": "Hide sidebar"
+  },
+  "mediaPage_viewer": {
+    "message": "ビューア"
+  },
+  "mediaPage_selectItemsHint": {
+    "message": "左側で項目を選択するとここに表示されます。"
+  },
+  "mediaPage_mediaContent": {
+    "message": "メディア内容"
+  },
+  "mediaPage_copyContent": {
+    "message": "内容をコピー"
+  },
+  "mediaPage_contentCopied": {
+    "message": "内容をコピーしました"
+  },
+  "mediaPage_metadataCopied": {
+    "message": "メタデータをコピーしました"
+  },
+  "mediaPage_analysisCopied": {
+    "message": "分析をコピーしました"
+  },
+  "mediaPage_copyFailed": {
+    "message": "コピーに失敗しました"
+  },
+  "mediaPage_noContent": {
+    "message": "利用可能な内容がありません"
+  },
+  "mediaPage_collapse": {
+    "message": "折りたたむ"
+  },
+  "mediaPage_expand": {
+    "message": "展開"
+  },
+  "mediaPage_media": {
+    "message": "メディア"
+  },
+  "mediaPage_searchingBanner": {
+    "message": "メディアを検索中…"
+  },
+  "mediaPage_filterHelp": {
+    "message": "検索はタイトルと内容に一致します。タイプとキーワードで結果をさらに絞り込みます。"
+  },
+  "mediaPage_noMediaTypes": {
+    "message": "利用可能なメディアタイプはありません"
+  },
+  "mediaPage_resultsCount": {
+    "message": "{{selected}} 件選択 · {{open}} 件表示"
+  },
+  "mediaPage_clearSelection": {
+    "message": "全選択解除"
+  },
+  "mediaPage_itemsLabel": {
+    "message": "項目"
+  },
+  "mediaPage_contentLabel": {
+    "message": "内容ビュー"
+  },
+  "mediaPage_filterByKeyword": {
+    "message": "キーワードで絞り込む"
+  },
+  "mediaPage_keywordHelper": {
+    "message": "左側のキーワードフィルターを使うと、このメディアを見つけやすくなります"
+  },
+  "mediaPage_modeHint": {
+    "message": "複数のメディア項目を検索してスタックし、右側のビューアで比較します。"
+  },
+  "mediaPage_viewerHelp": {
+    "message": "キーボード: Tab で結果リストに移動し、Enter または Space でメディア項目をスタック／解除し、前へ／次へボタンやレイアウトコントロールでビューア内の項目を移動します。"
+  },
+  "mediaPage_viewerHelpLabel": {
+    "message": "複数アイテムレビューのキーボードショートカット"
+  },
+  "mediaPage_mediaInspector": {
+    "message": "メディアインスペクター"
+  },
+  "mediaPage_actionsLabel": {
+    "message": "アクション"
+  },
+  "mediaPage_keywordsPlaceholder": {
+    "message": "キーワードを追加..."
+  },
+  "mediaPage_noSelectionTitle": {
+    "message": "メディア項目が選択されていません"
+  },
+  "mediaPage_noSelectionDescription": {
+    "message": "左側のサイドバーからメディア項目を選択すると、その内容と分析がここに表示されます。"
+  },
+  "mediaPage_generateAnalysis": {
+    "message": "分析を生成"
+  },
+  "mediaPage_generateAnalysisHint": {
+    "message": "新しい分析を生成"
+  },
+  "mediaPage_editAnalysis": {
+    "message": "分析を編集"
+  },
+  "mediaPage_createNoteWithContent": {
+    "message": "コンテンツからノートを作成"
+  },
+  "mediaPage_createNoteWithContentAnalysis": {
+    "message": "コンテンツ + 分析からノートを作成"
+  },
+  "mediaPage_untitled": {
+    "message": "無題"
+  },
+  "mediaPage_copyMetadata": {
+    "message": "メタデータをコピー"
+  },
+  "mediaPage_statistics": {
+    "message": "統計"
+  },
+  "mediaPage_words": {
+    "message": "単語数"
+  },
+  "mediaPage_characters": {
+    "message": "文字数"
+  },
+  "mediaPage_paragraphs": {
+    "message": "段落数"
+  },
+  "mediaPage_metadata": {
+    "message": "メタデータ"
+  },
+  "mediaPage_idLabel": {
+    "message": "識別子"
+  },
+  "mediaPage_typeLabel": {
+    "message": "タイプ"
+  },
+  "mediaPage_titleLabel": {
+    "message": "タイトル"
+  },
+  "mediaPage_source": {
+    "message": "ソース"
+  },
+  "mediaPage_notAvailable": {
+    "message": "該当なし"
+  },
+  "mediaPage_developerTools": {
+    "message": "開発者ツール"
+  },
+  "mediaPage_nothingToSend": {
+    "message": "送信する内容がありません"
+  },
+  "mediaPage_emptyAnalysis": {
+    "message": "分析は空にできません"
+  },
+  "mediaPage_noMediaId": {
+    "message": "メディア ID がありません"
+  },
+  "mediaPage_versionSaved": {
+    "message": "新しいバージョンとして保存しました"
+  },
+  "mediaPage_saveFailed": {
+    "message": "バージョンの保存に失敗しました"
+  },
+  "mediaPage_sendToChat": {
+    "message": "チャットに送信"
+  },
+  "mediaPage_saveAsVersion": {
+    "message": "新しいバージョンとして保存"
+  },
+  "mediaPage_analysisPlaceholder": {
+    "message": "分析テキストを入力してください..."
+  },
+  "mediaPage_wordCount": {
+    "message": "{{count}}語"
+  },
+  "mediaPage_charCount": {
+    "message": "{{count}}文字"
+  },
+  "mediaPage_pageRangeError": {
+    "message": "ページは1〜{{max}}でなければなりません"
+  },
+  "mediaPage_pageRangeClamped": {
+    "message": "ページ{{page}}へ移動しています"
+  },
+  "mediaPage_saveUnauthorized": {
+    "message": "保存する権限がありません"
+  },
+  "mediaPage_spreadMode": {
+    "message": "比較"
+  },
+  "mediaPage_listMode": {
+    "message": "フォーカス"
+  },
+  "mediaPage_allMode": {
+    "message": "スタック"
+  },
+  "mediaPage_spreadModeTooltip": {
+    "message": "選択した項目を並べて比較表示"
+  },
+  "mediaPage_listModeTooltip": {
+    "message": "ナビゲーションで1件ずつ表示"
+  },
+  "mediaPage_allModeTooltip": {
+    "message": "選択した項目をスクロール可能な一覧で表示"
+  },
+  "mediaPage_copyContentLabel": {
+    "message": "コンテンツをコピー"
+  },
+  "mediaPage_copyAnalysisLabel": {
+    "message": "分析をコピー"
+  },
+  "mediaPage_copyContentTooltip": {
+    "message": "コンテンツをクリップボードにコピー"
+  },
+  "mediaPage_copyAnalysisTooltip": {
+    "message": "分析をクリップボードにコピー"
+  },
+  "mediaPage_prevItemTooltip": {
+    "message": "前の項目 (←)"
+  },
+  "mediaPage_nextItemTooltip": {
+    "message": "次の項目 (→)"
+  },
+  "mediaPage_viewerOptions": {
+    "message": "オプション"
+  },
+  "mediaPage_expandAllDropdown": {
+    "message": "展開/折りたたみ"
+  },
+  "mediaPage_itemPosition": {
+    "message": "{{total}} 件中 {{current}} 件目"
+  },
+  "mediaPage_noItemSelected": {
+    "message": "項目が選択されていません"
+  },
+  "mediaPage_firstUseTitle": {
+    "message": "クイックガイド: 複数アイテムレビュー"
+  },
+  "mediaPage_firstUseStep1": {
+    "message": "項目を選択"
+  },
+  "mediaPage_firstUseStep1Desc": {
+    "message": "左側のパネルで項目をクリックしてビューアに追加します。"
+  },
+  "mediaPage_firstUseStep2": {
+    "message": "表示を選択"
+  },
+  "mediaPage_firstUseStep2DescUpdated": {
+    "message": "「比較」は並べて表示、「フォーカス」は1件ずつ、「スタック」はすべて表示します。"
+  },
+  "mediaPage_firstUseStep3": {
+    "message": "移動"
+  },
+  "mediaPage_firstUseStep3Desc": {
+    "message": "前へ/次へボタンまたはキーボード (Tab + Enter) で項目を移動します。"
+  },
+  "mediaPage_gotIt": {
+    "message": "了解"
+  },
+  "mediaPage_model": {
+    "message": "モデル"
+  },
+  "mediaPage_selectModel": {
+    "message": "モデルを選択"
+  },
+  "mediaPage_noModelsAvailable": {
+    "message": "利用可能なモデルがありません"
+  },
+  "mediaPage_promptPresets": {
+    "message": "プロンプトプリセット"
+  },
+  "mediaPage_showPresets": {
+    "message": "プリセットを表示"
+  },
+  "mediaPage_hidePresets": {
+    "message": "プリセットを非表示"
+  },
+  "mediaPage_systemPromptLabel": {
+    "message": "システムプロンプト"
+  },
+  "mediaPage_systemPromptPlaceholder": {
+    "message": "システムプロンプトを入力..."
+  },
+  "mediaPage_userPromptPrefixLabel": {
+    "message": "ユーザープロンプトのプレフィックス"
+  },
+  "mediaPage_prependedBeforeContent": {
+    "message": "(コンテンツの前に追加)"
+  },
+  "mediaPage_userPrefixPlaceholder": {
+    "message": "任意: メディアコンテンツの前に追加するテキストを入力..."
+  },
+  "mediaPage_presetComprehensiveAnalysis": {
+    "message": "包括的な分析"
+  },
+  "mediaPage_presetExecutiveSummary": {
+    "message": "エグゼクティブサマリー"
+  },
+  "mediaPage_presetCriticalReview": {
+    "message": "批判的レビュー"
+  },
+  "mediaPage_presetQAAnalysis": {
+    "message": "Q&A 分析"
+  },
+  "manageCharacters_title": {
+    "message": "キャラクター管理"
+  },
+  "manageCharacters_addBtn": {
+    "message": "新しいキャラクター"
+  },
+  "manageCharacters_columns_name": {
+    "message": "名前"
+  },
+  "manageCharacters_columns_description": {
+    "message": "説明"
+  },
+  "manageCharacters_columns_actions": {
+    "message": "操作"
+  },
+  "manageCharacters_columns_avatar": {
+    "message": "アバター"
+  },
+  "manageCharacters_actions_chat": {
+    "message": "チャット"
+  },
+  "manageCharacters_actions_edit": {
+    "message": "編集"
+  },
+  "manageCharacters_actions_delete": {
+    "message": "削除"
+  },
+  "manageCharacters_actions_viewConversations": {
+    "message": "会話を表示"
+  },
+  "manageCharacters_actions_duplicate": {
+    "message": "複製"
+  },
+  "manageCharacters_tags_label": {
+    "message": "タグ"
+  },
+  "manageCharacters_tags_placeholder": {
+    "message": "タグを追加"
+  },
+  "manageCharacters_tags_help": {
+    "message": "タグを使って用途別にキャラクターをまとめます（例:「ライティング」「指導」）。"
+  },
+  "manageCharacters_tooltip_edit": {
+    "message": "キャラクターを編集"
+  },
+  "manageCharacters_tooltip_delete": {
+    "message": "キャラクターを削除"
+  },
+  "manageCharacters_aria_chatWith": {
+    "message": "{{name}} としてチャット"
+  },
+  "manageCharacters_aria_edit": {
+    "message": "キャラクター {{name}} を編集"
+  },
+  "manageCharacters_aria_delete": {
+    "message": "キャラクター {{name}} を削除"
+  },
+  "manageCharacters_aria_viewConversations": {
+    "message": "{{name}} の会話を表示"
+  },
+  "manageCharacters_aria_searchResults": {
+    "message": "{{count}} 件のキャラクターが見つかりました"
+  },
+  "manageCharacters_aria_duplicate": {
+    "message": "キャラクター「{{name}}」を複製"
+  },
+  "manageCharacters_confirm_delete": {
+    "message": "このキャラクターを削除してもよろしいですか？この操作は元に戻せません。"
+  },
+  "manageCharacters_form_name_label": {
+    "message": "名前"
+  },
+  "manageCharacters_form_name_placeholder": {
+    "message": "例: ライティングコーチ"
+  },
+  "manageCharacters_form_name_required": {
+    "message": "名前を入力してください"
+  },
+  "manageCharacters_form_description": {
+    "message": "サイドバーでチャットできる再利用可能なキャラクターを定義します。"
+  },
+  "manageCharacters_form_systemPrompt_label": {
+    "message": "振る舞い / 指示"
+  },
+  "manageCharacters_form_systemPrompt_placeholder": {
+    "message": "例: あなたは忍耐強い数学教師で、概念を段階的に説明し、短い例で理解を確認します。"
+  },
+  "manageCharacters_form_systemPrompt_help": {
+    "message": "キャラクターの役割、口調、制約を説明します。例: 「あなたは忍耐強い数学チューターで、概念を段階的に説明します。」"
+  },
+  "manageCharacters_form_systemPrompt_min": {
+    "message": "キャラクターが応答方法を理解できるよう、短い説明を追加してください。"
+  },
+  "manageCharacters_form_systemPrompt_required": {
+    "message": "回答を導く指示を追加してください。"
+  },
+  "manageCharacters_form_systemPrompt_max": {
+    "message": "システムプロンプトは2000文字以内である必要があります。"
+  },
+  "manageCharacters_form_avatarUrl_label": {
+    "message": "アバター URL（任意）"
+  },
+  "manageCharacters_form_avatarUrl_placeholder": {
+    "message": "例: https://example.com/avatar.png"
+  },
+  "manageCharacters_form_greeting_label": {
+    "message": "挨拶メッセージ（任意）"
+  },
+  "manageCharacters_form_greeting_placeholder": {
+    "message": "こんにちは！あなたのライティングコーチです。下書きを貼り付けていただければ整えます。"
+  },
+  "manageCharacters_form_greeting_help": {
+    "message": "チャット開始時にキャラクターが送る任意の最初のメッセージ。"
+  },
+  "manageCharacters_form_btnSave_saving": {
+    "message": "キャラクターを作成中..."
+  },
+  "manageCharacters_form_btnSave_save": {
+    "message": "キャラクターを作成"
+  },
+  "manageCharacters_form_btnEdit_saving": {
+    "message": "変更を保存中..."
+  },
+  "manageCharacters_form_btnEdit_save": {
+    "message": "変更を保存"
+  },
+  "manageCharacters_notification_addSuccess": {
+    "message": "キャラクターを作成しました"
+  },
+  "manageCharacters_notification_error": {
+    "message": "エラー"
+  },
+  "manageCharacters_notification_someError": {
+    "message": "問題が発生しました。後でもう一度お試しください。"
+  },
+  "manageCharacters_notification_updatedSuccess": {
+    "message": "キャラクターを更新しました"
+  },
+  "manageCharacters_notification_deletedSuccess": {
+    "message": "キャラクターを削除しました"
+  },
+  "manageCharacters_loadError_title": {
+    "message": "キャラクターを読み込めません"
+  },
+  "manageCharacters_loadError_description": {
+    "message": "接続状況を確認してから、もう一度お試しください。"
+  },
+  "manageCharacters_emptyTitle": {
+    "message": "キャラクターはまだありません"
+  },
+  "manageCharacters_emptyDescription": {
+    "message": "名前、説明、システムプロンプトを設定して、再利用できるキャラクターを作成しましょう。"
+  },
+  "manageCharacters_emptyExample1": {
+    "message": "ライティングコーチ、設定の専門家、コーディングアシスタントなどを定義して、チャット間で再利用できます。"
+  },
+  "manageCharacters_emptyExample2": {
+    "message": "各キャラクターに明確な説明と振る舞いを与えて、回答を一貫させましょう。"
+  },
+  "manageCharacters_emptyPrimaryCta": {
+    "message": "キャラクターを作成"
+  },
+  "manageCharacters_avatarAltWithName": {
+    "message": "{{name}} のアバター"
+  },
+  "manageCharacters_avatarAlt": {
+    "message": "ユーザーアバター"
+  },
+  "manageCharacters_conversations_title": {
+    "message": "{{name}} の会話"
+  },
+  "manageCharacters_conversations_titleGeneric": {
+    "message": "キャラクターの会話"
+  },
+  "manageCharacters_conversations_subtitle": {
+    "message": "このキャラクターとして続ける会話を選択してください。"
+  },
+  "manageCharacters_conversations_empty": {
+    "message": "このキャラクターの会話はまだありません。"
+  },
+  "manageCharacters_conversations_error": {
+    "message": "このキャラクターの会話を読み込めません。"
+  },
+  "manageCharacters_conversations_updated": {
+    "message": "{{time}} に更新"
+  },
+  "manageCharacters_conversations_unknownTime": {
+    "message": "不明"
+  },
+  "manageCharacters_conversations_resume": {
+    "message": "チャットを続ける"
+  },
+  "manageCharacters_conversations_untitled": {
+    "message": "無題"
+  },
+  "manageCharacters_conversations_mostRecent": {
+    "message": "最新"
+  },
+  "manageCharacters_conversations_resumeTooltip": {
+    "message": "チャット履歴を読み込んでこの会話を続けます"
+  },
+  "manageCharacters_preview_title": {
+    "message": "プレビュー"
+  },
+  "manageCharacters_preview_show": {
+    "message": "プレビューを表示"
+  },
+  "manageCharacters_preview_hide": {
+    "message": "プレビューを非表示"
+  },
+  "manageCharacters_preview_untitled": {
+    "message": "無題のキャラクター"
+  },
+  "manageCharacters_preview_greeting": {
+    "message": "挨拶"
+  },
+  "manageCharacters_preview_behavior": {
+    "message": "振る舞い"
+  },
+  "manageCharacters_preview_empty": {
+    "message": "フォームを入力するとプレビューが表示されます"
+  },
+  "manageCharacters_advanced_show": {
+    "message": "詳細フィールドを表示"
+  },
+  "manageCharacters_advanced_hide": {
+    "message": "詳細フィールドを非表示"
+  },
+  "manageCharacters_table_noDescription": {
+    "message": "説明なし"
+  },
+  "manageCharacters_filter_matchAll": {
+    "message": "すべてのタグに一致"
+  },
+  "manageCharacters_avatar_label": {
+    "message": "アバター（任意）"
+  },
+  "manageCharacters_avatar_tabUrl": {
+    "message": "URLアドレス"
+  },
+  "manageCharacters_avatar_tabUpload": {
+    "message": "アップロード"
+  },
+  "manageCharacters_avatar_selectImageError": {
+    "message": "画像ファイルを選択してください"
+  },
+  "manageCharacters_avatar_formatError": {
+    "message": "PNG、JPEG、GIF の画像のみ対応しています"
+  },
+  "manageCharacters_avatar_invalidError": {
+    "message": "無効な画像ファイルです"
+  },
+  "manageCharacters_avatar_processError": {
+    "message": "画像の処理に失敗しました"
+  },
+  "manageCharacters_avatar_dropzone": {
+    "message": "クリックまたはドラッグして画像をアップロード"
+  },
+  "manageCharacters_avatar_formats": {
+    "message": "PNG、JPEG または GIF"
+  },
+  "manageCharacters_avatar_preview": {
+    "message": "プレビュー"
+  },
+  "chunkingPlayground_nav": {
+    "message": "チャンク分割プレイグラウンド"
+  },
+  "chunkingPlayground_title": {
+    "message": "チャンク分割プレイグラウンド"
+  },
+  "chunkingPlayground_description": {
+    "message": "さまざまなチャンク設定を試して、テキストが処理用の小さな塊に分割される様子を確認できます。"
+  },
+  "chunkingPlayground_inputLabel": {
+    "message": "分割するテキスト"
+  },
+  "chunkingPlayground_inputPlaceholder": {
+    "message": "ここにテキストを貼り付けるか、サンプルを選択..."
+  },
+  "chunkingPlayground_uploadButton": {
+    "message": "ファイルをアップロード"
+  },
+  "chunkingPlayground_chunkButton": {
+    "message": "テキストを分割"
+  },
+  "chunkingPlayground_methodLabel": {
+    "message": "チャンク方式"
+  },
+  "chunkingPlayground_maxSizeLabel": {
+    "message": "最大チャンクサイズ"
+  },
+  "chunkingPlayground_overlapLabel": {
+    "message": "重なり"
+  },
+  "chunkingPlayground_languageLabel": {
+    "message": "言語"
+  },
+  "chunkingPlayground_languages_auto": {
+    "message": "自動検出"
+  },
+  "chunkingPlayground_languages_en": {
+    "message": "英語"
+  },
+  "chunkingPlayground_languages_es": {
+    "message": "スペイン語"
+  },
+  "chunkingPlayground_languages_fr": {
+    "message": "フランス語"
+  },
+  "chunkingPlayground_languages_de": {
+    "message": "ドイツ語"
+  },
+  "chunkingPlayground_languages_it": {
+    "message": "イタリア語"
+  },
+  "chunkingPlayground_languages_pt": {
+    "message": "ポルトガル語"
+  },
+  "chunkingPlayground_languages_zh": {
+    "message": "中国語"
+  },
+  "chunkingPlayground_languages_ja": {
+    "message": "日本語"
+  },
+  "chunkingPlayground_languages_ko": {
+    "message": "韓国語"
+  },
+  "chunkingPlayground_viewCards": {
+    "message": "カード"
+  },
+  "chunkingPlayground_viewInline": {
+    "message": "インライン"
+  },
+  "chunkingPlayground_stats": {
+    "message": "{{count}} 個のチャンク、平均 {{avgSize}} 文字"
+  },
+  "chunkingPlayground_textLoaded": {
+    "message": "テキストを読み込みました"
+  },
+  "chunkingPlayground_characters": {
+    "message": "文字"
+  },
+  "chunkingPlayground_tabSingle": {
+    "message": "単一"
+  },
+  "chunkingPlayground_tabCompare": {
+    "message": "比較"
+  },
+  "chunkingPlayground_chunkIndex": {
+    "message": "チャンク {{index}}"
+  },
+  "chunkingPlayground_chunkInfo": {
+    "message": "チャンク {{index}}: {{words}} 語"
+  },
+  "chunkingPlayground_position": {
+    "message": "位置: {{start}} - {{end}}"
+  },
+  "chunkingPlayground_additionalChunks": {
+    "message": "+{{count}} 件の追加"
+  },
+  "chunkingPlayground_charCount": {
+    "message": "{{count}} 文字"
+  },
+  "chunkingPlayground_wordCount": {
+    "message": "{{count}} 語"
+  },
+  "chunkingPlayground_noInput": {
+    "message": "分割するテキストを入力してください"
+  },
+  "chunkingPlayground_sharedInput": {
+    "message": "共有入力テキスト"
+  },
+  "chunkingPlayground_compareButton": {
+    "message": "両方を比較"
+  },
+  "chunkingPlayground_comparison": {
+    "message": "比較"
+  },
+  "chunkingPlayground_fewerChunks": {
+    "message": "設定 A は {{diff}} 個少ないチャンクになります"
+  },
+  "chunkingPlayground_moreChunks": {
+    "message": "設定 A は {{diff}} 個多いチャンクになります"
+  },
+  "chunkingPlayground_sameChunks": {
+    "message": "両設定は同じ数のチャンクになります"
+  },
+  "chunkingPlayground_clickToChunk": {
+    "message": "「比較」をクリックして結果を表示"
+  },
+  "chunkingPlayground_overlapRegion": {
+    "message": "重なり領域"
+  },
+  "chunkingPlayground_clickHint": {
+    "message": "ハイライトされたセクションをクリックすると、そのチャンクにフォーカスします"
+  },
+  "chunkingPlayground_noContentFound": {
+    "message": "このメディア項目のテキストが見つかりません"
+  },
+  "chunkingPlayground_loadContentError": {
+    "message": "メディア内容の読み込みに失敗しました"
+  },
+  "chunkingPlayground_loadMediaListError": {
+    "message": "メディアライブラリの読み込みに失敗しました"
+  },
+  "chunkingPlayground_selectMedia": {
+    "message": "メディア項目を選択..."
+  },
+  "chunkingPlayground_loadingMedia": {
+    "message": "内容を読み込み中..."
+  },
+  "chunkingPlayground_noMediaFound": {
+    "message": "メディアが見つかりません"
+  },
+  "chunkingPlayground_mediaCount": {
+    "message": "{{count}} 件のメディア項目があります"
+  },
+  "chunkingPlayground_inputSource_paste": {
+    "message": "テキストを貼り付け"
+  },
+  "chunkingPlayground_inputSource_upload": {
+    "message": "ファイルをアップロード"
+  },
+  "chunkingPlayground_inputSource_sample": {
+    "message": "サンプルテキスト"
+  },
+  "chunkingPlayground_inputSource_media": {
+    "message": "メディアライブラリから"
+  },
+  "chunkingPlayground_samples_article": {
+    "message": "ニュース記事"
+  },
+  "chunkingPlayground_samples_articleDesc": {
+    "message": "見出し付きの複数段落記事"
+  },
+  "chunkingPlayground_samples_code": {
+    "message": "ソースコード"
+  },
+  "chunkingPlayground_samples_codeDesc": {
+    "message": "クラスと関数を含む Python コード"
+  },
+  "chunkingPlayground_samples_transcript": {
+    "message": "書き起こし"
+  },
+  "chunkingPlayground_samples_transcriptDesc": {
+    "message": "タイムスタンプ付きポッドキャスト書き起こし"
+  },
+  "chunkingPlayground_samples_academic": {
+    "message": "学術論文"
+  },
+  "chunkingPlayground_samples_academicDesc": {
+    "message": "引用付きの技術文書"
+  },
+  "chunkingPlayground_compare_title": {
+    "message": "設定を比較"
+  },
+  "chunkingPlayground_compare_configA": {
+    "message": "設定 A"
+  },
+  "chunkingPlayground_compare_configB": {
+    "message": "設定 B"
+  },
+  "chunkingPlayground_mode_single": {
+    "message": "単一"
+  },
+  "chunkingPlayground_mode_compare": {
+    "message": "比較"
+  },
+  "contentReview_title": {
+    "message": "コンテンツレビュー",
+    "description": "Content review UI string."
+  },
+  "contentReview_readyToSubmit": {
+    "message": "{{count}} 件の下書きが準備完了",
+    "description": "Content review UI string."
+  },
+  "contentReview_committedCount": {
+    "message": "{{count}} 件を確定済み",
+    "description": "Content review UI string."
+  },
+  "contentReview_totalCount": {
+    "message": "合計 {{count}} 件",
+    "description": "Content review UI string."
+  },
+  "contentReview_commitAll": {
+    "message": "すべて確定",
+    "description": "Content review UI string."
+  },
+  "contentReview_clearDrafts": {
+    "message": "下書きをクリア",
+    "description": "Content review UI string."
+  },
+  "contentReview_emptyDescription": {
+    "message": "まだ下書きはありません。[保存前にレビュー] をオンにした Quick Ingest を使って下書きを作成できます。",
+    "description": "Content review UI string."
+  },
+  "contentReview_openQuickIngest": {
+    "message": "Quick Ingest を開く",
+    "description": "Content review UI string."
+  },
+  "contentReview_batchLabel": {
+    "message": "バッチ",
+    "description": "Content review UI string."
+  },
+  "contentReview_batchName": {
+    "message": "バッチ {{index}}",
+    "description": "Content review UI string."
+  },
+  "contentReview_draftsLabel": {
+    "message": "下書き",
+    "description": "Content review UI string."
+  },
+  "contentReview_selectDraft": {
+    "message": "レビューを始める下書きを選択してください。",
+    "description": "Content review UI string."
+  },
+  "contentReview_titlePlaceholder": {
+    "message": "下書きのタイトル",
+    "description": "Content review UI string."
+  },
+  "contentReview_lastSaved": {
+    "message": "{{time}} に保存",
+    "description": "Content review UI string."
+  },
+  "contentReview_resetTitle": {
+    "message": "下書きをリセットしますか？",
+    "description": "Content review UI string."
+  },
+  "contentReview_resetBody": {
+    "message": "この下書きの内容を元の状態に戻します。",
+    "description": "Content review UI string."
+  },
+  "contentReview_resetConfirm": {
+    "message": "リセット",
+    "description": "Content review UI string."
+  },
+  "contentReview_resetCancel": {
+    "message": "キャンセル",
+    "description": "Content review UI string."
+  },
+  "contentReview_resetContent": {
+    "message": "リセット",
+    "description": "Content review UI string."
+  },
+  "contentReview_diffView": {
+    "message": "差分ビュー",
+    "description": "Content review UI string."
+  },
+  "contentReview_saveDraft": {
+    "message": "下書きを保存",
+    "description": "Content review UI string."
+  },
+  "contentReview_editorLabel": {
+    "message": "コンテンツ",
+    "description": "Content review UI string."
+  },
+  "contentReview_wordCount": {
+    "message": "{{words}} 語",
+    "description": "Content review UI string."
+  },
+  "contentReview_charCount": {
+    "message": "{{chars}} 文字",
+    "description": "Content review UI string."
+  },
+  "contentReview_aiFix": {
+    "message": "AI で修正",
+    "description": "Content review UI string."
+  },
+  "contentReview_aiHint": {
+    "message": "下書きの内容をサーバーに送信し、AI で処理します。",
+    "description": "Content review UI string."
+  },
+  "contentReview_modelPlaceholder": {
+    "message": "サーバー既定",
+    "description": "Content review UI string."
+  },
+  "contentReview_aiConsentTitle": {
+    "message": "下書きをサーバーに送信しますか？",
+    "description": "Content review UI string."
+  },
+  "contentReview_aiConsentBody": {
+    "message": "下書きの内容が tldw サーバーに送信され、AI で処理されます。確定するまでは下書きはローカルにのみ保存されます。",
+    "description": "Content review UI string."
+  },
+  "contentReview_aiConsentConfirm": {
+    "message": "続行",
+    "description": "Content review UI string."
+  },
+  "contentReview_aiConsentCancel": {
+    "message": "キャンセル",
+    "description": "Content review UI string."
+  },
+  "contentReview_aiApplied": {
+    "message": "AI の修正を適用しました。",
+    "description": "Content review UI string."
+  },
+  "contentReview_aiNoChange": {
+    "message": "変更は返されませんでした。",
+    "description": "Content review UI string."
+  },
+  "contentReview_aiEmpty": {
+    "message": "AI からコンテンツが返されませんでした。",
+    "description": "Content review UI string."
+  },
+  "contentReview_aiUnavailable": {
+    "message": "チャット補完を利用できません。",
+    "description": "Content review UI string."
+  },
+  "contentReview_templatePlaceholder": {
+    "message": "テンプレートを選択",
+    "description": "Content review UI string."
+  },
+  "contentReview_applyTemplate": {
+    "message": "テンプレートを適用",
+    "description": "Content review UI string."
+  },
+  "contentReview_templateApplied": {
+    "message": "テンプレートを適用しました。",
+    "description": "Content review UI string."
+  },
+  "contentReview_templateMissing": {
+    "message": "先にテンプレートを選択してください。",
+    "description": "Content review UI string."
+  },
+  "contentReview_detectSections": {
+    "message": "セクションを検出",
+    "description": "Content review UI string."
+  },
+  "contentReview_detectSectionsTitle": {
+    "message": "セクションを再検出しますか？",
+    "description": "Content review UI string."
+  },
+  "contentReview_detectSectionsBody": {
+    "message": "既存のセクションを置き換え、選択内容をリセットします。",
+    "description": "Content review UI string."
+  },
+  "contentReview_detectSectionsConfirm": {
+    "message": "再検出",
+    "description": "Content review UI string."
+  },
+  "contentReview_detectSectionsCancel": {
+    "message": "キャンセル",
+    "description": "Content review UI string."
+  },
+  "contentReview_detectSectionsEmpty": {
+    "message": "セクションが検出されませんでした。",
+    "description": "Content review UI string."
+  },
+  "contentReview_sectionsLabel": {
+    "message": "セクションフィルター",
+    "description": "Content review UI string."
+  },
+  "contentReview_templates_transcript_clean_label": {
+    "message": "トランスクリプトを整形",
+    "description": "Content review UI string."
+  },
+  "contentReview_templates_transcript_clean_description": {
+    "message": "行構造を保ったまま、句読点と大文字・小文字を正規化します。",
+    "description": "Content review UI string."
+  },
+  "contentReview_templates_speaker_turns_label": {
+    "message": "話者ごとのターン",
+    "description": "Content review UI string."
+  },
+  "contentReview_templates_speaker_turns_description": {
+    "message": "各話者のターンが、わかりやすいラベル付きで 1 行ずつになるようにします。",
+    "description": "Content review UI string."
+  },
+  "contentReview_templates_chapter_headings_label": {
+    "message": "章見出し",
+    "description": "Content review UI string."
+  },
+  "contentReview_templates_chapter_headings_description": {
+    "message": "コンテンツを削除せずにトピックをまとめる Markdown 見出しを挿入します。",
+    "description": "Content review UI string."
+  },
+  "contentReview_metadataLabel": {
+    "message": "メタデータ",
+    "description": "Content review UI string."
+  },
+  "contentReview_mediaType": {
+    "message": "メディア種別",
+    "description": "Content review UI string."
+  },
+  "contentReview_keywords": {
+    "message": "キーワード",
+    "description": "Content review UI string."
+  },
+  "contentReview_keywordsPlaceholder": {
+    "message": "キーワードを追加",
+    "description": "Content review UI string."
+  },
+  "contentReview_reviewNotes": {
+    "message": "レビュー用メモ",
+    "description": "Content review UI string."
+  },
+  "contentReview_missingSource": {
+    "message": "元のファイルが見つかりません",
+    "description": "Content review UI string."
+  },
+  "contentReview_missingSourceBody": {
+    "message": "この下書きを確定するには元のファイルを添付してください。",
+    "description": "Content review UI string."
+  },
+  "contentReview_attachSource": {
+    "message": "ファイルを添付",
+    "description": "Content review UI string."
+  },
+  "contentReview_actionsLabel": {
+    "message": "アクション",
+    "description": "Content review UI string."
+  },
+  "contentReview_commit": {
+    "message": "確定",
+    "description": "Content review UI string."
+  },
+  "contentReview_commitDisabled": {
+    "message": "確定する前に元の音声/動画ファイルを添付してください。",
+    "description": "Content review UI string."
+  },
+  "contentReview_markReviewed": {
+    "message": "レビュー済みにする",
+    "description": "Content review UI string."
+  },
+  "contentReview_skipNext": {
+    "message": "スキップ",
+    "description": "Content review UI string."
+  },
+  "contentReview_discard": {
+    "message": "破棄",
+    "description": "Content review UI string."
+  },
+  "contentReview_discardTitle": {
+    "message": "下書きを破棄しますか？",
+    "description": "Content review UI string."
+  },
+  "contentReview_discardBody": {
+    "message": "この下書きは破棄済みとしてマークされ、レビュー一覧から削除されます。",
+    "description": "Content review UI string."
+  },
+  "contentReview_discardConfirm": {
+    "message": "破棄",
+    "description": "Content review UI string."
+  },
+  "contentReview_discardCancel": {
+    "message": "キャンセル",
+    "description": "Content review UI string."
+  },
+  "contentReview_commitSuccess": {
+    "message": "下書きを確定しました。",
+    "description": "Content review UI string."
+  },
+  "contentReview_commitAllTitle": {
+    "message": "レビュー済みの下書きをすべて確定しますか？",
+    "description": "Content review UI string."
+  },
+  "contentReview_commitAllBody": {
+    "message": "レビュー済みとマークされた下書きのみが確定されます。",
+    "description": "Content review UI string."
+  },
+  "contentReview_commitAllConfirm": {
+    "message": "すべて確定",
+    "description": "Content review UI string."
+  },
+  "contentReview_commitAllCancel": {
+    "message": "キャンセル",
+    "description": "Content review UI string."
+  },
+  "contentReview_commitAllResult": {
+    "message": "{{success}} 件を確定 · {{failed}} 件に失敗",
+    "description": "Content review UI string."
+  },
+  "contentReview_storageCapWarning": {
+    "message": "このファイルはローカルの下書き上限 ({{cap}}) を超えています。",
+    "description": "Content review UI string."
+  },
+  "contentReview_clearTitle": {
+    "message": "すべての下書きをクリアしますか？",
+    "description": "Content review UI string."
+  },
+  "contentReview_clearBody": {
+    "message": "ローカルのコンテンツレビュー用下書きと関連ファイルをすべて削除します。",
+    "description": "Content review UI string."
+  },
+  "contentReview_clearConfirm": {
+    "message": "下書きをクリア",
+    "description": "Content review UI string."
+  },
+  "contentReview_clearCancel": {
+    "message": "キャンセル",
+    "description": "Content review UI string."
+  },
+  "contentReview_clearSuccess": {
+    "message": "下書きを削除しました。",
+    "description": "Content review UI string."
+  },
+  "contentReview_originalLabel": {
+    "message": "元の内容",
+    "description": "Content review UI string."
+  },
+  "contentReview_editedLabel": {
+    "message": "編集済み",
+    "description": "Content review UI string."
+  },
+  "contentReview_reviewStorageCapWarning_one": {
+    "message": "{{count}} 件のファイルがローカル下書き上限 ({{cap}}) を超えています。音声/動画を保存する前にソースを添付してください。",
+    "description": "Content review UI string."
+  },
+  "contentReview_reviewStorageCapWarning_other": {
+    "message": "{{count}} 件のファイルがローカル下書き上限 ({{cap}}) を超えています。音声/動画を保存する前にソースを添付してください。",
+    "description": "Content review UI string."
+  },
+  "contentReview_storeAfterReview": {
+    "message": "レビュー後に保存",
+    "description": "Content review UI string."
+  },
+  "contentReview_reviewBeforeStorage": {
+    "message": "保存前にレビュー",
+    "description": "Content review UI string."
+  },
+  "contentReview_reviewBeforeStorageHint": {
+    "message": "今すぐ処理し、サーバーに保存する前にローカルで下書きを編集します。",
+    "description": "Content review UI string."
+  },
+  "contentReview_reviewEnabled": {
+    "message": "レビューモード",
+    "description": "Content review UI string."
+  },
+  "contentReview_reviewStorageCap": {
+    "message": "ローカル下書きは {{cap}} 件までです。",
+    "description": "Content review UI string."
+  },
+  "contentReview_reviewWarningTitle": {
+    "message": "下書きをローカルに保存しますか？",
+    "description": "Content review UI string."
+  },
+  "contentReview_reviewWarningBody": {
+    "message": "下書きはこのブラウザに保存され、機密データを含む可能性があります。コンテンツレビューのページからいつでも下書きを消去できます。",
+    "description": "Content review UI string."
+  },
+  "contentReview_reviewWarningBodySecondary": {
+    "message": "レビューモードでは、サーバーに保存するまで内容をクライアント側に保持します。",
+    "description": "Content review UI string."
+  },
+  "contentReview_reviewWarningConfirm": {
+    "message": "レビューを有効にする",
+    "description": "Content review UI string."
+  },
+  "contentReview_reviewWarningCancel": {
+    "message": "キャンセル",
+    "description": "Content review UI string."
+  },
+  "contentReview_reviewRunLabel": {
+    "message": "レビュー",
+    "description": "Content review UI string."
+  },
+  "contentReview_reviewDraftsCreated": {
+    "message": "レビュー用下書きの準備ができました。",
+    "description": "Content review UI string."
+  },
+  "contentReview_openContentReview": {
+    "message": "コンテンツレビューを開く",
+    "description": "Content review UI string."
+  }
+}

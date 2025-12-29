@@ -12,9 +12,9 @@
     "descriptionSearching": "Vi tjekker {{host}} for at se, om din tldw-server kan nås. Det kan tage et øjeblik, mens vi venter på svar.",
     "descriptionConnected": "Forbundet til din tldw-server på {{host}}. Du kan begynde at chatte eller bruge Review, Knowledge og andre værktøjer.",
     "descriptionConnectedList": {
-      "reviewMedia": "Review media & transcripts",
-      "searchKnowledge": "Search knowledge and notes",
-      "useRag": "Use RAG with your own documents"
+      "reviewMedia": "Gennemgå medier og transskriptioner",
+      "searchKnowledge": "Søg i viden og noter",
+      "useRag": "Brug RAG med dine egne dokumenter"
     },
     "descriptionError": "Vi kunne ikke nå din tldw-server på {{host}}. Sørg for, at serveren kører, at URL’en er korrekt, og at din browser kan nå den over nettet.",
     "buttonStartChat": "Start chat",
@@ -80,14 +80,14 @@
     "toolsMenu": "Chat-værktøjer",
     "serverBackedLabel": "Server-understøttet chat",
     "serverBackedTooltip": "Beskeder i denne chat gemmes også på din tldw-server.",
-    "omniSearchPlaceholder": "Search screens, chats, media, notes…",
-    "omniSearchNoResults": "No matches for \"{{query}}\".",
-    "omniSearchCreateNote": "Create note \"{{query}}\"",
-    "omniSearchCreateNoteSuccess": "Note \"{{query}}\" created",
-    "omniSearchCreateFlashcards": "Create flashcard collection \"{{query}}\"",
-    "omniSearchCreateFlashcardsSuccess": "Flashcard collection \"{{query}}\" created",
-    "omniSearchStartChat": "Start new chat \"{{query}}\"",
-    "connectionCard.connectedCaption": "Chat and tools are now available in Options and the sidepanel.",
+    "omniSearchPlaceholder": "Søg efter skærme, samtaler, medier, noter…",
+    "omniSearchNoResults": "Ingen resultater for \"{{query}}\".",
+    "omniSearchCreateNote": "Opret note \"{{query}}\"",
+    "omniSearchCreateNoteSuccess": "Note \"{{query}}\" oprettet",
+    "omniSearchCreateFlashcards": "Opret flashcard-samling \"{{query}}\"",
+    "omniSearchCreateFlashcardsSuccess": "Flashcard-samling \"{{query}}\" oprettet",
+    "omniSearchStartChat": "Start ny chat \"{{query}}\"",
+    "connectionCard.connectedCaption": "Chat og værktøjer er nu tilgængelige i Indstillinger og sidepanelet.",
     "quickIngestQueuedAria": "{{label}} — {{count}} elementer i kø — klik for at gennemgå og behandle",
     "modeSpeech": "Tale"
   },
@@ -602,13 +602,13 @@
     "editedLabel": "Redigeret"
   },
   "omniSearch": {
-    "filterScreen": "Screens",
-    "filterChat": "Chats",
-    "filterMedia": "Media",
-    "filterNote": "Notes",
-    "filterFlashcards": "Flashcard Collections",
+    "filterScreen": "Skærme",
+    "filterChat": "Samtaler",
+    "filterMedia": "Medier",
+    "filterNote": "Noter",
+    "filterFlashcards": "Flashcard-samlinger",
     "filterPrompt": "Prompts",
-    "filteringBy": "Filtering by:"
+    "filteringBy": "Filtrerer efter:"
   },
   "quickChatHelper": {
     "tooltip": "Hurtig chat-hjælper",
@@ -639,7 +639,7 @@
     "startError": "Kunne ikke starte quizzen.",
     "answerAll": "Besvar alle spørgsmål, før du indsender.",
     "submitError": "Kunne ikke indsende quizzen.",
-    "scoreSummary": "Score: {{score}} / {{total}} ({{percent}}%)",
+    "scoreSummary": "Resultat: {{score}} / {{total}} ({{percent}}%)",
     "correct": "Korrekt",
     "incorrect": "Forkert",
     "yourAnswer": "Dit svar",

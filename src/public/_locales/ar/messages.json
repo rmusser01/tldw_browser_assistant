@@ -1782,64 +1782,64 @@
     "message": "{{success}} deleted · {{failed}} failed"
   },
   "mediaPage_searchPlaceholder": {
-    "message": "Search media (title/content)"
+    "message": "ابحث في الوسائط (العنوان/المحتوى)"
   },
   "mediaPage_search": {
-    "message": "Search"
+    "message": "بحث"
   },
   "mediaPage_clear": {
-    "message": "Clear"
+    "message": "مسح"
   },
   "mediaPage_types": {
-    "message": "Types"
+    "message": "الأنواع"
   },
   "mediaPage_keywords": {
-    "message": "Keywords"
+    "message": "الكلمات المفتاحية"
   },
   "mediaPage_moreTags": {
-    "message": "+{{count}} more tags"
+    "message": "+{{count}} وسوم أخرى"
   },
   "mediaPage_resetFilters": {
-    "message": "Reset Filters"
+    "message": "إعادة تعيين عوامل التصفية"
   },
   "mediaPage_clearAll": {
     "message": "مسح الكل"
   },
   "mediaPage_content": {
-    "message": "Content"
+    "message": "المحتوى"
   },
   "mediaPage_vertical": {
-    "message": "Vertical"
+    "message": "عمودي"
   },
   "mediaPage_horizontal": {
-    "message": "Horizontal"
+    "message": "أفقي"
   },
   "mediaPage_results": {
-    "message": "Results"
+    "message": "النتائج"
   },
   "mediaPage_noResults": {
-    "message": "No results"
+    "message": "لا توجد نتائج"
   },
   "mediaPage_showSidebar": {
-    "message": "Show sidebar"
+    "message": "إظهار الشريط الجانبي"
   },
   "mediaPage_hideSidebar": {
-    "message": "Hide sidebar"
+    "message": "إخفاء الشريط الجانبي"
   },
   "mediaPage_viewer": {
-    "message": "Viewer"
+    "message": "العارض"
   },
   "mediaPage_selectItemsHint": {
-    "message": "Select items on the left to view here."
+    "message": "حدد العناصر على اليسار لعرضها هنا."
   },
   "mediaPage_mediaContent": {
-    "message": "Media Content"
+    "message": "محتوى الوسائط"
   },
   "mediaPage_copyContent": {
-    "message": "Copy content"
+    "message": "نسخ المحتوى"
   },
   "mediaPage_contentCopied": {
-    "message": "Content copied"
+    "message": "تم نسخ المحتوى"
   },
   "mediaPage_metadataCopied": {
     "message": "تم نسخ البيانات الوصفية"
@@ -1848,40 +1848,40 @@
     "message": "تم نسخ التحليل"
   },
   "mediaPage_copyFailed": {
-    "message": "Copy failed"
+    "message": "فشل النسخ"
   },
   "mediaPage_noContent": {
-    "message": "No content available"
+    "message": "لا يتوفر محتوى"
   },
   "mediaPage_collapse": {
-    "message": "Collapse"
+    "message": "طي"
   },
   "mediaPage_expand": {
-    "message": "Expand"
+    "message": "توسيع"
   },
   "mediaPage_media": {
-    "message": "Media"
+    "message": "الوسائط"
   },
   "mediaPage_searchingBanner": {
-    "message": "Searching media…"
+    "message": "جارٍ البحث في الوسائط…"
   },
   "mediaPage_filterHelp": {
-    "message": "Search matches title and content; Types and Keywords further narrow the results."
+    "message": "يطابق البحث العنوان والمحتوى؛ وتُضيّق الأنواع والكلمات المفتاحية النتائج."
   },
   "mediaPage_noMediaTypes": {
     "message": "لا توجد أنواع وسائط متاحة"
   },
   "mediaPage_resultsCount": {
-    "message": "{{selected}} selected · {{open}} open"
+    "message": "{{selected}} محدد · {{open}} مفتوح"
   },
   "mediaPage_clearSelection": {
-    "message": "Deselect all"
+    "message": "إلغاء تحديد الكل"
   },
   "mediaPage_itemsLabel": {
-    "message": "Items"
+    "message": "العناصر"
   },
   "mediaPage_contentLabel": {
-    "message": "Content view"
+    "message": "عرض المحتوى"
   },
   "mediaPage_filterByKeyword": {
     "message": "تصفية حسب الكلمة المفتاحية"
@@ -3127,5 +3127,140 @@
   },
   "quiz_retake": {
     "message": "إعادة الاختبار"
+  },
+  "searchPrompts": {
+    "message": "ابحث في المطالبات..."
+  },
+  "noMatchingPrompts": {
+    "message": "لا توجد مطالبات مطابقة"
+  },
+  "promptSelect_favorites": {
+    "message": "المفضلة"
+  },
+  "promptSelect_system": {
+    "message": "مطالبات النظام"
+  },
+  "promptSelect_quick": {
+    "message": "مطالبات سريعة"
+  },
+  "flashcards_bulkLimitWarning": {
+    "message": "تقتصر العملية على أول {{limit}} عنصر."
+  },
+  "mediaPage_spreadMode": {
+    "message": "مقارنة"
+  },
+  "mediaPage_listMode": {
+    "message": "تركيز"
+  },
+  "mediaPage_allMode": {
+    "message": "تكديس"
+  },
+  "mediaPage_spreadModeTooltip": {
+    "message": "عرض العناصر المحددة جنبًا إلى جنب للمقارنة"
+  },
+  "mediaPage_listModeTooltip": {
+    "message": "عرض عنصر واحد في كل مرة مع التنقل"
+  },
+  "mediaPage_allModeTooltip": {
+    "message": "عرض جميع العناصر المحددة في قائمة قابلة للتمرير"
+  },
+  "mediaPage_copyContentLabel": {
+    "message": "نسخ المحتوى"
+  },
+  "mediaPage_copyAnalysisLabel": {
+    "message": "نسخ التحليل"
+  },
+  "mediaPage_copyContentTooltip": {
+    "message": "نسخ المحتوى إلى الحافظة"
+  },
+  "mediaPage_copyAnalysisTooltip": {
+    "message": "نسخ التحليل إلى الحافظة"
+  },
+  "mediaPage_prevItemTooltip": {
+    "message": "العنصر السابق (←)"
+  },
+  "mediaPage_nextItemTooltip": {
+    "message": "العنصر التالي (→)"
+  },
+  "mediaPage_viewerOptions": {
+    "message": "خيارات"
+  },
+  "mediaPage_expandAllDropdown": {
+    "message": "توسيع/طي"
+  },
+  "mediaPage_itemPosition": {
+    "message": "العنصر {{current}} من {{total}}"
+  },
+  "mediaPage_noItemSelected": {
+    "message": "لم يتم تحديد أي عنصر"
+  },
+  "mediaPage_firstUseTitle": {
+    "message": "دليل سريع: مراجعة متعددة العناصر"
+  },
+  "mediaPage_firstUseStep1": {
+    "message": "حدد العناصر"
+  },
+  "mediaPage_firstUseStep1Desc": {
+    "message": "انقر على العناصر في اللوحة اليسرى لإضافتها إلى العارض."
+  },
+  "mediaPage_firstUseStep2": {
+    "message": "اختر عرضًا"
+  },
+  "mediaPage_firstUseStep2DescUpdated": {
+    "message": "استخدم \"مقارنة\" لعرض جنبًا إلى جنب، أو \"تركيز\" لعرض عنصر واحد في كل مرة، أو \"تكديس\" لعرض الكل."
+  },
+  "mediaPage_firstUseStep3": {
+    "message": "تنقل"
+  },
+  "mediaPage_firstUseStep3Desc": {
+    "message": "استخدم أزرار السابق/التالي أو لوحة المفاتيح (Tab + Enter) للتنقل بين العناصر."
+  },
+  "mediaPage_gotIt": {
+    "message": "فهمت"
+  },
+  "mediaPage_model": {
+    "message": "النموذج"
+  },
+  "mediaPage_selectModel": {
+    "message": "اختر نموذجًا"
+  },
+  "mediaPage_noModelsAvailable": {
+    "message": "لا توجد نماذج متاحة"
+  },
+  "mediaPage_promptPresets": {
+    "message": "إعدادات مسبقة للموجهات"
+  },
+  "mediaPage_showPresets": {
+    "message": "إظهار الإعدادات المسبقة"
+  },
+  "mediaPage_hidePresets": {
+    "message": "إخفاء الإعدادات المسبقة"
+  },
+  "mediaPage_systemPromptLabel": {
+    "message": "الموجه النظامي"
+  },
+  "mediaPage_systemPromptPlaceholder": {
+    "message": "أدخل الموجه النظامي..."
+  },
+  "mediaPage_userPromptPrefixLabel": {
+    "message": "بادئة موجه المستخدم"
+  },
+  "mediaPage_prependedBeforeContent": {
+    "message": "(تضاف قبل المحتوى)"
+  },
+  "mediaPage_userPrefixPlaceholder": {
+    "message": "اختياري: أدخل نصًا لإضافته قبل محتوى الوسائط..."
+  },
+  "mediaPage_presetComprehensiveAnalysis": {
+    "message": "تحليل شامل"
+  },
+  "mediaPage_presetExecutiveSummary": {
+    "message": "ملخص تنفيذي"
+  },
+  "mediaPage_presetCriticalReview": {
+    "message": "مراجعة نقدية"
+  },
+  "mediaPage_presetQAAnalysis": {
+    "message": "تحليل أسئلة وأجوبة"
   }
 }

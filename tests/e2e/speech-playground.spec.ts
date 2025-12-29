@@ -12,31 +12,65 @@ test.describe('Speech Playground UX', () => {
           authMode: 'single-user',
           apiKey: 'test-key'
         },
-        speechPlaygroundMode: 'roundtrip',
+        speechPlaygroundMode: 'listen',
         __tldw_first_run_complete: true,
         __tldw_allow_offline: true
       }
     })
 
-    await page.addInitScript(() => {
-      window.__e2eMicStub = true
-      const fakeStream = { getTracks: () => [] }
-      const mediaDevices = navigator.mediaDevices || {}
-      Object.defineProperty(mediaDevices, 'getUserMedia', {
-        value: async () => fakeStream,
-        configurable: true
-      })
-      Object.defineProperty(navigator, 'mediaDevices', {
-        value: mediaDevices,
-        configurable: true
-      })
+    await context.addInitScript(() => {
+      const AudioCtx = (window as any).AudioContext || (window as any).webkitAudioContext
+      let fakeStream = null
 
-      Object.defineProperty(navigator, 'clipboard', {
-        value: {
-          writeText: async () => {}
-        },
-        configurable: true
-      })
+      if (AudioCtx) {
+        try {
+          const ctx = new AudioCtx()
+          const oscillator = ctx.createOscillator()
+          const destination = ctx.createMediaStreamDestination()
+          oscillator.connect(destination)
+          oscillator.start()
+          fakeStream = destination.stream
+          ctx.resume().catch(() => {})
+        } catch {
+          fakeStream = null
+        }
+      }
+
+      if (!fakeStream && typeof MediaStream !== 'undefined') {
+        fakeStream = new MediaStream()
+      }
+
+      if (!fakeStream) {
+        fakeStream = { getTracks: () => [], getAudioTracks: () => [] }
+      }
+
+      const mediaDevices = navigator.mediaDevices || {}
+      try {
+        mediaDevices.getUserMedia = async () => fakeStream
+      } catch {}
+
+      try {
+        Object.defineProperty(mediaDevices, 'getUserMedia', {
+          value: async () => fakeStream,
+          configurable: true
+        })
+      } catch {}
+
+      try {
+        Object.defineProperty(navigator, 'mediaDevices', {
+          value: mediaDevices,
+          configurable: true
+        })
+      } catch {}
+
+      try {
+        Object.defineProperty(navigator, 'clipboard', {
+          value: {
+            writeText: async () => {}
+          },
+          configurable: true
+        })
+      } catch {}
 
       window.__lastRecorder = null
 
@@ -75,10 +109,20 @@ test.describe('Speech Playground UX', () => {
         }
       }
 
-      Object.defineProperty(window, 'MediaRecorder', {
-        value: FakeMediaRecorder,
-        configurable: true
-      })
+      const setMediaRecorder = () => {
+        try {
+          window.MediaRecorder = FakeMediaRecorder
+          return
+        } catch {}
+        try {
+          Object.defineProperty(window, 'MediaRecorder', {
+            value: FakeMediaRecorder,
+            configurable: true,
+            writable: true
+          })
+        } catch {}
+      }
+      setMediaRecorder()
 
       const mockSendMessage = async (payload) => {
         if (payload?.type === 'tldw:request') {
@@ -98,34 +142,38 @@ test.describe('Speech Playground UX', () => {
         return { ok: true, status: 200, data: {} }
       }
 
+      const setSendMessage = (runtime) => {
+        if (!runtime) return
+        try {
+          runtime.sendMessage = mockSendMessage
+          return
+        } catch {}
+        try {
+          Object.defineProperty(runtime, 'sendMessage', {
+            value: mockSendMessage,
+            configurable: true,
+            writable: true
+          })
+        } catch {}
+      }
+
       if (window.chrome?.runtime) {
-        Object.defineProperty(window.chrome.runtime, 'sendMessage', {
-          value: mockSendMessage,
-          configurable: true
-        })
+        setSendMessage(window.chrome.runtime)
       }
 
       if (window.browser?.runtime) {
-        Object.defineProperty(window.browser.runtime, 'sendMessage', {
-          value: mockSendMessage,
-          configurable: true
-        })
+        setSendMessage(window.browser.runtime)
       }
+
+      window.__e2eMicStub = true
     })
 
     const baseUrl = `${optionsUrl}?e2e=1`
-    await page.goto(baseUrl + '#/tts', { waitUntil: 'domcontentloaded' })
+    await page.goto(baseUrl + '#/speech', { waitUntil: 'domcontentloaded' })
     await page.waitForFunction(() => window.__e2eMicStub === true)
 
     const ttsInput = page.getByPlaceholder('Type or paste text here, then use Play to listen.')
-    const recordButton = page.getByRole('button', { name: 'Record' })
-
     await expect(ttsInput).toBeVisible()
-    await expect(recordButton).toHaveCount(0)
-
-    await page.goto(baseUrl + '#/speech', { waitUntil: 'domcontentloaded' })
-    await expect(ttsInput).toBeVisible()
-    await expect(recordButton).toHaveCount(0)
 
     const listenSelected = page.locator('.ant-segmented-item-selected').filter({ hasText: 'Listen' })
     await expect(listenSelected).toBeVisible()
@@ -140,13 +188,8 @@ test.describe('Speech Playground UX', () => {
     const sttRecordButton = sttCard.getByRole('button', { name: 'Record' })
     await sttRecordButton.click({ force: true })
 
-    await page.waitForFunction(
-      () => {
-        return window.__lastRecorder?.state === 'recording'
-      },
-      null,
-      { timeout: 5000 }
-    )
+    const stopButton = sttCard.getByRole('button', { name: 'Stop' })
+    await expect(stopButton).toBeVisible({ timeout: 10000 })
 
     const transcriptArea = sttCard.getByPlaceholder('Live transcript will appear here while recording.')
     await transcriptArea.scrollIntoViewIfNeeded()
@@ -155,9 +198,7 @@ test.describe('Speech Playground UX', () => {
     ).toBeVisible()
     await expect(sttCard.getByRole('button', { name: 'Unlock' })).toBeDisabled()
 
-    await page.evaluate(() => {
-      window.__lastRecorder?.stop?.()
-    })
+    await stopButton.click()
     await transcriptArea.scrollIntoViewIfNeeded()
     await expect(transcriptArea).toHaveValue('Test transcript', { timeout: 5000 })
 
@@ -172,6 +213,7 @@ test.describe('Speech Playground UX', () => {
     await expect(transcriptArea).not.toBeEditable()
 
     const copyButton = page.getByRole('button', { name: 'Copy' }).first()
+    await expect(copyButton).toBeVisible({ timeout: 10000 })
     await copyButton.click()
     await expect(page.getByText('Copied to clipboard')).toBeVisible()
 

@@ -1689,334 +1689,334 @@
     "message": "审阅后保存"
   },
   "manageCharacters_actions_viewConversations": {
-    "message": "View conversations"
+    "message": "查看对话"
   },
   "manageCharacters_aria_viewConversations": {
-    "message": "View conversations for {{name}}"
+    "message": "查看 {{name}} 的对话"
   },
   "manageCharacters_aria_searchResults": {
-    "message": "{{count}} characters found"
+    "message": "找到 {{count}} 个角色"
   },
   "manageCharacters_conversations_title": {
-    "message": "Conversations for {{name}}"
+    "message": "{{name}} 的对话"
   },
   "manageCharacters_conversations_titleGeneric": {
-    "message": "Character conversations"
+    "message": "角色对话"
   },
   "manageCharacters_conversations_subtitle": {
-    "message": "Select a conversation to continue as this character."
+    "message": "选择一个对话以该角色继续。"
   },
   "manageCharacters_conversations_empty": {
-    "message": "No conversations found for this character yet."
+    "message": "此角色尚无对话。"
   },
   "manageCharacters_conversations_error": {
-    "message": "Unable to load conversations for this character."
+    "message": "无法加载该角色的对话。"
   },
   "manageCharacters_conversations_updated": {
-    "message": "Updated {{time}}"
+    "message": "更新于 {{time}}"
   },
   "manageCharacters_conversations_unknownTime": {
-    "message": "Unknown"
+    "message": "未知"
   },
   "manageCharacters_conversations_resume": {
-    "message": "Continue chat"
+    "message": "继续聊天"
   },
   "manageCharacters_conversations_untitled": {
-    "message": "Untitled"
+    "message": "未命名"
   },
   "manageCharacters_conversations_mostRecent": {
-    "message": "Most recent"
+    "message": "最近"
   },
   "manageCharacters_conversations_resumeTooltip": {
-    "message": "Load chat history and continue this conversation"
+    "message": "加载聊天记录并继续此对话"
   },
   "manageCharacters_preview_title": {
-    "message": "Preview"
+    "message": "预览"
   },
   "manageCharacters_preview_show": {
-    "message": "Show preview"
+    "message": "显示预览"
   },
   "manageCharacters_preview_hide": {
-    "message": "Hide preview"
+    "message": "隐藏预览"
   },
   "manageCharacters_preview_untitled": {
-    "message": "Untitled character"
+    "message": "未命名角色"
   },
   "manageCharacters_preview_greeting": {
-    "message": "Greeting"
+    "message": "问候语"
   },
   "manageCharacters_preview_behavior": {
-    "message": "Behavior"
+    "message": "行为"
   },
   "manageCharacters_preview_empty": {
-    "message": "Fill in the form to see a preview"
+    "message": "填写表单以查看预览"
   },
   "manageCharacters_advanced_show": {
-    "message": "Show advanced fields"
+    "message": "显示高级字段"
   },
   "manageCharacters_advanced_hide": {
-    "message": "Hide advanced fields"
+    "message": "隐藏高级字段"
   },
   "chunkingPlayground_nav": {
-    "message": "Chunking Playground",
+    "message": "分块实验室",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_title": {
-    "message": "Chunking Playground",
+    "message": "分块实验室",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_description": {
-    "message": "Experiment with different chunking settings to see how text gets split into smaller pieces for processing.",
+    "message": "尝试不同的分块设置，看看文本如何被拆分成更小的片段以便处理。",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_inputLabel": {
-    "message": "Text to chunk",
+    "message": "待分块文本",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_inputPlaceholder": {
-    "message": "Paste text here or select a sample...",
+    "message": "在此粘贴文本或选择示例...",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_uploadButton": {
-    "message": "Upload File",
+    "message": "上传文件",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_chunkButton": {
-    "message": "Chunk Text",
+    "message": "分块文本",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_methodLabel": {
-    "message": "Chunking Method",
+    "message": "分块方法",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_maxSizeLabel": {
-    "message": "Max Chunk Size",
+    "message": "最大分块大小",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_overlapLabel": {
-    "message": "Overlap",
+    "message": "重叠",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_languageLabel": {
-    "message": "Language",
+    "message": "语言",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_languages_auto": {
-    "message": "Auto-detect",
+    "message": "自动检测",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_languages_en": {
-    "message": "English",
+    "message": "英语",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_languages_es": {
-    "message": "Spanish",
+    "message": "西班牙语",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_languages_fr": {
-    "message": "French",
+    "message": "法语",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_languages_de": {
-    "message": "German",
+    "message": "德语",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_languages_it": {
-    "message": "Italian",
+    "message": "意大利语",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_languages_pt": {
-    "message": "Portuguese",
+    "message": "葡萄牙语",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_languages_zh": {
-    "message": "Chinese",
+    "message": "中文",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_languages_ja": {
-    "message": "Japanese",
+    "message": "日语",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_languages_ko": {
-    "message": "Korean",
+    "message": "韩语",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_viewCards": {
-    "message": "Cards",
+    "message": "卡片",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_viewInline": {
-    "message": "Inline",
+    "message": "行内",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_stats": {
-    "message": "{{count}} chunks, avg {{avgSize}} chars"
+    "message": "{{count}} 个分块，平均 {{avgSize}} 个字符"
   },
   "chunkingPlayground_textLoaded": {
-    "message": "Text loaded",
+    "message": "文本已加载",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_characters": {
-    "message": "characters",
+    "message": "字符",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_tabSingle": {
-    "message": "Single",
+    "message": "单一",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_tabCompare": {
-    "message": "Compare",
+    "message": "对比",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_chunkIndex": {
-    "message": "Chunk {{index}}"
+    "message": "分块 {{index}}"
   },
   "chunkingPlayground_chunkInfo": {
-    "message": "Chunk {{index}}: {{words}} words"
+    "message": "分块 {{index}}：{{words}} 个词"
   },
   "chunkingPlayground_position": {
-    "message": "Position: {{start}} - {{end}}"
+    "message": "位置：{{start}} - {{end}}"
   },
   "chunkingPlayground_additionalChunks": {
-    "message": "+{{count}} more"
+    "message": "还有 {{count}} 个"
   },
   "chunkingPlayground_charCount": {
-    "message": "{{count}} characters"
+    "message": "{{count}} 个字符"
   },
   "chunkingPlayground_wordCount": {
-    "message": "{{count}} words"
+    "message": "{{count}} 个词"
   },
   "chunkingPlayground_noInput": {
-    "message": "Please provide text to chunk",
+    "message": "请提供要分块的文本",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_sharedInput": {
-    "message": "Shared Input Text",
+    "message": "共享输入文本",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_compareButton": {
-    "message": "Compare Both",
+    "message": "比较两者",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_comparison": {
-    "message": "Comparison",
+    "message": "对比",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_fewerChunks": {
-    "message": "Config A produces {{diff}} fewer chunks"
+    "message": "配置 A 产生 {{diff}} 个更少的分块"
   },
   "chunkingPlayground_moreChunks": {
-    "message": "Config A produces {{diff}} more chunks"
+    "message": "配置 A 产生 {{diff}} 个更多的分块"
   },
   "chunkingPlayground_sameChunks": {
-    "message": "Both configs produce the same number of chunks",
+    "message": "两个配置产生相同数量的分块",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_clickToChunk": {
-    "message": "Click 'Compare' to see results",
+    "message": "点击“比较”查看结果",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_overlapRegion": {
-    "message": "Overlap Region",
+    "message": "重叠区域",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_clickHint": {
-    "message": "Click on a highlighted section to focus on that chunk",
+    "message": "点击高亮区域以聚焦该分块",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_noContentFound": {
-    "message": "No text content found for this media item",
+    "message": "未找到此媒体项的文本内容",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_loadContentError": {
-    "message": "Failed to load media content",
+    "message": "加载媒体内容失败",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_loadMediaListError": {
-    "message": "Failed to load media library",
+    "message": "加载媒体库失败",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_selectMedia": {
-    "message": "Select media item...",
+    "message": "选择媒体项...",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_loadingMedia": {
-    "message": "Loading content...",
+    "message": "正在加载内容...",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_noMediaFound": {
-    "message": "No media found",
+    "message": "未找到媒体",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_mediaCount": {
-    "message": "{{count}} media items available"
+    "message": "可用媒体项 {{count}} 个"
   },
   "chunkingPlayground_inputSource_paste": {
-    "message": "Paste Text",
+    "message": "粘贴文本",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_inputSource_upload": {
-    "message": "Upload File",
+    "message": "上传文件",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_inputSource_sample": {
-    "message": "Sample Text",
+    "message": "示例文本",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_inputSource_media": {
-    "message": "From Media Library",
+    "message": "来自媒体库",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_samples_article": {
-    "message": "News Article",
+    "message": "新闻文章",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_samples_articleDesc": {
-    "message": "Multi-paragraph article with headers",
+    "message": "带标题的多段文章",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_samples_code": {
-    "message": "Source Code",
+    "message": "源代码",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_samples_codeDesc": {
-    "message": "Python code with classes and functions",
+    "message": "包含类和函数的 Python 代码",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_samples_transcript": {
-    "message": "Transcript",
+    "message": "转录稿",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_samples_transcriptDesc": {
-    "message": "Timestamped podcast transcript",
+    "message": "带时间戳的播客转录稿",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_samples_academic": {
-    "message": "Academic Paper",
+    "message": "学术论文",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_samples_academicDesc": {
-    "message": "Technical writing with citations",
+    "message": "包含引用的技术写作",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_compare_title": {
-    "message": "Compare Settings",
+    "message": "对比设置",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_compare_configA": {
-    "message": "Configuration A",
+    "message": "配置 A",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_compare_configB": {
-    "message": "Configuration B",
+    "message": "配置 B",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_mode_single": {
-    "message": "Single",
+    "message": "单一",
     "description": "TODO: translate (copied from en)"
   },
   "chunkingPlayground_mode_compare": {
-    "message": "Compare",
+    "message": "对比",
     "description": "TODO: translate (copied from en)"
   },
   "managePrompts_importMode_merge": {
@@ -2070,22 +2070,22 @@
     "message": "{{success}} deleted · {{failed}} failed"
   },
   "mediaPage_searchPlaceholder": {
-    "message": "Search media (title/content)"
+    "message": "搜索媒体（标题/内容）"
   },
   "mediaPage_search": {
-    "message": "Search"
+    "message": "搜索"
   },
   "mediaPage_clear": {
-    "message": "Clear"
+    "message": "清除"
   },
   "mediaPage_types": {
     "message": "Types"
   },
   "mediaPage_keywords": {
-    "message": "Keywords"
+    "message": "关键词"
   },
   "mediaPage_moreTags": {
-    "message": "+{{count}} more tags"
+    "message": "+还有{{count}}个标签"
   },
   "mediaPage_resetFilters": {
     "message": "Reset Filters"
@@ -2094,16 +2094,16 @@
     "message": "清除全部"
   },
   "mediaPage_content": {
-    "message": "Content"
+    "message": "内容"
   },
   "mediaPage_vertical": {
-    "message": "Vertical"
+    "message": "垂直"
   },
   "mediaPage_horizontal": {
-    "message": "Horizontal"
+    "message": "水平"
   },
   "mediaPage_results": {
-    "message": "Results"
+    "message": "结果"
   },
   "mediaPage_noResults": {
     "message": "No results"
@@ -2115,19 +2115,19 @@
     "message": "Hide sidebar"
   },
   "mediaPage_viewer": {
-    "message": "Viewer"
+    "message": "查看器"
   },
   "mediaPage_selectItemsHint": {
-    "message": "Select items on the left to view here."
+    "message": "在左侧选择条目以在此查看。"
   },
   "mediaPage_mediaContent": {
-    "message": "Media Content"
+    "message": "媒体内容"
   },
   "mediaPage_copyContent": {
-    "message": "Copy content"
+    "message": "复制内容"
   },
   "mediaPage_contentCopied": {
-    "message": "Content copied"
+    "message": "内容已复制"
   },
   "mediaPage_metadataCopied": {
     "message": "元数据已复制"
@@ -2136,40 +2136,40 @@
     "message": "分析已复制"
   },
   "mediaPage_copyFailed": {
-    "message": "Copy failed"
+    "message": "复制失败"
   },
   "mediaPage_noContent": {
-    "message": "No content available"
+    "message": "没有可用内容"
   },
   "mediaPage_collapse": {
-    "message": "Collapse"
+    "message": "折叠"
   },
   "mediaPage_expand": {
-    "message": "Expand"
+    "message": "展开"
   },
   "mediaPage_media": {
-    "message": "Media"
+    "message": "媒体"
   },
   "mediaPage_searchingBanner": {
-    "message": "Searching media…"
+    "message": "正在搜索媒体…"
   },
   "mediaPage_filterHelp": {
-    "message": "Search matches title and content; Types and Keywords further narrow the results."
+    "message": "搜索匹配标题和内容；类型和关键词会进一步缩小结果。"
   },
   "mediaPage_noMediaTypes": {
     "message": "没有可用的媒体类型"
   },
   "mediaPage_resultsCount": {
-    "message": "{{selected}} selected · {{open}} open"
+    "message": "{{selected}} 已选 · {{open}} 打开"
   },
   "mediaPage_clearSelection": {
-    "message": "Deselect all"
+    "message": "取消全选"
   },
   "mediaPage_itemsLabel": {
-    "message": "Items"
+    "message": "条目"
   },
   "mediaPage_contentLabel": {
-    "message": "Content view"
+    "message": "内容视图"
   },
   "mediaPage_filterByKeyword": {
     "message": "按关键字筛选"
@@ -2238,7 +2238,7 @@
     "message": "元数据"
   },
   "mediaPage_idLabel": {
-    "message": "ID"
+    "message": "标识符"
   },
   "mediaPage_typeLabel": {
     "message": "类型"
@@ -3139,5 +3139,344 @@
   },
   "playground_composer_validationCompareSelectModelsInline": {
     "message": "至少选择一个模型用于对比模式。"
+  },
+  "tabs_newChat": {
+    "message": "新聊天"
+  },
+  "tabs_newTabAria": {
+    "message": "新的聊天选项卡"
+  },
+  "tabs_closeTabAria": {
+    "message": "关闭聊天选项卡"
+  },
+  "mediaPage_spreadMode": {
+    "message": "对比"
+  },
+  "mediaPage_listMode": {
+    "message": "聚焦"
+  },
+  "mediaPage_allMode": {
+    "message": "堆叠"
+  },
+  "mediaPage_spreadModeTooltip": {
+    "message": "并排显示所选项目以便对比"
+  },
+  "mediaPage_listModeTooltip": {
+    "message": "使用导航一次查看一个项目"
+  },
+  "mediaPage_allModeTooltip": {
+    "message": "在可滚动列表中查看所有选中项目"
+  },
+  "mediaPage_copyContentLabel": {
+    "message": "复制内容"
+  },
+  "mediaPage_copyAnalysisLabel": {
+    "message": "复制分析"
+  },
+  "mediaPage_copyContentTooltip": {
+    "message": "将内容复制到剪贴板"
+  },
+  "mediaPage_copyAnalysisTooltip": {
+    "message": "将分析复制到剪贴板"
+  },
+  "mediaPage_prevItemTooltip": {
+    "message": "上一个项目 (←)"
+  },
+  "mediaPage_nextItemTooltip": {
+    "message": "下一个项目 (→)"
+  },
+  "mediaPage_viewerOptions": {
+    "message": "选项"
+  },
+  "mediaPage_expandAllDropdown": {
+    "message": "展开/折叠"
+  },
+  "mediaPage_itemPosition": {
+    "message": "第 {{current}} 项，共 {{total}} 项"
+  },
+  "mediaPage_noItemSelected": {
+    "message": "未选择任何项目"
+  },
+  "mediaPage_firstUseTitle": {
+    "message": "快速指南：多项审阅"
+  },
+  "mediaPage_firstUseStep1": {
+    "message": "选择项目"
+  },
+  "mediaPage_firstUseStep1Desc": {
+    "message": "点击左侧面板中的项目，将其添加到查看器。"
+  },
+  "mediaPage_firstUseStep2": {
+    "message": "选择视图"
+  },
+  "mediaPage_firstUseStep2DescUpdated": {
+    "message": "使用“对比”进行并排查看，“聚焦”一次查看一个项目，或使用“堆叠”查看全部。"
+  },
+  "mediaPage_firstUseStep3": {
+    "message": "导航"
+  },
+  "mediaPage_firstUseStep3Desc": {
+    "message": "使用上一项/下一项按钮或键盘（Tab + Enter）在项目间移动。"
+  },
+  "mediaPage_gotIt": {
+    "message": "知道了"
+  },
+  "mediaPage_model": {
+    "message": "模型"
+  },
+  "mediaPage_selectModel": {
+    "message": "选择模型"
+  },
+  "mediaPage_noModelsAvailable": {
+    "message": "没有可用模型"
+  },
+  "mediaPage_promptPresets": {
+    "message": "提示词预设"
+  },
+  "mediaPage_showPresets": {
+    "message": "显示预设"
+  },
+  "mediaPage_hidePresets": {
+    "message": "隐藏预设"
+  },
+  "mediaPage_systemPromptLabel": {
+    "message": "系统提示词"
+  },
+  "mediaPage_systemPromptPlaceholder": {
+    "message": "输入系统提示词..."
+  },
+  "mediaPage_userPromptPrefixLabel": {
+    "message": "用户提示词前缀"
+  },
+  "mediaPage_prependedBeforeContent": {
+    "message": "（添加在内容之前）"
+  },
+  "mediaPage_userPrefixPlaceholder": {
+    "message": "可选：输入要在媒体内容之前添加的文本..."
+  },
+  "mediaPage_presetComprehensiveAnalysis": {
+    "message": "全面分析"
+  },
+  "mediaPage_presetExecutiveSummary": {
+    "message": "执行摘要"
+  },
+  "mediaPage_presetCriticalReview": {
+    "message": "批判性审阅"
+  },
+  "mediaPage_presetQAAnalysis": {
+    "message": "问答分析"
+  },
+  "manageCharacters_title": {
+    "message": "管理角色"
+  },
+  "manageCharacters_addBtn": {
+    "message": "新建角色"
+  },
+  "manageCharacters_columns_name": {
+    "message": "名称"
+  },
+  "manageCharacters_columns_description": {
+    "message": "描述"
+  },
+  "manageCharacters_columns_actions": {
+    "message": "操作"
+  },
+  "manageCharacters_columns_avatar": {
+    "message": "头像"
+  },
+  "manageCharacters_actions_chat": {
+    "message": "开始聊天"
+  },
+  "manageCharacters_actions_edit": {
+    "message": "编辑"
+  },
+  "manageCharacters_actions_delete": {
+    "message": "删除"
+  },
+  "manageCharacters_actions_duplicate": {
+    "message": "复制"
+  },
+  "manageCharacters_tags_label": {
+    "message": "标签"
+  },
+  "manageCharacters_tags_placeholder": {
+    "message": "添加标签"
+  },
+  "manageCharacters_tags_help": {
+    "message": "使用标签按用途对角色分组（例如“写作”“教学”）。"
+  },
+  "manageCharacters_tooltip_edit": {
+    "message": "编辑角色"
+  },
+  "manageCharacters_tooltip_delete": {
+    "message": "删除角色"
+  },
+  "manageCharacters_aria_chatWith": {
+    "message": "以 {{name}} 的身份聊天"
+  },
+  "manageCharacters_aria_edit": {
+    "message": "编辑角色 {{name}}"
+  },
+  "manageCharacters_aria_delete": {
+    "message": "删除角色 {{name}}"
+  },
+  "manageCharacters_aria_duplicate": {
+    "message": "复制角色 {{name}}"
+  },
+  "manageCharacters_confirm_delete": {
+    "message": "确定要删除此角色吗？此操作无法撤销。"
+  },
+  "manageCharacters_form_name_label": {
+    "message": "名称"
+  },
+  "manageCharacters_form_name_placeholder": {
+    "message": "例如：写作教练"
+  },
+  "manageCharacters_form_name_required": {
+    "message": "请输入名称"
+  },
+  "manageCharacters_form_description": {
+    "message": "定义一个可在侧边栏中聊天的可复用角色。"
+  },
+  "manageCharacters_form_systemPrompt_label": {
+    "message": "行为 / 指令"
+  },
+  "manageCharacters_form_systemPrompt_placeholder": {
+    "message": "例如：你是一位耐心的数学老师，会循序渐进地讲解概念，并用简短示例检查理解程度。"
+  },
+  "manageCharacters_form_systemPrompt_help": {
+    "message": "说明角色的角色定位、语气和限制。例如：“你是一位耐心的数学导师，会一步步解释概念。”"
+  },
+  "manageCharacters_form_systemPrompt_min": {
+    "message": "添加简短说明，让角色知道该如何回复。"
+  },
+  "manageCharacters_form_systemPrompt_required": {
+    "message": "请添加指令以引导回复。"
+  },
+  "manageCharacters_form_systemPrompt_max": {
+    "message": "系统提示词不得超过 2000 个字符。"
+  },
+  "manageCharacters_form_avatarUrl_label": {
+    "message": "头像 URL（可选）"
+  },
+  "manageCharacters_form_avatarUrl_placeholder": {
+    "message": "例如：https://example.com/avatar.png"
+  },
+  "manageCharacters_form_greeting_label": {
+    "message": "问候消息（可选）"
+  },
+  "manageCharacters_form_greeting_placeholder": {
+    "message": "嗨！我是你的写作教练。把草稿贴上来，我会帮你润色。"
+  },
+  "manageCharacters_form_greeting_help": {
+    "message": "开始聊天时角色发送的可选首条消息。"
+  },
+  "manageCharacters_form_btnSave_saving": {
+    "message": "正在创建角色..."
+  },
+  "manageCharacters_form_btnSave_save": {
+    "message": "创建角色"
+  },
+  "manageCharacters_form_btnEdit_saving": {
+    "message": "正在保存更改..."
+  },
+  "manageCharacters_form_btnEdit_save": {
+    "message": "保存更改"
+  },
+  "manageCharacters_notification_addSuccess": {
+    "message": "角色已创建"
+  },
+  "manageCharacters_notification_error": {
+    "message": "错误"
+  },
+  "manageCharacters_notification_someError": {
+    "message": "出现问题，请稍后重试"
+  },
+  "manageCharacters_notification_updatedSuccess": {
+    "message": "角色已更新"
+  },
+  "manageCharacters_notification_deletedSuccess": {
+    "message": "角色已删除"
+  },
+  "manageCharacters_loadError_title": {
+    "message": "无法加载角色"
+  },
+  "manageCharacters_loadError_description": {
+    "message": "请检查你的连接，然后重试。"
+  },
+  "manageCharacters_emptyTitle": {
+    "message": "尚无角色"
+  },
+  "manageCharacters_emptyDescription": {
+    "message": "创建一个包含名称、描述和系统提示词的可复用角色，供你聊天使用。"
+  },
+  "manageCharacters_emptyExample1": {
+    "message": "定义可在多次聊天中复用的写作教练、世界观专家或编码助手。"
+  },
+  "manageCharacters_emptyExample2": {
+    "message": "为每个角色编写清晰的描述和行为，让回复风格保持一致。"
+  },
+  "manageCharacters_emptyPrimaryCta": {
+    "message": "创建角色"
+  },
+  "manageCharacters_avatarAltWithName": {
+    "message": "{{name}} 的头像"
+  },
+  "manageCharacters_avatarAlt": {
+    "message": "用户头像"
+  },
+  "manageCharacters_table_noDescription": {
+    "message": "无描述"
+  },
+  "manageCharacters_filter_matchAll": {
+    "message": "匹配所有标签"
+  },
+  "manageCharacters_avatar_label": {
+    "message": "头像（可选）"
+  },
+  "manageCharacters_avatar_tabUrl": {
+    "message": "URL 地址"
+  },
+  "manageCharacters_avatar_tabUpload": {
+    "message": "上传"
+  },
+  "manageCharacters_avatar_selectImageError": {
+    "message": "请选择图片文件"
+  },
+  "manageCharacters_avatar_formatError": {
+    "message": "仅支持 PNG、JPEG 和 GIF 图片"
+  },
+  "manageCharacters_avatar_invalidError": {
+    "message": "无效的图片文件"
+  },
+  "manageCharacters_avatar_processError": {
+    "message": "处理图片失败"
+  },
+  "manageCharacters_avatar_dropzone": {
+    "message": "点击或拖拽图片上传"
+  },
+  "manageCharacters_avatar_formats": {
+    "message": "PNG、JPEG 或 GIF"
+  },
+  "manageCharacters_avatar_preview": {
+    "message": "预览"
+  },
+  "searchPrompts": {
+    "message": "搜索提示词..."
+  },
+  "noMatchingPrompts": {
+    "message": "没有匹配的提示词"
+  },
+  "promptSelect_favorites": {
+    "message": "收藏"
+  },
+  "promptSelect_system": {
+    "message": "系统提示词"
+  },
+  "promptSelect_quick": {
+    "message": "快捷提示词"
+  },
+  "flashcards_bulkLimitWarning": {
+    "message": "操作仅限前 {{limit}} 个项目。"
   }
 }

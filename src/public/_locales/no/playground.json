@@ -832,5 +832,254 @@
   },
   "speech_transcriptRecordingHint": {
     "message": "Opptak pågår; transkripsjonen er låst."
+  },
+  "actor_title": {
+    "message": "Sceneregissør (Actor)"
+  },
+  "actor_help": {
+    "message": "Konfigurer scenekontekst per chat: roller, stemning, verden, mål og notater."
+  },
+  "actor_addLabel": {
+    "message": "Legg til eller fjern aspekter for å fokusere scenen."
+  },
+  "actor_user": {
+    "message": "Bruker"
+  },
+  "actor_char": {
+    "message": "Karakter"
+  },
+  "actor_world": {
+    "message": "Verden"
+  },
+  "actor_newAspectPlaceholder": {
+    "message": "Aspektnavn (f.eks. Stemning, Rolle, Sted)"
+  },
+  "actor_addButton": {
+    "message": "Legg til aspekt"
+  },
+  "actor_aspectPlaceholder": {
+    "message": "Beskriv kort (valgfritt)"
+  },
+  "actor_notes": {
+    "message": "Scenenotater"
+  },
+  "actor_notesHelp": {
+    "message": "Valgfrie notater som sendes til modellen. Støtter Markdown og LaTeX."
+  },
+  "actor_position": {
+    "message": "Plassering av Actor-prompt"
+  },
+  "actor_before": {
+    "message": "Før hovedprompten/historien"
+  },
+  "actor_after": {
+    "message": "Etter hovedprompten/historien"
+  },
+  "actor_depth": {
+    "message": "I chatten på dybde"
+  },
+  "actor_depthLabel": {
+    "message": "Dybde (ikke-systemmeldinger)"
+  },
+  "actor_depthPlaceholder": {
+    "message": "0 = toppen av chatten"
+  },
+  "actor_depthHelp": {
+    "message": "Brukes bare når plasseringen er \"I chatten på dybde\". Teller ikke-systemmeldinger fra toppen av chatten."
+  },
+  "actor_roleLabel": {
+    "message": "Rolle for Actor-melding"
+  },
+  "actor_roleSystem": {
+    "message": "System"
+  },
+  "actor_roleUser": {
+    "message": "Bruker"
+  },
+  "actor_roleAssistant": {
+    "message": "Assistent"
+  },
+  "actor_positionHelp": {
+    "message": "Dybde brukes bare når plasseringen er \"I chatten på dybde\". Rollen styrer om Actor vises som system, bruker eller assistent."
+  },
+  "actor_preview": {
+    "message": "Forhåndsvisning av Actor-prompt"
+  },
+  "actor_tokens": {
+    "message": "Tokens: {{count}}"
+  },
+  "actor_previewEmpty": {
+    "message": "Ingenting å sende ennå."
+  },
+  "actor_offlineHintTitle": {
+    "message": "World Books ikke tilgjengelig for Actor"
+  },
+  "actor_offlineHintBody": {
+    "message": "Koble til tldw-serveren i Innstillinger for å bruke World Books for Actor-aspekter, eller fortsett å bruke fritekstverdier."
+  },
+  "actor_loreWorldBookMissing": {
+    "message": "Tidligere World Book-binding ble ikke funnet; bruker fritekst i stedet."
+  },
+  "actor_loreEntryMissing": {
+    "message": "Tidligere World Book-oppføring ble ikke funnet; bruker fritekst i stedet."
+  },
+  "actor_sourceFree": {
+    "message": "Fritekst"
+  },
+  "actor_sourceLore": {
+    "message": "World Book"
+  },
+  "actor_worldBookPlaceholder": {
+    "message": "World Book"
+  },
+  "actor_entryPlaceholder": {
+    "message": "Oppføring"
+  },
+  "actor_loreValuePlaceholder": {
+    "message": "Velg et alternativ (valgfritt)"
+  },
+  "actor_tokenLabel": {
+    "message": "Token"
+  },
+  "actor_tokensTitle": {
+    "message": "Actor-ordbokstokens"
+  },
+  "actor_tokensHelp": {
+    "message": "Bruk disse tokens i prompt og systemmeldinger."
+  },
+  "actor_keyChangeTitle": {
+    "message": "Endre Actor-token-nøkkel?"
+  },
+  "actor_keyChangeBody": {
+    "message": "Dette endrer tokenet fra {{old}} til {{next}}. Prompter som bruker den gamle tokenet oppdateres ikke automatisk."
+  },
+  "actor_keyCollisionTitle": {
+    "message": "Actor-nøkkel allerede i bruk"
+  },
+  "actor_keyCollisionBody": {
+    "message": "En annen aspekt bruker allerede denne nøkkelen. Nøkler må være unike per chat."
+  },
+  "actor_copy": {
+    "message": "Kopier"
+  },
+  "actor_copied": {
+    "message": "Kopiert"
+  },
+  "actor_copySuccess": {
+    "message": "Token kopiert til utklippstavlen"
+  },
+  "actor_copyError": {
+    "message": "Kunne ikke kopiere token"
+  },
+  "actor_notesPreviewTitle": {
+    "message": "Forhåndsvisning av scenenotater"
+  },
+  "actor_notesPreviewToggle": {
+    "message": "Vis Markdown + LaTeX-forhåndsvisning"
+  },
+  "actor_aspectLimitWarningTitle": {
+    "message": "Mange aspekter konfigurert for denne chatten"
+  },
+  "actor_aspectLimitWarningBody": {
+    "message": "Du har {{count}} aspekter (myk grense {{limit}}). Vurder å trimme for å fokusere scenen og spare tokens."
+  },
+  "actor_tokenWarning": {
+    "message": "Actor-prompten er lang ({{count}} tokens; myk grense {{limit}}). Vurder å trimme aspekter eller notater for å spare kontekst."
+  },
+  "actor_depthRangeHelp": {
+    "message": "Dybden må være mellom 0 og 999; verdier utover historikklengden avgrenses."
+  },
+  "actor_presetLabel": {
+    "message": "Forhåndsinnstillinger"
+  },
+  "actor_presetPlaceholder": {
+    "message": "Velg en forhåndsinnstilling"
+  },
+  "actor_preset.sliceOfLife": {
+    "message": "Hverdagsliv"
+  },
+  "actor_preset.dungeonCrawl": {
+    "message": "Dungeon crawl"
+  },
+  "actor_preset.romance": {
+    "message": "Romantikk"
+  },
+  "actor_preset.workSession": {
+    "message": "Arbeidsøkt"
+  },
+  "actor_applyPreset": {
+    "message": "Bruk"
+  },
+  "actor_resetChat": {
+    "message": "Tilbakestill for denne chatten"
+  },
+  "actor_saveAsCharacterDefault": {
+    "message": "Lagre som standard for {{name}}"
+  },
+  "actor_applyCharacterDefault": {
+    "message": "Bruk standard for {{name}}"
+  },
+  "actor_notesGmOnly": {
+    "message": "Kun GM: ikke send notater til modellen"
+  },
+  "actor_templateModeLabel": {
+    "message": "Interaksjon med scenemaler"
+  },
+  "actor_templateModeHelp": {
+    "message": "Styrer hvordan Actor samhandler med aktive scenemaler. Slå sammen beholder begge; Overstyr lar Actor erstatte overlappende felt; Ignorer hopper over Actor når maler er aktive."
+  },
+  "actor_templateMode.merge": {
+    "message": "Slå sammen med maler"
+  },
+  "actor_templateMode.override": {
+    "message": "Overstyr maler"
+  },
+  "actor_templateMode.ignore": {
+    "message": "Ignorer når maler er aktive"
+  },
+  "actor_bladeAspectsTitle": {
+    "message": "Aspekter"
+  },
+  "actor_bladeNotesTitle": {
+    "message": "Scenenotater"
+  },
+  "actor_bladePlacementTitle": {
+    "message": "Plassering og maler"
+  },
+  "actor_bladeTokensTitle": {
+    "message": "Tokens og forhåndsvisning"
+  },
+  "actor_summaryAspectsEmpty": {
+    "message": "Ingen aspekter konfigurert ennå."
+  },
+  "actor_summaryAspectsCount": {
+    "message": "{{count}} aspekter konfigurert."
+  },
+  "actor_summaryNotesEmpty": {
+    "message": "Ingen scenenotater ennå."
+  },
+  "actor_summaryNotes": {
+    "message": "{{chars}} tegn{{gmSuffix}}."
+  },
+  "actor_summaryNotesGmOnly": {
+    "message": " · Kun GM"
+  },
+  "actor_summaryPlacementBefore": {
+    "message": "Før hovedprompten/historien."
+  },
+  "actor_summaryPlacementAfter": {
+    "message": "Etter hovedprompten/historien."
+  },
+  "actor_summaryPlacementDepth": {
+    "message": "Dybde {{depth}} · Rolle: {{role}}."
+  },
+  "actor_summaryTokensEmpty": {
+    "message": "Ingen tokens definert ennå; sett aspektverdier."
+  },
+  "actor_summaryTokensCount": {
+    "message": "{{tokens}} tokens · ~{{estimate}} tokens i prompten."
+  },
+  "actor_sceneTemplateActive": {
+    "message": "Scenemal aktiv: Actor respekterer innstillingene for malinteraksjon."
   }
 }

@@ -1,4 +1,745 @@
 {
+  "reviewPage_searchPlaceholder": {
+    "message": "미디어, 노트 검색..."
+  },
+  "reviewPage_search": {
+    "message": "검색"
+  },
+  "reviewPage_filters": {
+    "message": "필터"
+  },
+  "reviewPage_media": {
+    "message": "미디어"
+  },
+  "reviewPage_notes": {
+    "message": "노트"
+  },
+  "reviewPage_useReview": {
+    "message": "Review 사용"
+  },
+  "reviewPage_useSummary": {
+    "message": "Summary 사용"
+  },
+  "reviewPage_mediaTypes": {
+    "message": "미디어 유형"
+  },
+  "reviewPage_keywords": {
+    "message": "키워드"
+  },
+  "reviewPage_clear": {
+    "message": "지우기"
+  },
+  "reviewPage_resetFilters": {
+    "message": "필터 초기화"
+  },
+  "reviewPage_results": {
+    "message": "결과"
+  },
+  "reviewPage_noResults": {
+    "message": "결과 없음"
+  },
+  "reviewPage_analyze_none": {
+    "message": "분석할 콘텐츠가 없습니다"
+  },
+  "reviewPage_analyze_saved": {
+    "message": "분석이 노트로 저장되었습니다"
+  },
+  "reviewPage_analyze_failed": {
+    "message": "분석하고 노트를 저장하지 못했습니다"
+  },
+  "reviewPage_searchPrompts": {
+    "message": "프롬프트 검색"
+  },
+  "reviewPage_includeLocal": {
+    "message": "로컬"
+  },
+  "reviewPage_includeServer": {
+    "message": "서버"
+  },
+  "reviewPage_presets": {
+    "message": "프리셋"
+  },
+  "reviewPage_presetsCritical": {
+    "message": "비판적"
+  },
+  "reviewPage_presetsQaAudit": {
+    "message": "QA 감사"
+  },
+  "reviewPage_presetsBulletReview": {
+    "message": "글머리 Review"
+  },
+  "reviewPage_reviewSystemPrompt": {
+    "message": "Review: 시스템 프롬프트"
+  },
+  "reviewPage_reviewUserPrefix": {
+    "message": "Review: 사용자 프롬프트 접두사"
+  },
+  "reviewPage_saveAsDefault": {
+    "message": "기본값으로 저장"
+  },
+  "reviewPage_reviewPrompt": {
+    "message": "Review 프롬프트"
+  },
+  "reviewPage_summarySystemPrompt": {
+    "message": "Summary: 시스템 프롬프트"
+  },
+  "reviewPage_summaryUserPrefix": {
+    "message": "Summary: 사용자 프롬프트 접두사"
+  },
+  "reviewPage_summaryPrompt": {
+    "message": "Summary 프롬프트"
+  },
+  "reviewPage_customizePrompts": {
+    "message": "프롬프트 맞춤 설정"
+  },
+  "reviewPage_showRawJson": {
+    "message": "원시 JSON 표시"
+  },
+  "reviewPage_noDetailLoaded": {
+    "message": "상세 정보가 없습니다"
+  },
+  "reviewPage_resetToDefaults": {
+    "message": "기본값으로 재설정"
+  },
+  "reviewPage_usingReviewPrompts": {
+    "message": "Review 프롬프트 사용 중"
+  },
+  "reviewPage_usingSummaryPrompts": {
+    "message": "Summary 프롬프트 사용 중"
+  },
+  "reviewPage_selectItemFirst": {
+    "message": "먼저 항목을 선택하세요"
+  },
+  "reviewPage_selectMediaFirst": {
+    "message": "먼저 미디어를 선택하세요"
+  },
+  "reviewPage_selectItemEmpty": {
+    "message": "Review 및 분석할 항목을 선택하세요"
+  },
+  "reviewPage_selectMediaEmpty": {
+    "message": "분석을 보려면 미디어를 선택하세요"
+  },
+  "reviewPage_generationMode": {
+    "message": "생성 모드"
+  },
+  "reviewPage_resultTypes": {
+    "message": "결과 유형"
+  },
+  "reviewPage_advancedTools": {
+    "message": "고급 도구"
+  },
+  "reviewPage_moreActions": {
+    "message": "더 많은 작업"
+  },
+  "reviewPage_toggleSidebar": {
+    "message": "결과 사이드바 전환"
+  },
+  "reviewPage_autoReviewLabel": {
+    "message": "항목을 선택하면 자동으로 Review 생성"
+  },
+  "reviewPage_demoMode": {
+    "message": "데모 모드"
+  },
+  "reviewPage_mediaOnlySearchPlaceholder": {
+    "message": "미디어 검색(제목/내용)"
+  },
+  "reviewPage_showSidebar": {
+    "message": "결과 사이드바 표시"
+  },
+  "reviewPage_hideSidebar": {
+    "message": "결과 사이드바 숨기기"
+  },
+  "reviewPage_selectedBadge": {
+    "message": "선택됨"
+  },
+  "reviewPage_bulkToolbar": {
+    "message": "Review 제어"
+  },
+  "reviewPage_loadedCount": {
+    "message": "{{count}}개 로드됨"
+  },
+  "reviewPage_viewLabel": {
+    "message": "콘텐츠 보기"
+  },
+  "reviewPage_navigateLabel": {
+    "message": "항목"
+  },
+  "reviewPage_mediaModeHint": {
+    "message": "한 번에 하나의 미디어를 검색하고 확인하세요. 결과를 선택하면 오른쪽에 내용과 분석이 표시됩니다."
+  },
+  "reviewPage_resultsHelp": {
+    "message": "키보드: Tab으로 결과 목록으로 이동, Enter 또는 Space로 선택, 분석 도구 막대의 이전/다음으로 이동합니다."
+  },
+  "reviewPage_resultsHelpLabel": {
+    "message": "Review 결과 키보드 단축키"
+  },
+  "reviewPage_review": {
+    "message": "Review 받기"
+  },
+  "reviewPage_reviewHint": {
+    "message": "이 항목을 Review하도록 어시스턴트에게 요청하세요."
+  },
+  "reviewPage_summary": {
+    "message": "Summary 받기"
+  },
+  "reviewPage_summaryHint": {
+    "message": "더 짧은 Summary를 요청하세요."
+  },
+  "reviewPage_attachGeneratedHint": {
+    "message": "어시스턴트를 실행하고 결과를 이 미디어에 첨부합니다."
+  },
+  "reviewPage_attachReview": {
+    "message": "Review를 미디어에 첨부"
+  },
+  "reviewPage_attachSummary": {
+    "message": "Summary를 미디어에 첨부"
+  },
+  "reviewPage_saveGeneratedNoteHint": {
+    "message": "어시스턴트를 실행하고 결과를 노트로 저장합니다."
+  },
+  "reviewPage_saveReviewNote": {
+    "message": "Review를 노트로 저장"
+  },
+  "reviewPage_saveSummaryNote": {
+    "message": "Summary를 노트로 저장"
+  },
+  "reviewPage_saveToMediaHint": {
+    "message": "편집기의 현재 텍스트를 이 미디어에 첨부합니다."
+  },
+  "reviewPage_saveToMedia": {
+    "message": "현재 텍스트를 미디어에 첨부"
+  },
+  "reviewPage_saveAnalysisHint": {
+    "message": "현재 분석을 기반으로 노트를 만듭니다."
+  },
+  "reviewPage_saveAnalysis": {
+    "message": "노트에 저장"
+  },
+  "reviewPage_askAssistantLabel": {
+    "message": "어시스턴트에게 묻기"
+  },
+  "reviewPage_saveResultsLabel": {
+    "message": "결과 저장"
+  },
+  "reviewPage_moreSaveNewVersion": {
+    "message": "새 버전으로 저장"
+  },
+  "reviewPage_moreDuplicateVersion": {
+    "message": "버전 복제"
+  },
+  "reviewPage_moreRestoreVersion": {
+    "message": "선택한 버전 복원"
+  },
+  "reviewPage_modeReview": {
+    "message": "Review 사용"
+  },
+  "reviewPage_modeSummary": {
+    "message": "Summary 사용"
+  },
+  "reviewPage_resultsHint": {
+    "message": "결과를 클릭하면 오른쪽에 내용과 분석이 표시됩니다."
+  },
+  "reviewPage_paginationHint": {
+    "message": "항목이 많으면 필터나 페이지네이션으로 결과를 좁혀 보세요."
+  },
+  "reviewPage_offlineHint": {
+    "message": "설정에서 tldw 서버에 연결하면 메시지를 보내고 미디어를 볼 수 있습니다. 이후 이 페이지에서 미디어를 검색할 수 있습니다."
+  },
+  "reviewPage_chatWithMedia": {
+    "message": "이 미디어로 채팅"
+  },
+  "reviewPage_chatWithMediaHint": {
+    "message": "채팅을 열고 이 미디어의 콘텐츠로 작성창을 채웁니다."
+  },
+  "reviewPage_chatPrepared": {
+    "message": "작성창에 이 미디어로 채팅 준비 완료."
+  },
+  "reviewPage_chatAboutMediaHint": {
+    "message": "이 미디어로 제한된 RAG 채팅을 엽니다."
+  },
+  "reviewPage_chatAboutMediaRagSent": {
+    "message": "미디어 범위 RAG 채팅을 열었습니다."
+  },
+  "reviewPage_chatAboutMediaInvalidId": {
+    "message": "이 미디어 항목에는 아직 숫자 ID가 없습니다."
+  },
+  "reviewPage_demoBadge": {
+    "message": "데모"
+  },
+  "reviewPage_notConnectedBadge": {
+    "message": "연결되지 않음"
+  },
+  "reviewPage_prevItem": {
+    "message": "이전"
+  },
+  "reviewPage_nextItem": {
+    "message": "다음"
+  },
+  "reviewPage_noContent": {
+    "message": "사용할 수 있는 콘텐츠가 없습니다"
+  },
+  "reviewPage_showMore": {
+    "message": "더 보기"
+  },
+  "reviewPage_showLess": {
+    "message": "덜 보기"
+  },
+  "reviewPage_showRaw": {
+    "message": "원문 보기"
+  },
+  "reviewPage_hideRaw": {
+    "message": "원문 숨기기"
+  },
+  "reviewPage_noAnalysis": {
+    "message": "아직 분석이 없습니다"
+  },
+  "reviewPage_mediaContent": {
+    "message": "미디어 콘텐츠"
+  },
+  "reviewPage_copyContent": {
+    "message": "콘텐츠 복사"
+  },
+  "reviewPage_analysisTitle": {
+    "message": "분석"
+  },
+  "reviewPage_copyAnalysis": {
+    "message": "분석 복사"
+  },
+  "reviewPage_sendAnalysisToChat": {
+    "message": "분석을 채팅으로 보내기"
+  },
+  "reviewPage_copyAllPlain": {
+    "message": "일반 텍스트로 모두 복사"
+  },
+  "reviewPage_copyAllMarkdown": {
+    "message": "Markdown으로 모두 복사"
+  },
+  "reviewPage_openInMulti": {
+    "message": "다중 항목 검토에서 열기"
+  },
+  "reviewPage_analysisFailed": {
+    "message": "분석에 실패했습니다"
+  },
+  "reviewPage_analysisAttached": {
+    "message": "분석이 미디어에 첨부되었습니다"
+  },
+  "reviewPage_analyzeSaveFailed": {
+    "message": "분석 및 저장에 실패했습니다"
+  },
+  "reviewPage_nothingToSave": {
+    "message": "저장할 내용이 없습니다"
+  },
+  "reviewPage_savedToNotes": {
+    "message": "노트에 저장됨"
+  },
+  "reviewPage_saveFailed": {
+    "message": "저장에 실패했습니다"
+  },
+  "reviewPage_saveToMediaFailed": {
+    "message": "미디어에 저장하지 못했습니다"
+  },
+  "reviewPage_sentToChat": {
+    "message": "채팅으로 전송되었습니다"
+  },
+  "reviewPage_sendFailed": {
+    "message": "전송에 실패했습니다"
+  },
+  "reviewPage_analysisEditorPlaceholder": {
+    "message": "Review 또는 Summary를 실행한 뒤 여기에서 편집하세요..."
+  },
+  "reviewPage_createdNewVersion": {
+    "message": "새 버전이 생성되었습니다"
+  },
+  "reviewPage_createVersionFailed": {
+    "message": "버전 생성에 실패했습니다"
+  },
+  "reviewPage_selectVersionFirst": {
+    "message": "먼저 버전을 선택하세요"
+  },
+  "reviewPage_noVersionNumber": {
+    "message": "버전 번호 없음"
+  },
+  "reviewPage_selectedVersionNoContent": {
+    "message": "선택한 버전에 내용이 없습니다"
+  },
+  "reviewPage_clonedVersionCreated": {
+    "message": "복제된 버전이 생성되었습니다"
+  },
+  "reviewPage_cloneFailed": {
+    "message": "복제에 실패했습니다"
+  },
+  "reviewPage_confirmTitle": {
+    "message": "확인해주세요"
+  },
+  "reviewPage_restoreConfirm": {
+    "message": "이 버전을 현재 버전으로 복원할까요?"
+  },
+  "reviewPage_restoreAction": {
+    "message": "복원"
+  },
+  "reviewPage_cancelAction": {
+    "message": "취소"
+  },
+  "reviewPage_versionRestored": {
+    "message": "버전이 복원되었습니다"
+  },
+  "reviewPage_restoreFailed": {
+    "message": "복원에 실패했습니다"
+  },
+  "reviewPage_existingAnalysesTitle": {
+    "message": "기존 분석"
+  },
+  "reviewPage_onlyWithAnalysis": {
+    "message": "분석이 있는 항목만"
+  },
+  "reviewPage_copyAllLabel": {
+    "message": "모두 복사"
+  },
+  "reviewPage_copyMdLabel": {
+    "message": "MD"
+  },
+  "reviewPage_copiedAllNotes": {
+    "message": "모든 노트를 복사했습니다"
+  },
+  "reviewPage_copiedAllNotesMarkdown": {
+    "message": "모든 노트를 Markdown으로 복사했습니다"
+  },
+  "reviewPage_loadSelectedAnalysis": {
+    "message": "선택한 분석을 편집기로 불러오기"
+  },
+  "reviewPage_loadLabel": {
+    "message": "불러오기"
+  },
+  "reviewPage_loadVersionPrompt": {
+    "message": "버전 프롬프트를 편집기로 불러오기"
+  },
+  "reviewPage_noPromptFound": {
+    "message": "프롬프트를 찾을 수 없습니다"
+  },
+  "reviewPage_copyVersionPrompt": {
+    "message": "선택한 버전 프롬프트 복사"
+  },
+  "reviewPage_promptCopied": {
+    "message": "프롬프트가 복사되었습니다"
+  },
+  "reviewPage_diffSelectedCurrent": {
+    "message": "선택 항목과 현재 비교"
+  },
+  "reviewPage_versionDeleted": {
+    "message": "버전이 삭제되었습니다"
+  },
+  "reviewPage_versionDeletedDescription": {
+    "message": "버전 v{{version}} 삭제됨."
+  },
+  "reviewPage_undoRolledBack": {
+    "message": "실행 취소: 삭제된 버전으로 되돌렸습니다"
+  },
+  "reviewPage_undoFailed": {
+    "message": "실행 취소에 실패했습니다"
+  },
+  "reviewPage_undoLabel": {
+    "message": "실행 취소"
+  },
+  "reviewPage_deleteFailed": {
+    "message": "삭제에 실패했습니다"
+  },
+  "reviewPage_deleteSelectedVersion": {
+    "message": "선택한 버전 삭제"
+  },
+  "reviewPage_noSavedAnalyses": {
+    "message": "이 항목에 저장된 분석이 아직 없습니다."
+  },
+  "reviewPage_currentTag": {
+    "message": "현재"
+  },
+  "reviewPage_promptLabel": {
+    "message": "프롬프트"
+  },
+  "reviewPage_showLabel": {
+    "message": "표시"
+  },
+  "reviewPage_hideLabel": {
+    "message": "숨기기"
+  },
+  "reviewPage_copyAnalysisPlainTooltip": {
+    "message": "분석 복사(일반 텍스트)"
+  },
+  "reviewPage_copyLabel": {
+    "message": "복사"
+  },
+  "reviewPage_copyAnalysisMarkdownTooltip": {
+    "message": "Markdown으로 복사"
+  },
+  "reviewPage_copiedAnalysisMarkdown": {
+    "message": "분석을 Markdown으로 복사했습니다"
+  },
+  "reviewPage_markdownLabel": {
+    "message": "Markdown"
+  },
+  "reviewPage_copyPromptTooltip": {
+    "message": "프롬프트 복사"
+  },
+  "reviewPage_diffUnified": {
+    "message": "통합 보기"
+  },
+  "reviewPage_diffSideBySide": {
+    "message": "나란히"
+  },
+  "reviewPage_diffCopied": {
+    "message": "diff를 복사했습니다"
+  },
+  "reviewPage_copyDiffLabel": {
+    "message": "diff 복사"
+  },
+  "reviewPage_closeLabel": {
+    "message": "닫기"
+  },
+  "reviewPage_diffTitle": {
+    "message": "diff: 선택 항목 vs 현재"
+  },
+  "reviewPage_diffSelectedVersion": {
+    "message": "선택한 버전"
+  },
+  "reviewPage_diffCurrentEditor": {
+    "message": "현재 편집기"
+  },
+  "reviewPage_noDifferences": {
+    "message": "차이가 없습니다"
+  },
+  "reviewPage_chatAboutMedia": {
+    "message": "이 미디어에 대해 채팅"
+  },
+  "reviewPage_statusProcessing": {
+    "message": "처리 중"
+  },
+  "reviewPage_statusQueued": {
+    "message": "대기 중"
+  },
+  "reviewPage_statusError": {
+    "message": "오류"
+  },
+  "reviewPage_statusReady": {
+    "message": "준비됨"
+  },
+  "reviewPage_loadedOf": {
+    "message": "{{count}}개 로드됨"
+  },
+  "reviewPage_expandAllContent": {
+    "message": "전체 보기"
+  },
+  "reviewPage_collapseAllContent": {
+    "message": "짧게 보기"
+  },
+  "reviewPage_expandContent": {
+    "message": "펼치기"
+  },
+  "reviewPage_collapseContent": {
+    "message": "접기"
+  },
+  "reviewPage_expandAnalysis": {
+    "message": "펼치기"
+  },
+  "reviewPage_collapseAnalysis": {
+    "message": "접기"
+  },
+  "reviewPage_jumpTo": {
+    "message": "이동"
+  },
+  "reviewPage_presetsExecutive": {
+    "message": "경영 요약"
+  },
+  "reviewPage_presetsDetailed": {
+    "message": "자세함"
+  },
+  "reviewPage_presetsBullets": {
+    "message": "글머리표"
+  },
+  "mediaPage_searchPlaceholder": {
+    "message": "미디어 검색 (제목/내용)"
+  },
+  "mediaPage_search": {
+    "message": "검색"
+  },
+  "mediaPage_clear": {
+    "message": "지우기"
+  },
+  "mediaPage_types": {
+    "message": "미디어 유형"
+  },
+  "mediaPage_keywords": {
+    "message": "키워드"
+  },
+  "mediaPage_moreTags": {
+    "message": "+{{count}}개의 추가 태그"
+  },
+  "mediaPage_resetFilters": {
+    "message": "필터 초기화"
+  },
+  "mediaPage_clearAll": {
+    "message": "모두 지우기"
+  },
+  "mediaPage_content": {
+    "message": "콘텐츠"
+  },
+  "mediaPage_vertical": {
+    "message": "세로"
+  },
+  "mediaPage_horizontal": {
+    "message": "가로"
+  },
+  "mediaPage_results": {
+    "message": "결과"
+  },
+  "mediaPage_noResults": {
+    "message": "미디어를 찾을 수 없습니다. 상단의 빠른 가져오기를 사용해 녹음 및 파일에서 미디어를 추가하세요."
+  },
+  "mediaPage_showSidebar": {
+    "message": "결과 사이드바 표시"
+  },
+  "mediaPage_hideSidebar": {
+    "message": "결과 사이드바 숨기기"
+  },
+  "mediaPage_viewer": {
+    "message": "뷰어"
+  },
+  "mediaPage_selectItemsHint": {
+    "message": "왼쪽에서 항목을 선택하면 이곳에서 볼 수 있습니다."
+  },
+  "mediaPage_mediaContent": {
+    "message": "미디어 콘텐츠"
+  },
+  "mediaPage_copyContent": {
+    "message": "콘텐츠 복사"
+  },
+  "mediaPage_contentCopied": {
+    "message": "콘텐츠가 복사되었습니다"
+  },
+  "mediaPage_metadataCopied": {
+    "message": "메타데이터가 복사되었습니다"
+  },
+  "mediaPage_analysisCopied": {
+    "message": "분석이 복사되었습니다"
+  },
+  "mediaPage_copyFailed": {
+    "message": "복사에 실패했습니다"
+  },
+  "mediaPage_noContent": {
+    "message": "사용할 수 있는 콘텐츠가 없습니다"
+  },
+  "mediaPage_collapse": {
+    "message": "접기"
+  },
+  "mediaPage_expand": {
+    "message": "펼치기"
+  },
+  "mediaPage_media": {
+    "message": "미디어"
+  },
+  "mediaPage_searchingBanner": {
+    "message": "미디어를 검색하는 중…"
+  },
+  "mediaPage_filterHelp": {
+    "message": "검색은 제목과 내용을 기준으로 하며, 유형과 키워드는 결과를 더 좁혀 줍니다."
+  },
+  "mediaPage_noMediaTypes": {
+    "message": "사용 가능한 미디어 유형이 없습니다"
+  },
+  "mediaPage_resultsCount": {
+    "message": "{{selected}}개 선택됨 · {{open}}개 열림"
+  },
+  "mediaPage_clearSelection": {
+    "message": "선택 해제"
+  },
+  "mediaPage_itemsLabel": {
+    "message": "항목"
+  },
+  "mediaPage_contentLabel": {
+    "message": "콘텐츠 보기"
+  },
+  "mediaPage_filterByKeyword": {
+    "message": "키워드로 필터링"
+  },
+  "mediaPage_keywordHelper": {
+    "message": "키워드는 왼쪽의 키워드 필터를 사용해 이 미디어를 찾는 데 도움이 됩니다"
+  },
+  "mediaPage_modeHint": {
+    "message": "여러 미디어 항목을 검색해 오른쪽 뷰어에서 비교할 수 있도록 쌓으세요."
+  },
+  "mediaPage_viewerHelp": {
+    "message": "키보드: Tab으로 결과 목록으로 이동한 뒤 Enter 또는 Space로 미디어 항목을 쌓거나 제거하고, 이전/다음 및 레이아웃 컨트롤로 뷰어의 항목을 이동합니다."
+  },
+  "mediaPage_viewerHelpLabel": {
+    "message": "멀티 항목 검토용 키보드 단축키"
+  },
+  "mediaPage_mediaInspector": {
+    "message": "미디어 인스펙터"
+  },
+  "mediaPage_actionsLabel": {
+    "message": "작업"
+  },
+  "mediaPage_keywordsPlaceholder": {
+    "message": "키워드 추가..."
+  },
+  "mediaPage_noSelectionTitle": {
+    "message": "선택된 미디어 항목이 없습니다"
+  },
+  "mediaPage_noSelectionDescription": {
+    "message": "왼쪽 사이드바에서 미디어 항목을 선택하면 이곳에서 해당 콘텐츠와 분석을 볼 수 있습니다."
+  },
+  "mediaPage_generateAnalysis": {
+    "message": "생성"
+  },
+  "mediaPage_generateAnalysisHint": {
+    "message": "새 분석 생성"
+  },
+  "mediaPage_editAnalysis": {
+    "message": "분석 편집"
+  },
+  "mediaPage_createNoteWithContent": {
+    "message": "콘텐츠로 노트 만들기"
+  },
+  "mediaPage_createNoteWithContentAnalysis": {
+    "message": "콘텐츠 + 분석으로 노트 만들기"
+  },
+  "mediaPage_untitled": {
+    "message": "제목 없음"
+  },
+  "mediaPage_copyMetadata": {
+    "message": "메타데이터 복사"
+  },
+  "mediaPage_statistics": {
+    "message": "통계"
+  },
+  "mediaPage_words": {
+    "message": "단어"
+  },
+  "mediaPage_characters": {
+    "message": "문자"
+  },
+  "mediaPage_paragraphs": {
+    "message": "단락"
+  },
+  "mediaPage_metadata": {
+    "message": "메타데이터"
+  },
+  "mediaPage_idLabel": {
+    "message": "식별자"
+  },
+  "mediaPage_typeLabel": {
+    "message": "유형"
+  },
+  "mediaPage_titleLabel": {
+    "message": "제목"
+  },
+  "mediaPage_source": {
+    "message": "소스"
+  },
+  "mediaPage_notAvailable": {
+    "message": "해당 없음"
+  },
+  "mediaPage_developerTools": {
+    "message": "개발자 도구"
+  },
   "mediaPage_nothingToSend": {
     "message": "보낼 내용이 없습니다"
   },
@@ -38,8 +779,212 @@
   "mediaPage_pageRangeClamped": {
     "message": "페이지 {{page}}로 이동 중"
   },
-  "mediaPage_moreTags": {
-    "message": "+{{count}}개의 추가 태그"
+  "mediaPage_spreadMode": {
+    "message": "비교"
+  },
+  "mediaPage_listMode": {
+    "message": "집중"
+  },
+  "mediaPage_allMode": {
+    "message": "스택"
+  },
+  "mediaPage_spreadModeTooltip": {
+    "message": "선택한 항목을 나란히 비교해서 봅니다"
+  },
+  "mediaPage_listModeTooltip": {
+    "message": "탐색으로 한 번에 한 항목씩 봅니다"
+  },
+  "mediaPage_allModeTooltip": {
+    "message": "선택한 항목을 스크롤 가능한 목록으로 모두 봅니다"
+  },
+  "mediaPage_copyContentLabel": {
+    "message": "콘텐츠 복사"
+  },
+  "mediaPage_copyAnalysisLabel": {
+    "message": "분석 복사"
+  },
+  "mediaPage_copyContentTooltip": {
+    "message": "콘텐츠를 클립보드에 복사"
+  },
+  "mediaPage_copyAnalysisTooltip": {
+    "message": "분석을 클립보드에 복사"
+  },
+  "mediaPage_prevItemTooltip": {
+    "message": "이전 항목 (←)"
+  },
+  "mediaPage_nextItemTooltip": {
+    "message": "다음 항목 (→)"
+  },
+  "mediaPage_viewerOptions": {
+    "message": "옵션"
+  },
+  "mediaPage_expandAllDropdown": {
+    "message": "펼치기/접기"
+  },
+  "mediaPage_itemPosition": {
+    "message": "항목 {{current}}/{{total}}"
+  },
+  "mediaPage_noItemSelected": {
+    "message": "선택된 항목이 없습니다"
+  },
+  "mediaPage_firstUseTitle": {
+    "message": "빠른 안내: 다중 항목 검토"
+  },
+  "mediaPage_firstUseStep1": {
+    "message": "항목 선택"
+  },
+  "mediaPage_firstUseStep1Desc": {
+    "message": "왼쪽 패널에서 항목을 클릭해 뷰어에 추가하세요."
+  },
+  "mediaPage_firstUseStep2": {
+    "message": "보기 선택"
+  },
+  "mediaPage_firstUseStep2DescUpdated": {
+    "message": "\"비교\"는 나란히, \"집중\"은 한 번에 하나, \"스택\"은 모두 보기입니다."
+  },
+  "mediaPage_firstUseStep3": {
+    "message": "탐색"
+  },
+  "mediaPage_firstUseStep3Desc": {
+    "message": "이전/다음 버튼 또는 키보드(Tab + Enter)로 항목을 이동하세요."
+  },
+  "mediaPage_gotIt": {
+    "message": "확인"
+  },
+  "mediaPage_model": {
+    "message": "모델"
+  },
+  "mediaPage_selectModel": {
+    "message": "모델 선택"
+  },
+  "mediaPage_noModelsAvailable": {
+    "message": "사용 가능한 모델이 없습니다"
+  },
+  "mediaPage_promptPresets": {
+    "message": "프롬프트 프리셋"
+  },
+  "mediaPage_showPresets": {
+    "message": "프리셋 표시"
+  },
+  "mediaPage_hidePresets": {
+    "message": "프리셋 숨기기"
+  },
+  "mediaPage_systemPromptLabel": {
+    "message": "시스템 프롬프트"
+  },
+  "mediaPage_systemPromptPlaceholder": {
+    "message": "시스템 프롬프트 입력..."
+  },
+  "mediaPage_userPromptPrefixLabel": {
+    "message": "사용자 프롬프트 접두사"
+  },
+  "mediaPage_prependedBeforeContent": {
+    "message": "(콘텐츠 앞에 추가됨)"
+  },
+  "mediaPage_userPrefixPlaceholder": {
+    "message": "선택 사항: 미디어 콘텐츠 앞에 추가할 텍스트를 입력하세요..."
+  },
+  "mediaPage_presetComprehensiveAnalysis": {
+    "message": "종합 분석"
+  },
+  "mediaPage_presetExecutiveSummary": {
+    "message": "요약 보고"
+  },
+  "mediaPage_presetCriticalReview": {
+    "message": "비판적 검토"
+  },
+  "mediaPage_presetQAAnalysis": {
+    "message": "Q&A 분석"
+  },
+  "empty_connectTitle": {
+    "message": "리뷰를 사용하려면 연결하세요"
+  },
+  "empty_connectDescription": {
+    "message": "설정에서 tldw 서버에 연결해 메시지를 보내고 미디어를 볼 수 있습니다. 연결되면 여기에서 미디어와 노트를 리뷰할 수 있습니다."
+  },
+  "empty_connectExample1": {
+    "message": "설정 → tldw 서버를 열어 서버 URL을 추가하세요."
+  },
+  "empty_connectExample2": {
+    "message": "연결되면 미디어와 노트를 찾아보고 구조화된 리뷰와 요약을 생성할 수 있습니다."
+  },
+  "empty_demoTitle": {
+    "message": "데모 모드에서 리뷰 둘러보기"
+  },
+  "empty_demoDescription": {
+    "message": "이 데모는 tldw Assistant가 미디어와 노트를 구조화된 리뷰로 만드는 방법을 보여줍니다. 나중에 내 서버를 연결해 내 콘텐츠를 분석할 수 있습니다."
+  },
+  "empty_demoExample1": {
+    "message": "선택한 미디어와 노트가 리뷰 작업 공간에 어떻게 표시되는지 확인하세요."
+  },
+  "empty_demoExample2": {
+    "message": "연결하면 내 녹음과 노트에서 요약과 액션 아이템을 생성할 수 있습니다."
+  },
+  "mediaEmpty_demoTitle": {
+    "message": "데모 모드에서 미디어 둘러보기"
+  },
+  "mediaEmpty_demoDescription": {
+    "message": "이 데모는 tldw Assistant가 처리된 미디어를 표시하고 검사하는 방법을 보여줍니다. 나중에 내 서버를 연결해 내 녹음과 문서를 탐색할 수 있습니다."
+  },
+  "mediaEmpty_demoExample1": {
+    "message": "처리된 미디어 항목이 Media 뷰어에 어떻게 표시되는지 확인하세요."
+  },
+  "mediaEmpty_demoExample2": {
+    "message": "연결하면 내 녹음과 파일에서 인제스트된 미디어를 찾아보고 검사할 수 있습니다."
+  },
+  "mediaEmpty_connectTitle": {
+    "message": "미디어를 사용하려면 연결하세요"
+  },
+  "mediaEmpty_connectDescription": {
+    "message": "설정에서 tldw 서버에 연결해 메시지를 보내고 미디어를 볼 수 있습니다. 연결되면 처리된 녹음과 문서가 여기에 표시됩니다."
+  },
+  "mediaEmpty_connectExample1": {
+    "message": "설정 → tldw 서버를 열어 서버 URL을 추가하세요."
+  },
+  "mediaEmpty_connectExample2": {
+    "message": "연결되면 헤더의 Quick ingest를 사용해 녹음과 파일에서 미디어를 추가하세요."
+  },
+  "mediaEmpty_offlineTitle": {
+    "message": "이 서버에서는 Media API를 사용할 수 없습니다"
+  },
+  "mediaEmpty_offlineDescription": {
+    "message": "이 tldw 서버는 Media 엔드포인트(/api/v1/media 및 /api/v1/media/search 등)를 제공하지 않습니다. 이 작업 공간을 사용하려면 Media가 포함된 버전으로 서버를 업그레이드하세요."
+  },
+  "mediaEmpty_offlineExample1": {
+    "message": "Diagnostics를 열어 서버 버전과 사용 가능한 API를 확인하세요."
+  },
+  "mediaEmpty_offlineExample2": {
+    "message": "업그레이드 후 확장을 다시 로드하고 미디어로 돌아가세요."
+  },
+  "mediaEmpty_featureUnavailableBadge": {
+    "message": "기능을 사용할 수 없습니다"
+  },
+  "mediaEmpty_demoExample3": {
+    "message": "Media를 Review와 함께 사용해 녹음을 요약하거나 분석하세요."
+  },
+  "mediaEmpty_demoPreviewHeading": {
+    "message": "예시 미디어 항목(미리보기 전용)"
+  },
+  "mediaEmpty_demoSample1Title": {
+    "message": "데모 미디어: 팀 통화 녹음"
+  },
+  "mediaEmpty_demoSample1Meta": {
+    "message": "비디오 · 25분 · 키워드: 스탠드업, 계획"
+  },
+  "mediaEmpty_demoSample2Title": {
+    "message": "데모 미디어: 제품 워크스루"
+  },
+  "mediaEmpty_demoSample2Meta": {
+    "message": "화면 녹화 · 12분 · 키워드: 온보딩"
+  },
+  "mediaEmpty_demoSample3Title": {
+    "message": "데모 미디어: 연구 논문 PDF"
+  },
+  "mediaEmpty_demoSample3Meta": {
+    "message": "PDF · 6페이지 · 키워드: 요약"
+  },
+  "mediaEmpty_offlineTechnicalDetails": {
+    "message": "기술 상세: 이 tldw 서버는 Media 엔드포인트(/api/v1/media 및 /api/v1/media/search 등)를 제공하지 않습니다."
   },
   "noToolCalls": {
     "message": "아직 도구 호출이 없습니다"
@@ -254,22 +1199,22 @@
   "contentReview_sectionsLabel": {
     "message": "섹션 필터"
   },
-  "contentReview.templates.transcript_clean.label": {
+  "contentReview_templates_transcript_clean_label": {
     "message": "전사 정리"
   },
-  "contentReview.templates.transcript_clean.description": {
+  "contentReview_templates_transcript_clean_description": {
     "message": "줄 구조를 유지하면서 구두점과 대/소문자를 정규화합니다."
   },
-  "contentReview.templates.speaker_turns.label": {
+  "contentReview_templates_speaker_turns_label": {
     "message": "화자 턴"
   },
-  "contentReview.templates.speaker_turns.description": {
+  "contentReview_templates_speaker_turns_description": {
     "message": "각 화자의 턴이 명확한 레이블과 함께 한 줄씩 나타나도록 보장합니다."
   },
-  "contentReview.templates.chapter_headings.label": {
+  "contentReview_templates_chapter_headings_label": {
     "message": "챕터 제목"
   },
-  "contentReview.templates.chapter_headings.description": {
+  "contentReview_templates_chapter_headings_description": {
     "message": "콘텐츠를 삭제하지 않고 주제를 묶기 위해 Markdown 제목을 삽입합니다."
   },
   "contentReview_metadataLabel": {
@@ -367,731 +1312,5 @@
   },
   "contentReview_editedLabel": {
     "message": "편집됨"
-  },
-  "reviewPage_searchPlaceholder": {
-    "message": "Search media, notes..."
-  },
-  "reviewPage_search": {
-    "message": "Search"
-  },
-  "reviewPage_filters": {
-    "message": "Filters"
-  },
-  "reviewPage_media": {
-    "message": "Media"
-  },
-  "reviewPage_notes": {
-    "message": "Notes"
-  },
-  "reviewPage_useReview": {
-    "message": "Use Review"
-  },
-  "reviewPage_useSummary": {
-    "message": "Use Summary"
-  },
-  "reviewPage_mediaTypes": {
-    "message": "Media types"
-  },
-  "reviewPage_keywords": {
-    "message": "Keywords"
-  },
-  "reviewPage_clear": {
-    "message": "Clear"
-  },
-  "reviewPage_resetFilters": {
-    "message": "Reset filters"
-  },
-  "reviewPage_results": {
-    "message": "Results"
-  },
-  "reviewPage_noResults": {
-    "message": "No results"
-  },
-  "reviewPage_analyze_none": {
-    "message": "No content available to analyze"
-  },
-  "reviewPage_analyze_saved": {
-    "message": "Analysis saved as note"
-  },
-  "reviewPage_analyze_failed": {
-    "message": "Failed to analyze & save note"
-  },
-  "reviewPage_searchPrompts": {
-    "message": "Search prompts"
-  },
-  "reviewPage_includeLocal": {
-    "message": "Local"
-  },
-  "reviewPage_includeServer": {
-    "message": "Server"
-  },
-  "reviewPage_presets": {
-    "message": "Presets"
-  },
-  "reviewPage_presetsCritical": {
-    "message": "Critical"
-  },
-  "reviewPage_presetsQaAudit": {
-    "message": "QA Audit"
-  },
-  "reviewPage_presetsBulletReview": {
-    "message": "Bullet Review"
-  },
-  "reviewPage_reviewSystemPrompt": {
-    "message": "Review: System prompt"
-  },
-  "reviewPage_reviewUserPrefix": {
-    "message": "Review: User prompt prefix"
-  },
-  "reviewPage_saveAsDefault": {
-    "message": "Save as default"
-  },
-  "reviewPage_reviewPrompt": {
-    "message": "Review prompt"
-  },
-  "reviewPage_summarySystemPrompt": {
-    "message": "Summary: System prompt"
-  },
-  "reviewPage_summaryUserPrefix": {
-    "message": "Summary: User prompt prefix"
-  },
-  "reviewPage_summaryPrompt": {
-    "message": "Summary prompt"
-  },
-  "reviewPage_customizePrompts": {
-    "message": "Customize prompts"
-  },
-  "reviewPage_showRawJson": {
-    "message": "Show raw JSON"
-  },
-  "reviewPage_noDetailLoaded": {
-    "message": "No detail loaded"
-  },
-  "reviewPage_resetToDefaults": {
-    "message": "Reset to defaults"
-  },
-  "reviewPage_usingReviewPrompts": {
-    "message": "Using Review prompts"
-  },
-  "reviewPage_usingSummaryPrompts": {
-    "message": "Using Summary prompts"
-  },
-  "reviewPage_selectItemFirst": {
-    "message": "Select an item first"
-  },
-  "reviewPage_selectMediaFirst": {
-    "message": "Select a media item first"
-  },
-  "reviewPage_selectItemEmpty": {
-    "message": "Select an item to review and analyze"
-  },
-  "reviewPage_selectMediaEmpty": {
-    "message": "Select a media item to view analyses"
-  },
-  "reviewPage_generationMode": {
-    "message": "Generation mode"
-  },
-  "reviewPage_resultTypes": {
-    "message": "Result types"
-  },
-  "reviewPage_advancedTools": {
-    "message": "Advanced tools"
-  },
-  "reviewPage_moreActions": {
-    "message": "More actions"
-  },
-  "reviewPage_toggleSidebar": {
-    "message": "Toggle results sidebar"
-  },
-  "reviewPage_autoReviewLabel": {
-    "message": "Automatically generate a review when you select an item"
-  },
-  "reviewPage_demoMode": {
-    "message": "Demo mode"
-  },
-  "reviewPage_mediaOnlySearchPlaceholder": {
-    "message": "Search media (title/content)"
-  },
-  "reviewPage_showSidebar": {
-    "message": "Show results sidebar"
-  },
-  "reviewPage_hideSidebar": {
-    "message": "Hide results sidebar"
-  },
-  "reviewPage_selectedBadge": {
-    "message": "Selected"
-  },
-  "reviewPage_bulkToolbar": {
-    "message": "Bulk view toolbar"
-  },
-  "reviewPage_loadedCount": {
-    "message": "{{count}} loaded"
-  },
-  "reviewPage_viewLabel": {
-    "message": "Content view"
-  },
-  "reviewPage_navigateLabel": {
-    "message": "Items"
-  },
-  "reviewPage_mediaModeHint": {
-    "message": "Search and inspect one media item at a time. Select a result to view its content and analyses on the right."
-  },
-  "reviewPage_resultsHelp": {
-    "message": "Keyboard: Tab into the results list, use Enter or Space to select the focused row, then use the Prev/Next buttons in the analysis toolbar to move between items."
-  },
-  "reviewPage_resultsHelpLabel": {
-    "message": "Review results keyboard shortcuts"
-  },
-  "reviewPage_review": {
-    "message": "Get review"
-  },
-  "reviewPage_reviewHint": {
-    "message": "Ask the assistant to review this item."
-  },
-  "reviewPage_summary": {
-    "message": "Get summary"
-  },
-  "reviewPage_summaryHint": {
-    "message": "Ask for a shorter summary."
-  },
-  "reviewPage_attachGeneratedHint": {
-    "message": "Run the assistant and attach the result to this media item."
-  },
-  "reviewPage_attachReview": {
-    "message": "Attach review to media"
-  },
-  "reviewPage_attachSummary": {
-    "message": "Attach summary to media"
-  },
-  "reviewPage_saveGeneratedNoteHint": {
-    "message": "Run the assistant and save the result as a note."
-  },
-  "reviewPage_saveReviewNote": {
-    "message": "Save review as note"
-  },
-  "reviewPage_saveSummaryNote": {
-    "message": "Save summary as note"
-  },
-  "reviewPage_saveToMediaHint": {
-    "message": "Attach the current text in the editor to this media item."
-  },
-  "reviewPage_saveToMedia": {
-    "message": "Attach current text to media"
-  },
-  "reviewPage_saveAnalysisHint": {
-    "message": "Create a note from the current analysis."
-  },
-  "reviewPage_saveAnalysis": {
-    "message": "Save to notes"
-  },
-  "reviewPage_askAssistantLabel": {
-    "message": "Ask the assistant"
-  },
-  "reviewPage_saveResultsLabel": {
-    "message": "Save results"
-  },
-  "reviewPage_moreSaveNewVersion": {
-    "message": "Save as new version"
-  },
-  "reviewPage_moreDuplicateVersion": {
-    "message": "버전 복제"
-  },
-  "reviewPage_moreRestoreVersion": {
-    "message": "선택한 버전 복원"
-  },
-  "reviewPage_modeReview": {
-    "message": "검토 사용"
-  },
-  "reviewPage_modeSummary": {
-    "message": "요약 사용"
-  },
-  "reviewPage_resultsHint": {
-    "message": "결과를 클릭하면 오른쪽에 내용과 분석이 표시됩니다."
-  },
-  "reviewPage_paginationHint": {
-    "message": "항목이 많으면 필터나 페이지네이션으로 결과를 좁혀 보세요."
-  },
-  "reviewPage_offlineHint": {
-    "message": "설정에서 tldw 서버에 연결하면 메시지를 보내고 미디어를 볼 수 있습니다. 이후 이 페이지에서 미디어를 검색할 수 있습니다."
-  },
-  "reviewPage_chatWithMedia": {
-    "message": "이 미디어로 채팅"
-  },
-  "reviewPage_chatWithMediaHint": {
-    "message": "채팅을 열고 이 미디어의 콘텐츠로 작성창을 채웁니다."
-  },
-  "reviewPage_chatPrepared": {
-    "message": "작성창에 이 미디어로 채팅 준비 완료."
-  },
-  "reviewPage_chatAboutMediaHint": {
-    "message": "이 미디어로 제한된 RAG 채팅을 엽니다."
-  },
-  "reviewPage_chatAboutMediaRagSent": {
-    "message": "미디어 범위 RAG 채팅을 열었습니다."
-  },
-  "reviewPage_chatAboutMediaInvalidId": {
-    "message": "이 미디어 항목에는 아직 숫자 ID가 없습니다."
-  },
-  "reviewPage_demoBadge": {
-    "message": "데모"
-  },
-  "reviewPage_notConnectedBadge": {
-    "message": "연결되지 않음"
-  },
-  "reviewPage_prevItem": {
-    "message": "이전"
-  },
-  "reviewPage_nextItem": {
-    "message": "다음"
-  },
-  "reviewPage_noContent": {
-    "message": "사용할 수 있는 콘텐츠가 없습니다"
-  },
-  "reviewPage_showMore": {
-    "message": "더 보기"
-  },
-  "reviewPage_showLess": {
-    "message": "덜 보기"
-  },
-  "reviewPage_showRaw": {
-    "message": "원문 보기"
-  },
-  "reviewPage_hideRaw": {
-    "message": "원문 숨기기"
-  },
-  "reviewPage_noAnalysis": {
-    "message": "아직 분석이 없습니다"
-  },
-  "reviewPage_mediaContent": {
-    "message": "미디어 콘텐츠"
-  },
-  "reviewPage_copyContent": {
-    "message": "콘텐츠 복사"
-  },
-  "reviewPage_analysisTitle": {
-    "message": "분석"
-  },
-  "reviewPage_copyAnalysis": {
-    "message": "분석 복사"
-  },
-  "reviewPage_sendAnalysisToChat": {
-    "message": "분석을 채팅으로 보내기"
-  },
-  "reviewPage_copyAllPlain": {
-    "message": "일반 텍스트로 모두 복사"
-  },
-  "reviewPage_copyAllMarkdown": {
-    "message": "Markdown으로 모두 복사"
-  },
-  "reviewPage_openInMulti": {
-    "message": "다중 항목 검토에서 열기"
-  },
-  "mediaPage_searchPlaceholder": {
-    "message": "미디어 검색 (제목/내용)"
-  },
-  "mediaPage_search": {
-    "message": "검색"
-  },
-  "mediaPage_clear": {
-    "message": "지우기"
-  },
-  "mediaPage_types": {
-    "message": "미디어 유형"
-  },
-  "mediaPage_keywords": {
-    "message": "키워드"
-  },
-  "mediaPage_resetFilters": {
-    "message": "필터 초기화"
-  },
-  "mediaPage_clearAll": {
-    "message": "모두 지우기"
-  },
-  "mediaPage_content": {
-    "message": "콘텐츠"
-  },
-  "mediaPage_vertical": {
-    "message": "세로"
-  },
-  "mediaPage_horizontal": {
-    "message": "가로"
-  },
-  "mediaPage_results": {
-    "message": "결과"
-  },
-  "mediaPage_noResults": {
-    "message": "미디어를 찾을 수 없습니다. 상단의 빠른 가져오기를 사용해 녹음 및 파일에서 미디어를 추가하세요."
-  },
-  "mediaPage_showSidebar": {
-    "message": "결과 사이드바 표시"
-  },
-  "mediaPage_hideSidebar": {
-    "message": "결과 사이드바 숨기기"
-  },
-  "mediaPage_viewer": {
-    "message": "뷰어"
-  },
-  "mediaPage_selectItemsHint": {
-    "message": "왼쪽에서 항목을 선택하면 이곳에서 볼 수 있습니다."
-  },
-  "mediaPage_mediaContent": {
-    "message": "미디어 콘텐츠"
-  },
-  "mediaPage_copyContent": {
-    "message": "콘텐츠 복사"
-  },
-  "mediaPage_contentCopied": {
-    "message": "콘텐츠가 복사되었습니다"
-  },
-  "mediaPage_metadataCopied": {
-    "message": "메타데이터가 복사되었습니다"
-  },
-  "mediaPage_analysisCopied": {
-    "message": "분석이 복사되었습니다"
-  },
-  "mediaPage_copyFailed": {
-    "message": "복사에 실패했습니다"
-  },
-  "mediaPage_noContent": {
-    "message": "사용할 수 있는 콘텐츠가 없습니다"
-  },
-  "mediaPage_collapse": {
-    "message": "접기"
-  },
-  "mediaPage_expand": {
-    "message": "펼치기"
-  },
-  "mediaPage_media": {
-    "message": "미디어"
-  },
-  "mediaPage_searchingBanner": {
-    "message": "미디어를 검색하는 중…"
-  },
-  "mediaPage_filterHelp": {
-    "message": "검색은 제목과 내용을 기준으로 하며, 유형과 키워드는 결과를 더 좁혀 줍니다."
-  },
-  "mediaPage_noMediaTypes": {
-    "message": "사용 가능한 미디어 유형이 없습니다"
-  },
-  "mediaPage_resultsCount": {
-    "message": "{{selected}}개 선택됨 · {{open}}개 열림"
-  },
-  "mediaPage_clearSelection": {
-    "message": "선택 해제"
-  },
-  "mediaPage_itemsLabel": {
-    "message": "항목"
-  },
-  "mediaPage_contentLabel": {
-    "message": "콘텐츠 보기"
-  },
-  "mediaPage_filterByKeyword": {
-    "message": "키워드로 필터링"
-  },
-  "mediaPage_keywordHelper": {
-    "message": "키워드는 왼쪽의 키워드 필터를 사용해 이 미디어를 찾는 데 도움이 됩니다"
-  },
-  "mediaPage_modeHint": {
-    "message": "여러 미디어 항목을 검색해 오른쪽 뷰어에서 비교할 수 있도록 쌓으세요."
-  },
-  "mediaPage_viewerHelp": {
-    "message": "키보드: Tab으로 결과 목록으로 이동한 뒤 Enter 또는 Space로 미디어 항목을 쌓거나 제거하고, 이전/다음 및 레이아웃 컨트롤로 뷰어의 항목을 이동합니다."
-  },
-  "mediaPage_viewerHelpLabel": {
-    "message": "멀티 항목 검토용 키보드 단축키"
-  },
-  "mediaPage_mediaInspector": {
-    "message": "미디어 인스펙터"
-  },
-  "mediaPage_actionsLabel": {
-    "message": "작업"
-  },
-  "mediaPage_keywordsPlaceholder": {
-    "message": "키워드 추가..."
-  },
-  "mediaPage_noSelectionTitle": {
-    "message": "선택된 미디어 항목이 없습니다"
-  },
-  "mediaPage_noSelectionDescription": {
-    "message": "왼쪽 사이드바에서 미디어 항목을 선택하면 이곳에서 해당 콘텐츠와 분석을 볼 수 있습니다."
-  },
-  "mediaPage_generateAnalysis": {
-    "message": "생성"
-  },
-  "mediaPage_generateAnalysisHint": {
-    "message": "새 분석 생성"
-  },
-  "mediaPage_editAnalysis": {
-    "message": "분석 편집"
-  },
-  "mediaPage_createNoteWithContent": {
-    "message": "콘텐츠로 노트 만들기"
-  },
-  "mediaPage_createNoteWithContentAnalysis": {
-    "message": "콘텐츠 + 분석으로 노트 만들기"
-  },
-  "mediaPage_untitled": {
-    "message": "제목 없음"
-  },
-  "mediaPage_copyMetadata": {
-    "message": "메타데이터 복사"
-  },
-  "mediaPage_statistics": {
-    "message": "통계"
-  },
-  "mediaPage_words": {
-    "message": "단어"
-  },
-  "mediaPage_characters": {
-    "message": "문자"
-  },
-  "mediaPage_paragraphs": {
-    "message": "단락"
-  },
-  "mediaPage_metadata": {
-    "message": "메타데이터"
-  },
-  "mediaPage_idLabel": {
-    "message": "ID"
-  },
-  "mediaPage_typeLabel": {
-    "message": "유형"
-  },
-  "mediaPage_titleLabel": {
-    "message": "제목"
-  },
-  "mediaPage_source": {
-    "message": "소스"
-  },
-  "mediaPage_notAvailable": {
-    "message": "해당 없음"
-  },
-  "mediaPage_developerTools": {
-    "message": "개발자 도구"
-  },
-  "mediaPage_spreadMode": {
-    "message": "비교"
-  },
-  "mediaPage_listMode": {
-    "message": "집중"
-  },
-  "mediaPage_allMode": {
-    "message": "스택"
-  },
-  "mediaPage_spreadModeTooltip": {
-    "message": "선택한 항목을 나란히 비교해서 봅니다"
-  },
-  "mediaPage_listModeTooltip": {
-    "message": "탐색으로 한 번에 한 항목씩 봅니다"
-  },
-  "mediaPage_allModeTooltip": {
-    "message": "선택한 항목을 스크롤 가능한 목록으로 모두 봅니다"
-  },
-  "mediaPage_copyContentLabel": {
-    "message": "콘텐츠 복사"
-  },
-  "mediaPage_copyAnalysisLabel": {
-    "message": "분석 복사"
-  },
-  "mediaPage_copyContentTooltip": {
-    "message": "콘텐츠를 클립보드에 복사"
-  },
-  "mediaPage_copyAnalysisTooltip": {
-    "message": "분석을 클립보드에 복사"
-  },
-  "mediaPage_prevItemTooltip": {
-    "message": "이전 항목 (←)"
-  },
-  "mediaPage_nextItemTooltip": {
-    "message": "다음 항목 (→)"
-  },
-  "mediaPage_viewerOptions": {
-    "message": "옵션"
-  },
-  "mediaPage_expandAllDropdown": {
-    "message": "펼치기/접기"
-  },
-  "mediaPage_itemPosition": {
-    "message": "항목 {{current}}/{{total}}"
-  },
-  "mediaPage_noItemSelected": {
-    "message": "선택된 항목이 없습니다"
-  },
-  "mediaPage_firstUseTitle": {
-    "message": "빠른 안내: 다중 항목 검토"
-  },
-  "mediaPage_firstUseStep1": {
-    "message": "항목 선택"
-  },
-  "mediaPage_firstUseStep1Desc": {
-    "message": "왼쪽 패널에서 항목을 클릭해 뷰어에 추가하세요."
-  },
-  "mediaPage_firstUseStep2": {
-    "message": "보기 선택"
-  },
-  "mediaPage_firstUseStep2DescUpdated": {
-    "message": "\"비교\"는 나란히, \"집중\"은 한 번에 하나, \"스택\"은 모두 보기입니다."
-  },
-  "mediaPage_firstUseStep3": {
-    "message": "탐색"
-  },
-  "mediaPage_firstUseStep3Desc": {
-    "message": "이전/다음 버튼 또는 키보드(Tab + Enter)로 항목을 이동하세요."
-  },
-  "mediaPage_gotIt": {
-    "message": "확인"
-  },
-  "mediaPage_model": {
-    "message": "모델"
-  },
-  "mediaPage_selectModel": {
-    "message": "모델 선택"
-  },
-  "mediaPage_noModelsAvailable": {
-    "message": "사용 가능한 모델이 없습니다"
-  },
-  "mediaPage_promptPresets": {
-    "message": "프롬프트 프리셋"
-  },
-  "mediaPage_showPresets": {
-    "message": "프리셋 표시"
-  },
-  "mediaPage_hidePresets": {
-    "message": "프리셋 숨기기"
-  },
-  "mediaPage_systemPromptLabel": {
-    "message": "시스템 프롬프트"
-  },
-  "mediaPage_systemPromptPlaceholder": {
-    "message": "시스템 프롬프트 입력..."
-  },
-  "mediaPage_userPromptPrefixLabel": {
-    "message": "사용자 프롬프트 접두사"
-  },
-  "mediaPage_prependedBeforeContent": {
-    "message": "(콘텐츠 앞에 추가됨)"
-  },
-  "mediaPage_userPrefixPlaceholder": {
-    "message": "선택 사항: 미디어 콘텐츠 앞에 추가할 텍스트를 입력하세요..."
-  },
-  "mediaPage_presetComprehensiveAnalysis": {
-    "message": "종합 분석"
-  },
-  "mediaPage_presetExecutiveSummary": {
-    "message": "요약 보고"
-  },
-  "mediaPage_presetCriticalReview": {
-    "message": "비판적 검토"
-  },
-  "mediaPage_presetQAAnalysis": {
-    "message": "Q&A 분석"
-  },
-  "empty_connectTitle": {
-    "message": "리뷰를 사용하려면 연결하세요"
-  },
-  "empty_connectDescription": {
-    "message": "설정에서 tldw 서버에 연결해 메시지를 보내고 미디어를 볼 수 있습니다. 연결되면 여기에서 미디어와 노트를 리뷰할 수 있습니다."
-  },
-  "empty_connectExample1": {
-    "message": "설정 → tldw 서버를 열어 서버 URL을 추가하세요."
-  },
-  "empty_connectExample2": {
-    "message": "연결되면 미디어와 노트를 찾아보고 구조화된 리뷰와 요약을 생성할 수 있습니다."
-  },
-  "empty_demoTitle": {
-    "message": "데모 모드에서 리뷰 둘러보기"
-  },
-  "empty_demoDescription": {
-    "message": "이 데모는 tldw Assistant가 미디어와 노트를 구조화된 리뷰로 만드는 방법을 보여줍니다. 나중에 내 서버를 연결해 내 콘텐츠를 분석할 수 있습니다."
-  },
-  "empty_demoExample1": {
-    "message": "선택한 미디어와 노트가 리뷰 작업 공간에 어떻게 표시되는지 확인하세요."
-  },
-  "empty_demoExample2": {
-    "message": "연결하면 내 녹음과 노트에서 요약과 액션 아이템을 생성할 수 있습니다."
-  },
-  "mediaEmpty_demoTitle": {
-    "message": "데모 모드에서 미디어 둘러보기"
-  },
-  "mediaEmpty_demoDescription": {
-    "message": "이 데모는 tldw Assistant가 처리된 미디어를 표시하고 검사하는 방법을 보여줍니다. 나중에 내 서버를 연결해 내 녹음과 문서를 탐색할 수 있습니다."
-  },
-  "mediaEmpty_demoExample1": {
-    "message": "처리된 미디어 항목이 Media 뷰어에 어떻게 표시되는지 확인하세요."
-  },
-  "mediaEmpty_demoExample2": {
-    "message": "연결하면 내 녹음과 파일에서 인제스트된 미디어를 찾아보고 검사할 수 있습니다."
-  },
-  "mediaEmpty_connectTitle": {
-    "message": "미디어를 사용하려면 연결하세요"
-  },
-  "mediaEmpty_connectDescription": {
-    "message": "설정에서 tldw 서버에 연결해 메시지를 보내고 미디어를 볼 수 있습니다. 연결되면 처리된 녹음과 문서가 여기에 표시됩니다."
-  },
-  "mediaEmpty_connectExample1": {
-    "message": "설정 → tldw 서버를 열어 서버 URL을 추가하세요."
-  },
-  "mediaEmpty_connectExample2": {
-    "message": "연결되면 헤더의 Quick ingest를 사용해 녹음과 파일에서 미디어를 추가하세요."
-  },
-  "mediaEmpty_offlineTitle": {
-    "message": "이 서버에서는 Media API를 사용할 수 없습니다"
-  },
-  "mediaEmpty_offlineDescription": {
-    "message": "이 tldw 서버는 Media 엔드포인트(/api/v1/media 및 /api/v1/media/search 등)를 제공하지 않습니다. 이 작업 공간을 사용하려면 Media가 포함된 버전으로 서버를 업그레이드하세요."
-  },
-  "mediaEmpty_offlineExample1": {
-    "message": "Diagnostics를 열어 서버 버전과 사용 가능한 API를 확인하세요."
-  },
-  "mediaEmpty_offlineExample2": {
-    "message": "업그레이드 후 확장을 다시 로드하고 미디어로 돌아가세요."
-  },
-  "mediaEmpty_featureUnavailableBadge": {
-    "message": "기능을 사용할 수 없습니다"
-  },
-  "mediaEmpty_demoExample3": {
-    "message": "Media를 Review와 함께 사용해 녹음을 요약하거나 분석하세요."
-  },
-  "mediaEmpty_demoPreviewHeading": {
-    "message": "예시 미디어 항목(미리보기 전용)"
-  },
-  "mediaEmpty_demoSample1Title": {
-    "message": "데모 미디어: 팀 통화 녹음"
-  },
-  "mediaEmpty_demoSample1Meta": {
-    "message": "비디오 · 25분 · 키워드: 스탠드업, 계획"
-  },
-  "mediaEmpty_demoSample2Title": {
-    "message": "데모 미디어: 제품 워크스루"
-  },
-  "mediaEmpty_demoSample2Meta": {
-    "message": "화면 녹화 · 12분 · 키워드: 온보딩"
-  },
-  "mediaEmpty_demoSample3Title": {
-    "message": "데모 미디어: 연구 논문 PDF"
-  },
-  "mediaEmpty_demoSample3Meta": {
-    "message": "PDF · 6페이지 · 키워드: 요약"
-  },
-  "mediaEmpty_offlineTechnicalDetails": {
-    "message": "기술 상세: 이 tldw 서버는 Media 엔드포인트(/api/v1/media 및 /api/v1/media/search 등)를 제공하지 않습니다."
-  },
-  "contentReview_templates_transcript_clean_label": {
-    "message": "전사 정리"
-  },
-  "contentReview_templates_transcript_clean_description": {
-    "message": "줄 구조를 유지하면서 구두점과 대/소문자를 정규화합니다."
-  },
-  "contentReview_templates_speaker_turns_label": {
-    "message": "화자 턴"
-  },
-  "contentReview_templates_speaker_turns_description": {
-    "message": "각 화자의 턴이 명확한 레이블과 함께 한 줄씩 나타나도록 보장합니다."
-  },
-  "contentReview_templates_chapter_headings_label": {
-    "message": "챕터 제목"
-  },
-  "contentReview_templates_chapter_headings_description": {
-    "message": "콘텐츠를 삭제하지 않고 주제를 묶기 위해 Markdown 제목을 삽입합니다."
   }
 }

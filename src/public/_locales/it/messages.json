@@ -611,7 +611,7 @@
     "message": "Mostra contenuto grezzo"
   },
   "notesSearch_exportNoteSuccess": {
-    "message": "Esportata ({{size}})"
+    "message": "Esportato ({{size}})"
   },
   "notesSearch_exportSuccess": {
     "message": "Esportate {{count}} note ({{size}})"
@@ -804,7 +804,7 @@
     "description": "Content review UI string."
   },
   "contentReview_reviewBeforeStorageHint": {
-    "message": "Elabora ora, poi modifica le bozze localmente prima di salvarle sul server.",
+    "message": "Elabora ora e poi modifica le bozze localmente prima di salvarle sul server.",
     "description": "Content review UI string."
   },
   "contentReview_reviewEnabled": {
@@ -820,15 +820,15 @@
     "description": "Content review UI string."
   },
   "contentReview_reviewWarningBody": {
-    "message": "Le bozze vengono salvate in questo browser e possono contenere dati sensibili. Puoi eliminarle dalla pagina Revisione contenuti in qualsiasi momento.",
+    "message": "Le bozze vengono memorizzate in questo browser e possono contenere dati sensibili. Puoi rimuovere le bozze dalla pagina Revisione contenuti in qualsiasi momento.",
     "description": "Content review UI string."
   },
   "contentReview_reviewWarningBodySecondary": {
-    "message": "La modalità revisione mantiene i contenuti lato client finché non li salvi sul server.",
+    "message": "La modalità revisione mantiene il contenuto lato client fino a quando non lo salvi sul server.",
     "description": "Content review UI string."
   },
   "contentReview_reviewWarningConfirm": {
-    "message": "Abilita revisione",
+    "message": "Attiva revisione",
     "description": "Content review UI string."
   },
   "contentReview_reviewWarningCancel": {
@@ -836,7 +836,7 @@
     "description": "Content review UI string."
   },
   "contentReview_reviewRunLabel": {
-    "message": "Revisione",
+    "message": "Revisiona",
     "description": "Content review UI string."
   },
   "contentReview_reviewDraftsCreated": {
@@ -860,7 +860,7 @@
     "description": "Content review UI string."
   },
   "contentReview_batchName": {
-    "message": "Batch {{index}}",
+    "message": "Lotto {{index}}",
     "description": "Content review UI string."
   },
   "contentReview_draftsLabel": {
@@ -1184,22 +1184,22 @@
     "description": "Button label to retry opening Content Review."
   },
   "quickIngest_title": {
-    "message": "Quick Ingest Media"
+    "message": "Quick Ingest media"
   },
   "quickIngest_subtitle": {
-    "message": "Enter one or more URLs. Force type per row if needed."
+    "message": "Inserisci uno o più URL. Forza il tipo per riga se necessario."
   },
   "quickIngest_offlineTitle": {
-    "message": "Server offline — staging only"
+    "message": "Server offline — solo staging"
   },
   "quickIngest_offlineDescription": {
-    "message": "You can queue URLs and files here and inspect fields, but ingestion will not run until your tldw server is online. Reconnect to process pending items."
+    "message": "Puoi mettere in coda URL e file qui e controllare i campi, ma l'ingestione non verrà eseguita finché il tuo server tldw non sarà online. Riconnettiti per elaborare gli elementi in sospeso."
   },
   "quickIngest_sourceHeading": {
-    "message": "Source URLs or files"
+    "message": "URL o file sorgente"
   },
   "quickIngest_storeRemote": {
-    "message": "Store to remote DB"
+    "message": "Salva nel DB remoto"
   },
   "quickIngest_storeRemoteAria": {
     "message": "Archivia i risultati di ingest sul tuo server tldw"
@@ -1286,61 +1286,61 @@
     "message": "https://github.com/rmusser01/tldw_browser_assistant"
   },
   "quickIngest_bulkPlaceholder": {
-    "message": "Paste URLs (one per line)"
+    "message": "Incolla URL (uno per riga)"
   },
   "quickIngest_or": {
-    "message": "or"
+    "message": "oppure"
   },
   "quickIngest_remove": {
-    "message": "Remove"
+    "message": "Rimuovi"
   },
   "quickIngest_add": {
-    "message": "Add URL"
+    "message": "Aggiungi URL"
   },
   "quickIngest_commonOptions": {
-    "message": "Ingestion options"
+    "message": "Opzioni di ingestione"
   },
   "quickIngest_audioOptions": {
-    "message": "Audio options"
+    "message": "Opzioni audio"
   },
   "quickIngest_audioLanguage": {
-    "message": "Language (e.g., en)"
+    "message": "Lingua (es. en)"
   },
   "quickIngest_audioDiarizationHelp": {
-    "message": "Turn on to separate speakers in transcripts."
+    "message": "Attiva per separare i parlanti nelle trascrizioni."
   },
   "quickIngest_documentOptions": {
-    "message": "Document options"
+    "message": "Opzioni documento"
   },
   "quickIngest_videoOptions": {
-    "message": "Video options"
+    "message": "Opzioni video"
   },
   "quickIngest_captionsHelp": {
-    "message": "Include timestamps/captions when available."
+    "message": "Includi timestamp/sottotitoli quando disponibili."
   },
   "quickIngest_cancel": {
-    "message": "Cancel"
+    "message": "Annulla"
   },
   "quickIngest_ingest": {
-    "message": "Ingest"
+    "message": "Ingestione"
   },
   "quickIngest_process": {
-    "message": "Process"
+    "message": "Elabora"
   },
   "quickIngest_results": {
-    "message": "Results"
+    "message": "Risultati"
   },
   "quickIngest_downloadJson": {
-    "message": "Download JSON"
+    "message": "Scarica JSON"
   },
   "quickIngest_advancedSummary": {
-    "message": "{{count}} advanced fields loaded"
+    "message": "{{count}} campi avanzati caricati"
   },
   "quickIngest_advancedEmpty": {
-    "message": "No advanced options detected — try reloading the spec."
+    "message": "Nessuna opzione avanzata rilevata — prova a ricaricare la specifica."
   },
   "quickIngest_modifiedCount": {
-    "message": "{{count}} modified"
+    "message": "{{count}} modificati"
   },
   "quickIngest_progress": {
     "message": "Elaborazione {{done}} / {{total}} elementi…"
@@ -1758,7 +1758,7 @@
     "message": "Parole chiave"
   },
   "mediaPage_moreTags": {
-    "message": "+{{count}} more tags"
+    "message": "+{{count}} altre etichette"
   },
   "mediaPage_resetFilters": {
     "message": "Reimposta filtri"
@@ -1818,7 +1818,7 @@
     "message": "Espandi"
   },
   "mediaPage_media": {
-    "message": "Media"
+    "message": "Contenuti multimediali"
   },
   "mediaPage_searchingBanner": {
     "message": "Ricerca dei media in corso…"
@@ -1911,7 +1911,7 @@
     "message": "Metadati"
   },
   "mediaPage_idLabel": {
-    "message": "ID"
+    "message": "Codice"
   },
   "mediaPage_typeLabel": {
     "message": "Tipo"
@@ -3091,5 +3091,137 @@
   },
   "quiz_retake": {
     "message": "Riprova il quiz"
+  },
+  "searchPrompts": {
+    "message": "Cerca prompt..."
+  },
+  "noMatchingPrompts": {
+    "message": "Nessun prompt corrispondente"
+  },
+  "promptSelect_favorites": {
+    "message": "Preferiti"
+  },
+  "promptSelect_system": {
+    "message": "Prompt di sistema"
+  },
+  "promptSelect_quick": {
+    "message": "Prompt rapidi"
+  },
+  "mediaPage_spreadMode": {
+    "message": "Confronta"
+  },
+  "mediaPage_listMode": {
+    "message": "Messa a fuoco"
+  },
+  "mediaPage_allMode": {
+    "message": "Pila"
+  },
+  "mediaPage_spreadModeTooltip": {
+    "message": "Visualizza gli elementi selezionati affiancati per confronto"
+  },
+  "mediaPage_listModeTooltip": {
+    "message": "Visualizza un elemento alla volta con navigazione"
+  },
+  "mediaPage_allModeTooltip": {
+    "message": "Visualizza tutti gli elementi selezionati in un elenco scorrevole"
+  },
+  "mediaPage_copyContentLabel": {
+    "message": "Copia contenuto"
+  },
+  "mediaPage_copyAnalysisLabel": {
+    "message": "Copia analisi"
+  },
+  "mediaPage_copyContentTooltip": {
+    "message": "Copia il contenuto negli appunti"
+  },
+  "mediaPage_copyAnalysisTooltip": {
+    "message": "Copia l'analisi negli appunti"
+  },
+  "mediaPage_prevItemTooltip": {
+    "message": "Elemento precedente (←)"
+  },
+  "mediaPage_nextItemTooltip": {
+    "message": "Elemento successivo (→)"
+  },
+  "mediaPage_viewerOptions": {
+    "message": "Opzioni"
+  },
+  "mediaPage_expandAllDropdown": {
+    "message": "Espandi/Comprimi"
+  },
+  "mediaPage_itemPosition": {
+    "message": "Elemento {{current}} di {{total}}"
+  },
+  "mediaPage_noItemSelected": {
+    "message": "Nessun elemento selezionato"
+  },
+  "mediaPage_firstUseTitle": {
+    "message": "Guida rapida: Revisione multi-elemento"
+  },
+  "mediaPage_firstUseStep1": {
+    "message": "Seleziona elementi"
+  },
+  "mediaPage_firstUseStep1Desc": {
+    "message": "Clicca sugli elementi nel pannello sinistro per aggiungerli al visualizzatore."
+  },
+  "mediaPage_firstUseStep2": {
+    "message": "Scegli una vista"
+  },
+  "mediaPage_firstUseStep2DescUpdated": {
+    "message": "Usa \"Confronta\" per affiancarli, \"Focus\" per uno alla volta, o \"Pila\" per vederli tutti."
+  },
+  "mediaPage_firstUseStep3": {
+    "message": "Naviga"
+  },
+  "mediaPage_firstUseStep3Desc": {
+    "message": "Usa i pulsanti Prec/Succ o la tastiera (Tab + Invio) per muoverti tra gli elementi."
+  },
+  "mediaPage_gotIt": {
+    "message": "Capito"
+  },
+  "mediaPage_model": {
+    "message": "Modello"
+  },
+  "mediaPage_selectModel": {
+    "message": "Seleziona un modello"
+  },
+  "mediaPage_noModelsAvailable": {
+    "message": "Nessun modello disponibile"
+  },
+  "mediaPage_promptPresets": {
+    "message": "Preset di prompt"
+  },
+  "mediaPage_showPresets": {
+    "message": "Mostra preset"
+  },
+  "mediaPage_hidePresets": {
+    "message": "Nascondi preset"
+  },
+  "mediaPage_systemPromptLabel": {
+    "message": "Prompt di sistema"
+  },
+  "mediaPage_systemPromptPlaceholder": {
+    "message": "Inserisci prompt di sistema..."
+  },
+  "mediaPage_userPromptPrefixLabel": {
+    "message": "Prefisso prompt utente"
+  },
+  "mediaPage_prependedBeforeContent": {
+    "message": "(anteposto prima del contenuto)"
+  },
+  "mediaPage_userPrefixPlaceholder": {
+    "message": "Opzionale: Inserisci testo da anteporre prima del contenuto multimediale..."
+  },
+  "mediaPage_presetComprehensiveAnalysis": {
+    "message": "Analisi completa"
+  },
+  "mediaPage_presetExecutiveSummary": {
+    "message": "Riepilogo esecutivo"
+  },
+  "mediaPage_presetCriticalReview": {
+    "message": "Revisione critica"
+  },
+  "mediaPage_presetQAAnalysis": {
+    "message": "Analisi Q&A"
   }
 }

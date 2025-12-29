@@ -3200,6 +3200,15 @@
   "playground_composer_validationCompareSelectModelsInline": {
     "message": "Select at least one model for Compare mode."
   },
+  "tabs_newChat": {
+    "message": "New Chat"
+  },
+  "tabs_newTabAria": {
+    "message": "New chat tab"
+  },
+  "tabs_closeTabAria": {
+    "message": "Close chat tab"
+  },
   "playground_actor_title": {
     "message": "Scene Director (Actor)"
   },
@@ -3362,16 +3371,16 @@
   "playground_actor_presetPlaceholder": {
     "message": "Choose a preset"
   },
-  "playground_actor_preset.sliceOfLife": {
+  "playground_actor_preset_sliceOfLife": {
     "message": "Slice of life"
   },
-  "playground_actor_preset.dungeonCrawl": {
+  "playground_actor_preset_dungeonCrawl": {
     "message": "Dungeon crawl"
   },
-  "playground_actor_preset.romance": {
+  "playground_actor_preset_romance": {
     "message": "Romance"
   },
-  "playground_actor_preset.workSession": {
+  "playground_actor_preset_workSession": {
     "message": "Work session"
   },
   "playground_actor_applyPreset": {
@@ -3395,13 +3404,13 @@
   "playground_actor_templateModeHelp": {
     "message": "Controls how Actor interacts with active scene templates. Merge keeps both; Override lets Actor replace overlapping fields; Ignore skips Actor when templates are active."
   },
-  "playground_actor_templateMode.merge": {
+  "playground_actor_templateMode_merge": {
     "message": "Merge with templates"
   },
-  "playground_actor_templateMode.override": {
+  "playground_actor_templateMode_override": {
     "message": "Override templates"
   },
-  "playground_actor_templateMode.ignore": {
+  "playground_actor_templateMode_ignore": {
     "message": "Ignore when templates active"
   },
   "playground_actor_bladeAspectsTitle": {
@@ -3946,5 +3955,23 @@
   },
   "manageCharacters_avatarAlt": {
     "message": "User avatar"
+  },
+  "searchPrompts": {
+    "message": "Search prompts..."
+  },
+  "noMatchingPrompts": {
+    "message": "No matching prompts"
+  },
+  "promptSelect_favorites": {
+    "message": "Favorites"
+  },
+  "promptSelect_system": {
+    "message": "System prompts"
+  },
+  "promptSelect_quick": {
+    "message": "Quick prompts"
+  },
+  "flashcards_bulkLimitWarning": {
+    "message": "Operation limited to first {{limit}} items."
   }
 }
