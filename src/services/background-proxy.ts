@@ -52,6 +52,8 @@ export async function bgRequest<
       // best-effort logging only
     }
   }
+  const isAbortErrorMessage = (value?: string) =>
+    typeof value === "string" && value.toLowerCase().includes("abort")
 
   // If extension messaging is available, use it (extension context)
   try {
@@ -66,14 +68,16 @@ export async function bgRequest<
         const resp = await browser.runtime.sendMessage(payload) as { ok: boolean; error?: string; status?: number; data: T } | undefined
         if (!resp?.ok) {
           const msg = resp?.error || `Request failed: ${resp?.status}`
-          console.warn("[tldw:request]", method, path, resp?.status, msg)
-          await recordRequestError({
-            method: String(method),
-            path: String(path),
-            status: resp?.status,
-            error: msg,
-            source: "background"
-          })
+          if (!isAbortErrorMessage(msg)) {
+            console.warn("[tldw:request]", method, path, resp?.status, msg)
+            await recordRequestError({
+              method: String(method),
+              path: String(path),
+              status: resp?.status,
+              error: msg,
+              source: "background"
+            })
+          }
           throw new Error(`${msg} (${method} ${path})`)
         }
         return resp.data as T
@@ -107,14 +111,16 @@ export async function bgRequest<
 
       if (!resp?.ok) {
         const msg = resp?.error || `Request failed: ${resp?.status}`
-        console.warn("[tldw:request]", method, path, resp?.status, msg)
-        await recordRequestError({
-          method: String(method),
-          path: String(path),
-          status: resp?.status,
-          error: msg,
-          source: "background"
-        })
+        if (!isAbortErrorMessage(msg)) {
+          console.warn("[tldw:request]", method, path, resp?.status, msg)
+          await recordRequestError({
+            method: String(method),
+            path: String(path),
+            status: resp?.status,
+            error: msg,
+            source: "background"
+          })
+        }
         throw new Error(`${msg} (${method} ${path})`)
       }
       return resp.data as T

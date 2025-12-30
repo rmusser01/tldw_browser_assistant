@@ -20,6 +20,7 @@ import { useWebUI } from "~/store/webui"
 import { defaultEmbeddingModelForRag } from "~/services/tldw-server"
 import {
   EraserIcon,
+  GitBranch,
   ImageIcon,
   MicIcon,
   StopCircleIcon,
@@ -1277,50 +1278,72 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
     }
   }, [contextToolsOpen, reloadTabs])
 
-  const moreToolsContent = React.useMemo(() => (
-    <div className="flex w-64 flex-col gap-3">
-      <div className="flex items-center justify-between">
-        <span className="text-sm text-gray-700 dark:text-gray-200">
-          {webSearch
-            ? t("playground:actions.webSearchOn")
-            : t("playground:actions.webSearchOff")}
-        </span>
-        <Switch
-          size="small"
-          checked={webSearch}
-          onChange={(value) => setWebSearch(value)}
-          checkedChildren={t("form.webSearch.on")}
-          unCheckedChildren={t("form.webSearch.off")}
-        />
+  const moreToolsContent = React.useMemo(
+    () => (
+      <div className="flex w-64 flex-col gap-3">
+        <div className="flex items-center justify-between">
+          <span className="text-sm text-gray-700 dark:text-gray-200">
+            {webSearch
+              ? t("playground:actions.webSearchOn")
+              : t("playground:actions.webSearchOff")}
+          </span>
+          <Switch
+            size="small"
+            checked={webSearch}
+            onChange={(value) => setWebSearch(value)}
+            checkedChildren={t("form.webSearch.on")}
+            unCheckedChildren={t("form.webSearch.off")}
+          />
+        </div>
+        <button
+          type="button"
+          onClick={() => setCompareSettingsOpen(true)}
+          className="flex w-full items-center justify-between rounded-md px-2 py-1 text-sm text-gray-700 transition hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-[#2a2a2a]"
+        >
+          <span>{compareButtonLabel}</span>
+          <GitBranch className="h-4 w-4" />
+        </button>
+        <button
+          type="button"
+          onClick={handleImageUpload}
+          disabled={chatMode === "rag"}
+          className="flex w-full items-center justify-between rounded-md px-2 py-1 text-sm text-gray-700 transition hover:bg-gray-100 disabled:cursor-not-allowed disabled:opacity-40 dark:text-gray-200 dark:hover:bg-[#2a2a2a]"
+        >
+          <span>{t("playground:actions.upload", "Attach image")}</span>
+          <ImageIcon className="h-4 w-4" />
+        </button>
+        <button
+          type="button"
+          onClick={handleDocumentUpload}
+          className="flex w-full items-center justify-between rounded-md px-2 py-1 text-sm text-gray-700 transition hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-[#2a2a2a]"
+        >
+          <span>{t("tooltip.uploadDocuments")}</span>
+          <PaperclipIcon className="h-4 w-4" />
+        </button>
+        <button
+          type="button"
+          onClick={handleClearContext}
+          disabled={history.length === 0}
+          className="flex w-full items-center justify-between rounded-md px-2 py-1 text-sm text-gray-700 transition hover:bg-gray-100 disabled:cursor-not-allowed disabled:opacity-40 dark:text-gray-200 dark:hover:bg-[#2a2a2a]"
+        >
+          <span>{t("tooltip.clearContext")}</span>
+          <EraserIcon className="h-4 w-4" />
+        </button>
       </div>
-      <button
-        type="button"
-        onClick={handleImageUpload}
-        disabled={chatMode === "rag"}
-        className="flex w-full items-center justify-between rounded-md px-2 py-1 text-sm text-gray-700 transition hover:bg-gray-100 disabled:cursor-not-allowed disabled:opacity-40 dark:text-gray-200 dark:hover:bg-[#2a2a2a]"
-      >
-        <span>{t("playground:actions.upload", "Attach image")}</span>
-        <ImageIcon className="h-4 w-4" />
-      </button>
-      <button
-        type="button"
-        onClick={handleDocumentUpload}
-        className="flex w-full items-center justify-between rounded-md px-2 py-1 text-sm text-gray-700 transition hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-[#2a2a2a]"
-      >
-        <span>{t("tooltip.uploadDocuments")}</span>
-        <PaperclipIcon className="h-4 w-4" />
-      </button>
-      <button
-        type="button"
-        onClick={handleClearContext}
-        disabled={history.length === 0}
-        className="flex w-full items-center justify-between rounded-md px-2 py-1 text-sm text-gray-700 transition hover:bg-gray-100 disabled:cursor-not-allowed disabled:opacity-40 dark:text-gray-200 dark:hover:bg-[#2a2a2a]"
-      >
-        <span>{t("tooltip.clearContext")}</span>
-        <EraserIcon className="h-4 w-4" />
-      </button>
-    </div>
-  ), [chatMode, handleClearContext, handleDocumentUpload, handleImageUpload, history.length, setWebSearch, t, webSearch])
+    ),
+    [
+      chatMode,
+      compareButtonLabel,
+      handleClearContext,
+      handleDocumentUpload,
+      handleImageUpload,
+      history.length,
+      setCompareSettingsOpen,
+      setWebSearch,
+      t,
+      webSearch
+    ]
+  )
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if (import.meta.env.BROWSER !== "firefox") {
@@ -2306,14 +2329,6 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
                                 </Tooltip>
                               </>
                             )}
-                            <div className="flex flex-col items-end text-[11px] text-gray-500 dark:text-gray-400 mr-2">
-                              <Button
-                                size="small"
-                                type={compareModeActive ? "primary" : "default"}
-                                onClick={() => setCompareSettingsOpen(true)}>
-                                {compareButtonLabel}
-                              </Button>
-                            </div>
                             <Tooltip
                               title={
                                 t(

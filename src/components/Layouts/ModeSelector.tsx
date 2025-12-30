@@ -20,6 +20,8 @@ export type CoreMode =
   | "knowledge"
   | "notes"
   | "prompts"
+  | "quiz"
+  | "evaluations"
   | "speech"
   | "promptStudio"
   | "flashcards"
@@ -101,6 +103,16 @@ export function ModeSelector({ currentMode, onModeChange }: ModeSelectorProps) {
     label: string
     shortcut?: KeyboardShortcut
   }> = [
+    {
+      key: "quiz",
+      label: t("option:header.quiz", "Quiz"),
+      shortcut: undefined,
+    },
+    {
+      key: "evaluations",
+      label: t("settings:evaluationsSettingsNav", "Evaluations"),
+      shortcut: undefined,
+    },
     {
       key: "speech",
       label: t("option:header.modeSpeech", "Speech"),

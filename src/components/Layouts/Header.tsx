@@ -139,6 +139,13 @@ export const Header: React.FC<Props> = ({
     )
       return "characters"
     if (pathname.startsWith("/flashcards")) return "flashcards"
+    if (pathname.startsWith("/quiz")) return "quiz"
+    if (
+      pathname.startsWith("/evaluations") ||
+      pathname.startsWith("/settings/evaluations")
+    ) {
+      return "evaluations"
+    }
     if (pathname.startsWith("/chunking-playground")) return "chunkingPlayground"
     if (
       pathname.startsWith("/speech") ||
@@ -200,6 +207,12 @@ export const Header: React.FC<Props> = ({
         break
       case "flashcards":
         navigate("/flashcards")
+        break
+      case "quiz":
+        navigate("/quiz")
+        break
+      case "evaluations":
+        navigate("/evaluations")
         break
       case "chunkingPlayground":
         navigate("/chunking-playground")

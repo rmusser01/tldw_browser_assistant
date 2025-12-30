@@ -6,9 +6,9 @@ import {
   BookOpen,
   BookText,
   BrainCircuitIcon,
-  ChromeIcon,
   CombineIcon,
   CpuIcon,
+  Gauge,
   InfoIcon,
   OrbitIcon,
   ServerIcon,
@@ -45,6 +45,8 @@ export const SETTINGS_NAV_GROUPS: SettingsNavGroup[] = [
       { to: "/settings/rag", icon: CombineIcon, labelToken: "settings:rag.title" },
       // Chrome AI and OpenAI/custom provider settings removed; extension is tldw_server-only
       { to: "/settings/model", icon: BrainCircuitIcon, labelToken: "settings:manageModels.title" },
+      { to: "/admin/llamacpp", icon: CpuIcon, labelToken: "option:header.adminLlamacpp" },
+      { to: "/admin/mlx", icon: Gauge, labelToken: "option:header.adminMlx" },
       { to: "/settings/evaluations", icon: FlaskConical, labelToken: "settings:evaluationsSettings.title", beta: true },
       { to: "/settings/prompt-studio", icon: Microscope, labelToken: "settings:promptStudio.nav", beta: true },
       { to: "/settings/health", icon: ActivityIcon, labelToken: "settings:healthNav" }

@@ -672,14 +672,19 @@ export const Sidebar = ({
               onChange={handleSearchChange}
               prefix={<SearchIcon className="w-4 h-4 text-gray-400" />}
               suffix={
-                searchQuery ? (
-                  <button
-                    onClick={clearSearch}
-                    className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-200"
-                    aria-label={t("common:clearSearch", { defaultValue: "Clear search" })}>
-                    ✕
-                  </button>
-                ) : null
+                <button
+                  type="button"
+                  onClick={clearSearch}
+                  className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-200"
+                  aria-label={t("common:clearSearch", { defaultValue: "Clear search" })}
+                  aria-hidden={!searchQuery}
+                  tabIndex={searchQuery ? 0 : -1}
+                  style={{
+                    visibility: searchQuery ? "visible" : "hidden",
+                    pointerEvents: searchQuery ? "auto" : "none"
+                  }}>
+                  ✕
+                </button>
               }
               className="w-full rounded-md border border-gray-300 dark:border-gray-700 dark:bg-[#232222]"
             />

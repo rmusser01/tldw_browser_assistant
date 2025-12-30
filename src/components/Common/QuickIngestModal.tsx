@@ -3411,7 +3411,7 @@ export const QuickIngestModal: React.FC<Props> = ({
           placement="right"
           onClose={() => setInspectorOpen(false)}
           open={inspectorOpen && (!!selectedRow || !!selectedFile)}
-          destroyOnClose
+          destroyOnHidden
           width={380}
         >
           <div className="space-y-3">

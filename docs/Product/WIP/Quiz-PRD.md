@@ -294,6 +294,18 @@ class QuestionCreate(BaseModel):
     order_index: int = 0
     tags: Optional[List[str]] = None
 
+class GeneratedQuestion(BaseModel):
+    """Schema for LLM-generated questions before DB insert."""
+    question_type: QuestionType
+    question_text: str
+    options: Optional[List[str]] = None
+    correct_answer: int | str
+    explanation: Optional[str] = None
+    points: int = 1
+
+class GeneratedQuestionList(BaseModel):
+    questions: List[GeneratedQuestion]
+
 class QuestionUpdate(BaseModel):
     model_config = ConfigDict(extra="forbid")
     question_type: Optional[QuestionType] = None
@@ -704,13 +716,17 @@ async def start_attempt(
     attempt_id = db.start_attempt(quiz_id)
     return db.get_attempt(attempt_id)
 
-@router.put("/attempts/{attempt_id}", response_model=AttemptResponse)
+@router.put("/{quiz_id}/attempts/{attempt_id}", response_model=AttemptResponse)
 async def submit_attempt(
+    quiz_id: int,
     attempt_id: int,
     submission: AttemptSubmitRequest,
     db: CharactersRAGDB = Depends(get_chacha_db)
 ):
     """Submit answers for an attempt"""
+    attempt = db.get_attempt(attempt_id)
+    if not attempt or attempt.quiz_id != quiz_id:
+        raise HTTPException(status_code=404, detail="Attempt not found")
     result = db.submit_attempt(attempt_id, [a.model_dump() for a in submission.answers])
     return result
 
@@ -760,12 +776,17 @@ async def generate_quiz(
 
 ```python
 import json
+import logging
 from typing import List, Optional, Dict
+from pydantic import ValidationError
 from ..core.DB_Management.ChaChaNotes_DB import CharactersRAGDB
 from ..core.DB_Management.Media_DB_v2 import MediaDatabase, get_latest_transcription
 from ..core.Chat.chat_helpers import extract_response_content
 from ..core.Chat.chat_orchestrator import chat_api_call
 from ..api.v1.schemas.chat_request_schemas import DEFAULT_LLM_PROVIDER
+from ..api.v1.schemas.quizzes import GeneratedQuestionList
+
+logger = logging.getLogger(__name__)
 
 QUIZ_GENERATION_PROMPT = """You are a quiz generator. Based on the following content, generate {num_questions} quiz questions.
 
@@ -858,35 +879,57 @@ async def generate_quiz_from_media(
         response_format={"type": "json_object"}  # If supported
     )
 
-    # 4. Parse response
+    # 4. Parse + validate response
     try:
         content_text = extract_response_content(response) or ""
-        questions_data = json.loads(content_text)
-        if isinstance(questions_data, dict) and 'questions' in questions_data:
-            questions_data = questions_data['questions']
-    except json.JSONDecodeError as e:
-        raise ValueError(f"Failed to parse LLM response as JSON: {e}")
+        raw = json.loads(content_text)
+        if isinstance(raw, dict) and 'questions' in raw:
+            payload = raw
+        elif isinstance(raw, list):
+            payload = {"questions": raw}
+        else:
+            raise ValueError("LLM response must be a list or {questions: [...]} object")
+        validated = GeneratedQuestionList.model_validate(payload)
+        questions_data = [q.model_dump() for q in validated.questions]
+    except (json.JSONDecodeError, ValidationError, ValueError) as e:
+        logger.exception("Failed to parse/validate LLM response", exc_info=e)
+        raise ValueError(f"Failed to parse/validate LLM response: {e}")
 
-    # 5. Create quiz in database
+    # 5. Create quiz + questions in database
     quiz_name = f"Quiz: {media.get('title', f'Media #{media_id}')}"
-    quiz_id = db.create_quiz(
-        name=quiz_name,
-        description=f"Auto-generated quiz from media content",
-        media_id=media_id
-    )
-
-    # Create questions
-    for idx, q in enumerate(questions_data):
-        db.create_question(
-            quiz_id=quiz_id,
-            question_type=q['question_type'],
-            question_text=q['question_text'],
-            correct_answer=q['correct_answer'],
-            options=q.get('options'),
-            explanation=q.get('explanation'),
-            points=q.get('points', 1),
-            order_index=idx
+    quiz_id = None
+    use_transaction = all(hasattr(db, attr) for attr in ("begin", "commit", "rollback"))
+    try:
+        if use_transaction:
+            db.begin()
+        quiz_id = db.create_quiz(
+            name=quiz_name,
+            description="Auto-generated quiz from media content",
+            media_id=media_id
         )
+
+        # Create questions
+        for idx, q in enumerate(questions_data):
+            db.create_question(
+                quiz_id=quiz_id,
+                question_type=q['question_type'],
+                question_text=q['question_text'],
+                correct_answer=q['correct_answer'],
+                options=q.get('options'),
+                explanation=q.get('explanation'),
+                points=q.get('points', 1),
+                order_index=idx
+            )
+
+        if use_transaction:
+            db.commit()
+    except Exception as exc:
+        if use_transaction:
+            db.rollback()
+        elif quiz_id is not None:
+            db.delete_quiz(quiz_id, hard_delete=True)
+        logger.exception("Failed to create quiz and questions", exc_info=exc)
+        raise
 
     # 6. Return created quiz
     return db.get_quiz(quiz_id)

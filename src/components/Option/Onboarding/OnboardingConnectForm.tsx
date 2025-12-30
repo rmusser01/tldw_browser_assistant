@@ -690,11 +690,23 @@ export function OnboardingConnectForm({ onFinish }: Props) {
               disabled={isConnecting}
               size="large"
               suffix={
-                serverUrl && urlValidation.valid ? (
-                  <Check className="size-4 text-green-500" aria-label={t("common:valid", "Valid")} />
-                ) : serverUrl && !urlValidation.valid ? (
-                  <X className="size-4 text-red-500" aria-label={t("common:invalid", "Invalid")} />
-                ) : null
+                <span
+                  className="inline-flex h-4 w-4 items-center justify-center"
+                  aria-hidden={!serverUrl}
+                  style={{ visibility: serverUrl ? "visible" : "hidden" }}
+                >
+                  {serverUrl && urlValidation.valid ? (
+                    <Check
+                      className="size-4 text-green-500"
+                      aria-label={t("common:valid", "Valid")}
+                    />
+                  ) : serverUrl && !urlValidation.valid ? (
+                    <X
+                      className="size-4 text-red-500"
+                      aria-label={t("common:invalid", "Invalid")}
+                    />
+                  ) : null}
+                </span>
               }
               aria-describedby={serverUrl && !urlValidation.valid ? "url-error" : undefined}
             />
