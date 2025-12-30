@@ -1,39 +1,990 @@
 {
-  "mediaPage.nothingToSend": {
+  "reviewPage_searchPlaceholder": {
+    "message": "മീഡിയ, കുറിപ്പുകൾ തിരയുക..."
+  },
+  "reviewPage_search": {
+    "message": "തിരയുക"
+  },
+  "reviewPage_filters": {
+    "message": "ഫിൽട്ടറുകൾ"
+  },
+  "reviewPage_media": {
+    "message": "മീഡിയ"
+  },
+  "reviewPage_notes": {
+    "message": "കുറിപ്പുകൾ"
+  },
+  "reviewPage_useReview": {
+    "message": "റിവ്യൂ ഉപയോഗിക്കുക"
+  },
+  "reviewPage_useSummary": {
+    "message": "സംഗ്രഹം ഉപയോഗിക്കുക"
+  },
+  "reviewPage_mediaTypes": {
+    "message": "മീഡിയ തരങ്ങൾ"
+  },
+  "reviewPage_keywords": {
+    "message": "കീവേഡുകൾ"
+  },
+  "reviewPage_clear": {
+    "message": "ഫിൽട്ടറുകൾ മായ്ക്കുക"
+  },
+  "reviewPage_resetFilters": {
+    "message": "ഫിൽട്ടറുകൾ പുനഃക്രമീകരിക്കുക"
+  },
+  "reviewPage_results": {
+    "message": "ഫലങ്ങൾ"
+  },
+  "reviewPage_noResults": {
+    "message": "ഫലങ്ങളില്ല"
+  },
+  "reviewPage_analyze_none": {
+    "message": "വിശകലനം ചെയ്യാൻ ഉള്ളടക്കം ഇല്ല"
+  },
+  "reviewPage_analyze_saved": {
+    "message": "വിശകലനം കുറിപ്പായി സംരക്ഷിച്ചു"
+  },
+  "reviewPage_analyze_failed": {
+    "message": "വിശകലനം ചെയ്ത് കുറിപ്പ് സംരക്ഷിക്കാൻ പരാജയപ്പെട്ടു"
+  },
+  "reviewPage_searchPrompts": {
+    "message": "പ്രോംപ്റ്റുകൾ തിരയുക"
+  },
+  "reviewPage_includeLocal": {
+    "message": "ലോകൽ"
+  },
+  "reviewPage_includeServer": {
+    "message": "സർവർ"
+  },
+  "reviewPage_presets": {
+    "message": "പ്രീസെറ്റുകൾ"
+  },
+  "reviewPage_presetsCritical": {
+    "message": "ക്രിറ്റിക്കൽ"
+  },
+  "reviewPage_presetsQaAudit": {
+    "message": "QA ഓഡിറ്റ്"
+  },
+  "reviewPage_presetsBulletReview": {
+    "message": "ബുള്ളറ്റ് റിവ്യൂ"
+  },
+  "reviewPage_reviewSystemPrompt": {
+    "message": "റിവ്യൂ: സിസ്റ്റം പ്രോംപ്റ്റ്"
+  },
+  "reviewPage_reviewUserPrefix": {
+    "message": "റിവ്യൂ: ഉപയോക്തൃ പ്രോംപ്റ്റ് പ്രിഫിക്സ്"
+  },
+  "reviewPage_saveAsDefault": {
+    "message": "ഡീഫോൾട്ടായി സംരക്ഷിക്കുക"
+  },
+  "reviewPage_reviewPrompt": {
+    "message": "റിവ്യൂ പ്രോംപ്റ്റ്"
+  },
+  "reviewPage_summarySystemPrompt": {
+    "message": "സംഗ്രഹം: സിസ്റ്റം പ്രോംപ്റ്റ്"
+  },
+  "reviewPage_summaryUserPrefix": {
+    "message": "സംഗ്രഹം: ഉപയോക്തൃ പ്രോംപ്റ്റ് പ്രിഫിക്സ്"
+  },
+  "reviewPage_summaryPrompt": {
+    "message": "സംഗ്രഹ പ്രോംപ്റ്റ്"
+  },
+  "reviewPage_customizePrompts": {
+    "message": "പ്രോംപ്റ്റുകൾ ഇഷ്ടാനുസൃതമാക്കുക"
+  },
+  "reviewPage_showRawJson": {
+    "message": "അസംസ്കൃത JSON കാണിക്കുക"
+  },
+  "reviewPage_noDetailLoaded": {
+    "message": "വിശദാംശങ്ങൾ ലോഡ് ചെയ്തിട്ടില്ല"
+  },
+  "reviewPage_resetToDefaults": {
+    "message": "ഡീഫോൾട്ടിലേക്ക് റീസെറ്റ് ചെയ്യുക"
+  },
+  "reviewPage_usingReviewPrompts": {
+    "message": "റിവ്യൂ പ്രോംപ്റ്റുകൾ ഉപയോഗിക്കുന്നു"
+  },
+  "reviewPage_usingSummaryPrompts": {
+    "message": "സംഗ്രഹ പ്രോംപ്റ്റുകൾ ഉപയോഗിക്കുന്നു"
+  },
+  "reviewPage_selectItemFirst": {
+    "message": "ആദ്യം ഒരു ഇനം തിരഞ്ഞെടുക്കുക"
+  },
+  "reviewPage_selectMediaFirst": {
+    "message": "ആദ്യം ഒരു മീഡിയ ഇനം തിരഞ്ഞെടുക്കുക"
+  },
+  "reviewPage_selectItemEmpty": {
+    "message": "റിവ്യൂ ചെയ്യാനും വിശകലനം ചെയ്യാനും ഒരു ഇനം തിരഞ്ഞെടുക്കുക"
+  },
+  "reviewPage_selectMediaEmpty": {
+    "message": "വിശകലനങ്ങൾ കാണാൻ ഒരു മീഡിയ ഇനം തിരഞ്ഞെടുക്കുക"
+  },
+  "reviewPage_generationMode": {
+    "message": "സൃഷ്ടിക്കൽ മോഡ്"
+  },
+  "reviewPage_resultTypes": {
+    "message": "ഫലങ്ങളുടെ തരം"
+  },
+  "reviewPage_advancedTools": {
+    "message": "അഡ്വാൻസ്ഡ് ഉപകരണങ്ങൾ"
+  },
+  "reviewPage_moreActions": {
+    "message": "കൂടുതൽ പ്രവർത്തനങ്ങൾ"
+  },
+  "reviewPage_toggleSidebar": {
+    "message": "ഫലങ്ങളുടെ സൈഡ്ബാർ ടോഗിൾ ചെയ്യുക"
+  },
+  "reviewPage_autoReviewLabel": {
+    "message": "ഒരു ഇനം തിരഞ്ഞെടുക്കുമ്പോൾ സ്വമേധയാ റിവ്യൂ സൃഷ്ടിക്കുക"
+  },
+  "reviewPage_demoMode": {
+    "message": "ഡെമോ മോഡ്"
+  },
+  "reviewPage_mediaOnlySearchPlaceholder": {
+    "message": "മീഡിയ തിരയുക (ശീർഷകം/ഉള്ളടക്കം)"
+  },
+  "reviewPage_showSidebar": {
+    "message": "ഫലങ്ങളുടെ സൈഡ്ബാർ കാണിക്കുക"
+  },
+  "reviewPage_hideSidebar": {
+    "message": "ഫലങ്ങളുടെ സൈഡ്ബാർ മറയ്ക്കുക"
+  },
+  "reviewPage_selectedBadge": {
+    "message": "തിരഞ്ഞെടുത്തത്"
+  },
+  "reviewPage_bulkToolbar": {
+    "message": "ബൾക്ക് വ്യൂ ടൂൾബാർ"
+  },
+  "reviewPage_loadedCount": {
+    "message": "{{count}} ലോഡ് ചെയ്തു"
+  },
+  "reviewPage_viewLabel": {
+    "message": "ഉള്ളടക്ക വ്യൂ"
+  },
+  "reviewPage_navigateLabel": {
+    "message": "ഇനങ്ങൾ"
+  },
+  "reviewPage_mediaModeHint": {
+    "message": "ഒരു സമയം ഒരു മീഡിയ ഇനം തിരഞ്ഞ് പരിശോധിക്കുക. ഒരു ഫലം തിരഞ്ഞെടുക്കുമ്പോൾ വലതുവശത്ത് ഉള്ളടക്കവും വിശകലനങ്ങളും കാണാം."
+  },
+  "reviewPage_resultsHelp": {
+    "message": "കീബോർഡ്: ഫലങ്ങളുടെ പട്ടികയിലേക്ക് Tab ചെയ്യുക, ഫോക്കസ് ചെയ്ത വരി തിരഞ്ഞെടുക്കാൻ Enter അല്ലെങ്കിൽ Space ഉപയോഗിക്കുക, തുടർന്ന് അനാലിസിസ് ടൂൾബാറിലെ Prev/Next ബട്ടണുകൾ ഉപയോഗിച്ച് ഇനങ്ങൾക്കിടയിൽ നീങ്ങുക."
+  },
+  "reviewPage_resultsHelpLabel": {
+    "message": "റിവ്യൂ ഫലങ്ങളുടെ കീബോർഡ് ഷോർട്‌കട്ടുകൾ"
+  },
+  "reviewPage_review": {
+    "message": "റിവ്യൂ നേടുക"
+  },
+  "reviewPage_reviewHint": {
+    "message": "ഈ ഇനം റിവ്യൂ ചെയ്യാൻ അസിസ്റ്റന്റിനോട് ചോദിക്കുക."
+  },
+  "reviewPage_summary": {
+    "message": "സംഗ്രഹം നേടുക"
+  },
+  "reviewPage_summaryHint": {
+    "message": "ചുരുങ്ങിയ സംഗ്രഹത്തിന് ചോദിക്കുക."
+  },
+  "reviewPage_attachGeneratedHint": {
+    "message": "അസിസ്റ്റന്റ് പ്രവർത്തിപ്പിച്ച് ഫലം ഈ മീഡിയ ഇനത്തോട് ചേർക്കുക."
+  },
+  "reviewPage_attachReview": {
+    "message": "റിവ്യൂ മീഡിയയോട് ചേർക്കുക"
+  },
+  "reviewPage_attachSummary": {
+    "message": "സംഗ്രഹം മീഡിയയോട് ചേർക്കുക"
+  },
+  "reviewPage_saveGeneratedNoteHint": {
+    "message": "അസിസ്റ്റന്റ് പ്രവർത്തിപ്പിച്ച് ഫലം കുറിപ്പായി സംരക്ഷിക്കുക."
+  },
+  "reviewPage_saveReviewNote": {
+    "message": "റിവ്യൂ കുറിപ്പായി സംരക്ഷിക്കുക"
+  },
+  "reviewPage_saveSummaryNote": {
+    "message": "സംഗ്രഹം കുറിപ്പായി സംരക്ഷിക്കുക"
+  },
+  "reviewPage_saveToMediaHint": {
+    "message": "എഡിറ്ററിലെ നിലവിലെ ടെക്സ്റ്റ് ഈ മീഡിയ ഇനത്തോട് ചേർക്കുക."
+  },
+  "reviewPage_saveToMedia": {
+    "message": "നിലവിലെ ടെക്സ്റ്റ് മീഡിയയോട് ചേർക്കുക"
+  },
+  "reviewPage_saveAnalysisHint": {
+    "message": "നിലവിലെ വിശകലനത്തിൽ നിന്ന് ഒരു കുറിപ്പ് സൃഷ്ടിക്കുക."
+  },
+  "reviewPage_saveAnalysis": {
+    "message": "കുറിപ്പുകളിൽ സംരക്ഷിക്കുക"
+  },
+  "reviewPage_askAssistantLabel": {
+    "message": "അസിസ്റ്റന്റിനോട് ചോദിക്കുക"
+  },
+  "reviewPage_saveResultsLabel": {
+    "message": "ഫലങ്ങൾ സംരക്ഷിക്കുക"
+  },
+  "reviewPage_moreSaveNewVersion": {
+    "message": "പുതിയ പതിപ്പായി സംരക്ഷിക്കുക"
+  },
+  "reviewPage_moreDuplicateVersion": {
+    "message": "പകർപ്പ് പതിപ്പ്"
+  },
+  "reviewPage_moreRestoreVersion": {
+    "message": "തിരഞ്ഞെടുത്ത പതിപ്പ് പുനഃസ്ഥാപിക്കുക"
+  },
+  "reviewPage_modeReview": {
+    "message": "റിവ്യൂ ഉപയോഗിക്കുക"
+  },
+  "reviewPage_modeSummary": {
+    "message": "സംഗ്രഹം ഉപയോഗിക്കുക"
+  },
+  "reviewPage_resultsHint": {
+    "message": "ഒരു ഫലം ക്ലിക്കുചെയ്താൽ വലതുവശത്ത് ഉള്ളടക്കവും വിശകലനങ്ങളും ലോഡാകും."
+  },
+  "reviewPage_paginationHint": {
+    "message": "പല ഇനങ്ങൾ ലോഡ് ചെയ്തിരിക്കുമ്പോൾ ഫിൽട്ടറുകളോ പേജിനേഷനോ ഉപയോഗിച്ച് ഫലങ്ങൾ ചുരുക്കുക."
+  },
+  "reviewPage_offlineHint": {
+    "message": "സന്ദേശങ്ങൾ അയയ്ക്കാനും മീഡിയ കാണാനുമായി സെറ്റിംഗുകളിൽ നിങ്ങളുടെ tldw സർവറുമായി ബന്ധിപ്പിക്കുക. തുടർന്ന് ഈ പേജിൽ നിന്ന് മീഡിയ തിരയാം."
+  },
+  "reviewPage_chatWithMedia": {
+    "message": "ഈ മീഡിയയോടെ ചാറ്റ് ചെയ്യുക"
+  },
+  "reviewPage_chatWithMediaHint": {
+    "message": "ചാറ്റ് തുറന്ന് കംപോസറിൽ ഈ മീഡിയയുടെ ഉള്ളടക്കം മുൻകൂട്ടി നിറയ്ക്കുക."
+  },
+  "reviewPage_chatPrepared": {
+    "message": "കംപോസറിൽ ഈ മീഡിയയോടെ ചാറ്റ് തയ്യാറാക്കി."
+  },
+  "reviewPage_chatAboutMediaHint": {
+    "message": "ഈ മീഡിയയ്ക്ക് മാത്രം സ്കോപ്പ് ചെയ്ത RAG ചാറ്റ് തുറക്കുക."
+  },
+  "reviewPage_chatAboutMediaRagSent": {
+    "message": "മീഡിയ-സ്കോപ്പ് ചെയ്ത RAG ചാറ്റ് തുറന്നു."
+  },
+  "reviewPage_chatAboutMediaInvalidId": {
+    "message": "ഈ മീഡിയ ഇനത്തിന് ഇനിയും സംഖ്യാ ഐഡി ഇല്ല."
+  },
+  "reviewPage_demoBadge": {
+    "message": "ഡെമോ"
+  },
+  "reviewPage_notConnectedBadge": {
+    "message": "കണക്ഷൻ ഇല്ല"
+  },
+  "reviewPage_prevItem": {
+    "message": "മുൻപത്തെത്"
+  },
+  "reviewPage_nextItem": {
+    "message": "അടുത്തത്"
+  },
+  "reviewPage_noContent": {
+    "message": "ലഭ്യമായ ഉള്ളടക്കം ഇല്ല"
+  },
+  "reviewPage_showMore": {
+    "message": "കൂടുതൽ കാണിക്കുക"
+  },
+  "reviewPage_showLess": {
+    "message": "കുറച്ച് കാണിക്കുക"
+  },
+  "reviewPage_showRaw": {
+    "message": "അസംസ്കൃതം കാണിക്കുക"
+  },
+  "reviewPage_hideRaw": {
+    "message": "അസംസ്കൃതം മറയ്ക്കുക"
+  },
+  "reviewPage_noAnalysis": {
+    "message": "ഇതുവരെ വിശകലനം ഇല്ല"
+  },
+  "reviewPage_mediaContent": {
+    "message": "മീഡിയ ഉള്ളടക്കം"
+  },
+  "reviewPage_copyContent": {
+    "message": "ഉള്ളടക്കം പകർത്തുക"
+  },
+  "reviewPage_analysisTitle": {
+    "message": "വിശകലനം"
+  },
+  "reviewPage_copyAnalysis": {
+    "message": "വിശകലനം പകർത്തുക"
+  },
+  "reviewPage_sendAnalysisToChat": {
+    "message": "വിശകലനം ചാറ്റിലേക്ക് അയയ്ക്കുക"
+  },
+  "reviewPage_copyAllPlain": {
+    "message": "എല്ലാം സാദാ ടെക്സ്റ്റായി പകർത്തുക"
+  },
+  "reviewPage_copyAllMarkdown": {
+    "message": "എല്ലാം മാർക്ക്ഡൗൺ ആയി പകർത്തുക"
+  },
+  "reviewPage_openInMulti": {
+    "message": "മൾട്ടി-ഐറ്റം റിവ്യൂയിൽ തുറക്കുക"
+  },
+  "reviewPage_analysisFailed": {
+    "message": "വിശകലനം പരാജയപ്പെട്ടു"
+  },
+  "reviewPage_analysisAttached": {
+    "message": "വിശകലനം മീഡിയയോട് ചേർത്തു"
+  },
+  "reviewPage_analyzeSaveFailed": {
+    "message": "വിശകലനം ചെയ്ത് സംരക്ഷിക്കാൻ പരാജയപ്പെട്ടു"
+  },
+  "reviewPage_nothingToSave": {
+    "message": "സംരക്ഷിക്കാനുള്ളത് ഒന്നുമില്ല"
+  },
+  "reviewPage_savedToNotes": {
+    "message": "കുറിപ്പുകളിൽ സംരക്ഷിച്ചു"
+  },
+  "reviewPage_saveFailed": {
+    "message": "സംരക്ഷിക്കൽ പരാജയപ്പെട്ടു"
+  },
+  "reviewPage_saveToMediaFailed": {
+    "message": "മീഡിയയിൽ സംരക്ഷിക്കാൻ പരാജയപ്പെട്ടു"
+  },
+  "reviewPage_sentToChat": {
+    "message": "ചാറ്റിലേക്ക് അയച്ചു"
+  },
+  "reviewPage_sendFailed": {
+    "message": "അയക്കാൻ പരാജയപ്പെട്ടു"
+  },
+  "reviewPage_analysisEditorPlaceholder": {
+    "message": "റിവ്യൂ അല്ലെങ്കിൽ സംഗ്രഹം പ്രവർത്തിപ്പിച്ച് പിന്നെ ഇവിടെ തിരുത്തുക..."
+  },
+  "reviewPage_createdNewVersion": {
+    "message": "പുതിയ പതിപ്പ് സൃഷ്ടിച്ചു"
+  },
+  "reviewPage_createVersionFailed": {
+    "message": "പതിപ്പ് സൃഷ്ടിക്കൽ പരാജയപ്പെട്ടു"
+  },
+  "reviewPage_selectVersionFirst": {
+    "message": "ആദ്യം ഒരു പതിപ്പ് തിരഞ്ഞെടുക്കുക"
+  },
+  "reviewPage_noVersionNumber": {
+    "message": "പതിപ്പ് നമ്പർ ഇല്ല"
+  },
+  "reviewPage_selectedVersionNoContent": {
+    "message": "തിരഞ്ഞെടുത്ത പതിപ്പിൽ ഉള്ളടക്കം ഇല്ല"
+  },
+  "reviewPage_clonedVersionCreated": {
+    "message": "പകർന്ന പതിപ്പ് സൃഷ്ടിച്ചു"
+  },
+  "reviewPage_cloneFailed": {
+    "message": "പകർപ്പിക്കൽ പരാജയപ്പെട്ടു"
+  },
+  "reviewPage_confirmTitle": {
+    "message": "ദയവായി സ്ഥിരീകരിക്കുക"
+  },
+  "reviewPage_restoreConfirm": {
+    "message": "ഈ പതിപ്പ് നിലവിലുള്ളതായി പുനഃസ്ഥാപിക്കണോ?"
+  },
+  "reviewPage_restoreAction": {
+    "message": "പുനഃസ്ഥാപിക്കുക"
+  },
+  "reviewPage_cancelAction": {
+    "message": "റദ്ദാക്കുക"
+  },
+  "reviewPage_versionRestored": {
+    "message": "പതിപ്പ് പുനഃസ്ഥാപിച്ചു"
+  },
+  "reviewPage_restoreFailed": {
+    "message": "പുനഃസ്ഥാപിക്കൽ പരാജയപ്പെട്ടു"
+  },
+  "reviewPage_existingAnalysesTitle": {
+    "message": "നിലവിലുള്ള വിശകലനങ്ങൾ"
+  },
+  "reviewPage_onlyWithAnalysis": {
+    "message": "വിശകലനമുള്ളവ മാത്രം"
+  },
+  "reviewPage_copyAllLabel": {
+    "message": "എല്ലാം പകർത്തുക"
+  },
+  "reviewPage_copyMdLabel": {
+    "message": "MD പകർത്തുക"
+  },
+  "reviewPage_copiedAllNotes": {
+    "message": "എല്ലാ കുറിപ്പുകളും പകർത്തി"
+  },
+  "reviewPage_copiedAllNotesMarkdown": {
+    "message": "എല്ലാ കുറിപ്പുകളും Markdown ആയി പകർത്തി"
+  },
+  "reviewPage_loadSelectedAnalysis": {
+    "message": "തിരഞ്ഞെടുത്ത വിശകലനം എഡിറ്ററിലേക്ക് ലോഡ് ചെയ്യുക"
+  },
+  "reviewPage_loadLabel": {
+    "message": "ലോഡ് ചെയ്യുക"
+  },
+  "reviewPage_loadVersionPrompt": {
+    "message": "പതിപ്പിന്റെ പ്രോംപ്റ്റ് എഡിറ്ററിലേക്ക് ലോഡ് ചെയ്യുക"
+  },
+  "reviewPage_noPromptFound": {
+    "message": "പ്രോംപ്റ്റ് കണ്ടെത്താനായില്ല"
+  },
+  "reviewPage_copyVersionPrompt": {
+    "message": "തിരഞ്ഞെടുത്ത പതിപ്പിന്റെ പ്രോംപ്റ്റ് പകർത്തുക"
+  },
+  "reviewPage_promptCopied": {
+    "message": "പ്രോംപ്റ്റ് പകർത്തി"
+  },
+  "reviewPage_diffSelectedCurrent": {
+    "message": "തിരഞ്ഞെടുത്തതും നിലവിലുള്ളതും തമ്മിലുള്ള ഡിഫ്"
+  },
+  "reviewPage_versionDeleted": {
+    "message": "പതിപ്പ് ഇല്ലാതാക്കി"
+  },
+  "reviewPage_versionDeletedDescription": {
+    "message": "പതിപ്പ് v{{version}} ഇല്ലാതാക്കി."
+  },
+  "reviewPage_undoRolledBack": {
+    "message": "പിന്‍വലിക്കൽ: ഇല്ലാതാക്കിയ പതിപ്പിലേക്ക് മടക്കി"
+  },
+  "reviewPage_undoFailed": {
+    "message": "പിന്‍വലിക്കൽ പരാജയപ്പെട്ടു"
+  },
+  "reviewPage_undoLabel": {
+    "message": "പിന്‍വലിക്കുക"
+  },
+  "reviewPage_deleteFailed": {
+    "message": "ഇല്ലാതാക്കൽ പരാജയപ്പെട്ടു"
+  },
+  "reviewPage_deleteSelectedVersion": {
+    "message": "തിരഞ്ഞെടുത്ത പതിപ്പ് ഇല്ലാതാക്കുക"
+  },
+  "reviewPage_noSavedAnalyses": {
+    "message": "ഈ ഇനത്തിനായി ഇതുവരെ സംരക്ഷിച്ച വിശകലനങ്ങളില്ല."
+  },
+  "reviewPage_currentTag": {
+    "message": "നിലവിലെ"
+  },
+  "reviewPage_promptLabel": {
+    "message": "പ്രോംപ്റ്റ്"
+  },
+  "reviewPage_showLabel": {
+    "message": "കാണിക്കുക"
+  },
+  "reviewPage_hideLabel": {
+    "message": "മറയ്ക്കുക"
+  },
+  "reviewPage_copyAnalysisPlainTooltip": {
+    "message": "വിശകലനം (സാദാ) പകർത്തുക"
+  },
+  "reviewPage_copyLabel": {
+    "message": "പകർത്തുക"
+  },
+  "reviewPage_copyAnalysisMarkdownTooltip": {
+    "message": "Markdown ആയി പകർത്തുക"
+  },
+  "reviewPage_copiedAnalysisMarkdown": {
+    "message": "വിശകലനം Markdown ആയി പകർത്തി"
+  },
+  "reviewPage_markdownLabel": {
+    "message": "Markdown"
+  },
+  "reviewPage_copyPromptTooltip": {
+    "message": "പ്രോംപ്റ്റ് പകർത്തുക"
+  },
+  "reviewPage_diffUnified": {
+    "message": "ഒന്നിപ്പിച്ചത്"
+  },
+  "reviewPage_diffSideBySide": {
+    "message": "ഒപ്പത്തിനൊപ്പം"
+  },
+  "reviewPage_diffCopied": {
+    "message": "ഡിഫ് പകർത്തി"
+  },
+  "reviewPage_copyDiffLabel": {
+    "message": "ഡിഫ് പകർത്തുക"
+  },
+  "reviewPage_closeLabel": {
+    "message": "അടയ്ക്കുക"
+  },
+  "reviewPage_diffTitle": {
+    "message": "ഡിഫ്: തിരഞ്ഞെടുത്തത് vs നിലവിലുള്ളത്"
+  },
+  "reviewPage_diffSelectedVersion": {
+    "message": "തിരഞ്ഞെടുത്ത പതിപ്പ്"
+  },
+  "reviewPage_diffCurrentEditor": {
+    "message": "നിലവിലെ എഡിറ്റർ"
+  },
+  "reviewPage_noDifferences": {
+    "message": "വ്യത്യാസങ്ങളില്ല"
+  },
+  "reviewPage_chatAboutMedia": {
+    "message": "ഈ മീഡിയയെ കുറിച്ച് ചാറ്റ് ചെയ്യുക"
+  },
+  "reviewPage_statusProcessing": {
+    "message": "പ്രോസസ്സ് ചെയ്യുന്നു"
+  },
+  "reviewPage_statusQueued": {
+    "message": "ക്യൂയിൽ"
+  },
+  "reviewPage_statusError": {
+    "message": "പിശക്"
+  },
+  "reviewPage_statusReady": {
+    "message": "തയ്യാർ"
+  },
+  "reviewPage_loadedOf": {
+    "message": "{{count}} ലോഡ് ചെയ്തു"
+  },
+  "reviewPage_expandAllContent": {
+    "message": "മുഴുവൻ കാണിക്കുക"
+  },
+  "reviewPage_collapseAllContent": {
+    "message": "ചുരുക്കി കാണിക്കുക"
+  },
+  "reviewPage_expandContent": {
+    "message": "വിപുലീകരിക്കുക"
+  },
+  "reviewPage_collapseContent": {
+    "message": "ചുരുക്കുക"
+  },
+  "reviewPage_expandAnalysis": {
+    "message": "വിപുലീകരിക്കുക"
+  },
+  "reviewPage_collapseAnalysis": {
+    "message": "ചുരുക്കുക"
+  },
+  "reviewPage_jumpTo": {
+    "message": "പോകുക"
+  },
+  "reviewPage_presetsExecutive": {
+    "message": "എക്സിക്യൂട്ടീവ്"
+  },
+  "reviewPage_presetsDetailed": {
+    "message": "വിശദമായ"
+  },
+  "reviewPage_presetsBullets": {
+    "message": "ബുള്ളറ്റുകൾ"
+  },
+  "mediaPage_searchPlaceholder": {
+    "message": "മീഡിയ തിരയുക (ശീർഷകം/ഉള്ളടക്കം)"
+  },
+  "mediaPage_search": {
+    "message": "തിരയുക"
+  },
+  "mediaPage_clear": {
+    "message": "മായ്ക്കുക"
+  },
+  "mediaPage_types": {
+    "message": "തരങ്ങൾ"
+  },
+  "mediaPage_keywords": {
+    "message": "കീവേഡുകൾ"
+  },
+  "mediaPage_moreTags": {
+    "message": "+{{count}} കൂടുതൽ ടാഗുകൾ"
+  },
+  "mediaPage_resetFilters": {
+    "message": "ഫിൽട്ടറുകൾ പുനഃക്രമീകരിക്കുക"
+  },
+  "mediaPage_clearAll": {
+    "message": "എല്ലാം മായ്ക്കുക"
+  },
+  "mediaPage_content": {
+    "message": "ഉള്ളടക്കം"
+  },
+  "mediaPage_vertical": {
+    "message": "ലംബ"
+  },
+  "mediaPage_horizontal": {
+    "message": "തിരശ്ചീന"
+  },
+  "mediaPage_results": {
+    "message": "ഫലങ്ങൾ"
+  },
+  "mediaPage_noResults": {
+    "message": "ഫലങ്ങളില്ല"
+  },
+  "mediaPage_showSidebar": {
+    "message": "സൈഡ്ബാർ കാണിക്കുക"
+  },
+  "mediaPage_hideSidebar": {
+    "message": "സൈഡ്ബാർ മറയ്ക്കുക"
+  },
+  "mediaPage_viewer": {
+    "message": "വ്യൂവർ"
+  },
+  "mediaPage_selectItemsHint": {
+    "message": "ഇവിടെ കാണാൻ ഇടത് വശത്ത് നിന്ന് ഇനങ്ങൾ തിരഞ്ഞെടുക്കുക."
+  },
+  "mediaPage_mediaContent": {
+    "message": "മീഡിയ ഉള്ളടക്കം"
+  },
+  "mediaPage_copyContent": {
+    "message": "ഉള്ളടക്കം പകർത്തുക"
+  },
+  "mediaPage_contentCopied": {
+    "message": "ഉള്ളടക്കം പകർത്തി"
+  },
+  "mediaPage_metadataCopied": {
+    "message": "മീറ്റാഡാറ്റ പകർത്തി"
+  },
+  "mediaPage_analysisCopied": {
+    "message": "വിശകലനം പകർത്തി"
+  },
+  "mediaPage_copyFailed": {
+    "message": "പകർത്തൽ പരാജയപ്പെട്ടു"
+  },
+  "mediaPage_noContent": {
+    "message": "ലഭ്യമായ ഉള്ളടക്കം ഇല്ല"
+  },
+  "mediaPage_collapse": {
+    "message": "ചുരുക്കുക"
+  },
+  "mediaPage_expand": {
+    "message": "വികസിപ്പിക്കുക"
+  },
+  "mediaPage_media": {
+    "message": "മീഡിയ"
+  },
+  "mediaPage_searchingBanner": {
+    "message": "മീഡിയ തിരയുന്നു…"
+  },
+  "mediaPage_filterHelp": {
+    "message": "തിരയൽ ശീർഷകവും ഉള്ളടക്കവും പൊരുത്തപ്പെടുന്നതാണ്; തരം, കീവേഡുകൾ ഫലങ്ങൾ കൂടുതൽ ചുരുക്കുന്നു."
+  },
+  "mediaPage_noMediaTypes": {
+    "message": "മീഡിയ തരം ഒന്നും ലഭ്യമല്ല"
+  },
+  "mediaPage_resultsCount": {
+    "message": "{{selected}} തിരഞ്ഞെടുക്കപ്പെട്ടത് · {{open}} തുറന്നത്"
+  },
+  "mediaPage_clearSelection": {
+    "message": "എല്ലാം തിരഞ്ഞെടുക്കൽ നീക്കുക"
+  },
+  "mediaPage_itemsLabel": {
+    "message": "ഇനങ്ങൾ"
+  },
+  "mediaPage_contentLabel": {
+    "message": "ഉള്ളടക്ക വ്യൂ"
+  },
+  "mediaPage_filterByKeyword": {
+    "message": "കീവേഡ് പ്രകാരം ഫിൽട്ടർ ചെയ്യുക"
+  },
+  "mediaPage_keywordHelper": {
+    "message": "കീവേഡുകൾ ഇടത്തെ കീവേഡ് ഫിൽട്ടർ ഉപയോഗിച്ച് ഈ മീഡിയ കണ്ടെത്താൻ നിങ്ങളെ സഹായിക്കുന്നു"
+  },
+  "mediaPage_modeHint": {
+    "message": "വലത് വശത്തെ വ്യൂവറിൽ താരതമ്യം ചെയ്യാൻ ഒന്നിലധികം മീഡിയ ഇനങ്ങൾ തിരയുകയും സ്റ്റാക്ക് ചെയ്യുകയും ചെയ്യുക."
+  },
+  "mediaPage_viewerHelp": {
+    "message": "കീയ്ബോർഡ്: Tab അമർത്തി ഫലങ്ങളുടെ പട്ടികയിലേക്ക് പോകുക, Enter അല്ലെങ്കിൽ Space ഉപയോഗിച്ച് മീഡിയ ഇനങ്ങൾ സ്റ്റാക്ക് ചെയ്യുകയോ നീക്കുകയോ ചെയ്യുക, შემდეგ Prev/Next, ലേഔട്ട് നിയന്ത്രണങ്ങൾ എന്നിവ ഉപയോഗിച്ച് വ്യൂവറിൽ ഇനങ്ങൾക്കിടയിൽ സഞ്ചരിക്കുക."
+  },
+  "mediaPage_viewerHelpLabel": {
+    "message": "മൾട്ടി-ഐറ്റം റിവ്യൂയുടെ കീബോർഡ് ഷോർട്‌കട്ടുകൾ"
+  },
+  "mediaPage_mediaInspector": {
+    "message": "മീഡിയ ഇൻസ്പെക്ടർ"
+  },
+  "mediaPage_actionsLabel": {
+    "message": "പ്രവർത്തനങ്ങൾ"
+  },
+  "mediaPage_keywordsPlaceholder": {
+    "message": "കീവേഡുകൾ ചേർക്കുക..."
+  },
+  "mediaPage_noSelectionTitle": {
+    "message": "ഒരു മീഡിയ ഇനവും തിരഞ്ഞെടുത്തിട്ടില്ല"
+  },
+  "mediaPage_noSelectionDescription": {
+    "message": "ഇവിടെ ഉള്ളടക്കും വിശകലനവും കാണാൻ ഇടത് സൈഡ്ബാറിൽ നിന്ന് ഒരു മീഡിയ ഇനം തിരഞ്ഞെടുക്കുക."
+  },
+  "mediaPage_generateAnalysis": {
+    "message": "വിശകലനം സൃഷ്ടിക്കുക"
+  },
+  "mediaPage_generateAnalysisHint": {
+    "message": "പുതിയ വിശകലനം സൃഷ്ടിക്കുക"
+  },
+  "mediaPage_editAnalysis": {
+    "message": "വിശകലനം തിരുത്തുക"
+  },
+  "mediaPage_createNoteWithContent": {
+    "message": "ഉള്ളടക്കം ഉപയോഗിച്ച് കുറിപ്പ് സൃഷ്ടിക്കുക"
+  },
+  "mediaPage_createNoteWithContentAnalysis": {
+    "message": "ഉള്ളടക്കം + വിശകലനം ഉപയോഗിച്ച് കുറിപ്പ് സൃഷ്ടിക്കുക"
+  },
+  "mediaPage_untitled": {
+    "message": "ശീർഷകമില്ലാത്തത്"
+  },
+  "mediaPage_copyMetadata": {
+    "message": "മെറ്റാഡേറ്റ പകർത്തുക"
+  },
+  "mediaPage_statistics": {
+    "message": "സ്ഥിതിവിവരക്കണക്ക്"
+  },
+  "mediaPage_words": {
+    "message": "വാക്കുകൾ"
+  },
+  "mediaPage_characters": {
+    "message": "അക്ഷരങ്ങൾ"
+  },
+  "mediaPage_paragraphs": {
+    "message": "അവതരണങ്ങൾ"
+  },
+  "mediaPage_metadata": {
+    "message": "മെറ്റാഡേറ്റ"
+  },
+  "mediaPage_idLabel": {
+    "message": "ഐഡി"
+  },
+  "mediaPage_typeLabel": {
+    "message": "തരം"
+  },
+  "mediaPage_titleLabel": {
+    "message": "ശീർഷകം"
+  },
+  "mediaPage_source": {
+    "message": "ഉറവ്"
+  },
+  "mediaPage_notAvailable": {
+    "message": "ലഭ്യമല്ല"
+  },
+  "mediaPage_developerTools": {
+    "message": "ഡെവലപ്പർ ഉപകരണങ്ങൾ"
+  },
+  "mediaPage_nothingToSend": {
     "message": "അയയ്ക്കാൻ ഉള്ള ഉള്ളടക്കം ഒന്നുമില്ല"
   },
-  "mediaPage.emptyAnalysis": {
+  "mediaPage_emptyAnalysis": {
     "message": "വിശകലനം ഒഴിഞ്ഞതാകാൻ പാടില്ല"
   },
-  "mediaPage.noMediaId": {
+  "mediaPage_noMediaId": {
     "message": "ലഭ്യമായ മീഡിയ ID ഇല്ല"
   },
-  "mediaPage.versionSaved": {
+  "mediaPage_versionSaved": {
     "message": "പുതിയ പതിപ്പായി സേവ് ചെയ്തു"
   },
-  "mediaPage.saveFailed": {
+  "mediaPage_saveFailed": {
     "message": "പതിപ്പ് സേവ് ചെയ്യാൻ കഴിഞ്ഞില്ല"
   },
-  "mediaPage.sendToChat": {
+  "mediaPage_sendToChat": {
     "message": "ചാറ്റിലേക്ക് അയയ്ക്കുക"
   },
-  "mediaPage.saveAsVersion": {
+  "mediaPage_saveAsVersion": {
     "message": "പുതിയ പതിപ്പായി സേവ് ചെയ്യുക"
   },
-  "mediaPage.analysisPlaceholder": {
+  "mediaPage_analysisPlaceholder": {
     "message": "വിശകലന ടെക്സ്റ്റ് നൽകുക..."
   },
-  "mediaPage.wordCount": {
+  "mediaPage_wordCount": {
     "message": "{{count}} വാക്കുകൾ"
   },
-  "mediaPage.charCount": {
+  "mediaPage_charCount": {
     "message": "{{count}} അക്ഷരങ്ങൾ"
   },
-  "mediaPage.pageRangeError": {
-    "message": "താൾ 1 മുതൽ {{max}} വരെയായിരിക്കണം"
+  "mediaPage_pageRangeError": {
+    "message": "പേജ് 1-{{max}} ആയിരിക്കണം"
   },
-  "mediaPage.pageRangeClamped": {
-    "message": "താൾ {{page}} ലേക്ക് പോകുന്നു"
+  "mediaPage_pageRangeClamped": {
+    "message": "പേജ് {{page}} ലേക്ക് നാവിഗേറ്റ് ചെയ്യുന്നു"
+  },
+  "mediaPage_saveUnauthorized": {
+    "message": "സംരക്ഷിക്കാൻ അനുമതിയില്ല"
+  },
+  "mediaPage_spreadMode": {
+    "message": "താരതമ്യം"
+  },
+  "mediaPage_listMode": {
+    "message": "ഫോകസ്"
+  },
+  "mediaPage_allMode": {
+    "message": "സ്റ്റാക്ക്"
+  },
+  "mediaPage_spreadModeTooltip": {
+    "message": "താരതമ്യം ചെയ്യാൻ തിരഞ്ഞെടുത്ത ഇനങ്ങളെ സൈഡ്-ബൈ-സൈഡ് ആയി കാണുക"
+  },
+  "mediaPage_listModeTooltip": {
+    "message": "നാവിഗേഷൻ ഉപയോഗിച്ച് ഒരൊറ്റ ഇനം വീതം കാണുക"
+  },
+  "mediaPage_allModeTooltip": {
+    "message": "തിരഞ്ഞെടുത്ത എല്ലായ്‌റ്റവും സ്ക്രോൾ ചെയ്യാവുന്ന പട്ടികയിൽ കാണുക"
+  },
+  "mediaPage_copyContentLabel": {
+    "message": "ഉള്ളടക്കം പകർത്തുക"
+  },
+  "mediaPage_copyAnalysisLabel": {
+    "message": "വിശകലനം പകർത്തുക"
+  },
+  "mediaPage_copyContentTooltip": {
+    "message": "ഉള്ളടക്കം ക്ലിപ്പ്ബോർഡിലേക്ക് പകർത്തുക"
+  },
+  "mediaPage_copyAnalysisTooltip": {
+    "message": "വിശകലനം ക്ലിപ്പ്ബോർഡിലേക്ക് പകർത്തുക"
+  },
+  "mediaPage_prevItemTooltip": {
+    "message": "മുൻപത്തെ ഇനം (←)"
+  },
+  "mediaPage_nextItemTooltip": {
+    "message": "അടുത്ത ഇനം (→)"
+  },
+  "mediaPage_viewerOptions": {
+    "message": "ഓപ്ഷനുകൾ"
+  },
+  "mediaPage_expandAllDropdown": {
+    "message": "വികസിപ്പിക്കുക/ചുരുക്കുക"
+  },
+  "mediaPage_itemPosition": {
+    "message": "ഇനം {{current}} / {{total}}"
+  },
+  "mediaPage_noItemSelected": {
+    "message": "ഇനം ഒന്നും തിരഞ്ഞെടുക്കപ്പെട്ടിട്ടില്ല"
+  },
+  "mediaPage_firstUseTitle": {
+    "message": "ദ്രുത ഗൈഡ്: മൾട്ടി-ഐറ്റം റിവ്യൂ"
+  },
+  "mediaPage_firstUseStep1": {
+    "message": "ഇനങ്ങൾ തിരഞ്ഞെടുക്കുക"
+  },
+  "mediaPage_firstUseStep1Desc": {
+    "message": "ഇടത് പാനലിലെ ഇനങ്ങൾ ക്ലിക്കുചെയ്ത് വ്യൂവറിൽ ചേർക്കുക."
+  },
+  "mediaPage_firstUseStep2": {
+    "message": "ഒരു വ്യൂ തിരഞ്ഞെടുക്കുക"
+  },
+  "mediaPage_firstUseStep2Desc": {
+    "message": "\"താരതമ്യം\" സൈഡ്-ബൈ-സൈഡിന്, \"ഫോകസ്\" ഒരൊറ്റ ഇനത്തിനും, അല്ലെങ്കിൽ എല്ലാം കാണാൻ \"സ്റ്റാക്ക്\" ഉപയോഗിക്കുക."
+  },
+  "mediaPage_firstUseStep3": {
+    "message": "നാവിഗേറ്റ് ചെയ്യുക"
+  },
+  "mediaPage_firstUseStep3Desc": {
+    "message": "മുൻപത്തെ/അടുത്തത് ബട്ടണുകളോ കീബോർഡോ (Tab + Enter) ഉപയോഗിച്ച് ഇനങ്ങൾക്കിടയിൽ നീങ്ങുക."
+  },
+  "mediaPage_gotIt": {
+    "message": "ശരി"
+  },
+  "mediaPage_model": {
+    "message": "മോഡൽ"
+  },
+  "mediaPage_selectModel": {
+    "message": "ഒരു മോഡൽ തിരഞ്ഞെടുക്കുക"
+  },
+  "mediaPage_noModelsAvailable": {
+    "message": "ലഭ്യമായ മോഡലുകൾ ഇല്ല"
+  },
+  "mediaPage_promptPresets": {
+    "message": "പ്രോംപ്റ്റ് പ്രീസെറ്റുകൾ"
+  },
+  "mediaPage_showPresets": {
+    "message": "പ്രീസെറ്റുകൾ കാണിക്കുക"
+  },
+  "mediaPage_hidePresets": {
+    "message": "പ്രീസെറ്റുകൾ മറയ്ക്കുക"
+  },
+  "mediaPage_systemPromptLabel": {
+    "message": "സിസ്റ്റം പ്രോംപ്റ്റ്"
+  },
+  "mediaPage_systemPromptPlaceholder": {
+    "message": "സിസ്റ്റം പ്രോംപ്റ്റ് നൽകുക..."
+  },
+  "mediaPage_userPromptPrefixLabel": {
+    "message": "ഉപയോക്തൃ പ്രോംപ്റ്റ് പ്രിഫിക്സ്"
+  },
+  "mediaPage_prependedBeforeContent": {
+    "message": "(ഉള്ളടക്കത്തിന് മുമ്പായി ചേർക്കുന്നു)"
+  },
+  "mediaPage_userPrefixPlaceholder": {
+    "message": "ഐച്ഛികം: മീഡിയ ഉള്ളടക്കത്തിന് മുമ്പായി ചേർക്കാനുള്ള ടെക്സ്റ്റ് നൽകുക..."
+  },
+  "mediaPage_presetComprehensiveAnalysis": {
+    "message": "സമഗ്ര വിശകലനം"
+  },
+  "mediaPage_presetExecutiveSummary": {
+    "message": "എക്സിക്യൂട്ടീവ് സംഗ്രഹം"
+  },
+  "mediaPage_presetCriticalReview": {
+    "message": "വിമർശനപരമായ റിവ്യൂ"
+  },
+  "mediaPage_presetQAAnalysis": {
+    "message": "Q&A വിശകലനം"
+  },
+  "empty_connectTitle": {
+    "message": "റിവ്യൂ ഉപയോഗിക്കാൻ കണക്റ്റ് ചെയ്യുക"
+  },
+  "empty_connectDescription": {
+    "message": "സന്ദേശങ്ങൾ അയയ്ക്കാനും മീഡിയ കാണാനുമായി സെറ്റിംഗുകളിൽ നിങ്ങളുടെ tldw സർവറുമായി ബന്ധിപ്പിക്കുക. കണക്റ്റ് ചെയ്ത ശേഷം ഇവിടെ മീഡിയയും കുറിപ്പുകളും റിവ്യൂ ചെയ്യാം."
+  },
+  "empty_connectExample1": {
+    "message": "നിങ്ങളുടെ സർവർ URL ചേർക്കാൻ Settings → tldw server തുറക്കുക."
+  },
+  "empty_connectExample2": {
+    "message": "കണക്റ്റ് ചെയ്താൽ മീഡിയയും കുറിപ്പുകളും ബ്രൗസ് ചെയ്ത് ഘടനാപരമായ റിവ്യൂകളും സംക്ഷേപങ്ങളും സൃഷ്ടിക്കാം."
+  },
+  "empty_demoTitle": {
+    "message": "ഡെമോ മോഡിൽ റിവ്യൂ പരീക്ഷിക്കുക"
+  },
+  "empty_demoDescription": {
+    "message": "ഈ ഡെമോ tldw Assistant മീഡിയയെയും കുറിപ്പുകളെയും ഘടനാപരമായ റിവ്യൂകളാക്കി മാറ്റുന്നതെങ്ങനെ എന്ന് കാണിക്കുന്നു. പിന്നീട് നിങ്ങളുടെ സ്വന്തം സർവർ കണക്റ്റ് ചെയ്ത് നിങ്ങളുടെ ഉള്ളടക്കം വിശകലനം ചെയ്യാം."
+  },
+  "empty_demoExample1": {
+    "message": "തിരഞ്ഞെടുത്ത മീഡിയയും കുറിപ്പുകളും റിവ്യൂ വർക്ക്‌സ്‌പേസിൽ എങ്ങനെ കാണപ്പെടുന്നുവെന്ന് കാണുക."
+  },
+  "empty_demoExample2": {
+    "message": "നിങ്ങൾ കണക്റ്റ് ചെയ്താൽ, നിങ്ങളുടെ സ്വന്തം റെക്കോർഡിംഗുകളിലും കുറിപ്പുകളിലും നിന്ന് സംക്ഷേപങ്ങളും പ്രവർത്തന ഇനങ്ങളും സൃഷ്ടിക്കാം."
+  },
+  "mediaEmpty_demoTitle": {
+    "message": "ഡെമോ മോഡിൽ മീഡിയ പരീക്ഷിക്കുക"
+  },
+  "mediaEmpty_demoDescription": {
+    "message": "ഈ ഡെമോ tldw Assistant പ്രോസസ്സ് ചെയ്ത മീഡിയ കാണിക്കുകയും പരിശോധിക്കുകയും ചെയ്യുന്നതെങ്ങനെ എന്ന് കാണിക്കുന്നു. പിന്നീട് നിങ്ങളുടെ സ്വന്തം സർവർ കണക്റ്റ് ചെയ്ത് നിങ്ങളുടെ റെക്കോർഡിംഗുകളും ഡോക്യുമെന്റുകളും ബ്രൗസ് ചെയ്യാം."
+  },
+  "mediaEmpty_demoExample1": {
+    "message": "പ്രോസസ്സ് ചെയ്ത മീഡിയ ഇനങ്ങൾ മീഡിയ വ്യൂവറിൽ എങ്ങനെ കാണപ്പെടുന്നുവെന്ന് കാണുക."
+  },
+  "mediaEmpty_demoExample2": {
+    "message": "നിങ്ങൾ കണക്റ്റ് ചെയ്താൽ, നിങ്ങളുടെ റെക്കോർഡിംഗുകളിലും ഫയലുകളിലും നിന്ന് ഇൻജസ്റ്റ് ചെയ്ത മീഡിയ ബ്രൗസ് ചെയ്യുകയും പരിശോധിക്കുകയും ചെയ്യാം."
+  },
+  "mediaEmpty_connectTitle": {
+    "message": "മീഡിയ ഉപയോഗിക്കാൻ കണക്റ്റ് ചെയ്യുക"
+  },
+  "mediaEmpty_connectDescription": {
+    "message": "സന്ദേശങ്ങൾ അയയ്ക്കാനും മീഡിയ കാണാനുമായി സെറ്റിംഗുകളിൽ നിങ്ങളുടെ tldw സർവറുമായി ബന്ധിപ്പിക്കുക. കണക്റ്റ് ചെയ്ത ശേഷം പ്രോസസ്സ് ചെയ്ത റെക്കോർഡിംഗുകളും ഡോക്യുമെന്റുകളും ഇവിടെ പട്ടികയിലാകും."
+  },
+  "mediaEmpty_connectExample1": {
+    "message": "നിങ്ങളുടെ സർവർ URL ചേർക്കാൻ Settings → tldw server തുറക്കുക."
+  },
+  "mediaEmpty_connectExample2": {
+    "message": "കണക്റ്റ് ചെയ്താൽ, ഹെഡറിലെ Quick ingest ഉപയോഗിച്ച് നിങ്ങളുടെ റെക്കോർഡിംഗുകളിലും ഫയലുകളിലും നിന്ന് മീഡിയ ചേർക്കുക."
+  },
+  "mediaEmpty_offlineTitle": {
+    "message": "ഈ സർവറിൽ Media Review ഇനിയും ലഭ്യമല്ല"
+  },
+  "mediaEmpty_offlineDescription": {
+    "message": "ഈ വർക്ക്‌സ്‌പേസ് നിങ്ങളുടെ tldw സർവറിലെ Media Review പിന്തുണയെ ആശ്രയിക്കുന്നു. മീഡിയ ഉൾപ്പെടുന്ന പതിപ്പിലേക്ക് അപ്ഗ്രേഡ് ചെയ്യുമ്പോൾ ചാറ്റ്, കുറിപ്പുകൾ, മറ്റ് ഉപകരണങ്ങൾ ഉപയോഗിക്കുന്നത് തുടരാം."
+  },
+  "mediaEmpty_offlineExample1": {
+    "message": "നിങ്ങളുടെ സർവർ പതിപ്പും ലഭ്യമായ APIകളും സ്ഥിരീകരിക്കാൻ Diagnostics തുറക്കുക."
+  },
+  "mediaEmpty_offlineExample2": {
+    "message": "അപ്‌ഗ്രേഡ് കഴിഞ്ഞാൽ എക്സ്റ്റൻഷൻ വീണ്ടും ലോഡ് ചെയ്ത് മീഡിയയിലേക്ക് മടങ്ങുക."
+  },
+  "mediaEmpty_offlineTechnicalDetails": {
+    "message": "സാങ്കേതിക വിശദാംശങ്ങൾ: ഈ tldw സർവർ മീഡിയ എൻഡ്‌പോയിന്റുകൾ (ഉദാ: /api/v1/media ഒപ്പം /api/v1/media/search) പ്രഖ്യാപിക്കുന്നില്ല."
+  },
+  "mediaEmpty_featureUnavailableBadge": {
+    "message": "സവിശേഷത ലഭ്യമല്ല"
+  },
+  "mediaEmpty_demoExample3": {
+    "message": "റെക്കോർഡിംഗുകൾ സംക്ഷിപ്തമാക്കാനോ വിശകലനം ചെയ്യാനോ മീഡിയയെ റിവ്യൂയോടൊപ്പം ഉപയോഗിക്കുക."
+  },
+  "mediaEmpty_demoPreviewHeading": {
+    "message": "ഉദാഹരണ മീഡിയ ഇനങ്ങൾ (പ്രിവ്യൂ മാത്രം)"
+  },
+  "mediaEmpty_demoSample1Title": {
+    "message": "ഡെമോ മീഡിയ: ടീം കോൾ റെക്കോർഡിംഗ്"
+  },
+  "mediaEmpty_demoSample1Meta": {
+    "message": "വീഡിയോ · 25 മിനിറ്റ് · കീവേഡുകൾ: സ്റ്റാൻഡപ്പ്, പ്ലാനിംഗ്"
+  },
+  "mediaEmpty_demoSample2Title": {
+    "message": "ഡെമോ മീഡിയ: പ്രോഡക്റ്റ് വാക്‌ത്രൂ"
+  },
+  "mediaEmpty_demoSample2Meta": {
+    "message": "സ്ക്രീൻ റെക്കോർഡിംഗ് · 12 മിനിറ്റ് · കീവേഡുകൾ: ഓൺബോർഡിംഗ്"
+  },
+  "mediaEmpty_demoSample3Title": {
+    "message": "ഡെമോ മീഡിയ: ഗവേഷണ ലേഖന PDF"
+  },
+  "mediaEmpty_demoSample3Meta": {
+    "message": "PDF · 6 പേജുകൾ · കീവേഡുകൾ: സംക്ഷേപണം"
   },
   "noToolCalls": {
     "message": "ഇതുവരെ ടൂൾ കോൾ ഒന്നുമില്ല"
@@ -46,5 +997,320 @@
   },
   "result": {
     "message": "ഫലം"
+  },
+  "reviewDraftsFailedTitle": {
+    "message": "റിവ്യൂ ഡ്രാഫ്റ്റുകൾ സൃഷ്ടിക്കാനായില്ല."
+  },
+  "reviewDraftsFailedFallback": {
+    "message": "റിവ്യൂ ഡ്രാഫ്റ്റുകൾ സൃഷ്ടിക്കൽ പരാജയപ്പെട്ടു."
+  },
+  "reviewDraftsRetry": {
+    "message": "ഡ്രാഫ്റ്റ് സൃഷ്ടിക്കൽ വീണ്ടും ശ്രമിക്കുക"
+  },
+  "reviewDraftsStoreWithoutReview": {
+    "message": "റിവ്യൂ ഇല്ലാതെ സംഭരിക്കുക"
+  },
+  "reviewNavigationFailed": {
+    "message": "ഉള്ളടക്ക റിവ്യൂ തുറക്കാനായില്ല. വീണ്ടും ശ്രമിക്കുക."
+  },
+  "reviewNavigationRetry": {
+    "message": "ഉള്ളടക്ക റിവ്യൂ വീണ്ടും തുറക്കുക"
+  },
+  "contentReview_title": {
+    "message": "ഉള്ളടക്കം റിവ്യൂ"
+  },
+  "contentReview_readyToSubmit": {
+    "message": "{{count}} തയ്യാറായി"
+  },
+  "contentReview_committedCount": {
+    "message": "{{count}} സംഭരിച്ചിരിക്കുന്നു"
+  },
+  "contentReview_totalCount": {
+    "message": "മൊത്തം {{count}}"
+  },
+  "contentReview_commitAll": {
+    "message": "എല്ലാം കമ്മിറ്റുചെയ്യുക"
+  },
+  "contentReview_clearDrafts": {
+    "message": "ഡ്രാഫ്റ്റുകൾ മായ്ക്കുക"
+  },
+  "contentReview_emptyDescription": {
+    "message": "ഇപ്പോഴും ഒരു ഡ്രാഫ്റ്റും ഇല്ല. സംരക്ഷിക്കുന്നതിന് മുമ്പ് റിവ്യൂ ചെയ്യൽ ഓപ്ഷൻ ഉപയോഗിച്ച് Quick Ingest വഴി ഡ്രാഫ്റ്റുകൾ സൃഷ്ടിക്കാം."
+  },
+  "contentReview_openQuickIngest": {
+    "message": "Quick Ingest തുറക്കുക"
+  },
+  "contentReview_storeAfterReview": {
+    "message": "റിവ്യൂ കഴിഞ്ഞ് സംഭരിക്കുക"
+  },
+  "contentReview_reviewBeforeStorage": {
+    "message": "സംരക്ഷിക്കുന്നതിന് മുമ്പ് റിവ്യൂ ചെയ്യുക"
+  },
+  "contentReview_reviewBeforeStorageHint": {
+    "message": "ഇപ്പോൾ പ്രോസസ്സ് ചെയ്യുക, തുടർന്ന് നിങ്ങളുടെ സെർവറിൽ കമ്മിറ്റുചെയ്യുന്നതിന് മുമ്പ് ഡ്രാഫ്റ്റുകൾ ലോക്കലായി എഡിറ്റ് ചെയ്യുക."
+  },
+  "contentReview_reviewEnabled": {
+    "message": "റിവ്യൂ മോഡ്"
+  },
+  "contentReview_reviewStorageCap": {
+    "message": "ലോക്കൽ ഡ്രാഫ്റ്റുകൾ {{cap}} വരെ പരിമിതമാണ്."
+  },
+  "contentReview_reviewWarningTitle": {
+    "message": "ഡ്രാഫ്റ്റുകൾ ലോക്കലായി സംഭരിക്കണോ?"
+  },
+  "contentReview_reviewWarningBody": {
+    "message": "ഡ്രാഫ്റ്റുകൾ ഈ ബ്രൗസറിൽ സംഭരിക്കപ്പെടുകയും സെൻസിറ്റീവ് ഡാറ്റ ഉൾക്കൊള്ളുകയും ചെയ്യാം. ഉള്ളടക്കം റിവ്യൂ പേജിൽ നിന്ന് നിങ്ങൾക്ക് ഏത് സമയത്തും ഡ്രാഫ്റ്റുകൾ മായ്ക്കാം."
+  },
+  "contentReview_reviewWarningBodySecondary": {
+    "message": "നിങ്ങൾ സെർവറിലേക്ക് കമ്മിറ്റുചെയ്യുന്നതുവരെ റിവ്യൂ മോഡ് ഉള്ളടക്കം ക്ലയന്റ്-സൈഡിൽ നിലനിർത്തും."
+  },
+  "contentReview_reviewWarningConfirm": {
+    "message": "റിവ്യൂ സജീവമാക്കുക"
+  },
+  "contentReview_reviewWarningCancel": {
+    "message": "റദ്ദാക്കുക"
+  },
+  "contentReview_reviewRunLabel": {
+    "message": "റിവ്യൂ"
+  },
+  "contentReview_reviewDraftsCreated": {
+    "message": "ഡ്രാഫ്റ്റുകൾ റിവ്യൂയ്ക്ക് തയ്യാറായി."
+  },
+  "contentReview_reviewStorageCapWarning_one": {
+    "message": "{{count}} ഫയൽ ലോക്കൽ ഡ്രാഫ്റ്റ് പരിധി ({{cap}}) കവിയുന്നു. ഓഡിയോ/വീഡിയോ കമ്മിറ്റുചെയ്യുന്നതിന് മുമ്പ് സോഴ്‌സുകൾ അറ്റാച്ച് ചെയ്യുക."
+  },
+  "contentReview_reviewStorageCapWarning_other": {
+    "message": "{{count}} ഫയലുകൾ ലോക്കൽ ഡ്രാഫ്റ്റ് പരിധി ({{cap}}) കവിയുന്നു. ഓഡിയോ/വീഡിയോ കമ്മിറ്റുചെയ്യുന്നതിന് മുമ്പ് സോഴ്‌സുകൾ അറ്റാച്ച് ചെയ്യുക."
+  },
+  "contentReview_openContentReview": {
+    "message": "ഉള്ളടക്കം റിവ്യൂ തുറക്കുക"
+  },
+  "contentReview_batchLabel": {
+    "message": "ബാച്ച്"
+  },
+  "contentReview_batchName": {
+    "message": "ബാച്ച് {{index}}"
+  },
+  "contentReview_draftsLabel": {
+    "message": "ഡ്രാഫ്റ്റുകൾ"
+  },
+  "contentReview_selectDraft": {
+    "message": "റിവ്യൂ തുടങ്ങാൻ ഒരു ഡ്രാഫ്റ്റ് തിരഞ്ഞെടുക്കുക."
+  },
+  "contentReview_titlePlaceholder": {
+    "message": "ഡ്രാഫ്റ്റിന്റെ ശീർഷകം"
+  },
+  "contentReview_lastSaved": {
+    "message": "{{time}} ന് സംരക്ഷിച്ചു"
+  },
+  "contentReview_resetTitle": {
+    "message": "ഡ്രാഫ്റ്റ് റീസെറ്റ് ചെയ്യണോ?"
+  },
+  "contentReview_resetBody": {
+    "message": "ഈ ഡ്രാഫ്റ്റിന്റെ ആദ്യത്തെ ഉള്ളടക്കം തിരിച്ചെടുക്കും."
+  },
+  "contentReview_resetConfirm": {
+    "message": "റീസെറ്റ്"
+  },
+  "contentReview_resetCancel": {
+    "message": "റദ്ദാക്കുക"
+  },
+  "contentReview_resetContent": {
+    "message": "റീസെറ്റ്"
+  },
+  "contentReview_diffView": {
+    "message": "വ്യത്യാസങ്ങൾ കാണുക"
+  },
+  "contentReview_saveDraft": {
+    "message": "ഡ്രാഫ്റ്റ് സംരക്ഷിക്കുക"
+  },
+  "contentReview_editorLabel": {
+    "message": "ഉള്ളടക്കം"
+  },
+  "contentReview_wordCount": {
+    "message": "{{words}} വാക്കുകൾ"
+  },
+  "contentReview_charCount": {
+    "message": "{{chars}} പ്രതീകങ്ങൾ"
+  },
+  "contentReview_aiFix": {
+    "message": "AI വഴി തിരുത്തുക"
+  },
+  "contentReview_aiHint": {
+    "message": "ഡ്രാഫ്റ്റിന്റെ ഉള്ളടക്കം AI പ്രോസസിംഗിന് നിങ്ങളുടെ സെർവറിലേക്ക് അയക്കും."
+  },
+  "contentReview_modelPlaceholder": {
+    "message": "സെർവർ ഡീഫോൾട്ട്"
+  },
+  "contentReview_aiConsentTitle": {
+    "message": "ഡ്രാഫ്റ്റ് സെർവറിലേക്ക് അയക്കണോ?"
+  },
+  "contentReview_aiConsentBody": {
+    "message": "ഡ്രാഫ്റ്റിന്റെ ഉള്ളടക്കം നിങ്ങളുടെ tldw സെർവറിലേക്ക് AI പ്രോസസിംഗിനായി അയക്കും. നിങ്ങൾ കമ്മിറ്റുചെയ്യുന്നതുവരെ ഡ്രാഫ്റ്റുകൾ ലോക്കലായി തന്നെ തുടരും."
+  },
+  "contentReview_aiConsentConfirm": {
+    "message": "തുടരുക"
+  },
+  "contentReview_aiConsentCancel": {
+    "message": "റദ്ദാക്കുക"
+  },
+  "contentReview_aiApplied": {
+    "message": "AI തിരുത്തലുകൾ പ്രയോഗിച്ചു."
+  },
+  "contentReview_aiNoChange": {
+    "message": "ഒരു മാറ്റവും വന്നില്ല."
+  },
+  "contentReview_aiEmpty": {
+    "message": "AI യിൽ നിന്ന് ഉള്ളടക്കം ലഭിച്ചില്ല."
+  },
+  "contentReview_aiUnavailable": {
+    "message": "ചാറ്റ് പൂർത്തിയാക്കൽ ലഭ്യമല്ല."
+  },
+  "contentReview_templatePlaceholder": {
+    "message": "ടെംപ്ലേറ്റ് തിരഞ്ഞെടുക്കുക"
+  },
+  "contentReview_applyTemplate": {
+    "message": "ടെംപ്ലേറ്റ് പ്രയോഗിക്കുക"
+  },
+  "contentReview_templateApplied": {
+    "message": "ടെംപ്ലേറ്റ് പ്രയോഗിച്ചു."
+  },
+  "contentReview_templateMissing": {
+    "message": "ആദ്യം ഒരു ടെംപ്ലേറ്റ് തിരഞ്ഞെടുക്കുക."
+  },
+  "contentReview_detectSections": {
+    "message": "വിഭാഗങ്ങൾ കണ്ടെത്തുക"
+  },
+  "contentReview_detectSectionsTitle": {
+    "message": "വിഭാഗങ്ങൾ വീണ്ടും കണ്ടെത്തണോ?"
+  },
+  "contentReview_detectSectionsBody": {
+    "message": "ഇത് നിലവിലുള്ള വിഭാഗങ്ങളെ മാറ്റിസ്ഥാപിക്കുകയും നിങ്ങളുടെ തിരഞ്ഞെടുപ്പുകൾ റീസെറ്റ് ചെയ്യുകയും ചെയ്യും."
+  },
+  "contentReview_detectSectionsConfirm": {
+    "message": "വീണ്ടും കണ്ടെത്തുക"
+  },
+  "contentReview_detectSectionsCancel": {
+    "message": "റദ്ദാക്കുക"
+  },
+  "contentReview_detectSectionsEmpty": {
+    "message": "ഒരു വിഭാഗവും കണ്ടെത്തിയില്ല."
+  },
+  "contentReview_sectionsLabel": {
+    "message": "വിഭാഗ ഫിൽറ്റർ"
+  },
+  "contentReview_templates_transcript_clean_label": {
+    "message": "ട്രാൻസ്ക്രിപ്റ്റ് ശുദ്ധമാക്കുക"
+  },
+  "contentReview_templates_transcript_clean_description": {
+    "message": "ലൈൻ ഘടന നിലനിർത്തിക്കൊണ്ട് ചിന്നങ്ങളും വലിയ/ചെറിയ അക്ഷരങ്ങളും നോർമലൈസ് ചെയ്യുന്നു."
+  },
+  "contentReview_templates_speaker_turns_label": {
+    "message": "സ്പീക്കർ ടേൺസ്"
+  },
+  "contentReview_templates_speaker_turns_description": {
+    "message": "ഓരോ സംസാരിക്കുന്നവരുടെ ടേണും വ്യക്തമായ ലേബലുകളോടെ വേറിട്ട വരിയിൽ വരുമെന്ന് ഉറപ്പാക്കുന്നു."
+  },
+  "contentReview_templates_chapter_headings_label": {
+    "message": "അദ്ധ്യായ തലക്കെട്ടുകൾ"
+  },
+  "contentReview_templates_chapter_headings_description": {
+    "message": "ഉള്ളടക്കം നീക്കം ചെയ്യാതെയായി വിഷയങ്ങൾ ഗ്രൂപ്പാക്കാൻ Markdown തലക്കെട്ടുകൾ ചേർക്കുന്നു."
+  },
+  "contentReview_metadataLabel": {
+    "message": "മെറ്റാഡാറ്റ"
+  },
+  "contentReview_mediaType": {
+    "message": "മീഡിയ ടൈപ്പ്"
+  },
+  "contentReview_keywords": {
+    "message": "കീവേഡുകൾ"
+  },
+  "contentReview_keywordsPlaceholder": {
+    "message": "കീവേഡുകൾ ചേർക്കുക"
+  },
+  "contentReview_reviewNotes": {
+    "message": "റിവ്യൂ നോട്ട്‌സ്"
+  },
+  "contentReview_missingSource": {
+    "message": "സോഴ്‌സ് ഫയൽ കാണുന്നില്ല"
+  },
+  "contentReview_missingSourceBody": {
+    "message": "ഈ ഡ്രാഫ്റ്റ് കമ്മിറ്റുചെയ്യാൻ ഒറിജിനൽ ഫയൽ അറ്റാച്ച് ചെയ്യുക."
+  },
+  "contentReview_attachSource": {
+    "message": "ഫയൽ അറ്റാച്ച് ചെയ്യുക"
+  },
+  "contentReview_actionsLabel": {
+    "message": "ആക്ഷനുകൾ"
+  },
+  "contentReview_commit": {
+    "message": "കമ്മിറ്റുചെയ്യുക"
+  },
+  "contentReview_commitDisabled": {
+    "message": "കമ്മിറ്റുചെയ്യുന്നതിന് മുമ്പ് ഒറിജിനൽ ഓഡിയോ/വീഡിയോ ഫയൽ അറ്റാച്ച് ചെയ്യുക."
+  },
+  "contentReview_markReviewed": {
+    "message": "റിവ്യൂ ചെയ്‌തതായി മാർക്ക് ചെയ്യുക"
+  },
+  "contentReview_skipNext": {
+    "message": "സ്കിപ്പ് ചെയ്യുക"
+  },
+  "contentReview_discard": {
+    "message": "ഡിസ്‌കാർഡ്"
+  },
+  "contentReview_discardTitle": {
+    "message": "ഡ്രാഫ്റ്റ് ഡിസ്‌കാർഡ് ചെയ്യണോ?"
+  },
+  "contentReview_discardBody": {
+    "message": "ഈ ഡ്രാഫ്റ്റ് ഡിസ്‌കാർഡ് ചെയ്‌തതായി മാർക്ക് ചെയ്യപ്പെടുകയും റിവ്യൂയിൽ നിന്ന് നീക്കം ചെയ്യപ്പെടുകയും ചെയ്യും."
+  },
+  "contentReview_discardConfirm": {
+    "message": "ഡിസ്‌കാർഡ്"
+  },
+  "contentReview_discardCancel": {
+    "message": "റദ്ദാക്കുക"
+  },
+  "contentReview_commitSuccess": {
+    "message": "ഡ്രാഫ്റ്റ് കമ്മിറ്റുചെയ്തു."
+  },
+  "contentReview_commitAllTitle": {
+    "message": "റിവ്യൂ ചെയ്‌ത ഡ്രാഫ്റ്റുകൾ എല്ലാം കമ്മിറ്റുചെയ്യണോ?"
+  },
+  "contentReview_commitAllBody": {
+    "message": "റിവ്യൂ ചെയ്‌തതായി മാർക്ക് ചെയ്‌തിരിക്കുന്ന ഡ്രാഫ്റ്റുകൾ മാത്രമേ കമ്മിറ്റു ചെയ്യൂ."
+  },
+  "contentReview_commitAllConfirm": {
+    "message": "എല്ലാം കമ്മിറ്റുചെയ്യുക"
+  },
+  "contentReview_commitAllCancel": {
+    "message": "റദ്ദാക്കുക"
+  },
+  "contentReview_commitAllResult": {
+    "message": "{{success}} കമ്മിറ്റുചെയ്തു · {{failed}} പരാജയപ്പെട്ടു"
+  },
+  "contentReview_storageCapWarning": {
+    "message": "ഈ ഫയൽ ലോക്കൽ ഡ്രാഫ്റ്റ് പരിധി ({{cap}}) കവിയുന്നു."
+  },
+  "contentReview_clearTitle": {
+    "message": "എല്ലാ ഡ്രാഫ്റ്റുകളും മായ്ക്കണോ?"
+  },
+  "contentReview_clearBody": {
+    "message": "ഇത് ലോക്കൽ ഉള്ളടക്കം റിവ്യൂ ഡ്രാഫ്റ്റുകളും അനുബന്ധ അസറ്റുകളും എല്ലാം നീക്കം ചെയ്യും."
+  },
+  "contentReview_clearConfirm": {
+    "message": "ഡ്രാഫ്റ്റുകൾ മായ്ക്കുക"
+  },
+  "contentReview_clearCancel": {
+    "message": "റദ്ദാക്കുക"
+  },
+  "contentReview_clearSuccess": {
+    "message": "ഡ്രാഫ്റ്റുകൾ മായ്ച്ചു."
+  },
+  "contentReview_originalLabel": {
+    "message": "ഒറിജിനൽ"
+  },
+  "contentReview_editedLabel": {
+    "message": "എഡിറ്റ് ചെയ്‌തത്"
   }
 }

@@ -6,7 +6,7 @@
     "about": "情報"
   },
   "healthNav": "ヘルス",
-  "worldBooksNav": "World Books",
+  "worldBooksNav": "ワールドブック",
   "chatDictionariesNav": "チャット辞書",
   "charactersNav": "キャラクター",
   "mediaNav": "メディア",
@@ -107,9 +107,9 @@
       "copyAsFormattedText": {
         "label": "書式付きテキストとしてコピー"
       },
-	      "tabMentionsEnabled": {
-	        "label": "タブメンション（@tab）を有効にする"
-	      },
+      "tabMentionsEnabled": {
+        "label": "タブメンション（@tab）を有効にする"
+      },
       "pasteLargeTextAsFile": {
         "label": "大きなテキストをファイルとして貼り付け"
       },
@@ -168,7 +168,7 @@
       },
       "searxng": {
         "url": {
-          "label": "SearXNG URL"
+          "label": "SearXNG のURL"
         }
       },
       "braveApi": {
@@ -179,19 +179,19 @@
         "label": "デフォルトでインターネット検索をオンにする"
       },
       "tavilyApi": {
-        "label": "Tavily API Key ",
-        "placeholder": "Enter your Tavily API key"
+        "label": "Tavily APIキー",
+        "placeholder": "Tavily APIキーを入力してください"
       },
       "exa": {
-        "label": "Exa API Key",
-        "placeholder": "Enter your Exa API key"
+        "label": "Exa APIキー",
+        "placeholder": "Exa APIキーを入力してください"
       },
       "googleDomain": {
-        "label": "Google Domain"
+        "label": "Googleドメイン"
       },
       "firecrawlAPIKey": {
-        "label": "Firecrawl API Key",
-        "placeholder": "Enter your Firecrawl API key"
+        "label": "Firecrawl APIキー",
+        "placeholder": "Firecrawl APIキーを入力してください"
       }
     },
     "system": {
@@ -243,7 +243,7 @@
         "label": "テキスト読み上げから推論タグを削除"
       },
       "responseSplitting": {
-        "label": "Response Splitting"
+        "label": "応答分割"
       }
     },
     "stt": {
@@ -255,117 +255,117 @@
       "autoSubmitVoiceMessage": {
         "label": "音声メッセージを自動送信"
       },
-      "usedByChat": "These Speech-to-Text defaults are used by the chat dictation button in the Playground and Sidebar.",
+      "usedByChat": "この音声文字起こしの既定値は、プレイグラウンドとサイドバーの音声入力ボタンで使用されます。",
       "model": {
-        "label": "Transcription model (tldw_server)"
+        "label": "文字起こしモデル (tldw_server)"
       },
       "useSegmentation": {
-        "label": "Run segmentation for transcripts (TreeSeg)"
+        "label": "文字起こしにセグメンテーションを適用 (TreeSeg)"
       },
       "timestampGranularities": {
-        "label": "Timestamp granularity",
-        "segment": "Per segment",
-        "word": "Per word",
-        "segmentWord": "Segment + word"
+        "label": "タイムスタンプの粒度",
+        "segment": "セグメントごと",
+        "word": "単語ごと",
+        "segmentWord": "セグメント + 単語"
       },
       "task": {
-        "label": "Transcription task",
-        "transcribe": "Transcribe (same language)",
-        "translate": "Translate to English"
+        "label": "文字起こしタスク",
+        "transcribe": "文字起こし（同じ言語）",
+        "translate": "英語に翻訳"
       },
       "responseFormat": {
-        "label": "Response format",
-        "json": "JSON (text + segments)",
-        "verboseJson": "Verbose JSON",
-        "text": "Plain text",
-        "srt": "SRT subtitles",
-        "vtt": "VTT subtitles"
+        "label": "応答形式",
+        "json": "JSON（テキスト＋セグメント）",
+        "verboseJson": "詳細JSON",
+        "text": "プレーンテキスト",
+        "srt": "SRT字幕",
+        "vtt": "VTT字幕"
       },
       "temperature": {
-        "label": "Sampling temperature"
+        "label": "サンプリング温度"
       },
       "prompt": {
-        "label": "Default transcription prompt",
-        "placeholder": "Optional text to guide style"
+        "label": "既定の文字起こしプロンプト",
+        "placeholder": "スタイルを指定する任意のテキスト"
       },
       "segK": {
-        "label": "Max segments (TreeSeg K)"
+        "label": "最大セグメント数（TreeSeg K）"
       },
       "segMinSegmentSize": {
-        "label": "Minimum items per segment"
+        "label": "セグメントあたりの最小項目数"
       },
       "segLambdaBalance": {
-        "label": "Balance penalty (TreeSeg λ)"
+        "label": "バランス罰則（TreeSeg λ）"
       },
       "segUtteranceExpansionWidth": {
-        "label": "Utterance expansion width"
+        "label": "発話拡張幅"
       },
       "segEmbeddingsProvider": {
-        "label": "Segmentation embeddings provider"
+        "label": "セグメンテーション埋め込みプロバイダー"
       },
       "segEmbeddingsModel": {
-        "label": "Segmentation embeddings model"
+        "label": "セグメンテーション埋め込みモデル"
       }
     },
     "systemBasics": {
-      "heading": "System",
+      "heading": "システム",
       "uiMode": {
-        "label": "Default UI Mode",
+        "label": "既定のUIモード",
         "options": {
-          "webui": "Full Screen (Web UI)",
-          "sidePanel": "Sidebar"
+          "webui": "全画面（Web UI）",
+          "sidePanel": "サイドバー"
         }
       },
       "actionIcon": {
-        "label": "Browser Action Button"
+        "label": "ブラウザアクションボタン"
       },
       "contextMenu": {
-        "label": "Context Menu Action"
+        "label": "コンテキストメニューの操作"
       },
       "webuiBtnSidePanel": {
-        "label": "Show Web UI button in Sidebar"
+        "label": "サイドバーにWeb UIボタンを表示"
       },
       "chatBackgroundImage": {
-        "label": "Chat Background Image"
+        "label": "チャット背景画像"
       },
       "fontSize": {
-        "label": "Font Size"
+        "label": "フォントサイズ"
       }
     },
     "systemData": {
-      "heading": "Data",
+      "heading": "データ",
       "firefoxPrivateModeSync": {
-        "label": "Firefox Private Mode Sync",
-        "button": "Sync Data"
+        "label": "Firefox プライベートモード同期",
+        "button": "データを同期"
       },
       "deleteChatHistory": {
-        "label": "System Reset",
-        "button": "Reset All",
-        "confirm": "Are you sure you want to perform a system reset? This will clear all data and cannot be undone."
+        "label": "システムリセット",
+        "button": "すべてリセット",
+        "confirm": "システムをリセットしますか？すべてのデータが消去され、元に戻せません。"
       },
       "export": {
-        "label": "Export Chat History, Knowledge Base, and Prompts",
-        "button": "Export Data",
-        "success": "Export Success"
+        "label": "チャット履歴、知識ベース、プロンプトをエクスポート",
+        "button": "データをエクスポート",
+        "success": "エクスポート成功"
       },
       "import": {
-        "label": "Import Chat History, Knowledge Base, and Prompts",
-        "button": "Import Data",
-        "success": "Import Success",
-        "error": "Import Error"
+        "label": "チャット履歴、知識ベース、プロンプトをインポート",
+        "button": "データをインポート",
+        "success": "インポート成功",
+        "error": "インポートエラー"
       }
     },
     "empty": {
-      "connectTitle": "Connect tldw Assistant to your server",
-      "connectDescription": "Some settings only take effect when your tldw server is reachable. Connect your server to get the full experience.",
-      "connectExample1": "Open Settings → tldw server to add your server URL and API key.",
-      "connectExample2": "Use Diagnostics to confirm your server is healthy before trying advanced tools.",
-      "title": "Tune how tldw Assistant behaves",
-      "description": "Adjust defaults for the Web UI, sidepanel, speech, search, and data handling from one place.",
-      "example1": "Choose your default language, theme, and chat resume behavior.",
-      "example2": "Control whether chats are temporary, how large pastes are handled, and how reasoning is displayed.",
-      "primaryCta": "Configure server & auth",
-      "secondaryCta": "Dismiss"
+      "connectTitle": "tldw Assistant をサーバーに接続",
+      "connectDescription": "一部の設定は tldw サーバーに接続しているときのみ有効です。サーバーを接続してフル機能を利用してください。",
+      "connectExample1": "設定 → tldw サーバーを開き、サーバーURLとAPIキーを追加してください。",
+      "connectExample2": "高度なツールを使う前に、診断でサーバーの健全性を確認してください。",
+      "title": "tldw Assistant の動作を調整",
+      "description": "Web UI、サイドパネル、音声、検索、データ処理の既定値を1か所で調整できます。",
+      "example1": "既定の言語、テーマ、チャット再開の挙動を選択します。",
+      "example2": "チャットを一時的にするか、貼り付けの扱い、推論表示を制御します。",
+      "primaryCta": "サーバーと認証を設定",
+      "secondaryCta": "閉じる"
     }
   },
   "manageModels": {
@@ -408,15 +408,15 @@
       "successDescription": "モデルの取得が完了しました",
       "successDeleteDescription": "モデルの削除が完了しました",
       "someError": "問題が発生しました。後ほど再度お試しください。",
-      "cancellingDownload": "Cancelling Download",
-      "cancellingDownloadDescription": "Model download is being cancelled..."
+      "cancellingDownload": "ダウンロードをキャンセル中",
+      "cancellingDownloadDescription": "モデルのダウンロードをキャンセルしています..."
     }
   },
   "managePrompts": {
     "title": "プロンプトを管理",
     "addBtn": "新しいプロンプトを追加",
     "option1": "通常",
-    "option2": "RAG",
+    "option2": "RAG（検索）",
     "questionPrompt": "質問プロンプト",
     "columns": {
       "title": "タイトル",
@@ -429,7 +429,7 @@
     "tooltip": {
       "delete": "プロンプトを削除",
       "edit": "プロンプトを編集",
-      "duplicate": "Duplicate Prompt"
+      "duplicate": "プロンプトを複製"
     },
     "confirm": {
       "delete": "本当にこのプロンプトを削除しますか？この操作は元に戻せません。"
@@ -441,8 +441,8 @@
     "segmented": {
       "custom": "カスタムプロンプト",
       "copilot": "Copilotプロンプト",
-      "helpCustom": "Create and manage reusable prompts you can insert into chat.",
-      "helpCopilot": "View and tweak predefined Copilot prompts provided by your server."
+      "helpCustom": "チャットに挿入できる再利用可能なプロンプトを作成・管理します。",
+      "helpCopilot": "サーバーが提供する Copilot の定義済みプロンプトを確認・調整します。"
     },
     "form": {
       "title": {
@@ -479,44 +479,45 @@
       "deletedSuccess": "プロンプトが削除されました",
       "deletedSuccessDesc": "プロンプトが正常に削除されました"
     },
-    "workspaceTitle": "Prompts workspace",
-    "workspaceDescription": "Reusable prompts are managed from the Prompts workspace. Use the button below to open it.",
-    "openWorkspace": "Open Prompts workspace",
-    "search": "Search titles and contents",
+    "workspaceTitle": "プロンプトのワークスペース",
+    "workspaceDescription": "再利用可能なプロンプトはプロンプトのワークスペースで管理されます。下のボタンで開いてください。",
+    "openWorkspace": "プロンプトのワークスペースを開く",
+    "search": "タイトルと内容を検索",
     "filter": {
-      "all": "All",
-      "system": "System",
-      "quick": "Quick"
+      "all": "すべて",
+      "system": "システム",
+      "quick": "クイック"
     },
     "tags": {
-      "label": "Tags",
-      "placeholder": "Add tags"
+      "label": "タグ",
+      "placeholder": "タグを追加"
     },
-    "import": "Import",
-    "export": "Export",
+    "import": "インポート",
+    "export": "エクスポート",
     "importMode": {
-      "merge": "Merge",
-      "replace": "Replace"
+      "merge": "マージ",
+      "replace": "置換",
+      "replaceConfirm": "置換すると、インポートしたファイルで現在のプロンプトがすべて上書きされます。続行しますか？"
     },
-    "favorite": "Favorite",
-    "unfavorite": "Unfavorite",
-    "partialLoad": "Some prompt data isn’t available",
-    "loadErrorHelp": "Check your server connection and refresh to try again.",
-    "emptyConnectTitle": "Connect to use Prompts",
-    "emptyConnectDescription": "To manage reusable prompts, first connect to your tldw server.",
-    "emptyConnectExample1": "Open Settings → tldw server to add your server URL.",
-    "emptyConnectExample2": "Once connected, create custom prompts you can reuse across chats.",
-    "emptyTitle": "No custom prompts yet",
-    "emptyDescription": "Create reusable prompts for recurring tasks, workflows, and team conventions.",
-    "emptyExample1": "Save your favorite system prompt for summaries, explanations, or translations.",
-    "emptyExample2": "Create quick prompts for common actions like drafting emails or refining notes.",
-    "emptyPrimaryCta": "Create prompt",
-    "filterHelp": "Search matches title and prompt content. Use type and tags to narrow the list.",
-    "copilotEmptyTitle": "No Copilot prompts available",
-    "copilotEmptyDescription": "Copilot prompts are predefined templates provided by your tldw server.",
-    "copilotEmptyExample1": "Check your server version or configuration if you expect Copilot prompts to be available.",
-    "copilotEmptyExample2": "After updating your server, reload the extension and return to this tab.",
-    "copilotEmptyCta": "Open Diagnostics"
+    "favorite": "お気に入り",
+    "unfavorite": "お気に入り解除",
+    "partialLoad": "一部のプロンプトデータが利用できません",
+    "loadErrorHelp": "サーバー接続を確認し、更新して再試行してください。",
+    "emptyConnectTitle": "接続してプロンプトを使用",
+    "emptyConnectDescription": "再利用可能なプロンプトを管理するには、まず tldw サーバーに接続してください。",
+    "emptyConnectExample1": "設定 → tldw サーバーを開き、サーバーURLを追加してください。",
+    "emptyConnectExample2": "接続後、チャットで再利用できるカスタムプロンプトを作成できます。",
+    "emptyTitle": "カスタムプロンプトがありません",
+    "emptyDescription": "繰り返しタスク、ワークフロー、チームの規約向けに再利用可能なプロンプトを作成しましょう。",
+    "emptyExample1": "要約、説明、翻訳用のお気に入りのシステムプロンプトを保存しましょう。",
+    "emptyExample2": "メールの下書きやノートの整理など、よくある作業のためのクイックプロンプトを作成しましょう。",
+    "emptyPrimaryCta": "プロンプトを作成",
+    "filterHelp": "タイトルとプロンプト内容が検索対象です。種類とタグで一覧を絞り込みます。",
+    "copilotEmptyTitle": "Copilot プロンプトがありません",
+    "copilotEmptyDescription": "Copilot プロンプトは tldw サーバーが提供する定義済みテンプレートです。",
+    "copilotEmptyExample1": "Copilot プロンプトがあるはずなら、サーバーバージョンや設定を確認してください。",
+    "copilotEmptyExample2": "サーバーを更新した後、拡張機能を再読み込みしてこのタブに戻ってください。",
+    "copilotEmptyCta": "診断を開く"
   },
   "manageShare": {
     "title": "共有を管理",
@@ -533,7 +534,7 @@
       "heading": "ウェブ共有",
       "columns": {
         "title": "タイトル",
-        "url": "URL",
+        "url": "URLアドレス",
         "actions": "アクション"
       },
       "tooltip": {
@@ -596,8 +597,8 @@
     "heading": "Web検索を設定する"
   },
   "about": {
-    "title": "About",
-    "heading": "About",
+    "title": "概要",
+    "heading": "概要",
     "chromeVersion": "tldw Assistantのバージョン",
     "ollamaVersion": "サーバーのバージョン",
     "support": "tldw Assistantプロジェクトは、以下のプラットフォームで寄付やスポンサーシップをすることで支援できます:",
@@ -605,35 +606,35 @@
     "githubSponsor": "GitHubでスポンサーする",
     "githubRepo": "GitHubリポジトリ"
   },
-  "switchToSidebar": "Switch to Sidebar",
+  "switchToSidebar": "サイドバーに切り替える",
   "healthPage": {
-    "title": "Health Status",
+    "title": "ヘルスステータス",
     "subtitle": "Quick overview of subsystem health endpoints exposed by the server.",
-    "backToChat": "Back to chat",
-    "openSettings": "Open tldw Settings",
-    "recheckAll": "Recheck All",
-    "copyDiagnostics": "Copy diagnostics",
-    "serverNotConfigured": "Server is not configured.",
-    "unableToReachCore": "Unable to reach server core health endpoint.",
-    "triedGet": "Tried GET {{url}}",
-    "configureHint": "Please configure a server URL under tldw settings.",
-    "configureCta": "Configure",
-    "connectedTo": "Connected to {{host}}",
-    "autoRefresh": "Auto-refresh",
-    "intervalLabel": "Interval (s):",
-    "checking": "Checking…",
-    "recheck": "Recheck",
-    "healthy": "Healthy",
-    "unhealthy": "Unhealthy",
-    "unknown": "Unknown",
+    "backToChat": "チャットに戻る",
+    "openSettings": "tldw 設定を開く",
+    "recheckAll": "すべて再チェック",
+    "copyDiagnostics": "診断をコピー",
+    "serverNotConfigured": "サーバーが設定されていません。",
+    "unableToReachCore": "サーバーのコアヘルスエンドポイントに到達できません。",
+    "triedGet": "GET {{url}} を試行",
+    "configureHint": "tldw 設定でサーバーURLを設定してください。",
+    "configureCta": "設定する",
+    "connectedTo": "{{host}} に接続",
+    "autoRefresh": "自動更新",
+    "intervalLabel": "間隔 (秒):",
+    "checking": "チェック中…",
+    "recheck": "再チェック",
+    "healthy": "正常",
+    "unhealthy": "異常",
+    "unknown": "不明",
     "checks": {
-      "core": "Core API",
-      "rag": "RAG",
-      "audio": "Audio",
-      "embeddings": "Embeddings",
-      "metrics": "Metrics Health",
-      "chatMetrics": "Chat Metrics",
-      "mcp": "MCP",
+      "core": "コア API",
+      "rag": "RAG（検索）",
+      "audio": "オーディオ",
+      "embeddings": "埋め込み",
+      "metrics": "メトリクス状態",
+      "chatMetrics": "チャットメトリクス",
+      "mcp": "MCP（モデルコンテキストプロトコル）",
       "coreDocsUrl": "https://github.com/rmusser01/tldw_browser_assistant",
       "ragDocsUrl": "https://github.com/rmusser01/tldw_browser_assistant",
       "audioDocsUrl": "https://github.com/rmusser01/tldw_browser_assistant",
@@ -643,15 +644,15 @@
       "mcpDocsUrl": "https://github.com/rmusser01/tldw_browser_assistant"
     },
     "copyDiagnosticsHelp": "Copies JSON diagnostics to clipboard",
-    "statusHealthy": "Healthy",
-    "statusUnhealthy": "Unhealthy",
-    "statusUnknown": "Unknown",
-    "updatedJustNow": "Updated just now",
-    "updatedSecondsAgo": "Updated {{seconds}}s ago"
+    "statusHealthy": "正常",
+    "statusUnhealthy": "異常",
+    "statusUnknown": "不明",
+    "updatedJustNow": "たった今更新",
+    "updatedSecondsAgo": "{{seconds}} 秒前に更新"
   },
-  "savedSuccessfully": "Settings saved",
-  "saveFailed": "Failed to save settings",
-  "siteAccessGranted": "Host permission granted for {{origin}}",
+  "savedSuccessfully": "設定を保存しました",
+  "saveFailed": "設定の保存に失敗しました",
+  "siteAccessGranted": "{{origin}} のホスト権限が付与されました",
   "tldw": {
     "advancedTimeouts": "高度なタイムアウト",
     "requestTimeout": "リクエストのタイムアウト（秒）",
@@ -756,14 +757,14 @@
     }
   },
   "manageKnowledge": {
-    "title": "Knowledge QA",
-    "heading": "Knowledge QA",
-    "worldBooksSettingsTitle": "World Books workspace",
-    "worldBooksSettingsDescription": "World Books are managed from the World Books workspace. Use the button below to open it.",
-    "worldBooksOpenWorkspace": "Open World Books workspace",
-    "dictionariesSettingsTitle": "Chat dictionaries workspace",
-    "dictionariesSettingsDescription": "Chat dictionaries are managed from the Chat dictionaries workspace. Use the button below to open it.",
-    "dictionariesOpenWorkspace": "Open Chat dictionaries workspace"
+    "title": "知識 QA",
+    "heading": "知識 QA",
+    "worldBooksSettingsTitle": "ワールドブックのワークスペース",
+    "worldBooksSettingsDescription": "ワールドブックはワールドブックのワークスペースで管理されます。下のボタンで開いてください。",
+    "worldBooksOpenWorkspace": "ワールドブックのワークスペースを開く",
+    "dictionariesSettingsTitle": "チャット辞書のワークスペース",
+    "dictionariesSettingsDescription": "チャット辞書はチャット辞書のワークスペースで管理されます。下のボタンで開いてください。",
+    "dictionariesOpenWorkspace": "チャット辞書のワークスペースを開く"
   },
   "rag": {
     "title": "RAGの設定",
@@ -774,8 +775,8 @@
         "required": "モデルを選択してください",
         "help": "`nomic-embed-text`などのエンベディングモデルの使用を強くおすすめします。",
         "placeholder": "モデルを選択",
-        "helpRecommended": "Recommended: {{model}} (from server config)",
-        "helpMissing": "Previously saved embedding model is no longer available on the server. Please choose another model."
+        "helpRecommended": "推奨: {{model}}（サーバー設定より）",
+        "helpMissing": "以前保存した埋め込みモデルがサーバーで利用できません。別のモデルを選択してください。"
       },
       "chunkSize": {
         "label": "チャンクサイズ",
@@ -809,7 +810,7 @@
     "prompt": {
       "label": "RAGプロンプトを設定",
       "option1": "通常",
-      "option2": "Web",
+      "option2": "ウェブ",
       "alert": "ここでシステムプロンプトを設定することは非推奨となりました。プロンプトの追加や編集には「プロンプトを管理」セクションをご利用ください。このセクションは今後のリリースで削除される予定です。",
       "systemPrompt": "システムプロンプト",
       "systemPromptPlaceholder": "システムプロンプトを入力",
@@ -829,57 +830,57 @@
     "learnMoreTldw": "tldw サーバーの仕組みを学ぶ",
     "serverDocsUrl": "https://github.com/rmusser01/tldw_browser_assistant",
     "serverUrl": {
-      "placeholder": "http://127.0.0.1:8000",
+      "placeholder": "例: http://127.0.0.1:8000",
       "help": "例: http://127.0.0.1:8000",
       "invalid": "http://127.0.0.1:8000 のような完全な URL を入力してください。",
       "invalidProtocol": "http または https の URL を使用してください（例: http://127.0.0.1:8000）。",
-      "label": "Server URL",
-      "emptyHint": "Enter your tldw server URL to enable Next.",
-      "ready": "We’ll enable Next once we can reach this address.",
-      "checking": "Checking reachability…",
-      "reachable": "Server responded successfully. You can continue.",
-      "unreachable": "We couldn’t reach this address yet. Double-check the URL or try again."
+      "label": "サーバーURL",
+      "emptyHint": "次へ進むには tldw サーバーURLを入力してください。",
+      "ready": "このアドレスに到達できたら「次へ」を有効にします。",
+      "checking": "到達性を確認中…",
+      "reachable": "サーバーから応答がありました。続行できます。",
+      "unreachable": "このアドレスにまだ到達できません。URLを確認するか再試行してください。"
     },
     "buttons": {
-      "next": "Next",
-      "back": "Back",
-      "continue": "Continue",
-      "recheck": "Recheck",
-      "finish": "Finish",
-      "finishAnyway": "Finish without connecting",
-      "skip": "Skip for now"
+      "next": "次へ",
+      "back": "戻る",
+      "continue": "続行",
+      "recheck": "再チェック",
+      "finish": "完了",
+      "finishAnyway": "接続せずに完了",
+      "skip": "今はスキップ"
     },
     "authMode": {
-      "label": "Authentication Mode",
-      "single": "Single User (API Key)",
-      "multi": "Multi User (Login)"
+      "label": "認証モード",
+      "single": "単一ユーザー（APIキー）",
+      "multi": "複数ユーザー（ログイン）"
     },
     "apiKey": {
-      "label": "API Key",
-      "placeholder": "Enter your API key (or use the default demo key THIS-IS-A-SECURE-KEY-123-REPLACE-ME for local single-user setups)"
+      "label": "APIキー",
+      "placeholder": "APIキーを入力してください（またはローカル単一ユーザー用のデモキー THIS-IS-A-SECURE-KEY-123-REPLACE-ME を使用）"
     },
     "username": {
-      "label": "Username",
-      "placeholder": "Username"
+      "label": "ユーザー名",
+      "placeholder": "ユーザー名"
     },
     "password": {
-      "label": "Password",
-      "placeholder": "Password"
+      "label": "パスワード",
+      "placeholder": "パスワード"
     },
     "connection": {
-      "label": "Connection:",
-      "unknown": "Unknown",
-      "connected": "Connected",
-      "failed": "Failed",
+      "label": "接続:",
+      "unknown": "不明",
+      "connected": "接続済み",
+      "failed": "失敗",
       "continueAnyway": "You can continue and complete setup now. You’ll be able to verify the connection later from Settings."
     },
     "rag": {
       "label": "RAG:",
-      "healthy": "Healthy",
-      "unhealthy": "Unhealthy",
-      "unknown": "Unknown"
+      "healthy": "正常",
+      "unhealthy": "異常",
+      "unknown": "不明"
     },
-    "connectionFailed": "Connection failed",
+    "connectionFailed": "接続に失敗しました",
     "footerHelp": "接続が完了すると、拡張機能のメニューからいつでもこの設定画面に戻ることができます。",
     "progressAria": "オンボーディングの進行状況",
     "stepLabel": {
@@ -935,85 +936,136 @@
     "headerShortcuts": "ヘッダーにクイックショートカットを表示する"
   },
   "manageCharacters": {
-    "title": "Manage Characters",
-    "addBtn": "New character",
+    "title": "キャラクター管理",
+    "addBtn": "新しいキャラクター",
     "columns": {
-      "name": "Name",
-      "description": "Description",
-      "actions": "Actions",
-      "avatar": "Avatar"
+      "name": "名前",
+      "description": "説明",
+      "actions": "操作",
+      "avatar": "アバター"
     },
     "actions": {
-      "chat": "Chat",
-      "edit": "Edit",
-      "delete": "Delete"
+      "chat": "チャット",
+      "edit": "編集",
+      "delete": "削除",
+      "viewConversations": "会話を表示",
+      "duplicate": "複製"
     },
     "tags": {
-      "label": "Tags",
-      "placeholder": "Add tags",
-      "help": "Use tags to group characters by use case (e.g., “writing”, “teaching”)."
+      "label": "タグ",
+      "placeholder": "タグを追加",
+      "help": "タグを使って用途別にキャラクターをまとめます（例:「ライティング」「指導」）。"
     },
     "tooltip": {
-      "edit": "Edit character",
-      "delete": "Delete character"
+      "edit": "キャラクターを編集",
+      "delete": "キャラクターを削除"
     },
     "aria": {
-      "chatWith": "Chat as {{name}}",
-      "edit": "Edit character {{name}}",
-      "delete": "Delete character {{name}}"
+      "chatWith": "{{name}} としてチャット",
+      "edit": "キャラクター {{name}} を編集",
+      "delete": "キャラクター {{name}} を削除",
+      "viewConversations": "{{name}} の会話を表示",
+      "searchResults": "{{count}} 件のキャラクターが見つかりました",
+      "duplicate": "キャラクター「{{name}}」を複製"
     },
     "confirm": {
-      "delete": "Are you sure you want to delete this character? This action cannot be undone."
+      "delete": "このキャラクターを削除してもよろしいですか？この操作は元に戻せません。"
     },
     "form": {
       "name": {
-        "label": "Name",
-        "placeholder": "e.g. Writing coach",
-        "required": "Please enter a name"
+        "label": "名前",
+        "placeholder": "例: ライティングコーチ",
+        "required": "名前を入力してください"
       },
-      "description": "Define a reusable character you can chat with in the sidebar.",
+      "description": "サイドバーでチャットできる再利用可能なキャラクターを定義します。",
       "systemPrompt": {
-        "label": "Behavior / instructions",
-        "placeholder": "E.g., You are a patient math teacher who explains concepts step by step and checks understanding with short examples.",
-        "help": "Explain the character's role, tone, and constraints. For example: \"You are a patient math tutor who explains concepts step by step.\"",
-        "min": "Add a short description so the character knows how to respond."
+        "label": "振る舞い / 指示",
+        "placeholder": "例: あなたは忍耐強い数学教師で、概念を段階的に説明し、短い例で理解を確認します。",
+        "help": "キャラクターの役割、口調、制約を説明します。例: 「あなたは忍耐強い数学チューターで、概念を段階的に説明します。」",
+        "min": "キャラクターが応答方法を理解できるよう、短い説明を追加してください。",
+        "required": "回答を導く指示を追加してください。",
+        "max": "システムプロンプトは2000文字以内である必要があります。"
       },
       "avatarUrl": {
-        "label": "Avatar URL (optional)",
-        "placeholder": "https://example.com/avatar.png"
+        "label": "アバター URL（任意）",
+        "placeholder": "例: https://example.com/avatar.png"
       },
       "greeting": {
-        "label": "Greeting message (optional)",
-        "placeholder": "Hi there! I’m your writing coach. Paste your draft and I’ll help you tighten it up.",
-        "help": "Optional first message the character will send when you start a chat."
+        "label": "挨拶メッセージ（任意）",
+        "placeholder": "こんにちは！あなたのライティングコーチです。下書きを貼り付けていただければ整えます。",
+        "help": "チャット開始時にキャラクターが送る任意の最初のメッセージ。"
       },
       "btnSave": {
-        "saving": "Creating character...",
-        "save": "Create character"
+        "saving": "キャラクターを作成中...",
+        "save": "キャラクターを作成"
       },
       "btnEdit": {
-        "saving": "Saving changes...",
-        "save": "Save changes"
+        "saving": "変更を保存中...",
+        "save": "変更を保存"
       }
     },
     "notification": {
-      "addSuccess": "Character created",
-      "error": "Error",
-      "someError": "Something went wrong. Please try again later",
-      "updatedSuccess": "Character updated",
-      "deletedSuccess": "Character deleted"
+      "addSuccess": "キャラクターを作成しました",
+      "error": "エラー",
+      "someError": "問題が発生しました。後でもう一度お試しください。",
+      "updatedSuccess": "キャラクターを更新しました",
+      "deletedSuccess": "キャラクターを削除しました"
     },
     "loadError": {
-      "title": "Couldn't load characters",
-      "description": "Check your connection and try again."
+      "title": "キャラクターを読み込めません",
+      "description": "接続状況を確認してから、もう一度お試しください。"
     },
-    "emptyTitle": "No characters yet",
-    "emptyDescription": "Create a reusable character with a name, description, and system prompt you can chat with.",
-    "emptyExample1": "Define a writing coach, lore expert, or coding assistant you can reuse across chats.",
-    "emptyExample2": "Give each character a clear description and behavior so their responses stay consistent.",
-    "emptyPrimaryCta": "Create character",
-    "avatarAltWithName": "Avatar of {{name}}",
-    "avatarAlt": "User avatar"
+    "emptyTitle": "キャラクターはまだありません",
+    "emptyDescription": "名前、説明、システムプロンプトを設定して、再利用できるキャラクターを作成しましょう。",
+    "emptyExample1": "ライティングコーチ、設定の専門家、コーディングアシスタントなどを定義して、チャット間で再利用できます。",
+    "emptyExample2": "各キャラクターに明確な説明と振る舞いを与えて、回答を一貫させましょう。",
+    "emptyPrimaryCta": "キャラクターを作成",
+    "avatarAltWithName": "{{name}} のアバター",
+    "avatarAlt": "ユーザーアバター",
+    "conversations": {
+      "title": "{{name}} の会話",
+      "titleGeneric": "キャラクターの会話",
+      "subtitle": "このキャラクターとして続ける会話を選択してください。",
+      "empty": "このキャラクターの会話はまだありません。",
+      "error": "このキャラクターの会話を読み込めません。",
+      "updated": "{{time}} に更新",
+      "unknownTime": "不明",
+      "resume": "チャットを続ける",
+      "untitled": "無題",
+      "mostRecent": "最新",
+      "resumeTooltip": "チャット履歴を読み込んでこの会話を続けます"
+    },
+    "preview": {
+      "title": "プレビュー",
+      "show": "プレビューを表示",
+      "hide": "プレビューを非表示",
+      "untitled": "無題のキャラクター",
+      "greeting": "挨拶",
+      "behavior": "振る舞い",
+      "empty": "フォームを入力するとプレビューが表示されます"
+    },
+    "advanced": {
+      "show": "詳細フィールドを表示",
+      "hide": "詳細フィールドを非表示"
+    },
+    "table": {
+      "noDescription": "説明なし"
+    },
+    "filter": {
+      "matchAll": "すべてのタグに一致"
+    },
+    "avatar": {
+      "label": "アバター（任意）",
+      "tabUrl": "URLアドレス",
+      "tabUpload": "アップロード",
+      "selectImageError": "画像ファイルを選択してください",
+      "formatError": "PNG、JPEG、GIF の画像のみ対応しています",
+      "invalidError": "無効な画像ファイルです",
+      "processError": "画像の処理に失敗しました",
+      "dropzone": "クリックまたはドラッグして画像をアップロード",
+      "formats": "PNG、JPEG または GIF",
+      "preview": "プレビュー"
+    }
   },
   "systemNotifications": {
     "importSuccess": "データを正常にインポートしました",
@@ -1032,188 +1084,268 @@
   "models": {
     "privateModeDescription": "Firefox のプライベートモードは IndexedDB への保存をサポートしません。通常ウィンドウでカスタムモデルを追加してください。"
   },
-  "evaluationsSettingsNav": "Evaluations",
-  "promptStudioNav": "Prompt Studio",
+  "evaluationsSettingsNav": "評価",
+  "promptStudioNav": "プロンプトスタジオ",
   "promptStudio": {
-    "nav": "Prompt Studio",
-    "title": "Prompt Studio",
-    "subtitle": "Configure defaults and monitor Prompt Studio health. Connection and auth reuse the main server settings.",
-    "probeError": "Unable to reach Prompt Studio",
-    "statusCard": "Status",
-    "statusHint": "Button calls /prompt-studio/status with warn_seconds.",
-    "statusError": "Status endpoint unavailable",
-    "warnSeconds": "Warn seconds",
-    "testButton": "Test Prompt Studio",
-    "defaultsCard": "Defaults",
-    "defaultsHint": "Store default project, model configs, and list page size.",
-    "defaultsPlaceholder": "Persist defaults using existing settings storage (TBD) for initial project selection, execute/evaluation model presets, and pagination.",
-    "defaultProject": "Default project ID",
-    "pageSize": "Page size",
-    "executeDefaults": "Execute defaults",
-    "executeProvider": "Provider",
-    "executeModel": "Model",
-    "executeTemperature": "Temperature",
-    "executeMaxTokens": "Max tokens",
-    "evalDefaults": "Evaluation defaults",
-    "evalModel": "Model",
-    "evalTemperature": "Temperature",
-    "evalMaxTokens": "Max tokens",
-    "unavailable": "Prompt Studio isn’t available on the server yet.",
-    "unavailableBody": "Once enabled, you can monitor queue health and set defaults here."
+    "nav": "プロンプトスタジオ",
+    "title": "プロンプトスタジオ",
+    "subtitle": "既定値を設定し、Prompt Studio の健全性を監視します。接続と認証はメインのサーバー設定を再利用します。",
+    "probeError": "Prompt Studio に到達できません",
+    "statusCard": "ステータス",
+    "statusHint": "ボタンは warn_seconds 付きで /prompt-studio/status を呼び出します。",
+    "statusError": "ステータスエンドポイントが利用できません",
+    "warnSeconds": "警告までの秒数",
+    "testButton": "Prompt Studio をテスト",
+    "defaultsCard": "既定値",
+    "defaultsHint": "既定のプロジェクト、モデル設定、一覧ページサイズを保存します。",
+    "defaultsPlaceholder": "既定値は既存の設定ストレージ (TBD) を用いて、初期プロジェクト選択、実行/評価モデルのプリセット、ページネーションに保存します。",
+    "defaultProject": "既定のプロジェクトID",
+    "pageSize": "ページサイズ",
+    "executeDefaults": "実行の既定値",
+    "executeProvider": "プロバイダー",
+    "executeModel": "モデル",
+    "executeTemperature": "温度",
+    "executeMaxTokens": "最大トークン数",
+    "evalDefaults": "評価の既定値",
+    "evalModel": "モデル",
+    "evalTemperature": "温度",
+    "evalMaxTokens": "最大トークン数",
+    "unavailable": "サーバーで Prompt Studio はまだ利用できません。",
+    "unavailableBody": "有効化されると、キューの健全性を監視し、ここで既定値を設定できます。"
   },
-  "charactersSettingsTitle": "Characters workspace",
-  "charactersSettingsDescription": "Characters are managed from the Characters workspace. Use the button below to open it.",
-  "charactersOpenWorkspace": "Open Characters workspace",
-  "mermaid": "Mermaid",
+  "charactersSettingsTitle": "キャラクターのワークスペース",
+  "charactersSettingsDescription": "キャラクターはキャラクターのワークスペースで管理されます。下のボタンで開いてください。",
+  "charactersOpenWorkspace": "キャラクターのワークスペースを開く",
+  "mermaid": "Mermaid 図",
   "healthSummary": {
     "diagnostics": "Diagnostics",
-    "diagnosticsTooltip": "Open detailed diagnostics to troubleshoot or inspect health checks.",
-    "core": "Server",
-    "rag": "Knowledge",
-    "coreAria": "Server: server/API health",
-    "ragAria": "Knowledge: knowledge index health",
-    "coreOnline": "Server: Online",
-    "coreOffline": "Server: Offline",
-    "coreChecking": "Server: Checking…",
-    "ragReady": "Knowledge: Ready",
-    "ragOffline": "Knowledge: Offline",
-    "ragChecking": "Knowledge: Checking…",
-    "footerInfo": "These checks summarize the last successful ping to your tldw server and knowledge index."
+    "diagnosticsTooltip": "詳細な診断を開いてトラブルシュートやヘルスチェックの確認ができます。",
+    "core": "サーバー",
+    "rag": "知識",
+    "coreAria": "サーバー: サーバー/APIの状態",
+    "ragAria": "知識: ナレッジインデックスの状態",
+    "coreOnline": "サーバー: オンライン",
+    "coreOffline": "サーバー: オフライン",
+    "coreChecking": "サーバー: 確認中…",
+    "ragReady": "知識: 準備完了",
+    "ragOffline": "知識: オフライン",
+    "ragChecking": "知識: 確認中…",
+    "footerInfo": "これらのチェックは、tldw サーバーとナレッジインデックスへの最後の成功した ping を要約しています。"
   },
   "storage": {
-    "quotaFriendlyMessage": "Too many settings writes in a short period; please wait a few seconds and try again.",
-    "quotaTitle": "Storage limit reached",
-    "writeError": "Could not save settings",
-    "writeErrorDescription": "We couldn't save your settings. Please try again shortly."
+    "quotaFriendlyMessage": "短時間に設定保存が多すぎます。数秒待ってから再試行してください。",
+    "quotaTitle": "ストレージの上限に達しました",
+    "writeError": "設定を保存できませんでした",
+    "writeErrorDescription": "設定を保存できませんでした。しばらくしてから再試行してください。"
   },
   "evaluations": {
-    "title": "Evaluations playground",
-    "subtitle": "Define evaluations against your tldw server and inspect recent runs.",
-    "listTitle": "Recent evaluations",
-    "newEvaluationCta": "New evaluation",
-    "startRunCta": "Start run",
-    "loadErrorTitle": "Unable to load evaluations",
-    "loadErrorDescription": "Check your tldw server connection and API credentials, then try again.",
-    "emptyList": "No evaluations yet. Once you create one, it will appear here.",
-    "selectedTag": "Selected",
-    "rateLimitsTitle": "Evaluation limits",
-    "rateLimitsErrorTitle": "Unable to fetch rate limits",
-    "rateLimitsErrorDescription": "We could not retrieve evaluation quotas from the server.",
-    "rateLimitsNoData": "Rate limit information is not available for this server.",
-    "tierLabel": "Tier",
-    "dailyLimitLabel": "Daily evaluations",
-    "tokensTodayLabel": "Tokens today",
-    "perMinuteLabel": "Per-minute limit",
-    "resetAtLabel": "Resets at",
-    "runsTitle": "Runs",
-    "noEvalSelectedRuns": "Select an evaluation to see its recent runs.",
-    "runsErrorTitle": "Unable to load runs",
-    "runsEmpty": "No runs yet for this evaluation.",
-    "runDetailTitle": "Run details",
-    "noRunSelected": "Select a run to see details.",
-    "runDetailErrorTitle": "Unable to load run details",
-    "runStatusLabel": "Status",
-    "runModelLabelShort": "Target model",
-    "runEvalIdLabel": "Evaluation",
-    "runErrorLabel": "Error",
-    "runResultsLabel": "Results (snippet)",
-    "runProgressLabel": "Progress",
-    "runUsageLabel": "Usage",
-    "datasetsTitle": "Datasets",
-    "newDatasetCta": "New dataset",
-    "datasetsErrorTitle": "Unable to load datasets",
-    "datasetsEmpty": "No datasets yet. Create one to attach to evaluations.",
-    "datasetSampleCount": "{{count}} samples",
-    "datasetNameLabel": "Name",
-    "datasetNamePlaceholder": "my_dataset",
-    "datasetDescriptionLabel": "Description",
-    "datasetMetadataLabel": "Metadata (JSON, optional)",
-    "sampleInputLabel": "Sample input",
-    "sampleExpectedLabel": "Expected output (optional)",
-    "samplesJsonLabel": "Samples JSON (optional, overrides fields)",
-    "datasetLabel": "Dataset (optional)",
-    "datasetPlaceholder": "Select dataset",
-    "datasetCreateSuccessTitle": "Dataset created",
-    "datasetCreateSuccessDescription": "Your dataset is ready to use in evaluations.",
-    "datasetCreateErrorTitle": "Failed to create dataset",
-    "datasetCreateErrorDescription": "The server rejected this dataset. Check the fields and try again.",
-    "datasetDeleteSuccessTitle": "Dataset deleted",
-    "datasetDeleteErrorTitle": "Failed to delete dataset",
-    "datasetLoadErrorTitle": "Failed to load dataset",
-    "datasetDetailTitle": "Dataset details",
-    "datasetParseErrorTitle": "Invalid samples JSON",
-    "createEvalModalTitle": "New evaluation",
-    "editEvalModalTitle": "Edit evaluation",
-    "evalNameLabel": "Name",
-    "evalNamePlaceholder": "my_eval_run",
-    "evalNameValidation": "Use only letters, numbers, hyphens, and underscores.",
-    "evalTypeLabel": "Evaluation type",
-    "evalSpecLabel": "Evaluation spec (JSON)",
-    "evalSpecParseError": "Evaluation spec must be valid JSON.",
-    "evalMetadataLabel": "Metadata (JSON, optional)",
-    "inlineDatasetCheckbox": "Attach inline dataset instead of referencing dataset_id",
-    "inlineDatasetErrorTitle": "Invalid inline dataset",
-    "runModelLabel": "Run model (used for quick runs)",
-    "createSuccessTitle": "Evaluation created",
-    "createErrorTitle": "Failed to create evaluation",
-    "createErrorDescription": "The server rejected this evaluation. Ensure name, type, and spec are valid.",
-    "updateSuccessTitle": "Evaluation updated",
-    "updateErrorTitle": "Failed to update evaluation",
-    "deleteErrorTitle": "Failed to delete evaluation",
-    "deleteConfirmTitle": "Delete this evaluation?",
-    "deleteConfirmDescription": "This will remove the evaluation definition. Runs already created remain in history.",
-    "detailTitle": "Evaluation details",
-    "detailErrorTitle": "Unable to load evaluation details",
-    "descriptionLabel": "Description",
-    "noEvalSelectedDetails": "Select an evaluation to inspect its spec.",
-    "runCreateSuccessTitle": "Run started",
-    "runCreateSuccessDescription": "Your evaluation run has started. You can monitor it from the server UI.",
-    "runCreateErrorTitle": "Failed to start run",
-    "runCreateErrorDescription": "The server rejected this run request. Check the model and try again.",
-    "runConfigLabel": "Config (JSON)",
-    "datasetOverrideLabel": "Dataset override (JSON array of samples)",
-    "runConfigParseError": "Invalid config JSON",
-    "runCancelSuccessTitle": "Run cancellation requested",
-    "runCancelErrorTitle": "Failed to cancel run",
-    "cancelRunCta": "Cancel run",
-    "historyTitle": "History",
-    "historyTypeLabel": "Type",
-    "historyUserLabel": "User ID",
-    "historyStartLabel": "Start date (ISO)",
-    "historyEndLabel": "End date (ISO)",
-    "historyFetchCta": "Fetch history",
-    "historyEmpty": "Run a query to see recent activity.",
-    "historyErrorTitle": "Failed to fetch history",
-    "webhooksTitle": "Webhooks",
-    "webhookUrlLabel": "URL",
-    "webhookEventsLabel": "Events",
-    "webhookCreateCta": "Register webhook",
-    "webhookCreateSuccessTitle": "Webhook registered",
-    "webhookCreateErrorTitle": "Failed to register webhook",
-    "webhookDeleteErrorTitle": "Failed to delete webhook",
-    "webhookListErrorTitle": "Unable to load webhooks",
-    "webhooksEmpty": "No webhooks registered yet.",
-    "webhookSecretTitle": "Secret",
-    "idempotencyKeyLabel": "Idempotency key",
-    "emptyConnectTitle": "Connect to use Evaluations",
-    "emptyConnectDescription": "To create and run evaluations, first connect to your tldw server.",
-    "emptyConnectExample1": "Open Settings → tldw server to add your server URL and API key.",
-    "emptyConnectExample2": "Once connected, you can define evaluations and inspect metrics here.",
-    "datasetSamplesLabel": "Samples",
-    "datasetSamplesEmpty": "No samples returned for this page.",
-    "metricsLabel": "Metrics"
+    "title": "評価プレイグラウンド",
+    "subtitle": "tldw サーバーに対する評価を定義し、最近の実行を確認できます。",
+    "listTitle": "最近の評価",
+    "newEvaluationCta": "新しい評価",
+    "startRunCta": "実行開始",
+    "loadErrorTitle": "評価を読み込めませんでした",
+    "loadErrorDescription": "tldw サーバーへの接続とAPI認証情報を確認してから再試行してください。",
+    "emptyList": "評価はまだありません。作成するとここに表示されます。",
+    "selectedTag": "選択済み",
+    "rateLimitsTitle": "評価の制限",
+    "rateLimitsErrorTitle": "レート制限を取得できませんでした",
+    "rateLimitsErrorDescription": "サーバーから評価クォータを取得できませんでした。",
+    "rateLimitsNoData": "このサーバーではレート制限情報を利用できません。",
+    "tierLabel": "ティア",
+    "dailyLimitLabel": "1日あたりの評価数",
+    "tokensTodayLabel": "本日のトークン",
+    "perMinuteLabel": "1分あたりの制限",
+    "resetAtLabel": "リセット時刻",
+    "runsTitle": "実行",
+    "noEvalSelectedRuns": "最近の実行を見るには評価を選択してください。",
+    "runsErrorTitle": "実行を読み込めませんでした",
+    "runsEmpty": "この評価の実行はまだありません。",
+    "runDetailTitle": "実行の詳細",
+    "noRunSelected": "詳細を見るには実行を選択してください。",
+    "runDetailErrorTitle": "実行の詳細を読み込めませんでした",
+    "runStatusLabel": "ステータス",
+    "runModelLabelShort": "対象モデル",
+    "runEvalIdLabel": "評価",
+    "runErrorLabel": "エラー",
+    "runResultsLabel": "結果（抜粋）",
+    "runProgressLabel": "進行状況",
+    "runUsageLabel": "使用量",
+    "datasetsTitle": "データセット",
+    "newDatasetCta": "新しいデータセット",
+    "datasetsErrorTitle": "データセットを読み込めませんでした",
+    "datasetsEmpty": "データセットはまだありません。評価に紐づけるため作成してください。",
+    "datasetSampleCount": "{{count}} サンプル",
+    "datasetNameLabel": "名前",
+    "datasetNamePlaceholder": "例: my_dataset",
+    "datasetDescriptionLabel": "説明",
+    "datasetMetadataLabel": "メタデータ（JSON、任意）",
+    "sampleInputLabel": "サンプル入力",
+    "sampleExpectedLabel": "期待出力（任意）",
+    "samplesJsonLabel": "サンプルJSON（任意、フィールド上書き）",
+    "datasetLabel": "データセット（任意）",
+    "datasetPlaceholder": "データセットを選択",
+    "datasetCreateSuccessTitle": "データセットを作成しました",
+    "datasetCreateSuccessDescription": "データセットを評価に使用できます。",
+    "datasetCreateErrorTitle": "データセットの作成に失敗しました",
+    "datasetCreateErrorDescription": "サーバーがこのデータセットを拒否しました。入力を確認して再試行してください。",
+    "datasetDeleteSuccessTitle": "データセットを削除しました",
+    "datasetDeleteErrorTitle": "データセットの削除に失敗しました",
+    "datasetLoadErrorTitle": "データセットを読み込めませんでした",
+    "datasetDetailTitle": "データセットの詳細",
+    "datasetParseErrorTitle": "無効なサンプルJSON",
+    "createEvalModalTitle": "新しい評価",
+    "editEvalModalTitle": "評価の編集",
+    "evalNameLabel": "名前",
+    "evalNamePlaceholder": "例: my_eval_run",
+    "evalNameValidation": "英数字、ハイフン、アンダースコアのみ使用できます。",
+    "evalTypeLabel": "評価タイプ",
+    "evalSpecLabel": "評価仕様（JSON）",
+    "evalSpecParseError": "評価仕様は有効なJSONである必要があります。",
+    "evalMetadataLabel": "メタデータ（JSON、任意）",
+    "inlineDatasetCheckbox": "dataset_id を参照せずにインラインデータセットを付与",
+    "inlineDatasetErrorTitle": "無効なインラインデータセット",
+    "runModelLabel": "実行モデル（クイック実行で使用）",
+    "createSuccessTitle": "評価を作成しました",
+    "createErrorTitle": "評価の作成に失敗しました",
+    "createErrorDescription": "サーバーがこの評価を拒否しました。名前、タイプ、仕様が正しいか確認してください。",
+    "updateSuccessTitle": "評価を更新しました",
+    "updateErrorTitle": "評価の更新に失敗しました",
+    "deleteErrorTitle": "評価の削除に失敗しました",
+    "deleteConfirmTitle": "この評価を削除しますか？",
+    "deleteConfirmDescription": "評価の定義が削除されます。既存の実行は履歴に残ります。",
+    "detailTitle": "評価の詳細",
+    "detailErrorTitle": "評価の詳細を読み込めませんでした",
+    "descriptionLabel": "説明",
+    "noEvalSelectedDetails": "仕様を確認するには評価を選択してください。",
+    "runCreateSuccessTitle": "実行を開始しました",
+    "runCreateSuccessDescription": "評価の実行が開始されました。サーバーUIで監視できます。",
+    "runCreateErrorTitle": "実行の開始に失敗しました",
+    "runCreateErrorDescription": "サーバーがこの実行リクエストを拒否しました。モデルを確認して再試行してください。",
+    "runConfigLabel": "設定（JSON）",
+    "datasetOverrideLabel": "データセット上書き（サンプルJSON配列）",
+    "runConfigParseError": "無効な設定JSON",
+    "runCancelSuccessTitle": "実行キャンセルを要求しました",
+    "runCancelErrorTitle": "実行のキャンセルに失敗しました",
+    "cancelRunCta": "実行をキャンセル",
+    "historyTitle": "履歴",
+    "historyTypeLabel": "種別",
+    "historyUserLabel": "ユーザーID",
+    "historyStartLabel": "開始日（ISO）",
+    "historyEndLabel": "終了日（ISO）",
+    "historyFetchCta": "履歴を取得",
+    "historyEmpty": "クエリを実行して最近の活動を確認してください。",
+    "historyErrorTitle": "履歴を取得できませんでした",
+    "webhooksTitle": "Webhook",
+    "webhookUrlLabel": "URLアドレス",
+    "webhookEventsLabel": "イベント",
+    "webhookCreateCta": "Webhook を登録",
+    "webhookCreateSuccessTitle": "Webhook を登録しました",
+    "webhookCreateErrorTitle": "Webhook の登録に失敗しました",
+    "webhookDeleteErrorTitle": "Webhook の削除に失敗しました",
+    "webhookListErrorTitle": "Webhook を読み込めませんでした",
+    "webhooksEmpty": "Webhook はまだ登録されていません。",
+    "webhookSecretTitle": "シークレット",
+    "idempotencyKeyLabel": "冪等キー",
+    "emptyConnectTitle": "評価を利用するには接続してください",
+    "emptyConnectDescription": "評価を作成・実行するには、まず tldw サーバーに接続してください。",
+    "emptyConnectExample1": "設定 → tldw サーバーを開き、サーバーURLとAPIキーを追加してください。",
+    "emptyConnectExample2": "接続後、評価を定義しここでメトリクスを確認できます。",
+    "datasetSamplesLabel": "サンプル",
+    "datasetSamplesEmpty": "このページのサンプルはありません。",
+    "metricsLabel": "メトリクス"
   },
   "evaluationsSettings": {
-    "title": "Evaluations",
-    "subtitle": "Configure defaults used by the Evaluations playground.",
-    "offline": "Connect to your tldw server to test Evaluations.",
-    "defaultType": "Default evaluation type",
-    "defaultModel": "Default target model",
-    "defaultRunConfig": "Default run config (JSON)",
-    "defaultDataset": "Default dataset id (optional)",
-    "specForType": "Spec preset for selected type",
-    "testCta": "Test Evaluations API",
-    "testOk": "Evaluations API reachable",
-    "testFail": "Unable to reach Evaluations API"
+    "title": "評価",
+    "subtitle": "評価プレイグラウンドで使用する既定値を設定します。",
+    "offline": "評価をテストするには tldw サーバーに接続してください。",
+    "defaultType": "既定の評価タイプ",
+    "defaultModel": "既定の対象モデル",
+    "defaultRunConfig": "既定の実行設定（JSON）",
+    "defaultDataset": "既定のデータセットID（任意）",
+    "specForType": "選択したタイプの仕様プリセット",
+    "testCta": "評価 API をテスト",
+    "testOk": "評価 API に到達できます",
+    "testFail": "評価 API に到達できません"
+  },
+  "chunkingPlayground": {
+    "nav": "チャンク分割プレイグラウンド",
+    "title": "チャンク分割プレイグラウンド",
+    "description": "さまざまなチャンク設定を試して、テキストが処理用の小さな塊に分割される様子を確認できます。",
+    "inputLabel": "分割するテキスト",
+    "inputPlaceholder": "ここにテキストを貼り付けるか、サンプルを選択...",
+    "uploadButton": "ファイルをアップロード",
+    "chunkButton": "テキストを分割",
+    "methodLabel": "チャンク方式",
+    "maxSizeLabel": "最大チャンクサイズ",
+    "overlapLabel": "重なり",
+    "languageLabel": "言語",
+    "languages": {
+      "auto": "自動検出",
+      "en": "英語",
+      "es": "スペイン語",
+      "fr": "フランス語",
+      "de": "ドイツ語",
+      "it": "イタリア語",
+      "pt": "ポルトガル語",
+      "zh": "中国語",
+      "ja": "日本語",
+      "ko": "韓国語"
+    },
+    "viewCards": "カード",
+    "viewInline": "インライン",
+    "stats": "{{count}} 個のチャンク、平均 {{avgSize}} 文字",
+    "textLoaded": "テキストを読み込みました",
+    "characters": "文字",
+    "tabSingle": "単一",
+    "tabCompare": "比較",
+    "chunkIndex": "チャンク {{index}}",
+    "chunkInfo": "チャンク {{index}}: {{words}} 語",
+    "position": "位置: {{start}} - {{end}}",
+    "additionalChunks": "+{{count}} 件の追加",
+    "charCount": "{{count}} 文字",
+    "wordCount": "{{count}} 語",
+    "noInput": "分割するテキストを入力してください",
+    "sharedInput": "共有入力テキスト",
+    "compareButton": "両方を比較",
+    "comparison": "比較",
+    "fewerChunks": "設定 A は {{diff}} 個少ないチャンクになります",
+    "moreChunks": "設定 A は {{diff}} 個多いチャンクになります",
+    "sameChunks": "両設定は同じ数のチャンクになります",
+    "clickToChunk": "「比較」をクリックして結果を表示",
+    "overlapRegion": "重なり領域",
+    "clickHint": "ハイライトされたセクションをクリックすると、そのチャンクにフォーカスします",
+    "noContentFound": "このメディア項目のテキストが見つかりません",
+    "loadContentError": "メディア内容の読み込みに失敗しました",
+    "loadMediaListError": "メディアライブラリの読み込みに失敗しました",
+    "selectMedia": "メディア項目を選択...",
+    "loadingMedia": "内容を読み込み中...",
+    "noMediaFound": "メディアが見つかりません",
+    "mediaCount": "{{count}} 件のメディア項目があります",
+    "inputSource": {
+      "paste": "テキストを貼り付け",
+      "upload": "ファイルをアップロード",
+      "sample": "サンプルテキスト",
+      "media": "メディアライブラリから"
+    },
+    "samples": {
+      "article": "ニュース記事",
+      "articleDesc": "見出し付きの複数段落記事",
+      "code": "ソースコード",
+      "codeDesc": "クラスと関数を含む Python コード",
+      "transcript": "書き起こし",
+      "transcriptDesc": "タイムスタンプ付きポッドキャスト書き起こし",
+      "academic": "学術論文",
+      "academicDesc": "引用付きの技術文書"
+    },
+    "compare": {
+      "title": "設定を比較",
+      "configA": "設定 A",
+      "configB": "設定 B"
+    },
+    "mode": {
+      "single": "単一",
+      "compare": "比較"
+    }
   }
 }

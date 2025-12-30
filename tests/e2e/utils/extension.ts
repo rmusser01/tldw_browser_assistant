@@ -65,6 +65,7 @@ export async function launchWithExtension(
 
   const context = await chromium.launchPersistentContext(userDataDir, {
     headless: !!process.env.CI,
+    acceptDownloads: true,
     env: {
       ...process.env,
       HOME: homeDir
@@ -134,7 +135,14 @@ export async function launchWithExtension(
 
   async function openSidepanel() {
     const p = await context.newPage()
-    await p.goto(sidepanelUrl)
+    await p.goto(sidepanelUrl, { waitUntil: 'domcontentloaded' })
+    // Ensure the sidepanel app has a root to mount into before returning.
+    const root = p.locator('#root')
+    try {
+      await root.waitFor({ state: 'visible', timeout: 10000 })
+    } catch {
+      // Ignore if the root is not visible yet; downstream tests will assert.
+    }
     await waitForStorageSeed(p)
     return p
   }

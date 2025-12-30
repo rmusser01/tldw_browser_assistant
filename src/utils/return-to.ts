@@ -1,6 +1,6 @@
 const RETURN_TO_KEY = "tldw:returnTo"
 
-const VALID_TARGETS = ["/notes", "/review", "/media", "/flashcards"] as const
+const VALID_TARGETS = ["/notes", "/review", "/media", "/flashcards", "/quiz"] as const
 
 export type ReturnToTarget = (typeof VALID_TARGETS)[number]
 

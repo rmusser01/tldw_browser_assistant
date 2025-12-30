@@ -1,0 +1,1085 @@
+{
+  "formError_noModel": {
+    "message": "لطفا یک مدل را انتخاب کنید"
+  },
+  "formError_noEmbeddingModel": {
+    "message": "لطفا یک مدل جاسازی در صفحه تنظیمات > RAG تنظیم کنید"
+  },
+  "form_textarea_placeholder": {
+    "message": "یک پیام تایپ کنید..."
+  },
+  "form_webSearch_on": {
+    "message": "روشن"
+  },
+  "form_webSearch_off": {
+    "message": "خاموش"
+  },
+  "tooltip_searchInternet": {
+    "message": "جستجوی اینترنت"
+  },
+  "tooltip_speechToText": {
+    "message": "گفتار به متن"
+  },
+  "tooltip_uploadImage": {
+    "message": "آپلود تصویر"
+  },
+  "tooltip_stopStreaming": {
+    "message": "توقف پخش"
+  },
+  "tooltip_knowledge": {
+    "message": "دانش"
+  },
+  "tooltip_clearContext": {
+    "message": "پاک کردن متن"
+  },
+  "tooltip_speechToTextServer": {
+    "message": "دیکته از طریق سرور tldw شما"
+  },
+  "tooltip_speechToTextBrowser": {
+    "message": "دیکته از طریق تشخیص گفتار مرورگر"
+  },
+  "tooltip_speechToTextDetails": {
+    "message": "از {{model}} · {{task}} · {{format}} استفاده می‌کند. در تنظیمات → عمومی → گفتار به متن پیکربندی کنید."
+  },
+  "tooltip_vision": {
+    "message": "[آزمایشی] گفتگوی بینایی"
+  },
+  "tooltip_uploadDocuments": {
+    "message": "آپلود اسناد (بتا)"
+  },
+  "sendWhenEnter": {
+    "message": "با فشار دادن Enter ارسال شود"
+  },
+  "welcome": {
+    "message": "سلام! امروز چطور می‌توانم به شما کمک کنم؟"
+  },
+  "useOCR": {
+    "message": "استخراج متن از تصویر (OCR)"
+  },
+  "tips_title": {
+    "message": "نکات"
+  },
+  "tips_quickIngest": {
+    "message": "برای افزودن اسناد و صفحات وب از «درون‌ریزی سریع» استفاده کنید."
+  },
+  "tips_pickModelPrompt": {
+    "message": "از سربرگ یک مدل و یک پرامپت انتخاب کنید."
+  },
+  "tips_startChatFocus": {
+    "message": "پس از اتصال، «شروع گفتگو» کادر نوشتن را فعال می‌کند."
+  },
+  "tldwState_searching": {
+    "message": "در حال جستجوی tldw server شما"
+  },
+  "tldwState_running": {
+    "message": "tldw در حال اجرا است"
+  },
+  "tldwState_notRunning": {
+    "message": "امکان اتصال به tldw server وجود ندارد"
+  },
+  "tldwState_connectionError": {
+    "message": "به نظر می رسد که خطای اتصال دارید. لطفا برای عیب یابی به این <anchor>مستندات</anchor> مراجعه کنید."
+  },
+  "tldwState_errorToast": {
+    "message": "نتوانستیم به {{host}} دسترسی پیدا کنیم"
+  },
+  "tldwState_missingHelp": {
+    "message": "برای افزودن URL خود «Settings → tldw Server» را باز کنید یا به صفحه گزینه‌ها متصل شوید."
+  },
+  "tldwState_troubleshoot": {
+    "message": "اطمینان حاصل کنید سرور در حال اجراست و مرورگر اجازه دسترسی دارد، سپس از صفحه گزینه‌ها دوباره تلاش کنید."
+  },
+  "tldwState_openTldwSettings": {
+    "message": "باز کردن تنظیمات tldw"
+  },
+  "tldwState_cancelSearch": {
+    "message": "لغو جستجو"
+  },
+  "tldwState_connectionFailedWithCode": {
+    "message": "اتصال ناموفق بود (HTTP {{code}})"
+  },
+  "tldwState_connectionFailed": {
+    "message": "اتصال ناموفق بود"
+  },
+  "tldwState_errorDetailsLabel": {
+    "message": "جزئیات:"
+  },
+  "tldwState_title": {
+    "message": "در انتظار سرور tldw شما"
+  },
+  "tldwState_subtitle": {
+    "message": "برای بررسی اتصال، در حال پینگ {{host}} هستیم."
+  },
+  "tldwState_missing": {
+    "message": "آدرس سرور پیکربندی نشده است"
+  },
+  "tldwState_noServer": {
+    "message": "برای شروع گفتگو، سرور tldw خود را اضافه کنید."
+  },
+  "tldwState_connectedSubtitle": {
+    "message": "به {{host}} متصل شد. هر زمان آماده‌اید گفتگو را شروع کنید."
+  },
+  "tldwState_errorSubtitle": {
+    "message": "هنوز نتوانستیم به {{host}} دسترسی پیدا کنیم. دوباره تلاش کنید یا تنظیمات سرور را به‌روزرسانی کنید."
+  },
+  "tldwState_openSettings": {
+    "message": "باز کردن تنظیمات"
+  },
+  "tldwState_changeServer": {
+    "message": "تغییر سرور"
+  },
+  "tldwState_elapsed": {
+    "message": "در حال بررسی… {{seconds}}ث"
+  },
+  "tldwState_connectedHint": {
+    "message": "به {{host}} متصل شد."
+  },
+  "tldwState_lastChecked": {
+    "message": "آخرین بررسی {{seconds}}ث پیش"
+  },
+  "tldwState_recheck": {
+    "message": "بررسی دوباره"
+  },
+  "errors_privateModeDescription": {
+    "message": "حالت خصوصی فایرفاکس از ذخیره چت پشتیبانی نمی‌کند. چت موقت به‌صورت پیش‌فرض فعال است. به‌زودی بهبود می‌یابد."
+  },
+  "tts_playErrorTitle": {
+    "message": "خطا"
+  },
+  "tts_playErrorDescription": {
+    "message": "در پخش صدا خطایی رخ داد"
+  },
+  "tts_browserInfoTitle": {
+    "message": "TTS مرورگر از صدای سیستم استفاده می‌کند"
+  },
+  "tts_browserInfoDescription": {
+    "message": "TTS مرورگر با سنتزکنندهٔ سیستم شما پخش می‌کند و فایل صوتی قابل دانلود ارائه نمی‌دهد. از کنترل‌های بخش‌ها در پایین استفاده کنید یا برای فهرست قطعه‌ها و پخش‌کننده، ارائه‌دهنده را تغییر دهید."
+  },
+  "tts_unsupportedProviderTitle": {
+    "message": "ارائه‌دهنده TTS پشتیبانی نمی‌شود"
+  },
+  "tts_unsupportedProviderDescription": {
+    "message": "ارائه‌دهنده \"{{provider}}\" هنوز در پخش‌کننده زمین بازی پشتیبانی نمی‌شود."
+  },
+  "tts_unsupportedFormatTitle": {
+    "message": "قالب صوتی پشتیبانی‌نشده"
+  },
+  "tts_unsupportedFormatDescription": {
+    "message": "قالب پاسخ «{{format}}» پشتیبانی نمی‌شود. به MP3 برمی‌گردد."
+  },
+  "tts_elevenLabsMissingTitle": {
+    "message": "ElevenLabs به کلید API نیاز دارد"
+  },
+  "tts_elevenLabsMissingBody": {
+    "message": "کلید API ElevenLabs را در تنظیمات اضافه کنید تا صداها و مدل‌ها بارگذاری شوند."
+  },
+  "tts_elevenLabsUnavailableTitle": {
+    "message": "صداهای ElevenLabs در دسترس نیست"
+  },
+  "tts_elevenLabsUnavailableBody": {
+    "message": "نتوانستیم صداها یا مدل‌ها را بارگذاری کنیم. کلید API خود را بررسی کرده و دوباره تلاش کنید."
+  },
+  "tts_elevenLabsMissingCta": {
+    "message": "کلید API را در تنظیمات تنظیم کنید"
+  },
+  "tts_generateErrorTitle": {
+    "message": "خطا در تولید صدا"
+  },
+  "tts_generateErrorDescription": {
+    "message": "در تولید صدای TTS مشکلی پیش آمد."
+  },
+  "tts_sampleText": {
+    "message": "درج متن نمونه"
+  },
+  "tts_playHelper": {
+    "message": "پخش از ارائه‌دهنده، صدا و سرعت انتخابی شما استفاده می‌کند."
+  },
+  "tts_playDisabledNoText": {
+    "message": "برای فعال شدن پخش متن وارد کنید."
+  },
+  "tts_playDisabledTtsOff": {
+    "message": "برای پخش صدا، متن‌به‌گفتار را در بالا فعال کنید."
+  },
+  "tts_playDisabledElevenLabs": {
+    "message": "برای فعال شدن پخش، کلید API، صدا و مدل ElevenLabs را اضافه کنید."
+  },
+  "tts_stopDisabled": {
+    "message": "دکمه توقف پس از شروع صدا فعال می‌شود."
+  },
+  "tts_providerChangeHelper": {
+    "message": "از انتخاب‌گر ارائه‌دهنده در پایین برای جابه‌جایی بین Browser، tldw، OpenAI یا Supersonic استفاده کنید."
+  },
+  "tts_changeProvider": {
+    "message": "تغییر ارائه‌دهنده"
+  },
+  "tts_title": {
+    "message": "پلی‌گراند TTS"
+  },
+  "tts_subtitle": {
+    "message": "متن‌به‌گفتار را امتحان کنید و ارائه‌دهنده‌ها، مدل‌ها و صداها را تنظیم کنید."
+  },
+  "tts_currentProvider": {
+    "message": "ارائه‌دهنده فعلی"
+  },
+  "tts_settingsIntro": {
+    "message": "ارائه‌دهنده، مدل و صدای TTS را تنظیم کنید. این تنظیمات هنگام پخش صدا از چت یا رسانه دوباره استفاده می‌شوند."
+  },
+  "tts_providerCapabilities": {
+    "message": "قابلیت‌های ارائه‌دهنده"
+  },
+  "tts_voicesPreview": {
+    "message": "صداهای سرور"
+  },
+  "tts_providerDetails": {
+    "message": "مشاهده پیکربندی خام ارائه‌دهنده"
+  },
+  "tts_providerDetailsTitle": {
+    "message": "جزئیات ارائه‌دهنده"
+  },
+  "tts_inputLabel": {
+    "message": "برای شنیدن، متنی وارد کنید."
+  },
+  "tts_inputPlaceholder": {
+    "message": "متن را اینجا تایپ یا بچسبانید، سپس برای شنیدن روی پخش بزنید."
+  },
+  "tts_play": {
+    "message": "پخش"
+  },
+  "tts_playing": {
+    "message": "در حال پخش…"
+  },
+  "tts_stop": {
+    "message": "توقف"
+  },
+  "tts_browserSegmentsTitle": {
+    "message": "بخش‌های TTS مرورگر"
+  },
+  "tts_browserSegmentsHelp": {
+    "message": "بخش‌ها را در صف بگذارید یا هر بخش را جداگانه با صدای سیستم پخش کنید."
+  },
+  "tts_browserQueueAll": {
+    "message": "صف‌کردن همه"
+  },
+  "tts_browserQueueFromHere": {
+    "message": "صف از اینجا"
+  },
+  "tts_browserSegmentPlay": {
+    "message": "پخش بخش"
+  },
+  "tts_browserStatusSpeaking": {
+    "message": "پخش بخش {{current}}/{{total}}"
+  },
+  "tts_browserStatusPaused": {
+    "message": "مکث‌شده"
+  },
+  "tts_browserPause": {
+    "message": "مکث"
+  },
+  "tts_browserResume": {
+    "message": "ادامه"
+  },
+  "tts_tldwStatusOnline": {
+    "message": "API صوتی سرور tldw شناسایی شد (audio/speech)"
+  },
+  "tts_tldwStatusOffline": {
+    "message": "API صوتی شناسایی نشد؛ نسخه سرور tldw را بررسی کنید."
+  },
+  "tts_tldwWarningTitle": {
+    "message": "API صوتی/گفتاری tldw شناسایی نشد"
+  },
+  "tts_tldwWarningBody": {
+    "message": "مطمئن شوید نسخه tldw_server شامل /api/v1/audio/speech است و افزونه با کلید API معتبر متصل شده است."
+  },
+  "tts_speechErrorTitle": {
+    "message": "دیکته ناموفق بود"
+  },
+  "tts_speechErrorBody": {
+    "message": "درخواست رونویسی ناموفق بود. سلامت سرور tldw را بررسی کنید."
+  },
+  "tts_speechNoText": {
+    "message": "رونویسی هیچ متنی برنگرداند."
+  },
+  "tts_speechMicError": {
+    "message": "دسترسی به میکروفون ممکن نیست. مجوزهای مرورگر را بررسی کرده و دوباره تلاش کنید."
+  },
+  "tts_savedToNotes": {
+    "message": "رونویسی به‌عنوان یادداشت ذخیره شد."
+  },
+  "empty_title": {
+    "message": "شروع گفتگوی جدید"
+  },
+  "empty_description": {
+    "message": "اینجا با مدل‌ها، پرامپت‌ها و منابع دانشی مختلف آزمایش کنید."
+  },
+  "empty_demoDescription": {
+    "message": "شما در حالت دمو هستید—برای دیدن پاسخ دستیار یک سؤال بپرسید. بعداً می‌توانید سرور tldw خود را متصل کنید."
+  },
+  "empty_example1": {
+    "message": "یک سؤال بپرسید، سپس اسناد یا صفحات وبی را که می‌خواهید درباره‌شان بحث کنید بکشید."
+  },
+  "empty_example2": {
+    "message": "برای افزودن رونوشت‌ها یا یادداشت‌ها از درون‌ریزی سریع استفاده کنید و سپس در گفتگو به آن‌ها ارجاع دهید."
+  },
+  "empty_example3": {
+    "message": "برای مقایسه پاسخ‌ها، پرامپت‌ها یا مدل‌های مختلف را از سربرگ امتحان کنید."
+  },
+  "empty_primaryCta": {
+    "message": "شروع گفتگو"
+  },
+  "empty_secondaryCta": {
+    "message": "باز کردن تنظیمات سرور"
+  },
+  "drop_hint": {
+    "message": "فایل‌ها را رها کنید تا به پیام شما پیوست شوند"
+  },
+  "drop_readySingle": {
+    "message": "{{name}} آماده ارسال است"
+  },
+  "drop_readyMultiple": {
+    "message": "{{count}} فایل آماده ارسال است"
+  },
+  "drop_unsupported": {
+    "message": "این نوع فایل پشتیبانی نمی‌شود. تصاویر یا فایل‌های متنی را امتحان کنید."
+  },
+  "drop_defaultFileName": {
+    "message": "فایل"
+  },
+  "drop_imageOnly": {
+    "message": "فعلاً فقط تصاویر را می‌توان اینجا رها کرد."
+  },
+  "drop_imageHint": {
+    "message": "برای افزودن به پیام، یک تصویر رها کنید"
+  },
+  "drop_overlayInstruction": {
+    "message": "تصویر را رها کنید تا به پاسخ بعدی پیوست شود"
+  },
+  "aria_chatTranscript": {
+    "message": "پیام‌های گفتگو"
+  },
+  "more_history": {
+    "message": "ذخیره گفتگو"
+  },
+  "more_searchKnowledge": {
+    "message": "جستجو و دانش"
+  },
+  "more_voice": {
+    "message": "گزینه‌های بیشتر صوتی"
+  },
+  "more_uploads": {
+    "message": "آپلودها و درون‌ریزی"
+  },
+  "fileRetrievalEnabled": {
+    "message": "فعال‌سازی RAG برای اسناد"
+  },
+  "stt_title": {
+    "message": "پلی‌گراند STT"
+  },
+  "stt_subtitle": {
+    "message": "مدل‌های رونویسی را امتحان کنید، نشست‌های دیکته طولانی‌تر اجرا کنید و رونوشت‌ها را در یادداشت‌ها ذخیره کنید."
+  },
+  "stt_currentModelLabel": {
+    "message": "مدل رونویسی فعلی"
+  },
+  "stt_defaultModel": {
+    "message": "پیش‌فرض از تنظیمات"
+  },
+  "stt_settingsNotice": {
+    "message": "زبان، وظیفه، قالب پاسخ، بخش‌بندی و پرامپت از تنظیمات گفتار به متن شما استفاده می‌کنند."
+  },
+  "stt_sessionMode": {
+    "message": "حالت نشست"
+  },
+  "stt_modeLong": {
+    "message": "طولانی (ضبط بخش‌بندی‌شده)"
+  },
+  "stt_modeShort": {
+    "message": "دیکته کوتاه (کلیپ تکی)"
+  },
+  "stt_languageTag": {
+    "message": "زبان"
+  },
+  "stt_taskTag": {
+    "message": "وظیفه"
+  },
+  "stt_formatTag": {
+    "message": "قالب"
+  },
+  "stt_segmentationEnabled": {
+    "message": "بخش‌بندی فعال است"
+  },
+  "stt_recordButton": {
+    "message": "ضبط"
+  },
+  "stt_stopButton": {
+    "message": "توقف"
+  },
+  "stt_startTooltip": {
+    "message": "شروع ضبط صدا برای رونویسی"
+  },
+  "stt_stopTooltip": {
+    "message": "توقف و ارسال به سرور"
+  },
+  "stt_transcribingButton": {
+    "message": "در حال رونویسی..."
+  },
+  "stt_transcribingTooltip": {
+    "message": "در حال رونویسی صدا..."
+  },
+  "stt_transcribingPlaceholder": {
+    "message": "در حال رونویسی صدا..."
+  },
+  "stt_historyTitle": {
+    "message": "تاریخچه رونویسی"
+  },
+  "stt_clearAll": {
+    "message": "پاک کردن همه"
+  },
+  "stt_emptyHistory": {
+    "message": "برای دیدن رونوشت‌ها اینجا، یک ضبط را شروع کنید. می‌توانید هر موردی را در یادداشت‌ها ذخیره کنید."
+  },
+  "stt_saveToNotes": {
+    "message": "ذخیره در یادداشت‌ها"
+  },
+  "stt_delete": {
+    "message": "حذف"
+  },
+  "stt_durationTag": {
+    "message": "مدت"
+  },
+  "stt_modelTag": {
+    "message": "مدل"
+  },
+  "stt_currentTranscriptTitle": {
+    "message": "رونوشت نشست فعلی"
+  },
+  "stt_currentTranscriptPlaceholder": {
+    "message": "رونوشت زنده هنگام ضبط اینجا نمایش داده می‌شود."
+  },
+  "actions_temporaryOn": {
+    "message": "گفتگوی موقت (ذخیره نمی‌شود)"
+  },
+  "actions_temporaryOff": {
+    "message": "ذخیره گفتگو در تاریخچه"
+  },
+  "actions_webSearchOn": {
+    "message": "جستجوی وب روشن"
+  },
+  "actions_webSearchOff": {
+    "message": "جستجوی وب خاموش"
+  },
+  "actions_speechStart": {
+    "message": "شروع دیکته"
+  },
+  "actions_speechStop": {
+    "message": "توقف دیکته"
+  },
+  "actions_streamStart": {
+    "message": "زیرنویس زنده"
+  },
+  "actions_streamStop": {
+    "message": "توقف زیرنویس"
+  },
+  "actions_visionOn": {
+    "message": "بینایی روشن"
+  },
+  "actions_visionOff": {
+    "message": "بینایی خاموش"
+  },
+  "actions_upload": {
+    "message": "پیوست تصویر"
+  },
+  "actions_ingest": {
+    "message": "درون‌ریزی سریع"
+  },
+  "actions_ingestDisabled": {
+    "message": "برای درون‌ریزی به سرور tldw خود متصل شوید."
+  },
+  "actions_ingestHint": {
+    "message": "URLها یا فایل‌ها را با گزینه‌های پیشرفته بارگذاری کنید."
+  },
+  "actions_ingestSub": {
+    "message": "از URL/فایل استفاده کنید؛ دانلود یا ذخیره کنید."
+  },
+  "actions_streamErrorTitle": {
+    "message": "زیرنویس زنده در دسترس نیست"
+  },
+  "composer_toolsButton": {
+    "message": "+ابزارها"
+  },
+  "composer_queuedBanner_title": {
+    "message": "صف‌شده در حالت آفلاین"
+  },
+  "composer_queuedBanner_body": {
+    "message": "این پیام‌ها را نگه می‌داریم و پس از اتصال سرور tldw ارسال می‌کنیم."
+  },
+  "composer_queuedBanner_sendNow": {
+    "message": "ارسال پیام‌های صف‌شده"
+  },
+  "composer_queuedBanner_clear": {
+    "message": "پاک کردن صف"
+  },
+  "composer_coreTools": {
+    "message": "گزینه‌های گفتگو"
+  },
+  "composer_captureTools": {
+    "message": "ابزارهای دریافت و کمک"
+  },
+  "composer_actions": {
+    "message": "گزینه‌های ارسال"
+  },
+  "composer_moreTools": {
+    "message": "ابزارهای بیشتر"
+  },
+  "composer_scrollToLatest": {
+    "message": "اسکرول به آخرین پیام‌ها"
+  },
+  "composer_submitAria": {
+    "message": "ارسال پیام"
+  },
+  "composer_openModelSettings": {
+    "message": "باز کردن تنظیمات گفتگوی فعلی"
+  },
+  "composer_stopStreaming": {
+    "message": "توقف پخش پاسخ"
+  },
+  "composer_connectionPlaceholder": {
+    "message": "برای ارسال پیام و مشاهده رسانه، در تنظیمات به سرور tldw خود متصل شوید."
+  },
+  "composer_connectNotice": {
+    "message": "برای ارسال پیام و مشاهده رسانه، در تنظیمات به سرور tldw خود متصل شوید."
+  },
+  "composer_connectionChipDisconnected": {
+    "message": "سرور: متصل نیست"
+  },
+  "composer_contextLabel": {
+    "message": "زمینه:"
+  },
+  "composer_contextKnowledgeEmpty": {
+    "message": "هیچ دانشی انتخاب نشده است"
+  },
+  "composer_contextTabs": {
+    "message": "{{count}} تب"
+  },
+  "composer_contextFiles": {
+    "message": "{{count}} فایل"
+  },
+  "composer_contextMedia": {
+    "message": "رسانه و یادداشت‌ها"
+  },
+  "composer_contextMediaHint": {
+    "message": "رسانه و یادداشت‌هایی را پیوست کنید که باید پاسخ را هدایت کنند."
+  },
+  "composer_contextMediaSelected": {
+    "message": "رسانه یا یادداشت"
+  },
+  "composer_contextMediaEmpty": {
+    "message": "هنوز رسانه یا یادداشتی انتخاب نشده است."
+  },
+  "composer_addKnowledge": {
+    "message": "افزودن رسانه و یادداشت‌ها"
+  },
+  "composer_contextTabsTitle": {
+    "message": "تب‌ها در زمینه"
+  },
+  "composer_contextTabsHint": {
+    "message": "تب‌های ارجاع‌شده را بررسی یا حذف کنید، یا از تب‌های باز مرورگر موارد بیشتری اضافه کنید."
+  },
+  "composer_contextManager": {
+    "message": "مدیریت زمینه"
+  },
+  "composer_contextManagerTitle": {
+    "message": "مدیریت زمینه"
+  },
+  "composer_contextKnowledge": {
+    "message": "زمینه و دانش"
+  },
+  "composer_contextKnowledgeClose": {
+    "message": "بستن زمینه و دانش"
+  },
+  "composer_knowledgeSearch": {
+    "message": "جستجوی دانش"
+  },
+  "composer_knowledgeSearchClose": {
+    "message": "بستن جستجوی دانش"
+  },
+  "composer_persistence_ephemeral": {
+    "message": "در تاریخچه ذخیره نمی‌شود؛ با بستن این تب پاک می‌شود."
+  },
+  "composer_persistence_local": {
+    "message": "فقط در این مرورگر ذخیره می‌شود."
+  },
+  "composer_persistence_server": {
+    "message": "ذخیره محلی + سرور"
+  },
+  "composer_persistence_ephemeralPill": {
+    "message": "موقت"
+  },
+  "composer_persistence_localPill": {
+    "message": "فقط محلی"
+  },
+  "composer_persistence_serverPill": {
+    "message": "محلی + سرور"
+  },
+  "composer_persistence_saveToServer": {
+    "message": "این گفتگو را روی سرور هم ذخیره کنید"
+  },
+  "composer_persistence_connectToSave": {
+    "message": "برای ذخیره گفتگوها آنجا، سرور خود را متصل کنید."
+  },
+  "composer_persistence_serverDefaultTitle": {
+    "message": "گفتگوی افزونه"
+  },
+  "composer_persistence_serverSavedTitle": {
+    "message": "گفتگو اکنون روی سرور ذخیره شد"
+  },
+  "composer_persistence_serverSaved": {
+    "message": "پیام‌های بعدی این گفتگو با سرور tldw شما همگام می‌شوند."
+  },
+  "composer_persistence_serverCharacterRequired": {
+    "message": "نتوانستیم شخصیت پیش‌فرض دستیار را روی سرور پیدا یا ایجاد کنیم. از صفحه شخصیت‌ها دوباره تلاش کنید."
+  },
+  "composer_connectToSend": {
+    "message": "برای ارسال پیام و مشاهده رسانه، در تنظیمات به سرور tldw خود متصل شوید."
+  },
+  "composer_compareTag": {
+    "message": "مقایسه"
+  },
+  "composer_compareLabel": {
+    "message": "حالت مقایسه"
+  },
+  "composer_compareButton": {
+    "message": "مقایسه مدل‌ها"
+  },
+  "composer_compareButtonActive": {
+    "message": "مقایسه: {{count}} مدل"
+  },
+  "composer_compareButtonOn": {
+    "message": "مقایسه فعال شد"
+  },
+  "composer_compareSettingsTitle": {
+    "message": "تنظیمات مقایسه"
+  },
+  "composer_compareSettingsToggle": {
+    "message": "فعال کردن حالت مقایسه"
+  },
+  "composer_compareSettingsToggleHint": {
+    "message": "پیام بعدی شما به چند مدل ارسال می‌شود."
+  },
+  "composer_compareNoneSelected": {
+    "message": "هیچ مدلی برای مقایسه انتخاب نشده است"
+  },
+  "composer_compareSingle": {
+    "message": "در حال مقایسه ۱ مدل"
+  },
+  "composer_compareMany": {
+    "message": "در حال مقایسه {{count}} مدل"
+  },
+  "composer_compareActiveSummary": {
+    "message": "مدل‌های فعال در نوبت بعد: {{label}}"
+  },
+  "composer_compareModelPickerLabel": {
+    "message": "انتخاب مدل‌ها"
+  },
+  "composer_compareModelPickerPlaceholder": {
+    "message": "مدل‌هایی برای مقایسه انتخاب کنید"
+  },
+  "composer_compareActiveModelsLabel": {
+    "message": "مدل‌های فعال"
+  },
+  "composer_compareActiveModelsHint": {
+    "message": "پیام بعدی شما برای هر مدل فعال ارسال می‌شود."
+  },
+  "composer_compareSendToModels": {
+    "message": "ارسال به {{count}} مدل"
+  },
+  "composer_compareMaxModelsTitle": {
+    "message": "به حد مجاز مقایسه رسیده‌اید"
+  },
+  "composer_compareMaxModels": {
+    "message": "می‌توانید در هر نوبت حداکثر {{limit}} مدل را مقایسه کنید."
+  },
+  "composer_compareMaxModelsTrimmed": {
+    "message": "مقایسه به {{limit}} مدل در هر نوبت محدود می‌شود. از اولین {{limit}} مدل انتخاب‌شده استفاده می‌شود."
+  },
+  "composer_compareMaxLabel": {
+    "message": "حداکثر مدل در هر نوبت"
+  },
+  "composer_compareMaxHelper": {
+    "message": "انتخاب‌شده: {{current}} / {{limit}}"
+  },
+  "composer_compareSelectedLabel": {
+    "message": "به‌عنوان پاسخ انتخاب شد:"
+  },
+  "composer_compareContinueHint": {
+    "message": "این گفتگو را با مدل انتخاب‌شده ادامه دهید."
+  },
+  "composer_compareContinue": {
+    "message": "ادامه با این مدل"
+  },
+  "composer_compareThreadShared": {
+    "message": "شما (مشترک)"
+  },
+  "composer_compareBulkSplitSuccess": {
+    "message": "تعداد {{count}} گفتگو ایجاد شد"
+  },
+  "composer_compareBulkSplitPartialFail": {
+    "message": "ایجاد {{count}} چت ناموفق بود"
+  },
+  "composer_validationCompareSelectModelsInline": {
+    "message": "برای حالت مقایسه حداقل یک مدل انتخاب کنید."
+  },
+  "speech_title": {
+    "message": "زمین بازی گفتار"
+  },
+  "speech_subtitle": {
+    "message": "گفتار را ضبط کنید، رونوشت‌ها را ویرایش کنید و صدا را در یکجا تولید کنید."
+  },
+  "speech_modeLabel": {
+    "message": "حالت"
+  },
+  "speech_modeRoundTrip": {
+    "message": "رفت‌وبرگشت"
+  },
+  "speech_modeSpeak": {
+    "message": "صحبت"
+  },
+  "speech_modeListen": {
+    "message": "گوش‌دادن"
+  },
+  "speech_modeHint": {
+    "message": "آخرین حالت روی این دستگاه به خاطر سپرده می‌شود."
+  },
+  "speech_recordingWaveform": {
+    "message": "موج‌نگار ضبط زنده"
+  },
+  "speech_playbackWaveform": {
+    "message": "موج‌نگار پخش"
+  },
+  "speech_sendToTts": {
+    "message": "ارسال به TTS"
+  },
+  "speech_sendHint": {
+    "message": "از آخرین رونوشت به عنوان پیش‌نویس TTS استفاده کنید."
+  },
+  "speech_download": {
+    "message": "دانلود"
+  },
+  "speech_downloadCurrent": {
+    "message": "دانلود بخش فعلی"
+  },
+  "speech_downloadAll": {
+    "message": "دانلود همه بخش‌ها"
+  },
+  "speech_segmentFormat": {
+    "message": "قالب"
+  },
+  "speech_historyTitle": {
+    "message": "تاریخچه گفتار"
+  },
+  "speech_historyAll": {
+    "message": "همه"
+  },
+  "speech_historyStt": {
+    "message": "گفتار به متن"
+  },
+  "speech_historyTts": {
+    "message": "متن به گفتار"
+  },
+  "speech_historySearch": {
+    "message": "جست‌وجوی رونوشت‌ها"
+  },
+  "speech_historyRetentionHint": {
+    "message": "آخرین {{count}} مورد را نگه می‌دارد. برای حذف همه، از «پاک کردن همه» استفاده کنید."
+  },
+  "speech_useInTts": {
+    "message": "استفاده در TTS"
+  },
+  "speech_copy": {
+    "message": "کپی"
+  },
+  "speech_copySuccess": {
+    "message": "به کلیپ‌بورد کپی شد"
+  },
+  "speech_copyError": {
+    "message": "کپی کردن رونوشت ناموفق بود."
+  },
+  "speech_providerTag": {
+    "message": "ارائه‌دهنده"
+  },
+  "speech_voiceTag": {
+    "message": "صدا"
+  },
+  "speech_emptyHistory": {
+    "message": "یک ضبط را شروع کنید یا صدا تولید کنید تا تاریخچه را اینجا ببینید."
+  },
+  "speech_downloadDisabledBrowser": {
+    "message": "TTS مرورگر فایل قابل دانلود ایجاد نمی‌کند."
+  },
+  "speech_downloadDisabledEmpty": {
+    "message": "برای فعال شدن دانلود، صدا تولید کنید."
+  },
+  "speech_transcriptLock": {
+    "message": "قفل"
+  },
+  "speech_transcriptUnlock": {
+    "message": "باز کردن قفل"
+  },
+  "speech_transcriptEditHint": {
+    "message": "ویرایش برای این رونوشت فعال است."
+  },
+  "speech_transcriptLockedHint": {
+    "message": "برای به‌روزرسانی‌های رونوشت زنده قفل شده است."
+  },
+  "speech_transcriptRecordingHint": {
+    "message": "ضبط در حال انجام است؛ رونوشت قفل است."
+  },
+  "actor_title": {
+    "message": "کارگردان صحنه (اکتور)"
+  },
+  "actor_help": {
+    "message": "زمینهٔ صحنه را برای هر چت تنظیم کنید: نقش‌ها، حال‌وهوا، دنیا، اهداف و یادداشت‌ها."
+  },
+  "actor_addLabel": {
+    "message": "جنبه‌ها را اضافه یا حذف کنید تا صحنه متمرکز شود."
+  },
+  "actor_user": {
+    "message": "کاربر"
+  },
+  "actor_char": {
+    "message": "شخصیت"
+  },
+  "actor_world": {
+    "message": "دنیا"
+  },
+  "actor_newAspectPlaceholder": {
+    "message": "نام جنبه (مثلاً حال‌وهوا، نقش، مکان)"
+  },
+  "actor_addButton": {
+    "message": "افزودن جنبه"
+  },
+  "actor_aspectPlaceholder": {
+    "message": "مختصر توصیف کنید (اختیاری)"
+  },
+  "actor_notes": {
+    "message": "یادداشت‌های صحنه"
+  },
+  "actor_notesHelp": {
+    "message": "یادداشت‌های اختیاری که به مدل ارسال می‌شوند. از مارک‌داون و لاتک پشتیبانی می‌کند."
+  },
+  "actor_position": {
+    "message": "موقعیت پرامپت اکتور"
+  },
+  "actor_before": {
+    "message": "قبل از پرامپت/داستان اصلی"
+  },
+  "actor_after": {
+    "message": "بعد از پرامپت/داستان اصلی"
+  },
+  "actor_depth": {
+    "message": "در چت با عمق"
+  },
+  "actor_depthLabel": {
+    "message": "عمق (پیام‌های غیرسیستمی)"
+  },
+  "actor_depthPlaceholder": {
+    "message": "0 = ابتدای چت"
+  },
+  "actor_depthHelp": {
+    "message": "فقط زمانی استفاده می‌شود که موقعیت «در چت با عمق» باشد. پیام‌های غیرسیستمی را از ابتدای چت می‌شمارد."
+  },
+  "actor_roleLabel": {
+    "message": "نقش پیام اکتور"
+  },
+  "actor_roleSystem": {
+    "message": "سیستم"
+  },
+  "actor_roleUser": {
+    "message": "کاربر"
+  },
+  "actor_roleAssistant": {
+    "message": "دستیار"
+  },
+  "actor_positionHelp": {
+    "message": "عمق فقط زمانی استفاده می‌شود که موقعیت «در چت با عمق» باشد. نقش تعیین می‌کند اکتور به‌صورت سیستم، کاربر یا دستیار نمایش داده شود."
+  },
+  "actor_preview": {
+    "message": "پیش‌نمایش پرامپت اکتور"
+  },
+  "actor_tokens": {
+    "message": "توکن‌ها: {{count}}"
+  },
+  "actor_previewEmpty": {
+    "message": "هنوز چیزی برای ارسال نیست."
+  },
+  "actor_offlineHintTitle": {
+    "message": "کتاب‌های جهان برای اکتور در دسترس نیست"
+  },
+  "actor_offlineHintBody": {
+    "message": "از بخش تنظیمات به سرور tldw متصل شوید تا از کتاب‌های جهان برای جنبه‌های اکتور استفاده کنید یا همچنان از متن آزاد استفاده کنید."
+  },
+  "actor_loreWorldBookMissing": {
+    "message": "اتصال قبلی کتاب جهان پیدا نشد؛ از متن آزاد استفاده می‌شود."
+  },
+  "actor_loreEntryMissing": {
+    "message": "ورودی قبلی کتاب جهان پیدا نشد؛ از متن آزاد استفاده می‌شود."
+  },
+  "actor_sourceFree": {
+    "message": "متن آزاد"
+  },
+  "actor_sourceLore": {
+    "message": "کتاب جهان"
+  },
+  "actor_worldBookPlaceholder": {
+    "message": "کتاب جهان"
+  },
+  "actor_entryPlaceholder": {
+    "message": "ورودی"
+  },
+  "actor_loreValuePlaceholder": {
+    "message": "یک گزینه را انتخاب کنید (اختیاری)"
+  },
+  "actor_tokenLabel": {
+    "message": "توکن"
+  },
+  "actor_tokensTitle": {
+    "message": "توکن‌های واژه‌نامه اکتور"
+  },
+  "actor_tokensHelp": {
+    "message": "از این توکن‌ها در پرامپت‌ها و پیام‌های سیستمی استفاده کنید."
+  },
+  "actor_keyChangeTitle": {
+    "message": "کلید توکن اکتور تغییر کند؟"
+  },
+  "actor_keyChangeBody": {
+    "message": "این کار توکن را از {{old}} به {{next}} تغییر می‌دهد. پرامپت‌هایی که از توکن قدیمی استفاده می‌کنند به‌طور خودکار به‌روزرسانی نمی‌شوند."
+  },
+  "actor_keyCollisionTitle": {
+    "message": "کلید اکتور قبلاً استفاده شده است"
+  },
+  "actor_keyCollisionBody": {
+    "message": "یک جنبهٔ دیگر از این کلید استفاده می‌کند. کلیدها باید در هر چت یکتا باشند."
+  },
+  "actor_copy": {
+    "message": "کپی"
+  },
+  "actor_copied": {
+    "message": "کپی شد"
+  },
+  "actor_copySuccess": {
+    "message": "توکن در کلیپ‌بورد کپی شد"
+  },
+  "actor_copyError": {
+    "message": "کپی توکن ناموفق بود"
+  },
+  "actor_notesPreviewTitle": {
+    "message": "پیش‌نمایش یادداشت‌های صحنه"
+  },
+  "actor_notesPreviewToggle": {
+    "message": "نمایش پیش‌نمایش مارک‌داون + لاتک"
+  },
+  "actor_aspectLimitWarningTitle": {
+    "message": "جنبه‌های زیادی برای این چت تنظیم شده است"
+  },
+  "actor_aspectLimitWarningBody": {
+    "message": "شما {{count}} جنبه دارید (حد نرم {{limit}}). برای تمرکز صحنه و صرفه‌جویی در توکن‌ها، آن‌ها را کاهش دهید."
+  },
+  "actor_tokenWarning": {
+    "message": "پرامپت اکتور طولانی است ({{count}} توکن؛ حد نرم {{limit}}). برای صرفه‌جویی در کانتکست، جنبه‌ها یا یادداشت‌ها را کاهش دهید."
+  },
+  "actor_depthRangeHelp": {
+    "message": "عمق باید بین 0 تا 999 باشد؛ مقادیر فراتر از طول تاریخچه محدود می‌شوند."
+  },
+  "actor_presetLabel": {
+    "message": "پیش‌تنظیم‌ها"
+  },
+  "actor_presetPlaceholder": {
+    "message": "یک پیش‌تنظیم انتخاب کنید"
+  },
+  "actor_preset.sliceOfLife": {
+    "message": "زندگی روزمره"
+  },
+  "actor_preset.dungeonCrawl": {
+    "message": "سیاه‌چال‌گردی"
+  },
+  "actor_preset.romance": {
+    "message": "رمانتیک"
+  },
+  "actor_preset.workSession": {
+    "message": "جلسه کاری"
+  },
+  "actor_applyPreset": {
+    "message": "اعمال"
+  },
+  "actor_resetChat": {
+    "message": "بازنشانی برای این چت"
+  },
+  "actor_saveAsCharacterDefault": {
+    "message": "ذخیره به‌عنوان پیش‌فرض {{name}}"
+  },
+  "actor_applyCharacterDefault": {
+    "message": "اعمال پیش‌فرض {{name}}"
+  },
+  "actor_notesGmOnly": {
+    "message": "فقط مدیر بازی: یادداشت‌ها را به مدل ارسال نکنید"
+  },
+  "actor_templateModeLabel": {
+    "message": "تعامل با الگوهای صحنه"
+  },
+  "actor_templateModeHelp": {
+    "message": "نحوه تعامل اکتور با الگوهای فعال صحنه را کنترل می‌کند. ادغام هر دو را نگه می‌دارد؛ جایگزینی اجازه می‌دهد اکتور فیلدهای هم‌پوشان را جایگزین کند؛ نادیده‌گرفتن وقتی الگوها فعال هستند اکتور را رد می‌کند."
+  },
+  "actor_templateMode.merge": {
+    "message": "ادغام با الگوها"
+  },
+  "actor_templateMode.override": {
+    "message": "جایگزینی الگوها"
+  },
+  "actor_templateMode.ignore": {
+    "message": "نادیده‌گرفتن هنگام فعال بودن الگوها"
+  },
+  "actor_bladeAspectsTitle": {
+    "message": "جنبه‌ها"
+  },
+  "actor_bladeNotesTitle": {
+    "message": "یادداشت‌های صحنه"
+  },
+  "actor_bladePlacementTitle": {
+    "message": "جای‌گذاری و الگوها"
+  },
+  "actor_bladeTokensTitle": {
+    "message": "توکن‌ها و پیش‌نمایش"
+  },
+  "actor_summaryAspectsEmpty": {
+    "message": "هنوز جنبه‌ای تنظیم نشده است."
+  },
+  "actor_summaryAspectsCount": {
+    "message": "{{count}} جنبه تنظیم شده است."
+  },
+  "actor_summaryNotesEmpty": {
+    "message": "هنوز یادداشت صحنه‌ای وجود ندارد."
+  },
+  "actor_summaryNotes": {
+    "message": "{{chars}} نویسه{{gmSuffix}}."
+  },
+  "actor_summaryNotesGmOnly": {
+    "message": " · فقط مدیر بازی"
+  },
+  "actor_summaryPlacementBefore": {
+    "message": "قبل از پرامپت/داستان اصلی."
+  },
+  "actor_summaryPlacementAfter": {
+    "message": "بعد از پرامپت/داستان اصلی."
+  },
+  "actor_summaryPlacementDepth": {
+    "message": "عمق {{depth}} · نقش: {{role}}."
+  },
+  "actor_summaryTokensEmpty": {
+    "message": "هنوز توکنی تعریف نشده است؛ مقادیر جنبه را تنظیم کنید."
+  },
+  "actor_summaryTokensCount": {
+    "message": "{{tokens}} توکن · حدود {{estimate}} توکن در پرامپت."
+  },
+  "actor_sceneTemplateActive": {
+    "message": "الگوی صحنه فعال است: اکتور به تنظیمات تعامل با الگوها پایبند است."
+  }
+}

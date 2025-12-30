@@ -1,0 +1,1085 @@
+{
+  "formError_noModel": {
+    "message": "Vælg venligst en model"
+  },
+  "formError_noEmbeddingModel": {
+    "message": "Vælg venligst en embedding model under indstillinger > RAG side"
+  },
+  "form_textarea_placeholder": {
+    "message": "Skriv en besked..."
+  },
+  "form_webSearch_on": {
+    "message": "Til"
+  },
+  "form_webSearch_off": {
+    "message": "Fra"
+  },
+  "tooltip_searchInternet": {
+    "message": "Søg Internettet"
+  },
+  "tooltip_speechToText": {
+    "message": "Tal til Tekst"
+  },
+  "tooltip_uploadImage": {
+    "message": "Upload Billed"
+  },
+  "tooltip_stopStreaming": {
+    "message": "Stop Streaming"
+  },
+  "tooltip_knowledge": {
+    "message": "Viden"
+  },
+  "tooltip_clearContext": {
+    "message": "Ryd Kontekst"
+  },
+  "tooltip_speechToTextServer": {
+    "message": "Dictation via your tldw server"
+  },
+  "tooltip_speechToTextBrowser": {
+    "message": "Dictation via browser speech recognition"
+  },
+  "tooltip_speechToTextDetails": {
+    "message": "Uses {{model}} · {{task}} · {{format}}. Configure in Settings → General → Speech-to-Text."
+  },
+  "tooltip_vision": {
+    "message": "[Experimental] Vision Chat"
+  },
+  "tooltip_uploadDocuments": {
+    "message": "Upload Documents (beta)"
+  },
+  "sendWhenEnter": {
+    "message": "Søg, når Indtast trykkes"
+  },
+  "welcome": {
+    "message": "Hej! Hvordan kan jeg hjælpe dig i dag?"
+  },
+  "useOCR": {
+    "message": "Udtræk tekst fra billede (OCR)"
+  },
+  "tips_title": {
+    "message": "Tips"
+  },
+  "tips_quickIngest": {
+    "message": "Brug Hurtig indsæt for at tilføje dokumenter og websider."
+  },
+  "tips_pickModelPrompt": {
+    "message": "Vælg en model og en prompt i headeren."
+  },
+  "tips_startChatFocus": {
+    "message": "Når du er tilsluttet, fokuserer 'Start chat' på skrivefeltet."
+  },
+  "tldwState_searching": {
+    "message": "Søger efter din tldw server"
+  },
+  "tldwState_running": {
+    "message": "tldw kører"
+  },
+  "tldwState_notRunning": {
+    "message": "Kan ikke oprette forbindelse til tldw server"
+  },
+  "tldwState_connectionError": {
+    "message": "Det lader til, at du har en forbindelsesfejl. Se venligst denne <anchor>dokumentation</anchor> for fejlfinding."
+  },
+  "tldwState_openTldwSettings": {
+    "message": "Open tldw Settings"
+  },
+  "tldwState_cancelSearch": {
+    "message": "Cancel search"
+  },
+  "tldwState_connectionFailedWithCode": {
+    "message": "Connection failed (HTTP {{code}})"
+  },
+  "tldwState_connectionFailed": {
+    "message": "Connection failed"
+  },
+  "tldwState_errorDetailsLabel": {
+    "message": "Details:"
+  },
+  "tldwState_title": {
+    "message": "Waiting for your tldw server"
+  },
+  "tldwState_subtitle": {
+    "message": "We’re pinging {{host}} to verify the connection."
+  },
+  "tldwState_missing": {
+    "message": "Server URL not configured"
+  },
+  "tldwState_noServer": {
+    "message": "Add your tldw server to start chatting."
+  },
+  "tldwState_connectedSubtitle": {
+    "message": "Connected to {{host}}. Start chatting when you’re ready."
+  },
+  "tldwState_errorSubtitle": {
+    "message": "We couldn’t reach {{host}} yet. Retry or update your server settings."
+  },
+  "tldwState_openSettings": {
+    "message": "Open settings"
+  },
+  "tldwState_changeServer": {
+    "message": "Change server"
+  },
+  "tldwState_elapsed": {
+    "message": "Checking… {{seconds}}s"
+  },
+  "tldwState_connectedHint": {
+    "message": "Connected to {{host}}."
+  },
+  "tldwState_lastChecked": {
+    "message": "Checked {{seconds}}s ago"
+  },
+  "tldwState_recheck": {
+    "message": "Check again"
+  },
+  "tldwState_errorToast": {
+    "message": "We couldn’t reach {{host}}"
+  },
+  "tldwState_missingHelp": {
+    "message": "Open Settings → tldw Server to add your URL or connect to the Options page."
+  },
+  "tldwState_troubleshoot": {
+    "message": "Confirm your server is running and that the browser is allowed to reach it, then retry from the Options page."
+  },
+  "errors_privateModeDescription": {
+    "message": "Firefox privat tilstand understøtter ikke at gemme chat. Midlertidig chat er slået til som standard. Flere forbedringer er på vej."
+  },
+  "tts_playErrorTitle": {
+    "message": "Fejl"
+  },
+  "tts_playErrorDescription": {
+    "message": "Der opstod en fejl under afspilning af lyden"
+  },
+  "tts_browserInfoTitle": {
+    "message": "Browser-TTS bruger systemlyd"
+  },
+  "tts_browserInfoDescription": {
+    "message": "Browser-TTS afspiller via din systemsynthesizer og giver ikke en downloadbar lydfil. Brug segmentkontrollerne nedenfor, eller skift udbyder for en sporliste og en afspiller."
+  },
+  "tts_unsupportedProviderTitle": {
+    "message": "Ikke-understøttet TTS-udbyder"
+  },
+  "tts_unsupportedProviderDescription": {
+    "message": "Udbyderen \"{{provider}}\" er endnu ikke understøttet i playground-afspilleren."
+  },
+  "tts_unsupportedFormatTitle": {
+    "message": "Ikke-understøttet lydformat"
+  },
+  "tts_unsupportedFormatDescription": {
+    "message": "Svarformatet \"{{format}}\" understøttes ikke. Fald tilbage til MP3."
+  },
+  "tts_elevenLabsMissingTitle": {
+    "message": "ElevenLabs kræver en API-nøgle"
+  },
+  "tts_elevenLabsMissingBody": {
+    "message": "Tilføj din ElevenLabs API-nøgle i Indstillinger for at indlæse stemmer og modeller."
+  },
+  "tts_elevenLabsUnavailableTitle": {
+    "message": "ElevenLabs-stemmer er ikke tilgængelige"
+  },
+  "tts_elevenLabsUnavailableBody": {
+    "message": "Vi kunne ikke indlæse stemmer eller modeller. Tjek din API-nøgle og prøv igen."
+  },
+  "tts_elevenLabsMissingCta": {
+    "message": "Angiv API-nøgle i Indstillinger"
+  },
+  "tts_generateErrorTitle": {
+    "message": "Fejl ved generering af lyd"
+  },
+  "tts_generateErrorDescription": {
+    "message": "Noget gik galt under generering af TTS-lyd."
+  },
+  "tts_sampleText": {
+    "message": "Insert sample text"
+  },
+  "tts_playHelper": {
+    "message": "Play uses your selected provider, voice, and speed."
+  },
+  "tts_playDisabledNoText": {
+    "message": "Enter text to enable Play."
+  },
+  "tts_playDisabledTtsOff": {
+    "message": "Enable text-to-speech above to play audio."
+  },
+  "tts_playDisabledElevenLabs": {
+    "message": "Tilføj en ElevenLabs API-nøgle, en stemme og en model for at aktivere Play."
+  },
+  "tts_stopDisabled": {
+    "message": "Stop activates after audio starts."
+  },
+  "tts_providerChangeHelper": {
+    "message": "Åbn udbydervælgeren nedenfor for at skifte mellem Browser, tldw, OpenAI eller Supersonic."
+  },
+  "tts_changeProvider": {
+    "message": "Change provider"
+  },
+  "tts_title": {
+    "message": "TTS Playground"
+  },
+  "tts_subtitle": {
+    "message": "Try out text-to-speech and tweak providers, models, and voices."
+  },
+  "tts_currentProvider": {
+    "message": "Current provider"
+  },
+  "tts_settingsIntro": {
+    "message": "Adjust your TTS provider, model, and voice. These settings are reused when you play audio from chat or media."
+  },
+  "tts_providerCapabilities": {
+    "message": "Provider capabilities"
+  },
+  "tts_voicesPreview": {
+    "message": "Server voices"
+  },
+  "tts_providerDetails": {
+    "message": "View raw provider config"
+  },
+  "tts_providerDetailsTitle": {
+    "message": "Provider details"
+  },
+  "tts_inputLabel": {
+    "message": "Enter some text to hear it spoken."
+  },
+  "tts_inputPlaceholder": {
+    "message": "Type or paste text here, then use Play to listen."
+  },
+  "tts_play": {
+    "message": "Play"
+  },
+  "tts_playing": {
+    "message": "Playing…"
+  },
+  "tts_stop": {
+    "message": "Stop"
+  },
+  "tts_browserSegmentsTitle": {
+    "message": "Browser TTS-segmenter"
+  },
+  "tts_browserSegmentsHelp": {
+    "message": "Sæt segmenter i kø eller afspil et enkelt segment via systemlyd."
+  },
+  "tts_browserQueueAll": {
+    "message": "Sæt alle i kø"
+  },
+  "tts_browserQueueFromHere": {
+    "message": "Sæt i kø fra her"
+  },
+  "tts_browserSegmentPlay": {
+    "message": "Afspil segment"
+  },
+  "tts_browserStatusSpeaking": {
+    "message": "Taler segment {{current}}/{{total}}"
+  },
+  "tts_browserStatusPaused": {
+    "message": "Satte på pause"
+  },
+  "tts_browserPause": {
+    "message": "Pause"
+  },
+  "tts_browserResume": {
+    "message": "Fortsæt"
+  },
+  "tts_tldwStatusOnline": {
+    "message": "tldw server audio API detected (audio/speech)"
+  },
+  "tts_tldwStatusOffline": {
+    "message": "Audio API not detected; check your tldw server version."
+  },
+  "tts_tldwWarningTitle": {
+    "message": "tldw audio/speech API not detected"
+  },
+  "tts_tldwWarningBody": {
+    "message": "Ensure your tldw_server version includes /api/v1/audio/speech and that your extension is connected with a valid API key."
+  },
+  "tts_speechErrorTitle": {
+    "message": "Dictation failed"
+  },
+  "tts_speechErrorBody": {
+    "message": "Transcription request failed. Check tldw server health."
+  },
+  "tts_speechNoText": {
+    "message": "The transcription did not return any text."
+  },
+  "tts_speechMicError": {
+    "message": "Unable to access your microphone. Check browser permissions and try again."
+  },
+  "tts_savedToNotes": {
+    "message": "Transcription saved as a note."
+  },
+  "empty_title": {
+    "message": "Start a new chat"
+  },
+  "empty_description": {
+    "message": "Experiment with different models, prompts, and knowledge sources here."
+  },
+  "empty_demoDescription": {
+    "message": "You’re in demo mode — try asking a question to see how the assistant responds. You can connect your own tldw server later."
+  },
+  "empty_example1": {
+    "message": "Ask a question, then drag in documents or web pages you want to discuss."
+  },
+  "empty_example2": {
+    "message": "Use Quick ingest to add transcripts or notes, then reference them in chat."
+  },
+  "empty_example3": {
+    "message": "Try different prompts or models from the header to compare answers."
+  },
+  "empty_primaryCta": {
+    "message": "Start chatting"
+  },
+  "empty_secondaryCta": {
+    "message": "Open server settings"
+  },
+  "drop_hint": {
+    "message": "Drop files to attach them to your message"
+  },
+  "drop_readySingle": {
+    "message": "{{name}} ready to send"
+  },
+  "drop_readyMultiple": {
+    "message": "{{count}} files ready to send"
+  },
+  "drop_unsupported": {
+    "message": "That file type isn’t supported. Try images or text-based files."
+  },
+  "drop_defaultFileName": {
+    "message": "File"
+  },
+  "drop_imageOnly": {
+    "message": "Only images can be dropped here right now."
+  },
+  "drop_imageHint": {
+    "message": "Drop an image to include it in your message"
+  },
+  "drop_overlayInstruction": {
+    "message": "Drop the image to attach it to your next reply"
+  },
+  "aria_chatTranscript": {
+    "message": "Chat messages"
+  },
+  "more_history": {
+    "message": "Chat saving"
+  },
+  "more_searchKnowledge": {
+    "message": "Søg & RAG"
+  },
+  "more_voice": {
+    "message": "More voice options"
+  },
+  "more_uploads": {
+    "message": "Uploads & ingest"
+  },
+  "fileRetrievalEnabled": {
+    "message": "Enable RAG for Documents"
+  },
+  "stt_title": {
+    "message": "STT Playground"
+  },
+  "stt_subtitle": {
+    "message": "Try out transcription models, run longer dictation sessions, and save transcripts into Notes."
+  },
+  "stt_currentModelLabel": {
+    "message": "Current transcription model"
+  },
+  "stt_defaultModel": {
+    "message": "Default from Settings"
+  },
+  "stt_settingsNotice": {
+    "message": "Language, task, response format, segmentation, and prompt reuse your Speech-to-Text defaults from Settings."
+  },
+  "stt_sessionMode": {
+    "message": "Session mode"
+  },
+  "stt_modeLong": {
+    "message": "Long-running (chunked recording)"
+  },
+  "stt_modeShort": {
+    "message": "Short dictation (single clip)"
+  },
+  "stt_languageTag": {
+    "message": "Language"
+  },
+  "stt_taskTag": {
+    "message": "Task"
+  },
+  "stt_formatTag": {
+    "message": "Format"
+  },
+  "stt_segmentationEnabled": {
+    "message": "Segmentation enabled"
+  },
+  "stt_recordButton": {
+    "message": "Record"
+  },
+  "stt_stopButton": {
+    "message": "Stop"
+  },
+  "stt_startTooltip": {
+    "message": "Start recording audio for transcription"
+  },
+  "stt_stopTooltip": {
+    "message": "Stop and send to server"
+  },
+  "stt_transcribingButton": {
+    "message": "Transskriberer..."
+  },
+  "stt_transcribingTooltip": {
+    "message": "Transskriberer lyd..."
+  },
+  "stt_transcribingPlaceholder": {
+    "message": "Transskriberer lyd..."
+  },
+  "stt_historyTitle": {
+    "message": "Transcription history"
+  },
+  "stt_clearAll": {
+    "message": "Clear all"
+  },
+  "stt_emptyHistory": {
+    "message": "Start a recording to see transcripts here. You can save any item into Notes."
+  },
+  "stt_saveToNotes": {
+    "message": "Save to Notes"
+  },
+  "stt_delete": {
+    "message": "Delete"
+  },
+  "stt_durationTag": {
+    "message": "Duration"
+  },
+  "stt_modelTag": {
+    "message": "Model"
+  },
+  "stt_currentTranscriptTitle": {
+    "message": "Current session transcript"
+  },
+  "stt_currentTranscriptPlaceholder": {
+    "message": "Live transcript will appear here while recording."
+  },
+  "actions_temporaryOn": {
+    "message": "Temporary chat (not saved)"
+  },
+  "actions_temporaryOff": {
+    "message": "Save chat to history"
+  },
+  "actions_webSearchOn": {
+    "message": "Web search on"
+  },
+  "actions_webSearchOff": {
+    "message": "Web search off"
+  },
+  "actions_speechStart": {
+    "message": "Start dictation"
+  },
+  "actions_speechStop": {
+    "message": "Stop dictation"
+  },
+  "actions_streamStart": {
+    "message": "Live captions"
+  },
+  "actions_streamStop": {
+    "message": "Stop captions"
+  },
+  "actions_visionOn": {
+    "message": "Vision on"
+  },
+  "actions_visionOff": {
+    "message": "Vision off"
+  },
+  "actions_upload": {
+    "message": "Attach image"
+  },
+  "actions_ingest": {
+    "message": "Quick ingest"
+  },
+  "actions_ingestDisabled": {
+    "message": "Connect to your tldw server to ingest."
+  },
+  "actions_ingestHint": {
+    "message": "Upload URLs or files with advanced options."
+  },
+  "actions_ingestSub": {
+    "message": "Use URLs/files; download or store."
+  },
+  "actions_streamErrorTitle": {
+    "message": "Live captions unavailable"
+  },
+  "composer_toolsButton": {
+    "message": "+Tools"
+  },
+  "composer_queuedBanner_title": {
+    "message": "Queued while offline"
+  },
+  "composer_queuedBanner_body": {
+    "message": "We’ll hold these messages and send them once your tldw server is connected."
+  },
+  "composer_queuedBanner_sendNow": {
+    "message": "Send queued messages"
+  },
+  "composer_queuedBanner_clear": {
+    "message": "Clear queue"
+  },
+  "composer_coreTools": {
+    "message": "Conversation options"
+  },
+  "composer_captureTools": {
+    "message": "Capture and assist tools"
+  },
+  "composer_actions": {
+    "message": "Send options"
+  },
+  "composer_moreTools": {
+    "message": "More tools"
+  },
+  "composer_scrollToLatest": {
+    "message": "Scroll to latest messages"
+  },
+  "composer_submitAria": {
+    "message": "Send message"
+  },
+  "composer_openModelSettings": {
+    "message": "Open current chat settings"
+  },
+  "composer_stopStreaming": {
+    "message": "Stop streaming response"
+  },
+  "composer_connectionPlaceholder": {
+    "message": "Connect to your tldw server in Settings to send messages and view media."
+  },
+  "composer_connectNotice": {
+    "message": "Connect to your tldw server in Settings to send messages and view media."
+  },
+  "composer_connectionChipDisconnected": {
+    "message": "Server: Not connected"
+  },
+  "composer_contextLabel": {
+    "message": "Context:"
+  },
+  "composer_contextKnowledgeEmpty": {
+    "message": "No knowledge selected"
+  },
+  "composer_contextTabs": {
+    "message": "{{count}} tabs"
+  },
+  "composer_contextFiles": {
+    "message": "{{count}} files"
+  },
+  "composer_contextMedia": {
+    "message": "Media & Notes"
+  },
+  "composer_contextMediaHint": {
+    "message": "Attach Media & Notes that should steer the response."
+  },
+  "composer_contextMediaSelected": {
+    "message": "Media or note"
+  },
+  "composer_contextMediaEmpty": {
+    "message": "No Media & Notes selected yet."
+  },
+  "composer_addKnowledge": {
+    "message": "Add Media & Notes"
+  },
+  "composer_contextTabsTitle": {
+    "message": "Tabs in context"
+  },
+  "composer_contextTabsHint": {
+    "message": "Review or remove referenced tabs, or add more from your open browser tabs."
+  },
+  "composer_contextManager": {
+    "message": "Context Management"
+  },
+  "composer_contextManagerTitle": {
+    "message": "Context Management"
+  },
+  "composer_contextKnowledge": {
+    "message": "Kontekst og viden"
+  },
+  "composer_contextKnowledgeClose": {
+    "message": "Luk kontekst og viden"
+  },
+  "composer_knowledgeSearch": {
+    "message": "Vidensøgning"
+  },
+  "composer_knowledgeSearchClose": {
+    "message": "Luk vidensøgning"
+  },
+  "composer_persistence_ephemeral": {
+    "message": "Not saved in history; clears when you close this tab."
+  },
+  "composer_persistence_local": {
+    "message": "Saved in this browser only."
+  },
+  "composer_persistence_server": {
+    "message": "Saved Locally+Server"
+  },
+  "composer_persistence_ephemeralPill": {
+    "message": "Temporary"
+  },
+  "composer_persistence_localPill": {
+    "message": "Local only"
+  },
+  "composer_persistence_serverPill": {
+    "message": "Locally + Server"
+  },
+  "composer_persistence_saveToServer": {
+    "message": "Also save this chat to server"
+  },
+  "composer_persistence_connectToSave": {
+    "message": "Connect your server to save chats there."
+  },
+  "composer_persistence_serverDefaultTitle": {
+    "message": "Extension chat"
+  },
+  "composer_persistence_serverSavedTitle": {
+    "message": "Chat now saved on server"
+  },
+  "composer_persistence_serverSaved": {
+    "message": "Future messages in this chat will sync to your tldw server."
+  },
+  "composer_persistence_serverCharacterRequired": {
+    "message": "Unable to find or create a default assistant character on the server. Try again from the Characters page."
+  },
+  "composer_connectToSend": {
+    "message": "Connect to your tldw server in Settings to send messages and view media."
+  },
+  "composer_compareTag": {
+    "message": "Sammenlign"
+  },
+  "composer_compareLabel": {
+    "message": "Sammenligningstilstand"
+  },
+  "composer_compareButton": {
+    "message": "Sammenlign modeller"
+  },
+  "composer_compareButtonActive": {
+    "message": "Sammenlign: {{count}} modeller"
+  },
+  "composer_compareButtonOn": {
+    "message": "Sammenligning aktiveret"
+  },
+  "composer_compareSettingsTitle": {
+    "message": "Sammenligningsindstillinger"
+  },
+  "composer_compareSettingsToggle": {
+    "message": "Aktiver sammenligningstilstand"
+  },
+  "composer_compareSettingsToggleHint": {
+    "message": "Send din næste besked til flere modeller."
+  },
+  "composer_compareNoneSelected": {
+    "message": "Ingen modeller valgt til sammenligning"
+  },
+  "composer_compareSingle": {
+    "message": "Sammenligner 1 model"
+  },
+  "composer_compareMany": {
+    "message": "Sammenligner {{count}} modeller"
+  },
+  "composer_compareActiveSummary": {
+    "message": "Aktive modeller næste tur: {{label}}"
+  },
+  "composer_compareModelPickerLabel": {
+    "message": "Vælg modeller"
+  },
+  "composer_compareModelPickerPlaceholder": {
+    "message": "Vælg modeller til sammenligning"
+  },
+  "composer_compareActiveModelsLabel": {
+    "message": "Aktive modeller"
+  },
+  "composer_compareActiveModelsHint": {
+    "message": "Din næste besked sendes til hver aktiv model."
+  },
+  "composer_compareSendToModels": {
+    "message": "Send til {{count}} modeller"
+  },
+  "composer_compareMaxModelsTitle": {
+    "message": "Sammenligningsgrænse nået"
+  },
+  "composer_compareMaxModels": {
+    "message": "Du kan sammenligne op til {{limit}} modeller per tur."
+  },
+  "composer_compareMaxModelsTrimmed": {
+    "message": "Sammenligning er begrænset til {{limit}} modeller per tur. Bruger de første {{limit}} valgte modeller."
+  },
+  "composer_compareMaxLabel": {
+    "message": "Maksimale modeller per tur"
+  },
+  "composer_compareMaxHelper": {
+    "message": "Valgt {{current}} / {{limit}}"
+  },
+  "composer_compareSelectedLabel": {
+    "message": "Valgt som svar:"
+  },
+  "composer_compareContinueHint": {
+    "message": "Fortsæt denne chat med den valgte model."
+  },
+  "composer_compareContinue": {
+    "message": "Fortsæt med denne model"
+  },
+  "composer_compareThreadShared": {
+    "message": "Du (fælles)"
+  },
+  "composer_compareBulkSplitSuccess": {
+    "message": "Oprettede {{count}} chats"
+  },
+  "composer_compareBulkSplitPartialFail": {
+    "message": "Kunne ikke oprette {{count}} chats"
+  },
+  "composer_validationCompareSelectModelsInline": {
+    "message": "Vælg mindst én model til sammenligningstilstand."
+  },
+  "speech_title": {
+    "message": "Tale-legeplads"
+  },
+  "speech_subtitle": {
+    "message": "Optag tale, rediger transskriptioner og syntetiser lyd ét sted."
+  },
+  "speech_modeLabel": {
+    "message": "Tilstand"
+  },
+  "speech_modeRoundTrip": {
+    "message": "Tur-retur"
+  },
+  "speech_modeSpeak": {
+    "message": "Tal"
+  },
+  "speech_modeListen": {
+    "message": "Lyt"
+  },
+  "speech_modeHint": {
+    "message": "Din seneste tilstand huskes på denne enhed."
+  },
+  "speech_recordingWaveform": {
+    "message": "Waveform for liveoptagelse"
+  },
+  "speech_playbackWaveform": {
+    "message": "Waveform for afspilning"
+  },
+  "speech_sendToTts": {
+    "message": "Send til TTS"
+  },
+  "speech_sendHint": {
+    "message": "Brug den seneste transskription som TTS-kladde."
+  },
+  "speech_download": {
+    "message": "Download"
+  },
+  "speech_downloadCurrent": {
+    "message": "Download aktuelt segment"
+  },
+  "speech_downloadAll": {
+    "message": "Download alle segmenter"
+  },
+  "speech_segmentFormat": {
+    "message": "Format"
+  },
+  "speech_historyTitle": {
+    "message": "Talehistorik"
+  },
+  "speech_historyAll": {
+    "message": "Alle"
+  },
+  "speech_historyStt": {
+    "message": "STT"
+  },
+  "speech_historyTts": {
+    "message": "TTS"
+  },
+  "speech_historySearch": {
+    "message": "Søg i transskriptioner"
+  },
+  "speech_historyRetentionHint": {
+    "message": "Beholder de seneste {{count}} elementer. Brug \"Ryd alle\" for at fjerne alt."
+  },
+  "speech_useInTts": {
+    "message": "Brug i TTS"
+  },
+  "speech_copy": {
+    "message": "Kopiér"
+  },
+  "speech_copySuccess": {
+    "message": "Kopieret til udklipsholder"
+  },
+  "speech_copyError": {
+    "message": "Kunne ikke kopiere transskriptionen."
+  },
+  "speech_providerTag": {
+    "message": "Udbyder"
+  },
+  "speech_voiceTag": {
+    "message": "Stemme"
+  },
+  "speech_emptyHistory": {
+    "message": "Start en optagelse eller generer lyd for at se historik her."
+  },
+  "speech_downloadDisabledBrowser": {
+    "message": "Browser-TTS laver ikke lyd, der kan downloades."
+  },
+  "speech_downloadDisabledEmpty": {
+    "message": "Generer lyd for at aktivere downloads."
+  },
+  "speech_transcriptLock": {
+    "message": "Lås"
+  },
+  "speech_transcriptUnlock": {
+    "message": "Lås op"
+  },
+  "speech_transcriptEditHint": {
+    "message": "Redigering aktiveret for denne transskription."
+  },
+  "speech_transcriptLockedHint": {
+    "message": "Låst til live transskriptionsopdateringer."
+  },
+  "speech_transcriptRecordingHint": {
+    "message": "Optagelse i gang; transskriptionen er låst."
+  },
+  "actor_title": {
+    "message": "Sceneinstruktør (Actor)"
+  },
+  "actor_help": {
+    "message": "Konfigurer scenekontekst pr. chat: roller, stemning, verden, mål og noter."
+  },
+  "actor_addLabel": {
+    "message": "Tilføj eller fjern aspekter for at fokusere scenen."
+  },
+  "actor_user": {
+    "message": "Bruger"
+  },
+  "actor_char": {
+    "message": "Karakter"
+  },
+  "actor_world": {
+    "message": "Verden"
+  },
+  "actor_newAspectPlaceholder": {
+    "message": "Aspektnavn (f.eks. Stemning, Rolle, Sted)"
+  },
+  "actor_addButton": {
+    "message": "Tilføj aspekt"
+  },
+  "actor_aspectPlaceholder": {
+    "message": "Beskriv kort (valgfrit)"
+  },
+  "actor_notes": {
+    "message": "Scenenoter"
+  },
+  "actor_notesHelp": {
+    "message": "Valgfrie noter sendt til modellen. Understøtter Markdown og LaTeX."
+  },
+  "actor_position": {
+    "message": "Placering af Actor-prompt"
+  },
+  "actor_before": {
+    "message": "Før hovedprompten/historien"
+  },
+  "actor_after": {
+    "message": "Efter hovedprompten/historien"
+  },
+  "actor_depth": {
+    "message": "I chatten på dybde"
+  },
+  "actor_depthLabel": {
+    "message": "Dybde (ikke-systembeskeder)"
+  },
+  "actor_depthPlaceholder": {
+    "message": "0 = toppen af chatten"
+  },
+  "actor_depthHelp": {
+    "message": "Bruges kun når placeringen er \"I chatten på dybde\". Tæller ikke-systembeskeder fra toppen af chatten."
+  },
+  "actor_roleLabel": {
+    "message": "Rolle for Actor-besked"
+  },
+  "actor_roleSystem": {
+    "message": "System"
+  },
+  "actor_roleUser": {
+    "message": "Bruger"
+  },
+  "actor_roleAssistant": {
+    "message": "Assistent"
+  },
+  "actor_positionHelp": {
+    "message": "Dybde bruges kun når placeringen er \"I chatten på dybde\". Rollen styrer om Actor vises som system, bruger eller assistent."
+  },
+  "actor_preview": {
+    "message": "Forhåndsvisning af Actor-prompt"
+  },
+  "actor_tokens": {
+    "message": "Tokens: {{count}}"
+  },
+  "actor_previewEmpty": {
+    "message": "Intet at sende endnu."
+  },
+  "actor_offlineHintTitle": {
+    "message": "World Books ikke tilgængelige for Actor"
+  },
+  "actor_offlineHintBody": {
+    "message": "Forbind til din tldw-server i Indstillinger for at bruge World Books til Actor-aspekter, eller fortsæt med fritekstværdier."
+  },
+  "actor_loreWorldBookMissing": {
+    "message": "Den tidligere World Book-binding blev ikke fundet; bruger fritekst i stedet."
+  },
+  "actor_loreEntryMissing": {
+    "message": "Den tidligere World Book-post blev ikke fundet; bruger fritekst i stedet."
+  },
+  "actor_sourceFree": {
+    "message": "Fritekst"
+  },
+  "actor_sourceLore": {
+    "message": "World Book"
+  },
+  "actor_worldBookPlaceholder": {
+    "message": "World Book"
+  },
+  "actor_entryPlaceholder": {
+    "message": "Post"
+  },
+  "actor_loreValuePlaceholder": {
+    "message": "Vælg en mulighed (valgfrit)"
+  },
+  "actor_tokenLabel": {
+    "message": "Token"
+  },
+  "actor_tokensTitle": {
+    "message": "Actor-ordbogstokens"
+  },
+  "actor_tokensHelp": {
+    "message": "Brug disse tokens i prompts og systembeskeder."
+  },
+  "actor_keyChangeTitle": {
+    "message": "Skift Actor-token-nøgle?"
+  },
+  "actor_keyChangeBody": {
+    "message": "Dette ændrer tokenet fra {{old}} til {{next}}. Prompts der bruger det gamle token opdateres ikke automatisk."
+  },
+  "actor_keyCollisionTitle": {
+    "message": "Actor-nøgle er allerede i brug"
+  },
+  "actor_keyCollisionBody": {
+    "message": "En anden aspekt bruger allerede denne nøgle. Nøgler skal være unikke pr. chat."
+  },
+  "actor_copy": {
+    "message": "Kopiér"
+  },
+  "actor_copied": {
+    "message": "Kopieret"
+  },
+  "actor_copySuccess": {
+    "message": "Token kopieret til udklipsholderen"
+  },
+  "actor_copyError": {
+    "message": "Kunne ikke kopiere token"
+  },
+  "actor_notesPreviewTitle": {
+    "message": "Forhåndsvisning af scenenoter"
+  },
+  "actor_notesPreviewToggle": {
+    "message": "Vis Markdown + LaTeX-forhåndsvisning"
+  },
+  "actor_aspectLimitWarningTitle": {
+    "message": "Mange aspekter konfigureret for denne chat"
+  },
+  "actor_aspectLimitWarningBody": {
+    "message": "Du har {{count}} aspekter (blødt loft {{limit}}). Overvej at trimme for at fokusere scenen og spare tokens."
+  },
+  "actor_tokenWarning": {
+    "message": "Actor-prompten er lang ({{count}} tokens; blødt loft {{limit}}). Overvej at trimme aspekter eller noter for at spare kontekst."
+  },
+  "actor_depthRangeHelp": {
+    "message": "Dybden skal være mellem 0 og 999; værdier ud over historiklængden afgrænses."
+  },
+  "actor_presetLabel": {
+    "message": "Forudindstillinger"
+  },
+  "actor_presetPlaceholder": {
+    "message": "Vælg en forudindstilling"
+  },
+  "actor_preset.sliceOfLife": {
+    "message": "Hverdagsliv"
+  },
+  "actor_preset.dungeonCrawl": {
+    "message": "Dungeon-crawl"
+  },
+  "actor_preset.romance": {
+    "message": "Romantik"
+  },
+  "actor_preset.workSession": {
+    "message": "Arbejdssession"
+  },
+  "actor_applyPreset": {
+    "message": "Anvend"
+  },
+  "actor_resetChat": {
+    "message": "Nulstil for denne chat"
+  },
+  "actor_saveAsCharacterDefault": {
+    "message": "Gem som standard for {{name}}"
+  },
+  "actor_applyCharacterDefault": {
+    "message": "Anvend standard for {{name}}"
+  },
+  "actor_notesGmOnly": {
+    "message": "Kun GM: send ikke noter til modellen"
+  },
+  "actor_templateModeLabel": {
+    "message": "Interaktion med sceneskabeloner"
+  },
+  "actor_templateModeHelp": {
+    "message": "Styrer hvordan Actor interagerer med aktive sceneskabeloner. Flet bevarer begge; Tilsidesæt lader Actor erstatte overlappende felter; Ignorer springer Actor over når skabeloner er aktive."
+  },
+  "actor_templateMode.merge": {
+    "message": "Flet med skabeloner"
+  },
+  "actor_templateMode.override": {
+    "message": "Tilsidesæt skabeloner"
+  },
+  "actor_templateMode.ignore": {
+    "message": "Ignorer når skabeloner er aktive"
+  },
+  "actor_bladeAspectsTitle": {
+    "message": "Aspekter"
+  },
+  "actor_bladeNotesTitle": {
+    "message": "Scenenoter"
+  },
+  "actor_bladePlacementTitle": {
+    "message": "Placering og skabeloner"
+  },
+  "actor_bladeTokensTitle": {
+    "message": "Tokens og forhåndsvisning"
+  },
+  "actor_summaryAspectsEmpty": {
+    "message": "Ingen aspekter konfigureret endnu."
+  },
+  "actor_summaryAspectsCount": {
+    "message": "{{count}} aspekter konfigureret."
+  },
+  "actor_summaryNotesEmpty": {
+    "message": "Ingen scenenoter endnu."
+  },
+  "actor_summaryNotes": {
+    "message": "{{chars}} tegn{{gmSuffix}}."
+  },
+  "actor_summaryNotesGmOnly": {
+    "message": " · Kun GM"
+  },
+  "actor_summaryPlacementBefore": {
+    "message": "Før hovedprompten/historien."
+  },
+  "actor_summaryPlacementAfter": {
+    "message": "Efter hovedprompten/historien."
+  },
+  "actor_summaryPlacementDepth": {
+    "message": "Dybde {{depth}} · Rolle: {{role}}."
+  },
+  "actor_summaryTokensEmpty": {
+    "message": "Ingen tokens defineret endnu; angiv aspektværdier."
+  },
+  "actor_summaryTokensCount": {
+    "message": "{{tokens}} tokens · ~{{estimate}} tokens i prompten."
+  },
+  "actor_sceneTemplateActive": {
+    "message": "Aktiv sceneskabelon: Actor respekterer indstillingerne for skabeloninteraktion."
+  }
+}

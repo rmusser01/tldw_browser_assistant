@@ -6,6 +6,7 @@ import {
   MessageHistory,
   Prompt,
   Prompts,
+  CompareState,
   SessionFiles,
   UploadedFile,
   Webshare,
@@ -42,6 +43,18 @@ function fastForward(lastRow: any, idProp: string, otherCriterion?: (item: any) 
 
 
 export class PageAssistDatabase {
+  async getCompareState(historyId: string): Promise<CompareState | null> {
+    const state = await db.compareStates.get(historyId);
+    return state || null;
+  }
+
+  async setCompareState(state: CompareState) {
+    await db.compareStates.put(state);
+  }
+
+  async deleteCompareState(historyId: string) {
+    await db.compareStates.delete(historyId);
+  }
 
   async getSessionFiles(sessionId: string): Promise<UploadedFile[]> {
     const sessionFiles = await db.sessionFiles.get(sessionId);
@@ -258,6 +271,7 @@ export class PageAssistDatabase {
 
   async removeChatHistory(id: string) {
     await db.chatHistories.delete(id);
+    await db.compareStates.delete(id);
   }
 
   async removeMessage(history_id: string, message_id: string) {
@@ -278,16 +292,18 @@ export class PageAssistDatabase {
   }
 
   async deleteChatHistory(id: string) {
-    await db.transaction('rw', [db.chatHistories, db.messages], async () => {
+    await db.transaction('rw', [db.chatHistories, db.messages, db.compareStates], async () => {
       await db.chatHistories.delete(id);
       await db.messages.where('history_id').equals(id).delete();
+      await db.compareStates.delete(id);
     });
   }
 
   async deleteAllChatHistory() {
-    await db.transaction('rw', [db.chatHistories, db.messages], async () => {
+    await db.transaction('rw', [db.chatHistories, db.messages, db.compareStates], async () => {
       await db.chatHistories.clear();
       await db.messages.clear();
+      await db.compareStates.clear();
     });
   }
 

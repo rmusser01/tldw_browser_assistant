@@ -3,7 +3,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
 import React from "react"
 import useDynamicTextareaSize from "~/hooks/useDynamicTextareaSize"
 import { toBase64 } from "~/libs/to-base64"
-import { useMessageOption } from "~/hooks/useMessageOption"
+import { useMessageOption, MAX_COMPARE_MODELS } from "~/hooks/useMessageOption"
 import {
   Checkbox,
   Dropdown,
@@ -20,6 +20,7 @@ import { useWebUI } from "~/store/webui"
 import { defaultEmbeddingModelForRag } from "~/services/tldw-server"
 import {
   EraserIcon,
+  GitBranch,
   ImageIcon,
   MicIcon,
   StopCircleIcon,
@@ -27,7 +28,8 @@ import {
   FileIcon,
   FileText,
   PaperclipIcon,
-  Gauge
+  Gauge,
+  Search
 } from "lucide-react"
 import { getVariable } from "@/utils/select-variable"
 import { useTranslation } from "react-i18next"
@@ -54,6 +56,8 @@ import { tldwClient, type ConversationState } from "@/services/tldw/TldwApiClien
 import { CharacterSelect } from "@/components/Common/CharacterSelect"
 import { ProviderIcons } from "@/components/Common/ProviderIcon"
 import type { Character } from "@/types/character"
+import { RagSearchBar } from "@/components/Sidepanel/Chat/RagSearchBar"
+import { BetaTag } from "@/components/Common/Beta"
 
 const getPersistenceModeLabel = (
   t: (...args: any[]) => any,
@@ -96,8 +100,12 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
     chatMode,
     compareMode,
     setCompareMode,
+    compareFeatureEnabled,
+    setCompareFeatureEnabled,
     compareSelectedModels,
     setCompareSelectedModels,
+    compareMaxModels,
+    setCompareMaxModels,
     speechToTextLanguage,
     stopStreamingRequest,
     streaming: isSending,
@@ -135,8 +143,8 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
 
   const [autoSubmitVoiceMessage] = useStorage("autoSubmitVoiceMessage", false)
   const [openModelSettings, setOpenModelSettings] = React.useState(false)
-  const [isContextModalOpen, setIsContextModalOpen] = React.useState(false)
   const [openActorSettings, setOpenActorSettings] = React.useState(false)
+  const [compareSettingsOpen, setCompareSettingsOpen] = React.useState(false)
 
   const { phase, isConnected } = useConnectionState()
   const isConnectionReady = isConnected && phase === ConnectionPhase.CONNECTED
@@ -176,6 +184,10 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
   )
   const [showServerPersistenceHint, setShowServerPersistenceHint] =
     React.useState(false)
+  const [contextToolsOpen, setContextToolsOpen] = useStorage(
+    "playgroundKnowledgeSearchOpen",
+    false
+  )
 
   React.useEffect(() => {
     if (typeof window === "undefined") return
@@ -211,10 +223,29 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
 
   // Ensure compare selection has a sensible default when enabling compare mode
   React.useEffect(() => {
-    if (compareMode && compareSelectedModels.length === 0 && selectedModel) {
+    if (
+      compareFeatureEnabled &&
+      compareMode &&
+      compareSelectedModels.length === 0 &&
+      selectedModel
+    ) {
       setCompareSelectedModels([selectedModel])
     }
-  }, [compareMode, compareSelectedModels.length, selectedModel, setCompareSelectedModels])
+  }, [
+    compareFeatureEnabled,
+    compareMode,
+    compareSelectedModels.length,
+    selectedModel,
+    setCompareSelectedModels
+  ])
+
+  React.useEffect(() => {
+    if (!compareFeatureEnabled && compareMode) {
+      setCompareMode(false)
+    }
+  }, [compareFeatureEnabled, compareMode, setCompareMode])
+
+  const compareModeActive = compareFeatureEnabled && compareMode
 
   const modelSummaryLabel = React.useMemo(() => {
     if (!selectedModel) {
@@ -233,7 +264,7 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
   }, [composerModels, selectedModel, t])
 
   const compareSummaryLabel = React.useMemo(() => {
-    if (!compareMode) {
+    if (!compareModeActive) {
       return null
     }
     const count = compareSelectedModels.length
@@ -244,14 +275,28 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
       return t("playground:composer.compareSingle", "Comparing 1 model")
     }
     return t("playground:composer.compareMany", "Comparing {{count}} models", { count })
-  }, [compareMode, compareSelectedModels.length, t])
+  }, [compareModeActive, compareSelectedModels.length, t])
+
+  const compareModelLabelById = React.useMemo(() => {
+    const map = new Map<string, string>()
+    const models = (composerModels as any[]) || []
+    models.forEach((model) => {
+      const label = model.nickname || model.model
+      if (model.model && !map.has(model.model)) {
+        map.set(model.model, label)
+      }
+    })
+    return map
+  }, [composerModels])
 
   const compareActiveSummary = React.useMemo(() => {
-    if (!compareMode || compareSelectedModels.length === 0) {
+    if (!compareModeActive || compareSelectedModels.length === 0) {
       return null
     }
     const maxNames = 2
-    const names = compareSelectedModels.slice(0, maxNames)
+    const names = compareSelectedModels
+      .slice(0, maxNames)
+      .map((modelId) => compareModelLabelById.get(modelId) || modelId)
     const moreCount = compareSelectedModels.length - names.length
     const label = names.join(", ") + (moreCount > 0 ? ` +${moreCount}` : "")
     return t(
@@ -259,9 +304,75 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
       "Active models next turn: {{label}}",
       { label }
     )
-  }, [compareMode, compareSelectedModels, t])
+  }, [compareModeActive, compareModelLabelById, compareSelectedModels, t])
 
-  const { compareMaxModels, setCompareMaxModels } = useMessageOption()
+  const compareButtonLabel = React.useMemo(() => {
+    if (!compareModeActive) {
+      return t("playground:composer.compareButton", "Compare models")
+    }
+    if (compareSelectedModels.length > 0) {
+      return t(
+        "playground:composer.compareButtonActive",
+        "Compare: {{count}} models",
+        { count: compareSelectedModels.length }
+      )
+    }
+    return t("playground:composer.compareButtonOn", "Compare enabled")
+  }, [compareModeActive, compareSelectedModels.length, t])
+
+  const compareModelOptions = React.useMemo(() => {
+    const models = (composerModels as any[]) || []
+    return models.map((model) => ({
+      value: model.model,
+      label: (
+        <div className="flex items-center gap-2">
+          <ProviderIcons provider={model.provider} className="h-3 w-3 text-gray-400" />
+          <span className="truncate">
+            {model.nickname || model.model}
+          </span>
+        </div>
+      )
+    }))
+  }, [composerModels])
+
+  const handleCompareModelChange = (values: string[]) => {
+    if (!compareFeatureEnabled) {
+      return
+    }
+    const max =
+      typeof compareMaxModels === "number" && compareMaxModels > 0
+        ? compareMaxModels
+        : MAX_COMPARE_MODELS
+    const next = values.slice(0, max)
+    if (values.length > max) {
+      notification.warning({
+        message: t("playground:composer.compareMaxModelsTitle", "Compare limit reached"),
+        description: t(
+          "playground:composer.compareMaxModels",
+          "You can compare up to {{limit}} models per turn.",
+          { count: max, limit: max }
+        )
+      })
+    }
+    setCompareSelectedModels(next)
+  }
+
+  const removeCompareModel = (modelId: string) => {
+    if (!compareFeatureEnabled) {
+      return
+    }
+    const next = compareSelectedModels.filter((id) => id !== modelId)
+    setCompareSelectedModels(next)
+  }
+
+  const sendLabel = React.useMemo(() => {
+    if (compareModeActive && compareSelectedModels.length > 1) {
+      return t("playground:composer.compareSendToModels", "Send to {{count}} models", {
+        count: compareSelectedModels.length
+      })
+    }
+    return t("common:send", "Send")
+  }, [compareModeActive, compareSelectedModels.length, t])
 
   const promptSummaryLabel = React.useMemo(() => {
     if (selectedSystemPrompt) {
@@ -384,16 +495,13 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
 
   React.useEffect(() => {
     textAreaFocus()
-    if (defaultInternetSearchOn) {
-      setWebSearch(true)
-    }
-  }, [])
+  }, [textAreaFocus])
 
   React.useEffect(() => {
     if (defaultInternetSearchOn) {
       setWebSearch(true)
     }
-  }, [defaultInternetSearchOn])
+  }, [defaultInternetSearchOn, setWebSearch])
 
   React.useEffect(() => {
     if (isConnectionReady) {
@@ -409,51 +517,55 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
     }
   }, [queuedMessages])
 
-  const onInputChange = async (
-    e: React.ChangeEvent<HTMLInputElement> | File
-  ) => {
-    if (e instanceof File) {
-      const isUnsupported = otherUnsupportedTypes.includes(e.type)
+  const onFileInputChange = React.useCallback(
+    async (e: React.ChangeEvent<HTMLInputElement>) => {
+      if (e.target.files && e.target.files[0]) {
+        const file = e.target.files[0]
 
-      if (isUnsupported) {
-        console.error("File type not supported:", e.type)
-        return
+        const isUnsupported = otherUnsupportedTypes.includes(file.type)
+
+        if (isUnsupported) {
+          console.error("File type not supported:", file.type)
+          return
+        }
+
+        const isImage = file.type.startsWith("image/")
+        if (isImage) {
+          const base64 = await toBase64(file)
+          form.setFieldValue("image", base64)
+        } else {
+          await handleFileUpload(file)
+        }
       }
+    },
+    [form, handleFileUpload, otherUnsupportedTypes, toBase64]
+  )
 
-      const isImage = e.type.startsWith("image/")
-      if (isImage) {
-        const base64 = await toBase64(e)
-        form.setFieldValue("image", base64)
+  const onInputChange = React.useCallback(
+    async (e: React.ChangeEvent<HTMLInputElement> | File) => {
+      if (e instanceof File) {
+        const isUnsupported = otherUnsupportedTypes.includes(e.type)
+
+        if (isUnsupported) {
+          console.error("File type not supported:", e.type)
+          return
+        }
+
+        const isImage = e.type.startsWith("image/")
+        if (isImage) {
+          const base64 = await toBase64(e)
+          form.setFieldValue("image", base64)
+        } else {
+          await handleFileUpload(e)
+        }
       } else {
-        await handleFileUpload(e)
+        if (e.target.files) {
+          onFileInputChange(e)
+        }
       }
-    } else {
-      if (e.target.files) {
-        onFileInputChange(e)
-      }
-    }
-  }
-
-  const onFileInputChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files && e.target.files[0]) {
-      const file = e.target.files[0]
-
-      const isUnsupported = otherUnsupportedTypes.includes(file.type)
-
-      if (isUnsupported) {
-        console.error("File type not supported:", file.type)
-        return
-      }
-
-      const isImage = file.type.startsWith("image/")
-      if (isImage) {
-        const base64 = await toBase64(file)
-        form.setFieldValue("image", base64)
-      } else {
-        await handleFileUpload(file)
-      }
-    }
-  }
+    },
+    [form, handleFileUpload, onFileInputChange, otherUnsupportedTypes, toBase64]
+  )
   const handlePaste = async (e: React.ClipboardEvent) => {
     if (e.clipboardData.files.length > 0) {
       onInputChange(e.clipboardData.files[0])
@@ -481,7 +593,7 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
     if (dropedFile) {
       onInputChange(dropedFile)
     }
-  }, [dropedFile])
+  }, [dropedFile, onInputChange])
 
   const handleDisconnectedFocus = () => {
     if (!isConnectionReady && !hasShownConnectBanner) {
@@ -616,7 +728,7 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
         return
       }
       const defaultEM = await defaultEmbeddingModelForRag()
-      if (!compareMode) {
+      if (!compareModeActive) {
         if (!selectedModel || selectedModel.length === 0) {
           form.setFieldError("message", t("formError.noModel"))
           return
@@ -663,7 +775,7 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
     }
     form.onSubmit(async () => {
       const defaultEM = await defaultEmbeddingModelForRag()
-      if (!compareMode) {
+      if (!compareModeActive) {
         if (!selectedModel || selectedModel.length === 0) {
           form.setFieldError("message", t("formError.noModel"))
           return
@@ -942,6 +1054,10 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
     })
   }, [history.length, setHistory, t])
 
+  const handleToggleContextTools = React.useCallback(() => {
+    setContextToolsOpen(!contextToolsOpen)
+  }, [contextToolsOpen, setContextToolsOpen])
+
   const handleImageUpload = React.useCallback(() => {
     inputRef.current?.click()
   }, [])
@@ -1157,55 +1273,77 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
   ])
 
   React.useEffect(() => {
-    if (isContextModalOpen) {
+    if (contextToolsOpen) {
       reloadTabs()
     }
-  }, [isContextModalOpen, reloadTabs])
+  }, [contextToolsOpen, reloadTabs])
 
-  const moreToolsContent = React.useMemo(() => (
-    <div className="flex w-64 flex-col gap-3">
-      <div className="flex items-center justify-between">
-        <span className="text-sm text-gray-700 dark:text-gray-200">
-          {webSearch
-            ? t("playground:actions.webSearchOn")
-            : t("playground:actions.webSearchOff")}
-        </span>
-        <Switch
-          size="small"
-          checked={webSearch}
-          onChange={(value) => setWebSearch(value)}
-          checkedChildren={t("form.webSearch.on")}
-          unCheckedChildren={t("form.webSearch.off")}
-        />
+  const moreToolsContent = React.useMemo(
+    () => (
+      <div className="flex w-64 flex-col gap-3">
+        <div className="flex items-center justify-between">
+          <span className="text-sm text-gray-700 dark:text-gray-200">
+            {webSearch
+              ? t("playground:actions.webSearchOn")
+              : t("playground:actions.webSearchOff")}
+          </span>
+          <Switch
+            size="small"
+            checked={webSearch}
+            onChange={(value) => setWebSearch(value)}
+            checkedChildren={t("form.webSearch.on")}
+            unCheckedChildren={t("form.webSearch.off")}
+          />
+        </div>
+        <button
+          type="button"
+          onClick={() => setCompareSettingsOpen(true)}
+          className="flex w-full items-center justify-between rounded-md px-2 py-1 text-sm text-gray-700 transition hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-[#2a2a2a]"
+        >
+          <span>{compareButtonLabel}</span>
+          <GitBranch className="h-4 w-4" />
+        </button>
+        <button
+          type="button"
+          onClick={handleImageUpload}
+          disabled={chatMode === "rag"}
+          className="flex w-full items-center justify-between rounded-md px-2 py-1 text-sm text-gray-700 transition hover:bg-gray-100 disabled:cursor-not-allowed disabled:opacity-40 dark:text-gray-200 dark:hover:bg-[#2a2a2a]"
+        >
+          <span>{t("playground:actions.upload", "Attach image")}</span>
+          <ImageIcon className="h-4 w-4" />
+        </button>
+        <button
+          type="button"
+          onClick={handleDocumentUpload}
+          className="flex w-full items-center justify-between rounded-md px-2 py-1 text-sm text-gray-700 transition hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-[#2a2a2a]"
+        >
+          <span>{t("tooltip.uploadDocuments")}</span>
+          <PaperclipIcon className="h-4 w-4" />
+        </button>
+        <button
+          type="button"
+          onClick={handleClearContext}
+          disabled={history.length === 0}
+          className="flex w-full items-center justify-between rounded-md px-2 py-1 text-sm text-gray-700 transition hover:bg-gray-100 disabled:cursor-not-allowed disabled:opacity-40 dark:text-gray-200 dark:hover:bg-[#2a2a2a]"
+        >
+          <span>{t("tooltip.clearContext")}</span>
+          <EraserIcon className="h-4 w-4" />
+        </button>
       </div>
-      <button
-        type="button"
-        onClick={handleImageUpload}
-        disabled={chatMode === "rag"}
-        className="flex w-full items-center justify-between rounded-md px-2 py-1 text-sm text-gray-700 transition hover:bg-gray-100 disabled:cursor-not-allowed disabled:opacity-40 dark:text-gray-200 dark:hover:bg-[#2a2a2a]"
-      >
-        <span>{t("playground:actions.upload", "Attach image")}</span>
-        <ImageIcon className="h-4 w-4" />
-      </button>
-      <button
-        type="button"
-        onClick={handleDocumentUpload}
-        className="flex w-full items-center justify-between rounded-md px-2 py-1 text-sm text-gray-700 transition hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-[#2a2a2a]"
-      >
-        <span>{t("tooltip.uploadDocuments")}</span>
-        <PaperclipIcon className="h-4 w-4" />
-      </button>
-      <button
-        type="button"
-        onClick={handleClearContext}
-        disabled={history.length === 0}
-        className="flex w-full items-center justify-between rounded-md px-2 py-1 text-sm text-gray-700 transition hover:bg-gray-100 disabled:cursor-not-allowed disabled:opacity-40 dark:text-gray-200 dark:hover:bg-[#2a2a2a]"
-      >
-        <span>{t("tooltip.clearContext")}</span>
-        <EraserIcon className="h-4 w-4" />
-      </button>
-    </div>
-  ), [chatMode, handleClearContext, handleDocumentUpload, handleImageUpload, history.length, setWebSearch, t, webSearch])
+    ),
+    [
+      chatMode,
+      compareButtonLabel,
+      handleClearContext,
+      handleDocumentUpload,
+      handleImageUpload,
+      history.length,
+      setCompareSettingsOpen,
+      setWebSearch,
+      t,
+      webSearch
+    ]
+  )
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if (import.meta.env.BROWSER !== "firefox") {
@@ -1396,12 +1534,186 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
                 </div>
               </div>
             )}
+            {compareModeActive && compareSelectedModels.length > 1 && (
+              <div className="px-3 pb-2">
+                <div className="flex flex-wrap items-center gap-2 rounded-md border border-blue-200 bg-blue-50 px-3 py-2 text-[11px] text-blue-900 dark:border-blue-800 dark:bg-blue-900/30 dark:text-blue-100">
+                  <span className="text-[10px] font-semibold uppercase tracking-wide">
+                    {t("playground:composer.compareActiveModelsLabel", "Active models")}
+                  </span>
+                  <div className="flex flex-wrap gap-1">
+                    {compareSelectedModels.map((modelId) => (
+                      <button
+                        key={`active-${modelId}`}
+                        type="button"
+                        onClick={() => removeCompareModel(modelId)}
+                        className="flex items-center gap-1 rounded-full bg-white px-2 py-0.5 text-[10px] font-medium text-blue-800 shadow-sm hover:bg-blue-100 dark:bg-blue-900/60 dark:text-blue-100 dark:hover:bg-blue-800/60">
+                        <span>
+                          {compareModelLabelById.get(modelId) || modelId}
+                        </span>
+                        <X className="h-3 w-3" />
+                      </button>
+                    ))}
+                  </div>
+                  <span className="text-[10px] text-blue-700/80 dark:text-blue-200/80">
+                    {t(
+                      "playground:composer.compareActiveModelsHint",
+                      "Your next message will be sent to each active model."
+                    )}
+                  </span>
+                </div>
+              </div>
+            )}
+            <Modal
+              title={t(
+                "playground:composer.compareSettingsTitle",
+                "Compare settings"
+              )}
+              open={compareSettingsOpen}
+              onCancel={() => setCompareSettingsOpen(false)}
+              footer={null}
+            >
+              <div className="space-y-4 text-sm">
+                <div className="flex items-center justify-between gap-4">
+                  <div>
+                    <div className="flex items-center gap-2 text-sm font-medium text-gray-900 dark:text-gray-100">
+                      {t(
+                        "playground:composer.compareFeatureToggle",
+                        "Enable Compare mode"
+                      )}
+                      <BetaTag className="!m-0" />
+                    </div>
+                    <div className="text-xs text-gray-500 dark:text-gray-400">
+                      {t(
+                        "playground:composer.compareFeatureToggleHint",
+                        "Unlock experimental multi-model compare features."
+                      )}
+                    </div>
+                  </div>
+                  <Switch
+                    checked={compareFeatureEnabled}
+                    onChange={setCompareFeatureEnabled}
+                  />
+                </div>
+                <div className="flex items-center justify-between gap-4">
+                  <div>
+                    <div className="text-sm font-medium text-gray-900 dark:text-gray-100">
+                      {t(
+                        "playground:composer.compareSettingsToggle",
+                        "Enable Compare mode"
+                      )}
+                    </div>
+                    <div className="text-xs text-gray-500 dark:text-gray-400">
+                      {t(
+                        "playground:composer.compareSettingsToggleHint",
+                        "Send your next message to multiple models."
+                      )}
+                    </div>
+                  </div>
+                  <Switch
+                    checked={compareMode}
+                    onChange={setCompareMode}
+                    disabled={!compareFeatureEnabled}
+                  />
+                </div>
+
+                <div
+                  className={
+                    compareModeActive
+                      ? "space-y-2"
+                      : "space-y-2 opacity-50 pointer-events-none"
+                  }
+                >
+                  <div className="text-xs font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400">
+                    {t(
+                      "playground:composer.compareModelPickerLabel",
+                      "Select models"
+                    )}
+                  </div>
+                  <Select
+                    mode="multiple"
+                    value={compareSelectedModels}
+                    onChange={handleCompareModelChange}
+                    options={compareModelOptions}
+                    placeholder={t(
+                      "playground:composer.compareModelPickerPlaceholder",
+                      "Choose models to compare"
+                    )}
+                    maxTagCount="responsive"
+                    style={{ width: "100%" }}
+                  />
+                  {compareSummaryLabel && (
+                    <div className="text-xs text-gray-500 dark:text-gray-400">
+                      {compareSummaryLabel}
+                    </div>
+                  )}
+                  {compareActiveSummary && (
+                    <div className="text-xs text-gray-500 dark:text-gray-400">
+                      {compareActiveSummary}
+                    </div>
+                  )}
+                </div>
+
+                <div
+                  className={
+                    compareModeActive
+                      ? "flex items-center gap-2 text-xs text-gray-500 dark:text-gray-400"
+                      : "flex items-center gap-2 text-xs text-gray-500 dark:text-gray-400 opacity-50 pointer-events-none"
+                  }
+                >
+                  <span>
+                    {t(
+                      "playground:composer.compareMaxLabel",
+                      "Max models per turn"
+                    )}
+                    :
+                  </span>
+                  <Select
+                    size="small"
+                    value={compareMaxModels}
+                    style={{ width: 70 }}
+                    onChange={(value: number) => {
+                      const next = Math.min(Math.max(value, 2), 4)
+                      setCompareMaxModels(next)
+                      if (
+                        compareSelectedModels &&
+                        compareSelectedModels.length > next
+                      ) {
+                        setCompareSelectedModels(
+                          compareSelectedModels.slice(0, next)
+                        )
+                      }
+                    }}
+                    options={[2, 3, 4].map((v) => ({
+                      value: v,
+                      label: v.toString()
+                    }))}
+                  />
+                  <span
+                    className={`ml-1 ${
+                      compareSelectedModels.length >=
+                      (compareMaxModels || MAX_COMPARE_MODELS)
+                        ? "text-amber-600 dark:text-amber-400"
+                        : ""
+                    }`}
+                  >
+                    {t(
+                      "playground:composer.compareMaxHelper",
+                      "Selected {{current}} / {{limit}}",
+                      {
+                        current: compareSelectedModels.length,
+                        limit: compareMaxModels || MAX_COMPARE_MODELS
+                      }
+                    )}
+                  </span>
+                </div>
+              </div>
+            </Modal>
             <div>
               <div className={`flex  bg-transparent `}>
                 <form
                   onSubmit={form.onSubmit(async (value) => {
                     stopListening()
-                    if (!compareMode) {
+                    if (!compareModeActive) {
                       if (!selectedModel || selectedModel.length === 0) {
                         form.setFieldError("message", t("formError.noModel"))
                         return
@@ -1482,6 +1794,230 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
                         ? "rounded-md border border-dashed border-gray-300 bg-gray-50 dark:border-gray-700 dark:bg-[#1b1b1b]"
                         : ""
                     }`}>
+                    <div
+                      className={contextToolsOpen ? "mb-2" : "hidden"}
+                      aria-hidden={!contextToolsOpen}
+                    >
+                      <div className="rounded-md border border-gray-200 bg-white p-3 dark:border-gray-700 dark:bg-[#1a1a1a]">
+                        <div className="flex flex-col gap-4">
+                          <div>
+                            <div className="mb-2 text-xs font-semibold text-gray-700 dark:text-gray-200">
+                              {t(
+                                "playground:composer.knowledgeSearch",
+                                "Knowledge search"
+                              )}
+                            </div>
+                            <RagSearchBar
+                              onInsert={(text) => {
+                                const current = form.values.message || ""
+                                const next = current ? `${current}\n\n${text}` : text
+                                form.setFieldValue("message", next)
+                                textAreaFocus()
+                              }}
+                              onAsk={(text) => {
+                                const trimmed = text.trim()
+                                if (!trimmed) return
+                                form.setFieldValue("message", text)
+                                setTimeout(() => submitForm(), 0)
+                              }}
+                              isConnected={isConnectionReady}
+                              open={contextToolsOpen}
+                              onOpenChange={(nextOpen) => setContextToolsOpen(nextOpen)}
+                              autoFocus
+                              showToggle={false}
+                              variant="embedded"
+                            />
+                          </div>
+                          <div className="border-t border-gray-200 pt-4 dark:border-gray-700">
+                            <div className="mb-3 text-xs font-semibold text-gray-700 dark:text-gray-200">
+                              {t(
+                                "playground:composer.contextManagerTitle",
+                                "Context Management"
+                              )}
+                            </div>
+                            <div className="flex flex-col gap-5">
+                              <div className="flex items-start justify-between gap-3">
+                                <div>
+                                  <div className="text-sm font-semibold text-gray-800 dark:text-gray-100">
+                                    {t(
+                                      "playground:composer.contextTabsTitle",
+                                      "Tabs in context"
+                                    )}
+                                  </div>
+                                  <p className="text-xs text-gray-500 dark:text-gray-400">
+                                    {t(
+                                      "playground:composer.contextTabsHint",
+                                      "Review or remove referenced tabs, or add more from your open browser tabs."
+                                    )}
+                                  </p>
+                                </div>
+                                <div className="flex flex-wrap items-center gap-2">
+                                  <button
+                                    type="button"
+                                    onClick={() => reloadTabs()}
+                                    className="rounded-md border border-gray-200 px-2.5 py-1 text-xs font-medium text-gray-700 hover:bg-gray-100 dark:border-gray-700 dark:text-gray-200 dark:hover:bg-[#2a2a2a]">
+                                    {t("common:refresh", "Refresh")}
+                                  </button>
+                                  {selectedDocuments.length > 0 && (
+                                    <button
+                                      type="button"
+                                      onClick={clearSelectedDocuments}
+                                      className="rounded-md border border-gray-200 px-2.5 py-1 text-xs font-medium text-gray-700 hover:bg-gray-100 dark:border-gray-700 dark:text-gray-200 dark:hover:bg-[#2a2a2a]">
+                                      {t(
+                                        "playground:composer.clearTabs",
+                                        "Remove all tabs"
+                                      )}
+                                    </button>
+                                  )}
+                                </div>
+                              </div>
+                              <div className="rounded-lg border border-gray-200 bg-white p-3 dark:border-gray-700 dark:bg-[#1a1a1a]">
+                                {selectedDocuments.length > 0 ? (
+                                  <div className="flex flex-col gap-2">
+                                    {selectedDocuments.map((doc) => (
+                                      <div
+                                        key={doc.id}
+                                        className="flex items-center justify-between gap-3 rounded-md border border-gray-100 bg-gray-50 px-3 py-2 dark:border-gray-700 dark:bg-[#111]">
+                                        <div className="min-w-0">
+                                          <div className="truncate text-sm font-medium text-gray-800 dark:text-gray-100">
+                                            {doc.title}
+                                          </div>
+                                          <div className="truncate text-xs text-gray-500 dark:text-gray-400">
+                                            {doc.url}
+                                          </div>
+                                        </div>
+                                        <button
+                                          type="button"
+                                          onClick={() => removeDocument(doc.id)}
+                                          className="rounded-full border border-gray-200 p-1 text-gray-500 hover:bg-gray-100 hover:text-gray-700 dark:border-gray-700 dark:text-gray-300 dark:hover:bg-[#2a2a2a]">
+                                          <X className="h-4 w-4" />
+                                        </button>
+                                      </div>
+                                    ))}
+                                  </div>
+                                ) : (
+                                  <div className="text-sm text-gray-500 dark:text-gray-400">
+                                    {t(
+                                      "playground:composer.contextTabsEmpty",
+                                      "No tabs added yet."
+                                    )}
+                                  </div>
+                                )}
+                                <div className="mt-3">
+                                  <div className="text-xs font-semibold text-gray-700 dark:text-gray-200">
+                                    {t(
+                                      "playground:composer.contextTabsAvailable",
+                                      "Open tabs"
+                                    )}
+                                  </div>
+                                  <div className="mt-2 max-h-40 overflow-y-auto space-y-2">
+                                    {availableTabs.length > 0 ? (
+                                      availableTabs.map((tab) => (
+                                        <div
+                                          key={tab.id}
+                                          className="flex items-center justify-between gap-3 rounded-md border border-gray-100 bg-white px-3 py-2 shadow-sm dark:border-gray-700 dark:bg-[#161616]">
+                                          <div className="min-w-0">
+                                            <div className="truncate text-sm font-medium text-gray-800 dark:text-gray-100">
+                                              {tab.title}
+                                            </div>
+                                            <div className="truncate text-xs text-gray-500 dark:text-gray-400">
+                                              {tab.url}
+                                            </div>
+                                          </div>
+                                          <button
+                                            type="button"
+                                            onClick={() => addDocument(tab)}
+                                            className="rounded-md border border-gray-200 px-2 py-1 text-xs font-medium text-gray-700 hover:bg-gray-100 dark:border-gray-700 dark:text-gray-200 dark:hover:bg-[#2a2a2a]">
+                                            {t("common:add", "Add")}
+                                          </button>
+                                        </div>
+                                      ))
+                                    ) : (
+                                      <div className="text-xs text-gray-500 dark:text-gray-400">
+                                        {t(
+                                          "playground:composer.noTabsFound",
+                                          "No eligible open tabs found."
+                                        )}
+                                      </div>
+                                    )}
+                                  </div>
+                                </div>
+                              </div>
+                              <div className="flex items-start justify-between gap-3">
+                                <div>
+                                  <div className="text-sm font-semibold text-gray-800 dark:text-gray-100">
+                                    {t(
+                                      "playground:composer.contextFilesTitle",
+                                      "Files in context"
+                                    )}
+                                  </div>
+                                  <p className="text-xs text-gray-500 dark:text-gray-400">
+                                    {t(
+                                      "playground:composer.contextFilesHint",
+                                      "Review attached files, remove them, or add more."
+                                    )}
+                                  </p>
+                                </div>
+                                <div className="flex flex-wrap items-center gap-2">
+                                  <button
+                                    type="button"
+                                    onClick={() => {
+                                      fileInputRef.current?.click()
+                                    }}
+                                    className="rounded-md border border-gray-200 px-2.5 py-1 text-xs font-medium text-gray-700 hover:bg-gray-100 dark:border-gray-700 dark:text-gray-200 dark:hover:bg-[#2a2a2a]">
+                                    {t("playground:composer.addFile", "Add file")}
+                                  </button>
+                                  {uploadedFiles.length > 0 && (
+                                    <button
+                                      type="button"
+                                      onClick={clearUploadedFiles}
+                                      className="rounded-md border border-gray-200 px-2.5 py-1 text-xs font-medium text-gray-700 hover:bg-gray-100 dark:border-gray-700 dark:text-gray-200 dark:hover:bg-[#2a2a2a]">
+                                      {t(
+                                        "playground:composer.clearFiles",
+                                        "Remove all files"
+                                      )}
+                                    </button>
+                                  )}
+                                </div>
+                              </div>
+                              <div className="rounded-lg border border-gray-200 bg-white p-3 dark:border-gray-700 dark:bg-[#1a1a1a]">
+                                {uploadedFiles.length > 0 ? (
+                                  <div className="flex flex-col gap-2">
+                                    {uploadedFiles.map((file) => (
+                                      <div
+                                        key={file.id}
+                                        className="flex items-center justify-between gap-3 rounded-md border border-gray-100 bg-gray-50 px-3 py-2 dark:border-gray-700 dark:bg-[#111]">
+                                        <div className="min-w-0">
+                                          <div className="truncate text-sm font-medium text-gray-800 dark:text-gray-100">
+                                            {file.filename}
+                                          </div>
+                                          <div className="text-xs text-gray-500 dark:text-gray-400">
+                                            {(file.size / (1024 * 1024)).toFixed(2)} MB
+                                          </div>
+                                        </div>
+                                        <button
+                                          type="button"
+                                          onClick={() => removeUploadedFile(file.id)}
+                                          className="rounded-full border border-gray-200 p-1 text-gray-500 hover:bg-gray-100 hover:text-gray-700 dark:border-gray-700 dark:text-gray-300 dark:hover:bg-[#2a2a2a]">
+                                          <X className="h-4 w-4" />
+                                        </button>
+                                      </div>
+                                    ))}
+                                  </div>
+                                ) : (
+                                  <div className="text-sm text-gray-500 dark:text-gray-400">
+                                    {t(
+                                      "playground:composer.contextFilesEmpty",
+                                      "No files attached yet."
+                                    )}
+                                  </div>
+                                )}
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                     <div className="relative">
                       <textarea
                         id="textarea-message"
@@ -1650,18 +2186,38 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
                           <div className="flex flex-wrap items-center gap-2 text-[11px] text-gray-600 dark:text-gray-300">
                             <button
                               type="button"
-                              onClick={() => setIsContextModalOpen(true)}
+                              onClick={handleToggleContextTools}
                               title={
-                                t(
-                                  "playground:composer.contextManagerTitle",
-                                  "Open Context Management"
-                                ) as string
+                                contextToolsOpen
+                                  ? (t(
+                                      "playground:composer.contextKnowledgeClose",
+                                      "Close Context & Knowledge"
+                                    ) as string)
+                                  : (t(
+                                      "playground:composer.contextKnowledge",
+                                      "Context & Knowledge"
+                                    ) as string)
                               }
-                              className="inline-flex items-center gap-1 rounded-full border border-gray-200 px-2 py-0.5 text-[11px] font-medium text-gray-700 transition hover:bg-gray-100 dark:border-gray-600 dark:text-gray-200 dark:hover:bg-[#2a2a2a]">
-                              {t(
-                                "playground:composer.contextManager",
-                                "Context Management"
-                              )}
+                              aria-pressed={contextToolsOpen}
+                              aria-expanded={contextToolsOpen}
+                              className={`inline-flex items-center gap-1 rounded-full border px-2 py-0.5 text-[11px] font-medium transition ${
+                                contextToolsOpen
+                                  ? "border-pink-200 bg-pink-50 text-pink-700 hover:bg-pink-100 dark:border-pink-700 dark:bg-pink-900/30 dark:text-pink-200 dark:hover:bg-pink-900/40"
+                                  : "border-gray-200 text-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:text-gray-200 dark:hover:bg-[#2a2a2a]"
+                              }`}
+                            >
+                              <Search className="h-3 w-3" />
+                              <span>
+                                {contextToolsOpen
+                                  ? t(
+                                      "playground:composer.contextKnowledgeClose",
+                                      "Close Context & Knowledge"
+                                    )
+                                  : t(
+                                      "playground:composer.contextKnowledge",
+                                      "Context & Knowledge"
+                                    )}
+                              </span>
                             </button>
                             {selectedDocuments.length > 0 && (
                               <button
@@ -1773,79 +2329,6 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
                                 </Tooltip>
                               </>
                             )}
-                            <div className="flex flex-col items-end text-[11px] text-gray-500 dark:text-gray-400 mr-2">
-                              <label className="inline-flex items-center gap-1 cursor-pointer">
-                                <Checkbox
-                                  checked={compareMode}
-                                  onChange={(e) => setCompareMode(e.target.checked)}
-                                />
-                                <span>
-                                  {t("playground:composer.compareLabel", "Compare models")}
-                                </span>
-                              </label>
-                              {compareSummaryLabel && (
-                                <span className="mt-0.5">
-                                  {compareSummaryLabel}
-                                </span>
-                              )}
-                              {compareActiveSummary && (
-                                <span className="mt-0.5 text-[10px] text-gray-400 dark:text-gray-500">
-                                  {compareActiveSummary}
-                                </span>
-                              )}
-                              {compareMode && (
-                                <div className="mt-0.5 flex items-center gap-1 text-[10px] text-gray-400 dark:text-gray-500">
-                                  <span>
-                                    {t(
-                                      "playground:composer.compareMaxLabel",
-                                      "Max models per turn"
-                                    )}
-                                    :
-                                  </span>
-                                  <Select
-                                    size="small"
-                                    value={compareMaxModels}
-                                    style={{ width: 70 }}
-                                    onChange={(value: number) => {
-                                      const next = Math.min(
-                                        Math.max(value, 2),
-                                        4
-                                      )
-                                      setCompareMaxModels(next)
-                                      if (
-                                        compareSelectedModels &&
-                                        compareSelectedModels.length > next
-                                      ) {
-                                        setCompareSelectedModels(
-                                          compareSelectedModels.slice(0, next)
-                                        )
-                                      }
-                                    }}
-                                    options={[2, 3, 4].map((v) => ({
-                                      value: v,
-                                      label: v.toString()
-                                    }))}
-                                  />
-                                  <span
-                                    className={`ml-1 ${
-                                      compareSelectedModels.length >=
-                                      (compareMaxModels || MAX_COMPARE_MODELS)
-                                        ? "text-amber-600 dark:text-amber-400"
-                                        : ""
-                                    }`}>
-                                    {t(
-                                      "playground:composer.compareMaxHelper",
-                                      "Selected {{current}} / {{limit}}",
-                                      {
-                                        current: compareSelectedModels.length,
-                                        limit:
-                                          compareMaxModels || MAX_COMPARE_MODELS
-                                      }
-                                    )}
-                                  </span>
-                                </div>
-                              )}
-                            </div>
                             <Tooltip
                               title={
                                 t(
@@ -1974,7 +2457,7 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
                                       <path d="M20 4v7a4 4 0 01-4 4H4"></path>
                                     </svg>
                                   ) : null}
-                                  {t("common:send", "Send")}
+                                  {sendLabel}
                                 </div>
                               </Dropdown.Button>
                             ) : (
@@ -2104,167 +2587,6 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
           </div>
         </div>
       </div>
-      {/* Modal/Drawer for current conversation settings */}
-      <Modal
-        open={isContextModalOpen}
-        title={t("playground:composer.contextManagerTitle", "Context Management")}
-        onCancel={() => setIsContextModalOpen(false)}
-        footer={null}
-        width="90%"
-        style={{ maxWidth: 760 }}
-        keyboard={true}
-        destroyOnHidden>
-        <div className="flex flex-col gap-5">
-          <div className="flex items-start justify-between gap-3">
-            <div>
-              <div className="text-sm font-semibold text-gray-800 dark:text-gray-100">
-                {t("playground:composer.contextTabsTitle", "Tabs in context")}
-              </div>
-              <p className="text-xs text-gray-500 dark:text-gray-400">
-                {t("playground:composer.contextTabsHint", "Review or remove referenced tabs, or add more from your open browser tabs.")}
-              </p>
-            </div>
-            <div className="flex flex-wrap items-center gap-2">
-              <button
-                type="button"
-                onClick={() => reloadTabs()}
-                className="rounded-md border border-gray-200 px-2.5 py-1 text-xs font-medium text-gray-700 hover:bg-gray-100 dark:border-gray-700 dark:text-gray-200 dark:hover:bg-[#2a2a2a]">
-                {t("common:refresh", "Refresh")}
-              </button>
-              {selectedDocuments.length > 0 && (
-                <button
-                  type="button"
-                  onClick={clearSelectedDocuments}
-                  className="rounded-md border border-gray-200 px-2.5 py-1 text-xs font-medium text-gray-700 hover:bg-gray-100 dark:border-gray-700 dark:text-gray-200 dark:hover:bg-[#2a2a2a]">
-                  {t("playground:composer.clearTabs", "Remove all tabs")}
-                </button>
-              )}
-            </div>
-          </div>
-          <div className="rounded-lg border border-gray-200 bg-white p-3 dark:border-gray-700 dark:bg-[#1a1a1a]">
-            {selectedDocuments.length > 0 ? (
-              <div className="flex flex-col gap-2">
-                {selectedDocuments.map((doc) => (
-                  <div
-                    key={doc.id}
-                    className="flex items-center justify-between gap-3 rounded-md border border-gray-100 bg-gray-50 px-3 py-2 dark:border-gray-700 dark:bg-[#111]">
-                    <div className="min-w-0">
-                      <div className="truncate text-sm font-medium text-gray-800 dark:text-gray-100">
-                        {doc.title}
-                      </div>
-                      <div className="truncate text-xs text-gray-500 dark:text-gray-400">
-                        {doc.url}
-                      </div>
-                    </div>
-                    <button
-                      type="button"
-                      onClick={() => removeDocument(doc.id)}
-                      className="rounded-full border border-gray-200 p-1 text-gray-500 hover:bg-gray-100 hover:text-gray-700 dark:border-gray-700 dark:text-gray-300 dark:hover:bg-[#2a2a2a]">
-                      <X className="h-4 w-4" />
-                    </button>
-                  </div>
-                ))}
-              </div>
-            ) : (
-              <div className="text-sm text-gray-500 dark:text-gray-400">
-                {t("playground:composer.contextTabsEmpty", "No tabs added yet.")}
-              </div>
-            )}
-            <div className="mt-3">
-              <div className="text-xs font-semibold text-gray-700 dark:text-gray-200">
-                {t("playground:composer.contextTabsAvailable", "Open tabs")}
-              </div>
-              <div className="mt-2 max-h-40 overflow-y-auto space-y-2">
-                {availableTabs.length > 0 ? (
-                  availableTabs.map((tab) => (
-                    <div
-                      key={tab.id}
-                      className="flex items-center justify-between gap-3 rounded-md border border-gray-100 bg-white px-3 py-2 shadow-sm dark:border-gray-700 dark:bg-[#161616]">
-                      <div className="min-w-0">
-                        <div className="truncate text-sm font-medium text-gray-800 dark:text-gray-100">
-                          {tab.title}
-                        </div>
-                        <div className="truncate text-xs text-gray-500 dark:text-gray-400">
-                          {tab.url}
-                        </div>
-                      </div>
-                      <button
-                        type="button"
-                        onClick={() => addDocument(tab)}
-                        className="rounded-md border border-gray-200 px-2 py-1 text-xs font-medium text-gray-700 hover:bg-gray-100 dark:border-gray-700 dark:text-gray-200 dark:hover:bg-[#2a2a2a]">
-                        {t("common:add", "Add")}
-                      </button>
-                    </div>
-                  ))
-                ) : (
-                  <div className="text-xs text-gray-500 dark:text-gray-400">
-                    {t("playground:composer.noTabsFound", "No eligible open tabs found.")}
-                  </div>
-                )}
-              </div>
-            </div>
-          </div>
-
-          <div className="flex items-start justify-between gap-3">
-            <div>
-              <div className="text-sm font-semibold text-gray-800 dark:text-gray-100">
-                {t("playground:composer.contextFilesTitle", "Files in context")}
-              </div>
-              <p className="text-xs text-gray-500 dark:text-gray-400">
-                {t("playground:composer.contextFilesHint", "Review attached files, remove them, or add more.")}
-              </p>
-            </div>
-            <div className="flex flex-wrap items-center gap-2">
-              <button
-                type="button"
-                onClick={() => {
-                  fileInputRef.current?.click()
-                }}
-                className="rounded-md border border-gray-200 px-2.5 py-1 text-xs font-medium text-gray-700 hover:bg-gray-100 dark:border-gray-700 dark:text-gray-200 dark:hover:bg-[#2a2a2a]">
-                {t("playground:composer.addFile", "Add file")}
-              </button>
-              {uploadedFiles.length > 0 && (
-                <button
-                  type="button"
-                  onClick={clearUploadedFiles}
-                  className="rounded-md border border-gray-200 px-2.5 py-1 text-xs font-medium text-gray-700 hover:bg-gray-100 dark:border-gray-700 dark:text-gray-200 dark:hover:bg-[#2a2a2a]">
-                  {t("playground:composer.clearFiles", "Remove all files")}
-                </button>
-              )}
-            </div>
-          </div>
-          <div className="rounded-lg border border-gray-200 bg-white p-3 dark:border-gray-700 dark:bg-[#1a1a1a]">
-            {uploadedFiles.length > 0 ? (
-              <div className="flex flex-col gap-2">
-                {uploadedFiles.map((file) => (
-                  <div
-                    key={file.id}
-                    className="flex items-center justify-between gap-3 rounded-md border border-gray-100 bg-gray-50 px-3 py-2 dark:border-gray-700 dark:bg-[#111]">
-                    <div className="min-w-0">
-                      <div className="truncate text-sm font-medium text-gray-800 dark:text-gray-100">
-                        {file.filename}
-                      </div>
-                      <div className="text-xs text-gray-500 dark:text-gray-400">
-                        {(file.size / (1024 * 1024)).toFixed(2)} MB
-                      </div>
-                    </div>
-                    <button
-                      type="button"
-                      onClick={() => removeUploadedFile(file.id)}
-                      className="rounded-full border border-gray-200 p-1 text-gray-500 hover:bg-gray-100 hover:text-gray-700 dark:border-gray-700 dark:text-gray-300 dark:hover:bg-[#2a2a2a]">
-                      <X className="h-4 w-4" />
-                    </button>
-                  </div>
-                ))}
-              </div>
-            ) : (
-              <div className="text-sm text-gray-500 dark:text-gray-400">
-                {t("playground:composer.contextFilesEmpty", "No files attached yet.")}
-              </div>
-            )}
-          </div>
-        </div>
-      </Modal>
       <CurrentChatModelSettings
         open={openModelSettings}
         setOpen={setOpenModelSettings}

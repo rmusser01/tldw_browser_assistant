@@ -126,5 +126,10 @@
       "message": "지식 베이스를 검색하고 결과를 메시지에 삽입하세요.",
       "dismiss": "닫기"
     }
+  },
+  "tabs": {
+    "newChat": "새 채팅",
+    "newTabAria": "새 채팅 탭",
+    "closeTabAria": "채팅 탭 닫기"
   }
 }

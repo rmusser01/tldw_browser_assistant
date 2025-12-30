@@ -6,7 +6,7 @@
     "about": "Про нас"
   },
   "healthNav": "Стан",
-  "worldBooksNav": "World Books",
+  "worldBooksNav": "Книги світу",
   "chatDictionariesNav": "Словники чату",
   "charactersNav": "Персонажі",
   "mediaNav": "Медіа",
@@ -119,14 +119,14 @@
         "assetsEnabled": "Ресурси OCR увімкнено та підготовлено"
       },
       "ocrLanguage": {
-        "label": "Default OCR Language",
-        "placeholder": "Select an OCR language"
+        "label": "Мова OCR за замовчуванням",
+        "placeholder": "Виберіть мову OCR"
       },
       "removeReasoningTagFromCopy": {
-        "label": "Remove Reasoning Tag from Copied Text"
+        "label": "Видаляти тег міркувань зі скопійованого тексту"
       },
       "promptSearchIncludeServer": {
-        "label": "Include server prompts in prompt search"
+        "label": "Додавати серверні запити до пошуку запитів"
       },
       "restartOnboarding": {
         "label": "Перезапустити онбординг з самого початку",
@@ -176,19 +176,19 @@
         "label": "Пошук в Інтернеті увімкнено за замовчуванням"
       },
       "tavilyApi": {
-        "label": "Tavily API Key ",
-        "placeholder": "Enter your Tavily API key"
+        "label": "Ключ API Tavily",
+        "placeholder": "Введіть ваш ключ API Tavily"
       },
       "exa": {
-        "label": "Exa API Key",
-        "placeholder": "Enter your Exa API key"
+        "label": "Ключ API Exa",
+        "placeholder": "Введіть ваш ключ API Exa"
       },
       "googleDomain": {
-        "label": "Google Domain"
+        "label": "Домен Google"
       },
       "firecrawlAPIKey": {
-        "label": "Firecrawl API Key",
-        "placeholder": "Enter your Firecrawl API key"
+        "label": "Ключ API Firecrawl",
+        "placeholder": "Введіть ваш ключ API Firecrawl"
       }
     },
     "system": {
@@ -240,7 +240,7 @@
         "label": "Видалити тег міркування з TTS"
       },
       "responseSplitting": {
-        "label": "Response Splitting"
+        "label": "Розбиття відповіді"
       }
     },
     "stt": {
@@ -252,117 +252,117 @@
       "autoSubmitVoiceMessage": {
         "label": "Автоматичне надсилання голосового повідомлення"
       },
-      "usedByChat": "These Speech-to-Text defaults are used by the chat dictation button in the Playground and Sidebar.",
+      "usedByChat": "Ці стандартні налаштування перетворення мовлення на текст використовуються кнопкою диктування у Playground та бічній панелі.",
       "model": {
-        "label": "Transcription model (tldw_server)"
+        "label": "Модель транскрипції (tldw_server)"
       },
       "useSegmentation": {
-        "label": "Run segmentation for transcripts (TreeSeg)"
+        "label": "Виконувати сегментацію транскриптів (TreeSeg)"
       },
       "timestampGranularities": {
-        "label": "Timestamp granularity",
-        "segment": "Per segment",
-        "word": "Per word",
-        "segmentWord": "Segment + word"
+        "label": "Гранулярність часових міток",
+        "segment": "На сегмент",
+        "word": "На слово",
+        "segmentWord": "Сегмент + слово"
       },
       "task": {
-        "label": "Transcription task",
-        "transcribe": "Transcribe (same language)",
-        "translate": "Translate to English"
+        "label": "Завдання транскрипції",
+        "transcribe": "Транскрибувати (та сама мова)",
+        "translate": "Перекласти англійською"
       },
       "responseFormat": {
-        "label": "Response format",
-        "json": "JSON (text + segments)",
-        "verboseJson": "Verbose JSON",
-        "text": "Plain text",
-        "srt": "SRT subtitles",
-        "vtt": "VTT subtitles"
+        "label": "Формат відповіді",
+        "json": "JSON (текст + сегменти)",
+        "verboseJson": "Розширений JSON",
+        "text": "Звичайний текст",
+        "srt": "Субтитри SRT",
+        "vtt": "Субтитри VTT"
       },
       "temperature": {
-        "label": "Sampling temperature"
+        "label": "Температура семплування"
       },
       "prompt": {
-        "label": "Default transcription prompt",
-        "placeholder": "Optional text to guide style"
+        "label": "Підказка транскрипції за замовчуванням",
+        "placeholder": "Необов’язковий текст для стилю"
       },
       "segK": {
-        "label": "Max segments (TreeSeg K)"
+        "label": "Макс. кількість сегментів (TreeSeg K)"
       },
       "segMinSegmentSize": {
-        "label": "Minimum items per segment"
+        "label": "Мінімум елементів у сегменті"
       },
       "segLambdaBalance": {
-        "label": "Balance penalty (TreeSeg λ)"
+        "label": "Штраф балансу (TreeSeg λ)"
       },
       "segUtteranceExpansionWidth": {
-        "label": "Utterance expansion width"
+        "label": "Ширина розширення висловлювань"
       },
       "segEmbeddingsProvider": {
-        "label": "Segmentation embeddings provider"
+        "label": "Постачальник ембедингів для сегментації"
       },
       "segEmbeddingsModel": {
-        "label": "Segmentation embeddings model"
+        "label": "Модель ембедингів для сегментації"
       }
     },
     "systemBasics": {
-      "heading": "System",
+      "heading": "Система",
       "uiMode": {
-        "label": "Default UI Mode",
+        "label": "Режим інтерфейсу за замовчуванням",
         "options": {
-          "webui": "Full Screen (Web UI)",
-          "sidePanel": "Sidebar"
+          "webui": "Повноекранний (Web UI)",
+          "sidePanel": "Бічна панель"
         }
       },
       "actionIcon": {
-        "label": "Browser Action Button"
+        "label": "Кнопка дій браузера"
       },
       "contextMenu": {
-        "label": "Context Menu Action"
+        "label": "Дія контекстного меню"
       },
       "webuiBtnSidePanel": {
-        "label": "Show Web UI button in Sidebar"
+        "label": "Показувати кнопку Web UI в бічній панелі"
       },
       "chatBackgroundImage": {
-        "label": "Chat Background Image"
+        "label": "Фонове зображення чату"
       },
       "fontSize": {
-        "label": "Font Size"
+        "label": "Розмір шрифту"
       }
     },
     "systemData": {
-      "heading": "Data",
+      "heading": "Дані",
       "firefoxPrivateModeSync": {
-        "label": "Firefox Private Mode Sync",
-        "button": "Sync Data"
+        "label": "Синхронізація у приватному режимі Firefox",
+        "button": "Синхронізувати дані"
       },
       "deleteChatHistory": {
-        "label": "System Reset",
-        "button": "Reset All",
-        "confirm": "Are you sure you want to perform a system reset? This will clear all data and cannot be undone."
+        "label": "Скидання системи",
+        "button": "Скинути все",
+        "confirm": "Ви впевнені, що хочете скинути систему? Це очистить усі дані й не може бути скасовано."
       },
       "export": {
-        "label": "Export Chat History, Knowledge Base, and Prompts",
-        "button": "Export Data",
-        "success": "Export Success"
+        "label": "Експорт історії чату, бази знань і запитів",
+        "button": "Експортувати дані",
+        "success": "Експорт успішний"
       },
       "import": {
-        "label": "Import Chat History, Knowledge Base, and Prompts",
-        "button": "Import Data",
-        "success": "Import Success",
-        "error": "Import Error"
+        "label": "Імпорт історії чату, бази знань і запитів",
+        "button": "Імпортувати дані",
+        "success": "Імпорт успішний",
+        "error": "Помилка імпорту"
       }
     },
     "empty": {
-      "connectTitle": "Connect tldw Assistant to your server",
-      "connectDescription": "Some settings only take effect when your tldw server is reachable. Connect your server to get the full experience.",
-      "connectExample1": "Open Settings → tldw server to add your server URL and API key.",
-      "connectExample2": "Use Diagnostics to confirm your server is healthy before trying advanced tools.",
-      "title": "Tune how tldw Assistant behaves",
-      "description": "Adjust defaults for the Web UI, sidepanel, speech, search, and data handling from one place.",
-      "example1": "Choose your default language, theme, and chat resume behavior.",
-      "example2": "Control whether chats are temporary, how large pastes are handled, and how reasoning is displayed.",
-      "primaryCta": "Configure server & auth",
-      "secondaryCta": "Dismiss"
+      "connectTitle": "Підключіть tldw Assistant до вашого сервера",
+      "connectDescription": "Деякі налаштування застосовуються лише коли tldw сервер доступний. Підключіть сервер, щоб отримати повний функціонал.",
+      "connectExample1": "Відкрийте Налаштування → tldw сервер, щоб додати URL сервера та ключ API.",
+      "connectExample2": "Скористайтесь Діагностикою, щоб переконатися, що сервер працює, перш ніж використовувати розширені інструменти.",
+      "title": "Налаштуйте поведінку tldw Assistant",
+      "description": "Налаштуйте параметри для веб-інтерфейсу, бічної панелі, голосу, пошуку та обробки даних в одному місці.",
+      "example1": "Виберіть мову, тему та поведінку відновлення чату.",
+      "example2": "Керуйте тим, чи є чати тимчасовими, як обробляються великі вставки та як відображаються міркування.",
+      "primaryCta": "Налаштувати сервер і автентифікацію",
+      "secondaryCta": "Закрити"
     }
   },
   "manageModels": {
@@ -383,7 +383,7 @@
       "parameterSize": "Розмір параметрів",
       "quantizationLevel": "Рівень квантування"
     },
-      "tooltip": {
+    "tooltip": {
       "delete": "Видалити модель",
       "repull": "Повторно завантажити модель",
       "editNickname": "Редагувати псевдонім"
@@ -405,21 +405,21 @@
       "successDescription": "Модель успішно завантажена",
       "successDeleteDescription": "Модель успішно видалена",
       "someError": "Щось пішло не так. Будь ласка, спробуйте пізніше.",
-      "cancellingDownload": "Cancelling Download",
-      "cancellingDownloadDescription": "Model download is being cancelled..."
+      "cancellingDownload": "Скасування завантаження",
+      "cancellingDownloadDescription": "Завантаження моделі скасовується..."
     }
   },
   "managePrompts": {
     "title": "Управління запитами",
     "addBtn": "Додати новий запит",
     "option1": "Нормальний",
-    "option2": "RAG",
+    "option2": "RAG (пошук)",
     "questionPrompt": "Питання-запит",
     "segmented": {
       "custom": "Власні запити",
       "copilot": "Запити Copilot",
-      "helpCustom": "Create and manage reusable prompts you can insert into chat.",
-      "helpCopilot": "View and tweak predefined Copilot prompts provided by your server."
+      "helpCustom": "Створюйте та керуйте багаторазовими запитами, які можна вставляти у чат.",
+      "helpCopilot": "Переглядайте та налаштовуйте попередньо визначені запити Copilot, надані вашим сервером."
     },
     "columns": {
       "title": "Назва",
@@ -432,7 +432,7 @@
     "tooltip": {
       "delete": "Видалити запит",
       "edit": "Редагувати запит",
-      "duplicate": "Duplicate Prompt"
+      "duplicate": "Дублювати запит"
     },
     "confirm": {
       "delete": "Ви впевнені, що хочете видалити цей запит? Його не вдасться відновити."
@@ -476,44 +476,45 @@
       "deletedSuccess": "Запит видалено",
       "deletedSuccessDesc": "Запит успішно видалено"
     },
-    "workspaceTitle": "Prompts workspace",
-    "workspaceDescription": "Reusable prompts are managed from the Prompts workspace. Use the button below to open it.",
-    "openWorkspace": "Open Prompts workspace",
-    "search": "Search titles and contents",
+    "workspaceTitle": "Робочий простір запитів",
+    "workspaceDescription": "Багаторазові запити керуються у робочому просторі запитів. Використайте кнопку нижче, щоб відкрити його.",
+    "openWorkspace": "Відкрити робочий простір запитів",
+    "search": "Пошук за назвами та вмістом",
     "filter": {
-      "all": "All",
-      "system": "System",
-      "quick": "Quick"
+      "all": "Усі",
+      "system": "Системні",
+      "quick": "Швидкі"
     },
     "tags": {
-      "label": "Tags",
-      "placeholder": "Add tags"
+      "label": "Теги",
+      "placeholder": "Додати теги"
     },
-    "import": "Import",
-    "export": "Export",
+    "import": "Імпорт",
+    "export": "Експорт",
     "importMode": {
-      "merge": "Merge",
-      "replace": "Replace"
+      "merge": "Об’єднати",
+      "replace": "Замінити",
+      "replaceConfirm": "Заміна перезапише всі поточні запити імпортованим файлом. Продовжити?"
     },
-    "favorite": "Favorite",
-    "unfavorite": "Unfavorite",
-    "partialLoad": "Some prompt data isn’t available",
-    "loadErrorHelp": "Check your server connection and refresh to try again.",
-    "emptyConnectTitle": "Connect to use Prompts",
-    "emptyConnectDescription": "To manage reusable prompts, first connect to your tldw server.",
-    "emptyConnectExample1": "Open Settings → tldw server to add your server URL.",
-    "emptyConnectExample2": "Once connected, create custom prompts you can reuse across chats.",
-    "emptyTitle": "No custom prompts yet",
-    "emptyDescription": "Create reusable prompts for recurring tasks, workflows, and team conventions.",
-    "emptyExample1": "Save your favorite system prompt for summaries, explanations, or translations.",
-    "emptyExample2": "Create quick prompts for common actions like drafting emails or refining notes.",
-    "emptyPrimaryCta": "Create prompt",
-    "filterHelp": "Search matches title and prompt content. Use type and tags to narrow the list.",
-    "copilotEmptyTitle": "No Copilot prompts available",
-    "copilotEmptyDescription": "Copilot prompts are predefined templates provided by your tldw server.",
-    "copilotEmptyExample1": "Check your server version or configuration if you expect Copilot prompts to be available.",
-    "copilotEmptyExample2": "After updating your server, reload the extension and return to this tab.",
-    "copilotEmptyCta": "Open Diagnostics"
+    "favorite": "Улюблене",
+    "unfavorite": "Прибрати з улюблених",
+    "partialLoad": "Деякі дані запитів недоступні",
+    "loadErrorHelp": "Перевірте підключення до сервера та оновіть сторінку, щоб спробувати знову.",
+    "emptyConnectTitle": "Підключіться, щоб використовувати запити",
+    "emptyConnectDescription": "Щоб керувати багаторазовими запитами, спочатку підключіться до свого tldw сервера.",
+    "emptyConnectExample1": "Відкрийте Налаштування → tldw сервер, щоб додати URL сервера.",
+    "emptyConnectExample2": "Після підключення створюйте власні запити для повторного використання в чатах.",
+    "emptyTitle": "Поки немає власних запитів",
+    "emptyDescription": "Створюйте багаторазові запити для повторюваних задач, робочих процесів і командних правил.",
+    "emptyExample1": "Збережіть улюблений системний запит для підсумків, пояснень або перекладів.",
+    "emptyExample2": "Створіть швидкі запити для поширених дій, як-от написання листів або редагування нотаток.",
+    "emptyPrimaryCta": "Створити запит",
+    "filterHelp": "Пошук охоплює назви та текст запитів. Використовуйте тип і теги, щоб звузити список.",
+    "copilotEmptyTitle": "Немає доступних запитів Copilot",
+    "copilotEmptyDescription": "Запити Copilot — це заздалегідь визначені шаблони, які надає ваш tldw сервер.",
+    "copilotEmptyExample1": "Перевірте версію або конфігурацію сервера, якщо очікуєте запити Copilot.",
+    "copilotEmptyExample2": "Після оновлення сервера перезавантажте розширення і поверніться до цієї вкладки.",
+    "copilotEmptyCta": "Відкрити діагностику"
   },
   "manageShare": {
     "title": "Управління спільним доступом",
@@ -530,7 +531,7 @@
       "heading": "Спільний доступ через веб",
       "columns": {
         "title": "Назва",
-        "url": "URL",
+        "url": "URL-адреса",
         "actions": "Дії"
       },
       "tooltip": {
@@ -577,11 +578,11 @@
           "add": "Додати заголовок",
           "key": {
             "label": "Ключ заголовка",
-            "placeholder": "Authorization"
+            "placeholder": "Авторизація"
           },
           "value": {
             "label": "Значення заголовка",
-            "placeholder": "Bearer token"
+            "placeholder": "Bearer токен"
           }
         },
         "help": "Якщо у вас виникають проблеми з підключенням до сервера, ви можете налаштувати власний URL походження запиту. Щоб дізнатися більше, <anchor>натисніть тут</anchor>."
@@ -602,35 +603,35 @@
     "githubSponsor": "Стати спонсором на GitHub",
     "githubRepo": "Репозиторій GitHub"
   },
-  "switchToSidebar": "Switch to Sidebar",
+  "switchToSidebar": "Перейти до бічної панелі",
   "healthPage": {
-    "title": "Health Status",
+    "title": "Стан системи",
     "subtitle": "Quick overview of subsystem health endpoints exposed by the server.",
-    "backToChat": "Back to chat",
-    "openSettings": "Open tldw Settings",
-    "recheckAll": "Recheck All",
-    "copyDiagnostics": "Copy diagnostics",
-    "serverNotConfigured": "Server is not configured.",
-    "unableToReachCore": "Unable to reach server core health endpoint.",
-    "triedGet": "Tried GET {{url}}",
-    "configureHint": "Please configure a server URL under tldw settings.",
-    "configureCta": "Configure",
-    "connectedTo": "Connected to {{host}}",
-    "autoRefresh": "Auto-refresh",
-    "intervalLabel": "Interval (s):",
-    "checking": "Checking…",
-    "recheck": "Recheck",
-    "healthy": "Healthy",
-    "unhealthy": "Unhealthy",
-    "unknown": "Unknown",
+    "backToChat": "Повернутися до чату",
+    "openSettings": "Відкрити налаштування tldw",
+    "recheckAll": "Перевірити все знову",
+    "copyDiagnostics": "Копіювати діагностику",
+    "serverNotConfigured": "Сервер не налаштовано.",
+    "unableToReachCore": "Не вдалося звернутися до ендпоїнта стану ядра сервера.",
+    "triedGet": "Спроба GET {{url}}",
+    "configureHint": "Налаштуйте URL сервера у налаштуваннях tldw.",
+    "configureCta": "Налаштувати",
+    "connectedTo": "Підключено до {{host}}",
+    "autoRefresh": "Автоматичне оновлення",
+    "intervalLabel": "Інтервал (с):",
+    "checking": "Перевірка…",
+    "recheck": "Перевірити знову",
+    "healthy": "Справний",
+    "unhealthy": "Несправний",
+    "unknown": "Невідомо",
     "checks": {
-      "core": "Core API",
-      "rag": "RAG",
-      "audio": "Audio",
-      "embeddings": "Embeddings",
-      "metrics": "Metrics Health",
-      "chatMetrics": "Chat Metrics",
-      "mcp": "MCP",
+      "core": "API ядра",
+      "rag": "RAG (пошук)",
+      "audio": "Аудіо",
+      "embeddings": "Ембедінги",
+      "metrics": "Стан метрик",
+      "chatMetrics": "Метрики чату",
+      "mcp": "MCP (протокол контексту моделей)",
       "coreDocsUrl": "https://github.com/rmusser01/tldw_browser_assistant",
       "ragDocsUrl": "https://github.com/rmusser01/tldw_browser_assistant",
       "audioDocsUrl": "https://github.com/rmusser01/tldw_browser_assistant",
@@ -640,15 +641,15 @@
       "mcpDocsUrl": "https://github.com/rmusser01/tldw_browser_assistant"
     },
     "copyDiagnosticsHelp": "Copies JSON diagnostics to clipboard",
-    "statusHealthy": "Healthy",
-    "statusUnhealthy": "Unhealthy",
-    "statusUnknown": "Unknown",
-    "updatedJustNow": "Updated just now",
-    "updatedSecondsAgo": "Updated {{seconds}}s ago"
+    "statusHealthy": "Справний",
+    "statusUnhealthy": "Несправний",
+    "statusUnknown": "Невідомо",
+    "updatedJustNow": "Щойно оновлено",
+    "updatedSecondsAgo": "Оновлено {{seconds}} с тому"
   },
-  "savedSuccessfully": "Settings saved",
-  "saveFailed": "Failed to save settings",
-  "siteAccessGranted": "Host permission granted for {{origin}}",
+  "savedSuccessfully": "Налаштування збережено",
+  "saveFailed": "Не вдалося зберегти налаштування",
+  "siteAccessGranted": "Дозвіл на доступ до хоста надано для {{origin}}",
   "tldw": {
     "advancedTimeouts": "Розширені тайм-аути",
     "requestTimeout": "Тайм-аут запиту (секунди)",
@@ -753,14 +754,14 @@
     }
   },
   "manageKnowledge": {
-    "title": "Knowledge QA",
-    "heading": "Knowledge QA",
-    "worldBooksSettingsTitle": "World Books workspace",
-    "worldBooksSettingsDescription": "World Books are managed from the World Books workspace. Use the button below to open it.",
-    "worldBooksOpenWorkspace": "Open World Books workspace",
-    "dictionariesSettingsTitle": "Chat dictionaries workspace",
-    "dictionariesSettingsDescription": "Chat dictionaries are managed from the Chat dictionaries workspace. Use the button below to open it.",
-    "dictionariesOpenWorkspace": "Open Chat dictionaries workspace"
+    "title": "Питання й відповіді знань",
+    "heading": "Питання й відповіді знань",
+    "worldBooksSettingsTitle": "Робочий простір книг світу",
+    "worldBooksSettingsDescription": "Книги світу керуються у робочому просторі книг світу. Натисніть кнопку нижче, щоб відкрити його.",
+    "worldBooksOpenWorkspace": "Відкрити робочий простір книг світу",
+    "dictionariesSettingsTitle": "Робочий простір словників чату",
+    "dictionariesSettingsDescription": "Словники чату керуються у робочому просторі словників чату. Натисніть кнопку нижче, щоб відкрити його.",
+    "dictionariesOpenWorkspace": "Відкрити робочий простір словників чату"
   },
   "rag": {
     "title": "Налаштування RAG",
@@ -771,8 +772,8 @@
         "required": "Будь ласка, виберіть модель",
         "help": "Рекомендується використовувати моделі вбудованих даних, такі як `nomic-embed-text`.",
         "placeholder": "Вибрати модель",
-        "helpRecommended": "Recommended: {{model}} (from server config)",
-        "helpMissing": "Previously saved embedding model is no longer available on the server. Please choose another model."
+        "helpRecommended": "Рекомендовано: {{model}} (із конфігурації сервера)",
+        "helpMissing": "Раніше збережена модель ембедингів більше недоступна на сервері. Виберіть іншу модель."
       },
       "chunkSize": {
         "label": "Розмір шматка",
@@ -826,57 +827,57 @@
     "learnMoreTldw": "Дізнайтеся, як працює сервер tldw",
     "serverDocsUrl": "https://github.com/rmusser01/tldw_browser_assistant",
     "serverUrl": {
-      "placeholder": "http://127.0.0.1:8000",
+      "placeholder": "напр. http://127.0.0.1:8000",
       "help": "Приклад: http://127.0.0.1:8000",
       "invalid": "Введіть повну URL‑адресу, наприклад http://127.0.0.1:8000.",
       "invalidProtocol": "Використовуйте адреси http або https, наприклад http://127.0.0.1:8000.",
-      "label": "Server URL",
-      "emptyHint": "Enter your tldw server URL to enable Next.",
-      "ready": "We’ll enable Next once we can reach this address.",
-      "checking": "Checking reachability…",
-      "reachable": "Server responded successfully. You can continue.",
-      "unreachable": "We couldn’t reach this address yet. Double-check the URL or try again."
+      "label": "URL сервера",
+      "emptyHint": "Введіть URL tldw сервера, щоб активувати Далі.",
+      "ready": "Ми активуємо «Далі», коли зможемо досягти цієї адреси.",
+      "checking": "Перевірка доступності…",
+      "reachable": "Сервер відповів успішно. Ви можете продовжити.",
+      "unreachable": "Поки не вдалося досягти цієї адреси. Перевірте URL або спробуйте ще раз."
     },
     "buttons": {
-      "next": "Next",
-      "back": "Back",
-      "continue": "Continue",
-      "recheck": "Recheck",
-      "finish": "Finish",
-      "finishAnyway": "Finish without connecting",
-      "skip": "Skip for now"
+      "next": "Далі",
+      "back": "Назад",
+      "continue": "Продовжити",
+      "recheck": "Перевірити знову",
+      "finish": "Завершити",
+      "finishAnyway": "Завершити без підключення",
+      "skip": "Пропустити"
     },
     "authMode": {
-      "label": "Authentication Mode",
-      "single": "Single User (API Key)",
-      "multi": "Multi User (Login)"
+      "label": "Режим автентифікації",
+      "single": "Один користувач (API ключ)",
+      "multi": "Багато користувачів (Вхід)"
     },
     "apiKey": {
-      "label": "API Key",
-      "placeholder": "Enter your API key (or use the default demo key THIS-IS-A-SECURE-KEY-123-REPLACE-ME for local single-user setups)"
+      "label": "API ключ",
+      "placeholder": "Введіть ваш API ключ (або використайте демо-ключ THIS-IS-A-SECURE-KEY-123-REPLACE-ME для локальних одноосібних установок)"
     },
     "username": {
-      "label": "Username",
-      "placeholder": "Username"
+      "label": "Імʼя користувача",
+      "placeholder": "Імʼя користувача"
     },
     "password": {
-      "label": "Password",
-      "placeholder": "Password"
+      "label": "Пароль",
+      "placeholder": "Пароль"
     },
     "connection": {
-      "label": "Connection:",
-      "unknown": "Unknown",
-      "connected": "Connected",
-      "failed": "Failed",
+      "label": "Зʼєднання:",
+      "unknown": "Невідомо",
+      "connected": "Підключено",
+      "failed": "Не вдалося",
       "continueAnyway": "You can continue and complete setup now. You’ll be able to verify the connection later from Settings."
     },
     "rag": {
       "label": "RAG:",
-      "healthy": "Healthy",
-      "unhealthy": "Unhealthy",
-      "unknown": "Unknown"
+      "healthy": "Справний",
+      "unhealthy": "Несправний",
+      "unknown": "Невідомо"
     },
-    "connectionFailed": "Connection failed",
+    "connectionFailed": "Підключення не вдалося",
     "footerHelp": "Після підключення ви можете будь-коли повернутися до цих налаштувань через меню розширення.",
     "progressAria": "Прогрес початкового налаштування",
     "stepLabel": {
@@ -897,11 +898,11 @@
     "path": {
       "heading": "З чого ви хочете почати?",
       "hasServer": "Я вже запускаю tldw_server",
-      "hasServerHelp": "Connect to an existing tldw_server you already run.",
+      "hasServerHelp": "Підключіться до наявного tldw_server, який ви вже запускаєте.",
       "noServer": "У мене ще немає сервера",
-      "noServerHelp": "Follow a setup guide for tldw_server, or start in demo mode.",
+      "noServerHelp": "Дотримуйтесь інструкції з налаштування tldw_server або почніть у демо-режимі.",
       "demo": "Просто дослідити за допомогою локальної демо-версії",
-      "demoHelp": "Try the workspace with sample data; connect your own server later.",
+      "demoHelp": "Спробуйте робочий простір із прикладними даними; підключіть свій сервер пізніше.",
       "noServerTitle": "Ще немає сервера? Ви все одно можете продовжити знайомство.",
       "noServerBody": "tldw_server — це окремий застосунок із самостійним хостингом. Ви можете пройти інструкцію з налаштування зараз або повернутися пізніше й продовжити в демо-режимі.",
       "noServerOptionLocal": "Запустити локально за допомогою Docker або Python на вашій машині.",
@@ -932,85 +933,136 @@
     "headerShortcuts": "Показувати швидкі ярлики в заголовку"
   },
   "manageCharacters": {
-    "title": "Manage Characters",
-    "addBtn": "New character",
+    "title": "Керування персонажами",
+    "addBtn": "Новий персонаж",
     "columns": {
-      "name": "Name",
-      "description": "Description",
-      "actions": "Actions",
-      "avatar": "Avatar"
+      "name": "Назва",
+      "description": "Опис",
+      "actions": "Дії",
+      "avatar": "Аватар"
     },
     "actions": {
-      "chat": "Chat",
-      "edit": "Edit",
-      "delete": "Delete"
+      "chat": "Чат",
+      "edit": "Редагувати",
+      "delete": "Видалити",
+      "viewConversations": "Переглянути розмови",
+      "duplicate": "Дублювати"
     },
     "tags": {
-      "label": "Tags",
-      "placeholder": "Add tags",
-      "help": "Use tags to group characters by use case (e.g., “writing”, “teaching”)."
+      "label": "Теги",
+      "placeholder": "Додати теги",
+      "help": "Використовуйте теги, щоб групувати персонажів за сценаріями (наприклад, «письмо», «викладання»)."
     },
     "tooltip": {
-      "edit": "Edit character",
-      "delete": "Delete character"
+      "edit": "Редагувати персонажа",
+      "delete": "Видалити персонажа"
     },
     "aria": {
-      "chatWith": "Chat as {{name}}",
-      "edit": "Edit character {{name}}",
-      "delete": "Delete character {{name}}"
+      "chatWith": "Чат як {{name}}",
+      "edit": "Редагувати персонажа {{name}}",
+      "delete": "Видалити персонажа {{name}}",
+      "viewConversations": "Переглянути розмови для {{name}}",
+      "searchResults": "Знайдено персонажів: {{count}}",
+      "duplicate": "Дублювати персонажа {{name}}"
     },
     "confirm": {
-      "delete": "Are you sure you want to delete this character? This action cannot be undone."
+      "delete": "Ви впевнені, що хочете видалити цього персонажа? Цю дію неможливо скасувати."
     },
     "form": {
       "name": {
-        "label": "Name",
-        "placeholder": "e.g. Writing coach",
-        "required": "Please enter a name"
+        "label": "Назва",
+        "placeholder": "наприклад, тренер з письма",
+        "required": "Будь ласка, введіть назву"
       },
-      "description": "Define a reusable character you can chat with in the sidebar.",
+      "description": "Створіть багаторазового персонажа, з яким можна чатити на бічній панелі.",
       "systemPrompt": {
-        "label": "Behavior / instructions",
-        "placeholder": "E.g., You are a patient math teacher who explains concepts step by step and checks understanding with short examples.",
-        "help": "Explain the character's role, tone, and constraints. For example: \"You are a patient math tutor who explains concepts step by step.\"",
-        "min": "Add a short description so the character knows how to respond."
+        "label": "Поведінка / інструкції",
+        "placeholder": "Напр., ви терплячий вчитель математики, який пояснює концепції крок за кроком і перевіряє розуміння короткими прикладами.",
+        "help": "Опишіть роль персонажа, тон і обмеження. Наприклад: \"Ви терплячий репетитор з математики, який пояснює крок за кроком.\"",
+        "min": "Додайте короткий опис, щоб персонаж знав, як відповідати.",
+        "required": "Додайте інструкції, щоб спрямовувати відповіді.",
+        "max": "Системний промпт має бути не довший за 2000 символів."
       },
       "avatarUrl": {
-        "label": "Avatar URL (optional)",
-        "placeholder": "https://example.com/avatar.png"
+        "label": "URL аватара (необов’язково)",
+        "placeholder": "наприклад https://example.com/avatar.png"
       },
       "greeting": {
-        "label": "Greeting message (optional)",
-        "placeholder": "Hi there! I’m your writing coach. Paste your draft and I’ll help you tighten it up.",
-        "help": "Optional first message the character will send when you start a chat."
+        "label": "Привітальне повідомлення (необов’язково)",
+        "placeholder": "Привіт! Я ваш тренер з письма. Вставте чернетку, і я допоможу зробити текст більш чітким.",
+        "help": "Необов’язкове перше повідомлення, яке персонаж надішле при старті чату."
       },
       "btnSave": {
-        "saving": "Creating character...",
-        "save": "Create character"
+        "saving": "Створення персонажа...",
+        "save": "Створити персонажа"
       },
       "btnEdit": {
-        "saving": "Saving changes...",
-        "save": "Save changes"
+        "saving": "Збереження змін...",
+        "save": "Зберегти зміни"
       }
     },
     "notification": {
-      "addSuccess": "Character created",
-      "error": "Error",
-      "someError": "Something went wrong. Please try again later",
-      "updatedSuccess": "Character updated",
-      "deletedSuccess": "Character deleted"
+      "addSuccess": "Персонажа створено",
+      "error": "Помилка",
+      "someError": "Щось пішло не так. Спробуйте пізніше",
+      "updatedSuccess": "Персонажа оновлено",
+      "deletedSuccess": "Персонажа видалено"
     },
     "loadError": {
-      "title": "Couldn't load characters",
-      "description": "Check your connection and try again."
+      "title": "Не вдалося завантажити персонажів",
+      "description": "Перевірте підключення та спробуйте ще раз."
     },
-    "emptyTitle": "No characters yet",
-    "emptyDescription": "Create a reusable character with a name, description, and system prompt you can chat with.",
-    "emptyExample1": "Define a writing coach, lore expert, or coding assistant you can reuse across chats.",
-    "emptyExample2": "Give each character a clear description and behavior so their responses stay consistent.",
-    "emptyPrimaryCta": "Create character",
-    "avatarAltWithName": "Avatar of {{name}}",
-    "avatarAlt": "User avatar"
+    "emptyTitle": "Персонажів поки немає",
+    "emptyDescription": "Створіть багаторазового персонажа з іменем, описом і системною підказкою, з яким можна чатити.",
+    "emptyExample1": "Визначте тренера з письма, знавця лору або помічника з коду, якого можна використовувати в різних чатах.",
+    "emptyExample2": "Дайте кожному персонажу чіткий опис і поведінку, щоб відповіді були послідовними.",
+    "emptyPrimaryCta": "Створити персонажа",
+    "avatarAltWithName": "Аватар {{name}}",
+    "avatarAlt": "Аватар користувача",
+    "conversations": {
+      "title": "Розмови для {{name}}",
+      "titleGeneric": "Розмови персонажа",
+      "subtitle": "Виберіть розмову, щоб продовжити спілкування цим персонажем.",
+      "empty": "Для цього персонажа ще немає розмов.",
+      "error": "Не вдалося завантажити розмови для цього персонажа.",
+      "updated": "Оновлено {{time}}",
+      "unknownTime": "Невідомо",
+      "resume": "Продовжити чат",
+      "untitled": "Без назви",
+      "mostRecent": "Найновіше",
+      "resumeTooltip": "Завантажити історію чату та продовжити цю розмову"
+    },
+    "preview": {
+      "title": "Попередній перегляд",
+      "show": "Показати попередній перегляд",
+      "hide": "Приховати попередній перегляд",
+      "untitled": "Персонаж без назви",
+      "greeting": "Привітання",
+      "behavior": "Поведінка",
+      "empty": "Заповніть форму, щоб побачити попередній перегляд"
+    },
+    "advanced": {
+      "show": "Показати розширені поля",
+      "hide": "Приховати розширені поля"
+    },
+    "table": {
+      "noDescription": "Немає опису"
+    },
+    "filter": {
+      "matchAll": "Збіг усіх тегів"
+    },
+    "avatar": {
+      "label": "Аватар (необов'язково)",
+      "tabUrl": "URL-адреса",
+      "tabUpload": "Завантажити",
+      "selectImageError": "Виберіть файл зображення",
+      "formatError": "Підтримуються лише зображення PNG, JPEG і GIF",
+      "invalidError": "Недійсний файл зображення",
+      "processError": "Не вдалося обробити зображення",
+      "dropzone": "Клацніть або перетягніть зображення для завантаження",
+      "formats": "PNG, JPEG або GIF",
+      "preview": "Попередній перегляд"
+    }
   },
   "systemNotifications": {
     "importSuccess": "Дані успішно імпортовано",
@@ -1029,188 +1081,268 @@
   "models": {
     "privateModeDescription": "Приватний режим Firefox не підтримує збереження в IndexedDB. Додайте власну модель у звичайному вікні."
   },
-  "evaluationsSettingsNav": "Evaluations",
-  "promptStudioNav": "Prompt Studio",
+  "evaluationsSettingsNav": "Оцінювання",
+  "promptStudioNav": "Промпт-студія",
   "promptStudio": {
-    "nav": "Prompt Studio",
-    "title": "Prompt Studio",
-    "subtitle": "Configure defaults and monitor Prompt Studio health. Connection and auth reuse the main server settings.",
-    "probeError": "Unable to reach Prompt Studio",
-    "statusCard": "Status",
-    "statusHint": "Button calls /prompt-studio/status with warn_seconds.",
-    "statusError": "Status endpoint unavailable",
-    "warnSeconds": "Warn seconds",
-    "testButton": "Test Prompt Studio",
-    "defaultsCard": "Defaults",
-    "defaultsHint": "Store default project, model configs, and list page size.",
-    "defaultsPlaceholder": "Persist defaults using existing settings storage (TBD) for initial project selection, execute/evaluation model presets, and pagination.",
-    "defaultProject": "Default project ID",
-    "pageSize": "Page size",
-    "executeDefaults": "Execute defaults",
-    "executeProvider": "Provider",
-    "executeModel": "Model",
-    "executeTemperature": "Temperature",
-    "executeMaxTokens": "Max tokens",
-    "evalDefaults": "Evaluation defaults",
-    "evalModel": "Model",
-    "evalTemperature": "Temperature",
-    "evalMaxTokens": "Max tokens",
-    "unavailable": "Prompt Studio isn’t available on the server yet.",
-    "unavailableBody": "Once enabled, you can monitor queue health and set defaults here."
+    "nav": "Промпт-студія",
+    "title": "Промпт-студія",
+    "subtitle": "Налаштуйте значення за замовчуванням і відстежуйте стан Prompt Studio. Підключення та автентифікація використовують основні налаштування сервера.",
+    "probeError": "Не вдалося підключитися до Prompt Studio",
+    "statusCard": "Стан",
+    "statusHint": "Кнопка викликає /prompt-studio/status із warn_seconds.",
+    "statusError": "Ендпоїнт стану недоступний",
+    "warnSeconds": "Секунди попередження",
+    "testButton": "Перевірити Prompt Studio",
+    "defaultsCard": "Значення за замовчуванням",
+    "defaultsHint": "Зберігайте стандартний проєкт, конфігурації моделей і розмір списку сторінки.",
+    "defaultsPlaceholder": "Зберігайте значення за замовчуванням через наявне сховище налаштувань (TBD) для початкового вибору проєкту, пресетів моделей виконання/оцінювання та пагінації.",
+    "defaultProject": "ID проєкту за замовчуванням",
+    "pageSize": "Розмір сторінки",
+    "executeDefaults": "Значення виконання за замовчуванням",
+    "executeProvider": "Провайдер",
+    "executeModel": "Модель",
+    "executeTemperature": "Температура",
+    "executeMaxTokens": "Макс. токенів",
+    "evalDefaults": "Значення оцінювання за замовчуванням",
+    "evalModel": "Модель",
+    "evalTemperature": "Температура",
+    "evalMaxTokens": "Макс. токенів",
+    "unavailable": "Prompt Studio поки недоступна на сервері.",
+    "unavailableBody": "Коли буде увімкнено, тут можна буде відстежувати стан черги та задавати значення за замовчуванням."
   },
-  "charactersSettingsTitle": "Characters workspace",
-  "charactersSettingsDescription": "Characters are managed from the Characters workspace. Use the button below to open it.",
-  "charactersOpenWorkspace": "Open Characters workspace",
-  "mermaid": "Mermaid",
+  "charactersSettingsTitle": "Робочий простір персонажів",
+  "charactersSettingsDescription": "Персонажі керуються в робочому просторі персонажів. Натисніть кнопку нижче, щоб відкрити його.",
+  "charactersOpenWorkspace": "Відкрити робочий простір персонажів",
+  "mermaid": "Діаграми Mermaid",
   "healthSummary": {
     "diagnostics": "Diagnostics",
-    "diagnosticsTooltip": "Open detailed diagnostics to troubleshoot or inspect health checks.",
-    "core": "Server",
-    "rag": "Knowledge",
-    "coreAria": "Server: server/API health",
-    "ragAria": "Knowledge: knowledge index health",
-    "coreOnline": "Server: Online",
-    "coreOffline": "Server: Offline",
-    "coreChecking": "Server: Checking…",
-    "ragReady": "Knowledge: Ready",
-    "ragOffline": "Knowledge: Offline",
-    "ragChecking": "Knowledge: Checking…",
-    "footerInfo": "These checks summarize the last successful ping to your tldw server and knowledge index."
+    "diagnosticsTooltip": "Відкрити детальну діагностику, щоб усунути несправності або перевірити стан.",
+    "core": "Сервер",
+    "rag": "Знання",
+    "coreAria": "Сервер: стан сервера/API",
+    "ragAria": "Знання: стан індексу знань",
+    "coreOnline": "Сервер: онлайн",
+    "coreOffline": "Сервер: офлайн",
+    "coreChecking": "Сервер: перевірка…",
+    "ragReady": "Знання: готово",
+    "ragOffline": "Знання: офлайн",
+    "ragChecking": "Знання: перевірка…",
+    "footerInfo": "Ці перевірки підсумовують останній успішний пінг до вашого tldw сервера та індексу знань."
   },
   "storage": {
-    "quotaFriendlyMessage": "Too many settings writes in a short period; please wait a few seconds and try again.",
-    "quotaTitle": "Storage limit reached",
-    "writeError": "Could not save settings",
-    "writeErrorDescription": "We couldn't save your settings. Please try again shortly."
+    "quotaFriendlyMessage": "Забагато записів налаштувань за короткий час; зачекайте кілька секунд і спробуйте знову.",
+    "quotaTitle": "Досягнуто ліміту сховища",
+    "writeError": "Не вдалося зберегти налаштування",
+    "writeErrorDescription": "Не вдалося зберегти ваші налаштування. Спробуйте трохи пізніше."
   },
   "evaluations": {
-    "title": "Evaluations playground",
-    "subtitle": "Define evaluations against your tldw server and inspect recent runs.",
-    "listTitle": "Recent evaluations",
-    "newEvaluationCta": "New evaluation",
-    "startRunCta": "Start run",
-    "loadErrorTitle": "Unable to load evaluations",
-    "loadErrorDescription": "Check your tldw server connection and API credentials, then try again.",
-    "emptyList": "No evaluations yet. Once you create one, it will appear here.",
-    "selectedTag": "Selected",
-    "rateLimitsTitle": "Evaluation limits",
-    "rateLimitsErrorTitle": "Unable to fetch rate limits",
-    "rateLimitsErrorDescription": "We could not retrieve evaluation quotas from the server.",
-    "rateLimitsNoData": "Rate limit information is not available for this server.",
-    "tierLabel": "Tier",
-    "dailyLimitLabel": "Daily evaluations",
-    "tokensTodayLabel": "Tokens today",
-    "perMinuteLabel": "Per-minute limit",
-    "resetAtLabel": "Resets at",
-    "runsTitle": "Runs",
-    "noEvalSelectedRuns": "Select an evaluation to see its recent runs.",
-    "runsErrorTitle": "Unable to load runs",
-    "runsEmpty": "No runs yet for this evaluation.",
-    "runDetailTitle": "Run details",
-    "noRunSelected": "Select a run to see details.",
-    "runDetailErrorTitle": "Unable to load run details",
-    "runStatusLabel": "Status",
-    "runModelLabelShort": "Target model",
-    "runEvalIdLabel": "Evaluation",
-    "runErrorLabel": "Error",
-    "runResultsLabel": "Results (snippet)",
-    "runProgressLabel": "Progress",
-    "runUsageLabel": "Usage",
-    "datasetsTitle": "Datasets",
-    "newDatasetCta": "New dataset",
-    "datasetsErrorTitle": "Unable to load datasets",
-    "datasetsEmpty": "No datasets yet. Create one to attach to evaluations.",
-    "datasetSampleCount": "{{count}} samples",
-    "datasetNameLabel": "Name",
-    "datasetNamePlaceholder": "my_dataset",
-    "datasetDescriptionLabel": "Description",
-    "datasetMetadataLabel": "Metadata (JSON, optional)",
-    "sampleInputLabel": "Sample input",
-    "sampleExpectedLabel": "Expected output (optional)",
-    "samplesJsonLabel": "Samples JSON (optional, overrides fields)",
-    "datasetLabel": "Dataset (optional)",
-    "datasetPlaceholder": "Select dataset",
-    "datasetCreateSuccessTitle": "Dataset created",
-    "datasetCreateSuccessDescription": "Your dataset is ready to use in evaluations.",
-    "datasetCreateErrorTitle": "Failed to create dataset",
-    "datasetCreateErrorDescription": "The server rejected this dataset. Check the fields and try again.",
-    "datasetDeleteSuccessTitle": "Dataset deleted",
-    "datasetDeleteErrorTitle": "Failed to delete dataset",
-    "datasetLoadErrorTitle": "Failed to load dataset",
-    "datasetDetailTitle": "Dataset details",
-    "datasetParseErrorTitle": "Invalid samples JSON",
-    "createEvalModalTitle": "New evaluation",
-    "editEvalModalTitle": "Edit evaluation",
-    "evalNameLabel": "Name",
-    "evalNamePlaceholder": "my_eval_run",
-    "evalNameValidation": "Use only letters, numbers, hyphens, and underscores.",
-    "evalTypeLabel": "Evaluation type",
-    "evalSpecLabel": "Evaluation spec (JSON)",
-    "evalSpecParseError": "Evaluation spec must be valid JSON.",
-    "evalMetadataLabel": "Metadata (JSON, optional)",
-    "inlineDatasetCheckbox": "Attach inline dataset instead of referencing dataset_id",
-    "inlineDatasetErrorTitle": "Invalid inline dataset",
-    "runModelLabel": "Run model (used for quick runs)",
-    "createSuccessTitle": "Evaluation created",
-    "createErrorTitle": "Failed to create evaluation",
-    "createErrorDescription": "The server rejected this evaluation. Ensure name, type, and spec are valid.",
-    "updateSuccessTitle": "Evaluation updated",
-    "updateErrorTitle": "Failed to update evaluation",
-    "deleteErrorTitle": "Failed to delete evaluation",
-    "deleteConfirmTitle": "Delete this evaluation?",
-    "deleteConfirmDescription": "This will remove the evaluation definition. Runs already created remain in history.",
-    "detailTitle": "Evaluation details",
-    "detailErrorTitle": "Unable to load evaluation details",
-    "descriptionLabel": "Description",
-    "noEvalSelectedDetails": "Select an evaluation to inspect its spec.",
-    "runCreateSuccessTitle": "Run started",
-    "runCreateSuccessDescription": "Your evaluation run has started. You can monitor it from the server UI.",
-    "runCreateErrorTitle": "Failed to start run",
-    "runCreateErrorDescription": "The server rejected this run request. Check the model and try again.",
-    "runConfigLabel": "Config (JSON)",
-    "datasetOverrideLabel": "Dataset override (JSON array of samples)",
-    "runConfigParseError": "Invalid config JSON",
-    "runCancelSuccessTitle": "Run cancellation requested",
-    "runCancelErrorTitle": "Failed to cancel run",
-    "cancelRunCta": "Cancel run",
-    "historyTitle": "History",
-    "historyTypeLabel": "Type",
-    "historyUserLabel": "User ID",
-    "historyStartLabel": "Start date (ISO)",
-    "historyEndLabel": "End date (ISO)",
-    "historyFetchCta": "Fetch history",
-    "historyEmpty": "Run a query to see recent activity.",
-    "historyErrorTitle": "Failed to fetch history",
-    "webhooksTitle": "Webhooks",
-    "webhookUrlLabel": "URL",
-    "webhookEventsLabel": "Events",
-    "webhookCreateCta": "Register webhook",
-    "webhookCreateSuccessTitle": "Webhook registered",
-    "webhookCreateErrorTitle": "Failed to register webhook",
-    "webhookDeleteErrorTitle": "Failed to delete webhook",
-    "webhookListErrorTitle": "Unable to load webhooks",
-    "webhooksEmpty": "No webhooks registered yet.",
-    "webhookSecretTitle": "Secret",
-    "idempotencyKeyLabel": "Idempotency key",
-    "emptyConnectTitle": "Connect to use Evaluations",
-    "emptyConnectDescription": "To create and run evaluations, first connect to your tldw server.",
-    "emptyConnectExample1": "Open Settings → tldw server to add your server URL and API key.",
-    "emptyConnectExample2": "Once connected, you can define evaluations and inspect metrics here.",
-    "datasetSamplesLabel": "Samples",
-    "datasetSamplesEmpty": "No samples returned for this page.",
-    "metricsLabel": "Metrics"
+    "title": "Пісочниця оцінювань",
+    "subtitle": "Створюйте оцінювання для вашого tldw сервера та переглядайте останні запуски.",
+    "listTitle": "Останні оцінювання",
+    "newEvaluationCta": "Нове оцінювання",
+    "startRunCta": "Запустити",
+    "loadErrorTitle": "Не вдалося завантажити оцінювання",
+    "loadErrorDescription": "Перевірте підключення до tldw сервера та облікові дані API, потім спробуйте ще раз.",
+    "emptyList": "Оцінювань ще немає. Після створення вони з’являться тут.",
+    "selectedTag": "Вибрано",
+    "rateLimitsTitle": "Ліміти оцінювання",
+    "rateLimitsErrorTitle": "Не вдалося отримати ліміти",
+    "rateLimitsErrorDescription": "Не вдалося отримати квоти оцінювання з сервера.",
+    "rateLimitsNoData": "Для цього сервера немає інформації про ліміти.",
+    "tierLabel": "Тариф",
+    "dailyLimitLabel": "Оцінювань на день",
+    "tokensTodayLabel": "Токени сьогодні",
+    "perMinuteLabel": "Ліміт за хвилину",
+    "resetAtLabel": "Скидання о",
+    "runsTitle": "Запуски",
+    "noEvalSelectedRuns": "Виберіть оцінювання, щоб побачити його останні запуски.",
+    "runsErrorTitle": "Не вдалося завантажити запуски",
+    "runsEmpty": "Запусків для цього оцінювання ще немає.",
+    "runDetailTitle": "Деталі запуску",
+    "noRunSelected": "Виберіть запуск, щоб переглянути деталі.",
+    "runDetailErrorTitle": "Не вдалося завантажити деталі запуску",
+    "runStatusLabel": "Статус",
+    "runModelLabelShort": "Цільова модель",
+    "runEvalIdLabel": "Оцінювання",
+    "runErrorLabel": "Помилка",
+    "runResultsLabel": "Результати (фрагмент)",
+    "runProgressLabel": "Прогрес",
+    "runUsageLabel": "Використання",
+    "datasetsTitle": "Набори даних",
+    "newDatasetCta": "Новий набір даних",
+    "datasetsErrorTitle": "Не вдалося завантажити набори даних",
+    "datasetsEmpty": "Наборів даних ще немає. Створіть один, щоб додати до оцінювань.",
+    "datasetSampleCount": "{{count}} прикладів",
+    "datasetNameLabel": "Назва",
+    "datasetNamePlaceholder": "наприклад my_dataset",
+    "datasetDescriptionLabel": "Опис",
+    "datasetMetadataLabel": "Метадані (JSON, необов’язково)",
+    "sampleInputLabel": "Вхідні дані прикладу",
+    "sampleExpectedLabel": "Очікуваний результат (необов’язково)",
+    "samplesJsonLabel": "JSON прикладів (необов’язково, перевизначає поля)",
+    "datasetLabel": "Набір даних (необов’язково)",
+    "datasetPlaceholder": "Виберіть набір даних",
+    "datasetCreateSuccessTitle": "Набір даних створено",
+    "datasetCreateSuccessDescription": "Ваш набір даних готовий для використання в оцінюваннях.",
+    "datasetCreateErrorTitle": "Не вдалося створити набір даних",
+    "datasetCreateErrorDescription": "Сервер відхилив цей набір даних. Перевірте поля та спробуйте ще раз.",
+    "datasetDeleteSuccessTitle": "Набір даних видалено",
+    "datasetDeleteErrorTitle": "Не вдалося видалити набір даних",
+    "datasetLoadErrorTitle": "Не вдалося завантажити набір даних",
+    "datasetDetailTitle": "Деталі набору даних",
+    "datasetParseErrorTitle": "Невірний JSON прикладів",
+    "createEvalModalTitle": "Нове оцінювання",
+    "editEvalModalTitle": "Редагувати оцінювання",
+    "evalNameLabel": "Назва",
+    "evalNamePlaceholder": "наприклад my_eval_run",
+    "evalNameValidation": "Використовуйте лише літери, цифри, дефіси та підкреслення.",
+    "evalTypeLabel": "Тип оцінювання",
+    "evalSpecLabel": "Специфікація оцінювання (JSON)",
+    "evalSpecParseError": "Специфікація оцінювання має бути коректним JSON.",
+    "evalMetadataLabel": "Метадані (JSON, необов’язково)",
+    "inlineDatasetCheckbox": "Додати вбудований набір даних замість посилання на dataset_id",
+    "inlineDatasetErrorTitle": "Невірний вбудований набір даних",
+    "runModelLabel": "Модель запуску (для швидких запусків)",
+    "createSuccessTitle": "Оцінювання створено",
+    "createErrorTitle": "Не вдалося створити оцінювання",
+    "createErrorDescription": "Сервер відхилив це оцінювання. Переконайтеся, що назва, тип і специфікація коректні.",
+    "updateSuccessTitle": "Оцінювання оновлено",
+    "updateErrorTitle": "Не вдалося оновити оцінювання",
+    "deleteErrorTitle": "Не вдалося видалити оцінювання",
+    "deleteConfirmTitle": "Видалити це оцінювання?",
+    "deleteConfirmDescription": "Це видалить визначення оцінювання. Уже створені запуски залишаться в історії.",
+    "detailTitle": "Деталі оцінювання",
+    "detailErrorTitle": "Не вдалося завантажити деталі оцінювання",
+    "descriptionLabel": "Опис",
+    "noEvalSelectedDetails": "Виберіть оцінювання, щоб переглянути його специфікацію.",
+    "runCreateSuccessTitle": "Запуск розпочато",
+    "runCreateSuccessDescription": "Запуск оцінювання розпочато. Ви можете відстежувати його в інтерфейсі сервера.",
+    "runCreateErrorTitle": "Не вдалося запустити",
+    "runCreateErrorDescription": "Сервер відхилив цей запит на запуск. Перевірте модель і спробуйте ще раз.",
+    "runConfigLabel": "Конфігурація (JSON)",
+    "datasetOverrideLabel": "Перевизначення набору даних (JSON-масив прикладів)",
+    "runConfigParseError": "Невірний JSON конфігурації",
+    "runCancelSuccessTitle": "Запит на скасування запуску надіслано",
+    "runCancelErrorTitle": "Не вдалося скасувати запуск",
+    "cancelRunCta": "Скасувати запуск",
+    "historyTitle": "Історія",
+    "historyTypeLabel": "Тип",
+    "historyUserLabel": "ID користувача",
+    "historyStartLabel": "Дата початку (ISO)",
+    "historyEndLabel": "Дата завершення (ISO)",
+    "historyFetchCta": "Отримати історію",
+    "historyEmpty": "Виконайте запит, щоб побачити останню активність.",
+    "historyErrorTitle": "Не вдалося отримати історію",
+    "webhooksTitle": "Вебхуки",
+    "webhookUrlLabel": "URL-адреса",
+    "webhookEventsLabel": "Події",
+    "webhookCreateCta": "Зареєструвати вебхук",
+    "webhookCreateSuccessTitle": "Вебхук зареєстровано",
+    "webhookCreateErrorTitle": "Не вдалося зареєструвати вебхук",
+    "webhookDeleteErrorTitle": "Не вдалося видалити вебхук",
+    "webhookListErrorTitle": "Не вдалося завантажити вебхуки",
+    "webhooksEmpty": "Поки що вебхуків немає.",
+    "webhookSecretTitle": "Секрет",
+    "idempotencyKeyLabel": "Ідемпотентний ключ",
+    "emptyConnectTitle": "Підключіться, щоб використовувати оцінювання",
+    "emptyConnectDescription": "Щоб створювати й запускати оцінювання, спочатку підключіться до tldw сервера.",
+    "emptyConnectExample1": "Відкрийте Налаштування → tldw сервер, щоб додати URL сервера та ключ API.",
+    "emptyConnectExample2": "Після підключення ви зможете визначати оцінювання та переглядати метрики тут.",
+    "datasetSamplesLabel": "Приклади",
+    "datasetSamplesEmpty": "Для цієї сторінки немає прикладів.",
+    "metricsLabel": "Метрики"
   },
   "evaluationsSettings": {
-    "title": "Evaluations",
-    "subtitle": "Configure defaults used by the Evaluations playground.",
-    "offline": "Connect to your tldw server to test Evaluations.",
-    "defaultType": "Default evaluation type",
-    "defaultModel": "Default target model",
-    "defaultRunConfig": "Default run config (JSON)",
-    "defaultDataset": "Default dataset id (optional)",
-    "specForType": "Spec preset for selected type",
-    "testCta": "Test Evaluations API",
-    "testOk": "Evaluations API reachable",
-    "testFail": "Unable to reach Evaluations API"
+    "title": "Оцінювання",
+    "subtitle": "Налаштуйте значення за замовчуванням для пісочниці оцінювань.",
+    "offline": "Підключіться до tldw сервера, щоб тестувати оцінювання.",
+    "defaultType": "Тип оцінювання за замовчуванням",
+    "defaultModel": "Цільова модель за замовчуванням",
+    "defaultRunConfig": "Конфігурація запуску за замовчуванням (JSON)",
+    "defaultDataset": "ID набору даних за замовчуванням (необов’язково)",
+    "specForType": "Шаблон специфікації для вибраного типу",
+    "testCta": "Перевірити API оцінювань",
+    "testOk": "API оцінювань доступний",
+    "testFail": "Не вдалося підключитися до API оцінювань"
+  },
+  "chunkingPlayground": {
+    "nav": "Пісочниця чанкування",
+    "title": "Пісочниця чанкування",
+    "description": "Експериментуйте з різними налаштуваннями чанкування, щоб побачити, як текст розбивається на менші частини для обробки.",
+    "inputLabel": "Текст для чанкування",
+    "inputPlaceholder": "Вставте текст тут або виберіть зразок...",
+    "uploadButton": "Завантажити файл",
+    "chunkButton": "Розбити текст",
+    "methodLabel": "Метод чанкування",
+    "maxSizeLabel": "Максимальний розмір чанка",
+    "overlapLabel": "Перекриття",
+    "languageLabel": "Мова",
+    "languages": {
+      "auto": "Автовизначення",
+      "en": "Англійська",
+      "es": "Іспанська",
+      "fr": "Французька",
+      "de": "Німецька",
+      "it": "Італійська",
+      "pt": "Португальська",
+      "zh": "Китайська",
+      "ja": "Японська",
+      "ko": "Корейська"
+    },
+    "viewCards": "Картки",
+    "viewInline": "Вбудовано",
+    "stats": "{{count}} чанків, середній розмір {{avgSize}} символів",
+    "textLoaded": "Текст завантажено",
+    "characters": "символів",
+    "tabSingle": "Один",
+    "tabCompare": "Порівняння",
+    "chunkIndex": "Чанк {{index}}",
+    "chunkInfo": "Чанк {{index}}: {{words}} слів",
+    "position": "Позиція: {{start}} - {{end}}",
+    "additionalChunks": "+{{count}} ще",
+    "charCount": "{{count}} символів",
+    "wordCount": "{{count}} слів",
+    "noInput": "Будь ласка, надайте текст для чанкування",
+    "sharedInput": "Спільний вхідний текст",
+    "compareButton": "Порівняти обидва",
+    "comparison": "Порівняння",
+    "fewerChunks": "Конфігурація A створює на {{diff}} менше чанків",
+    "moreChunks": "Конфігурація A створює на {{diff}} більше чанків",
+    "sameChunks": "Обидві конфігурації створюють однакову кількість чанків",
+    "clickToChunk": "Натисніть «Порівняти», щоб побачити результати",
+    "overlapRegion": "Область перекриття",
+    "clickHint": "Клацніть підсвічений фрагмент, щоб сфокусуватися на цьому чанку",
+    "noContentFound": "Не знайдено текстового вмісту для цього медіа-елемента",
+    "loadContentError": "Не вдалося завантажити вміст медіа",
+    "loadMediaListError": "Не вдалося завантажити медіатеку",
+    "selectMedia": "Виберіть медіа-елемент...",
+    "loadingMedia": "Завантаження вмісту...",
+    "noMediaFound": "Медіа не знайдено",
+    "mediaCount": "Доступно {{count}} медіа-елементів",
+    "inputSource": {
+      "paste": "Вставити текст",
+      "upload": "Завантажити файл",
+      "sample": "Зразок тексту",
+      "media": "З медіатеки"
+    },
+    "samples": {
+      "article": "Новинна стаття",
+      "articleDesc": "Багатоабзацна стаття із заголовками",
+      "code": "Вихідний код",
+      "codeDesc": "Код Python із класами та функціями",
+      "transcript": "Транскрипт",
+      "transcriptDesc": "Транскрипт подкасту з мітками часу",
+      "academic": "Наукова стаття",
+      "academicDesc": "Технічний текст із посиланнями"
+    },
+    "compare": {
+      "title": "Порівняти налаштування",
+      "configA": "Конфігурація A",
+      "configB": "Конфігурація B"
+    },
+    "mode": {
+      "single": "Один",
+      "compare": "Порівняння"
+    }
   }
 }

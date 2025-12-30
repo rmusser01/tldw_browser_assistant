@@ -1,39 +1,990 @@
 {
-  "mediaPage.nothingToSend": {
-    "message": "Niente da inviare"
+  "reviewPage_searchPlaceholder": {
+    "message": "Cerca media, note..."
   },
-  "mediaPage.emptyAnalysis": {
-    "message": "L'analisi non può essere vuota"
+  "reviewPage_search": {
+    "message": "Cerca"
   },
-  "mediaPage.noMediaId": {
-    "message": "Nessun ID media disponibile"
+  "reviewPage_filters": {
+    "message": "Filtri"
   },
-  "mediaPage.versionSaved": {
-    "message": "Salvato come nuova versione"
+  "reviewPage_media": {
+    "message": "Contenuti multimediali"
   },
-  "mediaPage.saveFailed": {
-    "message": "Impossibile salvare la versione"
+  "reviewPage_notes": {
+    "message": "Note"
   },
-  "mediaPage.sendToChat": {
-    "message": "Invia alla chat"
+  "reviewPage_useReview": {
+    "message": "Usa review"
   },
-  "mediaPage.saveAsVersion": {
+  "reviewPage_useSummary": {
+    "message": "Usa summary"
+  },
+  "reviewPage_mediaTypes": {
+    "message": "Tipi di media"
+  },
+  "reviewPage_keywords": {
+    "message": "Parole chiave"
+  },
+  "reviewPage_clear": {
+    "message": "Cancella"
+  },
+  "reviewPage_resetFilters": {
+    "message": "Reimposta filtri"
+  },
+  "reviewPage_results": {
+    "message": "Risultati"
+  },
+  "reviewPage_noResults": {
+    "message": "Nessun risultato"
+  },
+  "reviewPage_analyze_none": {
+    "message": "Nessun contenuto disponibile da analizzare"
+  },
+  "reviewPage_analyze_saved": {
+    "message": "Analisi salvata come nota"
+  },
+  "reviewPage_analyze_failed": {
+    "message": "Impossibile analizzare e salvare la nota"
+  },
+  "reviewPage_searchPrompts": {
+    "message": "Cerca prompt"
+  },
+  "reviewPage_includeLocal": {
+    "message": "Locale"
+  },
+  "reviewPage_includeServer": {
+    "message": "Server remoto"
+  },
+  "reviewPage_presets": {
+    "message": "Preset"
+  },
+  "reviewPage_presetsCritical": {
+    "message": "Critico"
+  },
+  "reviewPage_presetsQaAudit": {
+    "message": "Audit QA"
+  },
+  "reviewPage_presetsBulletReview": {
+    "message": "Review a punti"
+  },
+  "reviewPage_reviewSystemPrompt": {
+    "message": "Review: prompt di sistema"
+  },
+  "reviewPage_reviewUserPrefix": {
+    "message": "Review: prefisso del prompt utente"
+  },
+  "reviewPage_saveAsDefault": {
+    "message": "Salva come predefinito"
+  },
+  "reviewPage_reviewPrompt": {
+    "message": "Prompt di review"
+  },
+  "reviewPage_summarySystemPrompt": {
+    "message": "Summary: prompt di sistema"
+  },
+  "reviewPage_summaryUserPrefix": {
+    "message": "Summary: prefisso del prompt utente"
+  },
+  "reviewPage_summaryPrompt": {
+    "message": "Prompt di summary"
+  },
+  "reviewPage_customizePrompts": {
+    "message": "Personalizza prompt"
+  },
+  "reviewPage_showRawJson": {
+    "message": "Mostra JSON grezzo"
+  },
+  "reviewPage_noDetailLoaded": {
+    "message": "Nessun dettaglio caricato"
+  },
+  "reviewPage_resetToDefaults": {
+    "message": "Ripristina predefiniti"
+  },
+  "reviewPage_usingReviewPrompts": {
+    "message": "Uso prompt di review"
+  },
+  "reviewPage_usingSummaryPrompts": {
+    "message": "Uso prompt di summary"
+  },
+  "reviewPage_selectItemFirst": {
+    "message": "Seleziona prima un elemento"
+  },
+  "reviewPage_selectMediaFirst": {
+    "message": "Seleziona prima un media"
+  },
+  "reviewPage_selectItemEmpty": {
+    "message": "Seleziona un elemento per review e analisi"
+  },
+  "reviewPage_selectMediaEmpty": {
+    "message": "Seleziona un media per vedere le analisi"
+  },
+  "reviewPage_generationMode": {
+    "message": "Modalità di generazione"
+  },
+  "reviewPage_resultTypes": {
+    "message": "Tipi di risultati"
+  },
+  "reviewPage_advancedTools": {
+    "message": "Strumenti avanzati"
+  },
+  "reviewPage_moreActions": {
+    "message": "Altre azioni"
+  },
+  "reviewPage_toggleSidebar": {
+    "message": "Attiva/disattiva barra laterale dei risultati"
+  },
+  "reviewPage_autoReviewLabel": {
+    "message": "Genera automaticamente una review quando selezioni un elemento"
+  },
+  "reviewPage_demoMode": {
+    "message": "Modalità demo"
+  },
+  "reviewPage_mediaOnlySearchPlaceholder": {
+    "message": "Cerca media (titolo/contenuto)"
+  },
+  "reviewPage_showSidebar": {
+    "message": "Mostra barra laterale dei risultati"
+  },
+  "reviewPage_hideSidebar": {
+    "message": "Nascondi barra laterale dei risultati"
+  },
+  "reviewPage_selectedBadge": {
+    "message": "Selezionato"
+  },
+  "reviewPage_bulkToolbar": {
+    "message": "Controlli review"
+  },
+  "reviewPage_loadedCount": {
+    "message": "{{count}} caricati"
+  },
+  "reviewPage_viewLabel": {
+    "message": "Vista contenuto"
+  },
+  "reviewPage_navigateLabel": {
+    "message": "Elementi"
+  },
+  "reviewPage_mediaModeHint": {
+    "message": "Cerca e ispeziona un elemento multimediale alla volta. Seleziona un risultato per vedere contenuto e analisi a destra."
+  },
+  "reviewPage_resultsHelp": {
+    "message": "Tastiera: Tab nell’elenco risultati, Enter o Spazio per selezionare la riga, poi Prev/Next nella barra di analisi per spostarti."
+  },
+  "reviewPage_resultsHelpLabel": {
+    "message": "Scorciatoie da tastiera per i risultati della review"
+  },
+  "reviewPage_review": {
+    "message": "Ottieni review"
+  },
+  "reviewPage_reviewHint": {
+    "message": "Chiedi all’assistente di fare una review di questo elemento."
+  },
+  "reviewPage_summary": {
+    "message": "Ottieni summary"
+  },
+  "reviewPage_summaryHint": {
+    "message": "Chiedi un summary più breve."
+  },
+  "reviewPage_attachGeneratedHint": {
+    "message": "Esegui l’assistente e allega il risultato a questo media."
+  },
+  "reviewPage_attachReview": {
+    "message": "Allega review al media"
+  },
+  "reviewPage_attachSummary": {
+    "message": "Allega summary al media"
+  },
+  "reviewPage_saveGeneratedNoteHint": {
+    "message": "Esegui l’assistente e salva il risultato come nota."
+  },
+  "reviewPage_saveReviewNote": {
+    "message": "Salva review come nota"
+  },
+  "reviewPage_saveSummaryNote": {
+    "message": "Salva summary come nota"
+  },
+  "reviewPage_saveToMediaHint": {
+    "message": "Allega il testo attuale dell’editor a questo media."
+  },
+  "reviewPage_saveToMedia": {
+    "message": "Allega il testo attuale al media"
+  },
+  "reviewPage_saveAnalysisHint": {
+    "message": "Crea una nota dall’analisi corrente."
+  },
+  "reviewPage_saveAnalysis": {
+    "message": "Salva nelle note"
+  },
+  "reviewPage_askAssistantLabel": {
+    "message": "Chiedi all’assistente"
+  },
+  "reviewPage_saveResultsLabel": {
+    "message": "Salva risultati"
+  },
+  "reviewPage_moreSaveNewVersion": {
     "message": "Salva come nuova versione"
   },
-  "mediaPage.analysisPlaceholder": {
+  "reviewPage_moreDuplicateVersion": {
+    "message": "Duplica versione"
+  },
+  "reviewPage_moreRestoreVersion": {
+    "message": "Ripristina la versione selezionata"
+  },
+  "reviewPage_modeReview": {
+    "message": "Usa review"
+  },
+  "reviewPage_modeSummary": {
+    "message": "Usa summary"
+  },
+  "reviewPage_resultsHint": {
+    "message": "Clicca un risultato per caricare contenuto e analisi a destra."
+  },
+  "reviewPage_paginationHint": {
+    "message": "Usa filtri o paginazione per affinare i risultati se sono stati caricati molti elementi."
+  },
+  "reviewPage_offlineHint": {
+    "message": "Connettiti al tuo server tldw nelle Impostazioni per inviare messaggi e visualizzare i media. Poi potrai cercare i media da questa pagina."
+  },
+  "reviewPage_chatWithMedia": {
+    "message": "Chat con questo media"
+  },
+  "reviewPage_chatWithMediaHint": {
+    "message": "Apri la chat e precompila l’editor con il contenuto di questo media."
+  },
+  "reviewPage_chatPrepared": {
+    "message": "Chat con questo media preparata nell’editor."
+  },
+  "reviewPage_chatAboutMediaHint": {
+    "message": "Apri la chat RAG limitata a questo media."
+  },
+  "reviewPage_chatAboutMediaRagSent": {
+    "message": "Chat RAG aperta per questo media."
+  },
+  "reviewPage_chatAboutMediaInvalidId": {
+    "message": "Questo elemento multimediale non ha ancora un ID numerico."
+  },
+  "reviewPage_demoBadge": {
+    "message": "Dimostrazione"
+  },
+  "reviewPage_notConnectedBadge": {
+    "message": "Non connesso"
+  },
+  "reviewPage_prevItem": {
+    "message": "Precedente"
+  },
+  "reviewPage_nextItem": {
+    "message": "Successivo"
+  },
+  "reviewPage_noContent": {
+    "message": "Nessun contenuto disponibile"
+  },
+  "reviewPage_showMore": {
+    "message": "Mostra altro"
+  },
+  "reviewPage_showLess": {
+    "message": "Mostra meno"
+  },
+  "reviewPage_showRaw": {
+    "message": "Mostra grezzo"
+  },
+  "reviewPage_hideRaw": {
+    "message": "Nascondi grezzo"
+  },
+  "reviewPage_noAnalysis": {
+    "message": "Nessuna analisi ancora"
+  },
+  "reviewPage_mediaContent": {
+    "message": "Contenuto multimediale"
+  },
+  "reviewPage_copyContent": {
+    "message": "Copia contenuto"
+  },
+  "reviewPage_analysisTitle": {
+    "message": "Analisi"
+  },
+  "reviewPage_copyAnalysis": {
+    "message": "Copia analisi"
+  },
+  "reviewPage_sendAnalysisToChat": {
+    "message": "Invia analisi nella chat"
+  },
+  "reviewPage_copyAllPlain": {
+    "message": "Copia tutto come testo semplice"
+  },
+  "reviewPage_copyAllMarkdown": {
+    "message": "Copia tutto come Markdown"
+  },
+  "reviewPage_openInMulti": {
+    "message": "Apri in revisione multi-elemento"
+  },
+  "reviewPage_analysisFailed": {
+    "message": "Analisi non riuscita"
+  },
+  "reviewPage_analysisAttached": {
+    "message": "Analisi allegata al media"
+  },
+  "reviewPage_analyzeSaveFailed": {
+    "message": "Analisi e salvataggio non riusciti"
+  },
+  "reviewPage_nothingToSave": {
+    "message": "Nulla da salvare"
+  },
+  "reviewPage_savedToNotes": {
+    "message": "Salvato nelle note"
+  },
+  "reviewPage_saveFailed": {
+    "message": "Salvataggio non riuscito"
+  },
+  "reviewPage_saveToMediaFailed": {
+    "message": "Salvataggio nel media non riuscito"
+  },
+  "reviewPage_sentToChat": {
+    "message": "Inviato in chat"
+  },
+  "reviewPage_sendFailed": {
+    "message": "Invio non riuscito"
+  },
+  "reviewPage_analysisEditorPlaceholder": {
+    "message": "Esegui Review o Summary e modifica qui..."
+  },
+  "reviewPage_createdNewVersion": {
+    "message": "Nuova versione creata"
+  },
+  "reviewPage_createVersionFailed": {
+    "message": "Creazione versione non riuscita"
+  },
+  "reviewPage_selectVersionFirst": {
+    "message": "Seleziona prima una versione"
+  },
+  "reviewPage_noVersionNumber": {
+    "message": "Nessun numero di versione"
+  },
+  "reviewPage_selectedVersionNoContent": {
+    "message": "La versione selezionata non ha contenuto"
+  },
+  "reviewPage_clonedVersionCreated": {
+    "message": "Versione clonata creata"
+  },
+  "reviewPage_cloneFailed": {
+    "message": "Clonazione non riuscita"
+  },
+  "reviewPage_confirmTitle": {
+    "message": "Conferma"
+  },
+  "reviewPage_restoreConfirm": {
+    "message": "Ripristinare questa versione come attuale?"
+  },
+  "reviewPage_restoreAction": {
+    "message": "Ripristina"
+  },
+  "reviewPage_cancelAction": {
+    "message": "Annulla"
+  },
+  "reviewPage_versionRestored": {
+    "message": "Versione ripristinata"
+  },
+  "reviewPage_restoreFailed": {
+    "message": "Ripristino non riuscito"
+  },
+  "reviewPage_existingAnalysesTitle": {
+    "message": "Analisi esistenti"
+  },
+  "reviewPage_onlyWithAnalysis": {
+    "message": "Solo con analisi"
+  },
+  "reviewPage_copyAllLabel": {
+    "message": "Copia tutto"
+  },
+  "reviewPage_copyMdLabel": {
+    "message": "MD"
+  },
+  "reviewPage_copiedAllNotes": {
+    "message": "Tutte le note copiate"
+  },
+  "reviewPage_copiedAllNotesMarkdown": {
+    "message": "Tutte le note copiate in Markdown"
+  },
+  "reviewPage_loadSelectedAnalysis": {
+    "message": "Carica l’analisi selezionata nell’editor"
+  },
+  "reviewPage_loadLabel": {
+    "message": "Carica"
+  },
+  "reviewPage_loadVersionPrompt": {
+    "message": "Carica il prompt della versione nell’editor"
+  },
+  "reviewPage_noPromptFound": {
+    "message": "Prompt non trovato"
+  },
+  "reviewPage_copyVersionPrompt": {
+    "message": "Copia il prompt della versione selezionata"
+  },
+  "reviewPage_promptCopied": {
+    "message": "Prompt copiato"
+  },
+  "reviewPage_diffSelectedCurrent": {
+    "message": "Diff selezionato vs attuale"
+  },
+  "reviewPage_versionDeleted": {
+    "message": "Versione eliminata"
+  },
+  "reviewPage_versionDeletedDescription": {
+    "message": "Versione v{{version}} eliminata."
+  },
+  "reviewPage_undoRolledBack": {
+    "message": "Annulla: ripristinata la versione eliminata"
+  },
+  "reviewPage_undoFailed": {
+    "message": "Annullamento non riuscito"
+  },
+  "reviewPage_undoLabel": {
+    "message": "Annulla"
+  },
+  "reviewPage_deleteFailed": {
+    "message": "Eliminazione non riuscita"
+  },
+  "reviewPage_deleteSelectedVersion": {
+    "message": "Elimina la versione selezionata"
+  },
+  "reviewPage_noSavedAnalyses": {
+    "message": "Non ci sono ancora analisi salvate per questo elemento."
+  },
+  "reviewPage_currentTag": {
+    "message": "Attuale"
+  },
+  "reviewPage_promptLabel": {
+    "message": "Istruzione"
+  },
+  "reviewPage_showLabel": {
+    "message": "Mostra"
+  },
+  "reviewPage_hideLabel": {
+    "message": "Nascondi"
+  },
+  "reviewPage_copyAnalysisPlainTooltip": {
+    "message": "Copia analisi (testo semplice)"
+  },
+  "reviewPage_copyLabel": {
+    "message": "Copia"
+  },
+  "reviewPage_copyAnalysisMarkdownTooltip": {
+    "message": "Copia come Markdown"
+  },
+  "reviewPage_copiedAnalysisMarkdown": {
+    "message": "Analisi copiata in Markdown"
+  },
+  "reviewPage_markdownLabel": {
+    "message": "Markdown"
+  },
+  "reviewPage_copyPromptTooltip": {
+    "message": "Copia prompt"
+  },
+  "reviewPage_diffUnified": {
+    "message": "Unificato"
+  },
+  "reviewPage_diffSideBySide": {
+    "message": "Affiancato"
+  },
+  "reviewPage_diffCopied": {
+    "message": "Diff copiato"
+  },
+  "reviewPage_copyDiffLabel": {
+    "message": "Copia diff"
+  },
+  "reviewPage_closeLabel": {
+    "message": "Chiudi"
+  },
+  "reviewPage_diffTitle": {
+    "message": "Diff: selezionato vs attuale"
+  },
+  "reviewPage_diffSelectedVersion": {
+    "message": "Versione selezionata"
+  },
+  "reviewPage_diffCurrentEditor": {
+    "message": "Editor corrente"
+  },
+  "reviewPage_noDifferences": {
+    "message": "Nessuna differenza"
+  },
+  "reviewPage_chatAboutMedia": {
+    "message": "Chat su questo media"
+  },
+  "reviewPage_statusProcessing": {
+    "message": "Elaborazione"
+  },
+  "reviewPage_statusQueued": {
+    "message": "In coda"
+  },
+  "reviewPage_statusError": {
+    "message": "Errore"
+  },
+  "reviewPage_statusReady": {
+    "message": "Pronto"
+  },
+  "reviewPage_loadedOf": {
+    "message": "{{count}} caricati"
+  },
+  "reviewPage_expandAllContent": {
+    "message": "Mostra completo"
+  },
+  "reviewPage_collapseAllContent": {
+    "message": "Mostra meno"
+  },
+  "reviewPage_expandContent": {
+    "message": "Espandi"
+  },
+  "reviewPage_collapseContent": {
+    "message": "Comprimi"
+  },
+  "reviewPage_expandAnalysis": {
+    "message": "Espandi"
+  },
+  "reviewPage_collapseAnalysis": {
+    "message": "Comprimi"
+  },
+  "reviewPage_jumpTo": {
+    "message": "Vai a"
+  },
+  "reviewPage_presetsExecutive": {
+    "message": "Esecutivo"
+  },
+  "reviewPage_presetsDetailed": {
+    "message": "Dettagliato"
+  },
+  "reviewPage_presetsBullets": {
+    "message": "Punti"
+  },
+  "mediaPage_searchPlaceholder": {
+    "message": "Cerca media (titolo/contenuto)"
+  },
+  "mediaPage_search": {
+    "message": "Cerca"
+  },
+  "mediaPage_clear": {
+    "message": "Cancella"
+  },
+  "mediaPage_types": {
+    "message": "Tipi di media"
+  },
+  "mediaPage_keywords": {
+    "message": "Parole chiave"
+  },
+  "mediaPage_moreTags": {
+    "message": "+{{count}} altre etichette"
+  },
+  "mediaPage_resetFilters": {
+    "message": "Reimposta filtri"
+  },
+  "mediaPage_clearAll": {
+    "message": "Cancella tutto"
+  },
+  "mediaPage_content": {
+    "message": "Contenuto"
+  },
+  "mediaPage_vertical": {
+    "message": "Verticale"
+  },
+  "mediaPage_horizontal": {
+    "message": "Orizzontale"
+  },
+  "mediaPage_results": {
+    "message": "Risultati"
+  },
+  "mediaPage_showSidebar": {
+    "message": "Mostra barra laterale"
+  },
+  "mediaPage_hideSidebar": {
+    "message": "Nascondi barra laterale"
+  },
+  "mediaPage_viewer": {
+    "message": "Visualizzatore"
+  },
+  "mediaPage_selectItemsHint": {
+    "message": "Seleziona elementi a sinistra per visualizzarli qui."
+  },
+  "mediaPage_mediaContent": {
+    "message": "Contenuto multimediale"
+  },
+  "mediaPage_copyContent": {
+    "message": "Copia contenuto"
+  },
+  "mediaPage_contentCopied": {
+    "message": "Contenuto copiato"
+  },
+  "mediaPage_metadataCopied": {
+    "message": "Metadati copiati"
+  },
+  "mediaPage_analysisCopied": {
+    "message": "Analisi copiata"
+  },
+  "mediaPage_copyFailed": {
+    "message": "Copia non riuscita"
+  },
+  "mediaPage_noContent": {
+    "message": "Nessun contenuto disponibile"
+  },
+  "mediaPage_collapse": {
+    "message": "Comprimi"
+  },
+  "mediaPage_expand": {
+    "message": "Espandi"
+  },
+  "mediaPage_media": {
+    "message": "Contenuti multimediali"
+  },
+  "mediaPage_searchingBanner": {
+    "message": "Ricerca dei media in corso…"
+  },
+  "mediaPage_filterHelp": {
+    "message": "La ricerca confronta titolo e contenuto; tipi e parole chiave restringono ulteriormente i risultati."
+  },
+  "mediaPage_noMediaTypes": {
+    "message": "Nessun tipo di media disponibile"
+  },
+  "mediaPage_noResults": {
+    "message": "Nessun media trovato. Usa Ingestione rapida nell'intestazione per aggiungere media dalle tue registrazioni e dai tuoi file."
+  },
+  "mediaPage_resultsCount": {
+    "message": "{{selected}} selezionati · {{open}} aperti"
+  },
+  "mediaPage_clearSelection": {
+    "message": "Deseleziona tutto"
+  },
+  "mediaPage_itemsLabel": {
+    "message": "Elementi"
+  },
+  "mediaPage_contentLabel": {
+    "message": "Vista contenuto"
+  },
+  "mediaPage_filterByKeyword": {
+    "message": "Filtra per parola chiave"
+  },
+  "mediaPage_keywordHelper": {
+    "message": "Le parole chiave ti aiutano a trovare questo media usando il filtro parole chiave a sinistra"
+  },
+  "mediaPage_modeHint": {
+    "message": "Cerca e impila più elementi multimediali per confrontarli nel visualizzatore a destra."
+  },
+  "mediaPage_viewerHelp": {
+    "message": "Tastiera: usa Tab per entrare nell'elenco dei risultati, Invio o Spazio per aggiungere o rimuovere un elemento multimediale dalla pila e i controlli Precedente/Successivo e di layout per scorrere gli elementi nel visualizzatore."
+  },
+  "mediaPage_viewerHelpLabel": {
+    "message": "Scorciatoie da tastiera per la revisione multi-elemento"
+  },
+  "mediaPage_mediaInspector": {
+    "message": "Ispettore media"
+  },
+  "mediaPage_actionsLabel": {
+    "message": "Azioni"
+  },
+  "mediaPage_keywordsPlaceholder": {
+    "message": "Aggiungi parole chiave..."
+  },
+  "mediaPage_noSelectionTitle": {
+    "message": "Nessun elemento multimediale selezionato"
+  },
+  "mediaPage_noSelectionDescription": {
+    "message": "Seleziona un elemento multimediale nella barra laterale sinistra per visualizzarne qui contenuto e analisi."
+  },
+  "mediaPage_generateAnalysis": {
+    "message": "Genera"
+  },
+  "mediaPage_generateAnalysisHint": {
+    "message": "Genera una nuova analisi"
+  },
+  "mediaPage_editAnalysis": {
+    "message": "Modifica analisi"
+  },
+  "mediaPage_createNoteWithContent": {
+    "message": "Crea nota con il contenuto"
+  },
+  "mediaPage_createNoteWithContentAnalysis": {
+    "message": "Crea nota con contenuto + analisi"
+  },
+  "mediaPage_untitled": {
+    "message": "Senza titolo"
+  },
+  "mediaPage_copyMetadata": {
+    "message": "Copia metadati"
+  },
+  "mediaPage_statistics": {
+    "message": "Statistiche"
+  },
+  "mediaPage_words": {
+    "message": "Parole"
+  },
+  "mediaPage_characters": {
+    "message": "Caratteri"
+  },
+  "mediaPage_paragraphs": {
+    "message": "Paragrafi"
+  },
+  "mediaPage_metadata": {
+    "message": "Metadati"
+  },
+  "mediaPage_idLabel": {
+    "message": "Codice"
+  },
+  "mediaPage_typeLabel": {
+    "message": "Tipo"
+  },
+  "mediaPage_titleLabel": {
+    "message": "Titolo"
+  },
+  "mediaPage_source": {
+    "message": "Fonte"
+  },
+  "mediaPage_notAvailable": {
+    "message": "N/D"
+  },
+  "mediaPage_developerTools": {
+    "message": "Strumenti per sviluppatori"
+  },
+  "mediaPage_nothingToSend": {
+    "message": "Niente da inviare"
+  },
+  "mediaPage_emptyAnalysis": {
+    "message": "L'analisi non può essere vuota"
+  },
+  "mediaPage_noMediaId": {
+    "message": "Nessun ID media disponibile"
+  },
+  "mediaPage_versionSaved": {
+    "message": "Salvato come nuova versione"
+  },
+  "mediaPage_saveFailed": {
+    "message": "Impossibile salvare la versione"
+  },
+  "mediaPage_sendToChat": {
+    "message": "Invia alla chat"
+  },
+  "mediaPage_saveAsVersion": {
+    "message": "Salva come nuova versione"
+  },
+  "mediaPage_analysisPlaceholder": {
     "message": "Inserisci il testo dell'analisi..."
   },
-  "mediaPage.wordCount": {
+  "mediaPage_wordCount": {
     "message": "{{count}} parole"
   },
-  "mediaPage.charCount": {
+  "mediaPage_charCount": {
     "message": "{{count}} caratteri"
   },
-  "mediaPage.pageRangeError": {
+  "mediaPage_pageRangeError": {
     "message": "La pagina deve essere compresa tra 1 e {{max}}"
   },
-  "mediaPage.pageRangeClamped": {
+  "mediaPage_pageRangeClamped": {
     "message": "Navigazione alla pagina {{page}}"
+  },
+  "mediaPage_saveUnauthorized": {
+    "message": "Non autorizzato a salvare"
+  },
+  "mediaPage_spreadMode": {
+    "message": "Confronta"
+  },
+  "mediaPage_listMode": {
+    "message": "Messa a fuoco"
+  },
+  "mediaPage_allMode": {
+    "message": "Pila"
+  },
+  "mediaPage_spreadModeTooltip": {
+    "message": "Visualizza gli elementi selezionati affiancati per confronto"
+  },
+  "mediaPage_listModeTooltip": {
+    "message": "Visualizza un elemento alla volta con navigazione"
+  },
+  "mediaPage_allModeTooltip": {
+    "message": "Visualizza tutti gli elementi selezionati in un elenco scorrevole"
+  },
+  "mediaPage_copyContentLabel": {
+    "message": "Copia contenuto"
+  },
+  "mediaPage_copyAnalysisLabel": {
+    "message": "Copia analisi"
+  },
+  "mediaPage_copyContentTooltip": {
+    "message": "Copia il contenuto negli appunti"
+  },
+  "mediaPage_copyAnalysisTooltip": {
+    "message": "Copia l'analisi negli appunti"
+  },
+  "mediaPage_prevItemTooltip": {
+    "message": "Elemento precedente (←)"
+  },
+  "mediaPage_nextItemTooltip": {
+    "message": "Elemento successivo (→)"
+  },
+  "mediaPage_viewerOptions": {
+    "message": "Opzioni"
+  },
+  "mediaPage_expandAllDropdown": {
+    "message": "Espandi/Comprimi"
+  },
+  "mediaPage_itemPosition": {
+    "message": "Elemento {{current}} di {{total}}"
+  },
+  "mediaPage_noItemSelected": {
+    "message": "Nessun elemento selezionato"
+  },
+  "mediaPage_firstUseTitle": {
+    "message": "Guida rapida: Revisione multi-elemento"
+  },
+  "mediaPage_firstUseStep1": {
+    "message": "Seleziona elementi"
+  },
+  "mediaPage_firstUseStep1Desc": {
+    "message": "Clicca sugli elementi nel pannello sinistro per aggiungerli al visualizzatore."
+  },
+  "mediaPage_firstUseStep2": {
+    "message": "Scegli una vista"
+  },
+  "mediaPage_firstUseStep2Desc": {
+    "message": "Usa \"Confronta\" per affiancarli, \"Focus\" per uno alla volta, o \"Pila\" per vederli tutti."
+  },
+  "mediaPage_firstUseStep3": {
+    "message": "Naviga"
+  },
+  "mediaPage_firstUseStep3Desc": {
+    "message": "Usa i pulsanti Prec/Succ o la tastiera (Tab + Invio) per muoverti tra gli elementi."
+  },
+  "mediaPage_gotIt": {
+    "message": "Capito"
+  },
+  "mediaPage_model": {
+    "message": "Modello"
+  },
+  "mediaPage_selectModel": {
+    "message": "Seleziona un modello"
+  },
+  "mediaPage_noModelsAvailable": {
+    "message": "Nessun modello disponibile"
+  },
+  "mediaPage_promptPresets": {
+    "message": "Preset di prompt"
+  },
+  "mediaPage_showPresets": {
+    "message": "Mostra preset"
+  },
+  "mediaPage_hidePresets": {
+    "message": "Nascondi preset"
+  },
+  "mediaPage_systemPromptLabel": {
+    "message": "Prompt di sistema"
+  },
+  "mediaPage_systemPromptPlaceholder": {
+    "message": "Inserisci prompt di sistema..."
+  },
+  "mediaPage_userPromptPrefixLabel": {
+    "message": "Prefisso prompt utente"
+  },
+  "mediaPage_prependedBeforeContent": {
+    "message": "(anteposto prima del contenuto)"
+  },
+  "mediaPage_userPrefixPlaceholder": {
+    "message": "Opzionale: Inserisci testo da anteporre prima del contenuto multimediale..."
+  },
+  "mediaPage_presetComprehensiveAnalysis": {
+    "message": "Analisi completa"
+  },
+  "mediaPage_presetExecutiveSummary": {
+    "message": "Riepilogo esecutivo"
+  },
+  "mediaPage_presetCriticalReview": {
+    "message": "Revisione critica"
+  },
+  "mediaPage_presetQAAnalysis": {
+    "message": "Analisi Q&A"
+  },
+  "empty_connectTitle": {
+    "message": "Collegati per usare Review"
+  },
+  "empty_connectDescription": {
+    "message": "Collegati al tuo server tldw in Impostazioni per inviare messaggi e visualizzare i media. Dopo la connessione, puoi rivedere media e note qui."
+  },
+  "empty_connectExample1": {
+    "message": "Apri Impostazioni → server tldw per aggiungere l'URL del server."
+  },
+  "empty_connectExample2": {
+    "message": "Una volta connesso, sfoglia media e note, poi genera revisioni e riepiloghi strutturati."
+  },
+  "empty_demoTitle": {
+    "message": "Esplora Review in modalità demo"
+  },
+  "empty_demoDescription": {
+    "message": "Questa demo mostra come tldw Assistant può trasformare media e note in revisioni strutturate. Collega il tuo server in seguito per analizzare i tuoi contenuti."
+  },
+  "empty_demoExample1": {
+    "message": "Guarda come media e note selezionati appaiono nello spazio di lavoro di revisione."
+  },
+  "empty_demoExample2": {
+    "message": "Quando ti colleghi, potrai generare riepiloghi e azioni dalle tue registrazioni e note."
+  },
+  "mediaEmpty_demoTitle": {
+    "message": "Esplora Media in modalità demo"
+  },
+  "mediaEmpty_demoDescription": {
+    "message": "Questa demo mostra come tldw Assistant può visualizzare e ispezionare i media elaborati. Collega il tuo server in seguito per sfogliare le tue registrazioni e i tuoi documenti."
+  },
+  "mediaEmpty_demoExample1": {
+    "message": "Guarda come gli elementi media elaborati appaiono nel visualizzatore Media."
+  },
+  "mediaEmpty_demoExample2": {
+    "message": "Quando ti colleghi, potrai sfogliare e ispezionare i media acquisiti dalle tue registrazioni e dai tuoi file."
+  },
+  "mediaEmpty_connectTitle": {
+    "message": "Collegati per usare Media"
+  },
+  "mediaEmpty_connectDescription": {
+    "message": "Collegati al tuo server tldw in Impostazioni per inviare messaggi e visualizzare i media. Dopo la connessione, le registrazioni e i documenti elaborati saranno elencati qui."
+  },
+  "mediaEmpty_connectExample1": {
+    "message": "Apri Impostazioni → server tldw per aggiungere l'URL del server."
+  },
+  "mediaEmpty_connectExample2": {
+    "message": "Una volta connesso, usa Quick Ingest nell'intestazione per aggiungere media dalle tue registrazioni e dai tuoi file."
+  },
+  "mediaEmpty_offlineTitle": {
+    "message": "API Media non disponibile su questo server"
+  },
+  "mediaEmpty_offlineDescription": {
+    "message": "Questo server tldw non pubblicizza gli endpoint Media (ad esempio /api/v1/media e /api/v1/media/search). Aggiorna il server a una versione che includa Media per usare questo workspace."
+  },
+  "mediaEmpty_offlineExample1": {
+    "message": "Apri Diagnostics per confermare la versione del server e le API disponibili."
+  },
+  "mediaEmpty_offlineExample2": {
+    "message": "Dopo l'aggiornamento, ricarica l'estensione e torna a Media."
+  },
+  "mediaEmpty_featureUnavailableBadge": {
+    "message": "Funzionalità non disponibile"
+  },
+  "mediaEmpty_demoExample3": {
+    "message": "Usa Media insieme a Review per riassumere o analizzare le registrazioni."
+  },
+  "mediaEmpty_demoPreviewHeading": {
+    "message": "Esempi di elementi media (solo anteprima)"
+  },
+  "mediaEmpty_demoSample1Title": {
+    "message": "Media demo: registrazione chiamata di team"
+  },
+  "mediaEmpty_demoSample1Meta": {
+    "message": "Video · 25 min · Parole chiave: standup, pianificazione"
+  },
+  "mediaEmpty_demoSample2Title": {
+    "message": "Media demo: walkthrough del prodotto"
+  },
+  "mediaEmpty_demoSample2Meta": {
+    "message": "Registrazione schermo · 12 min · Parole chiave: onboarding"
+  },
+  "mediaEmpty_demoSample3Title": {
+    "message": "Media demo: PDF di articolo di ricerca"
+  },
+  "mediaEmpty_demoSample3Meta": {
+    "message": "PDF · 6 pagine · Parole chiave: riepilogo"
+  },
+  "mediaEmpty_offlineTechnicalDetails": {
+    "message": "Dettagli tecnici: questo server tldw non pubblicizza gli endpoint Media (ad esempio /api/v1/media e /api/v1/media/search)."
   },
   "noToolCalls": {
     "message": "Nessuna chiamata di tool al momento"
@@ -46,5 +997,320 @@
   },
   "result": {
     "message": "Risultato"
+  },
+  "reviewDraftsFailedTitle": {
+    "message": "Impossibile creare le bozze di revisione."
+  },
+  "reviewDraftsFailedFallback": {
+    "message": "Creazione delle bozze di revisione non riuscita."
+  },
+  "reviewDraftsRetry": {
+    "message": "Riprova a creare le bozze"
+  },
+  "reviewDraftsStoreWithoutReview": {
+    "message": "Salva senza revisione"
+  },
+  "reviewNavigationFailed": {
+    "message": "Impossibile aprire la Revisione contenuti. Riprova."
+  },
+  "reviewNavigationRetry": {
+    "message": "Riprova ad aprire la Revisione contenuti"
+  },
+  "contentReview_title": {
+    "message": "Revisione contenuti"
+  },
+  "contentReview_readyToSubmit": {
+    "message": "{{count}} pronti"
+  },
+  "contentReview_committedCount": {
+    "message": "{{count}} confermati"
+  },
+  "contentReview_totalCount": {
+    "message": "{{count}} totali"
+  },
+  "contentReview_commitAll": {
+    "message": "Conferma tutto"
+  },
+  "contentReview_clearDrafts": {
+    "message": "Pulisci bozze"
+  },
+  "contentReview_emptyDescription": {
+    "message": "Non ci sono ancora bozze. Usa Quick Ingest con Revisiona prima di salvare per creare bozze."
+  },
+  "contentReview_openQuickIngest": {
+    "message": "Apri Quick Ingest"
+  },
+  "contentReview_storeAfterReview": {
+    "message": "Salva dopo la revisione"
+  },
+  "contentReview_reviewBeforeStorage": {
+    "message": "Rivedi prima di salvare"
+  },
+  "contentReview_reviewBeforeStorageHint": {
+    "message": "Elabora ora, poi modifica le bozze localmente prima di salvarle sul server."
+  },
+  "contentReview_reviewEnabled": {
+    "message": "Modalità revisione"
+  },
+  "contentReview_reviewStorageCap": {
+    "message": "Le bozze locali sono limitate a {{cap}}."
+  },
+  "contentReview_reviewWarningTitle": {
+    "message": "Salvare le bozze localmente?"
+  },
+  "contentReview_reviewWarningBody": {
+    "message": "Le bozze vengono salvate in questo browser e possono contenere dati sensibili. Puoi eliminarle dalla pagina Revisione contenuti in qualsiasi momento."
+  },
+  "contentReview_reviewWarningBodySecondary": {
+    "message": "La modalità revisione mantiene i contenuti lato client finché non li salvi sul server."
+  },
+  "contentReview_reviewWarningConfirm": {
+    "message": "Abilita revisione"
+  },
+  "contentReview_reviewWarningCancel": {
+    "message": "Annulla"
+  },
+  "contentReview_reviewRunLabel": {
+    "message": "Revisione"
+  },
+  "contentReview_reviewDraftsCreated": {
+    "message": "Bozze pronte per la revisione."
+  },
+  "contentReview_reviewStorageCapWarning_one": {
+    "message": "{{count}} file supera il limite locale di bozze ({{cap}}). Allega le fonti prima di salvare audio/video."
+  },
+  "contentReview_reviewStorageCapWarning_other": {
+    "message": "{{count}} file superano il limite locale di bozze ({{cap}}). Allega le fonti prima di salvare audio/video."
+  },
+  "contentReview_openContentReview": {
+    "message": "Apri Revisione contenuti"
+  },
+  "contentReview_batchLabel": {
+    "message": "Lotto"
+  },
+  "contentReview_batchName": {
+    "message": "Lotto {{index}}"
+  },
+  "contentReview_draftsLabel": {
+    "message": "Bozze"
+  },
+  "contentReview_selectDraft": {
+    "message": "Seleziona una bozza per iniziare la revisione."
+  },
+  "contentReview_titlePlaceholder": {
+    "message": "Titolo bozza"
+  },
+  "contentReview_lastSaved": {
+    "message": "Salvato {{time}}"
+  },
+  "contentReview_resetTitle": {
+    "message": "Reimpostare la bozza?"
+  },
+  "contentReview_resetBody": {
+    "message": "Questo ripristinerà il contenuto originale di questa bozza."
+  },
+  "contentReview_resetConfirm": {
+    "message": "Reimposta"
+  },
+  "contentReview_resetCancel": {
+    "message": "Annulla"
+  },
+  "contentReview_resetContent": {
+    "message": "Reimposta"
+  },
+  "contentReview_diffView": {
+    "message": "Vista diff"
+  },
+  "contentReview_saveDraft": {
+    "message": "Salva bozza"
+  },
+  "contentReview_editorLabel": {
+    "message": "Contenuto"
+  },
+  "contentReview_wordCount": {
+    "message": "{{words}} parole"
+  },
+  "contentReview_charCount": {
+    "message": "{{chars}} caratteri"
+  },
+  "contentReview_aiFix": {
+    "message": "Correzione IA"
+  },
+  "contentReview_aiHint": {
+    "message": "Invia il contenuto della bozza al server per l’elaborazione con IA."
+  },
+  "contentReview_modelPlaceholder": {
+    "message": "Predefinito server"
+  },
+  "contentReview_aiConsentTitle": {
+    "message": "Inviare la bozza al server?"
+  },
+  "contentReview_aiConsentBody": {
+    "message": "Questo invierà il contenuto della bozza al tuo server tldw per l’elaborazione con IA. Le bozze restano locali finché non le confermi."
+  },
+  "contentReview_aiConsentConfirm": {
+    "message": "Continua"
+  },
+  "contentReview_aiConsentCancel": {
+    "message": "Annulla"
+  },
+  "contentReview_aiApplied": {
+    "message": "Correzioni IA applicate."
+  },
+  "contentReview_aiNoChange": {
+    "message": "Nessuna modifica restituita."
+  },
+  "contentReview_aiEmpty": {
+    "message": "L’IA non ha restituito contenuto."
+  },
+  "contentReview_aiUnavailable": {
+    "message": "Completamenti chat non disponibili."
+  },
+  "contentReview_templatePlaceholder": {
+    "message": "Scegli modello"
+  },
+  "contentReview_applyTemplate": {
+    "message": "Applica modello"
+  },
+  "contentReview_templateApplied": {
+    "message": "Modello applicato."
+  },
+  "contentReview_templateMissing": {
+    "message": "Seleziona prima un modello."
+  },
+  "contentReview_detectSections": {
+    "message": "Rileva sezioni"
+  },
+  "contentReview_detectSectionsTitle": {
+    "message": "Rilevare di nuovo le sezioni?"
+  },
+  "contentReview_detectSectionsBody": {
+    "message": "Questo sostituirà le sezioni esistenti e reimposterà le tue selezioni."
+  },
+  "contentReview_detectSectionsConfirm": {
+    "message": "Rileva di nuovo"
+  },
+  "contentReview_detectSectionsCancel": {
+    "message": "Annulla"
+  },
+  "contentReview_detectSectionsEmpty": {
+    "message": "Nessuna sezione rilevata."
+  },
+  "contentReview_sectionsLabel": {
+    "message": "Filtro sezione"
+  },
+  "contentReview_templates_transcript_clean_label": {
+    "message": "Pulisci trascrizione"
+  },
+  "contentReview_templates_transcript_clean_description": {
+    "message": "Normalizza punteggiatura e maiuscole/minuscole mantenendo la struttura delle righe."
+  },
+  "contentReview_templates_speaker_turns_label": {
+    "message": "Turni di parlato"
+  },
+  "contentReview_templates_speaker_turns_description": {
+    "message": "Assicura che ogni turno di parlato sia su una propria riga con etichette chiare."
+  },
+  "contentReview_templates_chapter_headings_label": {
+    "message": "Titoli di capitolo"
+  },
+  "contentReview_templates_chapter_headings_description": {
+    "message": "Inserisce intestazioni Markdown per raggruppare gli argomenti senza rimuovere contenuto."
+  },
+  "contentReview_metadataLabel": {
+    "message": "Metadati"
+  },
+  "contentReview_mediaType": {
+    "message": "Tipo di media"
+  },
+  "contentReview_keywords": {
+    "message": "Parole chiave"
+  },
+  "contentReview_keywordsPlaceholder": {
+    "message": "Aggiungi parole chiave"
+  },
+  "contentReview_reviewNotes": {
+    "message": "Note di revisione"
+  },
+  "contentReview_missingSource": {
+    "message": "File sorgente mancante"
+  },
+  "contentReview_missingSourceBody": {
+    "message": "Allega il file originale per confermare questa bozza."
+  },
+  "contentReview_attachSource": {
+    "message": "Allega file"
+  },
+  "contentReview_actionsLabel": {
+    "message": "Azioni"
+  },
+  "contentReview_commit": {
+    "message": "Conferma"
+  },
+  "contentReview_commitDisabled": {
+    "message": "Allega il file audio/video originale prima di confermare."
+  },
+  "contentReview_markReviewed": {
+    "message": "Segna come revisionato"
+  },
+  "contentReview_skipNext": {
+    "message": "Salta"
+  },
+  "contentReview_discard": {
+    "message": "Scarta"
+  },
+  "contentReview_discardTitle": {
+    "message": "Scartare la bozza?"
+  },
+  "contentReview_discardBody": {
+    "message": "Questa bozza verrà segnata come scartata e rimossa dalla revisione."
+  },
+  "contentReview_discardConfirm": {
+    "message": "Scarta"
+  },
+  "contentReview_discardCancel": {
+    "message": "Annulla"
+  },
+  "contentReview_commitSuccess": {
+    "message": "Bozza confermata."
+  },
+  "contentReview_commitAllTitle": {
+    "message": "Confermare le bozze revisionate?"
+  },
+  "contentReview_commitAllBody": {
+    "message": "Verranno confermate solo le bozze contrassegnate come revisionate."
+  },
+  "contentReview_commitAllConfirm": {
+    "message": "Conferma tutte"
+  },
+  "contentReview_commitAllCancel": {
+    "message": "Annulla"
+  },
+  "contentReview_commitAllResult": {
+    "message": "{{success}} confermate · {{failed}} non riuscite"
+  },
+  "contentReview_storageCapWarning": {
+    "message": "Questo file supera il limite locale di bozze ({{cap}})."
+  },
+  "contentReview_clearTitle": {
+    "message": "Pulire tutte le bozze?"
+  },
+  "contentReview_clearBody": {
+    "message": "Questo rimuove tutte le bozze e le risorse locali della revisione contenuti."
+  },
+  "contentReview_clearConfirm": {
+    "message": "Pulisci bozze"
+  },
+  "contentReview_clearCancel": {
+    "message": "Annulla"
+  },
+  "contentReview_clearSuccess": {
+    "message": "Bozze pulite."
+  },
+  "contentReview_originalLabel": {
+    "message": "Originale"
+  },
+  "contentReview_editedLabel": {
+    "message": "Modificato"
   }
 }

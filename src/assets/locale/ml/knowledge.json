@@ -73,7 +73,7 @@
     "searchModeHybrid": "ഹൈബ്രിഡ്",
     "searchModeVector": "വെക്റ്റർ",
     "searchModeFts": "ഫുൾ‑ടെക്സ്റ്റ്",
-    "topKLabel": "Top-k",
+    "topKLabel": "ടോപ്പ്-k",
     "enableGeneration": "മറുപടി സൃഷ്ടിക്കൽ സജീവപ്പെടുത്തുക",
     "enableCitations": "ഉദ്ധരണികൾ സജീവപ്പെടുത്തുക",
     "sourcesLabel": "സ്രോതസ്സുകൾ",

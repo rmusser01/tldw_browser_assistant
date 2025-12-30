@@ -10,14 +10,15 @@ import {
   Tooltip,
   Select,
   Alert,
-  Checkbox,
-  Upload,
-  message
+  Checkbox
 } from "antd"
 import type { InputRef } from "antd"
 import React from "react"
 import { tldwClient, type ServerChatSummary } from "@/services/tldw/TldwApiClient"
-import { History, Pen, Trash2, UserCircle2, MessageCircle, ImageIcon, X } from "lucide-react"
+import { History, Pen, Trash2, UserCircle2, MessageCircle, Copy, ChevronDown, ChevronUp } from "lucide-react"
+import { CharacterPreview } from "./CharacterPreview"
+import { AvatarField, extractAvatarValues, createAvatarValue } from "./AvatarField"
+import { validateAndCreateImageDataUrl } from "@/utils/image-utils"
 import { useTranslation } from "react-i18next"
 import { useConfirmDanger } from "@/components/Common/confirm-danger"
 import { useNavigate } from "react-router-dom"
@@ -32,209 +33,11 @@ const MAX_NAME_LENGTH = 75
 const MAX_DESCRIPTION_LENGTH = 65
 const MAX_TAG_LENGTH = 20
 const MAX_TAGS_DISPLAYED = 6
-const BASE64_IMAGE_PATTERN =
-  /^(?:[A-Za-z0-9+/_-]{4})*(?:[A-Za-z0-9+/_-]{2}==|[A-Za-z0-9+/_-]{3}=)?$/
-const ALLOWED_IMAGE_MIME_TYPES = new Set(["image/png", "image/jpeg", "image/gif"])
 
 const truncateText = (value?: string, max?: number) => {
   if (!value) return ""
   if (!max || value.length <= max) return value
   return `${value.slice(0, max)}...`
-}
-
-const detectImageMime = (bytes: Uint8Array): string | null => {
-  const isPng =
-    bytes.length >= 4 &&
-    bytes[0] === 0x89 &&
-    bytes[1] === 0x50 &&
-    bytes[2] === 0x4e &&
-    bytes[3] === 0x47
-  if (isPng) return "image/png"
-
-  const isJpeg =
-    bytes.length >= 3 &&
-    bytes[0] === 0xff &&
-    bytes[1] === 0xd8 &&
-    bytes[2] === 0xff
-  if (isJpeg) return "image/jpeg"
-
-  const isGif =
-    bytes.length >= 6 &&
-    bytes[0] === 0x47 &&
-    bytes[1] === 0x49 &&
-    bytes[2] === 0x46 &&
-    bytes[3] === 0x38 &&
-    (bytes[4] === 0x39 || bytes[4] === 0x37) &&
-    bytes[5] === 0x61
-  if (isGif) return "image/gif"
-
-  return null
-}
-
-const decodeBase64Header = (value: string): Uint8Array | null => {
-  if (typeof atob !== "function") return null
-
-  try {
-    const decoded = atob(value.slice(0, Math.min(value.length, 128)))
-    const headerBytes = new Uint8Array(Math.min(decoded.length, 32))
-    for (let i = 0; i < headerBytes.length; i += 1) {
-      headerBytes[i] = decoded.charCodeAt(i)
-    }
-    return headerBytes
-  } catch {
-    return null
-  }
-}
-
-/**
- * Lightweight client-side guard: only allows rendering known raster formats.
- * Server-side validation should enforce allowable avatar uploads.
- */
-const validateAndCreateImageDataUrl = (value: unknown): string => {
-  if (typeof value !== "string") return ""
-  const trimmed = value.trim()
-  if (!trimmed || trimmed.toLowerCase().startsWith("data:")) return ""
-  if (!BASE64_IMAGE_PATTERN.test(trimmed)) return ""
-
-  const headerBytes = decodeBase64Header(trimmed)
-  if (!headerBytes) return ""
-
-  const mime = detectImageMime(headerBytes)
-  if (!mime || !ALLOWED_IMAGE_MIME_TYPES.has(mime)) return ""
-
-  return `data:${mime};base64,${trimmed}`
-}
-
-/**
- * ImageUploadField - Form field component for uploading character avatar images
- * Converts uploaded images to base64 and validates format (PNG/JPEG/GIF only)
- */
-interface ImageUploadFieldProps {
-  value?: string  // raw base64 string (without data: prefix)
-  onChange?: (value: string | undefined) => void
-}
-
-const ImageUploadField = ({ value, onChange }: ImageUploadFieldProps) => {
-  const { t } = useTranslation(["settings", "common"])
-  const [loading, setLoading] = React.useState(false)
-
-  // Convert raw base64 to data URL for preview
-  const previewUrl = React.useMemo(() => {
-    if (!value) return null
-    return validateAndCreateImageDataUrl(value)
-  }, [value])
-
-  const handleUpload = async (file: File) => {
-    // Validate file type
-    if (!file.type.startsWith('image/')) {
-      message.error(t("settings:manageCharacters.form.image.selectImageError", "Please select an image file"))
-      return false
-    }
-
-    setLoading(true)
-    try {
-      const reader = new FileReader()
-      reader.onload = (e) => {
-        const result = e.target?.result as string
-        if (result) {
-          // Remove the data:image/...;base64, prefix
-          const base64Match = result.match(/^data:image\/[^;]+;base64,(.+)$/)
-          if (base64Match) {
-            const rawBase64 = base64Match[1]
-            // Validate the image format using existing utility
-            const headerBytes = decodeBase64Header(rawBase64)
-            if (headerBytes) {
-              const mime = detectImageMime(headerBytes)
-              if (mime && ALLOWED_IMAGE_MIME_TYPES.has(mime)) {
-                onChange?.(rawBase64)
-              } else {
-                message.error(t("settings:manageCharacters.form.image.formatError", "Only PNG, JPEG, and GIF images are supported"))
-              }
-            } else {
-              message.error(t("settings:manageCharacters.form.image.invalidError", "Invalid image file"))
-            }
-          } else {
-            message.error(t("settings:manageCharacters.form.image.processError", "Failed to process image"))
-          }
-        }
-        setLoading(false)
-      }
-      reader.onerror = () => {
-        message.error(t("settings:manageCharacters.form.image.readError", "Failed to read image file"))
-        setLoading(false)
-      }
-      reader.readAsDataURL(file)
-    } catch {
-      message.error(t("settings:manageCharacters.form.image.processError", "Failed to process image"))
-      setLoading(false)
-    }
-    return false // Prevent default upload behavior
-  }
-
-  const handleClear = () => {
-    onChange?.(undefined)
-  }
-
-  const uploadLabel = t("settings:manageCharacters.form.image.uploadBtn", "Upload Image")
-  const clearLabel = t("settings:manageCharacters.form.image.clearBtn", "Clear")
-  const formatHint = t("settings:manageCharacters.form.image.formatHint", "PNG, JPEG, or GIF")
-
-  return (
-    <div className="flex items-start gap-3">
-      {/* Preview */}
-      <div className="flex-shrink-0 relative">
-        {loading ? (
-          <div className="w-16 h-16 rounded-lg border border-gray-300 dark:border-gray-600 flex items-center justify-center bg-gray-50 dark:bg-gray-800">
-            <span className="animate-spin w-5 h-5 border-2 border-gray-400 border-t-transparent rounded-full" />
-          </div>
-        ) : previewUrl ? (
-          <img
-            src={previewUrl}
-            alt={t("settings:manageCharacters.form.image.previewAlt", "Avatar preview")}
-            className="w-16 h-16 rounded-lg object-cover border border-gray-200 dark:border-gray-700"
-          />
-        ) : (
-          <div className="w-16 h-16 rounded-lg border border-dashed border-gray-300 dark:border-gray-600 flex items-center justify-center bg-gray-50 dark:bg-gray-800">
-            <ImageIcon className="w-6 h-6 text-gray-400" />
-          </div>
-        )}
-      </div>
-
-      {/* Actions */}
-      <div className="flex flex-col gap-2">
-        <div className="flex gap-2">
-          <Upload
-            accept="image/png,image/jpeg,image/gif"
-            showUploadList={false}
-            beforeUpload={handleUpload}
-            disabled={loading}
-          >
-            <Button
-              size="small"
-              icon={<ImageIcon className="w-4 h-4" />}
-              loading={loading}
-            >
-              {uploadLabel}
-            </Button>
-          </Upload>
-          {value && (
-            <Button
-              size="small"
-              icon={<X className="w-4 h-4" />}
-              onClick={handleClear}
-              danger
-              aria-label={clearLabel}
-            >
-              {clearLabel}
-            </Button>
-          )}
-        </div>
-        <span className="text-xs text-gray-500 dark:text-gray-400">
-          {formatHint}
-        </span>
-      </div>
-    </div>
-  )
 }
 
 const normalizeAlternateGreetings = (value: any): string[] => {
@@ -259,6 +62,19 @@ const normalizeAlternateGreetings = (value: any): string[] => {
   return []
 }
 
+const hasAdvancedData = (record: any, extensionsValue: string): boolean =>
+  !!(
+    record.personality ||
+    record.scenario ||
+    record.post_history_instructions ||
+    record.message_example ||
+    record.creator_notes ||
+    (record.alternate_greetings && record.alternate_greetings.length > 0) ||
+    record.creator ||
+    record.character_version ||
+    extensionsValue
+  )
+
 const buildCharacterPayload = (values: any): Record<string, any> => {
   const payload: Record<string, any> = {
     name: values.name,
@@ -278,16 +94,31 @@ const buildCharacterPayload = (values: any): Record<string, any> => {
       : values.alternate_greetings,
     creator: values.creator,
     character_version: values.character_version,
-    extensions: values.extensions,
-    image_base64: values.image_base64
+    extensions: values.extensions
+  }
+
+  // Extract avatar values from unified avatar field
+  if (values.avatar) {
+    const avatarValues = extractAvatarValues(values.avatar)
+    if (avatarValues.avatar_url) {
+      payload.avatar_url = avatarValues.avatar_url
+    }
+    if (avatarValues.image_base64) {
+      payload.image_base64 = avatarValues.image_base64
+    }
+  } else {
+    // Fallback for legacy form structure
+    if (values.avatar_url) {
+      payload.avatar_url = values.avatar_url
+    }
+    if (values.image_base64) {
+      payload.image_base64 = values.image_base64
+    }
   }
 
   // Keep compatibility with mock server / older deployments
   if (values.greeting) {
     payload.greeting = values.greeting
-  }
-  if (values.avatar_url) {
-    payload.avatar_url = values.avatar_url
   }
 
   Object.keys(payload).forEach((key) => {
@@ -352,6 +183,8 @@ export const CharactersManager: React.FC<CharactersManagerProps> = ({
   const [editFormDirty, setEditFormDirty] = React.useState(false)
   const [debouncedSearchTerm, setDebouncedSearchTerm] = React.useState("")
   const searchDebounceRef = React.useRef<ReturnType<typeof setTimeout> | null>(null)
+  const [showCreatePreview, setShowCreatePreview] = React.useState(false)
+  const [showEditPreview, setShowEditPreview] = React.useState(false)
 
   React.useEffect(() => {
     if (forwardedNewButtonRef && newButtonRef.current) {
@@ -715,6 +548,19 @@ export const CharactersManager: React.FC<CharactersManagerProps> = ({
           </div>
         </div>
       </div>
+      {/* Accessible live region for search results */}
+      <div
+        aria-live="polite"
+        aria-atomic="true"
+        className="sr-only"
+        role="status"
+      >
+        {status === "success" &&
+          t("settings:manageCharacters.aria.searchResults", {
+            defaultValue: "{{count}} characters found",
+            count: data?.length ?? 0
+          })}
+      </div>
       {status === "error" && (
         <div className="rounded-lg border border-red-100 bg-red-50 p-4 dark:border-red-400/40 dark:bg-red-500/10">
           <Alert
@@ -814,10 +660,11 @@ export const CharactersManager: React.FC<CharactersManagerProps> = ({
           </div>
         )}
       {status === "success" && Array.isArray(data) && data.length > 0 && (
-        <Table
-          rowKey={(r: any) => r.id || r.slug || r.name}
-          dataSource={data}
-          columns={[
+        <div className="overflow-x-auto">
+          <Table
+            rowKey={(r: any) => r.id || r.slug || r.name}
+            dataSource={data}
+            columns={[
             {
               title: (
                 <span className="sr-only">
@@ -854,8 +701,10 @@ export const CharactersManager: React.FC<CharactersManagerProps> = ({
               }),
               dataIndex: "name",
               key: "name",
+              sorter: (a: any, b: any) => (a.name || "").localeCompare(b.name || ""),
+              sortDirections: ["ascend", "descend"] as const,
               render: (v: string) => (
-                <span className="line-clamp-1">
+                <span className="line-clamp-1" title={v || undefined}>
                   {truncateText(v, MAX_NAME_LENGTH)}
                 </span>
               )
@@ -867,8 +716,16 @@ export const CharactersManager: React.FC<CharactersManagerProps> = ({
               dataIndex: "description",
               key: "description",
               render: (v: string) => (
-                <span className="line-clamp-1">
-                  {truncateText(v, MAX_DESCRIPTION_LENGTH)}
+                <span className="line-clamp-1" title={v || undefined}>
+                  {v ? (
+                    truncateText(v, MAX_DESCRIPTION_LENGTH)
+                  ) : (
+                    <span className="text-gray-400 dark:text-gray-500">
+                      {t("settings:manageCharacters.table.noDescription", {
+                        defaultValue: "—"
+                      })}
+                    </span>
+                  )}
                 </span>
               )
             },
@@ -935,6 +792,12 @@ export const CharactersManager: React.FC<CharactersManagerProps> = ({
                   "settings:manageCharacters.actions.delete",
                   {
                     defaultValue: "Delete"
+                  }
+                )
+                const duplicateLabel = t(
+                  "settings:manageCharacters.actions.duplicate",
+                  {
+                    defaultValue: "Duplicate"
                   }
                 )
                 const name = record?.name || record?.title || record?.slug || ""
@@ -1028,7 +891,7 @@ export const CharactersManager: React.FC<CharactersManagerProps> = ({
                           editForm.setFieldsValue({
                             name: record.name,
                             description: record.description,
-                            avatar_url: record.avatar_url,
+                            avatar: createAvatarValue(record.avatar_url, record.image_base64),
                             tags: record.tags,
                             greeting:
                               record.greeting ||
@@ -1046,14 +909,66 @@ export const CharactersManager: React.FC<CharactersManagerProps> = ({
                             ),
                             creator: record.creator,
                             character_version: record.character_version,
-                            extensions: extensionsValue,
-                            image_base64: record.image_base64
+                            extensions: extensionsValue
                           })
+                          // Auto-expand advanced section if character has advanced field data
+                          setShowEditAdvanced(hasAdvancedData(record, extensionsValue))
                           setOpenEdit(true)
                         }}>
                         <Pen className="w-4 h-4" />
                         <span className="hidden sm:inline text-xs font-medium">
                           {editLabel}
+                        </span>
+                      </button>
+                    </Tooltip>
+                    <Tooltip
+                      title={duplicateLabel}>
+                      <button
+                        type="button"
+                        className="inline-flex items-center gap-1 rounded-md border border-transparent px-2 py-1 text-gray-600 transition hover:border-gray-200 hover:bg-white focus:outline-none focus:ring-2 focus:ring-violet-500 focus:ring-offset-1 dark:text-gray-200 dark:hover:border-gray-500 dark:hover:bg-[#1f1f1f] dark:focus:ring-offset-gray-900"
+                        aria-label={t("settings:manageCharacters.aria.duplicate", {
+                          defaultValue: "Duplicate character {{name}}",
+                          name
+                        })}
+                        onClick={() => {
+                          // Pre-fill create form with character data (excluding id/version)
+                          const ex = record.extensions
+                          const extensionsValue =
+                            ex && typeof ex === "object" && !Array.isArray(ex)
+                              ? JSON.stringify(ex, null, 2)
+                              : typeof ex === "string"
+                                ? ex
+                                : ""
+                          createForm.setFieldsValue({
+                            name: `${record.name || ""} (copy)`,
+                            description: record.description,
+                            avatar: createAvatarValue(record.avatar_url, record.image_base64),
+                            tags: record.tags,
+                            greeting:
+                              record.greeting ||
+                              record.first_message ||
+                              record.greet,
+                            system_prompt: record.system_prompt,
+                            personality: record.personality,
+                            scenario: record.scenario,
+                            post_history_instructions:
+                              record.post_history_instructions,
+                            message_example: record.message_example,
+                            creator_notes: record.creator_notes,
+                            alternate_greetings: normalizeAlternateGreetings(
+                              record.alternate_greetings
+                            ),
+                            creator: record.creator,
+                            character_version: record.character_version,
+                            extensions: extensionsValue
+                          })
+                          // Auto-expand advanced section if source character has advanced data
+                          setShowCreateAdvanced(hasAdvancedData(record, extensionsValue))
+                          setOpen(true)
+                        }}>
+                        <Copy className="w-4 h-4" />
+                        <span className="hidden sm:inline text-xs font-medium">
+                          {duplicateLabel}
                         </span>
                       </button>
                     </Tooltip>
@@ -1099,7 +1014,8 @@ export const CharactersManager: React.FC<CharactersManagerProps> = ({
               }
             }
           ]}
-        />
+          />
+        </div>
       )}
 
       <Modal
@@ -1135,7 +1051,49 @@ export const CharactersManager: React.FC<CharactersManagerProps> = ({
             })}
           </p>
           {chatsError && (
-            <Alert type="error" showIcon message={chatsError} />
+            <Alert
+              type="error"
+              showIcon
+              message={chatsError}
+              action={
+                <Button
+                  size="small"
+                  onClick={async () => {
+                    if (!conversationCharacter) return
+                    setChatsError(null)
+                    setLoadingChats(true)
+                    setCharacterChats([])
+                    try {
+                      await tldwClient.initialize()
+                      const characterId = characterIdentifier(conversationCharacter)
+                      const chats = await tldwClient.listChats({
+                        character_id: characterId || undefined,
+                        limit: 100,
+                        ordering: "-updated_at"
+                      })
+                      const filtered = Array.isArray(chats)
+                        ? chats.filter(
+                            (c) =>
+                              characterId &&
+                              String(c.character_id ?? "") === String(characterId)
+                          )
+                        : []
+                      setCharacterChats(filtered)
+                    } catch {
+                      setChatsError(
+                        t("settings:manageCharacters.conversations.error", {
+                          defaultValue:
+                            "Unable to load conversations for this character."
+                        })
+                      )
+                    } finally {
+                      setLoadingChats(false)
+                    }
+                  }}>
+                  {t("common:retry", { defaultValue: "Retry" })}
+                </Button>
+              }
+            />
           )}
           {loadingChats && <Skeleton active title paragraph={{ rows: 4 }} />}
           {!loadingChats && !chatsError && (
@@ -1148,16 +1106,29 @@ export const CharactersManager: React.FC<CharactersManagerProps> = ({
                 </div>
               ) : (
                 <div className="space-y-2">
-                  {characterChats.map((chat) => (
+                  {characterChats.map((chat, index) => (
                     <div
                       key={chat.id}
-                      className="flex items-start justify-between gap-3 rounded-md border border-gray-200 bg-white p-3 shadow-sm dark:border-gray-700 dark:bg-[#0f1115]">
+                      className={`flex items-start justify-between gap-3 rounded-md border p-3 shadow-sm ${
+                        index === 0
+                          ? "border-blue-200 bg-blue-50/50 dark:border-blue-700 dark:bg-blue-900/20"
+                          : "border-gray-200 bg-white dark:border-gray-700 dark:bg-[#0f1115]"
+                      }`}>
                       <div className="min-w-0 space-y-1">
-                        <div className="font-medium text-gray-900 dark:text-gray-100 truncate">
-                          {chat.title ||
-                            t("settings:manageCharacters.conversations.untitled", {
-                              defaultValue: "Untitled"
-                            })}
+                        <div className="flex items-center gap-2">
+                          <span className="font-medium text-gray-900 dark:text-gray-100 truncate">
+                            {chat.title ||
+                              t("settings:manageCharacters.conversations.untitled", {
+                                defaultValue: "Untitled"
+                              })}
+                          </span>
+                          {index === 0 && (
+                            <span className="inline-flex items-center rounded-full bg-blue-100 px-2 py-0.5 text-xs font-medium text-blue-700 dark:bg-blue-900 dark:text-blue-300">
+                              {t("settings:manageCharacters.conversations.mostRecent", {
+                                defaultValue: "Most recent"
+                              })}
+                            </span>
+                          )}
                         </div>
                         <div className="text-xs text-gray-500 dark:text-gray-400">
                           {formatUpdatedLabel(chat.updated_at || chat.created_at)}
@@ -1390,24 +1361,11 @@ export const CharactersManager: React.FC<CharactersManagerProps> = ({
             />
           </Form.Item>
           <Form.Item
-            name="avatar_url"
-            label={t("settings:manageCharacters.form.avatarUrl.label", {
-              defaultValue: "Avatar URL (optional)"
-            })}
-            rules={[
-              {
-                type: "url",
-                message: t("settings:manageCharacters.form.avatarUrl.invalidUrl", {
-                  defaultValue: "Please enter a valid URL"
-                })
-              }
-            ]}>
-            <Input
-              placeholder={t(
-                "settings:manageCharacters.form.avatarUrl.placeholder",
-                { defaultValue: "https://example.com/avatar.png" }
-              )}
-            />
+            name="avatar"
+            label={t("settings:manageCharacters.avatar.label", {
+              defaultValue: "Avatar (optional)"
+            })}>
+            <AvatarField />
           </Form.Item>
           <Form.Item
             name="tags"
@@ -1416,7 +1374,7 @@ export const CharactersManager: React.FC<CharactersManagerProps> = ({
             })}
             help={t("settings:manageCharacters.tags.help", {
               defaultValue:
-                "Use tags to group characters by use case (e.g., “writing”, “teaching”)."
+                "Use tags to group characters by use case (e.g., 'writing', 'teaching')."
             })}>
             <Select
               mode="tags"
@@ -1454,10 +1412,16 @@ export const CharactersManager: React.FC<CharactersManagerProps> = ({
           </Form.Item>
           <Form.Item
             name="system_prompt"
-            label={t(
-              "settings:manageCharacters.form.systemPrompt.label",
-              { defaultValue: "Behavior / instructions" }
-            )}
+            label={
+              <span>
+                {t(
+                  "settings:manageCharacters.form.systemPrompt.label",
+                  { defaultValue: "Behavior / instructions" }
+                )}
+                <span className="text-red-500 ml-0.5" aria-hidden="true">*</span>
+                <span className="sr-only"> ({t("common:required", { defaultValue: "required" })})</span>
+              </span>
+            }
             help={t(
               "settings:manageCharacters.form.systemPrompt.help",
               {
@@ -1466,6 +1430,16 @@ export const CharactersManager: React.FC<CharactersManagerProps> = ({
               }
             )}
             rules={[
+              {
+                required: true,
+                message: t(
+                  "settings:manageCharacters.form.systemPrompt.required",
+                  {
+                    defaultValue:
+                      "Please add instructions for how the character should respond."
+                  }
+                )
+              },
               {
                 min: 10,
                 message: t(
@@ -1618,18 +1592,49 @@ export const CharactersManager: React.FC<CharactersManagerProps> = ({
                 )}>
                 <Input.TextArea autoSize={{ minRows: 2, maxRows: 8 }} />
               </Form.Item>
-              <Form.Item
-                name="image_base64"
-                label={t(
-                  "settings:manageCharacters.form.imageBase64.label",
-                  {
-                    defaultValue: "Avatar image"
-                  }
-                )}>
-                <ImageUploadField />
-              </Form.Item>
             </div>
           )}
+
+          {/* Preview toggle */}
+          <button
+            type="button"
+            className="mt-4 mb-2 flex items-center gap-1 text-xs font-medium text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-200"
+            onClick={() => setShowCreatePreview((v) => !v)}>
+            {showCreatePreview ? (
+              <ChevronUp className="w-4 h-4" />
+            ) : (
+              <ChevronDown className="w-4 h-4" />
+            )}
+            {showCreatePreview
+              ? t("settings:manageCharacters.preview.hide", {
+                  defaultValue: "Hide preview"
+                })
+              : t("settings:manageCharacters.preview.show", {
+                  defaultValue: "Show preview"
+                })}
+          </button>
+
+          {/* Character Preview */}
+          {showCreatePreview && (
+            <Form.Item noStyle shouldUpdate>
+              {() => {
+                const avatar = createForm.getFieldValue("avatar")
+                const avatarValues = avatar ? extractAvatarValues(avatar) : {}
+                return (
+                  <CharacterPreview
+                    name={createForm.getFieldValue("name")}
+                    description={createForm.getFieldValue("description")}
+                    avatar_url={avatarValues.avatar_url}
+                    image_base64={avatarValues.image_base64}
+                    system_prompt={createForm.getFieldValue("system_prompt")}
+                    greeting={createForm.getFieldValue("greeting")}
+                    tags={createForm.getFieldValue("tags")}
+                  />
+                )
+              }}
+            </Form.Item>
+          )}
+
           <Button
             type="primary"
             htmlType="submit"
@@ -1738,24 +1743,11 @@ export const CharactersManager: React.FC<CharactersManagerProps> = ({
             />
           </Form.Item>
           <Form.Item
-            name="avatar_url"
-            label={t("settings:manageCharacters.form.avatarUrl.label", {
-              defaultValue: "Avatar URL (optional)"
-            })}
-            rules={[
-              {
-                type: "url",
-                message: t("settings:manageCharacters.form.avatarUrl.invalidUrl", {
-                  defaultValue: "Please enter a valid URL"
-                })
-              }
-            ]}>
-            <Input
-              placeholder={t(
-                "settings:manageCharacters.form.avatarUrl.placeholder",
-                { defaultValue: "https://example.com/avatar.png" }
-              )}
-            />
+            name="avatar"
+            label={t("settings:manageCharacters.avatar.label", {
+              defaultValue: "Avatar (optional)"
+            })}>
+            <AvatarField />
           </Form.Item>
           <Form.Item
             name="tags"
@@ -1764,7 +1756,7 @@ export const CharactersManager: React.FC<CharactersManagerProps> = ({
             })}
             help={t("settings:manageCharacters.tags.help", {
               defaultValue:
-                "Use tags to group characters by use case (e.g., “writing”, “teaching”)."
+                "Use tags to group characters by use case (e.g., 'writing', 'teaching')."
             })}>
             <Select
               mode="tags"
@@ -1802,10 +1794,16 @@ export const CharactersManager: React.FC<CharactersManagerProps> = ({
           </Form.Item>
           <Form.Item
             name="system_prompt"
-            label={t(
-              "settings:manageCharacters.form.systemPrompt.label",
-              { defaultValue: "Behavior / instructions" }
-            )}
+            label={
+              <span>
+                {t(
+                  "settings:manageCharacters.form.systemPrompt.label",
+                  { defaultValue: "Behavior / instructions" }
+                )}
+                <span className="text-red-500 ml-0.5" aria-hidden="true">*</span>
+                <span className="sr-only"> ({t("common:required", { defaultValue: "required" })})</span>
+              </span>
+            }
             help={t(
               "settings:manageCharacters.form.systemPrompt.help",
               {
@@ -1814,6 +1812,16 @@ export const CharactersManager: React.FC<CharactersManagerProps> = ({
               }
             )}
             rules={[
+              {
+                required: true,
+                message: t(
+                  "settings:manageCharacters.form.systemPrompt.required",
+                  {
+                    defaultValue:
+                      "Please add instructions for how the character should respond."
+                  }
+                )
+              },
               {
                 min: 10,
                 message: t(
@@ -1969,18 +1977,49 @@ export const CharactersManager: React.FC<CharactersManagerProps> = ({
                 )}>
                 <Input.TextArea autoSize={{ minRows: 2, maxRows: 8 }} />
               </Form.Item>
-              <Form.Item
-                name="image_base64"
-                label={t(
-                  "settings:manageCharacters.form.imageBase64.label",
-                  {
-                    defaultValue: "Avatar image"
-                  }
-                )}>
-                <ImageUploadField />
-              </Form.Item>
             </div>
           )}
+
+          {/* Preview toggle */}
+          <button
+            type="button"
+            className="mt-4 mb-2 flex items-center gap-1 text-xs font-medium text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-200"
+            onClick={() => setShowEditPreview((v) => !v)}>
+            {showEditPreview ? (
+              <ChevronUp className="w-4 h-4" />
+            ) : (
+              <ChevronDown className="w-4 h-4" />
+            )}
+            {showEditPreview
+              ? t("settings:manageCharacters.preview.hide", {
+                  defaultValue: "Hide preview"
+                })
+              : t("settings:manageCharacters.preview.show", {
+                  defaultValue: "Show preview"
+                })}
+          </button>
+
+          {/* Character Preview */}
+          {showEditPreview && (
+            <Form.Item noStyle shouldUpdate>
+              {() => {
+                const avatar = editForm.getFieldValue("avatar")
+                const avatarValues = avatar ? extractAvatarValues(avatar) : {}
+                return (
+                  <CharacterPreview
+                    name={editForm.getFieldValue("name")}
+                    description={editForm.getFieldValue("description")}
+                    avatar_url={avatarValues.avatar_url}
+                    image_base64={avatarValues.image_base64}
+                    system_prompt={editForm.getFieldValue("system_prompt")}
+                    greeting={editForm.getFieldValue("greeting")}
+                    tags={editForm.getFieldValue("tags")}
+                  />
+                )
+              }}
+            </Form.Item>
+          )}
+
           <Button
             type="primary"
             htmlType="submit"

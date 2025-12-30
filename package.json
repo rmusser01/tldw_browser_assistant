@@ -25,7 +25,9 @@
     "test:e2e:perf": "playwright test tests/e2e/performance-*.spec.ts",
     "build:analyze": "cross-env ANALYZE=true TARGET=chrome wxt build",
     "check:i18n:dupes": "node scripts/check-duplicate-keys.mjs",
-    "check:i18n:coverage": "node scripts/check-locale-coverage.mjs"
+    "check:i18n:coverage": "node scripts/check-locale-coverage.mjs",
+    "check:i18n:glossary": "node scripts/check-i18n-glossary.js",
+    "locales:sync": "node scripts/sync-public-locales.js"
   },
   "dependencies": {
     "@ant-design/cssinjs": "^1.18.4",
@@ -55,7 +57,8 @@
     "html2canvas": "^1.4.1",
     "i18next": "^23.10.1",
     "i18next-browser-languagedetector": "^7.2.0",
-    "lucide-react": "^0.350.0",
+    "i18next-icu": "^2.4.1",
+    "lucide-react": "^0.561.0",
     "marked": "^15.0.12",
     "pa-tesseract.js": "^5.1.1",
     "prism-react-renderer": "^2.4.0",

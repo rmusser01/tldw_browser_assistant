@@ -1,10 +1,10 @@
 import OptionLayout from "~/components/Layouts/Layout"
-import FlashcardsPage from "@/components/Flashcards/FlashcardsPage"
+import { FlashcardsWorkspace } from "@/components/Flashcards/FlashcardsWorkspace"
 
 const OptionFlashcards = () => {
   return (
     <OptionLayout>
-      <FlashcardsPage />
+      <FlashcardsWorkspace />
     </OptionLayout>
   )
 }

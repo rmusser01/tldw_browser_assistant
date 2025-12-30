@@ -5,7 +5,6 @@ import { useStorage } from "@plasmohq/storage/hook"
 import { useShortcut } from "@/hooks/useKeyboardShortcuts"
 import {
   CogIcon,
-  Gauge,
   Mic,
   UserCircle2,
   Microscope,
@@ -17,6 +16,8 @@ import {
   BookMarked,
   BookOpen,
   ChevronDown,
+  Scissors,
+  Gauge,
 } from "lucide-react"
 
 const classNames = (...classes: (string | false | null | undefined)[]) =>
@@ -175,15 +176,15 @@ export function HeaderShortcuts({
           },
           {
             type: "link" as const,
-            to: "/stt",
+            to: "/speech",
             icon: Mic,
-            label: t("option:header.modeStt", "STT Playground"),
+            label: t("option:header.modeSpeech", "Speech"),
           },
           {
             type: "link" as const,
-            to: "/tts",
-            icon: Gauge,
-            label: t("option:tts.playground", "TTS Playground"),
+            to: "/chunking-playground",
+            icon: Scissors,
+            label: t("settings:chunkingPlayground.nav", "Chunking Playground"),
           },
           {
             type: "link" as const,

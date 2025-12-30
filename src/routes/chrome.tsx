@@ -34,6 +34,7 @@ const OptionFlashcards = lazy(() => import("./option-flashcards"))
 const OptionTts = lazy(() => import("./option-tts"))
 const OptionEvaluations = lazy(() => import("./option-evaluations"))
 const OptionStt = lazy(() => import("./option-stt"))
+const OptionSpeech = lazy(() => import("./option-speech"))
 const OptionSettingsEvaluations = lazy(() => import("./option-settings-evaluations"))
 const OptionPromptStudio = lazy(() => import("./option-prompt-studio"))
 const OptionSettingsPromptStudio = lazy(() => import("./option-settings-prompt-studio"))
@@ -42,6 +43,9 @@ const OptionAdminLlamacpp = lazy(() => import("./option-admin-llamacpp"))
 const OptionAdminMlx = lazy(() => import("./option-admin-mlx"))
 const OptionChatSettings = lazy(() => import("./option-settings-chat"))
 const OptionQuickChatPopout = lazy(() => import("./option-quick-chat-popout"))
+const OptionContentReview = lazy(() => import("./option-content-review"))
+const OptionChunkingPlayground = lazy(() => import("./option-chunking-playground"))
+const OptionQuiz = lazy(() => import("./option-quiz"))
 
 // Non-lazy imports for components needed immediately
 import OptionLayout from "~/components/Layouts/Layout"
@@ -85,11 +89,14 @@ export const OptionRoutingChrome = () => {
         <Route path="/settings/world-books" element={<OptionWorldBooks />} />
         <Route path="/settings/chat-dictionaries" element={<OptionDictionaries />} />
         <Route path="/settings/rag" element={<OptionRagSettings />} />
+        <Route path="/chunking-playground" element={<OptionChunkingPlayground />} />
         <Route path="/settings/about" element={<OptionAbout />} />
         <Route path="/review" element={<OptionMediaMulti />} />
         <Route path="/flashcards" element={<OptionFlashcards />} />
+        <Route path="/quiz" element={<OptionQuiz />} />
         <Route path="/media" element={<OptionMedia />} />
         <Route path="/media-multi" element={<OptionMediaMulti />} />
+        <Route path="/content-review" element={<OptionContentReview />} />
         <Route path="/notes" element={<OptionNotes />} />
         <Route path="/knowledge" element={<OptionKnowledgeWorkspace />} />
         <Route path="/world-books" element={<OptionWorldBooksWorkspace />} />
@@ -99,6 +106,7 @@ export const OptionRoutingChrome = () => {
         <Route path="/prompt-studio" element={<OptionPromptStudio />} />
         <Route path="/tts" element={<OptionTts />} />
         <Route path="/stt" element={<OptionStt />} />
+        <Route path="/speech" element={<OptionSpeech />} />
         <Route path="/evaluations" element={<OptionEvaluations />} />
         <Route path="/admin/server" element={<OptionAdminServer />} />
         <Route path="/admin/llamacpp" element={<OptionAdminLlamacpp />} />

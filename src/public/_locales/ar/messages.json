@@ -1,4 +1,106 @@
 {
+  "extName": {
+    "message": "tldw Assistant"
+  },
+  "extDescription": {
+    "message": "إضافة متصفح لـ tldw_server — مساعدك الموحد للذكاء الاصطناعي مع RAG ومعالجة الوسائط والمزيد."
+  },
+  "openSidePanelToChat": {
+    "message": "افتح الشريط الجانبي للدردشة"
+  },
+  "openOptionToChat": {
+    "message": "افتح واجهة الويب للدردشة"
+  },
+  "openQuickIngest": {
+    "message": "افتح الإدخال السريع"
+  },
+  "buttonOpenQuickIngest": {
+    "message": "افتح الإدخال السريع"
+  },
+  "buttonTryDemo": {
+    "message": "جرّب عرضًا تجريبيًا"
+  },
+  "learnMoreTldw": {
+    "message": "تعرّف على كيفية عمل خادم tldw"
+  },
+  "contextSummarize": {
+    "message": "تلخيص"
+  },
+  "contextExplain": {
+    "message": "شرح"
+  },
+  "contextRephrase": {
+    "message": "إعادة صياغة"
+  },
+  "contextTranslate": {
+    "message": "ترجمة"
+  },
+  "contextCustom": {
+    "message": "مخصص"
+  },
+  "contextSendToTldw": {
+    "message": "إرسال إلى tldw_server"
+  },
+  "contextProcessLocalTldw": {
+    "message": "المعالجة باستخدام tldw_server (دون حفظ)"
+  },
+  "contextTranscribeMedia": {
+    "message": "تفريغ الفيديو/الصوت"
+  },
+  "contextTranscribeAndSummarizeMedia": {
+    "message": "تفريغ + تلخيص الفيديو/الصوت"
+  },
+  "contextSaveToNotes": {
+    "message": "الحفظ في الملاحظات"
+  },
+  "contextSaveToNotesNoSelection": {
+    "message": "حدّد النص أولاً للحفظ في الملاحظات."
+  },
+  "contextSidebarOpening": {
+    "message": "جارٍ فتح الشريط الجانبي..."
+  },
+  "contextSaveToNotesOpeningSidebar": {
+    "message": "جارٍ فتح الشريط الجانبي لحفظ الملاحظة..."
+  },
+  "contextSaveToNotesDeliveryFailed": {
+    "message": "تعذّر فتح الشريط الجانبي لحفظ هذه الملاحظة. تحقّق من السماح للشريط الجانبي لـ tldw Assistant على هذا الموقع ثم حاول مرة أخرى."
+  },
+  "hfSendPageRejected": {
+    "message": "[tldw] تم رفض طلب إرسال الصفحة بواسطة tldw_server"
+  },
+  "hfSendPageErrorWithDetail": {
+    "message": "[tldw] تعذّر إرسال هذه الصفحة إلى tldw_server: $1. تحقّق من الإعدادات → خادم tldw ثم حاول مرة أخرى."
+  },
+  "hfSendPageError": {
+    "message": "[tldw] تعذّر إرسال هذه الصفحة إلى tldw_server. تحقّق من الإعدادات → خادم tldw ثم حاول مرة أخرى."
+  },
+  "hfSendPageSuccess": {
+    "message": "[tldw] تم إرسال الصفحة إلى tldw_server للمعالجة"
+  },
+  "hfSendPageException": {
+    "message": "[tldw] حدث خطأ أثناء إرسال هذه الصفحة إلى tldw_server. تحقّق من تشغيل tldw_server والإضافة ثم حاول مرة أخرى."
+  },
+  "hfPullInProgress": {
+    "message": "[tldw Assistant] يوجد بالفعل طلب لسحب نموذج قيد التنفيذ. يُرجى الانتظار حتى ينتهي قبل بدء طلب آخر."
+  },
+  "hfPullConfirm": {
+    "message": "[tldw Assistant] هل تريد إرسال طلب إلى خادم tldw الخاص بك لسحب نموذج \"$1\"؟ هذا مستقل عن موقع huggingface.co. سيبدأ خادمك بسحب النموذج بعد تأكيدك."
+  },
+  "hfPullSending": {
+    "message": "[tldw Assistant] جارٍ إرسال طلب إلى خادم tldw الخاص بك لسحب \"$1\". تحقّق من أيقونة الإضافة أو سجلات tldw_server لمعرفة التقدّم."
+  },
+  "hfPullErrorWithDetail": {
+    "message": "[tldw Assistant] تعذّر إرسال طلب سحب \"$1\": $2. تحقّق من الإعدادات → خادم tldw ثم حاول مرة أخرى."
+  },
+  "hfPullError": {
+    "message": "[tldw Assistant] تعذّر إرسال طلب سحب \"$1\". تحقّق من الإعدادات → خادم tldw ثم حاول مرة أخرى."
+  },
+  "hfPullSuccess": {
+    "message": "[tldw Assistant] تم إرسال طلب إلى خادم tldw الخاص بك لسحب \"$1\". راقب أيقونة الإضافة أو سجلات tldw_server لمعرفة الحالة."
+  },
+  "hfPullException": {
+    "message": "[tldw Assistant] حدث خطأ أثناء إرسال طلب سحب \"$1\" إلى خادم tldw الخاص بك. تحقّق من تشغيل tldw_server والإضافة ثم حاول مرة أخرى."
+  },
   "footerHelp": {
     "message": "بعد الاتصال، يمكنك العودة إلى هذه الإعدادات في أي وقت من قائمة الامتداد.",
     "description": "نص المساعدة في تذييل صفحة الإعداد أثناء الإعداد الأولي."
@@ -66,6 +168,78 @@
   "nextStepsMediaBody": {
     "message": "انتقل إلى «الوسائط» و«الملاحظات» في صفحة الخيارات لمعرفة ما هو مخزَّن وقابل للبحث.",
     "description": "وصف بطاقة الخطوة التالية لاستعراض الوسائط والملاحظات."
+  },
+  "notesEmpty_connectTitle": {
+    "message": "اتصل لاستخدام الملاحظات"
+  },
+  "notesEmpty_connectDescription": {
+    "message": "لاستخدام الملاحظات، اتصل أولاً بخادم tldw الخاص بك."
+  },
+  "notesEmpty_connectExample1": {
+    "message": "افتح الإعدادات → خادم tldw لإضافة عنوان URL لخادمك."
+  },
+  "notesEmpty_connectExample2": {
+    "message": "استخدم التشخيص إذا كان خادمك يعمل ولكنه غير قابل للوصول."
+  },
+  "notesEmpty_demoTitle": {
+    "message": "استكشف الملاحظات في وضع العرض التجريبي"
+  },
+  "notesEmpty_demoDescription": {
+    "message": "يعرض هذا العرض التجريبي كيف يمكن للملاحظات تنظيم رؤاك. يمكنك لاحقاً الاتصال بخادمك الخاص لإنشاء ملاحظات حقيقية وحفظها."
+  },
+  "notesEmpty_demoExample1": {
+    "message": "اطّلع على كيفية ظهور عناوين الملاحظات ومعايناتها والطوابع الزمنية في القائمة."
+  },
+  "notesEmpty_demoExample2": {
+    "message": "عند الاتصال، ستتمكن من إنشاء ملاحظات من الاجتماعات والمراجعات وغير ذلك."
+  },
+  "notesEmpty_demoExample3": {
+    "message": "استخدم الملاحظات جنباً إلى جنب مع الوسائط والمراجعة لتتبع نتائجك."
+  },
+  "notesEmpty_demoPreviewHeading": {
+    "message": "ملاحظات مثال (معاينة فقط)"
+  },
+  "notesEmpty_demoSample1Title": {
+    "message": "ملاحظة تجريبية: ملخص الاجتماع الأسبوعي"
+  },
+  "notesEmpty_demoSample1Preview": {
+    "message": "قرارات وعوائق ومتابعات من تزامن فريق حديث."
+  },
+  "notesEmpty_demoSample1Meta": {
+    "message": "اليوم · 9:32 ص"
+  },
+  "notesEmpty_demoSample2Title": {
+    "message": "ملاحظة تجريبية: أبرز نتائج البحث"
+  },
+  "notesEmpty_demoSample2Preview": {
+    "message": "رؤى أساسية مستخلصة من مقال أو ورقة طويلة."
+  },
+  "notesEmpty_demoSample2Meta": {
+    "message": "أمس · 4:10 م"
+  },
+  "notesEmpty_demoSample3Title": {
+    "message": "ملاحظة تجريبية: ملخص المكالمة"
+  },
+  "notesEmpty_demoSample3Preview": {
+    "message": "ملخص لمكالمة عميل مع الخطوات التالية والمسؤولين."
+  },
+  "notesEmpty_demoSample3Meta": {
+    "message": "هذا الأسبوع"
+  },
+  "notesEmpty_title": {
+    "message": "لا توجد ملاحظات بعد"
+  },
+  "notesEmpty_description": {
+    "message": "التقط ونظّم ملاحظات حرة مرتبطة برؤى tldw."
+  },
+  "notesEmpty_exampleCreate": {
+    "message": "أنشئ ملاحظة جديدة لاجتماع أو تفريغ حديث."
+  },
+  "notesEmpty_exampleLink": {
+    "message": "احفظ مخرجات المراجعة في الملاحظات لتتمكن من الرجوع إليها لاحقاً."
+  },
+  "notesEmpty_primaryCta": {
+    "message": "إنشاء ملاحظة"
   },
   "headerShortcuts": {
     "message": "إظهار الاختصارات السريعة في الشريط العلوي",
@@ -219,11 +393,53 @@
   "specFallbackWarning": {
     "message": "يتم استخدام مخطط media.add المضمّن كخيار احتياطي (v{{version}})؛ يُرجى التحقق من tldw_server /openapi.json إذا بدت الحقول قديمة."
   },
+  "serverOffline": {
+    "message": "الخادم غير متصل أو غير مُعد"
+  },
+  "serverChats": {
+    "message": "محادثات الخادم"
+  },
+  "serverChatLoadError": {
+    "message": "فشل تحميل محادثة الخادم. تحقق من الاتصال وحاول مرة أخرى."
+  },
+  "serverChatSourceLabel": {
+    "message": "الخادم"
+  },
   "serverChatsUnavailableNotConnected": {
     "message": "تتوفّر محادثات الخادم عند الاتصال بخادم tldw الخاص بك."
   },
   "serverChatsUnavailableServerError": {
     "message": "محادثات الخادم غير متاحة حالياً. تحقّق من سجلات الخادم أو حاول مرة أخرى."
+  },
+  "fileChanges": {
+    "message": "تغييرات الملفات"
+  },
+  "deletions": {
+    "message": "عمليات الحذف"
+  },
+  "gitOperations": {
+    "message": "عمليات Git"
+  },
+  "commands": {
+    "message": "الأوامر"
+  },
+  "otherOperations": {
+    "message": "عمليات أخرى"
+  },
+  "fileAccess": {
+    "message": "الوصول إلى الملفات"
+  },
+  "notebookEdits": {
+    "message": "تعديلات دفتر الملاحظات"
+  },
+  "applyPatch": {
+    "message": "تطبيق التصحيح"
+  },
+  "recursive": {
+    "message": "(تكراري)"
+  },
+  "complexArguments": {
+    "message": "[معاملات معقدة]"
   },
   "noToolCalls": {
     "message": "لا توجد استدعاءات أدوات بعد"
@@ -290,12 +506,20 @@
     "description": "Label for the git.add tool (stage files)."
   },
   "tools_git_commit": {
-    "message": "Commit",
+    "message": "إيداع",
     "description": "Label for the git.commit tool."
   },
   "tools_exec_run": {
     "message": "تشغيل أمر",
     "description": "Label for the exec.run tool (run command)."
+  },
+  "serverChatForkedLabel": {
+    "message": "محادثة متفرعة",
+    "description": "Label shown on chats that were forked from another server chat."
+  },
+  "serverChatForkedTooltip": {
+    "message": "متفرعة من المحادثة {{chatId}}",
+    "description": "Tooltip explaining which original server chat this chat was forked from."
   },
   "commandPalette_goToChat": {
     "message": "الانتقال إلى الدردشة",
@@ -402,37 +626,34 @@
     "description": "Label for the Recent items category in the command palette."
   },
   "markdown_unableToRender": {
-    "message": "Unable to render content"
+    "message": "تعذّر عرض المحتوى"
   },
   "markdown_couldNotDisplay": {
-    "message": "The message content could not be displayed. This may be due to invalid formatting."
+    "message": "تعذّر عرض محتوى الرسالة. قد يكون ذلك بسبب تنسيق غير صالح."
   },
   "markdown_showRawContent": {
-    "message": "Show raw content"
+    "message": "إظهار المحتوى الخام"
   },
   "notesSearch_exportNoteSuccess": {
-    "message": "Exported ({{size}})"
+    "message": "تم التصدير ({{size}})"
   },
   "notesSearch_exportSuccess": {
-    "message": "Exported {{count}} notes ({{size}})"
+    "message": "تم تصدير {{count}} ملاحظة ({{size}})"
   },
   "notesSearch_exportCsvSuccess": {
-    "message": "Exported {{count}} notes as CSV ({{size}})"
+    "message": "تم تصدير {{count}} ملاحظة كملف CSV ({{size}})"
   },
   "notesSearch_exportJsonSuccess": {
     "message": "تم تصدير {{count}} ملاحظة كملف JSON ({{size}})"
   },
-  "exportNoteSuccess": {
-    "message": "تم التصدير ({{size}})"
+  "ttsShort": {
+    "message": "صوت"
   },
-  "exportSuccess": {
-    "message": "تم تصدير {{count}} ملاحظة ({{size}})"
+  "copyShort": {
+    "message": "نسخ"
   },
-  "exportCsvSuccess": {
-    "message": "تم تصدير {{count}} ملاحظة كملف CSV ({{size}})"
-  },
-  "exportJsonSuccess": {
-    "message": "تم تصدير {{count}} ملاحظة كملف JSON ({{size}})"
+  "branchShort": {
+    "message": "فرع"
   },
   "infoShort": {
     "message": "معلومات"
@@ -471,13 +692,13 @@
     "message": "إخفاء التفاصيل التقنية"
   },
   "error_createFolder": {
-    "message": "Failed to create folder"
+    "message": "تعذّر إنشاء المجلد"
   },
   "modelSelect_label": {
-    "message": "Model"
+    "message": "النموذج"
   },
   "modelSelect_tooltip": {
-    "message": "Changes model for next message"
+    "message": "تغيير النموذج للرسالة التالية"
   },
   "featureHints_knowledge_title": {
     "message": "ابحث في معرفتك"
@@ -527,6 +748,18 @@
   "chatSidebar_notes": {
     "message": "الملاحظات"
   },
+  "chatSidebar_flashcards": {
+    "message": "بطاقات تعليمية"
+  },
+  "chatSidebar_prompts": {
+    "message": "المطالبات"
+  },
+  "chatSidebar_multiItem": {
+    "message": "متعدد العناصر"
+  },
+  "chatSidebar_shortcuts": {
+    "message": "الاختصارات"
+  },
   "chatSidebar_settings": {
     "message": "الإعدادات"
   },
@@ -557,10 +790,2477 @@
   "chatSidebar_foldersRequireConnection": {
     "message": "تتطلب المجلدات اتصالاً بالخادم"
   },
-  "option.more.copy.canonicalMarkdown": {
-    "message": "Copy canonical transcript"
+  "more_copy_canonicalMarkdown": {
+    "message": "نسخ التفريغ القياسي"
   },
-  "option.more.download.canonicalMarkdown": {
-    "message": "Canonical transcript (Markdown)"
+  "more_download_canonicalMarkdown": {
+    "message": "التفريغ القياسي (Markdown)"
+  },
+  "header_contentReview": {
+    "message": "مراجعة المحتوى"
+  },
+  "contentReview_title": {
+    "message": "مراجعة المحتوى",
+    "description": "Content review UI string."
+  },
+  "contentReview_readyToSubmit": {
+    "message": "{{count}} جاهزة",
+    "description": "Content review UI string."
+  },
+  "contentReview_committedCount": {
+    "message": "{{count}} تم اعتمادها",
+    "description": "Content review UI string."
+  },
+  "contentReview_totalCount": {
+    "message": "{{count}} إجمالي",
+    "description": "Content review UI string."
+  },
+  "contentReview_commitAll": {
+    "message": "اعتماد الكل",
+    "description": "Content review UI string."
+  },
+  "contentReview_clearDrafts": {
+    "message": "مسح المسودات",
+    "description": "Content review UI string."
+  },
+  "contentReview_emptyDescription": {
+    "message": "لا توجد مسودات بعد. استخدم Quick Ingest مع خيار المراجعة قبل الحفظ لإنشاء مسودات.",
+    "description": "Content review UI string."
+  },
+  "contentReview_openQuickIngest": {
+    "message": "فتح Quick Ingest",
+    "description": "Content review UI string."
+  },
+  "contentReview_storeAfterReview": {
+    "message": "الحفظ بعد المراجعة",
+    "description": "Content review UI string."
+  },
+  "contentReview_reviewBeforeStorage": {
+    "message": "المراجعة قبل الحفظ",
+    "description": "Content review UI string."
+  },
+  "contentReview_reviewBeforeStorageHint": {
+    "message": "قم بالمعالجة الآن ثم حرّر المسودات محليًا قبل اعتمادها على الخادم.",
+    "description": "Content review UI string."
+  },
+  "contentReview_reviewEnabled": {
+    "message": "وضع المراجعة",
+    "description": "Content review UI string."
+  },
+  "contentReview_reviewStorageCap": {
+    "message": "الحد الأقصى للمسودات المحلية هو {{cap}}.",
+    "description": "Content review UI string."
+  },
+  "contentReview_reviewWarningTitle": {
+    "message": "حفظ المسودات محليًا؟",
+    "description": "Content review UI string."
+  },
+  "contentReview_reviewWarningBody": {
+    "message": "تُحفظ المسودات في هذا المتصفح وقد تتضمن بيانات حساسة. يمكنك مسح المسودات من صفحة مراجعة المحتوى في أي وقت.",
+    "description": "Content review UI string."
+  },
+  "contentReview_reviewWarningBodySecondary": {
+    "message": "يحفظ وضع المراجعة المحتوى على جانب العميل حتى تعتمدَه على الخادم.",
+    "description": "Content review UI string."
+  },
+  "contentReview_reviewWarningConfirm": {
+    "message": "تفعيل المراجعة",
+    "description": "Content review UI string."
+  },
+  "contentReview_reviewWarningCancel": {
+    "message": "إلغاء",
+    "description": "Content review UI string."
+  },
+  "contentReview_reviewRunLabel": {
+    "message": "مراجعة",
+    "description": "Content review UI string."
+  },
+  "contentReview_reviewDraftsCreated": {
+    "message": "المسودات جاهزة للمراجعة.",
+    "description": "Content review UI string."
+  },
+  "contentReview_reviewStorageCapWarning_one": {
+    "message": "{{count}} ملف يتجاوز حد المسودات المحلية ({{cap}}). أرفق المصادر قبل اعتماد الصوت/الفيديو.",
+    "description": "Content review UI string."
+  },
+  "contentReview_reviewStorageCapWarning_other": {
+    "message": "{{count}} ملفات تتجاوز حد المسودات المحلية ({{cap}}). أرفق المصادر قبل اعتماد الصوت/الفيديو.",
+    "description": "Content review UI string."
+  },
+  "contentReview_openContentReview": {
+    "message": "فتح مراجعة المحتوى",
+    "description": "Content review UI string."
+  },
+  "contentReview_batchLabel": {
+    "message": "دفعة",
+    "description": "Content review UI string."
+  },
+  "contentReview_batchName": {
+    "message": "دفعة {{index}}",
+    "description": "Content review UI string."
+  },
+  "contentReview_draftsLabel": {
+    "message": "المسودات",
+    "description": "Content review UI string."
+  },
+  "contentReview_selectDraft": {
+    "message": "اختر مسودة لبدء المراجعة.",
+    "description": "Content review UI string."
+  },
+  "contentReview_titlePlaceholder": {
+    "message": "عنوان المسودة",
+    "description": "Content review UI string."
+  },
+  "contentReview_lastSaved": {
+    "message": "تم الحفظ {{time}}",
+    "description": "Content review UI string."
+  },
+  "contentReview_resetTitle": {
+    "message": "إعادة تعيين المسودة؟",
+    "description": "Content review UI string."
+  },
+  "contentReview_resetBody": {
+    "message": "سيؤدي هذا إلى استعادة المحتوى الأصلي لهذه المسودة.",
+    "description": "Content review UI string."
+  },
+  "contentReview_resetConfirm": {
+    "message": "إعادة تعيين",
+    "description": "Content review UI string."
+  },
+  "contentReview_resetCancel": {
+    "message": "إلغاء",
+    "description": "Content review UI string."
+  },
+  "contentReview_resetContent": {
+    "message": "إعادة تعيين",
+    "description": "Content review UI string."
+  },
+  "contentReview_diffView": {
+    "message": "عرض الفروقات",
+    "description": "Content review UI string."
+  },
+  "contentReview_saveDraft": {
+    "message": "حفظ المسودة",
+    "description": "Content review UI string."
+  },
+  "contentReview_editorLabel": {
+    "message": "المحتوى",
+    "description": "Content review UI string."
+  },
+  "contentReview_wordCount": {
+    "message": "{{words}} كلمة",
+    "description": "Content review UI string."
+  },
+  "contentReview_charCount": {
+    "message": "{{chars}} حرفاً",
+    "description": "Content review UI string."
+  },
+  "contentReview_aiFix": {
+    "message": "تصحيح بالذكاء الاصطناعي",
+    "description": "Content review UI string."
+  },
+  "contentReview_aiHint": {
+    "message": "يرسل محتوى المسودة إلى الخادم لديك لمعالجته بالذكاء الاصطناعي.",
+    "description": "Content review UI string."
+  },
+  "contentReview_modelPlaceholder": {
+    "message": "الإعداد الافتراضي للخادم",
+    "description": "Content review UI string."
+  },
+  "contentReview_aiConsentTitle": {
+    "message": "إرسال المسودة إلى الخادم؟",
+    "description": "Content review UI string."
+  },
+  "contentReview_aiConsentBody": {
+    "message": "سيتم إرسال محتوى المسودة إلى خادم tldw لديك لمعالجته بالذكاء الاصطناعي. تظل المسودات محلية حتى تقوم باعتمادها.",
+    "description": "Content review UI string."
+  },
+  "contentReview_aiConsentConfirm": {
+    "message": "متابعة",
+    "description": "Content review UI string."
+  },
+  "contentReview_aiConsentCancel": {
+    "message": "إلغاء",
+    "description": "Content review UI string."
+  },
+  "contentReview_aiApplied": {
+    "message": "تم تطبيق تصحيحات الذكاء الاصطناعي.",
+    "description": "Content review UI string."
+  },
+  "contentReview_aiNoChange": {
+    "message": "لم يتم إرجاع أي تغييرات.",
+    "description": "Content review UI string."
+  },
+  "contentReview_aiEmpty": {
+    "message": "لم يُرجع الذكاء الاصطناعي أي محتوى.",
+    "description": "Content review UI string."
+  },
+  "contentReview_aiUnavailable": {
+    "message": "إكمالات الدردشة غير متاحة.",
+    "description": "Content review UI string."
+  },
+  "contentReview_templatePlaceholder": {
+    "message": "اختر قالباً",
+    "description": "Content review UI string."
+  },
+  "contentReview_applyTemplate": {
+    "message": "تطبيق القالب",
+    "description": "Content review UI string."
+  },
+  "contentReview_templateApplied": {
+    "message": "تم تطبيق القالب.",
+    "description": "Content review UI string."
+  },
+  "contentReview_templateMissing": {
+    "message": "يرجى اختيار قالب أولاً.",
+    "description": "Content review UI string."
+  },
+  "contentReview_detectSections": {
+    "message": "اكتشاف الأقسام",
+    "description": "Content review UI string."
+  },
+  "contentReview_detectSectionsTitle": {
+    "message": "إعادة اكتشاف الأقسام؟",
+    "description": "Content review UI string."
+  },
+  "contentReview_detectSectionsBody": {
+    "message": "سيؤدي هذا إلى استبدال الأقسام الحالية وإعادة تعيين اختياراتك.",
+    "description": "Content review UI string."
+  },
+  "contentReview_detectSectionsConfirm": {
+    "message": "إعادة الاكتشاف",
+    "description": "Content review UI string."
+  },
+  "contentReview_detectSectionsCancel": {
+    "message": "إلغاء",
+    "description": "Content review UI string."
+  },
+  "contentReview_detectSectionsEmpty": {
+    "message": "لم يتم اكتشاف أي أقسام.",
+    "description": "Content review UI string."
+  },
+  "contentReview_sectionsLabel": {
+    "message": "فلتر الأقسام",
+    "description": "Content review UI string."
+  },
+  "contentReview_templates_transcript_clean_label": {
+    "message": "تنظيف النص المفرغ",
+    "description": "Content review UI string."
+  },
+  "contentReview_templates_transcript_clean_description": {
+    "message": "توحيد علامات الترقيم وحالة الأحرف مع الحفاظ على بنية الأسطر.",
+    "description": "Content review UI string."
+  },
+  "contentReview_templates_speaker_turns_label": {
+    "message": "أدوار المتحدثين",
+    "description": "Content review UI string."
+  },
+  "contentReview_templates_speaker_turns_description": {
+    "message": "يضمن أن يكون كل دور للمتحدث في سطر منفصل مع تسميات واضحة.",
+    "description": "Content review UI string."
+  },
+  "contentReview_templates_chapter_headings_label": {
+    "message": "عناوين الفصول",
+    "description": "Content review UI string."
+  },
+  "contentReview_templates_chapter_headings_description": {
+    "message": "يُدرج عناوين Markdown لتجميع المواضيع دون إزالة المحتوى.",
+    "description": "Content review UI string."
+  },
+  "contentReview_metadataLabel": {
+    "message": "البيانات الوصفية",
+    "description": "Content review UI string."
+  },
+  "contentReview_mediaType": {
+    "message": "نوع الوسائط",
+    "description": "Content review UI string."
+  },
+  "contentReview_keywords": {
+    "message": "الكلمات المفتاحية",
+    "description": "Content review UI string."
+  },
+  "contentReview_keywordsPlaceholder": {
+    "message": "إضافة كلمات مفتاحية",
+    "description": "Content review UI string."
+  },
+  "contentReview_reviewNotes": {
+    "message": "ملاحظات المراجعة",
+    "description": "Content review UI string."
+  },
+  "contentReview_missingSource": {
+    "message": "ملف المصدر مفقود",
+    "description": "Content review UI string."
+  },
+  "contentReview_missingSourceBody": {
+    "message": "أرفق الملف الأصلي لاعتماد هذه المسودة.",
+    "description": "Content review UI string."
+  },
+  "contentReview_attachSource": {
+    "message": "إرفاق ملف",
+    "description": "Content review UI string."
+  },
+  "contentReview_actionsLabel": {
+    "message": "الإجراءات",
+    "description": "Content review UI string."
+  },
+  "contentReview_commit": {
+    "message": "اعتماد",
+    "description": "Content review UI string."
+  },
+  "contentReview_commitDisabled": {
+    "message": "أرفق ملف الصوت/الفيديو الأصلي قبل الاعتماد.",
+    "description": "Content review UI string."
+  },
+  "contentReview_markReviewed": {
+    "message": "وضع علامة تمت مراجعتها",
+    "description": "Content review UI string."
+  },
+  "contentReview_skipNext": {
+    "message": "تخطي",
+    "description": "Content review UI string."
+  },
+  "contentReview_discard": {
+    "message": "تجاهل",
+    "description": "Content review UI string."
+  },
+  "contentReview_discardTitle": {
+    "message": "تجاهل المسودة؟",
+    "description": "Content review UI string."
+  },
+  "contentReview_discardBody": {
+    "message": "سيتم وضع علامة على هذه المسودة كتجاهَل وإزالتها من المراجعة.",
+    "description": "Content review UI string."
+  },
+  "contentReview_discardConfirm": {
+    "message": "تجاهل",
+    "description": "Content review UI string."
+  },
+  "contentReview_discardCancel": {
+    "message": "إلغاء",
+    "description": "Content review UI string."
+  },
+  "contentReview_commitSuccess": {
+    "message": "تم اعتماد المسودة.",
+    "description": "Content review UI string."
+  },
+  "contentReview_commitAllTitle": {
+    "message": "اعتماد المسودات التي تمت مراجعتها؟",
+    "description": "Content review UI string."
+  },
+  "contentReview_commitAllBody": {
+    "message": "سيتم اعتماد المسودات المعلّمة كمراجَعة فقط.",
+    "description": "Content review UI string."
+  },
+  "contentReview_commitAllConfirm": {
+    "message": "اعتماد الكل",
+    "description": "Content review UI string."
+  },
+  "contentReview_commitAllCancel": {
+    "message": "إلغاء",
+    "description": "Content review UI string."
+  },
+  "contentReview_commitAllResult": {
+    "message": "{{success}} تم اعتمادها · {{failed}} فشلت",
+    "description": "Content review UI string."
+  },
+  "contentReview_storageCapWarning": {
+    "message": "يتجاوز هذا الملف حد المسودات المحلي ({{cap}}).",
+    "description": "Content review UI string."
+  },
+  "contentReview_clearTitle": {
+    "message": "مسح جميع المسودات؟",
+    "description": "Content review UI string."
+  },
+  "contentReview_clearBody": {
+    "message": "يؤدي هذا إلى إزالة جميع مسودات مراجعة المحتوى والملفات المحلية.",
+    "description": "Content review UI string."
+  },
+  "contentReview_clearConfirm": {
+    "message": "مسح المسودات",
+    "description": "Content review UI string."
+  },
+  "contentReview_clearCancel": {
+    "message": "إلغاء",
+    "description": "Content review UI string."
+  },
+  "contentReview_clearSuccess": {
+    "message": "تم مسح المسودات.",
+    "description": "Content review UI string."
+  },
+  "contentReview_originalLabel": {
+    "message": "الأصلي",
+    "description": "Content review UI string."
+  },
+  "contentReview_editedLabel": {
+    "message": "بعد التعديل",
+    "description": "Content review UI string."
+  },
+  "reviewDraftsFailedTitle": {
+    "message": "تعذر إنشاء مسودات المراجعة.",
+    "description": "Error title when review drafts creation fails."
+  },
+  "reviewDraftsFailedFallback": {
+    "message": "فشل إنشاء مسودات المراجعة.",
+    "description": "Fallback error message for review drafts failure."
+  },
+  "reviewDraftsRetry": {
+    "message": "أعد محاولة إنشاء المسودات",
+    "description": "Button label to retry creating review drafts."
+  },
+  "reviewDraftsStoreWithoutReview": {
+    "message": "احفظ دون مراجعة",
+    "description": "Action to store without review."
+  },
+  "reviewNavigationFailed": {
+    "message": "تعذر فتح مراجعة المحتوى. يرجى المحاولة مرة أخرى.",
+    "description": "Error message when navigation to Content Review fails."
+  },
+  "reviewNavigationRetry": {
+    "message": "أعد محاولة فتح مراجعة المحتوى",
+    "description": "Button label to retry opening Content Review."
+  },
+  "quickIngest_title": {
+    "message": "استيعاب سريع للوسائط"
+  },
+  "quickIngest_subtitle": {
+    "message": "أدخل عنوان URL واحداً أو أكثر. يمكنك فرض النوع لكل سطر إذا لزم الأمر."
+  },
+  "quickIngest_offlineTitle": {
+    "message": "الخادم غير متصل — للاختبار فقط"
+  },
+  "quickIngest_offlineDescription": {
+    "message": "يمكنك وضع روابط وملفات في قائمة الانتظار هنا وتفقد الحقول، لكن لن يتم الاستيعاب حتى يعود خادم tldw إلى العمل. أعد الاتصال لمعالجة العناصر المعلقة."
+  },
+  "quickIngest_sourceHeading": {
+    "message": "عناوين URL أو ملفات المصدر"
+  },
+  "quickIngest_storeRemote": {
+    "message": "التخزين في قاعدة بيانات بعيدة"
+  },
+  "quickIngest_storeRemoteAria": {
+    "message": "خزن نتائج الاستيعاب على خادم tldw الخاص بك"
+  },
+  "quickIngest_processOnlyAria": {
+    "message": "عالج نتائج الاستيعاب محليًا فقط"
+  },
+  "quickIngest_storeRemoteHelp": {
+    "message": "يحمّل إلى خادم tldw الخاص بك للفهرسة."
+  },
+  "quickIngest_processOnlyHelp": {
+    "message": "يعالج فقط ويحفظ النتائج محليًا (تنزيل JSON)."
+  },
+  "quickIngest_storageHeading": {
+    "message": "مكان تخزين نتائج الاستيعاب"
+  },
+  "quickIngest_storageServerDescription": {
+    "message": "مخزَّنة على خادم tldw الخاص بك (موصى به لـ RAG ومساحات العمل المشتركة)."
+  },
+  "quickIngest_storageLocalDescription": {
+    "message": "محفوظة في هذا المتصفح فقط؛ لا تُكتب بيانات على الخادم."
+  },
+  "quickIngest_storeAfterReview": {
+    "message": "الحفظ بعد المراجعة"
+  },
+  "quickIngest_reviewBeforeStorage": {
+    "message": "المراجعة قبل الحفظ"
+  },
+  "quickIngest_reviewBeforeStorageHint": {
+    "message": "قم بالمعالجة الآن ثم حرّر المسودات محليًا قبل اعتمادها على الخادم."
+  },
+  "quickIngest_reviewEnabled": {
+    "message": "وضع المراجعة"
+  },
+  "quickIngest_reviewStorageCap": {
+    "message": "الحد الأقصى للمسودات المحلية هو {{cap}}."
+  },
+  "quickIngest_reviewStorageCapWarning_one": {
+    "message": "{{count}} ملف يتجاوز حد المسودات المحلية ({{cap}}). أرفق المصادر قبل اعتماد الصوت/الفيديو."
+  },
+  "quickIngest_reviewStorageCapWarning_other": {
+    "message": "{{count}} ملفات تتجاوز حد المسودات المحلية ({{cap}}). أرفق المصادر قبل اعتماد الصوت/الفيديو."
+  },
+  "quickIngest_reviewWarningTitle": {
+    "message": "حفظ المسودات محليًا؟"
+  },
+  "quickIngest_reviewWarningBody": {
+    "message": "تُحفظ المسودات في هذا المتصفح وقد تتضمن بيانات حساسة. يمكنك مسح المسودات من صفحة مراجعة المحتوى في أي وقت."
+  },
+  "quickIngest_reviewWarningBodySecondary": {
+    "message": "يحفظ وضع المراجعة المحتوى على جانب العميل حتى تعتمدَه على الخادم."
+  },
+  "quickIngest_reviewWarningConfirm": {
+    "message": "تفعيل المراجعة"
+  },
+  "quickIngest_reviewWarningCancel": {
+    "message": "إلغاء"
+  },
+  "quickIngest_reviewRunLabel": {
+    "message": "مراجعة"
+  },
+  "quickIngest_reviewDraftsCreated": {
+    "message": "المسودات جاهزة للمراجعة."
+  },
+  "quickIngest_reviewDraftsFailedTitle": {
+    "message": "تعذر إنشاء مسودات المراجعة."
+  },
+  "quickIngest_reviewDraftsFailedFallback": {
+    "message": "فشل إنشاء مسودات المراجعة."
+  },
+  "quickIngest_reviewDraftsRetry": {
+    "message": "أعد محاولة إنشاء المسودات"
+  },
+  "quickIngest_reviewDraftsStoreWithoutReview": {
+    "message": "احفظ دون مراجعة"
+  },
+  "quickIngest_reviewNavigationFailed": {
+    "message": "تعذر فتح مراجعة المحتوى. يرجى المحاولة مرة أخرى."
+  },
+  "quickIngest_reviewNavigationRetry": {
+    "message": "أعد محاولة فتح مراجعة المحتوى"
+  },
+  "quickIngest_openContentReview": {
+    "message": "فتح مراجعة المحتوى"
+  },
+  "quickIngest_storageDocsLink": {
+    "message": "معرفة المزيد عن الاستيعاب والتخزين"
+  },
+  "quickIngest_storageDocsUrl": {
+    "message": "https://github.com/rmusser01/tldw_browser_assistant"
+  },
+  "quickIngest_bulkPlaceholder": {
+    "message": "الصق عناوين URL (واحد في كل سطر)"
+  },
+  "quickIngest_or": {
+    "message": "أو"
+  },
+  "quickIngest_remove": {
+    "message": "إزالة"
+  },
+  "quickIngest_add": {
+    "message": "إضافة عنوان URL"
+  },
+  "quickIngest_commonOptions": {
+    "message": "خيارات الاستيعاب"
+  },
+  "quickIngest_audioOptions": {
+    "message": "خيارات الصوت"
+  },
+  "quickIngest_audioLanguage": {
+    "message": "اللغة (مثال: en)"
+  },
+  "quickIngest_audioDiarizationHelp": {
+    "message": "فعّل هذا الخيار لفصل المتحدّثين في النصوص."
+  },
+  "quickIngest_documentOptions": {
+    "message": "خيارات المستند"
+  },
+  "quickIngest_videoOptions": {
+    "message": "خيارات الفيديو"
+  },
+  "quickIngest_captionsHelp": {
+    "message": "تضمين الطوابع الزمنية/الترجمات عند توفرها."
+  },
+  "quickIngest_cancel": {
+    "message": "إلغاء"
+  },
+  "quickIngest_ingest": {
+    "message": "استيعاب"
+  },
+  "quickIngest_process": {
+    "message": "معالجة"
+  },
+  "quickIngest_results": {
+    "message": "النتائج"
+  },
+  "quickIngest_downloadJson": {
+    "message": "تنزيل JSON"
+  },
+  "quickIngest_advancedSummary": {
+    "message": "{{count}} من الحقول المتقدمة تم تحميلها"
+  },
+  "quickIngest_advancedEmpty": {
+    "message": "لم يتم اكتشاف خيارات متقدمة — جرّب إعادة تحميل المواصفات."
+  },
+  "quickIngest_modifiedCount": {
+    "message": "{{count}} تم تعديلها"
+  },
+  "quickIngest_progress": {
+    "message": "جارٍ معالجة {{done}} من {{total}} عنصراً…"
+  },
+  "quickIngest_errorSummary": {
+    "message": "تعذر علينا معالجة عناصر الاستيعاب الآن."
+  },
+  "quickIngest_errorHint": {
+    "message": "جرّب مرة أخرى بعد التحقق من خادم tldw الخاص بك. يمكن أن تساعد صفحة Health & diagnostics في استكشاف مشكلات الاستيعاب وإصلاحها."
+  },
+  "quickIngest_checkHealthLink": {
+    "message": "تحقق من حالة الخادم في Health & diagnostics"
+  },
+  "quickIngest_healthAriaHint": {
+    "message": "فشلت عمليات الاستيعاب الأخيرة — افتح Health & diagnostics من الشريط العلوي لمزيد من التفاصيل."
+  },
+  "quickIngest_specReloadedToast": {
+    "message": "تمت إعادة تحميل المواصفات المتقدمة من الخادم"
+  },
+  "quickIngest_specReloadedToastDiff": {
+    "message": "تمت إعادة تحميل المواصفات المتقدمة من الخادم (الحقول المضافة: {{added}}، المحذوفة: {{removed}})"
+  },
+  "quickIngest_specFallbackWarning": {
+    "message": "يتم استخدام مخطط media.add المضمّن كخيار احتياطي (v{{version}})؛ يُرجى التحقق من tldw_server /openapi.json إذا بدت الحقول قديمة."
+  },
+  "storeAfterReview": {
+    "message": "الحفظ بعد المراجعة"
+  },
+  "manageCharacters_actions_viewConversations": {
+    "message": "عرض المحادثات"
+  },
+  "manageCharacters_aria_viewConversations": {
+    "message": "عرض المحادثات لـ {{name}}"
+  },
+  "manageCharacters_aria_searchResults": {
+    "message": "تم العثور على {{count}} شخصية"
+  },
+  "manageCharacters_conversations_title": {
+    "message": "محادثات {{name}}"
+  },
+  "manageCharacters_conversations_titleGeneric": {
+    "message": "محادثات الشخصية"
+  },
+  "manageCharacters_conversations_subtitle": {
+    "message": "اختر محادثة للمتابعة بهذه الشخصية."
+  },
+  "manageCharacters_conversations_empty": {
+    "message": "لا توجد محادثات لهذه الشخصية حتى الآن."
+  },
+  "manageCharacters_conversations_error": {
+    "message": "تعذر تحميل المحادثات لهذه الشخصية."
+  },
+  "manageCharacters_conversations_updated": {
+    "message": "تم التحديث {{time}}"
+  },
+  "manageCharacters_conversations_unknownTime": {
+    "message": "غير معروف"
+  },
+  "manageCharacters_conversations_resume": {
+    "message": "متابعة الدردشة"
+  },
+  "manageCharacters_conversations_untitled": {
+    "message": "بدون عنوان"
+  },
+  "manageCharacters_conversations_mostRecent": {
+    "message": "الأحدث"
+  },
+  "manageCharacters_conversations_resumeTooltip": {
+    "message": "تحميل سجل الدردشة ومتابعة هذه المحادثة"
+  },
+  "manageCharacters_preview_title": {
+    "message": "معاينة"
+  },
+  "manageCharacters_preview_show": {
+    "message": "إظهار المعاينة"
+  },
+  "manageCharacters_preview_hide": {
+    "message": "إخفاء المعاينة"
+  },
+  "manageCharacters_preview_untitled": {
+    "message": "شخصية بدون عنوان"
+  },
+  "manageCharacters_preview_greeting": {
+    "message": "رسالة الترحيب"
+  },
+  "manageCharacters_preview_behavior": {
+    "message": "السلوك"
+  },
+  "manageCharacters_preview_empty": {
+    "message": "املأ النموذج لرؤية المعاينة"
+  },
+  "manageCharacters_advanced_show": {
+    "message": "إظهار الحقول المتقدمة"
+  },
+  "manageCharacters_advanced_hide": {
+    "message": "إخفاء الحقول المتقدمة"
+  },
+  "chunkingPlayground_nav": {
+    "message": "ساحة تجزئة النص",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_title": {
+    "message": "ساحة تجزئة النص",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_description": {
+    "message": "جرّب إعدادات تجزئة مختلفة لمعرفة كيف يُقسَّم النص إلى أجزاء أصغر للمعالجة.",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_inputLabel": {
+    "message": "النص المراد تجزئته",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_inputPlaceholder": {
+    "message": "الصق النص هنا أو اختر نموذجًا...",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_uploadButton": {
+    "message": "رفع ملف",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_chunkButton": {
+    "message": "جزّئ النص",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_methodLabel": {
+    "message": "طريقة التجزئة",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_maxSizeLabel": {
+    "message": "الحد الأقصى لحجم الجزء",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_overlapLabel": {
+    "message": "التداخل",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_languageLabel": {
+    "message": "اللغة",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_languages_auto": {
+    "message": "الكشف التلقائي",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_languages_en": {
+    "message": "الإنجليزية",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_languages_es": {
+    "message": "الإسبانية",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_languages_fr": {
+    "message": "الفرنسية",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_languages_de": {
+    "message": "الألمانية",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_languages_it": {
+    "message": "الإيطالية",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_languages_pt": {
+    "message": "البرتغالية",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_languages_zh": {
+    "message": "الصينية",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_languages_ja": {
+    "message": "اليابانية",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_languages_ko": {
+    "message": "الكورية",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_viewCards": {
+    "message": "بطاقات",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_viewInline": {
+    "message": "مضمّن",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_stats": {
+    "message": "{{count}} أجزاء، متوسط {{avgSize}} حرفًا"
+  },
+  "chunkingPlayground_textLoaded": {
+    "message": "تم تحميل النص",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_characters": {
+    "message": "أحرف",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_tabSingle": {
+    "message": "مفرد",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_tabCompare": {
+    "message": "مقارنة",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_chunkIndex": {
+    "message": "جزء {{index}}"
+  },
+  "chunkingPlayground_chunkInfo": {
+    "message": "جزء {{index}}: {{words}} كلمة"
+  },
+  "chunkingPlayground_position": {
+    "message": "الموضع: {{start}} - {{end}}"
+  },
+  "chunkingPlayground_additionalChunks": {
+    "message": "+{{count}} أخرى"
+  },
+  "chunkingPlayground_charCount": {
+    "message": "{{count}} حرفًا"
+  },
+  "chunkingPlayground_wordCount": {
+    "message": "{{count}} كلمة"
+  },
+  "chunkingPlayground_noInput": {
+    "message": "يرجى إدخال نص لتجزئته",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_sharedInput": {
+    "message": "نص الإدخال المشترك",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_compareButton": {
+    "message": "قارن الاثنين",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_comparison": {
+    "message": "مقارنة",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_fewerChunks": {
+    "message": "الإعداد أ ينتج {{diff}} جزءًا أقل"
+  },
+  "chunkingPlayground_moreChunks": {
+    "message": "الإعداد أ ينتج {{diff}} جزءًا أكثر"
+  },
+  "chunkingPlayground_sameChunks": {
+    "message": "كلا الإعدادين ينتج العدد نفسه من الأجزاء",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_clickToChunk": {
+    "message": "انقر «مقارنة» لرؤية النتائج",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_overlapRegion": {
+    "message": "منطقة التداخل",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_clickHint": {
+    "message": "انقر على القسم المميَّز للتركيز على ذلك الجزء",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_noContentFound": {
+    "message": "لم يتم العثور على محتوى نصي لهذا العنصر",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_loadContentError": {
+    "message": "فشل تحميل محتوى الوسائط",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_loadMediaListError": {
+    "message": "فشل تحميل مكتبة الوسائط",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_selectMedia": {
+    "message": "اختر عنصر وسائط...",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_loadingMedia": {
+    "message": "جارٍ تحميل المحتوى...",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_noMediaFound": {
+    "message": "لم يتم العثور على وسائط",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_mediaCount": {
+    "message": "{{count}} عنصر وسائط متاح"
+  },
+  "chunkingPlayground_inputSource_paste": {
+    "message": "لصق النص",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_inputSource_upload": {
+    "message": "رفع ملف",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_inputSource_sample": {
+    "message": "نص نموذجي",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_inputSource_media": {
+    "message": "من مكتبة الوسائط",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_samples_article": {
+    "message": "مقال إخباري",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_samples_articleDesc": {
+    "message": "مقال متعدد الفقرات مع عناوين",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_samples_code": {
+    "message": "شفرة المصدر",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_samples_codeDesc": {
+    "message": "شفرة بايثون مع أصناف ودوال",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_samples_transcript": {
+    "message": "تفريغ",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_samples_transcriptDesc": {
+    "message": "تفريغ بودكاست مُؤقّت",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_samples_academic": {
+    "message": "ورقة أكاديمية",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_samples_academicDesc": {
+    "message": "كتابة تقنية مع مراجع",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_compare_title": {
+    "message": "مقارنة الإعدادات",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_compare_configA": {
+    "message": "الإعداد أ",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_compare_configB": {
+    "message": "الإعداد ب",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_mode_single": {
+    "message": "مفرد",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_mode_compare": {
+    "message": "مقارنة",
+    "description": "TODO: translate (copied from en)"
+  },
+  "managePrompts_importMode_merge": {
+    "message": "دمج"
+  },
+  "managePrompts_importMode_replace": {
+    "message": "استبدال"
+  },
+  "managePrompts_importMode_replaceConfirm": {
+    "message": "سيؤدي الاستبدال إلى الكتابة فوق جميع المطالبات الحالية بالملف المستورد. هل تريد المتابعة؟"
+  },
+  "flashcards_newDeckNameRequired": {
+    "message": "أدخل اسم المجموعة."
+  },
+  "flashcards_dueAll": {
+    "message": "الكل"
+  },
+  "flashcards_dueNew": {
+    "message": "جديدة"
+  },
+  "flashcards_dueLearning": {
+    "message": "قيد التعلّم"
+  },
+  "flashcards_dueDue": {
+    "message": "مستحقة"
+  },
+  "flashcards_reviewFailed": {
+    "message": "Review failed"
+  },
+  "flashcards_updateFailed": {
+    "message": "Update failed"
+  },
+  "flashcards_deleteFailed": {
+    "message": "Delete failed"
+  },
+  "flashcards_missingVersion": {
+    "message": "Missing version; reload and try again"
+  },
+  "flashcards_bulkDeleteResult": {
+    "message": "{{success}} deleted · {{failed}} failed"
+  },
+  "mediaPage_searchPlaceholder": {
+    "message": "ابحث في الوسائط (العنوان/المحتوى)"
+  },
+  "mediaPage_search": {
+    "message": "بحث"
+  },
+  "mediaPage_clear": {
+    "message": "مسح"
+  },
+  "mediaPage_types": {
+    "message": "الأنواع"
+  },
+  "mediaPage_keywords": {
+    "message": "الكلمات المفتاحية"
+  },
+  "mediaPage_moreTags": {
+    "message": "+{{count}} وسوم أخرى"
+  },
+  "mediaPage_resetFilters": {
+    "message": "إعادة تعيين عوامل التصفية"
+  },
+  "mediaPage_clearAll": {
+    "message": "مسح الكل"
+  },
+  "mediaPage_content": {
+    "message": "المحتوى"
+  },
+  "mediaPage_vertical": {
+    "message": "عمودي"
+  },
+  "mediaPage_horizontal": {
+    "message": "أفقي"
+  },
+  "mediaPage_results": {
+    "message": "النتائج"
+  },
+  "mediaPage_noResults": {
+    "message": "لا توجد نتائج"
+  },
+  "mediaPage_showSidebar": {
+    "message": "إظهار الشريط الجانبي"
+  },
+  "mediaPage_hideSidebar": {
+    "message": "إخفاء الشريط الجانبي"
+  },
+  "mediaPage_viewer": {
+    "message": "العارض"
+  },
+  "mediaPage_selectItemsHint": {
+    "message": "حدد العناصر على اليسار لعرضها هنا."
+  },
+  "mediaPage_mediaContent": {
+    "message": "محتوى الوسائط"
+  },
+  "mediaPage_copyContent": {
+    "message": "نسخ المحتوى"
+  },
+  "mediaPage_contentCopied": {
+    "message": "تم نسخ المحتوى"
+  },
+  "mediaPage_metadataCopied": {
+    "message": "تم نسخ البيانات الوصفية"
+  },
+  "mediaPage_analysisCopied": {
+    "message": "تم نسخ التحليل"
+  },
+  "mediaPage_copyFailed": {
+    "message": "فشل النسخ"
+  },
+  "mediaPage_noContent": {
+    "message": "لا يتوفر محتوى"
+  },
+  "mediaPage_collapse": {
+    "message": "طي"
+  },
+  "mediaPage_expand": {
+    "message": "توسيع"
+  },
+  "mediaPage_media": {
+    "message": "الوسائط"
+  },
+  "mediaPage_searchingBanner": {
+    "message": "جارٍ البحث في الوسائط…"
+  },
+  "mediaPage_filterHelp": {
+    "message": "يطابق البحث العنوان والمحتوى؛ وتُضيّق الأنواع والكلمات المفتاحية النتائج."
+  },
+  "mediaPage_noMediaTypes": {
+    "message": "لا توجد أنواع وسائط متاحة"
+  },
+  "mediaPage_resultsCount": {
+    "message": "{{selected}} محدد · {{open}} مفتوح"
+  },
+  "mediaPage_clearSelection": {
+    "message": "إلغاء تحديد الكل"
+  },
+  "mediaPage_itemsLabel": {
+    "message": "العناصر"
+  },
+  "mediaPage_contentLabel": {
+    "message": "عرض المحتوى"
+  },
+  "mediaPage_filterByKeyword": {
+    "message": "تصفية حسب الكلمة المفتاحية"
+  },
+  "mediaPage_keywordHelper": {
+    "message": "تساعدك الكلمات المفتاحية في العثور على هذه الوسائط باستخدام عامل تصفية الكلمات المفتاحية على اليسار"
+  },
+  "mediaPage_modeHint": {
+    "message": "ابحث عن عناصر وسائط متعددة وراكمها لمقارنتها في العارض الموجود على اليمين."
+  },
+  "mediaPage_viewerHelp": {
+    "message": "لوحة المفاتيح: انتقل إلى قائمة النتائج باستخدام Tab، واستخدم Enter أو Space لتكديس عنصر الوسائط أو إزالته، ثم استخدم عناصر التحكم السابق/التالي والتخطيطات للتنقل بين العناصر في العارض."
+  },
+  "mediaPage_viewerHelpLabel": {
+    "message": "اختصارات لوحة المفاتيح لمراجعة عناصر متعددة"
+  },
+  "mediaPage_mediaInspector": {
+    "message": "أداة فحص الوسائط"
+  },
+  "mediaPage_actionsLabel": {
+    "message": "إجراءات"
+  },
+  "mediaPage_keywordsPlaceholder": {
+    "message": "إضافة كلمات مفتاحية..."
+  },
+  "mediaPage_noSelectionTitle": {
+    "message": "لم يتم تحديد أي عنصر وسائط"
+  },
+  "mediaPage_noSelectionDescription": {
+    "message": "حدد عنصراً وسائطياً من الشريط الجانبي الأيسر لعرض محتواه وتحليلاته هنا."
+  },
+  "mediaPage_generateAnalysis": {
+    "message": "إنشاء تحليل"
+  },
+  "mediaPage_generateAnalysisHint": {
+    "message": "إنشاء تحليل جديد"
+  },
+  "mediaPage_editAnalysis": {
+    "message": "تعديل التحليل"
+  },
+  "mediaPage_createNoteWithContent": {
+    "message": "إنشاء ملاحظة بالمحتوى"
+  },
+  "mediaPage_createNoteWithContentAnalysis": {
+    "message": "إنشاء ملاحظة بالمحتوى + التحليل"
+  },
+  "mediaPage_untitled": {
+    "message": "بدون عنوان"
+  },
+  "mediaPage_copyMetadata": {
+    "message": "نسخ البيانات الوصفية"
+  },
+  "mediaPage_statistics": {
+    "message": "إحصاءات"
+  },
+  "mediaPage_words": {
+    "message": "الكلمات"
+  },
+  "mediaPage_characters": {
+    "message": "الأحرف"
+  },
+  "mediaPage_paragraphs": {
+    "message": "الفقرات"
+  },
+  "mediaPage_metadata": {
+    "message": "البيانات الوصفية"
+  },
+  "mediaPage_idLabel": {
+    "message": "المعرّف"
+  },
+  "mediaPage_typeLabel": {
+    "message": "النوع"
+  },
+  "mediaPage_titleLabel": {
+    "message": "العنوان"
+  },
+  "mediaPage_source": {
+    "message": "المصدر"
+  },
+  "mediaPage_notAvailable": {
+    "message": "غير متوفر"
+  },
+  "mediaPage_developerTools": {
+    "message": "أدوات المطوّر"
+  },
+  "mediaPage_nothingToSend": {
+    "message": "لا يوجد ما يتم إرساله"
+  },
+  "mediaPage_emptyAnalysis": {
+    "message": "لا يمكن أن يكون التحليل فارغاً"
+  },
+  "mediaPage_noMediaId": {
+    "message": "لا تتوفر هوية وسائط"
+  },
+  "mediaPage_versionSaved": {
+    "message": "تم الحفظ كإصدار جديد"
+  },
+  "mediaPage_saveFailed": {
+    "message": "فشل حفظ الإصدار"
+  },
+  "mediaPage_sendToChat": {
+    "message": "إرسال إلى الدردشة"
+  },
+  "mediaPage_saveAsVersion": {
+    "message": "حفظ كإصدار جديد"
+  },
+  "mediaPage_analysisPlaceholder": {
+    "message": "أدخل نص التحليل..."
+  },
+  "mediaPage_wordCount": {
+    "message": "{{count}} كلمة"
+  },
+  "mediaPage_charCount": {
+    "message": "{{count}} حرف"
+  },
+  "mediaPage_pageRangeError": {
+    "message": "يجب أن تكون الصفحة بين 1 و {{max}}"
+  },
+  "mediaPage_pageRangeClamped": {
+    "message": "الانتقال إلى الصفحة {{page}}"
+  },
+  "mediaPage_saveUnauthorized": {
+    "message": "غير مصرح لك بالحفظ"
+  },
+  "flashcards_markdownSupportHint": {
+    "message": "يدعم Markdown و LaTeX."
+  },
+  "flashcards_extraHint": {
+    "message": "تلميحات/توضيحات اختيارية (يدعم Markdown و LaTeX)."
+  },
+  "flashcards_notesHint": {
+    "message": "ملاحظات داخلية (يدعم Markdown و LaTeX)."
+  },
+  "header_modeSpeech": {
+    "message": "الصوت"
+  },
+  "playground_speech_title": {
+    "message": "ساحة تجربة الصوت"
+  },
+  "playground_speech_subtitle": {
+    "message": "سجّل الكلام وحرّر التفريغ النصي وولّد الصوت في مكان واحد."
+  },
+  "playground_speech_modeLabel": {
+    "message": "الوضع"
+  },
+  "playground_speech_modeRoundTrip": {
+    "message": "ذهاب وإياب"
+  },
+  "playground_speech_modeSpeak": {
+    "message": "تحدّث"
+  },
+  "playground_speech_modeListen": {
+    "message": "استمع"
+  },
+  "playground_speech_modeHint": {
+    "message": "يتم تذكّر آخر وضع على هذا الجهاز."
+  },
+  "playground_speech_recordingWaveform": {
+    "message": "شكل موجي للتسجيل المباشر"
+  },
+  "playground_speech_playbackWaveform": {
+    "message": "شكل موجي للتشغيل"
+  },
+  "playground_speech_sendToTts": {
+    "message": "إرسال إلى TTS"
+  },
+  "playground_speech_sendHint": {
+    "message": "استخدم آخر تفريغ نصي كمسودة TTS."
+  },
+  "playground_speech_download": {
+    "message": "تنزيل"
+  },
+  "playground_speech_downloadCurrent": {
+    "message": "تنزيل المقطع الحالي"
+  },
+  "playground_speech_downloadAll": {
+    "message": "تنزيل كل المقاطع"
+  },
+  "playground_speech_segmentFormat": {
+    "message": "التنسيق"
+  },
+  "playground_speech_historyTitle": {
+    "message": "سجل الصوت"
+  },
+  "playground_speech_historyAll": {
+    "message": "الكل"
+  },
+  "playground_speech_historyStt": {
+    "message": "STT"
+  },
+  "playground_speech_historyTts": {
+    "message": "TTS"
+  },
+  "playground_speech_historySearch": {
+    "message": "ابحث في التفريغات النصية"
+  },
+  "playground_speech_historyRetentionHint": {
+    "message": "يحتفظ بآخر {{count}} عنصرًا. استخدم \"مسح الكل\" لإزالة كل شيء."
+  },
+  "playground_speech_useInTts": {
+    "message": "استخدم في TTS"
+  },
+  "playground_speech_copy": {
+    "message": "نسخ"
+  },
+  "playground_speech_copySuccess": {
+    "message": "تم النسخ إلى الحافظة"
+  },
+  "playground_speech_copyError": {
+    "message": "تعذر نسخ التفريغ النصي."
+  },
+  "playground_speech_providerTag": {
+    "message": "المزوّد"
+  },
+  "playground_speech_voiceTag": {
+    "message": "الصوت"
+  },
+  "playground_speech_emptyHistory": {
+    "message": "ابدأ تسجيلًا أو أنشئ صوتًا لعرض السجل هنا."
+  },
+  "playground_speech_downloadDisabledBrowser": {
+    "message": "TTS في المتصفح لا ينشئ صوتًا قابلاً للتنزيل."
+  },
+  "playground_speech_downloadDisabledEmpty": {
+    "message": "أنشئ صوتًا لتمكين التنزيلات."
+  },
+  "playground_speech_transcriptLock": {
+    "message": "قفل"
+  },
+  "playground_speech_transcriptUnlock": {
+    "message": "إلغاء القفل"
+  },
+  "playground_speech_transcriptEditHint": {
+    "message": "تم تفعيل التعديل لهذا التفريغ النصي."
+  },
+  "playground_speech_transcriptLockedHint": {
+    "message": "مقفل لتحديثات التفريغ المباشر."
+  },
+  "playground_speech_transcriptRecordingHint": {
+    "message": "جارٍ التسجيل؛ التفريغ النصي مقفل."
+  },
+  "playground_tts_unsupportedFormatTitle": {
+    "message": "تنسيق صوت غير مدعوم"
+  },
+  "playground_tts_unsupportedFormatDescription": {
+    "message": "تنسيق الاستجابة \"{{format}}\" غير مدعوم. سيتم الرجوع إلى MP3."
+  },
+  "playground_formError_noModel": {
+    "message": "الرجاء اختيار نموذج"
+  },
+  "playground_formError_noEmbeddingModel": {
+    "message": "الرجاء تعيين نموذج التضمين في صفحة الإعدادات > RAG"
+  },
+  "playground_form_textarea_placeholder": {
+    "message": "اكتب رسالة..."
+  },
+  "playground_form_webSearch_on": {
+    "message": "تشغيل"
+  },
+  "playground_form_webSearch_off": {
+    "message": "إيقاف"
+  },
+  "playground_tooltip_searchInternet": {
+    "message": "البحث في الإنترنت"
+  },
+  "playground_tooltip_speechToText": {
+    "message": "تحويل الكلام إلى نص"
+  },
+  "playground_tooltip_uploadImage": {
+    "message": "تحميل صورة"
+  },
+  "playground_tooltip_stopStreaming": {
+    "message": "إيقاف البث"
+  },
+  "playground_tooltip_knowledge": {
+    "message": "المعرفة"
+  },
+  "playground_tooltip_vision": {
+    "message": "[تجريبي] محادثة الرؤية"
+  },
+  "playground_tooltip_clearContext": {
+    "message": "مسح السياق"
+  },
+  "playground_tooltip_speechToTextServer": {
+    "message": "الإملاء عبر خادم tldw الخاص بك"
+  },
+  "playground_tooltip_speechToTextBrowser": {
+    "message": "الإملاء عبر التعرف على الكلام في المتصفح"
+  },
+  "playground_tooltip_speechToTextDetails": {
+    "message": "يستخدم {{model}} · {{task}} · {{format}}. يمكنك ضبطه من الإعدادات → عام → تحويل الكلام إلى نص."
+  },
+  "playground_tooltip_uploadDocuments": {
+    "message": "تحميل المستندات (تجريبي)"
+  },
+  "playground_sendWhenEnter": {
+    "message": "إرسال عند الضغط على Enter"
+  },
+  "playground_welcome": {
+    "message": "مرحباً! كيف يمكنني مساعدتك اليوم؟"
+  },
+  "playground_useOCR": {
+    "message": "استخراج النص من الصورة (OCR)"
+  },
+  "playground_tips_title": {
+    "message": "نصائح"
+  },
+  "playground_tips_quickIngest": {
+    "message": "استخدم الإدخال السريع (Quick ingest) لإضافة المستندات وصفحات الويب."
+  },
+  "playground_tips_pickModelPrompt": {
+    "message": "اختر نموذجاً وموجهاً من الترويسة."
+  },
+  "playground_tips_startChatFocus": {
+    "message": "عند الاتصال، يقوم \"بدء الدردشة\" بتركيز مؤشر الكتابة في مربع الرسالة."
+  },
+  "playground_tldwState_searching": {
+    "message": "جارٍ البحث عن tldw server الخاص بك"
+  },
+  "playground_tldwState_running": {
+    "message": "tldw يعمل"
+  },
+  "playground_tldwState_notRunning": {
+    "message": "تعذر الاتصال بـ tldw server"
+  },
+  "playground_tldwState_connectionError": {
+    "message": "يبدو أنك تواجه خطأ في الاتصال. يرجى الرجوع إلى هذا <anchor>الدليل</anchor> لاستكشاف الأخطاء وإصلاحها."
+  },
+  "playground_tldwState_openTldwSettings": {
+    "message": "فتح إعدادات tldw"
+  },
+  "playground_tldwState_cancelSearch": {
+    "message": "إلغاء البحث"
+  },
+  "playground_tldwState_connectionFailedWithCode": {
+    "message": "فشل الاتصال (HTTP {{code}})"
+  },
+  "playground_tldwState_connectionFailed": {
+    "message": "فشل الاتصال"
+  },
+  "playground_tldwState_errorDetailsLabel": {
+    "message": "التفاصيل:"
+  },
+  "playground_tldwState_title": {
+    "message": "في انتظار خادم tldw الخاص بك"
+  },
+  "playground_tldwState_subtitle": {
+    "message": "نقوم بإرسال طلبات ping إلى {{host}} للتحقق من الاتصال."
+  },
+  "playground_tldwState_missing": {
+    "message": "لم يتم ضبط عنوان الخادم"
+  },
+  "playground_tldwState_noServer": {
+    "message": "أضف خادم tldw الخاص بك لبدء الدردشة."
+  },
+  "playground_tldwState_connectedSubtitle": {
+    "message": "متصل بـ {{host}}. ابدأ الدردشة عندما تكون جاهزاً."
+  },
+  "playground_tldwState_errorSubtitle": {
+    "message": "تعذّر الوصول إلى {{host}} حتى الآن. أعد المحاولة أو حدّث إعدادات الخادم."
+  },
+  "playground_tldwState_openSettings": {
+    "message": "فتح الإعدادات"
+  },
+  "playground_tldwState_changeServer": {
+    "message": "تغيير الخادم"
+  },
+  "playground_tldwState_elapsed": {
+    "message": "جارٍ الفحص… ‏{{seconds}} ثانية"
+  },
+  "playground_tldwState_connectedHint": {
+    "message": "متصل بـ {{host}}."
+  },
+  "playground_tldwState_lastChecked": {
+    "message": "تم الفحص قبل {{seconds}} ثانية"
+  },
+  "playground_tldwState_recheck": {
+    "message": "إعادة الفحص"
+  },
+  "playground_tldwState_errorToast": {
+    "message": "تعذّر الوصول إلى {{host}}"
+  },
+  "playground_tldwState_missingHelp": {
+    "message": "افتح الإعدادات → خادم tldw لإضافة عنوان URL الخاص بك أو الاتصال بصفحة الخيارات."
+  },
+  "playground_tldwState_troubleshoot": {
+    "message": "تأكد من أن الخادم يعمل وأن المتصفح مسموح له بالوصول إليه، ثم أعد المحاولة من صفحة الخيارات."
+  },
+  "playground_errors_privateModeDescription": {
+    "message": "لا يدعم وضع التصفح الخاص في فايرفوكس حفظ الدردشة. يتم تفعيل الدردشة المؤقتة افتراضيًا. تحسينات قادمة قريبًا."
+  },
+  "playground_tts_playErrorTitle": {
+    "message": "خطأ"
+  },
+  "playground_tts_playErrorDescription": {
+    "message": "حدث خطأ أثناء تشغيل الصوت"
+  },
+  "playground_tts_browserInfoTitle": {
+    "message": "تحويل النص إلى كلام في المتصفح يستخدم صوت النظام"
+  },
+  "playground_tts_browserInfoDescription": {
+    "message": "Browser TTS plays using your system synthesizer and does not expose a downloadable audio file. Use the segment controls below, or switch providers for a track list and player."
+  },
+  "playground_tts_unsupportedProviderTitle": {
+    "message": "موفّر TTS غير مدعوم"
+  },
+  "playground_tts_unsupportedProviderDescription": {
+    "message": "الموفّر \"{{provider}}\" غير مدعوم بعد في مشغل ساحة اللعب."
+  },
+  "playground_tts_elevenLabsMissingTitle": {
+    "message": "ElevenLabs needs an API key"
+  },
+  "playground_tts_elevenLabsMissingBody": {
+    "message": "Add your ElevenLabs API key in Settings to load voices and models."
+  },
+  "playground_tts_elevenLabsUnavailableTitle": {
+    "message": "ElevenLabs voices unavailable"
+  },
+  "playground_tts_elevenLabsUnavailableBody": {
+    "message": "We couldn't load voices or models. Check your API key and try again."
+  },
+  "playground_tts_elevenLabsMissingCta": {
+    "message": "Set API key in Settings"
+  },
+  "playground_tts_generateErrorTitle": {
+    "message": "خطأ في إنشاء الصوت"
+  },
+  "playground_tts_generateErrorDescription": {
+    "message": "حدث خطأ أثناء إنشاء صوت TTS."
+  },
+  "playground_tts_sampleText": {
+    "message": "أدخل نصاً تجريبياً"
+  },
+  "playground_tts_playHelper": {
+    "message": "يستخدم التشغيل الموفّر والصوت والسرعة التي اخترتها."
+  },
+  "playground_tts_playDisabledNoText": {
+    "message": "أدخل نصاً لتفعيل زر التشغيل."
+  },
+  "playground_tts_playDisabledTtsOff": {
+    "message": "فعّل تحويل النص إلى كلام في الأعلى لتشغيل الصوت."
+  },
+  "playground_tts_playDisabledElevenLabs": {
+    "message": "Add an ElevenLabs API key, voice, and model to enable Play."
+  },
+  "playground_tts_stopDisabled": {
+    "message": "يصبح زر الإيقاف متاحاً بعد بدء تشغيل الصوت."
+  },
+  "playground_tts_providerChangeHelper": {
+    "message": "افتح محدّد الموفّر في الأسفل للتبديل بين المتصفح و tldw و OpenAI و Supersonic."
+  },
+  "playground_tts_changeProvider": {
+    "message": "تغيير الموفّر"
+  },
+  "playground_tts_title": {
+    "message": "ساحة لعب تحويل النص إلى كلام"
+  },
+  "playground_tts_subtitle": {
+    "message": "جرّب تحويل النص إلى كلام وقم بضبط الموفّرين والنماذج والأصوات."
+  },
+  "playground_tts_currentProvider": {
+    "message": "الموفّر الحالي"
+  },
+  "playground_tts_settingsIntro": {
+    "message": "عدّل موفّر تحويل النص إلى كلام والنموذج والصوت. يُعاد استخدام هذه الإعدادات عند تشغيل الصوت من الدردشة أو الوسائط."
+  },
+  "playground_tts_providerCapabilities": {
+    "message": "قدرات الموفّر"
+  },
+  "playground_tts_voicesPreview": {
+    "message": "أصوات الخادم"
+  },
+  "playground_tts_providerDetails": {
+    "message": "عرض إعدادات الموفّر الخام"
+  },
+  "playground_tts_providerDetailsTitle": {
+    "message": "تفاصيل الموفّر"
+  },
+  "playground_tts_inputLabel": {
+    "message": "أدخل بعض النص لسماع نطقه."
+  },
+  "playground_tts_inputPlaceholder": {
+    "message": "اكتب أو الصق النص هنا، ثم استخدم \"تشغيل\" للاستماع."
+  },
+  "playground_tts_play": {
+    "message": "تشغيل"
+  },
+  "playground_tts_playing": {
+    "message": "جارٍ التشغيل…"
+  },
+  "playground_tts_stop": {
+    "message": "إيقاف"
+  },
+  "playground_tts_browserSegmentsTitle": {
+    "message": "Browser TTS segments"
+  },
+  "playground_tts_browserSegmentsHelp": {
+    "message": "Queue segments or play an individual segment using system audio."
+  },
+  "playground_tts_browserQueueAll": {
+    "message": "Queue all"
+  },
+  "playground_tts_browserQueueFromHere": {
+    "message": "Queue from here"
+  },
+  "playground_tts_browserSegmentPlay": {
+    "message": "Play segment"
+  },
+  "playground_tts_browserStatusSpeaking": {
+    "message": "Speaking segment {{current}}/{{total}}"
+  },
+  "playground_tts_browserStatusPaused": {
+    "message": "Paused"
+  },
+  "playground_tts_browserPause": {
+    "message": "Pause"
+  },
+  "playground_tts_browserResume": {
+    "message": "Resume"
+  },
+  "playground_tts_tldwStatusOnline": {
+    "message": "تم اكتشاف واجهة برمجة تطبيقات الصوت في خادم tldw (audio/speech)"
+  },
+  "playground_tts_tldwStatusOffline": {
+    "message": "لم يتم اكتشاف واجهة برمجة تطبيقات الصوت؛ تحقّق من إصدار خادم tldw."
+  },
+  "playground_tts_tldwWarningTitle": {
+    "message": "لم يتم اكتشاف واجهة برمجة تطبيقات tldw للصوت/الكلام"
+  },
+  "playground_tts_tldwWarningBody": {
+    "message": "تأكد من أن إصدار tldw_server لديك يتضمّن ‎/api/v1/audio/speech‎ وأن الإضافة متصلة بمفتاح API صالح."
+  },
+  "playground_tts_speechErrorTitle": {
+    "message": "فشل الإملاء"
+  },
+  "playground_tts_speechErrorBody": {
+    "message": "فشل طلب التفريغ الصوتي. تحقّق من حالة خادم tldw."
+  },
+  "playground_tts_speechNoText": {
+    "message": "لم تُرجِع عملية التفريغ أي نص."
+  },
+  "playground_tts_speechMicError": {
+    "message": "تعذّر الوصول إلى الميكروفون. تحقّق من أذونات المتصفح وحاول مرة أخرى."
+  },
+  "playground_tts_savedToNotes": {
+    "message": "تم حفظ التفريغ كملاحظة."
+  },
+  "playground_empty_title": {
+    "message": "ابدأ محادثة جديدة"
+  },
+  "playground_empty_description": {
+    "message": "جرّب نماذج وموجّهات ومصادر معرفة مختلفة هنا."
+  },
+  "playground_empty_demoDescription": {
+    "message": "أنت في وضع العرض التوضيحي — جرّب طرح سؤال لترى كيف يرد المساعد. يمكنك لاحقاً توصيل خادم tldw الخاص بك."
+  },
+  "playground_empty_example1": {
+    "message": "اطرح سؤالاً، ثم اسحب المستندات أو صفحات الويب التي تريد مناقشتها."
+  },
+  "playground_empty_example2": {
+    "message": "استخدم الإدخال السريع (Quick ingest) لإضافة التفريغات أو الملاحظات، ثم أشِر إليها في الدردشة."
+  },
+  "playground_empty_example3": {
+    "message": "جرّب موجّهات أو نماذج مختلفة من الترويسة لمقارنة الإجابات."
+  },
+  "playground_empty_primaryCta": {
+    "message": "ابدأ الدردشة"
+  },
+  "playground_empty_secondaryCta": {
+    "message": "فتح إعدادات الخادم"
+  },
+  "playground_drop_hint": {
+    "message": "أسقط الملفات هنا لإرفاقها برسالتك."
+  },
+  "playground_drop_readySingle": {
+    "message": "{{name}} جاهز للإرسال"
+  },
+  "playground_drop_readyMultiple": {
+    "message": "{{count}} ملف/ملفات جاهزة للإرسال"
+  },
+  "playground_drop_unsupported": {
+    "message": "نوع الملف هذا غير مدعوم. جرّب الصور أو الملفات النصية."
+  },
+  "playground_drop_defaultFileName": {
+    "message": "ملف"
+  },
+  "playground_drop_imageOnly": {
+    "message": "يمكن إسقاط الصور فقط هنا حالياً."
+  },
+  "playground_drop_imageHint": {
+    "message": "أسقط صورة لإضافتها إلى رسالتك."
+  },
+  "playground_drop_overlayInstruction": {
+    "message": "أسقط الصورة لإرفاقها بردّك التالي"
+  },
+  "playground_aria_chatTranscript": {
+    "message": "رسائل الدردشة"
+  },
+  "playground_more_history": {
+    "message": "حفظ الدردشة"
+  },
+  "playground_more_searchKnowledge": {
+    "message": "البحث و RAG"
+  },
+  "playground_more_voice": {
+    "message": "مزيد من خيارات الصوت"
+  },
+  "playground_more_uploads": {
+    "message": "التحميل والإدخال"
+  },
+  "playground_fileRetrievalEnabled": {
+    "message": "تفعيل RAG للمستندات"
+  },
+  "playground_stt_title": {
+    "message": "ساحة لعب تحويل الكلام إلى نص"
+  },
+  "playground_stt_subtitle": {
+    "message": "جرّب نماذج التفريغ الصوتي، وشغّل جلسات إملاء أطول، واحفظ التفريغات في الملاحظات."
+  },
+  "playground_stt_currentModelLabel": {
+    "message": "نموذج التفريغ الحالي"
+  },
+  "playground_stt_defaultModel": {
+    "message": "الافتراضي من الإعدادات"
+  },
+  "playground_stt_settingsNotice": {
+    "message": "اللغة، والمهمة، وتنسيق الاستجابة، والتجزئة، والموجّه تستخدم الإعدادات الافتراضية لتحويل الكلام إلى نص من صفحة الإعدادات."
+  },
+  "playground_stt_sessionMode": {
+    "message": "وضع الجلسة"
+  },
+  "playground_stt_modeLong": {
+    "message": "طويل المدى (تسجيل مجزأ)"
+  },
+  "playground_stt_modeShort": {
+    "message": "إملاء قصير (مقطع واحد)"
+  },
+  "playground_stt_languageTag": {
+    "message": "اللغة"
+  },
+  "playground_stt_taskTag": {
+    "message": "المهمة"
+  },
+  "playground_stt_formatTag": {
+    "message": "التنسيق"
+  },
+  "playground_stt_segmentationEnabled": {
+    "message": "تم تفعيل التجزئة"
+  },
+  "playground_stt_recordButton": {
+    "message": "تسجيل"
+  },
+  "playground_stt_stopButton": {
+    "message": "إيقاف"
+  },
+  "playground_stt_startTooltip": {
+    "message": "ابدأ تسجيل الصوت للتفريغ."
+  },
+  "playground_stt_stopTooltip": {
+    "message": "أوقف التسجيل وأرسله إلى الخادم."
+  },
+  "playground_stt_transcribingButton": {
+    "message": "جارٍ التفريغ..."
+  },
+  "playground_stt_transcribingTooltip": {
+    "message": "جارٍ تفريغ الصوت..."
+  },
+  "playground_stt_transcribingPlaceholder": {
+    "message": "Transcribing audio..."
+  },
+  "playground_stt_historyTitle": {
+    "message": "سجل التفريغات"
+  },
+  "playground_stt_clearAll": {
+    "message": "مسح الكل"
+  },
+  "playground_stt_emptyHistory": {
+    "message": "ابدأ تسجيلاً لعرض التفريغات هنا. يمكنك حفظ أي عنصر في الملاحظات."
+  },
+  "playground_stt_saveToNotes": {
+    "message": "الحفظ في الملاحظات"
+  },
+  "playground_stt_delete": {
+    "message": "حذف"
+  },
+  "playground_stt_durationTag": {
+    "message": "المدة"
+  },
+  "playground_stt_modelTag": {
+    "message": "النموذج"
+  },
+  "playground_stt_currentTranscriptTitle": {
+    "message": "تفريغ الجلسة الحالية"
+  },
+  "playground_stt_currentTranscriptPlaceholder": {
+    "message": "سيظهر التفريغ المباشر هنا أثناء التسجيل."
+  },
+  "playground_actions_temporaryOn": {
+    "message": "دردشة مؤقتة (غير محفوظة)"
+  },
+  "playground_actions_temporaryOff": {
+    "message": "حفظ الدردشة في السجل"
+  },
+  "playground_actions_webSearchOn": {
+    "message": "البحث في الويب مفعّل"
+  },
+  "playground_actions_webSearchOff": {
+    "message": "البحث في الويب متوقف"
+  },
+  "playground_actions_speechStart": {
+    "message": "بدء الإملاء"
+  },
+  "playground_actions_speechStop": {
+    "message": "إيقاف الإملاء"
+  },
+  "playground_actions_streamStart": {
+    "message": "تعليقات مباشرة"
+  },
+  "playground_actions_streamStop": {
+    "message": "إيقاف التعليقات"
+  },
+  "playground_actions_visionOn": {
+    "message": "وضع الرؤية مفعّل"
+  },
+  "playground_actions_visionOff": {
+    "message": "وضع الرؤية متوقف"
+  },
+  "playground_actions_upload": {
+    "message": "إرفاق صورة"
+  },
+  "playground_actions_ingest": {
+    "message": "إدخال سريع"
+  },
+  "playground_actions_ingestDisabled": {
+    "message": "اتصل بخادم tldw الخاص بك لاستخدام الإدخال."
+  },
+  "playground_actions_ingestHint": {
+    "message": "حمّل عناوين URL أو ملفات مع خيارات متقدمة."
+  },
+  "playground_actions_ingestSub": {
+    "message": "استخدم عناوين URL/الملفات؛ للتنزيل أو الحفظ."
+  },
+  "playground_actions_streamErrorTitle": {
+    "message": "التعليقات المباشرة غير متاحة"
+  },
+  "playground_composer_toolsButton": {
+    "message": "+أدوات"
+  },
+  "playground_composer_queuedBanner_title": {
+    "message": "في قائمة الانتظار أثناء عدم الاتصال"
+  },
+  "playground_composer_queuedBanner_body": {
+    "message": "سنحتفظ بهذه الرسائل ونرسلها عند اتصال خادم tldw الخاص بك."
+  },
+  "playground_composer_queuedBanner_sendNow": {
+    "message": "إرسال الرسائل في قائمة الانتظار"
+  },
+  "playground_composer_queuedBanner_clear": {
+    "message": "مسح قائمة الانتظار"
+  },
+  "playground_composer_coreTools": {
+    "message": "خيارات المحادثة"
+  },
+  "playground_composer_captureTools": {
+    "message": "أدوات الالتقاط والمساعدة"
+  },
+  "playground_composer_actions": {
+    "message": "خيارات الإرسال"
+  },
+  "playground_composer_moreTools": {
+    "message": "مزيد من الأدوات"
+  },
+  "playground_composer_scrollToLatest": {
+    "message": "التمرير إلى أحدث الرسائل"
+  },
+  "playground_composer_submitAria": {
+    "message": "إرسال الرسالة"
+  },
+  "playground_composer_openModelSettings": {
+    "message": "فتح إعدادات المحادثة الحالية"
+  },
+  "playground_composer_stopStreaming": {
+    "message": "إيقاف الاستجابة المتدفقة"
+  },
+  "playground_composer_connectionPlaceholder": {
+    "message": "اتصل بخادم tldw الخاص بك من صفحة الإعدادات لإرسال الرسائل وعرض الوسائط."
+  },
+  "playground_composer_connectNotice": {
+    "message": "اتصل بخادم tldw الخاص بك من صفحة الإعدادات لإرسال الرسائل وعرض الوسائط."
+  },
+  "playground_composer_connectionChipDisconnected": {
+    "message": "الخادم: غير متصل"
+  },
+  "playground_composer_contextLabel": {
+    "message": "السياق:"
+  },
+  "playground_composer_contextKnowledgeEmpty": {
+    "message": "لم يتم اختيار أي معرفة"
+  },
+  "playground_composer_contextTabs": {
+    "message": "{{count}} لسان/ألسنة"
+  },
+  "playground_composer_contextFiles": {
+    "message": "{{count}} ملف/ملفات"
+  },
+  "playground_composer_contextMedia": {
+    "message": "الوسائط والملاحظات"
+  },
+  "playground_composer_contextMediaHint": {
+    "message": "أرفق وسائط وملاحظات يجب أن تؤثر في الاستجابة."
+  },
+  "playground_composer_contextMediaSelected": {
+    "message": "وسيط أو ملاحظة"
+  },
+  "playground_composer_contextMediaEmpty": {
+    "message": "لم يتم اختيار أي وسائط أو ملاحظات بعد."
+  },
+  "playground_composer_addKnowledge": {
+    "message": "إضافة وسائط وملاحظات"
+  },
+  "playground_composer_contextTabsTitle": {
+    "message": "الألسنة في السياق"
+  },
+  "playground_composer_contextTabsHint": {
+    "message": "راجع الألسنة المشار إليها أو أزلها، أو أضف المزيد من ألسنة المتصفح المفتوحة."
+  },
+  "playground_composer_contextManager": {
+    "message": "إدارة السياق"
+  },
+  "playground_composer_contextManagerTitle": {
+    "message": "إدارة السياق"
+  },
+  "playground_composer_contextKnowledge": {
+    "message": "Context & Knowledge"
+  },
+  "playground_composer_contextKnowledgeClose": {
+    "message": "Close Context & Knowledge"
+  },
+  "playground_composer_knowledgeSearch": {
+    "message": "Knowledge search"
+  },
+  "playground_composer_knowledgeSearchClose": {
+    "message": "Close Knowledge search"
+  },
+  "playground_composer_persistence_ephemeral": {
+    "message": "لا تُحفظ في السجل؛ تُمسح عند إغلاق هذا اللسان."
+  },
+  "playground_composer_persistence_local": {
+    "message": "محفوظة في هذا المتصفح فقط."
+  },
+  "playground_composer_persistence_server": {
+    "message": "محفوظة محلياً وعلى الخادم"
+  },
+  "playground_composer_persistence_ephemeralPill": {
+    "message": "مؤقتة"
+  },
+  "playground_composer_persistence_localPill": {
+    "message": "محلي فقط"
+  },
+  "playground_composer_persistence_serverPill": {
+    "message": "محلياً + على الخادم"
+  },
+  "playground_composer_persistence_saveToServer": {
+    "message": "حفظ هذه المحادثة أيضاً على الخادم"
+  },
+  "playground_composer_persistence_connectToSave": {
+    "message": "اتصل بخادمك لحفظ المحادثات عليه."
+  },
+  "playground_composer_persistence_serverDefaultTitle": {
+    "message": "دردشة الإضافة"
+  },
+  "playground_composer_persistence_serverSavedTitle": {
+    "message": "تم الآن حفظ المحادثة على الخادم"
+  },
+  "playground_composer_persistence_serverSaved": {
+    "message": "سيتم مزامنة الرسائل المستقبلية في هذه المحادثة مع خادم tldw الخاص بك."
+  },
+  "playground_composer_persistence_serverCharacterRequired": {
+    "message": "تعذّر العثور على شخصية مساعد افتراضية على الخادم أو إنشاؤها. حاول مرة أخرى من صفحة الشخصيات."
+  },
+  "playground_composer_connectToSend": {
+    "message": "اتصل بخادم tldw الخاص بك من صفحة الإعدادات لإرسال الرسائل وعرض الوسائط."
+  },
+  "playground_composer_compareTag": {
+    "message": "Compare"
+  },
+  "playground_composer_compareLabel": {
+    "message": "Compare mode"
+  },
+  "playground_composer_compareButton": {
+    "message": "Compare models"
+  },
+  "playground_composer_compareButtonActive": {
+    "message": "Compare: {{count}} models"
+  },
+  "playground_composer_compareButtonOn": {
+    "message": "Compare enabled"
+  },
+  "playground_composer_compareSettingsTitle": {
+    "message": "Compare settings"
+  },
+  "playground_composer_compareSettingsToggle": {
+    "message": "Enable Compare mode"
+  },
+  "playground_composer_compareSettingsToggleHint": {
+    "message": "Send your next message to multiple models."
+  },
+  "playground_composer_compareNoneSelected": {
+    "message": "No models selected for compare"
+  },
+  "playground_composer_compareSingle": {
+    "message": "Comparing 1 model"
+  },
+  "playground_composer_compareMany": {
+    "message": "Comparing {{count}} models"
+  },
+  "playground_composer_compareActiveSummary": {
+    "message": "Active models next turn: {{label}}"
+  },
+  "playground_composer_compareModelPickerLabel": {
+    "message": "Select models"
+  },
+  "playground_composer_compareModelPickerPlaceholder": {
+    "message": "Choose models to compare"
+  },
+  "playground_composer_compareActiveModelsLabel": {
+    "message": "Active models"
+  },
+  "playground_composer_compareActiveModelsHint": {
+    "message": "Your next message will be sent to each active model."
+  },
+  "playground_composer_compareSendToModels": {
+    "message": "Send to {{count}} models"
+  },
+  "playground_composer_compareMaxModelsTitle": {
+    "message": "تم بلوغ حد المقارنة"
+  },
+  "playground_composer_compareMaxModels": {
+    "message": "يمكنك مقارنة ما يصل إلى {{limit}} نموذج/نماذج لكل دور."
+  },
+  "playground_composer_compareMaxModelsTrimmed": {
+    "message": "المقارنة محدودة بـ {{limit}} نموذج/نماذج لكل دور. يتم استخدام أول {{limit}} نموذج/نماذج محددة."
+  },
+  "playground_composer_compareMaxLabel": {
+    "message": "الحد الأقصى للنماذج لكل دور"
+  },
+  "playground_composer_compareMaxHelper": {
+    "message": "المحدد: {{current}} / {{limit}}"
+  },
+  "playground_composer_compareSelectedLabel": {
+    "message": "Selected as answer:"
+  },
+  "playground_composer_compareContinueHint": {
+    "message": "Continue this chat with the selected model."
+  },
+  "playground_composer_compareContinue": {
+    "message": "Continue with this model"
+  },
+  "playground_composer_compareThreadShared": {
+    "message": "You (shared)"
+  },
+  "playground_composer_compareBulkSplitSuccess": {
+    "message": "Created {{count}} chats"
+  },
+  "playground_composer_compareBulkSplitPartialFail": {
+    "message": "تعذر إنشاء {{count}} دردشات"
+  },
+  "playground_composer_validationCompareSelectModelsInline": {
+    "message": "Select at least one model for Compare mode."
+  },
+  "tabs_newChat": {
+    "message": "دردشة جديدة"
+  },
+  "tabs_newTabAria": {
+    "message": "علامة تبويب دردشة جديدة"
+  },
+  "tabs_closeTabAria": {
+    "message": "إغلاق علامة تبويب الدردشة"
+  },
+  "manageCharacters_title": {
+    "message": "إدارة الشخصيات"
+  },
+  "manageCharacters_addBtn": {
+    "message": "شخصية جديدة"
+  },
+  "manageCharacters_columns_name": {
+    "message": "الاسم"
+  },
+  "manageCharacters_columns_description": {
+    "message": "الوصف"
+  },
+  "manageCharacters_columns_actions": {
+    "message": "الإجراءات"
+  },
+  "manageCharacters_columns_avatar": {
+    "message": "الصورة الرمزية"
+  },
+  "manageCharacters_actions_chat": {
+    "message": "دردشة"
+  },
+  "manageCharacters_actions_edit": {
+    "message": "تعديل"
+  },
+  "manageCharacters_actions_delete": {
+    "message": "حذف"
+  },
+  "manageCharacters_actions_duplicate": {
+    "message": "تكرار"
+  },
+  "manageCharacters_table_noDescription": {
+    "message": "بدون وصف"
+  },
+  "manageCharacters_filter_matchAll": {
+    "message": "مطابقة جميع الوسوم"
+  },
+  "manageCharacters_tags_label": {
+    "message": "الوسوم"
+  },
+  "manageCharacters_tags_placeholder": {
+    "message": "أضف وسومًا"
+  },
+  "manageCharacters_tags_help": {
+    "message": "استخدم الوسوم لتجميع الشخصيات حسب الاستخدام (مثل \"الكتابة\"، \"التدريس\")."
+  },
+  "manageCharacters_tooltip_edit": {
+    "message": "تعديل الشخصية"
+  },
+  "manageCharacters_tooltip_delete": {
+    "message": "حذف الشخصية"
+  },
+  "manageCharacters_aria_chatWith": {
+    "message": "الدردشة كشخصية {{name}}"
+  },
+  "manageCharacters_aria_edit": {
+    "message": "تعديل الشخصية {{name}}"
+  },
+  "manageCharacters_aria_delete": {
+    "message": "حذف الشخصية {{name}}"
+  },
+  "manageCharacters_aria_duplicate": {
+    "message": "تكرار الشخصية {{name}}"
+  },
+  "manageCharacters_confirm_delete": {
+    "message": "هل أنت متأكد أنك تريد حذف هذه الشخصية؟ لا يمكن التراجع عن هذا الإجراء."
+  },
+  "manageCharacters_avatar_label": {
+    "message": "الصورة الرمزية (اختياري)"
+  },
+  "manageCharacters_avatar_tabUrl": {
+    "message": "الرابط"
+  },
+  "manageCharacters_avatar_tabUpload": {
+    "message": "رفع"
+  },
+  "manageCharacters_avatar_selectImageError": {
+    "message": "يرجى اختيار ملف صورة"
+  },
+  "manageCharacters_avatar_formatError": {
+    "message": "يتم دعم صور PNG وJPEG وGIF فقط"
+  },
+  "manageCharacters_avatar_invalidError": {
+    "message": "ملف صورة غير صالح"
+  },
+  "manageCharacters_avatar_processError": {
+    "message": "فشل معالجة الصورة"
+  },
+  "manageCharacters_avatar_dropzone": {
+    "message": "انقر أو اسحب الصورة للرفع"
+  },
+  "manageCharacters_avatar_formats": {
+    "message": "PNG أو JPEG أو GIF"
+  },
+  "manageCharacters_avatar_preview": {
+    "message": "معاينة"
+  },
+  "manageCharacters_form_name_label": {
+    "message": "الاسم"
+  },
+  "manageCharacters_form_name_placeholder": {
+    "message": "مثال: مدرب كتابة"
+  },
+  "manageCharacters_form_name_required": {
+    "message": "يرجى إدخال اسم"
+  },
+  "manageCharacters_form_description": {
+    "message": "عرّف شخصية قابلة لإعادة الاستخدام يمكنك الدردشة معها في الشريط الجانبي."
+  },
+  "manageCharacters_form_systemPrompt_label": {
+    "message": "السلوك / التعليمات"
+  },
+  "manageCharacters_form_systemPrompt_placeholder": {
+    "message": "مثال: أنت معلم رياضيات صبور تشرح المفاهيم خطوة بخطوة وتتحقق من الفهم بأمثلة قصيرة."
+  },
+  "manageCharacters_form_systemPrompt_help": {
+    "message": "اشرح دور الشخصية ونبرتها والقيود. مثال: \"أنت معلم رياضيات صبور تشرح المفاهيم خطوة بخطوة.\""
+  },
+  "manageCharacters_form_systemPrompt_required": {
+    "message": "يرجى إضافة تعليمات لتوجيه الردود."
+  },
+  "manageCharacters_form_systemPrompt_min": {
+    "message": "أضف وصفًا قصيرًا حتى تعرف الشخصية كيف ترد."
+  },
+  "manageCharacters_form_systemPrompt_max": {
+    "message": "يجب ألا يزيد إرشاد النظام عن 2000 حرف."
+  },
+  "manageCharacters_form_avatarUrl_label": {
+    "message": "رابط الصورة الرمزية (اختياري)"
+  },
+  "manageCharacters_form_avatarUrl_placeholder": {
+    "message": "مثال: https://example.com/avatar.png"
+  },
+  "manageCharacters_form_greeting_label": {
+    "message": "رسالة ترحيبية (اختياري)"
+  },
+  "manageCharacters_form_greeting_placeholder": {
+    "message": "مرحبًا! أنا مدرب الكتابة الخاص بك. ضع مسودتك وسأساعدك على تحسينها."
+  },
+  "manageCharacters_form_greeting_help": {
+    "message": "رسالة أولى اختيارية ترسلها الشخصية عند بدء الدردشة."
+  },
+  "manageCharacters_form_btnSave_saving": {
+    "message": "جارٍ إنشاء الشخصية..."
+  },
+  "manageCharacters_form_btnSave_save": {
+    "message": "إنشاء شخصية"
+  },
+  "manageCharacters_form_btnEdit_saving": {
+    "message": "جارٍ حفظ التغييرات..."
+  },
+  "manageCharacters_form_btnEdit_save": {
+    "message": "حفظ التغييرات"
+  },
+  "manageCharacters_notification_addSuccess": {
+    "message": "تم إنشاء الشخصية"
+  },
+  "manageCharacters_notification_error": {
+    "message": "خطأ"
+  },
+  "manageCharacters_notification_someError": {
+    "message": "حدث خطأ ما. يرجى المحاولة لاحقًا"
+  },
+  "manageCharacters_notification_updatedSuccess": {
+    "message": "تم تحديث الشخصية"
+  },
+  "manageCharacters_notification_deletedSuccess": {
+    "message": "تم حذف الشخصية"
+  },
+  "manageCharacters_loadError_title": {
+    "message": "تعذر تحميل الشخصيات"
+  },
+  "manageCharacters_loadError_description": {
+    "message": "تحقق من الاتصال وحاول مرة أخرى."
+  },
+  "manageCharacters_emptyTitle": {
+    "message": "لا توجد شخصيات بعد"
+  },
+  "manageCharacters_emptyDescription": {
+    "message": "أنشئ شخصية قابلة لإعادة الاستخدام بالاسم والوصف وإرشادات النظام للدردشة."
+  },
+  "manageCharacters_emptyExample1": {
+    "message": "عرّف مدرب كتابة أو خبير قصص أو مساعد برمجة يمكن إعادة استخدامه عبر الدردشات."
+  },
+  "manageCharacters_emptyExample2": {
+    "message": "امنح كل شخصية وصفًا وسلوكًا واضحين لتحافظ على استجابات متسقة."
+  },
+  "manageCharacters_emptyPrimaryCta": {
+    "message": "إنشاء شخصية"
+  },
+  "manageCharacters_avatarAltWithName": {
+    "message": "الصورة الرمزية لـ {{name}}"
+  },
+  "manageCharacters_avatarAlt": {
+    "message": "الصورة الرمزية للمستخدم"
+  },
+  "quiz_itemsPerPage": {
+    "message": "عناصر/صفحة"
+  },
+  "quiz_editQuizTitle": {
+    "message": "تحرير الاختبار"
+  },
+  "quiz_updateSuccess": {
+    "message": "تم تحديث الاختبار بنجاح."
+  },
+  "quiz_updateError": {
+    "message": "فشل تحديث الاختبار."
+  },
+  "quiz_questionTextRequired": {
+    "message": "نص السؤال مطلوب."
+  },
+  "quiz_optionsRequired": {
+    "message": "يرجى تقديم خيارين على الأقل."
+  },
+  "quiz_questionSaveSuccess": {
+    "message": "تم إنشاء السؤال بنجاح."
+  },
+  "quiz_questionUpdateSuccess": {
+    "message": "تم تحديث السؤال بنجاح."
+  },
+  "quiz_questionSaveError": {
+    "message": "فشل حفظ السؤال."
+  },
+  "quiz_questionDeleteSuccess": {
+    "message": "تم حذف السؤال بنجاح."
+  },
+  "quiz_questionDeleteError": {
+    "message": "فشل حذف السؤال."
+  },
+  "quiz_editQuestion": {
+    "message": "تحرير السؤال"
+  },
+  "quiz_points": {
+    "message": "النقاط"
+  },
+  "quiz_orderIndex": {
+    "message": "الترتيب"
+  },
+  "quiz_startError": {
+    "message": "فشل بدء الاختبار."
+  },
+  "quiz_answerAll": {
+    "message": "يرجى الإجابة عن جميع الأسئلة قبل الإرسال."
+  },
+  "quiz_submitError": {
+    "message": "فشل إرسال الاختبار."
+  },
+  "quiz_scoreSummary": {
+    "message": "النتيجة: {{score}} / {{total}} ({{percent}}%)"
+  },
+  "quiz_correct": {
+    "message": "صحيح"
+  },
+  "quiz_incorrect": {
+    "message": "غير صحيح"
+  },
+  "quiz_yourAnswer": {
+    "message": "إجابتك"
+  },
+  "quiz_correctAnswerLabel": {
+    "message": "الإجابة الصحيحة"
+  },
+  "quiz_backToList": {
+    "message": "العودة إلى القائمة"
+  },
+  "quiz_retake": {
+    "message": "إعادة الاختبار"
+  },
+  "searchPrompts": {
+    "message": "ابحث في المطالبات..."
+  },
+  "noMatchingPrompts": {
+    "message": "لا توجد مطالبات مطابقة"
+  },
+  "promptSelect_favorites": {
+    "message": "المفضلة"
+  },
+  "promptSelect_system": {
+    "message": "مطالبات النظام"
+  },
+  "promptSelect_quick": {
+    "message": "مطالبات سريعة"
+  },
+  "flashcards_bulkLimitWarning": {
+    "message": "تقتصر العملية على أول {{limit}} عنصر."
+  },
+  "mediaPage_spreadMode": {
+    "message": "مقارنة"
+  },
+  "mediaPage_listMode": {
+    "message": "تركيز"
+  },
+  "mediaPage_allMode": {
+    "message": "تكديس"
+  },
+  "mediaPage_spreadModeTooltip": {
+    "message": "عرض العناصر المحددة جنبًا إلى جنب للمقارنة"
+  },
+  "mediaPage_listModeTooltip": {
+    "message": "عرض عنصر واحد في كل مرة مع التنقل"
+  },
+  "mediaPage_allModeTooltip": {
+    "message": "عرض جميع العناصر المحددة في قائمة قابلة للتمرير"
+  },
+  "mediaPage_copyContentLabel": {
+    "message": "نسخ المحتوى"
+  },
+  "mediaPage_copyAnalysisLabel": {
+    "message": "نسخ التحليل"
+  },
+  "mediaPage_copyContentTooltip": {
+    "message": "نسخ المحتوى إلى الحافظة"
+  },
+  "mediaPage_copyAnalysisTooltip": {
+    "message": "نسخ التحليل إلى الحافظة"
+  },
+  "mediaPage_prevItemTooltip": {
+    "message": "العنصر السابق (←)"
+  },
+  "mediaPage_nextItemTooltip": {
+    "message": "العنصر التالي (→)"
+  },
+  "mediaPage_viewerOptions": {
+    "message": "خيارات"
+  },
+  "mediaPage_expandAllDropdown": {
+    "message": "توسيع/طي"
+  },
+  "mediaPage_itemPosition": {
+    "message": "العنصر {{current}} من {{total}}"
+  },
+  "mediaPage_noItemSelected": {
+    "message": "لم يتم تحديد أي عنصر"
+  },
+  "mediaPage_firstUseTitle": {
+    "message": "دليل سريع: مراجعة متعددة العناصر"
+  },
+  "mediaPage_firstUseStep1": {
+    "message": "حدد العناصر"
+  },
+  "mediaPage_firstUseStep1Desc": {
+    "message": "انقر على العناصر في اللوحة اليسرى لإضافتها إلى العارض."
+  },
+  "mediaPage_firstUseStep2": {
+    "message": "اختر عرضًا"
+  },
+  "mediaPage_firstUseStep2Desc": {
+    "message": "استخدم \"مقارنة\" لعرض جنبًا إلى جنب، أو \"تركيز\" لعرض عنصر واحد في كل مرة، أو \"تكديس\" لعرض الكل."
+  },
+  "mediaPage_firstUseStep3": {
+    "message": "تنقل"
+  },
+  "mediaPage_firstUseStep3Desc": {
+    "message": "استخدم أزرار السابق/التالي أو لوحة المفاتيح (Tab + Enter) للتنقل بين العناصر."
+  },
+  "mediaPage_gotIt": {
+    "message": "فهمت"
+  },
+  "mediaPage_model": {
+    "message": "النموذج"
+  },
+  "mediaPage_selectModel": {
+    "message": "اختر نموذجًا"
+  },
+  "mediaPage_noModelsAvailable": {
+    "message": "لا توجد نماذج متاحة"
+  },
+  "mediaPage_promptPresets": {
+    "message": "إعدادات مسبقة للموجهات"
+  },
+  "mediaPage_showPresets": {
+    "message": "إظهار الإعدادات المسبقة"
+  },
+  "mediaPage_hidePresets": {
+    "message": "إخفاء الإعدادات المسبقة"
+  },
+  "mediaPage_systemPromptLabel": {
+    "message": "الموجه النظامي"
+  },
+  "mediaPage_systemPromptPlaceholder": {
+    "message": "أدخل الموجه النظامي..."
+  },
+  "mediaPage_userPromptPrefixLabel": {
+    "message": "بادئة موجه المستخدم"
+  },
+  "mediaPage_prependedBeforeContent": {
+    "message": "(تضاف قبل المحتوى)"
+  },
+  "mediaPage_userPrefixPlaceholder": {
+    "message": "اختياري: أدخل نصًا لإضافته قبل محتوى الوسائط..."
+  },
+  "mediaPage_presetComprehensiveAnalysis": {
+    "message": "تحليل شامل"
+  },
+  "mediaPage_presetExecutiveSummary": {
+    "message": "ملخص تنفيذي"
+  },
+  "mediaPage_presetCriticalReview": {
+    "message": "مراجعة نقدية"
+  },
+  "mediaPage_presetQAAnalysis": {
+    "message": "تحليل أسئلة وأجوبة"
   }
 }

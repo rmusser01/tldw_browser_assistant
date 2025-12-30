@@ -254,7 +254,7 @@
     "description": "Filter label for screens in omni-search."
   },
   "omniSearch_filterChat": {
-    "message": "Chats",
+    "message": "Discussions",
     "description": "Filter label for chats in omni-search."
   },
   "omniSearch_filterMedia": {
@@ -262,7 +262,7 @@
     "description": "Filter label for media in omni-search."
   },
   "omniSearch_filterNote": {
-    "message": "Notes",
+    "message": "Bloc-notes",
     "description": "Filter label for notes in omni-search."
   },
   "omniSearch_filterFlashcards": {
@@ -270,7 +270,7 @@
     "description": "Filter label for flashcard collections in omni-search."
   },
   "omniSearch_filterPrompt": {
-    "message": "Prompts",
+    "message": "Invites",
     "description": "Filter label for prompts in omni-search."
   },
   "omniSearch_filteringBy": {
@@ -344,6 +344,65 @@
   },
   "specFallbackWarning": {
     "message": "Utilisation du schéma de secours media.add intégré (v{{version}}) ; vérifiez-le par rapport à votre tldw_server /openapi.json si certains champs semblent obsolètes."
+  },
+  "serverOffline": {
+    "message": "Serveur hors ligne ou non configuré"
+  },
+  "serverChats": {
+    "message": "Chats serveur"
+  },
+  "serverChatLoadError": {
+    "message": "Échec du chargement du chat serveur. Vérifiez votre connexion et réessayez."
+  },
+  "serverChatSourceLabel": {
+    "message": "Serveur"
+  },
+  "serverChatForkedLabel": {
+    "message": "Chat forké",
+    "description": "Label shown on chats that were forked from another server chat."
+  },
+  "serverChatForkedTooltip": {
+    "message": "Forké depuis le chat {{chatId}}",
+    "description": "Tooltip explaining which original server chat this chat was forked from."
+  },
+  "fileChanges": {
+    "message": "Modifications de fichiers"
+  },
+  "deletions": {
+    "message": "Suppressions"
+  },
+  "gitOperations": {
+    "message": "Opérations Git"
+  },
+  "commands": {
+    "message": "Commandes"
+  },
+  "otherOperations": {
+    "message": "Autres opérations"
+  },
+  "fileAccess": {
+    "message": "Accès aux fichiers"
+  },
+  "notebookEdits": {
+    "message": "Modifications du carnet"
+  },
+  "applyPatch": {
+    "message": "Appliquer le patch"
+  },
+  "recursive": {
+    "message": "(récursif)"
+  },
+  "complexArguments": {
+    "message": "[Arguments complexes]"
+  },
+  "ttsShort": {
+    "message": "Voix"
+  },
+  "copyShort": {
+    "message": "Copier"
+  },
+  "branchShort": {
+    "message": "Branche"
   },
   "serverChatsUnavailableNotConnected": {
     "message": "Les chats serveur ne sont pas disponibles. Connectez-vous à votre serveur tldw pour y accéder."
@@ -444,7 +503,7 @@
     "description": "Command palette action label to navigate to the Settings screen."
   },
   "commandPalette_goToHealth": {
-    "message": "Ouvrir Health & Diagnostics",
+    "message": "Ouvrir État et diagnostics",
     "description": "Command palette action label to open the Health & diagnostics screen."
   },
   "commandPalette_newChat": {
@@ -537,28 +596,16 @@
     "message": "Afficher le contenu brut"
   },
   "notesSearch_exportNoteSuccess": {
-    "message": "Exported ({{size}})"
+    "message": "Exporté ({{size}})"
   },
   "notesSearch_exportSuccess": {
-    "message": "Exported {{count}} notes ({{size}})"
+    "message": "{{count}} notes exportées ({{size}})"
   },
   "notesSearch_exportCsvSuccess": {
-    "message": "Exported {{count}} notes as CSV ({{size}})"
+    "message": "{{count}} notes exportées en CSV ({{size}})"
   },
   "notesSearch_exportJsonSuccess": {
-    "message": "Exported {{count}} notes as JSON ({{size}})"
-  },
-  "exportNoteSuccess": {
-    "message": "Exported ({{size}})"
-  },
-  "exportSuccess": {
-    "message": "Exported {{count}} notes ({{size}})"
-  },
-  "exportCsvSuccess": {
-    "message": "Exported {{count}} notes as CSV ({{size}})"
-  },
-  "exportJsonSuccess": {
-    "message": "Exported {{count}} notes as JSON ({{size}})"
+    "message": "{{count}} notes exportées en JSON ({{size}})"
   },
   "infoShort": {
     "message": "Infos"
@@ -597,7 +644,7 @@
     "message": "Masquer les détails techniques"
   },
   "error_createFolder": {
-    "message": "Failed to create folder"
+    "message": "Échec de la création du dossier"
   },
   "modelSelect_label": {
     "message": "Model"
@@ -653,6 +700,18 @@
   "chatSidebar_notes": {
     "message": "Notes"
   },
+  "chatSidebar_flashcards": {
+    "message": "Cartes mémoire"
+  },
+  "chatSidebar_prompts": {
+    "message": "Prompts"
+  },
+  "chatSidebar_multiItem": {
+    "message": "Éléments multiples"
+  },
+  "chatSidebar_shortcuts": {
+    "message": "Raccourcis"
+  },
   "chatSidebar_settings": {
     "message": "Paramètres"
   },
@@ -683,10 +742,2510 @@
   "chatSidebar_foldersRequireConnection": {
     "message": "Les dossiers nécessitent une connexion au serveur"
   },
-  "option.more.copy.canonicalMarkdown": {
+  "more_copy_canonicalMarkdown": {
     "message": "Copier la transcription canonique"
   },
-  "option.more.download.canonicalMarkdown": {
+  "more_download_canonicalMarkdown": {
     "message": "Transcription canonique (Markdown)"
+  },
+  "header_contentReview": {
+    "message": "Revue de contenu"
+  },
+  "contentReview_title": {
+    "message": "Revue de contenu",
+    "description": "Content review UI string."
+  },
+  "contentReview_readyToSubmit": {
+    "message": "{{count}} prêt(s)",
+    "description": "Content review UI string."
+  },
+  "contentReview_committedCount": {
+    "message": "{{count}} validé(s)",
+    "description": "Content review UI string."
+  },
+  "contentReview_totalCount": {
+    "message": "{{count}} au total",
+    "description": "Content review UI string."
+  },
+  "contentReview_commitAll": {
+    "message": "Tout valider",
+    "description": "Content review UI string."
+  },
+  "contentReview_clearDrafts": {
+    "message": "Effacer les brouillons",
+    "description": "Content review UI string."
+  },
+  "contentReview_emptyDescription": {
+    "message": "Aucun brouillon pour le moment. Utilisez Quick Ingest avec Relecture avant enregistrement pour créer des brouillons.",
+    "description": "Content review UI string."
+  },
+  "contentReview_openQuickIngest": {
+    "message": "Ouvrir Quick Ingest",
+    "description": "Content review UI string."
+  },
+  "contentReview_storeAfterReview": {
+    "message": "Enregistrer après révision",
+    "description": "Content review UI string."
+  },
+  "contentReview_reviewBeforeStorage": {
+    "message": "Réviser avant d’enregistrer",
+    "description": "Content review UI string."
+  },
+  "contentReview_reviewBeforeStorageHint": {
+    "message": "Traitez maintenant, puis modifiez les brouillons localement avant de les valider sur votre serveur.",
+    "description": "Content review UI string."
+  },
+  "contentReview_reviewEnabled": {
+    "message": "Mode de révision",
+    "description": "Content review UI string."
+  },
+  "contentReview_reviewStorageCap": {
+    "message": "Les brouillons locaux sont limités à {{cap}}.",
+    "description": "Content review UI string."
+  },
+  "contentReview_reviewWarningTitle": {
+    "message": "Enregistrer les brouillons localement ?",
+    "description": "Content review UI string."
+  },
+  "contentReview_reviewWarningBody": {
+    "message": "Les brouillons sont enregistrés dans ce navigateur et peuvent contenir des données sensibles. Vous pouvez les supprimer depuis la page Révision de contenu à tout moment.",
+    "description": "Content review UI string."
+  },
+  "contentReview_reviewWarningBodySecondary": {
+    "message": "Le mode de révision conserve le contenu côté client jusqu’à validation sur votre serveur.",
+    "description": "Content review UI string."
+  },
+  "contentReview_reviewWarningConfirm": {
+    "message": "Activer la révision",
+    "description": "Content review UI string."
+  },
+  "contentReview_reviewWarningCancel": {
+    "message": "Annuler",
+    "description": "Content review UI string."
+  },
+  "contentReview_reviewRunLabel": {
+    "message": "Révision",
+    "description": "Content review UI string."
+  },
+  "contentReview_reviewDraftsCreated": {
+    "message": "Brouillons prêts pour la révision.",
+    "description": "Content review UI string."
+  },
+  "contentReview_reviewStorageCapWarning_one": {
+    "message": "{{count}} fichier dépasse la limite locale de brouillons ({{cap}}). Joignez les sources avant de valider l’audio/vidéo.",
+    "description": "Content review UI string."
+  },
+  "contentReview_reviewStorageCapWarning_other": {
+    "message": "{{count}} fichiers dépassent la limite locale de brouillons ({{cap}}). Joignez les sources avant de valider l’audio/vidéo.",
+    "description": "Content review UI string."
+  },
+  "contentReview_openContentReview": {
+    "message": "Ouvrir la Révision de contenu",
+    "description": "Content review UI string."
+  },
+  "contentReview_batchLabel": {
+    "message": "Lot",
+    "description": "Content review UI string."
+  },
+  "contentReview_batchName": {
+    "message": "Lot {{index}}",
+    "description": "Content review UI string."
+  },
+  "contentReview_draftsLabel": {
+    "message": "Brouillons",
+    "description": "Content review UI string."
+  },
+  "contentReview_selectDraft": {
+    "message": "Sélectionnez un brouillon pour commencer la revue.",
+    "description": "Content review UI string."
+  },
+  "contentReview_titlePlaceholder": {
+    "message": "Titre du brouillon",
+    "description": "Content review UI string."
+  },
+  "contentReview_lastSaved": {
+    "message": "Enregistré {{time}}",
+    "description": "Content review UI string."
+  },
+  "contentReview_resetTitle": {
+    "message": "Réinitialiser le brouillon ?",
+    "description": "Content review UI string."
+  },
+  "contentReview_resetBody": {
+    "message": "Cela restaurera le contenu original de ce brouillon.",
+    "description": "Content review UI string."
+  },
+  "contentReview_resetConfirm": {
+    "message": "Réinitialiser",
+    "description": "Content review UI string."
+  },
+  "contentReview_resetCancel": {
+    "message": "Annuler",
+    "description": "Content review UI string."
+  },
+  "contentReview_resetContent": {
+    "message": "Réinitialiser",
+    "description": "Content review UI string."
+  },
+  "contentReview_diffView": {
+    "message": "Vue diff",
+    "description": "Content review UI string."
+  },
+  "contentReview_saveDraft": {
+    "message": "Enregistrer le brouillon",
+    "description": "Content review UI string."
+  },
+  "contentReview_editorLabel": {
+    "message": "Contenu",
+    "description": "Content review UI string."
+  },
+  "contentReview_wordCount": {
+    "message": "{{words}} mots",
+    "description": "Content review UI string."
+  },
+  "contentReview_charCount": {
+    "message": "{{chars}} caractères",
+    "description": "Content review UI string."
+  },
+  "contentReview_aiFix": {
+    "message": "Correction IA",
+    "description": "Content review UI string."
+  },
+  "contentReview_aiHint": {
+    "message": "Envoie le contenu du brouillon à votre serveur pour un traitement IA.",
+    "description": "Content review UI string."
+  },
+  "contentReview_modelPlaceholder": {
+    "message": "Valeur par défaut du serveur",
+    "description": "Content review UI string."
+  },
+  "contentReview_aiConsentTitle": {
+    "message": "Envoyer le brouillon au serveur ?",
+    "description": "Content review UI string."
+  },
+  "contentReview_aiConsentBody": {
+    "message": "Cela enverra le contenu du brouillon à votre serveur tldw pour traitement IA. Les brouillons restent locaux tant que vous ne les validez pas.",
+    "description": "Content review UI string."
+  },
+  "contentReview_aiConsentConfirm": {
+    "message": "Continuer",
+    "description": "Content review UI string."
+  },
+  "contentReview_aiConsentCancel": {
+    "message": "Annuler",
+    "description": "Content review UI string."
+  },
+  "contentReview_aiApplied": {
+    "message": "Corrections IA appliquées.",
+    "description": "Content review UI string."
+  },
+  "contentReview_aiNoChange": {
+    "message": "Aucun changement retourné.",
+    "description": "Content review UI string."
+  },
+  "contentReview_aiEmpty": {
+    "message": "L’IA n’a renvoyé aucun contenu.",
+    "description": "Content review UI string."
+  },
+  "contentReview_aiUnavailable": {
+    "message": "Complétions de chat indisponibles.",
+    "description": "Content review UI string."
+  },
+  "contentReview_templatePlaceholder": {
+    "message": "Choisir un modèle",
+    "description": "Content review UI string."
+  },
+  "contentReview_applyTemplate": {
+    "message": "Appliquer le modèle",
+    "description": "Content review UI string."
+  },
+  "contentReview_templateApplied": {
+    "message": "Modèle appliqué.",
+    "description": "Content review UI string."
+  },
+  "contentReview_templateMissing": {
+    "message": "Sélectionnez d’abord un modèle.",
+    "description": "Content review UI string."
+  },
+  "contentReview_detectSections": {
+    "message": "Détecter les sections",
+    "description": "Content review UI string."
+  },
+  "contentReview_detectSectionsTitle": {
+    "message": "Redétecter les sections ?",
+    "description": "Content review UI string."
+  },
+  "contentReview_detectSectionsBody": {
+    "message": "Cela remplacera les sections existantes et réinitialisera vos sélections.",
+    "description": "Content review UI string."
+  },
+  "contentReview_detectSectionsConfirm": {
+    "message": "Redétecter",
+    "description": "Content review UI string."
+  },
+  "contentReview_detectSectionsCancel": {
+    "message": "Annuler",
+    "description": "Content review UI string."
+  },
+  "contentReview_detectSectionsEmpty": {
+    "message": "Aucune section détectée.",
+    "description": "Content review UI string."
+  },
+  "contentReview_sectionsLabel": {
+    "message": "Filtre de section",
+    "description": "Content review UI string."
+  },
+  "contentReview_templates_transcript_clean_label": {
+    "message": "Nettoyer la transcription",
+    "description": "Content review UI string."
+  },
+  "contentReview_templates_transcript_clean_description": {
+    "message": "Normalise la ponctuation et la casse tout en préservant la structure des lignes.",
+    "description": "Content review UI string."
+  },
+  "contentReview_templates_speaker_turns_label": {
+    "message": "Tours de parole",
+    "description": "Content review UI string."
+  },
+  "contentReview_templates_speaker_turns_description": {
+    "message": "S’assure que chaque tour de parole se trouve sur sa propre ligne avec des libellés clairs.",
+    "description": "Content review UI string."
+  },
+  "contentReview_templates_chapter_headings_label": {
+    "message": "Titres de chapitre",
+    "description": "Content review UI string."
+  },
+  "contentReview_templates_chapter_headings_description": {
+    "message": "Insère des titres Markdown pour regrouper les sujets sans supprimer de contenu.",
+    "description": "Content review UI string."
+  },
+  "contentReview_metadataLabel": {
+    "message": "Métadonnées",
+    "description": "Content review UI string."
+  },
+  "contentReview_mediaType": {
+    "message": "Type de média",
+    "description": "Content review UI string."
+  },
+  "contentReview_keywords": {
+    "message": "Mots-clés",
+    "description": "Content review UI string."
+  },
+  "contentReview_keywordsPlaceholder": {
+    "message": "Ajouter des mots-clés",
+    "description": "Content review UI string."
+  },
+  "contentReview_reviewNotes": {
+    "message": "Notes de revue",
+    "description": "Content review UI string."
+  },
+  "contentReview_missingSource": {
+    "message": "Fichier source manquant",
+    "description": "Content review UI string."
+  },
+  "contentReview_missingSourceBody": {
+    "message": "Joignez le fichier d’origine pour valider ce brouillon.",
+    "description": "Content review UI string."
+  },
+  "contentReview_attachSource": {
+    "message": "Joindre un fichier",
+    "description": "Content review UI string."
+  },
+  "contentReview_actionsLabel": {
+    "message": "Actions disponibles",
+    "description": "Content review UI string."
+  },
+  "contentReview_commit": {
+    "message": "Valider",
+    "description": "Content review UI string."
+  },
+  "contentReview_commitDisabled": {
+    "message": "Joignez le fichier audio/vidéo original avant de valider.",
+    "description": "Content review UI string."
+  },
+  "contentReview_markReviewed": {
+    "message": "Marquer comme relu",
+    "description": "Content review UI string."
+  },
+  "contentReview_skipNext": {
+    "message": "Ignorer",
+    "description": "Content review UI string."
+  },
+  "contentReview_discard": {
+    "message": "Ignorer le brouillon",
+    "description": "Content review UI string."
+  },
+  "contentReview_discardTitle": {
+    "message": "Ignorer ce brouillon ?",
+    "description": "Content review UI string."
+  },
+  "contentReview_discardBody": {
+    "message": "Ce brouillon sera marqué comme ignoré et retiré de la revue.",
+    "description": "Content review UI string."
+  },
+  "contentReview_discardConfirm": {
+    "message": "Ignorer",
+    "description": "Content review UI string."
+  },
+  "contentReview_discardCancel": {
+    "message": "Annuler",
+    "description": "Content review UI string."
+  },
+  "contentReview_commitSuccess": {
+    "message": "Brouillon validé.",
+    "description": "Content review UI string."
+  },
+  "contentReview_commitAllTitle": {
+    "message": "Valider les brouillons relus ?",
+    "description": "Content review UI string."
+  },
+  "contentReview_commitAllBody": {
+    "message": "Seuls les brouillons marqués comme relus seront validés.",
+    "description": "Content review UI string."
+  },
+  "contentReview_commitAllConfirm": {
+    "message": "Tout valider",
+    "description": "Content review UI string."
+  },
+  "contentReview_commitAllCancel": {
+    "message": "Annuler",
+    "description": "Content review UI string."
+  },
+  "contentReview_commitAllResult": {
+    "message": "{{success}} validé(s) · {{failed}} en échec",
+    "description": "Content review UI string."
+  },
+  "contentReview_storageCapWarning": {
+    "message": "Ce fichier dépasse le plafond local de brouillons ({{cap}}).",
+    "description": "Content review UI string."
+  },
+  "contentReview_clearTitle": {
+    "message": "Effacer tous les brouillons ?",
+    "description": "Content review UI string."
+  },
+  "contentReview_clearBody": {
+    "message": "Cela supprime tous les brouillons et ressources locaux de revue de contenu.",
+    "description": "Content review UI string."
+  },
+  "contentReview_clearConfirm": {
+    "message": "Effacer les brouillons",
+    "description": "Content review UI string."
+  },
+  "contentReview_clearCancel": {
+    "message": "Annuler",
+    "description": "Content review UI string."
+  },
+  "contentReview_clearSuccess": {
+    "message": "Brouillons effacés.",
+    "description": "Content review UI string."
+  },
+  "contentReview_originalLabel": {
+    "message": "Texte original",
+    "description": "Content review UI string."
+  },
+  "contentReview_editedLabel": {
+    "message": "Modifié",
+    "description": "Content review UI string."
+  },
+  "reviewDraftsFailedTitle": {
+    "message": "Impossible de créer les brouillons de revue.",
+    "description": "Error title when review drafts creation fails."
+  },
+  "reviewDraftsFailedFallback": {
+    "message": "Échec de la création des brouillons de revue.",
+    "description": "Fallback error message for review drafts failure."
+  },
+  "reviewDraftsRetry": {
+    "message": "Réessayer la création des brouillons",
+    "description": "Button label to retry creating review drafts."
+  },
+  "reviewDraftsStoreWithoutReview": {
+    "message": "Enregistrer sans revue",
+    "description": "Action to store without review."
+  },
+  "reviewNavigationFailed": {
+    "message": "Impossible d’ouvrir la Revue de contenu. Veuillez réessayer.",
+    "description": "Error message when navigation to Content Review fails."
+  },
+  "reviewNavigationRetry": {
+    "message": "Réessayer d’ouvrir la Revue de contenu",
+    "description": "Button label to retry opening Content Review."
+  },
+  "quickIngest_title": {
+    "message": "Ingestion rapide des médias"
+  },
+  "quickIngest_subtitle": {
+    "message": "Saisissez une ou plusieurs URL. Forcez le type par ligne si besoin."
+  },
+  "quickIngest_offlineTitle": {
+    "message": "Serveur hors ligne — staging uniquement"
+  },
+  "quickIngest_offlineDescription": {
+    "message": "Vous pouvez mettre en file d’attente des URL et des fichiers ici et vérifier les champs, mais l’ingestion ne démarrera pas tant que votre serveur tldw n’est pas en ligne. Reconnectez-vous pour traiter les éléments en attente."
+  },
+  "quickIngest_sourceHeading": {
+    "message": "URL ou fichiers source"
+  },
+  "quickIngest_storeRemote": {
+    "message": "Enregistrer dans la base distante"
+  },
+  "quickIngest_storeRemoteAria": {
+    "message": "Stocker les résultats d'ingestion sur votre serveur tldw"
+  },
+  "quickIngest_processOnlyAria": {
+    "message": "Traiter les résultats d'ingestion localement uniquement"
+  },
+  "quickIngest_storeRemoteHelp": {
+    "message": "Téléverse sur votre serveur tldw pour l'indexation."
+  },
+  "quickIngest_processOnlyHelp": {
+    "message": "Traite seulement et conserve les résultats en local (télécharger le JSON)."
+  },
+  "quickIngest_storageHeading": {
+    "message": "Où sont stockés les résultats d'ingestion"
+  },
+  "quickIngest_storageServerDescription": {
+    "message": "Stockés sur votre serveur tldw (recommandé pour le RAG et les espaces de travail partagés)."
+  },
+  "quickIngest_storageLocalDescription": {
+    "message": "Conservés uniquement dans ce navigateur ; aucune donnée n'est écrite sur votre serveur."
+  },
+  "quickIngest_storeAfterReview": {
+    "message": "Enregistrer après révision"
+  },
+  "quickIngest_reviewBeforeStorage": {
+    "message": "Réviser avant d’enregistrer"
+  },
+  "quickIngest_reviewBeforeStorageHint": {
+    "message": "Traitez maintenant, puis modifiez les brouillons localement avant de les valider sur votre serveur."
+  },
+  "quickIngest_reviewEnabled": {
+    "message": "Mode de révision"
+  },
+  "quickIngest_reviewStorageCap": {
+    "message": "Les brouillons locaux sont limités à {{cap}}."
+  },
+  "quickIngest_reviewWarningTitle": {
+    "message": "Enregistrer les brouillons localement ?"
+  },
+  "quickIngest_reviewWarningBody": {
+    "message": "Les brouillons sont enregistrés dans ce navigateur et peuvent contenir des données sensibles. Vous pouvez les supprimer depuis la page Révision de contenu à tout moment."
+  },
+  "quickIngest_reviewWarningBodySecondary": {
+    "message": "Le mode de révision conserve le contenu côté client jusqu’à validation sur votre serveur."
+  },
+  "quickIngest_reviewWarningConfirm": {
+    "message": "Activer la révision"
+  },
+  "quickIngest_reviewWarningCancel": {
+    "message": "Annuler"
+  },
+  "quickIngest_reviewRunLabel": {
+    "message": "Révision"
+  },
+  "quickIngest_reviewDraftsCreated": {
+    "message": "Brouillons prêts pour la révision."
+  },
+  "quickIngest_reviewStorageCapWarning_one": {
+    "message": "{{count}} fichier dépasse la limite locale de brouillons ({{cap}}). Joignez les sources avant de valider l’audio/vidéo."
+  },
+  "quickIngest_reviewStorageCapWarning_other": {
+    "message": "{{count}} fichiers dépassent la limite locale de brouillons ({{cap}}). Joignez les sources avant de valider l’audio/vidéo."
+  },
+  "quickIngest_reviewDraftsFailedTitle": {
+    "message": "Impossible de créer les brouillons de revue."
+  },
+  "quickIngest_reviewDraftsFailedFallback": {
+    "message": "Échec de la création des brouillons de revue."
+  },
+  "quickIngest_reviewDraftsRetry": {
+    "message": "Réessayer la création des brouillons"
+  },
+  "quickIngest_reviewDraftsStoreWithoutReview": {
+    "message": "Enregistrer sans revue"
+  },
+  "quickIngest_reviewNavigationFailed": {
+    "message": "Impossible d’ouvrir la Revue de contenu. Veuillez réessayer."
+  },
+  "quickIngest_reviewNavigationRetry": {
+    "message": "Réessayer d’ouvrir la Revue de contenu"
+  },
+  "quickIngest_openContentReview": {
+    "message": "Ouvrir la Révision de contenu"
+  },
+  "quickIngest_storageDocsLink": {
+    "message": "En savoir plus sur l'ingestion et le stockage"
+  },
+  "quickIngest_storageDocsUrl": {
+    "message": "https://github.com/rmusser01/tldw_browser_assistant"
+  },
+  "quickIngest_bulkPlaceholder": {
+    "message": "Collez des URL (une par ligne)"
+  },
+  "quickIngest_or": {
+    "message": "ou"
+  },
+  "quickIngest_remove": {
+    "message": "Supprimer"
+  },
+  "quickIngest_add": {
+    "message": "Ajouter une URL"
+  },
+  "quickIngest_commonOptions": {
+    "message": "Options d’ingestion"
+  },
+  "quickIngest_audioOptions": {
+    "message": "Options audio"
+  },
+  "quickIngest_audioLanguage": {
+    "message": "Langue (ex. en)"
+  },
+  "quickIngest_audioDiarizationHelp": {
+    "message": "Activez pour séparer les intervenants dans les transcriptions."
+  },
+  "quickIngest_documentOptions": {
+    "message": "Options document"
+  },
+  "quickIngest_videoOptions": {
+    "message": "Options vidéo"
+  },
+  "quickIngest_captionsHelp": {
+    "message": "Inclure les horodatages/sous-titres lorsque disponibles."
+  },
+  "quickIngest_cancel": {
+    "message": "Annuler"
+  },
+  "quickIngest_ingest": {
+    "message": "Ingérer"
+  },
+  "quickIngest_process": {
+    "message": "Traiter"
+  },
+  "quickIngest_queueOnlyOffline": {
+    "message": "Mettre en file d'attente uniquement — serveur hors ligne"
+  },
+  "quickIngest_queueOnlyOfflineAria": {
+    "message": "Hors ligne — mettre les éléments en file d'attente pour les traiter plus tard"
+  },
+  "quickIngest_offlineQueueToast": {
+    "message": "Mode hors ligne : les éléments sont mis en attente ici jusqu'à ce que votre serveur soit de nouveau en ligne."
+  },
+  "quickIngest_offlineFooter": {
+    "message": "Mode hors ligne : les éléments sont préparés ici et seront traités dès que votre serveur se reconnecte."
+  },
+  "quickIngest_processQueuedItems": {
+    "message": "Traiter les éléments en attente"
+  },
+  "quickIngest_processQueuedItemsAria": {
+    "message": "Traiter les éléments Quick Ingest en file d'attente"
+  },
+  "quickIngest_runAria": {
+    "message": "Lancer l'ingestion rapide"
+  },
+  "quickIngest_runLabel": {
+    "message": "Lancer l'ingestion rapide"
+  },
+  "quickIngest_results": {
+    "message": "Résultats"
+  },
+  "quickIngest_downloadJson": {
+    "message": "Télécharger le JSON"
+  },
+  "quickIngest_advancedSummary": {
+    "message": "{{count}} champs avancés chargés"
+  },
+  "quickIngest_advancedEmpty": {
+    "message": "Aucune option avancée détectée — essayez de recharger la spécification."
+  },
+  "quickIngest_modifiedCount": {
+    "message": "{{count}} modifiés"
+  },
+  "quickIngest_progress": {
+    "message": "Traitement de {{done}} sur {{total}} éléments…"
+  },
+  "quickIngest_pendingLabel": {
+    "message": "En attente — s'exécutera une fois connecté"
+  },
+  "quickIngest_readyToast": {
+    "message": "Serveur de nouveau en ligne — prêt à traiter {{count}} éléments en attente."
+  },
+  "quickIngest_processQueuedItemsShort": {
+    "message": "Traiter les éléments en attente"
+  },
+  "quickIngest_errorSummary": {
+    "message": "Nous n'avons pas pu traiter les éléments d'ingestion pour le moment."
+  },
+  "quickIngest_errorHint": {
+    "message": "Réessayez après avoir vérifié votre serveur tldw. Santé et diagnostics peut aider à résoudre les problèmes d'ingestion."
+  },
+  "quickIngest_checkHealthLink": {
+    "message": "Vérifier l'état du serveur dans Santé et diagnostics"
+  },
+  "quickIngest_healthAriaHint": {
+    "message": "Les dernières exécutions ont échoué — ouvrez Santé et diagnostics depuis l'en-tête pour plus de détails."
+  },
+  "quickIngest_specReloadedToast": {
+    "message": "Spécification avancée rechargée depuis le serveur"
+  },
+  "quickIngest_specReloadedToastDiff": {
+    "message": "Spécification avancée rechargée depuis le serveur (champs ajoutés : {{added}}, supprimés : {{removed}})"
+  },
+  "quickIngest_specFallbackWarning": {
+    "message": "Utilisation du schéma de secours media.add intégré (v{{version}}) ; vérifiez-le par rapport à votre tldw_server /openapi.json si certains champs semblent obsolètes."
+  },
+  "storeAfterReview": {
+    "message": "Enregistrer après révision"
+  },
+  "manageCharacters_actions_viewConversations": {
+    "message": "Voir les conversations"
+  },
+  "manageCharacters_aria_viewConversations": {
+    "message": "Voir les conversations pour {{name}}"
+  },
+  "manageCharacters_aria_searchResults": {
+    "message": "{{count}} personnages trouvés"
+  },
+  "manageCharacters_conversations_title": {
+    "message": "Conversations pour {{name}}"
+  },
+  "manageCharacters_conversations_titleGeneric": {
+    "message": "Conversations du personnage"
+  },
+  "manageCharacters_conversations_subtitle": {
+    "message": "Sélectionnez une conversation pour continuer avec ce personnage."
+  },
+  "manageCharacters_conversations_empty": {
+    "message": "Aucune conversation trouvée pour ce personnage pour le moment."
+  },
+  "manageCharacters_conversations_error": {
+    "message": "Impossible de charger les conversations pour ce personnage."
+  },
+  "manageCharacters_conversations_updated": {
+    "message": "Mis à jour {{time}}"
+  },
+  "manageCharacters_conversations_unknownTime": {
+    "message": "Inconnu"
+  },
+  "manageCharacters_conversations_resume": {
+    "message": "Continuer la discussion"
+  },
+  "manageCharacters_conversations_untitled": {
+    "message": "Sans titre"
+  },
+  "manageCharacters_conversations_mostRecent": {
+    "message": "Le plus récent"
+  },
+  "manageCharacters_conversations_resumeTooltip": {
+    "message": "Charger l’historique de la discussion et continuer cette conversation"
+  },
+  "manageCharacters_preview_title": {
+    "message": "Aperçu"
+  },
+  "manageCharacters_preview_show": {
+    "message": "Afficher l’aperçu"
+  },
+  "manageCharacters_preview_hide": {
+    "message": "Masquer l’aperçu"
+  },
+  "manageCharacters_preview_untitled": {
+    "message": "Personnage sans titre"
+  },
+  "manageCharacters_preview_greeting": {
+    "message": "Salutation"
+  },
+  "manageCharacters_preview_behavior": {
+    "message": "Comportement"
+  },
+  "manageCharacters_preview_empty": {
+    "message": "Remplissez le formulaire pour voir un aperçu"
+  },
+  "manageCharacters_advanced_show": {
+    "message": "Afficher les champs avancés"
+  },
+  "manageCharacters_advanced_hide": {
+    "message": "Masquer les champs avancés"
+  },
+  "chunkingPlayground_nav": {
+    "message": "Bac à sable de segmentation",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_title": {
+    "message": "Bac à sable de segmentation",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_description": {
+    "message": "Testez différents réglages pour voir comment le texte est découpé en segments pour le traitement.",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_inputLabel": {
+    "message": "Texte à segmenter",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_inputPlaceholder": {
+    "message": "Collez du texte ici ou sélectionnez un exemple...",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_uploadButton": {
+    "message": "Importer un fichier",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_chunkButton": {
+    "message": "Segmenter le texte",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_methodLabel": {
+    "message": "Méthode de segmentation",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_maxSizeLabel": {
+    "message": "Taille max du segment",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_overlapLabel": {
+    "message": "Chevauchement",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_languageLabel": {
+    "message": "Langue",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_languages_auto": {
+    "message": "Détection auto",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_languages_en": {
+    "message": "Anglais",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_languages_es": {
+    "message": "Espagnol",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_languages_fr": {
+    "message": "Français",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_languages_de": {
+    "message": "Allemand",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_languages_it": {
+    "message": "Italien",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_languages_pt": {
+    "message": "Portugais",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_languages_zh": {
+    "message": "Chinois",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_languages_ja": {
+    "message": "Japonais",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_languages_ko": {
+    "message": "Coréen",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_viewCards": {
+    "message": "Cartes",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_viewInline": {
+    "message": "En ligne",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_stats": {
+    "message": "{{count}} segments, moy. {{avgSize}} caractères"
+  },
+  "chunkingPlayground_textLoaded": {
+    "message": "Texte chargé",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_characters": {
+    "message": "caractères",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_tabSingle": {
+    "message": "Unique",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_tabCompare": {
+    "message": "Comparer",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_chunkIndex": {
+    "message": "Segment {{index}}"
+  },
+  "chunkingPlayground_chunkInfo": {
+    "message": "Segment {{index}} : {{words}} mots"
+  },
+  "chunkingPlayground_position": {
+    "message": "Position : {{start}} - {{end}}"
+  },
+  "chunkingPlayground_additionalChunks": {
+    "message": "+{{count}} de plus"
+  },
+  "chunkingPlayground_charCount": {
+    "message": "{{count}} caractères"
+  },
+  "chunkingPlayground_wordCount": {
+    "message": "{{count}} mots"
+  },
+  "chunkingPlayground_noInput": {
+    "message": "Veuillez fournir un texte à segmenter",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_sharedInput": {
+    "message": "Texte d'entrée partagé",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_compareButton": {
+    "message": "Comparer les deux",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_comparison": {
+    "message": "Comparaison",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_fewerChunks": {
+    "message": "Config A produit {{diff}} segments de moins"
+  },
+  "chunkingPlayground_moreChunks": {
+    "message": "Config A produit {{diff}} segments de plus"
+  },
+  "chunkingPlayground_sameChunks": {
+    "message": "Les deux configs produisent le même nombre de segments",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_clickToChunk": {
+    "message": "Cliquez sur « Comparer » pour voir les résultats",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_overlapRegion": {
+    "message": "Zone de chevauchement",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_clickHint": {
+    "message": "Cliquez sur une zone surlignée pour cibler ce segment",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_noContentFound": {
+    "message": "Aucun texte trouvé pour cet élément média",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_loadContentError": {
+    "message": "Échec du chargement du contenu média",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_loadMediaListError": {
+    "message": "Échec du chargement de la bibliothèque média",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_selectMedia": {
+    "message": "Sélectionner un élément média...",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_loadingMedia": {
+    "message": "Chargement du contenu...",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_noMediaFound": {
+    "message": "Aucun média trouvé",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_mediaCount": {
+    "message": "{{count}} éléments média disponibles"
+  },
+  "chunkingPlayground_inputSource_paste": {
+    "message": "Coller du texte",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_inputSource_upload": {
+    "message": "Importer un fichier",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_inputSource_sample": {
+    "message": "Texte d'exemple",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_inputSource_media": {
+    "message": "Depuis la bibliothèque média",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_samples_article": {
+    "message": "Article d’actualité",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_samples_articleDesc": {
+    "message": "Article multi‑paragraphes avec titres",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_samples_code": {
+    "message": "Code source",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_samples_codeDesc": {
+    "message": "Code Python avec classes et fonctions",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_samples_transcript": {
+    "message": "Transcription",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_samples_transcriptDesc": {
+    "message": "Transcription de podcast horodatée",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_samples_academic": {
+    "message": "Article académique",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_samples_academicDesc": {
+    "message": "Texte technique avec citations",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_compare_title": {
+    "message": "Comparer les réglages",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_compare_configA": {
+    "message": "Réglage A",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_compare_configB": {
+    "message": "Réglage B",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_mode_single": {
+    "message": "Unique",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_mode_compare": {
+    "message": "Comparer",
+    "description": "TODO: translate (copied from en)"
+  },
+  "managePrompts_importMode_merge": {
+    "message": "Fusionner"
+  },
+  "managePrompts_importMode_replace": {
+    "message": "Remplacer"
+  },
+  "managePrompts_importMode_replaceConfirm": {
+    "message": "Le remplacement écrasera tous les prompts actuels avec le fichier importé. Continuer ?"
+  },
+  "flashcards_newDeckNameRequired": {
+    "message": "Saisissez un nom de deck."
+  },
+  "flashcards_dueAll": {
+    "message": "Tous"
+  },
+  "flashcards_dueNew": {
+    "message": "Nouvelles"
+  },
+  "flashcards_dueLearning": {
+    "message": "En apprentissage"
+  },
+  "flashcards_dueDue": {
+    "message": "À réviser"
+  },
+  "flashcards_reviewFailed": {
+    "message": "Review failed"
+  },
+  "flashcards_updateFailed": {
+    "message": "Update failed"
+  },
+  "flashcards_deleteFailed": {
+    "message": "Delete failed"
+  },
+  "flashcards_missingVersion": {
+    "message": "Missing version; reload and try again"
+  },
+  "flashcards_bulkDeleteResult": {
+    "message": "{{success}} deleted · {{failed}} failed"
+  },
+  "mediaPage_searchPlaceholder": {
+    "message": "Rechercher des médias (titre/contenu)"
+  },
+  "mediaPage_search": {
+    "message": "Rechercher"
+  },
+  "mediaPage_clear": {
+    "message": "Effacer"
+  },
+  "mediaPage_types": {
+    "message": "Types"
+  },
+  "mediaPage_keywords": {
+    "message": "Mots-clés"
+  },
+  "mediaPage_moreTags": {
+    "message": "+{{count}} autres tags"
+  },
+  "mediaPage_resetFilters": {
+    "message": "Réinitialiser les filtres"
+  },
+  "mediaPage_clearAll": {
+    "message": "Tout effacer"
+  },
+  "mediaPage_content": {
+    "message": "Contenu"
+  },
+  "mediaPage_vertical": {
+    "message": "Verticale"
+  },
+  "mediaPage_horizontal": {
+    "message": "Horizontale"
+  },
+  "mediaPage_results": {
+    "message": "Résultats"
+  },
+  "mediaPage_noResults": {
+    "message": "Aucun résultat"
+  },
+  "mediaPage_showSidebar": {
+    "message": "Afficher la barre latérale"
+  },
+  "mediaPage_hideSidebar": {
+    "message": "Masquer la barre latérale"
+  },
+  "mediaPage_viewer": {
+    "message": "Visionneuse"
+  },
+  "mediaPage_selectItemsHint": {
+    "message": "Sélectionnez des éléments à gauche pour les voir ici."
+  },
+  "mediaPage_mediaContent": {
+    "message": "Contenu média"
+  },
+  "mediaPage_copyContent": {
+    "message": "Copier le contenu"
+  },
+  "mediaPage_contentCopied": {
+    "message": "Contenu copié"
+  },
+  "mediaPage_metadataCopied": {
+    "message": "Métadonnées copiées"
+  },
+  "mediaPage_analysisCopied": {
+    "message": "Analyse copiée"
+  },
+  "mediaPage_copyFailed": {
+    "message": "Échec de la copie"
+  },
+  "mediaPage_noContent": {
+    "message": "Aucun contenu disponible"
+  },
+  "mediaPage_collapse": {
+    "message": "Réduire"
+  },
+  "mediaPage_expand": {
+    "message": "Développer"
+  },
+  "mediaPage_media": {
+    "message": "Médias"
+  },
+  "mediaPage_searchingBanner": {
+    "message": "Recherche des médias…"
+  },
+  "mediaPage_filterHelp": {
+    "message": "La recherche correspond au titre et au contenu ; les types et mots-clés affinent les résultats."
+  },
+  "mediaPage_noMediaTypes": {
+    "message": "Aucun type de média disponible"
+  },
+  "mediaPage_resultsCount": {
+    "message": "{{selected}} sélectionné(s) · {{open}} ouvert(s)"
+  },
+  "mediaPage_clearSelection": {
+    "message": "Tout désélectionner"
+  },
+  "mediaPage_itemsLabel": {
+    "message": "Éléments"
+  },
+  "mediaPage_contentLabel": {
+    "message": "Vue du contenu"
+  },
+  "mediaPage_filterByKeyword": {
+    "message": "Filtrer par mot-clé"
+  },
+  "mediaPage_keywordHelper": {
+    "message": "Les mots-clés vous aident à retrouver ce média en utilisant le filtre par mot-clé à gauche."
+  },
+  "mediaPage_modeHint": {
+    "message": "Recherchez et empilez plusieurs médias pour les comparer dans la visionneuse de droite."
+  },
+  "mediaPage_viewerHelp": {
+    "message": "Clavier : Tab dans la liste des résultats, Entrée ou Espace pour empiler/dés-empiler un média, puis utilisez Précédent/Suivant et les contrôles de mise en page pour naviguer entre les éléments."
+  },
+  "mediaPage_viewerHelpLabel": {
+    "message": "Raccourcis clavier pour la revue multi-éléments"
+  },
+  "mediaPage_mediaInspector": {
+    "message": "Inspecteur de médias"
+  },
+  "mediaPage_actionsLabel": {
+    "message": "Commandes"
+  },
+  "mediaPage_keywordsPlaceholder": {
+    "message": "Ajouter des mots-clés…"
+  },
+  "mediaPage_noSelectionTitle": {
+    "message": "Aucun élément média sélectionné"
+  },
+  "mediaPage_noSelectionDescription": {
+    "message": "Sélectionnez un élément média dans la barre latérale gauche pour voir son contenu et ses analyses ici."
+  },
+  "mediaPage_generateAnalysis": {
+    "message": "Générer"
+  },
+  "mediaPage_generateAnalysisHint": {
+    "message": "Générer une nouvelle analyse"
+  },
+  "mediaPage_editAnalysis": {
+    "message": "Modifier l'analyse"
+  },
+  "mediaPage_createNoteWithContent": {
+    "message": "Créer une note avec le contenu"
+  },
+  "mediaPage_createNoteWithContentAnalysis": {
+    "message": "Créer une note avec contenu + analyse"
+  },
+  "mediaPage_untitled": {
+    "message": "Sans titre"
+  },
+  "mediaPage_copyMetadata": {
+    "message": "Copier les métadonnées"
+  },
+  "mediaPage_statistics": {
+    "message": "Statistiques"
+  },
+  "mediaPage_words": {
+    "message": "Mots"
+  },
+  "mediaPage_characters": {
+    "message": "Caractères"
+  },
+  "mediaPage_paragraphs": {
+    "message": "Paragraphes"
+  },
+  "mediaPage_metadata": {
+    "message": "Métadonnées"
+  },
+  "mediaPage_idLabel": {
+    "message": "Identifiant"
+  },
+  "mediaPage_typeLabel": {
+    "message": "Catégorie"
+  },
+  "mediaPage_titleLabel": {
+    "message": "Titre"
+  },
+  "mediaPage_source": {
+    "message": "Origine"
+  },
+  "mediaPage_notAvailable": {
+    "message": "N/D"
+  },
+  "mediaPage_developerTools": {
+    "message": "Outils développeur"
+  },
+  "mediaPage_nothingToSend": {
+    "message": "Rien à envoyer"
+  },
+  "mediaPage_emptyAnalysis": {
+    "message": "L'analyse ne peut pas être vide"
+  },
+  "mediaPage_noMediaId": {
+    "message": "Aucun ID de média disponible"
+  },
+  "mediaPage_versionSaved": {
+    "message": "Enregistré comme nouvelle version"
+  },
+  "mediaPage_saveFailed": {
+    "message": "Échec de l'enregistrement de la version"
+  },
+  "mediaPage_sendToChat": {
+    "message": "Envoyer au chat"
+  },
+  "mediaPage_saveAsVersion": {
+    "message": "Enregistrer comme nouvelle version"
+  },
+  "mediaPage_analysisPlaceholder": {
+    "message": "Saisissez le texte de l'analyse..."
+  },
+  "mediaPage_wordCount": {
+    "message": "{{count}} mots"
+  },
+  "mediaPage_charCount": {
+    "message": "{{count}} caractères"
+  },
+  "mediaPage_pageRangeError": {
+    "message": "La page doit être entre 1 et {{max}}"
+  },
+  "mediaPage_pageRangeClamped": {
+    "message": "Navigation vers la page {{page}}"
+  },
+  "mediaPage_saveUnauthorized": {
+    "message": "Non autorisé à enregistrer"
+  },
+  "flashcards_markdownSupportHint": {
+    "message": "Prend en charge Markdown et LaTeX."
+  },
+  "flashcards_extraHint": {
+    "message": "Astuces/explications facultatives (Markdown + LaTeX pris en charge)."
+  },
+  "flashcards_notesHint": {
+    "message": "Notes internes (Markdown + LaTeX pris en charge)."
+  },
+  "header_modeSpeech": {
+    "message": "Vocal"
+  },
+  "playground_speech_title": {
+    "message": "Playground vocal"
+  },
+  "playground_speech_subtitle": {
+    "message": "Enregistrez la voix, éditez les transcriptions et synthétisez l’audio au même endroit."
+  },
+  "playground_speech_modeLabel": {
+    "message": "Mode"
+  },
+  "playground_speech_modeRoundTrip": {
+    "message": "Aller-retour"
+  },
+  "playground_speech_modeSpeak": {
+    "message": "Parler"
+  },
+  "playground_speech_modeListen": {
+    "message": "Écouter"
+  },
+  "playground_speech_modeHint": {
+    "message": "Votre dernier mode est mémorisé sur cet appareil."
+  },
+  "playground_speech_recordingWaveform": {
+    "message": "Forme d’onde d’enregistrement en direct"
+  },
+  "playground_speech_playbackWaveform": {
+    "message": "Forme d’onde de lecture"
+  },
+  "playground_speech_sendToTts": {
+    "message": "Envoyer vers TTS"
+  },
+  "playground_speech_sendHint": {
+    "message": "Utilisez la dernière transcription comme brouillon TTS."
+  },
+  "playground_speech_download": {
+    "message": "Télécharger"
+  },
+  "playground_speech_downloadCurrent": {
+    "message": "Télécharger le segment actuel"
+  },
+  "playground_speech_downloadAll": {
+    "message": "Télécharger tous les segments"
+  },
+  "playground_speech_segmentFormat": {
+    "message": "Format"
+  },
+  "playground_speech_historyTitle": {
+    "message": "Historique vocal"
+  },
+  "playground_speech_historyAll": {
+    "message": "Tout"
+  },
+  "playground_speech_historyStt": {
+    "message": "STT"
+  },
+  "playground_speech_historyTts": {
+    "message": "TTS"
+  },
+  "playground_speech_historySearch": {
+    "message": "Rechercher des transcriptions"
+  },
+  "playground_speech_historyRetentionHint": {
+    "message": "Conserve les {{count}} éléments les plus récents. Utilisez \"Tout effacer\" pour tout supprimer."
+  },
+  "playground_speech_useInTts": {
+    "message": "Utiliser dans TTS"
+  },
+  "playground_speech_copy": {
+    "message": "Copier"
+  },
+  "playground_speech_copySuccess": {
+    "message": "Copié dans le presse-papiers"
+  },
+  "playground_speech_copyError": {
+    "message": "Échec de la copie de la transcription."
+  },
+  "playground_speech_providerTag": {
+    "message": "Fournisseur"
+  },
+  "playground_speech_voiceTag": {
+    "message": "Voix"
+  },
+  "playground_speech_emptyHistory": {
+    "message": "Commencez un enregistrement ou générez de l’audio pour voir l’historique ici."
+  },
+  "playground_speech_downloadDisabledBrowser": {
+    "message": "Le TTS du navigateur ne crée pas d’audio téléchargeable."
+  },
+  "playground_speech_downloadDisabledEmpty": {
+    "message": "Générez de l’audio pour activer le téléchargement."
+  },
+  "playground_speech_transcriptLock": {
+    "message": "Verrouiller"
+  },
+  "playground_speech_transcriptUnlock": {
+    "message": "Déverrouiller"
+  },
+  "playground_speech_transcriptEditHint": {
+    "message": "Modification activée pour cette transcription."
+  },
+  "playground_speech_transcriptLockedHint": {
+    "message": "Verrouillé sur les mises à jour de transcription en direct."
+  },
+  "playground_speech_transcriptRecordingHint": {
+    "message": "Enregistrement en cours ; la transcription est verrouillée."
+  },
+  "playground_tts_unsupportedFormatTitle": {
+    "message": "Format audio non pris en charge"
+  },
+  "playground_tts_unsupportedFormatDescription": {
+    "message": "Le format de réponse \"{{format}}\" n’est pas pris en charge. Retour à MP3."
+  },
+  "playground_formError_noModel": {
+    "message": "Veuillez sélectionner un modèle"
+  },
+  "playground_formError_noEmbeddingModel": {
+    "message": "Veuillez définir un modèle d'intégration sur la page Paramètres > RAG"
+  },
+  "playground_form_textarea_placeholder": {
+    "message": "Saisir un message..."
+  },
+  "playground_form_webSearch_on": {
+    "message": "Activé"
+  },
+  "playground_form_webSearch_off": {
+    "message": "Désactivé"
+  },
+  "playground_tooltip_searchInternet": {
+    "message": "Rechercher sur Internet"
+  },
+  "playground_tooltip_speechToText": {
+    "message": "Reconnaissance vocale"
+  },
+  "playground_tooltip_uploadImage": {
+    "message": "Uploader une image"
+  },
+  "playground_tooltip_stopStreaming": {
+    "message": "Arrêter la diffusion"
+  },
+  "playground_tooltip_knowledge": {
+    "message": "Connaissances"
+  },
+  "playground_tooltip_vision": {
+    "message": "Discussion visuelle [Expérimental]"
+  },
+  "playground_tooltip_clearContext": {
+    "message": "Effacer le contexte"
+  },
+  "playground_tooltip_speechToTextServer": {
+    "message": "Dictation via your tldw server"
+  },
+  "playground_tooltip_speechToTextBrowser": {
+    "message": "Dictation via browser speech recognition"
+  },
+  "playground_tooltip_speechToTextDetails": {
+    "message": "Uses {{model}} · {{task}} · {{format}}. Configure in Settings → General → Speech-to-Text."
+  },
+  "playground_tooltip_uploadDocuments": {
+    "message": "Upload Documents (beta)"
+  },
+  "playground_sendWhenEnter": {
+    "message": "Envoyer en appuyant sur Entrée"
+  },
+  "playground_welcome": {
+    "message": "Bonjour ! Comment puis-je vous aider aujourd'hui ?"
+  },
+  "playground_useOCR": {
+    "message": "Extraire le texte de l'image (OCR)"
+  },
+  "playground_tips_title": {
+    "message": "Tips"
+  },
+  "playground_tips_quickIngest": {
+    "message": "Use Quick ingest to add documents and web pages."
+  },
+  "playground_tips_pickModelPrompt": {
+    "message": "Pick a Model and a Prompt from the header."
+  },
+  "playground_tips_startChatFocus": {
+    "message": "When connected, “Start chatting” focuses the composer."
+  },
+  "playground_tldwState_searching": {
+    "message": "Recherche de votre tldw server"
+  },
+  "playground_tldwState_running": {
+    "message": "tldw est en cours d'exécution"
+  },
+  "playground_tldwState_notRunning": {
+    "message": "Impossible de se connecter à tldw server"
+  },
+  "playground_tldwState_connectionError": {
+    "message": "Il semble que vous rencontriez une erreur de connexion. Veuillez consulter cette <anchor>documentation</anchor> pour résoudre le problème."
+  },
+  "playground_tldwState_errorToast": {
+    "message": "We couldn’t reach {{host}}"
+  },
+  "playground_tldwState_missingHelp": {
+    "message": "Open Settings → tldw Server to add your URL or connect to the Options page."
+  },
+  "playground_tldwState_troubleshoot": {
+    "message": "Confirm your server is running and that the browser is allowed to reach it, then retry from the Options page."
+  },
+  "playground_tldwState_openTldwSettings": {
+    "message": "Open tldw Settings"
+  },
+  "playground_tldwState_cancelSearch": {
+    "message": "Cancel search"
+  },
+  "playground_tldwState_connectionFailedWithCode": {
+    "message": "Connection failed (HTTP {{code}})"
+  },
+  "playground_tldwState_connectionFailed": {
+    "message": "Connection failed"
+  },
+  "playground_tldwState_errorDetailsLabel": {
+    "message": "Details:"
+  },
+  "playground_tldwState_title": {
+    "message": "Waiting for your tldw server"
+  },
+  "playground_tldwState_subtitle": {
+    "message": "We’re pinging {{host}} to verify the connection."
+  },
+  "playground_tldwState_missing": {
+    "message": "Server URL not configured"
+  },
+  "playground_tldwState_noServer": {
+    "message": "Add your tldw server to start chatting."
+  },
+  "playground_tldwState_connectedSubtitle": {
+    "message": "Connected to {{host}}. Start chatting when you’re ready."
+  },
+  "playground_tldwState_errorSubtitle": {
+    "message": "We couldn’t reach {{host}} yet. Retry or update your server settings."
+  },
+  "playground_tldwState_openSettings": {
+    "message": "Open settings"
+  },
+  "playground_tldwState_changeServer": {
+    "message": "Change server"
+  },
+  "playground_tldwState_elapsed": {
+    "message": "Checking… {{seconds}}s"
+  },
+  "playground_tldwState_connectedHint": {
+    "message": "Connected to {{host}}."
+  },
+  "playground_tldwState_lastChecked": {
+    "message": "Checked {{seconds}}s ago"
+  },
+  "playground_tldwState_recheck": {
+    "message": "Check again"
+  },
+  "playground_errors_privateModeDescription": {
+    "message": "Le mode privé de Firefox ne permet pas d’enregistrer les discussions. Le chat temporaire est activé par défaut. D’autres améliorations arrivent."
+  },
+  "playground_tts_playErrorTitle": {
+    "message": "Erreur"
+  },
+  "playground_tts_playErrorDescription": {
+    "message": "Une erreur est survenue lors de la lecture audio"
+  },
+  "playground_tts_browserInfoTitle": {
+    "message": "Le TTS du navigateur utilise l’audio système"
+  },
+  "playground_tts_browserInfoDescription": {
+    "message": "Le TTS du navigateur utilise votre synthèse vocale système et ne fournit pas de fichier audio téléchargeable. Utilisez les contrôles de segments ci-dessous, ou changez de fournisseur pour obtenir une liste de pistes et un lecteur."
+  },
+  "playground_tts_unsupportedProviderTitle": {
+    "message": "Fournisseur TTS non pris en charge"
+  },
+  "playground_tts_unsupportedProviderDescription": {
+    "message": "Le fournisseur \"{{provider}}\" n’est pas encore pris en charge dans le lecteur du playground."
+  },
+  "playground_tts_elevenLabsMissingTitle": {
+    "message": "ElevenLabs nécessite une clé API"
+  },
+  "playground_tts_elevenLabsMissingBody": {
+    "message": "Ajoutez votre clé API ElevenLabs dans les paramètres pour charger les voix et les modèles."
+  },
+  "playground_tts_elevenLabsUnavailableTitle": {
+    "message": "Voix ElevenLabs indisponibles"
+  },
+  "playground_tts_elevenLabsUnavailableBody": {
+    "message": "Impossible de charger les voix ou les modèles. Vérifiez votre clé API et réessayez."
+  },
+  "playground_tts_elevenLabsMissingCta": {
+    "message": "Définir la clé API dans les paramètres"
+  },
+  "playground_tts_generateErrorTitle": {
+    "message": "Erreur lors de la génération audio"
+  },
+  "playground_tts_generateErrorDescription": {
+    "message": "Une erreur s’est produite pendant la génération audio TTS."
+  },
+  "playground_tts_sampleText": {
+    "message": "Insérer un texte d’exemple"
+  },
+  "playground_tts_playHelper": {
+    "message": "Lecture utilise le fournisseur, la voix et la vitesse sélectionnés."
+  },
+  "playground_tts_playDisabledNoText": {
+    "message": "Saisissez du texte pour activer la lecture."
+  },
+  "playground_tts_playDisabledTtsOff": {
+    "message": "Activez la synthèse vocale ci-dessus pour lire l’audio."
+  },
+  "playground_tts_playDisabledElevenLabs": {
+    "message": "Ajoutez une clé API ElevenLabs, une voix et un modèle pour activer la lecture."
+  },
+  "playground_tts_stopDisabled": {
+    "message": "Arrêter s’active une fois l’audio démarré."
+  },
+  "playground_tts_providerChangeHelper": {
+    "message": "Ouvrez le sélecteur de fournisseur ci-dessous pour passer entre le navigateur, tldw, OpenAI ou Supersonic."
+  },
+  "playground_tts_changeProvider": {
+    "message": "Changer de fournisseur"
+  },
+  "playground_tts_title": {
+    "message": "Playground TTS"
+  },
+  "playground_tts_subtitle": {
+    "message": "Essayez la synthèse vocale et ajustez fournisseurs, modèles et voix."
+  },
+  "playground_tts_currentProvider": {
+    "message": "Fournisseur actuel"
+  },
+  "playground_tts_settingsIntro": {
+    "message": "Ajustez votre fournisseur TTS, votre modèle et votre voix. Ces réglages sont réutilisés lorsque vous lisez l’audio depuis le chat ou les médias."
+  },
+  "playground_tts_providerCapabilities": {
+    "message": "Fonctionnalités du fournisseur"
+  },
+  "playground_tts_voicesPreview": {
+    "message": "Voix du serveur"
+  },
+  "playground_tts_providerDetails": {
+    "message": "Afficher la configuration brute du fournisseur"
+  },
+  "playground_tts_providerDetailsTitle": {
+    "message": "Détails du fournisseur"
+  },
+  "playground_tts_inputLabel": {
+    "message": "Saisissez du texte à écouter."
+  },
+  "playground_tts_inputPlaceholder": {
+    "message": "Saisissez ou collez du texte, puis utilisez Lecture pour écouter."
+  },
+  "playground_tts_play": {
+    "message": "Lecture"
+  },
+  "playground_tts_playing": {
+    "message": "Lecture…"
+  },
+  "playground_tts_stop": {
+    "message": "Arrêter"
+  },
+  "playground_tts_browserSegmentsTitle": {
+    "message": "Segments TTS du navigateur"
+  },
+  "playground_tts_browserSegmentsHelp": {
+    "message": "Mettez les segments en file d’attente ou lisez un segment individuel via l’audio système."
+  },
+  "playground_tts_browserQueueAll": {
+    "message": "Tout mettre en file"
+  },
+  "playground_tts_browserQueueFromHere": {
+    "message": "Mettre en file à partir d’ici"
+  },
+  "playground_tts_browserSegmentPlay": {
+    "message": "Lire le segment"
+  },
+  "playground_tts_browserStatusSpeaking": {
+    "message": "Lecture du segment {{current}}/{{total}}"
+  },
+  "playground_tts_browserStatusPaused": {
+    "message": "En pause"
+  },
+  "playground_tts_browserPause": {
+    "message": "Pause"
+  },
+  "playground_tts_browserResume": {
+    "message": "Reprendre"
+  },
+  "playground_tts_tldwStatusOnline": {
+    "message": "API audio du serveur tldw détectée (audio/speech)"
+  },
+  "playground_tts_tldwStatusOffline": {
+    "message": "API audio non détectée ; vérifiez la version de votre serveur tldw."
+  },
+  "playground_tts_tldwWarningTitle": {
+    "message": "API audio/speech tldw non détectée"
+  },
+  "playground_tts_tldwWarningBody": {
+    "message": "Assurez-vous que votre version de tldw_server inclut /api/v1/audio/speech et que votre extension est connectée avec une clé API valide."
+  },
+  "playground_tts_speechErrorTitle": {
+    "message": "Dictée échouée"
+  },
+  "playground_tts_speechErrorBody": {
+    "message": "La requête de transcription a échoué. Vérifiez l’état du serveur tldw."
+  },
+  "playground_tts_speechNoText": {
+    "message": "La transcription n’a renvoyé aucun texte."
+  },
+  "playground_tts_speechMicError": {
+    "message": "Impossible d’accéder à votre microphone. Vérifiez les autorisations du navigateur et réessayez."
+  },
+  "playground_tts_savedToNotes": {
+    "message": "Transcription enregistrée comme note."
+  },
+  "playground_empty_title": {
+    "message": "Start a new chat"
+  },
+  "playground_empty_description": {
+    "message": "Experiment with different models, prompts, and knowledge sources here."
+  },
+  "playground_empty_demoDescription": {
+    "message": "You’re in demo mode — try asking a question to see how the assistant responds. You can connect your own tldw server later."
+  },
+  "playground_empty_example1": {
+    "message": "Ask a question, then drag in documents or web pages you want to discuss."
+  },
+  "playground_empty_example2": {
+    "message": "Use Quick ingest to add transcripts or notes, then reference them in chat."
+  },
+  "playground_empty_example3": {
+    "message": "Try different prompts or models from the header to compare answers."
+  },
+  "playground_empty_primaryCta": {
+    "message": "Start chatting"
+  },
+  "playground_empty_secondaryCta": {
+    "message": "Open server settings"
+  },
+  "playground_drop_hint": {
+    "message": "Drop files to attach them to your message"
+  },
+  "playground_drop_readySingle": {
+    "message": "{{name}} ready to send"
+  },
+  "playground_drop_readyMultiple": {
+    "message": "{{count}} files ready to send"
+  },
+  "playground_drop_unsupported": {
+    "message": "That file type isn’t supported. Try images or text-based files."
+  },
+  "playground_drop_defaultFileName": {
+    "message": "File"
+  },
+  "playground_drop_imageOnly": {
+    "message": "Only images can be dropped here right now."
+  },
+  "playground_drop_imageHint": {
+    "message": "Drop an image to include it in your message"
+  },
+  "playground_drop_overlayInstruction": {
+    "message": "Drop the image to attach it to your next reply"
+  },
+  "playground_aria_chatTranscript": {
+    "message": "Chat messages"
+  },
+  "playground_more_history": {
+    "message": "Chat saving"
+  },
+  "playground_more_searchKnowledge": {
+    "message": "Recherche et RAG"
+  },
+  "playground_more_voice": {
+    "message": "More voice options"
+  },
+  "playground_more_uploads": {
+    "message": "Uploads & ingest"
+  },
+  "playground_fileRetrievalEnabled": {
+    "message": "Enable RAG for Documents"
+  },
+  "playground_stt_title": {
+    "message": "STT Playground"
+  },
+  "playground_stt_subtitle": {
+    "message": "Try out transcription models, run longer dictation sessions, and save transcripts into Notes."
+  },
+  "playground_stt_currentModelLabel": {
+    "message": "Current transcription model"
+  },
+  "playground_stt_defaultModel": {
+    "message": "Default from Settings"
+  },
+  "playground_stt_settingsNotice": {
+    "message": "Language, task, response format, segmentation, and prompt reuse your Speech-to-Text defaults from Settings."
+  },
+  "playground_stt_sessionMode": {
+    "message": "Session mode"
+  },
+  "playground_stt_modeLong": {
+    "message": "Long-running (chunked recording)"
+  },
+  "playground_stt_modeShort": {
+    "message": "Short dictation (single clip)"
+  },
+  "playground_stt_languageTag": {
+    "message": "Language"
+  },
+  "playground_stt_taskTag": {
+    "message": "Task"
+  },
+  "playground_stt_formatTag": {
+    "message": "Format"
+  },
+  "playground_stt_segmentationEnabled": {
+    "message": "Segmentation enabled"
+  },
+  "playground_stt_recordButton": {
+    "message": "Record"
+  },
+  "playground_stt_stopButton": {
+    "message": "Stop"
+  },
+  "playground_stt_startTooltip": {
+    "message": "Start recording audio for transcription"
+  },
+  "playground_stt_stopTooltip": {
+    "message": "Stop and send to server"
+  },
+  "playground_stt_transcribingButton": {
+    "message": "Transcription…"
+  },
+  "playground_stt_transcribingTooltip": {
+    "message": "Transcription audio…"
+  },
+  "playground_stt_transcribingPlaceholder": {
+    "message": "Transcription audio…"
+  },
+  "playground_stt_historyTitle": {
+    "message": "Transcription history"
+  },
+  "playground_stt_clearAll": {
+    "message": "Clear all"
+  },
+  "playground_stt_emptyHistory": {
+    "message": "Start a recording to see transcripts here. You can save any item into Notes."
+  },
+  "playground_stt_saveToNotes": {
+    "message": "Save to Notes"
+  },
+  "playground_stt_delete": {
+    "message": "Delete"
+  },
+  "playground_stt_durationTag": {
+    "message": "Duration"
+  },
+  "playground_stt_modelTag": {
+    "message": "Model"
+  },
+  "playground_stt_currentTranscriptTitle": {
+    "message": "Current session transcript"
+  },
+  "playground_stt_currentTranscriptPlaceholder": {
+    "message": "Live transcript will appear here while recording."
+  },
+  "playground_actions_temporaryOn": {
+    "message": "Temporary chat (not saved)"
+  },
+  "playground_actions_temporaryOff": {
+    "message": "Save chat to history"
+  },
+  "playground_actions_webSearchOn": {
+    "message": "Web search on"
+  },
+  "playground_actions_webSearchOff": {
+    "message": "Web search off"
+  },
+  "playground_actions_speechStart": {
+    "message": "Start dictation"
+  },
+  "playground_actions_speechStop": {
+    "message": "Stop dictation"
+  },
+  "playground_actions_streamStart": {
+    "message": "Live captions"
+  },
+  "playground_actions_streamStop": {
+    "message": "Stop captions"
+  },
+  "playground_actions_visionOn": {
+    "message": "Vision on"
+  },
+  "playground_actions_visionOff": {
+    "message": "Vision off"
+  },
+  "playground_actions_upload": {
+    "message": "Attach image"
+  },
+  "playground_actions_ingest": {
+    "message": "Quick ingest"
+  },
+  "playground_actions_ingestDisabled": {
+    "message": "Connect to your tldw server to ingest."
+  },
+  "playground_actions_ingestHint": {
+    "message": "Upload URLs or files with advanced options."
+  },
+  "playground_actions_ingestSub": {
+    "message": "Use URLs/files; download or store."
+  },
+  "playground_actions_streamErrorTitle": {
+    "message": "Live captions unavailable"
+  },
+  "playground_composer_toolsButton": {
+    "message": "+Tools"
+  },
+  "playground_composer_queuedBanner_title": {
+    "message": "Queued while offline"
+  },
+  "playground_composer_queuedBanner_body": {
+    "message": "We’ll hold these messages and send them once your tldw server is connected."
+  },
+  "playground_composer_queuedBanner_sendNow": {
+    "message": "Send queued messages"
+  },
+  "playground_composer_queuedBanner_clear": {
+    "message": "Clear queue"
+  },
+  "playground_composer_coreTools": {
+    "message": "Conversation options"
+  },
+  "playground_composer_captureTools": {
+    "message": "Capture and assist tools"
+  },
+  "playground_composer_actions": {
+    "message": "Send options"
+  },
+  "playground_composer_moreTools": {
+    "message": "More tools"
+  },
+  "playground_composer_scrollToLatest": {
+    "message": "Scroll to latest messages"
+  },
+  "playground_composer_submitAria": {
+    "message": "Send message"
+  },
+  "playground_composer_openModelSettings": {
+    "message": "Open current chat settings"
+  },
+  "playground_composer_stopStreaming": {
+    "message": "Stop streaming response"
+  },
+  "playground_composer_connectionPlaceholder": {
+    "message": "Connect to your tldw server in Settings to send messages and view media."
+  },
+  "playground_composer_connectNotice": {
+    "message": "Connect to your tldw server in Settings to send messages and view media."
+  },
+  "playground_composer_connectionChipDisconnected": {
+    "message": "Server: Not connected"
+  },
+  "playground_composer_contextLabel": {
+    "message": "Context:"
+  },
+  "playground_composer_contextKnowledgeEmpty": {
+    "message": "No knowledge selected"
+  },
+  "playground_composer_contextTabs": {
+    "message": "{{count}} tabs"
+  },
+  "playground_composer_contextFiles": {
+    "message": "{{count}} files"
+  },
+  "playground_composer_contextMedia": {
+    "message": "Media & Notes"
+  },
+  "playground_composer_contextMediaHint": {
+    "message": "Attach Media & Notes that should steer the response."
+  },
+  "playground_composer_contextMediaSelected": {
+    "message": "Media or note"
+  },
+  "playground_composer_contextMediaEmpty": {
+    "message": "No Media & Notes selected yet."
+  },
+  "playground_composer_addKnowledge": {
+    "message": "Add Media & Notes"
+  },
+  "playground_composer_contextTabsTitle": {
+    "message": "Tabs in context"
+  },
+  "playground_composer_contextTabsHint": {
+    "message": "Review or remove referenced tabs, or add more from your open browser tabs."
+  },
+  "playground_composer_contextManager": {
+    "message": "Context Management"
+  },
+  "playground_composer_contextManagerTitle": {
+    "message": "Context Management"
+  },
+  "playground_composer_contextKnowledge": {
+    "message": "Contexte et connaissances"
+  },
+  "playground_composer_contextKnowledgeClose": {
+    "message": "Fermer le contexte et les connaissances"
+  },
+  "playground_composer_knowledgeSearch": {
+    "message": "Recherche de connaissances"
+  },
+  "playground_composer_knowledgeSearchClose": {
+    "message": "Fermer la recherche de connaissances"
+  },
+  "playground_composer_persistence_ephemeral": {
+    "message": "Not saved in history; clears when you close this tab."
+  },
+  "playground_composer_persistence_local": {
+    "message": "Saved in this browser only."
+  },
+  "playground_composer_persistence_server": {
+    "message": "Saved Locally+Server"
+  },
+  "playground_composer_persistence_ephemeralPill": {
+    "message": "Temporary"
+  },
+  "playground_composer_persistence_localPill": {
+    "message": "Local only"
+  },
+  "playground_composer_persistence_serverPill": {
+    "message": "Locally + Server"
+  },
+  "playground_composer_persistence_saveToServer": {
+    "message": "Also save this chat to server"
+  },
+  "playground_composer_persistence_connectToSave": {
+    "message": "Connect your server to save chats there."
+  },
+  "playground_composer_persistence_serverDefaultTitle": {
+    "message": "Extension chat"
+  },
+  "playground_composer_persistence_serverSavedTitle": {
+    "message": "Chat now saved on server"
+  },
+  "playground_composer_persistence_serverSaved": {
+    "message": "Future messages in this chat will sync to your tldw server."
+  },
+  "playground_composer_persistence_serverCharacterRequired": {
+    "message": "Unable to find or create a default assistant character on the server. Try again from the Characters page."
+  },
+  "playground_composer_connectToSend": {
+    "message": "Connect to your tldw server in Settings to send messages and view media."
+  },
+  "playground_composer_compareTag": {
+    "message": "Compare"
+  },
+  "playground_composer_compareLabel": {
+    "message": "Mode de comparaison"
+  },
+  "playground_composer_compareButton": {
+    "message": "Comparer les modèles"
+  },
+  "playground_composer_compareButtonActive": {
+    "message": "Comparaison : {{count}} modèles"
+  },
+  "playground_composer_compareButtonOn": {
+    "message": "Comparaison activée"
+  },
+  "playground_composer_compareSettingsTitle": {
+    "message": "Paramètres de comparaison"
+  },
+  "playground_composer_compareSettingsToggle": {
+    "message": "Activer le mode de comparaison"
+  },
+  "playground_composer_compareSettingsToggleHint": {
+    "message": "Envoyez votre prochain message à plusieurs modèles."
+  },
+  "playground_composer_compareNoneSelected": {
+    "message": "Aucun modèle sélectionné pour la comparaison"
+  },
+  "playground_composer_compareSingle": {
+    "message": "Comparaison d'un modèle"
+  },
+  "playground_composer_compareMany": {
+    "message": "Comparaison de {{count}} modèles"
+  },
+  "playground_composer_compareActiveSummary": {
+    "message": "Modèles actifs au prochain tour : {{label}}"
+  },
+  "playground_composer_compareModelPickerLabel": {
+    "message": "Sélectionner des modèles"
+  },
+  "playground_composer_compareModelPickerPlaceholder": {
+    "message": "Choisir des modèles à comparer"
+  },
+  "playground_composer_compareActiveModelsLabel": {
+    "message": "Modèles actifs"
+  },
+  "playground_composer_compareActiveModelsHint": {
+    "message": "Votre prochain message sera envoyé à chaque modèle actif."
+  },
+  "playground_composer_compareSendToModels": {
+    "message": "Envoyer à {{count}} modèles"
+  },
+  "playground_composer_compareMaxModelsTitle": {
+    "message": "Limite de comparaison atteinte"
+  },
+  "playground_composer_compareMaxModels": {
+    "message": "Vous pouvez comparer jusqu'à {{limit}} modèles par tour."
+  },
+  "playground_composer_compareMaxModelsTrimmed": {
+    "message": "La comparaison est limitée à {{limit}} modèles par tour. Utilisation des {{limit}} premiers modèles sélectionnés."
+  },
+  "playground_composer_compareMaxLabel": {
+    "message": "Nombre maximum de modèles par tour"
+  },
+  "playground_composer_compareMaxHelper": {
+    "message": "Sélectionnés {{current}} / {{limit}}"
+  },
+  "playground_composer_compareSelectedLabel": {
+    "message": "Sélectionné comme réponse :"
+  },
+  "playground_composer_compareContinueHint": {
+    "message": "Continuez cette discussion avec le modèle sélectionné."
+  },
+  "playground_composer_compareContinue": {
+    "message": "Continuer avec ce modèle"
+  },
+  "playground_composer_compareThreadShared": {
+    "message": "Vous (partagé)"
+  },
+  "playground_composer_compareBulkSplitSuccess": {
+    "message": "Créées {{count}} discussions"
+  },
+  "playground_composer_compareBulkSplitPartialFail": {
+    "message": "Impossible de créer {{count}} discussions"
+  },
+  "playground_composer_validationCompareSelectModelsInline": {
+    "message": "Sélectionnez au moins un modèle pour le mode de comparaison."
+  },
+  "tabs_newChat": {
+    "message": "Nouveau chat"
+  },
+  "tabs_newTabAria": {
+    "message": "Nouvel onglet de chat"
+  },
+  "tabs_closeTabAria": {
+    "message": "Fermer l'onglet de chat"
+  },
+  "manageCharacters_title": {
+    "message": "Gérer les personnages"
+  },
+  "manageCharacters_addBtn": {
+    "message": "Nouveau personnage"
+  },
+  "manageCharacters_columns_name": {
+    "message": "Nom"
+  },
+  "manageCharacters_columns_description": {
+    "message": "Description détaillée"
+  },
+  "manageCharacters_columns_actions": {
+    "message": "Actions rapides"
+  },
+  "manageCharacters_columns_avatar": {
+    "message": "Photo de profil"
+  },
+  "manageCharacters_actions_chat": {
+    "message": "Discuter"
+  },
+  "manageCharacters_actions_edit": {
+    "message": "Modifier"
+  },
+  "manageCharacters_actions_delete": {
+    "message": "Supprimer"
+  },
+  "manageCharacters_actions_duplicate": {
+    "message": "Dupliquer"
+  },
+  "manageCharacters_table_noDescription": {
+    "message": "Aucune description"
+  },
+  "manageCharacters_filter_matchAll": {
+    "message": "Faire correspondre toutes les étiquettes"
+  },
+  "manageCharacters_tags_label": {
+    "message": "Étiquettes"
+  },
+  "manageCharacters_tags_placeholder": {
+    "message": "Ajouter des étiquettes"
+  },
+  "manageCharacters_tags_help": {
+    "message": "Utilisez des étiquettes pour regrouper les personnages par usage (ex. « écriture », « enseignement »)."
+  },
+  "manageCharacters_tooltip_edit": {
+    "message": "Modifier le personnage"
+  },
+  "manageCharacters_tooltip_delete": {
+    "message": "Supprimer le personnage"
+  },
+  "manageCharacters_aria_chatWith": {
+    "message": "Discuter en tant que {{name}}"
+  },
+  "manageCharacters_aria_edit": {
+    "message": "Modifier le personnage {{name}}"
+  },
+  "manageCharacters_aria_delete": {
+    "message": "Supprimer le personnage {{name}}"
+  },
+  "manageCharacters_aria_duplicate": {
+    "message": "Dupliquer le personnage {{name}}"
+  },
+  "manageCharacters_confirm_delete": {
+    "message": "Voulez-vous vraiment supprimer ce personnage ? Cette action est irréversible."
+  },
+  "manageCharacters_avatar_label": {
+    "message": "Photo de profil (facultatif)"
+  },
+  "manageCharacters_avatar_tabUrl": {
+    "message": "Adresse URL"
+  },
+  "manageCharacters_avatar_tabUpload": {
+    "message": "Importer"
+  },
+  "manageCharacters_avatar_selectImageError": {
+    "message": "Veuillez sélectionner un fichier image"
+  },
+  "manageCharacters_avatar_formatError": {
+    "message": "Seules les images PNG, JPEG et GIF sont prises en charge"
+  },
+  "manageCharacters_avatar_invalidError": {
+    "message": "Fichier image invalide"
+  },
+  "manageCharacters_avatar_processError": {
+    "message": "Échec du traitement de l'image"
+  },
+  "manageCharacters_avatar_dropzone": {
+    "message": "Cliquez ou faites glisser une image pour l'importer"
+  },
+  "manageCharacters_avatar_formats": {
+    "message": "PNG, JPEG ou GIF"
+  },
+  "manageCharacters_avatar_preview": {
+    "message": "Aperçu"
+  },
+  "manageCharacters_form_name_label": {
+    "message": "Nom"
+  },
+  "manageCharacters_form_name_placeholder": {
+    "message": "ex. coach en écriture"
+  },
+  "manageCharacters_form_name_required": {
+    "message": "Veuillez saisir un nom"
+  },
+  "manageCharacters_form_description": {
+    "message": "Définissez un personnage réutilisable avec lequel discuter dans la barre latérale."
+  },
+  "manageCharacters_form_systemPrompt_label": {
+    "message": "Comportement / instructions"
+  },
+  "manageCharacters_form_systemPrompt_placeholder": {
+    "message": "Ex. Vous êtes un professeur de mathématiques patient qui explique étape par étape et vérifie la compréhension avec de courts exemples."
+  },
+  "manageCharacters_form_systemPrompt_help": {
+    "message": "Décrivez le rôle, le ton et les contraintes du personnage. Exemple : « Vous êtes un tuteur patient qui explique les concepts étape par étape. »"
+  },
+  "manageCharacters_form_systemPrompt_required": {
+    "message": "Veuillez ajouter des instructions pour guider les réponses."
+  },
+  "manageCharacters_form_systemPrompt_min": {
+    "message": "Ajoutez une brève description pour guider les réponses du personnage."
+  },
+  "manageCharacters_form_systemPrompt_max": {
+    "message": "Le prompt système doit contenir 2000 caractères ou moins."
+  },
+  "manageCharacters_form_avatarUrl_label": {
+    "message": "URL de l’avatar (optionnel)"
+  },
+  "manageCharacters_form_avatarUrl_placeholder": {
+    "message": "ex. https://example.com/avatar.png"
+  },
+  "manageCharacters_form_greeting_label": {
+    "message": "Message d’accueil (optionnel)"
+  },
+  "manageCharacters_form_greeting_placeholder": {
+    "message": "Bonjour ! Je suis ton coach en écriture. Colle ton brouillon et je t’aiderai à l’améliorer."
+  },
+  "manageCharacters_form_greeting_help": {
+    "message": "Premier message optionnel envoyé au début du chat."
+  },
+  "manageCharacters_form_btnSave_saving": {
+    "message": "Création du personnage..."
+  },
+  "manageCharacters_form_btnSave_save": {
+    "message": "Créer un personnage"
+  },
+  "manageCharacters_form_btnEdit_saving": {
+    "message": "Enregistrement des modifications..."
+  },
+  "manageCharacters_form_btnEdit_save": {
+    "message": "Enregistrer les modifications"
+  },
+  "manageCharacters_notification_addSuccess": {
+    "message": "Personnage créé"
+  },
+  "manageCharacters_notification_error": {
+    "message": "Erreur"
+  },
+  "manageCharacters_notification_someError": {
+    "message": "Une erreur est survenue. Réessaie plus tard"
+  },
+  "manageCharacters_notification_updatedSuccess": {
+    "message": "Personnage mis à jour"
+  },
+  "manageCharacters_notification_deletedSuccess": {
+    "message": "Personnage supprimé"
+  },
+  "manageCharacters_loadError_title": {
+    "message": "Impossible de charger les personnages"
+  },
+  "manageCharacters_loadError_description": {
+    "message": "Vérifie ta connexion et réessaie."
+  },
+  "manageCharacters_emptyTitle": {
+    "message": "Aucun personnage pour le moment"
+  },
+  "manageCharacters_emptyDescription": {
+    "message": "Crée un personnage réutilisable avec nom, description et prompt système pour discuter."
+  },
+  "manageCharacters_emptyExample1": {
+    "message": "Définis un coach en écriture, un expert en lore ou un assistant de code réutilisable."
+  },
+  "manageCharacters_emptyExample2": {
+    "message": "Donne à chaque personnage une description et un comportement clairs pour des réponses cohérentes."
+  },
+  "manageCharacters_emptyPrimaryCta": {
+    "message": "Créer un personnage"
+  },
+  "manageCharacters_avatarAltWithName": {
+    "message": "Avatar de {{name}}"
+  },
+  "manageCharacters_avatarAlt": {
+    "message": "Avatar de l'utilisateur"
+  },
+  "quiz_itemsPerPage": {
+    "message": "éléments/page"
+  },
+  "quiz_editQuizTitle": {
+    "message": "Modifier le quiz"
+  },
+  "quiz_updateSuccess": {
+    "message": "Quiz mis à jour avec succès."
+  },
+  "quiz_updateError": {
+    "message": "Échec de la mise à jour du quiz."
+  },
+  "quiz_questionTextRequired": {
+    "message": "Le texte de la question est obligatoire."
+  },
+  "quiz_optionsRequired": {
+    "message": "Veuillez fournir au moins deux options."
+  },
+  "quiz_questionSaveSuccess": {
+    "message": "Question créée avec succès."
+  },
+  "quiz_questionUpdateSuccess": {
+    "message": "Question mise à jour avec succès."
+  },
+  "quiz_questionSaveError": {
+    "message": "Échec de l’enregistrement de la question."
+  },
+  "quiz_questionDeleteSuccess": {
+    "message": "Question supprimée avec succès."
+  },
+  "quiz_questionDeleteError": {
+    "message": "Échec de la suppression de la question."
+  },
+  "quiz_editQuestion": {
+    "message": "Modifier la question"
+  },
+  "quiz_points": {
+    "message": "Score"
+  },
+  "quiz_orderIndex": {
+    "message": "Ordre"
+  },
+  "quiz_startError": {
+    "message": "Échec du démarrage du quiz."
+  },
+  "quiz_answerAll": {
+    "message": "Veuillez répondre à toutes les questions avant d’envoyer."
+  },
+  "quiz_submitError": {
+    "message": "Échec de l’envoi du quiz."
+  },
+  "quiz_scoreSummary": {
+    "message": "Score : {{score}} / {{total}} ({{percent}}%)"
+  },
+  "quiz_correct": {
+    "message": "Correcte"
+  },
+  "quiz_incorrect": {
+    "message": "Incorrecte"
+  },
+  "quiz_yourAnswer": {
+    "message": "Votre réponse"
+  },
+  "quiz_correctAnswerLabel": {
+    "message": "Bonne réponse"
+  },
+  "quiz_backToList": {
+    "message": "Retour à la liste"
+  },
+  "quiz_retake": {
+    "message": "Refaire le quiz"
+  },
+  "searchPrompts": {
+    "message": "Rechercher des prompts..."
+  },
+  "noMatchingPrompts": {
+    "message": "Aucun prompt correspondant"
+  },
+  "promptSelect_favorites": {
+    "message": "Favoris"
+  },
+  "promptSelect_system": {
+    "message": "Prompts système"
+  },
+  "promptSelect_quick": {
+    "message": "Prompts rapides"
+  },
+  "flashcards_bulkLimitWarning": {
+    "message": "Opération limitée aux {{limit}} premiers éléments."
+  },
+  "mediaPage_spreadMode": {
+    "message": "Comparer"
+  },
+  "mediaPage_listMode": {
+    "message": "Focalisation"
+  },
+  "mediaPage_allMode": {
+    "message": "Empiler"
+  },
+  "mediaPage_spreadModeTooltip": {
+    "message": "Afficher les éléments sélectionnés côte à côte pour comparer"
+  },
+  "mediaPage_listModeTooltip": {
+    "message": "Afficher un élément à la fois avec la navigation"
+  },
+  "mediaPage_allModeTooltip": {
+    "message": "Afficher tous les éléments sélectionnés dans une liste déroulante"
+  },
+  "mediaPage_copyContentLabel": {
+    "message": "Copier le contenu"
+  },
+  "mediaPage_copyAnalysisLabel": {
+    "message": "Copier l’analyse"
+  },
+  "mediaPage_copyContentTooltip": {
+    "message": "Copier le contenu dans le presse-papiers"
+  },
+  "mediaPage_copyAnalysisTooltip": {
+    "message": "Copier l’analyse dans le presse-papiers"
+  },
+  "mediaPage_prevItemTooltip": {
+    "message": "Élément précédent (←)"
+  },
+  "mediaPage_nextItemTooltip": {
+    "message": "Élément suivant (→)"
+  },
+  "mediaPage_viewerOptions": {
+    "message": "Options d’affichage"
+  },
+  "mediaPage_expandAllDropdown": {
+    "message": "Développer/Réduire"
+  },
+  "mediaPage_itemPosition": {
+    "message": "Élément {{current}} sur {{total}}"
+  },
+  "mediaPage_noItemSelected": {
+    "message": "Aucun élément sélectionné"
+  },
+  "mediaPage_firstUseTitle": {
+    "message": "Guide rapide : revue multi-éléments"
+  },
+  "mediaPage_firstUseStep1": {
+    "message": "Sélectionner des éléments"
+  },
+  "mediaPage_firstUseStep1Desc": {
+    "message": "Cliquez sur les éléments dans le panneau de gauche pour les ajouter à votre visionneuse."
+  },
+  "mediaPage_firstUseStep2": {
+    "message": "Choisir une vue"
+  },
+  "mediaPage_firstUseStep2Desc": {
+    "message": "Utilisez « Comparer » pour côte à côte, « Focus » pour un à la fois, ou « Empiler » pour tout voir."
+  },
+  "mediaPage_firstUseStep3": {
+    "message": "Naviguer"
+  },
+  "mediaPage_firstUseStep3Desc": {
+    "message": "Utilisez les boutons Précédent/Suivant ou le clavier (Tab + Entrée) pour parcourir les éléments."
+  },
+  "mediaPage_gotIt": {
+    "message": "Compris"
+  },
+  "mediaPage_model": {
+    "message": "Modèle"
+  },
+  "mediaPage_selectModel": {
+    "message": "Sélectionner un modèle"
+  },
+  "mediaPage_noModelsAvailable": {
+    "message": "Aucun modèle disponible"
+  },
+  "mediaPage_promptPresets": {
+    "message": "Préréglages de prompt"
+  },
+  "mediaPage_showPresets": {
+    "message": "Afficher les préréglages"
+  },
+  "mediaPage_hidePresets": {
+    "message": "Masquer les préréglages"
+  },
+  "mediaPage_systemPromptLabel": {
+    "message": "Prompt système"
+  },
+  "mediaPage_systemPromptPlaceholder": {
+    "message": "Saisissez le prompt système..."
+  },
+  "mediaPage_userPromptPrefixLabel": {
+    "message": "Préfixe du prompt utilisateur"
+  },
+  "mediaPage_prependedBeforeContent": {
+    "message": "(ajouté avant le contenu)"
+  },
+  "mediaPage_userPrefixPlaceholder": {
+    "message": "Optionnel : saisissez un texte à ajouter avant le contenu média..."
+  },
+  "mediaPage_presetComprehensiveAnalysis": {
+    "message": "Analyse complète"
+  },
+  "mediaPage_presetExecutiveSummary": {
+    "message": "Résumé exécutif"
+  },
+  "mediaPage_presetCriticalReview": {
+    "message": "Revue critique"
+  },
+  "mediaPage_presetQAAnalysis": {
+    "message": "Analyse Q&R"
   }
 }

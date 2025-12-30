@@ -6,7 +6,7 @@
     "about": "關於"
   },
   "healthNav": "健康",
-  "worldBooksNav": "World Books",
+  "worldBooksNav": "世界書",
   "chatDictionariesNav": "聊天字典",
   "charactersNav": "角色",
   "mediaNav": "媒體",
@@ -165,7 +165,7 @@
       },
       "searxng": {
         "url": {
-          "label": "SearXNG URL"
+          "label": "SearXNG 網址"
         }
       },
       "braveApi": {
@@ -267,117 +267,117 @@
       "autoSubmitVoiceMessage": {
         "label": "自動送出語音訊息"
       },
-      "usedByChat": "These Speech-to-Text defaults are used by the chat dictation button in the Playground and Sidebar.",
+      "usedByChat": "這些語音轉文字的預設值會用在 Playground 與側邊欄的語音輸入按鈕。",
       "model": {
-        "label": "Transcription model (tldw_server)"
+        "label": "轉錄模型（tldw_server）"
       },
       "useSegmentation": {
-        "label": "Run segmentation for transcripts (TreeSeg)"
+        "label": "對轉錄進行分段（TreeSeg）"
       },
       "timestampGranularities": {
-        "label": "Timestamp granularity",
-        "segment": "Per segment",
-        "word": "Per word",
-        "segmentWord": "Segment + word"
+        "label": "時間戳精度",
+        "segment": "每段",
+        "word": "每詞",
+        "segmentWord": "段落 + 詞"
       },
       "task": {
-        "label": "Transcription task",
-        "transcribe": "Transcribe (same language)",
-        "translate": "Translate to English"
+        "label": "轉錄任務",
+        "transcribe": "轉錄（相同語言）",
+        "translate": "翻譯成英文"
       },
       "responseFormat": {
-        "label": "Response format",
-        "json": "JSON (text + segments)",
-        "verboseJson": "Verbose JSON",
-        "text": "Plain text",
-        "srt": "SRT subtitles",
-        "vtt": "VTT subtitles"
+        "label": "回應格式",
+        "json": "JSON（文字 + 分段）",
+        "verboseJson": "詳細 JSON",
+        "text": "純文字",
+        "srt": "SRT 字幕",
+        "vtt": "VTT 字幕"
       },
       "temperature": {
-        "label": "Sampling temperature"
+        "label": "取樣溫度"
       },
       "prompt": {
-        "label": "Default transcription prompt",
-        "placeholder": "Optional text to guide style"
+        "label": "預設轉錄提示詞",
+        "placeholder": "可選擇的風格引導文字"
       },
       "segK": {
-        "label": "Max segments (TreeSeg K)"
+        "label": "最大分段數（TreeSeg K）"
       },
       "segMinSegmentSize": {
-        "label": "Minimum items per segment"
+        "label": "每段最少項目"
       },
       "segLambdaBalance": {
-        "label": "Balance penalty (TreeSeg λ)"
+        "label": "平衡懲罰（TreeSeg λ）"
       },
       "segUtteranceExpansionWidth": {
-        "label": "Utterance expansion width"
+        "label": "語句擴展寬度"
       },
       "segEmbeddingsProvider": {
-        "label": "Segmentation embeddings provider"
+        "label": "分段嵌入提供者"
       },
       "segEmbeddingsModel": {
-        "label": "Segmentation embeddings model"
+        "label": "分段嵌入模型"
       }
     },
     "systemBasics": {
-      "heading": "System",
+      "heading": "系統",
       "uiMode": {
-        "label": "Default UI Mode",
+        "label": "預設 UI 模式",
         "options": {
-          "webui": "Full Screen (Web UI)",
-          "sidePanel": "Sidebar"
+          "webui": "全螢幕（Web UI）",
+          "sidePanel": "側邊欄"
         }
       },
       "actionIcon": {
-        "label": "Browser Action Button"
+        "label": "瀏覽器動作按鈕"
       },
       "contextMenu": {
-        "label": "Context Menu Action"
+        "label": "右鍵選單操作"
       },
       "webuiBtnSidePanel": {
-        "label": "Show Web UI button in Sidebar"
+        "label": "在側邊欄顯示 Web UI 按鈕"
       },
       "chatBackgroundImage": {
-        "label": "Chat Background Image"
+        "label": "聊天背景圖片"
       },
       "fontSize": {
-        "label": "Font Size"
+        "label": "字體大小"
       }
     },
     "systemData": {
-      "heading": "Data",
+      "heading": "資料",
       "firefoxPrivateModeSync": {
-        "label": "Firefox Private Mode Sync",
-        "button": "Sync Data"
+        "label": "Firefox 私密模式同步",
+        "button": "同步資料"
       },
       "deleteChatHistory": {
-        "label": "System Reset",
-        "button": "Reset All",
-        "confirm": "Are you sure you want to perform a system reset? This will clear all data and cannot be undone."
+        "label": "系統重置",
+        "button": "全部重置",
+        "confirm": "確定要進行系統重置嗎？這會清除所有資料且無法復原。"
       },
       "export": {
-        "label": "Export Chat History, Knowledge Base, and Prompts",
-        "button": "Export Data",
-        "success": "Export Success"
+        "label": "匯出聊天紀錄、知識庫與提示詞",
+        "button": "匯出資料",
+        "success": "匯出成功"
       },
       "import": {
-        "label": "Import Chat History, Knowledge Base, and Prompts",
-        "button": "Import Data",
-        "success": "Import Success",
-        "error": "Import Error"
+        "label": "匯入聊天紀錄、知識庫與提示詞",
+        "button": "匯入資料",
+        "success": "匯入成功",
+        "error": "匯入錯誤"
       }
     },
     "empty": {
-      "connectTitle": "Connect tldw Assistant to your server",
-      "connectDescription": "Some settings only take effect when your tldw server is reachable. Connect your server to get the full experience.",
-      "connectExample1": "Open Settings → tldw server to add your server URL and API key.",
-      "connectExample2": "Use Diagnostics to confirm your server is healthy before trying advanced tools.",
-      "title": "Tune how tldw Assistant behaves",
-      "description": "Adjust defaults for the Web UI, sidepanel, speech, search, and data handling from one place.",
-      "example1": "Choose your default language, theme, and chat resume behavior.",
-      "example2": "Control whether chats are temporary, how large pastes are handled, and how reasoning is displayed.",
-      "primaryCta": "Configure server & auth",
-      "secondaryCta": "Dismiss"
+      "connectTitle": "將 tldw Assistant 連接到你的伺服器",
+      "connectDescription": "部分設定只有在 tldw 伺服器可連線時才會生效。連線伺服器以取得完整體驗。",
+      "connectExample1": "前往「設定 → tldw 伺服器」新增伺服器 URL 與 API 金鑰。",
+      "connectExample2": "在使用進階工具前，先用診斷確認伺服器健康狀態。",
+      "title": "調整 tldw Assistant 的行為",
+      "description": "在此集中調整 Web UI、側邊欄、語音、搜尋與資料處理的預設值。",
+      "example1": "選擇預設語言、主題與聊天續接行為。",
+      "example2": "控制聊天是否為暫時、如何處理大量貼上內容，以及推理顯示方式。",
+      "primaryCta": "設定伺服器與驗證",
+      "secondaryCta": "關閉"
     }
   },
   "manageModels": {
@@ -398,7 +398,7 @@
       "parameterSize": "參數大小",
       "quantizationLevel": "量化級別"
     },
-      "tooltip": {
+    "tooltip": {
       "delete": "刪除模型",
       "repull": "重新下載模型",
       "editNickname": "編輯暱稱"
@@ -428,13 +428,13 @@
     "title": "提示詞管理",
     "addBtn": "新增提示詞",
     "option1": "一般",
-    "option2": "RAG",
+    "option2": "RAG（檢索）",
     "questionPrompt": "問題提示詞",
     "segmented": {
       "custom": "自訂提示詞",
       "copilot": "Copilot 提示詞",
-      "helpCustom": "Create and manage reusable prompts you can insert into chat.",
-      "helpCopilot": "View and tweak predefined Copilot prompts provided by your server."
+      "helpCustom": "建立並管理可插入聊天的可重用提示詞。",
+      "helpCopilot": "查看並調整伺服器提供的 Copilot 預設提示詞。"
     },
     "columns": {
       "title": "標題",
@@ -447,7 +447,7 @@
     "tooltip": {
       "delete": "刪除提示詞",
       "edit": "編輯提示詞",
-      "duplicate": "Duplicate Prompt"
+      "duplicate": "複製提示詞"
     },
     "confirm": {
       "delete": "您確實要刪除這個提示詞嗎？此操作無法撤銷。"
@@ -459,7 +459,7 @@
     "form": {
       "title": {
         "label": "標題",
-        "placeholder": "My Awesome Prompt",
+        "placeholder": "我的最佳提示詞",
         "required": "請輸入標題"
       },
       "prompt": {
@@ -491,44 +491,45 @@
       "deletedSuccess": "提示詞已刪除",
       "deletedSuccessDesc": "提示詞已刪除成功"
     },
-    "workspaceTitle": "Prompts workspace",
-    "workspaceDescription": "Reusable prompts are managed from the Prompts workspace. Use the button below to open it.",
-    "openWorkspace": "Open Prompts workspace",
-    "search": "Search titles and contents",
+    "workspaceTitle": "提示詞工作區",
+    "workspaceDescription": "可重用提示詞在提示詞工作區中管理。使用下方按鈕開啟。",
+    "openWorkspace": "開啟提示詞工作區",
+    "search": "搜尋標題與內容",
     "filter": {
-      "all": "All",
-      "system": "System",
-      "quick": "Quick"
+      "all": "全部",
+      "system": "系統",
+      "quick": "快速"
     },
     "tags": {
-      "label": "Tags",
-      "placeholder": "Add tags"
+      "label": "標籤",
+      "placeholder": "新增標籤"
     },
-    "import": "Import",
-    "export": "Export",
+    "import": "匯入",
+    "export": "匯出",
     "importMode": {
-      "merge": "Merge",
-      "replace": "Replace"
+      "merge": "合併",
+      "replace": "取代",
+      "replaceConfirm": "取代會用匯入檔案覆寫目前所有提示詞。要繼續嗎？"
     },
-    "favorite": "Favorite",
-    "unfavorite": "Unfavorite",
-    "partialLoad": "Some prompt data isn’t available",
-    "loadErrorHelp": "Check your server connection and refresh to try again.",
-    "emptyConnectTitle": "Connect to use Prompts",
-    "emptyConnectDescription": "To manage reusable prompts, first connect to your tldw server.",
-    "emptyConnectExample1": "Open Settings → tldw server to add your server URL.",
-    "emptyConnectExample2": "Once connected, create custom prompts you can reuse across chats.",
-    "emptyTitle": "No custom prompts yet",
-    "emptyDescription": "Create reusable prompts for recurring tasks, workflows, and team conventions.",
-    "emptyExample1": "Save your favorite system prompt for summaries, explanations, or translations.",
-    "emptyExample2": "Create quick prompts for common actions like drafting emails or refining notes.",
-    "emptyPrimaryCta": "Create prompt",
-    "filterHelp": "Search matches title and prompt content. Use type and tags to narrow the list.",
-    "copilotEmptyTitle": "No Copilot prompts available",
-    "copilotEmptyDescription": "Copilot prompts are predefined templates provided by your tldw server.",
-    "copilotEmptyExample1": "Check your server version or configuration if you expect Copilot prompts to be available.",
-    "copilotEmptyExample2": "After updating your server, reload the extension and return to this tab.",
-    "copilotEmptyCta": "Open Diagnostics"
+    "favorite": "加入最愛",
+    "unfavorite": "移除最愛",
+    "partialLoad": "部分提示詞資料無法使用",
+    "loadErrorHelp": "請檢查伺服器連線並重新整理後再試。",
+    "emptyConnectTitle": "連線後才能使用提示詞",
+    "emptyConnectDescription": "要管理可重用提示詞，請先連線到 tldw 伺服器。",
+    "emptyConnectExample1": "前往「設定 → tldw 伺服器」新增伺服器 URL。",
+    "emptyConnectExample2": "連線後可建立在聊天中重複使用的自訂提示詞。",
+    "emptyTitle": "尚無自訂提示詞",
+    "emptyDescription": "建立可重用提示詞，用於重複任務、工作流程與團隊規範。",
+    "emptyExample1": "保存最愛的系統提示詞，用於摘要、解釋或翻譯。",
+    "emptyExample2": "建立快速提示詞，用於撰寫郵件或整理筆記等常見動作。",
+    "emptyPrimaryCta": "建立提示詞",
+    "filterHelp": "搜尋會比對標題與提示詞內容。可用類型與標籤縮小範圍。",
+    "copilotEmptyTitle": "沒有 Copilot 提示詞",
+    "copilotEmptyDescription": "Copilot 提示詞是由 tldw 伺服器提供的預設模板。",
+    "copilotEmptyExample1": "若預期有 Copilot 提示詞，請檢查伺服器版本或設定。",
+    "copilotEmptyExample2": "更新伺服器後，請重新載入擴充功能並回到此分頁。",
+    "copilotEmptyCta": "開啟診斷"
   },
   "manageShare": {
     "title": "分享管理",
@@ -545,7 +546,7 @@
       "heading": "網頁分享",
       "columns": {
         "title": "標題",
-        "url": "URL",
+        "url": "URL 位址",
         "actions": "操作"
       },
       "tooltip": {
@@ -591,12 +592,12 @@
           "label": "自訂標頭",
           "add": "新增標頭",
           "key": {
-            "label": "Header Key",
-            "placeholder": "Authorization"
+            "label": "標頭鍵",
+            "placeholder": "授權"
           },
           "value": {
-            "label": "Header Value",
-            "placeholder": "Bearer token"
+            "label": "標頭值",
+            "placeholder": "Bearer 權杖"
           }
         },
         "help": "如果您遇到伺服器連線問題，您可以設定自訂來源 URL。要了解更多資訊，請<anchor>點擊此處</anchor>。"
@@ -615,37 +616,37 @@
     "support": "您可以透過以下平台捐款或贊助來支持 tldw Browser_Assistant 計畫：",
     "koFi": "在 Ko-fi 上支持",
     "githubSponsor": "在 GitHub 上支持",
-    "githubRepo": "GitHub Repository"
+    "githubRepo": "GitHub 儲存庫"
   },
-  "switchToSidebar": "Switch to Sidebar",
+  "switchToSidebar": "切換到側邊欄",
   "healthPage": {
-    "title": "Health Status",
-    "subtitle": "Quick overview of subsystem health endpoints exposed by the server.",
-    "backToChat": "Back to chat",
-    "openSettings": "Open tldw Settings",
-    "recheckAll": "Recheck All",
-    "copyDiagnostics": "Copy diagnostics",
-    "serverNotConfigured": "Server is not configured.",
-    "unableToReachCore": "Unable to reach server core health endpoint.",
-    "triedGet": "Tried GET {{url}}",
-    "configureHint": "Please configure a server URL under tldw settings.",
-    "configureCta": "Configure",
-    "connectedTo": "Connected to {{host}}",
-    "autoRefresh": "Auto-refresh",
-    "intervalLabel": "Interval (s):",
-    "checking": "Checking…",
-    "recheck": "Recheck",
-    "healthy": "Healthy",
-    "unhealthy": "Unhealthy",
-    "unknown": "Unknown",
+    "title": "健康狀態",
+    "subtitle": "快速查看伺服器提供的子系統健康端點。",
+    "backToChat": "返回聊天",
+    "openSettings": "開啟 tldw 設定",
+    "recheckAll": "全部重新檢查",
+    "copyDiagnostics": "複製診斷",
+    "serverNotConfigured": "伺服器尚未設定。",
+    "unableToReachCore": "無法連線到伺服器核心健康端點。",
+    "triedGet": "嘗試 GET {{url}}",
+    "configureHint": "請在 tldw 設定中設定伺服器 URL。",
+    "configureCta": "設定",
+    "connectedTo": "已連線到 {{host}}",
+    "autoRefresh": "自動重新整理",
+    "intervalLabel": "間隔（秒）:",
+    "checking": "檢查中…",
+    "recheck": "重新檢查",
+    "healthy": "正常",
+    "unhealthy": "異常",
+    "unknown": "未知",
     "checks": {
-      "core": "Core API",
-      "rag": "RAG",
-      "audio": "Audio",
-      "embeddings": "Embeddings",
-      "metrics": "Metrics Health",
-      "chatMetrics": "Chat Metrics",
-      "mcp": "MCP",
+      "core": "核心 API",
+      "rag": "RAG（檢索）",
+      "audio": "音訊",
+      "embeddings": "嵌入",
+      "metrics": "指標健康度",
+      "chatMetrics": "聊天指標",
+      "mcp": "MCP（模型上下文協定）",
       "coreDocsUrl": "https://github.com/rmusser01/tldw_browser_assistant",
       "ragDocsUrl": "https://github.com/rmusser01/tldw_browser_assistant",
       "audioDocsUrl": "https://github.com/rmusser01/tldw_browser_assistant",
@@ -654,16 +655,16 @@
       "chatMetricsDocsUrl": "https://github.com/rmusser01/tldw_browser_assistant",
       "mcpDocsUrl": "https://github.com/rmusser01/tldw_browser_assistant"
     },
-    "copyDiagnosticsHelp": "Copies JSON diagnostics to clipboard",
-    "statusHealthy": "Healthy",
-    "statusUnhealthy": "Unhealthy",
-    "statusUnknown": "Unknown",
-    "updatedJustNow": "Updated just now",
-    "updatedSecondsAgo": "Updated {{seconds}}s ago"
+    "copyDiagnosticsHelp": "將 JSON 診斷資訊複製到剪貼簿",
+    "statusHealthy": "正常",
+    "statusUnhealthy": "異常",
+    "statusUnknown": "未知",
+    "updatedJustNow": "剛剛更新",
+    "updatedSecondsAgo": "{{seconds}} 秒前更新"
   },
-  "savedSuccessfully": "Settings saved",
-  "saveFailed": "Failed to save settings",
-  "siteAccessGranted": "Host permission granted for {{origin}}",
+  "savedSuccessfully": "設定已儲存",
+  "saveFailed": "設定儲存失敗",
+  "siteAccessGranted": "已允許 {{origin}} 的主機權限",
   "tldw": {
     "advancedTimeouts": "進階逾時設定",
     "requestTimeout": "請求逾時（秒）",
@@ -768,14 +769,14 @@
     }
   },
   "manageKnowledge": {
-    "title": "Knowledge QA",
-    "heading": "Knowledge QA",
-    "worldBooksSettingsTitle": "World Books workspace",
-    "worldBooksSettingsDescription": "World Books are managed from the World Books workspace. Use the button below to open it.",
-    "worldBooksOpenWorkspace": "Open World Books workspace",
-    "dictionariesSettingsTitle": "Chat dictionaries workspace",
-    "dictionariesSettingsDescription": "Chat dictionaries are managed from the Chat dictionaries workspace. Use the button below to open it.",
-    "dictionariesOpenWorkspace": "Open Chat dictionaries workspace"
+    "title": "知識問答",
+    "heading": "知識問答",
+    "worldBooksSettingsTitle": "世界書工作區",
+    "worldBooksSettingsDescription": "世界書在世界書工作區中管理。使用下方按鈕開啟。",
+    "worldBooksOpenWorkspace": "開啟世界書工作區",
+    "dictionariesSettingsTitle": "聊天字典工作區",
+    "dictionariesSettingsDescription": "聊天字典在聊天字典工作區中管理。使用下方按鈕開啟。",
+    "dictionariesOpenWorkspace": "開啟聊天字典工作區"
   },
   "rag": {
     "title": "RAG 設定",
@@ -786,8 +787,8 @@
         "required": "請選擇模型",
         "help": "強烈建議使用像`nomic-embed-text`這樣的嵌入模型。",
         "placeholder": "選擇模型",
-        "helpRecommended": "Recommended: {{model}} (from server config)",
-        "helpMissing": "Previously saved embedding model is no longer available on the server. Please choose another model."
+        "helpRecommended": "建議：{{model}}（來自伺服器設定）",
+        "helpMissing": "先前儲存的嵌入模型已不在伺服器上。請選擇其他模型。"
       },
       "chunkSize": {
         "label": "區塊大小",
@@ -836,62 +837,62 @@
     }
   },
   "onboarding": {
-    "title": "Welcome — Let’s get you connected",
-    "description": "Configure your server and authentication. We’ll verify the connection and RAG health inline.",
+    "title": "歡迎 — 讓我們完成連線",
+    "description": "設定你的伺服器與驗證，我們會即時檢查連線與 RAG 健康狀態。",
     "learnMoreTldw": "了解 tldw 伺服器的運作方式",
     "serverDocsUrl": "https://github.com/rmusser01/tldw_browser_assistant",
     "serverUrl": {
-      "placeholder": "http://127.0.0.1:8000",
+      "placeholder": "例如 http://127.0.0.1:8000",
       "help": "範例：http://127.0.0.1:8000",
       "invalid": "請輸入完整的 URL，例如 http://127.0.0.1:8000。",
       "invalidProtocol": "請使用 http 或 https 的網址，例如 http://127.0.0.1:8000。",
-      "label": "Server URL",
-      "emptyHint": "Enter your tldw server URL to enable Next.",
-      "ready": "We’ll enable Next once we can reach this address.",
-      "checking": "Checking reachability…",
-      "reachable": "Server responded successfully. You can continue.",
-      "unreachable": "We couldn’t reach this address yet. Double-check the URL or try again."
+      "label": "伺服器 URL",
+      "emptyHint": "輸入 tldw 伺服器 URL 以啟用下一步。",
+      "ready": "當我們能連線到此位址時，將啟用下一步。",
+      "checking": "正在檢查可達性…",
+      "reachable": "伺服器回應成功，你可以繼續。",
+      "unreachable": "尚未能連線到此位址，請確認 URL 或稍後再試。"
     },
     "buttons": {
-      "next": "Next",
-      "back": "Back",
-      "continue": "Continue",
-      "recheck": "Recheck",
-      "finish": "Finish",
-      "finishAnyway": "Finish without connecting",
-      "skip": "Skip for now"
+      "next": "下一步",
+      "back": "返回",
+      "continue": "繼續",
+      "recheck": "重新檢查",
+      "finish": "完成",
+      "finishAnyway": "不連線也完成",
+      "skip": "先跳過"
     },
     "authMode": {
-      "label": "Authentication Mode",
-      "single": "Single User (API Key)",
-      "multi": "Multi User (Login)"
+      "label": "驗證模式",
+      "single": "單一使用者（API 金鑰）",
+      "multi": "多使用者（登入）"
     },
     "apiKey": {
-      "label": "API Key",
-      "placeholder": "Enter your API key (or use the default demo key THIS-IS-A-SECURE-KEY-123-REPLACE-ME for local single-user setups)"
+      "label": "API 金鑰",
+      "placeholder": "輸入 API 金鑰（或使用預設示範金鑰 THIS-IS-A-SECURE-KEY-123-REPLACE-ME 供本機單使用者模式）"
     },
     "username": {
-      "label": "Username",
-      "placeholder": "Username"
+      "label": "使用者名稱",
+      "placeholder": "使用者名稱"
     },
     "password": {
-      "label": "Password",
-      "placeholder": "Password"
+      "label": "密碼",
+      "placeholder": "密碼"
     },
     "connection": {
-      "label": "Connection:",
-      "unknown": "Unknown",
-      "connected": "Connected",
-      "failed": "Failed",
+      "label": "連線:",
+      "unknown": "未知",
+      "connected": "已連線",
+      "failed": "失敗",
       "continueAnyway": "You can continue and complete setup now. You’ll be able to verify the connection later from Settings."
     },
     "rag": {
       "label": "RAG:",
-      "healthy": "Healthy",
-      "unhealthy": "Unhealthy",
-      "unknown": "Unknown"
+      "healthy": "正常",
+      "unhealthy": "異常",
+      "unknown": "未知"
     },
-    "connectionFailed": "Connection failed",
+    "connectionFailed": "連線失敗",
     "footerHelp": "連線完成後，你可以隨時從擴充功能選單回到這些設定。",
     "progressAria": "導覽設定進度",
     "stepLabel": {
@@ -953,12 +954,14 @@
       "name": "名稱",
       "description": "描述",
       "actions": "操作",
-      "avatar": "Avatar"
+      "avatar": "頭像"
     },
     "actions": {
       "chat": "聊天",
       "edit": "編輯",
-      "delete": "刪除"
+      "delete": "刪除",
+      "viewConversations": "查看對話",
+      "duplicate": "複製"
     },
     "tags": {
       "label": "標籤",
@@ -972,7 +975,10 @@
     "aria": {
       "chatWith": "以 {{name}} 身分聊天",
       "edit": "編輯角色 {{name}}",
-      "delete": "刪除角色 {{name}}"
+      "delete": "刪除角色 {{name}}",
+      "viewConversations": "查看 {{name}} 的對話",
+      "searchResults": "找到 {{count}} 個角色",
+      "duplicate": "複製角色 {{name}}"
     },
     "confirm": {
       "delete": "確定要刪除這個角色嗎？此動作無法復原。"
@@ -988,11 +994,13 @@
         "label": "行為／指示",
         "placeholder": "例如：你是一位有耐心的數學老師，循序解說並用短例子確認理解。",
         "help": "說明角色的定位、語氣與限制。例如：「你是一位有耐心的數學家教，會一步步解釋概念。」",
-        "min": "添加簡短描述，讓角色知道如何回應。"
+        "min": "添加簡短描述，讓角色知道如何回應。",
+        "required": "請新增指示以引導回應。",
+        "max": "系統提示詞必須少於或等於 2000 個字元。"
       },
       "avatarUrl": {
         "label": "頭像網址（可選）",
-        "placeholder": "https://example.com/avatar.png"
+        "placeholder": "例如 https://example.com/avatar.png"
       },
       "greeting": {
         "label": "歡迎訊息（可選）",
@@ -1024,8 +1032,52 @@
     "emptyExample1": "定義可重複使用的寫作教練、背景專家或程式助理。",
     "emptyExample2": "為每個角色提供清楚的描述與行為，使回應保持一致。",
     "emptyPrimaryCta": "建立角色",
-    "avatarAltWithName": "Avatar of {{name}}",
-    "avatarAlt": "User avatar"
+    "avatarAltWithName": "{{name}} 的頭像",
+    "avatarAlt": "使用者頭像",
+    "conversations": {
+      "title": "{{name}} 的對話",
+      "titleGeneric": "角色對話",
+      "subtitle": "選擇一個對話以此角色繼續。",
+      "empty": "尚無此角色的對話。",
+      "error": "無法載入此角色的對話。",
+      "updated": "已更新 {{time}}",
+      "unknownTime": "未知",
+      "resume": "繼續聊天",
+      "untitled": "未命名",
+      "mostRecent": "最近",
+      "resumeTooltip": "載入聊天紀錄並繼續此對話"
+    },
+    "preview": {
+      "title": "預覽",
+      "show": "顯示預覽",
+      "hide": "隱藏預覽",
+      "untitled": "未命名角色",
+      "greeting": "問候語",
+      "behavior": "行為",
+      "empty": "填寫表單以查看預覽"
+    },
+    "advanced": {
+      "show": "顯示進階欄位",
+      "hide": "隱藏進階欄位"
+    },
+    "table": {
+      "noDescription": "無描述"
+    },
+    "filter": {
+      "matchAll": "符合所有標籤"
+    },
+    "avatar": {
+      "label": "頭像（選用）",
+      "tabUrl": "URL 位址",
+      "tabUpload": "上傳",
+      "selectImageError": "請選擇圖片檔案",
+      "formatError": "僅支援 PNG、JPEG 和 GIF 圖片",
+      "invalidError": "無效的圖片檔案",
+      "processError": "處理圖片失敗",
+      "dropzone": "點擊或拖曳圖片以進行上傳",
+      "formats": "PNG、JPEG 或 GIF",
+      "preview": "預覽"
+    }
   },
   "systemNotifications": {
     "importSuccess": "資料匯入成功",
@@ -1044,188 +1096,268 @@
   "models": {
     "privateModeDescription": "Firefox 隱私模式不支援將資料儲存到 IndexedDB。請在一般視窗中新增自訂模型。"
   },
-  "evaluationsSettingsNav": "Evaluations",
-  "promptStudioNav": "Prompt Studio",
+  "evaluationsSettingsNav": "評測",
+  "promptStudioNav": "提示工作室",
   "promptStudio": {
-    "nav": "Prompt Studio",
-    "title": "Prompt Studio",
-    "subtitle": "Configure defaults and monitor Prompt Studio health. Connection and auth reuse the main server settings.",
-    "probeError": "Unable to reach Prompt Studio",
-    "statusCard": "Status",
-    "statusHint": "Button calls /prompt-studio/status with warn_seconds.",
-    "statusError": "Status endpoint unavailable",
-    "warnSeconds": "Warn seconds",
-    "testButton": "Test Prompt Studio",
-    "defaultsCard": "Defaults",
-    "defaultsHint": "Store default project, model configs, and list page size.",
-    "defaultsPlaceholder": "Persist defaults using existing settings storage (TBD) for initial project selection, execute/evaluation model presets, and pagination.",
-    "defaultProject": "Default project ID",
-    "pageSize": "Page size",
-    "executeDefaults": "Execute defaults",
-    "executeProvider": "Provider",
-    "executeModel": "Model",
-    "executeTemperature": "Temperature",
-    "executeMaxTokens": "Max tokens",
-    "evalDefaults": "Evaluation defaults",
-    "evalModel": "Model",
-    "evalTemperature": "Temperature",
-    "evalMaxTokens": "Max tokens",
-    "unavailable": "Prompt Studio isn’t available on the server yet.",
-    "unavailableBody": "Once enabled, you can monitor queue health and set defaults here."
+    "nav": "提示工作室",
+    "title": "提示工作室",
+    "subtitle": "設定預設值並監控 Prompt Studio 狀態。連線與驗證會沿用主伺服器設定。",
+    "probeError": "無法連線到 Prompt Studio",
+    "statusCard": "狀態",
+    "statusHint": "按鈕會以 warn_seconds 呼叫 /prompt-studio/status。",
+    "statusError": "狀態端點不可用",
+    "warnSeconds": "警告秒數",
+    "testButton": "測試 Prompt Studio",
+    "defaultsCard": "預設值",
+    "defaultsHint": "儲存預設專案、模型設定與列表頁大小。",
+    "defaultsPlaceholder": "使用現有設定儲存 (TBD) 來保存預設值，供初始專案選擇、執行/評估模型預設與分頁使用。",
+    "defaultProject": "預設專案 ID",
+    "pageSize": "頁面大小",
+    "executeDefaults": "執行預設值",
+    "executeProvider": "提供者",
+    "executeModel": "模型",
+    "executeTemperature": "溫度",
+    "executeMaxTokens": "最大 token",
+    "evalDefaults": "評估預設值",
+    "evalModel": "模型",
+    "evalTemperature": "溫度",
+    "evalMaxTokens": "最大 token",
+    "unavailable": "伺服器尚未提供 Prompt Studio。",
+    "unavailableBody": "啟用後即可在此監控佇列狀態並設定預設值。"
   },
-  "charactersSettingsTitle": "Characters workspace",
-  "charactersSettingsDescription": "Characters are managed from the Characters workspace. Use the button below to open it.",
-  "charactersOpenWorkspace": "Open Characters workspace",
-  "mermaid": "Mermaid",
+  "charactersSettingsTitle": "角色工作區",
+  "charactersSettingsDescription": "角色管理於角色工作區中。使用下方按鈕開啟。",
+  "charactersOpenWorkspace": "開啟角色工作區",
+  "mermaid": "Mermaid 圖表",
   "healthSummary": {
     "diagnostics": "Diagnostics",
-    "diagnosticsTooltip": "Open detailed diagnostics to troubleshoot or inspect health checks.",
-    "core": "Server",
-    "rag": "Knowledge",
-    "coreAria": "Server: server/API health",
-    "ragAria": "Knowledge: knowledge index health",
-    "coreOnline": "Server: Online",
-    "coreOffline": "Server: Offline",
-    "coreChecking": "Server: Checking…",
-    "ragReady": "Knowledge: Ready",
-    "ragOffline": "Knowledge: Offline",
-    "ragChecking": "Knowledge: Checking…",
-    "footerInfo": "These checks summarize the last successful ping to your tldw server and knowledge index."
+    "diagnosticsTooltip": "開啟詳細診斷以排除問題或檢查健康狀態。",
+    "core": "伺服器",
+    "rag": "知識",
+    "coreAria": "伺服器：伺服器/API 健康度",
+    "ragAria": "知識：知識索引健康度",
+    "coreOnline": "伺服器：線上",
+    "coreOffline": "伺服器：離線",
+    "coreChecking": "伺服器：檢查中…",
+    "ragReady": "知識：就緒",
+    "ragOffline": "知識：離線",
+    "ragChecking": "知識：檢查中…",
+    "footerInfo": "這些檢查總結了最近一次成功 ping 到 tldw 伺服器與知識索引的結果。"
   },
   "storage": {
-    "quotaFriendlyMessage": "Too many settings writes in a short period; please wait a few seconds and try again.",
-    "quotaTitle": "Storage limit reached",
-    "writeError": "Could not save settings",
-    "writeErrorDescription": "We couldn't save your settings. Please try again shortly."
+    "quotaFriendlyMessage": "短時間內寫入設定過多，請稍等幾秒再試。",
+    "quotaTitle": "已達儲存上限",
+    "writeError": "無法儲存設定",
+    "writeErrorDescription": "無法儲存你的設定，請稍後再試。"
   },
   "evaluations": {
-    "title": "Evaluations playground",
-    "subtitle": "Define evaluations against your tldw server and inspect recent runs.",
-    "listTitle": "Recent evaluations",
-    "newEvaluationCta": "New evaluation",
-    "startRunCta": "Start run",
-    "loadErrorTitle": "Unable to load evaluations",
-    "loadErrorDescription": "Check your tldw server connection and API credentials, then try again.",
-    "emptyList": "No evaluations yet. Once you create one, it will appear here.",
-    "selectedTag": "Selected",
-    "rateLimitsTitle": "Evaluation limits",
-    "rateLimitsErrorTitle": "Unable to fetch rate limits",
-    "rateLimitsErrorDescription": "We could not retrieve evaluation quotas from the server.",
-    "rateLimitsNoData": "Rate limit information is not available for this server.",
-    "tierLabel": "Tier",
-    "dailyLimitLabel": "Daily evaluations",
-    "tokensTodayLabel": "Tokens today",
-    "perMinuteLabel": "Per-minute limit",
-    "resetAtLabel": "Resets at",
-    "runsTitle": "Runs",
-    "noEvalSelectedRuns": "Select an evaluation to see its recent runs.",
-    "runsErrorTitle": "Unable to load runs",
-    "runsEmpty": "No runs yet for this evaluation.",
-    "runDetailTitle": "Run details",
-    "noRunSelected": "Select a run to see details.",
-    "runDetailErrorTitle": "Unable to load run details",
-    "runStatusLabel": "Status",
-    "runModelLabelShort": "Target model",
-    "runEvalIdLabel": "Evaluation",
-    "runErrorLabel": "Error",
-    "runResultsLabel": "Results (snippet)",
-    "runProgressLabel": "Progress",
-    "runUsageLabel": "Usage",
-    "datasetsTitle": "Datasets",
-    "newDatasetCta": "New dataset",
-    "datasetsErrorTitle": "Unable to load datasets",
-    "datasetsEmpty": "No datasets yet. Create one to attach to evaluations.",
-    "datasetSampleCount": "{{count}} samples",
-    "datasetNameLabel": "Name",
-    "datasetNamePlaceholder": "my_dataset",
-    "datasetDescriptionLabel": "Description",
-    "datasetMetadataLabel": "Metadata (JSON, optional)",
-    "sampleInputLabel": "Sample input",
-    "sampleExpectedLabel": "Expected output (optional)",
-    "samplesJsonLabel": "Samples JSON (optional, overrides fields)",
-    "datasetLabel": "Dataset (optional)",
-    "datasetPlaceholder": "Select dataset",
-    "datasetCreateSuccessTitle": "Dataset created",
-    "datasetCreateSuccessDescription": "Your dataset is ready to use in evaluations.",
-    "datasetCreateErrorTitle": "Failed to create dataset",
-    "datasetCreateErrorDescription": "The server rejected this dataset. Check the fields and try again.",
-    "datasetDeleteSuccessTitle": "Dataset deleted",
-    "datasetDeleteErrorTitle": "Failed to delete dataset",
-    "datasetLoadErrorTitle": "Failed to load dataset",
-    "datasetDetailTitle": "Dataset details",
-    "datasetParseErrorTitle": "Invalid samples JSON",
-    "createEvalModalTitle": "New evaluation",
-    "editEvalModalTitle": "Edit evaluation",
-    "evalNameLabel": "Name",
-    "evalNamePlaceholder": "my_eval_run",
-    "evalNameValidation": "Use only letters, numbers, hyphens, and underscores.",
-    "evalTypeLabel": "Evaluation type",
-    "evalSpecLabel": "Evaluation spec (JSON)",
-    "evalSpecParseError": "Evaluation spec must be valid JSON.",
-    "evalMetadataLabel": "Metadata (JSON, optional)",
-    "inlineDatasetCheckbox": "Attach inline dataset instead of referencing dataset_id",
-    "inlineDatasetErrorTitle": "Invalid inline dataset",
-    "runModelLabel": "Run model (used for quick runs)",
-    "createSuccessTitle": "Evaluation created",
-    "createErrorTitle": "Failed to create evaluation",
-    "createErrorDescription": "The server rejected this evaluation. Ensure name, type, and spec are valid.",
-    "updateSuccessTitle": "Evaluation updated",
-    "updateErrorTitle": "Failed to update evaluation",
-    "deleteErrorTitle": "Failed to delete evaluation",
-    "deleteConfirmTitle": "Delete this evaluation?",
-    "deleteConfirmDescription": "This will remove the evaluation definition. Runs already created remain in history.",
-    "detailTitle": "Evaluation details",
-    "detailErrorTitle": "Unable to load evaluation details",
-    "descriptionLabel": "Description",
-    "noEvalSelectedDetails": "Select an evaluation to inspect its spec.",
-    "runCreateSuccessTitle": "Run started",
-    "runCreateSuccessDescription": "Your evaluation run has started. You can monitor it from the server UI.",
-    "runCreateErrorTitle": "Failed to start run",
-    "runCreateErrorDescription": "The server rejected this run request. Check the model and try again.",
-    "runConfigLabel": "Config (JSON)",
-    "datasetOverrideLabel": "Dataset override (JSON array of samples)",
-    "runConfigParseError": "Invalid config JSON",
-    "runCancelSuccessTitle": "Run cancellation requested",
-    "runCancelErrorTitle": "Failed to cancel run",
-    "cancelRunCta": "Cancel run",
-    "historyTitle": "History",
-    "historyTypeLabel": "Type",
-    "historyUserLabel": "User ID",
-    "historyStartLabel": "Start date (ISO)",
-    "historyEndLabel": "End date (ISO)",
-    "historyFetchCta": "Fetch history",
-    "historyEmpty": "Run a query to see recent activity.",
-    "historyErrorTitle": "Failed to fetch history",
-    "webhooksTitle": "Webhooks",
-    "webhookUrlLabel": "URL",
-    "webhookEventsLabel": "Events",
-    "webhookCreateCta": "Register webhook",
-    "webhookCreateSuccessTitle": "Webhook registered",
-    "webhookCreateErrorTitle": "Failed to register webhook",
-    "webhookDeleteErrorTitle": "Failed to delete webhook",
-    "webhookListErrorTitle": "Unable to load webhooks",
-    "webhooksEmpty": "No webhooks registered yet.",
-    "webhookSecretTitle": "Secret",
-    "idempotencyKeyLabel": "Idempotency key",
-    "emptyConnectTitle": "Connect to use Evaluations",
-    "emptyConnectDescription": "To create and run evaluations, first connect to your tldw server.",
-    "emptyConnectExample1": "Open Settings → tldw server to add your server URL and API key.",
-    "emptyConnectExample2": "Once connected, you can define evaluations and inspect metrics here.",
-    "datasetSamplesLabel": "Samples",
-    "datasetSamplesEmpty": "No samples returned for this page.",
-    "metricsLabel": "Metrics"
+    "title": "評測遊樂場",
+    "subtitle": "在你的 tldw 伺服器上定義評測並檢視最近的執行。",
+    "listTitle": "最近的評測",
+    "newEvaluationCta": "新增評測",
+    "startRunCta": "開始執行",
+    "loadErrorTitle": "無法載入評測",
+    "loadErrorDescription": "請檢查 tldw 伺服器連線與 API 憑證後再試。",
+    "emptyList": "尚無評測。建立後會顯示在此。",
+    "selectedTag": "已選取",
+    "rateLimitsTitle": "評測限制",
+    "rateLimitsErrorTitle": "無法取得速率限制",
+    "rateLimitsErrorDescription": "無法從伺服器取得評測配額。",
+    "rateLimitsNoData": "此伺服器沒有速率限制資訊。",
+    "tierLabel": "方案等級",
+    "dailyLimitLabel": "每日評測",
+    "tokensTodayLabel": "今日 tokens",
+    "perMinuteLabel": "每分鐘限制",
+    "resetAtLabel": "重置時間",
+    "runsTitle": "執行",
+    "noEvalSelectedRuns": "選取一個評測以檢視最近的執行。",
+    "runsErrorTitle": "無法載入執行紀錄",
+    "runsEmpty": "此評測尚無執行紀錄。",
+    "runDetailTitle": "執行詳細資訊",
+    "noRunSelected": "選取一個執行以檢視詳細資訊。",
+    "runDetailErrorTitle": "無法載入執行詳細資訊",
+    "runStatusLabel": "狀態",
+    "runModelLabelShort": "目標模型",
+    "runEvalIdLabel": "評測",
+    "runErrorLabel": "錯誤",
+    "runResultsLabel": "結果（片段）",
+    "runProgressLabel": "進度",
+    "runUsageLabel": "用量",
+    "datasetsTitle": "資料集",
+    "newDatasetCta": "新增資料集",
+    "datasetsErrorTitle": "無法載入資料集",
+    "datasetsEmpty": "尚無資料集。建立後可附加至評測。",
+    "datasetSampleCount": "{{count}} 筆樣本",
+    "datasetNameLabel": "名稱",
+    "datasetNamePlaceholder": "例如 my_dataset",
+    "datasetDescriptionLabel": "說明",
+    "datasetMetadataLabel": "中繼資料（JSON，可選）",
+    "sampleInputLabel": "樣本輸入",
+    "sampleExpectedLabel": "預期輸出（可選）",
+    "samplesJsonLabel": "樣本 JSON（可選，會覆寫欄位）",
+    "datasetLabel": "資料集（可選）",
+    "datasetPlaceholder": "選擇資料集",
+    "datasetCreateSuccessTitle": "資料集已建立",
+    "datasetCreateSuccessDescription": "資料集已可用於評測。",
+    "datasetCreateErrorTitle": "建立資料集失敗",
+    "datasetCreateErrorDescription": "伺服器拒絕此資料集。請檢查欄位後再試。",
+    "datasetDeleteSuccessTitle": "資料集已刪除",
+    "datasetDeleteErrorTitle": "刪除資料集失敗",
+    "datasetLoadErrorTitle": "載入資料集失敗",
+    "datasetDetailTitle": "資料集詳細資訊",
+    "datasetParseErrorTitle": "無效的樣本 JSON",
+    "createEvalModalTitle": "新增評測",
+    "editEvalModalTitle": "編輯評測",
+    "evalNameLabel": "名稱",
+    "evalNamePlaceholder": "例如 my_eval_run",
+    "evalNameValidation": "只能使用字母、數字、連字號與底線。",
+    "evalTypeLabel": "評測類型",
+    "evalSpecLabel": "評測規格（JSON）",
+    "evalSpecParseError": "評測規格必須是有效的 JSON。",
+    "evalMetadataLabel": "中繼資料（JSON，可選）",
+    "inlineDatasetCheckbox": "附加內嵌資料集而非引用 dataset_id",
+    "inlineDatasetErrorTitle": "無效的內嵌資料集",
+    "runModelLabel": "執行模型（快速執行用）",
+    "createSuccessTitle": "評測已建立",
+    "createErrorTitle": "建立評測失敗",
+    "createErrorDescription": "伺服器拒絕此評測。請確認名稱、類型與規格是否正確。",
+    "updateSuccessTitle": "評測已更新",
+    "updateErrorTitle": "更新評測失敗",
+    "deleteErrorTitle": "刪除評測失敗",
+    "deleteConfirmTitle": "要刪除此評測嗎？",
+    "deleteConfirmDescription": "此操作將移除評測定義，已建立的執行紀錄仍會保留。",
+    "detailTitle": "評測詳細資訊",
+    "detailErrorTitle": "無法載入評測詳細資訊",
+    "descriptionLabel": "說明",
+    "noEvalSelectedDetails": "請選取評測以檢視規格。",
+    "runCreateSuccessTitle": "已開始執行",
+    "runCreateSuccessDescription": "評測執行已開始，可在伺服器 UI 監控。",
+    "runCreateErrorTitle": "啟動執行失敗",
+    "runCreateErrorDescription": "伺服器拒絕此執行請求。請檢查模型後再試。",
+    "runConfigLabel": "設定（JSON）",
+    "datasetOverrideLabel": "資料集覆寫（JSON 樣本陣列）",
+    "runConfigParseError": "無效的設定 JSON",
+    "runCancelSuccessTitle": "已提出取消執行",
+    "runCancelErrorTitle": "取消執行失敗",
+    "cancelRunCta": "取消執行",
+    "historyTitle": "歷史紀錄",
+    "historyTypeLabel": "類型",
+    "historyUserLabel": "使用者 ID",
+    "historyStartLabel": "開始日期（ISO）",
+    "historyEndLabel": "結束日期（ISO）",
+    "historyFetchCta": "取得歷史紀錄",
+    "historyEmpty": "執行查詢即可查看最近活動。",
+    "historyErrorTitle": "取得歷史紀錄失敗",
+    "webhooksTitle": "Webhook",
+    "webhookUrlLabel": "URL 位址",
+    "webhookEventsLabel": "事件",
+    "webhookCreateCta": "註冊 Webhook",
+    "webhookCreateSuccessTitle": "Webhook 已註冊",
+    "webhookCreateErrorTitle": "註冊 Webhook 失敗",
+    "webhookDeleteErrorTitle": "刪除 Webhook 失敗",
+    "webhookListErrorTitle": "無法載入 Webhook",
+    "webhooksEmpty": "尚未註冊 Webhook。",
+    "webhookSecretTitle": "密鑰",
+    "idempotencyKeyLabel": "冪等鍵",
+    "emptyConnectTitle": "連線後才能使用評測",
+    "emptyConnectDescription": "要建立與執行評測，請先連線到 tldw 伺服器。",
+    "emptyConnectExample1": "前往「設定 → tldw 伺服器」新增伺服器 URL 與 API 金鑰。",
+    "emptyConnectExample2": "連線後即可在此定義評測並查看指標。",
+    "datasetSamplesLabel": "樣本",
+    "datasetSamplesEmpty": "此頁面沒有樣本。",
+    "metricsLabel": "指標"
   },
   "evaluationsSettings": {
-    "title": "Evaluations",
-    "subtitle": "Configure defaults used by the Evaluations playground.",
-    "offline": "Connect to your tldw server to test Evaluations.",
-    "defaultType": "Default evaluation type",
-    "defaultModel": "Default target model",
-    "defaultRunConfig": "Default run config (JSON)",
-    "defaultDataset": "Default dataset id (optional)",
-    "specForType": "Spec preset for selected type",
-    "testCta": "Test Evaluations API",
-    "testOk": "Evaluations API reachable",
-    "testFail": "Unable to reach Evaluations API"
+    "title": "評測",
+    "subtitle": "設定評測遊樂場使用的預設值。",
+    "offline": "連線到 tldw 伺服器以測試評測。",
+    "defaultType": "預設評測類型",
+    "defaultModel": "預設目標模型",
+    "defaultRunConfig": "預設執行設定（JSON）",
+    "defaultDataset": "預設資料集 ID（可選）",
+    "specForType": "選取類型的規格預設",
+    "testCta": "測試評測 API",
+    "testOk": "評測 API 可連線",
+    "testFail": "無法連線到評測 API"
+  },
+  "chunkingPlayground": {
+    "nav": "分塊實驗場",
+    "title": "分塊實驗場",
+    "description": "試用不同的分塊設定，看看文字如何被切分成較小的片段以便處理。",
+    "inputLabel": "要分塊的文字",
+    "inputPlaceholder": "在此貼上文字或選擇範例...",
+    "uploadButton": "上傳檔案",
+    "chunkButton": "分塊文字",
+    "methodLabel": "分塊方式",
+    "maxSizeLabel": "最大分塊大小",
+    "overlapLabel": "重疊量",
+    "languageLabel": "語言",
+    "languages": {
+      "auto": "自動偵測",
+      "en": "英文",
+      "es": "西班牙文",
+      "fr": "法文",
+      "de": "德文",
+      "it": "義大利文",
+      "pt": "葡萄牙文",
+      "zh": "中文",
+      "ja": "日文",
+      "ko": "韓文"
+    },
+    "viewCards": "卡片",
+    "viewInline": "行內",
+    "stats": "{{count}} 個分塊，平均 {{avgSize}} 字元",
+    "textLoaded": "文字已載入",
+    "characters": "字元",
+    "tabSingle": "單一",
+    "tabCompare": "比較",
+    "chunkIndex": "分塊 {{index}}",
+    "chunkInfo": "分塊 {{index}}：{{words}} 個詞",
+    "position": "位置：{{start}} - {{end}}",
+    "additionalChunks": "+{{count}} 個",
+    "charCount": "{{count}} 字元",
+    "wordCount": "{{count}} 個詞",
+    "noInput": "請提供要分塊的文字",
+    "sharedInput": "共用輸入文字",
+    "compareButton": "比較兩者",
+    "comparison": "比較",
+    "fewerChunks": "設定 A 產生的分塊少 {{diff}} 個",
+    "moreChunks": "設定 A 產生的分塊多 {{diff}} 個",
+    "sameChunks": "兩個設定產生的分塊數量相同",
+    "clickToChunk": "點擊「比較」以查看結果",
+    "overlapRegion": "重疊區域",
+    "clickHint": "點擊高亮的區段以聚焦該分塊",
+    "noContentFound": "此媒體項目找不到文字內容",
+    "loadContentError": "載入媒體內容失敗",
+    "loadMediaListError": "載入媒體資料庫失敗",
+    "selectMedia": "選擇媒體項目...",
+    "loadingMedia": "正在載入內容...",
+    "noMediaFound": "找不到媒體",
+    "mediaCount": "可用的媒體項目 {{count}} 個",
+    "inputSource": {
+      "paste": "貼上文字",
+      "upload": "上傳檔案",
+      "sample": "範例文字",
+      "media": "來自媒體資料庫"
+    },
+    "samples": {
+      "article": "新聞文章",
+      "articleDesc": "含標題的多段落文章",
+      "code": "原始碼",
+      "codeDesc": "包含類別與函式的 Python 程式碼",
+      "transcript": "逐字稿",
+      "transcriptDesc": "含時間戳的 Podcast 逐字稿",
+      "academic": "學術論文",
+      "academicDesc": "含引用的技術寫作"
+    },
+    "compare": {
+      "title": "比較設定",
+      "configA": "設定 A",
+      "configB": "設定 B"
+    },
+    "mode": {
+      "single": "單一",
+      "compare": "比較"
+    }
   }
 }

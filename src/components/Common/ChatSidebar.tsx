@@ -9,7 +9,12 @@ import {
   UploadCloud,
   BookText,
   StickyNote,
+  Layers,
+  NotebookPen,
+  Microscope,
+  Scissors,
   Settings,
+  ChevronDown,
   ChevronLeft,
   ChevronRight
 } from "lucide-react"
@@ -75,6 +80,11 @@ export function ChatSidebar({
     instance: storage
   })
   const currentTab = activeTab || "local"
+  const [shortcutsCollapsed, setShortcutsCollapsed] = useStorage<boolean>({
+    key: "tldw:sidebar:shortcutsCollapsed",
+    instance: storage
+  })
+  const showShortcuts = shortcutsCollapsed !== true
 
   // Chat state
   const { historyId, clearChat, temporaryChat } = useMessageOption()
@@ -221,6 +231,42 @@ export function ChatSidebar({
           </button>
         </Tooltip>
 
+        <Tooltip
+          title={t("common:chatSidebar.flashcards", "Flashcards")}
+          placement="right"
+        >
+          <button
+            onClick={() => navigate("/flashcards")}
+            className="p-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-800 text-gray-500"
+          >
+            <Layers className="size-4" />
+          </button>
+        </Tooltip>
+
+        <Tooltip
+          title={t("common:chatSidebar.prompts", "Prompts")}
+          placement="right"
+        >
+          <button
+            onClick={() => navigate("/prompts")}
+            className="p-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-800 text-gray-500"
+          >
+            <NotebookPen className="size-4" />
+          </button>
+        </Tooltip>
+
+        <Tooltip
+          title={t("common:chatSidebar.multiItem", "Multi-Item")}
+          placement="right"
+        >
+          <button
+            onClick={() => navigate("/media-multi")}
+            className="p-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-800 text-gray-500"
+          >
+            <Microscope className="size-4" />
+          </button>
+        </Tooltip>
+
         <div className="flex-1" />
 
         <Tooltip
@@ -303,30 +349,85 @@ export function ChatSidebar({
       </div>
 
       {/* Quick Actions */}
-      <div className="px-3 py-2 space-y-1">
+      <div className="px-3 py-2 flex items-center justify-between">
+        <span className="text-xs font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400">
+          {t("common:chatSidebar.shortcuts", "Shortcuts")}
+        </span>
         <button
-          onClick={handleIngest}
-          disabled={!isConnected}
-          className="flex items-center gap-2 w-full px-2 py-1.5 rounded text-sm text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-800 disabled:opacity-50"
+          type="button"
+          aria-expanded={showShortcuts}
+          aria-controls="chat-sidebar-shortcuts"
+          onClick={() => setShortcutsCollapsed(showShortcuts)}
+          className="p-1 rounded hover:bg-gray-200 dark:hover:bg-gray-800 text-gray-500"
+          title={t("common:chatSidebar.shortcuts", "Shortcuts")}
         >
-          <UploadCloud className="size-4" />
-          <span>{t("common:chatSidebar.ingest", "Ingest Page")}</span>
-        </button>
-        <button
-          onClick={() => navigate("/media")}
-          className="flex items-center gap-2 w-full px-2 py-1.5 rounded text-sm text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-800"
-        >
-          <BookText className="size-4" />
-          <span>{t("common:chatSidebar.media", "Media")}</span>
-        </button>
-        <button
-          onClick={() => navigate("/notes")}
-          className="flex items-center gap-2 w-full px-2 py-1.5 rounded text-sm text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-800"
-        >
-          <StickyNote className="size-4" />
-          <span>{t("common:chatSidebar.notes", "Notes")}</span>
+          <ChevronDown
+            className={cn(
+              "size-4 transition-transform",
+              showShortcuts ? "rotate-0" : "-rotate-90"
+            )}
+          />
         </button>
       </div>
+      {showShortcuts && (
+        <div id="chat-sidebar-shortcuts" className="px-3 pb-2 space-y-1">
+          <button
+            onClick={handleIngest}
+            disabled={!isConnected}
+            className="flex items-center gap-2 w-full px-2 py-1.5 rounded text-sm text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-800 disabled:opacity-50"
+          >
+            <UploadCloud className="size-4" />
+            <span>{t("common:chatSidebar.ingest", "Ingest Page")}</span>
+          </button>
+          <button
+            onClick={() => navigate("/media")}
+            className="flex items-center gap-2 w-full px-2 py-1.5 rounded text-sm text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-800"
+          >
+            <BookText className="size-4" />
+            <span>{t("common:chatSidebar.media", "Media")}</span>
+          </button>
+          <button
+            onClick={() => navigate("/notes")}
+            className="flex items-center gap-2 w-full px-2 py-1.5 rounded text-sm text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-800"
+          >
+            <StickyNote className="size-4" />
+            <span>{t("common:chatSidebar.notes", "Notes")}</span>
+          </button>
+          <button
+            onClick={() => navigate("/flashcards")}
+            className="flex items-center gap-2 w-full px-2 py-1.5 rounded text-sm text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-800"
+          >
+            <Layers className="size-4" />
+            <span>{t("common:chatSidebar.flashcards", "Flashcards")}</span>
+          </button>
+          <button
+            onClick={() => navigate("/prompts")}
+            className="flex items-center gap-2 w-full px-2 py-1.5 rounded text-sm text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-800"
+          >
+            <NotebookPen className="size-4" />
+            <span>{t("common:chatSidebar.prompts", "Prompts")}</span>
+          </button>
+          <button
+            onClick={() => navigate("/chunking-playground")}
+            className="flex items-center gap-2 w-full px-2 py-1.5 rounded text-sm text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-800"
+          >
+            <Scissors className="size-4" />
+            <span>
+              {t(
+                "settings:chunkingPlayground.nav",
+                "Chunking Playground"
+              )}
+            </span>
+          </button>
+          <button
+            onClick={() => navigate("/media-multi")}
+            className="flex items-center gap-2 w-full px-2 py-1.5 rounded text-sm text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-800"
+          >
+            <Microscope className="size-4" />
+            <span>{t("common:chatSidebar.multiItem", "Multi-Item")}</span>
+          </button>
+        </div>
+      )}
 
       <div className="h-px bg-gray-200 dark:bg-gray-700 mx-3" />
 

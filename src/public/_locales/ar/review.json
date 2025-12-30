@@ -1,39 +1,990 @@
 {
-  "mediaPage.nothingToSend": {
-    "message": "لا يوجد ما يتم إرساله"
+  "reviewPage_searchPlaceholder": {
+    "message": "ابحث في الوسائط والملاحظات..."
   },
-  "mediaPage.emptyAnalysis": {
-    "message": "لا يمكن أن يكون التحليل فارغاً"
+  "reviewPage_search": {
+    "message": "بحث"
   },
-  "mediaPage.noMediaId": {
-    "message": "لا تتوفر هوية وسائط"
+  "reviewPage_filters": {
+    "message": "عوامل التصفية"
   },
-  "mediaPage.versionSaved": {
-    "message": "تم الحفظ كإصدار جديد"
+  "reviewPage_media": {
+    "message": "الوسائط"
   },
-  "mediaPage.saveFailed": {
-    "message": "فشل حفظ الإصدار"
+  "reviewPage_notes": {
+    "message": "الملاحظات"
   },
-  "mediaPage.sendToChat": {
-    "message": "إرسال إلى الدردشة"
+  "reviewPage_useReview": {
+    "message": "استخدم المراجعة"
   },
-  "mediaPage.saveAsVersion": {
+  "reviewPage_useSummary": {
+    "message": "استخدم الملخص"
+  },
+  "reviewPage_mediaTypes": {
+    "message": "أنواع الوسائط"
+  },
+  "reviewPage_keywords": {
+    "message": "الكلمات المفتاحية"
+  },
+  "reviewPage_clear": {
+    "message": "مسح"
+  },
+  "reviewPage_resetFilters": {
+    "message": "إعادة تعيين عوامل التصفية"
+  },
+  "reviewPage_results": {
+    "message": "النتائج"
+  },
+  "reviewPage_noResults": {
+    "message": "لا توجد نتائج"
+  },
+  "reviewPage_analyze_none": {
+    "message": "لا يوجد محتوى متاح للتحليل"
+  },
+  "reviewPage_analyze_saved": {
+    "message": "تم حفظ التحليل كملاحظة"
+  },
+  "reviewPage_analyze_failed": {
+    "message": "تعذر تحليل وحفظ الملاحظة"
+  },
+  "reviewPage_searchPrompts": {
+    "message": "بحث في الموجهات"
+  },
+  "reviewPage_includeLocal": {
+    "message": "محلي"
+  },
+  "reviewPage_includeServer": {
+    "message": "الخادم"
+  },
+  "reviewPage_presets": {
+    "message": "الإعدادات المسبقة"
+  },
+  "reviewPage_presetsCritical": {
+    "message": "حرجة"
+  },
+  "reviewPage_presetsQaAudit": {
+    "message": "تدقيق ضمان الجودة"
+  },
+  "reviewPage_presetsBulletReview": {
+    "message": "مراجعة بنقاط"
+  },
+  "reviewPage_reviewSystemPrompt": {
+    "message": "مراجعة: الموجه النظامي"
+  },
+  "reviewPage_reviewUserPrefix": {
+    "message": "مراجعة: بادئة موجه المستخدم"
+  },
+  "reviewPage_saveAsDefault": {
+    "message": "حفظ كافتراضي"
+  },
+  "reviewPage_reviewPrompt": {
+    "message": "موجه المراجعة"
+  },
+  "reviewPage_summarySystemPrompt": {
+    "message": "الملخص: الموجه النظامي"
+  },
+  "reviewPage_summaryUserPrefix": {
+    "message": "الملخص: بادئة موجه المستخدم"
+  },
+  "reviewPage_summaryPrompt": {
+    "message": "موجه الملخص"
+  },
+  "reviewPage_customizePrompts": {
+    "message": "تخصيص الموجهات"
+  },
+  "reviewPage_showRawJson": {
+    "message": "عرض JSON الخام"
+  },
+  "reviewPage_noDetailLoaded": {
+    "message": "لا توجد تفاصيل محمّلة"
+  },
+  "reviewPage_resetToDefaults": {
+    "message": "إعادة التعيين إلى الإعدادات الافتراضية"
+  },
+  "reviewPage_usingReviewPrompts": {
+    "message": "استخدام موجهات المراجعة"
+  },
+  "reviewPage_usingSummaryPrompts": {
+    "message": "استخدام موجهات الملخص"
+  },
+  "reviewPage_selectItemFirst": {
+    "message": "اختر عنصرًا أولاً"
+  },
+  "reviewPage_selectMediaFirst": {
+    "message": "اختر عنصر وسائط أولاً"
+  },
+  "reviewPage_selectItemEmpty": {
+    "message": "اختر عنصرًا للمراجعة والتحليل"
+  },
+  "reviewPage_selectMediaEmpty": {
+    "message": "اختر عنصر وسائط لعرض التحليلات"
+  },
+  "reviewPage_generationMode": {
+    "message": "وضع التوليد"
+  },
+  "reviewPage_resultTypes": {
+    "message": "أنواع النتائج"
+  },
+  "reviewPage_advancedTools": {
+    "message": "أدوات متقدمة"
+  },
+  "reviewPage_moreActions": {
+    "message": "إجراءات إضافية"
+  },
+  "reviewPage_toggleSidebar": {
+    "message": "تبديل الشريط الجانبي للنتائج"
+  },
+  "reviewPage_autoReviewLabel": {
+    "message": "توليد مراجعة تلقائيًا عند تحديد عنصر"
+  },
+  "reviewPage_demoMode": {
+    "message": "وضع تجريبي"
+  },
+  "reviewPage_mediaOnlySearchPlaceholder": {
+    "message": "ابحث في الوسائط (العنوان/المحتوى)"
+  },
+  "reviewPage_showSidebar": {
+    "message": "إظهار الشريط الجانبي للنتائج"
+  },
+  "reviewPage_hideSidebar": {
+    "message": "إخفاء الشريط الجانبي للنتائج"
+  },
+  "reviewPage_selectedBadge": {
+    "message": "محدد"
+  },
+  "reviewPage_bulkToolbar": {
+    "message": "شريط أدوات العرض المجمع"
+  },
+  "reviewPage_loadedCount": {
+    "message": "تم تحميل {{count}}"
+  },
+  "reviewPage_viewLabel": {
+    "message": "عرض المحتوى"
+  },
+  "reviewPage_navigateLabel": {
+    "message": "العناصر"
+  },
+  "reviewPage_mediaModeHint": {
+    "message": "ابحث وافحص عنصر وسائط واحدًا في كل مرة. اختر نتيجة لعرض محتواها وتحليلاتها على اليمين."
+  },
+  "reviewPage_resultsHelp": {
+    "message": "لوحة المفاتيح: انتقل إلى قائمة النتائج بـ Tab، واستخدم Enter أو Space لتحديد الصف المركّز، ثم استخدم أزرار السابق/التالي في شريط أدوات التحليل للتنقل بين العناصر."
+  },
+  "reviewPage_resultsHelpLabel": {
+    "message": "اختصارات لوحة المفاتيح لنتائج المراجعة"
+  },
+  "reviewPage_review": {
+    "message": "احصل على مراجعة"
+  },
+  "reviewPage_reviewHint": {
+    "message": "اطلب من المساعد مراجعة هذا العنصر."
+  },
+  "reviewPage_summary": {
+    "message": "احصل على ملخص"
+  },
+  "reviewPage_summaryHint": {
+    "message": "اطلب ملخصًا أقصر."
+  },
+  "reviewPage_attachGeneratedHint": {
+    "message": "شغّل المساعد وأرفق النتيجة بهذا العنصر من الوسائط."
+  },
+  "reviewPage_attachReview": {
+    "message": "إرفاق المراجعة بالوسائط"
+  },
+  "reviewPage_attachSummary": {
+    "message": "إرفاق الملخص بالوسائط"
+  },
+  "reviewPage_saveGeneratedNoteHint": {
+    "message": "شغّل المساعد واحفظ النتيجة كملاحظة."
+  },
+  "reviewPage_saveReviewNote": {
+    "message": "حفظ المراجعة كملاحظة"
+  },
+  "reviewPage_saveSummaryNote": {
+    "message": "حفظ الملخص كملاحظة"
+  },
+  "reviewPage_saveToMediaHint": {
+    "message": "أرفق النص الحالي في المحرر بهذا العنصر من الوسائط."
+  },
+  "reviewPage_saveToMedia": {
+    "message": "إرفاق النص الحالي بالوسائط"
+  },
+  "reviewPage_saveAnalysisHint": {
+    "message": "أنشئ ملاحظة من التحليل الحالي."
+  },
+  "reviewPage_saveAnalysis": {
+    "message": "حفظ في الملاحظات"
+  },
+  "reviewPage_askAssistantLabel": {
+    "message": "اسأل المساعد"
+  },
+  "reviewPage_saveResultsLabel": {
+    "message": "حفظ النتائج"
+  },
+  "reviewPage_moreSaveNewVersion": {
     "message": "حفظ كإصدار جديد"
   },
-  "mediaPage.analysisPlaceholder": {
+  "reviewPage_moreDuplicateVersion": {
+    "message": "نسخ الإصدار"
+  },
+  "reviewPage_moreRestoreVersion": {
+    "message": "استعادة الإصدار المحدد"
+  },
+  "reviewPage_modeReview": {
+    "message": "استخدام المراجعة"
+  },
+  "reviewPage_modeSummary": {
+    "message": "استخدام الملخص"
+  },
+  "reviewPage_resultsHint": {
+    "message": "انقر على نتيجة لتحميل محتواها وتحليلاتها على اليمين."
+  },
+  "reviewPage_paginationHint": {
+    "message": "استخدم عوامل التصفية أو الترقيم إذا تم تحميل عناصر كثيرة."
+  },
+  "reviewPage_offlineHint": {
+    "message": "اتصل بخادم tldw في الإعدادات لإرسال الرسائل وعرض الوسائط، ثم يمكنك البحث في الوسائط من هذه الصفحة."
+  },
+  "reviewPage_chatWithMedia": {
+    "message": "الدردشة مع هذه الوسائط"
+  },
+  "reviewPage_chatWithMediaHint": {
+    "message": "افتح الدردشة واملأ المُنشئ مسبقًا بمحتوى هذه الوسائط."
+  },
+  "reviewPage_chatPrepared": {
+    "message": "تم تجهيز الدردشة بهذه الوسائط في المُنشئ."
+  },
+  "reviewPage_chatAboutMediaHint": {
+    "message": "افتح دردشة RAG محددة بهذا العنصر فقط."
+  },
+  "reviewPage_chatAboutMediaRagSent": {
+    "message": "تم فتح دردشة RAG خاصة بالوسائط."
+  },
+  "reviewPage_chatAboutMediaInvalidId": {
+    "message": "هذا عنصر وسائط ليس لديه معرّف رقمي بعد."
+  },
+  "reviewPage_demoBadge": {
+    "message": "عرض تجريبي"
+  },
+  "reviewPage_notConnectedBadge": {
+    "message": "غير متصل"
+  },
+  "reviewPage_prevItem": {
+    "message": "السابق"
+  },
+  "reviewPage_nextItem": {
+    "message": "التالي"
+  },
+  "reviewPage_noContent": {
+    "message": "لا يتوفر محتوى"
+  },
+  "reviewPage_showMore": {
+    "message": "عرض المزيد"
+  },
+  "reviewPage_showLess": {
+    "message": "عرض أقل"
+  },
+  "reviewPage_showRaw": {
+    "message": "عرض المحتوى الخام"
+  },
+  "reviewPage_hideRaw": {
+    "message": "إخفاء المحتوى الخام"
+  },
+  "reviewPage_noAnalysis": {
+    "message": "لا يوجد تحليل بعد"
+  },
+  "reviewPage_mediaContent": {
+    "message": "محتوى الوسائط"
+  },
+  "reviewPage_copyContent": {
+    "message": "نسخ المحتوى"
+  },
+  "reviewPage_analysisTitle": {
+    "message": "التحليل"
+  },
+  "reviewPage_copyAnalysis": {
+    "message": "نسخ التحليل"
+  },
+  "reviewPage_sendAnalysisToChat": {
+    "message": "إرسال التحليل إلى الدردشة"
+  },
+  "reviewPage_copyAllPlain": {
+    "message": "نسخ الكل كنص عادي"
+  },
+  "reviewPage_copyAllMarkdown": {
+    "message": "نسخ الكل بصيغة Markdown"
+  },
+  "reviewPage_openInMulti": {
+    "message": "فتح في مراجعة متعددة العناصر"
+  },
+  "reviewPage_analysisFailed": {
+    "message": "فشل التحليل"
+  },
+  "reviewPage_analysisAttached": {
+    "message": "تم إرفاق التحليل بالوسائط"
+  },
+  "reviewPage_analyzeSaveFailed": {
+    "message": "تعذر التحليل والحفظ"
+  },
+  "reviewPage_nothingToSave": {
+    "message": "لا يوجد ما يمكن حفظه"
+  },
+  "reviewPage_savedToNotes": {
+    "message": "تم الحفظ في الملاحظات"
+  },
+  "reviewPage_saveFailed": {
+    "message": "فشل الحفظ"
+  },
+  "reviewPage_saveToMediaFailed": {
+    "message": "تعذر الحفظ في الوسائط"
+  },
+  "reviewPage_sentToChat": {
+    "message": "تم الإرسال إلى الدردشة"
+  },
+  "reviewPage_sendFailed": {
+    "message": "فشل الإرسال"
+  },
+  "reviewPage_analysisEditorPlaceholder": {
+    "message": "شغّل المراجعة أو الملخص ثم حرّر هنا..."
+  },
+  "reviewPage_createdNewVersion": {
+    "message": "تم إنشاء إصدار جديد"
+  },
+  "reviewPage_createVersionFailed": {
+    "message": "تعذر إنشاء الإصدار"
+  },
+  "reviewPage_selectVersionFirst": {
+    "message": "اختر إصدارًا أولاً"
+  },
+  "reviewPage_noVersionNumber": {
+    "message": "لا يوجد رقم إصدار"
+  },
+  "reviewPage_selectedVersionNoContent": {
+    "message": "الإصدار المحدد لا يحتوي على محتوى"
+  },
+  "reviewPage_clonedVersionCreated": {
+    "message": "تم إنشاء نسخة مكررة"
+  },
+  "reviewPage_cloneFailed": {
+    "message": "فشل النسخ"
+  },
+  "reviewPage_confirmTitle": {
+    "message": "يرجى التأكيد"
+  },
+  "reviewPage_restoreConfirm": {
+    "message": "استعادة هذا الإصدار كالإصدار الحالي؟"
+  },
+  "reviewPage_restoreAction": {
+    "message": "استعادة"
+  },
+  "reviewPage_cancelAction": {
+    "message": "إلغاء"
+  },
+  "reviewPage_versionRestored": {
+    "message": "تمت استعادة الإصدار"
+  },
+  "reviewPage_restoreFailed": {
+    "message": "فشلت الاستعادة"
+  },
+  "reviewPage_existingAnalysesTitle": {
+    "message": "تحليلات موجودة"
+  },
+  "reviewPage_onlyWithAnalysis": {
+    "message": "فقط مع تحليل"
+  },
+  "reviewPage_copyAllLabel": {
+    "message": "نسخ الكل"
+  },
+  "reviewPage_copyMdLabel": {
+    "message": "MD"
+  },
+  "reviewPage_copiedAllNotes": {
+    "message": "تم نسخ جميع الملاحظات"
+  },
+  "reviewPage_copiedAllNotesMarkdown": {
+    "message": "تم نسخ جميع الملاحظات بصيغة Markdown"
+  },
+  "reviewPage_loadSelectedAnalysis": {
+    "message": "تحميل التحليل المحدد في المحرر"
+  },
+  "reviewPage_loadLabel": {
+    "message": "تحميل"
+  },
+  "reviewPage_loadVersionPrompt": {
+    "message": "تحميل موجه الإصدار في المحرر"
+  },
+  "reviewPage_noPromptFound": {
+    "message": "لم يتم العثور على موجه"
+  },
+  "reviewPage_copyVersionPrompt": {
+    "message": "نسخ موجه الإصدار المحدد"
+  },
+  "reviewPage_promptCopied": {
+    "message": "تم نسخ الموجه"
+  },
+  "reviewPage_diffSelectedCurrent": {
+    "message": "فرق المحدد مقابل الحالي"
+  },
+  "reviewPage_versionDeleted": {
+    "message": "تم حذف الإصدار"
+  },
+  "reviewPage_versionDeletedDescription": {
+    "message": "تم حذف الإصدار v{{version}}."
+  },
+  "reviewPage_undoRolledBack": {
+    "message": "تراجع: تم الرجوع إلى الإصدار المحذوف"
+  },
+  "reviewPage_undoFailed": {
+    "message": "فشل التراجع"
+  },
+  "reviewPage_undoLabel": {
+    "message": "تراجع"
+  },
+  "reviewPage_deleteFailed": {
+    "message": "فشل الحذف"
+  },
+  "reviewPage_deleteSelectedVersion": {
+    "message": "حذف الإصدار المحدد"
+  },
+  "reviewPage_noSavedAnalyses": {
+    "message": "لا توجد تحليلات محفوظة لهذا العنصر بعد."
+  },
+  "reviewPage_currentTag": {
+    "message": "الحالي"
+  },
+  "reviewPage_promptLabel": {
+    "message": "الموجه"
+  },
+  "reviewPage_showLabel": {
+    "message": "إظهار"
+  },
+  "reviewPage_hideLabel": {
+    "message": "إخفاء"
+  },
+  "reviewPage_copyAnalysisPlainTooltip": {
+    "message": "نسخ التحليل (نص عادي)"
+  },
+  "reviewPage_copyLabel": {
+    "message": "نسخ"
+  },
+  "reviewPage_copyAnalysisMarkdownTooltip": {
+    "message": "نسخ بصيغة Markdown"
+  },
+  "reviewPage_copiedAnalysisMarkdown": {
+    "message": "تم نسخ التحليل بصيغة Markdown"
+  },
+  "reviewPage_markdownLabel": {
+    "message": "Markdown"
+  },
+  "reviewPage_copyPromptTooltip": {
+    "message": "نسخ الموجه"
+  },
+  "reviewPage_diffUnified": {
+    "message": "موحد"
+  },
+  "reviewPage_diffSideBySide": {
+    "message": "جنبًا إلى جنب"
+  },
+  "reviewPage_diffCopied": {
+    "message": "تم نسخ diff"
+  },
+  "reviewPage_copyDiffLabel": {
+    "message": "نسخ diff"
+  },
+  "reviewPage_closeLabel": {
+    "message": "إغلاق"
+  },
+  "reviewPage_diffTitle": {
+    "message": "الفرق: المحدد مقابل الحالي"
+  },
+  "reviewPage_diffSelectedVersion": {
+    "message": "الإصدار المحدد"
+  },
+  "reviewPage_diffCurrentEditor": {
+    "message": "المحرر الحالي"
+  },
+  "reviewPage_noDifferences": {
+    "message": "لا توجد فروق"
+  },
+  "reviewPage_chatAboutMedia": {
+    "message": "الدردشة حول هذه الوسائط"
+  },
+  "reviewPage_statusProcessing": {
+    "message": "جارٍ المعالجة"
+  },
+  "reviewPage_statusQueued": {
+    "message": "في قائمة الانتظار"
+  },
+  "reviewPage_statusError": {
+    "message": "خطأ"
+  },
+  "reviewPage_statusReady": {
+    "message": "جاهز"
+  },
+  "reviewPage_loadedOf": {
+    "message": "تم تحميل {{count}}"
+  },
+  "reviewPage_expandAllContent": {
+    "message": "عرض كامل"
+  },
+  "reviewPage_collapseAllContent": {
+    "message": "عرض أقصر"
+  },
+  "reviewPage_expandContent": {
+    "message": "توسيع"
+  },
+  "reviewPage_collapseContent": {
+    "message": "طي"
+  },
+  "reviewPage_expandAnalysis": {
+    "message": "توسيع"
+  },
+  "reviewPage_collapseAnalysis": {
+    "message": "طي"
+  },
+  "reviewPage_jumpTo": {
+    "message": "انتقال إلى"
+  },
+  "reviewPage_presetsExecutive": {
+    "message": "تنفيذي"
+  },
+  "reviewPage_presetsDetailed": {
+    "message": "تفصيلي"
+  },
+  "reviewPage_presetsBullets": {
+    "message": "نقاط"
+  },
+  "mediaPage_searchPlaceholder": {
+    "message": "ابحث في الوسائط (العنوان/المحتوى)"
+  },
+  "mediaPage_search": {
+    "message": "بحث"
+  },
+  "mediaPage_clear": {
+    "message": "مسح"
+  },
+  "mediaPage_types": {
+    "message": "الأنواع"
+  },
+  "mediaPage_keywords": {
+    "message": "الكلمات المفتاحية"
+  },
+  "mediaPage_moreTags": {
+    "message": "+{{count}} وسوم أخرى"
+  },
+  "mediaPage_resetFilters": {
+    "message": "إعادة تعيين عوامل التصفية"
+  },
+  "mediaPage_clearAll": {
+    "message": "مسح الكل"
+  },
+  "mediaPage_content": {
+    "message": "المحتوى"
+  },
+  "mediaPage_vertical": {
+    "message": "عمودي"
+  },
+  "mediaPage_horizontal": {
+    "message": "أفقي"
+  },
+  "mediaPage_results": {
+    "message": "النتائج"
+  },
+  "mediaPage_noResults": {
+    "message": "لا توجد نتائج"
+  },
+  "mediaPage_showSidebar": {
+    "message": "إظهار الشريط الجانبي"
+  },
+  "mediaPage_hideSidebar": {
+    "message": "إخفاء الشريط الجانبي"
+  },
+  "mediaPage_viewer": {
+    "message": "العارض"
+  },
+  "mediaPage_selectItemsHint": {
+    "message": "حدد العناصر على اليسار لعرضها هنا."
+  },
+  "mediaPage_mediaContent": {
+    "message": "محتوى الوسائط"
+  },
+  "mediaPage_copyContent": {
+    "message": "نسخ المحتوى"
+  },
+  "mediaPage_contentCopied": {
+    "message": "تم نسخ المحتوى"
+  },
+  "mediaPage_metadataCopied": {
+    "message": "تم نسخ البيانات الوصفية"
+  },
+  "mediaPage_analysisCopied": {
+    "message": "تم نسخ التحليل"
+  },
+  "mediaPage_copyFailed": {
+    "message": "فشل النسخ"
+  },
+  "mediaPage_noContent": {
+    "message": "لا يتوفر محتوى"
+  },
+  "mediaPage_collapse": {
+    "message": "طي"
+  },
+  "mediaPage_expand": {
+    "message": "توسيع"
+  },
+  "mediaPage_media": {
+    "message": "الوسائط"
+  },
+  "mediaPage_searchingBanner": {
+    "message": "جارٍ البحث في الوسائط…"
+  },
+  "mediaPage_filterHelp": {
+    "message": "يطابق البحث العنوان والمحتوى؛ وتُضيّق الأنواع والكلمات المفتاحية النتائج."
+  },
+  "mediaPage_noMediaTypes": {
+    "message": "لا توجد أنواع وسائط متاحة"
+  },
+  "mediaPage_resultsCount": {
+    "message": "{{selected}} محدد · {{open}} مفتوح"
+  },
+  "mediaPage_clearSelection": {
+    "message": "إلغاء تحديد الكل"
+  },
+  "mediaPage_itemsLabel": {
+    "message": "العناصر"
+  },
+  "mediaPage_contentLabel": {
+    "message": "عرض المحتوى"
+  },
+  "mediaPage_filterByKeyword": {
+    "message": "تصفية حسب الكلمة المفتاحية"
+  },
+  "mediaPage_keywordHelper": {
+    "message": "تساعدك الكلمات المفتاحية في العثور على هذه الوسائط باستخدام عامل تصفية الكلمات المفتاحية على اليسار"
+  },
+  "mediaPage_modeHint": {
+    "message": "ابحث عن عناصر وسائط متعددة وراكمها لمقارنتها في العارض الموجود على اليمين."
+  },
+  "mediaPage_viewerHelp": {
+    "message": "لوحة المفاتيح: انتقل إلى قائمة النتائج باستخدام Tab، واستخدم Enter أو Space لتكديس عنصر الوسائط أو إزالته، ثم استخدم عناصر التحكم السابق/التالي والتخطيطات للتنقل بين العناصر في العارض."
+  },
+  "mediaPage_viewerHelpLabel": {
+    "message": "اختصارات لوحة المفاتيح لمراجعة عناصر متعددة"
+  },
+  "mediaPage_mediaInspector": {
+    "message": "أداة فحص الوسائط"
+  },
+  "mediaPage_actionsLabel": {
+    "message": "إجراءات"
+  },
+  "mediaPage_keywordsPlaceholder": {
+    "message": "إضافة كلمات مفتاحية..."
+  },
+  "mediaPage_noSelectionTitle": {
+    "message": "لم يتم تحديد أي عنصر وسائط"
+  },
+  "mediaPage_noSelectionDescription": {
+    "message": "حدد عنصراً وسائطياً من الشريط الجانبي الأيسر لعرض محتواه وتحليلاته هنا."
+  },
+  "mediaPage_generateAnalysis": {
+    "message": "إنشاء تحليل"
+  },
+  "mediaPage_generateAnalysisHint": {
+    "message": "إنشاء تحليل جديد"
+  },
+  "mediaPage_editAnalysis": {
+    "message": "تعديل التحليل"
+  },
+  "mediaPage_createNoteWithContent": {
+    "message": "إنشاء ملاحظة بالمحتوى"
+  },
+  "mediaPage_createNoteWithContentAnalysis": {
+    "message": "إنشاء ملاحظة بالمحتوى + التحليل"
+  },
+  "mediaPage_untitled": {
+    "message": "بدون عنوان"
+  },
+  "mediaPage_copyMetadata": {
+    "message": "نسخ البيانات الوصفية"
+  },
+  "mediaPage_statistics": {
+    "message": "إحصاءات"
+  },
+  "mediaPage_words": {
+    "message": "الكلمات"
+  },
+  "mediaPage_characters": {
+    "message": "الأحرف"
+  },
+  "mediaPage_paragraphs": {
+    "message": "الفقرات"
+  },
+  "mediaPage_metadata": {
+    "message": "البيانات الوصفية"
+  },
+  "mediaPage_idLabel": {
+    "message": "المعرّف"
+  },
+  "mediaPage_typeLabel": {
+    "message": "النوع"
+  },
+  "mediaPage_titleLabel": {
+    "message": "العنوان"
+  },
+  "mediaPage_source": {
+    "message": "المصدر"
+  },
+  "mediaPage_notAvailable": {
+    "message": "غير متوفر"
+  },
+  "mediaPage_developerTools": {
+    "message": "أدوات المطوّر"
+  },
+  "mediaPage_nothingToSend": {
+    "message": "لا يوجد ما يتم إرساله"
+  },
+  "mediaPage_emptyAnalysis": {
+    "message": "لا يمكن أن يكون التحليل فارغاً"
+  },
+  "mediaPage_noMediaId": {
+    "message": "لا تتوفر هوية وسائط"
+  },
+  "mediaPage_versionSaved": {
+    "message": "تم الحفظ كإصدار جديد"
+  },
+  "mediaPage_saveFailed": {
+    "message": "فشل حفظ الإصدار"
+  },
+  "mediaPage_sendToChat": {
+    "message": "إرسال إلى الدردشة"
+  },
+  "mediaPage_saveAsVersion": {
+    "message": "حفظ كإصدار جديد"
+  },
+  "mediaPage_analysisPlaceholder": {
     "message": "أدخل نص التحليل..."
   },
-  "mediaPage.wordCount": {
+  "mediaPage_wordCount": {
     "message": "{{count}} كلمة"
   },
-  "mediaPage.charCount": {
+  "mediaPage_charCount": {
     "message": "{{count}} حرف"
   },
-  "mediaPage.pageRangeError": {
+  "mediaPage_pageRangeError": {
     "message": "يجب أن تكون الصفحة بين 1 و {{max}}"
   },
-  "mediaPage.pageRangeClamped": {
+  "mediaPage_pageRangeClamped": {
     "message": "الانتقال إلى الصفحة {{page}}"
+  },
+  "mediaPage_saveUnauthorized": {
+    "message": "غير مصرح لك بالحفظ"
+  },
+  "mediaPage_spreadMode": {
+    "message": "مقارنة"
+  },
+  "mediaPage_listMode": {
+    "message": "تركيز"
+  },
+  "mediaPage_allMode": {
+    "message": "تكديس"
+  },
+  "mediaPage_spreadModeTooltip": {
+    "message": "عرض العناصر المحددة جنبًا إلى جنب للمقارنة"
+  },
+  "mediaPage_listModeTooltip": {
+    "message": "عرض عنصر واحد في كل مرة مع التنقل"
+  },
+  "mediaPage_allModeTooltip": {
+    "message": "عرض جميع العناصر المحددة في قائمة قابلة للتمرير"
+  },
+  "mediaPage_copyContentLabel": {
+    "message": "نسخ المحتوى"
+  },
+  "mediaPage_copyAnalysisLabel": {
+    "message": "نسخ التحليل"
+  },
+  "mediaPage_copyContentTooltip": {
+    "message": "نسخ المحتوى إلى الحافظة"
+  },
+  "mediaPage_copyAnalysisTooltip": {
+    "message": "نسخ التحليل إلى الحافظة"
+  },
+  "mediaPage_prevItemTooltip": {
+    "message": "العنصر السابق (←)"
+  },
+  "mediaPage_nextItemTooltip": {
+    "message": "العنصر التالي (→)"
+  },
+  "mediaPage_viewerOptions": {
+    "message": "خيارات"
+  },
+  "mediaPage_expandAllDropdown": {
+    "message": "توسيع/طي"
+  },
+  "mediaPage_itemPosition": {
+    "message": "العنصر {{current}} من {{total}}"
+  },
+  "mediaPage_noItemSelected": {
+    "message": "لم يتم تحديد أي عنصر"
+  },
+  "mediaPage_firstUseTitle": {
+    "message": "دليل سريع: مراجعة متعددة العناصر"
+  },
+  "mediaPage_firstUseStep1": {
+    "message": "حدد العناصر"
+  },
+  "mediaPage_firstUseStep1Desc": {
+    "message": "انقر على العناصر في اللوحة اليسرى لإضافتها إلى العارض."
+  },
+  "mediaPage_firstUseStep2": {
+    "message": "اختر عرضًا"
+  },
+  "mediaPage_firstUseStep2Desc": {
+    "message": "استخدم \"مقارنة\" لعرض جنبًا إلى جنب، أو \"تركيز\" لعرض عنصر واحد في كل مرة، أو \"تكديس\" لعرض الكل."
+  },
+  "mediaPage_firstUseStep3": {
+    "message": "تنقل"
+  },
+  "mediaPage_firstUseStep3Desc": {
+    "message": "استخدم أزرار السابق/التالي أو لوحة المفاتيح (Tab + Enter) للتنقل بين العناصر."
+  },
+  "mediaPage_gotIt": {
+    "message": "فهمت"
+  },
+  "mediaPage_model": {
+    "message": "النموذج"
+  },
+  "mediaPage_selectModel": {
+    "message": "اختر نموذجًا"
+  },
+  "mediaPage_noModelsAvailable": {
+    "message": "لا توجد نماذج متاحة"
+  },
+  "mediaPage_promptPresets": {
+    "message": "إعدادات مسبقة للموجهات"
+  },
+  "mediaPage_showPresets": {
+    "message": "إظهار الإعدادات المسبقة"
+  },
+  "mediaPage_hidePresets": {
+    "message": "إخفاء الإعدادات المسبقة"
+  },
+  "mediaPage_systemPromptLabel": {
+    "message": "الموجه النظامي"
+  },
+  "mediaPage_systemPromptPlaceholder": {
+    "message": "أدخل الموجه النظامي..."
+  },
+  "mediaPage_userPromptPrefixLabel": {
+    "message": "بادئة موجه المستخدم"
+  },
+  "mediaPage_prependedBeforeContent": {
+    "message": "(تضاف قبل المحتوى)"
+  },
+  "mediaPage_userPrefixPlaceholder": {
+    "message": "اختياري: أدخل نصًا لإضافته قبل محتوى الوسائط..."
+  },
+  "mediaPage_presetComprehensiveAnalysis": {
+    "message": "تحليل شامل"
+  },
+  "mediaPage_presetExecutiveSummary": {
+    "message": "ملخص تنفيذي"
+  },
+  "mediaPage_presetCriticalReview": {
+    "message": "مراجعة نقدية"
+  },
+  "mediaPage_presetQAAnalysis": {
+    "message": "تحليل أسئلة وأجوبة"
+  },
+  "empty_connectTitle": {
+    "message": "اتصل لاستخدام المراجعة"
+  },
+  "empty_connectDescription": {
+    "message": "اتصل بخادم tldw في الإعدادات لإرسال الرسائل وعرض الوسائط. بعد الاتصال يمكنك مراجعة الوسائط والملاحظات هنا."
+  },
+  "empty_connectExample1": {
+    "message": "افتح الإعدادات → tldw server لإضافة عنوان خادمك."
+  },
+  "empty_connectExample2": {
+    "message": "بعد الاتصال، تصفح الوسائط والملاحظات ثم أنشئ مراجعات وملخصات منظمة."
+  },
+  "empty_demoTitle": {
+    "message": "استكشف المراجعة في الوضع التجريبي"
+  },
+  "empty_demoDescription": {
+    "message": "يُظهر هذا العرض التجريبي كيف يمكن لـ tldw Assistant تحويل الوسائط والملاحظات إلى مراجعات منظمة. اتصل بخادمك لاحقًا لتحليل محتواك."
+  },
+  "empty_demoExample1": {
+    "message": "شاهد كيف تظهر الوسائط والملاحظات المحددة في مساحة عمل المراجعة."
+  },
+  "empty_demoExample2": {
+    "message": "عند الاتصال ستتمكن من إنشاء ملخصات وعناصر إجراءات من تسجيلاتك وملاحظاتك."
+  },
+  "mediaEmpty_demoTitle": {
+    "message": "استكشف الوسائط في الوضع التجريبي"
+  },
+  "mediaEmpty_demoDescription": {
+    "message": "يُظهر هذا العرض التجريبي كيف يمكن لـ tldw Assistant عرض الوسائط المعالجة وفحصها. اتصل بخادمك لاحقًا لتصفح تسجيلاتك ومستنداتك."
+  },
+  "mediaEmpty_demoExample1": {
+    "message": "شاهد كيف تظهر عناصر الوسائط المعالجة في عارض الوسائط."
+  },
+  "mediaEmpty_demoExample2": {
+    "message": "عند الاتصال ستتمكن من تصفح وفحص الوسائط المستوردة من تسجيلاتك وملفاتك."
+  },
+  "mediaEmpty_connectTitle": {
+    "message": "اتصل لاستخدام الوسائط"
+  },
+  "mediaEmpty_connectDescription": {
+    "message": "اتصل بخادم tldw في الإعدادات لإرسال الرسائل وعرض الوسائط. بعد الاتصال ستُدرج التسجيلات والمستندات المعالجة هنا."
+  },
+  "mediaEmpty_connectExample1": {
+    "message": "افتح الإعدادات → tldw server لإضافة عنوان خادمك."
+  },
+  "mediaEmpty_connectExample2": {
+    "message": "بعد الاتصال، استخدم Quick ingest في الشريط العلوي لإضافة الوسائط من تسجيلاتك وملفاتك."
+  },
+  "mediaEmpty_offlineTitle": {
+    "message": "مراجعة الوسائط غير متاحة بعد على هذا الخادم"
+  },
+  "mediaEmpty_offlineDescription": {
+    "message": "تعتمد مساحة العمل هذه على دعم ميزة مراجعة الوسائط في خادم tldw الخاص بك. يمكنك الاستمرار في استخدام الدردشة والملاحظات والأدوات الأخرى أثناء الترقية إلى إصدار يتضمن الوسائط."
+  },
+  "mediaEmpty_offlineExample1": {
+    "message": "افتح Diagnostics لتأكيد إصدار الخادم وواجهات API المتاحة."
+  },
+  "mediaEmpty_offlineExample2": {
+    "message": "بعد الترقية، أعد تحميل الإضافة وارجع إلى الوسائط."
+  },
+  "mediaEmpty_offlineTechnicalDetails": {
+    "message": "التفاصيل التقنية: خادم tldw هذا لا يعلن عن نقاط نهاية الوسائط (على سبيل المثال ‎/api/v1/media و ‎/api/v1/media/search)."
+  },
+  "mediaEmpty_featureUnavailableBadge": {
+    "message": "الميزة غير متاحة"
+  },
+  "mediaEmpty_demoExample3": {
+    "message": "استخدم الوسائط مع المراجعة لتلخيص التسجيلات أو تحليلها."
+  },
+  "mediaEmpty_demoPreviewHeading": {
+    "message": "عناصر وسائط نموذجية (للمعاينة فقط)"
+  },
+  "mediaEmpty_demoSample1Title": {
+    "message": "وسائط تجريبية: تسجيل مكالمة فريق"
+  },
+  "mediaEmpty_demoSample1Meta": {
+    "message": "فيديو · 25 دقيقة · الكلمات المفتاحية: اجتماع يومي، تخطيط"
+  },
+  "mediaEmpty_demoSample2Title": {
+    "message": "وسائط تجريبية: عرض للمنتج"
+  },
+  "mediaEmpty_demoSample2Meta": {
+    "message": "تسجيل شاشة · 12 دقيقة · الكلمات المفتاحية: التأهيل"
+  },
+  "mediaEmpty_demoSample3Title": {
+    "message": "وسائط تجريبية: PDF لمقال بحثي"
+  },
+  "mediaEmpty_demoSample3Meta": {
+    "message": "PDF · 6 صفحات · الكلمات المفتاحية: التلخيص"
   },
   "noToolCalls": {
     "message": "لا توجد استدعاءات أدوات بعد"
@@ -46,5 +997,320 @@
   },
   "result": {
     "message": "النتيجة"
+  },
+  "reviewDraftsFailedTitle": {
+    "message": "تعذر إنشاء مسودات المراجعة."
+  },
+  "reviewDraftsFailedFallback": {
+    "message": "فشل إنشاء مسودات المراجعة."
+  },
+  "reviewDraftsRetry": {
+    "message": "أعد محاولة إنشاء المسودات"
+  },
+  "reviewDraftsStoreWithoutReview": {
+    "message": "احفظ دون مراجعة"
+  },
+  "reviewNavigationFailed": {
+    "message": "تعذر فتح مراجعة المحتوى. يرجى المحاولة مرة أخرى."
+  },
+  "reviewNavigationRetry": {
+    "message": "أعد محاولة فتح مراجعة المحتوى"
+  },
+  "contentReview_title": {
+    "message": "مراجعة المحتوى"
+  },
+  "contentReview_readyToSubmit": {
+    "message": "{{count}} جاهزة"
+  },
+  "contentReview_committedCount": {
+    "message": "{{count}} تم اعتمادها"
+  },
+  "contentReview_totalCount": {
+    "message": "{{count}} إجمالي"
+  },
+  "contentReview_commitAll": {
+    "message": "اعتماد الكل"
+  },
+  "contentReview_clearDrafts": {
+    "message": "مسح المسودات"
+  },
+  "contentReview_emptyDescription": {
+    "message": "لا توجد مسودات بعد. استخدم Quick Ingest مع خيار المراجعة قبل الحفظ لإنشاء مسودات."
+  },
+  "contentReview_openQuickIngest": {
+    "message": "فتح Quick Ingest"
+  },
+  "contentReview_storeAfterReview": {
+    "message": "الحفظ بعد المراجعة"
+  },
+  "contentReview_reviewBeforeStorage": {
+    "message": "المراجعة قبل الحفظ"
+  },
+  "contentReview_reviewBeforeStorageHint": {
+    "message": "قم بالمعالجة الآن ثم حرّر المسودات محليًا قبل اعتمادها على الخادم."
+  },
+  "contentReview_reviewEnabled": {
+    "message": "وضع المراجعة"
+  },
+  "contentReview_reviewStorageCap": {
+    "message": "الحد الأقصى للمسودات المحلية هو {{cap}}."
+  },
+  "contentReview_reviewWarningTitle": {
+    "message": "حفظ المسودات محليًا؟"
+  },
+  "contentReview_reviewWarningBody": {
+    "message": "تُحفظ المسودات في هذا المتصفح وقد تتضمن بيانات حساسة. يمكنك مسح المسودات من صفحة مراجعة المحتوى في أي وقت."
+  },
+  "contentReview_reviewWarningBodySecondary": {
+    "message": "يحفظ وضع المراجعة المحتوى على جانب العميل حتى تعتمدَه على الخادم."
+  },
+  "contentReview_reviewWarningConfirm": {
+    "message": "تفعيل المراجعة"
+  },
+  "contentReview_reviewWarningCancel": {
+    "message": "إلغاء"
+  },
+  "contentReview_reviewRunLabel": {
+    "message": "مراجعة"
+  },
+  "contentReview_reviewDraftsCreated": {
+    "message": "المسودات جاهزة للمراجعة."
+  },
+  "contentReview_reviewStorageCapWarning_one": {
+    "message": "{{count}} ملف يتجاوز حد المسودات المحلية ({{cap}}). أرفق المصادر قبل اعتماد الصوت/الفيديو."
+  },
+  "contentReview_reviewStorageCapWarning_other": {
+    "message": "{{count}} ملفات تتجاوز حد المسودات المحلية ({{cap}}). أرفق المصادر قبل اعتماد الصوت/الفيديو."
+  },
+  "contentReview_openContentReview": {
+    "message": "فتح مراجعة المحتوى"
+  },
+  "contentReview_batchLabel": {
+    "message": "دفعة"
+  },
+  "contentReview_batchName": {
+    "message": "دفعة {{index}}"
+  },
+  "contentReview_draftsLabel": {
+    "message": "المسودات"
+  },
+  "contentReview_selectDraft": {
+    "message": "اختر مسودة لبدء المراجعة."
+  },
+  "contentReview_titlePlaceholder": {
+    "message": "عنوان المسودة"
+  },
+  "contentReview_lastSaved": {
+    "message": "تم الحفظ {{time}}"
+  },
+  "contentReview_resetTitle": {
+    "message": "إعادة تعيين المسودة؟"
+  },
+  "contentReview_resetBody": {
+    "message": "سيؤدي هذا إلى استعادة المحتوى الأصلي لهذه المسودة."
+  },
+  "contentReview_resetConfirm": {
+    "message": "إعادة تعيين"
+  },
+  "contentReview_resetCancel": {
+    "message": "إلغاء"
+  },
+  "contentReview_resetContent": {
+    "message": "إعادة تعيين"
+  },
+  "contentReview_diffView": {
+    "message": "عرض الفروقات"
+  },
+  "contentReview_saveDraft": {
+    "message": "حفظ المسودة"
+  },
+  "contentReview_editorLabel": {
+    "message": "المحتوى"
+  },
+  "contentReview_wordCount": {
+    "message": "{{words}} كلمة"
+  },
+  "contentReview_charCount": {
+    "message": "{{chars}} حرفاً"
+  },
+  "contentReview_aiFix": {
+    "message": "تصحيح بالذكاء الاصطناعي"
+  },
+  "contentReview_aiHint": {
+    "message": "يرسل محتوى المسودة إلى الخادم لديك لمعالجته بالذكاء الاصطناعي."
+  },
+  "contentReview_modelPlaceholder": {
+    "message": "الإعداد الافتراضي للخادم"
+  },
+  "contentReview_aiConsentTitle": {
+    "message": "إرسال المسودة إلى الخادم؟"
+  },
+  "contentReview_aiConsentBody": {
+    "message": "سيتم إرسال محتوى المسودة إلى خادم tldw لديك لمعالجته بالذكاء الاصطناعي. تظل المسودات محلية حتى تقوم باعتمادها."
+  },
+  "contentReview_aiConsentConfirm": {
+    "message": "متابعة"
+  },
+  "contentReview_aiConsentCancel": {
+    "message": "إلغاء"
+  },
+  "contentReview_aiApplied": {
+    "message": "تم تطبيق تصحيحات الذكاء الاصطناعي."
+  },
+  "contentReview_aiNoChange": {
+    "message": "لم يتم إرجاع أي تغييرات."
+  },
+  "contentReview_aiEmpty": {
+    "message": "لم يُرجع الذكاء الاصطناعي أي محتوى."
+  },
+  "contentReview_aiUnavailable": {
+    "message": "إكمالات الدردشة غير متاحة."
+  },
+  "contentReview_templatePlaceholder": {
+    "message": "اختر قالباً"
+  },
+  "contentReview_applyTemplate": {
+    "message": "تطبيق القالب"
+  },
+  "contentReview_templateApplied": {
+    "message": "تم تطبيق القالب."
+  },
+  "contentReview_templateMissing": {
+    "message": "يرجى اختيار قالب أولاً."
+  },
+  "contentReview_detectSections": {
+    "message": "اكتشاف الأقسام"
+  },
+  "contentReview_detectSectionsTitle": {
+    "message": "إعادة اكتشاف الأقسام؟"
+  },
+  "contentReview_detectSectionsBody": {
+    "message": "سيؤدي هذا إلى استبدال الأقسام الحالية وإعادة تعيين اختياراتك."
+  },
+  "contentReview_detectSectionsConfirm": {
+    "message": "إعادة الاكتشاف"
+  },
+  "contentReview_detectSectionsCancel": {
+    "message": "إلغاء"
+  },
+  "contentReview_detectSectionsEmpty": {
+    "message": "لم يتم اكتشاف أي أقسام."
+  },
+  "contentReview_sectionsLabel": {
+    "message": "فلتر الأقسام"
+  },
+  "contentReview_templates_transcript_clean_label": {
+    "message": "تنظيف النص المفرغ"
+  },
+  "contentReview_templates_transcript_clean_description": {
+    "message": "توحيد علامات الترقيم وحالة الأحرف مع الحفاظ على بنية الأسطر."
+  },
+  "contentReview_templates_speaker_turns_label": {
+    "message": "أدوار المتحدثين"
+  },
+  "contentReview_templates_speaker_turns_description": {
+    "message": "يضمن أن يكون كل دور للمتحدث في سطر منفصل مع تسميات واضحة."
+  },
+  "contentReview_templates_chapter_headings_label": {
+    "message": "عناوين الفصول"
+  },
+  "contentReview_templates_chapter_headings_description": {
+    "message": "يُدرج عناوين Markdown لتجميع المواضيع دون إزالة المحتوى."
+  },
+  "contentReview_metadataLabel": {
+    "message": "البيانات الوصفية"
+  },
+  "contentReview_mediaType": {
+    "message": "نوع الوسائط"
+  },
+  "contentReview_keywords": {
+    "message": "الكلمات المفتاحية"
+  },
+  "contentReview_keywordsPlaceholder": {
+    "message": "إضافة كلمات مفتاحية"
+  },
+  "contentReview_reviewNotes": {
+    "message": "ملاحظات المراجعة"
+  },
+  "contentReview_missingSource": {
+    "message": "ملف المصدر مفقود"
+  },
+  "contentReview_missingSourceBody": {
+    "message": "أرفق الملف الأصلي لاعتماد هذه المسودة."
+  },
+  "contentReview_attachSource": {
+    "message": "إرفاق ملف"
+  },
+  "contentReview_actionsLabel": {
+    "message": "الإجراءات"
+  },
+  "contentReview_commit": {
+    "message": "اعتماد"
+  },
+  "contentReview_commitDisabled": {
+    "message": "أرفق ملف الصوت/الفيديو الأصلي قبل الاعتماد."
+  },
+  "contentReview_markReviewed": {
+    "message": "وضع علامة تمت مراجعتها"
+  },
+  "contentReview_skipNext": {
+    "message": "تخطي"
+  },
+  "contentReview_discard": {
+    "message": "تجاهل"
+  },
+  "contentReview_discardTitle": {
+    "message": "تجاهل المسودة؟"
+  },
+  "contentReview_discardBody": {
+    "message": "سيتم وضع علامة على هذه المسودة كتجاهَل وإزالتها من المراجعة."
+  },
+  "contentReview_discardConfirm": {
+    "message": "تجاهل"
+  },
+  "contentReview_discardCancel": {
+    "message": "إلغاء"
+  },
+  "contentReview_commitSuccess": {
+    "message": "تم اعتماد المسودة."
+  },
+  "contentReview_commitAllTitle": {
+    "message": "اعتماد المسودات التي تمت مراجعتها؟"
+  },
+  "contentReview_commitAllBody": {
+    "message": "سيتم اعتماد المسودات المعلّمة كمراجَعة فقط."
+  },
+  "contentReview_commitAllConfirm": {
+    "message": "اعتماد الكل"
+  },
+  "contentReview_commitAllCancel": {
+    "message": "إلغاء"
+  },
+  "contentReview_commitAllResult": {
+    "message": "{{success}} تم اعتمادها · {{failed}} فشلت"
+  },
+  "contentReview_storageCapWarning": {
+    "message": "يتجاوز هذا الملف حد المسودات المحلي ({{cap}})."
+  },
+  "contentReview_clearTitle": {
+    "message": "مسح جميع المسودات؟"
+  },
+  "contentReview_clearBody": {
+    "message": "يؤدي هذا إلى إزالة جميع مسودات مراجعة المحتوى والملفات المحلية."
+  },
+  "contentReview_clearConfirm": {
+    "message": "مسح المسودات"
+  },
+  "contentReview_clearCancel": {
+    "message": "إلغاء"
+  },
+  "contentReview_clearSuccess": {
+    "message": "تم مسح المسودات."
+  },
+  "contentReview_originalLabel": {
+    "message": "الأصلي"
+  },
+  "contentReview_editedLabel": {
+    "message": "بعد التعديل"
   }
 }

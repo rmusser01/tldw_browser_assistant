@@ -1,0 +1,5 @@
+export { TakeQuizTab } from "./TakeQuizTab"
+export { GenerateTab } from "./GenerateTab"
+export { CreateTab } from "./CreateTab"
+export { ManageTab } from "./ManageTab"
+export { ResultsTab } from "./ResultsTab"

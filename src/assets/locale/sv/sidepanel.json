@@ -126,5 +126,10 @@
       "message": "Sök i din kunskapsbas och infoga resultat i ditt meddelande.",
       "dismiss": "Stäng"
     }
+  },
+  "tabs": {
+    "newChat": "Nytt samtal",
+    "newTabAria": "Ny flik för samtal",
+    "closeTabAria": "Stäng flik för samtal"
   }
 }

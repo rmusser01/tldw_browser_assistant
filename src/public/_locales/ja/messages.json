@@ -400,6 +400,65 @@
   "specFallbackWarning": {
     "message": "同梱の media.add スキーマ（v{{version}}）をフォールバックとして使用しています。フィールドが古そうな場合は tldw_server の /openapi.json と照合して確認してください。"
   },
+  "serverOffline": {
+    "message": "サーバーがオフラインか、設定されていません"
+  },
+  "serverChats": {
+    "message": "サーバーチャット"
+  },
+  "serverChatLoadError": {
+    "message": "サーバーチャットの読み込みに失敗しました。接続を確認して再試行してください。"
+  },
+  "serverChatSourceLabel": {
+    "message": "サーバー"
+  },
+  "serverChatForkedLabel": {
+    "message": "フォークしたチャット",
+    "description": "Label shown on chats that were forked from another server chat."
+  },
+  "serverChatForkedTooltip": {
+    "message": "チャット {{chatId}} からフォーク",
+    "description": "Tooltip explaining which original server chat this chat was forked from."
+  },
+  "fileChanges": {
+    "message": "ファイルの変更"
+  },
+  "deletions": {
+    "message": "削除"
+  },
+  "gitOperations": {
+    "message": "Git 操作"
+  },
+  "commands": {
+    "message": "コマンド"
+  },
+  "otherOperations": {
+    "message": "その他の操作"
+  },
+  "fileAccess": {
+    "message": "ファイルアクセス"
+  },
+  "notebookEdits": {
+    "message": "ノートブック編集"
+  },
+  "applyPatch": {
+    "message": "パッチを適用"
+  },
+  "recursive": {
+    "message": "(再帰)"
+  },
+  "complexArguments": {
+    "message": "[複雑な引数]"
+  },
+  "ttsShort": {
+    "message": "音声"
+  },
+  "copyShort": {
+    "message": "コピー"
+  },
+  "branchShort": {
+    "message": "ブランチ"
+  },
   "searchKnowledge": {
     "message": "ナレッジとメモを検索"
   },
@@ -586,7 +645,7 @@
     "description": "Label for the Recent items category in the command palette."
   },
   "compareTag": {
-    "message": "Compare"
+    "message": "比較"
   },
   "compareMaxModelsTitle": {
     "message": "比較制限に達しました"
@@ -604,13 +663,13 @@
     "message": "選択済み: {{current}} / {{limit}}"
   },
   "markdown_unableToRender": {
-    "message": "Unable to render content"
+    "message": "コンテンツを表示できません"
   },
   "markdown_couldNotDisplay": {
-    "message": "The message content could not be displayed. This may be due to invalid formatting."
+    "message": "メッセージの内容を表示できませんでした。無効な書式が原因の可能性があります。"
   },
   "markdown_showRawContent": {
-    "message": "Show raw content"
+    "message": "生のコンテンツを表示"
   },
   "notesSearch_exportNoteSuccess": {
     "message": "エクスポートしました（{{size}}）"
@@ -622,18 +681,6 @@
     "message": "{{count}} 件のノートをCSVとしてエクスポートしました（{{size}}）"
   },
   "notesSearch_exportJsonSuccess": {
-    "message": "{{count}} 件のノートをJSONとしてエクスポートしました（{{size}}）"
-  },
-  "exportNoteSuccess": {
-    "message": "エクスポートしました（{{size}}）"
-  },
-  "exportSuccess": {
-    "message": "{{count}} 件のノートをエクスポートしました（{{size}}）"
-  },
-  "exportCsvSuccess": {
-    "message": "{{count}} 件のノートをCSVとしてエクスポートしました（{{size}}）"
-  },
-  "exportJsonSuccess": {
     "message": "{{count}} 件のノートをJSONとしてエクスポートしました（{{size}}）"
   },
   "infoShort": {
@@ -673,13 +720,13 @@
     "message": "技術的な詳細を非表示"
   },
   "error_createFolder": {
-    "message": "Failed to create folder"
+    "message": "フォルダーの作成に失敗しました"
   },
   "modelSelect_label": {
-    "message": "Model"
+    "message": "モデル"
   },
   "modelSelect_tooltip": {
-    "message": "Changes model for next message"
+    "message": "次のメッセージのモデルを変更します"
   },
   "featureHints_knowledge_title": {
     "message": "ナレッジを検索"
@@ -729,6 +776,18 @@
   "chatSidebar_notes": {
     "message": "ノート"
   },
+  "chatSidebar_flashcards": {
+    "message": "フラッシュカード"
+  },
+  "chatSidebar_prompts": {
+    "message": "プロンプト"
+  },
+  "chatSidebar_multiItem": {
+    "message": "複数アイテム"
+  },
+  "chatSidebar_shortcuts": {
+    "message": "ショートカット"
+  },
   "chatSidebar_settings": {
     "message": "設定"
   },
@@ -759,10 +818,2452 @@
   "chatSidebar_foldersRequireConnection": {
     "message": "フォルダーにはサーバー接続が必要です"
   },
-  "option.more.copy.canonicalMarkdown": {
-    "message": "Copy canonical transcript"
+  "more_copy_canonicalMarkdown": {
+    "message": "正規の文字起こしをコピー"
   },
-  "option.more.download.canonicalMarkdown": {
-    "message": "Canonical transcript (Markdown)"
+  "more_download_canonicalMarkdown": {
+    "message": "正規の文字起こし（Markdown）"
+  },
+  "header_contentReview": {
+    "message": "コンテンツレビュー"
+  },
+  "contentReview_title": {
+    "message": "コンテンツレビュー",
+    "description": "Content review UI string."
+  },
+  "contentReview_readyToSubmit": {
+    "message": "{{count}} 件の下書きが準備完了",
+    "description": "Content review UI string."
+  },
+  "contentReview_committedCount": {
+    "message": "{{count}} 件を確定済み",
+    "description": "Content review UI string."
+  },
+  "contentReview_totalCount": {
+    "message": "合計 {{count}} 件",
+    "description": "Content review UI string."
+  },
+  "contentReview_commitAll": {
+    "message": "すべて確定",
+    "description": "Content review UI string."
+  },
+  "contentReview_clearDrafts": {
+    "message": "下書きをクリア",
+    "description": "Content review UI string."
+  },
+  "contentReview_emptyDescription": {
+    "message": "まだ下書きはありません。[保存前にレビュー] をオンにした Quick Ingest を使って下書きを作成できます。",
+    "description": "Content review UI string."
+  },
+  "contentReview_openQuickIngest": {
+    "message": "Quick Ingest を開く",
+    "description": "Content review UI string."
+  },
+  "contentReview_storeAfterReview": {
+    "message": "レビュー後に保存",
+    "description": "Content review UI string."
+  },
+  "contentReview_reviewBeforeStorage": {
+    "message": "保存前にレビュー",
+    "description": "Content review UI string."
+  },
+  "contentReview_reviewBeforeStorageHint": {
+    "message": "今すぐ処理し、サーバーに保存する前にローカルで下書きを編集します。",
+    "description": "Content review UI string."
+  },
+  "contentReview_reviewEnabled": {
+    "message": "レビューモード",
+    "description": "Content review UI string."
+  },
+  "contentReview_reviewStorageCap": {
+    "message": "ローカル下書きは {{cap}} 件までです。",
+    "description": "Content review UI string."
+  },
+  "contentReview_reviewWarningTitle": {
+    "message": "下書きをローカルに保存しますか？",
+    "description": "Content review UI string."
+  },
+  "contentReview_reviewWarningBody": {
+    "message": "下書きはこのブラウザに保存され、機密データを含む可能性があります。コンテンツレビューのページからいつでも下書きを消去できます。",
+    "description": "Content review UI string."
+  },
+  "contentReview_reviewWarningBodySecondary": {
+    "message": "レビューモードでは、サーバーに保存するまで内容をクライアント側に保持します。",
+    "description": "Content review UI string."
+  },
+  "contentReview_reviewWarningConfirm": {
+    "message": "レビューを有効にする",
+    "description": "Content review UI string."
+  },
+  "contentReview_reviewWarningCancel": {
+    "message": "キャンセル",
+    "description": "Content review UI string."
+  },
+  "contentReview_reviewRunLabel": {
+    "message": "レビュー",
+    "description": "Content review UI string."
+  },
+  "contentReview_reviewDraftsCreated": {
+    "message": "レビュー用下書きの準備ができました。",
+    "description": "Content review UI string."
+  },
+  "contentReview_reviewStorageCapWarning_one": {
+    "message": "{{count}} 件のファイルがローカル下書き上限 ({{cap}}) を超えています。音声/動画を保存する前にソースを添付してください。",
+    "description": "Content review UI string."
+  },
+  "contentReview_reviewStorageCapWarning_other": {
+    "message": "{{count}} 件のファイルがローカル下書き上限 ({{cap}}) を超えています。音声/動画を保存する前にソースを添付してください。",
+    "description": "Content review UI string."
+  },
+  "contentReview_openContentReview": {
+    "message": "コンテンツレビューを開く",
+    "description": "Content review UI string."
+  },
+  "contentReview_batchLabel": {
+    "message": "バッチ",
+    "description": "Content review UI string."
+  },
+  "contentReview_batchName": {
+    "message": "バッチ {{index}}",
+    "description": "Content review UI string."
+  },
+  "contentReview_draftsLabel": {
+    "message": "下書き",
+    "description": "Content review UI string."
+  },
+  "contentReview_selectDraft": {
+    "message": "レビューを始める下書きを選択してください。",
+    "description": "Content review UI string."
+  },
+  "contentReview_titlePlaceholder": {
+    "message": "下書きのタイトル",
+    "description": "Content review UI string."
+  },
+  "contentReview_lastSaved": {
+    "message": "{{time}} に保存",
+    "description": "Content review UI string."
+  },
+  "contentReview_resetTitle": {
+    "message": "下書きをリセットしますか？",
+    "description": "Content review UI string."
+  },
+  "contentReview_resetBody": {
+    "message": "この下書きの内容を元の状態に戻します。",
+    "description": "Content review UI string."
+  },
+  "contentReview_resetConfirm": {
+    "message": "リセット",
+    "description": "Content review UI string."
+  },
+  "contentReview_resetCancel": {
+    "message": "キャンセル",
+    "description": "Content review UI string."
+  },
+  "contentReview_resetContent": {
+    "message": "リセット",
+    "description": "Content review UI string."
+  },
+  "contentReview_diffView": {
+    "message": "差分ビュー",
+    "description": "Content review UI string."
+  },
+  "contentReview_saveDraft": {
+    "message": "下書きを保存",
+    "description": "Content review UI string."
+  },
+  "contentReview_editorLabel": {
+    "message": "コンテンツ",
+    "description": "Content review UI string."
+  },
+  "contentReview_wordCount": {
+    "message": "{{words}} 語",
+    "description": "Content review UI string."
+  },
+  "contentReview_charCount": {
+    "message": "{{chars}} 文字",
+    "description": "Content review UI string."
+  },
+  "contentReview_aiFix": {
+    "message": "AI で修正",
+    "description": "Content review UI string."
+  },
+  "contentReview_aiHint": {
+    "message": "下書きの内容をサーバーに送信し、AI で処理します。",
+    "description": "Content review UI string."
+  },
+  "contentReview_modelPlaceholder": {
+    "message": "サーバー既定",
+    "description": "Content review UI string."
+  },
+  "contentReview_aiConsentTitle": {
+    "message": "下書きをサーバーに送信しますか？",
+    "description": "Content review UI string."
+  },
+  "contentReview_aiConsentBody": {
+    "message": "下書きの内容が tldw サーバーに送信され、AI で処理されます。確定するまでは下書きはローカルにのみ保存されます。",
+    "description": "Content review UI string."
+  },
+  "contentReview_aiConsentConfirm": {
+    "message": "続行",
+    "description": "Content review UI string."
+  },
+  "contentReview_aiConsentCancel": {
+    "message": "キャンセル",
+    "description": "Content review UI string."
+  },
+  "contentReview_aiApplied": {
+    "message": "AI の修正を適用しました。",
+    "description": "Content review UI string."
+  },
+  "contentReview_aiNoChange": {
+    "message": "変更は返されませんでした。",
+    "description": "Content review UI string."
+  },
+  "contentReview_aiEmpty": {
+    "message": "AI からコンテンツが返されませんでした。",
+    "description": "Content review UI string."
+  },
+  "contentReview_aiUnavailable": {
+    "message": "チャット補完を利用できません。",
+    "description": "Content review UI string."
+  },
+  "contentReview_templatePlaceholder": {
+    "message": "テンプレートを選択",
+    "description": "Content review UI string."
+  },
+  "contentReview_applyTemplate": {
+    "message": "テンプレートを適用",
+    "description": "Content review UI string."
+  },
+  "contentReview_templateApplied": {
+    "message": "テンプレートを適用しました。",
+    "description": "Content review UI string."
+  },
+  "contentReview_templateMissing": {
+    "message": "先にテンプレートを選択してください。",
+    "description": "Content review UI string."
+  },
+  "contentReview_detectSections": {
+    "message": "セクションを検出",
+    "description": "Content review UI string."
+  },
+  "contentReview_detectSectionsTitle": {
+    "message": "セクションを再検出しますか？",
+    "description": "Content review UI string."
+  },
+  "contentReview_detectSectionsBody": {
+    "message": "既存のセクションを置き換え、選択内容をリセットします。",
+    "description": "Content review UI string."
+  },
+  "contentReview_detectSectionsConfirm": {
+    "message": "再検出",
+    "description": "Content review UI string."
+  },
+  "contentReview_detectSectionsCancel": {
+    "message": "キャンセル",
+    "description": "Content review UI string."
+  },
+  "contentReview_detectSectionsEmpty": {
+    "message": "セクションが検出されませんでした。",
+    "description": "Content review UI string."
+  },
+  "contentReview_sectionsLabel": {
+    "message": "セクションフィルター",
+    "description": "Content review UI string."
+  },
+  "contentReview_templates_transcript_clean_label": {
+    "message": "トランスクリプトを整形",
+    "description": "Content review UI string."
+  },
+  "contentReview_templates_transcript_clean_description": {
+    "message": "行構造を保ったまま、句読点と大文字・小文字を正規化します。",
+    "description": "Content review UI string."
+  },
+  "contentReview_templates_speaker_turns_label": {
+    "message": "話者ごとのターン",
+    "description": "Content review UI string."
+  },
+  "contentReview_templates_speaker_turns_description": {
+    "message": "各話者のターンが、わかりやすいラベル付きで 1 行ずつになるようにします。",
+    "description": "Content review UI string."
+  },
+  "contentReview_templates_chapter_headings_label": {
+    "message": "章見出し",
+    "description": "Content review UI string."
+  },
+  "contentReview_templates_chapter_headings_description": {
+    "message": "コンテンツを削除せずにトピックをまとめる Markdown 見出しを挿入します。",
+    "description": "Content review UI string."
+  },
+  "contentReview_metadataLabel": {
+    "message": "メタデータ",
+    "description": "Content review UI string."
+  },
+  "contentReview_mediaType": {
+    "message": "メディア種別",
+    "description": "Content review UI string."
+  },
+  "contentReview_keywords": {
+    "message": "キーワード",
+    "description": "Content review UI string."
+  },
+  "contentReview_keywordsPlaceholder": {
+    "message": "キーワードを追加",
+    "description": "Content review UI string."
+  },
+  "contentReview_reviewNotes": {
+    "message": "レビュー用メモ",
+    "description": "Content review UI string."
+  },
+  "contentReview_missingSource": {
+    "message": "元のファイルが見つかりません",
+    "description": "Content review UI string."
+  },
+  "contentReview_missingSourceBody": {
+    "message": "この下書きを確定するには元のファイルを添付してください。",
+    "description": "Content review UI string."
+  },
+  "contentReview_attachSource": {
+    "message": "ファイルを添付",
+    "description": "Content review UI string."
+  },
+  "contentReview_actionsLabel": {
+    "message": "アクション",
+    "description": "Content review UI string."
+  },
+  "contentReview_commit": {
+    "message": "確定",
+    "description": "Content review UI string."
+  },
+  "contentReview_commitDisabled": {
+    "message": "確定する前に元の音声/動画ファイルを添付してください。",
+    "description": "Content review UI string."
+  },
+  "contentReview_markReviewed": {
+    "message": "レビュー済みにする",
+    "description": "Content review UI string."
+  },
+  "contentReview_skipNext": {
+    "message": "スキップ",
+    "description": "Content review UI string."
+  },
+  "contentReview_discard": {
+    "message": "破棄",
+    "description": "Content review UI string."
+  },
+  "contentReview_discardTitle": {
+    "message": "下書きを破棄しますか？",
+    "description": "Content review UI string."
+  },
+  "contentReview_discardBody": {
+    "message": "この下書きは破棄済みとしてマークされ、レビュー一覧から削除されます。",
+    "description": "Content review UI string."
+  },
+  "contentReview_discardConfirm": {
+    "message": "破棄",
+    "description": "Content review UI string."
+  },
+  "contentReview_discardCancel": {
+    "message": "キャンセル",
+    "description": "Content review UI string."
+  },
+  "contentReview_commitSuccess": {
+    "message": "下書きを確定しました。",
+    "description": "Content review UI string."
+  },
+  "contentReview_commitAllTitle": {
+    "message": "レビュー済みの下書きをすべて確定しますか？",
+    "description": "Content review UI string."
+  },
+  "contentReview_commitAllBody": {
+    "message": "レビュー済みとマークされた下書きのみが確定されます。",
+    "description": "Content review UI string."
+  },
+  "contentReview_commitAllConfirm": {
+    "message": "すべて確定",
+    "description": "Content review UI string."
+  },
+  "contentReview_commitAllCancel": {
+    "message": "キャンセル",
+    "description": "Content review UI string."
+  },
+  "contentReview_commitAllResult": {
+    "message": "{{success}} 件を確定 · {{failed}} 件に失敗",
+    "description": "Content review UI string."
+  },
+  "contentReview_storageCapWarning": {
+    "message": "このファイルはローカルの下書き上限 ({{cap}}) を超えています。",
+    "description": "Content review UI string."
+  },
+  "contentReview_clearTitle": {
+    "message": "すべての下書きをクリアしますか？",
+    "description": "Content review UI string."
+  },
+  "contentReview_clearBody": {
+    "message": "ローカルのコンテンツレビュー用下書きと関連ファイルをすべて削除します。",
+    "description": "Content review UI string."
+  },
+  "contentReview_clearConfirm": {
+    "message": "下書きをクリア",
+    "description": "Content review UI string."
+  },
+  "contentReview_clearCancel": {
+    "message": "キャンセル",
+    "description": "Content review UI string."
+  },
+  "contentReview_clearSuccess": {
+    "message": "下書きを削除しました。",
+    "description": "Content review UI string."
+  },
+  "contentReview_originalLabel": {
+    "message": "元の内容",
+    "description": "Content review UI string."
+  },
+  "contentReview_editedLabel": {
+    "message": "編集済み",
+    "description": "Content review UI string."
+  },
+  "reviewDraftsFailedTitle": {
+    "message": "レビュー用下書きを作成できませんでした。",
+    "description": "Error title when review drafts creation fails."
+  },
+  "reviewDraftsFailedFallback": {
+    "message": "レビュー用下書きの作成に失敗しました。",
+    "description": "Fallback error message for review drafts failure."
+  },
+  "reviewDraftsRetry": {
+    "message": "下書き作成を再試行",
+    "description": "Button label to retry creating review drafts."
+  },
+  "reviewDraftsStoreWithoutReview": {
+    "message": "レビューせずに保存",
+    "description": "Action to store without review."
+  },
+  "reviewNavigationFailed": {
+    "message": "コンテンツレビューを開けませんでした。もう一度お試しください。",
+    "description": "Error message when navigation to Content Review fails."
+  },
+  "reviewNavigationRetry": {
+    "message": "コンテンツレビューを再度開く",
+    "description": "Button label to retry opening Content Review."
+  },
+  "quickIngest_title": {
+    "message": "クイックインジェスト（メディア）"
+  },
+  "quickIngest_subtitle": {
+    "message": "URL を 1 件以上入力してください。必要なら行ごとにタイプを指定できます。"
+  },
+  "quickIngest_offlineTitle": {
+    "message": "サーバーがオフライン — ステージングのみ"
+  },
+  "quickIngest_offlineDescription": {
+    "message": "ここでURLやファイルをキューに入れ、フィールドを確認できますが、tldwサーバーがオンラインになるまで取り込みは実行されません。保留中の項目を処理するには再接続してください。"
+  },
+  "quickIngest_sourceHeading": {
+    "message": "ソース URL またはファイル"
+  },
+  "quickIngest_storeRemote": {
+    "message": "リモート DB に保存"
+  },
+  "quickIngest_storeRemoteAria": {
+    "message": "インジェスト結果を tldw サーバーに保存する"
+  },
+  "quickIngest_processOnlyAria": {
+    "message": "インジェスト結果をローカルのみで処理する"
+  },
+  "quickIngest_storeRemoteHelp": {
+    "message": "インデックス作成のために tldw サーバーへアップロードします。"
+  },
+  "quickIngest_processOnlyHelp": {
+    "message": "処理のみ行い、結果はローカルに保持します（JSON をダウンロード）。"
+  },
+  "quickIngest_storageHeading": {
+    "message": "インジェスト結果の保存先"
+  },
+  "quickIngest_storageServerDescription": {
+    "message": "tldw サーバーに保存（RAG や共有ワークスペースに推奨）。"
+  },
+  "quickIngest_storageLocalDescription": {
+    "message": "このブラウザーのみに保存され、サーバーには書き込みません。"
+  },
+  "quickIngest_storeAfterReview": {
+    "message": "レビュー後に保存"
+  },
+  "quickIngest_reviewBeforeStorage": {
+    "message": "保存前にレビュー"
+  },
+  "quickIngest_reviewBeforeStorageHint": {
+    "message": "今すぐ処理し、サーバーに保存する前にローカルで下書きを編集します。"
+  },
+  "quickIngest_reviewEnabled": {
+    "message": "レビューモード"
+  },
+  "quickIngest_reviewStorageCap": {
+    "message": "ローカル下書きは {{cap}} 件までです。"
+  },
+  "quickIngest_reviewWarningTitle": {
+    "message": "下書きをローカルに保存しますか？"
+  },
+  "quickIngest_reviewWarningBody": {
+    "message": "下書きはこのブラウザに保存され、機密データを含む可能性があります。コンテンツレビューのページからいつでも下書きを消去できます。"
+  },
+  "quickIngest_reviewWarningBodySecondary": {
+    "message": "レビューモードでは、サーバーに保存するまで内容をクライアント側に保持します。"
+  },
+  "quickIngest_reviewWarningConfirm": {
+    "message": "レビューを有効にする"
+  },
+  "quickIngest_reviewWarningCancel": {
+    "message": "キャンセル"
+  },
+  "quickIngest_reviewRunLabel": {
+    "message": "レビュー"
+  },
+  "quickIngest_reviewDraftsCreated": {
+    "message": "レビュー用下書きの準備ができました。"
+  },
+  "quickIngest_reviewStorageCapWarning_one": {
+    "message": "{{count}} 件のファイルがローカル下書き上限 ({{cap}}) を超えています。音声/動画を保存する前にソースを添付してください。"
+  },
+  "quickIngest_reviewStorageCapWarning_other": {
+    "message": "{{count}} 件のファイルがローカル下書き上限 ({{cap}}) を超えています。音声/動画を保存する前にソースを添付してください。"
+  },
+  "quickIngest_openContentReview": {
+    "message": "コンテンツレビューを開く"
+  },
+  "quickIngest_storageDocsLink": {
+    "message": "インジェストと保存について詳しく見る"
+  },
+  "quickIngest_storageDocsUrl": {
+    "message": "https://github.com/rmusser01/tldw_browser_assistant"
+  },
+  "quickIngest_bulkPlaceholder": {
+    "message": "URL を貼り付け（1 行 1 件）"
+  },
+  "quickIngest_or": {
+    "message": "または"
+  },
+  "quickIngest_remove": {
+    "message": "削除"
+  },
+  "quickIngest_add": {
+    "message": "URL を追加"
+  },
+  "quickIngest_commonOptions": {
+    "message": "取り込みオプション"
+  },
+  "quickIngest_audioOptions": {
+    "message": "音声オプション"
+  },
+  "quickIngest_audioLanguage": {
+    "message": "言語（例: en）"
+  },
+  "quickIngest_audioDiarizationHelp": {
+    "message": "有効にすると文字起こしで話者を分離します。"
+  },
+  "quickIngest_documentOptions": {
+    "message": "ドキュメントオプション"
+  },
+  "quickIngest_videoOptions": {
+    "message": "動画オプション"
+  },
+  "quickIngest_captionsHelp": {
+    "message": "利用可能な場合はタイムスタンプ/字幕を含めます。"
+  },
+  "quickIngest_cancel": {
+    "message": "キャンセル"
+  },
+  "quickIngest_ingest": {
+    "message": "取り込み"
+  },
+  "quickIngest_process": {
+    "message": "処理"
+  },
+  "quickIngest_queueOnlyOffline": {
+    "message": "キューのみ — サーバーがオフラインです"
+  },
+  "quickIngest_queueOnlyOfflineAria": {
+    "message": "オフライン — アイテムを後で処理するためにキューに追加"
+  },
+  "quickIngest_offlineQueueToast": {
+    "message": "オフラインモード：サーバーが復帰するまでアイテムはここにキューされます。"
+  },
+  "quickIngest_offlineFooter": {
+    "message": "オフラインモード：アイテムはここに一時保存され、サーバーが再接続すると処理されます。"
+  },
+  "quickIngest_processQueuedItems": {
+    "message": "キュー処理"
+  },
+  "quickIngest_processQueuedItemsAria": {
+    "message": "キューに溜まったクイックインジェスト項目を処理"
+  },
+  "quickIngest_runAria": {
+    "message": "クイックインジェストを実行"
+  },
+  "quickIngest_runLabel": {
+    "message": "クイックインジェスト実行"
+  },
+  "quickIngest_results": {
+    "message": "結果"
+  },
+  "quickIngest_downloadJson": {
+    "message": "JSON をダウンロード"
+  },
+  "quickIngest_advancedSummary": {
+    "message": "{{count}} 件の高度なフィールドを読み込みました"
+  },
+  "quickIngest_advancedEmpty": {
+    "message": "高度なオプションが検出されません — 仕様を再読み込みしてください。"
+  },
+  "quickIngest_modifiedCount": {
+    "message": "{{count}} 件変更"
+  },
+  "quickIngest_progress": {
+    "message": "処理中 {{done}} / {{total}} 件…"
+  },
+  "quickIngest_pendingLabel": {
+    "message": "保留中 — 接続時に実行されます"
+  },
+  "quickIngest_readyToast": {
+    "message": "サーバーが復帰しました — {{count}} 件のキューを処理できます。"
+  },
+  "quickIngest_processQueuedItemsShort": {
+    "message": "キュー処理"
+  },
+  "quickIngest_errorSummary": {
+    "message": "現在、取り込みアイテムを処理できませんでした。"
+  },
+  "quickIngest_errorHint": {
+    "message": "tldw サーバーを確認してから再試行してください。問題の切り分けには「ヘルスと診断」をご利用ください。"
+  },
+  "quickIngest_checkHealthLink": {
+    "message": "「ヘルスと診断」でサーバーの状態を確認する"
+  },
+  "quickIngest_healthAriaHint": {
+    "message": "最近の実行に失敗しています — 詳細はヘッダーの「ヘルスと診断」を開いて確認してください。"
+  },
+  "quickIngest_specReloadedToast": {
+    "message": "サーバーから高度な仕様を再読み込みしました"
+  },
+  "quickIngest_specReloadedToastDiff": {
+    "message": "サーバーから高度な仕様を再読み込みしました（追加: {{added}}、削除: {{removed}}）"
+  },
+  "quickIngest_specFallbackWarning": {
+    "message": "同梱の media.add スキーマ（v{{version}}）をフォールバックとして使用しています。フィールドが古そうな場合は tldw_server の /openapi.json と照合して確認してください。"
+  },
+  "quickIngest_reviewDraftsFailedTitle": {
+    "message": "レビュー用下書きを作成できませんでした。"
+  },
+  "quickIngest_reviewDraftsFailedFallback": {
+    "message": "レビュー用下書きの作成に失敗しました。"
+  },
+  "quickIngest_reviewDraftsRetry": {
+    "message": "下書き作成を再試行"
+  },
+  "quickIngest_reviewDraftsStoreWithoutReview": {
+    "message": "レビューせずに保存"
+  },
+  "quickIngest_reviewNavigationFailed": {
+    "message": "コンテンツレビューを開けませんでした。もう一度お試しください。"
+  },
+  "quickIngest_reviewNavigationRetry": {
+    "message": "コンテンツレビューを再度開く"
+  },
+  "storeAfterReview": {
+    "message": "レビュー後に保存"
+  },
+  "manageCharacters_actions_viewConversations": {
+    "message": "会話を表示"
+  },
+  "manageCharacters_aria_viewConversations": {
+    "message": "{{name}} の会話を表示"
+  },
+  "manageCharacters_aria_searchResults": {
+    "message": "{{count}} 件のキャラクターが見つかりました"
+  },
+  "manageCharacters_conversations_title": {
+    "message": "{{name}} の会話"
+  },
+  "manageCharacters_conversations_titleGeneric": {
+    "message": "キャラクターの会話"
+  },
+  "manageCharacters_conversations_subtitle": {
+    "message": "このキャラクターとして続ける会話を選択してください。"
+  },
+  "manageCharacters_conversations_empty": {
+    "message": "このキャラクターの会話はまだありません。"
+  },
+  "manageCharacters_conversations_error": {
+    "message": "このキャラクターの会話を読み込めません。"
+  },
+  "manageCharacters_conversations_updated": {
+    "message": "{{time}} に更新"
+  },
+  "manageCharacters_conversations_unknownTime": {
+    "message": "不明"
+  },
+  "manageCharacters_conversations_resume": {
+    "message": "チャットを続ける"
+  },
+  "manageCharacters_conversations_untitled": {
+    "message": "無題"
+  },
+  "manageCharacters_conversations_mostRecent": {
+    "message": "最新"
+  },
+  "manageCharacters_conversations_resumeTooltip": {
+    "message": "チャット履歴を読み込んでこの会話を続けます"
+  },
+  "manageCharacters_preview_title": {
+    "message": "プレビュー"
+  },
+  "manageCharacters_preview_show": {
+    "message": "プレビューを表示"
+  },
+  "manageCharacters_preview_hide": {
+    "message": "プレビューを非表示"
+  },
+  "manageCharacters_preview_untitled": {
+    "message": "無題のキャラクター"
+  },
+  "manageCharacters_preview_greeting": {
+    "message": "挨拶"
+  },
+  "manageCharacters_preview_behavior": {
+    "message": "振る舞い"
+  },
+  "manageCharacters_preview_empty": {
+    "message": "フォームを入力するとプレビューが表示されます"
+  },
+  "manageCharacters_advanced_show": {
+    "message": "詳細フィールドを表示"
+  },
+  "manageCharacters_advanced_hide": {
+    "message": "詳細フィールドを非表示"
+  },
+  "chunkingPlayground_nav": {
+    "message": "チャンク分割プレイグラウンド"
+  },
+  "chunkingPlayground_title": {
+    "message": "チャンク分割プレイグラウンド"
+  },
+  "chunkingPlayground_description": {
+    "message": "さまざまなチャンク設定を試して、テキストが処理用の小さな塊に分割される様子を確認できます。"
+  },
+  "chunkingPlayground_inputLabel": {
+    "message": "分割するテキスト"
+  },
+  "chunkingPlayground_inputPlaceholder": {
+    "message": "ここにテキストを貼り付けるか、サンプルを選択..."
+  },
+  "chunkingPlayground_uploadButton": {
+    "message": "ファイルをアップロード"
+  },
+  "chunkingPlayground_chunkButton": {
+    "message": "テキストを分割"
+  },
+  "chunkingPlayground_methodLabel": {
+    "message": "チャンク方式"
+  },
+  "chunkingPlayground_maxSizeLabel": {
+    "message": "最大チャンクサイズ"
+  },
+  "chunkingPlayground_overlapLabel": {
+    "message": "重なり"
+  },
+  "chunkingPlayground_languageLabel": {
+    "message": "言語"
+  },
+  "chunkingPlayground_languages_auto": {
+    "message": "自動検出"
+  },
+  "chunkingPlayground_languages_en": {
+    "message": "英語"
+  },
+  "chunkingPlayground_languages_es": {
+    "message": "スペイン語"
+  },
+  "chunkingPlayground_languages_fr": {
+    "message": "フランス語"
+  },
+  "chunkingPlayground_languages_de": {
+    "message": "ドイツ語"
+  },
+  "chunkingPlayground_languages_it": {
+    "message": "イタリア語"
+  },
+  "chunkingPlayground_languages_pt": {
+    "message": "ポルトガル語"
+  },
+  "chunkingPlayground_languages_zh": {
+    "message": "中国語"
+  },
+  "chunkingPlayground_languages_ja": {
+    "message": "日本語"
+  },
+  "chunkingPlayground_languages_ko": {
+    "message": "韓国語"
+  },
+  "chunkingPlayground_viewCards": {
+    "message": "カード"
+  },
+  "chunkingPlayground_viewInline": {
+    "message": "インライン"
+  },
+  "chunkingPlayground_stats": {
+    "message": "{{count}} 個のチャンク、平均 {{avgSize}} 文字"
+  },
+  "chunkingPlayground_textLoaded": {
+    "message": "テキストを読み込みました"
+  },
+  "chunkingPlayground_characters": {
+    "message": "文字"
+  },
+  "chunkingPlayground_tabSingle": {
+    "message": "単一"
+  },
+  "chunkingPlayground_tabCompare": {
+    "message": "比較"
+  },
+  "chunkingPlayground_chunkIndex": {
+    "message": "チャンク {{index}}"
+  },
+  "chunkingPlayground_chunkInfo": {
+    "message": "チャンク {{index}}: {{words}} 語"
+  },
+  "chunkingPlayground_position": {
+    "message": "位置: {{start}} - {{end}}"
+  },
+  "chunkingPlayground_additionalChunks": {
+    "message": "+{{count}} 件の追加"
+  },
+  "chunkingPlayground_charCount": {
+    "message": "{{count}} 文字"
+  },
+  "chunkingPlayground_wordCount": {
+    "message": "{{count}} 語"
+  },
+  "chunkingPlayground_noInput": {
+    "message": "分割するテキストを入力してください"
+  },
+  "chunkingPlayground_sharedInput": {
+    "message": "共有入力テキスト"
+  },
+  "chunkingPlayground_compareButton": {
+    "message": "両方を比較"
+  },
+  "chunkingPlayground_comparison": {
+    "message": "比較"
+  },
+  "chunkingPlayground_fewerChunks": {
+    "message": "設定 A は {{diff}} 個少ないチャンクになります"
+  },
+  "chunkingPlayground_moreChunks": {
+    "message": "設定 A は {{diff}} 個多いチャンクになります"
+  },
+  "chunkingPlayground_sameChunks": {
+    "message": "両設定は同じ数のチャンクになります"
+  },
+  "chunkingPlayground_clickToChunk": {
+    "message": "「比較」をクリックして結果を表示"
+  },
+  "chunkingPlayground_overlapRegion": {
+    "message": "重なり領域"
+  },
+  "chunkingPlayground_clickHint": {
+    "message": "ハイライトされたセクションをクリックすると、そのチャンクにフォーカスします"
+  },
+  "chunkingPlayground_noContentFound": {
+    "message": "このメディア項目のテキストが見つかりません"
+  },
+  "chunkingPlayground_loadContentError": {
+    "message": "メディア内容の読み込みに失敗しました"
+  },
+  "chunkingPlayground_loadMediaListError": {
+    "message": "メディアライブラリの読み込みに失敗しました"
+  },
+  "chunkingPlayground_selectMedia": {
+    "message": "メディア項目を選択..."
+  },
+  "chunkingPlayground_loadingMedia": {
+    "message": "内容を読み込み中..."
+  },
+  "chunkingPlayground_noMediaFound": {
+    "message": "メディアが見つかりません"
+  },
+  "chunkingPlayground_mediaCount": {
+    "message": "{{count}} 件のメディア項目があります"
+  },
+  "chunkingPlayground_inputSource_paste": {
+    "message": "テキストを貼り付け"
+  },
+  "chunkingPlayground_inputSource_upload": {
+    "message": "ファイルをアップロード"
+  },
+  "chunkingPlayground_inputSource_sample": {
+    "message": "サンプルテキスト"
+  },
+  "chunkingPlayground_inputSource_media": {
+    "message": "メディアライブラリから"
+  },
+  "chunkingPlayground_samples_article": {
+    "message": "ニュース記事"
+  },
+  "chunkingPlayground_samples_articleDesc": {
+    "message": "見出し付きの複数段落記事"
+  },
+  "chunkingPlayground_samples_code": {
+    "message": "ソースコード"
+  },
+  "chunkingPlayground_samples_codeDesc": {
+    "message": "クラスと関数を含む Python コード"
+  },
+  "chunkingPlayground_samples_transcript": {
+    "message": "書き起こし"
+  },
+  "chunkingPlayground_samples_transcriptDesc": {
+    "message": "タイムスタンプ付きポッドキャスト書き起こし"
+  },
+  "chunkingPlayground_samples_academic": {
+    "message": "学術論文"
+  },
+  "chunkingPlayground_samples_academicDesc": {
+    "message": "引用付きの技術文書"
+  },
+  "chunkingPlayground_compare_title": {
+    "message": "設定を比較"
+  },
+  "chunkingPlayground_compare_configA": {
+    "message": "設定 A"
+  },
+  "chunkingPlayground_compare_configB": {
+    "message": "設定 B"
+  },
+  "chunkingPlayground_mode_single": {
+    "message": "単一"
+  },
+  "chunkingPlayground_mode_compare": {
+    "message": "比較"
+  },
+  "managePrompts_importMode_merge": {
+    "message": "マージ"
+  },
+  "managePrompts_importMode_replace": {
+    "message": "置換"
+  },
+  "managePrompts_importMode_replaceConfirm": {
+    "message": "置換すると、インポートしたファイルで現在のプロンプトがすべて上書きされます。続行しますか？"
+  },
+  "flashcards_newDeckNameRequired": {
+    "message": "デッキ名を入力してください。"
+  },
+  "flashcards_dueAll": {
+    "message": "すべて"
+  },
+  "flashcards_dueNew": {
+    "message": "新規"
+  },
+  "flashcards_dueLearning": {
+    "message": "学習中"
+  },
+  "flashcards_dueDue": {
+    "message": "期限"
+  },
+  "flashcards_reviewFailed": {
+    "message": "レビューに失敗しました"
+  },
+  "flashcards_updateFailed": {
+    "message": "更新に失敗しました"
+  },
+  "flashcards_deleteFailed": {
+    "message": "削除に失敗しました"
+  },
+  "flashcards_missingVersion": {
+    "message": "バージョン情報がありません。再読み込みして再試行してください"
+  },
+  "flashcards_bulkDeleteResult": {
+    "message": "{{success}} 件削除 · {{failed}} 件失敗"
+  },
+  "mediaPage_searchPlaceholder": {
+    "message": "メディアを検索（タイトル/内容）"
+  },
+  "mediaPage_search": {
+    "message": "検索"
+  },
+  "mediaPage_clear": {
+    "message": "クリア"
+  },
+  "mediaPage_types": {
+    "message": "Types"
+  },
+  "mediaPage_keywords": {
+    "message": "キーワード"
+  },
+  "mediaPage_moreTags": {
+    "message": "+{{count}} 件のタグ"
+  },
+  "mediaPage_resetFilters": {
+    "message": "Reset Filters"
+  },
+  "mediaPage_clearAll": {
+    "message": "すべてクリア"
+  },
+  "mediaPage_content": {
+    "message": "内容"
+  },
+  "mediaPage_vertical": {
+    "message": "垂直"
+  },
+  "mediaPage_horizontal": {
+    "message": "水平"
+  },
+  "mediaPage_results": {
+    "message": "結果"
+  },
+  "mediaPage_noResults": {
+    "message": "No results"
+  },
+  "mediaPage_showSidebar": {
+    "message": "Show sidebar"
+  },
+  "mediaPage_hideSidebar": {
+    "message": "Hide sidebar"
+  },
+  "mediaPage_viewer": {
+    "message": "ビューア"
+  },
+  "mediaPage_selectItemsHint": {
+    "message": "左側で項目を選択するとここに表示されます。"
+  },
+  "mediaPage_mediaContent": {
+    "message": "メディア内容"
+  },
+  "mediaPage_copyContent": {
+    "message": "内容をコピー"
+  },
+  "mediaPage_contentCopied": {
+    "message": "内容をコピーしました"
+  },
+  "mediaPage_metadataCopied": {
+    "message": "メタデータをコピーしました"
+  },
+  "mediaPage_analysisCopied": {
+    "message": "分析をコピーしました"
+  },
+  "mediaPage_copyFailed": {
+    "message": "コピーに失敗しました"
+  },
+  "mediaPage_noContent": {
+    "message": "利用可能な内容がありません"
+  },
+  "mediaPage_collapse": {
+    "message": "折りたたむ"
+  },
+  "mediaPage_expand": {
+    "message": "展開"
+  },
+  "mediaPage_media": {
+    "message": "メディア"
+  },
+  "mediaPage_searchingBanner": {
+    "message": "メディアを検索中…"
+  },
+  "mediaPage_filterHelp": {
+    "message": "検索はタイトルと内容に一致します。タイプとキーワードで結果をさらに絞り込みます。"
+  },
+  "mediaPage_noMediaTypes": {
+    "message": "利用可能なメディアタイプはありません"
+  },
+  "mediaPage_resultsCount": {
+    "message": "{{selected}} 件選択 · {{open}} 件表示"
+  },
+  "mediaPage_clearSelection": {
+    "message": "全選択解除"
+  },
+  "mediaPage_itemsLabel": {
+    "message": "項目"
+  },
+  "mediaPage_contentLabel": {
+    "message": "内容ビュー"
+  },
+  "mediaPage_filterByKeyword": {
+    "message": "キーワードで絞り込む"
+  },
+  "mediaPage_keywordHelper": {
+    "message": "左側のキーワードフィルターを使うと、このメディアを見つけやすくなります"
+  },
+  "mediaPage_modeHint": {
+    "message": "複数のメディア項目を検索してスタックし、右側のビューアで比較します。"
+  },
+  "mediaPage_viewerHelp": {
+    "message": "キーボード: Tab で結果リストに移動し、Enter または Space でメディア項目をスタック／解除し、前へ／次へボタンやレイアウトコントロールでビューア内の項目を移動します。"
+  },
+  "mediaPage_viewerHelpLabel": {
+    "message": "複数アイテムレビューのキーボードショートカット"
+  },
+  "mediaPage_mediaInspector": {
+    "message": "メディアインスペクター"
+  },
+  "mediaPage_actionsLabel": {
+    "message": "アクション"
+  },
+  "mediaPage_keywordsPlaceholder": {
+    "message": "キーワードを追加..."
+  },
+  "mediaPage_noSelectionTitle": {
+    "message": "メディア項目が選択されていません"
+  },
+  "mediaPage_noSelectionDescription": {
+    "message": "左側のサイドバーからメディア項目を選択すると、その内容と分析がここに表示されます。"
+  },
+  "mediaPage_generateAnalysis": {
+    "message": "分析を生成"
+  },
+  "mediaPage_generateAnalysisHint": {
+    "message": "新しい分析を生成"
+  },
+  "mediaPage_editAnalysis": {
+    "message": "分析を編集"
+  },
+  "mediaPage_createNoteWithContent": {
+    "message": "コンテンツからノートを作成"
+  },
+  "mediaPage_createNoteWithContentAnalysis": {
+    "message": "コンテンツ + 分析からノートを作成"
+  },
+  "mediaPage_untitled": {
+    "message": "無題"
+  },
+  "mediaPage_copyMetadata": {
+    "message": "メタデータをコピー"
+  },
+  "mediaPage_statistics": {
+    "message": "統計"
+  },
+  "mediaPage_words": {
+    "message": "単語数"
+  },
+  "mediaPage_characters": {
+    "message": "文字数"
+  },
+  "mediaPage_paragraphs": {
+    "message": "段落数"
+  },
+  "mediaPage_metadata": {
+    "message": "メタデータ"
+  },
+  "mediaPage_idLabel": {
+    "message": "識別子"
+  },
+  "mediaPage_typeLabel": {
+    "message": "タイプ"
+  },
+  "mediaPage_titleLabel": {
+    "message": "タイトル"
+  },
+  "mediaPage_source": {
+    "message": "ソース"
+  },
+  "mediaPage_notAvailable": {
+    "message": "該当なし"
+  },
+  "mediaPage_developerTools": {
+    "message": "開発者ツール"
+  },
+  "mediaPage_nothingToSend": {
+    "message": "送信する内容がありません"
+  },
+  "mediaPage_emptyAnalysis": {
+    "message": "分析は空にできません"
+  },
+  "mediaPage_noMediaId": {
+    "message": "メディア ID がありません"
+  },
+  "mediaPage_versionSaved": {
+    "message": "新しいバージョンとして保存しました"
+  },
+  "mediaPage_saveFailed": {
+    "message": "バージョンの保存に失敗しました"
+  },
+  "mediaPage_sendToChat": {
+    "message": "チャットに送信"
+  },
+  "mediaPage_saveAsVersion": {
+    "message": "新しいバージョンとして保存"
+  },
+  "mediaPage_analysisPlaceholder": {
+    "message": "分析テキストを入力してください..."
+  },
+  "mediaPage_wordCount": {
+    "message": "{{count}}語"
+  },
+  "mediaPage_charCount": {
+    "message": "{{count}}文字"
+  },
+  "mediaPage_pageRangeError": {
+    "message": "ページは1〜{{max}}でなければなりません"
+  },
+  "mediaPage_pageRangeClamped": {
+    "message": "ページ{{page}}へ移動しています"
+  },
+  "mediaPage_saveUnauthorized": {
+    "message": "保存する権限がありません"
+  },
+  "flashcards_markdownSupportHint": {
+    "message": "Markdown と LaTeX に対応しています。"
+  },
+  "flashcards_extraHint": {
+    "message": "任意のヒント/解説（Markdown + LaTeX 対応）。"
+  },
+  "flashcards_notesHint": {
+    "message": "内部メモ（Markdown + LaTeX 対応）。"
+  },
+  "header_modeSpeech": {
+    "message": "音声"
+  },
+  "playground_speech_title": {
+    "message": "音声プレイグラウンド"
+  },
+  "playground_speech_subtitle": {
+    "message": "音声を録音し、文字起こしを編集して、音声を合成できます。"
+  },
+  "playground_speech_modeLabel": {
+    "message": "モード"
+  },
+  "playground_speech_modeRoundTrip": {
+    "message": "往復"
+  },
+  "playground_speech_modeSpeak": {
+    "message": "話す"
+  },
+  "playground_speech_modeListen": {
+    "message": "聴く"
+  },
+  "playground_speech_modeHint": {
+    "message": "最後に使ったモードがこの端末に保存されます。"
+  },
+  "playground_speech_recordingWaveform": {
+    "message": "ライブ録音の波形"
+  },
+  "playground_speech_playbackWaveform": {
+    "message": "再生波形"
+  },
+  "playground_speech_sendToTts": {
+    "message": "TTSに送る"
+  },
+  "playground_speech_sendHint": {
+    "message": "最新の文字起こしをTTSの下書きとして使用します。"
+  },
+  "playground_speech_download": {
+    "message": "ダウンロード"
+  },
+  "playground_speech_downloadCurrent": {
+    "message": "現在のセグメントをダウンロード"
+  },
+  "playground_speech_downloadAll": {
+    "message": "すべてのセグメントをダウンロード"
+  },
+  "playground_speech_segmentFormat": {
+    "message": "形式"
+  },
+  "playground_speech_historyTitle": {
+    "message": "音声履歴"
+  },
+  "playground_speech_historyAll": {
+    "message": "すべて"
+  },
+  "playground_speech_historyStt": {
+    "message": "STT"
+  },
+  "playground_speech_historyTts": {
+    "message": "TTS"
+  },
+  "playground_speech_historySearch": {
+    "message": "文字起こしを検索"
+  },
+  "playground_speech_historyRetentionHint": {
+    "message": "最新の{{count}}件を保持します。すべて削除で全件を消去します。"
+  },
+  "playground_speech_useInTts": {
+    "message": "TTSで使用"
+  },
+  "playground_speech_copy": {
+    "message": "コピー"
+  },
+  "playground_speech_copySuccess": {
+    "message": "クリップボードにコピーしました"
+  },
+  "playground_speech_copyError": {
+    "message": "文字起こしのコピーに失敗しました。"
+  },
+  "playground_speech_providerTag": {
+    "message": "プロバイダー"
+  },
+  "playground_speech_voiceTag": {
+    "message": "ボイス"
+  },
+  "playground_speech_emptyHistory": {
+    "message": "録音を開始するか音声を生成すると、ここに履歴が表示されます。"
+  },
+  "playground_speech_downloadDisabledBrowser": {
+    "message": "ブラウザTTSではダウンロード可能な音声を作成できません。"
+  },
+  "playground_speech_downloadDisabledEmpty": {
+    "message": "ダウンロードを有効にするには音声を生成してください。"
+  },
+  "playground_speech_transcriptLock": {
+    "message": "ロック"
+  },
+  "playground_speech_transcriptUnlock": {
+    "message": "ロック解除"
+  },
+  "playground_speech_transcriptEditHint": {
+    "message": "この文字起こしは編集可能です。"
+  },
+  "playground_speech_transcriptLockedHint": {
+    "message": "ライブ文字起こしの更新にロックされています。"
+  },
+  "playground_speech_transcriptRecordingHint": {
+    "message": "録音中のため、文字起こしはロックされています。"
+  },
+  "playground_tts_unsupportedFormatTitle": {
+    "message": "未対応の音声形式"
+  },
+  "playground_tts_unsupportedFormatDescription": {
+    "message": "応答形式「{{format}}」はサポートされていません。MP3にフォールバックします。"
+  },
+  "playground_formError_noModel": {
+    "message": "モデルを選択してください"
+  },
+  "playground_formError_noEmbeddingModel": {
+    "message": "設定 > RAGページでembeddingモデルを設定してください"
+  },
+  "playground_form_textarea_placeholder": {
+    "message": "メッセージを入力..."
+  },
+  "playground_form_webSearch_on": {
+    "message": "オン"
+  },
+  "playground_form_webSearch_off": {
+    "message": "オフ"
+  },
+  "playground_tooltip_searchInternet": {
+    "message": "インターネットを検索"
+  },
+  "playground_tooltip_speechToText": {
+    "message": "音声入力"
+  },
+  "playground_tooltip_uploadImage": {
+    "message": "画像をアップロード"
+  },
+  "playground_tooltip_stopStreaming": {
+    "message": "ストリーミングを停止"
+  },
+  "playground_tooltip_knowledge": {
+    "message": "知識"
+  },
+  "playground_tooltip_clearContext": {
+    "message": "コンテキストをクリア"
+  },
+  "playground_tooltip_speechToTextServer": {
+    "message": "Dictation via your tldw server"
+  },
+  "playground_tooltip_speechToTextBrowser": {
+    "message": "Dictation via browser speech recognition"
+  },
+  "playground_tooltip_speechToTextDetails": {
+    "message": "Uses {{model}} · {{task}} · {{format}}. Configure in Settings → General → Speech-to-Text."
+  },
+  "playground_tooltip_vision": {
+    "message": "[Experimental] Vision Chat"
+  },
+  "playground_tooltip_uploadDocuments": {
+    "message": "Upload Documents (beta)"
+  },
+  "playground_sendWhenEnter": {
+    "message": "Enterキーを押すと送信"
+  },
+  "playground_welcome": {
+    "message": "こんにちは！本日はどのようなお手伝いができますか？"
+  },
+  "playground_useOCR": {
+    "message": "画像からテキストを抽出（OCR）"
+  },
+  "playground_tips_title": {
+    "message": "Tips"
+  },
+  "playground_tips_quickIngest": {
+    "message": "Use Quick ingest to add documents and web pages."
+  },
+  "playground_tips_pickModelPrompt": {
+    "message": "Pick a Model and a Prompt from the header."
+  },
+  "playground_tips_startChatFocus": {
+    "message": "When connected, “Start chatting” focuses the composer."
+  },
+  "playground_tldwState_searching": {
+    "message": "tldw server を検索中"
+  },
+  "playground_tldwState_running": {
+    "message": "tldw が実行中"
+  },
+  "playground_tldwState_notRunning": {
+    "message": "tldw server に接続できません"
+  },
+  "playground_tldwState_connectionError": {
+    "message": "接続エラーが発生しているようです。トラブルシューティングについては<anchor>ドキュメント</anchor>をご覧ください。"
+  },
+  "playground_tldwState_openTldwSettings": {
+    "message": "Open tldw Settings"
+  },
+  "playground_tldwState_cancelSearch": {
+    "message": "Cancel search"
+  },
+  "playground_tldwState_connectionFailedWithCode": {
+    "message": "Connection failed (HTTP {{code}})"
+  },
+  "playground_tldwState_connectionFailed": {
+    "message": "Connection failed"
+  },
+  "playground_tldwState_errorDetailsLabel": {
+    "message": "Details:"
+  },
+  "playground_tldwState_title": {
+    "message": "Waiting for your tldw server"
+  },
+  "playground_tldwState_subtitle": {
+    "message": "We’re pinging {{host}} to verify the connection."
+  },
+  "playground_tldwState_missing": {
+    "message": "Server URL not configured"
+  },
+  "playground_tldwState_noServer": {
+    "message": "Add your tldw server to start chatting."
+  },
+  "playground_tldwState_connectedSubtitle": {
+    "message": "Connected to {{host}}. Start chatting when you’re ready."
+  },
+  "playground_tldwState_errorSubtitle": {
+    "message": "We couldn’t reach {{host}} yet. Retry or update your server settings."
+  },
+  "playground_tldwState_openSettings": {
+    "message": "Open settings"
+  },
+  "playground_tldwState_changeServer": {
+    "message": "Change server"
+  },
+  "playground_tldwState_elapsed": {
+    "message": "Checking… {{seconds}}s"
+  },
+  "playground_tldwState_connectedHint": {
+    "message": "Connected to {{host}}."
+  },
+  "playground_tldwState_lastChecked": {
+    "message": "Checked {{seconds}}s ago"
+  },
+  "playground_tldwState_recheck": {
+    "message": "Check again"
+  },
+  "playground_tldwState_errorToast": {
+    "message": "We couldn’t reach {{host}}"
+  },
+  "playground_tldwState_missingHelp": {
+    "message": "Open Settings → tldw Server to add your URL or connect to the Options page."
+  },
+  "playground_tldwState_troubleshoot": {
+    "message": "Confirm your server is running and that the browser is allowed to reach it, then retry from the Options page."
+  },
+  "playground_errors_privateModeDescription": {
+    "message": "Firefox のプライベートモードではチャットの保存はできません。デフォルトで一時チャットが有効です。今後改善予定です。"
+  },
+  "playground_tts_playErrorTitle": {
+    "message": "エラー"
+  },
+  "playground_tts_playErrorDescription": {
+    "message": "音声の再生中にエラーが発生しました"
+  },
+  "playground_tts_browserInfoTitle": {
+    "message": "ブラウザーTTSはシステム音声を使用します"
+  },
+  "playground_tts_browserInfoDescription": {
+    "message": "ブラウザーTTSはシステムの音声合成で再生され、ダウンロード可能な音声ファイルは提供されません。下のセグメント操作を使うか、トラック一覧とプレーヤーを使うにはプロバイダーを切り替えてください。"
+  },
+  "playground_tts_unsupportedProviderTitle": {
+    "message": "未対応のTTSプロバイダー"
+  },
+  "playground_tts_unsupportedProviderDescription": {
+    "message": "プロバイダー \"{{provider}}\" はまだプレイグラウンドのプレーヤーでサポートされていません。"
+  },
+  "playground_tts_elevenLabsMissingTitle": {
+    "message": "ElevenLabs には API キーが必要です"
+  },
+  "playground_tts_elevenLabsMissingBody": {
+    "message": "設定で ElevenLabs の API キーを追加して、ボイスとモデルを読み込んでください。"
+  },
+  "playground_tts_elevenLabsUnavailableTitle": {
+    "message": "ElevenLabs のボイスが利用できません"
+  },
+  "playground_tts_elevenLabsUnavailableBody": {
+    "message": "ボイスまたはモデルを読み込めませんでした。API キーを確認して再試行してください。"
+  },
+  "playground_tts_elevenLabsMissingCta": {
+    "message": "設定で API キーを設定"
+  },
+  "playground_tts_generateErrorTitle": {
+    "message": "音声生成エラー"
+  },
+  "playground_tts_generateErrorDescription": {
+    "message": "TTS音声の生成中に問題が発生しました。"
+  },
+  "playground_tts_sampleText": {
+    "message": "サンプルテキストを挿入"
+  },
+  "playground_tts_playHelper": {
+    "message": "再生は選択したプロバイダー、ボイス、速度を使用します。"
+  },
+  "playground_tts_playDisabledNoText": {
+    "message": "テキストを入力すると再生が有効になります。"
+  },
+  "playground_tts_playDisabledTtsOff": {
+    "message": "音声を再生するには上でテキスト読み上げを有効にしてください。"
+  },
+  "playground_tts_playDisabledElevenLabs": {
+    "message": "再生を有効にするには ElevenLabs の API キー、ボイス、モデルを追加してください。"
+  },
+  "playground_tts_stopDisabled": {
+    "message": "停止は音声再生が始まってから有効になります。"
+  },
+  "playground_tts_providerChangeHelper": {
+    "message": "下のプロバイダー選択から Browser、tldw、OpenAI、Supersonic を切り替えられます。"
+  },
+  "playground_tts_changeProvider": {
+    "message": "プロバイダーを変更"
+  },
+  "playground_tts_title": {
+    "message": "TTS プレイグラウンド"
+  },
+  "playground_tts_subtitle": {
+    "message": "テキスト読み上げを試して、プロバイダー、モデル、ボイスを調整できます。"
+  },
+  "playground_tts_currentProvider": {
+    "message": "現在のプロバイダー"
+  },
+  "playground_tts_settingsIntro": {
+    "message": "TTS のプロバイダー、モデル、ボイスを調整します。これらの設定はチャットやメディアから音声を再生するときに再利用されます。"
+  },
+  "playground_tts_providerCapabilities": {
+    "message": "プロバイダーの対応機能"
+  },
+  "playground_tts_voicesPreview": {
+    "message": "サーバーのボイス"
+  },
+  "playground_tts_providerDetails": {
+    "message": "プロバイダー設定の詳細を表示"
+  },
+  "playground_tts_providerDetailsTitle": {
+    "message": "プロバイダーの詳細"
+  },
+  "playground_tts_inputLabel": {
+    "message": "読み上げたいテキストを入力してください。"
+  },
+  "playground_tts_inputPlaceholder": {
+    "message": "ここにテキストを入力または貼り付けて、再生で確認します。"
+  },
+  "playground_tts_play": {
+    "message": "再生"
+  },
+  "playground_tts_playing": {
+    "message": "再生中…"
+  },
+  "playground_tts_stop": {
+    "message": "停止"
+  },
+  "playground_tts_browserSegmentsTitle": {
+    "message": "ブラウザー TTS セグメント"
+  },
+  "playground_tts_browserSegmentsHelp": {
+    "message": "セグメントをキューに入れるか、システム音声で個別に再生できます。"
+  },
+  "playground_tts_browserQueueAll": {
+    "message": "すべてキューに追加"
+  },
+  "playground_tts_browserQueueFromHere": {
+    "message": "ここからキューに追加"
+  },
+  "playground_tts_browserSegmentPlay": {
+    "message": "セグメントを再生"
+  },
+  "playground_tts_browserStatusSpeaking": {
+    "message": "セグメント {{current}}/{{total}} を再生中"
+  },
+  "playground_tts_browserStatusPaused": {
+    "message": "一時停止中"
+  },
+  "playground_tts_browserPause": {
+    "message": "一時停止"
+  },
+  "playground_tts_browserResume": {
+    "message": "再開"
+  },
+  "playground_tts_tldwStatusOnline": {
+    "message": "tldw サーバーの音声 API を検出しました（audio/speech）"
+  },
+  "playground_tts_tldwStatusOffline": {
+    "message": "音声 API が検出されません。tldw サーバーのバージョンを確認してください。"
+  },
+  "playground_tts_tldwWarningTitle": {
+    "message": "tldw の audio/speech API が検出されません"
+  },
+  "playground_tts_tldwWarningBody": {
+    "message": "tldw_server のバージョンに /api/v1/audio/speech が含まれていることと、拡張機能が有効な API キーで接続されていることを確認してください。"
+  },
+  "playground_tts_speechErrorTitle": {
+    "message": "音声入力に失敗しました"
+  },
+  "playground_tts_speechErrorBody": {
+    "message": "文字起こしのリクエストに失敗しました。tldw サーバーの状態を確認してください。"
+  },
+  "playground_tts_speechNoText": {
+    "message": "文字起こし結果にテキストがありませんでした。"
+  },
+  "playground_tts_speechMicError": {
+    "message": "マイクにアクセスできません。ブラウザーの権限を確認して再試行してください。"
+  },
+  "playground_tts_savedToNotes": {
+    "message": "文字起こしをメモとして保存しました。"
+  },
+  "playground_empty_title": {
+    "message": "Start a new chat"
+  },
+  "playground_empty_description": {
+    "message": "Experiment with different models, prompts, and knowledge sources here."
+  },
+  "playground_empty_demoDescription": {
+    "message": "You’re in demo mode — try asking a question to see how the assistant responds. You can connect your own tldw server later."
+  },
+  "playground_empty_example1": {
+    "message": "Ask a question, then drag in documents or web pages you want to discuss."
+  },
+  "playground_empty_example2": {
+    "message": "Use Quick ingest to add transcripts or notes, then reference them in chat."
+  },
+  "playground_empty_example3": {
+    "message": "Try different prompts or models from the header to compare answers."
+  },
+  "playground_empty_primaryCta": {
+    "message": "Start chatting"
+  },
+  "playground_empty_secondaryCta": {
+    "message": "Open server settings"
+  },
+  "playground_drop_hint": {
+    "message": "Drop files to attach them to your message"
+  },
+  "playground_drop_readySingle": {
+    "message": "{{name}} ready to send"
+  },
+  "playground_drop_readyMultiple": {
+    "message": "{{count}} files ready to send"
+  },
+  "playground_drop_unsupported": {
+    "message": "That file type isn’t supported. Try images or text-based files."
+  },
+  "playground_drop_defaultFileName": {
+    "message": "File"
+  },
+  "playground_drop_imageOnly": {
+    "message": "Only images can be dropped here right now."
+  },
+  "playground_drop_imageHint": {
+    "message": "Drop an image to include it in your message"
+  },
+  "playground_drop_overlayInstruction": {
+    "message": "Drop the image to attach it to your next reply"
+  },
+  "playground_aria_chatTranscript": {
+    "message": "Chat messages"
+  },
+  "playground_more_history": {
+    "message": "Chat saving"
+  },
+  "playground_more_searchKnowledge": {
+    "message": "Search & RAG"
+  },
+  "playground_more_voice": {
+    "message": "More voice options"
+  },
+  "playground_more_uploads": {
+    "message": "Uploads & ingest"
+  },
+  "playground_fileRetrievalEnabled": {
+    "message": "Enable RAG for Documents"
+  },
+  "playground_stt_title": {
+    "message": "STT Playground"
+  },
+  "playground_stt_subtitle": {
+    "message": "Try out transcription models, run longer dictation sessions, and save transcripts into Notes."
+  },
+  "playground_stt_currentModelLabel": {
+    "message": "Current transcription model"
+  },
+  "playground_stt_defaultModel": {
+    "message": "Default from Settings"
+  },
+  "playground_stt_settingsNotice": {
+    "message": "Language, task, response format, segmentation, and prompt reuse your Speech-to-Text defaults from Settings."
+  },
+  "playground_stt_sessionMode": {
+    "message": "Session mode"
+  },
+  "playground_stt_modeLong": {
+    "message": "Long-running (chunked recording)"
+  },
+  "playground_stt_modeShort": {
+    "message": "Short dictation (single clip)"
+  },
+  "playground_stt_languageTag": {
+    "message": "Language"
+  },
+  "playground_stt_taskTag": {
+    "message": "Task"
+  },
+  "playground_stt_formatTag": {
+    "message": "Format"
+  },
+  "playground_stt_segmentationEnabled": {
+    "message": "Segmentation enabled"
+  },
+  "playground_stt_recordButton": {
+    "message": "Record"
+  },
+  "playground_stt_stopButton": {
+    "message": "Stop"
+  },
+  "playground_stt_startTooltip": {
+    "message": "Start recording audio for transcription"
+  },
+  "playground_stt_stopTooltip": {
+    "message": "Stop and send to server"
+  },
+  "playground_stt_transcribingButton": {
+    "message": "文字起こし中…"
+  },
+  "playground_stt_transcribingTooltip": {
+    "message": "音声を文字起こししています…"
+  },
+  "playground_stt_transcribingPlaceholder": {
+    "message": "音声を文字起こし中…"
+  },
+  "playground_stt_historyTitle": {
+    "message": "Transcription history"
+  },
+  "playground_stt_clearAll": {
+    "message": "Clear all"
+  },
+  "playground_stt_emptyHistory": {
+    "message": "Start a recording to see transcripts here. You can save any item into Notes."
+  },
+  "playground_stt_saveToNotes": {
+    "message": "Save to Notes"
+  },
+  "playground_stt_delete": {
+    "message": "Delete"
+  },
+  "playground_stt_durationTag": {
+    "message": "Duration"
+  },
+  "playground_stt_modelTag": {
+    "message": "Model"
+  },
+  "playground_stt_currentTranscriptTitle": {
+    "message": "Current session transcript"
+  },
+  "playground_stt_currentTranscriptPlaceholder": {
+    "message": "Live transcript will appear here while recording."
+  },
+  "playground_actions_temporaryOn": {
+    "message": "Temporary chat (not saved)"
+  },
+  "playground_actions_temporaryOff": {
+    "message": "Save chat to history"
+  },
+  "playground_actions_webSearchOn": {
+    "message": "Web search on"
+  },
+  "playground_actions_webSearchOff": {
+    "message": "Web search off"
+  },
+  "playground_actions_speechStart": {
+    "message": "Start dictation"
+  },
+  "playground_actions_speechStop": {
+    "message": "Stop dictation"
+  },
+  "playground_actions_streamStart": {
+    "message": "Live captions"
+  },
+  "playground_actions_streamStop": {
+    "message": "Stop captions"
+  },
+  "playground_actions_visionOn": {
+    "message": "Vision on"
+  },
+  "playground_actions_visionOff": {
+    "message": "Vision off"
+  },
+  "playground_actions_upload": {
+    "message": "Attach image"
+  },
+  "playground_actions_ingest": {
+    "message": "Quick ingest"
+  },
+  "playground_actions_ingestDisabled": {
+    "message": "Connect to your tldw server to ingest."
+  },
+  "playground_actions_ingestHint": {
+    "message": "Upload URLs or files with advanced options."
+  },
+  "playground_actions_ingestSub": {
+    "message": "Use URLs/files; download or store."
+  },
+  "playground_actions_streamErrorTitle": {
+    "message": "Live captions unavailable"
+  },
+  "playground_composer_toolsButton": {
+    "message": "+Tools"
+  },
+  "playground_composer_queuedBanner_title": {
+    "message": "Queued while offline"
+  },
+  "playground_composer_queuedBanner_body": {
+    "message": "We’ll hold these messages and send them once your tldw server is connected."
+  },
+  "playground_composer_queuedBanner_sendNow": {
+    "message": "Send queued messages"
+  },
+  "playground_composer_queuedBanner_clear": {
+    "message": "Clear queue"
+  },
+  "playground_composer_coreTools": {
+    "message": "Conversation options"
+  },
+  "playground_composer_captureTools": {
+    "message": "Capture and assist tools"
+  },
+  "playground_composer_actions": {
+    "message": "Send options"
+  },
+  "playground_composer_moreTools": {
+    "message": "More tools"
+  },
+  "playground_composer_scrollToLatest": {
+    "message": "Scroll to latest messages"
+  },
+  "playground_composer_submitAria": {
+    "message": "Send message"
+  },
+  "playground_composer_openModelSettings": {
+    "message": "Open current chat settings"
+  },
+  "playground_composer_stopStreaming": {
+    "message": "Stop streaming response"
+  },
+  "playground_composer_connectionPlaceholder": {
+    "message": "Connect to your tldw server in Settings to send messages and view media."
+  },
+  "playground_composer_connectNotice": {
+    "message": "Connect to your tldw server in Settings to send messages and view media."
+  },
+  "playground_composer_connectionChipDisconnected": {
+    "message": "Server: Not connected"
+  },
+  "playground_composer_contextLabel": {
+    "message": "Context:"
+  },
+  "playground_composer_contextKnowledgeEmpty": {
+    "message": "No knowledge selected"
+  },
+  "playground_composer_contextTabs": {
+    "message": "{{count}} tabs"
+  },
+  "playground_composer_contextFiles": {
+    "message": "{{count}} files"
+  },
+  "playground_composer_contextMedia": {
+    "message": "Media & Notes"
+  },
+  "playground_composer_contextMediaHint": {
+    "message": "Attach Media & Notes that should steer the response."
+  },
+  "playground_composer_contextMediaSelected": {
+    "message": "Media or note"
+  },
+  "playground_composer_contextMediaEmpty": {
+    "message": "No Media & Notes selected yet."
+  },
+  "playground_composer_addKnowledge": {
+    "message": "Add Media & Notes"
+  },
+  "playground_composer_contextTabsTitle": {
+    "message": "Tabs in context"
+  },
+  "playground_composer_contextTabsHint": {
+    "message": "Review or remove referenced tabs, or add more from your open browser tabs."
+  },
+  "playground_composer_contextManager": {
+    "message": "Context Management"
+  },
+  "playground_composer_contextManagerTitle": {
+    "message": "Context Management"
+  },
+  "playground_composer_contextKnowledge": {
+    "message": "コンテキストとナレッジ"
+  },
+  "playground_composer_contextKnowledgeClose": {
+    "message": "コンテキストとナレッジを閉じる"
+  },
+  "playground_composer_knowledgeSearch": {
+    "message": "ナレッジ検索"
+  },
+  "playground_composer_knowledgeSearchClose": {
+    "message": "ナレッジ検索を閉じる"
+  },
+  "playground_composer_persistence_ephemeral": {
+    "message": "Not saved in history; clears when you close this tab."
+  },
+  "playground_composer_persistence_local": {
+    "message": "Saved in this browser only."
+  },
+  "playground_composer_persistence_server": {
+    "message": "Saved Locally+Server"
+  },
+  "playground_composer_persistence_ephemeralPill": {
+    "message": "Temporary"
+  },
+  "playground_composer_persistence_localPill": {
+    "message": "Local only"
+  },
+  "playground_composer_persistence_serverPill": {
+    "message": "Locally + Server"
+  },
+  "playground_composer_persistence_saveToServer": {
+    "message": "Also save this chat to server"
+  },
+  "playground_composer_persistence_connectToSave": {
+    "message": "Connect your server to save chats there."
+  },
+  "playground_composer_persistence_serverDefaultTitle": {
+    "message": "Extension chat"
+  },
+  "playground_composer_persistence_serverSavedTitle": {
+    "message": "Chat now saved on server"
+  },
+  "playground_composer_persistence_serverSaved": {
+    "message": "Future messages in this chat will sync to your tldw server."
+  },
+  "playground_composer_persistence_serverCharacterRequired": {
+    "message": "Unable to find or create a default assistant character on the server. Try again from the Characters page."
+  },
+  "playground_composer_connectToSend": {
+    "message": "設定でtldwサーバーに接続してメッセージを送信したりメディアを表示したりします。"
+  },
+  "playground_composer_compareTag": {
+    "message": "Compare"
+  },
+  "playground_composer_compareLabel": {
+    "message": "比較モード"
+  },
+  "playground_composer_compareButton": {
+    "message": "モデルを比較"
+  },
+  "playground_composer_compareButtonActive": {
+    "message": "比較: {{count}} 件のモデル"
+  },
+  "playground_composer_compareButtonOn": {
+    "message": "比較が有効"
+  },
+  "playground_composer_compareSettingsTitle": {
+    "message": "比較設定"
+  },
+  "playground_composer_compareSettingsToggle": {
+    "message": "比較モードを有効にする"
+  },
+  "playground_composer_compareSettingsToggleHint": {
+    "message": "次のメッセージを複数のモデルに送信します。"
+  },
+  "playground_composer_compareNoneSelected": {
+    "message": "比較するモデルが選択されていません"
+  },
+  "playground_composer_compareSingle": {
+    "message": "1件のモデルを比較中"
+  },
+  "playground_composer_compareMany": {
+    "message": "{{count}} 件のモデルを比較中"
+  },
+  "playground_composer_compareActiveSummary": {
+    "message": "次のターンで有効なモデル: {{label}}"
+  },
+  "playground_composer_compareModelPickerLabel": {
+    "message": "モデルを選択"
+  },
+  "playground_composer_compareModelPickerPlaceholder": {
+    "message": "比較するモデルを選んでください"
+  },
+  "playground_composer_compareActiveModelsLabel": {
+    "message": "有効なモデル"
+  },
+  "playground_composer_compareActiveModelsHint": {
+    "message": "次のメッセージは各有効モデルに送信されます。"
+  },
+  "playground_composer_compareSendToModels": {
+    "message": "{{count}} 件のモデルに送信"
+  },
+  "playground_composer_compareMaxModelsTitle": {
+    "message": "比較制限に達しました"
+  },
+  "playground_composer_compareMaxModels": {
+    "message": "ターンあたり最大{{limit}}個のモデルを比較できます。"
+  },
+  "playground_composer_compareMaxModelsTrimmed": {
+    "message": "比較はターンあたり{{limit}}個のモデルに制限されています。選択した最初の{{limit}}個のモデルを使用します。"
+  },
+  "playground_composer_compareMaxLabel": {
+    "message": "ターンあたりの最大モデル数"
+  },
+  "playground_composer_compareMaxHelper": {
+    "message": "選択済み: {{current}} / {{limit}}"
+  },
+  "playground_composer_compareSelectedLabel": {
+    "message": "選択済みの回答:"
+  },
+  "playground_composer_compareContinueHint": {
+    "message": "選択したモデルでこのチャットを続ける。"
+  },
+  "playground_composer_compareContinue": {
+    "message": "このモデルで続行"
+  },
+  "playground_composer_compareThreadShared": {
+    "message": "あなた（共有）"
+  },
+  "playground_composer_compareBulkSplitSuccess": {
+    "message": "チャットを{{count}}件作成しました"
+  },
+  "playground_composer_compareBulkSplitPartialFail": {
+    "message": "チャットを{{count}}件作成できませんでした"
+  },
+  "playground_composer_validationCompareSelectModelsInline": {
+    "message": "Compareモードでは少なくとも1つのモデルを選択してください。"
+  },
+  "tabs_newChat": {
+    "message": "新しいチャット"
+  },
+  "tabs_newTabAria": {
+    "message": "新しいチャットタブ"
+  },
+  "tabs_closeTabAria": {
+    "message": "チャットタブを閉じる"
+  },
+  "manageCharacters_title": {
+    "message": "キャラクター管理"
+  },
+  "manageCharacters_addBtn": {
+    "message": "新しいキャラクター"
+  },
+  "manageCharacters_columns_name": {
+    "message": "名前"
+  },
+  "manageCharacters_columns_description": {
+    "message": "説明"
+  },
+  "manageCharacters_columns_actions": {
+    "message": "操作"
+  },
+  "manageCharacters_columns_avatar": {
+    "message": "アバター"
+  },
+  "manageCharacters_actions_chat": {
+    "message": "チャット"
+  },
+  "manageCharacters_actions_edit": {
+    "message": "編集"
+  },
+  "manageCharacters_actions_delete": {
+    "message": "削除"
+  },
+  "manageCharacters_actions_duplicate": {
+    "message": "複製"
+  },
+  "manageCharacters_table_noDescription": {
+    "message": "説明なし"
+  },
+  "manageCharacters_filter_matchAll": {
+    "message": "すべてのタグに一致"
+  },
+  "manageCharacters_tags_label": {
+    "message": "タグ"
+  },
+  "manageCharacters_tags_placeholder": {
+    "message": "タグを追加"
+  },
+  "manageCharacters_tags_help": {
+    "message": "タグを使って用途別にキャラクターをまとめます（例:「ライティング」「指導」）。"
+  },
+  "manageCharacters_tooltip_edit": {
+    "message": "キャラクターを編集"
+  },
+  "manageCharacters_tooltip_delete": {
+    "message": "キャラクターを削除"
+  },
+  "manageCharacters_aria_chatWith": {
+    "message": "{{name}} としてチャット"
+  },
+  "manageCharacters_aria_edit": {
+    "message": "キャラクター {{name}} を編集"
+  },
+  "manageCharacters_aria_delete": {
+    "message": "キャラクター {{name}} を削除"
+  },
+  "manageCharacters_aria_duplicate": {
+    "message": "キャラクター「{{name}}」を複製"
+  },
+  "manageCharacters_confirm_delete": {
+    "message": "このキャラクターを削除してもよろしいですか？この操作は元に戻せません。"
+  },
+  "manageCharacters_avatar_label": {
+    "message": "アバター（任意）"
+  },
+  "manageCharacters_avatar_tabUrl": {
+    "message": "URLアドレス"
+  },
+  "manageCharacters_avatar_tabUpload": {
+    "message": "アップロード"
+  },
+  "manageCharacters_avatar_selectImageError": {
+    "message": "画像ファイルを選択してください"
+  },
+  "manageCharacters_avatar_formatError": {
+    "message": "PNG、JPEG、GIF の画像のみ対応しています"
+  },
+  "manageCharacters_avatar_invalidError": {
+    "message": "無効な画像ファイルです"
+  },
+  "manageCharacters_avatar_processError": {
+    "message": "画像の処理に失敗しました"
+  },
+  "manageCharacters_avatar_dropzone": {
+    "message": "クリックまたはドラッグして画像をアップロード"
+  },
+  "manageCharacters_avatar_formats": {
+    "message": "PNG、JPEG または GIF"
+  },
+  "manageCharacters_avatar_preview": {
+    "message": "プレビュー"
+  },
+  "manageCharacters_form_name_label": {
+    "message": "名前"
+  },
+  "manageCharacters_form_name_placeholder": {
+    "message": "例: ライティングコーチ"
+  },
+  "manageCharacters_form_name_required": {
+    "message": "名前を入力してください"
+  },
+  "manageCharacters_form_description": {
+    "message": "サイドバーでチャットできる再利用可能なキャラクターを定義します。"
+  },
+  "manageCharacters_form_systemPrompt_label": {
+    "message": "振る舞い / 指示"
+  },
+  "manageCharacters_form_systemPrompt_placeholder": {
+    "message": "例: あなたは忍耐強い数学教師で、概念を段階的に説明し、短い例で理解を確認します。"
+  },
+  "manageCharacters_form_systemPrompt_help": {
+    "message": "キャラクターの役割、口調、制約を説明します。例: 「あなたは忍耐強い数学チューターで、概念を段階的に説明します。」"
+  },
+  "manageCharacters_form_systemPrompt_required": {
+    "message": "回答を導く指示を追加してください。"
+  },
+  "manageCharacters_form_systemPrompt_min": {
+    "message": "キャラクターが応答方法を理解できるよう、短い説明を追加してください。"
+  },
+  "manageCharacters_form_systemPrompt_max": {
+    "message": "システムプロンプトは2000文字以内である必要があります。"
+  },
+  "manageCharacters_form_avatarUrl_label": {
+    "message": "アバター URL（任意）"
+  },
+  "manageCharacters_form_avatarUrl_placeholder": {
+    "message": "例: https://example.com/avatar.png"
+  },
+  "manageCharacters_form_greeting_label": {
+    "message": "挨拶メッセージ（任意）"
+  },
+  "manageCharacters_form_greeting_placeholder": {
+    "message": "こんにちは！あなたのライティングコーチです。下書きを貼り付けていただければ整えます。"
+  },
+  "manageCharacters_form_greeting_help": {
+    "message": "チャット開始時にキャラクターが送る任意の最初のメッセージ。"
+  },
+  "manageCharacters_form_btnSave_saving": {
+    "message": "キャラクターを作成中..."
+  },
+  "manageCharacters_form_btnSave_save": {
+    "message": "キャラクターを作成"
+  },
+  "manageCharacters_form_btnEdit_saving": {
+    "message": "変更を保存中..."
+  },
+  "manageCharacters_form_btnEdit_save": {
+    "message": "変更を保存"
+  },
+  "manageCharacters_notification_addSuccess": {
+    "message": "キャラクターを作成しました"
+  },
+  "manageCharacters_notification_error": {
+    "message": "エラー"
+  },
+  "manageCharacters_notification_someError": {
+    "message": "問題が発生しました。後でもう一度お試しください。"
+  },
+  "manageCharacters_notification_updatedSuccess": {
+    "message": "キャラクターを更新しました"
+  },
+  "manageCharacters_notification_deletedSuccess": {
+    "message": "キャラクターを削除しました"
+  },
+  "manageCharacters_loadError_title": {
+    "message": "キャラクターを読み込めません"
+  },
+  "manageCharacters_loadError_description": {
+    "message": "接続状況を確認してから、もう一度お試しください。"
+  },
+  "manageCharacters_emptyTitle": {
+    "message": "キャラクターはまだありません"
+  },
+  "manageCharacters_emptyDescription": {
+    "message": "名前、説明、システムプロンプトを設定して、再利用できるキャラクターを作成しましょう。"
+  },
+  "manageCharacters_emptyExample1": {
+    "message": "ライティングコーチ、設定の専門家、コーディングアシスタントなどを定義して、チャット間で再利用できます。"
+  },
+  "manageCharacters_emptyExample2": {
+    "message": "各キャラクターに明確な説明と振る舞いを与えて、回答を一貫させましょう。"
+  },
+  "manageCharacters_emptyPrimaryCta": {
+    "message": "キャラクターを作成"
+  },
+  "manageCharacters_avatarAltWithName": {
+    "message": "{{name}} のアバター"
+  },
+  "manageCharacters_avatarAlt": {
+    "message": "ユーザーアバター"
+  },
+  "quiz_itemsPerPage": {
+    "message": "件/ページ"
+  },
+  "quiz_editQuizTitle": {
+    "message": "クイズを編集"
+  },
+  "quiz_updateSuccess": {
+    "message": "クイズを更新しました"
+  },
+  "quiz_updateError": {
+    "message": "クイズの更新に失敗しました"
+  },
+  "quiz_questionTextRequired": {
+    "message": "問題文は必須です。"
+  },
+  "quiz_optionsRequired": {
+    "message": "選択肢を少なくとも2つ入力してください。"
+  },
+  "quiz_questionSaveSuccess": {
+    "message": "問題を作成しました。"
+  },
+  "quiz_questionUpdateSuccess": {
+    "message": "問題を更新しました。"
+  },
+  "quiz_questionSaveError": {
+    "message": "問題の保存に失敗しました。"
+  },
+  "quiz_questionDeleteSuccess": {
+    "message": "問題を削除しました。"
+  },
+  "quiz_questionDeleteError": {
+    "message": "問題の削除に失敗しました。"
+  },
+  "quiz_editQuestion": {
+    "message": "問題を編集"
+  },
+  "quiz_points": {
+    "message": "ポイント"
+  },
+  "quiz_orderIndex": {
+    "message": "順序"
+  },
+  "quiz_startError": {
+    "message": "クイズの開始に失敗しました"
+  },
+  "quiz_answerAll": {
+    "message": "送信する前にすべての問題に回答してください。"
+  },
+  "quiz_submitError": {
+    "message": "クイズの送信に失敗しました"
+  },
+  "quiz_scoreSummary": {
+    "message": "スコア: {{score}} / {{total}} ({{percent}}%)"
+  },
+  "quiz_correct": {
+    "message": "正解"
+  },
+  "quiz_incorrect": {
+    "message": "不正解"
+  },
+  "quiz_yourAnswer": {
+    "message": "あなたの回答"
+  },
+  "quiz_correctAnswerLabel": {
+    "message": "正解"
+  },
+  "quiz_backToList": {
+    "message": "一覧に戻る"
+  },
+  "quiz_retake": {
+    "message": "再挑戦"
+  },
+  "mediaPage_spreadMode": {
+    "message": "比較"
+  },
+  "mediaPage_listMode": {
+    "message": "フォーカス"
+  },
+  "mediaPage_allMode": {
+    "message": "スタック"
+  },
+  "mediaPage_spreadModeTooltip": {
+    "message": "選択した項目を並べて比較表示"
+  },
+  "mediaPage_listModeTooltip": {
+    "message": "ナビゲーションで1件ずつ表示"
+  },
+  "mediaPage_allModeTooltip": {
+    "message": "選択した項目をスクロール可能な一覧で表示"
+  },
+  "mediaPage_copyContentLabel": {
+    "message": "コンテンツをコピー"
+  },
+  "mediaPage_copyAnalysisLabel": {
+    "message": "分析をコピー"
+  },
+  "mediaPage_copyContentTooltip": {
+    "message": "コンテンツをクリップボードにコピー"
+  },
+  "mediaPage_copyAnalysisTooltip": {
+    "message": "分析をクリップボードにコピー"
+  },
+  "mediaPage_prevItemTooltip": {
+    "message": "前の項目 (←)"
+  },
+  "mediaPage_nextItemTooltip": {
+    "message": "次の項目 (→)"
+  },
+  "mediaPage_viewerOptions": {
+    "message": "オプション"
+  },
+  "mediaPage_expandAllDropdown": {
+    "message": "展開/折りたたみ"
+  },
+  "mediaPage_itemPosition": {
+    "message": "{{total}} 件中 {{current}} 件目"
+  },
+  "mediaPage_noItemSelected": {
+    "message": "項目が選択されていません"
+  },
+  "mediaPage_firstUseTitle": {
+    "message": "クイックガイド: 複数アイテムレビュー"
+  },
+  "mediaPage_firstUseStep1": {
+    "message": "項目を選択"
+  },
+  "mediaPage_firstUseStep1Desc": {
+    "message": "左側のパネルで項目をクリックしてビューアに追加します。"
+  },
+  "mediaPage_firstUseStep2": {
+    "message": "表示を選択"
+  },
+  "mediaPage_firstUseStep2Desc": {
+    "message": "「比較」は並べて表示、「フォーカス」は1件ずつ、「スタック」はすべて表示します。"
+  },
+  "mediaPage_firstUseStep3": {
+    "message": "移動"
+  },
+  "mediaPage_firstUseStep3Desc": {
+    "message": "前へ/次へボタンまたはキーボード (Tab + Enter) で項目を移動します。"
+  },
+  "mediaPage_gotIt": {
+    "message": "了解"
+  },
+  "mediaPage_model": {
+    "message": "モデル"
+  },
+  "mediaPage_selectModel": {
+    "message": "モデルを選択"
+  },
+  "mediaPage_noModelsAvailable": {
+    "message": "利用可能なモデルがありません"
+  },
+  "mediaPage_promptPresets": {
+    "message": "プロンプトプリセット"
+  },
+  "mediaPage_showPresets": {
+    "message": "プリセットを表示"
+  },
+  "mediaPage_hidePresets": {
+    "message": "プリセットを非表示"
+  },
+  "mediaPage_systemPromptLabel": {
+    "message": "システムプロンプト"
+  },
+  "mediaPage_systemPromptPlaceholder": {
+    "message": "システムプロンプトを入力..."
+  },
+  "mediaPage_userPromptPrefixLabel": {
+    "message": "ユーザープロンプトのプレフィックス"
+  },
+  "mediaPage_prependedBeforeContent": {
+    "message": "(コンテンツの前に追加)"
+  },
+  "mediaPage_userPrefixPlaceholder": {
+    "message": "任意: メディアコンテンツの前に追加するテキストを入力..."
+  },
+  "mediaPage_presetComprehensiveAnalysis": {
+    "message": "包括的な分析"
+  },
+  "mediaPage_presetExecutiveSummary": {
+    "message": "エグゼクティブサマリー"
+  },
+  "mediaPage_presetCriticalReview": {
+    "message": "批判的レビュー"
+  },
+  "mediaPage_presetQAAnalysis": {
+    "message": "Q&A 分析"
+  },
+  "searchPrompts": {
+    "message": "プロンプトを検索..."
+  },
+  "noMatchingPrompts": {
+    "message": "一致するプロンプトがありません"
+  },
+  "promptSelect_favorites": {
+    "message": "お気に入り"
+  },
+  "promptSelect_system": {
+    "message": "システムプロンプト"
+  },
+  "promptSelect_quick": {
+    "message": "クイックプロンプト"
+  },
+  "flashcards_bulkLimitWarning": {
+    "message": "操作は最初の {{limit}} 件に限定されます。"
   }
 }

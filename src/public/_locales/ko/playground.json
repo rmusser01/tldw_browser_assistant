@@ -1,0 +1,1085 @@
+{
+  "formError_noModel": {
+    "message": "모델을 선택하세요"
+  },
+  "formError_noEmbeddingModel": {
+    "message": "설정 > RAG 페이지에서 임베딩 모델을 설정하세요"
+  },
+  "form_textarea_placeholder": {
+    "message": "메시지를 입력하세요..."
+  },
+  "form_webSearch_on": {
+    "message": "켜짐"
+  },
+  "form_webSearch_off": {
+    "message": "꺼짐"
+  },
+  "tooltip_searchInternet": {
+    "message": "인터넷 검색"
+  },
+  "tooltip_speechToText": {
+    "message": "음성 입력"
+  },
+  "tooltip_uploadImage": {
+    "message": "이미지 업로드"
+  },
+  "tooltip_stopStreaming": {
+    "message": "스트리밍 중지"
+  },
+  "tooltip_knowledge": {
+    "message": "지식"
+  },
+  "tooltip_clearContext": {
+    "message": "컨텍스트 지우기"
+  },
+  "tooltip_speechToTextServer": {
+    "message": "Dictation via your tldw server"
+  },
+  "tooltip_speechToTextBrowser": {
+    "message": "Dictation via browser speech recognition"
+  },
+  "tooltip_speechToTextDetails": {
+    "message": "Uses {{model}} · {{task}} · {{format}}. Configure in Settings → General → Speech-to-Text."
+  },
+  "tooltip_vision": {
+    "message": "[Experimental] Vision Chat"
+  },
+  "tooltip_uploadDocuments": {
+    "message": "Upload Documents (beta)"
+  },
+  "sendWhenEnter": {
+    "message": "Enter 키를 누르면 전송"
+  },
+  "welcome": {
+    "message": "안녕하세요! 오늘 어떻게 도와드릴까요?"
+  },
+  "useOCR": {
+    "message": "이미지에서 텍스트 추출 (OCR)"
+  },
+  "tips_title": {
+    "message": "Tips"
+  },
+  "tips_quickIngest": {
+    "message": "Use Quick ingest to add documents and web pages."
+  },
+  "tips_pickModelPrompt": {
+    "message": "Pick a Model and a Prompt from the header."
+  },
+  "tips_startChatFocus": {
+    "message": "When connected, “Start chatting” focuses the composer."
+  },
+  "tldwState_searching": {
+    "message": "tldw server 검색 중"
+  },
+  "tldwState_running": {
+    "message": "tldw 실행 중"
+  },
+  "tldwState_notRunning": {
+    "message": "tldw server에 연결할 수 없습니다"
+  },
+  "tldwState_connectionError": {
+    "message": "연결 오류가 발생한 것 같습니다. 문제 해결에 대한 자세한 내용은 <anchor>문서</anchor>를 참조하세요."
+  },
+  "tldwState_errorToast": {
+    "message": "We couldn’t reach {{host}}"
+  },
+  "tldwState_missingHelp": {
+    "message": "Open Settings → tldw Server to add your URL or connect to the Options page."
+  },
+  "tldwState_troubleshoot": {
+    "message": "Confirm your server is running and that the browser is allowed to reach it, then retry from the Options page."
+  },
+  "tldwState_openTldwSettings": {
+    "message": "Open tldw Settings"
+  },
+  "tldwState_cancelSearch": {
+    "message": "Cancel search"
+  },
+  "tldwState_connectionFailedWithCode": {
+    "message": "Connection failed (HTTP {{code}})"
+  },
+  "tldwState_connectionFailed": {
+    "message": "Connection failed"
+  },
+  "tldwState_errorDetailsLabel": {
+    "message": "Details:"
+  },
+  "tldwState_title": {
+    "message": "Waiting for your tldw server"
+  },
+  "tldwState_subtitle": {
+    "message": "We’re pinging {{host}} to verify the connection."
+  },
+  "tldwState_missing": {
+    "message": "Server URL not configured"
+  },
+  "tldwState_noServer": {
+    "message": "Add your tldw server to start chatting."
+  },
+  "tldwState_connectedSubtitle": {
+    "message": "Connected to {{host}}. Start chatting when you’re ready."
+  },
+  "tldwState_errorSubtitle": {
+    "message": "We couldn’t reach {{host}} yet. Retry or update your server settings."
+  },
+  "tldwState_openSettings": {
+    "message": "Open settings"
+  },
+  "tldwState_changeServer": {
+    "message": "Change server"
+  },
+  "tldwState_elapsed": {
+    "message": "Checking… {{seconds}}s"
+  },
+  "tldwState_connectedHint": {
+    "message": "Connected to {{host}}."
+  },
+  "tldwState_lastChecked": {
+    "message": "Checked {{seconds}}s ago"
+  },
+  "tldwState_recheck": {
+    "message": "Check again"
+  },
+  "errors_privateModeDescription": {
+    "message": "Firefox 사생활 모드에서는 채팅을 저장할 수 없습니다. 기본적으로 임시 채팅이 활성화되어 있습니다. 곧 개선될 예정입니다."
+  },
+  "tts_playErrorTitle": {
+    "message": "오류"
+  },
+  "tts_playErrorDescription": {
+    "message": "오디오를 재생하는 중 오류가 발생했습니다"
+  },
+  "tts_browserInfoTitle": {
+    "message": "브라우저 TTS는 시스템 오디오를 사용합니다"
+  },
+  "tts_browserInfoDescription": {
+    "message": "브라우저 TTS는 시스템 합성기를 사용해 재생하며 다운로드 가능한 오디오 파일을 제공하지 않습니다. 아래의 세그먼트 컨트롤을 사용하거나 제공자를 전환해 트랙 목록과 플레이어를 이용하세요."
+  },
+  "tts_unsupportedProviderTitle": {
+    "message": "지원되지 않는 TTS 제공자"
+  },
+  "tts_unsupportedProviderDescription": {
+    "message": "\"{{provider}}\" 제공자는 아직 플레이그라운드 플레이어에서 지원되지 않습니다."
+  },
+  "tts_unsupportedFormatTitle": {
+    "message": "지원되지 않는 오디오 형식"
+  },
+  "tts_unsupportedFormatDescription": {
+    "message": "응답 형식 \"{{format}}\"은(는) 지원되지 않습니다. MP3로 대체합니다."
+  },
+  "tts_elevenLabsMissingTitle": {
+    "message": "ElevenLabs에는 API 키가 필요합니다"
+  },
+  "tts_elevenLabsMissingBody": {
+    "message": "설정에서 ElevenLabs API 키를 추가해 음성과 모델을 불러오세요."
+  },
+  "tts_elevenLabsUnavailableTitle": {
+    "message": "ElevenLabs 음성을 사용할 수 없습니다"
+  },
+  "tts_elevenLabsUnavailableBody": {
+    "message": "음성 또는 모델을 불러올 수 없습니다. API 키를 확인하고 다시 시도하세요."
+  },
+  "tts_elevenLabsMissingCta": {
+    "message": "설정에서 API 키 설정"
+  },
+  "tts_generateErrorTitle": {
+    "message": "오디오 생성 오류"
+  },
+  "tts_generateErrorDescription": {
+    "message": "TTS 오디오 생성 중 문제가 발생했습니다."
+  },
+  "tts_sampleText": {
+    "message": "샘플 텍스트 삽입"
+  },
+  "tts_playHelper": {
+    "message": "재생은 선택한 제공자, 음성, 속도를 사용합니다."
+  },
+  "tts_playDisabledNoText": {
+    "message": "재생을 사용하려면 텍스트를 입력하세요."
+  },
+  "tts_playDisabledTtsOff": {
+    "message": "오디오를 재생하려면 위에서 텍스트 음성을 켜세요."
+  },
+  "tts_playDisabledElevenLabs": {
+    "message": "재생을 사용하려면 ElevenLabs API 키, 음성 및 모델을 추가하세요."
+  },
+  "tts_stopDisabled": {
+    "message": "오디오가 시작되면 정지가 활성화됩니다."
+  },
+  "tts_providerChangeHelper": {
+    "message": "아래 제공자 선택기에서 브라우저, tldw, OpenAI 또는 Supersonic으로 전환하세요."
+  },
+  "tts_changeProvider": {
+    "message": "제공자 변경"
+  },
+  "tts_title": {
+    "message": "TTS 플레이그라운드"
+  },
+  "tts_subtitle": {
+    "message": "텍스트 음성을 시험하고 제공자, 모델, 음성을 조정하세요."
+  },
+  "tts_currentProvider": {
+    "message": "현재 제공자"
+  },
+  "tts_settingsIntro": {
+    "message": "TTS 제공자, 모델, 음성을 조정하세요. 이 설정은 채팅이나 미디어에서 오디오를 재생할 때 재사용됩니다."
+  },
+  "tts_providerCapabilities": {
+    "message": "제공자 기능"
+  },
+  "tts_voicesPreview": {
+    "message": "서버 음성"
+  },
+  "tts_providerDetails": {
+    "message": "원시 제공자 구성 보기"
+  },
+  "tts_providerDetailsTitle": {
+    "message": "제공자 세부 정보"
+  },
+  "tts_inputLabel": {
+    "message": "읽어줄 텍스트를 입력하세요."
+  },
+  "tts_inputPlaceholder": {
+    "message": "텍스트를 입력하거나 붙여넣고 재생을 눌러 들어보세요."
+  },
+  "tts_play": {
+    "message": "재생"
+  },
+  "tts_playing": {
+    "message": "재생 중…"
+  },
+  "tts_stop": {
+    "message": "정지"
+  },
+  "tts_browserSegmentsTitle": {
+    "message": "브라우저 TTS 세그먼트"
+  },
+  "tts_browserSegmentsHelp": {
+    "message": "세그먼트를 대기열에 추가하거나 시스템 오디오로 개별 세그먼트를 재생하세요."
+  },
+  "tts_browserQueueAll": {
+    "message": "모두 대기열에 추가"
+  },
+  "tts_browserQueueFromHere": {
+    "message": "여기서부터 대기열에 추가"
+  },
+  "tts_browserSegmentPlay": {
+    "message": "세그먼트 재생"
+  },
+  "tts_browserStatusSpeaking": {
+    "message": "세그먼트 {{current}}/{{total}} 재생 중"
+  },
+  "tts_browserStatusPaused": {
+    "message": "일시 정지됨"
+  },
+  "tts_browserPause": {
+    "message": "일시 정지"
+  },
+  "tts_browserResume": {
+    "message": "재개"
+  },
+  "tts_tldwStatusOnline": {
+    "message": "tldw 서버 오디오 API 감지됨 (audio/speech)"
+  },
+  "tts_tldwStatusOffline": {
+    "message": "오디오 API를 찾을 수 없습니다. tldw 서버 버전을 확인하세요."
+  },
+  "tts_tldwWarningTitle": {
+    "message": "tldw audio/speech API가 감지되지 않음"
+  },
+  "tts_tldwWarningBody": {
+    "message": "tldw_server 버전에 /api/v1/audio/speech가 포함되어 있고, 확장이 유효한 API 키로 연결되어 있는지 확인하세요."
+  },
+  "tts_speechErrorTitle": {
+    "message": "받아쓰기 실패"
+  },
+  "tts_speechErrorBody": {
+    "message": "전사 요청이 실패했습니다. tldw 서버 상태를 확인하세요."
+  },
+  "tts_speechNoText": {
+    "message": "전사 결과에 텍스트가 없습니다."
+  },
+  "tts_speechMicError": {
+    "message": "마이크에 접근할 수 없습니다. 브라우저 권한을 확인하고 다시 시도하세요."
+  },
+  "tts_savedToNotes": {
+    "message": "전사가 노트로 저장되었습니다."
+  },
+  "empty_title": {
+    "message": "Start a new chat"
+  },
+  "empty_description": {
+    "message": "Experiment with different models, prompts, and knowledge sources here."
+  },
+  "empty_demoDescription": {
+    "message": "You’re in demo mode — try asking a question to see how the assistant responds. You can connect your own tldw server later."
+  },
+  "empty_example1": {
+    "message": "Ask a question, then drag in documents or web pages you want to discuss."
+  },
+  "empty_example2": {
+    "message": "Use Quick ingest to add transcripts or notes, then reference them in chat."
+  },
+  "empty_example3": {
+    "message": "Try different prompts or models from the header to compare answers."
+  },
+  "empty_primaryCta": {
+    "message": "Start chatting"
+  },
+  "empty_secondaryCta": {
+    "message": "Open server settings"
+  },
+  "drop_hint": {
+    "message": "Drop files to attach them to your message"
+  },
+  "drop_readySingle": {
+    "message": "{{name}} ready to send"
+  },
+  "drop_readyMultiple": {
+    "message": "{{count}} files ready to send"
+  },
+  "drop_unsupported": {
+    "message": "That file type isn’t supported. Try images or text-based files."
+  },
+  "drop_defaultFileName": {
+    "message": "File"
+  },
+  "drop_imageOnly": {
+    "message": "Only images can be dropped here right now."
+  },
+  "drop_imageHint": {
+    "message": "Drop an image to include it in your message"
+  },
+  "drop_overlayInstruction": {
+    "message": "Drop the image to attach it to your next reply"
+  },
+  "aria_chatTranscript": {
+    "message": "Chat messages"
+  },
+  "more_history": {
+    "message": "Chat saving"
+  },
+  "more_searchKnowledge": {
+    "message": "Search & RAG"
+  },
+  "more_voice": {
+    "message": "More voice options"
+  },
+  "more_uploads": {
+    "message": "Uploads & ingest"
+  },
+  "fileRetrievalEnabled": {
+    "message": "Enable RAG for Documents"
+  },
+  "stt_title": {
+    "message": "STT Playground"
+  },
+  "stt_subtitle": {
+    "message": "Try out transcription models, run longer dictation sessions, and save transcripts into Notes."
+  },
+  "stt_currentModelLabel": {
+    "message": "Current transcription model"
+  },
+  "stt_defaultModel": {
+    "message": "Default from Settings"
+  },
+  "stt_settingsNotice": {
+    "message": "Language, task, response format, segmentation, and prompt reuse your Speech-to-Text defaults from Settings."
+  },
+  "stt_sessionMode": {
+    "message": "Session mode"
+  },
+  "stt_modeLong": {
+    "message": "Long-running (chunked recording)"
+  },
+  "stt_modeShort": {
+    "message": "Short dictation (single clip)"
+  },
+  "stt_languageTag": {
+    "message": "Language"
+  },
+  "stt_taskTag": {
+    "message": "Task"
+  },
+  "stt_formatTag": {
+    "message": "Format"
+  },
+  "stt_segmentationEnabled": {
+    "message": "Segmentation enabled"
+  },
+  "stt_recordButton": {
+    "message": "Record"
+  },
+  "stt_stopButton": {
+    "message": "Stop"
+  },
+  "stt_startTooltip": {
+    "message": "Start recording audio for transcription"
+  },
+  "stt_stopTooltip": {
+    "message": "Stop and send to server"
+  },
+  "stt_transcribingButton": {
+    "message": "전사 중..."
+  },
+  "stt_transcribingTooltip": {
+    "message": "오디오 전사 중..."
+  },
+  "stt_transcribingPlaceholder": {
+    "message": "오디오 전사 중..."
+  },
+  "stt_historyTitle": {
+    "message": "Transcription history"
+  },
+  "stt_clearAll": {
+    "message": "Clear all"
+  },
+  "stt_emptyHistory": {
+    "message": "Start a recording to see transcripts here. You can save any item into Notes."
+  },
+  "stt_saveToNotes": {
+    "message": "Save to Notes"
+  },
+  "stt_delete": {
+    "message": "Delete"
+  },
+  "stt_durationTag": {
+    "message": "Duration"
+  },
+  "stt_modelTag": {
+    "message": "Model"
+  },
+  "stt_currentTranscriptTitle": {
+    "message": "Current session transcript"
+  },
+  "stt_currentTranscriptPlaceholder": {
+    "message": "Live transcript will appear here while recording."
+  },
+  "actions_temporaryOn": {
+    "message": "Temporary chat (not saved)"
+  },
+  "actions_temporaryOff": {
+    "message": "Save chat to history"
+  },
+  "actions_webSearchOn": {
+    "message": "Web search on"
+  },
+  "actions_webSearchOff": {
+    "message": "Web search off"
+  },
+  "actions_speechStart": {
+    "message": "Start dictation"
+  },
+  "actions_speechStop": {
+    "message": "Stop dictation"
+  },
+  "actions_streamStart": {
+    "message": "Live captions"
+  },
+  "actions_streamStop": {
+    "message": "Stop captions"
+  },
+  "actions_visionOn": {
+    "message": "Vision on"
+  },
+  "actions_visionOff": {
+    "message": "Vision off"
+  },
+  "actions_upload": {
+    "message": "Attach image"
+  },
+  "actions_ingest": {
+    "message": "Quick ingest"
+  },
+  "actions_ingestDisabled": {
+    "message": "Connect to your tldw server to ingest."
+  },
+  "actions_ingestHint": {
+    "message": "Upload URLs or files with advanced options."
+  },
+  "actions_ingestSub": {
+    "message": "Use URLs/files; download or store."
+  },
+  "actions_streamErrorTitle": {
+    "message": "Live captions unavailable"
+  },
+  "composer_toolsButton": {
+    "message": "+Tools"
+  },
+  "composer_queuedBanner_title": {
+    "message": "Queued while offline"
+  },
+  "composer_queuedBanner_body": {
+    "message": "We’ll hold these messages and send them once your tldw server is connected."
+  },
+  "composer_queuedBanner_sendNow": {
+    "message": "Send queued messages"
+  },
+  "composer_queuedBanner_clear": {
+    "message": "Clear queue"
+  },
+  "composer_coreTools": {
+    "message": "Conversation options"
+  },
+  "composer_captureTools": {
+    "message": "Capture and assist tools"
+  },
+  "composer_actions": {
+    "message": "Send options"
+  },
+  "composer_moreTools": {
+    "message": "More tools"
+  },
+  "composer_scrollToLatest": {
+    "message": "Scroll to latest messages"
+  },
+  "composer_submitAria": {
+    "message": "Send message"
+  },
+  "composer_openModelSettings": {
+    "message": "Open current chat settings"
+  },
+  "composer_stopStreaming": {
+    "message": "Stop streaming response"
+  },
+  "composer_connectionPlaceholder": {
+    "message": "Connect to your tldw server in Settings to send messages and view media."
+  },
+  "composer_connectNotice": {
+    "message": "Connect to your tldw server in Settings to send messages and view media."
+  },
+  "composer_connectionChipDisconnected": {
+    "message": "Server: Not connected"
+  },
+  "composer_contextLabel": {
+    "message": "컨텍스트:"
+  },
+  "composer_contextKnowledgeEmpty": {
+    "message": "선택된 지식 없음"
+  },
+  "composer_contextTabs": {
+    "message": "{{count}}개 탭"
+  },
+  "composer_contextFiles": {
+    "message": "{{count}}개 파일"
+  },
+  "composer_contextMedia": {
+    "message": "미디어 및 노트"
+  },
+  "composer_contextMediaHint": {
+    "message": "응답에 영향을 줄 미디어 및 노트를 첨부하세요."
+  },
+  "composer_contextMediaSelected": {
+    "message": "미디어 또는 노트"
+  },
+  "composer_contextMediaEmpty": {
+    "message": "아직 미디어 및 노트가 선택되지 않았습니다."
+  },
+  "composer_addKnowledge": {
+    "message": "미디어 및 노트 추가"
+  },
+  "composer_contextTabsTitle": {
+    "message": "컨텍스트 탭"
+  },
+  "composer_contextTabsHint": {
+    "message": "참조된 탭을 검토하거나 제거하고, 열려 있는 브라우저 탭에서 더 추가하세요."
+  },
+  "composer_contextManager": {
+    "message": "컨텍스트 관리"
+  },
+  "composer_contextManagerTitle": {
+    "message": "컨텍스트 관리"
+  },
+  "composer_contextKnowledge": {
+    "message": "컨텍스트 및 지식"
+  },
+  "composer_contextKnowledgeClose": {
+    "message": "컨텍스트 및 지식 닫기"
+  },
+  "composer_knowledgeSearch": {
+    "message": "지식 검색"
+  },
+  "composer_knowledgeSearchClose": {
+    "message": "지식 검색 닫기"
+  },
+  "composer_persistence_ephemeral": {
+    "message": "Not saved in history; clears when you close this tab."
+  },
+  "composer_persistence_local": {
+    "message": "Saved in this browser only."
+  },
+  "composer_persistence_server": {
+    "message": "Saved Locally+Server"
+  },
+  "composer_persistence_ephemeralPill": {
+    "message": "Temporary"
+  },
+  "composer_persistence_localPill": {
+    "message": "Local only"
+  },
+  "composer_persistence_serverPill": {
+    "message": "Locally + Server"
+  },
+  "composer_persistence_saveToServer": {
+    "message": "Also save this chat to server"
+  },
+  "composer_persistence_connectToSave": {
+    "message": "Connect your server to save chats there."
+  },
+  "composer_persistence_serverDefaultTitle": {
+    "message": "Extension chat"
+  },
+  "composer_persistence_serverSavedTitle": {
+    "message": "Chat now saved on server"
+  },
+  "composer_persistence_serverSaved": {
+    "message": "Future messages in this chat will sync to your tldw server."
+  },
+  "composer_persistence_serverCharacterRequired": {
+    "message": "Unable to find or create a default assistant character on the server. Try again from the Characters page."
+  },
+  "composer_connectToSend": {
+    "message": "메시지를 보내고 미디어를 보려면 설정에서 tldw 서버에 연결하세요."
+  },
+  "composer_compareTag": {
+    "message": "비교"
+  },
+  "composer_compareLabel": {
+    "message": "비교 모드"
+  },
+  "composer_compareButton": {
+    "message": "모델 비교"
+  },
+  "composer_compareButtonActive": {
+    "message": "비교: {{count}}개 모델"
+  },
+  "composer_compareButtonOn": {
+    "message": "비교 활성화됨"
+  },
+  "composer_compareSettingsTitle": {
+    "message": "비교 설정"
+  },
+  "composer_compareSettingsToggle": {
+    "message": "비교 모드 활성화"
+  },
+  "composer_compareSettingsToggleHint": {
+    "message": "다음 메시지를 여러 모델에 보냅니다."
+  },
+  "composer_compareNoneSelected": {
+    "message": "비교할 모델이 선택되지 않았습니다"
+  },
+  "composer_compareSingle": {
+    "message": "1개 모델 비교 중"
+  },
+  "composer_compareMany": {
+    "message": "{{count}}개 모델 비교 중"
+  },
+  "composer_compareActiveSummary": {
+    "message": "다음 턴의 활성 모델: {{label}}"
+  },
+  "composer_compareModelPickerLabel": {
+    "message": "모델 선택"
+  },
+  "composer_compareModelPickerPlaceholder": {
+    "message": "비교할 모델을 선택하세요"
+  },
+  "composer_compareActiveModelsLabel": {
+    "message": "활성 모델"
+  },
+  "composer_compareActiveModelsHint": {
+    "message": "다음 메시지가 각 활성 모델로 전송됩니다."
+  },
+  "composer_compareSendToModels": {
+    "message": "{{count}}개 모델로 보내기"
+  },
+  "composer_compareMaxModelsTitle": {
+    "message": "비교 제한에 도달했습니다"
+  },
+  "composer_compareMaxModels": {
+    "message": "턴당 최대 {{limit}}개의 모델을 비교할 수 있습니다."
+  },
+  "composer_compareMaxModelsTrimmed": {
+    "message": "비교는 턴당 {{limit}}개의 모델로 제한됩니다. 선택한 처음 {{limit}}개의 모델을 사용합니다."
+  },
+  "composer_compareMaxLabel": {
+    "message": "턴당 최대 모델 수"
+  },
+  "composer_compareMaxHelper": {
+    "message": "선택됨: {{current}} / {{limit}}"
+  },
+  "composer_compareSelectedLabel": {
+    "message": "답변으로 선택됨:"
+  },
+  "composer_compareContinueHint": {
+    "message": "선택한 모델로 이 채팅을 계속하세요."
+  },
+  "composer_compareContinue": {
+    "message": "이 모델로 계속하기"
+  },
+  "composer_compareThreadShared": {
+    "message": "나(공유됨)"
+  },
+  "composer_compareBulkSplitSuccess": {
+    "message": "{{count}}개의 채팅 생성됨"
+  },
+  "composer_compareBulkSplitPartialFail": {
+    "message": "채팅 {{count}}개를 만들지 못했습니다"
+  },
+  "composer_validationCompareSelectModelsInline": {
+    "message": "Select at least one model for Compare mode."
+  },
+  "speech_title": {
+    "message": "음성 플레이그라운드"
+  },
+  "speech_subtitle": {
+    "message": "음성을 녹음하고 전사를 편집한 뒤 한곳에서 음성을 합성합니다."
+  },
+  "speech_modeLabel": {
+    "message": "모드"
+  },
+  "speech_modeRoundTrip": {
+    "message": "왕복"
+  },
+  "speech_modeSpeak": {
+    "message": "말하기"
+  },
+  "speech_modeListen": {
+    "message": "듣기"
+  },
+  "speech_modeHint": {
+    "message": "마지막 모드는 이 기기에 저장됩니다."
+  },
+  "speech_recordingWaveform": {
+    "message": "실시간 녹음 파형"
+  },
+  "speech_playbackWaveform": {
+    "message": "재생 파형"
+  },
+  "speech_sendToTts": {
+    "message": "TTS로 보내기"
+  },
+  "speech_sendHint": {
+    "message": "최신 전사를 TTS 초안으로 사용합니다."
+  },
+  "speech_download": {
+    "message": "다운로드"
+  },
+  "speech_downloadCurrent": {
+    "message": "현재 세그먼트 다운로드"
+  },
+  "speech_downloadAll": {
+    "message": "모든 세그먼트 다운로드"
+  },
+  "speech_segmentFormat": {
+    "message": "형식"
+  },
+  "speech_historyTitle": {
+    "message": "음성 기록"
+  },
+  "speech_historyAll": {
+    "message": "전체"
+  },
+  "speech_historyStt": {
+    "message": "STT"
+  },
+  "speech_historyTts": {
+    "message": "TTS"
+  },
+  "speech_historySearch": {
+    "message": "전사 검색"
+  },
+  "speech_historyRetentionHint": {
+    "message": "최근 {{count}}개 항목을 보관합니다. 모두 지우기를 사용해 전체를 삭제하세요."
+  },
+  "speech_useInTts": {
+    "message": "TTS에 사용"
+  },
+  "speech_copy": {
+    "message": "복사"
+  },
+  "speech_copySuccess": {
+    "message": "클립보드에 복사했습니다"
+  },
+  "speech_copyError": {
+    "message": "전사를 복사하지 못했습니다."
+  },
+  "speech_providerTag": {
+    "message": "공급자"
+  },
+  "speech_voiceTag": {
+    "message": "음성"
+  },
+  "speech_emptyHistory": {
+    "message": "녹음을 시작하거나 오디오를 생성하면 여기에 기록이 표시됩니다."
+  },
+  "speech_downloadDisabledBrowser": {
+    "message": "브라우저 TTS는 다운로드 가능한 오디오를 만들지 않습니다."
+  },
+  "speech_downloadDisabledEmpty": {
+    "message": "다운로드를 사용하려면 오디오를 생성하세요."
+  },
+  "speech_transcriptLock": {
+    "message": "잠금"
+  },
+  "speech_transcriptUnlock": {
+    "message": "잠금 해제"
+  },
+  "speech_transcriptEditHint": {
+    "message": "이 전사는 편집 가능합니다."
+  },
+  "speech_transcriptLockedHint": {
+    "message": "실시간 전사 업데이트에 잠겨 있습니다."
+  },
+  "speech_transcriptRecordingHint": {
+    "message": "녹음 중이므로 전사가 잠겨 있습니다."
+  },
+  "actor_title": {
+    "message": "장면 디렉터(Actor)"
+  },
+  "actor_help": {
+    "message": "채팅별 장면 컨텍스트를 설정하세요: 역할, 분위기, 세계, 목표, 메모."
+  },
+  "actor_addLabel": {
+    "message": "장면에 집중할 수 있도록 요소를 추가하거나 제거하세요."
+  },
+  "actor_user": {
+    "message": "사용자"
+  },
+  "actor_char": {
+    "message": "캐릭터"
+  },
+  "actor_world": {
+    "message": "세계"
+  },
+  "actor_newAspectPlaceholder": {
+    "message": "요소 이름(예: 분위기, 역할, 위치)"
+  },
+  "actor_addButton": {
+    "message": "요소 추가"
+  },
+  "actor_aspectPlaceholder": {
+    "message": "간단히 설명(선택 사항)"
+  },
+  "actor_notes": {
+    "message": "장면 메모"
+  },
+  "actor_notesHelp": {
+    "message": "모델에 전송되는 선택적 메모. Markdown과 LaTeX 지원."
+  },
+  "actor_position": {
+    "message": "Actor 프롬프트 위치"
+  },
+  "actor_before": {
+    "message": "메인 프롬프트/스토리 앞"
+  },
+  "actor_after": {
+    "message": "메인 프롬프트/스토리 뒤"
+  },
+  "actor_depth": {
+    "message": "채팅 내 깊이"
+  },
+  "actor_depthLabel": {
+    "message": "깊이(비시스템 메시지)"
+  },
+  "actor_depthPlaceholder": {
+    "message": "0 = 채팅 상단"
+  },
+  "actor_depthHelp": {
+    "message": "위치가 \"채팅 내 깊이\"일 때만 사용합니다. 채팅 상단부터 비시스템 메시지를 셉니다."
+  },
+  "actor_roleLabel": {
+    "message": "Actor 메시지 역할"
+  },
+  "actor_roleSystem": {
+    "message": "시스템"
+  },
+  "actor_roleUser": {
+    "message": "사용자"
+  },
+  "actor_roleAssistant": {
+    "message": "어시스턴트"
+  },
+  "actor_positionHelp": {
+    "message": "깊이는 위치가 \"채팅 내 깊이\"일 때만 사용합니다. 역할은 Actor가 시스템/사용자/어시스턴트로 표시되는지를 제어합니다."
+  },
+  "actor_preview": {
+    "message": "Actor 프롬프트 미리보기"
+  },
+  "actor_tokens": {
+    "message": "토큰: {{count}}"
+  },
+  "actor_previewEmpty": {
+    "message": "아직 보낼 내용이 없습니다."
+  },
+  "actor_offlineHintTitle": {
+    "message": "Actor에 World Books를 사용할 수 없음"
+  },
+  "actor_offlineHintBody": {
+    "message": "설정에서 tldw 서버에 연결해 Actor 요소에 World Books를 사용하거나, 자유 입력 값을 계속 사용하세요."
+  },
+  "actor_loreWorldBookMissing": {
+    "message": "이전 World Book 바인딩을 찾을 수 없어 자유 입력을 사용합니다."
+  },
+  "actor_loreEntryMissing": {
+    "message": "이전 World Book 항목을 찾을 수 없어 자유 입력을 사용합니다."
+  },
+  "actor_sourceFree": {
+    "message": "자유 입력"
+  },
+  "actor_sourceLore": {
+    "message": "World Book"
+  },
+  "actor_worldBookPlaceholder": {
+    "message": "World Book"
+  },
+  "actor_entryPlaceholder": {
+    "message": "항목"
+  },
+  "actor_loreValuePlaceholder": {
+    "message": "옵션 선택(선택 사항)"
+  },
+  "actor_tokenLabel": {
+    "message": "토큰"
+  },
+  "actor_tokensTitle": {
+    "message": "Actor 사전 토큰"
+  },
+  "actor_tokensHelp": {
+    "message": "이 토큰을 프롬프트와 시스템 메시지에 사용하세요."
+  },
+  "actor_keyChangeTitle": {
+    "message": "Actor 토큰 키를 변경할까요?"
+  },
+  "actor_keyChangeBody": {
+    "message": "토큰이 {{old}}에서 {{next}}로 변경됩니다. 기존 토큰을 사용하는 프롬프트는 자동으로 업데이트되지 않습니다."
+  },
+  "actor_keyCollisionTitle": {
+    "message": "Actor 키가 이미 사용 중입니다"
+  },
+  "actor_keyCollisionBody": {
+    "message": "다른 요소가 이 키를 이미 사용 중입니다. 키는 채팅별로 고유해야 합니다."
+  },
+  "actor_copy": {
+    "message": "복사"
+  },
+  "actor_copied": {
+    "message": "복사됨"
+  },
+  "actor_copySuccess": {
+    "message": "토큰이 클립보드에 복사되었습니다"
+  },
+  "actor_copyError": {
+    "message": "토큰 복사에 실패했습니다"
+  },
+  "actor_notesPreviewTitle": {
+    "message": "장면 메모 미리보기"
+  },
+  "actor_notesPreviewToggle": {
+    "message": "Markdown + LaTeX 미리보기 표시"
+  },
+  "actor_aspectLimitWarningTitle": {
+    "message": "이 채팅에 많은 요소가 설정됨"
+  },
+  "actor_aspectLimitWarningBody": {
+    "message": "{{count}}개의 요소가 있습니다(소프트 한도 {{limit}}). 장면에 집중하고 토큰을 절약하려면 줄이는 것을 고려하세요."
+  },
+  "actor_tokenWarning": {
+    "message": "Actor 프롬프트가 깁니다({{count}} 토큰; 소프트 한도 {{limit}}). 컨텍스트를 절약하려면 요소나 메모를 줄이세요."
+  },
+  "actor_depthRangeHelp": {
+    "message": "깊이는 0~999 사이여야 하며, 기록 길이를 넘는 값은 제한됩니다."
+  },
+  "actor_presetLabel": {
+    "message": "프리셋"
+  },
+  "actor_presetPlaceholder": {
+    "message": "프리셋 선택"
+  },
+  "actor_preset.sliceOfLife": {
+    "message": "일상"
+  },
+  "actor_preset.dungeonCrawl": {
+    "message": "던전 크롤"
+  },
+  "actor_preset.romance": {
+    "message": "로맨스"
+  },
+  "actor_preset.workSession": {
+    "message": "업무 세션"
+  },
+  "actor_applyPreset": {
+    "message": "적용"
+  },
+  "actor_resetChat": {
+    "message": "이 채팅 초기화"
+  },
+  "actor_saveAsCharacterDefault": {
+    "message": "{{name}}의 기본값으로 저장"
+  },
+  "actor_applyCharacterDefault": {
+    "message": "{{name}}의 기본값 적용"
+  },
+  "actor_notesGmOnly": {
+    "message": "GM 전용: 메모를 모델에 보내지 않음"
+  },
+  "actor_templateModeLabel": {
+    "message": "장면 템플릿 상호작용"
+  },
+  "actor_templateModeHelp": {
+    "message": "Actor가 활성 장면 템플릿과 상호작용하는 방식을 제어합니다. 병합은 둘 다 유지, 덮어쓰기는 Actor가 겹치는 필드를 대체, 무시는 템플릿이 활성일 때 Actor를 건너뜁니다."
+  },
+  "actor_templateMode.merge": {
+    "message": "템플릿과 병합"
+  },
+  "actor_templateMode.override": {
+    "message": "템플릿 덮어쓰기"
+  },
+  "actor_templateMode.ignore": {
+    "message": "템플릿이 활성일 때 무시"
+  },
+  "actor_bladeAspectsTitle": {
+    "message": "요소"
+  },
+  "actor_bladeNotesTitle": {
+    "message": "장면 메모"
+  },
+  "actor_bladePlacementTitle": {
+    "message": "배치 및 템플릿"
+  },
+  "actor_bladeTokensTitle": {
+    "message": "토큰 및 미리보기"
+  },
+  "actor_summaryAspectsEmpty": {
+    "message": "아직 설정된 요소가 없습니다."
+  },
+  "actor_summaryAspectsCount": {
+    "message": "{{count}}개의 요소가 설정되었습니다."
+  },
+  "actor_summaryNotesEmpty": {
+    "message": "아직 장면 메모가 없습니다."
+  },
+  "actor_summaryNotes": {
+    "message": "{{chars}}자{{gmSuffix}}."
+  },
+  "actor_summaryNotesGmOnly": {
+    "message": " · GM 전용"
+  },
+  "actor_summaryPlacementBefore": {
+    "message": "메인 프롬프트/스토리 앞."
+  },
+  "actor_summaryPlacementAfter": {
+    "message": "메인 프롬프트/스토리 뒤."
+  },
+  "actor_summaryPlacementDepth": {
+    "message": "깊이 {{depth}} · 역할: {{role}}."
+  },
+  "actor_summaryTokensEmpty": {
+    "message": "아직 정의된 토큰이 없습니다; 요소 값을 설정하세요."
+  },
+  "actor_summaryTokensCount": {
+    "message": "{{tokens}} 토큰 · 프롬프트에 ~{{estimate}} 토큰."
+  },
+  "actor_sceneTemplateActive": {
+    "message": "장면 템플릿 활성: Actor가 템플릿 상호작용 설정을 존중합니다."
+  }
+}

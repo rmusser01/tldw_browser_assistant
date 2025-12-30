@@ -18,6 +18,8 @@ export type Message = {
   search?: WebSearch
   messageType?: string
   clusterId?: string
+  modelId?: string
+  parentMessageId?: string | null
   id?: string
   generationInfo?: any
   reasoning_time_taken?: number

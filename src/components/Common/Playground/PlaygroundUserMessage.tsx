@@ -59,6 +59,9 @@ export const PlaygroundUserMessageBubble: React.FC<Props> = (props) => {
 
   return (
     <div
+      data-testid="chat-message"
+      data-role="user"
+      data-index={props.currentMessageIndex}
       className={`group gap-2 relative flex w-full max-w-3xl flex-col items-end justify-center pb-2 md:px-4 text-[#242424] dark:text-gray-100 ${checkWideMode ? "max-w-none" : ""}`}>
       {!editMode && props?.message_type ? (
         <Tag color={tagColors[props?.message_type] || "default"}>

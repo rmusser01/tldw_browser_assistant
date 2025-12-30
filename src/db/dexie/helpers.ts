@@ -5,6 +5,7 @@ import {
 import { ChatDocuments } from "@/models/ChatTypes"
 import {
   type HistoryInfo,
+  type CompareState,
   type MessageHistory,
   type Message,
   type Prompts,
@@ -73,6 +74,7 @@ export const updateMessage = async (
 }
 
 export const saveMessage = async ({
+  id,
   content,
   history_id,
   name,
@@ -81,12 +83,16 @@ export const saveMessage = async ({
   source,
   generationInfo,
   message_type,
+  clusterId,
+  modelId,
   modelImage,
   modelName,
+  parent_message_id,
   reasoning_time_taken,
   time,
   documents
 }: {
+  id?: string
   history_id: string
   name: string
   role: string
@@ -95,19 +101,22 @@ export const saveMessage = async ({
   source?: any[]
   time?: number
   message_type?: string
+  clusterId?: string
+  modelId?: string
   generationInfo?: any
   reasoning_time_taken?: number
   modelName?: string
   modelImage?: string
+  parent_message_id?: string | null
   documents?: ChatDocuments
 }) => {
-  const id = generateID()
+  const messageId = id ?? generateID()
   let createdAt = Date.now()
   if (time) {
     createdAt += time
   }
   const message: Message = {
-    id,
+    id: messageId,
     history_id,
     name,
     role,
@@ -116,15 +125,36 @@ export const saveMessage = async ({
     createdAt,
     sources: source,
     messageType: message_type,
+    clusterId,
+    modelId,
     generationInfo: generationInfo,
     reasoning_time_taken,
     modelName,
     modelImage,
+    parent_message_id: parent_message_id ?? null,
     documents
   }
   const db = new PageAssistDatabase()
   await db.addMessage(message)
   return message
+}
+
+export const getCompareState = async (
+  history_id: string
+): Promise<CompareState | null> => {
+  const db = new PageAssistDatabase()
+  return await db.getCompareState(history_id)
+}
+
+export const saveCompareState = async (state: CompareState) => {
+  const db = new PageAssistDatabase()
+  await db.setCompareState(state)
+  return state
+}
+
+export const deleteCompareState = async (history_id: string) => {
+  const db = new PageAssistDatabase()
+  await db.deleteCompareState(history_id)
 }
 
 export const formatToChatHistory = (
@@ -149,6 +179,10 @@ export const formatToMessage = (messages: MessageHistory): MessageType[] => {
       name: message.name,
       sources: message?.sources || [],
       images: message.images || [],
+      messageType: message?.messageType,
+      clusterId: message?.clusterId,
+      modelId: message?.modelId,
+      parentMessageId: message?.parent_message_id ?? null,
       generationInfo: message?.generationInfo,
       reasoning_time_taken: message?.reasoning_time_taken,
       modelName: message?.modelName,
@@ -163,6 +197,7 @@ export const deleteByHistoryId = async (history_id: string) => {
   const db = new PageAssistDatabase()
   await db.deleteMessage(history_id)
   await db.removeChatHistory(history_id)
+  await db.deleteCompareState(history_id)
   return history_id
 }
 
@@ -631,6 +666,7 @@ export const deleteHistoriesByDateRange = async (
   for (const history of historiesToDelete) {
     await db.deleteMessage(history.id)
     await db.removeChatHistory(history.id)
+    await db.deleteCompareState(history.id)
     deletedIds.push(history.id)
   }
 

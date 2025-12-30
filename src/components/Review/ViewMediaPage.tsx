@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 import { useQuery } from '@tanstack/react-query'
 import { Storage } from '@plasmohq/storage'
+import { useStorage } from '@plasmohq/storage/hook'
 import { safeStorageSerde } from '@/utils/safe-storage'
 import { bgRequest } from '@/services/background-proxy'
 import { useServerOnline } from '@/hooks/useServerOnline'
@@ -212,6 +213,7 @@ const MediaPageContent: React.FC = () => {
   } = useMessageOption()
 
   const [query, setQuery] = useState<string>('')
+  const [debouncedQuery, setDebouncedQuery] = useState<string>('')
   const [kinds, setKinds] = useState<{ media: boolean; notes: boolean }>({
     media: true,
     notes: false
@@ -229,8 +231,35 @@ const MediaPageContent: React.FC = () => {
   const [keywordOptions, setKeywordOptions] = useState<string[]>([])
   const [selectedContent, setSelectedContent] = useState<string>('')
   const [selectedDetail, setSelectedDetail] = useState<any>(null)
+  const [detailLoading, setDetailLoading] = useState(false)
   const [contentHeight, setContentHeight] = useState<number>(0)
+
+  // Favorites state - persisted to extension storage
+  const [favorites, setFavorites] = useStorage<string[]>('media:favorites', [])
+  const [showFavoritesOnly, setShowFavoritesOnly] = useState(false)
   const contentDivRef = React.useRef<HTMLDivElement | null>(null)
+  const hasRunInitialSearch = React.useRef(false)
+
+  // Favorites helpers
+  const favoritesSet = useMemo(() => new Set(favorites || []), [favorites])
+
+  const toggleFavorite = useCallback((id: string) => {
+    const idStr = String(id)
+    setFavorites((prev: string[] | undefined) => {
+      const currentFavorites = prev || []
+      const set = new Set(currentFavorites)
+      if (set.has(idStr)) {
+        set.delete(idStr)
+      } else {
+        set.add(idStr)
+      }
+      return Array.from(set)
+    })
+  }, [setFavorites])
+
+  const isFavorite = useCallback((id: string) => {
+    return favoritesSet.has(String(id))
+  }, [favoritesSet])
 
   // Measure content height whenever content changes - M3 fix
   useEffect(() => {
@@ -405,6 +434,7 @@ const MediaPageContent: React.FC = () => {
         }
       } catch (err) {
         console.error('Media search error:', err)
+        message.error(t('review:mediaPage.searchError', { defaultValue: 'Failed to search media' }))
       }
     }
 
@@ -534,6 +564,7 @@ const MediaPageContent: React.FC = () => {
         }
       } catch (err) {
         console.error('Notes search error:', err)
+        message.error(t('review:mediaPage.notesSearchError', { defaultValue: 'Failed to search notes' }))
       }
     }
 
@@ -552,7 +583,7 @@ const MediaPageContent: React.FC = () => {
     availableMediaTypes
   ])
 
-  const { data: results = [], refetch } = useQuery({
+  const { data: results = [], refetch, isLoading, isFetching } = useQuery({
     queryKey: [
       'media-search',
       query,
@@ -566,15 +597,52 @@ const MediaPageContent: React.FC = () => {
     enabled: false
   })
 
+  // Compute active filters state
+  const hasActiveFilters = mediaTypes.length > 0 || keywordTokens.length > 0 || showFavoritesOnly
+
+  // Filter results by favorites if enabled
+  const displayResults = useMemo(() => {
+    if (!showFavoritesOnly) return results
+    return results.filter(r => favoritesSet.has(String(r.id)))
+  }, [results, showFavoritesOnly, favoritesSet])
+
+  // Compute total pages for pagination
+  const totalPages = Math.ceil(
+    (kinds.media && kinds.notes
+      ? combinedTotal
+      : kinds.notes
+        ? notesTotal
+        : mediaTotal) / pageSize
+  )
+
+  // Debounce search query
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setDebouncedQuery(query)
+    }, 300)
+    return () => clearTimeout(timer)
+  }, [query])
+
+  // Auto-refetch when debounced query changes (including clearing to empty)
+  useEffect(() => {
+    if (!hasRunInitialSearch.current) {
+      hasRunInitialSearch.current = true
+      if (debouncedQuery === '' && query === '') return
+    }
+    setPage(1)
+    refetch()
+  }, [debouncedQuery, query, refetch])
+
   // Auto-refetch when paginating
   useEffect(() => {
     refetch()
   }, [page, pageSize, refetch])
 
-  // Reset to page 1 when filters change
+  // Reset to page 1 when filters change and refetch
   useEffect(() => {
     setPage(1)
-  }, [mediaTypes, keywordTokens])
+    refetch()
+  }, [mediaTypes, keywordTokens]) // eslint-disable-line react-hooks/exhaustive-deps
 
   // Initial load: populate media types and auto-browse first page
   useEffect(() => {
@@ -662,11 +730,10 @@ const MediaPageContent: React.FC = () => {
     setKeywordOptions(Array.from(keywordsFromResults))
   }, [results])
 
-  // Load initial keyword suggestions
+  // Keep keyword suggestions in sync with results
   useEffect(() => {
     loadKeywordSuggestions()
-    // eslint-disable-next-line react-hooks/exhaustive-deps -- run once on mount to fetch initial suggestions
-  }, [])
+  }, [loadKeywordSuggestions, results])
 
   const fetchSelectedDetails = useCallback(async (item: MediaResultItem) => {
     try {
@@ -763,12 +830,21 @@ const MediaPageContent: React.FC = () => {
       try {
         if (!selected) {
           setSelectedContent('')
+          setSelectedDetail(null)
           setLastFetchedId(null)
+          setDetailLoading(false)
           return
         }
 
+        const isNewSelection = selected.id !== lastFetchedId
+        if (isNewSelection) {
+          setDetailLoading(true)
+          setSelectedContent('')
+          setSelectedDetail(null)
+        }
+
         // Skip if we already fetched this item's details
-        if (selected.id === lastFetchedId) {
+        if (!isNewSelection) {
           return
         }
 
@@ -786,9 +862,15 @@ const MediaPageContent: React.FC = () => {
       } catch {
         setSelectedContent('')
         setSelectedDetail(null)
+      } finally {
+        setDetailLoading(false)
       }
     })()
   }, [selected?.id, fetchSelectedDetails, contentFromDetail])
+
+  // Note: Removed auto-clear effect that cleared selection when item wasn't in current results.
+  // This caused UX issues - selection was lost when changing filters or pages.
+  // The selection now persists until the user explicitly selects a different item.
 
   // Refresh media details (e.g., after generating analysis)
   const handleRefreshMedia = useCallback(async () => {
@@ -815,21 +897,65 @@ const MediaPageContent: React.FC = () => {
     }
   }
 
-  const selectedIndex = results.findIndex((r) => r.id === selected?.id)
+  const selectedIndex = displayResults.findIndex((r) => r.id === selected?.id)
   const hasPrevious = selectedIndex > 0
-  const hasNext = selectedIndex >= 0 && selectedIndex < results.length - 1
+  const hasNext = selectedIndex >= 0 && selectedIndex < displayResults.length - 1
 
   const handlePrevious = () => {
     if (hasPrevious) {
-      setSelected(results[selectedIndex - 1])
+      setSelected(displayResults[selectedIndex - 1])
     }
   }
 
   const handleNext = () => {
     if (hasNext) {
-      setSelected(results[selectedIndex + 1])
+      setSelected(displayResults[selectedIndex + 1])
     }
   }
+
+  // Keyboard shortcuts for navigation (j/k for items, arrows for pages)
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      // Ignore if typing in input
+      if (
+        e.target instanceof HTMLInputElement ||
+        e.target instanceof HTMLTextAreaElement ||
+        (e.target as HTMLElement)?.isContentEditable
+      ) {
+        return
+      }
+
+      switch (e.key) {
+        case 'j':
+          if (hasNext) {
+            e.preventDefault()
+            setSelected(displayResults[selectedIndex + 1])
+          }
+          break
+        case 'k':
+          if (hasPrevious) {
+            e.preventDefault()
+            setSelected(displayResults[selectedIndex - 1])
+          }
+          break
+        case 'ArrowLeft':
+          if (page > 1) {
+            e.preventDefault()
+            setPage((p) => p - 1)
+          }
+          break
+        case 'ArrowRight':
+          if (page < totalPages) {
+            e.preventDefault()
+            setPage((p) => p + 1)
+          }
+          break
+      }
+    }
+
+    window.addEventListener('keydown', handleKeyDown)
+    return () => window.removeEventListener('keydown', handleKeyDown)
+  }, [hasNext, hasPrevious, page, totalPages, results, selectedIndex])
 
   // Calculate dynamic sidebar height
   const sidebarHeight = useMemo(() => {
@@ -853,12 +979,12 @@ const MediaPageContent: React.FC = () => {
 
     // Show at least 5 items, or all items if fewer than 10
     const itemsToShow =
-      results.length <= 10 ? results.length : Math.min(5, results.length)
+      displayResults.length <= 10 ? displayResults.length : Math.min(5, displayResults.length)
     const resultsHeight = itemsToShow * itemHeight
     const heightForResults = fixedHeight + resultsHeight
 
     return Math.max(minHeight, heightForResults)
-  }, [contentHeight, selected, results])
+  }, [contentHeight, selected, displayResults])
 
   const handleChatWithMedia = useCallback(() => {
     if (!selected) return
@@ -1003,119 +1129,135 @@ const MediaPageContent: React.FC = () => {
           transition: 'width 300ms ease-in-out, height 200ms ease-out'
         }}
       >
-        {/* Header */}
-        <div className="px-4 py-3 border-b border-gray-200 dark:border-gray-700">
-          <div className="flex items-center justify-between">
-            <h1 className="text-gray-900 dark:text-gray-100 text-base font-semibold">
-              {t('review:mediaPage.mediaInspector', { defaultValue: 'Media Inspector' })}
-            </h1>
-            <span className="text-xs text-gray-500 dark:text-gray-400">
-              {results.length} / {
+        <div
+          className="flex h-full flex-col"
+          hidden={sidebarCollapsed}
+          aria-hidden={sidebarCollapsed}
+        >
+          {/* Header */}
+          <div className="px-4 py-3 border-b border-gray-200 dark:border-gray-700">
+            <div className="flex items-center justify-between">
+              <h1 className="text-gray-900 dark:text-gray-100 text-base font-semibold">
+                {t('review:mediaPage.mediaInspector', { defaultValue: 'Media Inspector' })}
+              </h1>
+              <span className="text-xs text-gray-500 dark:text-gray-400">
+                {displayResults.length} / {
+                  kinds.media && kinds.notes
+                    ? combinedTotal
+                    : kinds.notes
+                      ? notesTotal
+                      : mediaTotal
+                }
+              </span>
+            </div>
+          </div>
+
+          {/* Search */}
+          <div className="px-4 py-3 border-b border-gray-200 dark:border-gray-700">
+            <div onKeyDown={handleKeyPress}>
+              <SearchBar
+                value={query}
+                onChange={setQuery}
+                hasActiveFilters={hasActiveFilters}
+                onClearAll={() => {
+                  // M4: Clear filters when clearing search
+                  setMediaTypes([])
+                  setKeywordTokens([])
+                  setShowFavoritesOnly(false)
+                }}
+              />
+            </div>
+            <button
+              onClick={handleSearch}
+              className="mt-2 w-full px-3 py-1.5 text-sm bg-blue-600 dark:bg-blue-600 text-white rounded-lg hover:bg-blue-700 dark:hover:bg-blue-700 transition-colors"
+            >
+              {t('review:mediaPage.search', { defaultValue: 'Search' })}
+            </button>
+            {/* Jump To Navigator */}
+            {displayResults.length > 5 && (
+              <div className="mt-3">
+                <JumpToNavigator
+                  results={displayResults.map(r => ({ id: r.id, title: r.title }))}
+                  selectedId={selected?.id || null}
+                  onSelect={(id) => {
+                    const item = displayResults.find(r => r.id === id)
+                    if (item) setSelected(item)
+                  }}
+                  maxButtons={12}
+                />
+              </div>
+            )}
+          </div>
+
+          {/* Filters */}
+          <div className="px-4 py-2 border-b border-gray-200 dark:border-gray-700">
+            <FilterPanel
+              mediaTypes={availableMediaTypes}
+              selectedMediaTypes={mediaTypes}
+              onMediaTypesChange={setMediaTypes}
+              selectedKeywords={keywordTokens}
+              onKeywordsChange={(kws) => {
+                setKeywordTokens(kws)
+                setPage(1)
+                refetch()
+              }}
+              keywordOptions={keywordOptions}
+              onKeywordSearch={(txt) => {
+                loadKeywordSuggestions(txt)
+              }}
+              showFavoritesOnly={showFavoritesOnly}
+              onShowFavoritesOnlyChange={setShowFavoritesOnly}
+              favoritesCount={favoritesSet.size}
+            />
+          </div>
+
+          {/* Results */}
+          <div className="flex-1 overflow-y-auto min-h-0" style={{ minHeight: '325px' }}>
+            <ResultsList
+              results={displayResults}
+              selectedId={selected?.id || null}
+              onSelect={(id) => {
+                const item = displayResults.find((r) => r.id === id)
+                if (item) setSelected(item)
+              }}
+              totalCount={
                 kinds.media && kinds.notes
                   ? combinedTotal
                   : kinds.notes
                     ? notesTotal
                     : mediaTotal
               }
-            </span>
-          </div>
-        </div>
-
-        {/* Search */}
-        <div className="px-4 py-3 border-b border-gray-200 dark:border-gray-700">
-          <div onKeyDown={handleKeyPress}>
-            <SearchBar
-              value={query}
-              onChange={setQuery}
-              onClearAll={() => {
-                // M4: Clear filters when clearing search
+              loadedCount={displayResults.length}
+              isLoading={isLoading || isFetching}
+              hasActiveFilters={hasActiveFilters}
+              onClearFilters={() => {
                 setMediaTypes([])
                 setKeywordTokens([])
+                setShowFavoritesOnly(false)
               }}
+              favorites={favoritesSet}
+              onToggleFavorite={toggleFavorite}
             />
           </div>
-          <button
-            onClick={handleSearch}
-            className="mt-2 w-full px-3 py-1.5 text-sm bg-blue-600 dark:bg-blue-600 text-white rounded-lg hover:bg-blue-700 dark:hover:bg-blue-700 transition-colors"
-          >
-            {t('review:mediaPage.search', { defaultValue: 'Search' })}
-          </button>
-          {/* Jump To Navigator */}
-          {results.length > 5 && (
-            <div className="mt-3">
-              <JumpToNavigator
-                results={results.map(r => ({ id: r.id, title: r.title }))}
-                selectedId={selected?.id || null}
-                onSelect={(id) => {
-                  const item = results.find(r => r.id === id)
-                  if (item) setSelected(item)
-                }}
-                maxButtons={12}
-              />
-            </div>
-          )}
-        </div>
 
-        {/* Filters */}
-        <div className="px-4 py-2 border-b border-gray-200 dark:border-gray-700">
-          <FilterPanel
-            mediaTypes={availableMediaTypes}
-            selectedMediaTypes={mediaTypes}
-            onMediaTypesChange={setMediaTypes}
-            selectedKeywords={keywordTokens}
-            onKeywordsChange={(kws) => {
-              setKeywordTokens(kws)
-              setPage(1)
-              refetch()
-            }}
-            keywordOptions={keywordOptions}
-            onKeywordSearch={(txt) => {
-              loadKeywordSuggestions(txt)
-            }}
-          />
+          {/* Pagination - Sticky at bottom */}
+          <div className="flex-shrink-0 bg-white dark:bg-[#171717] border-t border-gray-200 dark:border-gray-700">
+            <Pagination
+              currentPage={page}
+              totalPages={totalPages}
+              onPageChange={setPage}
+              totalItems={
+                kinds.media && kinds.notes
+                  ? combinedTotal
+                  : kinds.notes
+                    ? notesTotal
+                    : mediaTotal
+              }
+              itemsPerPage={pageSize}
+              currentItemsCount={results.length}
+            />
+          </div>
         </div>
-
-        {/* Results */}
-        <div className="flex-1 overflow-y-auto" style={{ minHeight: '325px' }}>
-          <ResultsList
-            results={results}
-            selectedId={selected?.id || null}
-            onSelect={(id) => {
-              const item = results.find((r) => r.id === id)
-              if (item) setSelected(item)
-            }}
-            totalCount={
-              kinds.media && kinds.notes
-                ? combinedTotal
-                : kinds.notes
-                  ? notesTotal
-                  : mediaTotal
-            }
-            loadedCount={results.length}
-          />
-        </div>
-
-        {/* Pagination */}
-        <Pagination
-          currentPage={page}
-          totalPages={Math.ceil(
-            (kinds.media && kinds.notes
-              ? combinedTotal
-              : kinds.notes
-                ? notesTotal
-                : mediaTotal) / pageSize
-          )}
-          onPageChange={setPage}
-          totalItems={
-            kinds.media && kinds.notes
-              ? combinedTotal
-              : kinds.notes
-                ? notesTotal
-                : mediaTotal
-          }
-          itemsPerPage={pageSize}
-          currentItemsCount={results.length}
-        />
       </div>
 
       {/* Collapse Button */}
@@ -1139,12 +1281,13 @@ const MediaPageContent: React.FC = () => {
           selectedMedia={selected}
           content={selectedContent}
           mediaDetail={selectedDetail}
+          isDetailLoading={detailLoading}
           onPrevious={handlePrevious}
           onNext={handleNext}
           hasPrevious={hasPrevious}
           hasNext={hasNext}
           currentIndex={selectedIndex >= 0 ? selectedIndex : 0}
-          totalResults={results.length}
+          totalResults={displayResults.length}
           onChatWithMedia={handleChatWithMedia}
           onChatAboutMedia={handleChatAboutMedia}
           onRefreshMedia={handleRefreshMedia}

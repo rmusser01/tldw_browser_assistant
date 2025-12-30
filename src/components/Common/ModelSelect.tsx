@@ -169,6 +169,7 @@ export const ModelSelect: React.FC<Props> = ({iconClassName = "size-5", showSele
             <IconButton
               ariaLabel={t("selectAModel") as string}
               hasPopup="menu"
+              dataTestId="chat-model-select"
               className="dark:text-gray-300 px-2">
               <LucideBrain className={iconClassName} />
               {showSelectedName && selectedModelDisplay ? (

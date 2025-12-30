@@ -1,12 +1,17 @@
 import React from 'react'
-import { Input, List, Tag, Space, Tooltip, Modal, Checkbox, Button, message, Select } from 'antd'
+import { Input, List, Tag, Space, Tooltip, Modal, Checkbox, Button, message, Select, Dropdown } from 'antd'
+import type { MenuProps } from 'antd'
+import { ChevronDown } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 import { useQuery } from '@tanstack/react-query'
-import { getAllPrompts } from '@/db/dexie/helpers'
+import {
+  generateID,
+  getAllPrompts,
+  updateLastUsedPrompt as updateLastUsedPromptDB
+} from '@/db/dexie/helpers'
 import { useStorage } from '@plasmohq/storage/hook'
 import { tldwClient } from '@/services/tldw/TldwApiClient'
 import { savePromptFB, updatePromptFB } from '@/db'
-import { generateID, updateLastUsedPrompt as updateLastUsedPromptDB } from '@/db/dexie/helpers'
 import { useMessageOption } from "@/hooks/useMessageOption"
 import { Link } from 'react-router-dom'
 
@@ -33,8 +38,9 @@ export const PromptSearch: React.FC<Props> = ({ onInsertMessage, onInsertSystem,
   const [editTitle, setEditTitle] = React.useState('')
   const [editContent, setEditContent] = React.useState('')
   const [editIsSystem, setEditIsSystem] = React.useState<boolean>(false)
-  const [saveRemote, setSaveRemote] = React.useState<boolean>(false)
   const [localOverwriteId, setLocalOverwriteId] = React.useState<string | undefined>(undefined)
+  const [saving, setSaving] = React.useState(false)
+  const savingRef = React.useRef(false)
 
   const { data: localPrompts } = useQuery({ queryKey: ['promptSearchAll'], queryFn: getAllPrompts })
 
@@ -95,8 +101,28 @@ export const PromptSearch: React.FC<Props> = ({ onInsertMessage, onInsertSystem,
     setEditTitle(item.title)
     setEditContent(item.content)
     setEditIsSystem(!!item.is_system)
+    setLocalOverwriteId(undefined)
+    setOpen(false)
     setEditorOpen(true)
   }
+
+  const resolveErrorMessage = React.useCallback(
+    (err: unknown, fallback: string) =>
+      (err instanceof Error ? err.message : null) || fallback,
+    []
+  )
+
+  const runWithSaving = React.useCallback(async (action: () => Promise<void>) => {
+    if (savingRef.current) return
+    savingRef.current = true
+    setSaving(true)
+    try {
+      await action()
+    } finally {
+      savingRef.current = false
+      setSaving(false)
+    }
+  }, [])
 
   const handleInsert = async () => {
     if (editIsSystem) onInsertSystem(editContent)
@@ -112,8 +138,186 @@ export const PromptSearch: React.FC<Props> = ({ onInsertMessage, onInsertSystem,
     setEditorOpen(false)
   }
 
+  const actionMenuItems = React.useMemo<MenuProps['items']>(() => {
+    const items: MenuProps['items'] = []
+    // Save changes to existing prompt
+    if (selected?.source === 'local' && selected?.id) {
+      items.push({
+        key: 'save-local',
+        label: t('promptSearch.saveLocal') || 'Save changes',
+        onClick: () => {
+          void runWithSaving(async () => {
+            try {
+              await updatePromptFB({
+                id: String(selected.id),
+                title: editTitle || 'Untitled',
+                content: editContent,
+                is_system: !!editIsSystem
+              })
+              message.success(t('promptSearch.saveLocalSuccess') || 'Saved')
+            } catch (e: unknown) {
+              message.error(
+                resolveErrorMessage(
+                  e,
+                  t('promptSearch.saveLocalFailed') || 'Failed'
+                )
+              )
+            }
+          })
+        }
+      })
+    }
+    if (selected?.source === 'server' && selected?.id) {
+      items.push({
+        key: 'save-server',
+        label: t('promptSearch.saveServer') || 'Save to server',
+        onClick: () => {
+          void runWithSaving(async () => {
+            try {
+              await tldwClient.updatePrompt(String(selected.id), {
+                title: editTitle || 'Untitled',
+                content: editContent,
+                is_system: !!editIsSystem
+              })
+              message.success(t('promptSearch.saveServerSuccess') || 'Saved')
+            } catch (e: unknown) {
+              message.error(
+                resolveErrorMessage(
+                  e,
+                  t('promptSearch.saveServerFailed') || 'Failed'
+                )
+              )
+            }
+          })
+        }
+      })
+    }
+    // Divider before "Save as" options
+    if (items.length > 0) {
+      items.push({ type: 'divider' })
+    }
+    // Save as new locally
+    items.push({
+      key: 'save-new-local',
+      label: t('promptSearch.saveAsNew') || 'Save as new',
+      onClick: () => {
+        void runWithSaving(async () => {
+          try {
+            const id = generateID()
+            await savePromptFB({
+              id,
+              title: editTitle || 'Untitled',
+              content: editContent,
+              is_system: !!editIsSystem,
+              createdAt: Date.now()
+            })
+            message.success(t('promptSearch.saveSuccess'))
+          } catch (e: unknown) {
+            message.error(
+              resolveErrorMessage(
+                e,
+                t('promptSearch.saveFailed') || 'Failed'
+              )
+            )
+          }
+        })
+      }
+    })
+    // Save local copy (for server prompts)
+    if (selected?.source === 'server') {
+      items.push({
+        key: 'save-local-copy',
+        label: localOverwriteId
+          ? (t('promptSearch.overwriteLocal') || 'Overwrite selected local')
+          : (t('promptSearch.saveLocalCopy') || 'Save local copy'),
+        onClick: () => {
+          void runWithSaving(async () => {
+            try {
+              if (localOverwriteId) {
+                await updatePromptFB({
+                  id: localOverwriteId,
+                  title: editTitle || 'Untitled',
+                  content: editContent,
+                  is_system: !!editIsSystem
+                })
+              } else {
+                const id = generateID()
+                await savePromptFB({
+                  id,
+                  title: editTitle || 'Untitled',
+                  content: editContent,
+                  is_system: !!editIsSystem,
+                  createdAt: Date.now()
+                })
+              }
+              message.success(t('promptSearch.saveLocalSuccess') || 'Saved')
+            } catch (e: unknown) {
+              message.error(
+                resolveErrorMessage(
+                  e,
+                  t('promptSearch.saveLocalFailed') || 'Failed'
+                )
+              )
+            }
+          })
+        }
+      })
+      items.push({
+        key: 'save-new-server',
+        label: t('promptSearch.saveServerOnly') || 'Save as new (server)',
+        onClick: () => {
+          void runWithSaving(async () => {
+            try {
+              await tldwClient.createPrompt({
+                title: editTitle || 'Untitled',
+                content: editContent,
+                is_system: !!editIsSystem
+              })
+              message.success(t('promptSearch.saveServerSuccess') || 'Saved')
+            } catch (e: unknown) {
+              message.error(
+                resolveErrorMessage(
+                  e,
+                  t('promptSearch.saveServerFailed') || 'Failed'
+                )
+              )
+            }
+          })
+        }
+      })
+    }
+    return items
+  }, [
+    editContent,
+    editIsSystem,
+    editTitle,
+    generateID,
+    localOverwriteId,
+    message,
+    resolveErrorMessage,
+    runWithSaving,
+    savePromptFB,
+    selected,
+    t,
+    tldwClient,
+    updatePromptFB
+  ])
+
+  const modifierKey = React.useMemo(() => {
+    if (typeof navigator === 'undefined') return 'Ctrl'
+    const nav = navigator as Navigator & {
+      userAgentData?: { platform?: string }
+    }
+    const platform =
+      nav.userAgentData?.platform ??
+      nav.platform ??
+      nav.userAgent ??
+      ''
+    return platform.includes('Mac') ? '⌘' : 'Ctrl'
+  }, [])
+
   return (
-    <div className="w-72">
+    <div className="relative w-72">
       <Tooltip title={remote ? 'Search local + server prompts' : 'Search local prompts'}>
         <Input.Search
           id={inputId}
@@ -162,7 +366,6 @@ export const PromptSearch: React.FC<Props> = ({ onInsertMessage, onInsertSystem,
           <label className="text-xs text-gray-500">{t('promptSearch.content')}</label>
           <Input.TextArea value={editContent} onChange={(e) => setEditContent(e.target.value)} autoSize={{ minRows: 6 }} onKeyDown={(e) => { if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') { e.preventDefault(); handleInsert() } }} />
           <Checkbox checked={editIsSystem} onChange={(e) => setEditIsSystem(e.target.checked)}>{t('promptSearch.systemPrompt')}</Checkbox>
-          <Checkbox checked={saveRemote} onChange={(e) => setSaveRemote(e.target.checked)}>{t('promptSearch.alsoSaveRemote')}</Checkbox>
           {selected?.source === 'server' && (
             <div className="mt-1">
               <label className="text-xs text-gray-500">{t('promptSearch.overwriteLocalLabel') || 'Overwrite local prompt (optional)'}</label>
@@ -176,70 +379,27 @@ export const PromptSearch: React.FC<Props> = ({ onInsertMessage, onInsertSystem,
               />
             </div>
           )}
-          <div className="flex items-center justify-between gap-2 mt-2 flex-wrap">
+          <div className="flex items-center justify-between gap-2 mt-2">
             <Link to="/settings/prompt" className="text-xs underline text-gray-600 dark:text-gray-300">{t('promptSearch.manageLink') || 'View/Manage Prompts'}</Link>
-            <div className="flex gap-2 flex-wrap">
+            <div className="flex gap-2 items-center">
               <Button onClick={() => setEditorOpen(false)}>{t('promptSearch.cancel')}</Button>
-              <Button type="primary" title="Ctrl/Cmd+Enter" onClick={handleInsert}>{t('promptSearch.insert')}</Button>
-            {selected?.source === 'local' && selected?.id && (
-              <Button onClick={async () => {
-                try {
-                  await updatePromptFB({ id: String(selected.id), title: editTitle || 'Untitled', content: editContent, is_system: !!editIsSystem })
-                  message.success(t('promptSearch.saveLocalSuccess') || 'Saved')
-                } catch (e: any) {
-                  message.error(e?.message || t('promptSearch.saveLocalFailed') || 'Failed')
-                }
-              }}>{t('promptSearch.saveLocal') || 'Save changes (local)'}</Button>
-            )}
-            {selected?.source === 'server' && selected?.id && (
-              <Button onClick={async () => {
-                try {
-                  await tldwClient.updatePrompt(String(selected.id), { title: editTitle || 'Untitled', content: editContent, is_system: !!editIsSystem })
-                  message.success(t('promptSearch.saveServerSuccess') || 'Saved')
-                } catch (e: any) {
-                  message.error(e?.message || t('promptSearch.saveServerFailed') || 'Failed')
-                }
-              }}>{t('promptSearch.saveServer') || 'Save changes (server)'}</Button>
-            )}
-            {selected?.source === 'server' && (
-              <Button onClick={async () => {
-                try {
-                  if (localOverwriteId) {
-                    await updatePromptFB({ id: localOverwriteId, title: editTitle || 'Untitled', content: editContent, is_system: !!editIsSystem })
-                    message.success(t('promptSearch.saveLocalSuccess') || 'Saved')
-                  } else {
-                    const id = generateID()
-                    await savePromptFB({ id, title: editTitle || 'Untitled', content: editContent, is_system: !!editIsSystem, createdAt: Date.now() })
-                    message.success(t('promptSearch.saveLocalSuccess') || 'Saved')
-                  }
-                } catch (e: any) {
-                  message.error(e?.message || t('promptSearch.saveLocalFailed') || 'Failed')
-                }
-              }}>{t('promptSearch.saveLocalCopy') || 'Save local copy'}</Button>
-            )}
-            <Button onClick={async () => {
-              try {
-                const now = Date.now()
-                const id = generateID()
-                await savePromptFB({ id, title: editTitle || 'Untitled', content: editContent, is_system: !!editIsSystem, createdAt: now })
-                if (saveRemote) {
-                  try { await tldwClient.createPrompt({ title: editTitle || 'Untitled', content: editContent, is_system: !!editIsSystem }) } catch {}
-                }
-                message.success(t('promptSearch.saveSuccess'))
-              } catch (e: any) {
-                message.error(e?.message || t('promptSearch.saveFailed'))
-              }
-            }}>{t('promptSearch.saveAsNew')}</Button>
-            {selected?.source === 'server' && (
-              <Button onClick={async () => {
-                try {
-                  await tldwClient.createPrompt({ title: editTitle || 'Untitled', content: editContent, is_system: !!editIsSystem })
-                  message.success(t('promptSearch.saveServerSuccess') || 'Saved')
-                } catch (e: any) {
-                  message.error(e?.message || t('promptSearch.saveServerFailed') || 'Failed')
-                }
-              }}>{t('promptSearch.saveServerOnly') || 'Save as new (server only)'}</Button>
-            )}
+              <Dropdown.Button
+                type="primary"
+                onClick={handleInsert}
+                loading={saving}
+                disabled={saving}
+                menu={{
+                  items: actionMenuItems
+                }}
+                icon={<ChevronDown className="size-3" />}
+              >
+                <span className="inline-flex items-center gap-1">
+                  {t('promptSearch.insert')}
+                  <kbd className="hidden sm:inline text-[10px] px-1 py-0.5 rounded bg-white/20 font-mono">
+                    {modifierKey}↵
+                  </kbd>
+                </span>
+              </Dropdown.Button>
             </div>
           </div>
         </Space>

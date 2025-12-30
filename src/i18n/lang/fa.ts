@@ -6,8 +6,13 @@ import settings from "@/assets/locale/fa/settings.json"
 import knowledge from "@/assets/locale/fa/knowledge.json"
 import review from "@/assets/locale/fa/review.json"
 
+const optionWithReview = {
+    ...option,
+    contentReview: review.contentReview
+}
+
 export const fa = {
-    option,
+    option: optionWithReview,
     playground,
     common,
     sidepanel,

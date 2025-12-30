@@ -18,6 +18,7 @@ import { copyToClipboard } from "@/utils/clipboard"
 import { ImageExportWrapper } from "../Common/ImageExport"
 import { useAntdMessage } from "@/hooks/useAntdMessage"
 import { useStoreMessageOption } from "@/store/option"
+import { trackCompareMetric } from "@/utils/compare-metrics"
 
 interface MoreOptionsProps {
   messages: Message[]
@@ -253,7 +254,7 @@ export const MoreOptions = ({
         },
         {
           key: "copy-canonical-markdown",
-          label: t("option:more.copy.canonicalMarkdown", {
+          label: t("more.copy.canonicalMarkdown", {
             defaultValue: "Copy canonical transcript"
           }),
           icon: <FileCode className="w-4 h-4" />,
@@ -266,6 +267,7 @@ export const MoreOptions = ({
               text: formatAsMarkdown(canonicalMessages),
               formatted: false
             })
+            void trackCompareMetric({ type: "export_canonical" })
             message.success(t("more.copy.success"))
           }
         }
@@ -296,7 +298,7 @@ export const MoreOptions = ({
         },
         {
           key: "download-canonical-md",
-          label: t("option:more.download.canonicalMarkdown", {
+          label: t("more.download.canonicalMarkdown", {
             defaultValue: "Canonical transcript (Markdown)"
           }),
           icon: <FileCode className="w-4 h-4" />,
@@ -309,6 +311,7 @@ export const MoreOptions = ({
               formatAsMarkdown(canonicalMessages),
               "chat_canonical.md"
             )
+            void trackCompareMetric({ type: "export_canonical" })
           }
         },
         {

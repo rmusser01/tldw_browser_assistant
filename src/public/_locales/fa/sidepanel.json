@@ -1,0 +1,311 @@
+{
+  "tooltip_embed": {
+    "message": "ممکن است چند دقیقه طول بکشد تا صفحه جاسازی شود. لطفاً منتظر بمانید..."
+  },
+  "tooltip_clear": {
+    "message": "پاک کردن تاریخچه گپ"
+  },
+  "tooltip_history": {
+    "message": "تاریخچه گپ"
+  },
+  "tooltip_openwebui": {
+    "message": "باز کردن رابط کاربری وب"
+  },
+  "toolbar_ragSearch": {
+    "message": "جستجوی RAG"
+  },
+  "errors_privateModeTitle": {
+    "message": "tldw Assistant نمی‌تواند داده‌ها را ذخیره کند"
+  },
+  "errors_privateModeDescription": {
+    "message": "حالت خصوصی فایرفاکس از ذخیره تاریخچه چت پشتیبانی نمی‌کند. چت موقت به‌صورت پیش‌فرض فعال است. به‌زودی بهبود می‌یابد."
+  },
+  "connectionBanner_connecting": {
+    "message": "در حال اتصال به سرور tldw شما..."
+  },
+  "connectionBanner_authErrorTitle": {
+    "message": "کلید API نیاز به توجه دارد"
+  },
+  "connectionBanner_authErrorBody": {
+    "message": "سرور در دسترس است، اما کلید API نادرست است یا وجود ندارد."
+  },
+  "connectionBanner_unreachableTitle": {
+    "message": "دسترسی به سرور tldw ممکن نیست"
+  },
+  "connectionBanner_unreachableBody": {
+    "message": "بررسی کنید که سرور در حال اجرا و قابل دسترسی باشد."
+  },
+  "connectionBanner_noUrlBody": {
+    "message": "برای شروع، نشانی سرور را در تنظیمات اضافه کنید."
+  },
+  "connectionBanner_disconnectedTitle": {
+    "message": "به سرور tldw متصل نیستید"
+  },
+  "connectionBanner_disconnectedBody": {
+    "message": "برای پیکربندی اتصال سرور، تنظیمات را باز کنید."
+  },
+  "connectionBanner_setupTitle": {
+    "message": "برای شروع گفتگو، راه اندازی را کامل کنید"
+  },
+  "connectionBanner_setupBody": {
+    "message": "برای اتصال، جادوگر راه اندازی را در تنظیمات کامل کنید."
+  },
+  "connectionBanner_openSettings": {
+    "message": "باز کردن تنظیمات"
+  },
+  "temporaryBadge_title": {
+    "message": "گفتگوی موقت"
+  },
+  "temporaryBadge_label": {
+    "message": "موقت"
+  },
+  "temporaryBadge_description": {
+    "message": "این گفتگو ذخیره نمی شود. پیام ها هنگام بستن یا شروع گفتگوی جدید پاک می شوند."
+  },
+  "temporaryBadge_clickHint": {
+    "message": "برای غیرفعال کردن کلیک کنید"
+  },
+  "temporaryBadge_ariaLabel": {
+    "message": "حالت گفتگوی موقت فعال است. برای تغییر کلیک کنید."
+  },
+  "temporaryBadge_indicatorTooltip": {
+    "message": "پیام های این گفتگو ذخیره نمی شود"
+  },
+  "temporaryBadge_indicatorAria": {
+    "message": "گفتگوی موقت"
+  },
+  "header_ingest": {
+    "message": "درون‌ریزی"
+  },
+  "header_saveCurrent": {
+    "message": "ذخیره صفحه فعلی روی سرور"
+  },
+  "header_processLocal": {
+    "message": "پردازش صفحه فعلی به‌صورت محلی"
+  },
+  "header_viewProcessed": {
+    "message": "مشاهده پردازش‌شده‌ها"
+  },
+  "header_timeoutLabel": {
+    "message": "زمان انتظار (ثانیه)"
+  },
+  "header_toggleSidebar": {
+    "message": "نمایش/تمام‌صفحه کردن نوار کناری"
+  },
+  "header_shortcuts": {
+    "message": "میانبرها"
+  },
+  "header_showDebug": {
+    "message": "نمایش اشکال‌زدایی استریم"
+  },
+  "header_hideDebug": {
+    "message": "پنهان کردن اشکال‌زدایی استریم"
+  },
+  "header_moreOptionsAria": {
+    "message": "گزینه‌های بیشتر"
+  },
+  "header_moreOptionsTitle": {
+    "message": "درون‌ریزی و بیشتر"
+  },
+  "header_openWebuiAria": {
+    "message": "باز کردن رابط وب"
+  },
+  "header_newChatAria": {
+    "message": "گفتگوی جدید"
+  },
+  "header_tempChatAria": {
+    "message": "تغییر حالت گفتگوی موقت"
+  },
+  "header_clearHistoryAria": {
+    "message": "پاک کردن تاریخچه"
+  },
+  "header_openHistoryAria": {
+    "message": "باز کردن تاریخچه"
+  },
+  "header_openModelSettingsAria": {
+    "message": "باز کردن تنظیمات مدل"
+  },
+  "header_openSettingsAria": {
+    "message": "باز کردن تنظیمات"
+  },
+  "header_tempPill": {
+    "message": "موقت"
+  },
+  "header_modesLabel": {
+    "message": "باز کردن حالت‌ها در رابط وب"
+  },
+  "header_modePlayground": {
+    "message": "چت"
+  },
+  "header_modeReview": {
+    "message": "بازبینی چندموردی"
+  },
+  "header_modeMedia": {
+    "message": "رسانه"
+  },
+  "header_modeKnowledge": {
+    "message": "دانش"
+  },
+  "header_modeNotes": {
+    "message": "یادداشت‌ها"
+  },
+  "header_modePrompts": {
+    "message": "پرامپت‌ها"
+  },
+  "header_modeFlashcards": {
+    "message": "فلش‌کارت‌ها"
+  },
+  "controlRow_saveMode": {
+    "message": "حالت ذخیره‌سازی"
+  },
+  "controlRow_ephemeral": {
+    "message": "گفتگوی موقت"
+  },
+  "controlRow_searchSection": {
+    "message": "جستجو و بینایی"
+  },
+  "controlRow_webSearch": {
+    "message": "جستجوی وب"
+  },
+  "controlRow_vision": {
+    "message": "بینایی"
+  },
+  "controlRow_uploadImage": {
+    "message": "بارگذاری تصویر"
+  },
+  "controlRow_quickIngest": {
+    "message": "دریافت سریع صفحه"
+  },
+  "controlRow_openInFullUI": {
+    "message": "باز کردن در رابط کامل"
+  },
+  "controlRow_modeChat": {
+    "message": "چت"
+  },
+  "controlRow_modeMedia": {
+    "message": "رسانه"
+  },
+  "controlRow_modeNotes": {
+    "message": "یادداشت‌ها"
+  },
+  "controlRow_modeFlashcards": {
+    "message": "فلش‌کارت‌ها"
+  },
+  "controlRow_ragSearch": {
+    "message": "جستجوی RAG"
+  },
+  "controlRow_moreTools": {
+    "message": "ابزارهای بیشتر"
+  },
+  "composer_connectHint": {
+    "message": "برای ارسال پیام، در تنظیمات به سرور tldw خود متصل شوید."
+  },
+  "composer_connectingPlaceholder": {
+    "message": "در حال اتصال..."
+  },
+  "composer_disconnectedPlaceholder": {
+    "message": "برای ارسال پیام و مشاهده رسانه‌ها، در تنظیمات به سرور tldw خود متصل شوید."
+  },
+  "notification_ingestSent": {
+    "message": "به سرور tldw ارسال شد"
+  },
+  "notification_ingestSentDesc": {
+    "message": "صفحه فعلی برای درون‌ریزی ارسال شد."
+  },
+  "notification_processedLocal": {
+    "message": "به‌صورت محلی پردازش شد"
+  },
+  "notification_processedLocalDesc": {
+    "message": "محتوای پردازش‌شده به‌صورت محلی در تنظیمات > پردازش‌شده ذخیره شد."
+  },
+  "notification_transcriptionTitle": {
+    "message": "رونویسی"
+  },
+  "notification_transcriptionSummaryTitle": {
+    "message": "رونویسی + خلاصه"
+  },
+  "notification_transcriptionFallback": {
+    "message": "رونویسی کامل شد. برای مشاهده، Media را در رابط وب باز کنید."
+  },
+  "notification_sourceLabel": {
+    "message": "منبع"
+  },
+  "notification_transcriptLabel": {
+    "message": "رونویسی"
+  },
+  "notification_summaryLabel": {
+    "message": "خلاصه"
+  },
+  "saveStatus_ephemeral": {
+    "message": "موقتی: ذخیره نمی شود، با بستن پاک می شود"
+  },
+  "saveStatus_local": {
+    "message": "به صورت محلی در این مرورگر ذخیره شد"
+  },
+  "saveStatus_server": {
+    "message": "در سرور ذخیره شد"
+  },
+  "saveStatus_saveFailed": {
+    "message": "ذخیره گفتگو روی سرور ناموفق بود"
+  },
+  "saveStatus_saveFailedDescription": {
+    "message": "اکنون گفتگو فقط به صورت محلی ذخیره می شود. اتصال خود را بررسی کرده و دوباره تلاش کنید."
+  },
+  "rag_searchPlaceholder": {
+    "message": "جستجوی دانش شما…"
+  },
+  "rag_search": {
+    "message": "جستجو"
+  },
+  "rag_show": {
+    "message": "Show RAG search"
+  },
+  "rag_hide": {
+    "message": "Hide RAG search"
+  },
+  "rag_addTagPlaceholder": {
+    "message": "افزودن برچسب (Enter)"
+  },
+  "rag_add": {
+    "message": "افزودن"
+  },
+  "rag_noResults": {
+    "message": "نتیجه‌ای یافت نشد"
+  },
+  "rag_timeout_message": {
+    "message": "درخواست زمان‌بر شد."
+  },
+  "rag_timeout_increase": {
+    "message": "افزایش زمان انتظار"
+  },
+  "rag_timeout_checkHealth": {
+    "message": "بررسی سلامت سرور"
+  },
+  "rag_actions_insert": {
+    "message": "درج"
+  },
+  "rag_actions_ask": {
+    "message": "پرسش"
+  },
+  "rag_actions_open": {
+    "message": "باز کردن"
+  },
+  "rag_actions_copy": {
+    "message": "کپی"
+  },
+  "rag_hint_message": {
+    "message": "در پایگاه دانش خود جستجو کنید و نتایج را در پیام خود درج کنید."
+  },
+  "rag_hint_dismiss": {
+    "message": "بستن"
+  },
+  "tabs_newChat": {
+    "message": "چت جدید"
+  },
+  "tabs_newTabAria": {
+    "message": "زبانه چت جدید"
+  },
+  "tabs_closeTabAria": {
+    "message": "بستن زبانه چت"
+  }
+}

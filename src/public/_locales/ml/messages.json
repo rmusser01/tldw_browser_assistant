@@ -234,79 +234,79 @@
     "message": "OCR ആസറ്റുകൾ പ്രവർത്തനക്ഷമമാക്കി തയ്യാറാക്കി"
   },
   "omniSearchPlaceholder": {
-    "message": "Search screens, chats, media, notes…",
+    "message": "സ്ക്രീനുകൾ, ചാറ്റുകൾ, മീഡിയ, നോട്ടുകൾ തിരയുക…",
     "description": "Placeholder text for the omni-search input in the header."
   },
   "omniSearchNoResults": {
-    "message": "No matches for \"{{query}}\".",
+    "message": "\"{{query}}\" ന് പൊരുത്തങ്ങളൊന്നും കണ്ടെത്തിയില്ല.",
     "description": "No-results text for omni-search when nothing matches the query."
   },
   "omniSearchCreateNote": {
-    "message": "Create note \"{{query}}\"",
+    "message": "നോട്ട് \"{{query}}\" സൃഷ്ടിക്കുക",
     "description": "Omni-search action label to create a note from the current query."
   },
   "omniSearchCreateFlashcards": {
-    "message": "Create flashcard collection \"{{query}}\"",
+    "message": "ഫ്ലാഷ്‌കാർഡ് ശേഖരം \"{{query}}\" സൃഷ്ടിക്കുക",
     "description": "Omni-search action label to create a flashcard collection from the current query."
   },
   "omniSearchStartChat": {
-    "message": "Start new chat \"{{query}}\"",
+    "message": "പുതിയ ചാറ്റ് \"{{query}}\" ആരംഭിക്കുക",
     "description": "Omni-search action label to start a new chat from the current query."
   },
   "connectionCard_connectedCaption": {
-    "message": "Chat and tools are now available in Options and the sidepanel.",
+    "message": "ഓപ്ഷനുകളിലും സൈഡ് പാനലിലും ഇനി ചാറ്റും ഉപകരണങ്ങളും ലഭ്യമാണ്.",
     "description": "Caption under the server connection card when the extension is connected."
   },
   "quickIngestQueuedAria": {
-    "message": "{{label}} — {{count}} items queued — click to review and process",
+    "message": "{{label}} — {{count}} ഇനങ്ങൾ ക്യൂ ചെയ്തിരിക്കുന്നു — അവലോകനം ചെയ്ത് പ്രോസസ്സ് ചെയ്യാൻ ക്ലിക്ക് ചെയ്യുക",
     "description": "ARIA label template for the Quick ingest button when there are queued items."
   },
   "connectionCard_descriptionConnectedList_reviewMedia": {
-    "message": "Review media & transcripts",
+    "message": "മീഡിയയും ട്രാൻസ്ക്രിപ്റ്റുകളും അവലോകനം ചെയ്യുക",
     "description": "First bullet in the connected-state server connection card, highlighting media review."
   },
   "connectionCard_descriptionConnectedList_searchKnowledge": {
-    "message": "Search knowledge and notes",
+    "message": "നോളെജും നോട്ടുകളും തിരയുക",
     "description": "Second bullet in the connected-state server connection card, highlighting knowledge/notes search."
   },
   "connectionCard_descriptionConnectedList_useRag": {
-    "message": "Use RAG with your own documents",
+    "message": "സ്വന്തം ഡോക്യുമെന്റുകളുമായി RAG ഉപയോഗിക്കുക",
     "description": "Third bullet in the connected-state server connection card, highlighting retrieval-augmented generation usage."
   },
   "omniSearch_filterScreen": {
-    "message": "Screens",
+    "message": "സ്ക്രീനുകൾ",
     "description": "Filter label for screens in omni-search."
   },
   "omniSearch_filterChat": {
-    "message": "Chats",
+    "message": "ചാറ്റുകൾ",
     "description": "Filter label for chats in omni-search."
   },
   "omniSearch_filterMedia": {
-    "message": "Media",
+    "message": "മീഡിയ",
     "description": "Filter label for media in omni-search."
   },
   "omniSearch_filterNote": {
-    "message": "Notes",
+    "message": "നോട്ടുകൾ",
     "description": "Filter label for notes in omni-search."
   },
   "omniSearch_filterFlashcards": {
-    "message": "Flashcard Collections",
+    "message": "ഫ്ലാഷ്‌കാർഡ് ശേഖരങ്ങൾ",
     "description": "Filter label for flashcard collections in omni-search."
   },
   "omniSearch_filterPrompt": {
-    "message": "Prompts",
+    "message": "പ്രോംപ്റ്റുകൾ",
     "description": "Filter label for prompts in omni-search."
   },
   "omniSearch_filteringBy": {
-    "message": "Filtering by:",
+    "message": "ഫിൽറ്റർ ചെയ്യുന്നത്:",
     "description": "Prefix label shown before the active omni-search filter type."
   },
   "omniSearchCreateNoteSuccess": {
-    "message": "Note \"{{query}}\" created",
+    "message": "നോട്ട് \"{{query}}\" സൃഷ്ടിച്ചു",
     "description": "Confirmation toast message shown after creating a note from omni-search."
   },
   "omniSearchCreateFlashcardsSuccess": {
-    "message": "Flashcard collection \"{{query}}\" created",
+    "message": "ഫ്ലാഷ്‌കാർഡ് ശേഖരം \"{{query}}\" സൃഷ്ടിച്ചു",
     "description": "Confirmation toast message shown after creating a flashcard collection from omni-search."
   },
   "folders": {
@@ -360,11 +360,61 @@
   "specFallbackWarning": {
     "message": "ബണ്ടിൽ ചെയ്ത media.add സ്കീമ ഫാൾബാക്ക് (v{{version}}) ഉപയോഗിക്കുന്നു; ഫീൽഡുകൾ പഴകിയതായി തോന്നിയാൽ നിങ്ങളുടെ tldw_server /openapi.json പ്രകാരം ദയവായി പരിശോധിക്കുക."
   },
+  "applyPatch": {
+    "message": "പാച്ച് പ്രയോഗിക്കുക"
+  },
+  "recursive": {
+    "message": "(ആവർത്തനപരമായ)"
+  },
+  "complexArguments": {
+    "message": "[സങ്കീർണ്ണ ആർഗ്യുമെന്റുകൾ]"
+  },
+  "serverChatForkedLabel": {
+    "message": "ഫോർക്കുചെയ്ത ചാറ്റ്",
+    "description": "Label shown on chats that were forked from another server chat."
+  },
+  "serverChatForkedTooltip": {
+    "message": "ചാറ്റ് {{chatId}} നിന്ന് ഫോർക്കുചെയ്തത്",
+    "description": "Tooltip explaining which original server chat this chat was forked from."
+  },
+  "serverOffline": {
+    "message": "സെർവർ ഓഫ്ലൈനിലോ കോൺഫിഗർ ചെയ്തിട്ടില്ലയോ ആണ്"
+  },
+  "serverChats": {
+    "message": "സെർവർ ചാറ്റുകൾ"
+  },
+  "serverChatLoadError": {
+    "message": "സെർവർ ചാറ്റ് ലോഡ് ചെയ്യുന്നതിൽ പരാജയപ്പെട്ടു. നിങ്ങളുടെ കണക്ഷൻ പരിശോധന ചെയ്ത് വീണ്ടും ശ്രമിക്കുക."
+  },
+  "serverChatSourceLabel": {
+    "message": "സെർവർ"
+  },
   "serverChatsUnavailableNotConnected": {
     "message": "നിങ്ങളുടെ tldw സെർവറിലേക്ക് കണക്റ്റ് ചെയ്താൽ സെർവർ ചാറ്റുകൾ ലഭ്യമാകും."
   },
   "serverChatsUnavailableServerError": {
     "message": "സെർവർ ചാറ്റുകൾ ഇപ്പോൾ ലഭ്യമല്ല. സെർവർ ലോഗുകൾ പരിശോധിക്കുകയോ വീണ്ടും ശ്രമിക്കുകയോ ചെയ്യുക."
+  },
+  "fileChanges": {
+    "message": "ഫയൽ മാറ്റങ്ങൾ"
+  },
+  "deletions": {
+    "message": "ഇല്ലാതാക്കലുകൾ"
+  },
+  "gitOperations": {
+    "message": "Git പ്രവർത്തനങ്ങൾ"
+  },
+  "commands": {
+    "message": "കമാൻഡുകൾ"
+  },
+  "otherOperations": {
+    "message": "മറ്റ് പ്രവർത്തനങ്ങൾ"
+  },
+  "fileAccess": {
+    "message": "ഫയൽ പ്രവേശനം"
+  },
+  "notebookEdits": {
+    "message": "നോട്ട്ബുക്ക് തിരുത്തലുകൾ"
   },
   "noToolCalls": {
     "message": "ഇതുവരെ ടൂൾ കോൾ ഒന്നുമില്ല"
@@ -552,28 +602,25 @@
     "message": "അസംസ്കൃത ഉള്ളടക്കം കാണിക്കുക"
   },
   "notesSearch_exportNoteSuccess": {
-    "message": "Exported ({{size}})"
+    "message": "എക്സ്പോർട്ട് ചെയ്തു ({{size}})"
   },
   "notesSearch_exportSuccess": {
-    "message": "Exported {{count}} notes ({{size}})"
+    "message": "{{count}} നോട്ടുകൾ എക്സ്പോർട്ട് ചെയ്തു ({{size}})"
   },
   "notesSearch_exportCsvSuccess": {
-    "message": "Exported {{count}} notes as CSV ({{size}})"
+    "message": "{{count}} നോട്ടുകൾ CSV ആയി എക്സ്പോർട്ട് ചെയ്തു ({{size}})"
   },
   "notesSearch_exportJsonSuccess": {
-    "message": "Exported {{count}} notes as JSON ({{size}})"
+    "message": "{{count}} നോട്ടുകൾ JSON ആയി എക്സ്പോർട്ട് ചെയ്തു ({{size}})"
   },
-  "exportNoteSuccess": {
-    "message": "Exported ({{size}})"
+  "ttsShort": {
+    "message": "ശബ്ദം"
   },
-  "exportSuccess": {
-    "message": "Exported {{count}} notes ({{size}})"
+  "copyShort": {
+    "message": "പകർത്തുക"
   },
-  "exportCsvSuccess": {
-    "message": "Exported {{count}} notes as CSV ({{size}})"
-  },
-  "exportJsonSuccess": {
-    "message": "Exported {{count}} notes as JSON ({{size}})"
+  "branchShort": {
+    "message": "ബ്രാഞ്ച്"
   },
   "infoShort": {
     "message": "വിവരം"
@@ -612,13 +659,13 @@
     "message": "സാങ്കേതിക വിശദാംശങ്ങൾ മറയ്ക്കുക"
   },
   "error_createFolder": {
-    "message": "Failed to create folder"
+    "message": "ഫോൾഡർ സൃഷ്ടിക്കാൻ കഴിഞ്ഞില്ല"
   },
   "modelSelect_label": {
-    "message": "Model"
+    "message": "മോഡൽ"
   },
   "modelSelect_tooltip": {
-    "message": "Changes model for next message"
+    "message": "അടുത്ത സന്ദേശത്തിനായി മോഡൽ മാറ്റുന്നു"
   },
   "featureHints_knowledge_title": {
     "message": "നിങ്ങളുടെ നോളെജ് തിരയുക"
@@ -668,6 +715,18 @@
   "chatSidebar_notes": {
     "message": "നോട്ടുകൾ"
   },
+  "chatSidebar_flashcards": {
+    "message": "ഫ്ലാഷ്കാർഡുകൾ"
+  },
+  "chatSidebar_prompts": {
+    "message": "പ്രോംപ്റ്റുകൾ"
+  },
+  "chatSidebar_multiItem": {
+    "message": "പല ഇനങ്ങൾ"
+  },
+  "chatSidebar_shortcuts": {
+    "message": "ഷോർട്ട്കട്ടുകൾ"
+  },
   "chatSidebar_settings": {
     "message": "സെറ്റിംഗുകൾ"
   },
@@ -698,10 +757,2419 @@
   "chatSidebar_foldersRequireConnection": {
     "message": "ഫോൾഡറുകൾക്ക് സർവർ കണക്ഷൻ ആവശ്യമുണ്ട്"
   },
-  "option.more.copy.canonicalMarkdown": {
-    "message": "Copy canonical transcript"
+  "more_copy_canonicalMarkdown": {
+    "message": "കാനോണിക്കൽ ട്രാൻസ്ക്രിപ്റ്റ് പകർത്തുക"
   },
-  "option.more.download.canonicalMarkdown": {
-    "message": "Canonical transcript (Markdown)"
+  "more_download_canonicalMarkdown": {
+    "message": "കാനോണിക്കൽ ട്രാൻസ്ക്രിപ്റ്റ് (Markdown)"
+  },
+  "header_contentReview": {
+    "message": "ഉള്ളടക്കം റിവ്യൂ"
+  },
+  "contentReview_title": {
+    "message": "ഉള്ളടക്കം റിവ്യൂ",
+    "description": "Content review UI string."
+  },
+  "contentReview_readyToSubmit": {
+    "message": "{{count}} തയ്യാറായി",
+    "description": "Content review UI string."
+  },
+  "contentReview_committedCount": {
+    "message": "{{count}} സംഭരിച്ചിരിക്കുന്നു",
+    "description": "Content review UI string."
+  },
+  "contentReview_totalCount": {
+    "message": "മൊത്തം {{count}}",
+    "description": "Content review UI string."
+  },
+  "contentReview_commitAll": {
+    "message": "എല്ലാം കമ്മിറ്റുചെയ്യുക",
+    "description": "Content review UI string."
+  },
+  "contentReview_clearDrafts": {
+    "message": "ഡ്രാഫ്റ്റുകൾ മായ്ക്കുക",
+    "description": "Content review UI string."
+  },
+  "contentReview_emptyDescription": {
+    "message": "ഇപ്പോഴും ഒരു ഡ്രാഫ്റ്റും ഇല്ല. സംരക്ഷിക്കുന്നതിന് മുമ്പ് റിവ്യൂ ചെയ്യൽ ഓപ്ഷൻ ഉപയോഗിച്ച് Quick Ingest വഴി ഡ്രാഫ്റ്റുകൾ സൃഷ്ടിക്കാം.",
+    "description": "Content review UI string."
+  },
+  "contentReview_openQuickIngest": {
+    "message": "Quick Ingest തുറക്കുക",
+    "description": "Content review UI string."
+  },
+  "contentReview_storeAfterReview": {
+    "message": "റിവ്യൂ കഴിഞ്ഞ് സംഭരിക്കുക",
+    "description": "Content review UI string."
+  },
+  "contentReview_reviewBeforeStorage": {
+    "message": "സംരക്ഷിക്കുന്നതിന് മുമ്പ് റിവ്യൂ ചെയ്യുക",
+    "description": "Content review UI string."
+  },
+  "contentReview_reviewBeforeStorageHint": {
+    "message": "ഇപ്പോൾ പ്രോസസ്സ് ചെയ്യുക, തുടർന്ന് നിങ്ങളുടെ സെർവറിൽ കമ്മിറ്റുചെയ്യുന്നതിന് മുമ്പ് ഡ്രാഫ്റ്റുകൾ ലോക്കലായി എഡിറ്റ് ചെയ്യുക.",
+    "description": "Content review UI string."
+  },
+  "contentReview_reviewEnabled": {
+    "message": "റിവ്യൂ മോഡ്",
+    "description": "Content review UI string."
+  },
+  "contentReview_reviewStorageCap": {
+    "message": "ലോക്കൽ ഡ്രാഫ്റ്റുകൾ {{cap}} വരെ പരിമിതമാണ്.",
+    "description": "Content review UI string."
+  },
+  "contentReview_reviewWarningTitle": {
+    "message": "ഡ്രാഫ്റ്റുകൾ ലോക്കലായി സംഭരിക്കണോ?",
+    "description": "Content review UI string."
+  },
+  "contentReview_reviewWarningBody": {
+    "message": "ഡ്രാഫ്റ്റുകൾ ഈ ബ്രൗസറിൽ സംഭരിക്കപ്പെടുകയും സെൻസിറ്റീവ് ഡാറ്റ ഉൾക്കൊള്ളുകയും ചെയ്യാം. ഉള്ളടക്കം റിവ്യൂ പേജിൽ നിന്ന് നിങ്ങൾക്ക് ഏത് സമയത്തും ഡ്രാഫ്റ്റുകൾ മായ്ക്കാം.",
+    "description": "Content review UI string."
+  },
+  "contentReview_reviewWarningBodySecondary": {
+    "message": "നിങ്ങൾ സെർവറിലേക്ക് കമ്മിറ്റുചെയ്യുന്നതുവരെ റിവ്യൂ മോഡ് ഉള്ളടക്കം ക്ലയന്റ്-സൈഡിൽ നിലനിർത്തും.",
+    "description": "Content review UI string."
+  },
+  "contentReview_reviewWarningConfirm": {
+    "message": "റിവ്യൂ സജീവമാക്കുക",
+    "description": "Content review UI string."
+  },
+  "contentReview_reviewWarningCancel": {
+    "message": "റദ്ദാക്കുക",
+    "description": "Content review UI string."
+  },
+  "contentReview_reviewRunLabel": {
+    "message": "റിവ്യൂ",
+    "description": "Content review UI string."
+  },
+  "contentReview_reviewDraftsCreated": {
+    "message": "ഡ്രാഫ്റ്റുകൾ റിവ്യൂയ്ക്ക് തയ്യാറായി.",
+    "description": "Content review UI string."
+  },
+  "contentReview_reviewStorageCapWarning_one": {
+    "message": "{{count}} ഫയൽ ലോക്കൽ ഡ്രാഫ്റ്റ് പരിധി ({{cap}}) കവിയുന്നു. ഓഡിയോ/വീഡിയോ കമ്മിറ്റുചെയ്യുന്നതിന് മുമ്പ് സോഴ്‌സുകൾ അറ്റാച്ച് ചെയ്യുക.",
+    "description": "Content review UI string."
+  },
+  "contentReview_reviewStorageCapWarning_other": {
+    "message": "{{count}} ഫയലുകൾ ലോക്കൽ ഡ്രാഫ്റ്റ് പരിധി ({{cap}}) കവിയുന്നു. ഓഡിയോ/വീഡിയോ കമ്മിറ്റുചെയ്യുന്നതിന് മുമ്പ് സോഴ്‌സുകൾ അറ്റാച്ച് ചെയ്യുക.",
+    "description": "Content review UI string."
+  },
+  "contentReview_openContentReview": {
+    "message": "ഉള്ളടക്കം റിവ്യൂ തുറക്കുക",
+    "description": "Content review UI string."
+  },
+  "contentReview_batchLabel": {
+    "message": "ബാച്ച്",
+    "description": "Content review UI string."
+  },
+  "contentReview_batchName": {
+    "message": "ബാച്ച് {{index}}",
+    "description": "Content review UI string."
+  },
+  "contentReview_draftsLabel": {
+    "message": "ഡ്രാഫ്റ്റുകൾ",
+    "description": "Content review UI string."
+  },
+  "contentReview_selectDraft": {
+    "message": "റിവ്യൂ തുടങ്ങാൻ ഒരു ഡ്രാഫ്റ്റ് തിരഞ്ഞെടുക്കുക.",
+    "description": "Content review UI string."
+  },
+  "contentReview_titlePlaceholder": {
+    "message": "ഡ്രാഫ്റ്റിന്റെ ശീർഷകം",
+    "description": "Content review UI string."
+  },
+  "contentReview_lastSaved": {
+    "message": "{{time}} ന് സംരക്ഷിച്ചു",
+    "description": "Content review UI string."
+  },
+  "contentReview_resetTitle": {
+    "message": "ഡ്രാഫ്റ്റ് റീസെറ്റ് ചെയ്യണോ?",
+    "description": "Content review UI string."
+  },
+  "contentReview_resetBody": {
+    "message": "ഈ ഡ്രാഫ്റ്റിന്റെ ആദ്യത്തെ ഉള്ളടക്കം തിരിച്ചെടുക്കും.",
+    "description": "Content review UI string."
+  },
+  "contentReview_resetConfirm": {
+    "message": "റീസെറ്റ്",
+    "description": "Content review UI string."
+  },
+  "contentReview_resetCancel": {
+    "message": "റദ്ദാക്കുക",
+    "description": "Content review UI string."
+  },
+  "contentReview_resetContent": {
+    "message": "റീസെറ്റ്",
+    "description": "Content review UI string."
+  },
+  "contentReview_diffView": {
+    "message": "വ്യത്യാസങ്ങൾ കാണുക",
+    "description": "Content review UI string."
+  },
+  "contentReview_saveDraft": {
+    "message": "ഡ്രാഫ്റ്റ് സംരക്ഷിക്കുക",
+    "description": "Content review UI string."
+  },
+  "contentReview_editorLabel": {
+    "message": "ഉള്ളടക്കം",
+    "description": "Content review UI string."
+  },
+  "contentReview_wordCount": {
+    "message": "{{words}} വാക്കുകൾ",
+    "description": "Content review UI string."
+  },
+  "contentReview_charCount": {
+    "message": "{{chars}} പ്രതീകങ്ങൾ",
+    "description": "Content review UI string."
+  },
+  "contentReview_aiFix": {
+    "message": "AI വഴി തിരുത്തുക",
+    "description": "Content review UI string."
+  },
+  "contentReview_aiHint": {
+    "message": "ഡ്രാഫ്റ്റിന്റെ ഉള്ളടക്കം AI പ്രോസസിംഗിന് നിങ്ങളുടെ സെർവറിലേക്ക് അയക്കും.",
+    "description": "Content review UI string."
+  },
+  "contentReview_modelPlaceholder": {
+    "message": "സെർവർ ഡീഫോൾട്ട്",
+    "description": "Content review UI string."
+  },
+  "contentReview_aiConsentTitle": {
+    "message": "ഡ്രാഫ്റ്റ് സെർവറിലേക്ക് അയക്കണോ?",
+    "description": "Content review UI string."
+  },
+  "contentReview_aiConsentBody": {
+    "message": "ഡ്രാഫ്റ്റിന്റെ ഉള്ളടക്കം നിങ്ങളുടെ tldw സെർവറിലേക്ക് AI പ്രോസസിംഗിനായി അയക്കും. നിങ്ങൾ കമ്മിറ്റുചെയ്യുന്നതുവരെ ഡ്രാഫ്റ്റുകൾ ലോക്കലായി തന്നെ തുടരും.",
+    "description": "Content review UI string."
+  },
+  "contentReview_aiConsentConfirm": {
+    "message": "തുടരുക",
+    "description": "Content review UI string."
+  },
+  "contentReview_aiConsentCancel": {
+    "message": "റദ്ദാക്കുക",
+    "description": "Content review UI string."
+  },
+  "contentReview_aiApplied": {
+    "message": "AI തിരുത്തലുകൾ പ്രയോഗിച്ചു.",
+    "description": "Content review UI string."
+  },
+  "contentReview_aiNoChange": {
+    "message": "ഒരു മാറ്റവും വന്നില്ല.",
+    "description": "Content review UI string."
+  },
+  "contentReview_aiEmpty": {
+    "message": "AI യിൽ നിന്ന് ഉള്ളടക്കം ലഭിച്ചില്ല.",
+    "description": "Content review UI string."
+  },
+  "contentReview_aiUnavailable": {
+    "message": "ചാറ്റ് പൂർത്തിയാക്കൽ ലഭ്യമല്ല.",
+    "description": "Content review UI string."
+  },
+  "contentReview_templatePlaceholder": {
+    "message": "ടെംപ്ലേറ്റ് തിരഞ്ഞെടുക്കുക",
+    "description": "Content review UI string."
+  },
+  "contentReview_applyTemplate": {
+    "message": "ടെംപ്ലേറ്റ് പ്രയോഗിക്കുക",
+    "description": "Content review UI string."
+  },
+  "contentReview_templateApplied": {
+    "message": "ടെംപ്ലേറ്റ് പ്രയോഗിച്ചു.",
+    "description": "Content review UI string."
+  },
+  "contentReview_templateMissing": {
+    "message": "ആദ്യം ഒരു ടെംപ്ലേറ്റ് തിരഞ്ഞെടുക്കുക.",
+    "description": "Content review UI string."
+  },
+  "contentReview_detectSections": {
+    "message": "വിഭാഗങ്ങൾ കണ്ടെത്തുക",
+    "description": "Content review UI string."
+  },
+  "contentReview_detectSectionsTitle": {
+    "message": "വിഭാഗങ്ങൾ വീണ്ടും കണ്ടെത്തണോ?",
+    "description": "Content review UI string."
+  },
+  "contentReview_detectSectionsBody": {
+    "message": "ഇത് നിലവിലുള്ള വിഭാഗങ്ങളെ മാറ്റിസ്ഥാപിക്കുകയും നിങ്ങളുടെ തിരഞ്ഞെടുപ്പുകൾ റീസെറ്റ് ചെയ്യുകയും ചെയ്യും.",
+    "description": "Content review UI string."
+  },
+  "contentReview_detectSectionsConfirm": {
+    "message": "വീണ്ടും കണ്ടെത്തുക",
+    "description": "Content review UI string."
+  },
+  "contentReview_detectSectionsCancel": {
+    "message": "റദ്ദാക്കുക",
+    "description": "Content review UI string."
+  },
+  "contentReview_detectSectionsEmpty": {
+    "message": "ഒരു വിഭാഗവും കണ്ടെത്തിയില്ല.",
+    "description": "Content review UI string."
+  },
+  "contentReview_sectionsLabel": {
+    "message": "വിഭാഗ ഫിൽറ്റർ",
+    "description": "Content review UI string."
+  },
+  "contentReview_templates_transcript_clean_label": {
+    "message": "ട്രാൻസ്ക്രിപ്റ്റ് ശുദ്ധമാക്കുക",
+    "description": "Content review UI string."
+  },
+  "contentReview_templates_transcript_clean_description": {
+    "message": "ലൈൻ ഘടന നിലനിർത്തിക്കൊണ്ട് ചിന്നങ്ങളും വലിയ/ചെറിയ അക്ഷരങ്ങളും നോർമലൈസ് ചെയ്യുന്നു.",
+    "description": "Content review UI string."
+  },
+  "contentReview_templates_speaker_turns_label": {
+    "message": "സ്പീക്കർ ടേൺസ്",
+    "description": "Content review UI string."
+  },
+  "contentReview_templates_speaker_turns_description": {
+    "message": "ഓരോ സംസാരിക്കുന്നവരുടെ ടേണും വ്യക്തമായ ലേബലുകളോടെ വേറിട്ട വരിയിൽ വരുമെന്ന് ഉറപ്പാക്കുന്നു.",
+    "description": "Content review UI string."
+  },
+  "contentReview_templates_chapter_headings_label": {
+    "message": "അദ്ധ്യായ തലക്കെട്ടുകൾ",
+    "description": "Content review UI string."
+  },
+  "contentReview_templates_chapter_headings_description": {
+    "message": "ഉള്ളടക്കം നീക്കം ചെയ്യാതെയായി വിഷയങ്ങൾ ഗ്രൂപ്പാക്കാൻ Markdown തലക്കെട്ടുകൾ ചേർക്കുന്നു.",
+    "description": "Content review UI string."
+  },
+  "contentReview_metadataLabel": {
+    "message": "മെറ്റാഡാറ്റ",
+    "description": "Content review UI string."
+  },
+  "contentReview_mediaType": {
+    "message": "മീഡിയ ടൈപ്പ്",
+    "description": "Content review UI string."
+  },
+  "contentReview_keywords": {
+    "message": "കീവേഡുകൾ",
+    "description": "Content review UI string."
+  },
+  "contentReview_keywordsPlaceholder": {
+    "message": "കീവേഡുകൾ ചേർക്കുക",
+    "description": "Content review UI string."
+  },
+  "contentReview_reviewNotes": {
+    "message": "റിവ്യൂ നോട്ട്‌സ്",
+    "description": "Content review UI string."
+  },
+  "contentReview_missingSource": {
+    "message": "സോഴ്‌സ് ഫയൽ കാണുന്നില്ല",
+    "description": "Content review UI string."
+  },
+  "contentReview_missingSourceBody": {
+    "message": "ഈ ഡ്രാഫ്റ്റ് കമ്മിറ്റുചെയ്യാൻ ഒറിജിനൽ ഫയൽ അറ്റാച്ച് ചെയ്യുക.",
+    "description": "Content review UI string."
+  },
+  "contentReview_attachSource": {
+    "message": "ഫയൽ അറ്റാച്ച് ചെയ്യുക",
+    "description": "Content review UI string."
+  },
+  "contentReview_actionsLabel": {
+    "message": "ആക്ഷനുകൾ",
+    "description": "Content review UI string."
+  },
+  "contentReview_commit": {
+    "message": "കമ്മിറ്റുചെയ്യുക",
+    "description": "Content review UI string."
+  },
+  "contentReview_commitDisabled": {
+    "message": "കമ്മിറ്റുചെയ്യുന്നതിന് മുമ്പ് ഒറിജിനൽ ഓഡിയോ/വീഡിയോ ഫയൽ അറ്റാച്ച് ചെയ്യുക.",
+    "description": "Content review UI string."
+  },
+  "contentReview_markReviewed": {
+    "message": "റിവ്യൂ ചെയ്‌തതായി മാർക്ക് ചെയ്യുക",
+    "description": "Content review UI string."
+  },
+  "contentReview_skipNext": {
+    "message": "സ്കിപ്പ് ചെയ്യുക",
+    "description": "Content review UI string."
+  },
+  "contentReview_discard": {
+    "message": "ഡിസ്‌കാർഡ്",
+    "description": "Content review UI string."
+  },
+  "contentReview_discardTitle": {
+    "message": "ഡ്രാഫ്റ്റ് ഡിസ്‌കാർഡ് ചെയ്യണോ?",
+    "description": "Content review UI string."
+  },
+  "contentReview_discardBody": {
+    "message": "ഈ ഡ്രാഫ്റ്റ് ഡിസ്‌കാർഡ് ചെയ്‌തതായി മാർക്ക് ചെയ്യപ്പെടുകയും റിവ്യൂയിൽ നിന്ന് നീക്കം ചെയ്യപ്പെടുകയും ചെയ്യും.",
+    "description": "Content review UI string."
+  },
+  "contentReview_discardConfirm": {
+    "message": "ഡിസ്‌കാർഡ്",
+    "description": "Content review UI string."
+  },
+  "contentReview_discardCancel": {
+    "message": "റദ്ദാക്കുക",
+    "description": "Content review UI string."
+  },
+  "contentReview_commitSuccess": {
+    "message": "ഡ്രാഫ്റ്റ് കമ്മിറ്റുചെയ്തു.",
+    "description": "Content review UI string."
+  },
+  "contentReview_commitAllTitle": {
+    "message": "റിവ്യൂ ചെയ്‌ത ഡ്രാഫ്റ്റുകൾ എല്ലാം കമ്മിറ്റുചെയ്യണോ?",
+    "description": "Content review UI string."
+  },
+  "contentReview_commitAllBody": {
+    "message": "റിവ്യൂ ചെയ്‌തതായി മാർക്ക് ചെയ്‌തിരിക്കുന്ന ഡ്രാഫ്റ്റുകൾ മാത്രമേ കമ്മിറ്റു ചെയ്യൂ.",
+    "description": "Content review UI string."
+  },
+  "contentReview_commitAllConfirm": {
+    "message": "എല്ലാം കമ്മിറ്റുചെയ്യുക",
+    "description": "Content review UI string."
+  },
+  "contentReview_commitAllCancel": {
+    "message": "റദ്ദാക്കുക",
+    "description": "Content review UI string."
+  },
+  "contentReview_commitAllResult": {
+    "message": "{{success}} കമ്മിറ്റുചെയ്തു · {{failed}} പരാജയപ്പെട്ടു",
+    "description": "Content review UI string."
+  },
+  "contentReview_storageCapWarning": {
+    "message": "ഈ ഫയൽ ലോക്കൽ ഡ്രാഫ്റ്റ് പരിധി ({{cap}}) കവിയുന്നു.",
+    "description": "Content review UI string."
+  },
+  "contentReview_clearTitle": {
+    "message": "എല്ലാ ഡ്രാഫ്റ്റുകളും മായ്ക്കണോ?",
+    "description": "Content review UI string."
+  },
+  "contentReview_clearBody": {
+    "message": "ഇത് ലോക്കൽ ഉള്ളടക്കം റിവ്യൂ ഡ്രാഫ്റ്റുകളും അനുബന്ധ അസറ്റുകളും എല്ലാം നീക്കം ചെയ്യും.",
+    "description": "Content review UI string."
+  },
+  "contentReview_clearConfirm": {
+    "message": "ഡ്രാഫ്റ്റുകൾ മായ്ക്കുക",
+    "description": "Content review UI string."
+  },
+  "contentReview_clearCancel": {
+    "message": "റദ്ദാക്കുക",
+    "description": "Content review UI string."
+  },
+  "contentReview_clearSuccess": {
+    "message": "ഡ്രാഫ്റ്റുകൾ മായ്ച്ചു.",
+    "description": "Content review UI string."
+  },
+  "contentReview_originalLabel": {
+    "message": "ഒറിജിനൽ",
+    "description": "Content review UI string."
+  },
+  "contentReview_editedLabel": {
+    "message": "എഡിറ്റ് ചെയ്‌തത്",
+    "description": "Content review UI string."
+  },
+  "reviewDraftsFailedTitle": {
+    "message": "റിവ്യൂ ഡ്രാഫ്റ്റുകൾ സൃഷ്ടിക്കാനായില്ല.",
+    "description": "Error title when review drafts creation fails."
+  },
+  "reviewDraftsFailedFallback": {
+    "message": "റിവ്യൂ ഡ്രാഫ്റ്റുകൾ സൃഷ്ടിക്കൽ പരാജയപ്പെട്ടു.",
+    "description": "Fallback error message for review drafts failure."
+  },
+  "reviewDraftsRetry": {
+    "message": "ഡ്രാഫ്റ്റ് സൃഷ്ടിക്കൽ വീണ്ടും ശ്രമിക്കുക",
+    "description": "Button label to retry creating review drafts."
+  },
+  "reviewDraftsStoreWithoutReview": {
+    "message": "റിവ്യൂ ഇല്ലാതെ സംഭരിക്കുക",
+    "description": "Action to store without review."
+  },
+  "reviewNavigationFailed": {
+    "message": "ഉള്ളടക്ക റിവ്യൂ തുറക്കാനായില്ല. വീണ്ടും ശ്രമിക്കുക.",
+    "description": "Error message when navigation to Content Review fails."
+  },
+  "reviewNavigationRetry": {
+    "message": "ഉള്ളടക്ക റിവ്യൂ വീണ്ടും തുറക്കുക",
+    "description": "Button label to retry opening Content Review."
+  },
+  "quickIngest_title": {
+    "message": "ക്വിക് ഇൻജെസ്റ്റ് മീഡിയ"
+  },
+  "quickIngest_subtitle": {
+    "message": "ഒരു അല്ലെങ്കിൽ ഒന്നിലധികം URLകൾ നൽകുക. ആവശ്യമെങ്കിൽ ഓരോ വരിയിലും തരം നിർബന്ധിതമാക്കുക."
+  },
+  "quickIngest_offlineTitle": {
+    "message": "സെർവർ ഓഫ്‌ലൈൻ — സ്റ്റേജിംഗ് മാത്രം"
+  },
+  "quickIngest_offlineDescription": {
+    "message": "ഇവിടെ URLകളും ഫയലുകളും ക്യൂ ചെയ്യാം, ഫീൽഡുകൾ പരിശോധിക്കാം; പക്ഷേ നിങ്ങളുടെ tldw സെർവർ ഓൺലൈൻ ആകുന്നതുവരെ ഇൻജെസ്റ്റ് നടത്തില്ല. ശേഷിക്കുന്ന ഇനങ്ങൾ പ്രോസസ്സ് ചെയ്യാൻ വീണ്ടും കണക്റ്റ് ചെയ്യുക."
+  },
+  "quickIngest_sourceHeading": {
+    "message": "സോഴ്‌സ് URLകൾ അല്ലെങ്കിൽ ഫയലുകൾ"
+  },
+  "quickIngest_storeRemote": {
+    "message": "റിമോട്ട് ഡിബിയിലേക്ക് സേവ് ചെയ്യുക"
+  },
+  "quickIngest_storeRemoteAria": {
+    "message": "ഇൻജെസ്റ്റ് ഫലങ്ങൾ നിങ്ങളുടെ tldw സർവറിൽ സംഭരിക്കുക"
+  },
+  "quickIngest_processOnlyAria": {
+    "message": "ഇൻജെസ്റ്റ് ഫലങ്ങൾ ലോക്കലിൽ മാത്രമായി പ്രോസസ്സ് ചെയ്യുക"
+  },
+  "quickIngest_storeRemoteHelp": {
+    "message": "ഇൻഡെക്സിംഗിനായി നിങ്ങളുടെ tldw സർവറിലേക്ക് അപ്‌ലോഡ് ചെയ്യുന്നു."
+  },
+  "quickIngest_processOnlyHelp": {
+    "message": "പ്രോസസ്സ് മാത്രമാക്കി ഫലങ്ങൾ ലോക്കലിൽ സൂക്ഷിക്കുക (JSON ഡൗൺലോഡ് ചെയ്യുക)."
+  },
+  "quickIngest_storageHeading": {
+    "message": "ഇൻജെസ്റ്റ് ഫലങ്ങൾ എവിടെ സൂക്ഷിക്കപ്പെടുന്നു"
+  },
+  "quickIngest_storageServerDescription": {
+    "message": "നിങ്ങളുടെ tldw സർവറിൽ സൂക്ഷിക്കുന്നു (RAG-നും പങ്കിട്ട വർക്ക്‌സ്പേസുകൾക്കും ശുപാർശ)."
+  },
+  "quickIngest_storageLocalDescription": {
+    "message": "ഈ ബ്രൗസറിൽ മാത്രം സൂക്ഷിക്കുന്നു; നിങ്ങളുടെ സർവറിൽ ഡാറ്റ എഴുതുന്നില്ല."
+  },
+  "quickIngest_storeAfterReview": {
+    "message": "റിവ്യൂ കഴിഞ്ഞ് സംഭരിക്കുക"
+  },
+  "quickIngest_reviewBeforeStorage": {
+    "message": "സംരക്ഷിക്കുന്നതിന് മുമ്പ് റിവ്യൂ ചെയ്യുക"
+  },
+  "quickIngest_reviewBeforeStorageHint": {
+    "message": "ഇപ്പോൾ പ്രോസസ്സ് ചെയ്യുക, തുടർന്ന് നിങ്ങളുടെ സെർവറിൽ കമ്മിറ്റുചെയ്യുന്നതിന് മുമ്പ് ഡ്രാഫ്റ്റുകൾ ലോക്കലായി എഡിറ്റ് ചെയ്യുക."
+  },
+  "quickIngest_reviewEnabled": {
+    "message": "റിവ്യൂ മോഡ്"
+  },
+  "quickIngest_reviewStorageCap": {
+    "message": "ലോക്കൽ ഡ്രാഫ്റ്റുകൾ {{cap}} വരെ പരിമിതമാണ്."
+  },
+  "quickIngest_reviewStorageCapWarning_one": {
+    "message": "{{count}} ഫയൽ ലോക്കൽ ഡ്രാഫ്റ്റ് പരിധി ({{cap}}) കവിയുന്നു. ഓഡിയോ/വീഡിയോ കമ്മിറ്റുചെയ്യുന്നതിന് മുമ്പ് സോഴ്‌സുകൾ അറ്റാച്ച് ചെയ്യുക."
+  },
+  "quickIngest_reviewStorageCapWarning_other": {
+    "message": "{{count}} ഫയലുകൾ ലോക്കൽ ഡ്രാഫ്റ്റ് പരിധി ({{cap}}) കവിയുന്നു. ഓഡിയോ/വീഡിയോ കമ്മിറ്റുചെയ്യുന്നതിന് മുമ്പ് സോഴ്‌സുകൾ അറ്റാച്ച് ചെയ്യുക."
+  },
+  "quickIngest_reviewWarningTitle": {
+    "message": "ഡ്രാഫ്റ്റുകൾ ലോക്കലായി സംഭരിക്കണോ?"
+  },
+  "quickIngest_reviewWarningBody": {
+    "message": "ഡ്രാഫ്റ്റുകൾ ഈ ബ്രൗസറിൽ സംഭരിക്കപ്പെടുകയും സെൻസിറ്റീവ് ഡാറ്റ ഉൾക്കൊള്ളുകയും ചെയ്യാം. ഉള്ളടക്കം റിവ്യൂ പേജിൽ നിന്ന് നിങ്ങൾക്ക് ഏത് സമയത്തും ഡ്രാഫ്റ്റുകൾ മായ്ക്കാം."
+  },
+  "quickIngest_reviewWarningBodySecondary": {
+    "message": "നിങ്ങൾ സെർവിലേക്ക് കമ്മിറ്റുചെയ്യുന്നതുവരെ റിവ്യൂ മോഡ് ഉള്ളടക്കം ക്ലയന്റ്-സൈഡിൽ നിലനിർത്തും."
+  },
+  "quickIngest_reviewWarningConfirm": {
+    "message": "റിവ്യൂ സജീവമാക്കുക"
+  },
+  "quickIngest_reviewWarningCancel": {
+    "message": "റദ്ദാക്കുക"
+  },
+  "quickIngest_reviewRunLabel": {
+    "message": "റിവ്യൂ"
+  },
+  "quickIngest_reviewDraftsCreated": {
+    "message": "ഡ്രാഫ്റ്റുകൾ റിവ്യൂയ്ക്ക് തയ്യാറായി."
+  },
+  "quickIngest_reviewDraftsFailedTitle": {
+    "message": "റിവ്യൂ ഡ്രാഫ്റ്റുകൾ സൃഷ്ടിക്കാനായില്ല."
+  },
+  "quickIngest_reviewDraftsFailedFallback": {
+    "message": "റിവ്യൂ ഡ്രാഫ്റ്റുകൾ സൃഷ്ടിക്കൽ പരാജയപ്പെട്ടു."
+  },
+  "quickIngest_reviewDraftsRetry": {
+    "message": "ഡ്രാഫ്റ്റ് സൃഷ്ടിക്കൽ വീണ്ടും ശ്രമിക്കുക"
+  },
+  "quickIngest_reviewDraftsStoreWithoutReview": {
+    "message": "റിവ്യൂ ഇല്ലാതെ സംഭരിക്കുക"
+  },
+  "quickIngest_reviewNavigationFailed": {
+    "message": "ഉള്ളടക്ക റിവ്യൂ തുറക്കാനായില്ല. വീണ്ടും ശ്രമിക്കുക."
+  },
+  "quickIngest_reviewNavigationRetry": {
+    "message": "ഉള്ളടക്ക റിവ്യൂ വീണ്ടും തുറക്കുക"
+  },
+  "quickIngest_openContentReview": {
+    "message": "ഉള്ളടക്കം റിവ്യൂ തുറക്കുക"
+  },
+  "quickIngest_storageDocsLink": {
+    "message": "ഇൻജെസ്റ്റും സംഭരണവും കുറിച്ച് കൂടുതൽ അറിയുക"
+  },
+  "quickIngest_storageDocsUrl": {
+    "message": "https://github.com/rmusser01/tldw_browser_assistant"
+  },
+  "quickIngest_bulkPlaceholder": {
+    "message": "URLകൾ പേസ്റ്റ് ചെയ്യുക (ഒരൊരെയായി ഓരോ വരിയിലും)"
+  },
+  "quickIngest_or": {
+    "message": "അഥവാ"
+  },
+  "quickIngest_remove": {
+    "message": "നീക്കം ചെയ്യുക"
+  },
+  "quickIngest_add": {
+    "message": "URL ചേർക്കുക"
+  },
+  "quickIngest_commonOptions": {
+    "message": "ഇൻജെസ്റ്റ്ഷൻ ഓപ്ഷനുകൾ"
+  },
+  "quickIngest_audioOptions": {
+    "message": "ഓഡിയോ ഓപ്ഷനുകൾ"
+  },
+  "quickIngest_audioLanguage": {
+    "message": "ഭാഷ (ഉദാ: en)"
+  },
+  "quickIngest_audioDiarizationHelp": {
+    "message": "ട്രാൻസ്ക്രിപ്റ്റുകളിൽ സംസാരിക്കുന്നവരെ വേർതിരിക്കാൻ ഓൺ ചെയ്യുക."
+  },
+  "quickIngest_documentOptions": {
+    "message": "ഡോക്യുമെന്റ് ഓപ്ഷനുകൾ"
+  },
+  "quickIngest_videoOptions": {
+    "message": "വീഡിയോ ഓപ്ഷനുകൾ"
+  },
+  "quickIngest_captionsHelp": {
+    "message": "ലഭ്യമെങ്കിൽ ടൈംസ്റ്റാമ്പുകളും ക്യാപ്ഷനുകളും ഉൾപ്പെടുത്തുക."
+  },
+  "quickIngest_cancel": {
+    "message": "റദ്ദാക്കുക"
+  },
+  "quickIngest_ingest": {
+    "message": "ഇൻജെസ്റ്റ്"
+  },
+  "quickIngest_process": {
+    "message": "പ്രോസസ്സ് ചെയ്യുക"
+  },
+  "quickIngest_results": {
+    "message": "ഫലങ്ങൾ"
+  },
+  "quickIngest_downloadJson": {
+    "message": "JSON ഡൗൺലോഡ് ചെയ്യുക"
+  },
+  "quickIngest_advancedSummary": {
+    "message": "{{count}} ഉന്നത ഫീൽഡുകൾ ലോഡ് ചെയ്തു"
+  },
+  "quickIngest_advancedEmpty": {
+    "message": "ഉന്നത ഓപ്ഷനുകൾ കണ്ടെത്തിയില്ല — സ്പെക് റീലോഡ് ചെയ്ത് നോക്കുക."
+  },
+  "quickIngest_modifiedCount": {
+    "message": "{{count}} മാറ്റം ചെയ്തു"
+  },
+  "quickIngest_progress": {
+    "message": "പ്രോസസ്സ് ചെയ്യുന്നു {{done}} / {{total}} ഇനങ്ങൾ…"
+  },
+  "quickIngest_errorSummary": {
+    "message": "ഇപ്പോൾ ഇൻജെസ്റ്റ് ഐറ്റങ്ങൾ പ്രോസസ്സ് ചെയ്യാൻ കഴിഞ്ഞില്ല."
+  },
+  "quickIngest_errorHint": {
+    "message": "നിങ്ങളുടെ tldw സർവർ ശരിയായി പ്രവർത്തിക്കുന്നുണ്ടോെന്ന് പരിശോധിച്ചതിന് ശേഷം വീണ്ടും ശ്രമിക്കുക. Health & diagnostics വിഭാഗം ഇൻജെസ്റ്റ് പ്രശ്നങ്ങൾ കണ്ടെത്താനും പരിഹരിക്കാനും സഹായിക്കും."
+  },
+  "quickIngest_checkHealthLink": {
+    "message": "Health & diagnostics ൽ സർവറിന്റെ ആരോഗ്യസ്ഥിതി പരിശോധിക്കുക"
+  },
+  "quickIngest_healthAriaHint": {
+    "message": "സമീപകാല റണ്ണുകൾ പരാജയപ്പെട്ടു — കൂടുതൽ വിവരങ്ങൾക്ക് മുകളിലെ ഹെഡറിൽ നിന്ന് Health & diagnostics തുറക്കുക."
+  },
+  "quickIngest_specReloadedToast": {
+    "message": "സർവറിൽ നിന്ന് അഡ്വാൻസ്ഡ് സ്പെക് വീണ്ടും ലോഡ് ചെയ്തു"
+  },
+  "quickIngest_specReloadedToastDiff": {
+    "message": "സർവറിൽ നിന്ന് അഡ്വാൻസ്ഡ് സ്പെക് വീണ്ടും ലോഡ് ചെയ്തു (ചേർത്ത ഫീൽഡുകൾ: {{added}}, നീക്കിയ ഫീൽഡുകൾ: {{removed}})"
+  },
+  "quickIngest_specFallbackWarning": {
+    "message": "ബണ്ടിൽ ചെയ്ത media.add സ്കീമ ഫാൾബാക്ക് (v{{version}}) ഉപയോഗിക്കുന്നു; ഫീൽഡുകൾ പഴകിയതായി തോന്നിയാൽ നിങ്ങളുടെ tldw_server /openapi.json പ്രകാരം ദയവായി പരിശോധിക്കുക."
+  },
+  "storeAfterReview": {
+    "message": "റിവ്യൂ കഴിഞ്ഞ് സംഭരിക്കുക"
+  },
+  "manageCharacters_actions_viewConversations": {
+    "message": "സംഭാഷണങ്ങൾ കാണുക"
+  },
+  "manageCharacters_aria_viewConversations": {
+    "message": "{{name}} എന്ന കഥാപാത്രത്തിനുള്ള സംഭാഷണങ്ങൾ കാണുക"
+  },
+  "manageCharacters_aria_searchResults": {
+    "message": "{{count}} കഥാപാത്രങ്ങൾ കണ്ടെത്തി"
+  },
+  "manageCharacters_conversations_title": {
+    "message": "{{name}} കഥാപാത്രത്തിനുള്ള സംഭാഷണങ്ങൾ"
+  },
+  "manageCharacters_conversations_titleGeneric": {
+    "message": "കഥാപാത്ര സംഭാഷണങ്ങൾ"
+  },
+  "manageCharacters_conversations_subtitle": {
+    "message": "ഈ കഥാപാത്രമായി തുടരാൻ ഒരു സംഭാഷണം തിരഞ്ഞെടുക്കുക."
+  },
+  "manageCharacters_conversations_empty": {
+    "message": "ഈ കഥാപാത്രത്തിനായി ഇനിയും സംഭാഷണങ്ങൾ കണ്ടെത്തിയിട്ടില്ല."
+  },
+  "manageCharacters_conversations_error": {
+    "message": "ഈ കഥാപാത്രത്തിനുള്ള സംഭാഷണങ്ങൾ ലോഡുചെയ്യാൻ കഴിഞ്ഞില്ല."
+  },
+  "manageCharacters_conversations_updated": {
+    "message": "പുതുക്കിയത് {{time}}"
+  },
+  "manageCharacters_conversations_unknownTime": {
+    "message": "അറിയില്ല"
+  },
+  "manageCharacters_conversations_resume": {
+    "message": "ചാറ്റ് തുടരുക"
+  },
+  "manageCharacters_conversations_untitled": {
+    "message": "ശീർഷകമില്ല"
+  },
+  "manageCharacters_conversations_mostRecent": {
+    "message": "ഏറ്റവും പുതിയത്"
+  },
+  "manageCharacters_conversations_resumeTooltip": {
+    "message": "ചാറ്റ് ചരിത്രം ലോഡ് ചെയ്ത് ഈ സംഭാഷണം തുടരുക"
+  },
+  "manageCharacters_preview_title": {
+    "message": "പ്രിവ്യൂ"
+  },
+  "manageCharacters_preview_show": {
+    "message": "പ്രിവ്യൂ കാണിക്കുക"
+  },
+  "manageCharacters_preview_hide": {
+    "message": "പ്രിവ്യൂ മറയ്ക്കുക"
+  },
+  "manageCharacters_preview_untitled": {
+    "message": "ശീർഷകമില്ലാത്ത കഥാപാത്രം"
+  },
+  "manageCharacters_preview_greeting": {
+    "message": "ആശംസ"
+  },
+  "manageCharacters_preview_behavior": {
+    "message": "പെരുമാറ്റം"
+  },
+  "manageCharacters_preview_empty": {
+    "message": "പ്രിവ്യൂ കാണാൻ ഫോം പൂരിപ്പിക്കുക"
+  },
+  "manageCharacters_advanced_show": {
+    "message": "അഡ്വാൻസ്ഡ് ഫീൽഡുകൾ കാണിക്കുക"
+  },
+  "manageCharacters_advanced_hide": {
+    "message": "അഡ്വാൻസ്ഡ് ഫീൽഡുകൾ മറയ്ക്കുക"
+  },
+  "chunkingPlayground_nav": {
+    "message": "ചങ്കിംഗ് പ്ലേഗ്രൗണ്ട്"
+  },
+  "chunkingPlayground_title": {
+    "message": "ചങ്കിംഗ് പ്ലേഗ്രൗണ്ട്"
+  },
+  "chunkingPlayground_description": {
+    "message": "പ്രോസസ്സിംഗിനായി ടെക്സ്റ്റ് ചെറുഭാഗങ്ങളായി വിഭജിക്കുന്നത് കാണാൻ വ്യത്യസ്ത ചങ്കിംഗ് ക്രമീകരണങ്ങൾ പരീക്ഷിക്കുക."
+  },
+  "chunkingPlayground_inputLabel": {
+    "message": "ചങ്ക് ചെയ്യാനുള്ള ടെക്സ്റ്റ്"
+  },
+  "chunkingPlayground_inputPlaceholder": {
+    "message": "ഇവിടെ ടെക്സ്റ്റ് പേസ്റ്റ് ചെയ്യുക അല്ലെങ്കിൽ ഒരു സാമ്പിൾ തിരഞ്ഞെടുക്കുക..."
+  },
+  "chunkingPlayground_uploadButton": {
+    "message": "ഫയൽ അപ്‌ലോഡ് ചെയ്യുക"
+  },
+  "chunkingPlayground_chunkButton": {
+    "message": "ടെക്സ്റ്റ് ചങ്ക് ചെയ്യുക"
+  },
+  "chunkingPlayground_methodLabel": {
+    "message": "ചങ്കിംഗ് രീതി"
+  },
+  "chunkingPlayground_maxSizeLabel": {
+    "message": "പരമാവധി ചങ്ക് വലുപ്പം"
+  },
+  "chunkingPlayground_overlapLabel": {
+    "message": "ഓവർലാപ്പ്"
+  },
+  "chunkingPlayground_languageLabel": {
+    "message": "ഭാഷ"
+  },
+  "chunkingPlayground_languages_auto": {
+    "message": "സ്വയം കണ്ടെത്തുക"
+  },
+  "chunkingPlayground_languages_en": {
+    "message": "ഇംഗ്ലീഷ്"
+  },
+  "chunkingPlayground_languages_es": {
+    "message": "സ്പാനിഷ്"
+  },
+  "chunkingPlayground_languages_fr": {
+    "message": "ഫ്രെഞ്ച്"
+  },
+  "chunkingPlayground_languages_de": {
+    "message": "ജർമ്മൻ"
+  },
+  "chunkingPlayground_languages_it": {
+    "message": "ഇറ്റാലിയൻ"
+  },
+  "chunkingPlayground_languages_pt": {
+    "message": "പോർച്ചുഗീസ്"
+  },
+  "chunkingPlayground_languages_zh": {
+    "message": "ചൈനീസ്"
+  },
+  "chunkingPlayground_languages_ja": {
+    "message": "ജാപ്പനീസ്"
+  },
+  "chunkingPlayground_languages_ko": {
+    "message": "കൊറിയൻ"
+  },
+  "chunkingPlayground_viewCards": {
+    "message": "കാർഡുകൾ"
+  },
+  "chunkingPlayground_viewInline": {
+    "message": "ഇൻലൈൻ"
+  },
+  "chunkingPlayground_stats": {
+    "message": "{{count}} ചങ്കുകൾ, ശരാശരി {{avgSize}} അക്ഷരങ്ങൾ"
+  },
+  "chunkingPlayground_textLoaded": {
+    "message": "ടെക്സ്റ്റ് ലോഡ് ചെയ്തു"
+  },
+  "chunkingPlayground_characters": {
+    "message": "അക്ഷരങ്ങൾ"
+  },
+  "chunkingPlayground_tabSingle": {
+    "message": "ഒറ്റ"
+  },
+  "chunkingPlayground_tabCompare": {
+    "message": "താരതമ്യം"
+  },
+  "chunkingPlayground_chunkIndex": {
+    "message": "ചങ്ക് {{index}}"
+  },
+  "chunkingPlayground_chunkInfo": {
+    "message": "ചങ്ക് {{index}}: {{words}} വാക്കുകൾ"
+  },
+  "chunkingPlayground_position": {
+    "message": "സ്ഥാനം: {{start}} - {{end}}"
+  },
+  "chunkingPlayground_additionalChunks": {
+    "message": "+{{count}} കൂടി"
+  },
+  "chunkingPlayground_charCount": {
+    "message": "{{count}} അക്ഷരങ്ങൾ"
+  },
+  "chunkingPlayground_wordCount": {
+    "message": "{{count}} വാക്കുകൾ"
+  },
+  "chunkingPlayground_noInput": {
+    "message": "ചങ്ക് ചെയ്യാൻ ടെക്സ്റ്റ് നൽകുക"
+  },
+  "chunkingPlayground_sharedInput": {
+    "message": "പങ്കിട്ട ഇൻപുട്ട് ടെക്സ്റ്റ്"
+  },
+  "chunkingPlayground_compareButton": {
+    "message": "ഇരുവരും താരതമ്യം ചെയ്യുക"
+  },
+  "chunkingPlayground_comparison": {
+    "message": "താരതമ്യം"
+  },
+  "chunkingPlayground_fewerChunks": {
+    "message": "കോൺഫിഗ് A {{diff}} കുറവ് ചങ്കുകൾ സൃഷ്ടിക്കുന്നു"
+  },
+  "chunkingPlayground_moreChunks": {
+    "message": "കോൺഫിഗ് A {{diff}} കൂടുതൽ ചങ്കുകൾ സൃഷ്ടിക്കുന്നു"
+  },
+  "chunkingPlayground_sameChunks": {
+    "message": "ഇരു കോൺഫിഗുകളും ഒരേ എണ്ണം ചങ്കുകൾ സൃഷ്ടിക്കുന്നു"
+  },
+  "chunkingPlayground_clickToChunk": {
+    "message": "ഫലങ്ങൾ കാണാൻ 'താരതമ്യം' ക്ലിക്കുചെയ്യുക"
+  },
+  "chunkingPlayground_overlapRegion": {
+    "message": "ഓവർലാപ്പ് മേഖല"
+  },
+  "chunkingPlayground_clickHint": {
+    "message": "ആ ചങ്കിൽ ശ്രദ്ധിക്കാൻ ഹൈലൈറ്റ് ചെയ്ത വിഭാഗത്തിൽ ക്ലിക്കുചെയ്യുക"
+  },
+  "chunkingPlayground_noContentFound": {
+    "message": "ഈ മീഡിയ ഇനത്തിന് ടെക്സ്റ്റ് ഉള്ളടക്കം കണ്ടെത്തിയില്ല"
+  },
+  "chunkingPlayground_loadContentError": {
+    "message": "മീഡിയ ഉള്ളടക്കം ലോഡ് ചെയ്യുന്നതിൽ പരാജയപ്പെട്ടു"
+  },
+  "chunkingPlayground_loadMediaListError": {
+    "message": "മീഡിയ ലൈബ്രറി ലോഡ് ചെയ്യുന്നതിൽ പരാജയപ്പെട്ടു"
+  },
+  "chunkingPlayground_selectMedia": {
+    "message": "മീഡിയ ഇനം തിരഞ്ഞെടുക്കുക..."
+  },
+  "chunkingPlayground_loadingMedia": {
+    "message": "ഉള്ളടക്കം ലോഡ് ചെയ്യുന്നു..."
+  },
+  "chunkingPlayground_noMediaFound": {
+    "message": "മീഡിയ കണ്ടെത്തിയില്ല"
+  },
+  "chunkingPlayground_mediaCount": {
+    "message": "{{count}} മീഡിയ ഇനങ്ങൾ ലഭ്യമാണ്"
+  },
+  "chunkingPlayground_inputSource_paste": {
+    "message": "ടെക്സ്റ്റ് പേസ്റ്റ് ചെയ്യുക"
+  },
+  "chunkingPlayground_inputSource_upload": {
+    "message": "ഫയൽ അപ്‌ലോഡ് ചെയ്യുക"
+  },
+  "chunkingPlayground_inputSource_sample": {
+    "message": "സാമ്പിൾ ടെക്സ്റ്റ്"
+  },
+  "chunkingPlayground_inputSource_media": {
+    "message": "മീഡിയ ലൈബ്രറിയിൽ നിന്ന്"
+  },
+  "chunkingPlayground_samples_article": {
+    "message": "വാർത്ത ലേഖനം"
+  },
+  "chunkingPlayground_samples_articleDesc": {
+    "message": "ശീർഷകങ്ങളോടെയുള്ള പല പാരഗ്രാഫുകളുള്ള ലേഖനം"
+  },
+  "chunkingPlayground_samples_code": {
+    "message": "സോഴ്‌സ് കോഡ്"
+  },
+  "chunkingPlayground_samples_codeDesc": {
+    "message": "ക്ലാസുകളും ഫംഗ്ഷനുകളും ഉള്ള Python കോഡ്"
+  },
+  "chunkingPlayground_samples_transcript": {
+    "message": "ട്രാൻസ്ക്രിപ്റ്റ്"
+  },
+  "chunkingPlayground_samples_transcriptDesc": {
+    "message": "ടൈംസ്റ്റാംപ് ചെയ്ത പോഡ്കാസ്റ്റ് ട്രാൻസ്ക്രിപ്റ്റ്"
+  },
+  "chunkingPlayground_samples_academic": {
+    "message": "അക്കാദമിക് പ്രബന്ധം"
+  },
+  "chunkingPlayground_samples_academicDesc": {
+    "message": "ഉദ്ധരണികളുള്ള സാങ്കേതിക എഴുത്ത്"
+  },
+  "chunkingPlayground_compare_title": {
+    "message": "ക്രമീകരണങ്ങൾ താരതമ്യം ചെയ്യുക"
+  },
+  "chunkingPlayground_compare_configA": {
+    "message": "ക്രമീകരണം A"
+  },
+  "chunkingPlayground_compare_configB": {
+    "message": "ക്രമീകരണം B"
+  },
+  "chunkingPlayground_mode_single": {
+    "message": "ഒറ്റ"
+  },
+  "chunkingPlayground_mode_compare": {
+    "message": "താരതമ്യം"
+  },
+  "managePrompts_importMode_merge": {
+    "message": "ലയിപ്പിക്കുക"
+  },
+  "managePrompts_importMode_replace": {
+    "message": "മാറ്റിസ്ഥാപിക്കുക"
+  },
+  "managePrompts_importMode_replaceConfirm": {
+    "message": "മാറ്റിസ്ഥാപിക്കൽ ഇമ്പോർട്ട് ചെയ്ത ഫയലോടെ നിലവിലുള്ള എല്ലാ പ്രോംപ്റ്റുകളും മേൽ എഴുതി മാറ്റും. തുടരണമോ?"
+  },
+  "flashcards_newDeckNameRequired": {
+    "message": "ഡെക്കിന്റെ പേര് നൽകുക."
+  },
+  "flashcards_dueAll": {
+    "message": "എല്ലാം"
+  },
+  "flashcards_dueNew": {
+    "message": "പുതിയത്"
+  },
+  "flashcards_dueLearning": {
+    "message": "പഠിക്കുന്നു"
+  },
+  "flashcards_dueDue": {
+    "message": "കാലാവധി"
+  },
+  "flashcards_reviewFailed": {
+    "message": "റിവ്യൂ പരാജയപ്പെട്ടു."
+  },
+  "flashcards_updateFailed": {
+    "message": "അപ്ഡേറ്റ് ചെയ്യുന്നത് പരാജയപ്പെട്ടു."
+  },
+  "flashcards_deleteFailed": {
+    "message": "ഇല്ലാതാക്കുന്നത് പരാജയപ്പെട്ടു."
+  },
+  "flashcards_missingVersion": {
+    "message": "പതിപ്പ് കാണുന്നില്ല; വീണ്ടും ലോഡ് ചെയ്ത് വീണ്ടും ശ്രമിക്കുക."
+  },
+  "flashcards_bulkDeleteResult": {
+    "message": "{{success}} നീക്കം ചെയ്തു · {{failed}} പരാജയപ്പെട്ടു"
+  },
+  "mediaPage_searchPlaceholder": {
+    "message": "മീഡിയ തിരയുക (ശീർഷകം/ഉള്ളടക്കം)"
+  },
+  "mediaPage_search": {
+    "message": "തിരയുക"
+  },
+  "mediaPage_clear": {
+    "message": "മായ്ക്കുക"
+  },
+  "mediaPage_types": {
+    "message": "തരങ്ങൾ"
+  },
+  "mediaPage_keywords": {
+    "message": "കീവേഡുകൾ"
+  },
+  "mediaPage_moreTags": {
+    "message": "+{{count}} കൂടുതൽ ടാഗുകൾ"
+  },
+  "mediaPage_resetFilters": {
+    "message": "ഫിൽട്ടറുകൾ പുനഃക്രമീകരിക്കുക"
+  },
+  "mediaPage_clearAll": {
+    "message": "എല്ലാം മായ്ക്കുക"
+  },
+  "mediaPage_content": {
+    "message": "ഉള്ളടക്കം"
+  },
+  "mediaPage_vertical": {
+    "message": "ലംബ"
+  },
+  "mediaPage_horizontal": {
+    "message": "തിരശ്ചീന"
+  },
+  "mediaPage_results": {
+    "message": "ഫലങ്ങൾ"
+  },
+  "mediaPage_noResults": {
+    "message": "ഫലങ്ങളില്ല"
+  },
+  "mediaPage_showSidebar": {
+    "message": "സൈഡ്ബാർ കാണിക്കുക"
+  },
+  "mediaPage_hideSidebar": {
+    "message": "സൈഡ്ബാർ മറയ്ക്കുക"
+  },
+  "mediaPage_viewer": {
+    "message": "വ്യൂവർ"
+  },
+  "mediaPage_selectItemsHint": {
+    "message": "ഇവിടെ കാണാൻ ഇടത് വശത്ത് നിന്ന് ഇനങ്ങൾ തിരഞ്ഞെടുക്കുക."
+  },
+  "mediaPage_mediaContent": {
+    "message": "മീഡിയ ഉള്ളടക്കം"
+  },
+  "mediaPage_copyContent": {
+    "message": "ഉള്ളടക്കം പകർത്തുക"
+  },
+  "mediaPage_contentCopied": {
+    "message": "ഉള്ളടക്കം പകർത്തി"
+  },
+  "mediaPage_metadataCopied": {
+    "message": "മീറ്റാഡാറ്റ പകർത്തി"
+  },
+  "mediaPage_analysisCopied": {
+    "message": "വിശകലനം പകർത്തി"
+  },
+  "mediaPage_copyFailed": {
+    "message": "പകർത്തൽ പരാജയപ്പെട്ടു"
+  },
+  "mediaPage_noContent": {
+    "message": "ലഭ്യമായ ഉള്ളടക്കം ഇല്ല"
+  },
+  "mediaPage_collapse": {
+    "message": "ചുരുക്കുക"
+  },
+  "mediaPage_expand": {
+    "message": "വികസിപ്പിക്കുക"
+  },
+  "mediaPage_media": {
+    "message": "മീഡിയ"
+  },
+  "mediaPage_searchingBanner": {
+    "message": "മീഡിയ തിരയുന്നു…"
+  },
+  "mediaPage_filterHelp": {
+    "message": "തിരയൽ ശീർഷകവും ഉള്ളടക്കവും പൊരുത്തപ്പെടുന്നതാണ്; തരം, കീവേഡുകൾ ഫലങ്ങൾ കൂടുതൽ ചുരുക്കുന്നു."
+  },
+  "mediaPage_noMediaTypes": {
+    "message": "മീഡിയ തരം ഒന്നും ലഭ്യമല്ല"
+  },
+  "mediaPage_resultsCount": {
+    "message": "{{selected}} തിരഞ്ഞെടുക്കപ്പെട്ടത് · {{open}} തുറന്നത്"
+  },
+  "mediaPage_clearSelection": {
+    "message": "എല്ലാം തിരഞ്ഞെടുക്കൽ നീക്കുക"
+  },
+  "mediaPage_itemsLabel": {
+    "message": "ഇനങ്ങൾ"
+  },
+  "mediaPage_contentLabel": {
+    "message": "ഉള്ളടക്ക വ്യൂ"
+  },
+  "mediaPage_filterByKeyword": {
+    "message": "കീവേഡ് പ്രകാരം ഫിൽട്ടർ ചെയ്യുക"
+  },
+  "mediaPage_keywordHelper": {
+    "message": "കീവേഡുകൾ ഇടത്തെ കീവേഡ് ഫിൽട്ടർ ഉപയോഗിച്ച് ഈ മീഡിയ കണ്ടെത്താൻ നിങ്ങളെ സഹായിക്കുന്നു"
+  },
+  "mediaPage_modeHint": {
+    "message": "വലത് വശത്തെ വ്യൂവറിൽ താരതമ്യം ചെയ്യാൻ ഒന്നിലധികം മീഡിയ ഇനങ്ങൾ തിരയുകയും സ്റ്റാക്ക് ചെയ്യുകയും ചെയ്യുക."
+  },
+  "mediaPage_viewerHelp": {
+    "message": "കീയ്ബോർഡ്: Tab അമർത്തി ഫലങ്ങളുടെ പട്ടികയിലേക്ക് പോകുക, Enter അല്ലെങ്കിൽ Space ഉപയോഗിച്ച് മീഡിയ ഇനങ്ങൾ സ്റ്റാക്ക് ചെയ്യുകയോ നീക്കുകയോ ചെയ്യുക, შემდეგ Prev/Next, ലേഔട്ട് നിയന്ത്രണങ്ങൾ എന്നിവ ഉപയോഗിച്ച് വ്യൂവറിൽ ഇനങ്ങൾക്കിടയിൽ സഞ്ചരിക്കുക."
+  },
+  "mediaPage_viewerHelpLabel": {
+    "message": "മൾട്ടി-ഐറ്റം റിവ്യൂയുടെ കീബോർഡ് ഷോർട്‌കട്ടുകൾ"
+  },
+  "mediaPage_mediaInspector": {
+    "message": "മീഡിയ ഇൻസ്പെക്ടർ"
+  },
+  "mediaPage_actionsLabel": {
+    "message": "പ്രവർത്തനങ്ങൾ"
+  },
+  "mediaPage_keywordsPlaceholder": {
+    "message": "കീവേഡുകൾ ചേർക്കുക..."
+  },
+  "mediaPage_noSelectionTitle": {
+    "message": "ഒരു മീഡിയ ഇനവും തിരഞ്ഞെടുത്തിട്ടില്ല"
+  },
+  "mediaPage_noSelectionDescription": {
+    "message": "ഇവിടെ ഉള്ളടക്കും വിശകലനവും കാണാൻ ഇടത് സൈഡ്ബാറിൽ നിന്ന് ഒരു മീഡിയ ഇനം തിരഞ്ഞെടുക്കുക."
+  },
+  "mediaPage_generateAnalysis": {
+    "message": "വിശകലനം സൃഷ്ടിക്കുക"
+  },
+  "mediaPage_generateAnalysisHint": {
+    "message": "പുതിയ വിശകലനം സൃഷ്ടിക്കുക"
+  },
+  "mediaPage_editAnalysis": {
+    "message": "വിശകലനം തിരുത്തുക"
+  },
+  "mediaPage_createNoteWithContent": {
+    "message": "ഉള്ളടക്കം ഉപയോഗിച്ച് കുറിപ്പ് സൃഷ്ടിക്കുക"
+  },
+  "mediaPage_createNoteWithContentAnalysis": {
+    "message": "ഉള്ളടക്കം + വിശകലനം ഉപയോഗിച്ച് കുറിപ്പ് സൃഷ്ടിക്കുക"
+  },
+  "mediaPage_untitled": {
+    "message": "ശീർഷകമില്ലാത്തത്"
+  },
+  "mediaPage_copyMetadata": {
+    "message": "മെറ്റാഡേറ്റ പകർത്തുക"
+  },
+  "mediaPage_statistics": {
+    "message": "സ്ഥിതിവിവരക്കണക്ക്"
+  },
+  "mediaPage_words": {
+    "message": "വാക്കുകൾ"
+  },
+  "mediaPage_characters": {
+    "message": "അക്ഷരങ്ങൾ"
+  },
+  "mediaPage_paragraphs": {
+    "message": "അവതരണങ്ങൾ"
+  },
+  "mediaPage_metadata": {
+    "message": "മെറ്റാഡേറ്റ"
+  },
+  "mediaPage_idLabel": {
+    "message": "ഐഡി"
+  },
+  "mediaPage_typeLabel": {
+    "message": "തരം"
+  },
+  "mediaPage_titleLabel": {
+    "message": "ശീർഷകം"
+  },
+  "mediaPage_source": {
+    "message": "ഉറവ്"
+  },
+  "mediaPage_notAvailable": {
+    "message": "ലഭ്യമല്ല"
+  },
+  "mediaPage_developerTools": {
+    "message": "ഡെവലപ്പർ ഉപകരണങ്ങൾ"
+  },
+  "mediaPage_nothingToSend": {
+    "message": "അയയ്ക്കാൻ ഉള്ള ഉള്ളടക്കം ഒന്നുമില്ല"
+  },
+  "mediaPage_emptyAnalysis": {
+    "message": "വിശകലനം ഒഴിഞ്ഞതാകാൻ പാടില്ല"
+  },
+  "mediaPage_noMediaId": {
+    "message": "ലഭ്യമായ മീഡിയ ID ഇല്ല"
+  },
+  "mediaPage_versionSaved": {
+    "message": "പുതിയ പതിപ്പായി സേവ് ചെയ്തു"
+  },
+  "mediaPage_saveFailed": {
+    "message": "പതിപ്പ് സേവ് ചെയ്യാൻ കഴിഞ്ഞില്ല"
+  },
+  "mediaPage_sendToChat": {
+    "message": "ചാറ്റിലേക്ക് അയയ്ക്കുക"
+  },
+  "mediaPage_saveAsVersion": {
+    "message": "പുതിയ പതിപ്പായി സേവ് ചെയ്യുക"
+  },
+  "mediaPage_analysisPlaceholder": {
+    "message": "വിശകലന ടെക്സ്റ്റ് നൽകുക..."
+  },
+  "mediaPage_wordCount": {
+    "message": "{{count}} വാക്കുകൾ"
+  },
+  "mediaPage_charCount": {
+    "message": "{{count}} അക്ഷരങ്ങൾ"
+  },
+  "mediaPage_pageRangeError": {
+    "message": "പേജ് 1-{{max}} ആയിരിക്കണം"
+  },
+  "mediaPage_pageRangeClamped": {
+    "message": "പേജ് {{page}} ലേക്ക് നാവിഗേറ്റ് ചെയ്യുന്നു"
+  },
+  "mediaPage_saveUnauthorized": {
+    "message": "സംരക്ഷിക്കാൻ അനുമതിയില്ല"
+  },
+  "flashcards_markdownSupportHint": {
+    "message": "Markdownയും LaTeXയും പിന്തുണയ്ക്കുന്നു."
+  },
+  "flashcards_extraHint": {
+    "message": "ഓപ്ഷണൽ സൂചനകൾ/വിവരണങ്ങൾ (Markdown + LaTeX പിന്തുണ)."
+  },
+  "flashcards_notesHint": {
+    "message": "ആന്തരിക കുറിപ്പുകൾ (Markdown + LaTeX പിന്തുണ)."
+  },
+  "header_modeSpeech": {
+    "message": "സ്പീച്ച്"
+  },
+  "playground_speech_title": {
+    "message": "സ്പീച്ച് പ്ലേഗ്രൗണ്ട്"
+  },
+  "playground_speech_subtitle": {
+    "message": "വോയ്സ് റെക്കോർഡ് ചെയ്ത് ട്രാൻസ്ക്രിപ്റ്റുകൾ തിരുത്തി ഒരിടത്ത് ഓഡിയോ സിന്തസൈസ് ചെയ്യുക."
+  },
+  "playground_speech_modeLabel": {
+    "message": "മോഡ്"
+  },
+  "playground_speech_modeRoundTrip": {
+    "message": "റൗണ്ട്-ട്രിപ്പ്"
+  },
+  "playground_speech_modeSpeak": {
+    "message": "സംസാരിക്കുക"
+  },
+  "playground_speech_modeListen": {
+    "message": "കേൾക്കുക"
+  },
+  "playground_speech_modeHint": {
+    "message": "ഈ ഉപകരണത്തിൽ അവസാന മോഡ് ഓർമ്മിക്കും."
+  },
+  "playground_speech_recordingWaveform": {
+    "message": "ലൈവ് റെക്കോർഡിംഗിന്റെ തരംഗരൂപം"
+  },
+  "playground_speech_playbackWaveform": {
+    "message": "പ്ലേബാക്ക് തരംഗരൂപം"
+  },
+  "playground_speech_sendToTts": {
+    "message": "TTS ലേക്ക് അയയ്ക്കുക"
+  },
+  "playground_speech_sendHint": {
+    "message": "അവസാന ട്രാൻസ്ക്രിപ്റ്റ് TTS ഡ്രാഫ്റ്റായി ഉപയോഗിക്കുക."
+  },
+  "playground_speech_download": {
+    "message": "ഡൗൺലോഡ്"
+  },
+  "playground_speech_downloadCurrent": {
+    "message": "ഇപ്പോഴത്തെ സെഗ്മെന്റ് ഡൗൺലോഡ് ചെയ്യുക"
+  },
+  "playground_speech_downloadAll": {
+    "message": "എല്ലാ സെഗ്മെന്റുകളും ഡൗൺലോഡ് ചെയ്യുക"
+  },
+  "playground_speech_segmentFormat": {
+    "message": "ഫോർമാറ്റ്"
+  },
+  "playground_speech_historyTitle": {
+    "message": "സ്പീച്ച് ചരിത്രം"
+  },
+  "playground_speech_historyAll": {
+    "message": "എല്ലാം"
+  },
+  "playground_speech_historyStt": {
+    "message": "വോയ്സ്-ടു-ടെക്സ്റ്റ്"
+  },
+  "playground_speech_historyTts": {
+    "message": "ടെക്സ്റ്റ്-ടു-വോയ്സ്"
+  },
+  "playground_speech_historySearch": {
+    "message": "ട്രാൻസ്ക്രിപ്റ്റുകൾ തിരയുക"
+  },
+  "playground_speech_historyRetentionHint": {
+    "message": "ഏറ്റവും പുതിയ {{count}} ഇനങ്ങൾ നിലനിർത്തുന്നു. എല്ലാം നീക്കാൻ \"എല്ലാം മായ്ക്കുക\" ഉപയോഗിക്കുക."
+  },
+  "playground_speech_useInTts": {
+    "message": "TTS ൽ ഉപയോഗിക്കുക"
+  },
+  "playground_speech_copy": {
+    "message": "പകർത്തുക"
+  },
+  "playground_speech_copySuccess": {
+    "message": "ക്ലിപ്പ്ബോർഡിലേക്ക് പകർത്തി"
+  },
+  "playground_speech_copyError": {
+    "message": "ട്രാൻസ്ക്രിപ്റ്റ് പകർത്താനായില്ല."
+  },
+  "playground_speech_providerTag": {
+    "message": "പ്രൊവൈഡർ"
+  },
+  "playground_speech_voiceTag": {
+    "message": "ശബ്ദം"
+  },
+  "playground_speech_emptyHistory": {
+    "message": "റെക്കോർഡിംഗ് ആരംഭിക്കുക അല്ലെങ്കിൽ ഓഡിയോ നിർമ്മിക്കുക; ഇവിടെ ചരിത്രം കാണാം."
+  },
+  "playground_speech_downloadDisabledBrowser": {
+    "message": "ബ്രൗസർ TTS ഡൗൺലോഡ് ചെയ്യാവുന്ന ഓഡിയോ സൃഷ്ടിക്കില്ല."
+  },
+  "playground_speech_downloadDisabledEmpty": {
+    "message": "ഡൗൺലോഡുകൾ സജീവമാക്കാൻ ഓഡിയോ നിർമ്മിക്കുക."
+  },
+  "playground_speech_transcriptLock": {
+    "message": "ലോക്ക് ചെയ്യുക"
+  },
+  "playground_speech_transcriptUnlock": {
+    "message": "അൺലോക്ക് ചെയ്യുക"
+  },
+  "playground_speech_transcriptEditHint": {
+    "message": "ഈ ട്രാൻസ്ക്രിപ്റ്റിന് എഡിറ്റിംഗ് സജ്ജമാണ്."
+  },
+  "playground_speech_transcriptLockedHint": {
+    "message": "ലൈവ് ട്രാൻസ്ക്രിപ്ഷൻ അപ്ഡേറ്റുകൾക്ക് ലോക്കാണ്."
+  },
+  "playground_speech_transcriptRecordingHint": {
+    "message": "റെക്കോർഡിംഗ് പുരോഗമിക്കുന്നു; ട്രാൻസ്ക്രിപ്റ്റ് ലോക്കാണ്."
+  },
+  "playground_tts_unsupportedFormatTitle": {
+    "message": "പിന്തുണയില്ലാത്ത ഓഡിയോ ഫോർമാറ്റ്"
+  },
+  "playground_tts_unsupportedFormatDescription": {
+    "message": "പ്രതികരണ ഫോർമാറ്റ് \"{{format}}\" പിന്തുണയില്ല. MP3 ആയി മടങ്ങും."
+  },
+  "playground_formError_noModel": {
+    "message": "ദയവായി ഒരു മോഡല്‍ തിരഞ്ഞെടുക്കുക"
+  },
+  "playground_formError_noEmbeddingModel": {
+    "message": "സെറ്റിംഗുകൾ > RAG പേജിലുള്ള എംബെഡിംഗ് മോഡല്‍ സജ്ജീകരിക്കുക"
+  },
+  "playground_form_textarea_placeholder": {
+    "message": "ഒരു സന്ദേശം ടൈപ്പ് ചെയ്യുക..."
+  },
+  "playground_form_webSearch_on": {
+    "message": "ഓണ്‍"
+  },
+  "playground_form_webSearch_off": {
+    "message": "ഓഫ്"
+  },
+  "playground_tooltip_searchInternet": {
+    "message": "ഇന്റര്‍നെറ്റ് തിരയുക"
+  },
+  "playground_tooltip_speechToText": {
+    "message": "സംഭാഷണം ടെക്സ്റ്റായി"
+  },
+  "playground_tooltip_uploadImage": {
+    "message": "ഇമേജ് അപ്‌ലോഡ് ചെയ്യുക"
+  },
+  "playground_tooltip_stopStreaming": {
+    "message": "സ്ട്രീമിംഗ് നിർത്തുക"
+  },
+  "playground_tooltip_knowledge": {
+    "message": "അറിവ്"
+  },
+  "playground_tooltip_clearContext": {
+    "message": "സന്ദർഭം മായ്ക്കുക"
+  },
+  "playground_tooltip_speechToTextServer": {
+    "message": "നിങ്ങളുടെ tldw സെർവർ വഴി ഡിക്റ്റേഷൻ"
+  },
+  "playground_tooltip_speechToTextBrowser": {
+    "message": "ബ്രൗസർ സ്പീച്ച് റികഗ്നിഷൻ വഴി ഡിക്റ്റേഷൻ"
+  },
+  "playground_tooltip_speechToTextDetails": {
+    "message": "ഉപയോഗിക്കുന്നു {{model}} · {{task}} · {{format}}. Settings → General → Speech-to-Text ൽ ക്രമീകരിക്കുക."
+  },
+  "playground_tooltip_vision": {
+    "message": "[പരീക്ഷണാത്മക] വിഷൻ ചാറ്റ്"
+  },
+  "playground_tooltip_uploadDocuments": {
+    "message": "ഡോക്യുമെന്റുകൾ അപ്‌ലോഡ് ചെയ്യുക (ബീറ്റ)"
+  },
+  "playground_sendWhenEnter": {
+    "message": "എന്റര്‍ അമര്‍ത്തുമ്പോള്‍ അയയ്ക്കുക"
+  },
+  "playground_welcome": {
+    "message": "നമസ്കാരം! ഇന്ന് എനിക്ക് നിങ്ങളെ എങ്ങനെ സഹായിക്കാൻ കഴിയും?"
+  },
+  "playground_useOCR": {
+    "message": "ചിത്രത്തിൽ നിന്ന് ടെക്സ്റ്റ് എടുക്കുക (OCR)"
+  },
+  "playground_tips_title": {
+    "message": "ടിപ്പുകൾ"
+  },
+  "playground_tips_quickIngest": {
+    "message": "Quick ingest ഉപയോഗിച്ച് ഡോക്യുമെന്റുകളും വെബ് പേജുകളും ചേർക്കുക."
+  },
+  "playground_tips_pickModelPrompt": {
+    "message": "ഹെഡറിൽ നിന്ന് ഒരു മോഡലും പ്രോംപ്റ്റും തിരഞ്ഞെടുക്കുക."
+  },
+  "playground_tips_startChatFocus": {
+    "message": "കണക്റ്റ് ചെയ്താൽ “ചാറ്റ് ആരംഭിക്കുക” കംപോസറെ ഫോക്കസ് ചെയ്യും."
+  },
+  "playground_tldwState_searching": {
+    "message": "നിങ്ങളുടെ tldw server നെ അന്വേഷിക്കുന്നു"
+  },
+  "playground_tldwState_running": {
+    "message": "tldw പ്രവര്‍ത്തിക്കുന്നു"
+  },
+  "playground_tldwState_notRunning": {
+    "message": "tldw server ലേക്ക് ബന്ധിപ്പിക്കാൻ കഴിയുന്നില്ല"
+  },
+  "playground_tldwState_connectionError": {
+    "message": "നിങ്ങൾക്ക് കണക്ഷൻ പ്രശ്നം ഉണ്ടെന്നു കാണുന്നു. ഈ <anchor>ഡോക്യുമെന്റേഷൻ</anchor> പരിശോധിക്കാൻ കൂടുതൽ സഹായത്തിനായി."
+  },
+  "playground_tldwState_openTldwSettings": {
+    "message": "tldw സെറ്റിംഗുകൾ തുറക്കുക"
+  },
+  "playground_tldwState_cancelSearch": {
+    "message": "തിരച്ചിൽ റദ്ദാക്കുക"
+  },
+  "playground_tldwState_connectionFailedWithCode": {
+    "message": "കണക്ഷൻ പരാജയപ്പെട്ടു (HTTP {{code}})"
+  },
+  "playground_tldwState_connectionFailed": {
+    "message": "കണക്ഷൻ പരാജയപ്പെട്ടു"
+  },
+  "playground_tldwState_errorDetailsLabel": {
+    "message": "വിശദാംശങ്ങൾ:"
+  },
+  "playground_tldwState_title": {
+    "message": "നിങ്ങളുടെ tldw സെർവറിനായി കാത്തിരിക്കുന്നു"
+  },
+  "playground_tldwState_subtitle": {
+    "message": "{{host}} നെ പിംഗ് ചെയ്ത് കണക്ഷൻ പരിശോധിക്കുന്നു."
+  },
+  "playground_tldwState_missing": {
+    "message": "സർവർ URL ക്രമീകരിച്ചിട്ടില്ല"
+  },
+  "playground_tldwState_noServer": {
+    "message": "ചാറ്റ് തുടങ്ങാൻ നിങ്ങളുടെ tldw സെർവർ ചേർക്കുക."
+  },
+  "playground_tldwState_connectedSubtitle": {
+    "message": "{{host}} ലേക്ക് കണക്റ്റ് ചെയ്തു. നിങ്ങൾ തയ്യാറാകുമ്പോൾ ചാറ്റ് ആരംഭിക്കുക."
+  },
+  "playground_tldwState_errorSubtitle": {
+    "message": "ഇനിയും {{host}} എത്തിച്ചേരാനായില്ല. വീണ്ടും ശ്രമിക്കുകയോ സെർവർ സെറ്റിംഗുകൾ പുതുക്കുകയോ ചെയ്യുക."
+  },
+  "playground_tldwState_openSettings": {
+    "message": "സെറ്റിംഗുകൾ തുറക്കുക"
+  },
+  "playground_tldwState_changeServer": {
+    "message": "സെർവർ മാറ്റുക"
+  },
+  "playground_tldwState_elapsed": {
+    "message": "പരിശോധിക്കുന്നു… {{seconds}} സെ."
+  },
+  "playground_tldwState_connectedHint": {
+    "message": "{{host}} ലേക്ക് കണക്റ്റ് ചെയ്തു."
+  },
+  "playground_tldwState_lastChecked": {
+    "message": "{{seconds}} സെക്കൻഡ് മുമ്പ് പരിശോധിച്ചു"
+  },
+  "playground_tldwState_recheck": {
+    "message": "വീണ്ടും പരിശോധിക്കുക"
+  },
+  "playground_tldwState_errorToast": {
+    "message": "{{host}} എത്തിച്ചേരാനായില്ല"
+  },
+  "playground_tldwState_missingHelp": {
+    "message": "URL ചേർക്കാൻ Settings → tldw Server തുറക്കുക അല്ലെങ്കിൽ Options പേജിലേക്ക് കണക്റ്റ് ചെയ്യുക."
+  },
+  "playground_tldwState_troubleshoot": {
+    "message": "സെർവർ പ്രവർത്തിക്കുന്നുണ്ടെന്ന് ഉറപ്പാക്കി ബ്രൗസറിന് എത്തിച്ചേരാൻ അനുമതിയുണ്ടോ പരിശോധിച്ച് Options പേജിൽ നിന്ന് വീണ്ടും ശ്രമിക്കുക."
+  },
+  "playground_errors_privateModeDescription": {
+    "message": "Firefox സ്വകാര്യ മോഡിൽ ചാറ്റ് സംരക്ഷണം പിന്തുണയ്ക്കുന്നില്ല. താൽക്കാലിക ചാറ്റ് സ്ഥിരമായി ഓണാണ്. കൂടുതൽ മെച്ചപ്പെടുത്തലുകൾ വരുന്നു."
+  },
+  "playground_tts_playErrorTitle": {
+    "message": "പിശക്"
+  },
+  "playground_tts_playErrorDescription": {
+    "message": "ഓഡിയോ പ്ലേ ചെയ്യുമ്പോൾ എന്തോ പിശക് സംഭവിച്ചു"
+  },
+  "playground_tts_browserInfoTitle": {
+    "message": "ബ്രൗസർ TTS സിസ്റ്റം ഓഡിയോയാണ് ഉപയോഗിക്കുന്നത്"
+  },
+  "playground_tts_browserInfoDescription": {
+    "message": "ബ്രൗസർ TTS നിങ്ങളുടെ സിസ്റ്റം സിന്തസൈസർ ഉപയോഗിച്ച് പ്ലേ ചെയ്യുന്നു, ഡൗൺലോഡ് ചെയ്യാവുന്ന ഓഡിയോ ഫയൽ ലഭ്യമാക്കുന്നില്ല. താഴെയുള്ള സെഗ്മെന്റ് നിയന്ത്രണങ്ങൾ ഉപയോഗിക്കുക, അല്ലെങ്കിൽ ട്രാക്ക് ലിസ്റ്റും പ്ലെയറും ലഭിക്കാൻ പ്രൊവൈഡർ മാറ്റുക."
+  },
+  "playground_tts_unsupportedProviderTitle": {
+    "message": "പിന്തുണയില്ലാത്ത TTS പ്രൊവൈഡർ"
+  },
+  "playground_tts_unsupportedProviderDescription": {
+    "message": "\"{{provider}}\" പ്രൊവൈഡർ ഇപ്പോഴും പ്ലേയ്ഗ്രൗണ്ട് പ്ലെയറിൽ പിന്തുണയില്ല."
+  },
+  "playground_tts_elevenLabsMissingTitle": {
+    "message": "ElevenLabs ന് API കീ ആവശ്യമാണ്"
+  },
+  "playground_tts_elevenLabsMissingBody": {
+    "message": "വോയിസുകളും മോഡലുകളും ലോഡുചെയ്യാൻ Settings ൽ നിങ്ങളുടെ ElevenLabs API കീ ചേർക്കുക."
+  },
+  "playground_tts_elevenLabsUnavailableTitle": {
+    "message": "ElevenLabs ശബ്ദങ്ങൾ ലഭ്യമല്ല"
+  },
+  "playground_tts_elevenLabsUnavailableBody": {
+    "message": "വോയിസുകളോ മോഡലുകളോ ലോഡുചെയ്യാൻ കഴിഞ്ഞില്ല. നിങ്ങളുടെ API കീ പരിശോധിച്ച് വീണ്ടും ശ്രമിക്കുക."
+  },
+  "playground_tts_elevenLabsMissingCta": {
+    "message": "Settings ൽ API കീ സജ്ജമാക്കുക"
+  },
+  "playground_tts_generateErrorTitle": {
+    "message": "ഓഡിയോ സൃഷ്ടിക്കൽ പിശക്"
+  },
+  "playground_tts_generateErrorDescription": {
+    "message": "TTS ഓഡിയോ സൃഷ്ടിക്കുമ്പോൾ പിശക് സംഭവിച്ചു."
+  },
+  "playground_tts_sampleText": {
+    "message": "സാമ്പിൾ ടെക്സ്റ്റ് ചേർക്കുക"
+  },
+  "playground_tts_playHelper": {
+    "message": "Play തിരഞ്ഞെടുക്കുന്ന പ്രൊവൈഡർ, വോയ്സ്, വേഗം എന്നിവ ഉപയോഗിക്കുന്നു."
+  },
+  "playground_tts_playDisabledNoText": {
+    "message": "Play സജീവമാക്കാൻ ടെക്സ്റ്റ് നൽകുക."
+  },
+  "playground_tts_playDisabledTtsOff": {
+    "message": "ഓഡിയോ പ്ലേ ചെയ്യാൻ മുകളിലെ ടെക്സ്റ്റ്-ടു-സ്പീച്ച് സജീവമാക്കുക."
+  },
+  "playground_tts_playDisabledElevenLabs": {
+    "message": "പ്ലേ പ്രവർത്തനക്ഷമമാക്കാൻ ElevenLabs API കീ, ശബ്ദം, മോഡൽ എന്നിവ ചേർക്കുക."
+  },
+  "playground_tts_stopDisabled": {
+    "message": "ഓഡിയോ തുടങ്ങുന്നതിന് ശേഷം മാത്രമേ സ്റ്റോപ്പ് സജീവമാവൂ."
+  },
+  "playground_tts_providerChangeHelper": {
+    "message": "Browser, tldw, OpenAI അല്ലെങ്കിൽ Supersonic തമ്മിൽ മാറാൻ താഴെയുള്ള പ്രൊവൈഡർ സെലക്ടർ തുറക്കുക."
+  },
+  "playground_tts_changeProvider": {
+    "message": "പ്രൊവൈഡർ മാറ്റുക"
+  },
+  "playground_tts_title": {
+    "message": "TTS പ്ലേഗ്രൗണ്ട്"
+  },
+  "playground_tts_subtitle": {
+    "message": "ടെക്സ്റ്റ്-ടു-സ്പീച്ച് പരീക്ഷിച്ച് പ്രൊവൈഡറുകൾ, മോഡലുകൾ, വോയ്സുകൾ ക്രമീകരിക്കുക."
+  },
+  "playground_tts_currentProvider": {
+    "message": "നിലവിലെ പ്രൊവൈഡർ"
+  },
+  "playground_tts_settingsIntro": {
+    "message": "നിങ്ങളുടെ TTS പ്രൊവൈഡർ, മോഡൽ, വോയ്സ് എന്നിവ ക്രമീകരിക്കുക. ചാറ്റ് അല്ലെങ്കിൽ മീഡിയയിൽ നിന്ന് ഓഡിയോ പ്ലേ ചെയ്യുമ്പോൾ ഈ സെറ്റിംഗുകൾ പുനരുപയോഗിക്കും."
+  },
+  "playground_tts_providerCapabilities": {
+    "message": "പ്രൊവൈഡർ ശേഷികൾ"
+  },
+  "playground_tts_voicesPreview": {
+    "message": "സർവർ ശബ്ദങ്ങൾ"
+  },
+  "playground_tts_providerDetails": {
+    "message": "പ്രൊവൈഡർ കോൺഫിഗ് കാണുക"
+  },
+  "playground_tts_providerDetailsTitle": {
+    "message": "പ്രൊവൈഡർ വിശദാംശങ്ങൾ"
+  },
+  "playground_tts_inputLabel": {
+    "message": "ശബ്ദമായി കേൾക്കാൻ കുറച്ച് ടെക്സ്റ്റ് നൽകുക."
+  },
+  "playground_tts_inputPlaceholder": {
+    "message": "ഇവിടെ ടെക്സ്റ്റ് ടൈപ്പ് ചെയ്യുകയോ പേസ്റ്റ് ചെയ്യുകയോ ചെയ്ത്, Play ഉപയോഗിക്കുക."
+  },
+  "playground_tts_play": {
+    "message": "പ്ലേ"
+  },
+  "playground_tts_playing": {
+    "message": "പ്ലേ ചെയ്യുന്നു…"
+  },
+  "playground_tts_stop": {
+    "message": "നിർത്തുക"
+  },
+  "playground_tts_browserSegmentsTitle": {
+    "message": "ബ്രൗസർ TTS സെഗ്മെന്റുകൾ"
+  },
+  "playground_tts_browserSegmentsHelp": {
+    "message": "സിസ്റ്റം ഓഡിയോ ഉപയോഗിച്ച് സെഗ്മെന്റുകൾ ക്യൂ ചെയ്യുകയോ ഒറ്റ സെഗ്മെന്റ് പ്ലേ ചെയ്യുകയോ ചെയ്യുക."
+  },
+  "playground_tts_browserQueueAll": {
+    "message": "എല്ലാം ക്യൂ ചെയ്യുക"
+  },
+  "playground_tts_browserQueueFromHere": {
+    "message": "ഇവിടെ നിന്ന് ക്യൂ ചെയ്യുക"
+  },
+  "playground_tts_browserSegmentPlay": {
+    "message": "സെഗ്മെന്റ് പ്ലേ ചെയ്യുക"
+  },
+  "playground_tts_browserStatusSpeaking": {
+    "message": "സെഗ്മെന്റ് പ്ലേ ചെയ്യുന്നു {{current}}/{{total}}"
+  },
+  "playground_tts_browserStatusPaused": {
+    "message": "താൽക്കാലികമായി നിർത്തി"
+  },
+  "playground_tts_browserPause": {
+    "message": "താൽക്കാലികമായി നിർത്തുക"
+  },
+  "playground_tts_browserResume": {
+    "message": "തുടരുക"
+  },
+  "playground_tts_tldwStatusOnline": {
+    "message": "tldw സെർവർ ഓഡിയോ API കണ്ടെത്തി (audio/speech)"
+  },
+  "playground_tts_tldwStatusOffline": {
+    "message": "ഓഡിയോ API കണ്ടെത്തിയില്ല; tldw സെർവർ പതിപ്പ് പരിശോധിക്കുക."
+  },
+  "playground_tts_tldwWarningTitle": {
+    "message": "tldw audio/speech API കണ്ടെത്തിയില്ല"
+  },
+  "playground_tts_tldwWarningBody": {
+    "message": "നിങ്ങളുടെ tldw_server പതിപ്പിൽ /api/v1/audio/speech ഉൾപ്പെട്ടിട്ടുണ്ടെന്നും എക്സ്റ്റൻഷൻ സാധുവായ API കീയോടെ കണക്റ്റ് ചെയ്തിട്ടുണ്ടെന്നും ഉറപ്പാക്കുക."
+  },
+  "playground_tts_speechErrorTitle": {
+    "message": "ഡിക്റ്റേഷൻ പരാജയപ്പെട്ടു"
+  },
+  "playground_tts_speechErrorBody": {
+    "message": "ട്രാൻസ്ക്രിപ്ഷൻ അഭ്യർത്ഥന പരാജയപ്പെട്ടു. tldw സെർവർ ആരോഗ്യസ്ഥിതി പരിശോധിക്കുക."
+  },
+  "playground_tts_speechNoText": {
+    "message": "ട്രാൻസ്ക്രിപ്ഷനിൽ നിന്ന് ടെക്സ്റ്റ് ഒന്നും ലഭിച്ചില്ല."
+  },
+  "playground_tts_speechMicError": {
+    "message": "മൈക്രോഫോൺ പ്രവേശനം ലഭ്യമല്ല. ബ്രൗസർ അനുമതികൾ പരിശോധിച്ച് വീണ്ടും ശ്രമിക്കുക."
+  },
+  "playground_tts_savedToNotes": {
+    "message": "ട്രാൻസ്ക്രിപ്ഷൻ ഒരു കുറിപ്പായി സേവ് ചെയ്തു."
+  },
+  "playground_empty_title": {
+    "message": "പുതിയ ചാറ്റ് ആരംഭിക്കുക"
+  },
+  "playground_empty_description": {
+    "message": "വ്യത്യസ്ത മോഡലുകളും പ്രോംപ്റ്റുകളും അറിവ് ഉറവിടങ്ങളും ഇവിടെ പരീക്ഷിക്കുക."
+  },
+  "playground_empty_demoDescription": {
+    "message": "You’re in demo mode — try asking a question to see how the assistant responds. You can connect your own tldw server later."
+  },
+  "playground_empty_example1": {
+    "message": "ഒരു ചോദ്യം ചോദിച്ച്, ചർച്ച ചെയ്യാൻ ആഗ്രഹിക്കുന്ന ഡോക്യുമെന്റുകളോ വെബ് പേജുകളോ ഇവിടെ ഡ്രാഗ് ചെയ്യുക."
+  },
+  "playground_empty_example2": {
+    "message": "Quick ingest ഉപയോഗിച്ച് ട്രാൻസ്ക്രിപ്റ്റുകളോ കുറിപ്പുകളോ ചേർത്ത ശേഷം അവ ചാറ്റിൽ പരാമർശിക്കുക."
+  },
+  "playground_empty_example3": {
+    "message": "ഉത്തരങ്ങൾ താരതമ്യം ചെയ്യാൻ ഹെഡറിൽ നിന്ന് വ്യത്യസ്ത പ്രോംപ്റ്റുകളോ മോഡലുകളോ പരീക്ഷിക്കുക."
+  },
+  "playground_empty_primaryCta": {
+    "message": "ചാറ്റ് ആരംഭിക്കുക"
+  },
+  "playground_empty_secondaryCta": {
+    "message": "സെർവർ സെറ്റിംഗുകൾ തുറക്കുക"
+  },
+  "playground_drop_hint": {
+    "message": "ഫയലുകൾ നിങ്ങളുടെ സന്ദേശത്തിൽ ചേർക്കാൻ ഡ്രോപ്പ് ചെയ്യുക"
+  },
+  "playground_drop_readySingle": {
+    "message": "{{name}} അയക്കാൻ തയ്യാറാണ്"
+  },
+  "playground_drop_readyMultiple": {
+    "message": "{{count}} ഫയലുകൾ അയക്കാൻ തയ്യാറാണ്"
+  },
+  "playground_drop_unsupported": {
+    "message": "ആ ഫയൽ തരം പിന്തുണയില്ല. ഇമേജുകളോ ടെക്സ്റ്റ് ഫയലുകളോ ശ്രമിക്കുക."
+  },
+  "playground_drop_defaultFileName": {
+    "message": "ഫയൽ"
+  },
+  "playground_drop_imageOnly": {
+    "message": "ഇപ്പോൾ ഇവിടെ ഡ്രോപ്പ് ചെയ്യാൻ ഇമേജുകൾ മാത്രമേ പറ്റൂ."
+  },
+  "playground_drop_imageHint": {
+    "message": "നിങ്ങളുടെ സന്ദേശത്തിൽ ഉൾപ്പെടുത്താൻ ഒരു ഇമേജ് ഡ്രോപ്പ് ചെയ്യുക"
+  },
+  "playground_drop_overlayInstruction": {
+    "message": "അടുത്ത മറുപടിക്ക് ചേർക്കാൻ ഇമേജ് ഡ്രോപ്പ് ചെയ്യുക"
+  },
+  "playground_aria_chatTranscript": {
+    "message": "ചാറ്റ് സന്ദേശങ്ങൾ"
+  },
+  "playground_more_history": {
+    "message": "ചാറ്റ് സംരക്ഷണം"
+  },
+  "playground_more_searchKnowledge": {
+    "message": "തിരയൽ & RAG"
+  },
+  "playground_more_voice": {
+    "message": "കൂടുതൽ വോയിസ് ഓപ്ഷനുകൾ"
+  },
+  "playground_more_uploads": {
+    "message": "അപ്‌ലോഡുകൾ & ഇൻജെസ്റ്റ്"
+  },
+  "playground_fileRetrievalEnabled": {
+    "message": "Enable RAG for Documents"
+  },
+  "playground_stt_title": {
+    "message": "STT പ്ലേഗ്രൗണ്ട്"
+  },
+  "playground_stt_subtitle": {
+    "message": "ട്രാൻസ്ക്രിപ്ഷൻ മോഡലുകൾ പരീക്ഷിക്കുക, ദീർഘ ഡിക്റ്റേഷൻ സെഷനുകൾ നടത്തുക, ട്രാൻസ്ക്രിപ്റ്റുകൾ Notes ലേക്ക് സേവ് ചെയ്യുക."
+  },
+  "playground_stt_currentModelLabel": {
+    "message": "നിലവിലെ ട്രാൻസ്ക്രിപ്ഷൻ മോഡൽ"
+  },
+  "playground_stt_defaultModel": {
+    "message": "Settings ൽ നിന്ന് ഡിഫോൾട്ട്"
+  },
+  "playground_stt_settingsNotice": {
+    "message": "Language, task, response format, segmentation, prompt എന്നിവ Settings ൽ ഉള്ള Speech-to-Text ഡിഫോൾട്ടുകൾ പുനരുപയോഗിക്കുന്നു."
+  },
+  "playground_stt_sessionMode": {
+    "message": "സെഷൻ മോഡ്"
+  },
+  "playground_stt_modeLong": {
+    "message": "ദീർഘകാലം (ചങ്ക് ചെയ്ത റെക്കോർഡിംഗ്)"
+  },
+  "playground_stt_modeShort": {
+    "message": "ചുരുങ്ങിയ ഡിക്റ്റേഷൻ (ഒറ്റ ക്ലിപ്പ്)"
+  },
+  "playground_stt_languageTag": {
+    "message": "ഭാഷ"
+  },
+  "playground_stt_taskTag": {
+    "message": "ടാസ്ക്"
+  },
+  "playground_stt_formatTag": {
+    "message": "ഫോർമാറ്റ്"
+  },
+  "playground_stt_segmentationEnabled": {
+    "message": "സെഗ്മെന്റേഷൻ സജീവമാണ്"
+  },
+  "playground_stt_recordButton": {
+    "message": "റെക്കോർഡ്"
+  },
+  "playground_stt_stopButton": {
+    "message": "നിർത്തുക"
+  },
+  "playground_stt_startTooltip": {
+    "message": "ട്രാൻസ്ക്രിപ്ഷനായി ഓഡിയോ റെക്കോർഡിംഗ് ആരംഭിക്കുക"
+  },
+  "playground_stt_stopTooltip": {
+    "message": "നിർത്തി സെർവറിലേക്ക് അയയ്ക്കുക"
+  },
+  "playground_stt_transcribingButton": {
+    "message": "ലിപ്യന്തരം ചെയ്യുന്നു..."
+  },
+  "playground_stt_transcribingTooltip": {
+    "message": "ഓഡിയോ ലിപ്യന്തരം ചെയ്യുന്നു..."
+  },
+  "playground_stt_transcribingPlaceholder": {
+    "message": "ഓഡിയോ ലിപ്യന്തരം ചെയ്യുന്നു..."
+  },
+  "playground_stt_historyTitle": {
+    "message": "ട്രാൻസ്ക്രിപ്ഷൻ ചരിത്രം"
+  },
+  "playground_stt_clearAll": {
+    "message": "എല്ലാം മായ്ക്കുക"
+  },
+  "playground_stt_emptyHistory": {
+    "message": "ട്രാൻസ്ക്രിപ്റ്റുകൾ കാണാൻ റെക്കോർഡിംഗ് ആരംഭിക്കുക. ഏതൊരു ഇനവും Notes ലേക്ക് സേവ് ചെയ്യാം."
+  },
+  "playground_stt_saveToNotes": {
+    "message": "Notes ലേക്ക് സേവ് ചെയ്യുക"
+  },
+  "playground_stt_delete": {
+    "message": "ഇല്ലാതാക്കുക"
+  },
+  "playground_stt_durationTag": {
+    "message": "ദൈർഘ്യം"
+  },
+  "playground_stt_modelTag": {
+    "message": "മോഡൽ"
+  },
+  "playground_stt_currentTranscriptTitle": {
+    "message": "നിലവിലെ സെഷൻ ട്രാൻസ്ക്രിപ്റ്റ്"
+  },
+  "playground_stt_currentTranscriptPlaceholder": {
+    "message": "റെക്കോർഡ് ചെയ്യുമ്പോൾ ലൈവ് ട്രാൻസ്ക്രിപ്റ്റ് ഇവിടെ പ്രത്യക്ഷപ്പെടും."
+  },
+  "playground_actions_temporaryOn": {
+    "message": "താൽക്കാലിക ചാറ്റ് (സേവ് ചെയ്യില്ല)"
+  },
+  "playground_actions_temporaryOff": {
+    "message": "ചാറ്റ് ചരിത്രത്തിലേക്ക് സേവ് ചെയ്യുക"
+  },
+  "playground_actions_webSearchOn": {
+    "message": "വെബ് തിരച്ചിൽ ഓൺ"
+  },
+  "playground_actions_webSearchOff": {
+    "message": "വെബ് തിരച്ചിൽ ഓഫ്"
+  },
+  "playground_actions_speechStart": {
+    "message": "ഡിക്റ്റേഷൻ ആരംഭിക്കുക"
+  },
+  "playground_actions_speechStop": {
+    "message": "ഡിക്റ്റേഷൻ നിർത്തുക"
+  },
+  "playground_actions_streamStart": {
+    "message": "ലൈവ് ക്യാപ്ഷനുകൾ"
+  },
+  "playground_actions_streamStop": {
+    "message": "ക്യാപ്ഷനുകൾ നിർത്തുക"
+  },
+  "playground_actions_visionOn": {
+    "message": "വിഷൻ ഓൺ"
+  },
+  "playground_actions_visionOff": {
+    "message": "വിഷൻ ഓഫ്"
+  },
+  "playground_actions_upload": {
+    "message": "ഇമേജ് അറ്റാച്ച് ചെയ്യുക"
+  },
+  "playground_actions_ingest": {
+    "message": "ക്വിക് ഇൻജെസ്റ്റ്"
+  },
+  "playground_actions_ingestDisabled": {
+    "message": "ഇൻജെസ്റ്റ് ചെയ്യാൻ നിങ്ങളുടെ tldw സെർവറുമായി കണക്റ്റ് ചെയ്യുക."
+  },
+  "playground_actions_ingestHint": {
+    "message": "ഉന്നത ഓപ്ഷനുകളോടെ URLകൾ അല്ലെങ്കിൽ ഫയലുകൾ അപ്‌ലോഡ് ചെയ്യുക."
+  },
+  "playground_actions_ingestSub": {
+    "message": "URL/ഫയലുകൾ ഉപയോഗിക്കുക; ഡൗൺലോഡ് അല്ലെങ്കിൽ സംഭരിക്കുക."
+  },
+  "playground_actions_streamErrorTitle": {
+    "message": "ലൈവ് ക്യാപ്ഷനുകൾ ലഭ്യമല്ല"
+  },
+  "playground_composer_toolsButton": {
+    "message": "+ഉപകരണങ്ങൾ"
+  },
+  "playground_composer_queuedBanner_title": {
+    "message": "Queued while offline"
+  },
+  "playground_composer_queuedBanner_body": {
+    "message": "We’ll hold these messages and send them once your tldw server is connected."
+  },
+  "playground_composer_queuedBanner_sendNow": {
+    "message": "ക്യൂ ചെയ്ത സന്ദേശങ്ങൾ അയയ്ക്കുക"
+  },
+  "playground_composer_queuedBanner_clear": {
+    "message": "ക്യൂ ശൂന്യമാക്കുക"
+  },
+  "playground_composer_coreTools": {
+    "message": "സംഭാഷണ ഓപ്ഷനുകൾ"
+  },
+  "playground_composer_captureTools": {
+    "message": "ക്യാപ്ചർ & സഹായ ഉപകരണങ്ങൾ"
+  },
+  "playground_composer_actions": {
+    "message": "അയയ്ക്കൽ ഓപ്ഷനുകൾ"
+  },
+  "playground_composer_moreTools": {
+    "message": "കൂടുതൽ ഉപകരണങ്ങൾ"
+  },
+  "playground_composer_scrollToLatest": {
+    "message": "പുതിയ സന്ദേശങ്ങളിലേക്ക് സ്ക്രോൾ ചെയ്യുക"
+  },
+  "playground_composer_submitAria": {
+    "message": "സന്ദേശം അയയ്ക്കുക"
+  },
+  "playground_composer_openModelSettings": {
+    "message": "നിലവിലെ ചാറ്റ് ക്രമീകരണങ്ങൾ തുറക്കുക"
+  },
+  "playground_composer_stopStreaming": {
+    "message": "സ്റ്റ്രീമിംഗ് പ്രതികരണം നിർത്തുക"
+  },
+  "playground_composer_connectionPlaceholder": {
+    "message": "സന്ദേശങ്ങൾ അയയ്ക്കാനും മീഡിയ കാണാനുമായി സെറ്റിംഗുകളിൽ നിങ്ങളുടെ tldw സർവറുമായി ബന്ധിപ്പിക്കുക."
+  },
+  "playground_composer_connectNotice": {
+    "message": "സന്ദേശങ്ങൾ അയയ്ക്കാനും മീഡിയ കാണാനുമായി സെറ്റിംഗുകളിൽ നിങ്ങളുടെ tldw സർവറുമായി ബന്ധിപ്പിക്കുക."
+  },
+  "playground_composer_connectionChipDisconnected": {
+    "message": "സർവർ: ബന്ധിപ്പിച്ചിട്ടില്ല"
+  },
+  "playground_composer_contextLabel": {
+    "message": "സന്ദർഭം:"
+  },
+  "playground_composer_contextKnowledgeEmpty": {
+    "message": "അറിവ് ഒന്നും തിരഞ്ഞെടുക്കപ്പെട്ടിട്ടില്ല"
+  },
+  "playground_composer_contextTabs": {
+    "message": "{{count}} ടാബുകൾ"
+  },
+  "playground_composer_contextFiles": {
+    "message": "{{count}} ഫയലുകൾ"
+  },
+  "playground_composer_contextMedia": {
+    "message": "മീഡിയ & കുറിപ്പുകൾ"
+  },
+  "playground_composer_contextMediaHint": {
+    "message": "പ്രതികരണം നയിക്കേണ്ട മീഡിയ & കുറിപ്പുകൾ ചേർക്കുക."
+  },
+  "playground_composer_contextMediaSelected": {
+    "message": "മീഡിയ അല്ലെങ്കിൽ കുറിപ്പ്"
+  },
+  "playground_composer_contextMediaEmpty": {
+    "message": "ഇതുവരെ മീഡിയ & കുറിപ്പുകൾ ഒന്നും തിരഞ്ഞെടുക്കപ്പെട്ടിട്ടില്ല."
+  },
+  "playground_composer_addKnowledge": {
+    "message": "മീഡിയ & കുറിപ്പുകൾ ചേർക്കുക"
+  },
+  "playground_composer_contextTabsTitle": {
+    "message": "സന്ദർഭത്തിലുള്ള ടാബുകൾ"
+  },
+  "playground_composer_contextTabsHint": {
+    "message": "റഫറൻസ് ചെയ്ത ടാബുകൾ പരിശോധിച്ച് നീക്കുക, അല്ലെങ്കിൽ തുറന്നിരിക്കുന്ന ബ്രൗസർ ടാബുകളിൽ നിന്ന് കൂടുതൽ ചേർക്കുക."
+  },
+  "playground_composer_contextManager": {
+    "message": "സന്ദർഭ മാനേജ്മെന്റ്"
+  },
+  "playground_composer_contextManagerTitle": {
+    "message": "സന്ദർഭ മാനേജ്മെന്റ്"
+  },
+  "playground_composer_contextKnowledge": {
+    "message": "സന്ദർഭം & അറിവ്"
+  },
+  "playground_composer_contextKnowledgeClose": {
+    "message": "സന്ദർഭം & അറിവ് അടയ്‌ക്കുക"
+  },
+  "playground_composer_knowledgeSearch": {
+    "message": "അറിവ് തിരയൽ"
+  },
+  "playground_composer_knowledgeSearchClose": {
+    "message": "അറിവ് തിരയൽ അടയ്‌ക്കുക"
+  },
+  "playground_composer_persistence_ephemeral": {
+    "message": "Not saved in history; clears when you close this tab."
+  },
+  "playground_composer_persistence_local": {
+    "message": "Saved in this browser only."
+  },
+  "playground_composer_persistence_server": {
+    "message": "ലോകൽ+സർവർ ആയി സംരക്ഷിക്കുന്നു"
+  },
+  "playground_composer_persistence_ephemeralPill": {
+    "message": "താൽക്കാലികം"
+  },
+  "playground_composer_persistence_localPill": {
+    "message": "ലോകൽ മാത്രം"
+  },
+  "playground_composer_persistence_serverPill": {
+    "message": "ലോകൽ + സർവർ"
+  },
+  "playground_composer_persistence_saveToServer": {
+    "message": "ഈ ചാറ്റ് സർവറിലേക്കും സംരക്ഷിക്കുക"
+  },
+  "playground_composer_persistence_connectToSave": {
+    "message": "ചാറ്റുകൾ അവിടെ സംരക്ഷിക്കാൻ നിങ്ങളുടെ സർവറുമായി ബന്ധിപ്പിക്കുക."
+  },
+  "playground_composer_persistence_serverDefaultTitle": {
+    "message": "എക്സ്റ്റൻഷൻ ചാറ്റ്"
+  },
+  "playground_composer_persistence_serverSavedTitle": {
+    "message": "ചാറ്റ് ഇപ്പോൾ സർവറിൽ സംരക്ഷിച്ചു"
+  },
+  "playground_composer_persistence_serverSaved": {
+    "message": "ഈ ചാറ്റിലെ വരാനിരിക്കുന്ന സന്ദേശങ്ങൾ നിങ്ങളുടെ tldw സർവറുമായി സിങ്ക് ചെയ്യും."
+  },
+  "playground_composer_persistence_serverCharacterRequired": {
+    "message": "സർവറിൽ ഡീഫോൾട്ട് അസിസ്റ്റന്റ് കഥാപാത്രം കണ്ടെത്താനോ സൃഷ്ടിക്കാനോ കഴിഞ്ഞില്ല. കഥാപാത്രങ്ങൾ പേജിൽ നിന്ന് വീണ്ടും ശ്രമിക്കുക."
+  },
+  "playground_composer_connectToSend": {
+    "message": "സന്ദേശങ്ങൾ അയയ്ക്കാനും മീഡിയ കാണാനുമായി സെറ്റിംഗുകളിൽ നിങ്ങളുടെ tldw സർവറുമായി ബന്ധിപ്പിക്കുക."
+  },
+  "playground_composer_compareTag": {
+    "message": "താരതമ്യം"
+  },
+  "playground_composer_compareLabel": {
+    "message": "താരതമ്യ മോഡ്"
+  },
+  "playground_composer_compareButton": {
+    "message": "മോഡലുകൾ താരതമ്യം ചെയ്യുക"
+  },
+  "playground_composer_compareButtonActive": {
+    "message": "താരതമ്യം: {{count}} മോഡലുകൾ"
+  },
+  "playground_composer_compareButtonOn": {
+    "message": "താരതമ്യം സജീവമാണ്"
+  },
+  "playground_composer_compareSettingsTitle": {
+    "message": "താരതമ്യ ക്രമീകരണങ്ങൾ"
+  },
+  "playground_composer_compareSettingsToggle": {
+    "message": "താരതമ്യ മോഡ് പ്രവർത്തനക്ഷമമാക്കുക"
+  },
+  "playground_composer_compareSettingsToggleHint": {
+    "message": "നിങ്ങളുടെ അടുത്ത സന്ദേശം നിരവധി മോഡലുകൾക്ക് അയയ്ക്കുക."
+  },
+  "playground_composer_compareNoneSelected": {
+    "message": "താരതമ്യം ചെയ്യാൻ മോഡലുകൾ ഒന്നും തിരഞ്ഞെടുക്കപ്പെട്ടിട്ടില്ല."
+  },
+  "playground_composer_compareSingle": {
+    "message": "1 മോഡൽ താരതമ്യം ചെയ്യുന്നു"
+  },
+  "playground_composer_compareMany": {
+    "message": "{{count}} മോഡലുകൾ താരതമ്യം ചെയ്യുന്നു"
+  },
+  "playground_composer_compareActiveSummary": {
+    "message": "അടുത്ത ടേണിലെ സജീവ മോഡലുകൾ: {{label}}"
+  },
+  "playground_composer_compareModelPickerLabel": {
+    "message": "മോഡലുകൾ തിരഞ്ഞെടുക്കുക"
+  },
+  "playground_composer_compareModelPickerPlaceholder": {
+    "message": "താരതമ്യം ചെയ്യാൻ മോഡലുകൾ തിരഞ്ഞെടുക്കുക"
+  },
+  "playground_composer_compareActiveModelsLabel": {
+    "message": "സജീവ മോഡലുകൾ"
+  },
+  "playground_composer_compareActiveModelsHint": {
+    "message": "നിങ്ങളുടെ അടുത്ത സന്ദേശം ഓരോ സജീവ മോഡലിലേക്കും അയയ്ക്കപ്പെടും."
+  },
+  "playground_composer_compareSendToModels": {
+    "message": "{{count}} മോഡലുകൾക്ക് അയയ്ക്കുക"
+  },
+  "playground_composer_compareMaxModelsTitle": {
+    "message": "താരതമ്യ പരിധി എത്തിയിരിക്കുന്നു"
+  },
+  "playground_composer_compareMaxModels": {
+    "message": "ഒരു ടേണിൽ നിങ്ങൾക്ക് പരമാവധി {{limit}} മോഡലുകൾ വരെ താരതമ്യം ചെയ്യാം."
+  },
+  "playground_composer_compareMaxModelsTrimmed": {
+    "message": "താരതമ്യം ഓരോ ടേൺക്കും {{limit}} മോഡലുകൾക്ക് മാത്രം പരിമിതപ്പെടുത്തിയിരിക്കുന്നു. തിരഞ്ഞെടുക്കപ്പെട്ട ആദ്യ {{limit}} മോഡലുകൾ ആണ് ഉപയോഗിക്കുന്നത്."
+  },
+  "playground_composer_compareMaxLabel": {
+    "message": "ഓരോ ടേണിൽ പരമാവധി മോഡലുകൾ"
+  },
+  "playground_composer_compareMaxHelper": {
+    "message": "തിരഞ്ഞെടുത്തത് {{current}} / {{limit}}"
+  },
+  "playground_composer_compareSelectedLabel": {
+    "message": "ഉത്തരമായി തിരഞ്ഞെടുത്തത്:"
+  },
+  "playground_composer_compareContinueHint": {
+    "message": "തിരഞ്ഞെടുത്ത മോഡലുമായി ഈ ചാറ്റ് തുടരുക."
+  },
+  "playground_composer_compareContinue": {
+    "message": "ഈ മോഡലുമായി തുടരുക"
+  },
+  "playground_composer_compareThreadShared": {
+    "message": "നിങ്ങൾ (പങ്കിട്ടത്)"
+  },
+  "playground_composer_compareBulkSplitSuccess": {
+    "message": "{{count}} ചാറ്റുകൾ സൃഷ്ടിച്ചു"
+  },
+  "playground_composer_compareBulkSplitPartialFail": {
+    "message": "{{count}} ചാറ്റുകൾ സൃഷ്ടിക്കാൻ സാധിച്ചില്ല"
+  },
+  "playground_composer_validationCompareSelectModelsInline": {
+    "message": "താരതമ്യ മോഡിനായി കുറഞ്ഞത് ഒരു മോഡൽ എങ്കിലും തിരഞ്ഞെടുക്കുക."
+  },
+  "promptSelect_favorites": {
+    "message": "പ്രിയപ്പെട്ടവ"
+  },
+  "promptSelect_system": {
+    "message": "സിസ്റ്റം പ്രോംപ്റ്റുകൾ"
+  },
+  "promptSelect_quick": {
+    "message": "ദ്രുത പ്രോംപ്റ്റുകൾ"
+  },
+  "tabs_newChat": {
+    "message": "പുതിയ ചാറ്റ്"
+  },
+  "tabs_newTabAria": {
+    "message": "പുതിയ ചാറ്റ് ടാബ്"
+  },
+  "tabs_closeTabAria": {
+    "message": "ചാറ്റ് ടാബ് അടയ്ക്കുക"
+  },
+  "manageCharacters_title": {
+    "message": "കഥാപാത്രങ്ങൾ നിയന്ത്രിക്കുക"
+  },
+  "manageCharacters_addBtn": {
+    "message": "പുതിയ കഥാപാത്രം"
+  },
+  "manageCharacters_columns_name": {
+    "message": "പേര്"
+  },
+  "manageCharacters_columns_description": {
+    "message": "വിവരണം"
+  },
+  "manageCharacters_columns_actions": {
+    "message": "പ്രവർത്തനങ്ങൾ"
+  },
+  "manageCharacters_columns_avatar": {
+    "message": "അവതാർ"
+  },
+  "manageCharacters_actions_chat": {
+    "message": "ചാറ്റ്"
+  },
+  "manageCharacters_actions_edit": {
+    "message": "തിരുത്തുക"
+  },
+  "manageCharacters_actions_delete": {
+    "message": "ഇല്ലാതാക്കുക"
+  },
+  "manageCharacters_actions_duplicate": {
+    "message": "പകർത്തുക"
+  },
+  "manageCharacters_table_noDescription": {
+    "message": "വിവരണം ഇല്ല"
+  },
+  "manageCharacters_filter_matchAll": {
+    "message": "എല്ലാ ടാഗുകളും പൊരുത്തപ്പെടുത്തുക"
+  },
+  "manageCharacters_tags_label": {
+    "message": "ടാഗുകൾ"
+  },
+  "manageCharacters_tags_placeholder": {
+    "message": "ടാഗുകൾ ചേർക്കുക"
+  },
+  "manageCharacters_tags_help": {
+    "message": "ഉപയോഗകേസ് പ്രകാരം കഥാപാത്രങ്ങളെ ഗ്രൂപ്പ് ചെയ്യാൻ ടാഗുകൾ ഉപയോഗിക്കുക (ഉദാ., “എഴുത്ത്”, “പഠനം”)."
+  },
+  "manageCharacters_tooltip_edit": {
+    "message": "കഥാപാത്രം തിരുത്തുക"
+  },
+  "manageCharacters_tooltip_delete": {
+    "message": "കഥാപാത്രം ഇല്ലാതാക്കുക"
+  },
+  "manageCharacters_aria_chatWith": {
+    "message": "{{name}} ആയി ചാറ്റ് ചെയ്യുക"
+  },
+  "manageCharacters_aria_edit": {
+    "message": "കഥാപാത്രം തിരുത്തുക {{name}}"
+  },
+  "manageCharacters_aria_delete": {
+    "message": "കഥാപാത്രം ഇല്ലാതാക്കുക {{name}}"
+  },
+  "manageCharacters_aria_duplicate": {
+    "message": "{{name}} കഥാപാത്രം പകർത്തുക"
+  },
+  "manageCharacters_confirm_delete": {
+    "message": "ഈ കഥാപാത്രം ഇല്ലാതാക്കണമെന്ന് നിങ്ങൾക്ക് ഉറപ്പാണോ? ഈ പ്രവർത്തനം പിൻവലിക്കാനാവില്ല."
+  },
+  "manageCharacters_avatar_label": {
+    "message": "അവതാർ (ഐച്ഛികം)"
+  },
+  "manageCharacters_avatar_tabUrl": {
+    "message": "യുആർഎൽ"
+  },
+  "manageCharacters_avatar_tabUpload": {
+    "message": "അപ്‌ലോഡ്"
+  },
+  "manageCharacters_avatar_selectImageError": {
+    "message": "ഒരു ചിത്ര ഫയൽ തിരഞ്ഞെടുക്കുക"
+  },
+  "manageCharacters_avatar_formatError": {
+    "message": "PNG, JPEG, GIF ചിത്രങ്ങൾ മാത്രമേ പിന്തുണയ്ക്കൂ"
+  },
+  "manageCharacters_avatar_invalidError": {
+    "message": "അസാധുവായ ചിത്ര ഫയൽ"
+  },
+  "manageCharacters_avatar_processError": {
+    "message": "ചിത്രം പ്രോസസ്സ് ചെയ്യാൻ കഴിഞ്ഞില്ല"
+  },
+  "manageCharacters_avatar_dropzone": {
+    "message": "അപ്‌ലോഡ് ചെയ്യാൻ ക്ലിക്കുചെയ്യുക അല്ലെങ്കിൽ ചിത്രം വലിച്ചിടുക"
+  },
+  "manageCharacters_avatar_formats": {
+    "message": "PNG, JPEG അല്ലെങ്കിൽ GIF"
+  },
+  "manageCharacters_avatar_preview": {
+    "message": "പ്രിവ്യൂ"
+  },
+  "manageCharacters_form_name_label": {
+    "message": "പേര്"
+  },
+  "manageCharacters_form_name_placeholder": {
+    "message": "ഉദാ. എഴുത്ത് പരിശീലകൻ"
+  },
+  "manageCharacters_form_name_required": {
+    "message": "ദയവായി ഒരു പേര് നൽകുക"
+  },
+  "manageCharacters_form_description": {
+    "message": "സൈഡ്ബാറിൽ ചാറ്റ് ചെയ്യാൻ കഴിയുന്ന പുനരുപയോഗിക്കാവുന്ന കഥാപാത്രം നിർവചിക്കുക."
+  },
+  "manageCharacters_form_systemPrompt_label": {
+    "message": "പെരുമാറ്റം / നിർദ്ദേശങ്ങൾ"
+  },
+  "manageCharacters_form_systemPrompt_placeholder": {
+    "message": "ഉദാ., നിങ്ങൾ ക്ഷമയുള്ള ഗണിത അധ്യാപകനാണ്; ഘട്ടം ഘട്ടമായി ആശയങ്ങൾ വിശദീകരിച്ച് ചെറു ഉദാഹരണങ്ങളിലൂടെ ബോധ്യപ്പെടുത്തുന്നു."
+  },
+  "manageCharacters_form_systemPrompt_help": {
+    "message": "കഥാപാത്രത്തിന്റെ റോളും ടോണും നിയന്ത്രണങ്ങളും വിശദീകരിക്കുക. ഉദാഹരണത്തിന്: \"നിങ്ങൾ ഘട്ടം ഘട്ടമായി ആശയങ്ങൾ വിശദീകരിക്കുന്ന ക്ഷമയുള്ള ഗണിത ട്യൂട്ടറാണ്.\""
+  },
+  "manageCharacters_form_systemPrompt_required": {
+    "message": "പ്രതികരണങ്ങൾ നയിക്കാൻ നിർദ്ദേശങ്ങൾ ചേർക്കുക."
+  },
+  "manageCharacters_form_systemPrompt_min": {
+    "message": "കഥാപാത്രം എങ്ങനെ മറുപടി നൽകണമെന്ന് അറിയാൻ ഒരു ചെറിയ വിവരണം ചേർക്കുക."
+  },
+  "manageCharacters_form_systemPrompt_max": {
+    "message": "സിസ്റ്റം പ്രോംപ്റ്റ് 2000 പ്രതീകങ്ങൾ അല്ലെങ്കിൽ കുറവായിരിക്കണം."
+  },
+  "manageCharacters_form_avatarUrl_label": {
+    "message": "അവതാർ URL (ഐച്ഛികം)"
+  },
+  "manageCharacters_form_avatarUrl_placeholder": {
+    "message": "ഉദാ: https://example.com/avatar.png"
+  },
+  "manageCharacters_form_greeting_label": {
+    "message": "ആശംസ സന്ദേശം (ഐച്ഛികം)"
+  },
+  "manageCharacters_form_greeting_placeholder": {
+    "message": "ഹായ്! ഞാൻ നിങ്ങളുടെ എഴുത്ത് പരിശീലകനാണ്. നിങ്ങളുടെ ഡ്രാഫ്റ്റ് പേസ്റ്റ് ചെയ്യൂ, അതിനെ മെച്ചപ്പെടുത്താൻ ഞാൻ സഹായിക്കും."
+  },
+  "manageCharacters_form_greeting_help": {
+    "message": "ചാറ്റ് ആരംഭിക്കുമ്പോൾ കഥാപാത്രം അയക്കുന്ന ആദ്യ സന്ദേശം (ഐച്ഛികം)."
+  },
+  "manageCharacters_form_btnSave_saving": {
+    "message": "കഥാപാത്രം സൃഷ്ടിക്കുന്നു..."
+  },
+  "manageCharacters_form_btnSave_save": {
+    "message": "കഥാപാത്രം സൃഷ്ടിക്കുക"
+  },
+  "manageCharacters_form_btnEdit_saving": {
+    "message": "മാറ്റങ്ങൾ സേവ് ചെയ്യുന്നു..."
+  },
+  "manageCharacters_form_btnEdit_save": {
+    "message": "മാറ്റങ്ങൾ സേവ് ചെയ്യുക"
+  },
+  "manageCharacters_notification_addSuccess": {
+    "message": "കഥാപാത്രം സൃഷ്ടിച്ചു"
+  },
+  "manageCharacters_notification_error": {
+    "message": "പിശക്"
+  },
+  "manageCharacters_notification_someError": {
+    "message": "എന്തോ പിശക് സംഭവിച്ചു. ദയവായി പിന്നീട് വീണ്ടും ശ്രമിക്കുക"
+  },
+  "manageCharacters_notification_updatedSuccess": {
+    "message": "കഥാപാത്രം പുതുക്കി"
+  },
+  "manageCharacters_notification_deletedSuccess": {
+    "message": "കഥാപാത്രം ഇല്ലാതാക്കി"
+  },
+  "manageCharacters_loadError_title": {
+    "message": "കഥാപാത്രങ്ങൾ ലോഡുചെയ്യാൻ കഴിഞ്ഞില്ല"
+  },
+  "manageCharacters_loadError_description": {
+    "message": "കണക്ഷൻ പരിശോധിച്ച് വീണ്ടും ശ്രമിക്കുക."
+  },
+  "manageCharacters_emptyTitle": {
+    "message": "ഇതുവരെ കഥാപാത്രങ്ങളില്ല"
+  },
+  "manageCharacters_emptyDescription": {
+    "message": "പേര്, വിവരണം, സിസ്റ്റം പ്രോംപ്റ്റ് എന്നിവയോടെ ചാറ്റ് ചെയ്യാൻ കഴിയുന്ന പുനരുപയോഗിക്കാവുന്ന കഥാപാത്രം സൃഷ്ടിക്കുക."
+  },
+  "manageCharacters_emptyExample1": {
+    "message": "ചാറ്റുകളിൽ പുനരുപയോഗിക്കാനാവുന്ന എഴുത്ത് പരിശീലകൻ, ലോർ വിദഗ്‌ധൻ, അല്ലെങ്കിൽ കോഡിംഗ് സഹായി എന്നിവ നിർവചിക്കുക."
+  },
+  "manageCharacters_emptyExample2": {
+    "message": "മറുപടികൾ സ്ഥിരതയോടെ നിലനിർത്താൻ ഓരോ കഥാപാത്രത്തിനും വ്യക്തമായ വിവരണവും പെരുമാറ്റവും നൽകുക."
+  },
+  "manageCharacters_emptyPrimaryCta": {
+    "message": "കഥാപാത്രം സൃഷ്ടിക്കുക"
+  },
+  "manageCharacters_avatarAltWithName": {
+    "message": "{{name}}യുടെ അവതാർ"
+  },
+  "manageCharacters_avatarAlt": {
+    "message": "ഉപയോക്താവിന്റെ അവതാർ"
+  },
+  "quiz_itemsPerPage": {
+    "message": "ഇനങ്ങൾ/പേജ്"
+  },
+  "quiz_editQuizTitle": {
+    "message": "ക്വിസ് തിരുത്തുക"
+  },
+  "quiz_updateSuccess": {
+    "message": "ക്വിസ് വിജയകരമായി അപ്ഡേറ്റ് ചെയ്തു."
+  },
+  "quiz_updateError": {
+    "message": "ക്വിസ് അപ്ഡേറ്റ് ചെയ്യുന്നത് പരാജയപ്പെട്ടു."
+  },
+  "quiz_questionTextRequired": {
+    "message": "ചോദ്യവാചകം ആവശ്യമാണ്."
+  },
+  "quiz_optionsRequired": {
+    "message": "കുറഞ്ഞത് രണ്ട് ഓപ്ഷനുകൾ നൽകുക."
+  },
+  "quiz_questionSaveSuccess": {
+    "message": "ചോദ്യം വിജയകരമായി സൃഷ്ടിച്ചു."
+  },
+  "quiz_questionUpdateSuccess": {
+    "message": "ചോദ്യം വിജയകരമായി അപ്ഡേറ്റ് ചെയ്തു."
+  },
+  "quiz_questionSaveError": {
+    "message": "ചോദ്യം സേവ് ചെയ്യുന്നത് പരാജയപ്പെട്ടു."
+  },
+  "quiz_questionDeleteSuccess": {
+    "message": "ചോദ്യം വിജയകരമായി ഇല്ലാതാക്കി."
+  },
+  "quiz_questionDeleteError": {
+    "message": "ചോദ്യം ഇല്ലാതാക്കുന്നത് പരാജയപ്പെട്ടു."
+  },
+  "quiz_editQuestion": {
+    "message": "ചോദ്യം തിരുത്തുക"
+  },
+  "quiz_points": {
+    "message": "പോയിന്റുകൾ"
+  },
+  "quiz_orderIndex": {
+    "message": "ക്രമം"
+  },
+  "quiz_startError": {
+    "message": "ക്വിസ് ആരംഭിക്കുന്നത് പരാജയപ്പെട്ടു."
+  },
+  "quiz_answerAll": {
+    "message": "സമർപ്പിക്കുന്നതിന് മുമ്പ് എല്ലാ ചോദ്യങ്ങൾക്കും മറുപടി നൽകുക."
+  },
+  "quiz_submitError": {
+    "message": "ക്വിസ് സമർപ്പിക്കുന്നത് പരാജയപ്പെട്ടു."
+  },
+  "quiz_scoreSummary": {
+    "message": "സ്കോർ: {{score}} / {{total}} ({{percent}}%)"
+  },
+  "quiz_correct": {
+    "message": "ശരി"
+  },
+  "quiz_incorrect": {
+    "message": "തെറ്റ്"
+  },
+  "quiz_yourAnswer": {
+    "message": "നിങ്ങളുടെ ഉത്തരം"
+  },
+  "quiz_correctAnswerLabel": {
+    "message": "ശരി ഉത്തരം"
+  },
+  "quiz_backToList": {
+    "message": "പട്ടികയിലേക്ക് മടങ്ങുക"
+  },
+  "quiz_retake": {
+    "message": "ക്വിസ് വീണ്ടും ശ്രമിക്കുക"
+  },
+  "searchPrompts": {
+    "message": "പ്രോംപ്റ്റുകൾ തിരയുക..."
+  },
+  "noMatchingPrompts": {
+    "message": "പൊരുത്തമുള്ള പ്രോംപ്റ്റുകൾ ഇല്ല"
+  },
+  "flashcards_bulkLimitWarning": {
+    "message": "പ്രവർത്തനം ആദ്യത്തെ {{limit}} ഇനങ്ങളിലേക്ക് മാത്രമായി പരിമിതപ്പെടുത്തിയിരിക്കുന്നു."
+  },
+  "mediaPage_spreadMode": {
+    "message": "താരതമ്യം"
+  },
+  "mediaPage_listMode": {
+    "message": "ഫോകസ്"
+  },
+  "mediaPage_allMode": {
+    "message": "സ്റ്റാക്ക്"
+  },
+  "mediaPage_spreadModeTooltip": {
+    "message": "താരതമ്യം ചെയ്യാൻ തിരഞ്ഞെടുത്ത ഇനങ്ങളെ സൈഡ്-ബൈ-സൈഡ് ആയി കാണുക"
+  },
+  "mediaPage_listModeTooltip": {
+    "message": "നാവിഗേഷൻ ഉപയോഗിച്ച് ഒരൊറ്റ ഇനം വീതം കാണുക"
+  },
+  "mediaPage_allModeTooltip": {
+    "message": "തിരഞ്ഞെടുത്ത എല്ലായ്‌റ്റവും സ്ക്രോൾ ചെയ്യാവുന്ന പട്ടികയിൽ കാണുക"
+  },
+  "mediaPage_copyContentLabel": {
+    "message": "ഉള്ളടക്കം പകർത്തുക"
+  },
+  "mediaPage_copyAnalysisLabel": {
+    "message": "വിശകലനം പകർത്തുക"
+  },
+  "mediaPage_copyContentTooltip": {
+    "message": "ഉള്ളടക്കം ക്ലിപ്പ്ബോർഡിലേക്ക് പകർത്തുക"
+  },
+  "mediaPage_copyAnalysisTooltip": {
+    "message": "വിശകലനം ക്ലിപ്പ്ബോർഡിലേക്ക് പകർത്തുക"
+  },
+  "mediaPage_prevItemTooltip": {
+    "message": "മുൻപത്തെ ഇനം (←)"
+  },
+  "mediaPage_nextItemTooltip": {
+    "message": "അടുത്ത ഇനം (→)"
+  },
+  "mediaPage_viewerOptions": {
+    "message": "ഓപ്ഷനുകൾ"
+  },
+  "mediaPage_expandAllDropdown": {
+    "message": "വികസിപ്പിക്കുക/ചുരുക്കുക"
+  },
+  "mediaPage_itemPosition": {
+    "message": "ഇനം {{current}} / {{total}}"
+  },
+  "mediaPage_noItemSelected": {
+    "message": "ഇനം ഒന്നും തിരഞ്ഞെടുക്കപ്പെട്ടിട്ടില്ല"
+  },
+  "mediaPage_firstUseTitle": {
+    "message": "ദ്രുത ഗൈഡ്: മൾട്ടി-ഐറ്റം റിവ്യൂ"
+  },
+  "mediaPage_firstUseStep1": {
+    "message": "ഇനങ്ങൾ തിരഞ്ഞെടുക്കുക"
+  },
+  "mediaPage_firstUseStep1Desc": {
+    "message": "ഇടത് പാനലിലെ ഇനങ്ങൾ ക്ലിക്കുചെയ്ത് വ്യൂവറിൽ ചേർക്കുക."
+  },
+  "mediaPage_firstUseStep2": {
+    "message": "ഒരു വ്യൂ തിരഞ്ഞെടുക്കുക"
+  },
+  "mediaPage_firstUseStep2Desc": {
+    "message": "\"താരതമ്യം\" സൈഡ്-ബൈ-സൈഡിന്, \"ഫോകസ്\" ഒരൊറ്റ ഇനത്തിനും, അല്ലെങ്കിൽ എല്ലാം കാണാൻ \"സ്റ്റാക്ക്\" ഉപയോഗിക്കുക."
+  },
+  "mediaPage_firstUseStep3": {
+    "message": "നാവിഗേറ്റ് ചെയ്യുക"
+  },
+  "mediaPage_firstUseStep3Desc": {
+    "message": "മുൻപത്തെ/അടുത്തത് ബട്ടണുകളോ കീബോർഡോ (Tab + Enter) ഉപയോഗിച്ച് ഇനങ്ങൾക്കിടയിൽ നീങ്ങുക."
+  },
+  "mediaPage_gotIt": {
+    "message": "ശരി"
+  },
+  "mediaPage_model": {
+    "message": "മോഡൽ"
+  },
+  "mediaPage_selectModel": {
+    "message": "ഒരു മോഡൽ തിരഞ്ഞെടുക്കുക"
+  },
+  "mediaPage_noModelsAvailable": {
+    "message": "ലഭ്യമായ മോഡലുകൾ ഇല്ല"
+  },
+  "mediaPage_promptPresets": {
+    "message": "പ്രോംപ്റ്റ് പ്രീസെറ്റുകൾ"
+  },
+  "mediaPage_showPresets": {
+    "message": "പ്രീസെറ്റുകൾ കാണിക്കുക"
+  },
+  "mediaPage_hidePresets": {
+    "message": "പ്രീസെറ്റുകൾ മറയ്ക്കുക"
+  },
+  "mediaPage_systemPromptLabel": {
+    "message": "സിസ്റ്റം പ്രോംപ്റ്റ്"
+  },
+  "mediaPage_systemPromptPlaceholder": {
+    "message": "സിസ്റ്റം പ്രോംപ്റ്റ് നൽകുക..."
+  },
+  "mediaPage_userPromptPrefixLabel": {
+    "message": "ഉപയോക്തൃ പ്രോംപ്റ്റ് പ്രിഫിക്സ്"
+  },
+  "mediaPage_prependedBeforeContent": {
+    "message": "(ഉള്ളടക്കത്തിന് മുമ്പായി ചേർക്കുന്നു)"
+  },
+  "mediaPage_userPrefixPlaceholder": {
+    "message": "ഐച്ഛികം: മീഡിയ ഉള്ളടക്കത്തിന് മുമ്പായി ചേർക്കാനുള്ള ടെക്സ്റ്റ് നൽകുക..."
+  },
+  "mediaPage_presetComprehensiveAnalysis": {
+    "message": "സമഗ്ര വിശകലനം"
+  },
+  "mediaPage_presetExecutiveSummary": {
+    "message": "എക്സിക്യൂട്ടീവ് സംഗ്രഹം"
+  },
+  "mediaPage_presetCriticalReview": {
+    "message": "വിമർശനപരമായ റിവ്യൂ"
+  },
+  "mediaPage_presetQAAnalysis": {
+    "message": "Q&A വിശകലനം"
   }
 }

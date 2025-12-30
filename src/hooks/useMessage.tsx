@@ -1,5 +1,4 @@
 import React from "react"
-import { cleanUrl } from "~/libs/clean-url"
 import { promptForRag, systemPromptForNonRag } from "~/services/tldw-server"
 import { useStoreMessageOption, type Message } from "~/store/option"
 import { useStoreMessage } from "~/store"
@@ -35,9 +34,11 @@ import { getModelNicknameByID } from "@/db/dexie/nickname"
 import { systemPromptFormatter } from "@/utils/system-message"
 import type { Character } from "@/types/character"
 import { createBranchMessage } from "./handlers/messageHandlers"
+import { consumeStreamingChunk } from "@/utils/streaming-chunks"
 import {
   createSaveMessageOnError,
-  createSaveMessageOnSuccess
+  createSaveMessageOnSuccess,
+  validateBeforeSubmit
 } from "./utils/messageHelpers"
 import { normalChatMode } from "./chat-modes/normalChatMode"
 import { updatePageTitle } from "@/utils/update-page-title"
@@ -83,6 +84,7 @@ export const useMessage = () => {
     setTemporaryChat,
     queuedMessages,
     addQueuedMessage,
+    setQueuedMessages,
     clearQueuedMessages
   } = useStoreMessageOption()
   const [defaultInternetSearchOn] = useStorage("defaultInternetSearchOn", false)
@@ -234,17 +236,25 @@ export const useMessage = () => {
     signal: AbortSignal,
     embeddingSignal: AbortSignal
   ) => {
+    if (!selectedModel || selectedModel.trim().length === 0) {
+      notification.error({
+        message: t("error"),
+        description: t("validationSelectModel")
+      })
+      return
+    }
+
+    const model = selectedModel.trim()
     setStreaming(true)
     const userDefaultModelSettings = await getAllDefaultModelSettings()
 
     const ollama = await pageAssistModel({
-      model: selectedModel!,
-      baseUrl: ""
+      model
     })
 
     let newMessage: Message[] = []
     let generateMessageId = generateID()
-    const modelInfo = await getModelNicknameByID(selectedModel)
+    const modelInfo = await getModelNicknameByID(model)
 
     if (!isRegenerate) {
       newMessage = [
@@ -258,12 +268,12 @@ export const useMessage = () => {
         },
         {
           isBot: true,
-          name: selectedModel,
+          name: model,
           message: "▋",
           sources: [],
           id: generateMessageId,
           modelImage: modelInfo?.model_avatar,
-          modelName: modelInfo?.model_name || selectedModel
+          modelName: modelInfo?.model_name || model
         }
       ]
     } else {
@@ -271,12 +281,12 @@ export const useMessage = () => {
         ...messages,
         {
           isBot: true,
-          name: selectedModel,
+          name: model,
           message: "▋",
           sources: [],
           id: generateMessageId,
           modelImage: modelInfo?.model_avatar,
-          modelName: modelInfo?.model_name || selectedModel
+          modelName: modelInfo?.model_name || model
         }
       ]
     }
@@ -321,7 +331,7 @@ export const useMessage = () => {
         const promptForQuestion = questionPrompt
           .replaceAll("{chat_history}", chat_history)
           .replaceAll("{question}", message)
-        const questionOllama = await pageAssistModel({ model: selectedModel!, baseUrl: "" })
+        const questionOllama = await pageAssistModel({ model })
         const questionMessage = await humanMessageFormatter({
           content: [
             {
@@ -329,7 +339,7 @@ export const useMessage = () => {
               type: "text"
             }
           ],
-          model: selectedModel,
+          model,
           useOCR
         })
         const response = await questionOllama.invoke([questionMessage])
@@ -405,11 +415,11 @@ export const useMessage = () => {
             type: "text"
           }
         ],
-        model: selectedModel,
+        model,
         useOCR
       })
 
-      const applicationChatHistory = generateHistory(history, selectedModel)
+      const applicationChatHistory = generateHistory(history, model)
 
       let generationInfo: any | undefined = undefined
 
@@ -436,29 +446,13 @@ export const useMessage = () => {
       let timetaken = 0
       let apiReasoning = false
       for await (const chunk of chunks) {
-        const token = typeof chunk === 'string'
-          ? chunk
-          : (chunk?.content ?? (chunk?.choices?.[0]?.delta?.content ?? ''))
-        if (chunk?.additional_kwargs?.reasoning_content) {
-          const reasoningContent = mergeReasoningContent(
-            fullText,
-            chunk?.additional_kwargs?.reasoning_content || ""
-          )
-          contentToSave = reasoningContent
-          fullText = reasoningContent
-          apiReasoning = true
-        } else {
-          if (apiReasoning) {
-            fullText += "</think>"
-            contentToSave += "</think>"
-            apiReasoning = false
-          }
-        }
-
-        if (token) {
-          contentToSave += token
-          fullText += token
-        }
+        const chunkState = consumeStreamingChunk(
+          { fullText, contentToSave, apiReasoning },
+          chunk
+        )
+        fullText = chunkState.fullText
+        contentToSave = chunkState.contentToSave
+        apiReasoning = chunkState.apiReasoning
         if (count === 0) {
           setIsProcessing(true)
         }
@@ -523,7 +517,7 @@ export const useMessage = () => {
         historyId,
         setHistoryId,
         isRegenerate,
-        selectedModel: selectedModel,
+        selectedModel: model,
         message,
         image,
         fullText,
@@ -543,7 +537,7 @@ export const useMessage = () => {
         history,
         historyId,
         image,
-        selectedModel,
+        selectedModel: model,
         setHistory,
         setHistoryId,
         userMessage: message,
@@ -574,12 +568,21 @@ export const useMessage = () => {
     history: ChatHistory,
     signal: AbortSignal
   ) => {
+    if (!selectedModel || selectedModel.trim().length === 0) {
+      notification.error({
+        message: t("error"),
+        description: t("validationSelectModel")
+      })
+      return
+    }
+
+    const model = selectedModel.trim()
     setStreaming(true)
-    const ollama = await pageAssistModel({ model: selectedModel!, baseUrl: "" })
+    const ollama = await pageAssistModel({ model })
 
     let newMessage: Message[] = []
     let generateMessageId = generateID()
-    const modelInfo = await getModelNicknameByID(selectedModel)
+    const modelInfo = await getModelNicknameByID(model)
 
     if (!isRegenerate) {
       newMessage = [
@@ -593,12 +596,12 @@ export const useMessage = () => {
         },
         {
           isBot: true,
-          name: selectedModel,
+          name: model,
           message: "▋",
           sources: [],
           id: generateMessageId,
           modelImage: modelInfo?.model_avatar,
-          modelName: modelInfo?.model_name || selectedModel
+          modelName: modelInfo?.model_name || model
         }
       ]
     } else {
@@ -606,12 +609,12 @@ export const useMessage = () => {
         ...messages,
         {
           isBot: true,
-          name: selectedModel,
+          name: model,
           message: "▋",
           sources: [],
           id: generateMessageId,
           modelImage: modelInfo?.model_avatar,
-          modelName: modelInfo?.model_name || selectedModel
+          modelName: modelInfo?.model_name || model
         }
       ]
     }
@@ -650,9 +653,11 @@ export const useMessage = () => {
         )
       }
       if (!selectedCharacter?.system_prompt && selectedPrompt) {
+        const selectedPromptContent =
+          selectedPrompt.system_prompt ?? selectedPrompt.content
         applicationChatHistory.unshift(
           await systemPromptFormatter({
-            content: selectedPrompt.content
+            content: selectedPromptContent
           })
         )
       }
@@ -668,7 +673,7 @@ export const useMessage = () => {
             type: "image_url"
           }
         ],
-        model: selectedModel,
+        model,
         useOCR
       })
 
@@ -697,29 +702,13 @@ export const useMessage = () => {
       let timetaken = 0
       let apiReasoning = false
       for await (const chunk of chunks) {
-        if (chunk?.additional_kwargs?.reasoning_content) {
-          const reasoningContent = mergeReasoningContent(
-            fullText,
-            chunk?.additional_kwargs?.reasoning_content || ""
-          )
-          contentToSave = reasoningContent
-          fullText = reasoningContent
-          apiReasoning = true
-        } else {
-          if (apiReasoning) {
-            fullText += "</think>"
-            contentToSave += "</think>"
-            apiReasoning = false
-          }
-        }
-
-        const token = typeof chunk === 'string'
-          ? chunk
-          : (chunk?.content ?? (chunk?.choices?.[0]?.delta?.content ?? ''))
-        if (token && token.length > 0) {
-          contentToSave += token
-          fullText += token
-        }
+        const chunkState = consumeStreamingChunk(
+          { fullText, contentToSave, apiReasoning },
+          chunk
+        )
+        fullText = chunkState.fullText
+        contentToSave = chunkState.contentToSave
+        apiReasoning = chunkState.apiReasoning
         if (count === 0) {
           setIsProcessing(true)
         }
@@ -781,7 +770,7 @@ export const useMessage = () => {
         historyId,
         setHistoryId,
         isRegenerate,
-        selectedModel: selectedModel,
+        selectedModel: model,
         message,
         image,
         fullText,
@@ -800,7 +789,7 @@ export const useMessage = () => {
         history,
         historyId,
         image,
-        selectedModel,
+        selectedModel: model,
         setHistory,
         setHistoryId,
         userMessage: message,
@@ -829,33 +818,32 @@ export const useMessage = () => {
     isRegenerate: boolean,
     messages: Message[],
     history: ChatHistory,
-    signal: AbortSignal
+    signal: AbortSignal,
+    model: string
   ) => {
     setStreaming(true)
     let fullText = ""
+    let contentToSave = ""
 
     if (!selectedCharacter?.id) {
       throw new Error("No character selected")
-    }
-    if (!selectedModel) {
-      throw new Error("No model selected")
     }
 
     try {
       await tldwClient.initialize()
 
       // Visual placeholder
-      const modelInfo = await getModelNicknameByID(selectedModel)
+      const modelInfo = await getModelNicknameByID(model)
       const generateMessageId = generateID()
       const newMessageList: Message[] = !isRegenerate
         ? [
             ...messages,
             { isBot: false, name: 'You', message, sources: [], images: [] },
-            { isBot: true, name: selectedModel, message: '▋', sources: [], id: generateMessageId, modelImage: modelInfo?.model_avatar, modelName: modelInfo?.model_name || selectedModel }
+            { isBot: true, name: model, message: '▋', sources: [], id: generateMessageId, modelImage: modelInfo?.model_avatar, modelName: modelInfo?.model_name || model }
           ]
         : [
             ...messages,
-            { isBot: true, name: selectedModel, message: '▋', sources: [], id: generateMessageId, modelImage: modelInfo?.model_avatar, modelName: modelInfo?.model_name || selectedModel }
+            { isBot: true, name: model, message: '▋', sources: [], id: generateMessageId, modelImage: modelInfo?.model_avatar, modelName: modelInfo?.model_name || model }
           ]
       setMessages(newMessageList)
 
@@ -993,30 +981,16 @@ export const useMessage = () => {
       let timetaken = 0
       let apiReasoning = false
 
-      for await (const chunk of tldwClient.streamChatCompletion({ messages: msgs, model: selectedModel!, stream: true }, { signal })) {
-        const reasoningDelta =
-          chunk?.choices?.[0]?.delta?.reasoning_content ??
-          chunk?.additional_kwargs?.reasoning_content
-        if (reasoningDelta) {
-          const reasoningText =
-            typeof reasoningDelta === "string"
-              ? reasoningDelta
-              : ""
-          const reasoningContent = mergeReasoningContent(
-            fullText,
-            reasoningText || ""
-          )
-          fullText = reasoningContent
-          apiReasoning = true
-        } else if (apiReasoning) {
-          fullText += "</think>"
-          apiReasoning = false
-        }
+      for await (const chunk of tldwClient.streamChatCompletion({ messages: msgs, model, stream: true }, { signal })) {
+        const chunkState = consumeStreamingChunk(
+          { fullText, contentToSave, apiReasoning },
+          chunk
+        )
+        fullText = chunkState.fullText
+        contentToSave = chunkState.contentToSave
+        apiReasoning = chunkState.apiReasoning
 
-        const token =
-          chunk?.choices?.[0]?.delta?.content || chunk?.content || ""
-        if (token) {
-          fullText += token
+        if (chunkState.token) {
           setMessages((prev) =>
             prev.map((m) =>
               m.id === generateMessageId
@@ -1091,7 +1065,7 @@ export const useMessage = () => {
         historyId,
         setHistoryId,
         isRegenerate,
-        selectedModel: selectedModel,
+        selectedModel: model,
         message,
         image,
         fullText,
@@ -1109,7 +1083,7 @@ export const useMessage = () => {
         history,
         historyId,
         image,
-        selectedModel,
+        selectedModel: model,
         setHistory,
         setHistoryId,
         userMessage: message,
@@ -1141,6 +1115,15 @@ export const useMessage = () => {
     signal: AbortSignal,
     messageType: string
   ) => {
+    if (!selectedModel || selectedModel.trim().length === 0) {
+      notification.error({
+        message: t("error"),
+        description: t("validationSelectModel")
+      })
+      return
+    }
+
+    const model = selectedModel.trim()
     setStreaming(true)
 
     if (image.length > 0) {
@@ -1152,11 +1135,11 @@ export const useMessage = () => {
       }
     }
 
-    const ollama = await pageAssistModel({ model: selectedModel!, baseUrl: "" })
+    const ollama = await pageAssistModel({ model })
 
     let newMessage: Message[] = []
     let generateMessageId = generateID()
-    const modelInfo = await getModelNicknameByID(selectedModel)
+    const modelInfo = await getModelNicknameByID(model)
 
     if (!isRegenerate) {
       newMessage = [
@@ -1171,12 +1154,12 @@ export const useMessage = () => {
         },
         {
           isBot: true,
-          name: selectedModel,
+          name: model,
           message: "▋",
           sources: [],
           id: generateMessageId,
           modelImage: modelInfo?.model_avatar,
-          modelName: modelInfo?.model_name || selectedModel
+          modelName: modelInfo?.model_name || model
         }
       ]
     } else {
@@ -1184,12 +1167,12 @@ export const useMessage = () => {
         ...messages,
         {
           isBot: true,
-          name: selectedModel,
+          name: model,
           message: "▋",
           sources: [],
           id: generateMessageId,
           modelImage: modelInfo?.model_avatar,
-          modelName: modelInfo?.model_name || selectedModel
+          modelName: modelInfo?.model_name || model
         }
       ]
     }
@@ -1206,7 +1189,7 @@ export const useMessage = () => {
             type: "text"
           }
         ],
-        model: selectedModel,
+        model,
         useOCR
       })
       if (image.length > 0) {
@@ -1221,7 +1204,7 @@ export const useMessage = () => {
               type: "image_url"
             }
           ],
-          model: selectedModel,
+          model,
           useOCR
         })
       }
@@ -1248,29 +1231,13 @@ export const useMessage = () => {
       let timetaken = 0
       let apiReasoning = false
       for await (const chunk of chunks) {
-        if (chunk?.additional_kwargs?.reasoning_content) {
-          const reasoningContent = mergeReasoningContent(
-            fullText,
-            chunk?.additional_kwargs?.reasoning_content || ""
-          )
-          contentToSave = reasoningContent
-          fullText = reasoningContent
-          apiReasoning = true
-        } else {
-          if (apiReasoning) {
-            fullText += "</think>"
-            contentToSave += "</think>"
-            apiReasoning = false
-          }
-        }
-
-        const token = typeof chunk === 'string'
-          ? chunk
-          : (chunk?.content ?? (chunk?.choices?.[0]?.delta?.content ?? ''))
-        if (token && token.length > 0) {
-          contentToSave += token
-          fullText += token
-        }
+        const chunkState = consumeStreamingChunk(
+          { fullText, contentToSave, apiReasoning },
+          chunk
+        )
+        fullText = chunkState.fullText
+        contentToSave = chunkState.contentToSave
+        apiReasoning = chunkState.apiReasoning
         if (count === 0) {
           setIsProcessing(true)
         }
@@ -1335,7 +1302,7 @@ export const useMessage = () => {
         historyId,
         setHistoryId,
         isRegenerate,
-        selectedModel: selectedModel,
+        selectedModel: model,
         message,
         image,
         fullText,
@@ -1355,7 +1322,7 @@ export const useMessage = () => {
         history,
         historyId,
         image,
-        selectedModel,
+        selectedModel: model,
         setHistory,
         setHistoryId,
         userMessage: message,
@@ -1394,6 +1361,11 @@ export const useMessage = () => {
     controller?: AbortController
     messageType?: string
   }) => {
+    if (!validateBeforeSubmit(selectedModel || "", t, notification)) {
+      return
+    }
+
+    const model = selectedModel.trim()
     let signal: AbortSignal
     if (!controller) {
       const newController = new AbortController()
@@ -1424,7 +1396,8 @@ export const useMessage = () => {
             isRegenerate,
             chatHistory || messages,
             memory || history,
-            signal
+            signal,
+            model
           )
         } else {
           await normalChatMode(
@@ -1435,7 +1408,7 @@ export const useMessage = () => {
             memory || history,
             signal,
             {
-              selectedModel: selectedModel!,
+              selectedModel: model,
               useOCR,
               selectedSystemPrompt: selectedSystemPrompt ?? "",
               currentChatModelSettings,
@@ -1632,6 +1605,7 @@ export const useMessage = () => {
     isLoading,
     setIsLoading,
     isProcessing,
+    setIsProcessing,
     stopStreamingRequest,
     clearChat,
     selectedModel,
@@ -1639,10 +1613,12 @@ export const useMessage = () => {
     chatMode,
     setChatMode,
     isEmbedding,
+    setIsEmbedding,
     regenerateLastMessage,
     webSearch,
     setWebSearch,
     isSearchingInternet,
+    setIsSearchingInternet,
     selectedQuickPrompt,
     setSelectedQuickPrompt,
     selectedSystemPrompt,
@@ -1672,6 +1648,7 @@ export const useMessage = () => {
     sidepanelTemporaryChat,
     queuedMessages,
     addQueuedMessage,
+    setQueuedMessages,
     clearQueuedMessages
   }
 }

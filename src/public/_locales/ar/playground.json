@@ -1,0 +1,1169 @@
+{
+  "formError_noModel": {
+    "message": "الرجاء اختيار نموذج"
+  },
+  "formError_noEmbeddingModel": {
+    "message": "الرجاء تعيين نموذج التضمين في صفحة الإعدادات > RAG"
+  },
+  "form_textarea_placeholder": {
+    "message": "اكتب رسالة..."
+  },
+  "form_webSearch_on": {
+    "message": "تشغيل"
+  },
+  "form_webSearch_off": {
+    "message": "إيقاف"
+  },
+  "tooltip_searchInternet": {
+    "message": "البحث في الإنترنت"
+  },
+  "tooltip_speechToText": {
+    "message": "تحويل الكلام إلى نص"
+  },
+  "tooltip_uploadImage": {
+    "message": "تحميل صورة"
+  },
+  "tooltip_stopStreaming": {
+    "message": "إيقاف البث"
+  },
+  "tooltip_knowledge": {
+    "message": "المعرفة"
+  },
+  "tooltip_vision": {
+    "message": "[تجريبي] محادثة الرؤية"
+  },
+  "tooltip_clearContext": {
+    "message": "مسح السياق"
+  },
+  "tooltip_speechToTextServer": {
+    "message": "الإملاء عبر خادم tldw الخاص بك"
+  },
+  "tooltip_speechToTextBrowser": {
+    "message": "الإملاء عبر التعرف على الكلام في المتصفح"
+  },
+  "tooltip_speechToTextDetails": {
+    "message": "يستخدم {{model}} · {{task}} · {{format}}. يمكنك ضبطه من الإعدادات → عام → تحويل الكلام إلى نص."
+  },
+  "tooltip_uploadDocuments": {
+    "message": "تحميل المستندات (تجريبي)"
+  },
+  "sendWhenEnter": {
+    "message": "إرسال عند الضغط على Enter"
+  },
+  "welcome": {
+    "message": "مرحباً! كيف يمكنني مساعدتك اليوم؟"
+  },
+  "useOCR": {
+    "message": "استخراج النص من الصورة (OCR)"
+  },
+  "tips_title": {
+    "message": "نصائح"
+  },
+  "tips_quickIngest": {
+    "message": "استخدم الإدخال السريع (Quick ingest) لإضافة المستندات وصفحات الويب."
+  },
+  "tips_pickModelPrompt": {
+    "message": "اختر نموذجاً وموجهاً من الترويسة."
+  },
+  "tips_startChatFocus": {
+    "message": "عند الاتصال، يقوم \"بدء الدردشة\" بتركيز مؤشر الكتابة في مربع الرسالة."
+  },
+  "tldwState_searching": {
+    "message": "جارٍ البحث عن tldw server الخاص بك"
+  },
+  "tldwState_running": {
+    "message": "tldw يعمل"
+  },
+  "tldwState_notRunning": {
+    "message": "تعذر الاتصال بـ tldw server"
+  },
+  "tldwState_connectionError": {
+    "message": "يبدو أنك تواجه خطأ في الاتصال. يرجى الرجوع إلى هذا <anchor>الدليل</anchor> لاستكشاف الأخطاء وإصلاحها."
+  },
+  "tldwState_openTldwSettings": {
+    "message": "فتح إعدادات tldw"
+  },
+  "tldwState_cancelSearch": {
+    "message": "إلغاء البحث"
+  },
+  "tldwState_connectionFailedWithCode": {
+    "message": "فشل الاتصال (HTTP {{code}})"
+  },
+  "tldwState_connectionFailed": {
+    "message": "فشل الاتصال"
+  },
+  "tldwState_errorDetailsLabel": {
+    "message": "التفاصيل:"
+  },
+  "tldwState_title": {
+    "message": "في انتظار خادم tldw الخاص بك"
+  },
+  "tldwState_subtitle": {
+    "message": "نقوم بإرسال طلبات ping إلى {{host}} للتحقق من الاتصال."
+  },
+  "tldwState_missing": {
+    "message": "لم يتم ضبط عنوان الخادم"
+  },
+  "tldwState_noServer": {
+    "message": "أضف خادم tldw الخاص بك لبدء الدردشة."
+  },
+  "tldwState_connectedSubtitle": {
+    "message": "متصل بـ {{host}}. ابدأ الدردشة عندما تكون جاهزاً."
+  },
+  "tldwState_errorSubtitle": {
+    "message": "تعذّر الوصول إلى {{host}} حتى الآن. أعد المحاولة أو حدّث إعدادات الخادم."
+  },
+  "tldwState_openSettings": {
+    "message": "فتح الإعدادات"
+  },
+  "tldwState_changeServer": {
+    "message": "تغيير الخادم"
+  },
+  "tldwState_elapsed": {
+    "message": "جارٍ الفحص… ‏{{seconds}} ثانية"
+  },
+  "tldwState_connectedHint": {
+    "message": "متصل بـ {{host}}."
+  },
+  "tldwState_lastChecked": {
+    "message": "تم الفحص قبل {{seconds}} ثانية"
+  },
+  "tldwState_recheck": {
+    "message": "إعادة الفحص"
+  },
+  "tldwState_errorToast": {
+    "message": "تعذّر الوصول إلى {{host}}"
+  },
+  "tldwState_missingHelp": {
+    "message": "افتح الإعدادات → خادم tldw لإضافة عنوان URL الخاص بك أو الاتصال بصفحة الخيارات."
+  },
+  "tldwState_troubleshoot": {
+    "message": "تأكد من أن الخادم يعمل وأن المتصفح مسموح له بالوصول إليه، ثم أعد المحاولة من صفحة الخيارات."
+  },
+  "errors_privateModeDescription": {
+    "message": "لا يدعم وضع التصفح الخاص في فايرفوكس حفظ الدردشة. يتم تفعيل الدردشة المؤقتة افتراضيًا. تحسينات قادمة قريبًا."
+  },
+  "tts_playErrorTitle": {
+    "message": "خطأ"
+  },
+  "tts_playErrorDescription": {
+    "message": "حدث خطأ أثناء تشغيل الصوت"
+  },
+  "tts_browserInfoTitle": {
+    "message": "تحويل النص إلى كلام في المتصفح يستخدم صوت النظام"
+  },
+  "tts_browserInfoDescription": {
+    "message": "يستخدم TTS في المتصفح مُركّب النظام ولا يوفر ملف صوت قابل للتنزيل. استخدم عناصر التحكم في المقاطع أدناه، أو بدّل الموفّرين للحصول على قائمة تشغيل ومشغّل."
+  },
+  "tts_unsupportedProviderTitle": {
+    "message": "موفّر TTS غير مدعوم"
+  },
+  "tts_unsupportedProviderDescription": {
+    "message": "الموفّر \"{{provider}}\" غير مدعوم بعد في مشغل ساحة اللعب."
+  },
+  "tts_unsupportedFormatTitle": {
+    "message": "تنسيق صوت غير مدعوم"
+  },
+  "tts_unsupportedFormatDescription": {
+    "message": "تنسيق الاستجابة \"{{format}}\" غير مدعوم. سيتم الرجوع إلى MP3."
+  },
+  "tts_elevenLabsMissingTitle": {
+    "message": "ElevenLabs يحتاج مفتاح API"
+  },
+  "tts_elevenLabsMissingBody": {
+    "message": "أضف مفتاح API الخاص بـ ElevenLabs في الإعدادات لتحميل الأصوات والنماذج."
+  },
+  "tts_elevenLabsUnavailableTitle": {
+    "message": "أصوات ElevenLabs غير متاحة"
+  },
+  "tts_elevenLabsUnavailableBody": {
+    "message": "لم نتمكن من تحميل الأصوات أو النماذج. تحقق من مفتاح API وحاول مرة أخرى."
+  },
+  "tts_elevenLabsMissingCta": {
+    "message": "تعيين مفتاح API في الإعدادات"
+  },
+  "tts_generateErrorTitle": {
+    "message": "خطأ في إنشاء الصوت"
+  },
+  "tts_generateErrorDescription": {
+    "message": "حدث خطأ أثناء إنشاء صوت TTS."
+  },
+  "tts_sampleText": {
+    "message": "أدخل نصاً تجريبياً"
+  },
+  "tts_playHelper": {
+    "message": "يستخدم التشغيل الموفّر والصوت والسرعة التي اخترتها."
+  },
+  "tts_playDisabledNoText": {
+    "message": "أدخل نصاً لتفعيل زر التشغيل."
+  },
+  "tts_playDisabledTtsOff": {
+    "message": "فعّل تحويل النص إلى كلام في الأعلى لتشغيل الصوت."
+  },
+  "tts_playDisabledElevenLabs": {
+    "message": "أضف مفتاح API لـ ElevenLabs وصوتًا ونموذجًا لتفعيل التشغيل."
+  },
+  "tts_stopDisabled": {
+    "message": "يصبح زر الإيقاف متاحاً بعد بدء تشغيل الصوت."
+  },
+  "tts_providerChangeHelper": {
+    "message": "افتح محدّد الموفّر في الأسفل للتبديل بين المتصفح و tldw و OpenAI و Supersonic."
+  },
+  "tts_changeProvider": {
+    "message": "تغيير الموفّر"
+  },
+  "tts_title": {
+    "message": "ساحة لعب تحويل النص إلى كلام"
+  },
+  "tts_subtitle": {
+    "message": "جرّب تحويل النص إلى كلام وقم بضبط الموفّرين والنماذج والأصوات."
+  },
+  "tts_currentProvider": {
+    "message": "الموفّر الحالي"
+  },
+  "tts_settingsIntro": {
+    "message": "عدّل موفّر تحويل النص إلى كلام والنموذج والصوت. يُعاد استخدام هذه الإعدادات عند تشغيل الصوت من الدردشة أو الوسائط."
+  },
+  "tts_providerCapabilities": {
+    "message": "قدرات الموفّر"
+  },
+  "tts_voicesPreview": {
+    "message": "أصوات الخادم"
+  },
+  "tts_providerDetails": {
+    "message": "عرض إعدادات الموفّر الخام"
+  },
+  "tts_providerDetailsTitle": {
+    "message": "تفاصيل الموفّر"
+  },
+  "tts_inputLabel": {
+    "message": "أدخل بعض النص لسماع نطقه."
+  },
+  "tts_inputPlaceholder": {
+    "message": "اكتب أو الصق النص هنا، ثم استخدم \"تشغيل\" للاستماع."
+  },
+  "tts_play": {
+    "message": "تشغيل"
+  },
+  "tts_playing": {
+    "message": "جارٍ التشغيل…"
+  },
+  "tts_stop": {
+    "message": "إيقاف"
+  },
+  "tts_browserSegmentsTitle": {
+    "message": "مقاطع TTS في المتصفح"
+  },
+  "tts_browserSegmentsHelp": {
+    "message": "أضف مقاطع إلى قائمة الانتظار أو شغّل مقطعًا فرديًا باستخدام صوت النظام."
+  },
+  "tts_browserQueueAll": {
+    "message": "إضافة الكل للقائمة"
+  },
+  "tts_browserQueueFromHere": {
+    "message": "إضافة من هنا للقائمة"
+  },
+  "tts_browserSegmentPlay": {
+    "message": "تشغيل المقطع"
+  },
+  "tts_browserStatusSpeaking": {
+    "message": "جارٍ نطق المقطع {{current}}/{{total}}"
+  },
+  "tts_browserStatusPaused": {
+    "message": "متوقف مؤقتًا"
+  },
+  "tts_browserPause": {
+    "message": "إيقاف مؤقت"
+  },
+  "tts_browserResume": {
+    "message": "استئناف"
+  },
+  "tts_tldwStatusOnline": {
+    "message": "تم اكتشاف واجهة برمجة تطبيقات الصوت في خادم tldw (audio/speech)"
+  },
+  "tts_tldwStatusOffline": {
+    "message": "لم يتم اكتشاف واجهة برمجة تطبيقات الصوت؛ تحقّق من إصدار خادم tldw."
+  },
+  "tts_tldwWarningTitle": {
+    "message": "لم يتم اكتشاف واجهة برمجة تطبيقات tldw للصوت/الكلام"
+  },
+  "tts_tldwWarningBody": {
+    "message": "تأكد من أن إصدار tldw_server لديك يتضمّن ‎/api/v1/audio/speech‎ وأن الإضافة متصلة بمفتاح API صالح."
+  },
+  "tts_speechErrorTitle": {
+    "message": "فشل الإملاء"
+  },
+  "tts_speechErrorBody": {
+    "message": "فشل طلب التفريغ الصوتي. تحقّق من حالة خادم tldw."
+  },
+  "tts_speechNoText": {
+    "message": "لم تُرجِع عملية التفريغ أي نص."
+  },
+  "tts_speechMicError": {
+    "message": "تعذّر الوصول إلى الميكروفون. تحقّق من أذونات المتصفح وحاول مرة أخرى."
+  },
+  "tts_savedToNotes": {
+    "message": "تم حفظ التفريغ كملاحظة."
+  },
+  "empty_title": {
+    "message": "ابدأ محادثة جديدة"
+  },
+  "empty_description": {
+    "message": "جرّب نماذج وموجّهات ومصادر معرفة مختلفة هنا."
+  },
+  "empty_demoDescription": {
+    "message": "أنت في وضع العرض التوضيحي — جرّب طرح سؤال لترى كيف يرد المساعد. يمكنك لاحقاً توصيل خادم tldw الخاص بك."
+  },
+  "empty_example1": {
+    "message": "اطرح سؤالاً، ثم اسحب المستندات أو صفحات الويب التي تريد مناقشتها."
+  },
+  "empty_example2": {
+    "message": "استخدم الإدخال السريع (Quick ingest) لإضافة التفريغات أو الملاحظات، ثم أشِر إليها في الدردشة."
+  },
+  "empty_example3": {
+    "message": "جرّب موجّهات أو نماذج مختلفة من الترويسة لمقارنة الإجابات."
+  },
+  "empty_primaryCta": {
+    "message": "ابدأ الدردشة"
+  },
+  "empty_secondaryCta": {
+    "message": "فتح إعدادات الخادم"
+  },
+  "drop_hint": {
+    "message": "أسقط الملفات هنا لإرفاقها برسالتك."
+  },
+  "drop_readySingle": {
+    "message": "{{name}} جاهز للإرسال"
+  },
+  "drop_readyMultiple": {
+    "message": "{{count}} ملف/ملفات جاهزة للإرسال"
+  },
+  "drop_unsupported": {
+    "message": "نوع الملف هذا غير مدعوم. جرّب الصور أو الملفات النصية."
+  },
+  "drop_defaultFileName": {
+    "message": "ملف"
+  },
+  "drop_imageOnly": {
+    "message": "يمكن إسقاط الصور فقط هنا حالياً."
+  },
+  "drop_imageHint": {
+    "message": "أسقط صورة لإضافتها إلى رسالتك."
+  },
+  "drop_overlayInstruction": {
+    "message": "أسقط الصورة لإرفاقها بردّك التالي"
+  },
+  "aria_chatTranscript": {
+    "message": "رسائل الدردشة"
+  },
+  "more_history": {
+    "message": "حفظ الدردشة"
+  },
+  "more_searchKnowledge": {
+    "message": "البحث و RAG"
+  },
+  "more_voice": {
+    "message": "مزيد من خيارات الصوت"
+  },
+  "more_uploads": {
+    "message": "التحميل والإدخال"
+  },
+  "fileRetrievalEnabled": {
+    "message": "تفعيل RAG للمستندات"
+  },
+  "stt_title": {
+    "message": "ساحة لعب تحويل الكلام إلى نص"
+  },
+  "stt_subtitle": {
+    "message": "جرّب نماذج التفريغ الصوتي، وشغّل جلسات إملاء أطول، واحفظ التفريغات في الملاحظات."
+  },
+  "stt_currentModelLabel": {
+    "message": "نموذج التفريغ الحالي"
+  },
+  "stt_defaultModel": {
+    "message": "الافتراضي من الإعدادات"
+  },
+  "stt_settingsNotice": {
+    "message": "اللغة، والمهمة، وتنسيق الاستجابة، والتجزئة، والموجّه تستخدم الإعدادات الافتراضية لتحويل الكلام إلى نص من صفحة الإعدادات."
+  },
+  "stt_sessionMode": {
+    "message": "وضع الجلسة"
+  },
+  "stt_modeLong": {
+    "message": "طويل المدى (تسجيل مجزأ)"
+  },
+  "stt_modeShort": {
+    "message": "إملاء قصير (مقطع واحد)"
+  },
+  "stt_languageTag": {
+    "message": "اللغة"
+  },
+  "stt_taskTag": {
+    "message": "المهمة"
+  },
+  "stt_formatTag": {
+    "message": "التنسيق"
+  },
+  "stt_segmentationEnabled": {
+    "message": "تم تفعيل التجزئة"
+  },
+  "stt_recordButton": {
+    "message": "تسجيل"
+  },
+  "stt_stopButton": {
+    "message": "إيقاف"
+  },
+  "stt_startTooltip": {
+    "message": "ابدأ تسجيل الصوت للتفريغ."
+  },
+  "stt_stopTooltip": {
+    "message": "أوقف التسجيل وأرسله إلى الخادم."
+  },
+  "stt_transcribingButton": {
+    "message": "جارٍ التفريغ..."
+  },
+  "stt_transcribingTooltip": {
+    "message": "جارٍ تفريغ الصوت..."
+  },
+  "stt_transcribingPlaceholder": {
+    "message": "جارٍ تفريغ الصوت..."
+  },
+  "stt_historyTitle": {
+    "message": "سجل التفريغات"
+  },
+  "stt_clearAll": {
+    "message": "مسح الكل"
+  },
+  "stt_emptyHistory": {
+    "message": "ابدأ تسجيلاً لعرض التفريغات هنا. يمكنك حفظ أي عنصر في الملاحظات."
+  },
+  "stt_saveToNotes": {
+    "message": "الحفظ في الملاحظات"
+  },
+  "stt_delete": {
+    "message": "حذف"
+  },
+  "stt_durationTag": {
+    "message": "المدة"
+  },
+  "stt_modelTag": {
+    "message": "النموذج"
+  },
+  "stt_currentTranscriptTitle": {
+    "message": "تفريغ الجلسة الحالية"
+  },
+  "stt_currentTranscriptPlaceholder": {
+    "message": "سيظهر التفريغ المباشر هنا أثناء التسجيل."
+  },
+  "actions_temporaryOn": {
+    "message": "دردشة مؤقتة (غير محفوظة)"
+  },
+  "actions_temporaryOff": {
+    "message": "حفظ الدردشة في السجل"
+  },
+  "actions_webSearchOn": {
+    "message": "البحث في الويب مفعّل"
+  },
+  "actions_webSearchOff": {
+    "message": "البحث في الويب متوقف"
+  },
+  "actions_speechStart": {
+    "message": "بدء الإملاء"
+  },
+  "actions_speechStop": {
+    "message": "إيقاف الإملاء"
+  },
+  "actions_streamStart": {
+    "message": "تعليقات مباشرة"
+  },
+  "actions_streamStop": {
+    "message": "إيقاف التعليقات"
+  },
+  "actions_visionOn": {
+    "message": "وضع الرؤية مفعّل"
+  },
+  "actions_visionOff": {
+    "message": "وضع الرؤية متوقف"
+  },
+  "actions_upload": {
+    "message": "إرفاق صورة"
+  },
+  "actions_ingest": {
+    "message": "إدخال سريع"
+  },
+  "actions_ingestDisabled": {
+    "message": "اتصل بخادم tldw الخاص بك لاستخدام الإدخال."
+  },
+  "actions_ingestHint": {
+    "message": "حمّل عناوين URL أو ملفات مع خيارات متقدمة."
+  },
+  "actions_ingestSub": {
+    "message": "استخدم عناوين URL/الملفات؛ للتنزيل أو الحفظ."
+  },
+  "actions_streamErrorTitle": {
+    "message": "التعليقات المباشرة غير متاحة"
+  },
+  "composer_toolsButton": {
+    "message": "+أدوات"
+  },
+  "composer_queuedBanner_title": {
+    "message": "في قائمة الانتظار أثناء عدم الاتصال"
+  },
+  "composer_queuedBanner_body": {
+    "message": "سنحتفظ بهذه الرسائل ونرسلها عند اتصال خادم tldw الخاص بك."
+  },
+  "composer_queuedBanner_sendNow": {
+    "message": "إرسال الرسائل في قائمة الانتظار"
+  },
+  "composer_queuedBanner_clear": {
+    "message": "مسح قائمة الانتظار"
+  },
+  "composer_coreTools": {
+    "message": "خيارات المحادثة"
+  },
+  "composer_captureTools": {
+    "message": "أدوات الالتقاط والمساعدة"
+  },
+  "composer_actions": {
+    "message": "خيارات الإرسال"
+  },
+  "composer_moreTools": {
+    "message": "مزيد من الأدوات"
+  },
+  "composer_scrollToLatest": {
+    "message": "التمرير إلى أحدث الرسائل"
+  },
+  "composer_submitAria": {
+    "message": "إرسال الرسالة"
+  },
+  "composer_openModelSettings": {
+    "message": "فتح إعدادات المحادثة الحالية"
+  },
+  "composer_stopStreaming": {
+    "message": "إيقاف الاستجابة المتدفقة"
+  },
+  "composer_connectionPlaceholder": {
+    "message": "اتصل بخادم tldw الخاص بك من صفحة الإعدادات لإرسال الرسائل وعرض الوسائط."
+  },
+  "composer_connectNotice": {
+    "message": "اتصل بخادم tldw الخاص بك من صفحة الإعدادات لإرسال الرسائل وعرض الوسائط."
+  },
+  "composer_connectionChipDisconnected": {
+    "message": "الخادم: غير متصل"
+  },
+  "composer_contextLabel": {
+    "message": "السياق:"
+  },
+  "composer_contextKnowledgeEmpty": {
+    "message": "لم يتم اختيار أي معرفة"
+  },
+  "composer_contextTabs": {
+    "message": "{{count}} لسان/ألسنة"
+  },
+  "composer_contextFiles": {
+    "message": "{{count}} ملف/ملفات"
+  },
+  "composer_contextMedia": {
+    "message": "الوسائط والملاحظات"
+  },
+  "composer_contextMediaHint": {
+    "message": "أرفق وسائط وملاحظات يجب أن تؤثر في الاستجابة."
+  },
+  "composer_contextMediaSelected": {
+    "message": "وسيط أو ملاحظة"
+  },
+  "composer_contextMediaEmpty": {
+    "message": "لم يتم اختيار أي وسائط أو ملاحظات بعد."
+  },
+  "composer_addKnowledge": {
+    "message": "إضافة وسائط وملاحظات"
+  },
+  "composer_contextTabsTitle": {
+    "message": "الألسنة في السياق"
+  },
+  "composer_contextTabsHint": {
+    "message": "راجع الألسنة المشار إليها أو أزلها، أو أضف المزيد من ألسنة المتصفح المفتوحة."
+  },
+  "composer_contextManager": {
+    "message": "إدارة السياق"
+  },
+  "composer_contextManagerTitle": {
+    "message": "إدارة السياق"
+  },
+  "composer_contextKnowledge": {
+    "message": "السياق والمعرفة"
+  },
+  "composer_contextKnowledgeClose": {
+    "message": "إغلاق السياق والمعرفة"
+  },
+  "composer_knowledgeSearch": {
+    "message": "البحث في المعرفة"
+  },
+  "composer_knowledgeSearchClose": {
+    "message": "إغلاق البحث في المعرفة"
+  },
+  "composer_persistence_ephemeral": {
+    "message": "لا تُحفظ في السجل؛ تُمسح عند إغلاق هذا اللسان."
+  },
+  "composer_persistence_local": {
+    "message": "محفوظة في هذا المتصفح فقط."
+  },
+  "composer_persistence_server": {
+    "message": "محفوظة محلياً وعلى الخادم"
+  },
+  "composer_persistence_ephemeralPill": {
+    "message": "مؤقتة"
+  },
+  "composer_persistence_localPill": {
+    "message": "محلي فقط"
+  },
+  "composer_persistence_serverPill": {
+    "message": "محلياً + على الخادم"
+  },
+  "composer_persistence_saveToServer": {
+    "message": "حفظ هذه المحادثة أيضاً على الخادم"
+  },
+  "composer_persistence_connectToSave": {
+    "message": "اتصل بخادمك لحفظ المحادثات عليه."
+  },
+  "composer_persistence_serverDefaultTitle": {
+    "message": "دردشة الإضافة"
+  },
+  "composer_persistence_serverSavedTitle": {
+    "message": "تم الآن حفظ المحادثة على الخادم"
+  },
+  "composer_persistence_serverSaved": {
+    "message": "سيتم مزامنة الرسائل المستقبلية في هذه المحادثة مع خادم tldw الخاص بك."
+  },
+  "composer_persistence_serverCharacterRequired": {
+    "message": "تعذّر العثور على شخصية مساعد افتراضية على الخادم أو إنشاؤها. حاول مرة أخرى من صفحة الشخصيات."
+  },
+  "composer_connectToSend": {
+    "message": "اتصل بخادم tldw الخاص بك من صفحة الإعدادات لإرسال الرسائل وعرض الوسائط."
+  },
+  "composer_compareTag": {
+    "message": "Compare"
+  },
+  "composer_compareLabel": {
+    "message": "وضع المقارنة"
+  },
+  "composer_compareButton": {
+    "message": "مقارنة النماذج"
+  },
+  "composer_compareButtonActive_one": {
+    "message": "مقارنة: {{count}} نموذج"
+  },
+  "composer_compareButtonActive_two": {
+    "message": "مقارنة: {{count}} نموذجين"
+  },
+  "composer_compareButtonActive_few": {
+    "message": "مقارنة: {{count}} نماذج"
+  },
+  "composer_compareButtonActive_many": {
+    "message": "مقارنة: {{count}} نموذجًا"
+  },
+  "composer_compareButtonActive_other": {
+    "message": "مقارنة: {{count}} نموذج"
+  },
+  "composer_compareButtonOn": {
+    "message": "تم تفعيل المقارنة"
+  },
+  "composer_compareSettingsTitle": {
+    "message": "إعدادات المقارنة"
+  },
+  "composer_compareSettingsToggle": {
+    "message": "تفعيل وضع المقارنة"
+  },
+  "composer_compareSettingsToggleHint": {
+    "message": "أرسل رسالتك التالية إلى نماذج متعددة."
+  },
+  "composer_compareNoneSelected": {
+    "message": "لم يتم تحديد أي نماذج للمقارنة"
+  },
+  "composer_compareSingle": {
+    "message": "جارٍ مقارنة نموذج واحد"
+  },
+  "composer_compareMany_one": {
+    "message": "جارٍ مقارنة {{count}} نموذج"
+  },
+  "composer_compareMany_two": {
+    "message": "جارٍ مقارنة {{count}} نموذجين"
+  },
+  "composer_compareMany_few": {
+    "message": "جارٍ مقارنة {{count}} نماذج"
+  },
+  "composer_compareMany_many": {
+    "message": "جارٍ مقارنة {{count}} نموذجًا"
+  },
+  "composer_compareMany_other": {
+    "message": "جارٍ مقارنة {{count}} نموذج"
+  },
+  "composer_compareActiveSummary": {
+    "message": "النماذج النشطة في الدور التالي: {{label}}"
+  },
+  "composer_compareModelPickerLabel": {
+    "message": "اختر نماذج"
+  },
+  "composer_compareModelPickerPlaceholder": {
+    "message": "اختر نماذج للمقارنة"
+  },
+  "composer_compareActiveModelsLabel": {
+    "message": "النماذج النشطة"
+  },
+  "composer_compareActiveModelsHint": {
+    "message": "ستُرسل رسالتك التالية إلى كل نموذج نشط."
+  },
+  "composer_compareSendToModels_one": {
+    "message": "إرسال إلى {{count}} نموذج"
+  },
+  "composer_compareSendToModels_two": {
+    "message": "إرسال إلى {{count}} نموذجين"
+  },
+  "composer_compareSendToModels_few": {
+    "message": "إرسال إلى {{count}} نماذج"
+  },
+  "composer_compareSendToModels_many": {
+    "message": "إرسال إلى {{count}} نموذجًا"
+  },
+  "composer_compareSendToModels_other": {
+    "message": "إرسال إلى {{count}} نموذج"
+  },
+  "composer_compareMaxModelsTitle": {
+    "message": "تم بلوغ حد المقارنة"
+  },
+  "composer_compareMaxModels_one": {
+    "message": "يمكنك مقارنة ما يصل إلى {{limit}} نموذج لكل دور."
+  },
+  "composer_compareMaxModels_two": {
+    "message": "يمكنك مقارنة ما يصل إلى {{limit}} نموذجين لكل دور."
+  },
+  "composer_compareMaxModels_few": {
+    "message": "يمكنك مقارنة ما يصل إلى {{limit}} نماذج لكل دور."
+  },
+  "composer_compareMaxModels_many": {
+    "message": "يمكنك مقارنة ما يصل إلى {{limit}} نموذجًا لكل دور."
+  },
+  "composer_compareMaxModels_other": {
+    "message": "يمكنك مقارنة ما يصل إلى {{limit}} نموذج لكل دور."
+  },
+  "composer_compareMaxModelsTrimmed_one": {
+    "message": "المقارنة محدودة بـ {{limit}} نموذج لكل دور. يتم استخدام أول {{limit}} نموذج محدد."
+  },
+  "composer_compareMaxModelsTrimmed_two": {
+    "message": "المقارنة محدودة بـ {{limit}} نموذجين لكل دور. يتم استخدام أول {{limit}} نموذجين محددين."
+  },
+  "composer_compareMaxModelsTrimmed_few": {
+    "message": "المقارنة محدودة بـ {{limit}} نماذج لكل دور. يتم استخدام أول {{limit}} نماذج محددة."
+  },
+  "composer_compareMaxModelsTrimmed_many": {
+    "message": "المقارنة محدودة بـ {{limit}} نموذجًا لكل دور. يتم استخدام أول {{limit}} نموذجًا محددًا."
+  },
+  "composer_compareMaxModelsTrimmed_other": {
+    "message": "المقارنة محدودة بـ {{limit}} نموذج لكل دور. يتم استخدام أول {{limit}} نموذج محدد."
+  },
+  "composer_compareMaxLabel": {
+    "message": "الحد الأقصى للنماذج لكل دور"
+  },
+  "composer_compareMaxHelper": {
+    "message": "المحدد: {{current}} / {{limit}}"
+  },
+  "composer_compareSelectedLabel": {
+    "message": "المحدد كإجابة:"
+  },
+  "composer_compareContinueHint": {
+    "message": "تابع هذه الدردشة باستخدام النموذج المحدد."
+  },
+  "composer_compareContinue": {
+    "message": "تابع بهذا النموذج"
+  },
+  "composer_compareThreadShared": {
+    "message": "أنت (مشترك)"
+  },
+  "composer_compareBulkSplitSuccess_one": {
+    "message": "تم إنشاء {{count}} دردشة"
+  },
+  "composer_compareBulkSplitSuccess_two": {
+    "message": "تم إنشاء {{count}} دردشتين"
+  },
+  "composer_compareBulkSplitSuccess_few": {
+    "message": "تم إنشاء {{count}} دردشات"
+  },
+  "composer_compareBulkSplitSuccess_many": {
+    "message": "تم إنشاء {{count}} دردشة"
+  },
+  "composer_compareBulkSplitSuccess_other": {
+    "message": "تم إنشاء {{count}} دردشة"
+  },
+  "composer_compareBulkSplitPartialFail_one": {
+    "message": "تعذر إنشاء {{count}} دردشة"
+  },
+  "composer_compareBulkSplitPartialFail_two": {
+    "message": "تعذر إنشاء {{count}} دردشتين"
+  },
+  "composer_compareBulkSplitPartialFail_few": {
+    "message": "تعذر إنشاء {{count}} دردشات"
+  },
+  "composer_compareBulkSplitPartialFail_many": {
+    "message": "تعذر إنشاء {{count}} دردشة"
+  },
+  "composer_compareBulkSplitPartialFail_other": {
+    "message": "تعذر إنشاء {{count}} دردشة"
+  },
+  "composer_validationCompareSelectModelsInline": {
+    "message": "اختر نموذجًا واحدًا على الأقل لوضع المقارنة."
+  },
+  "speech_title": {
+    "message": "ساحة تجربة الصوت"
+  },
+  "speech_subtitle": {
+    "message": "سجّل الكلام وحرّر التفريغ النصي وولّد الصوت في مكان واحد."
+  },
+  "speech_modeLabel": {
+    "message": "الوضع"
+  },
+  "speech_modeRoundTrip": {
+    "message": "ذهاب وإياب"
+  },
+  "speech_modeSpeak": {
+    "message": "تحدّث"
+  },
+  "speech_modeListen": {
+    "message": "استمع"
+  },
+  "speech_modeHint": {
+    "message": "يتم تذكّر آخر وضع على هذا الجهاز."
+  },
+  "speech_recordingWaveform": {
+    "message": "شكل موجي للتسجيل المباشر"
+  },
+  "speech_playbackWaveform": {
+    "message": "شكل موجي للتشغيل"
+  },
+  "speech_sendToTts": {
+    "message": "إرسال إلى TTS"
+  },
+  "speech_sendHint": {
+    "message": "استخدم آخر تفريغ نصي كمسودة TTS."
+  },
+  "speech_download": {
+    "message": "تنزيل"
+  },
+  "speech_downloadCurrent": {
+    "message": "تنزيل المقطع الحالي"
+  },
+  "speech_downloadAll": {
+    "message": "تنزيل كل المقاطع"
+  },
+  "speech_segmentFormat": {
+    "message": "التنسيق"
+  },
+  "speech_historyTitle": {
+    "message": "سجل الصوت"
+  },
+  "speech_historyAll": {
+    "message": "الكل"
+  },
+  "speech_historyStt": {
+    "message": "STT"
+  },
+  "speech_historyTts": {
+    "message": "TTS"
+  },
+  "speech_historySearch": {
+    "message": "ابحث في التفريغات النصية"
+  },
+  "speech_historyRetentionHint": {
+    "message": "يحتفظ بآخر {{count}} عنصرًا. استخدم \"مسح الكل\" لإزالة كل شيء."
+  },
+  "speech_useInTts": {
+    "message": "استخدم في TTS"
+  },
+  "speech_copy": {
+    "message": "نسخ"
+  },
+  "speech_copySuccess": {
+    "message": "تم النسخ إلى الحافظة"
+  },
+  "speech_copyError": {
+    "message": "تعذر نسخ التفريغ النصي."
+  },
+  "speech_providerTag": {
+    "message": "المزوّد"
+  },
+  "speech_voiceTag": {
+    "message": "الصوت"
+  },
+  "speech_emptyHistory": {
+    "message": "ابدأ تسجيلًا أو أنشئ صوتًا لعرض السجل هنا."
+  },
+  "speech_downloadDisabledBrowser": {
+    "message": "TTS في المتصفح لا ينشئ صوتًا قابلاً للتنزيل."
+  },
+  "speech_downloadDisabledEmpty": {
+    "message": "أنشئ صوتًا لتمكين التنزيلات."
+  },
+  "speech_transcriptLock": {
+    "message": "قفل"
+  },
+  "speech_transcriptUnlock": {
+    "message": "إلغاء القفل"
+  },
+  "speech_transcriptEditHint": {
+    "message": "تم تفعيل التعديل لهذا التفريغ النصي."
+  },
+  "speech_transcriptLockedHint": {
+    "message": "مقفل لتحديثات التفريغ المباشر."
+  },
+  "speech_transcriptRecordingHint": {
+    "message": "جارٍ التسجيل؛ التفريغ النصي مقفل."
+  },
+  "actor_title": {
+    "message": "مدير المشهد (Actor)"
+  },
+  "actor_help": {
+    "message": "اضبط سياق المشهد لكل محادثة: الأدوار، الحالة المزاجية، العالم، الأهداف، والملاحظات."
+  },
+  "actor_addLabel": {
+    "message": "أضف أو أزل الجوانب لتركيز المشهد."
+  },
+  "actor_user": {
+    "message": "المستخدم"
+  },
+  "actor_char": {
+    "message": "الشخصية"
+  },
+  "actor_world": {
+    "message": "العالم"
+  },
+  "actor_newAspectPlaceholder": {
+    "message": "اسم الجانب (مثال: المزاج، الدور، الموقع)"
+  },
+  "actor_addButton": {
+    "message": "إضافة جانب"
+  },
+  "actor_aspectPlaceholder": {
+    "message": "صف بإيجاز (اختياري)"
+  },
+  "actor_notes": {
+    "message": "ملاحظات المشهد"
+  },
+  "actor_notesHelp": {
+    "message": "ملاحظات اختيارية تُرسل إلى النموذج. تدعم Markdown وLaTeX."
+  },
+  "actor_position": {
+    "message": "موضع موجه Actor"
+  },
+  "actor_before": {
+    "message": "قبل الموجه/القصة الرئيسية"
+  },
+  "actor_after": {
+    "message": "بعد الموجه/القصة الرئيسية"
+  },
+  "actor_depth": {
+    "message": "داخل المحادثة على عمق"
+  },
+  "actor_depthLabel": {
+    "message": "العمق (رسائل غير النظام)"
+  },
+  "actor_depthPlaceholder": {
+    "message": "0 = أعلى المحادثة"
+  },
+  "actor_depthHelp": {
+    "message": "يُستخدم فقط عندما يكون الموضع \"داخل المحادثة على عمق\". يحسب رسائل غير النظام من أعلى المحادثة."
+  },
+  "actor_roleLabel": {
+    "message": "دور رسالة Actor"
+  },
+  "actor_roleSystem": {
+    "message": "النظام"
+  },
+  "actor_roleUser": {
+    "message": "المستخدم"
+  },
+  "actor_roleAssistant": {
+    "message": "المساعد"
+  },
+  "actor_positionHelp": {
+    "message": "يُستخدم العمق فقط عندما يكون الموضع \"داخل المحادثة على عمق\". يحدد الدور ما إذا كان Actor يظهر كنظام أو مستخدم أو مساعد."
+  },
+  "actor_preview": {
+    "message": "معاينة موجه Actor"
+  },
+  "actor_tokens": {
+    "message": "الرموز: {{count}}"
+  },
+  "actor_previewEmpty": {
+    "message": "لا شيء لإرساله بعد."
+  },
+  "actor_offlineHintTitle": {
+    "message": "World Books غير متاحة لـ Actor"
+  },
+  "actor_offlineHintBody": {
+    "message": "اتصل بخادم tldw من الإعدادات لاستخدام World Books لجوانب Actor، أو استمر باستخدام قيم نصية حرة."
+  },
+  "actor_loreWorldBookMissing": {
+    "message": "تعذر العثور على ربط World Book السابق؛ سيتم استخدام نص حر بدلا من ذلك."
+  },
+  "actor_loreEntryMissing": {
+    "message": "تعذر العثور على إدخال World Book السابق؛ سيتم استخدام نص حر بدلا من ذلك."
+  },
+  "actor_sourceFree": {
+    "message": "نص حر"
+  },
+  "actor_sourceLore": {
+    "message": "World Book"
+  },
+  "actor_worldBookPlaceholder": {
+    "message": "World Book"
+  },
+  "actor_entryPlaceholder": {
+    "message": "إدخال"
+  },
+  "actor_loreValuePlaceholder": {
+    "message": "اختر خيارا (اختياري)"
+  },
+  "actor_tokenLabel": {
+    "message": "رمز"
+  },
+  "actor_tokensTitle": {
+    "message": "رموز قاموس Actor"
+  },
+  "actor_tokensHelp": {
+    "message": "استخدم هذه الرموز في الموجهات ورسائل النظام."
+  },
+  "actor_keyChangeTitle": {
+    "message": "تغيير مفتاح رمز Actor؟"
+  },
+  "actor_keyChangeBody": {
+    "message": "سيؤدي ذلك إلى تغيير الرمز من {{old}} إلى {{next}}. لن تُحدَّث الموجهات التي تستخدم الرمز القديم تلقائيا."
+  },
+  "actor_keyCollisionTitle": {
+    "message": "مفتاح Actor مستخدم بالفعل"
+  },
+  "actor_keyCollisionBody": {
+    "message": "هناك جانب آخر يستخدم هذا المفتاح بالفعل. يجب أن تكون المفاتيح فريدة لكل محادثة."
+  },
+  "actor_copy": {
+    "message": "نسخ"
+  },
+  "actor_copied": {
+    "message": "تم النسخ"
+  },
+  "actor_copySuccess": {
+    "message": "تم نسخ الرمز إلى الحافظة"
+  },
+  "actor_copyError": {
+    "message": "فشل نسخ الرمز"
+  },
+  "actor_notesPreviewTitle": {
+    "message": "معاينة ملاحظات المشهد"
+  },
+  "actor_notesPreviewToggle": {
+    "message": "عرض معاينة Markdown + LaTeX"
+  },
+  "actor_aspectLimitWarningTitle": {
+    "message": "جوانب كثيرة مضبوطة لهذه المحادثة"
+  },
+  "actor_aspectLimitWarningBody": {
+    "message": "لديك {{count}} جوانب (حد مرن {{limit}}). فكّر في تقليصها لتركيز المشهد وتوفير الرموز."
+  },
+  "actor_tokenWarning": {
+    "message": "موجه Actor طويل ({{count}} رموز؛ حد مرن {{limit}}). فكّر في تقليص الجوانب أو الملاحظات لتوفير السياق."
+  },
+  "actor_depthRangeHelp": {
+    "message": "يجب أن يكون العمق بين 0 و999؛ القيم التي تتجاوز طول السجل يتم تقييدها."
+  },
+  "actor_presetLabel": {
+    "message": "الإعدادات المسبقة"
+  },
+  "actor_presetPlaceholder": {
+    "message": "اختر إعدادا مسبقا"
+  },
+  "actor_preset.sliceOfLife": {
+    "message": "لقطة من الحياة"
+  },
+  "actor_preset.dungeonCrawl": {
+    "message": "استكشاف زنزانة"
+  },
+  "actor_preset.romance": {
+    "message": "رومانسية"
+  },
+  "actor_preset.workSession": {
+    "message": "جلسة عمل"
+  },
+  "actor_applyPreset": {
+    "message": "تطبيق"
+  },
+  "actor_resetChat": {
+    "message": "إعادة ضبط لهذه المحادثة"
+  },
+  "actor_saveAsCharacterDefault": {
+    "message": "حفظ كافتراضي لـ {{name}}"
+  },
+  "actor_applyCharacterDefault": {
+    "message": "تطبيق افتراضي {{name}}"
+  },
+  "actor_notesGmOnly": {
+    "message": "لـ GM فقط: لا ترسل الملاحظات إلى النموذج"
+  },
+  "actor_templateModeLabel": {
+    "message": "تفاعل قوالب المشهد"
+  },
+  "actor_templateModeHelp": {
+    "message": "يتحكم بكيفية تفاعل Actor مع قوالب المشهد النشطة. الدمج يبقي الاثنين؛ الاستبدال يسمح لـ Actor باستبدال الحقول المتداخلة؛ التجاهل يتجاوز Actor عندما تكون القوالب نشطة."
+  },
+  "actor_templateMode.merge": {
+    "message": "دمج مع القوالب"
+  },
+  "actor_templateMode.override": {
+    "message": "استبدال القوالب"
+  },
+  "actor_templateMode.ignore": {
+    "message": "تجاهل عند نشاط القوالب"
+  },
+  "actor_bladeAspectsTitle": {
+    "message": "الجوانب"
+  },
+  "actor_bladeNotesTitle": {
+    "message": "ملاحظات المشهد"
+  },
+  "actor_bladePlacementTitle": {
+    "message": "الموضع والقوالب"
+  },
+  "actor_bladeTokensTitle": {
+    "message": "الرموز والمعاينة"
+  },
+  "actor_summaryAspectsEmpty": {
+    "message": "لم يتم إعداد أي جوانب بعد."
+  },
+  "actor_summaryAspectsCount": {
+    "message": "تم إعداد {{count}} جوانب."
+  },
+  "actor_summaryNotesEmpty": {
+    "message": "لا توجد ملاحظات للمشهد بعد."
+  },
+  "actor_summaryNotes": {
+    "message": "{{chars}} حرفا{{gmSuffix}}."
+  },
+  "actor_summaryNotesGmOnly": {
+    "message": " · لـ GM فقط"
+  },
+  "actor_summaryPlacementBefore": {
+    "message": "قبل الموجه/القصة الرئيسية."
+  },
+  "actor_summaryPlacementAfter": {
+    "message": "بعد الموجه/القصة الرئيسية."
+  },
+  "actor_summaryPlacementDepth": {
+    "message": "عمق {{depth}} · الدور: {{role}}."
+  },
+  "actor_summaryTokensEmpty": {
+    "message": "لا توجد رموز معرفة بعد؛ عيّن قيم الجوانب."
+  },
+  "actor_summaryTokensCount": {
+    "message": "{{tokens}} رموز · ~{{estimate}} رموز في الموجه."
+  },
+  "actor_sceneTemplateActive": {
+    "message": "قالب مشهد نشط: Actor يحترم إعدادات التفاعل مع القوالب."
+  }
+}

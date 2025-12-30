@@ -1,41 +1,986 @@
 {
-  "mediaPage.nothingToSend": {
+  "empty_connectTitle": {
+    "message": "Connect to use Review"
+  },
+  "empty_connectDescription": {
+    "message": "Connect to your tldw server in Settings to send messages and view media. After connecting, you can review media and notes here."
+  },
+  "empty_connectExample1": {
+    "message": "Open Settings → tldw server to add your server URL."
+  },
+  "empty_connectExample2": {
+    "message": "Once connected, browse media and notes, then generate structured reviews and summaries."
+  },
+  "empty_demoTitle": {
+    "message": "Explore Review in demo mode"
+  },
+  "empty_demoDescription": {
+    "message": "This demo shows how tldw Assistant can turn media and notes into structured reviews. Connect your own server later to analyze your own content."
+  },
+  "empty_demoExample1": {
+    "message": "See how selected media and notes appear in the review workspace."
+  },
+  "empty_demoExample2": {
+    "message": "When you connect, you’ll be able to generate summaries and action items from your own recordings and notes."
+  },
+  "reviewPage_selectItemFirst": {
+    "message": "Select an item first"
+  },
+  "reviewPage_selectMediaFirst": {
+    "message": "Select a media item first"
+  },
+  "reviewPage_selectItemEmpty": {
+    "message": "Select an item to review and analyze"
+  },
+  "reviewPage_selectMediaEmpty": {
+    "message": "Select a media item to view analyses"
+  },
+  "reviewPage_generationMode": {
+    "message": "Generation mode"
+  },
+  "reviewPage_resultTypes": {
+    "message": "Result types"
+  },
+  "reviewPage_advancedTools": {
+    "message": "Advanced tools"
+  },
+  "reviewPage_moreActions": {
+    "message": "More actions"
+  },
+  "reviewPage_toggleSidebar": {
+    "message": "Toggle results sidebar"
+  },
+  "reviewPage_autoReviewLabel": {
+    "message": "Automatically generate a review when you select an item"
+  },
+  "reviewPage_demoMode": {
+    "message": "Demo mode"
+  },
+  "reviewPage_searchPrompts": {
+    "message": "Search prompts"
+  },
+  "reviewPage_includeLocal": {
+    "message": "Local"
+  },
+  "reviewPage_includeServer": {
+    "message": "Server"
+  },
+  "reviewPage_presets": {
+    "message": "Presets"
+  },
+  "reviewPage_presetsCritical": {
+    "message": "Critical"
+  },
+  "reviewPage_presetsQaAudit": {
+    "message": "QA Audit"
+  },
+  "reviewPage_presetsBulletReview": {
+    "message": "Bullet Review"
+  },
+  "reviewPage_reviewSystemPrompt": {
+    "message": "Review: System prompt"
+  },
+  "reviewPage_reviewUserPrefix": {
+    "message": "Review: User prompt prefix"
+  },
+  "reviewPage_saveAsDefault": {
+    "message": "Save as default"
+  },
+  "reviewPage_reviewPrompt": {
+    "message": "Review prompt"
+  },
+  "reviewPage_summarySystemPrompt": {
+    "message": "Summary: System prompt"
+  },
+  "reviewPage_summaryUserPrefix": {
+    "message": "Summary: User prompt prefix"
+  },
+  "reviewPage_summaryPrompt": {
+    "message": "Summary prompt"
+  },
+  "reviewPage_customizePrompts": {
+    "message": "Customize prompts"
+  },
+  "reviewPage_showRawJson": {
+    "message": "Show raw JSON"
+  },
+  "reviewPage_noDetailLoaded": {
+    "message": "No detail loaded"
+  },
+  "reviewPage_resetToDefaults": {
+    "message": "Reset to defaults"
+  },
+  "reviewPage_usingReviewPrompts": {
+    "message": "Using Review prompts"
+  },
+  "reviewPage_usingSummaryPrompts": {
+    "message": "Using Summary prompts"
+  },
+  "reviewPage_searchPlaceholder": {
+    "message": "Search media, notes..."
+  },
+  "reviewPage_mediaOnlySearchPlaceholder": {
+    "message": "Search media (title/content)"
+  },
+  "reviewPage_search": {
+    "message": "Search"
+  },
+  "reviewPage_filters": {
+    "message": "Filters"
+  },
+  "reviewPage_media": {
+    "message": "Media"
+  },
+  "reviewPage_notes": {
+    "message": "Notes"
+  },
+  "reviewPage_useReview": {
+    "message": "Use Review"
+  },
+  "reviewPage_useSummary": {
+    "message": "Use Summary"
+  },
+  "reviewPage_mediaTypes": {
+    "message": "Media types"
+  },
+  "reviewPage_keywords": {
+    "message": "Keywords"
+  },
+  "reviewPage_clear": {
+    "message": "Clear filters"
+  },
+  "reviewPage_results": {
+    "message": "Results"
+  },
+  "reviewPage_noResults": {
+    "message": "No results"
+  },
+  "reviewPage_showSidebar": {
+    "message": "Show results sidebar"
+  },
+  "reviewPage_hideSidebar": {
+    "message": "Hide results sidebar"
+  },
+  "reviewPage_selectedBadge": {
+    "message": "Selected"
+  },
+  "reviewPage_bulkToolbar": {
+    "message": "Review controls"
+  },
+  "reviewPage_loadedCount": {
+    "message": "{{count}} loaded"
+  },
+  "reviewPage_viewLabel": {
+    "message": "Content view"
+  },
+  "reviewPage_navigateLabel": {
+    "message": "Items"
+  },
+  "reviewPage_prevItem": {
+    "message": "Previous"
+  },
+  "reviewPage_nextItem": {
+    "message": "Next"
+  },
+  "reviewPage_mediaModeHint": {
+    "message": "Search and inspect one media item at a time. Select a result to view its content and analyses on the right."
+  },
+  "reviewPage_resultsHelp": {
+    "message": "Keyboard: Tab into the results list, use Enter or Space to select the focused row, then use the Prev/Next buttons in the analysis toolbar to move between items."
+  },
+  "reviewPage_resultsHelpLabel": {
+    "message": "Review results keyboard shortcuts"
+  },
+  "reviewPage_review": {
+    "message": "Get review"
+  },
+  "reviewPage_reviewHint": {
+    "message": "Ask the assistant to review this item."
+  },
+  "reviewPage_summary": {
+    "message": "Get summary"
+  },
+  "reviewPage_summaryHint": {
+    "message": "Ask for a shorter summary."
+  },
+  "reviewPage_attachGeneratedHint": {
+    "message": "Run the assistant and attach the result to this media item."
+  },
+  "reviewPage_attachReview": {
+    "message": "Attach review to media"
+  },
+  "reviewPage_attachSummary": {
+    "message": "Attach summary to media"
+  },
+  "reviewPage_saveGeneratedNoteHint": {
+    "message": "Run the assistant and save the result as a note."
+  },
+  "reviewPage_saveReviewNote": {
+    "message": "Save review as note"
+  },
+  "reviewPage_saveSummaryNote": {
+    "message": "Save summary as note"
+  },
+  "reviewPage_saveToMediaHint": {
+    "message": "Attach the current text in the editor to this media item."
+  },
+  "reviewPage_saveToMedia": {
+    "message": "Attach current text to media"
+  },
+  "reviewPage_saveAnalysisHint": {
+    "message": "Create a note from the current analysis."
+  },
+  "reviewPage_saveAnalysis": {
+    "message": "Save to notes"
+  },
+  "reviewPage_askAssistantLabel": {
+    "message": "Ask the assistant"
+  },
+  "reviewPage_saveResultsLabel": {
+    "message": "Save results"
+  },
+  "reviewPage_moreSaveNewVersion": {
+    "message": "Save as new version"
+  },
+  "reviewPage_moreDuplicateVersion": {
+    "message": "Duplicate version"
+  },
+  "reviewPage_moreRestoreVersion": {
+    "message": "Restore selected version"
+  },
+  "reviewPage_modeReview": {
+    "message": "Use review"
+  },
+  "reviewPage_modeSummary": {
+    "message": "Use summary"
+  },
+  "reviewPage_resultsHint": {
+    "message": "Click a result to load its content and analyses on the right."
+  },
+  "reviewPage_paginationHint": {
+    "message": "Use filters or pagination to refine the results if many items are loaded."
+  },
+  "reviewPage_offlineHint": {
+    "message": "Connect to your tldw server in Settings to send messages and view media. Then you can search media from this page."
+  },
+  "reviewPage_chatWithMedia": {
+    "message": "Chat with this media"
+  },
+  "reviewPage_chatWithMediaHint": {
+    "message": "Open Chat and prefill the composer with this media’s content."
+  },
+  "reviewPage_chatAboutMedia": {
+    "message": "Chat about this media"
+  },
+  "reviewPage_chatPrepared": {
+    "message": "Prepared chat with this media in the composer."
+  },
+  "reviewPage_chatAboutMediaHint": {
+    "message": "Open RAG chat scoped to this media only."
+  },
+  "reviewPage_chatAboutMediaRagSent": {
+    "message": "Opened media-scoped RAG chat."
+  },
+  "reviewPage_chatAboutMediaInvalidId": {
+    "message": "This media item does not have a numeric id yet."
+  },
+  "reviewPage_demoBadge": {
+    "message": "Demo"
+  },
+  "reviewPage_notConnectedBadge": {
+    "message": "Not connected"
+  },
+  "reviewPage_noContent": {
+    "message": "No content available"
+  },
+  "reviewPage_showMore": {
+    "message": "Show more"
+  },
+  "reviewPage_showLess": {
+    "message": "Show less"
+  },
+  "reviewPage_showRaw": {
+    "message": "Show raw"
+  },
+  "reviewPage_hideRaw": {
+    "message": "Hide raw"
+  },
+  "reviewPage_noAnalysis": {
+    "message": "No analysis yet"
+  },
+  "reviewPage_mediaContent": {
+    "message": "Media Content"
+  },
+  "reviewPage_copyContent": {
+    "message": "Copy content"
+  },
+  "reviewPage_analysisTitle": {
+    "message": "Analysis"
+  },
+  "reviewPage_copyAnalysis": {
+    "message": "Copy analysis"
+  },
+  "reviewPage_sendAnalysisToChat": {
+    "message": "Send analysis to chat"
+  },
+  "reviewPage_copyAllPlain": {
+    "message": "Copy all as plain text"
+  },
+  "reviewPage_copyAllMarkdown": {
+    "message": "Copy all as Markdown"
+  },
+  "reviewPage_statusProcessing": {
+    "message": "Processing"
+  },
+  "reviewPage_statusQueued": {
+    "message": "Queued"
+  },
+  "reviewPage_statusError": {
+    "message": "Error"
+  },
+  "reviewPage_statusReady": {
+    "message": "Ready"
+  },
+  "reviewPage_loadedOf": {
+    "message": "{{count}} loaded"
+  },
+  "reviewPage_expandAllContent": {
+    "message": "Show full"
+  },
+  "reviewPage_collapseAllContent": {
+    "message": "Show shorter"
+  },
+  "reviewPage_expandContent": {
+    "message": "Expand"
+  },
+  "reviewPage_collapseContent": {
+    "message": "Collapse"
+  },
+  "reviewPage_expandAnalysis": {
+    "message": "Expand"
+  },
+  "reviewPage_collapseAnalysis": {
+    "message": "Collapse"
+  },
+  "reviewPage_jumpTo": {
+    "message": "Jump to"
+  },
+  "reviewPage_presetsExecutive": {
+    "message": "Executive"
+  },
+  "reviewPage_presetsDetailed": {
+    "message": "Detailed"
+  },
+  "reviewPage_presetsBullets": {
+    "message": "Bullets"
+  },
+  "reviewPage_analysisFailed": {
+    "message": "Analysis failed"
+  },
+  "reviewPage_analysisAttached": {
+    "message": "Analysis attached to media"
+  },
+  "reviewPage_analyzeSaveFailed": {
+    "message": "Failed to analyze & save"
+  },
+  "reviewPage_nothingToSave": {
+    "message": "Nothing to save"
+  },
+  "reviewPage_savedToNotes": {
+    "message": "Saved to notes"
+  },
+  "reviewPage_saveFailed": {
+    "message": "Save failed"
+  },
+  "reviewPage_saveToMediaFailed": {
+    "message": "Failed to save to media"
+  },
+  "reviewPage_sentToChat": {
+    "message": "Sent to chat"
+  },
+  "reviewPage_sendFailed": {
+    "message": "Failed to send"
+  },
+  "reviewPage_analysisEditorPlaceholder": {
+    "message": "Run Review or Summarize, then edit here..."
+  },
+  "reviewPage_createdNewVersion": {
+    "message": "Created new version"
+  },
+  "reviewPage_createVersionFailed": {
+    "message": "Create version failed"
+  },
+  "reviewPage_selectVersionFirst": {
+    "message": "Select a version first"
+  },
+  "reviewPage_noVersionNumber": {
+    "message": "No version number"
+  },
+  "reviewPage_selectedVersionNoContent": {
+    "message": "Selected version has no content"
+  },
+  "reviewPage_clonedVersionCreated": {
+    "message": "Cloned version created"
+  },
+  "reviewPage_cloneFailed": {
+    "message": "Clone failed"
+  },
+  "reviewPage_confirmTitle": {
+    "message": "Please confirm"
+  },
+  "reviewPage_restoreConfirm": {
+    "message": "Restore this version as current?"
+  },
+  "reviewPage_restoreAction": {
+    "message": "Restore"
+  },
+  "reviewPage_cancelAction": {
+    "message": "Cancel"
+  },
+  "reviewPage_versionRestored": {
+    "message": "Version restored"
+  },
+  "reviewPage_restoreFailed": {
+    "message": "Restore failed"
+  },
+  "reviewPage_existingAnalysesTitle": {
+    "message": "Existing Analyses"
+  },
+  "reviewPage_onlyWithAnalysis": {
+    "message": "Only with analysis"
+  },
+  "reviewPage_copyAllLabel": {
+    "message": "Copy All"
+  },
+  "reviewPage_copyMdLabel": {
+    "message": "Copy MD"
+  },
+  "reviewPage_copiedAllNotes": {
+    "message": "Copied all notes"
+  },
+  "reviewPage_copiedAllNotesMarkdown": {
+    "message": "Copied all notes as Markdown"
+  },
+  "reviewPage_loadSelectedAnalysis": {
+    "message": "Load selected analysis into editor"
+  },
+  "reviewPage_loadLabel": {
+    "message": "Load"
+  },
+  "reviewPage_loadVersionPrompt": {
+    "message": "Load version prompt into editor"
+  },
+  "reviewPage_noPromptFound": {
+    "message": "No prompt found"
+  },
+  "reviewPage_copyVersionPrompt": {
+    "message": "Copy selected version prompt"
+  },
+  "reviewPage_promptCopied": {
+    "message": "Prompt copied"
+  },
+  "reviewPage_diffSelectedCurrent": {
+    "message": "Diff selected vs current"
+  },
+  "reviewPage_versionDeleted": {
+    "message": "Version deleted"
+  },
+  "reviewPage_versionDeletedDescription": {
+    "message": "Deleted version v{{version}}."
+  },
+  "reviewPage_undoRolledBack": {
+    "message": "Undo: rolled back to deleted version"
+  },
+  "reviewPage_undoFailed": {
+    "message": "Undo failed"
+  },
+  "reviewPage_undoLabel": {
+    "message": "Undo"
+  },
+  "reviewPage_deleteFailed": {
+    "message": "Delete failed"
+  },
+  "reviewPage_deleteSelectedVersion": {
+    "message": "Delete selected version"
+  },
+  "reviewPage_noSavedAnalyses": {
+    "message": "No saved analyses for this item yet."
+  },
+  "reviewPage_currentTag": {
+    "message": "Current"
+  },
+  "reviewPage_promptLabel": {
+    "message": "Prompt"
+  },
+  "reviewPage_showLabel": {
+    "message": "Show"
+  },
+  "reviewPage_hideLabel": {
+    "message": "Hide"
+  },
+  "reviewPage_copyAnalysisPlainTooltip": {
+    "message": "Copy analysis (plain)"
+  },
+  "reviewPage_copyLabel": {
+    "message": "Copy"
+  },
+  "reviewPage_copyAnalysisMarkdownTooltip": {
+    "message": "Copy as Markdown"
+  },
+  "reviewPage_copiedAnalysisMarkdown": {
+    "message": "Copied analysis as Markdown"
+  },
+  "reviewPage_markdownLabel": {
+    "message": "MD"
+  },
+  "reviewPage_copyPromptTooltip": {
+    "message": "Copy prompt"
+  },
+  "reviewPage_diffUnified": {
+    "message": "Unified"
+  },
+  "reviewPage_diffSideBySide": {
+    "message": "Side by side"
+  },
+  "reviewPage_diffCopied": {
+    "message": "Diff copied"
+  },
+  "reviewPage_copyDiffLabel": {
+    "message": "Copy diff"
+  },
+  "reviewPage_closeLabel": {
+    "message": "Close"
+  },
+  "reviewPage_diffTitle": {
+    "message": "Diff: selected vs current"
+  },
+  "reviewPage_diffSelectedVersion": {
+    "message": "Selected version"
+  },
+  "reviewPage_diffCurrentEditor": {
+    "message": "Current editor"
+  },
+  "reviewPage_noDifferences": {
+    "message": "No differences"
+  },
+  "reviewPage_openInMulti": {
+    "message": "Open in Multi-Item Review"
+  },
+  "reviewPage_analyze_none": {
+    "message": "No content available to analyze"
+  },
+  "reviewPage_analyze_saved": {
+    "message": "Analysis saved as note"
+  },
+  "reviewPage_analyze_failed": {
+    "message": "Failed to analyze & save note"
+  },
+  "mediaEmpty_demoTitle": {
+    "message": "Explore Media in demo mode"
+  },
+  "mediaEmpty_demoDescription": {
+    "message": "This demo shows how tldw Assistant can display and inspect processed media. Connect your own server later to browse your own recordings and documents."
+  },
+  "mediaEmpty_demoExample1": {
+    "message": "See how processed media items appear in the Media viewer."
+  },
+  "mediaEmpty_demoExample2": {
+    "message": "When you connect, you’ll be able to browse and inspect media ingested from your own recordings and files."
+  },
+  "mediaEmpty_demoExample3": {
+    "message": "Use Media together with Review to summarize or analyze recordings."
+  },
+  "mediaEmpty_demoPreviewHeading": {
+    "message": "Example media items (preview only)"
+  },
+  "mediaEmpty_demoSample1Title": {
+    "message": "Demo media: Team call recording"
+  },
+  "mediaEmpty_demoSample1Meta": {
+    "message": "Video · 25 min · Keywords: standup, planning"
+  },
+  "mediaEmpty_demoSample2Title": {
+    "message": "Demo media: Product walkthrough"
+  },
+  "mediaEmpty_demoSample2Meta": {
+    "message": "Screen recording · 12 min · Keywords: onboarding"
+  },
+  "mediaEmpty_demoSample3Title": {
+    "message": "Demo media: Research article PDF"
+  },
+  "mediaEmpty_demoSample3Meta": {
+    "message": "PDF · 6 pages · Keywords: summarization"
+  },
+  "mediaEmpty_connectTitle": {
+    "message": "Connect to use Media"
+  },
+  "mediaEmpty_connectDescription": {
+    "message": "Connect to your tldw server in Settings to send messages and view media. After connecting, processed recordings and documents will be listed here."
+  },
+  "mediaEmpty_connectExample1": {
+    "message": "Open Settings → tldw server to add your server URL."
+  },
+  "mediaEmpty_connectExample2": {
+    "message": "Once connected, use Quick ingest in the header to add media from your own recordings and files."
+  },
+  "mediaEmpty_offlineTitle": {
+    "message": "Media Review isn’t available on this server yet"
+  },
+  "mediaEmpty_offlineDescription": {
+    "message": "This workspace depends on Media Review support in your tldw server. You can continue using chat, notes, and other tools while you upgrade to a version that includes Media."
+  },
+  "mediaEmpty_offlineExample1": {
+    "message": "Open Diagnostics to confirm your server version and available APIs."
+  },
+  "mediaEmpty_offlineExample2": {
+    "message": "After upgrading, reload the extension and return to Media."
+  },
+  "mediaEmpty_offlineTechnicalDetails": {
+    "message": "Technical details: this tldw server does not advertise the Media endpoints (for example, /api/v1/media and /api/v1/media/search)."
+  },
+  "mediaEmpty_featureUnavailableBadge": {
+    "message": "Feature unavailable"
+  },
+  "mediaPage_spreadMode": {
+    "message": "Compare"
+  },
+  "mediaPage_listMode": {
+    "message": "Focus"
+  },
+  "mediaPage_allMode": {
+    "message": "Stack"
+  },
+  "mediaPage_spreadModeTooltip": {
+    "message": "View selected items side-by-side for comparison"
+  },
+  "mediaPage_listModeTooltip": {
+    "message": "View one item at a time with navigation"
+  },
+  "mediaPage_allModeTooltip": {
+    "message": "View all selected items in a scrollable list"
+  },
+  "mediaPage_copyContentLabel": {
+    "message": "Copy Content"
+  },
+  "mediaPage_copyAnalysisLabel": {
+    "message": "Copy Analysis"
+  },
+  "mediaPage_copyContentTooltip": {
+    "message": "Copy content to clipboard"
+  },
+  "mediaPage_copyAnalysisTooltip": {
+    "message": "Copy analysis to clipboard"
+  },
+  "mediaPage_prevItemTooltip": {
+    "message": "Previous item (←)"
+  },
+  "mediaPage_nextItemTooltip": {
+    "message": "Next item (→)"
+  },
+  "mediaPage_viewerOptions": {
+    "message": "Options"
+  },
+  "mediaPage_expandAllDropdown": {
+    "message": "Expand/Collapse"
+  },
+  "mediaPage_itemPosition": {
+    "message": "Item {{current}} of {{total}}"
+  },
+  "mediaPage_noItemSelected": {
+    "message": "No item selected"
+  },
+  "mediaPage_firstUseTitle": {
+    "message": "Quick Guide: Multi-Item Review"
+  },
+  "mediaPage_firstUseStep1": {
+    "message": "Select items"
+  },
+  "mediaPage_firstUseStep1Desc": {
+    "message": "Click items in the left panel to add them to your viewer."
+  },
+  "mediaPage_firstUseStep2": {
+    "message": "Choose a view"
+  },
+  "mediaPage_firstUseStep2Desc": {
+    "message": "Use \"Compare\" for side-by-side, \"Focus\" for one at a time, or \"Stack\" to see all."
+  },
+  "mediaPage_firstUseStep3": {
+    "message": "Navigate"
+  },
+  "mediaPage_firstUseStep3Desc": {
+    "message": "Use Prev/Next buttons or keyboard (Tab + Enter) to move through items."
+  },
+  "mediaPage_gotIt": {
+    "message": "Got it"
+  },
+  "mediaPage_mediaInspector": {
+    "message": "Media Inspector"
+  },
+  "mediaPage_searchPlaceholder": {
+    "message": "Search media (title/content)"
+  },
+  "mediaPage_search": {
+    "message": "Search"
+  },
+  "mediaPage_clear": {
+    "message": "Clear"
+  },
+  "mediaPage_types": {
+    "message": "Media types"
+  },
+  "mediaPage_keywords": {
+    "message": "Keywords"
+  },
+  "mediaPage_moreTags": {
+    "message": "+{{count}} more tags"
+  },
+  "mediaPage_resetFilters": {
+    "message": "Clear filters"
+  },
+  "mediaPage_clearAll": {
+    "message": "Clear all"
+  },
+  "mediaPage_content": {
+    "message": "Content"
+  },
+  "mediaPage_vertical": {
+    "message": "Vertical"
+  },
+  "mediaPage_horizontal": {
+    "message": "Horizontal"
+  },
+  "mediaPage_results": {
+    "message": "Results"
+  },
+  "mediaPage_showSidebar": {
+    "message": "Show results sidebar"
+  },
+  "mediaPage_hideSidebar": {
+    "message": "Hide results sidebar"
+  },
+  "mediaPage_viewer": {
+    "message": "Viewer"
+  },
+  "mediaPage_selectItemsHint": {
+    "message": "Select items on the left to view here."
+  },
+  "mediaPage_mediaContent": {
+    "message": "Media Content"
+  },
+  "mediaPage_copyContent": {
+    "message": "Copy content"
+  },
+  "mediaPage_contentCopied": {
+    "message": "Content copied"
+  },
+  "mediaPage_metadataCopied": {
+    "message": "Metadata copied"
+  },
+  "mediaPage_analysisCopied": {
+    "message": "Analysis copied"
+  },
+  "mediaPage_copyFailed": {
+    "message": "Copy failed"
+  },
+  "mediaPage_noContent": {
+    "message": "No content available"
+  },
+  "mediaPage_collapse": {
+    "message": "Collapse"
+  },
+  "mediaPage_expand": {
+    "message": "Expand"
+  },
+  "mediaPage_media": {
+    "message": "Media"
+  },
+  "mediaPage_searchingBanner": {
+    "message": "Searching media…"
+  },
+  "mediaPage_filterHelp": {
+    "message": "Search matches title and content; Types and Keywords further narrow the results."
+  },
+  "mediaPage_noMediaTypes": {
+    "message": "No media types available"
+  },
+  "mediaPage_noResults": {
+    "message": "No media found. Use Quick ingest in the header to add media from your recordings and files."
+  },
+  "mediaPage_resultsCount": {
+    "message": "{{selected}} selected · {{open}} open"
+  },
+  "mediaPage_clearSelection": {
+    "message": "Deselect all"
+  },
+  "mediaPage_itemsLabel": {
+    "message": "Items"
+  },
+  "mediaPage_contentLabel": {
+    "message": "Content view"
+  },
+  "mediaPage_filterByKeyword": {
+    "message": "Filter by keyword"
+  },
+  "mediaPage_keywordHelper": {
+    "message": "Keywords help you find this media using the keyword filter on the left."
+  },
+  "mediaPage_modeHint": {
+    "message": "Search and stack multiple media items to compare them in the viewer on the right."
+  },
+  "mediaPage_viewerHelp": {
+    "message": "Keyboard: Tab into the results list, use Enter or Space to stack or unstack a media item, then use Prev/Next and layout controls to move through items in the viewer."
+  },
+  "mediaPage_viewerHelpLabel": {
+    "message": "Multi-Item Review keyboard shortcuts"
+  },
+  "mediaPage_actionsLabel": {
+    "message": "Actions"
+  },
+  "mediaPage_keywordsPlaceholder": {
+    "message": "Add keywords..."
+  },
+  "mediaPage_noSelectionTitle": {
+    "message": "No media item selected"
+  },
+  "mediaPage_noSelectionDescription": {
+    "message": "Select a media item from the left sidebar to view its content and analyses here."
+  },
+  "mediaPage_generateAnalysis": {
+    "message": "Generate"
+  },
+  "mediaPage_generateAnalysisHint": {
+    "message": "Generate new analysis"
+  },
+  "mediaPage_editAnalysis": {
+    "message": "Edit analysis"
+  },
+  "mediaPage_createNoteWithContent": {
+    "message": "Create note with content"
+  },
+  "mediaPage_createNoteWithContentAnalysis": {
+    "message": "Create note with content + analysis"
+  },
+  "mediaPage_untitled": {
+    "message": "Untitled"
+  },
+  "mediaPage_copyMetadata": {
+    "message": "Copy metadata"
+  },
+  "mediaPage_statistics": {
+    "message": "Statistics"
+  },
+  "mediaPage_words": {
+    "message": "Words"
+  },
+  "mediaPage_characters": {
+    "message": "Characters"
+  },
+  "mediaPage_paragraphs": {
+    "message": "Paragraphs"
+  },
+  "mediaPage_metadata": {
+    "message": "Metadata"
+  },
+  "mediaPage_idLabel": {
+    "message": "ID"
+  },
+  "mediaPage_typeLabel": {
+    "message": "Type"
+  },
+  "mediaPage_titleLabel": {
+    "message": "Title"
+  },
+  "mediaPage_source": {
+    "message": "Source"
+  },
+  "mediaPage_notAvailable": {
+    "message": "N/A"
+  },
+  "mediaPage_developerTools": {
+    "message": "Developer Tools"
+  },
+  "mediaPage_model": {
+    "message": "Model"
+  },
+  "mediaPage_selectModel": {
+    "message": "Select a model"
+  },
+  "mediaPage_noModelsAvailable": {
+    "message": "No models available"
+  },
+  "mediaPage_promptPresets": {
+    "message": "Prompt presets"
+  },
+  "mediaPage_showPresets": {
+    "message": "Show presets"
+  },
+  "mediaPage_hidePresets": {
+    "message": "Hide presets"
+  },
+  "mediaPage_systemPromptLabel": {
+    "message": "System prompt"
+  },
+  "mediaPage_systemPromptPlaceholder": {
+    "message": "Enter system prompt..."
+  },
+  "mediaPage_userPromptPrefixLabel": {
+    "message": "User prompt prefix"
+  },
+  "mediaPage_prependedBeforeContent": {
+    "message": "(prepended before content)"
+  },
+  "mediaPage_userPrefixPlaceholder": {
+    "message": "Optional: Enter text to prepend before the media content..."
+  },
+  "mediaPage_presetComprehensiveAnalysis": {
+    "message": "Comprehensive analysis"
+  },
+  "mediaPage_presetExecutiveSummary": {
+    "message": "Executive summary"
+  },
+  "mediaPage_presetCriticalReview": {
+    "message": "Critical review"
+  },
+  "mediaPage_presetQAAnalysis": {
+    "message": "Q&A analysis"
+  },
+  "mediaPage_nothingToSend": {
     "message": "Nothing to send"
   },
-  "mediaPage.emptyAnalysis": {
+  "mediaPage_emptyAnalysis": {
     "message": "Analysis cannot be empty"
   },
-  "mediaPage.noMediaId": {
+  "mediaPage_noMediaId": {
     "message": "No media ID available"
   },
-  "mediaPage.versionSaved": {
+  "mediaPage_versionSaved": {
     "message": "Saved as new version"
   },
-  "mediaPage.saveFailed": {
+  "mediaPage_saveFailed": {
     "message": "Failed to save version"
   },
-  "mediaPage.saveUnauthorized": {
+  "mediaPage_saveUnauthorized": {
     "message": "Not authorized to save"
   },
-  "mediaPage.sendToChat": {
+  "mediaPage_sendToChat": {
     "message": "Send to Chat"
   },
-  "mediaPage.saveAsVersion": {
+  "mediaPage_saveAsVersion": {
     "message": "Save as New Version"
   },
-  "mediaPage.analysisPlaceholder": {
+  "mediaPage_analysisPlaceholder": {
     "message": "Enter analysis text..."
   },
-  "mediaPage.wordCount": {
+  "mediaPage_wordCount": {
     "message": "{{count}} words"
   },
-  "mediaPage.charCount": {
+  "mediaPage_charCount": {
     "message": "{{count}} characters"
   },
-  "mediaPage.pageRangeError": {
+  "mediaPage_pageRangeError": {
     "message": "Page must be 1-{{max}}"
   },
-  "mediaPage.pageRangeClamped": {
+  "mediaPage_pageRangeClamped": {
     "message": "Navigating to page {{page}}"
   },
   "noToolCalls": {
@@ -49,5 +994,320 @@
   },
   "result": {
     "message": "Result"
+  },
+  "reviewDraftsFailedTitle": {
+    "message": "Review drafts couldn't be created."
+  },
+  "reviewDraftsFailedFallback": {
+    "message": "Failed to create review drafts."
+  },
+  "reviewDraftsRetry": {
+    "message": "Retry draft creation"
+  },
+  "reviewDraftsStoreWithoutReview": {
+    "message": "Store without review"
+  },
+  "reviewNavigationFailed": {
+    "message": "Couldn't open Content Review. Please try again."
+  },
+  "reviewNavigationRetry": {
+    "message": "Retry opening Content Review"
+  },
+  "contentReview_title": {
+    "message": "Content Review"
+  },
+  "contentReview_readyToSubmit": {
+    "message": "{{count}} ready"
+  },
+  "contentReview_committedCount": {
+    "message": "{{count}} committed"
+  },
+  "contentReview_totalCount": {
+    "message": "{{count}} total"
+  },
+  "contentReview_commitAll": {
+    "message": "Commit All"
+  },
+  "contentReview_clearDrafts": {
+    "message": "Clear drafts"
+  },
+  "contentReview_emptyDescription": {
+    "message": "No drafts yet. Use Quick Ingest with Review before saving to create drafts."
+  },
+  "contentReview_openQuickIngest": {
+    "message": "Open Quick Ingest"
+  },
+  "contentReview_storeAfterReview": {
+    "message": "Store after review"
+  },
+  "contentReview_reviewBeforeStorage": {
+    "message": "Review before saving"
+  },
+  "contentReview_reviewBeforeStorageHint": {
+    "message": "Process now, then edit drafts locally before committing to your server."
+  },
+  "contentReview_reviewEnabled": {
+    "message": "Review mode"
+  },
+  "contentReview_reviewStorageCap": {
+    "message": "Local drafts are capped at {{cap}}."
+  },
+  "contentReview_reviewWarningTitle": {
+    "message": "Store drafts locally?"
+  },
+  "contentReview_reviewWarningBody": {
+    "message": "Drafts are saved in this browser and may include sensitive data. You can clear drafts from the Content Review page at any time."
+  },
+  "contentReview_reviewWarningBodySecondary": {
+    "message": "Review mode keeps content client-side until you commit it to your server."
+  },
+  "contentReview_reviewWarningConfirm": {
+    "message": "Enable review"
+  },
+  "contentReview_reviewWarningCancel": {
+    "message": "Cancel"
+  },
+  "contentReview_reviewRunLabel": {
+    "message": "Review"
+  },
+  "contentReview_reviewDraftsCreated": {
+    "message": "Drafts ready for review."
+  },
+  "contentReview_reviewStorageCapWarning_one": {
+    "message": "{{count}} file exceeds the local draft cap ({{cap}}). Attach sources before committing audio/video."
+  },
+  "contentReview_reviewStorageCapWarning_other": {
+    "message": "{{count}} files exceed the local draft cap ({{cap}}). Attach sources before committing audio/video."
+  },
+  "contentReview_openContentReview": {
+    "message": "Open Content Review"
+  },
+  "contentReview_batchLabel": {
+    "message": "Batch"
+  },
+  "contentReview_batchName": {
+    "message": "Batch {{index}}"
+  },
+  "contentReview_draftsLabel": {
+    "message": "Drafts"
+  },
+  "contentReview_selectDraft": {
+    "message": "Select a draft to begin reviewing."
+  },
+  "contentReview_titlePlaceholder": {
+    "message": "Draft title"
+  },
+  "contentReview_lastSaved": {
+    "message": "Saved {{time}}"
+  },
+  "contentReview_resetTitle": {
+    "message": "Reset draft?"
+  },
+  "contentReview_resetBody": {
+    "message": "This will restore the original content for this draft."
+  },
+  "contentReview_resetConfirm": {
+    "message": "Reset"
+  },
+  "contentReview_resetCancel": {
+    "message": "Cancel"
+  },
+  "contentReview_resetContent": {
+    "message": "Reset"
+  },
+  "contentReview_diffView": {
+    "message": "Diff view"
+  },
+  "contentReview_saveDraft": {
+    "message": "Save draft"
+  },
+  "contentReview_editorLabel": {
+    "message": "Content"
+  },
+  "contentReview_wordCount": {
+    "message": "{{words}} words"
+  },
+  "contentReview_charCount": {
+    "message": "{{chars}} chars"
+  },
+  "contentReview_aiFix": {
+    "message": "AI fix"
+  },
+  "contentReview_aiHint": {
+    "message": "Sends draft content to your server for AI processing."
+  },
+  "contentReview_modelPlaceholder": {
+    "message": "Server default"
+  },
+  "contentReview_aiConsentTitle": {
+    "message": "Send draft to server?"
+  },
+  "contentReview_aiConsentBody": {
+    "message": "This will send the draft content to your tldw server for AI processing. Drafts stay local until you commit."
+  },
+  "contentReview_aiConsentConfirm": {
+    "message": "Continue"
+  },
+  "contentReview_aiConsentCancel": {
+    "message": "Cancel"
+  },
+  "contentReview_aiApplied": {
+    "message": "AI corrections applied."
+  },
+  "contentReview_aiNoChange": {
+    "message": "No changes returned."
+  },
+  "contentReview_aiEmpty": {
+    "message": "AI returned no content."
+  },
+  "contentReview_aiUnavailable": {
+    "message": "Chat completions unavailable."
+  },
+  "contentReview_templatePlaceholder": {
+    "message": "Choose template"
+  },
+  "contentReview_applyTemplate": {
+    "message": "Apply template"
+  },
+  "contentReview_templateApplied": {
+    "message": "Template applied."
+  },
+  "contentReview_templateMissing": {
+    "message": "Select a template first."
+  },
+  "contentReview_detectSections": {
+    "message": "Detect sections"
+  },
+  "contentReview_detectSectionsTitle": {
+    "message": "Re-detect sections?"
+  },
+  "contentReview_detectSectionsBody": {
+    "message": "This will replace existing sections and reset your selections."
+  },
+  "contentReview_detectSectionsConfirm": {
+    "message": "Re-detect"
+  },
+  "contentReview_detectSectionsCancel": {
+    "message": "Cancel"
+  },
+  "contentReview_detectSectionsEmpty": {
+    "message": "No sections detected."
+  },
+  "contentReview_sectionsLabel": {
+    "message": "Section filter"
+  },
+  "contentReview_templates_transcript_clean_label": {
+    "message": "Clean transcript"
+  },
+  "contentReview_templates_transcript_clean_description": {
+    "message": "Normalize punctuation and casing while preserving line structure."
+  },
+  "contentReview_templates_speaker_turns_label": {
+    "message": "Speaker turns"
+  },
+  "contentReview_templates_speaker_turns_description": {
+    "message": "Ensure each speaker turn is on its own line with clear labels."
+  },
+  "contentReview_templates_chapter_headings_label": {
+    "message": "Chapter headings"
+  },
+  "contentReview_templates_chapter_headings_description": {
+    "message": "Insert Markdown headings to group topics without removing content."
+  },
+  "contentReview_metadataLabel": {
+    "message": "Metadata"
+  },
+  "contentReview_mediaType": {
+    "message": "Media type"
+  },
+  "contentReview_keywords": {
+    "message": "Keywords"
+  },
+  "contentReview_keywordsPlaceholder": {
+    "message": "Add keywords"
+  },
+  "contentReview_reviewNotes": {
+    "message": "Review notes"
+  },
+  "contentReview_missingSource": {
+    "message": "Source file missing"
+  },
+  "contentReview_missingSourceBody": {
+    "message": "Attach the original file to commit this draft."
+  },
+  "contentReview_attachSource": {
+    "message": "Attach file"
+  },
+  "contentReview_actionsLabel": {
+    "message": "Actions"
+  },
+  "contentReview_commit": {
+    "message": "Commit"
+  },
+  "contentReview_commitDisabled": {
+    "message": "Attach the original audio/video file before committing."
+  },
+  "contentReview_markReviewed": {
+    "message": "Mark reviewed"
+  },
+  "contentReview_skipNext": {
+    "message": "Skip"
+  },
+  "contentReview_discard": {
+    "message": "Discard"
+  },
+  "contentReview_discardTitle": {
+    "message": "Discard draft?"
+  },
+  "contentReview_discardBody": {
+    "message": "This draft will be marked as discarded and removed from review."
+  },
+  "contentReview_discardConfirm": {
+    "message": "Discard"
+  },
+  "contentReview_discardCancel": {
+    "message": "Cancel"
+  },
+  "contentReview_commitSuccess": {
+    "message": "Draft committed."
+  },
+  "contentReview_commitAllTitle": {
+    "message": "Commit reviewed drafts?"
+  },
+  "contentReview_commitAllBody": {
+    "message": "Only drafts marked as reviewed will be committed."
+  },
+  "contentReview_commitAllConfirm": {
+    "message": "Commit all"
+  },
+  "contentReview_commitAllCancel": {
+    "message": "Cancel"
+  },
+  "contentReview_commitAllResult": {
+    "message": "{{success}} committed · {{failed}} failed"
+  },
+  "contentReview_storageCapWarning": {
+    "message": "This file exceeds the local draft cap ({{cap}})."
+  },
+  "contentReview_clearTitle": {
+    "message": "Clear all drafts?"
+  },
+  "contentReview_clearBody": {
+    "message": "This removes all local content review drafts and assets."
+  },
+  "contentReview_clearConfirm": {
+    "message": "Clear drafts"
+  },
+  "contentReview_clearCancel": {
+    "message": "Cancel"
+  },
+  "contentReview_clearSuccess": {
+    "message": "Drafts cleared."
+  },
+  "contentReview_originalLabel": {
+    "message": "Original"
+  },
+  "contentReview_editedLabel": {
+    "message": "Edited"
   }
 }

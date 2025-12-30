@@ -20,13 +20,15 @@ export type CoreMode =
   | "knowledge"
   | "notes"
   | "prompts"
-  | "stt"
+  | "quiz"
+  | "evaluations"
+  | "speech"
   | "promptStudio"
   | "flashcards"
+  | "chunkingPlayground"
   | "worldBooks"
   | "dictionaries"
   | "characters"
-  | "tts"
 
 interface ModeSelectorProps {
   currentMode: CoreMode
@@ -38,7 +40,7 @@ interface ModeSelectorProps {
  * Extracted from Header.tsx for better maintainability.
  */
 export function ModeSelector({ currentMode, onModeChange }: ModeSelectorProps) {
-  const { t } = useTranslation(["option", "common"])
+  const { t } = useTranslation(["option", "common", "settings"])
   const isOnline = useServerOnline()
   const { shortcuts: shortcutConfig } = useShortcutConfig()
 
@@ -89,6 +91,11 @@ export function ModeSelector({ currentMode, onModeChange }: ModeSelectorProps) {
       label: t("option:header.modePromptsPlayground", "Prompts"),
       shortcut: shortcutConfig.modePrompts,
     },
+    {
+      key: "chunkingPlayground",
+      label: t("settings:chunkingPlayground.nav", "Chunking Playground"),
+      shortcut: undefined,
+    },
   ]
 
   const secondaryModes: Array<{
@@ -97,8 +104,18 @@ export function ModeSelector({ currentMode, onModeChange }: ModeSelectorProps) {
     shortcut?: KeyboardShortcut
   }> = [
     {
-      key: "stt",
-      label: t("option:header.modeStt", "STT Playground"),
+      key: "quiz",
+      label: t("option:header.quiz", "Quiz"),
+      shortcut: undefined,
+    },
+    {
+      key: "evaluations",
+      label: t("settings:evaluationsSettingsNav", "Evaluations"),
+      shortcut: undefined,
+    },
+    {
+      key: "speech",
+      label: t("option:header.modeSpeech", "Speech"),
       shortcut: undefined,
     },
     {

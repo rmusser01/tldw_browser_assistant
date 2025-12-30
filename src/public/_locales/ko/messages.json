@@ -108,25 +108,25 @@
     "message": "노트를 사용하려면 먼저 tldw 서버에 연결하세요."
   },
   "notesEmpty_connectExample1": {
-    "message": "설정 → tldw server에서 서버 URL을 추가하세요."
+    "message": "설정 → tldw 서버에서 서버 URL을 추가하세요."
   },
   "notesEmpty_connectExample2": {
-    "message": "서버가 실행 중이지만 연결할 수 없다면 진단을 사용하세요."
+    "message": "서버가 실행 중인데도 연결되지 않으면 진단을 사용하세요."
   },
   "notesEmpty_demoTitle": {
     "message": "데모 모드에서 노트 살펴보기"
   },
   "notesEmpty_demoDescription": {
-    "message": "이 데모는 노트가 인사이트를 어떻게 정리할 수 있는지 보여줍니다. 나중에 자신의 서버에 연결해 실제 노트를 만들고 저장할 수 있습니다."
+    "message": "이 데모는 노트가 인사이트를 정리하는 방법을 보여줍니다. 나중에 서버를 연결하면 실제 노트를 만들고 저장할 수 있습니다."
   },
   "notesEmpty_demoExample1": {
-    "message": "목록에서 노트 제목, 미리보기, 타임스탬프가 어떻게 표시되는지 확인하세요."
+    "message": "노트 제목, 미리보기, 타임스탬프가 목록에 어떻게 표시되는지 확인하세요."
   },
   "notesEmpty_demoExample2": {
-    "message": "연결하면 회의, 리뷰 등에서 노트를 만들 수 있습니다."
+    "message": "연결하면 회의, 리뷰 등의 내용에서 노트를 만들 수 있습니다."
   },
   "notesEmpty_demoExample3": {
-    "message": "미디어와 리뷰와 함께 노트를 사용해 발견한 내용을 추적하세요."
+    "message": "미디어와 검토와 함께 노트를 사용해 결과를 추적하세요."
   },
   "notesEmpty_demoPreviewHeading": {
     "message": "예시 노트 (미리보기 전용)"
@@ -135,16 +135,16 @@
     "message": "데모 노트: 주간 회의 요약"
   },
   "notesEmpty_demoSample1Preview": {
-    "message": "최근 팀 싱크에서 나온 결정 사항, 블로커, 후속 조치."
+    "message": "최근 팀 싱크에서의 결정 사항, 장애 요인, 후속 조치."
   },
   "notesEmpty_demoSample1Meta": {
     "message": "오늘 · 오전 9:32"
   },
   "notesEmpty_demoSample2Title": {
-    "message": "데모 노트: 연구 하이라이트"
+    "message": "데모 노트: 리서치 하이라이트"
   },
   "notesEmpty_demoSample2Preview": {
-    "message": "긴 글이나 논문에서 뽑은 핵심 인사이트."
+    "message": "긴 기사나 논문에서 추출한 핵심 인사이트."
   },
   "notesEmpty_demoSample2Meta": {
     "message": "어제 · 오후 4:10"
@@ -153,7 +153,7 @@
     "message": "데모 노트: 통화 요약"
   },
   "notesEmpty_demoSample3Preview": {
-    "message": "다음 단계와 담당자가 포함된 고객 통화 요약."
+    "message": "고객 통화 요약과 다음 단계 및 담당자."
   },
   "notesEmpty_demoSample3Meta": {
     "message": "이번 주"
@@ -162,13 +162,13 @@
     "message": "아직 노트가 없습니다"
   },
   "notesEmpty_description": {
-    "message": "tldw 인사이트와 연결된 자유 형식 노트를 기록하고 정리하세요."
+    "message": "tldw 인사이트와 연결된 자유 형식 노트를 캡처하고 정리하세요."
   },
   "notesEmpty_exampleCreate": {
-    "message": "최근 회의나 녹취에 대한 새 노트를 만드세요."
+    "message": "최근 회의나 전사본을 위한 새 노트를 만드세요."
   },
   "notesEmpty_exampleLink": {
-    "message": "리뷰 결과를 노트에 저장해 나중에 다시 볼 수 있게 하세요."
+    "message": "검토 결과를 노트에 저장해 나중에 다시 볼 수 있습니다."
   },
   "notesEmpty_primaryCta": {
     "message": "노트 만들기"
@@ -430,6 +430,65 @@
     "message": "번들에 포함된 media.add 스키마 폴백(v{{version}})을 사용 중입니다. 필드가 오래되어 보이면 tldw_server /openapi.json과 비교해 확인하세요.",
     "description": "Warning shown when the Quick Ingest advanced schema falls back to the bundled schema; contains the bundled schema version."
   },
+  "serverOffline": {
+    "message": "서버가 오프라인이거나 구성되지 않았습니다"
+  },
+  "serverChats": {
+    "message": "서버 채팅"
+  },
+  "serverChatLoadError": {
+    "message": "서버 채팅을 불러오지 못했습니다. 연결을 확인하고 다시 시도하세요."
+  },
+  "serverChatSourceLabel": {
+    "message": "서버"
+  },
+  "serverChatForkedLabel": {
+    "message": "포크된 채팅",
+    "description": "Label shown on chats that were forked from another server chat."
+  },
+  "serverChatForkedTooltip": {
+    "message": "채팅 {{chatId}}에서 포크됨",
+    "description": "Tooltip explaining which original server chat this chat was forked from."
+  },
+  "fileChanges": {
+    "message": "파일 변경"
+  },
+  "deletions": {
+    "message": "삭제 작업"
+  },
+  "gitOperations": {
+    "message": "Git 작업"
+  },
+  "commands": {
+    "message": "명령"
+  },
+  "otherOperations": {
+    "message": "기타 작업"
+  },
+  "fileAccess": {
+    "message": "파일 접근"
+  },
+  "notebookEdits": {
+    "message": "노트북 편집"
+  },
+  "applyPatch": {
+    "message": "패치 적용"
+  },
+  "recursive": {
+    "message": "(재귀)"
+  },
+  "complexArguments": {
+    "message": "[복잡한 인수]"
+  },
+  "ttsShort": {
+    "message": "음성"
+  },
+  "copyShort": {
+    "message": "복사"
+  },
+  "branchShort": {
+    "message": "브랜치"
+  },
   "serverChatsUnavailableNotConnected": {
     "message": "tldw 서버에 연결하면 서버 채팅을 사용할 수 있습니다."
   },
@@ -633,18 +692,6 @@
   "notesSearch_exportJsonSuccess": {
     "message": "{{count}}개의 노트를 JSON으로 내보냈습니다 ({{size}})"
   },
-  "exportNoteSuccess": {
-    "message": "내보냈습니다 ({{size}})"
-  },
-  "exportSuccess": {
-    "message": "{{count}}개의 노트를 내보냈습니다 ({{size}})"
-  },
-  "exportCsvSuccess": {
-    "message": "{{count}}개의 노트를 CSV로 내보냈습니다 ({{size}})"
-  },
-  "exportJsonSuccess": {
-    "message": "{{count}}개의 노트를 JSON으로 내보냈습니다 ({{size}})"
-  },
   "infoShort": {
     "message": "정보"
   },
@@ -682,7 +729,7 @@
     "message": "기술 세부정보 숨기기"
   },
   "error_createFolder": {
-    "message": "Failed to create folder"
+    "message": "폴더를 만들지 못했습니다"
   },
   "modelSelect_label": {
     "message": "Model"
@@ -738,6 +785,18 @@
   "chatSidebar_notes": {
     "message": "노트"
   },
+  "chatSidebar_flashcards": {
+    "message": "플래시카드"
+  },
+  "chatSidebar_prompts": {
+    "message": "프롬프트"
+  },
+  "chatSidebar_multiItem": {
+    "message": "다중 항목"
+  },
+  "chatSidebar_shortcuts": {
+    "message": "바로가기"
+  },
   "chatSidebar_settings": {
     "message": "설정"
   },
@@ -768,10 +827,2510 @@
   "chatSidebar_foldersRequireConnection": {
     "message": "폴더를 사용하려면 서버 연결이 필요합니다"
   },
-  "option.more.copy.canonicalMarkdown": {
-    "message": "Copy canonical transcript"
+  "more_copy_canonicalMarkdown": {
+    "message": "정식 전사 복사"
   },
-  "option.more.download.canonicalMarkdown": {
-    "message": "Canonical transcript (Markdown)"
+  "more_download_canonicalMarkdown": {
+    "message": "정식 전사 (마크다운) 다운로드"
+  },
+  "header_contentReview": {
+    "message": "콘텐츠 검토"
+  },
+  "contentReview_title": {
+    "message": "콘텐츠 검토",
+    "description": "Content review UI string."
+  },
+  "contentReview_readyToSubmit": {
+    "message": "{{count}}개 준비됨",
+    "description": "Content review UI string."
+  },
+  "contentReview_committedCount": {
+    "message": "{{count}}개 커밋됨",
+    "description": "Content review UI string."
+  },
+  "contentReview_totalCount": {
+    "message": "총 {{count}}개",
+    "description": "Content review UI string."
+  },
+  "contentReview_commitAll": {
+    "message": "모두 커밋",
+    "description": "Content review UI string."
+  },
+  "contentReview_clearDrafts": {
+    "message": "임시 저장본 지우기",
+    "description": "Content review UI string."
+  },
+  "contentReview_emptyDescription": {
+    "message": "아직 임시 저장본이 없습니다. 저장 전에 검토 옵션과 함께 Quick Ingest를 사용해 임시 저장본을 만들 수 있습니다.",
+    "description": "Content review UI string."
+  },
+  "contentReview_openQuickIngest": {
+    "message": "Quick Ingest 열기",
+    "description": "Content review UI string."
+  },
+  "contentReview_storeAfterReview": {
+    "message": "검토 후 저장",
+    "description": "Content review UI string."
+  },
+  "contentReview_reviewBeforeStorage": {
+    "message": "저장 전에 검토",
+    "description": "Content review UI string."
+  },
+  "contentReview_reviewBeforeStorageHint": {
+    "message": "지금 처리한 뒤 서버에 저장하기 전에 로컬에서 초안을 편집하세요.",
+    "description": "Content review UI string."
+  },
+  "contentReview_reviewEnabled": {
+    "message": "검토 모드",
+    "description": "Content review UI string."
+  },
+  "contentReview_reviewStorageCap": {
+    "message": "로컬 초안은 {{cap}}개로 제한됩니다.",
+    "description": "Content review UI string."
+  },
+  "contentReview_reviewWarningTitle": {
+    "message": "초안을 로컬에 저장할까요?",
+    "description": "Content review UI string."
+  },
+  "contentReview_reviewWarningBody": {
+    "message": "초안은 이 브라우저에 저장되며 민감한 데이터가 포함될 수 있습니다. 언제든지 콘텐츠 검토 페이지에서 초안을 삭제할 수 있습니다.",
+    "description": "Content review UI string."
+  },
+  "contentReview_reviewWarningBodySecondary": {
+    "message": "검토 모드는 서버에 저장할 때까지 콘텐츠를 클라이언트 측에 유지합니다.",
+    "description": "Content review UI string."
+  },
+  "contentReview_reviewWarningConfirm": {
+    "message": "검토 사용",
+    "description": "Content review UI string."
+  },
+  "contentReview_reviewWarningCancel": {
+    "message": "취소",
+    "description": "Content review UI string."
+  },
+  "contentReview_reviewRunLabel": {
+    "message": "검토",
+    "description": "Content review UI string."
+  },
+  "contentReview_reviewDraftsCreated": {
+    "message": "검토할 초안이 준비되었습니다.",
+    "description": "Content review UI string."
+  },
+  "contentReview_reviewStorageCapWarning_one": {
+    "message": "{{count}}개 파일이 로컬 초안 한도({{cap}})를 초과했습니다. 오디오/비디오를 저장하기 전에 소스를 첨부하세요.",
+    "description": "Content review UI string."
+  },
+  "contentReview_reviewStorageCapWarning_other": {
+    "message": "{{count}}개 파일이 로컬 초안 한도({{cap}})를 초과했습니다. 오디오/비디오를 저장하기 전에 소스를 첨부하세요.",
+    "description": "Content review UI string."
+  },
+  "contentReview_openContentReview": {
+    "message": "콘텐츠 검토 열기",
+    "description": "Content review UI string."
+  },
+  "contentReview_batchLabel": {
+    "message": "배치",
+    "description": "Content review UI string."
+  },
+  "contentReview_batchName": {
+    "message": "배치 {{index}}",
+    "description": "Content review UI string."
+  },
+  "contentReview_draftsLabel": {
+    "message": "임시 저장본",
+    "description": "Content review UI string."
+  },
+  "contentReview_selectDraft": {
+    "message": "검토를 시작할 임시 저장본을 선택하세요.",
+    "description": "Content review UI string."
+  },
+  "contentReview_titlePlaceholder": {
+    "message": "임시 저장본 제목",
+    "description": "Content review UI string."
+  },
+  "contentReview_lastSaved": {
+    "message": "{{time}}에 저장됨",
+    "description": "Content review UI string."
+  },
+  "contentReview_resetTitle": {
+    "message": "임시 저장본을 초기화할까요?",
+    "description": "Content review UI string."
+  },
+  "contentReview_resetBody": {
+    "message": "이 임시 저장본의 내용을 원래 상태로 되돌립니다.",
+    "description": "Content review UI string."
+  },
+  "contentReview_resetConfirm": {
+    "message": "초기화",
+    "description": "Content review UI string."
+  },
+  "contentReview_resetCancel": {
+    "message": "취소",
+    "description": "Content review UI string."
+  },
+  "contentReview_resetContent": {
+    "message": "초기화",
+    "description": "Content review UI string."
+  },
+  "contentReview_diffView": {
+    "message": "변경 사항 보기",
+    "description": "Content review UI string."
+  },
+  "contentReview_saveDraft": {
+    "message": "임시 저장본 저장",
+    "description": "Content review UI string."
+  },
+  "contentReview_editorLabel": {
+    "message": "콘텐츠",
+    "description": "Content review UI string."
+  },
+  "contentReview_wordCount": {
+    "message": "단어 {{words}}개",
+    "description": "Content review UI string."
+  },
+  "contentReview_charCount": {
+    "message": "문자 {{chars}}개",
+    "description": "Content review UI string."
+  },
+  "contentReview_aiFix": {
+    "message": "AI로 수정",
+    "description": "Content review UI string."
+  },
+  "contentReview_aiHint": {
+    "message": "임시 저장본 내용을 서버로 보내 AI로 처리합니다.",
+    "description": "Content review UI string."
+  },
+  "contentReview_modelPlaceholder": {
+    "message": "서버 기본값",
+    "description": "Content review UI string."
+  },
+  "contentReview_aiConsentTitle": {
+    "message": "임시 저장본을 서버로 보낼까요?",
+    "description": "Content review UI string."
+  },
+  "contentReview_aiConsentBody": {
+    "message": "임시 저장본 내용이 tldw 서버로 전송되어 AI로 처리됩니다. 커밋하기 전까지 임시 저장본은 로컬에만 유지됩니다.",
+    "description": "Content review UI string."
+  },
+  "contentReview_aiConsentConfirm": {
+    "message": "계속",
+    "description": "Content review UI string."
+  },
+  "contentReview_aiConsentCancel": {
+    "message": "취소",
+    "description": "Content review UI string."
+  },
+  "contentReview_aiApplied": {
+    "message": "AI 수정 사항이 적용되었습니다.",
+    "description": "Content review UI string."
+  },
+  "contentReview_aiNoChange": {
+    "message": "반환된 변경 사항이 없습니다.",
+    "description": "Content review UI string."
+  },
+  "contentReview_aiEmpty": {
+    "message": "AI가 아무 콘텐츠도 반환하지 않았습니다.",
+    "description": "Content review UI string."
+  },
+  "contentReview_aiUnavailable": {
+    "message": "채팅 완성이 사용 불가능합니다.",
+    "description": "Content review UI string."
+  },
+  "contentReview_templatePlaceholder": {
+    "message": "템플릿 선택",
+    "description": "Content review UI string."
+  },
+  "contentReview_applyTemplate": {
+    "message": "템플릿 적용",
+    "description": "Content review UI string."
+  },
+  "contentReview_templateApplied": {
+    "message": "템플릿을 적용했습니다.",
+    "description": "Content review UI string."
+  },
+  "contentReview_templateMissing": {
+    "message": "먼저 템플릿을 선택하세요.",
+    "description": "Content review UI string."
+  },
+  "contentReview_detectSections": {
+    "message": "섹션 감지",
+    "description": "Content review UI string."
+  },
+  "contentReview_detectSectionsTitle": {
+    "message": "섹션을 다시 감지할까요?",
+    "description": "Content review UI string."
+  },
+  "contentReview_detectSectionsBody": {
+    "message": "기존 섹션이 대체되고 선택 항목이 초기화됩니다.",
+    "description": "Content review UI string."
+  },
+  "contentReview_detectSectionsConfirm": {
+    "message": "다시 감지",
+    "description": "Content review UI string."
+  },
+  "contentReview_detectSectionsCancel": {
+    "message": "취소",
+    "description": "Content review UI string."
+  },
+  "contentReview_detectSectionsEmpty": {
+    "message": "감지된 섹션이 없습니다.",
+    "description": "Content review UI string."
+  },
+  "contentReview_sectionsLabel": {
+    "message": "섹션 필터",
+    "description": "Content review UI string."
+  },
+  "contentReview_templates_transcript_clean_label": {
+    "message": "전사 정리",
+    "description": "Content review UI string."
+  },
+  "contentReview_templates_transcript_clean_description": {
+    "message": "줄 구조를 유지하면서 구두점과 대/소문자를 정규화합니다.",
+    "description": "Content review UI string."
+  },
+  "contentReview_templates_speaker_turns_label": {
+    "message": "화자 턴",
+    "description": "Content review UI string."
+  },
+  "contentReview_templates_speaker_turns_description": {
+    "message": "각 화자의 턴이 명확한 레이블과 함께 한 줄씩 나타나도록 보장합니다.",
+    "description": "Content review UI string."
+  },
+  "contentReview_templates_chapter_headings_label": {
+    "message": "챕터 제목",
+    "description": "Content review UI string."
+  },
+  "contentReview_templates_chapter_headings_description": {
+    "message": "콘텐츠를 삭제하지 않고 주제를 묶기 위해 Markdown 제목을 삽입합니다.",
+    "description": "Content review UI string."
+  },
+  "contentReview_metadataLabel": {
+    "message": "메타데이터",
+    "description": "Content review UI string."
+  },
+  "contentReview_mediaType": {
+    "message": "미디어 유형",
+    "description": "Content review UI string."
+  },
+  "contentReview_keywords": {
+    "message": "키워드",
+    "description": "Content review UI string."
+  },
+  "contentReview_keywordsPlaceholder": {
+    "message": "키워드 추가",
+    "description": "Content review UI string."
+  },
+  "contentReview_reviewNotes": {
+    "message": "검토 메모",
+    "description": "Content review UI string."
+  },
+  "contentReview_missingSource": {
+    "message": "원본 파일이 없습니다",
+    "description": "Content review UI string."
+  },
+  "contentReview_missingSourceBody": {
+    "message": "이 임시 저장본을 커밋하려면 원본 파일을 첨부하세요.",
+    "description": "Content review UI string."
+  },
+  "contentReview_attachSource": {
+    "message": "파일 첨부",
+    "description": "Content review UI string."
+  },
+  "contentReview_actionsLabel": {
+    "message": "작업",
+    "description": "Content review UI string."
+  },
+  "contentReview_commit": {
+    "message": "커밋",
+    "description": "Content review UI string."
+  },
+  "contentReview_commitDisabled": {
+    "message": "커밋하기 전에 원본 오디오/비디오 파일을 첨부하세요.",
+    "description": "Content review UI string."
+  },
+  "contentReview_markReviewed": {
+    "message": "검토 완료로 표시",
+    "description": "Content review UI string."
+  },
+  "contentReview_skipNext": {
+    "message": "건너뛰기",
+    "description": "Content review UI string."
+  },
+  "contentReview_discard": {
+    "message": "폐기",
+    "description": "Content review UI string."
+  },
+  "contentReview_discardTitle": {
+    "message": "임시 저장본을 폐기할까요?",
+    "description": "Content review UI string."
+  },
+  "contentReview_discardBody": {
+    "message": "이 임시 저장본은 폐기된 것으로 표시되고 검토 목록에서 제거됩니다.",
+    "description": "Content review UI string."
+  },
+  "contentReview_discardConfirm": {
+    "message": "폐기",
+    "description": "Content review UI string."
+  },
+  "contentReview_discardCancel": {
+    "message": "취소",
+    "description": "Content review UI string."
+  },
+  "contentReview_commitSuccess": {
+    "message": "임시 저장본을 커밋했습니다.",
+    "description": "Content review UI string."
+  },
+  "contentReview_commitAllTitle": {
+    "message": "검토 완료된 임시 저장본을 모두 커밋할까요?",
+    "description": "Content review UI string."
+  },
+  "contentReview_commitAllBody": {
+    "message": "검토 완료로 표시된 임시 저장본만 커밋됩니다.",
+    "description": "Content review UI string."
+  },
+  "contentReview_commitAllConfirm": {
+    "message": "모두 커밋",
+    "description": "Content review UI string."
+  },
+  "contentReview_commitAllCancel": {
+    "message": "취소",
+    "description": "Content review UI string."
+  },
+  "contentReview_commitAllResult": {
+    "message": "{{success}}개 커밋됨 · {{failed}}개 실패",
+    "description": "Content review UI string."
+  },
+  "contentReview_storageCapWarning": {
+    "message": "이 파일은 로컬 임시 저장본 한도({{cap}})를 초과합니다.",
+    "description": "Content review UI string."
+  },
+  "contentReview_clearTitle": {
+    "message": "모든 임시 저장본을 삭제할까요?",
+    "description": "Content review UI string."
+  },
+  "contentReview_clearBody": {
+    "message": "로컬 콘텐츠 검토 임시 저장본과 연결된 리소스를 모두 삭제합니다.",
+    "description": "Content review UI string."
+  },
+  "contentReview_clearConfirm": {
+    "message": "임시 저장본 삭제",
+    "description": "Content review UI string."
+  },
+  "contentReview_clearCancel": {
+    "message": "취소",
+    "description": "Content review UI string."
+  },
+  "contentReview_clearSuccess": {
+    "message": "임시 저장본을 삭제했습니다.",
+    "description": "Content review UI string."
+  },
+  "contentReview_originalLabel": {
+    "message": "원본",
+    "description": "Content review UI string."
+  },
+  "contentReview_editedLabel": {
+    "message": "편집됨",
+    "description": "Content review UI string."
+  },
+  "reviewDraftsFailedTitle": {
+    "message": "리뷰 초안을 만들 수 없습니다.",
+    "description": "Error title when review drafts creation fails."
+  },
+  "reviewDraftsFailedFallback": {
+    "message": "리뷰 초안 생성에 실패했습니다.",
+    "description": "Fallback error message for review drafts failure."
+  },
+  "reviewDraftsRetry": {
+    "message": "초안 생성 재시도",
+    "description": "Button label to retry creating review drafts."
+  },
+  "reviewDraftsStoreWithoutReview": {
+    "message": "리뷰 없이 저장",
+    "description": "Action to store without review."
+  },
+  "reviewNavigationFailed": {
+    "message": "콘텐츠 리뷰를 열 수 없습니다. 다시 시도하세요.",
+    "description": "Error message when navigation to Content Review fails."
+  },
+  "reviewNavigationRetry": {
+    "message": "콘텐츠 리뷰 다시 열기",
+    "description": "Button label to retry opening Content Review."
+  },
+  "quickIngest_title": {
+    "message": "퀵 인제스트 미디어"
+  },
+  "quickIngest_subtitle": {
+    "message": "하나 이상의 URL을 입력하세요. 필요한 경우 행마다 유형을 강제로 지정하세요."
+  },
+  "quickIngest_offlineTitle": {
+    "message": "서버 오프라인 — 스테이징 전용"
+  },
+  "quickIngest_offlineDescription": {
+    "message": "여기에서 URL과 파일을 대기열에 추가하고 필드를 검사할 수 있지만, tldw 서버가 온라인이 될 때까지 수집은 실행되지 않습니다. 대기 중인 항목을 처리하려면 서버에 다시 연결하세요."
+  },
+  "quickIngest_sourceHeading": {
+    "message": "원본 URL 또는 파일"
+  },
+  "quickIngest_storeRemote": {
+    "message": "원격 DB에 저장"
+  },
+  "quickIngest_storeRemoteAria": {
+    "message": "인제스트 결과를 tldw 서버에 저장"
+  },
+  "quickIngest_processOnlyAria": {
+    "message": "인제스트 결과를 로컬에서만 처리"
+  },
+  "quickIngest_storeRemoteHelp": {
+    "message": "색인을 위해 tldw 서버로 업로드합니다."
+  },
+  "quickIngest_processOnlyHelp": {
+    "message": "처리만 하고 결과를 로컬에 유지합니다(JSON 다운로드)."
+  },
+  "quickIngest_storageHeading": {
+    "message": "인제스트 결과 저장 위치"
+  },
+  "quickIngest_storageServerDescription": {
+    "message": "tldw 서버에 저장됩니다( RAG 및 공유 워크스페이스에 권장)."
+  },
+  "quickIngest_storageLocalDescription": {
+    "message": "이 브라우저에만 보관되며 서버에는 데이터가 기록되지 않습니다."
+  },
+  "quickIngest_storeAfterReview": {
+    "message": "검토 후 저장"
+  },
+  "quickIngest_reviewBeforeStorage": {
+    "message": "저장 전에 검토"
+  },
+  "quickIngest_reviewBeforeStorageHint": {
+    "message": "지금 처리한 뒤 서버에 저장하기 전에 로컬에서 초안을 편집하세요."
+  },
+  "quickIngest_reviewEnabled": {
+    "message": "검토 모드"
+  },
+  "quickIngest_reviewStorageCap": {
+    "message": "로컬 초안은 {{cap}}개로 제한됩니다."
+  },
+  "quickIngest_reviewStorageCapWarning_one": {
+    "message": "{{count}}개 파일이 로컬 초안 한도({{cap}})를 초과했습니다. 오디오/비디오를 저장하기 전에 소스를 첨부하세요."
+  },
+  "quickIngest_reviewStorageCapWarning_other": {
+    "message": "{{count}}개 파일이 로컬 초안 한도({{cap}})를 초과했습니다. 오디오/비디오를 저장하기 전에 소스를 첨부하세요."
+  },
+  "quickIngest_reviewWarningTitle": {
+    "message": "초안을 로컬에 저장할까요?"
+  },
+  "quickIngest_reviewWarningBody": {
+    "message": "초안은 이 브라우저에 저장되며 민감한 데이터가 포함될 수 있습니다. 언제든지 콘텐츠 검토 페이지에서 초안을 삭제할 수 있습니다."
+  },
+  "quickIngest_reviewWarningBodySecondary": {
+    "message": "검토 모드는 서버에 저장할 때까지 콘텐츠를 클라이언트 측에 유지합니다."
+  },
+  "quickIngest_reviewWarningConfirm": {
+    "message": "검토 사용"
+  },
+  "quickIngest_reviewWarningCancel": {
+    "message": "취소"
+  },
+  "quickIngest_reviewRunLabel": {
+    "message": "검토"
+  },
+  "quickIngest_reviewDraftsCreated": {
+    "message": "검토할 초안이 준비되었습니다."
+  },
+  "quickIngest_reviewDraftsFailedTitle": {
+    "message": "리뷰 초안을 만들 수 없습니다."
+  },
+  "quickIngest_reviewDraftsFailedFallback": {
+    "message": "리뷰 초안 생성에 실패했습니다."
+  },
+  "quickIngest_reviewDraftsRetry": {
+    "message": "초안 생성 재시도"
+  },
+  "quickIngest_reviewDraftsStoreWithoutReview": {
+    "message": "리뷰 없이 저장"
+  },
+  "quickIngest_reviewNavigationFailed": {
+    "message": "콘텐츠 리뷰를 열 수 없습니다. 다시 시도하세요."
+  },
+  "quickIngest_reviewNavigationRetry": {
+    "message": "콘텐츠 리뷰 다시 열기"
+  },
+  "quickIngest_openContentReview": {
+    "message": "콘텐츠 검토 열기"
+  },
+  "quickIngest_storageDocsLink": {
+    "message": "인제스트와 저장소에 대해 자세히 알아보기"
+  },
+  "quickIngest_storageDocsUrl": {
+    "message": "https://github.com/rmusser01/tldw_browser_assistant"
+  },
+  "quickIngest_bulkPlaceholder": {
+    "message": "URL을 붙여넣기 (줄당 하나)"
+  },
+  "quickIngest_or": {
+    "message": "또는"
+  },
+  "quickIngest_remove": {
+    "message": "제거"
+  },
+  "quickIngest_add": {
+    "message": "URL 추가"
+  },
+  "quickIngest_commonOptions": {
+    "message": "인제스트 옵션"
+  },
+  "quickIngest_audioOptions": {
+    "message": "오디오 옵션"
+  },
+  "quickIngest_audioLanguage": {
+    "message": "언어 (예: en)"
+  },
+  "quickIngest_audioDiarizationHelp": {
+    "message": "녹취록에서 화자를 분리하려면 켜세요."
+  },
+  "quickIngest_documentOptions": {
+    "message": "문서 옵션"
+  },
+  "quickIngest_videoOptions": {
+    "message": "비디오 옵션"
+  },
+  "quickIngest_captionsHelp": {
+    "message": "가능하면 타임스탬프/캡션을 포함합니다."
+  },
+  "quickIngest_cancel": {
+    "message": "취소"
+  },
+  "quickIngest_ingest": {
+    "message": "인제스트"
+  },
+  "quickIngest_process": {
+    "message": "처리"
+  },
+  "quickIngest_queueOnlyOffline": {
+    "message": "큐에만 추가 — 서버 오프라인"
+  },
+  "quickIngest_queueOnlyOfflineAria": {
+    "message": "오프라인 — 나중에 처리하도록 큐에 추가"
+  },
+  "quickIngest_offlineQueueToast": {
+    "message": "오프라인 모드: 서버가 다시 온라인이 될 때까지 항목이 여기에서 대기합니다."
+  },
+  "quickIngest_offlineFooter": {
+    "message": "오프라인 모드: 항목이 여기에서 스테이징되며 서버가 다시 연결되면 처리됩니다."
+  },
+  "quickIngest_processQueuedItems": {
+    "message": "대기 항목 처리"
+  },
+  "quickIngest_processQueuedItemsAria": {
+    "message": "대기 중인 퀵 인제스트 항목 처리"
+  },
+  "quickIngest_runAria": {
+    "message": "퀵 인제스트 실행"
+  },
+  "quickIngest_runLabel": {
+    "message": "퀵 인제스트 실행"
+  },
+  "quickIngest_results": {
+    "message": "결과"
+  },
+  "quickIngest_downloadJson": {
+    "message": "JSON 다운로드"
+  },
+  "quickIngest_advancedSummary": {
+    "message": "{{count}}개의 고급 필드가 로드되었습니다"
+  },
+  "quickIngest_advancedEmpty": {
+    "message": "고급 옵션이 감지되지 않았습니다 — 사양을 다시 로드해 보세요."
+  },
+  "quickIngest_modifiedCount": {
+    "message": "{{count}}개 수정됨"
+  },
+  "quickIngest_progress": {
+    "message": "{{done}} / {{total}}개 항목 처리 중…"
+  },
+  "quickIngest_pendingLabel": {
+    "message": "대기 중 — 연결되면 실행됩니다"
+  },
+  "quickIngest_readyToast": {
+    "message": "서버가 다시 온라인 상태입니다 — 대기 중인 {{count}}개 항목을 처리할 준비가 되었습니다."
+  },
+  "quickIngest_processQueuedItemsShort": {
+    "message": "대기 항목 처리"
+  },
+  "quickIngest_errorSummary": {
+    "message": "지금은 인제스트 항목을 처리할 수 없습니다."
+  },
+  "quickIngest_errorHint": {
+    "message": "tldw 서버를 확인한 후 다시 시도하세요. 상태 및 진단에서 인제스트 문제를 해결할 수 있습니다."
+  },
+  "quickIngest_checkHealthLink": {
+    "message": "상태 및 진단에서 서버 상태 확인"
+  },
+  "quickIngest_healthAriaHint": {
+    "message": "최근 실행이 실패했습니다 — 자세한 내용은 헤더의 상태 및 진단을 열어 확인하세요."
+  },
+  "quickIngest_specReloadedToast": {
+    "message": "서버에서 고급 스펙을 다시 로드했습니다"
+  },
+  "quickIngest_specReloadedToastDiff": {
+    "message": "서버에서 고급 스펙을 다시 로드했습니다 (추가된 필드: {{added}}, 제거된 필드: {{removed}})"
+  },
+  "quickIngest_specFallbackWarning": {
+    "message": "번들에 포함된 media.add 스키마 폴백(v{{version}})을 사용 중입니다. 필드가 오래되어 보이면 tldw_server /openapi.json과 비교해 확인하세요."
+  },
+  "storeAfterReview": {
+    "message": "검토 후 저장"
+  },
+  "manageCharacters_actions_viewConversations": {
+    "message": "대화 목록 보기"
+  },
+  "manageCharacters_aria_viewConversations": {
+    "message": "{{name}}의 대화 목록 보기"
+  },
+  "manageCharacters_aria_searchResults": {
+    "message": "{{count}}개의 캐릭터를 찾았습니다"
+  },
+  "manageCharacters_conversations_title": {
+    "message": "{{name}}의 대화 목록"
+  },
+  "manageCharacters_conversations_titleGeneric": {
+    "message": "캐릭터 대화"
+  },
+  "manageCharacters_conversations_subtitle": {
+    "message": "이 캐릭터로 계속할 대화를 선택하세요."
+  },
+  "manageCharacters_conversations_empty": {
+    "message": "이 캐릭터의 대화가 아직 없습니다."
+  },
+  "manageCharacters_conversations_error": {
+    "message": "이 캐릭터의 대화를 불러올 수 없습니다."
+  },
+  "manageCharacters_conversations_updated": {
+    "message": "{{time}}에 업데이트됨"
+  },
+  "manageCharacters_conversations_unknownTime": {
+    "message": "알 수 없음"
+  },
+  "manageCharacters_conversations_resume": {
+    "message": "대화 이어서"
+  },
+  "manageCharacters_conversations_untitled": {
+    "message": "제목 없음"
+  },
+  "manageCharacters_conversations_mostRecent": {
+    "message": "최근"
+  },
+  "manageCharacters_conversations_resumeTooltip": {
+    "message": "채팅 기록을 불러와 이 대화를 이어서 진행합니다"
+  },
+  "manageCharacters_preview_title": {
+    "message": "미리보기"
+  },
+  "manageCharacters_preview_show": {
+    "message": "미리보기 표시"
+  },
+  "manageCharacters_preview_hide": {
+    "message": "미리보기 숨기기"
+  },
+  "manageCharacters_preview_untitled": {
+    "message": "제목 없는 캐릭터"
+  },
+  "manageCharacters_preview_greeting": {
+    "message": "인사말"
+  },
+  "manageCharacters_preview_behavior": {
+    "message": "행동"
+  },
+  "manageCharacters_preview_empty": {
+    "message": "양식을 입력하면 미리보기를 볼 수 있습니다"
+  },
+  "manageCharacters_advanced_show": {
+    "message": "고급 필드 표시"
+  },
+  "manageCharacters_advanced_hide": {
+    "message": "고급 필드 숨기기"
+  },
+  "chunkingPlayground_nav": {
+    "message": "청킹 플레이그라운드",
+    "description": "Korean translation"
+  },
+  "chunkingPlayground_title": {
+    "message": "청킹 플레이그라운드",
+    "description": "Korean translation"
+  },
+  "chunkingPlayground_description": {
+    "message": "다양한 청킹 설정을 실험하여 텍스트가 처리용으로 작은 조각으로 분할되는 방식을 확인하세요.",
+    "description": "Korean translation"
+  },
+  "chunkingPlayground_inputLabel": {
+    "message": "분할할 텍스트",
+    "description": "Korean translation"
+  },
+  "chunkingPlayground_inputPlaceholder": {
+    "message": "여기에 텍스트를 붙여넣거나 샘플을 선택하세요...",
+    "description": "Korean translation"
+  },
+  "chunkingPlayground_uploadButton": {
+    "message": "파일 업로드",
+    "description": "Korean translation"
+  },
+  "chunkingPlayground_chunkButton": {
+    "message": "텍스트 분할",
+    "description": "Korean translation"
+  },
+  "chunkingPlayground_methodLabel": {
+    "message": "청킹 방법",
+    "description": "Korean translation"
+  },
+  "chunkingPlayground_maxSizeLabel": {
+    "message": "최대 청크 크기",
+    "description": "Korean translation"
+  },
+  "chunkingPlayground_overlapLabel": {
+    "message": "겹침",
+    "description": "Korean translation"
+  },
+  "chunkingPlayground_languageLabel": {
+    "message": "언어",
+    "description": "Korean translation"
+  },
+  "chunkingPlayground_languages_auto": {
+    "message": "자동 감지",
+    "description": "Korean translation"
+  },
+  "chunkingPlayground_languages_en": {
+    "message": "영어",
+    "description": "Korean translation"
+  },
+  "chunkingPlayground_languages_es": {
+    "message": "스페인어",
+    "description": "Korean translation"
+  },
+  "chunkingPlayground_languages_fr": {
+    "message": "프랑스어",
+    "description": "Korean translation"
+  },
+  "chunkingPlayground_languages_de": {
+    "message": "독일어",
+    "description": "Korean translation"
+  },
+  "chunkingPlayground_languages_it": {
+    "message": "이탈리아어",
+    "description": "Korean translation"
+  },
+  "chunkingPlayground_languages_pt": {
+    "message": "포르투갈어",
+    "description": "Korean translation"
+  },
+  "chunkingPlayground_languages_zh": {
+    "message": "중국어",
+    "description": "Korean translation"
+  },
+  "chunkingPlayground_languages_ja": {
+    "message": "일본어",
+    "description": "Korean translation"
+  },
+  "chunkingPlayground_languages_ko": {
+    "message": "한국어",
+    "description": "Korean translation"
+  },
+  "chunkingPlayground_viewCards": {
+    "message": "카드",
+    "description": "Korean translation"
+  },
+  "chunkingPlayground_viewInline": {
+    "message": "인라인",
+    "description": "Korean translation"
+  },
+  "chunkingPlayground_stats": {
+    "message": "{{count}}개 청크 · 평균 {{avgSize}}자"
+  },
+  "chunkingPlayground_textLoaded": {
+    "message": "텍스트를 불러왔습니다",
+    "description": "Korean translation"
+  },
+  "chunkingPlayground_characters": {
+    "message": "자",
+    "description": "Korean translation"
+  },
+  "chunkingPlayground_tabSingle": {
+    "message": "단일",
+    "description": "Korean translation"
+  },
+  "chunkingPlayground_tabCompare": {
+    "message": "비교",
+    "description": "Korean translation"
+  },
+  "chunkingPlayground_chunkIndex": {
+    "message": "청크 {{index}}"
+  },
+  "chunkingPlayground_chunkInfo": {
+    "message": "청크 {{index}}: {{words}}단어"
+  },
+  "chunkingPlayground_position": {
+    "message": "위치: {{start}} - {{end}}"
+  },
+  "chunkingPlayground_additionalChunks": {
+    "message": "+{{count}}개 더"
+  },
+  "chunkingPlayground_charCount": {
+    "message": "{{count}}자"
+  },
+  "chunkingPlayground_wordCount": {
+    "message": "{{count}}단어"
+  },
+  "chunkingPlayground_noInput": {
+    "message": "분할할 텍스트를 입력하세요",
+    "description": "Korean translation"
+  },
+  "chunkingPlayground_sharedInput": {
+    "message": "공유 입력 텍스트",
+    "description": "Korean translation"
+  },
+  "chunkingPlayground_compareButton": {
+    "message": "둘 다 비교",
+    "description": "Korean translation"
+  },
+  "chunkingPlayground_comparison": {
+    "message": "비교",
+    "description": "Korean translation"
+  },
+  "chunkingPlayground_fewerChunks": {
+    "message": "구성 A는 {{diff}}개 적은 청크를 생성합니다"
+  },
+  "chunkingPlayground_moreChunks": {
+    "message": "구성 A는 {{diff}}개 더 많은 청크를 생성합니다"
+  },
+  "chunkingPlayground_sameChunks": {
+    "message": "두 구성 모두 동일한 수의 청크를 생성합니다",
+    "description": "Korean translation"
+  },
+  "chunkingPlayground_clickToChunk": {
+    "message": "\"비교\"를 클릭하여 결과를 확인하세요",
+    "description": "Korean translation"
+  },
+  "chunkingPlayground_overlapRegion": {
+    "message": "겹침 영역",
+    "description": "Korean translation"
+  },
+  "chunkingPlayground_clickHint": {
+    "message": "강조 표시된 영역을 클릭하여 해당 청크에 집중하세요",
+    "description": "Korean translation"
+  },
+  "chunkingPlayground_noContentFound": {
+    "message": "이 미디어 항목에서 텍스트 콘텐츠를 찾을 수 없습니다",
+    "description": "Korean translation"
+  },
+  "chunkingPlayground_loadContentError": {
+    "message": "미디어 콘텐츠를 불러오지 못했습니다",
+    "description": "Korean translation"
+  },
+  "chunkingPlayground_loadMediaListError": {
+    "message": "미디어 라이브러리를 불러오지 못했습니다",
+    "description": "Korean translation"
+  },
+  "chunkingPlayground_selectMedia": {
+    "message": "미디어 항목 선택...",
+    "description": "Korean translation"
+  },
+  "chunkingPlayground_loadingMedia": {
+    "message": "콘텐츠를 불러오는 중...",
+    "description": "Korean translation"
+  },
+  "chunkingPlayground_noMediaFound": {
+    "message": "미디어가 없습니다",
+    "description": "Korean translation"
+  },
+  "chunkingPlayground_mediaCount": {
+    "message": "{{count}}개의 미디어 항목 사용 가능"
+  },
+  "chunkingPlayground_inputSource_paste": {
+    "message": "텍스트 붙여넣기",
+    "description": "Korean translation"
+  },
+  "chunkingPlayground_inputSource_upload": {
+    "message": "파일 업로드",
+    "description": "Korean translation"
+  },
+  "chunkingPlayground_inputSource_sample": {
+    "message": "샘플 텍스트",
+    "description": "Korean translation"
+  },
+  "chunkingPlayground_inputSource_media": {
+    "message": "미디어 라이브러리에서",
+    "description": "Korean translation"
+  },
+  "chunkingPlayground_samples_article": {
+    "message": "뉴스 기사",
+    "description": "Korean translation"
+  },
+  "chunkingPlayground_samples_articleDesc": {
+    "message": "헤더가 있는 여러 단락의 기사",
+    "description": "Korean translation"
+  },
+  "chunkingPlayground_samples_code": {
+    "message": "소스 코드",
+    "description": "Korean translation"
+  },
+  "chunkingPlayground_samples_codeDesc": {
+    "message": "클래스와 함수가 있는 파이썬 코드",
+    "description": "Korean translation"
+  },
+  "chunkingPlayground_samples_transcript": {
+    "message": "전사",
+    "description": "Korean translation"
+  },
+  "chunkingPlayground_samples_transcriptDesc": {
+    "message": "타임스탬프가 포함된 팟캐스트 전사",
+    "description": "Korean translation"
+  },
+  "chunkingPlayground_samples_academic": {
+    "message": "학술 논문",
+    "description": "Korean translation"
+  },
+  "chunkingPlayground_samples_academicDesc": {
+    "message": "인용이 포함된 기술 문서",
+    "description": "Korean translation"
+  },
+  "chunkingPlayground_compare_title": {
+    "message": "설정 비교",
+    "description": "Korean translation"
+  },
+  "chunkingPlayground_compare_configA": {
+    "message": "구성 A",
+    "description": "Korean translation"
+  },
+  "chunkingPlayground_compare_configB": {
+    "message": "구성 B",
+    "description": "Korean translation"
+  },
+  "chunkingPlayground_mode_single": {
+    "message": "단일",
+    "description": "Korean translation"
+  },
+  "chunkingPlayground_mode_compare": {
+    "message": "비교",
+    "description": "Korean translation"
+  },
+  "managePrompts_importMode_merge": {
+    "message": "Merge"
+  },
+  "managePrompts_importMode_replace": {
+    "message": "덮어쓰기"
+  },
+  "managePrompts_importMode_replaceConfirm": {
+    "message": "덮어쓰기는 현재의 모든 프롬프트를 가져온 파일로 덮어씁니다. 계속하시겠습니까?"
+  },
+  "flashcards_newDeckNameRequired": {
+    "message": "덱 이름을 입력하세요."
+  },
+  "flashcards_dueAll": {
+    "message": "전체"
+  },
+  "flashcards_dueNew": {
+    "message": "새 카드"
+  },
+  "flashcards_dueLearning": {
+    "message": "학습 중"
+  },
+  "flashcards_dueDue": {
+    "message": "복습 예정"
+  },
+  "flashcards_reviewFailed": {
+    "message": "복습 실패"
+  },
+  "flashcards_updateFailed": {
+    "message": "업데이트 실패"
+  },
+  "flashcards_deleteFailed": {
+    "message": "삭제 실패"
+  },
+  "flashcards_missingVersion": {
+    "message": "버전이 없습니다. 새로고침 후 다시 시도하세요."
+  },
+  "flashcards_bulkDeleteResult": {
+    "message": "{{success}}개 삭제 · {{failed}}개 실패"
+  },
+  "mediaPage_searchPlaceholder": {
+    "message": "미디어 검색 (제목/내용)"
+  },
+  "mediaPage_search": {
+    "message": "검색"
+  },
+  "mediaPage_clear": {
+    "message": "지우기"
+  },
+  "mediaPage_types": {
+    "message": "미디어 유형"
+  },
+  "mediaPage_keywords": {
+    "message": "키워드"
+  },
+  "mediaPage_moreTags": {
+    "message": "+{{count}}개의 추가 태그"
+  },
+  "mediaPage_resetFilters": {
+    "message": "필터 초기화"
+  },
+  "mediaPage_clearAll": {
+    "message": "모두 지우기"
+  },
+  "mediaPage_content": {
+    "message": "콘텐츠"
+  },
+  "mediaPage_vertical": {
+    "message": "세로"
+  },
+  "mediaPage_horizontal": {
+    "message": "가로"
+  },
+  "mediaPage_results": {
+    "message": "결과"
+  },
+  "mediaPage_noResults": {
+    "message": "미디어를 찾을 수 없습니다. 상단의 빠른 가져오기를 사용해 녹음 및 파일에서 미디어를 추가하세요."
+  },
+  "mediaPage_showSidebar": {
+    "message": "결과 사이드바 표시"
+  },
+  "mediaPage_hideSidebar": {
+    "message": "결과 사이드바 숨기기"
+  },
+  "mediaPage_viewer": {
+    "message": "뷰어"
+  },
+  "mediaPage_selectItemsHint": {
+    "message": "왼쪽에서 항목을 선택하면 이곳에서 볼 수 있습니다."
+  },
+  "mediaPage_mediaContent": {
+    "message": "미디어 콘텐츠"
+  },
+  "mediaPage_copyContent": {
+    "message": "콘텐츠 복사"
+  },
+  "mediaPage_contentCopied": {
+    "message": "콘텐츠가 복사되었습니다"
+  },
+  "mediaPage_metadataCopied": {
+    "message": "메타데이터가 복사되었습니다"
+  },
+  "mediaPage_analysisCopied": {
+    "message": "분석이 복사되었습니다"
+  },
+  "mediaPage_copyFailed": {
+    "message": "복사에 실패했습니다"
+  },
+  "mediaPage_noContent": {
+    "message": "사용할 수 있는 콘텐츠가 없습니다"
+  },
+  "mediaPage_collapse": {
+    "message": "접기"
+  },
+  "mediaPage_expand": {
+    "message": "펼치기"
+  },
+  "mediaPage_media": {
+    "message": "미디어"
+  },
+  "mediaPage_searchingBanner": {
+    "message": "미디어를 검색하는 중…"
+  },
+  "mediaPage_filterHelp": {
+    "message": "검색은 제목과 내용을 기준으로 하며, 유형과 키워드는 결과를 더 좁혀 줍니다."
+  },
+  "mediaPage_noMediaTypes": {
+    "message": "사용 가능한 미디어 유형이 없습니다"
+  },
+  "mediaPage_resultsCount": {
+    "message": "{{selected}}개 선택됨 · {{open}}개 열림"
+  },
+  "mediaPage_clearSelection": {
+    "message": "선택 해제"
+  },
+  "mediaPage_itemsLabel": {
+    "message": "항목"
+  },
+  "mediaPage_contentLabel": {
+    "message": "콘텐츠 보기"
+  },
+  "mediaPage_filterByKeyword": {
+    "message": "키워드로 필터링"
+  },
+  "mediaPage_keywordHelper": {
+    "message": "키워드는 왼쪽의 키워드 필터를 사용해 이 미디어를 찾는 데 도움이 됩니다"
+  },
+  "mediaPage_modeHint": {
+    "message": "여러 미디어 항목을 검색해 오른쪽 뷰어에서 비교할 수 있도록 쌓으세요."
+  },
+  "mediaPage_viewerHelp": {
+    "message": "키보드: Tab으로 결과 목록으로 이동한 뒤 Enter 또는 Space로 미디어 항목을 쌓거나 제거하고, 이전/다음 및 레이아웃 컨트롤로 뷰어의 항목을 이동합니다."
+  },
+  "mediaPage_viewerHelpLabel": {
+    "message": "멀티 항목 검토용 키보드 단축키"
+  },
+  "mediaPage_mediaInspector": {
+    "message": "미디어 인스펙터"
+  },
+  "mediaPage_actionsLabel": {
+    "message": "작업"
+  },
+  "mediaPage_keywordsPlaceholder": {
+    "message": "키워드 추가..."
+  },
+  "mediaPage_noSelectionTitle": {
+    "message": "선택된 미디어 항목이 없습니다"
+  },
+  "mediaPage_noSelectionDescription": {
+    "message": "왼쪽 사이드바에서 미디어 항목을 선택하면 이곳에서 해당 콘텐츠와 분석을 볼 수 있습니다."
+  },
+  "mediaPage_generateAnalysis": {
+    "message": "생성"
+  },
+  "mediaPage_generateAnalysisHint": {
+    "message": "새 분석 생성"
+  },
+  "mediaPage_editAnalysis": {
+    "message": "분석 편집"
+  },
+  "mediaPage_createNoteWithContent": {
+    "message": "콘텐츠로 노트 만들기"
+  },
+  "mediaPage_createNoteWithContentAnalysis": {
+    "message": "콘텐츠 + 분석으로 노트 만들기"
+  },
+  "mediaPage_untitled": {
+    "message": "제목 없음"
+  },
+  "mediaPage_copyMetadata": {
+    "message": "메타데이터 복사"
+  },
+  "mediaPage_statistics": {
+    "message": "통계"
+  },
+  "mediaPage_words": {
+    "message": "단어"
+  },
+  "mediaPage_characters": {
+    "message": "문자"
+  },
+  "mediaPage_paragraphs": {
+    "message": "단락"
+  },
+  "mediaPage_metadata": {
+    "message": "메타데이터"
+  },
+  "mediaPage_idLabel": {
+    "message": "식별자"
+  },
+  "mediaPage_typeLabel": {
+    "message": "유형"
+  },
+  "mediaPage_titleLabel": {
+    "message": "제목"
+  },
+  "mediaPage_source": {
+    "message": "소스"
+  },
+  "mediaPage_notAvailable": {
+    "message": "해당 없음"
+  },
+  "mediaPage_developerTools": {
+    "message": "개발자 도구"
+  },
+  "mediaPage_nothingToSend": {
+    "message": "보낼 내용이 없습니다"
+  },
+  "mediaPage_emptyAnalysis": {
+    "message": "분석 내용은 비워둘 수 없습니다"
+  },
+  "mediaPage_noMediaId": {
+    "message": "미디어 ID가 없습니다"
+  },
+  "mediaPage_versionSaved": {
+    "message": "새 버전으로 저장되었습니다"
+  },
+  "mediaPage_saveFailed": {
+    "message": "버전을 저장하지 못했습니다"
+  },
+  "mediaPage_saveUnauthorized": {
+    "message": "저장할 권한이 없습니다"
+  },
+  "mediaPage_sendToChat": {
+    "message": "채팅으로 보내기"
+  },
+  "mediaPage_saveAsVersion": {
+    "message": "새 버전으로 저장"
+  },
+  "mediaPage_analysisPlaceholder": {
+    "message": "분석 내용을 입력하세요..."
+  },
+  "mediaPage_wordCount": {
+    "message": "{{count}} 단어"
+  },
+  "mediaPage_charCount": {
+    "message": "{{count}}자"
+  },
+  "mediaPage_pageRangeError": {
+    "message": "페이지는 1-{{max}} 범위여야 합니다"
+  },
+  "mediaPage_pageRangeClamped": {
+    "message": "페이지 {{page}}로 이동 중"
+  },
+  "flashcards_markdownSupportHint": {
+    "message": "Markdown 및 LaTeX를 지원합니다."
+  },
+  "flashcards_extraHint": {
+    "message": "선택적 힌트/설명 (Markdown + LaTeX 지원)."
+  },
+  "flashcards_notesHint": {
+    "message": "내부 메모 (Markdown + LaTeX 지원)."
+  },
+  "searchPrompts": {
+    "message": "프롬프트 검색..."
+  },
+  "noMatchingPrompts": {
+    "message": "일치하는 프롬프트 없음"
+  },
+  "promptSelect_favorites": {
+    "message": "즐겨찾기"
+  },
+  "promptSelect_system": {
+    "message": "시스템 프롬프트"
+  },
+  "promptSelect_quick": {
+    "message": "빠른 프롬프트"
+  },
+  "header_modeSpeech": {
+    "message": "음성"
+  },
+  "playground_speech_title": {
+    "message": "음성 플레이그라운드"
+  },
+  "playground_speech_subtitle": {
+    "message": "음성을 녹음하고 전사를 편집한 뒤 한곳에서 음성을 합성합니다."
+  },
+  "playground_speech_modeLabel": {
+    "message": "모드"
+  },
+  "playground_speech_modeRoundTrip": {
+    "message": "왕복"
+  },
+  "playground_speech_modeSpeak": {
+    "message": "말하기"
+  },
+  "playground_speech_modeListen": {
+    "message": "듣기"
+  },
+  "playground_speech_modeHint": {
+    "message": "마지막 모드는 이 기기에 저장됩니다."
+  },
+  "playground_speech_recordingWaveform": {
+    "message": "실시간 녹음 파형"
+  },
+  "playground_speech_playbackWaveform": {
+    "message": "재생 파형"
+  },
+  "playground_speech_sendToTts": {
+    "message": "TTS로 보내기"
+  },
+  "playground_speech_sendHint": {
+    "message": "최신 전사를 TTS 초안으로 사용합니다."
+  },
+  "playground_speech_download": {
+    "message": "다운로드"
+  },
+  "playground_speech_downloadCurrent": {
+    "message": "현재 세그먼트 다운로드"
+  },
+  "playground_speech_downloadAll": {
+    "message": "모든 세그먼트 다운로드"
+  },
+  "playground_speech_segmentFormat": {
+    "message": "형식"
+  },
+  "playground_speech_historyTitle": {
+    "message": "음성 기록"
+  },
+  "playground_speech_historyAll": {
+    "message": "전체"
+  },
+  "playground_speech_historyStt": {
+    "message": "STT"
+  },
+  "playground_speech_historyTts": {
+    "message": "TTS"
+  },
+  "playground_speech_historySearch": {
+    "message": "전사 검색"
+  },
+  "playground_speech_historyRetentionHint": {
+    "message": "최근 {{count}}개 항목을 보관합니다. 모두 지우기를 사용해 전체를 삭제하세요."
+  },
+  "playground_speech_useInTts": {
+    "message": "TTS에 사용"
+  },
+  "playground_speech_copy": {
+    "message": "복사"
+  },
+  "playground_speech_copySuccess": {
+    "message": "클립보드에 복사했습니다"
+  },
+  "playground_speech_copyError": {
+    "message": "전사를 복사하지 못했습니다."
+  },
+  "playground_speech_providerTag": {
+    "message": "공급자"
+  },
+  "playground_speech_voiceTag": {
+    "message": "음성"
+  },
+  "playground_speech_emptyHistory": {
+    "message": "녹음을 시작하거나 오디오를 생성하면 여기에 기록이 표시됩니다."
+  },
+  "playground_speech_downloadDisabledBrowser": {
+    "message": "브라우저 TTS는 다운로드 가능한 오디오를 만들지 않습니다."
+  },
+  "playground_speech_downloadDisabledEmpty": {
+    "message": "다운로드를 사용하려면 오디오를 생성하세요."
+  },
+  "playground_speech_transcriptLock": {
+    "message": "잠금"
+  },
+  "playground_speech_transcriptUnlock": {
+    "message": "잠금 해제"
+  },
+  "playground_speech_transcriptEditHint": {
+    "message": "이 전사는 편집 가능합니다."
+  },
+  "playground_speech_transcriptLockedHint": {
+    "message": "실시간 전사 업데이트에 잠겨 있습니다."
+  },
+  "playground_speech_transcriptRecordingHint": {
+    "message": "녹음 중이므로 전사가 잠겨 있습니다."
+  },
+  "playground_tts_unsupportedFormatTitle": {
+    "message": "지원되지 않는 오디오 형식"
+  },
+  "playground_tts_unsupportedFormatDescription": {
+    "message": "응답 형식 \"{{format}}\"은(는) 지원되지 않습니다. MP3로 대체합니다."
+  },
+  "playground_formError_noModel": {
+    "message": "모델을 선택하세요"
+  },
+  "playground_formError_noEmbeddingModel": {
+    "message": "설정 > RAG 페이지에서 임베딩 모델을 설정하세요"
+  },
+  "playground_form_textarea_placeholder": {
+    "message": "메시지를 입력하세요..."
+  },
+  "playground_form_webSearch_on": {
+    "message": "켜짐"
+  },
+  "playground_form_webSearch_off": {
+    "message": "꺼짐"
+  },
+  "playground_tooltip_searchInternet": {
+    "message": "인터넷 검색"
+  },
+  "playground_tooltip_speechToText": {
+    "message": "음성 입력"
+  },
+  "playground_tooltip_uploadImage": {
+    "message": "이미지 업로드"
+  },
+  "playground_tooltip_stopStreaming": {
+    "message": "스트리밍 중지"
+  },
+  "playground_tooltip_knowledge": {
+    "message": "지식"
+  },
+  "playground_tooltip_clearContext": {
+    "message": "컨텍스트 지우기"
+  },
+  "playground_tooltip_speechToTextServer": {
+    "message": "Dictation via your tldw server"
+  },
+  "playground_tooltip_speechToTextBrowser": {
+    "message": "Dictation via browser speech recognition"
+  },
+  "playground_tooltip_speechToTextDetails": {
+    "message": "Uses {{model}} · {{task}} · {{format}}. Configure in Settings → General → Speech-to-Text."
+  },
+  "playground_tooltip_vision": {
+    "message": "[Experimental] Vision Chat"
+  },
+  "playground_tooltip_uploadDocuments": {
+    "message": "Upload Documents (beta)"
+  },
+  "playground_sendWhenEnter": {
+    "message": "Enter 키를 누르면 전송"
+  },
+  "playground_welcome": {
+    "message": "안녕하세요! 오늘 어떻게 도와드릴까요?"
+  },
+  "playground_useOCR": {
+    "message": "이미지에서 텍스트 추출 (OCR)"
+  },
+  "playground_tips_title": {
+    "message": "Tips"
+  },
+  "playground_tips_quickIngest": {
+    "message": "Use Quick ingest to add documents and web pages."
+  },
+  "playground_tips_pickModelPrompt": {
+    "message": "Pick a Model and a Prompt from the header."
+  },
+  "playground_tips_startChatFocus": {
+    "message": "When connected, “Start chatting” focuses the composer."
+  },
+  "playground_tldwState_searching": {
+    "message": "tldw server 검색 중"
+  },
+  "playground_tldwState_running": {
+    "message": "tldw 실행 중"
+  },
+  "playground_tldwState_notRunning": {
+    "message": "tldw server에 연결할 수 없습니다"
+  },
+  "playground_tldwState_connectionError": {
+    "message": "연결 오류가 발생한 것 같습니다. 문제 해결에 대한 자세한 내용은 <anchor>문서</anchor>를 참조하세요."
+  },
+  "playground_tldwState_errorToast": {
+    "message": "We couldn’t reach {{host}}"
+  },
+  "playground_tldwState_missingHelp": {
+    "message": "Open Settings → tldw Server to add your URL or connect to the Options page."
+  },
+  "playground_tldwState_troubleshoot": {
+    "message": "Confirm your server is running and that the browser is allowed to reach it, then retry from the Options page."
+  },
+  "playground_tldwState_openTldwSettings": {
+    "message": "Open tldw Settings"
+  },
+  "playground_tldwState_cancelSearch": {
+    "message": "Cancel search"
+  },
+  "playground_tldwState_connectionFailedWithCode": {
+    "message": "Connection failed (HTTP {{code}})"
+  },
+  "playground_tldwState_connectionFailed": {
+    "message": "Connection failed"
+  },
+  "playground_tldwState_errorDetailsLabel": {
+    "message": "Details:"
+  },
+  "playground_tldwState_title": {
+    "message": "Waiting for your tldw server"
+  },
+  "playground_tldwState_subtitle": {
+    "message": "We’re pinging {{host}} to verify the connection."
+  },
+  "playground_tldwState_missing": {
+    "message": "Server URL not configured"
+  },
+  "playground_tldwState_noServer": {
+    "message": "Add your tldw server to start chatting."
+  },
+  "playground_tldwState_connectedSubtitle": {
+    "message": "Connected to {{host}}. Start chatting when you’re ready."
+  },
+  "playground_tldwState_errorSubtitle": {
+    "message": "We couldn’t reach {{host}} yet. Retry or update your server settings."
+  },
+  "playground_tldwState_openSettings": {
+    "message": "Open settings"
+  },
+  "playground_tldwState_changeServer": {
+    "message": "Change server"
+  },
+  "playground_tldwState_elapsed": {
+    "message": "Checking… {{seconds}}s"
+  },
+  "playground_tldwState_connectedHint": {
+    "message": "Connected to {{host}}."
+  },
+  "playground_tldwState_lastChecked": {
+    "message": "Checked {{seconds}}s ago"
+  },
+  "playground_tldwState_recheck": {
+    "message": "Check again"
+  },
+  "playground_errors_privateModeDescription": {
+    "message": "Firefox 사생활 모드에서는 채팅을 저장할 수 없습니다. 기본적으로 임시 채팅이 활성화되어 있습니다. 곧 개선될 예정입니다."
+  },
+  "playground_tts_playErrorTitle": {
+    "message": "오류"
+  },
+  "playground_tts_playErrorDescription": {
+    "message": "오디오를 재생하는 중 오류가 발생했습니다"
+  },
+  "playground_tts_browserInfoTitle": {
+    "message": "브라우저 TTS는 시스템 오디오를 사용합니다"
+  },
+  "playground_tts_browserInfoDescription": {
+    "message": "브라우저 TTS는 시스템 합성기를 사용해 재생하며 다운로드 가능한 오디오 파일을 제공하지 않습니다. 아래의 세그먼트 컨트롤을 사용하거나 제공자를 전환해 트랙 목록과 플레이어를 이용하세요."
+  },
+  "playground_tts_unsupportedProviderTitle": {
+    "message": "지원되지 않는 TTS 제공자"
+  },
+  "playground_tts_unsupportedProviderDescription": {
+    "message": "\"{{provider}}\" 제공자는 아직 플레이그라운드 플레이어에서 지원되지 않습니다."
+  },
+  "playground_tts_elevenLabsMissingTitle": {
+    "message": "ElevenLabs에는 API 키가 필요합니다"
+  },
+  "playground_tts_elevenLabsMissingBody": {
+    "message": "설정에서 ElevenLabs API 키를 추가해 음성과 모델을 불러오세요."
+  },
+  "playground_tts_elevenLabsUnavailableTitle": {
+    "message": "ElevenLabs 음성을 사용할 수 없습니다"
+  },
+  "playground_tts_elevenLabsUnavailableBody": {
+    "message": "음성 또는 모델을 불러올 수 없습니다. API 키를 확인하고 다시 시도하세요."
+  },
+  "playground_tts_elevenLabsMissingCta": {
+    "message": "설정에서 API 키 설정"
+  },
+  "playground_tts_generateErrorTitle": {
+    "message": "오디오 생성 오류"
+  },
+  "playground_tts_generateErrorDescription": {
+    "message": "TTS 오디오 생성 중 문제가 발생했습니다."
+  },
+  "playground_tts_sampleText": {
+    "message": "샘플 텍스트 삽입"
+  },
+  "playground_tts_playHelper": {
+    "message": "재생은 선택한 제공자, 음성, 속도를 사용합니다."
+  },
+  "playground_tts_playDisabledNoText": {
+    "message": "재생을 사용하려면 텍스트를 입력하세요."
+  },
+  "playground_tts_playDisabledTtsOff": {
+    "message": "오디오를 재생하려면 위에서 텍스트 음성을 켜세요."
+  },
+  "playground_tts_playDisabledElevenLabs": {
+    "message": "재생을 사용하려면 ElevenLabs API 키, 음성 및 모델을 추가하세요."
+  },
+  "playground_tts_stopDisabled": {
+    "message": "오디오가 시작되면 정지가 활성화됩니다."
+  },
+  "playground_tts_providerChangeHelper": {
+    "message": "아래 제공자 선택기에서 브라우저, tldw, OpenAI 또는 Supersonic으로 전환하세요."
+  },
+  "playground_tts_changeProvider": {
+    "message": "제공자 변경"
+  },
+  "playground_tts_title": {
+    "message": "TTS 플레이그라운드"
+  },
+  "playground_tts_subtitle": {
+    "message": "텍스트 음성을 시험하고 제공자, 모델, 음성을 조정하세요."
+  },
+  "playground_tts_currentProvider": {
+    "message": "현재 제공자"
+  },
+  "playground_tts_settingsIntro": {
+    "message": "TTS 제공자, 모델, 음성을 조정하세요. 이 설정은 채팅이나 미디어에서 오디오를 재생할 때 재사용됩니다."
+  },
+  "playground_tts_providerCapabilities": {
+    "message": "제공자 기능"
+  },
+  "playground_tts_voicesPreview": {
+    "message": "서버 음성"
+  },
+  "playground_tts_providerDetails": {
+    "message": "원시 제공자 구성 보기"
+  },
+  "playground_tts_providerDetailsTitle": {
+    "message": "제공자 세부 정보"
+  },
+  "playground_tts_inputLabel": {
+    "message": "읽어줄 텍스트를 입력하세요."
+  },
+  "playground_tts_inputPlaceholder": {
+    "message": "텍스트를 입력하거나 붙여넣고 재생을 눌러 들어보세요."
+  },
+  "playground_tts_play": {
+    "message": "재생"
+  },
+  "playground_tts_playing": {
+    "message": "재생 중…"
+  },
+  "playground_tts_stop": {
+    "message": "정지"
+  },
+  "playground_tts_browserSegmentsTitle": {
+    "message": "브라우저 TTS 세그먼트"
+  },
+  "playground_tts_browserSegmentsHelp": {
+    "message": "세그먼트를 대기열에 추가하거나 시스템 오디오로 개별 세그먼트를 재생하세요."
+  },
+  "playground_tts_browserQueueAll": {
+    "message": "모두 대기열에 추가"
+  },
+  "playground_tts_browserQueueFromHere": {
+    "message": "여기서부터 대기열에 추가"
+  },
+  "playground_tts_browserSegmentPlay": {
+    "message": "세그먼트 재생"
+  },
+  "playground_tts_browserStatusSpeaking": {
+    "message": "세그먼트 {{current}}/{{total}} 재생 중"
+  },
+  "playground_tts_browserStatusPaused": {
+    "message": "일시 정지됨"
+  },
+  "playground_tts_browserPause": {
+    "message": "일시 정지"
+  },
+  "playground_tts_browserResume": {
+    "message": "재개"
+  },
+  "playground_tts_tldwStatusOnline": {
+    "message": "tldw 서버 오디오 API 감지됨 (audio/speech)"
+  },
+  "playground_tts_tldwStatusOffline": {
+    "message": "오디오 API를 찾을 수 없습니다. tldw 서버 버전을 확인하세요."
+  },
+  "playground_tts_tldwWarningTitle": {
+    "message": "tldw audio/speech API가 감지되지 않음"
+  },
+  "playground_tts_tldwWarningBody": {
+    "message": "tldw_server 버전에 /api/v1/audio/speech가 포함되어 있고, 확장이 유효한 API 키로 연결되어 있는지 확인하세요."
+  },
+  "playground_tts_speechErrorTitle": {
+    "message": "받아쓰기 실패"
+  },
+  "playground_tts_speechErrorBody": {
+    "message": "전사 요청이 실패했습니다. tldw 서버 상태를 확인하세요."
+  },
+  "playground_tts_speechNoText": {
+    "message": "전사 결과에 텍스트가 없습니다."
+  },
+  "playground_tts_speechMicError": {
+    "message": "마이크에 접근할 수 없습니다. 브라우저 권한을 확인하고 다시 시도하세요."
+  },
+  "playground_tts_savedToNotes": {
+    "message": "전사가 노트로 저장되었습니다."
+  },
+  "playground_empty_title": {
+    "message": "Start a new chat"
+  },
+  "playground_empty_description": {
+    "message": "Experiment with different models, prompts, and knowledge sources here."
+  },
+  "playground_empty_demoDescription": {
+    "message": "You’re in demo mode — try asking a question to see how the assistant responds. You can connect your own tldw server later."
+  },
+  "playground_empty_example1": {
+    "message": "Ask a question, then drag in documents or web pages you want to discuss."
+  },
+  "playground_empty_example2": {
+    "message": "Use Quick ingest to add transcripts or notes, then reference them in chat."
+  },
+  "playground_empty_example3": {
+    "message": "Try different prompts or models from the header to compare answers."
+  },
+  "playground_empty_primaryCta": {
+    "message": "Start chatting"
+  },
+  "playground_empty_secondaryCta": {
+    "message": "Open server settings"
+  },
+  "playground_drop_hint": {
+    "message": "Drop files to attach them to your message"
+  },
+  "playground_drop_readySingle": {
+    "message": "{{name}} ready to send"
+  },
+  "playground_drop_readyMultiple": {
+    "message": "{{count}} files ready to send"
+  },
+  "playground_drop_unsupported": {
+    "message": "That file type isn’t supported. Try images or text-based files."
+  },
+  "playground_drop_defaultFileName": {
+    "message": "File"
+  },
+  "playground_drop_imageOnly": {
+    "message": "Only images can be dropped here right now."
+  },
+  "playground_drop_imageHint": {
+    "message": "Drop an image to include it in your message"
+  },
+  "playground_drop_overlayInstruction": {
+    "message": "Drop the image to attach it to your next reply"
+  },
+  "playground_aria_chatTranscript": {
+    "message": "Chat messages"
+  },
+  "playground_more_history": {
+    "message": "Chat saving"
+  },
+  "playground_more_searchKnowledge": {
+    "message": "Search & RAG"
+  },
+  "playground_more_voice": {
+    "message": "More voice options"
+  },
+  "playground_more_uploads": {
+    "message": "Uploads & ingest"
+  },
+  "playground_fileRetrievalEnabled": {
+    "message": "Enable RAG for Documents"
+  },
+  "playground_stt_title": {
+    "message": "STT Playground"
+  },
+  "playground_stt_subtitle": {
+    "message": "Try out transcription models, run longer dictation sessions, and save transcripts into Notes."
+  },
+  "playground_stt_currentModelLabel": {
+    "message": "Current transcription model"
+  },
+  "playground_stt_defaultModel": {
+    "message": "Default from Settings"
+  },
+  "playground_stt_settingsNotice": {
+    "message": "Language, task, response format, segmentation, and prompt reuse your Speech-to-Text defaults from Settings."
+  },
+  "playground_stt_sessionMode": {
+    "message": "Session mode"
+  },
+  "playground_stt_modeLong": {
+    "message": "Long-running (chunked recording)"
+  },
+  "playground_stt_modeShort": {
+    "message": "Short dictation (single clip)"
+  },
+  "playground_stt_languageTag": {
+    "message": "Language"
+  },
+  "playground_stt_taskTag": {
+    "message": "Task"
+  },
+  "playground_stt_formatTag": {
+    "message": "Format"
+  },
+  "playground_stt_segmentationEnabled": {
+    "message": "Segmentation enabled"
+  },
+  "playground_stt_recordButton": {
+    "message": "Record"
+  },
+  "playground_stt_stopButton": {
+    "message": "Stop"
+  },
+  "playground_stt_startTooltip": {
+    "message": "Start recording audio for transcription"
+  },
+  "playground_stt_stopTooltip": {
+    "message": "Stop and send to server"
+  },
+  "playground_stt_transcribingButton": {
+    "message": "전사 중..."
+  },
+  "playground_stt_transcribingTooltip": {
+    "message": "오디오 전사 중..."
+  },
+  "playground_stt_transcribingPlaceholder": {
+    "message": "오디오 전사 중..."
+  },
+  "playground_stt_historyTitle": {
+    "message": "Transcription history"
+  },
+  "playground_stt_clearAll": {
+    "message": "Clear all"
+  },
+  "playground_stt_emptyHistory": {
+    "message": "Start a recording to see transcripts here. You can save any item into Notes."
+  },
+  "playground_stt_saveToNotes": {
+    "message": "Save to Notes"
+  },
+  "playground_stt_delete": {
+    "message": "Delete"
+  },
+  "playground_stt_durationTag": {
+    "message": "Duration"
+  },
+  "playground_stt_modelTag": {
+    "message": "Model"
+  },
+  "playground_stt_currentTranscriptTitle": {
+    "message": "Current session transcript"
+  },
+  "playground_stt_currentTranscriptPlaceholder": {
+    "message": "Live transcript will appear here while recording."
+  },
+  "playground_actions_temporaryOn": {
+    "message": "Temporary chat (not saved)"
+  },
+  "playground_actions_temporaryOff": {
+    "message": "Save chat to history"
+  },
+  "playground_actions_webSearchOn": {
+    "message": "Web search on"
+  },
+  "playground_actions_webSearchOff": {
+    "message": "Web search off"
+  },
+  "playground_actions_speechStart": {
+    "message": "Start dictation"
+  },
+  "playground_actions_speechStop": {
+    "message": "Stop dictation"
+  },
+  "playground_actions_streamStart": {
+    "message": "Live captions"
+  },
+  "playground_actions_streamStop": {
+    "message": "Stop captions"
+  },
+  "playground_actions_visionOn": {
+    "message": "Vision on"
+  },
+  "playground_actions_visionOff": {
+    "message": "Vision off"
+  },
+  "playground_actions_upload": {
+    "message": "Attach image"
+  },
+  "playground_actions_ingest": {
+    "message": "Quick ingest"
+  },
+  "playground_actions_ingestDisabled": {
+    "message": "Connect to your tldw server to ingest."
+  },
+  "playground_actions_ingestHint": {
+    "message": "Upload URLs or files with advanced options."
+  },
+  "playground_actions_ingestSub": {
+    "message": "Use URLs/files; download or store."
+  },
+  "playground_actions_streamErrorTitle": {
+    "message": "Live captions unavailable"
+  },
+  "playground_composer_toolsButton": {
+    "message": "+Tools"
+  },
+  "playground_composer_queuedBanner_title": {
+    "message": "Queued while offline"
+  },
+  "playground_composer_queuedBanner_body": {
+    "message": "We’ll hold these messages and send them once your tldw server is connected."
+  },
+  "playground_composer_queuedBanner_sendNow": {
+    "message": "Send queued messages"
+  },
+  "playground_composer_queuedBanner_clear": {
+    "message": "Clear queue"
+  },
+  "playground_composer_coreTools": {
+    "message": "Conversation options"
+  },
+  "playground_composer_captureTools": {
+    "message": "Capture and assist tools"
+  },
+  "playground_composer_actions": {
+    "message": "Send options"
+  },
+  "playground_composer_moreTools": {
+    "message": "More tools"
+  },
+  "playground_composer_scrollToLatest": {
+    "message": "Scroll to latest messages"
+  },
+  "playground_composer_submitAria": {
+    "message": "Send message"
+  },
+  "playground_composer_openModelSettings": {
+    "message": "Open current chat settings"
+  },
+  "playground_composer_stopStreaming": {
+    "message": "Stop streaming response"
+  },
+  "playground_composer_connectionPlaceholder": {
+    "message": "Connect to your tldw server in Settings to send messages and view media."
+  },
+  "playground_composer_connectNotice": {
+    "message": "Connect to your tldw server in Settings to send messages and view media."
+  },
+  "playground_composer_connectionChipDisconnected": {
+    "message": "Server: Not connected"
+  },
+  "playground_composer_contextLabel": {
+    "message": "컨텍스트:"
+  },
+  "playground_composer_contextKnowledgeEmpty": {
+    "message": "선택된 지식 없음"
+  },
+  "playground_composer_contextTabs": {
+    "message": "{{count}}개 탭"
+  },
+  "playground_composer_contextFiles": {
+    "message": "{{count}}개 파일"
+  },
+  "playground_composer_contextMedia": {
+    "message": "미디어 및 노트"
+  },
+  "playground_composer_contextMediaHint": {
+    "message": "응답에 영향을 줄 미디어 및 노트를 첨부하세요."
+  },
+  "playground_composer_contextMediaSelected": {
+    "message": "미디어 또는 노트"
+  },
+  "playground_composer_contextMediaEmpty": {
+    "message": "아직 미디어 및 노트가 선택되지 않았습니다."
+  },
+  "playground_composer_addKnowledge": {
+    "message": "미디어 및 노트 추가"
+  },
+  "playground_composer_contextTabsTitle": {
+    "message": "컨텍스트 탭"
+  },
+  "playground_composer_contextTabsHint": {
+    "message": "참조된 탭을 검토하거나 제거하고, 열려 있는 브라우저 탭에서 더 추가하세요."
+  },
+  "playground_composer_contextManager": {
+    "message": "컨텍스트 관리"
+  },
+  "playground_composer_contextManagerTitle": {
+    "message": "컨텍스트 관리"
+  },
+  "playground_composer_contextKnowledge": {
+    "message": "컨텍스트 및 지식"
+  },
+  "playground_composer_contextKnowledgeClose": {
+    "message": "컨텍스트 및 지식 닫기"
+  },
+  "playground_composer_knowledgeSearch": {
+    "message": "지식 검색"
+  },
+  "playground_composer_knowledgeSearchClose": {
+    "message": "지식 검색 닫기"
+  },
+  "playground_composer_persistence_ephemeral": {
+    "message": "Not saved in history; clears when you close this tab."
+  },
+  "playground_composer_persistence_local": {
+    "message": "Saved in this browser only."
+  },
+  "playground_composer_persistence_server": {
+    "message": "Saved Locally+Server"
+  },
+  "playground_composer_persistence_ephemeralPill": {
+    "message": "Temporary"
+  },
+  "playground_composer_persistence_localPill": {
+    "message": "Local only"
+  },
+  "playground_composer_persistence_serverPill": {
+    "message": "Locally + Server"
+  },
+  "playground_composer_persistence_saveToServer": {
+    "message": "Also save this chat to server"
+  },
+  "playground_composer_persistence_connectToSave": {
+    "message": "Connect your server to save chats there."
+  },
+  "playground_composer_persistence_serverDefaultTitle": {
+    "message": "Extension chat"
+  },
+  "playground_composer_persistence_serverSavedTitle": {
+    "message": "Chat now saved on server"
+  },
+  "playground_composer_persistence_serverSaved": {
+    "message": "Future messages in this chat will sync to your tldw server."
+  },
+  "playground_composer_persistence_serverCharacterRequired": {
+    "message": "Unable to find or create a default assistant character on the server. Try again from the Characters page."
+  },
+  "playground_composer_connectToSend": {
+    "message": "메시지를 보내고 미디어를 보려면 설정에서 tldw 서버에 연결하세요."
+  },
+  "playground_composer_compareTag": {
+    "message": "비교"
+  },
+  "playground_composer_compareLabel": {
+    "message": "비교 모드"
+  },
+  "playground_composer_compareButton": {
+    "message": "모델 비교"
+  },
+  "playground_composer_compareButtonActive": {
+    "message": "비교: {{count}}개 모델"
+  },
+  "playground_composer_compareButtonOn": {
+    "message": "비교 활성화됨"
+  },
+  "playground_composer_compareSettingsTitle": {
+    "message": "비교 설정"
+  },
+  "playground_composer_compareSettingsToggle": {
+    "message": "비교 모드 활성화"
+  },
+  "playground_composer_compareSettingsToggleHint": {
+    "message": "다음 메시지를 여러 모델에 보냅니다."
+  },
+  "playground_composer_compareNoneSelected": {
+    "message": "비교할 모델이 선택되지 않았습니다"
+  },
+  "playground_composer_compareSingle": {
+    "message": "1개 모델 비교 중"
+  },
+  "playground_composer_compareMany": {
+    "message": "{{count}}개 모델 비교 중"
+  },
+  "playground_composer_compareActiveSummary": {
+    "message": "다음 턴의 활성 모델: {{label}}"
+  },
+  "playground_composer_compareModelPickerLabel": {
+    "message": "모델 선택"
+  },
+  "playground_composer_compareModelPickerPlaceholder": {
+    "message": "비교할 모델을 선택하세요"
+  },
+  "playground_composer_compareActiveModelsLabel": {
+    "message": "활성 모델"
+  },
+  "playground_composer_compareActiveModelsHint": {
+    "message": "다음 메시지가 각 활성 모델로 전송됩니다."
+  },
+  "playground_composer_compareSendToModels": {
+    "message": "{{count}}개 모델로 보내기"
+  },
+  "playground_composer_compareMaxModelsTitle": {
+    "message": "비교 제한에 도달했습니다"
+  },
+  "playground_composer_compareMaxModels": {
+    "message": "턴당 최대 {{limit}}개의 모델을 비교할 수 있습니다."
+  },
+  "playground_composer_compareMaxModelsTrimmed": {
+    "message": "비교는 턴당 {{limit}}개의 모델로 제한됩니다. 선택한 처음 {{limit}}개의 모델을 사용합니다."
+  },
+  "playground_composer_compareMaxLabel": {
+    "message": "턴당 최대 모델 수"
+  },
+  "playground_composer_compareMaxHelper": {
+    "message": "선택됨: {{current}} / {{limit}}"
+  },
+  "playground_composer_compareSelectedLabel": {
+    "message": "답변으로 선택됨:"
+  },
+  "playground_composer_compareContinueHint": {
+    "message": "선택한 모델로 이 채팅을 계속하세요."
+  },
+  "playground_composer_compareContinue": {
+    "message": "이 모델로 계속하기"
+  },
+  "playground_composer_compareThreadShared": {
+    "message": "나(공유됨)"
+  },
+  "playground_composer_compareBulkSplitSuccess": {
+    "message": "{{count}}개의 채팅 생성됨"
+  },
+  "playground_composer_compareBulkSplitPartialFail": {
+    "message": "채팅 {{count}}개를 만들지 못했습니다"
+  },
+  "playground_composer_validationCompareSelectModelsInline": {
+    "message": "비교 모드에서는 최소 하나의 모델을 선택하세요."
+  },
+  "tabs_newChat": {
+    "message": "새 채팅"
+  },
+  "tabs_newTabAria": {
+    "message": "새 채팅 탭"
+  },
+  "tabs_closeTabAria": {
+    "message": "채팅 탭 닫기"
+  },
+  "manageCharacters_title": {
+    "message": "캐릭터 관리"
+  },
+  "manageCharacters_addBtn": {
+    "message": "새 캐릭터"
+  },
+  "manageCharacters_columns_name": {
+    "message": "이름"
+  },
+  "manageCharacters_columns_description": {
+    "message": "설명"
+  },
+  "manageCharacters_columns_actions": {
+    "message": "동작"
+  },
+  "manageCharacters_columns_avatar": {
+    "message": "아바타"
+  },
+  "manageCharacters_actions_chat": {
+    "message": "채팅"
+  },
+  "manageCharacters_actions_edit": {
+    "message": "편집"
+  },
+  "manageCharacters_actions_delete": {
+    "message": "삭제"
+  },
+  "manageCharacters_actions_duplicate": {
+    "message": "복제"
+  },
+  "manageCharacters_table_noDescription": {
+    "message": "설명 없음"
+  },
+  "manageCharacters_filter_matchAll": {
+    "message": "모든 태그 일치"
+  },
+  "manageCharacters_tags_label": {
+    "message": "태그"
+  },
+  "manageCharacters_tags_placeholder": {
+    "message": "태그 추가"
+  },
+  "manageCharacters_tags_help": {
+    "message": "태그로 캐릭터를 용도별로 묶을 수 있습니다(예: “글쓰기”, “교육”)."
+  },
+  "manageCharacters_tooltip_edit": {
+    "message": "캐릭터 편집"
+  },
+  "manageCharacters_tooltip_delete": {
+    "message": "캐릭터 삭제"
+  },
+  "manageCharacters_aria_chatWith": {
+    "message": "{{name}}로 채팅하기"
+  },
+  "manageCharacters_aria_edit": {
+    "message": "캐릭터 {{name}} 편집"
+  },
+  "manageCharacters_aria_delete": {
+    "message": "캐릭터 {{name}} 삭제"
+  },
+  "manageCharacters_aria_duplicate": {
+    "message": "{{name}} 캐릭터 복제"
+  },
+  "manageCharacters_confirm_delete": {
+    "message": "이 캐릭터를 삭제할까요? 이 작업은 되돌릴 수 없습니다."
+  },
+  "manageCharacters_avatar_label": {
+    "message": "아바타(선택 사항)"
+  },
+  "manageCharacters_avatar_tabUrl": {
+    "message": "URL 주소"
+  },
+  "manageCharacters_avatar_tabUpload": {
+    "message": "업로드"
+  },
+  "manageCharacters_avatar_selectImageError": {
+    "message": "이미지 파일을 선택해 주세요"
+  },
+  "manageCharacters_avatar_formatError": {
+    "message": "PNG, JPEG, GIF 이미지만 지원됩니다"
+  },
+  "manageCharacters_avatar_invalidError": {
+    "message": "유효하지 않은 이미지 파일"
+  },
+  "manageCharacters_avatar_processError": {
+    "message": "이미지 처리 실패"
+  },
+  "manageCharacters_avatar_dropzone": {
+    "message": "클릭하거나 드래그하여 이미지를 업로드"
+  },
+  "manageCharacters_avatar_formats": {
+    "message": "PNG, JPEG 또는 GIF"
+  },
+  "manageCharacters_avatar_preview": {
+    "message": "미리보기"
+  },
+  "manageCharacters_form_name_label": {
+    "message": "이름"
+  },
+  "manageCharacters_form_name_placeholder": {
+    "message": "예: 글쓰기 코치"
+  },
+  "manageCharacters_form_name_required": {
+    "message": "이름을 입력하세요"
+  },
+  "manageCharacters_form_description": {
+    "message": "사이드바에서 대화할 수 있는 재사용 캐릭터를 정의하세요."
+  },
+  "manageCharacters_form_systemPrompt_label": {
+    "message": "행동 / 지침"
+  },
+  "manageCharacters_form_systemPrompt_placeholder": {
+    "message": "예: 단계별로 개념을 설명하고 짧은 예시로 이해도를 확인하는 인내심 있는 수학 교사입니다."
+  },
+  "manageCharacters_form_systemPrompt_help": {
+    "message": "캐릭터의 역할, 톤, 제약을 설명하세요. 예: \"단계별로 개념을 설명하는 인내심 있는 수학 튜터입니다.\""
+  },
+  "manageCharacters_form_systemPrompt_required": {
+    "message": "응답을 안내할 지침을 추가해 주세요."
+  },
+  "manageCharacters_form_systemPrompt_min": {
+    "message": "캐릭터가 적절히 응답할 수 있도록 짧은 설명을 추가하세요."
+  },
+  "manageCharacters_form_systemPrompt_max": {
+    "message": "시스템 프롬프트는 2000자 이하여야 합니다."
+  },
+  "manageCharacters_form_avatarUrl_label": {
+    "message": "아바타 URL(선택)"
+  },
+  "manageCharacters_form_avatarUrl_placeholder": {
+    "message": "예: https://example.com/avatar.png"
+  },
+  "manageCharacters_form_greeting_label": {
+    "message": "인사말(선택)"
+  },
+  "manageCharacters_form_greeting_placeholder": {
+    "message": "안녕하세요! 저는 글쓰기 코치예요. 초안을 붙여 넣으면 다듬어 드릴게요."
+  },
+  "manageCharacters_form_greeting_help": {
+    "message": "채팅을 시작할 때 캐릭터가 보내는 선택적 첫 메시지입니다."
+  },
+  "manageCharacters_form_btnSave_saving": {
+    "message": "캐릭터 생성 중..."
+  },
+  "manageCharacters_form_btnSave_save": {
+    "message": "캐릭터 생성"
+  },
+  "manageCharacters_form_btnEdit_saving": {
+    "message": "변경 사항 저장 중..."
+  },
+  "manageCharacters_form_btnEdit_save": {
+    "message": "변경 사항 저장"
+  },
+  "manageCharacters_notification_addSuccess": {
+    "message": "캐릭터가 생성되었습니다"
+  },
+  "manageCharacters_notification_error": {
+    "message": "오류"
+  },
+  "manageCharacters_notification_someError": {
+    "message": "문제가 발생했습니다. 나중에 다시 시도하세요."
+  },
+  "manageCharacters_notification_updatedSuccess": {
+    "message": "캐릭터가 업데이트되었습니다"
+  },
+  "manageCharacters_notification_deletedSuccess": {
+    "message": "캐릭터가 삭제되었습니다"
+  },
+  "manageCharacters_loadError_title": {
+    "message": "캐릭터를 불러올 수 없습니다"
+  },
+  "manageCharacters_loadError_description": {
+    "message": "연결을 확인하고 다시 시도하세요."
+  },
+  "manageCharacters_emptyTitle": {
+    "message": "캐릭터가 없습니다"
+  },
+  "manageCharacters_emptyDescription": {
+    "message": "이름, 설명, 시스템 프롬프트가 있는 재사용 캐릭터를 만들어 보세요."
+  },
+  "manageCharacters_emptyExample1": {
+    "message": "글쓰기 코치, 세계관 전문가, 코딩 도우미 등 재사용할 캐릭터를 정의하세요."
+  },
+  "manageCharacters_emptyExample2": {
+    "message": "각 캐릭터에 명확한 설명과 행동을 추가해 응답이 일관되게 유지되도록 하세요."
+  },
+  "manageCharacters_emptyPrimaryCta": {
+    "message": "캐릭터 만들기"
+  },
+  "manageCharacters_avatarAltWithName": {
+    "message": "{{name}}의 아바타"
+  },
+  "manageCharacters_avatarAlt": {
+    "message": "사용자 아바타"
+  },
+  "quiz_itemsPerPage": {
+    "message": "항목/페이지"
+  },
+  "quiz_editQuizTitle": {
+    "message": "퀴즈 편집"
+  },
+  "quiz_updateSuccess": {
+    "message": "퀴즈가 업데이트되었습니다."
+  },
+  "quiz_updateError": {
+    "message": "퀴즈 업데이트에 실패했습니다."
+  },
+  "quiz_questionTextRequired": {
+    "message": "질문 텍스트는 필수입니다."
+  },
+  "quiz_optionsRequired": {
+    "message": "선택지를 최소 두 개 입력하세요."
+  },
+  "quiz_questionSaveSuccess": {
+    "message": "질문이 생성되었습니다."
+  },
+  "quiz_questionUpdateSuccess": {
+    "message": "질문이 업데이트되었습니다."
+  },
+  "quiz_questionSaveError": {
+    "message": "질문 저장에 실패했습니다."
+  },
+  "quiz_questionDeleteSuccess": {
+    "message": "질문이 삭제되었습니다."
+  },
+  "quiz_questionDeleteError": {
+    "message": "질문 삭제에 실패했습니다."
+  },
+  "quiz_editQuestion": {
+    "message": "질문 편집"
+  },
+  "quiz_points": {
+    "message": "점수"
+  },
+  "quiz_orderIndex": {
+    "message": "순서"
+  },
+  "quiz_startError": {
+    "message": "퀴즈 시작에 실패했습니다."
+  },
+  "quiz_answerAll": {
+    "message": "제출하기 전에 모든 질문에 답변하세요."
+  },
+  "quiz_submitError": {
+    "message": "퀴즈 제출에 실패했습니다."
+  },
+  "quiz_scoreSummary": {
+    "message": "점수: {{score}} / {{total}} ({{percent}}%)"
+  },
+  "quiz_correct": {
+    "message": "정답"
+  },
+  "quiz_incorrect": {
+    "message": "오답"
+  },
+  "quiz_yourAnswer": {
+    "message": "내 답변"
+  },
+  "quiz_correctAnswerLabel": {
+    "message": "정답"
+  },
+  "quiz_backToList": {
+    "message": "목록으로 돌아가기"
+  },
+  "quiz_retake": {
+    "message": "퀴즈 다시 풀기"
+  },
+  "flashcards_bulkLimitWarning": {
+    "message": "작업은 처음 {{limit}}개 항목으로 제한됩니다."
+  },
+  "mediaPage_spreadMode": {
+    "message": "비교"
+  },
+  "mediaPage_listMode": {
+    "message": "집중"
+  },
+  "mediaPage_allMode": {
+    "message": "스택"
+  },
+  "mediaPage_spreadModeTooltip": {
+    "message": "선택한 항목을 나란히 비교해서 봅니다"
+  },
+  "mediaPage_listModeTooltip": {
+    "message": "탐색으로 한 번에 한 항목씩 봅니다"
+  },
+  "mediaPage_allModeTooltip": {
+    "message": "선택한 항목을 스크롤 가능한 목록으로 모두 봅니다"
+  },
+  "mediaPage_copyContentLabel": {
+    "message": "콘텐츠 복사"
+  },
+  "mediaPage_copyAnalysisLabel": {
+    "message": "분석 복사"
+  },
+  "mediaPage_copyContentTooltip": {
+    "message": "콘텐츠를 클립보드에 복사"
+  },
+  "mediaPage_copyAnalysisTooltip": {
+    "message": "분석을 클립보드에 복사"
+  },
+  "mediaPage_prevItemTooltip": {
+    "message": "이전 항목 (←)"
+  },
+  "mediaPage_nextItemTooltip": {
+    "message": "다음 항목 (→)"
+  },
+  "mediaPage_viewerOptions": {
+    "message": "옵션"
+  },
+  "mediaPage_expandAllDropdown": {
+    "message": "펼치기/접기"
+  },
+  "mediaPage_itemPosition": {
+    "message": "항목 {{current}}/{{total}}"
+  },
+  "mediaPage_noItemSelected": {
+    "message": "선택된 항목이 없습니다"
+  },
+  "mediaPage_firstUseTitle": {
+    "message": "빠른 안내: 다중 항목 검토"
+  },
+  "mediaPage_firstUseStep1": {
+    "message": "항목 선택"
+  },
+  "mediaPage_firstUseStep1Desc": {
+    "message": "왼쪽 패널에서 항목을 클릭해 뷰어에 추가하세요."
+  },
+  "mediaPage_firstUseStep2": {
+    "message": "보기 선택"
+  },
+  "mediaPage_firstUseStep2Desc": {
+    "message": "\"비교\"는 나란히, \"집중\"은 한 번에 하나, \"스택\"은 모두 보기입니다."
+  },
+  "mediaPage_firstUseStep3": {
+    "message": "탐색"
+  },
+  "mediaPage_firstUseStep3Desc": {
+    "message": "이전/다음 버튼 또는 키보드(Tab + Enter)로 항목을 이동하세요."
+  },
+  "mediaPage_gotIt": {
+    "message": "확인"
+  },
+  "mediaPage_model": {
+    "message": "모델"
+  },
+  "mediaPage_selectModel": {
+    "message": "모델 선택"
+  },
+  "mediaPage_noModelsAvailable": {
+    "message": "사용 가능한 모델이 없습니다"
+  },
+  "mediaPage_promptPresets": {
+    "message": "프롬프트 프리셋"
+  },
+  "mediaPage_showPresets": {
+    "message": "프리셋 표시"
+  },
+  "mediaPage_hidePresets": {
+    "message": "프리셋 숨기기"
+  },
+  "mediaPage_systemPromptLabel": {
+    "message": "시스템 프롬프트"
+  },
+  "mediaPage_systemPromptPlaceholder": {
+    "message": "시스템 프롬프트 입력..."
+  },
+  "mediaPage_userPromptPrefixLabel": {
+    "message": "사용자 프롬프트 접두사"
+  },
+  "mediaPage_prependedBeforeContent": {
+    "message": "(콘텐츠 앞에 추가됨)"
+  },
+  "mediaPage_userPrefixPlaceholder": {
+    "message": "선택 사항: 미디어 콘텐츠 앞에 추가할 텍스트를 입력하세요..."
+  },
+  "mediaPage_presetComprehensiveAnalysis": {
+    "message": "종합 분석"
+  },
+  "mediaPage_presetExecutiveSummary": {
+    "message": "요약 보고"
+  },
+  "mediaPage_presetCriticalReview": {
+    "message": "비판적 검토"
+  },
+  "mediaPage_presetQAAnalysis": {
+    "message": "Q&A 분석"
   }
 }

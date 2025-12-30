@@ -150,12 +150,12 @@ const BASE_SCREEN_CONFIGS: ScreenConfig[] = [
     icon: "workspace"
   },
   {
-    id: "tts",
-    route: "/tts",
-    labelKey: "option:tts.playground",
-    defaultLabel: "TTS Playground",
-    description: "Text-to-speech playground",
-    keywords: ["tts", "audio", "speech"],
+    id: "speech",
+    route: "/speech",
+    labelKey: "option:header.modeSpeech",
+    defaultLabel: "Speech Playground",
+    description: "Unified speech playground",
+    keywords: ["speech", "tts", "stt", "audio", "dictation"],
     icon: "tts"
   },
   {

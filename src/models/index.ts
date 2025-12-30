@@ -12,11 +12,9 @@ const isValidReasoningEffort = (
 }
 
 export const pageAssistModel = async ({
-  model,
-  baseUrl
+  model
 }: {
   model: string
-  baseUrl: string
 }): Promise<ChatTldw> => {
   const currentChatModelSettings = useStoreChatModelSettings.getState()
   const userDefaultModelSettings = await getAllDefaultModelSettings()

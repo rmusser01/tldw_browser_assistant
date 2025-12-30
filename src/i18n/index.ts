@@ -1,4 +1,5 @@
 import i18n from "i18next";
+import ICU from "./icu-format";
 import { initReactI18next } from "react-i18next";
 import { en } from "./lang/en";
 import { pt } from "./lang/pt";
@@ -25,6 +26,7 @@ const isMacPlatform =
 const commandPaletteShortcut = isMacPlatform ? "Cmd+K" : "Ctrl+K"
 
 i18n
+    .use(ICU)
     .use(initReactI18next)
     .init({
         resources: {

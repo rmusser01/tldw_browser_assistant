@@ -1,0 +1,359 @@
+{
+  "tooltip_embed": {
+    "message": "It may take a few minutes to embed the page. Please wait..."
+  },
+  "tooltip_clear": {
+    "message": "Erase chat history"
+  },
+  "tooltip_history": {
+    "message": "Chat history"
+  },
+  "tooltip_openwebui": {
+    "message": "Open WebUI"
+  },
+  "header_ingest": {
+    "message": "Ingest"
+  },
+  "header_saveCurrent": {
+    "message": "Save current page on server"
+  },
+  "header_processLocal": {
+    "message": "Process current page locally"
+  },
+  "header_viewProcessed": {
+    "message": "View processed"
+  },
+  "header_timeoutLabel": {
+    "message": "Timeout (s)"
+  },
+  "header_toggleSidebar": {
+    "message": "Toggle Sidebar / Full Screen"
+  },
+  "header_shortcuts": {
+    "message": "Shortcuts"
+  },
+  "header_showDebug": {
+    "message": "Show Stream Debug"
+  },
+  "header_hideDebug": {
+    "message": "Hide Stream Debug"
+  },
+  "header_moreOptionsAria": {
+    "message": "More options"
+  },
+  "header_moreOptionsTitle": {
+    "message": "Ingest and more"
+  },
+  "header_openWebuiAria": {
+    "message": "Open Web UI"
+  },
+  "header_newChatAria": {
+    "message": "New chat"
+  },
+  "header_tempChatAria": {
+    "message": "Toggle temporary chat"
+  },
+  "header_clearHistoryAria": {
+    "message": "Clear history"
+  },
+  "header_openHistoryAria": {
+    "message": "Open history"
+  },
+  "header_openModelSettingsAria": {
+    "message": "Open model settings"
+  },
+  "header_openSettingsAria": {
+    "message": "Open settings"
+  },
+  "header_tempPill": {
+    "message": "Temp"
+  },
+  "header_modesLabel": {
+    "message": "Open modes in Web UI"
+  },
+  "header_modePlayground": {
+    "message": "Chat"
+  },
+  "header_modeReview": {
+    "message": "Multi-Item Review"
+  },
+  "header_modeMedia": {
+    "message": "Media"
+  },
+  "header_modeKnowledge": {
+    "message": "Knowledge"
+  },
+  "header_modeNotes": {
+    "message": "Notes"
+  },
+  "header_modePrompts": {
+    "message": "Prompts"
+  },
+  "header_modeFlashcards": {
+    "message": "Flashcards"
+  },
+  "controlRow_saveMode": {
+    "message": "Save Mode"
+  },
+  "controlRow_ephemeral": {
+    "message": "Ephemeral"
+  },
+  "controlRow_ephemeralBadge": {
+    "message": "Ephemeral"
+  },
+  "controlRow_ephemeralModeActive": {
+    "message": "Ephemeral mode: chat won't be saved"
+  },
+  "controlRow_searchSection": {
+    "message": "Search & Vision"
+  },
+  "controlRow_webSearch": {
+    "message": "Web Search"
+  },
+  "controlRow_vision": {
+    "message": "Vision"
+  },
+  "controlRow_visionDisabledKnowledge": {
+    "message": "Disable Knowledge Search to use Vision"
+  },
+  "controlRow_visionTooltip": {
+    "message": "Enable Vision to analyze images"
+  },
+  "controlRow_uploadImage": {
+    "message": "Upload Image"
+  },
+  "controlRow_quickActions": {
+    "message": "Quick actions"
+  },
+  "controlRow_quickIngest": {
+    "message": "Quick ingest"
+  },
+  "controlRow_openInFullUI": {
+    "message": "Open full app"
+  },
+  "controlRow_modeChat": {
+    "message": "Chat"
+  },
+  "controlRow_modeMedia": {
+    "message": "Media"
+  },
+  "controlRow_modeNotes": {
+    "message": "Notes"
+  },
+  "controlRow_modeFlashcards": {
+    "message": "Flashcards"
+  },
+  "controlRow_knowledgeSearch": {
+    "message": "Open knowledge search"
+  },
+  "controlRow_knowledge": {
+    "message": "Knowledge search"
+  },
+  "controlRow_moreTools": {
+    "message": "More tools"
+  },
+  "toolbar_knowledgeSearch": {
+    "message": "Knowledge Search"
+  },
+  "composer_connectHint": {
+    "message": "Connect to your tldw server in Settings to send messages."
+  },
+  "composer_connectingPlaceholder": {
+    "message": "Connecting..."
+  },
+  "composer_disconnectedPlaceholder": {
+    "message": "Connect to your tldw server in Settings to send messages and view media."
+  },
+  "composer_tempChatConfirmTitle": {
+    "message": "Enable temporary mode?"
+  },
+  "composer_tempChatConfirmContent": {
+    "message": "This will clear your current conversation. Messages won't be saved."
+  },
+  "composer_tempChatDisableConfirmTitle": {
+    "message": "Disable temporary mode?"
+  },
+  "composer_tempChatDisableConfirmContent": {
+    "message": "This will clear your current conversation. Messages will start saving again."
+  },
+  "composer_tempChatDisabledClearedMessages": {
+    "message": "Temporary chat disabled. Previous messages cleared."
+  },
+  "composer_tempChatClearedMessages": {
+    "message": "Temporary chat enabled. Previous messages cleared."
+  },
+  "composer_clearQueueConfirmTitle": {
+    "message": "Clear message queue?"
+  },
+  "composer_clearQueueConfirmContent": {
+    "message": "This will delete {{count}} queued message(s) that haven't been sent yet."
+  },
+  "notification_ingestSent": {
+    "message": "Sent to tldw server"
+  },
+  "notification_ingestSentDesc": {
+    "message": "Current page has been submitted for ingestion."
+  },
+  "notification_processedLocal": {
+    "message": "Processed locally"
+  },
+  "notification_processedLocalDesc": {
+    "message": "Processed content stored locally under Settings > Processed."
+  },
+  "notification_transcriptionTitle": {
+    "message": "Transcription"
+  },
+  "notification_transcriptionSummaryTitle": {
+    "message": "Transcription + summary"
+  },
+  "notification_transcriptionFallback": {
+    "message": "Transcription completed. Open Media in the Web UI to view it."
+  },
+  "notification_sourceLabel": {
+    "message": "Source"
+  },
+  "notification_transcriptLabel": {
+    "message": "Transcript"
+  },
+  "notification_summaryLabel": {
+    "message": "Summary"
+  },
+  "saveStatus_ephemeral": {
+    "message": "Ephemeral: Not saved, cleared on close"
+  },
+  "saveStatus_local": {
+    "message": "Saved locally in this browser"
+  },
+  "saveStatus_server": {
+    "message": "Saved to server"
+  },
+  "saveStatus_saveFailed": {
+    "message": "Failed to save chat to server"
+  },
+  "saveStatus_saveFailedDescription": {
+    "message": "Chat is now saving locally only. Check your connection and try again."
+  },
+  "rag_searchPlaceholder": {
+    "message": "Search your knowledge…"
+  },
+  "rag_search": {
+    "message": "Search"
+  },
+  "rag_show": {
+    "message": "Show Knowledge Search"
+  },
+  "rag_hide": {
+    "message": "Hide Knowledge Search"
+  },
+  "rag_addTagPlaceholder": {
+    "message": "Add tag (Enter)"
+  },
+  "rag_add": {
+    "message": "Add"
+  },
+  "rag_noResults": {
+    "message": "No results"
+  },
+  "rag_disconnected": {
+    "message": "Connect to server to search knowledge base"
+  },
+  "rag_timeout_message": {
+    "message": "Request timed out."
+  },
+  "rag_timeout_retry": {
+    "message": "Retry"
+  },
+  "rag_timeout_increase": {
+    "message": "Increase timeout"
+  },
+  "rag_timeout_checkHealth": {
+    "message": "Check server health"
+  },
+  "rag_actions_insert": {
+    "message": "Insert"
+  },
+  "rag_actions_ask": {
+    "message": "Ask"
+  },
+  "rag_actions_open": {
+    "message": "Open"
+  },
+  "rag_actions_copy": {
+    "message": "Copy"
+  },
+  "rag_hint_message": {
+    "message": "Search your knowledge base and insert results into your message."
+  },
+  "rag_hint_dismiss": {
+    "message": "Dismiss"
+  },
+  "errors_privateModeTitle": {
+    "message": "tldw Assistant can't save data"
+  },
+  "errors_privateModeDescription": {
+    "message": "Firefox Private Mode does not support saving chat history. Temporary chat is enabled by default. More fixes coming soon."
+  },
+  "connectionBanner_connecting": {
+    "message": "Connecting to your tldw server..."
+  },
+  "connectionBanner_authErrorTitle": {
+    "message": "API key needs attention"
+  },
+  "connectionBanner_authErrorBody": {
+    "message": "Your server is reachable but the API key is wrong or missing."
+  },
+  "connectionBanner_unreachableTitle": {
+    "message": "Can't reach your tldw server"
+  },
+  "connectionBanner_unreachableBody": {
+    "message": "Check that your server is running and accessible."
+  },
+  "connectionBanner_noUrlBody": {
+    "message": "Add your server URL in Settings to get started."
+  },
+  "connectionBanner_disconnectedTitle": {
+    "message": "Not connected to tldw server"
+  },
+  "connectionBanner_disconnectedBody": {
+    "message": "Open Settings to configure your server connection."
+  },
+  "connectionBanner_setupTitle": {
+    "message": "Finish setup to start chatting"
+  },
+  "connectionBanner_setupBody": {
+    "message": "Complete the setup wizard in Settings to connect."
+  },
+  "connectionBanner_openSettings": {
+    "message": "Open Settings"
+  },
+  "temporaryBadge_title": {
+    "message": "Temporary Chat"
+  },
+  "temporaryBadge_label": {
+    "message": "Temp"
+  },
+  "temporaryBadge_description": {
+    "message": "This chat won't be saved. Messages will be cleared when you close or start a new chat."
+  },
+  "temporaryBadge_clickHint": {
+    "message": "Click to disable"
+  },
+  "temporaryBadge_ariaLabel": {
+    "message": "Temporary chat mode is active. Click to toggle."
+  },
+  "temporaryBadge_indicatorTooltip": {
+    "message": "Messages in this chat won't be saved"
+  },
+  "temporaryBadge_indicatorAria": {
+    "message": "Temporary chat"
+  },
+  "tabs_newChat": {
+    "message": "New chat"
+  },
+  "tabs_newTabAria": {
+    "message": "New chat tab"
+  },
+  "tabs_closeTabAria": {
+    "message": "Close chat tab"
+  }
+}

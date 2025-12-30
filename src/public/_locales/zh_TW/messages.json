@@ -1,4 +1,250 @@
 {
+  "extName": {
+    "message": "tldw Assistant"
+  },
+  "extDescription": {
+    "message": "Browser extension for tldw_server - your unified AI assistant with RAG, media processing, and more."
+  },
+  "openSidePanelToChat": {
+    "message": "Open Sidebar to chat"
+  },
+  "openOptionToChat": {
+    "message": "Open Web UI to Chat"
+  },
+  "openQuickIngest": {
+    "message": "開啟 Quick Ingest"
+  },
+  "buttonOpenQuickIngest": {
+    "message": "開啟快速匯入"
+  },
+  "buttonTryDemo": {
+    "message": "試試示範"
+  },
+  "learnMoreTldw": {
+    "message": "了解 tldw 伺服器的運作方式"
+  },
+  "contextSummarize": {
+    "message": "Summarize"
+  },
+  "contextExplain": {
+    "message": "Explain"
+  },
+  "contextRephrase": {
+    "message": "Rephrase"
+  },
+  "contextTranslate": {
+    "message": "Translate"
+  },
+  "contextCustom": {
+    "message": "Custom"
+  },
+  "contextSendToTldw": {
+    "message": "Send to tldw_server"
+  },
+  "contextProcessLocalTldw": {
+    "message": "Process with tldw_server (don’t store)"
+  },
+  "contextTranscribeMedia": {
+    "message": "Transcribe Video/Audio"
+  },
+  "contextTranscribeAndSummarizeMedia": {
+    "message": "Transcribe + Summarize Video/Audio"
+  },
+  "contextSaveToNotes": {
+    "message": "Save to Notes"
+  },
+  "contextSaveToNotesNoSelection": {
+    "message": "Select text first to save to Notes."
+  },
+  "contextSidebarOpening": {
+    "message": "Opening sidebar..."
+  },
+  "contextSaveToNotesOpeningSidebar": {
+    "message": "Opening sidebar to save note..."
+  },
+  "contextSaveToNotesDeliveryFailed": {
+    "message": "Could not open the sidebar to save this note. Check that the tldw Assistant sidebar is allowed on this site and try again."
+  },
+  "hfSendPageRejected": {
+    "message": "[tldw] Page send request rejected by tldw_server"
+  },
+  "hfSendPageErrorWithDetail": {
+    "message": "[tldw] Failed to send this page to tldw_server: $1. Check Settings → tldw server and try again."
+  },
+  "hfSendPageError": {
+    "message": "[tldw] Failed to send this page to tldw_server. Check Settings → tldw server and try again."
+  },
+  "hfSendPageSuccess": {
+    "message": "[tldw] Sent page to tldw_server for processing"
+  },
+  "hfSendPageException": {
+    "message": "[tldw] Something went wrong while sending this page to tldw_server. Check that your tldw_server and the extension are running, then try again."
+  },
+  "hfPullInProgress": {
+    "message": "[tldw Assistant] A model pull request is already in progress. Please wait for it to finish before starting another one."
+  },
+  "hfPullConfirm": {
+    "message": "[tldw Assistant] Do you want to send a request to your tldw_server to pull the \"$1\" model? This is independent of the huggingface.co website. Your server will start pulling the model after you confirm."
+  },
+  "hfPullSending": {
+    "message": "[tldw Assistant] Sending a request to your tldw_server to pull \"$1\". Check the extension icon or your tldw_server logs for progress."
+  },
+  "hfPullErrorWithDetail": {
+    "message": "[tldw Assistant] Failed to send a pull request for \"$1\": $2. Check Settings → tldw server and try again."
+  },
+  "hfPullError": {
+    "message": "[tldw Assistant] Failed to send a pull request for \"$1\". Check Settings → tldw server and try again."
+  },
+  "hfPullSuccess": {
+    "message": "[tldw Assistant] Request sent to your tldw_server to pull \"$1\". Monitor the extension icon or tldw_server logs for status."
+  },
+  "hfPullException": {
+    "message": "[tldw Assistant] Something went wrong while sending a pull request for \"$1\" to your tldw_server. Check that your tldw_server and the extension are running, then try again."
+  },
+  "footerHelp": {
+    "message": "連線完成後，你可以隨時從擴充功能選單回到這些設定。"
+  },
+  "progressAria": {
+    "message": "導覽設定進度"
+  },
+  "stepLabel": {
+    "message": "歡迎"
+  },
+  "path": {
+    "message": "你想要如何開始？"
+  },
+  "authModeHelp": {
+    "message": "Single User（API Key）適合個人或小型團隊的伺服器。Multi User（Login）適用於多人共用的部署，使用者以帳號或 SSO 登入。請選擇符合你 tldw_server 設定方式的模式。"
+  },
+  "apiKeyHelp": {
+    "message": "在 tldw_server → Settings → API Keys 中可以找到你的 API 金鑰。在那裡產生金鑰後，將其貼到這裡。"
+  },
+  "authStepAria": {
+    "message": "步驟 2 / 3 — 驗證設定"
+  },
+  "confirmStepAria": {
+    "message": "步驟 3 / 3 — 連線摘要與後續步驟"
+  },
+  "nextSteps": {
+    "message": "你已準備好了"
+  },
+  "notesEmpty_connectTitle": {
+    "message": "連線以使用筆記"
+  },
+  "notesEmpty_connectDescription": {
+    "message": "若要使用「筆記」，請先連線到你的 tldw 伺服器。"
+  },
+  "notesEmpty_connectExample1": {
+    "message": "開啟「設定」→「tldw server」，新增你的伺服器 URL。"
+  },
+  "notesEmpty_connectExample2": {
+    "message": "若伺服器正在執行但無法連線，請使用「診斷」。"
+  },
+  "notesEmpty_demoTitle": {
+    "message": "在示範模式中探索筆記"
+  },
+  "notesEmpty_demoDescription": {
+    "message": "此示範會說明「筆記」如何整理你的洞見。之後你可以連線自己的伺服器，建立並儲存真正的筆記。"
+  },
+  "notesEmpty_demoExample1": {
+    "message": "看看在清單中，筆記標題、預覽與時間戳記是如何顯示的。"
+  },
+  "notesEmpty_demoExample2": {
+    "message": "完成連線後，你可以從會議、複閱結果等內容建立筆記。"
+  },
+  "notesEmpty_demoExample3": {
+    "message": "將「筆記」搭配「媒體」與「複閱」一起使用，幫助你整理並追蹤重要的發現。"
+  },
+  "notesEmpty_demoPreviewHeading": {
+    "message": "範例筆記（僅供預覽）"
+  },
+  "notesEmpty_demoSample1Title": {
+    "message": "示範筆記：每週會議摘要"
+  },
+  "notesEmpty_demoSample1Preview": {
+    "message": "最近團隊同步中的決策、阻礙與後續追蹤事項。"
+  },
+  "notesEmpty_demoSample1Meta": {
+    "message": "今天 · 上午 9:32"
+  },
+  "notesEmpty_demoSample2Title": {
+    "message": "示範筆記：研究重點"
+  },
+  "notesEmpty_demoSample2Preview": {
+    "message": "從長篇文章或論文中整理出的關鍵洞見。"
+  },
+  "notesEmpty_demoSample2Meta": {
+    "message": "昨天 · 下午 4:10"
+  },
+  "notesEmpty_demoSample3Title": {
+    "message": "示範筆記：通話摘要"
+  },
+  "notesEmpty_demoSample3Preview": {
+    "message": "客戶通話的重點整理，以及下一步行動與負責人。"
+  },
+  "notesEmpty_demoSample3Meta": {
+    "message": "本週"
+  },
+  "notesEmpty_title": {
+    "message": "尚未有任何筆記"
+  },
+  "notesEmpty_description": {
+    "message": "建立並整理與 tldw 洞見相關的自由格式筆記。"
+  },
+  "notesEmpty_exampleCreate": {
+    "message": "為最近的一場會議或逐字稿建立一則新的筆記。"
+  },
+  "notesEmpty_exampleLink": {
+    "message": "將複閱產出儲存到「筆記」，方便日後回顧。"
+  },
+  "notesEmpty_primaryCta": {
+    "message": "建立筆記"
+  },
+  "headerShortcuts": {
+    "message": "在標頭顯示快速捷徑"
+  },
+  "restartOnboardingLabel": {
+    "message": "從頭重新開始引導設定"
+  },
+  "restartOnboardingButton": {
+    "message": "重新開始引導"
+  },
+  "restartOnboardingConfirmTitle": {
+    "message": "要重新開始引導嗎？"
+  },
+  "restartOnboardingConfirmMessage": {
+    "message": "這會重設你的引導狀態，並將你帶回設定流程的起始步驟。"
+  },
+  "enableOcrAssets_label": {
+    "message": "啟用 OCR（首次使用時下載約 5MB）"
+  },
+  "enableOcrAssets_downloadNotice": {
+    "message": "啟用 OCR 後，首次使用時將下載約 5MB 的語言資料。"
+  },
+  "enableOcrAssets_assetsEnabled": {
+    "message": "OCR 資源已啟用並可使用"
+  },
+  "omniSearchPlaceholder": {
+    "message": "搜尋頁面、聊天、媒體、筆記…"
+  },
+  "omniSearchNoResults": {
+    "message": "未找到與\"{{query}}\"匹配的結果。"
+  },
+  "omniSearchCreateNote": {
+    "message": "建立筆記\"{{query}}\""
+  },
+  "omniSearchCreateFlashcards": {
+    "message": "建立抽認卡集合\"{{query}}\""
+  },
+  "omniSearchStartChat": {
+    "message": "開始新的聊天\"{{query}}\""
+  },
+  "connectionCard_connectedCaption": {
+    "message": "現在可以在選項頁和側邊欄中使用聊天和工具。"
+  },
+  "quickIngestQueuedAria": {
+    "message": "{{label}} — 已排隊 {{count}} 個項目 — 按一下以檢視並處理"
+  },
   "connectionCard_descriptionConnectedList_reviewMedia": {
     "message": "查看媒體和轉錄內容",
     "description": "First bullet in the connected-state server connection card, highlighting media review."
@@ -10,6 +256,33 @@
   "connectionCard_descriptionConnectedList_useRag": {
     "message": "在自己的文件上使用 RAG",
     "description": "Third bullet in the connected-state server connection card, highlighting retrieval-augmented generation usage."
+  },
+  "omniSearch_filterScreen": {
+    "message": "界面"
+  },
+  "omniSearch_filterChat": {
+    "message": "聊天"
+  },
+  "omniSearch_filterMedia": {
+    "message": "媒體"
+  },
+  "omniSearch_filterNote": {
+    "message": "筆記"
+  },
+  "omniSearch_filterFlashcards": {
+    "message": "抽認卡集合"
+  },
+  "omniSearch_filterPrompt": {
+    "message": "提示詞"
+  },
+  "omniSearch_filteringBy": {
+    "message": "篩選條件："
+  },
+  "omniSearchCreateNoteSuccess": {
+    "message": "已建立筆記\"{{query}}\""
+  },
+  "omniSearchCreateFlashcardsSuccess": {
+    "message": "已建立抽認卡集合\"{{query}}\""
   },
   "folders": {
     "message": "資料夾",
@@ -63,15 +336,6 @@
     "message": "移至資料夾",
     "description": "Action label to move an item to a folder."
   },
-  "enableOcrAssets_label": {
-    "message": "啟用 OCR（首次使用時下載約 5MB）"
-  },
-  "enableOcrAssets_downloadNotice": {
-    "message": "啟用 OCR 後，首次使用時將下載約 5MB 的語言資料。"
-  },
-  "enableOcrAssets_assetsEnabled": {
-    "message": "OCR 資源已啟用並可使用"
-  },
   "quickIngest_ocrHelp": {
     "message": "OCR 可協助從掃描的 PDF 或圖片中擷取文字。"
   },
@@ -87,11 +351,53 @@
     "message": "使用內建 media.add 綱要備用版本（v{{version}}）；若欄位似乎過時，請對照您的 tldw_server /openapi.json 進行驗證。",
     "description": "Warning shown when the Quick Ingest advanced schema falls back to the bundled schema; contains the bundled schema version."
   },
+  "serverOffline": {
+    "message": "伺服器離線或尚未設定"
+  },
+  "serverChats": {
+    "message": "伺服器聊天"
+  },
+  "serverChatLoadError": {
+    "message": "無法載入伺服器聊天。請檢查連線後再試一次。"
+  },
+  "serverChatSourceLabel": {
+    "message": "伺服器來源"
+  },
   "serverChatsUnavailableNotConnected": {
     "message": "連線到 tldw 伺服器後即可使用伺服器聊天。"
   },
   "serverChatsUnavailableServerError": {
     "message": "目前無法使用伺服器聊天。請檢查伺服器記錄或稍後再試。"
+  },
+  "fileChanges": {
+    "message": "檔案變更"
+  },
+  "deletions": {
+    "message": "刪除作業"
+  },
+  "gitOperations": {
+    "message": "Git 操作"
+  },
+  "commands": {
+    "message": "指令"
+  },
+  "otherOperations": {
+    "message": "其他作業"
+  },
+  "fileAccess": {
+    "message": "檔案存取"
+  },
+  "notebookEdits": {
+    "message": "筆記本編輯"
+  },
+  "applyPatch": {
+    "message": "套用補丁"
+  },
+  "recursive": {
+    "message": "(遞迴)"
+  },
+  "complexArguments": {
+    "message": "[複雜參數]"
   },
   "noToolCalls": {
     "message": "尚未有工具呼叫"
@@ -165,6 +471,14 @@
     "message": "執行命令",
     "description": "Label for the exec.run tool (run command)."
   },
+  "serverChatForkedLabel": {
+    "message": "分叉聊天",
+    "description": "Label shown on chats that were forked from another server chat."
+  },
+  "serverChatForkedTooltip": {
+    "message": "從聊天 {{chatId}} 分叉",
+    "description": "Tooltip explaining which original server chat this chat was forked from."
+  },
   "commandPalette_goToChat": {
     "message": "前往聊天",
     "description": "Command palette action label to navigate to the Chat screen."
@@ -186,7 +500,7 @@
     "description": "Command palette action label to navigate to the Settings screen."
   },
   "commandPalette_goToHealth": {
-    "message": "前往 Health & diagnostics",
+    "message": "前往 健康狀況與診斷",
     "description": "Command palette action label to open the Health & diagnostics screen."
   },
   "commandPalette_newChat": {
@@ -279,28 +593,25 @@
     "message": "顯示原始內容"
   },
   "notesSearch_exportNoteSuccess": {
-    "message": "Exported ({{size}})"
-  },
-  "notesSearch_exportSuccess": {
-    "message": "Exported {{count}} notes ({{size}})"
-  },
-  "notesSearch_exportCsvSuccess": {
-    "message": "Exported {{count}} notes as CSV ({{size}})"
-  },
-  "notesSearch_exportJsonSuccess": {
-    "message": "Exported {{count}} notes as JSON ({{size}})"
-  },
-  "exportNoteSuccess": {
     "message": "已匯出（{{size}}）"
   },
-  "exportSuccess": {
+  "notesSearch_exportSuccess": {
     "message": "已匯出 {{count}} 篇筆記（{{size}}）"
   },
-  "exportCsvSuccess": {
+  "notesSearch_exportCsvSuccess": {
     "message": "已將 {{count}} 篇筆記匯出為 CSV（{{size}}）"
   },
-  "exportJsonSuccess": {
+  "notesSearch_exportJsonSuccess": {
     "message": "已將 {{count}} 篇筆記匯出為 JSON（{{size}}）"
+  },
+  "ttsShort": {
+    "message": "語音"
+  },
+  "copyShort": {
+    "message": "複製"
+  },
+  "branchShort": {
+    "message": "分支"
   },
   "infoShort": {
     "message": "資訊"
@@ -314,38 +625,11 @@
   "error_label": {
     "message": "錯誤"
   },
-  "error_friendlyApiKeySummary": {
-    "message": "無法連線到您的 tldw 伺服器。"
-  },
-  "error_friendlyApiKeyHint": {
-    "message": "您的 API 金鑰可能無效。開啟「設定」→「tldw 伺服器」檢查 URL 與 API 金鑰，然後再試一次。"
-  },
-  "error_friendlyTimeoutSummary": {
-    "message": "您的聊天已逾時。"
-  },
-  "error_friendlyTimeoutHint": {
-    "message": "伺服器停止串流回應。請重試，或開啟 Health & diagnostics 查看伺服器狀態。"
-  },
-  "error_friendlyGenericSummary": {
-    "message": "與您的 tldw 伺服器通訊時發生問題。"
-  },
-  "error_friendlyGenericHint": {
-    "message": "請稍後再試，或開啟 Health & diagnostics 檢查伺服器狀態。"
-  },
-  "error_showDetails": {
-    "message": "顯示技術詳細資訊"
-  },
-  "error_hideDetails": {
-    "message": "隱藏技術詳細資訊"
-  },
-  "error_createFolder": {
-    "message": "Failed to create folder"
-  },
   "modelSelect_label": {
-    "message": "Model"
+    "message": "模型"
   },
   "modelSelect_tooltip": {
-    "message": "Changes model for next message"
+    "message": "變更下一則訊息使用的模型"
   },
   "featureHints_knowledge_title": {
     "message": "搜尋你的知識"
@@ -395,6 +679,18 @@
   "chatSidebar_notes": {
     "message": "筆記"
   },
+  "chatSidebar_flashcards": {
+    "message": "閃卡"
+  },
+  "chatSidebar_prompts": {
+    "message": "提示詞"
+  },
+  "chatSidebar_multiItem": {
+    "message": "多項目"
+  },
+  "chatSidebar_shortcuts": {
+    "message": "捷徑"
+  },
   "chatSidebar_settings": {
     "message": "設定"
   },
@@ -425,10 +721,2504 @@
   "chatSidebar_foldersRequireConnection": {
     "message": "資料夾需要伺服器連線"
   },
-  "option.more.copy.canonicalMarkdown": {
-    "message": "Copy canonical transcript"
+  "error_friendlyApiKeySummary": {
+    "message": "無法連線到您的 tldw 伺服器。"
   },
-  "option.more.download.canonicalMarkdown": {
-    "message": "Canonical transcript (Markdown)"
+  "error_friendlyApiKeyHint": {
+    "message": "您的 API 金鑰可能無效。開啟「設定」→「tldw 伺服器」檢查 URL 與 API 金鑰，然後再試一次。"
+  },
+  "error_friendlyTimeoutSummary": {
+    "message": "您的聊天已逾時。"
+  },
+  "error_friendlyTimeoutHint": {
+    "message": "伺服器停止串流回應。請重試，或開啟 Health & diagnostics 查看伺服器狀態。"
+  },
+  "error_friendlyGenericSummary": {
+    "message": "與您的 tldw 伺服器通訊時發生問題。"
+  },
+  "error_friendlyGenericHint": {
+    "message": "請稍後再試，或開啟 Health & diagnostics 檢查伺服器狀態。"
+  },
+  "error_showDetails": {
+    "message": "顯示技術詳細資訊"
+  },
+  "error_hideDetails": {
+    "message": "隱藏技術詳細資訊"
+  },
+  "error_createFolder": {
+    "message": "無法建立資料夾"
+  },
+  "more_copy_canonicalMarkdown": {
+    "message": "複製標準逐字稿"
+  },
+  "more_download_canonicalMarkdown": {
+    "message": "標準逐字稿 (Markdown)"
+  },
+  "header_contentReview": {
+    "message": "內容審查"
+  },
+  "contentReview_title": {
+    "message": "內容審查",
+    "description": "Content review UI string."
+  },
+  "contentReview_readyToSubmit": {
+    "message": "{{count}} 個已就緒",
+    "description": "Content review UI string."
+  },
+  "contentReview_committedCount": {
+    "message": "{{count}} 個已提交",
+    "description": "Content review UI string."
+  },
+  "contentReview_totalCount": {
+    "message": "共 {{count}} 個",
+    "description": "Content review UI string."
+  },
+  "contentReview_commitAll": {
+    "message": "全部提交",
+    "description": "Content review UI string."
+  },
+  "contentReview_clearDrafts": {
+    "message": "清除草稿",
+    "description": "Content review UI string."
+  },
+  "contentReview_emptyDescription": {
+    "message": "目前尚無草稿。使用 Quick Ingest 並啟用「儲存前審查」即可建立草稿。",
+    "description": "Content review UI string."
+  },
+  "contentReview_openQuickIngest": {
+    "message": "開啟 Quick Ingest",
+    "description": "Content review UI string."
+  },
+  "contentReview_storeAfterReview": {
+    "message": "審核後儲存",
+    "description": "Content review UI string."
+  },
+  "contentReview_reviewBeforeStorage": {
+    "message": "儲存前審核",
+    "description": "Content review UI string."
+  },
+  "contentReview_reviewBeforeStorageHint": {
+    "message": "先處理，然後在提交到伺服器前於本機編輯草稿。",
+    "description": "Content review UI string."
+  },
+  "contentReview_reviewEnabled": {
+    "message": "審核模式",
+    "description": "Content review UI string."
+  },
+  "contentReview_reviewStorageCap": {
+    "message": "本機草稿上限為 {{cap}}。",
+    "description": "Content review UI string."
+  },
+  "contentReview_reviewWarningTitle": {
+    "message": "要將草稿儲存在本機嗎？",
+    "description": "Content review UI string."
+  },
+  "contentReview_reviewWarningBody": {
+    "message": "草稿會儲存在此瀏覽器中，可能包含敏感資料。你可隨時在「內容審核」頁面清除草稿。",
+    "description": "Content review UI string."
+  },
+  "contentReview_reviewWarningBodySecondary": {
+    "message": "審核模式會在提交到伺服器前把內容保留在用戶端。",
+    "description": "Content review UI string."
+  },
+  "contentReview_reviewWarningConfirm": {
+    "message": "啟用審核",
+    "description": "Content review UI string."
+  },
+  "contentReview_reviewWarningCancel": {
+    "message": "取消",
+    "description": "Content review UI string."
+  },
+  "contentReview_reviewRunLabel": {
+    "message": "審核",
+    "description": "Content review UI string."
+  },
+  "contentReview_reviewDraftsCreated": {
+    "message": "草稿已準備好審核。",
+    "description": "Content review UI string."
+  },
+  "contentReview_reviewStorageCapWarning_one": {
+    "message": "{{count}} 個檔案超過本機草稿上限（{{cap}}）。請在提交音訊/影片前附加來源。",
+    "description": "Content review UI string."
+  },
+  "contentReview_reviewStorageCapWarning_other": {
+    "message": "{{count}} 個檔案超過本機草稿上限（{{cap}}）。請在提交音訊/影片前附加來源。",
+    "description": "Content review UI string."
+  },
+  "contentReview_openContentReview": {
+    "message": "開啟內容審核",
+    "description": "Content review UI string."
+  },
+  "contentReview_batchLabel": {
+    "message": "批次",
+    "description": "Content review UI string."
+  },
+  "contentReview_batchName": {
+    "message": "批次 {{index}}",
+    "description": "Content review UI string."
+  },
+  "contentReview_draftsLabel": {
+    "message": "草稿",
+    "description": "Content review UI string."
+  },
+  "contentReview_selectDraft": {
+    "message": "選取一個草稿開始審查。",
+    "description": "Content review UI string."
+  },
+  "contentReview_titlePlaceholder": {
+    "message": "草稿標題",
+    "description": "Content review UI string."
+  },
+  "contentReview_lastSaved": {
+    "message": "已於 {{time}} 儲存",
+    "description": "Content review UI string."
+  },
+  "contentReview_resetTitle": {
+    "message": "要重設草稿嗎？",
+    "description": "Content review UI string."
+  },
+  "contentReview_resetBody": {
+    "message": "這會還原此草稿的原始內容。",
+    "description": "Content review UI string."
+  },
+  "contentReview_resetConfirm": {
+    "message": "重設",
+    "description": "Content review UI string."
+  },
+  "contentReview_resetCancel": {
+    "message": "取消",
+    "description": "Content review UI string."
+  },
+  "contentReview_resetContent": {
+    "message": "重設",
+    "description": "Content review UI string."
+  },
+  "contentReview_diffView": {
+    "message": "差異檢視",
+    "description": "Content review UI string."
+  },
+  "contentReview_saveDraft": {
+    "message": "儲存草稿",
+    "description": "Content review UI string."
+  },
+  "contentReview_editorLabel": {
+    "message": "內容",
+    "description": "Content review UI string."
+  },
+  "contentReview_wordCount": {
+    "message": "{{words}} 個字",
+    "description": "Content review UI string."
+  },
+  "contentReview_charCount": {
+    "message": "{{chars}} 個字元",
+    "description": "Content review UI string."
+  },
+  "contentReview_aiFix": {
+    "message": "使用 AI 修正",
+    "description": "Content review UI string."
+  },
+  "contentReview_aiHint": {
+    "message": "會將草稿內容傳送至伺服器，由 AI 進行處理。",
+    "description": "Content review UI string."
+  },
+  "contentReview_modelPlaceholder": {
+    "message": "伺服器預設值",
+    "description": "Content review UI string."
+  },
+  "contentReview_aiConsentTitle": {
+    "message": "將草稿傳送到伺服器？",
+    "description": "Content review UI string."
+  },
+  "contentReview_aiConsentBody": {
+    "message": "這會將草稿內容傳送到你的 tldw 伺服器進行 AI 處理。在你提交之前，草稿都只會保留在本機。",
+    "description": "Content review UI string."
+  },
+  "contentReview_aiConsentConfirm": {
+    "message": "繼續",
+    "description": "Content review UI string."
+  },
+  "contentReview_aiConsentCancel": {
+    "message": "取消",
+    "description": "Content review UI string."
+  },
+  "contentReview_aiApplied": {
+    "message": "已套用 AI 修正。",
+    "description": "Content review UI string."
+  },
+  "contentReview_aiNoChange": {
+    "message": "沒有收到任何變更。",
+    "description": "Content review UI string."
+  },
+  "contentReview_aiEmpty": {
+    "message": "AI 未回傳任何內容。",
+    "description": "Content review UI string."
+  },
+  "contentReview_aiUnavailable": {
+    "message": "聊天補全功能目前無法使用。",
+    "description": "Content review UI string."
+  },
+  "contentReview_templatePlaceholder": {
+    "message": "選擇範本",
+    "description": "Content review UI string."
+  },
+  "contentReview_applyTemplate": {
+    "message": "套用範本",
+    "description": "Content review UI string."
+  },
+  "contentReview_templateApplied": {
+    "message": "已套用範本。",
+    "description": "Content review UI string."
+  },
+  "contentReview_templateMissing": {
+    "message": "請先選擇一個範本。",
+    "description": "Content review UI string."
+  },
+  "contentReview_detectSections": {
+    "message": "偵測段落",
+    "description": "Content review UI string."
+  },
+  "contentReview_detectSectionsTitle": {
+    "message": "要重新偵測段落嗎？",
+    "description": "Content review UI string."
+  },
+  "contentReview_detectSectionsBody": {
+    "message": "這會取代既有段落並重設你的選取項目。",
+    "description": "Content review UI string."
+  },
+  "contentReview_detectSectionsConfirm": {
+    "message": "重新偵測",
+    "description": "Content review UI string."
+  },
+  "contentReview_detectSectionsCancel": {
+    "message": "取消",
+    "description": "Content review UI string."
+  },
+  "contentReview_detectSectionsEmpty": {
+    "message": "沒有偵測到任何段落。",
+    "description": "Content review UI string."
+  },
+  "contentReview_sectionsLabel": {
+    "message": "段落篩選器",
+    "description": "Content review UI string."
+  },
+  "contentReview_templates_transcript_clean_label": {
+    "message": "清理逐字稿",
+    "description": "Content review UI string."
+  },
+  "contentReview_templates_transcript_clean_description": {
+    "message": "在保留行結構的前提下，統一標點符號與大小寫。",
+    "description": "Content review UI string."
+  },
+  "contentReview_templates_speaker_turns_label": {
+    "message": "說話輪次",
+    "description": "Content review UI string."
+  },
+  "contentReview_templates_speaker_turns_description": {
+    "message": "確保每位說話者的輪次各自位於一行，並帶有清楚的標籤。",
+    "description": "Content review UI string."
+  },
+  "contentReview_templates_chapter_headings_label": {
+    "message": "章節標題",
+    "description": "Content review UI string."
+  },
+  "contentReview_templates_chapter_headings_description": {
+    "message": "插入 Markdown 標題來分組主題，而不移除任何內容。",
+    "description": "Content review UI string."
+  },
+  "contentReview_metadataLabel": {
+    "message": "中繼資料",
+    "description": "Content review UI string."
+  },
+  "contentReview_mediaType": {
+    "message": "媒體類型",
+    "description": "Content review UI string."
+  },
+  "contentReview_keywords": {
+    "message": "關鍵字",
+    "description": "Content review UI string."
+  },
+  "contentReview_keywordsPlaceholder": {
+    "message": "新增關鍵字",
+    "description": "Content review UI string."
+  },
+  "contentReview_reviewNotes": {
+    "message": "審查筆記",
+    "description": "Content review UI string."
+  },
+  "contentReview_missingSource": {
+    "message": "找不到來源檔案",
+    "description": "Content review UI string."
+  },
+  "contentReview_missingSourceBody": {
+    "message": "請附加原始檔案後再提交此草稿。",
+    "description": "Content review UI string."
+  },
+  "contentReview_attachSource": {
+    "message": "附加檔案",
+    "description": "Content review UI string."
+  },
+  "contentReview_actionsLabel": {
+    "message": "操作",
+    "description": "Content review UI string."
+  },
+  "contentReview_commit": {
+    "message": "提交",
+    "description": "Content review UI string."
+  },
+  "contentReview_commitDisabled": {
+    "message": "提交前請先附加原始的音訊／視訊檔案。",
+    "description": "Content review UI string."
+  },
+  "contentReview_markReviewed": {
+    "message": "標記為已審查",
+    "description": "Content review UI string."
+  },
+  "contentReview_skipNext": {
+    "message": "略過",
+    "description": "Content review UI string."
+  },
+  "contentReview_discard": {
+    "message": "捨棄",
+    "description": "Content review UI string."
+  },
+  "contentReview_discardTitle": {
+    "message": "要捨棄草稿嗎？",
+    "description": "Content review UI string."
+  },
+  "contentReview_discardBody": {
+    "message": "此草稿會被標記為已捨棄，並從審查清單中移除。",
+    "description": "Content review UI string."
+  },
+  "contentReview_discardConfirm": {
+    "message": "捨棄",
+    "description": "Content review UI string."
+  },
+  "contentReview_discardCancel": {
+    "message": "取消",
+    "description": "Content review UI string."
+  },
+  "contentReview_commitSuccess": {
+    "message": "草稿已提交。",
+    "description": "Content review UI string."
+  },
+  "contentReview_commitAllTitle": {
+    "message": "提交所有已審查的草稿？",
+    "description": "Content review UI string."
+  },
+  "contentReview_commitAllBody": {
+    "message": "只有標記為已審查的草稿會被提交。",
+    "description": "Content review UI string."
+  },
+  "contentReview_commitAllConfirm": {
+    "message": "全部提交",
+    "description": "Content review UI string."
+  },
+  "contentReview_commitAllCancel": {
+    "message": "取消",
+    "description": "Content review UI string."
+  },
+  "contentReview_commitAllResult": {
+    "message": "{{success}} 個已提交 · {{failed}} 個失敗",
+    "description": "Content review UI string."
+  },
+  "contentReview_storageCapWarning": {
+    "message": "此檔案超過本機草稿上限 ({{cap}})。",
+    "description": "Content review UI string."
+  },
+  "contentReview_clearTitle": {
+    "message": "清除所有草稿？",
+    "description": "Content review UI string."
+  },
+  "contentReview_clearBody": {
+    "message": "這會移除所有本機內容審查草稿與相關資源。",
+    "description": "Content review UI string."
+  },
+  "contentReview_clearConfirm": {
+    "message": "清除草稿",
+    "description": "Content review UI string."
+  },
+  "contentReview_clearCancel": {
+    "message": "取消",
+    "description": "Content review UI string."
+  },
+  "contentReview_clearSuccess": {
+    "message": "草稿已清除。",
+    "description": "Content review UI string."
+  },
+  "contentReview_originalLabel": {
+    "message": "原始版本",
+    "description": "Content review UI string."
+  },
+  "contentReview_editedLabel": {
+    "message": "已編輯",
+    "description": "Content review UI string."
+  },
+  "reviewDraftsFailedTitle": {
+    "message": "無法建立審閱草稿。",
+    "description": "Error title when review drafts creation fails."
+  },
+  "reviewDraftsFailedFallback": {
+    "message": "建立審閱草稿失敗。",
+    "description": "Fallback error message for review drafts failure."
+  },
+  "reviewDraftsRetry": {
+    "message": "重新嘗試建立草稿",
+    "description": "Button label to retry creating review drafts."
+  },
+  "reviewDraftsStoreWithoutReview": {
+    "message": "不經審閱儲存",
+    "description": "Action to store without review."
+  },
+  "reviewNavigationFailed": {
+    "message": "無法開啟內容審閱。請再試一次。",
+    "description": "Error message when navigation to Content Review fails."
+  },
+  "reviewNavigationRetry": {
+    "message": "重新嘗試開啟內容審閱",
+    "description": "Button label to retry opening Content Review."
+  },
+  "quickIngest_title": {
+    "message": "快速匯入媒體"
+  },
+  "quickIngest_subtitle": {
+    "message": "輸入一或多個 URL。必要時可為每行指定類型。"
+  },
+  "quickIngest_offlineTitle": {
+    "message": "伺服器離線 — 僅限測試環境"
+  },
+  "quickIngest_offlineDescription": {
+    "message": "您可以在此排程 URL 與檔案並檢視欄位，但在 tldw 伺服器恢復線上前不會進行匯入，請重新連線以處理待辦項目。"
+  },
+  "quickIngest_sourceHeading": {
+    "message": "來源 URL 或檔案"
+  },
+  "quickIngest_storeRemote": {
+    "message": "儲存到遠端資料庫"
+  },
+  "quickIngest_storeRemoteAria": {
+    "message": "將匯入結果儲存到你的 tldw 伺服器"
+  },
+  "quickIngest_processOnlyAria": {
+    "message": "僅在本機處理匯入結果"
+  },
+  "quickIngest_storeRemoteHelp": {
+    "message": "上傳到你的 tldw 伺服器以便索引。"
+  },
+  "quickIngest_processOnlyHelp": {
+    "message": "只處理並在本機保留結果（下載 JSON）。"
+  },
+  "quickIngest_storageHeading": {
+    "message": "匯入結果的儲存位置"
+  },
+  "quickIngest_storageServerDescription": {
+    "message": "儲存在你的 tldw 伺服器上（建議用於 RAG 和共用工作區）。"
+  },
+  "quickIngest_storageLocalDescription": {
+    "message": "僅保存在此瀏覽器中；不會寫入伺服器。"
+  },
+  "quickIngest_storeAfterReview": {
+    "message": "審核後儲存"
+  },
+  "quickIngest_reviewBeforeStorage": {
+    "message": "儲存前審核"
+  },
+  "quickIngest_reviewBeforeStorageHint": {
+    "message": "先處理，然後在提交到伺服器前於本機編輯草稿。"
+  },
+  "quickIngest_reviewEnabled": {
+    "message": "審核模式"
+  },
+  "quickIngest_reviewStorageCap": {
+    "message": "本機草稿上限為 {{cap}}。"
+  },
+  "quickIngest_reviewStorageCapWarning_one": {
+    "message": "{{count}} 個檔案超過本機草稿上限（{{cap}}）。請在提交音訊/影片前附加來源。"
+  },
+  "quickIngest_reviewStorageCapWarning_other": {
+    "message": "{{count}} 個檔案超過本機草稿上限（{{cap}}）。請在提交音訊/影片前附加來源。"
+  },
+  "quickIngest_reviewWarningTitle": {
+    "message": "要將草稿儲存在本機嗎？"
+  },
+  "quickIngest_reviewWarningBody": {
+    "message": "草稿會儲存在此瀏覽器中，可能包含敏感資料。你可隨時在「內容審核」頁面清除草稿。"
+  },
+  "quickIngest_reviewWarningBodySecondary": {
+    "message": "審核模式會在提交到伺服器前把內容保留在用戶端。"
+  },
+  "quickIngest_reviewWarningConfirm": {
+    "message": "啟用審核"
+  },
+  "quickIngest_reviewWarningCancel": {
+    "message": "取消"
+  },
+  "quickIngest_reviewRunLabel": {
+    "message": "審核"
+  },
+  "quickIngest_reviewDraftsCreated": {
+    "message": "草稿已準備好審核。"
+  },
+  "quickIngest_reviewDraftsFailedTitle": {
+    "message": "無法建立審閱草稿。"
+  },
+  "quickIngest_reviewDraftsFailedFallback": {
+    "message": "建立審閱草稿失敗。"
+  },
+  "quickIngest_reviewDraftsRetry": {
+    "message": "重新嘗試建立草稿"
+  },
+  "quickIngest_reviewDraftsStoreWithoutReview": {
+    "message": "不經審閱儲存"
+  },
+  "quickIngest_reviewNavigationFailed": {
+    "message": "無法開啟內容審閱。請再試一次。"
+  },
+  "quickIngest_reviewNavigationRetry": {
+    "message": "重新嘗試開啟內容審閱"
+  },
+  "quickIngest_openContentReview": {
+    "message": "開啟內容審核"
+  },
+  "quickIngest_storageDocsLink": {
+    "message": "深入了解匯入與儲存"
+  },
+  "quickIngest_storageDocsUrl": {
+    "message": "https://github.com/rmusser01/tldw_browser_assistant"
+  },
+  "quickIngest_bulkPlaceholder": {
+    "message": "貼上 URL（每行一個）"
+  },
+  "quickIngest_or": {
+    "message": "或"
+  },
+  "quickIngest_remove": {
+    "message": "移除"
+  },
+  "quickIngest_add": {
+    "message": "新增 URL"
+  },
+  "quickIngest_commonOptions": {
+    "message": "匯入選項"
+  },
+  "quickIngest_audioOptions": {
+    "message": "音訊選項"
+  },
+  "quickIngest_audioLanguage": {
+    "message": "語言（例如 en）"
+  },
+  "quickIngest_audioDiarizationHelp": {
+    "message": "啟用以在轉錄中區分說話者。"
+  },
+  "quickIngest_documentOptions": {
+    "message": "文件選項"
+  },
+  "quickIngest_videoOptions": {
+    "message": "影片選項"
+  },
+  "quickIngest_captionsHelp": {
+    "message": "可用時包含時間戳記/字幕。"
+  },
+  "quickIngest_cancel": {
+    "message": "取消"
+  },
+  "quickIngest_ingest": {
+    "message": "匯入"
+  },
+  "quickIngest_process": {
+    "message": "處理"
+  },
+  "quickIngest_results": {
+    "message": "結果"
+  },
+  "quickIngest_downloadJson": {
+    "message": "下載 JSON"
+  },
+  "quickIngest_advancedSummary": {
+    "message": "已載入 {{count}} 個進階欄位"
+  },
+  "quickIngest_advancedEmpty": {
+    "message": "未偵測到進階選項 — 請嘗試重新載入規格。"
+  },
+  "quickIngest_modifiedCount": {
+    "message": "{{count}} 項已修改"
+  },
+  "quickIngest_progress": {
+    "message": "正在處理 {{done}} / {{total}} 項目…"
+  },
+  "quickIngest_errorSummary": {
+    "message": "目前無法處理這些匯入項目。"
+  },
+  "quickIngest_errorHint": {
+    "message": "請先檢查你的 tldw 伺服器，然後再試一次。Health & diagnostics 可以協助排除匯入相關的問題。"
+  },
+  "quickIngest_checkHealthLink": {
+    "message": "在 Health & diagnostics 中檢查伺服器健康狀態"
+  },
+  "quickIngest_healthAriaHint": {
+    "message": "最近的執行失敗——請從頂端開啟 Health & diagnostics 以查看詳細資訊。"
+  },
+  "quickIngest_specReloadedToast": {
+    "message": "進階規格已從伺服器重新載入"
+  },
+  "quickIngest_specReloadedToastDiff": {
+    "message": "進階規格已從伺服器重新載入（新增欄位：{{added}}，移除欄位：{{removed}}）"
+  },
+  "quickIngest_specFallbackWarning": {
+    "message": "使用內建 media.add 綱要備用版本（v{{version}}）；若欄位似乎過時，請對照您的 tldw_server /openapi.json 進行驗證。"
+  },
+  "storeAfterReview": {
+    "message": "審核後儲存"
+  },
+  "manageCharacters_actions_viewConversations": {
+    "message": "查看對話"
+  },
+  "manageCharacters_aria_viewConversations": {
+    "message": "查看 {{name}} 的對話"
+  },
+  "manageCharacters_aria_searchResults": {
+    "message": "找到 {{count}} 個角色"
+  },
+  "manageCharacters_conversations_title": {
+    "message": "{{name}} 的對話"
+  },
+  "manageCharacters_conversations_titleGeneric": {
+    "message": "角色對話"
+  },
+  "manageCharacters_conversations_subtitle": {
+    "message": "選擇一個對話以此角色繼續。"
+  },
+  "manageCharacters_conversations_empty": {
+    "message": "尚無此角色的對話。"
+  },
+  "manageCharacters_conversations_error": {
+    "message": "無法載入此角色的對話。"
+  },
+  "manageCharacters_conversations_updated": {
+    "message": "已更新 {{time}}"
+  },
+  "manageCharacters_conversations_unknownTime": {
+    "message": "未知"
+  },
+  "manageCharacters_conversations_resume": {
+    "message": "繼續聊天"
+  },
+  "manageCharacters_conversations_untitled": {
+    "message": "未命名"
+  },
+  "manageCharacters_conversations_mostRecent": {
+    "message": "最近"
+  },
+  "manageCharacters_conversations_resumeTooltip": {
+    "message": "載入聊天紀錄並繼續此對話"
+  },
+  "manageCharacters_preview_title": {
+    "message": "預覽"
+  },
+  "manageCharacters_preview_show": {
+    "message": "顯示預覽"
+  },
+  "manageCharacters_preview_hide": {
+    "message": "隱藏預覽"
+  },
+  "manageCharacters_preview_untitled": {
+    "message": "未命名角色"
+  },
+  "manageCharacters_preview_greeting": {
+    "message": "問候語"
+  },
+  "manageCharacters_preview_behavior": {
+    "message": "行為"
+  },
+  "manageCharacters_preview_empty": {
+    "message": "填寫表單以查看預覽"
+  },
+  "manageCharacters_advanced_show": {
+    "message": "顯示進階欄位"
+  },
+  "manageCharacters_advanced_hide": {
+    "message": "隱藏進階欄位"
+  },
+  "chunkingPlayground_nav": {
+    "message": "分塊實驗場",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_title": {
+    "message": "分塊實驗場",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_description": {
+    "message": "試用不同的分塊設定，看看文字如何被切分成較小的片段以便處理。",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_inputLabel": {
+    "message": "要分塊的文字",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_inputPlaceholder": {
+    "message": "在此貼上文字或選擇範例...",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_uploadButton": {
+    "message": "上傳檔案",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_chunkButton": {
+    "message": "分塊文字",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_methodLabel": {
+    "message": "分塊方式",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_maxSizeLabel": {
+    "message": "最大分塊大小",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_overlapLabel": {
+    "message": "重疊量",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_languageLabel": {
+    "message": "語言",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_languages_auto": {
+    "message": "自動偵測",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_languages_en": {
+    "message": "英文",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_languages_es": {
+    "message": "西班牙文",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_languages_fr": {
+    "message": "法文",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_languages_de": {
+    "message": "德文",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_languages_it": {
+    "message": "義大利文",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_languages_pt": {
+    "message": "葡萄牙文",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_languages_zh": {
+    "message": "中文",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_languages_ja": {
+    "message": "日文",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_languages_ko": {
+    "message": "韓文",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_viewCards": {
+    "message": "卡片",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_viewInline": {
+    "message": "行內",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_stats": {
+    "message": "{{count}} 個分塊，平均 {{avgSize}} 字元"
+  },
+  "chunkingPlayground_textLoaded": {
+    "message": "文字已載入",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_characters": {
+    "message": "字元",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_tabSingle": {
+    "message": "單一",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_tabCompare": {
+    "message": "比較",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_chunkIndex": {
+    "message": "分塊 {{index}}"
+  },
+  "chunkingPlayground_chunkInfo": {
+    "message": "分塊 {{index}}：{{words}} 個詞"
+  },
+  "chunkingPlayground_position": {
+    "message": "位置：{{start}} - {{end}}"
+  },
+  "chunkingPlayground_additionalChunks": {
+    "message": "+{{count}} 個"
+  },
+  "chunkingPlayground_charCount": {
+    "message": "{{count}} 字元"
+  },
+  "chunkingPlayground_wordCount": {
+    "message": "{{count}} 個詞"
+  },
+  "chunkingPlayground_noInput": {
+    "message": "請提供要分塊的文字",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_sharedInput": {
+    "message": "共用輸入文字",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_compareButton": {
+    "message": "比較兩者",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_comparison": {
+    "message": "比較",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_fewerChunks": {
+    "message": "設定 A 產生的分塊少 {{diff}} 個"
+  },
+  "chunkingPlayground_moreChunks": {
+    "message": "設定 A 產生的分塊多 {{diff}} 個"
+  },
+  "chunkingPlayground_sameChunks": {
+    "message": "兩個設定產生的分塊數量相同",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_clickToChunk": {
+    "message": "點擊「比較」以查看結果",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_overlapRegion": {
+    "message": "重疊區域",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_clickHint": {
+    "message": "點擊高亮的區段以聚焦該分塊",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_noContentFound": {
+    "message": "此媒體項目找不到文字內容",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_loadContentError": {
+    "message": "載入媒體內容失敗",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_loadMediaListError": {
+    "message": "載入媒體資料庫失敗",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_selectMedia": {
+    "message": "選擇媒體項目...",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_loadingMedia": {
+    "message": "正在載入內容...",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_noMediaFound": {
+    "message": "找不到媒體",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_mediaCount": {
+    "message": "可用的媒體項目 {{count}} 個"
+  },
+  "chunkingPlayground_inputSource_paste": {
+    "message": "貼上文字",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_inputSource_upload": {
+    "message": "上傳檔案",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_inputSource_sample": {
+    "message": "範例文字",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_inputSource_media": {
+    "message": "來自媒體資料庫",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_samples_article": {
+    "message": "新聞文章",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_samples_articleDesc": {
+    "message": "含標題的多段落文章",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_samples_code": {
+    "message": "原始碼",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_samples_codeDesc": {
+    "message": "包含類別與函式的 Python 程式碼",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_samples_transcript": {
+    "message": "逐字稿",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_samples_transcriptDesc": {
+    "message": "含時間戳的 Podcast 逐字稿",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_samples_academic": {
+    "message": "學術論文",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_samples_academicDesc": {
+    "message": "含引用的技術寫作",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_compare_title": {
+    "message": "比較設定",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_compare_configA": {
+    "message": "設定 A",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_compare_configB": {
+    "message": "設定 B",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_mode_single": {
+    "message": "單一",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_mode_compare": {
+    "message": "比較",
+    "description": "TODO: translate (copied from en)"
+  },
+  "managePrompts_importMode_merge": {
+    "message": "合併"
+  },
+  "managePrompts_importMode_replace": {
+    "message": "取代"
+  },
+  "managePrompts_importMode_replaceConfirm": {
+    "message": "取代會用匯入檔案覆寫目前所有提示詞。要繼續嗎？"
+  },
+  "flashcards_newDeckNameRequired": {
+    "message": "請輸入牌組名稱。"
+  },
+  "flashcards_dueAll": {
+    "message": "全部"
+  },
+  "flashcards_dueNew": {
+    "message": "新卡"
+  },
+  "flashcards_dueLearning": {
+    "message": "學習中"
+  },
+  "flashcards_dueDue": {
+    "message": "待複習"
+  },
+  "flashcards_reviewFailed": {
+    "message": "複習失敗"
+  },
+  "flashcards_updateFailed": {
+    "message": "更新失敗"
+  },
+  "flashcards_deleteFailed": {
+    "message": "刪除失敗"
+  },
+  "flashcards_missingVersion": {
+    "message": "缺少版本資訊；請重新載入後再試"
+  },
+  "flashcards_bulkDeleteResult": {
+    "message": "{{success}} 個已刪除 · {{failed}} 個失敗"
+  },
+  "mediaPage_searchPlaceholder": {
+    "message": "搜尋媒體（標題/內容）"
+  },
+  "mediaPage_search": {
+    "message": "搜尋"
+  },
+  "mediaPage_clear": {
+    "message": "清除"
+  },
+  "mediaPage_types": {
+    "message": "類型"
+  },
+  "mediaPage_keywords": {
+    "message": "關鍵字"
+  },
+  "mediaPage_moreTags": {
+    "message": "+{{count}} 個其他標籤"
+  },
+  "mediaPage_resetFilters": {
+    "message": "重設篩選"
+  },
+  "mediaPage_clearAll": {
+    "message": "清除全部"
+  },
+  "mediaPage_content": {
+    "message": "內容"
+  },
+  "mediaPage_vertical": {
+    "message": "垂直"
+  },
+  "mediaPage_horizontal": {
+    "message": "水平"
+  },
+  "mediaPage_results": {
+    "message": "結果"
+  },
+  "mediaPage_noResults": {
+    "message": "無結果"
+  },
+  "mediaPage_showSidebar": {
+    "message": "顯示側邊欄"
+  },
+  "mediaPage_hideSidebar": {
+    "message": "隱藏側邊欄"
+  },
+  "mediaPage_viewer": {
+    "message": "檢視器"
+  },
+  "mediaPage_selectItemsHint": {
+    "message": "在左側選取項目以在此查看。"
+  },
+  "mediaPage_mediaContent": {
+    "message": "媒體內容"
+  },
+  "mediaPage_copyContent": {
+    "message": "複製內容"
+  },
+  "mediaPage_contentCopied": {
+    "message": "內容已複製"
+  },
+  "mediaPage_metadataCopied": {
+    "message": "中繼資料已複製"
+  },
+  "mediaPage_analysisCopied": {
+    "message": "分析已複製"
+  },
+  "mediaPage_copyFailed": {
+    "message": "複製失敗"
+  },
+  "mediaPage_noContent": {
+    "message": "沒有可用內容"
+  },
+  "mediaPage_collapse": {
+    "message": "收合"
+  },
+  "mediaPage_expand": {
+    "message": "展開"
+  },
+  "mediaPage_media": {
+    "message": "媒體"
+  },
+  "mediaPage_searchingBanner": {
+    "message": "正在搜尋媒體…"
+  },
+  "mediaPage_filterHelp": {
+    "message": "搜尋會比對標題與內容；類型與關鍵字會進一步縮小結果。"
+  },
+  "mediaPage_noMediaTypes": {
+    "message": "沒有可用的媒體類型"
+  },
+  "mediaPage_resultsCount": {
+    "message": "{{selected}} 已選取 · {{open}} 已開啟"
+  },
+  "mediaPage_clearSelection": {
+    "message": "取消全選"
+  },
+  "mediaPage_itemsLabel": {
+    "message": "項目"
+  },
+  "mediaPage_contentLabel": {
+    "message": "內容檢視"
+  },
+  "mediaPage_filterByKeyword": {
+    "message": "按關鍵字篩選"
+  },
+  "mediaPage_keywordHelper": {
+    "message": "關鍵字可幫助你使用左側的關鍵字篩選器找到此媒體"
+  },
+  "mediaPage_modeHint": {
+    "message": "搜尋並堆疊多個媒體項目，在右側檢視器中進行比較。"
+  },
+  "mediaPage_viewerHelp": {
+    "message": "鍵盤：按 Tab 進入結果清單，使用 Enter 或空白鍵將媒體項目加入或移出堆疊，然後利用上一個/下一個與版面配置控制在檢視器中的各項之間移動。"
+  },
+  "mediaPage_viewerHelpLabel": {
+    "message": "多項檢視的鍵盤快速鍵"
+  },
+  "mediaPage_mediaInspector": {
+    "message": "媒體檢查器"
+  },
+  "mediaPage_actionsLabel": {
+    "message": "操作"
+  },
+  "mediaPage_keywordsPlaceholder": {
+    "message": "新增關鍵字..."
+  },
+  "mediaPage_noSelectionTitle": {
+    "message": "尚未選取任何媒體項目"
+  },
+  "mediaPage_noSelectionDescription": {
+    "message": "請從左側側邊欄選取一個媒體項目，在此查看其內容與分析。"
+  },
+  "mediaPage_generateAnalysis": {
+    "message": "產生分析"
+  },
+  "mediaPage_generateAnalysisHint": {
+    "message": "產生新的分析"
+  },
+  "mediaPage_editAnalysis": {
+    "message": "編輯分析"
+  },
+  "mediaPage_createNoteWithContent": {
+    "message": "使用內容建立筆記"
+  },
+  "mediaPage_createNoteWithContentAnalysis": {
+    "message": "使用內容 + 分析建立筆記"
+  },
+  "mediaPage_untitled": {
+    "message": "未命名"
+  },
+  "mediaPage_copyMetadata": {
+    "message": "複製中繼資料"
+  },
+  "mediaPage_statistics": {
+    "message": "統計"
+  },
+  "mediaPage_words": {
+    "message": "字詞數"
+  },
+  "mediaPage_characters": {
+    "message": "字元數"
+  },
+  "mediaPage_paragraphs": {
+    "message": "段落數"
+  },
+  "mediaPage_metadata": {
+    "message": "中繼資料"
+  },
+  "mediaPage_idLabel": {
+    "message": "識別碼"
+  },
+  "mediaPage_typeLabel": {
+    "message": "類型"
+  },
+  "mediaPage_titleLabel": {
+    "message": "標題"
+  },
+  "mediaPage_source": {
+    "message": "來源"
+  },
+  "mediaPage_notAvailable": {
+    "message": "無"
+  },
+  "mediaPage_developerTools": {
+    "message": "開發人員工具"
+  },
+  "mediaPage_nothingToSend": {
+    "message": "沒有可傳送的內容"
+  },
+  "mediaPage_emptyAnalysis": {
+    "message": "分析內容不能為空"
+  },
+  "mediaPage_noMediaId": {
+    "message": "沒有可用的媒體 ID"
+  },
+  "mediaPage_versionSaved": {
+    "message": "已儲存為新版本"
+  },
+  "mediaPage_saveFailed": {
+    "message": "儲存版本失敗"
+  },
+  "mediaPage_sendToChat": {
+    "message": "傳送到聊天"
+  },
+  "mediaPage_saveAsVersion": {
+    "message": "儲存為新版本"
+  },
+  "mediaPage_analysisPlaceholder": {
+    "message": "請輸入分析文字..."
+  },
+  "mediaPage_wordCount": {
+    "message": "{{count}} 個單詞"
+  },
+  "mediaPage_charCount": {
+    "message": "{{count}} 個字元"
+  },
+  "mediaPage_pageRangeError": {
+    "message": "頁碼必須為 1-{{max}}"
+  },
+  "mediaPage_pageRangeClamped": {
+    "message": "正在導航至第 {{page}} 頁"
+  },
+  "mediaPage_saveUnauthorized": {
+    "message": "沒有權限儲存"
+  },
+  "flashcards_markdownSupportHint": {
+    "message": "支援 Markdown 和 LaTeX。"
+  },
+  "flashcards_extraHint": {
+    "message": "可選提示/說明（支援 Markdown + LaTeX）。"
+  },
+  "flashcards_notesHint": {
+    "message": "內部備註（支援 Markdown + LaTeX）。"
+  },
+  "header_modeSpeech": {
+    "message": "語音"
+  },
+  "playground_speech_title": {
+    "message": "語音遊樂場"
+  },
+  "playground_speech_subtitle": {
+    "message": "在同一處錄音、編輯轉寫並合成語音。"
+  },
+  "playground_speech_modeLabel": {
+    "message": "模式"
+  },
+  "playground_speech_modeRoundTrip": {
+    "message": "往返"
+  },
+  "playground_speech_modeSpeak": {
+    "message": "說話"
+  },
+  "playground_speech_modeListen": {
+    "message": "聆聽"
+  },
+  "playground_speech_modeHint": {
+    "message": "會記住此裝置上的最後模式。"
+  },
+  "playground_speech_recordingWaveform": {
+    "message": "即時錄音波形"
+  },
+  "playground_speech_playbackWaveform": {
+    "message": "播放波形"
+  },
+  "playground_speech_sendToTts": {
+    "message": "送到 TTS"
+  },
+  "playground_speech_sendHint": {
+    "message": "使用最新轉寫作為 TTS 草稿。"
+  },
+  "playground_speech_download": {
+    "message": "下載"
+  },
+  "playground_speech_downloadCurrent": {
+    "message": "下載目前片段"
+  },
+  "playground_speech_downloadAll": {
+    "message": "下載所有片段"
+  },
+  "playground_speech_segmentFormat": {
+    "message": "格式"
+  },
+  "playground_speech_historyTitle": {
+    "message": "語音歷史"
+  },
+  "playground_speech_historyAll": {
+    "message": "全部"
+  },
+  "playground_speech_historyStt": {
+    "message": "STT"
+  },
+  "playground_speech_historyTts": {
+    "message": "TTS"
+  },
+  "playground_speech_historySearch": {
+    "message": "搜尋轉寫"
+  },
+  "playground_speech_historyRetentionHint": {
+    "message": "保留最新{{count}}筆紀錄。使用「全部清除」刪除所有內容。"
+  },
+  "playground_speech_useInTts": {
+    "message": "用於 TTS"
+  },
+  "playground_speech_copy": {
+    "message": "複製"
+  },
+  "playground_speech_copySuccess": {
+    "message": "已複製到剪貼簿"
+  },
+  "playground_speech_copyError": {
+    "message": "複製轉寫失敗。"
+  },
+  "playground_speech_providerTag": {
+    "message": "提供者"
+  },
+  "playground_speech_voiceTag": {
+    "message": "聲音"
+  },
+  "playground_speech_emptyHistory": {
+    "message": "開始錄音或產生音訊即可在此查看歷史。"
+  },
+  "playground_speech_downloadDisabledBrowser": {
+    "message": "瀏覽器 TTS 不會產生可下載的音訊。"
+  },
+  "playground_speech_downloadDisabledEmpty": {
+    "message": "產生音訊以啟用下載。"
+  },
+  "playground_speech_transcriptLock": {
+    "message": "鎖定"
+  },
+  "playground_speech_transcriptUnlock": {
+    "message": "解鎖"
+  },
+  "playground_speech_transcriptEditHint": {
+    "message": "此轉寫已啟用編輯。"
+  },
+  "playground_speech_transcriptLockedHint": {
+    "message": "已鎖定為即時轉寫更新。"
+  },
+  "playground_speech_transcriptRecordingHint": {
+    "message": "錄音進行中；轉寫已鎖定。"
+  },
+  "playground_tts_unsupportedFormatTitle": {
+    "message": "不支援的音訊格式"
+  },
+  "playground_tts_unsupportedFormatDescription": {
+    "message": "回應格式「{{format}}」不受支援，將回退為 MP3。"
+  },
+  "playground_formError_noModel": {
+    "message": "請選擇一個模型"
+  },
+  "playground_formError_noEmbeddingModel": {
+    "message": "請在設定 > RAG 頁面設定一個嵌入模型"
+  },
+  "playground_form_textarea_placeholder": {
+    "message": "輸入一則訊息..."
+  },
+  "playground_form_webSearch_on": {
+    "message": "開"
+  },
+  "playground_form_webSearch_off": {
+    "message": "關"
+  },
+  "playground_tooltip_searchInternet": {
+    "message": "搜尋網路"
+  },
+  "playground_tooltip_speechToText": {
+    "message": "語音轉文字"
+  },
+  "playground_tooltip_uploadImage": {
+    "message": "上傳圖片"
+  },
+  "playground_tooltip_stopStreaming": {
+    "message": "停止串流"
+  },
+  "playground_tooltip_knowledge": {
+    "message": "知識"
+  },
+  "playground_tooltip_vision": {
+    "message": "[實驗]視覺聊天"
+  },
+  "playground_tooltip_clearContext": {
+    "message": "清除對話上下文"
+  },
+  "playground_tooltip_uploadDocuments": {
+    "message": "上傳文件 (beta)"
+  },
+  "playground_tooltip_speechToTextServer": {
+    "message": "Dictation via your tldw server"
+  },
+  "playground_tooltip_speechToTextBrowser": {
+    "message": "Dictation via browser speech recognition"
+  },
+  "playground_tooltip_speechToTextDetails": {
+    "message": "Uses {{model}} · {{task}} · {{format}}. Configure in Settings → General → Speech-to-Text."
+  },
+  "playground_sendWhenEnter": {
+    "message": "按 Enter 送出"
+  },
+  "playground_welcome": {
+    "message": "你好！今天我能幫你什麼？"
+  },
+  "playground_useOCR": {
+    "message": "從圖片中擷取文字（OCR）"
+  },
+  "playground_tips_title": {
+    "message": "Tips"
+  },
+  "playground_tips_quickIngest": {
+    "message": "Use Quick ingest to add documents and web pages."
+  },
+  "playground_tips_pickModelPrompt": {
+    "message": "Pick a Model and a Prompt from the header."
+  },
+  "playground_tips_startChatFocus": {
+    "message": "When connected, “Start chatting” focuses the composer."
+  },
+  "playground_tldwState_searching": {
+    "message": "正在搜尋您的 tldw server"
+  },
+  "playground_tldwState_running": {
+    "message": "tldw 正在運行"
+  },
+  "playground_tldwState_notRunning": {
+    "message": "無法連接到 tldw server"
+  },
+  "playground_tldwState_connectionError": {
+    "message": "看起來您遇到了連線錯誤，請參閱此<anchor>文件</anchor>進行故障排除。"
+  },
+  "playground_tldwState_openTldwSettings": {
+    "message": "Open tldw Settings"
+  },
+  "playground_tldwState_cancelSearch": {
+    "message": "Cancel search"
+  },
+  "playground_tldwState_connectionFailedWithCode": {
+    "message": "Connection failed (HTTP {{code}})"
+  },
+  "playground_tldwState_connectionFailed": {
+    "message": "Connection failed"
+  },
+  "playground_tldwState_errorDetailsLabel": {
+    "message": "Details:"
+  },
+  "playground_tldwState_title": {
+    "message": "Waiting for your tldw server"
+  },
+  "playground_tldwState_subtitle": {
+    "message": "We’re pinging {{host}} to verify the connection."
+  },
+  "playground_tldwState_missing": {
+    "message": "Server URL not configured"
+  },
+  "playground_tldwState_noServer": {
+    "message": "Add your tldw server to start chatting."
+  },
+  "playground_tldwState_connectedSubtitle": {
+    "message": "Connected to {{host}}. Start chatting when you’re ready."
+  },
+  "playground_tldwState_errorSubtitle": {
+    "message": "We couldn’t reach {{host}} yet. Retry or update your server settings."
+  },
+  "playground_tldwState_openSettings": {
+    "message": "Open settings"
+  },
+  "playground_tldwState_changeServer": {
+    "message": "Change server"
+  },
+  "playground_tldwState_elapsed": {
+    "message": "Checking… {{seconds}}s"
+  },
+  "playground_tldwState_connectedHint": {
+    "message": "Connected to {{host}}."
+  },
+  "playground_tldwState_lastChecked": {
+    "message": "Checked {{seconds}}s ago"
+  },
+  "playground_tldwState_recheck": {
+    "message": "Check again"
+  },
+  "playground_tldwState_errorToast": {
+    "message": "We couldn’t reach {{host}}"
+  },
+  "playground_tldwState_missingHelp": {
+    "message": "Open Settings → tldw Server to add your URL or connect to the Options page."
+  },
+  "playground_tldwState_troubleshoot": {
+    "message": "Confirm your server is running and that the browser is allowed to reach it, then retry from the Options page."
+  },
+  "playground_errors_privateModeDescription": {
+    "message": "Firefox 隱私模式不支援儲存聊天。暫存聊天預設為開啟。後續會改進。"
+  },
+  "playground_tts_playErrorTitle": {
+    "message": "錯誤"
+  },
+  "playground_tts_playErrorDescription": {
+    "message": "播放音訊時發生錯誤"
+  },
+  "playground_tts_browserInfoTitle": {
+    "message": "瀏覽器 TTS 使用系統音訊"
+  },
+  "playground_tts_browserInfoDescription": {
+    "message": "Browser TTS plays using your system synthesizer and does not expose a downloadable audio file. Use the segment controls below, or switch providers for a track list and player."
+  },
+  "playground_tts_unsupportedProviderTitle": {
+    "message": "不支援的 TTS 提供者"
+  },
+  "playground_tts_unsupportedProviderDescription": {
+    "message": "提供者「{{provider}}」尚未在 Playground 播放器中支援。"
+  },
+  "playground_tts_elevenLabsMissingTitle": {
+    "message": "ElevenLabs needs an API key"
+  },
+  "playground_tts_elevenLabsMissingBody": {
+    "message": "Add your ElevenLabs API key in Settings to load voices and models."
+  },
+  "playground_tts_elevenLabsUnavailableTitle": {
+    "message": "ElevenLabs voices unavailable"
+  },
+  "playground_tts_elevenLabsUnavailableBody": {
+    "message": "We couldn't load voices or models. Check your API key and try again."
+  },
+  "playground_tts_elevenLabsMissingCta": {
+    "message": "Set API key in Settings"
+  },
+  "playground_tts_generateErrorTitle": {
+    "message": "產生音訊時出錯"
+  },
+  "playground_tts_generateErrorDescription": {
+    "message": "產生 TTS 音訊時發生問題。"
+  },
+  "playground_tts_sampleText": {
+    "message": "Insert sample text"
+  },
+  "playground_tts_playHelper": {
+    "message": "Play uses your selected provider, voice, and speed."
+  },
+  "playground_tts_playDisabledNoText": {
+    "message": "Enter text to enable Play."
+  },
+  "playground_tts_playDisabledTtsOff": {
+    "message": "Enable text-to-speech above to play audio."
+  },
+  "playground_tts_playDisabledElevenLabs": {
+    "message": "Add an ElevenLabs API key, voice, and model to enable Play."
+  },
+  "playground_tts_stopDisabled": {
+    "message": "Stop activates after audio starts."
+  },
+  "playground_tts_providerChangeHelper": {
+    "message": "Open the provider selector below to switch between Browser, tldw, OpenAI, or Supersonic."
+  },
+  "playground_tts_changeProvider": {
+    "message": "Change provider"
+  },
+  "playground_tts_title": {
+    "message": "TTS Playground"
+  },
+  "playground_tts_subtitle": {
+    "message": "Try out text-to-speech and tweak providers, models, and voices."
+  },
+  "playground_tts_currentProvider": {
+    "message": "Current provider"
+  },
+  "playground_tts_settingsIntro": {
+    "message": "Adjust your TTS provider, model, and voice. These settings are reused when you play audio from chat or media."
+  },
+  "playground_tts_providerCapabilities": {
+    "message": "Provider capabilities"
+  },
+  "playground_tts_voicesPreview": {
+    "message": "Server voices"
+  },
+  "playground_tts_providerDetails": {
+    "message": "View raw provider config"
+  },
+  "playground_tts_providerDetailsTitle": {
+    "message": "Provider details"
+  },
+  "playground_tts_inputLabel": {
+    "message": "Enter some text to hear it spoken."
+  },
+  "playground_tts_inputPlaceholder": {
+    "message": "Type or paste text here, then use Play to listen."
+  },
+  "playground_tts_play": {
+    "message": "Play"
+  },
+  "playground_tts_playing": {
+    "message": "Playing…"
+  },
+  "playground_tts_stop": {
+    "message": "Stop"
+  },
+  "playground_tts_browserSegmentsTitle": {
+    "message": "Browser TTS segments"
+  },
+  "playground_tts_browserSegmentsHelp": {
+    "message": "Queue segments or play an individual segment using system audio."
+  },
+  "playground_tts_browserQueueAll": {
+    "message": "Queue all"
+  },
+  "playground_tts_browserQueueFromHere": {
+    "message": "Queue from here"
+  },
+  "playground_tts_browserSegmentPlay": {
+    "message": "Play segment"
+  },
+  "playground_tts_browserStatusSpeaking": {
+    "message": "Speaking segment {{current}}/{{total}}"
+  },
+  "playground_tts_browserStatusPaused": {
+    "message": "Paused"
+  },
+  "playground_tts_browserPause": {
+    "message": "Pause"
+  },
+  "playground_tts_browserResume": {
+    "message": "Resume"
+  },
+  "playground_tts_tldwStatusOnline": {
+    "message": "tldw server audio API detected (audio/speech)"
+  },
+  "playground_tts_tldwStatusOffline": {
+    "message": "Audio API not detected; check your tldw server version."
+  },
+  "playground_tts_tldwWarningTitle": {
+    "message": "tldw audio/speech API not detected"
+  },
+  "playground_tts_tldwWarningBody": {
+    "message": "Ensure your tldw_server version includes /api/v1/audio/speech and that your extension is connected with a valid API key."
+  },
+  "playground_tts_speechErrorTitle": {
+    "message": "Dictation failed"
+  },
+  "playground_tts_speechErrorBody": {
+    "message": "Transcription request failed. Check tldw server health."
+  },
+  "playground_tts_speechNoText": {
+    "message": "The transcription did not return any text."
+  },
+  "playground_tts_speechMicError": {
+    "message": "Unable to access your microphone. Check browser permissions and try again."
+  },
+  "playground_tts_savedToNotes": {
+    "message": "Transcription saved as a note."
+  },
+  "playground_empty_title": {
+    "message": "Start a new chat"
+  },
+  "playground_empty_description": {
+    "message": "Experiment with different models, prompts, and knowledge sources here."
+  },
+  "playground_empty_demoDescription": {
+    "message": "You’re in demo mode — try asking a question to see how the assistant responds. You can connect your own tldw server later."
+  },
+  "playground_empty_example1": {
+    "message": "Ask a question, then drag in documents or web pages you want to discuss."
+  },
+  "playground_empty_example2": {
+    "message": "Use Quick ingest to add transcripts or notes, then reference them in chat."
+  },
+  "playground_empty_example3": {
+    "message": "Try different prompts or models from the header to compare answers."
+  },
+  "playground_empty_primaryCta": {
+    "message": "Start chatting"
+  },
+  "playground_empty_secondaryCta": {
+    "message": "Open server settings"
+  },
+  "playground_drop_hint": {
+    "message": "Drop files to attach them to your message"
+  },
+  "playground_drop_readySingle": {
+    "message": "{{name}} ready to send"
+  },
+  "playground_drop_readyMultiple": {
+    "message": "{{count}} files ready to send"
+  },
+  "playground_drop_unsupported": {
+    "message": "That file type isn’t supported. Try images or text-based files."
+  },
+  "playground_drop_defaultFileName": {
+    "message": "File"
+  },
+  "playground_drop_imageOnly": {
+    "message": "Only images can be dropped here right now."
+  },
+  "playground_drop_imageHint": {
+    "message": "Drop an image to include it in your message"
+  },
+  "playground_drop_overlayInstruction": {
+    "message": "Drop the image to attach it to your next reply"
+  },
+  "playground_aria_chatTranscript": {
+    "message": "Chat messages"
+  },
+  "playground_more_history": {
+    "message": "Chat saving"
+  },
+  "playground_more_searchKnowledge": {
+    "message": "知識搜尋（RAG）"
+  },
+  "playground_more_voice": {
+    "message": "More voice options"
+  },
+  "playground_more_uploads": {
+    "message": "Uploads & ingest"
+  },
+  "playground_fileRetrievalEnabled": {
+    "message": "Enable RAG for Documents"
+  },
+  "playground_stt_title": {
+    "message": "STT Playground"
+  },
+  "playground_stt_subtitle": {
+    "message": "Try out transcription models, run longer dictation sessions, and save transcripts into Notes."
+  },
+  "playground_stt_currentModelLabel": {
+    "message": "Current transcription model"
+  },
+  "playground_stt_defaultModel": {
+    "message": "Default from Settings"
+  },
+  "playground_stt_settingsNotice": {
+    "message": "Language, task, response format, segmentation, and prompt reuse your Speech-to-Text defaults from Settings."
+  },
+  "playground_stt_sessionMode": {
+    "message": "Session mode"
+  },
+  "playground_stt_modeLong": {
+    "message": "Long-running (chunked recording)"
+  },
+  "playground_stt_modeShort": {
+    "message": "Short dictation (single clip)"
+  },
+  "playground_stt_languageTag": {
+    "message": "Language"
+  },
+  "playground_stt_taskTag": {
+    "message": "Task"
+  },
+  "playground_stt_formatTag": {
+    "message": "Format"
+  },
+  "playground_stt_segmentationEnabled": {
+    "message": "Segmentation enabled"
+  },
+  "playground_stt_recordButton": {
+    "message": "Record"
+  },
+  "playground_stt_stopButton": {
+    "message": "Stop"
+  },
+  "playground_stt_startTooltip": {
+    "message": "Start recording audio for transcription"
+  },
+  "playground_stt_stopTooltip": {
+    "message": "Stop and send to server"
+  },
+  "playground_stt_transcribingButton": {
+    "message": "Transcribing..."
+  },
+  "playground_stt_transcribingTooltip": {
+    "message": "Transcribing audio..."
+  },
+  "playground_stt_transcribingPlaceholder": {
+    "message": "Transcribing audio..."
+  },
+  "playground_stt_historyTitle": {
+    "message": "Transcription history"
+  },
+  "playground_stt_clearAll": {
+    "message": "Clear all"
+  },
+  "playground_stt_emptyHistory": {
+    "message": "Start a recording to see transcripts here. You can save any item into Notes."
+  },
+  "playground_stt_saveToNotes": {
+    "message": "Save to Notes"
+  },
+  "playground_stt_delete": {
+    "message": "Delete"
+  },
+  "playground_stt_durationTag": {
+    "message": "Duration"
+  },
+  "playground_stt_modelTag": {
+    "message": "Model"
+  },
+  "playground_stt_currentTranscriptTitle": {
+    "message": "Current session transcript"
+  },
+  "playground_stt_currentTranscriptPlaceholder": {
+    "message": "Live transcript will appear here while recording."
+  },
+  "playground_actions_temporaryOn": {
+    "message": "Temporary chat (not saved)"
+  },
+  "playground_actions_temporaryOff": {
+    "message": "Save chat to history"
+  },
+  "playground_actions_webSearchOn": {
+    "message": "Web search on"
+  },
+  "playground_actions_webSearchOff": {
+    "message": "Web search off"
+  },
+  "playground_actions_speechStart": {
+    "message": "Start dictation"
+  },
+  "playground_actions_speechStop": {
+    "message": "Stop dictation"
+  },
+  "playground_actions_streamStart": {
+    "message": "Live captions"
+  },
+  "playground_actions_streamStop": {
+    "message": "Stop captions"
+  },
+  "playground_actions_visionOn": {
+    "message": "Vision on"
+  },
+  "playground_actions_visionOff": {
+    "message": "Vision off"
+  },
+  "playground_actions_upload": {
+    "message": "Attach image"
+  },
+  "playground_actions_ingest": {
+    "message": "Quick ingest"
+  },
+  "playground_actions_ingestDisabled": {
+    "message": "Connect to your tldw server to ingest."
+  },
+  "playground_actions_ingestHint": {
+    "message": "Upload URLs or files with advanced options."
+  },
+  "playground_actions_ingestSub": {
+    "message": "Use URLs/files; download or store."
+  },
+  "playground_actions_streamErrorTitle": {
+    "message": "Live captions unavailable"
+  },
+  "playground_composer_toolsButton": {
+    "message": "+Tools"
+  },
+  "playground_composer_queuedBanner_title": {
+    "message": "Queued while offline"
+  },
+  "playground_composer_queuedBanner_body": {
+    "message": "We’ll hold these messages and send them once your tldw server is connected."
+  },
+  "playground_composer_queuedBanner_sendNow": {
+    "message": "Send queued messages"
+  },
+  "playground_composer_queuedBanner_clear": {
+    "message": "Clear queue"
+  },
+  "playground_composer_coreTools": {
+    "message": "Conversation options"
+  },
+  "playground_composer_captureTools": {
+    "message": "Capture and assist tools"
+  },
+  "playground_composer_actions": {
+    "message": "Send options"
+  },
+  "playground_composer_moreTools": {
+    "message": "More tools"
+  },
+  "playground_composer_scrollToLatest": {
+    "message": "Scroll to latest messages"
+  },
+  "playground_composer_submitAria": {
+    "message": "Send message"
+  },
+  "playground_composer_openModelSettings": {
+    "message": "Open current chat settings"
+  },
+  "playground_composer_stopStreaming": {
+    "message": "Stop streaming response"
+  },
+  "playground_composer_connectionPlaceholder": {
+    "message": "Connect to your tldw server in Settings to send messages and view media."
+  },
+  "playground_composer_connectNotice": {
+    "message": "Connect to your tldw server in Settings to send messages and view media."
+  },
+  "playground_composer_connectionChipDisconnected": {
+    "message": "Server: Not connected"
+  },
+  "playground_composer_contextLabel": {
+    "message": "Context:"
+  },
+  "playground_composer_contextKnowledgeEmpty": {
+    "message": "No knowledge selected"
+  },
+  "playground_composer_contextTabs": {
+    "message": "{{count}} tabs"
+  },
+  "playground_composer_contextFiles": {
+    "message": "{{count}} files"
+  },
+  "playground_composer_contextMedia": {
+    "message": "Media & Notes"
+  },
+  "playground_composer_contextMediaHint": {
+    "message": "Attach Media & Notes that should steer the response."
+  },
+  "playground_composer_contextMediaSelected": {
+    "message": "Media or note"
+  },
+  "playground_composer_contextMediaEmpty": {
+    "message": "No Media & Notes selected yet."
+  },
+  "playground_composer_addKnowledge": {
+    "message": "Add Media & Notes"
+  },
+  "playground_composer_contextTabsTitle": {
+    "message": "Tabs in context"
+  },
+  "playground_composer_contextTabsHint": {
+    "message": "Review or remove referenced tabs, or add more from your open browser tabs."
+  },
+  "playground_composer_contextManager": {
+    "message": "Context Management"
+  },
+  "playground_composer_contextManagerTitle": {
+    "message": "Context Management"
+  },
+  "playground_composer_contextKnowledge": {
+    "message": "上下文與知識"
+  },
+  "playground_composer_contextKnowledgeClose": {
+    "message": "關閉上下文與知識"
+  },
+  "playground_composer_knowledgeSearch": {
+    "message": "知識搜尋"
+  },
+  "playground_composer_knowledgeSearchClose": {
+    "message": "關閉知識搜尋"
+  },
+  "playground_composer_persistence_ephemeral": {
+    "message": "Not saved in history; clears when you close this tab."
+  },
+  "playground_composer_persistence_local": {
+    "message": "Saved in this browser only."
+  },
+  "playground_composer_persistence_server": {
+    "message": "Saved Locally+Server"
+  },
+  "playground_composer_persistence_ephemeralPill": {
+    "message": "Temporary"
+  },
+  "playground_composer_persistence_localPill": {
+    "message": "Local only"
+  },
+  "playground_composer_persistence_serverPill": {
+    "message": "Locally + Server"
+  },
+  "playground_composer_persistence_saveToServer": {
+    "message": "Also save this chat to server"
+  },
+  "playground_composer_persistence_connectToSave": {
+    "message": "Connect your server to save chats there."
+  },
+  "playground_composer_persistence_serverDefaultTitle": {
+    "message": "Extension chat"
+  },
+  "playground_composer_persistence_serverSavedTitle": {
+    "message": "Chat now saved on server"
+  },
+  "playground_composer_persistence_serverSaved": {
+    "message": "Future messages in this chat will sync to your tldw server."
+  },
+  "playground_composer_persistence_serverCharacterRequired": {
+    "message": "Unable to find or create a default assistant character on the server. Try again from the Characters page."
+  },
+  "playground_composer_connectToSend": {
+    "message": "在「設定」中連線到你的 tldw 伺服器以發送訊息並查看媒體。"
+  },
+  "playground_composer_compareTag": {
+    "message": "比較"
+  },
+  "playground_composer_compareLabel": {
+    "message": "比較模式"
+  },
+  "playground_composer_compareButton": {
+    "message": "比較模型"
+  },
+  "playground_composer_compareButtonActive": {
+    "message": "比較：{{count}} 個模型"
+  },
+  "playground_composer_compareButtonOn": {
+    "message": "已啟用比較"
+  },
+  "playground_composer_compareSettingsTitle": {
+    "message": "比較設定"
+  },
+  "playground_composer_compareSettingsToggle": {
+    "message": "啟用比較模式"
+  },
+  "playground_composer_compareSettingsToggleHint": {
+    "message": "將你的下一則訊息傳送給多個模型。"
+  },
+  "playground_composer_compareNoneSelected": {
+    "message": "尚未選擇要比較的模型"
+  },
+  "playground_composer_compareSingle": {
+    "message": "正在比較 1 個模型"
+  },
+  "playground_composer_compareMany": {
+    "message": "正在比較 {{count}} 個模型"
+  },
+  "playground_composer_compareActiveSummary": {
+    "message": "下一回合啟用的模型：{{label}}"
+  },
+  "playground_composer_compareModelPickerLabel": {
+    "message": "選擇模型"
+  },
+  "playground_composer_compareModelPickerPlaceholder": {
+    "message": "選擇要比較的模型"
+  },
+  "playground_composer_compareActiveModelsLabel": {
+    "message": "啟用中的模型"
+  },
+  "playground_composer_compareActiveModelsHint": {
+    "message": "你的下一則訊息將傳送給每個已啟用的模型。"
+  },
+  "playground_composer_compareSendToModels": {
+    "message": "傳送給 {{count}} 個模型"
+  },
+  "playground_composer_compareMaxModelsTitle": {
+    "message": "已達比較上限"
+  },
+  "playground_composer_compareMaxModels": {
+    "message": "每次最多可比較 {{limit}} 個模型。"
+  },
+  "playground_composer_compareMaxModelsTrimmed": {
+    "message": "每次比較限制為 {{limit}} 個模型。使用前 {{limit}} 個選定的模型。"
+  },
+  "playground_composer_compareMaxLabel": {
+    "message": "每次最大模型數"
+  },
+  "playground_composer_compareMaxHelper": {
+    "message": "已選擇 {{current}} / {{limit}}"
+  },
+  "playground_composer_compareSelectedLabel": {
+    "message": "選為答案："
+  },
+  "playground_composer_compareContinueHint": {
+    "message": "使用選定的模型繼續此聊天。"
+  },
+  "playground_composer_compareContinue": {
+    "message": "使用此模型繼續"
+  },
+  "playground_composer_compareThreadShared": {
+    "message": "你（共享）"
+  },
+  "playground_composer_compareBulkSplitSuccess": {
+    "message": "已建立 {{count}} 個聊天"
+  },
+  "playground_composer_compareBulkSplitPartialFail": {
+    "message": "無法建立 {{count}} 個聊天"
+  },
+  "playground_composer_validationCompareSelectModelsInline": {
+    "message": "請至少選擇一個模型以使用比較模式。"
+  },
+  "tabs_newChat": {
+    "message": "新對話"
+  },
+  "tabs_newTabAria": {
+    "message": "新的對話分頁"
+  },
+  "tabs_closeTabAria": {
+    "message": "關閉對話分頁"
+  },
+  "manageCharacters_title": {
+    "message": "管理角色"
+  },
+  "manageCharacters_addBtn": {
+    "message": "新增角色"
+  },
+  "manageCharacters_columns_name": {
+    "message": "名稱"
+  },
+  "manageCharacters_columns_description": {
+    "message": "描述"
+  },
+  "manageCharacters_columns_actions": {
+    "message": "操作"
+  },
+  "manageCharacters_columns_avatar": {
+    "message": "頭像"
+  },
+  "manageCharacters_actions_chat": {
+    "message": "聊天"
+  },
+  "manageCharacters_actions_edit": {
+    "message": "編輯"
+  },
+  "manageCharacters_actions_delete": {
+    "message": "刪除"
+  },
+  "manageCharacters_actions_duplicate": {
+    "message": "複製"
+  },
+  "manageCharacters_table_noDescription": {
+    "message": "無描述"
+  },
+  "manageCharacters_filter_matchAll": {
+    "message": "符合所有標籤"
+  },
+  "manageCharacters_tags_label": {
+    "message": "標籤"
+  },
+  "manageCharacters_tags_placeholder": {
+    "message": "新增標籤"
+  },
+  "manageCharacters_tags_help": {
+    "message": "使用標籤依用途分類角色（例如「寫作」、「教學」）。"
+  },
+  "manageCharacters_tooltip_edit": {
+    "message": "編輯角色"
+  },
+  "manageCharacters_tooltip_delete": {
+    "message": "刪除角色"
+  },
+  "manageCharacters_aria_chatWith": {
+    "message": "以 {{name}} 身分聊天"
+  },
+  "manageCharacters_aria_edit": {
+    "message": "編輯角色 {{name}}"
+  },
+  "manageCharacters_aria_delete": {
+    "message": "刪除角色 {{name}}"
+  },
+  "manageCharacters_aria_duplicate": {
+    "message": "複製角色 {{name}}"
+  },
+  "manageCharacters_confirm_delete": {
+    "message": "確定要刪除這個角色嗎？此動作無法復原。"
+  },
+  "manageCharacters_avatar_label": {
+    "message": "頭像（選用）"
+  },
+  "manageCharacters_avatar_tabUrl": {
+    "message": "URL 位址"
+  },
+  "manageCharacters_avatar_tabUpload": {
+    "message": "上傳"
+  },
+  "manageCharacters_avatar_selectImageError": {
+    "message": "請選擇圖片檔案"
+  },
+  "manageCharacters_avatar_formatError": {
+    "message": "僅支援 PNG、JPEG 和 GIF 圖片"
+  },
+  "manageCharacters_avatar_invalidError": {
+    "message": "無效的圖片檔案"
+  },
+  "manageCharacters_avatar_processError": {
+    "message": "處理圖片失敗"
+  },
+  "manageCharacters_avatar_dropzone": {
+    "message": "點擊或拖曳圖片以進行上傳"
+  },
+  "manageCharacters_avatar_formats": {
+    "message": "PNG、JPEG 或 GIF"
+  },
+  "manageCharacters_avatar_preview": {
+    "message": "預覽"
+  },
+  "manageCharacters_form_name_label": {
+    "message": "名稱"
+  },
+  "manageCharacters_form_name_placeholder": {
+    "message": "例如：寫作教練"
+  },
+  "manageCharacters_form_name_required": {
+    "message": "請輸入名稱"
+  },
+  "manageCharacters_form_description": {
+    "message": "定義可重複使用的角色，可在側邊欄與其聊天。"
+  },
+  "manageCharacters_form_systemPrompt_label": {
+    "message": "行為／指示"
+  },
+  "manageCharacters_form_systemPrompt_placeholder": {
+    "message": "例如：你是一位有耐心的數學老師，循序解說並用短例子確認理解。"
+  },
+  "manageCharacters_form_systemPrompt_help": {
+    "message": "說明角色的定位、語氣與限制。例如：「你是一位有耐心的數學家教，會一步步解釋概念。」"
+  },
+  "manageCharacters_form_systemPrompt_required": {
+    "message": "請新增指示以引導回應。"
+  },
+  "manageCharacters_form_systemPrompt_min": {
+    "message": "添加簡短描述，讓角色知道如何回應。"
+  },
+  "manageCharacters_form_systemPrompt_max": {
+    "message": "系統提示詞必須少於或等於 2000 個字元。"
+  },
+  "manageCharacters_form_avatarUrl_label": {
+    "message": "頭像網址（可選）"
+  },
+  "manageCharacters_form_avatarUrl_placeholder": {
+    "message": "例如 https://example.com/avatar.png"
+  },
+  "manageCharacters_form_greeting_label": {
+    "message": "歡迎訊息（可選）"
+  },
+  "manageCharacters_form_greeting_placeholder": {
+    "message": "嗨！我是你的寫作教練。貼上草稿，我會幫你潤飾。"
+  },
+  "manageCharacters_form_greeting_help": {
+    "message": "開始聊天時角色會傳送的第一則訊息（可選）。"
+  },
+  "manageCharacters_form_btnSave_saving": {
+    "message": "正在建立角色..."
+  },
+  "manageCharacters_form_btnSave_save": {
+    "message": "建立角色"
+  },
+  "manageCharacters_form_btnEdit_saving": {
+    "message": "正在儲存變更..."
+  },
+  "manageCharacters_form_btnEdit_save": {
+    "message": "儲存變更"
+  },
+  "manageCharacters_notification_addSuccess": {
+    "message": "角色已建立"
+  },
+  "manageCharacters_notification_error": {
+    "message": "錯誤"
+  },
+  "manageCharacters_notification_someError": {
+    "message": "發生錯誤，請稍後再試"
+  },
+  "manageCharacters_notification_updatedSuccess": {
+    "message": "角色已更新"
+  },
+  "manageCharacters_notification_deletedSuccess": {
+    "message": "角色已刪除"
+  },
+  "manageCharacters_loadError_title": {
+    "message": "無法載入角色"
+  },
+  "manageCharacters_loadError_description": {
+    "message": "請檢查連線後再試。"
+  },
+  "manageCharacters_emptyTitle": {
+    "message": "尚無角色"
+  },
+  "manageCharacters_emptyDescription": {
+    "message": "建立具備名稱、描述與系統提示的可重複使用角色，方便聊天。"
+  },
+  "manageCharacters_emptyExample1": {
+    "message": "定義可重複使用的寫作教練、背景專家或程式助理。"
+  },
+  "manageCharacters_emptyExample2": {
+    "message": "為每個角色提供清楚的描述與行為，使回應保持一致。"
+  },
+  "manageCharacters_emptyPrimaryCta": {
+    "message": "建立角色"
+  },
+  "manageCharacters_avatarAltWithName": {
+    "message": "{{name}} 的頭像"
+  },
+  "manageCharacters_avatarAlt": {
+    "message": "使用者頭像"
+  },
+  "quiz_itemsPerPage": {
+    "message": "項目/頁"
+  },
+  "quiz_editQuizTitle": {
+    "message": "編輯測驗"
+  },
+  "quiz_updateSuccess": {
+    "message": "測驗更新成功。"
+  },
+  "quiz_updateError": {
+    "message": "測驗更新失敗。"
+  },
+  "quiz_questionTextRequired": {
+    "message": "題目文字為必填。"
+  },
+  "quiz_optionsRequired": {
+    "message": "請至少提供兩個選項。"
+  },
+  "quiz_questionSaveSuccess": {
+    "message": "題目建立成功。"
+  },
+  "quiz_questionUpdateSuccess": {
+    "message": "題目更新成功。"
+  },
+  "quiz_questionSaveError": {
+    "message": "題目儲存失敗。"
+  },
+  "quiz_questionDeleteSuccess": {
+    "message": "題目刪除成功。"
+  },
+  "quiz_questionDeleteError": {
+    "message": "題目刪除失敗。"
+  },
+  "quiz_editQuestion": {
+    "message": "編輯題目"
+  },
+  "quiz_points": {
+    "message": "分數"
+  },
+  "quiz_orderIndex": {
+    "message": "順序"
+  },
+  "quiz_startError": {
+    "message": "測驗開始失敗。"
+  },
+  "quiz_answerAll": {
+    "message": "提交前請回答所有題目。"
+  },
+  "quiz_submitError": {
+    "message": "測驗提交失敗。"
+  },
+  "quiz_scoreSummary": {
+    "message": "得分：{{score}} / {{total}} ({{percent}}%)"
+  },
+  "quiz_correct": {
+    "message": "正確"
+  },
+  "quiz_incorrect": {
+    "message": "錯誤"
+  },
+  "quiz_yourAnswer": {
+    "message": "你的答案"
+  },
+  "quiz_correctAnswerLabel": {
+    "message": "正確答案"
+  },
+  "quiz_backToList": {
+    "message": "返回清單"
+  },
+  "quiz_retake": {
+    "message": "重新測驗"
+  },
+  "mediaPage_spreadMode": {
+    "message": "比較"
+  },
+  "mediaPage_listMode": {
+    "message": "聚焦"
+  },
+  "mediaPage_allMode": {
+    "message": "堆疊"
+  },
+  "mediaPage_spreadModeTooltip": {
+    "message": "並排顯示所選項目以便比較"
+  },
+  "mediaPage_listModeTooltip": {
+    "message": "一次顯示一個項目並可導覽"
+  },
+  "mediaPage_allModeTooltip": {
+    "message": "在可捲動清單中顯示所有所選項目"
+  },
+  "mediaPage_copyContentLabel": {
+    "message": "複製內容"
+  },
+  "mediaPage_copyAnalysisLabel": {
+    "message": "複製分析"
+  },
+  "mediaPage_copyContentTooltip": {
+    "message": "將內容複製到剪貼簿"
+  },
+  "mediaPage_copyAnalysisTooltip": {
+    "message": "將分析複製到剪貼簿"
+  },
+  "mediaPage_prevItemTooltip": {
+    "message": "上一個項目 (←)"
+  },
+  "mediaPage_nextItemTooltip": {
+    "message": "下一個項目 (→)"
+  },
+  "mediaPage_viewerOptions": {
+    "message": "選項"
+  },
+  "mediaPage_expandAllDropdown": {
+    "message": "展開/摺疊"
+  },
+  "mediaPage_itemPosition": {
+    "message": "項目 {{current}} / {{total}}"
+  },
+  "mediaPage_noItemSelected": {
+    "message": "未選取任何項目"
+  },
+  "mediaPage_firstUseTitle": {
+    "message": "快速指南：多項檢視"
+  },
+  "mediaPage_firstUseStep1": {
+    "message": "選取項目"
+  },
+  "mediaPage_firstUseStep1Desc": {
+    "message": "點擊左側面板中的項目以加入檢視器。"
+  },
+  "mediaPage_firstUseStep2": {
+    "message": "選擇檢視"
+  },
+  "mediaPage_firstUseStep2Desc": {
+    "message": "使用「比較」進行並排，「聚焦」一次一個，或用「堆疊」查看全部。"
+  },
+  "mediaPage_firstUseStep3": {
+    "message": "導覽"
+  },
+  "mediaPage_firstUseStep3Desc": {
+    "message": "使用上一個/下一個按鈕或鍵盤 (Tab + Enter) 在項目間移動。"
+  },
+  "mediaPage_gotIt": {
+    "message": "知道了"
+  },
+  "mediaPage_model": {
+    "message": "模型"
+  },
+  "mediaPage_selectModel": {
+    "message": "選擇模型"
+  },
+  "mediaPage_noModelsAvailable": {
+    "message": "沒有可用模型"
+  },
+  "mediaPage_promptPresets": {
+    "message": "提示預設"
+  },
+  "mediaPage_showPresets": {
+    "message": "顯示預設"
+  },
+  "mediaPage_hidePresets": {
+    "message": "隱藏預設"
+  },
+  "mediaPage_systemPromptLabel": {
+    "message": "系統提示"
+  },
+  "mediaPage_systemPromptPlaceholder": {
+    "message": "輸入系統提示..."
+  },
+  "mediaPage_userPromptPrefixLabel": {
+    "message": "使用者提示前綴"
+  },
+  "mediaPage_prependedBeforeContent": {
+    "message": "（在內容前加入）"
+  },
+  "mediaPage_userPrefixPlaceholder": {
+    "message": "選填：輸入要加在媒體內容前的文字..."
+  },
+  "mediaPage_presetComprehensiveAnalysis": {
+    "message": "全面分析"
+  },
+  "mediaPage_presetExecutiveSummary": {
+    "message": "高階摘要"
+  },
+  "mediaPage_presetCriticalReview": {
+    "message": "批判性檢視"
+  },
+  "mediaPage_presetQAAnalysis": {
+    "message": "問答分析"
+  },
+  "searchPrompts": {
+    "message": "搜尋提示詞…"
+  },
+  "noMatchingPrompts": {
+    "message": "沒有符合的提示詞"
+  },
+  "promptSelect_favorites": {
+    "message": "收藏"
+  },
+  "promptSelect_system": {
+    "message": "系統提示詞"
+  },
+  "promptSelect_quick": {
+    "message": "快速提示詞"
+  },
+  "flashcards_bulkLimitWarning": {
+    "message": "此操作僅套用於前 {{limit}} 個項目。"
   }
 }

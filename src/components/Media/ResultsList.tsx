@@ -1,4 +1,4 @@
-import { FileText, Loader2 } from 'lucide-react'
+import { FileText, Loader2, Star } from 'lucide-react'
 import { Tooltip, Button } from 'antd'
 import { useTranslation } from 'react-i18next'
 
@@ -25,6 +25,8 @@ interface ResultsListProps {
   isLoading?: boolean
   hasActiveFilters?: boolean
   onClearFilters?: () => void
+  favorites?: Set<string>
+  onToggleFavorite?: (id: string) => void
 }
 
 export function ResultsList({
@@ -35,7 +37,9 @@ export function ResultsList({
   loadedCount,
   isLoading = false,
   hasActiveFilters = false,
-  onClearFilters
+  onClearFilters,
+  favorites,
+  onToggleFavorite
 }: ResultsListProps) {
   const { t } = useTranslation(['review'])
   return (
@@ -43,7 +47,9 @@ export function ResultsList({
       {/* Results Header */}
       <div className="px-4 py-2 bg-gray-50 dark:bg-[#0c0c0c] border-b border-gray-200 dark:border-gray-700 flex items-center justify-between sticky top-0">
         <div className="flex items-center gap-2">
-          <span className="text-xs text-gray-600 dark:text-gray-400 font-medium">RESULTS</span>
+          <span className="text-xs text-gray-600 dark:text-gray-400 font-medium uppercase">
+            {t('mediaPage.results', 'Results')}
+          </span>
           <span className="text-xs text-gray-900 dark:text-gray-100">
             {loadedCount} / {totalCount}
           </span>
@@ -52,7 +58,26 @@ export function ResultsList({
 
       {/* Results List */}
       <div className="divide-y divide-gray-200 dark:divide-gray-700">
-        {results.length === 0 && !isLoading ? (
+        {/* Skeleton loading */}
+        {isLoading && results.length === 0 ? (
+          <>
+            {[1, 2, 3, 4, 5].map((i) => (
+              <div key={i} className="px-4 py-2.5 animate-pulse">
+                <div className="flex items-start gap-2.5">
+                  <div className="w-4 h-4 bg-gray-200 dark:bg-gray-700 rounded mt-0.5" />
+                  <div className="flex-1">
+                    <div className="flex gap-1.5 mb-1">
+                      <div className="w-12 h-4 bg-gray-200 dark:bg-gray-700 rounded" />
+                      <div className="w-16 h-4 bg-gray-200 dark:bg-gray-700 rounded" />
+                    </div>
+                    <div className="w-3/4 h-4 bg-gray-200 dark:bg-gray-700 rounded mb-1" />
+                    <div className="w-1/2 h-3 bg-gray-200 dark:bg-gray-700 rounded" />
+                  </div>
+                </div>
+              </div>
+            ))}
+          </>
+        ) : results.length === 0 && !isLoading ? (
           <div className="px-4 py-6 text-center">
             {hasActiveFilters ? (
               <>
@@ -73,23 +98,49 @@ export function ResultsList({
           </div>
         ) : (
           results.map((result) => (
-            <button
+            <div
+              role="button"
+              tabIndex={0}
               key={result.id}
               onClick={() => onSelect(result.id)}
+              onKeyDown={(event) => {
+                if (event.key === 'Enter' || event.key === ' ') {
+                  event.preventDefault()
+                  onSelect(result.id)
+                }
+              }}
               aria-label={t('mediaPage.selectResult', 'Select {{type}}: {{title}}', {
                 type: result.kind,
                 title: result.title || `${result.kind} ${result.id}`
               })}
-              aria-pressed={selectedId === result.id}
-              className={`w-full py-2.5 text-left hover:bg-gray-50 dark:hover:bg-[#262626] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-inset ${
+              aria-selected={selectedId === result.id}
+              className={`w-full py-2.5 text-left hover:bg-gray-50 dark:hover:bg-[#262626] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-inset cursor-pointer ${
                 selectedId === result.id
                   ? 'bg-blue-50 dark:bg-blue-900/40 border-l-4 border-l-blue-600 dark:border-l-blue-500 px-3'
                   : 'px-4'
               }`}
             >
               <div className="flex items-start gap-2.5">
-                <div className="mt-0.5">
+                <div className="mt-0.5 flex flex-col items-center gap-1">
                   <FileText className="w-4 h-4 text-gray-400 dark:text-gray-500" />
+                  {onToggleFavorite && (
+                    <Tooltip title={favorites?.has(String(result.id)) ? t('mediaPage.unfavorite', 'Remove from favorites') : t('mediaPage.favorite', 'Add to favorites')}>
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation()
+                          onToggleFavorite(String(result.id))
+                        }}
+                        className="p-0.5 hover:bg-gray-200 dark:hover:bg-gray-700 rounded transition-colors"
+                        aria-label={favorites?.has(String(result.id)) ? t('mediaPage.unfavorite', 'Remove from favorites') : t('mediaPage.favorite', 'Add to favorites')}
+                      >
+                        <Star className={`w-3.5 h-3.5 ${
+                          favorites?.has(String(result.id))
+                            ? 'text-yellow-500 fill-yellow-500'
+                            : 'text-gray-300 dark:text-gray-600'
+                        }`} />
+                      </button>
+                    </Tooltip>
+                  )}
                 </div>
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-1.5 mb-1">
@@ -123,7 +174,7 @@ export function ResultsList({
                       ))}
                       {result.keywords.length > 5 && (
                         <Tooltip
-                          title={`+${result.keywords.length - 5} more tags`}
+                          title={t('mediaPage.moreTags', '+{{count}} more tags', { count: result.keywords.length - 5 })}
                         >
                           <span className="inline-flex items-center px-2 py-0.5 text-xs text-gray-500 dark:text-gray-400">
                             +{result.keywords.length - 5}
@@ -139,7 +190,7 @@ export function ResultsList({
                   )}
                 </div>
               </div>
-            </button>
+            </div>
           ))
         )}
         {/* Loading indicator */}

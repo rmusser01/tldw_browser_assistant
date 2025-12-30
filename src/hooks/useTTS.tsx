@@ -23,6 +23,18 @@ import { tldwClient } from "@/services/tldw/TldwApiClient"
 import { useAntdNotification } from "./useAntdNotification"
 import { useTranslation } from "react-i18next"
 
+const formatToMimeType = (format: string): string => {
+  switch (format) {
+    case "wav":
+      return "audio/wav"
+    case "ogg":
+      return "audio/ogg"
+    case "mp3":
+    default:
+      return "audio/mpeg"
+  }
+}
+
 export interface VoiceOptions {
   utterance: string
 }
@@ -192,6 +204,7 @@ export const useTTS = () => {
         const tldwModel = await getTldwTTSModel()
         const tldwVoice = await getTldwTTSVoice()
         const tldwResponseFormat = await getTldwTTSResponseFormat()
+        const tldwMimeType = formatToMimeType(tldwResponseFormat)
         const tldwSpeed = await getTldwTTSSpeed()
         const sentences = splitMessageContent(utterance)
 
@@ -223,7 +236,7 @@ export const useTTS = () => {
             })
           }
 
-          const blob = new Blob([currentAudioData], { type: "audio/mpeg" })
+          const blob = new Blob([currentAudioData], { type: tldwMimeType })
           const url = URL.createObjectURL(blob)
           const audio = new Audio(url)
           audio.playbackRate = playbackSpeed

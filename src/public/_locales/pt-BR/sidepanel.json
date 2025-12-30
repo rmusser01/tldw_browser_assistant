@@ -1,0 +1,311 @@
+{
+  "tooltip_embed": {
+    "message": "A incorporação da página pode levar alguns minutos. Por favor, aguarde..."
+  },
+  "tooltip_clear": {
+    "message": "Apagar histórico de chat"
+  },
+  "tooltip_history": {
+    "message": "Histórico de chat"
+  },
+  "tooltip_openwebui": {
+    "message": "Abrir WebUI"
+  },
+  "toolbar_ragSearch": {
+    "message": "RAG Search"
+  },
+  "errors_privateModeTitle": {
+    "message": "tldw Assistant não pode salvar dados"
+  },
+  "errors_privateModeDescription": {
+    "message": "O modo privativo do Firefox não permite salvar o histórico do chat. O chat temporário fica ativado por padrão. Mais melhorias em breve."
+  },
+  "connectionBanner_connecting": {
+    "message": "Conectando ao seu servidor tldw..."
+  },
+  "connectionBanner_authErrorTitle": {
+    "message": "A chave de API precisa de atenção"
+  },
+  "connectionBanner_authErrorBody": {
+    "message": "O servidor está acessível, mas a chave de API está incorreta ou ausente."
+  },
+  "connectionBanner_unreachableTitle": {
+    "message": "Não foi possível acessar seu servidor tldw"
+  },
+  "connectionBanner_unreachableBody": {
+    "message": "Verifique se o servidor está em execução e acessível."
+  },
+  "connectionBanner_noUrlBody": {
+    "message": "Adicione a URL do servidor nas Configurações para começar."
+  },
+  "connectionBanner_disconnectedTitle": {
+    "message": "Não conectado ao servidor tldw"
+  },
+  "connectionBanner_disconnectedBody": {
+    "message": "Abra as Configurações para configurar a conexão com o servidor."
+  },
+  "connectionBanner_setupTitle": {
+    "message": "Conclua a configuração para começar a conversar"
+  },
+  "connectionBanner_setupBody": {
+    "message": "Conclua o assistente de configuração nas Configurações para se conectar."
+  },
+  "connectionBanner_openSettings": {
+    "message": "Abrir Configurações"
+  },
+  "temporaryBadge_title": {
+    "message": "Chat temporário"
+  },
+  "temporaryBadge_label": {
+    "message": "Temp"
+  },
+  "temporaryBadge_description": {
+    "message": "Este chat não será salvo. As mensagens serão apagadas quando você fechar ou iniciar um novo chat."
+  },
+  "temporaryBadge_clickHint": {
+    "message": "Clique para desativar"
+  },
+  "temporaryBadge_ariaLabel": {
+    "message": "O modo de chat temporário está ativo. Clique para alternar."
+  },
+  "temporaryBadge_indicatorTooltip": {
+    "message": "As mensagens deste chat não serão salvas"
+  },
+  "temporaryBadge_indicatorAria": {
+    "message": "Chat temporário"
+  },
+  "header_ingest": {
+    "message": "Ingest"
+  },
+  "header_saveCurrent": {
+    "message": "Save current page on server"
+  },
+  "header_processLocal": {
+    "message": "Process current page locally"
+  },
+  "header_viewProcessed": {
+    "message": "View processed"
+  },
+  "header_timeoutLabel": {
+    "message": "Timeout (s)"
+  },
+  "header_toggleSidebar": {
+    "message": "Toggle Sidebar / Full Screen"
+  },
+  "header_shortcuts": {
+    "message": "Shortcuts"
+  },
+  "header_showDebug": {
+    "message": "Show Stream Debug"
+  },
+  "header_hideDebug": {
+    "message": "Hide Stream Debug"
+  },
+  "header_moreOptionsAria": {
+    "message": "More options"
+  },
+  "header_moreOptionsTitle": {
+    "message": "Ingest and more"
+  },
+  "header_openWebuiAria": {
+    "message": "Open Web UI"
+  },
+  "header_newChatAria": {
+    "message": "New chat"
+  },
+  "header_tempChatAria": {
+    "message": "Toggle temporary chat"
+  },
+  "header_clearHistoryAria": {
+    "message": "Clear history"
+  },
+  "header_openHistoryAria": {
+    "message": "Open history"
+  },
+  "header_openModelSettingsAria": {
+    "message": "Open model settings"
+  },
+  "header_openSettingsAria": {
+    "message": "Open settings"
+  },
+  "header_tempPill": {
+    "message": "Temp"
+  },
+  "header_modesLabel": {
+    "message": "Open modes in Web UI"
+  },
+  "header_modePlayground": {
+    "message": "Chat"
+  },
+  "header_modeReview": {
+    "message": "Multi-Item Review"
+  },
+  "header_modeMedia": {
+    "message": "Media"
+  },
+  "header_modeKnowledge": {
+    "message": "Knowledge"
+  },
+  "header_modeNotes": {
+    "message": "Notes"
+  },
+  "header_modePrompts": {
+    "message": "Prompts"
+  },
+  "header_modeFlashcards": {
+    "message": "Flashcards"
+  },
+  "controlRow_saveMode": {
+    "message": "Modo de Salvamento"
+  },
+  "controlRow_ephemeral": {
+    "message": "Efêmero"
+  },
+  "controlRow_searchSection": {
+    "message": "Pesquisa e Visão"
+  },
+  "controlRow_webSearch": {
+    "message": "Pesquisa na Web"
+  },
+  "controlRow_vision": {
+    "message": "Visão"
+  },
+  "controlRow_uploadImage": {
+    "message": "Enviar Imagem"
+  },
+  "controlRow_quickIngest": {
+    "message": "Ingestão Rápida"
+  },
+  "controlRow_openInFullUI": {
+    "message": "Abrir na Interface Completa"
+  },
+  "controlRow_modeChat": {
+    "message": "Chat"
+  },
+  "controlRow_modeMedia": {
+    "message": "Mídia"
+  },
+  "controlRow_modeNotes": {
+    "message": "Notas"
+  },
+  "controlRow_modeFlashcards": {
+    "message": "Flashcards"
+  },
+  "controlRow_ragSearch": {
+    "message": "Pesquisa RAG"
+  },
+  "controlRow_moreTools": {
+    "message": "Mais ferramentas"
+  },
+  "composer_connectHint": {
+    "message": "Connect to your tldw server in Settings to send messages."
+  },
+  "composer_connectingPlaceholder": {
+    "message": "Connecting..."
+  },
+  "composer_disconnectedPlaceholder": {
+    "message": "Connect to your tldw server in Settings to send messages and view media."
+  },
+  "notification_ingestSent": {
+    "message": "Sent to tldw server"
+  },
+  "notification_ingestSentDesc": {
+    "message": "Current page has been submitted for ingestion."
+  },
+  "notification_processedLocal": {
+    "message": "Processed locally"
+  },
+  "notification_processedLocalDesc": {
+    "message": "Processed content stored locally under Settings > Processed."
+  },
+  "notification_transcriptionTitle": {
+    "message": "Transcription"
+  },
+  "notification_transcriptionSummaryTitle": {
+    "message": "Transcription + summary"
+  },
+  "notification_transcriptionFallback": {
+    "message": "Transcription completed. Open Media in the Web UI to view it."
+  },
+  "notification_sourceLabel": {
+    "message": "Source"
+  },
+  "notification_transcriptLabel": {
+    "message": "Transcript"
+  },
+  "notification_summaryLabel": {
+    "message": "Summary"
+  },
+  "saveStatus_ephemeral": {
+    "message": "Temporário: não salvo, apagado ao fechar"
+  },
+  "saveStatus_local": {
+    "message": "Salvo localmente neste navegador"
+  },
+  "saveStatus_server": {
+    "message": "Salvo no servidor"
+  },
+  "saveStatus_saveFailed": {
+    "message": "Falha ao salvar o chat no servidor"
+  },
+  "saveStatus_saveFailedDescription": {
+    "message": "O chat agora é salvo apenas localmente. Verifique sua conexão e tente novamente."
+  },
+  "rag_searchPlaceholder": {
+    "message": "Search your knowledge…"
+  },
+  "rag_search": {
+    "message": "Search"
+  },
+  "rag_show": {
+    "message": "Show RAG search"
+  },
+  "rag_hide": {
+    "message": "Hide RAG search"
+  },
+  "rag_addTagPlaceholder": {
+    "message": "Add tag (Enter)"
+  },
+  "rag_add": {
+    "message": "Add"
+  },
+  "rag_noResults": {
+    "message": "No results"
+  },
+  "rag_timeout_message": {
+    "message": "Request timed out."
+  },
+  "rag_timeout_increase": {
+    "message": "Increase timeout"
+  },
+  "rag_timeout_checkHealth": {
+    "message": "Check server health"
+  },
+  "rag_actions_insert": {
+    "message": "Insert"
+  },
+  "rag_actions_ask": {
+    "message": "Ask"
+  },
+  "rag_actions_open": {
+    "message": "Open"
+  },
+  "rag_actions_copy": {
+    "message": "Copy"
+  },
+  "rag_hint_message": {
+    "message": "Pesquise na sua base de conhecimento e insira os resultados na sua mensagem."
+  },
+  "rag_hint_dismiss": {
+    "message": "Dispensar"
+  },
+  "tabs_newChat": {
+    "message": "Nova conversa"
+  },
+  "tabs_newTabAria": {
+    "message": "Nova aba de conversa"
+  },
+  "tabs_closeTabAria": {
+    "message": "Fechar aba de conversa"
+  }
+}

@@ -1,10 +1,10 @@
 import React from "react"
-import { Input, Button, Spin, Tag, Tooltip, Radio, Pagination, Empty, Select, Checkbox, Typography, Skeleton, Switch, Alert, Collapse } from "antd"
+import { Input, Button, Spin, Tag, Tooltip, Radio, Pagination, Empty, Select, Checkbox, Typography, Skeleton, Switch, Alert, Collapse, Dropdown } from "antd"
 import { useTranslation } from "react-i18next"
 import { bgRequest } from "@/services/background-proxy"
 import { useQuery, keepPreviousData } from "@tanstack/react-query"
 import { useServerOnline } from "@/hooks/useServerOnline"
-import { CopyIcon, HelpCircle } from "lucide-react"
+import { CopyIcon, HelpCircle, Settings2, ChevronLeft, ChevronRight, Layers, LayoutGrid, Focus, Rows3 } from "lucide-react"
 import { useVirtualizer, type VirtualItem } from "@tanstack/react-virtual"
 import { ChevronDown, ChevronUp } from "lucide-react"
 import { useAntdMessage } from "@/hooks/useAntdMessage"
@@ -467,9 +467,9 @@ export const MediaReviewPage: React.FC = () => {
                 </Button>
               </Tooltip>
             )}
-            <Tooltip title={t('mediaPage.copyContent', 'Copy content')}>
-	                            <Button
-	                              size="small"
+            <Tooltip title={t('mediaPage.copyContentTooltip', 'Copy content to clipboard')}>
+              <Button
+                size="small"
                 onClick={async () => {
                   const full = content
                   try { await navigator.clipboard.writeText(full); message.success(t('mediaPage.contentCopied', 'Content copied')) }
@@ -477,10 +477,10 @@ export const MediaReviewPage: React.FC = () => {
                 }}
                 icon={(<CopyIcon className="w-4 h-4" />) as any}
               >
-                {t("mediaPage.copyLabel", "Copy")}
+                {t("mediaPage.copyContentLabel", "Copy Content")}
               </Button>
             </Tooltip>
-            <Tooltip title={t('mediaPage.copyAnalysis', 'Copy analysis')}>
+            <Tooltip title={t('mediaPage.copyAnalysisTooltip', 'Copy analysis to clipboard')}>
               <Button
                 size="small"
                 onClick={async () => {
@@ -490,7 +490,7 @@ export const MediaReviewPage: React.FC = () => {
                 }}
                 icon={(<CopyIcon className="w-4 h-4" />) as any}
               >
-                {t("mediaPage.shareLabel", "Share")}
+                {t("mediaPage.copyAnalysisLabel", "Copy Analysis")}
               </Button>
             </Tooltip>
           </div>
@@ -626,26 +626,6 @@ export const MediaReviewPage: React.FC = () => {
           </p>
         </div>
       </div>
-
-	      {/* First-use guidance panel */}
-	      {!helpDismissedLoading && !helpDismissed && (
-        <Alert
-          type="info"
-          showIcon
-          icon={<HelpCircle className="w-4 h-4" />}
-          closable
-          onClose={() => setHelpDismissed(true)}
-          className="mb-3"
-          message={t('mediaPage.firstUseTitle', 'Quick Guide: Multi-Item Review')}
-          description={
-            <div className="text-xs space-y-1 mt-1">
-              <p><strong>{t('mediaPage.firstUseStep1', '1. Select items')}</strong> — {t('mediaPage.firstUseStep1Desc', 'Click items in the left panel to add them to your viewer.')}</p>
-              <p><strong>{t('mediaPage.firstUseStep2', '2. Choose a layout')}</strong> — {t('mediaPage.firstUseStep2Desc', 'Use "Spread" to compare side-by-side, "List" for scrolling, or "All" to see everything.')}</p>
-              <p><strong>{t('mediaPage.firstUseStep3', '3. Navigate')}</strong> — {t('mediaPage.firstUseStep3Desc', 'Use Prev/Next buttons or keyboard (Tab + Enter) to move through items.')}</p>
-            </div>
-          }
-        />
-      )}
 
       <div className="flex flex-1 min-h-0 w-full gap-4">
         {!sidebarHidden && (
@@ -795,10 +775,11 @@ export const MediaReviewPage: React.FC = () => {
         </div>
         <div className="flex-1 border rounded p-2 bg-white dark:bg-[#171717] h-full flex flex-col min-w-0 relative">
           <div className="sticky top-0 z-20 bg-white dark:bg-[#171717] pb-2 border-b dark:border-gray-800">
-            <div className="flex flex-wrap items-center justify-between gap-2">
+            {/* Row 1: View Controls */}
+            <div className="flex flex-wrap items-center justify-between gap-2 mb-2">
               <div className="flex items-center gap-3 flex-wrap">
                 <div className="flex items-center gap-2">
-                  <div className="text-sm text-gray-600 dark:text-gray-300">{t('mediaPage.viewer', 'Viewer')}</div>
+                  <div className="text-sm font-medium text-gray-700 dark:text-gray-200">{t('mediaPage.viewer', 'Viewer')}</div>
                   <div className="text-xs text-gray-500 dark:text-gray-400">
                     {viewMode === "spread"
                       ? t("mediaPage.viewerCount", "{{count}} open", { count: viewerItems.length })
@@ -807,31 +788,49 @@ export const MediaReviewPage: React.FC = () => {
                         : t("mediaPage.viewerAll", "All items (stacked)")}
                   </div>
                 </div>
-                <Radio.Group
-                  value={viewMode}
-                  onChange={(e) => {
-                    const next = e.target.value as "spread" | "list" | "all"
-                    setViewMode(next)
-                    if (next === "list") {
-                      const id = focusedId ?? selectedIds[0] ?? allResults[0]?.id
-                      if (id != null) {
-                        setFocusedId(id)
-                        void ensureDetail(id)
-                      }
-                    } else if (next === "all") {
-                      const ids = selectedIds.length > 0 ? selectedIds : allResults.slice(0, openAllLimit).map((m) => m.id)
-                      setSelectedIds(ids)
-                      ids.forEach((id) => void ensureDetail(id))
-                    }
-                  }}
-                  optionType="button"
-                  size="small"
-                  options={[
-                    { label: t("mediaPage.spreadMode", "Spread"), value: "spread" },
-                    { label: t("mediaPage.listMode", "List"), value: "list" },
-                    { label: t("mediaPage.allMode", "All"), value: "all" }
-                  ]}
-                />
+                <Tooltip title={t("mediaPage.spreadModeTooltip", "View selected items side-by-side for comparison")}>
+                  <span>
+                    <Radio.Group
+                      value={viewMode}
+                      onChange={(e) => {
+                        const next = e.target.value as "spread" | "list" | "all"
+                        setViewMode(next)
+                        if (next === "list") {
+                          const id = focusedId ?? selectedIds[0] ?? allResults[0]?.id
+                          if (id != null) {
+                            setFocusedId(id)
+                            void ensureDetail(id)
+                          }
+                        } else if (next === "all") {
+                          const ids = selectedIds.length > 0 ? selectedIds : allResults.slice(0, openAllLimit).map((m) => m.id)
+                          setSelectedIds(ids)
+                          ids.forEach((id) => void ensureDetail(id))
+                        }
+                      }}
+                      optionType="button"
+                      size="small"
+                    >
+                      <Tooltip title={t("mediaPage.spreadModeTooltip", "View selected items side-by-side for comparison")}>
+                        <Radio.Button value="spread">
+                          <LayoutGrid className="w-3.5 h-3.5 inline mr-1" />
+                          {t("mediaPage.spreadMode", "Compare")}
+                        </Radio.Button>
+                      </Tooltip>
+                      <Tooltip title={t("mediaPage.listModeTooltip", "View one item at a time with navigation")}>
+                        <Radio.Button value="list">
+                          <Focus className="w-3.5 h-3.5 inline mr-1" />
+                          {t("mediaPage.listMode", "Focus")}
+                        </Radio.Button>
+                      </Tooltip>
+                      <Tooltip title={t("mediaPage.allModeTooltip", "View all selected items in a scrollable list")}>
+                        <Radio.Button value="all">
+                          <Rows3 className="w-3.5 h-3.5 inline mr-1" />
+                          {t("mediaPage.allMode", "Stack")}
+                        </Radio.Button>
+                      </Tooltip>
+                    </Radio.Group>
+                  </span>
+                </Tooltip>
                 {viewMode === "list" && (
                   <Select
                     size="small"
@@ -848,85 +847,95 @@ export const MediaReviewPage: React.FC = () => {
                     }))}
                   />
                 )}
-                <div className="flex items-center gap-2 text-xs text-gray-500 dark:text-gray-300">
-                  <span>{t("mediaPage.layoutLabel", "Layout (helps with long, stacked review)")}</span>
-                  <Radio.Group
-                    size="small"
-                    value={orientation}
-                    onChange={(e) => setOrientation(e.target.value)}
-                    options={[
-                      { label: t('mediaPage.vertical', 'Vertical'), value: 'vertical' },
-                      { label: t('mediaPage.horizontal', 'Horizontal'), value: 'horizontal' }
-                    ]}
-                    optionType="button"
-                  />
-                </div>
-                <div className="flex items-center gap-1 text-xs text-gray-500 dark:text-gray-300">
-                  <span>{t("mediaPage.collapseOthers", "Collapse others on expand")}</span>
-                  <Switch size="small" checked={collapseOthers} onChange={setCollapseOthers} />
-                </div>
+                <div className="h-5 w-px bg-gray-200 dark:bg-gray-700 mx-1" />
+                <Radio.Group
+                  size="small"
+                  value={orientation}
+                  onChange={(e) => setOrientation(e.target.value)}
+                  options={[
+                    { label: t('mediaPage.vertical', 'Vertical'), value: 'vertical' },
+                    { label: t('mediaPage.horizontal', 'Horizontal'), value: 'horizontal' }
+                  ]}
+                  optionType="button"
+                />
+                <Dropdown
+                  menu={{
+                    items: [
+                      {
+                        key: 'collapseOthers',
+                        label: (
+                          <div className="flex items-center justify-between gap-4">
+                            <span>{t("mediaPage.collapseOthers", "Collapse others on expand")}</span>
+                            <Switch size="small" checked={collapseOthers} onChange={setCollapseOthers} />
+                          </div>
+                        )
+                      },
+                      { type: 'divider' },
+                      {
+                        key: 'openAll',
+                        label: `${t("mediaPage.openAll", "Review all on page")} (${Math.min(allResults.length, openAllLimit)})`,
+                        onClick: openAllCurrent,
+                        disabled: allResults.length === 0
+                      }
+                    ]
+                  }}
+                  trigger={['click']}
+                >
+                  <Button size="small" icon={<Settings2 className="w-3.5 h-3.5" />}>
+                    {t("mediaPage.viewerOptions", "Options")}
+                    <ChevronDown className="w-3 h-3 ml-1" />
+                  </Button>
+                </Dropdown>
               </div>
-              <div className="flex flex-wrap items-center gap-3">
-                <div className="flex items-center gap-1">
-                  <span className="text-[11px] text-gray-500 dark:text-gray-400">
-                    {t("mediaPage.itemsLabel", "Items")}
-                  </span>
-                  {viewMode === "spread" && (
-                    <Button size="small" onClick={openAllCurrent}>
-                      {t("mediaPage.openAll", "Review all on page")} (
-                      {Math.min(allResults.length, openAllLimit)})
-                    </Button>
-                  )}
+            </div>
+            {/* Row 2: Navigation & Content Actions */}
+            <div className="flex flex-wrap items-center justify-between gap-2">
+              <div className="flex items-center gap-2">
+                <Tooltip title={t("mediaPage.prevItemTooltip", "Previous item (←)")}>
                   <Button
                     size="small"
                     onClick={() => goRelative(-1)}
                     disabled={focusIndex <= 0}
+                    icon={<ChevronLeft className="w-4 h-4" />}
                   >
-                    {t("mediaPage.prevItem", "Prev item")}
+                    {t("mediaPage.prevItem", "Prev")}
                   </Button>
+                </Tooltip>
+                <span className="text-xs text-gray-600 dark:text-gray-300 min-w-[5rem] text-center">
+                  {focusIndex >= 0
+                    ? t("mediaPage.itemPosition", "Item {{current}} of {{total}}", { current: focusIndex + 1, total: allResults.length })
+                    : t("mediaPage.noItemSelected", "No item selected")}
+                </span>
+                <Tooltip title={t("mediaPage.nextItemTooltip", "Next item (→)")}>
                   <Button
                     size="small"
                     onClick={() => goRelative(1)}
-                    disabled={
-                      focusIndex < 0 || focusIndex >= allResults.length - 1
-                    }
+                    disabled={focusIndex < 0 || focusIndex >= allResults.length - 1}
+                    icon={<ChevronRight className="w-4 h-4" />}
+                    iconPosition="end"
                   >
-                    {t("mediaPage.nextItem", "Next item")}
+                    {t("mediaPage.nextItem", "Next")}
                   </Button>
-                </div>
-                <div className="flex items-center gap-1">
-                  <span className="text-[11px] text-gray-500 dark:text-gray-400">
-                    {t("mediaPage.contentLabel", "Content view")}
-                  </span>
-                  <Button
-                    size="small"
-                    onClick={expandAllContent}
-                    type="default"
-                  >
-                    {t("mediaPage.expandAllContent", "Expand all content")}
+                </Tooltip>
+              </div>
+              <div className="flex items-center gap-2">
+                <Dropdown
+                  menu={{
+                    items: [
+                      { key: 'expandContent', label: t("mediaPage.expandAllContent", "Expand all content"), onClick: expandAllContent },
+                      { key: 'collapseContent', label: t("mediaPage.collapseAllContent", "Collapse all content"), onClick: collapseAllContent },
+                      { type: 'divider' },
+                      { key: 'expandAnalysis', label: t("mediaPage.expandAllAnalysis", "Expand all analysis"), onClick: expandAllAnalysis },
+                      { key: 'collapseAnalysis', label: t("mediaPage.collapseAllAnalysis", "Collapse all analysis"), onClick: collapseAllAnalysis }
+                    ]
+                  }}
+                  trigger={['click']}
+                >
+                  <Button size="small" icon={<Layers className="w-3.5 h-3.5" />}>
+                    {t("mediaPage.expandAllDropdown", "Expand/Collapse")}
+                    <ChevronDown className="w-3 h-3 ml-1" />
                   </Button>
-                  <Button
-                    size="small"
-                    onClick={collapseAllContent}
-                    type="text"
-                  >
-                    {t("mediaPage.collapseAllContent", "Collapse content")}
-                  </Button>
-                  <Button
-                    size="small"
-                    onClick={expandAllAnalysis}
-                    type="default"
-                  >
-                    {t("mediaPage.expandAllAnalysis", "Expand all analysis")}
-                  </Button>
-                  <Button
-                    size="small"
-                    onClick={collapseAllAnalysis}
-                    type="text"
-                  >
-                    {t("mediaPage.collapseAllAnalysis", "Collapse analysis")}
-                  </Button>
-                </div>
+                </Dropdown>
                 <Tooltip
                   title={
                     t(
@@ -977,26 +986,48 @@ export const MediaReviewPage: React.FC = () => {
           <div className="flex flex-1 min-h-0 gap-3">
             <div className="flex-1 flex flex-col min-h-0">
               {viewerItems.length === 0 ? (
-                <div className="text-sm text-gray-500">{t('mediaPage.selectItemsHint', 'Select items on the left to view here.')}</div>
-              ) : (
-                <>
-                  {viewMode === "spread" && (
-                    <div className="sticky top-[3.5rem] z-10 bg-white dark:bg-[#171717] py-1 flex gap-2 overflow-x-auto border-b dark:border-gray-800">
-                      {selectedIds.map((id, idx) => {
-                        const d = details[id]
-                        return (
-                          <Button
-                            key={String(id)}
-                            size="small"
-                            type="default"
-                            onClick={() => scrollToCard(id)}
-                          >
-                            {idx + 1}. {d?.title || `${t('mediaPage.media', 'Media')} ${id}`}
-                          </Button>
-                        )
-                      })}
+                <div className="flex flex-col items-center justify-center h-full p-8 text-center">
+                  {!helpDismissedLoading && !helpDismissed ? (
+                    <div className="max-w-md">
+                      <HelpCircle className="w-10 h-10 mx-auto mb-4 text-blue-500" />
+                      <h3 className="text-lg font-medium text-gray-700 dark:text-gray-200 mb-3">
+                        {t('mediaPage.firstUseTitle', 'Quick Guide: Multi-Item Review')}
+                      </h3>
+                      <ol className="text-left text-sm text-gray-600 dark:text-gray-300 space-y-3 mb-6">
+                        <li className="flex gap-2">
+                          <span className="font-semibold text-blue-600 dark:text-blue-400">1.</span>
+                          <span>
+                            <strong>{t('mediaPage.firstUseStep1', 'Select items')}</strong> — {t('mediaPage.firstUseStep1Desc', 'Click items in the left panel to add them to your viewer.')}
+                          </span>
+                        </li>
+                        <li className="flex gap-2">
+                          <span className="font-semibold text-blue-600 dark:text-blue-400">2.</span>
+                          <span>
+                            <strong>{t('mediaPage.firstUseStep2', 'Choose a view')}</strong> — {t('mediaPage.firstUseStep2Desc', 'Use "Compare" for side-by-side, "Focus" for one at a time, or "Stack" to see all.')}
+                          </span>
+                        </li>
+                        <li className="flex gap-2">
+                          <span className="font-semibold text-blue-600 dark:text-blue-400">3.</span>
+                          <span>
+                            <strong>{t('mediaPage.firstUseStep3', 'Navigate')}</strong> — {t('mediaPage.firstUseStep3Desc', 'Use Prev/Next buttons or keyboard (Tab + Enter) to move through items.')}
+                          </span>
+                        </li>
+                      </ol>
+                      <Button type="primary" onClick={() => setHelpDismissed(true)}>
+                        {t('mediaPage.gotIt', 'Got it')}
+                      </Button>
+                    </div>
+                  ) : (
+                    <div className="text-gray-500 dark:text-gray-400">
+                      <Empty
+                        description={t('mediaPage.selectItemsHint', 'Select items on the left to view here.')}
+                        image={Empty.PRESENTED_IMAGE_SIMPLE}
+                      />
                     </div>
                   )}
+                </div>
+              ) : (
+                <>
                   <div
                     ref={viewMode === "all" ? undefined : viewerParentRef}
                     className={`relative flex-1 min-h-0 ${viewMode === "all" ? "overflow-visible" : "overflow-auto"}`}

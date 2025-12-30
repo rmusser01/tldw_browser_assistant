@@ -58,3 +58,79 @@ export const generateBranchMessage = async (
     }
   )
 }
+
+export const generateBranchFromMessageIds = async (
+  history_id: string,
+  messageIds: string[]
+) => {
+  if (!messageIds || messageIds.length === 0) {
+    return null
+  }
+
+  return await db.transaction(
+    "rw",
+    db.messages,
+    db.chatHistories,
+    db.sessionFiles,
+    async () => {
+      const chats = await db.messages
+        .where("history_id")
+        .equals(history_id)
+        .toArray()
+      const historyInfo = await db.chatHistories.get(history_id)
+      if (!historyInfo) {
+        return null
+      }
+
+      const messageIdSet = new Set(messageIds)
+      const sortedMessages = chats.sort((a, b) => a.createdAt - b.createdAt)
+      const messages = sortedMessages.filter((message) =>
+        messageIdSet.has(message.id)
+      )
+      if (messages.length === 0) {
+        return null
+      }
+
+      const newHistoryId = generateID()
+      const history: HistoryInfo = {
+        ...historyInfo,
+        message_source: "branch",
+        id: newHistoryId,
+        createdAt: Date.now()
+      }
+
+      await db.chatHistories.add(history)
+
+      const newMessages = messages.map((message) => {
+        const isCompare =
+          typeof message.messageType === "string" &&
+          message.messageType.startsWith("compare:")
+        return {
+          ...message,
+          id: generateID(),
+          history_id: newHistoryId,
+          messageType: isCompare ? undefined : message.messageType,
+          clusterId: isCompare ? undefined : message.clusterId,
+          parent_message_id: null
+        }
+      })
+
+      await db.messages.bulkAdd(newMessages)
+
+      const sessionFiles = await db.sessionFiles.get(history_id)
+
+      if (sessionFiles) {
+        const newSessionFiles = {
+          ...sessionFiles,
+          history_id: newHistoryId
+        }
+        await db.sessionFiles.put(newSessionFiles)
+      }
+
+      return {
+        messages: newMessages,
+        history
+      }
+    }
+  )
+}

@@ -1,0 +1,311 @@
+{
+  "tooltip_embed": {
+    "message": "L'intégration de la page peut prendre quelques minutes. Veuillez patienter..."
+  },
+  "tooltip_clear": {
+    "message": "Effacer l'historique du chat"
+  },
+  "tooltip_history": {
+    "message": "Historique du chat"
+  },
+  "tooltip_openwebui": {
+    "message": "Ouvrir WebUI"
+  },
+  "toolbar_ragSearch": {
+    "message": "RAG Search"
+  },
+  "errors_privateModeTitle": {
+    "message": "tldw Assistant ne peut pas enregistrer les données"
+  },
+  "errors_privateModeDescription": {
+    "message": "Le mode privé de Firefox ne permet pas d’enregistrer l’historique des discussions. Le chat temporaire est activé par défaut. D’autres améliorations arrivent bientôt."
+  },
+  "connectionBanner_connecting": {
+    "message": "Connexion à votre serveur tldw..."
+  },
+  "connectionBanner_authErrorTitle": {
+    "message": "La clé API nécessite une attention"
+  },
+  "connectionBanner_authErrorBody": {
+    "message": "Votre serveur est accessible, mais la clé API est incorrecte ou manquante."
+  },
+  "connectionBanner_unreachableTitle": {
+    "message": "Impossible de joindre votre serveur tldw"
+  },
+  "connectionBanner_unreachableBody": {
+    "message": "Vérifiez que votre serveur est en cours d'exécution et accessible."
+  },
+  "connectionBanner_noUrlBody": {
+    "message": "Ajoutez l'URL du serveur dans les paramètres pour commencer."
+  },
+  "connectionBanner_disconnectedTitle": {
+    "message": "Non connecté au serveur tldw"
+  },
+  "connectionBanner_disconnectedBody": {
+    "message": "Ouvrez les paramètres pour configurer votre connexion au serveur."
+  },
+  "connectionBanner_setupTitle": {
+    "message": "Terminez la configuration pour commencer à discuter"
+  },
+  "connectionBanner_setupBody": {
+    "message": "Terminez l'assistant de configuration dans les paramètres pour vous connecter."
+  },
+  "connectionBanner_openSettings": {
+    "message": "Ouvrir les paramètres"
+  },
+  "temporaryBadge_title": {
+    "message": "Chat temporaire"
+  },
+  "temporaryBadge_label": {
+    "message": "Temp"
+  },
+  "temporaryBadge_description": {
+    "message": "Ce chat ne sera pas enregistré. Les messages seront effacés lorsque vous fermez ou démarrez un nouveau chat."
+  },
+  "temporaryBadge_clickHint": {
+    "message": "Cliquez pour désactiver"
+  },
+  "temporaryBadge_ariaLabel": {
+    "message": "Le mode chat temporaire est actif. Cliquez pour basculer."
+  },
+  "temporaryBadge_indicatorTooltip": {
+    "message": "Les messages de ce chat ne seront pas enregistrés"
+  },
+  "temporaryBadge_indicatorAria": {
+    "message": "Chat temporaire"
+  },
+  "header_ingest": {
+    "message": "Ingest"
+  },
+  "header_saveCurrent": {
+    "message": "Save current page on server"
+  },
+  "header_processLocal": {
+    "message": "Process current page locally"
+  },
+  "header_viewProcessed": {
+    "message": "View processed"
+  },
+  "header_timeoutLabel": {
+    "message": "Timeout (s)"
+  },
+  "header_toggleSidebar": {
+    "message": "Toggle Sidebar / Full Screen"
+  },
+  "header_shortcuts": {
+    "message": "Shortcuts"
+  },
+  "header_showDebug": {
+    "message": "Show Stream Debug"
+  },
+  "header_hideDebug": {
+    "message": "Hide Stream Debug"
+  },
+  "header_moreOptionsAria": {
+    "message": "More options"
+  },
+  "header_moreOptionsTitle": {
+    "message": "Ingest and more"
+  },
+  "header_openWebuiAria": {
+    "message": "Open Web UI"
+  },
+  "header_newChatAria": {
+    "message": "New chat"
+  },
+  "header_tempChatAria": {
+    "message": "Toggle temporary chat"
+  },
+  "header_clearHistoryAria": {
+    "message": "Clear history"
+  },
+  "header_openHistoryAria": {
+    "message": "Open history"
+  },
+  "header_openModelSettingsAria": {
+    "message": "Open model settings"
+  },
+  "header_openSettingsAria": {
+    "message": "Open settings"
+  },
+  "header_tempPill": {
+    "message": "Temp"
+  },
+  "header_modesLabel": {
+    "message": "Open modes in Web UI"
+  },
+  "header_modePlayground": {
+    "message": "Chat"
+  },
+  "header_modeReview": {
+    "message": "Multi-Item Review"
+  },
+  "header_modeMedia": {
+    "message": "Media"
+  },
+  "header_modeKnowledge": {
+    "message": "Knowledge"
+  },
+  "header_modeNotes": {
+    "message": "Notes"
+  },
+  "header_modePrompts": {
+    "message": "Prompts"
+  },
+  "header_modeFlashcards": {
+    "message": "Flashcards"
+  },
+  "controlRow_saveMode": {
+    "message": "Mode d'enregistrement"
+  },
+  "controlRow_ephemeral": {
+    "message": "Éphémère"
+  },
+  "controlRow_searchSection": {
+    "message": "Recherche & Vision"
+  },
+  "controlRow_webSearch": {
+    "message": "Recherche Web"
+  },
+  "controlRow_vision": {
+    "message": "Vision"
+  },
+  "controlRow_uploadImage": {
+    "message": "Téléverser une image"
+  },
+  "controlRow_quickIngest": {
+    "message": "Ingestion rapide"
+  },
+  "controlRow_openInFullUI": {
+    "message": "Ouvrir dans l'interface complète"
+  },
+  "controlRow_modeChat": {
+    "message": "Conversation"
+  },
+  "controlRow_modeMedia": {
+    "message": "Média"
+  },
+  "controlRow_modeNotes": {
+    "message": "Notes"
+  },
+  "controlRow_modeFlashcards": {
+    "message": "Fiches de révision"
+  },
+  "controlRow_ragSearch": {
+    "message": "Recherche RAG"
+  },
+  "controlRow_moreTools": {
+    "message": "Plus d'outils"
+  },
+  "composer_connectHint": {
+    "message": "Connect to your tldw server in Settings to send messages."
+  },
+  "composer_connectingPlaceholder": {
+    "message": "Connecting..."
+  },
+  "composer_disconnectedPlaceholder": {
+    "message": "Connect to your tldw server in Settings to send messages and view media."
+  },
+  "notification_ingestSent": {
+    "message": "Sent to tldw server"
+  },
+  "notification_ingestSentDesc": {
+    "message": "Current page has been submitted for ingestion."
+  },
+  "notification_processedLocal": {
+    "message": "Processed locally"
+  },
+  "notification_processedLocalDesc": {
+    "message": "Processed content stored locally under Settings > Processed."
+  },
+  "notification_transcriptionTitle": {
+    "message": "Transcription"
+  },
+  "notification_transcriptionSummaryTitle": {
+    "message": "Transcription + summary"
+  },
+  "notification_transcriptionFallback": {
+    "message": "Transcription completed. Open Media in the Web UI to view it."
+  },
+  "notification_sourceLabel": {
+    "message": "Source"
+  },
+  "notification_transcriptLabel": {
+    "message": "Transcript"
+  },
+  "notification_summaryLabel": {
+    "message": "Summary"
+  },
+  "saveStatus_ephemeral": {
+    "message": "Temporaire : non enregistré, effacé à la fermeture"
+  },
+  "saveStatus_local": {
+    "message": "Enregistré localement dans ce navigateur"
+  },
+  "saveStatus_server": {
+    "message": "Enregistré sur le serveur"
+  },
+  "saveStatus_saveFailed": {
+    "message": "Impossible d'enregistrer le chat sur le serveur"
+  },
+  "saveStatus_saveFailedDescription": {
+    "message": "Le chat est maintenant enregistré uniquement en local. Vérifiez votre connexion et réessayez."
+  },
+  "rag_searchPlaceholder": {
+    "message": "Search your knowledge…"
+  },
+  "rag_search": {
+    "message": "Search"
+  },
+  "rag_show": {
+    "message": "Show RAG search"
+  },
+  "rag_hide": {
+    "message": "Hide RAG search"
+  },
+  "rag_addTagPlaceholder": {
+    "message": "Add tag (Enter)"
+  },
+  "rag_add": {
+    "message": "Add"
+  },
+  "rag_noResults": {
+    "message": "No results"
+  },
+  "rag_timeout_message": {
+    "message": "Request timed out."
+  },
+  "rag_timeout_increase": {
+    "message": "Increase timeout"
+  },
+  "rag_timeout_checkHealth": {
+    "message": "Check server health"
+  },
+  "rag_actions_insert": {
+    "message": "Insert"
+  },
+  "rag_actions_ask": {
+    "message": "Ask"
+  },
+  "rag_actions_open": {
+    "message": "Open"
+  },
+  "rag_actions_copy": {
+    "message": "Copy"
+  },
+  "rag_hint_message": {
+    "message": "Recherchez dans votre base de connaissances et insérez les résultats dans votre message."
+  },
+  "rag_hint_dismiss": {
+    "message": "Fermer"
+  },
+  "tabs_newChat": {
+    "message": "Nouveau chat"
+  },
+  "tabs_newTabAria": {
+    "message": "Nouvel onglet de chat"
+  },
+  "tabs_closeTabAria": {
+    "message": "Fermer l'onglet de chat"
+  }
+}

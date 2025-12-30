@@ -1,4 +1,3 @@
-import { cleanUrl } from "~/libs/clean-url"
 import { systemPromptForNonRagOption } from "~/services/tldw-server"
 import { type ChatHistory, type Message } from "~/store/option"
 import { getPromptById } from "@/db/dexie/helpers"
@@ -51,7 +50,7 @@ export const continueChatMode = async (
   let promptId: string | undefined = selectedSystemPrompt
   let promptContent: string | undefined = undefined
 
-  const ollama = await pageAssistModel({ model: selectedModel!, baseUrl: "" })
+  const ollama = await pageAssistModel({ model: selectedModel })
 
   let newMessage: Message[] = []
 
@@ -86,12 +85,14 @@ export const continueChatMode = async (
       currentChatModelSettings.systemPrompt?.trim().length > 0
 
     if (!isTempSystemprompt && selectedPrompt) {
+      const selectedPromptContent =
+        selectedPrompt.system_prompt ?? selectedPrompt.content
       applicationChatHistory.unshift(
         await systemPromptFormatter({
-          content: selectedPrompt.content
+          content: selectedPromptContent
         })
       )
-      promptContent = selectedPrompt.content
+      promptContent = selectedPromptContent
     }
 
     if (isTempSystemprompt) {

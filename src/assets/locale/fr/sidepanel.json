@@ -126,5 +126,10 @@
       "message": "Recherchez dans votre base de connaissances et insérez les résultats dans votre message.",
       "dismiss": "Fermer"
     }
+  },
+  "tabs": {
+    "newChat": "Nouveau chat",
+    "newTabAria": "Nouvel onglet de chat",
+    "closeTabAria": "Fermer l'onglet de chat"
   }
 }

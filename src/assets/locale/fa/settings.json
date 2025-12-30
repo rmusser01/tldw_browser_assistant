@@ -6,7 +6,7 @@
     "about": "درباره"
   },
   "healthNav": "سلامت",
-  "worldBooksNav": "World Books",
+  "worldBooksNav": "کتاب‌های جهان",
   "chatDictionariesNav": "واژه‌نامه‌های چت",
   "charactersNav": "شخصیت‌ها",
   "mediaNav": "رسانه",
@@ -63,7 +63,7 @@
         }
       },
       "copilotResumeLastChat": {
-        "label": "آخرین گفتگو را هنگام باز کردن SidePanel (Copilot) از سر بگیر"
+        "label": "آخرین گفتگو را هنگام باز کردن پنل جانبی (کوپایلوت) از سر بگیر"
       },
       "turnOnChatWithWebsite": {
         "label": "فعال کردن گپ با وب سایت به صورت پیش‌فرض (کوپایلوت)"
@@ -102,7 +102,7 @@
         "label": "کپی به عنوان متن قالب‌بندی شده"
       },
       "tabMentionsEnabled": {
-        "label": "فعال‌سازی منشن تب (@tab)"
+        "label": "فعال‌سازی منشن تب (@تب)"
       },
       "pasteLargeTextAsFile": {
         "label": "الصاق متن طولانی به عنوان فایل"
@@ -111,22 +111,22 @@
         "label": "فعال کردن چت موقت در پنل جانبی به صورت پیش‌فرض"
       },
       "webUIResumeLastChat": {
-        "label": "Resume the last chat when opening the Web UI"
+        "label": "هنگام باز کردن رابط وب، آخرین گفتگو را ادامه بده"
       },
       "enableOcrAssets": {
-        "label": "فعال‌سازی OCR (دانلود حدود ۵ مگابایت در اولین استفاده)",
-        "downloadNotice": "با فعال کردن OCR، در اولین استفاده حدود ۵ مگابایت دادهٔ زبان دانلود می‌شود.",
-        "assetsEnabled": "دارایی‌های OCR فعال شده و آماده‌اند"
+        "label": "فعال‌سازی تشخیص نوری نویسه‌ها (دانلود حدود ۵ مگابایت در اولین استفاده)",
+        "downloadNotice": "با فعال کردن تشخیص نوری نویسه‌ها، در اولین استفاده حدود ۵ مگابایت دادهٔ زبان دانلود می‌شود.",
+        "assetsEnabled": "دارایی‌های تشخیص نوری نویسه‌ها فعال شده و آماده‌اند"
       },
       "ocrLanguage": {
-        "label": "Default OCR Language",
-        "placeholder": "Select an OCR language"
+        "label": "زبان پیش‌فرض تشخیص نوری نویسه‌ها",
+        "placeholder": "یک زبان تشخیص نوری نویسه‌ها را انتخاب کنید"
       },
       "removeReasoningTagFromCopy": {
-        "label": "Remove Reasoning Tag from Copied Text"
+        "label": "حذف برچسب استدلال از متن کپی‌شده"
       },
       "promptSearchIncludeServer": {
-        "label": "Include server prompts in prompt search"
+        "label": "پرامپت‌های سرور را در جستجوی پرامپت‌ها لحاظ کن"
       },
       "restartOnboarding": {
         "label": "شروع دوباره فرایند راه‌اندازی از ابتدا",
@@ -134,7 +134,7 @@
         "confirmTitle": "شروع دوباره راه‌اندازی؟",
         "confirmMessage": "با این کار وضعیت راه‌اندازی شما بازنشانی می‌شود و دوباره به جریان تنظیمات اولیه برمی‌گردید.",
         "toast": "فرایند راه‌اندازی بازنشانی شد",
-        "toastBody": "شما را به مرحله خوش‌آمدگویی برمی‌گردانیم تا بتوانید URL سرور و کلید API خود را بازبینی کنید."
+        "toastBody": "شما را به مرحله خوش‌آمدگویی برمی‌گردانیم تا بتوانید نشانی سرور و کلید رابط برنامه‌نویسی خود را بازبینی کنید."
       }
     },
     "sidepanelRag": {
@@ -165,30 +165,30 @@
       },
       "searxng": {
         "url": {
-          "label": "آدرس SearXNG"
+          "label": "آدرس سیرایکس‌اِن‌جی"
         }
       },
       "braveApi": {
-        "label": "کلید API بریو",
-        "placeholder": "کلید API بریو خود را وارد کنید"
+        "label": "کلید رابط برنامه‌نویسی بریو",
+        "placeholder": "کلید رابط برنامه‌نویسی بریو خود را وارد کنید"
       },
       "searchOnByDefault": {
         "label": "جستجوی اینترنتی به صورت پیش‌فرض فعال باشد"
       },
       "tavilyApi": {
-        "label": "Tavily API Key ",
-        "placeholder": "Enter your Tavily API key"
+        "label": "کلید رابط برنامه‌نویسی تاویلی",
+        "placeholder": "کلید رابط برنامه‌نویسی تاویلی خود را وارد کنید"
       },
       "exa": {
-        "label": "Exa API Key",
-        "placeholder": "Enter your Exa API key"
+        "label": "کلید رابط برنامه‌نویسی اِکسا",
+        "placeholder": "کلید رابط برنامه‌نویسی اِکسا خود را وارد کنید"
       },
       "googleDomain": {
-        "label": "Google Domain"
+        "label": "دامنه گوگل"
       },
       "firecrawlAPIKey": {
-        "label": "Firecrawl API Key",
-        "placeholder": "Enter your Firecrawl API key"
+        "label": "کلید رابط برنامه‌نویسی فایرکراول",
+        "placeholder": "کلید رابط برنامه‌نویسی فایرکراول خود را وارد کنید"
       }
     },
     "system": {
@@ -234,13 +234,13 @@
         "placeholder": "صدا را انتخاب کنید"
       },
       "ssmlEnabled": {
-        "label": "فعال کردن SSML (Speech Synthesis Markup Language)"
+        "label": "فعال کردن اس‌اِس‌اِم‌اِل (زبان نشانه‌گذاری تبدیل متن به گفتار)"
       },
       "removeReasoningTagTTS": {
         "label": "حذف برچسب استدلال از تبدیل متن به گفتار"
       },
       "responseSplitting": {
-        "label": "Response Splitting"
+        "label": "تقسیم پاسخ"
       }
     },
     "stt": {
@@ -252,117 +252,117 @@
       "autoSubmitVoiceMessage": {
         "label": "ارسال خودکار پیام صوتی"
       },
-      "usedByChat": "These Speech-to-Text defaults are used by the chat dictation button in the Playground and Sidebar.",
+      "usedByChat": "این پیش‌فرض‌های گفتار به متن توسط دکمه دیکته در پلی‌گراند و نوار کناری استفاده می‌شوند.",
       "model": {
-        "label": "Transcription model (tldw_server)"
+        "label": "مدل رونویسی (سرور تی‌ال‌دی‌دبلیو)"
       },
       "useSegmentation": {
-        "label": "Run segmentation for transcripts (TreeSeg)"
+        "label": "اجرای بخش‌بندی برای رونوشت‌ها (تری‌سگ)"
       },
       "timestampGranularities": {
-        "label": "Timestamp granularity",
-        "segment": "Per segment",
-        "word": "Per word",
-        "segmentWord": "Segment + word"
+        "label": "دقت زمانی",
+        "segment": "به‌ازای هر بخش",
+        "word": "به‌ازای هر واژه",
+        "segmentWord": "بخش + واژه"
       },
       "task": {
-        "label": "Transcription task",
-        "transcribe": "Transcribe (same language)",
-        "translate": "Translate to English"
+        "label": "وظیفه رونویسی",
+        "transcribe": "رونویسی (همان زبان)",
+        "translate": "ترجمه به انگلیسی"
       },
       "responseFormat": {
-        "label": "Response format",
-        "json": "JSON (text + segments)",
-        "verboseJson": "Verbose JSON",
-        "text": "Plain text",
-        "srt": "SRT subtitles",
-        "vtt": "VTT subtitles"
+        "label": "قالب پاسخ",
+        "json": "جیسون (متن + بخش‌ها)",
+        "verboseJson": "جیسون مفصل",
+        "text": "متن ساده",
+        "srt": "زیرنویس اس‌آر‌تی",
+        "vtt": "زیرنویس وی‌تی‌تی"
       },
       "temperature": {
-        "label": "Sampling temperature"
+        "label": "دمای نمونه‌گیری"
       },
       "prompt": {
-        "label": "Default transcription prompt",
-        "placeholder": "Optional text to guide style"
+        "label": "پرامپت پیش‌فرض رونویسی",
+        "placeholder": "متن اختیاری برای هدایت سبک"
       },
       "segK": {
-        "label": "Max segments (TreeSeg K)"
+        "label": "حداکثر بخش‌ها (تری‌سگ کِی)"
       },
       "segMinSegmentSize": {
-        "label": "Minimum items per segment"
+        "label": "حداقل موارد در هر بخش"
       },
       "segLambdaBalance": {
-        "label": "Balance penalty (TreeSeg λ)"
+        "label": "جریمه توازن (تری‌سگ لامبدا)"
       },
       "segUtteranceExpansionWidth": {
-        "label": "Utterance expansion width"
+        "label": "پهنای گسترش گفتار"
       },
       "segEmbeddingsProvider": {
-        "label": "Segmentation embeddings provider"
+        "label": "ارائه‌دهنده امبدینگ بخش‌بندی"
       },
       "segEmbeddingsModel": {
-        "label": "Segmentation embeddings model"
+        "label": "مدل امبدینگ بخش‌بندی"
       }
     },
     "systemBasics": {
-      "heading": "System",
+      "heading": "سیستم",
       "uiMode": {
-        "label": "Default UI Mode",
+        "label": "حالت پیش‌فرض رابط کاربری",
         "options": {
-          "webui": "Full Screen (Web UI)",
-          "sidePanel": "Sidebar"
+          "webui": "تمام‌صفحه (رابط وب)",
+          "sidePanel": "نوار کناری"
         }
       },
       "actionIcon": {
-        "label": "Browser Action Button"
+        "label": "دکمه اقدام مرورگر"
       },
       "contextMenu": {
-        "label": "Context Menu Action"
+        "label": "اقدام منوی زمینه"
       },
       "webuiBtnSidePanel": {
-        "label": "Show Web UI button in Sidebar"
+        "label": "نمایش دکمه رابط وب در نوار کناری"
       },
       "chatBackgroundImage": {
-        "label": "Chat Background Image"
+        "label": "تصویر پس‌زمینه چت"
       },
       "fontSize": {
-        "label": "Font Size"
+        "label": "اندازه فونت"
       }
     },
     "systemData": {
-      "heading": "Data",
+      "heading": "داده‌ها",
       "firefoxPrivateModeSync": {
-        "label": "Firefox Private Mode Sync",
-        "button": "Sync Data"
+        "label": "همگام‌سازی حالت خصوصی فایرفاکس",
+        "button": "همگام‌سازی داده‌ها"
       },
       "deleteChatHistory": {
-        "label": "System Reset",
-        "button": "Reset All",
-        "confirm": "Are you sure you want to perform a system reset? This will clear all data and cannot be undone."
+        "label": "بازنشانی سیستم",
+        "button": "بازنشانی همه",
+        "confirm": "آیا مطمئن هستید می‌خواهید بازنشانی سیستم را انجام دهید؟ همه داده‌ها پاک می‌شود و قابل بازگشت نیست."
       },
       "export": {
-        "label": "Export Chat History, Knowledge Base, and Prompts",
-        "button": "Export Data",
-        "success": "Export Success"
+        "label": "برون‌ریزی تاریخچه گفتگو، پایگاه دانش و پرامپت‌ها",
+        "button": "برون‌ریزی داده‌ها",
+        "success": "برون‌ریزی موفق"
       },
       "import": {
-        "label": "Import Chat History, Knowledge Base, and Prompts",
-        "button": "Import Data",
-        "success": "Import Success",
-        "error": "Import Error"
+        "label": "درون‌ریزی تاریخچه گفتگو، پایگاه دانش و پرامپت‌ها",
+        "button": "درون‌ریزی داده‌ها",
+        "success": "درون‌ریزی موفق",
+        "error": "خطای درون‌ریزی"
       }
     },
     "empty": {
-      "connectTitle": "Connect tldw Assistant to your server",
-      "connectDescription": "Some settings only take effect when your tldw server is reachable. Connect your server to get the full experience.",
-      "connectExample1": "Open Settings → tldw server to add your server URL and API key.",
-      "connectExample2": "Use Diagnostics to confirm your server is healthy before trying advanced tools.",
-      "title": "Tune how tldw Assistant behaves",
-      "description": "Adjust defaults for the Web UI, sidepanel, speech, search, and data handling from one place.",
-      "example1": "Choose your default language, theme, and chat resume behavior.",
-      "example2": "Control whether chats are temporary, how large pastes are handled, and how reasoning is displayed.",
-      "primaryCta": "Configure server & auth",
-      "secondaryCta": "Dismiss"
+      "connectTitle": "دستیار تی‌ال‌دی‌دبلیو را به سرور خود متصل کنید",
+      "connectDescription": "برخی تنظیمات فقط زمانی اثر می‌گذارند که سرور تی‌ال‌دی‌دبلیو شما در دسترس باشد. برای تجربه کامل سرور خود را متصل کنید.",
+      "connectExample1": "برای افزودن نشانی سرور و کلید رابط برنامه‌نویسی، «تنظیمات → سرور تی‌ال‌دی‌دبلیو» را باز کنید.",
+      "connectExample2": "پیش از استفاده از ابزارهای پیشرفته، با عیب‌یابی سلامت سرور را تأیید کنید.",
+      "title": "نحوه رفتار دستیار تی‌ال‌دی‌دبلیو را تنظیم کنید",
+      "description": "پیش‌فرض‌های رابط وب، نوار کناری، گفتار، جستجو و مدیریت داده‌ها را از یکجا تنظیم کنید.",
+      "example1": "زبان پیش‌فرض، تم و رفتار ادامه گفتگو را انتخاب کنید.",
+      "example2": "کنترل کنید گفتگوها موقت باشند یا نه، چسباندن متن‌های بزرگ چگونه مدیریت شود و استدلال چگونه نمایش داده شود.",
+      "primaryCta": "پیکربندی سرور و احراز هویت",
+      "secondaryCta": "بستن"
     }
   },
   "manageModels": {
@@ -383,7 +383,7 @@
       "parameterSize": "اندازه پارامترها",
       "quantizationLevel": "سطح کوانتیزاسیون"
     },
-      "tooltip": {
+    "tooltip": {
       "delete": "حذف مدل",
       "repull": "دریافت دوباره مدل",
       "editNickname": "ویرایش نام مستعار"
@@ -405,15 +405,15 @@
       "successDescription": "مدل با موفقیت دریافت شد",
       "successDeleteDescription": "مدل با موفقیت حذف شد",
       "someError": "مشکلی پیش آمد. لطفا بعدا دوباره امتحان کنید",
-      "cancellingDownload": "Cancelling Download",
-      "cancellingDownloadDescription": "Model download is being cancelled..."
+      "cancellingDownload": "در حال لغو دانلود",
+      "cancellingDownloadDescription": "دانلود مدل در حال لغو است..."
     }
   },
   "managePrompts": {
     "title": "مدیریت پرامپت‌ها",
     "addBtn": "اضافه کردن پرامپت جدید",
     "option1": "عادی",
-    "option2": "RAG",
+    "option2": "بازیابی تقویت‌شده",
     "questionPrompt": "سوال پرامپت",
     "columns": {
       "title": "عنولن",
@@ -424,15 +424,15 @@
     "segmented": {
       "custom": "پرامپت‌های سفارشی",
       "copilot": "پرامپت‌های کوپایلوت",
-      "helpCustom": "Create and manage reusable prompts you can insert into chat.",
-      "helpCopilot": "View and tweak predefined Copilot prompts provided by your server."
+      "helpCustom": "پرامپت‌های قابل استفاده مجددی بسازید و مدیریت کنید که می‌توانید در چت درج کنید.",
+      "helpCopilot": "پرامپت‌های کوپایلوت از پیش تعریف‌شدهٔ سرورتان را ببینید و تنظیم کنید."
     },
     "systemPrompt": "پرامپت سیستم ",
     "quickPrompt": "پرامپت سریع",
     "tooltip": {
       "delete": "پاک کردن پرامپت",
       "edit": "ویرایش پرامپت",
-      "duplicate": "Duplicate Prompt"
+      "duplicate": "تکثیر پرامپت"
     },
     "confirm": {
       "delete": "آیا مطمئن هستید که می خواهید این پرامپت را حذف کنید؟ این عمل قابل برگشت نیست."
@@ -452,7 +452,7 @@
         "placeholder": "پرامپت وارد کنید",
         "required": "لطفا یک پرامپت وارد کنید",
         "help": "می توانید از {key} به عنوان متغیر در درخواست خود استفاده کنید.",
-        "missingTextPlaceholder": "The {text} variable is missing in the prompt. Please add it."
+        "missingTextPlaceholder": "متغیر {text} در پرامپت وجود ندارد. لطفاً آن را اضافه کنید."
       },
       "isSystem": {
         "label": "یک پرامپت سیستمی باشد"
@@ -476,61 +476,62 @@
       "deletedSuccess": "پرامپت حذف شد",
       "deletedSuccessDesc": "پرامپت با موفقیت حذف شد"
     },
-    "workspaceTitle": "Prompts workspace",
-    "workspaceDescription": "Reusable prompts are managed from the Prompts workspace. Use the button below to open it.",
-    "openWorkspace": "Open Prompts workspace",
-    "search": "Search titles and contents",
+    "workspaceTitle": "فضای کار پرامپت‌ها",
+    "workspaceDescription": "پرامپت‌های قابل استفاده مجدد از فضای کار پرامپت‌ها مدیریت می‌شوند. از دکمه زیر برای باز کردن آن استفاده کنید.",
+    "openWorkspace": "باز کردن فضای کار پرامپت‌ها",
+    "search": "جستجوی عنوان‌ها و محتوا",
     "filter": {
-      "all": "All",
-      "system": "System",
-      "quick": "Quick"
+      "all": "همه",
+      "system": "سیستم",
+      "quick": "سریع"
     },
     "tags": {
-      "label": "Tags",
-      "placeholder": "Add tags"
+      "label": "برچسب‌ها",
+      "placeholder": "افزودن برچسب"
     },
-    "import": "Import",
-    "export": "Export",
+    "import": "درون‌ریزی",
+    "export": "برون‌ریزی",
     "importMode": {
-      "merge": "Merge",
-      "replace": "Replace"
+      "merge": "ادغام",
+      "replace": "جایگزینی",
+      "replaceConfirm": "جایگزینی همه پرامپت‌های فعلی را با فایل واردشده بازنویسی می‌کند. ادامه می‌دهید؟"
     },
-    "favorite": "Favorite",
-    "unfavorite": "Unfavorite",
-    "partialLoad": "Some prompt data isn’t available",
-    "loadErrorHelp": "Check your server connection and refresh to try again.",
-    "emptyConnectTitle": "Connect to use Prompts",
-    "emptyConnectDescription": "To manage reusable prompts, first connect to your tldw server.",
-    "emptyConnectExample1": "Open Settings → tldw server to add your server URL.",
-    "emptyConnectExample2": "Once connected, create custom prompts you can reuse across chats.",
-    "emptyTitle": "No custom prompts yet",
-    "emptyDescription": "Create reusable prompts for recurring tasks, workflows, and team conventions.",
-    "emptyExample1": "Save your favorite system prompt for summaries, explanations, or translations.",
-    "emptyExample2": "Create quick prompts for common actions like drafting emails or refining notes.",
-    "emptyPrimaryCta": "Create prompt",
-    "filterHelp": "Search matches title and prompt content. Use type and tags to narrow the list.",
-    "copilotEmptyTitle": "No Copilot prompts available",
-    "copilotEmptyDescription": "Copilot prompts are predefined templates provided by your tldw server.",
-    "copilotEmptyExample1": "Check your server version or configuration if you expect Copilot prompts to be available.",
-    "copilotEmptyExample2": "After updating your server, reload the extension and return to this tab.",
-    "copilotEmptyCta": "Open Diagnostics"
+    "favorite": "علاقه‌مندی",
+    "unfavorite": "حذف از علاقه‌مندی‌ها",
+    "partialLoad": "برخی داده‌های پرامپت در دسترس نیست",
+    "loadErrorHelp": "اتصال سرور را بررسی کنید و برای تلاش دوباره صفحه را تازه کنید.",
+    "emptyConnectTitle": "برای استفاده از پرامپت‌ها وصل شوید",
+    "emptyConnectDescription": "برای مدیریت پرامپت‌های قابل استفاده مجدد، ابتدا به سرور تی‌ال‌دی‌دبلیو خود متصل شوید.",
+    "emptyConnectExample1": "برای افزودن نشانی سرور خود، «تنظیمات → سرور تی‌ال‌دی‌دبلیو» را باز کنید.",
+    "emptyConnectExample2": "پس از اتصال، پرامپت‌های سفارشی بسازید که بتوانید در گفتگوها دوباره استفاده کنید.",
+    "emptyTitle": "هنوز پرامپت سفارشی وجود ندارد",
+    "emptyDescription": "برای کارهای تکراری، جریان‌های کاری و قراردادهای تیمی، پرامپت‌های قابل استفاده مجدد بسازید.",
+    "emptyExample1": "پرامپت سیستم محبوب خود را برای خلاصه‌سازی، توضیح یا ترجمه ذخیره کنید.",
+    "emptyExample2": "پرامپت‌های سریع برای کارهای رایج مانند پیش‌نویس ایمیل یا بهبود یادداشت‌ها بسازید.",
+    "emptyPrimaryCta": "ایجاد پرامپت",
+    "filterHelp": "جستجو عنوان و محتوای پرامپت را تطبیق می‌دهد. برای محدود کردن فهرست از نوع و برچسب‌ها استفاده کنید.",
+    "copilotEmptyTitle": "هیچ پرامپت کوپایلوتی در دسترس نیست",
+    "copilotEmptyDescription": "پرامپت‌های کوپایلوت قالب‌های از پیش تعریف‌شده‌ای هستند که توسط سرور تی‌ال‌دی‌دبلیو شما ارائه می‌شوند.",
+    "copilotEmptyExample1": "اگر انتظار دارید پرامپت‌های کوپایلوت در دسترس باشند، نسخه یا پیکربندی سرور را بررسی کنید.",
+    "copilotEmptyExample2": "پس از به‌روزرسانی سرور، افزونه را دوباره بارگذاری کنید و به این تب بازگردید.",
+    "copilotEmptyCta": "باز کردن عیب‌یابی"
   },
   "manageShare": {
     "title": "مدیریت اشتراک گذاری",
-    "heading": "پیکربندی URL اشتراک گذاری صفحه",
+    "heading": "پیکربندی نشانی اشتراک گذاری صفحه",
     "form": {
       "url": {
-        "label": "آدرس اشتراک گذاری صفحه",
-        "placeholder": "URL اشتراک گذاری صفحه را وارد کنید",
-        "required": "لطفا URL اشتراک گذاری صفحه خود را وارد کنید!",
-        "help": "به دلایل حفظ حریم خصوصی، می توانید اشتراک گذاری صفحه را خودتان میزبانی کنید و URL را در اینجا ارائه دهید. <anchor>بیشتر بدانید</anchor>."
+        "label": "نشانی اشتراک گذاری صفحه",
+        "placeholder": "نشانی اشتراک گذاری صفحه را وارد کنید",
+        "required": "لطفا نشانی اشتراک گذاری صفحه خود را وارد کنید!",
+        "help": "به دلایل حفظ حریم خصوصی، می توانید اشتراک گذاری صفحه را خودتان میزبانی کنید و نشانی را در اینجا ارائه دهید. <anchor>بیشتر بدانید</anchor>."
       }
     },
     "webshare": {
       "heading": "اشتراک گذاری وب",
       "columns": {
         "title": "عنوان",
-        "url": "URL",
+        "url": "نشانی",
         "actions": "اقدامات"
       },
       "tooltip": {
@@ -543,7 +544,7 @@
       "description": "ویژگی اشتراک گذاری صفحه را فعال یا غیرفعال کنید"
     },
     "notification": {
-      "pageShareSuccess": "URL اشتراک گذاری صفحه با موفقیت به روز شد",
+      "pageShareSuccess": "نشانی اشتراک گذاری صفحه با موفقیت به روز شد",
       "someError": "مشکلی پیش آمد. لطفا بعدا دوباره امتحان کنید",
       "webShareDeleteSuccess": "اشتراک گذاری وب با موفقیت حذف شد"
     }
@@ -554,37 +555,37 @@
     "settings": {
       "ollamaUrl": {
         "label": "آدرس سرور",
-        "placeholder": "آدرس URL سرور را وارد کنید"
+        "placeholder": "نشانی سرور را وارد کنید"
       },
       "globalEnable": {
         "label": "فعال یا غیرفعال کردن یکپارچه‌سازی سرور به صورت سراسری",
-        "warning": "با غیرفعال کردن یکپارچه‌سازی سرور، tldw Browser_Assistant مدل‌ها را از سرور دریافت نخواهد کرد. همچنان می‌توانید ارائه‌دهندگان را از بخش <anchor>API سازگار با OpenAI</anchor> اضافه کنید."
+        "warning": "با غیرفعال کردن یکپارچه‌سازی سرور، دستیار مرورگر تی‌ال‌دی‌دبلیو مدل‌ها را از سرور دریافت نخواهد کرد. همچنان می‌توانید ارائه‌دهندگان را از بخش <anchor>رابط سازگار با اوپن‌ای‌آی</anchor> اضافه کنید."
       },
       "advanced": {
-        "label": "پیکربندی پیشرفته URL سرور",
+        "label": "پیکربندی پیشرفته نشانی سرور",
         "urlRewriteEnabled": {
-          "label": "URL مبدا سفارشی را فعال یا غیرفعال کنید"
+          "label": "نشانی مبدأ سفارشی را فعال یا غیرفعال کنید"
         },
         "rewriteUrl": {
-          "label": "URL مبدا سفارشی",
-          "placeholder": "URL مبدا سفارشی را وارد کنید"
+          "label": "نشانی مبدأ سفارشی",
+          "placeholder": "نشانی مبدأ سفارشی را وارد کنید"
         },
         "autoCORSFix": {
-          "label": "فعال یا غیرفعال کردن رفع خودکار CORS"
+          "label": "فعال یا غیرفعال کردن رفع خودکار سیاست مبدأ متقاطع"
         },
         "headers": {
-          "label": "هدرهای سفارشی",
-          "add": "افزودن هدر",
+          "label": "سرآیندهای سفارشی",
+          "add": "افزودن سرآیند",
           "key": {
-            "label": "کلید هدر",
-            "placeholder": "Authorization"
+            "label": "کلید سرآیند",
+            "placeholder": "اتورایزیشن"
           },
           "value": {
-            "label": "مقدار هدر",
-            "placeholder": "Bearer token"
+            "label": "مقدار سرآیند",
+            "placeholder": "توکن حامل"
           }
         },
-        "help": "اگر با اتصال به سرور مشکل دارید، می‌توانید یک URL مبدأ سفارشی پیکربندی کنید. برای اطلاعات بیشتر، <anchor>اینجا کلیک کنید</anchor>."
+        "help": "اگر با اتصال به سرور مشکل دارید، می‌توانید یک نشانی مبدأ سفارشی پیکربندی کنید. برای اطلاعات بیشتر، <anchor>اینجا کلیک کنید</anchor>."
       }
     }
   },
@@ -597,23 +598,23 @@
     "heading": "درباره",
     "chromeVersion": "نسخه دستیار صفحه",
     "ollamaVersion": "نسخه سرور",
-    "support": "شما می‌توانید با کمک مالی یا حمایت مالی از طریق پلتفرم‌های زیر از پروژه tldw Browser_Assistant حمایت کنید:",
-    "koFi": "پشتیبانی در Ko-fi",
-    "githubSponsor": "حمایت مالی در GitHub",
-    "githubRepo": "مخزن GitHub"
+    "support": "شما می‌توانید با کمک مالی یا حمایت مالی از طریق پلتفرم‌های زیر از پروژه دستیار مرورگر تی‌ال‌دی‌دبلیو حمایت کنید:",
+    "koFi": "پشتیبانی در کو-فای",
+    "githubSponsor": "حمایت مالی در گیت‌هاب",
+    "githubRepo": "مخزن گیت‌هاب"
   },
   "switchToSidebar": "رفتن به نوار کناری",
   "healthPage": {
     "title": "وضعیت سلامت",
     "subtitle": "نمای کلی سریع از نقاط سلامتی زیرسامانه‌هایی که سرور ارائه می‌کند.",
     "backToChat": "بازگشت به چت",
-    "openSettings": "باز کردن تنظیمات tldw",
+    "openSettings": "باز کردن تنظیمات تی‌ال‌دی‌دبلیو",
     "recheckAll": "بررسی مجدد همه",
     "copyDiagnostics": "کپی تشخیص‌ها",
     "serverNotConfigured": "سرور پیکربندی نشده است.",
     "unableToReachCore": "دسترسی به نقطه سلامت اصلی سرور ممکن نیست.",
-    "triedGet": "تلاش شد GET {{url}}",
-    "configureHint": "لطفاً آدرس سرور را در تنظیمات tldw پیکربندی کنید.",
+    "triedGet": "تلاش شد دریافت {{url}}",
+    "configureHint": "لطفاً آدرس سرور را در تنظیمات تی‌ال‌دی‌دبلیو پیکربندی کنید.",
     "configureCta": "پیکربندی",
     "connectedTo": "متصل به {{host}}",
     "autoRefresh": "نوسازی خودکار",
@@ -624,13 +625,13 @@
     "unhealthy": "ناسالم",
     "unknown": "نامشخص",
     "checks": {
-      "core": "API اصلی",
-      "rag": "RAG",
+      "core": "رابط اصلی",
+      "rag": "بازیابی تقویت‌شده",
       "audio": "صوت",
       "embeddings": "جاسازی‌ها",
-      "metrics": "سلامت متریک‌ها",
-      "chatMetrics": "متریک‌های چت",
-      "mcp": "MCP",
+      "metrics": "سلامت معیارها",
+      "chatMetrics": "معیارهای چت",
+      "mcp": "ام‌سی‌پی",
       "coreDocsUrl": "https://github.com/rmusser01/tldw_browser_assistant",
       "ragDocsUrl": "https://github.com/rmusser01/tldw_browser_assistant",
       "audioDocsUrl": "https://github.com/rmusser01/tldw_browser_assistant",
@@ -639,23 +640,23 @@
       "chatMetricsDocsUrl": "https://github.com/rmusser01/tldw_browser_assistant",
       "mcpDocsUrl": "https://github.com/rmusser01/tldw_browser_assistant"
     },
-    "copyDiagnosticsHelp": "Copies JSON diagnostics to clipboard",
-    "statusHealthy": "Healthy",
-    "statusUnhealthy": "Unhealthy",
-    "statusUnknown": "Unknown",
-    "updatedJustNow": "Updated just now",
-    "updatedSecondsAgo": "Updated {{seconds}}s ago"
+    "copyDiagnosticsHelp": "تشخیص‌های جیسون را در کلیپ‌بورد کپی می‌کند",
+    "statusHealthy": "سالم",
+    "statusUnhealthy": "ناسالم",
+    "statusUnknown": "نامشخص",
+    "updatedJustNow": "همین الآن به‌روزرسانی شد",
+    "updatedSecondsAgo": "{{seconds}} ثانیه پیش به‌روزرسانی شد"
   },
-  "savedSuccessfully": "Settings saved",
-  "saveFailed": "Failed to save settings",
-  "siteAccessGranted": "Host permission granted for {{origin}}",
+  "savedSuccessfully": "تنظیمات ذخیره شد",
+  "saveFailed": "ذخیره تنظیمات ناموفق بود",
+  "siteAccessGranted": "دسترسی میزبان برای {{origin}} اعطا شد",
   "tldw": {
     "advancedTimeouts": "مهلت‌های پیشرفته",
     "requestTimeout": "مهلت درخواست (ثانیه)",
     "streamingIdle": "مهلت بی‌کاری استریم (ثانیه)",
     "chatRequest": "مهلت درخواست چت",
     "chatStreamIdle": "مهلت بی‌کاری استریم چت",
-    "ragRequest": "مهلت درخواست RAG",
+    "ragRequest": "مهلت درخواست بازیابی تقویت‌شده",
     "mediaRequest": "مهلت درخواست رسانه",
     "uploadRequest": "مهلت درخواست بارگذاری",
     "timeoutPresetLabel": "پروفایل مهلت",
@@ -665,8 +666,8 @@
     "timeoutPresetHint": "پروفایل متعادل برای بیشتر تنظیمات مناسب است. افزایش‌یافته برای شبکه‌های کند یا کارهای طولانی حاشیه بیشتری می‌دهد.",
     "reset": "بازنشانی به پیشنهادشده",
     "resetDone": "به مقادیر پیشنهادی بازنشانی شد",
-    "serverNav": "سرور tldw",
-    "serverConfigTitle": "پیکربندی سرور tldw",
+    "serverNav": "سرور تی‌ال‌دی‌دبلیو",
+    "serverConfigTitle": "پیکربندی سرور تی‌ال‌دی‌دبلیو",
     "serverLabel": "سرور:",
     "notConfigured": "پیکربندی نشده",
     "buttons": {
@@ -679,25 +680,25 @@
     },
     "loginRequired": {
       "title": "نیاز به ورود",
-      "description": "لطفاً با اطلاعات کاربری tldw_server وارد شوید"
+      "description": "لطفاً با اطلاعات کاربری سرور تی‌ال‌دی‌دبلیو وارد شوید"
     },
     "loggedIn": {
       "title": "وارد شده‌اید",
-      "description": "در حال حاضر به tldw_server وارد هستید"
+      "description": "در حال حاضر به سرور تی‌ال‌دی‌دبلیو وارد هستید"
     },
     "connection": {
       "success": "اتصال با موفقیت برقرار شد!",
       "failed": "اتصال ناموفق بود. لطفاً تنظیمات را بررسی کنید.",
-      "failedDetailed": "اتصال برقرار نشد. لطفاً URL سرور و کلید API را بررسی کنید."
+      "failedDetailed": "اتصال برقرار نشد. لطفاً نشانی سرور و کلید رابط برنامه‌نویسی را بررسی کنید."
     },
     "authMode": {
       "label": "حالت احراز هویت",
-      "single": "کاربر تکی (کلید API)",
+      "single": "کاربر تکی (کلید رابط برنامه‌نویسی)",
       "multi": "چندکاربره (ورود)"
     },
     "hints": {
-      "requestTimeout": "اگر در این زمان پاسخی دریافت نشد، درخواست‌های اولیه متوقف می‌شود. پیش‌فرض: {{seconds}}s.",
-      "streamingIdle": "اگر در این مدت به‌روزرسانی دریافت نشود، استریم قطع می‌شود. پیش‌فرض: {{seconds}}s."
+      "requestTimeout": "اگر در این زمان پاسخی دریافت نشد، درخواست‌های اولیه متوقف می‌شود. پیش‌فرض: {{seconds}} ثانیه.",
+      "streamingIdle": "اگر در این مدت به‌روزرسانی دریافت نشود، استریم قطع می‌شود. پیش‌فرض: {{seconds}} ثانیه."
     },
     "login": {
       "success": "ورود موفقیت‌آمیز بود!",
@@ -708,13 +709,13 @@
       "failed": "خروج ناموفق بود"
     },
     "setupLink": "راه‌اندازی سرور",
-    "loadError": "بارگذاری تنظیمات سرور tldw ممکن نشد. اتصال خود را بررسی و دوباره تلاش کنید.",
+    "loadError": "بارگذاری تنظیمات سرور تی‌ال‌دی‌دبلیو ممکن نشد. اتصال خود را بررسی و دوباره تلاش کنید.",
     "fields": {
       "apiKey": {
-        "label": "کلید API",
-        "placeholder": "کلید API خود را وارد کنید",
-        "required": "لطفاً کلید API خود را وارد کنید",
-        "extra": "کلید API tldw_server شما برای احراز هویت"
+        "label": "کلید رابط برنامه‌نویسی",
+        "placeholder": "کلید رابط برنامه‌نویسی خود را وارد کنید",
+        "required": "لطفاً کلید رابط برنامه‌نویسی خود را وارد کنید",
+        "extra": "کلید رابط برنامه‌نویسی سرور تی‌ال‌دی‌دبلیو شما برای احراز هویت"
       },
       "username": {
         "label": "نام کاربری",
@@ -731,21 +732,21 @@
         "placeholder": "http://localhost:8000",
         "required": "لطفاً آدرس سرور را وارد کنید",
         "invalid": "لطفاً یک آدرس معتبر وارد کنید",
-        "extra": "آدرس نمونه tldw_server شما (مثلاً http://localhost:8000)"
+        "extra": "آدرس نمونه سرور تی‌ال‌دی‌دبلیو شما (مثلاً http://localhost:8000)"
       }
     },
     "errors": {
-      "invalidApiKey": "کلید API نامعتبر است",
+      "invalidApiKey": "کلید رابط برنامه‌نویسی نامعتبر است",
       "forbidden": "ممنوع (مجوزها را بررسی کنید)",
-      "apiKeyValidationFailed": "اعتبارسنجی کلید API ناموفق بود",
+      "apiKeyValidationFailed": "اعتبارسنجی کلید رابط برنامه‌نویسی ناموفق بود",
       "serverUnreachable": "سرور در دسترس نیست"
     },
     "about": {
-      "title": "درباره یکپارچه‌سازی tldw_server",
-      "description": "این افزونه به نمونه tldw_server شما متصل می‌شود و دسترسی به موارد زیر را فراهم می‌کند:",
+      "title": "درباره یکپارچه‌سازی سرور تی‌ال‌دی‌دبلیو",
+      "description": "این افزونه به نمونه سرور تی‌ال‌دی‌دبلیو شما متصل می‌شود و دسترسی به موارد زیر را فراهم می‌کند:",
       "points": {
-        "providers": "چندین ارائه‌دهنده LLM از طریق یک API یکپارچه",
-        "rag": "جستجوی RAG (بازیابی تقویت‌شده)",
+        "providers": "چندین ارائه‌دهنده مدل زبانی بزرگ از طریق یک رابط یکپارچه",
+        "rag": "جستجوی بازیابی تقویت‌شده",
         "media": "دریافت و پردازش رسانه",
         "notes": "مدیریت یادداشت‌ها و پرامپت‌ها",
         "stt": "تبدیل گفتار به متن"
@@ -753,26 +754,26 @@
     }
   },
   "manageKnowledge": {
-    "title": "Knowledge QA",
-    "heading": "Knowledge QA",
-    "worldBooksSettingsTitle": "World Books workspace",
-    "worldBooksSettingsDescription": "World Books are managed from the World Books workspace. Use the button below to open it.",
-    "worldBooksOpenWorkspace": "Open World Books workspace",
-    "dictionariesSettingsTitle": "Chat dictionaries workspace",
-    "dictionariesSettingsDescription": "Chat dictionaries are managed from the Chat dictionaries workspace. Use the button below to open it.",
-    "dictionariesOpenWorkspace": "Open Chat dictionaries workspace"
+    "title": "پرسش‌وپاسخ دانش",
+    "heading": "پرسش‌وپاسخ دانش",
+    "worldBooksSettingsTitle": "فضای کاری کتاب‌های جهان",
+    "worldBooksSettingsDescription": "کتاب‌های جهان از فضای کاری کتاب‌های جهان مدیریت می‌شوند. از دکمه زیر برای باز کردن آن استفاده کنید.",
+    "worldBooksOpenWorkspace": "باز کردن فضای کاری کتاب‌های جهان",
+    "dictionariesSettingsTitle": "فضای کاری واژه‌نامه‌های گفت‌وگو",
+    "dictionariesSettingsDescription": "واژه‌نامه‌های گفت‌وگو از فضای کاری واژه‌نامه‌های گفت‌وگو مدیریت می‌شوند. از دکمه زیر برای باز کردن آن استفاده کنید.",
+    "dictionariesOpenWorkspace": "باز کردن فضای کاری واژه‌نامه‌های گفت‌وگو"
   },
   "rag": {
-    "title": "تنظیمات RAG",
+    "title": "تنظیمات بازیابی تقویت‌شده",
     "ragSettings": {
-      "label": "تنظیمات RAG",
+      "label": "تنظیمات بازیابی تقویت‌شده",
       "model": {
         "label": "مدل جاسازی",
         "required": "لطفا یک مدل را انتخاب کنید",
         "help": "به شدت توصیه می شود از مدل های جاسازی مانند `nomic-embed-text` استفاده کنید.",
         "placeholder": "یک مدل را انتخاب کنید",
-        "helpRecommended": "Recommended: {{model}} (from server config)",
-        "helpMissing": "Previously saved embedding model is no longer available on the server. Please choose another model."
+        "helpRecommended": "پیشنهاد شده: {{model}} (از پیکربندی سرور)",
+        "helpMissing": "مدل جاسازی ذخیره‌شده قبلی دیگر روی سرور در دسترس نیست. لطفاً مدل دیگری انتخاب کنید."
       },
       "chunkSize": {
         "label": "اندازه تکه",
@@ -804,7 +805,7 @@
       }
     },
     "prompt": {
-      "label": "پیکربندی پرامپت RAG",
+      "label": "پیکربندی پرامپت بازیابی تقویت‌شده",
       "option1": "عادی",
       "option2": "وب",
       "alert": "پیکربندی اعلان سیستم در اینجا منسوخ شده است. لطفا از بخش مدیریت پرامپت‌ها برای افزودن یا ویرایش درخواست‌ها استفاده کنید. این بخش در نسخه بعدی حذف خواهد شد",
@@ -827,12 +828,14 @@
       "name": "نام",
       "description": "توضیحات",
       "actions": "اقدامات",
-      "avatar": "Avatar"
+      "avatar": "آواتار"
     },
     "actions": {
       "chat": "گفتگو",
       "edit": "ویرایش",
-      "delete": "حذف"
+      "delete": "حذف",
+      "viewConversations": "مشاهده گفتگوها",
+      "duplicate": "تکرار"
     },
     "tags": {
       "label": "برچسب‌ها",
@@ -846,7 +849,10 @@
     "aria": {
       "chatWith": "گفتگو به‌عنوان {{name}}",
       "edit": "ویرایش شخصیت {{name}}",
-      "delete": "حذف شخصیت {{name}}"
+      "delete": "حذف شخصیت {{name}}",
+      "viewConversations": "مشاهده گفتگوهای {{name}}",
+      "searchResults": "{{count}} شخصیت پیدا شد",
+      "duplicate": "تکرار شخصیت {{name}}"
     },
     "confirm": {
       "delete": "آیا مطمئن هستید که می‌خواهید این شخصیت را حذف کنید؟ این کار قابل بازگشت نیست."
@@ -862,11 +868,13 @@
         "label": "رفتار / دستورالعمل‌ها",
         "placeholder": "مثلاً: شما معلم ریاضی صبوری هستید که مفاهیم را مرحله‌به‌مرحله توضیح می‌دهید و با مثال‌های کوتاه فهم را می‌سنجید.",
         "help": "نقش، لحن و محدودیت‌های شخصیت را توضیح دهید. مثال: «شما معلم صبوری هستید که مفاهیم را مرحله‌به‌مرحله توضیح می‌دهید.»",
-        "min": "یک توضیح کوتاه اضافه کنید تا شخصیت بداند چگونه پاسخ دهد."
+        "min": "یک توضیح کوتاه اضافه کنید تا شخصیت بداند چگونه پاسخ دهد.",
+        "required": "لطفاً برای هدایت پاسخ‌ها دستورالعمل اضافه کنید.",
+        "max": "پرامپت سیستم باید حداکثر ۲۰۰۰ کاراکتر باشد."
       },
       "avatarUrl": {
         "label": "آدرس تصویر آواتار (اختیاری)",
-        "placeholder": "https://example.com/avatar.png"
+        "placeholder": "مثلاً نشانی تصویر آواتار"
       },
       "greeting": {
         "label": "پیام خوشامد (اختیاری)",
@@ -898,8 +906,52 @@
     "emptyExample1": "یک مربی نوشتن، کارشناس داستان یا دستیار کدنویسی تعریف کنید که بتوانید در چت‌ها دوباره استفاده کنید.",
     "emptyExample2": "به هر شخصیت توضیح و رفتار واضحی بدهید تا پاسخ‌هایش منسجم بماند.",
     "emptyPrimaryCta": "ایجاد شخصیت",
-    "avatarAltWithName": "Avatar of {{name}}",
-    "avatarAlt": "User avatar"
+    "avatarAltWithName": "آواتار {{name}}",
+    "avatarAlt": "آواتار کاربر",
+    "conversations": {
+      "title": "گفتگوهای {{name}}",
+      "titleGeneric": "گفتگوهای شخصیت",
+      "subtitle": "برای ادامه دادن به عنوان این شخصیت، یک گفتگو را انتخاب کنید.",
+      "empty": "هنوز گفتگویی برای این شخصیت یافت نشد.",
+      "error": "بارگذاری گفتگوهای این شخصیت ممکن نبود.",
+      "updated": "به‌روزرسانی شده در {{time}}",
+      "unknownTime": "نامشخص",
+      "resume": "ادامه گفتگو",
+      "untitled": "بدون عنوان",
+      "mostRecent": "جدیدترین",
+      "resumeTooltip": "بارگذاری تاریخچه گفتگو و ادامه این مکالمه"
+    },
+    "preview": {
+      "title": "پیش‌نمایش",
+      "show": "نمایش پیش‌نمایش",
+      "hide": "پنهان کردن پیش‌نمایش",
+      "untitled": "شخصیت بدون عنوان",
+      "greeting": "خوشامد",
+      "behavior": "رفتار",
+      "empty": "برای دیدن پیش‌نمایش، فرم را پر کنید"
+    },
+    "advanced": {
+      "show": "نمایش فیلدهای پیشرفته",
+      "hide": "پنهان کردن فیلدهای پیشرفته"
+    },
+    "table": {
+      "noDescription": "بدون توضیح"
+    },
+    "filter": {
+      "matchAll": "مطابقت با همه برچسب‌ها"
+    },
+    "avatar": {
+      "label": "آواتار (اختیاری)",
+      "tabUrl": "نشانی",
+      "tabUpload": "آپلود",
+      "selectImageError": "لطفاً یک فایل تصویر انتخاب کنید",
+      "formatError": "فقط تصاویر PNG، JPEG و GIF پشتیبانی می‌شوند",
+      "invalidError": "فایل تصویر نامعتبر است",
+      "processError": "پردازش تصویر ناموفق بود",
+      "dropzone": "برای آپلود کلیک کنید یا تصویر را بکشید",
+      "formats": "PNG، JPEG یا GIF",
+      "preview": "پیش‌نمایش"
+    }
   },
   "systemNotifications": {
     "importSuccess": "داده‌ها با موفقیت وارد شدند",
@@ -913,304 +965,384 @@
     "enterPromptPlaceholder": "یک پرامپت وارد کنید.",
     "enterFollowUpPrompt": "پرامپت بعدی را وارد کنید.",
     "enterFollowUpPromptPlaceholder": "پرامپت بعدی را وارد کنید.",
-    "privateModeDescription": "حالت خصوصی فایرفاکس ذخیره در IndexedDB را پشتیبانی نمی‌کند. لطفاً پرامپت‌ها را از یک پنجره عادی اضافه کنید."
+    "privateModeDescription": "حالت خصوصی فایرفاکس ذخیره در ایندکس‌دی‌بی را پشتیبانی نمی‌کند. لطفاً پرامپت‌ها را از یک پنجره عادی اضافه کنید."
   },
   "models": {
-    "privateModeDescription": "حالت خصوصی فایرفاکس ذخیره در IndexedDB را پشتیبانی نمی‌کند. لطفاً مدل سفارشی را از یک پنجره عادی اضافه کنید."
+    "privateModeDescription": "حالت خصوصی فایرفاکس ذخیره در ایندکس‌دی‌بی را پشتیبانی نمی‌کند. لطفاً مدل سفارشی را از یک پنجره عادی اضافه کنید."
   },
-  "evaluationsSettingsNav": "Evaluations",
-  "promptStudioNav": "Prompt Studio",
+  "evaluationsSettingsNav": "ارزیابی‌ها",
+  "promptStudioNav": "استودیو پرامپت",
   "promptStudio": {
-    "nav": "Prompt Studio",
-    "title": "Prompt Studio",
-    "subtitle": "Configure defaults and monitor Prompt Studio health. Connection and auth reuse the main server settings.",
-    "probeError": "Unable to reach Prompt Studio",
-    "statusCard": "Status",
-    "statusHint": "Button calls /prompt-studio/status with warn_seconds.",
-    "statusError": "Status endpoint unavailable",
-    "warnSeconds": "Warn seconds",
-    "testButton": "Test Prompt Studio",
-    "defaultsCard": "Defaults",
-    "defaultsHint": "Store default project, model configs, and list page size.",
-    "defaultsPlaceholder": "Persist defaults using existing settings storage (TBD) for initial project selection, execute/evaluation model presets, and pagination.",
-    "defaultProject": "Default project ID",
-    "pageSize": "Page size",
-    "executeDefaults": "Execute defaults",
-    "executeProvider": "Provider",
-    "executeModel": "Model",
-    "executeTemperature": "Temperature",
-    "executeMaxTokens": "Max tokens",
-    "evalDefaults": "Evaluation defaults",
-    "evalModel": "Model",
-    "evalTemperature": "Temperature",
-    "evalMaxTokens": "Max tokens",
-    "unavailable": "Prompt Studio isn’t available on the server yet.",
-    "unavailableBody": "Once enabled, you can monitor queue health and set defaults here."
+    "nav": "استودیو پرامپت",
+    "title": "استودیو پرامپت",
+    "subtitle": "پیش‌فرض‌ها را پیکربندی کنید و سلامت استودیو پرامپت را پایش کنید. اتصال و احراز هویت از تنظیمات اصلی سرور استفاده می‌کنند.",
+    "probeError": "دسترسی به استودیو پرامپت ممکن نیست",
+    "statusCard": "وضعیت",
+    "statusHint": "دکمه /prompt-studio/status را با warn_seconds فراخوانی می‌کند.",
+    "statusError": "نقطه پایانی وضعیت در دسترس نیست",
+    "warnSeconds": "ثانیه هشدار",
+    "testButton": "آزمایش استودیو پرامپت",
+    "defaultsCard": "پیش‌فرض‌ها",
+    "defaultsHint": "پروژه پیش‌فرض، پیکربندی مدل‌ها و اندازه صفحه فهرست را ذخیره کنید.",
+    "defaultsPlaceholder": "پیش‌فرض‌ها را با ذخیره‌سازی فعلی تنظیمات (در دست بررسی) برای انتخاب پروژه اولیه، پیش‌تنظیم‌های مدل اجرا/ارزیابی و صفحه‌بندی ذخیره کنید.",
+    "defaultProject": "شناسه پروژه پیش‌فرض",
+    "pageSize": "اندازه صفحه",
+    "executeDefaults": "پیش‌فرض‌های اجرا",
+    "executeProvider": "ارائه‌دهنده",
+    "executeModel": "مدل",
+    "executeTemperature": "دما",
+    "executeMaxTokens": "حداکثر توکن",
+    "evalDefaults": "پیش‌فرض‌های ارزیابی",
+    "evalModel": "مدل",
+    "evalTemperature": "دما",
+    "evalMaxTokens": "حداکثر توکن",
+    "unavailable": "استودیو پرامپت هنوز روی سرور در دسترس نیست.",
+    "unavailableBody": "پس از فعال‌سازی، می‌توانید سلامت صف را پایش کنید و پیش‌فرض‌ها را اینجا تنظیم کنید."
   },
-  "charactersSettingsTitle": "Characters workspace",
-  "charactersSettingsDescription": "Characters are managed from the Characters workspace. Use the button below to open it.",
-  "charactersOpenWorkspace": "Open Characters workspace",
-  "mermaid": "Mermaid",
+  "charactersSettingsTitle": "فضای کار شخصیت‌ها",
+  "charactersSettingsDescription": "شخصیت‌ها از فضای کار شخصیت‌ها مدیریت می‌شوند. از دکمه زیر برای باز کردن آن استفاده کنید.",
+  "charactersOpenWorkspace": "باز کردن فضای کار شخصیت‌ها",
+  "mermaid": "مرمید",
   "healthSummary": {
-    "diagnostics": "Diagnostics",
-    "diagnosticsTooltip": "Open detailed diagnostics to troubleshoot or inspect health checks.",
-    "core": "Server",
-    "rag": "Knowledge",
-    "coreAria": "Server: server/API health",
-    "ragAria": "Knowledge: knowledge index health",
-    "coreOnline": "Server: Online",
-    "coreOffline": "Server: Offline",
-    "coreChecking": "Server: Checking…",
-    "ragReady": "Knowledge: Ready",
-    "ragOffline": "Knowledge: Offline",
-    "ragChecking": "Knowledge: Checking…",
-    "footerInfo": "These checks summarize the last successful ping to your tldw server and knowledge index."
+    "diagnostics": "عیب‌یابی",
+    "diagnosticsTooltip": "عیب‌یابیِ تفصیلی را برای بررسی یا رفع اشکال سلامت باز کنید.",
+    "core": "سرور",
+    "rag": "دانش",
+    "coreAria": "سرور: سلامت سرور/رابط برنامه‌نویسی",
+    "ragAria": "دانش: سلامت شاخص دانش",
+    "coreOnline": "سرور: برخط",
+    "coreOffline": "سرور: آفلاین",
+    "coreChecking": "سرور: در حال بررسی…",
+    "ragReady": "دانش: آماده",
+    "ragOffline": "دانش: آفلاین",
+    "ragChecking": "دانش: در حال بررسی…",
+    "footerInfo": "این بررسی‌ها خلاصه آخرین پینگ موفق به سرور تی‌ال‌دی‌دبلیو و شاخص دانش شما هستند."
   },
   "storage": {
-    "quotaFriendlyMessage": "Too many settings writes in a short period; please wait a few seconds and try again.",
-    "quotaTitle": "Storage limit reached",
-    "writeError": "Could not save settings",
-    "writeErrorDescription": "We couldn't save your settings. Please try again shortly."
+    "quotaFriendlyMessage": "در مدت کوتاه نوشتن تنظیمات خیلی زیاد بود؛ لطفاً چند ثانیه صبر کنید و دوباره تلاش کنید.",
+    "quotaTitle": "سقف ذخیره‌سازی رسید",
+    "writeError": "ذخیره تنظیمات ممکن نشد",
+    "writeErrorDescription": "نتوانستیم تنظیمات شما را ذخیره کنیم. لطفاً کمی بعد دوباره تلاش کنید."
   },
   "onboarding": {
-    "title": "Welcome — Let’s get you connected",
-    "description": "Configure your server and authentication. We’ll verify the connection and RAG health inline.",
-    "learnMoreTldw": "درباره نحوه کار سرور tldw بیشتر بدانید",
+    "title": "خوش آمدید — بیایید شما را متصل کنیم",
+    "description": "سرور و احراز هویت خود را پیکربندی کنید. اتصال و سلامت بازیابی تقویت‌شده را همان‌جا بررسی می‌کنیم.",
+    "learnMoreTldw": "درباره نحوه کار سرور تی‌ال‌دی‌دبلیو بیشتر بدانید",
     "serverDocsUrl": "https://github.com/rmusser01/tldw_browser_assistant",
     "serverUrl": {
-      "label": "Server URL",
+      "label": "نشانی سرور",
       "placeholder": "http://127.0.0.1:8000",
-      "help": "Example: http://127.0.0.1:8000",
-      "emptyHint": "Enter your tldw server URL to enable Next.",
-      "invalid": "Enter a full URL such as http://127.0.0.1:8000.",
-      "invalidProtocol": "Use http or https URLs, for example http://127.0.0.1:8000.",
-      "ready": "We’ll enable Next once we can reach this address.",
-      "checking": "Checking reachability…",
-      "reachable": "Server responded successfully. You can continue.",
-      "unreachable": "We couldn’t reach this address yet. Double-check the URL or try again."
+      "help": "نمونه: http://127.0.0.1:8000",
+      "emptyHint": "نشانی سرور تی‌ال‌دی‌دبلیو را وارد کنید تا «بعدی» فعال شود.",
+      "invalid": "یک نشانی کامل مثل http://127.0.0.1:8000 وارد کنید.",
+      "invalidProtocol": "از نشانی‌های http یا https استفاده کنید؛ مثلاً http://127.0.0.1:8000.",
+      "ready": "وقتی به این نشانی دسترسی پیدا کنیم «بعدی» فعال می‌شود.",
+      "checking": "در حال بررسی دسترس‌پذیری…",
+      "reachable": "سرور با موفقیت پاسخ داد. می‌توانید ادامه دهید.",
+      "unreachable": "هنوز به این نشانی دسترسی نداریم. نشانی را دوباره بررسی کنید یا دوباره تلاش کنید."
     },
     "authMode": {
-      "label": "Authentication Mode",
-      "single": "Single User (API Key)",
-      "multi": "Multi User (Login)"
+      "label": "روش احراز هویت",
+      "single": "کاربر تکی (کلید رابط برنامه‌نویسی)",
+      "multi": "چندکاربره (ورود)"
     },
     "apiKey": {
-      "label": "API Key",
-      "placeholder": "Enter your API key (or use the default demo key THIS-IS-A-SECURE-KEY-123-REPLACE-ME for local single-user setups)"
+      "label": "کلید رابط برنامه‌نویسی",
+      "placeholder": "کلید رابط برنامه‌نویسی خود را وارد کنید (یا برای راه‌اندازی‌های محلی تک‌کاربره از کلید نمایشی پیش‌فرض THIS-IS-A-SECURE-KEY-123-REPLACE-ME استفاده کنید)"
     },
     "username": {
-      "label": "Username",
-      "placeholder": "Username"
+      "label": "نام کاربری",
+      "placeholder": "نام کاربری"
     },
     "password": {
-      "label": "Password",
-      "placeholder": "Password"
+      "label": "رمز عبور",
+      "placeholder": "رمز عبور"
     },
     "buttons": {
-      "next": "Next",
-      "back": "Back",
-      "continue": "Continue",
-      "recheck": "Recheck",
-      "finish": "Finish",
-      "finishAnyway": "Finish without connecting",
-      "skip": "Skip for now"
+      "next": "بعدی",
+      "back": "قبلی",
+      "continue": "ادامه",
+      "recheck": "بررسی دوباره",
+      "finish": "پایان",
+      "finishAnyway": "پایان بدون اتصال",
+      "skip": "فعلاً رد کن"
     },
     "connection": {
-      "label": "Connection:",
-      "unknown": "Unknown",
-      "connected": "Connected",
-      "failed": "Failed",
-      "continueAnyway": "You can continue and complete setup now. You’ll be able to verify the connection later from Settings."
+      "label": "اتصال:",
+      "unknown": "نامشخص",
+      "connected": "متصل",
+      "failed": "ناموفق",
+      "continueAnyway": "می‌توانید الان ادامه دهید و راه‌اندازی را کامل کنید. بعداً از تنظیمات می‌توانید اتصال را بررسی کنید."
     },
     "rag": {
-      "label": "RAG:",
-      "healthy": "Healthy",
-      "unhealthy": "Unhealthy",
-      "unknown": "Unknown"
+      "label": "بازیابی تقویت‌شده:",
+      "healthy": "سالم",
+      "unhealthy": "ناسالم",
+      "unknown": "نامشخص"
     },
-    "connectionFailed": "Connection failed",
+    "connectionFailed": "اتصال ناموفق بود",
     "footerHelp": "پس از برقراری اتصال، می‌توانید هر زمان از منوی افزونه دوباره به این تنظیمات برگردید.",
     "progressAria": "پیشرفت راه‌اندازی اولیه",
     "stepLabel": {
       "welcome": "خوش آمدید",
-      "url": "اتصال به سرور tldw خود",
+      "url": "اتصال به سرور تی‌ال‌دی‌دبلیو خود",
       "auth": "روش ورود خود را انتخاب کنید",
-      "health": "تأیید اتصال و وضعیت Knowledge"
+      "health": "تأیید اتصال و وضعیت دانش"
     },
     "startServer": {
-      "title": "قبل از شروع — سرور tldw خود را راه‌اندازی کنید",
-      "body": "اگر هنوز سرور خود را راه‌اندازی نکرده‌اید، یکی از این دستورات را در مخزن tldw_server اجرا کنید و سپس به اینجا برگردید.",
+      "title": "قبل از شروع — سرور تی‌ال‌دی‌دبلیو خود را راه‌اندازی کنید",
+      "body": "اگر هنوز سرور خود را راه‌اندازی نکرده‌اید، یکی از این دستورات را در مخزن سرور تی‌ال‌دی‌دبلیو اجرا کنید و سپس به اینجا برگردید.",
       "copy": "کپی دستور",
-      "optionLocal": "اجرا به‌صورت محلی با Python",
-      "optionLocalHint": "آن را داخل virtualenv مربوط به tldw_server و از ریشه مخزن سرور اجرا کنید.",
-      "optionDocker": "اجرا با Docker Compose (تک‌کاربره)",
-      "optionDockerHint": "آن را از ریشه مخزن tldw_server اجرا کنید تا API و پایگاه داده راه‌اندازی شوند."
+      "optionLocal": "اجرا به‌صورت محلی با پایتون",
+      "optionLocalHint": "آن را داخل محیط مجازی مربوط به سرور تی‌ال‌دی‌دبلیو و از ریشه مخزن سرور اجرا کنید.",
+      "optionDocker": "اجرا با داکر کامپوز (تک‌کاربره)",
+      "optionDockerHint": "آن را از ریشه مخزن سرور تی‌ال‌دی‌دبلیو اجرا کنید تا رابط برنامه‌نویسی و پایگاه داده راه‌اندازی شوند."
     },
     "path": {
       "heading": "دوست دارید چگونه شروع کنید؟",
-      "hasServer": "در حال حاضر tldw_server را اجرا می‌کنم",
-      "hasServerHelp": "Connect to an existing tldw_server you already run.",
+      "hasServer": "در حال حاضر سرور تی‌ال‌دی‌دبلیو را اجرا می‌کنم",
+      "hasServerHelp": "به یک سرور تی‌ال‌دی‌دبلیو موجود که اجرا می‌کنید متصل شوید.",
       "noServer": "هنوز سروری ندارم",
-      "noServerHelp": "Follow a setup guide for tldw_server, or start in demo mode.",
+      "noServerHelp": "راهنمای راه‌اندازی سرور تی‌ال‌دی‌دبلیو را دنبال کنید یا در حالت نمایشی شروع کنید.",
       "demo": "فقط با نسخه‌ی نمایشی محلی کاوش کن",
-      "demoHelp": "Try the workspace with sample data; connect your own server later.",
+      "demoHelp": "فضای کاری را با داده‌های نمونه امتحان کنید؛ بعداً سرور خودتان را متصل کنید.",
       "noServerTitle": "هنوز سروری ندارید؟ همچنان می‌توانید کاوش کنید.",
-      "noServerBody": "tldw_server یک برنامه‌ی جداگانه و خودمیزبان است. می‌توانید اکنون راهنمای راه‌اندازی را دنبال کنید، یا بعداً برگردید و در حالت نمایشی ادامه دهید.",
-      "noServerOptionLocal": "آن را به‌صورت محلی با Docker یا Python روی دستگاه خود اجرا کنید.",
-      "noServerOptionRemote": "tldw_server را روی یک VPS راه دور یا میزبانی مدیریت‌شده مستقر کنید.",
-      "noServerOptionManaged": "در صورت دسترس بودن، از یک استقرار تجاریِ مدیریت‌شده‌ی tldw_server استفاده کنید.",
+      "noServerBody": "سرور تی‌ال‌دی‌دبلیو یک برنامه‌ی جداگانه و خودمیزبان است. می‌توانید اکنون راهنمای راه‌اندازی را دنبال کنید، یا بعداً برگردید و در حالت نمایشی ادامه دهید.",
+      "noServerOptionLocal": "آن را به‌صورت محلی با داکر یا پایتون روی دستگاه خود اجرا کنید.",
+      "noServerOptionRemote": "سرور تی‌ال‌دی‌دبلیو را روی یک سرور مجازی دوردست یا میزبانی مدیریت‌شده مستقر کنید.",
+      "noServerOptionManaged": "در صورت دسترس بودن، از یک استقرار تجاریِ مدیریت‌شده‌ی سرور تی‌ال‌دی‌دبلیو استفاده کنید.",
       "openSetupGuide": "باز کردن راهنمای راه‌اندازی",
       "useDemoFromNoServer": "استفاده از حالت نمایشی محلی",
       "remindMeLater": "بعداً یادآوری کن",
       "demoTitle": "کاوش افزونه در حالت نمایشی",
-      "demoBody": "حالت نمایشی به شما اجازه می‌دهد چت، یادداشت‌ها و رسانه‌ها را با داده‌های نمونه امتحان کنید. قابلیت‌هایی که به سرور وابسته‌اند، مانند جست‌وجوی Knowledge، تا زمانی که tldw_server خودتان را متصل نکنید محدود می‌مانند.",
+      "demoBody": "حالت نمایشی به شما اجازه می‌دهد چت، یادداشت‌ها و رسانه‌ها را با داده‌های نمونه امتحان کنید. قابلیت‌هایی که به سرور وابسته‌اند، مانند جست‌وجوی دانش، تا زمانی که سرور تی‌ال‌دی‌دبلیو خودتان را متصل نکنید محدود می‌مانند.",
       "demoCta": "استفاده از حالت نمایشی محلی"
     },
-    "authModeHelp": "حالت Single User (کلید API) برای سرورهای شخصی یا تیم‌های کوچک توصیه می‌شود. حالت Multi User (ورود) برای استقرارهای مشترک است که در آن کاربران با نام کاربری یا SSO وارد می‌شوند. حالتی را انتخاب کنید که با نحوه‌ی پیکربندی tldw_server شما مطابقت دارد.",
-    "apiKeyHelp": "کلید API خود را در tldw_server → Settings → API Keys پیدا کنید. در آنجا یک کلید تولید کرده و آن را اینجا جای‌گذاری کنید.",
-    "authStepAria": "Step 2 of 3 — authentication configuration",
-    "confirmStepAria": "Step 3 of 3 — connection summary and next steps",
+    "authModeHelp": "حالت تک‌کاربره (کلید رابط برنامه‌نویسی) برای سرورهای شخصی یا تیم‌های کوچک توصیه می‌شود. حالت چندکاربره (ورود) برای استقرارهای مشترک است که در آن کاربران با نام کاربری یا ورود یکپارچه وارد می‌شوند. حالتی را انتخاب کنید که با نحوه‌ی پیکربندی سرور تی‌ال‌دی‌دبلیو شما مطابقت دارد.",
+    "apiKeyHelp": "کلید رابط برنامه‌نویسی خود را در سرور تی‌ال‌دی‌دبلیو → تنظیمات → کلیدهای رابط برنامه‌نویسی پیدا کنید. در آنجا یک کلید تولید کرده و آن را اینجا جای‌گذاری کنید.",
+    "authStepAria": "گام ۲ از ۳ — پیکربندی احراز هویت",
+    "confirmStepAria": "گام ۳ از ۳ — خلاصه اتصال و گام‌های بعدی",
     "nextSteps": {
-      "title": "You’re ready to go",
-      "subtitle": "From here you can open the sidepanel, ingest a page, or explore media and notes.",
-      "chatTitle": "Start chatting",
-      "chatBody": "Open the sidepanel and ask your first question.",
-      "chatCta": "Open sidepanel",
-      "ingestTitle": "Ingest your first page",
-      "ingestBody": "Use Quick ingest from the header to save the current tab to your server.",
-      "mediaTitle": "Explore media & notes",
-      "mediaBody": "Visit Media and Notes in Options to see what’s stored and searchable."
+      "title": "آماده‌اید",
+      "subtitle": "از اینجا می‌توانید پنل جانبی را باز کنید، یک صفحه را وارد کنید یا رسانه و یادداشت‌ها را بررسی کنید.",
+      "chatTitle": "شروع گفتگو",
+      "chatBody": "پنل جانبی را باز کنید و اولین پرسش خود را بپرسید.",
+      "chatCta": "باز کردن پنل جانبی",
+      "ingestTitle": "اولین صفحه خود را وارد کنید",
+      "ingestBody": "از «ورود سریع» در سربرگ استفاده کنید تا زبانه فعلی را در سرور ذخیره کنید.",
+      "mediaTitle": "رسانه‌ها و یادداشت‌ها را کاوش کنید",
+      "mediaBody": "برای دیدن موارد ذخیره‌شده و قابل جستجو به «رسانه‌ها» و «یادداشت‌ها» در گزینه‌ها بروید."
     },
     "headerShortcuts": "نمایش میانبرهای سریع در سربرگ"
   },
   "evaluations": {
-    "title": "Evaluations playground",
-    "subtitle": "Define evaluations against your tldw server and inspect recent runs.",
-    "listTitle": "Recent evaluations",
-    "newEvaluationCta": "New evaluation",
-    "startRunCta": "Start run",
-    "loadErrorTitle": "Unable to load evaluations",
-    "loadErrorDescription": "Check your tldw server connection and API credentials, then try again.",
-    "emptyList": "No evaluations yet. Once you create one, it will appear here.",
-    "selectedTag": "Selected",
-    "rateLimitsTitle": "Evaluation limits",
-    "rateLimitsErrorTitle": "Unable to fetch rate limits",
-    "rateLimitsErrorDescription": "We could not retrieve evaluation quotas from the server.",
-    "rateLimitsNoData": "Rate limit information is not available for this server.",
-    "tierLabel": "Tier",
-    "dailyLimitLabel": "Daily evaluations",
-    "tokensTodayLabel": "Tokens today",
-    "perMinuteLabel": "Per-minute limit",
-    "resetAtLabel": "Resets at",
-    "runsTitle": "Runs",
-    "noEvalSelectedRuns": "Select an evaluation to see its recent runs.",
-    "runsErrorTitle": "Unable to load runs",
-    "runsEmpty": "No runs yet for this evaluation.",
-    "runDetailTitle": "Run details",
-    "noRunSelected": "Select a run to see details.",
-    "runDetailErrorTitle": "Unable to load run details",
-    "runStatusLabel": "Status",
-    "runModelLabelShort": "Target model",
-    "runEvalIdLabel": "Evaluation",
-    "runErrorLabel": "Error",
-    "runResultsLabel": "Results (snippet)",
-    "runProgressLabel": "Progress",
-    "runUsageLabel": "Usage",
-    "datasetsTitle": "Datasets",
-    "newDatasetCta": "New dataset",
-    "datasetsErrorTitle": "Unable to load datasets",
-    "datasetsEmpty": "No datasets yet. Create one to attach to evaluations.",
-    "datasetSampleCount": "{{count}} samples",
-    "datasetNameLabel": "Name",
-    "datasetNamePlaceholder": "my_dataset",
-    "datasetDescriptionLabel": "Description",
-    "datasetMetadataLabel": "Metadata (JSON, optional)",
-    "sampleInputLabel": "Sample input",
-    "sampleExpectedLabel": "Expected output (optional)",
-    "samplesJsonLabel": "Samples JSON (optional, overrides fields)",
-    "datasetLabel": "Dataset (optional)",
-    "datasetPlaceholder": "Select dataset",
-    "datasetCreateSuccessTitle": "Dataset created",
-    "datasetCreateSuccessDescription": "Your dataset is ready to use in evaluations.",
-    "datasetCreateErrorTitle": "Failed to create dataset",
-    "datasetCreateErrorDescription": "The server rejected this dataset. Check the fields and try again.",
-    "datasetDeleteSuccessTitle": "Dataset deleted",
-    "datasetDeleteErrorTitle": "Failed to delete dataset",
-    "datasetLoadErrorTitle": "Failed to load dataset",
-    "datasetDetailTitle": "Dataset details",
-    "datasetParseErrorTitle": "Invalid samples JSON",
-    "createEvalModalTitle": "New evaluation",
-    "editEvalModalTitle": "Edit evaluation",
-    "evalNameLabel": "Name",
-    "evalNamePlaceholder": "my_eval_run",
-    "evalNameValidation": "Use only letters, numbers, hyphens, and underscores.",
-    "evalTypeLabel": "Evaluation type",
-    "evalSpecLabel": "Evaluation spec (JSON)",
-    "evalSpecParseError": "Evaluation spec must be valid JSON.",
-    "evalMetadataLabel": "Metadata (JSON, optional)",
-    "inlineDatasetCheckbox": "Attach inline dataset instead of referencing dataset_id",
-    "inlineDatasetErrorTitle": "Invalid inline dataset",
-    "runModelLabel": "Run model (used for quick runs)",
-    "createSuccessTitle": "Evaluation created",
-    "createErrorTitle": "Failed to create evaluation",
-    "createErrorDescription": "The server rejected this evaluation. Ensure name, type, and spec are valid.",
-    "updateSuccessTitle": "Evaluation updated",
-    "updateErrorTitle": "Failed to update evaluation",
-    "deleteErrorTitle": "Failed to delete evaluation",
-    "deleteConfirmTitle": "Delete this evaluation?",
-    "deleteConfirmDescription": "This will remove the evaluation definition. Runs already created remain in history.",
-    "detailTitle": "Evaluation details",
-    "detailErrorTitle": "Unable to load evaluation details",
-    "descriptionLabel": "Description",
-    "noEvalSelectedDetails": "Select an evaluation to inspect its spec.",
-    "runCreateSuccessTitle": "Run started",
-    "runCreateSuccessDescription": "Your evaluation run has started. You can monitor it from the server UI.",
-    "runCreateErrorTitle": "Failed to start run",
-    "runCreateErrorDescription": "The server rejected this run request. Check the model and try again.",
-    "runConfigLabel": "Config (JSON)",
-    "datasetOverrideLabel": "Dataset override (JSON array of samples)",
-    "runConfigParseError": "Invalid config JSON",
-    "runCancelSuccessTitle": "Run cancellation requested",
-    "runCancelErrorTitle": "Failed to cancel run",
-    "cancelRunCta": "Cancel run",
-    "historyTitle": "History",
-    "historyTypeLabel": "Type",
-    "historyUserLabel": "User ID",
-    "historyStartLabel": "Start date (ISO)",
-    "historyEndLabel": "End date (ISO)",
-    "historyFetchCta": "Fetch history",
-    "historyEmpty": "Run a query to see recent activity.",
-    "historyErrorTitle": "Failed to fetch history",
-    "webhooksTitle": "Webhooks",
-    "webhookUrlLabel": "URL",
-    "webhookEventsLabel": "Events",
-    "webhookCreateCta": "Register webhook",
-    "webhookCreateSuccessTitle": "Webhook registered",
-    "webhookCreateErrorTitle": "Failed to register webhook",
-    "webhookDeleteErrorTitle": "Failed to delete webhook",
-    "webhookListErrorTitle": "Unable to load webhooks",
-    "webhooksEmpty": "No webhooks registered yet.",
-    "webhookSecretTitle": "Secret",
-    "idempotencyKeyLabel": "Idempotency key",
-    "emptyConnectTitle": "Connect to use Evaluations",
-    "emptyConnectDescription": "To create and run evaluations, first connect to your tldw server.",
-    "emptyConnectExample1": "Open Settings → tldw server to add your server URL and API key.",
-    "emptyConnectExample2": "Once connected, you can define evaluations and inspect metrics here.",
-    "datasetSamplesLabel": "Samples",
-    "datasetSamplesEmpty": "No samples returned for this page.",
-    "metricsLabel": "Metrics"
+    "title": "محیط آزمایشی ارزیابی‌ها",
+    "subtitle": "ارزیابی‌ها را روی سرور تی‌ال‌دی‌دبلیو تعریف کنید و اجراهای اخیر را بررسی کنید.",
+    "listTitle": "ارزیابی‌های اخیر",
+    "newEvaluationCta": "ارزیابی جدید",
+    "startRunCta": "شروع اجرا",
+    "loadErrorTitle": "بارگذاری ارزیابی‌ها ممکن نشد",
+    "loadErrorDescription": "اتصال سرور تی‌ال‌دی‌دبلیو و اعتبارهای رابط برنامه‌نویسی خود را بررسی کنید و دوباره تلاش کنید.",
+    "emptyList": "هنوز ارزیابی‌ای وجود ندارد. پس از ایجاد، اینجا نمایش داده می‌شود.",
+    "selectedTag": "انتخاب‌شده",
+    "rateLimitsTitle": "محدودیت‌های ارزیابی",
+    "rateLimitsErrorTitle": "دریافت محدودیت‌های نرخ ممکن نشد",
+    "rateLimitsErrorDescription": "نتوانستیم سهمیه‌های ارزیابی را از سرور دریافت کنیم.",
+    "rateLimitsNoData": "اطلاعات محدودیت نرخ برای این سرور در دسترس نیست.",
+    "tierLabel": "سطح",
+    "dailyLimitLabel": "ارزیابی‌های روزانه",
+    "tokensTodayLabel": "توکن‌های امروز",
+    "perMinuteLabel": "سقف در دقیقه",
+    "resetAtLabel": "بازنشانی در",
+    "runsTitle": "اجراها",
+    "noEvalSelectedRuns": "برای دیدن اجراهای اخیر یک ارزیابی را انتخاب کنید.",
+    "runsErrorTitle": "بارگذاری اجراها ممکن نشد",
+    "runsEmpty": "هنوز برای این ارزیابی اجرایی وجود ندارد.",
+    "runDetailTitle": "جزئیات اجرا",
+    "noRunSelected": "برای دیدن جزئیات یک اجرا را انتخاب کنید.",
+    "runDetailErrorTitle": "بارگذاری جزئیات اجرا ممکن نشد",
+    "runStatusLabel": "وضعیت",
+    "runModelLabelShort": "مدل هدف",
+    "runEvalIdLabel": "ارزیابی",
+    "runErrorLabel": "خطا",
+    "runResultsLabel": "نتایج (خلاصه)",
+    "runProgressLabel": "پیشرفت",
+    "runUsageLabel": "مصرف",
+    "datasetsTitle": "مجموعه‌داده‌ها",
+    "newDatasetCta": "مجموعه‌داده جدید",
+    "datasetsErrorTitle": "بارگذاری مجموعه‌داده‌ها ممکن نشد",
+    "datasetsEmpty": "هنوز مجموعه‌داده‌ای وجود ندارد. برای پیوست به ارزیابی‌ها یکی بسازید.",
+    "datasetSampleCount": "{{count}} نمونه",
+    "datasetNameLabel": "نام",
+    "datasetNamePlaceholder": "مجموعه_من",
+    "datasetDescriptionLabel": "توضیحات",
+    "datasetMetadataLabel": "فراداده (جیسون، اختیاری)",
+    "sampleInputLabel": "ورودی نمونه",
+    "sampleExpectedLabel": "خروجی مورد انتظار (اختیاری)",
+    "samplesJsonLabel": "جیسون نمونه‌ها (اختیاری، مقادیر را بازنویسی می‌کند)",
+    "datasetLabel": "مجموعه‌داده (اختیاری)",
+    "datasetPlaceholder": "انتخاب مجموعه‌داده",
+    "datasetCreateSuccessTitle": "مجموعه‌داده ایجاد شد",
+    "datasetCreateSuccessDescription": "مجموعه‌داده شما برای استفاده در ارزیابی‌ها آماده است.",
+    "datasetCreateErrorTitle": "ایجاد مجموعه‌داده ناموفق بود",
+    "datasetCreateErrorDescription": "سرور این مجموعه‌داده را رد کرد. فیلدها را بررسی و دوباره تلاش کنید.",
+    "datasetDeleteSuccessTitle": "مجموعه‌داده حذف شد",
+    "datasetDeleteErrorTitle": "حذف مجموعه‌داده ناموفق بود",
+    "datasetLoadErrorTitle": "بارگذاری مجموعه‌داده ناموفق بود",
+    "datasetDetailTitle": "جزئیات مجموعه‌داده",
+    "datasetParseErrorTitle": "جیسون نمونه‌ها نامعتبر است",
+    "createEvalModalTitle": "ارزیابی جدید",
+    "editEvalModalTitle": "ویرایش ارزیابی",
+    "evalNameLabel": "نام",
+    "evalNamePlaceholder": "اجرای_ارزیابی_من",
+    "evalNameValidation": "فقط از حروف، اعداد، خط تیره و زیرخط استفاده کنید.",
+    "evalTypeLabel": "نوع ارزیابی",
+    "evalSpecLabel": "مشخصات ارزیابی (جیسون)",
+    "evalSpecParseError": "مشخصات ارزیابی باید جیسون معتبر باشد.",
+    "evalMetadataLabel": "فراداده (جیسون، اختیاری)",
+    "inlineDatasetCheckbox": "به‌جای ارجاع به شناسه، مجموعه‌دادهٔ درون‌خطی را پیوست کن",
+    "inlineDatasetErrorTitle": "مجموعه‌دادهٔ درون‌خطی نامعتبر است",
+    "runModelLabel": "مدل اجرا (برای اجراهای سریع)",
+    "createSuccessTitle": "ارزیابی ایجاد شد",
+    "createErrorTitle": "ایجاد ارزیابی ناموفق بود",
+    "createErrorDescription": "سرور این ارزیابی را رد کرد. مطمئن شوید نام، نوع و مشخصات معتبر هستند.",
+    "updateSuccessTitle": "ارزیابی به‌روزرسانی شد",
+    "updateErrorTitle": "به‌روزرسانی ارزیابی ناموفق بود",
+    "deleteErrorTitle": "حذف ارزیابی ناموفق بود",
+    "deleteConfirmTitle": "این ارزیابی حذف شود؟",
+    "deleteConfirmDescription": "این کار تعریف ارزیابی را حذف می‌کند. اجراهای ایجادشده در تاریخچه باقی می‌مانند.",
+    "detailTitle": "جزئیات ارزیابی",
+    "detailErrorTitle": "بارگذاری جزئیات ارزیابی ممکن نشد",
+    "descriptionLabel": "توضیحات",
+    "noEvalSelectedDetails": "برای مشاهده مشخصات یک ارزیابی را انتخاب کنید.",
+    "runCreateSuccessTitle": "اجرا شروع شد",
+    "runCreateSuccessDescription": "اجرای ارزیابی شما شروع شد. می‌توانید آن را در رابط سرور پیگیری کنید.",
+    "runCreateErrorTitle": "شروع اجرا ناموفق بود",
+    "runCreateErrorDescription": "سرور این درخواست اجرا را رد کرد. مدل را بررسی و دوباره تلاش کنید.",
+    "runConfigLabel": "پیکربندی (جیسون)",
+    "datasetOverrideLabel": "بازنویسی مجموعه‌داده (آرایهٔ جیسون نمونه‌ها)",
+    "runConfigParseError": "جیسون پیکربندی نامعتبر است",
+    "runCancelSuccessTitle": "درخواست لغو اجرا ثبت شد",
+    "runCancelErrorTitle": "لغو اجرا ناموفق بود",
+    "cancelRunCta": "لغو اجرا",
+    "historyTitle": "تاریخچه",
+    "historyTypeLabel": "نوع",
+    "historyUserLabel": "شناسه کاربر",
+    "historyStartLabel": "تاریخ شروع (آی‌اِس‌اُ)",
+    "historyEndLabel": "تاریخ پایان (آی‌اِس‌اُ)",
+    "historyFetchCta": "دریافت تاریخچه",
+    "historyEmpty": "برای دیدن فعالیت اخیر یک درخواست اجرا کنید.",
+    "historyErrorTitle": "دریافت تاریخچه ناموفق بود",
+    "webhooksTitle": "وبهوک‌ها",
+    "webhookUrlLabel": "نشانی",
+    "webhookEventsLabel": "رویدادها",
+    "webhookCreateCta": "ثبت وبهوک",
+    "webhookCreateSuccessTitle": "وبهوک ثبت شد",
+    "webhookCreateErrorTitle": "ثبت وبهوک ناموفق بود",
+    "webhookDeleteErrorTitle": "حذف وبهوک ناموفق بود",
+    "webhookListErrorTitle": "بارگذاری وبهوک‌ها ممکن نشد",
+    "webhooksEmpty": "هنوز وبهوکی ثبت نشده است.",
+    "webhookSecretTitle": "راز",
+    "idempotencyKeyLabel": "کلید ایدمپوتنسی",
+    "emptyConnectTitle": "برای استفاده از ارزیابی‌ها متصل شوید",
+    "emptyConnectDescription": "برای ایجاد و اجرای ارزیابی‌ها ابتدا به سرور تی‌ال‌دی‌دبلیو متصل شوید.",
+    "emptyConnectExample1": "برای افزودن نشانی سرور و کلید رابط برنامه‌نویسی، «تنظیمات → سرور تی‌ال‌دی‌دبلیو» را باز کنید.",
+    "emptyConnectExample2": "پس از اتصال، می‌توانید ارزیابی‌ها را تعریف کرده و معیارها را اینجا بررسی کنید.",
+    "datasetSamplesLabel": "نمونه‌ها",
+    "datasetSamplesEmpty": "برای این صفحه هیچ نمونه‌ای برگردانده نشد.",
+    "metricsLabel": "معیارها"
   },
   "evaluationsSettings": {
-    "title": "Evaluations",
-    "subtitle": "Configure defaults used by the Evaluations playground.",
-    "offline": "Connect to your tldw server to test Evaluations.",
-    "defaultType": "Default evaluation type",
-    "defaultModel": "Default target model",
-    "defaultRunConfig": "Default run config (JSON)",
-    "defaultDataset": "Default dataset id (optional)",
-    "specForType": "Spec preset for selected type",
-    "testCta": "Test Evaluations API",
-    "testOk": "Evaluations API reachable",
-    "testFail": "Unable to reach Evaluations API"
+    "title": "ارزیابی‌ها",
+    "subtitle": "پیش‌فرض‌های استفاده‌شده در محیط ارزیابی‌ها را پیکربندی کنید.",
+    "offline": "برای آزمودن ارزیابی‌ها به سرور تی‌ال‌دی‌دبلیو متصل شوید.",
+    "defaultType": "نوع پیش‌فرض ارزیابی",
+    "defaultModel": "مدل هدف پیش‌فرض",
+    "defaultRunConfig": "پیکربندی پیش‌فرض اجرا (جیسون)",
+    "defaultDataset": "شناسهٔ پیش‌فرض مجموعه‌داده (اختیاری)",
+    "specForType": "پیش‌تنظیم مشخصات برای نوع انتخاب‌شده",
+    "testCta": "آزمون رابط ارزیابی‌ها",
+    "testOk": "رابط ارزیابی‌ها در دسترس است",
+    "testFail": "ارتباط با رابط ارزیابی‌ها ممکن نشد"
+  },
+  "chunkingPlayground": {
+    "nav": "پلی‌گراند بخش‌بندی",
+    "title": "پلی‌گراند بخش‌بندی",
+    "description": "با تنظیمات مختلف بخش‌بندی آزمایش کنید تا ببینید متن چگونه برای پردازش به بخش‌های کوچک‌تر تقسیم می‌شود.",
+    "inputLabel": "متن برای بخش‌بندی",
+    "inputPlaceholder": "متن را اینجا بچسبانید یا یک نمونه انتخاب کنید...",
+    "uploadButton": "آپلود فایل",
+    "chunkButton": "بخش‌بندی متن",
+    "methodLabel": "روش بخش‌بندی",
+    "maxSizeLabel": "حداکثر اندازه بخش",
+    "overlapLabel": "هم‌پوشانی",
+    "languageLabel": "زبان",
+    "languages": {
+      "auto": "تشخیص خودکار",
+      "en": "انگلیسی",
+      "es": "اسپانیایی",
+      "fr": "فرانسوی",
+      "de": "آلمانی",
+      "it": "ایتالیایی",
+      "pt": "پرتغالی",
+      "zh": "چینی",
+      "ja": "ژاپنی",
+      "ko": "کره‌ای"
+    },
+    "viewCards": "کارت‌ها",
+    "viewInline": "درون‌خطی",
+    "stats": "{{count}} بخش، میانگین {{avgSize}} نویسه",
+    "textLoaded": "متن بارگذاری شد",
+    "characters": "نویسه",
+    "tabSingle": "تک",
+    "tabCompare": "مقایسه",
+    "chunkIndex": "بخش {{index}}",
+    "chunkInfo": "بخش {{index}}: {{words}} کلمه",
+    "position": "موقعیت: {{start}} - {{end}}",
+    "additionalChunks": "+{{count}} مورد بیشتر",
+    "charCount": "{{count}} نویسه",
+    "wordCount": "{{count}} کلمه",
+    "noInput": "لطفاً متنی برای بخش‌بندی وارد کنید",
+    "sharedInput": "متن ورودی مشترک",
+    "compareButton": "مقایسه هر دو",
+    "comparison": "مقایسه",
+    "fewerChunks": "پیکربندی الف {{diff}} بخش کمتر تولید می‌کند",
+    "moreChunks": "پیکربندی الف {{diff}} بخش بیشتر تولید می‌کند",
+    "sameChunks": "هر دو پیکربندی تعداد بخش یکسانی تولید می‌کنند",
+    "clickToChunk": "برای دیدن نتایج روی «مقایسه» کلیک کنید",
+    "overlapRegion": "ناحیه هم‌پوشانی",
+    "clickHint": "روی بخش برجسته کلیک کنید تا روی آن بخش تمرکز شود",
+    "noContentFound": "متنی برای این آیتم رسانه پیدا نشد",
+    "loadContentError": "بارگذاری محتوای رسانه ناموفق بود",
+    "loadMediaListError": "بارگذاری کتابخانه رسانه ناموفق بود",
+    "selectMedia": "یک آیتم رسانه را انتخاب کنید...",
+    "loadingMedia": "در حال بارگذاری محتوا...",
+    "noMediaFound": "هیچ رسانه‌ای یافت نشد",
+    "mediaCount": "{{count}} آیتم رسانه موجود است",
+    "inputSource": {
+      "paste": "چسباندن متن",
+      "upload": "آپلود فایل",
+      "sample": "متن نمونه",
+      "media": "از کتابخانه رسانه"
+    },
+    "samples": {
+      "article": "مقاله خبری",
+      "articleDesc": "مقاله چندبندی با تیترها",
+      "code": "کد منبع",
+      "codeDesc": "کد پایتون با کلاس‌ها و توابع",
+      "transcript": "رونوشت",
+      "transcriptDesc": "رونوشت پادکست با زمان‌بندی",
+      "academic": "مقاله علمی",
+      "academicDesc": "متن فنی با ارجاعات"
+    },
+    "compare": {
+      "title": "مقایسه تنظیمات",
+      "configA": "پیکربندی الف",
+      "configB": "پیکربندی ب"
+    },
+    "mode": {
+      "single": "تک",
+      "compare": "مقایسه"
+    }
   }
 }

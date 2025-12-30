@@ -1,19 +1,16 @@
 import { defineConfig } from "wxt"
-import path from "path"
 import react from "@vitejs/plugin-react"
 import topLevelAwait from "vite-plugin-top-level-await"
 import { parse } from "acorn"
 import MagicString from "magic-string"
 import { walk } from "estree-walker"
 import type { Plugin } from "vite"
-import { fileURLToPath } from "url"
 import { createRequire } from "module"
 
 const require = createRequire(import.meta.url)
 const pkg = require("./package.json")
 
 const isFirefox = process.env.TARGET === "firefox"
-const projectRoot = path.dirname(fileURLToPath(import.meta.url))
 
 // Enable bundle analysis for ANALYZE values like: "1", "true", "yes", "on" (case-insensitive)
 const analyzeEnv = (process.env.ANALYZE || "").trim()
@@ -191,29 +188,30 @@ export default defineConfig({
         }),
         ...(analyzerPlugin ? [analyzerPlugin] : [])
       ],
-    // Ensure every entry (options, sidepanel, content scripts) shares a single React instance.
-    resolve: {
-      dedupe: ["react", "react-dom", "react/jsx-runtime", "react/jsx-dev-runtime"],
-      alias: {
-        react: path.resolve(projectRoot, "node_modules/react"),
-        "react-dom": path.resolve(projectRoot, "node_modules/react-dom"),
-        "react/jsx-runtime": path.resolve(projectRoot, "node_modules/react/jsx-runtime"),
-        "react/jsx-dev-runtime": path.resolve(projectRoot, "node_modules/react/jsx-dev-runtime")
+      // Ensure every entry (options, sidepanel, content scripts) shares a single React instance.
+      resolve: {
+        dedupe: ["react", "react-dom", "react/jsx-runtime", "react/jsx-dev-runtime"]
+      },
+      // Disable Hot Module Replacement so streaming connections aren't killed by dev reloads
+      server: {
+        hmr: false
+      },
+      optimizeDeps: {
+        include: ["react", "react-dom", "react/jsx-runtime", "react/jsx-dev-runtime"],
+        entries: [
+          "src/entries/options/index.html",
+          "src/entries/sidepanel/index.html",
+          "src/entries-firefox/options/index.html",
+          "src/entries-firefox/sidepanel/index.html"
+        ]
+      },
+      build: {
+        // Firefox MV2 validator chokes on modern ESM in chunks; downlevel and turn off module preload there.
+        target: isFirefox ? "es2017" : "esnext",
+        modulePreload: isFirefox ? false : undefined
       }
-    },
-    // Disable Hot Module Replacement so streaming connections aren't killed by dev reloads
-    server: {
-      hmr: false
-    },
-    optimizeDeps: {
-      include: ["react", "react-dom", "react/jsx-runtime", "react/jsx-dev-runtime"]
-    },
-    build: {
-      // Firefox MV2 validator chokes on modern ESM in chunks; downlevel and turn off module preload there.
-      target: isFirefox ? "es2017" : "esnext",
-      modulePreload: isFirefox ? false : undefined
     }
-  }},
+  },
   entrypointsDir:
     isFirefox ? "entries-firefox" : "entries",
   srcDir: "src",

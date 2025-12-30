@@ -32,7 +32,6 @@ import {
   createDeck,
   createFlashcard,
   deleteFlashcard,
-  getFlashcard,
   getFlashcardsImportLimits,
   importFlashcards,
   listDecks,
@@ -271,6 +270,17 @@ export const FlashcardsPage: React.FC = () => {
     },
     onError: (e: any) => message.error(e?.message || "Failed to create deck")
   })
+  const handleCreateDeck = () => {
+    if (!newDeckName.trim()) {
+      message.error(
+        t("option:flashcards.newDeckNameRequired", {
+          defaultValue: "Enter a deck name."
+        })
+      )
+      return
+    }
+    createDeckMutation.mutate()
+  }
 
   // MANAGE TAB STATE
   const [mDeckId, setMDeckId] = React.useState<number | null | undefined>(undefined)
@@ -510,8 +520,9 @@ export const FlashcardsPage: React.FC = () => {
   // Quick actions: review
   const [quickReviewOpen, setQuickReviewOpen] = React.useState(false)
   const [quickReviewCard, setQuickReviewCard] = React.useState<Flashcard | null>(null)
-  const openQuickReview = async (card: Flashcard) => {
-    try { const full = await getFlashcard(card.uuid); setQuickReviewCard(full); setQuickReviewOpen(true) } catch (e: any) { message.error(e?.message || 'Failed to load card') }
+  const openQuickReview = (card: Flashcard) => {
+    setQuickReviewCard(card)
+    setQuickReviewOpen(true)
   }
   const submitQuickRating = async (rating: number) => {
     try {
@@ -521,41 +532,60 @@ export const FlashcardsPage: React.FC = () => {
       setQuickReviewCard(null)
       await qc.invalidateQueries({ queryKey: ["flashcards:list"] })
       message.success(t("common:success", { defaultValue: "Success" }))
-    } catch (e: any) { message.error(e?.message || 'Review failed') }
+    } catch (e: unknown) {
+      const errorMessage =
+        e instanceof Error
+          ? e.message
+          : t("option:flashcards.reviewFailed", {
+              defaultValue: "Review failed"
+            })
+      message.error(errorMessage)
+    }
   }
 
   // Quick actions: duplicate
   const duplicateCard = async (card: Flashcard) => {
     try {
-      const full = await getFlashcard(card.uuid)
       await createFlashcard({
-        deck_id: full.deck_id ?? undefined,
-        front: full.front,
-        back: full.back,
-        notes: full.notes || undefined,
-        extra: full.extra || undefined,
-        is_cloze: full.is_cloze,
-        tags: full.tags || undefined,
-        model_type: full.model_type,
-        reverse: full.reverse
+        deck_id: card.deck_id ?? undefined,
+        front: card.front,
+        back: card.back,
+        notes: card.notes || undefined,
+        extra: card.extra || undefined,
+        is_cloze: card.is_cloze,
+        tags: card.tags || undefined,
+        model_type: card.model_type,
+        reverse: card.reverse
       })
       await qc.invalidateQueries({ queryKey: ["flashcards:list"] })
       message.success(t("common:created", { defaultValue: "Created" }))
-    } catch (e: any) { message.error(e?.message || 'Duplicate failed') }
+    } catch (e: unknown) {
+      const errorMessage =
+        e instanceof Error
+          ? e.message
+          : t("option:flashcards.duplicateFailed", {
+              defaultValue: "Duplicate failed"
+            })
+      message.error(errorMessage)
+    }
   }
 
   // Quick actions: move (change deck)
   const [moveOpen, setMoveOpen] = React.useState(false)
   const [moveCard, setMoveCard] = React.useState<Flashcard | null>(null)
   const [moveDeckId, setMoveDeckId] = React.useState<number | null>(null)
-  const openMove = async (card: Flashcard) => {
-    try { const full = await getFlashcard(card.uuid); setMoveCard(full); setMoveDeckId(full.deck_id ?? null); setMoveOpen(true) } catch (e: any) { message.error(e?.message || 'Failed to load card') }
+  const openMove = (card: Flashcard) => {
+    setMoveCard(card)
+    setMoveDeckId(card.deck_id ?? null)
+    setMoveOpen(true)
   }
   const submitMove = async () => {
     try {
       if (moveCard) {
-        const full = await getFlashcard(moveCard.uuid)
-        await updateFlashcard(moveCard.uuid, { deck_id: moveDeckId ?? null, expected_version: full.version })
+        await updateFlashcard(moveCard.uuid, {
+          deck_id: moveDeckId ?? null,
+          expected_version: moveCard.version
+        })
       } else {
         // bulk move: require an explicit target deck and respect selectAllAcross/deselectedIds
         if (moveDeckId == null) {
@@ -585,28 +615,41 @@ export const FlashcardsPage: React.FC = () => {
       setMoveCard(null)
       await qc.invalidateQueries({ queryKey: ["flashcards:list"] })
       message.success(t("common:updated", { defaultValue: "Updated" }))
-    } catch (e: any) { message.error(e?.message || 'Move failed') }
+    } catch (e: unknown) {
+      const errorMessage =
+        e instanceof Error
+          ? e.message
+          : t("option:flashcards.moveFailed", {
+              defaultValue: "Move failed"
+            })
+      message.error(errorMessage)
+    }
   }
 
-  const openEdit = async (card: Flashcard) => {
+  const openEdit = (card: Flashcard) => {
     try {
-      const full = await getFlashcard(card.uuid)
-      setEditing(full)
+      setEditing(card)
       editForm.setFieldsValue({
-        deck_id: full.deck_id ?? undefined,
-        front: full.front,
-        back: full.back,
-        notes: full.notes || undefined,
-        extra: full.extra || undefined,
-        is_cloze: full.is_cloze,
-        tags: full.tags || undefined,
-        model_type: full.model_type,
-        reverse: full.reverse,
-        expected_version: full.version
+        deck_id: card.deck_id ?? undefined,
+        front: card.front,
+        back: card.back,
+        notes: card.notes || undefined,
+        extra: card.extra || undefined,
+        is_cloze: card.is_cloze,
+        tags: card.tags || undefined,
+        model_type: card.model_type,
+        reverse: card.reverse,
+        expected_version: card.version
       } as any)
       setEditOpen(true)
-    } catch (e: any) {
-      message.error(e?.message || "Failed to load card")
+    } catch (e: unknown) {
+      const errorMessage =
+        e instanceof Error
+          ? e.message
+          : t("option:flashcards.loadCardFailed", {
+              defaultValue: "Failed to load card"
+            })
+      message.error(errorMessage)
     }
   }
 
@@ -621,9 +664,15 @@ export const FlashcardsPage: React.FC = () => {
       setEditOpen(false)
       setEditing(null)
       await qc.invalidateQueries({ queryKey: ["flashcards:list"] })
-    } catch (e: any) {
-      if (e?.errorFields) return // form validation error
-      message.error(e?.message || "Update failed")
+    } catch (e: unknown) {
+      if (e && typeof e === "object" && "errorFields" in e) return
+      const errorMessage =
+        e instanceof Error
+          ? e.message
+          : t("option:flashcards.updateFailed", {
+              defaultValue: "Update failed"
+            })
+      message.error(errorMessage)
     }
   }
 
@@ -632,7 +681,11 @@ export const FlashcardsPage: React.FC = () => {
       if (!editing) return
       const expected = editForm.getFieldValue("expected_version") as number | undefined
       if (typeof expected !== "number") {
-        message.error("Missing version; reload and try again")
+        message.error(
+          t("option:flashcards.missingVersion", {
+            defaultValue: "Missing version; reload and try again"
+          })
+        )
         return
       }
       await deleteFlashcard(editing.uuid, expected)
@@ -640,8 +693,14 @@ export const FlashcardsPage: React.FC = () => {
       setEditOpen(false)
       setEditing(null)
       await qc.invalidateQueries({ queryKey: ["flashcards:list"] })
-    } catch (e: any) {
-      message.error(e?.message || "Delete failed")
+    } catch (e: unknown) {
+      const errorMessage =
+        e instanceof Error
+          ? e.message
+          : t("option:flashcards.deleteFailed", {
+              defaultValue: "Delete failed"
+            })
+      message.error(errorMessage)
     }
   }
 
@@ -1230,7 +1289,7 @@ export const FlashcardsPage: React.FC = () => {
                   title={t("option:flashcards.newDeck", { defaultValue: "New Deck" })}
                   open={newDeckModalOpen}
                   onCancel={() => setNewDeckModalOpen(false)}
-                  onOk={() => createDeckMutation.mutate()}
+                  onOk={handleCreateDeck}
                   okText={t("common:create", { defaultValue: "Create" })}
                   confirmLoading={createDeckMutation.isPending}
                 >
@@ -1270,10 +1329,24 @@ export const FlashcardsPage: React.FC = () => {
                     value={mDue}
                     onChange={(v: DueStatus) => setMDue(v)}
                     options={[
-                      { label: "all", value: "all" },
-                      { label: "new", value: "new" },
-                      { label: "learning", value: "learning" },
-                      { label: "due", value: "due" }
+                      {
+                        label: t("option:flashcards.dueAll", { defaultValue: "All" }),
+                        value: "all"
+                      },
+                      {
+                        label: t("option:flashcards.dueNew", { defaultValue: "New" }),
+                        value: "new"
+                      },
+                      {
+                        label: t("option:flashcards.dueLearning", {
+                          defaultValue: "Learning"
+                        }),
+                        value: "learning"
+                      },
+                      {
+                        label: t("option:flashcards.dueDue", { defaultValue: "Due" }),
+                        value: "due"
+                      }
                     ]}
                   />
                   <Input

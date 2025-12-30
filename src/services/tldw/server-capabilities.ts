@@ -7,6 +7,7 @@ export type ServerCapabilities = {
   hasNotes: boolean
   hasPrompts: boolean
   hasFlashcards: boolean
+  hasQuizzes: boolean
   hasCharacters: boolean
   hasWorldBooks: boolean
   hasChatDictionaries: boolean
@@ -26,6 +27,7 @@ const defaultCapabilities: ServerCapabilities = {
   hasNotes: false,
   hasPrompts: false,
   hasFlashcards: false,
+  hasQuizzes: false,
   hasCharacters: false,
   hasWorldBooks: false,
   hasChatDictionaries: false,
@@ -57,6 +59,8 @@ const fallbackSpec = {
       "/api/v1/prompts",
       "/api/v1/flashcards",
       "/api/v1/flashcards/decks",
+      "/api/v1/quizzes",
+      "/api/v1/quizzes/generate",
       "/api/v1/characters",
       "/api/v1/characters/world-books",
       "/api/v1/chat/dictionaries",
@@ -110,6 +114,10 @@ const computeCapabilities = (spec: any | null | undefined): ServerCapabilities =
       has("/api/v1/flashcards") ||
       has("/api/v1/flashcards/") ||
       has("/api/v1/flashcards/decks"),
+    hasQuizzes:
+      has("/api/v1/quizzes") ||
+      has("/api/v1/quizzes/") ||
+      has("/api/v1/quizzes/generate"),
     hasCharacters: has("/api/v1/characters") || has("/api/v1/characters/"),
     hasWorldBooks: has("/api/v1/characters/world-books"),
     hasChatDictionaries: has("/api/v1/chat/dictionaries"),

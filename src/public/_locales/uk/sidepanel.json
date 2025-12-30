@@ -1,0 +1,311 @@
+{
+  "tooltip_embed": {
+    "message": "Може знадобитися кілька хвилин для вкладення сторінки у базу. Будь ласка, зачекайте..."
+  },
+  "tooltip_clear": {
+    "message": "Стерти історію чату"
+  },
+  "tooltip_history": {
+    "message": "Історія чату"
+  },
+  "tooltip_openwebui": {
+    "message": "Відкрити веб-інтерфейс"
+  },
+  "toolbar_ragSearch": {
+    "message": "RAG Search"
+  },
+  "errors_privateModeTitle": {
+    "message": "tldw Assistant не може зберегти дані"
+  },
+  "errors_privateModeDescription": {
+    "message": "Приватний режим Firefox не підтримує збереження історії чату. Тимчасовий чат увімкнено за замовчуванням. Скоро будуть покращення."
+  },
+  "connectionBanner_connecting": {
+    "message": "Підключення до вашого сервера tldw..."
+  },
+  "connectionBanner_authErrorTitle": {
+    "message": "Потрібна увага до API-ключа"
+  },
+  "connectionBanner_authErrorBody": {
+    "message": "Сервер доступний, але API-ключ неправильний або відсутній."
+  },
+  "connectionBanner_unreachableTitle": {
+    "message": "Не вдається підключитися до сервера tldw"
+  },
+  "connectionBanner_unreachableBody": {
+    "message": "Перевірте, що сервер запущено та доступний."
+  },
+  "connectionBanner_noUrlBody": {
+    "message": "Додайте URL сервера в Налаштуваннях, щоб почати."
+  },
+  "connectionBanner_disconnectedTitle": {
+    "message": "Немає підключення до сервера tldw"
+  },
+  "connectionBanner_disconnectedBody": {
+    "message": "Відкрийте Налаштування, щоб налаштувати підключення."
+  },
+  "connectionBanner_setupTitle": {
+    "message": "Завершіть налаштування, щоб почати чат"
+  },
+  "connectionBanner_setupBody": {
+    "message": "Завершіть майстер налаштування в Налаштуваннях, щоб підключитися."
+  },
+  "connectionBanner_openSettings": {
+    "message": "Відкрити Налаштування"
+  },
+  "temporaryBadge_title": {
+    "message": "Тимчасовий чат"
+  },
+  "temporaryBadge_label": {
+    "message": "Temp"
+  },
+  "temporaryBadge_description": {
+    "message": "Цей чат не буде збережено. Повідомлення буде очищено під час закриття або початку нового чату."
+  },
+  "temporaryBadge_clickHint": {
+    "message": "Натисніть, щоб вимкнути"
+  },
+  "temporaryBadge_ariaLabel": {
+    "message": "Режим тимчасового чату активний. Натисніть, щоб перемкнути."
+  },
+  "temporaryBadge_indicatorTooltip": {
+    "message": "Повідомлення в цьому чаті не буде збережено"
+  },
+  "temporaryBadge_indicatorAria": {
+    "message": "Тимчасовий чат"
+  },
+  "header_ingest": {
+    "message": "Ingest"
+  },
+  "header_saveCurrent": {
+    "message": "Save current page on server"
+  },
+  "header_processLocal": {
+    "message": "Process current page locally"
+  },
+  "header_viewProcessed": {
+    "message": "View processed"
+  },
+  "header_timeoutLabel": {
+    "message": "Timeout (s)"
+  },
+  "header_toggleSidebar": {
+    "message": "Toggle Sidebar / Full Screen"
+  },
+  "header_shortcuts": {
+    "message": "Shortcuts"
+  },
+  "header_showDebug": {
+    "message": "Show Stream Debug"
+  },
+  "header_hideDebug": {
+    "message": "Hide Stream Debug"
+  },
+  "header_moreOptionsAria": {
+    "message": "More options"
+  },
+  "header_moreOptionsTitle": {
+    "message": "Ingest and more"
+  },
+  "header_openWebuiAria": {
+    "message": "Open Web UI"
+  },
+  "header_newChatAria": {
+    "message": "New chat"
+  },
+  "header_tempChatAria": {
+    "message": "Toggle temporary chat"
+  },
+  "header_clearHistoryAria": {
+    "message": "Clear history"
+  },
+  "header_openHistoryAria": {
+    "message": "Open history"
+  },
+  "header_openModelSettingsAria": {
+    "message": "Open model settings"
+  },
+  "header_openSettingsAria": {
+    "message": "Open settings"
+  },
+  "header_tempPill": {
+    "message": "Temp"
+  },
+  "header_modesLabel": {
+    "message": "Open modes in Web UI"
+  },
+  "header_modePlayground": {
+    "message": "Chat"
+  },
+  "header_modeReview": {
+    "message": "Multi-Item Review"
+  },
+  "header_modeMedia": {
+    "message": "Media"
+  },
+  "header_modeKnowledge": {
+    "message": "Knowledge"
+  },
+  "header_modeNotes": {
+    "message": "Notes"
+  },
+  "header_modePrompts": {
+    "message": "Prompts"
+  },
+  "header_modeFlashcards": {
+    "message": "Flashcards"
+  },
+  "controlRow_saveMode": {
+    "message": "Режим збереження"
+  },
+  "controlRow_ephemeral": {
+    "message": "Тимчасовий"
+  },
+  "controlRow_searchSection": {
+    "message": "Пошук і Vision"
+  },
+  "controlRow_webSearch": {
+    "message": "Пошук в інтернеті"
+  },
+  "controlRow_vision": {
+    "message": "Vision"
+  },
+  "controlRow_uploadImage": {
+    "message": "Завантажити зображення"
+  },
+  "controlRow_quickIngest": {
+    "message": "Швидко імпортувати сторінку"
+  },
+  "controlRow_openInFullUI": {
+    "message": "Відкрити у повному інтерфейсі"
+  },
+  "controlRow_modeChat": {
+    "message": "Чат"
+  },
+  "controlRow_modeMedia": {
+    "message": "Медіа"
+  },
+  "controlRow_modeNotes": {
+    "message": "Нотатки"
+  },
+  "controlRow_modeFlashcards": {
+    "message": "Флеш-картки"
+  },
+  "controlRow_ragSearch": {
+    "message": "RAG-пошук"
+  },
+  "controlRow_moreTools": {
+    "message": "Більше інструментів"
+  },
+  "composer_connectHint": {
+    "message": "Підключіться до свого сервера tldw у налаштуваннях, щоб надсилати повідомлення."
+  },
+  "composer_connectingPlaceholder": {
+    "message": "Підключення..."
+  },
+  "composer_disconnectedPlaceholder": {
+    "message": "Підключіться до свого сервера tldw у налаштуваннях, щоб надсилати повідомлення й переглядати медіа."
+  },
+  "notification_ingestSent": {
+    "message": "Sent to tldw server"
+  },
+  "notification_ingestSentDesc": {
+    "message": "Current page has been submitted for ingestion."
+  },
+  "notification_processedLocal": {
+    "message": "Processed locally"
+  },
+  "notification_processedLocalDesc": {
+    "message": "Processed content stored locally under Settings > Processed."
+  },
+  "notification_transcriptionTitle": {
+    "message": "Transcription"
+  },
+  "notification_transcriptionSummaryTitle": {
+    "message": "Transcription + summary"
+  },
+  "notification_transcriptionFallback": {
+    "message": "Transcription completed. Open Media in the Web UI to view it."
+  },
+  "notification_sourceLabel": {
+    "message": "Source"
+  },
+  "notification_transcriptLabel": {
+    "message": "Transcript"
+  },
+  "notification_summaryLabel": {
+    "message": "Summary"
+  },
+  "saveStatus_ephemeral": {
+    "message": "Тимчасовий: не зберігається, очищується при закритті"
+  },
+  "saveStatus_local": {
+    "message": "Збережено локально в цьому браузері"
+  },
+  "saveStatus_server": {
+    "message": "Збережено на сервері"
+  },
+  "saveStatus_saveFailed": {
+    "message": "Не вдалося зберегти чат на сервері"
+  },
+  "saveStatus_saveFailedDescription": {
+    "message": "Тепер чат зберігається лише локально. Перевірте з'єднання та спробуйте ще раз."
+  },
+  "rag_searchPlaceholder": {
+    "message": "Search your knowledge…"
+  },
+  "rag_search": {
+    "message": "Search"
+  },
+  "rag_show": {
+    "message": "Show RAG search"
+  },
+  "rag_hide": {
+    "message": "Hide RAG search"
+  },
+  "rag_addTagPlaceholder": {
+    "message": "Add tag (Enter)"
+  },
+  "rag_add": {
+    "message": "Add"
+  },
+  "rag_noResults": {
+    "message": "No results"
+  },
+  "rag_timeout_message": {
+    "message": "Request timed out."
+  },
+  "rag_timeout_increase": {
+    "message": "Increase timeout"
+  },
+  "rag_timeout_checkHealth": {
+    "message": "Check server health"
+  },
+  "rag_actions_insert": {
+    "message": "Insert"
+  },
+  "rag_actions_ask": {
+    "message": "Ask"
+  },
+  "rag_actions_open": {
+    "message": "Open"
+  },
+  "rag_actions_copy": {
+    "message": "Copy"
+  },
+  "rag_hint_message": {
+    "message": "Шукайте у своїй базі знань і вставляйте результати у повідомлення."
+  },
+  "rag_hint_dismiss": {
+    "message": "Закрити"
+  },
+  "tabs_newChat": {
+    "message": "Новий чат"
+  },
+  "tabs_newTabAria": {
+    "message": "Нова вкладка чату"
+  },
+  "tabs_closeTabAria": {
+    "message": "Закрити вкладку чату"
+  }
+}

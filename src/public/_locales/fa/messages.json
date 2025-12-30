@@ -8,6 +8,15 @@
   "openSidePanelToChat": {
     "message": "باز کردن نوار کناری برای گفتگو"
   },
+  "sidepanel_tabs_newChat": {
+    "message": "چت جدید"
+  },
+  "sidepanel_tabs_newTabAria": {
+    "message": "زبانه چت جدید"
+  },
+  "sidepanel_tabs_closeTabAria": {
+    "message": "بستن زبانه چت"
+  },
   "openOptionToChat": {
     "message": "باز کردن رابط کاربری وب برای گفتگو"
   },
@@ -234,79 +243,79 @@
     "message": "دارایی‌های OCR فعال شده و آماده‌اند"
   },
   "omniSearchPlaceholder": {
-    "message": "Search screens, chats, media, notes…",
+    "message": "جستجوی صفحه‌ها، چت‌ها، رسانه‌ها، یادداشت‌ها…",
     "description": "Placeholder text for the omni-search input in the header."
   },
   "omniSearchNoResults": {
-    "message": "No matches for \"{{query}}\".",
+    "message": "هیچ نتیجه‌ای برای «{{query}}» یافت نشد.",
     "description": "No-results text for omni-search when nothing matches the query."
   },
   "omniSearchCreateNote": {
-    "message": "Create note \"{{query}}\"",
+    "message": "ایجاد یادداشت «{{query}}»",
     "description": "Omni-search action label to create a note from the current query."
   },
   "omniSearchCreateFlashcards": {
-    "message": "Create flashcard collection \"{{query}}\"",
+    "message": "ایجاد مجموعهٔ فلش‌کارت «{{query}}»",
     "description": "Omni-search action label to create a flashcard collection from the current query."
   },
   "omniSearchStartChat": {
-    "message": "Start new chat \"{{query}}\"",
+    "message": "شروع چت جدید «{{query}}»",
     "description": "Omni-search action label to start a new chat from the current query."
   },
   "connectionCard_connectedCaption": {
-    "message": "Chat and tools are now available in Options and the sidepanel.",
+    "message": "اکنون چت و ابزارها در صفحهٔ گزینه‌ها و نوار کناری در دسترس هستند.",
     "description": "Caption under the server connection card when the extension is connected."
   },
   "quickIngestQueuedAria": {
-    "message": "{{label}} — {{count}} items queued — click to review and process",
+    "message": "{{label}} — {{count}} مورد در صف — برای بازبینی و پردازش کلیک کنید",
     "description": "ARIA label template for the Quick ingest button when there are queued items."
   },
   "connectionCard_descriptionConnectedList_reviewMedia": {
-    "message": "Review media & transcripts",
+    "message": "بازبینی رسانه‌ها و رونوشت‌ها",
     "description": "First bullet in the connected-state server connection card, highlighting media review."
   },
   "connectionCard_descriptionConnectedList_searchKnowledge": {
-    "message": "Search knowledge and notes",
+    "message": "جستجو در پایگاه دانش و یادداشت‌ها",
     "description": "Second bullet in the connected-state server connection card, highlighting knowledge/notes search."
   },
   "connectionCard_descriptionConnectedList_useRag": {
-    "message": "Use RAG with your own documents",
+    "message": "استفاده از RAG با اسناد خود",
     "description": "Third bullet in the connected-state server connection card, highlighting retrieval-augmented generation usage."
   },
   "omniSearch_filterScreen": {
-    "message": "Screens",
+    "message": "صفحه‌ها",
     "description": "Filter label for screens in omni-search."
   },
   "omniSearch_filterChat": {
-    "message": "Chats",
+    "message": "چت‌ها",
     "description": "Filter label for chats in omni-search."
   },
   "omniSearch_filterMedia": {
-    "message": "Media",
+    "message": "رسانه‌ها",
     "description": "Filter label for media in omni-search."
   },
   "omniSearch_filterNote": {
-    "message": "Notes",
+    "message": "یادداشت‌ها",
     "description": "Filter label for notes in omni-search."
   },
   "omniSearch_filterFlashcards": {
-    "message": "Flashcard Collections",
+    "message": "مجموعه‌های فلش‌کارت",
     "description": "Filter label for flashcard collections in omni-search."
   },
   "omniSearch_filterPrompt": {
-    "message": "Prompts",
+    "message": "پرامپت‌ها",
     "description": "Filter label for prompts in omni-search."
   },
   "omniSearch_filteringBy": {
-    "message": "Filtering by:",
+    "message": "فیلتر بر اساس:",
     "description": "Prefix label shown before the active omni-search filter type."
   },
   "omniSearchCreateNoteSuccess": {
-    "message": "Note \"{{query}}\" created",
+    "message": "یادداشت «{{query}}» ایجاد شد",
     "description": "Confirmation toast message shown after creating a note from omni-search."
   },
   "omniSearchCreateFlashcardsSuccess": {
-    "message": "Flashcard collection \"{{query}}\" created",
+    "message": "مجموعهٔ فلش‌کارت «{{query}}» ایجاد شد",
     "description": "Confirmation toast message shown after creating a flashcard collection from omni-search."
   },
   "folders": {
@@ -360,11 +369,53 @@
   "specFallbackWarning": {
     "message": "در حال استفاده از طرحوارهٔ جایگزینِ بسته‌بندی‌شدهٔ media.add (v{{version}}); اگر فیلدها قدیمی به نظر می‌رسند، لطفاً با tldw_server /openapi.json بررسی کنید."
   },
+  "serverOffline": {
+    "message": "سرور آفلاین است یا پیکربندی نشده است"
+  },
+  "serverChats": {
+    "message": "گپ‌های سرور"
+  },
+  "serverChatLoadError": {
+    "message": "بارگذاری گپ سرور ناموفق بود. اتصال خود را بررسی کرده و دوباره تلاش کنید."
+  },
+  "serverChatSourceLabel": {
+    "message": "سرور"
+  },
   "serverChatsUnavailableNotConnected": {
     "message": "پس از اتصال به سرور tldw خود، گپ‌های سرور در دسترس خواهند بود."
   },
   "serverChatsUnavailableServerError": {
     "message": "گپ‌های سرور در حال حاضر در دسترس نیستند. لاگ‌های سرور را بررسی کنید یا دوباره تلاش کنید."
+  },
+  "fileChanges": {
+    "message": "تغییرات فایل"
+  },
+  "deletions": {
+    "message": "حذف‌ها"
+  },
+  "gitOperations": {
+    "message": "عملیات Git"
+  },
+  "commands": {
+    "message": "دستورها"
+  },
+  "otherOperations": {
+    "message": "سایر عملیات"
+  },
+  "fileAccess": {
+    "message": "دسترسی به فایل‌ها"
+  },
+  "notebookEdits": {
+    "message": "ویرایش‌های دفترچه یادداشت"
+  },
+  "applyPatch": {
+    "message": "اعمال وصله"
+  },
+  "recursive": {
+    "message": "(بازگشتی)"
+  },
+  "complexArguments": {
+    "message": "[آرگومان‌های پیچیده]"
   },
   "noToolCalls": {
     "message": "هنوز هیچ فراخوانی ابزاری انجام نشده است"
@@ -437,6 +488,14 @@
   "tools_exec_run": {
     "message": "اجرای دستور",
     "description": "Label for the exec.run tool (run command)."
+  },
+  "serverChatForkedLabel": {
+    "message": "گفتگوی منشعب",
+    "description": "Label shown on chats that were forked from another server chat."
+  },
+  "serverChatForkedTooltip": {
+    "message": "منشعب از گفتگوی {{chatId}}",
+    "description": "Tooltip explaining which original server chat this chat was forked from."
   },
   "commandPalette_goToChat": {
     "message": "رفتن به چت",
@@ -543,13 +602,13 @@
     "description": "Label for the Recent items category in the command palette."
   },
   "markdown_unableToRender": {
-    "message": "Unable to render content"
+    "message": "محتوا قابل نمایش نیست"
   },
   "markdown_couldNotDisplay": {
-    "message": "The message content could not be displayed. This may be due to invalid formatting."
+    "message": "محتوای پیام قابل نمایش نبود. این ممکن است به دلیل قالب‌بندی نامعتبر باشد."
   },
   "markdown_showRawContent": {
-    "message": "Show raw content"
+    "message": "نمایش محتوای خام"
   },
   "notesSearch_exportNoteSuccess": {
     "message": "خروجی گرفته شد ({{size}})"
@@ -563,17 +622,14 @@
   "notesSearch_exportJsonSuccess": {
     "message": "از {{count}} یادداشت خروجی به صورت JSON گرفته شد ({{size}})"
   },
-  "exportNoteSuccess": {
-    "message": "خروجی گرفته شد ({{size}})"
+  "ttsShort": {
+    "message": "صدا"
   },
-  "exportSuccess": {
-    "message": "از {{count}} یادداشت خروجی گرفته شد ({{size}})"
+  "copyShort": {
+    "message": "کپی"
   },
-  "exportCsvSuccess": {
-    "message": "از {{count}} یادداشت خروجی به صورت CSV گرفته شد ({{size}})"
-  },
-  "exportJsonSuccess": {
-    "message": "از {{count}} یادداشت خروجی به صورت JSON گرفته شد ({{size}})"
+  "branchShort": {
+    "message": "شاخه"
   },
   "infoShort": {
     "message": "اطلاعات"
@@ -612,13 +668,13 @@
     "message": "پنهان کردن جزئیات فنی"
   },
   "error_createFolder": {
-    "message": "Failed to create folder"
+    "message": "ایجاد پوشه ناموفق بود"
   },
   "modelSelect_label": {
-    "message": "Model"
+    "message": "مدل"
   },
   "modelSelect_tooltip": {
-    "message": "Changes model for next message"
+    "message": "مدل را برای پیام بعدی تغییر می‌دهد"
   },
   "featureHints_knowledge_title": {
     "message": "در دانش خود جستجو کنید"
@@ -668,6 +724,21 @@
   "chatSidebar_notes": {
     "message": "یادداشت‌ها"
   },
+  "chatSidebar_flashcards": {
+    "message": "فلش‌کارت‌ها"
+  },
+  "chatSidebar_prompts": {
+    "message": "پرامپت‌ها"
+  },
+  "replaceConfirm": {
+    "message": "جایگزینی همه پرامپت‌های فعلی را با فایل واردشده بازنویسی می‌کند. ادامه می‌دهید؟"
+  },
+  "chatSidebar_multiItem": {
+    "message": "چند موردی"
+  },
+  "chatSidebar_shortcuts": {
+    "message": "میانبرها"
+  },
   "chatSidebar_settings": {
     "message": "تنظیمات"
   },
@@ -678,7 +749,7 @@
     "message": "محلی"
   },
   "chatSidebar_serverTab": {
-    "message": "Server"
+    "message": "سرور"
   },
   "chatSidebar_foldersTab": {
     "message": "پوشه‌ها"
@@ -687,7 +758,7 @@
     "message": "محلی"
   },
   "chatSidebar_tabs_server": {
-    "message": "Server"
+    "message": "سرور"
   },
   "chatSidebar_tabs_folders": {
     "message": "پوشه‌ها"
@@ -698,10 +769,2513 @@
   "chatSidebar_foldersRequireConnection": {
     "message": "پوشه‌ها به اتصال به سرور نیاز دارند"
   },
-  "option.more.copy.canonicalMarkdown": {
-    "message": "Copy canonical transcript"
+  "more_copy_canonicalMarkdown": {
+    "message": "کپی رونوشت مرجع"
   },
-  "option.more.download.canonicalMarkdown": {
-    "message": "Canonical transcript (Markdown)"
+  "more_download_canonicalMarkdown": {
+    "message": "رونوشت مرجع (Markdown)"
+  },
+  "header_contentReview": {
+    "message": "بازبینی محتوا"
+  },
+  "contentReview_title": {
+    "message": "بازبینی محتوا",
+    "description": "Content review UI string."
+  },
+  "contentReview_readyToSubmit": {
+    "message": "{{count}} آماده",
+    "description": "Content review UI string."
+  },
+  "contentReview_committedCount": {
+    "message": "{{count}} ثبت‌شده",
+    "description": "Content review UI string."
+  },
+  "contentReview_totalCount": {
+    "message": "{{count}} کل",
+    "description": "Content review UI string."
+  },
+  "contentReview_commitAll": {
+    "message": "ثبت همه",
+    "description": "Content review UI string."
+  },
+  "contentReview_clearDrafts": {
+    "message": "حذف پیش‌نویس‌ها",
+    "description": "Content review UI string."
+  },
+  "contentReview_emptyDescription": {
+    "message": "هنوز هیچ پیش‌نویسی ندارید. برای ساخت پیش‌نویس از Quick Ingest همراه با «بازبینی قبل از ذخیره» استفاده کنید.",
+    "description": "Content review UI string."
+  },
+  "contentReview_openQuickIngest": {
+    "message": "باز کردن Quick Ingest",
+    "description": "Content review UI string."
+  },
+  "contentReview_storeAfterReview": {
+    "message": "ذخیره پس از بازبینی",
+    "description": "Content review UI string."
+  },
+  "contentReview_reviewBeforeStorage": {
+    "message": "بازبینی پیش از ذخیره",
+    "description": "Content review UI string."
+  },
+  "contentReview_reviewBeforeStorageHint": {
+    "message": "اکنون پردازش کنید و سپس پیش‌نویس‌ها را به‌صورت محلی ویرایش کنید قبل از اینکه در سرور ثبت شوند.",
+    "description": "Content review UI string."
+  },
+  "contentReview_reviewEnabled": {
+    "message": "حالت بازبینی",
+    "description": "Content review UI string."
+  },
+  "contentReview_reviewStorageCap": {
+    "message": "سقف پیش‌نویس‌های محلی {{cap}} است.",
+    "description": "Content review UI string."
+  },
+  "contentReview_reviewWarningTitle": {
+    "message": "پیش‌نویس‌ها به‌صورت محلی ذخیره شوند؟",
+    "description": "Content review UI string."
+  },
+  "contentReview_reviewWarningBody": {
+    "message": "پیش‌نویس‌ها در این مرورگر ذخیره می‌شوند و ممکن است داده‌های حساس داشته باشند. می‌توانید هر زمان از صفحه «بازبینی محتوا» پیش‌نویس‌ها را پاک کنید.",
+    "description": "Content review UI string."
+  },
+  "contentReview_reviewWarningBodySecondary": {
+    "message": "حالت بازبینی محتوا را تا زمان ثبت در سرور در سمت کاربر نگه می‌دارد.",
+    "description": "Content review UI string."
+  },
+  "contentReview_reviewWarningConfirm": {
+    "message": "فعال‌کردن بازبینی",
+    "description": "Content review UI string."
+  },
+  "contentReview_reviewWarningCancel": {
+    "message": "لغو",
+    "description": "Content review UI string."
+  },
+  "contentReview_reviewRunLabel": {
+    "message": "بازبینی",
+    "description": "Content review UI string."
+  },
+  "contentReview_reviewDraftsCreated": {
+    "message": "پیش‌نویس‌ها برای بازبینی آماده‌اند.",
+    "description": "Content review UI string."
+  },
+  "contentReview_reviewStorageCapWarning_one": {
+    "message": "{{count}} فایل از سقف پیش‌نویس محلی ({{cap}}) عبور می‌کند. قبل از ثبت صوت/ویدئو، منابع را پیوست کنید.",
+    "description": "Content review UI string."
+  },
+  "contentReview_reviewStorageCapWarning_other": {
+    "message": "{{count}} فایل از سقف پیش‌نویس محلی ({{cap}}) عبور می‌کنند. قبل از ثبت صوت/ویدئو، منابع را پیوست کنید.",
+    "description": "Content review UI string."
+  },
+  "contentReview_openContentReview": {
+    "message": "باز کردن بازبینی محتوا",
+    "description": "Content review UI string."
+  },
+  "contentReview_batchLabel": {
+    "message": "دسته",
+    "description": "Content review UI string."
+  },
+  "contentReview_batchName": {
+    "message": "دسته {{index}}",
+    "description": "Content review UI string."
+  },
+  "contentReview_draftsLabel": {
+    "message": "پیش‌نویس‌ها",
+    "description": "Content review UI string."
+  },
+  "contentReview_selectDraft": {
+    "message": "برای شروع بازبینی یک پیش‌نویس را انتخاب کنید.",
+    "description": "Content review UI string."
+  },
+  "contentReview_titlePlaceholder": {
+    "message": "عنوان پیش‌نویس",
+    "description": "Content review UI string."
+  },
+  "contentReview_lastSaved": {
+    "message": "ذخیره‌شده در {{time}}",
+    "description": "Content review UI string."
+  },
+  "contentReview_resetTitle": {
+    "message": "بازنشانی پیش‌نویس؟",
+    "description": "Content review UI string."
+  },
+  "contentReview_resetBody": {
+    "message": "این کار محتوای اولیه این پیش‌نویس را برمی‌گرداند.",
+    "description": "Content review UI string."
+  },
+  "contentReview_resetConfirm": {
+    "message": "بازنشانی",
+    "description": "Content review UI string."
+  },
+  "contentReview_resetCancel": {
+    "message": "انصراف",
+    "description": "Content review UI string."
+  },
+  "contentReview_resetContent": {
+    "message": "بازنشانی",
+    "description": "Content review UI string."
+  },
+  "contentReview_diffView": {
+    "message": "نمای تفاوت‌ها",
+    "description": "Content review UI string."
+  },
+  "contentReview_saveDraft": {
+    "message": "ذخیره پیش‌نویس",
+    "description": "Content review UI string."
+  },
+  "contentReview_editorLabel": {
+    "message": "محتوا",
+    "description": "Content review UI string."
+  },
+  "contentReview_wordCount": {
+    "message": "{{words}} کلمه",
+    "description": "Content review UI string."
+  },
+  "contentReview_charCount": {
+    "message": "{{chars}} نویسه",
+    "description": "Content review UI string."
+  },
+  "contentReview_aiFix": {
+    "message": "اصلاح با هوش مصنوعی",
+    "description": "Content review UI string."
+  },
+  "contentReview_aiHint": {
+    "message": "محتوای پیش‌نویس را برای پردازش با هوش مصنوعی به سرور شما ارسال می‌کند.",
+    "description": "Content review UI string."
+  },
+  "contentReview_modelPlaceholder": {
+    "message": "پیش‌فرض سرور",
+    "description": "Content review UI string."
+  },
+  "contentReview_aiConsentTitle": {
+    "message": "ارسال پیش‌نویس به سرور؟",
+    "description": "Content review UI string."
+  },
+  "contentReview_aiConsentBody": {
+    "message": "این کار محتوای پیش‌نویس را برای پردازش با هوش مصنوعی به سرور tldw شما ارسال می‌کند. پیش‌نویس‌ها تا زمانی که ثبت کنید، محلی باقی می‌مانند.",
+    "description": "Content review UI string."
+  },
+  "contentReview_aiConsentConfirm": {
+    "message": "ادامه",
+    "description": "Content review UI string."
+  },
+  "contentReview_aiConsentCancel": {
+    "message": "انصراف",
+    "description": "Content review UI string."
+  },
+  "contentReview_aiApplied": {
+    "message": "اصلاحات هوش مصنوعی اعمال شد.",
+    "description": "Content review UI string."
+  },
+  "contentReview_aiNoChange": {
+    "message": "هیچ تغییری برگردانده نشد.",
+    "description": "Content review UI string."
+  },
+  "contentReview_aiEmpty": {
+    "message": "هوش مصنوعی هیچ محتوایی برنگرداند.",
+    "description": "Content review UI string."
+  },
+  "contentReview_aiUnavailable": {
+    "message": "تکمیل چت در دسترس نیست.",
+    "description": "Content review UI string."
+  },
+  "contentReview_templatePlaceholder": {
+    "message": "انتخاب الگو",
+    "description": "Content review UI string."
+  },
+  "contentReview_applyTemplate": {
+    "message": "اعمال الگو",
+    "description": "Content review UI string."
+  },
+  "contentReview_templateApplied": {
+    "message": "الگو اعمال شد.",
+    "description": "Content review UI string."
+  },
+  "contentReview_templateMissing": {
+    "message": "ابتدا یک الگو انتخاب کنید.",
+    "description": "Content review UI string."
+  },
+  "contentReview_detectSections": {
+    "message": "شناسایی بخش‌ها",
+    "description": "Content review UI string."
+  },
+  "contentReview_detectSectionsTitle": {
+    "message": "بخش‌ها دوباره شناسایی شوند؟",
+    "description": "Content review UI string."
+  },
+  "contentReview_detectSectionsBody": {
+    "message": "این کار بخش‌های موجود را جایگزین و انتخاب‌های شما را بازنشانی می‌کند.",
+    "description": "Content review UI string."
+  },
+  "contentReview_detectSectionsConfirm": {
+    "message": "شناسایی دوباره",
+    "description": "Content review UI string."
+  },
+  "contentReview_detectSectionsCancel": {
+    "message": "انصراف",
+    "description": "Content review UI string."
+  },
+  "contentReview_detectSectionsEmpty": {
+    "message": "هیچ بخشی شناسایی نشد.",
+    "description": "Content review UI string."
+  },
+  "contentReview_sectionsLabel": {
+    "message": "فیلتر بخش",
+    "description": "Content review UI string."
+  },
+  "contentReview_templates_transcript_clean_label": {
+    "message": "پاک‌سازی رونوشت",
+    "description": "Content review UI string."
+  },
+  "contentReview_templates_transcript_clean_description": {
+    "message": "علائم نگارشی و حروف بزرگ/کوچک را یکدست می‌کند و ساختار خطوط را حفظ می‌کند.",
+    "description": "Content review UI string."
+  },
+  "contentReview_templates_speaker_turns_label": {
+    "message": "نوبت‌های سخن‌گو",
+    "description": "Content review UI string."
+  },
+  "contentReview_templates_speaker_turns_description": {
+    "message": "اطمینان می‌دهد هر نوبت سخن‌گو در خط جداگانه با برچسب‌های واضح قرار گیرد.",
+    "description": "Content review UI string."
+  },
+  "contentReview_templates_chapter_headings_label": {
+    "message": "سرفصل‌های فصل",
+    "description": "Content review UI string."
+  },
+  "contentReview_templates_chapter_headings_description": {
+    "message": "سرتیترهای Markdown اضافه می‌کند تا موضوعات را گروه‌بندی کند بدون اینکه محتوا را حذف کند.",
+    "description": "Content review UI string."
+  },
+  "contentReview_metadataLabel": {
+    "message": "فراداده",
+    "description": "Content review UI string."
+  },
+  "contentReview_mediaType": {
+    "message": "نوع رسانه",
+    "description": "Content review UI string."
+  },
+  "contentReview_keywords": {
+    "message": "کلیدواژه‌ها",
+    "description": "Content review UI string."
+  },
+  "contentReview_keywordsPlaceholder": {
+    "message": "افزودن کلیدواژه",
+    "description": "Content review UI string."
+  },
+  "contentReview_reviewNotes": {
+    "message": "یادداشت‌های بازبینی",
+    "description": "Content review UI string."
+  },
+  "contentReview_missingSource": {
+    "message": "فایل منبع پیدا نشد",
+    "description": "Content review UI string."
+  },
+  "contentReview_missingSourceBody": {
+    "message": "برای ثبت این پیش‌نویس، فایل اصلی را پیوست کنید.",
+    "description": "Content review UI string."
+  },
+  "contentReview_attachSource": {
+    "message": "پیوست فایل",
+    "description": "Content review UI string."
+  },
+  "contentReview_actionsLabel": {
+    "message": "اقدامات",
+    "description": "Content review UI string."
+  },
+  "contentReview_commit": {
+    "message": "ثبت",
+    "description": "Content review UI string."
+  },
+  "contentReview_commitDisabled": {
+    "message": "قبل از ثبت، فایل صوتی/ویدئویی اصلی را پیوست کنید.",
+    "description": "Content review UI string."
+  },
+  "contentReview_markReviewed": {
+    "message": "علامت‌گذاری به‌عنوان بازبینی‌شده",
+    "description": "Content review UI string."
+  },
+  "contentReview_skipNext": {
+    "message": "رد کردن",
+    "description": "Content review UI string."
+  },
+  "contentReview_discard": {
+    "message": "حذف",
+    "description": "Content review UI string."
+  },
+  "contentReview_discardTitle": {
+    "message": "حذف پیش‌نویس؟",
+    "description": "Content review UI string."
+  },
+  "contentReview_discardBody": {
+    "message": "این پیش‌نویس به‌عنوان حذف‌شده علامت‌گذاری و از فرایند بازبینی خارج می‌شود.",
+    "description": "Content review UI string."
+  },
+  "contentReview_discardConfirm": {
+    "message": "حذف",
+    "description": "Content review UI string."
+  },
+  "contentReview_discardCancel": {
+    "message": "انصراف",
+    "description": "Content review UI string."
+  },
+  "contentReview_commitSuccess": {
+    "message": "پیش‌نویس ثبت شد.",
+    "description": "Content review UI string."
+  },
+  "contentReview_commitAllTitle": {
+    "message": "ثبت پیش‌نویس‌های بازبینی‌شده؟",
+    "description": "Content review UI string."
+  },
+  "contentReview_commitAllBody": {
+    "message": "فقط پیش‌نویس‌هایی که به‌عنوان بازبینی‌شده علامت خورده‌اند ثبت می‌شوند.",
+    "description": "Content review UI string."
+  },
+  "contentReview_commitAllConfirm": {
+    "message": "ثبت همه",
+    "description": "Content review UI string."
+  },
+  "contentReview_commitAllCancel": {
+    "message": "انصراف",
+    "description": "Content review UI string."
+  },
+  "contentReview_commitAllResult": {
+    "message": "{{success}} ثبت شد · {{failed}} ناموفق",
+    "description": "Content review UI string."
+  },
+  "contentReview_storageCapWarning": {
+    "message": "این فایل از سقف محلی پیش‌نویس‌ها ({{cap}}) فراتر می‌رود.",
+    "description": "Content review UI string."
+  },
+  "contentReview_clearTitle": {
+    "message": "حذف تمام پیش‌نویس‌ها؟",
+    "description": "Content review UI string."
+  },
+  "contentReview_clearBody": {
+    "message": "این کار همه پیش‌نویس‌ها و فایل‌های محلی بازبینی محتوا را حذف می‌کند.",
+    "description": "Content review UI string."
+  },
+  "contentReview_clearConfirm": {
+    "message": "حذف پیش‌نویس‌ها",
+    "description": "Content review UI string."
+  },
+  "contentReview_clearCancel": {
+    "message": "انصراف",
+    "description": "Content review UI string."
+  },
+  "contentReview_clearSuccess": {
+    "message": "پیش‌نویس‌ها حذف شدند.",
+    "description": "Content review UI string."
+  },
+  "contentReview_originalLabel": {
+    "message": "نسخه اصلی",
+    "description": "Content review UI string."
+  },
+  "contentReview_editedLabel": {
+    "message": "نسخه ویرایش‌شده",
+    "description": "Content review UI string."
+  },
+  "reviewDraftsFailedTitle": {
+    "message": "پیش‌نویس‌های بازبینی ایجاد نشدند.",
+    "description": "Error title when review drafts creation fails."
+  },
+  "reviewDraftsFailedFallback": {
+    "message": "ایجاد پیش‌نویس‌های بازبینی ناموفق بود.",
+    "description": "Fallback error message for review drafts failure."
+  },
+  "reviewDraftsRetry": {
+    "message": "تلاش دوباره برای ایجاد پیش‌نویس",
+    "description": "Button label to retry creating review drafts."
+  },
+  "reviewDraftsStoreWithoutReview": {
+    "message": "ذخیره بدون بازبینی",
+    "description": "Action to store without review."
+  },
+  "reviewNavigationFailed": {
+    "message": "باز کردن بازبینی محتوا ممکن نبود. دوباره تلاش کنید.",
+    "description": "Error message when navigation to Content Review fails."
+  },
+  "reviewNavigationRetry": {
+    "message": "تلاش دوباره برای باز کردن بازبینی محتوا",
+    "description": "Button label to retry opening Content Review."
+  },
+  "quickIngest_title": {
+    "message": "درون‌ریزی سریع رسانه"
+  },
+  "quickIngest_subtitle": {
+    "message": "یک یا چند URL وارد کنید. در صورت نیاز، نوع را برای هر ردیف تعیین کنید."
+  },
+  "quickIngest_offlineTitle": {
+    "message": "سرور آفلاین — فقط در staging"
+  },
+  "quickIngest_offlineDescription": {
+    "message": "می‌توانید URLها و فایل‌ها را اینجا صف کنید و فیلدها را بررسی کنید، اما واردسازی اجرا نخواهد شد تا وقتی سرور tldw شما آنلاین شود. برای پردازش موارد معلق دوباره متصل شوید."
+  },
+  "quickIngest_sourceHeading": {
+    "message": "URLها یا فایل‌های منبع"
+  },
+  "quickIngest_storeRemote": {
+    "message": "ذخیره در پایگاه دادهٔ راه‌دور"
+  },
+  "quickIngest_storeRemoteAria": {
+    "message": "نتایج درون‌ریزی را روی سرور tldw خود ذخیره کنید"
+  },
+  "quickIngest_processOnlyAria": {
+    "message": "نتایج درون‌ریزی را فقط به‌صورت محلی پردازش کنید"
+  },
+  "quickIngest_storeRemoteHelp": {
+    "message": "برای نمایه‌سازی به سرور tldw شما بارگذاری می‌شود."
+  },
+  "quickIngest_processOnlyHelp": {
+    "message": "فقط پردازش کرده و نتایج را محلی نگه دارید (دانلود JSON)."
+  },
+  "quickIngest_storageHeading": {
+    "message": "محل ذخیره نتایج درون‌ریزی"
+  },
+  "quickIngest_storageServerDescription": {
+    "message": "روی سرور tldw شما ذخیره می‌شود (پیشنهادی برای RAG و محیط‌های کاری مشترک)."
+  },
+  "quickIngest_storageLocalDescription": {
+    "message": "فقط در این مرورگر نگه داشته می‌شود؛ هیچ داده‌ای روی سرورتان نوشته نمی‌شود."
+  },
+  "quickIngest_storeAfterReview": {
+    "message": "ذخیره پس از بازبینی"
+  },
+  "quickIngest_reviewBeforeStorage": {
+    "message": "بازبینی پیش از ذخیره"
+  },
+  "quickIngest_reviewBeforeStorageHint": {
+    "message": "اکنون پردازش کنید و سپس پیش‌نویس‌ها را به‌صورت محلی ویرایش کنید قبل از اینکه در سرور ثبت شوند."
+  },
+  "quickIngest_reviewEnabled": {
+    "message": "حالت بازبینی"
+  },
+  "quickIngest_reviewStorageCap": {
+    "message": "سقف پیش‌نویس‌های محلی {{cap}} است."
+  },
+  "quickIngest_reviewStorageCapWarning_one": {
+    "message": "{{count}} فایل از سقف پیش‌نویس محلی ({{cap}}) عبور می‌کند. قبل از ثبت صوت/ویدئو، منابع را پیوست کنید."
+  },
+  "quickIngest_reviewStorageCapWarning_other": {
+    "message": "{{count}} فایل از سقف پیش‌نویس محلی ({{cap}}) عبور می‌کنند. قبل از ثبت صوت/ویدئو، منابع را پیوست کنید."
+  },
+  "quickIngest_reviewWarningTitle": {
+    "message": "پیش‌نویس‌ها به‌صورت محلی ذخیره شوند؟"
+  },
+  "quickIngest_reviewWarningBody": {
+    "message": "پیش‌نویس‌ها در این مرورگر ذخیره می‌شوند و ممکن است داده‌های حساس داشته باشند. می‌توانید هر زمان از صفحه «بازبینی محتوا» پیش‌نویس‌ها را پاک کنید."
+  },
+  "quickIngest_reviewWarningBodySecondary": {
+    "message": "حالت بازبینی محتوا را تا زمان ثبت در سرور در سمت کاربر نگه می‌دارد."
+  },
+  "quickIngest_reviewWarningConfirm": {
+    "message": "فعال‌کردن بازبینی"
+  },
+  "quickIngest_reviewWarningCancel": {
+    "message": "لغو"
+  },
+  "quickIngest_reviewRunLabel": {
+    "message": "بازبینی"
+  },
+  "quickIngest_reviewDraftsCreated": {
+    "message": "پیش‌نویس‌ها برای بازبینی آماده‌اند."
+  },
+  "quickIngest_reviewDraftsFailedTitle": {
+    "message": "پیش‌نویس‌های بازبینی ایجاد نشدند."
+  },
+  "quickIngest_reviewDraftsFailedFallback": {
+    "message": "ایجاد پیش‌نویس‌های بازبینی ناموفق بود."
+  },
+  "quickIngest_reviewDraftsRetry": {
+    "message": "تلاش دوباره برای ایجاد پیش‌نویس"
+  },
+  "quickIngest_reviewDraftsStoreWithoutReview": {
+    "message": "ذخیره بدون بازبینی"
+  },
+  "quickIngest_reviewNavigationFailed": {
+    "message": "باز کردن بازبینی محتوا ممکن نبود. دوباره تلاش کنید."
+  },
+  "quickIngest_reviewNavigationRetry": {
+    "message": "تلاش دوباره برای باز کردن بازبینی محتوا"
+  },
+  "quickIngest_openContentReview": {
+    "message": "باز کردن بازبینی محتوا"
+  },
+  "quickIngest_storageDocsLink": {
+    "message": "درباره درون‌ریزی و ذخیره‌سازی بیشتر بدانید"
+  },
+  "quickIngest_storageDocsUrl": {
+    "message": "https://github.com/rmusser01/tldw_browser_assistant"
+  },
+  "quickIngest_bulkPlaceholder": {
+    "message": "چسباندن URLها (هر خط یک مورد)"
+  },
+  "quickIngest_or": {
+    "message": "یا"
+  },
+  "quickIngest_remove": {
+    "message": "حذف"
+  },
+  "quickIngest_add": {
+    "message": "افزودن URL"
+  },
+  "quickIngest_commonOptions": {
+    "message": "گزینه‌های درون‌ریزی"
+  },
+  "quickIngest_audioOptions": {
+    "message": "گزینه‌های صوتی"
+  },
+  "quickIngest_audioLanguage": {
+    "message": "زبان (مثلاً en)"
+  },
+  "quickIngest_audioDiarizationHelp": {
+    "message": "فعال کنید تا گویندگان در رونوشت‌ها جدا شوند."
+  },
+  "quickIngest_documentOptions": {
+    "message": "گزینه‌های اسناد"
+  },
+  "quickIngest_videoOptions": {
+    "message": "گزینه‌های ویدئو"
+  },
+  "quickIngest_captionsHelp": {
+    "message": "در صورت وجود، زمان‌برچسب/زیرنویس را شامل کنید."
+  },
+  "quickIngest_cancel": {
+    "message": "لغو"
+  },
+  "quickIngest_ingest": {
+    "message": "درون‌ریزی"
+  },
+  "quickIngest_process": {
+    "message": "پردازش"
+  },
+  "quickIngest_results": {
+    "message": "نتایج"
+  },
+  "quickIngest_downloadJson": {
+    "message": "دانلود JSON"
+  },
+  "quickIngest_advancedSummary": {
+    "message": "{{count}} فیلد پیشرفته بارگذاری شد"
+  },
+  "quickIngest_advancedEmpty": {
+    "message": "گزینه پیشرفته‌ای یافت نشد — مشخصات را دوباره بارگذاری کنید."
+  },
+  "quickIngest_modifiedCount": {
+    "message": "{{count}} مورد تغییر کرد"
+  },
+  "quickIngest_progress": {
+    "message": "در حال پردازش {{done}} / {{total}} مورد…"
+  },
+  "quickIngest_errorSummary": {
+    "message": "در حال حاضر نتوانستیم موارد اینجست را پردازش کنیم."
+  },
+  "quickIngest_errorHint": {
+    "message": "پس از بررسی سرور tldw خود دوباره تلاش کنید. بخش Health & diagnostics می‌تواند در برطرف کردن مشکلات اینجست کمک کند."
+  },
+  "quickIngest_checkHealthLink": {
+    "message": "سلامت سرور را در Health & diagnostics بررسی کنید"
+  },
+  "quickIngest_healthAriaHint": {
+    "message": "اجرای اخیر ناموفق بود — برای جزئیات بیشتر از سربرگ Health & diagnostics را باز کنید."
+  },
+  "quickIngest_specReloadedToast": {
+    "message": "مشخصات پیشرفته از سرور دوباره بارگذاری شد"
+  },
+  "quickIngest_specReloadedToastDiff": {
+    "message": "مشخصات پیشرفته از سرور دوباره بارگذاری شد (فیلدهای اضافه‌شده: {{added}}, حذف‌شده: {{removed}})"
+  },
+  "quickIngest_specFallbackWarning": {
+    "message": "در حال استفاده از طرحوارهٔ جایگزینِ بسته‌بندی‌شدهٔ media.add (v{{version}}); اگر فیلدها قدیمی به نظر می‌رسند، لطفاً با tldw_server /openapi.json بررسی کنید."
+  },
+  "storeAfterReview": {
+    "message": "ذخیره پس از بازبینی"
+  },
+  "manageCharacters_actions_viewConversations": {
+    "message": "مشاهده گفتگوها"
+  },
+  "manageCharacters_aria_viewConversations": {
+    "message": "مشاهده گفتگوهای {{name}}"
+  },
+  "manageCharacters_aria_searchResults": {
+    "message": "{{count}} شخصیت پیدا شد"
+  },
+  "manageCharacters_conversations_title": {
+    "message": "گفتگوهای {{name}}"
+  },
+  "manageCharacters_conversations_titleGeneric": {
+    "message": "گفتگوهای شخصیت"
+  },
+  "manageCharacters_conversations_subtitle": {
+    "message": "برای ادامه دادن به عنوان این شخصیت، یک گفتگو را انتخاب کنید."
+  },
+  "manageCharacters_conversations_empty": {
+    "message": "هنوز گفتگویی برای این شخصیت یافت نشد."
+  },
+  "manageCharacters_conversations_error": {
+    "message": "بارگذاری گفتگوهای این شخصیت ممکن نبود."
+  },
+  "manageCharacters_conversations_updated": {
+    "message": "به‌روزرسانی شده در {{time}}"
+  },
+  "manageCharacters_conversations_unknownTime": {
+    "message": "نامشخص"
+  },
+  "manageCharacters_conversations_resume": {
+    "message": "ادامه گفتگو"
+  },
+  "manageCharacters_conversations_untitled": {
+    "message": "بدون عنوان"
+  },
+  "manageCharacters_conversations_mostRecent": {
+    "message": "جدیدترین"
+  },
+  "manageCharacters_conversations_resumeTooltip": {
+    "message": "بارگذاری تاریخچه گفتگو و ادامه این مکالمه"
+  },
+  "manageCharacters_preview_title": {
+    "message": "پیش‌نمایش"
+  },
+  "manageCharacters_preview_show": {
+    "message": "نمایش پیش‌نمایش"
+  },
+  "manageCharacters_preview_hide": {
+    "message": "پنهان کردن پیش‌نمایش"
+  },
+  "manageCharacters_preview_untitled": {
+    "message": "شخصیت بدون عنوان"
+  },
+  "manageCharacters_preview_greeting": {
+    "message": "خوشامد"
+  },
+  "manageCharacters_preview_behavior": {
+    "message": "رفتار"
+  },
+  "manageCharacters_preview_empty": {
+    "message": "برای دیدن پیش‌نمایش، فرم را پر کنید"
+  },
+  "manageCharacters_advanced_show": {
+    "message": "نمایش فیلدهای پیشرفته"
+  },
+  "manageCharacters_advanced_hide": {
+    "message": "پنهان کردن فیلدهای پیشرفته"
+  },
+  "chunkingPlayground_nav": {
+    "message": "پلی‌گراند بخش‌بندی",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_title": {
+    "message": "پلی‌گراند بخش‌بندی",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_description": {
+    "message": "با تنظیمات مختلف بخش‌بندی آزمایش کنید تا ببینید متن چگونه برای پردازش به بخش‌های کوچک‌تر تقسیم می‌شود.",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_inputLabel": {
+    "message": "متن برای بخش‌بندی",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_inputPlaceholder": {
+    "message": "متن را اینجا بچسبانید یا یک نمونه انتخاب کنید...",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_uploadButton": {
+    "message": "آپلود فایل",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_chunkButton": {
+    "message": "بخش‌بندی متن",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_methodLabel": {
+    "message": "روش بخش‌بندی",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_maxSizeLabel": {
+    "message": "حداکثر اندازه بخش",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_overlapLabel": {
+    "message": "هم‌پوشانی",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_languageLabel": {
+    "message": "زبان",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_languages_auto": {
+    "message": "تشخیص خودکار",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_languages_en": {
+    "message": "انگلیسی",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_languages_es": {
+    "message": "اسپانیایی",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_languages_fr": {
+    "message": "فرانسوی",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_languages_de": {
+    "message": "آلمانی",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_languages_it": {
+    "message": "ایتالیایی",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_languages_pt": {
+    "message": "پرتغالی",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_languages_zh": {
+    "message": "چینی",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_languages_ja": {
+    "message": "ژاپنی",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_languages_ko": {
+    "message": "کره‌ای",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_viewCards": {
+    "message": "کارت‌ها",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_viewInline": {
+    "message": "درون‌خطی",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_stats": {
+    "message": "{{count}} بخش، میانگین {{avgSize}} نویسه"
+  },
+  "chunkingPlayground_textLoaded": {
+    "message": "متن بارگذاری شد",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_characters": {
+    "message": "نویسه",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_tabSingle": {
+    "message": "تک",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_tabCompare": {
+    "message": "مقایسه",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_chunkIndex": {
+    "message": "بخش {{index}}"
+  },
+  "chunkingPlayground_chunkInfo": {
+    "message": "بخش {{index}}: {{words}} کلمه"
+  },
+  "chunkingPlayground_position": {
+    "message": "موقعیت: {{start}} - {{end}}"
+  },
+  "chunkingPlayground_additionalChunks": {
+    "message": "+{{count}} مورد بیشتر"
+  },
+  "chunkingPlayground_charCount": {
+    "message": "{{count}} نویسه"
+  },
+  "chunkingPlayground_wordCount": {
+    "message": "{{count}} کلمه"
+  },
+  "chunkingPlayground_noInput": {
+    "message": "لطفاً متنی برای بخش‌بندی وارد کنید",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_sharedInput": {
+    "message": "متن ورودی مشترک",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_compareButton": {
+    "message": "مقایسه هر دو",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_comparison": {
+    "message": "مقایسه",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_fewerChunks": {
+    "message": "پیکربندی الف {{diff}} بخش کمتر تولید می‌کند"
+  },
+  "chunkingPlayground_moreChunks": {
+    "message": "پیکربندی الف {{diff}} بخش بیشتر تولید می‌کند"
+  },
+  "chunkingPlayground_sameChunks": {
+    "message": "هر دو پیکربندی تعداد بخش یکسانی تولید می‌کنند",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_clickToChunk": {
+    "message": "برای دیدن نتایج روی «مقایسه» کلیک کنید",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_overlapRegion": {
+    "message": "ناحیه هم‌پوشانی",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_clickHint": {
+    "message": "روی بخش برجسته کلیک کنید تا روی آن بخش تمرکز شود",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_noContentFound": {
+    "message": "متنی برای این آیتم رسانه پیدا نشد",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_loadContentError": {
+    "message": "بارگذاری محتوای رسانه ناموفق بود",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_loadMediaListError": {
+    "message": "بارگذاری کتابخانه رسانه ناموفق بود",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_selectMedia": {
+    "message": "یک آیتم رسانه را انتخاب کنید...",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_loadingMedia": {
+    "message": "در حال بارگذاری محتوا...",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_noMediaFound": {
+    "message": "هیچ رسانه‌ای یافت نشد",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_mediaCount": {
+    "message": "{{count}} آیتم رسانه موجود است"
+  },
+  "chunkingPlayground_inputSource_paste": {
+    "message": "چسباندن متن",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_inputSource_upload": {
+    "message": "آپلود فایل",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_inputSource_sample": {
+    "message": "متن نمونه",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_inputSource_media": {
+    "message": "از کتابخانه رسانه",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_samples_article": {
+    "message": "مقاله خبری",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_samples_articleDesc": {
+    "message": "مقاله چندبندی با تیترها",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_samples_code": {
+    "message": "کد منبع",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_samples_codeDesc": {
+    "message": "کد پایتون با کلاس‌ها و توابع",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_samples_transcript": {
+    "message": "رونوشت",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_samples_transcriptDesc": {
+    "message": "رونوشت پادکست با زمان‌بندی",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_samples_academic": {
+    "message": "مقاله علمی",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_samples_academicDesc": {
+    "message": "متن فنی با ارجاعات",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_compare_title": {
+    "message": "مقایسه تنظیمات",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_compare_configA": {
+    "message": "پیکربندی الف",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_compare_configB": {
+    "message": "پیکربندی ب",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_mode_single": {
+    "message": "تک",
+    "description": "TODO: translate (copied from en)"
+  },
+  "chunkingPlayground_mode_compare": {
+    "message": "مقایسه",
+    "description": "TODO: translate (copied from en)"
+  },
+  "managePrompts_importMode_merge": {
+    "message": "ادغام"
+  },
+  "managePrompts_importMode_replace": {
+    "message": "جایگزینی"
+  },
+  "managePrompts_importMode_replaceConfirm": {
+    "message": "جایگزینی همه پرامپت‌های فعلی را با فایل واردشده بازنویسی می‌کند. ادامه می‌دهید؟"
+  },
+  "searchPrompts": {
+    "message": "جستجوی پرامپت‌ها..."
+  },
+  "noMatchingPrompts": {
+    "message": "هیچ پرامپتی مطابقت ندارد"
+  },
+  "promptSelect_favorites": {
+    "message": "موارد مورد علاقه"
+  },
+  "promptSelect_system": {
+    "message": "پرامپت‌های سیستم"
+  },
+  "promptSelect_quick": {
+    "message": "پرامپت‌های سریع"
+  },
+  "flashcards_newDeckNameRequired": {
+    "message": "نام دِک را وارد کنید."
+  },
+  "flashcards_dueAll": {
+    "message": "همه"
+  },
+  "flashcards_dueNew": {
+    "message": "جدید"
+  },
+  "flashcards_dueLearning": {
+    "message": "در حال یادگیری"
+  },
+  "flashcards_dueDue": {
+    "message": "سررسید"
+  },
+  "flashcards_reviewFailed": {
+    "message": "بازبینی ناموفق بود"
+  },
+  "flashcards_updateFailed": {
+    "message": "به‌روزرسانی ناموفق بود"
+  },
+  "flashcards_deleteFailed": {
+    "message": "حذف ناموفق بود"
+  },
+  "flashcards_missingVersion": {
+    "message": "نسخه موجود نیست؛ دوباره بارگذاری و تلاش کنید"
+  },
+  "flashcards_bulkDeleteResult": {
+    "message": "{{success}} حذف شد · {{failed}} ناموفق"
+  },
+  "mediaPage_searchPlaceholder": {
+    "message": "جستجوی رسانه (عنوان/محتوا)"
+  },
+  "mediaPage_search": {
+    "message": "جستجو"
+  },
+  "mediaPage_clear": {
+    "message": "پاک کردن"
+  },
+  "mediaPage_types": {
+    "message": "انواع"
+  },
+  "mediaPage_keywords": {
+    "message": "کلیدواژه‌ها"
+  },
+  "mediaPage_moreTags": {
+    "message": "+{{count}} برچسب دیگر"
+  },
+  "mediaPage_resetFilters": {
+    "message": "بازنشانی فیلترها"
+  },
+  "mediaPage_clearAll": {
+    "message": "پاک کردن همه"
+  },
+  "mediaPage_content": {
+    "message": "محتوا"
+  },
+  "mediaPage_vertical": {
+    "message": "عمودی"
+  },
+  "mediaPage_horizontal": {
+    "message": "افقی"
+  },
+  "mediaPage_results": {
+    "message": "نتایج"
+  },
+  "mediaPage_noResults": {
+    "message": "نتیجه‌ای یافت نشد"
+  },
+  "mediaPage_showSidebar": {
+    "message": "نمایش نوار کناری"
+  },
+  "mediaPage_hideSidebar": {
+    "message": "پنهان کردن نوار کناری"
+  },
+  "mediaPage_viewer": {
+    "message": "نمایشگر"
+  },
+  "mediaPage_selectItemsHint": {
+    "message": "برای نمایش در اینجا، موارد را از سمت چپ انتخاب کنید."
+  },
+  "mediaPage_mediaContent": {
+    "message": "محتوای رسانه"
+  },
+  "mediaPage_copyContent": {
+    "message": "کپی محتوا"
+  },
+  "mediaPage_contentCopied": {
+    "message": "محتوا کپی شد"
+  },
+  "mediaPage_metadataCopied": {
+    "message": "فراداده کپی شد"
+  },
+  "mediaPage_analysisCopied": {
+    "message": "تحلیل کپی شد"
+  },
+  "mediaPage_copyFailed": {
+    "message": "کپی ناموفق بود"
+  },
+  "mediaPage_noContent": {
+    "message": "هیچ محتوایی موجود نیست"
+  },
+  "mediaPage_collapse": {
+    "message": "جمع کردن"
+  },
+  "mediaPage_expand": {
+    "message": "باز کردن"
+  },
+  "mediaPage_media": {
+    "message": "رسانه"
+  },
+  "mediaPage_searchingBanner": {
+    "message": "در حال جستجوی رسانه…"
+  },
+  "mediaPage_filterHelp": {
+    "message": "جستجو عنوان و محتوا را تطبیق می‌دهد؛ انواع و کلیدواژه‌ها نتایج را محدودتر می‌کنند."
+  },
+  "mediaPage_noMediaTypes": {
+    "message": "هیچ نوع رسانه‌ای در دسترس نیست"
+  },
+  "mediaPage_resultsCount": {
+    "message": "{{selected}} انتخاب‌شده · {{open}} باز"
+  },
+  "mediaPage_clearSelection": {
+    "message": "لغو انتخاب همه"
+  },
+  "mediaPage_itemsLabel": {
+    "message": "موارد"
+  },
+  "mediaPage_contentLabel": {
+    "message": "نمای محتوا"
+  },
+  "mediaPage_filterByKeyword": {
+    "message": "فیلتر بر اساس کلمه کلیدی"
+  },
+  "mediaPage_keywordHelper": {
+    "message": "کلمات کلیدی به شما کمک می‌کنند این رسانه را با استفاده از فیلتر کلمات کلیدی در سمت چپ پیدا کنید"
+  },
+  "mediaPage_modeHint": {
+    "message": "برای مقایسه، چند مورد رسانه‌ای را جستجو کرده و در نماگر سمت راست روی هم قرار دهید."
+  },
+  "mediaPage_viewerHelp": {
+    "message": "صفحه‌کلید: با Tab وارد فهرست نتایج شوید، با Enter یا Space یک مورد رسانه‌ای را روی هم بگذارید یا بردارید، سپس با دکمه‌های قبلی/بعدی و کنترل‌های چیدمان بین موارد در نماگر جابه‌جا شوید."
+  },
+  "mediaPage_viewerHelpLabel": {
+    "message": "میان‌برهای صفحه‌کلید برای بررسی چند موردی"
+  },
+  "mediaPage_mediaInspector": {
+    "message": "بازبین رسانه"
+  },
+  "mediaPage_actionsLabel": {
+    "message": "اقدام‌ها"
+  },
+  "mediaPage_keywordsPlaceholder": {
+    "message": "افزودن کلمهٔ کلیدی..."
+  },
+  "mediaPage_noSelectionTitle": {
+    "message": "هیچ مورد رسانه‌ای انتخاب نشده است"
+  },
+  "mediaPage_noSelectionDescription": {
+    "message": "برای دیدن محتوا و تحلیل‌ها در اینجا، یک مورد رسانه‌ای را از نوار کناری سمت چپ انتخاب کنید."
+  },
+  "mediaPage_generateAnalysis": {
+    "message": "تولید تحلیل"
+  },
+  "mediaPage_generateAnalysisHint": {
+    "message": "تولید یک تحلیل جدید"
+  },
+  "mediaPage_editAnalysis": {
+    "message": "ویرایش تحلیل"
+  },
+  "mediaPage_createNoteWithContent": {
+    "message": "ایجاد یادداشت با محتوا"
+  },
+  "mediaPage_createNoteWithContentAnalysis": {
+    "message": "ایجاد یادداشت با محتوا + تحلیل"
+  },
+  "mediaPage_untitled": {
+    "message": "بدون عنوان"
+  },
+  "mediaPage_copyMetadata": {
+    "message": "کپی فراداده"
+  },
+  "mediaPage_statistics": {
+    "message": "آمار"
+  },
+  "mediaPage_words": {
+    "message": "کلمات"
+  },
+  "mediaPage_characters": {
+    "message": "کاراکترها"
+  },
+  "mediaPage_paragraphs": {
+    "message": "پاراگراف‌ها"
+  },
+  "mediaPage_metadata": {
+    "message": "فراداده"
+  },
+  "mediaPage_idLabel": {
+    "message": "شناسه"
+  },
+  "mediaPage_typeLabel": {
+    "message": "نوع"
+  },
+  "mediaPage_titleLabel": {
+    "message": "عنوان"
+  },
+  "mediaPage_source": {
+    "message": "منبع"
+  },
+  "mediaPage_notAvailable": {
+    "message": "ناموجود"
+  },
+  "mediaPage_developerTools": {
+    "message": "ابزارهای توسعه‌دهنده"
+  },
+  "mediaPage_nothingToSend": {
+    "message": "موردی برای ارسال وجود ندارد"
+  },
+  "mediaPage_emptyAnalysis": {
+    "message": "تحلیل نمی‌تواند خالی باشد"
+  },
+  "mediaPage_noMediaId": {
+    "message": "شناسه رسانه‌ای در دسترس نیست"
+  },
+  "mediaPage_versionSaved": {
+    "message": "به‌عنوان نسخه جدید ذخیره شد"
+  },
+  "mediaPage_saveFailed": {
+    "message": "ذخیره نسخه ناموفق بود"
+  },
+  "mediaPage_sendToChat": {
+    "message": "ارسال به چت"
+  },
+  "mediaPage_saveAsVersion": {
+    "message": "ذخیره به‌عنوان نسخه جدید"
+  },
+  "mediaPage_analysisPlaceholder": {
+    "message": "متن تحلیل را وارد کنید..."
+  },
+  "mediaPage_wordCount": {
+    "message": "{{count}} کلمه"
+  },
+  "mediaPage_charCount": {
+    "message": "{{count}} نویسه"
+  },
+  "mediaPage_pageRangeError": {
+    "message": "صفحه باید بین ۱ تا {{max}} باشد"
+  },
+  "mediaPage_pageRangeClamped": {
+    "message": "در حال انتقال به صفحهٔ {{page}}"
+  },
+  "mediaPage_saveUnauthorized": {
+    "message": "مجاز به ذخیره نیستید"
+  },
+  "flashcards_markdownSupportHint": {
+    "message": "از Markdown و LaTeX پشتیبانی می‌کند."
+  },
+  "flashcards_extraHint": {
+    "message": "راهنماها/توضیحات اختیاری (پشتیبانی از Markdown و LaTeX)."
+  },
+  "flashcards_notesHint": {
+    "message": "یادداشت‌های داخلی (پشتیبانی از Markdown و LaTeX)."
+  },
+  "header_modeSpeech": {
+    "message": "گفتار"
+  },
+  "playground_speech_title": {
+    "message": "زمین بازی گفتار"
+  },
+  "playground_speech_subtitle": {
+    "message": "گفتار را ضبط کنید، رونوشت‌ها را ویرایش کنید و صدا را در یکجا تولید کنید."
+  },
+  "playground_speech_modeLabel": {
+    "message": "حالت"
+  },
+  "playground_speech_modeRoundTrip": {
+    "message": "رفت‌وبرگشت"
+  },
+  "playground_speech_modeSpeak": {
+    "message": "صحبت"
+  },
+  "playground_speech_modeListen": {
+    "message": "گوش‌دادن"
+  },
+  "playground_speech_modeHint": {
+    "message": "آخرین حالت روی این دستگاه به خاطر سپرده می‌شود."
+  },
+  "playground_speech_recordingWaveform": {
+    "message": "موج‌نگار ضبط زنده"
+  },
+  "playground_speech_playbackWaveform": {
+    "message": "موج‌نگار پخش"
+  },
+  "playground_speech_sendToTts": {
+    "message": "ارسال به TTS"
+  },
+  "playground_speech_sendHint": {
+    "message": "از آخرین رونوشت به عنوان پیش‌نویس TTS استفاده کنید."
+  },
+  "playground_speech_download": {
+    "message": "دانلود"
+  },
+  "playground_speech_downloadCurrent": {
+    "message": "دانلود بخش فعلی"
+  },
+  "playground_speech_downloadAll": {
+    "message": "دانلود همه بخش‌ها"
+  },
+  "playground_speech_segmentFormat": {
+    "message": "قالب"
+  },
+  "playground_speech_historyTitle": {
+    "message": "تاریخچه گفتار"
+  },
+  "playground_speech_historyAll": {
+    "message": "همه"
+  },
+  "playground_speech_historyStt": {
+    "message": "گفتار به متن"
+  },
+  "playground_speech_historyTts": {
+    "message": "متن به گفتار"
+  },
+  "playground_speech_historySearch": {
+    "message": "جست‌وجوی رونوشت‌ها"
+  },
+  "playground_speech_historyRetentionHint": {
+    "message": "آخرین {{count}} مورد را نگه می‌دارد. برای حذف همه، از «پاک کردن همه» استفاده کنید."
+  },
+  "playground_speech_useInTts": {
+    "message": "استفاده در TTS"
+  },
+  "playground_speech_copy": {
+    "message": "کپی"
+  },
+  "playground_speech_copySuccess": {
+    "message": "به کلیپ‌بورد کپی شد"
+  },
+  "playground_speech_copyError": {
+    "message": "کپی کردن رونوشت ناموفق بود."
+  },
+  "playground_speech_providerTag": {
+    "message": "ارائه‌دهنده"
+  },
+  "playground_speech_voiceTag": {
+    "message": "صدا"
+  },
+  "playground_speech_emptyHistory": {
+    "message": "یک ضبط را شروع کنید یا صدا تولید کنید تا تاریخچه را اینجا ببینید."
+  },
+  "playground_speech_downloadDisabledBrowser": {
+    "message": "TTS مرورگر فایل قابل دانلود ایجاد نمی‌کند."
+  },
+  "playground_speech_downloadDisabledEmpty": {
+    "message": "برای فعال شدن دانلود، صدا تولید کنید."
+  },
+  "playground_speech_transcriptLock": {
+    "message": "قفل"
+  },
+  "playground_speech_transcriptUnlock": {
+    "message": "باز کردن قفل"
+  },
+  "playground_speech_transcriptEditHint": {
+    "message": "ویرایش برای این رونوشت فعال است."
+  },
+  "playground_speech_transcriptLockedHint": {
+    "message": "برای به‌روزرسانی‌های رونوشت زنده قفل شده است."
+  },
+  "playground_speech_transcriptRecordingHint": {
+    "message": "ضبط در حال انجام است؛ رونوشت قفل است."
+  },
+  "playground_tts_unsupportedFormatTitle": {
+    "message": "قالب صوتی پشتیبانی‌نشده"
+  },
+  "playground_tts_unsupportedFormatDescription": {
+    "message": "قالب پاسخ «{{format}}» پشتیبانی نمی‌شود. به MP3 برمی‌گردد."
+  },
+  "playground_formError_noModel": {
+    "message": "لطفا یک مدل را انتخاب کنید"
+  },
+  "playground_formError_noEmbeddingModel": {
+    "message": "لطفا یک مدل جاسازی در صفحه تنظیمات > RAG تنظیم کنید"
+  },
+  "playground_form_textarea_placeholder": {
+    "message": "یک پیام تایپ کنید..."
+  },
+  "playground_form_webSearch_on": {
+    "message": "روشن"
+  },
+  "playground_form_webSearch_off": {
+    "message": "خاموش"
+  },
+  "playground_tooltip_searchInternet": {
+    "message": "جستجوی اینترنت"
+  },
+  "playground_tooltip_speechToText": {
+    "message": "گفتار به متن"
+  },
+  "playground_tooltip_uploadImage": {
+    "message": "آپلود تصویر"
+  },
+  "playground_tooltip_stopStreaming": {
+    "message": "توقف پخش"
+  },
+  "playground_tooltip_knowledge": {
+    "message": "دانش"
+  },
+  "playground_tooltip_clearContext": {
+    "message": "پاک کردن متن"
+  },
+  "playground_tooltip_speechToTextServer": {
+    "message": "دیکته از طریق سرور tldw شما"
+  },
+  "playground_tooltip_speechToTextBrowser": {
+    "message": "دیکته از طریق تشخیص گفتار مرورگر"
+  },
+  "playground_tooltip_speechToTextDetails": {
+    "message": "از {{model}} · {{task}} · {{format}} استفاده می‌کند. در تنظیمات → عمومی → گفتار به متن پیکربندی کنید."
+  },
+  "playground_tooltip_vision": {
+    "message": "[آزمایشی] گفتگوی بینایی"
+  },
+  "playground_tooltip_uploadDocuments": {
+    "message": "آپلود اسناد (بتا)"
+  },
+  "playground_sendWhenEnter": {
+    "message": "با فشار دادن Enter ارسال شود"
+  },
+  "playground_welcome": {
+    "message": "سلام! امروز چطور می‌توانم به شما کمک کنم؟"
+  },
+  "playground_useOCR": {
+    "message": "استخراج متن از تصویر (OCR)"
+  },
+  "playground_tips_title": {
+    "message": "نکات"
+  },
+  "playground_tips_quickIngest": {
+    "message": "برای افزودن اسناد و صفحات وب از «درون‌ریزی سریع» استفاده کنید."
+  },
+  "playground_tips_pickModelPrompt": {
+    "message": "از سربرگ یک مدل و یک پرامپت انتخاب کنید."
+  },
+  "playground_tips_startChatFocus": {
+    "message": "پس از اتصال، «شروع گفتگو» کادر نوشتن را فعال می‌کند."
+  },
+  "playground_tldwState_searching": {
+    "message": "در حال جستجوی سرور tldw شما"
+  },
+  "playground_tldwState_running": {
+    "message": "tldw در حال اجرا است"
+  },
+  "playground_tldwState_notRunning": {
+    "message": "امکان اتصال به سرور tldw وجود ندارد"
+  },
+  "playground_tldwState_connectionError": {
+    "message": "به نظر می رسد که خطای اتصال دارید. لطفا برای عیب یابی به این <anchor>مستندات</anchor> مراجعه کنید."
+  },
+  "playground_tldwState_errorToast": {
+    "message": "نتوانستیم به {{host}} دسترسی پیدا کنیم"
+  },
+  "playground_tldwState_missingHelp": {
+    "message": "برای افزودن آدرس خود «تنظیمات → سرور tldw» را باز کنید یا به صفحه گزینه‌ها متصل شوید."
+  },
+  "playground_tldwState_troubleshoot": {
+    "message": "اطمینان حاصل کنید سرور در حال اجراست و مرورگر اجازه دسترسی دارد، سپس از صفحه گزینه‌ها دوباره تلاش کنید."
+  },
+  "playground_tldwState_openTldwSettings": {
+    "message": "باز کردن تنظیمات tldw"
+  },
+  "playground_tldwState_cancelSearch": {
+    "message": "لغو جستجو"
+  },
+  "playground_tldwState_connectionFailedWithCode": {
+    "message": "اتصال ناموفق بود (HTTP {{code}})"
+  },
+  "playground_tldwState_connectionFailed": {
+    "message": "اتصال ناموفق بود"
+  },
+  "playground_tldwState_errorDetailsLabel": {
+    "message": "جزئیات:"
+  },
+  "playground_tldwState_title": {
+    "message": "در انتظار سرور tldw شما"
+  },
+  "playground_tldwState_subtitle": {
+    "message": "برای بررسی اتصال، در حال پینگ {{host}} هستیم."
+  },
+  "playground_tldwState_missing": {
+    "message": "آدرس سرور پیکربندی نشده است"
+  },
+  "playground_tldwState_noServer": {
+    "message": "برای شروع گفتگو، سرور tldw خود را اضافه کنید."
+  },
+  "playground_tldwState_connectedSubtitle": {
+    "message": "به {{host}} متصل شد. هر زمان آماده‌اید گفتگو را شروع کنید."
+  },
+  "playground_tldwState_errorSubtitle": {
+    "message": "هنوز نتوانستیم به {{host}} دسترسی پیدا کنیم. دوباره تلاش کنید یا تنظیمات سرور را به‌روزرسانی کنید."
+  },
+  "playground_tldwState_openSettings": {
+    "message": "باز کردن تنظیمات"
+  },
+  "playground_tldwState_changeServer": {
+    "message": "تغییر سرور"
+  },
+  "playground_tldwState_elapsed": {
+    "message": "در حال بررسی… {{seconds}}ث"
+  },
+  "playground_tldwState_connectedHint": {
+    "message": "به {{host}} متصل شد."
+  },
+  "playground_tldwState_lastChecked": {
+    "message": "آخرین بررسی {{seconds}}ث پیش"
+  },
+  "playground_tldwState_recheck": {
+    "message": "بررسی دوباره"
+  },
+  "playground_errors_privateModeDescription": {
+    "message": "حالت خصوصی فایرفاکس از ذخیره چت پشتیبانی نمی‌کند. چت موقت به‌صورت پیش‌فرض فعال است. به‌زودی بهبود می‌یابد."
+  },
+  "playground_tts_playErrorTitle": {
+    "message": "خطا"
+  },
+  "playground_tts_playErrorDescription": {
+    "message": "در پخش صدا خطایی رخ داد"
+  },
+  "playground_tts_browserInfoTitle": {
+    "message": "TTS مرورگر از صدای سیستم استفاده می‌کند"
+  },
+  "playground_tts_browserInfoDescription": {
+    "message": "TTS مرورگر با سنتزکنندهٔ سیستم شما پخش می‌کند و فایل صوتی قابل دانلود ارائه نمی‌دهد. از کنترل‌های بخش‌ها در پایین استفاده کنید یا برای فهرست قطعه‌ها و پخش‌کننده، ارائه‌دهنده را تغییر دهید."
+  },
+  "playground_tts_unsupportedProviderTitle": {
+    "message": "ارائه‌دهنده TTS پشتیبانی نمی‌شود"
+  },
+  "playground_tts_unsupportedProviderDescription": {
+    "message": "ارائه‌دهنده \"{{provider}}\" هنوز در پخش‌کننده زمین بازی پشتیبانی نمی‌شود."
+  },
+  "playground_tts_elevenLabsMissingTitle": {
+    "message": "ElevenLabs به کلید API نیاز دارد"
+  },
+  "playground_tts_elevenLabsMissingBody": {
+    "message": "کلید API ElevenLabs را در تنظیمات اضافه کنید تا صداها و مدل‌ها بارگذاری شوند."
+  },
+  "playground_tts_elevenLabsUnavailableTitle": {
+    "message": "صداهای ElevenLabs در دسترس نیست"
+  },
+  "playground_tts_elevenLabsUnavailableBody": {
+    "message": "نتوانستیم صداها یا مدل‌ها را بارگذاری کنیم. کلید API خود را بررسی کرده و دوباره تلاش کنید."
+  },
+  "playground_tts_elevenLabsMissingCta": {
+    "message": "کلید API را در تنظیمات تنظیم کنید"
+  },
+  "playground_tts_generateErrorTitle": {
+    "message": "خطا در تولید صدا"
+  },
+  "playground_tts_generateErrorDescription": {
+    "message": "در تولید صدای TTS مشکلی پیش آمد."
+  },
+  "playground_tts_sampleText": {
+    "message": "درج متن نمونه"
+  },
+  "playground_tts_playHelper": {
+    "message": "پخش از ارائه‌دهنده، صدا و سرعت انتخابی شما استفاده می‌کند."
+  },
+  "playground_tts_playDisabledNoText": {
+    "message": "برای فعال شدن پخش متن وارد کنید."
+  },
+  "playground_tts_playDisabledTtsOff": {
+    "message": "برای پخش صدا، متن‌به‌گفتار را در بالا فعال کنید."
+  },
+  "playground_tts_playDisabledElevenLabs": {
+    "message": "برای فعال شدن پخش، کلید API، صدا و مدل ElevenLabs را اضافه کنید."
+  },
+  "playground_tts_stopDisabled": {
+    "message": "دکمه توقف پس از شروع صدا فعال می‌شود."
+  },
+  "playground_tts_providerChangeHelper": {
+    "message": "از انتخاب‌گر ارائه‌دهنده در پایین برای جابه‌جایی بین مرورگر، tldw، OpenAI یا Supersonic استفاده کنید."
+  },
+  "playground_tts_changeProvider": {
+    "message": "تغییر ارائه‌دهنده"
+  },
+  "playground_tts_title": {
+    "message": "پلی‌گراند TTS"
+  },
+  "playground_tts_subtitle": {
+    "message": "متن‌به‌گفتار را امتحان کنید و ارائه‌دهنده‌ها، مدل‌ها و صداها را تنظیم کنید."
+  },
+  "playground_tts_currentProvider": {
+    "message": "ارائه‌دهنده فعلی"
+  },
+  "playground_tts_settingsIntro": {
+    "message": "ارائه‌دهنده، مدل و صدای TTS را تنظیم کنید. این تنظیمات هنگام پخش صدا از چت یا رسانه دوباره استفاده می‌شوند."
+  },
+  "playground_tts_providerCapabilities": {
+    "message": "قابلیت‌های ارائه‌دهنده"
+  },
+  "playground_tts_voicesPreview": {
+    "message": "صداهای سرور"
+  },
+  "playground_tts_providerDetails": {
+    "message": "مشاهده پیکربندی خام ارائه‌دهنده"
+  },
+  "playground_tts_providerDetailsTitle": {
+    "message": "جزئیات ارائه‌دهنده"
+  },
+  "playground_tts_inputLabel": {
+    "message": "برای شنیدن، متنی وارد کنید."
+  },
+  "playground_tts_inputPlaceholder": {
+    "message": "متن را اینجا تایپ یا بچسبانید، سپس برای شنیدن روی پخش بزنید."
+  },
+  "playground_tts_play": {
+    "message": "پخش"
+  },
+  "playground_tts_playing": {
+    "message": "در حال پخش…"
+  },
+  "playground_tts_stop": {
+    "message": "توقف"
+  },
+  "playground_tts_browserSegmentsTitle": {
+    "message": "بخش‌های TTS مرورگر"
+  },
+  "playground_tts_browserSegmentsHelp": {
+    "message": "بخش‌ها را در صف بگذارید یا هر بخش را جداگانه با صدای سیستم پخش کنید."
+  },
+  "playground_tts_browserQueueAll": {
+    "message": "صف‌کردن همه"
+  },
+  "playground_tts_browserQueueFromHere": {
+    "message": "صف از اینجا"
+  },
+  "playground_tts_browserSegmentPlay": {
+    "message": "پخش بخش"
+  },
+  "playground_tts_browserStatusSpeaking": {
+    "message": "پخش بخش {{current}}/{{total}}"
+  },
+  "playground_tts_browserStatusPaused": {
+    "message": "مکث‌شده"
+  },
+  "playground_tts_browserPause": {
+    "message": "مکث"
+  },
+  "playground_tts_browserResume": {
+    "message": "ادامه"
+  },
+  "playground_tts_tldwStatusOnline": {
+    "message": "API صوتی سرور tldw شناسایی شد (audio/speech)"
+  },
+  "playground_tts_tldwStatusOffline": {
+    "message": "API صوتی شناسایی نشد؛ نسخه سرور tldw را بررسی کنید."
+  },
+  "playground_tts_tldwWarningTitle": {
+    "message": "API صوتی/گفتاری tldw شناسایی نشد"
+  },
+  "playground_tts_tldwWarningBody": {
+    "message": "مطمئن شوید نسخه tldw_server شامل /api/v1/audio/speech است و افزونه با کلید API معتبر متصل شده است."
+  },
+  "playground_tts_speechErrorTitle": {
+    "message": "دیکته ناموفق بود"
+  },
+  "playground_tts_speechErrorBody": {
+    "message": "درخواست رونویسی ناموفق بود. سلامت سرور tldw را بررسی کنید."
+  },
+  "playground_tts_speechNoText": {
+    "message": "رونویسی هیچ متنی برنگرداند."
+  },
+  "playground_tts_speechMicError": {
+    "message": "دسترسی به میکروفون ممکن نیست. مجوزهای مرورگر را بررسی کرده و دوباره تلاش کنید."
+  },
+  "playground_tts_savedToNotes": {
+    "message": "رونویسی به‌عنوان یادداشت ذخیره شد."
+  },
+  "playground_empty_title": {
+    "message": "شروع گفتگوی جدید"
+  },
+  "playground_empty_description": {
+    "message": "اینجا با مدل‌ها، پرامپت‌ها و منابع دانشی مختلف آزمایش کنید."
+  },
+  "playground_empty_demoDescription": {
+    "message": "شما در حالت دمو هستید—برای دیدن پاسخ دستیار یک سؤال بپرسید. بعداً می‌توانید سرور tldw خود را متصل کنید."
+  },
+  "playground_empty_example1": {
+    "message": "یک سؤال بپرسید، سپس اسناد یا صفحات وبی را که می‌خواهید درباره‌شان بحث کنید بکشید."
+  },
+  "playground_empty_example2": {
+    "message": "برای افزودن رونوشت‌ها یا یادداشت‌ها از درون‌ریزی سریع استفاده کنید و سپس در گفتگو به آن‌ها ارجاع دهید."
+  },
+  "playground_empty_example3": {
+    "message": "برای مقایسه پاسخ‌ها، پرامپت‌ها یا مدل‌های مختلف را از سربرگ امتحان کنید."
+  },
+  "playground_empty_primaryCta": {
+    "message": "شروع گفتگو"
+  },
+  "playground_empty_secondaryCta": {
+    "message": "باز کردن تنظیمات سرور"
+  },
+  "playground_drop_hint": {
+    "message": "فایل‌ها را رها کنید تا به پیام شما پیوست شوند"
+  },
+  "playground_drop_readySingle": {
+    "message": "{{name}} آماده ارسال است"
+  },
+  "playground_drop_readyMultiple": {
+    "message": "{{count}} فایل آماده ارسال است"
+  },
+  "playground_drop_unsupported": {
+    "message": "این نوع فایل پشتیبانی نمی‌شود. تصاویر یا فایل‌های متنی را امتحان کنید."
+  },
+  "playground_drop_defaultFileName": {
+    "message": "فایل"
+  },
+  "playground_drop_imageOnly": {
+    "message": "فعلاً فقط تصاویر را می‌توان اینجا رها کرد."
+  },
+  "playground_drop_imageHint": {
+    "message": "برای افزودن به پیام، یک تصویر رها کنید"
+  },
+  "playground_drop_overlayInstruction": {
+    "message": "تصویر را رها کنید تا به پاسخ بعدی پیوست شود"
+  },
+  "playground_aria_chatTranscript": {
+    "message": "پیام‌های گفتگو"
+  },
+  "playground_more_history": {
+    "message": "ذخیره گفتگو"
+  },
+  "playground_more_searchKnowledge": {
+    "message": "جستجو و دانش"
+  },
+  "playground_more_voice": {
+    "message": "گزینه‌های بیشتر صوتی"
+  },
+  "playground_more_uploads": {
+    "message": "آپلودها و درون‌ریزی"
+  },
+  "playground_fileRetrievalEnabled": {
+    "message": "فعال‌سازی RAG برای اسناد"
+  },
+  "playground_stt_title": {
+    "message": "پلی‌گراند STT"
+  },
+  "playground_stt_subtitle": {
+    "message": "مدل‌های رونویسی را امتحان کنید، نشست‌های دیکته طولانی‌تر اجرا کنید و رونوشت‌ها را در یادداشت‌ها ذخیره کنید."
+  },
+  "playground_stt_currentModelLabel": {
+    "message": "مدل رونویسی فعلی"
+  },
+  "playground_stt_defaultModel": {
+    "message": "پیش‌فرض از تنظیمات"
+  },
+  "playground_stt_settingsNotice": {
+    "message": "زبان، وظیفه، قالب پاسخ، بخش‌بندی و پرامپت از تنظیمات گفتار به متن شما استفاده می‌کنند."
+  },
+  "playground_stt_sessionMode": {
+    "message": "حالت نشست"
+  },
+  "playground_stt_modeLong": {
+    "message": "طولانی (ضبط بخش‌بندی‌شده)"
+  },
+  "playground_stt_modeShort": {
+    "message": "دیکته کوتاه (کلیپ تکی)"
+  },
+  "playground_stt_languageTag": {
+    "message": "زبان"
+  },
+  "playground_stt_taskTag": {
+    "message": "وظیفه"
+  },
+  "playground_stt_formatTag": {
+    "message": "قالب"
+  },
+  "playground_stt_segmentationEnabled": {
+    "message": "بخش‌بندی فعال است"
+  },
+  "playground_stt_recordButton": {
+    "message": "ضبط"
+  },
+  "playground_stt_stopButton": {
+    "message": "توقف"
+  },
+  "playground_stt_startTooltip": {
+    "message": "شروع ضبط صدا برای رونویسی"
+  },
+  "playground_stt_stopTooltip": {
+    "message": "توقف و ارسال به سرور"
+  },
+  "playground_stt_transcribingButton": {
+    "message": "در حال تبدیل گفتار..."
+  },
+  "playground_stt_transcribingTooltip": {
+    "message": "در حال تبدیل صوت به متن..."
+  },
+  "playground_stt_transcribingPlaceholder": {
+    "message": "در حال تبدیل صوت به متن..."
+  },
+  "playground_stt_historyTitle": {
+    "message": "تاریخچه رونویسی"
+  },
+  "playground_stt_clearAll": {
+    "message": "پاک کردن همه"
+  },
+  "playground_stt_emptyHistory": {
+    "message": "برای دیدن رونوشت‌ها اینجا، یک ضبط را شروع کنید. می‌توانید هر موردی را در یادداشت‌ها ذخیره کنید."
+  },
+  "playground_stt_saveToNotes": {
+    "message": "ذخیره در یادداشت‌ها"
+  },
+  "playground_stt_delete": {
+    "message": "حذف"
+  },
+  "playground_stt_durationTag": {
+    "message": "مدت"
+  },
+  "playground_stt_modelTag": {
+    "message": "مدل"
+  },
+  "playground_stt_currentTranscriptTitle": {
+    "message": "رونوشت نشست فعلی"
+  },
+  "playground_stt_currentTranscriptPlaceholder": {
+    "message": "رونوشت زنده هنگام ضبط اینجا نمایش داده می‌شود."
+  },
+  "playground_actions_temporaryOn": {
+    "message": "گفتگوی موقت (ذخیره نمی‌شود)"
+  },
+  "playground_actions_temporaryOff": {
+    "message": "ذخیره گفتگو در تاریخچه"
+  },
+  "playground_actions_webSearchOn": {
+    "message": "جستجوی وب روشن"
+  },
+  "playground_actions_webSearchOff": {
+    "message": "جستجوی وب خاموش"
+  },
+  "playground_actions_speechStart": {
+    "message": "شروع دیکته"
+  },
+  "playground_actions_speechStop": {
+    "message": "توقف دیکته"
+  },
+  "playground_actions_streamStart": {
+    "message": "زیرنویس زنده"
+  },
+  "playground_actions_streamStop": {
+    "message": "توقف زیرنویس"
+  },
+  "playground_actions_visionOn": {
+    "message": "بینایی روشن"
+  },
+  "playground_actions_visionOff": {
+    "message": "بینایی خاموش"
+  },
+  "playground_actions_upload": {
+    "message": "پیوست تصویر"
+  },
+  "playground_actions_ingest": {
+    "message": "درون‌ریزی سریع"
+  },
+  "playground_actions_ingestDisabled": {
+    "message": "برای درون‌ریزی به سرور tldw خود متصل شوید."
+  },
+  "playground_actions_ingestHint": {
+    "message": "آدرس‌ها یا فایل‌ها را با گزینه‌های پیشرفته بارگذاری کنید."
+  },
+  "playground_actions_ingestSub": {
+    "message": "از آدرس/فایل استفاده کنید؛ دانلود یا ذخیره کنید."
+  },
+  "playground_actions_streamErrorTitle": {
+    "message": "زیرنویس زنده در دسترس نیست"
+  },
+  "playground_composer_toolsButton": {
+    "message": "+ابزارها"
+  },
+  "playground_composer_queuedBanner_title": {
+    "message": "صف‌شده در حالت آفلاین"
+  },
+  "playground_composer_queuedBanner_body": {
+    "message": "این پیام‌ها را نگه می‌داریم و پس از اتصال سرور tldw ارسال می‌کنیم."
+  },
+  "playground_composer_queuedBanner_sendNow": {
+    "message": "ارسال پیام‌های صف‌شده"
+  },
+  "playground_composer_queuedBanner_clear": {
+    "message": "پاک کردن صف"
+  },
+  "playground_composer_coreTools": {
+    "message": "گزینه‌های گفتگو"
+  },
+  "playground_composer_captureTools": {
+    "message": "ابزارهای دریافت و کمک"
+  },
+  "playground_composer_actions": {
+    "message": "گزینه‌های ارسال"
+  },
+  "playground_composer_moreTools": {
+    "message": "ابزارهای بیشتر"
+  },
+  "playground_composer_scrollToLatest": {
+    "message": "اسکرول به آخرین پیام‌ها"
+  },
+  "playground_composer_submitAria": {
+    "message": "ارسال پیام"
+  },
+  "playground_composer_openModelSettings": {
+    "message": "باز کردن تنظیمات گفتگوی فعلی"
+  },
+  "playground_composer_stopStreaming": {
+    "message": "توقف پخش پاسخ"
+  },
+  "playground_composer_connectionPlaceholder": {
+    "message": "برای ارسال پیام و مشاهده رسانه، در تنظیمات به سرور tldw خود متصل شوید."
+  },
+  "playground_composer_connectNotice": {
+    "message": "برای ارسال پیام و مشاهده رسانه، در تنظیمات به سرور tldw خود متصل شوید."
+  },
+  "playground_composer_connectionChipDisconnected": {
+    "message": "سرور: متصل نیست"
+  },
+  "playground_composer_contextLabel": {
+    "message": "زمینه:"
+  },
+  "playground_composer_contextKnowledgeEmpty": {
+    "message": "هیچ دانشی انتخاب نشده است"
+  },
+  "playground_composer_contextTabs": {
+    "message": "{{count}} تب"
+  },
+  "playground_composer_contextFiles": {
+    "message": "{{count}} فایل"
+  },
+  "playground_composer_contextMedia": {
+    "message": "رسانه و یادداشت‌ها"
+  },
+  "playground_composer_contextMediaHint": {
+    "message": "رسانه و یادداشت‌هایی را پیوست کنید که باید پاسخ را هدایت کنند."
+  },
+  "playground_composer_contextMediaSelected": {
+    "message": "رسانه یا یادداشت"
+  },
+  "playground_composer_contextMediaEmpty": {
+    "message": "هنوز رسانه یا یادداشتی انتخاب نشده است."
+  },
+  "playground_composer_addKnowledge": {
+    "message": "افزودن رسانه و یادداشت‌ها"
+  },
+  "playground_composer_contextTabsTitle": {
+    "message": "تب‌ها در زمینه"
+  },
+  "playground_composer_contextTabsHint": {
+    "message": "تب‌های ارجاع‌شده را بررسی یا حذف کنید، یا از تب‌های باز مرورگر موارد بیشتری اضافه کنید."
+  },
+  "playground_composer_contextManager": {
+    "message": "مدیریت زمینه"
+  },
+  "playground_composer_contextManagerTitle": {
+    "message": "مدیریت زمینه"
+  },
+  "playground_composer_contextKnowledge": {
+    "message": "زمینه و دانش"
+  },
+  "playground_composer_contextKnowledgeClose": {
+    "message": "بستن زمینه و دانش"
+  },
+  "playground_composer_knowledgeSearch": {
+    "message": "جستجوی دانش"
+  },
+  "playground_composer_knowledgeSearchClose": {
+    "message": "بستن جستجوی دانش"
+  },
+  "playground_composer_persistence_ephemeral": {
+    "message": "در تاریخچه ذخیره نمی‌شود؛ با بستن این تب پاک می‌شود."
+  },
+  "playground_composer_persistence_local": {
+    "message": "فقط در این مرورگر ذخیره می‌شود."
+  },
+  "playground_composer_persistence_server": {
+    "message": "ذخیره محلی + سرور"
+  },
+  "playground_composer_persistence_ephemeralPill": {
+    "message": "موقت"
+  },
+  "playground_composer_persistence_localPill": {
+    "message": "فقط محلی"
+  },
+  "playground_composer_persistence_serverPill": {
+    "message": "محلی + سرور"
+  },
+  "playground_composer_persistence_saveToServer": {
+    "message": "این گفتگو را روی سرور هم ذخیره کنید"
+  },
+  "playground_composer_persistence_connectToSave": {
+    "message": "برای ذخیره گفتگوها آنجا، سرور خود را متصل کنید."
+  },
+  "playground_composer_persistence_serverDefaultTitle": {
+    "message": "گفتگوی افزونه"
+  },
+  "playground_composer_persistence_serverSavedTitle": {
+    "message": "گفتگو اکنون روی سرور ذخیره شد"
+  },
+  "playground_composer_persistence_serverSaved": {
+    "message": "پیام‌های بعدی این گفتگو با سرور tldw شما همگام می‌شوند."
+  },
+  "playground_composer_persistence_serverCharacterRequired": {
+    "message": "نتوانستیم شخصیت پیش‌فرض دستیار را روی سرور پیدا یا ایجاد کنیم. از صفحه شخصیت‌ها دوباره تلاش کنید."
+  },
+  "playground_composer_connectToSend": {
+    "message": "برای ارسال پیام و مشاهده رسانه، در تنظیمات به سرور tldw خود متصل شوید."
+  },
+  "playground_composer_compareTag": {
+    "message": "مقایسه"
+  },
+  "playground_composer_compareLabel": {
+    "message": "حالت مقایسه"
+  },
+  "playground_composer_compareButton": {
+    "message": "مقایسه مدل‌ها"
+  },
+  "playground_composer_compareButtonActive": {
+    "message": "مقایسه: {{count}} مدل"
+  },
+  "playground_composer_compareButtonOn": {
+    "message": "مقایسه فعال شد"
+  },
+  "playground_composer_compareSettingsTitle": {
+    "message": "تنظیمات مقایسه"
+  },
+  "playground_composer_compareSettingsToggle": {
+    "message": "فعال کردن حالت مقایسه"
+  },
+  "playground_composer_compareSettingsToggleHint": {
+    "message": "پیام بعدی شما به چند مدل ارسال می‌شود."
+  },
+  "playground_composer_compareNoneSelected": {
+    "message": "هیچ مدلی برای مقایسه انتخاب نشده است"
+  },
+  "playground_composer_compareSingle": {
+    "message": "در حال مقایسه ۱ مدل"
+  },
+  "playground_composer_compareMany": {
+    "message": "در حال مقایسه {{count}} مدل"
+  },
+  "playground_composer_compareActiveSummary": {
+    "message": "مدل‌های فعال در نوبت بعد: {{label}}"
+  },
+  "playground_composer_compareModelPickerLabel": {
+    "message": "انتخاب مدل‌ها"
+  },
+  "playground_composer_compareModelPickerPlaceholder": {
+    "message": "مدل‌هایی برای مقایسه انتخاب کنید"
+  },
+  "playground_composer_compareActiveModelsLabel": {
+    "message": "مدل‌های فعال"
+  },
+  "playground_composer_compareActiveModelsHint": {
+    "message": "پیام بعدی شما برای هر مدل فعال ارسال می‌شود."
+  },
+  "playground_composer_compareSendToModels": {
+    "message": "ارسال به {{count}} مدل"
+  },
+  "playground_composer_compareMaxModelsTitle": {
+    "message": "به حد مجاز مقایسه رسیده‌اید"
+  },
+  "playground_composer_compareMaxModels": {
+    "message": "می‌توانید در هر نوبت حداکثر {{limit}} مدل را مقایسه کنید."
+  },
+  "playground_composer_compareMaxModelsTrimmed": {
+    "message": "مقایسه به {{limit}} مدل در هر نوبت محدود می‌شود. از اولین {{limit}} مدل انتخاب‌شده استفاده می‌شود."
+  },
+  "playground_composer_compareMaxLabel": {
+    "message": "حداکثر مدل در هر نوبت"
+  },
+  "playground_composer_compareMaxHelper": {
+    "message": "انتخاب‌شده: {{current}} / {{limit}}"
+  },
+  "playground_composer_compareSelectedLabel": {
+    "message": "به‌عنوان پاسخ انتخاب شد:"
+  },
+  "playground_composer_compareContinueHint": {
+    "message": "این گفتگو را با مدل انتخاب‌شده ادامه دهید."
+  },
+  "playground_composer_compareContinue": {
+    "message": "ادامه با این مدل"
+  },
+  "playground_composer_compareThreadShared": {
+    "message": "شما (مشترک)"
+  },
+  "playground_composer_compareBulkSplitSuccess": {
+    "message": "تعداد {{count}} گفتگو ایجاد شد"
+  },
+  "playground_composer_compareBulkSplitPartialFail": {
+    "message": "ایجاد {{count}} چت ناموفق بود"
+  },
+  "playground_composer_validationCompareSelectModelsInline": {
+    "message": "برای حالت مقایسه حداقل یک مدل انتخاب کنید."
+  },
+  "tabs_newChat": {
+    "message": "چت جدید"
+  },
+  "tabs_newTabAria": {
+    "message": "زبانه چت جدید"
+  },
+  "tabs_closeTabAria": {
+    "message": "بستن زبانه چت"
+  },
+  "newChat": {
+    "message": "چت جدید",
+    "description": "label for new chat tab"
+  },
+  "newTabAria": {
+    "message": "زبانه چت جدید",
+    "description": "aria label for adding a new chat tab"
+  },
+  "closeTabAria": {
+    "message": "بستن زبانه چت",
+    "description": "aria label for closing a chat tab"
+  },
+  "quiz_itemsPerPage": {
+    "message": "آیتم/صفحه",
+    "description": "Quiz UI text for Persian."
+  },
+  "quiz_editQuizTitle": {
+    "message": "ویرایش آزمون",
+    "description": "Quiz UI text for Persian."
+  },
+  "quiz_updateSuccess": {
+    "message": "آزمون با موفقیت به‌روزرسانی شد.",
+    "description": "Quiz UI text for Persian."
+  },
+  "quiz_updateError": {
+    "message": "به‌روزرسانی آزمون ناموفق بود.",
+    "description": "Quiz UI text for Persian."
+  },
+  "quiz_questionTextRequired": {
+    "message": "متن سؤال الزامی است.",
+    "description": "Quiz UI text for Persian."
+  },
+  "quiz_optionsRequired": {
+    "message": "لطفا دست‌کم دو گزینه ارائه کنید.",
+    "description": "Quiz UI text for Persian."
+  },
+  "quiz_questionSaveSuccess": {
+    "message": "سؤال با موفقیت ایجاد شد.",
+    "description": "Quiz UI text for Persian."
+  },
+  "quiz_questionUpdateSuccess": {
+    "message": "سؤال با موفقیت به‌روزرسانی شد.",
+    "description": "Quiz UI text for Persian."
+  },
+  "quiz_questionSaveError": {
+    "message": "ذخیره سؤال ناموفق بود.",
+    "description": "Quiz UI text for Persian."
+  },
+  "quiz_questionDeleteSuccess": {
+    "message": "سؤال حذف شد.",
+    "description": "Quiz UI text for Persian."
+  },
+  "quiz_questionDeleteError": {
+    "message": "حذف سؤال ناموفق بود.",
+    "description": "Quiz UI text for Persian."
+  },
+  "quiz_editQuestion": {
+    "message": "ویرایش سؤال",
+    "description": "Quiz UI text for Persian."
+  },
+  "quiz_points": {
+    "message": "امتیاز",
+    "description": "Quiz UI text for Persian."
+  },
+  "quiz_orderIndex": {
+    "message": "ترتیب",
+    "description": "Quiz UI text for Persian."
+  },
+  "quiz_startError": {
+    "message": "شروع آزمون ناموفق بود.",
+    "description": "Quiz UI text for Persian."
+  },
+  "quiz_answerAll": {
+    "message": "لطفا پیش از ارسال، به همه سؤالات پاسخ دهید.",
+    "description": "Quiz UI text for Persian."
+  },
+  "quiz_submitError": {
+    "message": "ارسال آزمون ناموفق بود.",
+    "description": "Quiz UI text for Persian."
+  },
+  "quiz_scoreSummary": {
+    "message": "امتیاز: {{score}} / {{total}} ({{percent}}%)",
+    "description": "Quiz UI text for Persian."
+  },
+  "quiz_correct": {
+    "message": "درست",
+    "description": "Quiz UI text for Persian."
+  },
+  "quiz_incorrect": {
+    "message": "نادرست",
+    "description": "Quiz UI text for Persian."
+  },
+  "quiz_yourAnswer": {
+    "message": "پاسخ شما",
+    "description": "Quiz UI text for Persian."
+  },
+  "quiz_correctAnswerLabel": {
+    "message": "پاسخ درست",
+    "description": "Quiz UI text for Persian."
+  },
+  "quiz_backToList": {
+    "message": "بازگشت به فهرست",
+    "description": "Quiz UI text for Persian."
+  },
+  "quiz_retake": {
+    "message": "تکرار آزمون",
+    "description": "Quiz UI text for Persian."
+  },
+  "manageCharacters_title": {
+    "message": "مدیریت شخصیت‌ها"
+  },
+  "manageCharacters_addBtn": {
+    "message": "شخصیت جدید"
+  },
+  "manageCharacters_columns_name": {
+    "message": "نام"
+  },
+  "manageCharacters_columns_description": {
+    "message": "توضیحات"
+  },
+  "manageCharacters_columns_actions": {
+    "message": "اقدامات"
+  },
+  "manageCharacters_columns_avatar": {
+    "message": "آواتار"
+  },
+  "manageCharacters_actions_chat": {
+    "message": "گفتگو"
+  },
+  "manageCharacters_actions_edit": {
+    "message": "ویرایش"
+  },
+  "manageCharacters_actions_delete": {
+    "message": "حذف"
+  },
+  "manageCharacters_actions_duplicate": {
+    "message": "تکرار"
+  },
+  "manageCharacters_table_noDescription": {
+    "message": "بدون توضیح"
+  },
+  "manageCharacters_filter_matchAll": {
+    "message": "مطابقت با همه برچسب‌ها"
+  },
+  "manageCharacters_tags_label": {
+    "message": "برچسب‌ها"
+  },
+  "manageCharacters_tags_placeholder": {
+    "message": "افزودن برچسب"
+  },
+  "manageCharacters_tags_help": {
+    "message": "از برچسب‌ها برای گروه‌بندی شخصیت‌ها بر اساس کاربرد استفاده کنید (مثلاً «نویسندگی»، «تدریس»)."
+  },
+  "manageCharacters_tooltip_edit": {
+    "message": "ویرایش شخصیت"
+  },
+  "manageCharacters_tooltip_delete": {
+    "message": "حذف شخصیت"
+  },
+  "manageCharacters_aria_chatWith": {
+    "message": "گفتگو به‌عنوان {{name}}"
+  },
+  "manageCharacters_aria_edit": {
+    "message": "ویرایش شخصیت {{name}}"
+  },
+  "manageCharacters_aria_delete": {
+    "message": "حذف شخصیت {{name}}"
+  },
+  "manageCharacters_aria_duplicate": {
+    "message": "تکرار شخصیت {{name}}"
+  },
+  "manageCharacters_confirm_delete": {
+    "message": "آیا مطمئن هستید که می‌خواهید این شخصیت را حذف کنید؟ این کار قابل بازگشت نیست."
+  },
+  "manageCharacters_avatar_label": {
+    "message": "آواتار (اختیاری)"
+  },
+  "manageCharacters_avatar_tabUrl": {
+    "message": "نشانی"
+  },
+  "manageCharacters_avatar_tabUpload": {
+    "message": "آپلود"
+  },
+  "manageCharacters_avatar_selectImageError": {
+    "message": "لطفاً یک فایل تصویر انتخاب کنید"
+  },
+  "manageCharacters_avatar_formatError": {
+    "message": "فقط تصاویر PNG، JPEG و GIF پشتیبانی می‌شوند"
+  },
+  "manageCharacters_avatar_invalidError": {
+    "message": "فایل تصویر نامعتبر است"
+  },
+  "manageCharacters_avatar_processError": {
+    "message": "پردازش تصویر ناموفق بود"
+  },
+  "manageCharacters_avatar_dropzone": {
+    "message": "برای آپلود کلیک کنید یا تصویر را بکشید"
+  },
+  "manageCharacters_avatar_formats": {
+    "message": "PNG، JPEG یا GIF"
+  },
+  "manageCharacters_avatar_preview": {
+    "message": "پیش‌نمایش"
+  },
+  "manageCharacters_form_name_label": {
+    "message": "نام"
+  },
+  "manageCharacters_form_name_placeholder": {
+    "message": "مثلاً مربی نوشتن"
+  },
+  "manageCharacters_form_name_required": {
+    "message": "لطفاً نام را وارد کنید"
+  },
+  "manageCharacters_form_description": {
+    "message": "یک شخصیت قابل‌استفاده مجدد تعریف کنید تا در نوار کناری با آن گفتگو کنید."
+  },
+  "manageCharacters_form_systemPrompt_label": {
+    "message": "رفتار / دستورالعمل‌ها"
+  },
+  "manageCharacters_form_systemPrompt_placeholder": {
+    "message": "مثلاً: شما معلم ریاضی صبوری هستید که مفاهیم را مرحله‌به‌مرحله توضیح می‌دهید و با مثال‌های کوتاه فهم را می‌سنجید."
+  },
+  "manageCharacters_form_systemPrompt_help": {
+    "message": "نقش، لحن و محدودیت‌های شخصیت را توضیح دهید. مثال: «شما معلم صبوری هستید که مفاهیم را مرحله‌به‌مرحله توضیح می‌دهید.»"
+  },
+  "manageCharacters_form_systemPrompt_required": {
+    "message": "لطفاً برای هدایت پاسخ‌ها دستورالعمل اضافه کنید."
+  },
+  "manageCharacters_form_systemPrompt_min": {
+    "message": "یک توضیح کوتاه اضافه کنید تا شخصیت بداند چگونه پاسخ دهد."
+  },
+  "manageCharacters_form_systemPrompt_max": {
+    "message": "پرامپت سیستم باید حداکثر ۲۰۰۰ کاراکتر باشد."
+  },
+  "manageCharacters_form_avatarUrl_label": {
+    "message": "آدرس تصویر آواتار (اختیاری)"
+  },
+  "manageCharacters_form_avatarUrl_placeholder": {
+    "message": "مثلاً نشانی تصویر آواتار"
+  },
+  "manageCharacters_form_greeting_label": {
+    "message": "پیام خوشامد (اختیاری)"
+  },
+  "manageCharacters_form_greeting_placeholder": {
+    "message": "سلام! من مربی نوشتن شما هستم. پیش‌نویس‌تان را بفرستید تا به بهتر شدنش کمک کنم."
+  },
+  "manageCharacters_form_greeting_help": {
+    "message": "پیام اولیه اختیاری که شخصیت هنگام شروع گفتگو می‌فرستد."
+  },
+  "manageCharacters_form_btnSave_saving": {
+    "message": "در حال ایجاد شخصیت..."
+  },
+  "manageCharacters_form_btnSave_save": {
+    "message": "ایجاد شخصیت"
+  },
+  "manageCharacters_form_btnEdit_saving": {
+    "message": "در حال ذخیره تغییرات..."
+  },
+  "manageCharacters_form_btnEdit_save": {
+    "message": "ذخیره تغییرات"
+  },
+  "manageCharacters_notification_addSuccess": {
+    "message": "شخصیت ایجاد شد"
+  },
+  "manageCharacters_notification_error": {
+    "message": "خطا"
+  },
+  "manageCharacters_notification_someError": {
+    "message": "مشکلی پیش آمد. لطفاً بعداً دوباره تلاش کنید"
+  },
+  "manageCharacters_notification_updatedSuccess": {
+    "message": "شخصیت به‌روزرسانی شد"
+  },
+  "manageCharacters_notification_deletedSuccess": {
+    "message": "شخصیت حذف شد"
+  },
+  "manageCharacters_loadError_title": {
+    "message": "بارگذاری شخصیت‌ها ممکن نشد"
+  },
+  "manageCharacters_loadError_description": {
+    "message": "اتصال خود را بررسی کرده و دوباره تلاش کنید."
+  },
+  "manageCharacters_emptyTitle": {
+    "message": "هنوز شخصیتی وجود ندارد"
+  },
+  "manageCharacters_emptyDescription": {
+    "message": "یک شخصیت قابل استفاده مجدد با نام، توضیح و پرامپت سیستم بسازید تا با آن گفتگو کنید."
+  },
+  "manageCharacters_emptyExample1": {
+    "message": "یک مربی نوشتن، کارشناس داستان یا دستیار کدنویسی تعریف کنید که بتوانید در چت‌ها دوباره استفاده کنید."
+  },
+  "manageCharacters_emptyExample2": {
+    "message": "به هر شخصیت توضیح و رفتار واضحی بدهید تا پاسخ‌هایش منسجم بماند."
+  },
+  "manageCharacters_emptyPrimaryCta": {
+    "message": "ایجاد شخصیت"
+  },
+  "manageCharacters_avatarAltWithName": {
+    "message": "آواتار {{name}}"
+  },
+  "manageCharacters_avatarAlt": {
+    "message": "آواتار کاربر"
+  },
+  "flashcards_bulkLimitWarning": {
+    "message": "عملیات محدود به {{limit}} مورد اول است."
+  },
+  "mediaPage_spreadMode": {
+    "message": "مقایسه"
+  },
+  "mediaPage_listMode": {
+    "message": "تمرکز"
+  },
+  "mediaPage_allMode": {
+    "message": "پشته"
+  },
+  "mediaPage_spreadModeTooltip": {
+    "message": "نمایش موارد انتخاب‌شده کنار هم برای مقایسه"
+  },
+  "mediaPage_listModeTooltip": {
+    "message": "نمایش تک‌به‌تک همراه با ناوبری"
+  },
+  "mediaPage_allModeTooltip": {
+    "message": "نمایش همه موارد انتخاب‌شده در یک فهرست قابل پیمایش"
+  },
+  "mediaPage_copyContentLabel": {
+    "message": "کپی محتوا"
+  },
+  "mediaPage_copyAnalysisLabel": {
+    "message": "کپی تحلیل"
+  },
+  "mediaPage_copyContentTooltip": {
+    "message": "کپی محتوا در کلیپ‌بورد"
+  },
+  "mediaPage_copyAnalysisTooltip": {
+    "message": "کپی تحلیل در کلیپ‌بورد"
+  },
+  "mediaPage_prevItemTooltip": {
+    "message": "مورد قبلی (←)"
+  },
+  "mediaPage_nextItemTooltip": {
+    "message": "مورد بعدی (→)"
+  },
+  "mediaPage_viewerOptions": {
+    "message": "گزینه‌ها"
+  },
+  "mediaPage_expandAllDropdown": {
+    "message": "باز/بسته کردن"
+  },
+  "mediaPage_itemPosition": {
+    "message": "مورد {{current}} از {{total}}"
+  },
+  "mediaPage_noItemSelected": {
+    "message": "هیچ موردی انتخاب نشده است"
+  },
+  "mediaPage_firstUseTitle": {
+    "message": "راهنمای سریع: بازبینی چندموردی"
+  },
+  "mediaPage_firstUseStep1": {
+    "message": "انتخاب موارد"
+  },
+  "mediaPage_firstUseStep1Desc": {
+    "message": "برای افزودن به نمایشگر، روی موارد در پنل سمت چپ کلیک کنید."
+  },
+  "mediaPage_firstUseStep2": {
+    "message": "انتخاب نما"
+  },
+  "mediaPage_firstUseStep2Desc": {
+    "message": "برای نمایش کنار هم «مقایسه»، برای تک‌به‌تک «تمرکز»، یا برای دیدن همه «پشته» را انتخاب کنید."
+  },
+  "mediaPage_firstUseStep3": {
+    "message": "ناوبری"
+  },
+  "mediaPage_firstUseStep3Desc": {
+    "message": "با دکمه‌های قبلی/بعدی یا صفحه‌کلید (Tab + Enter) بین موارد جابه‌جا شوید."
+  },
+  "mediaPage_gotIt": {
+    "message": "متوجه شدم"
+  },
+  "mediaPage_model": {
+    "message": "مدل"
+  },
+  "mediaPage_selectModel": {
+    "message": "انتخاب مدل"
+  },
+  "mediaPage_noModelsAvailable": {
+    "message": "هیچ مدلی در دسترس نیست"
+  },
+  "mediaPage_promptPresets": {
+    "message": "پیش‌تنظیم‌های پرامپت"
+  },
+  "mediaPage_showPresets": {
+    "message": "نمایش پیش‌تنظیم‌ها"
+  },
+  "mediaPage_hidePresets": {
+    "message": "پنهان کردن پیش‌تنظیم‌ها"
+  },
+  "mediaPage_systemPromptLabel": {
+    "message": "پرامپت سیستم"
+  },
+  "mediaPage_systemPromptPlaceholder": {
+    "message": "پرامپت سیستم را وارد کنید..."
+  },
+  "mediaPage_userPromptPrefixLabel": {
+    "message": "پیشوند پرامپت کاربر"
+  },
+  "mediaPage_prependedBeforeContent": {
+    "message": "(پیش از محتوا افزوده می‌شود)"
+  },
+  "mediaPage_userPrefixPlaceholder": {
+    "message": "اختیاری: متنی برای افزودن قبل از محتوای رسانه وارد کنید..."
+  },
+  "mediaPage_presetComprehensiveAnalysis": {
+    "message": "تحلیل جامع"
+  },
+  "mediaPage_presetExecutiveSummary": {
+    "message": "خلاصه اجرایی"
+  },
+  "mediaPage_presetCriticalReview": {
+    "message": "بازبینی انتقادی"
+  },
+  "mediaPage_presetQAAnalysis": {
+    "message": "تحلیل پرسش‌وپاسخ"
   }
 }

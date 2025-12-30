@@ -1098,7 +1098,9 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({
       }
       setAnalysis(String(text || ""))
     } catch (e: any) {
-      message.error(e?.message || "Analysis failed")
+      message.error(
+        e?.message || t("review:reviewPage.analysisFailed", "Analysis failed")
+      )
     } finally {
       setLoadingAnalysis(false)
     }
@@ -1131,10 +1133,15 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({
         headers: { "Content-Type": "application/json" },
         body: { analysis: text, ...(lastPrompt ? { prompt: lastPrompt } : {}) }
       })
-      message.success("Analysis attached to media")
+      message.success(
+        t("review:reviewPage.analysisAttached", "Analysis attached to media")
+      )
       await loadExistingAnalyses(selected)
     } catch (e: any) {
-      message.error(e?.message || "Failed to analyze & save")
+      message.error(
+        e?.message ||
+          t("review:reviewPage.analyzeSaveFailed", "Failed to analyze & save")
+      )
     } finally {
       setLoadingAnalysis(false)
     }
@@ -1181,7 +1188,9 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({
 
   const saveAnalysis = async () => {
     if (!selected || !analysis.trim()) {
-      message.warning("Nothing to save")
+      message.warning(
+        t("review:reviewPage.nothingToSave", "Nothing to save")
+      )
       return
     }
     try {
@@ -1199,10 +1208,12 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({
         headers: { "Content-Type": "application/json" },
         body: payload
       })
-      message.success("Saved to notes")
+      message.success(t("review:reviewPage.savedToNotes", "Saved to notes"))
       if (selected.kind === "media") await loadExistingAnalyses(selected)
     } catch (e: any) {
-      message.error(e?.message || "Save failed")
+      message.error(
+        e?.message || t("review:reviewPage.saveFailed", "Save failed")
+      )
     }
   }
 
@@ -1214,7 +1225,9 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({
       return
     }
     if (!analysis.trim()) {
-      message.warning("Nothing to save")
+      message.warning(
+        t("review:reviewPage.nothingToSave", "Nothing to save")
+      )
       return
     }
     try {
@@ -1228,9 +1241,14 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({
           ...(lastPrompt ? { prompt: lastPrompt } : {})
         }
       })
-      message.success("Analysis attached to media")
+      message.success(
+        t("review:reviewPage.analysisAttached", "Analysis attached to media")
+      )
     } catch (e: any) {
-      message.error(e?.message || "Failed to save to media")
+      message.error(
+        e?.message ||
+          t("review:reviewPage.saveToMediaFailed", "Failed to save to media")
+      )
     }
   }
 
@@ -2436,11 +2454,21 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({
                               }
                               if (key === "saveNewVersion") {
                                 if (!selectedContent?.trim()) {
-                                  message.warning("No media content available")
+                                  message.warning(
+                                    t(
+                                      "review:reviewPage.noContent",
+                                      "No content available"
+                                    )
+                                  )
                                   return
                                 }
                                 if (!analysis.trim()) {
-                                  message.warning("Analysis is empty")
+                                  message.warning(
+                                    t(
+                                      "review:mediaPage.emptyAnalysis",
+                                      "Analysis cannot be empty"
+                                    )
+                                  )
                                   return
                                 }
                                 const sys =
@@ -2461,11 +2489,20 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({
                                       analysis_content: analysis
                                     }
                                   })
-                                  message.success("Created new version")
+                                  message.success(
+                                    t(
+                                      "review:reviewPage.createdNewVersion",
+                                      "Created new version"
+                                    )
+                                  )
                                   await loadExistingAnalyses(selected)
                                 } catch (e: any) {
                                   message.error(
-                                    e?.message || "Create version failed"
+                                    e?.message ||
+                                      t(
+                                        "review:reviewPage.createVersionFailed",
+                                        "Create version failed"
+                                      )
                                   )
                                 }
                               } else if (key === "duplicateVersion") {
@@ -2474,14 +2511,24 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({
                                   selectedExistingIndex >=
                                     existingAnalyses.length
                                 ) {
-                                  message.warning("Select a version first")
+                                  message.warning(
+                                    t(
+                                      "review:reviewPage.selectVersionFirst",
+                                      "Select a version first"
+                                    )
+                                  )
                                   return
                                 }
                                 const v =
                                   existingAnalyses[selectedExistingIndex]
                                 const vv = getVersionNumber(v)
                                 if (!vv) {
-                                  message.warning("No version number")
+                                  message.warning(
+                                    t(
+                                      "review:reviewPage.noVersionNumber",
+                                      "No version number"
+                                    )
+                                  )
                                   return
                                 }
                                 try {
@@ -2496,7 +2543,10 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({
                                   const analysisText = getVersionAnalysis(v)
                                   if (!content) {
                                     message.warning(
-                                      "Selected version has no content"
+                                      t(
+                                        "review:reviewPage.selectedVersionNoContent",
+                                        "Selected version has no content"
+                                      )
                                     )
                                     return
                                   }
@@ -2512,10 +2562,21 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({
                                       analysis_content: analysisText
                                     }
                                   })
-                                  message.success("Cloned version created")
+                                  message.success(
+                                    t(
+                                      "review:reviewPage.clonedVersionCreated",
+                                      "Cloned version created"
+                                    )
+                                  )
                                   await loadExistingAnalyses(selected)
                                 } catch (e: any) {
-                                  message.error(e?.message || "Clone failed")
+                                  message.error(
+                                    e?.message ||
+                                      t(
+                                        "review:reviewPage.cloneFailed",
+                                        "Clone failed"
+                                      )
+                                  )
                                 }
                               } else if (key === "restoreVersion") {
                                 if (
@@ -2523,21 +2584,43 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({
                                   selectedExistingIndex >=
                                     existingAnalyses.length
                                 ) {
-                                  message.warning("Select a version first")
+                                  message.warning(
+                                    t(
+                                      "review:reviewPage.selectVersionFirst",
+                                      "Select a version first"
+                                    )
+                                  )
                                   return
                                 }
                                 const v =
                                   existingAnalyses[selectedExistingIndex]
                                 const vv = getVersionNumber(v)
                                 if (!vv) {
-                                  message.warning("No version number")
+                                  message.warning(
+                                    t(
+                                      "review:reviewPage.noVersionNumber",
+                                      "No version number"
+                                    )
+                                  )
                                   return
                                 }
                                 const ok = await confirmDanger({
-                                  title: "Please confirm",
-                                  content: "Restore this version as current?",
-                                  okText: "Restore",
-                                  cancelText: "Cancel"
+                                  title: t(
+                                    "review:reviewPage.confirmTitle",
+                                    "Please confirm"
+                                  ),
+                                  content: t(
+                                    "review:reviewPage.restoreConfirm",
+                                    "Restore this version as current?"
+                                  ),
+                                  okText: t(
+                                    "review:reviewPage.restoreAction",
+                                    "Restore"
+                                  ),
+                                  cancelText: t(
+                                    "review:reviewPage.cancelAction",
+                                    "Cancel"
+                                  )
                                 })
                                 if (!ok) return
                                 try {
@@ -2549,10 +2632,21 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({
                                     },
                                     body: { version_number: vv }
                                   })
-                                  message.success("Version restored")
+                                  message.success(
+                                    t(
+                                      "review:reviewPage.versionRestored",
+                                      "Version restored"
+                                    )
+                                  )
                                   await loadExistingAnalyses(selected)
                                 } catch (e: any) {
-                                  message.error(e?.message || "Restore failed")
+                                  message.error(
+                                    e?.message ||
+                                      t(
+                                        "review:reviewPage.restoreFailed",
+                                        "Restore failed"
+                                      )
+                                  )
                                 }
                               }
                             }
@@ -3209,9 +3303,16 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({
                               await navigator.clipboard.writeText(
                                 selectedContent || ""
                               )
-                              message.success("Content copied")
+                              message.success(
+                                t(
+                                  "review:mediaPage.contentCopied",
+                                  "Content copied"
+                                )
+                              )
                             } catch {
-                              message.error("Copy failed")
+                              message.error(
+                                t("review:mediaPage.copyFailed", "Copy failed")
+                              )
                             }
                           }}
                           icon={(<CopyIcon className="w-4 h-4" />) as any}
@@ -3314,9 +3415,16 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({
                               await navigator.clipboard.writeText(
                                 analysis || ""
                               )
-                              message.success("Analysis copied")
+                              message.success(
+                                t(
+                                  "review:mediaPage.analysisCopied",
+                                  "Analysis copied"
+                                )
+                              )
                             } catch {
-                              message.error("Copy failed")
+                              message.error(
+                                t("review:mediaPage.copyFailed", "Copy failed")
+                              )
                             }
                           }}
                           icon={(<CopyIcon className="w-4 h-4" />) as any}
@@ -3331,7 +3439,12 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({
                           size="small"
                           onClick={async () => {
                             if (!analysis.trim()) {
-                              message.warning("Nothing to send")
+                              message.warning(
+                                t(
+                                  "review:mediaPage.nothingToSend",
+                                  "Nothing to send"
+                                )
+                              )
                               return
                             }
                             try {
@@ -3346,9 +3459,13 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({
                                 }
                               ])
                               navigate("/")
-                              message.success("Sent to chat")
+                              message.success(
+                                t("review:reviewPage.sentToChat", "Sent to chat")
+                              )
                             } catch {
-                              message.error("Failed to send")
+                              message.error(
+                                t("review:reviewPage.sendFailed", "Failed to send")
+                              )
                             }
                           }}
                           icon={(<SendIcon className="w-4 h-4" />) as any}
@@ -3367,7 +3484,10 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({
                       className="w-full mt-2 min-h-[12rem] md:h-[26vh] text-sm p-2 rounded border dark:border-gray-700 dark:bg-[#171717] resize-y leading-relaxed"
                       value={analysis}
                       onChange={(e) => setAnalysis(e.target.value)}
-                      placeholder="Run Review or Summarize, then edit here..."
+                      placeholder={t(
+                        "review:reviewPage.analysisEditorPlaceholder",
+                        "Run Review or Summarize, then edit here..."
+                      )}
                     />
                   )}
                 </div>
@@ -3375,13 +3495,19 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2">
                     <Typography.Text type="secondary">
-                      Existing Analyses
+                      {t(
+                        "review:reviewPage.existingAnalysesTitle",
+                        "Existing Analyses"
+                      )}
                     </Typography.Text>
                     <Checkbox
                       checked={onlyWithAnalysis}
                       onChange={(e) => setOnlyWithAnalysis(e.target.checked)}
                       className="text-xs">
-                      Only with analysis
+                      {t(
+                        "review:reviewPage.onlyWithAnalysis",
+                        "Only with analysis"
+                      )}
                     </Checkbox>
                   </div>
                   <div className="flex items-center gap-2">
@@ -3401,12 +3527,19 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({
                             .join("\n\n---\n\n")
                           try {
                             await navigator.clipboard.writeText(text)
-                            message.success("Copied all notes")
+                            message.success(
+                              t(
+                                "review:reviewPage.copiedAllNotes",
+                                "Copied all notes"
+                              )
+                            )
                           } catch {
-                            message.error("Copy failed")
+                            message.error(
+                              t("review:mediaPage.copyFailed", "Copy failed")
+                            )
                           }
                         }}>
-                        Copy All
+                        {t("review:reviewPage.copyAllLabel", "Copy All")}
                       </Button>
                     </Tooltip>
                     <Tooltip
@@ -3425,12 +3558,19 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({
                             .join("\n\n---\n\n")
                           try {
                             await navigator.clipboard.writeText(md)
-                            message.success("Copied all notes as Markdown")
+                            message.success(
+                              t(
+                                "review:reviewPage.copiedAllNotesMarkdown",
+                                "Copied all notes as Markdown"
+                              )
+                            )
                           } catch {
-                            message.error("Copy failed")
+                            message.error(
+                              t("review:mediaPage.copyFailed", "Copy failed")
+                            )
                           }
                         }}>
-                        Copy MD
+                        {t("review:reviewPage.copyMdLabel", "Copy MD")}
                       </Button>
                     </Tooltip>
                   </div>
@@ -3444,12 +3584,16 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({
                           : `0/${displayedVersionIndices.length}`}
                       </span>
                       <Button size="small" onClick={goPrev}>
-                        Prev
+                        {t("review:reviewPage.prevItem", "Previous")}
                       </Button>
                       <Button size="small" onClick={goNext}>
-                        Next
+                        {t("review:reviewPage.nextItem", "Next")}
                       </Button>
-                      <Tooltip title="Load selected analysis into editor">
+                      <Tooltip
+                        title={t(
+                          "review:reviewPage.loadSelectedAnalysis",
+                          "Load selected analysis into editor"
+                        )}>
                         <Button
                           size="small"
                           disabled={
@@ -3461,7 +3605,7 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({
                             const text = getVersionAnalysis(v)
                             if (text) setAnalysis(text)
                           }}>
-                          Load
+                          {t("review:reviewPage.loadLabel", "Load")}
                         </Button>
                       </Tooltip>
                       <Dropdown
@@ -3470,7 +3614,7 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({
                         popupRender={() => (
                           <div className="p-2 w-[260px] bg-white dark:bg-[#171717] border dark:border-gray-700 rounded shadow">
                             <div className="text-xs text-gray-500 mb-2">
-                              More actions
+                              {t("review:reviewPage.moreActions", "More actions")}
                             </div>
                             <div className="flex flex-col gap-1">
                               <Button
@@ -3481,21 +3625,34 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({
                                     selectedExistingIndex >=
                                       existingAnalyses.length
                                   ) {
-                                    message.warning("Select a version first")
+                                    message.warning(
+                                      t(
+                                        "review:reviewPage.selectVersionFirst",
+                                        "Select a version first"
+                                      )
+                                    )
                                     return
                                   }
                                   const v =
                                     existingAnalyses[selectedExistingIndex]
                                   const p = getVersionPrompt(v)
                                   if (!p) {
-                                    message.warning("No prompt found")
+                                    message.warning(
+                                      t(
+                                        "review:reviewPage.noPromptFound",
+                                        "No prompt found"
+                                      )
+                                    )
                                     return
                                   }
                                   if (analysisMode === "review")
                                     setReviewSystemPrompt(p)
                                   else setSummarySystemPrompt(p)
                                 }}>
-                                Load version prompt into editor
+                                {t(
+                                  "review:reviewPage.loadVersionPrompt",
+                                  "Load version prompt into editor"
+                                )}
                               </Button>
                               <Button
                                 size="small"
@@ -3505,24 +3662,47 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({
                                     selectedExistingIndex >=
                                       existingAnalyses.length
                                   ) {
-                                    message.warning("Select a version first")
+                                    message.warning(
+                                      t(
+                                        "review:reviewPage.selectVersionFirst",
+                                        "Select a version first"
+                                      )
+                                    )
                                     return
                                   }
                                   const v =
                                     existingAnalyses[selectedExistingIndex]
                                   const p = getVersionPrompt(v)
                                   if (!p) {
-                                    message.warning("No prompt found")
+                                    message.warning(
+                                      t(
+                                        "review:reviewPage.noPromptFound",
+                                        "No prompt found"
+                                      )
+                                    )
                                     return
                                   }
                                   try {
                                     await navigator.clipboard.writeText(p)
-                                    message.success("Prompt copied")
+                                    message.success(
+                                      t(
+                                        "review:reviewPage.promptCopied",
+                                        "Prompt copied"
+                                      )
+                                    )
                                   } catch {
-                                    message.error("Copy failed")
+                                    message.error(
+                                      t(
+                                        "review:mediaPage.copyFailed",
+                                        "Copy failed"
+                                      )
+                                    )
                                   }
                                 }}>
-                                Copy selected version prompt
+                                {t(
+                                  "review:reviewPage.copyVersionPrompt",
+                                  "Copy selected version prompt"
+                                )}
                               </Button>
                               <Button
                                 size="small"
@@ -3532,7 +3712,12 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({
                                     selectedExistingIndex >=
                                       existingAnalyses.length
                                   ) {
-                                    message.warning("Select a version first")
+                                    message.warning(
+                                      t(
+                                        "review:reviewPage.selectVersionFirst",
+                                        "Select a version first"
+                                      )
+                                    )
                                     return
                                   }
                                   const v =
@@ -3544,7 +3729,10 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({
                                   setDiffRightText(analysis || "")
                                   setDiffOpen(true)
                                 }}>
-                                Diff selected vs current
+                                {t(
+                                  "review:reviewPage.diffSelectedCurrent",
+                                  "Diff selected vs current"
+                                )}
                               </Button>
                               <Button
                                 danger
@@ -3556,14 +3744,24 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({
                                       selectedExistingIndex >=
                                         existingAnalyses.length
                                     ) {
-                                      message.warning("Select a version first")
+                                      message.warning(
+                                        t(
+                                          "review:reviewPage.selectVersionFirst",
+                                          "Select a version first"
+                                        )
+                                      )
                                       return
                                     }
                                     const v =
                                       existingAnalyses[selectedExistingIndex]
                                     const vv = getVersionNumber(v)
                                     if (!vv) {
-                                      message.warning("No version number")
+                                      message.warning(
+                                        t(
+                                          "review:reviewPage.noVersionNumber",
+                                          "No version number"
+                                        )
+                                      )
                                       return
                                     }
                                     await bgRequest<any>({
@@ -3571,8 +3769,15 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({
                                       method: "DELETE" as any
                                     })
                                     notification.open({
-                                      message: "Version deleted",
-                                      description: `Deleted version v${vv}.`,
+                                      message: t(
+                                        "review:reviewPage.versionDeleted",
+                                        "Version deleted"
+                                      ),
+                                      description: t(
+                                        "review:reviewPage.versionDeletedDescription",
+                                        "Deleted version v{{version}}.",
+                                        { version: vv }
+                                      ),
                                       btn: (
                                         <Button
                                           type="link"
@@ -3589,7 +3794,10 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({
                                                 body: { version_number: vv }
                                               })
                                               message.success(
-                                                "Undo: rolled back to deleted version"
+                                                t(
+                                                  "review:reviewPage.undoRolledBack",
+                                                  "Undo: rolled back to deleted version"
+                                                )
                                               )
                                               if (selected)
                                                 await loadExistingAnalyses(
@@ -3597,11 +3805,18 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({
                                                 )
                                             } catch (e: any) {
                                               message.error(
-                                                e?.message || "Undo failed"
+                                                e?.message ||
+                                                  t(
+                                                    "review:reviewPage.undoFailed",
+                                                    "Undo failed"
+                                                  )
                                               )
                                             }
                                           }}>
-                                          Undo
+                                          {t(
+                                            "review:reviewPage.undoLabel",
+                                            "Undo"
+                                          )}
                                         </Button>
                                       ),
                                       duration: 4
@@ -3609,10 +3824,19 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({
                                     if (selected)
                                       await loadExistingAnalyses(selected)
                                   } catch (e: any) {
-                                    message.error(e?.message || "Delete failed")
+                                    message.error(
+                                      e?.message ||
+                                        t(
+                                          "review:reviewPage.deleteFailed",
+                                          "Delete failed"
+                                        )
+                                    )
                                   }
                                 }}>
-                                Delete selected version
+                                {t(
+                                  "review:reviewPage.deleteSelectedVersion",
+                                  "Delete selected version"
+                                )}
                               </Button>
                             </div>
                           </div>
@@ -3633,7 +3857,10 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({
                 </div>
                 {displayedVersionIndices.length === 0 ? (
                   <div className="text-xs text-gray-500 mt-2">
-                    No saved analyses for this item yet.
+                    {t(
+                      "review:reviewPage.noSavedAnalyses",
+                      "No saved analyses for this item yet."
+                    )}
                   </div>
                 ) : (
                   <List
@@ -3655,7 +3882,9 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({
                               : ""}{" "}
                             {currentVersionNumber &&
                             getVersionNumber(n) === currentVersionNumber ? (
-                              <Tag color="green">Current</Tag>
+                              <Tag color="green">
+                                {t("review:reviewPage.currentTag", "Current")}
+                              </Tag>
                             ) : null}
                           </div>
                           <div className="text-xs text-gray-500 max-w-[48rem]">
@@ -3744,7 +3973,9 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({
                             })()}
                           </div>
                           <div className="text-[10px] text-gray-400 mt-1">
-                            <span className="opacity-70">Prompt:</span>{" "}
+                            <span className="opacity-70">
+                              {t("review:reviewPage.promptLabel", "Prompt")}:
+                            </span>{" "}
                             {(() => {
                               const key = String(
                                 getVersionNumber(n) ??
@@ -3776,7 +4007,15 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({
                                           return ns
                                         })
                                       }}>
-                                      {expanded ? "Hide" : "Show"}
+                                      {expanded
+                                        ? t(
+                                            "review:reviewPage.hideLabel",
+                                            "Hide"
+                                          )
+                                        : t(
+                                            "review:reviewPage.showLabel",
+                                            "Show"
+                                          )}
                                     </button>
                                   )}
                                 </>
@@ -3785,7 +4024,11 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({
                           </div>
                         </div>
                         <div className="shrink-0">
-                          <Tooltip title="Copy analysis (plain)">
+                          <Tooltip
+                            title={t(
+                              "review:reviewPage.copyAnalysisPlainTooltip",
+                              "Copy analysis (plain)"
+                            )}>
                             <Button
                               size="small"
                               onClick={async () => {
@@ -3793,15 +4036,29 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({
                                   await navigator.clipboard.writeText(
                                     getVersionAnalysis(n)
                                   )
-                                  message.success("Analysis copied")
+                                  message.success(
+                                    t(
+                                      "review:mediaPage.analysisCopied",
+                                      "Analysis copied"
+                                    )
+                                  )
                                 } catch {
-                                  message.error("Copy failed")
+                                  message.error(
+                                    t(
+                                      "review:mediaPage.copyFailed",
+                                      "Copy failed"
+                                    )
+                                  )
                                 }
                               }}>
-                              Copy
+                              {t("review:reviewPage.copyLabel", "Copy")}
                             </Button>
                           </Tooltip>
-                          <Tooltip title="Copy as Markdown">
+                          <Tooltip
+                            title={t(
+                              "review:reviewPage.copyAnalysisMarkdownTooltip",
+                              "Copy as Markdown"
+                            )}>
                             <Button
                               size="small"
                               onClick={async () => {
@@ -3809,15 +4066,29 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({
                                   await navigator.clipboard.writeText(
                                     toMarkdown(getVersionAnalysis(n))
                                   )
-                                  message.success("Copied analysis as Markdown")
+                                  message.success(
+                                    t(
+                                      "review:reviewPage.copiedAnalysisMarkdown",
+                                      "Copied analysis as Markdown"
+                                    )
+                                  )
                                 } catch {
-                                  message.error("Copy failed")
+                                  message.error(
+                                    t(
+                                      "review:mediaPage.copyFailed",
+                                      "Copy failed"
+                                    )
+                                  )
                                 }
                               }}>
-                              MD
+                              {t("review:reviewPage.markdownLabel", "MD")}
                             </Button>
                           </Tooltip>
-                          <Tooltip title="Copy prompt">
+                          <Tooltip
+                            title={t(
+                              "review:reviewPage.copyPromptTooltip",
+                              "Copy prompt"
+                            )}>
                             <Button
                               size="small"
                               className="ml-1"
@@ -3826,12 +4097,22 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({
                                   await navigator.clipboard.writeText(
                                     getVersionPrompt(n)
                                   )
-                                  message.success("Prompt copied")
+                                  message.success(
+                                    t(
+                                      "review:reviewPage.promptCopied",
+                                      "Prompt copied"
+                                    )
+                                  )
                                 } catch {
-                                  message.error("Copy failed")
+                                  message.error(
+                                    t(
+                                      "review:mediaPage.copyFailed",
+                                      "Copy failed"
+                                    )
+                                  )
                                 }
                               }}>
-                              Prompt
+                              {t("review:reviewPage.promptLabel", "Prompt")}
                             </Button>
                           </Tooltip>
                         </div>
@@ -3858,7 +4139,9 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({
         onCancel={() => setDiffOpen(false)}
         footer={[
           <Button key="toggle" onClick={() => setDiffSideBySide((v) => !v)}>
-            {diffSideBySide ? "Unified" : "Side by side"}
+            {diffSideBySide
+              ? t("review:reviewPage.diffUnified", "Unified")
+              : t("review:reviewPage.diffSideBySide", "Side by side")}
           </Button>,
           <Button
             key="copy"
@@ -3875,24 +4158,34 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({
                   )
                   .join("\n")
                 await navigator.clipboard.writeText(txt)
-                message.success("Diff copied")
+                message.success(
+                  t("review:reviewPage.diffCopied", "Diff copied")
+                )
               } catch {
-                message.error("Copy failed")
+                message.error(
+                  t("review:mediaPage.copyFailed", "Copy failed")
+                )
               }
             }}>
-            Copy diff
+            {t("review:reviewPage.copyDiffLabel", "Copy diff")}
           </Button>,
           <Button key="close" type="primary" onClick={() => setDiffOpen(false)}>
-            Close
+            {t("review:reviewPage.closeLabel", "Close")}
           </Button>
         ]}
-        title="Diff: selected vs current"
+        title={t(
+          "review:reviewPage.diffTitle",
+          "Diff: selected vs current"
+        )}
         width={980}>
         {diffSideBySide ? (
           <div className="grid grid-cols-2 gap-3 max-h-[60vh] overflow-auto text-xs font-mono">
             <div>
               <div className="text-[10px] text-gray-500 mb-1">
-                Selected version
+                {t(
+                  "review:reviewPage.diffSelectedVersion",
+                  "Selected version"
+                )}
               </div>
               <pre className="whitespace-pre-wrap bg-gray-50 dark:bg-[#111] p-2 rounded border dark:border-gray-700">
                 {diffLeftText}
@@ -3900,7 +4193,10 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({
             </div>
             <div>
               <div className="text-[10px] text-gray-500 mb-1">
-                Current editor
+                {t(
+                  "review:reviewPage.diffCurrentEditor",
+                  "Current editor"
+                )}
               </div>
               <pre className="whitespace-pre-wrap bg-gray-50 dark:bg-[#111] p-2 rounded border dark:border-gray-700">
                 {diffRightText}
@@ -3910,7 +4206,9 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({
         ) : (
           <div className="max-h-[60vh] overflow-auto text-xs font-mono">
             {diffLines.length === 0 ? (
-              <div className="text-gray-500">No differences</div>
+              <div className="text-gray-500">
+                {t("review:reviewPage.noDifferences", "No differences")}
+              </div>
             ) : (
               <pre className="whitespace-pre-wrap">
                 {diffLines.map((l, idx) => (

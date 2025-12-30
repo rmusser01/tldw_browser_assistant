@@ -126,5 +126,10 @@
       "message": "搜尋你的知識庫，並將結果插入到訊息中。",
       "dismiss": "關閉"
     }
+  },
+  "tabs": {
+    "newChat": "新的對話",
+    "newTabAria": "開啟新的對話分頁",
+    "closeTabAria": "關閉對話分頁"
   }
 }

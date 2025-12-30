@@ -449,7 +449,8 @@
     "export": "Export",
     "importMode": {
       "merge": "Merge",
-      "replace": "Replace"
+      "replace": "Replace",
+      "replaceConfirm": "Replace will overwrite all current prompts with the imported file. Continue?"
     },
     "segmented": {
       "custom": "Custom prompts",
@@ -645,7 +646,14 @@
       "chat": "Chat",
       "edit": "Edit",
       "delete": "Delete",
+      "duplicate": "Duplicate",
       "viewConversations": "View conversations"
+    },
+    "table": {
+      "noDescription": "—"
+    },
+    "filter": {
+      "matchAll": "Match all tags"
     },
     "tags": {
       "label": "Tags",
@@ -660,7 +668,9 @@
       "chatWith": "Chat as {{name}}",
       "edit": "Edit character {{name}}",
       "delete": "Delete character {{name}}",
-      "viewConversations": "View conversations for {{name}}"
+      "duplicate": "Duplicate character {{name}}",
+      "viewConversations": "View conversations for {{name}}",
+      "searchResults": "{{count}} characters found"
     },
     "confirm": {
       "delete": "Are you sure you want to delete this character? This action cannot be undone."
@@ -674,7 +684,34 @@
       "updated": "Updated {{time}}",
       "unknownTime": "Unknown",
       "resume": "Continue chat",
-      "untitled": "Untitled"
+      "untitled": "Untitled",
+      "mostRecent": "Most recent",
+      "resumeTooltip": "Load chat history and continue this conversation"
+    },
+    "preview": {
+      "title": "Preview",
+      "show": "Show preview",
+      "hide": "Hide preview",
+      "untitled": "Untitled character",
+      "greeting": "Greeting",
+      "behavior": "Behavior",
+      "empty": "Fill in the form to see a preview"
+    },
+    "avatar": {
+      "label": "Avatar (optional)",
+      "tabUrl": "URL",
+      "tabUpload": "Upload",
+      "selectImageError": "Please select an image file",
+      "formatError": "Only PNG, JPEG, and GIF images are supported",
+      "invalidError": "Invalid image file",
+      "processError": "Failed to process image",
+      "dropzone": "Click or drag image to upload",
+      "formats": "PNG, JPEG, or GIF",
+      "preview": "Preview"
+    },
+    "advanced": {
+      "show": "Show advanced fields",
+      "hide": "Hide advanced fields"
     },
     "form": {
       "name": {
@@ -687,7 +724,9 @@
         "label": "Behavior / instructions",
         "placeholder": "E.g., You are a patient math teacher who explains concepts step by step and checks understanding with short examples.",
         "help": "Explain the character's role, tone, and constraints. For example: \"You are a patient math tutor who explains concepts step by step.\"",
-        "min": "Add a short description so the character knows how to respond."
+        "required": "Please add instructions to guide responses.",
+        "min": "Provide instructions so the character responds appropriately.",
+        "max": "System prompt must be 2000 characters or less."
       },
       "avatarUrl": {
         "label": "Avatar URL (optional)",
@@ -782,6 +821,86 @@
       "webSearchFollowUpPromptHelp": "Do not remove `{chat_history}` and `{question}` from the prompt.",
       "webSearchFollowUpPromptError": "Please input your Web Search Follow Up Prompt!",
       "webSearchFollowUpPromptPlaceholder": "Your Web Search Follow Up Prompt"
+    }
+  },
+  "chunkingPlayground": {
+    "nav": "Chunking Playground",
+    "title": "Chunking Playground",
+    "description": "Experiment with different chunking settings to see how text gets split into smaller pieces for processing.",
+    "inputLabel": "Text to chunk",
+    "inputPlaceholder": "Paste text here or select a sample...",
+    "uploadButton": "Upload File",
+    "chunkButton": "Chunk Text",
+    "methodLabel": "Chunking Method",
+    "maxSizeLabel": "Max Chunk Size",
+    "overlapLabel": "Overlap",
+    "languageLabel": "Language",
+    "languages": {
+      "auto": "Auto-detect",
+      "en": "English",
+      "es": "Spanish",
+      "fr": "French",
+      "de": "German",
+      "it": "Italian",
+      "pt": "Portuguese",
+      "zh": "Chinese",
+      "ja": "Japanese",
+      "ko": "Korean"
+    },
+    "viewCards": "Cards",
+    "viewInline": "Inline",
+    "stats": "{{count}} chunks, avg {{avgSize}} chars",
+    "textLoaded": "Text loaded",
+    "characters": "characters",
+    "tabSingle": "Single",
+    "tabCompare": "Compare",
+    "chunkIndex": "Chunk {{index}}",
+    "chunkInfo": "Chunk {{index}}: {{words}} words",
+    "position": "Position: {{start}} - {{end}}",
+    "additionalChunks": "+{{count}} more",
+    "charCount": "{{count}} characters",
+    "wordCount": "{{count}} words",
+    "noInput": "Please provide text to chunk",
+    "sharedInput": "Shared Input Text",
+    "compareButton": "Compare Both",
+    "comparison": "Comparison",
+    "fewerChunks": "Config A produces {{diff}} fewer chunks",
+    "moreChunks": "Config A produces {{diff}} more chunks",
+    "sameChunks": "Both configs produce the same number of chunks",
+    "clickToChunk": "Click 'Compare' to see results",
+    "overlapRegion": "Overlap Region",
+    "clickHint": "Click on a highlighted section to focus on that chunk",
+    "noContentFound": "No text content found for this media item",
+    "loadContentError": "Failed to load media content",
+    "loadMediaListError": "Failed to load media library",
+    "selectMedia": "Select media item...",
+    "loadingMedia": "Loading content...",
+    "noMediaFound": "No media found",
+    "mediaCount": "{{count}} media items available",
+    "inputSource": {
+      "paste": "Paste Text",
+      "upload": "Upload File",
+      "sample": "Sample Text",
+      "media": "From Media Library"
+    },
+    "samples": {
+      "article": "News Article",
+      "articleDesc": "Multi-paragraph article with headers",
+      "code": "Source Code",
+      "codeDesc": "Python code with classes and functions",
+      "transcript": "Transcript",
+      "transcriptDesc": "Timestamped podcast transcript",
+      "academic": "Academic Paper",
+      "academicDesc": "Technical writing with citations"
+    },
+    "compare": {
+      "title": "Compare Settings",
+      "configA": "Configuration A",
+      "configB": "Configuration B"
+    },
+    "mode": {
+      "single": "Single",
+      "compare": "Compare"
     }
   },
   "mermaid": "Mermaid",

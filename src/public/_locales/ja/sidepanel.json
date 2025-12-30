@@ -1,0 +1,311 @@
+{
+  "tooltip_embed": {
+    "message": "ページを埋め込むのに数分かかる場合があります。しばらくお待ちください..."
+  },
+  "tooltip_openwebui": {
+    "message": "WebUIを開く"
+  },
+  "tooltip_clear": {
+    "message": "Erase chat history"
+  },
+  "tooltip_history": {
+    "message": "Chat history"
+  },
+  "toolbar_ragSearch": {
+    "message": "RAG Search"
+  },
+  "errors_privateModeTitle": {
+    "message": "tldw Assistant はデータを保存できません"
+  },
+  "errors_privateModeDescription": {
+    "message": "Firefox のプライベートモードではチャット履歴を保存できません。デフォルトで一時チャットが有効です。今後改善予定です。"
+  },
+  "connectionBanner_connecting": {
+    "message": "tldw サーバーに接続中..."
+  },
+  "connectionBanner_authErrorTitle": {
+    "message": "API キーに問題があります"
+  },
+  "connectionBanner_authErrorBody": {
+    "message": "サーバーには接続できますが、API キーが間違っているか未設定です。"
+  },
+  "connectionBanner_unreachableTitle": {
+    "message": "tldw サーバーに接続できません"
+  },
+  "connectionBanner_unreachableBody": {
+    "message": "サーバーが稼働していてアクセス可能か確認してください。"
+  },
+  "connectionBanner_noUrlBody": {
+    "message": "開始するには設定でサーバー URL を追加してください。"
+  },
+  "connectionBanner_disconnectedTitle": {
+    "message": "tldw サーバーに接続されていません"
+  },
+  "connectionBanner_disconnectedBody": {
+    "message": "設定を開いてサーバー接続を構成してください。"
+  },
+  "connectionBanner_setupTitle": {
+    "message": "セットアップを完了してチャットを開始"
+  },
+  "connectionBanner_setupBody": {
+    "message": "設定のセットアップ ウィザードを完了して接続してください。"
+  },
+  "connectionBanner_openSettings": {
+    "message": "設定を開く"
+  },
+  "temporaryBadge_title": {
+    "message": "一時チャット"
+  },
+  "temporaryBadge_label": {
+    "message": "Temp"
+  },
+  "temporaryBadge_description": {
+    "message": "このチャットは保存されません。閉じるか新しいチャットを開始するとメッセージは消去されます。"
+  },
+  "temporaryBadge_clickHint": {
+    "message": "クリックして無効化"
+  },
+  "temporaryBadge_ariaLabel": {
+    "message": "一時チャットモードが有効です。クリックして切り替えます。"
+  },
+  "temporaryBadge_indicatorTooltip": {
+    "message": "このチャットのメッセージは保存されません"
+  },
+  "temporaryBadge_indicatorAria": {
+    "message": "一時チャット"
+  },
+  "header_ingest": {
+    "message": "Ingest"
+  },
+  "header_saveCurrent": {
+    "message": "Save current page on server"
+  },
+  "header_processLocal": {
+    "message": "Process current page locally"
+  },
+  "header_viewProcessed": {
+    "message": "View processed"
+  },
+  "header_timeoutLabel": {
+    "message": "Timeout (s)"
+  },
+  "header_toggleSidebar": {
+    "message": "Toggle Sidebar / Full Screen"
+  },
+  "header_shortcuts": {
+    "message": "Shortcuts"
+  },
+  "header_showDebug": {
+    "message": "Show Stream Debug"
+  },
+  "header_hideDebug": {
+    "message": "Hide Stream Debug"
+  },
+  "header_moreOptionsAria": {
+    "message": "More options"
+  },
+  "header_moreOptionsTitle": {
+    "message": "Ingest and more"
+  },
+  "header_openWebuiAria": {
+    "message": "Open Web UI"
+  },
+  "header_newChatAria": {
+    "message": "New chat"
+  },
+  "header_tempChatAria": {
+    "message": "Toggle temporary chat"
+  },
+  "header_clearHistoryAria": {
+    "message": "Clear history"
+  },
+  "header_openHistoryAria": {
+    "message": "Open history"
+  },
+  "header_openModelSettingsAria": {
+    "message": "Open model settings"
+  },
+  "header_openSettingsAria": {
+    "message": "Open settings"
+  },
+  "header_tempPill": {
+    "message": "Temp"
+  },
+  "header_modesLabel": {
+    "message": "Open modes in Web UI"
+  },
+  "header_modePlayground": {
+    "message": "Chat"
+  },
+  "header_modeReview": {
+    "message": "Multi-Item Review"
+  },
+  "header_modeMedia": {
+    "message": "Media"
+  },
+  "header_modeKnowledge": {
+    "message": "Knowledge"
+  },
+  "header_modeNotes": {
+    "message": "Notes"
+  },
+  "header_modePrompts": {
+    "message": "Prompts"
+  },
+  "header_modeFlashcards": {
+    "message": "Flashcards"
+  },
+  "controlRow_saveMode": {
+    "message": "保存モード"
+  },
+  "controlRow_ephemeral": {
+    "message": "一時チャット"
+  },
+  "controlRow_searchSection": {
+    "message": "検索とビジョン"
+  },
+  "controlRow_webSearch": {
+    "message": "ウェブ検索"
+  },
+  "controlRow_vision": {
+    "message": "ビジョン"
+  },
+  "controlRow_uploadImage": {
+    "message": "画像をアップロード"
+  },
+  "controlRow_quickIngest": {
+    "message": "ページをクイック取り込み"
+  },
+  "controlRow_openInFullUI": {
+    "message": "フル UI で開く"
+  },
+  "controlRow_modeChat": {
+    "message": "チャット"
+  },
+  "controlRow_modeMedia": {
+    "message": "メディア"
+  },
+  "controlRow_modeNotes": {
+    "message": "ノート"
+  },
+  "controlRow_modeFlashcards": {
+    "message": "フラッシュカード"
+  },
+  "controlRow_ragSearch": {
+    "message": "RAG 検索"
+  },
+  "controlRow_moreTools": {
+    "message": "その他のツール"
+  },
+  "composer_connectHint": {
+    "message": "Connect to your tldw server in Settings to send messages."
+  },
+  "composer_connectingPlaceholder": {
+    "message": "Connecting..."
+  },
+  "composer_disconnectedPlaceholder": {
+    "message": "Connect to your tldw server in Settings to send messages and view media."
+  },
+  "notification_ingestSent": {
+    "message": "Sent to tldw server"
+  },
+  "notification_ingestSentDesc": {
+    "message": "Current page has been submitted for ingestion."
+  },
+  "notification_processedLocal": {
+    "message": "Processed locally"
+  },
+  "notification_processedLocalDesc": {
+    "message": "Processed content stored locally under Settings > Processed."
+  },
+  "notification_transcriptionTitle": {
+    "message": "Transcription"
+  },
+  "notification_transcriptionSummaryTitle": {
+    "message": "Transcription + summary"
+  },
+  "notification_transcriptionFallback": {
+    "message": "Transcription completed. Open Media in the Web UI to view it."
+  },
+  "notification_sourceLabel": {
+    "message": "Source"
+  },
+  "notification_transcriptLabel": {
+    "message": "Transcript"
+  },
+  "notification_summaryLabel": {
+    "message": "Summary"
+  },
+  "saveStatus_ephemeral": {
+    "message": "一時的: 保存されず、閉じると消去されます"
+  },
+  "saveStatus_local": {
+    "message": "このブラウザーにローカル保存されます"
+  },
+  "saveStatus_server": {
+    "message": "サーバーに保存されます"
+  },
+  "saveStatus_saveFailed": {
+    "message": "サーバーへのチャット保存に失敗しました"
+  },
+  "saveStatus_saveFailedDescription": {
+    "message": "チャットは現在ローカルのみに保存されています。接続を確認して再試行してください。"
+  },
+  "rag_searchPlaceholder": {
+    "message": "Search your knowledge…"
+  },
+  "rag_search": {
+    "message": "Search"
+  },
+  "rag_show": {
+    "message": "Show RAG search"
+  },
+  "rag_hide": {
+    "message": "Hide RAG search"
+  },
+  "rag_addTagPlaceholder": {
+    "message": "Add tag (Enter)"
+  },
+  "rag_add": {
+    "message": "Add"
+  },
+  "rag_noResults": {
+    "message": "No results"
+  },
+  "rag_timeout_message": {
+    "message": "Request timed out."
+  },
+  "rag_timeout_increase": {
+    "message": "Increase timeout"
+  },
+  "rag_timeout_checkHealth": {
+    "message": "Check server health"
+  },
+  "rag_actions_insert": {
+    "message": "Insert"
+  },
+  "rag_actions_ask": {
+    "message": "Ask"
+  },
+  "rag_actions_open": {
+    "message": "Open"
+  },
+  "rag_actions_copy": {
+    "message": "Copy"
+  },
+  "rag_hint_message": {
+    "message": "ナレッジベースを検索して、結果をメッセージに挿入できます。"
+  },
+  "rag_hint_dismiss": {
+    "message": "閉じる"
+  },
+  "tabs_newChat": {
+    "message": "新しいチャット"
+  },
+  "tabs_newTabAria": {
+    "message": "新しいチャットタブ"
+  },
+  "tabs_closeTabAria": {
+    "message": "チャットタブを閉じる"
+  }
+}

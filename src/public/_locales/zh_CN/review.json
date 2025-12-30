@@ -1,39 +1,990 @@
 {
-  "mediaPage.nothingToSend": {
-    "message": "没有可发送的内容"
+  "reviewPage_searchPlaceholder": {
+    "message": "搜索媒体、笔记..."
   },
-  "mediaPage.emptyAnalysis": {
-    "message": "分析内容不能为空"
+  "reviewPage_search": {
+    "message": "搜索"
   },
-  "mediaPage.noMediaId": {
-    "message": "没有可用的媒体 ID"
+  "reviewPage_filters": {
+    "message": "筛选"
   },
-  "mediaPage.versionSaved": {
-    "message": "已保存为新版本"
+  "reviewPage_media": {
+    "message": "媒体"
   },
-  "mediaPage.saveFailed": {
-    "message": "保存版本失败"
+  "reviewPage_notes": {
+    "message": "笔记"
   },
-  "mediaPage.sendToChat": {
-    "message": "发送到聊天"
+  "reviewPage_useReview": {
+    "message": "使用审阅"
   },
-  "mediaPage.saveAsVersion": {
+  "reviewPage_useSummary": {
+    "message": "使用摘要"
+  },
+  "reviewPage_mediaTypes": {
+    "message": "媒体类型"
+  },
+  "reviewPage_keywords": {
+    "message": "关键词"
+  },
+  "reviewPage_clear": {
+    "message": "清除"
+  },
+  "reviewPage_resetFilters": {
+    "message": "重置筛选"
+  },
+  "reviewPage_results": {
+    "message": "结果"
+  },
+  "reviewPage_noResults": {
+    "message": "无结果"
+  },
+  "reviewPage_analyze_none": {
+    "message": "没有可分析的内容"
+  },
+  "reviewPage_analyze_saved": {
+    "message": "分析已保存为笔记"
+  },
+  "reviewPage_analyze_failed": {
+    "message": "分析并保存笔记失败"
+  },
+  "reviewPage_searchPrompts": {
+    "message": "搜索提示词"
+  },
+  "reviewPage_includeLocal": {
+    "message": "本地"
+  },
+  "reviewPage_includeServer": {
+    "message": "服务器"
+  },
+  "reviewPage_presets": {
+    "message": "预设"
+  },
+  "reviewPage_presetsCritical": {
+    "message": "批判性"
+  },
+  "reviewPage_presetsQaAudit": {
+    "message": "QA 审核"
+  },
+  "reviewPage_presetsBulletReview": {
+    "message": "要点审阅"
+  },
+  "reviewPage_reviewSystemPrompt": {
+    "message": "审阅：系统提示词"
+  },
+  "reviewPage_reviewUserPrefix": {
+    "message": "审阅：用户提示词前缀"
+  },
+  "reviewPage_saveAsDefault": {
+    "message": "设为默认"
+  },
+  "reviewPage_reviewPrompt": {
+    "message": "审阅提示词"
+  },
+  "reviewPage_summarySystemPrompt": {
+    "message": "摘要：系统提示词"
+  },
+  "reviewPage_summaryUserPrefix": {
+    "message": "摘要：用户提示词前缀"
+  },
+  "reviewPage_summaryPrompt": {
+    "message": "摘要提示词"
+  },
+  "reviewPage_customizePrompts": {
+    "message": "自定义提示词"
+  },
+  "reviewPage_showRawJson": {
+    "message": "显示原始 JSON"
+  },
+  "reviewPage_noDetailLoaded": {
+    "message": "未加载详情"
+  },
+  "reviewPage_resetToDefaults": {
+    "message": "恢复默认"
+  },
+  "reviewPage_usingReviewPrompts": {
+    "message": "使用审阅提示词"
+  },
+  "reviewPage_usingSummaryPrompts": {
+    "message": "使用摘要提示词"
+  },
+  "reviewPage_selectItemFirst": {
+    "message": "请先选择一个项目"
+  },
+  "reviewPage_selectMediaFirst": {
+    "message": "请先选择一个媒体项"
+  },
+  "reviewPage_selectItemEmpty": {
+    "message": "选择一个项目进行审阅和分析"
+  },
+  "reviewPage_selectMediaEmpty": {
+    "message": "选择一个媒体项以查看分析"
+  },
+  "reviewPage_generationMode": {
+    "message": "生成模式"
+  },
+  "reviewPage_resultTypes": {
+    "message": "结果类型"
+  },
+  "reviewPage_advancedTools": {
+    "message": "高级工具"
+  },
+  "reviewPage_moreActions": {
+    "message": "更多操作"
+  },
+  "reviewPage_toggleSidebar": {
+    "message": "切换结果侧栏"
+  },
+  "reviewPage_autoReviewLabel": {
+    "message": "选择项目时自动生成审阅"
+  },
+  "reviewPage_demoMode": {
+    "message": "演示模式"
+  },
+  "reviewPage_mediaOnlySearchPlaceholder": {
+    "message": "搜索媒体（标题/内容）"
+  },
+  "reviewPage_showSidebar": {
+    "message": "显示结果侧栏"
+  },
+  "reviewPage_hideSidebar": {
+    "message": "隐藏结果侧栏"
+  },
+  "reviewPage_selectedBadge": {
+    "message": "已选择"
+  },
+  "reviewPage_bulkToolbar": {
+    "message": "审阅控制"
+  },
+  "reviewPage_loadedCount": {
+    "message": "{{count}} 已加载"
+  },
+  "reviewPage_viewLabel": {
+    "message": "内容视图"
+  },
+  "reviewPage_navigateLabel": {
+    "message": "项目"
+  },
+  "reviewPage_mediaModeHint": {
+    "message": "一次搜索并查看一个媒体项。选择结果以在右侧查看其内容与分析。"
+  },
+  "reviewPage_resultsHelp": {
+    "message": "键盘：Tab 进入结果列表，使用 Enter 或空格选中当前行，然后用分析工具栏中的上一项/下一项在项目间切换。"
+  },
+  "reviewPage_resultsHelpLabel": {
+    "message": "审阅结果键盘快捷键"
+  },
+  "reviewPage_review": {
+    "message": "获取审阅"
+  },
+  "reviewPage_reviewHint": {
+    "message": "让助手审阅此项目。"
+  },
+  "reviewPage_summary": {
+    "message": "获取摘要"
+  },
+  "reviewPage_summaryHint": {
+    "message": "请求更简短的摘要。"
+  },
+  "reviewPage_attachGeneratedHint": {
+    "message": "运行助手并将结果附加到此媒体项。"
+  },
+  "reviewPage_attachReview": {
+    "message": "将审阅附加到媒体"
+  },
+  "reviewPage_attachSummary": {
+    "message": "将摘要附加到媒体"
+  },
+  "reviewPage_saveGeneratedNoteHint": {
+    "message": "运行助手并将结果保存为笔记。"
+  },
+  "reviewPage_saveReviewNote": {
+    "message": "将审阅保存为笔记"
+  },
+  "reviewPage_saveSummaryNote": {
+    "message": "将摘要保存为笔记"
+  },
+  "reviewPage_saveToMediaHint": {
+    "message": "将编辑器中的当前文本附加到此媒体项。"
+  },
+  "reviewPage_saveToMedia": {
+    "message": "将当前文本附加到媒体"
+  },
+  "reviewPage_saveAnalysisHint": {
+    "message": "将当前分析创建为笔记。"
+  },
+  "reviewPage_saveAnalysis": {
+    "message": "保存到笔记"
+  },
+  "reviewPage_askAssistantLabel": {
+    "message": "询问助手"
+  },
+  "reviewPage_saveResultsLabel": {
+    "message": "保存结果"
+  },
+  "reviewPage_moreSaveNewVersion": {
     "message": "保存为新版本"
   },
-  "mediaPage.analysisPlaceholder": {
+  "reviewPage_moreDuplicateVersion": {
+    "message": "复制版本"
+  },
+  "reviewPage_moreRestoreVersion": {
+    "message": "还原所选版本"
+  },
+  "reviewPage_modeReview": {
+    "message": "使用审阅"
+  },
+  "reviewPage_modeSummary": {
+    "message": "使用摘要"
+  },
+  "reviewPage_resultsHint": {
+    "message": "点击结果以在右侧加载其内容与分析。"
+  },
+  "reviewPage_paginationHint": {
+    "message": "若结果较多，可使用筛选或分页优化显示。"
+  },
+  "reviewPage_offlineHint": {
+    "message": "请在设置中连接 tldw 服务器以发送消息并查看媒体。然后即可从此页搜索媒体。"
+  },
+  "reviewPage_chatWithMedia": {
+    "message": "与此媒体聊天"
+  },
+  "reviewPage_chatWithMediaHint": {
+    "message": "打开聊天并在输入框中预填此媒体内容。"
+  },
+  "reviewPage_chatPrepared": {
+    "message": "已在输入框中准备好此媒体的聊天内容。"
+  },
+  "reviewPage_chatAboutMediaHint": {
+    "message": "打开仅针对该媒体的 RAG 聊天。"
+  },
+  "reviewPage_chatAboutMediaRagSent": {
+    "message": "已打开媒体范围的 RAG 聊天。"
+  },
+  "reviewPage_chatAboutMediaInvalidId": {
+    "message": "此媒体项尚未有数字 ID。"
+  },
+  "reviewPage_demoBadge": {
+    "message": "演示"
+  },
+  "reviewPage_notConnectedBadge": {
+    "message": "未连接"
+  },
+  "reviewPage_prevItem": {
+    "message": "上一项"
+  },
+  "reviewPage_nextItem": {
+    "message": "下一项"
+  },
+  "reviewPage_noContent": {
+    "message": "暂无内容"
+  },
+  "reviewPage_showMore": {
+    "message": "显示更多"
+  },
+  "reviewPage_showLess": {
+    "message": "收起"
+  },
+  "reviewPage_showRaw": {
+    "message": "显示原始"
+  },
+  "reviewPage_hideRaw": {
+    "message": "隐藏原始"
+  },
+  "reviewPage_noAnalysis": {
+    "message": "暂无分析"
+  },
+  "reviewPage_mediaContent": {
+    "message": "媒体内容"
+  },
+  "reviewPage_copyContent": {
+    "message": "复制内容"
+  },
+  "reviewPage_analysisTitle": {
+    "message": "分析"
+  },
+  "reviewPage_copyAnalysis": {
+    "message": "复制分析"
+  },
+  "reviewPage_sendAnalysisToChat": {
+    "message": "将分析发送到聊天"
+  },
+  "reviewPage_copyAllPlain": {
+    "message": "全部复制为纯文本"
+  },
+  "reviewPage_copyAllMarkdown": {
+    "message": "全部复制为 Markdown"
+  },
+  "reviewPage_openInMulti": {
+    "message": "在多项审阅中打开"
+  },
+  "reviewPage_analysisFailed": {
+    "message": "分析失败"
+  },
+  "reviewPage_analysisAttached": {
+    "message": "分析已附加到媒体"
+  },
+  "reviewPage_analyzeSaveFailed": {
+    "message": "分析并保存失败"
+  },
+  "reviewPage_nothingToSave": {
+    "message": "没有可保存的内容"
+  },
+  "reviewPage_savedToNotes": {
+    "message": "已保存到笔记"
+  },
+  "reviewPage_saveFailed": {
+    "message": "保存失败"
+  },
+  "reviewPage_saveToMediaFailed": {
+    "message": "保存到媒体失败"
+  },
+  "reviewPage_sentToChat": {
+    "message": "已发送到聊天"
+  },
+  "reviewPage_sendFailed": {
+    "message": "发送失败"
+  },
+  "reviewPage_analysisEditorPlaceholder": {
+    "message": "先运行审阅或摘要，然后在此编辑..."
+  },
+  "reviewPage_createdNewVersion": {
+    "message": "已创建新版本"
+  },
+  "reviewPage_createVersionFailed": {
+    "message": "创建版本失败"
+  },
+  "reviewPage_selectVersionFirst": {
+    "message": "请先选择一个版本"
+  },
+  "reviewPage_noVersionNumber": {
+    "message": "无版本号"
+  },
+  "reviewPage_selectedVersionNoContent": {
+    "message": "所选版本没有内容"
+  },
+  "reviewPage_clonedVersionCreated": {
+    "message": "已创建克隆版本"
+  },
+  "reviewPage_cloneFailed": {
+    "message": "克隆失败"
+  },
+  "reviewPage_confirmTitle": {
+    "message": "请确认"
+  },
+  "reviewPage_restoreConfirm": {
+    "message": "将此版本恢复为当前版本？"
+  },
+  "reviewPage_restoreAction": {
+    "message": "还原"
+  },
+  "reviewPage_cancelAction": {
+    "message": "取消"
+  },
+  "reviewPage_versionRestored": {
+    "message": "版本已还原"
+  },
+  "reviewPage_restoreFailed": {
+    "message": "还原失败"
+  },
+  "reviewPage_existingAnalysesTitle": {
+    "message": "已有分析"
+  },
+  "reviewPage_onlyWithAnalysis": {
+    "message": "仅显示有分析"
+  },
+  "reviewPage_copyAllLabel": {
+    "message": "复制全部"
+  },
+  "reviewPage_copyMdLabel": {
+    "message": "复制 MD"
+  },
+  "reviewPage_copiedAllNotes": {
+    "message": "已复制所有笔记"
+  },
+  "reviewPage_copiedAllNotesMarkdown": {
+    "message": "已复制所有笔记（Markdown）"
+  },
+  "reviewPage_loadSelectedAnalysis": {
+    "message": "将所选分析加载到编辑器"
+  },
+  "reviewPage_loadLabel": {
+    "message": "加载"
+  },
+  "reviewPage_loadVersionPrompt": {
+    "message": "将版本提示词加载到编辑器"
+  },
+  "reviewPage_noPromptFound": {
+    "message": "未找到提示词"
+  },
+  "reviewPage_copyVersionPrompt": {
+    "message": "复制所选版本的提示词"
+  },
+  "reviewPage_promptCopied": {
+    "message": "提示词已复制"
+  },
+  "reviewPage_diffSelectedCurrent": {
+    "message": "对比所选与当前"
+  },
+  "reviewPage_versionDeleted": {
+    "message": "版本已删除"
+  },
+  "reviewPage_versionDeletedDescription": {
+    "message": "已删除版本 v{{version}}。"
+  },
+  "reviewPage_undoRolledBack": {
+    "message": "撤销：已回滚到删除的版本"
+  },
+  "reviewPage_undoFailed": {
+    "message": "撤销失败"
+  },
+  "reviewPage_undoLabel": {
+    "message": "撤销"
+  },
+  "reviewPage_deleteFailed": {
+    "message": "删除失败"
+  },
+  "reviewPage_deleteSelectedVersion": {
+    "message": "删除所选版本"
+  },
+  "reviewPage_noSavedAnalyses": {
+    "message": "此项目暂无已保存的分析。"
+  },
+  "reviewPage_currentTag": {
+    "message": "当前"
+  },
+  "reviewPage_promptLabel": {
+    "message": "提示词"
+  },
+  "reviewPage_showLabel": {
+    "message": "显示"
+  },
+  "reviewPage_hideLabel": {
+    "message": "隐藏"
+  },
+  "reviewPage_copyAnalysisPlainTooltip": {
+    "message": "复制分析（纯文本）"
+  },
+  "reviewPage_copyLabel": {
+    "message": "复制"
+  },
+  "reviewPage_copyAnalysisMarkdownTooltip": {
+    "message": "复制为 Markdown"
+  },
+  "reviewPage_copiedAnalysisMarkdown": {
+    "message": "已复制分析（Markdown）"
+  },
+  "reviewPage_markdownLabel": {
+    "message": "Markdown 格式"
+  },
+  "reviewPage_copyPromptTooltip": {
+    "message": "复制提示词"
+  },
+  "reviewPage_diffUnified": {
+    "message": "统一视图"
+  },
+  "reviewPage_diffSideBySide": {
+    "message": "并排"
+  },
+  "reviewPage_diffCopied": {
+    "message": "已复制差异"
+  },
+  "reviewPage_copyDiffLabel": {
+    "message": "复制差异"
+  },
+  "reviewPage_closeLabel": {
+    "message": "关闭"
+  },
+  "reviewPage_diffTitle": {
+    "message": "差异：所选 vs 当前"
+  },
+  "reviewPage_diffSelectedVersion": {
+    "message": "所选版本"
+  },
+  "reviewPage_diffCurrentEditor": {
+    "message": "当前编辑器"
+  },
+  "reviewPage_noDifferences": {
+    "message": "无差异"
+  },
+  "reviewPage_chatAboutMedia": {
+    "message": "就此媒体聊天"
+  },
+  "reviewPage_statusProcessing": {
+    "message": "处理中"
+  },
+  "reviewPage_statusQueued": {
+    "message": "排队中"
+  },
+  "reviewPage_statusError": {
+    "message": "错误"
+  },
+  "reviewPage_statusReady": {
+    "message": "就绪"
+  },
+  "reviewPage_loadedOf": {
+    "message": "{{count}} 已加载"
+  },
+  "reviewPage_expandAllContent": {
+    "message": "显示完整"
+  },
+  "reviewPage_collapseAllContent": {
+    "message": "显示更短"
+  },
+  "reviewPage_expandContent": {
+    "message": "展开"
+  },
+  "reviewPage_collapseContent": {
+    "message": "折叠"
+  },
+  "reviewPage_expandAnalysis": {
+    "message": "展开"
+  },
+  "reviewPage_collapseAnalysis": {
+    "message": "折叠"
+  },
+  "reviewPage_jumpTo": {
+    "message": "跳转到"
+  },
+  "reviewPage_presetsExecutive": {
+    "message": "高管"
+  },
+  "reviewPage_presetsDetailed": {
+    "message": "详细"
+  },
+  "reviewPage_presetsBullets": {
+    "message": "要点"
+  },
+  "mediaPage_searchPlaceholder": {
+    "message": "搜索媒体（标题/内容）"
+  },
+  "mediaPage_search": {
+    "message": "搜索"
+  },
+  "mediaPage_clear": {
+    "message": "清除"
+  },
+  "mediaPage_types": {
+    "message": "Types"
+  },
+  "mediaPage_keywords": {
+    "message": "关键词"
+  },
+  "mediaPage_moreTags": {
+    "message": "+还有{{count}}个标签"
+  },
+  "mediaPage_resetFilters": {
+    "message": "Reset Filters"
+  },
+  "mediaPage_clearAll": {
+    "message": "清除全部"
+  },
+  "mediaPage_content": {
+    "message": "内容"
+  },
+  "mediaPage_vertical": {
+    "message": "垂直"
+  },
+  "mediaPage_horizontal": {
+    "message": "水平"
+  },
+  "mediaPage_results": {
+    "message": "结果"
+  },
+  "mediaPage_noResults": {
+    "message": "No results"
+  },
+  "mediaPage_showSidebar": {
+    "message": "Show sidebar"
+  },
+  "mediaPage_hideSidebar": {
+    "message": "Hide sidebar"
+  },
+  "mediaPage_viewer": {
+    "message": "查看器"
+  },
+  "mediaPage_selectItemsHint": {
+    "message": "在左侧选择条目以在此查看。"
+  },
+  "mediaPage_mediaContent": {
+    "message": "媒体内容"
+  },
+  "mediaPage_copyContent": {
+    "message": "复制内容"
+  },
+  "mediaPage_contentCopied": {
+    "message": "内容已复制"
+  },
+  "mediaPage_metadataCopied": {
+    "message": "元数据已复制"
+  },
+  "mediaPage_analysisCopied": {
+    "message": "分析已复制"
+  },
+  "mediaPage_copyFailed": {
+    "message": "复制失败"
+  },
+  "mediaPage_noContent": {
+    "message": "没有可用内容"
+  },
+  "mediaPage_collapse": {
+    "message": "折叠"
+  },
+  "mediaPage_expand": {
+    "message": "展开"
+  },
+  "mediaPage_media": {
+    "message": "媒体"
+  },
+  "mediaPage_searchingBanner": {
+    "message": "正在搜索媒体…"
+  },
+  "mediaPage_filterHelp": {
+    "message": "搜索匹配标题和内容；类型和关键词会进一步缩小结果。"
+  },
+  "mediaPage_noMediaTypes": {
+    "message": "没有可用的媒体类型"
+  },
+  "mediaPage_resultsCount": {
+    "message": "{{selected}} 已选 · {{open}} 打开"
+  },
+  "mediaPage_clearSelection": {
+    "message": "取消全选"
+  },
+  "mediaPage_itemsLabel": {
+    "message": "条目"
+  },
+  "mediaPage_contentLabel": {
+    "message": "内容视图"
+  },
+  "mediaPage_filterByKeyword": {
+    "message": "按关键字筛选"
+  },
+  "mediaPage_keywordHelper": {
+    "message": "关键字可以帮助你使用左侧的关键字筛选器找到此媒体"
+  },
+  "mediaPage_modeHint": {
+    "message": "搜索并堆叠多个媒体项，在右侧查看器中进行比较。"
+  },
+  "mediaPage_viewerHelp": {
+    "message": "键盘：按 Tab 进入结果列表，使用 Enter 或空格键将媒体项加入/移出堆栈，然后使用上一条/下一条和布局控件在查看器中的各项之间移动。"
+  },
+  "mediaPage_viewerHelpLabel": {
+    "message": "多项审阅的键盘快捷键"
+  },
+  "mediaPage_mediaInspector": {
+    "message": "媒体检查器"
+  },
+  "mediaPage_actionsLabel": {
+    "message": "操作"
+  },
+  "mediaPage_keywordsPlaceholder": {
+    "message": "添加关键字..."
+  },
+  "mediaPage_noSelectionTitle": {
+    "message": "未选择任何媒体项"
+  },
+  "mediaPage_noSelectionDescription": {
+    "message": "在左侧侧边栏选择一个媒体项，在此查看其内容和分析。"
+  },
+  "mediaPage_generateAnalysis": {
+    "message": "生成分析"
+  },
+  "mediaPage_generateAnalysisHint": {
+    "message": "生成新的分析"
+  },
+  "mediaPage_editAnalysis": {
+    "message": "编辑分析"
+  },
+  "mediaPage_createNoteWithContent": {
+    "message": "使用内容创建笔记"
+  },
+  "mediaPage_createNoteWithContentAnalysis": {
+    "message": "使用内容 + 分析创建笔记"
+  },
+  "mediaPage_untitled": {
+    "message": "未命名"
+  },
+  "mediaPage_copyMetadata": {
+    "message": "复制元数据"
+  },
+  "mediaPage_statistics": {
+    "message": "统计"
+  },
+  "mediaPage_words": {
+    "message": "单词数"
+  },
+  "mediaPage_characters": {
+    "message": "字符数"
+  },
+  "mediaPage_paragraphs": {
+    "message": "段落数"
+  },
+  "mediaPage_metadata": {
+    "message": "元数据"
+  },
+  "mediaPage_idLabel": {
+    "message": "标识符"
+  },
+  "mediaPage_typeLabel": {
+    "message": "类型"
+  },
+  "mediaPage_titleLabel": {
+    "message": "标题"
+  },
+  "mediaPage_source": {
+    "message": "来源"
+  },
+  "mediaPage_notAvailable": {
+    "message": "不可用"
+  },
+  "mediaPage_developerTools": {
+    "message": "开发者工具"
+  },
+  "mediaPage_nothingToSend": {
+    "message": "没有可发送的内容"
+  },
+  "mediaPage_emptyAnalysis": {
+    "message": "分析内容不能为空"
+  },
+  "mediaPage_noMediaId": {
+    "message": "没有可用的媒体 ID"
+  },
+  "mediaPage_versionSaved": {
+    "message": "已保存为新版本"
+  },
+  "mediaPage_saveFailed": {
+    "message": "保存版本失败"
+  },
+  "mediaPage_saveUnauthorized": {
+    "message": "没有权限保存"
+  },
+  "mediaPage_sendToChat": {
+    "message": "发送到聊天"
+  },
+  "mediaPage_saveAsVersion": {
+    "message": "保存为新版本"
+  },
+  "mediaPage_analysisPlaceholder": {
     "message": "请输入分析文本..."
   },
-  "mediaPage.wordCount": {
+  "mediaPage_wordCount": {
     "message": "{{count}} 个单词"
   },
-  "mediaPage.charCount": {
+  "mediaPage_charCount": {
     "message": "{{count}} 个字符"
   },
-  "mediaPage.pageRangeError": {
-    "message": "页码必须为 1-{{max}}"
+  "mediaPage_pageRangeError": {
+    "message": "页码必须在 1 到 {{max}} 之间"
   },
-  "mediaPage.pageRangeClamped": {
+  "mediaPage_pageRangeClamped": {
     "message": "正在导航至第 {{page}} 页"
+  },
+  "mediaPage_spreadMode": {
+    "message": "对比"
+  },
+  "mediaPage_listMode": {
+    "message": "聚焦"
+  },
+  "mediaPage_allMode": {
+    "message": "堆叠"
+  },
+  "mediaPage_spreadModeTooltip": {
+    "message": "并排显示所选项目以便对比"
+  },
+  "mediaPage_listModeTooltip": {
+    "message": "使用导航一次查看一个项目"
+  },
+  "mediaPage_allModeTooltip": {
+    "message": "在可滚动列表中查看所有选中项目"
+  },
+  "mediaPage_copyContentLabel": {
+    "message": "复制内容"
+  },
+  "mediaPage_copyAnalysisLabel": {
+    "message": "复制分析"
+  },
+  "mediaPage_copyContentTooltip": {
+    "message": "将内容复制到剪贴板"
+  },
+  "mediaPage_copyAnalysisTooltip": {
+    "message": "将分析复制到剪贴板"
+  },
+  "mediaPage_prevItemTooltip": {
+    "message": "上一个项目 (←)"
+  },
+  "mediaPage_nextItemTooltip": {
+    "message": "下一个项目 (→)"
+  },
+  "mediaPage_viewerOptions": {
+    "message": "选项"
+  },
+  "mediaPage_expandAllDropdown": {
+    "message": "展开/折叠"
+  },
+  "mediaPage_itemPosition": {
+    "message": "第 {{current}} 项，共 {{total}} 项"
+  },
+  "mediaPage_noItemSelected": {
+    "message": "未选择任何项目"
+  },
+  "mediaPage_firstUseTitle": {
+    "message": "快速指南：多项审阅"
+  },
+  "mediaPage_firstUseStep1": {
+    "message": "选择项目"
+  },
+  "mediaPage_firstUseStep1Desc": {
+    "message": "点击左侧面板中的项目，将其添加到查看器。"
+  },
+  "mediaPage_firstUseStep2": {
+    "message": "选择视图"
+  },
+  "mediaPage_firstUseStep2Desc": {
+    "message": "使用“对比”进行并排查看，“聚焦”一次查看一个项目，或使用“堆叠”查看全部。"
+  },
+  "mediaPage_firstUseStep3": {
+    "message": "导航"
+  },
+  "mediaPage_firstUseStep3Desc": {
+    "message": "使用上一项/下一项按钮或键盘（Tab + Enter）在项目间移动。"
+  },
+  "mediaPage_gotIt": {
+    "message": "知道了"
+  },
+  "mediaPage_model": {
+    "message": "模型"
+  },
+  "mediaPage_selectModel": {
+    "message": "选择模型"
+  },
+  "mediaPage_noModelsAvailable": {
+    "message": "没有可用模型"
+  },
+  "mediaPage_promptPresets": {
+    "message": "提示词预设"
+  },
+  "mediaPage_showPresets": {
+    "message": "显示预设"
+  },
+  "mediaPage_hidePresets": {
+    "message": "隐藏预设"
+  },
+  "mediaPage_systemPromptLabel": {
+    "message": "系统提示词"
+  },
+  "mediaPage_systemPromptPlaceholder": {
+    "message": "输入系统提示词..."
+  },
+  "mediaPage_userPromptPrefixLabel": {
+    "message": "用户提示词前缀"
+  },
+  "mediaPage_prependedBeforeContent": {
+    "message": "（添加在内容之前）"
+  },
+  "mediaPage_userPrefixPlaceholder": {
+    "message": "可选：输入要在媒体内容之前添加的文本..."
+  },
+  "mediaPage_presetComprehensiveAnalysis": {
+    "message": "全面分析"
+  },
+  "mediaPage_presetExecutiveSummary": {
+    "message": "执行摘要"
+  },
+  "mediaPage_presetCriticalReview": {
+    "message": "批判性审阅"
+  },
+  "mediaPage_presetQAAnalysis": {
+    "message": "问答分析"
+  },
+  "empty_connectTitle": {
+    "message": "连接以使用审阅"
+  },
+  "empty_connectDescription": {
+    "message": "在设置中连接你的 tldw 服务器以发送消息并查看媒体。连接后，你可以在这里审阅媒体和笔记。"
+  },
+  "empty_connectExample1": {
+    "message": "打开 设置 → tldw server 以添加你的服务器 URL。"
+  },
+  "empty_connectExample2": {
+    "message": "连接后，浏览媒体和笔记，然后生成结构化的审阅和摘要。"
+  },
+  "empty_demoTitle": {
+    "message": "在演示模式中探索审阅"
+  },
+  "empty_demoDescription": {
+    "message": "此演示展示 tldw Assistant 如何将媒体和笔记转为结构化审阅。稍后连接你的服务器以分析你的内容。"
+  },
+  "empty_demoExample1": {
+    "message": "查看选中的媒体和笔记如何出现在审阅工作区。"
+  },
+  "empty_demoExample2": {
+    "message": "连接后，你将能够从自己的录音和笔记中生成摘要和行动项。"
+  },
+  "mediaEmpty_demoTitle": {
+    "message": "在演示模式中探索媒体"
+  },
+  "mediaEmpty_demoDescription": {
+    "message": "此演示展示 tldw Assistant 如何显示并检查处理后的媒体。稍后连接你的服务器以浏览自己的录音和文档。"
+  },
+  "mediaEmpty_demoExample1": {
+    "message": "查看处理后的媒体项如何出现在媒体查看器中。"
+  },
+  "mediaEmpty_demoExample2": {
+    "message": "连接后，你将能够浏览并检查从你的录音和文件导入的媒体。"
+  },
+  "mediaEmpty_connectTitle": {
+    "message": "连接以使用媒体"
+  },
+  "mediaEmpty_connectDescription": {
+    "message": "在设置中连接你的 tldw 服务器以发送消息并查看媒体。连接后，处理过的录音和文档将列在此处。"
+  },
+  "mediaEmpty_connectExample1": {
+    "message": "打开 设置 → tldw server 以添加你的服务器 URL。"
+  },
+  "mediaEmpty_connectExample2": {
+    "message": "连接后，使用顶部栏中的 Quick ingest 从你的录音和文件添加媒体。"
+  },
+  "mediaEmpty_offlineTitle": {
+    "message": "此服务器尚未提供媒体审阅"
+  },
+  "mediaEmpty_offlineDescription": {
+    "message": "此工作区依赖于你的 tldw 服务器对媒体审阅的支持。升级到包含媒体的版本期间，你仍可继续使用聊天、笔记和其他工具。"
+  },
+  "mediaEmpty_offlineExample1": {
+    "message": "打开 Diagnostics 以确认你的服务器版本和可用的 API。"
+  },
+  "mediaEmpty_offlineExample2": {
+    "message": "升级后，请重新加载扩展程序并返回“媒体”。"
+  },
+  "mediaEmpty_offlineTechnicalDetails": {
+    "message": "技术细节：此 tldw 服务器未暴露 Media 端点（例如 /api/v1/media 和 /api/v1/media/search）。"
+  },
+  "mediaEmpty_featureUnavailableBadge": {
+    "message": "功能不可用"
+  },
+  "mediaEmpty_demoExample3": {
+    "message": "将媒体与审阅一起使用，以总结或分析录音。"
+  },
+  "mediaEmpty_demoPreviewHeading": {
+    "message": "示例媒体项（仅预览）"
+  },
+  "mediaEmpty_demoSample1Title": {
+    "message": "演示媒体：团队通话录音"
+  },
+  "mediaEmpty_demoSample1Meta": {
+    "message": "视频 · 25 分钟 · 关键词：站会、规划"
+  },
+  "mediaEmpty_demoSample2Title": {
+    "message": "演示媒体：产品演示"
+  },
+  "mediaEmpty_demoSample2Meta": {
+    "message": "屏幕录制 · 12 分钟 · 关键词：入门"
+  },
+  "mediaEmpty_demoSample3Title": {
+    "message": "演示媒体：研究论文 PDF"
+  },
+  "mediaEmpty_demoSample3Meta": {
+    "message": "PDF · 6 页 · 关键词：摘要"
   },
   "noToolCalls": {
     "message": "尚无工具调用"
@@ -46,5 +997,320 @@
   },
   "result": {
     "message": "结果"
+  },
+  "reviewDraftsFailedTitle": {
+    "message": "无法创建审阅草稿。"
+  },
+  "reviewDraftsFailedFallback": {
+    "message": "创建审阅草稿失败。"
+  },
+  "reviewDraftsRetry": {
+    "message": "重试创建草稿"
+  },
+  "reviewDraftsStoreWithoutReview": {
+    "message": "不经审阅保存"
+  },
+  "reviewNavigationFailed": {
+    "message": "无法打开内容审阅。请重试。"
+  },
+  "reviewNavigationRetry": {
+    "message": "重试打开内容审阅"
+  },
+  "contentReview_title": {
+    "message": "内容审阅"
+  },
+  "contentReview_readyToSubmit": {
+    "message": "{{count}} 个已就绪"
+  },
+  "contentReview_committedCount": {
+    "message": "{{count}} 个已提交"
+  },
+  "contentReview_totalCount": {
+    "message": "共 {{count}} 个"
+  },
+  "contentReview_commitAll": {
+    "message": "全部提交"
+  },
+  "contentReview_clearDrafts": {
+    "message": "清除草稿"
+  },
+  "contentReview_emptyDescription": {
+    "message": "当前还没有草稿。使用 Quick Ingest 并启用“保存前审阅”即可创建草稿。"
+  },
+  "contentReview_openQuickIngest": {
+    "message": "打开 Quick Ingest"
+  },
+  "contentReview_storeAfterReview": {
+    "message": "审阅后保存"
+  },
+  "contentReview_reviewBeforeStorage": {
+    "message": "保存前审阅"
+  },
+  "contentReview_reviewBeforeStorageHint": {
+    "message": "先处理，然后在提交到服务器前在本地编辑草稿。"
+  },
+  "contentReview_reviewEnabled": {
+    "message": "审阅模式"
+  },
+  "contentReview_reviewStorageCap": {
+    "message": "本地草稿上限为 {{cap}}。"
+  },
+  "contentReview_reviewWarningTitle": {
+    "message": "将草稿保存在本地？"
+  },
+  "contentReview_reviewWarningBody": {
+    "message": "草稿保存在此浏览器中，可能包含敏感数据。你可以随时在“内容审阅”页面清除草稿。"
+  },
+  "contentReview_reviewWarningBodySecondary": {
+    "message": "审阅模式会在提交到服务器前将内容保留在客户端。"
+  },
+  "contentReview_reviewWarningConfirm": {
+    "message": "启用审阅"
+  },
+  "contentReview_reviewWarningCancel": {
+    "message": "取消"
+  },
+  "contentReview_reviewRunLabel": {
+    "message": "审阅"
+  },
+  "contentReview_reviewDraftsCreated": {
+    "message": "草稿已准备好审阅。"
+  },
+  "contentReview_reviewStorageCapWarning_one": {
+    "message": "{{count}} 个文件超过本地草稿上限（{{cap}}）。请在提交音频/视频前附加来源。"
+  },
+  "contentReview_reviewStorageCapWarning_other": {
+    "message": "{{count}} 个文件超过本地草稿上限（{{cap}}）。请在提交音频/视频前附加来源。"
+  },
+  "contentReview_openContentReview": {
+    "message": "打开内容审阅"
+  },
+  "contentReview_batchLabel": {
+    "message": "批次"
+  },
+  "contentReview_batchName": {
+    "message": "批次 {{index}}"
+  },
+  "contentReview_draftsLabel": {
+    "message": "草稿"
+  },
+  "contentReview_selectDraft": {
+    "message": "选择一个草稿开始审阅。"
+  },
+  "contentReview_titlePlaceholder": {
+    "message": "草稿标题"
+  },
+  "contentReview_lastSaved": {
+    "message": "已保存于 {{time}}"
+  },
+  "contentReview_resetTitle": {
+    "message": "重置草稿？"
+  },
+  "contentReview_resetBody": {
+    "message": "这将恢复该草稿的原始内容。"
+  },
+  "contentReview_resetConfirm": {
+    "message": "重置"
+  },
+  "contentReview_resetCancel": {
+    "message": "取消"
+  },
+  "contentReview_resetContent": {
+    "message": "重置"
+  },
+  "contentReview_diffView": {
+    "message": "差异视图"
+  },
+  "contentReview_saveDraft": {
+    "message": "保存草稿"
+  },
+  "contentReview_editorLabel": {
+    "message": "内容"
+  },
+  "contentReview_wordCount": {
+    "message": "{{words}} 个词"
+  },
+  "contentReview_charCount": {
+    "message": "{{chars}} 个字符"
+  },
+  "contentReview_aiFix": {
+    "message": "使用 AI 修正"
+  },
+  "contentReview_aiHint": {
+    "message": "将草稿内容发送到服务器，由 AI 进行处理。"
+  },
+  "contentReview_modelPlaceholder": {
+    "message": "服务器默认"
+  },
+  "contentReview_aiConsentTitle": {
+    "message": "将草稿发送到服务器？"
+  },
+  "contentReview_aiConsentBody": {
+    "message": "这会将草稿内容发送到你的 tldw 服务器进行 AI 处理。草稿会一直保留在本地，直到你提交。"
+  },
+  "contentReview_aiConsentConfirm": {
+    "message": "继续"
+  },
+  "contentReview_aiConsentCancel": {
+    "message": "取消"
+  },
+  "contentReview_aiApplied": {
+    "message": "已应用 AI 修正。"
+  },
+  "contentReview_aiNoChange": {
+    "message": "未返回任何更改。"
+  },
+  "contentReview_aiEmpty": {
+    "message": "AI 未返回任何内容。"
+  },
+  "contentReview_aiUnavailable": {
+    "message": "聊天补全不可用。"
+  },
+  "contentReview_templatePlaceholder": {
+    "message": "选择模板"
+  },
+  "contentReview_applyTemplate": {
+    "message": "应用模板"
+  },
+  "contentReview_templateApplied": {
+    "message": "模板已应用。"
+  },
+  "contentReview_templateMissing": {
+    "message": "请先选择一个模板。"
+  },
+  "contentReview_detectSections": {
+    "message": "检测章节"
+  },
+  "contentReview_detectSectionsTitle": {
+    "message": "重新检测章节？"
+  },
+  "contentReview_detectSectionsBody": {
+    "message": "这将替换现有章节并重置你的选择。"
+  },
+  "contentReview_detectSectionsConfirm": {
+    "message": "重新检测"
+  },
+  "contentReview_detectSectionsCancel": {
+    "message": "取消"
+  },
+  "contentReview_detectSectionsEmpty": {
+    "message": "未检测到任何章节。"
+  },
+  "contentReview_sectionsLabel": {
+    "message": "章节筛选"
+  },
+  "contentReview_templates_transcript_clean_label": {
+    "message": "清理转录文本"
+  },
+  "contentReview_templates_transcript_clean_description": {
+    "message": "在保留行结构的前提下，规范标点和大小写。"
+  },
+  "contentReview_templates_speaker_turns_label": {
+    "message": "说话轮次"
+  },
+  "contentReview_templates_speaker_turns_description": {
+    "message": "确保每个说话人轮次都在独立的一行，并带有清晰的标签。"
+  },
+  "contentReview_templates_chapter_headings_label": {
+    "message": "章节标题"
+  },
+  "contentReview_templates_chapter_headings_description": {
+    "message": "插入 Markdown 标题，以分组主题而不删除内容。"
+  },
+  "contentReview_metadataLabel": {
+    "message": "元数据"
+  },
+  "contentReview_mediaType": {
+    "message": "媒体类型"
+  },
+  "contentReview_keywords": {
+    "message": "关键词"
+  },
+  "contentReview_keywordsPlaceholder": {
+    "message": "添加关键词"
+  },
+  "contentReview_reviewNotes": {
+    "message": "审阅备注"
+  },
+  "contentReview_missingSource": {
+    "message": "缺少源文件"
+  },
+  "contentReview_missingSourceBody": {
+    "message": "请附加原始文件以提交此草稿。"
+  },
+  "contentReview_attachSource": {
+    "message": "附加文件"
+  },
+  "contentReview_actionsLabel": {
+    "message": "操作"
+  },
+  "contentReview_commit": {
+    "message": "提交"
+  },
+  "contentReview_commitDisabled": {
+    "message": "在提交之前，请先附加原始音频/视频文件。"
+  },
+  "contentReview_markReviewed": {
+    "message": "标记为已审阅"
+  },
+  "contentReview_skipNext": {
+    "message": "跳过"
+  },
+  "contentReview_discard": {
+    "message": "丢弃"
+  },
+  "contentReview_discardTitle": {
+    "message": "丢弃草稿？"
+  },
+  "contentReview_discardBody": {
+    "message": "此草稿将被标记为已丢弃，并从审阅列表中移除。"
+  },
+  "contentReview_discardConfirm": {
+    "message": "丢弃"
+  },
+  "contentReview_discardCancel": {
+    "message": "取消"
+  },
+  "contentReview_commitSuccess": {
+    "message": "草稿已提交。"
+  },
+  "contentReview_commitAllTitle": {
+    "message": "提交已审阅的草稿？"
+  },
+  "contentReview_commitAllBody": {
+    "message": "只有标记为已审阅的草稿才会被提交。"
+  },
+  "contentReview_commitAllConfirm": {
+    "message": "全部提交"
+  },
+  "contentReview_commitAllCancel": {
+    "message": "取消"
+  },
+  "contentReview_commitAllResult": {
+    "message": "{{success}} 个已提交 · {{failed}} 个失败"
+  },
+  "contentReview_storageCapWarning": {
+    "message": "此文件超过本地草稿上限 ({{cap}})。"
+  },
+  "contentReview_clearTitle": {
+    "message": "清除所有草稿？"
+  },
+  "contentReview_clearBody": {
+    "message": "这将删除所有本地内容审阅草稿及其关联资源."
+  },
+  "contentReview_clearConfirm": {
+    "message": "清除草稿"
+  },
+  "contentReview_clearCancel": {
+    "message": "取消"
+  },
+  "contentReview_clearSuccess": {
+    "message": "草稿已清除。"
+  },
+  "contentReview_originalLabel": {
+    "message": "原始"
+  },
+  "contentReview_editedLabel": {
+    "message": "已编辑"
   }
 }

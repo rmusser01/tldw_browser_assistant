@@ -1,47 +1,86 @@
-import { test, expect } from '@playwright/test'
-import { launchWithBuiltExtension } from './utils/extension-build'
+import { test, expect } from "@playwright/test"
+import path from "path"
+import { launchWithExtension } from "./utils/extension"
 
-test.describe('Prompts workspace UX', () => {
-  test('segmented labels, copilot empty state, and use-in-chat affordance', async () => {
-    const { context, page, optionsUrl } = await launchWithBuiltExtension()
+test.describe("Prompts workspace UX", () => {
+  test("walks through prompts workflows end-to-end", async () => {
+    test.setTimeout(120000)
+    const baseName = `E2E Prompt ${Date.now()}`
+    const extPath = path.resolve("build/chrome-mv3")
+    const { context, page, extensionId, optionsUrl } = (await launchWithExtension(extPath)) as any
 
-    await page.goto(optionsUrl + '#/prompts')
-    await page.waitForLoadState('networkidle')
+    await page.goto(`${optionsUrl}#/prompts`)
+    await page.waitForLoadState("domcontentloaded")
 
-    // Segmented labels render human-readable text, not raw keys
-    const customTab = page.getByRole('radio', { name: /Custom prompts/i })
-    const copilotTab = page.getByRole('radio', { name: /Copilot prompts/i })
-    await expect(customTab).toBeVisible()
-    await expect(copilotTab).toBeVisible()
+    await expect(page.getByText(/Prompts/i).first()).toBeVisible()
+    const customPanel = page.getByTestId("prompts-custom")
+    await expect(customPanel).toBeVisible({ timeout: 15000 })
 
-    // Helper text under segmented control reflects selected tab
-    await expect(page.getByText(/Create and manage reusable prompts/i)).toBeVisible()
-    await copilotTab.click()
-    await expect(page.getByText(/predefined Copilot prompts/i)).toBeVisible()
+    await page.getByTestId("prompts-add").click()
+    await expect(page.getByTestId("prompt-create-title")).toBeVisible()
+    await page.getByTestId("prompt-create-title").fill(baseName)
+    await page.getByTestId("prompt-create-system").fill(`${baseName} System`)
+    await page.getByTestId("prompt-create-user").fill(`${baseName} User`)
 
-    // Copilot empty state: if there are no Copilot prompts, show explainer + Diagnostics CTA
-    // (In normal runs this may or may not be empty; only assert text when the heading is present.)
-    const copilotEmptyHeading = page.getByRole('heading', { name: /No Copilot prompts available/i })
-    if (await copilotEmptyHeading.isVisible({ timeout: 2000 }).catch(() => false)) {
-      await expect(page.getByText(/predefined templates provided by your tldw server/i)).toBeVisible()
-      await expect(
-        page.getByRole('button', { name: /Health & diagnostics/i })
-      ).toBeVisible()
+    const keywordSelect = page.getByTestId("prompt-create-keywords")
+    await keywordSelect.click()
+    await keywordSelect.getByRole("combobox").fill("e2e")
+    await keywordSelect.getByRole("combobox").press("Enter")
+
+    await page.getByTestId("prompt-create-save").click()
+    await expect(page.getByTestId("prompt-create-save")).toBeHidden()
+
+    const searchInput = page.getByTestId("prompts-search")
+    await searchInput.fill(baseName)
+    await expect(page.getByText(baseName, { exact: true })).toBeVisible()
+
+    const promptRow = page
+      .locator("tr")
+      .filter({ hasText: baseName })
+      .first()
+    await expect(promptRow).toBeVisible()
+
+    await promptRow.getByRole("button", { name: /Duplicate Prompt/i }).click()
+    await expect(page.getByText(`${baseName} (Copy)`)).toBeVisible()
+
+    await promptRow.getByRole("button", { name: /Edit Prompt/i }).click()
+    await expect(page.getByTestId("prompt-edit-details")).toBeVisible()
+    await page.getByTestId("prompt-edit-details").fill(`${baseName} details updated`)
+    await page.getByTestId("prompt-edit-save").click()
+    await expect(page.getByText(`${baseName} details updated`)).toBeVisible()
+
+    const [download] = await Promise.all([
+      page.waitForEvent("download", { timeout: 15000 }),
+      page.getByTestId("prompts-export").click()
+    ])
+    expect(download.suggestedFilename()).toMatch(/^prompts_/)
+
+    const importId = `import-${Date.now()}`
+    const importPayload = JSON.stringify([
+      {
+        id: importId,
+        title: `${baseName} Imported`,
+        name: `${baseName} Imported`,
+        content: `${baseName} Imported content`,
+        is_system: false,
+        keywords: ["e2e-import"],
+        createdAt: Date.now()
+      }
+    ])
+    await page.setInputFiles('[data-testid="prompts-import-file"]', {
+      name: "prompts.json",
+      mimeType: "application/json",
+      buffer: Buffer.from(importPayload)
+    })
+    await expect(page.getByText(/Prompt Added/i).first()).toBeVisible({
+      timeout: 15000
+    })
+    if (page.isClosed()) {
+      throw new Error("Page closed before import result could be verified.")
     }
-
-    // Switch back to Custom prompts
-    await customTab.click()
-    await expect(page.getByText(/Create and manage reusable prompts/i)).toBeVisible()
-
-    // Use-in-chat action has clear tooltip and accessible name
-    const useInChatButton = page.getByRole('button', { name: /Use in chat/i }).first()
-    await expect(useInChatButton).toBeVisible()
-    await useInChatButton.hover()
-
-    // Tooltip text should describe opening chat and inserting the prompt
-    await expect(
-      page.getByText(/insert this prompt into the composer/i)
-    ).toBeVisible()
+    await expect(page.getByTestId(`prompt-row-${importId}`)).toBeVisible({
+      timeout: 15000
+    })
 
     await context.close()
   })

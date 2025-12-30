@@ -419,10 +419,11 @@ function formatApprovalArgs(
         ? `"${args.message.substring(0, 40)}${args.message.length > 40 ? "..." : ""}"`
         : ""
     case "exec.run":
-      return args.command_id || ""
+      return args.command_id ?? ""
     default:
       try {
-        return JSON.stringify(args).substring(0, 50)
+        const jsonStr = JSON.stringify(args)
+        return jsonStr.length > 50 ? `${jsonStr.substring(0, 50)}...` : jsonStr
       } catch {
         return t("complexArguments", "[Complex arguments]")
       }

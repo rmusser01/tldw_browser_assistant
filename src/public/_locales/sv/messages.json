@@ -283,7 +283,7 @@
     "description": "Filter label for chats in omni-search."
   },
   "omniSearch_filterMedia": {
-    "message": "Media",
+    "message": "Medier",
     "description": "Filter label for media in omni-search."
   },
   "omniSearch_filterNote": {
@@ -360,6 +360,65 @@
   },
   "specFallbackWarning": {
     "message": "Använder inbyggd reservschema för media.add (v{{version}}); verifiera mot din tldw_server /openapi.json om fälten verkar inaktuella."
+  },
+  "serverOffline": {
+    "message": "Servern är offline eller inte konfigurerad"
+  },
+  "serverChats": {
+    "message": "Serverchattar"
+  },
+  "serverChatLoadError": {
+    "message": "Det gick inte att läsa in serverchatt. Kontrollera anslutningen och försök igen."
+  },
+  "serverChatSourceLabel": {
+    "message": "Serverkälla"
+  },
+  "serverChatForkedLabel": {
+    "message": "Förgrenad chatt",
+    "description": "Label shown on chats that were forked from another server chat."
+  },
+  "serverChatForkedTooltip": {
+    "message": "Förgrenad från chatten {{chatId}}",
+    "description": "Tooltip explaining which original server chat this chat was forked from."
+  },
+  "fileChanges": {
+    "message": "Filändringar"
+  },
+  "deletions": {
+    "message": "Raderingar"
+  },
+  "gitOperations": {
+    "message": "Git‑åtgärder"
+  },
+  "commands": {
+    "message": "Kommandon"
+  },
+  "otherOperations": {
+    "message": "Andra åtgärder"
+  },
+  "fileAccess": {
+    "message": "Filåtkomst"
+  },
+  "notebookEdits": {
+    "message": "Ändringar i anteckningsbok"
+  },
+  "applyPatch": {
+    "message": "Applicera patch"
+  },
+  "recursive": {
+    "message": "(rekursivt)"
+  },
+  "complexArguments": {
+    "message": "[Komplexa argument]"
+  },
+  "ttsShort": {
+    "message": "Röst"
+  },
+  "copyShort": {
+    "message": "Kopiera"
+  },
+  "branchShort": {
+    "message": "Gren"
   },
   "serverChatsUnavailableNotConnected": {
     "message": "Serverchattar blir tillgängliga när du ansluter till din tldw‑server."
@@ -564,18 +623,6 @@
   "notesSearch_exportJsonSuccess": {
     "message": "Exported {{count}} notes as JSON ({{size}})"
   },
-  "exportNoteSuccess": {
-    "message": "Exported ({{size}})"
-  },
-  "exportSuccess": {
-    "message": "Exported {{count}} notes ({{size}})"
-  },
-  "exportCsvSuccess": {
-    "message": "Exported {{count}} notes as CSV ({{size}})"
-  },
-  "exportJsonSuccess": {
-    "message": "Exported {{count}} notes as JSON ({{size}})"
-  },
   "infoShort": {
     "message": "Info"
   },
@@ -613,7 +660,7 @@
     "message": "Dölj tekniska detaljer"
   },
   "error_createFolder": {
-    "message": "Failed to create folder"
+    "message": "Det gick inte att skapa mappen"
   },
   "modelSelect_label": {
     "message": "Model"
@@ -669,6 +716,18 @@
   "chatSidebar_notes": {
     "message": "Anteckningar"
   },
+  "chatSidebar_flashcards": {
+    "message": "Minneskort"
+  },
+  "chatSidebar_prompts": {
+    "message": "Prompter"
+  },
+  "chatSidebar_multiItem": {
+    "message": "Flera objekt"
+  },
+  "chatSidebar_shortcuts": {
+    "message": "Genvägar"
+  },
   "chatSidebar_settings": {
     "message": "Inställningar"
   },
@@ -699,10 +758,2477 @@
   "chatSidebar_foldersRequireConnection": {
     "message": "Mappar kräver en serveranslutning"
   },
-  "option.more.copy.canonicalMarkdown": {
-    "message": "Copy canonical transcript"
+  "more_copy_canonicalMarkdown": {
+    "message": "Kopiera kanonisk transkription"
   },
-  "option.more.download.canonicalMarkdown": {
-    "message": "Canonical transcript (Markdown)"
+  "more_download_canonicalMarkdown": {
+    "message": "Kanonisk transkription (Markdown)"
+  },
+  "header_contentReview": {
+    "message": "Innehållsgranskning"
+  },
+  "contentReview_title": {
+    "message": "Innehållsgranskning",
+    "description": "Content review UI string."
+  },
+  "contentReview_readyToSubmit": {
+    "message": "{{count}} klara",
+    "description": "Content review UI string."
+  },
+  "contentReview_committedCount": {
+    "message": "{{count}} sparade",
+    "description": "Content review UI string."
+  },
+  "contentReview_totalCount": {
+    "message": "{{count}} totalt",
+    "description": "Content review UI string."
+  },
+  "contentReview_commitAll": {
+    "message": "Spara alla",
+    "description": "Content review UI string."
+  },
+  "contentReview_clearDrafts": {
+    "message": "Rensa utkast",
+    "description": "Content review UI string."
+  },
+  "contentReview_emptyDescription": {
+    "message": "Inga utkast än. Använd Quick Ingest med Granska innan du sparar för att skapa utkast.",
+    "description": "Content review UI string."
+  },
+  "contentReview_openQuickIngest": {
+    "message": "Öppna Quick Ingest",
+    "description": "Content review UI string."
+  },
+  "contentReview_storeAfterReview": {
+    "message": "Spara efter granskning",
+    "description": "Content review UI string."
+  },
+  "contentReview_reviewBeforeStorage": {
+    "message": "Granska före sparning",
+    "description": "Content review UI string."
+  },
+  "contentReview_reviewBeforeStorageHint": {
+    "message": "Bearbeta nu och redigera sedan utkast lokalt innan du sparar till servern.",
+    "description": "Content review UI string."
+  },
+  "contentReview_reviewEnabled": {
+    "message": "Granskningsläge",
+    "description": "Content review UI string."
+  },
+  "contentReview_reviewStorageCap": {
+    "message": "Lokala utkast är begränsade till {{cap}}.",
+    "description": "Content review UI string."
+  },
+  "contentReview_reviewWarningTitle": {
+    "message": "Spara utkast lokalt?",
+    "description": "Content review UI string."
+  },
+  "contentReview_reviewWarningBody": {
+    "message": "Utkast sparas i den här webbläsaren och kan innehålla känsliga data. Du kan rensa utkast från sidan Innehållsgranskning när som helst.",
+    "description": "Content review UI string."
+  },
+  "contentReview_reviewWarningBodySecondary": {
+    "message": "Granskningsläget håller innehållet på klientsidan tills du sparar det på servern.",
+    "description": "Content review UI string."
+  },
+  "contentReview_reviewWarningConfirm": {
+    "message": "Aktivera granskning",
+    "description": "Content review UI string."
+  },
+  "contentReview_reviewWarningCancel": {
+    "message": "Avbryt",
+    "description": "Content review UI string."
+  },
+  "contentReview_reviewRunLabel": {
+    "message": "Granska",
+    "description": "Content review UI string."
+  },
+  "contentReview_reviewDraftsCreated": {
+    "message": "Utkast redo för granskning.",
+    "description": "Content review UI string."
+  },
+  "contentReview_reviewStorageCapWarning_one": {
+    "message": "{{count}} fil överskrider den lokala utkastgränsen ({{cap}}). Bifoga källor innan du sparar ljud/video.",
+    "description": "Content review UI string."
+  },
+  "contentReview_reviewStorageCapWarning_other": {
+    "message": "{{count}} filer överskrider den lokala utkastgränsen ({{cap}}). Bifoga källor innan du sparar ljud/video.",
+    "description": "Content review UI string."
+  },
+  "contentReview_openContentReview": {
+    "message": "Öppna Innehållsgranskning",
+    "description": "Content review UI string."
+  },
+  "contentReview_batchLabel": {
+    "message": "Omgång",
+    "description": "Content review UI string."
+  },
+  "contentReview_batchName": {
+    "message": "Omgång {{index}}",
+    "description": "Content review UI string."
+  },
+  "contentReview_draftsLabel": {
+    "message": "Utkast",
+    "description": "Content review UI string."
+  },
+  "contentReview_selectDraft": {
+    "message": "Välj ett utkast för att börja granska.",
+    "description": "Content review UI string."
+  },
+  "contentReview_titlePlaceholder": {
+    "message": "Utkasttitel",
+    "description": "Content review UI string."
+  },
+  "contentReview_lastSaved": {
+    "message": "Sparat {{time}}",
+    "description": "Content review UI string."
+  },
+  "contentReview_resetTitle": {
+    "message": "Återställa utkast?",
+    "description": "Content review UI string."
+  },
+  "contentReview_resetBody": {
+    "message": "Detta återställer ursprungligt innehåll för det här utkastet.",
+    "description": "Content review UI string."
+  },
+  "contentReview_resetConfirm": {
+    "message": "Återställ",
+    "description": "Content review UI string."
+  },
+  "contentReview_resetCancel": {
+    "message": "Avbryt",
+    "description": "Content review UI string."
+  },
+  "contentReview_resetContent": {
+    "message": "Återställ",
+    "description": "Content review UI string."
+  },
+  "contentReview_diffView": {
+    "message": "Diff-vy",
+    "description": "Content review UI string."
+  },
+  "contentReview_saveDraft": {
+    "message": "Spara utkast",
+    "description": "Content review UI string."
+  },
+  "contentReview_editorLabel": {
+    "message": "Innehåll",
+    "description": "Content review UI string."
+  },
+  "contentReview_wordCount": {
+    "message": "{{words}} ord",
+    "description": "Content review UI string."
+  },
+  "contentReview_charCount": {
+    "message": "{{chars}} tecken",
+    "description": "Content review UI string."
+  },
+  "contentReview_aiFix": {
+    "message": "Korrigera med AI",
+    "description": "Content review UI string."
+  },
+  "contentReview_aiHint": {
+    "message": "Skickar utkastets innehåll till servern för AI-bearbetning.",
+    "description": "Content review UI string."
+  },
+  "contentReview_modelPlaceholder": {
+    "message": "Serverstandard",
+    "description": "Content review UI string."
+  },
+  "contentReview_aiConsentTitle": {
+    "message": "Skicka utkast till servern?",
+    "description": "Content review UI string."
+  },
+  "contentReview_aiConsentBody": {
+    "message": "Detta skickar utkastets innehåll till din tldw-server för AI-bearbetning. Utkast ligger kvar lokalt tills du sparar dem.",
+    "description": "Content review UI string."
+  },
+  "contentReview_aiConsentConfirm": {
+    "message": "Fortsätt",
+    "description": "Content review UI string."
+  },
+  "contentReview_aiConsentCancel": {
+    "message": "Avbryt",
+    "description": "Content review UI string."
+  },
+  "contentReview_aiApplied": {
+    "message": "AI-korrigeringar tillämpade.",
+    "description": "Content review UI string."
+  },
+  "contentReview_aiNoChange": {
+    "message": "Inga ändringar returnerades.",
+    "description": "Content review UI string."
+  },
+  "contentReview_aiEmpty": {
+    "message": "AI returnerade inget innehåll.",
+    "description": "Content review UI string."
+  },
+  "contentReview_aiUnavailable": {
+    "message": "Chattsvar är inte tillgängliga.",
+    "description": "Content review UI string."
+  },
+  "contentReview_templatePlaceholder": {
+    "message": "Välj mall",
+    "description": "Content review UI string."
+  },
+  "contentReview_applyTemplate": {
+    "message": "Tillämpa mall",
+    "description": "Content review UI string."
+  },
+  "contentReview_templateApplied": {
+    "message": "Mall tillämpad.",
+    "description": "Content review UI string."
+  },
+  "contentReview_templateMissing": {
+    "message": "Välj en mall först.",
+    "description": "Content review UI string."
+  },
+  "contentReview_detectSections": {
+    "message": "Identifiera avsnitt",
+    "description": "Content review UI string."
+  },
+  "contentReview_detectSectionsTitle": {
+    "message": "Identifiera avsnitt igen?",
+    "description": "Content review UI string."
+  },
+  "contentReview_detectSectionsBody": {
+    "message": "Detta ersätter befintliga avsnitt och återställer dina val.",
+    "description": "Content review UI string."
+  },
+  "contentReview_detectSectionsConfirm": {
+    "message": "Identifiera igen",
+    "description": "Content review UI string."
+  },
+  "contentReview_detectSectionsCancel": {
+    "message": "Avbryt",
+    "description": "Content review UI string."
+  },
+  "contentReview_detectSectionsEmpty": {
+    "message": "Inga avsnitt hittades.",
+    "description": "Content review UI string."
+  },
+  "contentReview_sectionsLabel": {
+    "message": "Avsnittsfilter",
+    "description": "Content review UI string."
+  },
+  "contentReview_templates_transcript_clean_label": {
+    "message": "Rensa transkript",
+    "description": "Content review UI string."
+  },
+  "contentReview_templates_transcript_clean_description": {
+    "message": "Normaliserar interpunktion och versaler/gemener samtidigt som radstrukturen bevaras.",
+    "description": "Content review UI string."
+  },
+  "contentReview_templates_speaker_turns_label": {
+    "message": "Talarturer",
+    "description": "Content review UI string."
+  },
+  "contentReview_templates_speaker_turns_description": {
+    "message": "Säkerställer att varje talartur ligger på en egen rad med tydliga etiketter.",
+    "description": "Content review UI string."
+  },
+  "contentReview_templates_chapter_headings_label": {
+    "message": "Kapitelrubriker",
+    "description": "Content review UI string."
+  },
+  "contentReview_templates_chapter_headings_description": {
+    "message": "Infogar Markdown-rubriker för att gruppera ämnen utan att ta bort innehåll.",
+    "description": "Content review UI string."
+  },
+  "contentReview_metadataLabel": {
+    "message": "Metadata",
+    "description": "Content review UI string."
+  },
+  "contentReview_mediaType": {
+    "message": "Mediatyp",
+    "description": "Content review UI string."
+  },
+  "contentReview_keywords": {
+    "message": "Nyckelord",
+    "description": "Content review UI string."
+  },
+  "contentReview_keywordsPlaceholder": {
+    "message": "Lägg till nyckelord",
+    "description": "Content review UI string."
+  },
+  "contentReview_reviewNotes": {
+    "message": "Granskningsanteckningar",
+    "description": "Content review UI string."
+  },
+  "contentReview_missingSource": {
+    "message": "Källfil saknas",
+    "description": "Content review UI string."
+  },
+  "contentReview_missingSourceBody": {
+    "message": "Bifoga originalfilen för att spara det här utkastet.",
+    "description": "Content review UI string."
+  },
+  "contentReview_attachSource": {
+    "message": "Bifoga fil",
+    "description": "Content review UI string."
+  },
+  "contentReview_actionsLabel": {
+    "message": "Åtgärder",
+    "description": "Content review UI string."
+  },
+  "contentReview_commit": {
+    "message": "Spara",
+    "description": "Content review UI string."
+  },
+  "contentReview_commitDisabled": {
+    "message": "Bifoga originalets ljud-/videofil innan du sparar.",
+    "description": "Content review UI string."
+  },
+  "contentReview_markReviewed": {
+    "message": "Markera som granskad",
+    "description": "Content review UI string."
+  },
+  "contentReview_skipNext": {
+    "message": "Hoppa över",
+    "description": "Content review UI string."
+  },
+  "contentReview_discard": {
+    "message": "Kassera",
+    "description": "Content review UI string."
+  },
+  "contentReview_discardTitle": {
+    "message": "Kassera utkast?",
+    "description": "Content review UI string."
+  },
+  "contentReview_discardBody": {
+    "message": "Detta utkast markeras som kasserat och tas bort från granskningslistan.",
+    "description": "Content review UI string."
+  },
+  "contentReview_discardConfirm": {
+    "message": "Kassera",
+    "description": "Content review UI string."
+  },
+  "contentReview_discardCancel": {
+    "message": "Avbryt",
+    "description": "Content review UI string."
+  },
+  "contentReview_commitSuccess": {
+    "message": "Utkast sparat.",
+    "description": "Content review UI string."
+  },
+  "contentReview_commitAllTitle": {
+    "message": "Spara granskade utkast?",
+    "description": "Content review UI string."
+  },
+  "contentReview_commitAllBody": {
+    "message": "Endast utkast markerade som granskade sparas.",
+    "description": "Content review UI string."
+  },
+  "contentReview_commitAllConfirm": {
+    "message": "Spara alla",
+    "description": "Content review UI string."
+  },
+  "contentReview_commitAllCancel": {
+    "message": "Avbryt",
+    "description": "Content review UI string."
+  },
+  "contentReview_commitAllResult": {
+    "message": "{{success}} sparade · {{failed}} misslyckades",
+    "description": "Content review UI string."
+  },
+  "contentReview_storageCapWarning": {
+    "message": "Denna fil överskrider den lokala gränsen för utkast ({{cap}}).",
+    "description": "Content review UI string."
+  },
+  "contentReview_clearTitle": {
+    "message": "Rensa alla utkast?",
+    "description": "Content review UI string."
+  },
+  "contentReview_clearBody": {
+    "message": "Tar bort alla lokala utkast och resurser för innehållsgranskning.",
+    "description": "Content review UI string."
+  },
+  "contentReview_clearConfirm": {
+    "message": "Rensa utkast",
+    "description": "Content review UI string."
+  },
+  "contentReview_clearCancel": {
+    "message": "Avbryt",
+    "description": "Content review UI string."
+  },
+  "contentReview_clearSuccess": {
+    "message": "Utkast rensade.",
+    "description": "Content review UI string."
+  },
+  "contentReview_originalLabel": {
+    "message": "Originaltext",
+    "description": "Content review UI string."
+  },
+  "contentReview_editedLabel": {
+    "message": "Redigerad",
+    "description": "Content review UI string."
+  },
+  "reviewDraftsFailedTitle": {
+    "message": "Kunde inte skapa granskningsutkast.",
+    "description": "Error title when review drafts creation fails."
+  },
+  "reviewDraftsFailedFallback": {
+    "message": "Det gick inte att skapa granskningsutkast.",
+    "description": "Fallback error message for review drafts failure."
+  },
+  "reviewDraftsRetry": {
+    "message": "Försök skapa utkast igen",
+    "description": "Button label to retry creating review drafts."
+  },
+  "reviewDraftsStoreWithoutReview": {
+    "message": "Spara utan granskning",
+    "description": "Action to store without review."
+  },
+  "reviewNavigationFailed": {
+    "message": "Det gick inte att öppna Innehållsgranskning. Försök igen.",
+    "description": "Error message when navigation to Content Review fails."
+  },
+  "reviewNavigationRetry": {
+    "message": "Försök öppna Innehållsgranskning igen",
+    "description": "Button label to retry opening Content Review."
+  },
+  "quickIngest_title": {
+    "message": "Quick Ingest‑media"
+  },
+  "quickIngest_subtitle": {
+    "message": "Ange en eller flera URL:er. Ange typ per rad vid behov."
+  },
+  "quickIngest_offlineTitle": {
+    "message": "Server offline — endast staging"
+  },
+  "quickIngest_offlineDescription": {
+    "message": "Du kan köa URL:er och filer här och granska fält, men ingest körs inte förrän din tldw-server är online. Återanslut för att bearbeta väntande objekt."
+  },
+  "quickIngest_sourceHeading": {
+    "message": "Käll‑URL:er eller filer"
+  },
+  "quickIngest_storeRemote": {
+    "message": "Lagra i fjärrdatabas"
+  },
+  "quickIngest_storeRemoteAria": {
+    "message": "Lagra ingest-resultat på din tldw-server"
+  },
+  "quickIngest_processOnlyAria": {
+    "message": "Bearbeta ingest-resultat endast lokalt"
+  },
+  "quickIngest_storeRemoteHelp": {
+    "message": "Laddar upp till din tldw-server för indexering."
+  },
+  "quickIngest_processOnlyHelp": {
+    "message": "Bearbeta bara och behåll resultaten lokalt (ladda ner JSON)."
+  },
+  "quickIngest_storageHeading": {
+    "message": "Var ingest-resultaten lagras"
+  },
+  "quickIngest_storageServerDescription": {
+    "message": "Lagrade på din tldw-server (rekommenderas för RAG och delade arbetsytor)."
+  },
+  "quickIngest_storageLocalDescription": {
+    "message": "Behålls bara i denna webbläsare; inga data skrivs till servern."
+  },
+  "quickIngest_storeAfterReview": {
+    "message": "Spara efter granskning"
+  },
+  "quickIngest_reviewBeforeStorage": {
+    "message": "Granska före sparning"
+  },
+  "quickIngest_reviewBeforeStorageHint": {
+    "message": "Bearbeta nu och redigera sedan utkast lokalt innan du sparar till servern."
+  },
+  "quickIngest_reviewEnabled": {
+    "message": "Granskningsläge"
+  },
+  "quickIngest_reviewStorageCap": {
+    "message": "Lokala utkast är begränsade till {{cap}}."
+  },
+  "quickIngest_reviewStorageCapWarning_one": {
+    "message": "{{count}} fil överskrider den lokala utkastgränsen ({{cap}}). Bifoga källor innan du sparar ljud/video."
+  },
+  "quickIngest_reviewStorageCapWarning_other": {
+    "message": "{{count}} filer överskrider den lokala utkastgränsen ({{cap}}). Bifoga källor innan du sparar ljud/video."
+  },
+  "quickIngest_reviewWarningTitle": {
+    "message": "Spara utkast lokalt?"
+  },
+  "quickIngest_reviewWarningBody": {
+    "message": "Utkast sparas i den här webbläsaren och kan innehålla känsliga data. Du kan rensa utkast från sidan Innehållsgranskning när som helst."
+  },
+  "quickIngest_reviewWarningBodySecondary": {
+    "message": "Granskningsläget håller innehållet på klientsidan tills du sparar det på servern."
+  },
+  "quickIngest_reviewWarningConfirm": {
+    "message": "Aktivera granskning"
+  },
+  "quickIngest_reviewWarningCancel": {
+    "message": "Avbryt"
+  },
+  "quickIngest_reviewRunLabel": {
+    "message": "Granska"
+  },
+  "quickIngest_reviewDraftsCreated": {
+    "message": "Utkast redo för granskning."
+  },
+  "quickIngest_reviewDraftsFailedTitle": {
+    "message": "Kunde inte skapa granskningsutkast."
+  },
+  "quickIngest_reviewDraftsFailedFallback": {
+    "message": "Det gick inte att skapa granskningsutkast."
+  },
+  "quickIngest_reviewDraftsRetry": {
+    "message": "Försök skapa utkast igen"
+  },
+  "quickIngest_reviewDraftsStoreWithoutReview": {
+    "message": "Spara utan granskning"
+  },
+  "quickIngest_reviewNavigationFailed": {
+    "message": "Det gick inte att öppna Innehållsgranskning. Försök igen."
+  },
+  "quickIngest_reviewNavigationRetry": {
+    "message": "Försök öppna Innehållsgranskning igen"
+  },
+  "quickIngest_openContentReview": {
+    "message": "Öppna Innehållsgranskning"
+  },
+  "quickIngest_storageDocsLink": {
+    "message": "Läs mer om ingest och lagring"
+  },
+  "quickIngest_storageDocsUrl": {
+    "message": "https://github.com/rmusser01/tldw_browser_assistant"
+  },
+  "quickIngest_bulkPlaceholder": {
+    "message": "Klistra in URL:er (en per rad)"
+  },
+  "quickIngest_or": {
+    "message": "eller"
+  },
+  "quickIngest_remove": {
+    "message": "Ta bort"
+  },
+  "quickIngest_add": {
+    "message": "Lägg till URL"
+  },
+  "quickIngest_commonOptions": {
+    "message": "Ingest‑alternativ"
+  },
+  "quickIngest_audioOptions": {
+    "message": "Ljudalternativ"
+  },
+  "quickIngest_audioLanguage": {
+    "message": "Språk (t.ex. en)"
+  },
+  "quickIngest_audioDiarizationHelp": {
+    "message": "Aktivera för att skilja talare i transkriptioner."
+  },
+  "quickIngest_documentOptions": {
+    "message": "Dokumentalternativ"
+  },
+  "quickIngest_videoOptions": {
+    "message": "Videoalternativ"
+  },
+  "quickIngest_captionsHelp": {
+    "message": "Inkludera tidsstämplar/undertexter när det finns."
+  },
+  "quickIngest_cancel": {
+    "message": "Avbryt"
+  },
+  "quickIngest_ingest": {
+    "message": "Importera"
+  },
+  "quickIngest_process": {
+    "message": "Bearbeta"
+  },
+  "quickIngest_results": {
+    "message": "Resultat"
+  },
+  "quickIngest_downloadJson": {
+    "message": "Ladda ner JSON"
+  },
+  "quickIngest_advancedSummary": {
+    "message": "{{count}} avancerade fält inlästa"
+  },
+  "quickIngest_advancedEmpty": {
+    "message": "Inga avancerade alternativ hittades — försök ladda om specifikationen."
+  },
+  "quickIngest_modifiedCount": {
+    "message": "{{count}} ändrade"
+  },
+  "quickIngest_progress": {
+    "message": "Bearbetar {{done}} av {{total}} objekt…"
+  },
+  "quickIngest_errorSummary": {
+    "message": "Vi kunde inte bearbeta ingest-objekten just nu."
+  },
+  "quickIngest_errorHint": {
+    "message": "Försök igen efter att du kontrollerat din tldw-server. Health & diagnostics kan hjälpa dig att felsöka ingest-problem."
+  },
+  "quickIngest_checkHealthLink": {
+    "message": "Kontrollera serverns status i Health & diagnostics"
+  },
+  "quickIngest_healthAriaHint": {
+    "message": "Senaste körningarna misslyckades — öppna Health & diagnostics från rubriken för mer information."
+  },
+  "quickIngest_specReloadedToast": {
+    "message": "Avancerad spec har laddats om från servern"
+  },
+  "quickIngest_specReloadedToastDiff": {
+    "message": "Avancerad spec har laddats om från servern (fält tillagda: {{added}}, borttagna: {{removed}})"
+  },
+  "quickIngest_specFallbackWarning": {
+    "message": "Använder inbyggd reservschema för media.add (v{{version}}); verifiera mot din tldw_server /openapi.json om fälten verkar inaktuella."
+  },
+  "storeAfterReview": {
+    "message": "Spara efter granskning"
+  },
+  "manageCharacters_actions_viewConversations": {
+    "message": "Visa konversationer"
+  },
+  "manageCharacters_aria_viewConversations": {
+    "message": "Visa konversationer för {{name}}"
+  },
+  "manageCharacters_aria_searchResults": {
+    "message": "{{count}} karaktärer hittades"
+  },
+  "manageCharacters_conversations_title": {
+    "message": "Konversationer för {{name}}"
+  },
+  "manageCharacters_conversations_titleGeneric": {
+    "message": "Karaktärskonversationer"
+  },
+  "manageCharacters_conversations_subtitle": {
+    "message": "Välj en konversation för att fortsätta som den här karaktären."
+  },
+  "manageCharacters_conversations_empty": {
+    "message": "Inga konversationer hittades för den här karaktären ännu."
+  },
+  "manageCharacters_conversations_error": {
+    "message": "Det gick inte att läsa in konversationer för den här karaktären."
+  },
+  "manageCharacters_conversations_updated": {
+    "message": "Uppdaterad {{time}}"
+  },
+  "manageCharacters_conversations_unknownTime": {
+    "message": "Okänt"
+  },
+  "manageCharacters_conversations_resume": {
+    "message": "Fortsätt chatten"
+  },
+  "manageCharacters_conversations_untitled": {
+    "message": "Namnlös"
+  },
+  "manageCharacters_conversations_mostRecent": {
+    "message": "Senaste"
+  },
+  "manageCharacters_conversations_resumeTooltip": {
+    "message": "Läs in chatthistorik och fortsätt den här konversationen"
+  },
+  "manageCharacters_preview_title": {
+    "message": "Förhandsvisning"
+  },
+  "manageCharacters_preview_show": {
+    "message": "Visa förhandsvisning"
+  },
+  "manageCharacters_preview_hide": {
+    "message": "Dölj förhandsvisning"
+  },
+  "manageCharacters_preview_untitled": {
+    "message": "Namnlös karaktär"
+  },
+  "manageCharacters_preview_greeting": {
+    "message": "Hälsning"
+  },
+  "manageCharacters_preview_behavior": {
+    "message": "Beteende"
+  },
+  "manageCharacters_preview_empty": {
+    "message": "Fyll i formuläret för att se en förhandsvisning"
+  },
+  "manageCharacters_advanced_show": {
+    "message": "Visa avancerade fält"
+  },
+  "manageCharacters_advanced_hide": {
+    "message": "Dölj avancerade fält"
+  },
+  "chunkingPlayground_nav": {
+    "message": "Uppdelningslekplats",
+    "description": "Swedish translation"
+  },
+  "chunkingPlayground_title": {
+    "message": "Uppdelningslekplats",
+    "description": "Swedish translation"
+  },
+  "chunkingPlayground_description": {
+    "message": "Experimentera med olika uppdelningsinställningar för att se hur text delas upp i mindre delar för behandling.",
+    "description": "Swedish translation"
+  },
+  "chunkingPlayground_inputLabel": {
+    "message": "Text att dela upp",
+    "description": "Swedish translation"
+  },
+  "chunkingPlayground_inputPlaceholder": {
+    "message": "Klistra in text här eller välj ett exempel...",
+    "description": "Swedish translation"
+  },
+  "chunkingPlayground_uploadButton": {
+    "message": "Ladda upp fil",
+    "description": "Swedish translation"
+  },
+  "chunkingPlayground_chunkButton": {
+    "message": "Dela upp text",
+    "description": "Swedish translation"
+  },
+  "chunkingPlayground_methodLabel": {
+    "message": "Uppdelningsmetod",
+    "description": "Swedish translation"
+  },
+  "chunkingPlayground_maxSizeLabel": {
+    "message": "Maximal delstorlek",
+    "description": "Swedish translation"
+  },
+  "chunkingPlayground_overlapLabel": {
+    "message": "Överlappning",
+    "description": "Swedish translation"
+  },
+  "chunkingPlayground_languageLabel": {
+    "message": "Språk",
+    "description": "Swedish translation"
+  },
+  "chunkingPlayground_languages_auto": {
+    "message": "Identifiera automatiskt",
+    "description": "Swedish translation"
+  },
+  "chunkingPlayground_languages_en": {
+    "message": "Engelska",
+    "description": "Swedish translation"
+  },
+  "chunkingPlayground_languages_es": {
+    "message": "Spanska",
+    "description": "Swedish translation"
+  },
+  "chunkingPlayground_languages_fr": {
+    "message": "Franska",
+    "description": "Swedish translation"
+  },
+  "chunkingPlayground_languages_de": {
+    "message": "Tyska",
+    "description": "Swedish translation"
+  },
+  "chunkingPlayground_languages_it": {
+    "message": "Italienska",
+    "description": "Swedish translation"
+  },
+  "chunkingPlayground_languages_pt": {
+    "message": "Portugisiska",
+    "description": "Swedish translation"
+  },
+  "chunkingPlayground_languages_zh": {
+    "message": "Kinesiska",
+    "description": "Swedish translation"
+  },
+  "chunkingPlayground_languages_ja": {
+    "message": "Japanska",
+    "description": "Swedish translation"
+  },
+  "chunkingPlayground_languages_ko": {
+    "message": "Koreanska",
+    "description": "Swedish translation"
+  },
+  "chunkingPlayground_viewCards": {
+    "message": "Kort",
+    "description": "Swedish translation"
+  },
+  "chunkingPlayground_viewInline": {
+    "message": "Inbäddat",
+    "description": "Swedish translation"
+  },
+  "chunkingPlayground_stats": {
+    "message": "{{count}} delar, snitt {{avgSize}} tecken"
+  },
+  "chunkingPlayground_textLoaded": {
+    "message": "Text laddad",
+    "description": "Swedish translation"
+  },
+  "chunkingPlayground_characters": {
+    "message": "tecken",
+    "description": "Swedish translation"
+  },
+  "chunkingPlayground_tabSingle": {
+    "message": "Enkel",
+    "description": "Swedish translation"
+  },
+  "chunkingPlayground_tabCompare": {
+    "message": "Jämför",
+    "description": "Swedish translation"
+  },
+  "chunkingPlayground_chunkIndex": {
+    "message": "Del {{index}}"
+  },
+  "chunkingPlayground_chunkInfo": {
+    "message": "Del {{index}}: {{words}} ord"
+  },
+  "chunkingPlayground_position": {
+    "message": "Placering: {{start}} - {{end}}"
+  },
+  "chunkingPlayground_additionalChunks": {
+    "message": "+{{count}} till"
+  },
+  "chunkingPlayground_charCount": {
+    "message": "{{count}} tecken"
+  },
+  "chunkingPlayground_wordCount": {
+    "message": "{{count}} ord"
+  },
+  "chunkingPlayground_noInput": {
+    "message": "Ange text att dela upp",
+    "description": "Swedish translation"
+  },
+  "chunkingPlayground_sharedInput": {
+    "message": "Delad inmatningstext",
+    "description": "Swedish translation"
+  },
+  "chunkingPlayground_compareButton": {
+    "message": "Jämför båda",
+    "description": "Swedish translation"
+  },
+  "chunkingPlayground_comparison": {
+    "message": "Jämförelse",
+    "description": "Swedish translation"
+  },
+  "chunkingPlayground_fewerChunks": {
+    "message": "Konfiguration A ger {{diff}} färre delar"
+  },
+  "chunkingPlayground_moreChunks": {
+    "message": "Konfiguration A ger {{diff}} fler delar"
+  },
+  "chunkingPlayground_sameChunks": {
+    "message": "Båda konfigurationerna ger samma antal delar",
+    "description": "Swedish translation"
+  },
+  "chunkingPlayground_clickToChunk": {
+    "message": "Klicka på \"Jämför\" för att se resultat",
+    "description": "Swedish translation"
+  },
+  "chunkingPlayground_overlapRegion": {
+    "message": "Överlappande område",
+    "description": "Swedish translation"
+  },
+  "chunkingPlayground_clickHint": {
+    "message": "Klicka på ett markerat avsnitt för att fokusera på den delen",
+    "description": "Swedish translation"
+  },
+  "chunkingPlayground_noContentFound": {
+    "message": "Ingen text hittades för detta medieobjekt",
+    "description": "Swedish translation"
+  },
+  "chunkingPlayground_loadContentError": {
+    "message": "Kunde inte läsa in mediainnehåll",
+    "description": "Swedish translation"
+  },
+  "chunkingPlayground_loadMediaListError": {
+    "message": "Kunde inte läsa in mediebiblioteket",
+    "description": "Swedish translation"
+  },
+  "chunkingPlayground_selectMedia": {
+    "message": "Välj medieobjekt...",
+    "description": "Swedish translation"
+  },
+  "chunkingPlayground_loadingMedia": {
+    "message": "Läser in innehåll...",
+    "description": "Swedish translation"
+  },
+  "chunkingPlayground_noMediaFound": {
+    "message": "Inga medier hittades",
+    "description": "Swedish translation"
+  },
+  "chunkingPlayground_mediaCount": {
+    "message": "{{count}} medieobjekt tillgängliga"
+  },
+  "chunkingPlayground_inputSource_paste": {
+    "message": "Klistra in text",
+    "description": "Swedish translation"
+  },
+  "chunkingPlayground_inputSource_upload": {
+    "message": "Ladda upp fil",
+    "description": "Swedish translation"
+  },
+  "chunkingPlayground_inputSource_sample": {
+    "message": "Exempeltext",
+    "description": "Swedish translation"
+  },
+  "chunkingPlayground_inputSource_media": {
+    "message": "Från mediebiblioteket",
+    "description": "Swedish translation"
+  },
+  "chunkingPlayground_samples_article": {
+    "message": "Nyhetsartikel",
+    "description": "Swedish translation"
+  },
+  "chunkingPlayground_samples_articleDesc": {
+    "message": "Artikel med flera stycken och rubriker",
+    "description": "Swedish translation"
+  },
+  "chunkingPlayground_samples_code": {
+    "message": "Källkod",
+    "description": "Swedish translation"
+  },
+  "chunkingPlayground_samples_codeDesc": {
+    "message": "Python-kod med klasser och funktioner",
+    "description": "Swedish translation"
+  },
+  "chunkingPlayground_samples_transcript": {
+    "message": "Transkript",
+    "description": "Swedish translation"
+  },
+  "chunkingPlayground_samples_transcriptDesc": {
+    "message": "Tidsstämplat podkasttranskript",
+    "description": "Swedish translation"
+  },
+  "chunkingPlayground_samples_academic": {
+    "message": "Akademisk artikel",
+    "description": "Swedish translation"
+  },
+  "chunkingPlayground_samples_academicDesc": {
+    "message": "Teknisk text med referenser",
+    "description": "Swedish translation"
+  },
+  "chunkingPlayground_compare_title": {
+    "message": "Jämför inställningar",
+    "description": "Swedish translation"
+  },
+  "chunkingPlayground_compare_configA": {
+    "message": "Konfiguration A",
+    "description": "Swedish translation"
+  },
+  "chunkingPlayground_compare_configB": {
+    "message": "Konfiguration B",
+    "description": "Swedish translation"
+  },
+  "chunkingPlayground_mode_single": {
+    "message": "Enkel",
+    "description": "Swedish translation"
+  },
+  "chunkingPlayground_mode_compare": {
+    "message": "Jämför",
+    "description": "Swedish translation"
+  },
+  "managePrompts_importMode_merge": {
+    "message": "Merge"
+  },
+  "managePrompts_importMode_replace": {
+    "message": "Replace"
+  },
+  "managePrompts_importMode_replaceConfirm": {
+    "message": "Replace will overwrite all current prompts with the imported file. Continue?"
+  },
+  "flashcards_newDeckNameRequired": {
+    "message": "Enter a deck name."
+  },
+  "flashcards_dueAll": {
+    "message": "All"
+  },
+  "flashcards_dueNew": {
+    "message": "New"
+  },
+  "flashcards_dueLearning": {
+    "message": "Learning"
+  },
+  "flashcards_dueDue": {
+    "message": "Due"
+  },
+  "flashcards_reviewFailed": {
+    "message": "Repetition misslyckades"
+  },
+  "flashcards_updateFailed": {
+    "message": "Uppdateringen misslyckades"
+  },
+  "flashcards_deleteFailed": {
+    "message": "Borttagningen misslyckades"
+  },
+  "flashcards_missingVersion": {
+    "message": "Version saknas; ladda om och försök igen"
+  },
+  "flashcards_bulkDeleteResult": {
+    "message": "{{success}} borttagna · {{failed}} misslyckades"
+  },
+  "quiz_itemsPerPage": {
+    "message": "objekt/sida"
+  },
+  "quiz_editQuizTitle": {
+    "message": "Redigera quiz"
+  },
+  "quiz_updateSuccess": {
+    "message": "Quiz uppdaterades."
+  },
+  "quiz_updateError": {
+    "message": "Det gick inte att uppdatera quizet."
+  },
+  "quiz_questionTextRequired": {
+    "message": "Frågetext krävs."
+  },
+  "quiz_optionsRequired": {
+    "message": "Ange minst två alternativ."
+  },
+  "quiz_questionSaveSuccess": {
+    "message": "Frågan skapades."
+  },
+  "quiz_questionUpdateSuccess": {
+    "message": "Frågan uppdaterades."
+  },
+  "quiz_questionSaveError": {
+    "message": "Det gick inte att spara frågan."
+  },
+  "quiz_questionDeleteSuccess": {
+    "message": "Frågan togs bort."
+  },
+  "quiz_questionDeleteError": {
+    "message": "Det gick inte att ta bort frågan."
+  },
+  "quiz_editQuestion": {
+    "message": "Redigera fråga"
+  },
+  "quiz_points": {
+    "message": "Poäng"
+  },
+  "quiz_orderIndex": {
+    "message": "Ordning"
+  },
+  "quiz_startError": {
+    "message": "Det gick inte att starta quizet."
+  },
+  "quiz_answerAll": {
+    "message": "Svara på alla frågor innan du skickar."
+  },
+  "quiz_submitError": {
+    "message": "Det gick inte att skicka quizet."
+  },
+  "quiz_scoreSummary": {
+    "message": "Poäng: {{score}} / {{total}} ({{percent}}%)"
+  },
+  "quiz_correct": {
+    "message": "Rätt"
+  },
+  "quiz_incorrect": {
+    "message": "Fel"
+  },
+  "quiz_yourAnswer": {
+    "message": "Ditt svar"
+  },
+  "quiz_correctAnswerLabel": {
+    "message": "Rätt svar"
+  },
+  "quiz_backToList": {
+    "message": "Tillbaka till listan"
+  },
+  "quiz_retake": {
+    "message": "Gör om quizet"
+  },
+  "mediaPage_searchPlaceholder": {
+    "message": "Sök media (titel/innehåll)"
+  },
+  "mediaPage_search": {
+    "message": "Sök"
+  },
+  "mediaPage_clear": {
+    "message": "Rensa"
+  },
+  "mediaPage_types": {
+    "message": "Types"
+  },
+  "mediaPage_keywords": {
+    "message": "Nyckelord"
+  },
+  "mediaPage_moreTags": {
+    "message": "+{{count}} fler taggar"
+  },
+  "mediaPage_resetFilters": {
+    "message": "Reset Filters"
+  },
+  "mediaPage_clearAll": {
+    "message": "Rensa allt"
+  },
+  "mediaPage_content": {
+    "message": "Innehåll"
+  },
+  "mediaPage_vertical": {
+    "message": "Vertikal"
+  },
+  "mediaPage_horizontal": {
+    "message": "Horisontell"
+  },
+  "mediaPage_results": {
+    "message": "Resultat"
+  },
+  "mediaPage_noResults": {
+    "message": "No results"
+  },
+  "mediaPage_showSidebar": {
+    "message": "Show sidebar"
+  },
+  "mediaPage_hideSidebar": {
+    "message": "Hide sidebar"
+  },
+  "mediaPage_viewer": {
+    "message": "Visare"
+  },
+  "mediaPage_selectItemsHint": {
+    "message": "Välj objekt till vänster för att visa dem här."
+  },
+  "mediaPage_mediaContent": {
+    "message": "Mediainnehåll"
+  },
+  "mediaPage_copyContent": {
+    "message": "Kopiera innehåll"
+  },
+  "mediaPage_contentCopied": {
+    "message": "Innehåll kopierat"
+  },
+  "mediaPage_metadataCopied": {
+    "message": "Metadata har kopierats"
+  },
+  "mediaPage_analysisCopied": {
+    "message": "Analys har kopierats"
+  },
+  "mediaPage_copyFailed": {
+    "message": "Kopiering misslyckades"
+  },
+  "mediaPage_noContent": {
+    "message": "Inget innehåll tillgängligt"
+  },
+  "mediaPage_collapse": {
+    "message": "Fäll ihop"
+  },
+  "mediaPage_expand": {
+    "message": "Fäll ut"
+  },
+  "mediaPage_media": {
+    "message": "Medier"
+  },
+  "mediaPage_searchingBanner": {
+    "message": "Söker media…"
+  },
+  "mediaPage_filterHelp": {
+    "message": "Sökningen matchar titel och innehåll; typer och nyckelord snävar in resultaten ytterligare."
+  },
+  "mediaPage_noMediaTypes": {
+    "message": "Inga medietyper tillgängliga"
+  },
+  "mediaPage_resultsCount": {
+    "message": "{{selected}} valda · {{open}} öppna"
+  },
+  "mediaPage_clearSelection": {
+    "message": "Avmarkera alla"
+  },
+  "mediaPage_itemsLabel": {
+    "message": "Objekt"
+  },
+  "mediaPage_contentLabel": {
+    "message": "Innehållsvy"
+  },
+  "mediaPage_filterByKeyword": {
+    "message": "Filtrera efter nyckelord"
+  },
+  "mediaPage_keywordHelper": {
+    "message": "Nyckelord hjälper dig att hitta det här mediet med hjälp av nyckelordsfiltret till vänster"
+  },
+  "mediaPage_modeHint": {
+    "message": "Sök efter och stapla flera mediaobjekt för att jämföra dem i visaren till höger."
+  },
+  "mediaPage_viewerHelp": {
+    "message": "Tangentbord: använd Tab för att gå till resultatlistan, Enter eller Mellanslag för att stapla eller ta bort ett mediaobjekt, och föregående/nästa- samt layoutkontrollerna för att förflytta dig mellan objekten i visaren."
+  },
+  "mediaPage_viewerHelpLabel": {
+    "message": "Tangentbordsgenvägar för granskning av flera objekt"
+  },
+  "mediaPage_mediaInspector": {
+    "message": "Mediainspektör"
+  },
+  "mediaPage_actionsLabel": {
+    "message": "Åtgärder"
+  },
+  "mediaPage_keywordsPlaceholder": {
+    "message": "Lägg till nyckelord..."
+  },
+  "mediaPage_noSelectionTitle": {
+    "message": "Inget mediaobjekt valt"
+  },
+  "mediaPage_noSelectionDescription": {
+    "message": "Välj ett mediaobjekt i den vänstra sidopanelen för att visa dess innehåll och analyser här."
+  },
+  "mediaPage_generateAnalysis": {
+    "message": "Skapa analys"
+  },
+  "mediaPage_generateAnalysisHint": {
+    "message": "Skapa en ny analys"
+  },
+  "mediaPage_editAnalysis": {
+    "message": "Redigera analys"
+  },
+  "mediaPage_createNoteWithContent": {
+    "message": "Skapa anteckning med innehåll"
+  },
+  "mediaPage_createNoteWithContentAnalysis": {
+    "message": "Skapa anteckning med innehåll + analys"
+  },
+  "mediaPage_untitled": {
+    "message": "Utan titel"
+  },
+  "mediaPage_copyMetadata": {
+    "message": "Kopiera metadata"
+  },
+  "mediaPage_statistics": {
+    "message": "Statistik"
+  },
+  "mediaPage_words": {
+    "message": "Ord"
+  },
+  "mediaPage_characters": {
+    "message": "Tecken"
+  },
+  "mediaPage_paragraphs": {
+    "message": "Stycken"
+  },
+  "mediaPage_metadata": {
+    "message": "metadata"
+  },
+  "mediaPage_idLabel": {
+    "message": "Id"
+  },
+  "mediaPage_typeLabel": {
+    "message": "Typ"
+  },
+  "mediaPage_titleLabel": {
+    "message": "Titel"
+  },
+  "mediaPage_source": {
+    "message": "Källa"
+  },
+  "mediaPage_notAvailable": {
+    "message": "Inte tillgänglig"
+  },
+  "mediaPage_developerTools": {
+    "message": "Utvecklingsverktyg"
+  },
+  "mediaPage_nothingToSend": {
+    "message": "Inget att skicka"
+  },
+  "mediaPage_emptyAnalysis": {
+    "message": "Analysen kan inte vara tom"
+  },
+  "mediaPage_noMediaId": {
+    "message": "Inget media-ID tillgängligt"
+  },
+  "mediaPage_versionSaved": {
+    "message": "Sparad som ny version"
+  },
+  "mediaPage_saveFailed": {
+    "message": "Det gick inte att spara versionen"
+  },
+  "mediaPage_sendToChat": {
+    "message": "Skicka till chatten"
+  },
+  "mediaPage_saveAsVersion": {
+    "message": "Spara som ny version"
+  },
+  "mediaPage_analysisPlaceholder": {
+    "message": "Ange analys-text..."
+  },
+  "mediaPage_wordCount": {
+    "message": "{{count}} ord"
+  },
+  "mediaPage_charCount": {
+    "message": "{{count}} tecken"
+  },
+  "mediaPage_pageRangeError": {
+    "message": "Sidan måste vara mellan 1 och {{max}}"
+  },
+  "mediaPage_pageRangeClamped": {
+    "message": "Navigerar till sida {{page}}"
+  },
+  "mediaPage_saveUnauthorized": {
+    "message": "Inte behörig att spara"
+  },
+  "flashcards_markdownSupportHint": {
+    "message": "Stöder Markdown och LaTeX."
+  },
+  "flashcards_extraHint": {
+    "message": "Valfria tips/förklaringar (Markdown + LaTeX stöds)."
+  },
+  "flashcards_notesHint": {
+    "message": "Interna anteckningar (Markdown + LaTeX stöds)."
+  },
+  "manageCharacters_title": {
+    "message": "Hantera karaktärer"
+  },
+  "manageCharacters_addBtn": {
+    "message": "Ny karaktär"
+  },
+  "manageCharacters_columns_name": {
+    "message": "Namn"
+  },
+  "manageCharacters_columns_description": {
+    "message": "Beskrivning"
+  },
+  "manageCharacters_columns_actions": {
+    "message": "Åtgärder"
+  },
+  "manageCharacters_columns_avatar": {
+    "message": "Profilbild"
+  },
+  "manageCharacters_actions_chat": {
+    "message": "Chatta"
+  },
+  "manageCharacters_actions_edit": {
+    "message": "Redigera"
+  },
+  "manageCharacters_actions_delete": {
+    "message": "Ta bort"
+  },
+  "manageCharacters_tags_label": {
+    "message": "Taggar"
+  },
+  "manageCharacters_tags_placeholder": {
+    "message": "Lägg till taggar"
+  },
+  "manageCharacters_tags_help": {
+    "message": "Använd taggar för att gruppera karaktärer efter användningsfall (t.ex. “skrivande”, “undervisning”)."
+  },
+  "manageCharacters_tooltip_edit": {
+    "message": "Redigera karaktär"
+  },
+  "manageCharacters_tooltip_delete": {
+    "message": "Ta bort karaktär"
+  },
+  "manageCharacters_aria_chatWith": {
+    "message": "Chatta som {{name}}"
+  },
+  "manageCharacters_aria_edit": {
+    "message": "Redigera karaktär {{name}}"
+  },
+  "manageCharacters_aria_delete": {
+    "message": "Ta bort karaktären {{name}}"
+  },
+  "manageCharacters_confirm_delete": {
+    "message": "Är du säker på att du vill ta bort den här karaktären? Den här åtgärden kan inte ångras."
+  },
+  "manageCharacters_form_name_label": {
+    "message": "Namn"
+  },
+  "manageCharacters_form_name_placeholder": {
+    "message": "t.ex. Skrivcoach"
+  },
+  "manageCharacters_form_name_required": {
+    "message": "Ange ett namn"
+  },
+  "manageCharacters_form_description": {
+    "message": "Definiera en återanvändbar karaktär som du kan chatta med i sidopanelen."
+  },
+  "manageCharacters_form_systemPrompt_label": {
+    "message": "Beteende / instruktioner"
+  },
+  "manageCharacters_form_systemPrompt_placeholder": {
+    "message": "T.ex. Du är en tålmodig mattelärare som förklarar begrepp steg för steg och kontrollerar förståelsen med korta exempel."
+  },
+  "manageCharacters_form_systemPrompt_help": {
+    "message": "Förklara karaktärens roll, ton och begränsningar. Till exempel: \"Du är en tålmodig mattelärare som förklarar steg för steg.\""
+  },
+  "manageCharacters_form_systemPrompt_min": {
+    "message": "Add a short description so the character knows how to respond."
+  },
+  "manageCharacters_form_avatarUrl_label": {
+    "message": "Avatar‑URL (valfritt)"
+  },
+  "manageCharacters_form_avatarUrl_placeholder": {
+    "message": "t.ex. https://example.com/avatar.png"
+  },
+  "manageCharacters_form_greeting_label": {
+    "message": "Hälsningsmeddelande (valfritt)"
+  },
+  "manageCharacters_form_greeting_placeholder": {
+    "message": "Hej! Jag är din skrivcoach. Klistra in ditt utkast så hjälper jag dig att tajta till det."
+  },
+  "manageCharacters_form_greeting_help": {
+    "message": "Valfritt första meddelande som karaktären skickar när du startar en chatt."
+  },
+  "manageCharacters_form_btnSave_saving": {
+    "message": "Skapar karaktär..."
+  },
+  "manageCharacters_form_btnSave_save": {
+    "message": "Skapa karaktär"
+  },
+  "manageCharacters_form_btnEdit_saving": {
+    "message": "Sparar ändringar..."
+  },
+  "manageCharacters_form_btnEdit_save": {
+    "message": "Spara ändringar"
+  },
+  "manageCharacters_notification_addSuccess": {
+    "message": "Karaktär skapad"
+  },
+  "manageCharacters_notification_error": {
+    "message": "Fel"
+  },
+  "manageCharacters_notification_someError": {
+    "message": "Något gick fel. Försök igen senare."
+  },
+  "manageCharacters_notification_updatedSuccess": {
+    "message": "Karaktär uppdaterad"
+  },
+  "manageCharacters_notification_deletedSuccess": {
+    "message": "Karaktär borttagen"
+  },
+  "manageCharacters_loadError_title": {
+    "message": "Kunde inte läsa in karaktärer"
+  },
+  "manageCharacters_loadError_description": {
+    "message": "Kontrollera anslutningen och försök igen."
+  },
+  "manageCharacters_emptyTitle": {
+    "message": "Inga karaktärer ännu"
+  },
+  "manageCharacters_emptyDescription": {
+    "message": "Skapa en återanvändbar karaktär med namn, beskrivning och systemprompt som du kan chatta med."
+  },
+  "manageCharacters_emptyExample1": {
+    "message": "Definiera en skrivcoach, lore‑expert eller kodassistent som du kan återanvända i chattar."
+  },
+  "manageCharacters_emptyExample2": {
+    "message": "Ge varje karaktär en tydlig beskrivning och beteende så att svaren blir konsekventa."
+  },
+  "manageCharacters_emptyPrimaryCta": {
+    "message": "Skapa karaktär"
+  },
+  "manageCharacters_avatarAltWithName": {
+    "message": "Avatar för {{name}}"
+  },
+  "manageCharacters_avatarAlt": {
+    "message": "Användaravatar"
+  },
+  "header_modeSpeech": {
+    "message": "Tal"
+  },
+  "playground_speech_title": {
+    "message": "Tal-lekplats"
+  },
+  "playground_speech_subtitle": {
+    "message": "Spela in tal, redigera transkript och syntetisera ljud på ett ställe."
+  },
+  "playground_speech_modeLabel": {
+    "message": "Läge"
+  },
+  "playground_speech_modeRoundTrip": {
+    "message": "Tur och retur"
+  },
+  "playground_speech_modeSpeak": {
+    "message": "Tala"
+  },
+  "playground_speech_modeListen": {
+    "message": "Lyssna"
+  },
+  "playground_speech_modeHint": {
+    "message": "Ditt senaste läge sparas på den här enheten."
+  },
+  "playground_speech_recordingWaveform": {
+    "message": "Vågform för liveinspelning"
+  },
+  "playground_speech_playbackWaveform": {
+    "message": "Vågform för uppspelning"
+  },
+  "playground_speech_sendToTts": {
+    "message": "Skicka till TTS"
+  },
+  "playground_speech_sendHint": {
+    "message": "Använd den senaste transkriptionen som TTS-utkast."
+  },
+  "playground_speech_download": {
+    "message": "Ladda ner"
+  },
+  "playground_speech_downloadCurrent": {
+    "message": "Ladda ner aktuellt segment"
+  },
+  "playground_speech_downloadAll": {
+    "message": "Ladda ner alla segment"
+  },
+  "playground_speech_segmentFormat": {
+    "message": "Format"
+  },
+  "playground_speech_historyTitle": {
+    "message": "Talhistorik"
+  },
+  "playground_speech_historyAll": {
+    "message": "Alla"
+  },
+  "playground_speech_historyStt": {
+    "message": "STT"
+  },
+  "playground_speech_historyTts": {
+    "message": "TTS"
+  },
+  "playground_speech_historySearch": {
+    "message": "Sök transkript"
+  },
+  "playground_speech_historyRetentionHint": {
+    "message": "Behåller de senaste {{count}} objekten. Använd \"Rensa alla\" för att ta bort allt."
+  },
+  "playground_speech_useInTts": {
+    "message": "Använd i TTS"
+  },
+  "playground_speech_copy": {
+    "message": "Kopiera"
+  },
+  "playground_speech_copySuccess": {
+    "message": "Kopierat till urklipp"
+  },
+  "playground_speech_copyError": {
+    "message": "Det gick inte att kopiera transkriptet."
+  },
+  "playground_speech_providerTag": {
+    "message": "Leverantör"
+  },
+  "playground_speech_voiceTag": {
+    "message": "Röst"
+  },
+  "playground_speech_emptyHistory": {
+    "message": "Starta en inspelning eller generera ljud för att se historik här."
+  },
+  "playground_speech_downloadDisabledBrowser": {
+    "message": "Webbläsar-TTS skapar inte nedladdningsbart ljud."
+  },
+  "playground_speech_downloadDisabledEmpty": {
+    "message": "Generera ljud för att aktivera nedladdningar."
+  },
+  "playground_speech_transcriptLock": {
+    "message": "Lås"
+  },
+  "playground_speech_transcriptUnlock": {
+    "message": "Lås upp"
+  },
+  "playground_speech_transcriptEditHint": {
+    "message": "Redigering aktiverad för detta transkript."
+  },
+  "playground_speech_transcriptLockedHint": {
+    "message": "Låst till live-transkriptionsuppdateringar."
+  },
+  "playground_speech_transcriptRecordingHint": {
+    "message": "Inspelning pågår; transkriptet är låst."
+  },
+  "playground_tts_unsupportedFormatTitle": {
+    "message": "Ljudformat stöds inte"
+  },
+  "playground_tts_unsupportedFormatDescription": {
+    "message": "Svarformatet \"{{format}}\" stöds inte. Faller tillbaka till MP3."
+  },
+  "playground_formError_noModel": {
+    "message": "Vänligen välj en modell"
+  },
+  "playground_formError_noEmbeddingModel": {
+    "message": "Vänligen ställ in en inbäddningsmodell på sidan Inställningar > RAG"
+  },
+  "playground_form_textarea_placeholder": {
+    "message": "Skriv ett meddelande..."
+  },
+  "playground_form_webSearch_on": {
+    "message": "På"
+  },
+  "playground_form_webSearch_off": {
+    "message": "Av"
+  },
+  "playground_tooltip_searchInternet": {
+    "message": "Sök på Internet"
+  },
+  "playground_tooltip_speechToText": {
+    "message": "Tal till text"
+  },
+  "playground_tooltip_uploadImage": {
+    "message": "Ladda upp bild"
+  },
+  "playground_tooltip_stopStreaming": {
+    "message": "Stoppa strömning"
+  },
+  "playground_tooltip_knowledge": {
+    "message": "Kunskap"
+  },
+  "playground_tooltip_clearContext": {
+    "message": "Rensa kontext"
+  },
+  "playground_tooltip_speechToTextServer": {
+    "message": "Dictation via your tldw server"
+  },
+  "playground_tooltip_speechToTextBrowser": {
+    "message": "Dictation via browser speech recognition"
+  },
+  "playground_tooltip_speechToTextDetails": {
+    "message": "Uses {{model}} · {{task}} · {{format}}. Configure in Settings → General → Speech-to-Text."
+  },
+  "playground_tooltip_vision": {
+    "message": "[Experimental] Vision Chat"
+  },
+  "playground_tooltip_uploadDocuments": {
+    "message": "Upload Documents (beta)"
+  },
+  "playground_sendWhenEnter": {
+    "message": "Skicka när Enter trycks"
+  },
+  "playground_welcome": {
+    "message": "Hej! Hur kan jag hjälpa dig idag?"
+  },
+  "playground_useOCR": {
+    "message": "Extrahera text från bild (OCR)"
+  },
+  "playground_tips_title": {
+    "message": "Tips"
+  },
+  "playground_tips_quickIngest": {
+    "message": "Use Quick ingest to add documents and web pages."
+  },
+  "playground_tips_pickModelPrompt": {
+    "message": "Pick a Model and a Prompt from the header."
+  },
+  "playground_tips_startChatFocus": {
+    "message": "When connected, “Start chatting” focuses the composer."
+  },
+  "playground_tldwState_searching": {
+    "message": "Söker efter din tldw server"
+  },
+  "playground_tldwState_running": {
+    "message": "tldw körs"
+  },
+  "playground_tldwState_notRunning": {
+    "message": "Kan inte ansluta till tldw server"
+  },
+  "playground_tldwState_connectionError": {
+    "message": "Det verkar som att du har ett anslutningsfel. Vänligen se denna <anchor>dokumentation</anchor> för felsökning."
+  },
+  "playground_tldwState_openTldwSettings": {
+    "message": "Open tldw Settings"
+  },
+  "playground_tldwState_cancelSearch": {
+    "message": "Cancel search"
+  },
+  "playground_tldwState_connectionFailedWithCode": {
+    "message": "Connection failed (HTTP {{code}})"
+  },
+  "playground_tldwState_connectionFailed": {
+    "message": "Connection failed"
+  },
+  "playground_tldwState_errorDetailsLabel": {
+    "message": "Details:"
+  },
+  "playground_tldwState_title": {
+    "message": "Waiting for your tldw server"
+  },
+  "playground_tldwState_subtitle": {
+    "message": "We’re pinging {{host}} to verify the connection."
+  },
+  "playground_tldwState_missing": {
+    "message": "Server URL not configured"
+  },
+  "playground_tldwState_noServer": {
+    "message": "Add your tldw server to start chatting."
+  },
+  "playground_tldwState_connectedSubtitle": {
+    "message": "Connected to {{host}}. Start chatting when you’re ready."
+  },
+  "playground_tldwState_errorSubtitle": {
+    "message": "We couldn’t reach {{host}} yet. Retry or update your server settings."
+  },
+  "playground_tldwState_openSettings": {
+    "message": "Open settings"
+  },
+  "playground_tldwState_changeServer": {
+    "message": "Change server"
+  },
+  "playground_tldwState_elapsed": {
+    "message": "Checking… {{seconds}}s"
+  },
+  "playground_tldwState_connectedHint": {
+    "message": "Connected to {{host}}."
+  },
+  "playground_tldwState_lastChecked": {
+    "message": "Checked {{seconds}}s ago"
+  },
+  "playground_tldwState_recheck": {
+    "message": "Check again"
+  },
+  "playground_tldwState_errorToast": {
+    "message": "We couldn’t reach {{host}}"
+  },
+  "playground_tldwState_missingHelp": {
+    "message": "Open Settings → tldw Server to add your URL or connect to the Options page."
+  },
+  "playground_tldwState_troubleshoot": {
+    "message": "Confirm your server is running and that the browser is allowed to reach it, then retry from the Options page."
+  },
+  "playground_errors_privateModeDescription": {
+    "message": "Firefox privat läge stöder inte att spara chatt. Tillfällig chatt är aktiverat som standard. Fler förbättringar kommer."
+  },
+  "playground_tts_playErrorTitle": {
+    "message": "Fel"
+  },
+  "playground_tts_playErrorDescription": {
+    "message": "Ett fel uppstod när ljudet spelades upp"
+  },
+  "playground_tts_browserInfoTitle": {
+    "message": "Webbläsarens TTS använder systemljud"
+  },
+  "playground_tts_browserInfoDescription": {
+    "message": "Webbläsar-TTS spelar upp med din systemsyntetiserare och skapar inte en nedladdningsbar ljudfil. Använd segmentkontrollerna nedan eller byt leverantör för en spårlista och spelare."
+  },
+  "playground_tts_unsupportedProviderTitle": {
+    "message": "Ej stödd TTS-leverantör"
+  },
+  "playground_tts_unsupportedProviderDescription": {
+    "message": "Leverantören \"{{provider}}\" stöds ännu inte i playground-spelaren."
+  },
+  "playground_tts_elevenLabsMissingTitle": {
+    "message": "ElevenLabs behöver en API-nyckel"
+  },
+  "playground_tts_elevenLabsMissingBody": {
+    "message": "Lägg till din ElevenLabs API-nyckel i Inställningar för att ladda röster och modeller."
+  },
+  "playground_tts_elevenLabsUnavailableTitle": {
+    "message": "ElevenLabs-röster ej tillgängliga"
+  },
+  "playground_tts_elevenLabsUnavailableBody": {
+    "message": "Vi kunde inte ladda röster eller modeller. Kontrollera din API-nyckel och försök igen."
+  },
+  "playground_tts_elevenLabsMissingCta": {
+    "message": "Ställ in API-nyckel i Inställningar"
+  },
+  "playground_tts_generateErrorTitle": {
+    "message": "Fel vid generering av ljud"
+  },
+  "playground_tts_generateErrorDescription": {
+    "message": "Något gick fel när TTS-ljudet genererades."
+  },
+  "playground_tts_sampleText": {
+    "message": "Insert sample text"
+  },
+  "playground_tts_playHelper": {
+    "message": "Play uses your selected provider, voice, and speed."
+  },
+  "playground_tts_playDisabledNoText": {
+    "message": "Enter text to enable Play."
+  },
+  "playground_tts_playDisabledTtsOff": {
+    "message": "Enable text-to-speech above to play audio."
+  },
+  "playground_tts_playDisabledElevenLabs": {
+    "message": "Lägg till en ElevenLabs API-nyckel, röst och modell för att aktivera Spela upp."
+  },
+  "playground_tts_stopDisabled": {
+    "message": "Stop activates after audio starts."
+  },
+  "playground_tts_providerChangeHelper": {
+    "message": "Öppna leverantörsväljaren nedan för att växla mellan Webbläsare, tldw, OpenAI eller Supersonic."
+  },
+  "playground_tts_changeProvider": {
+    "message": "Change provider"
+  },
+  "playground_tts_title": {
+    "message": "TTS Playground"
+  },
+  "playground_tts_subtitle": {
+    "message": "Try out text-to-speech and tweak providers, models, and voices."
+  },
+  "playground_tts_currentProvider": {
+    "message": "Current provider"
+  },
+  "playground_tts_settingsIntro": {
+    "message": "Adjust your TTS provider, model, and voice. These settings are reused when you play audio from chat or media."
+  },
+  "playground_tts_providerCapabilities": {
+    "message": "Provider capabilities"
+  },
+  "playground_tts_voicesPreview": {
+    "message": "Server voices"
+  },
+  "playground_tts_providerDetails": {
+    "message": "View raw provider config"
+  },
+  "playground_tts_providerDetailsTitle": {
+    "message": "Provider details"
+  },
+  "playground_tts_inputLabel": {
+    "message": "Enter some text to hear it spoken."
+  },
+  "playground_tts_inputPlaceholder": {
+    "message": "Type or paste text here, then use Play to listen."
+  },
+  "playground_tts_play": {
+    "message": "Play"
+  },
+  "playground_tts_playing": {
+    "message": "Playing…"
+  },
+  "playground_tts_stop": {
+    "message": "Stop"
+  },
+  "playground_tts_browserSegmentsTitle": {
+    "message": "Browser TTS segments"
+  },
+  "playground_tts_browserSegmentsHelp": {
+    "message": "Queue segments or play an individual segment using system audio."
+  },
+  "playground_tts_browserQueueAll": {
+    "message": "Queue all"
+  },
+  "playground_tts_browserQueueFromHere": {
+    "message": "Queue from here"
+  },
+  "playground_tts_browserSegmentPlay": {
+    "message": "Play segment"
+  },
+  "playground_tts_browserStatusSpeaking": {
+    "message": "Speaking segment {{current}}/{{total}}"
+  },
+  "playground_tts_browserStatusPaused": {
+    "message": "Paused"
+  },
+  "playground_tts_browserPause": {
+    "message": "Pause"
+  },
+  "playground_tts_browserResume": {
+    "message": "Resume"
+  },
+  "playground_tts_tldwStatusOnline": {
+    "message": "tldw server audio API detected (audio/speech)"
+  },
+  "playground_tts_tldwStatusOffline": {
+    "message": "Audio API not detected; check your tldw server version."
+  },
+  "playground_tts_tldwWarningTitle": {
+    "message": "tldw audio/speech API not detected"
+  },
+  "playground_tts_tldwWarningBody": {
+    "message": "Ensure your tldw_server version includes /api/v1/audio/speech and that your extension is connected with a valid API key."
+  },
+  "playground_tts_speechErrorTitle": {
+    "message": "Dictation failed"
+  },
+  "playground_tts_speechErrorBody": {
+    "message": "Transcription request failed. Check tldw server health."
+  },
+  "playground_tts_speechNoText": {
+    "message": "The transcription did not return any text."
+  },
+  "playground_tts_speechMicError": {
+    "message": "Unable to access your microphone. Check browser permissions and try again."
+  },
+  "playground_tts_savedToNotes": {
+    "message": "Transcription saved as a note."
+  },
+  "playground_empty_title": {
+    "message": "Start a new chat"
+  },
+  "playground_empty_description": {
+    "message": "Experiment with different models, prompts, and knowledge sources here."
+  },
+  "playground_empty_demoDescription": {
+    "message": "You’re in demo mode — try asking a question to see how the assistant responds. You can connect your own tldw server later."
+  },
+  "playground_empty_example1": {
+    "message": "Ask a question, then drag in documents or web pages you want to discuss."
+  },
+  "playground_empty_example2": {
+    "message": "Use Quick ingest to add transcripts or notes, then reference them in chat."
+  },
+  "playground_empty_example3": {
+    "message": "Try different prompts or models from the header to compare answers."
+  },
+  "playground_empty_primaryCta": {
+    "message": "Start chatting"
+  },
+  "playground_empty_secondaryCta": {
+    "message": "Open server settings"
+  },
+  "playground_drop_hint": {
+    "message": "Drop files to attach them to your message"
+  },
+  "playground_drop_readySingle": {
+    "message": "{{name}} ready to send"
+  },
+  "playground_drop_readyMultiple": {
+    "message": "{{count}} files ready to send"
+  },
+  "playground_drop_unsupported": {
+    "message": "That file type isn’t supported. Try images or text-based files."
+  },
+  "playground_drop_defaultFileName": {
+    "message": "File"
+  },
+  "playground_drop_imageOnly": {
+    "message": "Only images can be dropped here right now."
+  },
+  "playground_drop_imageHint": {
+    "message": "Drop an image to include it in your message"
+  },
+  "playground_drop_overlayInstruction": {
+    "message": "Drop the image to attach it to your next reply"
+  },
+  "playground_aria_chatTranscript": {
+    "message": "Chat messages"
+  },
+  "playground_more_history": {
+    "message": "Chat saving"
+  },
+  "playground_more_searchKnowledge": {
+    "message": "Sök & RAG"
+  },
+  "playground_more_voice": {
+    "message": "More voice options"
+  },
+  "playground_more_uploads": {
+    "message": "Uploads & ingest"
+  },
+  "playground_fileRetrievalEnabled": {
+    "message": "Enable RAG for Documents"
+  },
+  "playground_stt_title": {
+    "message": "STT Playground"
+  },
+  "playground_stt_subtitle": {
+    "message": "Try out transcription models, run longer dictation sessions, and save transcripts into Notes."
+  },
+  "playground_stt_currentModelLabel": {
+    "message": "Current transcription model"
+  },
+  "playground_stt_defaultModel": {
+    "message": "Default from Settings"
+  },
+  "playground_stt_settingsNotice": {
+    "message": "Language, task, response format, segmentation, and prompt reuse your Speech-to-Text defaults from Settings."
+  },
+  "playground_stt_sessionMode": {
+    "message": "Session mode"
+  },
+  "playground_stt_modeLong": {
+    "message": "Long-running (chunked recording)"
+  },
+  "playground_stt_modeShort": {
+    "message": "Short dictation (single clip)"
+  },
+  "playground_stt_languageTag": {
+    "message": "Language"
+  },
+  "playground_stt_taskTag": {
+    "message": "Task"
+  },
+  "playground_stt_formatTag": {
+    "message": "Format"
+  },
+  "playground_stt_segmentationEnabled": {
+    "message": "Segmentation enabled"
+  },
+  "playground_stt_recordButton": {
+    "message": "Record"
+  },
+  "playground_stt_stopButton": {
+    "message": "Stop"
+  },
+  "playground_stt_startTooltip": {
+    "message": "Start recording audio for transcription"
+  },
+  "playground_stt_stopTooltip": {
+    "message": "Stop and send to server"
+  },
+  "playground_stt_transcribingButton": {
+    "message": "Transcribing..."
+  },
+  "playground_stt_transcribingTooltip": {
+    "message": "Transcribing audio..."
+  },
+  "playground_stt_transcribingPlaceholder": {
+    "message": "Transcribing audio..."
+  },
+  "playground_stt_historyTitle": {
+    "message": "Transcription history"
+  },
+  "playground_stt_clearAll": {
+    "message": "Clear all"
+  },
+  "playground_stt_emptyHistory": {
+    "message": "Start a recording to see transcripts here. You can save any item into Notes."
+  },
+  "playground_stt_saveToNotes": {
+    "message": "Save to Notes"
+  },
+  "playground_stt_delete": {
+    "message": "Delete"
+  },
+  "playground_stt_durationTag": {
+    "message": "Duration"
+  },
+  "playground_stt_modelTag": {
+    "message": "Model"
+  },
+  "playground_stt_currentTranscriptTitle": {
+    "message": "Current session transcript"
+  },
+  "playground_stt_currentTranscriptPlaceholder": {
+    "message": "Live transcript will appear here while recording."
+  },
+  "playground_actions_temporaryOn": {
+    "message": "Temporary chat (not saved)"
+  },
+  "playground_actions_temporaryOff": {
+    "message": "Save chat to history"
+  },
+  "playground_actions_webSearchOn": {
+    "message": "Web search on"
+  },
+  "playground_actions_webSearchOff": {
+    "message": "Web search off"
+  },
+  "playground_actions_speechStart": {
+    "message": "Start dictation"
+  },
+  "playground_actions_speechStop": {
+    "message": "Stop dictation"
+  },
+  "playground_actions_streamStart": {
+    "message": "Live captions"
+  },
+  "playground_actions_streamStop": {
+    "message": "Stop captions"
+  },
+  "playground_actions_visionOn": {
+    "message": "Vision on"
+  },
+  "playground_actions_visionOff": {
+    "message": "Vision off"
+  },
+  "playground_actions_upload": {
+    "message": "Attach image"
+  },
+  "playground_actions_ingest": {
+    "message": "Quick ingest"
+  },
+  "playground_actions_ingestDisabled": {
+    "message": "Connect to your tldw server to ingest."
+  },
+  "playground_actions_ingestHint": {
+    "message": "Upload URLs or files with advanced options."
+  },
+  "playground_actions_ingestSub": {
+    "message": "Use URLs/files; download or store."
+  },
+  "playground_actions_streamErrorTitle": {
+    "message": "Live captions unavailable"
+  },
+  "playground_composer_toolsButton": {
+    "message": "+Tools"
+  },
+  "playground_composer_queuedBanner_title": {
+    "message": "Queued while offline"
+  },
+  "playground_composer_queuedBanner_body": {
+    "message": "We’ll hold these messages and send them once your tldw server is connected."
+  },
+  "playground_composer_queuedBanner_sendNow": {
+    "message": "Send queued messages"
+  },
+  "playground_composer_queuedBanner_clear": {
+    "message": "Clear queue"
+  },
+  "playground_composer_coreTools": {
+    "message": "Conversation options"
+  },
+  "playground_composer_captureTools": {
+    "message": "Capture and assist tools"
+  },
+  "playground_composer_actions": {
+    "message": "Send options"
+  },
+  "playground_composer_moreTools": {
+    "message": "More tools"
+  },
+  "playground_composer_scrollToLatest": {
+    "message": "Scroll to latest messages"
+  },
+  "playground_composer_submitAria": {
+    "message": "Send message"
+  },
+  "playground_composer_openModelSettings": {
+    "message": "Open current chat settings"
+  },
+  "playground_composer_stopStreaming": {
+    "message": "Stop streaming response"
+  },
+  "playground_composer_connectionPlaceholder": {
+    "message": "Connect to your tldw server in Settings to send messages and view media."
+  },
+  "playground_composer_connectNotice": {
+    "message": "Connect to your tldw server in Settings to send messages and view media."
+  },
+  "playground_composer_connectionChipDisconnected": {
+    "message": "Server: Not connected"
+  },
+  "playground_composer_contextLabel": {
+    "message": "Context:"
+  },
+  "playground_composer_contextKnowledgeEmpty": {
+    "message": "No knowledge selected"
+  },
+  "playground_composer_contextTabs": {
+    "message": "{{count}} tabs"
+  },
+  "playground_composer_contextFiles": {
+    "message": "{{count}} files"
+  },
+  "playground_composer_contextMedia": {
+    "message": "Media & Notes"
+  },
+  "playground_composer_contextMediaHint": {
+    "message": "Attach Media & Notes that should steer the response."
+  },
+  "playground_composer_contextMediaSelected": {
+    "message": "Media or note"
+  },
+  "playground_composer_contextMediaEmpty": {
+    "message": "No Media & Notes selected yet."
+  },
+  "playground_composer_addKnowledge": {
+    "message": "Add Media & Notes"
+  },
+  "playground_composer_contextTabsTitle": {
+    "message": "Tabs in context"
+  },
+  "playground_composer_contextTabsHint": {
+    "message": "Review or remove referenced tabs, or add more from your open browser tabs."
+  },
+  "playground_composer_contextManager": {
+    "message": "Context Management"
+  },
+  "playground_composer_contextManagerTitle": {
+    "message": "Context Management"
+  },
+  "playground_composer_contextKnowledge": {
+    "message": "Kontext & kunskap"
+  },
+  "playground_composer_contextKnowledgeClose": {
+    "message": "Stäng kontext och kunskap"
+  },
+  "playground_composer_knowledgeSearch": {
+    "message": "Kunskapssökning"
+  },
+  "playground_composer_knowledgeSearchClose": {
+    "message": "Stäng kunskapssökning"
+  },
+  "playground_composer_persistence_ephemeral": {
+    "message": "Not saved in history; clears when you close this tab."
+  },
+  "playground_composer_persistence_local": {
+    "message": "Saved in this browser only."
+  },
+  "playground_composer_persistence_server": {
+    "message": "Saved Locally+Server"
+  },
+  "playground_composer_persistence_ephemeralPill": {
+    "message": "Temporary"
+  },
+  "playground_composer_persistence_localPill": {
+    "message": "Local only"
+  },
+  "playground_composer_persistence_serverPill": {
+    "message": "Locally + Server"
+  },
+  "playground_composer_persistence_saveToServer": {
+    "message": "Also save this chat to server"
+  },
+  "playground_composer_persistence_connectToSave": {
+    "message": "Connect your server to save chats there."
+  },
+  "playground_composer_persistence_serverDefaultTitle": {
+    "message": "Extension chat"
+  },
+  "playground_composer_persistence_serverSavedTitle": {
+    "message": "Chat now saved on server"
+  },
+  "playground_composer_persistence_serverSaved": {
+    "message": "Future messages in this chat will sync to your tldw server."
+  },
+  "playground_composer_persistence_serverCharacterRequired": {
+    "message": "Unable to find or create a default assistant character on the server. Try again from the Characters page."
+  },
+  "playground_composer_connectToSend": {
+    "message": "Connect to your tldw server in Settings to send messages and view media."
+  },
+  "playground_composer_compareTag": {
+    "message": "Jämför"
+  },
+  "playground_composer_compareLabel": {
+    "message": "Jämförelseläge"
+  },
+  "playground_composer_compareButton": {
+    "message": "Jämför modeller"
+  },
+  "playground_composer_compareButtonActive": {
+    "message": "Jämför: {{count}} modeller"
+  },
+  "playground_composer_compareButtonOn": {
+    "message": "Jämförelse aktiverad"
+  },
+  "playground_composer_compareSettingsTitle": {
+    "message": "Jämförelseinställningar"
+  },
+  "playground_composer_compareSettingsToggle": {
+    "message": "Aktivera jämförelseläge"
+  },
+  "playground_composer_compareSettingsToggleHint": {
+    "message": "Skicka ditt nästa meddelande till flera modeller."
+  },
+  "playground_composer_compareNoneSelected": {
+    "message": "Inga modeller valda för jämförelse"
+  },
+  "playground_composer_compareSingle": {
+    "message": "Jämför 1 modell"
+  },
+  "playground_composer_compareMany": {
+    "message": "Jämför {{count}} modeller"
+  },
+  "playground_composer_compareActiveSummary": {
+    "message": "Aktiva modeller nästa tur: {{label}}"
+  },
+  "playground_composer_compareModelPickerLabel": {
+    "message": "Välj modeller"
+  },
+  "playground_composer_compareModelPickerPlaceholder": {
+    "message": "Välj modeller att jämföra"
+  },
+  "playground_composer_compareActiveModelsLabel": {
+    "message": "Aktiva modeller"
+  },
+  "playground_composer_compareActiveModelsHint": {
+    "message": "Ditt nästa meddelande skickas till varje aktiv modell."
+  },
+  "playground_composer_compareSendToModels": {
+    "message": "Skicka till {{count}} modeller"
+  },
+  "playground_composer_compareMaxModelsTitle": {
+    "message": "Jämförelsegräns nådd"
+  },
+  "playground_composer_compareMaxModels": {
+    "message": "Du kan jämföra upp till {{limit}} modeller per tur."
+  },
+  "playground_composer_compareMaxModelsTrimmed": {
+    "message": "Jämförelse är begränsad till {{limit}} modeller per tur. Använder de första {{limit}} valda modellerna."
+  },
+  "playground_composer_compareMaxLabel": {
+    "message": "Max modeller per tur"
+  },
+  "playground_composer_compareMaxHelper": {
+    "message": "Valda {{current}} / {{limit}}"
+  },
+  "playground_composer_compareSelectedLabel": {
+    "message": "Vald som svar:"
+  },
+  "playground_composer_compareContinueHint": {
+    "message": "Fortsätt den här chatten med den valda modellen."
+  },
+  "playground_composer_compareContinue": {
+    "message": "Fortsätt med den här modellen"
+  },
+  "playground_composer_compareThreadShared": {
+    "message": "Du (delad)"
+  },
+  "playground_composer_compareBulkSplitSuccess": {
+    "message": "Skapade {{count}} chattar"
+  },
+  "playground_composer_compareBulkSplitPartialFail": {
+    "message": "Det gick inte att skapa {{count}} chattar"
+  },
+  "playground_composer_validationCompareSelectModelsInline": {
+    "message": "Välj minst en modell för jämförelseläge."
+  },
+  "tabs_newChat": {
+    "message": "Nytt samtal"
+  },
+  "tabs_newTabAria": {
+    "message": "Ny flik för samtal"
+  },
+  "tabs_closeTabAria": {
+    "message": "Stäng flik för samtal"
+  },
+  "manageCharacters_actions_duplicate": {
+    "message": "Duplicera"
+  },
+  "manageCharacters_table_noDescription": {
+    "message": "Ingen beskrivning"
+  },
+  "manageCharacters_filter_matchAll": {
+    "message": "Matcha alla taggar"
+  },
+  "manageCharacters_aria_duplicate": {
+    "message": "Duplicera karaktär {{name}}"
+  },
+  "manageCharacters_avatar_label": {
+    "message": "Profilbild (valfritt)"
+  },
+  "manageCharacters_avatar_tabUrl": {
+    "message": "URL‑adress"
+  },
+  "manageCharacters_avatar_tabUpload": {
+    "message": "Ladda upp"
+  },
+  "manageCharacters_avatar_selectImageError": {
+    "message": "Välj en bildfil"
+  },
+  "manageCharacters_avatar_formatError": {
+    "message": "Endast PNG-, JPEG- och GIF-bilder stöds"
+  },
+  "manageCharacters_avatar_invalidError": {
+    "message": "Ogiltig bildfil"
+  },
+  "manageCharacters_avatar_processError": {
+    "message": "Misslyckades med att bearbeta bilden"
+  },
+  "manageCharacters_avatar_dropzone": {
+    "message": "Klicka eller dra en bild för att ladda upp"
+  },
+  "manageCharacters_avatar_formats": {
+    "message": "PNG, JPEG eller GIF"
+  },
+  "manageCharacters_avatar_preview": {
+    "message": "Förhandsgranskning"
+  },
+  "manageCharacters_form_systemPrompt_required": {
+    "message": "Lägg till instruktioner för att styra svaren."
+  },
+  "manageCharacters_form_systemPrompt_max": {
+    "message": "Systemprompten får vara högst 2000 tecken."
+  },
+  "searchPrompts": {
+    "message": "Sök frågor..."
+  },
+  "noMatchingPrompts": {
+    "message": "Inga matchande frågor"
+  },
+  "promptSelect_favorites": {
+    "message": "Favoriter"
+  },
+  "promptSelect_system": {
+    "message": "Systemfrågor"
+  },
+  "promptSelect_quick": {
+    "message": "Snabbfrågor"
+  },
+  "flashcards_bulkLimitWarning": {
+    "message": "Åtgärden är begränsad till de första {{limit}} objekten."
+  },
+  "mediaPage_spreadMode": {
+    "message": "Jämför"
+  },
+  "mediaPage_listMode": {
+    "message": "Fokus"
+  },
+  "mediaPage_allMode": {
+    "message": "Stapla"
+  },
+  "mediaPage_spreadModeTooltip": {
+    "message": "Visa markerade objekt sida vid sida för jämförelse"
+  },
+  "mediaPage_listModeTooltip": {
+    "message": "Visa ett objekt i taget med navigering"
+  },
+  "mediaPage_allModeTooltip": {
+    "message": "Visa alla markerade objekt i en rullbar lista"
+  },
+  "mediaPage_copyContentLabel": {
+    "message": "Kopiera innehåll"
+  },
+  "mediaPage_copyAnalysisLabel": {
+    "message": "Kopiera analys"
+  },
+  "mediaPage_copyContentTooltip": {
+    "message": "Kopiera innehåll till urklipp"
+  },
+  "mediaPage_copyAnalysisTooltip": {
+    "message": "Kopiera analys till urklipp"
+  },
+  "mediaPage_prevItemTooltip": {
+    "message": "Föregående objekt (←)"
+  },
+  "mediaPage_nextItemTooltip": {
+    "message": "Nästa objekt (→)"
+  },
+  "mediaPage_viewerOptions": {
+    "message": "Alternativ"
+  },
+  "mediaPage_expandAllDropdown": {
+    "message": "Expandera/komprimera"
+  },
+  "mediaPage_itemPosition": {
+    "message": "Objekt {{current}} av {{total}}"
+  },
+  "mediaPage_noItemSelected": {
+    "message": "Inget objekt valt"
+  },
+  "mediaPage_firstUseTitle": {
+    "message": "Snabbguide: Granskning av flera objekt"
+  },
+  "mediaPage_firstUseStep1": {
+    "message": "Välj objekt"
+  },
+  "mediaPage_firstUseStep1Desc": {
+    "message": "Klicka på objekt i vänsterpanelen för att lägga till dem i din visare."
+  },
+  "mediaPage_firstUseStep2": {
+    "message": "Välj vy"
+  },
+  "mediaPage_firstUseStep2Desc": {
+    "message": "Använd \"Jämför\" för sida vid sida, \"Fokus\" för ett i taget eller \"Stapla\" för att se alla."
+  },
+  "mediaPage_firstUseStep3": {
+    "message": "Navigera"
+  },
+  "mediaPage_firstUseStep3Desc": {
+    "message": "Använd knapparna Föregående/Nästa eller tangentbordet (Tab + Enter) för att flytta mellan objekt."
+  },
+  "mediaPage_gotIt": {
+    "message": "Jag förstår"
+  },
+  "mediaPage_model": {
+    "message": "Modell"
+  },
+  "mediaPage_selectModel": {
+    "message": "Välj en modell"
+  },
+  "mediaPage_noModelsAvailable": {
+    "message": "Inga modeller tillgängliga"
+  },
+  "mediaPage_promptPresets": {
+    "message": "Promptförinställningar"
+  },
+  "mediaPage_showPresets": {
+    "message": "Visa förinställningar"
+  },
+  "mediaPage_hidePresets": {
+    "message": "Dölj förinställningar"
+  },
+  "mediaPage_systemPromptLabel": {
+    "message": "Systemprompt"
+  },
+  "mediaPage_systemPromptPlaceholder": {
+    "message": "Ange systemprompt..."
+  },
+  "mediaPage_userPromptPrefixLabel": {
+    "message": "Prefix för användarprompt"
+  },
+  "mediaPage_prependedBeforeContent": {
+    "message": "(infogas före innehållet)"
+  },
+  "mediaPage_userPrefixPlaceholder": {
+    "message": "Valfritt: Ange text som ska läggas till före mediainnehållet..."
+  },
+  "mediaPage_presetComprehensiveAnalysis": {
+    "message": "Omfattande analys"
+  },
+  "mediaPage_presetExecutiveSummary": {
+    "message": "Sammanfattning för ledningen"
+  },
+  "mediaPage_presetCriticalReview": {
+    "message": "Kritisk granskning"
+  },
+  "mediaPage_presetQAAnalysis": {
+    "message": "Frågor och svar-analys"
   }
 }

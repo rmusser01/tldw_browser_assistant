@@ -1,7 +1,19 @@
 import React from "react"
 import { type ChatHistory, type Message } from "~/store/option"
 import { useStoreMessageOption } from "~/store/option"
-import { removeMessageUsingHistoryId } from "@/db/dexie/helpers"
+import {
+  removeMessageUsingHistoryId,
+  generateID,
+  getCompareState,
+  saveCompareState,
+  saveHistory,
+  saveMessage,
+  updateHistory,
+  formatToChatHistory,
+  formatToMessage,
+  getSessionFiles,
+  getPromptById
+} from "@/db/dexie/helpers"
 import { useNavigate } from "react-router-dom"
 import { useTranslation } from "react-i18next"
 import { usePageAssist } from "@/context"
@@ -26,12 +38,15 @@ import {
 } from "./handlers/messageHandlers"
 import { tabChatMode } from "./chat-modes/tabChatMode"
 import { documentChatMode } from "./chat-modes/documentChatMode"
-import { generateID } from "@/db/dexie/helpers"
+import { generateBranchFromMessageIds } from "@/db/dexie/branch"
 import { UploadedFile } from "@/db/dexie/types"
 import { updatePageTitle } from "@/utils/update-page-title"
 import { useAntdNotification } from "./useAntdNotification"
 import { tldwClient } from "@/services/tldw/TldwApiClient"
 import { getActorSettingsForChat } from "@/services/actor-settings"
+import { generateTitle } from "@/services/title"
+import { FEATURE_FLAGS, useFeatureFlag } from "@/hooks/useFeatureFlags"
+import { trackCompareMetric } from "@/utils/compare-metrics"
 
 // Default max models per compare turn (Phase 3 polish)
 export const MAX_COMPARE_MODELS = 3
@@ -118,6 +133,8 @@ export const useMessageOption = () => {
     setCompareSelectedModels,
     compareSelectionByCluster,
     setCompareSelectionForCluster,
+    compareActiveModelsByCluster,
+    setCompareActiveModelsForCluster,
     compareParentByHistory,
     setCompareParentForHistory,
     compareCanonicalByCluster,
@@ -139,6 +156,9 @@ export const useMessageOption = () => {
     "compareMaxModels",
     MAX_COMPARE_MODELS
   )
+  const [compareFeatureEnabled, setCompareFeatureEnabled] = useFeatureFlag(
+    FEATURE_FLAGS.COMPARE_MODE
+  )
   const { ttsEnabled } = useWebUI()
 
   const { t } = useTranslation("option")
@@ -146,6 +166,19 @@ export const useMessageOption = () => {
 
   const navigate = useNavigate()
   const textareaRef = React.useRef<HTMLTextAreaElement>(null)
+  const messagesRef = React.useRef(messages)
+  const compareHydratingRef = React.useRef(false)
+  const compareSaveTimerRef = React.useRef<ReturnType<typeof setTimeout> | null>(
+    null
+  )
+  const compareNewHistoryIdsRef = React.useRef<Set<string>>(new Set())
+  const compareModeActive = compareFeatureEnabled && compareMode
+  const compareModeActiveRef = React.useRef(compareModeActive)
+  const compareFeatureEnabledRef = React.useRef(compareFeatureEnabled)
+
+  React.useEffect(() => {
+    messagesRef.current = messages
+  }, [messages])
 
   React.useEffect(() => {
     if (!serverChatId) return
@@ -207,6 +240,141 @@ export const useMessageOption = () => {
   React.useEffect(() => {
     setStoredQuickPrompt(selectedQuickPrompt ?? null)
   }, [selectedQuickPrompt, setStoredQuickPrompt])
+
+  const compareParentForHistory = historyId
+    ? compareParentByHistory?.[historyId]
+    : undefined
+
+  React.useEffect(() => {
+    if (!compareFeatureEnabled && compareMode) {
+      setCompareMode(false)
+      setCompareSelectedModels([])
+    }
+  }, [
+    compareFeatureEnabled,
+    compareMode,
+    setCompareMode,
+    setCompareSelectedModels
+  ])
+
+  React.useEffect(() => {
+    if (compareModeActiveRef.current === compareModeActive) {
+      return
+    }
+    compareModeActiveRef.current = compareModeActive
+    void trackCompareMetric({
+      type: compareModeActive ? "compare_mode_enabled" : "compare_mode_disabled"
+    })
+  }, [compareModeActive])
+
+  React.useEffect(() => {
+    if (compareFeatureEnabledRef.current === compareFeatureEnabled) {
+      return
+    }
+    compareFeatureEnabledRef.current = compareFeatureEnabled
+    void trackCompareMetric({
+      type: compareFeatureEnabled ? "feature_enabled" : "feature_disabled"
+    })
+  }, [compareFeatureEnabled])
+
+  const resetCompareState = React.useCallback(() => {
+    setCompareMode(false)
+    setCompareSelectedModels([])
+    useStoreMessageOption.setState({
+      compareSelectionByCluster: {},
+      compareCanonicalByCluster: {},
+      compareSplitChats: {},
+      compareActiveModelsByCluster: {}
+    })
+  }, [setCompareMode, setCompareSelectedModels])
+
+  React.useEffect(() => {
+    if (!historyId || historyId === "temp") {
+      return
+    }
+
+    let cancelled = false
+    compareHydratingRef.current = true
+
+    const loadCompareState = async () => {
+      try {
+        const saved = await getCompareState(historyId)
+        if (cancelled) return
+        if (saved) {
+          setCompareMode(saved.compareMode ?? false)
+          setCompareSelectedModels(saved.compareSelectedModels ?? [])
+          useStoreMessageOption.setState({
+            compareSelectionByCluster: saved.compareSelectionByCluster || {},
+            compareCanonicalByCluster: saved.compareCanonicalByCluster || {},
+            compareSplitChats: saved.compareSplitChats || {},
+            compareActiveModelsByCluster:
+              saved.compareActiveModelsByCluster || {}
+          })
+          if (saved.compareParent) {
+            setCompareParentForHistory(historyId, saved.compareParent)
+          }
+        } else if (!compareNewHistoryIdsRef.current.has(historyId)) {
+          resetCompareState()
+        }
+      } finally {
+        compareHydratingRef.current = false
+      }
+    }
+
+    void loadCompareState()
+    return () => {
+      cancelled = true
+      compareHydratingRef.current = false
+    }
+  }, [
+    historyId,
+    resetCompareState,
+    setCompareMode,
+    setCompareSelectedModels,
+    setCompareParentForHistory
+  ])
+
+  React.useEffect(() => {
+    if (!historyId || historyId === "temp") {
+      return
+    }
+    if (compareHydratingRef.current) {
+      return
+    }
+
+    if (compareSaveTimerRef.current) {
+      clearTimeout(compareSaveTimerRef.current)
+    }
+
+    compareSaveTimerRef.current = setTimeout(() => {
+      void saveCompareState({
+        history_id: historyId,
+        compareMode,
+        compareSelectedModels,
+        compareSelectionByCluster,
+        compareCanonicalByCluster,
+        compareSplitChats,
+        compareActiveModelsByCluster,
+        compareParent: compareParentForHistory ?? null,
+        updatedAt: Date.now()
+      })
+    }, 200)
+
+    return () => {
+      if (compareSaveTimerRef.current) {
+        clearTimeout(compareSaveTimerRef.current)
+      }
+    }
+  }, [
+    historyId,
+    compareMode,
+    compareSelectedModels,
+    compareSelectionByCluster,
+    compareCanonicalByCluster,
+    compareSplitChats,
+    compareActiveModelsByCluster,
+    compareParentForHistory
+  ])
 
   const handleFocusTextArea = () => focusTextArea(textareaRef)
 
@@ -306,6 +474,14 @@ export const useMessageOption = () => {
     setRagSources([])
     storeClearQueuedMessages()
     setServerChatId(null)
+    setCompareMode(false)
+    setCompareSelectedModels([])
+    useStoreMessageOption.setState({
+      compareSelectionByCluster: {},
+      compareCanonicalByCluster: {},
+      compareSplitChats: {},
+      compareActiveModelsByCluster: {}
+    })
   }
 
   const baseSaveMessageOnSuccess = createSaveMessageOnSuccess(
@@ -321,6 +497,10 @@ export const useMessageOption = () => {
 
   const saveMessageOnSuccess = async (payload: any): Promise<string | null> => {
     const historyKey = await baseSaveMessageOnSuccess(payload)
+
+    if (!payload?.historyId && historyKey) {
+      compareNewHistoryIdsRef.current.add(historyKey)
+    }
 
     // When resuming a server-backed chat, mirror new turns to /api/v1/chats.
     if (
@@ -356,10 +536,10 @@ export const useMessageOption = () => {
     return historyKey
   }
 
-  const buildChatModeParams = async () => {
+  const buildChatModeParams = async (overrides: Record<string, any> = {}) => {
     const actorSettings = await getActorSettingsForChat({
-      historyId,
-      serverChatId
+      historyId: overrides.historyId ?? historyId,
+      serverChatId: overrides.serverChatId ?? serverChatId
     })
 
     return {
@@ -388,12 +568,149 @@ export const useMessageOption = () => {
       ragAdvancedOptions,
       setActionInfo,
       webSearch,
-      actorSettings
+      actorSettings,
+      ...overrides
     }
   }
 
+  const buildCompareHistoryTitle = React.useCallback(
+    (title: string) => {
+      const trimmed =
+        title?.trim() ||
+        t("common:untitled", { defaultValue: "Untitled" })
+      return t(
+        "playground:composer.compareHistoryPrefix",
+        "Compare: {{title}}",
+        { title: trimmed }
+      )
+    },
+    [t]
+  )
+
+  const buildCompareSplitTitle = React.useCallback(
+    (title: string) => {
+      const trimmed =
+        title?.trim() ||
+        t("common:untitled", { defaultValue: "Untitled" })
+      const suffix = t(
+        "playground:composer.compareHistorySuffix",
+        "(from compare)"
+      )
+      if (trimmed.includes(suffix)) {
+        return trimmed
+      }
+      return `${trimmed} ${suffix}`.trim()
+    },
+    [t]
+  )
+
+  const getMessageModelKey = (message: Message) =>
+    message.modelId || message.modelName || message.name
+
+  const shouldIncludeMessageForModel = (
+    message: Message,
+    modelId: string
+  ) => {
+    if (!message.isBot) {
+      if (message.messageType === "compare:perModelUser") {
+        return message.modelId === modelId
+      }
+      return true
+    }
+    const messageModel = getMessageModelKey(message)
+    if (!messageModel) {
+      return false
+    }
+    return messageModel === modelId
+  }
+
+  const buildHistoryFromMessages = (items: Message[]): ChatHistory =>
+    items.map((message) => ({
+      role: message.isBot ? "assistant" : "user",
+      content: message.message,
+      image: message.images?.[0],
+      messageType: message.messageType
+    }))
+
+  const buildHistoryForModel = (
+    items: Message[],
+    modelId: string
+  ): ChatHistory =>
+    buildHistoryFromMessages(
+      items.filter((message) => shouldIncludeMessageForModel(message, modelId))
+    )
+
+  const buildMessagesForModel = (items: Message[], modelId: string) =>
+    items.filter((message) => shouldIncludeMessageForModel(message, modelId))
+
+  const getCompareUserMessageId = (items: Message[], clusterId: string) =>
+    items.find(
+      (message) =>
+        message.messageType === "compare:user" &&
+        message.clusterId === clusterId
+    )?.id || null
+
+  const getLastThreadMessageId = (
+    items: Message[],
+    clusterId: string,
+    modelId: string
+  ) => {
+    const threadMessages = items.filter(
+      (message) =>
+        message.clusterId === clusterId &&
+        getMessageModelKey(message) === modelId
+    )
+    const lastThreadMessage = threadMessages[threadMessages.length - 1]
+    return lastThreadMessage?.id || getCompareUserMessageId(items, clusterId)
+  }
+
+  const refreshHistoryFromMessages = React.useCallback(() => {
+    const next = buildHistoryFromMessages(messagesRef.current)
+    setHistory(next)
+  }, [buildHistoryFromMessages, setHistory])
+
+  const getCompareBranchMessageIds = (
+    items: Message[],
+    clusterId: string,
+    modelId: string
+  ) => {
+    const userIndex = items.findIndex(
+      (message) =>
+        message.messageType === "compare:user" &&
+        message.clusterId === clusterId
+    )
+    if (userIndex === -1) {
+      return []
+    }
+
+    const messageIds = new Set<string>()
+    items.forEach((message, index) => {
+      if (!message.id) {
+        return
+      }
+      if (index < userIndex) {
+        if (shouldIncludeMessageForModel(message, modelId)) {
+          messageIds.add(message.id)
+        }
+        return
+      }
+      if (message.clusterId !== clusterId) {
+        return
+      }
+      if (message.messageType === "compare:user") {
+        messageIds.add(message.id)
+        return
+      }
+      if (shouldIncludeMessageForModel(message, modelId)) {
+        messageIds.add(message.id)
+      }
+    })
+
+    return Array.from(messageIds)
+  }
+
   const validateBeforeSubmitFn = () => {
-    if (compareMode) {
+    if (compareModeActive) {
       const maxModels =
         typeof compareMaxModels === "number" && compareMaxModels > 0
           ? compareMaxModels
@@ -456,6 +773,8 @@ export const useMessageOption = () => {
     }
 
     const chatModeParams = await buildChatModeParams()
+    const baseMessages = chatHistory || messages
+    const baseHistory = memory || history
 
     try {
       if (isContinue) {
@@ -523,7 +842,7 @@ export const useMessageOption = () => {
         const baseMessages = chatHistory || messages
         const baseHistory = memory || history
 
-        if (!compareMode) {
+        if (!compareModeActive) {
           await normalChatMode(
             message,
             image,
@@ -548,44 +867,138 @@ export const useMessageOption = () => {
           if (modelsRaw.length === 0) {
             throw new Error("No models selected for Compare mode")
           }
+          const uniqueModels = Array.from(new Set(modelsRaw))
           const models =
-            modelsRaw.length > maxModels
-              ? modelsRaw.slice(0, maxModels)
-              : modelsRaw
+            uniqueModels.length > maxModels
+              ? uniqueModels.slice(0, maxModels)
+              : uniqueModels
 
-          if (modelsRaw.length > maxModels) {
+          if (uniqueModels.length > maxModels) {
             notification.warning({
               message: t("error"),
               description: t(
                 "playground:composer.compareMaxModelsTrimmed",
                 "Compare is limited to {{limit}} models per turn. Using the first {{limit}} selected models.",
-                { limit: maxModels }
+                { count: maxModels, limit: maxModels }
               )
             })
           }
           const clusterId = generateID()
+          const compareUserMessageId = generateID()
+          const lastMessage = baseMessages[baseMessages.length - 1]
+          const compareUserParentMessageId = lastMessage?.id || null
+          const resolvedImage =
+            image.length > 0
+              ? `data:image/jpeg;base64,${image.split(",")[1]}`
+              : ""
+          const compareUserMessage: Message = {
+            isBot: false,
+            name: "You",
+            message,
+            sources: [],
+            images: resolvedImage ? [resolvedImage] : [],
+            id: compareUserMessageId,
+            messageType: "compare:user",
+            clusterId,
+            parentMessageId: compareUserParentMessageId,
+            documents:
+              uploadedFiles?.map((file) => ({
+                type: "file",
+                filename: file.filename,
+                fileSize: file.size,
+                processed: file.processed
+              })) || []
+          }
 
-          for (let index = 0; index < models.length; index++) {
-            const modelId = models[index]
-            const isFirst = index === 0
-            await normalChatMode(
+          setMessages((prev) => [...prev, compareUserMessage])
+
+          let activeHistoryId = historyId
+          if (temporaryChat) {
+            if (historyId !== "temp") {
+              setHistoryId("temp")
+            }
+            activeHistoryId = "temp"
+          } else if (!activeHistoryId) {
+            const title = await generateTitle(
+              uniqueModels[0] || selectedModel || "",
+              message,
+              message
+            )
+            const compareTitle = buildCompareHistoryTitle(title)
+            const newHistory = await saveHistory(compareTitle, false, "web-ui")
+            updatePageTitle(compareTitle)
+            activeHistoryId = newHistory.id
+            setHistoryId(newHistory.id)
+            compareNewHistoryIdsRef.current.add(newHistory.id)
+          }
+
+          if (!temporaryChat && activeHistoryId) {
+            await saveMessage({
+              id: compareUserMessageId,
+              history_id: activeHistoryId,
+              name: selectedModel || uniqueModels[0] || "You",
+              role: "user",
+              content: message,
+              images: resolvedImage ? [resolvedImage] : [],
+              time: 1,
+              message_type: "compare:user",
+              clusterId,
+              parent_message_id: compareUserParentMessageId,
+              documents:
+                uploadedFiles?.map((file) => ({
+                  type: "file",
+                  filename: file.filename,
+                  fileSize: file.size,
+                  processed: file.processed
+                })) || []
+            })
+          }
+
+          setIsProcessing(true)
+
+          const compareChatModeParams = await buildChatModeParams({
+            historyId: activeHistoryId,
+            setHistory: () => {},
+            setStreaming: () => {},
+            setIsProcessing: () => {},
+            setAbortController: () => {}
+          })
+          const compareEnhancedParams = {
+            ...compareChatModeParams,
+            uploadedFiles: uploadedFiles
+          }
+
+          const comparePromises = models.map((modelId) => {
+            const historyForModel = buildHistoryForModel(baseMessages, modelId)
+            return normalChatMode(
               message,
               image,
-              // First model uses isRegenerate flag as passed; others behave like regenerate
-              isFirst ? isRegenerate : true,
+              true,
               baseMessages,
               baseHistory,
               signal,
               {
-                ...enhancedChatModeParams,
+                ...compareEnhancedParams,
                 selectedModel: modelId,
                 clusterId,
-                userMessageType: isFirst ? "compare:user" : undefined,
                 assistantMessageType: "compare:reply",
-                modelIdOverride: modelId
+                modelIdOverride: modelId,
+                assistantParentMessageId: compareUserMessageId,
+                historyForModel
               }
-            )
-          }
+            ).catch((e: any) => {
+              notification.error({
+                message: t("error"),
+                description: e?.message || t("somethingWentWrong")
+              })
+            })
+          })
+
+          await Promise.allSettled(comparePromises)
+          refreshHistoryFromMessages()
+          setIsProcessing(false)
+          setStreaming(false)
+          setAbortController(null)
         }
       }
     } catch (e: any) {
@@ -612,6 +1025,17 @@ export const useMessageOption = () => {
       return
     }
 
+    if (!compareFeatureEnabled) {
+      notification.error({
+        message: t("error"),
+        description: t(
+          "playground:composer.compareDisabled",
+          "Compare mode is disabled in settings."
+        )
+      })
+      return
+    }
+
     if (
       contextFiles.length > 0 ||
       (documentContext && documentContext.length > 0) ||
@@ -634,6 +1058,13 @@ export const useMessageOption = () => {
 
     const baseMessages = messages
     const baseHistory = history
+    const userMessageId = generateID()
+    const assistantMessageId = generateID()
+    const userParentMessageId = getLastThreadMessageId(
+      baseMessages,
+      clusterId,
+      modelId
+    )
 
     try {
       const chatModeParams = await buildChatModeParams()
@@ -641,6 +1072,7 @@ export const useMessageOption = () => {
         ...chatModeParams,
         uploadedFiles: uploadedFiles
       }
+      const historyForModel = buildHistoryForModel(baseMessages, modelId)
 
       await normalChatMode(
         trimmed,
@@ -653,8 +1085,14 @@ export const useMessageOption = () => {
           ...enhancedChatModeParams,
           selectedModel: modelId,
           clusterId,
+          userMessageType: "compare:perModelUser",
           assistantMessageType: "compare:reply",
-          modelIdOverride: modelId
+          modelIdOverride: modelId,
+          userMessageId,
+          assistantMessageId,
+          userParentMessageId,
+          assistantParentMessageId: userMessageId,
+          historyForModel
         }
       )
     } catch (e: any) {
@@ -717,6 +1155,68 @@ export const useMessageOption = () => {
     history
   })
 
+  const createCompareBranch = async ({
+    clusterId,
+    modelId,
+    open = true
+  }: {
+    clusterId: string
+    modelId: string
+    open?: boolean
+  }): Promise<string | null> => {
+    if (!historyId || historyId === "temp") {
+      return null
+    }
+
+    const messageIds = getCompareBranchMessageIds(messages, clusterId, modelId)
+    if (messageIds.length === 0) {
+      return null
+    }
+
+    try {
+      const newBranch = await generateBranchFromMessageIds(
+        historyId,
+        messageIds
+      )
+      if (!newBranch) {
+        return null
+      }
+
+      const splitTitle = buildCompareSplitTitle(newBranch.history.title || "")
+      await updateHistory(newBranch.history.id, splitTitle)
+
+      void trackCompareMetric({ type: "split_single" })
+
+      if (open) {
+        setHistory(formatToChatHistory(newBranch.messages))
+        setMessages(formatToMessage(newBranch.messages))
+        setHistoryId(newBranch.history.id)
+        const systemFiles = await getSessionFiles(newBranch.history.id)
+        setContextFiles(systemFiles)
+
+        const lastUsedPrompt = newBranch?.history?.last_used_prompt
+        if (lastUsedPrompt) {
+          if (lastUsedPrompt.prompt_id) {
+            const prompt = await getPromptById(lastUsedPrompt.prompt_id)
+            if (prompt) {
+              setSelectedSystemPrompt(lastUsedPrompt.prompt_id)
+            }
+          }
+          if (currentChatModelSettings?.setSystemPrompt) {
+            currentChatModelSettings.setSystemPrompt(
+              lastUsedPrompt.prompt_content
+            )
+          }
+        }
+      }
+
+      return newBranch.history.id
+    } catch (e) {
+      console.log("[compare-branch] failed", e)
+      return null
+    }
+  }
+
   return {
     editMessage,
     messages,
@@ -760,6 +1260,7 @@ export const useMessageOption = () => {
     defaultInternetSearchOn,
     history,
     uploadedFiles,
+    contextFiles,
     fileRetrievalEnabled,
     setFileRetrievalEnabled: handleSetFileRetrievalEnabled,
     handleFileUpload,
@@ -796,13 +1297,19 @@ export const useMessageOption = () => {
     setRagEnableCitations,
     ragSources,
     setRagSources,
+    documentContext,
     compareMode,
     setCompareMode,
+    compareFeatureEnabled,
+    setCompareFeatureEnabled,
     compareSelectedModels,
     setCompareSelectedModels,
     compareSelectionByCluster,
     setCompareSelectionForCluster,
+    compareActiveModelsByCluster,
+    setCompareActiveModelsForCluster,
     sendPerModelReply,
+    createCompareBranch,
     compareParentByHistory,
     setCompareParentForHistory,
     compareCanonicalByCluster,

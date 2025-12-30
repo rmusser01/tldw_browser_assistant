@@ -1,39 +1,993 @@
 {
-  "mediaPage.nothingToSend": {
-    "message": "Ingenting å sende"
+  "reviewPage_searchPlaceholder": {
+    "message": "Søk i media, notater..."
   },
-  "mediaPage.emptyAnalysis": {
-    "message": "Analysen kan ikke være tom"
+  "reviewPage_search": {
+    "message": "Søk"
   },
-  "mediaPage.noMediaId": {
-    "message": "Ingen medie-ID tilgjengelig"
+  "reviewPage_filters": {
+    "message": "Filtre"
   },
-  "mediaPage.versionSaved": {
-    "message": "Lagret som ny versjon"
+  "reviewPage_media": {
+    "message": "Medier"
   },
-  "mediaPage.saveFailed": {
-    "message": "Kunne ikke lagre versjonen"
+  "reviewPage_notes": {
+    "message": "Notater"
   },
-  "mediaPage.sendToChat": {
-    "message": "Send til chat"
+  "reviewPage_useReview": {
+    "message": "Bruk review"
   },
-  "mediaPage.saveAsVersion": {
+  "reviewPage_useSummary": {
+    "message": "Bruk summary"
+  },
+  "reviewPage_mediaTypes": {
+    "message": "Mediatyper"
+  },
+  "reviewPage_keywords": {
+    "message": "Nøkkelord"
+  },
+  "reviewPage_clear": {
+    "message": "Tøm"
+  },
+  "reviewPage_resetFilters": {
+    "message": "Tilbakestill filtre"
+  },
+  "reviewPage_results": {
+    "message": "Resultater"
+  },
+  "reviewPage_noResults": {
+    "message": "Ingen resultater"
+  },
+  "reviewPage_analyze_none": {
+    "message": "Ingen innhold tilgjengelig for analyse"
+  },
+  "reviewPage_analyze_saved": {
+    "message": "Analyse lagret som notat"
+  },
+  "reviewPage_analyze_failed": {
+    "message": "Kunne ikke analysere og lagre notat"
+  },
+  "reviewPage_searchPrompts": {
+    "message": "Søk i prompter"
+  },
+  "reviewPage_includeLocal": {
+    "message": "Lokalt"
+  },
+  "reviewPage_includeServer": {
+    "message": "Serveren"
+  },
+  "reviewPage_presets": {
+    "message": "Forhåndsinnstillinger"
+  },
+  "reviewPage_presetsCritical": {
+    "message": "Kritisk"
+  },
+  "reviewPage_presetsQaAudit": {
+    "message": "QA-revisjon"
+  },
+  "reviewPage_presetsBulletReview": {
+    "message": "Punktvis review"
+  },
+  "reviewPage_reviewSystemPrompt": {
+    "message": "Review: Systemprompt"
+  },
+  "reviewPage_reviewUserPrefix": {
+    "message": "Review: Brukerprefiks for prompt"
+  },
+  "reviewPage_saveAsDefault": {
+    "message": "Lagre som standard"
+  },
+  "reviewPage_reviewPrompt": {
+    "message": "Review-prompt"
+  },
+  "reviewPage_summarySystemPrompt": {
+    "message": "Summary: Systemprompt"
+  },
+  "reviewPage_summaryUserPrefix": {
+    "message": "Summary: Brukerprefiks for prompt"
+  },
+  "reviewPage_summaryPrompt": {
+    "message": "Summary-prompt"
+  },
+  "reviewPage_customizePrompts": {
+    "message": "Tilpass prompter"
+  },
+  "reviewPage_showRawJson": {
+    "message": "Vis rå JSON"
+  },
+  "reviewPage_noDetailLoaded": {
+    "message": "Ingen detaljer lastet inn"
+  },
+  "reviewPage_resetToDefaults": {
+    "message": "Tilbakestill til standard"
+  },
+  "reviewPage_usingReviewPrompts": {
+    "message": "Bruker review-prompter"
+  },
+  "reviewPage_usingSummaryPrompts": {
+    "message": "Bruker summary-prompter"
+  },
+  "reviewPage_selectItemFirst": {
+    "message": "Velg et element først"
+  },
+  "reviewPage_selectMediaFirst": {
+    "message": "Velg et medieelement først"
+  },
+  "reviewPage_selectItemEmpty": {
+    "message": "Velg et element for review og analyse"
+  },
+  "reviewPage_selectMediaEmpty": {
+    "message": "Velg et medieelement for å se analyser"
+  },
+  "reviewPage_generationMode": {
+    "message": "Genereringsmodus"
+  },
+  "reviewPage_resultTypes": {
+    "message": "Resultattyper"
+  },
+  "reviewPage_advancedTools": {
+    "message": "Avanserte verktøy"
+  },
+  "reviewPage_moreActions": {
+    "message": "Flere handlinger"
+  },
+  "reviewPage_toggleSidebar": {
+    "message": "Veksle resultat-sidefelt"
+  },
+  "reviewPage_autoReviewLabel": {
+    "message": "Generer automatisk en review når du velger et element"
+  },
+  "reviewPage_demoMode": {
+    "message": "Demomodus"
+  },
+  "reviewPage_mediaOnlySearchPlaceholder": {
+    "message": "Søk i media (tittel/innhold)"
+  },
+  "reviewPage_showSidebar": {
+    "message": "Vis resultat-sidefelt"
+  },
+  "reviewPage_hideSidebar": {
+    "message": "Skjul resultat-sidefelt"
+  },
+  "reviewPage_selectedBadge": {
+    "message": "Valgt"
+  },
+  "reviewPage_bulkToolbar": {
+    "message": "Review-kontroller"
+  },
+  "reviewPage_loadedCount": {
+    "message": "{{count}} lastet inn"
+  },
+  "reviewPage_viewLabel": {
+    "message": "Innholdsvisning"
+  },
+  "reviewPage_navigateLabel": {
+    "message": "Elementer"
+  },
+  "reviewPage_mediaModeHint": {
+    "message": "Søk og inspiser ett medieelement om gangen. Velg et resultat for å se innholdet og analysene til høyre."
+  },
+  "reviewPage_resultsHelp": {
+    "message": "Tastatur: Tab til resultatlisten, bruk Enter eller Mellomrom for å velge raden, deretter Forrige/Neste i analyseverktøylinjen for å flytte mellom elementer."
+  },
+  "reviewPage_resultsHelpLabel": {
+    "message": "Tastatursnarveier for review-resultater"
+  },
+  "reviewPage_review": {
+    "message": "Hent review"
+  },
+  "reviewPage_reviewHint": {
+    "message": "Be assistenten om å review dette elementet."
+  },
+  "reviewPage_summary": {
+    "message": "Hent summary"
+  },
+  "reviewPage_summaryHint": {
+    "message": "Be om en kortere summary."
+  },
+  "reviewPage_attachGeneratedHint": {
+    "message": "Kjør assistenten og legg ved resultatet til dette medieelementet."
+  },
+  "reviewPage_attachReview": {
+    "message": "Legg ved review til medie"
+  },
+  "reviewPage_attachSummary": {
+    "message": "Legg ved summary til medie"
+  },
+  "reviewPage_saveGeneratedNoteHint": {
+    "message": "Kjør assistenten og lagre resultatet som notat."
+  },
+  "reviewPage_saveReviewNote": {
+    "message": "Lagre review som notat"
+  },
+  "reviewPage_saveSummaryNote": {
+    "message": "Lagre summary som notat"
+  },
+  "reviewPage_saveToMediaHint": {
+    "message": "Legg ved gjeldende tekst i editoren til dette medieelementet."
+  },
+  "reviewPage_saveToMedia": {
+    "message": "Legg ved gjeldende tekst til medie"
+  },
+  "reviewPage_saveAnalysisHint": {
+    "message": "Opprett et notat fra gjeldende analyse."
+  },
+  "reviewPage_saveAnalysis": {
+    "message": "Lagre til notater"
+  },
+  "reviewPage_askAssistantLabel": {
+    "message": "Spør assistenten"
+  },
+  "reviewPage_saveResultsLabel": {
+    "message": "Lagre resultater"
+  },
+  "reviewPage_moreSaveNewVersion": {
     "message": "Lagre som ny versjon"
   },
-  "mediaPage.analysisPlaceholder": {
+  "reviewPage_moreDuplicateVersion": {
+    "message": "Dupliser versjon"
+  },
+  "reviewPage_moreRestoreVersion": {
+    "message": "Gjenopprett valgt versjon"
+  },
+  "reviewPage_modeReview": {
+    "message": "Bruk review"
+  },
+  "reviewPage_modeSummary": {
+    "message": "Bruk summary"
+  },
+  "reviewPage_resultsHint": {
+    "message": "Klikk på et resultat for å laste inn innhold og analyser til høyre."
+  },
+  "reviewPage_paginationHint": {
+    "message": "Bruk filtre eller sideinndeling for å avgrense resultatene hvis mange elementer er lastet."
+  },
+  "reviewPage_offlineHint": {
+    "message": "Koble til tldw-serveren i Innstillinger for å sende meldinger og se media. Deretter kan du søke media fra denne siden."
+  },
+  "reviewPage_chatWithMedia": {
+    "message": "Chat med dette mediet"
+  },
+  "reviewPage_chatWithMediaHint": {
+    "message": "Åpne chat og forhåndsutfyll skrivefeltet med innholdet i dette mediet."
+  },
+  "reviewPage_chatPrepared": {
+    "message": "Klargjorde chat med dette mediet i skrivefeltet."
+  },
+  "reviewPage_chatAboutMediaHint": {
+    "message": "Åpne RAG-chat begrenset til dette mediet."
+  },
+  "reviewPage_chatAboutMediaRagSent": {
+    "message": "Åpnet RAG-chat for dette mediet."
+  },
+  "reviewPage_chatAboutMediaInvalidId": {
+    "message": "Dette medieelementet har ikke et numerisk ID ennå."
+  },
+  "reviewPage_demoBadge": {
+    "message": "Demoversion"
+  },
+  "reviewPage_notConnectedBadge": {
+    "message": "Ikke tilkoblet"
+  },
+  "reviewPage_prevItem": {
+    "message": "Forrige"
+  },
+  "reviewPage_nextItem": {
+    "message": "Neste"
+  },
+  "reviewPage_noContent": {
+    "message": "Ingen innhold tilgjengelig"
+  },
+  "reviewPage_showMore": {
+    "message": "Vis mer"
+  },
+  "reviewPage_showLess": {
+    "message": "Vis mindre"
+  },
+  "reviewPage_showRaw": {
+    "message": "Vis rått innhold"
+  },
+  "reviewPage_hideRaw": {
+    "message": "Skjul rått innhold"
+  },
+  "reviewPage_noAnalysis": {
+    "message": "Ingen analyse ennå"
+  },
+  "reviewPage_mediaContent": {
+    "message": "Medieinnhold"
+  },
+  "reviewPage_copyContent": {
+    "message": "Kopier innhold"
+  },
+  "reviewPage_analysisTitle": {
+    "message": "Analyse"
+  },
+  "reviewPage_copyAnalysis": {
+    "message": "Kopier analyse"
+  },
+  "reviewPage_sendAnalysisToChat": {
+    "message": "Send analyse til chat"
+  },
+  "reviewPage_copyAllPlain": {
+    "message": "Kopier alt som ren tekst"
+  },
+  "reviewPage_copyAllMarkdown": {
+    "message": "Kopier alt som Markdown"
+  },
+  "reviewPage_openInMulti": {
+    "message": "Åpne i gjennomgang av flere elementer"
+  },
+  "reviewPage_analysisFailed": {
+    "message": "Analysen mislyktes"
+  },
+  "reviewPage_analysisAttached": {
+    "message": "Analyse lagt til medie"
+  },
+  "reviewPage_analyzeSaveFailed": {
+    "message": "Kunne ikke analysere og lagre"
+  },
+  "reviewPage_nothingToSave": {
+    "message": "Ingenting å lagre"
+  },
+  "reviewPage_savedToNotes": {
+    "message": "Lagret til notater"
+  },
+  "reviewPage_saveFailed": {
+    "message": "Lagring mislyktes"
+  },
+  "reviewPage_saveToMediaFailed": {
+    "message": "Kunne ikke lagre til medie"
+  },
+  "reviewPage_sentToChat": {
+    "message": "Sendt til chat"
+  },
+  "reviewPage_sendFailed": {
+    "message": "Kunne ikke sende"
+  },
+  "reviewPage_analysisEditorPlaceholder": {
+    "message": "Kjør Review eller Summary, og rediger her..."
+  },
+  "reviewPage_createdNewVersion": {
+    "message": "Ny versjon opprettet"
+  },
+  "reviewPage_createVersionFailed": {
+    "message": "Kunne ikke opprette versjon"
+  },
+  "reviewPage_selectVersionFirst": {
+    "message": "Velg en versjon først"
+  },
+  "reviewPage_noVersionNumber": {
+    "message": "Ingen versjonsnummer"
+  },
+  "reviewPage_selectedVersionNoContent": {
+    "message": "Den valgte versjonen har ikke innhold"
+  },
+  "reviewPage_clonedVersionCreated": {
+    "message": "Klonet versjon opprettet"
+  },
+  "reviewPage_cloneFailed": {
+    "message": "Kloning mislyktes"
+  },
+  "reviewPage_confirmTitle": {
+    "message": "Vennligst bekreft"
+  },
+  "reviewPage_restoreConfirm": {
+    "message": "Gjenopprett denne versjonen som gjeldende?"
+  },
+  "reviewPage_restoreAction": {
+    "message": "Gjenopprett"
+  },
+  "reviewPage_cancelAction": {
+    "message": "Avbryt"
+  },
+  "reviewPage_versionRestored": {
+    "message": "Versjon gjenopprettet"
+  },
+  "reviewPage_restoreFailed": {
+    "message": "Gjenoppretting mislyktes"
+  },
+  "reviewPage_existingAnalysesTitle": {
+    "message": "Eksisterende analyser"
+  },
+  "reviewPage_onlyWithAnalysis": {
+    "message": "Kun med analyse"
+  },
+  "reviewPage_copyAllLabel": {
+    "message": "Kopier alt"
+  },
+  "reviewPage_copyMdLabel": {
+    "message": "Kopier MD"
+  },
+  "reviewPage_copiedAllNotes": {
+    "message": "Kopierte alle notater"
+  },
+  "reviewPage_copiedAllNotesMarkdown": {
+    "message": "Kopierte alle notater som Markdown"
+  },
+  "reviewPage_loadSelectedAnalysis": {
+    "message": "Last inn valgt analyse i editoren"
+  },
+  "reviewPage_loadLabel": {
+    "message": "Last inn"
+  },
+  "reviewPage_loadVersionPrompt": {
+    "message": "Last inn versjonsprompt i editoren"
+  },
+  "reviewPage_noPromptFound": {
+    "message": "Ingen prompt funnet"
+  },
+  "reviewPage_copyVersionPrompt": {
+    "message": "Kopier prompt for valgt versjon"
+  },
+  "reviewPage_promptCopied": {
+    "message": "Prompt kopiert"
+  },
+  "reviewPage_diffSelectedCurrent": {
+    "message": "Diff valgt vs. gjeldende"
+  },
+  "reviewPage_versionDeleted": {
+    "message": "Versjon slettet"
+  },
+  "reviewPage_versionDeletedDescription": {
+    "message": "Slettet versjon v{{version}}."
+  },
+  "reviewPage_undoRolledBack": {
+    "message": "Angre: rullet tilbake til slettet versjon"
+  },
+  "reviewPage_undoFailed": {
+    "message": "Angre mislyktes"
+  },
+  "reviewPage_undoLabel": {
+    "message": "Angre"
+  },
+  "reviewPage_deleteFailed": {
+    "message": "Sletting mislyktes"
+  },
+  "reviewPage_deleteSelectedVersion": {
+    "message": "Slett valgt versjon"
+  },
+  "reviewPage_noSavedAnalyses": {
+    "message": "Ingen lagrede analyser for dette elementet ennå."
+  },
+  "reviewPage_currentTag": {
+    "message": "Gjeldende"
+  },
+  "reviewPage_promptLabel": {
+    "message": "Prompttekst"
+  },
+  "reviewPage_showLabel": {
+    "message": "Vis"
+  },
+  "reviewPage_hideLabel": {
+    "message": "Skjul"
+  },
+  "reviewPage_copyAnalysisPlainTooltip": {
+    "message": "Kopier analyse (ren tekst)"
+  },
+  "reviewPage_copyLabel": {
+    "message": "Kopier"
+  },
+  "reviewPage_copyAnalysisMarkdownTooltip": {
+    "message": "Kopier som Markdown"
+  },
+  "reviewPage_copiedAnalysisMarkdown": {
+    "message": "Kopierte analyse som Markdown"
+  },
+  "reviewPage_markdownLabel": {
+    "message": "Markdown"
+  },
+  "reviewPage_copyPromptTooltip": {
+    "message": "Kopier prompt"
+  },
+  "reviewPage_diffUnified": {
+    "message": "Samlet"
+  },
+  "reviewPage_diffSideBySide": {
+    "message": "Side om side"
+  },
+  "reviewPage_diffCopied": {
+    "message": "Diff kopiert"
+  },
+  "reviewPage_copyDiffLabel": {
+    "message": "Kopier diff"
+  },
+  "reviewPage_closeLabel": {
+    "message": "Lukk"
+  },
+  "reviewPage_diffTitle": {
+    "message": "Diff: valgt vs. gjeldende"
+  },
+  "reviewPage_diffSelectedVersion": {
+    "message": "Valgt versjon"
+  },
+  "reviewPage_diffCurrentEditor": {
+    "message": "Nåværende editor"
+  },
+  "reviewPage_noDifferences": {
+    "message": "Ingen forskjeller"
+  },
+  "reviewPage_chatAboutMedia": {
+    "message": "Chat om dette mediet"
+  },
+  "reviewPage_statusProcessing": {
+    "message": "Behandler"
+  },
+  "reviewPage_statusQueued": {
+    "message": "I kø"
+  },
+  "reviewPage_statusError": {
+    "message": "Feil"
+  },
+  "reviewPage_statusReady": {
+    "message": "Klar"
+  },
+  "reviewPage_loadedOf": {
+    "message": "{{count}} lastet inn"
+  },
+  "reviewPage_expandAllContent": {
+    "message": "Vis fullstendig"
+  },
+  "reviewPage_collapseAllContent": {
+    "message": "Vis kortere"
+  },
+  "reviewPage_expandContent": {
+    "message": "Utvid"
+  },
+  "reviewPage_collapseContent": {
+    "message": "Skjul"
+  },
+  "reviewPage_expandAnalysis": {
+    "message": "Utvid"
+  },
+  "reviewPage_collapseAnalysis": {
+    "message": "Skjul"
+  },
+  "reviewPage_jumpTo": {
+    "message": "Hopp til"
+  },
+  "reviewPage_presetsExecutive": {
+    "message": "Lederoppsummering"
+  },
+  "reviewPage_presetsDetailed": {
+    "message": "Detaljert"
+  },
+  "reviewPage_presetsBullets": {
+    "message": "Punkter"
+  },
+  "mediaPage_searchPlaceholder": {
+    "message": "Søk i media (tittel/innhold)"
+  },
+  "mediaPage_search": {
+    "message": "Søk"
+  },
+  "mediaPage_clear": {
+    "message": "Tøm"
+  },
+  "mediaPage_types": {
+    "message": "Typer"
+  },
+  "mediaPage_keywords": {
+    "message": "Nøkkelord"
+  },
+  "mediaPage_moreTags": {
+    "message": "+{{count}} flere tagger"
+  },
+  "mediaPage_resetFilters": {
+    "message": "Nullstill filtre"
+  },
+  "mediaPage_clearAll": {
+    "message": "Tøm alt"
+  },
+  "mediaPage_favoritesOnly": {
+    "message": "Kun favoritter"
+  },
+  "mediaPage_content": {
+    "message": "Innhold"
+  },
+  "mediaPage_vertical": {
+    "message": "Vertikal"
+  },
+  "mediaPage_horizontal": {
+    "message": "Horisontal"
+  },
+  "mediaPage_results": {
+    "message": "Resultater"
+  },
+  "mediaPage_noResults": {
+    "message": "Ingen resultater"
+  },
+  "mediaPage_showSidebar": {
+    "message": "Vis sidefelt"
+  },
+  "mediaPage_hideSidebar": {
+    "message": "Skjul sidefelt"
+  },
+  "mediaPage_viewer": {
+    "message": "Visning"
+  },
+  "mediaPage_selectItemsHint": {
+    "message": "Velg elementer til venstre for å se dem her."
+  },
+  "mediaPage_mediaContent": {
+    "message": "Medieinnhold"
+  },
+  "mediaPage_copyContent": {
+    "message": "Kopier innhold"
+  },
+  "mediaPage_contentCopied": {
+    "message": "Innhold kopiert"
+  },
+  "mediaPage_metadataCopied": {
+    "message": "Metadata kopiert"
+  },
+  "mediaPage_analysisCopied": {
+    "message": "Analyse kopiert"
+  },
+  "mediaPage_copyFailed": {
+    "message": "Kopiering mislyktes"
+  },
+  "mediaPage_noContent": {
+    "message": "Ingen innhold tilgjengelig"
+  },
+  "mediaPage_collapse": {
+    "message": "Trekk sammen"
+  },
+  "mediaPage_expand": {
+    "message": "Utvid"
+  },
+  "mediaPage_media": {
+    "message": "Medier"
+  },
+  "mediaPage_searchingBanner": {
+    "message": "Søker i media…"
+  },
+  "mediaPage_filterHelp": {
+    "message": "Søk matcher tittel og innhold; Typer og nøkkelord snevrer inn resultatene."
+  },
+  "mediaPage_noMediaTypes": {
+    "message": "Ingen mediatyper tilgjengelige"
+  },
+  "mediaPage_resultsCount": {
+    "message": "{{selected}} valgt · {{open}} åpne"
+  },
+  "mediaPage_clearSelection": {
+    "message": "Fjern alle valg"
+  },
+  "mediaPage_itemsLabel": {
+    "message": "Elementer"
+  },
+  "mediaPage_contentLabel": {
+    "message": "Innholdsvisning"
+  },
+  "mediaPage_filterByKeyword": {
+    "message": "Filtrer etter nøkkelord"
+  },
+  "mediaPage_keywordHelper": {
+    "message": "Nøkkelord hjelper deg med å finne dette mediet ved hjelp av nøkkelordsfilteret til venstre"
+  },
+  "mediaPage_modeHint": {
+    "message": "Søk etter og stable flere mediaelementer for å sammenligne dem i visningen til høyre."
+  },
+  "mediaPage_viewerHelp": {
+    "message": "Tastatur: Bruk Tab for å gå til resultatlisten, Enter eller Mellomrom for å stable eller fjerne et mediaelement, og Forrige/Neste og oppsett-kontroller for å bevege deg mellom elementene i visningen."
+  },
+  "mediaPage_viewerHelpLabel": {
+    "message": "Tastatursnarveier for gjennomgang av flere elementer"
+  },
+  "mediaPage_mediaInspector": {
+    "message": "Mediainspektør"
+  },
+  "mediaPage_actionsLabel": {
+    "message": "Handlinger"
+  },
+  "mediaPage_keywordsPlaceholder": {
+    "message": "Legg til nøkkelord..."
+  },
+  "mediaPage_noSelectionTitle": {
+    "message": "Ingen medieelementer valgt"
+  },
+  "mediaPage_noSelectionDescription": {
+    "message": "Velg et medieelement i venstre sidefelt for å se innhold og analyser her."
+  },
+  "mediaPage_generateAnalysis": {
+    "message": "Generer analyse"
+  },
+  "mediaPage_generateAnalysisHint": {
+    "message": "Generer en ny analyse"
+  },
+  "mediaPage_editAnalysis": {
+    "message": "Rediger analyse"
+  },
+  "mediaPage_createNoteWithContent": {
+    "message": "Opprett notat med innhold"
+  },
+  "mediaPage_createNoteWithContentAnalysis": {
+    "message": "Opprett notat med innhold + analyse"
+  },
+  "mediaPage_untitled": {
+    "message": "Uten tittel"
+  },
+  "mediaPage_copyMetadata": {
+    "message": "Kopier metadata"
+  },
+  "mediaPage_statistics": {
+    "message": "Statistikk"
+  },
+  "mediaPage_words": {
+    "message": "Ord"
+  },
+  "mediaPage_characters": {
+    "message": "Tegn"
+  },
+  "mediaPage_paragraphs": {
+    "message": "Avsnitt"
+  },
+  "mediaPage_metadata": {
+    "message": "metadata"
+  },
+  "mediaPage_idLabel": {
+    "message": "Id"
+  },
+  "mediaPage_typeLabel": {
+    "message": "Kategori"
+  },
+  "mediaPage_titleLabel": {
+    "message": "Tittel"
+  },
+  "mediaPage_source": {
+    "message": "Kilde"
+  },
+  "mediaPage_notAvailable": {
+    "message": "Ikke tilgjengelig"
+  },
+  "mediaPage_developerTools": {
+    "message": "Utviklerverktøy"
+  },
+  "mediaPage_nothingToSend": {
+    "message": "Ingenting å sende"
+  },
+  "mediaPage_emptyAnalysis": {
+    "message": "Analysen kan ikke være tom"
+  },
+  "mediaPage_noMediaId": {
+    "message": "Ingen medie-ID tilgjengelig"
+  },
+  "mediaPage_versionSaved": {
+    "message": "Lagret som ny versjon"
+  },
+  "mediaPage_saveFailed": {
+    "message": "Kunne ikke lagre versjonen"
+  },
+  "mediaPage_saveUnauthorized": {
+    "message": "Ikke autorisert til å lagre"
+  },
+  "mediaPage_sendToChat": {
+    "message": "Send til chat"
+  },
+  "mediaPage_saveAsVersion": {
+    "message": "Lagre som ny versjon"
+  },
+  "mediaPage_analysisPlaceholder": {
     "message": "Skriv inn analysetekst..."
   },
-  "mediaPage.wordCount": {
+  "mediaPage_wordCount": {
     "message": "{{count}} ord"
   },
-  "mediaPage.charCount": {
+  "mediaPage_charCount": {
     "message": "{{count}} tegn"
   },
-  "mediaPage.pageRangeError": {
-    "message": "Side må være 1-{{max}}"
+  "mediaPage_pageRangeError": {
+    "message": "Side må være mellom 1 og {{max}}"
   },
-  "mediaPage.pageRangeClamped": {
+  "mediaPage_pageRangeClamped": {
     "message": "Navigerer til side {{page}}"
+  },
+  "mediaPage_spreadMode": {
+    "message": "Sammenlign"
+  },
+  "mediaPage_listMode": {
+    "message": "Fokus"
+  },
+  "mediaPage_allMode": {
+    "message": "Stabel"
+  },
+  "mediaPage_spreadModeTooltip": {
+    "message": "Vis valgte elementer side om side for sammenligning"
+  },
+  "mediaPage_listModeTooltip": {
+    "message": "Vis ett element om gangen med navigasjon"
+  },
+  "mediaPage_allModeTooltip": {
+    "message": "Vis alle valgte elementer i en rullbar liste"
+  },
+  "mediaPage_copyContentLabel": {
+    "message": "Kopier innhold"
+  },
+  "mediaPage_copyAnalysisLabel": {
+    "message": "Kopier analyse"
+  },
+  "mediaPage_copyContentTooltip": {
+    "message": "Kopier innhold til utklippstavlen"
+  },
+  "mediaPage_copyAnalysisTooltip": {
+    "message": "Kopier analyse til utklippstavlen"
+  },
+  "mediaPage_prevItemTooltip": {
+    "message": "Forrige element (←)"
+  },
+  "mediaPage_nextItemTooltip": {
+    "message": "Neste element (→)"
+  },
+  "mediaPage_viewerOptions": {
+    "message": "Alternativer"
+  },
+  "mediaPage_expandAllDropdown": {
+    "message": "Utvid/trekk sammen"
+  },
+  "mediaPage_itemPosition": {
+    "message": "Element {{current}} av {{total}}"
+  },
+  "mediaPage_noItemSelected": {
+    "message": "Ingen elementer valgt"
+  },
+  "mediaPage_firstUseTitle": {
+    "message": "Hurtigguide: Gjennomgang av flere elementer"
+  },
+  "mediaPage_firstUseStep1": {
+    "message": "Velg elementer"
+  },
+  "mediaPage_firstUseStep1Desc": {
+    "message": "Klikk på elementer i venstre panel for å legge dem til i visningen."
+  },
+  "mediaPage_firstUseStep2": {
+    "message": "Velg en visning"
+  },
+  "mediaPage_firstUseStep2Desc": {
+    "message": "Bruk \"Sammenlign\" for side om side, \"Fokus\" for ett om gangen, eller \"Stabel\" for å se alle."
+  },
+  "mediaPage_firstUseStep3": {
+    "message": "Naviger"
+  },
+  "mediaPage_firstUseStep3Desc": {
+    "message": "Bruk Forrige/Neste-knapper eller tastatur (Tab + Enter) for å gå gjennom elementene."
+  },
+  "mediaPage_gotIt": {
+    "message": "Skjønner"
+  },
+  "mediaPage_model": {
+    "message": "AI-model"
+  },
+  "mediaPage_selectModel": {
+    "message": "Velg en modell"
+  },
+  "mediaPage_noModelsAvailable": {
+    "message": "Ingen modeller tilgjengelig"
+  },
+  "mediaPage_promptPresets": {
+    "message": "Prompt-forhåndsinnstillinger"
+  },
+  "mediaPage_showPresets": {
+    "message": "Vis forhåndsinnstillinger"
+  },
+  "mediaPage_hidePresets": {
+    "message": "Skjul forhåndsinnstillinger"
+  },
+  "mediaPage_systemPromptLabel": {
+    "message": "Systemprompt"
+  },
+  "mediaPage_systemPromptPlaceholder": {
+    "message": "Skriv inn systemprompt..."
+  },
+  "mediaPage_userPromptPrefixLabel": {
+    "message": "Prefiks for brukerprompt"
+  },
+  "mediaPage_prependedBeforeContent": {
+    "message": "(lagt til før innholdet)"
+  },
+  "mediaPage_userPrefixPlaceholder": {
+    "message": "Valgfritt: Skriv inn tekst som skal legges til før medieinnholdet..."
+  },
+  "mediaPage_presetComprehensiveAnalysis": {
+    "message": "Omfattende analyse"
+  },
+  "mediaPage_presetExecutiveSummary": {
+    "message": "Lederoppsummering"
+  },
+  "mediaPage_presetCriticalReview": {
+    "message": "Kritisk gjennomgang"
+  },
+  "mediaPage_presetQAAnalysis": {
+    "message": "Spørsmål og svar-analyse"
+  },
+  "empty_connectTitle": {
+    "message": "Koble til for å bruke Review"
+  },
+  "empty_connectDescription": {
+    "message": "Koble til tldw‑serveren din i Innstillinger for å sende meldinger og vise media. Etter tilkobling kan du gjennomgå media og notater her."
+  },
+  "empty_connectExample1": {
+    "message": "Åpne Innstillinger → tldw server for å legge til server‑URLen din."
+  },
+  "empty_connectExample2": {
+    "message": "Når du er koblet til kan du bla gjennom media og notater og lage strukturerte reviews og sammendrag."
+  },
+  "empty_demoTitle": {
+    "message": "Utforsk Review i demomodus"
+  },
+  "empty_demoDescription": {
+    "message": "Denne demoen viser hvordan tldw Assistant kan gjøre media og notater om til strukturerte reviews. Koble til din egen server senere for å analysere eget innhold."
+  },
+  "empty_demoExample1": {
+    "message": "Se hvordan valgte media og notater vises i review‑arbeidsområdet."
+  },
+  "empty_demoExample2": {
+    "message": "Når du kobler til kan du lage sammendrag og handlingspunkter fra egne opptak og notater."
+  },
+  "mediaEmpty_demoTitle": {
+    "message": "Utforsk Media i demomodus"
+  },
+  "mediaEmpty_demoDescription": {
+    "message": "Denne demoen viser hvordan tldw Assistant kan vise og inspisere bearbeidet media. Koble til din egen server senere for å bla gjennom egne opptak og dokumenter."
+  },
+  "mediaEmpty_demoExample1": {
+    "message": "Se hvordan bearbeidede medieelementer vises i Media‑visningen."
+  },
+  "mediaEmpty_demoExample2": {
+    "message": "Når du kobler til kan du bla gjennom og inspisere media som er importert fra egne opptak og filer."
+  },
+  "mediaEmpty_connectTitle": {
+    "message": "Koble til for å bruke Media"
+  },
+  "mediaEmpty_connectDescription": {
+    "message": "Koble til tldw‑serveren din i Innstillinger for å sende meldinger og vise media. Etter tilkobling vil bearbeidede opptak og dokumenter listes her."
+  },
+  "mediaEmpty_connectExample1": {
+    "message": "Åpne Innstillinger → tldw server for å legge til server‑URLen din."
+  },
+  "mediaEmpty_connectExample2": {
+    "message": "Når du er koblet til, bruk Quick ingest i toppfeltet for å legge til media fra egne opptak og filer."
+  },
+  "mediaEmpty_offlineTitle": {
+    "message": "Media API not available on this server"
+  },
+  "mediaEmpty_offlineDescription": {
+    "message": "This tldw server does not advertise the Media endpoints (for example, /api/v1/media and /api/v1/media/search). Upgrade your server to a version that includes Media to use this workspace."
+  },
+  "mediaEmpty_offlineExample1": {
+    "message": "Åpne Diagnostics for å bekrefte serverversjonen og tilgjengelige API-er."
+  },
+  "mediaEmpty_offlineExample2": {
+    "message": "Etter oppgraderingen, last inn utvidelsen på nytt og gå tilbake til Media."
+  },
+  "mediaEmpty_featureUnavailableBadge": {
+    "message": "Funksjon ikke tilgjengelig"
+  },
+  "mediaEmpty_demoExample3": {
+    "message": "Bruk Media sammen med Review for å oppsummere eller analysere opptak."
+  },
+  "mediaEmpty_demoPreviewHeading": {
+    "message": "Eksempelmedier (kun forhåndsvisning)"
+  },
+  "mediaEmpty_demoSample1Title": {
+    "message": "Demomedia: Opptak av teammøte"
+  },
+  "mediaEmpty_demoSample1Meta": {
+    "message": "Video · 25 min · Nøkkelord: standup, planlegging"
+  },
+  "mediaEmpty_demoSample2Title": {
+    "message": "Demomedia: Produktgjennomgang"
+  },
+  "mediaEmpty_demoSample2Meta": {
+    "message": "Skjermopptak · 12 min · Nøkkelord: onboarding"
+  },
+  "mediaEmpty_demoSample3Title": {
+    "message": "Demomedia: PDF med forskningsartikkel"
+  },
+  "mediaEmpty_demoSample3Meta": {
+    "message": "PDF · 6 sider · Nøkkelord: oppsummering"
+  },
+  "mediaEmpty_offlineTechnicalDetails": {
+    "message": "Tekniske detaljer: denne tldw-serveren annonserer ikke Media-endepunktene (for eksempel /api/v1/media og /api/v1/media/search)."
   },
   "noToolCalls": {
     "message": "Ingen verktøykall ennå"
@@ -46,5 +1000,320 @@
   },
   "result": {
     "message": "Resultat"
+  },
+  "reviewDraftsFailedTitle": {
+    "message": "Kunne ikke opprette gjennomgangskladder."
+  },
+  "reviewDraftsFailedFallback": {
+    "message": "Oppretting av gjennomgangskladder mislyktes."
+  },
+  "reviewDraftsRetry": {
+    "message": "Prøv å opprette kladder på nytt"
+  },
+  "reviewDraftsStoreWithoutReview": {
+    "message": "Lagre uten gjennomgang"
+  },
+  "reviewNavigationFailed": {
+    "message": "Kunne ikke åpne Innholdsgjennomgang. Prøv igjen."
+  },
+  "reviewNavigationRetry": {
+    "message": "Prøv å åpne Innholdsgjennomgang på nytt"
+  },
+  "contentReview_title": {
+    "message": "Innholdsgjennomgang"
+  },
+  "contentReview_readyToSubmit": {
+    "message": "{{count}} klar"
+  },
+  "contentReview_committedCount": {
+    "message": "{{count}} bekreftet"
+  },
+  "contentReview_totalCount": {
+    "message": "{{count}} totalt"
+  },
+  "contentReview_commitAll": {
+    "message": "Bekreft alle"
+  },
+  "contentReview_clearDrafts": {
+    "message": "Tøm utkast"
+  },
+  "contentReview_emptyDescription": {
+    "message": "Ingen utkast ennå. Bruk Quick Ingest med «Gjennomgå før lagring» for å opprette utkast."
+  },
+  "contentReview_openQuickIngest": {
+    "message": "Åpne Quick Ingest"
+  },
+  "contentReview_storeAfterReview": {
+    "message": "Lagre etter gjennomgang"
+  },
+  "contentReview_reviewBeforeStorage": {
+    "message": "Gjennomgå før lagring"
+  },
+  "contentReview_reviewBeforeStorageHint": {
+    "message": "Behandle nå, og rediger deretter kladder lokalt før du lagrer på serveren."
+  },
+  "contentReview_reviewEnabled": {
+    "message": "Gjennomgangsmodus"
+  },
+  "contentReview_reviewStorageCap": {
+    "message": "Lokale kladder er begrenset til {{cap}}."
+  },
+  "contentReview_reviewWarningTitle": {
+    "message": "Lagre kladder lokalt?"
+  },
+  "contentReview_reviewWarningBody": {
+    "message": "Kladder lagres i denne nettleseren og kan inneholde sensitive data. Du kan fjerne kladder fra siden Innholdsgjennomgang når som helst."
+  },
+  "contentReview_reviewWarningBodySecondary": {
+    "message": "Gjennomgangsmodus holder innholdet på klientsiden til du lagrer det på serveren."
+  },
+  "contentReview_reviewWarningConfirm": {
+    "message": "Aktiver gjennomgang"
+  },
+  "contentReview_reviewWarningCancel": {
+    "message": "Avbryt"
+  },
+  "contentReview_reviewRunLabel": {
+    "message": "Gjennomgang"
+  },
+  "contentReview_reviewDraftsCreated": {
+    "message": "Kladder klare for gjennomgang."
+  },
+  "contentReview_reviewStorageCapWarning_one": {
+    "message": "{{count}} fil overskrider den lokale kladdegrensen ({{cap}}). Legg ved kilder før du lagrer lyd/video."
+  },
+  "contentReview_reviewStorageCapWarning_other": {
+    "message": "{{count}} filer overskrider den lokale kladdegrensen ({{cap}}). Legg ved kilder før du lagrer lyd/video."
+  },
+  "contentReview_openContentReview": {
+    "message": "Åpne Innholdsgjennomgang"
+  },
+  "contentReview_batchLabel": {
+    "message": "Bunke"
+  },
+  "contentReview_batchName": {
+    "message": "Bunke {{index}}"
+  },
+  "contentReview_draftsLabel": {
+    "message": "Utkast"
+  },
+  "contentReview_selectDraft": {
+    "message": "Velg et utkast for å starte gjennomgangen."
+  },
+  "contentReview_titlePlaceholder": {
+    "message": "Tittel på utkast"
+  },
+  "contentReview_lastSaved": {
+    "message": "Lagret {{time}}"
+  },
+  "contentReview_resetTitle": {
+    "message": "Tilbakestille utkast?"
+  },
+  "contentReview_resetBody": {
+    "message": "Dette gjenoppretter det opprinnelige innholdet for dette utkastet."
+  },
+  "contentReview_resetConfirm": {
+    "message": "Tilbakestill"
+  },
+  "contentReview_resetCancel": {
+    "message": "Avbryt"
+  },
+  "contentReview_resetContent": {
+    "message": "Tilbakestill"
+  },
+  "contentReview_diffView": {
+    "message": "Diff-visning"
+  },
+  "contentReview_saveDraft": {
+    "message": "Lagre utkast"
+  },
+  "contentReview_editorLabel": {
+    "message": "Innhold"
+  },
+  "contentReview_wordCount": {
+    "message": "{{words}} ord"
+  },
+  "contentReview_charCount": {
+    "message": "{{chars}} tegn"
+  },
+  "contentReview_aiFix": {
+    "message": "AI‑retting"
+  },
+  "contentReview_aiHint": {
+    "message": "Sender innholdet i utkastet til serveren din for AI‑behandling."
+  },
+  "contentReview_modelPlaceholder": {
+    "message": "Standard for server"
+  },
+  "contentReview_aiConsentTitle": {
+    "message": "Sende utkast til serveren?"
+  },
+  "contentReview_aiConsentBody": {
+    "message": "Dette sender utkastinnholdet til tldw‑serveren din for AI‑behandling. Utkast forblir lokale til du bekrefter dem."
+  },
+  "contentReview_aiConsentConfirm": {
+    "message": "Fortsett"
+  },
+  "contentReview_aiConsentCancel": {
+    "message": "Avbryt"
+  },
+  "contentReview_aiApplied": {
+    "message": "AI‑rettelser er brukt."
+  },
+  "contentReview_aiNoChange": {
+    "message": "Ingen endringer returnert."
+  },
+  "contentReview_aiEmpty": {
+    "message": "AI returnerte ikke noe innhold."
+  },
+  "contentReview_aiUnavailable": {
+    "message": "Chatfullføringer er ikke tilgjengelige."
+  },
+  "contentReview_templatePlaceholder": {
+    "message": "Velg mal"
+  },
+  "contentReview_applyTemplate": {
+    "message": "Bruk mal"
+  },
+  "contentReview_templateApplied": {
+    "message": "Mal brukt."
+  },
+  "contentReview_templateMissing": {
+    "message": "Velg en mal først."
+  },
+  "contentReview_detectSections": {
+    "message": "Oppdag seksjoner"
+  },
+  "contentReview_detectSectionsTitle": {
+    "message": "Oppdage seksjoner på nytt?"
+  },
+  "contentReview_detectSectionsBody": {
+    "message": "Dette erstatter eksisterende seksjoner og tilbakestiller valgene dine."
+  },
+  "contentReview_detectSectionsConfirm": {
+    "message": "Oppdag på nytt"
+  },
+  "contentReview_detectSectionsCancel": {
+    "message": "Avbryt"
+  },
+  "contentReview_detectSectionsEmpty": {
+    "message": "Ingen seksjoner funnet."
+  },
+  "contentReview_sectionsLabel": {
+    "message": "Seksjonsfilter"
+  },
+  "contentReview_templates_transcript_clean_label": {
+    "message": "Rens transkripsjon"
+  },
+  "contentReview_templates_transcript_clean_description": {
+    "message": "Normaliserer tegnsetting og store/små bokstaver, samtidig som linjestrukturen beholdes."
+  },
+  "contentReview_templates_speaker_turns_label": {
+    "message": "Taletur"
+  },
+  "contentReview_templates_speaker_turns_description": {
+    "message": "Sikrer at hver taletur står på sin egen linje med tydelige etiketter."
+  },
+  "contentReview_templates_chapter_headings_label": {
+    "message": "Kapitteloverskrifter"
+  },
+  "contentReview_templates_chapter_headings_description": {
+    "message": "Setter inn Markdown‑overskrifter for å gruppere emner uten å fjerne innhold."
+  },
+  "contentReview_metadataLabel": {
+    "message": "metadata"
+  },
+  "contentReview_mediaType": {
+    "message": "Mediatype"
+  },
+  "contentReview_keywords": {
+    "message": "Nøkkelord"
+  },
+  "contentReview_keywordsPlaceholder": {
+    "message": "Legg til nøkkelord"
+  },
+  "contentReview_reviewNotes": {
+    "message": "Notater for gjennomgang"
+  },
+  "contentReview_missingSource": {
+    "message": "Kildefil mangler"
+  },
+  "contentReview_missingSourceBody": {
+    "message": "Legg ved originalfilen for å bekrefte dette utkastet."
+  },
+  "contentReview_attachSource": {
+    "message": "Legg ved fil"
+  },
+  "contentReview_actionsLabel": {
+    "message": "Handlinger"
+  },
+  "contentReview_commit": {
+    "message": "Bekreft"
+  },
+  "contentReview_commitDisabled": {
+    "message": "Legg ved den opprinnelige lyd-/videofilen før du bekrefter."
+  },
+  "contentReview_markReviewed": {
+    "message": "Merk som gjennomgått"
+  },
+  "contentReview_skipNext": {
+    "message": "Hopp over"
+  },
+  "contentReview_discard": {
+    "message": "Forkast"
+  },
+  "contentReview_discardTitle": {
+    "message": "Forkaste utkast?"
+  },
+  "contentReview_discardBody": {
+    "message": "Dette utkastet blir merket som forkastet og fjernet fra gjennomgangen."
+  },
+  "contentReview_discardConfirm": {
+    "message": "Forkast"
+  },
+  "contentReview_discardCancel": {
+    "message": "Avbryt"
+  },
+  "contentReview_commitSuccess": {
+    "message": "Utkast bekreftet."
+  },
+  "contentReview_commitAllTitle": {
+    "message": "Bekrefte gjennomgåtte utkast?"
+  },
+  "contentReview_commitAllBody": {
+    "message": "Bare utkast som er merket som gjennomgått blir bekreftet."
+  },
+  "contentReview_commitAllConfirm": {
+    "message": "Bekreft alle"
+  },
+  "contentReview_commitAllCancel": {
+    "message": "Avbryt"
+  },
+  "contentReview_commitAllResult": {
+    "message": "{{success}} bekreftet · {{failed}} mislyktes"
+  },
+  "contentReview_storageCapWarning": {
+    "message": "Denne filen overskrider den lokale grensen for utkast ({{cap}})."
+  },
+  "contentReview_clearTitle": {
+    "message": "Tømme alle utkast?"
+  },
+  "contentReview_clearBody": {
+    "message": "Dette fjerner alle lokale utkast og ressurser for innholdsgjennomgang."
+  },
+  "contentReview_clearConfirm": {
+    "message": "Tøm utkast"
+  },
+  "contentReview_clearCancel": {
+    "message": "Avbryt"
+  },
+  "contentReview_clearSuccess": {
+    "message": "Utkast tømt."
+  },
+  "contentReview_originalLabel": {
+    "message": "Originaltekst"
+  },
+  "contentReview_editedLabel": {
+    "message": "Redigert"
   }
 }

@@ -1,39 +1,990 @@
 {
-  "mediaPage.nothingToSend": {
-    "message": "Немає що надсилати"
+  "reviewPage_searchPlaceholder": {
+    "message": "Пошук медіа, нотаток..."
   },
-  "mediaPage.emptyAnalysis": {
-    "message": "Аналіз не може бути порожнім"
+  "reviewPage_search": {
+    "message": "Пошук"
   },
-  "mediaPage.noMediaId": {
-    "message": "Ідентифікатор медіа недоступний"
+  "reviewPage_filters": {
+    "message": "Фільтри"
   },
-  "mediaPage.versionSaved": {
-    "message": "Збережено як нову версію"
+  "reviewPage_media": {
+    "message": "Медіа"
   },
-  "mediaPage.saveFailed": {
-    "message": "Не вдалося зберегти версію"
+  "reviewPage_notes": {
+    "message": "Нотатки"
   },
-  "mediaPage.sendToChat": {
-    "message": "Надіслати в чат"
+  "reviewPage_useReview": {
+    "message": "Використовувати review"
   },
-  "mediaPage.saveAsVersion": {
+  "reviewPage_useSummary": {
+    "message": "Використовувати summary"
+  },
+  "reviewPage_mediaTypes": {
+    "message": "Типи медіа"
+  },
+  "reviewPage_keywords": {
+    "message": "Ключові слова"
+  },
+  "reviewPage_clear": {
+    "message": "Очистити"
+  },
+  "reviewPage_resetFilters": {
+    "message": "Скинути фільтри"
+  },
+  "reviewPage_results": {
+    "message": "Результати"
+  },
+  "reviewPage_noResults": {
+    "message": "Немає результатів"
+  },
+  "reviewPage_analyze_none": {
+    "message": "Немає вмісту для аналізу"
+  },
+  "reviewPage_analyze_saved": {
+    "message": "Аналіз збережено як нотатку"
+  },
+  "reviewPage_analyze_failed": {
+    "message": "Не вдалося проаналізувати та зберегти нотатку"
+  },
+  "reviewPage_searchPrompts": {
+    "message": "Пошук промптів"
+  },
+  "reviewPage_includeLocal": {
+    "message": "Локально"
+  },
+  "reviewPage_includeServer": {
+    "message": "Сервер"
+  },
+  "reviewPage_presets": {
+    "message": "Пресети"
+  },
+  "reviewPage_presetsCritical": {
+    "message": "Критичний"
+  },
+  "reviewPage_presetsQaAudit": {
+    "message": "QA аудит"
+  },
+  "reviewPage_presetsBulletReview": {
+    "message": "Огляд списком"
+  },
+  "reviewPage_reviewSystemPrompt": {
+    "message": "Review: системний промпт"
+  },
+  "reviewPage_reviewUserPrefix": {
+    "message": "Review: префікс користувацького промпта"
+  },
+  "reviewPage_saveAsDefault": {
+    "message": "Зберегти як типове"
+  },
+  "reviewPage_reviewPrompt": {
+    "message": "Review промпт"
+  },
+  "reviewPage_summarySystemPrompt": {
+    "message": "Summary: системний промпт"
+  },
+  "reviewPage_summaryUserPrefix": {
+    "message": "Summary: префікс користувацького промпта"
+  },
+  "reviewPage_summaryPrompt": {
+    "message": "Summary промпт"
+  },
+  "reviewPage_customizePrompts": {
+    "message": "Налаштувати промпти"
+  },
+  "reviewPage_showRawJson": {
+    "message": "Показати сирий JSON"
+  },
+  "reviewPage_noDetailLoaded": {
+    "message": "Деталі не завантажено"
+  },
+  "reviewPage_resetToDefaults": {
+    "message": "Скинути до типових"
+  },
+  "reviewPage_usingReviewPrompts": {
+    "message": "Використовуються review-промпти"
+  },
+  "reviewPage_usingSummaryPrompts": {
+    "message": "Використовуються summary-промпти"
+  },
+  "reviewPage_selectItemFirst": {
+    "message": "Спочатку виберіть елемент"
+  },
+  "reviewPage_selectMediaFirst": {
+    "message": "Спочатку виберіть медіаелемент"
+  },
+  "reviewPage_selectItemEmpty": {
+    "message": "Виберіть елемент для review та аналізу"
+  },
+  "reviewPage_selectMediaEmpty": {
+    "message": "Виберіть медіаелемент, щоб переглянути аналіз"
+  },
+  "reviewPage_generationMode": {
+    "message": "Режим генерації"
+  },
+  "reviewPage_resultTypes": {
+    "message": "Типи результатів"
+  },
+  "reviewPage_advancedTools": {
+    "message": "Розширені інструменти"
+  },
+  "reviewPage_moreActions": {
+    "message": "Додаткові дії"
+  },
+  "reviewPage_toggleSidebar": {
+    "message": "Перемкнути панель результатів"
+  },
+  "reviewPage_autoReviewLabel": {
+    "message": "Автоматично створювати review при виборі елемента"
+  },
+  "reviewPage_demoMode": {
+    "message": "Режим демо"
+  },
+  "reviewPage_mediaOnlySearchPlaceholder": {
+    "message": "Пошук медіа (заголовок/вміст)"
+  },
+  "reviewPage_showSidebar": {
+    "message": "Показати панель результатів"
+  },
+  "reviewPage_hideSidebar": {
+    "message": "Приховати панель результатів"
+  },
+  "reviewPage_selectedBadge": {
+    "message": "Вибрано"
+  },
+  "reviewPage_bulkToolbar": {
+    "message": "Керування review"
+  },
+  "reviewPage_loadedCount": {
+    "message": "{{count}} завантажено"
+  },
+  "reviewPage_viewLabel": {
+    "message": "Перегляд вмісту"
+  },
+  "reviewPage_navigateLabel": {
+    "message": "Елементи"
+  },
+  "reviewPage_mediaModeHint": {
+    "message": "Шукайте та переглядайте по одному медіаелементу. Виберіть результат, щоб побачити вміст і аналіз праворуч."
+  },
+  "reviewPage_resultsHelp": {
+    "message": "Клавіатура: Tab у список результатів, Enter або Пробіл для вибору, далі кнопки Попередній/Наступний у панелі аналізу для переходу між елементами."
+  },
+  "reviewPage_resultsHelpLabel": {
+    "message": "Клавіатурні скорочення для результатів review"
+  },
+  "reviewPage_review": {
+    "message": "Отримати review"
+  },
+  "reviewPage_reviewHint": {
+    "message": "Попросіть асистента зробити review цього елемента."
+  },
+  "reviewPage_summary": {
+    "message": "Отримати summary"
+  },
+  "reviewPage_summaryHint": {
+    "message": "Попросіть коротший summary."
+  },
+  "reviewPage_attachGeneratedHint": {
+    "message": "Запустіть асистента та додайте результат до цього медіа."
+  },
+  "reviewPage_attachReview": {
+    "message": "Додати review до медіа"
+  },
+  "reviewPage_attachSummary": {
+    "message": "Додати summary до медіа"
+  },
+  "reviewPage_saveGeneratedNoteHint": {
+    "message": "Запустіть асистента і збережіть результат як нотатку."
+  },
+  "reviewPage_saveReviewNote": {
+    "message": "Зберегти review як нотатку"
+  },
+  "reviewPage_saveSummaryNote": {
+    "message": "Зберегти summary як нотатку"
+  },
+  "reviewPage_saveToMediaHint": {
+    "message": "Додати поточний текст із редактора до цього медіаелемента."
+  },
+  "reviewPage_saveToMedia": {
+    "message": "Додати поточний текст до медіа"
+  },
+  "reviewPage_saveAnalysisHint": {
+    "message": "Створити нотатку з поточного аналізу."
+  },
+  "reviewPage_saveAnalysis": {
+    "message": "Зберегти в нотатки"
+  },
+  "reviewPage_askAssistantLabel": {
+    "message": "Запитати асистента"
+  },
+  "reviewPage_saveResultsLabel": {
+    "message": "Зберегти результати"
+  },
+  "reviewPage_moreSaveNewVersion": {
     "message": "Зберегти як нову версію"
   },
-  "mediaPage.analysisPlaceholder": {
+  "reviewPage_moreDuplicateVersion": {
+    "message": "Дублювати версію"
+  },
+  "reviewPage_moreRestoreVersion": {
+    "message": "Відновити вибрану версію"
+  },
+  "reviewPage_modeReview": {
+    "message": "Використовувати review"
+  },
+  "reviewPage_modeSummary": {
+    "message": "Використовувати summary"
+  },
+  "reviewPage_resultsHint": {
+    "message": "Натисніть на результат, щоб завантажити його вміст і аналіз праворуч."
+  },
+  "reviewPage_paginationHint": {
+    "message": "Використовуйте фільтри або пагінацію, щоб уточнити результати, якщо завантажено багато елементів."
+  },
+  "reviewPage_offlineHint": {
+    "message": "Підключіться до tldw серверу в налаштуваннях, щоб надсилати повідомлення й переглядати медіа. Після цього ви зможете шукати медіа з цієї сторінки."
+  },
+  "reviewPage_chatWithMedia": {
+    "message": "Чат із цим медіа"
+  },
+  "reviewPage_chatWithMediaHint": {
+    "message": "Відкрити чат і підставити вміст цього медіа у поле введення."
+  },
+  "reviewPage_chatPrepared": {
+    "message": "Чат із цим медіа підготовлено у полі введення."
+  },
+  "reviewPage_chatAboutMediaHint": {
+    "message": "Відкрити RAG-чат лише для цього медіа."
+  },
+  "reviewPage_chatAboutMediaRagSent": {
+    "message": "Відкрито RAG-чат для цього медіа."
+  },
+  "reviewPage_chatAboutMediaInvalidId": {
+    "message": "Цей медіаелемент ще не має числового ідентифікатора."
+  },
+  "reviewPage_demoBadge": {
+    "message": "Демо"
+  },
+  "reviewPage_notConnectedBadge": {
+    "message": "Немає підключення"
+  },
+  "reviewPage_prevItem": {
+    "message": "Попередній"
+  },
+  "reviewPage_nextItem": {
+    "message": "Наступний"
+  },
+  "reviewPage_noContent": {
+    "message": "Немає доступного вмісту"
+  },
+  "reviewPage_showMore": {
+    "message": "Показати більше"
+  },
+  "reviewPage_showLess": {
+    "message": "Показати менше"
+  },
+  "reviewPage_showRaw": {
+    "message": "Показати сирі дані"
+  },
+  "reviewPage_hideRaw": {
+    "message": "Приховати сирі дані"
+  },
+  "reviewPage_noAnalysis": {
+    "message": "Аналізу ще немає"
+  },
+  "reviewPage_mediaContent": {
+    "message": "Вміст медіа"
+  },
+  "reviewPage_copyContent": {
+    "message": "Копіювати вміст"
+  },
+  "reviewPage_analysisTitle": {
+    "message": "Аналіз"
+  },
+  "reviewPage_copyAnalysis": {
+    "message": "Копіювати аналіз"
+  },
+  "reviewPage_sendAnalysisToChat": {
+    "message": "Надіслати аналіз у чат"
+  },
+  "reviewPage_copyAllPlain": {
+    "message": "Копіювати все як звичайний текст"
+  },
+  "reviewPage_copyAllMarkdown": {
+    "message": "Копіювати все як Markdown"
+  },
+  "reviewPage_openInMulti": {
+    "message": "Відкрити в перегляді кількох елементів"
+  },
+  "reviewPage_analysisFailed": {
+    "message": "Не вдалося виконати аналіз"
+  },
+  "reviewPage_analysisAttached": {
+    "message": "Аналіз додано до медіа"
+  },
+  "reviewPage_analyzeSaveFailed": {
+    "message": "Не вдалося проаналізувати та зберегти"
+  },
+  "reviewPage_nothingToSave": {
+    "message": "Немає що зберігати"
+  },
+  "reviewPage_savedToNotes": {
+    "message": "Збережено до нотаток"
+  },
+  "reviewPage_saveFailed": {
+    "message": "Не вдалося зберегти"
+  },
+  "reviewPage_saveToMediaFailed": {
+    "message": "Не вдалося зберегти до медіа"
+  },
+  "reviewPage_sentToChat": {
+    "message": "Надіслано до чату"
+  },
+  "reviewPage_sendFailed": {
+    "message": "Не вдалося надіслати"
+  },
+  "reviewPage_analysisEditorPlaceholder": {
+    "message": "Запустіть Review або Summary і редагуйте тут..."
+  },
+  "reviewPage_createdNewVersion": {
+    "message": "Створено нову версію"
+  },
+  "reviewPage_createVersionFailed": {
+    "message": "Не вдалося створити версію"
+  },
+  "reviewPage_selectVersionFirst": {
+    "message": "Спочатку виберіть версію"
+  },
+  "reviewPage_noVersionNumber": {
+    "message": "Немає номера версії"
+  },
+  "reviewPage_selectedVersionNoContent": {
+    "message": "У вибраної версії немає вмісту"
+  },
+  "reviewPage_clonedVersionCreated": {
+    "message": "Створено клоновану версію"
+  },
+  "reviewPage_cloneFailed": {
+    "message": "Клонування не вдалося"
+  },
+  "reviewPage_confirmTitle": {
+    "message": "Будь ласка, підтвердьте"
+  },
+  "reviewPage_restoreConfirm": {
+    "message": "Відновити цю версію як поточну?"
+  },
+  "reviewPage_restoreAction": {
+    "message": "Відновити"
+  },
+  "reviewPage_cancelAction": {
+    "message": "Скасувати"
+  },
+  "reviewPage_versionRestored": {
+    "message": "Версію відновлено"
+  },
+  "reviewPage_restoreFailed": {
+    "message": "Відновлення не вдалося"
+  },
+  "reviewPage_existingAnalysesTitle": {
+    "message": "Наявні аналізи"
+  },
+  "reviewPage_onlyWithAnalysis": {
+    "message": "Лише з аналізом"
+  },
+  "reviewPage_copyAllLabel": {
+    "message": "Копіювати все"
+  },
+  "reviewPage_copyMdLabel": {
+    "message": "Копіювати MD"
+  },
+  "reviewPage_copiedAllNotes": {
+    "message": "Усі нотатки скопійовано"
+  },
+  "reviewPage_copiedAllNotesMarkdown": {
+    "message": "Усі нотатки скопійовано як Markdown"
+  },
+  "reviewPage_loadSelectedAnalysis": {
+    "message": "Завантажити вибраний аналіз у редактор"
+  },
+  "reviewPage_loadLabel": {
+    "message": "Завантажити"
+  },
+  "reviewPage_loadVersionPrompt": {
+    "message": "Завантажити промпт версії у редактор"
+  },
+  "reviewPage_noPromptFound": {
+    "message": "Промпт не знайдено"
+  },
+  "reviewPage_copyVersionPrompt": {
+    "message": "Копіювати промпт вибраної версії"
+  },
+  "reviewPage_promptCopied": {
+    "message": "Промпт скопійовано"
+  },
+  "reviewPage_diffSelectedCurrent": {
+    "message": "Diff вибраного та поточного"
+  },
+  "reviewPage_versionDeleted": {
+    "message": "Версію видалено"
+  },
+  "reviewPage_versionDeletedDescription": {
+    "message": "Видалено версію v{{version}}."
+  },
+  "reviewPage_undoRolledBack": {
+    "message": "Скасовано: повернуто видалену версію"
+  },
+  "reviewPage_undoFailed": {
+    "message": "Скасування не вдалося"
+  },
+  "reviewPage_undoLabel": {
+    "message": "Скасувати"
+  },
+  "reviewPage_deleteFailed": {
+    "message": "Видалення не вдалося"
+  },
+  "reviewPage_deleteSelectedVersion": {
+    "message": "Видалити вибрану версію"
+  },
+  "reviewPage_noSavedAnalyses": {
+    "message": "Для цього елемента ще немає збережених аналізів."
+  },
+  "reviewPage_currentTag": {
+    "message": "Поточна"
+  },
+  "reviewPage_promptLabel": {
+    "message": "Промпт"
+  },
+  "reviewPage_showLabel": {
+    "message": "Показати"
+  },
+  "reviewPage_hideLabel": {
+    "message": "Приховати"
+  },
+  "reviewPage_copyAnalysisPlainTooltip": {
+    "message": "Копіювати аналіз (звичайний текст)"
+  },
+  "reviewPage_copyLabel": {
+    "message": "Копіювати"
+  },
+  "reviewPage_copyAnalysisMarkdownTooltip": {
+    "message": "Копіювати як Markdown"
+  },
+  "reviewPage_copiedAnalysisMarkdown": {
+    "message": "Аналіз скопійовано як Markdown"
+  },
+  "reviewPage_markdownLabel": {
+    "message": "Markdown"
+  },
+  "reviewPage_copyPromptTooltip": {
+    "message": "Копіювати промпт"
+  },
+  "reviewPage_diffUnified": {
+    "message": "Єдиний вигляд"
+  },
+  "reviewPage_diffSideBySide": {
+    "message": "Поруч"
+  },
+  "reviewPage_diffCopied": {
+    "message": "Diff скопійовано"
+  },
+  "reviewPage_copyDiffLabel": {
+    "message": "Копіювати diff"
+  },
+  "reviewPage_closeLabel": {
+    "message": "Закрити"
+  },
+  "reviewPage_diffTitle": {
+    "message": "Diff: вибране vs поточне"
+  },
+  "reviewPage_diffSelectedVersion": {
+    "message": "Вибрана версія"
+  },
+  "reviewPage_diffCurrentEditor": {
+    "message": "Поточний редактор"
+  },
+  "reviewPage_noDifferences": {
+    "message": "Немає відмінностей"
+  },
+  "reviewPage_chatAboutMedia": {
+    "message": "Чат про це медіа"
+  },
+  "reviewPage_statusProcessing": {
+    "message": "Опрацювання"
+  },
+  "reviewPage_statusQueued": {
+    "message": "У черзі"
+  },
+  "reviewPage_statusError": {
+    "message": "Помилка"
+  },
+  "reviewPage_statusReady": {
+    "message": "Готово"
+  },
+  "reviewPage_loadedOf": {
+    "message": "{{count}} завантажено"
+  },
+  "reviewPage_expandAllContent": {
+    "message": "Показати повністю"
+  },
+  "reviewPage_collapseAllContent": {
+    "message": "Показати коротше"
+  },
+  "reviewPage_expandContent": {
+    "message": "Розгорнути"
+  },
+  "reviewPage_collapseContent": {
+    "message": "Згорнути"
+  },
+  "reviewPage_expandAnalysis": {
+    "message": "Розгорнути"
+  },
+  "reviewPage_collapseAnalysis": {
+    "message": "Згорнути"
+  },
+  "reviewPage_jumpTo": {
+    "message": "Перейти"
+  },
+  "reviewPage_presetsExecutive": {
+    "message": "Для керівництва"
+  },
+  "reviewPage_presetsDetailed": {
+    "message": "Докладний"
+  },
+  "reviewPage_presetsBullets": {
+    "message": "Маркери"
+  },
+  "mediaPage_searchPlaceholder": {
+    "message": "Пошук медіа (заголовок/вміст)"
+  },
+  "mediaPage_search": {
+    "message": "Пошук"
+  },
+  "mediaPage_clear": {
+    "message": "Очистити"
+  },
+  "mediaPage_types": {
+    "message": "Типи"
+  },
+  "mediaPage_keywords": {
+    "message": "Ключові слова"
+  },
+  "mediaPage_moreTags": {
+    "message": "+{{count}} додаткових тегів"
+  },
+  "mediaPage_resetFilters": {
+    "message": "Скинути фільтри"
+  },
+  "mediaPage_clearAll": {
+    "message": "Очистити все"
+  },
+  "mediaPage_content": {
+    "message": "Вміст"
+  },
+  "mediaPage_vertical": {
+    "message": "Вертикально"
+  },
+  "mediaPage_horizontal": {
+    "message": "Горизонтально"
+  },
+  "mediaPage_results": {
+    "message": "Результати"
+  },
+  "mediaPage_noResults": {
+    "message": "Немає результатів"
+  },
+  "mediaPage_showSidebar": {
+    "message": "Показати бічну панель"
+  },
+  "mediaPage_hideSidebar": {
+    "message": "Приховати бічну панель"
+  },
+  "mediaPage_viewer": {
+    "message": "Переглядач"
+  },
+  "mediaPage_selectItemsHint": {
+    "message": "Виберіть елементи ліворуч, щоб переглянути їх тут."
+  },
+  "mediaPage_mediaContent": {
+    "message": "Вміст медіа"
+  },
+  "mediaPage_copyContent": {
+    "message": "Копіювати вміст"
+  },
+  "mediaPage_contentCopied": {
+    "message": "Вміст скопійовано"
+  },
+  "mediaPage_metadataCopied": {
+    "message": "Метадані скопійовано"
+  },
+  "mediaPage_analysisCopied": {
+    "message": "Аналіз скопійовано"
+  },
+  "mediaPage_copyFailed": {
+    "message": "Не вдалося скопіювати"
+  },
+  "mediaPage_noContent": {
+    "message": "Немає доступного вмісту"
+  },
+  "mediaPage_collapse": {
+    "message": "Згорнути"
+  },
+  "mediaPage_expand": {
+    "message": "Розгорнути"
+  },
+  "mediaPage_media": {
+    "message": "Медіа"
+  },
+  "mediaPage_searchingBanner": {
+    "message": "Пошук медіа…"
+  },
+  "mediaPage_filterHelp": {
+    "message": "Пошук збігається із заголовком і вмістом; типи та ключові слова додатково звужують результати."
+  },
+  "mediaPage_noMediaTypes": {
+    "message": "Немає доступних типів медіа"
+  },
+  "mediaPage_resultsCount": {
+    "message": "{{selected}} вибрано · {{open}} відкрито"
+  },
+  "mediaPage_clearSelection": {
+    "message": "Зняти вибір"
+  },
+  "mediaPage_itemsLabel": {
+    "message": "Елементи"
+  },
+  "mediaPage_contentLabel": {
+    "message": "Перегляд вмісту"
+  },
+  "mediaPage_filterByKeyword": {
+    "message": "Фільтрувати за ключовим словом"
+  },
+  "mediaPage_keywordHelper": {
+    "message": "Ключові слова допомагають знайти цей медіаоб’єкт за допомогою фільтра ключових слів ліворуч"
+  },
+  "mediaPage_modeHint": {
+    "message": "Шукайте й групуйте кілька медіаоб’єктів, щоб порівнювати їх у вікні перегляду праворуч."
+  },
+  "mediaPage_viewerHelp": {
+    "message": "Клавіатура: перейдіть до списку результатів за допомогою Tab, використовуйте Enter або пробіл, щоб додати медіаоб’єкт до стека або прибрати його, а також кнопки «Попередній» / «Наступний» і керування макетом, щоб переходити між елементами у вікні перегляду."
+  },
+  "mediaPage_viewerHelpLabel": {
+    "message": "Комбінації клавіш для перегляду кількох елементів"
+  },
+  "mediaPage_mediaInspector": {
+    "message": "Інспектор медіа"
+  },
+  "mediaPage_actionsLabel": {
+    "message": "Дії"
+  },
+  "mediaPage_keywordsPlaceholder": {
+    "message": "Додати ключові слова..."
+  },
+  "mediaPage_noSelectionTitle": {
+    "message": "Медіаоб’єкт не вибрано"
+  },
+  "mediaPage_noSelectionDescription": {
+    "message": "Виберіть медіаоб’єкт у лівій бічній панелі, щоб переглянути його вміст і аналізи тут."
+  },
+  "mediaPage_generateAnalysis": {
+    "message": "Створити аналіз"
+  },
+  "mediaPage_generateAnalysisHint": {
+    "message": "Створити новий аналіз"
+  },
+  "mediaPage_editAnalysis": {
+    "message": "Редагувати аналіз"
+  },
+  "mediaPage_createNoteWithContent": {
+    "message": "Створити нотатку з вмістом"
+  },
+  "mediaPage_createNoteWithContentAnalysis": {
+    "message": "Створити нотатку з вмістом і аналізом"
+  },
+  "mediaPage_untitled": {
+    "message": "Без назви"
+  },
+  "mediaPage_copyMetadata": {
+    "message": "Копіювати метадані"
+  },
+  "mediaPage_statistics": {
+    "message": "Статистика"
+  },
+  "mediaPage_words": {
+    "message": "Слова"
+  },
+  "mediaPage_characters": {
+    "message": "Символи"
+  },
+  "mediaPage_paragraphs": {
+    "message": "Абзаци"
+  },
+  "mediaPage_metadata": {
+    "message": "Метадані"
+  },
+  "mediaPage_idLabel": {
+    "message": "Ідентифікатор"
+  },
+  "mediaPage_typeLabel": {
+    "message": "Тип"
+  },
+  "mediaPage_titleLabel": {
+    "message": "Заголовок"
+  },
+  "mediaPage_source": {
+    "message": "Джерело"
+  },
+  "mediaPage_notAvailable": {
+    "message": "Немає"
+  },
+  "mediaPage_developerTools": {
+    "message": "Засоби розробника"
+  },
+  "mediaPage_nothingToSend": {
+    "message": "Нічого надсилати"
+  },
+  "mediaPage_emptyAnalysis": {
+    "message": "Аналіз не може бути порожнім"
+  },
+  "mediaPage_noMediaId": {
+    "message": "Немає доступного ID медіа"
+  },
+  "mediaPage_versionSaved": {
+    "message": "Збережено як нову версію"
+  },
+  "mediaPage_saveFailed": {
+    "message": "Не вдалося зберегти версію"
+  },
+  "mediaPage_sendToChat": {
+    "message": "Надіслати в чат"
+  },
+  "mediaPage_saveAsVersion": {
+    "message": "Зберегти як нову версію"
+  },
+  "mediaPage_analysisPlaceholder": {
     "message": "Введіть текст аналізу..."
   },
-  "mediaPage.wordCount": {
+  "mediaPage_wordCount": {
     "message": "{{count}} слів"
   },
-  "mediaPage.charCount": {
+  "mediaPage_charCount": {
     "message": "{{count}} символів"
   },
-  "mediaPage.pageRangeError": {
-    "message": "Сторінка має бути від 1 до {{max}}"
+  "mediaPage_pageRangeError": {
+    "message": "Сторінка має бути 1-{{max}}"
   },
-  "mediaPage.pageRangeClamped": {
+  "mediaPage_pageRangeClamped": {
     "message": "Перехід до сторінки {{page}}"
+  },
+  "mediaPage_saveUnauthorized": {
+    "message": "Недостатньо прав для збереження"
+  },
+  "mediaPage_spreadMode": {
+    "message": "Порівняння"
+  },
+  "mediaPage_listMode": {
+    "message": "Фокус"
+  },
+  "mediaPage_allMode": {
+    "message": "Стек"
+  },
+  "mediaPage_spreadModeTooltip": {
+    "message": "Перегляд вибраних елементів поруч для порівняння"
+  },
+  "mediaPage_listModeTooltip": {
+    "message": "Перегляд по одному елементу з навігацією"
+  },
+  "mediaPage_allModeTooltip": {
+    "message": "Перегляд усіх вибраних елементів у прокручуваному списку"
+  },
+  "mediaPage_copyContentLabel": {
+    "message": "Копіювати вміст"
+  },
+  "mediaPage_copyAnalysisLabel": {
+    "message": "Копіювати аналіз"
+  },
+  "mediaPage_copyContentTooltip": {
+    "message": "Копіювати вміст у буфер обміну"
+  },
+  "mediaPage_copyAnalysisTooltip": {
+    "message": "Копіювати аналіз у буфер обміну"
+  },
+  "mediaPage_prevItemTooltip": {
+    "message": "Попередній елемент (←)"
+  },
+  "mediaPage_nextItemTooltip": {
+    "message": "Наступний елемент (→)"
+  },
+  "mediaPage_viewerOptions": {
+    "message": "Параметри"
+  },
+  "mediaPage_expandAllDropdown": {
+    "message": "Розгорнути/Згорнути"
+  },
+  "mediaPage_itemPosition": {
+    "message": "Елемент {{current}} з {{total}}"
+  },
+  "mediaPage_noItemSelected": {
+    "message": "Елемент не вибрано"
+  },
+  "mediaPage_firstUseTitle": {
+    "message": "Швидкий гайд: Перегляд кількох елементів"
+  },
+  "mediaPage_firstUseStep1": {
+    "message": "Виберіть елементи"
+  },
+  "mediaPage_firstUseStep1Desc": {
+    "message": "Клацніть елементи в лівій панелі, щоб додати їх до перегляду."
+  },
+  "mediaPage_firstUseStep2": {
+    "message": "Виберіть вигляд"
+  },
+  "mediaPage_firstUseStep2Desc": {
+    "message": "Використовуйте \"Порівняння\" для поруч, \"Фокус\" для по одному або \"Стек\", щоб бачити всі."
+  },
+  "mediaPage_firstUseStep3": {
+    "message": "Навігація"
+  },
+  "mediaPage_firstUseStep3Desc": {
+    "message": "Використовуйте кнопки Попередній/Наступний або клавіатуру (Tab + Enter), щоб переходити між елементами."
+  },
+  "mediaPage_gotIt": {
+    "message": "Зрозуміло"
+  },
+  "mediaPage_model": {
+    "message": "Модель"
+  },
+  "mediaPage_selectModel": {
+    "message": "Виберіть модель"
+  },
+  "mediaPage_noModelsAvailable": {
+    "message": "Немає доступних моделей"
+  },
+  "mediaPage_promptPresets": {
+    "message": "Пресети промптів"
+  },
+  "mediaPage_showPresets": {
+    "message": "Показати пресети"
+  },
+  "mediaPage_hidePresets": {
+    "message": "Приховати пресети"
+  },
+  "mediaPage_systemPromptLabel": {
+    "message": "Системний промпт"
+  },
+  "mediaPage_systemPromptPlaceholder": {
+    "message": "Введіть системний промпт..."
+  },
+  "mediaPage_userPromptPrefixLabel": {
+    "message": "Префікс користувацького промпта"
+  },
+  "mediaPage_prependedBeforeContent": {
+    "message": "(додається перед вмістом)"
+  },
+  "mediaPage_userPrefixPlaceholder": {
+    "message": "Необов'язково: введіть текст, який буде додано перед вмістом медіа..."
+  },
+  "mediaPage_presetComprehensiveAnalysis": {
+    "message": "Комплексний аналіз"
+  },
+  "mediaPage_presetExecutiveSummary": {
+    "message": "Резюме для керівництва"
+  },
+  "mediaPage_presetCriticalReview": {
+    "message": "Критичний огляд"
+  },
+  "mediaPage_presetQAAnalysis": {
+    "message": "Аналіз запитань і відповідей"
+  },
+  "empty_connectTitle": {
+    "message": "Підключіться, щоб використовувати review"
+  },
+  "empty_connectDescription": {
+    "message": "Підключіться до свого tldw сервера в налаштуваннях, щоб надсилати повідомлення й переглядати медіа. Після підключення ви зможете переглядати медіа та нотатки тут."
+  },
+  "empty_connectExample1": {
+    "message": "Відкрийте Налаштування → tldw server, щоб додати URL сервера."
+  },
+  "empty_connectExample2": {
+    "message": "Після підключення переглядайте медіа й нотатки та створюйте структуровані review і summary."
+  },
+  "empty_demoTitle": {
+    "message": "Ознайомтеся з review у режимі демо"
+  },
+  "empty_demoDescription": {
+    "message": "Це демо показує, як tldw Assistant може перетворювати медіа й нотатки на структуровані review. Пізніше підключіть свій сервер, щоб аналізувати власний контент."
+  },
+  "empty_demoExample1": {
+    "message": "Подивіться, як вибрані медіа й нотатки з’являються в робочому просторі review."
+  },
+  "empty_demoExample2": {
+    "message": "Після підключення ви зможете створювати summary та пункти дій із власних записів і нотаток."
+  },
+  "mediaEmpty_demoTitle": {
+    "message": "Ознайомтеся з медіа у режимі демо"
+  },
+  "mediaEmpty_demoDescription": {
+    "message": "Це демо показує, як tldw Assistant може показувати та переглядати оброблені медіа. Пізніше підключіть свій сервер, щоб переглядати власні записи й документи."
+  },
+  "mediaEmpty_demoExample1": {
+    "message": "Подивіться, як оброблені медіаелементи відображаються у переглядачі медіа."
+  },
+  "mediaEmpty_demoExample2": {
+    "message": "Після підключення ви зможете переглядати та перевіряти медіа, імпортовані з ваших записів і файлів."
+  },
+  "mediaEmpty_connectTitle": {
+    "message": "Підключіться, щоб використовувати медіа"
+  },
+  "mediaEmpty_connectDescription": {
+    "message": "Підключіться до свого tldw сервера в налаштуваннях, щоб надсилати повідомлення й переглядати медіа. Після підключення оброблені записи й документи будуть показані тут."
+  },
+  "mediaEmpty_connectExample1": {
+    "message": "Відкрийте Налаштування → tldw server, щоб додати URL сервера."
+  },
+  "mediaEmpty_connectExample2": {
+    "message": "Після підключення використовуйте Quick ingest у заголовку, щоб додавати медіа з власних записів і файлів."
+  },
+  "mediaEmpty_offlineTitle": {
+    "message": "Перегляд медіа ще недоступний на цьому сервері"
+  },
+  "mediaEmpty_offlineDescription": {
+    "message": "Цей робочий простір залежить від підтримки перегляду медіа на вашому tldw сервері. Ви можете й далі користуватися чатом, нотатками та іншими інструментами, поки оновлюєте сервер до версії з медіа."
+  },
+  "mediaEmpty_offlineExample1": {
+    "message": "Відкрийте Diagnostics, щоб підтвердити версію сервера та доступні API."
+  },
+  "mediaEmpty_offlineExample2": {
+    "message": "Після оновлення перезавантажте розширення й поверніться до «Медіа»."
+  },
+  "mediaEmpty_featureUnavailableBadge": {
+    "message": "Функція недоступна"
+  },
+  "mediaEmpty_demoExample3": {
+    "message": "Використовуйте Медіа разом із Оглядом, щоб підсумовувати або аналізувати записи."
+  },
+  "mediaEmpty_demoPreviewHeading": {
+    "message": "Приклади медіафайлів (лише для перегляду)"
+  },
+  "mediaEmpty_demoSample1Title": {
+    "message": "Демо-медіа: запис командного дзвінка"
+  },
+  "mediaEmpty_demoSample1Meta": {
+    "message": "Відео · 25 хв · Ключові слова: стендап, планування"
+  },
+  "mediaEmpty_demoSample2Title": {
+    "message": "Демо-медіа: огляд продукту"
+  },
+  "mediaEmpty_demoSample2Meta": {
+    "message": "Запис екрана · 12 хв · Ключові слова: онбординг"
+  },
+  "mediaEmpty_demoSample3Title": {
+    "message": "Демо-медіа: PDF з науковою статтею"
+  },
+  "mediaEmpty_demoSample3Meta": {
+    "message": "PDF · 6 сторінок · Ключові слова: узагальнення"
+  },
+  "mediaEmpty_offlineTechnicalDetails": {
+    "message": "Технічні деталі: цей tldw-сервер не рекламує медіа-ендпоїнти (наприклад, /api/v1/media та /api/v1/media/search)."
   },
   "noToolCalls": {
     "message": "Ще немає викликів інструментів"
@@ -46,5 +997,326 @@
   },
   "result": {
     "message": "Результат"
+  },
+  "reviewDraftsFailedTitle": {
+    "message": "Не вдалося створити чернетки для перевірки."
+  },
+  "reviewDraftsFailedFallback": {
+    "message": "Помилка створення чернеток для перевірки."
+  },
+  "reviewDraftsRetry": {
+    "message": "Повторити створення чернеток"
+  },
+  "reviewDraftsStoreWithoutReview": {
+    "message": "Зберегти без перевірки"
+  },
+  "reviewNavigationFailed": {
+    "message": "Не вдалося відкрити Перевірку контенту. Спробуйте ще раз."
+  },
+  "reviewNavigationRetry": {
+    "message": "Повторити відкриття Перевірки контенту"
+  },
+  "contentReview_title": {
+    "message": "Перевірка контенту"
+  },
+  "contentReview_readyToSubmit": {
+    "message": "{{count}} готові"
+  },
+  "contentReview_committedCount": {
+    "message": "{{count}} зафіксовано"
+  },
+  "contentReview_totalCount": {
+    "message": "Разом {{count}}"
+  },
+  "contentReview_commitAll": {
+    "message": "Зафіксувати все"
+  },
+  "contentReview_clearDrafts": {
+    "message": "Очистити чернетки"
+  },
+  "contentReview_emptyDescription": {
+    "message": "Чернеток ще немає. Використовуйте Quick Ingest з параметром \"Перевірити перед збереженням\", щоб створювати чернетки."
+  },
+  "contentReview_openQuickIngest": {
+    "message": "Відкрити Quick Ingest"
+  },
+  "contentReview_storeAfterReview": {
+    "message": "Зберігати після перевірки"
+  },
+  "contentReview_reviewBeforeStorage": {
+    "message": "Перевірити перед збереженням"
+  },
+  "contentReview_reviewBeforeStorageHint": {
+    "message": "Створювати чернетки та перевіряти їх перед збереженням"
+  },
+  "contentReview_reviewEnabled": {
+    "message": "Перевірка ввімкнена"
+  },
+  "contentReview_reviewStorageCap": {
+    "message": "Ліміт збереження перевірки"
+  },
+  "contentReview_reviewWarningTitle": {
+    "message": "Зберегти чернетки локально?"
+  },
+  "contentReview_reviewWarningBody": {
+    "message": "Чернетки зберігаються у цьому браузері й можуть містити конфіденційні дані. Ви можете очистити чернетки на сторінці «Перевірка контенту» в будь-який час."
+  },
+  "contentReview_reviewWarningBodySecondary": {
+    "message": "Режим перевірки зберігає контент локально, доки ви не зафіксуєте його на сервері."
+  },
+  "contentReview_reviewWarningConfirm": {
+    "message": "Увімкнути перевірку"
+  },
+  "contentReview_reviewWarningCancel": {
+    "message": "Скасувати"
+  },
+  "contentReview_reviewRunLabel": {
+    "message": "Запустити перевірку"
+  },
+  "contentReview_reviewDraftsCreated": {
+    "message": "Чернетки створено"
+  },
+  "contentReview_reviewStorageCapWarning_one": {
+    "message": "{{count}} файл перевищує ліміт збереження для перевірки ({{cap}})."
+  },
+  "contentReview_reviewStorageCapWarning_few": {
+    "message": "{{count}} файли перевищують ліміт збереження для перевірки ({{cap}})."
+  },
+  "contentReview_reviewStorageCapWarning_many": {
+    "message": "{{count}} файлів перевищують ліміт збереження для перевірки ({{cap}})."
+  },
+  "contentReview_reviewStorageCapWarning_other": {
+    "message": "{{count}} файлів перевищують ліміт збереження для перевірки ({{cap}})."
+  },
+  "contentReview_openContentReview": {
+    "message": "Відкрити Перевірку контенту"
+  },
+  "contentReview_batchLabel": {
+    "message": "Пакет"
+  },
+  "contentReview_batchName": {
+    "message": "Пакет {{index}}"
+  },
+  "contentReview_draftsLabel": {
+    "message": "Чернетки"
+  },
+  "contentReview_selectDraft": {
+    "message": "Виберіть чернетку, щоб розпочати перевірку."
+  },
+  "contentReview_titlePlaceholder": {
+    "message": "Назва чернетки"
+  },
+  "contentReview_lastSaved": {
+    "message": "Збережено {{time}}"
+  },
+  "contentReview_resetTitle": {
+    "message": "Скинути чернетку?"
+  },
+  "contentReview_resetBody": {
+    "message": "Це відновить початковий вміст цієї чернетки."
+  },
+  "contentReview_resetConfirm": {
+    "message": "Скинути"
+  },
+  "contentReview_resetCancel": {
+    "message": "Скасувати"
+  },
+  "contentReview_resetContent": {
+    "message": "Скинути"
+  },
+  "contentReview_diffView": {
+    "message": "Перегляд diff"
+  },
+  "contentReview_saveDraft": {
+    "message": "Зберегти чернетку"
+  },
+  "contentReview_editorLabel": {
+    "message": "Вміст"
+  },
+  "contentReview_wordCount": {
+    "message": "{{words}} слів"
+  },
+  "contentReview_charCount": {
+    "message": "{{chars}} символів"
+  },
+  "contentReview_aiFix": {
+    "message": "Виправити за допомогою ШІ"
+  },
+  "contentReview_aiHint": {
+    "message": "Надсилає вміст чернетки на ваш сервер для обробки ШІ."
+  },
+  "contentReview_modelPlaceholder": {
+    "message": "Типове значення сервера"
+  },
+  "contentReview_aiConsentTitle": {
+    "message": "Надіслати чернетку на сервер?"
+  },
+  "contentReview_aiConsentBody": {
+    "message": "Вміст чернетки буде надіслано на ваш сервер tldw для обробки ШІ. Чернетки залишаються локальними, доки ви їх не зафіксуєте."
+  },
+  "contentReview_aiConsentConfirm": {
+    "message": "Продовжити"
+  },
+  "contentReview_aiConsentCancel": {
+    "message": "Скасувати"
+  },
+  "contentReview_aiApplied": {
+    "message": "Виправлення ШІ застосовано."
+  },
+  "contentReview_aiNoChange": {
+    "message": "Змін не отримано."
+  },
+  "contentReview_aiEmpty": {
+    "message": "ШІ не повернув вміст."
+  },
+  "contentReview_aiUnavailable": {
+    "message": "Доповнення чату недоступні."
+  },
+  "contentReview_templatePlaceholder": {
+    "message": "Виберіть шаблон"
+  },
+  "contentReview_applyTemplate": {
+    "message": "Застосувати шаблон"
+  },
+  "contentReview_templateApplied": {
+    "message": "Шаблон застосовано."
+  },
+  "contentReview_templateMissing": {
+    "message": "Спочатку виберіть шаблон."
+  },
+  "contentReview_detectSections": {
+    "message": "Визначити розділи"
+  },
+  "contentReview_detectSectionsTitle": {
+    "message": "Повторно визначити розділи?"
+  },
+  "contentReview_detectSectionsBody": {
+    "message": "Це замінить наявні розділи та скине ваш вибір."
+  },
+  "contentReview_detectSectionsConfirm": {
+    "message": "Визначити знову"
+  },
+  "contentReview_detectSectionsCancel": {
+    "message": "Скасувати"
+  },
+  "contentReview_detectSectionsEmpty": {
+    "message": "Розділів не виявлено."
+  },
+  "contentReview_sectionsLabel": {
+    "message": "Фільтр розділів"
+  },
+  "contentReview_templates_transcript_clean_label": {
+    "message": "Очистити транскрипт"
+  },
+  "contentReview_templates_transcript_clean_description": {
+    "message": "Нормалізує пунктуацію та регістр, зберігаючи структуру рядків."
+  },
+  "contentReview_templates_speaker_turns_label": {
+    "message": "Репліки спікерів"
+  },
+  "contentReview_templates_speaker_turns_description": {
+    "message": "Гарантує, що кожна репліка спікера знаходиться в окремому рядку з чіткими мітками."
+  },
+  "contentReview_templates_chapter_headings_label": {
+    "message": "Заголовки розділів"
+  },
+  "contentReview_templates_chapter_headings_description": {
+    "message": "Вставляє заголовки Markdown для групування тем без видалення вмісту."
+  },
+  "contentReview_metadataLabel": {
+    "message": "Метадані"
+  },
+  "contentReview_mediaType": {
+    "message": "Тип медіа"
+  },
+  "contentReview_keywords": {
+    "message": "Ключові слова"
+  },
+  "contentReview_keywordsPlaceholder": {
+    "message": "Додати ключові слова"
+  },
+  "contentReview_reviewNotes": {
+    "message": "Нотатки перевірки"
+  },
+  "contentReview_missingSource": {
+    "message": "Вихідний файл відсутній"
+  },
+  "contentReview_missingSourceBody": {
+    "message": "Прикріпіть вихідний файл, щоб зафіксувати цю чернетку."
+  },
+  "contentReview_attachSource": {
+    "message": "Прикріпити файл"
+  },
+  "contentReview_actionsLabel": {
+    "message": "Дії"
+  },
+  "contentReview_commit": {
+    "message": "Зафіксувати"
+  },
+  "contentReview_commitDisabled": {
+    "message": "Прикріпіть вихідний аудіо/відеофайл перед фіксацією."
+  },
+  "contentReview_markReviewed": {
+    "message": "Позначити як перевірену"
+  },
+  "contentReview_skipNext": {
+    "message": "Пропустити"
+  },
+  "contentReview_discard": {
+    "message": "Відхилити"
+  },
+  "contentReview_discardTitle": {
+    "message": "Відхилити чернетку?"
+  },
+  "contentReview_discardBody": {
+    "message": "Цю чернетку буде позначено як відхилену та вилучено з перевірки."
+  },
+  "contentReview_discardConfirm": {
+    "message": "Відхилити"
+  },
+  "contentReview_discardCancel": {
+    "message": "Скасувати"
+  },
+  "contentReview_commitSuccess": {
+    "message": "Чернетку зафіксовано."
+  },
+  "contentReview_commitAllTitle": {
+    "message": "Зафіксувати перевірені чернетки?"
+  },
+  "contentReview_commitAllBody": {
+    "message": "Буде зафіксовано лише чернетки, позначені як перевірені."
+  },
+  "contentReview_commitAllConfirm": {
+    "message": "Зафіксувати все"
+  },
+  "contentReview_commitAllCancel": {
+    "message": "Скасувати"
+  },
+  "contentReview_commitAllResult": {
+    "message": "{{success}} зафіксовано · {{failed}} з помилкою"
+  },
+  "contentReview_storageCapWarning": {
+    "message": "Цей файл перевищує локальний ліміт чернеток ({{cap}})."
+  },
+  "contentReview_clearTitle": {
+    "message": "Очистити всі чернетки?"
+  },
+  "contentReview_clearBody": {
+    "message": "Видаляє всі локальні чернетки та файли, що використовуються для перевірки контенту."
+  },
+  "contentReview_clearConfirm": {
+    "message": "Очистити чернетки"
+  },
+  "contentReview_clearCancel": {
+    "message": "Скасувати"
+  },
+  "contentReview_clearSuccess": {
+    "message": "Чернетки видалено."
+  },
+  "contentReview_originalLabel": {
+    "message": "Оригінал"
+  },
+  "contentReview_editedLabel": {
+    "message": "Змінено"
   }
 }

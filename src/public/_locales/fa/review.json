@@ -1,39 +1,990 @@
 {
-  "mediaPage.nothingToSend": {
+  "reviewPage_searchPlaceholder": {
+    "message": "جستجوی رسانه‌ها، یادداشت‌ها..."
+  },
+  "reviewPage_search": {
+    "message": "جستجو"
+  },
+  "reviewPage_filters": {
+    "message": "فیلترها"
+  },
+  "reviewPage_media": {
+    "message": "رسانه"
+  },
+  "reviewPage_notes": {
+    "message": "یادداشت‌ها"
+  },
+  "reviewPage_useReview": {
+    "message": "استفاده از بازبینی"
+  },
+  "reviewPage_useSummary": {
+    "message": "استفاده از خلاصه"
+  },
+  "reviewPage_mediaTypes": {
+    "message": "انواع رسانه"
+  },
+  "reviewPage_keywords": {
+    "message": "کلیدواژه‌ها"
+  },
+  "reviewPage_clear": {
+    "message": "پاک کردن فیلترها"
+  },
+  "reviewPage_resetFilters": {
+    "message": "بازنشانی فیلترها"
+  },
+  "reviewPage_results": {
+    "message": "نتایج"
+  },
+  "reviewPage_noResults": {
+    "message": "نتیجه‌ای یافت نشد"
+  },
+  "reviewPage_analyze_none": {
+    "message": "محتوایی برای تحلیل در دسترس نیست"
+  },
+  "reviewPage_analyze_saved": {
+    "message": "تحلیل به‌عنوان یادداشت ذخیره شد"
+  },
+  "reviewPage_analyze_failed": {
+    "message": "تحلیل و ذخیره یادداشت ناموفق بود"
+  },
+  "reviewPage_searchPrompts": {
+    "message": "جستجوی پرامپت‌ها"
+  },
+  "reviewPage_includeLocal": {
+    "message": "محلی"
+  },
+  "reviewPage_includeServer": {
+    "message": "سرور"
+  },
+  "reviewPage_presets": {
+    "message": "پیش‌تنظیم‌ها"
+  },
+  "reviewPage_presetsCritical": {
+    "message": "انتقادی"
+  },
+  "reviewPage_presetsQaAudit": {
+    "message": "بازرسی QA"
+  },
+  "reviewPage_presetsBulletReview": {
+    "message": "بازبینی بولت"
+  },
+  "reviewPage_reviewSystemPrompt": {
+    "message": "بازبینی: پرامپت سیستم"
+  },
+  "reviewPage_reviewUserPrefix": {
+    "message": "بازبینی: پیشوند پرامپت کاربر"
+  },
+  "reviewPage_saveAsDefault": {
+    "message": "ذخیره به‌عنوان پیش‌فرض"
+  },
+  "reviewPage_reviewPrompt": {
+    "message": "پرامپت بازبینی"
+  },
+  "reviewPage_summarySystemPrompt": {
+    "message": "خلاصه: پرامپت سیستم"
+  },
+  "reviewPage_summaryUserPrefix": {
+    "message": "خلاصه: پیشوند پرامپت کاربر"
+  },
+  "reviewPage_summaryPrompt": {
+    "message": "پرامپت خلاصه"
+  },
+  "reviewPage_customizePrompts": {
+    "message": "شخصی‌سازی پرامپت‌ها"
+  },
+  "reviewPage_showRawJson": {
+    "message": "نمایش JSON خام"
+  },
+  "reviewPage_noDetailLoaded": {
+    "message": "هیچ جزئیاتی بارگذاری نشده است"
+  },
+  "reviewPage_resetToDefaults": {
+    "message": "بازنشانی به پیش‌فرض‌ها"
+  },
+  "reviewPage_usingReviewPrompts": {
+    "message": "در حال استفاده از پرامپت‌های بازبینی"
+  },
+  "reviewPage_usingSummaryPrompts": {
+    "message": "در حال استفاده از پرامپت‌های خلاصه"
+  },
+  "reviewPage_selectItemFirst": {
+    "message": "ابتدا یک مورد را انتخاب کنید"
+  },
+  "reviewPage_selectMediaFirst": {
+    "message": "ابتدا یک مورد رسانه‌ای را انتخاب کنید"
+  },
+  "reviewPage_selectItemEmpty": {
+    "message": "برای بازبینی و تحلیل یک مورد را انتخاب کنید"
+  },
+  "reviewPage_selectMediaEmpty": {
+    "message": "برای مشاهده تحلیل‌ها یک مورد رسانه‌ای انتخاب کنید"
+  },
+  "reviewPage_generationMode": {
+    "message": "حالت تولید"
+  },
+  "reviewPage_resultTypes": {
+    "message": "انواع نتیجه"
+  },
+  "reviewPage_advancedTools": {
+    "message": "ابزارهای پیشرفته"
+  },
+  "reviewPage_moreActions": {
+    "message": "اقدامات بیشتر"
+  },
+  "reviewPage_toggleSidebar": {
+    "message": "نمایش/پنهان کردن نوار نتایج"
+  },
+  "reviewPage_autoReviewLabel": {
+    "message": "با انتخاب هر مورد، بازبینی به‌صورت خودکار ایجاد شود"
+  },
+  "reviewPage_demoMode": {
+    "message": "حالت دمو"
+  },
+  "reviewPage_mediaOnlySearchPlaceholder": {
+    "message": "جستجوی رسانه (عنوان/محتوا)"
+  },
+  "reviewPage_showSidebar": {
+    "message": "نمایش نوار نتایج"
+  },
+  "reviewPage_hideSidebar": {
+    "message": "پنهان کردن نوار نتایج"
+  },
+  "reviewPage_selectedBadge": {
+    "message": "انتخاب‌شده"
+  },
+  "reviewPage_bulkToolbar": {
+    "message": "نوار ابزار نمای گروهی"
+  },
+  "reviewPage_loadedCount": {
+    "message": "{{count}} مورد بارگذاری شد"
+  },
+  "reviewPage_viewLabel": {
+    "message": "نمایش محتوا"
+  },
+  "reviewPage_navigateLabel": {
+    "message": "موارد"
+  },
+  "reviewPage_mediaModeHint": {
+    "message": "هر بار یک مورد رسانه‌ای را جستجو و بررسی کنید. یک نتیجه را انتخاب کنید تا محتوا و تحلیل‌های آن در سمت راست نمایش داده شود."
+  },
+  "reviewPage_resultsHelp": {
+    "message": "صفحه‌کلید: با Tab وارد فهرست نتایج شوید، با Enter یا Space ردیف فعال را انتخاب کنید، سپس با دکمه‌های قبلی/بعدی در نوار ابزار تحلیل بین موارد جابه‌جا شوید."
+  },
+  "reviewPage_resultsHelpLabel": {
+    "message": "میان‌برهای صفحه‌کلید نتایج بازبینی"
+  },
+  "reviewPage_review": {
+    "message": "دریافت بازبینی"
+  },
+  "reviewPage_reviewHint": {
+    "message": "از دستیار بخواهید این مورد را بازبینی کند."
+  },
+  "reviewPage_summary": {
+    "message": "دریافت خلاصه"
+  },
+  "reviewPage_summaryHint": {
+    "message": "درخواست خلاصه کوتاه‌تر."
+  },
+  "reviewPage_attachGeneratedHint": {
+    "message": "دستیار را اجرا کنید و نتیجه را به این مورد رسانه‌ای پیوست کنید."
+  },
+  "reviewPage_attachReview": {
+    "message": "پیوست بازبینی به رسانه"
+  },
+  "reviewPage_attachSummary": {
+    "message": "پیوست خلاصه به رسانه"
+  },
+  "reviewPage_saveGeneratedNoteHint": {
+    "message": "دستیار را اجرا کنید و نتیجه را به‌صورت یادداشت ذخیره کنید."
+  },
+  "reviewPage_saveReviewNote": {
+    "message": "ذخیره بازبینی به‌صورت یادداشت"
+  },
+  "reviewPage_saveSummaryNote": {
+    "message": "ذخیره خلاصه به‌صورت یادداشت"
+  },
+  "reviewPage_saveToMediaHint": {
+    "message": "متن فعلی ویرایشگر را به این مورد رسانه‌ای پیوست کنید."
+  },
+  "reviewPage_saveToMedia": {
+    "message": "پیوست متن فعلی به رسانه"
+  },
+  "reviewPage_saveAnalysisHint": {
+    "message": "از تحلیل فعلی یادداشت بسازید."
+  },
+  "reviewPage_saveAnalysis": {
+    "message": "ذخیره در یادداشت‌ها"
+  },
+  "reviewPage_askAssistantLabel": {
+    "message": "از دستیار بپرسید"
+  },
+  "reviewPage_saveResultsLabel": {
+    "message": "ذخیره نتایج"
+  },
+  "reviewPage_moreSaveNewVersion": {
+    "message": "ذخیره به‌عنوان نسخه جدید"
+  },
+  "reviewPage_moreDuplicateVersion": {
+    "message": "تکثیر نسخه"
+  },
+  "reviewPage_moreRestoreVersion": {
+    "message": "بازگردانی نسخه انتخاب‌شده"
+  },
+  "reviewPage_modeReview": {
+    "message": "استفاده از بازبینی"
+  },
+  "reviewPage_modeSummary": {
+    "message": "استفاده از خلاصه"
+  },
+  "reviewPage_resultsHint": {
+    "message": "برای بارگذاری محتوا و تحلیل‌ها در سمت راست، روی نتیجه کلیک کنید."
+  },
+  "reviewPage_paginationHint": {
+    "message": "اگر موارد زیادی بارگذاری شده‌اند، از فیلترها یا صفحه‌بندی برای محدود کردن نتایج استفاده کنید."
+  },
+  "reviewPage_offlineHint": {
+    "message": "برای ارسال پیام و مشاهده رسانه، در تنظیمات به سرور tldw خود متصل شوید. سپس می‌توانید از این صفحه رسانه‌ها را جستجو کنید."
+  },
+  "reviewPage_chatWithMedia": {
+    "message": "گفتگو درباره این رسانه"
+  },
+  "reviewPage_chatWithMediaHint": {
+    "message": "چت را باز کنید و کادر نوشتن را با محتوای این رسانه از پیش پر کنید."
+  },
+  "reviewPage_chatPrepared": {
+    "message": "گفتگو با این رسانه در کادر نوشتن آماده شد."
+  },
+  "reviewPage_chatAboutMediaHint": {
+    "message": "چت RAG را فقط برای این رسانه باز کنید."
+  },
+  "reviewPage_chatAboutMediaRagSent": {
+    "message": "چت RAG با محدوده رسانه باز شد."
+  },
+  "reviewPage_chatAboutMediaInvalidId": {
+    "message": "این مورد رسانه‌ای هنوز شناسه عددی ندارد."
+  },
+  "reviewPage_demoBadge": {
+    "message": "نسخه نمایشی"
+  },
+  "reviewPage_notConnectedBadge": {
+    "message": "بدون اتصال"
+  },
+  "reviewPage_prevItem": {
+    "message": "قبلی"
+  },
+  "reviewPage_nextItem": {
+    "message": "بعدی"
+  },
+  "reviewPage_noContent": {
+    "message": "هیچ محتوایی موجود نیست"
+  },
+  "reviewPage_showMore": {
+    "message": "نمایش بیشتر"
+  },
+  "reviewPage_showLess": {
+    "message": "نمایش کمتر"
+  },
+  "reviewPage_showRaw": {
+    "message": "نمایش خام"
+  },
+  "reviewPage_hideRaw": {
+    "message": "پنهان کردن خام"
+  },
+  "reviewPage_noAnalysis": {
+    "message": "هنوز تحلیلی وجود ندارد"
+  },
+  "reviewPage_mediaContent": {
+    "message": "محتوای رسانه"
+  },
+  "reviewPage_copyContent": {
+    "message": "کپی محتوا"
+  },
+  "reviewPage_analysisTitle": {
+    "message": "تحلیل"
+  },
+  "reviewPage_copyAnalysis": {
+    "message": "کپی تحلیل"
+  },
+  "reviewPage_sendAnalysisToChat": {
+    "message": "ارسال تحلیل به چت"
+  },
+  "reviewPage_copyAllPlain": {
+    "message": "کپی همه به‌صورت متن ساده"
+  },
+  "reviewPage_copyAllMarkdown": {
+    "message": "کپی همه به‌صورت Markdown"
+  },
+  "reviewPage_openInMulti": {
+    "message": "باز کردن در بررسی چندموردی"
+  },
+  "reviewPage_analysisFailed": {
+    "message": "تحلیل ناموفق بود"
+  },
+  "reviewPage_analysisAttached": {
+    "message": "تحلیل به رسانه پیوست شد"
+  },
+  "reviewPage_analyzeSaveFailed": {
+    "message": "تحلیل و ذخیره ناموفق بود"
+  },
+  "reviewPage_nothingToSave": {
+    "message": "چیزی برای ذخیره وجود ندارد"
+  },
+  "reviewPage_savedToNotes": {
+    "message": "در یادداشت‌ها ذخیره شد"
+  },
+  "reviewPage_saveFailed": {
+    "message": "ذخیره ناموفق بود"
+  },
+  "reviewPage_saveToMediaFailed": {
+    "message": "ذخیره در رسانه ناموفق بود"
+  },
+  "reviewPage_sentToChat": {
+    "message": "به چت ارسال شد"
+  },
+  "reviewPage_sendFailed": {
+    "message": "ارسال ناموفق بود"
+  },
+  "reviewPage_analysisEditorPlaceholder": {
+    "message": "بازبینی یا خلاصه را اجرا کنید، سپس اینجا ویرایش کنید..."
+  },
+  "reviewPage_createdNewVersion": {
+    "message": "نسخه جدید ایجاد شد"
+  },
+  "reviewPage_createVersionFailed": {
+    "message": "ایجاد نسخه ناموفق بود"
+  },
+  "reviewPage_selectVersionFirst": {
+    "message": "ابتدا یک نسخه را انتخاب کنید"
+  },
+  "reviewPage_noVersionNumber": {
+    "message": "شماره نسخه وجود ندارد"
+  },
+  "reviewPage_selectedVersionNoContent": {
+    "message": "نسخه انتخاب‌شده محتوایی ندارد"
+  },
+  "reviewPage_clonedVersionCreated": {
+    "message": "نسخه کپی‌شده ایجاد شد"
+  },
+  "reviewPage_cloneFailed": {
+    "message": "کپی نسخه ناموفق بود"
+  },
+  "reviewPage_confirmTitle": {
+    "message": "لطفاً تأیید کنید"
+  },
+  "reviewPage_restoreConfirm": {
+    "message": "این نسخه به‌عنوان نسخه فعلی بازگردانی شود؟"
+  },
+  "reviewPage_restoreAction": {
+    "message": "بازگردانی"
+  },
+  "reviewPage_cancelAction": {
+    "message": "لغو"
+  },
+  "reviewPage_versionRestored": {
+    "message": "نسخه بازگردانی شد"
+  },
+  "reviewPage_restoreFailed": {
+    "message": "بازگردانی ناموفق بود"
+  },
+  "reviewPage_existingAnalysesTitle": {
+    "message": "تحلیل‌های موجود"
+  },
+  "reviewPage_onlyWithAnalysis": {
+    "message": "فقط موارد دارای تحلیل"
+  },
+  "reviewPage_copyAllLabel": {
+    "message": "کپی همه"
+  },
+  "reviewPage_copyMdLabel": {
+    "message": "کپی MD"
+  },
+  "reviewPage_copiedAllNotes": {
+    "message": "همه یادداشت‌ها کپی شدند"
+  },
+  "reviewPage_copiedAllNotesMarkdown": {
+    "message": "همه یادداشت‌ها به‌صورت Markdown کپی شدند"
+  },
+  "reviewPage_loadSelectedAnalysis": {
+    "message": "بارگذاری تحلیل انتخاب‌شده در ویرایشگر"
+  },
+  "reviewPage_loadLabel": {
+    "message": "بارگذاری"
+  },
+  "reviewPage_loadVersionPrompt": {
+    "message": "بارگذاری پرامپت نسخه در ویرایشگر"
+  },
+  "reviewPage_noPromptFound": {
+    "message": "هیچ پرامپتی یافت نشد"
+  },
+  "reviewPage_copyVersionPrompt": {
+    "message": "کپی پرامپت نسخه انتخاب‌شده"
+  },
+  "reviewPage_promptCopied": {
+    "message": "پرامپت کپی شد"
+  },
+  "reviewPage_diffSelectedCurrent": {
+    "message": "تفاوت انتخاب‌شده در برابر فعلی"
+  },
+  "reviewPage_versionDeleted": {
+    "message": "نسخه حذف شد"
+  },
+  "reviewPage_versionDeletedDescription": {
+    "message": "نسخه v{{version}} حذف شد."
+  },
+  "reviewPage_undoRolledBack": {
+    "message": "واگردانی: بازگشت به نسخه حذف‌شده"
+  },
+  "reviewPage_undoFailed": {
+    "message": "واگردانی ناموفق بود"
+  },
+  "reviewPage_undoLabel": {
+    "message": "واگردانی"
+  },
+  "reviewPage_deleteFailed": {
+    "message": "حذف ناموفق بود"
+  },
+  "reviewPage_deleteSelectedVersion": {
+    "message": "حذف نسخه انتخاب‌شده"
+  },
+  "reviewPage_noSavedAnalyses": {
+    "message": "هنوز تحلیلی برای این مورد ذخیره نشده است."
+  },
+  "reviewPage_currentTag": {
+    "message": "فعلی"
+  },
+  "reviewPage_promptLabel": {
+    "message": "پرامپت"
+  },
+  "reviewPage_showLabel": {
+    "message": "نمایش"
+  },
+  "reviewPage_hideLabel": {
+    "message": "پنهان کردن"
+  },
+  "reviewPage_copyAnalysisPlainTooltip": {
+    "message": "کپی تحلیل (متن ساده)"
+  },
+  "reviewPage_copyLabel": {
+    "message": "کپی"
+  },
+  "reviewPage_copyAnalysisMarkdownTooltip": {
+    "message": "کپی به‌صورت Markdown"
+  },
+  "reviewPage_copiedAnalysisMarkdown": {
+    "message": "تحلیل به‌صورت Markdown کپی شد"
+  },
+  "reviewPage_markdownLabel": {
+    "message": "Markdown"
+  },
+  "reviewPage_copyPromptTooltip": {
+    "message": "کپی پرامپت"
+  },
+  "reviewPage_diffUnified": {
+    "message": "یکپارچه"
+  },
+  "reviewPage_diffSideBySide": {
+    "message": "کنار هم"
+  },
+  "reviewPage_diffCopied": {
+    "message": "تفاوت کپی شد"
+  },
+  "reviewPage_copyDiffLabel": {
+    "message": "کپی تفاوت"
+  },
+  "reviewPage_closeLabel": {
+    "message": "بستن"
+  },
+  "reviewPage_diffTitle": {
+    "message": "تفاوت: انتخاب‌شده در برابر فعلی"
+  },
+  "reviewPage_diffSelectedVersion": {
+    "message": "نسخه انتخاب‌شده"
+  },
+  "reviewPage_diffCurrentEditor": {
+    "message": "ویرایشگر فعلی"
+  },
+  "reviewPage_noDifferences": {
+    "message": "هیچ تفاوتی نیست"
+  },
+  "reviewPage_chatAboutMedia": {
+    "message": "گفتگو درباره این رسانه"
+  },
+  "reviewPage_statusProcessing": {
+    "message": "در حال پردازش"
+  },
+  "reviewPage_statusQueued": {
+    "message": "در صف"
+  },
+  "reviewPage_statusError": {
+    "message": "خطا"
+  },
+  "reviewPage_statusReady": {
+    "message": "آماده"
+  },
+  "reviewPage_loadedOf": {
+    "message": "{{count}} بارگذاری شد"
+  },
+  "reviewPage_expandAllContent": {
+    "message": "نمایش کامل"
+  },
+  "reviewPage_collapseAllContent": {
+    "message": "نمایش کوتاه‌تر"
+  },
+  "reviewPage_expandContent": {
+    "message": "باز کردن"
+  },
+  "reviewPage_collapseContent": {
+    "message": "جمع کردن"
+  },
+  "reviewPage_expandAnalysis": {
+    "message": "باز کردن"
+  },
+  "reviewPage_collapseAnalysis": {
+    "message": "جمع کردن"
+  },
+  "reviewPage_jumpTo": {
+    "message": "پرش به"
+  },
+  "reviewPage_presetsExecutive": {
+    "message": "اجرایی"
+  },
+  "reviewPage_presetsDetailed": {
+    "message": "تفصیلی"
+  },
+  "reviewPage_presetsBullets": {
+    "message": "بولت‌ها"
+  },
+  "mediaPage_searchPlaceholder": {
+    "message": "جستجوی رسانه (عنوان/محتوا)"
+  },
+  "mediaPage_search": {
+    "message": "جستجو"
+  },
+  "mediaPage_clear": {
+    "message": "پاک کردن"
+  },
+  "mediaPage_types": {
+    "message": "انواع"
+  },
+  "mediaPage_keywords": {
+    "message": "کلیدواژه‌ها"
+  },
+  "mediaPage_moreTags": {
+    "message": "+{{count}} برچسب دیگر"
+  },
+  "mediaPage_resetFilters": {
+    "message": "بازنشانی فیلترها"
+  },
+  "mediaPage_clearAll": {
+    "message": "پاک کردن همه"
+  },
+  "mediaPage_content": {
+    "message": "محتوا"
+  },
+  "mediaPage_vertical": {
+    "message": "عمودی"
+  },
+  "mediaPage_horizontal": {
+    "message": "افقی"
+  },
+  "mediaPage_results": {
+    "message": "نتایج"
+  },
+  "mediaPage_noResults": {
+    "message": "نتیجه‌ای یافت نشد"
+  },
+  "mediaPage_showSidebar": {
+    "message": "نمایش نوار کناری"
+  },
+  "mediaPage_hideSidebar": {
+    "message": "پنهان کردن نوار کناری"
+  },
+  "mediaPage_viewer": {
+    "message": "نمایشگر"
+  },
+  "mediaPage_selectItemsHint": {
+    "message": "برای نمایش در اینجا، موارد را از سمت چپ انتخاب کنید."
+  },
+  "mediaPage_mediaContent": {
+    "message": "محتوای رسانه"
+  },
+  "mediaPage_copyContent": {
+    "message": "کپی محتوا"
+  },
+  "mediaPage_contentCopied": {
+    "message": "محتوا کپی شد"
+  },
+  "mediaPage_metadataCopied": {
+    "message": "فراداده کپی شد"
+  },
+  "mediaPage_analysisCopied": {
+    "message": "تحلیل کپی شد"
+  },
+  "mediaPage_copyFailed": {
+    "message": "کپی ناموفق بود"
+  },
+  "mediaPage_noContent": {
+    "message": "هیچ محتوایی موجود نیست"
+  },
+  "mediaPage_collapse": {
+    "message": "جمع کردن"
+  },
+  "mediaPage_expand": {
+    "message": "باز کردن"
+  },
+  "mediaPage_media": {
+    "message": "رسانه"
+  },
+  "mediaPage_searchingBanner": {
+    "message": "در حال جستجوی رسانه…"
+  },
+  "mediaPage_filterHelp": {
+    "message": "جستجو عنوان و محتوا را تطبیق می‌دهد؛ انواع و کلیدواژه‌ها نتایج را محدودتر می‌کنند."
+  },
+  "mediaPage_noMediaTypes": {
+    "message": "هیچ نوع رسانه‌ای در دسترس نیست"
+  },
+  "mediaPage_resultsCount": {
+    "message": "{{selected}} انتخاب‌شده · {{open}} باز"
+  },
+  "mediaPage_clearSelection": {
+    "message": "لغو انتخاب همه"
+  },
+  "mediaPage_itemsLabel": {
+    "message": "موارد"
+  },
+  "mediaPage_contentLabel": {
+    "message": "نمای محتوا"
+  },
+  "mediaPage_filterByKeyword": {
+    "message": "فیلتر بر اساس کلمه کلیدی"
+  },
+  "mediaPage_keywordHelper": {
+    "message": "کلمات کلیدی به شما کمک می‌کنند این رسانه را با استفاده از فیلتر کلمات کلیدی در سمت چپ پیدا کنید"
+  },
+  "mediaPage_modeHint": {
+    "message": "برای مقایسه، چند مورد رسانه‌ای را جستجو کرده و در نماگر سمت راست روی هم قرار دهید."
+  },
+  "mediaPage_viewerHelp": {
+    "message": "صفحه‌کلید: با Tab وارد فهرست نتایج شوید، با Enter یا Space یک مورد رسانه‌ای را روی هم بگذارید یا بردارید، سپس با دکمه‌های قبلی/بعدی و کنترل‌های چیدمان بین موارد در نماگر جابه‌جا شوید."
+  },
+  "mediaPage_viewerHelpLabel": {
+    "message": "میان‌برهای صفحه‌کلید برای بررسی چند موردی"
+  },
+  "mediaPage_mediaInspector": {
+    "message": "بازبین رسانه"
+  },
+  "mediaPage_actionsLabel": {
+    "message": "اقدام‌ها"
+  },
+  "mediaPage_keywordsPlaceholder": {
+    "message": "افزودن کلمهٔ کلیدی..."
+  },
+  "mediaPage_noSelectionTitle": {
+    "message": "هیچ مورد رسانه‌ای انتخاب نشده است"
+  },
+  "mediaPage_noSelectionDescription": {
+    "message": "برای دیدن محتوا و تحلیل‌ها در اینجا، یک مورد رسانه‌ای را از نوار کناری سمت چپ انتخاب کنید."
+  },
+  "mediaPage_generateAnalysis": {
+    "message": "تولید تحلیل"
+  },
+  "mediaPage_generateAnalysisHint": {
+    "message": "تولید یک تحلیل جدید"
+  },
+  "mediaPage_editAnalysis": {
+    "message": "ویرایش تحلیل"
+  },
+  "mediaPage_createNoteWithContent": {
+    "message": "ایجاد یادداشت با محتوا"
+  },
+  "mediaPage_createNoteWithContentAnalysis": {
+    "message": "ایجاد یادداشت با محتوا + تحلیل"
+  },
+  "mediaPage_untitled": {
+    "message": "بدون عنوان"
+  },
+  "mediaPage_copyMetadata": {
+    "message": "کپی فراداده"
+  },
+  "mediaPage_statistics": {
+    "message": "آمار"
+  },
+  "mediaPage_words": {
+    "message": "کلمات"
+  },
+  "mediaPage_characters": {
+    "message": "کاراکترها"
+  },
+  "mediaPage_paragraphs": {
+    "message": "پاراگراف‌ها"
+  },
+  "mediaPage_metadata": {
+    "message": "فراداده"
+  },
+  "mediaPage_idLabel": {
+    "message": "شناسه"
+  },
+  "mediaPage_typeLabel": {
+    "message": "نوع"
+  },
+  "mediaPage_titleLabel": {
+    "message": "عنوان"
+  },
+  "mediaPage_source": {
+    "message": "منبع"
+  },
+  "mediaPage_notAvailable": {
+    "message": "ناموجود"
+  },
+  "mediaPage_developerTools": {
+    "message": "ابزارهای توسعه‌دهنده"
+  },
+  "mediaPage_nothingToSend": {
     "message": "موردی برای ارسال وجود ندارد"
   },
-  "mediaPage.emptyAnalysis": {
+  "mediaPage_emptyAnalysis": {
     "message": "تحلیل نمی‌تواند خالی باشد"
   },
-  "mediaPage.noMediaId": {
+  "mediaPage_noMediaId": {
     "message": "شناسه رسانه‌ای در دسترس نیست"
   },
-  "mediaPage.versionSaved": {
-    "message": "به\u200cعنوان نسخه جدید ذخیره شد"
+  "mediaPage_versionSaved": {
+    "message": "به‌عنوان نسخه جدید ذخیره شد"
   },
-  "mediaPage.saveFailed": {
+  "mediaPage_saveFailed": {
     "message": "ذخیره نسخه ناموفق بود"
   },
-  "mediaPage.sendToChat": {
+  "mediaPage_sendToChat": {
     "message": "ارسال به چت"
   },
-  "mediaPage.saveAsVersion": {
-    "message": "ذخیره به\u200cعنوان نسخه جدید"
+  "mediaPage_saveAsVersion": {
+    "message": "ذخیره به‌عنوان نسخه جدید"
   },
-  "mediaPage.analysisPlaceholder": {
+  "mediaPage_analysisPlaceholder": {
     "message": "متن تحلیل را وارد کنید..."
   },
-  "mediaPage.wordCount": {
+  "mediaPage_wordCount": {
     "message": "{{count}} کلمه"
   },
-  "mediaPage.charCount": {
+  "mediaPage_charCount": {
     "message": "{{count}} نویسه"
   },
-  "mediaPage.pageRangeError": {
+  "mediaPage_pageRangeError": {
     "message": "صفحه باید بین ۱ تا {{max}} باشد"
   },
-  "mediaPage.pageRangeClamped": {
-    "message": "در حال رفتن به صفحه {{page}}"
+  "mediaPage_pageRangeClamped": {
+    "message": "در حال انتقال به صفحهٔ {{page}}"
+  },
+  "mediaPage_saveUnauthorized": {
+    "message": "مجاز به ذخیره نیستید"
+  },
+  "mediaPage_spreadMode": {
+    "message": "مقایسه"
+  },
+  "mediaPage_listMode": {
+    "message": "تمرکز"
+  },
+  "mediaPage_allMode": {
+    "message": "پشته"
+  },
+  "mediaPage_spreadModeTooltip": {
+    "message": "نمایش موارد انتخاب‌شده کنار هم برای مقایسه"
+  },
+  "mediaPage_listModeTooltip": {
+    "message": "نمایش تک‌به‌تک همراه با ناوبری"
+  },
+  "mediaPage_allModeTooltip": {
+    "message": "نمایش همه موارد انتخاب‌شده در یک فهرست قابل پیمایش"
+  },
+  "mediaPage_copyContentLabel": {
+    "message": "کپی محتوا"
+  },
+  "mediaPage_copyAnalysisLabel": {
+    "message": "کپی تحلیل"
+  },
+  "mediaPage_copyContentTooltip": {
+    "message": "کپی محتوا در کلیپ‌بورد"
+  },
+  "mediaPage_copyAnalysisTooltip": {
+    "message": "کپی تحلیل در کلیپ‌بورد"
+  },
+  "mediaPage_prevItemTooltip": {
+    "message": "مورد قبلی (←)"
+  },
+  "mediaPage_nextItemTooltip": {
+    "message": "مورد بعدی (→)"
+  },
+  "mediaPage_viewerOptions": {
+    "message": "گزینه‌ها"
+  },
+  "mediaPage_expandAllDropdown": {
+    "message": "باز/بسته کردن"
+  },
+  "mediaPage_itemPosition": {
+    "message": "مورد {{current}} از {{total}}"
+  },
+  "mediaPage_noItemSelected": {
+    "message": "هیچ موردی انتخاب نشده است"
+  },
+  "mediaPage_firstUseTitle": {
+    "message": "راهنمای سریع: بازبینی چندموردی"
+  },
+  "mediaPage_firstUseStep1": {
+    "message": "انتخاب موارد"
+  },
+  "mediaPage_firstUseStep1Desc": {
+    "message": "برای افزودن به نمایشگر، روی موارد در پنل سمت چپ کلیک کنید."
+  },
+  "mediaPage_firstUseStep2": {
+    "message": "انتخاب نما"
+  },
+  "mediaPage_firstUseStep2Desc": {
+    "message": "برای نمایش کنار هم «مقایسه»، برای تک‌به‌تک «تمرکز»، یا برای دیدن همه «پشته» را انتخاب کنید."
+  },
+  "mediaPage_firstUseStep3": {
+    "message": "ناوبری"
+  },
+  "mediaPage_firstUseStep3Desc": {
+    "message": "با دکمه‌های قبلی/بعدی یا صفحه‌کلید (Tab + Enter) بین موارد جابه‌جا شوید."
+  },
+  "mediaPage_gotIt": {
+    "message": "متوجه شدم"
+  },
+  "mediaPage_model": {
+    "message": "مدل"
+  },
+  "mediaPage_selectModel": {
+    "message": "انتخاب مدل"
+  },
+  "mediaPage_noModelsAvailable": {
+    "message": "هیچ مدلی در دسترس نیست"
+  },
+  "mediaPage_promptPresets": {
+    "message": "پیش‌تنظیم‌های پرامپت"
+  },
+  "mediaPage_showPresets": {
+    "message": "نمایش پیش‌تنظیم‌ها"
+  },
+  "mediaPage_hidePresets": {
+    "message": "پنهان کردن پیش‌تنظیم‌ها"
+  },
+  "mediaPage_systemPromptLabel": {
+    "message": "پرامپت سیستم"
+  },
+  "mediaPage_systemPromptPlaceholder": {
+    "message": "پرامپت سیستم را وارد کنید..."
+  },
+  "mediaPage_userPromptPrefixLabel": {
+    "message": "پیشوند پرامپت کاربر"
+  },
+  "mediaPage_prependedBeforeContent": {
+    "message": "(پیش از محتوا افزوده می‌شود)"
+  },
+  "mediaPage_userPrefixPlaceholder": {
+    "message": "اختیاری: متنی برای افزودن قبل از محتوای رسانه وارد کنید..."
+  },
+  "mediaPage_presetComprehensiveAnalysis": {
+    "message": "تحلیل جامع"
+  },
+  "mediaPage_presetExecutiveSummary": {
+    "message": "خلاصه اجرایی"
+  },
+  "mediaPage_presetCriticalReview": {
+    "message": "بازبینی انتقادی"
+  },
+  "mediaPage_presetQAAnalysis": {
+    "message": "تحلیل پرسش‌وپاسخ"
+  },
+  "empty_connectTitle": {
+    "message": "برای استفاده از بازبینی متصل شوید"
+  },
+  "empty_connectDescription": {
+    "message": "برای ارسال پیام و مشاهده رسانه‌ها، در تنظیمات به سرور tldw خود متصل شوید. پس از اتصال می‌توانید رسانه‌ها و یادداشت‌ها را اینجا بازبینی کنید."
+  },
+  "empty_connectExample1": {
+    "message": "برای افزودن نشانی سرور خود، «Settings → tldw server» را باز کنید."
+  },
+  "empty_connectExample2": {
+    "message": "پس از اتصال، رسانه‌ها و یادداشت‌ها را مرور کنید و بازبینی‌ها و خلاصه‌های ساختارمند بسازید."
+  },
+  "empty_demoTitle": {
+    "message": "بازبینی را در حالت دمو کاوش کنید"
+  },
+  "empty_demoDescription": {
+    "message": "این دمو نشان می‌دهد دستیار tldw چگونه می‌تواند رسانه‌ها و یادداشت‌ها را به بازبینی‌های ساختارمند تبدیل کند. بعداً می‌توانید سرور خود را متصل کنید تا محتوای خودتان را تحلیل کنید."
+  },
+  "empty_demoExample1": {
+    "message": "ببینید رسانه‌ها و یادداشت‌های انتخاب‌شده چگونه در فضای کاری بازبینی نمایش داده می‌شوند."
+  },
+  "empty_demoExample2": {
+    "message": "وقتی متصل شوید، می‌توانید از ضبط‌ها و یادداشت‌های خودتان خلاصه‌ها و موارد اقدام تولید کنید."
+  },
+  "mediaEmpty_demoTitle": {
+    "message": "رسانه‌ها را در حالت دمو کاوش کنید"
+  },
+  "mediaEmpty_demoDescription": {
+    "message": "این دمو نشان می‌دهد دستیار tldw چگونه می‌تواند رسانه‌های پردازش‌شده را نمایش دهد و بررسی کند. بعداً سرور خود را متصل کنید تا ضبط‌ها و اسناد خود را مرور کنید."
+  },
+  "mediaEmpty_demoExample1": {
+    "message": "ببینید آیتم‌های رسانه‌ای پردازش‌شده چگونه در نمایشگر Media ظاهر می‌شوند."
+  },
+  "mediaEmpty_demoExample2": {
+    "message": "وقتی متصل شوید، می‌توانید رسانه‌های واردشده از ضبط‌ها و فایل‌های خودتان را مرور و بررسی کنید."
+  },
+  "mediaEmpty_connectTitle": {
+    "message": "برای استفاده از Media متصل شوید"
+  },
+  "mediaEmpty_connectDescription": {
+    "message": "برای ارسال پیام و مشاهده رسانه‌ها، در تنظیمات به سرور tldw خود متصل شوید. پس از اتصال، ضبط‌ها و اسناد پردازش‌شده اینجا فهرست می‌شوند."
+  },
+  "mediaEmpty_connectExample1": {
+    "message": "برای افزودن نشانی سرور خود، «Settings → tldw server» را باز کنید."
+  },
+  "mediaEmpty_connectExample2": {
+    "message": "پس از اتصال، از «Quick ingest» در سربرگ استفاده کنید تا رسانه‌ها را از ضبط‌ها و فایل‌های خود اضافه کنید."
+  },
+  "mediaEmpty_offlineTitle": {
+    "message": "بازبینی رسانه هنوز در این سرور فعال نیست"
+  },
+  "mediaEmpty_offlineDescription": {
+    "message": "این فضای کاری به پشتیبانی بازبینی رسانه در سرور tldw شما وابسته است. می‌توانید در حین ارتقا به نسخه‌ای که رسانه را شامل می‌شود، از چت، یادداشت‌ها و سایر ابزارها استفاده کنید."
+  },
+  "mediaEmpty_offlineExample1": {
+    "message": "پس از ارتقا، افزونه را دوباره بارگذاری کنید و به رسانه برگردید."
+  },
+  "mediaEmpty_offlineExample2": {
+    "message": "برای فعال شدن بازبینی رسانه، سرور شما باید نسخه‌ای را اجرا کند که قابلیت رسانه را پشتیبانی می‌کند."
+  },
+  "mediaEmpty_offlineTechnicalDetails": {
+    "message": "برای فعال شدن بازبینی رسانه، سرور شما باید نسخه‌ای را اجرا کند که قابلیت رسانه را پشتیبانی می‌کند؛ لطفاً سرور را به‌روز کنید یا با تیم زیرساخت تماس بگیرید."
+  },
+  "mediaEmpty_featureUnavailableBadge": {
+    "message": "قابلیت در دسترس نیست"
+  },
+  "mediaEmpty_demoExample3": {
+    "message": "از Media همراه با Review برای خلاصه‌سازی یا تحلیل ضبط‌ها استفاده کنید."
+  },
+  "mediaEmpty_demoPreviewHeading": {
+    "message": "آیتم‌های رسانه‌ای نمونه (فقط پیش‌نمایش)"
+  },
+  "mediaEmpty_demoSample1Title": {
+    "message": "رسانهٔ دمو: ضبط تماس تیم"
+  },
+  "mediaEmpty_demoSample1Meta": {
+    "message": "ویدیو · ۲۵ دقیقه · کلیدواژه‌ها: استندآپ، برنامه‌ریزی"
+  },
+  "mediaEmpty_demoSample2Title": {
+    "message": "رسانهٔ دمو: مرور محصول"
+  },
+  "mediaEmpty_demoSample2Meta": {
+    "message": "ضبط صفحه · ۱۲ دقیقه · کلیدواژه‌ها: onboarding"
+  },
+  "mediaEmpty_demoSample3Title": {
+    "message": "رسانهٔ دمو: PDF مقالهٔ پژوهشی"
+  },
+  "mediaEmpty_demoSample3Meta": {
+    "message": "PDF · ۶ صفحه · کلیدواژه‌ها: خلاصه‌سازی"
   },
   "noToolCalls": {
     "message": "هنوز هیچ فراخوانی ابزاری انجام نشده است"
@@ -46,5 +997,320 @@
   },
   "result": {
     "message": "نتیجه"
+  },
+  "reviewDraftsFailedTitle": {
+    "message": "پیش‌نویس‌های بازبینی ایجاد نشدند."
+  },
+  "reviewDraftsFailedFallback": {
+    "message": "ایجاد پیش‌نویس‌های بازبینی ناموفق بود."
+  },
+  "reviewDraftsRetry": {
+    "message": "تلاش دوباره برای ایجاد پیش‌نویس"
+  },
+  "reviewDraftsStoreWithoutReview": {
+    "message": "ذخیره بدون بازبینی"
+  },
+  "reviewNavigationFailed": {
+    "message": "باز کردن بازبینی محتوا ممکن نبود. دوباره تلاش کنید."
+  },
+  "reviewNavigationRetry": {
+    "message": "تلاش دوباره برای باز کردن بازبینی محتوا"
+  },
+  "contentReview_title": {
+    "message": "بازبینی محتوا"
+  },
+  "contentReview_readyToSubmit": {
+    "message": "{{count}} آماده"
+  },
+  "contentReview_committedCount": {
+    "message": "{{count}} ثبت‌شده"
+  },
+  "contentReview_totalCount": {
+    "message": "{{count}} کل"
+  },
+  "contentReview_commitAll": {
+    "message": "ثبت همه"
+  },
+  "contentReview_clearDrafts": {
+    "message": "حذف پیش‌نویس‌ها"
+  },
+  "contentReview_emptyDescription": {
+    "message": "هنوز هیچ پیش‌نویسی ندارید. برای ساخت پیش‌نویس از Quick Ingest همراه با «بازبینی قبل از ذخیره» استفاده کنید."
+  },
+  "contentReview_openQuickIngest": {
+    "message": "باز کردن Quick Ingest"
+  },
+  "contentReview_storeAfterReview": {
+    "message": "ذخیره پس از بازبینی"
+  },
+  "contentReview_reviewBeforeStorage": {
+    "message": "بازبینی پیش از ذخیره"
+  },
+  "contentReview_reviewBeforeStorageHint": {
+    "message": "اکنون پردازش کنید و سپس پیش‌نویس‌ها را به‌صورت محلی ویرایش کنید قبل از اینکه در سرور ثبت شوند."
+  },
+  "contentReview_reviewEnabled": {
+    "message": "حالت بازبینی"
+  },
+  "contentReview_reviewStorageCap": {
+    "message": "سقف پیش‌نویس‌های محلی {{cap}} است."
+  },
+  "contentReview_reviewWarningTitle": {
+    "message": "پیش‌نویس‌ها به‌صورت محلی ذخیره شوند؟"
+  },
+  "contentReview_reviewWarningBody": {
+    "message": "پیش‌نویس‌ها در این مرورگر ذخیره می‌شوند و ممکن است داده‌های حساس داشته باشند. می‌توانید هر زمان از صفحه «بازبینی محتوا» پیش‌نویس‌ها را پاک کنید."
+  },
+  "contentReview_reviewWarningBodySecondary": {
+    "message": "حالت بازبینی محتوا را تا زمان ثبت در سرور در سمت کاربر نگه می‌دارد."
+  },
+  "contentReview_reviewWarningConfirm": {
+    "message": "فعال‌کردن بازبینی"
+  },
+  "contentReview_reviewWarningCancel": {
+    "message": "لغو"
+  },
+  "contentReview_reviewRunLabel": {
+    "message": "بازبینی"
+  },
+  "contentReview_reviewDraftsCreated": {
+    "message": "پیش‌نویس‌ها برای بازبینی آماده‌اند."
+  },
+  "contentReview_reviewStorageCapWarning_one": {
+    "message": "{{count}} فایل از سقف پیش‌نویس محلی ({{cap}}) عبور می‌کند. قبل از ثبت صوت/ویدئو، منابع را پیوست کنید."
+  },
+  "contentReview_reviewStorageCapWarning_other": {
+    "message": "{{count}} فایل از سقف پیش‌نویس محلی ({{cap}}) عبور می‌کنند. قبل از ثبت صوت/ویدئو، منابع را پیوست کنید."
+  },
+  "contentReview_openContentReview": {
+    "message": "باز کردن بازبینی محتوا"
+  },
+  "contentReview_batchLabel": {
+    "message": "دسته"
+  },
+  "contentReview_batchName": {
+    "message": "دسته {{index}}"
+  },
+  "contentReview_draftsLabel": {
+    "message": "پیش‌نویس‌ها"
+  },
+  "contentReview_selectDraft": {
+    "message": "برای شروع بازبینی یک پیش‌نویس را انتخاب کنید."
+  },
+  "contentReview_titlePlaceholder": {
+    "message": "عنوان پیش‌نویس"
+  },
+  "contentReview_lastSaved": {
+    "message": "ذخیره‌شده در {{time}}"
+  },
+  "contentReview_resetTitle": {
+    "message": "بازنشانی پیش‌نویس؟"
+  },
+  "contentReview_resetBody": {
+    "message": "این کار محتوای اولیه این پیش‌نویس را برمی‌گرداند."
+  },
+  "contentReview_resetConfirm": {
+    "message": "بازنشانی"
+  },
+  "contentReview_resetCancel": {
+    "message": "انصراف"
+  },
+  "contentReview_resetContent": {
+    "message": "بازنشانی"
+  },
+  "contentReview_diffView": {
+    "message": "نمای تفاوت‌ها"
+  },
+  "contentReview_saveDraft": {
+    "message": "ذخیره پیش‌نویس"
+  },
+  "contentReview_editorLabel": {
+    "message": "محتوا"
+  },
+  "contentReview_wordCount": {
+    "message": "{{words}} کلمه"
+  },
+  "contentReview_charCount": {
+    "message": "{{chars}} نویسه"
+  },
+  "contentReview_aiFix": {
+    "message": "اصلاح با هوش مصنوعی"
+  },
+  "contentReview_aiHint": {
+    "message": "محتوای پیش‌نویس را برای پردازش با هوش مصنوعی به سرور شما ارسال می‌کند."
+  },
+  "contentReview_modelPlaceholder": {
+    "message": "پیش‌فرض سرور"
+  },
+  "contentReview_aiConsentTitle": {
+    "message": "ارسال پیش‌نویس به سرور؟"
+  },
+  "contentReview_aiConsentBody": {
+    "message": "این کار محتوای پیش‌نویس را برای پردازش با هوش مصنوعی به سرور tldw شما ارسال می‌کند. پیش‌نویس‌ها تا زمانی که ثبت کنید، محلی باقی می‌مانند."
+  },
+  "contentReview_aiConsentConfirm": {
+    "message": "ادامه"
+  },
+  "contentReview_aiConsentCancel": {
+    "message": "انصراف"
+  },
+  "contentReview_aiApplied": {
+    "message": "اصلاحات هوش مصنوعی اعمال شد."
+  },
+  "contentReview_aiNoChange": {
+    "message": "هیچ تغییری برگردانده نشد."
+  },
+  "contentReview_aiEmpty": {
+    "message": "هوش مصنوعی هیچ محتوایی برنگرداند."
+  },
+  "contentReview_aiUnavailable": {
+    "message": "تکمیل چت در دسترس نیست."
+  },
+  "contentReview_templatePlaceholder": {
+    "message": "انتخاب الگو"
+  },
+  "contentReview_applyTemplate": {
+    "message": "اعمال الگو"
+  },
+  "contentReview_templateApplied": {
+    "message": "الگو اعمال شد."
+  },
+  "contentReview_templateMissing": {
+    "message": "ابتدا یک الگو انتخاب کنید."
+  },
+  "contentReview_detectSections": {
+    "message": "شناسایی بخش‌ها"
+  },
+  "contentReview_detectSectionsTitle": {
+    "message": "بخش‌ها دوباره شناسایی شوند؟"
+  },
+  "contentReview_detectSectionsBody": {
+    "message": "این کار بخش‌های موجود را جایگزین و انتخاب‌های شما را بازنشانی می‌کند."
+  },
+  "contentReview_detectSectionsConfirm": {
+    "message": "شناسایی دوباره"
+  },
+  "contentReview_detectSectionsCancel": {
+    "message": "انصراف"
+  },
+  "contentReview_detectSectionsEmpty": {
+    "message": "هیچ بخشی شناسایی نشد."
+  },
+  "contentReview_sectionsLabel": {
+    "message": "فیلتر بخش"
+  },
+  "contentReview_templates_transcript_clean_label": {
+    "message": "پاک‌سازی رونوشت"
+  },
+  "contentReview_templates_transcript_clean_description": {
+    "message": "علائم نگارشی و حروف بزرگ/کوچک را یکدست می‌کند و ساختار خطوط را حفظ می‌کند."
+  },
+  "contentReview_templates_speaker_turns_label": {
+    "message": "نوبت‌های سخن‌گو"
+  },
+  "contentReview_templates_speaker_turns_description": {
+    "message": "اطمینان می‌دهد هر نوبت سخن‌گو در خط جداگانه با برچسب‌های واضح قرار گیرد."
+  },
+  "contentReview_templates_chapter_headings_label": {
+    "message": "سرفصل‌های فصل"
+  },
+  "contentReview_templates_chapter_headings_description": {
+    "message": "سرتیترهای Markdown اضافه می‌کند تا موضوعات را گروه‌بندی کند بدون اینکه محتوا را حذف کند."
+  },
+  "contentReview_metadataLabel": {
+    "message": "فراداده"
+  },
+  "contentReview_mediaType": {
+    "message": "نوع رسانه"
+  },
+  "contentReview_keywords": {
+    "message": "کلیدواژه‌ها"
+  },
+  "contentReview_keywordsPlaceholder": {
+    "message": "افزودن کلیدواژه"
+  },
+  "contentReview_reviewNotes": {
+    "message": "یادداشت‌های بازبینی"
+  },
+  "contentReview_missingSource": {
+    "message": "فایل منبع پیدا نشد"
+  },
+  "contentReview_missingSourceBody": {
+    "message": "برای ثبت این پیش‌نویس، فایل اصلی را پیوست کنید."
+  },
+  "contentReview_attachSource": {
+    "message": "پیوست فایل"
+  },
+  "contentReview_actionsLabel": {
+    "message": "اقدامات"
+  },
+  "contentReview_commit": {
+    "message": "ثبت"
+  },
+  "contentReview_commitDisabled": {
+    "message": "قبل از ثبت، فایل صوتی/ویدئویی اصلی را پیوست کنید."
+  },
+  "contentReview_markReviewed": {
+    "message": "علامت‌گذاری به‌عنوان بازبینی‌شده"
+  },
+  "contentReview_skipNext": {
+    "message": "رد کردن"
+  },
+  "contentReview_discard": {
+    "message": "حذف"
+  },
+  "contentReview_discardTitle": {
+    "message": "حذف پیش‌نویس؟"
+  },
+  "contentReview_discardBody": {
+    "message": "این پیش‌نویس به‌عنوان حذف‌شده علامت‌گذاری و از فرایند بازبینی خارج می‌شود."
+  },
+  "contentReview_discardConfirm": {
+    "message": "حذف"
+  },
+  "contentReview_discardCancel": {
+    "message": "انصراف"
+  },
+  "contentReview_commitSuccess": {
+    "message": "پیش‌نویس ثبت شد."
+  },
+  "contentReview_commitAllTitle": {
+    "message": "ثبت پیش‌نویس‌های بازبینی‌شده؟"
+  },
+  "contentReview_commitAllBody": {
+    "message": "فقط پیش‌نویس‌هایی که به‌عنوان بازبینی‌شده علامت خورده‌اند ثبت می‌شوند."
+  },
+  "contentReview_commitAllConfirm": {
+    "message": "ثبت همه"
+  },
+  "contentReview_commitAllCancel": {
+    "message": "انصراف"
+  },
+  "contentReview_commitAllResult": {
+    "message": "{{success}} ثبت شد · {{failed}} ناموفق"
+  },
+  "contentReview_storageCapWarning": {
+    "message": "این فایل از سقف محلی پیش‌نویس‌ها ({{cap}}) فراتر می‌رود."
+  },
+  "contentReview_clearTitle": {
+    "message": "حذف تمام پیش‌نویس‌ها؟"
+  },
+  "contentReview_clearBody": {
+    "message": "این کار همه پیش‌نویس‌ها و فایل‌های محلی بازبینی محتوا را حذف می‌کند."
+  },
+  "contentReview_clearConfirm": {
+    "message": "حذف پیش‌نویس‌ها"
+  },
+  "contentReview_clearCancel": {
+    "message": "انصراف"
+  },
+  "contentReview_clearSuccess": {
+    "message": "پیش‌نویس‌ها حذف شدند."
+  },
+  "contentReview_originalLabel": {
+    "message": "نسخه اصلی"
+  },
+  "contentReview_editedLabel": {
+    "message": "نسخه ویرایش‌شده"
   }
 }

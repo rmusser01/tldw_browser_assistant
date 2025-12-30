@@ -144,15 +144,20 @@ export const TimelineToolbar: React.FC = () => {
             )}
             prefix={<SearchOutlined />}
             suffix={
-              hasSearch ? (
-                <Button
-                  type="text"
-                  size="small"
-                  icon={<CloseOutlined />}
-                  onClick={clearSearch}
-                  style={{ marginRight: -8 }}
-                />
-              ) : null
+              <Button
+                type="text"
+                size="small"
+                icon={<CloseOutlined />}
+                onClick={clearSearch}
+                disabled={!hasSearch}
+                aria-hidden={!hasSearch}
+                tabIndex={hasSearch ? 0 : -1}
+                style={{
+                  marginRight: -8,
+                  visibility: hasSearch ? 'visible' : 'hidden',
+                  pointerEvents: hasSearch ? 'auto' : 'none'
+                }}
+              />
             }
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}

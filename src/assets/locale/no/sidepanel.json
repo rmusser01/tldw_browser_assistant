@@ -126,5 +126,10 @@
       "message": "Søk i kunnskapsbasen din og sett inn resultater i meldingen din.",
       "dismiss": "Lukk"
     }
+  },
+  "tabs": {
+    "newChat": "Ny chat",
+    "newTabAria": "Ny chattefane",
+    "closeTabAria": "Lukk chattefane"
   }
 }

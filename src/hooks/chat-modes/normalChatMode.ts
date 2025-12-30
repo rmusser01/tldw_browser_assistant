@@ -4,17 +4,15 @@ import { generateID, getPromptById } from "@/db/dexie/helpers"
 import { generateHistory } from "@/utils/generate-history"
 import { pageAssistModel } from "@/models"
 import { humanMessageFormatter } from "@/utils/human-message"
-import {
-  isReasoningEnded,
-  isReasoningStarted,
-  mergeReasoningContent
-} from "@/libs/reasoning"
+import { isReasoningEnded, isReasoningStarted } from "@/libs/reasoning"
+import { consumeStreamingChunk } from "@/utils/streaming-chunks"
 import { getModelNicknameByID } from "@/db/dexie/nickname"
 import { systemPromptFormatter } from "@/utils/system-message"
 import type { ActorSettings } from "@/types/actor"
 import { maybeInjectActorMessage } from "@/utils/actor"
 import { tldwClient } from "@/services/tldw/TldwApiClient"
 import { getSearchSettings } from "@/services/search"
+import type { SaveMessageData, SaveMessageErrorData } from "@/types/chat-modes"
 
 interface WebSearchPayload {
   query: string
@@ -51,15 +49,20 @@ export const normalChatMode = async (
     clusterId,
     userMessageType,
     assistantMessageType,
-    modelIdOverride
+    modelIdOverride,
+    userMessageId,
+    assistantMessageId,
+    userParentMessageId,
+    assistantParentMessageId,
+    historyForModel
   }: {
     selectedModel: string
     useOCR: boolean
     selectedSystemPrompt: string
     currentChatModelSettings: any
     setMessages: (messages: Message[] | ((prev: Message[]) => Message[])) => void
-    saveMessageOnSuccess: (data: any) => Promise<string | null>
-    saveMessageOnError: (data: any) => Promise<string | null>
+    saveMessageOnSuccess: (data: SaveMessageData) => Promise<string | null>
+    saveMessageOnError: (data: SaveMessageErrorData) => Promise<string | null>
     setHistory: (history: ChatHistory) => void
     setIsProcessing: (value: boolean) => void
     setStreaming: (value: boolean) => void
@@ -75,6 +78,11 @@ export const normalChatMode = async (
     userMessageType?: string
     assistantMessageType?: string
     modelIdOverride?: string
+    userMessageId?: string
+    assistantMessageId?: string
+    userParentMessageId?: string | null
+    assistantParentMessageId?: string | null
+    historyForModel?: ChatHistory
   }
 ) => {
   console.log("Using normalChatMode")
@@ -85,13 +93,17 @@ export const normalChatMode = async (
     image = `data:image/jpeg;base64,${image.split(",")[1]}`
   }
 
-  let generateMessageId = generateID()
+  const resolvedAssistantMessageId = assistantMessageId ?? generateID()
+  const resolvedUserMessageId =
+    !isRegenerate ? userMessageId ?? generateID() : undefined
+  let generateMessageId = resolvedAssistantMessageId
   const modelInfo = await getModelNicknameByID(selectedModel)
+  const isSharedCompareUser = userMessageType === "compare:user"
+  const resolvedModelId = modelIdOverride || selectedModel
+  const userModelId = isSharedCompareUser ? undefined : resolvedModelId
 
   setMessages((prev) => {
     const base = prev
-    const clusterModelId =
-      clusterId != null ? (modelIdOverride || selectedModel) : undefined
 
     if (!isRegenerate) {
       const userMessage: Message = {
@@ -100,6 +112,7 @@ export const normalChatMode = async (
         message,
         sources: [],
         images: image ? [image] : [],
+        id: resolvedUserMessageId,
         modelImage: modelInfo?.model_avatar,
         modelName: modelInfo?.model_name || selectedModel,
         documents:
@@ -111,19 +124,21 @@ export const normalChatMode = async (
           })) || [],
         messageType: userMessageType,
         clusterId,
-        modelId: clusterModelId
+        modelId: userModelId,
+        parentMessageId: userParentMessageId ?? null
       }
       const assistantStub: Message = {
         isBot: true,
         name: selectedModel,
         message: "▋",
         sources: [],
-        id: generateMessageId,
+        id: resolvedAssistantMessageId,
         modelImage: modelInfo?.model_avatar,
         modelName: modelInfo?.model_name || selectedModel,
         messageType: assistantMessageType,
         clusterId,
-        modelId: modelIdOverride || selectedModel
+        modelId: resolvedModelId,
+        parentMessageId: assistantParentMessageId ?? null
       }
       return [...base, userMessage, assistantStub]
     }
@@ -133,12 +148,13 @@ export const normalChatMode = async (
       name: selectedModel,
       message: "▋",
       sources: [],
-      id: generateMessageId,
+      id: resolvedAssistantMessageId,
       modelImage: modelInfo?.model_avatar,
       modelName: modelInfo?.model_name || selectedModel,
       messageType: assistantMessageType,
       clusterId,
-      modelId: modelIdOverride || selectedModel
+      modelId: resolvedModelId,
+      parentMessageId: assistantParentMessageId ?? null
     }
     return [...base, assistantStub]
   })
@@ -238,6 +254,15 @@ export const normalChatMode = async (
         image,
         fullText,
         source: [],
+        userMessageType,
+        assistantMessageType,
+        clusterId,
+        modelId: resolvedModelId,
+        userModelId,
+        userMessageId: resolvedUserMessageId,
+        assistantMessageId: resolvedAssistantMessageId,
+        userParentMessageId: userParentMessageId ?? null,
+        assistantParentMessageId: assistantParentMessageId ?? null,
         generationInfo: undefined,
         prompt_content: undefined,
         prompt_id: undefined,
@@ -259,6 +284,15 @@ export const normalChatMode = async (
         setHistoryId,
         userMessage: message,
         isRegenerating: isRegenerate,
+        userMessageType,
+        assistantMessageType,
+        clusterId,
+        modelId: resolvedModelId,
+        userModelId,
+        userMessageId: resolvedUserMessageId,
+        assistantMessageId: resolvedAssistantMessageId,
+        userParentMessageId: userParentMessageId ?? null,
+        assistantParentMessageId: assistantParentMessageId ?? null,
         prompt_content: undefined,
         prompt_id: undefined
       })
@@ -278,7 +312,7 @@ export const normalChatMode = async (
     return
   }
 
-  const ollama = await pageAssistModel({ model: selectedModel, baseUrl: "" })
+  const ollama = await pageAssistModel({ model: selectedModel })
 
   try {
     const prompt = await systemPromptForNonRagOption()
@@ -311,7 +345,10 @@ export const normalChatMode = async (
       })
     }
 
-    let applicationChatHistory = generateHistory(history, selectedModel)
+    let applicationChatHistory = generateHistory(
+      historyForModel ?? history,
+      selectedModel
+    )
 
     if (prompt && !selectedPrompt) {
       applicationChatHistory.unshift(
@@ -326,12 +363,14 @@ export const normalChatMode = async (
       currentChatModelSettings.systemPrompt?.trim().length > 0
 
     if (!isTempSystemprompt && selectedPrompt) {
+      const selectedPromptContent =
+        selectedPrompt.system_prompt ?? selectedPrompt.content
       applicationChatHistory.unshift(
         await systemPromptFormatter({
-          content: selectedPrompt.content
+          content: selectedPromptContent
         })
       )
-      promptContent = selectedPrompt.content
+      promptContent = selectedPromptContent
     }
 
     if (isTempSystemprompt) {
@@ -379,27 +418,13 @@ export const normalChatMode = async (
     let apiReasoning: boolean = false
 
     for await (const chunk of chunks) {
-      const token = typeof chunk === 'string' ? chunk : (chunk?.content ?? (chunk?.choices?.[0]?.delta?.content ?? ''))
-      if (chunk?.additional_kwargs?.reasoning_content) {
-        const reasoningContent = mergeReasoningContent(
-          fullText,
-          chunk?.additional_kwargs?.reasoning_content || ""
-        )
-        contentToSave = reasoningContent
-        fullText = reasoningContent
-        apiReasoning = true
-      } else {
-        if (apiReasoning) {
-          fullText += "</think>"
-          contentToSave += "</think>"
-          apiReasoning = false
-        }
-      }
-
-      if (token) {
-        contentToSave += token
-        fullText += token
-      }
+      const chunkState = consumeStreamingChunk(
+        { fullText, contentToSave, apiReasoning },
+        chunk
+      )
+      fullText = chunkState.fullText
+      contentToSave = chunkState.contentToSave
+      apiReasoning = chunkState.apiReasoning
 
       if (isReasoningStarted(fullText) && !reasoningStartTime) {
         reasoningStartTime = new Date()
@@ -470,6 +495,15 @@ export const normalChatMode = async (
       image,
       fullText,
       source: [],
+      userMessageType,
+      assistantMessageType,
+      clusterId,
+      modelId: resolvedModelId,
+      userModelId,
+      userMessageId: resolvedUserMessageId,
+      assistantMessageId: resolvedAssistantMessageId,
+      userParentMessageId: userParentMessageId ?? null,
+      assistantParentMessageId: assistantParentMessageId ?? null,
       generationInfo,
       prompt_content: promptContent,
       prompt_id: promptId,
@@ -492,6 +526,15 @@ export const normalChatMode = async (
       setHistoryId,
       userMessage: message,
       isRegenerating: isRegenerate,
+      userMessageType,
+      assistantMessageType,
+      clusterId,
+      modelId: resolvedModelId,
+      userModelId,
+      userMessageId: resolvedUserMessageId,
+      assistantMessageId: resolvedAssistantMessageId,
+      userParentMessageId: userParentMessageId ?? null,
+      assistantParentMessageId: assistantParentMessageId ?? null,
       prompt_content: promptContent,
       prompt_id: promptId
     })

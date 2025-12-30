@@ -10,8 +10,18 @@ interface SearchBarProps {
   hasActiveFilters?: boolean // Whether there are active filters to clear
 }
 
-export function SearchBar({ value, onChange, placeholder = "Search media (title/content)", onClearAll, hasActiveFilters = false }: SearchBarProps) {
+export function SearchBar({
+  value,
+  onChange,
+  placeholder = 'Search media (title/content)',
+  onClearAll,
+  hasActiveFilters = false
+}: SearchBarProps) {
   const { t } = useTranslation(['review'])
+
+  const showClearSearch = value.length > 0
+  const showClearAll = Boolean(hasActiveFilters && onClearAll)
+  const inputPaddingClass = showClearSearch && showClearAll ? 'pr-16' : 'pr-10'
 
   const handleClearSearch = () => {
     onChange('')
@@ -32,13 +42,15 @@ export function SearchBar({ value, onChange, placeholder = "Search media (title/
         placeholder={placeholder}
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        className="w-full pl-10 pr-10 py-2.5 border border-gray-300 dark:border-gray-600 bg-white dark:bg-[#0c0c0c] text-gray-900 dark:text-gray-100 placeholder-gray-400 dark:placeholder-gray-500 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-600 focus:border-transparent"
+        className={`w-full pl-10 ${inputPaddingClass} py-2.5 border border-gray-300 dark:border-gray-600 bg-white dark:bg-[#0c0c0c] text-gray-900 dark:text-gray-100 placeholder-gray-400 dark:placeholder-gray-500 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-600 focus:border-transparent`}
       />
-      {/* Clear search only button */}
-      {value && !hasActiveFilters && (
+      {/* Clear search button */}
+      {showClearSearch && (
         <button
           onClick={handleClearSearch}
-          className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300"
+          className={`absolute top-1/2 -translate-y-1/2 text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300 ${
+            showClearAll ? 'right-10' : 'right-3'
+          }`}
           aria-label={t('mediaPage.clearSearch', 'Clear search')}
           type="button"
         >
@@ -46,7 +58,7 @@ export function SearchBar({ value, onChange, placeholder = "Search media (title/
         </button>
       )}
       {/* Clear all (search + filters) button when filters active */}
-      {(value || hasActiveFilters) && hasActiveFilters && onClearAll && (
+      {showClearAll && (
         <Tooltip title={t('mediaPage.clearAllFilters', 'Clear search and filters')}>
           <button
             onClick={handleClearAll}
@@ -57,17 +69,6 @@ export function SearchBar({ value, onChange, placeholder = "Search media (title/
             <FilterX className="w-5 h-5" />
           </button>
         </Tooltip>
-      )}
-      {/* Clear search only when we have value but no filters */}
-      {value && hasActiveFilters && !onClearAll && (
-        <button
-          onClick={handleClearSearch}
-          className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300"
-          aria-label={t('mediaPage.clearSearch', 'Clear search')}
-          type="button"
-        >
-          <X className="w-5 h-5" />
-        </button>
       )}
     </div>
   )

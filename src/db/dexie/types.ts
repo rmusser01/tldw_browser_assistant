@@ -60,6 +60,8 @@ export type Message = {
   createdAt: number;
   reasoning_time_taken?: number;
   messageType?: string;
+  clusterId?: string;
+  modelId?: string;
   generationInfo?: any;
   modelName?: string;
   modelImage?: string;
@@ -67,6 +69,23 @@ export type Message = {
   // Timeline/branching fields (server-compatible with ChaChaDB)
   parent_message_id?: string | null;   // Parent message for threading/swipes
   depth?: number;                       // Computed depth in conversation tree
+};
+
+export type CompareParentMeta = {
+  parentHistoryId: string;
+  clusterId?: string;
+};
+
+export type CompareState = {
+  history_id: string;
+  compareMode: boolean;
+  compareSelectedModels: string[];
+  compareSelectionByCluster: Record<string, string[]>;
+  compareCanonicalByCluster: Record<string, string | null>;
+  compareSplitChats: Record<string, Record<string, string>>;
+  compareActiveModelsByCluster: Record<string, string[]>;
+  compareParent?: CompareParentMeta | null;
+  updatedAt: number;
 };
 
 export type Webshare = {
@@ -191,3 +210,102 @@ export type ConversationKeywordLink = {
 
 export type Folders = Folder[]
 export type Keywords = Keyword[]
+
+export type DraftStatus =
+  | "pending"
+  | "in_progress"
+  | "reviewed"
+  | "committed"
+  | "discarded"
+
+export type DraftRevision = {
+  id: string
+  content: string
+  metadata?: Record<string, any>
+  timestamp: number
+  changeDescription?: string
+}
+
+export type DraftSection = {
+  id: string
+  label: string
+  kind: "heading" | "paragraph" | "speaker_turn" | "page" | "chapter"
+  startOffset: number
+  endOffset: number
+  content: string
+  level?: number
+  source: "server" | "heuristic"
+  meta?: Record<string, any>
+}
+
+export type DraftSource = {
+  kind: "url" | "file"
+  url?: string
+  fileName?: string
+  mimeType?: string
+  sizeBytes?: number
+  lastModified?: number
+}
+
+export type DraftAsset = {
+  id: string
+  draftId: string
+  kind: "file"
+  fileName: string
+  mimeType: string
+  sizeBytes: number
+  blob: Blob
+  createdAt: number
+}
+
+export type ContentDraft = {
+  id: string
+  batchId: string
+  source: DraftSource
+  sourceAssetId?: string
+  mediaType: "html" | "pdf" | "document" | "audio" | "video"
+  title: string
+  originalTitle?: string
+  content: string
+  originalContent: string
+  contentFormat: "plain" | "markdown"
+  originalContentFormat?: "plain" | "markdown"
+  metadata: Record<string, any>
+  originalMetadata?: Record<string, any>
+  keywords: string[]
+  sections?: DraftSection[]
+  excludedSectionIds?: string[]
+  sectionStrategy?: "server" | "headings" | "paragraphs" | "timestamps"
+  revisions: DraftRevision[]
+  processingOptions: {
+    perform_analysis: boolean
+    perform_chunking: boolean
+    overwrite_existing: boolean
+    advancedValues: Record<string, any>
+  }
+  status: DraftStatus
+  reviewNotes?: string
+  createdAt: number
+  updatedAt: number
+  reviewedAt?: number
+  committedAt?: number
+  expiresAt?: number
+  analysis?: string
+  prompt?: string
+  originalAnalysis?: string
+  originalPrompt?: string
+}
+
+export type DraftBatch = {
+  id: string
+  name?: string
+  source: "url_list" | "file_upload" | "quick_ingest" | "manual"
+  sourceDetails?: Record<string, any>
+  totalItems?: number
+  readyToSubmitCount?: number
+  committedCount?: number
+  discardedCount?: number
+  createdAt: number
+  updatedAt: number
+  completedAt?: number
+}
